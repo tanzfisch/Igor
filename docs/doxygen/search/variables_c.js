@@ -1,13 +1,12 @@
 var searchData=
 [
-  ['n',['n',['../class_plane.html#a506a32ba4c88e1fa53a41a49d8c58a78',1,'Plane']]],
-  ['name',['name',['../struct_igor_1_1i_loader3_d_s_1_1_material.html#a89956a6b1378a3559f94751437cdb107',1,'Igor::iLoader3DS::Material::name()'],['../structtesting_1_1internal_1_1_parameterized_test_case_info_1_1_instantiation_info.html#a299bc66e22b5c78481fda01ef5a4c73d',1,'testing::internal::ParameterizedTestCaseInfo::InstantiationInfo::name()']]],
-  ['name_5f',['name_',['../classtesting_1_1_test_info.html#a6bed52b7c3d66c8c5eac5fa2aaadba55',1,'testing::TestInfo::name_()'],['../classtesting_1_1_test_case.html#a6c16e28e7555dc6a158415b3bfc4f833',1,'testing::TestCase::name_()']]],
-  ['name_5ffunc',['name_func',['../structtesting_1_1internal_1_1_parameterized_test_case_info_1_1_instantiation_info.html#a78a1508dbcc1718bd3dc6001f45ae2ae',1,'testing::internal::ParameterizedTestCaseInfo::InstantiationInfo']]],
-  ['near_5fplane',['near_plane',['../class_frustum.html#a4c1f29e738f80575f7dfa888fe6a5ac1',1,'Frustum']]],
-  ['next_5f',['next_',['../classtesting_1_1internal_1_1linked__ptr__internal.html#ae4397a65a4d76a24547fcf2cd17131d8',1,'testing::internal::linked_ptr_internal']]],
-  ['none',['None',['../i_node_factory_8h.html#ac7485dcc8d256a6f197ed7802687f252',1,'iNodeFactory.h']]],
-  ['norx',['norx',['../struct_igor_1_1i_loader3_d_s_1_1_vertex.html#a2ab6f0d6a70045404ff935623b7c9ffd',1,'Igor::iLoader3DS::Vertex']]],
-  ['nory',['nory',['../struct_igor_1_1i_loader3_d_s_1_1_vertex.html#a34f4914d128c9ef46cc105141d19c19a',1,'Igor::iLoader3DS::Vertex']]],
-  ['norz',['norz',['../struct_igor_1_1i_loader3_d_s_1_1_vertex.html#a77b2806b54a1a3b720cf661b2920a705',1,'Igor::iLoader3DS::Vertex']]]
+  ['radius',['radius',['../class_sphere.html#aee8808d067c477a309a860d413460148',1,'Sphere']]],
+  ['random_5fnumbers_5fcount',['RANDOM_NUMBERS_COUNT',['../class_igor_1_1i_perlin_noise.html#a6996871d1b1518be55cd2f59538b91e1',1,'Igor::iPerlinNoise']]],
+  ['rect',['rect',['../class_igor_1_1i_character_dimensions.html#a5cf201eb2a867561ef0f1fea1f6aaaba',1,'Igor::iCharacterDimensions']]],
+  ['relrenderwidth',['relRenderWidth',['../class_igor_1_1i_character_dimensions.html#a25f108542fbb36c03d246c3ca2b8401c',1,'Igor::iCharacterDimensions']]],
+  ['remove',['Remove',['../i_node_factory_8h.html#a78b07b41e11198a3694a9b21122bf59b',1,'iNodeFactory.h']]],
+  ['render_5forder_5fdefault',['RENDER_ORDER_DEFAULT',['../class_igor_1_1i_material.html#a8b3943f55ff009a9b51bd5c3c611cf58',1,'Igor::iMaterial']]],
+  ['render_5forder_5fmax',['RENDER_ORDER_MAX',['../class_igor_1_1i_material.html#a43bb35624bef237f476d95c359595260',1,'Igor::iMaterial']]],
+  ['render_5forder_5fmin',['RENDER_ORDER_MIN',['../class_igor_1_1i_material.html#a0d3f42bb60882f11aebc03031390d086',1,'Igor::iMaterial']]],
+  ['right_5fplane',['right_plane',['../class_frustum.html#a0dc014f4d950d2fcd3971ba3c3021424',1,'Frustum']]]
 ];

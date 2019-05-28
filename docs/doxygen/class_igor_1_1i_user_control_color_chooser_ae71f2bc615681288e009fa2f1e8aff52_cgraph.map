@@ -1,7 +1,0 @@
-<map id="Igor::iUserControlColorChooser::onSliderChangedG" name="Igor::iUserControlColorChooser::onSliderChangedG">
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget_number_chooser.html#aa6a6c8beecbf4eea0247e7b324dae613" title="Igor::iWidgetNumberChooser\l::setValue" alt="" coords="259,5,447,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget_slider.html#acfb10ec998faf7d2afd16c7f32a5a784" title="Igor::iWidgetSlider\l::getValue" alt="" coords="289,71,417,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_user_control_color_chooser.html#a5c028eb631129757073aa71a0e52b5b1" title="Igor::iUserControlColorChooser\l::updateColorHSV" alt="" coords="253,136,453,177"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_user_control_color_chooser.html#a7dfd12098788698c6809fe94191c9b34" title="Igor::iUserControlColorChooser\l::updateWidgets" alt="" coords="253,201,453,243"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_widget_number_chooser.html#a51236dfd880ef08c0def5c17bdf28f3c" title="Igor::iWidgetNumberChooser\l::getValue" alt="" coords="501,136,689,177"/>
-</map>

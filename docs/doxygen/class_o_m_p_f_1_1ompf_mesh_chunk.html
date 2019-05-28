@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,8 +111,6 @@ $(document).ready(function(){initNavTree('class_o_m_p_f_1_1ompf_mesh_chunk.html'
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_o_m_p_f_1_1ompf_mesh_chunk-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">OMPF::ompfMeshChunk Class Reference</div>  </div>
@@ -120,18 +118,8 @@ $(document).ready(function(){initNavTree('class_o_m_p_f_1_1ompf_mesh_chunk.html'
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for OMPF::ompfMeshChunk:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk__inherit__graph.svg" width="176" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for OMPF::ompfMeshChunk:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk__coll__graph.svg" width="350" height="290"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+
+<p>Inherits <a class="el" href="class_o_m_p_f_1_1ompf_base_chunk.html">OMPF::ompfBaseChunk</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -242,57 +230,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a46fad2b1023518cc102c994ad818a166 inherit pub_methods_class_o_m_p_f_1_1ompf_base_chunk"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2301d255ce51d9168b808deccaaf8a2 inherit pub_methods_class_o_m_p_f_1_1ompf_base_chunk"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_base_chunk.html#af2301d255ce51d9168b808deccaaf8a2">getName</a> () const </td></tr>
 <tr class="separator:af2301d255ce51d9168b808deccaaf8a2 inherit pub_methods_class_o_m_p_f_1_1ompf_base_chunk"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a83a3fb04f638373d6aa6e736cb42c35b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html#a83a3fb04f638373d6aa6e736cb42c35b">write</a> (ofstream &amp;stream, const <a class="el" href="class_o_m_p_f_1_1ompf_settings.html">ompfSettings</a> &amp;settings)</td></tr>
-<tr class="separator:a83a3fb04f638373d6aa6e736cb42c35b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a733ad33625fef8566fb99830577afe94"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html#a733ad33625fef8566fb99830577afe94">read</a> (ifstream &amp;stream, <a class="el" href="class_o_m_p_f_1_1ompf_settings.html">ompfSettings</a> &amp;settings)</td></tr>
-<tr class="separator:a733ad33625fef8566fb99830577afe94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:aa67f5a2b1980cebaa8b8892b28a98406"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a7c3ef879850f92b7625d5d156d5445d7">iaColor3c</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html#aa67f5a2b1980cebaa8b8892b28a98406">_ambient</a></td></tr>
-<tr class="separator:aa67f5a2b1980cebaa8b8892b28a98406"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae134cf6dcda3e3a93fb59bd8f68054d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a7c3ef879850f92b7625d5d156d5445d7">iaColor3c</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html#ae134cf6dcda3e3a93fb59bd8f68054d6">_diffuse</a></td></tr>
-<tr class="separator:ae134cf6dcda3e3a93fb59bd8f68054d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69034c12072f465e5f17f5c169e716d8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a7c3ef879850f92b7625d5d156d5445d7">iaColor3c</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html#a69034c12072f465e5f17f5c169e716d8">_specular</a></td></tr>
-<tr class="separator:a69034c12072f465e5f17f5c169e716d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a50b05bdaca64c26055840560f4f36f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a7c3ef879850f92b7625d5d156d5445d7">iaColor3c</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html#a0a50b05bdaca64c26055840560f4f36f">_emissive</a></td></tr>
-<tr class="separator:a0a50b05bdaca64c26055840560f4f36f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb1c09403dc3035e5cc3c9af177476f2"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html#abb1c09403dc3035e5cc3c9af177476f2">_shininess</a> = 0</td></tr>
-<tr class="separator:abb1c09403dc3035e5cc3c9af177476f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bb45cc21d4104f385e3762d307cdd8c"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html#a6bb45cc21d4104f385e3762d307cdd8c">_alpha</a> = 1.0</td></tr>
-<tr class="separator:a6bb45cc21d4104f385e3762d307cdd8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6211ddb78e492431a7a1370fe4e4ed8"><td class="memItemLeft" align="right" valign="top">uint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html#ad6211ddb78e492431a7a1370fe4e4ed8">_normalsPerVertex</a> = 0</td></tr>
-<tr class="separator:ad6211ddb78e492431a7a1370fe4e4ed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a319eb5d65f2ab7326b8430a680057362"><td class="memItemLeft" align="right" valign="top">uint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html#a319eb5d65f2ab7326b8430a680057362">_colorsPerVertex</a> = 0</td></tr>
-<tr class="separator:a319eb5d65f2ab7326b8430a680057362"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40c494474454806b3b809e966185fffc"><td class="memItemLeft" align="right" valign="top">uint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html#a40c494474454806b3b809e966185fffc">_texCoordPerVertex</a> = 0</td></tr>
-<tr class="separator:a40c494474454806b3b809e966185fffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d11711711c0d04907b780e61cb3a75b"><td class="memItemLeft" align="right" valign="top">OMPFMeshType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html#a2d11711711c0d04907b780e61cb3a75b">_meshType</a> = OMPFMeshType::Triangles</td></tr>
-<tr class="separator:a2d11711711c0d04907b780e61cb3a75b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51252117a8b4b9a9853bb911f1950b19"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html#a51252117a8b4b9a9853bb911f1950b19">_vertexCount</a> = 0</td></tr>
-<tr class="separator:a51252117a8b4b9a9853bb911f1950b19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aedfed582d67054a48f54e66ff77322ef"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html#aedfed582d67054a48f54e66ff77322ef">_vertexData</a> = nullptr</td></tr>
-<tr class="separator:aedfed582d67054a48f54e66ff77322ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4372614c0afbd560a1a736ae543f478d"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html#a4372614c0afbd560a1a736ae543f478d">_vertexDataSize</a> = 0</td></tr>
-<tr class="separator:a4372614c0afbd560a1a736ae543f478d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8e8157a35e42bc76e30caee28bab24a"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html#ad8e8157a35e42bc76e30caee28bab24a">_indexCount</a> = 0</td></tr>
-<tr class="separator:ad8e8157a35e42bc76e30caee28bab24a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b74f1028bb52b33abc60a2ad0b22881"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html#a5b74f1028bb52b33abc60a2ad0b22881">_indexData</a> = nullptr</td></tr>
-<tr class="separator:a5b74f1028bb52b33abc60a2ad0b22881"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a942e0b8bbbe91968ccef62db683776a4"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html#a942e0b8bbbe91968ccef62db683776a4">_indexDataSize</a> = 0</td></tr>
-<tr class="separator:a942e0b8bbbe91968ccef62db683776a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a688d3a44ff981b8a19cbf0ff606decaa"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html#a688d3a44ff981b8a19cbf0ff606decaa">_materialChunkID</a> = <a class="el" href="struct_o_m_p_f_default_configuration.html#a098edb3edb73fd632afbe75ace076853">OMPFDefaultConfiguration::INVALID_CHUNK_ID</a></td></tr>
-<tr class="separator:a688d3a44ff981b8a19cbf0ff606decaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc9cc6f9162ca88f7bff1270502397c7"><td class="memItemLeft" align="right" valign="top">map&lt; uint32, <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html#afc9cc6f9162ca88f7bff1270502397c7">_textures</a></td></tr>
-<tr class="separator:afc9cc6f9162ca88f7bff1270502397c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>ompf mesh chunk </p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8h_source.html#l00052">52</a> of file <a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="abc1e7790f68ef1202c0c43f0d9c71428"></a>
 <div class="memitem">
@@ -307,8 +247,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>init base class </p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00015">15</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
 
 </div>
 </div>
@@ -334,8 +272,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>release some memory </p>
 
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00020">20</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -353,8 +289,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the alpha value </dd></dl>
 
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00123">123</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aa5ff1d2b59cb5fe3f0dc76efde600da1"></a>
@@ -370,16 +304,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>ambient color </dd></dl>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00062">62</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_aa5ff1d2b59cb5fe3f0dc76efde600da1_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -397,16 +321,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>amount of colors per vertex </dd></dl>
 
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00143">143</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_a4afce7009cebe9c23faffab3f1ba5cf8_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a21edb62afb407e710b479d919552fb05"></a>
@@ -422,16 +336,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>diffuse color </dd></dl>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00072">72</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_a21edb62afb407e710b479d919552fb05_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -449,16 +353,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>emissive color </dd></dl>
 
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00102">102</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_a60a99c7a2e99d024dceb0399ce1012ea_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a745452e16f0e721c03e213ed746f68c0"></a>
@@ -474,16 +368,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the indexes count </dd></dl>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00173">173</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_a745452e16f0e721c03e213ed746f68c0_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -501,16 +385,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>pointer to index data </dd></dl>
 
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00220">220</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_a8dd9d1314213bf764f2f35db296fad3d_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a67db1c53b17d2885ce01ac366a507d02"></a>
@@ -526,16 +400,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>index data size </dd></dl>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00243">243</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_a67db1c53b17d2885ce01ac366a507d02_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -553,16 +417,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>material chunk id </dd></dl>
 
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00263">263</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_aa4dd59dd751d13f2c1211ec4f7c468f9_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a5c2ca97c570afea12969e6f1e3ede4bd"></a>
@@ -578,8 +432,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the mesh type </dd></dl>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00163">163</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
 
 </div>
 </div>
@@ -597,16 +449,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>amount of normals per vertex </dd></dl>
 
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00133">133</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_a6af08bc1b738bce2867016d8f335a437_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ac761637906b6f0db27fadc153cb6cbe9"></a>
@@ -622,16 +464,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the shininess factor </dd></dl>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00112">112</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_ac761637906b6f0db27fadc153cb6cbe9_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -666,8 +498,6 @@ Here is the caller graph for this function:</div>
 
 <p>Reimplemented from <a class="el" href="class_o_m_p_f_1_1ompf_base_chunk.html#aa10a43d86b3c7f1efeb2ecb0ca0bf401">OMPF::ompfBaseChunk</a>.</p>
 
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00179">179</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a8218d404b2beef1d7b2a576ee8a08aec"></a>
@@ -684,16 +514,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>specular color </dd></dl>
 
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00082">82</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_a8218d404b2beef1d7b2a576ee8a08aec_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ac26772155a5776a4365ff66a2d031b7b"></a>
@@ -709,8 +529,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the amount of texture coordinates per vertex </dd></dl>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00153">153</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
 
 </div>
 </div>
@@ -735,16 +553,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00043">43</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_a09d667e58c55a884987fd99facf3db2f_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ac841067aec2928d045c8e12b9d314b86"></a>
@@ -760,16 +568,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>amount of textures in use </dd></dl>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00253">253</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_ac841067aec2928d045c8e12b9d314b86_icgraph.svg" width="391" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -787,16 +585,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the vertex count </dd></dl>
 
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00092">92</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_a321b58d676b202890f27b5c0abc0cc98_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ade8579f371563cf15b8987f7bdea1c7a"></a>
@@ -812,16 +600,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>pointer to vertex data </dd></dl>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00248">248</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_ade8579f371563cf15b8987f7bdea1c7a_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -839,16 +617,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>vertex data size </dd></dl>
 
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00238">238</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_a8e85e236193c9f2643c228cf251425b1_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a5f62ef05d2f41907d0fe33859506fc33"></a>
@@ -865,70 +633,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>calculates the vertex size</p>
 <dl class="section return"><dt>Returns</dt><dd>the vertex size </dd></dl>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00057">57</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_a5f62ef05d2f41907d0fe33859506fc33_icgraph.svg" width="391" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a733ad33625fef8566fb99830577afe94"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OMPF::ompfMeshChunk::read </td>
-          <td>(</td>
-          <td class="paramtype">ifstream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_o_m_p_f_1_1ompf_settings.html">ompfSettings</a> &amp;&#160;</td>
-          <td class="paramname"><em>settings</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>reads chunk from stream</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">stream</td><td>source stream </td></tr>
-    <tr><td class="paramname">settings</td><td>the settings how to read the chunk </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="class_o_m_p_f_1_1ompf_base_chunk.html#aa3b931de6ce181c023f66628c67244da">OMPF::ompfBaseChunk</a>.</p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00372">372</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_a733ad33625fef8566fb99830577afe94_cgraph.svg" width="582" height="248"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -953,8 +657,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00118">118</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ac2ee1cdd30a15c955635b42c4e6cb551"></a>
@@ -977,16 +679,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00033">33</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_ac2ee1cdd30a15c955635b42c4e6cb551_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1011,16 +703,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00138">138</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_aa04f2406a2a965c5e2477a959954f997_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="afdf410522ac8bc72a21052996edf10d9"></a>
@@ -1043,16 +725,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00067">67</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_afdf410522ac8bc72a21052996edf10d9_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1077,16 +749,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00097">97</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_a44675603266417418b406590dba4e7c9_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a1412ae443c41651efb18b440999a8dd4"></a>
@@ -1109,16 +771,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00168">168</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_a1412ae443c41651efb18b440999a8dd4_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1154,16 +806,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00207">207</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_a0c22ddd12fd7c5239151900df4607e4a_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="af97922454444349adb02375f87945dbf"></a>
@@ -1186,16 +828,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00258">258</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_af97922454444349adb02375f87945dbf_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1220,8 +852,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00158">158</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aa94aa57efcd0de0a860674992e66c102"></a>
@@ -1244,16 +874,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00128">128</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_aa94aa57efcd0de0a860674992e66c102_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1278,16 +898,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00107">107</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_add369908ed3740142968004228d6a426_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a4a520364f121e4c400d9a67c7b4d9362"></a>
@@ -1311,16 +921,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00077">77</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_a4a520364f121e4c400d9a67c7b4d9362_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ae92f5e4f946ae4c85057c8223980cc2e"></a>
@@ -1343,16 +943,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00148">148</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_ae92f5e4f946ae4c85057c8223980cc2e_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1388,16 +978,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00038">38</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_ab33f0e1acbe9888492a6ed9b4c368a46_icgraph.svg" width="391" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ab24dc78c0fc1585851373ab63ffa6a83"></a>
@@ -1420,16 +1000,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00087">87</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_ab24dc78c0fc1585851373ab63ffa6a83_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1465,490 +1035,11 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00225">225</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_a6c81a440d8c2f56fac034dd368406ee7_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a83a3fb04f638373d6aa6e736cb42c35b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OMPF::ompfMeshChunk::write </td>
-          <td>(</td>
-          <td class="paramtype">ofstream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="class_o_m_p_f_1_1ompf_settings.html">ompfSettings</a> &amp;&#160;</td>
-          <td class="paramname"><em>settings</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>writes chunk to stream</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">stream</td><td>destination stream </td></tr>
-    <tr><td class="paramname">settings</td><td>the settings how to write the chunk </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="class_o_m_p_f_1_1ompf_base_chunk.html#a6f186b41de009cec29ae83a8929f8cea">OMPF::ompfBaseChunk</a>.</p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8cpp_source.html#l00268">268</a> of file <a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_mesh_chunk_a83a3fb04f638373d6aa6e736cb42c35b_cgraph.svg" width="967" height="343"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a6bb45cc21d4104f385e3762d307cdd8c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 OMPF::ompfMeshChunk::_alpha = 1.0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>alpha value </p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8h_source.html#l00278">278</a> of file <a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa67f5a2b1980cebaa8b8892b28a98406"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a7c3ef879850f92b7625d5d156d5445d7">iaColor3c</a> OMPF::ompfMeshChunk::_ambient</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>ambient color </p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8h_source.html#l00258">258</a> of file <a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a319eb5d65f2ab7326b8430a680057362"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8 OMPF::ompfMeshChunk::_colorsPerVertex = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>color count per vertex </p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8h_source.html#l00286">286</a> of file <a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae134cf6dcda3e3a93fb59bd8f68054d6"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a7c3ef879850f92b7625d5d156d5445d7">iaColor3c</a> OMPF::ompfMeshChunk::_diffuse</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>diffuse color </p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8h_source.html#l00262">262</a> of file <a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a0a50b05bdaca64c26055840560f4f36f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a7c3ef879850f92b7625d5d156d5445d7">iaColor3c</a> OMPF::ompfMeshChunk::_emissive</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>emissiv color </p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8h_source.html#l00270">270</a> of file <a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad8e8157a35e42bc76e30caee28bab24a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 OMPF::ompfMeshChunk::_indexCount = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>index count </p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8h_source.html#l00310">310</a> of file <a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5b74f1028bb52b33abc60a2ad0b22881"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void* OMPF::ompfMeshChunk::_indexData = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>pointer to index data </p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8h_source.html#l00314">314</a> of file <a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a942e0b8bbbe91968ccef62db683776a4"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 OMPF::ompfMeshChunk::_indexDataSize = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>index data size in bytes </p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8h_source.html#l00318">318</a> of file <a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a688d3a44ff981b8a19cbf0ff606decaa"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 OMPF::ompfMeshChunk::_materialChunkID = <a class="el" href="struct_o_m_p_f_default_configuration.html#a098edb3edb73fd632afbe75ace076853">OMPFDefaultConfiguration::INVALID_CHUNK_ID</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>material chunk id </p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8h_source.html#l00322">322</a> of file <a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2d11711711c0d04907b780e61cb3a75b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">OMPFMeshType OMPF::ompfMeshChunk::_meshType = OMPFMeshType::Triangles</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mesh type </p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8h_source.html#l00294">294</a> of file <a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad6211ddb78e492431a7a1370fe4e4ed8"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8 OMPF::ompfMeshChunk::_normalsPerVertex = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>normal count per vertex </p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8h_source.html#l00282">282</a> of file <a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="abb1c09403dc3035e5cc3c9af177476f2"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 OMPF::ompfMeshChunk::_shininess = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>shininess factor </p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8h_source.html#l00274">274</a> of file <a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a69034c12072f465e5f17f5c169e716d8"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a7c3ef879850f92b7625d5d156d5445d7">iaColor3c</a> OMPF::ompfMeshChunk::_specular</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>specular color </p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8h_source.html#l00266">266</a> of file <a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a40c494474454806b3b809e966185fffc"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8 OMPF::ompfMeshChunk::_texCoordPerVertex = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>texture coordinates count per vertex </p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8h_source.html#l00290">290</a> of file <a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="afc9cc6f9162ca88f7bff1270502397c7"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;uint32, <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&gt; OMPF::ompfMeshChunk::_textures</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>texture map with textures per texture unit </p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8h_source.html#l00326">326</a> of file <a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a51252117a8b4b9a9853bb911f1950b19"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 OMPF::ompfMeshChunk::_vertexCount = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>vertex count </p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8h_source.html#l00298">298</a> of file <a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aedfed582d67054a48f54e66ff77322ef"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void* OMPF::ompfMeshChunk::_vertexData = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>pointer to vertex data </p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8h_source.html#l00302">302</a> of file <a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4372614c0afbd560a1a736ae543f478d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 OMPF::ompfMeshChunk::_vertexDataSize = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>vertex data size </p>
-
-<p>Definition at line <a class="el" href="ompf_mesh_chunk_8h_source.html#l00306">306</a> of file <a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/dev/Igor/src/OMPF/src/<a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a></li>
-<li>C:/dev/Igor/src/OMPF/src/<a class="el" href="ompf_mesh_chunk_8cpp_source.html">ompfMeshChunk.cpp</a></li>
+<li>C:/dev/Igor/src/OMPF/src/<a class="el" href="ompf_mesh_chunk_8cpp.html">ompfMeshChunk.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -1957,7 +1048,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_o_m_p_f.html">OMPF</a></li><li class="navelem"><a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html">ompfMeshChunk</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:23 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:24 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

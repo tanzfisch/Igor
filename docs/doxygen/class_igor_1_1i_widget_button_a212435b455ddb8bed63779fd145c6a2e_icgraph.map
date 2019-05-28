@@ -1,9 +1,0 @@
-<map id="Igor::iWidgetButton::setTexture" name="Igor::iWidgetButton::setTexture">
-<area shape="rect" id="node2" href="$class_igor_1_1i_user_control_color_chooser.html#a350674922c28c48ed8d4f3bf45a39fdc" title="Igor::iUserControlColorChooser\l::initGUI" alt="" coords="435,5,635,47"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_user_control_color_chooser.html#a1615814e0539c3c2c5a83c9e1de97aca" title="Igor::iUserControlColorChooser\l::setExpanded" alt="" coords="187,64,387,105"/>
-<area shape="rect" id="node7" href="$class_user_control_graph_view.html#afb737ca9c452b2284871b693addd2e33" title="UserControlGraphView\l::initGUI" alt="" coords="210,129,363,171"/>
-<area shape="rect" id="node8" href="$class_user_control_material_view.html#af00d3b18c83b4335ffa14bd0b1324dbc" title="UserControlMaterialView\l::initGUI" alt="" coords="205,195,369,236"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_user_control_color_chooser.html#a3e12c44e1c409cc8f785c67eda400a85" title="Igor::iUserControlColorChooser\l::iUserControlColorChooser" alt="" coords="683,5,883,47"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_user_control_color_chooser.html#af82f3e4ae1b705adacffcdd546439e88" title="Igor::iUserControlColorChooser\l::createInstance" alt="" coords="931,5,1131,47"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_user_control_color_chooser.html#a0252f953108e266c148580fcd90ec756" title="Igor::iUserControlColorChooser\l::setExpand" alt="" coords="435,71,635,112"/>
-</map>

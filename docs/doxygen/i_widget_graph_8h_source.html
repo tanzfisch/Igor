@@ -163,17 +163,17 @@ $(document).ready(function(){initNavTree('i_widget_graph_8h_source.html','');});
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
 <div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="class_igor_1_1i_widget_graph.html#a9da20b1c56a70b01ca0ef56f4d4d47fc">   57</a></span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_igor_1_1i_widget_manager.html">iWidgetManager</a>;</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="struct_igor_1_1i_widget_graph_1_1_graph_data.html">   61</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="struct_igor_1_1i_widget_graph_1_1_graph_data.html">GraphData</a></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keyword">struct </span>GraphData</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        {</div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="struct_igor_1_1i_widget_graph_1_1_graph_data.html#a97a7a37c77b004301bdb04bacc962e3f">   65</a></span>&#160;            vector&lt;iaVector2f&gt; <a class="code" href="struct_igor_1_1i_widget_graph_1_1_graph_data.html#a97a7a37c77b004301bdb04bacc962e3f">_points</a>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            vector&lt;iaVector2f&gt; _points;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="struct_igor_1_1i_widget_graph_1_1_graph_data.html#ad11d6de34749b4a84d488df19a39d5dd">   69</a></span>&#160;            <a class="code" href="class_igor_aux_1_1ia_color4.html">iaColor4f</a> _lineColor = {1.0, 1.0, 1.0, 1.0};</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <a class="code" href="class_igor_aux_1_1ia_color4.html">iaColor4f</a> _lineColor = {1.0, 1.0, 1.0, 1.0};</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="struct_igor_1_1i_widget_graph_1_1_graph_data.html#a26492f88315bb37c5ebf4b54e28fd12f">   73</a></span>&#160;            <a class="code" href="class_igor_aux_1_1ia_color4.html">iaColor4f</a> _pointColor = { 1.0, 1.0, 1.0, 1.0 };</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <a class="code" href="class_igor_aux_1_1ia_color4.html">iaColor4f</a> _pointColor = { 1.0, 1.0, 1.0, 1.0 };</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="struct_igor_1_1i_widget_graph_1_1_graph_data.html#a85d45098f0504d36956833bcef20ffa5">   77</a></span>&#160;            float32 _lineWidth = 1.0;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            float32 _lineWidth = 1.0;</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="struct_igor_1_1i_widget_graph_1_1_graph_data.html#ae6d820d0b32768fa062a3bac25f802cb">   81</a></span>&#160;            float32 _pointSize = 0.0;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            float32 _pointSize = 0.0;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        };</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">public</span>:        </div>
@@ -200,9 +200,9 @@ $(document).ready(function(){initNavTree('i_widget_graph_8h_source.html','');});
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        vector&lt;iaVector2f&gt; getPoints(uint64 <span class="keywordtype">id</span>);</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        <span class="keywordtype">void</span> setBoundings(<span class="keyword">const</span> <a class="code" href="class_igor_1_1i_rectangle.html">iRectanglef</a>&amp; boundings);</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        <span class="keywordtype">void</span> setBoundings(<span class="keyword">const</span> <a class="code" href="namespace_igor.html#a0b6d70f0e3e322893125cebbe4af2f1a">iRectanglef</a>&amp; boundings);</div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        <a class="code" href="class_igor_1_1i_rectangle.html">iRectanglef</a> getBoundings();</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        <a class="code" href="namespace_igor.html#a0b6d70f0e3e322893125cebbe4af2f1a">iRectanglef</a> getBoundings();</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        <span class="keywordtype">void</span> setUseBoundings(<span class="keywordtype">bool</span> useBoundings = <span class="keyword">true</span>);</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;</div>
@@ -234,77 +234,72 @@ $(document).ready(function(){initNavTree('i_widget_graph_8h_source.html','');});
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;</div>
 <div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;</div>
-<div class="line"><a name="l00240"></a><span class="lineno"><a class="line" href="class_igor_1_1i_widget_graph.html#a50d427db38581c4977c72e7c979b18c6">  240</a></span>&#160;        <span class="keywordtype">bool</span> _interactive = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        <span class="keywordtype">bool</span> _interactive = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;</div>
-<div class="line"><a name="l00244"></a><span class="lineno"><a class="line" href="class_igor_1_1i_widget_graph.html#a6a3ba4bdd1e5892fb1d80a4b41a3fd49">  244</a></span>&#160;        <span class="keywordtype">bool</span> _dirty = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        <span class="keywordtype">bool</span> _dirty = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;</div>
-<div class="line"><a name="l00248"></a><span class="lineno"><a class="line" href="class_igor_1_1i_widget_graph.html#a898c0f8c18f41f51dbf8c67ade024674">  248</a></span>&#160;        <span class="keywordtype">bool</span> _viewLabels = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        <span class="keywordtype">bool</span> _viewLabels = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;</div>
-<div class="line"><a name="l00252"></a><span class="lineno"><a class="line" href="class_igor_1_1i_widget_graph.html#a58739a360feb629edab341f4edcde93d">  252</a></span>&#160;        <a class="code" href="class_igor_1_1i_rectangle.html">iRectanglef</a> <a class="code" href="class_igor_1_1i_widget_graph.html#a58739a360feb629edab341f4edcde93d">_dataBoundings</a>;</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        <a class="code" href="namespace_igor.html#a0b6d70f0e3e322893125cebbe4af2f1a">iRectanglef</a> _dataBoundings;</div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;</div>
-<div class="line"><a name="l00256"></a><span class="lineno"><a class="line" href="class_igor_1_1i_widget_graph.html#af1553e776d2cc3b1582365bf12c043b2">  256</a></span>&#160;        <a class="code" href="class_igor_1_1i_rectangle.html">iRectanglef</a> _boundings = { 0, 0, 1, 1 };</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        <a class="code" href="namespace_igor.html#a0b6d70f0e3e322893125cebbe4af2f1a">iRectanglef</a> _boundings = { 0, 0, 1, 1 };</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;</div>
-<div class="line"><a name="l00260"></a><span class="lineno"><a class="line" href="class_igor_1_1i_widget_graph.html#af79fec84fcfea3757cf5ec8297f2bda6">  260</a></span>&#160;        <span class="keywordtype">bool</span> _useUserBoudings = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        <span class="keywordtype">bool</span> _useUserBoudings = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;</div>
-<div class="line"><a name="l00264"></a><span class="lineno"><a class="line" href="class_igor_1_1i_widget_graph.html#a0f881f6700edc43a802c9c5de0d2f017">  264</a></span>&#160;        <span class="keywordtype">bool</span> _extrapolateData = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        <span class="keywordtype">bool</span> _extrapolateData = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;</div>
-<div class="line"><a name="l00268"></a><span class="lineno"><a class="line" href="class_igor_1_1i_widget_graph.html#aea11d2c1e46df6347a97f7dfcc9718a8">  268</a></span>&#160;        map&lt;uint64, GraphData&gt; <a class="code" href="class_igor_1_1i_widget_graph.html#aea11d2c1e46df6347a97f7dfcc9718a8">_graphs</a>;</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        map&lt;uint64, GraphData&gt; _graphs;</div>
 <div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;</div>
-<div class="line"><a name="l00272"></a><span class="lineno"><a class="line" href="class_igor_1_1i_widget_graph.html#a8a46e1d4dadbd2130118484f1e0b1475">  272</a></span>&#160;        <a class="code" href="class_igor_aux_1_1ia_vector2.html">iaVector2i</a> _gridResolution = {5, 3};</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        <a class="code" href="class_igor_aux_1_1ia_vector2.html">iaVector2i</a> _gridResolution = {5, 3};</div>
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;</div>
-<div class="line"><a name="l00276"></a><span class="lineno"><a class="line" href="class_igor_1_1i_widget_graph.html#a8cf4e4384e8b2a4ac6b84c34e9212c98">  276</a></span>&#160;        <span class="keywordtype">bool</span> _viewGrid = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;        <span class="keywordtype">bool</span> _viewGrid = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;</div>
-<div class="line"><a name="l00280"></a><span class="lineno"><a class="line" href="class_igor_1_1i_widget_graph.html#a52fff06811491510535bf94552fdf58f">  280</a></span>&#160;        <span class="keyword">const</span> int32 _buttonHeight = 20;</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        <span class="keyword">const</span> int32 _buttonHeight = 20;</div>
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;</div>
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        <span class="keywordtype">void</span> prepareDraw();</div>
 <div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;</div>
 <div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        <span class="keywordtype">void</span> calcMinSize();</div>
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="namespace_igor.html#ab3cae9a3831b87d34d1bfe2c4647b242">draw</a>();</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        <span class="keywordtype">void</span> draw();</div>
 <div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        <span class="keywordtype">void</span> calcRenderArea(<a class="code" href="class_igor_1_1i_rectangle.html">iRectanglef</a>&amp; graphRenderArea);</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        <span class="keywordtype">void</span> calcRenderArea(<a class="code" href="namespace_igor.html#a0b6d70f0e3e322893125cebbe4af2f1a">iRectanglef</a>&amp; graphRenderArea);</div>
 <div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        <span class="keywordtype">void</span> calcBoundings(<a class="code" href="class_igor_1_1i_rectangle.html">iRectanglef</a>&amp; boundings);</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        <span class="keywordtype">void</span> calcBoundings(<a class="code" href="namespace_igor.html#a0b6d70f0e3e322893125cebbe4af2f1a">iRectanglef</a>&amp; boundings);</div>
 <div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;</div>
 <div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;        <span class="keywordtype">bool</span> handleMouseKeyDown(<a class="code" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a> key);</div>
 <div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        <a class="code" href="class_igor_1_1i_widget_graph.html">iWidgetGraph</a>();</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        iWidgetGraph();</div>
 <div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;        <span class="keyword">virtual</span> ~<a class="code" href="class_igor_1_1i_widget_graph.html">iWidgetGraph</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;        <span class="keyword">virtual</span> ~iWidgetGraph() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        <span class="keyword">static</span> <a class="code" href="class_igor_1_1i_widget.html">iWidget</a>* createInstance();</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        <span class="keyword">static</span> iWidget* createInstance();</div>
 <div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;</div>
 <div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    };</div>
 <div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;}</div>
 <div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;</div>
 <div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="class_igor_1_1i_rectangle_html"><div class="ttname"><a href="class_igor_1_1i_rectangle.html">Igor::iRectangle&lt; float32 &gt;</a></div></div>
-<div class="ttc" id="class_igor_1_1i_widget_manager_html"><div class="ttname"><a href="class_igor_1_1i_widget_manager.html">Igor::iWidgetManager</a></div><div class="ttdef"><b>Definition:</b> <a href="i_widget_manager_8h_source.html#l00062">iWidgetManager.h:62</a></div></div>
+<div class="ttc" id="class_igor_1_1i_widget_manager_html"><div class="ttname"><a href="class_igor_1_1i_widget_manager.html">Igor::iWidgetManager</a></div><div class="ttdef"><b>Definition:</b> iWidgetManager.h:62</div></div>
 <div class="ttc" id="ia_string_8h_html"><div class="ttname"><a href="ia_string_8h.html">iaString.h</a></div></div>
-<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_bits_8h_source.html#l00034">iaBits.h:34</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_vector2_html"><div class="ttname"><a href="class_igor_aux_1_1ia_vector2.html">IgorAux::iaVector2</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_vector2_8h_source.html#l00044">iaVector2.h:44</a></div></div>
-<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="gtest-tuple_8h_source.html#l00113">gtest-tuple.h:113</a></div></div>
-<div class="ttc" id="class_igor_1_1i_widget_graph_html_a58739a360feb629edab341f4edcde93d"><div class="ttname"><a href="class_igor_1_1i_widget_graph.html#a58739a360feb629edab341f4edcde93d">Igor::iWidgetGraph::_dataBoundings</a></div><div class="ttdeci">iRectanglef _dataBoundings</div><div class="ttdef"><b>Definition:</b> <a href="i_widget_graph_8h_source.html#l00252">iWidgetGraph.h:252</a></div></div>
+<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> iaBits.h:34</div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_vector2_html"><div class="ttname"><a href="class_igor_aux_1_1ia_vector2.html">IgorAux::iaVector2</a></div><div class="ttdef"><b>Definition:</b> iaVector2.h:44</div></div>
+<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> iaString.h:432</div></div>
 <div class="ttc" id="i_widget_8h_html"><div class="ttname"><a href="i_widget_8h.html">iWidget.h</a></div></div>
-<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> <a href="i_a_a_box_8h_source.html#l00036">iAABox.h:36</a></div></div>
-<div class="ttc" id="class_igor_1_1i_widget_graph_html"><div class="ttname"><a href="class_igor_1_1i_widget_graph.html">Igor::iWidgetGraph</a></div><div class="ttdef"><b>Definition:</b> <a href="i_widget_graph_8h_source.html#l00052">iWidgetGraph.h:52</a></div></div>
-<div class="ttc" id="namespace_igor_html_ab3cae9a3831b87d34d1bfe2c4647b242"><div class="ttname"><a href="namespace_igor.html#ab3cae9a3831b87d34d1bfe2c4647b242">Igor::draw</a></div><div class="ttdeci">virtual void draw()</div></div>
+<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> iAABox.h:36</div></div>
+<div class="ttc" id="namespace_igor_html_a0b6d70f0e3e322893125cebbe4af2f1a"><div class="ttname"><a href="namespace_igor.html#a0b6d70f0e3e322893125cebbe4af2f1a">Igor::iRectanglef</a></div><div class="ttdeci">iRectangle&lt; float32 &gt; iRectanglef</div><div class="ttdef"><b>Definition:</b> iRectangle.h:160</div></div>
+<div class="ttc" id="class_igor_1_1i_widget_graph_html"><div class="ttname"><a href="class_igor_1_1i_widget_graph.html">Igor::iWidgetGraph</a></div><div class="ttdef"><b>Definition:</b> iWidgetGraph.h:52</div></div>
 <div class="ttc" id="ia_color4_8h_html"><div class="ttname"><a href="ia_color4_8h.html">iaColor4.h</a></div></div>
-<div class="ttc" id="namespace_igor_html_ab382cf42e4ab1cc6a55599bc1a61aa24"><div class="ttname"><a href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">Igor::iKeyCode</a></div><div class="ttdeci">iKeyCode</div><div class="ttdef"><b>Definition:</b> <a href="i_key_code_map_8h_source.html#l00046">iKeyCodeMap.h:46</a></div></div>
+<div class="ttc" id="namespace_igor_html_ab382cf42e4ab1cc6a55599bc1a61aa24"><div class="ttname"><a href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">Igor::iKeyCode</a></div><div class="ttdeci">iKeyCode</div><div class="ttdef"><b>Definition:</b> iKeyCodeMap.h:46</div></div>
 <div class="ttc" id="ia_vector2_8h_html"><div class="ttname"><a href="ia_vector2_8h.html">iaVector2.h</a></div></div>
-<div class="ttc" id="struct_igor_1_1i_widget_graph_1_1_graph_data_html_a97a7a37c77b004301bdb04bacc962e3f"><div class="ttname"><a href="struct_igor_1_1i_widget_graph_1_1_graph_data.html#a97a7a37c77b004301bdb04bacc962e3f">Igor::iWidgetGraph::GraphData::_points</a></div><div class="ttdeci">vector&lt; iaVector2f &gt; _points</div><div class="ttdef"><b>Definition:</b> <a href="i_widget_graph_8h_source.html#l00065">iWidgetGraph.h:65</a></div></div>
-<div class="ttc" id="class_igor_1_1i_widget_graph_html_aea11d2c1e46df6347a97f7dfcc9718a8"><div class="ttname"><a href="class_igor_1_1i_widget_graph.html#aea11d2c1e46df6347a97f7dfcc9718a8">Igor::iWidgetGraph::_graphs</a></div><div class="ttdeci">map&lt; uint64, GraphData &gt; _graphs</div><div class="ttdef"><b>Definition:</b> <a href="i_widget_graph_8h_source.html#l00268">iWidgetGraph.h:268</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_color4_html"><div class="ttname"><a href="class_igor_aux_1_1ia_color4.html">IgorAux::iaColor4</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_color4_8h_source.html#l00045">iaColor4.h:45</a></div></div>
-<div class="ttc" id="class_igor_1_1i_widget_html"><div class="ttname"><a href="class_igor_1_1i_widget.html">Igor::iWidget</a></div><div class="ttdef"><b>Definition:</b> <a href="i_widget_8h_source.html#l00119">iWidget.h:119</a></div></div>
-<div class="ttc" id="struct_igor_1_1i_widget_graph_1_1_graph_data_html"><div class="ttname"><a href="struct_igor_1_1i_widget_graph_1_1_graph_data.html">Igor::iWidgetGraph::GraphData</a></div><div class="ttdef"><b>Definition:</b> <a href="i_widget_graph_8h_source.html#l00061">iWidgetGraph.h:61</a></div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_color4_html"><div class="ttname"><a href="class_igor_aux_1_1ia_color4.html">IgorAux::iaColor4</a></div><div class="ttdef"><b>Definition:</b> iaColor4.h:45</div></div>
+<div class="ttc" id="class_igor_1_1i_widget_html"><div class="ttname"><a href="class_igor_1_1i_widget.html">Igor::iWidget</a></div><div class="ttdef"><b>Definition:</b> iWidget.h:119</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_d038480633c1631388acdc016f2c394d.html">Igor</a></li><li class="navelem"><a class="el" href="dir_c666f9416e68e5cd51b28bff0f98e46c.html">src</a></li><li class="navelem"><a class="el" href="i_widget_graph_8h.html">iWidgetGraph.h</a></li>
+				<li class="navelem"><a class="el" href="dir_f25e90d47839bd5aa725b19f9dd3e654.html">Igor</a></li><li class="navelem"><a class="el" href="dir_b12320815bd4967fc918d17f555d23eb.html">src</a></li><li class="navelem"><a class="el" href="i_widget_graph_8h.html">iWidgetGraph.h</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:06 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:08 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

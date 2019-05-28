@@ -1,5 +1,0 @@
-<map id="Igor::finalizeCollision" name="Igor::finalizeCollision">
-<area shape="rect" id="node2" href="$namespace_igor.html#adaf8c8536880b6698a4a776281b61578" title="Igor::onTaskFinished" alt="" coords="215,5,358,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_physics_collision_config.html#a44edae4b322380a8b4fa292b6cf6079d" title="Igor::iPhysicsCollisionConfig\l::finalize" alt="" coords="193,57,380,98"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_physics_collision.html#a5ac6c86549b5ea83cd8fcf43778ce154" title="Igor::iPhysicsCollision\l::getID" alt="" coords="428,57,579,98"/>
-</map>

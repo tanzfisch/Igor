@@ -3,7 +3,6 @@ var class_igor_1_1i_task =
     [ "iTask", "class_igor_1_1i_task.html#aa1e5a747bb1ded943fd0f1d9bbcfff71", null ],
     [ "~iTask", "class_igor_1_1i_task.html#a6f81a74013d9a7a9c819ec9d5fbfa8fb", null ],
     [ "abort", "class_igor_1_1i_task.html#a46e2bb8270e40d87fbb26188d2fbc016", null ],
-    [ "finishTask", "class_igor_1_1i_task.html#a3b8ccb97febe2fcdb52cb1ca61304e61", null ],
     [ "getContext", "class_igor_1_1i_task.html#abf0262e0a4191deaa33c4d093f30817e", null ],
     [ "getID", "class_igor_1_1i_task.html#a1286c3225e5b667287de69bf0c0df0c7", null ],
     [ "getPriority", "class_igor_1_1i_task.html#ad53da65556809ab369ebc2c940955632", null ],
@@ -16,15 +15,6 @@ var class_igor_1_1i_task =
     [ "setRepeating", "class_igor_1_1i_task.html#acdadecbd8a4427becbef93a5fa2873b7", null ],
     [ "setWorld", "class_igor_1_1i_task.html#ab17249cecf2b768cf4f74d4cbb46bdfc", null ],
     [ "iTaskManager", "class_igor_1_1i_task.html#aa7c6d28227948db9e4be591864eda3a5", null ],
-    [ "_isRepeating", "class_igor_1_1i_task.html#a996aa4e7083ad2c9c850946cfffd666c", null ],
-    [ "_isRunning", "class_igor_1_1i_task.html#a8c51a248bc83f84e44a3ee1c88867665", null ],
-    [ "_mutexID", "class_igor_1_1i_task.html#a2e3503d24f612f135cd4e572a9d57d13", null ],
-    [ "_nextTaskID", "class_igor_1_1i_task.html#ac92c6d628b4d6096a84d475fb03d8888", null ],
-    [ "_priority", "class_igor_1_1i_task.html#a9ea919867223980dffe4281b4987f861", null ],
-    [ "_taskContext", "class_igor_1_1i_task.html#a70a57e1d946bbc56636b0c4ef839da1f", null ],
-    [ "_taskID", "class_igor_1_1i_task.html#ae17e30ef89c5ebbd047beb3f725b3264", null ],
-    [ "_window", "class_igor_1_1i_task.html#a77ec738ac9b2327815adfe0b1c8ebea3", null ],
-    [ "_worldID", "class_igor_1_1i_task.html#a0d49c86305d3076714a692386bb3f968", null ],
     [ "DEFAULT_PRIORITY", "class_igor_1_1i_task.html#ad12f8ffd0d6384073689eb744a2908a8", null ],
     [ "INVALID_TASK_ID", "class_igor_1_1i_task.html#adf76fd8c8b949dcdd7cdcbb225ee0cda", null ]
 ];

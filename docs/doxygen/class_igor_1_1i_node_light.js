@@ -1,8 +1,5 @@
 var class_igor_1_1i_node_light =
 [
-    [ "iNodeLight", "class_igor_1_1i_node_light.html#a14c1cc7daa30595540f65f8fe6403bd7", null ],
-    [ "iNodeLight", "class_igor_1_1i_node_light.html#ab64c7a40d329d2802b5b9a6a02d96bd7", null ],
-    [ "~iNodeLight", "class_igor_1_1i_node_light.html#a526d1238087f21708497d34f1fca8be7", null ],
     [ "getAmbient", "class_igor_1_1i_node_light.html#a74593bf1a06fec9ebc9beee33d34286d", null ],
     [ "getDiffuse", "class_igor_1_1i_node_light.html#af692cb96d4e4b616fc77718283c430e4", null ],
     [ "getDirection", "class_igor_1_1i_node_light.html#a354cc5ae0d9f49c53414071a9b305d47", null ],

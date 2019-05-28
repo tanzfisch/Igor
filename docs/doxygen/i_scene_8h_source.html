@@ -214,39 +214,39 @@ $(document).ready(function(){initNavTree('i_scene_8h_source.html','');});
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
-<div class="line"><a name="l00159"></a><span class="lineno"><a class="line" href="class_igor_1_1i_scene.html#a5e19951ebc32729eb7c5af55b69466c9">  159</a></span>&#160;        uint32 _sceneHandleSectionID = 0;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        uint32 _sceneHandleSectionID = 0;</div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;</div>
-<div class="line"><a name="l00163"></a><span class="lineno"><a class="line" href="class_igor_1_1i_scene.html#a5518d39d5dc80f75f329899d0c12abda">  163</a></span>&#160;        uint32 _updateLODSectionID = 0;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        uint32 _updateLODSectionID = 0;</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;</div>
-<div class="line"><a name="l00167"></a><span class="lineno"><a class="line" href="class_igor_1_1i_scene.html#a95112ce01084c7e260e4cae96442cf7f">  167</a></span>&#160;        uint32 _processUpdateDataSectionID = 0;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        uint32 _processUpdateDataSectionID = 0;</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;</div>
-<div class="line"><a name="l00171"></a><span class="lineno"><a class="line" href="class_igor_1_1i_scene.html#aa52183099fe15b33f8f77bfcad4b4733">  171</a></span>&#160;        uint32 _updateTransformSectionID = 0;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        uint32 _updateTransformSectionID = 0;</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;</div>
-<div class="line"><a name="l00175"></a><span class="lineno"><a class="line" href="class_igor_1_1i_scene.html#aa66bc2b60549f9599cbbad31f81b1c65">  175</a></span>&#160;        <a class="code" href="class_igor_1_1i_data_update_queue.html">iDataUpdateQueue</a> <a class="code" href="class_igor_1_1i_scene.html#aa66bc2b60549f9599cbbad31f81b1c65">_dataUpdateQueue</a>;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <a class="code" href="class_igor_1_1i_data_update_queue.html">iDataUpdateQueue</a> _dataUpdateQueue;</div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;</div>
-<div class="line"><a name="l00179"></a><span class="lineno"><a class="line" href="class_igor_1_1i_scene.html#aa8421fe08f4c7e0e4a66c0c6cfaa8cdf">  179</a></span>&#160;        iAddedNodeEvent <a class="code" href="class_igor_1_1i_scene.html#aa8421fe08f4c7e0e4a66c0c6cfaa8cdf">_addedNode</a>;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        iAddedNodeEvent _addedNode;</div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;</div>
-<div class="line"><a name="l00183"></a><span class="lineno"><a class="line" href="class_igor_1_1i_scene.html#aea249d66d1dcde18994e6241e2adf91a">  183</a></span>&#160;        iRemovedNodeEvent <a class="code" href="class_igor_1_1i_scene.html#aea249d66d1dcde18994e6241e2adf91a">_removedNode</a>;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        iRemovedNodeEvent _removedNode;</div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;</div>
-<div class="line"><a name="l00187"></a><span class="lineno"><a class="line" href="class_igor_1_1i_scene.html#af8dc958125adfd218f97d38eda88d9cf">  187</a></span>&#160;        <a class="code" href="class_igor_aux_1_1ia_string.html">iaString</a> _name = <a class="code" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24ad20caec3b48a1eef164cb4ca81ba2587">L</a><span class="stringliteral">&quot;Scene&quot;</span>;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        <a class="code" href="class_igor_aux_1_1ia_string.html">iaString</a> _name = <a class="code" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24ad20caec3b48a1eef164cb4ca81ba2587">L</a><span class="stringliteral">&quot;Scene&quot;</span>;</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;</div>
-<div class="line"><a name="l00193"></a><span class="lineno"><a class="line" href="class_igor_1_1i_scene.html#a4563dde63d71d63cf6a0d0257072ba23">  193</a></span>&#160;        <a class="code" href="class_igor_1_1i_node.html">iNodePtr</a> _root = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        <a class="code" href="class_igor_1_1i_node.html">iNodePtr</a> _root = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;</div>
-<div class="line"><a name="l00197"></a><span class="lineno"><a class="line" href="class_igor_1_1i_scene.html#aef7775ad2cb13b1a70961574f0b2fbbc">  197</a></span>&#160;        <a class="code" href="class_igor_1_1i_octree.html">iOctree</a>* _octree = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        <a class="code" href="class_igor_1_1i_octree.html">iOctree</a>* _octree = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;</div>
-<div class="line"><a name="l00201"></a><span class="lineno"><a class="line" href="class_igor_1_1i_scene.html#a390296da185a0f70b3599f7817455fd3">  201</a></span>&#160;        vector&lt;uint64&gt; <a class="code" href="class_igor_1_1i_scene.html#a390296da185a0f70b3599f7817455fd3">_cameras</a>;</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        vector&lt;uint64&gt; _cameras;</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;</div>
-<div class="line"><a name="l00205"></a><span class="lineno"><a class="line" href="class_igor_1_1i_scene.html#a1d8e63221b18aeeb7544e7a7e2fc56bf">  205</a></span>&#160;        vector&lt;iNodeLODTrigger*&gt; <a class="code" href="class_igor_1_1i_scene.html#a1d8e63221b18aeeb7544e7a7e2fc56bf">_lodTriggers</a>;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        vector&lt;iNodeLODTrigger*&gt; _lodTriggers;</div>
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;</div>
-<div class="line"><a name="l00209"></a><span class="lineno"><a class="line" href="class_igor_1_1i_scene.html#ab4b96ed03afcc7d0d4e6d5acfb30cb90">  209</a></span>&#160;        vector&lt;iNodeLODSwitch*&gt; <a class="code" href="class_igor_1_1i_scene.html#ab4b96ed03afcc7d0d4e6d5acfb30cb90">_lodSwitches</a>;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        vector&lt;iNodeLODSwitch*&gt; _lodSwitches;</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;</div>
-<div class="line"><a name="l00213"></a><span class="lineno"><a class="line" href="class_igor_1_1i_scene.html#afbee7d45b1f82637e1c027e1fd88b4cf">  213</a></span>&#160;        vector&lt;iNodeLight*&gt; <a class="code" href="class_igor_1_1i_scene.html#afbee7d45b1f82637e1c027e1fd88b4cf">_lights</a>;</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        vector&lt;iNodeLight*&gt; _lights;</div>
 <div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;</div>
-<div class="line"><a name="l00217"></a><span class="lineno"><a class="line" href="class_igor_1_1i_scene.html#a320becc23e55c208405a6c2436f5238b">  217</a></span>&#160;        vector&lt;iNodeVolume*&gt; <a class="code" href="class_igor_1_1i_scene.html#a320becc23e55c208405a6c2436f5238b">_volumes</a>;</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        vector&lt;iNodeVolume*&gt; _volumes;</div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;</div>
-<div class="line"><a name="l00221"></a><span class="lineno"><a class="line" href="class_igor_1_1i_scene.html#a4fc45e9083f40a5f6fb034660cac672b">  221</a></span>&#160;        vector&lt;iNodeRender*&gt; <a class="code" href="class_igor_1_1i_scene.html#a4fc45e9083f40a5f6fb034660cac672b">_renderables</a>;</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        vector&lt;iNodeRender*&gt; _renderables;</div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;</div>
-<div class="line"><a name="l00225"></a><span class="lineno"><a class="line" href="class_igor_1_1i_scene.html#a3ab3132bdcd806761603a349455b06fb">  225</a></span>&#160;        <a class="code" href="class_igor_1_1i_node_visitor_update_transform.html">iNodeVisitorUpdateTransform</a> <a class="code" href="class_igor_1_1i_scene.html#a3ab3132bdcd806761603a349455b06fb">_updateTransformVisitor</a>;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        <a class="code" href="class_igor_1_1i_node_visitor_update_transform.html">iNodeVisitorUpdateTransform</a> _updateTransformVisitor;</div>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;</div>
 <div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        <span class="keywordtype">void</span> updateData();</div>
 <div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;</div>
@@ -292,54 +292,44 @@ $(document).ready(function(){initNavTree('i_scene_8h_source.html','');});
 <div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;</div>
 <div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="ia_string_8h_html"><div class="ttname"><a href="ia_string_8h.html">iaString.h</a></div></div>
-<div class="ttc" id="class_igor_1_1i_scene_html_aea249d66d1dcde18994e6241e2adf91a"><div class="ttname"><a href="class_igor_1_1i_scene.html#aea249d66d1dcde18994e6241e2adf91a">Igor::iScene::_removedNode</a></div><div class="ttdeci">iRemovedNodeEvent _removedNode</div><div class="ttdef"><b>Definition:</b> <a href="i_scene_8h_source.html#l00183">iScene.h:183</a></div></div>
 <div class="ttc" id="namespace_igor_html_abe8ac7d5017f674544ec43881a173c7fa07dd43aa4f90ea06e7335a202f1b7721"><div class="ttname"><a href="namespace_igor.html#abe8ac7d5017f674544ec43881a173c7fa07dd43aa4f90ea06e7335a202f1b7721">Igor::iNodeType::iNodeRender</a></div></div>
 <div class="ttc" id="namespace_igor_html_abe8ac7d5017f674544ec43881a173c7fab127e97ef549a9a34d6a1370618e870e"><div class="ttname"><a href="namespace_igor.html#abe8ac7d5017f674544ec43881a173c7fab127e97ef549a9a34d6a1370618e870e">Igor::iNodeType::iNodeLight</a></div></div>
-<div class="ttc" id="class_igor_1_1i_scene_html_aa8421fe08f4c7e0e4a66c0c6cfaa8cdf"><div class="ttname"><a href="class_igor_1_1i_scene.html#aa8421fe08f4c7e0e4a66c0c6cfaa8cdf">Igor::iScene::_addedNode</a></div><div class="ttdeci">iAddedNodeEvent _addedNode</div><div class="ttdef"><b>Definition:</b> <a href="i_scene_8h_source.html#l00179">iScene.h:179</a></div></div>
-<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_bits_8h_source.html#l00034">iaBits.h:34</a></div></div>
+<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> iaBits.h:34</div></div>
 <div class="ttc" id="i_node_visitor_update_transform_8h_html"><div class="ttname"><a href="i_node_visitor_update_transform_8h.html">iNodeVisitorUpdateTransform.h</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_visitor_update_transform_html"><div class="ttname"><a href="class_igor_1_1i_node_visitor_update_transform.html">Igor::iNodeVisitorUpdateTransform</a></div><div class="ttdef"><b>Definition:</b> <a href="i_node_visitor_update_transform_8h_source.html#l00045">iNodeVisitorUpdateTransform.h:45</a></div></div>
-<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="gtest-tuple_8h_source.html#l00113">gtest-tuple.h:113</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_model_html"><div class="ttname"><a href="class_igor_1_1i_node_model.html">Igor::iNodeModel</a></div><div class="ttdef"><b>Definition:</b> <a href="i_node_model_8h_source.html#l00053">iNodeModel.h:53</a></div></div>
-<div class="ttc" id="class_igor_1_1i_scene_html_ab4b96ed03afcc7d0d4e6d5acfb30cb90"><div class="ttname"><a href="class_igor_1_1i_scene.html#ab4b96ed03afcc7d0d4e6d5acfb30cb90">Igor::iScene::_lodSwitches</a></div><div class="ttdeci">vector&lt; iNodeLODSwitch * &gt; _lodSwitches</div><div class="ttdef"><b>Definition:</b> <a href="i_scene_8h_source.html#l00209">iScene.h:209</a></div></div>
-<div class="ttc" id="class_igor_1_1i_scene_html_a3ab3132bdcd806761603a349455b06fb"><div class="ttname"><a href="class_igor_1_1i_scene.html#a3ab3132bdcd806761603a349455b06fb">Igor::iScene::_updateTransformVisitor</a></div><div class="ttdeci">iNodeVisitorUpdateTransform _updateTransformVisitor</div><div class="ttdef"><b>Definition:</b> <a href="i_scene_8h_source.html#l00225">iScene.h:225</a></div></div>
-<div class="ttc" id="class_igor_1_1i_scene_html_aa66bc2b60549f9599cbbad31f81b1c65"><div class="ttname"><a href="class_igor_1_1i_scene.html#aa66bc2b60549f9599cbbad31f81b1c65">Igor::iScene::_dataUpdateQueue</a></div><div class="ttdeci">iDataUpdateQueue _dataUpdateQueue</div><div class="ttdef"><b>Definition:</b> <a href="i_scene_8h_source.html#l00175">iScene.h:175</a></div></div>
+<div class="ttc" id="class_igor_1_1i_node_visitor_update_transform_html"><div class="ttname"><a href="class_igor_1_1i_node_visitor_update_transform.html">Igor::iNodeVisitorUpdateTransform</a></div><div class="ttdef"><b>Definition:</b> iNodeVisitorUpdateTransform.h:45</div></div>
+<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> iaString.h:432</div></div>
+<div class="ttc" id="class_igor_1_1i_node_model_html"><div class="ttname"><a href="class_igor_1_1i_node_model.html">Igor::iNodeModel</a></div><div class="ttdef"><b>Definition:</b> iNodeModel.h:53</div></div>
 <div class="ttc" id="namespace_igor_html_abe8ac7d5017f674544ec43881a173c7fac6f5ce480a9fcdd8b043264ac63fc42d"><div class="ttname"><a href="namespace_igor.html#abe8ac7d5017f674544ec43881a173c7fac6f5ce480a9fcdd8b043264ac63fc42d">Igor::iNodeType::iNodeLODTrigger</a></div></div>
 <div class="ttc" id="namespace_igor_html_abe8ac7d5017f674544ec43881a173c7fa266ab39ce86560b2c31d41654a6c87c3"><div class="ttname"><a href="namespace_igor.html#abe8ac7d5017f674544ec43881a173c7fa266ab39ce86560b2c31d41654a6c87c3">Igor::iNodeType::iNodeLODSwitch</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_camera_html"><div class="ttname"><a href="class_igor_1_1i_node_camera.html">Igor::iNodeCamera</a></div><div class="ttdef"><b>Definition:</b> <a href="i_node_camera_8h_source.html#l00049">iNodeCamera.h:49</a></div></div>
-<div class="ttc" id="class_igor_1_1i_scene_html_a320becc23e55c208405a6c2436f5238b"><div class="ttname"><a href="class_igor_1_1i_scene.html#a320becc23e55c208405a6c2436f5238b">Igor::iScene::_volumes</a></div><div class="ttdeci">vector&lt; iNodeVolume * &gt; _volumes</div><div class="ttdef"><b>Definition:</b> <a href="i_scene_8h_source.html#l00217">iScene.h:217</a></div></div>
-<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> <a href="i_a_a_box_8h_source.html#l00036">iAABox.h:36</a></div></div>
-<div class="ttc" id="class_igor_1_1i_scene_html"><div class="ttname"><a href="class_igor_1_1i_scene.html">Igor::iScene</a></div><div class="ttdef"><b>Definition:</b> <a href="i_scene_8h_source.html#l00074">iScene.h:74</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_string_html"><div class="ttname"><a href="class_igor_aux_1_1ia_string.html">IgorAux::iaString</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_string_8h_source.html#l00052">iaString.h:52</a></div></div>
+<div class="ttc" id="class_igor_1_1i_node_camera_html"><div class="ttname"><a href="class_igor_1_1i_node_camera.html">Igor::iNodeCamera</a></div><div class="ttdef"><b>Definition:</b> iNodeCamera.h:49</div></div>
+<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> iAABox.h:36</div></div>
+<div class="ttc" id="class_igor_1_1i_scene_html"><div class="ttname"><a href="class_igor_1_1i_scene.html">Igor::iScene</a></div><div class="ttdef"><b>Definition:</b> iScene.h:74</div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_string_html"><div class="ttname"><a href="class_igor_aux_1_1ia_string.html">IgorAux::iaString</a></div><div class="ttdef"><b>Definition:</b> iaString.h:52</div></div>
 <div class="ttc" id="namespace_igor_html_abe8ac7d5017f674544ec43881a173c7fad6640258b2726b55d99b0274a2560bfa"><div class="ttname"><a href="namespace_igor.html#abe8ac7d5017f674544ec43881a173c7fad6640258b2726b55d99b0274a2560bfa">Igor::iNodeType::iNode</a></div></div>
-<div class="ttc" id="class_igor_1_1i_octree_html"><div class="ttname"><a href="class_igor_1_1i_octree.html">Igor::iOctree</a></div><div class="ttdef"><b>Definition:</b> <a href="i_octree_8h_source.html#l00055">iOctree.h:55</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_l_o_d_trigger_html"><div class="ttname"><a href="class_igor_1_1i_node_l_o_d_trigger.html">Igor::iNodeLODTrigger</a></div><div class="ttdef"><b>Definition:</b> <a href="i_node_l_o_d_trigger_8h_source.html#l00049">iNodeLODTrigger.h:49</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_render_html"><div class="ttname"><a href="class_igor_1_1i_node_render.html">Igor::iNodeRender</a></div><div class="ttdef"><b>Definition:</b> <a href="i_node_render_8h_source.html#l00044">iNodeRender.h:44</a></div></div>
+<div class="ttc" id="class_igor_1_1i_octree_html"><div class="ttname"><a href="class_igor_1_1i_octree.html">Igor::iOctree</a></div><div class="ttdef"><b>Definition:</b> iOctree.h:55</div></div>
+<div class="ttc" id="class_igor_1_1i_node_l_o_d_trigger_html"><div class="ttname"><a href="class_igor_1_1i_node_l_o_d_trigger.html">Igor::iNodeLODTrigger</a></div><div class="ttdef"><b>Definition:</b> iNodeLODTrigger.h:49</div></div>
+<div class="ttc" id="class_igor_1_1i_node_render_html"><div class="ttname"><a href="class_igor_1_1i_node_render.html">Igor::iNodeRender</a></div><div class="ttdef"><b>Definition:</b> iNodeRender.h:44</div></div>
 <div class="ttc" id="namespace_igor_aux_html_aabd22d8bae645ca2557549dfa5b175fd"><div class="ttname"><a href="namespace_igor_aux.html#aabd22d8bae645ca2557549dfa5b175fd">IgorAux::iaEVENT</a></div><div class="ttdeci">iaEVENT(EnterStateEvent, EnterStateDelegate, void,(),())</div></div>
-<div class="ttc" id="class_igor_1_1i_scene_html_a1d8e63221b18aeeb7544e7a7e2fc56bf"><div class="ttname"><a href="class_igor_1_1i_scene.html#a1d8e63221b18aeeb7544e7a7e2fc56bf">Igor::iScene::_lodTriggers</a></div><div class="ttdeci">vector&lt; iNodeLODTrigger * &gt; _lodTriggers</div><div class="ttdef"><b>Definition:</b> <a href="i_scene_8h_source.html#l00205">iScene.h:205</a></div></div>
-<div class="ttc" id="class_igor_1_1i_scene_html_a4fc45e9083f40a5f6fb034660cac672b"><div class="ttname"><a href="class_igor_1_1i_scene.html#a4fc45e9083f40a5f6fb034660cac672b">Igor::iScene::_renderables</a></div><div class="ttdeci">vector&lt; iNodeRender * &gt; _renderables</div><div class="ttdef"><b>Definition:</b> <a href="i_scene_8h_source.html#l00221">iScene.h:221</a></div></div>
 <div class="ttc" id="i_node_8h_html"><div class="ttname"><a href="i_node_8h.html">iNode.h</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_l_o_d_switch_html"><div class="ttname"><a href="class_igor_1_1i_node_l_o_d_switch.html">Igor::iNodeLODSwitch</a></div><div class="ttdef"><b>Definition:</b> <a href="i_node_l_o_d_switch_8h_source.html#l00052">iNodeLODSwitch.h:52</a></div></div>
+<div class="ttc" id="class_igor_1_1i_node_l_o_d_switch_html"><div class="ttname"><a href="class_igor_1_1i_node_l_o_d_switch.html">Igor::iNodeLODSwitch</a></div><div class="ttdef"><b>Definition:</b> iNodeLODSwitch.h:52</div></div>
 <div class="ttc" id="i_data_update_queue_8h_html"><div class="ttname"><a href="i_data_update_queue_8h.html">iDataUpdateQueue.h</a></div></div>
 <div class="ttc" id="i_defines_8h_html"><div class="ttname"><a href="i_defines_8h.html">iDefines.h</a></div></div>
 <div class="ttc" id="namespace_igor_html_abe8ac7d5017f674544ec43881a173c7fafd6f6af46cabe3142958efcd928fe034"><div class="ttname"><a href="namespace_igor.html#abe8ac7d5017f674544ec43881a173c7fafd6f6af46cabe3142958efcd928fe034">Igor::iNodeType::iNodeCamera</a></div></div>
 <div class="ttc" id="ia_event_8h_html"><div class="ttname"><a href="ia_event_8h.html">iaEvent.h</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_volume_html"><div class="ttname"><a href="class_igor_1_1i_node_volume.html">Igor::iNodeVolume</a></div><div class="ttdef"><b>Definition:</b> <a href="i_node_volume_8h_source.html#l00044">iNodeVolume.h:44</a></div></div>
+<div class="ttc" id="class_igor_1_1i_node_volume_html"><div class="ttname"><a href="class_igor_1_1i_node_volume.html">Igor::iNodeVolume</a></div><div class="ttdef"><b>Definition:</b> iNodeVolume.h:44</div></div>
 <div class="ttc" id="namespace_igor_html_ab382cf42e4ab1cc6a55599bc1a61aa24ad20caec3b48a1eef164cb4ca81ba2587"><div class="ttname"><a href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24ad20caec3b48a1eef164cb4ca81ba2587">Igor::iKeyCode::L</a></div></div>
-<div class="ttc" id="class_igor_1_1i_data_update_queue_html"><div class="ttname"><a href="class_igor_1_1i_data_update_queue.html">Igor::iDataUpdateQueue</a></div><div class="ttdef"><b>Definition:</b> <a href="i_data_update_queue_8h_source.html#l00047">iDataUpdateQueue.h:47</a></div></div>
-<div class="ttc" id="class_igor_1_1i_scene_factory_html"><div class="ttname"><a href="class_igor_1_1i_scene_factory.html">Igor::iSceneFactory</a></div><div class="ttdef"><b>Definition:</b> <a href="i_scene_factory_8h_source.html#l00044">iSceneFactory.h:44</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_html"><div class="ttname"><a href="class_igor_1_1i_node.html">Igor::iNode</a></div><div class="ttdef"><b>Definition:</b> <a href="i_node_8h_source.html#l00107">iNode.h:107</a></div></div>
-<div class="ttc" id="class_igor_1_1i_scene_html_a390296da185a0f70b3599f7817455fd3"><div class="ttname"><a href="class_igor_1_1i_scene.html#a390296da185a0f70b3599f7817455fd3">Igor::iScene::_cameras</a></div><div class="ttdeci">vector&lt; uint64 &gt; _cameras</div><div class="ttdef"><b>Definition:</b> <a href="i_scene_8h_source.html#l00201">iScene.h:201</a></div></div>
-<div class="ttc" id="class_igor_1_1i_scene_html_afbee7d45b1f82637e1c027e1fd88b4cf"><div class="ttname"><a href="class_igor_1_1i_scene.html#afbee7d45b1f82637e1c027e1fd88b4cf">Igor::iScene::_lights</a></div><div class="ttdeci">vector&lt; iNodeLight * &gt; _lights</div><div class="ttdef"><b>Definition:</b> <a href="i_scene_8h_source.html#l00213">iScene.h:213</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_light_html"><div class="ttname"><a href="class_igor_1_1i_node_light.html">Igor::iNodeLight</a></div><div class="ttdef"><b>Definition:</b> <a href="i_node_light_8h_source.html#l00054">iNodeLight.h:54</a></div></div>
+<div class="ttc" id="class_igor_1_1i_data_update_queue_html"><div class="ttname"><a href="class_igor_1_1i_data_update_queue.html">Igor::iDataUpdateQueue</a></div><div class="ttdef"><b>Definition:</b> iDataUpdateQueue.h:47</div></div>
+<div class="ttc" id="class_igor_1_1i_scene_factory_html"><div class="ttname"><a href="class_igor_1_1i_scene_factory.html">Igor::iSceneFactory</a></div><div class="ttdef"><b>Definition:</b> iSceneFactory.h:44</div></div>
+<div class="ttc" id="class_igor_1_1i_node_html"><div class="ttname"><a href="class_igor_1_1i_node.html">Igor::iNode</a></div><div class="ttdef"><b>Definition:</b> iNode.h:107</div></div>
+<div class="ttc" id="class_igor_1_1i_node_light_html"><div class="ttname"><a href="class_igor_1_1i_node_light.html">Igor::iNodeLight</a></div><div class="ttdef"><b>Definition:</b> iNodeLight.h:54</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_d038480633c1631388acdc016f2c394d.html">Igor</a></li><li class="navelem"><a class="el" href="dir_c666f9416e68e5cd51b28bff0f98e46c.html">src</a></li><li class="navelem"><a class="el" href="i_scene_8h.html">iScene.h</a></li>
+				<li class="navelem"><a class="el" href="dir_f25e90d47839bd5aa725b19f9dd3e654.html">Igor</a></li><li class="navelem"><a class="el" href="dir_b12320815bd4967fc918d17f555d23eb.html">src</a></li><li class="navelem"><a class="el" href="i_scene_8h.html">iScene.h</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:04 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:06 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

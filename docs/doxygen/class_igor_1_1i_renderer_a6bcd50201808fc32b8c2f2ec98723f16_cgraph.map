@@ -1,6 +1,0 @@
-<map id="Igor::iRenderer::drawMesh" name="Igor::iRenderer::drawMesh">
-<area shape="rect" id="node2" href="$class_igor_1_1i_instancer.html#acf7be12ded31b1807ca62fa4fabc8f65" title="Igor::iInstancer::getInstance\lArrayObject" alt="" coords="239,5,422,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_instancer.html#a30f6a157114db0ab7213de9ecda66e1e" title="Igor::iInstancer::getInstanceSize" alt="" coords="227,71,435,98"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_instancer.html#a44fe48cf92b9e2347617cba3f8a6dfb9" title="Igor::iInstancer::getInstance\lCount" alt="" coords="239,123,422,164"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_instancer.html#a940741f0e88d4fcc394d1e06ab23e05c" title="Igor::iInstancer::getInstance\lDataBuffer" alt="" coords="239,188,422,229"/>
-</map>

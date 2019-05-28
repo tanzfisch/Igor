@@ -1,9 +1,0 @@
-<map id="Igor::iUserControlColorChooser::createNumberChooser" name="Igor::iUserControlColorChooser::createNumberChooser">
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iWidgetManager \&gt;::getInstance" alt="" coords="253,5,468,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget_number_chooser.html#a4b8f280d0189e7cfa933f092375150da" title="Igor::iWidgetNumberChooser\l::setMinMaxNumber" alt="" coords="267,71,455,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_widget_number_chooser.html#aa6a6c8beecbf4eea0247e7b324dae613" title="Igor::iWidgetNumberChooser\l::setValue" alt="" coords="267,136,455,177"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_widget.html#af44098e3682aafa4b2e74fa0d273679d" title="Igor::iWidget::setWidth" alt="" coords="283,202,438,229"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_widget_number_chooser.html#aa0f9d4400f8779bc18cf0611aff585ee" title="Igor::iWidgetNumberChooser\l::setSteppingWheel" alt="" coords="267,253,455,295"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_widget_number_chooser.html#a2101a103ea3691d120c1e32201555eac" title="Igor::iWidgetNumberChooser\l::setStepping" alt="" coords="267,319,455,360"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_widget.html#a7d98706dfbbb67d857f38d42f5757bfb" title="Igor::iWidget::registerOn\lChangeEvent" alt="" coords="279,384,442,425"/>
-</map>

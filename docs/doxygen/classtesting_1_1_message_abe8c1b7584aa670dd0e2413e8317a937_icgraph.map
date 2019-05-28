@@ -1,7 +1,0 @@
-<map id="testing::Message::GetString" name="testing::Message::GetString">
-<area shape="rect" id="node2" href="$classtesting_1_1_message.html#ac126e24804817a053bebba0920d94a11" title="testing::Message::Message" alt="" coords="239,5,421,32"/>
-<area shape="rect" id="node3" href="$namespacetesting.html#a7b802e532fd68749765cb7dc156130db" title="testing::operator\&lt;\&lt;" alt="" coords="264,56,396,83"/>
-<area shape="rect" id="node4" href="$namespacetesting_1_1internal.html#a954ec4a8a932dac7743e77e459ffefdc" title="testing::internal::\lDefaultParamName" alt="" coords="263,107,397,149"/>
-<area shape="rect" id="node6" href="$classtesting_1_1internal_1_1_parameterized_test_case_info.html#a7e118820b3074ce70c0440e2e49a50a1" title="testing::internal::\lParameterizedTestCaseInfo\l::RegisterTests" alt="" coords="239,173,421,229"/>
-<area shape="rect" id="node5" href="$namespacetesting_1_1internal.html#a27d6ea7d401e877cb0fbddf4206ebbe4" title="testing::internal::\lGetParamNameGen" alt="" coords="469,107,608,149"/>
-</map>

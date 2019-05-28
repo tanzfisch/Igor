@@ -1,8 +1,0 @@
-<map id="Igor::iRectangle::setHeight" name="Igor::iRectangle::setHeight">
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget_grid.html#af8ba9074822a1c8e7027d488c60a0e0d" title="Igor::iWidgetGrid::\lcalcChildOffsets" alt="" coords="251,5,378,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget_scroll.html#a9a9cb62229492f44f71fe620bf67e072" title="Igor::iWidgetScroll\l::calcChildOffsets" alt="" coords="251,71,379,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_window.html#a5de96f4c9d4896ff7aff48804ec6c756" title="Igor::iWindow::addView" alt="" coords="236,137,393,163"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_window.html#a6dbf54a39d41c7752db8f8ff658adae3" title="Igor::iWindow::updateSize" alt="" coords="228,187,401,214"/>
-<area shape="rect" id="node6" href="$namespace_igor.html#a6c0b5f6a110206d49314c2c6e09ac827" title="Igor::WndProc" alt="" coords="449,187,555,214"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_window.html#a7c68d4b7d97161b7985fd6335859f9cd" title="Igor::iWindow::iWindow" alt="" coords="603,187,760,214"/>
-</map>

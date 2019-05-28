@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,7 +111,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_config_reader.html',''
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="class_igor_1_1i_config_reader-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Igor::iConfigReader Class Reference</div>  </div>
@@ -128,19 +127,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a896619440a81ac4a8f945c7fc0cf6476"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9b1620ce0279dfdf14e67310aa217d0b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_config_reader.html#a9b1620ce0279dfdf14e67310aa217d0b">readConfiguration</a> (const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;filename)</td></tr>
 <tr class="separator:a9b1620ce0279dfdf14e67310aa217d0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:acdc5d1a1f7d933efa7400ffb8b7a122b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_config_reader.html#acdc5d1a1f7d933efa7400ffb8b7a122b">readResourceManagerConfig</a> (TiXmlElement *resourceManager)</td></tr>
-<tr class="separator:acdc5d1a1f7d933efa7400ffb8b7a122b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84d0054c99bc984ded3fec21ec9cb3c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_config_reader.html#a84d0054c99bc984ded3fec21ec9cb3c6">readLoggingConfig</a> (TiXmlElement *logging)</td></tr>
-<tr class="separator:a84d0054c99bc984ded3fec21ec9cb3c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>reader for generall <a class="el" href="namespace_igor.html">Igor</a> configuration file.</p>
 <p>usually located at config/Igor.xml </p>
-
-<p>Definition at line <a class="el" href="i_config_reader_8h_source.html#l00044">44</a> of file <a class="el" href="i_config_reader_8h_source.html">iConfigReader.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a1a7405567b2b8c419497420bb307d615"></a>
 <div class="memitem">
@@ -155,8 +145,6 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>does nothing </p>
-
-<p>Definition at line <a class="el" href="i_config_reader_8cpp_source.html#l00015">15</a> of file <a class="el" href="i_config_reader_8cpp_source.html">iConfigReader.cpp</a>.</p>
 
 </div>
 </div>
@@ -181,8 +169,6 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>does nothing </p>
-
-<p>Definition at line <a class="el" href="i_config_reader_8cpp_source.html#l00019">19</a> of file <a class="el" href="i_config_reader_8cpp_source.html">iConfigReader.cpp</a>.</p>
 
 </div>
 </div>
@@ -209,103 +195,11 @@ Private Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_config_reader_8cpp_source.html#l00083">83</a> of file <a class="el" href="i_config_reader_8cpp_source.html">iConfigReader.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_config_reader_a9b1620ce0279dfdf14e67310aa217d0b_cgraph.svg" width="316" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_config_reader_a9b1620ce0279dfdf14e67310aa217d0b_icgraph.svg" width="280" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a84d0054c99bc984ded3fec21ec9cb3c6"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iConfigReader::readLoggingConfig </td>
-          <td>(</td>
-          <td class="paramtype">TiXmlElement *&#160;</td>
-          <td class="paramname"><em>logging</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>read logging xml elements</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">logging</td><td>root element </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_config_reader_8cpp_source.html#l00045">45</a> of file <a class="el" href="i_config_reader_8cpp_source.html">iConfigReader.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_config_reader_a84d0054c99bc984ded3fec21ec9cb3c6_cgraph.svg" width="374" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="acdc5d1a1f7d933efa7400ffb8b7a122b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iConfigReader::readResourceManagerConfig </td>
-          <td>(</td>
-          <td class="paramtype">TiXmlElement *&#160;</td>
-          <td class="paramname"><em>resourceManager</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>analyses the xml elements</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">resourceManager</td><td>root element </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_config_reader_8cpp_source.html#l00023">23</a> of file <a class="el" href="i_config_reader_8cpp_source.html">iConfigReader.cpp</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_config_reader_8h_source.html">iConfigReader.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_config_reader_8cpp_source.html">iConfigReader.cpp</a></li>
+<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_config_reader_8cpp.html">iConfigReader.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -314,7 +208,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_config_reader.html">iConfigReader</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:44 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:17 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

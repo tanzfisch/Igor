@@ -14,7 +14,5 @@ var class_igor_1_1i_node_volume =
     [ "setBoundingBox", "class_igor_1_1i_node_volume.html#adacc4d1ffe0642dac3826089292224b3", null ],
     [ "setBoundingSphere", "class_igor_1_1i_node_volume.html#a1e9e75c89b3bb3a230a558a188686486", null ],
     [ "updateTree", "class_igor_1_1i_node_volume.html#a17aa3c42829bb7e6c302207d7f9568db", null ],
-    [ "iScene", "class_igor_1_1i_node_volume.html#af91eaba0940ecfe6529c1497ec97586e", null ],
-    [ "_bbox", "class_igor_1_1i_node_volume.html#aa3e3528b6e5a01660e3c727fd25ced23", null ],
-    [ "_sphere", "class_igor_1_1i_node_volume.html#aa7dc6d783e191dcc0d2e1518db0d9418", null ]
+    [ "iScene", "class_igor_1_1i_node_volume.html#af91eaba0940ecfe6529c1497ec97586e", null ]
 ];

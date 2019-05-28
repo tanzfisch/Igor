@@ -1,8 +1,0 @@
-<map id="Igor::iVoxelTerrain::init" name="Igor::iVoxelTerrain::init">
-<area shape="rect" id="node2" href="$class_igor_1_1i_target_material.html#a6ca34fd774ab240cf7bb30f2d3ac92cb" title="Igor::iTargetMaterial\l::setTexture" alt="" coords="180,5,316,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_target_material.html#ae2d9671f9525dc7cc63d8642e20a1535" title="Igor::iTargetMaterial\l::setAmbient" alt="" coords="180,71,316,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_target_material.html#aaee8875c77b258d519db06e98326cf70" title="Igor::iTargetMaterial\l::setDiffuse" alt="" coords="180,136,316,177"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_target_material.html#a4bb112d04a0552230a40579433466962" title="Igor::iTargetMaterial\l::setSpecular" alt="" coords="180,201,316,243"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_target_material.html#a3baa6322a8c2409e2b368d8499d38502" title="Igor::iTargetMaterial\l::setEmissive" alt="" coords="180,267,316,308"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_target_material.html#a62ab2ebf1102ec5226aa6f4a257dbc1a" title="Igor::iTargetMaterial\l::setShininess" alt="" coords="180,332,316,373"/>
-</map>

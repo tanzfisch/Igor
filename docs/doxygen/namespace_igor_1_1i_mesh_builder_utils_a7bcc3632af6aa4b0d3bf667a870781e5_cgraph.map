@@ -1,7 +1,0 @@
-<map id="Igor::iMeshBuilderUtils::addSphere" name="Igor::iMeshBuilderUtils::addSphere">
-<area shape="rect" id="node2" href="$class_igor_1_1i_mesh_builder.html#a7bc707a833d24cff2eebc2a0432af35c" title="Igor::iMeshBuilder\l::getVertexCount" alt="" coords="207,5,333,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_mesh_builder.html#ae132784ebd5a29f57ff13f2e242ca50b" title="Igor::iMeshBuilder\l::addVertex" alt="" coords="207,71,333,112"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_vector3.html#a19d7f1f4d0fba7b22f60fff7d38ea74b" title="IgorAux::iaVector3\l::normalize" alt="" coords="205,136,335,177"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_mesh_builder.html#a5db412c786880b035e52b9c1aa80934d" title="Igor::iMeshBuilder\l::setNormal" alt="" coords="207,201,333,243"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_mesh_builder.html#ac3ae47c63dd2b5b18840482d485de85d" title="Igor::iMeshBuilder\l::addTriangle" alt="" coords="207,267,333,308"/>
-</map>

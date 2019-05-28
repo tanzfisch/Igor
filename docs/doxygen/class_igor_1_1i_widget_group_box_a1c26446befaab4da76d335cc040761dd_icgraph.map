@@ -1,9 +1,0 @@
-<map id="Igor::iWidgetGroupBox::setText" name="Igor::iWidgetGroupBox::setText">
-<area shape="rect" id="node2" href="$class_igor_1_1i_dialog_color_gradient.html#a1c09eeb174db894a5e755b8ef13e914f" title="Igor::iDialogColorGradient\l::initGUI" alt="" coords="211,5,381,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_dialog_graph.html#a5bab24dca6ef57e9aee12a304b0b5c69" title="Igor::iDialogGraph\l::initGUI" alt="" coords="233,71,359,112"/>
-<area shape="rect" id="node4" href="$class_user_control_graph_view.html#afb737ca9c452b2284871b693addd2e33" title="UserControlGraphView\l::initGUI" alt="" coords="219,136,373,177"/>
-<area shape="rect" id="node5" href="$class_user_control_material.html#a45610f92ae0ae41d9da8fce2aa7bec4b" title="UserControlMaterial\l::initGUI" alt="" coords="228,201,364,243"/>
-<area shape="rect" id="node6" href="$class_user_control_material_view.html#af00d3b18c83b4335ffa14bd0b1324dbc" title="UserControlMaterialView\l::initGUI" alt="" coords="214,267,378,308"/>
-<area shape="rect" id="node7" href="$class_user_control_particle_system.html#a40bcd13d702c6d38e59a6509f0c690ff" title="UserControlParticleSystem\l::initGUI" alt="" coords="207,332,385,373"/>
-<area shape="rect" id="node8" href="$class_user_control_properties.html#a7741b0b4671d7e9026d49270e2ae1f74" title="UserControlProperties\l::initGUI" alt="" coords="221,397,371,439"/>
-</map>

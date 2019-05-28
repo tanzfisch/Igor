@@ -1,7 +1,6 @@
 var ompf_material_chunk_8h =
 [
     [ "ompfMaterialChunk", "class_o_m_p_f_1_1ompf_material_chunk.html", "class_o_m_p_f_1_1ompf_material_chunk" ],
-    [ "Shader", "struct_o_m_p_f_1_1ompf_material_chunk_1_1_shader.html", "struct_o_m_p_f_1_1ompf_material_chunk_1_1_shader" ],
     [ "OMPFRenderState", "ompf_material_chunk_8h.html#a6ed34e0ed2ed26033dc32e1d33c18761", [
       [ "DepthTest", "ompf_material_chunk_8h.html#a6ed34e0ed2ed26033dc32e1d33c18761a16704bc95ff0bd3291ba157e6f06e0ee", null ],
       [ "DepthMask", "ompf_material_chunk_8h.html#a6ed34e0ed2ed26033dc32e1d33c18761a718a74a2684bcd2038799efa42367a0d", null ],

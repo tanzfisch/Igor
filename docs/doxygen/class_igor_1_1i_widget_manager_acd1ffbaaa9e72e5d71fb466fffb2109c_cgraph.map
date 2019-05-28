@@ -1,7 +1,0 @@
-<map id="Igor::iWidgetManager::traverseAlignment" name="Igor::iWidgetManager::traverseAlignment">
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget.html#aeaf054993ffcb99a1bf51369c1061afc" title="Igor::iWidget::updateAlignment" alt="" coords="199,5,399,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget.html#ae55ac2938acc4f683703a373da2e032b" title="Igor::iWidget::updatePosition" alt="" coords="204,56,393,83"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_widget.html#ab2b1e07bf990c132f4a1dc2208638c9c" title="Igor::iWidget::calcChild\lOffsets" alt="" coords="221,107,377,149"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_widget.html#a7b9439834acbc1b909dad1eaf52b58bd" title="Igor::iWidget::getActualPosX" alt="" coords="205,173,393,200"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_widget.html#ac0fac20e7adf5619d7811a91d900f543" title="Igor::iWidget::getActualPosY" alt="" coords="203,224,394,251"/>
-</map>

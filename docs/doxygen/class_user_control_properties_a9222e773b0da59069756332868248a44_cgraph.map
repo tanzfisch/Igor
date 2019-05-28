@@ -1,6 +1,0 @@
-<map id="UserControlProperties::setProperty" name="UserControlProperties::setProperty">
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iNodeFactory \&gt;::getInstance" alt="" coords="203,5,401,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_factory.html#ab8074664cc7a6692dda729d1e3e4cfa3" title="Igor::iNodeFactory\l::getNode" alt="" coords="238,71,366,112"/>
-<area shape="rect" id="node4" href="$class_user_control_properties.html#a9a0fe4e5b536f6560c3c3a4ce4e2ac1e" title="UserControlProperties\l::onNameChanged" alt="" coords="227,136,377,177"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node.html#a43329dc1b2a6ad4056c38290c5df777d" title="Igor::iNode::getType" alt="" coords="233,202,371,229"/>
-</map>

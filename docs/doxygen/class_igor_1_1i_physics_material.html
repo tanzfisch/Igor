@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,8 +112,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_physics_material.html'
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_physics_material-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -122,12 +120,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_physics_material.html'
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="i_physics_material_8h_source.html">iPhysicsMaterial.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for Igor::iPhysicsMaterial:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_material__coll__graph.svg" width="158" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -143,20 +135,6 @@ Static Public Attributes</h2></td></tr>
 <tr class="memitem:aece3c5f1f737a644fb7fc15cb73b32c2"><td class="memItemLeft" align="right" valign="top">static const int64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_material.html#aece3c5f1f737a644fb7fc15cb73b32c2">INVALID_PHYSICSMATERIAL_ID</a> = 0</td></tr>
 <tr class="separator:aece3c5f1f737a644fb7fc15cb73b32c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a82365dfa5b0b05fee04ff2dc96cb2332"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_material.html#a82365dfa5b0b05fee04ff2dc96cb2332">iPhysicsMaterial</a> (int64 id)</td></tr>
-<tr class="separator:a82365dfa5b0b05fee04ff2dc96cb2332"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ca802054ee67ed366f797685bbba5dc"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_material.html#a4ca802054ee67ed366f797685bbba5dc">~iPhysicsMaterial</a> ()=default</td></tr>
-<tr class="separator:a4ca802054ee67ed366f797685bbba5dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a37e96b5c5ab6837b3e12d4058f9ff4f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_material.html#a37e96b5c5ab6837b3e12d4058f9ff4f9">_name</a></td></tr>
-<tr class="separator:a37e96b5c5ab6837b3e12d4058f9ff4f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6df4f6ed2882ed2c2a432f414eca041f"><td class="memItemLeft" align="right" valign="top">int64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_material.html#a6df4f6ed2882ed2c2a432f414eca041f">_id</a> = <a class="el" href="class_igor_1_1i_physics_material.html#aece3c5f1f737a644fb7fc15cb73b32c2">INVALID_PHYSICSMATERIAL_ID</a></td></tr>
-<tr class="separator:a6df4f6ed2882ed2c2a432f414eca041f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a68f9306b9fe2369173dfd12456aa5d41"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_material.html#a68f9306b9fe2369173dfd12456aa5d41">iPhysics</a></td></tr>
@@ -164,67 +142,7 @@ Friends</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>physics material </p>
-
-<p>Definition at line <a class="el" href="i_physics_material_8h_source.html#l00042">42</a> of file <a class="el" href="i_physics_material_8h_source.html">iPhysicsMaterial.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a82365dfa5b0b05fee04ff2dc96cb2332"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iPhysicsMaterial::iPhysicsMaterial </td>
-          <td>(</td>
-          <td class="paramtype">int64&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>initializes members</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>newton material id </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_physics_material_8cpp_source.html#l00012">12</a> of file <a class="el" href="i_physics_material_8cpp_source.html">iPhysicsMaterial.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4ca802054ee67ed366f797685bbba5dc"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual Igor::iPhysicsMaterial::~iPhysicsMaterial </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>does nothing </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a0cc33137715f8af6f0d1ab03a43396cf"></a>
 <div class="memitem">
 <div class="memproto">
@@ -238,16 +156,6 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>material ID </dd></dl>
-
-<p>Definition at line <a class="el" href="i_physics_material_8cpp_source.html#l00017">17</a> of file <a class="el" href="i_physics_material_8cpp_source.html">iPhysicsMaterial.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_material_a0cc33137715f8af6f0d1ab03a43396cf_icgraph.svg" width="603" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -264,8 +172,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>material name </dd></dl>
-
-<p>Definition at line <a class="el" href="i_physics_material_8cpp_source.html#l00027">27</a> of file <a class="el" href="i_physics_material_8cpp_source.html">iPhysicsMaterial.cpp</a>.</p>
 
 </div>
 </div>
@@ -290,16 +196,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_physics_material_8cpp_source.html#l00022">22</a> of file <a class="el" href="i_physics_material_8cpp_source.html">iPhysicsMaterial.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_material_afb291832a8f40a984b2e527e1ab71429_icgraph.svg" width="603" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -321,57 +217,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_physics_material_8h_source.html#l00045">45</a> of file <a class="el" href="i_physics_material_8h_source.html">iPhysicsMaterial.h</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a6df4f6ed2882ed2c2a432f414eca041f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int64 Igor::iPhysicsMaterial::_id = <a class="el" href="class_igor_1_1i_physics_material.html#aece3c5f1f737a644fb7fc15cb73b32c2">INVALID_PHYSICSMATERIAL_ID</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>id of material </p>
-
-<p>Definition at line <a class="el" href="i_physics_material_8h_source.html#l00073">73</a> of file <a class="el" href="i_physics_material_8h_source.html">iPhysicsMaterial.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a37e96b5c5ab6837b3e12d4058f9ff4f9"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> Igor::iPhysicsMaterial::_name</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>material name </p>
-
-<p>Definition at line <a class="el" href="i_physics_material_8h_source.html#l00069">69</a> of file <a class="el" href="i_physics_material_8h_source.html">iPhysicsMaterial.h</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="aece3c5f1f737a644fb7fc15cb73b32c2"></a>
 <div class="memitem">
 <div class="memproto">
@@ -390,13 +238,11 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_physics_material_8h_source.html#l00049">49</a> of file <a class="el" href="i_physics_material_8h_source.html">iPhysicsMaterial.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_physics_material_8h_source.html">iPhysicsMaterial.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_physics_material_8cpp_source.html">iPhysicsMaterial.cpp</a></li>
+<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_physics_material_8cpp.html">iPhysicsMaterial.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -405,7 +251,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_physics_material.html">iPhysicsMaterial</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:00 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:19 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

@@ -164,19 +164,19 @@ $(document).ready(function(){initNavTree('ia_transition_8h_source.html','');});
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="class_igor_aux_1_1ia_transition.html#a7c5292218a42426d095d877be893eac7">   65</a></span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> uint32 INVALID_GATE_ID = 0;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> uint32 INVALID_GATE_ID = 0;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="class_igor_aux_1_1ia_transition.html#ad3004c84be4a179cce7a7e72cd2fe35e">   69</a></span>&#160;        <span class="keyword">static</span> uint32 <a class="code" href="class_igor_aux_1_1ia_transition.html#ad3004c84be4a179cce7a7e72cd2fe35e">_nextID</a>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keyword">static</span> uint32 _nextID;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="class_igor_aux_1_1ia_transition.html#ad1f5f5b6108e937780c5932801eba085">   73</a></span>&#160;        uint32 _id = INVALID_TRANSITION_ID;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        uint32 _id = INVALID_TRANSITION_ID;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="class_igor_aux_1_1ia_transition.html#a090d2e09d2f197e4a144bd1353099cb1">   77</a></span>&#160;        uint32 _nextGateID = INVALID_GATE_ID + 1;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        uint32 _nextGateID = INVALID_GATE_ID + 1;</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="class_igor_aux_1_1ia_transition.html#a79e699ba96f6dee53fb25e9df68ca4e2">   81</a></span>&#160;        uint32 _from = iaState::INVALID_STATE_ID;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        uint32 _from = iaState::INVALID_STATE_ID;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="class_igor_aux_1_1ia_transition.html#abeed4137bacb0f383a63a464c1fdb7e4">   85</a></span>&#160;        uint32 _to = iaState::INVALID_STATE_ID;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        uint32 _to = iaState::INVALID_STATE_ID;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="class_igor_aux_1_1ia_transition.html#a717a0c888292eef36be1162200afa1ce">   89</a></span>&#160;        map&lt;uint32, bool&gt; <a class="code" href="class_igor_aux_1_1ia_transition.html#a717a0c888292eef36be1162200afa1ce">_gates</a>;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        map&lt;uint32, bool&gt; _gates;</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        uint32 createGate();</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
@@ -203,23 +203,21 @@ $(document).ready(function(){initNavTree('ia_transition_8h_source.html','');});
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;}</div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;</div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_bits_8h_source.html#l00034">iaBits.h:34</a></div></div>
-<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="gtest-tuple_8h_source.html#l00113">gtest-tuple.h:113</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_state_machine_html"><div class="ttname"><a href="class_igor_aux_1_1ia_state_machine.html">IgorAux::iaStateMachine</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_state_machine_8h_source.html#l00051">iaStateMachine.h:51</a></div></div>
+<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> iaBits.h:34</div></div>
+<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> iaString.h:432</div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_state_machine_html"><div class="ttname"><a href="class_igor_aux_1_1ia_state_machine.html">IgorAux::iaStateMachine</a></div><div class="ttdef"><b>Definition:</b> iaStateMachine.h:51</div></div>
 <div class="ttc" id="ia_defines_8h_html"><div class="ttname"><a href="ia_defines_8h.html">iaDefines.h</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_transition_html_ad3004c84be4a179cce7a7e72cd2fe35e"><div class="ttname"><a href="class_igor_aux_1_1ia_transition.html#ad3004c84be4a179cce7a7e72cd2fe35e">IgorAux::iaTransition::_nextID</a></div><div class="ttdeci">static uint32 _nextID</div><div class="ttdef"><b>Definition:</b> <a href="ia_transition_8h_source.html#l00069">iaTransition.h:69</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_transition_html_a717a0c888292eef36be1162200afa1ce"><div class="ttname"><a href="class_igor_aux_1_1ia_transition.html#a717a0c888292eef36be1162200afa1ce">IgorAux::iaTransition::_gates</a></div><div class="ttdeci">map&lt; uint32, bool &gt; _gates</div><div class="ttdef"><b>Definition:</b> <a href="ia_transition_8h_source.html#l00089">iaTransition.h:89</a></div></div>
 <div class="ttc" id="ia_state_8h_html"><div class="ttname"><a href="ia_state_8h.html">iaState.h</a></div></div>
 <div class="ttc" id="ia_event_8h_html"><div class="ttname"><a href="ia_event_8h.html">iaEvent.h</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_transition_html"><div class="ttname"><a href="class_igor_aux_1_1ia_transition.html">IgorAux::iaTransition</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_transition_8h_source.html#l00050">iaTransition.h:50</a></div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_transition_html"><div class="ttname"><a href="class_igor_aux_1_1ia_transition.html">IgorAux::iaTransition</a></div><div class="ttdef"><b>Definition:</b> iaTransition.h:50</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_c402b4467a53150ecb66faacb9627039.html">IgorAux</a></li><li class="navelem"><a class="el" href="dir_052e06d5847ef9011a3307e293e59b2d.html">src</a></li><li class="navelem"><a class="el" href="ia_transition_8h.html">iaTransition.h</a></li>
+				<li class="navelem"><a class="el" href="dir_038706058e6e4ef52f3f38f20b163fcb.html">IgorAux</a></li><li class="navelem"><a class="el" href="dir_81853e009da3367582c439e5f0afaec8.html">src</a></li><li class="navelem"><a class="el" href="ia_transition_8h.html">iaTransition.h</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:11 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:09 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

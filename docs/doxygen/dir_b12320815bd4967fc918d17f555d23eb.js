@@ -21,8 +21,7 @@ var dir_b12320815bd4967fc918d17f555d23eb =
     ] ],
     [ "iContouringCubes.cpp", "i_contouring_cubes_8cpp.html", "i_contouring_cubes_8cpp" ],
     [ "iContouringCubes.h", "i_contouring_cubes_8h.html", [
-      [ "iContouringCubes", "class_igor_1_1i_contouring_cubes.html", "class_igor_1_1i_contouring_cubes" ],
-      [ "DensityPole", "struct_igor_1_1i_contouring_cubes_1_1_density_pole.html", "struct_igor_1_1i_contouring_cubes_1_1_density_pole" ]
+      [ "iContouringCubes", "class_igor_1_1i_contouring_cubes.html", "class_igor_1_1i_contouring_cubes" ]
     ] ],
     [ "iDataUpdateQueue.cpp", "i_data_update_queue_8cpp.html", null ],
     [ "iDataUpdateQueue.h", "i_data_update_queue_8h.html", [
@@ -109,18 +108,11 @@ var dir_b12320815bd4967fc918d17f555d23eb =
     [ "iModelDataIO.h", "i_model_data_i_o_8h.html", "i_model_data_i_o_8h" ],
     [ "iModelDataIO3DS.cpp", "i_model_data_i_o3_d_s_8cpp.html", "i_model_data_i_o3_d_s_8cpp" ],
     [ "iModelDataIO3DS.h", "i_model_data_i_o3_d_s_8h.html", [
-      [ "iLoader3DS", "class_igor_1_1i_loader3_d_s.html", "class_igor_1_1i_loader3_d_s" ],
-      [ "Chunk", "struct_igor_1_1i_loader3_d_s_1_1_chunk.html", "struct_igor_1_1i_loader3_d_s_1_1_chunk" ],
-      [ "Material", "struct_igor_1_1i_loader3_d_s_1_1_material.html", "struct_igor_1_1i_loader3_d_s_1_1_material" ],
-      [ "Vertex", "struct_igor_1_1i_loader3_d_s_1_1_vertex.html", "struct_igor_1_1i_loader3_d_s_1_1_vertex" ]
+      [ "iLoader3DS", "class_igor_1_1i_loader3_d_s.html", "class_igor_1_1i_loader3_d_s" ]
     ] ],
     [ "iModelDataIOOBJ.cpp", "i_model_data_i_o_o_b_j_8cpp.html", null ],
     [ "iModelDataIOOBJ.h", "i_model_data_i_o_o_b_j_8h.html", [
-      [ "iModelDataIOOBJ", "class_igor_1_1i_model_data_i_o_o_b_j.html", "class_igor_1_1i_model_data_i_o_o_b_j" ],
-      [ "OBJVertex", "struct_igor_1_1i_model_data_i_o_o_b_j_1_1_o_b_j_vertex.html", "struct_igor_1_1i_model_data_i_o_o_b_j_1_1_o_b_j_vertex" ],
-      [ "OBJPolygon", "struct_igor_1_1i_model_data_i_o_o_b_j_1_1_o_b_j_polygon.html", "struct_igor_1_1i_model_data_i_o_o_b_j_1_1_o_b_j_polygon" ],
-      [ "OBJMaterial", "struct_igor_1_1i_model_data_i_o_o_b_j_1_1_o_b_j_material.html", "struct_igor_1_1i_model_data_i_o_o_b_j_1_1_o_b_j_material" ],
-      [ "Section", "struct_igor_1_1i_model_data_i_o_o_b_j_1_1_section.html", "struct_igor_1_1i_model_data_i_o_o_b_j_1_1_section" ]
+      [ "iModelDataIOOBJ", "class_igor_1_1i_model_data_i_o_o_b_j.html", "class_igor_1_1i_model_data_i_o_o_b_j" ]
     ] ],
     [ "iModelDataIOOMPF.cpp", "i_model_data_i_o_o_m_p_f_8cpp.html", null ],
     [ "iModelDataIOOMPF.h", "i_model_data_i_o_o_m_p_f_8h.html", [
@@ -147,21 +139,20 @@ var dir_b12320815bd4967fc918d17f555d23eb =
     [ "iNodeLight.h", "i_node_light_8h.html", "i_node_light_8h" ],
     [ "iNodeLODSwitch.cpp", "i_node_l_o_d_switch_8cpp.html", null ],
     [ "iNodeLODSwitch.h", "i_node_l_o_d_switch_8h.html", [
-      [ "iNodeLODSwitch", "class_igor_1_1i_node_l_o_d_switch.html", "class_igor_1_1i_node_l_o_d_switch" ],
-      [ "Threshold", "struct_igor_1_1i_node_l_o_d_switch_1_1_threshold.html", "struct_igor_1_1i_node_l_o_d_switch_1_1_threshold" ]
+      [ "iNodeLODSwitch", "class_igor_1_1i_node_l_o_d_switch.html", "class_igor_1_1i_node_l_o_d_switch" ]
     ] ],
     [ "iNodeLODTrigger.cpp", "i_node_l_o_d_trigger_8cpp.html", null ],
     [ "iNodeLODTrigger.h", "i_node_l_o_d_trigger_8h.html", [
       [ "iNodeLODTrigger", "class_igor_1_1i_node_l_o_d_trigger.html", "class_igor_1_1i_node_l_o_d_trigger" ]
     ] ],
     [ "iNodeMesh.cpp", "i_node_mesh_8cpp.html", null ],
-    [ "iNodeMesh.h", "i_node_mesh_8h.html", null ],
+    [ "iNodeMesh.h", "i_node_mesh_8h.html", "i_node_mesh_8h" ],
     [ "iNodeModel.cpp", "i_node_model_8cpp.html", null ],
     [ "iNodeModel.h", "i_node_model_8h.html", "i_node_model_8h" ],
     [ "iNodeParticleSystem.cpp", "i_node_particle_system_8cpp.html", null ],
     [ "iNodeParticleSystem.h", "i_node_particle_system_8h.html", "i_node_particle_system_8h" ],
     [ "iNodePhysics.cpp", "i_node_physics_8cpp.html", null ],
-    [ "iNodePhysics.h", "i_node_physics_8h.html", null ],
+    [ "iNodePhysics.h", "i_node_physics_8h.html", "i_node_physics_8h" ],
     [ "iNodeRender.cpp", "i_node_render_8cpp.html", null ],
     [ "iNodeRender.h", "i_node_render_8h.html", [
       [ "iNodeRender", "class_igor_1_1i_node_render.html", "class_igor_1_1i_node_render" ]
@@ -224,9 +215,7 @@ var dir_b12320815bd4967fc918d17f555d23eb =
     ] ],
     [ "iOctree.cpp", "i_octree_8cpp.html", null ],
     [ "iOctree.h", "i_octree_8h.html", [
-      [ "iOctree", "class_igor_1_1i_octree.html", "class_igor_1_1i_octree" ],
-      [ "OctreeObject", "struct_igor_1_1i_octree_1_1_octree_object.html", "struct_igor_1_1i_octree_1_1_octree_object" ],
-      [ "OctreeNode", "struct_igor_1_1i_octree_1_1_octree_node.html", "struct_igor_1_1i_octree_1_1_octree_node" ]
+      [ "iOctree", "class_igor_1_1i_octree.html", "class_igor_1_1i_octree" ]
     ] ],
     [ "iOSEvent.h", "i_o_s_event_8h.html", null ],
     [ "iOSEventListener.h", "i_o_s_event_listener_8h.html", [
@@ -256,13 +245,7 @@ var dir_b12320815bd4967fc918d17f555d23eb =
     ] ],
     [ "iPhysicsCollisionConfig.cpp", "i_physics_collision_config_8cpp.html", null ],
     [ "iPhysicsCollisionConfig.h", "i_physics_collision_config_8h.html", [
-      [ "iPhysicsCollisionConfig", "class_igor_1_1i_physics_collision_config.html", "class_igor_1_1i_physics_collision_config" ],
-      [ "Box", "struct_igor_1_1i_physics_collision_config_1_1_box.html", "struct_igor_1_1i_physics_collision_config_1_1_box" ],
-      [ "Sphere", "struct_igor_1_1i_physics_collision_config_1_1_sphere.html", "struct_igor_1_1i_physics_collision_config_1_1_sphere" ],
-      [ "Cone", "struct_igor_1_1i_physics_collision_config_1_1_cone.html", "struct_igor_1_1i_physics_collision_config_1_1_cone" ],
-      [ "Capsule", "struct_igor_1_1i_physics_collision_config_1_1_capsule.html", "struct_igor_1_1i_physics_collision_config_1_1_capsule" ],
-      [ "Cylinder", "struct_igor_1_1i_physics_collision_config_1_1_cylinder.html", "struct_igor_1_1i_physics_collision_config_1_1_cylinder" ],
-      [ "Mesh", "struct_igor_1_1i_physics_collision_config_1_1_mesh.html", "struct_igor_1_1i_physics_collision_config_1_1_mesh" ]
+      [ "iPhysicsCollisionConfig", "class_igor_1_1i_physics_collision_config.html", "class_igor_1_1i_physics_collision_config" ]
     ] ],
     [ "iPhysicsJoint.cpp", "i_physics_joint_8cpp.html", null ],
     [ "iPhysicsJoint.h", "i_physics_joint_8h.html", "i_physics_joint_8h" ],
@@ -453,9 +436,7 @@ var dir_b12320815bd4967fc918d17f555d23eb =
     ] ],
     [ "iVoxelTerrain.cpp", "i_voxel_terrain_8cpp.html", "i_voxel_terrain_8cpp" ],
     [ "iVoxelTerrain.h", "i_voxel_terrain_8h.html", [
-      [ "iVoxelTerrain", "class_igor_1_1i_voxel_terrain.html", "class_igor_1_1i_voxel_terrain" ],
-      [ "iVectorHasher", "class_igor_1_1i_voxel_terrain_1_1i_vector_hasher.html", "class_igor_1_1i_voxel_terrain_1_1i_vector_hasher" ],
-      [ "iVectorEqualFn", "class_igor_1_1i_voxel_terrain_1_1i_vector_equal_fn.html", "class_igor_1_1i_voxel_terrain_1_1i_vector_equal_fn" ]
+      [ "iVoxelTerrain", "class_igor_1_1i_voxel_terrain.html", "class_igor_1_1i_voxel_terrain" ]
     ] ],
     [ "iVoxelTerrainMeshGenerator.cpp", "i_voxel_terrain_mesh_generator_8cpp.html", null ],
     [ "iVoxelTerrainMeshGenerator.h", "i_voxel_terrain_mesh_generator_8h.html", [
@@ -488,8 +469,7 @@ var dir_b12320815bd4967fc918d17f555d23eb =
     ] ],
     [ "iWidgetGraph.cpp", "i_widget_graph_8cpp.html", null ],
     [ "iWidgetGraph.h", "i_widget_graph_8h.html", [
-      [ "iWidgetGraph", "class_igor_1_1i_widget_graph.html", "class_igor_1_1i_widget_graph" ],
-      [ "GraphData", "struct_igor_1_1i_widget_graph_1_1_graph_data.html", "struct_igor_1_1i_widget_graph_1_1_graph_data" ]
+      [ "iWidgetGraph", "class_igor_1_1i_widget_graph.html", "class_igor_1_1i_widget_graph" ]
     ] ],
     [ "iWidgetGrid.cpp", "i_widget_grid_8cpp.html", null ],
     [ "iWidgetGrid.h", "i_widget_grid_8h.html", "i_widget_grid_8h" ],

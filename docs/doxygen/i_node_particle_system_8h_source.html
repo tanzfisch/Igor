@@ -287,25 +287,25 @@ $(document).ready(function(){initNavTree('i_node_particle_system_8h_source.html'
 <div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;</div>
 <div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;</div>
-<div class="line"><a name="l00389"></a><span class="lineno"><a class="line" href="class_igor_1_1i_node_particle_system.html#a4b1660be4a4fc5454bb4e1cc6d922a0a">  389</a></span>&#160;        iParticleSystemFinishedEvent <a class="code" href="class_igor_1_1i_node_particle_system.html#a4b1660be4a4fc5454bb4e1cc6d922a0a">_fishedEvent</a>;</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;        iParticleSystemFinishedEvent _fishedEvent;</div>
 <div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;</div>
-<div class="line"><a name="l00393"></a><span class="lineno"><a class="line" href="class_igor_1_1i_node_particle_system.html#a986f35ad7fc85e4571d8bae980412a95">  393</a></span>&#160;        <a class="code" href="class_igor_aux_1_1ia_matrix.html">iaMatrixd</a> <a class="code" href="class_igor_1_1i_node_particle_system.html#a986f35ad7fc85e4571d8bae980412a95">_worldMatrixInv</a>;</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;        <a class="code" href="class_igor_aux_1_1ia_matrix.html">iaMatrixd</a> _worldMatrixInv;</div>
 <div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;</div>
-<div class="line"><a name="l00397"></a><span class="lineno"><a class="line" href="class_igor_1_1i_node_particle_system.html#a95df0ff8359ae73a0a1650940eff2043">  397</a></span>&#160;        uint64 _emitterID = iNode::INVALID_NODE_ID;</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;        uint64 _emitterID = iNode::INVALID_NODE_ID;</div>
 <div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;</div>
-<div class="line"><a name="l00401"></a><span class="lineno"><a class="line" href="class_igor_1_1i_node_particle_system.html#a16999bc0825cb4c4723773295ee4515f">  401</a></span>&#160;        <a class="code" href="class_igor_1_1i_particle_system3_d.html">iParticleSystem3D</a> <a class="code" href="class_igor_1_1i_node_particle_system.html#a16999bc0825cb4c4723773295ee4515f">_particleSystem</a>;</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;        <a class="code" href="class_igor_1_1i_particle_system3_d.html">iParticleSystem3D</a> _particleSystem;</div>
 <div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;</div>
-<div class="line"><a name="l00405"></a><span class="lineno"><a class="line" href="class_igor_1_1i_node_particle_system.html#a19cb214a60ec901fd53e3b86be359f3c">  405</a></span>&#160;        shared_ptr&lt;iTexture&gt; <a class="code" href="class_igor_1_1i_node_particle_system.html#a19cb214a60ec901fd53e3b86be359f3c">_textureA</a>;</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;        shared_ptr&lt;iTexture&gt; _textureA;</div>
 <div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;</div>
-<div class="line"><a name="l00409"></a><span class="lineno"><a class="line" href="class_igor_1_1i_node_particle_system.html#a50376af418502b2a29b36a12b3aa77e6">  409</a></span>&#160;        shared_ptr&lt;iTexture&gt; <a class="code" href="class_igor_1_1i_node_particle_system.html#a50376af418502b2a29b36a12b3aa77e6">_textureB</a>;</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;        shared_ptr&lt;iTexture&gt; _textureB;</div>
 <div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;</div>
-<div class="line"><a name="l00413"></a><span class="lineno"><a class="line" href="class_igor_1_1i_node_particle_system.html#ab70bf22c9a738c9ab884c544b5fed380">  413</a></span>&#160;        shared_ptr&lt;iTexture&gt; <a class="code" href="class_igor_1_1i_node_particle_system.html#ab70bf22c9a738c9ab884c544b5fed380">_textureC</a>;</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;        shared_ptr&lt;iTexture&gt; _textureC;</div>
 <div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;</div>
 <div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;        <span class="keywordtype">void</span> onPostCopyLink(map&lt;uint32, uint32&gt;&amp; nodeIDMap);</div>
 <div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="namespace_igor.html#ab3cae9a3831b87d34d1bfe2c4647b242">draw</a>();</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;        <span class="keywordtype">void</span> draw();</div>
 <div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="namespace_igor.html#a97e14ef9a3d232d47bae2e3ac9e3a600">onUpdateTransform</a>(<a class="code" href="class_igor_aux_1_1ia_matrix.html">iaMatrixd</a>&amp; matrix);</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        <span class="keywordtype">void</span> onUpdateTransform(<a class="code" href="class_igor_aux_1_1ia_matrix.html">iaMatrixd</a>&amp; matrix);</div>
 <div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;</div>
 <div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;        <span class="keywordtype">void</span> handle();</div>
 <div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;</div>
@@ -323,39 +323,31 @@ $(document).ready(function(){initNavTree('i_node_particle_system_8h_source.html'
 <div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;</div>
 <div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="ia_gradient_8h_html"><div class="ttname"><a href="ia_gradient_8h.html">iaGradient.h</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_particle_system_html_a986f35ad7fc85e4571d8bae980412a95"><div class="ttname"><a href="class_igor_1_1i_node_particle_system.html#a986f35ad7fc85e4571d8bae980412a95">Igor::iNodeParticleSystem::_worldMatrixInv</a></div><div class="ttdeci">iaMatrixd _worldMatrixInv</div><div class="ttdef"><b>Definition:</b> <a href="i_node_particle_system_8h_source.html#l00393">iNodeParticleSystem.h:393</a></div></div>
-<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_bits_8h_source.html#l00034">iaBits.h:34</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_particle_system_html_a16999bc0825cb4c4723773295ee4515f"><div class="ttname"><a href="class_igor_1_1i_node_particle_system.html#a16999bc0825cb4c4723773295ee4515f">Igor::iNodeParticleSystem::_particleSystem</a></div><div class="ttdeci">iParticleSystem3D _particleSystem</div><div class="ttdef"><b>Definition:</b> <a href="i_node_particle_system_8h_source.html#l00401">iNodeParticleSystem.h:401</a></div></div>
-<div class="ttc" id="namespace_igor_html_a97e14ef9a3d232d47bae2e3ac9e3a600"><div class="ttname"><a href="namespace_igor.html#a97e14ef9a3d232d47bae2e3ac9e3a600">Igor::onUpdateTransform</a></div><div class="ttdeci">virtual void onUpdateTransform(iaMatrixd &amp;matrix)</div></div>
-<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="gtest-tuple_8h_source.html#l00113">gtest-tuple.h:113</a></div></div>
+<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> iaBits.h:34</div></div>
+<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> iaString.h:432</div></div>
 <div class="ttc" id="i_node_volume_8h_html"><div class="ttname"><a href="i_node_volume_8h.html">iNodeVolume.h</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_particle_system_html"><div class="ttname"><a href="class_igor_1_1i_node_particle_system.html">Igor::iNodeParticleSystem</a></div><div class="ttdef"><b>Definition:</b> <a href="i_node_particle_system_8h_source.html#l00054">iNodeParticleSystem.h:54</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_particle_system_html_a50376af418502b2a29b36a12b3aa77e6"><div class="ttname"><a href="class_igor_1_1i_node_particle_system.html#a50376af418502b2a29b36a12b3aa77e6">Igor::iNodeParticleSystem::_textureB</a></div><div class="ttdeci">shared_ptr&lt; iTexture &gt; _textureB</div><div class="ttdef"><b>Definition:</b> <a href="i_node_particle_system_8h_source.html#l00409">iNodeParticleSystem.h:409</a></div></div>
-<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> <a href="i_a_a_box_8h_source.html#l00036">iAABox.h:36</a></div></div>
+<div class="ttc" id="class_igor_1_1i_node_particle_system_html"><div class="ttname"><a href="class_igor_1_1i_node_particle_system.html">Igor::iNodeParticleSystem</a></div><div class="ttdef"><b>Definition:</b> iNodeParticleSystem.h:54</div></div>
+<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> iAABox.h:36</div></div>
 <div class="ttc" id="i_texture_8h_html"><div class="ttname"><a href="i_texture_8h.html">iTexture.h</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_particle_system_html_a19cb214a60ec901fd53e3b86be359f3c"><div class="ttname"><a href="class_igor_1_1i_node_particle_system.html#a19cb214a60ec901fd53e3b86be359f3c">Igor::iNodeParticleSystem::_textureA</a></div><div class="ttdeci">shared_ptr&lt; iTexture &gt; _textureA</div><div class="ttdef"><b>Definition:</b> <a href="i_node_particle_system_8h_source.html#l00405">iNodeParticleSystem.h:405</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_string_html"><div class="ttname"><a href="class_igor_aux_1_1ia_string.html">IgorAux::iaString</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_string_8h_source.html#l00052">iaString.h:52</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_matrix_html"><div class="ttname"><a href="class_igor_aux_1_1ia_matrix.html">IgorAux::iaMatrix</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_matrix_8h_source.html#l00088">iaMatrix.h:88</a></div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_string_html"><div class="ttname"><a href="class_igor_aux_1_1ia_string.html">IgorAux::iaString</a></div><div class="ttdef"><b>Definition:</b> iaString.h:52</div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_matrix_html"><div class="ttname"><a href="class_igor_aux_1_1ia_matrix.html">IgorAux::iaMatrix</a></div><div class="ttdef"><b>Definition:</b> iaMatrix.h:88</div></div>
 <div class="ttc" id="namespace_igor_aux_html_aabd22d8bae645ca2557549dfa5b175fd"><div class="ttname"><a href="namespace_igor_aux.html#aabd22d8bae645ca2557549dfa5b175fd">IgorAux::iaEVENT</a></div><div class="ttdeci">iaEVENT(EnterStateEvent, EnterStateDelegate, void,(),())</div></div>
-<div class="ttc" id="namespace_igor_html_ab3cae9a3831b87d34d1bfe2c4647b242"><div class="ttname"><a href="namespace_igor.html#ab3cae9a3831b87d34d1bfe2c4647b242">Igor::draw</a></div><div class="ttdeci">virtual void draw()</div></div>
 <div class="ttc" id="namespace_igor_html_afa3dc44faa32b7e3131c5d653ce9d001"><div class="ttname"><a href="namespace_igor.html#afa3dc44faa32b7e3131c5d653ce9d001">Igor::__IGOR_DISABLE_WARNING__</a></div><div class="ttdeci">__IGOR_DISABLE_WARNING__(4275)</div></div>
-<div class="ttc" id="class_igor_1_1i_particle_system3_d_html"><div class="ttname"><a href="class_igor_1_1i_particle_system3_d.html">Igor::iParticleSystem3D</a></div><div class="ttdef"><b>Definition:</b> <a href="i_particle_system3_d_8h_source.html#l00143">iParticleSystem3D.h:143</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_factory_html"><div class="ttname"><a href="class_igor_1_1i_node_factory.html">Igor::iNodeFactory</a></div><div class="ttdef"><b>Definition:</b> <a href="i_node_factory_8h_source.html#l00046">iNodeFactory.h:46</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_gradient_html"><div class="ttname"><a href="class_igor_aux_1_1ia_gradient.html">IgorAux::iaGradient</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_gradient_8h_source.html#l00050">iaGradient.h:50</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_particle_system_html_a4b1660be4a4fc5454bb4e1cc6d922a0a"><div class="ttname"><a href="class_igor_1_1i_node_particle_system.html#a4b1660be4a4fc5454bb4e1cc6d922a0a">Igor::iNodeParticleSystem::_fishedEvent</a></div><div class="ttdeci">iParticleSystemFinishedEvent _fishedEvent</div><div class="ttdef"><b>Definition:</b> <a href="i_node_particle_system_8h_source.html#l00389">iNodeParticleSystem.h:389</a></div></div>
+<div class="ttc" id="class_igor_1_1i_particle_system3_d_html"><div class="ttname"><a href="class_igor_1_1i_particle_system3_d.html">Igor::iParticleSystem3D</a></div><div class="ttdef"><b>Definition:</b> iParticleSystem3D.h:143</div></div>
+<div class="ttc" id="class_igor_1_1i_node_factory_html"><div class="ttname"><a href="class_igor_1_1i_node_factory.html">Igor::iNodeFactory</a></div><div class="ttdef"><b>Definition:</b> iNodeFactory.h:46</div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_gradient_html"><div class="ttname"><a href="class_igor_aux_1_1ia_gradient.html">IgorAux::iaGradient</a></div><div class="ttdef"><b>Definition:</b> iaGradient.h:50</div></div>
 <div class="ttc" id="namespace_igor_html_a18d73781324bc94ad6d7d273a16c9ce1"><div class="ttname"><a href="namespace_igor.html#a18d73781324bc94ad6d7d273a16c9ce1">Igor::__IGOR_ENABLE_WARNING__</a></div><div class="ttdeci">__IGOR_ENABLE_WARNING__(4275)</div></div>
 <div class="ttc" id="i_particle_system3_d_8h_html"><div class="ttname"><a href="i_particle_system3_d_8h.html">iParticleSystem3D.h</a></div></div>
 <div class="ttc" id="ia_event_8h_html"><div class="ttname"><a href="ia_event_8h.html">iaEvent.h</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_volume_html"><div class="ttname"><a href="class_igor_1_1i_node_volume.html">Igor::iNodeVolume</a></div><div class="ttdef"><b>Definition:</b> <a href="i_node_volume_8h_source.html#l00044">iNodeVolume.h:44</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_particle_system_html_ab70bf22c9a738c9ab884c544b5fed380"><div class="ttname"><a href="class_igor_1_1i_node_particle_system.html#ab70bf22c9a738c9ab884c544b5fed380">Igor::iNodeParticleSystem::_textureC</a></div><div class="ttdeci">shared_ptr&lt; iTexture &gt; _textureC</div><div class="ttdef"><b>Definition:</b> <a href="i_node_particle_system_8h_source.html#l00413">iNodeParticleSystem.h:413</a></div></div>
+<div class="ttc" id="class_igor_1_1i_node_volume_html"><div class="ttname"><a href="class_igor_1_1i_node_volume.html">Igor::iNodeVolume</a></div><div class="ttdef"><b>Definition:</b> iNodeVolume.h:44</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_d038480633c1631388acdc016f2c394d.html">Igor</a></li><li class="navelem"><a class="el" href="dir_c666f9416e68e5cd51b28bff0f98e46c.html">src</a></li><li class="navelem"><a class="el" href="i_node_particle_system_8h.html">iNodeParticleSystem.h</a></li>
+				<li class="navelem"><a class="el" href="dir_f25e90d47839bd5aa725b19f9dd3e654.html">Igor</a></li><li class="navelem"><a class="el" href="dir_b12320815bd4967fc918d17f555d23eb.html">src</a></li><li class="navelem"><a class="el" href="i_node_particle_system_8h.html">iNodeParticleSystem.h</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:02 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:05 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

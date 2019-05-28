@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,8 +111,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_resource_manager.html'
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_resource_manager-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -121,18 +119,8 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_resource_manager.html'
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="i_resource_manager_8h_source.html">iResourceManager.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iResourceManager:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_resource_manager__inherit__graph.svg" width="234" height="218"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iResourceManager:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_resource_manager__coll__graph.svg" width="460" height="231"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+
+<p>Inherits <a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iResourceManager &gt;</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -146,20 +134,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a50b798ef01a31cf86aadbc52bbbbbffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acdda5772fd5dd2fee97a3c45aa8eb179"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_resource_manager.html#acdda5772fd5dd2fee97a3c45aa8eb179">getRelativePath</a> (const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;filename)</td></tr>
 <tr class="separator:acdda5772fd5dd2fee97a3c45aa8eb179"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a69362799773a02f285fb63f565b7d4a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_resource_manager.html#a69362799773a02f285fb63f565b7d4a3">iResourceManager</a> ()=default</td></tr>
-<tr class="separator:a69362799773a02f285fb63f565b7d4a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6ad316427b7278f820efaee87e8545b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_resource_manager.html#ab6ad316427b7278f820efaee87e8545b">~iResourceManager</a> ()=default</td></tr>
-<tr class="separator:ab6ad316427b7278f820efaee87e8545b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:ad6b344f0ef5950eafe7fe1d51f96bb58"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_resource_manager.html#ad6b344f0ef5950eafe7fe1d51f96bb58">_mutex</a></td></tr>
-<tr class="separator:ad6b344f0ef5950eafe7fe1d51f96bb58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35a0d0fed8d00cd49ad3ba58d4e09302"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_resource_manager.html#a35a0d0fed8d00cd49ad3ba58d4e09302">_searchPaths</a></td></tr>
-<tr class="separator:a35a0d0fed8d00cd49ad3ba58d4e09302"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -188,58 +162,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>manages locations of resoruces </p>
-
-<p>Definition at line <a class="el" href="i_resource_manager_8h_source.html#l00049">49</a> of file <a class="el" href="i_resource_manager_8h_source.html">iResourceManager.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a69362799773a02f285fb63f565b7d4a3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iResourceManager::iResourceManager </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>does nothing </p>
-
-</div>
-</div>
-<a class="anchor" id="ab6ad316427b7278f820efaee87e8545b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iResourceManager::~iResourceManager </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>does nothing </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="ac29bab0ffb87e76c31078f5c731fcdcc"></a>
 <div class="memitem">
 <div class="memproto">
@@ -261,8 +184,6 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_resource_manager_8cpp_source.html#l00017">17</a> of file <a class="el" href="i_resource_manager_8cpp_source.html">iResourceManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a004dfd2b37a10cff96e9e8d0c64cb244"></a>
@@ -278,8 +199,6 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>clears search path list </p>
-
-<p>Definition at line <a class="el" href="i_resource_manager_8cpp_source.html#l00069">69</a> of file <a class="el" href="i_resource_manager_8cpp_source.html">iResourceManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -304,16 +223,6 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_resource_manager_8cpp_source.html#l00078">78</a> of file <a class="el" href="i_resource_manager_8cpp_source.html">iResourceManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_resource_manager_a50b798ef01a31cf86aadbc52bbbbbffc_cgraph.svg" width="370" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="acdda5772fd5dd2fee97a3c45aa8eb179"></a>
@@ -336,24 +245,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_resource_manager_8cpp_source.html#l00114">114</a> of file <a class="el" href="i_resource_manager_8cpp_source.html">iResourceManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_resource_manager_acdda5772fd5dd2fee97a3c45aa8eb179_cgraph.svg" width="944" height="484"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_resource_manager_acdda5772fd5dd2fee97a3c45aa8eb179_icgraph.svg" width="776" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -378,8 +269,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_resource_manager_8cpp_source.html#l00043">43</a> of file <a class="el" href="i_resource_manager_8cpp_source.html">iResourceManager.cpp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -401,60 +290,11 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_resource_manager_8h_source.html#l00052">52</a> of file <a class="el" href="i_resource_manager_8h_source.html">iResourceManager.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="ad6b344f0ef5950eafe7fe1d51f96bb58"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> Igor::iResourceManager::_mutex</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex to manage access to internal data </p>
-
-<p>Definition at line <a class="el" href="i_resource_manager_8h_source.html#l00088">88</a> of file <a class="el" href="i_resource_manager_8h_source.html">iResourceManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a35a0d0fed8d00cd49ad3ba58d4e09302"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&gt; Igor::iResourceManager::_searchPaths</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of search paths </p>
-
-<p>Definition at line <a class="el" href="i_resource_manager_8h_source.html#l00092">92</a> of file <a class="el" href="i_resource_manager_8h_source.html">iResourceManager.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_resource_manager_8h_source.html">iResourceManager.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_resource_manager_8cpp_source.html">iResourceManager.cpp</a></li>
+<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_resource_manager_8cpp.html">iResourceManager.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -463,7 +303,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_resource_manager.html">iResourceManager</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:02 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:20 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

@@ -182,11 +182,11 @@ $(document).ready(function(){initNavTree('i_entity_8h_source.html','');});
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="class_igor_1_1i_entity.html#a2d7cbe140d877f47f5327a2f4c7980f4">   94</a></span>&#160;        uint64 _id = 0;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        uint64 _id = 0;</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
-<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="class_igor_1_1i_entity.html#a4510bff3ad3aec306fdf2abe60ed15fc">   98</a></span>&#160;        <span class="keyword">static</span> uint64 <a class="code" href="class_igor_1_1i_entity.html#a4510bff3ad3aec306fdf2abe60ed15fc">_nextID</a>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keyword">static</span> uint64 _nextID;</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
-<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="class_igor_1_1i_entity.html#ac8bd13a9ad99d4ba389e5d0ef91c76ab">  102</a></span>&#160;        <span class="keyword">static</span> <a class="code" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> <a class="code" href="class_igor_1_1i_entity.html#ac8bd13a9ad99d4ba389e5d0ef91c76ab">_mutexID</a>;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keyword">static</span> <a class="code" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> _mutexID;</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    };</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
@@ -195,26 +195,24 @@ $(document).ready(function(){initNavTree('i_entity_8h_source.html','');});
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="namespace_igor_html_aea3bcbf77ead77dc7cb855da623738aeaec0fc0100c4fc1ce4eea230c3dc10360"><div class="ttname"><a href="namespace_igor.html#aea3bcbf77ead77dc7cb855da623738aeaec0fc0100c4fc1ce4eea230c3dc10360">Igor::iHorizontalAlignment::Undefined</a></div></div>
 <div class="ttc" id="namespace_igor_html_afc828a8f3a21084387ab5bc734086b17ae7f07683c781dbc1f6ba59c606932be2"><div class="ttname"><a href="namespace_igor.html#afc828a8f3a21084387ab5bc734086b17ae7f07683c781dbc1f6ba59c606932be2">Igor::iEntityType::Locatable</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_mutex_html"><div class="ttname"><a href="class_igor_aux_1_1ia_mutex.html">IgorAux::iaMutex</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_mutex_8h_source.html#l00041">iaMutex.h:41</a></div></div>
-<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_bits_8h_source.html#l00034">iaBits.h:34</a></div></div>
-<div class="ttc" id="class_igor_1_1i_entity_html_a32ca8925cd964c4f257c1aae1d9c4837"><div class="ttname"><a href="class_igor_1_1i_entity.html#a32ca8925cd964c4f257c1aae1d9c4837">Igor::iEntity::INVALID_ENTITY_ID</a></div><div class="ttdeci">static const uint64 INVALID_ENTITY_ID</div><div class="ttdef"><b>Definition:</b> <a href="i_entity_8h_source.html#l00062">iEntity.h:62</a></div></div>
-<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> <a href="i_a_a_box_8h_source.html#l00036">iAABox.h:36</a></div></div>
-<div class="ttc" id="class_igor_1_1i_entity_html"><div class="ttname"><a href="class_igor_1_1i_entity.html">Igor::iEntity</a></div><div class="ttdef"><b>Definition:</b> <a href="i_entity_8h_source.html#l00051">iEntity.h:51</a></div></div>
-<div class="ttc" id="class_igor_1_1i_entity_html_ac8bd13a9ad99d4ba389e5d0ef91c76ab"><div class="ttname"><a href="class_igor_1_1i_entity.html#ac8bd13a9ad99d4ba389e5d0ef91c76ab">Igor::iEntity::_mutexID</a></div><div class="ttdeci">static iaMutex _mutexID</div><div class="ttdef"><b>Definition:</b> <a href="i_entity_8h_source.html#l00102">iEntity.h:102</a></div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_mutex_html"><div class="ttname"><a href="class_igor_aux_1_1ia_mutex.html">IgorAux::iaMutex</a></div><div class="ttdef"><b>Definition:</b> iaMutex.h:41</div></div>
+<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> iaBits.h:34</div></div>
+<div class="ttc" id="class_igor_1_1i_entity_html_a32ca8925cd964c4f257c1aae1d9c4837"><div class="ttname"><a href="class_igor_1_1i_entity.html#a32ca8925cd964c4f257c1aae1d9c4837">Igor::iEntity::INVALID_ENTITY_ID</a></div><div class="ttdeci">static const uint64 INVALID_ENTITY_ID</div><div class="ttdef"><b>Definition:</b> iEntity.h:62</div></div>
+<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> iAABox.h:36</div></div>
+<div class="ttc" id="class_igor_1_1i_entity_html"><div class="ttname"><a href="class_igor_1_1i_entity.html">Igor::iEntity</a></div><div class="ttdef"><b>Definition:</b> iEntity.h:51</div></div>
 <div class="ttc" id="namespace_igor_html_afc828a8f3a21084387ab5bc734086b17a095a1b43effec73955e31e790438de49"><div class="ttname"><a href="namespace_igor.html#afc828a8f3a21084387ab5bc734086b17a095a1b43effec73955e31e790438de49">Igor::iEntityType::Base</a></div></div>
-<div class="ttc" id="class_igor_1_1i_entity_html_a4510bff3ad3aec306fdf2abe60ed15fc"><div class="ttname"><a href="class_igor_1_1i_entity.html#a4510bff3ad3aec306fdf2abe60ed15fc">Igor::iEntity::_nextID</a></div><div class="ttdeci">static uint64 _nextID</div><div class="ttdef"><b>Definition:</b> <a href="i_entity_8h_source.html#l00098">iEntity.h:98</a></div></div>
 <div class="ttc" id="i_defines_8h_html"><div class="ttname"><a href="i_defines_8h.html">iDefines.h</a></div></div>
-<div class="ttc" id="class_igor_1_1i_entity_manager_html"><div class="ttname"><a href="class_igor_1_1i_entity_manager.html">Igor::iEntityManager</a></div><div class="ttdef"><b>Definition:</b> <a href="i_entity_manager_8h_source.html#l00050">iEntityManager.h:50</a></div></div>
-<div class="ttc" id="namespace_igor_html_afc828a8f3a21084387ab5bc734086b17"><div class="ttname"><a href="namespace_igor.html#afc828a8f3a21084387ab5bc734086b17">Igor::iEntityType</a></div><div class="ttdeci">iEntityType</div><div class="ttdef"><b>Definition:</b> <a href="i_entity_8h_source.html#l00042">iEntity.h:42</a></div></div>
+<div class="ttc" id="class_igor_1_1i_entity_manager_html"><div class="ttname"><a href="class_igor_1_1i_entity_manager.html">Igor::iEntityManager</a></div><div class="ttdef"><b>Definition:</b> iEntityManager.h:50</div></div>
+<div class="ttc" id="namespace_igor_html_afc828a8f3a21084387ab5bc734086b17"><div class="ttname"><a href="namespace_igor.html#afc828a8f3a21084387ab5bc734086b17">Igor::iEntityType</a></div><div class="ttdeci">iEntityType</div><div class="ttdef"><b>Definition:</b> iEntity.h:42</div></div>
 <div class="ttc" id="ia_mutex_8h_html"><div class="ttname"><a href="ia_mutex_8h.html">iaMutex.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_d038480633c1631388acdc016f2c394d.html">Igor</a></li><li class="navelem"><a class="el" href="dir_c666f9416e68e5cd51b28bff0f98e46c.html">src</a></li><li class="navelem"><a class="el" href="i_entity_8h.html">iEntity.h</a></li>
+				<li class="navelem"><a class="el" href="dir_f25e90d47839bd5aa725b19f9dd3e654.html">Igor</a></li><li class="navelem"><a class="el" href="dir_b12320815bd4967fc918d17f555d23eb.html">src</a></li><li class="navelem"><a class="el" href="i_entity_8h.html">iEntity.h</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:00 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:05 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

@@ -197,17 +197,17 @@ $(document).ready(function(){initNavTree('ompf_base_chunk_8h_source.html','');})
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;</div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;</div>
-<div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="class_o_m_p_f_1_1ompf_base_chunk.html#a3c02230a32cc4a2331c6ecde04f42fa6">  147</a></span>&#160;        <a class="code" href="ompf_defines_8h.html#a9a1edab516dc52f62789512d1f11903b">OMPFChunkType</a> _type = <a class="code" href="ompf_defines_8h.html#a9a1edab516dc52f62789512d1f11903ba4bbb8f967da6d1a610596d7257179c2b">OMPFChunkType::Invalid</a>;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <a class="code" href="ompf_defines_8h.html#a9a1edab516dc52f62789512d1f11903b">OMPFChunkType</a> _type = <a class="code" href="ompf_defines_8h.html#a9a1edab516dc52f62789512d1f11903ba4bbb8f967da6d1a610596d7257179c2b">OMPFChunkType::Invalid</a>;</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;</div>
-<div class="line"><a name="l00151"></a><span class="lineno"><a class="line" href="class_o_m_p_f_1_1ompf_base_chunk.html#a3bf33ac4c8a75482be65c1eda7fe928f">  151</a></span>&#160;        uint32 _chunkSize = 0;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        uint32 _chunkSize = 0;</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;</div>
-<div class="line"><a name="l00155"></a><span class="lineno"><a class="line" href="class_o_m_p_f_1_1ompf_base_chunk.html#a0ee3bace984c8053280714293deb37e9">  155</a></span>&#160;        uint32 _ID = <a class="code" href="struct_o_m_p_f_default_configuration.html#a098edb3edb73fd632afbe75ace076853">OMPFDefaultConfiguration::INVALID_CHUNK_ID</a>;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        uint32 _ID = <a class="code" href="struct_o_m_p_f_default_configuration.html#a098edb3edb73fd632afbe75ace076853">OMPFDefaultConfiguration::INVALID_CHUNK_ID</a>;</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;</div>
-<div class="line"><a name="l00159"></a><span class="lineno"><a class="line" href="class_o_m_p_f_1_1ompf_base_chunk.html#ac300c844bc58a986b3e878f1bf171296">  159</a></span>&#160;        uint32 _parentID = <a class="code" href="struct_o_m_p_f_default_configuration.html#a098edb3edb73fd632afbe75ace076853">OMPFDefaultConfiguration::INVALID_CHUNK_ID</a>;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        uint32 _parentID = <a class="code" href="struct_o_m_p_f_default_configuration.html#a098edb3edb73fd632afbe75ace076853">OMPFDefaultConfiguration::INVALID_CHUNK_ID</a>;</div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;</div>
-<div class="line"><a name="l00163"></a><span class="lineno"><a class="line" href="class_o_m_p_f_1_1ompf_base_chunk.html#ad95ef702931a37f89c3ef2ebe49156a6">  163</a></span>&#160;        <a class="code" href="class_igor_aux_1_1ia_string.html">iaString</a> <a class="code" href="class_o_m_p_f_1_1ompf_base_chunk.html#ad95ef702931a37f89c3ef2ebe49156a6">_name</a>;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        <a class="code" href="class_igor_aux_1_1ia_string.html">iaString</a> _name;</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;</div>
-<div class="line"><a name="l00167"></a><span class="lineno"><a class="line" href="class_o_m_p_f_1_1ompf_base_chunk.html#aae90ff2806c03b75cb80ef46c170f72e">  167</a></span>&#160;        vector&lt;ompfBaseChunk*&gt; <a class="code" href="class_o_m_p_f_1_1ompf_base_chunk.html#aae90ff2806c03b75cb80ef46c170f72e">_children</a>;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        vector&lt;ompfBaseChunk*&gt; _children;</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    };</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;</div>
@@ -218,31 +218,29 @@ $(document).ready(function(){initNavTree('ompf_base_chunk_8h_source.html','');})
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;}</div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="struct_o_m_p_f_default_configuration_html_a098edb3edb73fd632afbe75ace076853"><div class="ttname"><a href="struct_o_m_p_f_default_configuration.html#a098edb3edb73fd632afbe75ace076853">OMPFDefaultConfiguration::INVALID_CHUNK_ID</a></div><div class="ttdeci">static const uint32 INVALID_CHUNK_ID</div><div class="ttdef"><b>Definition:</b> <a href="ompf_defines_8h_source.html#l00079">ompfDefines.h:79</a></div></div>
+<div class="ttc" id="struct_o_m_p_f_default_configuration_html_a098edb3edb73fd632afbe75ace076853"><div class="ttname"><a href="struct_o_m_p_f_default_configuration.html#a098edb3edb73fd632afbe75ace076853">OMPFDefaultConfiguration::INVALID_CHUNK_ID</a></div><div class="ttdeci">static const uint32 INVALID_CHUNK_ID</div><div class="ttdef"><b>Definition:</b> ompfDefines.h:79</div></div>
 <div class="ttc" id="ia_string_8h_html"><div class="ttname"><a href="ia_string_8h.html">iaString.h</a></div></div>
-<div class="ttc" id="class_o_m_p_f_1_1ompf_settings_html"><div class="ttname"><a href="class_o_m_p_f_1_1ompf_settings.html">OMPF::ompfSettings</a></div><div class="ttdef"><b>Definition:</b> <a href="ompf_settings_8h_source.html#l00035">ompfSettings.h:35</a></div></div>
-<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_bits_8h_source.html#l00034">iaBits.h:34</a></div></div>
-<div class="ttc" id="class_o_m_p_f_1_1ompf_base_chunk_html"><div class="ttname"><a href="class_o_m_p_f_1_1ompf_base_chunk.html">OMPF::ompfBaseChunk</a></div><div class="ttdef"><b>Definition:</b> <a href="ompf_base_chunk_8h_source.html#l00048">ompfBaseChunk.h:48</a></div></div>
-<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="gtest-tuple_8h_source.html#l00113">gtest-tuple.h:113</a></div></div>
-<div class="ttc" id="namespace_igor_aux_html_ab7ccd27e22398252f24bce35bd7f3b06"><div class="ttname"><a href="namespace_igor_aux.html#ab7ccd27e22398252f24bce35bd7f3b06">IgorAux::operator&lt;&lt;</a></div><div class="ttdeci">__IGOR_INLINE__ std::wostream &amp; operator&lt;&lt;(std::wostream &amp;ostr, const iaColor3&lt; T &gt; &amp;color)</div><div class="ttdef"><b>Definition:</b> <a href="ia_color3_8h_source.html#l00170">iaColor3.h:170</a></div></div>
+<div class="ttc" id="class_o_m_p_f_1_1ompf_settings_html"><div class="ttname"><a href="class_o_m_p_f_1_1ompf_settings.html">OMPF::ompfSettings</a></div><div class="ttdef"><b>Definition:</b> ompfSettings.h:35</div></div>
+<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> iaBits.h:34</div></div>
+<div class="ttc" id="class_o_m_p_f_1_1ompf_base_chunk_html"><div class="ttname"><a href="class_o_m_p_f_1_1ompf_base_chunk.html">OMPF::ompfBaseChunk</a></div><div class="ttdef"><b>Definition:</b> ompfBaseChunk.h:48</div></div>
+<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> iaString.h:432</div></div>
+<div class="ttc" id="namespace_igor_aux_html_ab7ccd27e22398252f24bce35bd7f3b06"><div class="ttname"><a href="namespace_igor_aux.html#ab7ccd27e22398252f24bce35bd7f3b06">IgorAux::operator&lt;&lt;</a></div><div class="ttdeci">__IGOR_INLINE__ std::wostream &amp; operator&lt;&lt;(std::wostream &amp;ostr, const iaColor3&lt; T &gt; &amp;color)</div><div class="ttdef"><b>Definition:</b> iaColor3.h:170</div></div>
 <div class="ttc" id="ompf_defines_8h_html_a9a1edab516dc52f62789512d1f11903ba4bbb8f967da6d1a610596d7257179c2b"><div class="ttname"><a href="ompf_defines_8h.html#a9a1edab516dc52f62789512d1f11903ba4bbb8f967da6d1a610596d7257179c2b">OMPFChunkType::Invalid</a></div></div>
-<div class="ttc" id="class_o_m_p_f_1_1ompf_base_chunk_html_aae90ff2806c03b75cb80ef46c170f72e"><div class="ttname"><a href="class_o_m_p_f_1_1ompf_base_chunk.html#aae90ff2806c03b75cb80ef46c170f72e">OMPF::ompfBaseChunk::_children</a></div><div class="ttdeci">vector&lt; ompfBaseChunk * &gt; _children</div><div class="ttdef"><b>Definition:</b> <a href="ompf_base_chunk_8h_source.html#l00167">ompfBaseChunk.h:167</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_string_html"><div class="ttname"><a href="class_igor_aux_1_1ia_string.html">IgorAux::iaString</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_string_8h_source.html#l00052">iaString.h:52</a></div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_string_html"><div class="ttname"><a href="class_igor_aux_1_1ia_string.html">IgorAux::iaString</a></div><div class="ttdef"><b>Definition:</b> iaString.h:52</div></div>
 <div class="ttc" id="ia_serializable_8h_html"><div class="ttname"><a href="ia_serializable_8h.html">iaSerializable.h</a></div></div>
 <div class="ttc" id="ia_mem_block_8h_html"><div class="ttname"><a href="ia_mem_block_8h.html">iaMemBlock.h</a></div></div>
-<div class="ttc" id="ompf_defines_8h_html_a7b93f6e2ed614ddc75eb6f7f112e88c8"><div class="ttname"><a href="ompf_defines_8h.html#a7b93f6e2ed614ddc75eb6f7f112e88c8">OMPFPathType</a></div><div class="ttdeci">OMPFPathType</div><div class="ttdef"><b>Definition:</b> <a href="ompf_defines_8h_source.html#l00100">ompfDefines.h:100</a></div></div>
+<div class="ttc" id="ompf_defines_8h_html_a7b93f6e2ed614ddc75eb6f7f112e88c8"><div class="ttname"><a href="ompf_defines_8h.html#a7b93f6e2ed614ddc75eb6f7f112e88c8">OMPFPathType</a></div><div class="ttdeci">OMPFPathType</div><div class="ttdef"><b>Definition:</b> ompfDefines.h:100</div></div>
 <div class="ttc" id="ompf_defines_8h_html"><div class="ttname"><a href="ompf_defines_8h.html">ompfDefines.h</a></div></div>
-<div class="ttc" id="class_o_m_p_f_1_1ompf_base_chunk_html_ad95ef702931a37f89c3ef2ebe49156a6"><div class="ttname"><a href="class_o_m_p_f_1_1ompf_base_chunk.html#ad95ef702931a37f89c3ef2ebe49156a6">OMPF::ompfBaseChunk::_name</a></div><div class="ttdeci">iaString _name</div><div class="ttdef"><b>Definition:</b> <a href="ompf_base_chunk_8h_source.html#l00163">ompfBaseChunk.h:163</a></div></div>
-<div class="ttc" id="namespace_o_m_p_f_html"><div class="ttname"><a href="namespace_o_m_p_f.html">OMPF</a></div><div class="ttdef"><b>Definition:</b> <a href="i_model_data_i_o_o_m_p_f_8h_source.html#l00041">iModelDataIOOMPF.h:41</a></div></div>
-<div class="ttc" id="ompf_defines_8h_html_a9a1edab516dc52f62789512d1f11903b"><div class="ttname"><a href="ompf_defines_8h.html#a9a1edab516dc52f62789512d1f11903b">OMPFChunkType</a></div><div class="ttdeci">OMPFChunkType</div><div class="ttdef"><b>Definition:</b> <a href="ompf_defines_8h_source.html#l00084">ompfDefines.h:84</a></div></div>
+<div class="ttc" id="namespace_o_m_p_f_html"><div class="ttname"><a href="namespace_o_m_p_f.html">OMPF</a></div><div class="ttdef"><b>Definition:</b> iModelDataIOOMPF.h:41</div></div>
+<div class="ttc" id="ompf_defines_8h_html_a9a1edab516dc52f62789512d1f11903b"><div class="ttname"><a href="ompf_defines_8h.html#a9a1edab516dc52f62789512d1f11903b">OMPFChunkType</a></div><div class="ttdeci">OMPFChunkType</div><div class="ttdef"><b>Definition:</b> ompfDefines.h:84</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_a878145cd18e1011d187303871a62167.html">OMPF</a></li><li class="navelem"><a class="el" href="dir_bd3c99de46d9119422c5cf96705bf097.html">src</a></li><li class="navelem"><a class="el" href="ompf_base_chunk_8h.html">ompfBaseChunk.h</a></li>
+				<li class="navelem"><a class="el" href="dir_625d2e3c780cb7cb604c5cf016d2018a.html">OMPF</a></li><li class="navelem"><a class="el" href="dir_198129de8be7dd62dfddbcf15bd177fd.html">src</a></li><li class="navelem"><a class="el" href="ompf_base_chunk_8h.html">ompfBaseChunk.h</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:12 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:09 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

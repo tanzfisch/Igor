@@ -1,5 +1,0 @@
-<map id="Igor::iNodeVisitorRenderBoundings::preOrderVisit" name="Igor::iNodeVisitorRenderBoundings::preOrderVisit">
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#a6e7d77b301e705906af5cfb942164a83" title="Igor::iNode::getKind" alt="" coords="223,5,359,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_transform.html#a576c7abc9fdf717b81bc649d9dd80838" title="Igor::iNodeTransform\l::getMatrix" alt="" coords="220,57,361,98"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node_volume.html#aa1198be76092647d0b7e74fd8bf3cede" title="Igor::iNodeVolume::\lgetBoundingBox" alt="" coords="223,122,359,163"/>
-</map>

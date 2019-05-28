@@ -1,5 +1,0 @@
-<map id="Igor::iParticleSystem3D::resetParticle" name="Igor::iParticleSystem3D::resetParticle">
-<area shape="rect" id="node2" href="$class_igor_1_1i_particle_emitter.html#a791434b94fcb032ed65dfb4bc9225e30" title="Igor::iParticleEmitter\l::calcRandomStart" alt="" coords="219,5,359,47"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_vector3.html#a9318308d20ed3bd29e16fd1b41b02eef" title="IgorAux::iaVector3::set" alt="" coords="212,71,367,98"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_vector2.html#a02481dfa0cded422207f6cd197e8177b" title="IgorAux::iaVector2::set" alt="" coords="212,122,367,149"/>
-</map>

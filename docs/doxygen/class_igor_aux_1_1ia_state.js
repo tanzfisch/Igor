@@ -18,12 +18,5 @@ var class_igor_aux_1_1ia_state =
     [ "unregisterLeaveStateDelegate", "class_igor_aux_1_1ia_state.html#ae2eb95fc3985d47855f2b6f94d226a96", null ],
     [ "unregisterReEnterStateDelegate", "class_igor_aux_1_1ia_state.html#afd03702ac1ed92600a1435db75982359", null ],
     [ "unregisterRenderStateDelegate", "class_igor_aux_1_1ia_state.html#ac5e7768d51ef96cfa6aa39ace6f2ede5", null ],
-    [ "_enterStateEvent", "class_igor_aux_1_1ia_state.html#a1d8980589248c858161c6236fe47cc40", null ],
-    [ "_handleStateEvent", "class_igor_aux_1_1ia_state.html#a050212f14329152d91e3531b00fccd9b", null ],
-    [ "_id", "class_igor_aux_1_1ia_state.html#aac84261ae1b2f5c62b59c8c061029427", null ],
-    [ "_leaveStateEvent", "class_igor_aux_1_1ia_state.html#ab8dc82f3d4fe11e216a7c8cf49abb091", null ],
-    [ "_nextID", "class_igor_aux_1_1ia_state.html#ad08fa4b9a692fd1ef76b82fe6763a82a", null ],
-    [ "_reEnterStateEvent", "class_igor_aux_1_1ia_state.html#a6a2a93fac23d1789156ab5b1ad558632", null ],
-    [ "_renderStateEvent", "class_igor_aux_1_1ia_state.html#a059bf4c22352029ee147f6d06b59af6c", null ],
     [ "INVALID_STATE_ID", "class_igor_aux_1_1ia_state.html#a4de53926b54842243d6a7f32d497e12f", null ]
 ];

@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -117,8 +117,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_resource_manager.html'
 <p>This is the complete list of members for <a class="el" href="class_igor_1_1i_resource_manager.html">Igor::iResourceManager</a>, including all inherited members.</p>
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="class_igor_aux_1_1ia_singleton.html#a0b507ce5fad7b017341e83f351c6b5e7">_instance</a></td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iResourceManager &gt;</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_1_1i_resource_manager.html#ad6b344f0ef5950eafe7fe1d51f96bb58">_mutex</a></td><td class="entry"><a class="el" href="class_igor_1_1i_resource_manager.html">Igor::iResourceManager</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_resource_manager.html#a35a0d0fed8d00cd49ad3ba58d4e09302">_searchPaths</a></td><td class="entry"><a class="el" href="class_igor_1_1i_resource_manager.html">Igor::iResourceManager</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_igor_1_1i_resource_manager.html#ac29bab0ffb87e76c31078f5c731fcdcc">addSearchPath</a>(const iaString &amp;folder)</td><td class="entry"><a class="el" href="class_igor_1_1i_resource_manager.html">Igor::iResourceManager</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_resource_manager.html#a004dfd2b37a10cff96e9e8d0c64cb244">clear</a>()</td><td class="entry"><a class="el" href="class_igor_1_1i_resource_manager.html">Igor::iResourceManager</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_igor_aux_1_1ia_singleton.html#aaeaa0f9ea3988b2a4b4093d969264600">destroyInstance</a>()</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iResourceManager &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
@@ -127,19 +125,17 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_resource_manager.html'
   <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_resource_manager.html#acdda5772fd5dd2fee97a3c45aa8eb179">getRelativePath</a>(const iaString &amp;filename)</td><td class="entry"><a class="el" href="class_igor_1_1i_resource_manager.html">Igor::iResourceManager</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_igor_aux_1_1ia_singleton.html#ac03b1b071a316457ca12ee25f02d5466">iaSingleton</a>()=default</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iResourceManager &gt;</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_resource_manager.html#a05a563fb7e33125da003371ef4378e28">iaSingleton&lt; iResourceManager &gt;</a> class</td><td class="entry"><a class="el" href="class_igor_1_1i_resource_manager.html">Igor::iResourceManager</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_1_1i_resource_manager.html#a69362799773a02f285fb63f565b7d4a3">iResourceManager</a>()=default</td><td class="entry"><a class="el" href="class_igor_1_1i_resource_manager.html">Igor::iResourceManager</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_aux_1_1ia_singleton.html#adb3d4b5589facbbd3c913a430853d1d6">isInstantiated</a>()</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iResourceManager &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_aux_1_1ia_singleton.html#ac99a4082356800d8f0ece5640dba6f76">onPreDestroyInstance</a>()</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iResourceManager &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_resource_manager.html#ac4472073192a6aeb97259dea9ba05194">removeSearchPath</a>(const iaString &amp;folder)</td><td class="entry"><a class="el" href="class_igor_1_1i_resource_manager.html">Igor::iResourceManager</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_aux_1_1ia_singleton.html#adfdae2b467af79a532d35939914c90f6">~iaSingleton</a>()</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iResourceManager &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_resource_manager.html#ab6ad316427b7278f820efaee87e8545b">~iResourceManager</a>()=default</td><td class="entry"><a class="el" href="class_igor_1_1i_resource_manager.html">Igor::iResourceManager</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_igor_aux_1_1ia_singleton.html#adb3d4b5589facbbd3c913a430853d1d6">isInstantiated</a>()</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iResourceManager &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_igor_aux_1_1ia_singleton.html#ac99a4082356800d8f0ece5640dba6f76">onPreDestroyInstance</a>()</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iResourceManager &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_igor_1_1i_resource_manager.html#ac4472073192a6aeb97259dea9ba05194">removeSearchPath</a>(const iaString &amp;folder)</td><td class="entry"><a class="el" href="class_igor_1_1i_resource_manager.html">Igor::iResourceManager</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_igor_aux_1_1ia_singleton.html#adfdae2b467af79a532d35939914c90f6">~iaSingleton</a>()</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iResourceManager &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:02 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:20 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -113,8 +113,6 @@ $(document).ready(function(){initNavTree('class_igor_aux_1_1ia_singleton.html','
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-static-attribs">Static Protected Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="class_igor_aux_1_1ia_singleton-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">IgorAux::iaSingleton&lt; T &gt; Class Template Reference</div>  </div>
@@ -122,18 +120,6 @@ $(document).ready(function(){initNavTree('class_igor_aux_1_1ia_singleton.html','
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="ia_singleton_8h_source.html">iaSingleton.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for IgorAux::iaSingleton&lt; T &gt;:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_singleton__inherit__graph.svg" width="848" height="1230"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for IgorAux::iaSingleton&lt; T &gt;:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_singleton__coll__graph.svg" width="216" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -157,25 +143,12 @@ Protected Member Functions</h2></td></tr>
 Static Protected Attributes</h2></td></tr>
 <tr class="memitem:a0b507ce5fad7b017341e83f351c6b5e7"><td class="memItemLeft" align="right" valign="top">static T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_singleton.html#a0b507ce5fad7b017341e83f351c6b5e7">_instance</a> = nullptr</td></tr>
 <tr class="separator:a0b507ce5fad7b017341e83f351c6b5e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ae2b2c2e281a0376ac11fb2ef984413f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_singleton.html#ae2b2c2e281a0376ac11fb2ef984413f8">iaSingleton</a> (const <a class="el" href="class_igor_aux_1_1ia_singleton.html">iaSingleton</a> &amp;p)=default</td></tr>
-<tr class="separator:ae2b2c2e281a0376ac11fb2ef984413f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
-Static Private Attributes</h2></td></tr>
-<tr class="memitem:ace585d87b1de6463b6b5c643fc4764e1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_singleton.html#ace585d87b1de6463b6b5c643fc4764e1">_mutex</a></td></tr>
-<tr class="separator:ace585d87b1de6463b6b5c643fc4764e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br />
 class IgorAux::iaSingleton&lt; T &gt;</h3>
 
 <p>singleton base class</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000117">Todo:</a></b></dt><dd>put here some serious explanation how this works </dd></dl>
-
-<p>Definition at line <a class="el" href="ia_singleton_8h_source.html#l00043">43</a> of file <a class="el" href="ia_singleton_8h_source.html">iaSingleton.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ac03b1b071a316457ca12ee25f02d5466"></a>
 <div class="memitem">
@@ -229,35 +202,6 @@ template&lt;typename T&gt; </div>
 <p>dtor</p>
 <p>deletes singleton instance </p>
 
-<p>Definition at line <a class="el" href="ia_singleton_8h_source.html#l00105">105</a> of file <a class="el" href="ia_singleton_8h_source.html">iaSingleton.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae2b2c2e281a0376ac11fb2ef984413f8"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton</a>&lt; T &gt;::<a class="el" href="class_igor_aux_1_1ia_singleton.html">iaSingleton</a> </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_igor_aux_1_1ia_singleton.html">iaSingleton</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>p</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>copy constructor is not allowed to use </p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -284,8 +228,6 @@ template&lt;typename T&gt; </div>
 </table>
 </div><div class="memdoc">
 <p>deletes singleton instance </p>
-
-<p>Definition at line <a class="el" href="ia_singleton_8h_source.html#l00065">65</a> of file <a class="el" href="ia_singleton_8h_source.html">iaSingleton.h</a>.</p>
 
 </div>
 </div>
@@ -314,8 +256,6 @@ template&lt;typename T&gt; </div>
 <p>returns the singletons instance</p>
 <dl class="section return"><dt>Returns</dt><dd>reference to singletion instance </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_singleton_8h_source.html#l00051">51</a> of file <a class="el" href="ia_singleton_8h_source.html">iaSingleton.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="adb3d4b5589facbbd3c913a430853d1d6"></a>
@@ -341,8 +281,6 @@ template&lt;typename T&gt; </div>
 </table>
 </div><div class="memdoc">
 <p>returns true if the instance of this currently instantiated </p>
-
-<p>Definition at line <a class="el" href="ia_singleton_8h_source.html#l00083">83</a> of file <a class="el" href="ia_singleton_8h_source.html">iaSingleton.h</a>.</p>
 
 </div>
 </div>
@@ -370,18 +308,6 @@ template&lt;typename T&gt; </div>
 </div><div class="memdoc">
 <p>last chance for the instance to clean up before shut down </p>
 
-<p>Reimplemented in <a class="el" href="class_igor_1_1i_widget_manager.html#a0f5c27f3389c7f1586f3506a782f584b">Igor::iWidgetManager</a>, and <a class="el" href="class_igor_1_1i_node_factory.html#a466a40ab9315291c4e0050d49291df90">Igor::iNodeFactory</a>.</p>
-
-<p>Definition at line <a class="el" href="ia_singleton_8h_source.html#l00112">112</a> of file <a class="el" href="ia_singleton_8h_source.html">iaSingleton.h</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_singleton_ac99a4082356800d8f0ece5640dba6f76_icgraph.svg" width="444" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -407,34 +333,6 @@ template&lt;typename T&gt; </div>
 <p>pointer to the singleton instance</p>
 <p>the actual instance definition of any singleton </p>
 
-<p>Definition at line <a class="el" href="ia_singleton_8h_source.html#l00093">93</a> of file <a class="el" href="ia_singleton_8h_source.html">iaSingleton.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ace585d87b1de6463b6b5c643fc4764e1"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> <a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton</a>&lt; T &gt;::_mutex</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex to protect instance pointer</p>
-<p>the mutex of any singleton </p>
-
-<p>Definition at line <a class="el" href="ia_singleton_8h_source.html#l00112">112</a> of file <a class="el" href="ia_singleton_8h_source.html">iaSingleton.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -447,7 +345,7 @@ template&lt;typename T&gt; </div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor_aux.html">IgorAux</a></li><li class="navelem"><a class="el" href="class_igor_aux_1_1ia_singleton.html">iaSingleton</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:19 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:23 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

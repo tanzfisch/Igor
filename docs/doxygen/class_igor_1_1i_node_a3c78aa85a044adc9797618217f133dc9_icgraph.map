@@ -1,7 +1,0 @@
-<map id="Igor::iNode::getChild" name="Igor::iNode::getChild">
-<area shape="rect" id="node2" href="$class_igor_1_1i_node_l_o_d_switch.html#af3796795002e581a06d38fa5c8aca55f" title="Igor::iNodeLODSwitch\l::setThresholds" alt="" coords="192,5,341,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_switch.html#a973f7352c27f506009d8c63d9bf9bce7" title="Igor::iNodeSwitch::\lsetActiveChild" alt="" coords="201,71,332,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_voxel_terrain.html#a710b333da398ffde2cc64e84c1677eb4" title="Igor::iVoxelTerrain\l::updateVisibility" alt="" coords="203,136,330,177"/>
-<area shape="rect" id="node5" href="$class_o_b_j2_o_m_p_f.html#ad02e6ef54cf7a8530e5c54f4c9d2f61d" title="OBJ2OMPF::convert" alt="" coords="196,202,337,229"/>
-<area shape="rect" id="node6" href="$_o_b_j2_o_m_p_f_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main" alt="" coords="389,202,440,229"/>
-</map>

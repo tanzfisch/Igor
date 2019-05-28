@@ -1,6 +1,0 @@
-<map id="Igor::iPhysics::bindTransformNode" name="Igor::iPhysics::bindTransformNode">
-<area shape="rect" id="node2" href="$class_igor_1_1i_node_transform.html#a576c7abc9fdf717b81bc649d9dd80838" title="Igor::iNodeTransform\l::getMatrix" alt="" coords="273,5,415,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_physics_body.html#a4e40e94b3679375b478704c6296635a5" title="Igor::iPhysicsBody\l::setMatrix" alt="" coords="279,71,409,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_physics_body.html#aaf07a98294e83c2a5d9cfdd828e118b6" title="Igor::iPhysicsBody\l::bindTransformNode" alt="" coords="273,136,415,177"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node.html#a865efb791b77d29bb489514326037380" title="Igor::iNode::getID" alt="" coords="463,143,585,170"/>
-</map>

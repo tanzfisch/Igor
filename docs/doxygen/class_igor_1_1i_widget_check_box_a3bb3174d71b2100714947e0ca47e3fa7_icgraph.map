@@ -1,6 +1,0 @@
-<map id="Igor::iWidgetCheckBox::setChecked" name="Igor::iWidgetCheckBox::setChecked">
-<area shape="rect" id="node2" href="$class_igor_1_1i_dialog_decision_box.html#a86e1dc62325ecff2153ea397aef7ca26" title="Igor::iDialogDecisionBox\l::show" alt="" coords="208,23,371,65"/>
-<area shape="rect" id="node3" href="$class_menu_dialog.html#a50c8cb83c8d9003bd9525d68c8ee6679" title="MenuDialog::onAddModel" alt="" coords="419,31,589,57"/>
-<area shape="rect" id="node4" href="$class_menu_dialog.html#a0fe6bdf29a3a7095e2d7e4a38f8d8f70" title="MenuDialog::deinitGraphView" alt="" coords="637,5,829,32"/>
-<area shape="rect" id="node5" href="$class_menu_dialog.html#a5f0986a127a923615177c4c264394f7d" title="MenuDialog::initGraphView" alt="" coords="644,56,823,83"/>
-</map>

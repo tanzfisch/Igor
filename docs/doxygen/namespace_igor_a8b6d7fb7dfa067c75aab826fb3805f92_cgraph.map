@@ -1,5 +1,0 @@
-<map id="Igor::threadFunc" name="Igor::threadFunc">
-<area shape="rect" id="node2" href="$class_igor_1_1i_thread.html#a926bb1aff287b52abc968327f4635599" title="Igor::iThread::init" alt="" coords="176,5,295,32"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_thread.html#a0ffb66fc49f4852bfc16077b767af363" title="Igor::iThread::deinit" alt="" coords="169,56,301,83"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iPhysics \&gt;::getInstance" alt="" coords="349,23,520,65"/>
-</map>

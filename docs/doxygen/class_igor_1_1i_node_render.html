@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -113,7 +113,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_render.html','');
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_node_render-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -122,18 +121,10 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_render.html','');
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="i_node_render_8h_source.html">iNodeRender.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iNodeRender:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_render__inherit__graph.svg" width="672" height="240"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iNodeRender:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_render__coll__graph.svg" width="1102" height="351"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+
+<p>Inherits <a class="el" href="class_igor_1_1i_node.html">Igor::iNode</a>.</p>
+
+<p>Inherited by <a class="el" href="class_igor_1_1i_celestial_node.html">Igor::iCelestialNode</a>, <a class="el" href="class_igor_1_1i_node_sky_box.html">Igor::iNodeSkyBox</a>, <a class="el" href="class_igor_1_1i_node_volume.html">Igor::iNodeVolume</a>, <a class="el" href="class_igor_1_1i_node_water.html">Igor::iNodeWater</a>, and <a class="el" href="class_igor_1_1i_sky_light_node.html">Igor::iSkyLightNode</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -273,11 +264,6 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a2c647bfde42f17d248e8ae597a5a910b inherit pro_attribs_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top">iTransformationChangeEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a2c647bfde42f17d248e8ae597a5a910b">_transformationChangeEvent</a></td></tr>
 <tr class="separator:a2c647bfde42f17d248e8ae597a5a910b inherit pro_attribs_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a24595ab1f180011a2e9a3976cc3572de"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_render.html#a24595ab1f180011a2e9a3976cc3572de">_materialID</a> = <a class="el" href="class_igor_1_1i_material.html#a13049bfb6e67de2349ecefb868a5f121">iMaterial::INVALID_MATERIAL_ID</a></td></tr>
-<tr class="separator:a24595ab1f180011a2e9a3976cc3572de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:ad64c9a06babde60bdd79e94c1ae6ef70"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_render.html#ad64c9a06babde60bdd79e94c1ae6ef70">iNodeVisitorUpdateTransform</a></td></tr>
@@ -297,8 +283,6 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>abstract class for nodes that can render </p>
-
-<p>Definition at line <a class="el" href="i_node_render_8h_source.html#l00044">44</a> of file <a class="el" href="i_node_render_8h_source.html">iNodeRender.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a634e7366b8273309fcf0a51013b08722"></a>
 <div class="memitem">
@@ -321,16 +305,6 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>initializes member variables </p>
-
-<p>Definition at line <a class="el" href="i_node_render_8cpp_source.html#l00016">16</a> of file <a class="el" href="i_node_render_8cpp_source.html">iNodeRender.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_render_a634e7366b8273309fcf0a51013b08722_cgraph.svg" width="375" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -357,8 +331,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>copy ctor </p>
 
-<p>Definition at line <a class="el" href="i_node_render_8cpp_source.html#l00026">26</a> of file <a class="el" href="i_node_render_8cpp_source.html">iNodeRender.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a0b3625d2fef121f1ee472cabd57c4df8"></a>
@@ -382,16 +354,6 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>clears relation to material groups </p>
-
-<p>Definition at line <a class="el" href="i_node_render_8cpp_source.html#l00033">33</a> of file <a class="el" href="i_node_render_8cpp_source.html">iNodeRender.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_render_a0b3625d2fef121f1ee472cabd57c4df8_cgraph.svg" width="578" height="374"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -418,15 +380,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>abstract method draw </p>
 
-<p>Implemented in <a class="el" href="class_igor_1_1i_node_particle_system.html#a315fd48ad948fdccc1f8956d97f4b8f7">Igor::iNodeParticleSystem</a>, <a class="el" href="class_igor_1_1i_sky_light_node.html#af858ce83658824e80a9ac071883b7173">Igor::iSkyLightNode</a>, <a class="el" href="class_igor_1_1i_celestial_node.html#aa18fc68b32ef7abd1436b7d50c7c7f7e">Igor::iCelestialNode</a>, <a class="el" href="class_igor_1_1i_node_sky_box.html#a875e5197dab214dade75d4b46b4b7acb">Igor::iNodeSkyBox</a>, and <a class="el" href="class_igor_1_1i_node_water.html#a8721ac4cbdb63677327b5e88678e7619">Igor::iNodeWater</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_render_a555b40da5534a5e54e4235560678bac0_icgraph.svg" width="382" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
+<p>Implemented in <a class="el" href="class_igor_1_1i_sky_light_node.html#af858ce83658824e80a9ac071883b7173">Igor::iSkyLightNode</a>, <a class="el" href="class_igor_1_1i_celestial_node.html#aa18fc68b32ef7abd1436b7d50c7c7f7e">Igor::iCelestialNode</a>, <a class="el" href="class_igor_1_1i_node_sky_box.html#a875e5197dab214dade75d4b46b4b7acb">Igor::iNodeSkyBox</a>, and <a class="el" href="class_igor_1_1i_node_water.html#a8721ac4cbdb63677327b5e88678e7619">Igor::iNodeWater</a>.</p>
 
 </div>
 </div>
@@ -444,16 +398,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>material id </p>
 
-<p>Definition at line <a class="el" href="i_node_render_8cpp_source.html#l00095">95</a> of file <a class="el" href="i_node_render_8cpp_source.html">iNodeRender.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_render_a71aab4f3ed63aa71b2ea85aed1b4bd08_icgraph.svg" width="384" height="314"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ad63121d64309698004ff654ca42cfb43"></a>
@@ -470,16 +414,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>world matrix of node </dd></dl>
 
-<p>Definition at line <a class="el" href="i_node_render_8cpp_source.html#l00077">77</a> of file <a class="el" href="i_node_render_8cpp_source.html">iNodeRender.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_render_ad63121d64309698004ff654ca42cfb43_icgraph.svg" width="414" height="155"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a5506a0bfcea153a15a8b03923e375949"></a>
@@ -495,16 +429,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if node is visible </dd></dl>
-
-<p>Definition at line <a class="el" href="i_node_render_8cpp_source.html#l00043">43</a> of file <a class="el" href="i_node_render_8cpp_source.html">iNodeRender.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_render_a5506a0bfcea153a15a8b03923e375949_icgraph.svg" width="327" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -534,24 +458,6 @@ Here is the caller graph for this function:</div>
 
 <p>Reimplemented in <a class="el" href="class_igor_1_1i_node_volume.html#af22460eec7108d791c652222ee3f7bff">Igor::iNodeVolume</a>.</p>
 
-<p>Definition at line <a class="el" href="i_node_render_8cpp_source.html#l00068">68</a> of file <a class="el" href="i_node_render_8cpp_source.html">iNodeRender.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_render_a3b6afcd3c7229fd1fa136610f684e5af_cgraph.svg" width="399" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_render_a3b6afcd3c7229fd1fa136610f684e5af_icgraph.svg" width="328" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ab8b8f922aa9660b237ca8e791028dcc0"></a>
@@ -579,24 +485,6 @@ Here is the caller graph for this function:</div>
 <p>Reimplemented from <a class="el" href="class_igor_1_1i_node.html#aa8934442e897cfdf775264f161c69143">Igor::iNode</a>.</p>
 
 <p>Reimplemented in <a class="el" href="class_igor_1_1i_node_volume.html#a05ed3c821278647543de7a025173d636">Igor::iNodeVolume</a>.</p>
-
-<p>Definition at line <a class="el" href="i_node_render_8cpp_source.html#l00059">59</a> of file <a class="el" href="i_node_render_8cpp_source.html">iNodeRender.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_render_ab8b8f922aa9660b237ca8e791028dcc0_cgraph.svg" width="348" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_render_ab8b8f922aa9660b237ca8e791028dcc0_icgraph.svg" width="328" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -626,8 +514,6 @@ Here is the caller graph for this function:</div>
 <p>Reimplemented from <a class="el" href="class_igor_1_1i_node.html#a90b357d410d09c7bcf003d2deb8e33de">Igor::iNode</a>.</p>
 
 <p>Reimplemented in <a class="el" href="class_igor_1_1i_node_volume.html#ae358e82591d32310900d175b2e2f10c0">Igor::iNodeVolume</a>.</p>
-
-<p>Definition at line <a class="el" href="i_node_render_8cpp_source.html#l00048">48</a> of file <a class="el" href="i_node_render_8cpp_source.html">iNodeRender.cpp</a>.</p>
 
 </div>
 </div>
@@ -659,8 +545,6 @@ Here is the caller graph for this function:</div>
 
 <p>Reimplemented in <a class="el" href="class_igor_1_1i_node_volume.html#a40d766c3877a3125e4733c8203ee8c07">Igor::iNodeVolume</a>.</p>
 
-<p>Definition at line <a class="el" href="i_node_render_8cpp_source.html#l00082">82</a> of file <a class="el" href="i_node_render_8cpp_source.html">iNodeRender.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a96696863a607f3af8dbe4ceecd922538"></a>
@@ -683,17 +567,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#a43">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_node_render_8cpp_source.html#l00087">87</a> of file <a class="el" href="i_node_render_8cpp_source.html">iNodeRender.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_render_a96696863a607f3af8dbe4ceecd922538_icgraph.svg" width="414" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -717,8 +590,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_node_render_8cpp_source.html#l00038">38</a> of file <a class="el" href="i_node_render_8cpp_source.html">iNodeRender.cpp</a>.</p>
 
 </div>
 </div>
@@ -746,16 +617,6 @@ Here is the caller graph for this function:</div>
 
 <p>Reimplemented in <a class="el" href="class_igor_1_1i_node_sky_box.html#a39fc231ab2c7f4330799e0ad6e6ed3fe">Igor::iNodeSkyBox</a>, and <a class="el" href="class_igor_1_1i_node_water.html#a359a5f3ff999f21928df69c397ce480f">Igor::iNodeWater</a>.</p>
 
-<p>Definition at line <a class="el" href="i_node_render_8cpp_source.html#l00054">54</a> of file <a class="el" href="i_node_render_8cpp_source.html">iNodeRender.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_render_aef5fe1bc6120f2cca1284646133293ec_icgraph.svg" width="327" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -777,9 +638,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>node that handles physics collisions bound to one body</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000029">Todo:</a></b></dt><dd>also need to remove things after adding them. maybe using IDs for that </dd></dl>
-
-<p>Definition at line <a class="el" href="i_node_render_8h_source.html#l00050">50</a> of file <a class="el" href="i_node_render_8h_source.html">iNodeRender.h</a>.</p>
 
 </div>
 </div>
@@ -801,8 +659,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_node_render_8h_source.html#l00047">47</a> of file <a class="el" href="i_node_render_8h_source.html">iNodeRender.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a5df428abc78ed8fc1b6fcc52949c164c"></a>
@@ -822,8 +678,6 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_node_render_8h_source.html#l00048">48</a> of file <a class="el" href="i_node_render_8h_source.html">iNodeRender.h</a>.</p>
 
 </div>
 </div>
@@ -845,34 +699,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_node_render_8h_source.html#l00049">49</a> of file <a class="el" href="i_node_render_8h_source.html">iNodeRender.h</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a24595ab1f180011a2e9a3976cc3572de"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iNodeRender::_materialID = <a class="el" href="class_igor_1_1i_material.html#a13049bfb6e67de2349ecefb868a5f121">iMaterial::INVALID_MATERIAL_ID</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>material id to render with </p>
-
-<p>Definition at line <a class="el" href="i_node_render_8h_source.html#l00133">133</a> of file <a class="el" href="i_node_render_8h_source.html">iNodeRender.h</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="aa4ccf0acbe230edeb8108767f2149641"></a>
 <div class="memitem">
 <div class="memproto">
@@ -891,8 +720,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>true if if was not filtered by culling process </p>
-
-<p>Definition at line <a class="el" href="i_node_render_8h_source.html#l00094">94</a> of file <a class="el" href="i_node_render_8h_source.html">iNodeRender.h</a>.</p>
 
 </div>
 </div>
@@ -915,8 +742,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>if node will be rendered </p>
 
-<p>Definition at line <a class="el" href="i_node_render_8h_source.html#l00098">98</a> of file <a class="el" href="i_node_render_8h_source.html">iNodeRender.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="abb8781a3b91c2fb7c46f7ec33cb3d3a4"></a>
@@ -938,13 +763,11 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>world matrix </p>
 
-<p>Definition at line <a class="el" href="i_node_render_8h_source.html#l00090">90</a> of file <a class="el" href="i_node_render_8h_source.html">iNodeRender.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_render_8h_source.html">iNodeRender.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_render_8cpp_source.html">iNodeRender.cpp</a></li>
+<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_render_8cpp.html">iNodeRender.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -953,7 +776,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_node_render.html">iNodeRender</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:54 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:18 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

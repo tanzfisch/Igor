@@ -1,5 +1,0 @@
-<map id="Igor::iNodeRender::getWorldMatrix" name="Igor::iNodeRender::getWorldMatrix">
-<area shape="rect" id="node2" href="$class_igor_1_1i_node_visitor_boundings.html#a4628da61fa0214189f1360b3dd5db685" title="Igor::iNodeVisitorBoundings\l::preOrderVisit" alt="" coords="206,5,389,47"/>
-<area shape="rect" id="node3" href="$class_manipulator.html#a625692bdcdb2e123dbcba3d845ebbbcc" title="Manipulator::highlightSelected" alt="" coords="199,71,395,98"/>
-<area shape="rect" id="node4" href="$class_model_viewer.html#a4f285cd99256bc37dd4b1e60919de91b" title="ModelViewer::renderNodeSelected" alt="" coords="187,122,408,149"/>
-</map>

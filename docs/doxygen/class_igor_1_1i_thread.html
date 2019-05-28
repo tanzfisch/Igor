@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,7 +112,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_thread.html','');});
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_thread-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -121,12 +120,8 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_thread.html','');});
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="i_thread_8h_source.html">iThread.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iThread:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_thread__inherit__graph.svg" width="190" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+
+<p>Inherited by <a class="el" href="class_igor_1_1i_render_context_thread.html">Igor::iRenderContextThread</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -150,17 +145,6 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a0ffb66fc49f4852bfc16077b767af363"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_thread.html#a0ffb66fc49f4852bfc16077b767af363">deinit</a> ()</td></tr>
 <tr class="separator:a0ffb66fc49f4852bfc16077b767af363"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a97fe28b45043609b73bcb5a084fb04ba"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_thread.html#a97fe28b45043609b73bcb5a084fb04ba">_worldID</a> = <a class="el" href="class_igor_1_1i_physics_world.html#ab4655d1e6805f26656859bc10ef5e513">iPhysicsWorld::INVALID_WORLD_ID</a></td></tr>
-<tr class="separator:a97fe28b45043609b73bcb5a084fb04ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3974936bb24534561fee1ec80c4a2f7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a3af37bcf6bd4d914e362497090556f74">iThreadState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_thread.html#af3974936bb24534561fee1ec80c4a2f7">_currentState</a> = <a class="el" href="namespace_igor.html#a3af37bcf6bd4d914e362497090556f74a95b19f7739b0b7ea7d6b07586be54f36">iThreadState::Init</a></td></tr>
-<tr class="separator:af3974936bb24534561fee1ec80c4a2f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbf39f2c4a2851ed475283688edff0e8"><td class="memItemLeft" align="right" valign="top">thread *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_thread.html#afbf39f2c4a2851ed475283688edff0e8">_thread</a> = nullptr</td></tr>
-<tr class="separator:afbf39f2c4a2851ed475283688edff0e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2206ff142761cc38533233963b9c6186"><td class="memItemLeft" align="right" valign="top">ThreadDelegate&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_thread.html#a2206ff142761cc38533233963b9c6186">_threadDelegate</a></td></tr>
-<tr class="separator:a2206ff142761cc38533233963b9c6186"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:ad94778bc2f4ae24fb05883867d51df34"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_thread.html#ad94778bc2f4ae24fb05883867d51df34">threadFunc</a> (void *data)</td></tr>
@@ -168,8 +152,6 @@ Friends</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>basic thread </p>
-
-<p>Definition at line <a class="el" href="i_thread_8h_source.html#l00064">64</a> of file <a class="el" href="i_thread_8h_source.html">iThread.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a67f93b8779b218a4ca4d208bf07f0f8c"></a>
 <div class="memitem">
@@ -217,8 +199,6 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p>delete thread handle </p>
 
-<p>Definition at line <a class="el" href="i_thread_8cpp_source.html#l00013">13</a> of file <a class="el" href="i_thread_8cpp_source.html">iThread.cpp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -246,24 +226,6 @@ Friends</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="class_igor_1_1i_render_context_thread.html#aa484a7648ddfb1c67ae98ef8d8a6341a">Igor::iRenderContextThread</a>.</p>
 
-<p>Definition at line <a class="el" href="i_thread_8cpp_source.html#l00031">31</a> of file <a class="el" href="i_thread_8cpp_source.html">iThread.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_thread_a0ffb66fc49f4852bfc16077b767af363_cgraph.svg" width="362" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_thread_a0ffb66fc49f4852bfc16077b767af363_icgraph.svg" width="307" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a6bdadbfb029da8f0492800e5fd0f017f"></a>
@@ -280,8 +242,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true: if thread is initialized; false: if not </dd></dl>
 
-<p>Definition at line <a class="el" href="i_thread_8cpp_source.html#l00036">36</a> of file <a class="el" href="i_thread_8cpp_source.html">iThread.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a13434e62eea63d1b4317ea6ba4d9abd1"></a>
@@ -297,16 +257,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>world id </dd></dl>
-
-<p>Definition at line <a class="el" href="i_thread_8cpp_source.html#l00021">21</a> of file <a class="el" href="i_thread_8cpp_source.html">iThread.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_thread_a13434e62eea63d1b4317ea6ba4d9abd1_icgraph.svg" width="752" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -334,24 +284,6 @@ Here is the caller graph for this function:</div>
 
 <p>Reimplemented in <a class="el" href="class_igor_1_1i_render_context_thread.html#aab56c66985cae44abb69d5712fdfd5c5">Igor::iRenderContextThread</a>.</p>
 
-<p>Definition at line <a class="el" href="i_thread_8cpp_source.html#l00026">26</a> of file <a class="el" href="i_thread_8cpp_source.html">iThread.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_thread_a926bb1aff287b52abc968327f4635599_cgraph.svg" width="348" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_thread_a926bb1aff287b52abc968327f4635599_icgraph.svg" width="294" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a0c3350305fd72dceb115dbdd9966b27e"></a>
@@ -367,8 +299,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>waits for the thread to finish </p>
-
-<p>Definition at line <a class="el" href="i_thread_8cpp_source.html#l00061">61</a> of file <a class="el" href="i_thread_8cpp_source.html">iThread.cpp</a>.</p>
 
 </div>
 </div>
@@ -392,16 +322,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_thread_8cpp_source.html#l00054">54</a> of file <a class="el" href="i_thread_8cpp_source.html">iThread.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_thread_a98bcb4a3b3cc363d0c3773ac4a593b7d_icgraph.svg" width="615" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -428,105 +348,11 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_thread_8cpp_source.html#l00041">41</a> of file <a class="el" href="i_thread_8cpp_source.html">iThread.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="af3974936bb24534561fee1ec80c4a2f7"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#a3af37bcf6bd4d914e362497090556f74">iThreadState</a> Igor::iThread::_currentState = <a class="el" href="namespace_igor.html#a3af37bcf6bd4d914e362497090556f74a95b19f7739b0b7ea7d6b07586be54f36">iThreadState::Init</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_thread_8h_source.html#l00113">113</a> of file <a class="el" href="i_thread_8h_source.html">iThread.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="afbf39f2c4a2851ed475283688edff0e8"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">thread* Igor::iThread::_thread = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>thread handle </p>
-
-<p>Definition at line <a class="el" href="i_thread_8h_source.html#l00117">117</a> of file <a class="el" href="i_thread_8h_source.html">iThread.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2206ff142761cc38533233963b9c6186"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">ThreadDelegate Igor::iThread::_threadDelegate</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the delegate to be called by the thread </p>
-
-<p>Definition at line <a class="el" href="i_thread_8h_source.html#l00121">121</a> of file <a class="el" href="i_thread_8h_source.html">iThread.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a97fe28b45043609b73bcb5a084fb04ba"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iThread::_worldID = <a class="el" href="class_igor_1_1i_physics_world.html#ab4655d1e6805f26656859bc10ef5e513">iPhysicsWorld::INVALID_WORLD_ID</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the world id </p>
-
-<p>Definition at line <a class="el" href="i_thread_8h_source.html#l00111">111</a> of file <a class="el" href="i_thread_8h_source.html">iThread.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_thread_8h_source.html">iThread.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_thread_8cpp_source.html">iThread.cpp</a></li>
+<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_thread_8cpp.html">iThread.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -535,7 +361,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_thread.html">iThread</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:07 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:21 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

@@ -1,11 +1,6 @@
 var class_igor_1_1i_widget_text_edit =
 [
-    [ "iWidgetTextEdit", "class_igor_1_1i_widget_text_edit.html#a34ffe49598358d28688340295c037aa1", null ],
-    [ "~iWidgetTextEdit", "class_igor_1_1i_widget_text_edit.html#a3786cdab5dc43daf9f40c18eb27f0371", null ],
-    [ "calcMinSize", "class_igor_1_1i_widget_text_edit.html#aee9197ed13d7005e28fad00e43adc41f", null ],
-    [ "createInstance", "class_igor_1_1i_widget_text_edit.html#aa608f4dd0821ca931fa967bd5e0839f4", null ],
     [ "decCursorPos", "class_igor_1_1i_widget_text_edit.html#ab9d07198c711fe84b53122d32237e90f", null ],
-    [ "draw", "class_igor_1_1i_widget_text_edit.html#aa4bcfd88e7154fc128fa0f0126971387", null ],
     [ "getCursorPos", "class_igor_1_1i_widget_text_edit.html#a46449421ccf43fc6efc923cf4736242c", null ],
     [ "getHorizontalTextAlignment", "class_igor_1_1i_widget_text_edit.html#a922d15aaf849b5d6c8818fae38a98016", null ],
     [ "getMaxTextLength", "class_igor_1_1i_widget_text_edit.html#a61eec4d83ceb73bd1cc7c8b7e2786210", null ],
@@ -27,16 +22,10 @@ var class_igor_1_1i_widget_text_edit =
     [ "setText", "class_igor_1_1i_widget_text_edit.html#a6c6ff0219d37e32d4b614587e7009213", null ],
     [ "setVerticalTextAlignment", "class_igor_1_1i_widget_text_edit.html#af3c42b7b62021625a91f88d0e69e629d", null ],
     [ "setWriteProtected", "class_igor_1_1i_widget_text_edit.html#aaa59f9692347094814f4367401c3db8b", null ],
-    [ "updateMetrics", "class_igor_1_1i_widget_text_edit.html#a3864023407b3d57ef364a578022bb8aa", null ],
     [ "iWidgetManager", "class_igor_1_1i_widget_text_edit.html#a9da20b1c56a70b01ca0ef56f4d4d47fc", null ],
-    [ "_cursorPos", "class_igor_1_1i_widget_text_edit.html#acd4365b33d20ab9347ddaa4fba19f039", null ],
-    [ "_cursorPosPix", "class_igor_1_1i_widget_text_edit.html#a0f842254d8e73ae4b374848315ef943e", null ],
     [ "_horizontalTextAlignment", "class_igor_1_1i_widget_text_edit.html#a5cac51d63b0987107a6c7780d41f4a86", null ],
-    [ "_maxTextLenght", "class_igor_1_1i_widget_text_edit.html#acc64b413b7a93945c2e380d92530ed13", null ],
-    [ "_scrollOffset", "class_igor_1_1i_widget_text_edit.html#a3fb92bc7f4fb1cef51e6b7b56796535f", null ],
     [ "_text", "class_igor_1_1i_widget_text_edit.html#aa14f7201895e575dc6024abba056e1ab", null ],
     [ "_textBackup", "class_igor_1_1i_widget_text_edit.html#a5500df68ec48d50a3b349e274b1c69dd", null ],
     [ "_triggerChangeAtOnce", "class_igor_1_1i_widget_text_edit.html#a2299bbee66c1aae764294090829c5888", null ],
-    [ "_verticalTextAlignment", "class_igor_1_1i_widget_text_edit.html#a2ed0b97724f5901895f7832bf3e76b90", null ],
-    [ "_writeProtected", "class_igor_1_1i_widget_text_edit.html#aeb1236a9fb413a4e093e06bb2ffe912f", null ]
+    [ "_verticalTextAlignment", "class_igor_1_1i_widget_text_edit.html#a2ed0b97724f5901895f7832bf3e76b90", null ]
 ];

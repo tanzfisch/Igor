@@ -7,7 +7,5 @@ var class_igor_aux_1_1ia_mem_block =
     [ "getDataPointer", "class_igor_aux_1_1ia_mem_block.html#a153bf16fd2fd968bb0001425b7d41498", null ],
     [ "getDataSize", "class_igor_aux_1_1ia_mem_block.html#a5ca7b051fc79fc88c67e494333d1caed", null ],
     [ "hasData", "class_igor_aux_1_1ia_mem_block.html#a190353bcc4395827e0a8c792ad1ad534", null ],
-    [ "setData", "class_igor_aux_1_1ia_mem_block.html#a2f7bad3c20d8c355761428deb44719e4", null ],
-    [ "_data", "class_igor_aux_1_1ia_mem_block.html#a456c8de87ece6caebf98f903ff62a80f", null ],
-    [ "_dataSize", "class_igor_aux_1_1ia_mem_block.html#a6aedf29b045d9dc69dfe0d22519422e9", null ]
+    [ "setData", "class_igor_aux_1_1ia_mem_block.html#a2f7bad3c20d8c355761428deb44719e4", null ]
 ];

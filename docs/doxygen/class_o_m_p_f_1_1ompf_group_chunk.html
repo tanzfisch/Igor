@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,7 +111,6 @@ $(document).ready(function(){initNavTree('class_o_m_p_f_1_1ompf_group_chunk.html
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="class_o_m_p_f_1_1ompf_group_chunk-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">OMPF::ompfGroupChunk Class Reference</div>  </div>
@@ -119,18 +118,8 @@ $(document).ready(function(){initNavTree('class_o_m_p_f_1_1ompf_group_chunk.html
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="ompf_group_chunk_8h_source.html">ompfGroupChunk.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for OMPF::ompfGroupChunk:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_group_chunk__inherit__graph.svg" width="179" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for OMPF::ompfGroupChunk:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_group_chunk__coll__graph.svg" width="179" height="203"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+
+<p>Inherits <a class="el" href="class_o_m_p_f_1_1ompf_base_chunk.html">OMPF::ompfBaseChunk</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -169,18 +158,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a46fad2b1023518cc102c994ad818a166 inherit pub_methods_class_o_m_p_f_1_1ompf_base_chunk"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2301d255ce51d9168b808deccaaf8a2 inherit pub_methods_class_o_m_p_f_1_1ompf_base_chunk"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_base_chunk.html#af2301d255ce51d9168b808deccaaf8a2">getName</a> () const </td></tr>
 <tr class="separator:af2301d255ce51d9168b808deccaaf8a2 inherit pub_methods_class_o_m_p_f_1_1ompf_base_chunk"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a250bff7aa0160678bd47562c19e07865"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_group_chunk.html#a250bff7aa0160678bd47562c19e07865">write</a> (ofstream &amp;stream, const <a class="el" href="class_o_m_p_f_1_1ompf_settings.html">ompfSettings</a> &amp;settings)</td></tr>
-<tr class="separator:a250bff7aa0160678bd47562c19e07865"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac0b2bd085254794b5f9920eb4880cb0"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_group_chunk.html#aac0b2bd085254794b5f9920eb4880cb0">read</a> (ifstream &amp;stream, <a class="el" href="class_o_m_p_f_1_1ompf_settings.html">ompfSettings</a> &amp;settings)</td></tr>
-<tr class="separator:aac0b2bd085254794b5f9920eb4880cb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>group chunk wich simply groups other chunks </p>
-
-<p>Definition at line <a class="el" href="ompf_group_chunk_8h_source.html#l00035">35</a> of file <a class="el" href="ompf_group_chunk_8h_source.html">ompfGroupChunk.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a049f1316a016e31b9985a1a7b8853ef4"></a>
 <div class="memitem">
@@ -195,8 +175,6 @@ Private Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>does nothing </p>
-
-<p>Definition at line <a class="el" href="ompf_group_chunk_8cpp_source.html#l00010">10</a> of file <a class="el" href="ompf_group_chunk_8cpp_source.html">ompfGroupChunk.cpp</a>.</p>
 
 </div>
 </div>
@@ -256,129 +234,11 @@ Private Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="class_o_m_p_f_1_1ompf_base_chunk.html#aa10a43d86b3c7f1efeb2ecb0ca0bf401">OMPF::ompfBaseChunk</a>.</p>
 
-<p>Definition at line <a class="el" href="ompf_group_chunk_8cpp_source.html#l00015">15</a> of file <a class="el" href="ompf_group_chunk_8cpp_source.html">ompfGroupChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_group_chunk_a96c2548c838c158106ad603a7df214e0_cgraph.svg" width="756" height="314"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="aac0b2bd085254794b5f9920eb4880cb0"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OMPF::ompfGroupChunk::read </td>
-          <td>(</td>
-          <td class="paramtype">ifstream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_o_m_p_f_1_1ompf_settings.html">ompfSettings</a> &amp;&#160;</td>
-          <td class="paramname"><em>settings</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>reads chunk from stream</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">stream</td><td>source stream </td></tr>
-    <tr><td class="paramname">settings</td><td>the settings how to read the chunk </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="class_o_m_p_f_1_1ompf_base_chunk.html#aa3b931de6ce181c023f66628c67244da">OMPF::ompfBaseChunk</a>.</p>
-
-<p>Definition at line <a class="el" href="ompf_group_chunk_8cpp_source.html#l00025">25</a> of file <a class="el" href="ompf_group_chunk_8cpp_source.html">ompfGroupChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_group_chunk_aac0b2bd085254794b5f9920eb4880cb0_cgraph.svg" width="582" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a250bff7aa0160678bd47562c19e07865"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OMPF::ompfGroupChunk::write </td>
-          <td>(</td>
-          <td class="paramtype">ofstream &amp;&#160;</td>
-          <td class="paramname"><em>stream</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="class_o_m_p_f_1_1ompf_settings.html">ompfSettings</a> &amp;&#160;</td>
-          <td class="paramname"><em>settings</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>writes chunk to stream</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">stream</td><td>destination stream </td></tr>
-    <tr><td class="paramname">settings</td><td>the settings how to write the chunk </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="class_o_m_p_f_1_1ompf_base_chunk.html#a6f186b41de009cec29ae83a8929f8cea">OMPF::ompfBaseChunk</a>.</p>
-
-<p>Definition at line <a class="el" href="ompf_group_chunk_8cpp_source.html#l00020">20</a> of file <a class="el" href="ompf_group_chunk_8cpp_source.html">ompfGroupChunk.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1ompf_group_chunk_a250bff7aa0160678bd47562c19e07865_cgraph.svg" width="967" height="248"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/dev/Igor/src/OMPF/src/<a class="el" href="ompf_group_chunk_8h_source.html">ompfGroupChunk.h</a></li>
-<li>C:/dev/Igor/src/OMPF/src/<a class="el" href="ompf_group_chunk_8cpp_source.html">ompfGroupChunk.cpp</a></li>
+<li>C:/dev/Igor/src/OMPF/src/<a class="el" href="ompf_group_chunk_8cpp.html">ompfGroupChunk.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -387,7 +247,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_o_m_p_f.html">OMPF</a></li><li class="navelem"><a class="el" href="class_o_m_p_f_1_1ompf_group_chunk.html">ompfGroupChunk</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:22 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:24 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

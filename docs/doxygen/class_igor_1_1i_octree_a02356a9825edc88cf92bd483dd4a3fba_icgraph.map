@@ -1,6 +1,0 @@
-<map id="Igor::iOctree::insert" name="Igor::iOctree::insert">
-<area shape="rect" id="node2" href="$class_igor_1_1i_entity_manager.html#ab9b59ef33842272f13fc52d1b1150c4b" title="Igor::iEntityManager\l::registerEntity" alt="" coords="187,5,326,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_octree.html#a752a714240a21658148771540242d3e2" title="Igor::iOctree::insert" alt="" coords="190,71,323,98"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_octree.html#a23abc7025f6f141f6493b6a4b89a717d" title="Igor::iOctree::update" alt="" coords="187,122,327,149"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_entity_manager.html#a28701eda1decf679b3e1ab6dc1bbb845" title="Igor::iEntityManager\l::handle" alt="" coords="375,115,513,156"/>
-</map>

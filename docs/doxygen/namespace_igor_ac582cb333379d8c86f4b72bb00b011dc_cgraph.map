@@ -1,5 +1,0 @@
-<map id="Igor::iNodeMesh" name="Igor::iNodeMesh">
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iMaterialResourceFactory\l \&gt;::getInstance" alt="" coords="177,5,360,61"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_material_resource_factory.html#a55ee78b1783c8787a374907fe17f3d01" title="Igor::iMaterialResourceFactory\l::createTargetMaterial" alt="" coords="169,86,368,127"/>
-<area shape="rect" id="node4" href="$namespace_igor.html#aca7b69e5879bc84d885a792a08fd0d90" title="Igor::setTargetMaterial" alt="" coords="193,152,344,179"/>
-</map>

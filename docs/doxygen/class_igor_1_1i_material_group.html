@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,7 +111,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_material_group.html','
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_1_1i_material_group-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Igor::iMaterialGroup Class Reference</div>  </div>
@@ -135,19 +134,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5da04cc0e4c0a6133c6f6d1e4057f924"><td class="memItemLeft" align="right" valign="top">map&lt; shared_ptr&lt; <a class="el" href="class_igor_1_1i_mesh_buffers.html">iMeshBuffers</a> &gt;<br class="typebreak" />
 , <a class="el" href="struct_igor_1_1i_instanced_nodes.html">iInstancedNodes</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_group.html#a5da04cc0e4c0a6133c6f6d1e4057f924">getInstancedRenderNodes</a> () const </td></tr>
 <tr class="separator:a5da04cc0e4c0a6133c6f6d1e4057f924"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:aa73e6f5c0b5c93f71f03b84c5f826151"><td class="memItemLeft" align="right" valign="top">vector&lt; uint64 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_group.html#aa73e6f5c0b5c93f71f03b84c5f826151">_renderNodeIDs</a></td></tr>
-<tr class="separator:aa73e6f5c0b5c93f71f03b84c5f826151"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a9e4452f3373454f98cb7c3b9950971"><td class="memItemLeft" align="right" valign="top">map&lt; shared_ptr&lt; <a class="el" href="class_igor_1_1i_mesh_buffers.html">iMeshBuffers</a> &gt;<br class="typebreak" />
-, <a class="el" href="struct_igor_1_1i_instanced_nodes.html">iInstancedNodes</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_group.html#a9a9e4452f3373454f98cb7c3b9950971">_instancedRenderNodes</a></td></tr>
-<tr class="separator:a9a9e4452f3373454f98cb7c3b9950971"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>material group describes a group of render nodes that use the same material </p>
-
-<p>Definition at line <a class="el" href="i_material_group_8h_source.html#l00062">62</a> of file <a class="el" href="i_material_group_8h_source.html">iMaterialGroup.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a01f3cf4e34071ea6dfe30e60749141bb"></a>
 <div class="memitem">
@@ -195,8 +184,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>clean up </p>
 
-<p>Definition at line <a class="el" href="i_material_group_8cpp_source.html#l00015">15</a> of file <a class="el" href="i_material_group_8cpp_source.html">iMaterialGroup.cpp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -232,16 +219,6 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_material_group_8cpp_source.html#l00036">36</a> of file <a class="el" href="i_material_group_8cpp_source.html">iMaterialGroup.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_material_group_a05017d35bf8586ba9319db823976b592_cgraph.svg" width="392" height="155"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a5da04cc0e4c0a6133c6f6d1e4057f924"></a>
@@ -258,8 +235,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>copy of instanced render node meshs in this group </dd></dl>
 
-<p>Definition at line <a class="el" href="i_material_group_8cpp_source.html#l00031">31</a> of file <a class="el" href="i_material_group_8cpp_source.html">iMaterialGroup.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ac159f2c1d4d4d226ac8ff15e139677ff"></a>
@@ -275,16 +250,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>copy of render nodes in this group </dd></dl>
-
-<p>Definition at line <a class="el" href="i_material_group_8cpp_source.html#l00026">26</a> of file <a class="el" href="i_material_group_8cpp_source.html">iMaterialGroup.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_material_group_ac159f2c1d4d4d226ac8ff15e139677ff_icgraph.svg" width="328" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -319,76 +284,11 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_material_group_8cpp_source.html#l00067">67</a> of file <a class="el" href="i_material_group_8cpp_source.html">iMaterialGroup.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_material_group_ae5c9c6cedc257e8a6f58ec1ac02d4d1e_cgraph.svg" width="400" height="155"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_material_group_ae5c9c6cedc257e8a6f58ec1ac02d4d1e_icgraph.svg" width="336" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a9a9e4452f3373454f98cb7c3b9950971"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;shared_ptr&lt;<a class="el" href="class_igor_1_1i_mesh_buffers.html">iMeshBuffers</a>&gt;, <a class="el" href="struct_igor_1_1i_instanced_nodes.html">iInstancedNodes</a>&gt; Igor::iMaterialGroup::_instancedRenderNodes</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>render nodes registred to this material that are also using instancing </p>
-
-<p>Definition at line <a class="el" href="i_material_group_8h_source.html#l00104">104</a> of file <a class="el" href="i_material_group_8h_source.html">iMaterialGroup.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa73e6f5c0b5c93f71f03b84c5f826151"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;uint64&gt; Igor::iMaterialGroup::_renderNodeIDs</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>render node IDs registred to this material </p>
-
-<p>Definition at line <a class="el" href="i_material_group_8h_source.html#l00100">100</a> of file <a class="el" href="i_material_group_8h_source.html">iMaterialGroup.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_material_group_8h_source.html">iMaterialGroup.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_material_group_8cpp_source.html">iMaterialGroup.cpp</a></li>
+<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_material_group_8cpp.html">iMaterialGroup.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -397,7 +297,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_material_group.html">iMaterialGroup</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:48 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:17 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

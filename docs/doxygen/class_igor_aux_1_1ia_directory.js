@@ -18,6 +18,5 @@ var class_igor_aux_1_1ia_directory =
     [ "isRoot", "class_igor_aux_1_1ia_directory.html#a98c5b5aaa990ae28049df58fefbf1db0", null ],
     [ "operator=", "class_igor_aux_1_1ia_directory.html#af803b0f6a4ab7315fe49254bc099bc7c", null ],
     [ "setCurrentDirectory", "class_igor_aux_1_1ia_directory.html#af36b64f70daf80bb6b60ee36fe9fdc02", null ],
-    [ "iaFile", "class_igor_aux_1_1ia_directory.html#a86b456214cb093e5d06962a0e4fd5798", null ],
-    [ "_directoryName", "class_igor_aux_1_1ia_directory.html#a484d81cf02158e310343fc6d63287f1b", null ]
+    [ "iaFile", "class_igor_aux_1_1ia_directory.html#a86b456214cb093e5d06962a0e4fd5798", null ]
 ];

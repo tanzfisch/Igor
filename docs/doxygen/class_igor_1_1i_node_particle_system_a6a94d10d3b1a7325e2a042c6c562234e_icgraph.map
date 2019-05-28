@@ -1,5 +1,0 @@
-<map id="Igor::iNodeParticleSystem::getTextureC" name="Igor::iNodeParticleSystem::getTextureC">
-<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#ae7624b5254a10e0d9d1580dd5239e9de" title="Igor::iModelDataIOOMPF\l::createParticleSystemChunk" alt="" coords="227,5,419,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_particle_system.html#aa47e497b438194f01c1ececbcac58812" title="Igor::iNodeParticleSystem\l::iNodeParticleSystem" alt="" coords="236,71,409,112"/>
-<area shape="rect" id="node4" href="$class_user_control_particle_system.html#a60f0ef94fe517d5fcf6e1f9c9ba63d84" title="UserControlParticleSystem\l::updateGUI" alt="" coords="233,136,412,177"/>
-</map>

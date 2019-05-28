@@ -1,6 +1,0 @@
-<map id="IgorAux::iaString::ftoa" name="IgorAux::iaString::ftoa">
-<area shape="rect" id="node2" href="$class_igor_1_1i_statistics_visualizer.html#afe5bc54c848d17fdc2ae7b901eb26b33" title="Igor::iStatisticsVisualizer\l::drawStatistics" alt="" coords="211,5,377,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget_default_theme.html#abc7b7ac161538e2f73dd914e70054b59" title="Igor::iWidgetDefaultTheme\l::drawGraphLabels" alt="" coords="207,71,381,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_widget_number_chooser.html#a3d9f69490f9a2d905d1017e49f6d6c5a" title="Igor::iWidgetNumberChooser\l::calcMinSize" alt="" coords="200,136,388,177"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_widget_number_chooser.html#a5a8b2ec59415c71be573b098dd55107e" title="Igor::iWidgetNumberChooser\l::draw" alt="" coords="200,201,388,243"/>
-</map>

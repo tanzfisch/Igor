@@ -1,6 +1,0 @@
-<map id="Igor::iPhysics::convexCast" name="Igor::iPhysics::convexCast">
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_matrix.html#a996b71eeda2c5f6e6fc621149f01015d" title="IgorAux::iaMatrix::\lgetData" alt="" coords="251,5,379,47"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_vector3.html#a472d397bcfae85248afadb2345716e07" title="IgorAux::iaVector3\l::getData" alt="" coords="250,71,379,112"/>
-<area shape="rect" id="node4" href="$namespace_igor.html#a596bb06c82e9516406e5df1a2cf24712" title="Igor::CommonRayPrefilter\lCallback" alt="" coords="229,136,400,177"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_vector4.html#a9c095cb0b81597928b8cd86d01fb9348" title="IgorAux::iaVector4::set" alt="" coords="237,202,392,229"/>
-</map>

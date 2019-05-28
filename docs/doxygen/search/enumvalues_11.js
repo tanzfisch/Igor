@@ -18,7 +18,6 @@ var searchData=
   ['rgb',['RGB',['../namespace_igor.html#a1591be7a883348974cbed3cab1bd43d5a889574aebacda6bfd3e534e2b49b8028',1,'Igor::RGB()'],['../namespace_igor.html#af9ae6a2ce98fd0b2149203447eec8346a889574aebacda6bfd3e534e2b49b8028',1,'Igor::RGB()']]],
   ['rgba',['RGBA',['../namespace_igor.html#a1591be7a883348974cbed3cab1bd43d5aea3495a278957dc58165e48a8945469f',1,'Igor::RGBA()'],['../namespace_igor.html#af9ae6a2ce98fd0b2149203447eec8346aea3495a278957dc58165e48a8945469f',1,'Igor::RGBA()']]],
   ['right',['Right',['../namespace_igor.html#aea3bcbf77ead77dc7cb855da623738aea92b09c7c48c520c3c55e497875da437c',1,'Igor::Right()'],['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a92b09c7c48c520c3c55e497875da437c',1,'Igor::Right()']]],
-  ['rotate',['Rotate',['../_manipulator_8h.html#a77aa559e59121f2c11fb42e8041f9d2fa8d2de5368588552fbae54044ac5c7b3d',1,'Manipulator.h']]],
   ['row',['Row',['../namespace_igor.html#ad1f2bb46a86a3c8c906a9f02b512a326aa70367aa7cb74e510f4f9413ccf059d3',1,'Igor']]],
   ['rshift',['RShift',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a8e707c0a523c7ec2179a6b6821d6eba8',1,'Igor']]],
   ['running',['Running',['../namespace_igor.html#a3af37bcf6bd4d914e362497090556f74a5bda814c4aedb126839228f1a3d92f09',1,'Igor']]]

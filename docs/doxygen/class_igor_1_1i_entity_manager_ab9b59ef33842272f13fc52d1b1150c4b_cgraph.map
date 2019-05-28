@@ -1,6 +1,0 @@
-<map id="Igor::iEntityManager::registerEntity" name="Igor::iEntityManager::registerEntity">
-<area shape="rect" id="node2" href="$class_igor_1_1i_entity_locatable.html#a7ee69c0b75261f492941d9429f53fe33" title="Igor::iEntityLocatable\l::getCurrentPos" alt="" coords="192,5,336,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_octree.html#a02356a9825edc88cf92bd483dd4a3fba" title="Igor::iOctree::insert" alt="" coords="197,71,331,98"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_entity.html#a72f9ae9eabd7e2b4f8d7a10bca8f1168" title="Igor::iEntity::getID" alt="" coords="201,122,327,149"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_intersection.html#a6014a2a386e8e33b7f8bf22ece42d3f5" title="Igor::iIntersection\l::intersects" alt="" coords="384,64,505,105"/>
-</map>

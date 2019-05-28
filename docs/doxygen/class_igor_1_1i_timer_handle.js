@@ -11,10 +11,5 @@ var class_igor_1_1i_timer_handle =
     [ "start", "class_igor_1_1i_timer_handle.html#a55ed3baf55a03ec313cad66afd458294", null ],
     [ "stop", "class_igor_1_1i_timer_handle.html#a5da5bdfc35a4df10e7463cce9f6d85ff", null ],
     [ "unregisterTimerDelegate", "class_igor_1_1i_timer_handle.html#ac5264235f3ae433ecca15cb6fc68d59b", null ],
-    [ "iTimer", "class_igor_1_1i_timer_handle.html#a5941cfb647047d505ad803d141b837eb", null ],
-    [ "_intervall", "class_igor_1_1i_timer_handle.html#aac3fdedc4533c409f8e78f2c0a7376b9", null ],
-    [ "_oneShot", "class_igor_1_1i_timer_handle.html#a15f072e35665886bbc56a69c2d37fc31", null ],
-    [ "_playing", "class_igor_1_1i_timer_handle.html#a259c264b94192414a08051ced960cb7e", null ],
-    [ "_time", "class_igor_1_1i_timer_handle.html#a1e6dbfc385db40cbf9988e26fa29626a", null ],
-    [ "_timerEvent", "class_igor_1_1i_timer_handle.html#af42e05028f5c03109778557a0fff6a56", null ]
+    [ "iTimer", "class_igor_1_1i_timer_handle.html#a5941cfb647047d505ad803d141b837eb", null ]
 ];

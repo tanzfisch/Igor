@@ -1,8 +1,0 @@
-<map id="Igor::iWidgetTextEdit::setMaxTextLength" name="Igor::iWidgetTextEdit::setMaxTextLength">
-<area shape="rect" id="node2" href="$class_igor_1_1i_user_control_file_chooser.html#acbdcb369d7f6dabea5fe1a039319b271" title="Igor::iUserControlFileChooser\l::initGUI" alt="" coords="196,5,387,47"/>
-<area shape="rect" id="node5" href="$class_user_control_material.html#a45610f92ae0ae41d9da8fce2aa7bec4b" title="UserControlMaterial\l::initGUI" alt="" coords="223,71,359,112"/>
-<area shape="rect" id="node6" href="$class_user_control_node.html#a0e88553b48518b283b7ba29851af8334" title="UserControlNode::initGUI" alt="" coords="208,137,375,163"/>
-<area shape="rect" id="node7" href="$class_user_control_transformation.html#a78f585dbaf9da6958bacb936feefcb48" title="UserControlTransformation\l::createTextEdit" alt="" coords="204,188,379,229"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_user_control_file_chooser.html#a5d8f62c79b5df55c4f6c9ad6b1ed52c7" title="Igor::iUserControlFileChooser\l::iUserControlFileChooser" alt="" coords="435,5,625,47"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_user_control_file_chooser.html#a6e0a7af39998d6e3dfb1f24ae499fa03" title="Igor::iUserControlFileChooser\l::createInstance" alt="" coords="673,5,864,47"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="Igor::iNodeVolume::updateTree" name="Igor::iNodeVolume::updateTree">
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#acd9afcdfae20de27c0ca44bb5cb89e79" title="Igor::iNode::getScene" alt="" coords="207,27,354,54"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_scene.html#a8a63d0af30f563531ce1feb8ed53f5e2" title="Igor::iScene::updateVolume" alt="" coords="189,78,372,105"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node_volume.html#a74aaf46e343701749b7af3580fd43483" title="Igor::iNodeVolume::\lgetCenter" alt="" coords="420,5,556,47"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node_volume.html#a0b9dce0f82b812f8b6302ce87f2641d3" title="Igor::iNodeVolume::\lgetBoundingSphere" alt="" coords="420,71,556,112"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_node.html#a865efb791b77d29bb489514326037380" title="Igor::iNode::getID" alt="" coords="427,137,549,163"/>
-</map>

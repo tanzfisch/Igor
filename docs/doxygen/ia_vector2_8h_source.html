@@ -178,9 +178,9 @@ $(document).ready(function(){initNavTree('ia_vector2_8h_source.html','');});
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        __IGOR_INLINE__ <span class="keywordtype">void</span> operator/= (T scalar);</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        __IGOR_INLINE__ <span class="keywordtype">bool</span> <a class="code" href="namespacetesting_1_1internal.html#ad1cb54a206a209ddace17a05359d38ae">operator== </a>(<span class="keyword">const</span> <a class="code" href="class_igor_aux_1_1ia_vector2.html">iaVector2&lt;T&gt;</a>&amp; vec) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        __IGOR_INLINE__ <span class="keywordtype">bool</span> operator== (<span class="keyword">const</span> <a class="code" href="class_igor_aux_1_1ia_vector2.html">iaVector2&lt;T&gt;</a>&amp; vec) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        __IGOR_INLINE__ <span class="keywordtype">bool</span> <a class="code" href="namespacetesting_1_1internal.html#a6910869259f8f31825b471e9190fa09a">operator!= </a>(<span class="keyword">const</span> <a class="code" href="class_igor_aux_1_1ia_vector2.html">iaVector2&lt;T&gt;</a>&amp; vec) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        __IGOR_INLINE__ <span class="keywordtype">bool</span> operator!= (<span class="keyword">const</span> <a class="code" href="class_igor_aux_1_1ia_vector2.html">iaVector2&lt;T&gt;</a>&amp; vec) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        __IGOR_INLINE__ <a class="code" href="_igor_8cpp.html#a0acb682b8260ab1c60b918599864e2e5">T</a> operator*  (<span class="keyword">const</span> <a class="code" href="class_igor_aux_1_1ia_vector2.html">iaVector2&lt;T&gt;</a>&amp; vec) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;</div>
@@ -235,26 +235,24 @@ $(document).ready(function(){initNavTree('ia_vector2_8h_source.html','');});
 <div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;};</div>
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;</div>
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_bits_8h_source.html#l00034">iaBits.h:34</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_vector2_html"><div class="ttname"><a href="class_igor_aux_1_1ia_vector2.html">IgorAux::iaVector2</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_vector2_8h_source.html#l00044">iaVector2.h:44</a></div></div>
-<div class="ttc" id="namespacetesting_1_1internal_html_ad1cb54a206a209ddace17a05359d38ae"><div class="ttname"><a href="namespacetesting_1_1internal.html#ad1cb54a206a209ddace17a05359d38ae">testing::internal::operator==</a></div><div class="ttdeci">bool operator==(T *ptr, const linked_ptr&lt; T &gt; &amp;x)</div><div class="ttdef"><b>Definition:</b> <a href="gtest-linked__ptr_8h_source.html#l00223">gtest-linked_ptr.h:223</a></div></div>
-<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="gtest-tuple_8h_source.html#l00113">gtest-tuple.h:113</a></div></div>
-<div class="ttc" id="namespace_igor_aux_html_ab5bf8a829bbd3542cea58ffab252828e"><div class="ttname"><a href="namespace_igor_aux.html#ab5bf8a829bbd3542cea58ffab252828e">IgorAux::iaVector2I</a></div><div class="ttdeci">iaVector2&lt; int64 &gt; iaVector2I</div><div class="ttdef"><b>Definition:</b> <a href="ia_vector2_8h_source.html#l00247">iaVector2.h:247</a></div></div>
+<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> iaBits.h:34</div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_vector2_html"><div class="ttname"><a href="class_igor_aux_1_1ia_vector2.html">IgorAux::iaVector2</a></div><div class="ttdef"><b>Definition:</b> iaVector2.h:44</div></div>
+<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> iaString.h:432</div></div>
+<div class="ttc" id="namespace_igor_aux_html_ab5bf8a829bbd3542cea58ffab252828e"><div class="ttname"><a href="namespace_igor_aux.html#ab5bf8a829bbd3542cea58ffab252828e">IgorAux::iaVector2I</a></div><div class="ttdeci">iaVector2&lt; int64 &gt; iaVector2I</div><div class="ttdef"><b>Definition:</b> iaVector2.h:247</div></div>
 <div class="ttc" id="ia_vector2_8inl_html"><div class="ttname"><a href="ia_vector2_8inl.html">iaVector2.inl</a></div></div>
 <div class="ttc" id="ia_defines_8h_html"><div class="ttname"><a href="ia_defines_8h.html">iaDefines.h</a></div></div>
-<div class="ttc" id="namespace_igor_aux_html_a5c88a439642e5787115c367573a85025"><div class="ttname"><a href="namespace_igor_aux.html#a5c88a439642e5787115c367573a85025">IgorAux::iaVector2f</a></div><div class="ttdeci">iaVector2&lt; float32 &gt; iaVector2f</div><div class="ttdef"><b>Definition:</b> <a href="ia_vector2_8h_source.html#l00235">iaVector2.h:235</a></div></div>
-<div class="ttc" id="namespace_igor_aux_html_afbb6b9999a4b5a327bab80af67262db5"><div class="ttname"><a href="namespace_igor_aux.html#afbb6b9999a4b5a327bab80af67262db5">IgorAux::iaVector2d</a></div><div class="ttdeci">iaVector2&lt; float64 &gt; iaVector2d</div><div class="ttdef"><b>Definition:</b> <a href="ia_vector2_8h_source.html#l00239">iaVector2.h:239</a></div></div>
-<div class="ttc" id="namespace_igor_aux_html_a9f4d278020d24f0b41171f05e05a729d"><div class="ttname"><a href="namespace_igor_aux.html#a9f4d278020d24f0b41171f05e05a729d">IgorAux::iaVector2i</a></div><div class="ttdeci">iaVector2&lt; int32 &gt; iaVector2i</div><div class="ttdef"><b>Definition:</b> <a href="ia_vector2_8h_source.html#l00243">iaVector2.h:243</a></div></div>
-<div class="ttc" id="namespacetesting_1_1internal_html_a6910869259f8f31825b471e9190fa09a"><div class="ttname"><a href="namespacetesting_1_1internal.html#a6910869259f8f31825b471e9190fa09a">testing::internal::operator!=</a></div><div class="ttdeci">bool operator!=(T *ptr, const linked_ptr&lt; T &gt; &amp;x)</div><div class="ttdef"><b>Definition:</b> <a href="gtest-linked__ptr_8h_source.html#l00228">gtest-linked_ptr.h:228</a></div></div>
+<div class="ttc" id="namespace_igor_aux_html_a5c88a439642e5787115c367573a85025"><div class="ttname"><a href="namespace_igor_aux.html#a5c88a439642e5787115c367573a85025">IgorAux::iaVector2f</a></div><div class="ttdeci">iaVector2&lt; float32 &gt; iaVector2f</div><div class="ttdef"><b>Definition:</b> iaVector2.h:235</div></div>
+<div class="ttc" id="namespace_igor_aux_html_afbb6b9999a4b5a327bab80af67262db5"><div class="ttname"><a href="namespace_igor_aux.html#afbb6b9999a4b5a327bab80af67262db5">IgorAux::iaVector2d</a></div><div class="ttdeci">iaVector2&lt; float64 &gt; iaVector2d</div><div class="ttdef"><b>Definition:</b> iaVector2.h:239</div></div>
+<div class="ttc" id="namespace_igor_aux_html_a9f4d278020d24f0b41171f05e05a729d"><div class="ttname"><a href="namespace_igor_aux.html#a9f4d278020d24f0b41171f05e05a729d">IgorAux::iaVector2i</a></div><div class="ttdeci">iaVector2&lt; int32 &gt; iaVector2i</div><div class="ttdef"><b>Definition:</b> iaVector2.h:243</div></div>
 <div class="ttc" id="_igor_8cpp_html_a0acb682b8260ab1c60b918599864e2e5"><div class="ttname"><a href="_igor_8cpp.html#a0acb682b8260ab1c60b918599864e2e5">T</a></div><div class="ttdeci">#define T</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_c402b4467a53150ecb66faacb9627039.html">IgorAux</a></li><li class="navelem"><a class="el" href="dir_052e06d5847ef9011a3307e293e59b2d.html">src</a></li><li class="navelem"><a class="el" href="ia_vector2_8h.html">iaVector2.h</a></li>
+				<li class="navelem"><a class="el" href="dir_038706058e6e4ef52f3f38f20b163fcb.html">IgorAux</a></li><li class="navelem"><a class="el" href="dir_81853e009da3367582c439e5f0afaec8.html">src</a></li><li class="navelem"><a class="el" href="ia_vector2_8h.html">iaVector2.h</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:11 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:09 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

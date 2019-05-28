@@ -179,21 +179,21 @@ $(document).ready(function(){initNavTree('i_timer_8h_source.html','');});
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        </div>
-<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="class_igor_1_1i_timer.html#ac4afd3f1ca7a18f0cff90d07c443fbcc">  100</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="class_igor_1_1i_timer.html#ac4afd3f1ca7a18f0cff90d07c443fbcc">_usingPerformanceCounter</a>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordtype">bool</span> _usingPerformanceCounter;</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;</div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="class_igor_1_1i_timer.html#a52812fff15ff508eb897b18a85cc2dea">  104</a></span>&#160;        uint64 _timeDelta = 0;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        uint64 _timeDelta = 0;</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
-<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="class_igor_1_1i_timer.html#ae912d5072f33aadffce9c6451e408061">  108</a></span>&#160;        uint64 _startTime = 0;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        uint64 _startTime = 0;</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
-<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="class_igor_1_1i_timer.html#a5951ed8d59659983b76c6b7b34a8d61f">  112</a></span>&#160;        uint64 _currentTime = 0;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        uint64 _currentTime = 0;</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
-<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="class_igor_1_1i_timer.html#a3be08788b47a2b5c15c693c73c05ce86">  116</a></span>&#160;        uint64 _lastTime = 0;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        uint64 _lastTime = 0;</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="class_igor_1_1i_timer.html#a97bba313faf93f542d8ee4dd278f19cb">  120</a></span>&#160;        uint64 _performance = 0;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        uint64 _performance = 0;</div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;</div>
-<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="class_igor_1_1i_timer.html#ae85af78335ed504a081f45d9b5ba0523">  124</a></span>&#160;        float64 _timeScale = 0.0;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        float64 _timeScale = 0.0;</div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;</div>
-<div class="line"><a name="l00130"></a><span class="lineno"><a class="line" href="class_igor_1_1i_timer.html#ab7a2272b295a75186a1a1da7e232e15f">  130</a></span>&#160;        vector&lt;iTimerHandle*&gt; <a class="code" href="class_igor_1_1i_timer.html#ab7a2272b295a75186a1a1da7e232e15f">_timerHandles</a>;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        vector&lt;iTimerHandle*&gt; _timerHandles;</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="keywordtype">void</span> insertTimerHandle(<span class="keyword">const</span> <a class="code" href="class_igor_1_1i_timer_handle.html">iTimerHandle</a> *timer_handle);</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
@@ -210,25 +210,23 @@ $(document).ready(function(){initNavTree('i_timer_8h_source.html','');});
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;}</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="class_igor_1_1i_application_html"><div class="ttname"><a href="class_igor_1_1i_application.html">Igor::iApplication</a></div><div class="ttdef"><b>Definition:</b> <a href="i_application_8h_source.html#l00056">iApplication.h:56</a></div></div>
-<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_bits_8h_source.html#l00034">iaBits.h:34</a></div></div>
-<div class="ttc" id="class_igor_1_1i_timer_handle_html"><div class="ttname"><a href="class_igor_1_1i_timer_handle.html">Igor::iTimerHandle</a></div><div class="ttdef"><b>Definition:</b> <a href="i_timer_handle_8h_source.html#l00048">iTimerHandle.h:48</a></div></div>
-<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="gtest-tuple_8h_source.html#l00113">gtest-tuple.h:113</a></div></div>
-<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> <a href="i_a_a_box_8h_source.html#l00036">iAABox.h:36</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_singleton_html"><div class="ttname"><a href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_singleton_8h_source.html#l00043">iaSingleton.h:43</a></div></div>
+<div class="ttc" id="class_igor_1_1i_application_html"><div class="ttname"><a href="class_igor_1_1i_application.html">Igor::iApplication</a></div><div class="ttdef"><b>Definition:</b> iApplication.h:56</div></div>
+<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> iaBits.h:34</div></div>
+<div class="ttc" id="class_igor_1_1i_timer_handle_html"><div class="ttname"><a href="class_igor_1_1i_timer_handle.html">Igor::iTimerHandle</a></div><div class="ttdef"><b>Definition:</b> iTimerHandle.h:48</div></div>
+<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> iaString.h:432</div></div>
+<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> iAABox.h:36</div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_singleton_html"><div class="ttname"><a href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton</a></div><div class="ttdef"><b>Definition:</b> iaSingleton.h:43</div></div>
 <div class="ttc" id="ia_singleton_8h_html"><div class="ttname"><a href="ia_singleton_8h.html">iaSingleton.h</a></div></div>
-<div class="ttc" id="class_igor_1_1i_timer_html_ac4afd3f1ca7a18f0cff90d07c443fbcc"><div class="ttname"><a href="class_igor_1_1i_timer.html#ac4afd3f1ca7a18f0cff90d07c443fbcc">Igor::iTimer::_usingPerformanceCounter</a></div><div class="ttdeci">bool _usingPerformanceCounter</div><div class="ttdef"><b>Definition:</b> <a href="i_timer_8h_source.html#l00100">iTimer.h:100</a></div></div>
-<div class="ttc" id="class_igor_1_1i_timer_html"><div class="ttname"><a href="class_igor_1_1i_timer.html">Igor::iTimer</a></div><div class="ttdef"><b>Definition:</b> <a href="i_timer_8h_source.html#l00048">iTimer.h:48</a></div></div>
+<div class="ttc" id="class_igor_1_1i_timer_html"><div class="ttname"><a href="class_igor_1_1i_timer.html">Igor::iTimer</a></div><div class="ttdef"><b>Definition:</b> iTimer.h:48</div></div>
 <div class="ttc" id="i_timer_handle_8h_html"><div class="ttname"><a href="i_timer_handle_8h.html">iTimerHandle.h</a></div></div>
-<div class="ttc" id="class_igor_1_1i_timer_html_ab7a2272b295a75186a1a1da7e232e15f"><div class="ttname"><a href="class_igor_1_1i_timer.html#ab7a2272b295a75186a1a1da7e232e15f">Igor::iTimer::_timerHandles</a></div><div class="ttdeci">vector&lt; iTimerHandle * &gt; _timerHandles</div><div class="ttdef"><b>Definition:</b> <a href="i_timer_8h_source.html#l00130">iTimer.h:130</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_d038480633c1631388acdc016f2c394d.html">Igor</a></li><li class="navelem"><a class="el" href="dir_c666f9416e68e5cd51b28bff0f98e46c.html">src</a></li><li class="navelem"><a class="el" href="i_timer_8h.html">iTimer.h</a></li>
+				<li class="navelem"><a class="el" href="dir_f25e90d47839bd5aa725b19f9dd3e654.html">Igor</a></li><li class="navelem"><a class="el" href="dir_b12320815bd4967fc918d17f555d23eb.html">src</a></li><li class="navelem"><a class="el" href="i_timer_8h.html">iTimer.h</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:05 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:07 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

@@ -1,9 +1,0 @@
-<map id="Igor::iContouringCubes" name="Igor::iContouringCubes">
-<area shape="rect" id="node2" href="$class_igor_1_1i_voxel_data.html" title="Igor::iVoxelData" alt="" coords="31,479,145,505"/>
-<area shape="rect" id="node3" href="$struct_igor_1_1i_voxel_pole.html" title="Igor::iVoxelPole" alt="" coords="31,347,145,373"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_r_l_e.html" title="IgorAux::iaRLE\&lt; uint8,\l uint8 \&gt;" alt="" coords="11,199,165,240"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_r_l_e.html" title="IgorAux::iaRLE\&lt; TValue,\l TIndex \&gt;" alt="" coords="5,95,171,136"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_mesh_builder.html" title="Igor::iMeshBuilder" alt="" coords="174,479,301,505"/>
-<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_matrix.html" title="IgorAux::iaMatrix\&lt; T \&gt;" alt="" coords="173,347,323,373"/>
-<area shape="rect" id="node10" href="$class_igor_aux_1_1ia_vector3.html" title="IgorAux::iaVector3\&lt; T \&gt;" alt="" coords="289,397,449,424"/>
-</map>

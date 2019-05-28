@@ -1,6 +1,0 @@
-<map id="Igor::iWidget::setTooltip" name="Igor::iWidget::setTooltip">
-<area shape="rect" id="node2" href="$class_igor_1_1i_dialog_color_chooser.html#a478dcc24d00c3433a4139cd42faca383" title="Igor::iDialogColorChooser\l::initGUI" alt="" coords="213,5,381,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_dialog_color_gradient.html#a1c09eeb174db894a5e755b8ef13e914f" title="Igor::iDialogColorGradient\l::initGUI" alt="" coords="212,71,381,112"/>
-<area shape="rect" id="node4" href="$class_user_control_graph_view.html#afb737ca9c452b2284871b693addd2e33" title="UserControlGraphView\l::initGUI" alt="" coords="220,136,373,177"/>
-<area shape="rect" id="node5" href="$class_user_control_material_view.html#af00d3b18c83b4335ffa14bd0b1324dbc" title="UserControlMaterialView\l::initGUI" alt="" coords="215,201,379,243"/>
-</map>

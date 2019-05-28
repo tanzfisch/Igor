@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['o',['o',['../class_plane.html#a03b98e8f5a465f580540104bbb65f87b',1,'Plane::o()'],['../class_sphere.html#aaf48a8c5817d12d3b7b1b0947b61b4d5',1,'Sphere::o()']]],
-  ['origin',['origin',['../class_ray.html#afedb537063cc69f8c469e30418798126',1,'Ray']]]
+  ['sampler_5ftexture',['SAMPLER_TEXTURE',['../class_igor_1_1i_material.html#a24471387af6026299e7ba23cc7b7f09d',1,'Igor::iMaterial']]],
+  ['sphere',['Sphere',['../i_particle_emitter_8h.html#ad42bc9bcc56d05e89f090a014916d97e',1,'Sphere():&#160;iParticleEmitter.h'],['../ompf_emitter_chunk_8h.html#ad42bc9bcc56d05e89f090a014916d97e',1,'Sphere():&#160;ompfEmitterChunk.h']]],
+  ['square',['Square',['../i_particle_emitter_8h.html#a007191c36b035694a086d6f9c6c0462a',1,'Square():&#160;iParticleEmitter.h'],['../ompf_emitter_chunk_8h.html#a007191c36b035694a086d6f9c6c0462a',1,'Square():&#160;ompfEmitterChunk.h']]],
+  ['stringsizesize',['StringSizeSize',['../struct_o_m_p_f_default_configuration.html#ad7b8f7df4cdb34987d14d6382d67be88',1,'OMPFDefaultConfiguration']]]
 ];

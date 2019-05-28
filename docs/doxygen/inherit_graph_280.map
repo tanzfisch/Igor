@@ -1,5 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$singletontesting_1_1internal_1_1_param_generator_interface.html" title="testing::internal::\lParamGeneratorInterface\&lt; T \&gt;" alt="" coords="5,39,203,80"/>
-<area shape="rect" id="node2" href="$classtesting_1_1internal_1_1_range_generator.html" title="testing::internal::\lRangeGenerator\&lt; T, IncrementT \&gt;" alt="" coords="260,5,479,47"/>
-<area shape="rect" id="node3" href="$classtesting_1_1internal_1_1_values_in_iterator_range_generator.html" title="testing::internal::\lValuesInIteratorRangeGenerator\&lt; T \&gt;" alt="" coords="251,71,488,112"/>
-</map>

@@ -1,5 +1,0 @@
-<map id="testing::internal::scoped_ptr::reset" name="testing::internal::scoped_ptr::reset">
-<area shape="rect" id="node2" href="$classtesting_1_1internal_1_1scoped__ptr.html#ab721de9bf4369f002fb563e82352ee36" title="testing::internal::\lscoped_ptr\&lt; testing\l::internal::ParamIteratorInterface\l\&lt; T \&gt; \&gt;::~scoped_ptr" alt="" coords="176,5,383,76"/>
-<area shape="rect" id="node3" href="$classtesting_1_1internal_1_1_values_in_iterator_range_generator_1_1_iterator.html#a49e0c9d26983eb8c76cc9c8ac4469dbf" title="testing::internal::\lValuesInIteratorRangeGenerator\l::Iterator::Advance" alt="" coords="176,101,383,157"/>
-<area shape="rect" id="node4" href="$classtesting_1_1internal_1_1_values_in_iterator_range_generator_1_1_iterator.html#a8e6087d495d2297ee1d4aabab0b9fe68" title="testing::internal::\lValuesInIteratorRangeGenerator\l::Iterator::Current" alt="" coords="176,181,383,237"/>
-</map>

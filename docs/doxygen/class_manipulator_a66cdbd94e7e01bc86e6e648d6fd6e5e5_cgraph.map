@@ -1,9 +1,0 @@
-<map id="Manipulator::create2DRingMesh" name="Manipulator::create2DRingMesh">
-<area shape="rect" id="node2" href="$namespace_igor_1_1i_mesh_builder_utils.html#adc61ff1b612713ecaf123a34b11d512c" title="Igor::iMeshBuilderUtils\l::addRing" alt="" coords="260,71,412,112"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_mesh_builder.html#a46e0762ee333059fd53821e286fc3f08" title="Igor::iMeshBuilder\l::calcNormals" alt="" coords="273,136,399,177"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_mesh_builder.html#acc4acc76e9103871efa519e29c2e66bf" title="Igor::iMeshBuilder\l::createMesh" alt="" coords="273,201,399,243"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_mesh_builder.html#a7bc707a833d24cff2eebc2a0432af35c" title="Igor::iMeshBuilder\l::getVertexCount" alt="" coords="480,5,607,47"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_mesh_builder.html#ae132784ebd5a29f57ff13f2e242ca50b" title="Igor::iMeshBuilder\l::addVertex" alt="" coords="480,71,607,112"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_mesh_builder.html#ac3ae47c63dd2b5b18840482d485de85d" title="Igor::iMeshBuilder\l::addTriangle" alt="" coords="480,136,607,177"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_mesh.html#a727bba08a76e6fbf2bc4fba1abe8703d" title="Igor::iMesh::setBounding\lSphere" alt="" coords="460,201,627,243"/>
-</map>

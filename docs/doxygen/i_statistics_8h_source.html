@@ -183,13 +183,13 @@ $(document).ready(function(){initNavTree('i_statistics_8h_source.html','');});
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
-<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="class_igor_1_1i_statistics.html#ad14c5437386bf15d62012286db042a95">  103</a></span>&#160;        uint64 _frame = 0;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        uint64 _frame = 0;</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        </div>
-<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="class_igor_1_1i_statistics.html#a8e5bdde6d179066084991b9701c67d25">  107</a></span>&#160;        map&lt;uint32, iStatisticsSection&gt; <a class="code" href="class_igor_1_1i_statistics.html#a8e5bdde6d179066084991b9701c67d25">_sections</a>;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        map&lt;uint32, iStatisticsSection&gt; _sections;</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
-<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="class_igor_1_1i_statistics.html#afb0dd4930d15c69fd101c7e57e32b974">  111</a></span>&#160;        uint32 _nextSectionID = iStatisticsSection::INVALID_SECTION_ID + 1;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        uint32 _nextSectionID = iStatisticsSection::INVALID_SECTION_ID + 1;</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
-<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="class_igor_1_1i_statistics.html#af3f12807bb198a1b1affae473a92e6db">  115</a></span>&#160;        float64 _seconds = 0;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        float64 _seconds = 0;</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <a class="code" href="class_igor_1_1i_statistics.html">iStatistics</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;</div>
@@ -201,26 +201,25 @@ $(document).ready(function(){initNavTree('i_statistics_8h_source.html','');});
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="ia_string_8h_html"><div class="ttname"><a href="ia_string_8h.html">iaString.h</a></div></div>
-<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_bits_8h_source.html#l00034">iaBits.h:34</a></div></div>
-<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="gtest-tuple_8h_source.html#l00113">gtest-tuple.h:113</a></div></div>
-<div class="ttc" id="class_igor_1_1i_statistics_html"><div class="ttname"><a href="class_igor_1_1i_statistics.html">Igor::iStatistics</a></div><div class="ttdef"><b>Definition:</b> <a href="i_statistics_8h_source.html#l00052">iStatistics.h:52</a></div></div>
-<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> <a href="i_a_a_box_8h_source.html#l00036">iAABox.h:36</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_singleton_html"><div class="ttname"><a href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_singleton_8h_source.html#l00043">iaSingleton.h:43</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_string_html"><div class="ttname"><a href="class_igor_aux_1_1ia_string.html">IgorAux::iaString</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_string_8h_source.html#l00052">iaString.h:52</a></div></div>
+<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> iaBits.h:34</div></div>
+<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> iaString.h:432</div></div>
+<div class="ttc" id="class_igor_1_1i_statistics_html"><div class="ttname"><a href="class_igor_1_1i_statistics.html">Igor::iStatistics</a></div><div class="ttdef"><b>Definition:</b> iStatistics.h:52</div></div>
+<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> iAABox.h:36</div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_singleton_html"><div class="ttname"><a href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton</a></div><div class="ttdef"><b>Definition:</b> iaSingleton.h:43</div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_string_html"><div class="ttname"><a href="class_igor_aux_1_1ia_string.html">IgorAux::iaString</a></div><div class="ttdef"><b>Definition:</b> iaString.h:52</div></div>
 <div class="ttc" id="ia_singleton_8h_html"><div class="ttname"><a href="ia_singleton_8h.html">iaSingleton.h</a></div></div>
 <div class="ttc" id="ia_color4_8h_html"><div class="ttname"><a href="ia_color4_8h.html">iaColor4.h</a></div></div>
 <div class="ttc" id="ia_console_8h_html"><div class="ttname"><a href="ia_console_8h.html">iaConsole.h</a></div></div>
 <div class="ttc" id="i_statistics_section_8h_html"><div class="ttname"><a href="i_statistics_section_8h.html">iStatisticsSection.h</a></div></div>
-<div class="ttc" id="class_igor_1_1i_statistics_html_a8e5bdde6d179066084991b9701c67d25"><div class="ttname"><a href="class_igor_1_1i_statistics.html#a8e5bdde6d179066084991b9701c67d25">Igor::iStatistics::_sections</a></div><div class="ttdeci">map&lt; uint32, iStatisticsSection &gt; _sections</div><div class="ttdef"><b>Definition:</b> <a href="i_statistics_8h_source.html#l00107">iStatistics.h:107</a></div></div>
 <div class="ttc" id="i_defines_8h_html"><div class="ttname"><a href="i_defines_8h.html">iDefines.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_d038480633c1631388acdc016f2c394d.html">Igor</a></li><li class="navelem"><a class="el" href="dir_c666f9416e68e5cd51b28bff0f98e46c.html">src</a></li><li class="navelem"><a class="el" href="i_statistics_8h.html">iStatistics.h</a></li>
+				<li class="navelem"><a class="el" href="dir_f25e90d47839bd5aa725b19f9dd3e654.html">Igor</a></li><li class="navelem"><a class="el" href="dir_b12320815bd4967fc918d17f555d23eb.html">src</a></li><li class="navelem"><a class="el" href="i_statistics_8h.html">iStatistics.h</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:04 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:07 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

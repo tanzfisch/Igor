@@ -1,9 +1,5 @@
 var class_igor_1_1i_node_particle_system =
 [
-    [ "iNodeParticleSystem", "class_igor_1_1i_node_particle_system.html#a5d5999917c027a8ae006669926c169d0", null ],
-    [ "iNodeParticleSystem", "class_igor_1_1i_node_particle_system.html#aa47e497b438194f01c1ececbcac58812", null ],
-    [ "~iNodeParticleSystem", "class_igor_1_1i_node_particle_system.html#aae258c68bb90a07ecf978738f0bdffca", null ],
-    [ "draw", "class_igor_1_1i_node_particle_system.html#a315fd48ad948fdccc1f8956d97f4b8f7", null ],
     [ "getAirDrag", "class_igor_1_1i_node_particle_system.html#a00471ece07c2052a0c68652f481d4dd3", null ],
     [ "getColorGradient", "class_igor_1_1i_node_particle_system.html#ac6b06549631b8d72d0c19c22440a7b17", null ],
     [ "getEmissionGradient", "class_igor_1_1i_node_particle_system.html#a1e1f5a7767d58194e01a0f188e9243f3", null ],
@@ -32,11 +28,8 @@ var class_igor_1_1i_node_particle_system =
     [ "getVortexTorqueMax", "class_igor_1_1i_node_particle_system.html#a457f2708c57be7e8039072eb5ddb49f5", null ],
     [ "getVortexTorqueMin", "class_igor_1_1i_node_particle_system.html#a927225712bf9e0f95751c0f3efaa3d36", null ],
     [ "getVorticityConfinement", "class_igor_1_1i_node_particle_system.html#a450c5a11cb612636f9e2d12351f15009", null ],
-    [ "handle", "class_igor_1_1i_node_particle_system.html#ac9c31b3351956a4f4cd0897e8fb8c91e", null ],
     [ "isFinished", "class_igor_1_1i_node_particle_system.html#aa306eaef94197552f48a7716a1525eae", null ],
     [ "isRunning", "class_igor_1_1i_node_particle_system.html#a1a32fcf4281cd02ff32f84f70a9f5b01", null ],
-    [ "onPostCopyLink", "class_igor_1_1i_node_particle_system.html#a0ef2148784530e4f35b8c8ce1b35305c", null ],
-    [ "onUpdateTransform", "class_igor_1_1i_node_particle_system.html#a158baf83916b64f775d2bd778d2dcc92", null ],
     [ "registerParticleSystemFinishedDelegate", "class_igor_1_1i_node_particle_system.html#af26a28105e02558be2da7cfd5f688f85", null ],
     [ "reset", "class_igor_1_1i_node_particle_system.html#a48cc9f417b0cd599c85a63fe5a33c420", null ],
     [ "setAirDrag", "class_igor_1_1i_node_particle_system.html#a121e431760a4b62abd6339e92d82477c", null ],
@@ -66,12 +59,5 @@ var class_igor_1_1i_node_particle_system =
     [ "start", "class_igor_1_1i_node_particle_system.html#a75ef806092ebbb68a6201d51aed6561b", null ],
     [ "stop", "class_igor_1_1i_node_particle_system.html#a8a3e6d816d75fee82ff11cededc05288", null ],
     [ "unregisterParticleSystemFinishedDelegate", "class_igor_1_1i_node_particle_system.html#a3dceef38c715aa1aff1831e21e5f567c", null ],
-    [ "iNodeFactory", "class_igor_1_1i_node_particle_system.html#a443fcc5b71f6dbb2a68dae3d957024c3", null ],
-    [ "_emitterID", "class_igor_1_1i_node_particle_system.html#a95df0ff8359ae73a0a1650940eff2043", null ],
-    [ "_fishedEvent", "class_igor_1_1i_node_particle_system.html#a4b1660be4a4fc5454bb4e1cc6d922a0a", null ],
-    [ "_particleSystem", "class_igor_1_1i_node_particle_system.html#a16999bc0825cb4c4723773295ee4515f", null ],
-    [ "_textureA", "class_igor_1_1i_node_particle_system.html#a19cb214a60ec901fd53e3b86be359f3c", null ],
-    [ "_textureB", "class_igor_1_1i_node_particle_system.html#a50376af418502b2a29b36a12b3aa77e6", null ],
-    [ "_textureC", "class_igor_1_1i_node_particle_system.html#ab70bf22c9a738c9ab884c544b5fed380", null ],
-    [ "_worldMatrixInv", "class_igor_1_1i_node_particle_system.html#a986f35ad7fc85e4571d8bae980412a95", null ]
+    [ "iNodeFactory", "class_igor_1_1i_node_particle_system.html#a443fcc5b71f6dbb2a68dae3d957024c3", null ]
 ];

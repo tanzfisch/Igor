@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,9 +112,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_widget_grid.html','');
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_widget_grid-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -123,26 +120,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_widget_grid.html','');
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="i_widget_grid_8h_source.html">iWidgetGrid.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iWidgetGrid:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_grid__inherit__graph.svg" width="130" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iWidgetGrid:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_grid__coll__graph.svg" width="466" height="324"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+
+<p>Inherits <a class="el" href="class_igor_1_1i_widget.html">Igor::iWidget</a>.</p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_igor_1_1i_widget_grid_1_1_field.html">Field</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_igor_1_1i_widget_grid_1_1_grid_collumn.html">GridCollumn</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ada59fc39c0e1f9b6b6b1d244b022e4cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#ada59fc39c0e1f9b6b6b1d244b022e4cf">appendRows</a> (uint32 count)</td></tr>
@@ -332,61 +312,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae90952df44930ba274cdf487153cec4b inherit pub_methods_class_igor_1_1i_widget"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget.html#ae90952df44930ba274cdf487153cec4b">getTooltip</a> () const </td></tr>
 <tr class="separator:ae90952df44930ba274cdf487153cec4b inherit pub_methods_class_igor_1_1i_widget"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a68e72b17a54aaca89c22e4779a170188"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#a68e72b17a54aaca89c22e4779a170188">handleMouseWheel</a> (int32 d)</td></tr>
-<tr class="separator:a68e72b17a54aaca89c22e4779a170188"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adad09b1b7cd55a5c128b17db6d436cb9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#adad09b1b7cd55a5c128b17db6d436cb9">handleMouseKeyDown</a> (<a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a> key)</td></tr>
-<tr class="separator:adad09b1b7cd55a5c128b17db6d436cb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a15e93677bec50f8623cb5f7ec0ae49ba"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#a15e93677bec50f8623cb5f7ec0ae49ba">handleMouseDoubleClick</a> (<a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a> key)</td></tr>
-<tr class="separator:a15e93677bec50f8623cb5f7ec0ae49ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6c4ec74af319b4d1b90be75e7d915b3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#ab6c4ec74af319b4d1b90be75e7d915b3">handleMouseKeyUp</a> (<a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a> key)</td></tr>
-<tr class="separator:ab6c4ec74af319b4d1b90be75e7d915b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee611c1fe39f59359216d9c659fc004f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#aee611c1fe39f59359216d9c659fc004f">handleMouseMove</a> (const <a class="el" href="namespace_igor_aux.html#a9f4d278020d24f0b41171f05e05a729d">iaVector2i</a> &amp;pos)</td></tr>
-<tr class="separator:aee611c1fe39f59359216d9c659fc004f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3fd06ae9663a6aecff1e99927809ee0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#af3fd06ae9663a6aecff1e99927809ee0">calcMinSize</a> ()</td></tr>
-<tr class="separator:af3fd06ae9663a6aecff1e99927809ee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5da08cf04d409cc0a37cf364d1b596f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#af5da08cf04d409cc0a37cf364d1b596f">draw</a> ()</td></tr>
-<tr class="separator:af5da08cf04d409cc0a37cf364d1b596f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2dc0d0f547da2ae420c6b28608e5d9e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#ad2dc0d0f547da2ae420c6b28608e5d9e">initGrid</a> ()</td></tr>
-<tr class="separator:ad2dc0d0f547da2ae420c6b28608e5d9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3baa23ccf472d0b2b592f5fc8d887631"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#a3baa23ccf472d0b2b592f5fc8d887631">updateAlignment</a> (int32 clientWidth, int32 clientHeight)</td></tr>
-<tr class="separator:a3baa23ccf472d0b2b592f5fc8d887631"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8ba9074822a1c8e7027d488c60a0e0d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#af8ba9074822a1c8e7027d488c60a0e0d">calcChildOffsets</a> (vector&lt; <a class="el" href="namespace_igor.html#a4ff1eaa1964389f9151ee6ac8351b6cd">iRectanglei</a> &gt; &amp;offsets)</td></tr>
-<tr class="separator:af8ba9074822a1c8e7027d488c60a0e0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae7c954d7f5e58bd6cf6c1ac06c16b872"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#ae7c954d7f5e58bd6cf6c1ac06c16b872">iWidgetGrid</a> ()</td></tr>
-<tr class="separator:ae7c954d7f5e58bd6cf6c1ac06c16b872"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adcac55f02347c4637137254a58e85207"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#adcac55f02347c4637137254a58e85207">~iWidgetGrid</a> ()=default</td></tr>
-<tr class="separator:adcac55f02347c4637137254a58e85207"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
-Static Private Member Functions</h2></td></tr>
-<tr class="memitem:abf36299fbc9ad1fbaab468ec9562e696"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_igor_1_1i_widget.html">iWidget</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#abf36299fbc9ad1fbaab468ec9562e696">createInstance</a> ()</td></tr>
-<tr class="separator:abf36299fbc9ad1fbaab468ec9562e696"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a61d5574b62eebc009b3d2a2a6360e3e6"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#a61d5574b62eebc009b3d2a2a6360e3e6">_strechRow</a> = 0</td></tr>
-<tr class="separator:a61d5574b62eebc009b3d2a2a6360e3e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab059a1d741258e7d2ec21c64522795d8"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#ab059a1d741258e7d2ec21c64522795d8">_strechCol</a> = 0</td></tr>
-<tr class="separator:ab059a1d741258e7d2ec21c64522795d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a368b56072e551de41fdcd48b1ad26723"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="struct_igor_1_1i_widget_grid_1_1_grid_collumn.html">GridCollumn</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#a368b56072e551de41fdcd48b1ad26723">_widgetRows</a></td></tr>
-<tr class="separator:a368b56072e551de41fdcd48b1ad26723"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d584027df3c3fb192cfbde09da64e1f"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#a5d584027df3c3fb192cfbde09da64e1f">_cellspacing</a> = 4</td></tr>
-<tr class="separator:a5d584027df3c3fb192cfbde09da64e1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8aec16853860e9b908c7c63713b871c"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#aa8aec16853860e9b908c7c63713b871c">_border</a> = 0</td></tr>
-<tr class="separator:aa8aec16853860e9b908c7c63713b871c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d105191f80ec70f35954f7ef5ad836e"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#a5d105191f80ec70f35954f7ef5ad836e">_mouseOverRow</a> = -1</td></tr>
-<tr class="separator:a5d105191f80ec70f35954f7ef5ad836e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38d01105453aca8655b82b0d5f5ccc42"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#a38d01105453aca8655b82b0d5f5ccc42">_mouseOverCollumn</a> = -1</td></tr>
-<tr class="separator:a38d01105453aca8655b82b0d5f5ccc42"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc9f09118053345d1d8ec0e714240d37"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#afc9f09118053345d1d8ec0e714240d37">_selectedRow</a> = -1</td></tr>
-<tr class="separator:afc9f09118053345d1d8ec0e714240d37"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec592573e4cf76c19d399040c65746ce"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#aec592573e4cf76c19d399040c65746ce">_selectedCollumn</a> = -1</td></tr>
-<tr class="separator:aec592573e4cf76c19d399040c65746ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8b3102efd11373a7aa18a258e4476902"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#ad1f2bb46a86a3c8c906a9f02b512a326">iSelectionMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#a8b3102efd11373a7aa18a258e4476902">_selectMode</a> = <a class="el" href="namespace_igor.html#ad1f2bb46a86a3c8c906a9f02b512a326a5230c6f2cc0017a06cb7f3afd8f535cf">iSelectionMode::NoSelection</a></td></tr>
-<tr class="separator:a8b3102efd11373a7aa18a258e4476902"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a9da20b1c56a70b01ca0ef56f4d4d47fc"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_grid.html#a9da20b1c56a70b01ca0ef56f4d4d47fc">iWidgetManager</a></td></tr>
@@ -470,62 +395,8 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a14c903f46f3e0ce996240f6c04133210 inherit pro_attribs_class_igor_1_1i_widget"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000093">Todo:</a></b></dt><dd>cols und rows dynamisch anpassen</dd></dl>
-<p>Example: Widgets usage example </p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8h_source.html#l00058">58</a> of file <a class="el" href="i_widget_grid_8h_source.html">iWidgetGrid.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ae7c954d7f5e58bd6cf6c1ac06c16b872"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iWidgetGrid::iWidgetGrid </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>ctor initializes member variables </p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00016">16</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="adcac55f02347c4637137254a58e85207"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iWidgetGrid::~iWidgetGrid </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>does nothing </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+<div class="textblock"><p>Example: Widgets usage example </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a764137d148d8977d459c6ea0635eadeb"></a>
 <div class="memitem">
 <div class="memproto">
@@ -558,16 +429,6 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 
 <p>Reimplemented from <a class="el" href="class_igor_1_1i_widget.html#a5a2b456163b1592606d8ce5e075166e3">Igor::iWidget</a>.</p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00860">860</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_grid_a764137d148d8977d459c6ea0635eadeb_icgraph.svg" width="1130" height="1086"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -616,16 +477,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00889">889</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_grid_a71ec37f12c277c2a3782cff83b950c81_cgraph.svg" width="319" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a3f9af42fc1b7fdebd5d9f2ad82b68884"></a>
@@ -648,16 +499,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00273">273</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_grid_a3f9af42fc1b7fdebd5d9f2ad82b68884_icgraph.svg" width="1130" height="1238"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -682,95 +523,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00128">128</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_grid_ada59fc39c0e1f9b6b6b1d244b022e4cf_icgraph.svg" width="1130" height="927"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="af8ba9074822a1c8e7027d488c60a0e0d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetGrid::calcChildOffsets </td>
-          <td>(</td>
-          <td class="paramtype">vector&lt; <a class="el" href="namespace_igor.html#a4ff1eaa1964389f9151ee6ac8351b6cd">iRectanglei</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>offsets</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>calculates childrens ofsets relative to thair parent</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">offsets</td><td>vector to be filled with childrens offsets </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="class_igor_1_1i_widget.html#ab2b1e07bf990c132f4a1dc2208638c9c">Igor::iWidget</a>.</p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00402">402</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_grid_af8ba9074822a1c8e7027d488c60a0e0d_cgraph.svg" width="360" height="190"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="af3fd06ae9663a6aecff1e99927809ee0"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetGrid::calcMinSize </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>updates size based on it's content </p>
-
-<p>Implements <a class="el" href="class_igor_1_1i_widget.html#afe71279baaffb4354bd263e118fde096">Igor::iWidget</a>.</p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00292">292</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_grid_af3fd06ae9663a6aecff1e99927809ee0_cgraph.svg" width="364" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a9d9c3b9a42f3ac8ffae00c73ce07db5d"></a>
@@ -786,70 +538,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>clears the whole grid </p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00028">28</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="abf36299fbc9ad1fbaab468ec9562e696"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_widget.html">iWidget</a> * Igor::iWidgetGrid::createInstance </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>creates instance of this widget type </p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00023">23</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af5da08cf04d409cc0a37cf364d1b596f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetGrid::draw </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>draws the widget </p>
-
-<p>Reimplemented from <a class="el" href="class_igor_1_1i_widget.html#ad3fcb454683a38bf542f3bb630c57811">Igor::iWidget</a>.</p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00752">752</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_grid_af5da08cf04d409cc0a37cf364d1b596f_cgraph.svg" width="344" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -867,8 +555,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>border </dd></dl>
 
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00505">505</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ab28ecb5fd05d4001d2dd01692538d418"></a>
@@ -884,8 +570,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>cell spacing </dd></dl>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00742">742</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
 
 </div>
 </div>
@@ -903,8 +587,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>collumn count </dd></dl>
 
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00853">853</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ab4d198c4d2c76b78aff00f6724ffa3aa"></a>
@@ -920,8 +602,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>row count </dd></dl>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00848">848</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
 
 </div>
 </div>
@@ -940,8 +620,6 @@ Here is the call graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>selected collumn</dd></dl>
 <p>if not selected it will return -1 </p>
 
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00115">115</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a144684c6f0e15f222b7e77a137421d45"></a>
@@ -959,8 +637,6 @@ Here is the call graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>selected row</dd></dl>
 <p>if not selected it will return -1 </p>
 
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00075">75</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aa5a8d61e8ade40e3265fd4da632aac63"></a>
@@ -976,8 +652,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>pointer to user Data of selected field </dd></dl>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00045">45</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
 
 </div>
 </div>
@@ -995,8 +669,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>selection mode </dd></dl>
 
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00040">40</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aaa93dfeba38b63517056a1272853b107"></a>
@@ -1013,8 +685,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>column number to be streched </p>
 
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00530">530</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a69947321ebb965dab2e523ca63213288"></a>
@@ -1030,8 +700,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>row number to be streched </dd></dl>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00520">520</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
 
 </div>
 </div>
@@ -1067,229 +735,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00057">57</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a15e93677bec50f8623cb5f7ec0ae49ba"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iWidgetGrid::handleMouseDoubleClick </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a>&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handles incomming double click</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>the key that was pressed </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true: if event was consumed and therefore ignored by the parent </dd></dl>
-
-<p>Reimplemented from <a class="el" href="class_igor_1_1i_widget.html#ac6fa83afbe8986367d2fe608d0a9e505">Igor::iWidget</a>.</p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00535">535</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="adad09b1b7cd55a5c128b17db6d436cb9"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iWidgetGrid::handleMouseKeyDown </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a>&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handles incomming mouse key down events</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>the key that was pressed </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true: if event was consumed and therefore ignored by the parent </dd></dl>
-
-<p>Reimplemented from <a class="el" href="class_igor_1_1i_widget.html#a87a58a7cfe94b910f87fd6fdd157d602">Igor::iWidget</a>.</p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00570">570</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab6c4ec74af319b4d1b90be75e7d915b3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iWidgetGrid::handleMouseKeyUp </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a>&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handles mouse key up events</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>the key that was pressed </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true: if event was consumed and therefore ignored by the parent </dd></dl>
-
-<p>Reimplemented from <a class="el" href="class_igor_1_1i_widget.html#a7bd9d2da917630ed718526f5198f30d8">Igor::iWidget</a>.</p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00602">602</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aee611c1fe39f59359216d9c659fc004f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetGrid::handleMouseMove </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_igor_aux.html#a9f4d278020d24f0b41171f05e05a729d">iaVector2i</a> &amp;&#160;</td>
-          <td class="paramname"><em>pos</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handles incomming mouse move events</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">position</td><td>mouse position </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="class_igor_1_1i_widget.html#adb9f6b7bff85733a6cad665e00b6b0e3">Igor::iWidget</a>.</p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00634">634</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_grid_aee611c1fe39f59359216d9c659fc004f_cgraph.svg" width="399" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a68e72b17a54aaca89c22e4779a170188"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iWidgetGrid::handleMouseWheel </td>
-          <td>(</td>
-          <td class="paramtype">int32&#160;</td>
-          <td class="paramname"><em>d</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handles incomming mouse wheel event</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">d</td><td>mouse wheel delta </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true: if event was consumed and therefore ignored by the parent </dd></dl>
-
-<p>Reimplemented from <a class="el" href="class_igor_1_1i_widget.html#af704bb25cff36563b2a56d094b168ceb">Igor::iWidget</a>.</p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00705">705</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_grid_a68e72b17a54aaca89c22e4779a170188_cgraph.svg" width="375" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="ad2dc0d0f547da2ae420c6b28608e5d9e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetGrid::initGrid </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>initializes an empty grid with default size of one row and collumn </p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00120">120</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="af01ac20d89d382c3494fd29745c9f124"></a>
@@ -1312,8 +757,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00243">243</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
 
 </div>
 </div>
@@ -1338,8 +781,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00217">217</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aa9665a206a4355fb7e32cb600957eb37"></a>
@@ -1355,8 +796,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true: if grid is selected </dd></dl>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00080">80</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
 
 </div>
 </div>
@@ -1381,8 +820,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00181">181</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ab2ffda0da123f6d545dc63456390f6f4"></a>
@@ -1405,8 +842,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00147">147</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
 
 </div>
 </div>
@@ -1442,16 +877,6 @@ Here is the call graph for this function:</div>
 
 <p>Reimplemented from <a class="el" href="class_igor_1_1i_widget.html#a2c9e2c68203a0d9897059364c61ff957">Igor::iWidget</a>.</p>
 
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00865">865</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_grid_acd624f735fbacd5f01310f5155472ce7_icgraph.svg" width="851" height="220"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a0c9b705f87394787e1ac6cf4b52a1f80"></a>
@@ -1478,8 +903,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00097">97</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a09e374ec95ecf256ec0d086a0b53284a"></a>
@@ -1497,16 +920,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>sets border </p>
 
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00510">510</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_grid_a09e374ec95ecf256ec0d086a0b53284a_icgraph.svg" width="1130" height="678"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a56bcb476543d78941ee1f2ab756b21bc"></a>
@@ -1523,16 +936,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>sets cell spacing </p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00747">747</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_grid_a56bcb476543d78941ee1f2ab756b21bc_icgraph.svg" width="1130" height="444"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1557,16 +960,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00035">35</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_grid_a278f96d0b8246ea82d6fc2f18f27aea0_icgraph.svg" width="350" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a95aaefa85b7b815816b730a6d958cd50"></a>
@@ -1589,16 +982,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00525">525</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_grid_a95aaefa85b7b815816b730a6d958cd50_icgraph.svg" width="364" height="431"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1623,16 +1006,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00515">515</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_grid_aa995858da76fa24beaac1c9494489c07_icgraph.svg" width="350" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a5191c1c8fe7e8f47f47cd95fd098bf22"></a>
@@ -1648,54 +1021,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>unselects the grid </p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00085">85</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3baa23ccf472d0b2b592f5fc8d887631"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetGrid::updateAlignment </td>
-          <td>(</td>
-          <td class="paramtype">int32&#160;</td>
-          <td class="paramname"><em>clientWidth</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int32&#160;</td>
-          <td class="paramname"><em>clientHeight</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>updates widget's alignment</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">clientWidth</td><td>maximum width this widget can align to </td></tr>
-    <tr><td class="paramname">clientHeight</td><td>maximum height this widget can align to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="class_igor_1_1i_widget.html#aeaf054993ffcb99a1bf51369c1061afc">Igor::iWidget</a>.</p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8cpp_source.html#l00439">439</a> of file <a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a>.</p>
 
 </div>
 </div>
@@ -1719,244 +1044,11 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>needs to be friend because it's the factory that creates this widget </p>
 
-<p>Definition at line <a class="el" href="i_widget_grid_8h_source.html#l00063">63</a> of file <a class="el" href="i_widget_grid_8h_source.html">iWidgetGrid.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="aa8aec16853860e9b908c7c63713b871c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32 Igor::iWidgetGrid::_border = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>border size </p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8h_source.html#l00288">288</a> of file <a class="el" href="i_widget_grid_8h_source.html">iWidgetGrid.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5d584027df3c3fb192cfbde09da64e1f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32 Igor::iWidgetGrid::_cellspacing = 4</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>cellspacing within the grid </p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8h_source.html#l00284">284</a> of file <a class="el" href="i_widget_grid_8h_source.html">iWidgetGrid.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a38d01105453aca8655b82b0d5f5ccc42"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32 Igor::iWidgetGrid::_mouseOverCollumn = -1</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>saves over wich collumn the mouse last was </p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8h_source.html#l00296">296</a> of file <a class="el" href="i_widget_grid_8h_source.html">iWidgetGrid.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5d105191f80ec70f35954f7ef5ad836e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32 Igor::iWidgetGrid::_mouseOverRow = -1</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>saves over wich row the mouse last was </p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8h_source.html#l00292">292</a> of file <a class="el" href="i_widget_grid_8h_source.html">iWidgetGrid.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aec592573e4cf76c19d399040c65746ce"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32 Igor::iWidgetGrid::_selectedCollumn = -1</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>saves over wich collumn the mouse last was </p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8h_source.html#l00304">304</a> of file <a class="el" href="i_widget_grid_8h_source.html">iWidgetGrid.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="afc9f09118053345d1d8ec0e714240d37"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32 Igor::iWidgetGrid::_selectedRow = -1</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>saves over wich row the mouse last was </p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8h_source.html#l00300">300</a> of file <a class="el" href="i_widget_grid_8h_source.html">iWidgetGrid.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a8b3102efd11373a7aa18a258e4476902"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#ad1f2bb46a86a3c8c906a9f02b512a326">iSelectionMode</a> Igor::iWidgetGrid::_selectMode = <a class="el" href="namespace_igor.html#ad1f2bb46a86a3c8c906a9f02b512a326a5230c6f2cc0017a06cb7f3afd8f535cf">iSelectionMode::NoSelection</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mode of selection </p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8h_source.html#l00308">308</a> of file <a class="el" href="i_widget_grid_8h_source.html">iWidgetGrid.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab059a1d741258e7d2ec21c64522795d8"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32 Igor::iWidgetGrid::_strechCol = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>column number to be streched </p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8h_source.html#l00276">276</a> of file <a class="el" href="i_widget_grid_8h_source.html">iWidgetGrid.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a61d5574b62eebc009b3d2a2a6360e3e6"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32 Igor::iWidgetGrid::_strechRow = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>row number to be streched </p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8h_source.html#l00272">272</a> of file <a class="el" href="i_widget_grid_8h_source.html">iWidgetGrid.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a368b56072e551de41fdcd48b1ad26723"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="struct_igor_1_1i_widget_grid_1_1_grid_collumn.html">GridCollumn</a>&gt; Igor::iWidgetGrid::_widgetRows</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the child widgets </p>
-
-<p>Definition at line <a class="el" href="i_widget_grid_8h_source.html#l00280">280</a> of file <a class="el" href="i_widget_grid_8h_source.html">iWidgetGrid.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_widget_grid_8h_source.html">iWidgetGrid.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_widget_grid_8cpp_source.html">iWidgetGrid.cpp</a></li>
+<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_widget_grid_8cpp.html">iWidgetGrid.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -1965,7 +1057,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_widget_grid.html">iWidgetGrid</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:13 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:22 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

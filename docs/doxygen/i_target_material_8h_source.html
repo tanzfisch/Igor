@@ -199,19 +199,19 @@ $(document).ready(function(){initNavTree('i_target_material_8h_source.html','');
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
-<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="class_igor_1_1i_target_material.html#a152ada210ac9c8444e10e2f054ef9c6e">  142</a></span>&#160;        map&lt;uint32, shared_ptr&lt;iTexture&gt;&gt; <a class="code" href="class_igor_1_1i_target_material.html#a152ada210ac9c8444e10e2f054ef9c6e">_textures</a>;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        map&lt;uint32, shared_ptr&lt;iTexture&gt;&gt; _textures;</div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;</div>
-<div class="line"><a name="l00146"></a><span class="lineno"><a class="line" href="class_igor_1_1i_target_material.html#adb82033511832e2f9db9205a32f172df">  146</a></span>&#160;        <a class="code" href="class_igor_aux_1_1ia_color3.html">iaColor3f</a> <a class="code" href="class_igor_1_1i_target_material.html#adb82033511832e2f9db9205a32f172df">_emissive</a>;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <a class="code" href="class_igor_aux_1_1ia_color3.html">iaColor3f</a> _emissive;</div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div>
-<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="class_igor_1_1i_target_material.html#acaa2394d06e05d86034d63b64d77b656">  150</a></span>&#160;        <a class="code" href="class_igor_aux_1_1ia_color3.html">iaColor3f</a> <a class="code" href="class_igor_1_1i_target_material.html#acaa2394d06e05d86034d63b64d77b656">_ambient</a>;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <a class="code" href="class_igor_aux_1_1ia_color3.html">iaColor3f</a> _ambient;</div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;</div>
-<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="class_igor_1_1i_target_material.html#a8d17974c53e7ce0961ccbe38fdf1bdd9">  154</a></span>&#160;        <a class="code" href="class_igor_aux_1_1ia_color3.html">iaColor3f</a> <a class="code" href="class_igor_1_1i_target_material.html#a8d17974c53e7ce0961ccbe38fdf1bdd9">_specular</a>;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        <a class="code" href="class_igor_aux_1_1ia_color3.html">iaColor3f</a> _specular;</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;</div>
-<div class="line"><a name="l00158"></a><span class="lineno"><a class="line" href="class_igor_1_1i_target_material.html#a6f7630604a11431c14db5f170c7151bf">  158</a></span>&#160;        <a class="code" href="class_igor_aux_1_1ia_color3.html">iaColor3f</a> <a class="code" href="class_igor_1_1i_target_material.html#a6f7630604a11431c14db5f170c7151bf">_diffuse</a>;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <a class="code" href="class_igor_aux_1_1ia_color3.html">iaColor3f</a> _diffuse;</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;</div>
-<div class="line"><a name="l00162"></a><span class="lineno"><a class="line" href="class_igor_1_1i_target_material.html#ac86ae5c31168b43a27988fe341da6241">  162</a></span>&#160;        float32 <a class="code" href="class_igor_1_1i_target_material.html#ac86ae5c31168b43a27988fe341da6241">_shininess</a>;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        float32 _shininess;</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;</div>
-<div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="class_igor_1_1i_target_material.html#aa06bb9bedb8fb1129555e59d4025c119">  166</a></span>&#160;        float32 <a class="code" href="class_igor_1_1i_target_material.html#aa06bb9bedb8fb1129555e59d4025c119">_alpha</a>;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        float32 _alpha;</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        <a class="code" href="class_igor_1_1i_target_material.html">iTargetMaterial</a>();</div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;</div>
@@ -224,34 +224,27 @@ $(document).ready(function(){initNavTree('i_target_material_8h_source.html','');
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;</div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="namespace_igor_html_ac8dea77fa401a0441bf140ad82c6dbb7"><div class="ttname"><a href="namespace_igor.html#ac8dea77fa401a0441bf140ad82c6dbb7">Igor::getDiffuse</a></div><div class="ttdeci">iaColor3f getDiffuse() const </div></div>
-<div class="ttc" id="class_igor_1_1i_target_material_html_a152ada210ac9c8444e10e2f054ef9c6e"><div class="ttname"><a href="class_igor_1_1i_target_material.html#a152ada210ac9c8444e10e2f054ef9c6e">Igor::iTargetMaterial::_textures</a></div><div class="ttdeci">map&lt; uint32, shared_ptr&lt; iTexture &gt; &gt; _textures</div><div class="ttdef"><b>Definition:</b> <a href="i_target_material_8h_source.html#l00142">iTargetMaterial.h:142</a></div></div>
-<div class="ttc" id="class_igor_1_1i_target_material_html_adb82033511832e2f9db9205a32f172df"><div class="ttname"><a href="class_igor_1_1i_target_material.html#adb82033511832e2f9db9205a32f172df">Igor::iTargetMaterial::_emissive</a></div><div class="ttdeci">iaColor3f _emissive</div><div class="ttdef"><b>Definition:</b> <a href="i_target_material_8h_source.html#l00146">iTargetMaterial.h:146</a></div></div>
-<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_bits_8h_source.html#l00034">iaBits.h:34</a></div></div>
-<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="gtest-tuple_8h_source.html#l00113">gtest-tuple.h:113</a></div></div>
-<div class="ttc" id="class_igor_1_1i_target_material_html"><div class="ttname"><a href="class_igor_1_1i_target_material.html">Igor::iTargetMaterial</a></div><div class="ttdef"><b>Definition:</b> <a href="i_target_material_8h_source.html#l00048">iTargetMaterial.h:48</a></div></div>
-<div class="ttc" id="class_igor_1_1i_target_material_html_aa06bb9bedb8fb1129555e59d4025c119"><div class="ttname"><a href="class_igor_1_1i_target_material.html#aa06bb9bedb8fb1129555e59d4025c119">Igor::iTargetMaterial::_alpha</a></div><div class="ttdeci">float32 _alpha</div><div class="ttdef"><b>Definition:</b> <a href="i_target_material_8h_source.html#l00166">iTargetMaterial.h:166</a></div></div>
+<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> iaBits.h:34</div></div>
+<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> iaString.h:432</div></div>
+<div class="ttc" id="class_igor_1_1i_target_material_html"><div class="ttname"><a href="class_igor_1_1i_target_material.html">Igor::iTargetMaterial</a></div><div class="ttdef"><b>Definition:</b> iTargetMaterial.h:48</div></div>
 <div class="ttc" id="namespace_igor_html_a21a9530bc1692ea968bc79d7572658b8"><div class="ttname"><a href="namespace_igor.html#a21a9530bc1692ea968bc79d7572658b8">Igor::getShininess</a></div><div class="ttdeci">float32 getShininess() const </div></div>
-<div class="ttc" id="class_igor_1_1i_target_material_html_a8d17974c53e7ce0961ccbe38fdf1bdd9"><div class="ttname"><a href="class_igor_1_1i_target_material.html#a8d17974c53e7ce0961ccbe38fdf1bdd9">Igor::iTargetMaterial::_specular</a></div><div class="ttdeci">iaColor3f _specular</div><div class="ttdef"><b>Definition:</b> <a href="i_target_material_8h_source.html#l00154">iTargetMaterial.h:154</a></div></div>
-<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> <a href="i_a_a_box_8h_source.html#l00036">iAABox.h:36</a></div></div>
+<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> iAABox.h:36</div></div>
 <div class="ttc" id="namespace_igor_html_a74b76f40113f9c4c8bb8918ad7a94722"><div class="ttname"><a href="namespace_igor.html#a74b76f40113f9c4c8bb8918ad7a94722">Igor::getAmbient</a></div><div class="ttdeci">iaColor3f getAmbient() const </div></div>
 <div class="ttc" id="namespace_igor_html_a93bf05900d04810d8f91a87c25083f17"><div class="ttname"><a href="namespace_igor.html#a93bf05900d04810d8f91a87c25083f17">Igor::getEmissive</a></div><div class="ttdeci">iaColor3f getEmissive() const </div></div>
-<div class="ttc" id="class_igor_1_1i_target_material_html_acaa2394d06e05d86034d63b64d77b656"><div class="ttname"><a href="class_igor_1_1i_target_material.html#acaa2394d06e05d86034d63b64d77b656">Igor::iTargetMaterial::_ambient</a></div><div class="ttdeci">iaColor3f _ambient</div><div class="ttdef"><b>Definition:</b> <a href="i_target_material_8h_source.html#l00150">iTargetMaterial.h:150</a></div></div>
 <div class="ttc" id="ia_color3_8h_html"><div class="ttname"><a href="ia_color3_8h.html">iaColor3.h</a></div></div>
-<div class="ttc" id="class_igor_1_1i_target_material_html_ac86ae5c31168b43a27988fe341da6241"><div class="ttname"><a href="class_igor_1_1i_target_material.html#ac86ae5c31168b43a27988fe341da6241">Igor::iTargetMaterial::_shininess</a></div><div class="ttdeci">float32 _shininess</div><div class="ttdef"><b>Definition:</b> <a href="i_target_material_8h_source.html#l00162">iTargetMaterial.h:162</a></div></div>
 <div class="ttc" id="namespace_igor_html_aaa72fdbc86336530643d096c2e3ee687"><div class="ttname"><a href="namespace_igor.html#aaa72fdbc86336530643d096c2e3ee687">Igor::getSpecular</a></div><div class="ttdeci">iaColor3f getSpecular() const </div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_color3_html"><div class="ttname"><a href="class_igor_aux_1_1ia_color3.html">IgorAux::iaColor3</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_color3_8h_source.html#l00044">iaColor3.h:44</a></div></div>
-<div class="ttc" id="class_igor_1_1i_material_resource_factory_html"><div class="ttname"><a href="class_igor_1_1i_material_resource_factory.html">Igor::iMaterialResourceFactory</a></div><div class="ttdef"><b>Definition:</b> <a href="i_material_resource_factory_8h_source.html#l00065">iMaterialResourceFactory.h:65</a></div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_color3_html"><div class="ttname"><a href="class_igor_aux_1_1ia_color3.html">IgorAux::iaColor3</a></div><div class="ttdef"><b>Definition:</b> iaColor3.h:44</div></div>
+<div class="ttc" id="class_igor_1_1i_material_resource_factory_html"><div class="ttname"><a href="class_igor_1_1i_material_resource_factory.html">Igor::iMaterialResourceFactory</a></div><div class="ttdef"><b>Definition:</b> iMaterialResourceFactory.h:65</div></div>
 <div class="ttc" id="i_defines_8h_html"><div class="ttname"><a href="i_defines_8h.html">iDefines.h</a></div></div>
 <div class="ttc" id="i_target_material_8inl_html"><div class="ttname"><a href="i_target_material_8inl.html">iTargetMaterial.inl</a></div></div>
-<div class="ttc" id="class_igor_1_1i_target_material_html_a6f7630604a11431c14db5f170c7151bf"><div class="ttname"><a href="class_igor_1_1i_target_material.html#a6f7630604a11431c14db5f170c7151bf">Igor::iTargetMaterial::_diffuse</a></div><div class="ttdeci">iaColor3f _diffuse</div><div class="ttdef"><b>Definition:</b> <a href="i_target_material_8h_source.html#l00158">iTargetMaterial.h:158</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_d038480633c1631388acdc016f2c394d.html">Igor</a></li><li class="navelem"><a class="el" href="dir_c666f9416e68e5cd51b28bff0f98e46c.html">src</a></li><li class="navelem"><a class="el" href="i_target_material_8h.html">iTargetMaterial.h</a></li>
+				<li class="navelem"><a class="el" href="dir_f25e90d47839bd5aa725b19f9dd3e654.html">Igor</a></li><li class="navelem"><a class="el" href="dir_b12320815bd4967fc918d17f555d23eb.html">src</a></li><li class="navelem"><a class="el" href="i_target_material_8h.html">iTargetMaterial.h</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:04 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:07 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

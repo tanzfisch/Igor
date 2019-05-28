@@ -268,7 +268,7 @@ $(document).ready(function(){initNavTree('i_window_8h_source.html','');});
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;</div>
 <div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> swapBuffers();</div>
 <div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="namespace_igor.html#ab3cae9a3831b87d34d1bfe2c4647b242">draw</a>();</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        <span class="keywordtype">void</span> draw();</div>
 <div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;</div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        <span class="keywordtype">bool</span> initOpenGLContext();</div>
 <div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;</div>
@@ -298,23 +298,23 @@ $(document).ready(function(){initNavTree('i_window_8h_source.html','');});
 <div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;</div>
 <div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;</div>
-<div class="line"><a name="l00388"></a><span class="lineno"><a class="line" href="class_igor_1_1i_window.html#a8c970648ab35bb5016dddde2b0525a23">  388</a></span>&#160;        DWORD _dwExStyle = 0;</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;        DWORD _dwExStyle = 0;</div>
 <div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;</div>
-<div class="line"><a name="l00392"></a><span class="lineno"><a class="line" href="class_igor_1_1i_window.html#ada2ee1e38fb88f1527e2d3b177654490">  392</a></span>&#160;        DWORD _dwStyle = 0;</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;        DWORD _dwStyle = 0;</div>
 <div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;</div>
-<div class="line"><a name="l00396"></a><span class="lineno"><a class="line" href="class_igor_1_1i_window.html#ab7650bd3824d480e1ea1163a2bcaab4a">  396</a></span>&#160;        DEVMODE <a class="code" href="class_igor_1_1i_window.html#ab7650bd3824d480e1ea1163a2bcaab4a">_dmScreenSettings</a>;</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;        DEVMODE _dmScreenSettings;</div>
 <div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;</div>
-<div class="line"><a name="l00400"></a><span class="lineno"><a class="line" href="class_igor_1_1i_window.html#a8c704b46424b3f8a74891c6a41d6ea7b">  400</a></span>&#160;        HINSTANCE _moduleHandle = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;        HINSTANCE _moduleHandle = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;</div>
-<div class="line"><a name="l00404"></a><span class="lineno"><a class="line" href="class_igor_1_1i_window.html#a2fb0b943b8c595419a4eb565600d88e0">  404</a></span>&#160;        HWND _hWnd = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        HWND _hWnd = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;</div>
-<div class="line"><a name="l00408"></a><span class="lineno"><a class="line" href="class_igor_1_1i_window.html#a26d23841a7c6b6fdaee335e186fafff1">  408</a></span>&#160;        HDC _hDC = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;        HDC _hDC = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;</div>
-<div class="line"><a name="l00412"></a><span class="lineno"><a class="line" href="class_igor_1_1i_window.html#a2661629a51472d7bae94ea41ddf61f04">  412</a></span>&#160;        HGLRC _renderContext = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;        HGLRC _renderContext = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;</div>
-<div class="line"><a name="l00416"></a><span class="lineno"><a class="line" href="class_igor_1_1i_window.html#a9741dd5a400879f07f19cd340e97207c">  416</a></span>&#160;        <a class="code" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> <a class="code" href="class_igor_1_1i_window.html#a9741dd5a400879f07f19cd340e97207c">_wglMutex</a>;</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;        <a class="code" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> _wglMutex;</div>
 <div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;</div>
-<div class="line"><a name="l00420"></a><span class="lineno"><a class="line" href="class_igor_1_1i_window.html#a922c312c79074b548b54aaeaf62b97f7">  420</a></span>&#160;        WNDCLASS <a class="code" href="class_igor_1_1i_window.html#a922c312c79074b548b54aaeaf62b97f7">_windowClass</a>;</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;        WNDCLASS _windowClass;</div>
 <div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;</div>
 <div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    };</div>
 <div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;</div>
@@ -322,28 +322,24 @@ $(document).ready(function(){initNavTree('i_window_8h_source.html','');});
 <div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;</div>
 <div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="ia_string_8h_html"><div class="ttname"><a href="ia_string_8h.html">iaString.h</a></div></div>
-<div class="ttc" id="i_defines_8h_html_aa49028ac1ed99b1b58e7b58949e6901a"><div class="ttname"><a href="i_defines_8h.html#aa49028ac1ed99b1b58e7b58949e6901a">IGOR_DFAULT_WINDOW_TITLE</a></div><div class="ttdeci">#define IGOR_DFAULT_WINDOW_TITLE</div><div class="ttdef"><b>Definition:</b> <a href="i_defines_8h_source.html#l00060">iDefines.h:60</a></div></div>
-<div class="ttc" id="class_igor_1_1i_application_html"><div class="ttname"><a href="class_igor_1_1i_application.html">Igor::iApplication</a></div><div class="ttdef"><b>Definition:</b> <a href="i_application_8h_source.html#l00056">iApplication.h:56</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_mutex_html"><div class="ttname"><a href="class_igor_aux_1_1ia_mutex.html">IgorAux::iaMutex</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_mutex_8h_source.html#l00041">iaMutex.h:41</a></div></div>
-<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_bits_8h_source.html#l00034">iaBits.h:34</a></div></div>
-<div class="ttc" id="class_igor_1_1i_window_html_ab7650bd3824d480e1ea1163a2bcaab4a"><div class="ttname"><a href="class_igor_1_1i_window.html#ab7650bd3824d480e1ea1163a2bcaab4a">Igor::iWindow::_dmScreenSettings</a></div><div class="ttdeci">DEVMODE _dmScreenSettings</div><div class="ttdef"><b>Definition:</b> <a href="i_window_8h_source.html#l00396">iWindow.h:396</a></div></div>
-<div class="ttc" id="class_igor_1_1i_window_html_ab81b8b30c40f2b02cb239a2675cf64f6"><div class="ttname"><a href="class_igor_1_1i_window.html#ab81b8b30c40f2b02cb239a2675cf64f6">Igor::iWindow::_windowResizeEvent</a></div><div class="ttdeci">WindowResizeEvent _windowResizeEvent</div><div class="ttdef"><b>Definition:</b> <a href="i_window_8h_source.html#l00238">iWindow.h:238</a></div></div>
-<div class="ttc" id="class_igor_1_1i_view_html"><div class="ttname"><a href="class_igor_1_1i_view.html">Igor::iView</a></div><div class="ttdef"><b>Definition:</b> <a href="i_view_8h_source.html#l00065">iView.h:65</a></div></div>
-<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="gtest-tuple_8h_source.html#l00113">gtest-tuple.h:113</a></div></div>
-<div class="ttc" id="class_igor_1_1i_window_html_a6627b2c06ac5e76b1fecd357711aa134"><div class="ttname"><a href="class_igor_1_1i_window.html#a6627b2c06ac5e76b1fecd357711aa134">Igor::iWindow::_windowCloseEvent</a></div><div class="ttdeci">WindowCloseEvent _windowCloseEvent</div><div class="ttdef"><b>Definition:</b> <a href="i_window_8h_source.html#l00234">iWindow.h:234</a></div></div>
-<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> <a href="i_a_a_box_8h_source.html#l00036">iAABox.h:36</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_string_html"><div class="ttname"><a href="class_igor_aux_1_1ia_string.html">IgorAux::iaString</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_string_8h_source.html#l00052">iaString.h:52</a></div></div>
-<div class="ttc" id="namespace_igor_html_a6c0b5f6a110206d49314c2c6e09ac827"><div class="ttname"><a href="namespace_igor.html#a6c0b5f6a110206d49314c2c6e09ac827">Igor::WndProc</a></div><div class="ttdeci">LRESULT CALLBACK WndProc(HWND _hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)</div><div class="ttdef"><b>Definition:</b> <a href="i_window_8cpp_source.html#l00025">iWindow.cpp:25</a></div></div>
-<div class="ttc" id="class_igor_1_1i_render_context_thread_html"><div class="ttname"><a href="class_igor_1_1i_render_context_thread.html">Igor::iRenderContextThread</a></div><div class="ttdef"><b>Definition:</b> <a href="i_render_context_thread_8h_source.html#l00042">iRenderContextThread.h:42</a></div></div>
+<div class="ttc" id="i_defines_8h_html_aa49028ac1ed99b1b58e7b58949e6901a"><div class="ttname"><a href="i_defines_8h.html#aa49028ac1ed99b1b58e7b58949e6901a">IGOR_DFAULT_WINDOW_TITLE</a></div><div class="ttdeci">#define IGOR_DFAULT_WINDOW_TITLE</div><div class="ttdef"><b>Definition:</b> iDefines.h:60</div></div>
+<div class="ttc" id="class_igor_1_1i_application_html"><div class="ttname"><a href="class_igor_1_1i_application.html">Igor::iApplication</a></div><div class="ttdef"><b>Definition:</b> iApplication.h:56</div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_mutex_html"><div class="ttname"><a href="class_igor_aux_1_1ia_mutex.html">IgorAux::iaMutex</a></div><div class="ttdef"><b>Definition:</b> iaMutex.h:41</div></div>
+<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> iaBits.h:34</div></div>
+<div class="ttc" id="class_igor_1_1i_window_html_ab81b8b30c40f2b02cb239a2675cf64f6"><div class="ttname"><a href="class_igor_1_1i_window.html#ab81b8b30c40f2b02cb239a2675cf64f6">Igor::iWindow::_windowResizeEvent</a></div><div class="ttdeci">WindowResizeEvent _windowResizeEvent</div><div class="ttdef"><b>Definition:</b> iWindow.h:238</div></div>
+<div class="ttc" id="class_igor_1_1i_view_html"><div class="ttname"><a href="class_igor_1_1i_view.html">Igor::iView</a></div><div class="ttdef"><b>Definition:</b> iView.h:65</div></div>
+<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> iaString.h:432</div></div>
+<div class="ttc" id="class_igor_1_1i_window_html_a6627b2c06ac5e76b1fecd357711aa134"><div class="ttname"><a href="class_igor_1_1i_window.html#a6627b2c06ac5e76b1fecd357711aa134">Igor::iWindow::_windowCloseEvent</a></div><div class="ttdeci">WindowCloseEvent _windowCloseEvent</div><div class="ttdef"><b>Definition:</b> iWindow.h:234</div></div>
+<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> iAABox.h:36</div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_string_html"><div class="ttname"><a href="class_igor_aux_1_1ia_string.html">IgorAux::iaString</a></div><div class="ttdef"><b>Definition:</b> iaString.h:52</div></div>
+<div class="ttc" id="namespace_igor_html_a6c0b5f6a110206d49314c2c6e09ac827"><div class="ttname"><a href="namespace_igor.html#a6c0b5f6a110206d49314c2c6e09ac827">Igor::WndProc</a></div><div class="ttdeci">LRESULT CALLBACK WndProc(HWND _hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)</div><div class="ttdef"><b>Definition:</b> iWindow.cpp:25</div></div>
+<div class="ttc" id="class_igor_1_1i_render_context_thread_html"><div class="ttname"><a href="class_igor_1_1i_render_context_thread.html">Igor::iRenderContextThread</a></div><div class="ttdef"><b>Definition:</b> iRenderContextThread.h:42</div></div>
 <div class="ttc" id="namespace_igor_aux_html_aabd22d8bae645ca2557549dfa5b175fd"><div class="ttname"><a href="namespace_igor_aux.html#aabd22d8bae645ca2557549dfa5b175fd">IgorAux::iaEVENT</a></div><div class="ttdeci">iaEVENT(EnterStateEvent, EnterStateDelegate, void,(),())</div></div>
-<div class="ttc" id="namespace_igor_html_ab3cae9a3831b87d34d1bfe2c4647b242"><div class="ttname"><a href="namespace_igor.html#ab3cae9a3831b87d34d1bfe2c4647b242">Igor::draw</a></div><div class="ttdeci">virtual void draw()</div></div>
-<div class="ttc" id="class_igor_1_1i_window_html_a3fba10f549e64bb4866a8f337beaea8d"><div class="ttname"><a href="class_igor_1_1i_window.html#a3fba10f549e64bb4866a8f337beaea8d">Igor::iWindow::_oseventlisteners</a></div><div class="ttdeci">vector&lt; iOSEventListener * &gt; _oseventlisteners</div><div class="ttdef"><b>Definition:</b> <a href="i_window_8h_source.html#l00248">iWindow.h:248</a></div></div>
-<div class="ttc" id="class_igor_1_1i_window_html"><div class="ttname"><a href="class_igor_1_1i_window.html">Igor::iWindow</a></div><div class="ttdef"><b>Definition:</b> <a href="i_window_8h_source.html#l00061">iWindow.h:61</a></div></div>
-<div class="ttc" id="class_igor_1_1i_window_html_a922c312c79074b548b54aaeaf62b97f7"><div class="ttname"><a href="class_igor_1_1i_window.html#a922c312c79074b548b54aaeaf62b97f7">Igor::iWindow::_windowClass</a></div><div class="ttdeci">WNDCLASS _windowClass</div><div class="ttdef"><b>Definition:</b> <a href="i_window_8h_source.html#l00420">iWindow.h:420</a></div></div>
+<div class="ttc" id="class_igor_1_1i_window_html_a3fba10f549e64bb4866a8f337beaea8d"><div class="ttname"><a href="class_igor_1_1i_window.html#a3fba10f549e64bb4866a8f337beaea8d">Igor::iWindow::_oseventlisteners</a></div><div class="ttdeci">vector&lt; iOSEventListener * &gt; _oseventlisteners</div><div class="ttdef"><b>Definition:</b> iWindow.h:248</div></div>
+<div class="ttc" id="class_igor_1_1i_window_html"><div class="ttname"><a href="class_igor_1_1i_window.html">Igor::iWindow</a></div><div class="ttdef"><b>Definition:</b> iWindow.h:61</div></div>
 <div class="ttc" id="i_defines_8h_html"><div class="ttname"><a href="i_defines_8h.html">iDefines.h</a></div></div>
-<div class="ttc" id="class_igor_1_1i_window_html_a511ebeababa1034a36c8974cdf365fed"><div class="ttname"><a href="class_igor_1_1i_window.html#a511ebeababa1034a36c8974cdf365fed">Igor::iWindow::_views</a></div><div class="ttdeci">vector&lt; iView * &gt; _views</div><div class="ttdef"><b>Definition:</b> <a href="i_window_8h_source.html#l00242">iWindow.h:242</a></div></div>
-<div class="ttc" id="class_igor_1_1i_window_html_a9741dd5a400879f07f19cd340e97207c"><div class="ttname"><a href="class_igor_1_1i_window.html#a9741dd5a400879f07f19cd340e97207c">Igor::iWindow::_wglMutex</a></div><div class="ttdeci">iaMutex _wglMutex</div><div class="ttdef"><b>Definition:</b> <a href="i_window_8h_source.html#l00416">iWindow.h:416</a></div></div>
-<div class="ttc" id="class_igor_1_1i_o_s_event_listener_html"><div class="ttname"><a href="class_igor_1_1i_o_s_event_listener.html">Igor::iOSEventListener</a></div><div class="ttdef"><b>Definition:</b> <a href="i_o_s_event_listener_8h_source.html#l00047">iOSEventListener.h:47</a></div></div>
+<div class="ttc" id="class_igor_1_1i_window_html_a511ebeababa1034a36c8974cdf365fed"><div class="ttname"><a href="class_igor_1_1i_window.html#a511ebeababa1034a36c8974cdf365fed">Igor::iWindow::_views</a></div><div class="ttdeci">vector&lt; iView * &gt; _views</div><div class="ttdef"><b>Definition:</b> iWindow.h:242</div></div>
+<div class="ttc" id="class_igor_1_1i_o_s_event_listener_html"><div class="ttname"><a href="class_igor_1_1i_o_s_event_listener.html">Igor::iOSEventListener</a></div><div class="ttdef"><b>Definition:</b> iOSEventListener.h:47</div></div>
 <div class="ttc" id="ia_event_8h_html"><div class="ttname"><a href="ia_event_8h.html">iaEvent.h</a></div></div>
 <div class="ttc" id="ia_mutex_8h_html"><div class="ttname"><a href="ia_mutex_8h.html">iaMutex.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -351,9 +347,9 @@ $(document).ready(function(){initNavTree('i_window_8h_source.html','');});
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_d038480633c1631388acdc016f2c394d.html">Igor</a></li><li class="navelem"><a class="el" href="dir_c666f9416e68e5cd51b28bff0f98e46c.html">src</a></li><li class="navelem"><a class="el" href="i_window_8h.html">iWindow.h</a></li>
+				<li class="navelem"><a class="el" href="dir_f25e90d47839bd5aa725b19f9dd3e654.html">Igor</a></li><li class="navelem"><a class="el" href="dir_b12320815bd4967fc918d17f555d23eb.html">src</a></li><li class="navelem"><a class="el" href="i_window_8h.html">iWindow.h</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:07 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:08 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

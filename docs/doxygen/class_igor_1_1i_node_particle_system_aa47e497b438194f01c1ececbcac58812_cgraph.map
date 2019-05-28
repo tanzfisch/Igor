@@ -1,9 +1,0 @@
-<map id="Igor::iNodeParticleSystem::iNodeParticleSystem" name="Igor::iNodeParticleSystem::iNodeParticleSystem">
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#a301e06e0e55d6ca93fc64fe44c3ed8bd" title="Igor::iNode::getName" alt="" coords="241,5,385,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_particle_system.html#a2a669f5c183c36cbd290935c09af18af" title="Igor::iNodeParticleSystem\l::getTextureA" alt="" coords="227,57,400,98"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node_particle_system.html#a2307c38deff1c5f7a3610d29799852b6" title="Igor::iNodeParticleSystem\l::getTextureB" alt="" coords="227,122,400,163"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node_particle_system.html#a6a94d10d3b1a7325e2a042c6c562234e" title="Igor::iNodeParticleSystem\l::getTextureC" alt="" coords="227,187,400,229"/>
-<area shape="rect" id="node6" href="$namespace_igor.html#a658bed0072edfc04099eb827d1cfb6ba" title="Igor::setMaterial" alt="" coords="256,253,371,280"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_node_render.html#a71aab4f3ed63aa71b2ea85aed1b4bd08" title="Igor::iNodeRender::\lgetMaterial" alt="" coords="247,305,380,346"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_node_particle_system.html#a609d1e478a0a78d281f3b003ab697fd3" title="Igor::iNodeParticleSystem\l::getEmitter" alt="" coords="227,370,400,411"/>
-</map>

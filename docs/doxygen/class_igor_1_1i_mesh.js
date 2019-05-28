@@ -33,18 +33,5 @@ var class_igor_1_1i_mesh =
     [ "setVertexData", "class_igor_1_1i_mesh.html#a73830d683327777c39b34b08b0f26a0d", null ],
     [ "setVertexSize", "class_igor_1_1i_mesh.html#ae5b0b77e4ef1258dabdf69db0df4cb92", null ],
     [ "iMeshBuilder", "class_igor_1_1i_mesh.html#ad47174c37e02f06abe27013937c03ec1", null ],
-    [ "iRenderer", "class_igor_1_1i_mesh.html#a3169e12ae7cf3e5c6fd53a245e5e2d52", null ],
-    [ "_bbox", "class_igor_1_1i_mesh.html#add76e864107d53d3473688b03a08ce60", null ],
-    [ "_hasColors", "class_igor_1_1i_mesh.html#a0c85a787ebd41f29bba168b32b27a2f3", null ],
-    [ "_hasNormals", "class_igor_1_1i_mesh.html#ad3839fd8278577f2c4fe9911197ee6d3", null ],
-    [ "_indexData", "class_igor_1_1i_mesh.html#af3f78fa215c4227f8f8a991e66c98bae", null ],
-    [ "_indexDataSize", "class_igor_1_1i_mesh.html#a0817d6c94e62cd2147686025998972df", null ],
-    [ "_indexesCount", "class_igor_1_1i_mesh.html#a6bd6cf6511127c559478ca95c00b8962", null ],
-    [ "_sphere", "class_igor_1_1i_mesh.html#a8acb551a8c183ebc12cc2e65311eb3eb", null ],
-    [ "_textures", "class_igor_1_1i_mesh.html#a01330e1e7ba43cc9aa2652b2e6160c77", null ],
-    [ "_trianglesCount", "class_igor_1_1i_mesh.html#af3fcf91320c6ea649c218f2a6a5c4c28", null ],
-    [ "_vertexCount", "class_igor_1_1i_mesh.html#aa568c71ad8f3f361280581efe2c23c05", null ],
-    [ "_vertexData", "class_igor_1_1i_mesh.html#a55effe6e8c971eaae4c3ecc373141062", null ],
-    [ "_vertexDataSize", "class_igor_1_1i_mesh.html#a6b855f36c0366cf28081a25812ef60ba", null ],
-    [ "_vertexSize", "class_igor_1_1i_mesh.html#a6d7f7930d1d3221cba7b0e35502d9e39", null ]
+    [ "iRenderer", "class_igor_1_1i_mesh.html#a3169e12ae7cf3e5c6fd53a245e5e2d52", null ]
 ];

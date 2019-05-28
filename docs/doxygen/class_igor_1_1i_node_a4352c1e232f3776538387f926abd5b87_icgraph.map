@@ -1,5 +1,0 @@
-<map id="Igor::iNode::isActive" name="Igor::iNode::isActive">
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#ae397893dd8c9dbca7d895033f8a8923c" title="Igor::iNode::getInfo" alt="" coords="191,13,321,39"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node_switch.html#a750bbd06d6ebb891863561c9cf578bbb" title="Igor::iNodeSwitch::\lsetActiveChild" alt="" coords="191,64,321,105"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_visitor_print_tree.html#ae54f176919d1cf6840e74755a42d07ab" title="Igor::iNodeVisitorPrintTree\l::preOrderVisit" alt="" coords="369,5,543,47"/>
-</map>

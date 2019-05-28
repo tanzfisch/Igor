@@ -174,19 +174,19 @@ $(document).ready(function(){initNavTree('i_voxel_terrain_8h_source.html','');})
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
 <div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#ae17dc81add685384ac7de70f51568df3">   64</a></span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="class_igor_1_1i_task_voxel_terrain.html">iTaskVoxelTerrain</a>;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain_1_1i_vector_hasher.html">   68</a></span>&#160;        <span class="keyword">class </span><a class="code" href="class_igor_1_1i_voxel_terrain_1_1i_vector_hasher.html">iVectorHasher</a></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keyword">class </span>iVectorHasher</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        {</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain_1_1i_vector_hasher.html#a5b946a068f1733087593cf706b5407ab">   71</a></span>&#160;            <span class="keywordtype">size_t</span> operator() (<a class="code" href="class_igor_aux_1_1ia_vector3.html">iaVector3I</a> <span class="keyword">const</span>&amp; key)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            <span class="keywordtype">size_t</span> operator() (<a class="code" href="class_igor_aux_1_1ia_vector3.html">iaVector3I</a> <span class="keyword">const</span>&amp; key)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keyword">            </span>{</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                <span class="keywordflow">return</span> (key.<a class="code" href="class_igor_aux_1_1ia_vector3.html#a16a4ce44b6ecbf5b873460397d0d46bc">_x</a> &lt;&lt; 1) ^ (key.<a class="code" href="class_igor_aux_1_1ia_vector3.html#a47a1fe7dfac34c9f48ab052ee1365065">_y</a> &lt;&lt; 2) ^ (key.<a class="code" href="class_igor_aux_1_1ia_vector3.html#a3e0d8ae4a94e4e1b33d71b173d1e9331">_z</a> &lt;&lt; 3);</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            }</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        };</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain_1_1i_vector_equal_fn.html">   79</a></span>&#160;        <span class="keyword">class </span><a class="code" href="class_igor_1_1i_voxel_terrain_1_1i_vector_equal_fn.html">iVectorEqualFn</a></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keyword">class </span>iVectorEqualFn</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        {</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain_1_1i_vector_equal_fn.html#a85da12a2334e518566abf544e901f886">   82</a></span>&#160;            <span class="keywordtype">bool</span> operator() (<a class="code" href="class_igor_aux_1_1ia_vector3.html">iaVector3I</a> <span class="keyword">const</span>&amp; t1, <a class="code" href="class_igor_aux_1_1ia_vector3.html">iaVector3I</a> <span class="keyword">const</span>&amp; t2)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <span class="keywordtype">bool</span> operator() (<a class="code" href="class_igor_aux_1_1ia_vector3.html">iaVector3I</a> <span class="keyword">const</span>&amp; t1, <a class="code" href="class_igor_aux_1_1ia_vector3.html">iaVector3I</a> <span class="keyword">const</span>&amp; t2)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">            </span>{</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                <span class="keywordflow">return</span> t1 == t2;</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            };</div>
@@ -230,59 +230,59 @@ $(document).ready(function(){initNavTree('i_voxel_terrain_8h_source.html','');})
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;</div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;</div>
-<div class="line"><a name="l00188"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#a41ffecdae0dc04151c8c214a1d6952e9">  188</a></span>&#160;        <a class="code" href="class_igor_aux_1_1ia_vector3.html">iaVector3I</a> _maxDiscoveryBoundaries{100000,100000,100000};</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        <a class="code" href="class_igor_aux_1_1ia_vector3.html">iaVector3I</a> _maxDiscoveryBoundaries{100000,100000,100000};</div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;</div>
-<div class="line"><a name="l00192"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#a0a54bcd74f63a16cc2f1e12c27380a89">  192</a></span>&#160;        uint32 _lowestLOD  = 0;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        uint32 _lowestLOD  = 0;</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;</div>
-<div class="line"><a name="l00196"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#afbbe5d0e8d3bf697a70cfcd5f05bfbcf">  196</a></span>&#160;        int64 _voxelBlockDiscoveryDistance = 0;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        int64 _voxelBlockDiscoveryDistance = 0;</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;</div>
-<div class="line"><a name="l00200"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#a3a80db346e5846ad0308de3f43da1cd6">  200</a></span>&#160;        int64 _voxelBlockSetupDistance = 0;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        int64 _voxelBlockSetupDistance = 0;</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;</div>
-<div class="line"><a name="l00204"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#ac8b67a9bcab6e0ff4bcc76202000b9c6">  204</a></span>&#160;        uint64 _physicsMaterialID = 0;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        uint64 _physicsMaterialID = 0;</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;</div>
-<div class="line"><a name="l00208"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#ab9c90291a5e28897db655711b0b4c77a">  208</a></span>&#160;        <a class="code" href="class_igor_1_1i_target_material.html">iTargetMaterial</a>* <a class="code" href="namespace_igor.html#a0df36da6b81f88f656ae8fa8e0447448">_targetMaterial</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <a class="code" href="class_igor_1_1i_target_material.html">iTargetMaterial</a>* <a class="code" href="namespace_igor.html#a0df36da6b81f88f656ae8fa8e0447448">_targetMaterial</a> = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;</div>
-<div class="line"><a name="l00212"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#ace3126fb50dc57642a69f1d5211a2e2a">  212</a></span>&#160;        vector&lt;shared_ptr&lt;iVoxelOperation&gt;&gt; <a class="code" href="class_igor_1_1i_voxel_terrain.html#ace3126fb50dc57642a69f1d5211a2e2a">_operationsQueue</a>;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        vector&lt;shared_ptr&lt;iVoxelOperation&gt;&gt; _operationsQueue;</div>
 <div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;</div>
-<div class="line"><a name="l00216"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#ac6a2c0f265f0aa37dd483833b8e7226f">  216</a></span>&#160;        <a class="code" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> <a class="code" href="class_igor_1_1i_voxel_terrain.html#ac6a2c0f265f0aa37dd483833b8e7226f">_operationsQueueMutex</a>;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        <a class="code" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> _operationsQueueMutex;</div>
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;</div>
-<div class="line"><a name="l00220"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#a9ccfb37ed55b0771f9a6fdc7db332333">  220</a></span>&#160;        iVoxelTerrainGenerateDelegate <a class="code" href="class_igor_1_1i_voxel_terrain.html#a9ccfb37ed55b0771f9a6fdc7db332333">_generateVoxelsDelegate</a>;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        iVoxelTerrainGenerateDelegate _generateVoxelsDelegate;</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;</div>
-<div class="line"><a name="l00224"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#a127d9f1886842a335e7b196a99f162af">  224</a></span>&#160;        iVoxelTerrainPlacePropsDelegate <a class="code" href="class_igor_1_1i_voxel_terrain.html#a127d9f1886842a335e7b196a99f162af">_placePropsDelegate</a>;</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        iVoxelTerrainPlacePropsDelegate _placePropsDelegate;</div>
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;</div>
-<div class="line"><a name="l00228"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#a7d5516a817c522a9c671e39996b34d7e">  228</a></span>&#160;        vector&lt;iNodeFactory::iAction&gt; <a class="code" href="class_igor_1_1i_voxel_terrain.html#a7d5516a817c522a9c671e39996b34d7e">_actionQueue</a>;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        vector&lt;iNodeFactory::iAction&gt; _actionQueue;</div>
 <div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;</div>
-<div class="line"><a name="l00232"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#afbda04d008a0ef39cdac8ecfc720c39a">  232</a></span>&#160;        <a class="code" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> <a class="code" href="class_igor_1_1i_voxel_terrain.html#afbda04d008a0ef39cdac8ecfc720c39a">_mutexActionQueue</a>;</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        <a class="code" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> _mutexActionQueue;</div>
 <div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;</div>
-<div class="line"><a name="l00236"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#ac9e19621b9f6d2ae5a6a031682ed6dc2">  236</a></span>&#160;        uint32 _discoverBlocksSection = 0;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        uint32 _discoverBlocksSection = 0;</div>
 <div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;</div>
-<div class="line"><a name="l00240"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#a777f4d1cd4a377c346a7e272b241f392">  240</a></span>&#160;        uint32 _deleteBlocksSection = 0;</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        uint32 _deleteBlocksSection = 0;</div>
 <div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;</div>
-<div class="line"><a name="l00244"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#ab587ad66fa4449b89018202aca65f77d">  244</a></span>&#160;        uint32 _applyActionsSection = 0;</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        uint32 _applyActionsSection = 0;</div>
 <div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;</div>
-<div class="line"><a name="l00248"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#a34fc4ca9a1747d94167219ca818d59ff">  248</a></span>&#160;        uint32 _updateBlocksSection = 0;</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        uint32 _updateBlocksSection = 0;</div>
 <div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;</div>
-<div class="line"><a name="l00252"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#a5f6f68508d804ad84952c7e57560c7ee">  252</a></span>&#160;        uint32 _updateVisBlocksSection = 0;</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        uint32 _updateVisBlocksSection = 0;</div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;</div>
-<div class="line"><a name="l00256"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#a7adeb4d1dda332f613132697ab125423">  256</a></span>&#160;        uint32 _totalSection = 0;</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        uint32 _totalSection = 0;</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;</div>
-<div class="line"><a name="l00260"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#a073daea8b9ff128b5ac5f73bb31e5579">  260</a></span>&#160;        vector&lt;unordered_map&lt;iaVector3I, iVoxelBlock*, iVectorHasher, iVectorEqualFn&gt;&gt; <a class="code" href="class_igor_1_1i_voxel_terrain.html#a073daea8b9ff128b5ac5f73bb31e5579">_voxelBlocks</a>;</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        vector&lt;unordered_map&lt;iaVector3I, iVoxelBlock*, iVectorHasher, iVectorEqualFn&gt;&gt; _voxelBlocks;</div>
 <div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;</div>
-<div class="line"><a name="l00264"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#a42e1af944137efb01a89aaa96066a2e8">  264</a></span>&#160;        map&lt;uint64, iVoxelBlock*&gt; <a class="code" href="class_igor_1_1i_voxel_terrain.html#a42e1af944137efb01a89aaa96066a2e8">_voxelBlocksMap</a>;</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        map&lt;uint64, iVoxelBlock*&gt; _voxelBlocksMap;</div>
 <div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;</div>
-<div class="line"><a name="l00268"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#a2eb82f46cd3092acfce68d6a4ea69462">  268</a></span>&#160;        uint64 _nextVoxelBlockID = 1;</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        uint64 _nextVoxelBlockID = 1;</div>
 <div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;</div>
-<div class="line"><a name="l00272"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#ad4aa29309c23224f050d1f7fa7f7a15f">  272</a></span>&#160;        vector&lt;iVoxelBlock*&gt; <a class="code" href="class_igor_1_1i_voxel_terrain.html#ad4aa29309c23224f050d1f7fa7f7a15f">_voxelBlocksToDelete</a>;</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        vector&lt;iVoxelBlock*&gt; _voxelBlocksToDelete;</div>
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;</div>
-<div class="line"><a name="l00276"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#accb686380fc60605f3756be025cbc8cd">  276</a></span>&#160;        <a class="code" href="class_igor_aux_1_1ia_vector3.html">iaVector3I</a> <a class="code" href="class_igor_1_1i_voxel_terrain.html#accb686380fc60605f3756be025cbc8cd">_lastDiscoveryPosition</a>;</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;        <a class="code" href="class_igor_aux_1_1ia_vector3.html">iaVector3I</a> _lastDiscoveryPosition;</div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;</div>
-<div class="line"><a name="l00280"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#a1d157daf782288556783f7cc1416827d">  280</a></span>&#160;        <span class="keywordtype">bool</span> _dirtyDiscovery = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        <span class="keywordtype">bool</span> _dirtyDiscovery = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;</div>
-<div class="line"><a name="l00284"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#a325a5ece9362ff2c32481ca724aca277">  284</a></span>&#160;        <a class="code" href="class_igor_1_1i_node.html">iNodePtr</a> _rootNode = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        <a class="code" href="class_igor_1_1i_node.html">iNodePtr</a> _rootNode = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;</div>
-<div class="line"><a name="l00288"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#a4583f11d241bb5d8da02cf8e5b083ce7">  288</a></span>&#160;        uint64 _terrainMaterialID = 0;</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        uint64 _terrainMaterialID = 0;</div>
 <div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;</div>
-<div class="line"><a name="l00292"></a><span class="lineno"><a class="line" href="class_igor_1_1i_voxel_terrain.html#ae4914fbcc15a298f711a8c186062a098">  292</a></span>&#160;        uint32 _lodTrigger = iNode::INVALID_NODE_ID;</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        uint32 _lodTrigger = iNode::INVALID_NODE_ID;</div>
 <div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;</div>
 <div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        <span class="keywordtype">void</span> collectBlocksToDelete(<a class="code" href="struct_igor_1_1i_voxel_block.html">iVoxelBlock</a>* currentBlock, vector&lt;iVoxelBlock*&gt;&amp; dst);</div>
 <div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;</div>
@@ -332,56 +332,44 @@ $(document).ready(function(){initNavTree('i_voxel_terrain_8h_source.html','');})
 <div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;</div>
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="ia_vector3_8h_html"><div class="ttname"><a href="ia_vector3_8h.html">iaVector3.h</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_mutex_html"><div class="ttname"><a href="class_igor_aux_1_1ia_mutex.html">IgorAux::iaMutex</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_mutex_8h_source.html#l00041">iaMutex.h:41</a></div></div>
-<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_bits_8h_source.html#l00034">iaBits.h:34</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_vector3_html_a3e0d8ae4a94e4e1b33d71b173d1e9331"><div class="ttname"><a href="class_igor_aux_1_1ia_vector3.html#a3e0d8ae4a94e4e1b33d71b173d1e9331">IgorAux::iaVector3::_z</a></div><div class="ttdeci">T _z</div><div class="ttdef"><b>Definition:</b> <a href="ia_vector3_8h_source.html#l00059">iaVector3.h:59</a></div></div>
-<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="gtest-tuple_8h_source.html#l00113">gtest-tuple.h:113</a></div></div>
-<div class="ttc" id="class_igor_1_1i_target_material_html"><div class="ttname"><a href="class_igor_1_1i_target_material.html">Igor::iTargetMaterial</a></div><div class="ttdef"><b>Definition:</b> <a href="i_target_material_8h_source.html#l00048">iTargetMaterial.h:48</a></div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_mutex_html"><div class="ttname"><a href="class_igor_aux_1_1ia_mutex.html">IgorAux::iaMutex</a></div><div class="ttdef"><b>Definition:</b> iaMutex.h:41</div></div>
+<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> iaBits.h:34</div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_vector3_html_a3e0d8ae4a94e4e1b33d71b173d1e9331"><div class="ttname"><a href="class_igor_aux_1_1ia_vector3.html#a3e0d8ae4a94e4e1b33d71b173d1e9331">IgorAux::iaVector3::_z</a></div><div class="ttdeci">T _z</div><div class="ttdef"><b>Definition:</b> iaVector3.h:59</div></div>
+<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> iaString.h:432</div></div>
+<div class="ttc" id="class_igor_1_1i_target_material_html"><div class="ttname"><a href="class_igor_1_1i_target_material.html">Igor::iTargetMaterial</a></div><div class="ttdef"><b>Definition:</b> iTargetMaterial.h:48</div></div>
 <div class="ttc" id="i_task_props_on_voxels_8h_html"><div class="ttname"><a href="i_task_props_on_voxels_8h.html">iTaskPropsOnVoxels.h</a></div></div>
-<div class="ttc" id="class_igor_1_1i_voxel_terrain_html_a127d9f1886842a335e7b196a99f162af"><div class="ttname"><a href="class_igor_1_1i_voxel_terrain.html#a127d9f1886842a335e7b196a99f162af">Igor::iVoxelTerrain::_placePropsDelegate</a></div><div class="ttdeci">iVoxelTerrainPlacePropsDelegate _placePropsDelegate</div><div class="ttdef"><b>Definition:</b> <a href="i_voxel_terrain_8h_source.html#l00224">iVoxelTerrain.h:224</a></div></div>
-<div class="ttc" id="class_igor_1_1i_voxel_terrain_html_ac6a2c0f265f0aa37dd483833b8e7226f"><div class="ttname"><a href="class_igor_1_1i_voxel_terrain.html#ac6a2c0f265f0aa37dd483833b8e7226f">Igor::iVoxelTerrain::_operationsQueueMutex</a></div><div class="ttdeci">iaMutex _operationsQueueMutex</div><div class="ttdef"><b>Definition:</b> <a href="i_voxel_terrain_8h_source.html#l00216">iVoxelTerrain.h:216</a></div></div>
-<div class="ttc" id="class_igor_1_1i_voxel_terrain_html_afbda04d008a0ef39cdac8ecfc720c39a"><div class="ttname"><a href="class_igor_1_1i_voxel_terrain.html#afbda04d008a0ef39cdac8ecfc720c39a">Igor::iVoxelTerrain::_mutexActionQueue</a></div><div class="ttdeci">iaMutex _mutexActionQueue</div><div class="ttdef"><b>Definition:</b> <a href="i_voxel_terrain_8h_source.html#l00232">iVoxelTerrain.h:232</a></div></div>
-<div class="ttc" id="class_igor_1_1i_voxel_terrain_html_a9ccfb37ed55b0771f9a6fdc7db332333"><div class="ttname"><a href="class_igor_1_1i_voxel_terrain.html#a9ccfb37ed55b0771f9a6fdc7db332333">Igor::iVoxelTerrain::_generateVoxelsDelegate</a></div><div class="ttdeci">iVoxelTerrainGenerateDelegate _generateVoxelsDelegate</div><div class="ttdef"><b>Definition:</b> <a href="i_voxel_terrain_8h_source.html#l00220">iVoxelTerrain.h:220</a></div></div>
-<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> <a href="i_a_a_box_8h_source.html#l00036">iAABox.h:36</a></div></div>
-<div class="ttc" id="class_igor_1_1i_voxel_terrain_html_a073daea8b9ff128b5ac5f73bb31e5579"><div class="ttname"><a href="class_igor_1_1i_voxel_terrain.html#a073daea8b9ff128b5ac5f73bb31e5579">Igor::iVoxelTerrain::_voxelBlocks</a></div><div class="ttdeci">vector&lt; unordered_map&lt; iaVector3I, iVoxelBlock *, iVectorHasher, iVectorEqualFn &gt; &gt; _voxelBlocks</div><div class="ttdef"><b>Definition:</b> <a href="i_voxel_terrain_8h_source.html#l00260">iVoxelTerrain.h:260</a></div></div>
-<div class="ttc" id="class_igor_1_1i_scene_html"><div class="ttname"><a href="class_igor_1_1i_scene.html">Igor::iScene</a></div><div class="ttdef"><b>Definition:</b> <a href="i_scene_8h_source.html#l00074">iScene.h:74</a></div></div>
+<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> iAABox.h:36</div></div>
+<div class="ttc" id="class_igor_1_1i_scene_html"><div class="ttname"><a href="class_igor_1_1i_scene.html">Igor::iScene</a></div><div class="ttdef"><b>Definition:</b> iScene.h:74</div></div>
 <div class="ttc" id="i_task_generate_voxels_8h_html"><div class="ttname"><a href="i_task_generate_voxels_8h.html">iTaskGenerateVoxels.h</a></div></div>
-<div class="ttc" id="class_igor_1_1i_voxel_terrain_1_1i_vector_equal_fn_html"><div class="ttname"><a href="class_igor_1_1i_voxel_terrain_1_1i_vector_equal_fn.html">Igor::iVoxelTerrain::iVectorEqualFn</a></div><div class="ttdef"><b>Definition:</b> <a href="i_voxel_terrain_8h_source.html#l00079">iVoxelTerrain.h:79</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_vector3_html_a47a1fe7dfac34c9f48ab052ee1365065"><div class="ttname"><a href="class_igor_aux_1_1ia_vector3.html#a47a1fe7dfac34c9f48ab052ee1365065">IgorAux::iaVector3::_y</a></div><div class="ttdeci">T _y</div><div class="ttdef"><b>Definition:</b> <a href="ia_vector3_8h_source.html#l00055">iaVector3.h:55</a></div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_vector3_html_a47a1fe7dfac34c9f48ab052ee1365065"><div class="ttname"><a href="class_igor_aux_1_1ia_vector3.html#a47a1fe7dfac34c9f48ab052ee1365065">IgorAux::iaVector3::_y</a></div><div class="ttdeci">T _y</div><div class="ttdef"><b>Definition:</b> iaVector3.h:55</div></div>
 <div class="ttc" id="namespace_igor_html_a624d2a58256d94e2c0edde526efdb13b"><div class="ttname"><a href="namespace_igor.html#a624d2a58256d94e2c0edde526efdb13b">Igor::getTargetMaterial</a></div><div class="ttdeci">iTargetMaterial * getTargetMaterial()</div></div>
-<div class="ttc" id="class_igor_1_1i_node_l_o_d_trigger_html"><div class="ttname"><a href="class_igor_1_1i_node_l_o_d_trigger.html">Igor::iNodeLODTrigger</a></div><div class="ttdef"><b>Definition:</b> <a href="i_node_l_o_d_trigger_8h_source.html#l00049">iNodeLODTrigger.h:49</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_vector3_html_a16a4ce44b6ecbf5b873460397d0d46bc"><div class="ttname"><a href="class_igor_aux_1_1ia_vector3.html#a16a4ce44b6ecbf5b873460397d0d46bc">IgorAux::iaVector3::_x</a></div><div class="ttdeci">T _x</div><div class="ttdef"><b>Definition:</b> <a href="ia_vector3_8h_source.html#l00051">iaVector3.h:51</a></div></div>
-<div class="ttc" id="class_igor_1_1i_voxel_terrain_html_ace3126fb50dc57642a69f1d5211a2e2a"><div class="ttname"><a href="class_igor_1_1i_voxel_terrain.html#ace3126fb50dc57642a69f1d5211a2e2a">Igor::iVoxelTerrain::_operationsQueue</a></div><div class="ttdeci">vector&lt; shared_ptr&lt; iVoxelOperation &gt; &gt; _operationsQueue</div><div class="ttdef"><b>Definition:</b> <a href="i_voxel_terrain_8h_source.html#l00212">iVoxelTerrain.h:212</a></div></div>
-<div class="ttc" id="class_igor_1_1i_voxel_terrain_html_ad4aa29309c23224f050d1f7fa7f7a15f"><div class="ttname"><a href="class_igor_1_1i_voxel_terrain.html#ad4aa29309c23224f050d1f7fa7f7a15f">Igor::iVoxelTerrain::_voxelBlocksToDelete</a></div><div class="ttdeci">vector&lt; iVoxelBlock * &gt; _voxelBlocksToDelete</div><div class="ttdef"><b>Definition:</b> <a href="i_voxel_terrain_8h_source.html#l00272">iVoxelTerrain.h:272</a></div></div>
-<div class="ttc" id="class_igor_1_1i_voxel_terrain_html_a7d5516a817c522a9c671e39996b34d7e"><div class="ttname"><a href="class_igor_1_1i_voxel_terrain.html#a7d5516a817c522a9c671e39996b34d7e">Igor::iVoxelTerrain::_actionQueue</a></div><div class="ttdeci">vector&lt; iNodeFactory::iAction &gt; _actionQueue</div><div class="ttdef"><b>Definition:</b> <a href="i_voxel_terrain_8h_source.html#l00228">iVoxelTerrain.h:228</a></div></div>
+<div class="ttc" id="class_igor_1_1i_node_l_o_d_trigger_html"><div class="ttname"><a href="class_igor_1_1i_node_l_o_d_trigger.html">Igor::iNodeLODTrigger</a></div><div class="ttdef"><b>Definition:</b> iNodeLODTrigger.h:49</div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_vector3_html_a16a4ce44b6ecbf5b873460397d0d46bc"><div class="ttname"><a href="class_igor_aux_1_1ia_vector3.html#a16a4ce44b6ecbf5b873460397d0d46bc">IgorAux::iaVector3::_x</a></div><div class="ttdeci">T _x</div><div class="ttdef"><b>Definition:</b> iaVector3.h:51</div></div>
 <div class="ttc" id="i_voxel_terrain_mesh_generator_8h_html"><div class="ttname"><a href="i_voxel_terrain_mesh_generator_8h.html">iVoxelTerrainMeshGenerator.h</a></div></div>
 <div class="ttc" id="class_igor_1_1i_sphere_html"><div class="ttname"><a href="class_igor_1_1i_sphere.html">Igor::iSphere&lt; int64 &gt;</a></div></div>
-<div class="ttc" id="class_igor_1_1i_voxel_data_html"><div class="ttname"><a href="class_igor_1_1i_voxel_data.html">Igor::iVoxelData</a></div><div class="ttdef"><b>Definition:</b> <a href="i_voxel_data_8h_source.html#l00056">iVoxelData.h:56</a></div></div>
-<div class="ttc" id="class_igor_1_1i_voxel_terrain_html_a42e1af944137efb01a89aaa96066a2e8"><div class="ttname"><a href="class_igor_1_1i_voxel_terrain.html#a42e1af944137efb01a89aaa96066a2e8">Igor::iVoxelTerrain::_voxelBlocksMap</a></div><div class="ttdeci">map&lt; uint64, iVoxelBlock * &gt; _voxelBlocksMap</div><div class="ttdef"><b>Definition:</b> <a href="i_voxel_terrain_8h_source.html#l00264">iVoxelTerrain.h:264</a></div></div>
-<div class="ttc" id="class_igor_1_1i_voxel_terrain_html_accb686380fc60605f3756be025cbc8cd"><div class="ttname"><a href="class_igor_1_1i_voxel_terrain.html#accb686380fc60605f3756be025cbc8cd">Igor::iVoxelTerrain::_lastDiscoveryPosition</a></div><div class="ttdeci">iaVector3I _lastDiscoveryPosition</div><div class="ttdef"><b>Definition:</b> <a href="i_voxel_terrain_8h_source.html#l00276">iVoxelTerrain.h:276</a></div></div>
-<div class="ttc" id="class_igor_1_1i_task_voxel_terrain_html"><div class="ttname"><a href="class_igor_1_1i_task_voxel_terrain.html">Igor::iTaskVoxelTerrain</a></div><div class="ttdef"><b>Definition:</b> <a href="i_task_voxel_terrain_8h_source.html#l00041">iTaskVoxelTerrain.h:41</a></div></div>
+<div class="ttc" id="class_igor_1_1i_voxel_data_html"><div class="ttname"><a href="class_igor_1_1i_voxel_data.html">Igor::iVoxelData</a></div><div class="ttdef"><b>Definition:</b> iVoxelData.h:56</div></div>
+<div class="ttc" id="class_igor_1_1i_task_voxel_terrain_html"><div class="ttname"><a href="class_igor_1_1i_task_voxel_terrain.html">Igor::iTaskVoxelTerrain</a></div><div class="ttdef"><b>Definition:</b> iTaskVoxelTerrain.h:41</div></div>
 <div class="ttc" id="class_igor_1_1i_a_a_box_html"><div class="ttname"><a href="class_igor_1_1i_a_a_box.html">Igor::iAABox&lt; int64 &gt;</a></div></div>
 <div class="ttc" id="i_node_8h_html"><div class="ttname"><a href="i_node_8h.html">iNode.h</a></div></div>
 <div class="ttc" id="i_node_factory_8h_html"><div class="ttname"><a href="i_node_factory_8h.html">iNodeFactory.h</a></div></div>
 <div class="ttc" id="class_igor_aux_1_1ia_vector3_html"><div class="ttname"><a href="class_igor_aux_1_1ia_vector3.html">IgorAux::iaVector3&lt; int64 &gt;</a></div></div>
 <div class="ttc" id="i_a_a_box_8h_html"><div class="ttname"><a href="i_a_a_box_8h.html">iAABox.h</a></div></div>
 <div class="ttc" id="i_voxel_block_8h_html"><div class="ttname"><a href="i_voxel_block_8h.html">iVoxelBlock.h</a></div></div>
-<div class="ttc" id="struct_igor_1_1i_voxel_block_html"><div class="ttname"><a href="struct_igor_1_1i_voxel_block.html">Igor::iVoxelBlock</a></div><div class="ttdef"><b>Definition:</b> <a href="i_voxel_block_8h_source.html#l00064">iVoxelBlock.h:64</a></div></div>
+<div class="ttc" id="struct_igor_1_1i_voxel_block_html"><div class="ttname"><a href="struct_igor_1_1i_voxel_block.html">Igor::iVoxelBlock</a></div><div class="ttdef"><b>Definition:</b> iVoxelBlock.h:64</div></div>
 <div class="ttc" id="ia_event_8h_html"><div class="ttname"><a href="ia_event_8h.html">iaEvent.h</a></div></div>
-<div class="ttc" id="class_igor_1_1i_voxel_terrain_html"><div class="ttname"><a href="class_igor_1_1i_voxel_terrain.html">Igor::iVoxelTerrain</a></div><div class="ttdef"><b>Definition:</b> <a href="i_voxel_terrain_8h_source.html#l00061">iVoxelTerrain.h:61</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_html"><div class="ttname"><a href="class_igor_1_1i_node.html">Igor::iNode</a></div><div class="ttdef"><b>Definition:</b> <a href="i_node_8h_source.html#l00107">iNode.h:107</a></div></div>
+<div class="ttc" id="class_igor_1_1i_voxel_terrain_html"><div class="ttname"><a href="class_igor_1_1i_voxel_terrain.html">Igor::iVoxelTerrain</a></div><div class="ttdef"><b>Definition:</b> iVoxelTerrain.h:61</div></div>
+<div class="ttc" id="class_igor_1_1i_node_html"><div class="ttname"><a href="class_igor_1_1i_node.html">Igor::iNode</a></div><div class="ttdef"><b>Definition:</b> iNode.h:107</div></div>
 <div class="ttc" id="ia_mutex_8h_html"><div class="ttname"><a href="ia_mutex_8h.html">iaMutex.h</a></div></div>
-<div class="ttc" id="namespace_igor_html_a0df36da6b81f88f656ae8fa8e0447448"><div class="ttname"><a href="namespace_igor.html#a0df36da6b81f88f656ae8fa8e0447448">Igor::_targetMaterial</a></div><div class="ttdeci">iTargetMaterial * _targetMaterial</div><div class="ttdef"><b>Definition:</b> <a href="i_node_mesh_8h_source.html#l00135">iNodeMesh.h:135</a></div></div>
-<div class="ttc" id="class_igor_1_1i_voxel_terrain_1_1i_vector_hasher_html"><div class="ttname"><a href="class_igor_1_1i_voxel_terrain_1_1i_vector_hasher.html">Igor::iVoxelTerrain::iVectorHasher</a></div><div class="ttdef"><b>Definition:</b> <a href="i_voxel_terrain_8h_source.html#l00068">iVoxelTerrain.h:68</a></div></div>
+<div class="ttc" id="namespace_igor_html_a0df36da6b81f88f656ae8fa8e0447448"><div class="ttname"><a href="namespace_igor.html#a0df36da6b81f88f656ae8fa8e0447448">Igor::_targetMaterial</a></div><div class="ttdeci">iTargetMaterial * _targetMaterial</div><div class="ttdef"><b>Definition:</b> iNodeMesh.h:135</div></div>
 <div class="ttc" id="i_voxel_operation_8h_html"><div class="ttname"><a href="i_voxel_operation_8h.html">iVoxelOperation.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_d038480633c1631388acdc016f2c394d.html">Igor</a></li><li class="navelem"><a class="el" href="dir_c666f9416e68e5cd51b28bff0f98e46c.html">src</a></li><li class="navelem"><a class="el" href="i_voxel_terrain_8h.html">iVoxelTerrain.h</a></li>
+				<li class="navelem"><a class="el" href="dir_f25e90d47839bd5aa725b19f9dd3e654.html">Igor</a></li><li class="navelem"><a class="el" href="dir_b12320815bd4967fc918d17f555d23eb.html">src</a></li><li class="navelem"><a class="el" href="i_voxel_terrain_8h.html">iVoxelTerrain.h</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:06 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:07 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

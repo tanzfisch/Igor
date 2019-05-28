@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,7 +112,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_visitor_render_co
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_1_1i_node_visitor_render_color_i_d-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Igor::iNodeVisitorRenderColorID Class Reference</div>  </div>
@@ -120,18 +119,8 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_visitor_render_co
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="i_node_visitor_render_color_i_d_8h_source.html">iNodeVisitorRenderColorID.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iNodeVisitorRenderColorID:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_visitor_render_color_i_d__inherit__graph.svg" width="174" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iNodeVisitorRenderColorID:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_visitor_render_color_i_d__coll__graph.svg" width="307" height="275"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+
+<p>Inherits <a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -159,20 +148,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a21a08c0ea7c6be3e2e1006ab133c08ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62679a905045c0fe6a2a85ab20213ac1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_render_color_i_d.html#a62679a905045c0fe6a2a85ab20213ac1">postTraverse</a> ()</td></tr>
 <tr class="separator:a62679a905045c0fe6a2a85ab20213ac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:af2bdf27826e156e78176729da8d4ba20"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_render_color_i_d.html#af2bdf27826e156e78176729da8d4ba20">_matrixStack</a></td></tr>
-<tr class="separator:af2bdf27826e156e78176729da8d4ba20"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a6883f012a70463eb6edd9e666021e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_render_color_i_d.html#a7a6883f012a70463eb6edd9e666021e3">_currentMatrix</a></td></tr>
-<tr class="separator:a7a6883f012a70463eb6edd9e666021e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae894fdd554b7aa70febaa7ee379262f7"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_render_color_i_d.html#ae894fdd554b7aa70febaa7ee379262f7">_material</a> = <a class="el" href="class_igor_1_1i_material.html#a13049bfb6e67de2349ecefb868a5f121">iMaterial::INVALID_MATERIAL_ID</a></td></tr>
-<tr class="separator:ae894fdd554b7aa70febaa7ee379262f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>traveses node tree and renders bounding boxes </p>
-
-<p>Definition at line <a class="el" href="i_node_visitor_render_color_i_d_8h_source.html#l00048">48</a> of file <a class="el" href="i_node_visitor_render_color_i_d_8h_source.html">iNodeVisitorRenderColorID.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ad415157458952fd797eb41948e0dafc0"></a>
 <div class="memitem">
@@ -187,8 +165,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>configures material </p>
-
-<p>Definition at line <a class="el" href="i_node_visitor_render_color_i_d_8cpp_source.html#l00019">19</a> of file <a class="el" href="i_node_visitor_render_color_i_d_8cpp_source.html">iNodeVisitorRenderColorID.cpp</a>.</p>
 
 </div>
 </div>
@@ -248,16 +224,6 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="class_igor_1_1i_node_visitor.html#aac8a35e0f6e32017aa709cd15c51e0e6">Igor::iNodeVisitor</a>.</p>
 
-<p>Definition at line <a class="el" href="i_node_visitor_render_color_i_d_8cpp_source.html#l00050">50</a> of file <a class="el" href="i_node_visitor_render_color_i_d_8cpp_source.html">iNodeVisitorRenderColorID.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_visitor_render_color_i_d_a21a08c0ea7c6be3e2e1006ab133c08ac_cgraph.svg" width="358" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a62679a905045c0fe6a2a85ab20213ac1"></a>
@@ -283,8 +249,6 @@ Here is the call graph for this function:</div>
 <p>does nothing </p>
 
 <p>Implements <a class="el" href="class_igor_1_1i_node_visitor.html#a31fec732bc7641e2ba8cd01bad7f101c">Igor::iNodeVisitor</a>.</p>
-
-<p>Definition at line <a class="el" href="i_node_visitor_render_color_i_d_8cpp_source.html#l00069">69</a> of file <a class="el" href="i_node_visitor_render_color_i_d_8cpp_source.html">iNodeVisitorRenderColorID.cpp</a>.</p>
 
 </div>
 </div>
@@ -319,16 +283,6 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="class_igor_1_1i_node_visitor.html#a050cf551c53b773e828351e7e7f7f419">Igor::iNodeVisitor</a>.</p>
 
-<p>Definition at line <a class="el" href="i_node_visitor_render_color_i_d_8cpp_source.html#l00028">28</a> of file <a class="el" href="i_node_visitor_render_color_i_d_8cpp_source.html">iNodeVisitorRenderColorID.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_visitor_render_color_i_d_a4df2a8b810750c412c8d93ad2241f2da_cgraph.svg" width="382" height="155"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ac773eeef0b92f2e0496217c57799e91e"></a>
@@ -355,91 +309,11 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="class_igor_1_1i_node_visitor.html#a0ffed66a85f892ffee84655b08f01800">Igor::iNodeVisitor</a>.</p>
 
-<p>Definition at line <a class="el" href="i_node_visitor_render_color_i_d_8cpp_source.html#l00062">62</a> of file <a class="el" href="i_node_visitor_render_color_i_d_8cpp_source.html">iNodeVisitorRenderColorID.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_visitor_render_color_i_d_ac773eeef0b92f2e0496217c57799e91e_cgraph.svg" width="336" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a7a6883f012a70463eb6edd9e666021e3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> Igor::iNodeVisitorRenderColorID::_currentMatrix</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current matrix that eventually gets pushed on stack or came poped from stack </p>
-
-<p>Definition at line <a class="el" href="i_node_visitor_render_color_i_d_8h_source.html#l00091">91</a> of file <a class="el" href="i_node_visitor_render_color_i_d_8h_source.html">iNodeVisitorRenderColorID.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae894fdd554b7aa70febaa7ee379262f7"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iNodeVisitorRenderColorID::_material = <a class="el" href="class_igor_1_1i_material.html#a13049bfb6e67de2349ecefb868a5f121">iMaterial::INVALID_MATERIAL_ID</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>color ID render material </p>
-
-<p>Definition at line <a class="el" href="i_node_visitor_render_color_i_d_8h_source.html#l00095">95</a> of file <a class="el" href="i_node_visitor_render_color_i_d_8h_source.html">iNodeVisitorRenderColorID.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af2bdf27826e156e78176729da8d4ba20"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a>&gt; Igor::iNodeVisitorRenderColorID::_matrixStack</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>holds a stack of matrices while traversion tree </p>
-
-<p>Definition at line <a class="el" href="i_node_visitor_render_color_i_d_8h_source.html#l00087">87</a> of file <a class="el" href="i_node_visitor_render_color_i_d_8h_source.html">iNodeVisitorRenderColorID.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_visitor_render_color_i_d_8h_source.html">iNodeVisitorRenderColorID.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_visitor_render_color_i_d_8cpp_source.html">iNodeVisitorRenderColorID.cpp</a></li>
+<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_visitor_render_color_i_d_8cpp.html">iNodeVisitorRenderColorID.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -448,7 +322,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_node_visitor_render_color_i_d.html">iNodeVisitorRenderColorID</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:55 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:19 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

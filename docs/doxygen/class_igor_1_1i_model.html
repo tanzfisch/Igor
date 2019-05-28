@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,8 +112,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_model.html','');});
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_model-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -122,18 +120,7 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_model.html','');});
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="i_model_8h_source.html">iModel.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for Igor::iModel:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_model__coll__graph.svg" width="1108" height="470"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_igor_1_1i_model_1_1private__deleter.html">private_deleter</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a78c9f17cc997806d5fcc2732cf82dd00"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model.html#a78c9f17cc997806d5fcc2732cf82dd00">getName</a> () const </td></tr>
@@ -147,36 +134,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aaa479777ad2a79aa82cf42afb21543eb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a0416129063ce9a370b0bb1f06168374e">iModelState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model.html#aaa479777ad2a79aa82cf42afb21543eb">getState</a> ()</td></tr>
 <tr class="separator:aaa479777ad2a79aa82cf42afb21543eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ad22ed0b0f85b8453932a6fa6502558a6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#ac9b9b2022cdca46f600793d06ddcce63">iResourceCacheMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model.html#ad22ed0b0f85b8453932a6fa6502558a6">getCacheMode</a> () const </td></tr>
-<tr class="separator:ad22ed0b0f85b8453932a6fa6502558a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66b254a9eeeefa95f1132000df04d12c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model.html#a66b254a9eeeefa95f1132000df04d12c">setNode</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node)</td></tr>
-<tr class="separator:a66b254a9eeeefa95f1132000df04d12c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bc49bd721aef6369b086fcc7129abdc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model.html#a6bc49bd721aef6369b086fcc7129abdc">setState</a> (<a class="el" href="namespace_igor.html#a0416129063ce9a370b0bb1f06168374e">iModelState</a> state)</td></tr>
-<tr class="separator:a6bc49bd721aef6369b086fcc7129abdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40a7a4f28976659d949e8d95200b7a7a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model.html#a40a7a4f28976659d949e8d95200b7a7a">iModel</a> (const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;name, <a class="el" href="namespace_igor.html#ac9b9b2022cdca46f600793d06ddcce63">iResourceCacheMode</a> cacheMode, <a class="el" href="struct_igor_1_1i_model_data_input_parameter.html">iModelDataInputParameter</a> *<a class="el" href="class_igor_1_1i_model.html#ad36aa389e0a6a329953813deb0309bf7">_parameter</a>=nullptr)</td></tr>
-<tr class="separator:a40a7a4f28976659d949e8d95200b7a7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07f3a0ec6eaf4783d6b9d29b17bdaa3e"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model.html#a07f3a0ec6eaf4783d6b9d29b17bdaa3e">~iModel</a> ()</td></tr>
-<tr class="separator:a07f3a0ec6eaf4783d6b9d29b17bdaa3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f6726cef48aa58b5e79ae6487837d26"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model.html#a7f6726cef48aa58b5e79ae6487837d26">__IGOR_DISABLE_WARNING__</a> (4091)</td></tr>
-<tr class="separator:a7f6726cef48aa58b5e79ae6487837d26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b9033f46f28bc0aad26499634913266"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model.html#a2b9033f46f28bc0aad26499634913266">__IGOR_ENABLE_WARNING__</a> (4091)</td></tr>
-<tr class="separator:a2b9033f46f28bc0aad26499634913266"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a5aa6a5823d8e22899ad4b55f6ebed136"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model.html#a5aa6a5823d8e22899ad4b55f6ebed136">_name</a></td></tr>
-<tr class="separator:a5aa6a5823d8e22899ad4b55f6ebed136"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c5b773ad81d88c009927109bb3f5332"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model.html#a5c5b773ad81d88c009927109bb3f5332">_node</a> = nullptr</td></tr>
-<tr class="separator:a5c5b773ad81d88c009927109bb3f5332"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad36aa389e0a6a329953813deb0309bf7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_igor_1_1i_model_data_input_parameter.html">iModelDataInputParameter</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model.html#ad36aa389e0a6a329953813deb0309bf7">_parameter</a> = nullptr</td></tr>
-<tr class="separator:ad36aa389e0a6a329953813deb0309bf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1660233e24be555a7fad2d3ffd8d36a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#ac9b9b2022cdca46f600793d06ddcce63">iResourceCacheMode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model.html#ab1660233e24be555a7fad2d3ffd8d36a">_cacheMode</a></td></tr>
-<tr class="separator:ab1660233e24be555a7fad2d3ffd8d36a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad39f2713ab8af42b90061d7f5162df49"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a0416129063ce9a370b0bb1f06168374e">iModelState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model.html#ad39f2713ab8af42b90061d7f5162df49">_state</a> = <a class="el" href="namespace_igor.html#a0416129063ce9a370b0bb1f06168374ea5111e24c1ecc6266ce0de4b4dc42033b">iModelState::NotLoaded</a></td></tr>
-<tr class="separator:ad39f2713ab8af42b90061d7f5162df49"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:aaa4dcb8c01053929d0a972e6ddeb6680"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model.html#aaa4dcb8c01053929d0a972e6ddeb6680">iModelResourceFactory</a></td></tr>
@@ -186,170 +143,7 @@ Friends</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>represents model data loaded or generated</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000016">Todo:</a></b></dt><dd>maybe we should replace pointers to nodes with IDs here </dd></dl>
-
-<p>Definition at line <a class="el" href="i_model_8h_source.html#l00100">100</a> of file <a class="el" href="i_model_8h_source.html">iModel.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a40a7a4f28976659d949e8d95200b7a7a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iModel::iModel </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#ac9b9b2022cdca46f600793d06ddcce63">iResourceCacheMode</a>&#160;</td>
-          <td class="paramname"><em>cacheMode</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="struct_igor_1_1i_model_data_input_parameter.html">iModelDataInputParameter</a> *&#160;</td>
-          <td class="paramname"><em>_parameter</em> = <code>nullptr</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>ctor</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname"></td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_model_8cpp_source.html#l00018">18</a> of file <a class="el" href="i_model_8cpp_source.html">iModel.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a07f3a0ec6eaf4783d6b9d29b17bdaa3e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iModel::~iModel </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>dtor </p>
-
-<p>Definition at line <a class="el" href="i_model_8cpp_source.html#l00025">25</a> of file <a class="el" href="i_model_8cpp_source.html">iModel.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_model_a07f3a0ec6eaf4783d6b9d29b17bdaa3e_cgraph.svg" width="400" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a7f6726cef48aa58b5e79ae6487837d26"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iModel::__IGOR_DISABLE_WARNING__ </td>
-          <td>(</td>
-          <td class="paramtype">4091&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>so the shared_ptr is able to call the private destructor indirectly</p>
-<p>source: <a href="http://nealabq.com/blog/2008/11/28/factory/">http://nealabq.com/blog/2008/11/28/factory/</a> </p>
-
-</div>
-</div>
-<a class="anchor" id="a2b9033f46f28bc0aad26499634913266"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iModel::__IGOR_ENABLE_WARNING__ </td>
-          <td>(</td>
-          <td class="paramtype">4091&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ad22ed0b0f85b8453932a6fa6502558a6"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#ac9b9b2022cdca46f600793d06ddcce63">iResourceCacheMode</a> Igor::iModel::getCacheMode </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>cache mode </dd></dl>
-
-<p>Definition at line <a class="el" href="i_model_8cpp_source.html#l00039">39</a> of file <a class="el" href="i_model_8cpp_source.html">iModel.cpp</a>.</p>
-
-</div>
-</div>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a78c9f17cc997806d5fcc2732cf82dd00"></a>
 <div class="memitem">
 <div class="memproto">
@@ -363,8 +157,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>filename of model </dd></dl>
-
-<p>Definition at line <a class="el" href="i_model_8cpp_source.html#l00049">49</a> of file <a class="el" href="i_model_8cpp_source.html">iModel.cpp</a>.</p>
 
 </div>
 </div>
@@ -383,8 +175,6 @@ Here is the call graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>pointer to node tree data</dd></dl>
 <p>only use this if you know what you are doing </p>
 
-<p>Definition at line <a class="el" href="i_model_8cpp_source.html#l00090">90</a> of file <a class="el" href="i_model_8cpp_source.html">iModel.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a0d4acb619fb8b8ecf2b89aeaa76b8af4"></a>
@@ -400,16 +190,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>copy to node tree data </dd></dl>
-
-<p>Definition at line <a class="el" href="i_model_8cpp_source.html#l00076">76</a> of file <a class="el" href="i_model_8cpp_source.html">iModel.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_model_a0d4acb619fb8b8ecf2b89aeaa76b8af4_cgraph.svg" width="432" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -427,8 +207,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>optional loading or generation parameters. returns zero if non present </dd></dl>
 
-<p>Definition at line <a class="el" href="i_model_8cpp_source.html#l00044">44</a> of file <a class="el" href="i_model_8cpp_source.html">iModel.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aaa479777ad2a79aa82cf42afb21543eb"></a>
@@ -444,68 +222,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>model state </dd></dl>
-
-<p>Definition at line <a class="el" href="i_model_8cpp_source.html#l00054">54</a> of file <a class="el" href="i_model_8cpp_source.html">iModel.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a66b254a9eeeefa95f1132000df04d12c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iModel::setNode </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>set node </p>
-
-<p>Definition at line <a class="el" href="i_model_8cpp_source.html#l00064">64</a> of file <a class="el" href="i_model_8cpp_source.html">iModel.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6bc49bd721aef6369b086fcc7129abdc"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iModel::setState </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#a0416129063ce9a370b0bb1f06168374e">iModelState</a>&#160;</td>
-          <td class="paramname"><em>state</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>sets model state</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">state</td><td>the new model state </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_model_8cpp_source.html#l00059">59</a> of file <a class="el" href="i_model_8cpp_source.html">iModel.cpp</a>.</p>
 
 </div>
 </div>
@@ -528,8 +244,6 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_model_8h_source.html#l00103">103</a> of file <a class="el" href="i_model_8h_source.html">iModel.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a59e4ca1178c55581c343028504664c9a"></a>
@@ -550,129 +264,11 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_model_8h_source.html#l00104">104</a> of file <a class="el" href="i_model_8h_source.html">iModel.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="ab1660233e24be555a7fad2d3ffd8d36a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#ac9b9b2022cdca46f600793d06ddcce63">iResourceCacheMode</a> Igor::iModel::_cacheMode</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>cache mode. initialized in ctor </p>
-
-<p>Definition at line <a class="el" href="i_model_8h_source.html#l00146">146</a> of file <a class="el" href="i_model_8h_source.html">iModel.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5aa6a5823d8e22899ad4b55f6ebed136"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> Igor::iModel::_name</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>model file name </p>
-
-<p>Definition at line <a class="el" href="i_model_8h_source.html#l00134">134</a> of file <a class="el" href="i_model_8h_source.html">iModel.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5c5b773ad81d88c009927109bb3f5332"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> Igor::iModel::_node = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>node data </p>
-
-<p>Definition at line <a class="el" href="i_model_8h_source.html#l00138">138</a> of file <a class="el" href="i_model_8h_source.html">iModel.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad36aa389e0a6a329953813deb0309bf7"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="struct_igor_1_1i_model_data_input_parameter.html">iModelDataInputParameter</a>* Igor::iModel::_parameter = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>optional load or generate parameter </p>
-
-<p>Definition at line <a class="el" href="i_model_8h_source.html#l00142">142</a> of file <a class="el" href="i_model_8h_source.html">iModel.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad39f2713ab8af42b90061d7f5162df49"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#a0416129063ce9a370b0bb1f06168374e">iModelState</a> Igor::iModel::_state = <a class="el" href="namespace_igor.html#a0416129063ce9a370b0bb1f06168374ea5111e24c1ecc6266ce0de4b4dc42033b">iModelState::NotLoaded</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>state of model </p>
-
-<p>Definition at line <a class="el" href="i_model_8h_source.html#l00154">154</a> of file <a class="el" href="i_model_8h_source.html">iModel.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_model_8h_source.html">iModel.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_model_8cpp_source.html">iModel.cpp</a></li>
+<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_model_8cpp.html">iModel.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -681,7 +277,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_model.html">iModel</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:49 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:18 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

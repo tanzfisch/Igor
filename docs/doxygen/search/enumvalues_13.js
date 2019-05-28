@@ -16,6 +16,5 @@ var searchData=
   ['totexture',['ToTexture',['../namespace_igor.html#a3c9d12e14f0211f845ce9b2a1a97125cafb55ad7d87f507a96a7d851e2366cecb',1,'Igor']]],
   ['transform',['Transform',['../ompf_defines_8h.html#a9a1edab516dc52f62789512d1f11903ba2ff4148554480a37f85efd299df04850',1,'ompfDefines.h']]],
   ['transformation',['Transformation',['../namespace_igor.html#af60214c983d49068fb5a9147cfb723faa7793401b28a8b98f7f4ccce3a07c17df',1,'Igor']]],
-  ['translate',['Translate',['../_manipulator_8h.html#a77aa559e59121f2c11fb42e8041f9d2fadeccbe4e9083c3b5f7cd2632722765bb',1,'Manipulator.h']]],
   ['two',['Two',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24aaada29daee1d64ed0fe907043855cb7e',1,'Igor']]]
 ];

@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,7 +112,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_task_generate_voxels.h
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_1_1i_task_generate_voxels-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Igor::iTaskGenerateVoxels Class Reference</div>  </div>
@@ -120,18 +119,8 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_task_generate_voxels.h
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="i_task_generate_voxels_8h_source.html">iTaskGenerateVoxels.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iTaskGenerateVoxels:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_generate_voxels__inherit__graph.svg" width="186" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iTaskGenerateVoxels:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_generate_voxels__coll__graph.svg" width="604" height="662"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+
+<p>Inherits <a class="el" href="class_igor_1_1i_task.html">Igor::iTask</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -173,13 +162,6 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:acdadecbd8a4427becbef93a5fa2873b7 inherit pro_methods_class_igor_1_1i_task"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task.html#acdadecbd8a4427becbef93a5fa2873b7">setRepeating</a> (bool repeat)</td></tr>
 <tr class="separator:acdadecbd8a4427becbef93a5fa2873b7 inherit pro_methods_class_igor_1_1i_task"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:aeec234b95346f2f8762fecc6e1a7e3ce"><td class="memItemLeft" align="right" valign="top">iVoxelTerrainGenerateDelegate&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_generate_voxels.html#aeec234b95346f2f8762fecc6e1a7e3ce">_generateVoxelsDelegate</a></td></tr>
-<tr class="separator:aeec234b95346f2f8762fecc6e1a7e3ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a487b87fe7970285ddae0d357b869ec3b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_igor_1_1i_voxel_block_info.html">iVoxelBlockInfo</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_generate_voxels.html#a487b87fe7970285ddae0d357b869ec3b">_voxelBlockInfo</a> = nullptr</td></tr>
-<tr class="separator:a487b87fe7970285ddae0d357b869ec3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_static_attribs_class_igor_1_1i_task"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_class_igor_1_1i_task')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="class_igor_1_1i_task.html">Igor::iTask</a></td></tr>
@@ -191,8 +173,6 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>task to generate voxels.</p>
 <p>the actual voxel generation happens in the callback function to be implemented by application </p>
-
-<p>Definition at line <a class="el" href="i_task_generate_voxels_8h_source.html#l00090">90</a> of file <a class="el" href="i_task_generate_voxels_8h_source.html">iTaskGenerateVoxels.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aa5fc86202743bbc47aa728b3b49390a0"></a>
 <div class="memitem">
@@ -233,8 +213,6 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_task_generate_voxels_8cpp_source.html#l00013">13</a> of file <a class="el" href="i_task_generate_voxels_8cpp_source.html">iTaskGenerateVoxels.cpp</a>.</p>
 
 </div>
 </div>
@@ -287,60 +265,11 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Implements <a class="el" href="class_igor_1_1i_task.html#a3d0a70a268a955d2f28700988959f779">Igor::iTask</a>.</p>
 
-<p>Definition at line <a class="el" href="i_task_generate_voxels_8cpp_source.html#l00020">20</a> of file <a class="el" href="i_task_generate_voxels_8cpp_source.html">iTaskGenerateVoxels.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="aeec234b95346f2f8762fecc6e1a7e3ce"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iVoxelTerrainGenerateDelegate Igor::iTaskGenerateVoxels::_generateVoxelsDelegate</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>delegate that generated the voxels </p>
-
-<p>Definition at line <a class="el" href="i_task_generate_voxels_8h_source.html#l00118">118</a> of file <a class="el" href="i_task_generate_voxels_8h_source.html">iTaskGenerateVoxels.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a487b87fe7970285ddae0d357b869ec3b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="struct_igor_1_1i_voxel_block_info.html">iVoxelBlockInfo</a>* Igor::iTaskGenerateVoxels::_voxelBlockInfo = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the data to work with </p>
-
-<p>Definition at line <a class="el" href="i_task_generate_voxels_8h_source.html#l00122">122</a> of file <a class="el" href="i_task_generate_voxels_8h_source.html">iTaskGenerateVoxels.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_task_generate_voxels_8h_source.html">iTaskGenerateVoxels.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_task_generate_voxels_8cpp_source.html">iTaskGenerateVoxels.cpp</a></li>
+<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_task_generate_voxels_8cpp.html">iTaskGenerateVoxels.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -349,7 +278,7 @@ Additional Inherited Members</h2></td></tr>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_task_generate_voxels.html">iTaskGenerateVoxels</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:05 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:21 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

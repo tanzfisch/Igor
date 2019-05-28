@@ -9,8 +9,5 @@ var class_igor_1_1i_shader =
     [ "isReady", "class_igor_1_1i_shader.html#a34e2c6d1800fe6b9c56b41f91bb26a14", null ],
     [ "loadFile", "class_igor_1_1i_shader.html#a1d3e01ce570d193e90cad335c632b8e0", null ],
     [ "loadSource", "class_igor_1_1i_shader.html#aa32ad6aa463ee8d42b36e171c95d2b5f", null ],
-    [ "_ready", "class_igor_1_1i_shader.html#a8bba07e0452ccdbd7d257c3222c45b3b", null ],
-    [ "_shaderObjects", "class_igor_1_1i_shader.html#ac73ab0b90fc8eba6fd85f84ca05e9a95", null ],
-    [ "_shaderProgram", "class_igor_1_1i_shader.html#a2705fee9ee13ab297b1f5c360601ed7f", null ],
     [ "INVALID_SHADER_ID", "class_igor_1_1i_shader.html#a0db197cf73d532e4b6a9ed9bd9b7358f", null ]
 ];

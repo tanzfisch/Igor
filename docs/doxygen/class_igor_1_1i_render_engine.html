@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,8 +111,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_render_engine.html',''
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_1_1i_render_engine-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Igor::iRenderEngine Class Reference</div>  </div>
@@ -120,12 +118,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_render_engine.html',''
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="i_render_engine_8h_source.html">iRenderEngine.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for Igor::iRenderEngine:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_render_engine__coll__graph.svg" width="1386" height="356"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -159,53 +151,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a4922a4865819a0d8815e43052aa92e57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5cc646992a2eff394453b92d61740a3"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_engine.html#aa5cc646992a2eff394453b92d61740a3">~iRenderEngine</a> ()</td></tr>
 <tr class="separator:aa5cc646992a2eff394453b92d61740a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a5e94530665534cf85827bce7fa10c109"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_engine.html#a5e94530665534cf85827bce7fa10c109">onMaterialCreated</a> (uint64 materialID)</td></tr>
-<tr class="separator:a5e94530665534cf85827bce7fa10c109"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6e81268406aec40b5d38cdc9958c903"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_engine.html#ad6e81268406aec40b5d38cdc9958c903">onMaterialDestroyed</a> (uint64 materialID)</td></tr>
-<tr class="separator:ad6e81268406aec40b5d38cdc9958c903"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36278c223dbe35b0d6a74469dff52195"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_engine.html#a36278c223dbe35b0d6a74469dff52195">cullScene</a> (<a class="el" href="class_igor_1_1i_node_camera.html">iNodeCamera</a> *camera)</td></tr>
-<tr class="separator:a36278c223dbe35b0d6a74469dff52195"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5bd16912a4a41154cdc29830040a07e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_engine.html#ab5bd16912a4a41154cdc29830040a07e">drawScene</a> ()</td></tr>
-<tr class="separator:ab5bd16912a4a41154cdc29830040a07e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa2b1137025f13fdad0b8f5414cba1a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_engine.html#afa2b1137025f13fdad0b8f5414cba1a8">drawColorIDs</a> ()</td></tr>
-<tr class="separator:afa2b1137025f13fdad0b8f5414cba1a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0708095c297dd16f80342a00522a54cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_engine.html#a0708095c297dd16f80342a00522a54cf">createBuffers</a> ()</td></tr>
-<tr class="separator:a0708095c297dd16f80342a00522a54cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:ab3ec1e318743cd201c230da575fed7e8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_node_camera.html">iNodeCamera</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_engine.html#ab3ec1e318743cd201c230da575fed7e8">_currentCamera</a> = nullptr</td></tr>
-<tr class="separator:ab3ec1e318743cd201c230da575fed7e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae922e66405e88928fe3e99242f5b3f43"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_engine.html#ae922e66405e88928fe3e99242f5b3f43">_showWireframe</a> = false</td></tr>
-<tr class="separator:ae922e66405e88928fe3e99242f5b3f43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5fbe45330126f9223f9a369b94eb68b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_engine.html#af5fbe45330126f9223f9a369b94eb68b">_showBoundingBoxes</a> = false</td></tr>
-<tr class="separator:af5fbe45330126f9223f9a369b94eb68b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2921943ae4c189ba2f80a088ea20dd2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_engine.html#ac2921943ae4c189ba2f80a088ea20dd2">_showOctree</a> = false</td></tr>
-<tr class="separator:ac2921943ae4c189ba2f80a088ea20dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7099866da0ee444fc37658b4daee5353"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_engine.html#a7099866da0ee444fc37658b4daee5353">_renderColorID</a> = false</td></tr>
-<tr class="separator:a7099866da0ee444fc37658b4daee5353"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a419b78b4c5b90016c1da1a8f518512c0"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_engine.html#a419b78b4c5b90016c1da1a8f518512c0">_cullSectionID</a> = 0</td></tr>
-<tr class="separator:a419b78b4c5b90016c1da1a8f518512c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f7428ec43f44f218830ae1f4fa6a10c"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_engine.html#a1f7428ec43f44f218830ae1f4fa6a10c">_bufferCreationSectionID</a> = 0</td></tr>
-<tr class="separator:a1f7428ec43f44f218830ae1f4fa6a10c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9bba3542ea3b9366088f7eb59005c6d2"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_engine.html#a9bba3542ea3b9366088f7eb59005c6d2">_drawSectionID</a> = 0</td></tr>
-<tr class="separator:a9bba3542ea3b9366088f7eb59005c6d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f8c1617255a07cbf47d3c38b2b0e126"><td class="memItemLeft" align="right" valign="top">map&lt; uint64, <a class="el" href="class_igor_1_1i_material_group.html">iMaterialGroup</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_engine.html#a6f8c1617255a07cbf47d3c38b2b0e126">_materialGroups</a></td></tr>
-<tr class="separator:a6f8c1617255a07cbf47d3c38b2b0e126"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac11af3d7533a300a0c953661fd8e2a0b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_engine.html#ac11af3d7533a300a0c953661fd8e2a0b">_dirtyGroups</a> = true</td></tr>
-<tr class="separator:ac11af3d7533a300a0c953661fd8e2a0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3fe3b1f35200394062b360c7e72779c5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_scene.html">iScene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_engine.html#a3fe3b1f35200394062b360c7e72779c5">_scene</a> = nullptr</td></tr>
-<tr class="separator:a3fe3b1f35200394062b360c7e72779c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54e7b6e7012e4130e89558d4b2d986ba"><td class="memItemLeft" align="right" valign="top">vector&lt; uint64 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_engine.html#a54e7b6e7012e4130e89558d4b2d986ba">_cullResult</a></td></tr>
-<tr class="separator:a54e7b6e7012e4130e89558d4b2d986ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>does control the render loop </p>
-
-<p>Definition at line <a class="el" href="i_render_engine_8h_source.html#l00047">47</a> of file <a class="el" href="i_render_engine_8h_source.html">iRenderEngine.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a4922a4865819a0d8815e43052aa92e57"></a>
 <div class="memitem">
@@ -220,8 +168,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>init </p>
-
-<p>Definition at line <a class="el" href="i_render_engine_8cpp_source.html#l00031">31</a> of file <a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -247,153 +193,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>deinit </p>
 
-<p>Definition at line <a class="el" href="i_render_engine_8cpp_source.html#l00050">50</a> of file <a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a0708095c297dd16f80342a00522a54cf"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iRenderEngine::createBuffers </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>triggers the creation of buffers </p>
-
-<p>Definition at line <a class="el" href="i_render_engine_8cpp_source.html#l00162">162</a> of file <a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a36278c223dbe35b0d6a74469dff52195"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iRenderEngine::cullScene </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_node_camera.html">iNodeCamera</a> *&#160;</td>
-          <td class="paramname"><em>camera</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>cull scene relative to specified camera</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">camera</td><td>the specified camera </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_render_engine_8cpp_source.html#l00206">206</a> of file <a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_render_engine_a36278c223dbe35b0d6a74469dff52195_cgraph.svg" width="684" height="376"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="afa2b1137025f13fdad0b8f5414cba1a8"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iRenderEngine::drawColorIDs </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>draws everyting by using it's color id </p>
-
-<p>Definition at line <a class="el" href="i_render_engine_8cpp_source.html#l00266">266</a> of file <a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_render_engine_afa2b1137025f13fdad0b8f5414cba1a8_cgraph.svg" width="600" height="395"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="ab5bd16912a4a41154cdc29830040a07e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iRenderEngine::drawScene </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>draw scene relative to specified camera</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">camera</td><td>the specified camera </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000053">Todo:</a></b></dt><dd>not sure yet how to handle multiple lights. right now it will work only for one light </dd></dl>
-
-<p>Definition at line <a class="el" href="i_render_engine_8cpp_source.html#l00309">309</a> of file <a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_render_engine_ab5bd16912a4a41154cdc29830040a07e_cgraph.svg" width="806" height="610"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
 <a class="anchor" id="af90904e92e207ef70489bac96944950a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -407,8 +209,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>current camera id </dd></dl>
-
-<p>Definition at line <a class="el" href="i_render_engine_8cpp_source.html#l00100">100</a> of file <a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -426,8 +226,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>pointer to scene </dd></dl>
 
-<p>Definition at line <a class="el" href="i_render_engine_8cpp_source.html#l00157">157</a> of file <a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a309cdfbd6dc1f5310c9687119c3c40d9"></a>
@@ -443,8 +241,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if bounding boxes are shown </dd></dl>
-
-<p>Definition at line <a class="el" href="i_render_engine_8cpp_source.html#l00137">137</a> of file <a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -462,8 +258,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>if nodes will be rendered with their color id </dd></dl>
 
-<p>Definition at line <a class="el" href="i_render_engine_8cpp_source.html#l00117">117</a> of file <a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a561701436a565f3384141ba0cbbf99be"></a>
@@ -479,8 +273,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if octree is shown </dd></dl>
-
-<p>Definition at line <a class="el" href="i_render_engine_8cpp_source.html#l00147">147</a> of file <a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -498,74 +290,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if wireframe mode is active </dd></dl>
 
-<p>Definition at line <a class="el" href="i_render_engine_8cpp_source.html#l00127">127</a> of file <a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5e94530665534cf85827bce7fa10c109"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iRenderEngine::onMaterialCreated </td>
-          <td>(</td>
-          <td class="paramtype">uint64&#160;</td>
-          <td class="paramname"><em>materialID</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>called on material created event</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">materialID</td><td>the material's id that got created </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_render_engine_8cpp_source.html#l00062">62</a> of file <a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad6e81268406aec40b5d38cdc9958c903"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iRenderEngine::onMaterialDestroyed </td>
-          <td>(</td>
-          <td class="paramtype">uint64&#160;</td>
-          <td class="paramname"><em>materialID</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>called on material destroyed event</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">materialID</td><td>the material's id that got destroyed </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_render_engine_8cpp_source.html#l00069">69</a> of file <a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a41d26f1f1e28deb41e1e930d0f68c791"></a>
@@ -581,16 +305,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>culls and renders </p>
-
-<p>Definition at line <a class="el" href="i_render_engine_8cpp_source.html#l00167">167</a> of file <a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_render_engine_a41d26f1f1e28deb41e1e930d0f68c791_icgraph.svg" width="348" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -615,8 +329,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_render_engine_8cpp_source.html#l00132">132</a> of file <a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a2f9c10cbaf0c191afd955bd4fcf420ca"></a>
@@ -639,16 +351,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_render_engine_8cpp_source.html#l00112">112</a> of file <a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_render_engine_a2f9c10cbaf0c191afd955bd4fcf420ca_icgraph.svg" width="362" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -673,24 +375,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_render_engine_8cpp_source.html#l00079">79</a> of file <a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_render_engine_ac291d418af682c7d7ea99a170a213f20_cgraph.svg" width="332" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_render_engine_ac291d418af682c7d7ea99a170a213f20_icgraph.svg" width="348" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a263388bf8c1969bae60561b45b0a2053"></a>
@@ -713,8 +397,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_render_engine_8cpp_source.html#l00142">142</a> of file <a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a>.</p>
 
 </div>
 </div>
@@ -739,16 +421,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_render_engine_8cpp_source.html#l00152">152</a> of file <a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_render_engine_a83ad71114f1609fdf418ad805705d2ef_icgraph.svg" width="348" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a857323394ec11b7e63bce9118d202aa7"></a>
@@ -772,290 +444,11 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_render_engine_8cpp_source.html#l00122">122</a> of file <a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a1f7428ec43f44f218830ae1f4fa6a10c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iRenderEngine::_bufferCreationSectionID = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>buffer creation section id for statistics </p>
-
-<p>Definition at line <a class="el" href="i_render_engine_8h_source.html#l00152">152</a> of file <a class="el" href="i_render_engine_8h_source.html">iRenderEngine.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a54e7b6e7012e4130e89558d4b2d986ba"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;uint64&gt; Igor::iRenderEngine::_cullResult</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>temporary list of nodes that where filtered by the culling process </p>
-
-<p>Definition at line <a class="el" href="i_render_engine_8h_source.html#l00172">172</a> of file <a class="el" href="i_render_engine_8h_source.html">iRenderEngine.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a419b78b4c5b90016c1da1a8f518512c0"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iRenderEngine::_cullSectionID = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>cull section id for statistics </p>
-
-<p>Definition at line <a class="el" href="i_render_engine_8h_source.html#l00148">148</a> of file <a class="el" href="i_render_engine_8h_source.html">iRenderEngine.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab3ec1e318743cd201c230da575fed7e8"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_node_camera.html">iNodeCamera</a>* Igor::iRenderEngine::_currentCamera = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current camera </p>
-
-<p>Definition at line <a class="el" href="i_render_engine_8h_source.html#l00128">128</a> of file <a class="el" href="i_render_engine_8h_source.html">iRenderEngine.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac11af3d7533a300a0c953661fd8e2a0b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iRenderEngine::_dirtyGroups = true</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>dirty flag forcing to sort material groups </p>
-
-<p>Definition at line <a class="el" href="i_render_engine_8h_source.html#l00164">164</a> of file <a class="el" href="i_render_engine_8h_source.html">iRenderEngine.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9bba3542ea3b9366088f7eb59005c6d2"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iRenderEngine::_drawSectionID = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>draw section id for statistics </p>
-
-<p>Definition at line <a class="el" href="i_render_engine_8h_source.html#l00156">156</a> of file <a class="el" href="i_render_engine_8h_source.html">iRenderEngine.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6f8c1617255a07cbf47d3c38b2b0e126"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;uint64, <a class="el" href="class_igor_1_1i_material_group.html">iMaterialGroup</a>&gt; Igor::iRenderEngine::_materialGroups</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>material groups </p>
-
-<p>Definition at line <a class="el" href="i_render_engine_8h_source.html#l00160">160</a> of file <a class="el" href="i_render_engine_8h_source.html">iRenderEngine.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7099866da0ee444fc37658b4daee5353"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iRenderEngine::_renderColorID = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>flag if true color ids get rendered </p>
-
-<p>Definition at line <a class="el" href="i_render_engine_8h_source.html#l00144">144</a> of file <a class="el" href="i_render_engine_8h_source.html">iRenderEngine.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3fe3b1f35200394062b360c7e72779c5"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_scene.html">iScene</a>* Igor::iRenderEngine::_scene = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handle to scene </p>
-
-<p>Definition at line <a class="el" href="i_render_engine_8h_source.html#l00168">168</a> of file <a class="el" href="i_render_engine_8h_source.html">iRenderEngine.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af5fbe45330126f9223f9a369b94eb68b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iRenderEngine::_showBoundingBoxes = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>flag if bounding boxes are drawn </p>
-
-<p>Definition at line <a class="el" href="i_render_engine_8h_source.html#l00136">136</a> of file <a class="el" href="i_render_engine_8h_source.html">iRenderEngine.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac2921943ae4c189ba2f80a088ea20dd2"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iRenderEngine::_showOctree = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>flag if octree will be rendered </p>
-
-<p>Definition at line <a class="el" href="i_render_engine_8h_source.html#l00140">140</a> of file <a class="el" href="i_render_engine_8h_source.html">iRenderEngine.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae922e66405e88928fe3e99242f5b3f43"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iRenderEngine::_showWireframe = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>flag if rendering uses wireframe </p>
-
-<p>Definition at line <a class="el" href="i_render_engine_8h_source.html#l00132">132</a> of file <a class="el" href="i_render_engine_8h_source.html">iRenderEngine.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_render_engine_8h_source.html">iRenderEngine.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_render_engine_8cpp_source.html">iRenderEngine.cpp</a></li>
+<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_render_engine_8cpp.html">iRenderEngine.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -1064,7 +457,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_render_engine.html">iRenderEngine</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:02 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:20 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

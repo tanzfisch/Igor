@@ -1,7 +1,0 @@
-<map id="IgorAux::iaVector4::set" name="IgorAux::iaVector4::set">
-<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#a34213cfb47436c4ec8989dde4314dc66" title="Igor::iPhysics::convexCast" alt="" coords="216,5,392,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_renderer.html#a0d4dbb3d43b3a3f8db865e55eb5a7c48" title="Igor::iRenderer::drawParticles" alt="" coords="208,56,400,83"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_matrix.html#a1ac92f361c8748bc939d17f3db41b1c0" title="IgorAux::iaMatrix::\ldecompose" alt="" coords="240,107,368,149"/>
-<area shape="rect" id="node5" href="$_matrix_8cpp.html#a4292d6e5e311a244a15f41b76edffa3f" title="TEST" alt="" coords="508,85,563,112"/>
-<area shape="rect" id="node6" href="$class_user_control_transformation.html#a90c332e1995255ae5a516a69c3896776" title="UserControlTransformation\l::updateGUI" alt="" coords="448,137,623,178"/>
-</map>

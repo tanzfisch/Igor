@@ -1,6 +1,0 @@
-<map id="Igor::iEntityManager" name="Igor::iEntityManager">
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iEntityManager \&gt;" alt="" coords="187,184,325,225"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_mutex.html" title="IgorAux::iaMutex" alt="" coords="5,5,125,32"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\&lt; T \&gt;" alt="" coords="111,95,281,121"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_octree.html" title="Igor::iOctree" alt="" coords="352,5,445,32"/>
-</map>

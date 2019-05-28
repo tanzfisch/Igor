@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -116,24 +116,21 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_l_system.html','');});
 
 <p>This is the complete list of members for <a class="el" href="class_igor_1_1i_l_system.html">Igor::iLSystem</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html#aac7c4409e5718a64705854ee3e457a9b">_rand</a></td><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html">Igor::iLSystem</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html#a7ba508d97e588661f78c93b49a8c5c5c">_rules</a></td><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html">Igor::iLSystem</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html#ac09f1f5b9f11dd5a52b48e6d5dbdba73">clear</a>()</td><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html">Igor::iLSystem</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html#af4c6a4b663595ae52043af42de15dc7c">clearRule</a>(wchar_t input)</td><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html">Igor::iLSystem</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html#af9ee10250a585772797dcd1de0bc8fc7">generate</a>(iaString input, int32 iterations, uint32 seed=1337)</td><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html">Igor::iLSystem</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html#a586e887f939963e3a312f2682a8d1c48">generateIteration</a>(iaString sentence, int age)</td><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html">Igor::iLSystem</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html#a76fa68bb6b437ba0821dc495a909848e">iLSystem</a>()=default</td><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html">Igor::iLSystem</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html#a010640e6e8a99dfcb86f6ea77dc905a4">setAgeFilter</a>(wchar_t input, iLSystemAgeFunction ageFunction, int32 ageFilter)</td><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html">Igor::iLSystem</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html#a0639b8d37f9b6c4b5ec3d0d79866034e">setRule</a>(wchar_t input, iaString output)</td><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html">Igor::iLSystem</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html#ae273775b7f3cc5581019d340fff7b81a">setRule</a>(wchar_t input, vector&lt; pair&lt; float64, iaString &gt;&gt; output)</td><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html">Igor::iLSystem</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html#a5405fd083f53e5b6012c90043df25243">~iLSystem</a>()=default</td><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html">Igor::iLSystem</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html#a76fa68bb6b437ba0821dc495a909848e">iLSystem</a>()=default</td><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html">Igor::iLSystem</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html#a010640e6e8a99dfcb86f6ea77dc905a4">setAgeFilter</a>(wchar_t input, iLSystemAgeFunction ageFunction, int32 ageFilter)</td><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html">Igor::iLSystem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html#a0639b8d37f9b6c4b5ec3d0d79866034e">setRule</a>(wchar_t input, iaString output)</td><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html">Igor::iLSystem</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html#ae273775b7f3cc5581019d340fff7b81a">setRule</a>(wchar_t input, vector&lt; pair&lt; float64, iaString &gt;&gt; output)</td><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html">Igor::iLSystem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html#a5405fd083f53e5b6012c90043df25243">~iLSystem</a>()=default</td><td class="entry"><a class="el" href="class_igor_1_1i_l_system.html">Igor::iLSystem</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:48 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:17 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

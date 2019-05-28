@@ -12,9 +12,5 @@ var class_igor_1_1i_physics_material_combo =
     [ "setName", "class_igor_1_1i_physics_material_combo.html#a3a376fbc937011dafa29a20a1e1911ba", null ],
     [ "setSoftness", "class_igor_1_1i_physics_material_combo.html#a16744e3074d942dd766282e580207283", null ],
     [ "unregisterContactDelegate", "class_igor_1_1i_physics_material_combo.html#ac48b05033839f9139c2bde10893e2d7e", null ],
-    [ "iPhysics", "class_igor_1_1i_physics_material_combo.html#a68f9306b9fe2369173dfd12456aa5d41", null ],
-    [ "_contactEvent", "class_igor_1_1i_physics_material_combo.html#a29d4e138832e710ecc563c77c894174b", null ],
-    [ "_material0", "class_igor_1_1i_physics_material_combo.html#a2dabc235c7a248f910f7be76f40445f9", null ],
-    [ "_material1", "class_igor_1_1i_physics_material_combo.html#ad9e11e65233493c354d175dd0a69c0ff", null ],
-    [ "_name", "class_igor_1_1i_physics_material_combo.html#a6804b00ce3410de3cb13301b762c6af7", null ]
+    [ "iPhysics", "class_igor_1_1i_physics_material_combo.html#a68f9306b9fe2369173dfd12456aa5d41", null ]
 ];

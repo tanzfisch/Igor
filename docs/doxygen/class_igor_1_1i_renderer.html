@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -113,8 +113,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_renderer.html','');});
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_renderer-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -123,26 +121,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_renderer.html','');});
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iRenderer:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer__inherit__graph.svg" width="180" height="218"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iRenderer:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer__coll__graph.svg" width="1290" height="612"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+
+<p>Inherits <a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iRenderer &gt;</a>.</p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_igor_1_1i_renderer_1_1i_renderer_light.html">iRendererLight</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_igor_1_1i_renderer_1_1i_renderer_target.html">iRendererTarget</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab1be7372da62d9979827798992e34846"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#ab1be7372da62d9979827798992e34846">registerInitializedDelegate</a> (iRendererInitializedDelegate initializedDelegate)</td></tr>
@@ -351,97 +332,6 @@ Static Public Attributes</h2></td></tr>
 <tr class="memitem:a43a1ab2519f58a03d196911db5044cd0"><td class="memItemLeft" align="right" valign="top">static const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a43a1ab2519f58a03d196911db5044cd0">DEFAULT_RENDER_TARGET</a> = 0</td></tr>
 <tr class="separator:a43a1ab2519f58a03d196911db5044cd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ade195e9ced92e1e9317023e105684030"><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_igor_1_1i_renderer_texture.html">iRendererTexture</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#ade195e9ced92e1e9317023e105684030">createTexture</a> (int32 width, int32 height, int32 bytepp, <a class="el" href="namespace_igor.html#a1591be7a883348974cbed3cab1bd43d5">iColorFormat</a> format, uint8 *data, <a class="el" href="namespace_igor.html#a34cb645ec6114bd1969120b4bc31cc25">iTextureBuildMode</a> buildMode, <a class="el" href="namespace_igor.html#a10541984fb40d8f093520c0847d01be8">iTextureWrapMode</a> wrapMode)</td></tr>
-<tr class="separator:ade195e9ced92e1e9317023e105684030"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0abc4e32b8258f745465870d1088e41a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a0abc4e32b8258f745465870d1088e41a">destroyTexture</a> (<a class="el" href="struct_igor_1_1i_renderer_texture.html">iRendererTexture</a> *texture)</td></tr>
-<tr class="separator:a0abc4e32b8258f745465870d1088e41a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f5170c2d66fe4a510c303a25e9c7e02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a3f5170c2d66fe4a510c303a25e9c7e02">createBuffers</a> (<a class="el" href="class_igor_1_1i_instancer.html">iInstancer</a> *instancer)</td></tr>
-<tr class="separator:a3f5170c2d66fe4a510c303a25e9c7e02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a263fdb3019cff46faa4994249d1250bd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a263fdb3019cff46faa4994249d1250bd">setDummyTextureID</a> (uint32 id)</td></tr>
-<tr class="separator:a263fdb3019cff46faa4994249d1250bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa658c429d13a3dc23cdf3be44d92ca46"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#aa658c429d13a3dc23cdf3be44d92ca46">getDummyTextureID</a> ()</td></tr>
-<tr class="separator:aa658c429d13a3dc23cdf3be44d92ca46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3b9810e758c6a0cdb5d34f94cc6cdfe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#ac3b9810e758c6a0cdb5d34f94cc6cdfe">deinit</a> ()</td></tr>
-<tr class="separator:ac3b9810e758c6a0cdb5d34f94cc6cdfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e03a1916102a8b46c4b78bf8aede86d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a6e03a1916102a8b46c4b78bf8aede86d">init</a> ()</td></tr>
-<tr class="separator:a6e03a1916102a8b46c4b78bf8aede86d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa172d69c509e989b92267b66d12a2dfc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#aa172d69c509e989b92267b66d12a2dfc">updateModelViewProjectionMatrix</a> ()</td></tr>
-<tr class="separator:aa172d69c509e989b92267b66d12a2dfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54078d46219383943979e78f967037d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a54078d46219383943979e78f967037d4">iRenderer</a> ()=default</td></tr>
-<tr class="separator:a54078d46219383943979e78f967037d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06ddcfafe34e86d07e217402b5eb5b04"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a06ddcfafe34e86d07e217402b5eb5b04">~iRenderer</a> ()</td></tr>
-<tr class="separator:a06ddcfafe34e86d07e217402b5eb5b04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:aa3d1ac9b91f39fcf6727007ff4b0d5e3"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#aa3d1ac9b91f39fcf6727007ff4b0d5e3">_currentRenderTarget</a> = <a class="el" href="class_igor_1_1i_renderer.html#a43a1ab2519f58a03d196911db5044cd0">DEFAULT_RENDER_TARGET</a></td></tr>
-<tr class="separator:aa3d1ac9b91f39fcf6727007ff4b0d5e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35d13d5f3512e61d7293593fac47a4ed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a35d13d5f3512e61d7293593fac47a4ed">_requestedBuffersMutex</a></td></tr>
-<tr class="separator:a35d13d5f3512e61d7293593fac47a4ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac78ac26de6b142c98a41f8a4ad470d09"><td class="memItemLeft" align="right" valign="top">deque&lt; pair&lt; shared_ptr&lt; <a class="el" href="class_igor_1_1i_mesh.html">iMesh</a> &gt;<br class="typebreak" />
-, shared_ptr&lt; <a class="el" href="class_igor_1_1i_mesh_buffers.html">iMeshBuffers</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#ac78ac26de6b142c98a41f8a4ad470d09">_requestedBuffers</a></td></tr>
-<tr class="separator:ac78ac26de6b142c98a41f8a4ad470d09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a328a856871078be9ee6d5519c9b4ef99"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a328a856871078be9ee6d5519c9b4ef99">_gridSize</a> = 10000.0</td></tr>
-<tr class="separator:a328a856871078be9ee6d5519c9b4ef99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af40c9a489caedf293d6d74e0be78317c"><td class="memItemLeft" align="right" valign="top">iRendererPreDeinitializeEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#af40c9a489caedf293d6d74e0be78317c">_rendererPreDeinitializeEvent</a></td></tr>
-<tr class="separator:af40c9a489caedf293d6d74e0be78317c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1aa78653046724d62c9c1b3be0aa35f7"><td class="memItemLeft" align="right" valign="top">iRendererInitializedEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a1aa78653046724d62c9c1b3be0aa35f7">_rendererInitializedEvent</a></td></tr>
-<tr class="separator:a1aa78653046724d62c9c1b3be0aa35f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae697adfd4f7c39e98f98a2850ca12181"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#ae697adfd4f7c39e98f98a2850ca12181">_initialized</a> = false</td></tr>
-<tr class="separator:ae697adfd4f7c39e98f98a2850ca12181"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a045c5a4b9f02a479be3e836fa124cbff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_texture_font.html">iTextureFont</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a045c5a4b9f02a479be3e836fa124cbff">_font</a> = nullptr</td></tr>
-<tr class="separator:a045c5a4b9f02a479be3e836fa124cbff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1701ab621d6d7bebaef95680aa473afa"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a1701ab621d6d7bebaef95680aa473afa">_fontSize</a> = 10.0f</td></tr>
-<tr class="separator:a1701ab621d6d7bebaef95680aa473afa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b6179f5d7116cfd7b91245edfc527df"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a7b6179f5d7116cfd7b91245edfc527df">_fontLineHeight</a> = 1.15f</td></tr>
-<tr class="separator:a7b6179f5d7116cfd7b91245edfc527df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e216e9eb64e13d6d6e84f21e91d0278"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a8e216e9eb64e13d6d6e84f21e91d0278">_dummyTextureID</a> = 0</td></tr>
-<tr class="separator:a8e216e9eb64e13d6d6e84f21e91d0278"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca9e9e8cea92973683ed06d7125ff9f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#aca9e9e8cea92973683ed06d7125ff9f3">_projectionMatrix</a></td></tr>
-<tr class="separator:aca9e9e8cea92973683ed06d7125ff9f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26c2ef0758337f049757e5a2b733fd62"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a26c2ef0758337f049757e5a2b733fd62">_modelMatrix</a></td></tr>
-<tr class="separator:a26c2ef0758337f049757e5a2b733fd62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef8452fd1af58d10ccae9ac2bc837afc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#ac312fcf0af77ec8167e9e30b01c0de54">iaVector3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#aef8452fd1af58d10ccae9ac2bc837afc">_worldOffset</a></td></tr>
-<tr class="separator:aef8452fd1af58d10ccae9ac2bc837afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adab4931497b8f27590f886138984445d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#adab4931497b8f27590f886138984445d">_viewMatrix</a></td></tr>
-<tr class="separator:adab4931497b8f27590f886138984445d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89f4262972dc5fd20f1990c466eea5b3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a89f4262972dc5fd20f1990c466eea5b3">_modelViewMatrix</a></td></tr>
-<tr class="separator:a89f4262972dc5fd20f1990c466eea5b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae76a5ba419d41dd67e8ebe363cfe65b0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#ae76a5ba419d41dd67e8ebe363cfe65b0">_modelViewProjectionMatrix</a></td></tr>
-<tr class="separator:ae76a5ba419d41dd67e8ebe363cfe65b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a852c810196eb841950b772291ffc9f14"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a852c810196eb841950b772291ffc9f14">_dirtyModelViewProjectionMatrix</a> = true</td></tr>
-<tr class="separator:a852c810196eb841950b772291ffc9f14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83e6b028a20f3b65e1d332494e258e83"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a83e6b028a20f3b65e1d332494e258e83">_camWorldMatrix</a></td></tr>
-<tr class="separator:a83e6b028a20f3b65e1d332494e258e83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75a21ae1deed401cfd0187d5d7610520"><td class="memItemLeft" align="right" valign="top">map&lt; int32, <a class="el" href="struct_igor_1_1i_renderer_1_1i_renderer_light.html">iRendererLight</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a75a21ae1deed401cfd0187d5d7610520">_lights</a></td></tr>
-<tr class="separator:a75a21ae1deed401cfd0187d5d7610520"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c8f49e82425d3a196e67b89299e6999"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a4ff1eaa1964389f9151ee6ac8351b6cd">iRectanglei</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a3c8f49e82425d3a196e67b89299e6999">_viewport</a></td></tr>
-<tr class="separator:a3c8f49e82425d3a196e67b89299e6999"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3c1648129be0e3995b98228e74310db"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#aa007fa54047309abce67d3d15c94d091">iaColor4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#ab3c1648129be0e3995b98228e74310db">_color</a> = { 1.0f, 1.0f, 1.0f, 1.0f }</td></tr>
-<tr class="separator:ab3c1648129be0e3995b98228e74310db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ffab1523331d472a5dd43a62e641fc9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#af21736a0e120c0dfe0fe49b4e63f53b9">iaGradientColor4f</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a5ffab1523331d472a5dd43a62e641fc9">_rainbow</a> = nullptr</td></tr>
-<tr class="separator:a5ffab1523331d472a5dd43a62e641fc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4b4a099fbff42b547a8fdd0af9bd1f1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#ac4b4a099fbff42b547a8fdd0af9bd1f1">_vendorOGL</a></td></tr>
-<tr class="separator:ac4b4a099fbff42b547a8fdd0af9bd1f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac060c7965f1ee5a2e3e29ecb630fe9e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#ac060c7965f1ee5a2e3e29ecb630fe9e5">_rendererOGL</a></td></tr>
-<tr class="separator:ac060c7965f1ee5a2e3e29ecb630fe9e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab387dc661e65e9afe624d6b5578c1c71"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#ab387dc661e65e9afe624d6b5578c1c71">_versionOGL</a></td></tr>
-<tr class="separator:ab387dc661e65e9afe624d6b5578c1c71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a527190e9fc658e71b1959ea495459680"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a527190e9fc658e71b1959ea495459680">_extensionsOGL</a></td></tr>
-<tr class="separator:a527190e9fc658e71b1959ea495459680"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada18165f26f3ab984a324392cdb80b7a"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#ada18165f26f3ab984a324392cdb80b7a">_renderedVertices</a> = 0</td></tr>
-<tr class="separator:ada18165f26f3ab984a324392cdb80b7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0199dbaa7831cad5d2e5c626c1707dca"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a0199dbaa7831cad5d2e5c626c1707dca">_renderedTriangles</a> = 0</td></tr>
-<tr class="separator:a0199dbaa7831cad5d2e5c626c1707dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a44399a7e804a7fedeb6f3259c2770a8a"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a44399a7e804a7fedeb6f3259c2770a8a">_renderedIndexes</a> = 0</td></tr>
-<tr class="separator:a44399a7e804a7fedeb6f3259c2770a8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69df2b05660bada0ab3562d1471f4af0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a3a01a780cbeda3bc1dc3a869ad4ee0f5">iMaterialPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a69df2b05660bada0ab3562d1471f4af0">_currentMaterial</a> = nullptr</td></tr>
-<tr class="separator:a69df2b05660bada0ab3562d1471f4af0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1960ca3b3167b88cd970b6100440a6a8"><td class="memItemLeft" align="right" valign="top">map&lt; uint32, <a class="el" href="struct_igor_1_1i_renderer_1_1i_renderer_target.html">iRendererTarget</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#a1960ca3b3167b88cd970b6100440a6a8">_renderTargets</a></td></tr>
-<tr class="separator:a1960ca3b3167b88cd970b6100440a6a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:ad1d6b53463f520b1e169204f6274d048"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_renderer.html#ad1d6b53463f520b1e169204f6274d048">iaSingleton&lt; iRenderer &gt;</a></td></tr>
@@ -475,62 +365,8 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>abstraction class for the actuall renderer. curently only OpenGL</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000055">Todo:</a></b></dt><dd>light handling is not done by far</dd></dl>
 <p>Examples: 3D/src/Example3D.cpp "3D usage example" 2D/src/Example2D.cpp "2D usage example" </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00114">114</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a54078d46219383943979e78f967037d4"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iRenderer::iRenderer </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>does nothing </p>
-
-</div>
-</div>
-<a class="anchor" id="a06ddcfafe34e86d07e217402b5eb5b04"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iRenderer::~iRenderer </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>does nothing </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00107">107</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a9dcd7946f0faf6ef0cc231d359d0b385"></a>
 <div class="memitem">
 <div class="memproto">
@@ -562,9 +398,6 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_state_machine_2src_2_state_machine_example_8cpp-example.html#a31">StateMachine/src/StateMachineExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00790">790</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -582,8 +415,6 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>clears color buffer with clear color </p>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00651">651</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ae15ac5e718572329ebde57b6fc48555e"></a>
@@ -600,8 +431,6 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>clears depth buffer with clear depth </p>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00656">656</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aa79aaffa132f3a40f90dd8a32e479530"></a>
@@ -617,8 +446,6 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>clears swtencil buffer with clear depth </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00661">661</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -646,8 +473,6 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00129">129</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aeb58c4059bef485aeab12451370a97a4"></a>
@@ -670,10 +495,7 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000056">Todo:</a></b></dt><dd>this is weired stuff we should do that differently </dd></dl>
 <p><a href="http://in2gpu.com/2014/09/07/instanced-drawing-opengl/">http://in2gpu.com/2014/09/07/instanced-drawing-opengl/</a> </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01440">1440</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -690,50 +512,6 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000059">Todo:</a></b></dt><dd>this is weired stuff we should do that differently </dd></dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01331">1331</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3f5170c2d66fe4a510c303a25e9c7e02"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iRenderer::createBuffers </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_instancer.html">iInstancer</a> *&#160;</td>
-          <td class="paramname"><em>instancer</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>creates an instancing buffer for this instancer</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">instancer</td><td>instancer to create a instance buffer for </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01450">1450</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_a3f5170c2d66fe4a510c303a25e9c7e02_cgraph.svg" width="432" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -750,9 +528,6 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000058">Todo:</a></b></dt><dd>this is weired stuff we should do that differently </dd></dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01370">1370</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -798,16 +573,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01207">1207</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_a5a5e62054d53cb4c2a0b3511bfa3266b_cgraph.svg" width="430" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a5dc16ef7887bd1a1fbd26cc7c47b73ad"></a>
@@ -824,8 +589,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00150">150</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a8fa202ade340fd91b0931ebe88774a1c"></a>
@@ -840,120 +603,6 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00195">195</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ade195e9ced92e1e9317023e105684030"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="struct_igor_1_1i_renderer_texture.html">iRendererTexture</a> * Igor::iRenderer::createTexture </td>
-          <td>(</td>
-          <td class="paramtype">int32&#160;</td>
-          <td class="paramname"><em>width</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int32&#160;</td>
-          <td class="paramname"><em>height</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int32&#160;</td>
-          <td class="paramname"><em>bytepp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#a1591be7a883348974cbed3cab1bd43d5">iColorFormat</a>&#160;</td>
-          <td class="paramname"><em>format</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8 *&#160;</td>
-          <td class="paramname"><em>data</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#a34cb645ec6114bd1969120b4bc31cc25">iTextureBuildMode</a>&#160;</td>
-          <td class="paramname"><em>buildMode</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#a10541984fb40d8f093520c0847d01be8">iTextureWrapMode</a>&#160;</td>
-          <td class="paramname"><em>wrapMode</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>creates a Texture</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">width</td><td>width of the texture  height height of the texture </td></tr>
-    <tr><td class="paramname">bytepp</td><td>bytes per pixel </td></tr>
-    <tr><td class="paramname">format</td><td>color format of texture </td></tr>
-    <tr><td class="paramname">data</td><td>pointer to the actual data used for the texture </td></tr>
-    <tr><td class="paramname">buildMode</td><td>generation mode of texture like mimapping or not </td></tr>
-    <tr><td class="paramname">wrapMode</td><td>wrap mode of texture </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>pointer to renderer texture </dd></dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00714">714</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_ade195e9ced92e1e9317023e105684030_cgraph.svg" width="432" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="ac3b9810e758c6a0cdb5d34f94cc6cdfe"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iRenderer::deinit </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00218">218</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -970,9 +619,6 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000060">Todo:</a></b></dt><dd>make more private again maybe we need a class to handle buffers </dd></dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01315">1315</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -990,8 +636,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01276">1276</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a8bbf01a11a10d418625c38b3bf5c9ce1"></a>
@@ -1007,8 +651,6 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00177">177</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1026,41 +668,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00201">201</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a0abc4e32b8258f745465870d1088e41a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iRenderer::destroyTexture </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="struct_igor_1_1i_renderer_texture.html">iRendererTexture</a> *&#160;</td>
-          <td class="paramname"><em>texture</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>releases texture</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">texture</td><td>pointer to texture to be released </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00773">773</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a21e9be482fcf75fc3ebb674931a86a19"></a>
@@ -1076,9 +683,6 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000061">Todo:</a></b></dt><dd>make more private again maybe we need a class to handle vertex arrays </dd></dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01323">1323</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1103,8 +707,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00386">386</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a972c4d5d5e417dee720292801fab7bda"></a>
@@ -1127,8 +729,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00335">335</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1177,8 +777,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00519">519</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1242,8 +840,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00500">500</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="abd2492b45938215d49b34f57ca6476d7"></a>
@@ -1277,8 +873,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00433">433</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1328,8 +922,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01572">1572</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a35b037717c29e2909652b24195308d00"></a>
@@ -1364,8 +956,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00492">492</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aa4938db311235afd87e881fa802ccb56"></a>
@@ -1389,8 +979,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00480">480</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ad31dabdee69ac0b31b2c402c924cceb7"></a>
@@ -1413,16 +1001,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01549">1549</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_ad31dabdee69ac0b31b2c402c924cceb7_icgraph.svg" width="428" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1458,16 +1036,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01464">1464</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_a6bcd50201808fc32b8c2f2ec98723f16_cgraph.svg" width="440" height="235"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a0d4dbb3d43b3a3f8db865e55eb5a7c48"></a>
@@ -1493,17 +1061,6 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_state_machine_2src_2_state_machine_example_8cpp-example.html#a32">StateMachine/src/StateMachineExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01854">1854</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_a0d4dbb3d43b3a3f8db865e55eb5a7c48_cgraph.svg" width="406" height="352"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1554,17 +1111,6 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000004">Bug:</a></b></dt><dd>in debug mode the rainbow colors are wrong. it's changing back and forth </dd></dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01786">1786</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_afc75af5b67dede4802299530506ed5c2_cgraph.svg" width="406" height="235"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1600,8 +1146,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01565">1565</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a9d29b247f937bc646751b08a72572592"></a>
@@ -1624,8 +1168,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00328">328</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1674,8 +1216,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01106">1106</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -1739,16 +1279,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01169">1169</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_acec2bbbb78b797a9621e3e2b0806a994_cgraph.svg" width="403" height="307"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a2374cd386417d4c1fe40e9ce81df4bfd"></a>
@@ -1803,17 +1333,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_state_machine_2src_2_state_machine_example_8cpp-example.html#a42">StateMachine/src/StateMachineExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01675">1675</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_a2374cd386417d4c1fe40e9ce81df4bfd_cgraph.svg" width="360" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1884,8 +1403,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01622">1622</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a6aa69b6a600a4f72c2beaf7207a85aab"></a>
@@ -1942,8 +1459,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01137">1137</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aaf9bb06dec525f6424b75905f3040f94"></a>
@@ -1985,8 +1500,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01153">1153</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -2044,8 +1557,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01118">1118</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a7d1dbb68fd7efb2c3f5605ba49060d5f"></a>
@@ -2072,16 +1583,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01942">1942</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_a7d1dbb68fd7efb2c3f5605ba49060d5f_cgraph.svg" width="402" height="235"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a8583958c88eaf579b2ddda8610c24e8b"></a>
@@ -2105,8 +1606,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00634">634</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="af97c22bef2c1507b9e741060c998a5f3"></a>
@@ -2129,8 +1628,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00811">811</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -2164,34 +1661,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00122">122</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa658c429d13a3dc23cdf3be44d92ca46"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iRenderer::getDummyTextureID </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>current dummy texture ID </dd></dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00768">768</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="af46531b3cc7c228b00381256af462673"></a>
@@ -2207,8 +1676,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>renderer extensions </dd></dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00312">312</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -2233,8 +1700,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00817">817</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a86dd67b958db528a732d2f32ca0f300c"></a>
@@ -2258,8 +1723,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00666">666</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a902b4552cc6d23a829f73ec330aeb60e"></a>
@@ -2276,8 +1739,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>renderer type </dd></dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00302">302</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a36f6dc207f06b505651b7f2823c2de8a"></a>
@@ -2292,8 +1753,6 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01310">1310</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -2321,8 +1780,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01502">1502</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aaf77bee41d8c6d9a59e8cab76e48e8e3"></a>
@@ -2339,8 +1796,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>render hardware vendor </dd></dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00297">297</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ae99ee96d9743ed202825cd9292d8923a"></a>
@@ -2356,8 +1811,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>version of renderer </dd></dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00307">307</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -2376,8 +1829,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>viewport rectangle (sizes in pixel) </dd></dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00683">683</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a04fd4b83bb23d5b2684aa3bbff6315ff"></a>
@@ -2393,33 +1844,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>world grid size </dd></dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00851">851</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6e03a1916102a8b46c4b78bf8aede86d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iRenderer::init </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00232">232</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -2446,9 +1870,6 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000057">Todo:</a></b></dt><dd>this is weired stuff we should do that differently </dd></dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01383">1383</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -2465,8 +1886,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if the renderer is ready to use </dd></dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00213">213</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -2493,8 +1912,6 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00183">183</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -2544,16 +1961,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the screen position </dd></dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l02021">2021</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_a4321ab9584c1e87a59248daf439d396a_cgraph.svg" width="387" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -2616,16 +2023,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00698">698</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_a94dd02ef1041d85631e5b5efd75337fa_cgraph.svg" width="414" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ab1be7372da62d9979827798992e34846"></a>
@@ -2648,8 +2045,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00277">277</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -2674,8 +2069,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00287">287</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a52a3d031845332e9ce089b922e5648b5"></a>
@@ -2690,8 +2083,6 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00115">115</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -2716,8 +2107,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00550">550</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="af67eee046ee0842ca506d75c6fc14861"></a>
@@ -2741,8 +2130,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00555">555</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a93fbb7abefd27393d7422a5528d5d9ac"></a>
@@ -2765,9 +2152,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_state_machine_2src_2_state_machine_example_8cpp-example.html#a30">StateMachine/src/StateMachineExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01592">1592</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -2817,8 +2201,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01598">1598</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ad82ec2021e0583c72c6ae2d4e5467057"></a>
@@ -2834,8 +2216,6 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01580">1580</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -2860,41 +2240,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00911">911</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a263fdb3019cff46faa4994249d1250bd"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iRenderer::setDummyTextureID </td>
-          <td>(</td>
-          <td class="paramtype">uint32&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>set's the dummy texture id</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>texture id </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00763">763</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a2f4ff0d1878c2567b07b7b6edaaab1a5"></a>
@@ -2917,9 +2262,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_state_machine_2src_2_state_machine_example_8cpp-example.html#a50">StateMachine/src/StateMachineExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01607">1607</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -2944,8 +2286,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01617">1617</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aee9fbb2281d7ee638b5766e9689b3ce8"></a>
@@ -2968,9 +2308,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_state_machine_2src_2_state_machine_example_8cpp-example.html#a41">StateMachine/src/StateMachineExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01612">1612</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -2998,8 +2335,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01765">1765</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a38ea9af67eb9c067801009f1c8339309"></a>
@@ -3025,8 +2360,6 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01771">1771</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -3054,8 +2387,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01758">1758</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a3f64c9440eb422c2d9388d269a1c5157"></a>
@@ -3082,8 +2413,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01777">1777</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="afbcefe263eb88ed25a9da1979874204e"></a>
@@ -3106,16 +2435,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00901">901</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_afbcefe263eb88ed25a9da1979874204e_icgraph.svg" width="411" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -3150,19 +2469,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000062">Todo:</a></b></dt><dd>make separate interface for showing wireframe </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000054">Todo:</a></b></dt><dd>this is just a first rudimentary version. we need a structure that only switches the deltas between materials </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_state_machine_2src_2_state_machine_example_8cpp-example.html#a29">StateMachine/src/StateMachineExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01003">1003</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_a3a3a4f77848819b5ebda23030687e451_icgraph.svg" width="434" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -3197,17 +2503,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000063">Todo:</a></b></dt><dd>make separate interface for showing wireframe </dd></dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00996">996</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_aff1549a39bd427010fe4e78aff2e6cd4_cgraph.svg" width="352" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -3231,17 +2526,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_state_machine_2src_2_state_machine_example_8cpp-example.html#a28">StateMachine/src/StateMachineExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00823">823</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_a4f560e79ec063184032310c294ce1f76_icgraph.svg" width="422" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -3305,8 +2589,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00538">538</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="adc2886a409679d4fee7d2cb86f59a8e5"></a>
@@ -3355,8 +2637,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00317">317</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="afcec5a150460040dd5c056da7f42e9cb"></a>
@@ -3379,8 +2659,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00906">906</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -3405,8 +2683,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00671">671</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a90a2c2a6910903f69aea6bd9588cbe21"></a>
@@ -3422,8 +2698,6 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01303">1303</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -3466,16 +2740,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00624">624</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_ad50bd03fcd301109e997e449048e04e2_cgraph.svg" width="362" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ad9a7285ec72baa240d4e1287d00de446"></a>
@@ -3492,8 +2756,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>sets the stencil mask value </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00646">646</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -3537,16 +2799,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00629">629</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_ad0c47aaa7ec6399722890c0d44d38c10_cgraph.svg" width="362" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="af997cfa0025474dfd67d3f935e0ef0a0"></a>
@@ -3569,8 +2821,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00976">976</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -3595,8 +2845,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00981">981</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="af66021fadda60448c99d99e3f1ea5ec0"></a>
@@ -3619,8 +2867,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00971">971</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -3645,16 +2891,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00927">927</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_a22741d367e3f7ecca70162d78c132d00_cgraph.svg" width="363" height="510"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a28755945d7a2b8c915b06b9290e3006d"></a>
@@ -3678,8 +2914,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00991">991</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a6d8c772b2e1ee0a49993f610f411a11b"></a>
@@ -3702,8 +2936,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00986">986</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -3739,8 +2971,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00861">861</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a60a0b5e8e25c16282dc94091fa078cb5"></a>
@@ -3763,16 +2993,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00836">836</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_a60a0b5e8e25c16282dc94091fa078cb5_cgraph.svg" width="347" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -3822,16 +3042,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00688">688</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_abcc4917bea66e91c3e6fc4ec3a3b4918_cgraph.svg" width="387" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a5204fb5ef3b6ff9a9abe916cf1702e3a"></a>
@@ -3856,8 +3066,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00856">856</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -3908,16 +3116,6 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>world position of projection screen position </dd></dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l02041">2041</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_aa118709cc370ba9d3b824cfcfaa8d739_cgraph.svg" width="403" height="256"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ac514c8fbf08f06bfe5b7617dcbb20b22"></a>
@@ -3940,8 +3138,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00282">282</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
 
 </div>
 </div>
@@ -3966,34 +3162,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00292">292</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa172d69c509e989b92267b66d12a2dfc"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iRenderer::updateModelViewProjectionMatrix </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>updates the model view projection matrix if the corresponding dirty flag is true </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00891">891</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ad9a0c44dec40f2f6b1c8887e9cd0c1f5"></a>
@@ -4010,8 +3178,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l00207">207</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="acf3a67d8dd5d07ba144a319694e6203b"></a>
@@ -4026,16 +3192,6 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_renderer_8cpp_source.html#l01508">1508</a> of file <a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_renderer_acf3a67d8dd5d07ba144a319694e6203b_cgraph.svg" width="371" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -4058,8 +3214,6 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00117">117</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a7c82113aca1030bef77055fa5793cd6d"></a>
@@ -4079,8 +3233,6 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00119">119</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -4102,8 +3254,6 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00118">118</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a62b10979f57015cc1e2e958bbd9308bc"></a>
@@ -4124,745 +3274,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00120">120</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a83e6b028a20f3b65e1d332494e258e83"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> Igor::iRenderer::_camWorldMatrix</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>camera world matrix </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00815">815</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab3c1648129be0e3995b98228e74310db"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#aa007fa54047309abce67d3d15c94d091">iaColor4f</a> Igor::iRenderer::_color = { 1.0f, 1.0f, 1.0f, 1.0f }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current render color.</p>
-<p>default is white. </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00829">829</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a69df2b05660bada0ab3562d1471f4af0"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#a3a01a780cbeda3bc1dc3a869ad4ee0f5">iMaterialPtr</a> Igor::iRenderer::_currentMaterial = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current material in use </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00865">865</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa3d1ac9b91f39fcf6727007ff4b0d5e3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iRenderer::_currentRenderTarget = <a class="el" href="class_igor_1_1i_renderer.html#a43a1ab2519f58a03d196911db5044cd0">DEFAULT_RENDER_TARGET</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00746">746</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a852c810196eb841950b772291ffc9f14"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iRenderer::_dirtyModelViewProjectionMatrix = true</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>dirty flag for model view projection matrix. if true getModelViewProjectionMatrix will recalculate the matrix. </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00811">811</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a8e216e9eb64e13d6d6e84f21e91d0278"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iRenderer::_dummyTextureID = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>OpenGL ID for dummy texture </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00782">782</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a527190e9fc658e71b1959ea495459680"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> Igor::iRenderer::_extensionsOGL</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>OpenGL extensions implemented </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00849">849</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a045c5a4b9f02a479be3e836fa124cbff"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_texture_font.html">iTextureFont</a>* Igor::iRenderer::_font = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current font in use to render strings </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00770">770</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7b6179f5d7116cfd7b91245edfc527df"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iRenderer::_fontLineHeight = 1.15f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current cont line height for rendering iaString with multiple lines </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00778">778</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a1701ab621d6d7bebaef95680aa473afa"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iRenderer::_fontSize = 10.0f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current font size </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00774">774</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a328a856871078be9ee6d5519c9b4ef99"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iRenderer::_gridSize = 10000.0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>world grid resolution </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00753">753</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae697adfd4f7c39e98f98a2850ca12181"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iRenderer::_initialized = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000064">Todo:</a></b></dt><dd>not sure if we need this </dd></dl>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00766">766</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a75a21ae1deed401cfd0187d5d7610520"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;int32, <a class="el" href="struct_igor_1_1i_renderer_1_1i_renderer_light.html">iRendererLight</a>&gt; Igor::iRenderer::_lights</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of lights </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00819">819</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a26c2ef0758337f049757e5a2b733fd62"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> Igor::iRenderer::_modelMatrix</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>model matrix </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00790">790</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a89f4262972dc5fd20f1990c466eea5b3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> Igor::iRenderer::_modelViewMatrix</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>model and view matrix combined </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00802">802</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae76a5ba419d41dd67e8ebe363cfe65b0"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> Igor::iRenderer::_modelViewProjectionMatrix</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>model view and projection matrix combined </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00806">806</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aca9e9e8cea92973683ed06d7125ff9f3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> Igor::iRenderer::_projectionMatrix</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>projection matrix </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00786">786</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5ffab1523331d472a5dd43a62e641fc9"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#af21736a0e120c0dfe0fe49b4e63f53b9">iaGradientColor4f</a>* Igor::iRenderer::_rainbow = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current rainbow palette in use </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00833">833</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a44399a7e804a7fedeb6f3259c2770a8a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iRenderer::_renderedIndexes = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>statistic counter for indicies </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00861">861</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a0199dbaa7831cad5d2e5c626c1707dca"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iRenderer::_renderedTriangles = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>statistic counter for triangles </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00857">857</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ada18165f26f3ab984a324392cdb80b7a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iRenderer::_renderedVertices = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>statistic counter for vertices </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00853">853</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a1aa78653046724d62c9c1b3be0aa35f7"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iRendererInitializedEvent Igor::iRenderer::_rendererInitializedEvent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the renderer initialized event </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00761">761</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac060c7965f1ee5a2e3e29ecb630fe9e5"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> Igor::iRenderer::_rendererOGL</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>name of rendering device </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00841">841</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af40c9a489caedf293d6d74e0be78317c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iRendererPreDeinitializeEvent Igor::iRenderer::_rendererPreDeinitializeEvent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the pre renderer deinitialize event </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00757">757</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a1960ca3b3167b88cd970b6100440a6a8"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;uint32, <a class="el" href="struct_igor_1_1i_renderer_1_1i_renderer_target.html">iRendererTarget</a>&gt; Igor::iRenderer::_renderTargets</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>map of render targets </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00869">869</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac78ac26de6b142c98a41f8a4ad470d09"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">deque&lt;pair&lt;shared_ptr&lt;<a class="el" href="class_igor_1_1i_mesh.html">iMesh</a>&gt;, shared_ptr&lt;<a class="el" href="class_igor_1_1i_mesh_buffers.html">iMeshBuffers</a>&gt; &gt; &gt; Igor::iRenderer::_requestedBuffers</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00749">749</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a35d13d5f3512e61d7293593fac47a4ed"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> Igor::iRenderer::_requestedBuffersMutex</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00748">748</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac4b4a099fbff42b547a8fdd0af9bd1f1"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> Igor::iRenderer::_vendorOGL</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>vendor iaString </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00837">837</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab387dc661e65e9afe624d6b5578c1c71"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> Igor::iRenderer::_versionOGL</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>version of OpenGL implemented </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00845">845</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="adab4931497b8f27590f886138984445d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> Igor::iRenderer::_viewMatrix</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>view matrix </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00798">798</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3c8f49e82425d3a196e67b89299e6999"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#a4ff1eaa1964389f9151ee6ac8351b6cd">iRectanglei</a> Igor::iRenderer::_viewport</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>just to save the last set viewport values </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00823">823</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aef8452fd1af58d10ccae9ac2bc837afc"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#ac312fcf0af77ec8167e9e30b01c0de54">iaVector3d</a> Igor::iRenderer::_worldOffset</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>world offset matrix </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00794">794</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a43a1ab2519f58a03d196911db5044cd0"></a>
 <div class="memitem">
 <div class="memproto">
@@ -4881,8 +3295,6 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>the default render target ID </p>
-
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00176">176</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
 
 </div>
 </div>
@@ -4905,13 +3317,11 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>renderer definition of an invalid id </p>
 
-<p>Definition at line <a class="el" href="i_renderer_8h_source.html#l00172">172</a> of file <a class="el" href="i_renderer_8h_source.html">iRenderer.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_renderer_8h_source.html">iRenderer.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_renderer_8cpp_source.html">iRenderer.cpp</a></li>
+<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_renderer_8cpp.html">iRenderer.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -4920,7 +3330,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_renderer.html">iRenderer</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:02 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:20 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

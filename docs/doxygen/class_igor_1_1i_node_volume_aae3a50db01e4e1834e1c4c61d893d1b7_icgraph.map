@@ -1,9 +1,0 @@
-<map id="Igor::iNodeVolume::getCenter" name="Igor::iNodeVolume::getCenter">
-<area shape="rect" id="node1" title=" " alt="" coords="608,37,744,79"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_scene.html#a7939cd9585b157e897106e82ad4017ed" title=" " alt="" coords="373,17,560,43"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_scene.html#a8a63d0af30f563531ce1feb8ed53f5e2" title=" " alt="" coords="375,71,558,98"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_volume.html#af22460eec7108d791c652222ee3f7bff" title=" " alt="" coords="189,5,325,47"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node_volume.html#a17aa3c42829bb7e6c302207d7f9568db" title=" " alt="" coords="189,71,325,112"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_node_volume.html#a1e9e75c89b3bb3a230a558a188686486" title=" " alt="" coords="5,37,141,79"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_node_volume.html#a40d766c3877a3125e4733c8203ee8c07" title=" " alt="" coords="5,103,141,144"/>
-</map>

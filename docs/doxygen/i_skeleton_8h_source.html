@@ -180,17 +180,17 @@ $(document).ready(function(){initNavTree('i_skeleton_8h_source.html','');});
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
-<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="class_igor_1_1i_skeleton.html#ab7790fee054fd94373e506a5180f57d8">   93</a></span>&#160;        vector&lt;iBone*&gt; <a class="code" href="class_igor_1_1i_skeleton.html#ab7790fee054fd94373e506a5180f57d8">_bones</a>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        vector&lt;iBone*&gt; _bones;</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
-<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="class_igor_1_1i_skeleton.html#a59171f92b7f8ff9ae1dcaa45e3879a8b">   97</a></span>&#160;        vector&lt;iJoint*&gt; <a class="code" href="class_igor_1_1i_skeleton.html#a59171f92b7f8ff9ae1dcaa45e3879a8b">_joints</a>;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        vector&lt;iJoint*&gt; _joints;</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;</div>
-<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="class_igor_1_1i_skeleton.html#ac3a8fd0300eb1a4e0732adc23658762f">  101</a></span>&#160;        vector&lt;iBone*&gt; <a class="code" href="class_igor_1_1i_skeleton.html#ac3a8fd0300eb1a4e0732adc23658762f">_boneStack</a>;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        vector&lt;iBone*&gt; _boneStack;</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
-<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="class_igor_1_1i_skeleton.html#a502df87efcc804127fdefb2729eea68b">  105</a></span>&#160;        <a class="code" href="class_igor_1_1i_joint.html">iJoint</a>* _rootJoint = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <a class="code" href="class_igor_1_1i_joint.html">iJoint</a>* _rootJoint = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
-<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="class_igor_1_1i_skeleton.html#a60c84ec67ff3635ddc0ef5b710f3e686">  109</a></span>&#160;        <a class="code" href="class_igor_1_1i_joint.html">iJoint</a>* _currentJoint = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <a class="code" href="class_igor_1_1i_joint.html">iJoint</a>* _currentJoint = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;</div>
-<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="class_igor_1_1i_skeleton.html#a9fbac3697f4f4834baa9690d042aa2f1">  113</a></span>&#160;        <a class="code" href="class_igor_1_1i_bone.html">iBone</a>* _lastBone = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <a class="code" href="class_igor_1_1i_bone.html">iBone</a>* _lastBone = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <a class="code" href="class_igor_1_1i_bone.html">iBone</a>* createBone();</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;</div>
@@ -206,18 +206,15 @@ $(document).ready(function(){initNavTree('i_skeleton_8h_source.html','');});
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;</div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;</div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="class_igor_1_1i_skeleton_html_a59171f92b7f8ff9ae1dcaa45e3879a8b"><div class="ttname"><a href="class_igor_1_1i_skeleton.html#a59171f92b7f8ff9ae1dcaa45e3879a8b">Igor::iSkeleton::_joints</a></div><div class="ttdeci">vector&lt; iJoint * &gt; _joints</div><div class="ttdef"><b>Definition:</b> <a href="i_skeleton_8h_source.html#l00097">iSkeleton.h:97</a></div></div>
 <div class="ttc" id="namespace_igor_html_a196a0ae82614f3a018eab89fa3fa5115"><div class="ttname"><a href="namespace_igor.html#a196a0ae82614f3a018eab89fa3fa5115">Igor::clear</a></div><div class="ttdeci">void clear()</div></div>
-<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_bits_8h_source.html#l00034">iaBits.h:34</a></div></div>
-<div class="ttc" id="class_igor_1_1i_skeleton_html_ab7790fee054fd94373e506a5180f57d8"><div class="ttname"><a href="class_igor_1_1i_skeleton.html#ab7790fee054fd94373e506a5180f57d8">Igor::iSkeleton::_bones</a></div><div class="ttdeci">vector&lt; iBone * &gt; _bones</div><div class="ttdef"><b>Definition:</b> <a href="i_skeleton_8h_source.html#l00093">iSkeleton.h:93</a></div></div>
-<div class="ttc" id="class_igor_1_1i_bone_html"><div class="ttname"><a href="class_igor_1_1i_bone.html">Igor::iBone</a></div><div class="ttdef"><b>Definition:</b> <a href="i_bone_8h_source.html#l00049">iBone.h:49</a></div></div>
-<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="gtest-tuple_8h_source.html#l00113">gtest-tuple.h:113</a></div></div>
-<div class="ttc" id="class_igor_1_1i_skeleton_html"><div class="ttname"><a href="class_igor_1_1i_skeleton.html">Igor::iSkeleton</a></div><div class="ttdef"><b>Definition:</b> <a href="i_skeleton_8h_source.html#l00049">iSkeleton.h:49</a></div></div>
-<div class="ttc" id="class_igor_1_1i_skeleton_html_ac3a8fd0300eb1a4e0732adc23658762f"><div class="ttname"><a href="class_igor_1_1i_skeleton.html#ac3a8fd0300eb1a4e0732adc23658762f">Igor::iSkeleton::_boneStack</a></div><div class="ttdeci">vector&lt; iBone * &gt; _boneStack</div><div class="ttdef"><b>Definition:</b> <a href="i_skeleton_8h_source.html#l00101">iSkeleton.h:101</a></div></div>
+<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> iaBits.h:34</div></div>
+<div class="ttc" id="class_igor_1_1i_bone_html"><div class="ttname"><a href="class_igor_1_1i_bone.html">Igor::iBone</a></div><div class="ttdef"><b>Definition:</b> iBone.h:49</div></div>
+<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> iaString.h:432</div></div>
+<div class="ttc" id="class_igor_1_1i_skeleton_html"><div class="ttname"><a href="class_igor_1_1i_skeleton.html">Igor::iSkeleton</a></div><div class="ttdef"><b>Definition:</b> iSkeleton.h:49</div></div>
 <div class="ttc" id="i_bone_8h_html"><div class="ttname"><a href="i_bone_8h.html">iBone.h</a></div></div>
-<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> <a href="i_a_a_box_8h_source.html#l00036">iAABox.h:36</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_matrix_html"><div class="ttname"><a href="class_igor_aux_1_1ia_matrix.html">IgorAux::iaMatrix</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_matrix_8h_source.html#l00088">iaMatrix.h:88</a></div></div>
-<div class="ttc" id="class_igor_1_1i_joint_html"><div class="ttname"><a href="class_igor_1_1i_joint.html">Igor::iJoint</a></div><div class="ttdef"><b>Definition:</b> <a href="i_joint_8h_source.html#l00047">iJoint.h:47</a></div></div>
+<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> iAABox.h:36</div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_matrix_html"><div class="ttname"><a href="class_igor_aux_1_1ia_matrix.html">IgorAux::iaMatrix</a></div><div class="ttdef"><b>Definition:</b> iaMatrix.h:88</div></div>
+<div class="ttc" id="class_igor_1_1i_joint_html"><div class="ttname"><a href="class_igor_1_1i_joint.html">Igor::iJoint</a></div><div class="ttdef"><b>Definition:</b> iJoint.h:47</div></div>
 <div class="ttc" id="i_joint_8h_html"><div class="ttname"><a href="i_joint_8h.html">iJoint.h</a></div></div>
 <div class="ttc" id="ia_matrix_8h_html"><div class="ttname"><a href="ia_matrix_8h.html">iaMatrix.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -225,9 +222,9 @@ $(document).ready(function(){initNavTree('i_skeleton_8h_source.html','');});
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_d038480633c1631388acdc016f2c394d.html">Igor</a></li><li class="navelem"><a class="el" href="dir_c666f9416e68e5cd51b28bff0f98e46c.html">src</a></li><li class="navelem"><a class="el" href="i_skeleton_8h.html">iSkeleton.h</a></li>
+				<li class="navelem"><a class="el" href="dir_f25e90d47839bd5aa725b19f9dd3e654.html">Igor</a></li><li class="navelem"><a class="el" href="dir_b12320815bd4967fc918d17f555d23eb.html">src</a></li><li class="navelem"><a class="el" href="i_skeleton_8h.html">iSkeleton.h</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:04 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:06 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

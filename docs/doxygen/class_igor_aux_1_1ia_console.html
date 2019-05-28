@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,8 +111,6 @@ $(document).ready(function(){initNavTree('class_igor_aux_1_1ia_console.html','')
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_aux_1_1ia_console-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -121,18 +119,8 @@ $(document).ready(function(){initNavTree('class_igor_aux_1_1ia_console.html','')
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="ia_console_8h_source.html">iaConsole.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for IgorAux::iaConsole:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_console__inherit__graph.svg" width="182" height="218"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for IgorAux::iaConsole:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_console__coll__graph.svg" width="432" height="231"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+
+<p>Inherits <a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iaConsole &gt;</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -173,30 +161,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af6072b6b1f202bc8b44c38d75b894d81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a079b3dac2752e4d73ba1bb321ef70ce9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_console.html">iaConsole</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_console.html#a079b3dac2752e4d73ba1bb321ef70ce9">operator&lt;&lt;</a> (const <a class="el" href="namespace_igor_aux.html#a40f0d9edbd2c9519788b20a95a9facc8">iaForegroundColor</a> color)</td></tr>
 <tr class="separator:a079b3dac2752e4d73ba1bb321ef70ce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ae699009a9e7a3a7ec01bd2df43bc7a84"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_console.html#ae699009a9e7a3a7ec01bd2df43bc7a84">setTextColor</a> (<a class="el" href="namespace_igor_aux.html#a40f0d9edbd2c9519788b20a95a9facc8">iaForegroundColor</a> color)</td></tr>
-<tr class="separator:ae699009a9e7a3a7ec01bd2df43bc7a84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af369ac27c25f2b4bb522139566f6b71b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_console.html#af369ac27c25f2b4bb522139566f6b71b">iaConsole</a> ()</td></tr>
-<tr class="separator:af369ac27c25f2b4bb522139566f6b71b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf138b716ff7585b1dfdc27b77cdd8db"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_console.html#acf138b716ff7585b1dfdc27b77cdd8db">~iaConsole</a> ()=default</td></tr>
-<tr class="separator:acf138b716ff7585b1dfdc27b77cdd8db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a4ca3e83ca20356ec7b27127508408767"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a95b2b44871530bf71a452919620012e3">LogLevel</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_console.html#a4ca3e83ca20356ec7b27127508408767">_logLevel</a> = <a class="el" href="namespace_igor_aux.html#a95b2b44871530bf71a452919620012e3af6f6931771db95a6bffec131b856bd50">LogLevel::DebugInfo</a></td></tr>
-<tr class="separator:a4ca3e83ca20356ec7b27127508408767"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafbac449fd0055b4c3aff277a8fa9925"><td class="memItemLeft" align="right" valign="top">wfstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_console.html#aafbac449fd0055b4c3aff277a8fa9925">_file</a></td></tr>
-<tr class="separator:aafbac449fd0055b4c3aff277a8fa9925"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b223665462bf44452dc883bd67d26f5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_console.html#a9b223665462bf44452dc883bd67d26f5">_streamToLogfile</a> = true</td></tr>
-<tr class="separator:a9b223665462bf44452dc883bd67d26f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ae988ec164bdc4c28f31986e5483111"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_console.html#a2ae988ec164bdc4c28f31986e5483111">_warnings</a> = 0</td></tr>
-<tr class="separator:a2ae988ec164bdc4c28f31986e5483111"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b0fc842212a15875fa3876625c912ca"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_console.html#a9b0fc842212a15875fa3876625c912ca">_errors</a> = 0</td></tr>
-<tr class="separator:a9b0fc842212a15875fa3876625c912ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a67a3387b21ff98270eccdc757c2ffc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_console.html#a8a67a3387b21ff98270eccdc757c2ffc">_mutex</a></td></tr>
-<tr class="separator:a8a67a3387b21ff98270eccdc757c2ffc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -243,61 +207,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>console and logging interface </p>
-
-<p>Definition at line <a class="el" href="ia_console_8h_source.html#l00117">117</a> of file <a class="el" href="ia_console_8h_source.html">iaConsole.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="af369ac27c25f2b4bb522139566f6b71b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">IgorAux::iaConsole::iaConsole </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>ctor</p>
-<p>initialize console access open log for write </p>
-
-<p>Definition at line <a class="el" href="ia_console_8cpp_source.html#l00042">42</a> of file <a class="el" href="ia_console_8cpp_source.html">iaConsole.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="acf138b716ff7585b1dfdc27b77cdd8db"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual IgorAux::iaConsole::~iaConsole </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>nothing to do. the console is not meant to be destructed </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a8e15a01f958b1de4e534a33c2310b940"></a>
 <div class="memitem">
 <div class="memproto">
@@ -319,8 +229,6 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_console_8cpp_source.html#l00201">201</a> of file <a class="el" href="ia_console_8cpp_source.html">iaConsole.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a94d3abfde87d5e60b19aad9ad5b4932c"></a>
@@ -336,16 +244,6 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>closes logging to log file </p>
-
-<p>Definition at line <a class="el" href="ia_console_8cpp_source.html#l00053">53</a> of file <a class="el" href="ia_console_8cpp_source.html">iaConsole.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_console_a94d3abfde87d5e60b19aad9ad5b4932c_icgraph.svg" width="572" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -363,8 +261,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>exits application or calls debug break </p>
 
-<p>Definition at line <a class="el" href="ia_console_8cpp_source.html#l00084">84</a> of file <a class="el" href="ia_console_8cpp_source.html">iaConsole.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a22cde0e9529cd95f56ca27ec62d5e09a"></a>
@@ -380,8 +276,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>error counter </dd></dl>
-
-<p>Definition at line <a class="el" href="ia_console_8cpp_source.html#l00175">175</a> of file <a class="el" href="ia_console_8cpp_source.html">iaConsole.cpp</a>.</p>
 
 </div>
 </div>
@@ -399,8 +293,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the current log level </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_console_8cpp_source.html#l00095">95</a> of file <a class="el" href="ia_console_8cpp_source.html">iaConsole.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a079e10cb40189ffe03d05a52ecb2b240"></a>
@@ -416,8 +308,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>warning counter </dd></dl>
-
-<p>Definition at line <a class="el" href="ia_console_8cpp_source.html#l00180">180</a> of file <a class="el" href="ia_console_8cpp_source.html">iaConsole.cpp</a>.</p>
 
 </div>
 </div>
@@ -435,24 +325,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>lock console for exclusive access </p>
 
-<p>Definition at line <a class="el" href="ia_console_8cpp_source.html#l00148">148</a> of file <a class="el" href="ia_console_8cpp_source.html">iaConsole.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_console_a025216d7b2e29420a663e8119b937ed4_cgraph.svg" width="142" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_console_a025216d7b2e29420a663e8119b937ed4_icgraph.svg" width="1006" height="271"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ab2b1bdc5e85c24837552dd8ee54512ef"></a>
@@ -469,17 +341,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>manually initializing the log file</p>
 <p>Note: can't use classes <a class="el" href="class_igor_aux_1_1ia_directory.html">iaDirectory</a> or <a class="el" href="class_igor_aux_1_1ia_file.html">iaFile</a> here because of possible deadlock in logging</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000105">Todo:</a></b></dt><dd>error handling </dd></dl>
-
-<p>Definition at line <a class="el" href="ia_console_8cpp_source.html#l00065">65</a> of file <a class="el" href="ia_console_8cpp_source.html">iaConsole.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_console_ab2b1bdc5e85c24837552dd8ee54512ef_icgraph.svg" width="542" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -508,8 +369,6 @@ template&lt;typename T &gt; </div>
 </div><div class="memdoc">
 <p>pipes anything in to console and log </p>
 
-<p>Definition at line <a class="el" href="ia_console_8h_source.html#l00201">201</a> of file <a class="el" href="ia_console_8h_source.html">iaConsole.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="af6072b6b1f202bc8b44c38d75b894d81"></a>
@@ -533,9 +392,6 @@ template&lt;typename T &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000107">Todo:</a></b></dt><dd>forgot what this is good for </dd></dl>
-
-<p>Definition at line <a class="el" href="ia_console_8h_source.html#l00214">214</a> of file <a class="el" href="ia_console_8h_source.html">iaConsole.h</a>.</p>
 
 </div>
 </div>
@@ -568,8 +424,6 @@ template&lt;typename T &gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_console_8h_source.html#l00224">224</a> of file <a class="el" href="ia_console_8h_source.html">iaConsole.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a4d37492837cbe157cb3145eecafedbd8"></a>
@@ -585,24 +439,6 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 <p>prints a birthday cake in the log </p>
-
-<p>Definition at line <a class="el" href="ia_console_8cpp_source.html#l00113">113</a> of file <a class="el" href="ia_console_8cpp_source.html">iaConsole.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_console_a4d37492837cbe157cb3145eecafedbd8_cgraph.svg" width="467" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_console_a4d37492837cbe157cb3145eecafedbd8_icgraph.svg" width="424" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -627,16 +463,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_console_8cpp_source.html#l00125">125</a> of file <a class="el" href="ia_console_8cpp_source.html">iaConsole.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_console_abc58094b2573cacbf6152f0409d37843_cgraph.svg" width="516" height="96"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a44b38227043e0c22160634ef50a89996"></a>
@@ -652,24 +478,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>prints warning and error counter </p>
-
-<p>Definition at line <a class="el" href="ia_console_8cpp_source.html#l00191">191</a> of file <a class="el" href="ia_console_8cpp_source.html">iaConsole.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_console_a44b38227043e0c22160634ef50a89996_cgraph.svg" width="532" height="290"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_console_a44b38227043e0c22160634ef50a89996_icgraph.svg" width="572" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -687,16 +495,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>prints a tombstone in the log </p>
 
-<p>Definition at line <a class="el" href="ia_console_8cpp_source.html#l00100">100</a> of file <a class="el" href="ia_console_8cpp_source.html">iaConsole.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_console_a6d58812fef212a8e6f90ad18d9535a2d_cgraph.svg" width="467" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a5402677d4d16c13430392a38aa734110"></a>
@@ -712,8 +510,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>reset error and warning counter </p>
-
-<p>Definition at line <a class="el" href="ia_console_8cpp_source.html#l00185">185</a> of file <a class="el" href="ia_console_8cpp_source.html">iaConsole.cpp</a>.</p>
 
 </div>
 </div>
@@ -738,57 +534,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_console_8cpp_source.html#l00090">90</a> of file <a class="el" href="ia_console_8cpp_source.html">iaConsole.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_console_a8e78b992d9890da720154b6a43bb068e_icgraph.svg" width="326" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="ae699009a9e7a3a7ec01bd2df43bc7a84"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void IgorAux::iaConsole::setTextColor </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_igor_aux.html#a40f0d9edbd2c9519788b20a95a9facc8">iaForegroundColor</a>&#160;</td>
-          <td class="paramname"><em>color</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>changes foreground color of the console text</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">color</td><td>foreground color </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="ia_console_8cpp_source.html#l00158">158</a> of file <a class="el" href="ia_console_8cpp_source.html">iaConsole.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_console_ae699009a9e7a3a7ec01bd2df43bc7a84_icgraph.svg" width="1018" height="1252"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ac2ec4404fbf045cefd3c95f31ace3af2"></a>
@@ -804,16 +549,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>unlock console </p>
-
-<p>Definition at line <a class="el" href="ia_console_8cpp_source.html#l00153">153</a> of file <a class="el" href="ia_console_8cpp_source.html">iaConsole.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_console_ac2ec4404fbf045cefd3c95f31ace3af2_icgraph.svg" width="926" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -839,8 +574,6 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="ia_console_8h_source.html#l00486">486</a> of file <a class="el" href="ia_console_8h_source.html">iaConsole.h</a>.</p>
 
 </div>
 </div>
@@ -874,8 +607,6 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the console instance </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_console_8h_source.html#l00504">504</a> of file <a class="el" href="ia_console_8h_source.html">iaConsole.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aff4ef28f1a4410d6a29f043b6975c3c2"></a>
@@ -907,8 +638,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the console instance </dd></dl>
-
-<p>Definition at line <a class="el" href="ia_console_8h_source.html#l00520">520</a> of file <a class="el" href="ia_console_8h_source.html">iaConsole.h</a>.</p>
 
 </div>
 </div>
@@ -942,8 +671,6 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the console instance </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_console_8h_source.html#l00454">454</a> of file <a class="el" href="ia_console_8h_source.html">iaConsole.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aa49f5c68d307cd04d594050c33a171ac"></a>
@@ -963,8 +690,6 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="ia_console_8h_source.html#l00119">119</a> of file <a class="el" href="ia_console_8h_source.html">iaConsole.h</a>.</p>
 
 </div>
 </div>
@@ -998,8 +723,6 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the console instance </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_console_8h_source.html#l00536">536</a> of file <a class="el" href="ia_console_8h_source.html">iaConsole.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ad5e50117d5b40b1f8e7855ef7ee3924a"></a>
@@ -1031,8 +754,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the console instance </dd></dl>
-
-<p>Definition at line <a class="el" href="ia_console_8h_source.html#l00547">547</a> of file <a class="el" href="ia_console_8h_source.html">iaConsole.h</a>.</p>
 
 </div>
 </div>
@@ -1066,8 +787,6 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the console instance </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_console_8h_source.html#l00558">558</a> of file <a class="el" href="ia_console_8h_source.html">iaConsole.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ac12f2bcfb38d6f14c3e30b4a66697b87"></a>
@@ -1091,8 +810,6 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="ia_console_8h_source.html#l00575">575</a> of file <a class="el" href="ia_console_8h_source.html">iaConsole.h</a>.</p>
 
 </div>
 </div>
@@ -1126,153 +843,11 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the console instance </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_console_8h_source.html#l00569">569</a> of file <a class="el" href="ia_console_8h_source.html">iaConsole.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a9b0fc842212a15875fa3876625c912ca"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 IgorAux::iaConsole::_errors = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>error counter </p>
-
-<p>Definition at line <a class="el" href="ia_console_8h_source.html#l00252">252</a> of file <a class="el" href="ia_console_8h_source.html">iaConsole.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aafbac449fd0055b4c3aff277a8fa9925"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">wfstream IgorAux::iaConsole::_file</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>file stream to log file </p>
-
-<p>Definition at line <a class="el" href="ia_console_8h_source.html#l00238">238</a> of file <a class="el" href="ia_console_8h_source.html">iaConsole.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4ca3e83ca20356ec7b27127508408767"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a95b2b44871530bf71a452919620012e3">LogLevel</a> IgorAux::iaConsole::_logLevel = <a class="el" href="namespace_igor_aux.html#a95b2b44871530bf71a452919620012e3af6f6931771db95a6bffec131b856bd50">LogLevel::DebugInfo</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the log level. default is logging everything </p>
-
-<p>Definition at line <a class="el" href="ia_console_8h_source.html#l00234">234</a> of file <a class="el" href="ia_console_8h_source.html">iaConsole.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a8a67a3387b21ff98270eccdc757c2ffc"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> IgorAux::iaConsole::_mutex</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex for multithreded access </p>
-
-<p>Definition at line <a class="el" href="ia_console_8h_source.html#l00256">256</a> of file <a class="el" href="ia_console_8h_source.html">iaConsole.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9b223665462bf44452dc883bd67d26f5"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool IgorAux::iaConsole::_streamToLogfile = true</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>true: log to file is active; false: log to file will be scipped</p>
-<p>but there is always console output </p>
-
-<p>Definition at line <a class="el" href="ia_console_8h_source.html#l00244">244</a> of file <a class="el" href="ia_console_8h_source.html">iaConsole.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2ae988ec164bdc4c28f31986e5483111"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 IgorAux::iaConsole::_warnings = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>warning counter </p>
-
-<p>Definition at line <a class="el" href="ia_console_8h_source.html#l00248">248</a> of file <a class="el" href="ia_console_8h_source.html">iaConsole.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_console_8h_source.html">iaConsole.h</a></li>
-<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_console_8cpp_source.html">iaConsole.cpp</a></li>
+<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_console_8cpp.html">iaConsole.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -1281,7 +856,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor_aux.html">IgorAux</a></li><li class="navelem"><a class="el" href="class_igor_aux_1_1ia_console.html">iaConsole</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:17 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:23 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

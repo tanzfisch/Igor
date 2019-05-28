@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,7 +111,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_stop_watch.html','');}
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_1_1i_stop_watch-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Igor::iStopWatch Class Reference</div>  </div>
@@ -138,21 +137,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af97faebe800b9cac70a025e22f934b13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98cff2220c07e3874b655ee1492075e7"><td class="memItemLeft" align="right" valign="top">float64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_stop_watch.html#a98cff2220c07e3874b655ee1492075e7">getCurrentSeconds</a> ()</td></tr>
 <tr class="separator:a98cff2220c07e3874b655ee1492075e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a3fd5f9a321150b7853fd662478ae0ab7"><td class="memItemLeft" align="right" valign="top">float64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_stop_watch.html#a3fd5f9a321150b7853fd662478ae0ab7">_startTime</a> = 0</td></tr>
-<tr class="separator:a3fd5f9a321150b7853fd662478ae0ab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac18b5babaebb1bd4f1bf0b09ff10587c"><td class="memItemLeft" align="right" valign="top">float64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_stop_watch.html#ac18b5babaebb1bd4f1bf0b09ff10587c">_stopTime</a> = 0</td></tr>
-<tr class="separator:ac18b5babaebb1bd4f1bf0b09ff10587c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a101f7c02c6f996c510507456414c5da7"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_stop_watch.html#a101f7c02c6f996c510507456414c5da7">_running</a> = false</td></tr>
-<tr class="separator:a101f7c02c6f996c510507456414c5da7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>use this for meshuring time</p>
 <p>measurement does not exclue the meashure overhead </p>
-
-<p>Definition at line <a class="el" href="i_stop_watch_8h_source.html#l00041">41</a> of file <a class="el" href="i_stop_watch_8h_source.html">iStopWatch.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a0258937788919f891fd63d59ea7e6fbb"></a>
 <div class="memitem">
@@ -167,8 +155,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>initializes member variables </p>
-
-<p>Definition at line <a class="el" href="i_stop_watch_8cpp_source.html#l00011">11</a> of file <a class="el" href="i_stop_watch_8cpp_source.html">iStopWatch.cpp</a>.</p>
 
 </div>
 </div>
@@ -187,16 +173,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>returns the difference between start and current time in ms </p>
 
-<p>Definition at line <a class="el" href="i_stop_watch_8cpp_source.html#l00045">45</a> of file <a class="el" href="i_stop_watch_8cpp_source.html">iStopWatch.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_stop_watch_af97faebe800b9cac70a025e22f934b13_cgraph.svg" width="402" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a98cff2220c07e3874b655ee1492075e7"></a>
@@ -212,16 +188,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>returns the difference between start and current time in s </p>
-
-<p>Definition at line <a class="el" href="i_stop_watch_8cpp_source.html#l00054">54</a> of file <a class="el" href="i_stop_watch_8cpp_source.html">iStopWatch.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_stop_watch_a98cff2220c07e3874b655ee1492075e7_cgraph.svg" width="402" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -239,8 +205,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>returns the difference between start and stop time in ms </p>
 
-<p>Definition at line <a class="el" href="i_stop_watch_8cpp_source.html#l00027">27</a> of file <a class="el" href="i_stop_watch_8cpp_source.html">iStopWatch.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a2a423f7c2955c37c877774554aee4b29"></a>
@@ -256,8 +220,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>returns the difference between start and stop time in s </p>
-
-<p>Definition at line <a class="el" href="i_stop_watch_8cpp_source.html#l00036">36</a> of file <a class="el" href="i_stop_watch_8cpp_source.html">iStopWatch.cpp</a>.</p>
 
 </div>
 </div>
@@ -275,8 +237,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true: if currently running </dd></dl>
 
-<p>Definition at line <a class="el" href="i_stop_watch_8cpp_source.html#l00063">63</a> of file <a class="el" href="i_stop_watch_8cpp_source.html">iStopWatch.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a3784453ca39c611ad18700850297b283"></a>
@@ -292,16 +252,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>saves current time as start time in ms </p>
-
-<p>Definition at line <a class="el" href="i_stop_watch_8cpp_source.html#l00015">15</a> of file <a class="el" href="i_stop_watch_8cpp_source.html">iStopWatch.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_stop_watch_a3784453ca39c611ad18700850297b283_cgraph.svg" width="368" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -319,91 +269,11 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>saves current time as stop time in ms </p>
 
-<p>Definition at line <a class="el" href="i_stop_watch_8cpp_source.html#l00021">21</a> of file <a class="el" href="i_stop_watch_8cpp_source.html">iStopWatch.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_stop_watch_aa95e944f5b044744e9247850bfb80ea9_cgraph.svg" width="367" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a101f7c02c6f996c510507456414c5da7"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iStopWatch::_running = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>true if currently running </p>
-
-<p>Definition at line <a class="el" href="i_stop_watch_8h_source.html#l00063">63</a> of file <a class="el" href="i_stop_watch_8h_source.html">iStopWatch.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3fd5f9a321150b7853fd662478ae0ab7"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float64 Igor::iStopWatch::_startTime = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>start time in ms </p>
-
-<p>Definition at line <a class="el" href="i_stop_watch_8h_source.html#l00047">47</a> of file <a class="el" href="i_stop_watch_8h_source.html">iStopWatch.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac18b5babaebb1bd4f1bf0b09ff10587c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float64 Igor::iStopWatch::_stopTime = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>stop time in ms </p>
-
-<p>Definition at line <a class="el" href="i_stop_watch_8h_source.html#l00051">51</a> of file <a class="el" href="i_stop_watch_8h_source.html">iStopWatch.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_stop_watch_8h_source.html">iStopWatch.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_stop_watch_8cpp_source.html">iStopWatch.cpp</a></li>
+<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_stop_watch_8cpp.html">iStopWatch.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -412,7 +282,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_stop_watch.html">iStopWatch</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:04 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:20 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

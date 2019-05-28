@@ -174,7 +174,7 @@ $(document).ready(function(){initNavTree('i_node_render_8h_source.html','');});
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordtype">bool</span> isVisible() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="namespace_igor.html#ab3cae9a3831b87d34d1bfe2c4647b242">draw</a>() = 0;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> draw() = 0;</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">protected</span>:</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
@@ -184,14 +184,14 @@ $(document).ready(function(){initNavTree('i_node_render_8h_source.html','');});
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
 <div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="class_igor_1_1i_node_render.html#a04c0e7a72d72b81504fd2eefccaa7e31">   98</a></span>&#160;        <span class="keywordtype">bool</span> _visible = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="namespace_igor.html#a97e14ef9a3d232d47bae2e3ac9e3a600">onUpdateTransform</a>(<a class="code" href="class_igor_aux_1_1ia_matrix.html">iaMatrixd</a>&amp; matrix);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordtype">void</span> onUpdateTransform(<a class="code" href="class_igor_aux_1_1ia_matrix.html">iaMatrixd</a>&amp; matrix);</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="namespace_igor.html#a389d663751e4c0660585a9c1ad3270c4">onPreSetScene</a>();</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> onPreSetScene();</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="namespace_igor.html#af690520a2e2b2f46f618c142303793e6">onPostSetScene</a>();</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> onPostSetScene();</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="namespace_igor.html#a94671847d4c12e884663a77f256b88ac">onUpdateData</a>();</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> onUpdateData();</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <a class="code" href="class_igor_1_1i_node_render.html">iNodeRender</a>();</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;</div>
@@ -201,7 +201,7 @@ $(document).ready(function(){initNavTree('i_node_render_8h_source.html','');});
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;</div>
-<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="class_igor_1_1i_node_render.html#a24595ab1f180011a2e9a3976cc3572de">  133</a></span>&#160;        uint64 <a class="code" href="namespace_igor.html#a8961a2a913076f20cb6558923d31a715">_materialID</a> = iMaterial::INVALID_MATERIAL_ID;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        uint64 <a class="code" href="namespace_igor.html#a8961a2a913076f20cb6558923d31a715">_materialID</a> = iMaterial::INVALID_MATERIAL_ID;</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    };</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;</div>
@@ -209,34 +209,29 @@ $(document).ready(function(){initNavTree('i_node_render_8h_source.html','');});
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="namespace_igor_html_a658bed0072edfc04099eb827d1cfb6ba"><div class="ttname"><a href="namespace_igor.html#a658bed0072edfc04099eb827d1cfb6ba">Igor::setMaterial</a></div><div class="ttdeci">void setMaterial(int64 materialID)</div></div>
-<div class="ttc" id="namespace_igor_html_a97e14ef9a3d232d47bae2e3ac9e3a600"><div class="ttname"><a href="namespace_igor.html#a97e14ef9a3d232d47bae2e3ac9e3a600">Igor::onUpdateTransform</a></div><div class="ttdeci">virtual void onUpdateTransform(iaMatrixd &amp;matrix)</div></div>
-<div class="ttc" id="class_igor_1_1i_node_visitor_update_transform_html"><div class="ttname"><a href="class_igor_1_1i_node_visitor_update_transform.html">Igor::iNodeVisitorUpdateTransform</a></div><div class="ttdef"><b>Definition:</b> <a href="i_node_visitor_update_transform_8h_source.html#l00045">iNodeVisitorUpdateTransform.h:45</a></div></div>
-<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="gtest-tuple_8h_source.html#l00113">gtest-tuple.h:113</a></div></div>
-<div class="ttc" id="namespace_igor_html_a389d663751e4c0660585a9c1ad3270c4"><div class="ttname"><a href="namespace_igor.html#a389d663751e4c0660585a9c1ad3270c4">Igor::onPreSetScene</a></div><div class="ttdeci">virtual void onPreSetScene()</div></div>
-<div class="ttc" id="namespace_igor_html_af690520a2e2b2f46f618c142303793e6"><div class="ttname"><a href="namespace_igor.html#af690520a2e2b2f46f618c142303793e6">Igor::onPostSetScene</a></div><div class="ttdeci">virtual void onPostSetScene()</div></div>
+<div class="ttc" id="class_igor_1_1i_node_visitor_update_transform_html"><div class="ttname"><a href="class_igor_1_1i_node_visitor_update_transform.html">Igor::iNodeVisitorUpdateTransform</a></div><div class="ttdef"><b>Definition:</b> iNodeVisitorUpdateTransform.h:45</div></div>
+<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> iaString.h:432</div></div>
 <div class="ttc" id="namespace_igor_html_a9ca17ac9629ca285f183855e1f350eda"><div class="ttname"><a href="namespace_igor.html#a9ca17ac9629ca285f183855e1f350eda">Igor::getMaterial</a></div><div class="ttdeci">int64 getMaterial() const </div></div>
-<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> <a href="i_a_a_box_8h_source.html#l00036">iAABox.h:36</a></div></div>
-<div class="ttc" id="class_igor_1_1i_octree_html"><div class="ttname"><a href="class_igor_1_1i_octree.html">Igor::iOctree</a></div><div class="ttdef"><b>Definition:</b> <a href="i_octree_8h_source.html#l00055">iOctree.h:55</a></div></div>
-<div class="ttc" id="namespace_igor_html_a94671847d4c12e884663a77f256b88ac"><div class="ttname"><a href="namespace_igor.html#a94671847d4c12e884663a77f256b88ac">Igor::onUpdateData</a></div><div class="ttdeci">virtual bool onUpdateData()</div></div>
-<div class="ttc" id="class_igor_1_1i_node_render_html"><div class="ttname"><a href="class_igor_1_1i_node_render.html">Igor::iNodeRender</a></div><div class="ttdef"><b>Definition:</b> <a href="i_node_render_8h_source.html#l00044">iNodeRender.h:44</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_matrix_html"><div class="ttname"><a href="class_igor_aux_1_1ia_matrix.html">IgorAux::iaMatrix</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_matrix_8h_source.html#l00088">iaMatrix.h:88</a></div></div>
-<div class="ttc" id="namespace_igor_html_ab3cae9a3831b87d34d1bfe2c4647b242"><div class="ttname"><a href="namespace_igor.html#ab3cae9a3831b87d34d1bfe2c4647b242">Igor::draw</a></div><div class="ttdeci">virtual void draw()</div></div>
+<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> iAABox.h:36</div></div>
+<div class="ttc" id="class_igor_1_1i_octree_html"><div class="ttname"><a href="class_igor_1_1i_octree.html">Igor::iOctree</a></div><div class="ttdef"><b>Definition:</b> iOctree.h:55</div></div>
+<div class="ttc" id="class_igor_1_1i_node_render_html"><div class="ttname"><a href="class_igor_1_1i_node_render.html">Igor::iNodeRender</a></div><div class="ttdef"><b>Definition:</b> iNodeRender.h:44</div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_matrix_html"><div class="ttname"><a href="class_igor_aux_1_1ia_matrix.html">IgorAux::iaMatrix</a></div><div class="ttdef"><b>Definition:</b> iaMatrix.h:88</div></div>
 <div class="ttc" id="i_material_8h_html"><div class="ttname"><a href="i_material_8h.html">iMaterial.h</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_factory_html"><div class="ttname"><a href="class_igor_1_1i_node_factory.html">Igor::iNodeFactory</a></div><div class="ttdef"><b>Definition:</b> <a href="i_node_factory_8h_source.html#l00046">iNodeFactory.h:46</a></div></div>
+<div class="ttc" id="class_igor_1_1i_node_factory_html"><div class="ttname"><a href="class_igor_1_1i_node_factory.html">Igor::iNodeFactory</a></div><div class="ttdef"><b>Definition:</b> iNodeFactory.h:46</div></div>
 <div class="ttc" id="ia_matrix_8h_html"><div class="ttname"><a href="ia_matrix_8h.html">iaMatrix.h</a></div></div>
 <div class="ttc" id="i_node_8h_html"><div class="ttname"><a href="i_node_8h.html">iNode.h</a></div></div>
-<div class="ttc" id="namespace_igor_html_a8961a2a913076f20cb6558923d31a715"><div class="ttname"><a href="namespace_igor.html#a8961a2a913076f20cb6558923d31a715">Igor::_materialID</a></div><div class="ttdeci">int64 _materialID</div><div class="ttdef"><b>Definition:</b> <a href="i_node_physics_8h_source.html#l00236">iNodePhysics.h:236</a></div></div>
-<div class="ttc" id="class_igor_1_1i_render_engine_html"><div class="ttname"><a href="class_igor_1_1i_render_engine.html">Igor::iRenderEngine</a></div><div class="ttdef"><b>Definition:</b> <a href="i_render_engine_8h_source.html#l00047">iRenderEngine.h:47</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_render_html_abb8781a3b91c2fb7c46f7ec33cb3d3a4"><div class="ttname"><a href="class_igor_1_1i_node_render.html#abb8781a3b91c2fb7c46f7ec33cb3d3a4">Igor::iNodeRender::_worldMatrix</a></div><div class="ttdeci">iaMatrixd _worldMatrix</div><div class="ttdef"><b>Definition:</b> <a href="i_node_render_8h_source.html#l00090">iNodeRender.h:90</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_html"><div class="ttname"><a href="class_igor_1_1i_node.html">Igor::iNode</a></div><div class="ttdef"><b>Definition:</b> <a href="i_node_8h_source.html#l00107">iNode.h:107</a></div></div>
+<div class="ttc" id="namespace_igor_html_a8961a2a913076f20cb6558923d31a715"><div class="ttname"><a href="namespace_igor.html#a8961a2a913076f20cb6558923d31a715">Igor::_materialID</a></div><div class="ttdeci">int64 _materialID</div><div class="ttdef"><b>Definition:</b> iNodePhysics.h:236</div></div>
+<div class="ttc" id="class_igor_1_1i_render_engine_html"><div class="ttname"><a href="class_igor_1_1i_render_engine.html">Igor::iRenderEngine</a></div><div class="ttdef"><b>Definition:</b> iRenderEngine.h:47</div></div>
+<div class="ttc" id="class_igor_1_1i_node_render_html_abb8781a3b91c2fb7c46f7ec33cb3d3a4"><div class="ttname"><a href="class_igor_1_1i_node_render.html#abb8781a3b91c2fb7c46f7ec33cb3d3a4">Igor::iNodeRender::_worldMatrix</a></div><div class="ttdeci">iaMatrixd _worldMatrix</div><div class="ttdef"><b>Definition:</b> iNodeRender.h:90</div></div>
+<div class="ttc" id="class_igor_1_1i_node_html"><div class="ttname"><a href="class_igor_1_1i_node.html">Igor::iNode</a></div><div class="ttdef"><b>Definition:</b> iNode.h:107</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_d038480633c1631388acdc016f2c394d.html">Igor</a></li><li class="navelem"><a class="el" href="dir_c666f9416e68e5cd51b28bff0f98e46c.html">src</a></li><li class="navelem"><a class="el" href="i_node_render_8h.html">iNodeRender.h</a></li>
+				<li class="navelem"><a class="el" href="dir_f25e90d47839bd5aa725b19f9dd3e654.html">Igor</a></li><li class="navelem"><a class="el" href="dir_b12320815bd4967fc918d17f555d23eb.html">src</a></li><li class="navelem"><a class="el" href="i_node_render_8h.html">iNodeRender.h</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:02 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:05 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

@@ -1,8 +1,0 @@
-<map id="Igor::iWidgetScroll" name="Igor::iWidgetScroll">
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget.html" title="Igor::iWidget" alt="" coords="172,244,267,271"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_string.html" title="IgorAux::iaString" alt="" coords="5,139,124,165"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_timer_handle.html" title="Igor::iTimerHandle" alt="" coords="148,139,275,165"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_vector2.html" title="IgorAux::iaVector2\&lt; T \&gt;" alt="" coords="299,139,459,165"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_rectangle.html" title="Igor::iRectangle\&lt; T \&gt;" alt="" coords="484,139,627,165"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_rectangle.html" title="Igor::iRectangle\&lt; int32 \&gt;" alt="" coords="448,244,612,271"/>
-</map>

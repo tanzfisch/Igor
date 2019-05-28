@@ -195,13 +195,13 @@ $(document).ready(function(){initNavTree('ia_string_8h_source.html','');});
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <span class="keywordtype">void</span> operator+=(<span class="keyword">const</span> <span class="keywordtype">wchar_t</span> &amp;character);</div>
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="namespacetesting_1_1internal.html#ad1cb54a206a209ddace17a05359d38ae">operator== </a>(<span class="keyword">const</span> <a class="code" href="class_igor_aux_1_1ia_string.html">iaString</a>&amp; text) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keywordtype">bool</span> operator== (<span class="keyword">const</span> <a class="code" href="class_igor_aux_1_1ia_string.html">iaString</a>&amp; text) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="namespacetesting_1_1internal.html#ad1cb54a206a209ddace17a05359d38ae">operator== </a>(<span class="keyword">const</span> <span class="keywordtype">wchar_t</span>* text) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        <span class="keywordtype">bool</span> operator== (<span class="keyword">const</span> <span class="keywordtype">wchar_t</span>* text) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="namespacetesting_1_1internal.html#ad1cb54a206a209ddace17a05359d38ae">operator== </a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* text) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keywordtype">bool</span> operator== (<span class="keyword">const</span> <span class="keywordtype">char</span>* text) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="namespacetesting_1_1internal.html#a6910869259f8f31825b471e9190fa09a">operator!= </a>(<span class="keyword">const</span> <a class="code" href="class_igor_aux_1_1ia_string.html">iaString</a>&amp; text) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        <span class="keywordtype">bool</span> operator!= (<span class="keyword">const</span> <a class="code" href="class_igor_aux_1_1ia_string.html">iaString</a>&amp; text) <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;</div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <a class="code" href="class_igor_aux_1_1ia_string.html">iaString</a> operator=(<span class="keyword">const</span> <a class="code" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;text);</div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;</div>
@@ -269,9 +269,9 @@ $(document).ready(function(){initNavTree('ia_string_8h_source.html','');});
 <div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;</div>
 <div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;</div>
-<div class="line"><a name="l00392"></a><span class="lineno"><a class="line" href="class_igor_aux_1_1ia_string.html#a81e6337b90bd2a25761730c4fc299c2e">  392</a></span>&#160;        uint64 _charCount = 0;</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;        uint64 _charCount = 0;</div>
 <div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;</div>
-<div class="line"><a name="l00396"></a><span class="lineno"><a class="line" href="class_igor_aux_1_1ia_string.html#a3fbb41505e0b3de50a267503512fa02f">  396</a></span>&#160;        <span class="keywordtype">wchar_t</span>* _data = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;        <span class="keywordtype">wchar_t</span>* _data = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;</div>
 <div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;        <span class="keywordtype">void</span> setData(<span class="keyword">const</span> <span class="keywordtype">wchar_t</span>* text, <span class="keyword">const</span> uint64 size = INVALID_POSITION);</div>
 <div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;</div>
@@ -285,7 +285,7 @@ $(document).ready(function(){initNavTree('ia_string_8h_source.html','');});
 <div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;</div>
 <div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;}</div>
 <div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacestd.html">std</a></div>
+<div class="line"><a name="l00432"></a><span class="lineno"><a class="line" href="namespacestd.html">  432</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacestd.html">std</a></div>
 <div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;{</div>
 <div class="line"><a name="l00434"></a><span class="lineno"><a class="line" href="structstd_1_1less_3_01_igor_aux_1_1ia_string_01_4.html">  434</a></span>&#160;    <span class="keyword">template</span>&lt;&gt; <span class="keyword">struct </span>less&lt;<a class="code" href="namespace_igor_aux.html">IgorAux</a>::iaString&gt;</div>
 <div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;    {</div>
@@ -298,23 +298,21 @@ $(document).ready(function(){initNavTree('ia_string_8h_source.html','');});
 <div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;</div>
 <div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="namespace_igor_html_a196a0ae82614f3a018eab89fa3fa5115"><div class="ttname"><a href="namespace_igor.html#a196a0ae82614f3a018eab89fa3fa5115">Igor::clear</a></div><div class="ttdeci">void clear()</div></div>
-<div class="ttc" id="namespace_igor_html_a9f0ace0a35d5ac6f15d2ae5a2013fe22"><div class="ttname"><a href="namespace_igor.html#a9f0ace0a35d5ac6f15d2ae5a2013fe22">Igor::operator&lt;&lt;</a></div><div class="ttdeci">wostream &amp; operator&lt;&lt;(wostream &amp;stream, const iNodeType &amp;nodeType)</div><div class="ttdef"><b>Definition:</b> <a href="i_node_8cpp_source.html#l00499">iNode.cpp:499</a></div></div>
-<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_bits_8h_source.html#l00034">iaBits.h:34</a></div></div>
-<div class="ttc" id="namespace_igor_aux_html_a84a63ae8cc96b9e5c1bb4c65b1de03c3"><div class="ttname"><a href="namespace_igor_aux.html#a84a63ae8cc96b9e5c1bb4c65b1de03c3">IgorAux::iaStringSplitMode</a></div><div class="ttdeci">iaStringSplitMode</div><div class="ttdef"><b>Definition:</b> <a href="ia_string_8h_source.html#l00043">iaString.h:43</a></div></div>
-<div class="ttc" id="namespacetesting_1_1internal_html_ad1cb54a206a209ddace17a05359d38ae"><div class="ttname"><a href="namespacetesting_1_1internal.html#ad1cb54a206a209ddace17a05359d38ae">testing::internal::operator==</a></div><div class="ttdeci">bool operator==(T *ptr, const linked_ptr&lt; T &gt; &amp;x)</div><div class="ttdef"><b>Definition:</b> <a href="gtest-linked__ptr_8h_source.html#l00223">gtest-linked_ptr.h:223</a></div></div>
-<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="gtest-tuple_8h_source.html#l00113">gtest-tuple.h:113</a></div></div>
+<div class="ttc" id="namespace_igor_html_a9f0ace0a35d5ac6f15d2ae5a2013fe22"><div class="ttname"><a href="namespace_igor.html#a9f0ace0a35d5ac6f15d2ae5a2013fe22">Igor::operator&lt;&lt;</a></div><div class="ttdeci">wostream &amp; operator&lt;&lt;(wostream &amp;stream, const iNodeType &amp;nodeType)</div><div class="ttdef"><b>Definition:</b> iNode.cpp:499</div></div>
+<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> iaBits.h:34</div></div>
+<div class="ttc" id="namespace_igor_aux_html_a84a63ae8cc96b9e5c1bb4c65b1de03c3"><div class="ttname"><a href="namespace_igor_aux.html#a84a63ae8cc96b9e5c1bb4c65b1de03c3">IgorAux::iaStringSplitMode</a></div><div class="ttdeci">iaStringSplitMode</div><div class="ttdef"><b>Definition:</b> iaString.h:43</div></div>
+<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> iaString.h:432</div></div>
 <div class="ttc" id="namespace_igor_aux_html_a84a63ae8cc96b9e5c1bb4c65b1de03c3a60c96512debb8676202e80253ef1baa7"><div class="ttname"><a href="namespace_igor_aux.html#a84a63ae8cc96b9e5c1bb4c65b1de03c3a60c96512debb8676202e80253ef1baa7">IgorAux::iaStringSplitMode::RetriveAllEmpties</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_string_html"><div class="ttname"><a href="class_igor_aux_1_1ia_string.html">IgorAux::iaString</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_string_8h_source.html#l00052">iaString.h:52</a></div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_string_html"><div class="ttname"><a href="class_igor_aux_1_1ia_string.html">IgorAux::iaString</a></div><div class="ttdef"><b>Definition:</b> iaString.h:52</div></div>
 <div class="ttc" id="ia_defines_8h_html"><div class="ttname"><a href="ia_defines_8h.html">iaDefines.h</a></div></div>
-<div class="ttc" id="namespacetesting_1_1internal_html_a6910869259f8f31825b471e9190fa09a"><div class="ttname"><a href="namespacetesting_1_1internal.html#a6910869259f8f31825b471e9190fa09a">testing::internal::operator!=</a></div><div class="ttdeci">bool operator!=(T *ptr, const linked_ptr&lt; T &gt; &amp;x)</div><div class="ttdef"><b>Definition:</b> <a href="gtest-linked__ptr_8h_source.html#l00228">gtest-linked_ptr.h:228</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_c402b4467a53150ecb66faacb9627039.html">IgorAux</a></li><li class="navelem"><a class="el" href="dir_052e06d5847ef9011a3307e293e59b2d.html">src</a></li><li class="navelem"><a class="el" href="ia_string_8h.html">iaString.h</a></li>
+				<li class="navelem"><a class="el" href="dir_038706058e6e4ef52f3f38f20b163fcb.html">IgorAux</a></li><li class="navelem"><a class="el" href="dir_81853e009da3367582c439e5f0afaec8.html">src</a></li><li class="navelem"><a class="el" href="ia_string_8h.html">iaString.h</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:11 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:09 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

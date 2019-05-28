@@ -17,6 +17,5 @@ var searchData=
   ['main3ds',['MAIN3DS',['../i_model_data_i_o3_d_s_8cpp.html#a989e0563d45aaff3ba8d7e4c0a740d39',1,'iModelDataIO3DS.cpp']]],
   ['mat_5fname',['MAT_NAME',['../i_model_data_i_o3_d_s_8cpp.html#a9f231395af542b2c0a140d318ac3be57',1,'iModelDataIO3DS.cpp']]],
   ['mat_5ftexture',['MAT_TEXTURE',['../i_model_data_i_o3_d_s_8cpp.html#adddab570d679e1d08c681f1ae0e3d99a',1,'iModelDataIO3DS.cpp']]],
-  ['matswap',['MATSWAP',['../ia_matrix_8inl.html#afae867f65efaeeb6dc9f87b17b3208cf',1,'iaMatrix.inl']]],
-  ['mv_5fregularbutton_5fsize',['MV_REGULARBUTTON_SIZE',['../_model_viewer_defines_8h.html#a8466e36ca62ff885192b75bf9bfbf480',1,'ModelViewerDefines.h']]]
+  ['matswap',['MATSWAP',['../ia_matrix_8inl.html#afae867f65efaeeb6dc9f87b17b3208cf',1,'iaMatrix.inl']]]
 ];

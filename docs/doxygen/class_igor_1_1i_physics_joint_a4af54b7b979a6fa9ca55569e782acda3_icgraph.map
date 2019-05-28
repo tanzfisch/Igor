@@ -1,5 +1,0 @@
-<map id="Igor::iPhysicsJoint::getNewtonJoint" name="Igor::iPhysicsJoint::getNewtonJoint">
-<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#a8584ff8683bea79a370d48d506349efb" title="Igor::iPhysics::setUserJoint\lAddAngularRow" alt="" coords="181,5,363,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_physics.html#a9852fe10d01b66a0f147bd85fc909fc9" title="Igor::iPhysics::setUserJoint\lSetRowMinimumFriction" alt="" coords="181,71,363,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_physics.html#afa66ef2a2c2642839219aaa32e85bf65" title="Igor::iPhysics::setUserJoint\lSetRowMaximumFriction" alt="" coords="181,136,363,177"/>
-</map>

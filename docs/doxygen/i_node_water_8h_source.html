@@ -157,7 +157,7 @@ $(document).ready(function(){initNavTree('i_node_water_8h_source.html','');});
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> wasReached();</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="namespace_igor.html#ab3cae9a3831b87d34d1bfe2c4647b242">draw</a>();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> draw();</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordtype">void</span> setWaterPosition(float32 yPos);</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
@@ -169,9 +169,9 @@ $(document).ready(function(){initNavTree('i_node_water_8h_source.html','');});
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="class_igor_1_1i_node_water.html#a35c4ea65840d269148fa96e114cfd02d">   81</a></span>&#160;        float32 _yPos = 0;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        float32 _yPos = 0;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="class_igor_1_1i_node_water.html#a78f877ad1c03754de056272753d8f7d3">   85</a></span>&#160;        <a class="code" href="class_igor_aux_1_1ia_color4.html">iaColor4f</a> <a class="code" href="class_igor_1_1i_node_water.html#a78f877ad1c03754de056272753d8f7d3">_ambient</a>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <a class="code" href="class_igor_aux_1_1ia_color4.html">iaColor4f</a> _ambient;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <a class="code" href="namespace_igor.html#abe8ac7d5017f674544ec43881a173c7fa6c8918b2a7e33ff3f5341b66e8ef17d5">iNodeWater</a>();</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
@@ -184,25 +184,23 @@ $(document).ready(function(){initNavTree('i_node_water_8h_source.html','');});
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}</div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="class_igor_1_1i_node_water_html_a78f877ad1c03754de056272753d8f7d3"><div class="ttname"><a href="class_igor_1_1i_node_water.html#a78f877ad1c03754de056272753d8f7d3">Igor::iNodeWater::_ambient</a></div><div class="ttdeci">iaColor4f _ambient</div><div class="ttdef"><b>Definition:</b> <a href="i_node_water_8h_source.html#l00085">iNodeWater.h:85</a></div></div>
-<div class="ttc" id="class_igor_1_1i_node_water_html"><div class="ttname"><a href="class_igor_1_1i_node_water.html">Igor::iNodeWater</a></div><div class="ttdef"><b>Definition:</b> <a href="i_node_water_8h_source.html#l00040">iNodeWater.h:40</a></div></div>
-<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> <a href="i_a_a_box_8h_source.html#l00036">iAABox.h:36</a></div></div>
+<div class="ttc" id="class_igor_1_1i_node_water_html"><div class="ttname"><a href="class_igor_1_1i_node_water.html">Igor::iNodeWater</a></div><div class="ttdef"><b>Definition:</b> iNodeWater.h:40</div></div>
+<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> iAABox.h:36</div></div>
 <div class="ttc" id="i_node_render_8h_html"><div class="ttname"><a href="i_node_render_8h.html">iNodeRender.h</a></div></div>
 <div class="ttc" id="namespace_igor_html_a74b76f40113f9c4c8bb8918ad7a94722"><div class="ttname"><a href="namespace_igor.html#a74b76f40113f9c4c8bb8918ad7a94722">Igor::getAmbient</a></div><div class="ttdeci">iaColor3f getAmbient() const </div></div>
-<div class="ttc" id="class_igor_1_1i_node_render_html"><div class="ttname"><a href="class_igor_1_1i_node_render.html">Igor::iNodeRender</a></div><div class="ttdef"><b>Definition:</b> <a href="i_node_render_8h_source.html#l00044">iNodeRender.h:44</a></div></div>
-<div class="ttc" id="namespace_igor_html_ab3cae9a3831b87d34d1bfe2c4647b242"><div class="ttname"><a href="namespace_igor.html#ab3cae9a3831b87d34d1bfe2c4647b242">Igor::draw</a></div><div class="ttdeci">virtual void draw()</div></div>
-<div class="ttc" id="class_igor_1_1i_node_factory_html"><div class="ttname"><a href="class_igor_1_1i_node_factory.html">Igor::iNodeFactory</a></div><div class="ttdef"><b>Definition:</b> <a href="i_node_factory_8h_source.html#l00046">iNodeFactory.h:46</a></div></div>
+<div class="ttc" id="class_igor_1_1i_node_render_html"><div class="ttname"><a href="class_igor_1_1i_node_render.html">Igor::iNodeRender</a></div><div class="ttdef"><b>Definition:</b> iNodeRender.h:44</div></div>
+<div class="ttc" id="class_igor_1_1i_node_factory_html"><div class="ttname"><a href="class_igor_1_1i_node_factory.html">Igor::iNodeFactory</a></div><div class="ttdef"><b>Definition:</b> iNodeFactory.h:46</div></div>
 <div class="ttc" id="namespace_igor_html_abe8ac7d5017f674544ec43881a173c7fa6c8918b2a7e33ff3f5341b66e8ef17d5"><div class="ttname"><a href="namespace_igor.html#abe8ac7d5017f674544ec43881a173c7fa6c8918b2a7e33ff3f5341b66e8ef17d5">Igor::iNodeType::iNodeWater</a></div></div>
 <div class="ttc" id="i_texture_resource_factory_8h_html"><div class="ttname"><a href="i_texture_resource_factory_8h.html">iTextureResourceFactory.h</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_color4_html"><div class="ttname"><a href="class_igor_aux_1_1ia_color4.html">IgorAux::iaColor4</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_color4_8h_source.html#l00045">iaColor4.h:45</a></div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_color4_html"><div class="ttname"><a href="class_igor_aux_1_1ia_color4.html">IgorAux::iaColor4</a></div><div class="ttdef"><b>Definition:</b> iaColor4.h:45</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_d038480633c1631388acdc016f2c394d.html">Igor</a></li><li class="navelem"><a class="el" href="dir_c666f9416e68e5cd51b28bff0f98e46c.html">src</a></li><li class="navelem"><a class="el" href="i_node_water_8h.html">iNodeWater.h</a></li>
+				<li class="navelem"><a class="el" href="dir_f25e90d47839bd5aa725b19f9dd3e654.html">Igor</a></li><li class="navelem"><a class="el" href="dir_b12320815bd4967fc918d17f555d23eb.html">src</a></li><li class="navelem"><a class="el" href="i_node_water_8h.html">iNodeWater.h</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:02 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:06 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

@@ -1,5 +1,0 @@
-<map id="Igor::iNodeVisitorRenderColorID::preOrderVisit" name="Igor::iNodeVisitorRenderColorID::preOrderVisit">
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#a6e7d77b301e705906af5cfb942164a83" title="Igor::iNode::getKind" alt="" coords="228,5,364,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_transform.html#a576c7abc9fdf717b81bc649d9dd80838" title="Igor::iNodeTransform\l::getMatrix" alt="" coords="225,57,367,98"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node_render.html#a555b40da5534a5e54e4235560678bac0" title="Igor::iNodeRender::draw" alt="" coords="216,123,376,149"/>
-</map>

@@ -20,8 +20,5 @@ var class_igor_aux_1_1ia_mem_block_control =
     [ "seekCur", "class_igor_aux_1_1ia_mem_block_control.html#a2e131d11d7ae1574873317e7e5051de4", null ],
     [ "seekEnd", "class_igor_aux_1_1ia_mem_block_control.html#ae1293b279c4a24950488bfd355023612", null ],
     [ "setBuffer", "class_igor_aux_1_1ia_mem_block_control.html#af071f436dfb97681ecec6fa48a4c4508", null ],
-    [ "tell", "class_igor_aux_1_1ia_mem_block_control.html#a8f480be535ec40b54baf1760a0e5610e", null ],
-    [ "_data", "class_igor_aux_1_1ia_mem_block_control.html#aa76741dcc75916b664ae292ddd0067ee", null ],
-    [ "_pos", "class_igor_aux_1_1ia_mem_block_control.html#a349251a2f32503a464cce69b2843a0ec", null ],
-    [ "_size", "class_igor_aux_1_1ia_mem_block_control.html#a872e8d1154d656e4a9f60691f24a164f", null ]
+    [ "tell", "class_igor_aux_1_1ia_mem_block_control.html#a8f480be535ec40b54baf1760a0e5610e", null ]
 ];

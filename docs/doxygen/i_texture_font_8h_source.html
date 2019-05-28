@@ -187,7 +187,7 @@ $(document).ready(function(){initNavTree('i_texture_font_8h_source.html','');});
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="class_igor_1_1i_texture_font.html#a9c0d8d04317421b3451732bd6c9ed26c">   87</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="class_igor_1_1i_texture_font.html#a9c0d8d04317421b3451732bd6c9ed26c">valid</a>;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        <span class="keywordtype">bool</span> valid;</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordtype">void</span> makeFixedWidth();</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;</div>
@@ -195,11 +195,11 @@ $(document).ready(function(){initNavTree('i_texture_font_8h_source.html','');});
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordtype">void</span> modifyWidth(<a class="code" href="class_igor_1_1i_character_dimensions.html">iCharacterDimensions</a> &amp;character,float32 newWidth,float32 newRelRenderWidth);</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
-<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="class_igor_1_1i_texture_font.html#aff4f2953599b9a96e8e725ada55a1126">  103</a></span>&#160;        shared_ptr&lt;iTexture&gt; <a class="code" href="class_igor_1_1i_texture_font.html#aff4f2953599b9a96e8e725ada55a1126">_texture</a>;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        shared_ptr&lt;iTexture&gt; _texture;</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
-<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="class_igor_1_1i_texture_font.html#af8ea87abbb425642f607053a0eebae5b">  107</a></span>&#160;        <a class="code" href="class_igor_1_1i_pixmap.html">iPixmap</a>* <a class="code" href="class_igor_1_1i_texture_font.html#af8ea87abbb425642f607053a0eebae5b">_pixmap</a>;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <a class="code" href="class_igor_1_1i_pixmap.html">iPixmap</a>* _pixmap;</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;</div>
-<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="class_igor_1_1i_texture_font.html#a8082f0516659408b4be423a9feae2212">  111</a></span>&#160;        vector&lt;iCharacterDimensions&gt; <a class="code" href="class_igor_1_1i_texture_font.html#a8082f0516659408b4be423a9feae2212">_characters</a>;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        vector&lt;iCharacterDimensions&gt; _characters;</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
@@ -224,38 +224,34 @@ $(document).ready(function(){initNavTree('i_texture_font_8h_source.html','');});
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="namespace_igor_html_a1ee2fe4724a0c9145b92680c7e4b0021aeb6d8ae6f20283755b339c0dc273988b"><div class="ttname"><a href="namespace_igor.html#a1ee2fe4724a0c9145b92680c7e4b0021aeb6d8ae6f20283755b339c0dc273988b">Igor::iFontType::Standard</a></div></div>
 <div class="ttc" id="class_igor_1_1i_rectangle_html"><div class="ttname"><a href="class_igor_1_1i_rectangle.html">Igor::iRectangle&lt; float32 &gt;</a></div></div>
-<div class="ttc" id="class_igor_1_1i_character_dimensions_html_a25f108542fbb36c03d246c3ca2b8401c"><div class="ttname"><a href="class_igor_1_1i_character_dimensions.html#a25f108542fbb36c03d246c3ca2b8401c">Igor::iCharacterDimensions::relRenderWidth</a></div><div class="ttdeci">float32 relRenderWidth</div><div class="ttdef"><b>Definition:</b> <a href="i_texture_font_8h_source.html#l00074">iTextureFont.h:74</a></div></div>
+<div class="ttc" id="class_igor_1_1i_character_dimensions_html_a25f108542fbb36c03d246c3ca2b8401c"><div class="ttname"><a href="class_igor_1_1i_character_dimensions.html#a25f108542fbb36c03d246c3ca2b8401c">Igor::iCharacterDimensions::relRenderWidth</a></div><div class="ttdeci">float32 relRenderWidth</div><div class="ttdef"><b>Definition:</b> iTextureFont.h:74</div></div>
 <div class="ttc" id="namespace_igor_aux_html_a40f0d9edbd2c9519788b20a95a9facc8ad382816a3cbeed082c9e216e7392eed1"><div class="ttname"><a href="namespace_igor_aux.html#a40f0d9edbd2c9519788b20a95a9facc8ad382816a3cbeed082c9e216e7392eed1">IgorAux::iaForegroundColor::Green</a></div></div>
-<div class="ttc" id="namespace_igor_html_a7e67018151b83309d748c1200262839e"><div class="ttname"><a href="namespace_igor.html#a7e67018151b83309d748c1200262839e">Igor::iColorMask</a></div><div class="ttdeci">iColorMask</div><div class="ttdef"><b>Definition:</b> <a href="i_texture_font_8h_source.html#l00058">iTextureFont.h:58</a></div></div>
+<div class="ttc" id="namespace_igor_html_a7e67018151b83309d748c1200262839e"><div class="ttname"><a href="namespace_igor.html#a7e67018151b83309d748c1200262839e">Igor::iColorMask</a></div><div class="ttdeci">iColorMask</div><div class="ttdef"><b>Definition:</b> iTextureFont.h:58</div></div>
 <div class="ttc" id="ia_string_8h_html"><div class="ttname"><a href="ia_string_8h.html">iaString.h</a></div></div>
-<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_bits_8h_source.html#l00034">iaBits.h:34</a></div></div>
+<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> iaBits.h:34</div></div>
 <div class="ttc" id="namespace_igor_aux_html_a40f0d9edbd2c9519788b20a95a9facc8aee38e4d5dd68c4e440825018d549cb47"><div class="ttname"><a href="namespace_igor_aux.html#a40f0d9edbd2c9519788b20a95a9facc8aee38e4d5dd68c4e440825018d549cb47">IgorAux::iaForegroundColor::Red</a></div></div>
-<div class="ttc" id="class_igor_1_1i_texture_font_html_af8ea87abbb425642f607053a0eebae5b"><div class="ttname"><a href="class_igor_1_1i_texture_font.html#af8ea87abbb425642f607053a0eebae5b">Igor::iTextureFont::_pixmap</a></div><div class="ttdeci">iPixmap * _pixmap</div><div class="ttdef"><b>Definition:</b> <a href="i_texture_font_8h_source.html#l00107">iTextureFont.h:107</a></div></div>
-<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> <a href="gtest-tuple_8h_source.html#l00113">gtest-tuple.h:113</a></div></div>
-<div class="ttc" id="class_igor_1_1i_texture_font_html"><div class="ttname"><a href="class_igor_1_1i_texture_font.html">Igor::iTextureFont</a></div><div class="ttdef"><b>Definition:</b> <a href="i_texture_font_8h_source.html#l00080">iTextureFont.h:80</a></div></div>
-<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> <a href="i_a_a_box_8h_source.html#l00036">iAABox.h:36</a></div></div>
+<div class="ttc" id="namespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition:</b> iaString.h:432</div></div>
+<div class="ttc" id="class_igor_1_1i_texture_font_html"><div class="ttname"><a href="class_igor_1_1i_texture_font.html">Igor::iTextureFont</a></div><div class="ttdef"><b>Definition:</b> iTextureFont.h:80</div></div>
+<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> iAABox.h:36</div></div>
 <div class="ttc" id="i_texture_8h_html"><div class="ttname"><a href="i_texture_8h.html">iTexture.h</a></div></div>
-<div class="ttc" id="namespace_igor_html_a1ee2fe4724a0c9145b92680c7e4b0021"><div class="ttname"><a href="namespace_igor.html#a1ee2fe4724a0c9145b92680c7e4b0021">Igor::iFontType</a></div><div class="ttdeci">iFontType</div><div class="ttdef"><b>Definition:</b> <a href="i_texture_font_8h_source.html#l00049">iTextureFont.h:49</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_string_html"><div class="ttname"><a href="class_igor_aux_1_1ia_string.html">IgorAux::iaString</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_string_8h_source.html#l00052">iaString.h:52</a></div></div>
-<div class="ttc" id="class_igor_1_1i_texture_font_html_a8082f0516659408b4be423a9feae2212"><div class="ttname"><a href="class_igor_1_1i_texture_font.html#a8082f0516659408b4be423a9feae2212">Igor::iTextureFont::_characters</a></div><div class="ttdeci">vector&lt; iCharacterDimensions &gt; _characters</div><div class="ttdef"><b>Definition:</b> <a href="i_texture_font_8h_source.html#l00111">iTextureFont.h:111</a></div></div>
+<div class="ttc" id="namespace_igor_html_a1ee2fe4724a0c9145b92680c7e4b0021"><div class="ttname"><a href="namespace_igor.html#a1ee2fe4724a0c9145b92680c7e4b0021">Igor::iFontType</a></div><div class="ttdeci">iFontType</div><div class="ttdef"><b>Definition:</b> iTextureFont.h:49</div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_string_html"><div class="ttname"><a href="class_igor_aux_1_1ia_string.html">IgorAux::iaString</a></div><div class="ttdef"><b>Definition:</b> iaString.h:52</div></div>
 <div class="ttc" id="namespace_igor_aux_html_a40f0d9edbd2c9519788b20a95a9facc8a9594eec95be70e7b1710f730fdda33d9"><div class="ttname"><a href="namespace_igor_aux.html#a40f0d9edbd2c9519788b20a95a9facc8a9594eec95be70e7b1710f730fdda33d9">IgorAux::iaForegroundColor::Blue</a></div></div>
-<div class="ttc" id="class_igor_1_1i_character_dimensions_html_a5cf201eb2a867561ef0f1fea1f6aaaba"><div class="ttname"><a href="class_igor_1_1i_character_dimensions.html#a5cf201eb2a867561ef0f1fea1f6aaaba">Igor::iCharacterDimensions::rect</a></div><div class="ttdeci">iRectanglef rect</div><div class="ttdef"><b>Definition:</b> <a href="i_texture_font_8h_source.html#l00073">iTextureFont.h:73</a></div></div>
-<div class="ttc" id="class_igor_1_1i_texture_font_html_a9c0d8d04317421b3451732bd6c9ed26c"><div class="ttname"><a href="class_igor_1_1i_texture_font.html#a9c0d8d04317421b3451732bd6c9ed26c">Igor::iTextureFont::valid</a></div><div class="ttdeci">bool valid</div><div class="ttdef"><b>Definition:</b> <a href="i_texture_font_8h_source.html#l00087">iTextureFont.h:87</a></div></div>
-<div class="ttc" id="class_igor_1_1i_pixmap_html"><div class="ttname"><a href="class_igor_1_1i_pixmap.html">Igor::iPixmap</a></div><div class="ttdef"><b>Definition:</b> <a href="i_pixmap_8h_source.html#l00050">iPixmap.h:50</a></div></div>
+<div class="ttc" id="class_igor_1_1i_character_dimensions_html_a5cf201eb2a867561ef0f1fea1f6aaaba"><div class="ttname"><a href="class_igor_1_1i_character_dimensions.html#a5cf201eb2a867561ef0f1fea1f6aaaba">Igor::iCharacterDimensions::rect</a></div><div class="ttdeci">iRectanglef rect</div><div class="ttdef"><b>Definition:</b> iTextureFont.h:73</div></div>
+<div class="ttc" id="class_igor_1_1i_pixmap_html"><div class="ttname"><a href="class_igor_1_1i_pixmap.html">Igor::iPixmap</a></div><div class="ttdef"><b>Definition:</b> iPixmap.h:50</div></div>
 <div class="ttc" id="namespace_igor_html_a1ee2fe4724a0c9145b92680c7e4b0021ae9cb5b14536dcce4a0c02d83301febf2"><div class="ttname"><a href="namespace_igor.html#a1ee2fe4724a0c9145b92680c7e4b0021ae9cb5b14536dcce4a0c02d83301febf2">Igor::iFontType::FixedWidth</a></div></div>
 <div class="ttc" id="namespace_igor_html_a1ee2fe4724a0c9145b92680c7e4b0021a92886d9bd6da89da0f7488b9458bba5a"><div class="ttname"><a href="namespace_igor.html#a1ee2fe4724a0c9145b92680c7e4b0021a92886d9bd6da89da0f7488b9458bba5a">Igor::iFontType::FixedDigitWidth</a></div></div>
 <div class="ttc" id="namespace_igor_html_a7e67018151b83309d748c1200262839ea6132295fcf5570fb8b0a944ef322a598"><div class="ttname"><a href="namespace_igor.html#a7e67018151b83309d748c1200262839ea6132295fcf5570fb8b0a944ef322a598">Igor::iColorMask::Alpha</a></div></div>
 <div class="ttc" id="i_rectangle_8h_html"><div class="ttname"><a href="i_rectangle_8h.html">iRectangle.h</a></div></div>
-<div class="ttc" id="class_igor_1_1i_texture_font_html_aff4f2953599b9a96e8e725ada55a1126"><div class="ttname"><a href="class_igor_1_1i_texture_font.html#aff4f2953599b9a96e8e725ada55a1126">Igor::iTextureFont::_texture</a></div><div class="ttdeci">shared_ptr&lt; iTexture &gt; _texture</div><div class="ttdef"><b>Definition:</b> <a href="i_texture_font_8h_source.html#l00103">iTextureFont.h:103</a></div></div>
-<div class="ttc" id="class_igor_1_1i_character_dimensions_html"><div class="ttname"><a href="class_igor_1_1i_character_dimensions.html">Igor::iCharacterDimensions</a></div><div class="ttdef"><b>Definition:</b> <a href="i_texture_font_8h_source.html#l00068">iTextureFont.h:68</a></div></div>
+<div class="ttc" id="class_igor_1_1i_character_dimensions_html"><div class="ttname"><a href="class_igor_1_1i_character_dimensions.html">Igor::iCharacterDimensions</a></div><div class="ttdef"><b>Definition:</b> iTextureFont.h:68</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_d038480633c1631388acdc016f2c394d.html">Igor</a></li><li class="navelem"><a class="el" href="dir_c666f9416e68e5cd51b28bff0f98e46c.html">src</a></li><li class="navelem"><a class="el" href="i_texture_font_8h.html">iTextureFont.h</a></li>
+				<li class="navelem"><a class="el" href="dir_f25e90d47839bd5aa725b19f9dd3e654.html">Igor</a></li><li class="navelem"><a class="el" href="dir_b12320815bd4967fc918d17f555d23eb.html">src</a></li><li class="navelem"><a class="el" href="i_texture_font_8h.html">iTextureFont.h</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:05 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:07 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

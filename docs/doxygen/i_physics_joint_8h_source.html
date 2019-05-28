@@ -175,18 +175,18 @@ $(document).ready(function(){initNavTree('i_physics_joint_8h_source.html','');})
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="class_igor_1_1i_physics_joint.html#a3d23f4953605283e940111f42da51a1a">   73</a></span>&#160;        <span class="keyword">static</span> uint64 <a class="code" href="class_igor_1_1i_physics_joint.html#a3d23f4953605283e940111f42da51a1a">_nextJointID</a>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keyword">static</span> uint64 _nextJointID;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="class_igor_1_1i_physics_joint.html#a8e6f5d0cb8c1731542643a118e9a1405">   75</a></span>&#160;        <span class="keyword">static</span> <a class="code" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> <a class="code" href="class_igor_1_1i_physics_joint.html#a8e6f5d0cb8c1731542643a118e9a1405">_mutex</a>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keyword">static</span> <a class="code" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> _mutex;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="class_igor_1_1i_physics_joint.html#abc004c959839d68f10d07d618aaeea70">   79</a></span>&#160;        uint64 _jointID = 0;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        uint64 _jointID = 0;</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="class_igor_1_1i_physics_joint.html#a67280b24f87be3e990dbd00b20962a0c">   81</a></span>&#160;        uint64 _bodyID0 = 0;</div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="class_igor_1_1i_physics_joint.html#a422c0c535fe671d28f593aef27a02529">   82</a></span>&#160;        uint64 _bodyID1 = 0;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        uint64 _bodyID0 = 0;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        uint64 _bodyID1 = 0;</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="class_igor_1_1i_physics_joint.html#a8fa8ad7ae97d3585b40fa39c1a3fa444">   86</a></span>&#160;        <span class="keywordtype">void</span>* _joint = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordtype">void</span>* _joint = <span class="keyword">nullptr</span>;</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;</div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="class_igor_1_1i_physics_joint.html#afb251e987eb9803a9ddcf5ae7bed9955">   88</a></span>&#160;        iSubmitConstraintsEvent <a class="code" href="class_igor_1_1i_physics_joint.html#afb251e987eb9803a9ddcf5ae7bed9955">_submitConstraints</a>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        iSubmitConstraintsEvent _submitConstraints;</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordtype">void</span> submitConstraints(float64 timestep);</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;</div>
@@ -200,17 +200,14 @@ $(document).ready(function(){initNavTree('i_physics_joint_8h_source.html','');})
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
-<div class="ttc" id="class_igor_1_1i_physics_joint_html_a8e6f5d0cb8c1731542643a118e9a1405"><div class="ttname"><a href="class_igor_1_1i_physics_joint.html#a8e6f5d0cb8c1731542643a118e9a1405">Igor::iPhysicsJoint::_mutex</a></div><div class="ttdeci">static iaMutex _mutex</div><div class="ttdef"><b>Definition:</b> <a href="i_physics_joint_8h_source.html#l00075">iPhysicsJoint.h:75</a></div></div>
-<div class="ttc" id="class_igor_aux_1_1ia_mutex_html"><div class="ttname"><a href="class_igor_aux_1_1ia_mutex.html">IgorAux::iaMutex</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_mutex_8h_source.html#l00041">iaMutex.h:41</a></div></div>
-<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> <a href="ia_bits_8h_source.html#l00034">iaBits.h:34</a></div></div>
-<div class="ttc" id="class_igor_1_1i_physics_joint_html_afb251e987eb9803a9ddcf5ae7bed9955"><div class="ttname"><a href="class_igor_1_1i_physics_joint.html#afb251e987eb9803a9ddcf5ae7bed9955">Igor::iPhysicsJoint::_submitConstraints</a></div><div class="ttdeci">iSubmitConstraintsEvent _submitConstraints</div><div class="ttdef"><b>Definition:</b> <a href="i_physics_joint_8h_source.html#l00088">iPhysicsJoint.h:88</a></div></div>
-<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> <a href="i_a_a_box_8h_source.html#l00036">iAABox.h:36</a></div></div>
-<div class="ttc" id="class_igor_1_1i_physics_joint_html"><div class="ttname"><a href="class_igor_1_1i_physics_joint.html">Igor::iPhysicsJoint</a></div><div class="ttdef"><b>Definition:</b> <a href="i_physics_joint_8h_source.html#l00047">iPhysicsJoint.h:47</a></div></div>
+<div class="ttc" id="class_igor_aux_1_1ia_mutex_html"><div class="ttname"><a href="class_igor_aux_1_1ia_mutex.html">IgorAux::iaMutex</a></div><div class="ttdef"><b>Definition:</b> iaMutex.h:41</div></div>
+<div class="ttc" id="namespace_igor_aux_html"><div class="ttname"><a href="namespace_igor_aux.html">IgorAux</a></div><div class="ttdef"><b>Definition:</b> iaBits.h:34</div></div>
+<div class="ttc" id="namespace_igor_html"><div class="ttname"><a href="namespace_igor.html">Igor</a></div><div class="ttdef"><b>Definition:</b> iAABox.h:36</div></div>
+<div class="ttc" id="class_igor_1_1i_physics_joint_html"><div class="ttname"><a href="class_igor_1_1i_physics_joint.html">Igor::iPhysicsJoint</a></div><div class="ttdef"><b>Definition:</b> iPhysicsJoint.h:47</div></div>
 <div class="ttc" id="namespace_igor_aux_html_aabd22d8bae645ca2557549dfa5b175fd"><div class="ttname"><a href="namespace_igor_aux.html#aabd22d8bae645ca2557549dfa5b175fd">IgorAux::iaEVENT</a></div><div class="ttdeci">iaEVENT(EnterStateEvent, EnterStateDelegate, void,(),())</div></div>
-<div class="ttc" id="class_igor_1_1i_physics_html"><div class="ttname"><a href="class_igor_1_1i_physics.html">Igor::iPhysics</a></div><div class="ttdef"><b>Definition:</b> <a href="i_physics_8h_source.html#l00075">iPhysics.h:75</a></div></div>
-<div class="ttc" id="class_igor_1_1i_physics_joint_html_a3d23f4953605283e940111f42da51a1a"><div class="ttname"><a href="class_igor_1_1i_physics_joint.html#a3d23f4953605283e940111f42da51a1a">Igor::iPhysicsJoint::_nextJointID</a></div><div class="ttdeci">static uint64 _nextJointID</div><div class="ttdef"><b>Definition:</b> <a href="i_physics_joint_8h_source.html#l00073">iPhysicsJoint.h:73</a></div></div>
+<div class="ttc" id="class_igor_1_1i_physics_html"><div class="ttname"><a href="class_igor_1_1i_physics.html">Igor::iPhysics</a></div><div class="ttdef"><b>Definition:</b> iPhysics.h:75</div></div>
 <div class="ttc" id="i_defines_8h_html"><div class="ttname"><a href="i_defines_8h.html">iDefines.h</a></div></div>
-<div class="ttc" id="namespace_igor_html_adbb4ca95dca2ba14f73589783c84299e"><div class="ttname"><a href="namespace_igor.html#adbb4ca95dca2ba14f73589783c84299e">Igor::SubmitConstraints</a></div><div class="ttdeci">void SubmitConstraints(const void *const joint, float64 timestep, int threadIndex)</div><div class="ttdef"><b>Definition:</b> <a href="i_physics_8cpp_source.html#l00115">iPhysics.cpp:115</a></div></div>
+<div class="ttc" id="namespace_igor_html_adbb4ca95dca2ba14f73589783c84299e"><div class="ttname"><a href="namespace_igor.html#adbb4ca95dca2ba14f73589783c84299e">Igor::SubmitConstraints</a></div><div class="ttdeci">void SubmitConstraints(const void *const joint, float64 timestep, int threadIndex)</div><div class="ttdef"><b>Definition:</b> iPhysics.cpp:115</div></div>
 <div class="ttc" id="ia_event_8h_html"><div class="ttname"><a href="ia_event_8h.html">iaEvent.h</a></div></div>
 <div class="ttc" id="ia_mutex_8h_html"><div class="ttname"><a href="ia_mutex_8h.html">iaMutex.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -218,9 +215,9 @@ $(document).ready(function(){initNavTree('i_physics_joint_8h_source.html','');})
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_d038480633c1631388acdc016f2c394d.html">Igor</a></li><li class="navelem"><a class="el" href="dir_c666f9416e68e5cd51b28bff0f98e46c.html">src</a></li><li class="navelem"><a class="el" href="i_physics_joint_8h.html">iPhysicsJoint.h</a></li>
+				<li class="navelem"><a class="el" href="dir_f25e90d47839bd5aa725b19f9dd3e654.html">Igor</a></li><li class="navelem"><a class="el" href="dir_b12320815bd4967fc918d17f555d23eb.html">src</a></li><li class="navelem"><a class="el" href="i_physics_joint_8h.html">iPhysicsJoint.h</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:03 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Tue May 28 2019 17:02:06 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>
