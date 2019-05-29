@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,15 +112,13 @@ $(document).ready(function(){initNavTree('class_igor_aux_1_1ia_state.html','');}
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="class_igor_aux_1_1ia_state-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">IgorAux::iaState Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="ia_state_8h_source.html">iaState.h</a>&gt;</code></p>
+<p><code>#include &lt;iaState.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -165,32 +163,10 @@ Public Member Functions</h2></td></tr>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a4de53926b54842243d6a7f32d497e12f"><td class="memItemLeft" align="right" valign="top">static const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_state.html#a4de53926b54842243d6a7f32d497e12f">INVALID_STATE_ID</a> = 0</td></tr>
 <tr class="separator:a4de53926b54842243d6a7f32d497e12f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:aac84261ae1b2f5c62b59c8c061029427"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_state.html#aac84261ae1b2f5c62b59c8c061029427">_id</a> = <a class="el" href="class_igor_aux_1_1ia_state.html#a4de53926b54842243d6a7f32d497e12f">INVALID_STATE_ID</a></td></tr>
-<tr class="separator:aac84261ae1b2f5c62b59c8c061029427"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d8980589248c858161c6236fe47cc40"><td class="memItemLeft" align="right" valign="top">EnterStateEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_state.html#a1d8980589248c858161c6236fe47cc40">_enterStateEvent</a></td></tr>
-<tr class="separator:a1d8980589248c858161c6236fe47cc40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a2a93fac23d1789156ab5b1ad558632"><td class="memItemLeft" align="right" valign="top">ReEnterStateEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_state.html#a6a2a93fac23d1789156ab5b1ad558632">_reEnterStateEvent</a></td></tr>
-<tr class="separator:a6a2a93fac23d1789156ab5b1ad558632"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8dc82f3d4fe11e216a7c8cf49abb091"><td class="memItemLeft" align="right" valign="top">LeaveStateEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_state.html#ab8dc82f3d4fe11e216a7c8cf49abb091">_leaveStateEvent</a></td></tr>
-<tr class="separator:ab8dc82f3d4fe11e216a7c8cf49abb091"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a050212f14329152d91e3531b00fccd9b"><td class="memItemLeft" align="right" valign="top">HandleStateEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_state.html#a050212f14329152d91e3531b00fccd9b">_handleStateEvent</a></td></tr>
-<tr class="separator:a050212f14329152d91e3531b00fccd9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a059bf4c22352029ee147f6d06b59af6c"><td class="memItemLeft" align="right" valign="top">RenderStateEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_state.html#a059bf4c22352029ee147f6d06b59af6c">_renderStateEvent</a></td></tr>
-<tr class="separator:a059bf4c22352029ee147f6d06b59af6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
-Static Private Attributes</h2></td></tr>
-<tr class="memitem:ad08fa4b9a692fd1ef76b82fe6763a82a"><td class="memItemLeft" align="right" valign="top">static uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_state.html#ad08fa4b9a692fd1ef76b82fe6763a82a">_nextID</a> = <a class="el" href="class_igor_aux_1_1ia_state.html#a4de53926b54842243d6a7f32d497e12f">INVALID_STATE_ID</a> + 1</td></tr>
-<tr class="separator:ad08fa4b9a692fd1ef76b82fe6763a82a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>state in state machine</p>
 <p>Example: <a class="el" href="_state_machine_2src_2_state_machine_example_8cpp-example.html">StateMachine usage example</a> </p>
-
-<p>Definition at line <a class="el" href="ia_state_8h_source.html#l00066">66</a> of file <a class="el" href="ia_state_8h_source.html">iaState.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a6785dba0fc8081c4c33489ea39f2897e"></a>
 <div class="memitem">
@@ -205,8 +181,6 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>init id </p>
-
-<p>Definition at line <a class="el" href="ia_state_8cpp_source.html#l00014">14</a> of file <a class="el" href="ia_state_8cpp_source.html">iaState.cpp</a>.</p>
 
 </div>
 </div>
@@ -249,16 +223,6 @@ Static Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>triggers enter event </p>
 
-<p>Definition at line <a class="el" href="ia_state_8cpp_source.html#l00029">29</a> of file <a class="el" href="ia_state_8cpp_source.html">iaState.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_state_a89809a8e64614e76f3cdfb7c9111bb0a_icgraph.svg" width="799" height="150"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a345295b9f60c7d3f175e6bd6147f6cec"></a>
@@ -274,16 +238,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the id of this state </dd></dl>
-
-<p>Definition at line <a class="el" href="ia_state_8cpp_source.html#l00019">19</a> of file <a class="el" href="ia_state_8cpp_source.html">iaState.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_state_a345295b9f60c7d3f175e6bd6147f6cec_icgraph.svg" width="376" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -301,16 +255,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>triggers handle event </p>
 
-<p>Definition at line <a class="el" href="ia_state_8cpp_source.html#l00039">39</a> of file <a class="el" href="ia_state_8cpp_source.html">iaState.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_state_acccfe21724cce3a3aa2f498371d0edbd_icgraph.svg" width="384" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a78c5098732f7bb331e1af94f1fdc07c9"></a>
@@ -327,8 +271,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>triggers leave event </p>
 
-<p>Definition at line <a class="el" href="ia_state_8cpp_source.html#l00024">24</a> of file <a class="el" href="ia_state_8cpp_source.html">iaState.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a93d14d53966c658d848cd41a2ce5655c"></a>
@@ -344,16 +286,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>triggers reenter event </p>
-
-<p>Definition at line <a class="el" href="ia_state_8cpp_source.html#l00034">34</a> of file <a class="el" href="ia_state_8cpp_source.html">iaState.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_state_a93d14d53966c658d848cd41a2ce5655c_icgraph.svg" width="812" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -378,16 +310,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_state_8cpp_source.html#l00069">69</a> of file <a class="el" href="ia_state_8cpp_source.html">iaState.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_state_a3044e5d1c488b88c95921f0febb3b8b7_icgraph.svg" width="412" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a8d957ebbf0672253ae332ffbcad2d22a"></a>
@@ -410,16 +332,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="ia_state_8cpp_source.html#l00059">59</a> of file <a class="el" href="ia_state_8cpp_source.html">iaState.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_state_a8d957ebbf0672253ae332ffbcad2d22a_icgraph.svg" width="420" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -444,16 +356,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_state_8cpp_source.html#l00079">79</a> of file <a class="el" href="ia_state_8cpp_source.html">iaState.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_state_abd247b1fcf30d08db96a06b46765cc63_icgraph.svg" width="414" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="afb2b14549587291d2dd42f0e0f3b5afa"></a>
@@ -476,16 +378,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="ia_state_8cpp_source.html#l00074">74</a> of file <a class="el" href="ia_state_8cpp_source.html">iaState.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_state_afb2b14549587291d2dd42f0e0f3b5afa_icgraph.svg" width="428" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -510,16 +402,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_state_8cpp_source.html#l00049">49</a> of file <a class="el" href="ia_state_8cpp_source.html">iaState.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_state_a22597376ce3a6337bfb3dc34a506a91f_icgraph.svg" width="422" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="aadb4220cf1a6272751734905fcd416b3"></a>
@@ -535,16 +417,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>triggers render event </p>
-
-<p>Definition at line <a class="el" href="ia_state_8cpp_source.html#l00044">44</a> of file <a class="el" href="ia_state_8cpp_source.html">iaState.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_state_aadb4220cf1a6272751734905fcd416b3_icgraph.svg" width="382" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -569,16 +441,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_state_8cpp_source.html#l00084">84</a> of file <a class="el" href="ia_state_8cpp_source.html">iaState.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_state_aaa454e9776b36b8bce4d84906cbc4c7d_icgraph.svg" width="439" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a05a83add80bb6bc4931885393cc3d7cf"></a>
@@ -601,16 +463,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="ia_state_8cpp_source.html#l00064">64</a> of file <a class="el" href="ia_state_8cpp_source.html">iaState.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_state_a05a83add80bb6bc4931885393cc3d7cf_icgraph.svg" width="448" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -635,16 +487,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_state_8cpp_source.html#l00094">94</a> of file <a class="el" href="ia_state_8cpp_source.html">iaState.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_state_ae2eb95fc3985d47855f2b6f94d226a96_icgraph.svg" width="442" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="afd03702ac1ed92600a1435db75982359"></a>
@@ -667,16 +509,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="ia_state_8cpp_source.html#l00089">89</a> of file <a class="el" href="ia_state_8cpp_source.html">iaState.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_state_afd03702ac1ed92600a1435db75982359_icgraph.svg" width="455" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -701,180 +533,9 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_state_8cpp_source.html#l00054">54</a> of file <a class="el" href="ia_state_8cpp_source.html">iaState.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_state_ac5e7768d51ef96cfa6aa39ace6f2ede5_icgraph.svg" width="450" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a1d8980589248c858161c6236fe47cc40"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">EnterStateEvent IgorAux::iaState::_enterStateEvent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>enter state event </p>
-
-<p>Definition at line <a class="el" href="ia_state_8h_source.html#l00177">177</a> of file <a class="el" href="ia_state_8h_source.html">iaState.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a050212f14329152d91e3531b00fccd9b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">HandleStateEvent IgorAux::iaState::_handleStateEvent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handle state event </p>
-
-<p>Definition at line <a class="el" href="ia_state_8h_source.html#l00189">189</a> of file <a class="el" href="ia_state_8h_source.html">iaState.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aac84261ae1b2f5c62b59c8c061029427"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 IgorAux::iaState::_id = <a class="el" href="class_igor_aux_1_1ia_state.html#a4de53926b54842243d6a7f32d497e12f">INVALID_STATE_ID</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>id of this state </p>
-
-<p>Definition at line <a class="el" href="ia_state_8h_source.html#l00173">173</a> of file <a class="el" href="ia_state_8h_source.html">iaState.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab8dc82f3d4fe11e216a7c8cf49abb091"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">LeaveStateEvent IgorAux::iaState::_leaveStateEvent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>leave state event </p>
-
-<p>Definition at line <a class="el" href="ia_state_8h_source.html#l00185">185</a> of file <a class="el" href="ia_state_8h_source.html">iaState.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad08fa4b9a692fd1ef76b82fe6763a82a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 IgorAux::iaState::_nextID = <a class="el" href="class_igor_aux_1_1ia_state.html#a4de53926b54842243d6a7f32d497e12f">INVALID_STATE_ID</a> + 1</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>id of the next state created </p>
-
-<p>Definition at line <a class="el" href="ia_state_8h_source.html#l00169">169</a> of file <a class="el" href="ia_state_8h_source.html">iaState.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6a2a93fac23d1789156ab5b1ad558632"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">ReEnterStateEvent IgorAux::iaState::_reEnterStateEvent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>reenter state event </p>
-
-<p>Definition at line <a class="el" href="ia_state_8h_source.html#l00181">181</a> of file <a class="el" href="ia_state_8h_source.html">iaState.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a059bf4c22352029ee147f6d06b59af6c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">RenderStateEvent IgorAux::iaState::_renderStateEvent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>render state event </p>
-
-<p>Definition at line <a class="el" href="ia_state_8h_source.html#l00193">193</a> of file <a class="el" href="ia_state_8h_source.html">iaState.h</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a4de53926b54842243d6a7f32d497e12f"></a>
 <div class="memitem">
 <div class="memproto">
@@ -893,13 +554,11 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ia_state_8h_source.html#l00071">71</a> of file <a class="el" href="ia_state_8h_source.html">iaState.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_state_8h_source.html">iaState.h</a></li>
-<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_state_8cpp_source.html">iaState.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/IgorAux/src/<a class="el" href="ia_state_8h.html">iaState.h</a></li>
+<li>C:/dev/Igor/Igor/src/IgorAux/src/<a class="el" href="ia_state_8cpp.html">iaState.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -908,7 +567,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor_aux.html">IgorAux</a></li><li class="navelem"><a class="el" href="class_igor_aux_1_1ia_state.html">iaState</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:19 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

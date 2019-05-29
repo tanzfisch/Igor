@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,8 +111,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_model_resource_factory
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_model_resource_factory-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -120,19 +118,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_model_resource_factory
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_model_resource_factory_8h_source.html">iModelResourceFactory.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iModelResourceFactory:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_model_resource_factory__inherit__graph.svg" width="271" height="218"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iModelResourceFactory:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_model_resource_factory__coll__graph.svg" width="499" height="275"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iModelResourceFactory.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iModelResourceFactory &gt;</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -150,45 +138,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af87d1a19bdb9dfc9f72e56682ebc63fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebbe758443cfe43a94a94e5cb9ac3ab3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model_resource_factory.html#aebbe758443cfe43a94a94e5cb9ac3ab3">unregisterModelDataIO</a> (const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;identifier)</td></tr>
 <tr class="separator:aebbe758443cfe43a94a94e5cb9ac3ab3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a17061f0f18c43d057077ccea598c5187"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_model_data_i_o.html">iModelDataIO</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model_resource_factory.html#a17061f0f18c43d057077ccea598c5187">getModelDataIO</a> (const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;identifier)</td></tr>
-<tr class="separator:a17061f0f18c43d057077ccea598c5187"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a1274385d74ddf575e3bcdc038f3561"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model_resource_factory.html#a3a1274385d74ddf575e3bcdc038f3561">onTaskFinished</a> (uint64 taskID)</td></tr>
-<tr class="separator:a3a1274385d74ddf575e3bcdc038f3561"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a033f69733280cccc5384ed95e3e79ba5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model_resource_factory.html#a033f69733280cccc5384ed95e3e79ba5">loadData</a> (<a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> filename, <a class="el" href="struct_igor_1_1i_model_data_input_parameter.html">iModelDataInputParameter</a> *parameter)</td></tr>
-<tr class="separator:a033f69733280cccc5384ed95e3e79ba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9de5e8cfad96b7f59f0e4a03202889f"><td class="memItemLeft" align="right" valign="top">int64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model_resource_factory.html#aa9de5e8cfad96b7f59f0e4a03202889f">calcModelDataIOHashValue</a> (const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;text)</td></tr>
-<tr class="separator:aa9de5e8cfad96b7f59f0e4a03202889f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e3f7c028e0dd29f4b5656448cc0ad5b"><td class="memItemLeft" align="right" valign="top">int64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model_resource_factory.html#a5e3f7c028e0dd29f4b5656448cc0ad5b">calcResourceHashValue</a> (const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;text, <a class="el" href="namespace_igor.html#ac9b9b2022cdca46f600793d06ddcce63">iResourceCacheMode</a> cacheMode)</td></tr>
-<tr class="separator:a5e3f7c028e0dd29f4b5656448cc0ad5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3424cf6379e9f7fe9367b0474e503d1d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model_resource_factory.html#a3424cf6379e9f7fe9367b0474e503d1d">iModelResourceFactory</a> ()</td></tr>
-<tr class="separator:a3424cf6379e9f7fe9367b0474e503d1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c82a68c6596d90769a70eaf5788c8f2"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model_resource_factory.html#a0c82a68c6596d90769a70eaf5788c8f2">~iModelResourceFactory</a> ()</td></tr>
-<tr class="separator:a0c82a68c6596d90769a70eaf5788c8f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a6930f0b152911d4040c952c65fac3ddd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model_resource_factory.html#a6930f0b152911d4040c952c65fac3ddd">_mutexModels</a></td></tr>
-<tr class="separator:a6930f0b152911d4040c952c65fac3ddd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a90b710f71dfcaf4b7a0c97b38dc48419"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model_resource_factory.html#a90b710f71dfcaf4b7a0c97b38dc48419">_mutexModelQueue</a></td></tr>
-<tr class="separator:a90b710f71dfcaf4b7a0c97b38dc48419"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a018a93d29e0e4ae7338777afee3c721a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model_resource_factory.html#a018a93d29e0e4ae7338777afee3c721a">_mutexDataIOs</a></td></tr>
-<tr class="separator:a018a93d29e0e4ae7338777afee3c721a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7aba117101f5c87c7ba6c05a738c285f"><td class="memItemLeft" align="right" valign="top">map&lt; int64, shared_ptr&lt; <a class="el" href="class_igor_1_1i_model.html">iModel</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model_resource_factory.html#a7aba117101f5c87c7ba6c05a738c285f">_models</a></td></tr>
-<tr class="separator:a7aba117101f5c87c7ba6c05a738c285f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2f875990e985feac92519e902492cab"><td class="memItemLeft" align="right" valign="top">vector&lt; shared_ptr&lt; <a class="el" href="class_igor_1_1i_model.html">iModel</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model_resource_factory.html#ae2f875990e985feac92519e902492cab">_loadingQueue</a></td></tr>
-<tr class="separator:ae2f875990e985feac92519e902492cab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9791e9965257fb6e99fe2260943e6506"><td class="memItemLeft" align="right" valign="top">vector&lt; uint64 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model_resource_factory.html#a9791e9965257fb6e99fe2260943e6506">_runningTasks</a></td></tr>
-<tr class="separator:a9791e9965257fb6e99fe2260943e6506"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71b668e18d271711dde5ffca66d23af3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model_resource_factory.html#a71b668e18d271711dde5ffca66d23af3">_mutexRunningTasks</a></td></tr>
-<tr class="separator:a71b668e18d271711dde5ffca66d23af3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a332e8d6d930d1ccc51826a5858b22317"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model_resource_factory.html#a332e8d6d930d1ccc51826a5858b22317">_interrupFlush</a> = false</td></tr>
-<tr class="separator:a332e8d6d930d1ccc51826a5858b22317"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a737c21fad0bb7e24c161a5c626054d48"><td class="memItemLeft" align="right" valign="top">map&lt; int64, <br class="typebreak" />
-iCreateModelDataIOInstance &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_model_resource_factory.html#a737c21fad0bb7e24c161a5c626054d48">_modelDataIOCreators</a></td></tr>
-<tr class="separator:a737c21fad0bb7e24c161a5c626054d48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -219,173 +168,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>model resource factory </p>
-
-<p>Definition at line <a class="el" href="i_model_resource_factory_8h_source.html#l00055">55</a> of file <a class="el" href="i_model_resource_factory_8h_source.html">iModelResourceFactory.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a3424cf6379e9f7fe9367b0474e503d1d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iModelResourceFactory::iModelResourceFactory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>does nothing </p>
-
-<p>Definition at line <a class="el" href="i_model_resource_factory_8cpp_source.html#l00026">26</a> of file <a class="el" href="i_model_resource_factory_8cpp_source.html">iModelResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_model_resource_factory_a3424cf6379e9f7fe9367b0474e503d1d_cgraph.svg" width="390" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a0c82a68c6596d90769a70eaf5788c8f2"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iModelResourceFactory::~iModelResourceFactory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>releases all models. if not all models can be released print error message </p>
-
-<p>Definition at line <a class="el" href="i_model_resource_factory_8cpp_source.html#l00034">34</a> of file <a class="el" href="i_model_resource_factory_8cpp_source.html">iModelResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_model_resource_factory_a0c82a68c6596d90769a70eaf5788c8f2_cgraph.svg" width="568" height="96"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="aa9de5e8cfad96b7f59f0e4a03202889f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int64 Igor::iModelResourceFactory::calcModelDataIOHashValue </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
-          <td class="paramname"><em>text</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>calculates hash value for model data io string</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">text</td><td>source string </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>hash value </dd></dl>
-
-<p>Definition at line <a class="el" href="i_model_resource_factory_8cpp_source.html#l00220">220</a> of file <a class="el" href="i_model_resource_factory_8cpp_source.html">iModelResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_model_resource_factory_aa9de5e8cfad96b7f59f0e4a03202889f_cgraph.svg" width="378" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a5e3f7c028e0dd29f4b5656448cc0ad5b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int64 Igor::iModelResourceFactory::calcResourceHashValue </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
-          <td class="paramname"><em>text</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#ac9b9b2022cdca46f600793d06ddcce63">iResourceCacheMode</a>&#160;</td>
-          <td class="paramname"><em>cacheMode</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>calculates hash value for given resource</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">text</td><td>source string </td></tr>
-    <tr><td class="paramname">cacheMode</td><td>cache mode of resource </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>hash value </dd></dl>
-
-<p>Definition at line <a class="el" href="i_model_resource_factory_8cpp_source.html#l00199">199</a> of file <a class="el" href="i_model_resource_factory_8cpp_source.html">iModelResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_model_resource_factory_a5e3f7c028e0dd29f4b5656448cc0ad5b_cgraph.svg" width="374" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="aa57fd26de32bd67598256e6d1de15e79"></a>
 <div class="memitem">
 <div class="memproto">
@@ -429,24 +212,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_model_resource_factory_8cpp_source.html#l00090">90</a> of file <a class="el" href="i_model_resource_factory_8cpp_source.html">iModelResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_model_resource_factory_aa57fd26de32bd67598256e6d1de15e79_cgraph.svg" width="580" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_model_resource_factory_aa57fd26de32bd67598256e6d1de15e79_icgraph.svg" width="487" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a43d07adb8bc7e0c540b43ccb435c8d96"></a>
@@ -483,66 +248,6 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if there was still work to do </dd></dl>
 
-<p>Definition at line <a class="el" href="i_model_resource_factory_8cpp_source.html#l00335">335</a> of file <a class="el" href="i_model_resource_factory_8cpp_source.html">iModelResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_model_resource_factory_a43d07adb8bc7e0c540b43ccb435c8d96_cgraph.svg" width="396" height="179"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_model_resource_factory_a43d07adb8bc7e0c540b43ccb435c8d96_icgraph.svg" width="487" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a17061f0f18c43d057077ccea598c5187"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_model_data_i_o.html">iModelDataIO</a> * Igor::iModelResourceFactory::getModelDataIO </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
-          <td class="paramname"><em>identifier</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>figures out what format we are dealing with</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">filename</td><td>file name of model to be loaded </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>format identifier </dd></dl>
-
-<p>Definition at line <a class="el" href="i_model_resource_factory_8cpp_source.html#l00065">65</a> of file <a class="el" href="i_model_resource_factory_8cpp_source.html">iModelResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_model_resource_factory_a17061f0f18c43d057077ccea598c5187_cgraph.svg" width="611" height="155"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="adf8b23c108220bf7bd2c09fa67f82532"></a>
@@ -558,60 +263,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>if a flush in a different thread is currently running. this will stop him asap </p>
-
-<p>Definition at line <a class="el" href="i_model_resource_factory_8cpp_source.html#l00160">160</a> of file <a class="el" href="i_model_resource_factory_8cpp_source.html">iModelResourceFactory.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a033f69733280cccc5384ed95e3e79ba5"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> Igor::iModelResourceFactory::loadData </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td>
-          <td class="paramname"><em>filename</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="struct_igor_1_1i_model_data_input_parameter.html">iModelDataInputParameter</a> *&#160;</td>
-          <td class="paramname"><em>parameter</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>actually loading model using model loaders for specified formats</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">filename</td><td>file name of model to load </td></tr>
-    <tr><td class="paramname">parameter</td><td>optional parameters </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_model_resource_factory_8cpp_source.html#l00122">122</a> of file <a class="el" href="i_model_resource_factory_8cpp_source.html">iModelResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_model_resource_factory_a033f69733280cccc5384ed95e3e79ba5_cgraph.svg" width="376" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -655,41 +306,6 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>shared pointer to model </dd></dl>
 
-<p>Definition at line <a class="el" href="i_model_resource_factory_8cpp_source.html#l00275">275</a> of file <a class="el" href="i_model_resource_factory_8cpp_source.html">iModelResourceFactory.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3a1274385d74ddf575e3bcdc038f3561"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iModelResourceFactory::onTaskFinished </td>
-          <td>(</td>
-          <td class="paramtype">uint64&#160;</td>
-          <td class="paramname"><em>taskID</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>called after task was finished</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">taskID</td><td>id of the task that was finished </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_model_resource_factory_8cpp_source.html#l00054">54</a> of file <a class="el" href="i_model_resource_factory_8cpp_source.html">iModelResourceFactory.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="af87d1a19bdb9dfc9f72e56682ebc63fb"></a>
@@ -722,8 +338,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_model_resource_factory_8cpp_source.html#l00165">165</a> of file <a class="el" href="i_model_resource_factory_8cpp_source.html">iModelResourceFactory.cpp</a>.</p>
 
 </div>
 </div>
@@ -767,8 +381,6 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>shared pointer to model </dd></dl>
 
-<p>Definition at line <a class="el" href="i_model_resource_factory_8cpp_source.html#l00227">227</a> of file <a class="el" href="i_model_resource_factory_8cpp_source.html">iModelResourceFactory.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aebbe758443cfe43a94a94e5cb9ac3ab3"></a>
@@ -792,8 +404,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_model_resource_factory_8cpp_source.html#l00182">182</a> of file <a class="el" href="i_model_resource_factory_8cpp_source.html">iModelResourceFactory.cpp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -815,8 +425,6 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_model_resource_factory_8h_source.html#l00058">58</a> of file <a class="el" href="i_model_resource_factory_8h_source.html">iModelResourceFactory.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a59e4ca1178c55581c343028504664c9a"></a>
@@ -837,222 +445,11 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_model_resource_factory_8h_source.html#l00059">59</a> of file <a class="el" href="i_model_resource_factory_8h_source.html">iModelResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a332e8d6d930d1ccc51826a5858b22317"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iModelResourceFactory::_interrupFlush = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>flag to interrupt flush cross threads </p>
-
-<p>Definition at line <a class="el" href="i_model_resource_factory_8h_source.html#l00149">149</a> of file <a class="el" href="i_model_resource_factory_8h_source.html">iModelResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae2f875990e985feac92519e902492cab"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;shared_ptr&lt;<a class="el" href="class_igor_1_1i_model.html">iModel</a>&gt; &gt; Igor::iModelResourceFactory::_loadingQueue</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>contains models that habe to be loaded asynchronously </p>
-
-<p>Definition at line <a class="el" href="i_model_resource_factory_8h_source.html#l00137">137</a> of file <a class="el" href="i_model_resource_factory_8h_source.html">iModelResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a737c21fad0bb7e24c161a5c626054d48"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;int64, iCreateModelDataIOInstance&gt; Igor::iModelResourceFactory::_modelDataIOCreators</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>map of model data IOs</p>
-<p>key hash value of model data io identifier value function pointer to model data io creator </p>
-
-<p>Definition at line <a class="el" href="i_model_resource_factory_8h_source.html#l00156">156</a> of file <a class="el" href="i_model_resource_factory_8h_source.html">iModelResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7aba117101f5c87c7ba6c05a738c285f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;int64, shared_ptr&lt;<a class="el" href="class_igor_1_1i_model.html">iModel</a>&gt; &gt; Igor::iModelResourceFactory::_models</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>map of models </p>
-
-<p>Definition at line <a class="el" href="i_model_resource_factory_8h_source.html#l00133">133</a> of file <a class="el" href="i_model_resource_factory_8h_source.html">iModelResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a018a93d29e0e4ae7338777afee3c721a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> Igor::iModelResourceFactory::_mutexDataIOs</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex to lock model data IO list </p>
-
-<p>Definition at line <a class="el" href="i_model_resource_factory_8h_source.html#l00129">129</a> of file <a class="el" href="i_model_resource_factory_8h_source.html">iModelResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a90b710f71dfcaf4b7a0c97b38dc48419"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> Igor::iModelResourceFactory::_mutexModelQueue</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex to save the model queue </p>
-
-<p>Definition at line <a class="el" href="i_model_resource_factory_8h_source.html#l00125">125</a> of file <a class="el" href="i_model_resource_factory_8h_source.html">iModelResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6930f0b152911d4040c952c65fac3ddd"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> Igor::iModelResourceFactory::_mutexModels</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex to lock model data list </p>
-
-<p>Definition at line <a class="el" href="i_model_resource_factory_8h_source.html#l00121">121</a> of file <a class="el" href="i_model_resource_factory_8h_source.html">iModelResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a71b668e18d271711dde5ffca66d23af3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> Igor::iModelResourceFactory::_mutexRunningTasks</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex to save the running tasks list </p>
-
-<p>Definition at line <a class="el" href="i_model_resource_factory_8h_source.html#l00145">145</a> of file <a class="el" href="i_model_resource_factory_8h_source.html">iModelResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9791e9965257fb6e99fe2260943e6506"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;uint64&gt; Igor::iModelResourceFactory::_runningTasks</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of running tasks triggered by resource factory </p>
-
-<p>Definition at line <a class="el" href="i_model_resource_factory_8h_source.html#l00141">141</a> of file <a class="el" href="i_model_resource_factory_8h_source.html">iModelResourceFactory.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_model_resource_factory_8h_source.html">iModelResourceFactory.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_model_resource_factory_8cpp_source.html">iModelResourceFactory.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_model_resource_factory_8h.html">iModelResourceFactory.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_model_resource_factory_8cpp.html">iModelResourceFactory.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -1061,7 +458,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_model_resource_factory.html">iModelResourceFactory</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:50 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

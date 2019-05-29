@@ -1,28 +1,12 @@
 var class_igor_1_1i_user_control_file_chooser =
 [
-    [ "iUserControlFileChooser", "class_igor_1_1i_user_control_file_chooser.html#a5d8f62c79b5df55c4f6c9ad6b1ed52c7", null ],
-    [ "~iUserControlFileChooser", "class_igor_1_1i_user_control_file_chooser.html#a478f11dcfa7c5868ca244d7faeeefc0e", null ],
-    [ "createInstance", "class_igor_1_1i_user_control_file_chooser.html#a6e0a7af39998d6e3dfb1f24ae499fa03", null ],
-    [ "deinitGUI", "class_igor_1_1i_user_control_file_chooser.html#ad3bee89cb74d9fa2f9ffe365df44dc2a", null ],
     [ "getFileName", "class_igor_1_1i_user_control_file_chooser.html#ab0fb744bf32fbd2ab518ed98eb70ab83", null ],
     [ "getOptimizePath", "class_igor_1_1i_user_control_file_chooser.html#a01170c9f54eb79aa5a1a5e6a689628ba", null ],
     [ "getPreselectedPath", "class_igor_1_1i_user_control_file_chooser.html#a6daf446263da71caaacc27a50612c6b6", null ],
-    [ "initGUI", "class_igor_1_1i_user_control_file_chooser.html#acbdcb369d7f6dabea5fe1a039319b271", null ],
-    [ "onFileLoadDialogClosed", "class_igor_1_1i_user_control_file_chooser.html#a385c31c1ecad69cf5bd75e9f8ffe6b96", null ],
-    [ "onFileSelectButtonPressed", "class_igor_1_1i_user_control_file_chooser.html#abf208141bc278147ca8d87af84f4315d", null ],
-    [ "onTextChanged", "class_igor_1_1i_user_control_file_chooser.html#a7dacbb98e9678673a5bc680dfb3122c1", null ],
     [ "registerOnChangedDelegate", "class_igor_1_1i_user_control_file_chooser.html#a9b1db005bebb2b4e5ec387a0f057aa75", null ],
     [ "setFileName", "class_igor_1_1i_user_control_file_chooser.html#ad8d3af19f48e2eaf2df7475e55faba2d", null ],
     [ "setOptimizePath", "class_igor_1_1i_user_control_file_chooser.html#a715327f5de2452346cf0c362ff9d4aed", null ],
     [ "setPreselectedPath", "class_igor_1_1i_user_control_file_chooser.html#a4c2b529d388e57156da1d383ddbe3660", null ],
     [ "unregisterOnChangedDelegate", "class_igor_1_1i_user_control_file_chooser.html#a632a8a4b2d397c61bf394f7e9d3cea25", null ],
-    [ "iWidgetManager", "class_igor_1_1i_user_control_file_chooser.html#a9da20b1c56a70b01ca0ef56f4d4d47fc", null ],
-    [ "_allWidgets", "class_igor_1_1i_user_control_file_chooser.html#aa20a755913f885b83e44db5ca00a22d5", null ],
-    [ "_fileDialog", "class_igor_1_1i_user_control_file_chooser.html#a2c1fdacb27c5ae664f864e2eb68403ae", null ],
-    [ "_fileNameChanged", "class_igor_1_1i_user_control_file_chooser.html#a6e04ff56fa5a685c5e2973a1dbe8ab66", null ],
-    [ "_fileNameTextEdit", "class_igor_1_1i_user_control_file_chooser.html#ae029cfc4157ba06ee65e969cf169d70e", null ],
-    [ "_fileSelectButton", "class_igor_1_1i_user_control_file_chooser.html#a7d3203c464f6e3d57ff829f3ee56cdad", null ],
-    [ "_grid", "class_igor_1_1i_user_control_file_chooser.html#a2e77559b1de93e5b74851396a06074a0", null ],
-    [ "_optimizePath", "class_igor_1_1i_user_control_file_chooser.html#a1b1fea9ffc1b70252b780da7b9061d4f", null ],
-    [ "_preselectedPath", "class_igor_1_1i_user_control_file_chooser.html#a56c7359db640acc2476303dc7f96aeae", null ]
+    [ "iWidgetManager", "class_igor_1_1i_user_control_file_chooser.html#a9da20b1c56a70b01ca0ef56f4d4d47fc", null ]
 ];

@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -116,24 +116,21 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_entity.html','');});
 
 <p>This is the complete list of members for <a class="el" href="class_igor_1_1i_entity.html">Igor::iEntity</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_entity.html#a2d7cbe140d877f47f5327a2f4c7980f4">_id</a></td><td class="entry"><a class="el" href="class_igor_1_1i_entity.html">Igor::iEntity</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_1_1i_entity.html#ac8bd13a9ad99d4ba389e5d0ef91c76ab">_mutexID</a></td><td class="entry"><a class="el" href="class_igor_1_1i_entity.html">Igor::iEntity</a></td><td class="entry"><span class="mlabel">private</span><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_entity.html#a4510bff3ad3aec306fdf2abe60ed15fc">_nextID</a></td><td class="entry"><a class="el" href="class_igor_1_1i_entity.html">Igor::iEntity</a></td><td class="entry"><span class="mlabel">private</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_1_1i_entity.html#a80f38172ff0bf497caacdb637bffd17a">_type</a></td><td class="entry"><a class="el" href="class_igor_1_1i_entity.html">Igor::iEntity</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_entity.html#a72f9ae9eabd7e2b4f8d7a10bca8f1168">getID</a>() const </td><td class="entry"><a class="el" href="class_igor_1_1i_entity.html">Igor::iEntity</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_1_1i_entity.html#a2a55cbe5d11fe0a739643fd6b3353fe6">getType</a>() const </td><td class="entry"><a class="el" href="class_igor_1_1i_entity.html">Igor::iEntity</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_entity.html#a7e451738d0e8c927f625d9ecdf659f38">handle</a>()=0</td><td class="entry"><a class="el" href="class_igor_1_1i_entity.html">Igor::iEntity</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_1_1i_entity.html#a7147c6bc0a704aaae70e0bcc086a7fb8">iEntity</a>()</td><td class="entry"><a class="el" href="class_igor_1_1i_entity.html">Igor::iEntity</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_entity.html#a4d75f11b7e88aff423c3f080f635b1f7">iEntityManager</a> class</td><td class="entry"><a class="el" href="class_igor_1_1i_entity.html">Igor::iEntity</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_1_1i_entity.html#a32ca8925cd964c4f257c1aae1d9c4837">INVALID_ENTITY_ID</a></td><td class="entry"><a class="el" href="class_igor_1_1i_entity.html">Igor::iEntity</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_entity.html#a6a1f0ec2d91e6a107005e35c9b18e4b1">~iEntity</a>()</td><td class="entry"><a class="el" href="class_igor_1_1i_entity.html">Igor::iEntity</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_entity.html#a80f38172ff0bf497caacdb637bffd17a">_type</a></td><td class="entry"><a class="el" href="class_igor_1_1i_entity.html">Igor::iEntity</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_igor_1_1i_entity.html#a72f9ae9eabd7e2b4f8d7a10bca8f1168">getID</a>() const </td><td class="entry"><a class="el" href="class_igor_1_1i_entity.html">Igor::iEntity</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_entity.html#a2a55cbe5d11fe0a739643fd6b3353fe6">getType</a>() const </td><td class="entry"><a class="el" href="class_igor_1_1i_entity.html">Igor::iEntity</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_igor_1_1i_entity.html#a7e451738d0e8c927f625d9ecdf659f38">handle</a>()=0</td><td class="entry"><a class="el" href="class_igor_1_1i_entity.html">Igor::iEntity</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_entity.html#a7147c6bc0a704aaae70e0bcc086a7fb8">iEntity</a>()</td><td class="entry"><a class="el" href="class_igor_1_1i_entity.html">Igor::iEntity</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_igor_1_1i_entity.html#a4d75f11b7e88aff423c3f080f635b1f7">iEntityManager</a> class</td><td class="entry"><a class="el" href="class_igor_1_1i_entity.html">Igor::iEntity</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_entity.html#a32ca8925cd964c4f257c1aae1d9c4837">INVALID_ENTITY_ID</a></td><td class="entry"><a class="el" href="class_igor_1_1i_entity.html">Igor::iEntity</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_igor_1_1i_entity.html#a6a1f0ec2d91e6a107005e35c9b18e4b1">~iEntity</a>()</td><td class="entry"><a class="el" href="class_igor_1_1i_entity.html">Igor::iEntity</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:46 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

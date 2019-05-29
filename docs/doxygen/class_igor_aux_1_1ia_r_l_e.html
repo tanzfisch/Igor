@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,26 +111,13 @@ $(document).ready(function(){initNavTree('class_igor_aux_1_1ia_r_l_e.html','');}
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_aux_1_1ia_r_l_e-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">IgorAux::iaRLE&lt; TValue, TIndex &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="ia_r_l_e_8h_source.html">iaRLE.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for IgorAux::iaRLE&lt; TValue, TIndex &gt;:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_r_l_e__inherit__graph.svg" width="187" height="156"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for IgorAux::iaRLE&lt; TValue, TIndex &gt;:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_r_l_e__coll__graph.svg" width="176" height="142"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iaRLE.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -148,24 +135,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a07608f174527652834592fb174b3970d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeaf16dceff553030dc6abcde19317a88"><td class="memItemLeft" align="right" valign="top">__IGOR_INLINE__ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_r_l_e.html#aeaf16dceff553030dc6abcde19317a88">getCopy</a> (<a class="el" href="class_igor_aux_1_1ia_r_l_e.html">iaRLE</a>&lt; TValue, TIndex &gt; &amp;dst) const </td></tr>
 <tr class="separator:aeaf16dceff553030dc6abcde19317a88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a3e4eb9cb4e14365c5cfc2061348141a2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_r_l_e.html#a3e4eb9cb4e14365c5cfc2061348141a2">_dirty</a> = false</td></tr>
-<tr class="separator:a3e4eb9cb4e14365c5cfc2061348141a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa5c28f1ce5e9c4ec619c22a2387b7b2c"><td class="memItemLeft" align="right" valign="top">TIndex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_r_l_e.html#aa5c28f1ce5e9c4ec619c22a2387b7b2c">_size</a> = 0</td></tr>
-<tr class="separator:aa5c28f1ce5e9c4ec619c22a2387b7b2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4a08e0d4ab0c283a1b3c291a59d261c"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="struct_igor_aux_1_1ia_r_l_e_block.html">iaRLEBlock</a>&lt; TValue, <br class="typebreak" />
-TIndex &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_r_l_e.html#ad4a08e0d4ab0c283a1b3c291a59d261c">_blocks</a></td></tr>
-<tr class="separator:ad4a08e0d4ab0c283a1b3c291a59d261c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename TValue, typename TIndex&gt;<br />
 class IgorAux::iaRLE&lt; TValue, TIndex &gt;</h3>
 
 <p>run lenght encoded buffer </p>
-
-<p>Definition at line <a class="el" href="ia_r_l_e_8h_source.html#l00052">52</a> of file <a class="el" href="ia_r_l_e_8h_source.html">iaRLE.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a061c169e366dac7daa7accbc87e5f793"></a>
 <div class="memitem">
@@ -191,8 +166,6 @@ template&lt;typename TValue, typename TIndex&gt; </div>
 </div><div class="memdoc">
 <p>clean up </p>
 
-<p>Definition at line <a class="el" href="ia_r_l_e_8inl_source.html#l00006">6</a> of file <a class="el" href="ia_r_l_e_8inl_source.html">iaRLE.inl</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -212,8 +185,6 @@ template&lt;typename TValue, typename TIndex&gt; </div>
       </table>
 </div><div class="memdoc">
 <p>resets the memory to 0 </p>
-
-<p>Definition at line <a class="el" href="ia_r_l_e_8inl_source.html#l00019">19</a> of file <a class="el" href="ia_r_l_e_8inl_source.html">iaRLE.inl</a>.</p>
 
 </div>
 </div>
@@ -240,8 +211,6 @@ template&lt;typename TValue, typename TIndex&gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_r_l_e_8inl_source.html#l00030">30</a> of file <a class="el" href="ia_r_l_e_8inl_source.html">iaRLE.inl</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a07608f174527652834592fb174b3970d"></a>
@@ -267,8 +236,6 @@ template&lt;typename TValue, typename TIndex&gt; </div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="ia_r_l_e_8inl_source.html#l00038">38</a> of file <a class="el" href="ia_r_l_e_8inl_source.html">iaRLE.inl</a>.</p>
 
 </div>
 </div>
@@ -304,24 +271,6 @@ template&lt;typename TValue, typename TIndex&gt; </div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="ia_r_l_e_8inl_source.html#l00012">12</a> of file <a class="el" href="ia_r_l_e_8inl_source.html">iaRLE.inl</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_r_l_e_a1730b891f934b60b1e93fa62f3f8ab34_cgraph.svg" width="299" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_r_l_e_a1730b891f934b60b1e93fa62f3f8ab34_icgraph.svg" width="562" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -359,8 +308,6 @@ template&lt;typename TValue, typename TIndex&gt; </div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="ia_r_l_e_8inl_source.html#l00169">169</a> of file <a class="el" href="ia_r_l_e_8inl_source.html">iaRLE.inl</a>.</p>
 
 </div>
 </div>
@@ -404,91 +351,12 @@ template&lt;typename TValue, typename TIndex&gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000116">Todo:</a></b></dt><dd>not implemented </dd></dl>
-
-<p>Definition at line <a class="el" href="ia_r_l_e_8inl_source.html#l00069">69</a> of file <a class="el" href="ia_r_l_e_8inl_source.html">iaRLE.inl</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="ad4a08e0d4ab0c283a1b3c291a59d261c"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TValue, typename TIndex&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="struct_igor_aux_1_1ia_r_l_e_block.html">iaRLEBlock</a>&lt;TValue, TIndex&gt; &gt; <a class="el" href="class_igor_aux_1_1ia_r_l_e.html">IgorAux::iaRLE</a>&lt; TValue, TIndex &gt;::_blocks</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>blocks storing the RLE information </p>
-
-<p>Definition at line <a class="el" href="ia_r_l_e_8h_source.html#l00115">115</a> of file <a class="el" href="ia_r_l_e_8h_source.html">iaRLE.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3e4eb9cb4e14365c5cfc2061348141a2"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TValue, typename TIndex&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="class_igor_aux_1_1ia_r_l_e.html">IgorAux::iaRLE</a>&lt; TValue, TIndex &gt;::_dirty = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>dirty flag if data was changed </p>
-
-<p>Definition at line <a class="el" href="ia_r_l_e_8h_source.html#l00107">107</a> of file <a class="el" href="ia_r_l_e_8h_source.html">iaRLE.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa5c28f1ce5e9c4ec619c22a2387b7b2c"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename TValue, typename TIndex&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">TIndex <a class="el" href="class_igor_aux_1_1ia_r_l_e.html">IgorAux::iaRLE</a>&lt; TValue, TIndex &gt;::_size = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>size of buffer </p>
-
-<p>Definition at line <a class="el" href="ia_r_l_e_8h_source.html#l00111">111</a> of file <a class="el" href="ia_r_l_e_8h_source.html">iaRLE.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_r_l_e_8h_source.html">iaRLE.h</a></li>
-<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_r_l_e_8inl_source.html">iaRLE.inl</a></li>
+<li>C:/dev/Igor/Igor/src/IgorAux/src/<a class="el" href="ia_r_l_e_8h.html">iaRLE.h</a></li>
+<li>C:/dev/Igor/Igor/src/IgorAux/src/<a class="el" href="ia_r_l_e_8inl.html">iaRLE.inl</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -497,7 +365,7 @@ template&lt;typename TValue, typename TIndex&gt; </div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor_aux.html">IgorAux</a></li><li class="navelem"><a class="el" href="class_igor_aux_1_1ia_r_l_e.html">iaRLE</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:19 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

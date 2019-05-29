@@ -1,14 +1,6 @@
 var class_igor_1_1i_widget_graph =
 [
-    [ "GraphData", "struct_igor_1_1i_widget_graph_1_1_graph_data.html", "struct_igor_1_1i_widget_graph_1_1_graph_data" ],
-    [ "iWidgetGraph", "class_igor_1_1i_widget_graph.html#a16075d2acb6f794a8b69fcfb3d32873e", null ],
-    [ "~iWidgetGraph", "class_igor_1_1i_widget_graph.html#ad96a694d076d50d9f9797ef6a38a2056", null ],
-    [ "calcBoundings", "class_igor_1_1i_widget_graph.html#a50670e2922f18fb05c27f02e724d15c4", null ],
-    [ "calcMinSize", "class_igor_1_1i_widget_graph.html#ab8c240a2b4211cfd0339658aaf986231", null ],
-    [ "calcRenderArea", "class_igor_1_1i_widget_graph.html#abe067fcf3170f64573f1809526fe1ebb", null ],
     [ "clearPoints", "class_igor_1_1i_widget_graph.html#a370e173feb44d7ebe3c1159391b74d90", null ],
-    [ "createInstance", "class_igor_1_1i_widget_graph.html#acc1480b5550f9fcf9c3573239066c1e5", null ],
-    [ "draw", "class_igor_1_1i_widget_graph.html#a49c334f61803b29444f2aa278d67e98b", null ],
     [ "getBoundings", "class_igor_1_1i_widget_graph.html#a97d102d2fdd37e843cca0e2b7126909b", null ],
     [ "getExtrapolateData", "class_igor_1_1i_widget_graph.html#af30d61e6eb137050b147e7d4d5e21c50", null ],
     [ "getGraphCount", "class_igor_1_1i_widget_graph.html#a7f3c0987d9959f00bc35c6c0c23fece9", null ],
@@ -21,10 +13,8 @@ var class_igor_1_1i_widget_graph =
     [ "getPointSize", "class_igor_1_1i_widget_graph.html#a5d1d9807cbbaf21148613039526cea0f", null ],
     [ "getViewGrid", "class_igor_1_1i_widget_graph.html#a3b623c6319fd179c691fd26275ab19ad", null ],
     [ "getViewLabels", "class_igor_1_1i_widget_graph.html#a914e46905057ac9aa2244a0672aa9dc0", null ],
-    [ "handleMouseKeyDown", "class_igor_1_1i_widget_graph.html#acf85efae7b0157163427bb9ce3ea6c4c", null ],
     [ "isInteractive", "class_igor_1_1i_widget_graph.html#a610a02ef3ae4037d1558630b17a9ac37", null ],
     [ "isUsingBoundings", "class_igor_1_1i_widget_graph.html#a45b9680e1caa929e3dd99b83d01697bd", null ],
-    [ "prepareDraw", "class_igor_1_1i_widget_graph.html#a00d29c1c5aeab91fcf4886f26c0a152d", null ],
     [ "setBoundings", "class_igor_1_1i_widget_graph.html#a9c90550442ed1ad385f4d39c7f839ed6", null ],
     [ "setExtrapolateData", "class_igor_1_1i_widget_graph.html#aa4a2ef91a84a2922b2ceaaa107e8d21b", null ],
     [ "setGridResolution", "class_igor_1_1i_widget_graph.html#a31f47957ab100bf39b212ac7648a7966", null ],
@@ -37,16 +27,5 @@ var class_igor_1_1i_widget_graph =
     [ "setUseBoundings", "class_igor_1_1i_widget_graph.html#ac2046b7eceed903fc629e6ff999d6640", null ],
     [ "setViewGrid", "class_igor_1_1i_widget_graph.html#a830c15b98b0e57500b5177fde881e107", null ],
     [ "setViewLabels", "class_igor_1_1i_widget_graph.html#a6e04d59d64f305c5ec8cfdf3a7578f47", null ],
-    [ "iWidgetManager", "class_igor_1_1i_widget_graph.html#a9da20b1c56a70b01ca0ef56f4d4d47fc", null ],
-    [ "_boundings", "class_igor_1_1i_widget_graph.html#af1553e776d2cc3b1582365bf12c043b2", null ],
-    [ "_buttonHeight", "class_igor_1_1i_widget_graph.html#a52fff06811491510535bf94552fdf58f", null ],
-    [ "_dataBoundings", "class_igor_1_1i_widget_graph.html#a58739a360feb629edab341f4edcde93d", null ],
-    [ "_dirty", "class_igor_1_1i_widget_graph.html#a6a3ba4bdd1e5892fb1d80a4b41a3fd49", null ],
-    [ "_extrapolateData", "class_igor_1_1i_widget_graph.html#a0f881f6700edc43a802c9c5de0d2f017", null ],
-    [ "_graphs", "class_igor_1_1i_widget_graph.html#aea11d2c1e46df6347a97f7dfcc9718a8", null ],
-    [ "_gridResolution", "class_igor_1_1i_widget_graph.html#a8a46e1d4dadbd2130118484f1e0b1475", null ],
-    [ "_interactive", "class_igor_1_1i_widget_graph.html#a50d427db38581c4977c72e7c979b18c6", null ],
-    [ "_useUserBoudings", "class_igor_1_1i_widget_graph.html#af79fec84fcfea3757cf5ec8297f2bda6", null ],
-    [ "_viewGrid", "class_igor_1_1i_widget_graph.html#a8cf4e4384e8b2a4ac6b84c34e9212c98", null ],
-    [ "_viewLabels", "class_igor_1_1i_widget_graph.html#a898c0f8c18f41f51dbf8c67ade024674", null ]
+    [ "iWidgetManager", "class_igor_1_1i_widget_graph.html#a9da20b1c56a70b01ca0ef56f4d4d47fc", null ]
 ];

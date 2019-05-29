@@ -1,8 +1,0 @@
-<map id="Igor::iNodePhysics" name="Igor::iNodePhysics">
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iPhysics \&gt;::getInstance" alt="" coords="196,5,367,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_physics.html#a90dcd82ece96f39ec61120a36e15ff18" title="Igor::iPhysics::createCollision\lConfig" alt="" coords="184,71,379,112"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_physics_collision_config.html#a358488967c0a81c0b613972334363a09" title="Igor::iPhysicsCollisionConfig\l::getID" alt="" coords="427,129,613,171"/>
-<area shape="rect" id="node7" href="$namespace_igor.html#a658bed0072edfc04099eb827d1cfb6ba" title="Igor::setMaterial" alt="" coords="224,187,339,214"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" title="IgorAux::iaMutex::lock" alt="" coords="444,27,596,54"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" title="IgorAux::iaMutex::unlock" alt="" coords="437,78,603,105"/>
-</map>

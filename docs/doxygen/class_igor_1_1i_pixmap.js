@@ -2,7 +2,6 @@ var class_igor_1_1i_pixmap =
 [
     [ "iPixmap", "class_igor_1_1i_pixmap.html#a0f8d2a3cf9569b4a3f7a5495e35b3262", null ],
     [ "~iPixmap", "class_igor_1_1i_pixmap.html#a8ba15063ee4a7fd3407362e1a1c7b3e0", null ],
-    [ "iPixmap", "class_igor_1_1i_pixmap.html#a50ae88fe4e613c0ef4a8493542922d87", null ],
     [ "exportFile", "class_igor_1_1i_pixmap.html#ad4184897d31f8f3d8b329b9b29360548", null ],
     [ "getBytesPerPixel", "class_igor_1_1i_pixmap.html#a6c4cc02337d854999ec8cad5ef81438f", null ],
     [ "getColorFormat", "class_igor_1_1i_pixmap.html#a124e8ff8684d74d069a04b3ca9844ea1", null ],
@@ -21,10 +20,5 @@ var class_igor_1_1i_pixmap =
     [ "setPixel", "class_igor_1_1i_pixmap.html#a4044962c2214b0f0e0f920c6a130dcf4", null ],
     [ "setPixelRGB", "class_igor_1_1i_pixmap.html#ac9aad3cab7babbf913f236112ccd71bb", null ],
     [ "setPixelRGBA", "class_igor_1_1i_pixmap.html#a1eea060473b348dd9cba2c73fbf22fbe", null ],
-    [ "iTextureResourceFactory", "class_igor_1_1i_pixmap.html#a3113ca65444ca12c4b6bf97848a91cf1", null ],
-    [ "_bytesPerPixel", "class_igor_1_1i_pixmap.html#a01e2e4e24aa2f6d22bab02f1710150de", null ],
-    [ "_colorFormat", "class_igor_1_1i_pixmap.html#a712257f95daa6d7c81af162035a2ab98", null ],
-    [ "_data", "class_igor_1_1i_pixmap.html#a6c1e93ae3c71d7a115ae63487f4f6b52", null ],
-    [ "_height", "class_igor_1_1i_pixmap.html#ad06f20549d642c7b810ad08c90d79646", null ],
-    [ "_width", "class_igor_1_1i_pixmap.html#a1c32e944dc64ce07ec19f801fd46da55", null ]
+    [ "iTextureResourceFactory", "class_igor_1_1i_pixmap.html#a3113ca65444ca12c4b6bf97848a91cf1", null ]
 ];

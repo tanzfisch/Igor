@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['generator',['generator',['../structtesting_1_1internal_1_1_parameterized_test_case_info_1_1_instantiation_info.html#a4c2dbdd0c8f50ff2d5c58c72b364e9a0',1,'testing::internal::ParameterizedTestCaseInfo::InstantiationInfo']]],
-  ['gtest_5fattribute_5funused_5f',['GTEST_ATTRIBUTE_UNUSED_',['../namespacetesting.html#aa09221196f0a830d5bf1c63ffce69dc3',1,'testing']]],
-  ['gtest_5fflag_5fsaver_5f',['gtest_flag_saver_',['../classtesting_1_1_test.html#a132c542f6932107234988d05a9980e49',1,'testing::Test']]]
+  ['m_5fdir',['m_dir',['../class_igor_1_1i_ray.html#a7a7a49c1fc693774025ecd1e6feef60a',1,'Igor::iRay']]],
+  ['m_5fpos',['m_pos',['../class_igor_1_1i_ray.html#a0b856d921b83560f6af57fa72d30ab02',1,'Igor::iRay']]],
+  ['max_5ftexture_5funits',['MAX_TEXTURE_UNITS',['../class_igor_1_1i_material.html#af214abe62b77ff03356bdf8887d47700',1,'Igor::iMaterial']]],
+  ['mesh',['Mesh',['../i_particle_emitter_8h.html#ac9b3996998332cf8a503b4fbcaa6b200',1,'Mesh():&#160;iParticleEmitter.h'],['../ompf_emitter_chunk_8h.html#ac9b3996998332cf8a503b4fbcaa6b200',1,'Mesh():&#160;ompfEmitterChunk.h']]]
 ];

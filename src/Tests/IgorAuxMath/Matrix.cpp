@@ -231,7 +231,7 @@ TEST(MatrixTests, DeterminantOfPerspective)
 	iaMatrixd matrix;
 	matrix.perspective(45, 0.25, 0.1, 1000);
 
-	EXPECT_NEAR(matrix.determinant(), -4.6632078945301687105, 0.00000001);
+	EXPECT_NEAR(matrix.determinant(), -4.6632078945301687105, 0.00001);
 }
 
 TEST(MatrixTests, DeterminantOfMixedMatrix)

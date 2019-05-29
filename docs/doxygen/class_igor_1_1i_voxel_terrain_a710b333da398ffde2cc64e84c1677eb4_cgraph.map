@@ -1,7 +1,0 @@
-<map id="Igor::iVoxelTerrain::updateVisibility" name="Igor::iVoxelTerrain::updateVisibility">
-<area shape="rect" id="node2" href="$class_igor_1_1i_node_model.html#acbbe59860156b14802c6c9442c330854" title="Igor::iNodeModel::isValid" alt="" coords="180,7,347,33"/>
-<area shape="rect" id="node3" href="$namespace_igor.html#abdbfa48a19f5bf62aca91d60d68662ee" title="Igor::iNodeMesh" alt="" coords="205,57,321,84"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_node.html#a3c78aa85a044adc9797618217f133dc9" title="Igor::iNode::getChild" alt="" coords="194,108,333,135"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iMaterialResourceFactory\l \&gt;::getInstance" alt="" coords="403,5,585,61"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_material_resource_factory.html#a55ee78b1783c8787a374907fe17f3d01" title="Igor::iMaterialResourceFactory\l::createTargetMaterial" alt="" coords="395,86,593,127"/>
-</map>

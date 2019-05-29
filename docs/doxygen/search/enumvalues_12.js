@@ -1,7 +1,6 @@
 var searchData=
 [
   ['s',['S',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a5dbc98dcc983a70728bd082d1a47546e',1,'Igor']]],
-  ['scale',['Scale',['../_manipulator_8h.html#a77aa559e59121f2c11fb42e8041f9d2fa85a7cd587d6142dbfc1a4de05af7b75d',1,'Manipulator.h']]],
   ['scrolllock',['ScrollLock',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a7d7902d5e2998e4fb2b8694a2de4ff65',1,'Igor']]],
   ['sections',['Sections',['../namespace_igor.html#ab2bf8a45681db3503d84e03dd9f1dcfea855c3eca6c7aaef477b4f03e4699944d',1,'Igor']]],
   ['setup',['Setup',['../namespace_igor.html#a3ada26443dfaff731400935076205c3aaad2376beebecdcf7846ba973fa1a005b',1,'Igor']]],

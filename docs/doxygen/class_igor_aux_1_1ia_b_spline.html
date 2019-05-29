@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,15 +111,13 @@ $(document).ready(function(){initNavTree('class_igor_aux_1_1ia_b_spline.html',''
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_aux_1_1ia_b_spline-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">IgorAux::iaBSpline Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="ia_b_spline_8h_source.html">iaBSpline.h</a>&gt;</code></p>
+<p><code>#include &lt;iaBSpline.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -149,33 +147,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af3e4a5c1d12ae98a70925c8e97a12717"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac924f3e7ff9d32b759a17cc0c199dd71"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_b_spline.html#ac924f3e7ff9d32b759a17cc0c199dd71">~iaBSpline</a> ()=default</td></tr>
 <tr class="separator:ac924f3e7ff9d32b759a17cc0c199dd71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ae7d219247507921c476ae934c88d4b61"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_b_spline.html#ae7d219247507921c476ae934c88d4b61">calc</a> (int32 k, float32 t, int32 i)</td></tr>
-<tr class="separator:ae7d219247507921c476ae934c88d4b61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a970210cb6758268c275b1933b4c59f44"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_b_spline.html#a970210cb6758268c275b1933b4c59f44">prepareU</a> ()</td></tr>
-<tr class="separator:a970210cb6758268c275b1933b4c59f44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a4f1a28c59eedf586991673fae7e0e164"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_b_spline.html#a4f1a28c59eedf586991673fae7e0e164">_recalc</a> = true</td></tr>
-<tr class="separator:a4f1a28c59eedf586991673fae7e0e164"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac96ecb826b35c1c7ee30cad2a2173fae"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_b_spline.html#ac96ecb826b35c1c7ee30cad2a2173fae">_resolution</a> = 5</td></tr>
-<tr class="separator:ac96ecb826b35c1c7ee30cad2a2173fae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08ecab760daa1ae4b3c4342c925465e9"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_b_spline.html#a08ecab760daa1ae4b3c4342c925465e9">_rank</a> = 3</td></tr>
-<tr class="separator:a08ecab760daa1ae4b3c4342c925465e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a316ad103f5309447f465cda3ad93c3d9"><td class="memItemLeft" align="right" valign="top">vector&lt; int32 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_b_spline.html#a316ad103f5309447f465cda3ad93c3d9">_U</a></td></tr>
-<tr class="separator:a316ad103f5309447f465cda3ad93c3d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66c14a66ff4209c10a7395e9d056a9fb"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="namespace_igor_aux.html#a5c3ef7446f6ebd853b29e38acc5d0fac">iaVector3f</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_b_spline.html#a66c14a66ff4209c10a7395e9d056a9fb">_spline</a></td></tr>
-<tr class="separator:a66c14a66ff4209c10a7395e9d056a9fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8def781df759bdce2ee8fb5f08fa4bc6"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="namespace_igor_aux.html#a5c3ef7446f6ebd853b29e38acc5d0fac">iaVector3f</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_b_spline.html#a8def781df759bdce2ee8fb5f08fa4bc6">_supportpoints</a></td></tr>
-<tr class="separator:a8def781df759bdce2ee8fb5f08fa4bc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>BSpline implementation </p>
-
-<p>Definition at line <a class="el" href="ia_b_spline_8h_source.html#l00043">43</a> of file <a class="el" href="ia_b_spline_8h_source.html">iaBSpline.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="af3e4a5c1d12ae98a70925c8e97a12717"></a>
 <div class="memitem">
@@ -247,59 +221,6 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_b_spline_8cpp_source.html#l00012">12</a> of file <a class="el" href="ia_b_spline_8cpp_source.html">iaBSpline.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae7d219247507921c476ae934c88d4b61"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 IgorAux::iaBSpline::calc </td>
-          <td>(</td>
-          <td class="paramtype">int32&#160;</td>
-          <td class="paramname"><em>k</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float32&#160;</td>
-          <td class="paramname"><em>t</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int32&#160;</td>
-          <td class="paramname"><em>i</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>calculates the actual point on the spline </p>
-
-<p>Definition at line <a class="el" href="ia_b_spline_8cpp_source.html#l00072">72</a> of file <a class="el" href="ia_b_spline_8cpp_source.html">iaBSpline.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_b_spline_ae7d219247507921c476ae934c88d4b61_icgraph.svg" width="495" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a4ef3ee7e18512b51a91b20f493ad2510"></a>
@@ -315,8 +236,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>clears list of support points </p>
-
-<p>Definition at line <a class="el" href="ia_b_spline_8cpp_source.html#l00018">18</a> of file <a class="el" href="ia_b_spline_8cpp_source.html">iaBSpline.cpp</a>.</p>
 
 </div>
 </div>
@@ -341,24 +260,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_b_spline_8cpp_source.html#l00106">106</a> of file <a class="el" href="ia_b_spline_8cpp_source.html">iaBSpline.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_b_spline_af0cefef6607e399ccd2651552e193bec_cgraph.svg" width="318" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_b_spline_af0cefef6607e399ccd2651552e193bec_icgraph.svg" width="318" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a5f386ce08b5f6ca2b482526669ecfb92"></a>
@@ -375,8 +276,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>rank of this spline </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_b_spline_8cpp_source.html#l00040">40</a> of file <a class="el" href="ia_b_spline_8cpp_source.html">iaBSpline.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a8bf3b46050dbcb0b415be916ed62a9e1"></a>
@@ -392,16 +291,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>list of vertices representing the spline </p>
-
-<p>Definition at line <a class="el" href="ia_b_spline_8cpp_source.html#l00138">138</a> of file <a class="el" href="ia_b_spline_8cpp_source.html">iaBSpline.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_b_spline_a8bf3b46050dbcb0b415be916ed62a9e1_cgraph.svg" width="495" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -426,8 +315,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_b_spline_8cpp_source.html#l00035">35</a> of file <a class="el" href="ia_b_spline_8cpp_source.html">iaBSpline.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aadcc8ba108d496ac82688cb4fbbf99f9"></a>
@@ -444,8 +331,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>list of support points </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_b_spline_8cpp_source.html#l00133">133</a> of file <a class="el" href="ia_b_spline_8cpp_source.html">iaBSpline.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a49f4be11328066170fcb3c5e114c3d0f"></a>
@@ -461,42 +346,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>amount of support points </dd></dl>
-
-<p>Definition at line <a class="el" href="ia_b_spline_8cpp_source.html#l00024">24</a> of file <a class="el" href="ia_b_spline_8cpp_source.html">iaBSpline.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a970210cb6758268c275b1933b4c59f44"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void IgorAux::iaBSpline::prepareU </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>internal calculation of look up table </p>
-
-<p>Definition at line <a class="el" href="ia_b_spline_8cpp_source.html#l00051">51</a> of file <a class="el" href="ia_b_spline_8cpp_source.html">iaBSpline.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_b_spline_a970210cb6758268c275b1933b4c59f44_icgraph.svg" width="495" height="82"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -521,8 +370,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_b_spline_8cpp_source.html#l00045">45</a> of file <a class="el" href="ia_b_spline_8cpp_source.html">iaBSpline.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a97505b084277a17438717b29acd74f04"></a>
@@ -546,8 +393,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="ia_b_spline_8cpp_source.html#l00128">128</a> of file <a class="el" href="ia_b_spline_8cpp_source.html">iaBSpline.cpp</a>.</p>
 
 </div>
 </div>
@@ -583,152 +428,11 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_b_spline_8cpp_source.html#l00029">29</a> of file <a class="el" href="ia_b_spline_8cpp_source.html">iaBSpline.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a08ecab760daa1ae4b3c4342c925465e9"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 IgorAux::iaBSpline::_rank = 3</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>rank configuration </p>
-
-<p>Definition at line <a class="el" href="ia_b_spline_8h_source.html#l00058">58</a> of file <a class="el" href="ia_b_spline_8h_source.html">iaBSpline.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4f1a28c59eedf586991673fae7e0e164"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool IgorAux::iaBSpline::_recalc = true</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>dirty flag if true recalculate lookup table </p>
-
-<p>Definition at line <a class="el" href="ia_b_spline_8h_source.html#l00050">50</a> of file <a class="el" href="ia_b_spline_8h_source.html">iaBSpline.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac96ecb826b35c1c7ee30cad2a2173fae"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 IgorAux::iaBSpline::_resolution = 5</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>resolution setting </p>
-
-<p>Definition at line <a class="el" href="ia_b_spline_8h_source.html#l00054">54</a> of file <a class="el" href="ia_b_spline_8h_source.html">iaBSpline.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a66c14a66ff4209c10a7395e9d056a9fb"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="namespace_igor_aux.html#a5c3ef7446f6ebd853b29e38acc5d0fac">iaVector3f</a>&gt; IgorAux::iaBSpline::_spline</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>full processed spline </p>
-
-<p>Definition at line <a class="el" href="ia_b_spline_8h_source.html#l00066">66</a> of file <a class="el" href="ia_b_spline_8h_source.html">iaBSpline.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a8def781df759bdce2ee8fb5f08fa4bc6"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="namespace_igor_aux.html#a5c3ef7446f6ebd853b29e38acc5d0fac">iaVector3f</a>&gt; IgorAux::iaBSpline::_supportpoints</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of support points </p>
-
-<p>Definition at line <a class="el" href="ia_b_spline_8h_source.html#l00070">70</a> of file <a class="el" href="ia_b_spline_8h_source.html">iaBSpline.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a316ad103f5309447f465cda3ad93c3d9"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;int32&gt; IgorAux::iaBSpline::_U</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>lookup table </p>
-
-<p>Definition at line <a class="el" href="ia_b_spline_8h_source.html#l00062">62</a> of file <a class="el" href="ia_b_spline_8h_source.html">iaBSpline.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_b_spline_8h_source.html">iaBSpline.h</a></li>
-<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_b_spline_8cpp_source.html">iaBSpline.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/IgorAux/src/<a class="el" href="ia_b_spline_8h.html">iaBSpline.h</a></li>
+<li>C:/dev/Igor/Igor/src/IgorAux/src/<a class="el" href="ia_b_spline_8cpp.html">iaBSpline.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -737,7 +441,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor_aux.html">IgorAux</a></li><li class="navelem"><a class="el" href="class_igor_aux_1_1ia_b_spline.html">iaBSpline</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:16 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

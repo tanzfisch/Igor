@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,20 +112,13 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_statistics_section.htm
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_1_1i_statistics_section-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Igor::iStatisticsSection Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_statistics_section_8h_source.html">iStatisticsSection.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for Igor::iStatisticsSection:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_statistics_section__coll__graph.svg" width="164" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iStatisticsSection.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -156,24 +149,9 @@ Static Public Attributes</h2></td></tr>
 <tr class="separator:a9cfc2620a3b9c0cf45cbd00e533f2bd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9775abfdce6c69afa2111fbf764b0cb8"><td class="memItemLeft" align="right" valign="top">static const uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_statistics_section.html#a9775abfdce6c69afa2111fbf764b0cb8">BUFFER_SIZE</a> = 500</td></tr>
 <tr class="separator:a9775abfdce6c69afa2111fbf764b0cb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a631985832684407a769d3f5e007e5496"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_statistics_section.html#a631985832684407a769d3f5e007e5496">_groupIndex</a> = 0</td></tr>
-<tr class="separator:a631985832684407a769d3f5e007e5496"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a266ef141152666117c65ceef7d00deb0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_statistics_section.html#a266ef141152666117c65ceef7d00deb0">_name</a></td></tr>
-<tr class="separator:a266ef141152666117c65ceef7d00deb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26745b6bdc9b73dbf90cd45102fe0ea1"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_statistics_section.html#a26745b6bdc9b73dbf90cd45102fe0ea1">_currentFrame</a> = 0</td></tr>
-<tr class="separator:a26745b6bdc9b73dbf90cd45102fe0ea1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6d9ec2640fad8fe3a86500c450b6548"><td class="memItemLeft" align="right" valign="top">float64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_statistics_section.html#af6d9ec2640fad8fe3a86500c450b6548">_values</a> [<a class="el" href="class_igor_1_1i_statistics_section.html#a9775abfdce6c69afa2111fbf764b0cb8">BUFFER_SIZE</a>]</td></tr>
-<tr class="separator:af6d9ec2640fad8fe3a86500c450b6548"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae32cd5263bf9f47b5ab34232f3611edb"><td class="memItemLeft" align="right" valign="top">float64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_statistics_section.html#ae32cd5263bf9f47b5ab34232f3611edb">_beginTime</a> = 0</td></tr>
-<tr class="separator:ae32cd5263bf9f47b5ab34232f3611edb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>to measure how long a section of code takes per </p>
-
-<p>Definition at line <a class="el" href="i_statistics_section_8h_source.html#l00046">46</a> of file <a class="el" href="i_statistics_section_8h_source.html">iStatisticsSection.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a146f4e4cdb0c4b77feff4b053a3298f4"></a>
 <div class="memitem">
@@ -188,8 +166,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>init buffers </p>
-
-<p>Definition at line <a class="el" href="i_statistics_section_8cpp_source.html#l00011">11</a> of file <a class="el" href="i_statistics_section_8cpp_source.html">iStatisticsSection.cpp</a>.</p>
 
 </div>
 </div>
@@ -232,24 +208,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>begins measuring section </p>
 
-<p>Definition at line <a class="el" href="i_statistics_section_8cpp_source.html#l00026">26</a> of file <a class="el" href="i_statistics_section_8cpp_source.html">iStatisticsSection.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_statistics_section_ad62fd790709038a38a6b551125ed561c_cgraph.svg" width="368" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_statistics_section_ad62fd790709038a38a6b551125ed561c_icgraph.svg" width="330" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a09df4101ed33bd618cb8de8f37350aff"></a>
@@ -265,16 +223,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>ends measuring section </p>
-
-<p>Definition at line <a class="el" href="i_statistics_section_8cpp_source.html#l00031">31</a> of file <a class="el" href="i_statistics_section_8cpp_source.html">iStatisticsSection.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_statistics_section_a09df4101ed33bd618cb8de8f37350aff_cgraph.svg" width="368" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -292,8 +240,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>group index </dd></dl>
 
-<p>Definition at line <a class="el" href="i_statistics_section_8cpp_source.html#l00021">21</a> of file <a class="el" href="i_statistics_section_8cpp_source.html">iStatisticsSection.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="af844d574e5d3c85920ed06f19253b070"></a>
@@ -310,8 +256,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>statisitcs section name </dd></dl>
 
-<p>Definition at line <a class="el" href="i_statistics_section_8cpp_source.html#l00036">36</a> of file <a class="el" href="i_statistics_section_8cpp_source.html">iStatisticsSection.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a634f5c3e1e30f289c33da7de17f5d4a7"></a>
@@ -327,8 +271,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>measurements </dd></dl>
-
-<p>Definition at line <a class="el" href="i_statistics_section_8cpp_source.html#l00052">52</a> of file <a class="el" href="i_statistics_section_8cpp_source.html">iStatisticsSection.cpp</a>.</p>
 
 </div>
 </div>
@@ -352,8 +294,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_statistics_section_8cpp_source.html#l00046">46</a> of file <a class="el" href="i_statistics_section_8cpp_source.html">iStatisticsSection.cpp</a>.</p>
 
 </div>
 </div>
@@ -379,16 +319,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_statistics_section_8cpp_source.html#l00016">16</a> of file <a class="el" href="i_statistics_section_8cpp_source.html">iStatisticsSection.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_statistics_section_af1b43ae9d97b50d7ae6e08dfa1ce5251_icgraph.svg" width="330" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a85938e62fd3976a404011890bdd52088"></a>
@@ -412,135 +342,9 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_statistics_section_8cpp_source.html#l00041">41</a> of file <a class="el" href="i_statistics_section_8cpp_source.html">iStatisticsSection.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_statistics_section_a85938e62fd3976a404011890bdd52088_icgraph.svg" width="330" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="ae32cd5263bf9f47b5ab34232f3611edb"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float64 Igor::iStatisticsSection::_beginTime = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>time at beginning of section </p>
-
-<p>Definition at line <a class="el" href="i_statistics_section_8h_source.html#l00129">129</a> of file <a class="el" href="i_statistics_section_8h_source.html">iStatisticsSection.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a26745b6bdc9b73dbf90cd45102fe0ea1"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iStatisticsSection::_currentFrame = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current frame </p>
-
-<p>Definition at line <a class="el" href="i_statistics_section_8h_source.html#l00121">121</a> of file <a class="el" href="i_statistics_section_8h_source.html">iStatisticsSection.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a631985832684407a769d3f5e007e5496"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iStatisticsSection::_groupIndex = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>group index</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000074">Todo:</a></b></dt><dd>turn in to enum </dd></dl>
-
-<p>Definition at line <a class="el" href="i_statistics_section_8h_source.html#l00113">113</a> of file <a class="el" href="i_statistics_section_8h_source.html">iStatisticsSection.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a266ef141152666117c65ceef7d00deb0"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> Igor::iStatisticsSection::_name</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>name of section </p>
-
-<p>Definition at line <a class="el" href="i_statistics_section_8h_source.html#l00117">117</a> of file <a class="el" href="i_statistics_section_8h_source.html">iStatisticsSection.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af6d9ec2640fad8fe3a86500c450b6548"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float64 Igor::iStatisticsSection::_values[<a class="el" href="class_igor_1_1i_statistics_section.html#a9775abfdce6c69afa2111fbf764b0cb8">BUFFER_SIZE</a>]</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>time used per frame </p>
-
-<p>Definition at line <a class="el" href="i_statistics_section_8h_source.html#l00125">125</a> of file <a class="el" href="i_statistics_section_8h_source.html">iStatisticsSection.h</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a9775abfdce6c69afa2111fbf764b0cb8"></a>
 <div class="memitem">
 <div class="memproto">
@@ -559,8 +363,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>size of buffer aka amount of frames that are logged </p>
-
-<p>Definition at line <a class="el" href="i_statistics_section_8h_source.html#l00057">57</a> of file <a class="el" href="i_statistics_section_8h_source.html">iStatisticsSection.h</a>.</p>
 
 </div>
 </div>
@@ -583,13 +385,11 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>definition of invalid seciton id </p>
 
-<p>Definition at line <a class="el" href="i_statistics_section_8h_source.html#l00053">53</a> of file <a class="el" href="i_statistics_section_8h_source.html">iStatisticsSection.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_statistics_section_8h_source.html">iStatisticsSection.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_statistics_section_8cpp_source.html">iStatisticsSection.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_statistics_section_8h.html">iStatisticsSection.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_statistics_section_8cpp.html">iStatisticsSection.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -598,7 +398,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_statistics_section.html">iStatisticsSection</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:04 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

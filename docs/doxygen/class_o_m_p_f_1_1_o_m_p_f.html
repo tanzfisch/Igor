@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,21 +111,13 @@ $(document).ready(function(){initNavTree('class_o_m_p_f_1_1_o_m_p_f.html','');})
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_o_m_p_f_1_1_o_m_p_f-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">OMPF::OMPF Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="_o_m_p_f_8h_source.html">OMPF.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for OMPF::OMPF:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1_o_m_p_f__coll__graph.svg" width="412" height="306"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;OMPF.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -160,52 +152,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a2bcc89c562b36b97d97e9e3ee86ef7d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a375c2ec1f0e88671582759a7c5e70e73"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#a375c2ec1f0e88671582759a7c5e70e73">getFileDirectory</a> () const </td></tr>
 <tr class="separator:a375c2ec1f0e88671582759a7c5e70e73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a1050db1d6f73ac508e593a28b1b43e15"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#a1050db1d6f73ac508e593a28b1b43e15">init</a> ()</td></tr>
-<tr class="separator:a1050db1d6f73ac508e593a28b1b43e15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f848de06a19c116e2dba5551ec65a9d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#a3f848de06a19c116e2dba5551ec65a9d">deInit</a> ()</td></tr>
-<tr class="separator:a3f848de06a19c116e2dba5551ec65a9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f7e416319d4d411327befca26ab69b6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#a5f7e416319d4d411327befca26ab69b6">analyze</a> (ifstream &amp;file)</td></tr>
-<tr class="separator:a5f7e416319d4d411327befca26ab69b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76b94da7e9cdc2fefe059306e35e7085"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#a76b94da7e9cdc2fefe059306e35e7085">getNextChunk</a> (ifstream &amp;file, uint32 &amp;typeID, uint32 &amp;chunkSize)</td></tr>
-<tr class="separator:a76b94da7e9cdc2fefe059306e35e7085"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fd77db730303b8429524f552de91146"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#a8fd77db730303b8429524f552de91146">write</a> (ofstream &amp;outfile, <a class="el" href="class_o_m_p_f_1_1ompf_base_chunk.html">ompfBaseChunk</a> *currentChunk, <a class="el" href="class_o_m_p_f_1_1ompf_base_chunk.html">ompfBaseChunk</a> *parentChunk)</td></tr>
-<tr class="separator:a8fd77db730303b8429524f552de91146"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68952bc902be33838341eb770a226f26"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#a68952bc902be33838341eb770a226f26">writeMaterials</a> (ofstream &amp;outfile)</td></tr>
-<tr class="separator:a68952bc902be33838341eb770a226f26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b2b8784a1caf169716bfc39e722ca7d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#a5b2b8784a1caf169716bfc39e722ca7d">writeMaterial</a> (ofstream &amp;outfile, <a class="el" href="class_o_m_p_f_1_1ompf_material_chunk.html">ompfMaterialChunk</a> *materialChunk)</td></tr>
-<tr class="separator:a5b2b8784a1caf169716bfc39e722ca7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae39c8b4e465251f748f9908ef3fb9944"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_m_p_f_1_1ompf_base_chunk.html">ompfBaseChunk</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#ae39c8b4e465251f748f9908ef3fb9944">getChunk</a> (uint32 chunkID)</td></tr>
-<tr class="separator:ae39c8b4e465251f748f9908ef3fb9944"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a094cae554c2966823650b92a5d7ebd8b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#a094cae554c2966823650b92a5d7ebd8b">clearChunks</a> ()</td></tr>
-<tr class="separator:a094cae554c2966823650b92a5d7ebd8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e6c96898d045d9eadc8f55aed54eed7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#a6e6c96898d045d9eadc8f55aed54eed7">resetChunkID</a> ()</td></tr>
-<tr class="separator:a6e6c96898d045d9eadc8f55aed54eed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d3a04698c73b5c1bfa22ccc7127588c"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#a0d3a04698c73b5c1bfa22ccc7127588c">getNextChunkID</a> ()</td></tr>
-<tr class="separator:a0d3a04698c73b5c1bfa22ccc7127588c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a174ce84bff9dbabab5f1f5734acb3eec"><td class="memItemLeft" align="right" valign="top">map&lt; uint32, <a class="el" href="class_o_m_p_f_1_1ompf_base_chunk.html">ompfBaseChunk</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#a174ce84bff9dbabab5f1f5734acb3eec">_chunks</a></td></tr>
-<tr class="separator:a174ce84bff9dbabab5f1f5734acb3eec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4cc53521202a8837cf68831b21cd92c3"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_o_m_p_f_1_1ompf_material_chunk.html">ompfMaterialChunk</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#a4cc53521202a8837cf68831b21cd92c3">_materialChunks</a></td></tr>
-<tr class="separator:a4cc53521202a8837cf68831b21cd92c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48d59af411c598e5b1f9bc9a81b6c886"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#a48d59af411c598e5b1f9bc9a81b6c886">_nextChunkID</a> = <a class="el" href="struct_o_m_p_f_default_configuration.html#a098edb3edb73fd632afbe75ace076853">OMPFDefaultConfiguration::INVALID_CHUNK_ID</a></td></tr>
-<tr class="separator:a48d59af411c598e5b1f9bc9a81b6c886"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25012f5a4b61bab62058ff1c82125f2e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_m_p_f_1_1ompf_header_chunk.html">ompfHeaderChunk</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#a25012f5a4b61bab62058ff1c82125f2e">_root</a> = nullptr</td></tr>
-<tr class="separator:a25012f5a4b61bab62058ff1c82125f2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ede5ee072aaf179efba66abda15fbfb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_o_m_p_f_1_1ompf_settings.html">ompfSettings</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#a3ede5ee072aaf179efba66abda15fbfb">_settings</a></td></tr>
-<tr class="separator:a3ede5ee072aaf179efba66abda15fbfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24e7f6e5c06088f6659f4f745c96e2be"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#a24e7f6e5c06088f6659f4f745c96e2be">_filepath</a></td></tr>
-<tr class="separator:a24e7f6e5c06088f6659f4f745c96e2be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>this is the <a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html">OMPF</a> file format reference implementation</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000120">Todo:</a></b></dt><dd><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html">OMPF</a> should be handled as plugin or even all Loaders should be handeled as plugin </dd></dl>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8h_source.html#l00056">56</a> of file <a class="el" href="_o_m_p_f_8h_source.html">OMPF.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a1a39d9aafb6355e2c4564872de341c15"></a>
 <div class="memitem">
@@ -220,8 +169,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>initializes member variables </p>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00066">66</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
 
 </div>
 </div>
@@ -239,78 +186,9 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>clears all referenced data </p>
 
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00071">71</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a5f7e416319d4d411327befca26ab69b6"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OMPF::OMPF::analyze </td>
-          <td>(</td>
-          <td class="paramtype">ifstream &amp;&#160;</td>
-          <td class="paramname"><em>file</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>analyzes data to detect and evaluate chunks</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">file</td><td>stream handle </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00216">216</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1_o_m_p_f_a5f7e416319d4d411327befca26ab69b6_cgraph.svg" width="572" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a094cae554c2966823650b92a5d7ebd8b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void OMPF::OMPF::clearChunks </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>clears all data in <a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html">OMPF</a> </p>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00108">108</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a3560031d9892e6e9c06bf452a7bd1a6f"></a>
 <div class="memitem">
 <div class="memproto">
@@ -325,16 +203,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>creates a emitter chunk</p>
 <dl class="section return"><dt>Returns</dt><dd>pointer to emitter chunk </dd></dl>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00160">160</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1_o_m_p_f_a3560031d9892e6e9c06bf452a7bd1a6f_cgraph.svg" width="414" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -353,16 +221,6 @@ Here is the call graph for this function:</div>
 <p>creates a external reference chunk</p>
 <dl class="section return"><dt>Returns</dt><dd>pointer to new external reference chunk </dd></dl>
 
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00176">176</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1_o_m_p_f_a2b8b0578b445f58bc201c0483c4daab9_cgraph.svg" width="420" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a6901856f7e376c3ff059eac965a78b00"></a>
@@ -379,16 +237,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>creates a group chunk</p>
 <dl class="section return"><dt>Returns</dt><dd>pointer to new group chunk </dd></dl>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00127">127</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1_o_m_p_f_a6901856f7e376c3ff059eac965a78b00_cgraph.svg" width="444" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -407,16 +255,6 @@ Here is the call graph for this function:</div>
 <p>creates a material chunk</p>
 <dl class="section return"><dt>Returns</dt><dd>pointer to material chunk </dd></dl>
 
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00143">143</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1_o_m_p_f_a0bcedb0162f25f8cc9c415b40a3b1f78_cgraph.svg" width="418" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a788e1033cb0dcf401f3cdb452ceb32a7"></a>
@@ -433,16 +271,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>creates a mesh chunk</p>
 <dl class="section return"><dt>Returns</dt><dd>pointer to new mesh chunk </dd></dl>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00152">152</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1_o_m_p_f_a788e1033cb0dcf401f3cdb452ceb32a7_cgraph.svg" width="440" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -461,16 +289,6 @@ Here is the call graph for this function:</div>
 <p>creates particle system chunk</p>
 <dl class="section return"><dt>Returns</dt><dd>pointer to particle system chunk </dd></dl>
 
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00168">168</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1_o_m_p_f_aa23fd9a6ed1a9e990bc4f7898cd386aa_cgraph.svg" width="416" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="aeded0dcc5398c2d40a986a5a5fce1c76"></a>
@@ -487,75 +305,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>creates a transform chunk</p>
 <dl class="section return"><dt>Returns</dt><dd>pointer to new transform chunk </dd></dl>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00135">135</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1_o_m_p_f_aeded0dcc5398c2d40a986a5a5fce1c76_cgraph.svg" width="428" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a3f848de06a19c116e2dba5551ec65a9d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void OMPF::OMPF::deInit </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>deinitializes member data </p>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00085">85</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae39c8b4e465251f748f9908ef3fb9944"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_o_m_p_f_1_1ompf_base_chunk.html">ompfBaseChunk</a> * OMPF::OMPF::getChunk </td>
-          <td>(</td>
-          <td class="paramtype">uint32&#160;</td>
-          <td class="paramname"><em>chunkID</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>chunk by given ID</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">chunkID</td><td>the chunk id given </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00189">189</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
 
 </div>
 </div>
@@ -575,8 +324,6 @@ Here is the call graph for this function:</div>
 <p>e.g. if the file path is c:.ompf then the return value will be c:</p>
 <p>the return string can be empty if load or save is not in process yet </p>
 
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00396">396</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a2bcc89c562b36b97d97e9e3ee86ef7d7"></a>
@@ -592,93 +339,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>list of materials </dd></dl>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00370">370</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a76b94da7e9cdc2fefe059306e35e7085"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool OMPF::OMPF::getNextChunk </td>
-          <td>(</td>
-          <td class="paramtype">ifstream &amp;&#160;</td>
-          <td class="paramname"><em>file</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32 &amp;&#160;</td>
-          <td class="paramname"><em>typeID</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32 &amp;&#160;</td>
-          <td class="paramname"><em>chunkSize</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>reads the next few bytes (depends on configuration) to detect the beginning of a new chunk</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">file</td><td>stream handle </td></tr>
-    <tr><td class="paramname">typeID</td><td>suspected type Id (in out) </td></tr>
-    <tr><td class="paramname">chunkSize</td><td>suspected chunk size (in out) </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00194">194</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1_o_m_p_f_a76b94da7e9cdc2fefe059306e35e7085_cgraph.svg" width="406" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a0d3a04698c73b5c1bfa22ccc7127588c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 OMPF::OMPF::getNextChunkID </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>next generated chunk id </dd></dl>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00103">103</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
 
 </div>
 </div>
@@ -696,34 +356,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the root node of currently loaded data</dd></dl>
 <p>is never zero </p>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00184">184</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a1050db1d6f73ac508e593a28b1b43e15"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void OMPF::OMPF::init </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>initializes member data </p>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00076">76</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
 
 </div>
 </div>
@@ -748,16 +380,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00319">319</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1_o_m_p_f_a584c08a5795d8c119820cda392efd2fe_cgraph.svg" width="372" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a59e054d077c2d0e3ddebee33a8a765fa"></a>
@@ -773,34 +395,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>reinitializes member variables </p>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00092">92</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6e6c96898d045d9eadc8f55aed54eed7"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void OMPF::OMPF::resetChunkID </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>makes ompf start counting ids from the beginning again </p>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00098">98</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
 
 </div>
 </div>
@@ -825,306 +419,12 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000121">Todo:</a></b></dt><dd>handle save mode </dd></dl>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00375">375</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1_o_m_p_f_a48e04b9b63be0a15f383434dfe43e8da_cgraph.svg" width="763" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a8fd77db730303b8429524f552de91146"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void OMPF::OMPF::write </td>
-          <td>(</td>
-          <td class="paramtype">ofstream &amp;&#160;</td>
-          <td class="paramname"><em>outfile</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_o_m_p_f_1_1ompf_base_chunk.html">ompfBaseChunk</a> *&#160;</td>
-          <td class="paramname"><em>currentChunk</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_o_m_p_f_1_1ompf_base_chunk.html">ompfBaseChunk</a> *&#160;</td>
-          <td class="paramname"><em>parentChunk</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>write recursive to file</p>
-<p>only writes the nodes to file that are connected direct or indirect to root node</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">currentChunk</td><td>current chunk during traversation </td></tr>
-    <tr><td class="paramname">parentChunk</td><td>parent of the current </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00417">417</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1_o_m_p_f_a8fd77db730303b8429524f552de91146_cgraph.svg" width="940" height="284"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a5b2b8784a1caf169716bfc39e722ca7d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void OMPF::OMPF::writeMaterial </td>
-          <td>(</td>
-          <td class="paramtype">ofstream &amp;&#160;</td>
-          <td class="paramname"><em>outfile</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_o_m_p_f_1_1ompf_material_chunk.html">ompfMaterialChunk</a> *&#160;</td>
-          <td class="paramname"><em>materialChunk</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>write a material to file stream</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">outfile</td><td>output stream </td></tr>
-    <tr><td class="paramname">materialChunk</td><td>material chunk to write </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00411">411</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_o_m_p_f_1_1_o_m_p_f_a5b2b8784a1caf169716bfc39e722ca7d_cgraph.svg" width="986" height="248"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a68952bc902be33838341eb770a226f26"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void OMPF::OMPF::writeMaterials </td>
-          <td>(</td>
-          <td class="paramtype">ofstream &amp;&#160;</td>
-          <td class="paramname"><em>outfile</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>write all the registered materials to stream</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">outfile</td><td>the stream to write to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8cpp_source.html#l00401">401</a> of file <a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a174ce84bff9dbabab5f1f5734acb3eec"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;uint32, <a class="el" href="class_o_m_p_f_1_1ompf_base_chunk.html">ompfBaseChunk</a>*&gt; OMPF::OMPF::_chunks</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>map with all the chunks </p>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8h_source.html#l00214">214</a> of file <a class="el" href="_o_m_p_f_8h_source.html">OMPF.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a24e7f6e5c06088f6659f4f745c96e2be"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> OMPF::OMPF::_filepath</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the path to the file we are working with </p>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8h_source.html#l00234">234</a> of file <a class="el" href="_o_m_p_f_8h_source.html">OMPF.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4cc53521202a8837cf68831b21cd92c3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="class_o_m_p_f_1_1ompf_material_chunk.html">ompfMaterialChunk</a>*&gt; OMPF::OMPF::_materialChunks</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of material chunks </p>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8h_source.html#l00218">218</a> of file <a class="el" href="_o_m_p_f_8h_source.html">OMPF.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a48d59af411c598e5b1f9bc9a81b6c886"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 OMPF::OMPF::_nextChunkID = <a class="el" href="struct_o_m_p_f_default_configuration.html#a098edb3edb73fd632afbe75ace076853">OMPFDefaultConfiguration::INVALID_CHUNK_ID</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>internal counter for chunk IDs </p>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8h_source.html#l00222">222</a> of file <a class="el" href="_o_m_p_f_8h_source.html">OMPF.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a25012f5a4b61bab62058ff1c82125f2e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_o_m_p_f_1_1ompf_header_chunk.html">ompfHeaderChunk</a>* OMPF::OMPF::_root = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the root chunk </p>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8h_source.html#l00226">226</a> of file <a class="el" href="_o_m_p_f_8h_source.html">OMPF.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3ede5ee072aaf179efba66abda15fbfb"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_o_m_p_f_1_1ompf_settings.html">ompfSettings</a> OMPF::OMPF::_settings</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>contains a set of ompf settings like size of IDs etc. </p>
-
-<p>Definition at line <a class="el" href="_o_m_p_f_8h_source.html#l00230">230</a> of file <a class="el" href="_o_m_p_f_8h_source.html">OMPF.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/OMPF/src/<a class="el" href="_o_m_p_f_8h_source.html">OMPF.h</a></li>
-<li>C:/dev/Igor/src/OMPF/src/<a class="el" href="_o_m_p_f_8cpp_source.html">OMPF.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/OMPF/src/<a class="el" href="_o_m_p_f_8h.html">OMPF.h</a></li>
+<li>C:/dev/Igor/Igor/src/OMPF/src/<a class="el" href="_o_m_p_f_8cpp.html">OMPF.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -1133,7 +433,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_o_m_p_f.html">OMPF</a></li><li class="navelem"><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html">OMPF</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:21 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

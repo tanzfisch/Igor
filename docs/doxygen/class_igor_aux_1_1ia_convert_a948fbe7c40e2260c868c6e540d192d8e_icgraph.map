@@ -1,6 +1,0 @@
-<map id="IgorAux::iaConvert::convert" name="IgorAux::iaConvert::convert">
-<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#af4d4e1cc1453ef7b5eea916f57bb4fb2" title="Igor::iModelDataIOOMPF\l::createMeshNode" alt="" coords="180,5,347,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#ac728c96722f5c083775e09c3ce541727" title="Igor::iModelDataIOOMPF\l::createMeshChunk" alt="" coords="180,71,347,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_pixmap.html#a9929aec0b9f531b66e3867aaeab8fe59" title="Igor::iPixmap::getPixel" alt="" coords="187,137,340,163"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_pixmap.html#a7713f4d822173bf1043ddff4a1579337" title="Igor::iPixmap::getPixelBi\lLinear" alt="" coords="181,188,346,229"/>
-</map>

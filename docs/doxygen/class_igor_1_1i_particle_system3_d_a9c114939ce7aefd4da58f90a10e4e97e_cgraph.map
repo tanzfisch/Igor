@@ -1,6 +1,0 @@
-<map id="Igor::iParticleSystem3D::calcNextFrame" name="Igor::iParticleSystem3D::calcNextFrame">
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_vector2.html#adfff01ed1568c1c2b0d9b6df3696c63b" title="IgorAux::iaVector2\l::rotateXY" alt="" coords="212,5,341,47"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_vector3.html#ac9f6246137f34cd0851a7e0f577ef4a2" title="IgorAux::iaVector3\l::length" alt="" coords="212,71,341,112"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_vector3.html#a19d7f1f4d0fba7b22f60fff7d38ea74b" title="IgorAux::iaVector3\l::normalize" alt="" coords="212,136,341,177"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_vector3.html#a460281d7b8c0c4cf63c372320f118c15" title="IgorAux::iaVector3\l::convert" alt="" coords="212,201,341,243"/>
-</map>

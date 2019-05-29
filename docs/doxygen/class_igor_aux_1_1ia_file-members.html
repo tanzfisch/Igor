@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -116,10 +116,6 @@ $(document).ready(function(){initNavTree('class_igor_aux_1_1ia_file.html','');})
 
 <p>This is the complete list of members for <a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#a360a2a845a20b05954c3924eae550ccd">_filename</a></td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#a6b1b680f0d5ff2d40f219de3de93f22e">_isWriteable</a></td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#a94bb31bf96a8af725366efb0a5c2e37c">_size</a></td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#a757d9ad0bd0deb8ff57fdf19091487ff">_windowsFileHandle</a></td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#a6ac7ffa65002a2112a90d03ea735f892">close</a>()</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#ac623924404174162c87a40f9630ed7b8">copy</a>(const iaString &amp;newFileName) const </td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#ab459bfac7c17fd8bb45b92a07fcdcbf2">exist</a>() const </td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"></td></tr>
@@ -132,12 +128,10 @@ $(document).ready(function(){initNavTree('class_igor_aux_1_1ia_file.html','');})
   <tr><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#adebc89c7b4b4e3764b5c819bc5dac21e">iaFile</a>(const iaString &amp;fileName)</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#a8e5363c6f3d65bc1df7b0f1189345de2">isOpen</a>()</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#ab2e7853a32d75e0d6ed22457ea819185">open</a>(bool writeable)</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#a49532917b5ccde3e1a53c558d5d39189">readCompletionCallback</a>(uint32 errorCode, uint32 size, void *overlapped)</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"><span class="mlabel">private</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#a017d3cd691d0dda745b813302470f75c">readFromFile</a>(uint64 offset, int32 size, char *destination, bool asynchron=false)</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#a90845a3031c727ffa8a62b33ee323837">rename</a>(const iaString &amp;newFileName, bool replaceExisting=false)</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#a74e02d9c0c25cb97fb3b2d5cafd820c6">setFilePointer</a>(uint64 position)</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#a9654144bffd96edfd4972553e4834f76">setFileSize</a>(int64 newSize)</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#a91bcc57894f2d9ee9b7f84e1a03f2cf2">writeCompletionCallback</a>(uint32 errorCode, uint32 size, void *overlapped)</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"><span class="mlabel">private</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#a017d3cd691d0dda745b813302470f75c">readFromFile</a>(uint64 offset, int32 size, char *destination, bool asynchron=false)</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#a90845a3031c727ffa8a62b33ee323837">rename</a>(const iaString &amp;newFileName, bool replaceExisting=false)</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#a74e02d9c0c25cb97fb3b2d5cafd820c6">setFilePointer</a>(uint64 position)</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#a9654144bffd96edfd4972553e4834f76">setFileSize</a>(int64 newSize)</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#a927928ba0e1bddd48fa412ad943cc1aa">writeToFile</a>(uint64 offset, int32 size, const char *source, bool asynchron=false)</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html#af8086f6cfe2892b78f14ff838227d29d">~iaFile</a>()</td><td class="entry"><a class="el" href="class_igor_aux_1_1ia_file.html">IgorAux::iaFile</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
@@ -146,7 +140,7 @@ $(document).ready(function(){initNavTree('class_igor_aux_1_1ia_file.html','');})
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:18 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

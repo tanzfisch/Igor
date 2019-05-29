@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,8 +111,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_texture_resource_facto
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_texture_resource_factory-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -120,19 +118,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_texture_resource_facto
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_texture_resource_factory_8h_source.html">iTextureResourceFactory.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iTextureResourceFactory:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_texture_resource_factory__inherit__graph.svg" width="283" height="218"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iTextureResourceFactory:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_texture_resource_factory__coll__graph.svg" width="515" height="246"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iTextureResourceFactory.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iTextureResourceFactory &gt;</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -150,34 +138,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:abc70422421a7945de647dceb8db76cd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0b9d1ae543ecbc10f8a36459298a120"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_pixmap.html">iPixmap</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_texture_resource_factory.html#aa0b9d1ae543ecbc10f8a36459298a120">loadFileAsPixmap</a> (const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;filename)</td></tr>
 <tr class="separator:aa0b9d1ae543ecbc10f8a36459298a120"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a69d8bf5f7733d941b55254bd342c8b08"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_texture_resource_factory.html#a69d8bf5f7733d941b55254bd342c8b08">deinit</a> ()</td></tr>
-<tr class="separator:a69d8bf5f7733d941b55254bd342c8b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23fe4e4b6e243aa2ea68b8c6e268e40f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_texture_resource_factory.html#a23fe4e4b6e243aa2ea68b8c6e268e40f">init</a> ()</td></tr>
-<tr class="separator:a23fe4e4b6e243aa2ea68b8c6e268e40f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f1a94693c13cfe7cf5c5d14f5604732"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_texture_resource_factory.html#a8f1a94693c13cfe7cf5c5d14f5604732">loadTexture</a> (<a class="el" href="namespace_igor.html#ad6bb6664df2589e22effe764f68da20b">iTexturePtr</a> texture)</td></tr>
-<tr class="separator:a8f1a94693c13cfe7cf5c5d14f5604732"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7de717cf1152ae21fccc9f6b3266c855"><td class="memItemLeft" align="right" valign="top">int64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_texture_resource_factory.html#a7de717cf1152ae21fccc9f6b3266c855">calcHashValue</a> (const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;name, <a class="el" href="namespace_igor.html#ac9b9b2022cdca46f600793d06ddcce63">iResourceCacheMode</a> cacheMode, <a class="el" href="namespace_igor.html#a34cb645ec6114bd1969120b4bc31cc25">iTextureBuildMode</a> buildMode, <a class="el" href="namespace_igor.html#a10541984fb40d8f093520c0847d01be8">iTextureWrapMode</a>)</td></tr>
-<tr class="separator:a7de717cf1152ae21fccc9f6b3266c855"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a102180534163f71d709d630f06f48e57"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_texture_resource_factory.html#a102180534163f71d709d630f06f48e57">iTextureResourceFactory</a> ()</td></tr>
-<tr class="separator:a102180534163f71d709d630f06f48e57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a506680aef6355276902a734b56c9cc45"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_texture_resource_factory.html#a506680aef6355276902a734b56c9cc45">~iTextureResourceFactory</a> ()</td></tr>
-<tr class="separator:a506680aef6355276902a734b56c9cc45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a6ef3df3c8e41e2a3b6cc35f0ed0885b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_texture_resource_factory.html#a6ef3df3c8e41e2a3b6cc35f0ed0885b1">_mutex</a></td></tr>
-<tr class="separator:a6ef3df3c8e41e2a3b6cc35f0ed0885b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc26fe157894d7102cf299b2d06a7e26"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_texture_resource_factory.html#acc26fe157894d7102cf299b2d06a7e26">_interrupLoading</a> = false</td></tr>
-<tr class="separator:acc26fe157894d7102cf299b2d06a7e26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a393d58229c7809846c9c3a9ac97f0f92"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_texture_resource_factory.html#a393d58229c7809846c9c3a9ac97f0f92">_mutexImageLibrary</a></td></tr>
-<tr class="separator:a393d58229c7809846c9c3a9ac97f0f92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96ffc26492322ebd4ad807eea7996a50"><td class="memItemLeft" align="right" valign="top">map&lt; int64, <a class="el" href="namespace_igor.html#ad6bb6664df2589e22effe764f68da20b">iTexturePtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_texture_resource_factory.html#a96ffc26492322ebd4ad807eea7996a50">_textures</a></td></tr>
-<tr class="separator:a96ffc26492322ebd4ad807eea7996a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb2bd46fa14a7c958db1684c815261d4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#ad6bb6664df2589e22effe764f68da20b">iTexturePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_texture_resource_factory.html#acb2bd46fa14a7c958db1684c815261d4">_dummyTexture</a> = nullptr</td></tr>
-<tr class="separator:acb2bd46fa14a7c958db1684c815261d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -206,169 +166,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>handles texture resources</p>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000005">Bug:</a></b></dt><dd>not all textures released when used by <a class="el" href="class_igor_1_1i_node_model.html">iNodeModel</a> and iNodeMesh </dd></dl>
-
-<p>Definition at line <a class="el" href="i_texture_resource_factory_8h_source.html#l00054">54</a> of file <a class="el" href="i_texture_resource_factory_8h_source.html">iTextureResourceFactory.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a102180534163f71d709d630f06f48e57"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iTextureResourceFactory::iTextureResourceFactory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>initialisation of members 3rd party lib </p>
-
-<p>Definition at line <a class="el" href="i_texture_resource_factory_8cpp_source.html#l00019">19</a> of file <a class="el" href="i_texture_resource_factory_8cpp_source.html">iTextureResourceFactory.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a506680aef6355276902a734b56c9cc45"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iTextureResourceFactory::~iTextureResourceFactory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>clean up and error handling </p>
-
-<p>Definition at line <a class="el" href="i_texture_resource_factory_8cpp_source.html#l00030">30</a> of file <a class="el" href="i_texture_resource_factory_8cpp_source.html">iTextureResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_texture_resource_factory_a506680aef6355276902a734b56c9cc45_cgraph.svg" width="535" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a7de717cf1152ae21fccc9f6b3266c855"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int64 Igor::iTextureResourceFactory::calcHashValue </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#ac9b9b2022cdca46f600793d06ddcce63">iResourceCacheMode</a>&#160;</td>
-          <td class="paramname"><em>cacheMode</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#a34cb645ec6114bd1969120b4bc31cc25">iTextureBuildMode</a>&#160;</td>
-          <td class="paramname"><em>buildMode</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#a10541984fb40d8f093520c0847d01be8">iTextureWrapMode</a>&#160;</td>
-          <td class="paramname"><em>wrapMode</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>calculates hash value based on filename or name and build mode</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>the file name or just virtual name of the texture </td></tr>
-    <tr><td class="paramname">mode</td><td>the build mode of the texture </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_texture_resource_factory_8cpp_source.html#l00141">141</a> of file <a class="el" href="i_texture_resource_factory_8cpp_source.html">iTextureResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_texture_resource_factory_a7de717cf1152ae21fccc9f6b3266c855_cgraph.svg" width="382" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a69d8bf5f7733d941b55254bd342c8b08"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iTextureResourceFactory::deinit </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>releases all textures </p>
-
-<p>Definition at line <a class="el" href="i_texture_resource_factory_8cpp_source.html#l00053">53</a> of file <a class="el" href="i_texture_resource_factory_8cpp_source.html">iTextureResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_texture_resource_factory_a69d8bf5f7733d941b55254bd342c8b08_cgraph.svg" width="535" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a605e2d6b73db31856dfa8332771b2f37"></a>
 <div class="memitem">
 <div class="memproto">
@@ -391,16 +189,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_texture_resource_factory_8cpp_source.html#l00265">265</a> of file <a class="el" href="i_texture_resource_factory_8cpp_source.html">iTextureResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_texture_resource_factory_a605e2d6b73db31856dfa8332771b2f37_cgraph.svg" width="386" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a1cf661810c4c13e996d188ab698f7883"></a>
@@ -417,34 +205,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>shared pointer to genereated dummy texture </dd></dl>
 
-<p>Definition at line <a class="el" href="i_texture_resource_factory_8cpp_source.html#l00078">78</a> of file <a class="el" href="i_texture_resource_factory_8cpp_source.html">iTextureResourceFactory.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a23fe4e4b6e243aa2ea68b8c6e268e40f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iTextureResourceFactory::init </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>generates a dummy texture </p>
-
-<p>Definition at line <a class="el" href="i_texture_resource_factory_8cpp_source.html#l00083">83</a> of file <a class="el" href="i_texture_resource_factory_8cpp_source.html">iTextureResourceFactory.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a33f6c0ac571a86db24edcc39621233a7"></a>
@@ -460,8 +220,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>if a flush in a different thread is currently running. this will prevent loading new data from disk and in consequence make it stop earlier </p>
-
-<p>Definition at line <a class="el" href="i_texture_resource_factory_8cpp_source.html#l00260">260</a> of file <a class="el" href="i_texture_resource_factory_8cpp_source.html">iTextureResourceFactory.cpp</a>.</p>
 
 </div>
 </div>
@@ -509,17 +267,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>shared pointer to texture </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_state_machine_2src_2_state_machine_example_8cpp-example.html#a18">StateMachine/src/StateMachineExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_texture_resource_factory_8cpp_source.html#l00186">186</a> of file <a class="el" href="i_texture_resource_factory_8cpp_source.html">iTextureResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_texture_resource_factory_a5685923a81ef0799cbf6c3fbbbfd1fb7_cgraph.svg" width="382" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -544,17 +291,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>pointer to pixmap</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000083">Todo:</a></b></dt><dd>refactoring combine loadFileAsPixmap with loadFile </dd></dl>
-
-<p>Definition at line <a class="el" href="i_texture_resource_factory_8cpp_source.html#l00444">444</a> of file <a class="el" href="i_texture_resource_factory_8cpp_source.html">iTextureResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_texture_resource_factory_aa0b9d1ae543ecbc10f8a36459298a120_cgraph.svg" width="551" height="155"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -609,57 +345,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_texture_resource_factory_8cpp_source.html#l00394">394</a> of file <a class="el" href="i_texture_resource_factory_8cpp_source.html">iTextureResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_texture_resource_factory_abc70422421a7945de647dceb8db76cd3_cgraph.svg" width="434" height="206"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a8f1a94693c13cfe7cf5c5d14f5604732"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iTextureResourceFactory::loadTexture </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#ad6bb6664df2589e22effe764f68da20b">iTexturePtr</a>&#160;</td>
-          <td class="paramname"><em>texture</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>actually loads a texture</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">texture</td><td>[in out] contains src information and texture </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_texture_resource_factory_8cpp_source.html#l00316">316</a> of file <a class="el" href="i_texture_resource_factory_8cpp_source.html">iTextureResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_texture_resource_factory_a8f1a94693c13cfe7cf5c5d14f5604732_cgraph.svg" width="475" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a9cb90a0c4fdf07d7dde092cae9224bb3"></a>
@@ -708,16 +393,6 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>shared pointer to texture </dd></dl>
 
-<p>Definition at line <a class="el" href="i_texture_resource_factory_8cpp_source.html#l00226">226</a> of file <a class="el" href="i_texture_resource_factory_8cpp_source.html">iTextureResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_texture_resource_factory_a9cb90a0c4fdf07d7dde092cae9224bb3_cgraph.svg" width="382" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -739,129 +414,11 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_texture_resource_factory_8h_source.html#l00056">56</a> of file <a class="el" href="i_texture_resource_factory_8h_source.html">iTextureResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="acb2bd46fa14a7c958db1684c815261d4"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#ad6bb6664df2589e22effe764f68da20b">iTexturePtr</a> Igor::iTextureResourceFactory::_dummyTexture = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>generated dummy texture </p>
-
-<p>Definition at line <a class="el" href="i_texture_resource_factory_8h_source.html#l00130">130</a> of file <a class="el" href="i_texture_resource_factory_8h_source.html">iTextureResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="acc26fe157894d7102cf299b2d06a7e26"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iTextureResourceFactory::_interrupLoading = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>flag to interrupt flush cross threads </p>
-
-<p>Definition at line <a class="el" href="i_texture_resource_factory_8h_source.html#l00118">118</a> of file <a class="el" href="i_texture_resource_factory_8h_source.html">iTextureResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6ef3df3c8e41e2a3b6cc35f0ed0885b1"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> Igor::iTextureResourceFactory::_mutex</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex to protect the texture manager access </p>
-
-<p>Definition at line <a class="el" href="i_texture_resource_factory_8h_source.html#l00114">114</a> of file <a class="el" href="i_texture_resource_factory_8h_source.html">iTextureResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a393d58229c7809846c9c3a9ac97f0f92"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> Igor::iTextureResourceFactory::_mutexImageLibrary</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex to protect the DevIL interface </p>
-
-<p>Definition at line <a class="el" href="i_texture_resource_factory_8h_source.html#l00122">122</a> of file <a class="el" href="i_texture_resource_factory_8h_source.html">iTextureResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a96ffc26492322ebd4ad807eea7996a50"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;int64, <a class="el" href="namespace_igor.html#ad6bb6664df2589e22effe764f68da20b">iTexturePtr</a>&gt; Igor::iTextureResourceFactory::_textures</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>map of textures </p>
-
-<p>Definition at line <a class="el" href="i_texture_resource_factory_8h_source.html#l00126">126</a> of file <a class="el" href="i_texture_resource_factory_8h_source.html">iTextureResourceFactory.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_texture_resource_factory_8h_source.html">iTextureResourceFactory.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_texture_resource_factory_8cpp_source.html">iTextureResourceFactory.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_texture_resource_factory_8h.html">iTextureResourceFactory.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_texture_resource_factory_8cpp.html">iTextureResourceFactory.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -870,7 +427,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_texture_resource_factory.html">iTextureResourceFactory</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:07 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

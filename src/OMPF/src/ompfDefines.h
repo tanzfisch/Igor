@@ -38,72 +38,77 @@ using namespace IgorAux;
 	#endif
 #endif
 
-/*! ompf default configuration
-*/
-struct OMPFDefaultConfiguration
+namespace OMPF
 {
-public:
 
-    /*! default type id size in bytes
-    */
-    static const uint32 TypeIDSize = 1;
+	/*! ompf default configuration
+	*/
+	struct OMPFDefaultConfiguration
+	{
+	public:
 
-    /*! default chunk id size in bytes
-    */
-    static const uint32 ChunkIDSize = 4;
+		/*! default type id size in bytes
+		*/
+		static const uint32 TypeIDSize = 1;
 
-    /*! default chunk size size in bytes. 
-    
-    thats the size in bytes of the chunk size field
-    */
-    static const uint32 ChunkSizeSize = 4;
+		/*! default chunk id size in bytes
+		*/
+		static const uint32 ChunkIDSize = 4;
 
-    /*! default custom data size size in bytes.
+		/*! default chunk size size in bytes.
 
-    thats the size in bytes of the custom data size field
+		thats the size in bytes of the chunk size field
+		*/
+		static const uint32 ChunkSizeSize = 4;
 
-    \todo only 2 possible right now. see implementation of iaMemBlock
-    */
-    static const uint32 CustomDataSizeSize = 2;
+		/*! default custom data size size in bytes.
 
-    /*! default string size size in bytes.
+		thats the size in bytes of the custom data size field
 
-    thats the size in bytes of the string size field
+		\todo only 2 possible right now. see implementation of iaMemBlock
+		*/
+		static const uint32 CustomDataSizeSize = 2;
 
-    \todo only 2 possible right now.see implementation of iaString
-    */
-    static const uint32 StringSizeSize = 2;
+		/*! default string size size in bytes.
 
-    /*! definition of invalid chunk id
-    */
-    static const uint32 INVALID_CHUNK_ID = 0;
-};
+		thats the size in bytes of the string size field
 
-/*! ompf chunk types
-*/
-enum class OMPFChunkType
-{
-    Invalid = 0x00,
-    Header = 0x01,
-    Group = 0x02,
-    Transform = 0x03,
-    External = 0x04,
-    ResourceSearchPath = 0x05,
-    Mesh = 0x06,
-    Material = 0x07,
-    Emitter = 0x08,
-    ParticleSystem = 0x09
-};
+		\todo only 2 possible right now.see implementation of iaString
+		*/
+		static const uint32 StringSizeSize = 2;
 
-/*! ompf path types
-*/
-enum class OMPFPathType
-{
-    RelativeToModel = 0,
-    RelativeToApplication = 1,
-    RelativeToCurrentDirectory = 2,
-    Absolute = 3,
-    Undefined = 100
-};
+		/*! definition of invalid chunk id
+		*/
+		static const uint32 INVALID_CHUNK_ID = 0;
+	};
+
+	/*! ompf chunk types
+	*/
+	enum class OMPFChunkType
+	{
+		Invalid = 0x00,
+		Header = 0x01,
+		Group = 0x02,
+		Transform = 0x03,
+		External = 0x04,
+		ResourceSearchPath = 0x05,
+		Mesh = 0x06,
+		Material = 0x07,
+		Emitter = 0x08,
+		ParticleSystem = 0x09
+	};
+
+	/*! ompf path types
+	*/
+	enum class OMPFPathType
+	{
+		RelativeToModel = 0,
+		RelativeToApplication = 1,
+		RelativeToCurrentDirectory = 2,
+		Absolute = 3,
+		Undefined = 100
+	};
+
+}
 
 #endif

@@ -1,7 +1,0 @@
-<map id="IgorAux::iaVector3::convert" name="IgorAux::iaVector3::convert">
-<area shape="rect" id="node2" href="$class_igor_1_1i_particle_system3_d.html#a9c114939ce7aefd4da58f90a10e4e97e" title="Igor::iParticleSystem3D\l::calcNextFrame" alt="" coords="183,5,341,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_voxel_terrain.html#a01654a6bcafb57ca10f8baf8ebd27b8a" title="Igor::iVoxelTerrain\l::update" alt="" coords="199,71,325,112"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_voxel_terrain.html#a2866e4ad74ac190ae4591a64329297b0" title="Igor::iVoxelTerrain\l::updateMesh" alt="" coords="199,136,325,177"/>
-<area shape="rect" id="node6" href="$_vector3_8cpp.html#a4a2efd4cd9f6d000517cdfebf8bf8b25" title="TEST" alt="" coords="235,202,289,229"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_task_voxel_terrain.html#ad578cdbf85786e8ba443221afe6f7031" title="Igor::iTaskVoxelTerrain::run" alt="" coords="389,78,569,105"/>
-</map>

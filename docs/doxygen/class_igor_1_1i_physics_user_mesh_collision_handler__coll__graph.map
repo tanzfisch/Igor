@@ -1,6 +1,0 @@
-<map id="Igor::iPhysicsUserMeshCollisionHandler" name="Igor::iPhysicsUserMeshCollisionHandler">
-<area shape="rect" id="node2" href="$class_igor_1_1i_a_a_box.html" title="Igor::iAABox\&lt; float32 \&gt;" alt="" coords="108,332,265,359"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_vector3.html" title="IgorAux::iaVector3\l\&lt; float32 \&gt;" alt="" coords="21,213,150,255"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_vector3.html" title="IgorAux::iaVector3\&lt; T \&gt;" alt="" coords="5,124,165,151"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_a_a_box.html" title="Igor::iAABox\&lt; T \&gt;" alt="" coords="174,221,301,247"/>
-</map>

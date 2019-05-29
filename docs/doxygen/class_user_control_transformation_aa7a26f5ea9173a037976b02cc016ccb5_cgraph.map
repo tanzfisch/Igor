@@ -1,7 +1,0 @@
-<map id="UserControlTransformation::~UserControlTransformation" name="UserControlTransformation::~UserControlTransformation">
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iNodeFactory \&gt;::getInstance" alt="" coords="244,5,443,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_factory.html#ab8074664cc7a6692dda729d1e3e4cfa3" title="Igor::iNodeFactory\l::getNode" alt="" coords="279,71,407,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#a92a082c4e595b2f485e959b54e67c443" title="Igor::iNode::getTransformation\lChangeEvent" alt="" coords="246,136,441,177"/>
-<area shape="rect" id="node5" href="$class_user_control_transformation.html#a9127fa4b983b9f2d543bff42c64e8a5d" title="UserControlTransformation\l::onTransformationChanged" alt="" coords="253,201,433,243"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_node.html#a865efb791b77d29bb489514326037380" title="Igor::iNode::getID" alt="" coords="491,209,613,235"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="Igor::iNodeLODSwitch::update" name="Igor::iNodeLODSwitch::update">
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iNodeFactory \&gt;::getInstance" alt="" coords="203,5,401,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_l_o_d_trigger.html#a6751274c3280da9c94a058bb09bf0e27" title="Igor::iNodeLODTrigger\l::getWorldPosition" alt="" coords="227,71,377,112"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_vector3.html#adf5b5134d2dd0aade6f275f526ee9c58" title="IgorAux::iaVector3\l::distance2" alt="" coords="237,136,367,177"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node_l_o_d_switch.html#a58d22e281158a100d9137541ec6be119" title="Igor::iNodeLODSwitch\l::getWorldPosition" alt="" coords="227,201,377,243"/>
-</map>

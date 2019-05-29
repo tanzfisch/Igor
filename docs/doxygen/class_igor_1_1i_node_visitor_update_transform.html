@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,26 +112,15 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_visitor_update_tr
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_1_1i_node_visitor_update_transform-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Igor::iNodeVisitorUpdateTransform Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_node_visitor_update_transform_8h_source.html">iNodeVisitorUpdateTransform.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iNodeVisitorUpdateTransform:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_visitor_update_transform__inherit__graph.svg" width="174" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iNodeVisitorUpdateTransform:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_visitor_update_transform__coll__graph.svg" width="307" height="275"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iNodeVisitorUpdateTransform.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -159,18 +148,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a76c8f22b5b7af627548d851cc3ef2ac6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8009c67919f95087709779b47d6ce71e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_update_transform.html#a8009c67919f95087709779b47d6ce71e">postTraverse</a> ()</td></tr>
 <tr class="separator:a8009c67919f95087709779b47d6ce71e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a04a59537af1fa047d0af1e08202fb17e"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_update_transform.html#a04a59537af1fa047d0af1e08202fb17e">_matrixStack</a></td></tr>
-<tr class="separator:a04a59537af1fa047d0af1e08202fb17e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abebcb9ec9382e67442db08856876a11d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_update_transform.html#abebcb9ec9382e67442db08856876a11d">_currentMatrix</a></td></tr>
-<tr class="separator:abebcb9ec9382e67442db08856876a11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>scene visitor that updates transformations </p>
-
-<p>Definition at line <a class="el" href="i_node_visitor_update_transform_8h_source.html#l00045">45</a> of file <a class="el" href="i_node_visitor_update_transform_8h_source.html">iNodeVisitorUpdateTransform.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="abe99c4692c0a048fb94206644779ba7b"></a>
 <div class="memitem">
@@ -246,16 +226,6 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="class_igor_1_1i_node_visitor.html#aac8a35e0f6e32017aa709cd15c51e0e6">Igor::iNodeVisitor</a>.</p>
 
-<p>Definition at line <a class="el" href="i_node_visitor_update_transform_8cpp_source.html#l00035">35</a> of file <a class="el" href="i_node_visitor_update_transform_8cpp_source.html">iNodeVisitorUpdateTransform.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_visitor_update_transform_a76c8f22b5b7af627548d851cc3ef2ac6_cgraph.svg" width="366" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a8009c67919f95087709779b47d6ce71e"></a>
@@ -281,8 +251,6 @@ Here is the call graph for this function:</div>
 <p>called after traversation is finisched </p>
 
 <p>Implements <a class="el" href="class_igor_1_1i_node_visitor.html#a31fec732bc7641e2ba8cd01bad7f101c">Igor::iNodeVisitor</a>.</p>
-
-<p>Definition at line <a class="el" href="i_node_visitor_update_transform_8cpp_source.html#l00050">50</a> of file <a class="el" href="i_node_visitor_update_transform_8cpp_source.html">iNodeVisitorUpdateTransform.cpp</a>.</p>
 
 </div>
 </div>
@@ -311,16 +279,6 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="class_igor_1_1i_node_visitor.html#a050cf551c53b773e828351e7e7f7f419">Igor::iNodeVisitor</a>.</p>
 
-<p>Definition at line <a class="el" href="i_node_visitor_update_transform_8cpp_source.html#l00016">16</a> of file <a class="el" href="i_node_visitor_update_transform_8cpp_source.html">iNodeVisitorUpdateTransform.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_visitor_update_transform_a68949eb0c13e13d98b38c91b8055fcad_cgraph.svg" width="864" height="304"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ae2d18e6731d56a21ac7fb85c91a9c06e"></a>
@@ -347,60 +305,11 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="class_igor_1_1i_node_visitor.html#a0ffed66a85f892ffee84655b08f01800">Igor::iNodeVisitor</a>.</p>
 
-<p>Definition at line <a class="el" href="i_node_visitor_update_transform_8cpp_source.html#l00045">45</a> of file <a class="el" href="i_node_visitor_update_transform_8cpp_source.html">iNodeVisitorUpdateTransform.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="abebcb9ec9382e67442db08856876a11d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> Igor::iNodeVisitorUpdateTransform::_currentMatrix</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current matrix that eventually gets pushed on stack or came poped from stack </p>
-
-<p>Definition at line <a class="el" href="i_node_visitor_update_transform_8h_source.html#l00084">84</a> of file <a class="el" href="i_node_visitor_update_transform_8h_source.html">iNodeVisitorUpdateTransform.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a04a59537af1fa047d0af1e08202fb17e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a>&gt; Igor::iNodeVisitorUpdateTransform::_matrixStack</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>holds a stack of matrices while traversion tree </p>
-
-<p>Definition at line <a class="el" href="i_node_visitor_update_transform_8h_source.html#l00080">80</a> of file <a class="el" href="i_node_visitor_update_transform_8h_source.html">iNodeVisitorUpdateTransform.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_visitor_update_transform_8h_source.html">iNodeVisitorUpdateTransform.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_visitor_update_transform_8cpp_source.html">iNodeVisitorUpdateTransform.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_node_visitor_update_transform_8h.html">iNodeVisitorUpdateTransform.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_node_visitor_update_transform_8cpp.html">iNodeVisitorUpdateTransform.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -409,7 +318,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_node_visitor_update_transform.html">iNodeVisitorUpdateTransform</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:56 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

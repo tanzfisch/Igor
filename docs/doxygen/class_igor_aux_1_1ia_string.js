@@ -25,7 +25,6 @@ var class_igor_aux_1_1ia_string =
     [ "getUTF8", "class_igor_aux_1_1ia_string.html#a9e29c1ced7cd48ef1a5dcaf53e2684d0", null ],
     [ "getUTF8Size", "class_igor_aux_1_1ia_string.html#a7793c7a60aff4ef3e35bd60c7d6ee703", null ],
     [ "insert", "class_igor_aux_1_1ia_string.html#ad6fd716e71a9a0f07fd65935bee2e5a0", null ],
-    [ "intToStrInternal", "class_igor_aux_1_1ia_string.html#af57393290753cb0ff19bd49b5c97d1f4", null ],
     [ "isEmpty", "class_igor_aux_1_1ia_string.html#afb40afde994d28224201cd9cb28909f7", null ],
     [ "itoa", "class_igor_aux_1_1ia_string.html#ad543df5c6c62ace85496ee1fda974503", null ],
     [ "operator!=", "class_igor_aux_1_1ia_string.html#a4722a2dbc64b52e2669faffbd22482de", null ],
@@ -46,15 +45,11 @@ var class_igor_aux_1_1ia_string =
     [ "operator[]", "class_igor_aux_1_1ia_string.html#a636afb8488349aad126fb7847a0531d5", null ],
     [ "remove", "class_igor_aux_1_1ia_string.html#a08bdf620d1655bfc09020ba135b5c617", null ],
     [ "reverse", "class_igor_aux_1_1ia_string.html#a5de7775f77c02abad6fb09a235a7721b", null ],
-    [ "setData", "class_igor_aux_1_1ia_string.html#ad7adba7a3518fb1798a0883ef3295ea1", null ],
-    [ "setData", "class_igor_aux_1_1ia_string.html#a8886f9ff0afec3646c915cde12116c82", null ],
     [ "setUTF8", "class_igor_aux_1_1ia_string.html#af98a3f182e1624436ef7c2413934a85d", null ],
     [ "split", "class_igor_aux_1_1ia_string.html#a9d5321ccb47f6bf2910409f0da56f08e", null ],
     [ "split", "class_igor_aux_1_1ia_string.html#a8da7587714cb24d9a2b0e1922672b622", null ],
     [ "split", "class_igor_aux_1_1ia_string.html#ac7df5da209b20c040a63be28dc83f065", null ],
     [ "toLower", "class_igor_aux_1_1ia_string.html#ac48e52af9dc52ade75d11d6a5f762680", null ],
     [ "toUpper", "class_igor_aux_1_1ia_string.html#adec3d79e30b5303f89c4869a09028ce6", null ],
-    [ "_charCount", "class_igor_aux_1_1ia_string.html#a81e6337b90bd2a25761730c4fc299c2e", null ],
-    [ "_data", "class_igor_aux_1_1ia_string.html#a3fbb41505e0b3de50a267503512fa02f", null ],
     [ "INVALID_POSITION", "class_igor_aux_1_1ia_string.html#ab1b130d74ed123fbee38c453988bc78d", null ]
 ];

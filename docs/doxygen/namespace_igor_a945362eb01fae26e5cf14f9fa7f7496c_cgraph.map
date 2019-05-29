@@ -1,6 +1,0 @@
-<map id="Igor::GenericContactProcessCompatible" name="Igor::GenericContactProcessCompatible">
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iPhysics \&gt;::getInstance" alt="" coords="252,5,423,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_physics.html#a6f04b7f5dac23b5f8b75e6415b567a9a" title="Igor::iPhysics::queueContact" alt="" coords="243,71,432,98"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" title="IgorAux::iaMutex::lock" alt="" coords="487,46,639,73"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" title="IgorAux::iaMutex::unlock" alt="" coords="480,97,647,123"/>
-</map>

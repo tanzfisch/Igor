@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,9 +112,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_widget_manager.html','
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_widget_manager-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -122,19 +119,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_widget_manager.html','
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iWidgetManager:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_manager__inherit__graph.svg" width="219" height="218"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iWidgetManager:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_manager__coll__graph.svg" width="1400" height="351"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iWidgetManager.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iWidgetManager &gt;</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -229,91 +216,6 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:adb3d4b5589facbbd3c913a430853d1d6 inherit pub_static_methods_class_igor_aux_1_1ia_singleton"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_singleton.html#adb3d4b5589facbbd3c913a430853d1d6">isInstantiated</a> ()</td></tr>
 <tr class="separator:adb3d4b5589facbbd3c913a430853d1d6 inherit pub_static_methods_class_igor_aux_1_1ia_singleton"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a0f5c27f3389c7f1586f3506a782f584b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a0f5c27f3389c7f1586f3506a782f584b">onPreDestroyInstance</a> ()</td></tr>
-<tr class="separator:a0f5c27f3389c7f1586f3506a782f584b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad703466c81a5e5525921e591bcd1a30e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#ad703466c81a5e5525921e591bcd1a30e">traverseContentSize</a> (<a class="el" href="class_igor_1_1i_widget.html">iWidget</a> *widget)</td></tr>
-<tr class="separator:ad703466c81a5e5525921e591bcd1a30e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd1ffbaaa9e72e5d71fb466fffb2109c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#acd1ffbaaa9e72e5d71fb466fffb2109c">traverseAlignment</a> (<a class="el" href="class_igor_1_1i_widget.html">iWidget</a> *widget, int32 offsetX, int32 offsetY, int32 clientRectWidth, int32 clientRectHeight)</td></tr>
-<tr class="separator:acd1ffbaaa9e72e5d71fb466fffb2109c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab16bc8ef35333970ba014548b8c35b20"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#ab16bc8ef35333970ba014548b8c35b20">onHandle</a> ()</td></tr>
-<tr class="separator:ab16bc8ef35333970ba014548b8c35b20"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5080ec7952da73e9d07c80724ffe9e9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a5080ec7952da73e9d07c80724ffe9e9a">runDeleteQueues</a> ()</td></tr>
-<tr class="separator:a5080ec7952da73e9d07c80724ffe9e9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02bad526b1134ab0d63065786e8a0821"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a02bad526b1134ab0d63065786e8a0821">onMouseKeyDown</a> (<a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a> key)</td></tr>
-<tr class="separator:a02bad526b1134ab0d63065786e8a0821"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30f9c4fe80822b58421c5980792db757"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a30f9c4fe80822b58421c5980792db757">onMouseKeyUp</a> (<a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a> key)</td></tr>
-<tr class="separator:a30f9c4fe80822b58421c5980792db757"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a274a029dce014f98225836b2b004c906"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a274a029dce014f98225836b2b004c906">onMouseDoubleClick</a> (<a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a> key)</td></tr>
-<tr class="separator:a274a029dce014f98225836b2b004c906"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17df7a98705cc917f8bc09a14d811b40"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a17df7a98705cc917f8bc09a14d811b40">onMouseMove</a> (const <a class="el" href="namespace_igor_aux.html#a9f4d278020d24f0b41171f05e05a729d">iaVector2i</a> &amp;from, const <a class="el" href="namespace_igor_aux.html#a9f4d278020d24f0b41171f05e05a729d">iaVector2i</a> &amp;to, <a class="el" href="class_igor_1_1i_window.html">iWindow</a> *window)</td></tr>
-<tr class="separator:a17df7a98705cc917f8bc09a14d811b40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a574c895013a0ee96aae7fd270d58dd5e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a574c895013a0ee96aae7fd270d58dd5e">onMouseWheel</a> (int32 d)</td></tr>
-<tr class="separator:a574c895013a0ee96aae7fd270d58dd5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d54cf125358a73cb2390700250018a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a5d54cf125358a73cb2390700250018a1">onASCII</a> (const char c)</td></tr>
-<tr class="separator:a5d54cf125358a73cb2390700250018a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d25ffd775b076934d3aea70818a9c5e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a9d25ffd775b076934d3aea70818a9c5e">onKeyDown</a> (<a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a> key)</td></tr>
-<tr class="separator:a9d25ffd775b076934d3aea70818a9c5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c8836b462d1a87002ab58231a9bcdac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a5c8836b462d1a87002ab58231a9bcdac">onKeyUp</a> (<a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a> key)</td></tr>
-<tr class="separator:a5c8836b462d1a87002ab58231a9bcdac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4067d050d6c5370cd86377054d8d7b2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#ad4067d050d6c5370cd86377054d8d7b2">registerHandles</a> ()</td></tr>
-<tr class="separator:ad4067d050d6c5370cd86377054d8d7b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4e6880db6e1275e408c223d85ba91ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#ac4e6880db6e1275e408c223d85ba91ae">unregisterHandles</a> ()</td></tr>
-<tr class="separator:ac4e6880db6e1275e408c223d85ba91ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a000e11d2f5aa20fb3f0f4d84f432c178"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a000e11d2f5aa20fb3f0f4d84f432c178">iWidgetManager</a> ()</td></tr>
-<tr class="separator:a000e11d2f5aa20fb3f0f4d84f432c178"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e56b8cbe57a8e6341c795d0c4a9eacd"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a8e56b8cbe57a8e6341c795d0c4a9eacd">~iWidgetManager</a> ()</td></tr>
-<tr class="separator:a8e56b8cbe57a8e6341c795d0c4a9eacd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:afca7a438ec9e8da35367c4a98609ccae"><td class="memItemLeft" align="right" valign="top">map&lt; uint64, <br class="typebreak" />
-iInstanciateWidgetDelegate &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#afca7a438ec9e8da35367c4a98609ccae">_widgetTypes</a></td></tr>
-<tr class="separator:afca7a438ec9e8da35367c4a98609ccae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94acdbd1dc5cb00fc4ac267622a45221"><td class="memItemLeft" align="right" valign="top">map&lt; uint64, <br class="typebreak" />
-iInstanciateDialogDelegate &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a94acdbd1dc5cb00fc4ac267622a45221">_dialogTypes</a></td></tr>
-<tr class="separator:a94acdbd1dc5cb00fc4ac267622a45221"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f5e513b4b00a90affe71d7d38fd5796"><td class="memItemLeft" align="right" valign="top">iMouseKeyDownEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a2f5e513b4b00a90affe71d7d38fd5796">_mouseKeyDownEvent</a></td></tr>
-<tr class="separator:a2f5e513b4b00a90affe71d7d38fd5796"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:affb908de515b6446421f3b6b4efb58b7"><td class="memItemLeft" align="right" valign="top">iMouseKeyUpEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#affb908de515b6446421f3b6b4efb58b7">_mouseKeyUpEvent</a></td></tr>
-<tr class="separator:affb908de515b6446421f3b6b4efb58b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c8f84ef6f731dcfd85a3b39ed9251d7"><td class="memItemLeft" align="right" valign="top">iKeyDownEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a7c8f84ef6f731dcfd85a3b39ed9251d7">_keyDownEvent</a></td></tr>
-<tr class="separator:a7c8f84ef6f731dcfd85a3b39ed9251d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4ad30f158e631a1311361c96dfd099e"><td class="memItemLeft" align="right" valign="top">iKeyUpEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#aa4ad30f158e631a1311361c96dfd099e">_keyUpEvent</a></td></tr>
-<tr class="separator:aa4ad30f158e631a1311361c96dfd099e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c2db1e712740f5d62dc2f2a39071464"><td class="memItemLeft" align="right" valign="top">iMouseKeyDoubleClickEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a9c2db1e712740f5d62dc2f2a39071464">_doubleClickEvent</a></td></tr>
-<tr class="separator:a9c2db1e712740f5d62dc2f2a39071464"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae179ab953184abdc82807230928b0abf"><td class="memItemLeft" align="right" valign="top">iMouseMoveFullEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#ae179ab953184abdc82807230928b0abf">_moveFullEvent</a></td></tr>
-<tr class="separator:ae179ab953184abdc82807230928b0abf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5bb8a5bb969dd5a66aeba1c4c069757"><td class="memItemLeft" align="right" valign="top">iMouseMoveEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#ab5bb8a5bb969dd5a66aeba1c4c069757">_moveEvent</a></td></tr>
-<tr class="separator:ab5bb8a5bb969dd5a66aeba1c4c069757"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ed37460b9ef32f2aa781e8c7a6e7a3f"><td class="memItemLeft" align="right" valign="top">iMouseWheelEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a7ed37460b9ef32f2aa781e8c7a6e7a3f">_wheelEvent</a></td></tr>
-<tr class="separator:a7ed37460b9ef32f2aa781e8c7a6e7a3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e429187657d73130015f906ac16088a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_widget_base_theme.html">iWidgetBaseTheme</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a1e429187657d73130015f906ac16088a">_currentTheme</a> = nullptr</td></tr>
-<tr class="separator:a1e429187657d73130015f906ac16088a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ffe2539040c6cd68d2d499af0609142"><td class="memItemLeft" align="right" valign="top">map&lt; uint64, <a class="el" href="class_igor_1_1i_widget.html">iWidget</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a2ffe2539040c6cd68d2d499af0609142">_widgets</a></td></tr>
-<tr class="separator:a2ffe2539040c6cd68d2d499af0609142"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf36d19482653095c61758dc7efbd57d"><td class="memItemLeft" align="right" valign="top">map&lt; uint64, <a class="el" href="class_igor_1_1i_dialog.html">iDialog</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#abf36d19482653095c61758dc7efbd57d">_dialogs</a></td></tr>
-<tr class="separator:abf36d19482653095c61758dc7efbd57d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a663e12f1984344a33d3ae1b487870ba5"><td class="memItemLeft" align="right" valign="top">deque&lt; <a class="el" href="class_igor_1_1i_widget.html">iWidget</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a663e12f1984344a33d3ae1b487870ba5">_toDeleteWidgets</a></td></tr>
-<tr class="separator:a663e12f1984344a33d3ae1b487870ba5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c389c895afb7e7bf6340ca902311492"><td class="memItemLeft" align="right" valign="top">deque&lt; <a class="el" href="class_igor_1_1i_dialog.html">iDialog</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a4c389c895afb7e7bf6340ca902311492">_toDeleteDialogs</a></td></tr>
-<tr class="separator:a4c389c895afb7e7bf6340ca902311492"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b6040d149d0eec63c710dbbfc673e6a"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#a6b6040d149d0eec63c710dbbfc673e6a">_desktopWidth</a> = 0</td></tr>
-<tr class="separator:a6b6040d149d0eec63c710dbbfc673e6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9df8abff42bec0c4d6c3c1504f80eaf"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#ab9df8abff42bec0c4d6c3c1504f80eaf">_desktopHeight</a> = 0</td></tr>
-<tr class="separator:ab9df8abff42bec0c4d6c3c1504f80eaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac60eb4e2e378c9b7e8db0d079f317e2a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a9f4d278020d24f0b41171f05e05a729d">iaVector2i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#ac60eb4e2e378c9b7e8db0d079f317e2a">_tooltipPos</a></td></tr>
-<tr class="separator:ac60eb4e2e378c9b7e8db0d079f317e2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5b267d04dae248960dedd2027c2ad9a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#ad5b267d04dae248960dedd2027c2ad9a">_tooltipText</a></td></tr>
-<tr class="separator:ad5b267d04dae248960dedd2027c2ad9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
-Static Private Attributes</h2></td></tr>
-<tr class="memitem:ac4273d91d48225148857eb1c3d37ae5f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_igor_1_1i_dialog.html">iDialog</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#ac4273d91d48225148857eb1c3d37ae5f">_modal</a> = nullptr</td></tr>
-<tr class="separator:ac4273d91d48225148857eb1c3d37ae5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:aadcb96bd478615f7a2a6891822cc4798"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_manager.html#aadcb96bd478615f7a2a6891822cc4798">iaSingleton&lt; iWidgetManager &gt;</a></td></tr>
@@ -334,63 +236,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock"><p>manages the widgets in use and is a singleton</p>
 <p>is also a factory that creates and destroys all the widgets</p>
 <p>Example: Widgets usage example</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000095">Todo:</a></b></dt><dd>switch from delegates to function pointers for instance creation</dd></dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00062">62</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a000e11d2f5aa20fb3f0f4d84f432c178"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iWidgetManager::iWidgetManager </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>init </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00049">49</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a8e56b8cbe57a8e6341c795d0c4a9eacd"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iWidgetManager::~iWidgetManager </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>checks for mem leaks and releases all left over widgets </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00082">82</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a3cf3de26ec38048c079b976e07d6bd13"></a>
 <div class="memitem">
 <div class="memproto">
@@ -411,24 +257,6 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00561">561</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_manager_a3cf3de26ec38048c079b976e07d6bd13_cgraph.svg" width="512" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_manager_a3cf3de26ec38048c079b976e07d6bd13_icgraph.svg" width="874" height="351"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -453,24 +281,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00607">607</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_manager_a6bd957c51cc937fa860f9e2be73f3d27_cgraph.svg" width="512" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_manager_a6bd957c51cc937fa860f9e2be73f3d27_icgraph.svg" width="872" height="1014"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="afd27ed58f6bc204976ec1bcddd5e9ce3"></a>
@@ -493,16 +303,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00581">581</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_manager_afd27ed58f6bc204976ec1bcddd5e9ce3_icgraph.svg" width="383" height="235"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -527,8 +327,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00593">593</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a0f280e1395cb1fe0af29e3d06beb465f"></a>
@@ -551,16 +349,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00641">641</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_manager_a0f280e1395cb1fe0af29e3d06beb465f_icgraph.svg" width="391" height="883"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -585,8 +373,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00627">627</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a913d26bf12b98d7cf662268cdd9ef0c7"></a>
@@ -605,8 +391,6 @@ Here is the caller graph for this function:</div>
 <p>needs to be called by application</p>
 <p>make sure you have set up an orthogonal coordinate system with the same dimensions as set via setDesktopDimensions </p>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00482">482</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a6a29e1759c0dc5590a017f05b272be04"></a>
@@ -623,8 +407,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>dektop height </dd></dl>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00467">467</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a8d8e719f0b95acd48cef9fff82acac4c"></a>
@@ -640,8 +422,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>dektop width </dd></dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00462">462</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -665,8 +445,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00653">653</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -692,8 +470,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>current modal widget </dd></dl>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00146">146</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a039e91eb863a84d773a0171caa4a08e5"></a>
@@ -709,8 +485,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the theme in use </dd></dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00472">472</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -735,8 +509,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00664">664</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="af048259868df5a172088902ea2f6dade"></a>
@@ -752,8 +524,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>hides the tooltip </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00122">122</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -785,342 +555,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00127">127</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5d54cf125358a73cb2390700250018a1"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetManager::onASCII </td>
-          <td>(</td>
-          <td class="paramtype">const char&#160;</td>
-          <td class="paramname"><em>c</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>internal handler for incomming keyboard events</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">c</td><td>the ascii character </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00393">393</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab16bc8ef35333970ba014548b8c35b20"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetManager::onHandle </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>updates recursively all widgets </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00413">413</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9d25ffd775b076934d3aea70818a9c5e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetManager::onKeyDown </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a>&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handles key down event </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00184">184</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_manager_a9d25ffd775b076934d3aea70818a9c5e_cgraph.svg" width="400" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a5c8836b462d1a87002ab58231a9bcdac"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetManager::onKeyUp </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a>&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handles key up event </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00215">215</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a274a029dce014f98225836b2b004c906"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetManager::onMouseDoubleClick </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a>&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handle for mouse double click</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>contains which key was pressed </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00308">308</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a02bad526b1134ab0d63065786e8a0821"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetManager::onMouseKeyDown </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a>&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handle for mouse key down event</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>mouse key pressed </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00246">246</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a30f9c4fe80822b58421c5980792db757"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetManager::onMouseKeyUp </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a>&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handle for mouse key up event</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>mouse key released </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00278">278</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a17df7a98705cc917f8bc09a14d811b40"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetManager::onMouseMove </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_igor_aux.html#a9f4d278020d24f0b41171f05e05a729d">iaVector2i</a> &amp;&#160;</td>
-          <td class="paramname"><em>from</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_igor_aux.html#a9f4d278020d24f0b41171f05e05a729d">iaVector2i</a> &amp;&#160;</td>
-          <td class="paramname"><em>to</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_window.html">iWindow</a> *&#160;</td>
-          <td class="paramname"><em>window</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handle for mouse move event</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">x1</td><td>last horizontal mouse position </td></tr>
-    <tr><td class="paramname">y1</td><td>last vertical mouse position </td></tr>
-    <tr><td class="paramname">x2</td><td>current horizontal mouse position </td></tr>
-    <tr><td class="paramname">y2</td><td>current vertical mouse position </td></tr>
-    <tr><td class="paramname">window</td><td>parent window of mouse event </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00339">339</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a574c895013a0ee96aae7fd270d58dd5e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetManager::onMouseWheel </td>
-          <td>(</td>
-          <td class="paramtype">int32&#160;</td>
-          <td class="paramname"><em>d</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handle for mouse wheel event</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">d</td><td>mouse wheel delta </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00362">362</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a0f5c27f3389c7f1586f3506a782f584b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetManager::onPreDestroyInstance </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>last chance for the instance to clean up before shut down </p>
-
-<p>Reimplemented from <a class="el" href="class_igor_aux_1_1ia_singleton.html#ac99a4082356800d8f0ece5640dba6f76">IgorAux::iaSingleton&lt; iWidgetManager &gt;</a>.</p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00675">675</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -1156,42 +590,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00505">505</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_manager_a7d62aba88bb0d811d81dde5365d5e0a5_cgraph.svg" width="506" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="ad4067d050d6c5370cd86377054d8d7b2"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetManager::registerHandles </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>registers to mouse and keyboard evetns </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00156">156</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a821216ee4685ab6e4cf3ef410408b541"></a>
@@ -1214,8 +612,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00778">778</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -1240,8 +636,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00788">788</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a2203f4d58ceb07b367454b3078d71996"></a>
@@ -1264,8 +658,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00718">718</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -1290,8 +682,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00728">728</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a1966bd1e66d71ac481560ebf02276107"></a>
@@ -1314,8 +704,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00733">733</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -1340,8 +728,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00738">738</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a365c43c511f2fb124b2945c34ca9c59a"></a>
@@ -1365,8 +751,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00748">748</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aad1abfab06f6a19c643255cc4afb9cef"></a>
@@ -1389,8 +773,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00753">753</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -1426,16 +808,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00533">533</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_manager_a9f6da06bc992b930d9cc81c821611fe0_cgraph.svg" width="506" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="aa6f1e1a10d0cb78294680fcfc2bb5163"></a>
@@ -1459,34 +831,6 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>reset modal flag </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00151">151</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5080ec7952da73e9d07c80724ffe9e9a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetManager::runDeleteQueues </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>destroyes widgets that where put in to the delete queues before </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00680">680</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -1523,8 +867,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00456">456</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a296e238e7d791812cae1164ff0ebd11e"></a>
@@ -1550,8 +892,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>set this widget exclusively modal </p>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00132">132</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a8aab72ea9ce2fdf39ddda2e6f38c8a20"></a>
@@ -1574,8 +914,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00477">477</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -1611,112 +949,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00101">101</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="acd1ffbaaa9e72e5d71fb466fffb2109c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetManager::traverseAlignment </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_widget.html">iWidget</a> *&#160;</td>
-          <td class="paramname"><em>widget</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int32&#160;</td>
-          <td class="paramname"><em>offsetX</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int32&#160;</td>
-          <td class="paramname"><em>offsetY</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int32&#160;</td>
-          <td class="paramname"><em>clientRectWidth</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int32&#160;</td>
-          <td class="paramname"><em>clientRectHeight</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>traverse widget tree and updates alignment </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00437">437</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_manager_acd1ffbaaa9e72e5d71fb466fffb2109c_cgraph.svg" width="404" height="256"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="ad703466c81a5e5525921e591bcd1a30e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetManager::traverseContentSize </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_widget.html">iWidget</a> *&#160;</td>
-          <td class="paramname"><em>widget</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>traverse widget tree and updates positions and sizes</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">widget</td><td>current widget to update </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00424">424</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_manager_ad703466c81a5e5525921e591bcd1a30e_cgraph.svg" width="380" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a57d32d46b3ba88d60026d3b947370ce2"></a>
@@ -1739,42 +971,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00519">519</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_manager_a57d32d46b3ba88d60026d3b947370ce2_cgraph.svg" width="511" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="ac4e6880db6e1275e408c223d85ba91ae"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetManager::unregisterHandles </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>unregister from mouse and keyboard evetns </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00170">170</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -1799,8 +995,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00783">783</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a52eb41ad281f226c694b565cfbe31a2e"></a>
@@ -1823,8 +1017,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00793">793</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -1849,8 +1041,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00723">723</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a34ccb4d91781f879aef180e71c6838a6"></a>
@@ -1873,8 +1063,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00758">758</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -1899,8 +1087,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00763">763</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a2e06d7fd40751b90f470facd2954be0f"></a>
@@ -1923,8 +1109,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00743">743</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -1949,8 +1133,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00768">768</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ae34d7b20eaed5ad0fe1395a1e15db997"></a>
@@ -1973,8 +1155,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00773">773</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -1999,16 +1179,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8cpp_source.html#l00547">547</a> of file <a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_manager_a89bb6b0115ded8f03a573f3b7416ea34_cgraph.svg" width="516" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -2031,474 +1201,11 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>needs to be friends with singleton base class in order to be a singleton </p>
 
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00067">67</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a1e429187657d73130015f906ac16088a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_widget_base_theme.html">iWidgetBaseTheme</a>* Igor::iWidgetManager::_currentTheme = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>pointer to current theme </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00353">353</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab9df8abff42bec0c4d6c3c1504f80eaf"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iWidgetManager::_desktopHeight = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current desktop height </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00377">377</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6b6040d149d0eec63c710dbbfc673e6a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iWidgetManager::_desktopWidth = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current desktop width </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00373">373</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="abf36d19482653095c61758dc7efbd57d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;uint64, <a class="el" href="class_igor_1_1i_dialog.html">iDialog</a>*&gt; Igor::iWidgetManager::_dialogs</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of all dialogs </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00361">361</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a94acdbd1dc5cb00fc4ac267622a45221"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;uint64, iInstanciateDialogDelegate&gt; Igor::iWidgetManager::_dialogTypes</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>registered dialog types </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00313">313</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9c2db1e712740f5d62dc2f2a39071464"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iMouseKeyDoubleClickEvent Igor::iWidgetManager::_doubleClickEvent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mouse double click event </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00337">337</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7c8f84ef6f731dcfd85a3b39ed9251d7"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iKeyDownEvent Igor::iWidgetManager::_keyDownEvent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>keyboard down event </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00329">329</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa4ad30f158e631a1311361c96dfd099e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iKeyUpEvent Igor::iWidgetManager::_keyUpEvent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>keyboard up event </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00333">333</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac4273d91d48225148857eb1c3d37ae5f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_dialog.html">iDialog</a> * Igor::iWidgetManager::_modal = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>modal marker </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00317">317</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2f5e513b4b00a90affe71d7d38fd5796"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iMouseKeyDownEvent Igor::iWidgetManager::_mouseKeyDownEvent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mouse key down event </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00321">321</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="affb908de515b6446421f3b6b4efb58b7"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iMouseKeyUpEvent Igor::iWidgetManager::_mouseKeyUpEvent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mouse key up event </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00325">325</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab5bb8a5bb969dd5a66aeba1c4c069757"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iMouseMoveEvent Igor::iWidgetManager::_moveEvent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mouse move event </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00345">345</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae179ab953184abdc82807230928b0abf"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iMouseMoveFullEvent Igor::iWidgetManager::_moveFullEvent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mouse move event </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00341">341</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4c389c895afb7e7bf6340ca902311492"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">deque&lt;<a class="el" href="class_igor_1_1i_dialog.html">iDialog</a>*&gt; Igor::iWidgetManager::_toDeleteDialogs</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of dialogs to delete </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00369">369</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a663e12f1984344a33d3ae1b487870ba5"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">deque&lt;<a class="el" href="class_igor_1_1i_widget.html">iWidget</a>*&gt; Igor::iWidgetManager::_toDeleteWidgets</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of widgets to delete </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00365">365</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac60eb4e2e378c9b7e8db0d079f317e2a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a9f4d278020d24f0b41171f05e05a729d">iaVector2i</a> Igor::iWidgetManager::_tooltipPos</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>tooltip position </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00381">381</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad5b267d04dae248960dedd2027c2ad9a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> Igor::iWidgetManager::_tooltipText</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>tooltip text </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00385">385</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7ed37460b9ef32f2aa781e8c7a6e7a3f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iMouseWheelEvent Igor::iWidgetManager::_wheelEvent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mouse wheel event </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00349">349</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2ffe2539040c6cd68d2d499af0609142"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;uint64, <a class="el" href="class_igor_1_1i_widget.html">iWidget</a>*&gt; Igor::iWidgetManager::_widgets</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of all widgets </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00357">357</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="afca7a438ec9e8da35367c4a98609ccae"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;uint64, iInstanciateWidgetDelegate&gt; Igor::iWidgetManager::_widgetTypes</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>registered widget types </p>
-
-<p>Definition at line <a class="el" href="i_widget_manager_8h_source.html#l00309">309</a> of file <a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_widget_manager_8h_source.html">iWidgetManager.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_widget_manager_8cpp_source.html">iWidgetManager.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_widget_manager_8h.html">iWidgetManager.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_widget_manager_8cpp.html">iWidgetManager.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -2507,7 +1214,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_widget_manager.html">iWidgetManager</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:14 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,8 +111,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_entity_manager.html','
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_entity_manager-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -120,19 +118,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_entity_manager.html','
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_entity_manager_8h_source.html">iEntityManager.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iEntityManager:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_entity_manager__inherit__graph.svg" width="212" height="218"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iEntityManager:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_entity_manager__coll__graph.svg" width="474" height="231"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iEntityManager.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iEntityManager &gt;</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -146,26 +134,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3b06aaa1361239b37f60bb419079582b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28701eda1decf679b3e1ab6dc1bbb845"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_entity_manager.html#a28701eda1decf679b3e1ab6dc1bbb845">handle</a> ()</td></tr>
 <tr class="separator:a28701eda1decf679b3e1ab6dc1bbb845"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ab9b59ef33842272f13fc52d1b1150c4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_entity_manager.html#ab9b59ef33842272f13fc52d1b1150c4b">registerEntity</a> (<a class="el" href="class_igor_1_1i_entity.html">iEntity</a> *entity)</td></tr>
-<tr class="separator:ab9b59ef33842272f13fc52d1b1150c4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb46a3d1907122eaee3a45b59df5deeb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_entity_manager.html#aeb46a3d1907122eaee3a45b59df5deeb">unregisterEntity</a> (<a class="el" href="class_igor_1_1i_entity.html">iEntity</a> *entity)</td></tr>
-<tr class="separator:aeb46a3d1907122eaee3a45b59df5deeb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a9a9d97926732d40a83fb57d17b59f4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_entity_manager.html#a1a9a9d97926732d40a83fb57d17b59f4">iEntityManager</a> ()</td></tr>
-<tr class="separator:a1a9a9d97926732d40a83fb57d17b59f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03ca9afa2cf3249db52b6bee8bb5bb50"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_entity_manager.html#a03ca9afa2cf3249db52b6bee8bb5bb50">~iEntityManager</a> ()</td></tr>
-<tr class="separator:a03ca9afa2cf3249db52b6bee8bb5bb50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:afc648f7a7b2e30af2495229339773e1f"><td class="memItemLeft" align="right" valign="top">map&lt; uint64, <a class="el" href="class_igor_1_1i_entity.html">iEntity</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_entity_manager.html#afc648f7a7b2e30af2495229339773e1f">_entities</a></td></tr>
-<tr class="separator:afc648f7a7b2e30af2495229339773e1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d69e4fae16ff29a5bc6be067419d2fa"><td class="memItemLeft" align="right" valign="top">vector&lt; uint64 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_entity_manager.html#a8d69e4fae16ff29a5bc6be067419d2fa">_toDelete</a></td></tr>
-<tr class="separator:a8d69e4fae16ff29a5bc6be067419d2fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68711e9d71341ab93f608d00ba943b09"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_octree.html">iOctree</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_entity_manager.html#a68711e9d71341ab93f608d00ba943b09">_octree</a> = nullptr</td></tr>
-<tr class="separator:a68711e9d71341ab93f608d00ba943b09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -199,62 +167,7 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>entities manager (singleton)</p>
 <p>After experimenting with some ECS (entity component systems) ideas I decided that it is in my case not worth the effort as long as there is not an army of artists and content creators that would work for me. So I stick with the classical approach using inherritance to define entities even if this provokes potencially ugly code within the application layer. I don't care. I want to keep the engine clean. ML </p>
-
-<p>Definition at line <a class="el" href="i_entity_manager_8h_source.html#l00050">50</a> of file <a class="el" href="i_entity_manager_8h_source.html">iEntityManager.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a1a9a9d97926732d40a83fb57d17b59f4"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iEntityManager::iEntityManager </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>create octree </p>
-
-<p>Definition at line <a class="el" href="i_entity_manager_8cpp_source.html#l00013">13</a> of file <a class="el" href="i_entity_manager_8cpp_source.html">iEntityManager.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a03ca9afa2cf3249db52b6bee8bb5bb50"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iEntityManager::~iEntityManager </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>cleanup </p>
-
-<p>Definition at line <a class="el" href="i_entity_manager_8cpp_source.html#l00018">18</a> of file <a class="el" href="i_entity_manager_8cpp_source.html">iEntityManager.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a17deb15d05c5132439626a376c138863"></a>
 <div class="memitem">
 <div class="memproto">
@@ -275,8 +188,6 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_entity_manager_8cpp_source.html#l00081">81</a> of file <a class="el" href="i_entity_manager_8cpp_source.html">iEntityManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -312,16 +223,6 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_entity_manager_8cpp_source.html#l00065">65</a> of file <a class="el" href="i_entity_manager_8cpp_source.html">iEntityManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_entity_manager_a1be0eeeb3a34c74b1e64068f6ffcf526_cgraph.svg" width="726" height="190"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a3b06aaa1361239b37f60bb419079582b"></a>
@@ -344,8 +245,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_entity_manager_8cpp_source.html#l00073">73</a> of file <a class="el" href="i_entity_manager_8cpp_source.html">iEntityManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -370,8 +269,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_entity_manager_8cpp_source.html#l00028">28</a> of file <a class="el" href="i_entity_manager_8cpp_source.html">iEntityManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a28701eda1decf679b3e1ab6dc1bbb845"></a>
@@ -387,100 +284,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>calls all entities handles and updates positions in spatial db </p>
-
-<p>Definition at line <a class="el" href="i_entity_manager_8cpp_source.html#l00086">86</a> of file <a class="el" href="i_entity_manager_8cpp_source.html">iEntityManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_entity_manager_a28701eda1decf679b3e1ab6dc1bbb845_cgraph.svg" width="692" height="195"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="ab9b59ef33842272f13fc52d1b1150c4b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iEntityManager::registerEntity </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_entity.html">iEntity</a> *&#160;</td>
-          <td class="paramname"><em>entity</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>registers an entity</p>
-<p>all entities call this them selves in their constructor</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entity</td><td>entity to register </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_entity_manager_8cpp_source.html#l00041">41</a> of file <a class="el" href="i_entity_manager_8cpp_source.html">iEntityManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_entity_manager_ab9b59ef33842272f13fc52d1b1150c4b_cgraph.svg" width="511" height="155"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="aeb46a3d1907122eaee3a45b59df5deeb"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iEntityManager::unregisterEntity </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_entity.html">iEntity</a> *&#160;</td>
-          <td class="paramname"><em>entity</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>unregister entity</p>
-<p>all entities call this them selves in their destructor</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entity</td><td>entity to unregister </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_entity_manager_8cpp_source.html#l00054">54</a> of file <a class="el" href="i_entity_manager_8cpp_source.html">iEntityManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_entity_manager_aeb46a3d1907122eaee3a45b59df5deeb_cgraph.svg" width="963" height="114"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -503,8 +306,6 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_entity_manager_8h_source.html#l00053">53</a> of file <a class="el" href="i_entity_manager_8h_source.html">iEntityManager.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a021b8fb3624ee7fa31246cd91dfac21c"></a>
@@ -524,8 +325,6 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_entity_manager_8h_source.html#l00054">54</a> of file <a class="el" href="i_entity_manager_8h_source.html">iEntityManager.h</a>.</p>
 
 </div>
 </div>
@@ -547,83 +346,11 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_entity_manager_8h_source.html#l00055">55</a> of file <a class="el" href="i_entity_manager_8h_source.html">iEntityManager.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="afc648f7a7b2e30af2495229339773e1f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;uint64, <a class="el" href="class_igor_1_1i_entity.html">iEntity</a>*&gt; Igor::iEntityManager::_entities</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of all the entities </p>
-
-<p>Definition at line <a class="el" href="i_entity_manager_8h_source.html#l00092">92</a> of file <a class="el" href="i_entity_manager_8h_source.html">iEntityManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a68711e9d71341ab93f608d00ba943b09"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_octree.html">iOctree</a>* Igor::iEntityManager::_octree = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>spatial db of positioned entitties </p>
-
-<p>Definition at line <a class="el" href="i_entity_manager_8h_source.html#l00100">100</a> of file <a class="el" href="i_entity_manager_8h_source.html">iEntityManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a8d69e4fae16ff29a5bc6be067419d2fa"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;uint64&gt; Igor::iEntityManager::_toDelete</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of all entitties which are marked for deletion </p>
-
-<p>Definition at line <a class="el" href="i_entity_manager_8h_source.html#l00096">96</a> of file <a class="el" href="i_entity_manager_8h_source.html">iEntityManager.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_entity_manager_8h_source.html">iEntityManager.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_entity_manager_8cpp_source.html">iEntityManager.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_entity_manager_8h.html">iEntityManager.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_entity_manager_8cpp.html">iEntityManager.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -632,7 +359,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_entity_manager.html">iEntityManager</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:46 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

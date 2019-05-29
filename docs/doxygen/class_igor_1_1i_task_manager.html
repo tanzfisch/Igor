@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -113,9 +113,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_task_manager.html','')
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_task_manager-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -123,25 +120,10 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_task_manager.html','')
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iTaskManager:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_manager__inherit__graph.svg" width="206" height="218"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iTaskManager:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_manager__coll__graph.svg" width="466" height="304"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iTaskManager.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iTaskManager &gt;</a>.</p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_igor_1_1i_task_manager_1_1_thread_context.html">ThreadContext</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ae93d2e816f65a8b226c554b2bb8d6c1e"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#ae93d2e816f65a8b226c554b2bb8d6c1e">addTask</a> (<a class="el" href="class_igor_1_1i_task.html">iTask</a> *task)</td></tr>
@@ -181,68 +163,6 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:adb3d4b5589facbbd3c913a430853d1d6 inherit pub_static_methods_class_igor_aux_1_1ia_singleton"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_singleton.html#adb3d4b5589facbbd3c913a430853d1d6">isInstantiated</a> ()</td></tr>
 <tr class="separator:adb3d4b5589facbbd3c913a430853d1d6 inherit pub_static_methods_class_igor_aux_1_1ia_singleton"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a8f02fd3959c51b04be63e493900f7ffd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#a8f02fd3959c51b04be63e493900f7ffd">workWithRegularTasks</a> (<a class="el" href="class_igor_1_1i_thread.html">iThread</a> *thread)</td></tr>
-<tr class="separator:a8f02fd3959c51b04be63e493900f7ffd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4aed6fc8a88ff9ef945de21743f35208"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#a4aed6fc8a88ff9ef945de21743f35208">workWithRenderContextTasks</a> (<a class="el" href="class_igor_1_1i_thread.html">iThread</a> *thread)</td></tr>
-<tr class="separator:a4aed6fc8a88ff9ef945de21743f35208"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd56371d55dce22e809d0a2f5ea9fead"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#afd56371d55dce22e809d0a2f5ea9fead">createRenderContextThreads</a> (<a class="el" href="class_igor_1_1i_window.html">iWindow</a> *window)</td></tr>
-<tr class="separator:afd56371d55dce22e809d0a2f5ea9fead"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0371f43d29ddf818acc2f161d6a060f3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#a0371f43d29ddf818acc2f161d6a060f3">createRenderContextThread</a> (<a class="el" href="class_igor_1_1i_window.html">iWindow</a> *window)</td></tr>
-<tr class="separator:a0371f43d29ddf818acc2f161d6a060f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a126ae56c1464dd6a28bee0ffda70a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#a4a126ae56c1464dd6a28bee0ffda70a5">killRenderContextThreads</a> (<a class="el" href="class_igor_1_1i_window.html">iWindow</a> *window)</td></tr>
-<tr class="separator:a4a126ae56c1464dd6a28bee0ffda70a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8af31ae39ff0bef36e31483276e5d206"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#a8af31ae39ff0bef36e31483276e5d206">createRegularThread</a> ()</td></tr>
-<tr class="separator:a8af31ae39ff0bef36e31483276e5d206"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad73b975973467369ec209771d8812f34"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#ad73b975973467369ec209771d8812f34">flushIncommingTasks</a> ()</td></tr>
-<tr class="separator:ad73b975973467369ec209771d8812f34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9fbf069776eea9885e9cee3c5178f99"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#ad9fbf069776eea9885e9cee3c5178f99">iTaskManager</a> ()</td></tr>
-<tr class="separator:ad9fbf069776eea9885e9cee3c5178f99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9792db3fd44be814048eb1bc9c1838d"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#aa9792db3fd44be814048eb1bc9c1838d">~iTaskManager</a> ()</td></tr>
-<tr class="separator:aa9792db3fd44be814048eb1bc9c1838d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a68fdfb0a368010378b79193762a37908"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#a68fdfb0a368010378b79193762a37908">_tasksDone</a> = 0</td></tr>
-<tr class="separator:a68fdfb0a368010378b79193762a37908"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1f174cc8a6ab47368c4e8471c30683e"><td class="memItemLeft" align="right" valign="top">iTaskFinishedEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#ad1f174cc8a6ab47368c4e8471c30683e">_taskFinished</a></td></tr>
-<tr class="separator:ad1f174cc8a6ab47368c4e8471c30683e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab2cc76f5974591b39f0566888d3fad62"><td class="memItemLeft" align="right" valign="top">list&lt; <a class="el" href="class_igor_1_1i_task.html">iTask</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#ab2cc76f5974591b39f0566888d3fad62">_tasksIncomming</a></td></tr>
-<tr class="separator:ab2cc76f5974591b39f0566888d3fad62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb6a464d4bb1fccccee9ed39d8c933cf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#abb6a464d4bb1fccccee9ed39d8c933cf">_mutexIncommingTasks</a></td></tr>
-<tr class="separator:abb6a464d4bb1fccccee9ed39d8c933cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe416fd761bc46b3eb5940b057ed5c9f"><td class="memItemLeft" align="right" valign="top">map&lt; uint64, <a class="el" href="class_igor_1_1i_task.html">iTask</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#afe416fd761bc46b3eb5940b057ed5c9f">_allTasks</a></td></tr>
-<tr class="separator:afe416fd761bc46b3eb5940b057ed5c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2837e254775dfbdd529015191dcd89c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#ac2837e254775dfbdd529015191dcd89c">_mutexAllTasks</a></td></tr>
-<tr class="separator:ac2837e254775dfbdd529015191dcd89c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39a8d834aa5f057441bfc5c5f35e0667"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_igor_1_1i_thread.html">iThread</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#a39a8d834aa5f057441bfc5c5f35e0667">_regularThreads</a></td></tr>
-<tr class="separator:a39a8d834aa5f057441bfc5c5f35e0667"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f35886b469c21c8c7fe24b6871817e6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#a7f35886b469c21c8c7fe24b6871817e6">_mutexRegularThreads</a></td></tr>
-<tr class="separator:a7f35886b469c21c8c7fe24b6871817e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a914ff5b82a923221229b1fa3089c1794"><td class="memItemLeft" align="right" valign="top">map&lt; <a class="el" href="class_igor_1_1i_render_context_thread.html">iRenderContextThread</a> <br class="typebreak" />
-*, <a class="el" href="struct_igor_1_1i_task_manager_1_1_thread_context.html">ThreadContext</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#a914ff5b82a923221229b1fa3089c1794">_renderContextThreads</a></td></tr>
-<tr class="separator:a914ff5b82a923221229b1fa3089c1794"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9802e4adde06483d792530bd1074b62"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#aa9802e4adde06483d792530bd1074b62">_mutexRenderContextThreads</a></td></tr>
-<tr class="separator:aa9802e4adde06483d792530bd1074b62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5f5915b05ec60f7a3d09188d1a30e39"><td class="memItemLeft" align="right" valign="top">list&lt; <a class="el" href="class_igor_1_1i_task.html">iTask</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#af5f5915b05ec60f7a3d09188d1a30e39">_regularTasksQueued</a></td></tr>
-<tr class="separator:af5f5915b05ec60f7a3d09188d1a30e39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad01c2770517ab6b404387cf4fdd31925"><td class="memItemLeft" align="right" valign="top">list&lt; <a class="el" href="class_igor_1_1i_task.html">iTask</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#ad01c2770517ab6b404387cf4fdd31925">_regularTasksRunning</a></td></tr>
-<tr class="separator:ad01c2770517ab6b404387cf4fdd31925"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0353bc60acbb59f09b23856ea1a851e4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#a0353bc60acbb59f09b23856ea1a851e4">_mutexRegularTasks</a></td></tr>
-<tr class="separator:a0353bc60acbb59f09b23856ea1a851e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a580ee8be3d9a168df5bfa1c99fc37149"><td class="memItemLeft" align="right" valign="top">list&lt; <a class="el" href="class_igor_1_1i_task.html">iTask</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#a580ee8be3d9a168df5bfa1c99fc37149">_renderContextTasksQueued</a></td></tr>
-<tr class="separator:a580ee8be3d9a168df5bfa1c99fc37149"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4c979ccd27960d1347f1d638ddd3fb0"><td class="memItemLeft" align="right" valign="top">list&lt; <a class="el" href="class_igor_1_1i_task.html">iTask</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#ad4c979ccd27960d1347f1d638ddd3fb0">_renderContextTasksRunning</a></td></tr>
-<tr class="separator:ad4c979ccd27960d1347f1d638ddd3fb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42891365ae004eaa68a0eff9346940d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#a42891365ae004eaa68a0eff9346940d0">_mutexRenderContextTasks</a></td></tr>
-<tr class="separator:a42891365ae004eaa68a0eff9346940d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
-Static Private Attributes</h2></td></tr>
-<tr class="memitem:a76d729bb64b931ac45e817c486c68df0"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#a76d729bb64b931ac45e817c486c68df0">_running</a> = false</td></tr>
-<tr class="separator:a76d729bb64b931ac45e817c486c68df0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a7fc6c2f362fef5e60937f257fd5cde11"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task_manager.html#a7fc6c2f362fef5e60937f257fd5cde11">iaSingleton&lt; iTaskManager &gt;</a></td></tr>
@@ -265,79 +185,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>manages tasks to be done in parallel</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000079">Todo:</a></b></dt><dd>there should be IDs for tasks so we can sefely kill tasks later by ID </dd></dl>
-
-<p>Definition at line <a class="el" href="i_task_manager_8h_source.html#l00059">59</a> of file <a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ad9fbf069776eea9885e9cee3c5178f99"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iTaskManager::iTaskManager </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>creates some regular threads and starts them </p>
-
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00021">21</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_manager_ad9fbf069776eea9885e9cee3c5178f99_cgraph.svg" width="972" height="652"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="aa9792db3fd44be814048eb1bc9c1838d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iTaskManager::~iTaskManager </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>stops all threads and cleans up </p>
-
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00037">37</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_manager_aa9792db3fd44be814048eb1bc9c1838d_cgraph.svg" width="560" height="92"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="aa9fb1383733adb35e53b432fb663abbb"></a>
 <div class="memitem">
 <div class="memproto">
@@ -358,16 +206,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00129">129</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_manager_aa9fb1383733adb35e53b432fb663abbb_cgraph.svg" width="538" height="122"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -394,191 +232,6 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the task's id </dd></dl>
 
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00510">510</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_manager_ae93d2e816f65a8b226c554b2bb8d6c1e_cgraph.svg" width="358" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a8af31ae39ff0bef36e31483276e5d206"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iTaskManager::createRegularThread </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>creates a regular thread </p>
-
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00209">209</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_manager_a8af31ae39ff0bef36e31483276e5d206_cgraph.svg" width="792" height="652"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_manager_a8af31ae39ff0bef36e31483276e5d206_icgraph.svg" width="340" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a0371f43d29ddf818acc2f161d6a060f3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iTaskManager::createRenderContextThread </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_window.html">iWindow</a> *&#160;</td>
-          <td class="paramname"><em>window</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>creates a render context thread</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">window</td><td>the window this render context is connected to </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true if success </dd></dl>
-
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00187">187</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_manager_a0371f43d29ddf818acc2f161d6a060f3_cgraph.svg" width="876" height="570"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_manager_a0371f43d29ddf818acc2f161d6a060f3_icgraph.svg" width="448" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="afd56371d55dce22e809d0a2f5ea9fead"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iTaskManager::createRenderContextThreads </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_window.html">iWindow</a> *&#160;</td>
-          <td class="paramname"><em>window</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>creates a number of render context threads for a specified window</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">window</td><td>the window thes render contexts are connected with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00173">173</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_manager_afd56371d55dce22e809d0a2f5ea9fead_cgraph.svg" width="1123" height="570"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="ad73b975973467369ec209771d8812f34"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iTaskManager::flushIncommingTasks </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>flush incomming tasks queue to task list </p>
-
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00461">461</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_manager_ad73b975973467369ec209771d8812f34_cgraph.svg" width="380" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_manager_ad73b975973467369ec209771d8812f34_icgraph.svg" width="904" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a1209fa89e61399bb29ed6516a3393e0f"></a>
@@ -594,8 +247,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>tasks in queue count </dd></dl>
-
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00148">148</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -613,8 +264,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>render context tasks in queue count </dd></dl>
 
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00158">158</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ac5fdd82df66d79952863c303b5fea0c0"></a>
@@ -630,8 +279,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>regular thread count </dd></dl>
-
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00138">138</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -649,8 +296,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>render context thread count </dd></dl>
 
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00143">143</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aedbf90046cde47b5f6d487953a13bf0d"></a>
@@ -666,8 +311,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>running tasks count </dd></dl>
-
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00153">153</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -685,8 +328,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>running render context tasks count </dd></dl>
 
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00163">163</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a8ed56b9d225d6be4b42a23c71fa715a2"></a>
@@ -702,8 +343,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>how many tasks where done since program start </dd></dl>
-
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00380">380</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -727,24 +366,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00495">495</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_manager_a443ca201f4e6fdfc673c232c7b839fe9_cgraph.svg" width="358" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_manager_a443ca201f4e6fdfc673c232c7b839fe9_icgraph.svg" width="323" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -770,57 +391,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if the task manager is running </dd></dl>
 
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00168">168</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_manager_adfa0bd6c22c3afe1709e626e8197794e_icgraph.svg" width="882" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a4a126ae56c1464dd6a28bee0ffda70a5"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iTaskManager::killRenderContextThreads </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_window.html">iWindow</a> *&#160;</td>
-          <td class="paramname"><em>window</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>kills all render context tasks and threads that are associated with a specified window</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">window</td><td>the window these tasks and threads are associated with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00219">219</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_manager_a4a126ae56c1464dd6a28bee0ffda70a5_cgraph.svg" width="404" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a4a35f55cfff078416fb0b94f3928f037"></a>
@@ -843,8 +413,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00551">551</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
 
 </div>
 </div>
@@ -869,106 +437,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00556">556</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a8f02fd3959c51b04be63e493900f7ffd"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iTaskManager::workWithRegularTasks </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_thread.html">iThread</a> *&#160;</td>
-          <td class="paramname"><em>thread</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the method a regular thread is launched with</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">thread</td><td>the thread this method is launched with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00385">385</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_manager_a8f02fd3959c51b04be63e493900f7ffd_cgraph.svg" width="595" height="526"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_manager_a8f02fd3959c51b04be63e493900f7ffd_icgraph.svg" width="551" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a4aed6fc8a88ff9ef945de21743f35208"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iTaskManager::workWithRenderContextTasks </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_thread.html">iThread</a> *&#160;</td>
-          <td class="paramname"><em>thread</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the method a thread with render context is launched with</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">thread</td><td>the thread this method is launched with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_task_manager_8cpp_source.html#l00294">294</a> of file <a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_manager_a4aed6fc8a88ff9ef945de21743f35208_cgraph.svg" width="638" height="408"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_manager_a4aed6fc8a88ff9ef945de21743f35208_icgraph.svg" width="702" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -990,8 +458,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_task_manager_8h_source.html#l00062">62</a> of file <a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a62b10979f57015cc1e2e958bbd9308bc"></a>
@@ -1012,406 +478,11 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_task_manager_8h_source.html#l00063">63</a> of file <a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="afe416fd761bc46b3eb5940b057ed5c9f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;uint64, <a class="el" href="class_igor_1_1i_task.html">iTask</a>*&gt; Igor::iTaskManager::_allTasks</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of all tasks </p>
-
-<p>Definition at line <a class="el" href="i_task_manager_8h_source.html#l00173">173</a> of file <a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac2837e254775dfbdd529015191dcd89c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> Igor::iTaskManager::_mutexAllTasks</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex for all tasks list </p>
-
-<p>Definition at line <a class="el" href="i_task_manager_8h_source.html#l00177">177</a> of file <a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="abb6a464d4bb1fccccee9ed39d8c933cf"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> Igor::iTaskManager::_mutexIncommingTasks</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex for incomming tasks </p>
-
-<p>Definition at line <a class="el" href="i_task_manager_8h_source.html#l00169">169</a> of file <a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a0353bc60acbb59f09b23856ea1a851e4"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> Igor::iTaskManager::_mutexRegularTasks</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex for regular tasks </p>
-
-<p>Definition at line <a class="el" href="i_task_manager_8h_source.html#l00207">207</a> of file <a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7f35886b469c21c8c7fe24b6871817e6"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> Igor::iTaskManager::_mutexRegularThreads</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex for regular threads </p>
-
-<p>Definition at line <a class="el" href="i_task_manager_8h_source.html#l00185">185</a> of file <a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a42891365ae004eaa68a0eff9346940d0"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> Igor::iTaskManager::_mutexRenderContextTasks</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex for render context tasks </p>
-
-<p>Definition at line <a class="el" href="i_task_manager_8h_source.html#l00219">219</a> of file <a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa9802e4adde06483d792530bd1074b62"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> Igor::iTaskManager::_mutexRenderContextThreads</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex for render context threads </p>
-
-<p>Definition at line <a class="el" href="i_task_manager_8h_source.html#l00195">195</a> of file <a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af5f5915b05ec60f7a3d09188d1a30e39"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">list&lt;<a class="el" href="class_igor_1_1i_task.html">iTask</a>*&gt; Igor::iTaskManager::_regularTasksQueued</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of queued tasks </p>
-
-<p>Definition at line <a class="el" href="i_task_manager_8h_source.html#l00199">199</a> of file <a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad01c2770517ab6b404387cf4fdd31925"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">list&lt;<a class="el" href="class_igor_1_1i_task.html">iTask</a>*&gt; Igor::iTaskManager::_regularTasksRunning</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of running tasks </p>
-
-<p>Definition at line <a class="el" href="i_task_manager_8h_source.html#l00203">203</a> of file <a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a39a8d834aa5f057441bfc5c5f35e0667"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="class_igor_1_1i_thread.html">iThread</a>*&gt; Igor::iTaskManager::_regularThreads</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of regular threads </p>
-
-<p>Definition at line <a class="el" href="i_task_manager_8h_source.html#l00181">181</a> of file <a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a580ee8be3d9a168df5bfa1c99fc37149"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">list&lt;<a class="el" href="class_igor_1_1i_task.html">iTask</a>*&gt; Igor::iTaskManager::_renderContextTasksQueued</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of queued tasks that need render context </p>
-
-<p>Definition at line <a class="el" href="i_task_manager_8h_source.html#l00211">211</a> of file <a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad4c979ccd27960d1347f1d638ddd3fb0"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">list&lt;<a class="el" href="class_igor_1_1i_task.html">iTask</a>*&gt; Igor::iTaskManager::_renderContextTasksRunning</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of running tasks that need render context </p>
-
-<p>Definition at line <a class="el" href="i_task_manager_8h_source.html#l00215">215</a> of file <a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a914ff5b82a923221229b1fa3089c1794"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;<a class="el" href="class_igor_1_1i_render_context_thread.html">iRenderContextThread</a>*, <a class="el" href="struct_igor_1_1i_task_manager_1_1_thread_context.html">ThreadContext</a>&gt; Igor::iTaskManager::_renderContextThreads</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of render context threads</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000081">Todo:</a></b></dt><dd>check if we realy need the extra data. because the thread it self has that data too </dd></dl>
-
-<p>Definition at line <a class="el" href="i_task_manager_8h_source.html#l00191">191</a> of file <a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a76d729bb64b931ac45e817c486c68df0"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iTaskManager::_running = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>if true the task manager is running </p>
-
-<p>Definition at line <a class="el" href="i_task_manager_8h_source.html#l00161">161</a> of file <a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad1f174cc8a6ab47368c4e8471c30683e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iTaskFinishedEvent Igor::iTaskManager::_taskFinished</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>task finished event </p>
-
-<p>Definition at line <a class="el" href="i_task_manager_8h_source.html#l00157">157</a> of file <a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a68fdfb0a368010378b79193762a37908"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iTaskManager::_tasksDone = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>counts how many tasks where done </p>
-
-<p>Definition at line <a class="el" href="i_task_manager_8h_source.html#l00153">153</a> of file <a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab2cc76f5974591b39f0566888d3fad62"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">list&lt;<a class="el" href="class_igor_1_1i_task.html">iTask</a>*&gt; Igor::iTaskManager::_tasksIncomming</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>incomming tasks </p>
-
-<p>Definition at line <a class="el" href="i_task_manager_8h_source.html#l00165">165</a> of file <a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_task_manager_8h_source.html">iTaskManager.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_task_manager_8cpp_source.html">iTaskManager.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_task_manager_8h.html">iTaskManager.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_task_manager_8cpp.html">iTaskManager.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -1420,7 +491,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_task_manager.html">iTaskManager</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:06 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

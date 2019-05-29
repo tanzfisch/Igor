@@ -1,28 +1,12 @@
 var class_igor_1_1i_model_resource_factory =
 [
-    [ "iModelResourceFactory", "class_igor_1_1i_model_resource_factory.html#a3424cf6379e9f7fe9367b0474e503d1d", null ],
-    [ "~iModelResourceFactory", "class_igor_1_1i_model_resource_factory.html#a0c82a68c6596d90769a70eaf5788c8f2", null ],
-    [ "calcModelDataIOHashValue", "class_igor_1_1i_model_resource_factory.html#aa9de5e8cfad96b7f59f0e4a03202889f", null ],
-    [ "calcResourceHashValue", "class_igor_1_1i_model_resource_factory.html#a5e3f7c028e0dd29f4b5656448cc0ad5b", null ],
     [ "exportModelData", "class_igor_1_1i_model_resource_factory.html#aa57fd26de32bd67598256e6d1de15e79", null ],
     [ "flush", "class_igor_1_1i_model_resource_factory.html#a43d07adb8bc7e0c540b43ccb435c8d96", null ],
-    [ "getModelDataIO", "class_igor_1_1i_model_resource_factory.html#a17061f0f18c43d057077ccea598c5187", null ],
     [ "interruptFlush", "class_igor_1_1i_model_resource_factory.html#adf8b23c108220bf7bd2c09fa67f82532", null ],
-    [ "loadData", "class_igor_1_1i_model_resource_factory.html#a033f69733280cccc5384ed95e3e79ba5", null ],
     [ "loadModelData", "class_igor_1_1i_model_resource_factory.html#ad9e59335280f3643cdedd6f06b5d5f4a", null ],
-    [ "onTaskFinished", "class_igor_1_1i_model_resource_factory.html#a3a1274385d74ddf575e3bcdc038f3561", null ],
     [ "registerModelDataIO", "class_igor_1_1i_model_resource_factory.html#af87d1a19bdb9dfc9f72e56682ebc63fb", null ],
     [ "requestModelData", "class_igor_1_1i_model_resource_factory.html#a813513c8995121b6a0e7e7aef03c1cfc", null ],
     [ "unregisterModelDataIO", "class_igor_1_1i_model_resource_factory.html#aebbe758443cfe43a94a94e5cb9ac3ab3", null ],
     [ "iaSingleton< iModelResourceFactory >", "class_igor_1_1i_model_resource_factory.html#a679a16fa2aa20801402dd30935a476ed", null ],
-    [ "iTaskLoadModel", "class_igor_1_1i_model_resource_factory.html#a59e4ca1178c55581c343028504664c9a", null ],
-    [ "_interrupFlush", "class_igor_1_1i_model_resource_factory.html#a332e8d6d930d1ccc51826a5858b22317", null ],
-    [ "_loadingQueue", "class_igor_1_1i_model_resource_factory.html#ae2f875990e985feac92519e902492cab", null ],
-    [ "_modelDataIOCreators", "class_igor_1_1i_model_resource_factory.html#a737c21fad0bb7e24c161a5c626054d48", null ],
-    [ "_models", "class_igor_1_1i_model_resource_factory.html#a7aba117101f5c87c7ba6c05a738c285f", null ],
-    [ "_mutexDataIOs", "class_igor_1_1i_model_resource_factory.html#a018a93d29e0e4ae7338777afee3c721a", null ],
-    [ "_mutexModelQueue", "class_igor_1_1i_model_resource_factory.html#a90b710f71dfcaf4b7a0c97b38dc48419", null ],
-    [ "_mutexModels", "class_igor_1_1i_model_resource_factory.html#a6930f0b152911d4040c952c65fac3ddd", null ],
-    [ "_mutexRunningTasks", "class_igor_1_1i_model_resource_factory.html#a71b668e18d271711dde5ffca66d23af3", null ],
-    [ "_runningTasks", "class_igor_1_1i_model_resource_factory.html#a9791e9965257fb6e99fe2260943e6506", null ]
+    [ "iTaskLoadModel", "class_igor_1_1i_model_resource_factory.html#a59e4ca1178c55581c343028504664c9a", null ]
 ];

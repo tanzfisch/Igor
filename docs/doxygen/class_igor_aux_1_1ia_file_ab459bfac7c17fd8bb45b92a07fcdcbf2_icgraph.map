@@ -1,9 +1,0 @@
-<map id="IgorAux::iaFile::exist" name="IgorAux::iaFile::exist">
-<area shape="rect" id="node2" href="$class_igor_1_1i_dialog_file_select.html#aa6db9a2fa32a6cf4d7e588b3570d16df" title="Igor::iDialogFileSelect\l::initDialog" alt="" coords="215,5,363,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_dialog_file_select.html#a10604173689810420e5fd428a72edca1" title="Igor::iDialogFileSelect\l::updateFileDir" alt="" coords="215,71,363,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_dialog_file_select.html#a455c2530a28735860064d1900a9345b7" title="Igor::iDialogFileSelect\l::close" alt="" coords="215,136,363,177"/>
-<area shape="rect" id="node5" href="$namespace_igor.html#ab4553401ec6fe3c6bf480432cfa232cb" title="Igor::startup" alt="" coords="243,202,334,229"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_model_data_i_o_o_b_j.html#a66f4b6cc84059bfe871bc0da5c42b559" title="Igor::iModelDataIOOBJ\l::readMaterialFile" alt="" coords="211,253,366,295"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_model_resource_factory.html#a17061f0f18c43d057077ccea598c5187" title="Igor::iModelResourceFactory\l::getModelDataIO" alt="" coords="195,319,383,360"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_resource_manager.html#a50b798ef01a31cf86aadbc52bbbbbffc" title="Igor::iResourceManager\l::getPath" alt="" coords="209,384,368,425"/>
-</map>

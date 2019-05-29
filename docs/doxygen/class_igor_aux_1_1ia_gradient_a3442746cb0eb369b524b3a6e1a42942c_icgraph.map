@@ -1,6 +1,0 @@
-<map id="IgorAux::iaGradient::getValue" name="IgorAux::iaGradient::getValue">
-<area shape="rect" id="node2" href="$class_igor_1_1i_dialog_color_gradient.html#aa98de9785ec066517c1f9260b79f6bce" title="Igor::iDialogColorGradient\l::onPositionChanged" alt="" coords="198,5,367,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_renderer.html#afc75af5b67dede4802299530506ed5c2" title="Igor::iRenderer::drawParticles" alt="" coords="187,71,379,98"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_renderer.html#a7d1dbb68fd7efb2c3f5605ba49060d5f" title="Igor::iRenderer::drawVelocity\lOrientedParticles" alt="" coords="189,123,377,164"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_widget_default_theme.html#a0390cd346e1ba6d34475f287df8ad01c" title="Igor::iWidgetDefaultTheme\l::drawGradient" alt="" coords="195,188,370,229"/>
-</map>

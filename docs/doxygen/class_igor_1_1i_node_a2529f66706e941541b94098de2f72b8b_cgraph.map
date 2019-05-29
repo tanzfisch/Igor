@@ -1,8 +1,0 @@
-<map id="Igor::iNode::calcWorldTransformation" name="Igor::iNode::calcWorldTransformation">
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#a43329dc1b2a6ad4056c38290c5df777d" title="Igor::iNode::getType" alt="" coords="336,5,475,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_transform.html#a576c7abc9fdf717b81bc649d9dd80838" title="Igor::iNodeTransform\l::getMatrix" alt="" coords="335,57,476,98"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#afcf6efd30c85e8c37a4261a6f27613b8" title="Igor::iNode::isChild" alt="" coords="340,123,471,149"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node.html#afcf9574e0c451509015b42b36be8a6eb" title="Igor::iNode::calcWorldTransformation" alt="" coords="288,173,523,200"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_node.html#a1b3d40431eb4c1c79e5d93ef7fe68129" title="Igor::iNode::getParent" alt="" coords="331,224,479,251"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_matrix.html#ad4c84d3532d5b7555a04018ffcba6122" title="IgorAux::iaMatrix::\lidentity" alt="" coords="571,166,699,207"/>
-</map>

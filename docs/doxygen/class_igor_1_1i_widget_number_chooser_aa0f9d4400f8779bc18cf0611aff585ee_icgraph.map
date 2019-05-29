@@ -1,6 +1,0 @@
-<map id="Igor::iWidgetNumberChooser::setSteppingWheel" name="Igor::iWidgetNumberChooser::setSteppingWheel">
-<area shape="rect" id="node2" href="$class_igor_1_1i_user_control_color_chooser.html#ac82a382282c1b5daf90091ec6494d42c" title="Igor::iUserControlColorChooser\l::createNumberChooser" alt="" coords="241,5,441,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_user_control_color_chooser.html#a350674922c28c48ed8d4f3bf45a39fdc" title="Igor::iUserControlColorChooser\l::initGUI" alt="" coords="489,5,689,47"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_user_control_color_chooser.html#a3e12c44e1c409cc8f785c67eda400a85" title="Igor::iUserControlColorChooser\l::iUserControlColorChooser" alt="" coords="737,5,937,47"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_user_control_color_chooser.html#af82f3e4ae1b705adacffcdd546439e88" title="Igor::iUserControlColorChooser\l::createInstance" alt="" coords="985,5,1185,47"/>
-</map>

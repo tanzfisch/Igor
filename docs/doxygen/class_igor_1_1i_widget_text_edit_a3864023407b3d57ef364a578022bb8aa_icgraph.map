@@ -1,8 +1,0 @@
-<map id="Igor::iWidgetTextEdit::updateMetrics" name="Igor::iWidgetTextEdit::updateMetrics">
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget_text_edit.html#aef54bae9e7cd04f78f0cf8374282f2a8" title="Igor::iWidgetTextEdit\l::incCursorPos" alt="" coords="196,5,339,47"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_widget_text_edit.html#ab9d07198c711fe84b53122d32237e90f" title="Igor::iWidgetTextEdit\l::decCursorPos" alt="" coords="196,71,339,112"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_widget_text_edit.html#ad63d8ae5769d0c305509d9f4e20ae5bb" title="Igor::iWidgetTextEdit\l::setCursorPos" alt="" coords="196,136,339,177"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget_text_edit.html#ae33a89c07b2be35b46652624a3a76348" title="Igor::iWidgetTextEdit\l::handleASCII" alt="" coords="415,5,558,47"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_widget_text_edit.html#a8dc55fe820b437af2e7fd8bf625379d7" title="Igor::iWidgetTextEdit\l::handleKeyDown" alt="" coords="415,71,558,112"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_widget_text_edit.html#afd336cfdfb20f34f57da19b12fa4e0d4" title="Igor::iWidgetTextEdit\l::handleGainedKeyboardFocus" alt="" coords="387,136,587,177"/>
-</map>

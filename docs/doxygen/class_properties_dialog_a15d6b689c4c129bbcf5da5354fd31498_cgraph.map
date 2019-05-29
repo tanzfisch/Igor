@@ -1,9 +1,0 @@
-<map id="PropertiesDialog::initGUI" name="PropertiesDialog::initGUI">
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iWidgetManager \&gt;::getInstance" alt="" coords="217,5,432,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget_manager.html#a6bd957c51cc937fa860f9e2be73f3d27" title="Igor::iWidgetManager\l::createWidget" alt="" coords="252,71,397,112"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_widget_grid.html#a09e374ec95ecf256ec0d086a0b53284a" title="Igor::iWidgetGrid::\lsetBorder" alt="" coords="261,136,388,177"/>
-<area shape="rect" id="node8" href="$class_properties_dialog.html#a6003c4e49079a959123c1760601cce2e" title="PropertiesDialog::onStructure\lChanged" alt="" coords="229,201,421,243"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html#a7bed20819f1376bd433892feeefdc05c" title="IgorAux::iaString::\lgetHashValue" alt="" coords="483,41,610,83"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_widget.html#aa0816e0911fd5d21a7aed3b9f27bc118" title="Igor::iWidget::getID" alt="" coords="480,107,613,134"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_string.html#a527c422c83c563c834a12548728e625d" title="IgorAux::iaString::\lgetData" alt="" coords="661,41,788,83"/>
-</map>

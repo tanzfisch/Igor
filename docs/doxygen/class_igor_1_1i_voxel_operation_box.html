@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,26 +111,15 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_voxel_operation_box.ht
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_1_1i_voxel_operation_box-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Igor::iVoxelOperationBox Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_voxel_operation_box_8h_source.html">iVoxelOperationBox.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iVoxelOperationBox:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_voxel_operation_box__inherit__graph.svg" width="178" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iVoxelOperationBox:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_voxel_operation_box__coll__graph.svg" width="378" height="454"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iVoxelOperationBox.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_1_1i_voxel_operation.html">Igor::iVoxelOperation</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -140,18 +129,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a577d344903069bd3835b3079f0bd8af3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94ac2e4226370b7a54d1a9d7453adf99"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_voxel_operation_box.html#a94ac2e4226370b7a54d1a9d7453adf99">getBoundings</a> (<a class="el" href="namespace_igor.html#ac34e67d46ad8e1548c0ffbbb6e69b84d">iAABoxI</a> &amp;boundings)</td></tr>
 <tr class="separator:a94ac2e4226370b7a54d1a9d7453adf99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a876d5e8323cf12452db22b84ad6b68ff"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#ac34e67d46ad8e1548c0ffbbb6e69b84d">iAABoxI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_voxel_operation_box.html#a876d5e8323cf12452db22b84ad6b68ff">_box</a></td></tr>
-<tr class="separator:a876d5e8323cf12452db22b84ad6b68ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e926d78d738397acf1b0d5fa1a2ff96"><td class="memItemLeft" align="right" valign="top">uint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_voxel_operation_box.html#a4e926d78d738397acf1b0d5fa1a2ff96">_density</a> = 0</td></tr>
-<tr class="separator:a4e926d78d738397acf1b0d5fa1a2ff96"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>voxel operation that set the values of an area specified by a bounding box </p>
-
-<p>Definition at line <a class="el" href="i_voxel_operation_box_8h_source.html#l00039">39</a> of file <a class="el" href="i_voxel_operation_box_8h_source.html">iVoxelOperationBox.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a7277cea332e4002ab128e997d1ebc9d5"></a>
 <div class="memitem">
@@ -184,8 +164,6 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_voxel_operation_box_8cpp_source.html#l00013">13</a> of file <a class="el" href="i_voxel_operation_box_8cpp_source.html">iVoxelOperationBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -221,16 +199,6 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="class_igor_1_1i_voxel_operation.html#a25e701a4b64c0f5d5f155f43c567ae61">Igor::iVoxelOperation</a>.</p>
 
-<p>Definition at line <a class="el" href="i_voxel_operation_box_8cpp_source.html#l00024">24</a> of file <a class="el" href="i_voxel_operation_box_8cpp_source.html">iVoxelOperationBox.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_voxel_operation_box_a577d344903069bd3835b3079f0bd8af3_cgraph.svg" width="424" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a94ac2e4226370b7a54d1a9d7453adf99"></a>
@@ -264,60 +232,11 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="class_igor_1_1i_voxel_operation.html#a8e13abdea6be9f5534117f1b4e08aa68">Igor::iVoxelOperation</a>.</p>
 
-<p>Definition at line <a class="el" href="i_voxel_operation_box_8cpp_source.html#l00019">19</a> of file <a class="el" href="i_voxel_operation_box_8cpp_source.html">iVoxelOperationBox.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a876d5e8323cf12452db22b84ad6b68ff"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#ac34e67d46ad8e1548c0ffbbb6e69b84d">iAABoxI</a> Igor::iVoxelOperationBox::_box</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>bounding box that defines wich area to set the new value </p>
-
-<p>Definition at line <a class="el" href="i_voxel_operation_box_8h_source.html#l00067">67</a> of file <a class="el" href="i_voxel_operation_box_8h_source.html">iVoxelOperationBox.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4e926d78d738397acf1b0d5fa1a2ff96"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8 Igor::iVoxelOperationBox::_density = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the new density to set </p>
-
-<p>Definition at line <a class="el" href="i_voxel_operation_box_8h_source.html#l00071">71</a> of file <a class="el" href="i_voxel_operation_box_8h_source.html">iVoxelOperationBox.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_voxel_operation_box_8h_source.html">iVoxelOperationBox.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_voxel_operation_box_8cpp_source.html">iVoxelOperationBox.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_voxel_operation_box_8h.html">iVoxelOperationBox.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_voxel_operation_box_8cpp.html">iVoxelOperationBox.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -326,7 +245,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_voxel_operation_box.html">iVoxelOperationBox</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:10 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

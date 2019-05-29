@@ -1,9 +1,0 @@
-<map id="Igor::iStatisticsVisualizer::drawStatistics" name="Igor::iStatisticsVisualizer::drawStatistics">
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_matrix.html#ac3391a41520f494b8aa83d41ae89719b" title="IgorAux::iaMatrix::\ltranslate" alt="" coords="235,5,363,47"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_string.html#abef96b15e0d8f9a45108b12e46632c01" title="IgorAux::iaString::ftoa" alt="" coords="226,71,373,98"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_window.html#abdf49405e2b6659d05e6016156baee69" title="Igor::iWindow::getClient\lWidth" alt="" coords="220,123,379,164"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_window.html#a5fd34299bfc7b169d07f8378e05c75ac" title="Igor::iWindow::getClient\lHeight" alt="" coords="220,188,379,229"/>
-<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_string.html#ad543df5c6c62ace85496ee1fda974503" title="IgorAux::iaString::itoa" alt="" coords="226,254,373,281"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html#af57393290753cb0ff19bd49b5c97d1f4" title="IgorAux::iaString::\lintToStrInternal" alt="" coords="427,156,553,197"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_string.html#a5de7775f77c02abad6fb09a235a7721b" title="IgorAux::iaString::\lreverse" alt="" coords="601,156,728,197"/>
-</map>

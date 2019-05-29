@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,22 +112,13 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_particle_system3_d.htm
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="class_igor_1_1i_particle_system3_d-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Igor::iParticleSystem3D Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for Igor::iParticleSystem3D:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_particle_system3_d__coll__graph.svg" width="1422" height="415"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iParticleSystem3D.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -258,111 +249,9 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:ac92932fd829c630bac35174513a518bf"><td class="memItemLeft" align="right" valign="top">static float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#ac92932fd829c630bac35174513a518bf">getSimulationRate</a> ()</td></tr>
 <tr class="separator:ac92932fd829c630bac35174513a518bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a303b589fbaebf6fe6547fc0588db0e6f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a303b589fbaebf6fe6547fc0588db0e6f">initDefaultGradients</a> ()</td></tr>
-<tr class="separator:a303b589fbaebf6fe6547fc0588db0e6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50302b9ee6c3e5d3aa4693407c510fcb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a50302b9ee6c3e5d3aa4693407c510fcb">createParticles</a> (uint32 particleCount, <a class="el" href="class_igor_1_1i_particle_emitter.html">iParticleEmitter</a> &amp;emitter, float32 particleSystemTime)</td></tr>
-<tr class="separator:a50302b9ee6c3e5d3aa4693407c510fcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a493599094c960413d2c98b4753aa88d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a493599094c960413d2c98b4753aa88d3">resetParticle</a> (<a class="el" href="class_igor_1_1i_particle.html">iParticle</a> &amp;particle, <a class="el" href="class_igor_1_1i_particle_emitter.html">iParticleEmitter</a> &amp;emitter, float32 particleSystemTime)</td></tr>
-<tr class="separator:a493599094c960413d2c98b4753aa88d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a2b3c2246aae950568e289c199e46f17f"><td class="memItemLeft" align="right" valign="top">uint16&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a2b3c2246aae950568e289c199e46f17f">_maxParticleCount</a> = 500</td></tr>
-<tr class="separator:a2b3c2246aae950568e289c199e46f17f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b25a77646f3dc3971afff95320ee96c"><td class="memItemLeft" align="right" valign="top">uint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a2b25a77646f3dc3971afff95320ee96c">_firstTextureColumns</a> = 1</td></tr>
-<tr class="separator:a2b25a77646f3dc3971afff95320ee96c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5fb3bdb19e79b6c1fd24edb7bcd2171"><td class="memItemLeft" align="right" valign="top">uint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#ae5fb3bdb19e79b6c1fd24edb7bcd2171">_firstTextureRows</a> = 1</td></tr>
-<tr class="separator:ae5fb3bdb19e79b6c1fd24edb7bcd2171"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0575ff75081195b9be9f4457cda9cdf6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a0575ff75081195b9be9f4457cda9cdf6">_velocityOriented</a> = false</td></tr>
-<tr class="separator:a0575ff75081195b9be9f4457cda9cdf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0823436c795b3efc33021d999fff8185"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a53998b2091175c6225d214d1cf48c34a">iSphered</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a0823436c795b3efc33021d999fff8185">_boundingSphere</a></td></tr>
-<tr class="separator:a0823436c795b3efc33021d999fff8185"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcab92c99cd70f575203866932df4e33"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a4e1cfebc2e1394335b507108720f0ab6">iAABoxd</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#afcab92c99cd70f575203866932df4e33">_boundingBox</a></td></tr>
-<tr class="separator:afcab92c99cd70f575203866932df4e33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abddebefd868b0c62f6d0d2026a0d5504"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#abddebefd868b0c62f6d0d2026a0d5504">_finished</a> = false</td></tr>
-<tr class="separator:abddebefd868b0c62f6d0d2026a0d5504"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13ee0749d7baff732a2764018e7b1399"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a13ee0749d7baff732a2764018e7b1399">_loop</a> = true</td></tr>
-<tr class="separator:a13ee0749d7baff732a2764018e7b1399"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abff9a324372de33e18eec8e715386998"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#abff9a324372de33e18eec8e715386998">_running</a> = false</td></tr>
-<tr class="separator:abff9a324372de33e18eec8e715386998"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d96315706880941d68274c94b3f33fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a6d96315706880941d68274c94b3f33fb">_particleSystemInvWorldMatrix</a></td></tr>
-<tr class="separator:a6d96315706880941d68274c94b3f33fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07f682b873b73b2af9f581148175f7e5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a07f682b873b73b2af9f581148175f7e5">_mustReset</a> = true</td></tr>
-<tr class="separator:a07f682b873b73b2af9f581148175f7e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac2ffd80a402c801a89f573bbdea3a74"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#af21736a0e120c0dfe0fe49b4e63f53b9">iaGradientColor4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#aac2ffd80a402c801a89f573bbdea3a74">_colorGradient</a></td></tr>
-<tr class="separator:aac2ffd80a402c801a89f573bbdea3a74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1df5a648d6e7f5094ed378b75e71d03f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a0cc0866b13cb699dee07b047a594ebd6">iaGradientVector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a1df5a648d6e7f5094ed378b75e71d03f">_startSizeGradient</a></td></tr>
-<tr class="separator:a1df5a648d6e7f5094ed378b75e71d03f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a81f122aef8ee8652f7cc4ba70a18b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a747396d8ecd7940743bfd2f71adb5435">iaGradientf</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a4a81f122aef8ee8652f7cc4ba70a18b5">_sizeScaleGradient</a></td></tr>
-<tr class="separator:a4a81f122aef8ee8652f7cc4ba70a18b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a32fe9aa4829ea16fe2094edb09b085"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a0cc0866b13cb699dee07b047a594ebd6">iaGradientVector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a9a32fe9aa4829ea16fe2094edb09b085">_startVisibleTimeGradient</a></td></tr>
-<tr class="separator:a9a32fe9aa4829ea16fe2094edb09b085"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64b3bbf7bef64441a0a1e0a5acb00a4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a0cc0866b13cb699dee07b047a594ebd6">iaGradientVector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a64b3bbf7bef64441a0a1e0a5acb00a4b">_startOrientationGradient</a></td></tr>
-<tr class="separator:a64b3bbf7bef64441a0a1e0a5acb00a4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a11dc34e4397074734664a3eb22bd270c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a0cc0866b13cb699dee07b047a594ebd6">iaGradientVector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a11dc34e4397074734664a3eb22bd270c">_startOrientationRateGradient</a></td></tr>
-<tr class="separator:a11dc34e4397074734664a3eb22bd270c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa57adab839b695854e44b4c1c67db1cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a0cc0866b13cb699dee07b047a594ebd6">iaGradientVector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#aa57adab839b695854e44b4c1c67db1cb">_startVelocityGradient</a></td></tr>
-<tr class="separator:aa57adab839b695854e44b4c1c67db1cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad88588f1a5e8b596d7b092283127f867"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a0cc0866b13cb699dee07b047a594ebd6">iaGradientVector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#ad88588f1a5e8b596d7b092283127f867">_startLiftGradient</a></td></tr>
-<tr class="separator:ad88588f1a5e8b596d7b092283127f867"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7a4586150cbf9eac9f3f2506372b973"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#ac7a4586150cbf9eac9f3f2506372b973">_emissionImpulseStack</a> = 0.0f</td></tr>
-<tr class="separator:ac7a4586150cbf9eac9f3f2506372b973"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a882632f8d8cfa0c91b408a1f894bda"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a747396d8ecd7940743bfd2f71adb5435">iaGradientf</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a6a882632f8d8cfa0c91b408a1f894bda">_emissionRateGradient</a></td></tr>
-<tr class="separator:a6a882632f8d8cfa0c91b408a1f894bda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98b5f6251abc778418755698b5889684"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a747396d8ecd7940743bfd2f71adb5435">iaGradientf</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a98b5f6251abc778418755698b5889684">_torqueFactorGradient</a></td></tr>
-<tr class="separator:a98b5f6251abc778418755698b5889684"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d7567c187b4f38a16d9dff18547edf5"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a6d7567c187b4f38a16d9dff18547edf5">_particleSystemPeriodTime</a> = 1000.0</td></tr>
-<tr class="separator:a6d7567c187b4f38a16d9dff18547edf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1fc5702261a33f4b8bd131f20bc8c1e"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#ac1fc5702261a33f4b8bd131f20bc8c1e">_lifeTime</a> = 0.0</td></tr>
-<tr class="separator:ac1fc5702261a33f4b8bd131f20bc8c1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00c54a6eae351c7b21821f84874e9655"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a00c54a6eae351c7b21821f84874e9655">_airDrag</a> = 1.0</td></tr>
-<tr class="separator:a00c54a6eae351c7b21821f84874e9655"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3bad748ea2296cade51615b66b7379ff"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a3bad748ea2296cade51615b66b7379ff">_octave1Rotation</a> = 0.01f</td></tr>
-<tr class="separator:a3bad748ea2296cade51615b66b7379ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36390876d922d52a4945a6f6d2b9e13e"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a36390876d922d52a4945a6f6d2b9e13e">_octave2Rotation</a> = -0.01f</td></tr>
-<tr class="separator:a36390876d922d52a4945a6f6d2b9e13e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae03f80d714fb57fdc516fc14f1bd22a"><td class="memItemLeft" align="right" valign="top">float64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#aae03f80d714fb57fdc516fc14f1bd22a">_startTime</a> = 0.0</td></tr>
-<tr class="separator:aae03f80d714fb57fdc516fc14f1bd22a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5c463537553b248b1c8ab3c63c34e4a"><td class="memItemLeft" align="right" valign="top">float64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#af5c463537553b248b1c8ab3c63c34e4a">_playbackTime</a> = 0.0</td></tr>
-<tr class="separator:af5c463537553b248b1c8ab3c63c34e4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1470e4ef6d8dc216decb00b95e9afcf0"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a1470e4ef6d8dc216decb00b95e9afcf0">_vortexToParticleRate</a> = 0.00</td></tr>
-<tr class="separator:a1470e4ef6d8dc216decb00b95e9afcf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c81f43aa465d313a26da77337e5f0c8"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a3c81f43aa465d313a26da77337e5f0c8">_particleCounter</a> = 0</td></tr>
-<tr class="separator:a3c81f43aa465d313a26da77337e5f0c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97a25df668d74ed27f859d1e7039fe43"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a97a25df668d74ed27f859d1e7039fe43">_minVortexTorque</a> = 0.5f</td></tr>
-<tr class="separator:a97a25df668d74ed27f859d1e7039fe43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab54612ee82118c4ddc44b1f68d773525"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#ab54612ee82118c4ddc44b1f68d773525">_maxVortexTorque</a> = 0.7f</td></tr>
-<tr class="separator:ab54612ee82118c4ddc44b1f68d773525"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e534edf673df81e2b03efc08c415002"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a3e534edf673df81e2b03efc08c415002">_minVortexRange</a> = 20.0f</td></tr>
-<tr class="separator:a3e534edf673df81e2b03efc08c415002"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57d3bf3d489d036ac8ffa38745e2b65d"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a57d3bf3d489d036ac8ffa38745e2b65d">_maxVortexRange</a> = 40.0f</td></tr>
-<tr class="separator:a57d3bf3d489d036ac8ffa38745e2b65d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84190708b4bb73e657c4ca7d4aacc132"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_random_number_generator.html">iaRandomNumberGenerator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a84190708b4bb73e657c4ca7d4aacc132">_rand</a></td></tr>
-<tr class="separator:a84190708b4bb73e657c4ca7d4aacc132"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdeda017248e167c015b2992e84a2cf5"><td class="memItemLeft" align="right" valign="top">uint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#abdeda017248e167c015b2992e84a2cf5">_vortexCheckRange</a> = 20</td></tr>
-<tr class="separator:abdeda017248e167c015b2992e84a2cf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19f987b6d102de055b5d719c5b101aab"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a19f987b6d102de055b5d719c5b101aab">_vorticityConfinement</a> = 0.05f</td></tr>
-<tr class="separator:a19f987b6d102de055b5d719c5b101aab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81fad648a5062e5fbc56aa53eafa501e"><td class="memItemLeft" align="right" valign="top">deque&lt; <a class="el" href="class_igor_1_1i_particle.html">iParticle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a81fad648a5062e5fbc56aa53eafa501e">_particles</a></td></tr>
-<tr class="separator:a81fad648a5062e5fbc56aa53eafa501e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
-Static Private Attributes</h2></td></tr>
-<tr class="memitem:a1c6615f798624136b5a699ae031125c6"><td class="memItemLeft" align="right" valign="top">static float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system3_d.html#a1c6615f798624136b5a699ae031125c6">_simulationRate</a> = 60.0f</td></tr>
-<tr class="separator:a1c6615f798624136b5a699ae031125c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>simulation of 3d particle systems</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000040">Todo:</a></b></dt><dd><p class="startdd">rotation of noise textures </p>
-<p>particle simulation should be parallel to rendering </p>
-<p>maybe we put all particles together in one global particles pool. than we can sort them and we can have global effects like shadowing etc. on each other </p>
-<p class="enddd">would be nice to be able to show tiles sequencially and not just random aka animated texture </p>
-</dd></dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00143">143</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ade876b29cf3419b509cf5ae88b0164ef"></a>
 <div class="memitem">
@@ -377,8 +266,6 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>init default values </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00024">24</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -404,8 +291,6 @@ Static Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>clean up </p>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00030">30</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -430,75 +315,6 @@ Static Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00419">419</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_particle_system3_d_a9c114939ce7aefd4da58f90a10e4e97e_cgraph.svg" width="347" height="248"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a50302b9ee6c3e5d3aa4693407c510fcb"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iParticleSystem3D::createParticles </td>
-          <td>(</td>
-          <td class="paramtype">uint32&#160;</td>
-          <td class="paramname"><em>particleCount</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_particle_emitter.html">iParticleEmitter</a> &amp;&#160;</td>
-          <td class="paramname"><em>emitter</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float32&#160;</td>
-          <td class="paramname"><em>particleSystemTime</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>creates particles</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">particleCount</td><td>the amount of particles to create </td></tr>
-    <tr><td class="paramname">emitter</td><td>the emitter to emitt the particles from </td></tr>
-    <tr><td class="paramname">particleSystemTime</td><td>the particle system time in seconds </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00339">339</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_particle_system3_d_a50302b9ee6c3e5d3aa4693407c510fcb_cgraph.svg" width="372" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a259bc5abd4c329d9cdcc85bfb478c1df"></a>
@@ -514,8 +330,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>air drag factor </dd></dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00658">658</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -533,8 +347,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>approximated bounding box </dd></dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00039">39</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ad26246194aa4bf271df50aa7d49b3bfe"></a>
@@ -550,8 +362,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>approximated bounding sphere </dd></dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00034">34</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -577,8 +387,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00089">89</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a6a6252b50c854f0abda4cef920aa34f3"></a>
@@ -595,8 +403,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>reference to color gradient </dd></dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00094">94</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a2607c091f2870eb808bd01f2f2d9ec78"></a>
@@ -612,8 +418,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>particles of current frame </dd></dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00371">371</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -638,8 +442,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00104">104</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ad57a69bd9f7d791d03fe3417f75c2609"></a>
@@ -655,8 +457,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the horizontal tiling resolution of the first texture layer </dd></dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00120">120</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -674,8 +474,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the vertical tiling resolution of the first texture layer </dd></dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00125">125</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a56691a4173cbeed89b8ae4b386912daa"></a>
@@ -691,8 +489,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if particle system runs in loop </dd></dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00414">414</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -710,8 +506,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the maximum particle count used </dd></dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00232">232</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aaaba97b2d73775b0a202cc18f5f37f95"></a>
@@ -727,8 +521,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>current particle count in use </dd></dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00609">609</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -746,8 +538,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>period time of this particle system in seconds </dd></dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00243">243</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a410e5a2e1aaf4da7d7bc0e5f5e2f6660"></a>
@@ -763,8 +553,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>rotation speed of second texture in rad per frame </dd></dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00140">140</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -790,16 +578,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>simulation rate in frames per scond or Hz </dd></dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00614">614</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_particle_system3_d_ac92932fd829c630bac35174513a518bf_icgraph.svg" width="396" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a73bb469d32006b08a54365a201772e4c"></a>
@@ -822,8 +600,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00398">398</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -848,8 +624,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00647">647</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a9e6a41f3839cb2d7bf35fca44927b54d"></a>
@@ -872,8 +646,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00669">669</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -898,8 +670,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00680">680</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ae91a0f1304e3296583e28c63a782882d"></a>
@@ -922,8 +692,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00625">625</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -948,8 +716,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00636">636</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a3e69ec16e44f8f9bb93c5a88aef909be"></a>
@@ -973,8 +739,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00387">387</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a2c311734d1302888c257180d21eda662"></a>
@@ -990,8 +754,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>rotation speed of third texture in rad per frame </dd></dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00145">145</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -1009,8 +771,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>velocity oriented flag </dd></dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00079">79</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ac14b062d301951241ea5e9dcaa80fd74"></a>
@@ -1026,8 +786,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>vortex check rangein indexes from vortex particle </dd></dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00175">175</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -1045,8 +803,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>maximum range of vortexes </dd></dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00170">170</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a42022914075eccf7e9f08055afdfa28a"></a>
@@ -1062,8 +818,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>minimum range of vortexes </dd></dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00165">165</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -1081,8 +835,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>likeliness of vortex particle to appear </dd></dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00334">334</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aa665c2eb73f22315f3a7c345e75e74fb"></a>
@@ -1098,8 +850,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>maximum vortex torque </dd></dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00160">160</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -1117,8 +867,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>minimum vortex torque </dd></dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00155">155</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a82b6137f5b78b8d384b3b6ba0d273d20"></a>
@@ -1134,34 +882,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>vorticity confinement force </dd></dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00150">150</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a303b589fbaebf6fe6547fc0588db0e6f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iParticleSystem3D::initDefaultGradients </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>initializes default gradients </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00044">44</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -1179,8 +899,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if particle system is finished </dd></dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00403">403</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a82dd4cdb62f4fb21b471b973a8a95afe"></a>
@@ -1197,8 +915,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if particle system is currently running </dd></dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00197">197</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a32b9807a606549b4ab4f3bddc429ad23"></a>
@@ -1214,67 +930,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>clears all particles </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00202">202</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a493599094c960413d2c98b4753aa88d3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iParticleSystem3D::resetParticle </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_particle.html">iParticle</a> &amp;&#160;</td>
-          <td class="paramname"><em>particle</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_particle_emitter.html">iParticleEmitter</a> &amp;&#160;</td>
-          <td class="paramname"><em>emitter</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float32&#160;</td>
-          <td class="paramname"><em>particleSystemTime</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>reset a particle</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">particle</td><td>the particle to reset / reuse </td></tr>
-    <tr><td class="paramname">emitter</td><td>the emitter to emitt the particles from </td></tr>
-    <tr><td class="paramname">particleSystemTime</td><td>the particle system time in seconds </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00262">262</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_particle_system3_d_a493599094c960413d2c98b4753aa88d3_cgraph.svg" width="372" height="155"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1300,8 +955,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00652">652</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="afe0c2f3c11f898742ba7fa07d01c844e"></a>
@@ -1326,8 +979,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00084">84</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="adccca3a02aeb0707c16f43d9e68eb74f"></a>
@@ -1350,8 +1001,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00099">99</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -1387,8 +1036,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00109">109</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a845222ab6611f86df497c1d6c36f8fd1"></a>
@@ -1411,8 +1058,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00408">408</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -1438,8 +1083,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00227">227</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aeb048d0cb3f953609b267af041c010a8"></a>
@@ -1462,9 +1105,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000041">Todo:</a></b></dt><dd>not fully implemented yet. usually particle systems run in world coordinates and not local </dd></dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00376">376</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -1490,8 +1130,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00237">237</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a3d89557ba07bfbdd5f3201ae0b2cb2ea"></a>
@@ -1515,8 +1153,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00130">130</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aee698c81e3aeccdfb3e458360ed34dcc"></a>
@@ -1539,8 +1175,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00392">392</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -1566,8 +1200,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00641">641</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a56bf824f1a22a84ce50c9f27afce5b23"></a>
@@ -1590,8 +1222,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00663">663</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -1616,8 +1246,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00674">674</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a29649e8947414d5847c2101b569c94c2"></a>
@@ -1640,8 +1268,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00619">619</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -1666,8 +1292,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00630">630</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a0f6be31a85894e15aabe3114d3e0cb9d"></a>
@@ -1691,8 +1315,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00381">381</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a52269f0469740e0507560f9ef2e9700b"></a>
@@ -1715,8 +1337,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00135">135</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -1742,8 +1362,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00074">74</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a2b6f900dc7b8af737c1ba0aa85445ac5"></a>
@@ -1766,8 +1384,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00180">180</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -1803,8 +1419,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00255">255</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aff60d977b508f77d9027a348aec86ac8"></a>
@@ -1827,8 +1441,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00328">328</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -1864,8 +1476,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00248">248</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ad82620fcc55054c0d2f04d91ad2242a5"></a>
@@ -1889,8 +1499,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00685">685</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ab0094098916245a218990cf7be42f491"></a>
@@ -1906,8 +1514,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>starts or resumes particle system </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00185">185</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
 
 </div>
 </div>
@@ -1925,937 +1531,11 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>stops or pauses the particle system </p>
 
-<p>Definition at line <a class="el" href="i_particle_system3_d_8cpp_source.html#l00192">192</a> of file <a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a00c54a6eae351c7b21821f84874e9655"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem3D::_airDrag = 1.0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>air drag for particles </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00597">597</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="afcab92c99cd70f575203866932df4e33"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#a4e1cfebc2e1394335b507108720f0ab6">iAABoxd</a> Igor::iParticleSystem3D::_boundingBox</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>approximated bounding box of particle system </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00515">515</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a0823436c795b3efc33021d999fff8185"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#a53998b2091175c6225d214d1cf48c34a">iSphered</a> Igor::iParticleSystem3D::_boundingSphere</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>approximated bounding sphere of particle system </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00511">511</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aac2ffd80a402c801a89f573bbdea3a74"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#af21736a0e120c0dfe0fe49b4e63f53b9">iaGradientColor4f</a> Igor::iParticleSystem3D::_colorGradient</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>color gradient for particles during their lifetime </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00539">539</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac7a4586150cbf9eac9f3f2506372b973"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem3D::_emissionImpulseStack = 0.0f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>stacks emission impulses </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00571">571</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6a882632f8d8cfa0c91b408a1f894bda"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a747396d8ecd7940743bfd2f71adb5435">iaGradientf</a> Igor::iParticleSystem3D::_emissionRateGradient</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>emission rate gradient during particle system lifetime</p>
-<p>emitting particles per 1/60 of a second </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00577">577</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="abddebefd868b0c62f6d0d2026a0d5504"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iParticleSystem3D::_finished = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>true if particle system is finished </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00519">519</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2b25a77646f3dc3971afff95320ee96c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8 Igor::iParticleSystem3D::_firstTextureColumns = 1</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>column count of first texture tiling </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00499">499</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae5fb3bdb19e79b6c1fd24edb7bcd2171"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8 Igor::iParticleSystem3D::_firstTextureRows = 1</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>row count of first texture tiling </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00503">503</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac1fc5702261a33f4b8bd131f20bc8c1e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem3D::_lifeTime = 0.0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>life time of any particle</p>
-<p>calculated based on longest visible time </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00593">593</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a13ee0749d7baff732a2764018e7b1399"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iParticleSystem3D::_loop = true</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>true if particle system runs in endless loop </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00523">523</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2b3c2246aae950568e289c199e46f17f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint16 Igor::iParticleSystem3D::_maxParticleCount = 500</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>to prevent endless generation of particles</p>
-<p>set to zero if you don't want a limit </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00495">495</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a57d3bf3d489d036ac8ffa38745e2b65d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem3D::_maxVortexRange = 40.0f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>maximum votex range </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00634">634</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab54612ee82118c4ddc44b1f68d773525"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem3D::_maxVortexTorque = 0.7f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>maximum votex torque </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00626">626</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3e534edf673df81e2b03efc08c415002"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem3D::_minVortexRange = 20.0f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>minimum votex range </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00630">630</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a97a25df668d74ed27f859d1e7039fe43"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem3D::_minVortexTorque = 0.5f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>minimum votex torque </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00622">622</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a07f682b873b73b2af9f581148175f7e5"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iParticleSystem3D::_mustReset = true</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>works like a dirty flag. if true all is set to beginning </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00535">535</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3bad748ea2296cade51615b66b7379ff"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem3D::_octave1Rotation = 0.01f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00599">599</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a36390876d922d52a4945a6f6d2b9e13e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem3D::_octave2Rotation = -0.01f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00600">600</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3c81f43aa465d313a26da77337e5f0c8"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iParticleSystem3D::_particleCounter = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>particle counter to figure out when to create the next vortex particle </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00618">618</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a81fad648a5062e5fbc56aa53eafa501e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">deque&lt;<a class="el" href="class_igor_1_1i_particle.html">iParticle</a>&gt; Igor::iParticleSystem3D::_particles</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>actual particles </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00650">650</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6d96315706880941d68274c94b3f33fb"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> Igor::iParticleSystem3D::_particleSystemInvWorldMatrix</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>inverse of particle system coordinate system </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00531">531</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6d7567c187b4f38a16d9dff18547edf5"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem3D::_particleSystemPeriodTime = 1000.0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>particle system period time in ms </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00587">587</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af5c463537553b248b1c8ab3c63c34e4a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float64 Igor::iParticleSystem3D::_playbackTime = 0.0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current time in a simulation rate grid </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00608">608</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a84190708b4bb73e657c4ca7d4aacc132"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_random_number_generator.html">iaRandomNumberGenerator</a> Igor::iParticleSystem3D::_rand</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>random number generator </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00638">638</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="abff9a324372de33e18eec8e715386998"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iParticleSystem3D::_running = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>true if particle system is currently running. false if paused or finished </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00527">527</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a1c6615f798624136b5a699ae031125c6"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem3D::_simulationRate = 60.0f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current simulation rate in Hz </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00489">489</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4a81f122aef8ee8652f7cc4ba70a18b5"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a747396d8ecd7940743bfd2f71adb5435">iaGradientf</a> Igor::iParticleSystem3D::_sizeScaleGradient</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>size modification gradient during particle system lifetime </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00547">547</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad88588f1a5e8b596d7b092283127f867"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a0cc0866b13cb699dee07b047a594ebd6">iaGradientVector2f</a> Igor::iParticleSystem3D::_startLiftGradient</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>min max start lift of particles </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00567">567</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a64b3bbf7bef64441a0a1e0a5acb00a4b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a0cc0866b13cb699dee07b047a594ebd6">iaGradientVector2f</a> Igor::iParticleSystem3D::_startOrientationGradient</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>min max start orientation of particles </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00555">555</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a11dc34e4397074734664a3eb22bd270c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a0cc0866b13cb699dee07b047a594ebd6">iaGradientVector2f</a> Igor::iParticleSystem3D::_startOrientationRateGradient</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>min max start orientation rate of particles </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00559">559</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a1df5a648d6e7f5094ed378b75e71d03f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a0cc0866b13cb699dee07b047a594ebd6">iaGradientVector2f</a> Igor::iParticleSystem3D::_startSizeGradient</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>min max start sizes of particles </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00543">543</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aae03f80d714fb57fdc516fc14f1bd22a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float64 Igor::iParticleSystem3D::_startTime = 0.0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>time when the particle system was started last time </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00604">604</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa57adab839b695854e44b4c1c67db1cb"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a0cc0866b13cb699dee07b047a594ebd6">iaGradientVector2f</a> Igor::iParticleSystem3D::_startVelocityGradient</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>min max start velocity of particles </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00563">563</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9a32fe9aa4829ea16fe2094edb09b085"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a0cc0866b13cb699dee07b047a594ebd6">iaGradientVector2f</a> Igor::iParticleSystem3D::_startVisibleTimeGradient</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>start visible time gradient </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00551">551</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a98b5f6251abc778418755698b5889684"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a747396d8ecd7940743bfd2f71adb5435">iaGradientf</a> Igor::iParticleSystem3D::_torqueFactorGradient</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>gradient how the torque of vortex particles changes over time</p>
-<p>for internal use only </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00583">583</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a0575ff75081195b9be9f4457cda9cdf6"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iParticleSystem3D::_velocityOriented = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>flag that defines if particles get rendered velocity oriented </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00507">507</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="abdeda017248e167c015b2992e84a2cf5"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8 Igor::iParticleSystem3D::_vortexCheckRange = 20</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>vortex check range </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00642">642</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a1470e4ef6d8dc216decb00b95e9afcf0"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem3D::_vortexToParticleRate = 0.00</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>vortex to particle rate</p>
-<p>default 0% </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00614">614</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a19f987b6d102de055b5d719c5b101aab"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem3D::_vorticityConfinement = 0.05f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>vorticity confinement </p>
-
-<p>Definition at line <a class="el" href="i_particle_system3_d_8h_source.html#l00646">646</a> of file <a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_particle_system3_d_8h_source.html">iParticleSystem3D.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_particle_system3_d_8cpp_source.html">iParticleSystem3D.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_particle_system3_d_8h.html">iParticleSystem3D.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_particle_system3_d_8cpp.html">iParticleSystem3D.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -2864,7 +1544,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_particle_system3_d.html">iParticleSystem3D</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:57 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

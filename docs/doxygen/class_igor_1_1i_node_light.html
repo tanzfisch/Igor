@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -113,7 +113,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_light.html','');}
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_node_light-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -121,19 +120,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_light.html','');}
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_node_light_8h_source.html">iNodeLight.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iNodeLight:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_light__inherit__graph.svg" width="123" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iNodeLight:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_light__coll__graph.svg" width="1088" height="467"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iNodeLight.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_1_1i_node.html">Igor::iNode</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -279,15 +268,6 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a2c647bfde42f17d248e8ae597a5a910b inherit pro_attribs_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top">iTransformationChangeEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a2c647bfde42f17d248e8ae597a5a910b">_transformationChangeEvent</a></td></tr>
 <tr class="separator:a2c647bfde42f17d248e8ae597a5a910b inherit pro_attribs_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a14c1cc7daa30595540f65f8fe6403bd7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_light.html#a14c1cc7daa30595540f65f8fe6403bd7">iNodeLight</a> ()</td></tr>
-<tr class="separator:a14c1cc7daa30595540f65f8fe6403bd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab64c7a40d329d2802b5b9a6a02d96bd7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_light.html#ab64c7a40d329d2802b5b9a6a02d96bd7">iNodeLight</a> (<a class="el" href="class_igor_1_1i_node_light.html">iNodeLight</a> *node)</td></tr>
-<tr class="separator:ab64c7a40d329d2802b5b9a6a02d96bd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a526d1238087f21708497d34f1fca8be7"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_light.html#a526d1238087f21708497d34f1fca8be7">~iNodeLight</a> ()</td></tr>
-<tr class="separator:a526d1238087f21708497d34f1fca8be7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:ad64c9a06babde60bdd79e94c1ae6ef70"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_light.html#ad64c9a06babde60bdd79e94c1ae6ef70">iNodeVisitorUpdateTransform</a></td></tr>
@@ -303,117 +283,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>this node implementation controls a light within the scene</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000022">Todo:</a></b></dt><dd>implement switch on/off </dd></dl>
-<dl class="bug"><dt><b><a class="el" href="bug.html#_bug000001">Bug:</a></b></dt><dd>orientation of light in world and model space is diffrent or wrong </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000023">Todo:</a></b></dt><dd>does it realy need to be color4f? </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#_a2">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_node_light_8h_source.html#l00054">54</a> of file <a class="el" href="i_node_light_8h_source.html">iNodeLight.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a14c1cc7daa30595540f65f8fe6403bd7"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iNodeLight::iNodeLight </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>initializes member variables </p>
-
-<p>Definition at line <a class="el" href="i_node_light_8cpp_source.html#l00013">13</a> of file <a class="el" href="i_node_light_8cpp_source.html">iNodeLight.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_light_a14c1cc7daa30595540f65f8fe6403bd7_cgraph.svg" width="384" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="ab64c7a40d329d2802b5b9a6a02d96bd7"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iNodeLight::iNodeLight </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_node_light.html">iNodeLight</a> *&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>copy ctor </p>
-
-<p>Definition at line <a class="el" href="i_node_light_8cpp_source.html#l00021">21</a> of file <a class="el" href="i_node_light_8cpp_source.html">iNodeLight.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_light_ab64c7a40d329d2802b5b9a6a02d96bd7_cgraph.svg" width="430" height="494"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a526d1238087f21708497d34f1fca8be7"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iNodeLight::~iNodeLight </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>does nothing </p>
-
-<p>Definition at line <a class="el" href="i_node_light_8cpp_source.html#l00036">36</a> of file <a class="el" href="i_node_light_8cpp_source.html">iNodeLight.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_light_a526d1238087f21708497d34f1fca8be7_cgraph.svg" width="564" height="374"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a74593bf1a06fec9ebc9beee33d34286d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -427,16 +297,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>returns ambient material color </p>
-
-<p>Definition at line <a class="el" href="i_node_light_8cpp_source.html#l00081">81</a> of file <a class="el" href="i_node_light_8cpp_source.html">iNodeLight.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_light_a74593bf1a06fec9ebc9beee33d34286d_icgraph.svg" width="432" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -454,16 +314,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>returns diffuse material color </p>
 
-<p>Definition at line <a class="el" href="i_node_light_8cpp_source.html#l00091">91</a> of file <a class="el" href="i_node_light_8cpp_source.html">iNodeLight.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_light_af692cb96d4e4b616fc77718283c430e4_icgraph.svg" width="423" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a354cc5ae0d9f49c53414071a9b305d47"></a>
@@ -479,8 +329,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>direction of light </dd></dl>
-
-<p>Definition at line <a class="el" href="i_node_light_8cpp_source.html#l00061">61</a> of file <a class="el" href="i_node_light_8cpp_source.html">iNodeLight.cpp</a>.</p>
 
 </div>
 </div>
@@ -498,8 +346,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>position of light </dd></dl>
 
-<p>Definition at line <a class="el" href="i_node_light_8cpp_source.html#l00051">51</a> of file <a class="el" href="i_node_light_8cpp_source.html">iNodeLight.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a51917c43e19a594b31b3cc5a5f01ccd8"></a>
@@ -516,16 +362,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>returns specular material color </p>
 
-<p>Definition at line <a class="el" href="i_node_light_8cpp_source.html#l00101">101</a> of file <a class="el" href="i_node_light_8cpp_source.html">iNodeLight.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_light_a51917c43e19a594b31b3cc5a5f01ccd8_icgraph.svg" width="435" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a728fa9b317b0bd88a391232bb242a0a8"></a>
@@ -541,16 +377,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>type of light </dd></dl>
-
-<p>Definition at line <a class="el" href="i_node_light_8cpp_source.html#l00046">46</a> of file <a class="el" href="i_node_light_8cpp_source.html">iNodeLight.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_light_a728fa9b317b0bd88a391232bb242a0a8_icgraph.svg" width="407" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -574,8 +400,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_node_light_8cpp_source.html#l00071">71</a> of file <a class="el" href="i_node_light_8cpp_source.html">iNodeLight.cpp</a>.</p>
 
 </div>
 </div>
@@ -603,16 +427,6 @@ Here is the caller graph for this function:</div>
 
 <p>Reimplemented from <a class="el" href="class_igor_1_1i_node.html#af5a14599bd4dc62d1534865c8a306e8e">Igor::iNode</a>.</p>
 
-<p>Definition at line <a class="el" href="i_node_light_8cpp_source.html#l00119">119</a> of file <a class="el" href="i_node_light_8cpp_source.html">iNodeLight.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_light_a347b0e3d4a3dffc33b69e0b7e015b059_cgraph.svg" width="391" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a1f0fb09bc2488bfdacf7e9c21c493d76"></a>
@@ -638,16 +452,6 @@ Here is the call graph for this function:</div>
 <p>unregister from scene </p>
 
 <p>Reimplemented from <a class="el" href="class_igor_1_1i_node.html#aa8934442e897cfdf775264f161c69143">Igor::iNode</a>.</p>
-
-<p>Definition at line <a class="el" href="i_node_light_8cpp_source.html#l00111">111</a> of file <a class="el" href="i_node_light_8cpp_source.html">iNodeLight.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_light_a1f0fb09bc2488bfdacf7e9c21c493d76_cgraph.svg" width="390" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -682,8 +486,6 @@ Here is the call graph for this function:</div>
 
 <p>Reimplemented from <a class="el" href="class_igor_1_1i_node.html#a5bb85be2466e22f0aba730fa23620b52">Igor::iNode</a>.</p>
 
-<p>Definition at line <a class="el" href="i_node_light_8cpp_source.html#l00076">76</a> of file <a class="el" href="i_node_light_8cpp_source.html">iNodeLight.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ad16da2321eeece7147a31d2b18c4cc3e"></a>
@@ -706,17 +508,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#a45">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_node_light_8cpp_source.html#l00086">86</a> of file <a class="el" href="i_node_light_8cpp_source.html">iNodeLight.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_light_ad16da2321eeece7147a31d2b18c4cc3e_icgraph.svg" width="440" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -740,17 +531,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#a46">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_node_light_8cpp_source.html#l00096">96</a> of file <a class="el" href="i_node_light_8cpp_source.html">iNodeLight.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_light_a74a7335588bbe010bc7eace0930b0b90_icgraph.svg" width="431" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -774,17 +554,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#a47">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_node_light_8cpp_source.html#l00106">106</a> of file <a class="el" href="i_node_light_8cpp_source.html">iNodeLight.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_light_ab069ba47745eef7f8e08644f2ebcd2e9_icgraph.svg" width="443" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -809,16 +578,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_node_light_8cpp_source.html#l00041">41</a> of file <a class="el" href="i_node_light_8cpp_source.html">iNodeLight.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_light_aeba13aaf750051822b8a532a69edbf5d_icgraph.svg" width="407" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -840,9 +599,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>node that handles physics collisions bound to one body</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000029">Todo:</a></b></dt><dd>also need to remove things after adding them. maybe using IDs for that </dd></dl>
-
-<p>Definition at line <a class="el" href="i_node_light_8h_source.html#l00058">58</a> of file <a class="el" href="i_node_light_8h_source.html">iNodeLight.h</a>.</p>
 
 </div>
 </div>
@@ -863,8 +619,6 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_node_light_8h_source.html#l00057">57</a> of file <a class="el" href="i_node_light_8h_source.html">iNodeLight.h</a>.</p>
 
 </div>
 </div>
@@ -888,8 +642,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>ambient material color </p>
 
-<p>Definition at line <a class="el" href="i_node_light_8h_source.html#l00124">124</a> of file <a class="el" href="i_node_light_8h_source.html">iNodeLight.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a267af7c35214a9a122b0e0ba32cda8b8"></a>
@@ -910,8 +662,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>diffuse material color </p>
-
-<p>Definition at line <a class="el" href="i_node_light_8h_source.html#l00128">128</a> of file <a class="el" href="i_node_light_8h_source.html">iNodeLight.h</a>.</p>
 
 </div>
 </div>
@@ -934,8 +684,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>specular material color </p>
 
-<p>Definition at line <a class="el" href="i_node_light_8h_source.html#l00132">132</a> of file <a class="el" href="i_node_light_8h_source.html">iNodeLight.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ae87e9103ce8e731e746f8293d624e2f3"></a>
@@ -956,8 +704,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>type of light </p>
-
-<p>Definition at line <a class="el" href="i_node_light_8h_source.html#l00136">136</a> of file <a class="el" href="i_node_light_8h_source.html">iNodeLight.h</a>.</p>
 
 </div>
 </div>
@@ -980,13 +726,11 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>resulting world matrix of light </p>
 
-<p>Definition at line <a class="el" href="i_node_light_8h_source.html#l00120">120</a> of file <a class="el" href="i_node_light_8h_source.html">iNodeLight.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_light_8h_source.html">iNodeLight.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_light_8cpp_source.html">iNodeLight.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_node_light_8h.html">iNodeLight.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_node_light_8cpp.html">iNodeLight.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -995,7 +739,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_node_light.html">iNodeLight</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:52 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

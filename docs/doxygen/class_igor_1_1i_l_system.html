@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,27 +112,14 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_l_system.html','');});
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_1_1i_l_system-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Igor::iLSystem Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_l_system_8h_source.html">iLSystem.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for Igor::iLSystem:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_l_system__coll__graph.svg" width="246" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iLSystem.h&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_igor_1_1i_l_system_1_1i_l_system_rule.html">iLSystemRule</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a76fa68bb6b437ba0821dc495a909848e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_l_system.html#a76fa68bb6b437ba0821dc495a909848e">iLSystem</a> ()=default</td></tr>
@@ -151,23 +138,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a010640e6e8a99dfcb86f6ea77dc905a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac09f1f5b9f11dd5a52b48e6d5dbdba73"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_l_system.html#ac09f1f5b9f11dd5a52b48e6d5dbdba73">clear</a> ()</td></tr>
 <tr class="separator:ac09f1f5b9f11dd5a52b48e6d5dbdba73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a586e887f939963e3a312f2682a8d1c48"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_l_system.html#a586e887f939963e3a312f2682a8d1c48">generateIteration</a> (<a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> sentence, int age)</td></tr>
-<tr class="separator:a586e887f939963e3a312f2682a8d1c48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a7ba508d97e588661f78c93b49a8c5c5c"><td class="memItemLeft" align="right" valign="top">map&lt; wchar_t, <a class="el" href="struct_igor_1_1i_l_system_1_1i_l_system_rule.html">iLSystemRule</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_l_system.html#a7ba508d97e588661f78c93b49a8c5c5c">_rules</a></td></tr>
-<tr class="separator:a7ba508d97e588661f78c93b49a8c5c5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac7c4409e5718a64705854ee3e457a9b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_random_number_generator.html">iaRandomNumberGenerator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_l_system.html#aac7c4409e5718a64705854ee3e457a9b">_rand</a></td></tr>
-<tr class="separator:aac7c4409e5718a64705854ee3e457a9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>string based L-System implementation </p>
-
-<p>Definition at line <a class="el" href="i_l_system_8h_source.html#l00059">59</a> of file <a class="el" href="i_l_system_8h_source.html">iLSystem.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a76fa68bb6b437ba0821dc495a909848e"></a>
 <div class="memitem">
@@ -232,8 +205,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>clears all data </p>
 
-<p>Definition at line <a class="el" href="i_l_system_8cpp_source.html#l00027">27</a> of file <a class="el" href="i_l_system_8cpp_source.html">iLSystem.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="af4c6a4b663595ae52043af42de15dc7c"></a>
@@ -256,8 +227,6 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_l_system_8cpp_source.html#l00018">18</a> of file <a class="el" href="i_l_system_8cpp_source.html">iLSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -301,77 +270,6 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the generated string </dd></dl>
 
-<p>Definition at line <a class="el" href="i_l_system_8cpp_source.html#l00049">49</a> of file <a class="el" href="i_l_system_8cpp_source.html">iLSystem.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_l_system_af9ee10250a585772797dcd1de0bc8fc7_cgraph.svg" width="740" height="150"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a586e887f939963e3a312f2682a8d1c48"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> Igor::iLSystem::generateIteration </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td>
-          <td class="paramname"><em>sentence</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>age</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>generates next iteration</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">sentence</td><td>input sentence </td></tr>
-    <tr><td class="paramname">age</td><td>current age/iteration </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>generated string </dd></dl>
-
-<p>Definition at line <a class="el" href="i_l_system_8cpp_source.html#l00063">63</a> of file <a class="el" href="i_l_system_8cpp_source.html">iLSystem.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_l_system_a586e887f939963e3a312f2682a8d1c48_cgraph.svg" width="458" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_l_system_a586e887f939963e3a312f2682a8d1c48_icgraph.svg" width="387" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a010640e6e8a99dfcb86f6ea77dc905a4"></a>
@@ -413,8 +311,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_l_system_8cpp_source.html#l00039">39</a> of file <a class="el" href="i_l_system_8cpp_source.html">iLSystem.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a0639b8d37f9b6c4b5ec3d0d79866034e"></a>
@@ -448,8 +344,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_l_system_8cpp_source.html#l00010">10</a> of file <a class="el" href="i_l_system_8cpp_source.html">iLSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -485,60 +379,11 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_l_system_8cpp_source.html#l00032">32</a> of file <a class="el" href="i_l_system_8cpp_source.html">iLSystem.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="aac7c4409e5718a64705854ee3e457a9b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_random_number_generator.html">iaRandomNumberGenerator</a> Igor::iLSystem::_rand</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>random number generator </p>
-
-<p>Definition at line <a class="el" href="i_l_system_8h_source.html#l00130">130</a> of file <a class="el" href="i_l_system_8h_source.html">iLSystem.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7ba508d97e588661f78c93b49a8c5c5c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;wchar_t, <a class="el" href="struct_igor_1_1i_l_system_1_1i_l_system_rule.html">iLSystemRule</a>&gt; Igor::iLSystem::_rules</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the saved replacement rules </p>
-
-<p>Definition at line <a class="el" href="i_l_system_8h_source.html#l00126">126</a> of file <a class="el" href="i_l_system_8h_source.html">iLSystem.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_l_system_8h_source.html">iLSystem.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_l_system_8cpp_source.html">iLSystem.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_l_system_8h.html">iLSystem.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_l_system_8cpp.html">iLSystem.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -547,7 +392,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_l_system.html">iLSystem</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:48 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

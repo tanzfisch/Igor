@@ -8,6 +8,5 @@ var class_igor_aux_1_1ia_gradient =
     [ "getValues", "class_igor_aux_1_1ia_gradient.html#a5ac3a4903760f0dec87f134354df67d1", null ],
     [ "removeIndex", "class_igor_aux_1_1ia_gradient.html#ae288ece6a08165a494cc16375f21e16d", null ],
     [ "setValue", "class_igor_aux_1_1ia_gradient.html#a3ce9a96516704eb9b7e8e88cadb77043", null ],
-    [ "setValueAtIndex", "class_igor_aux_1_1ia_gradient.html#a7dd08119a08bb66b57fcfd80962cb9a9", null ],
-    [ "_values", "class_igor_aux_1_1ia_gradient.html#a9561406804a82db9dd74fe1fdc768409", null ]
+    [ "setValueAtIndex", "class_igor_aux_1_1ia_gradient.html#a7dd08119a08bb66b57fcfd80962cb9a9", null ]
 ];

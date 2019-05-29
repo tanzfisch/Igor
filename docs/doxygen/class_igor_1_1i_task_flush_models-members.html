@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -128,19 +128,18 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_task_flush_models.html
   <tr><td class="entry"><a class="el" href="class_igor_1_1i_task.html#a9a6b5fdd96fec5df44942f8df19ee217">isRunning</a>()</td><td class="entry"><a class="el" href="class_igor_1_1i_task.html">Igor::iTask</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_task.html#aa1e5a747bb1ded943fd0f1d9bbcfff71">iTask</a>(iWindow *window=nullptr, uint32 priority=iTask::DEFAULT_PRIORITY, bool isRepeating=false, iTaskContext taskContext=iTaskContext::Default)</td><td class="entry"><a class="el" href="class_igor_1_1i_task.html">Igor::iTask</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_igor_1_1i_task_flush_models.html#a27cf38dd0bfa61a90e5fc576155f9ec7">iTaskFlushModels</a>(iWindow *window)</td><td class="entry"><a class="el" href="class_igor_1_1i_task_flush_models.html">Igor::iTaskFlushModels</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_task_flush_models.html#a8dfe872a0df2a2971b3cdcd1c317a656">run</a>()</td><td class="entry"><a class="el" href="class_igor_1_1i_task_flush_models.html">Igor::iTaskFlushModels</a></td><td class="entry"><span class="mlabel">private</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_1_1i_task.html#aec854c6795aac27b6e5c3eadf14fa86d">setPriority</a>(uint32 priority)</td><td class="entry"><a class="el" href="class_igor_1_1i_task.html">Igor::iTask</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_task.html#acdadecbd8a4427becbef93a5fa2873b7">setRepeating</a>(bool repeat)</td><td class="entry"><a class="el" href="class_igor_1_1i_task.html">Igor::iTask</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_1_1i_task.html#ab17249cecf2b768cf4f74d4cbb46bdfc">setWorld</a>(uint64 worldID)</td><td class="entry"><a class="el" href="class_igor_1_1i_task.html">Igor::iTask</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_task.html#a6f81a74013d9a7a9c819ec9d5fbfa8fb">~iTask</a>()=default</td><td class="entry"><a class="el" href="class_igor_1_1i_task.html">Igor::iTask</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_1_1i_task_flush_models.html#a33a5c7464e9171eff8ef3960612884f3">~iTaskFlushModels</a>()=default</td><td class="entry"><a class="el" href="class_igor_1_1i_task_flush_models.html">Igor::iTaskFlushModels</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_task.html#aec854c6795aac27b6e5c3eadf14fa86d">setPriority</a>(uint32 priority)</td><td class="entry"><a class="el" href="class_igor_1_1i_task.html">Igor::iTask</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_igor_1_1i_task.html#acdadecbd8a4427becbef93a5fa2873b7">setRepeating</a>(bool repeat)</td><td class="entry"><a class="el" href="class_igor_1_1i_task.html">Igor::iTask</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_task.html#ab17249cecf2b768cf4f74d4cbb46bdfc">setWorld</a>(uint64 worldID)</td><td class="entry"><a class="el" href="class_igor_1_1i_task.html">Igor::iTask</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_igor_1_1i_task.html#a6f81a74013d9a7a9c819ec9d5fbfa8fb">~iTask</a>()=default</td><td class="entry"><a class="el" href="class_igor_1_1i_task.html">Igor::iTask</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_task_flush_models.html#a33a5c7464e9171eff8ef3960612884f3">~iTaskFlushModels</a>()=default</td><td class="entry"><a class="el" href="class_igor_1_1i_task_flush_models.html">Igor::iTaskFlushModels</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:05 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

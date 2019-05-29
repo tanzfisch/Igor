@@ -1,8 +1,0 @@
-<map id="UserControlMesh::deinitGUI" name="UserControlMesh::deinitGUI">
-<area shape="rect" id="node2" href="$class_user_control_mesh.html#ac901c8a8ea1a2a802ee2038ed9925672" title="UserControlMesh::onDoUpdateNode" alt="" coords="236,5,467,32"/>
-<area shape="rect" id="node3" href="$class_user_control_mesh.html#aac5a78a76e9492aa3da4e69f0e287500" title="UserControlMesh::onMaterial\lChanged" alt="" coords="256,57,447,98"/>
-<area shape="rect" id="node4" href="$class_user_control_mesh.html#ac1978d35fd95e4ced10be2afafa71ab3" title="UserControlMesh::onSlider\lChangedShininess" alt="" coords="263,122,440,163"/>
-<area shape="rect" id="node5" href="$class_user_control_mesh.html#ae5081e4ea98fcdea76a0e24888038324" title="UserControlMesh::onTextChanged\lShininess" alt="" coords="241,187,461,229"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iWidgetManager \&gt;::getInstance" alt="" coords="244,253,459,294"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_widget_manager.html#a0f280e1395cb1fe0af29e3d06beb465f" title="Igor::iWidgetManager\l::destroyWidget" alt="" coords="279,318,424,359"/>
-</map>

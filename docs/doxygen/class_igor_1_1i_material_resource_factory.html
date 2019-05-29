@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,8 +111,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_material_resource_fact
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_material_resource_factory-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -120,19 +118,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_material_resource_fact
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_material_resource_factory_8h_source.html">iMaterialResourceFactory.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iMaterialResourceFactory:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_material_resource_factory__inherit__graph.svg" width="288" height="218"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iMaterialResourceFactory:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_material_resource_factory__coll__graph.svg" width="522" height="246"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iMaterialResourceFactory.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iMaterialResourceFactory &gt;</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -169,44 +157,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af4e2cbd7d9daa1576dd1a9e207bad7e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_resource_factory.html#af4e2cbd7d9daa1576dd1a9e207bad7e0">unregisterMaterialDestroyedDelegate</a> (iMaterialDestroyedDelegate materialDestroyedDelegate)</td></tr>
 <tr class="separator:af4e2cbd7d9daa1576dd1a9e207bad7e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a80ca5c93e1d758a1a0a895ba432e9aff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_resource_factory.html#a80ca5c93e1d758a1a0a895ba432e9aff">setMaterial</a> (uint64 materialID)</td></tr>
-<tr class="separator:a80ca5c93e1d758a1a0a895ba432e9aff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7288ca2ed6bbdc2f0faa6f576c8d3740"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_resource_factory.html#a7288ca2ed6bbdc2f0faa6f576c8d3740">updateGroups</a> ()</td></tr>
-<tr class="separator:a7288ca2ed6bbdc2f0faa6f576c8d3740"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab0cc81e97a5a6a514c2252bbdc4da99"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_resource_factory.html#aab0cc81e97a5a6a514c2252bbdc4da99">initDefaultMaterials</a> ()</td></tr>
-<tr class="separator:aab0cc81e97a5a6a514c2252bbdc4da99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1e208cab1fea029f87798e98de8c068"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_resource_factory.html#ad1e208cab1fea029f87798e98de8c068">iMaterialResourceFactory</a> ()</td></tr>
-<tr class="separator:ad1e208cab1fea029f87798e98de8c068"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a552a588054b5c9575c0872a4354fd987"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_resource_factory.html#a552a588054b5c9575c0872a4354fd987">~iMaterialResourceFactory</a> ()</td></tr>
-<tr class="separator:a552a588054b5c9575c0872a4354fd987"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:acdec6730038a41ec031fcc5369648206"><td class="memItemLeft" align="right" valign="top">iMaterialCreatedEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_resource_factory.html#acdec6730038a41ec031fcc5369648206">_materialCreatedEvent</a></td></tr>
-<tr class="separator:acdec6730038a41ec031fcc5369648206"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaad31f81a4304283f7cad8143d1b981f"><td class="memItemLeft" align="right" valign="top">iMaterialDestroyedEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_resource_factory.html#aaad31f81a4304283f7cad8143d1b981f">_materialDestroyedEvent</a></td></tr>
-<tr class="separator:aaad31f81a4304283f7cad8143d1b981f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2ff504b4bb89792218656ce555202ed"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_resource_factory.html#ac2ff504b4bb89792218656ce555202ed">_dirtyMaterials</a> = true</td></tr>
-<tr class="separator:ac2ff504b4bb89792218656ce555202ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9786b1d96277afda232cd8574cadacd"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="namespace_igor.html#a3a01a780cbeda3bc1dc3a869ad4ee0f5">iMaterialPtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_resource_factory.html#aa9786b1d96277afda232cd8574cadacd">_sortedMaterials</a></td></tr>
-<tr class="separator:aa9786b1d96277afda232cd8574cadacd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa47679a2b9d413141e6466656dd8dfd3"><td class="memItemLeft" align="right" valign="top">map&lt; uint64, <a class="el" href="namespace_igor.html#a3a01a780cbeda3bc1dc3a869ad4ee0f5">iMaterialPtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_resource_factory.html#aa47679a2b9d413141e6466656dd8dfd3">_materials</a></td></tr>
-<tr class="separator:aa47679a2b9d413141e6466656dd8dfd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad595375a917223e75cbe8ca788568c74"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_resource_factory.html#ad595375a917223e75cbe8ca788568c74">_targetMaterialMutex</a></td></tr>
-<tr class="separator:ad595375a917223e75cbe8ca788568c74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7e137156c3e29bab9ac6eb2a9f6d5f1"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_igor_1_1i_target_material.html">iTargetMaterial</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_resource_factory.html#af7e137156c3e29bab9ac6eb2a9f6d5f1">_targetMaterials</a></td></tr>
-<tr class="separator:af7e137156c3e29bab9ac6eb2a9f6d5f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1d696436d3802f18c5636b9e4b6e00b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a3a01a780cbeda3bc1dc3a869ad4ee0f5">iMaterialPtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_resource_factory.html#af1d696436d3802f18c5636b9e4b6e00b">_currentMaterial</a> = nullptr</td></tr>
-<tr class="separator:af1d696436d3802f18c5636b9e4b6e00b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2448c8a42e4890f66601a7a2db358ea8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_resource_factory.html#a2448c8a42e4890f66601a7a2db358ea8">_mutexMaterial</a></td></tr>
-<tr class="separator:a2448c8a42e4890f66601a7a2db358ea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae482a7a6c7e40a2031d7882e39f445fd"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_resource_factory.html#ae482a7a6c7e40a2031d7882e39f445fd">_defaultMaterial</a> = <a class="el" href="class_igor_1_1i_material.html#a13049bfb6e67de2349ecefb868a5f121">iMaterial::INVALID_MATERIAL_ID</a></td></tr>
-<tr class="separator:ae482a7a6c7e40a2031d7882e39f445fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac35879694f5018ceb1fbf23e86443903"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_resource_factory.html#ac35879694f5018ceb1fbf23e86443903">_colorIDMaterial</a> = <a class="el" href="class_igor_1_1i_material.html#a13049bfb6e67de2349ecefb868a5f121">iMaterial::INVALID_MATERIAL_ID</a></td></tr>
-<tr class="separator:ac35879694f5018ceb1fbf23e86443903"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a975244c2c543acf5b531d67b8b14b61f"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_resource_factory.html#a975244c2c543acf5b531d67b8b14b61f">iaSingleton&lt; iMaterialResourceFactory &gt;</a></td></tr>
@@ -234,62 +184,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>material resource factory </p>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8h_source.html#l00065">65</a> of file <a class="el" href="i_material_resource_factory_8h_source.html">iMaterialResourceFactory.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ad1e208cab1fea029f87798e98de8c068"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iMaterialResourceFactory::iMaterialResourceFactory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>initialisation of members </p>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8cpp_source.html#l00018">18</a> of file <a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a552a588054b5c9575c0872a4354fd987"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iMaterialResourceFactory::~iMaterialResourceFactory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>clean up and error handling </p>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8cpp_source.html#l00029">29</a> of file <a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a7f16060265e048a59c11b2a5ef6105cc"></a>
 <div class="memitem">
 <div class="memproto">
@@ -305,25 +200,6 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>creates material</p>
 <dl class="section return"><dt>Returns</dt><dd>id of new material </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_state_machine_2src_2_state_machine_example_8cpp-example.html#a10">StateMachine/src/StateMachineExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_material_resource_factory_8cpp_source.html#l00156">156</a> of file <a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_material_resource_factory_a7f16060265e048a59c11b2a5ef6105cc_cgraph.svg" width="418" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_material_resource_factory_a7f16060265e048a59c11b2a5ef6105cc_icgraph.svg" width="498" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -341,16 +217,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>creates and returns a target material</p>
 <dl class="section return"><dt>Returns</dt><dd>pointer to new target material </dd></dl>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8cpp_source.html#l00062">62</a> of file <a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_material_resource_factory_a55ee78b1783c8787a374907fe17f3d01_icgraph.svg" width="1004" height="892"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -374,17 +240,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_state_machine_2src_2_state_machine_example_8cpp-example.html#a20">StateMachine/src/StateMachineExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_material_resource_factory_8cpp_source.html#l00199">199</a> of file <a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_material_resource_factory_acf490b2841756011dec4fe567b9b403e_icgraph.svg" width="386" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -409,16 +264,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_material_resource_factory_8cpp_source.html#l00073">73</a> of file <a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_material_resource_factory_ad43e41d2e034291e68071e73b79ae0fd_icgraph.svg" width="386" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a4cfe2a1d8f32bf96c829788a19751d23"></a>
@@ -434,8 +279,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>color ID material ID </dd></dl>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8cpp_source.html#l00091">91</a> of file <a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a>.</p>
 
 </div>
 </div>
@@ -453,8 +296,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the currently activated material </dd></dl>
 
-<p>Definition at line <a class="el" href="i_material_resource_factory_8cpp_source.html#l00326">326</a> of file <a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ab455a343cb42c5590fcf3f4994a05465"></a>
@@ -471,16 +312,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>default material </dd></dl>
 
-<p>Definition at line <a class="el" href="i_material_resource_factory_8cpp_source.html#l00248">248</a> of file <a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_material_resource_factory_ab455a343cb42c5590fcf3f4994a05465_cgraph.svg" width="372" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ab006737681c1b9aafa543fa8b11cb507"></a>
@@ -496,8 +327,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>default material ID </dd></dl>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8cpp_source.html#l00086">86</a> of file <a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a>.</p>
 
 </div>
 </div>
@@ -521,17 +350,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_state_machine_2src_2_state_machine_example_8cpp-example.html#a11">StateMachine/src/StateMachineExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_material_resource_factory_8cpp_source.html#l00253">253</a> of file <a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_material_resource_factory_a51a97edf742ff941daa346679887ee9e_icgraph.svg" width="583" height="286"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -556,8 +374,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_material_resource_factory_8cpp_source.html#l00299">299</a> of file <a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aa096dffd0e2d737f5fb0148838a6d129"></a>
@@ -580,8 +396,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_material_resource_factory_8cpp_source.html#l00273">273</a> of file <a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a470b7c06bcad28ef79917ae30d58fabe"></a>
@@ -597,50 +411,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>materials list sorted by render order </dd></dl>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8cpp_source.html#l00112">112</a> of file <a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_material_resource_factory_a470b7c06bcad28ef79917ae30d58fabe_icgraph.svg" width="547" height="222"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="aab0cc81e97a5a6a514c2252bbdc4da99"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iMaterialResourceFactory::initDefaultMaterials </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>initializes default materials </p>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8cpp_source.html#l00123">123</a> of file <a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_material_resource_factory_aab0cc81e97a5a6a514c2252bbdc4da99_cgraph.svg" width="372" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -665,8 +435,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_material_resource_factory_8cpp_source.html#l00179">179</a> of file <a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aec091a839aa0ab5668b1c155b4191a60"></a>
@@ -689,43 +457,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8cpp_source.html#l00189">189</a> of file <a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a80ca5c93e1d758a1a0a895ba432e9aff"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iMaterialResourceFactory::setMaterial </td>
-          <td>(</td>
-          <td class="paramtype">uint64&#160;</td>
-          <td class="paramname"><em>materialID</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>set a material as the active material.</p>
-<p>changes render states as needed.</p>
-<p>ATTENTION can only be used if window is open and renderer initialized</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">materialID</td><td>the material's id to be activated </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8cpp_source.html#l00229">229</a> of file <a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a>.</p>
 
 </div>
 </div>
@@ -750,8 +481,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_material_resource_factory_8cpp_source.html#l00184">184</a> of file <a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="af4e2cbd7d9daa1576dd1a9e207bad7e0"></a>
@@ -775,34 +504,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_material_resource_factory_8cpp_source.html#l00194">194</a> of file <a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7288ca2ed6bbdc2f0faa6f576c8d3740"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iMaterialResourceFactory::updateGroups </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>sorts the materials if needed </p>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8cpp_source.html#l00096">96</a> of file <a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -824,267 +525,11 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_material_resource_factory_8h_source.html#l00067">67</a> of file <a class="el" href="i_material_resource_factory_8h_source.html">iMaterialResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="ac35879694f5018ceb1fbf23e86443903"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iMaterialResourceFactory::_colorIDMaterial = <a class="el" href="class_igor_1_1i_material.html#a13049bfb6e67de2349ecefb868a5f121">iMaterial::INVALID_MATERIAL_ID</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>color id material id </p>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8h_source.html#l00198">198</a> of file <a class="el" href="i_material_resource_factory_8h_source.html">iMaterialResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af1d696436d3802f18c5636b9e4b6e00b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#a3a01a780cbeda3bc1dc3a869ad4ee0f5">iMaterialPtr</a> Igor::iMaterialResourceFactory::_currentMaterial = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current material in use </p>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8h_source.html#l00186">186</a> of file <a class="el" href="i_material_resource_factory_8h_source.html">iMaterialResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae482a7a6c7e40a2031d7882e39f445fd"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iMaterialResourceFactory::_defaultMaterial = <a class="el" href="class_igor_1_1i_material.html#a13049bfb6e67de2349ecefb868a5f121">iMaterial::INVALID_MATERIAL_ID</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>default material ID </p>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8h_source.html#l00194">194</a> of file <a class="el" href="i_material_resource_factory_8h_source.html">iMaterialResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac2ff504b4bb89792218656ce555202ed"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iMaterialResourceFactory::_dirtyMaterials = true</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>dirty flag to control changes in render order </p>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8h_source.html#l00166">166</a> of file <a class="el" href="i_material_resource_factory_8h_source.html">iMaterialResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="acdec6730038a41ec031fcc5369648206"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iMaterialCreatedEvent Igor::iMaterialResourceFactory::_materialCreatedEvent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>material created event </p>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8h_source.html#l00158">158</a> of file <a class="el" href="i_material_resource_factory_8h_source.html">iMaterialResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aaad31f81a4304283f7cad8143d1b981f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iMaterialDestroyedEvent Igor::iMaterialResourceFactory::_materialDestroyedEvent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>material destroyed event </p>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8h_source.html#l00162">162</a> of file <a class="el" href="i_material_resource_factory_8h_source.html">iMaterialResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa47679a2b9d413141e6466656dd8dfd3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;uint64, <a class="el" href="namespace_igor.html#a3a01a780cbeda3bc1dc3a869ad4ee0f5">iMaterialPtr</a>&gt; Igor::iMaterialResourceFactory::_materials</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>lookup table for materials </p>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8h_source.html#l00174">174</a> of file <a class="el" href="i_material_resource_factory_8h_source.html">iMaterialResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2448c8a42e4890f66601a7a2db358ea8"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> Igor::iMaterialResourceFactory::_mutexMaterial</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex for material lists </p>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8h_source.html#l00190">190</a> of file <a class="el" href="i_material_resource_factory_8h_source.html">iMaterialResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa9786b1d96277afda232cd8574cadacd"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="namespace_igor.html#a3a01a780cbeda3bc1dc3a869ad4ee0f5">iMaterialPtr</a>&gt; Igor::iMaterialResourceFactory::_sortedMaterials</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>materials sorted by render order </p>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8h_source.html#l00170">170</a> of file <a class="el" href="i_material_resource_factory_8h_source.html">iMaterialResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad595375a917223e75cbe8ca788568c74"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> Igor::iMaterialResourceFactory::_targetMaterialMutex</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex to protect the target material list </p>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8h_source.html#l00178">178</a> of file <a class="el" href="i_material_resource_factory_8h_source.html">iMaterialResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af7e137156c3e29bab9ac6eb2a9f6d5f1"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="class_igor_1_1i_target_material.html">iTargetMaterial</a>*&gt; Igor::iMaterialResourceFactory::_targetMaterials</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of target materials </p>
-
-<p>Definition at line <a class="el" href="i_material_resource_factory_8h_source.html#l00182">182</a> of file <a class="el" href="i_material_resource_factory_8h_source.html">iMaterialResourceFactory.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_material_resource_factory_8h_source.html">iMaterialResourceFactory.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_material_resource_factory_8cpp_source.html">iMaterialResourceFactory.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_material_resource_factory_8h.html">iMaterialResourceFactory.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_material_resource_factory_8cpp.html">iMaterialResourceFactory.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -1093,7 +538,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_material_resource_factory.html">iMaterialResourceFactory</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:48 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

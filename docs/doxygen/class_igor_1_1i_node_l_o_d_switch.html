@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,8 +112,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_l_o_d_switch.html
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_node_l_o_d_switch-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -121,25 +119,10 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_l_o_d_switch.html
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_node_l_o_d_switch_8h_source.html">iNodeLODSwitch.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iNodeLODSwitch:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_l_o_d_switch__inherit__graph.svg" width="160" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iNodeLODSwitch:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_l_o_d_switch__coll__graph.svg" width="1126" height="374"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iNodeLODSwitch.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_1_1i_node.html">Igor::iNode</a>.</p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_igor_1_1i_node_l_o_d_switch_1_1_threshold.html">Threshold</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a0e19a54aa435fd1cee8a0e599f2cf2cd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_l_o_d_switch.html#a0e19a54aa435fd1cee8a0e599f2cf2cd">setThresholds</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node, float32 min, float32 max)</td></tr>
@@ -214,34 +197,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a92a082c4e595b2f485e959b54e67c443 inherit pub_methods_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top">iTransformationChangeEvent &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a92a082c4e595b2f485e959b54e67c443">getTransformationChangeEvent</a> ()</td></tr>
 <tr class="separator:a92a082c4e595b2f485e959b54e67c443 inherit pub_methods_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a07ea92a4b5bed41e8f92be2309257e75"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_l_o_d_switch.html#a07ea92a4b5bed41e8f92be2309257e75">onPostCopyLink</a> (map&lt; uint32, uint32 &gt; &amp;nodeIDMap)</td></tr>
-<tr class="separator:a07ea92a4b5bed41e8f92be2309257e75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a115c6f91ff8f3b82a6b48c5bb9ea3af0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_l_o_d_switch.html#a115c6f91ff8f3b82a6b48c5bb9ea3af0">update</a> (float32 distance)</td></tr>
-<tr class="separator:a115c6f91ff8f3b82a6b48c5bb9ea3af0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafd574d9d91a13908f06eefcbdedde8a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_l_o_d_switch.html#aafd574d9d91a13908f06eefcbdedde8a">onUpdateTransform</a> (<a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> &amp;matrix)</td></tr>
-<tr class="separator:aafd574d9d91a13908f06eefcbdedde8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a130c39c47cdb0330fabc3b4bfa79df4c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_l_o_d_switch.html#a130c39c47cdb0330fabc3b4bfa79df4c">onPreSetScene</a> ()</td></tr>
-<tr class="separator:a130c39c47cdb0330fabc3b4bfa79df4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabe1c19bc008755aa3ff1cfe9fb4f530"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_l_o_d_switch.html#aabe1c19bc008755aa3ff1cfe9fb4f530">onPostSetScene</a> ()</td></tr>
-<tr class="separator:aabe1c19bc008755aa3ff1cfe9fb4f530"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6bf8b6e776f27446fb9b6ad10e4f9f4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_l_o_d_switch.html#ac6bf8b6e776f27446fb9b6ad10e4f9f4">iNodeLODSwitch</a> ()</td></tr>
-<tr class="separator:ac6bf8b6e776f27446fb9b6ad10e4f9f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82890d01bc6074af1c17714bad07574e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_l_o_d_switch.html#a82890d01bc6074af1c17714bad07574e">iNodeLODSwitch</a> (<a class="el" href="class_igor_1_1i_node_l_o_d_switch.html">iNodeLODSwitch</a> *node)</td></tr>
-<tr class="separator:a82890d01bc6074af1c17714bad07574e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad115f7f406e32fe3969a700276d59354"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_l_o_d_switch.html#ad115f7f406e32fe3969a700276d59354">~iNodeLODSwitch</a> ()</td></tr>
-<tr class="separator:ad115f7f406e32fe3969a700276d59354"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a34d5a26fda0e5ee75661912dcea78ca4"><td class="memItemLeft" align="right" valign="top">vector&lt; uint32 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_l_o_d_switch.html#a34d5a26fda0e5ee75661912dcea78ca4">_triggers</a></td></tr>
-<tr class="separator:a34d5a26fda0e5ee75661912dcea78ca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3e52e4fa80aaea829fbaa8b28fce018"><td class="memItemLeft" align="right" valign="top">map&lt; <a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>, <a class="el" href="struct_igor_1_1i_node_l_o_d_switch_1_1_threshold.html">Threshold</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_l_o_d_switch.html#ac3e52e4fa80aaea829fbaa8b28fce018">_thresholds</a></td></tr>
-<tr class="separator:ac3e52e4fa80aaea829fbaa8b28fce018"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26d1a09019f7a1d602a77ac753f15be1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#ac312fcf0af77ec8167e9e30b01c0de54">iaVector3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_l_o_d_switch.html#a26d1a09019f7a1d602a77ac753f15be1">_worldPosition</a></td></tr>
-<tr class="separator:a26d1a09019f7a1d602a77ac753f15be1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a443fcc5b71f6dbb2a68dae3d957024c3"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_l_o_d_switch.html#a443fcc5b71f6dbb2a68dae3d957024c3">iNodeFactory</a></td></tr>
@@ -303,113 +258,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock"><p>the lod switch node switches it's child nodes active depending how far a registered LOD trigger node is away</p>
 <p>the LOS switch node can react on multiple LOD trigger nodes</p>
 <p>child goes active when _min &lt;= child distance &lt; _max </p>
-
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8h_source.html#l00052">52</a> of file <a class="el" href="i_node_l_o_d_switch_8h_source.html">iNodeLODSwitch.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ac6bf8b6e776f27446fb9b6ad10e4f9f4"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iNodeLODSwitch::iNodeLODSwitch </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>initializes memeber varialbes </p>
-
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8cpp_source.html#l00017">17</a> of file <a class="el" href="i_node_l_o_d_switch_8cpp_source.html">iNodeLODSwitch.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_l_o_d_switch_ac6bf8b6e776f27446fb9b6ad10e4f9f4_cgraph.svg" width="352" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a82890d01bc6074af1c17714bad07574e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iNodeLODSwitch::iNodeLODSwitch </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_node_l_o_d_switch.html">iNodeLODSwitch</a> *&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>copy ctor </p>
-
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8cpp_source.html#l00025">25</a> of file <a class="el" href="i_node_l_o_d_switch_8cpp_source.html">iNodeLODSwitch.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_l_o_d_switch_a82890d01bc6074af1c17714bad07574e_cgraph.svg" width="352" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="ad115f7f406e32fe3969a700276d59354"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iNodeLODSwitch::~iNodeLODSwitch </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>dtor </p>
-
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8cpp_source.html#l00042">42</a> of file <a class="el" href="i_node_l_o_d_switch_8cpp_source.html">iNodeLODSwitch.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_l_o_d_switch_ad115f7f406e32fe3969a700276d59354_cgraph.svg" width="594" height="374"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a4ba79bd5d4f35d24bb2fee863387bdab"></a>
 <div class="memitem">
 <div class="memproto">
@@ -430,16 +279,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8cpp_source.html#l00065">65</a> of file <a class="el" href="i_node_l_o_d_switch_8cpp_source.html">iNodeLODSwitch.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_l_o_d_switch_a4ba79bd5d4f35d24bb2fee863387bdab_cgraph.svg" width="331" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -464,8 +303,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8cpp_source.html#l00057">57</a> of file <a class="el" href="i_node_l_o_d_switch_8cpp_source.html">iNodeLODSwitch.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a58d22e281158a100d9137541ec6be119"></a>
@@ -481,156 +318,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>world position of lod switch node </dd></dl>
-
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8cpp_source.html#l00052">52</a> of file <a class="el" href="i_node_l_o_d_switch_8cpp_source.html">iNodeLODSwitch.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_l_o_d_switch_a58d22e281158a100d9137541ec6be119_icgraph.svg" width="358" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a07ea92a4b5bed41e8f92be2309257e75"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iNodeLODSwitch::onPostCopyLink </td>
-          <td>(</td>
-          <td class="paramtype">map&lt; uint32, uint32 &gt; &amp;&#160;</td>
-          <td class="paramname"><em>nodeIDMap</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>called after a node was copied</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">nodeIDMap</td><td>map with old node ids to new node ids </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8cpp_source.html#l00037">37</a> of file <a class="el" href="i_node_l_o_d_switch_8cpp_source.html">iNodeLODSwitch.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aabe1c19bc008755aa3ff1cfe9fb4f530"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iNodeLODSwitch::onPostSetScene </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>registers to new scene </p>
-
-<p>Reimplemented from <a class="el" href="class_igor_1_1i_node.html#af5a14599bd4dc62d1534865c8a306e8e">Igor::iNode</a>.</p>
-
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8cpp_source.html#l00152">152</a> of file <a class="el" href="i_node_l_o_d_switch_8cpp_source.html">iNodeLODSwitch.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_l_o_d_switch_aabe1c19bc008755aa3ff1cfe9fb4f530_cgraph.svg" width="415" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a130c39c47cdb0330fabc3b4bfa79df4c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iNodeLODSwitch::onPreSetScene </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>unregisters switch node from scene if it belonged to a scene before </p>
-
-<p>Reimplemented from <a class="el" href="class_igor_1_1i_node.html#aa8934442e897cfdf775264f161c69143">Igor::iNode</a>.</p>
-
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8cpp_source.html#l00144">144</a> of file <a class="el" href="i_node_l_o_d_switch_8cpp_source.html">iNodeLODSwitch.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_l_o_d_switch_a130c39c47cdb0330fabc3b4bfa79df4c_cgraph.svg" width="364" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="aafd574d9d91a13908f06eefcbdedde8a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iNodeLODSwitch::onUpdateTransform </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> &amp;&#160;</td>
-          <td class="paramname"><em>matrix</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>sets the current world aka absolute position</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pos</td><td>new position to be set </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="class_igor_1_1i_node.html#a5bb85be2466e22f0aba730fa23620b52">Igor::iNode</a>.</p>
-
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8cpp_source.html#l00047">47</a> of file <a class="el" href="i_node_l_o_d_switch_8cpp_source.html">iNodeLODSwitch.cpp</a>.</p>
 
 </div>
 </div>
@@ -655,16 +342,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8cpp_source.html#l00084">84</a> of file <a class="el" href="i_node_l_o_d_switch_8cpp_source.html">iNodeLODSwitch.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_l_o_d_switch_abc418127add395e6809a969d7d05eb8f_cgraph.svg" width="331" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a9160940346d83f2ec3c57125657ee556"></a>
@@ -687,8 +364,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8cpp_source.html#l00075">75</a> of file <a class="el" href="i_node_l_o_d_switch_8cpp_source.html">iNodeLODSwitch.cpp</a>.</p>
 
 </div>
 </div>
@@ -731,24 +406,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8cpp_source.html#l00160">160</a> of file <a class="el" href="i_node_l_o_d_switch_8cpp_source.html">iNodeLODSwitch.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_l_o_d_switch_a0e19a54aa435fd1cee8a0e599f2cf2cd_cgraph.svg" width="339" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_l_o_d_switch_a0e19a54aa435fd1cee8a0e599f2cf2cd_icgraph.svg" width="358" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="af3796795002e581a06d38fa5c8aca55f"></a>
@@ -789,16 +446,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8cpp_source.html#l00172">172</a> of file <a class="el" href="i_node_l_o_d_switch_8cpp_source.html">iNodeLODSwitch.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_l_o_d_switch_af3796795002e581a06d38fa5c8aca55f_cgraph.svg" width="536" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -841,16 +488,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8cpp_source.html#l00180">180</a> of file <a class="el" href="i_node_l_o_d_switch_8cpp_source.html">iNodeLODSwitch.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_l_o_d_switch_a41dfe913a67270287c3d7c0c78edc65e_cgraph.svg" width="536" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="aca04b5ee6502da939571007a4cebfe6c"></a>
@@ -866,49 +503,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>calculates lowest distance to triggers and updates children accordingly </p>
-
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8cpp_source.html#l00094">94</a> of file <a class="el" href="i_node_l_o_d_switch_8cpp_source.html">iNodeLODSwitch.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_l_o_d_switch_aca04b5ee6502da939571007a4cebfe6c_cgraph.svg" width="407" height="248"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a115c6f91ff8f3b82a6b48c5bb9ea3af0"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iNodeLODSwitch::update </td>
-          <td>(</td>
-          <td class="paramtype">float32&#160;</td>
-          <td class="paramname"><em>distance</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>update by distance</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">distance</td><td>the min distance to a trigger </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8cpp_source.html#l00125">125</a> of file <a class="el" href="i_node_l_o_d_switch_8cpp_source.html">iNodeLODSwitch.cpp</a>.</p>
 
 </div>
 </div>
@@ -931,9 +525,6 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>node that handles physics collisions bound to one body</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000029">Todo:</a></b></dt><dd>also need to remove things after adding them. maybe using IDs for that </dd></dl>
-
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8h_source.html#l00055">55</a> of file <a class="el" href="i_node_l_o_d_switch_8h_source.html">iNodeLODSwitch.h</a>.</p>
 
 </div>
 </div>
@@ -955,83 +546,11 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8h_source.html#l00056">56</a> of file <a class="el" href="i_node_l_o_d_switch_8h_source.html">iNodeLODSwitch.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="ac3e52e4fa80aaea829fbaa8b28fce018"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>, <a class="el" href="struct_igor_1_1i_node_l_o_d_switch_1_1_threshold.html">Threshold</a>&gt; Igor::iNodeLODSwitch::_thresholds</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>quadric distance thresholds for child nodes </p>
-
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8h_source.html#l00134">134</a> of file <a class="el" href="i_node_l_o_d_switch_8h_source.html">iNodeLODSwitch.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a34d5a26fda0e5ee75661912dcea78ca4"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;uint32&gt; Igor::iNodeLODSwitch::_triggers</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of triggers that have an effect on this switch node </p>
-
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8h_source.html#l00130">130</a> of file <a class="el" href="i_node_l_o_d_switch_8h_source.html">iNodeLODSwitch.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a26d1a09019f7a1d602a77ac753f15be1"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#ac312fcf0af77ec8167e9e30b01c0de54">iaVector3d</a> Igor::iNodeLODSwitch::_worldPosition</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current absolute position </p>
-
-<p>Definition at line <a class="el" href="i_node_l_o_d_switch_8h_source.html#l00138">138</a> of file <a class="el" href="i_node_l_o_d_switch_8h_source.html">iNodeLODSwitch.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_l_o_d_switch_8h_source.html">iNodeLODSwitch.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_l_o_d_switch_8cpp_source.html">iNodeLODSwitch.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_node_l_o_d_switch_8h.html">iNodeLODSwitch.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_node_l_o_d_switch_8cpp.html">iNodeLODSwitch.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -1040,7 +559,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_node_l_o_d_switch.html">iNodeLODSwitch</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:52 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,9 +112,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_physics_collision.html
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_physics_collision-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -122,13 +119,7 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_physics_collision.html
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_physics_collision_8h_source.html">iPhysicsCollision.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for Igor::iPhysicsCollision:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_collision__coll__graph.svg" width="162" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iPhysicsCollision.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -144,29 +135,6 @@ Static Public Attributes</h2></td></tr>
 <tr class="memitem:a54461a939e052e6c5f2d999a0a73c010"><td class="memItemLeft" align="right" valign="top">static const uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_collision.html#a54461a939e052e6c5f2d999a0a73c010">INVALID_PHYSICSCOLLISION_ID</a> = 0</td></tr>
 <tr class="separator:a54461a939e052e6c5f2d999a0a73c010"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:afb0ba05277acd335b774248fc343ed75"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_collision.html#afb0ba05277acd335b774248fc343ed75">iPhysicsCollision</a> (void *collision, uint64 worldID)</td></tr>
-<tr class="separator:afb0ba05277acd335b774248fc343ed75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a321b4862b7c30b15a5f4ada7103728"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_collision.html#a4a321b4862b7c30b15a5f4ada7103728">~iPhysicsCollision</a> ()=default</td></tr>
-<tr class="separator:a4a321b4862b7c30b15a5f4ada7103728"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:aa5fc4ecde7e211d837bdc654f8cfa620"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_collision.html#aa5fc4ecde7e211d837bdc654f8cfa620">_mutex</a></td></tr>
-<tr class="separator:aa5fc4ecde7e211d837bdc654f8cfa620"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac88712c8f1949b711964f0c11ba942cc"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_collision.html#ac88712c8f1949b711964f0c11ba942cc">_collisionID</a> = <a class="el" href="class_igor_1_1i_physics_collision.html#a54461a939e052e6c5f2d999a0a73c010">INVALID_PHYSICSCOLLISION_ID</a></td></tr>
-<tr class="separator:ac88712c8f1949b711964f0c11ba942cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab96beca493c66bac35445603376d1c14"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_collision.html#ab96beca493c66bac35445603376d1c14">_collision</a> = nullptr</td></tr>
-<tr class="separator:ab96beca493c66bac35445603376d1c14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa64e415e8f792d972dec62d5ec47bf71"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_collision.html#aa64e415e8f792d972dec62d5ec47bf71">_worldID</a> = <a class="el" href="class_igor_1_1i_physics_world.html#ab4655d1e6805f26656859bc10ef5e513">iPhysicsWorld::INVALID_WORLD_ID</a></td></tr>
-<tr class="separator:aa64e415e8f792d972dec62d5ec47bf71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
-Static Private Attributes</h2></td></tr>
-<tr class="memitem:a4b568aa5116df073f802566e62d95f34"><td class="memItemLeft" align="right" valign="top">static uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_collision.html#a4b568aa5116df073f802566e62d95f34">_nextCollisionID</a> = <a class="el" href="class_igor_1_1i_physics_collision.html#a54461a939e052e6c5f2d999a0a73c010">INVALID_PHYSICSCOLLISION_ID</a> + 1</td></tr>
-<tr class="separator:a4b568aa5116df073f802566e62d95f34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a68f9306b9fe2369173dfd12456aa5d41"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_collision.html#a68f9306b9fe2369173dfd12456aa5d41">iPhysics</a></td></tr>
@@ -174,87 +142,7 @@ Friends</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>wrapper for the NewtonCollision handle </p>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#_a20">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_physics_collision_8h_source.html#l00043">43</a> of file <a class="el" href="i_physics_collision_8h_source.html">iPhysicsCollision.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="afb0ba05277acd335b774248fc343ed75"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iPhysicsCollision::iPhysicsCollision </td>
-          <td>(</td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>collision</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint64&#160;</td>
-          <td class="paramname"><em>worldID</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>initializes members</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">collision</td><td>handle to newton collision </td></tr>
-    <tr><td class="paramname">world</td><td>the world this collision was created in </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_physics_collision_8cpp_source.html#l00013">13</a> of file <a class="el" href="i_physics_collision_8cpp_source.html">iPhysicsCollision.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_collision_afb0ba05277acd335b774248fc343ed75_cgraph.svg" width="376" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a4a321b4862b7c30b15a5f4ada7103728"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual Igor::iPhysicsCollision::~iPhysicsCollision </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>does nothing </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a1dc878b923d14d93895289b5c348a72d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -268,16 +156,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>pointer to newton collision </dd></dl>
-
-<p>Definition at line <a class="el" href="i_physics_collision_8cpp_source.html#l00033">33</a> of file <a class="el" href="i_physics_collision_8cpp_source.html">iPhysicsCollision.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_collision_a1dc878b923d14d93895289b5c348a72d_icgraph.svg" width="324" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -295,16 +173,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>collision ID </dd></dl>
 
-<p>Definition at line <a class="el" href="i_physics_collision_8cpp_source.html#l00028">28</a> of file <a class="el" href="i_physics_collision_8cpp_source.html">iPhysicsCollision.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_collision_a5ac6c86549b5ea83cd8fcf43778ce154_icgraph.svg" width="667" height="248"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="aa7461e5c031fb8af5997a23fb60998c1"></a>
@@ -320,8 +188,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>world ID </dd></dl>
-
-<p>Definition at line <a class="el" href="i_physics_collision_8cpp_source.html#l00023">23</a> of file <a class="el" href="i_physics_collision_8cpp_source.html">iPhysicsCollision.cpp</a>.</p>
 
 </div>
 </div>
@@ -344,126 +210,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_physics_collision_8h_source.html#l00046">46</a> of file <a class="el" href="i_physics_collision_8h_source.html">iPhysicsCollision.h</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="ab96beca493c66bac35445603376d1c14"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void* Igor::iPhysicsCollision::_collision = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the handle to the newton collision </p>
-
-<p>Definition at line <a class="el" href="i_physics_collision_8h_source.html#l00080">80</a> of file <a class="el" href="i_physics_collision_8h_source.html">iPhysicsCollision.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac88712c8f1949b711964f0c11ba942cc"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iPhysicsCollision::_collisionID = <a class="el" href="class_igor_1_1i_physics_collision.html#a54461a939e052e6c5f2d999a0a73c010">INVALID_PHYSICSCOLLISION_ID</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>id of collision object </p>
-
-<p>Definition at line <a class="el" href="i_physics_collision_8h_source.html#l00076">76</a> of file <a class="el" href="i_physics_collision_8h_source.html">iPhysicsCollision.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa5fc4ecde7e211d837bdc654f8cfa620"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> Igor::iPhysicsCollision::_mutex</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex to protec the id generation </p>
-
-<p>Definition at line <a class="el" href="i_physics_collision_8h_source.html#l00072">72</a> of file <a class="el" href="i_physics_collision_8h_source.html">iPhysicsCollision.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4b568aa5116df073f802566e62d95f34"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iPhysicsCollision::_nextCollisionID = <a class="el" href="class_igor_1_1i_physics_collision.html#a54461a939e052e6c5f2d999a0a73c010">INVALID_PHYSICSCOLLISION_ID</a> + 1</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>next collision id </p>
-
-<p>Definition at line <a class="el" href="i_physics_collision_8h_source.html#l00068">68</a> of file <a class="el" href="i_physics_collision_8h_source.html">iPhysicsCollision.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa64e415e8f792d972dec62d5ec47bf71"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iPhysicsCollision::_worldID = <a class="el" href="class_igor_1_1i_physics_world.html#ab4655d1e6805f26656859bc10ef5e513">iPhysicsWorld::INVALID_WORLD_ID</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>id of the world this collision was created with </p>
-
-<p>Definition at line <a class="el" href="i_physics_collision_8h_source.html#l00084">84</a> of file <a class="el" href="i_physics_collision_8h_source.html">iPhysicsCollision.h</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a54461a939e052e6c5f2d999a0a73c010"></a>
 <div class="memitem">
 <div class="memproto">
@@ -482,13 +231,11 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_physics_collision_8h_source.html#l00050">50</a> of file <a class="el" href="i_physics_collision_8h_source.html">iPhysicsCollision.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_physics_collision_8h_source.html">iPhysicsCollision.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_physics_collision_8cpp_source.html">iPhysicsCollision.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_physics_collision_8h.html">iPhysicsCollision.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_physics_collision_8cpp.html">iPhysicsCollision.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -497,7 +244,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_physics_collision.html">iPhysicsCollision</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:00 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,8 +112,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_timer.html','');});
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_timer-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -121,19 +119,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_timer.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_timer_8h_source.html">iTimer.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iTimer:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_timer__inherit__graph.svg" width="180" height="218"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iTimer:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_timer__coll__graph.svg" width="400" height="231"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iTimer.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iTimer &gt;</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -162,38 +150,6 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:ac99a4082356800d8f0ece5640dba6f76 inherit pro_methods_class_igor_aux_1_1ia_singleton"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_singleton.html#ac99a4082356800d8f0ece5640dba6f76">onPreDestroyInstance</a> ()</td></tr>
 <tr class="separator:ac99a4082356800d8f0ece5640dba6f76 inherit pro_methods_class_igor_aux_1_1ia_singleton"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a54d12ec7edff019fae2686f3d742d997"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_timer.html#a54d12ec7edff019fae2686f3d742d997">insertTimerHandle</a> (const <a class="el" href="class_igor_1_1i_timer_handle.html">iTimerHandle</a> *timer_handle)</td></tr>
-<tr class="separator:a54d12ec7edff019fae2686f3d742d997"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8dc0023bf7dd99e82c33f4c02c440fd1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_timer.html#a8dc0023bf7dd99e82c33f4c02c440fd1">removeTimerHandle</a> (const <a class="el" href="class_igor_1_1i_timer_handle.html">iTimerHandle</a> *timer_handle)</td></tr>
-<tr class="separator:a8dc0023bf7dd99e82c33f4c02c440fd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa87b03d5a746e8bf7948e0fed4636f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_timer.html#aaa87b03d5a746e8bf7948e0fed4636f1">handle</a> ()</td></tr>
-<tr class="separator:aaa87b03d5a746e8bf7948e0fed4636f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50879877d91772df1419a9fed9053ddc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_timer.html#a50879877d91772df1419a9fed9053ddc">iTimer</a> ()</td></tr>
-<tr class="separator:a50879877d91772df1419a9fed9053ddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad16897f2915198bf28bf8fcd2e8bb486"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_timer.html#ad16897f2915198bf28bf8fcd2e8bb486">~iTimer</a> ()</td></tr>
-<tr class="separator:ad16897f2915198bf28bf8fcd2e8bb486"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:ac4afd3f1ca7a18f0cff90d07c443fbcc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_timer.html#ac4afd3f1ca7a18f0cff90d07c443fbcc">_usingPerformanceCounter</a></td></tr>
-<tr class="separator:ac4afd3f1ca7a18f0cff90d07c443fbcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52812fff15ff508eb897b18a85cc2dea"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_timer.html#a52812fff15ff508eb897b18a85cc2dea">_timeDelta</a> = 0</td></tr>
-<tr class="separator:a52812fff15ff508eb897b18a85cc2dea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae912d5072f33aadffce9c6451e408061"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_timer.html#ae912d5072f33aadffce9c6451e408061">_startTime</a> = 0</td></tr>
-<tr class="separator:ae912d5072f33aadffce9c6451e408061"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5951ed8d59659983b76c6b7b34a8d61f"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_timer.html#a5951ed8d59659983b76c6b7b34a8d61f">_currentTime</a> = 0</td></tr>
-<tr class="separator:a5951ed8d59659983b76c6b7b34a8d61f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3be08788b47a2b5c15c693c73c05ce86"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_timer.html#a3be08788b47a2b5c15c693c73c05ce86">_lastTime</a> = 0</td></tr>
-<tr class="separator:a3be08788b47a2b5c15c693c73c05ce86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97bba313faf93f542d8ee4dd278f19cb"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_timer.html#a97bba313faf93f542d8ee4dd278f19cb">_performance</a> = 0</td></tr>
-<tr class="separator:a97bba313faf93f542d8ee4dd278f19cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae85af78335ed504a081f45d9b5ba0523"><td class="memItemLeft" align="right" valign="top">float64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_timer.html#ae85af78335ed504a081f45d9b5ba0523">_timeScale</a> = 0.0</td></tr>
-<tr class="separator:ae85af78335ed504a081f45d9b5ba0523"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7a2272b295a75186a1a1da7e232e15f"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_igor_1_1i_timer_handle.html">iTimerHandle</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_timer.html#ab7a2272b295a75186a1a1da7e232e15f">_timerHandles</a></td></tr>
-<tr class="separator:ab7a2272b295a75186a1a1da7e232e15f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a41b5e2f600ba08086835bd23f0fc514e"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_timer.html#a41b5e2f600ba08086835bd23f0fc514e">iTimerHandle</a></td></tr>
@@ -219,70 +175,7 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Handles Application time and intervals.</p>
 <p>Meshures time of application cycles based on render frames. Can also just meashure current time see getTime() </p>
-
-<p>Definition at line <a class="el" href="i_timer_8h_source.html#l00048">48</a> of file <a class="el" href="i_timer_8h_source.html">iTimer.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a50879877d91772df1419a9fed9053ddc"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iTimer::iTimer </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Registers to <a class="el" href="class_igor_1_1i_application.html">iApplication</a> and initializes performance counter </p>
-
-<p>Definition at line <a class="el" href="i_timer_8cpp_source.html#l00015">15</a> of file <a class="el" href="i_timer_8cpp_source.html">iTimer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_timer_a50879877d91772df1419a9fed9053ddc_cgraph.svg" width="364" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="ad16897f2915198bf28bf8fcd2e8bb486"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iTimer::~iTimer </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>Unregisters from <a class="el" href="class_igor_1_1i_application.html">iApplication</a> </p>
-
-<p>Definition at line <a class="el" href="i_timer_8cpp_source.html#l00024">24</a> of file <a class="el" href="i_timer_8cpp_source.html">iTimer.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="ab365ae8f8c1fe9c4ac4d3fb0c34a2036"></a>
 <div class="memitem">
 <div class="memproto">
@@ -297,17 +190,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>Absolute time in milliseconds since application start.</p>
 <dl class="section return"><dt>Returns</dt><dd>time in milliseconds </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_state_machine_2src_2_state_machine_example_8cpp-example.html#a23">StateMachine/src/StateMachineExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_timer_8cpp_source.html#l00032">32</a> of file <a class="el" href="i_timer_8cpp_source.html">iTimer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_timer_ab365ae8f8c1fe9c4ac4d3fb0c34a2036_cgraph.svg" width="439" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -324,8 +206,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>Returns handle frame rate. It's connected to render framerate. </p>
-
-<p>Definition at line <a class="el" href="i_timer_8cpp_source.html#l00062">62</a> of file <a class="el" href="i_timer_8cpp_source.html">iTimer.cpp</a>.</p>
 
 </div>
 </div>
@@ -344,8 +224,6 @@ Here is the call graph for this function:</div>
 <p>Absolute handle time in ms since last frame / handle call</p>
 <p>This is basically the time from program start to last handle call (right after last render frame) </p>
 
-<p>Definition at line <a class="el" href="i_timer_8cpp_source.html#l00067">67</a> of file <a class="el" href="i_timer_8cpp_source.html">iTimer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ac3b98e53789a0a5d92d621bbb6a48910"></a>
@@ -362,8 +240,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>delta since last handle call in ms</p>
 <p>Basically the delta between the two last render frames. </p>
-
-<p>Definition at line <a class="el" href="i_timer_8cpp_source.html#l00052">52</a> of file <a class="el" href="i_timer_8cpp_source.html">iTimer.cpp</a>.</p>
 
 </div>
 </div>
@@ -382,8 +258,6 @@ Here is the call graph for this function:</div>
 <p>Absolute handle time in s since last frame / handle call</p>
 <p>This is basically the time from program start to last handle call (right after last render frame) </p>
 
-<p>Definition at line <a class="el" href="i_timer_8cpp_source.html#l00072">72</a> of file <a class="el" href="i_timer_8cpp_source.html">iTimer.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a50a5d423d5cd4fe45fd1fbb98cf4e568"></a>
@@ -400,42 +274,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>delta since last handle call in s</p>
 <p>Basically the delta between the two last render frames. </p>
-
-<p>Definition at line <a class="el" href="i_timer_8cpp_source.html#l00057">57</a> of file <a class="el" href="i_timer_8cpp_source.html">iTimer.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aaa87b03d5a746e8bf7948e0fed4636f1"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iTimer::handle </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>called by <a class="el" href="class_igor_1_1i_application.html">iApplication</a> to handle timer handle events </p>
-
-<p>Definition at line <a class="el" href="i_timer_8cpp_source.html#l00037">37</a> of file <a class="el" href="i_timer_8cpp_source.html">iTimer.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_timer_aaa87b03d5a746e8bf7948e0fed4636f1_cgraph.svg" width="367" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -461,62 +299,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>call timer handles events </p>
 
-<p>Definition at line <a class="el" href="i_timer_8cpp_source.html#l00077">77</a> of file <a class="el" href="i_timer_8cpp_source.html">iTimer.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a54d12ec7edff019fae2686f3d742d997"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iTimer::insertTimerHandle </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_igor_1_1i_timer_handle.html">iTimerHandle</a> *&#160;</td>
-          <td class="paramname"><em>timer_handle</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>registers timer handle to timer </p>
-
-<p>Definition at line <a class="el" href="i_timer_8cpp_source.html#l00087">87</a> of file <a class="el" href="i_timer_8cpp_source.html">iTimer.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a8dc0023bf7dd99e82c33f4c02c440fd1"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iTimer::removeTimerHandle </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_igor_1_1i_timer_handle.html">iTimerHandle</a> *&#160;</td>
-          <td class="paramname"><em>timer_handle</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>unregisters timer handle from timer </p>
-
-<p>Definition at line <a class="el" href="i_timer_8cpp_source.html#l00092">92</a> of file <a class="el" href="i_timer_8cpp_source.html">iTimer.cpp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -538,8 +320,6 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_timer_8h_source.html#l00051">51</a> of file <a class="el" href="i_timer_8h_source.html">iTimer.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a67c09416ab4c47890bdfaf3b5b21c09e"></a>
@@ -559,8 +339,6 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_timer_8h_source.html#l00052">52</a> of file <a class="el" href="i_timer_8h_source.html">iTimer.h</a>.</p>
 
 </div>
 </div>
@@ -582,199 +360,11 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_timer_8h_source.html#l00050">50</a> of file <a class="el" href="i_timer_8h_source.html">iTimer.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a5951ed8d59659983b76c6b7b34a8d61f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iTimer::_currentTime = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>time meshured current frame (in tics) </p>
-
-<p>Definition at line <a class="el" href="i_timer_8h_source.html#l00112">112</a> of file <a class="el" href="i_timer_8h_source.html">iTimer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3be08788b47a2b5c15c693c73c05ce86"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iTimer::_lastTime = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>time meshured last frame (in tics) </p>
-
-<p>Definition at line <a class="el" href="i_timer_8h_source.html#l00116">116</a> of file <a class="el" href="i_timer_8h_source.html">iTimer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a97bba313faf93f542d8ee4dd278f19cb"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iTimer::_performance = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>performance frequency </p>
-
-<p>Definition at line <a class="el" href="i_timer_8h_source.html#l00120">120</a> of file <a class="el" href="i_timer_8h_source.html">iTimer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae912d5072f33aadffce9c6451e408061"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iTimer::_startTime = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>time since timer was initialized </p>
-
-<p>Definition at line <a class="el" href="i_timer_8h_source.html#l00108">108</a> of file <a class="el" href="i_timer_8h_source.html">iTimer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a52812fff15ff508eb897b18a85cc2dea"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iTimer::_timeDelta = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>time delta between last and current frame (in tics) </p>
-
-<p>Definition at line <a class="el" href="i_timer_8h_source.html#l00104">104</a> of file <a class="el" href="i_timer_8h_source.html">iTimer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab7a2272b295a75186a1a1da7e232e15f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="class_igor_1_1i_timer_handle.html">iTimerHandle</a>*&gt; Igor::iTimer::_timerHandles</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>registered timer handles</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000084">Todo:</a></b></dt><dd>why is this pointers? </dd></dl>
-
-<p>Definition at line <a class="el" href="i_timer_8h_source.html#l00130">130</a> of file <a class="el" href="i_timer_8h_source.html">iTimer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae85af78335ed504a081f45d9b5ba0523"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float64 Igor::iTimer::_timeScale = 0.0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>inverse performance frequency </p>
-
-<p>Definition at line <a class="el" href="i_timer_8h_source.html#l00124">124</a> of file <a class="el" href="i_timer_8h_source.html">iTimer.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac4afd3f1ca7a18f0cff90d07c443fbcc"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iTimer::_usingPerformanceCounter</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>if true performance counter is available </p>
-
-<p>Definition at line <a class="el" href="i_timer_8h_source.html#l00100">100</a> of file <a class="el" href="i_timer_8h_source.html">iTimer.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_timer_8h_source.html">iTimer.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_timer_8cpp_source.html">iTimer.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_timer_8h.html">iTimer.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_timer_8cpp.html">iTimer.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -783,7 +373,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_timer.html">iTimer</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:07 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

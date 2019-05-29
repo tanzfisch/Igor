@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,9 +112,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_factory.html','')
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_node_factory-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -122,19 +119,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_factory.html','')
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_node_factory_8h_source.html">iNodeFactory.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iNodeFactory:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_factory__inherit__graph.svg" width="202" height="218"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iNodeFactory:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_factory__coll__graph.svg" width="430" height="246"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iNodeFactory.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iNodeFactory &gt;</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -168,39 +155,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9dbf1c77d2d6cce346f022395714b4c9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_factory.html#a9dbf1c77d2d6cce346f022395714b4c9">flush</a> ()</td></tr>
 <tr class="separator:a9dbf1c77d2d6cce346f022395714b4c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a466a40ab9315291c4e0050d49291df90"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_factory.html#a466a40ab9315291c4e0050d49291df90">onPreDestroyInstance</a> ()</td></tr>
-<tr class="separator:a466a40ab9315291c4e0050d49291df90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8436905bab0069524779f19bc5557473"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_factory.html#a8436905bab0069524779f19bc5557473">createNodeCopy</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node)</td></tr>
-<tr class="separator:a8436905bab0069524779f19bc5557473"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1248d97a24b58a43a30bdfe65d864f3c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_factory.html#a1248d97a24b58a43a30bdfe65d864f3c">createCopyInternal</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node, map&lt; uint64, uint64 &gt; &amp;nodeIDMap, uint32 recursiveDepth)</td></tr>
-<tr class="separator:a1248d97a24b58a43a30bdfe65d864f3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad85f31306a92a19b2e4e49d34f13216d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_factory.html#ad85f31306a92a19b2e4e49d34f13216d">destroyNode</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node)</td></tr>
-<tr class="separator:ad85f31306a92a19b2e4e49d34f13216d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f82deec12583fdc516b6c905f6e8398"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_factory.html#a6f82deec12583fdc516b6c905f6e8398">destroyNode</a> (uint64 nodeID)</td></tr>
-<tr class="separator:a6f82deec12583fdc516b6c905f6e8398"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60069ff0e9189d490cdedd1a9dba5afc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_factory.html#a60069ff0e9189d490cdedd1a9dba5afc">handle</a> ()</td></tr>
-<tr class="separator:a60069ff0e9189d490cdedd1a9dba5afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa41df68e128fef2e14eaf8bc0b46f2a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_factory.html#aa41df68e128fef2e14eaf8bc0b46f2a5">iNodeFactory</a> ()=default</td></tr>
-<tr class="separator:aa41df68e128fef2e14eaf8bc0b46f2a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f0c84ac540b89da7c667fd7fcef9233"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_factory.html#a9f0c84ac540b89da7c667fd7fcef9233">~iNodeFactory</a> ()</td></tr>
-<tr class="separator:a9f0c84ac540b89da7c667fd7fcef9233"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a85ba39b5ba53325b8a95a5bf3a621ceb"><td class="memItemLeft" align="right" valign="top">map&lt; uint64, <a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_factory.html#a85ba39b5ba53325b8a95a5bf3a621ceb">_nodes</a></td></tr>
-<tr class="separator:a85ba39b5ba53325b8a95a5bf3a621ceb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d74ae1a393b7dfce2509bda38731334"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="struct_igor_1_1i_node_factory_1_1i_action.html">iAction</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_factory.html#a4d74ae1a393b7dfce2509bda38731334">_actionQueue</a></td></tr>
-<tr class="separator:a4d74ae1a393b7dfce2509bda38731334"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae09ed6d6d8de457f950bd55558d77899"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_factory.html#ae09ed6d6d8de457f950bd55558d77899">_mutexQueue</a></td></tr>
-<tr class="separator:ae09ed6d6d8de457f950bd55558d77899"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
-Static Private Attributes</h2></td></tr>
-<tr class="memitem:ac49ba65daa7707a9305da67135a3056e"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_factory.html#ac49ba65daa7707a9305da67135a3056e">_mutexNodes</a></td></tr>
-<tr class="separator:ac49ba65daa7707a9305da67135a3056e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a6e8f645bed8125e39b72910341051e32"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_factory.html#a6e8f645bed8125e39b72910341051e32">iaSingleton&lt; iNodeFactory &gt;</a></td></tr>
@@ -232,60 +186,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>creates and destroys nodes </p>
-
-<p>Definition at line <a class="el" href="i_node_factory_8h_source.html#l00046">46</a> of file <a class="el" href="i_node_factory_8h_source.html">iNodeFactory.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="aa41df68e128fef2e14eaf8bc0b46f2a5"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iNodeFactory::iNodeFactory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>does nothing </p>
-
-</div>
-</div>
-<a class="anchor" id="a9f0c84ac540b89da7c667fd7fcef9233"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iNodeFactory::~iNodeFactory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>checks if all nodes where released </p>
-
-<p>Definition at line <a class="el" href="i_node_factory_8cpp_source.html#l00036">36</a> of file <a class="el" href="i_node_factory_8cpp_source.html">iNodeFactory.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="ac5416696bbda5df7b06ab432bc60629c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -306,8 +207,6 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_node_factory_8cpp_source.html#l00054">54</a> of file <a class="el" href="i_node_factory_8cpp_source.html">iNodeFactory.cpp</a>.</p>
 
 </div>
 </div>
@@ -331,82 +230,6 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_node_factory_8cpp_source.html#l00237">237</a> of file <a class="el" href="i_node_factory_8cpp_source.html">iNodeFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_factory_ac3adfeb01705fbe221e7767758290542_cgraph.svg" width="374" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_factory_ac3adfeb01705fbe221e7767758290542_icgraph.svg" width="532" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a1248d97a24b58a43a30bdfe65d864f3c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> Igor::iNodeFactory::createCopyInternal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&#160;</td>
-          <td class="paramname"><em>node</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">map&lt; uint64, uint64 &gt; &amp;&#160;</td>
-          <td class="paramname"><em>nodeIDMap</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32&#160;</td>
-          <td class="paramname"><em>recursiveDepth</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>create copy of node</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">node</td><td>the node to copy </td></tr>
-    <tr><td class="paramname">recursiveDepth</td><td>recursive depth </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_node_factory_8cpp_source.html#l00256">256</a> of file <a class="el" href="i_node_factory_8cpp_source.html">iNodeFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_factory_a1248d97a24b58a43a30bdfe65d864f3c_cgraph.svg" width="1036" height="540"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -432,141 +255,6 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>pointer to new node </dd></dl>
 
-<p>Definition at line <a class="el" href="i_node_factory_8cpp_source.html#l00369">369</a> of file <a class="el" href="i_node_factory_8cpp_source.html">iNodeFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_factory_acd7e28d04dabd094e46ec96d345106ee_cgraph.svg" width="799" height="302"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_factory_acd7e28d04dabd094e46ec96d345106ee_icgraph.svg" width="500" height="352"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a8436905bab0069524779f19bc5557473"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> Igor::iNodeFactory::createNodeCopy </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>internal copy function for nodes</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">node</td><td>the source node </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>a copy of the source node </dd></dl>
-
-<p>Definition at line <a class="el" href="i_node_factory_8cpp_source.html#l00277">277</a> of file <a class="el" href="i_node_factory_8cpp_source.html">iNodeFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_factory_a8436905bab0069524779f19bc5557473_cgraph.svg" width="807" height="302"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="ad85f31306a92a19b2e4e49d34f13216d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iNodeFactory::destroyNode </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>destroys node and all its children</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">node</td><td>pointer to node to be destroyed </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_node_factory_8cpp_source.html#l00222">222</a> of file <a class="el" href="i_node_factory_8cpp_source.html">iNodeFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_factory_ad85f31306a92a19b2e4e49d34f13216d_cgraph.svg" width="310" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a6f82deec12583fdc516b6c905f6e8398"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iNodeFactory::destroyNode </td>
-          <td>(</td>
-          <td class="paramtype">uint64&#160;</td>
-          <td class="paramname"><em>nodeID</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>destroys node and all its children</p>
-<p>if Id does not exist it does nothing</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">nodeID</td><td>id of node </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_node_factory_8cpp_source.html#l00203">203</a> of file <a class="el" href="i_node_factory_8cpp_source.html">iNodeFactory.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a074e8be7dd97153da377ac02ea6029c0"></a>
@@ -590,24 +278,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_node_factory_8cpp_source.html#l00109">109</a> of file <a class="el" href="i_node_factory_8cpp_source.html">iNodeFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_factory_a074e8be7dd97153da377ac02ea6029c0_cgraph.svg" width="322" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_factory_a074e8be7dd97153da377ac02ea6029c0_icgraph.svg" width="547" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -633,8 +303,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_node_factory_8cpp_source.html#l00096">96</a> of file <a class="el" href="i_node_factory_8cpp_source.html">iNodeFactory.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a9dbf1c77d2d6cce346f022395714b4c9"></a>
@@ -650,17 +318,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>flushing queues and updating scenes</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000021">Todo:</a></b></dt><dd>should be private </dd></dl>
-
-<p>Definition at line <a class="el" href="i_node_factory_8cpp_source.html#l00134">134</a> of file <a class="el" href="i_node_factory_8cpp_source.html">iNodeFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_factory_a9dbf1c77d2d6cce346f022395714b4c9_cgraph.svg" width="1031" height="598"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -686,16 +343,6 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>pointer to node </dd></dl>
 
-<p>Definition at line <a class="el" href="i_node_factory_8inl_source.html#l00006">6</a> of file <a class="el" href="i_node_factory_8inl_source.html">iNodeFactory.inl</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_factory_ab8074664cc7a6692dda729d1e3e4cfa3_icgraph.svg" width="628" height="1650"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a6c645d21e969eb8ae4443759302421f9"></a>
@@ -718,50 +365,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_node_factory_8cpp_source.html#l00188">188</a> of file <a class="el" href="i_node_factory_8cpp_source.html">iNodeFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_factory_a6c645d21e969eb8ae4443759302421f9_icgraph.svg" width="366" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a60069ff0e9189d490cdedd1a9dba5afc"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iNodeFactory::handle </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>called once per frame by application </p>
-
-<p>Definition at line <a class="el" href="i_node_factory_8cpp_source.html#l00129">129</a> of file <a class="el" href="i_node_factory_8cpp_source.html">iNodeFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_factory_a60069ff0e9189d490cdedd1a9dba5afc_cgraph.svg" width="467" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -798,16 +401,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_node_factory_8cpp_source.html#l00072">72</a> of file <a class="el" href="i_node_factory_8cpp_source.html">iNodeFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_factory_acc45c68859fa89160279cc2eadfc1e72_cgraph.svg" width="311" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a79d02462a8a718d547a625068601a57e"></a>
@@ -830,44 +423,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_node_factory_8inl_source.html#l00021">21</a> of file <a class="el" href="i_node_factory_8inl_source.html">iNodeFactory.inl</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a466a40ab9315291c4e0050d49291df90"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iNodeFactory::onPreDestroyInstance </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>last chance for the instance to clean up before shut down </p>
-
-<p>Reimplemented from <a class="el" href="class_igor_aux_1_1ia_singleton.html#ac99a4082356800d8f0ece5640dba6f76">IgorAux::iaSingleton&lt; iNodeFactory &gt;</a>.</p>
-
-<p>Definition at line <a class="el" href="i_node_factory_8cpp_source.html#l00049">49</a> of file <a class="el" href="i_node_factory_8cpp_source.html">iNodeFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_factory_a466a40ab9315291c4e0050d49291df90_cgraph.svg" width="498" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -904,16 +459,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_node_factory_8cpp_source.html#l00084">84</a> of file <a class="el" href="i_node_factory_8cpp_source.html">iNodeFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_factory_a478548a3a52daa9ef9e20207c15673eb_cgraph.svg" width="320" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="af2561b24763137be0cc9e3f923a5eeb1"></a>
@@ -948,16 +493,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_node_factory_8cpp_source.html#l00061">61</a> of file <a class="el" href="i_node_factory_8cpp_source.html">iNodeFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_factory_af2561b24763137be0cc9e3f923a5eeb1_cgraph.svg" width="310" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -979,8 +514,6 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_node_factory_8h_source.html#l00049">49</a> of file <a class="el" href="i_node_factory_8h_source.html">iNodeFactory.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a6e8f645bed8125e39b72910341051e32"></a>
@@ -1000,8 +533,6 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_node_factory_8h_source.html#l00048">48</a> of file <a class="el" href="i_node_factory_8h_source.html">iNodeFactory.h</a>.</p>
 
 </div>
 </div>
@@ -1023,8 +554,6 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_node_factory_8h_source.html#l00051">51</a> of file <a class="el" href="i_node_factory_8h_source.html">iNodeFactory.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="af91eaba0940ecfe6529c1497ec97586e"></a>
@@ -1045,107 +574,12 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_node_factory_8h_source.html#l00050">50</a> of file <a class="el" href="i_node_factory_8h_source.html">iNodeFactory.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a4d74ae1a393b7dfce2509bda38731334"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="struct_igor_1_1i_node_factory_1_1i_action.html">iAction</a>&gt; Igor::iNodeFactory::_actionQueue</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>queue with actions </p>
-
-<p>Definition at line <a class="el" href="i_node_factory_8h_source.html#l00181">181</a> of file <a class="el" href="i_node_factory_8h_source.html">iNodeFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac49ba65daa7707a9305da67135a3056e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> Igor::iNodeFactory::_mutexNodes</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex to protect node list </p>
-
-<p>Definition at line <a class="el" href="i_node_factory_8h_source.html#l00177">177</a> of file <a class="el" href="i_node_factory_8h_source.html">iNodeFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae09ed6d6d8de457f950bd55558d77899"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> Igor::iNodeFactory::_mutexQueue</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex to protect activities </p>
-
-<p>Definition at line <a class="el" href="i_node_factory_8h_source.html#l00185">185</a> of file <a class="el" href="i_node_factory_8h_source.html">iNodeFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a85ba39b5ba53325b8a95a5bf3a621ceb"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;uint64, <a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&gt; Igor::iNodeFactory::_nodes</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mapping ids to nodes </p>
-
-<p>Definition at line <a class="el" href="i_node_factory_8h_source.html#l00173">173</a> of file <a class="el" href="i_node_factory_8h_source.html">iNodeFactory.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_factory_8h_source.html">iNodeFactory.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_factory_8cpp_source.html">iNodeFactory.cpp</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_factory_8inl_source.html">iNodeFactory.inl</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_node_factory_8h.html">iNodeFactory.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_node_factory_8cpp.html">iNodeFactory.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_node_factory_8inl.html">iNodeFactory.inl</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -1154,7 +588,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_node_factory.html">iNodeFactory</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:52 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

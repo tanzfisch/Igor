@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,8 +111,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_sound_resource_factory
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_sound_resource_factory-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -120,19 +118,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_sound_resource_factory
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_sound_resource_factory_8h_source.html">iSoundResourceFactory.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iSoundResourceFactory:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_sound_resource_factory__inherit__graph.svg" width="275" height="218"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iSoundResourceFactory:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_sound_resource_factory__coll__graph.svg" width="480" height="364"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iSoundResourceFactory.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iSoundResourceFactory &gt;</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -146,26 +134,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3abee5531004c03e1bf58753bc659c34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7dcc547f2e3bb199e005dd91dfbd5f2e"><td class="memItemLeft" align="right" valign="top">__IGOR_INLINE__ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_sound_resource_factory.html#a7dcc547f2e3bb199e005dd91dfbd5f2e">setListenerVelocity</a> (<a class="el" href="namespace_igor_aux.html#a5c3ef7446f6ebd853b29e38acc5d0fac">iaVector3f</a> &amp;vel)</td></tr>
 <tr class="separator:a7dcc547f2e3bb199e005dd91dfbd5f2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a6427f3498bc7fe736d7f0b59c21cd822"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_sound_buffer.html">iSoundBuffer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_sound_resource_factory.html#a6427f3498bc7fe736d7f0b59c21cd822">loadBuffer</a> (<a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> filename)</td></tr>
-<tr class="separator:a6427f3498bc7fe736d7f0b59c21cd822"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7463161612f7b252d316fbd7a2d87b0f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_sound_buffer.html">iSoundBuffer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_sound_resource_factory.html#a7463161612f7b252d316fbd7a2d87b0f">loadWAVBuffer</a> (<a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> filename)</td></tr>
-<tr class="separator:a7463161612f7b252d316fbd7a2d87b0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1dba44d4a2eb74b90bcafb8f7e3ae7e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_sound_resource_factory.html#ae1dba44d4a2eb74b90bcafb8f7e3ae7e">iSoundResourceFactory</a> ()</td></tr>
-<tr class="separator:ae1dba44d4a2eb74b90bcafb8f7e3ae7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbad351f2d3a6c75fac5bf8a39e07aa1"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_sound_resource_factory.html#abbad351f2d3a6c75fac5bf8a39e07aa1">~iSoundResourceFactory</a> ()</td></tr>
-<tr class="separator:abbad351f2d3a6c75fac5bf8a39e07aa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a5b4e15cf0e55975c460aafba06c30f6b"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_igor_1_1i_sound.html">iSound</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_sound_resource_factory.html#a5b4e15cf0e55975c460aafba06c30f6b">sounds</a></td></tr>
-<tr class="separator:a5b4e15cf0e55975c460aafba06c30f6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae32c9f2fbcd96114ef8c868bc4d332d"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_igor_1_1i_sound_buffer.html">iSoundBuffer</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_sound_resource_factory.html#aae32c9f2fbcd96114ef8c868bc4d332d">buffers</a></td></tr>
-<tr class="separator:aae32c9f2fbcd96114ef8c868bc4d332d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0cab0d05ef37686c01c959aabd35b86"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a9263d5a1e612a65686c337f842afab89">iaMatrixf</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_sound_resource_factory.html#aa0cab0d05ef37686c01c959aabd35b86">listener_matrix</a></td></tr>
-<tr class="separator:aa0cab0d05ef37686c01c959aabd35b86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -192,60 +160,6 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a0b507ce5fad7b017341e83f351c6b5e7 inherit pro_static_attribs_class_igor_aux_1_1ia_singleton"><td class="memItemLeft" align="right" valign="top">static iSoundResourceFactory *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_singleton.html#a0b507ce5fad7b017341e83f351c6b5e7">_instance</a></td></tr>
 <tr class="separator:a0b507ce5fad7b017341e83f351c6b5e7 inherit pro_static_attribs_class_igor_aux_1_1ia_singleton"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p>Definition at line <a class="el" href="i_sound_resource_factory_8h_source.html#l00118">118</a> of file <a class="el" href="i_sound_resource_factory_8h_source.html">iSoundResourceFactory.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ae1dba44d4a2eb74b90bcafb8f7e3ae7e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iSoundResourceFactory::iSoundResourceFactory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_sound_resource_factory_8cpp_source.html#l00044">44</a> of file <a class="el" href="i_sound_resource_factory_8cpp_source.html">iSoundResourceFactory.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="abbad351f2d3a6c75fac5bf8a39e07aa1"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iSoundResourceFactory::~iSoundResourceFactory </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_sound_resource_factory_8cpp_source.html#l00049">49</a> of file <a class="el" href="i_sound_resource_factory_8cpp_source.html">iSoundResourceFactory.cpp</a>.</p>
-
-</div>
-</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a4a1a7bb46bd92c02b4463d105184267c"></a>
 <div class="memitem">
@@ -259,50 +173,6 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_sound_resource_factory_8cpp_source.html#l00226">226</a> of file <a class="el" href="i_sound_resource_factory_8cpp_source.html">iSoundResourceFactory.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6427f3498bc7fe736d7f0b59c21cd822"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_sound_buffer.html">iSoundBuffer</a> * Igor::iSoundResourceFactory::loadBuffer </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td>
-          <td class="paramname"><em>filename</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_sound_resource_factory_8cpp_source.html#l00252">252</a> of file <a class="el" href="i_sound_resource_factory_8cpp_source.html">iSoundResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_sound_resource_factory_a6427f3498bc7fe736d7f0b59c21cd822_cgraph.svg" width="440" height="134"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_sound_resource_factory_a6427f3498bc7fe736d7f0b59c21cd822_icgraph.svg" width="440" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -319,50 +189,6 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_sound_resource_factory_8cpp_source.html#l00278">278</a> of file <a class="el" href="i_sound_resource_factory_8cpp_source.html">iSoundResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_sound_resource_factory_aa134be87e0288231b40c0d819f5e2ed7_cgraph.svg" width="679" height="134"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a7463161612f7b252d316fbd7a2d87b0f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_sound_buffer.html">iSoundBuffer</a> * Igor::iSoundResourceFactory::loadWAVBuffer </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td>
-          <td class="paramname"><em>filename</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_sound_resource_factory_8cpp_source.html#l00083">83</a> of file <a class="el" href="i_sound_resource_factory_8cpp_source.html">iSoundResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_sound_resource_factory_a7463161612f7b252d316fbd7a2d87b0f_icgraph.svg" width="679" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -390,16 +216,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_sound_resource_factory_8cpp_source.html#l00060">60</a> of file <a class="el" href="i_sound_resource_factory_8cpp_source.html">iSoundResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_sound_resource_factory_a3abee5531004c03e1bf58753bc659c34_cgraph.svg" width="618" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a7dcc547f2e3bb199e005dd91dfbd5f2e"></a>
@@ -416,24 +232,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_sound_resource_factory_8cpp_source.html#l00078">78</a> of file <a class="el" href="i_sound_resource_factory_8cpp_source.html">iSoundResourceFactory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_sound_resource_factory_a7dcc547f2e3bb199e005dd91dfbd5f2e_cgraph.svg" width="379" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_sound_resource_factory_a7dcc547f2e3bb199e005dd91dfbd5f2e_icgraph.svg" width="440" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="abab336690b80aaea7ef2d860c3ae10fa"></a>
@@ -449,8 +247,6 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_sound_resource_factory_8cpp_source.html#l00187">187</a> of file <a class="el" href="i_sound_resource_factory_8cpp_source.html">iSoundResourceFactory.cpp</a>.</p>
 
 </div>
 </div>
@@ -473,80 +269,11 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_sound_resource_factory_8h_source.html#l00121">121</a> of file <a class="el" href="i_sound_resource_factory_8h_source.html">iSoundResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="aae32c9f2fbcd96114ef8c868bc4d332d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="class_igor_1_1i_sound_buffer.html">iSoundBuffer</a>*&gt; Igor::iSoundResourceFactory::buffers</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_sound_resource_factory_8h_source.html#l00126">126</a> of file <a class="el" href="i_sound_resource_factory_8h_source.html">iSoundResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa0cab0d05ef37686c01c959aabd35b86"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a9263d5a1e612a65686c337f842afab89">iaMatrixf</a> Igor::iSoundResourceFactory::listener_matrix</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_sound_resource_factory_8h_source.html#l00128">128</a> of file <a class="el" href="i_sound_resource_factory_8h_source.html">iSoundResourceFactory.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5b4e15cf0e55975c460aafba06c30f6b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="class_igor_1_1i_sound.html">iSound</a>*&gt; Igor::iSoundResourceFactory::sounds</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_sound_resource_factory_8h_source.html#l00125">125</a> of file <a class="el" href="i_sound_resource_factory_8h_source.html">iSoundResourceFactory.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_sound_resource_factory_8h_source.html">iSoundResourceFactory.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_sound_resource_factory_8cpp_source.html">iSoundResourceFactory.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_sound_resource_factory_8h.html">iSoundResourceFactory.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_sound_resource_factory_8cpp.html">iSoundResourceFactory.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -555,7 +282,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_sound_resource_factory.html">iSoundResourceFactory</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:04 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

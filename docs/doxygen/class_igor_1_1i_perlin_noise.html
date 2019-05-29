@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,21 +112,13 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_perlin_noise.html','')
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_1_1i_perlin_noise-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Igor::iPerlinNoise Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_perlin_noise_8h_source.html">iPerlinNoise.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for Igor::iPerlinNoise:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_perlin_noise__coll__graph.svg" width="246" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iPerlinNoise.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -149,31 +141,10 @@ Public Member Functions</h2></td></tr>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a6996871d1b1518be55cd2f59538b91e1"><td class="memItemLeft" align="right" valign="top">static const int64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_perlin_noise.html#a6996871d1b1518be55cd2f59538b91e1">RANDOM_NUMBERS_COUNT</a> = 256</td></tr>
 <tr class="separator:a6996871d1b1518be55cd2f59538b91e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:aedb0187ad344bc00f3d031c1b17c3496"><td class="memItemLeft" align="right" valign="top">__IGOR_INLINE__ float64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_perlin_noise.html#aedb0187ad344bc00f3d031c1b17c3496">lerp</a> (float64 a, float64 b, float64 x)</td></tr>
-<tr class="separator:aedb0187ad344bc00f3d031c1b17c3496"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47023a32a668daaa63ef420d8419555c"><td class="memItemLeft" align="right" valign="top">__IGOR_INLINE__ int64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_perlin_noise.html#a47023a32a668daaa63ef420d8419555c">inc</a> (int64 num)</td></tr>
-<tr class="separator:a47023a32a668daaa63ef420d8419555c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a283827ef80ab08d723007b20a0b4fc3f"><td class="memItemLeft" align="right" valign="top">__IGOR_INLINE__ float64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_perlin_noise.html#a283827ef80ab08d723007b20a0b4fc3f">fade</a> (float64 t)</td></tr>
-<tr class="separator:a283827ef80ab08d723007b20a0b4fc3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d289388b6f86ff2e9fc70554cb0ca9d"><td class="memItemLeft" align="right" valign="top">__IGOR_INLINE__ float64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_perlin_noise.html#a7d289388b6f86ff2e9fc70554cb0ca9d">grad</a> (int64 hash, float64 x, float64 y, float64 z)</td></tr>
-<tr class="separator:a7d289388b6f86ff2e9fc70554cb0ca9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a33c03aa438a695a761c7faca585f3918"><td class="memItemLeft" align="right" valign="top">uint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_perlin_noise.html#a33c03aa438a695a761c7faca585f3918">p</a> [<a class="el" href="class_igor_1_1i_perlin_noise.html#a6996871d1b1518be55cd2f59538b91e1">RANDOM_NUMBERS_COUNT</a> *2]</td></tr>
-<tr class="separator:a33c03aa438a695a761c7faca585f3918"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a497c096b3ffa7dd33df00a37e6c4c105"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_random_number_generator.html">iaRandomNumberGenerator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_perlin_noise.html#a497c096b3ffa7dd33df00a37e6c4c105">_rand</a></td></tr>
-<tr class="separator:a497c096b3ffa7dd33df00a37e6c4c105"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>perlin noise</p>
 <p>most of the implementation comes from the folowing sources source: <a href="http://flafla2.github.io/2014/08/09/perlinnoise.html">http://flafla2.github.io/2014/08/09/perlinnoise.html</a> source: <a href="https://gist.github.com/Flafla2/f0260a861be0ebdeef76">https://gist.github.com/Flafla2/f0260a861be0ebdeef76</a> Thanks Adrian Biagioli</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000042">Todo:</a></b></dt><dd>this should go in to <a class="el" href="namespace_igor_aux.html">IgorAux</a> </dd></dl>
-
-<p>Definition at line <a class="el" href="i_perlin_noise_8h_source.html#l00050">50</a> of file <a class="el" href="i_perlin_noise_8h_source.html">iPerlinNoise.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a19763f2a38977dc43fba793fa4e66bd6"></a>
 <div class="memitem">
@@ -188,16 +159,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>generates random numbers </p>
-
-<p>Definition at line <a class="el" href="i_perlin_noise_8cpp_source.html#l00012">12</a> of file <a class="el" href="i_perlin_noise_8cpp_source.html">iPerlinNoise.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_perlin_noise_a19763f2a38977dc43fba793fa4e66bd6_cgraph.svg" width="582" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -226,48 +187,6 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a283827ef80ab08d723007b20a0b4fc3f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">__IGOR_INLINE__ float64 iPerlinNoise::fade </td>
-          <td>(</td>
-          <td class="paramtype">float64&#160;</td>
-          <td class="paramname"><em>t</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>smooth fading function</p>
-<dl class="section return"><dt>Returns</dt><dd>fading value used for linear interpolation </dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">t</td><td>value between 0.0 - 1.0 </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_perlin_noise_8inl_source.html#l00019">19</a> of file <a class="el" href="i_perlin_noise_8inl_source.html">iPerlinNoise.inl</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_perlin_noise_a283827ef80ab08d723007b20a0b4fc3f_icgraph.svg" width="299" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
 <a class="anchor" id="a4b8e6b627c856b2c05e4e849d1706c3c"></a>
 <div class="memitem">
 <div class="memproto">
@@ -288,24 +207,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_perlin_noise_8cpp_source.html#l00017">17</a> of file <a class="el" href="i_perlin_noise_8cpp_source.html">iPerlinNoise.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_perlin_noise_a4b8e6b627c856b2c05e4e849d1706c3c_cgraph.svg" width="414" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_perlin_noise_a4b8e6b627c856b2c05e4e849d1706c3c_icgraph.svg" width="299" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -331,24 +232,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_perlin_noise_8cpp_source.html#l00100">100</a> of file <a class="el" href="i_perlin_noise_8cpp_source.html">iPerlinNoise.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_perlin_noise_af06576cdfc4327d50082eefac2f71bb3_cgraph.svg" width="324" height="235"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_perlin_noise_af06576cdfc4327d50082eefac2f71bb3_icgraph.svg" width="299" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a4b29f06e9698d8e5a5210bf21a86a2fd"></a>
@@ -372,16 +255,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_perlin_noise_8cpp_source.html#l00088">88</a> of file <a class="el" href="i_perlin_noise_8cpp_source.html">iPerlinNoise.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_perlin_noise_a4b29f06e9698d8e5a5210bf21a86a2fd_cgraph.svg" width="324" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -424,16 +297,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_perlin_noise_8cpp_source.html#l00065">65</a> of file <a class="el" href="i_perlin_noise_8cpp_source.html">iPerlinNoise.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_perlin_noise_a831a65098f69bed4334714649c42cfb5_cgraph.svg" width="492" height="235"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a7a6319dd3bbba87d051b278f6d698529"></a>
@@ -475,234 +338,9 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_perlin_noise_8cpp_source.html#l00042">42</a> of file <a class="el" href="i_perlin_noise_8cpp_source.html">iPerlinNoise.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_perlin_noise_a7a6319dd3bbba87d051b278f6d698529_cgraph.svg" width="492" height="235"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a7d289388b6f86ff2e9fc70554cb0ca9d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">__IGOR_INLINE__ float64 iPerlinNoise::grad </td>
-          <td>(</td>
-          <td class="paramtype">int64&#160;</td>
-          <td class="paramname"><em>hash</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float64&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float64&#160;</td>
-          <td class="paramname"><em>y</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float64&#160;</td>
-          <td class="paramname"><em>z</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>lookup gradient for specified hash number (comes from pseudo random number buffer)</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">hash</td><td>the lookup hash </td></tr>
-    <tr><td class="paramname">x</td><td>x position within unit cube </td></tr>
-    <tr><td class="paramname">y</td><td>y position within unit cube </td></tr>
-    <tr><td class="paramname">z</td><td>z position within unit cube </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>gradient </dd></dl>
-
-<p>Definition at line <a class="el" href="i_perlin_noise_8inl_source.html#l00027">27</a> of file <a class="el" href="i_perlin_noise_8inl_source.html">iPerlinNoise.inl</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_perlin_noise_a7d289388b6f86ff2e9fc70554cb0ca9d_icgraph.svg" width="467" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a47023a32a668daaa63ef420d8419555c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">__IGOR_INLINE__ int64 iPerlinNoise::inc </td>
-          <td>(</td>
-          <td class="paramtype">int64&#160;</td>
-          <td class="paramname"><em>num</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>increments value by one inclusive wrapping at random number buffer boundaries</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">num</td><td>number to increment </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>increased number </dd></dl>
-
-<p>Definition at line <a class="el" href="i_perlin_noise_8inl_source.html#l00011">11</a> of file <a class="el" href="i_perlin_noise_8inl_source.html">iPerlinNoise.inl</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_perlin_noise_a47023a32a668daaa63ef420d8419555c_icgraph.svg" width="324" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="aedb0187ad344bc00f3d031c1b17c3496"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">__IGOR_INLINE__ float64 iPerlinNoise::lerp </td>
-          <td>(</td>
-          <td class="paramtype">float64&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float64&#160;</td>
-          <td class="paramname"><em>b</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float64&#160;</td>
-          <td class="paramname"><em>x</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>linear interpolation between two values</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">a</td><td>first value </td></tr>
-    <tr><td class="paramname">b</td><td>second value </td></tr>
-    <tr><td class="paramname">x</td><td>interpolation factor </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_perlin_noise_8inl_source.html#l00006">6</a> of file <a class="el" href="i_perlin_noise_8inl_source.html">iPerlinNoise.inl</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_perlin_noise_aedb0187ad344bc00f3d031c1b17c3496_icgraph.svg" width="299" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a497c096b3ffa7dd33df00a37e6c4c105"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_random_number_generator.html">iaRandomNumberGenerator</a> Igor::iPerlinNoise::_rand</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>random number generator </p>
-
-<p>Definition at line <a class="el" href="i_perlin_noise_8h_source.html#l00115">115</a> of file <a class="el" href="i_perlin_noise_8h_source.html">iPerlinNoise.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a33c03aa438a695a761c7faca585f3918"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8 Igor::iPerlinNoise::p[<a class="el" href="class_igor_1_1i_perlin_noise.html#a6996871d1b1518be55cd2f59538b91e1">RANDOM_NUMBERS_COUNT</a> *2]</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>buffer with random numbers</p>
-<p>double the size for simpler access code </p>
-
-<p>Definition at line <a class="el" href="i_perlin_noise_8h_source.html#l00111">111</a> of file <a class="el" href="i_perlin_noise_8h_source.html">iPerlinNoise.h</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a6996871d1b1518be55cd2f59538b91e1"></a>
 <div class="memitem">
 <div class="memproto">
@@ -722,14 +360,12 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>makes pseudo infinite access possible </p>
 
-<p>Definition at line <a class="el" href="i_perlin_noise_8h_source.html#l00057">57</a> of file <a class="el" href="i_perlin_noise_8h_source.html">iPerlinNoise.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_perlin_noise_8h_source.html">iPerlinNoise.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_perlin_noise_8cpp_source.html">iPerlinNoise.cpp</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_perlin_noise_8inl_source.html">iPerlinNoise.inl</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_perlin_noise_8h.html">iPerlinNoise.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_perlin_noise_8cpp.html">iPerlinNoise.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_perlin_noise_8inl.html">iPerlinNoise.inl</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -738,7 +374,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_perlin_noise.html">iPerlinNoise</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:58 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

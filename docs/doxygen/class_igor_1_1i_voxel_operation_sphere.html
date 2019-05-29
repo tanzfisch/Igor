@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,26 +111,15 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_voxel_operation_sphere
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_1_1i_voxel_operation_sphere-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Igor::iVoxelOperationSphere Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_voxel_operation_sphere_8h_source.html">iVoxelOperationSphere.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iVoxelOperationSphere:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_voxel_operation_sphere__inherit__graph.svg" width="195" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iVoxelOperationSphere:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_voxel_operation_sphere__coll__graph.svg" width="375" height="451"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iVoxelOperationSphere.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_1_1i_voxel_operation.html">Igor::iVoxelOperation</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -140,18 +129,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6ff8077abac919d193c1026743fda084"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9cd8cc5b2bce77f2324362fe05684739"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_voxel_operation_sphere.html#a9cd8cc5b2bce77f2324362fe05684739">getBoundings</a> (<a class="el" href="namespace_igor.html#ac34e67d46ad8e1548c0ffbbb6e69b84d">iAABoxI</a> &amp;boundings)</td></tr>
 <tr class="separator:a9cd8cc5b2bce77f2324362fe05684739"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a7f88c8538665baedfef373f3f2f8c6d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a4fb8ea7af062f6f15b5ebf36f85eacc8">iSphereI</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_voxel_operation_sphere.html#a7f88c8538665baedfef373f3f2f8c6d7">_sphere</a></td></tr>
-<tr class="separator:a7f88c8538665baedfef373f3f2f8c6d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77542e02b1f623b7d2ffaafb32be0329"><td class="memItemLeft" align="right" valign="top">uint8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_voxel_operation_sphere.html#a77542e02b1f623b7d2ffaafb32be0329">_density</a> = 0</td></tr>
-<tr class="separator:a77542e02b1f623b7d2ffaafb32be0329"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>voxel operation that set the values of an area specified by a sphere </p>
-
-<p>Definition at line <a class="el" href="i_voxel_operation_sphere_8h_source.html#l00040">40</a> of file <a class="el" href="i_voxel_operation_sphere_8h_source.html">iVoxelOperationSphere.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a28fd3ed5e2f39c23a42ae56356be6370"></a>
 <div class="memitem">
@@ -184,8 +164,6 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_voxel_operation_sphere_8cpp_source.html#l00013">13</a> of file <a class="el" href="i_voxel_operation_sphere_8cpp_source.html">iVoxelOperationSphere.cpp</a>.</p>
 
 </div>
 </div>
@@ -221,16 +199,6 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="class_igor_1_1i_voxel_operation.html#a25e701a4b64c0f5d5f155f43c567ae61">Igor::iVoxelOperation</a>.</p>
 
-<p>Definition at line <a class="el" href="i_voxel_operation_sphere_8cpp_source.html#l00025">25</a> of file <a class="el" href="i_voxel_operation_sphere_8cpp_source.html">iVoxelOperationSphere.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_voxel_operation_sphere_a6ff8077abac919d193c1026743fda084_cgraph.svg" width="416" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a9cd8cc5b2bce77f2324362fe05684739"></a>
@@ -264,68 +232,11 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="class_igor_1_1i_voxel_operation.html#a8e13abdea6be9f5534117f1b4e08aa68">Igor::iVoxelOperation</a>.</p>
 
-<p>Definition at line <a class="el" href="i_voxel_operation_sphere_8cpp_source.html#l00019">19</a> of file <a class="el" href="i_voxel_operation_sphere_8cpp_source.html">iVoxelOperationSphere.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_voxel_operation_sphere_a9cd8cc5b2bce77f2324362fe05684739_cgraph.svg" width="398" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a77542e02b1f623b7d2ffaafb32be0329"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint8 Igor::iVoxelOperationSphere::_density = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the new density to set </p>
-
-<p>Definition at line <a class="el" href="i_voxel_operation_sphere_8h_source.html#l00072">72</a> of file <a class="el" href="i_voxel_operation_sphere_8h_source.html">iVoxelOperationSphere.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7f88c8538665baedfef373f3f2f8c6d7"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#a4fb8ea7af062f6f15b5ebf36f85eacc8">iSphereI</a> Igor::iVoxelOperationSphere::_sphere</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>sphere that defines wich area to set the new value </p>
-
-<p>Definition at line <a class="el" href="i_voxel_operation_sphere_8h_source.html#l00068">68</a> of file <a class="el" href="i_voxel_operation_sphere_8h_source.html">iVoxelOperationSphere.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_voxel_operation_sphere_8h_source.html">iVoxelOperationSphere.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_voxel_operation_sphere_8cpp_source.html">iVoxelOperationSphere.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_voxel_operation_sphere_8h.html">iVoxelOperationSphere.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_voxel_operation_sphere_8cpp.html">iVoxelOperationSphere.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -334,7 +245,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_voxel_operation_sphere.html">iVoxelOperationSphere</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:10 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

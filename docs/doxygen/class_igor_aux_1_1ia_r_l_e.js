@@ -6,8 +6,5 @@ var class_igor_aux_1_1ia_r_l_e =
     [ "getValue", "class_igor_aux_1_1ia_r_l_e.html#a07608f174527652834592fb174b3970d", null ],
     [ "setSize", "class_igor_aux_1_1ia_r_l_e.html#a1730b891f934b60b1e93fa62f3f8ab34", null ],
     [ "setValue", "class_igor_aux_1_1ia_r_l_e.html#a030ef04f2ac95f904954c73df7815573", null ],
-    [ "setValue", "class_igor_aux_1_1ia_r_l_e.html#a7c48ec9450b3be1226552e5f01e7977f", null ],
-    [ "_blocks", "class_igor_aux_1_1ia_r_l_e.html#ad4a08e0d4ab0c283a1b3c291a59d261c", null ],
-    [ "_dirty", "class_igor_aux_1_1ia_r_l_e.html#a3e4eb9cb4e14365c5cfc2061348141a2", null ],
-    [ "_size", "class_igor_aux_1_1ia_r_l_e.html#aa5c28f1ce5e9c4ec619c22a2387b7b2c", null ]
+    [ "setValue", "class_igor_aux_1_1ia_r_l_e.html#a7c48ec9450b3be1226552e5f01e7977f", null ]
 ];

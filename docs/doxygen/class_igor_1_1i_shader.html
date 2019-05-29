@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,14 +112,13 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_shader.html','');});
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_1_1i_shader-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Igor::iShader Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_shader_8h_source.html">iShader.h</a>&gt;</code></p>
+<p><code>#include &lt;iShader.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -146,22 +145,10 @@ Public Member Functions</h2></td></tr>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:a0db197cf73d532e4b6a9ed9bd9b7358f"><td class="memItemLeft" align="right" valign="top">static const uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_shader.html#a0db197cf73d532e4b6a9ed9bd9b7358f">INVALID_SHADER_ID</a> = 0xffffffff</td></tr>
 <tr class="separator:a0db197cf73d532e4b6a9ed9bd9b7358f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:ac73ab0b90fc8eba6fd85f84ca05e9a95"><td class="memItemLeft" align="right" valign="top">vector&lt; uint32 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_shader.html#ac73ab0b90fc8eba6fd85f84ca05e9a95">_shaderObjects</a></td></tr>
-<tr class="separator:ac73ab0b90fc8eba6fd85f84ca05e9a95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2705fee9ee13ab297b1f5c360601ed7f"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_shader.html#a2705fee9ee13ab297b1f5c360601ed7f">_shaderProgram</a> = <a class="el" href="class_igor_1_1i_shader.html#a0db197cf73d532e4b6a9ed9bd9b7358f">iShader::INVALID_SHADER_ID</a></td></tr>
-<tr class="separator:a2705fee9ee13ab297b1f5c360601ed7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8bba07e0452ccdbd7d257c3222c45b3b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_shader.html#a8bba07e0452ccdbd7d257c3222c45b3b">_ready</a> = false</td></tr>
-<tr class="separator:a8bba07e0452ccdbd7d257c3222c45b3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>handles glsl shader programs and objects</p>
 <p>nice tutorial <a href="http://wiki.delphigl.com/index.php/Tutorial_glsl">http://wiki.delphigl.com/index.php/Tutorial_glsl</a></p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000070">Todo:</a></b></dt><dd>cleanup </dd></dl>
-
-<p>Definition at line <a class="el" href="i_shader_8h_source.html#l00055">55</a> of file <a class="el" href="i_shader_8h_source.html">iShader.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a893422e4a0bfe53df6f35cf27d31345a"></a>
 <div class="memitem">
@@ -176,8 +163,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>creates shader program </p>
-
-<p>Definition at line <a class="el" href="i_shader_8cpp_source.html#l00016">16</a> of file <a class="el" href="i_shader_8cpp_source.html">iShader.cpp</a>.</p>
 
 </div>
 </div>
@@ -203,8 +188,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>destroyes shader program </p>
 
-<p>Definition at line <a class="el" href="i_shader_8cpp_source.html#l00028">28</a> of file <a class="el" href="i_shader_8cpp_source.html">iShader.cpp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -222,8 +205,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>compiles shader programm with shader objects </p>
 
-<p>Definition at line <a class="el" href="i_shader_8cpp_source.html#l00049">49</a> of file <a class="el" href="i_shader_8cpp_source.html">iShader.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="acf9ad42edff381f3e6e6b0dfa56a7f9b"></a>
@@ -239,8 +220,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>deactivates shader program </p>
-
-<p>Definition at line <a class="el" href="i_shader_8cpp_source.html#l00142">142</a> of file <a class="el" href="i_shader_8cpp_source.html">iShader.cpp</a>.</p>
 
 </div>
 </div>
@@ -258,8 +237,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>activates shader program </p>
 
-<p>Definition at line <a class="el" href="i_shader_8cpp_source.html#l00127">127</a> of file <a class="el" href="i_shader_8cpp_source.html">iShader.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a3f4251251230350eefdb52c8fe6c56bf"></a>
@@ -276,8 +253,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>id of shader program </dd></dl>
 
-<p>Definition at line <a class="el" href="i_shader_8cpp_source.html#l00039">39</a> of file <a class="el" href="i_shader_8cpp_source.html">iShader.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a34e2c6d1800fe6b9c56b41f91bb26a14"></a>
@@ -293,8 +268,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true: if ready to use </dd></dl>
-
-<p>Definition at line <a class="el" href="i_shader_8cpp_source.html#l00044">44</a> of file <a class="el" href="i_shader_8cpp_source.html">iShader.cpp</a>.</p>
 
 </div>
 </div>
@@ -330,16 +303,6 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_shader_8cpp_source.html#l00103">103</a> of file <a class="el" href="i_shader_8cpp_source.html">iShader.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_shader_a1d3e01ce570d193e90cad335c632b8e0_cgraph.svg" width="396" height="256"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="aa32ad6aa463ee8d42b36e171c95d2b5f"></a>
@@ -374,80 +337,9 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_shader_8cpp_source.html#l00075">75</a> of file <a class="el" href="i_shader_8cpp_source.html">iShader.cpp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a8bba07e0452ccdbd7d257c3222c45b3b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iShader::_ready = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>true: if ready to use </p>
-
-<p>Definition at line <a class="el" href="i_shader_8h_source.html#l00116">116</a> of file <a class="el" href="i_shader_8h_source.html">iShader.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac73ab0b90fc8eba6fd85f84ca05e9a95"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;uint32&gt; Igor::iShader::_shaderObjects</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of shader objects </p>
-
-<p>Definition at line <a class="el" href="i_shader_8h_source.html#l00108">108</a> of file <a class="el" href="i_shader_8h_source.html">iShader.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2705fee9ee13ab297b1f5c360601ed7f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iShader::_shaderProgram = <a class="el" href="class_igor_1_1i_shader.html#a0db197cf73d532e4b6a9ed9bd9b7358f">iShader::INVALID_SHADER_ID</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>id of glsl shader program </p>
-
-<p>Definition at line <a class="el" href="i_shader_8h_source.html#l00112">112</a> of file <a class="el" href="i_shader_8h_source.html">iShader.h</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a0db197cf73d532e4b6a9ed9bd9b7358f"></a>
 <div class="memitem">
 <div class="memproto">
@@ -466,13 +358,11 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_shader_8h_source.html#l00060">60</a> of file <a class="el" href="i_shader_8h_source.html">iShader.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_shader_8h_source.html">iShader.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_shader_8cpp_source.html">iShader.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_shader_8h.html">iShader.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_shader_8cpp.html">iShader.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -481,7 +371,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_shader.html">iShader</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:03 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

@@ -18,7 +18,6 @@ var class_igor_1_1i_node_render =
     [ "iNodeVisitorUpdateTransform", "class_igor_1_1i_node_render.html#ad64c9a06babde60bdd79e94c1ae6ef70", null ],
     [ "iOctree", "class_igor_1_1i_node_render.html#a5df428abc78ed8fc1b6fcc52949c164c", null ],
     [ "iRenderEngine", "class_igor_1_1i_node_render.html#a7c82113aca1030bef77055fa5793cd6d", null ],
-    [ "_materialID", "class_igor_1_1i_node_render.html#a24595ab1f180011a2e9a3976cc3572de", null ],
     [ "_reached", "class_igor_1_1i_node_render.html#aa4ccf0acbe230edeb8108767f2149641", null ],
     [ "_visible", "class_igor_1_1i_node_render.html#a04c0e7a72d72b81504fd2eefccaa7e31", null ],
     [ "_worldMatrix", "class_igor_1_1i_node_render.html#abb8781a3b91c2fb7c46f7ec33cb3d3a4", null ]

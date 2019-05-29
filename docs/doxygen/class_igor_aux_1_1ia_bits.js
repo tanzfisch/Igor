@@ -8,6 +8,5 @@ var class_igor_aux_1_1ia_bits =
     [ "set", "class_igor_aux_1_1ia_bits.html#a05e6147020d3a0297514a6390fd674f6", null ],
     [ "set", "class_igor_aux_1_1ia_bits.html#afd9d32f178aa284158a273f308d561dd", null ],
     [ "setValues", "class_igor_aux_1_1ia_bits.html#a16bc5111c15b469d445a3195e5647a7a", null ],
-    [ "toggle", "class_igor_aux_1_1ia_bits.html#a13d4b8007e14fe6db7167090bc633483", null ],
-    [ "_bitField", "class_igor_aux_1_1ia_bits.html#a3b2b3717526747f55bb38505a2e333df", null ]
+    [ "toggle", "class_igor_aux_1_1ia_bits.html#a13d4b8007e14fe6db7167090bc633483", null ]
 ];

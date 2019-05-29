@@ -1,5 +1,0 @@
-<map id="Igor::iPhysics::queueContact" name="Igor::iPhysics::queueContact">
-<area shape="rect" id="node2" href="$namespace_igor.html#a945362eb01fae26e5cf14f9fa7f7496c" title="Igor::GenericContactProcess\lCompatible" alt="" coords="243,5,432,47"/>
-<area shape="rect" id="node3" href="$namespace_igor.html#a91216e7f886da173909bbd5ede48333d" title="Igor::GenericContactProcess" alt="" coords="480,13,669,39"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_physics.html#abbdc57d23e7fc2223a77bbf8225759bf" title="Igor::iPhysics::setCollision\lCallback" alt="" coords="717,5,893,47"/>
-</map>

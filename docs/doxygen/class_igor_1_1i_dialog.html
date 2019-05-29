@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,9 +112,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_dialog.html','');});
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_dialog-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -122,19 +119,11 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_dialog.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_dialog_8h_source.html">iDialog.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iDialog:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_dialog__inherit__graph.svg" width="462" height="443"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iDialog:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_dialog__coll__graph.svg" width="466" height="324"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iDialog.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_1_1i_widget.html">Igor::iWidget</a>.</p>
+
+<p>Inherited by <a class="el" href="class_igor_1_1i_dialog_color_chooser.html">Igor::iDialogColorChooser</a>, <a class="el" href="class_igor_1_1i_dialog_color_gradient.html">Igor::iDialogColorGradient</a>, <a class="el" href="class_igor_1_1i_dialog_decision_box.html">Igor::iDialogDecisionBox</a>, <a class="el" href="class_igor_1_1i_dialog_file_select.html">Igor::iDialogFileSelect</a>, <a class="el" href="class_igor_1_1i_dialog_graph.html">Igor::iDialogGraph</a>, <a class="el" href="class_igor_1_1i_dialog_menu.html">Igor::iDialogMenu</a>, and <a class="el" href="class_igor_1_1i_dialog_message_box.html">Igor::iDialogMessageBox</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -323,29 +312,6 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:aaa35d57b47aea220176be87deda5b702 inherit pro_methods_class_igor_1_1i_widget"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a9f4d278020d24f0b41171f05e05a729d">iaVector2i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget.html#aaa35d57b47aea220176be87deda5b702">getLastMousePos</a> () const </td></tr>
 <tr class="separator:aaa35d57b47aea220176be87deda5b702 inherit pro_methods_class_igor_1_1i_widget"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a05e3859b95c313b11c25c31c74a1fdfc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog.html#a05e3859b95c313b11c25c31c74a1fdfc">calcMinSize</a> ()</td></tr>
-<tr class="separator:a05e3859b95c313b11c25c31c74a1fdfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada7033d9d5780148ca723d615a910021"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog.html#ada7033d9d5780148ca723d615a910021">updateAlignment</a> (int32 clientWidth, int32 clientHeight)</td></tr>
-<tr class="separator:ada7033d9d5780148ca723d615a910021"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb7bba99d8c47ef835eb33eefcd17af7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog.html#aeb7bba99d8c47ef835eb33eefcd17af7">draw</a> ()</td></tr>
-<tr class="separator:aeb7bba99d8c47ef835eb33eefcd17af7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
-Static Private Member Functions</h2></td></tr>
-<tr class="memitem:a21237d7ef1754de091a7561d28aaf8d4"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_igor_1_1i_dialog.html">iDialog</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog.html#a21237d7ef1754de091a7561d28aaf8d4">createInstance</a> ()</td></tr>
-<tr class="separator:a21237d7ef1754de091a7561d28aaf8d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:adfbd18d5062156093d7b1c1c5d5a02e1"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog.html#adfbd18d5062156093d7b1c1c5d5a02e1">_offsetX</a> = 0</td></tr>
-<tr class="separator:adfbd18d5062156093d7b1c1c5d5a02e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad82c6501ddc617267f548884793df67b"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog.html#ad82c6501ddc617267f548884793df67b">_offsetY</a> = 0</td></tr>
-<tr class="separator:ad82c6501ddc617267f548884793df67b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d6882ee86af0915259ebf936bc2ab28"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog.html#a0d6882ee86af0915259ebf936bc2ab28">_border</a> = 1</td></tr>
-<tr class="separator:a0d6882ee86af0915259ebf936bc2ab28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a9da20b1c56a70b01ca0ef56f4d4d47fc"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog.html#a9da20b1c56a70b01ca0ef56f4d4d47fc">iWidgetManager</a></td></tr>
@@ -404,9 +370,6 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>dialog widget</p>
 <p>Example: Widgets usage example</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>need more than one apperance type of dialogs e.g. for <a class="el" href="class_igor_1_1i_widget_select_box.html">iWidgetSelectBox</a></dd></dl>
-
-<p>Definition at line <a class="el" href="i_dialog_8h_source.html#l00047">47</a> of file <a class="el" href="i_dialog_8h_source.html">iDialog.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aa7c48c9a7e71391f2965fcae7ef02152"></a>
 <div class="memitem">
@@ -429,8 +392,6 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>ctor initializes member variables and registers mouse events </p>
-
-<p>Definition at line <a class="el" href="i_dialog_8cpp_source.html#l00017">17</a> of file <a class="el" href="i_dialog_8cpp_source.html">iDialog.cpp</a>.</p>
 
 </div>
 </div>
@@ -456,101 +417,9 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <p>dtor unregisters mouse events </p>
 
-<p>Definition at line <a class="el" href="i_dialog_8cpp_source.html#l00027">27</a> of file <a class="el" href="i_dialog_8cpp_source.html">iDialog.cpp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a05e3859b95c313b11c25c31c74a1fdfc"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iDialog::calcMinSize </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>updates size based on it's content </p>
-
-<p>Implements <a class="el" href="class_igor_1_1i_widget.html#afe71279baaffb4354bd263e118fde096">Igor::iWidget</a>.</p>
-
-<p>Definition at line <a class="el" href="i_dialog_8cpp_source.html#l00040">40</a> of file <a class="el" href="i_dialog_8cpp_source.html">iDialog.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_dialog_a05e3859b95c313b11c25c31c74a1fdfc_cgraph.svg" width="407" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a21237d7ef1754de091a7561d28aaf8d4"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_dialog.html">iDialog</a> * Igor::iDialog::createInstance </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>creates instance of this widget type </p>
-
-<p>Definition at line <a class="el" href="i_dialog_8cpp_source.html#l00035">35</a> of file <a class="el" href="i_dialog_8cpp_source.html">iDialog.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aeb7bba99d8c47ef835eb33eefcd17af7"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iDialog::draw </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>draws the button </p>
-
-<p>Reimplemented from <a class="el" href="class_igor_1_1i_widget.html#ad3fcb454683a38bf542f3bb630c57811">Igor::iWidget</a>.</p>
-
-<p>Definition at line <a class="el" href="i_dialog_8cpp_source.html#l00128">128</a> of file <a class="el" href="i_dialog_8cpp_source.html">iDialog.cpp</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="acbaa32b076fd6f712b93604f8c796f81"></a>
 <div class="memitem">
 <div class="memproto">
@@ -564,8 +433,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>border size </p>
-
-<p>Definition at line <a class="el" href="i_dialog_8cpp_source.html#l00123">123</a> of file <a class="el" href="i_dialog_8cpp_source.html">iDialog.cpp</a>.</p>
 
 </div>
 </div>
@@ -590,8 +457,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_dialog_8cpp_source.html#l00118">118</a> of file <a class="el" href="i_dialog_8cpp_source.html">iDialog.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a4de8386e4aa82ea1e70968ba4b60b303"></a>
@@ -614,8 +479,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_dialog_8cpp_source.html#l00141">141</a> of file <a class="el" href="i_dialog_8cpp_source.html">iDialog.cpp</a>.</p>
 
 </div>
 </div>
@@ -640,54 +503,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_dialog_8cpp_source.html#l00147">147</a> of file <a class="el" href="i_dialog_8cpp_source.html">iDialog.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ada7033d9d5780148ca723d615a910021"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iDialog::updateAlignment </td>
-          <td>(</td>
-          <td class="paramtype">int32&#160;</td>
-          <td class="paramname"><em>clientWidth</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int32&#160;</td>
-          <td class="paramname"><em>clientHeight</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>updates dialog's alignment</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">clientWidth</td><td>maximum width this widget can align to </td></tr>
-    <tr><td class="paramname">clientHeight</td><td>maximum height this widget can align to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="class_igor_1_1i_widget.html#aeaf054993ffcb99a1bf51369c1061afc">Igor::iWidget</a>.</p>
-
-<p>Definition at line <a class="el" href="i_dialog_8cpp_source.html#l00057">57</a> of file <a class="el" href="i_dialog_8cpp_source.html">iDialog.cpp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -710,83 +525,11 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>needs to be friend because it's the factory that creates this widget </p>
 
-<p>Definition at line <a class="el" href="i_dialog_8h_source.html#l00052">52</a> of file <a class="el" href="i_dialog_8h_source.html">iDialog.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a0d6882ee86af0915259ebf936bc2ab28"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32 Igor::iDialog::_border = 1</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>size of border </p>
-
-<p>Definition at line <a class="el" href="i_dialog_8h_source.html#l00100">100</a> of file <a class="el" href="i_dialog_8h_source.html">iDialog.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="adfbd18d5062156093d7b1c1c5d5a02e1"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32 Igor::iDialog::_offsetX = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>horizontal position relative to parent if horizontal alignment is absolute </p>
-
-<p>Definition at line <a class="el" href="i_dialog_8h_source.html#l00092">92</a> of file <a class="el" href="i_dialog_8h_source.html">iDialog.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad82c6501ddc617267f548884793df67b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32 Igor::iDialog::_offsetY = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>vertical position relative to parent if horizontal alignment is absolute </p>
-
-<p>Definition at line <a class="el" href="i_dialog_8h_source.html#l00096">96</a> of file <a class="el" href="i_dialog_8h_source.html">iDialog.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_dialog_8h_source.html">iDialog.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_dialog_8cpp_source.html">iDialog.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_dialog_8h.html">iDialog.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_dialog_8cpp.html">iDialog.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -795,7 +538,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_dialog.html">iDialog</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:45 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

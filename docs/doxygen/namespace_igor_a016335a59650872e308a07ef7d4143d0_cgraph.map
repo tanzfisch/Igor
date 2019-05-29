@@ -1,6 +1,0 @@
-<map id="Igor::startup" name="Igor::startup">
-<area shape="rect" id="node2" href="$namespace_igor_aux.html#aba920763eec5d3b65199d4d73bfdbef7" title="IgorAux::startup" alt="" coords="144,64,259,91"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_clock.html#a9f5c16561acde973d199f6e3ecf84835" title="IgorAux::iaClock::initClock" alt="" coords="309,5,483,32"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iaConsole \&gt;::getInstance" alt="" coords="307,57,485,98"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_console.html#ab2b1bdc5e85c24837552dd8ee54512ef" title="IgorAux::iaConsole\l::openLogfile" alt="" coords="331,122,461,163"/>
-</map>

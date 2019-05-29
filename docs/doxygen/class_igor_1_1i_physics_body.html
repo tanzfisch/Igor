@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -115,8 +115,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_physics_body.html','')
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#pro-static-attribs">Static Protected Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_physics_body-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -124,19 +122,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_physics_body.html','')
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_physics_body_8h_source.html">iPhysicsBody.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iPhysicsBody:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_body__inherit__graph.svg" width="150" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iPhysicsBody:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_body__coll__graph.svg" width="315" height="304"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iPhysicsBody.h&gt;</code></p>
+
+<p>Inherited by <a class="el" href="class_igor_1_1i_physics_player.html">Igor::iPhysicsPlayer</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -241,18 +229,6 @@ Static Protected Attributes</h2></td></tr>
 <tr class="memitem:a5fa201d0557aef6a635dac78e1cf9159"><td class="memItemLeft" align="right" valign="top">static uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_body.html#a5fa201d0557aef6a635dac78e1cf9159">_nextBodyID</a> = <a class="el" href="class_igor_1_1i_physics_body.html#a041482287d2b5dc81e75d54c8fd6de79">INVALID_PHYSICSBODY_ID</a> + 1</td></tr>
 <tr class="separator:a5fa201d0557aef6a635dac78e1cf9159"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a319491c96a8a9760b6d84023ad237ee5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_body.html#a319491c96a8a9760b6d84023ad237ee5">release</a> ()</td></tr>
-<tr class="separator:a319491c96a8a9760b6d84023ad237ee5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf07a98294e83c2a5d9cfdd828e118b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_body.html#aaf07a98294e83c2a5d9cfdd828e118b6">bindTransformNode</a> (<a class="el" href="class_igor_1_1i_node_transform.html">iNodeTransform</a> *transformNode)</td></tr>
-<tr class="separator:aaf07a98294e83c2a5d9cfdd828e118b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:ab601adcf8d7793243dea5ac8222eb6e5"><td class="memItemLeft" align="right" valign="top">iApplyForceAndTorqueEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_body.html#ab601adcf8d7793243dea5ac8222eb6e5">_applyForceAndTorque</a></td></tr>
-<tr class="separator:ab601adcf8d7793243dea5ac8222eb6e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a68f9306b9fe2369173dfd12456aa5d41"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_body.html#a68f9306b9fe2369173dfd12456aa5d41">iPhysics</a></td></tr>
@@ -266,9 +242,6 @@ Friends</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>wrapper for the NewtonBody handle </p>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#_a7">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_physics_body_8h_source.html#l00056">56</a> of file <a class="el" href="i_physics_body_8h_source.html">iPhysicsBody.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a1fe73c0491a1288bd3430d1c2a326678"></a>
 <div class="memitem">
@@ -299,8 +272,6 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00019">19</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a41c8aeb39f6fc9e1ce6e1d233485b08d"></a>
@@ -325,8 +296,6 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p>dtor</p>
 <p>releases newton collision </p>
-
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00030">30</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
 
 </div>
 </div>
@@ -361,65 +330,6 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00066">66</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_body_a1494a046083e33fb2f8ef5ab4ae54fe9_icgraph.svg" width="624" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="aaf07a98294e83c2a5d9cfdd828e118b6"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iPhysicsBody::bindTransformNode </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_node_transform.html">iNodeTransform</a> *&#160;</td>
-          <td class="paramname"><em>transformNode</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>binds transform node to physics body</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">transformNode</td><td>the transform node to bind to this body </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00071">71</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_body_aaf07a98294e83c2a5d9cfdd828e118b6_cgraph.svg" width="323" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_body_aaf07a98294e83c2a5d9cfdd828e118b6_icgraph.svg" width="420" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="adedbe6a94938b5ac3e5445630eb4540c"></a>
@@ -435,8 +345,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>damping values for all 3 axis </dd></dl>
-
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00174">174</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
 
 </div>
 </div>
@@ -454,8 +362,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>current force </dd></dl>
 
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00124">124</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a73ad740d3d2e8f39ea4c3cf4d58bd65c"></a>
@@ -471,17 +377,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>body ID </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#a23">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00163">163</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_body_a73ad740d3d2e8f39ea4c3cf4d58bd65c_icgraph.svg" width="362" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -499,8 +394,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>linear damping value </dd></dl>
 
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00185">185</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a9fa5d9c4e483e3565c9abde8113fa087"></a>
@@ -517,8 +410,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>mass of body </p>
 
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00196">196</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a4e753875ed8799c39e72c043fb05c82d"></a>
@@ -534,8 +425,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>physics material id </dd></dl>
-
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00046">46</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
 
 </div>
 </div>
@@ -560,8 +449,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00114">114</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ab11e8d0759c1e2c5ee45eebb8298afbc"></a>
@@ -577,17 +464,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>pointer to newton body </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#a49">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00081">81</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_body_ab11e8d0759c1e2c5ee45eebb8298afbc_icgraph.svg" width="362" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -605,8 +481,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>current omega (or rotation speed) </dd></dl>
 
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00153">153</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a4cb5e0b0130b4ec969679187bbaaa76d"></a>
@@ -622,8 +496,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>current torque </dd></dl>
-
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00135">135</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
 
 </div>
 </div>
@@ -641,8 +513,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>transform node id</dd></dl>
 <p>returns zero if body is not bound to a transform node </p>
-
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00051">51</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
 
 </div>
 </div>
@@ -668,16 +538,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00103">103</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_body_aa5cda00ba12853ee4e487cc372f3a990_cgraph.svg" width="371" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a7cadd2a3bbc054809a6068934236ee07"></a>
@@ -694,8 +554,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>pointer to user data </p>
 
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00061">61</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a8e31d1a8a37d056979834d4f068cefb3"></a>
@@ -711,8 +569,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>current velocity </dd></dl>
-
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00146">146</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
 
 </div>
 </div>
@@ -736,52 +592,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#a26">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00201">201</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_body_a3a5ba78edb4ee9f8fc31ac145a2d878b_icgraph.svg" width="492" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a319491c96a8a9760b6d84023ad237ee5"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iPhysicsBody::release </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>set newton body handle to zero.</p>
-<p>this can only be called out of PhysicsNodeDestructor </p>
-
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00086">86</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_body_a319491c96a8a9760b6d84023ad237ee5_icgraph.svg" width="378" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -806,16 +616,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00168">168</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_body_aa0be581e6f78b579969f66d6abd948d9_icgraph.svg" width="316" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a672dd4514eaa0e85990fd4a7c347f93b"></a>
@@ -838,17 +638,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#a52">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00129">129</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_body_a672dd4514eaa0e85990fd4a7c347f93b_icgraph.svg" width="304" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -873,16 +662,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00179">179</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_body_af087e0739cbe1f49c4c80f32f5c384af_icgraph.svg" width="308" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a2ee10c10684f90ea6435fa5716a04bf5"></a>
@@ -905,17 +684,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#a21">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00190">190</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_body_a2ee10c10684f90ea6435fa5716a04bf5_icgraph.svg" width="304" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -940,16 +708,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00039">39</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_body_a9a6c9466c21ff7a9b88215fcbebc4c17_icgraph.svg" width="304" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a4e40e94b3679375b478704c6296635a5"></a>
@@ -972,17 +730,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#a22">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00119">119</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_body_a4e40e94b3679375b478704c6296635a5_icgraph.svg" width="410" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1009,15 +756,12 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>updates the omega by physics event</p>
 <p>is called by <a class="el" href="class_igor_1_1i_physics.html">iPhysics</a> after the body changed it's position</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000050">Todo:</a></b></dt><dd>currently it's actually not called at all</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">omega</td><td>the omega to set </td></tr>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00158">158</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
 
 </div>
 </div>
@@ -1041,16 +785,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00140">140</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_body_a633ec7a273a8f78362d2953ba5e6cb0a_icgraph.svg" width="304" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1084,16 +818,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00092">92</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_body_a4f82a7ebad173b99196d46a5d7266f6f_cgraph.svg" width="1052" height="266"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="aa4f881a54530a30e103d2792e7a2423b"></a>
@@ -1116,16 +840,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00056">56</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_body_aa4f881a54530a30e103d2792e7a2423b_icgraph.svg" width="304" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1150,16 +864,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_physics_body_8cpp_source.html#l00206">206</a> of file <a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_physics_body_ab70033ae7f2c7e29044b1259aa55bbad_icgraph.svg" width="416" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -1180,8 +884,6 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_physics_body_8h_source.html#l00059">59</a> of file <a class="el" href="i_physics_body_8h_source.html">iPhysicsBody.h</a>.</p>
 
 </div>
 </div>
@@ -1232,8 +934,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_physics_8cpp_source.html#l00100">100</a> of file <a class="el" href="i_physics_8cpp_source.html">iPhysics.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aacac62f80c5ab05ae8458fb42ca68604"></a>
@@ -1264,8 +964,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_physics_8cpp_source.html#l00060">60</a> of file <a class="el" href="i_physics_8cpp_source.html">iPhysics.cpp</a>.</p>
 
 </div>
 </div>
@@ -1329,31 +1027,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>current angular damping </p>
 
-<p>Definition at line <a class="el" href="i_physics_body_8h_source.html#l00223">223</a> of file <a class="el" href="i_physics_body_8h_source.html">iPhysicsBody.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab601adcf8d7793243dea5ac8222eb6e5"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iApplyForceAndTorqueEvent Igor::iPhysicsBody::_applyForceAndTorque</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>apply force and torque event </p>
-
-<p>Definition at line <a class="el" href="i_physics_body_8h_source.html#l00295">295</a> of file <a class="el" href="i_physics_body_8h_source.html">iPhysicsBody.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ab91ae6b0e7b128e4ac70da10bd5b4458"></a>
@@ -1374,8 +1047,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>current force </p>
-
-<p>Definition at line <a class="el" href="i_physics_body_8h_source.html#l00231">231</a> of file <a class="el" href="i_physics_body_8h_source.html">iPhysicsBody.h</a>.</p>
 
 </div>
 </div>
@@ -1398,8 +1069,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>body id </p>
 
-<p>Definition at line <a class="el" href="i_physics_body_8h_source.html#l00203">203</a> of file <a class="el" href="i_physics_body_8h_source.html">iPhysicsBody.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a88f059d726f5995f255e9f6e43ed3de2"></a>
@@ -1420,8 +1089,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>current linear damping </p>
-
-<p>Definition at line <a class="el" href="i_physics_body_8h_source.html#l00227">227</a> of file <a class="el" href="i_physics_body_8h_source.html">iPhysicsBody.h</a>.</p>
 
 </div>
 </div>
@@ -1444,8 +1111,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>the mass of this body </p>
 
-<p>Definition at line <a class="el" href="i_physics_body_8h_source.html#l00219">219</a> of file <a class="el" href="i_physics_body_8h_source.html">iPhysicsBody.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a7de7ae3e59710775a013a63374c25969"></a>
@@ -1466,8 +1131,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>material id of body </p>
-
-<p>Definition at line <a class="el" href="i_physics_body_8h_source.html#l00199">199</a> of file <a class="el" href="i_physics_body_8h_source.html">iPhysicsBody.h</a>.</p>
 
 </div>
 </div>
@@ -1490,8 +1153,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>mutex to protex id generation </p>
 
-<p>Definition at line <a class="el" href="i_physics_body_8h_source.html#l00211">211</a> of file <a class="el" href="i_physics_body_8h_source.html">iPhysicsBody.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="abcb80345c7c6a8233e9000f3a93df8a1"></a>
@@ -1512,8 +1173,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>handle to newton body </p>
-
-<p>Definition at line <a class="el" href="i_physics_body_8h_source.html#l00247">247</a> of file <a class="el" href="i_physics_body_8h_source.html">iPhysicsBody.h</a>.</p>
 
 </div>
 </div>
@@ -1536,8 +1195,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>next body id </p>
 
-<p>Definition at line <a class="el" href="i_physics_body_8h_source.html#l00207">207</a> of file <a class="el" href="i_physics_body_8h_source.html">iPhysicsBody.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ae5ca88002f70692e78ba28b2a5295136"></a>
@@ -1558,8 +1215,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>current omega or angular speed </p>
-
-<p>Definition at line <a class="el" href="i_physics_body_8h_source.html#l00243">243</a> of file <a class="el" href="i_physics_body_8h_source.html">iPhysicsBody.h</a>.</p>
 
 </div>
 </div>
@@ -1582,8 +1237,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>current tourque </p>
 
-<p>Definition at line <a class="el" href="i_physics_body_8h_source.html#l00235">235</a> of file <a class="el" href="i_physics_body_8h_source.html">iPhysicsBody.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="afe0cd76c905b01d79a4898941be39d58"></a>
@@ -1604,8 +1257,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>bound transform node </p>
-
-<p>Definition at line <a class="el" href="i_physics_body_8h_source.html#l00251">251</a> of file <a class="el" href="i_physics_body_8h_source.html">iPhysicsBody.h</a>.</p>
 
 </div>
 </div>
@@ -1628,8 +1279,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>pointer to user data </p>
 
-<p>Definition at line <a class="el" href="i_physics_body_8h_source.html#l00215">215</a> of file <a class="el" href="i_physics_body_8h_source.html">iPhysicsBody.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a83174a9ef7d50eac798342380ce57288"></a>
@@ -1650,8 +1299,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>current velocity </p>
-
-<p>Definition at line <a class="el" href="i_physics_body_8h_source.html#l00239">239</a> of file <a class="el" href="i_physics_body_8h_source.html">iPhysicsBody.h</a>.</p>
 
 </div>
 </div>
@@ -1674,13 +1321,11 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>defines the invalid body id </p>
 
-<p>Definition at line <a class="el" href="i_physics_body_8h_source.html#l00068">68</a> of file <a class="el" href="i_physics_body_8h_source.html">iPhysicsBody.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_physics_body_8h_source.html">iPhysicsBody.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_physics_body_8cpp_source.html">iPhysicsBody.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_physics_body_8h.html">iPhysicsBody.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_physics_body_8cpp.html">iPhysicsBody.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -1689,7 +1334,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_physics_body.html">iPhysicsBody</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:00 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

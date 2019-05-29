@@ -1,5 +1,0 @@
-<map id="PropertiesDialog::deinitGUI" name="PropertiesDialog::deinitGUI">
-<area shape="rect" id="node2" href="$class_properties_dialog.html#a6003c4e49079a959123c1760601cce2e" title="PropertiesDialog::onStructure\lChanged" alt="" coords="243,5,435,47"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iWidgetManager \&gt;::getInstance" alt="" coords="232,71,447,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_widget_manager.html#a0f280e1395cb1fe0af29e3d06beb465f" title="Igor::iWidgetManager\l::destroyWidget" alt="" coords="267,136,412,177"/>
-</map>

@@ -1,7 +1,0 @@
-<map id="Igor::iPhysics::Contact" name="Igor::iPhysics::Contact">
-<area shape="rect" id="node2" href="$class_igor_1_1i_physics_material_combo.html" title="Igor::iPhysicsMaterialCombo" alt="" coords="5,272,193,299"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_string.html" title="IgorAux::iaString" alt="" coords="40,124,159,151"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_physics_body.html" title="Igor::iPhysicsBody" alt="" coords="218,272,349,299"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_mutex.html" title="IgorAux::iaMutex" alt="" coords="203,124,323,151"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_vector3.html" title="IgorAux::iaVector3\&lt; T \&gt;" alt="" coords="347,124,507,151"/>
-</map>

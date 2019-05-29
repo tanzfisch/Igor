@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,14 +111,13 @@ $(document).ready(function(){initNavTree('class_igor_aux_1_1ia_mem_block_control
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_aux_1_1ia_mem_block_control-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">IgorAux::iaMemBlockControl Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="ia_mem_block_control_8h_source.html">iaMemBlockControl.h</a>&gt;</code></p>
+<p><code>#include &lt;iaMemBlockControl.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -164,21 +163,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6627e7772b9bfdf3e87532651c8f14bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4c33663ff167b4df34ae8960dafc6d7"><td class="memItemLeft" align="right" valign="top">float64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_mem_block_control.html#ae4c33663ff167b4df34ae8960dafc6d7">readFloat64</a> ()</td></tr>
 <tr class="separator:ae4c33663ff167b4df34ae8960dafc6d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:aa76741dcc75916b664ae292ddd0067ee"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_mem_block_control.html#aa76741dcc75916b664ae292ddd0067ee">_data</a> = nullptr</td></tr>
-<tr class="separator:aa76741dcc75916b664ae292ddd0067ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a349251a2f32503a464cce69b2843a0ec"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_mem_block_control.html#a349251a2f32503a464cce69b2843a0ec">_pos</a> = 0</td></tr>
-<tr class="separator:a349251a2f32503a464cce69b2843a0ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a872e8d1154d656e4a9f60691f24a164f"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_mem_block_control.html#a872e8d1154d656e4a9f60691f24a164f">_size</a> = 0</td></tr>
-<tr class="separator:a872e8d1154d656e4a9f60691f24a164f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>memory block with some convinient methods</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000114">Todo:</a></b></dt><dd>write buffer functionality </dd></dl>
-
-<p>Definition at line <a class="el" href="ia_mem_block_control_8h_source.html#l00043">43</a> of file <a class="el" href="ia_mem_block_control_8h_source.html">iaMemBlockControl.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a9e6d633cbfe54846ace89a38a5af8966"></a>
 <div class="memitem">
@@ -243,8 +230,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true: if end of buffer reached; false: if current position is still in buffer range </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_mem_block_control_8cpp_source.html#l00033">33</a> of file <a class="el" href="ia_mem_block_control_8cpp_source.html">iaMemBlockControl.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a1436586d6543ed43418077d3c2adde2e"></a>
@@ -261,8 +246,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>pointer to data </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_mem_block_control_8cpp_source.html#l00018">18</a> of file <a class="el" href="ia_mem_block_control_8cpp_source.html">iaMemBlockControl.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a5911174674c71ae6c5c43d130020af26"></a>
@@ -278,8 +261,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>size of data </dd></dl>
-
-<p>Definition at line <a class="el" href="ia_mem_block_control_8cpp_source.html#l00023">23</a> of file <a class="el" href="ia_mem_block_control_8cpp_source.html">iaMemBlockControl.cpp</a>.</p>
 
 </div>
 </div>
@@ -315,8 +296,6 @@ Private Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>amount of actually read bytes </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_mem_block_control_8cpp_source.html#l00074">74</a> of file <a class="el" href="ia_mem_block_control_8cpp_source.html">iaMemBlockControl.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a6627e7772b9bfdf3e87532651c8f14bc"></a>
@@ -332,8 +311,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>float32 value from buffer current location will be increased by the amount of bytes red. No range check. </dd></dl>
-
-<p>Definition at line <a class="el" href="ia_mem_block_control_8cpp_source.html#l00143">143</a> of file <a class="el" href="ia_mem_block_control_8cpp_source.html">iaMemBlockControl.cpp</a>.</p>
 
 </div>
 </div>
@@ -351,8 +328,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>float64 value from buffer current location will be increased by the amount of bytes red. No range check. </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_mem_block_control_8cpp_source.html#l00150">150</a> of file <a class="el" href="ia_mem_block_control_8cpp_source.html">iaMemBlockControl.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a4cc42b2624c92e4a6477856ceec07c36"></a>
@@ -368,8 +343,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>int16 value from buffer current location will be increased by the amount of bytes red. No range check. </dd></dl>
-
-<p>Definition at line <a class="el" href="ia_mem_block_control_8cpp_source.html#l00108">108</a> of file <a class="el" href="ia_mem_block_control_8cpp_source.html">iaMemBlockControl.cpp</a>.</p>
 
 </div>
 </div>
@@ -387,8 +360,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>int32 value from buffer current location will be increased by the amount of bytes red. No range check. </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_mem_block_control_8cpp_source.html#l00122">122</a> of file <a class="el" href="ia_mem_block_control_8cpp_source.html">iaMemBlockControl.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aa8f6811a0103345353b8d762007a575c"></a>
@@ -404,8 +375,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>int64 value from buffer current location will be increased by the amount of bytes red. No range check. </dd></dl>
-
-<p>Definition at line <a class="el" href="ia_mem_block_control_8cpp_source.html#l00136">136</a> of file <a class="el" href="ia_mem_block_control_8cpp_source.html">iaMemBlockControl.cpp</a>.</p>
 
 </div>
 </div>
@@ -423,8 +392,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>int8 value from buffer current location will be increased by the amount of bytes red. No range check. </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_mem_block_control_8cpp_source.html#l00094">94</a> of file <a class="el" href="ia_mem_block_control_8cpp_source.html">iaMemBlockControl.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a8ca79e8f9f9f539febf61dae428b5659"></a>
@@ -440,8 +407,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>uint16 value from buffer current location will be increased by the amount of bytes red. No range check. </dd></dl>
-
-<p>Definition at line <a class="el" href="ia_mem_block_control_8cpp_source.html#l00101">101</a> of file <a class="el" href="ia_mem_block_control_8cpp_source.html">iaMemBlockControl.cpp</a>.</p>
 
 </div>
 </div>
@@ -459,8 +424,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>uint32 value from buffer current location will be increased by the amount of bytes red. No range check. </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_mem_block_control_8cpp_source.html#l00115">115</a> of file <a class="el" href="ia_mem_block_control_8cpp_source.html">iaMemBlockControl.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aaab45dbf8678fe7ba9d2b9c7d2d04b82"></a>
@@ -477,8 +440,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>uint64 value from buffer current location will be increased by the amount of bytes red. No range check. </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_mem_block_control_8cpp_source.html#l00129">129</a> of file <a class="el" href="ia_mem_block_control_8cpp_source.html">iaMemBlockControl.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a8e6bf7f742e314f1ee660f915e57ab09"></a>
@@ -494,8 +455,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>uint8 value from buffer current location will be increased by the amount of bytes red. No range check. </dd></dl>
-
-<p>Definition at line <a class="el" href="ia_mem_block_control_8cpp_source.html#l00087">87</a> of file <a class="el" href="ia_mem_block_control_8cpp_source.html">iaMemBlockControl.cpp</a>.</p>
 
 </div>
 </div>
@@ -520,8 +479,6 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_mem_block_control_8cpp_source.html#l00038">38</a> of file <a class="el" href="ia_mem_block_control_8cpp_source.html">iaMemBlockControl.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a2e131d11d7ae1574873317e7e5051de4"></a>
@@ -545,8 +502,6 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_mem_block_control_8cpp_source.html#l00062">62</a> of file <a class="el" href="ia_mem_block_control_8cpp_source.html">iaMemBlockControl.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ae1293b279c4a24950488bfd355023612"></a>
@@ -569,8 +524,6 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="ia_mem_block_control_8cpp_source.html#l00050">50</a> of file <a class="el" href="ia_mem_block_control_8cpp_source.html">iaMemBlockControl.cpp</a>.</p>
 
 </div>
 </div>
@@ -605,8 +558,6 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_mem_block_control_8cpp_source.html#l00011">11</a> of file <a class="el" href="ia_mem_block_control_8cpp_source.html">iaMemBlockControl.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a8f480be535ec40b54baf1760a0e5610e"></a>
@@ -623,83 +574,11 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>current position </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_mem_block_control_8cpp_source.html#l00028">28</a> of file <a class="el" href="ia_mem_block_control_8cpp_source.html">iaMemBlockControl.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="aa76741dcc75916b664ae292ddd0067ee"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void* IgorAux::iaMemBlockControl::_data = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>pointer to actual data </p>
-
-<p>Definition at line <a class="el" href="ia_mem_block_control_8h_source.html#l00169">169</a> of file <a class="el" href="ia_mem_block_control_8h_source.html">iaMemBlockControl.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a349251a2f32503a464cce69b2843a0ec"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 IgorAux::iaMemBlockControl::_pos = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current position in data </p>
-
-<p>Definition at line <a class="el" href="ia_mem_block_control_8h_source.html#l00173">173</a> of file <a class="el" href="ia_mem_block_control_8h_source.html">iaMemBlockControl.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a872e8d1154d656e4a9f60691f24a164f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 IgorAux::iaMemBlockControl::_size = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>size of memory allocated </p>
-
-<p>Definition at line <a class="el" href="ia_mem_block_control_8h_source.html#l00177">177</a> of file <a class="el" href="ia_mem_block_control_8h_source.html">iaMemBlockControl.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_mem_block_control_8h_source.html">iaMemBlockControl.h</a></li>
-<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_mem_block_control_8cpp_source.html">iaMemBlockControl.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/IgorAux/src/<a class="el" href="ia_mem_block_control_8h.html">iaMemBlockControl.h</a></li>
+<li>C:/dev/Igor/Igor/src/IgorAux/src/<a class="el" href="ia_mem_block_control_8cpp.html">iaMemBlockControl.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -708,7 +587,7 @@ Private Attributes</h2></td></tr>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor_aux.html">IgorAux</a></li><li class="navelem"><a class="el" href="class_igor_aux_1_1ia_mem_block_control.html">iaMemBlockControl</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:18 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

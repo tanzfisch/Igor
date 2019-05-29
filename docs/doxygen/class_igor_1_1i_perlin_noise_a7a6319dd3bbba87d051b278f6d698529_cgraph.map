@@ -1,7 +1,0 @@
-<map id="Igor::iPerlinNoise::getValue" name="Igor::iPerlinNoise::getValue">
-<area shape="rect" id="node2" href="$class_igor_1_1i_perlin_noise.html#af06576cdfc4327d50082eefac2f71bb3" title="Igor::iPerlinNoise\l::getValue" alt="" coords="173,93,293,135"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_perlin_noise.html#a283827ef80ab08d723007b20a0b4fc3f" title="Igor::iPerlinNoise\l::fade" alt="" coords="354,5,474,47"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_perlin_noise.html#a47023a32a668daaa63ef420d8419555c" title="Igor::iPerlinNoise::inc" alt="" coords="341,71,487,98"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_perlin_noise.html#aedb0187ad344bc00f3d031c1b17c3496" title="Igor::iPerlinNoise\l::lerp" alt="" coords="354,123,474,164"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_perlin_noise.html#a7d289388b6f86ff2e9fc70554cb0ca9d" title="Igor::iPerlinNoise\l::grad" alt="" coords="354,188,474,229"/>
-</map>

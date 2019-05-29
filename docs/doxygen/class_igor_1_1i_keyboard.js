@@ -1,27 +1,16 @@
 var class_igor_1_1i_keyboard =
 [
-    [ "iKeyboard", "class_igor_1_1i_keyboard.html#a55a2a1e9b17486bfb8f1981429442dfb", null ],
-    [ "~iKeyboard", "class_igor_1_1i_keyboard.html#a877774d285dfb1fc45b268073922f672", null ],
     [ "getKey", "class_igor_1_1i_keyboard.html#a9efc4e92e23f37600859c16cd62cd1f8", null ],
     [ "keyPressed", "class_igor_1_1i_keyboard.html#a09b45a1cc0525073acb2c143e2ad3f78", null ],
-    [ "onOSEvent", "class_igor_1_1i_keyboard.html#a52ca88c0a3b6b4680f1f10156f39198b", null ],
-    [ "registerDevice", "class_igor_1_1i_keyboard.html#a0a29415c52fa11618459d396bc8f3c30", null ],
     [ "registerKeyASCIIDelegate", "class_igor_1_1i_keyboard.html#ab7c36e48de64de79ed65306ecd839063", null ],
     [ "registerKeyDownDelegate", "class_igor_1_1i_keyboard.html#ab3515d2dd7b10bb322b2a4176f17100e", null ],
     [ "registerKeyDownDelegate", "class_igor_1_1i_keyboard.html#a3949f374aaff8fa202a8cf1c74a5875e", null ],
     [ "registerKeyUpDelegate", "class_igor_1_1i_keyboard.html#ab88a5cdb06d2d9f35dc62ee9d51ee24b", null ],
     [ "registerKeyUpDelegate", "class_igor_1_1i_keyboard.html#a6c8bebcf35ddc96aff03828e20d1958d", null ],
-    [ "translate", "class_igor_1_1i_keyboard.html#a99118c36e4b27c08607003cfc44bc0e6", null ],
     [ "unregisterKeyASCIIDelegate", "class_igor_1_1i_keyboard.html#a2e300d8fecd0cd48b3edb8878530dee4", null ],
     [ "unregisterKeyDownDelegate", "class_igor_1_1i_keyboard.html#a977df90f8c66280e0aec7aa393100946", null ],
     [ "unregisterKeyDownDelegate", "class_igor_1_1i_keyboard.html#ad873742bfba0f22aa5381700ed39d9bd", null ],
     [ "unregisterKeyUpDelegate", "class_igor_1_1i_keyboard.html#ac808576baaf23a473140bce907ae366f", null ],
     [ "unregisterKeyUpDelegate", "class_igor_1_1i_keyboard.html#a165b032e64f2364c961e03a8214ce14b", null ],
-    [ "iaSingleton< iKeyboard >", "class_igor_1_1i_keyboard.html#af84982e77484ff4a0ef880a66612dd84", null ],
-    [ "_keyASCIIEvent", "class_igor_1_1i_keyboard.html#a4c080d74b506d66bfc46fd0155a5592e", null ],
-    [ "_keyDownEvent", "class_igor_1_1i_keyboard.html#a2eb211be234f9fab3daa1bece75896d1", null ],
-    [ "_keyDownEventExt", "class_igor_1_1i_keyboard.html#adbd4b8c9252b48e4d9d70e109385fdd1", null ],
-    [ "_keys", "class_igor_1_1i_keyboard.html#ad37c8f51197d7c3d2c3de8300e233fc8", null ],
-    [ "_keyUpEvent", "class_igor_1_1i_keyboard.html#a48a00e2cd99868153bd5c6bfabbe2300", null ],
-    [ "_keyUpEventExt", "class_igor_1_1i_keyboard.html#a9d8b276446010bcd4219bb809fc29913", null ]
+    [ "iaSingleton< iKeyboard >", "class_igor_1_1i_keyboard.html#af84982e77484ff4a0ef880a66612dd84", null ]
 ];

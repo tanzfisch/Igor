@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -115,8 +115,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_widget_check_box.html'
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#pro-static-attribs">Static Protected Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_widget_check_box-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -124,19 +122,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_widget_check_box.html'
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_widget_check_box_8h_source.html">iWidgetCheckBox.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iWidgetCheckBox:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_check_box__inherit__graph.svg" width="166" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iWidgetCheckBox:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_check_box__coll__graph.svg" width="466" height="324"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iWidgetCheckBox.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_1_1i_widget.html">Igor::iWidget</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -392,18 +380,6 @@ Static Protected Attributes</h2></td></tr>
 <tr class="memitem:a2a1f71194e74532c63f4f8ac9cfa62e1"><td class="memItemLeft" align="right" valign="top">static vector&lt; <a class="el" href="class_igor_1_1i_widget_check_box.html">iWidgetCheckBox</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_check_box.html#a2a1f71194e74532c63f4f8ac9cfa62e1">_currentRadioButtons</a></td></tr>
 <tr class="separator:a2a1f71194e74532c63f4f8ac9cfa62e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a514dea8267761f494440cc83c5bc4a40"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_check_box.html#a514dea8267761f494440cc83c5bc4a40">iWidgetCheckBox</a> ()</td></tr>
-<tr class="separator:a514dea8267761f494440cc83c5bc4a40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48588e50c8492e96cd9fcb371b34dfaf"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_check_box.html#a48588e50c8492e96cd9fcb371b34dfaf">~iWidgetCheckBox</a> ()=default</td></tr>
-<tr class="separator:a48588e50c8492e96cd9fcb371b34dfaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
-Static Private Member Functions</h2></td></tr>
-<tr class="memitem:ad12c2508235a348ef5d0408502dfe8b8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_igor_1_1i_widget.html">iWidget</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_check_box.html#ad12c2508235a348ef5d0408502dfe8b8">createInstance</a> ()</td></tr>
-<tr class="separator:ad12c2508235a348ef5d0408502dfe8b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a9da20b1c56a70b01ca0ef56f4d4d47fc"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_check_box.html#a9da20b1c56a70b01ca0ef56f4d4d47fc">iWidgetManager</a></td></tr>
@@ -418,68 +394,7 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>check box widget</p>
 <p>Example: Widgets usage example </p>
-
-<p>Definition at line <a class="el" href="i_widget_check_box_8h_source.html#l00048">48</a> of file <a class="el" href="i_widget_check_box_8h_source.html">iWidgetCheckBox.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a514dea8267761f494440cc83c5bc4a40"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iWidgetCheckBox::iWidgetCheckBox </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>ctor initializes member variables </p>
-
-<p>Definition at line <a class="el" href="i_widget_check_box_8cpp_source.html#l00017">17</a> of file <a class="el" href="i_widget_check_box_8cpp_source.html">iWidgetCheckBox.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_check_box_a514dea8267761f494440cc83c5bc4a40_icgraph.svg" width="368" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a48588e50c8492e96cd9fcb371b34dfaf"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual Igor::iWidgetCheckBox::~iWidgetCheckBox </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>does nothing </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="ae63be6d177fe17290b82ce93fda73bf6"></a>
 <div class="memitem">
 <div class="memproto">
@@ -502,16 +417,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>beginns a radio button group</p>
 <p>every check box that is created afterwards will be added to the same radio button group </p>
-
-<p>Definition at line <a class="el" href="i_widget_check_box_8cpp_source.html#l00040">40</a> of file <a class="el" href="i_widget_check_box_8cpp_source.html">iWidgetCheckBox.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_check_box_ae63be6d177fe17290b82ce93fda73bf6_icgraph.svg" width="363" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -537,51 +442,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>updates size based on it's content </p>
 
-<p>Implements <a class="el" href="class_igor_1_1i_widget.html#afe71279baaffb4354bd263e118fde096">Igor::iWidget</a>.</p>
-
-<p>Definition at line <a class="el" href="i_widget_check_box_8cpp_source.html#l00103">103</a> of file <a class="el" href="i_widget_check_box_8cpp_source.html">iWidgetCheckBox.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_check_box_a71c7bf404994e38ffd8432f55d4fd53e_cgraph.svg" width="428" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="ad12c2508235a348ef5d0408502dfe8b8"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_widget.html">iWidget</a> * Igor::iWidgetCheckBox::createInstance </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>creates instance of this widget type </p>
-
-<p>Definition at line <a class="el" href="i_widget_check_box_8cpp_source.html#l00035">35</a> of file <a class="el" href="i_widget_check_box_8cpp_source.html">iWidgetCheckBox.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_check_box_ad12c2508235a348ef5d0408502dfe8b8_cgraph.svg" width="368" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
+<p>Implements <a class="el" href="class_igor_1_1i_widget.html">Igor::iWidget</a>.</p>
 
 </div>
 </div>
@@ -609,16 +470,6 @@ Here is the call graph for this function:</div>
 
 <p>Reimplemented from <a class="el" href="class_igor_1_1i_widget.html#ad3fcb454683a38bf542f3bb630c57811">Igor::iWidget</a>.</p>
 
-<p>Definition at line <a class="el" href="i_widget_check_box_8cpp_source.html#l00126">126</a> of file <a class="el" href="i_widget_check_box_8cpp_source.html">iWidgetCheckBox.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_check_box_aa54db8546decd504d661331f88225f7d_cgraph.svg" width="428" height="272"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a08593cbef0515aa979aa99c79cd67907"></a>
@@ -643,16 +494,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>ends the radio button group </p>
 
-<p>Definition at line <a class="el" href="i_widget_check_box_8cpp_source.html#l00045">45</a> of file <a class="el" href="i_widget_check_box_8cpp_source.html">iWidgetCheckBox.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_check_box_a08593cbef0515aa979aa99c79cd67907_icgraph.svg" width="354" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="adc3bd65e6c01b9fe8e775ec308f3ac00"></a>
@@ -668,8 +509,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>text of check box </p>
-
-<p>Definition at line <a class="el" href="i_widget_check_box_8cpp_source.html#l00121">121</a> of file <a class="el" href="i_widget_check_box_8cpp_source.html">iWidgetCheckBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -699,16 +538,6 @@ Here is the caller graph for this function:</div>
 
 <p>Reimplemented from <a class="el" href="class_igor_1_1i_widget.html#a7bd9d2da917630ed718526f5198f30d8">Igor::iWidget</a>.</p>
 
-<p>Definition at line <a class="el" href="i_widget_check_box_8cpp_source.html#l00051">51</a> of file <a class="el" href="i_widget_check_box_8cpp_source.html">iWidgetCheckBox.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_check_box_aee99e0fb8acedbfdf3f2fe39d19d9a7d_cgraph.svg" width="394" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ade60771b06b277866e254ec465228643"></a>
@@ -724,16 +553,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true: if checked </dd></dl>
-
-<p>Definition at line <a class="el" href="i_widget_check_box_8cpp_source.html#l00093">93</a> of file <a class="el" href="i_widget_check_box_8cpp_source.html">iWidgetCheckBox.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_check_box_ade60771b06b277866e254ec465228643_icgraph.svg" width="368" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -758,16 +577,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_check_box_8cpp_source.html#l00087">87</a> of file <a class="el" href="i_widget_check_box_8cpp_source.html">iWidgetCheckBox.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_check_box_a3bb3174d71b2100714947e0ca47e3fa7_icgraph.svg" width="835" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a99d70ce15ec0659f385c85cdfffe1120"></a>
@@ -784,16 +593,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>set text of check box </p>
-
-<p>Definition at line <a class="el" href="i_widget_check_box_8cpp_source.html#l00098">98</a> of file <a class="el" href="i_widget_check_box_8cpp_source.html">iWidgetCheckBox.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_check_box_a99d70ce15ec0659f385c85cdfffe1120_icgraph.svg" width="839" height="172"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -817,8 +616,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>needs to be friend because it's the factory that creates this widget </p>
 
-<p>Definition at line <a class="el" href="i_widget_check_box_8h_source.html#l00053">53</a> of file <a class="el" href="i_widget_check_box_8h_source.html">iWidgetCheckBox.h</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -841,8 +638,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>boolean if check box is checked or not </p>
 
-<p>Definition at line <a class="el" href="i_widget_check_box_8h_source.html#l00093">93</a> of file <a class="el" href="i_widget_check_box_8h_source.html">iWidgetCheckBox.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a2a1f71194e74532c63f4f8ac9cfa62e1"></a>
@@ -863,8 +658,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>radio button stack while creating a radio button group </p>
-
-<p>Definition at line <a class="el" href="i_widget_check_box_8h_source.html#l00112">112</a> of file <a class="el" href="i_widget_check_box_8h_source.html">iWidgetCheckBox.h</a>.</p>
 
 </div>
 </div>
@@ -887,8 +680,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>flag to determine if the next check box created is part of a radio button group </p>
 
-<p>Definition at line <a class="el" href="i_widget_check_box_8h_source.html#l00108">108</a> of file <a class="el" href="i_widget_check_box_8h_source.html">iWidgetCheckBox.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a77dda15ab1617fbfbb1c1a6f25d4fe69"></a>
@@ -909,8 +700,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>if check box is part of a radio button group. this is the group </p>
-
-<p>Definition at line <a class="el" href="i_widget_check_box_8h_source.html#l00104">104</a> of file <a class="el" href="i_widget_check_box_8h_source.html">iWidgetCheckBox.h</a>.</p>
 
 </div>
 </div>
@@ -933,13 +722,11 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>check box text </p>
 
-<p>Definition at line <a class="el" href="i_widget_check_box_8h_source.html#l00089">89</a> of file <a class="el" href="i_widget_check_box_8h_source.html">iWidgetCheckBox.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_widget_check_box_8h_source.html">iWidgetCheckBox.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_widget_check_box_8cpp_source.html">iWidgetCheckBox.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_widget_check_box_8h.html">iWidgetCheckBox.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_widget_check_box_8cpp.html">iWidgetCheckBox.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -948,7 +735,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_widget_check_box.html">iWidgetCheckBox</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:12 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

@@ -1,6 +1,0 @@
-<map id="IgorAux::iaRandomNumberGenerator::setSeed" name="IgorAux::iaRandomNumberGenerator::setSeed">
-<area shape="rect" id="node2" href="$class_igor_1_1i_l_system.html#af9ee10250a585772797dcd1de0bc8fc7" title="Igor::iLSystem::generate" alt="" coords="313,5,477,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_perlin_noise.html#a4b8e6b627c856b2c05e4e849d1706c3c" title="Igor::iPerlinNoise\l::generateBase" alt="" coords="335,57,455,98"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_voxel_terrain_mesh_generator.html#a573443022d97b40da58a922f413a0326" title="Igor::iVoxelTerrainMeshGenerator\l::importData" alt="" coords="288,122,503,163"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_perlin_noise.html#a19763f2a38977dc43fba793fa4e66bd6" title="Igor::iPerlinNoise\l::iPerlinNoise" alt="" coords="551,57,671,98"/>
-</map>

@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -113,7 +113,6 @@ $(document).ready(function(){initNavTree('class_igor_aux_1_1ia_directory.html','
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_aux_1_1ia_directory-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -121,13 +120,7 @@ $(document).ready(function(){initNavTree('class_igor_aux_1_1ia_directory.html','
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="ia_directory_8h_source.html">iaDirectory.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for IgorAux::iaDirectory:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory__coll__graph.svg" width="175" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iaDirectory.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -174,11 +167,6 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a343653805a4040e5ada2db7f0c5941e9"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_igor_aux_1_1ia_directory.html">iaDirectory</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_directory.html#a343653805a4040e5ada2db7f0c5941e9">getDirectorysRecursive</a> (const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;directory, const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;searchPattern=L&quot;&quot;, const bool recursive=false)</td></tr>
 <tr class="separator:a343653805a4040e5ada2db7f0c5941e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a484d81cf02158e310343fc6d63287f1b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_directory.html#a484d81cf02158e310343fc6d63287f1b">_directoryName</a></td></tr>
-<tr class="separator:a484d81cf02158e310343fc6d63287f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a86b456214cb093e5d06962a0e4fd5798"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_directory.html#a86b456214cb093e5d06962a0e4fd5798">iaFile</a></td></tr>
@@ -186,8 +174,6 @@ Friends</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>handles directories and containing files </p>
-
-<p>Definition at line <a class="el" href="ia_directory_8h_source.html#l00043">43</a> of file <a class="el" href="ia_directory_8h_source.html">iaDirectory.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aa9253daa298d1b5813301806d72d9080"></a>
 <div class="memitem">
@@ -209,8 +195,6 @@ Friends</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="ia_directory_8cpp_source.html#l00016">16</a> of file <a class="el" href="ia_directory_8cpp_source.html">iaDirectory.cpp</a>.</p>
 
 </div>
 </div>
@@ -237,24 +221,6 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true: if a directory is absolute; false: if diretory is relative </dd></dl>
-
-<p>Definition at line <a class="el" href="ia_directory_8cpp_source.html#l00230">230</a> of file <a class="el" href="ia_directory_8cpp_source.html">iaDirectory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory_a98786c5b2f0b32bed3db7f2fe452b917_cgraph.svg" width="327" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory_a98786c5b2f0b32bed3db7f2fe452b917_icgraph.svg" width="676" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -299,24 +265,6 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>fixed path </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_directory_8cpp_source.html#l00253">253</a> of file <a class="el" href="ia_directory_8cpp_source.html">iaDirectory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory_a9934e835bf1a0f24673e13513b697fab_cgraph.svg" width="671" height="400"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory_a9934e835bf1a0f24673e13513b697fab_icgraph.svg" width="1536" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a6cf94c9a16a01913992b16b24782757b"></a>
@@ -340,24 +288,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the directory where the program starts from </dd></dl>
-
-<p>Definition at line <a class="el" href="ia_directory_8cpp_source.html#l00406">406</a> of file <a class="el" href="ia_directory_8cpp_source.html">iaDirectory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory_a6cf94c9a16a01913992b16b24782757b_cgraph.svg" width="382" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory_a6cf94c9a16a01913992b16b24782757b_icgraph.svg" width="371" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -383,8 +313,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the current or working directory </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_directory_8cpp_source.html#l00414">414</a> of file <a class="el" href="ia_directory_8cpp_source.html">iaDirectory.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a4d3b5d00b63c4245f5a38880ac8bf15e"></a>
@@ -401,16 +329,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the name of the directory</dd></dl>
 <p>e.g. if the directory is c: than the directory name is bar </p>
-
-<p>Definition at line <a class="el" href="ia_directory_8cpp_source.html#l00200">200</a> of file <a class="el" href="ia_directory_8cpp_source.html">iaDirectory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory_a4d3b5d00b63c4245f5a38880ac8bf15e_cgraph.svg" width="496" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -445,16 +363,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="ia_directory_8cpp_source.html#l00027">27</a> of file <a class="el" href="ia_directory_8cpp_source.html">iaDirectory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory_aa1ac4652b82835577ee0cdeb118b5b35_icgraph.svg" width="343" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -505,16 +413,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_directory_8cpp_source.html#l00033">33</a> of file <a class="el" href="ia_directory_8cpp_source.html">iaDirectory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory_a343653805a4040e5ada2db7f0c5941e9_cgraph.svg" width="348" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a567d50f181a2eec9e02e1295dedffaed"></a>
@@ -548,16 +446,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="ia_directory_8cpp_source.html#l00120">120</a> of file <a class="el" href="ia_directory_8cpp_source.html">iaDirectory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory_a567d50f181a2eec9e02e1295dedffaed_icgraph.svg" width="343" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -608,16 +496,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_directory_8cpp_source.html#l00126">126</a> of file <a class="el" href="ia_directory_8cpp_source.html">iaDirectory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory_a6630d6ad7de659da07e427f26db70039_cgraph.svg" width="322" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a59b33407d933739f786561fe0edc575e"></a>
@@ -635,16 +513,6 @@ Here is the call graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>get the absolute path name</dd></dl>
 <p>e.g. if the path is c: then this returns c: </p>
 
-<p>Definition at line <a class="el" href="ia_directory_8cpp_source.html#l00195">195</a> of file <a class="el" href="ia_directory_8cpp_source.html">iaDirectory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory_a59b33407d933739f786561fe0edc575e_icgraph.svg" width="1194" height="258"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a53239005da44427b82e06185615f9a4e"></a>
@@ -661,24 +529,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the absolute path name of parent directory</dd></dl>
 <p>e.g. if the path is c: then this returns c: </p>
-
-<p>Definition at line <a class="el" href="ia_directory_8cpp_source.html#l00206">206</a> of file <a class="el" href="ia_directory_8cpp_source.html">iaDirectory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory_a53239005da44427b82e06185615f9a4e_cgraph.svg" width="554" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory_a53239005da44427b82e06185615f9a4e_icgraph.svg" width="1235" height="187"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -703,16 +553,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the path seperator (win: \, linux: /) </dd></dl>
-
-<p>Definition at line <a class="el" href="ia_directory_8cpp_source.html#l00401">401</a> of file <a class="el" href="ia_directory_8cpp_source.html">iaDirectory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory_a9dd49ace0ad968ebeedbd1f862beaf2b_icgraph.svg" width="1555" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -756,24 +596,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_directory_8cpp_source.html#l00320">320</a> of file <a class="el" href="ia_directory_8cpp_source.html">iaDirectory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory_a207e86502241f4440826013b8fc23682_cgraph.svg" width="738" height="527"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory_a207e86502241f4440826013b8fc23682_icgraph.svg" width="968" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ab414482b267b7eeb15fc58385917b65c"></a>
@@ -799,16 +621,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true: if a directory is realy a directory; false: if directory is a file don't use this to check if a path is a file try <a class="el" href="class_igor_aux_1_1ia_file.html#ab459bfac7c17fd8bb45b92a07fcdcbf2">iaFile::exist</a> </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_directory_8cpp_source.html#l00101">101</a> of file <a class="el" href="ia_directory_8cpp_source.html">iaDirectory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory_ab414482b267b7eeb15fc58385917b65c_icgraph.svg" width="343" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a98c5b5aaa990ae28049df58fefbf1db0"></a>
@@ -824,16 +636,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true: if root folder aka c:, d: or / </dd></dl>
-
-<p>Definition at line <a class="el" href="ia_directory_8cpp_source.html#l00212">212</a> of file <a class="el" href="ia_directory_8cpp_source.html">iaDirectory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory_a98c5b5aaa990ae28049df58fefbf1db0_icgraph.svg" width="343" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -857,8 +659,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="ia_directory_8cpp_source.html#l00021">21</a> of file <a class="el" href="ia_directory_8cpp_source.html">iaDirectory.cpp</a>.</p>
 
 </div>
 </div>
@@ -891,24 +691,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ia_directory_8cpp_source.html#l00448">448</a> of file <a class="el" href="ia_directory_8cpp_source.html">iaDirectory.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory_af36b64f70daf80bb6b60ee36fe9fdc02_cgraph.svg" width="328" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_directory_af36b64f70daf80bb6b60ee36fe9fdc02_icgraph.svg" width="292" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -930,37 +712,11 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ia_directory_8h_source.html#l00046">46</a> of file <a class="el" href="ia_directory_8h_source.html">iaDirectory.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a484d81cf02158e310343fc6d63287f1b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> IgorAux::iaDirectory::_directoryName</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the path to the directory </p>
-
-<p>Definition at line <a class="el" href="ia_directory_8h_source.html#l00144">144</a> of file <a class="el" href="ia_directory_8h_source.html">iaDirectory.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_directory_8h_source.html">iaDirectory.h</a></li>
-<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_directory_8cpp_source.html">iaDirectory.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/IgorAux/src/<a class="el" href="ia_directory_8h.html">iaDirectory.h</a></li>
+<li>C:/dev/Igor/Igor/src/IgorAux/src/<a class="el" href="ia_directory_8cpp.html">iaDirectory.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -969,7 +725,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor_aux.html">IgorAux</a></li><li class="navelem"><a class="el" href="class_igor_aux_1_1ia_directory.html">iaDirectory</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:17 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>
