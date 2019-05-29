@@ -1,8 +1,6 @@
 var hierarchy =
 [
-    [ "AABox", "class_a_a_box.html", null ],
     [ "Igor::ConvexCastReturnInfo", "struct_igor_1_1_convex_cast_return_info.html", null ],
-    [ "Frustum", "class_frustum.html", null ],
     [ "Igor::iAABox< T >", "class_igor_1_1i_a_a_box.html", null ],
     [ "Igor::iAABox< float32 >", "class_igor_1_1i_a_a_box.html", null ],
     [ "Igor::iAABox< float64 >", "class_igor_1_1i_a_a_box.html", null ],
@@ -282,10 +280,7 @@ var hierarchy =
       [ "OMPF::ompfResourceSearchPathChunk", "class_o_m_p_f_1_1ompf_resource_search_path_chunk.html", null ],
       [ "OMPF::ompfTransformChunk", "class_o_m_p_f_1_1ompf_transform_chunk.html", null ]
     ] ],
-    [ "OMPFDefaultConfiguration", "struct_o_m_p_f_default_configuration.html", null ],
+    [ "OMPF::OMPFDefaultConfiguration", "struct_o_m_p_f_1_1_o_m_p_f_default_configuration.html", null ],
     [ "OMPF::ompfSettings", "class_o_m_p_f_1_1ompf_settings.html", null ],
-    [ "Plane", "class_plane.html", null ],
-    [ "Igor::PreFilterUserData", "struct_igor_1_1_pre_filter_user_data.html", null ],
-    [ "Ray", "class_ray.html", null ],
-    [ "Sphere", "class_sphere.html", null ]
+    [ "Igor::PreFilterUserData", "struct_igor_1_1_pre_filter_user_data.html", null ]
 ];

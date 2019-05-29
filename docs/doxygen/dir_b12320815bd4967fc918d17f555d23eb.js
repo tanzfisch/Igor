@@ -205,14 +205,6 @@ var dir_b12320815bd4967fc918d17f555d23eb =
     [ "iNodeWater.h", "i_node_water_8h.html", [
       [ "iNodeWater", "class_igor_1_1i_node_water.html", "class_igor_1_1i_node_water" ]
     ] ],
-    [ "Intersection3D.cpp", "_intersection3_d_8cpp.html", null ],
-    [ "Intersection3D.h", "_intersection3_d_8h.html", [
-      [ "Plane", "class_plane.html", "class_plane" ],
-      [ "AABox", "class_a_a_box.html", "class_a_a_box" ],
-      [ "Ray", "class_ray.html", "class_ray" ],
-      [ "Frustum", "class_frustum.html", "class_frustum" ],
-      [ "Sphere", "class_sphere.html", "class_sphere" ]
-    ] ],
     [ "iOctree.cpp", "i_octree_8cpp.html", null ],
     [ "iOctree.h", "i_octree_8h.html", [
       [ "iOctree", "class_igor_1_1i_octree.html", "class_igor_1_1i_octree" ]

@@ -57,5 +57,5 @@ Crate patch release version tag on master branch.
 Doxygen
 -------
 
-Install [doxygen](http://www.doxygen.nl/download.html) and [Graphviz](https://graphviz.gitlab.io/download/) than run 
+Install [doxygen](http://www.doxygen.nl/download.html) (ver. 1.8.8) than run 
 doxygen using the configuration file located at src/docs/Doxyfile.doxy

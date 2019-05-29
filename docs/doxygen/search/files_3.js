@@ -198,8 +198,6 @@ var searchData=
   ['inodevolume_2eh',['iNodeVolume.h',['../i_node_volume_8h.html',1,'']]],
   ['inodewater_2ecpp',['iNodeWater.cpp',['../i_node_water_8cpp.html',1,'']]],
   ['inodewater_2eh',['iNodeWater.h',['../i_node_water_8h.html',1,'']]],
-  ['intersection3d_2ecpp',['Intersection3D.cpp',['../_intersection3_d_8cpp.html',1,'']]],
-  ['intersection3d_2eh',['Intersection3D.h',['../_intersection3_d_8h.html',1,'']]],
   ['ioctree_2ecpp',['iOctree.cpp',['../i_octree_8cpp.html',1,'']]],
   ['ioctree_2eh',['iOctree.h',['../i_octree_8h.html',1,'']]],
   ['iosevent_2eh',['iOSEvent.h',['../i_o_s_event_8h.html',1,'']]],

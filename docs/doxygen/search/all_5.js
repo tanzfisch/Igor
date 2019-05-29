@@ -35,8 +35,8 @@ var searchData=
   ['characterintexwidth',['CHARACTERINTEXWIDTH',['../i_texture_font_8cpp.html#a992f68f852c031c03eadb2c0cd60082e',1,'iTextureFont.cpp']]],
   ['check_5fconsistency',['CHECK_CONSISTENCY',['../ia_string_8cpp.html#a47dc6b354618bca7f8c71f242e72411d',1,'iaString.cpp']]],
   ['childoffsetposition',['childOffsetPosition',['../namespace_igor.html#aa0fcd85494a3c35b7994dcdc744fc699',1,'Igor']]],
-  ['chunkidsize',['ChunkIDSize',['../struct_o_m_p_f_default_configuration.html#adfe82e9ea1afd5be3b3f8b663d86e190',1,'OMPFDefaultConfiguration']]],
-  ['chunksizesize',['ChunkSizeSize',['../struct_o_m_p_f_default_configuration.html#aa24b6c9c4c6f841764a59b7b0411ccb1',1,'OMPFDefaultConfiguration']]],
+  ['chunkidsize',['ChunkIDSize',['../struct_o_m_p_f_1_1_o_m_p_f_default_configuration.html#a2956f76851c97d784a4dc12a8b35a3a7',1,'OMPF::OMPFDefaultConfiguration']]],
+  ['chunksizesize',['ChunkSizeSize',['../struct_o_m_p_f_1_1_o_m_p_f_default_configuration.html#a9e6b03e2a51ed42b4a72fd18798a470b',1,'OMPF::OMPFDefaultConfiguration']]],
   ['circle',['Circle',['../i_particle_emitter_8h.html#a4347e07a7e65ba8b2203de8cf50a3655',1,'Circle():&#160;iParticleEmitter.h'],['../ompf_emitter_chunk_8h.html#a4347e07a7e65ba8b2203de8cf50a3655',1,'Circle():&#160;ompfEmitterChunk.h']]],
   ['clamp',['Clamp',['../namespace_igor.html#a10541984fb40d8f093520c0847d01be8a08825280e3f8137556325061ba67ff8c',1,'Igor']]],
   ['cleanup',['cleanup',['../class_igor_1_1i_mesh_builder.html#a5e7f726e5abd15b82c6296c3987f6f62',1,'Igor::iMeshBuilder']]],
@@ -129,7 +129,7 @@ var searchData=
   ['cullboundings',['cullBoundings',['../class_igor_1_1i_widget_slider.html#a3201b3d488b21a42688135afbc852492',1,'Igor::iWidgetSlider']]],
   ['cullface',['CullFace',['../namespace_igor.html#ab297c11b2c64e78ac457158bfddd8ed7a5fbf085d301b88f5c73689461c9b221b',1,'Igor::CullFace()'],['../namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761a5fbf085d301b88f5c73689461c9b221b',1,'OMPF::CullFace()']]],
   ['cullfacefunc',['CullFaceFunc',['../namespace_igor.html#ab297c11b2c64e78ac457158bfddd8ed7af4f87a3c628c9d9564fc908b98bc70a1',1,'Igor::CullFaceFunc()'],['../namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761af4f87a3c628c9d9564fc908b98bc70a1',1,'OMPF::CullFaceFunc()']]],
-  ['customdatasizesize',['CustomDataSizeSize',['../struct_o_m_p_f_default_configuration.html#ab6a82d965d35c426dc1cab9f53b7c210',1,'OMPFDefaultConfiguration']]],
+  ['customdatasizesize',['CustomDataSizeSize',['../struct_o_m_p_f_1_1_o_m_p_f_default_configuration.html#ae39552b8ebb46424fba2def6cb4470b7',1,'OMPF::OMPFDefaultConfiguration']]],
   ['cyan',['Cyan',['../namespace_igor_aux.html#a40f0d9edbd2c9519788b20a95a9facc8a023c239d2f2538f140a20e72c7b73f20',1,'IgorAux']]],
   ['cycleverbosity',['cycleVerbosity',['../class_igor_1_1i_statistics_visualizer.html#a081650f95c675709a614c8590f93f6cb',1,'Igor::iStatisticsVisualizer']]]
 ];

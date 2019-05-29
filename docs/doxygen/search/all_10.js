@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['n',['n',['../class_plane.html#a506a32ba4c88e1fa53a41a49d8c58a78',1,'Plane::n()'],['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a8d9c307cb7f3c4a32822a51922d1ceaa',1,'Igor::N()']]],
-  ['near_5fplane',['near_plane',['../class_frustum.html#a4c1f29e738f80575f7dfa888fe6a5ac1',1,'Frustum']]],
+  ['n',['N',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a8d9c307cb7f3c4a32822a51922d1ceaa',1,'Igor']]],
   ['negate',['negate',['../class_igor_aux_1_1ia_vector2.html#a7a098b8f9c7bacd86e4fecf578dc05e0',1,'IgorAux::iaVector2::negate()'],['../class_igor_aux_1_1ia_vector3.html#a1cdfc5f611862d8d296e83db3fb8e871',1,'IgorAux::iaVector3::negate()']]],
   ['never',['Never',['../namespace_igor.html#a490f00fed47903c329843cb921bbace9a6e7b34fa59e1bd229b207892956dc41c',1,'Igor::Never()'],['../namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72a6e7b34fa59e1bd229b207892956dc41c',1,'OMPF::Never()']]],
   ['nextframe',['nextFrame',['../class_igor_1_1i_statistics.html#a91c71150ccbf27dc9707dab2d966068c',1,'Igor::iStatistics']]],

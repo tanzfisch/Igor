@@ -26,7 +26,6 @@ var searchData=
   ['f7',['F7',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a47489eb597b7db34caa24b1fc78fc839',1,'Igor']]],
   ['f8',['F8',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a4787509ad9f9d747a81a30e9dde3d4a7',1,'Igor']]],
   ['f9',['F9',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a892a245e287c163080b23db737d3c4c9',1,'Igor']]],
-  ['far_5fplane',['far_plane',['../class_frustum.html#adaaa5e3c0d3e80d1c61b4756473593a9',1,'Frustum']]],
   ['field',['Field',['../namespace_igor.html#ad1f2bb46a86a3c8c906a9f02b512a326a6f16a5f8ff5d75ab84c018adacdfcbb7',1,'Igor']]],
   ['file',['File',['../namespace_igor.html#a5cc8d7b72ee55ab097738f9d5b639c35a0b27918290ff5323bea1e3b78a9cf04e',1,'Igor']]],
   ['fill_5flod_5fgaps',['FILL_LOD_GAPS',['../i_contouring_cubes_8cpp.html#a3dd88a7daff552bac1c3d9a13a71c5a2',1,'iContouringCubes.cpp']]],
@@ -51,6 +50,6 @@ var searchData=
   ['free',['Free',['../namespace_igor.html#ac9b9b2022cdca46f600793d06ddcce63ab24ce0cd392a5b0b8dedc66c25213594',1,'Igor']]],
   ['freememory',['FreeMemory',['../namespace_igor.html#a79e9538b3fea02d92e47882bfedcc72c',1,'Igor']]],
   ['front',['Front',['../namespace_igor.html#a490f00fed47903c329843cb921bbace9a5835bab1ade0060909e31a06af2e2cde',1,'Igor::Front()'],['../namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72a5835bab1ade0060909e31a06af2e2cde',1,'OMPF::Front()']]],
-  ['frustum',['Frustum',['../class_frustum.html',1,'Frustum'],['../class_igor_aux_1_1ia_matrix.html#ae9237890c08dc1116b7e7ae01176a834',1,'IgorAux::iaMatrix::frustum()']]],
+  ['frustum',['frustum',['../class_igor_aux_1_1ia_matrix.html#ae9237890c08dc1116b7e7ae01176a834',1,'IgorAux::iaMatrix']]],
   ['ftoa',['ftoa',['../class_igor_aux_1_1ia_string.html#abef96b15e0d8f9a45108b12e46632c01',1,'IgorAux::iaString']]]
 ];

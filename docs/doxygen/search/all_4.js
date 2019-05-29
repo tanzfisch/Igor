@@ -17,7 +17,6 @@ var searchData=
   ['border_5fwidth',['BORDER_WIDTH',['../namespace_igor.html#a597acb3551ac82725db16ab88dc4174e',1,'Igor']]],
   ['border_5fwidth2',['BORDER_WIDTH2',['../namespace_igor.html#ad29933c1fba912dee0c8b25ecfe3bf3f',1,'Igor']]],
   ['bottom',['Bottom',['../namespace_igor.html#a2526c10e8630ee25d053e6c519b15180a2ad9d63b69c4a10a5cc9cad923133bc4',1,'Igor']]],
-  ['bottom_5fplane',['bottom_plane',['../class_frustum.html#aac48fa095db1000e50c8c58f27c481ec',1,'Frustum']]],
   ['break',['Break',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24ae4c38d6d45baf080943d323dd51a2ce8',1,'Igor']]],
   ['buffer_5fsize',['BUFFER_SIZE',['../class_igor_1_1i_statistics_section.html#a9775abfdce6c69afa2111fbf764b0cb8',1,'Igor::iStatisticsSection']]]
 ];

@@ -1,8 +1,8 @@
 var searchData=
 [
   ['childoffsetposition',['childOffsetPosition',['../namespace_igor.html#aa0fcd85494a3c35b7994dcdc744fc699',1,'Igor']]],
-  ['chunkidsize',['ChunkIDSize',['../struct_o_m_p_f_default_configuration.html#adfe82e9ea1afd5be3b3f8b663d86e190',1,'OMPFDefaultConfiguration']]],
-  ['chunksizesize',['ChunkSizeSize',['../struct_o_m_p_f_default_configuration.html#aa24b6c9c4c6f841764a59b7b0411ccb1',1,'OMPFDefaultConfiguration']]],
+  ['chunkidsize',['ChunkIDSize',['../struct_o_m_p_f_1_1_o_m_p_f_default_configuration.html#a2956f76851c97d784a4dc12a8b35a3a7',1,'OMPF::OMPFDefaultConfiguration']]],
+  ['chunksizesize',['ChunkSizeSize',['../struct_o_m_p_f_1_1_o_m_p_f_default_configuration.html#a9e6b03e2a51ed42b4a72fd18798a470b',1,'OMPF::OMPFDefaultConfiguration']]],
   ['circle',['Circle',['../i_particle_emitter_8h.html#a4347e07a7e65ba8b2203de8cf50a3655',1,'Circle():&#160;iParticleEmitter.h'],['../ompf_emitter_chunk_8h.html#a4347e07a7e65ba8b2203de8cf50a3655',1,'Circle():&#160;ompfEmitterChunk.h']]],
   ['color_5fambient',['COLOR_AMBIENT',['../i_widget_default_theme_8cpp.html#a1a6fcb5ea916bca9d69542eade5df0fa',1,'iWidgetDefaultTheme.cpp']]],
   ['color_5fblack',['COLOR_BLACK',['../i_widget_default_theme_8cpp.html#a6a80fe9971cae7ff3d1b95f32002c68b',1,'iWidgetDefaultTheme.cpp']]],
@@ -15,5 +15,5 @@ var searchData=
   ['color_5ftext_5fdark',['COLOR_TEXT_DARK',['../i_widget_default_theme_8cpp.html#aa81158675a695aa64616d3d4be0eb2be',1,'iWidgetDefaultTheme.cpp']]],
   ['color_5fwhite',['COLOR_WHITE',['../i_widget_default_theme_8cpp.html#a06ae910e9ad1c0ac096e711db4cb2e17',1,'iWidgetDefaultTheme.cpp']]],
   ['corners',['corners',['../namespace_igor.html#a955dd3946ad8a6d70910f94f3d5e5a7e',1,'Igor']]],
-  ['customdatasizesize',['CustomDataSizeSize',['../struct_o_m_p_f_default_configuration.html#ab6a82d965d35c426dc1cab9f53b7c210',1,'OMPFDefaultConfiguration']]]
+  ['customdatasizesize',['CustomDataSizeSize',['../struct_o_m_p_f_1_1_o_m_p_f_default_configuration.html#ae39552b8ebb46424fba2def6cb4470b7',1,'OMPF::OMPFDefaultConfiguration']]]
 ];

@@ -33,7 +33,6 @@ var NAVTREE =
         [ "All", "globals.html", null ],
         [ "Functions", "globals_func.html", null ],
         [ "Variables", "globals_vars.html", null ],
-        [ "Enumerations", "globals_enum.html", null ],
         [ "Macros", "globals_defs.html", null ]
       ] ]
     ] ],
@@ -44,25 +43,24 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_igor_8cpp.html",
-"class_igor_1_1i_keyboard.html#ab7c36e48de64de79ed65306ecd839063",
-"class_igor_1_1i_node.html#a4ce1269afdfb50f10f7b2c10e5aa69e0",
-"class_igor_1_1i_node_visitor_boundings.html#a4628da61fa0214189f1360b3dd5db685",
-"class_igor_1_1i_physics.html#a43d85a611ba9b2bf30274cb3fb0a6767",
-"class_igor_1_1i_renderer.html#a04185ac186e53d8e7c3afe6fe22c3dc3",
-"class_igor_1_1i_target_material.html#a0d008e51c21597c2d0eac7865ca0dd2b",
-"class_igor_1_1i_voxel_terrain.html#a3371db90f0201345b28c995f7723a2ac",
-"class_igor_1_1i_widget_default_theme.html#afcc36de06617629ca850f79a9b316aa7",
-"class_igor_1_1i_window.html#a7733f9384fbcd616e06d378ddf7fa6f9",
-"class_igor_aux_1_1ia_matrix3x3.html#ae0b495f6c64e25c1052bb2e4588cf0f2",
-"class_igor_aux_1_1ia_transform.html#a33b37498862401bee7049b69b6c87571",
-"class_o_m_p_f_1_1ompf_particle_system_chunk.html#acb7899cf5968aa90ebad8a4be6cd7e04",
-"i_dialog_file_select_8cpp.html",
-"i_mesh_builder_utils_8h.html#abb3d7c5968b045af3ebe65d1ca4c0b6f",
-"i_node_visitor_render_color_i_d_8h.html",
-"i_statistics_visualizer_8h.html#ab2bf8a45681db3503d84e03dd9f1dcfe",
-"ia_bits_8h.html#a9cdaaa395bee8691c2e01bf75490a6a5",
-"ia_vector3_8inl.html",
-"struct_igor_aux_1_1ia_r_l_e_block.html"
+"class_igor_1_1i_loader3_d_s.html#aac1a7cab4e6a29f97046a0b5bf1b071a",
+"class_igor_1_1i_node.html#aa75518fac280a5b7ede42baab0629efc",
+"class_igor_1_1i_node_visitor_render_boundings.html#a5eb254c2d86aac8f96a36df29d493408",
+"class_igor_1_1i_physics.html#a8584ff8683bea79a370d48d506349efb",
+"class_igor_1_1i_renderer.html#a38ea9af67eb9c067801009f1c8339309",
+"class_igor_1_1i_target_material.html#aed66a5bfc421c8bec02fe67b9ce7ae14",
+"class_igor_1_1i_widget.html",
+"class_igor_1_1i_widget_graph.html#a9c90550442ed1ad385f4d39c7f839ed6",
+"class_igor_1_1i_window.html#abe94f7dad83e8f39089b1fe655861ae2",
+"class_igor_aux_1_1ia_mem_block_control.html#a509740cffda1ff9b4d5d8aee72ebef32",
+"class_igor_aux_1_1ia_vector2.html#a2f6a337f150be401978ae21f4c8f7c9e",
+"class_o_m_p_f_1_1ompf_particle_system_chunk.html#afac1220310a0c2bc6586e8e258b551b7",
+"i_joint_8h.html",
+"i_node_8h.html#abe8ac7d5017f674544ec43881a173c7f",
+"i_render_state_set_8h.html#a490f00fed47903c329843cb921bbace9a01b896b89509884af9544fec983ef271",
+"i_widget_color_gradient_8cpp.html",
+"ia_string_8h.html#a84a63ae8cc96b9e5c1bb4c65b1de03c3a60c96512debb8676202e80253ef1baa7",
+"struct_igor_1_1i_voxel_pole.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
