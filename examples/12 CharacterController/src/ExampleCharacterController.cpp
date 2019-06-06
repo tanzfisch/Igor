@@ -118,7 +118,7 @@ void ExampleCharacterController::init()
     iModelDataInputParameter* param = new iModelDataInputParameter();
     param->_keepMesh = true;
     param->_modelSourceType = iModelSourceType::File;
-    floorModel->setModel("voxelTerrain.ompf", iResourceCacheMode::Keep, param);
+    floorModel->setModel("level.ompf", iResourceCacheMode::Keep, param);
     floorModel->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleCharacterController::onModelReady));
     iNodeTransform* floorTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     floorTransform->insertNode(floorModel);
