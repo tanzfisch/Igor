@@ -12,6 +12,11 @@ bool iMesh::hasNormals() const
     return _hasNormals;
 }
 
+uint32 iMesh::getTextureCoordinatesCount() const
+{
+	return _textureCoordinatesCount;
+}
+
 bool iMesh::hasTextures() const
 {
     return _textures.size() > 0 ? true : false;

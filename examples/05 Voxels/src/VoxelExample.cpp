@@ -421,7 +421,6 @@ void VoxelExample::onWindowResized(int32 clientWidth, int32 clientHeight)
     _viewOrtho.setOrthogonal(0, clientWidth, clientHeight, 0);
 }
 
-
 void VoxelExample::onKeyDown(iKeyCode key)
 {
 	switch (key)
@@ -442,6 +441,11 @@ void VoxelExample::onKeyDown(iKeyCode key)
 			printTree.printToConsole(_scene->getRoot());
 		}
 	}
+	break;
+
+	case iKeyCode::F4:
+		
+		iModelResourceFactory::getInstance().exportModelData("voxelExample.ompf", _scene->getRoot()->getChild("VoxelMeshTransform")->getChild("VoxelMeshModel"), "ompf", iSaveMode::EmbedExternals);
 	break;
 
 	case iKeyCode::W:
