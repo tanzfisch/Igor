@@ -1,6 +1,12 @@
 Changelog                           {#changelog}
 =========
 
+0.21.0
+------
+
+- improved pretty printing for scene graph
+  ![pretty tree printing](/images/pretty_tree_print.png)
+
 0.20.0
 ------
 
