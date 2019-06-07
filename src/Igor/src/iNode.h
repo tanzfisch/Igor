@@ -122,9 +122,19 @@ namespace Igor
         */
         iNodeKind getKind() const;
 
+		/*! \returns name for given kind of node
+		\param nodeType the given kind of node
+		*/
+		static iaString getKindName(iNodeKind kind);
+
         /*! \returns the type of the node
         */
         iNodeType getType() const;
+
+		/*! \returns name for given node type
+		\param nodeType the given node type
+		*/
+		static iaString getTypeName(iNodeType nodeType);
 
         /*! \returns id of the node
         */
@@ -137,6 +147,10 @@ namespace Igor
         /*! \returns an information string about this node
         */
         iaString getInfo() const;
+
+		/*! \returns type specific information
+		*/
+		virtual iaString getCustomInfo() const;
 
         /*! sets name of the node
 

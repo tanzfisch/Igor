@@ -4,6 +4,7 @@
 
 #include <iNodeVisitorPrintTree.h>
 #include <iNode.h>
+#include <iScene.h>
 
 #include <IgorAux.h>
 #include <iaConsole.h>
@@ -12,37 +13,85 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iNodeVisitorPrintTree::iNodeVisitorPrintTree()
-    {
-        setTraverseInactiveChildren();
-    }
+	iNodeVisitorPrintTree::iNodeVisitorPrintTree()
+	{
+		setTraverseInactiveChildren();
+	}
 
-    void iNodeVisitorPrintTree::printToConsole(iNodePtr node)
-    {
-        traverseTree(node);
-        con_endl(_stream.str());
-    }
+	void iNodeVisitorPrintTree::printToConsole(iNodePtr node)
+	{
+		traverseTree(node);
+		con_endl(_stream.str() << "\ntotal nodes: " << _nodeCount << "\n" << "scene: " << node->getScene()->getName().getData());
+	}
 
-    bool iNodeVisitorPrintTree::preOrderVisit(iNodePtr node)
-    {
-        _stream << _indenttation.getData() << node->getInfo().getData() << "\n";
-        _indenttation += L"    ";
-        _nodeCount++;
-        return true;
-    }
+	bool iNodeVisitorPrintTree::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
+	{
+		if (_nodeCount == 0)
+		{			
+			_stream << " * \"" << node->getName().getData() << "\" id:" << node->getID() << " (" << (node->isActive() ? "active" : "inactive") << ")\n";
+			_stream << " | type:" << iNode::getTypeName(node->getType()).getData() << " kind:" << iNode::getKindName(node->getKind()).getData() << "\n";
+			_nodeCount++;
+			return true;
+		}
 
-    void iNodeVisitorPrintTree::postOrderVisit(iNodePtr node)
-    {
-        _indenttation = _indenttation.getSubString(0, _indenttation.getSize() - 4);
-    }
+		preLine();
+		_stream << " |\n";
 
-    void iNodeVisitorPrintTree::preTraverse()
-    {
-        _nodeCount = 0;
-    }
+		// actual data
+		preLine();
+		_stream << " +-- \"" << node->getName().getData() << "\" id:" << node->getID() << " (" << (node->isActive() ? "active" : "inactive") << ")\n";
 
-    void iNodeVisitorPrintTree::postTraverse()
-    {
-        _stream << "node count: " << _nodeCount << "\n";
-    }
+		// increase indentation
+		if (nextSibling != nullptr)
+		{
+			_indenttation += L" |";
+		}
+		else
+		{
+			_indenttation += L"  ";
+		}
+
+		// second line actual data
+		preLine();
+		_stream << (node->hasChildren() ? " | " : "   ") << "type:" << iNode::getTypeName(node->getType()).getData() << " kind:" << iNode::getKindName(node->getKind()).getData() << "\n";
+
+		// optional custom data
+
+		iaString customInfo = node->getCustomInfo();
+
+		if (!customInfo.isEmpty())
+		{
+			preLine();
+			_stream << (node->hasChildren() ? " | " : "   ") << customInfo.getData() << "\n";
+		}
+
+		_nodeCount++;
+		return true;
+	}
+
+	void iNodeVisitorPrintTree::preLine()
+	{
+		// extra line
+		if (_indenttation.getData() != nullptr)
+		{
+			_stream << _indenttation.getData();
+		}
+	}
+
+	void iNodeVisitorPrintTree::postOrderVisit(iNodePtr node)
+	{
+		// reduce indentation
+		_indenttation = _indenttation.getSubString(0, _indenttation.getSize() - 2);
+	}
+
+	void iNodeVisitorPrintTree::preTraverse()
+	{
+		_nodeCount = 0;
+		_stream << "\n\n";
+	}
+
+	void iNodeVisitorPrintTree::postTraverse()
+	{
+		// nothing to do
+	}
 }

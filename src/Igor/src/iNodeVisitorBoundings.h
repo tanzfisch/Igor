@@ -58,23 +58,23 @@ namespace Igor
 
         /*! does nothing
         */
-        virtual void preTraverse();
+        void preTraverse() override;
 
         /*! merges bounding spheres from all children while traversal
 
         \param node current node
         */
-        virtual bool preOrderVisit(iNodePtr node);
+        virtual bool preOrderVisit(iNodePtr node, iNodePtr nextSibling) override;
 
         /*! does nothing
 
         \param node current node
         */
-        virtual void postOrderVisit(iNodePtr node);
+        virtual void postOrderVisit(iNodePtr node) override;
 
         /*! does nothing
         */
-        virtual void postTraverse();
+        virtual void postTraverse() override;
 		
 	private:
 

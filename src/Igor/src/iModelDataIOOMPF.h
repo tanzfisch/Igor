@@ -158,15 +158,15 @@ namespace Igor
 
         \param node current node
         */
-        virtual bool preOrderVisit(iNodePtr node);
+        bool preOrderVisit(iNodePtr node, iNodePtr nextSibling) override;
 
         /*! handles node stack
         */
-        virtual void postOrderVisit(iNodePtr node);
+        void postOrderVisit(iNodePtr node) override;
 
         /*! handles end of traversal
         */
-        virtual void postTraverse();
+        void postTraverse() override;
 
         /*! creates a model data tree out of ompf chunks
 

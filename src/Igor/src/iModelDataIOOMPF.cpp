@@ -521,7 +521,7 @@ namespace Igor
 		con_assert(_chunkStack.size() == 0, "stack should be empty");
 	}
 
-	bool iModelDataIOOMPF::preOrderVisit(iNodePtr node)
+	bool iModelDataIOOMPF::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
 	{
 		OMPF::ompfBaseChunk* nextChunk = nullptr;
 		bool callChildren = true;

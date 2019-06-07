@@ -1,4 +1,4 @@
-#include "OBJ2OMPF.h"
+#include "bakeToWorld.h"
 
 #include <iaDirectory.h>
 #include <iaConsole.h>

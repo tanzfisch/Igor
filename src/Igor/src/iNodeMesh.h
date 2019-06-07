@@ -91,15 +91,15 @@ namespace Igor
 
         /*! \returns vertexes count
         */
-        uint32 getVertexCount();
+        uint32 getVertexCount() const;
 
         /*! \returns triangles count
         */
-        uint32 getTrianglesCount();
+        uint32 getTrianglesCount() const;
 
         /*! \returns indexes count
         */
-        uint32 getIndexesCount();
+        uint32 getIndexesCount() const;
 
         /*! \returns target material
         */
@@ -123,6 +123,10 @@ namespace Igor
         /*! \retruns keep mesh flag. if true mesh will not be released after buffer creation
         */
         bool getKeepMesh() const;
+
+		/*! \returns type specific information
+		*/
+		iaString getCustomInfo() const override;
 
 	private:
 

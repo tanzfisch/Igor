@@ -10,44 +10,37 @@
 namespace Igor
 {
 
-    void iNodeVisitor::traverseTreeInternal(iNodePtr node)
-    {
-        if (preOrderVisit(node))
-        {
-            vector<iNodePtr>& children = node->getChildren();
+	void iNodeVisitor::traverseTreeInternal(iNodePtr node, iNodePtr nextSibling)
+	{
+		if (preOrderVisit(node, nextSibling))
+		{
+			vector<iNodePtr>& children = node->getChildren();
 
-            auto iter = children.begin();
-            while (iter != children.end())
-            {
-                traverseTreeInternal((*iter));
-                iter++;
-            }
+			if (_traverseInactiveChildren)
+			{
+				vector<iNodePtr>& inactiveChildren = node->getInactiveChildren();
 
-            if (_traverseInactiveChildren)
-            {
-                vector<iNodePtr>& inactiveChildren = node->getInactiveChildren();
+				children.insert(children.end(), inactiveChildren.begin(), inactiveChildren.end());
+			}
 
-                auto iter = inactiveChildren.begin();
-                while (iter != inactiveChildren.end())
-                {
-                    traverseTreeInternal((*iter));
-                    iter++;
-                }
-            }
-        }
-        postOrderVisit(node);
-    }
+			for (size_t i = 0; i < children.size(); ++i)
+			{
+				traverseTreeInternal(children[i], (i + 1 < children.size()) ? children[i + 1] : nullptr);
+			}
+		}
+		postOrderVisit(node);
+	}
 
 	void iNodeVisitor::traverseTree(iNodePtr node)
 	{
-        preTraverse();
-        traverseTreeInternal(node);
-        postTraverse();
+		preTraverse();
+		traverseTreeInternal(node, nullptr);
+		postTraverse();
 	}
 
-    void iNodeVisitor::setTraverseInactiveChildren(bool inactive)
-    {
-        _traverseInactiveChildren = inactive;
-    }
+	void iNodeVisitor::setTraverseInactiveChildren(bool inactive)
+	{
+		_traverseInactiveChildren = inactive;
+	}
 
 }

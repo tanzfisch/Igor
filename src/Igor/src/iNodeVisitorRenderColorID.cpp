@@ -25,7 +25,7 @@ namespace Igor
         iMaterialResourceFactory::getInstance().getMaterial(_material)->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
     }
 
-    bool iNodeVisitorRenderColorID::preOrderVisit(iNodePtr node)
+    bool iNodeVisitorRenderColorID::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
     {
         if (iNodeKind::Transformation == node->getKind())
         {
