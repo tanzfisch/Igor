@@ -198,12 +198,12 @@ void ExampleCharacterController::init()
     iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
     // set it up with the default skybox texture
     skyBoxNode->setTextures(
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/left.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/right.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
+        iTextureResourceFactory::getInstance().requestFile("skybox_stars/front.jpg"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_stars/back.jpg"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_stars/left.jpg"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_stars/right.jpg"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_stars/top.jpg"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_stars/bottom.jpg"));
     // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
     _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
@@ -283,6 +283,32 @@ void ExampleCharacterController::onKeyPressed(iKeyCode key)
 {
     switch (key)
     {
+	case iKeyCode::F8:
+		_statisticsVisualizer.cycleVerbosity();
+		break;
+
+	case iKeyCode::F9:
+	{
+		iNodeVisitorPrintTree printTree;
+		if (_scene != nullptr)
+		{
+			printTree.printToConsole(_scene->getRoot());
+		}
+	}
+	break;
+
+	case iKeyCode::F10:
+		_view.setWireframeVisible(!_view.isWireframeVisible());
+		break;
+
+	case iKeyCode::F11:
+		_view.setOctreeVisible(!_view.isOctreeVisible());
+		break;
+
+	case iKeyCode::F12:
+		_view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
+		break;
+
     case iKeyCode::A:
         _inputFlags._left = true;
         break;

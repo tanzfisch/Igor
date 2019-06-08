@@ -391,7 +391,11 @@ void Example3D::onKeyPressed(iKeyCode key)
         iApplication::getInstance().stop();
         break;
 
-    case iKeyCode::F1:
+	case iKeyCode::F8:
+		_statisticsVisualizer.cycleVerbosity();
+		break;
+
+    case iKeyCode::F9:
     {
         iNodeVisitorPrintTree printTree;
         if (_scene != nullptr)
@@ -401,15 +405,15 @@ void Example3D::onKeyPressed(iKeyCode key)
     }
     break;
 
-    case iKeyCode::W:
+    case iKeyCode::F10:
         _view.setWireframeVisible(!_view.isWireframeVisible());
         break;
 
-    case iKeyCode::O:
+    case iKeyCode::F11:
         _view.setOctreeVisible(!_view.isOctreeVisible());
         break;
 
-    case iKeyCode::B:
+    case iKeyCode::F12:
         _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
         break;
 

@@ -433,7 +433,16 @@ void VoxelExample::onKeyDown(iKeyCode key)
 		iApplication::getInstance().stop();
 		break;
 
-	case iKeyCode::F1:
+	case iKeyCode::F4:
+		
+		iModelResourceFactory::getInstance().exportModelData("voxelExample.ompf", _scene->getRoot()->getChild("VoxelMeshTransform")->getChild("VoxelMeshModel"), "ompf", iSaveMode::EmbedExternals);
+	break;
+
+	case iKeyCode::F8:
+		_statisticsVisualizer.cycleVerbosity();
+		break;
+
+	case iKeyCode::F9:
 	{
 		iNodeVisitorPrintTree printTree;
 		if (_scene != nullptr)
@@ -443,16 +452,15 @@ void VoxelExample::onKeyDown(iKeyCode key)
 	}
 	break;
 
-	case iKeyCode::F4:
-		
-		iModelResourceFactory::getInstance().exportModelData("voxelExample.ompf", _scene->getRoot()->getChild("VoxelMeshTransform")->getChild("VoxelMeshModel"), "ompf", iSaveMode::EmbedExternals);
-	break;
-
-	case iKeyCode::W:
+	case iKeyCode::F10:
 		_view.setWireframeVisible(!_view.isWireframeVisible());
 		break;
 
-	case iKeyCode::B:
+	case iKeyCode::F11:
+		_view.setOctreeVisible(!_view.isOctreeVisible());
+		break;
+
+	case iKeyCode::F12:
 		_view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
 		break;
 	}
