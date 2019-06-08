@@ -520,6 +520,7 @@ namespace Igor
                 mesh->setTexture(i, true);
             }
         }
+		mesh->setTextureCoordinatesCount(_texCoords.size());
 
         uint32 tempBufferSize = (3 + (hasNormals() ? 3 : 0) + (hasColors() ? 4 : 0) + (getTextureUnitCount() * 2)) * _vertexes.size();
         float32* tempBuffer = new float32[tempBufferSize];
@@ -627,6 +628,7 @@ namespace Igor
             }
         }
 
+		mesh->setTextureCoordinatesCount(_texCoords.size());
         mesh->setHasNormals(hasNormals());
         mesh->setHasColors(hasColors());
 

@@ -65,8 +65,14 @@ namespace Igor
 		result += iaString::itoa(getTrianglesCount());
 		result += L" idx:";
 		result += iaString::itoa(getIndexesCount());
-		result += L" tex:";
-		result += iaString::itoa(_targetMaterial->getTextureUnitCount());
+
+		if (_mesh != nullptr)
+		{
+			result += L" texUni:";
+			result += iaString::itoa(_mesh->getTextureUnitCount());
+			result += L" texCrd:";
+			result += iaString::itoa(_mesh->getTextureCoordinatesCount());
+		}
 
 		return result;
 	}

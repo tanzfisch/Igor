@@ -173,7 +173,7 @@ void ExampleCharacterController::init()
 
     // setup character and attache camera to it
     iaMatrixd startMatrix;
-    startMatrix.translate(110,200,110);
+    startMatrix.translate(100,200,100);
     _characterController = new CharacterController(_scene->getRoot(), _entityMaterialID, startMatrix);
 
     // setup camera
@@ -185,11 +185,11 @@ void ExampleCharacterController::init()
 
     // setup gun
     iNodeTransform* gunTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    gunTransform->translate(0, 0, 0);
+	gunTransform->rotate(M_PI, iaAxis::Y);
     iNodeTransform* gunScaleTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    gunScaleTransform->scale(0.1,0.1,1);
+    gunScaleTransform->scale(0.1,0.1,0.1);
     iNodeModel* crate = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    crate->setModel("crate.ompf");
+    crate->setModel("M4A1-S.ompf");
     _characterController->getRightSholderTransform()->insertNode(gunTransform);
     gunTransform->insertNode(gunScaleTransform);
     gunScaleTransform->insertNode(crate);
@@ -261,14 +261,15 @@ void ExampleCharacterController::onModelReady(uint64 modelNodeID)
 void ExampleCharacterController::makeCollisions(iNodePtr node)
 {
     if (node->getType() == iNodeType::iNodeMesh)
-    {		
+    {
+		con_endl("create collision " << node->getName());
         iNodeMesh* meshNode = static_cast<iNodeMesh*>(node);
 		iaMatrixd matrix;
 		meshNode->calcWorldTransformation(matrix);
-        iPhysicsCollision* collision = iPhysics::getInstance().createMesh(meshNode->getMesh(), 0, matrix);
+        iPhysicsCollision* collision = iPhysics::getInstance().createMesh(meshNode->getMesh(), 0, iaMatrixd());
         iPhysicsBody* body = iPhysics::getInstance().createBody(collision);
         body->setMass(0);
-        body->setMatrix(iaMatrixd());
+        body->setMatrix(matrix);
         body->setMaterial(_terrainMaterialID);
     }
 
