@@ -70,6 +70,11 @@ CharacterController::~CharacterController()
 	iPhysics::getInstance().destroyCollision(_collisionCast);
 }
 
+CharacterController::State CharacterController::getState() const
+{
+	return _state;
+}
+
 iNodeTransform* CharacterController::getHeadingTransform() const
 {
 	return static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_headingTransformNodeID));
@@ -182,7 +187,7 @@ void CharacterController::onApplyForceAndTorque(iPhysicsBody* body, float32 time
 	iaVector3d force;
 
 	// vertical dampening if in contact with floor
-	if (_state == CharacterControllerState::Floor)
+	if (_state == State::Floor)
 	{
 		iaVector3d verticalVelocity = body->getVelocity();
 		verticalVelocity.negate();
@@ -192,6 +197,7 @@ void CharacterController::onApplyForceAndTorque(iPhysicsBody* body, float32 time
 	}
 	else
 	{
+		// apply gravity
 		iaVector3d gravityForce(0.0f, -_mass * static_cast<float64>(__IGOR_GRAVITY__), 0.0f);
 		force += gravityForce;
 	}
@@ -208,56 +214,58 @@ void CharacterController::onApplyForceAndTorque(iPhysicsBody* body, float32 time
 	if (force.length() > 100000000)
 	{
 		return;
-	}	
+	}
 
 	body->setForce(force);
 }
 
-void CharacterController::iterate(iaVector3d & correctionForce)
+void CharacterController::iterate(iaVector3d& correctionForce)
 {
 	iaVector3d point;
 	iaVector3d normal;
-	float64 heightAboveGround = getContactPoint(point, normal);
+	float64 heightAboveGround = getFloorContactPoint(point, normal);
 
 	float64 delta = heightAboveGround - _stepHeight;
-	float64 pullThreashold = _stepHeight;
 
 	switch (_state)
 	{
-	case CharacterControllerState::Air:
+	case State::Air:
 		// prevent double jump
 		if (_navigationForce._y > 0)
 		{
 			_navigationForce._y = 0;
 		}
 
-		if (abs(delta) <= pullThreashold)
+		if (abs(delta) <= _stepHeight)
 		{
-			_state = CharacterControllerState::Floor;
+			_state = State::Floor;
+			con_endl("Floor");
 		}
 		break;
 
-	case CharacterControllerState::Floor:
+	case State::Floor:
 		if (_navigationForce._y <= 0)
 		{
 			correctionForce._y += (-delta) * _mass * 1000;
 		}
 		else
 		{
-			_state = CharacterControllerState::Jumped;
+			_state = State::Jumped;
+			con_endl("Jumped");
 		}
 		break;
 
-	case CharacterControllerState::Jumped:
+	case State::Jumped:
 		// prevent double jump
 		if (_navigationForce._y > 0)
 		{
 			_navigationForce._y = 0;
 		}
 
-		if (heightAboveGround > 1)
+		if (heightAboveGround > _stepHeight * 2.0)
 		{
-			_state = CharacterControllerState::Air;
+			_state = State::Air;
+			con_endl("Air");
 		}
 		break;
 	}
@@ -276,7 +284,7 @@ void CharacterController::iterate(iaVector3d & correctionForce)
 }
 
 
-unsigned CharacterController::onRayPreFilter(iPhysicsBody * body, iPhysicsCollision * collision, const void* userData)
+unsigned CharacterController::onRayPreFilter(iPhysicsBody* body, iPhysicsCollision* collision, const void* userData)
 {
 	if (_bodyID == body->getID())
 	{
@@ -288,7 +296,7 @@ unsigned CharacterController::onRayPreFilter(iPhysicsBody * body, iPhysicsCollis
 	}
 }
 
-float64 CharacterController::getContactPoint(iaVector3d & point, iaVector3d & normal)
+float64 CharacterController::getFloorContactPoint(iaVector3d& point, iaVector3d& normal)
 {
 	float64 result = 99999999999;
 	iaMatrixd matrix;

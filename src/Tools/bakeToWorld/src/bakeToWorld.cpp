@@ -81,7 +81,8 @@ void BakeToWorld::bake(int argc, char* argv[])
         }
 
         // force him to use the textured material
-        setMaterialRecursive(modelNode, materialID);
+        
+		setMaterialRecursive(modelNode, materialID);
 
         auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
         for(auto material : materials)

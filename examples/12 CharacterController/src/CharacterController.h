@@ -42,14 +42,14 @@ namespace Igor
 class CharacterController
 {
 
-    enum class CharacterControllerState
-    {
-        Air,
-        Jumped,
-        Floor
-    };
-
 public:
+
+	enum class State
+	{
+		Air,
+		Jumped,
+		Floor
+	};
 
     CharacterController(iNodePtr parent, int64 materiaID, const iaMatrixd& startMatrix);
 
@@ -68,15 +68,18 @@ public:
     iNodeTransform* getLeftSholderTransform() const;
     iNodeTransform* getRightSholderTransform() const;
 
+	State getState() const;
+
 private:
 
     float64 _characterHeight = 2.0;
     float64 _characterRadius = 0.3;
 
-    static constexpr float64 _stepHeight = 0.3;
-    static constexpr float64 _mass = 100;
+	/// the height of a step that carachter can walk without jumping
+    float64 _stepHeight = 0.3;
+    float64 _mass = 100;
 
-    CharacterControllerState _state = CharacterControllerState::Air;
+	State _state = State::Air;
 
     iaVector3d _navigationForce;
 
@@ -93,7 +96,7 @@ private:
     uint32 _leftShoulderTransformNodeID = iNode::INVALID_NODE_ID;
     uint32 _rightShoulderTransformNodeID = iNode::INVALID_NODE_ID;
 
-    float64 getContactPoint(iaVector3d& point, iaVector3d& normal);
+    float64 getFloorContactPoint(iaVector3d& point, iaVector3d& normal);
     void iterate(iaVector3d& correctionForce);
 
     unsigned onRayPreFilter(iPhysicsBody* body, iPhysicsCollision* collision, const void* userData);

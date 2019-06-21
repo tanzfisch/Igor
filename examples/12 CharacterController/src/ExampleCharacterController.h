@@ -188,6 +188,12 @@ private:
     */
     void onMouseWheel(int32 d);
 
+	/*! handles mouse key down events
+
+	\param keyCode the key code of the pressed button
+	*/
+	void onMouseKeyDown(iKeyCode keyCode);
+
     /*! called by orthogonal view
     */
     void onRenderOrtho();

@@ -173,7 +173,7 @@ void ExampleCharacterController::init()
 
     // setup character and attache camera to it
     iaMatrixd startMatrix;
-    startMatrix.translate(100,200,100);
+    startMatrix.translate(100,200,125);
     _characterController = new CharacterController(_scene->getRoot(), _entityMaterialID, startMatrix);
 
     // setup camera
@@ -187,12 +187,12 @@ void ExampleCharacterController::init()
     iNodeTransform* gunTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 	gunTransform->rotate(M_PI, iaAxis::Y);
     iNodeTransform* gunScaleTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    gunScaleTransform->scale(0.1,0.1,0.1);
-    iNodeModel* crate = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    crate->setModel("M4A1-S.ompf");
+	gunScaleTransform->scale(0.06, 0.06, 0.06);
+    iNodeModel* gun = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+	gun->setModel("M4A1-S.ompf");
     _characterController->getRightSholderTransform()->insertNode(gunTransform);
     gunTransform->insertNode(gunScaleTransform);
-    gunScaleTransform->insertNode(crate);
+    gunScaleTransform->insertNode(gun);
 
     // create a skybox
     iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
@@ -247,6 +247,7 @@ void ExampleCharacterController::init()
     iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &ExampleCharacterController::onKeyReleased));
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ExampleCharacterController::onMouseMoved));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &ExampleCharacterController::onMouseWheel));
+	iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ExampleCharacterController::onMouseKeyDown));
 
     // and start physics
     iPhysics::getInstance().start();
@@ -372,7 +373,8 @@ void ExampleCharacterController::onKeyReleased(iKeyCode key)
 
 void ExampleCharacterController::onHandle()
 {
-    float64 movingForce =  20000;
+    float64 movingForceOnFloor =  20000;
+	float64 movingForceInAir = 15000;
     float64 jumpingForce = 100000;
 
     iaMatrixd matrix;
@@ -381,14 +383,17 @@ void ExampleCharacterController::onHandle()
     
 
     iNodeTransform* transformationNode = _characterController->getHeadingTransform();
+	auto state = _characterController->getState();
     transformationNode->getMatrix(matrix);
+
+	float64 movingForce = (state == CharacterController::State::Air) ? movingForceInAir : movingForceOnFloor;
 
     if (_inputFlags._forward)
     {
         iaVector3d foreward = matrix._depth;
         foreward.negate();
         foreward.normalize();
-        foreward *= movingForce;
+		foreward *= movingForce;
         resultingForce += foreward;
     }
 
@@ -502,6 +507,16 @@ void ExampleCharacterController::deinit()
     }
 }
 
+void ExampleCharacterController::onMouseKeyDown(iKeyCode keyCode)
+{
+	switch (keyCode)
+	{
+	case iKeyCode::MouseLeft:
+		// TODO shot
+		break;
+	}
+}
+
 void ExampleCharacterController::onMouseWheel(int32 d)
 {
 
@@ -509,7 +524,7 @@ void ExampleCharacterController::onMouseWheel(int32 d)
 
 void ExampleCharacterController::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* _window)
 {
-    if (iMouse::getInstance().getLeftButton())
+    if (iMouse::getInstance().getRightButton())
     {
         iNodeTransform* cameraPitch = _characterController->getPitchTransform();
         iNodeTransform* cameraHeading = _characterController->getHeadingTransform();
