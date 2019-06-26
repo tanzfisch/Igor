@@ -315,7 +315,7 @@ void PhysicsExample::onMouseMoved(const iaVector2i& from, const iaVector2i& to, 
         matrix.rotate(heading, iaAxis::Y);
         _cameraHeading->setMatrix(matrix);
 
-        iMouse::getInstance().setCenter(true);
+        iMouse::getInstance().setCenter();
     }
 }
 

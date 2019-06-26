@@ -849,7 +849,7 @@ void Ascent::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow*
 
         if (!iKeyboard::getInstance().getKey(iKeyCode::Space))
         {
-            iMouse::getInstance().setCenter(true);
+            iMouse::getInstance().setCenter();
         }
     }
 }

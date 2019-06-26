@@ -421,7 +421,7 @@ void LSystems::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindo
 		{
 			cameraPitch->rotate((from._y - to._y) * 0.005f, iaAxis::X);
 			cameraHeading->rotate((from._x - to._x) * 0.005f, iaAxis::Y);
-			iMouse::getInstance().setCenter(true);
+			iMouse::getInstance().setCenter();
 		}
 	}
 }

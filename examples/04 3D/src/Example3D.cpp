@@ -354,7 +354,7 @@ void Example3D::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWind
             allObjectsPitch->rotate((to._y - from._y) * 0.005f, iaAxis::X);
             allObjectsHeading->rotate((to._x - from._x) * 0.005f, iaAxis::Y);
 
-            iMouse::getInstance().setCenter(true);
+            iMouse::getInstance().setCenter();
         }
     }
     else if (iMouse::getInstance().getLeftButton())
@@ -368,7 +368,7 @@ void Example3D::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWind
             cameraPitch->rotate((to._y - from._y) * 0.005f, iaAxis::X);
             cameraHeading->rotate((to._x - from._x) * 0.005f, iaAxis::Y);
 
-            iMouse::getInstance().setCenter(true);
+            iMouse::getInstance().setCenter();
         }
     }
 }

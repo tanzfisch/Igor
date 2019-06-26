@@ -608,7 +608,7 @@ void Particles::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWind
             cameraPitch->rotate((to._y - from._y) * 0.005f, iaAxis::X);
             cameraHeading->rotate((from._x - to._x) * 0.005f, iaAxis::Y);
 
-            iMouse::getInstance().setCenter(true);
+            iMouse::getInstance().setCenter();
         }
     }
 }

@@ -407,7 +407,7 @@ void VoxelExample::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iW
             cameraPitch->rotate(dy, iaAxis::X);
         }
 
-        iMouse::getInstance().setCenter(true);
+        iMouse::getInstance().setCenter();
     }
 }
 
