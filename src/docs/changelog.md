@@ -6,6 +6,8 @@ Changelog                           {#changelog}
 
 - improved pretty printing for scene graph
   ![pretty tree printing](/images/pretty_tree_print.png)
+- added vsync setting on window
+- fixed an other bug regarding texture units in ompf
 
 0.20.0
 ------
