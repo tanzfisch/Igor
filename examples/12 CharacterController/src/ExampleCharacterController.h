@@ -90,7 +90,10 @@ private:
         bool _down = false;
 
         bool _jump = false;
+		bool _crouch = false;
     };
+
+	bool _captureMouse = false;
 
     InputFlags _inputFlags;
 

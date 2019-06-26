@@ -56,8 +56,10 @@ void ExampleCharacterController::init()
 
     // setup window
     _window.setTitle("Igor - 3D Example");
-    _window.setClientSize(1024, 768);
+	_window.setSizeByDesktop();
+	_window.setFullscreen();
     _window.setCentered();
+	_window.setVSync(false);
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &ExampleCharacterController::onWindowClosed));
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &ExampleCharacterController::onWindowResized));
 
@@ -185,14 +187,13 @@ void ExampleCharacterController::init()
 
     // setup gun
     iNodeTransform* gunTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	gunTransform->translate(0, 0, -0.4);
 	gunTransform->rotate(M_PI, iaAxis::Y);
-    iNodeTransform* gunScaleTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-	gunScaleTransform->scale(0.06, 0.06, 0.06);
+	gunTransform->scale(0.04, 0.04, 0.04);
     iNodeModel* gun = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
 	gun->setModel("M4A1-S.ompf");
     _characterController->getRightSholderTransform()->insertNode(gunTransform);
-    gunTransform->insertNode(gunScaleTransform);
-    gunScaleTransform->insertNode(gun);
+    gunTransform->insertNode(gun);
 
     // create a skybox
     iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
@@ -220,8 +221,8 @@ void ExampleCharacterController::init()
     directionalLightTranslate->translate(100, 100, 100);
     // the light node
     iNodeLight* lightNode = static_cast<iNodeLight*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLight));
-    lightNode->setAmbient(iaColor4f(0.3f, 0.3f, 0.3f, 1.0f));
-    lightNode->setDiffuse(iaColor4f(0.8f, 0.8f, 0.8f, 1.0f));
+    lightNode->setAmbient(iaColor4f(0.5f, 0.5f, 0.5f, 1.0f));
+    lightNode->setDiffuse(iaColor4f(0.9f, 0.9f, 0.9f, 1.0f));
     lightNode->setSpecular(iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
     // insert light to scene
     _scene->getRoot()->insertNode(directionalLightTranslate);
@@ -310,6 +311,11 @@ void ExampleCharacterController::onKeyPressed(iKeyCode key)
 		_view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
 		break;
 
+	case iKeyCode::LAlt:
+		_captureMouse = !_captureMouse;
+		iMouse::getInstance().showCursor(!_captureMouse);
+		break;
+
     case iKeyCode::A:
         _inputFlags._left = true;
         break;
@@ -328,12 +334,13 @@ void ExampleCharacterController::onKeyPressed(iKeyCode key)
 
     case iKeyCode::Space:
         _inputFlags._jump = true;
-        //_inputFlags._up = true;
+		_inputFlags._up = true;
         break;
 
     case iKeyCode::LControl:
         _inputFlags._down = true;
-        break;
+		_inputFlags._crouch = true;
+        break; 
 
     case iKeyCode::ESC:
         iApplication::getInstance().stop();
@@ -362,11 +369,13 @@ void ExampleCharacterController::onKeyReleased(iKeyCode key)
         break;
 
     case iKeyCode::Space:
-        _inputFlags._up = false;
+        _inputFlags._jump = false;
+		_inputFlags._up = false;
         break;
 
     case iKeyCode::LControl:
         _inputFlags._down = false;
+		_inputFlags._crouch = false;
         break;
     }
 }
@@ -374,13 +383,11 @@ void ExampleCharacterController::onKeyReleased(iKeyCode key)
 void ExampleCharacterController::onHandle()
 {
     float64 movingForceOnFloor =  20000;
-	float64 movingForceInAir = 15000;
-    float64 jumpingForce = 100000;
+	float64 movingForceInAir =    15000;
+    float64 jumpingForce =        100000;
 
     iaMatrixd matrix;
     iaVector3d resultingForce;
-
-    
 
     iNodeTransform* transformationNode = _characterController->getHeadingTransform();
 	auto state = _characterController->getState();
@@ -422,13 +429,13 @@ void ExampleCharacterController::onHandle()
         resultingForce += right;
     }
 
-    if (_inputFlags._up)
+    /*if (_inputFlags._up)
     {
         iaVector3d up = matrix._top;
         up.normalize();
         up *= movingForce;
         resultingForce += up;
-    }
+    }*/
 
     if (_inputFlags._down)
     {
@@ -445,6 +452,7 @@ void ExampleCharacterController::onHandle()
         resultingForce *= movingForce;
     }
 
+	// only allow to jump when standing on floor
     if (_inputFlags._jump)
     {
         iaVector3d up = matrix._top;
@@ -524,7 +532,7 @@ void ExampleCharacterController::onMouseWheel(int32 d)
 
 void ExampleCharacterController::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* _window)
 {
-    if (iMouse::getInstance().getRightButton())
+    if (_captureMouse)
     {
         iNodeTransform* cameraPitch = _characterController->getPitchTransform();
         iNodeTransform* cameraHeading = _characterController->getHeadingTransform();
@@ -532,10 +540,10 @@ void ExampleCharacterController::onMouseMoved(const iaVector2i& from, const iaVe
         if (cameraPitch != nullptr &&
             cameraHeading != nullptr)
         {
-            cameraPitch->rotate((from._y - to._y) * 0.005f, iaAxis::X);
-            cameraHeading->rotate((from._x - to._x) * 0.005f, iaAxis::Y);
+            cameraPitch->rotate((from._y - to._y) * 0.001f, iaAxis::X);
+            cameraHeading->rotate((from._x - to._x) * 0.001f, iaAxis::Y);
 
-            iMouse::getInstance().setCenter(true);
+            iMouse::getInstance().setCenter();
         }
     }
 }
@@ -563,6 +571,30 @@ void ExampleCharacterController::onRenderOrtho()
 
     // draw frame rate in lower right corner
     _statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+
+
+	iRenderer::getInstance().setColor(1,1,1,1);
+
+	iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
+	iRenderer::getInstance().setFont(_font);
+	iRenderer::getInstance().setFontSize(15.0f);
+
+	iaString statusString;
+
+	switch (_characterController->getState())
+	{
+	case CharacterController::State::Air:
+		statusString = "Air";
+		break;
+	case CharacterController::State::Floor:
+		statusString = "Floor";
+		break;
+	case CharacterController::State::Jumped:
+		statusString = "Jumped";
+		break;
+	}
+
+	iRenderer::getInstance().drawString(10, static_cast<float32>(_window.getClientHeight() - 10), statusString, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
 }
 
 void ExampleCharacterController::drawLogo()

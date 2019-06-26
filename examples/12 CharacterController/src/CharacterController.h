@@ -97,7 +97,6 @@ private:
     uint32 _rightShoulderTransformNodeID = iNode::INVALID_NODE_ID;
 
     float64 getFloorContactPoint(iaVector3d& point, iaVector3d& normal);
-    void iterate(iaVector3d& correctionForce);
 
     unsigned onRayPreFilter(iPhysicsBody* body, iPhysicsCollision* collision, const void* userData);
 

@@ -181,51 +181,12 @@ void CharacterController::onSubmitConstraints(iPhysicsJoint* joint, float32 time
 
 void CharacterController::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep)
 {
-	iaVector3d correctionForce;
-	iterate(correctionForce);
-
-	iaVector3d force;
-
-	// vertical dampening if in contact with floor
-	if (_state == State::Floor)
-	{
-		iaVector3d verticalVelocity = body->getVelocity();
-		verticalVelocity.negate();
-		verticalVelocity._x = 0;
-		verticalVelocity._z = 0;
-		force += (verticalVelocity * _mass / (1.0 / iPhysics::getInstance().getSimulationRate())) * 0.5;
-	}
-	else
-	{
-		// apply gravity
-		iaVector3d gravityForce(0.0f, -_mass * static_cast<float64>(__IGOR_GRAVITY__), 0.0f);
-		force += gravityForce;
-	}
-
-	// horrizontal dampening
 	iaVector3d velocity = body->getVelocity();
-	velocity.negate();
-	velocity._y = 0;
-	force += (velocity * _mass / (1.0 / iPhysics::getInstance().getSimulationRate())) * 0.25;
-
-	force += _navigationForce;
-	force += correctionForce;
-
-	if (force.length() > 100000000)
-	{
-		return;
-	}
-
-	body->setForce(force);
-}
-
-void CharacterController::iterate(iaVector3d& correctionForce)
-{
+	iaVector3d force;
 	iaVector3d point;
 	iaVector3d normal;
 	float64 heightAboveGround = getFloorContactPoint(point, normal);
-
-	float64 delta = heightAboveGround - _stepHeight;
+	float64 heightAboveStep = heightAboveGround - _stepHeight;
 
 	switch (_state)
 	{
@@ -236,22 +197,21 @@ void CharacterController::iterate(iaVector3d& correctionForce)
 			_navigationForce._y = 0;
 		}
 
-		if (abs(delta) <= _stepHeight)
+		if (abs(heightAboveStep) <= _stepHeight)
 		{
 			_state = State::Floor;
-			con_endl("Floor");
 		}
 		break;
 
 	case State::Floor:
-		if (_navigationForce._y <= 0)
-		{
-			correctionForce._y += (-delta) * _mass * 1000;
-		}
-		else
+		if (_navigationForce._y > 0)
 		{
 			_state = State::Jumped;
-			con_endl("Jumped");
+		}
+
+		if (heightAboveGround > _stepHeight * 2.0)
+		{
+			_state = State::Air;
 		}
 		break;
 
@@ -265,24 +225,42 @@ void CharacterController::iterate(iaVector3d& correctionForce)
 		if (heightAboveGround > _stepHeight * 2.0)
 		{
 			_state = State::Air;
-			con_endl("Air");
 		}
 		break;
 	}
 
-#ifdef DETACH_HEAD
-	iNodeTransform* head = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_headTransformNodeID));
-	if (delta < 0)
+	if (_state == State::Floor)
 	{
-		head->setPosition(iaVector3d(0, _headHeight - delta, 0));
+		// vertical dampening 
+		iaVector3d verticalVelocity = velocity;
+		verticalVelocity.negate();
+		verticalVelocity._x = 0;
+		verticalVelocity._z = 0;
+		force += (verticalVelocity * _mass / (1.0 / iPhysics::getInstance().getSimulationRate())) * 0.5;
 	}
 	else
 	{
-		head->setPosition(iaVector3d(0, _headHeight, 0));
+		// apply gravity when not on floor
+		iaVector3d gravityForce(0.0f, -_mass * static_cast<float64>(__IGOR_GRAVITY__), 0.0f);
+		force += gravityForce;
 	}
-#endif
-}
 
+	// horrizontal dampening
+	iaVector3d horizontalVelocity = velocity;
+	horizontalVelocity.negate();
+	horizontalVelocity._y = 0;
+	force += (horizontalVelocity * _mass / (1.0 / iPhysics::getInstance().getSimulationRate())) * 0.25;
+
+	force += _navigationForce;
+
+	// clamp force
+	if (force.length() > 100000000)
+	{
+		force /= force.length();
+	}
+
+	body->setForce(force);
+}
 
 unsigned CharacterController::onRayPreFilter(iPhysicsBody* body, iPhysicsCollision* collision, const void* userData)
 {
