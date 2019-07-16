@@ -56,8 +56,9 @@ void ExampleCharacterController::init()
 
     // setup window
     _window.setTitle("Igor - 3D Example");
-	_window.setSizeByDesktop();
-	_window.setFullscreen();
+	_window.setSize(1024,768);
+	//_window.setSizeByDesktop();
+	//_window.setFullscreen();
     _window.setCentered();
 	_window.setVSync(false);
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &ExampleCharacterController::onWindowClosed));
@@ -382,8 +383,8 @@ void ExampleCharacterController::onKeyReleased(iKeyCode key)
 
 void ExampleCharacterController::onHandle()
 {
-    float64 movingForceOnFloor =  20000;
-	float64 movingForceInAir =    15000;
+    float64 movingForceOnFloor =  10000;
+	float64 movingForceInAir =    4500;
     float64 jumpingForce =        100000;
 
     iaMatrixd matrix;

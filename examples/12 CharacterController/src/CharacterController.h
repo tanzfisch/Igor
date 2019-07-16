@@ -77,6 +77,8 @@ private:
 
 	/// the height of a step that carachter can walk without jumping
     float64 _stepHeight = 0.3;
+	float64 _targetHeight = _stepHeight + 0.1;
+	float64 _headHeight = 1.8;
     float64 _mass = 100;
 
 	State _state = State::Air;
@@ -88,6 +90,8 @@ private:
     iPhysicsCollision* _collisionCast = nullptr;
 
     uint32 _physicsTransformNodeID = iNode::INVALID_NODE_ID;
+
+	uint32 _upperBodyTransformNodeID = iNode::INVALID_NODE_ID;
 
     uint32 _headingTransformNodeID = iNode::INVALID_NODE_ID;
     uint32 _pitchTransformNodeID = iNode::INVALID_NODE_ID;
