@@ -238,6 +238,7 @@ namespace Igor
 
 		mesh->setHasNormals(meshChunk->getNormalsPerVertex() ? true : false);
 		mesh->setHasColors(meshChunk->getColorsPerVertex() ? true : false);
+		mesh->setTextureCoordinatesCount(meshChunk->getTexCoordPerVertex());
 
 		// calculate boundings
 		iaVector3d minPos;
@@ -520,7 +521,7 @@ namespace Igor
 		con_assert(_chunkStack.size() == 0, "stack should be empty");
 	}
 
-	bool iModelDataIOOMPF::preOrderVisit(iNodePtr node)
+	bool iModelDataIOOMPF::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
 	{
 		OMPF::ompfBaseChunk* nextChunk = nullptr;
 		bool callChildren = true;
@@ -710,7 +711,7 @@ namespace Igor
 			{
 				result->setNormalsPerVertex(node->getMesh()->hasNormals() ? 1 : 0);
 				result->setColorsPerVertex(node->getMesh()->hasColors() ? 1 : 0);
-				result->setTexCoordPerVertex(node->getMesh()->getTextureUnitCount());
+				result->setTexCoordPerVertex(node->getMesh()->getTextureCoordinatesCount());
 
 				result->setVertexCount(node->getMesh()->getVertexCount());
 				result->setVertexData(reinterpret_cast<char*>(node->getMesh()->getVertexData()), node->getMesh()->getVertexDataSize());

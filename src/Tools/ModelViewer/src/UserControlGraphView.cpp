@@ -406,7 +406,7 @@ void UserControlGraphView::clearGraph()
     _selectedNode = iNode::INVALID_NODE_ID;
 }
 
-bool UserControlGraphView::preOrderVisit(iNodePtr node)
+bool UserControlGraphView::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
 {
     if (!_firstNode)
     {

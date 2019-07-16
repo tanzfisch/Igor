@@ -19,7 +19,7 @@ namespace Igor
         setTraverseInactiveChildren();
     }
 
-    bool iNodeVisitorBoundings::preOrderVisit(iNodePtr node)
+    bool iNodeVisitorBoundings::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
     {
         bool hasSphere = false;
         iSphered nodeSphere;

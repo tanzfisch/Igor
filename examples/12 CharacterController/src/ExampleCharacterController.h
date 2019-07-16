@@ -90,7 +90,12 @@ private:
         bool _down = false;
 
         bool _jump = false;
+		bool _crouch = false;
+
+		bool _shootPrimary = false;
     };
+
+	bool _captureMouse = false;
 
     InputFlags _inputFlags;
 
@@ -187,6 +192,14 @@ private:
     \param d mouse wheel delta
     */
     void onMouseWheel(int32 d);
+
+	/*! handles mouse key down events
+
+	\param keyCode the key code of the pressed button
+	*/
+	void onMouseKeyDown(iKeyCode keyCode);
+
+	void onMouseKeyUp(iKeyCode keyCode);
 
     /*! called by orthogonal view
     */

@@ -139,6 +139,16 @@ namespace Igor
         */
         __IGOR_INLINE__ bool hasTextureUnit(uint32 unit) const;
 
+		/*! set texture coordinates per vertex count
+
+		\param texCoord the texture coordinates count
+		*/
+		void setTextureCoordinatesCount(uint32 texCoord);
+
+		/*! \returns texture coordinates count
+		*/
+		__IGOR_INLINE__ uint32 getTextureCoordinatesCount() const;
+
         /*! sets index data
 
         \param data the data
@@ -220,6 +230,10 @@ namespace Igor
         /*! triangle count
         */
         uint32 _trianglesCount = 0;
+
+		/*! texture coordinates count per vertex
+		*/
+		uint32 _textureCoordinatesCount = 0;
 
         /*! if true mesh has normals
         */

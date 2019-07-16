@@ -128,8 +128,4 @@ void OBJ2OMPF::convert(int argc, char* argv[])
 
         iSceneFactory::getInstance().destroyScene(scene);
     }
-    else
-    {
-        con_err("invalid parameters");
-    }
 }

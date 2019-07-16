@@ -56,8 +56,11 @@ void ExampleCharacterController::init()
 
     // setup window
     _window.setTitle("Igor - 3D Example");
-    _window.setClientSize(1024, 768);
+	_window.setSize(1024,768);
+	//_window.setSizeByDesktop();
+	//_window.setFullscreen();
     _window.setCentered();
+	_window.setVSync(false);
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &ExampleCharacterController::onWindowClosed));
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &ExampleCharacterController::onWindowResized));
 
@@ -118,7 +121,7 @@ void ExampleCharacterController::init()
     iModelDataInputParameter* param = new iModelDataInputParameter();
     param->_keepMesh = true;
     param->_modelSourceType = iModelSourceType::File;
-    floorModel->setModel("voxelTerrain.ompf", iResourceCacheMode::Keep, param);
+    floorModel->setModel("level.ompf", iResourceCacheMode::Keep, param);
     floorModel->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleCharacterController::onModelReady));
     iNodeTransform* floorTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     floorTransform->insertNode(floorModel);
@@ -173,7 +176,7 @@ void ExampleCharacterController::init()
 
     // setup character and attache camera to it
     iaMatrixd startMatrix;
-    startMatrix.translate(110,200,110);
+    startMatrix.translate(100,200,125);
     _characterController = new CharacterController(_scene->getRoot(), _entityMaterialID, startMatrix);
 
     // setup camera
@@ -185,25 +188,24 @@ void ExampleCharacterController::init()
 
     // setup gun
     iNodeTransform* gunTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    gunTransform->translate(0, 0, 0);
-    iNodeTransform* gunScaleTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    gunScaleTransform->scale(0.1,0.1,1);
-    iNodeModel* crate = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    crate->setModel("crate.ompf");
+	gunTransform->translate(0, 0, -0.4);
+	gunTransform->rotate(M_PI, iaAxis::Y);
+	gunTransform->scale(0.04, 0.04, 0.04);
+    iNodeModel* gun = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+	gun->setModel("M4A1-S.ompf");
     _characterController->getRightSholderTransform()->insertNode(gunTransform);
-    gunTransform->insertNode(gunScaleTransform);
-    gunScaleTransform->insertNode(crate);
+    gunTransform->insertNode(gun);
 
     // create a skybox
     iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
     // set it up with the default skybox texture
     skyBoxNode->setTextures(
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/left.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/right.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
+        iTextureResourceFactory::getInstance().requestFile("skybox_stars/front.jpg"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_stars/back.jpg"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_stars/left.jpg"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_stars/right.jpg"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_stars/top.jpg"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_stars/bottom.jpg"));
     // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
     _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
@@ -220,8 +222,8 @@ void ExampleCharacterController::init()
     directionalLightTranslate->translate(100, 100, 100);
     // the light node
     iNodeLight* lightNode = static_cast<iNodeLight*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLight));
-    lightNode->setAmbient(iaColor4f(0.3f, 0.3f, 0.3f, 1.0f));
-    lightNode->setDiffuse(iaColor4f(0.8f, 0.8f, 0.8f, 1.0f));
+    lightNode->setAmbient(iaColor4f(0.5f, 0.5f, 0.5f, 1.0f));
+    lightNode->setDiffuse(iaColor4f(0.9f, 0.9f, 0.9f, 1.0f));
     lightNode->setSpecular(iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
     // insert light to scene
     _scene->getRoot()->insertNode(directionalLightTranslate);
@@ -247,6 +249,8 @@ void ExampleCharacterController::init()
     iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &ExampleCharacterController::onKeyReleased));
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ExampleCharacterController::onMouseMoved));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &ExampleCharacterController::onMouseWheel));
+	iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ExampleCharacterController::onMouseKeyDown));
+	iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ExampleCharacterController::onMouseKeyUp));
 
     // and start physics
     iPhysics::getInstance().start();
@@ -261,14 +265,15 @@ void ExampleCharacterController::onModelReady(uint64 modelNodeID)
 void ExampleCharacterController::makeCollisions(iNodePtr node)
 {
     if (node->getType() == iNodeType::iNodeMesh)
-    {		
+    {
+		con_endl("create collision " << node->getName());
         iNodeMesh* meshNode = static_cast<iNodeMesh*>(node);
 		iaMatrixd matrix;
 		meshNode->calcWorldTransformation(matrix);
-        iPhysicsCollision* collision = iPhysics::getInstance().createMesh(meshNode->getMesh(), 0, matrix);
+        iPhysicsCollision* collision = iPhysics::getInstance().createMesh(meshNode->getMesh(), 0, iaMatrixd());
         iPhysicsBody* body = iPhysics::getInstance().createBody(collision);
         body->setMass(0);
-        body->setMatrix(iaMatrixd());
+        body->setMatrix(matrix);
         body->setMaterial(_terrainMaterialID);
     }
 
@@ -282,6 +287,37 @@ void ExampleCharacterController::onKeyPressed(iKeyCode key)
 {
     switch (key)
     {
+	case iKeyCode::F8:
+		_statisticsVisualizer.cycleVerbosity();
+		break;
+
+	case iKeyCode::F9:
+	{
+		iNodeVisitorPrintTree printTree;
+		if (_scene != nullptr)
+		{
+			printTree.printToConsole(_scene->getRoot());
+		}
+	}
+	break;
+
+	case iKeyCode::F10:
+		_view.setWireframeVisible(!_view.isWireframeVisible());
+		break;
+
+	case iKeyCode::F11:
+		_view.setOctreeVisible(!_view.isOctreeVisible());
+		break;
+
+	case iKeyCode::F12:
+		_view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
+		break;
+
+	case iKeyCode::LAlt:
+		_captureMouse = !_captureMouse;
+		iMouse::getInstance().showCursor(!_captureMouse);
+		break;
+
     case iKeyCode::A:
         _inputFlags._left = true;
         break;
@@ -300,12 +336,13 @@ void ExampleCharacterController::onKeyPressed(iKeyCode key)
 
     case iKeyCode::Space:
         _inputFlags._jump = true;
-        //_inputFlags._up = true;
+		_inputFlags._up = true;
         break;
 
     case iKeyCode::LControl:
         _inputFlags._down = true;
-        break;
+		_inputFlags._crouch = true;
+        break; 
 
     case iKeyCode::ESC:
         iApplication::getInstance().stop();
@@ -334,34 +371,38 @@ void ExampleCharacterController::onKeyReleased(iKeyCode key)
         break;
 
     case iKeyCode::Space:
-        _inputFlags._up = false;
+        _inputFlags._jump = false;
+		_inputFlags._up = false;
         break;
 
     case iKeyCode::LControl:
         _inputFlags._down = false;
+		_inputFlags._crouch = false;
         break;
     }
 }
 
 void ExampleCharacterController::onHandle()
 {
-    float64 movingForce =  20000;
-    float64 jumpingForce = 100000;
+    float64 movingForceOnFloor =  10000;
+	float64 movingForceInAir =    6000;
+    float64 jumpingForce =        100000;
 
     iaMatrixd matrix;
     iaVector3d resultingForce;
 
-    
-
     iNodeTransform* transformationNode = _characterController->getHeadingTransform();
+	auto state = _characterController->getState();
     transformationNode->getMatrix(matrix);
+
+	float64 movingForce = (state == CharacterController::State::Air) ? movingForceInAir : movingForceOnFloor;
 
     if (_inputFlags._forward)
     {
         iaVector3d foreward = matrix._depth;
         foreward.negate();
         foreward.normalize();
-        foreward *= movingForce;
+		foreward *= movingForce;
         resultingForce += foreward;
     }
 
@@ -390,13 +431,13 @@ void ExampleCharacterController::onHandle()
         resultingForce += right;
     }
 
-    if (_inputFlags._up)
+    /*if (_inputFlags._up)
     {
         iaVector3d up = matrix._top;
         up.normalize();
         up *= movingForce;
         resultingForce += up;
-    }
+    }*/
 
     if (_inputFlags._down)
     {
@@ -407,13 +448,15 @@ void ExampleCharacterController::onHandle()
         resultingForce += down;
     }
 
+	// cap the horizontal movement force
     if (resultingForce.length() > movingForce)
     {
         resultingForce.normalize();
         resultingForce *= movingForce;
     }
 
-    if (_inputFlags._jump)
+	// jump
+	if (_inputFlags._jump)
     {
         iaVector3d up = matrix._top;
         up.normalize();
@@ -475,6 +518,26 @@ void ExampleCharacterController::deinit()
     }
 }
 
+void ExampleCharacterController::onMouseKeyUp(iKeyCode keyCode)
+{
+	switch (keyCode)
+	{
+	case iKeyCode::MouseLeft:
+		_inputFlags._shootPrimary = false;
+		break;
+	}
+}
+
+void ExampleCharacterController::onMouseKeyDown(iKeyCode keyCode)
+{
+	switch (keyCode)
+	{
+	case iKeyCode::MouseLeft:
+		_inputFlags._shootPrimary = true;
+		break;
+	}
+}
+
 void ExampleCharacterController::onMouseWheel(int32 d)
 {
 
@@ -482,7 +545,7 @@ void ExampleCharacterController::onMouseWheel(int32 d)
 
 void ExampleCharacterController::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* _window)
 {
-    if (iMouse::getInstance().getLeftButton())
+    if (_captureMouse)
     {
         iNodeTransform* cameraPitch = _characterController->getPitchTransform();
         iNodeTransform* cameraHeading = _characterController->getHeadingTransform();
@@ -490,10 +553,10 @@ void ExampleCharacterController::onMouseMoved(const iaVector2i& from, const iaVe
         if (cameraPitch != nullptr &&
             cameraHeading != nullptr)
         {
-            cameraPitch->rotate((from._y - to._y) * 0.005f, iaAxis::X);
-            cameraHeading->rotate((from._x - to._x) * 0.005f, iaAxis::Y);
+            cameraPitch->rotate((from._y - to._y) * 0.001f, iaAxis::X);
+            cameraHeading->rotate((from._x - to._x) * 0.001f, iaAxis::Y);
 
-            iMouse::getInstance().setCenter(true);
+            iMouse::getInstance().setCenter();
         }
     }
 }
@@ -521,6 +584,30 @@ void ExampleCharacterController::onRenderOrtho()
 
     // draw frame rate in lower right corner
     _statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+
+
+	iRenderer::getInstance().setColor(1,1,1,1);
+
+	iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
+	iRenderer::getInstance().setFont(_font);
+	iRenderer::getInstance().setFontSize(15.0f);
+
+	iaString statusString;
+
+	switch (_characterController->getState())
+	{
+	case CharacterController::State::Air:
+		statusString = "Air";
+		break;
+	case CharacterController::State::Floor:
+		statusString = "Floor";
+		break;
+	case CharacterController::State::Jumped:
+		statusString = "Jumped";
+		break;
+	}
+
+	iRenderer::getInstance().drawString(10, static_cast<float32>(_window.getClientHeight() - 10), statusString, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
 }
 
 void ExampleCharacterController::drawLogo()

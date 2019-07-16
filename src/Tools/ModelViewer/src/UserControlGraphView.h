@@ -147,10 +147,10 @@ private:
 	void onAddEmitter(iWidget* source);
 	void onAddParticleSystem(iWidget* source);
 
-    virtual void preTraverse();
-    virtual bool preOrderVisit(iNodePtr node);
-    virtual void postOrderVisit(iNodePtr node);
-    virtual void postTraverse();
+    void preTraverse() override;
+    bool preOrderVisit(iNodePtr node, iNodePtr nextSibling) override;
+    void postOrderVisit(iNodePtr node) override;
+    void postTraverse() override;
 
 };
 

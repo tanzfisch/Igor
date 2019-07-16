@@ -75,7 +75,7 @@ namespace Igor
 
         \param node current node
         */
-        void traverseTreeInternal(iNodePtr node);
+        void traverseTreeInternal(iNodePtr node, iNodePtr nextSibling);
 
 	protected:
 
@@ -89,7 +89,7 @@ namespace Igor
 
         has to be implemented by deriving class
         */
-        virtual bool preOrderVisit(iNodePtr node) = 0;
+        virtual bool preOrderVisit(iNodePtr node, iNodePtr nextSibling) = 0;
 
         /*! is called after every node visited
 
