@@ -91,6 +91,8 @@ private:
 
         bool _jump = false;
 		bool _crouch = false;
+
+		bool _shootPrimary = false;
     };
 
 	bool _captureMouse = false;
@@ -196,6 +198,8 @@ private:
 	\param keyCode the key code of the pressed button
 	*/
 	void onMouseKeyDown(iKeyCode keyCode);
+
+	void onMouseKeyUp(iKeyCode keyCode);
 
     /*! called by orthogonal view
     */

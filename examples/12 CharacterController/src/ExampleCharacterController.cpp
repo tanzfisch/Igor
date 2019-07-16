@@ -250,6 +250,7 @@ void ExampleCharacterController::init()
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ExampleCharacterController::onMouseMoved));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &ExampleCharacterController::onMouseWheel));
 	iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ExampleCharacterController::onMouseKeyDown));
+	iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ExampleCharacterController::onMouseKeyUp));
 
     // and start physics
     iPhysics::getInstance().start();
@@ -384,7 +385,7 @@ void ExampleCharacterController::onKeyReleased(iKeyCode key)
 void ExampleCharacterController::onHandle()
 {
     float64 movingForceOnFloor =  10000;
-	float64 movingForceInAir =    4500;
+	float64 movingForceInAir =    6000;
     float64 jumpingForce =        100000;
 
     iaMatrixd matrix;
@@ -447,14 +448,15 @@ void ExampleCharacterController::onHandle()
         resultingForce += down;
     }
 
+	// cap the horizontal movement force
     if (resultingForce.length() > movingForce)
     {
         resultingForce.normalize();
         resultingForce *= movingForce;
     }
 
-	// only allow to jump when standing on floor
-    if (_inputFlags._jump)
+	// jump
+	if (_inputFlags._jump)
     {
         iaVector3d up = matrix._top;
         up.normalize();
@@ -516,12 +518,22 @@ void ExampleCharacterController::deinit()
     }
 }
 
+void ExampleCharacterController::onMouseKeyUp(iKeyCode keyCode)
+{
+	switch (keyCode)
+	{
+	case iKeyCode::MouseLeft:
+		_inputFlags._shootPrimary = false;
+		break;
+	}
+}
+
 void ExampleCharacterController::onMouseKeyDown(iKeyCode keyCode)
 {
 	switch (keyCode)
 	{
 	case iKeyCode::MouseLeft:
-		// TODO shot
+		_inputFlags._shootPrimary = true;
 		break;
 	}
 }

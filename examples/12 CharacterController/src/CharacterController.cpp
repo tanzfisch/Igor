@@ -227,7 +227,7 @@ void CharacterController::onApplyForceAndTorque(iPhysicsBody* body, float32 time
 			_navigationForce._y = 0;
 		}
 
-//		if (heightAboveTargetHeight > 0.5)
+		if (heightAboveTargetHeight > 0.1)
 		{
 			_state = State::Air;
 		}
