@@ -183,7 +183,7 @@ __IGOR_INLINE__ void iaMatrix<T>::operator*= (const iaMatrix<T>& m)
 }
 
 template <class T>
-__IGOR_INLINE__ iaMatrix<T>::iaMatrix()
+iaMatrix<T>::iaMatrix()
 {
 	identity();
 }
@@ -192,7 +192,7 @@ __IGOR_INLINE__ iaMatrix<T>::iaMatrix()
 \todo replace with memcpy
 */
 template <class T>
-__IGOR_INLINE__ iaMatrix<T>::iaMatrix(const T data[16])
+iaMatrix<T>::iaMatrix(const T data[16])
 {
 	T* localData = getData();
 
@@ -203,7 +203,7 @@ __IGOR_INLINE__ iaMatrix<T>::iaMatrix(const T data[16])
 }
 
 template <class T>
-__IGOR_INLINE__ iaMatrix<T>::~iaMatrix()
+iaMatrix<T>::~iaMatrix()
 {
 }
 
@@ -659,9 +659,9 @@ __IGOR_INLINE__ void iaMatrix<T>::rotate(const iaVector3<T> & vec)
 {
 	iaMatrix<T> rotation;
 
-	rotation.rotate(vec._x, iaAxis::X);
-	rotation.rotate(vec._y, iaAxis::Y);
 	rotation.rotate(vec._z, iaAxis::Z);
+	rotation.rotate(vec._y, iaAxis::Y);
+	rotation.rotate(vec._x, iaAxis::X);
 
 	(*this) *= rotation;
 }
@@ -671,9 +671,9 @@ __IGOR_INLINE__ void iaMatrix<T>::rotate(T x, T y, T z)
 {
 	iaMatrix<T> rotation;
 
-	rotation.rotate(x, iaAxis::X);
-	rotation.rotate(y, iaAxis::Y);
 	rotation.rotate(z, iaAxis::Z);
+	rotation.rotate(y, iaAxis::Y);
+	rotation.rotate(x, iaAxis::X);
 
 	(*this) *= rotation;
 }

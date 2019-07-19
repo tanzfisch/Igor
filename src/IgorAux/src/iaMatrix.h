@@ -85,7 +85,8 @@ namespace IgorAux
 	0 | 0 | 0 | 1
 
 	*/
-	template <class T> class IgorAux_API_Template iaMatrix
+	template <class T> 
+	class IgorAux_API_Template iaMatrix
 	{
 	public:
 
@@ -337,17 +338,17 @@ namespace IgorAux
 
 		/*! initializes the matrix with the id matrix
 		*/
-		__IGOR_INLINE__ iaMatrix();
+		iaMatrix();
 
 		/*! initializes matrix with a data set
 
 		\param data matrix 
 		*/
-		__IGOR_INLINE__ iaMatrix(const T data[16]);
+		iaMatrix(const T data[16]);
 
 		/*! does nothing
 		*/
-		__IGOR_INLINE__ ~iaMatrix();
+		~iaMatrix();
 	};
 
 	#include <iaMatrix.inl>
