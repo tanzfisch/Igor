@@ -175,7 +175,7 @@ private:
     */  
     iaMatrixf _modelMatrix;
 
-    iaRandomNumberGenerator _rand;
+    iaRandomNumberGeneratoru _rand;
 
     /*! generate mesh
 

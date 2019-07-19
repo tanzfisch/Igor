@@ -54,7 +54,9 @@ public:
 
 private:
 
-    iaRandomNumberGenerator rand;
+	bool _captureMouse = true;
+
+    iaRandomNumberGeneratoru rand;
 
     iStatisticsVisualizer _statisticsVisualizer;
 

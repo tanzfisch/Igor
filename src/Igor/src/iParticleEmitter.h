@@ -162,7 +162,7 @@ namespace Igor
 
         /*! random number generator
         */
-        iaRandomNumberGenerator _rand;
+        iaRandomNumberGeneratoru _rand;
 
         void calcRandomStartFromCube(iaVector3d& position, iaVector3d& velocity);
         void calcRandomStartFromSquare(iaVector3d& position, iaVector3d& velocity);

@@ -101,7 +101,7 @@ void PhysicsExample::init()
 
     // some random positioned boxes
     // for that we need a random number generator
-    iaRandomNumberGenerator rand;
+    iaRandomNumberGeneratoru rand;
     rand.setSeed(1337);
 
     for (int i = 0; i < 30; ++i)
