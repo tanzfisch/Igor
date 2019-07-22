@@ -1,8 +1,0 @@
-<map id="IgorAux::UNLOCK" name="IgorAux::UNLOCK">
-<area shape="rect" id="node2" href="$namespace_igor.html#a1fbeba8576121a573f03c2e05d84477f" title="Igor::printInfo" alt="" coords="197,5,293,32"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_console.html#a44b38227043e0c22160634ef50a89996" title="IgorAux::iaConsole\l::printStats" alt="" coords="180,57,311,98"/>
-<area shape="rect" id="node3" href="$namespace_igor.html#ab4553401ec6fe3c6bf480432cfa232cb" title="Igor::startup" alt="" coords="378,5,469,32"/>
-<area shape="rect" id="node5" href="$namespace_igor_aux.html#a4f7c01bbc0e0a4c4c8a07156c0c1e8f0" title="IgorAux::shutdown" alt="" coords="359,64,488,91"/>
-<area shape="rect" id="node6" href="$namespace_igor.html#a39537901e9950d2231244072573697bb" title="Igor::shutdown" alt="" coords="536,64,643,91"/>
-<area shape="rect" id="node7" href="$_model_viewer_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main" alt="" coords="691,64,741,91"/>
-</map>

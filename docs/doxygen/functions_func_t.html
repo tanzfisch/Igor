@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li class="current"><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -84,15 +84,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions.html"><span>All</span></a></li>
       <li class="current"><a href="functions_func.html"><span>Functions</span></a></li>
       <li><a href="functions_vars.html"><span>Variables</span></a></li>
-      <li><a href="functions_type.html"><span>Typedefs</span></a></li>
-      <li><a href="functions_eval.html"><span>Enumerator</span></a></li>
       <li><a href="functions_rela.html"><span>Related&#160;Functions</span></a></li>
     </ul>
   </div>
   <div id="navrow4" class="tabs3">
     <ul class="tablist">
-      <li><a href="functions_func.html#index__"><span>_</span></a></li>
-      <li><a href="functions_func_a.html#index_a"><span>a</span></a></li>
+      <li><a href="functions_func.html#index_a"><span>a</span></a></li>
       <li><a href="functions_func_b.html#index_b"><span>b</span></a></li>
       <li><a href="functions_func_c.html#index_c"><span>c</span></a></li>
       <li><a href="functions_func_d.html#index_d"><span>d</span></a></li>
@@ -108,7 +105,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="functions_func_n.html#index_n"><span>n</span></a></li>
       <li><a href="functions_func_o.html#index_o"><span>o</span></a></li>
       <li><a href="functions_func_p.html#index_p"><span>p</span></a></li>
-      <li><a href="functions_func_q.html#index_q"><span>q</span></a></li>
       <li><a href="functions_func_r.html#index_r"><span>r</span></a></li>
       <li><a href="functions_func_s.html#index_s"><span>s</span></a></li>
       <li class="current"><a href="functions_func_t.html#index_t"><span>t</span></a></li>
@@ -151,9 +147,6 @@ $(document).ready(function(){initNavTree('functions_func_t.html','');});
 &#160;
 
 <h3><a class="anchor" id="index_t"></a>- t -</h3><ul>
-<li>iTargetMaterial()
-: <a class="el" href="class_igor_1_1i_target_material.html#ab0d20a4aa825eb4c2456dbd2506773b3">Igor::iTargetMaterial</a>
-</li>
 <li>iTask()
 : <a class="el" href="class_igor_1_1i_task.html#aa1e5a747bb1ded943fd0f1d9bbcfff71">Igor::iTask</a>
 </li>
@@ -168,9 +161,6 @@ $(document).ready(function(){initNavTree('functions_func_t.html','');});
 </li>
 <li>iTaskLoadModel()
 : <a class="el" href="class_igor_1_1i_task_load_model.html#a41fcac64bad43f66109f856aabf393cf">Igor::iTaskLoadModel</a>
-</li>
-<li>iTaskManager()
-: <a class="el" href="class_igor_1_1i_task_manager.html#ad9fbf069776eea9885e9cee3c5178f99">Igor::iTaskManager</a>
 </li>
 <li>iTaskPrepareCollision()
 : <a class="el" href="class_igor_1_1i_task_prepare_collision.html#aff6d5639038fb457ab400459ac0be508">Igor::iTaskPrepareCollision</a>
@@ -187,116 +177,23 @@ $(document).ready(function(){initNavTree('functions_func_t.html','');});
 <li>iterate()
 : <a class="el" href="class_igor_1_1i_application.html#a8cd21cbd742a71b94ac54f592398c732">Igor::iApplication</a>
 </li>
-<li>iTexture()
-: <a class="el" href="class_igor_1_1i_texture.html#a61f03abfc3e062d25a7e71e350fc6c79">Igor::iTexture</a>
-</li>
 <li>iTextureFont()
 : <a class="el" href="class_igor_1_1i_texture_font.html#a3cb874f65070247f89e95060484dd3fa">Igor::iTextureFont</a>
-</li>
-<li>iTextureResourceFactory()
-: <a class="el" href="class_igor_1_1i_texture_resource_factory.html#a102180534163f71d709d630f06f48e57">Igor::iTextureResourceFactory</a>
 </li>
 <li>iThread()
 : <a class="el" href="class_igor_1_1i_thread.html#a67f93b8779b218a4ca4d208bf07f0f8c">Igor::iThread</a>
 </li>
-<li>iTimer()
-: <a class="el" href="class_igor_1_1i_timer.html#a50879877d91772df1419a9fed9053ddc">Igor::iTimer</a>
-</li>
 <li>iTimerHandle()
-: <a class="el" href="class_igor_1_1i_timer_handle.html#a210a5aeab735dd6d29f39e5a113e7345">Igor::iTimerHandle</a>
+: <a class="el" href="class_igor_1_1i_timer_handle.html#a0aed750e8536de1dd5bf3fb0263e93a9">Igor::iTimerHandle</a>
 </li>
 <li>itoa()
 : <a class="el" href="class_igor_aux_1_1ia_string.html#ad543df5c6c62ace85496ee1fda974503">IgorAux::iaString</a>
 </li>
-<li>TearDown()
-: <a class="el" href="classtesting_1_1_environment.html#a039bdaa705c46b9b88234cf4d3bb6254">testing::Environment</a>
-, <a class="el" href="classtesting_1_1_test.html#aab3c02c9f81afe1357adfc45afccd474">testing::Test</a>
-</li>
-<li>TearDownTestCase()
-: <a class="el" href="classtesting_1_1_test.html#af374706cbaf0ffc460f4fd04e7c150f1">testing::Test</a>
-</li>
 <li>tell()
 : <a class="el" href="class_igor_aux_1_1ia_mem_block_control.html#a8f480be535ec40b54baf1760a0e5610e">IgorAux::iaMemBlockControl</a>
 </li>
-<li>test()
-: <a class="el" href="structtesting_1_1internal_1_1_is_hash_table.html#acc4d1e2307a1e0527932da7a7d354f06">testing::internal::IsHashTable&lt; T &gt;</a>
-</li>
-<li>Test()
-: <a class="el" href="classtesting_1_1_test.html#a68b7618abd1fc6d13382738b0d3b5c7c">testing::Test</a>
-</li>
-<li>test_case_name()
-: <a class="el" href="classtesting_1_1_test_info.html#a26d22556d04b94c9cd15e28d74fef91c">testing::TestInfo</a>
-</li>
-<li>test_case_to_run_count()
-: <a class="el" href="classtesting_1_1_unit_test.html#abb7330165eb5be7beac3f7e6ced5fcdd">testing::UnitTest</a>
-</li>
-<li>test_info_list()
-: <a class="el" href="classtesting_1_1_test_case.html#adbfcf952eb18dc82d4b20f6bc31aee04">testing::TestCase</a>
-</li>
-<li>test_part_results()
-: <a class="el" href="classtesting_1_1_test_result.html#a2ab6cb75fe8a4ac394a800ae01daa8cd">testing::TestResult</a>
-</li>
-<li>test_properties()
-: <a class="el" href="classtesting_1_1_test_result.html#add9d22dda23f96faacd8381f18e52baa">testing::TestResult</a>
-</li>
-<li>test_property_count()
-: <a class="el" href="classtesting_1_1_test_result.html#a5075f9d595d51c7cc2f5c0921e622831">testing::TestResult</a>
-</li>
-<li>test_to_run_count()
-: <a class="el" href="classtesting_1_1_test_case.html#a47de0cf87858370388275c9d995f1ff4">testing::TestCase</a>
-, <a class="el" href="classtesting_1_1_unit_test.html#a953a52f89898a04ee4a4e08469407cd3">testing::UnitTest</a>
-</li>
-<li>TestBody()
-: <a class="el" href="classtesting_1_1_test.html#a146a4a5d9854e676d625a0ef67409794">testing::Test</a>
-</li>
-<li>TestCase()
-: <a class="el" href="classtesting_1_1_test_case.html#a8a43b04703bfc7d56597fcb9b76ffbf5">testing::TestCase</a>
-</li>
-<li>TestDisabled()
-: <a class="el" href="classtesting_1_1_test_case.html#a2c6989cdeac01b2153f2e34dca1dbde6">testing::TestCase</a>
-</li>
-<li>TestEventListeners()
-: <a class="el" href="classtesting_1_1_test_event_listeners.html#af0716e4067a6f357ee5ea18802a591dd">testing::TestEventListeners</a>
-</li>
-<li>TestFactoryBase()
-: <a class="el" href="classtesting_1_1internal_1_1_test_factory_base.html#afedbf147b2a213517b315880d8c81427">testing::internal::TestFactoryBase</a>
-</li>
-<li>TestFailed()
-: <a class="el" href="classtesting_1_1_test_case.html#a5922884cb8b4819e869146dc315a1ac1">testing::TestCase</a>
-</li>
-<li>testFilter()
-: <a class="el" href="class_igor_1_1i_octree.html#aa3b54fdf7ba95e2570b3a024facd875b">Igor::iOctree</a>
-</li>
-<li>TestInfo()
-: <a class="el" href="structtesting_1_1internal_1_1_parameterized_test_case_info_1_1_test_info.html#a97780f3a9b145f30d6803ea7b76abe19">testing::internal::ParameterizedTestCaseInfo&lt; TestCase &gt;::TestInfo</a>
-, <a class="el" href="classtesting_1_1_test_info.html#afc4a66e2d2491f09e8549c71514c3d78">testing::TestInfo</a>
-</li>
-<li>TestMetaFactory()
-: <a class="el" href="classtesting_1_1internal_1_1_test_meta_factory.html#a3eadbf9867b702bcba130a3113a77b71">testing::internal::TestMetaFactory&lt; TestCase &gt;</a>
-</li>
 <li>testOverlapAABB()
 : <a class="el" href="class_igor_1_1i_physics_user_mesh_collision_handler.html#adafe185350abd149f9e0304a06b099c0">Igor::iPhysicsUserMeshCollisionHandler</a>
-</li>
-<li>TestParamInfo()
-: <a class="el" href="structtesting_1_1_test_param_info.html#aa54199319bcad5a33c8538ecaecb6de5">testing::TestParamInfo&lt; ParamType &gt;</a>
-</li>
-<li>TestPassed()
-: <a class="el" href="classtesting_1_1_test_case.html#ad8d9e1ebc410000b679002ba71d78686">testing::TestCase</a>
-</li>
-<li>TestProperty()
-: <a class="el" href="classtesting_1_1_test_property.html#a25a0ccf1c75a92af46a48d3c2a873e6d">testing::TestProperty</a>
-</li>
-<li>TestReportable()
-: <a class="el" href="classtesting_1_1_test_case.html#a2c3767df71e07939b32f19ef9c6ed271">testing::TestCase</a>
-</li>
-<li>TestReportableDisabled()
-: <a class="el" href="classtesting_1_1_test_case.html#a1f2da5337f941d746dfcb98bc4acc149">testing::TestCase</a>
-</li>
-<li>TestResult()
-: <a class="el" href="classtesting_1_1_test_result.html#a5cf5dd6f416b7334ea601aab21a2fda5">testing::TestResult</a>
-</li>
-<li>ThreadLocal()
-: <a class="el" href="classtesting_1_1internal_1_1_thread_local.html#a106f3a3ad15d08f95f9887105d2a1af5">testing::internal::ThreadLocal&lt; T &gt;</a>
 </li>
 <li>toggle()
 : <a class="el" href="class_igor_aux_1_1ia_bits.html#a13d4b8007e14fe6db7167090bc633483">IgorAux::iaBits&lt; T &gt;</a>
@@ -304,30 +201,12 @@ $(document).ready(function(){initNavTree('functions_func_t.html','');});
 <li>toLower()
 : <a class="el" href="class_igor_aux_1_1ia_string.html#ac48e52af9dc52ade75d11d6a5f762680">IgorAux::iaString</a>
 </li>
-<li>total_part_count()
-: <a class="el" href="classtesting_1_1_test_result.html#ae6a378ec743edfbed55890c955d0adc8">testing::TestResult</a>
-</li>
-<li>total_test_case_count()
-: <a class="el" href="classtesting_1_1_unit_test.html#a6802793a0be9cee17380fdd8c7161fcd">testing::UnitTest</a>
-</li>
-<li>total_test_count()
-: <a class="el" href="classtesting_1_1_test_case.html#ac7b2ed22822735b7b9ae2740162332c9">testing::TestCase</a>
-, <a class="el" href="classtesting_1_1_unit_test.html#a54315b233d354693b9aa1184cf2996de">testing::UnitTest</a>
-</li>
 <li>toUpper()
 : <a class="el" href="class_igor_aux_1_1ia_string.html#adec3d79e30b5303f89c4869a09028ce6">IgorAux::iaString</a>
 </li>
-<li>transferToMeshBuilder()
-: <a class="el" href="class_igor_1_1i_model_data_i_o_o_b_j.html#a50cb78c25eba81333121e433d61f0f52">Igor::iModelDataIOOBJ</a>
-</li>
-<li>transit()
-: <a class="el" href="class_igor_aux_1_1ia_state_machine.html#a91361353dc0886f3f7cee450389688f5">IgorAux::iaStateMachine</a>
-</li>
 <li>translate()
-: <a class="el" href="class_igor_1_1i_keyboard.html#a99118c36e4b27c08607003cfc44bc0e6">Igor::iKeyboard</a>
-, <a class="el" href="class_igor_1_1i_node_transform.html#a1ed0476c0a47b9b749e95d497394a79f">Igor::iNodeTransform</a>
+: <a class="el" href="class_igor_1_1i_node_transform.html#aa14a8d9d83fd2de1370c662b29bb4b81">Igor::iNodeTransform</a>
 , <a class="el" href="class_igor_aux_1_1ia_matrix.html#a4d685bfc9a04ee3052d03657c43b24ca">IgorAux::iaMatrix&lt; T &gt;</a>
-, <a class="el" href="class_manipulator.html#ab8340acad0dc8b25d100dd2e2780c9e9">Manipulator</a>
 </li>
 <li>translateEmitter()
 : <a class="el" href="class_igor_1_1i_particle_system2_d.html#ab1eb3f59994fdda3247f04eceea1e5bf">Igor::iParticleSystem2D</a>
@@ -336,30 +215,8 @@ $(document).ready(function(){initNavTree('functions_func_t.html','');});
 : <a class="el" href="class_igor_aux_1_1ia_matrix3x3.html#a9e50e2251c21ca80453757d4eb778edd">IgorAux::iaMatrix3x3&lt; T &gt;</a>
 , <a class="el" href="class_igor_aux_1_1ia_matrix.html#a2205310167339df3d03fe1b270de95f8">IgorAux::iaMatrix&lt; T &gt;</a>
 </li>
-<li>traverseAlignment()
-: <a class="el" href="class_igor_1_1i_widget_manager.html#acd1ffbaaa9e72e5d71fb466fffb2109c">Igor::iWidgetManager</a>
-</li>
-<li>traverseContentSize()
-: <a class="el" href="class_igor_1_1i_widget_manager.html#ad703466c81a5e5525921e591bcd1a30e">Igor::iWidgetManager</a>
-</li>
 <li>traverseTree()
 : <a class="el" href="class_igor_1_1i_node_visitor.html#a66c426b8125fa0205d492b2681884520">Igor::iNodeVisitor</a>
-</li>
-<li>traverseTreeInternal()
-: <a class="el" href="class_igor_1_1i_node_visitor.html#a7e4167851e1247dfb90837c8f145f1b5">Igor::iNodeVisitor</a>
-</li>
-<li>tryMerge()
-: <a class="el" href="class_igor_1_1i_octree.html#a6cc4289341ca30efc93d0b3ea89c8b66">Igor::iOctree</a>
-</li>
-<li>trySplit()
-: <a class="el" href="class_igor_1_1i_octree.html#a4f0e2a3cb4c930a1f333c5abc10b88da">Igor::iOctree</a>
-</li>
-<li>tuple()
-: <a class="el" href="singletonstd_1_1tr1_1_1tuple.html#a349b7948d183b7f05c1a5fd6aa4eaeb8">std::tr1::tuple&lt;&gt;</a>
-</li>
-<li>type_param()
-: <a class="el" href="classtesting_1_1_test_case.html#a2052c095bc6ac9c0ab1cae6f0e2d9fc9">testing::TestCase</a>
-, <a class="el" href="classtesting_1_1_test_info.html#af15d5c533a7237ffc183bc4c924dfcf4">testing::TestInfo</a>
 </li>
 </ul>
 </div><!-- contents -->
@@ -368,7 +225,7 @@ $(document).ready(function(){initNavTree('functions_func_t.html','');});
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:52 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

@@ -1,6 +1,0 @@
-<map id="testing::TestCase" name="testing::TestCase">
-<area shape="rect" id="node2" href="$classtesting_1_1_test_result.html" title="testing::TestResult" alt="" coords="5,213,136,240"/>
-<area shape="rect" id="node3" href="$classtesting_1_1internal_1_1_mutex.html" title="testing::internal::\lMutex" alt="" coords="6,95,125,136"/>
-<area shape="rect" id="node4" href="$classtesting_1_1internal_1_1scoped__ptr.html" title="testing::internal::\lscoped_ptr\&lt; const ::\lstd::string \&gt;" alt="" coords="163,199,306,255"/>
-<area shape="rect" id="node5" href="$classtesting_1_1internal_1_1scoped__ptr.html" title="testing::internal::\lscoped_ptr\&lt; T \&gt;" alt="" coords="178,95,297,136"/>
-</map>

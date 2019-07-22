@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,8 +111,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_application.html','');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_application-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -120,19 +118,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_application.html','');
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_application_8h_source.html">iApplication.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iApplication:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_application__inherit__graph.svg" width="192" height="218"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iApplication:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_application__coll__graph.svg" width="424" height="231"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iApplication.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iApplication &gt;</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -152,48 +140,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a8e53d8005118edbf7516ff285b4c50af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c6e714080d48d00f8065b6bfccdfcda"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_application.html#a6c6e714080d48d00f8065b6bfccdfcda">unregisterApplicationPostDrawHandleDelegate</a> (iApplicationPostDrawHandleDelegate handleDelegate)</td></tr>
 <tr class="separator:a6c6e714080d48d00f8065b6bfccdfcda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ab48d918eb571405a3937acefa6eba296"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_application.html#ab48d918eb571405a3937acefa6eba296">deinitStatistics</a> ()</td></tr>
-<tr class="separator:ab48d918eb571405a3937acefa6eba296"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1354015c63ca0357d2f483ec5c93871f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_application.html#a1354015c63ca0357d2f483ec5c93871f">initStatistics</a> ()</td></tr>
-<tr class="separator:a1354015c63ca0357d2f483ec5c93871f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ccc658a6c97ccbf92d5911768168a4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_application.html#a7ccc658a6c97ccbf92d5911768168a4b">windowHandle</a> ()</td></tr>
-<tr class="separator:a7ccc658a6c97ccbf92d5911768168a4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f57c522123fa165fc2efcee8a9a8caf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_application.html#a3f57c522123fa165fc2efcee8a9a8caf">draw</a> ()</td></tr>
-<tr class="separator:a3f57c522123fa165fc2efcee8a9a8caf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0bef7159e5b4059b38bd35bb35bd3ade"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_application.html#a0bef7159e5b4059b38bd35bb35bd3ade">addWindow</a> (<a class="el" href="class_igor_1_1i_window.html">iWindow</a> *window)</td></tr>
-<tr class="separator:a0bef7159e5b4059b38bd35bb35bd3ade"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abeeed27ff76b3ca89aececbb3121d5ad"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_application.html#abeeed27ff76b3ca89aececbb3121d5ad">removeWindow</a> (<a class="el" href="class_igor_1_1i_window.html">iWindow</a> *window)</td></tr>
-<tr class="separator:abeeed27ff76b3ca89aececbb3121d5ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeac8c06f608bbd3d2a99a22449980e93"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_application.html#aeac8c06f608bbd3d2a99a22449980e93">iApplication</a> ()</td></tr>
-<tr class="separator:aeac8c06f608bbd3d2a99a22449980e93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1661950bed7c214da4c5308e3994bc9f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_application.html#a1661950bed7c214da4c5308e3994bc9f">~iApplication</a> ()</td></tr>
-<tr class="separator:a1661950bed7c214da4c5308e3994bc9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:aa61b78c8892da406fc0e89c22a4445f9"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_application.html#aa61b78c8892da406fc0e89c22a4445f9">_frameSectionID</a> = 0</td></tr>
-<tr class="separator:aa61b78c8892da406fc0e89c22a4445f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5cf3f335f1c3e98f525fe7d1853827b2"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_application.html#a5cf3f335f1c3e98f525fe7d1853827b2">_handleSectionID</a> = 0</td></tr>
-<tr class="separator:a5cf3f335f1c3e98f525fe7d1853827b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a32d8d21321fad9c9b9da62cb773fac"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_application.html#a0a32d8d21321fad9c9b9da62cb773fac">_physicsSectionID</a> = 0</td></tr>
-<tr class="separator:a0a32d8d21321fad9c9b9da62cb773fac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c5ecfc772c5ca59f280990941bd6250"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_application.html#a8c5ecfc772c5ca59f280990941bd6250">_drawSectionID</a> = 0</td></tr>
-<tr class="separator:a8c5ecfc772c5ca59f280990941bd6250"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1317d7741db7fd65952366b57bc4b075"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_application.html#a1317d7741db7fd65952366b57bc4b075">_userSectionID</a> = 0</td></tr>
-<tr class="separator:a1317d7741db7fd65952366b57bc4b075"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5d72a493a30961b958142ccdf0ad006"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_application.html#af5d72a493a30961b958142ccdf0ad006">_handleCallbacksSectionID</a> = 0</td></tr>
-<tr class="separator:af5d72a493a30961b958142ccdf0ad006"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1976f2ef358b8b7fb6c6f7d2e9d657b2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_application.html#a1976f2ef358b8b7fb6c6f7d2e9d657b2">_running</a> = false</td></tr>
-<tr class="separator:a1976f2ef358b8b7fb6c6f7d2e9d657b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2fcf6970db551eef236613494789ff07"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_igor_1_1i_window.html">iWindow</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_application.html#a2fcf6970db551eef236613494789ff07">_windows</a></td></tr>
-<tr class="separator:a2fcf6970db551eef236613494789ff07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a014d83eada3e90f3aa69b5bead2e208e"><td class="memItemLeft" align="right" valign="top">iApplicationPreDrawHandleEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_application.html#a014d83eada3e90f3aa69b5bead2e208e">_preDrawHandleEvent</a></td></tr>
-<tr class="separator:a014d83eada3e90f3aa69b5bead2e208e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e48255ef8b01753a30568f2d622d84f"><td class="memItemLeft" align="right" valign="top">iApplicationPostDrawHandleEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_application.html#a9e48255ef8b01753a30568f2d622d84f">_postDrawHandleEvent</a></td></tr>
-<tr class="separator:a9e48255ef8b01753a30568f2d622d84f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -225,175 +171,7 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Application (Singleton)</p>
 <p>The main entry point to an <a class="el" href="namespace_igor.html">Igor</a> application (Singleton) </p>
-
-<p>Definition at line <a class="el" href="i_application_8h_source.html#l00056">56</a> of file <a class="el" href="i_application_8h_source.html">iApplication.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="aeac8c06f608bbd3d2a99a22449980e93"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iApplication::iApplication </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>ctor</p>
-<p>initializes member variables </p>
-
-<p>Definition at line <a class="el" href="i_application_8cpp_source.html#l00022">22</a> of file <a class="el" href="i_application_8cpp_source.html">iApplication.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a1661950bed7c214da4c5308e3994bc9f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iApplication::~iApplication </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>dtor</p>
-<p>does nothing </p>
-
-<p>Definition at line <a class="el" href="i_application_8cpp_source.html#l00027">27</a> of file <a class="el" href="i_application_8cpp_source.html">iApplication.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a0bef7159e5b4059b38bd35bb35bd3ade"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iApplication::addWindow </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_window.html">iWindow</a> *&#160;</td>
-          <td class="paramname"><em>window</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>add window</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">window</td><td>pointer to window </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_application_8cpp_source.html#l00140">140</a> of file <a class="el" href="i_application_8cpp_source.html">iApplication.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab48d918eb571405a3937acefa6eba296"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iApplication::deinitStatistics </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>init statistics sections </p>
-
-<p>Definition at line <a class="el" href="i_application_8cpp_source.html#l00095">95</a> of file <a class="el" href="i_application_8cpp_source.html">iApplication.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3f57c522123fa165fc2efcee8a9a8caf"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iApplication::draw </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>rendering </p>
-
-<p>Definition at line <a class="el" href="i_application_8cpp_source.html#l00118">118</a> of file <a class="el" href="i_application_8cpp_source.html">iApplication.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a1354015c63ca0357d2f483ec5c93871f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iApplication::initStatistics </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>deinit statistics sections </p>
-
-<p>Definition at line <a class="el" href="i_application_8cpp_source.html#l00104">104</a> of file <a class="el" href="i_application_8cpp_source.html">iApplication.cpp</a>.</p>
-
-</div>
-</div>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="abbfad4ce3dfcdd01327f5e665127a273"></a>
 <div class="memitem">
 <div class="memproto">
@@ -407,8 +185,6 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>returns true if application is still running </p>
-
-<p>Definition at line <a class="el" href="i_application_8cpp_source.html#l00113">113</a> of file <a class="el" href="i_application_8cpp_source.html">iApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -425,16 +201,6 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>as alternative to run you can set up your own main loop and call iterate in it but run is recommended to use </p>
-
-<p>Definition at line <a class="el" href="i_application_8cpp_source.html#l00054">54</a> of file <a class="el" href="i_application_8cpp_source.html">iApplication.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_application_a8cd21cbd742a71b94ac54f592398c732_cgraph.svg" width="256" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -459,16 +225,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_application_8cpp_source.html#l00165">165</a> of file <a class="el" href="i_application_8cpp_source.html">iApplication.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_application_a8e53d8005118edbf7516ff285b4c50af_icgraph.svg" width="439" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a25a927d4be5ea966a46509e5621b68e7"></a>
@@ -491,42 +247,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_state_machine_2src_2_state_machine_example_8cpp-example.html#a8">StateMachine/src/StateMachineExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_application_8cpp_source.html#l00155">155</a> of file <a class="el" href="i_application_8cpp_source.html">iApplication.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="abeeed27ff76b3ca89aececbb3121d5ad"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iApplication::removeWindow </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_window.html">iWindow</a> *&#160;</td>
-          <td class="paramname"><em>window</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>remove window</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">window</td><td>pointer to window </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_application_8cpp_source.html#l00145">145</a> of file <a class="el" href="i_application_8cpp_source.html">iApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -544,9 +264,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>starts the application</p>
 <p>starts the main loop of the application and continues until <a class="el" href="class_igor_1_1i_application.html#a4cbd6d82cc2bbb172f1ca997fa7fd2d8">stop()</a> is called </p>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_state_machine_2src_2_state_machine_example_8cpp-example.html#a52">StateMachine/src/StateMachineExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_application_8cpp_source.html#l00085">85</a> of file <a class="el" href="i_application_8cpp_source.html">iApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -564,9 +281,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>stopes the application</p>
 <p>quits the main application loop. works only in combination with <a class="el" href="class_igor_1_1i_application.html#a30cc01b680dd9c097366cf60dae44e74">iApplication::run</a> </p>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_state_machine_2src_2_state_machine_example_8cpp-example.html#a51">StateMachine/src/StateMachineExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_application_8cpp_source.html#l00049">49</a> of file <a class="el" href="i_application_8cpp_source.html">iApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -591,16 +305,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_application_8cpp_source.html#l00170">170</a> of file <a class="el" href="i_application_8cpp_source.html">iApplication.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_application_a6c6e714080d48d00f8065b6bfccdfcda_icgraph.svg" width="432" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a235643d0f3a29141d46584571f511505"></a>
@@ -623,35 +327,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_state_machine_2src_2_state_machine_example_8cpp-example.html#a21">StateMachine/src/StateMachineExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_application_8cpp_source.html#l00160">160</a> of file <a class="el" href="i_application_8cpp_source.html">iApplication.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7ccc658a6c97ccbf92d5911768168a4b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iApplication::windowHandle </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>triggers ApplicationHandleEvent and updates windows </p>
-
-<p>Definition at line <a class="el" href="i_application_8cpp_source.html#l00129">129</a> of file <a class="el" href="i_application_8cpp_source.html">iApplication.cpp</a>.</p>
 
 </div>
 </div>
@@ -674,8 +349,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_application_8h_source.html#l00060">60</a> of file <a class="el" href="i_application_8h_source.html">iApplication.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a62b10979f57015cc1e2e958bbd9308bc"></a>
@@ -696,244 +369,11 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_application_8h_source.html#l00059">59</a> of file <a class="el" href="i_application_8h_source.html">iApplication.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a8c5ecfc772c5ca59f280990941bd6250"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iApplication::_drawSectionID = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>draw performance section id </p>
-
-<p>Definition at line <a class="el" href="i_application_8h_source.html#l00124">124</a> of file <a class="el" href="i_application_8h_source.html">iApplication.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa61b78c8892da406fc0e89c22a4445f9"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iApplication::_frameSectionID = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>frame performance section id </p>
-
-<p>Definition at line <a class="el" href="i_application_8h_source.html#l00112">112</a> of file <a class="el" href="i_application_8h_source.html">iApplication.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af5d72a493a30961b958142ccdf0ad006"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iApplication::_handleCallbacksSectionID = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handle callbacks performance section ID </p>
-
-<p>Definition at line <a class="el" href="i_application_8h_source.html#l00132">132</a> of file <a class="el" href="i_application_8h_source.html">iApplication.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5cf3f335f1c3e98f525fe7d1853827b2"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iApplication::_handleSectionID = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handle performance section id </p>
-
-<p>Definition at line <a class="el" href="i_application_8h_source.html#l00116">116</a> of file <a class="el" href="i_application_8h_source.html">iApplication.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a0a32d8d21321fad9c9b9da62cb773fac"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iApplication::_physicsSectionID = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>physics performance section id </p>
-
-<p>Definition at line <a class="el" href="i_application_8h_source.html#l00120">120</a> of file <a class="el" href="i_application_8h_source.html">iApplication.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9e48255ef8b01753a30568f2d622d84f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iApplicationPostDrawHandleEvent Igor::iApplication::_postDrawHandleEvent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handle event called after rendering </p>
-
-<p>Definition at line <a class="el" href="i_application_8h_source.html#l00148">148</a> of file <a class="el" href="i_application_8h_source.html">iApplication.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a014d83eada3e90f3aa69b5bead2e208e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iApplicationPreDrawHandleEvent Igor::iApplication::_preDrawHandleEvent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handle event called before rendering </p>
-
-<p>Definition at line <a class="el" href="i_application_8h_source.html#l00144">144</a> of file <a class="el" href="i_application_8h_source.html">iApplication.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a1976f2ef358b8b7fb6c6f7d2e9d657b2"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iApplication::_running = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>flag if the aplication is currently running </p>
-
-<p>Definition at line <a class="el" href="i_application_8h_source.html#l00136">136</a> of file <a class="el" href="i_application_8h_source.html">iApplication.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a1317d7741db7fd65952366b57bc4b075"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iApplication::_userSectionID = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>user performance section id </p>
-
-<p>Definition at line <a class="el" href="i_application_8h_source.html#l00128">128</a> of file <a class="el" href="i_application_8h_source.html">iApplication.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2fcf6970db551eef236613494789ff07"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="class_igor_1_1i_window.html">iWindow</a>*&gt; Igor::iApplication::_windows</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of windows registered to the application </p>
-
-<p>Definition at line <a class="el" href="i_application_8h_source.html#l00140">140</a> of file <a class="el" href="i_application_8h_source.html">iApplication.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_application_8h_source.html">iApplication.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_application_8cpp_source.html">iApplication.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_application_8h.html">iApplication.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_application_8cpp.html">iApplication.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -942,7 +382,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_application.html">iApplication</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:44 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

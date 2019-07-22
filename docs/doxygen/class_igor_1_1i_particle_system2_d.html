@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,21 +111,13 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_particle_system2_d.htm
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_1_1i_particle_system2_d-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Igor::iParticleSystem2D Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for Igor::iParticleSystem2D:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_particle_system2_d__coll__graph.svg" width="522" height="352"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iParticleSystem2D.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -177,66 +169,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a61b7d67c5b3aba89c70aad29c99874eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a96ac3061fc215fd362024d09900c5c2b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#a96ac3061fc215fd362024d09900c5c2b">handle</a> ()</td></tr>
 <tr class="separator:a96ac3061fc215fd362024d09900c5c2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:aaf0ec7a9a55699c0656d869d306d858c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#aaf0ec7a9a55699c0656d869d306d858c">resetParticle</a> (<a class="el" href="class_igor_1_1i_particle2_d.html">iParticle2D</a> &amp;particle)</td></tr>
-<tr class="separator:aaf0ec7a9a55699c0656d869d306d858c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a2d8879d89cd45cc2a5953b29db063888"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#a2d8879d89cd45cc2a5953b29db063888">_minSize</a> = 10.0f</td></tr>
-<tr class="separator:a2d8879d89cd45cc2a5953b29db063888"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0069ca2d912616ac1f9837c1a3ed50c"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#aa0069ca2d912616ac1f9837c1a3ed50c">_maxSize</a> = 10.0f</td></tr>
-<tr class="separator:aa0069ca2d912616ac1f9837c1a3ed50c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada60f785e7a79ef9b0e03c8325b340d6"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#ada60f785e7a79ef9b0e03c8325b340d6">_minSizeDelta</a> = 0.0f</td></tr>
-<tr class="separator:ada60f785e7a79ef9b0e03c8325b340d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1ae37b632929080a14a05313cbe588c"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#aa1ae37b632929080a14a05313cbe588c">_maxSizeDelta</a> = 0.0f</td></tr>
-<tr class="separator:aa1ae37b632929080a14a05313cbe588c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5dc1701110ff1ac7613ab8aae468ebe1"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#a5dc1701110ff1ac7613ab8aae468ebe1">_minRotation</a> = 0.0f</td></tr>
-<tr class="separator:a5dc1701110ff1ac7613ab8aae468ebe1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c2e3810a346714ab851cd9aeaf47955"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#a6c2e3810a346714ab851cd9aeaf47955">_maxRotation</a> = 0.0f</td></tr>
-<tr class="separator:a6c2e3810a346714ab851cd9aeaf47955"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c3c3291fd23d2c0647d2703f56d721f"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#a4c3c3291fd23d2c0647d2703f56d721f">_minRotationDelta</a> = 0.0f</td></tr>
-<tr class="separator:a4c3c3291fd23d2c0647d2703f56d721f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2799b5565bc30e78f37c335cc0e76840"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#a2799b5565bc30e78f37c335cc0e76840">_maxRotationDelta</a> = 0.0f</td></tr>
-<tr class="separator:a2799b5565bc30e78f37c335cc0e76840"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a067c097b70b4df5b8483c5508ce55c1b"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#a067c097b70b4df5b8483c5508ce55c1b">_lifeDelta</a> = 0.01f</td></tr>
-<tr class="separator:a067c097b70b4df5b8483c5508ce55c1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04a1b126c1bbcd96fd592d264db8579e"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#a04a1b126c1bbcd96fd592d264db8579e">_particleLifeTime</a> = 0</td></tr>
-<tr class="separator:a04a1b126c1bbcd96fd592d264db8579e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00b626813acdaa4364a1e9391c20a367"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a5c88a439642e5787115c367573a85025">iaVector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#a00b626813acdaa4364a1e9391c20a367">_externalForce</a> = { 0.0f, 0.0f }</td></tr>
-<tr class="separator:a00b626813acdaa4364a1e9391c20a367"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56bac9b5057da8e0bfc7214a8c697c0d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a5c88a439642e5787115c367573a85025">iaVector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#a56bac9b5057da8e0bfc7214a8c697c0d">_initialVelocity</a> = {0.0f, 1.0f}</td></tr>
-<tr class="separator:a56bac9b5057da8e0bfc7214a8c697c0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae949ddd05ce13f159849ff094a22ac7c"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#ae949ddd05ce13f159849ff094a22ac7c">_airDrag</a> = 0.999f</td></tr>
-<tr class="separator:ae949ddd05ce13f159849ff094a22ac7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade3a0977e59b13257445eb4858c3ce30"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a5c88a439642e5787115c367573a85025">iaVector2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#ade3a0977e59b13257445eb4858c3ce30">_emitterPos</a> = { 0.0f, 0.0f }</td></tr>
-<tr class="separator:ade3a0977e59b13257445eb4858c3ce30"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47f8979f0697ea2d73f4f56d50bccf50"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#a47f8979f0697ea2d73f4f56d50bccf50">_spreadFactor</a> = 0.0f</td></tr>
-<tr class="separator:a47f8979f0697ea2d73f4f56d50bccf50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acfb3162bba9e5a6e21cf1529bff8dced"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#acfb3162bba9e5a6e21cf1529bff8dced">_emitRate</a> = 1</td></tr>
-<tr class="separator:acfb3162bba9e5a6e21cf1529bff8dced"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75157cd710ea1f9b48997724f165d93a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#a75157cd710ea1f9b48997724f165d93a">_rebirth</a> = true</td></tr>
-<tr class="separator:a75157cd710ea1f9b48997724f165d93a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6d0e3b7c9a0a7317be980f264f2fef2"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#ac6d0e3b7c9a0a7317be980f264f2fef2">_maxParticleCount</a> = 0</td></tr>
-<tr class="separator:ac6d0e3b7c9a0a7317be980f264f2fef2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1dd49041357c2636b2e48f6d208c50a"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#ae1dd49041357c2636b2e48f6d208c50a">_particleCount</a> = 0</td></tr>
-<tr class="separator:ae1dd49041357c2636b2e48f6d208c50a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aacae727dcede07c41ef94bdcd6d479fa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a5baaffb3c744e70fd01650ed047f776f">iEmitterType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#aacae727dcede07c41ef94bdcd6d479fa">_emitterType</a> = <a class="el" href="namespace_igor.html#a5baaffb3c744e70fd01650ed047f776fafd2ee4d096558d0dde554c433956460c">iEmitterType::PointEmitter</a></td></tr>
-<tr class="separator:aacae727dcede07c41ef94bdcd6d479fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ea832945bbc28e248b41299ed690eda"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_particle2_d.html">iParticle2D</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#a7ea832945bbc28e248b41299ed690eda">_particles</a> = nullptr</td></tr>
-<tr class="separator:a7ea832945bbc28e248b41299ed690eda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae254a4c79f0d01f6b53b06cb5809eedd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#ae254a4c79f0d01f6b53b06cb5809eedd">_done</a> = false</td></tr>
-<tr class="separator:ae254a4c79f0d01f6b53b06cb5809eedd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18a6c690798e6088b55937b25e163841"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_random_number_generator.html">iaRandomNumberGenerator</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_particle_system2_d.html#a18a6c690798e6088b55937b25e163841">_rand</a></td></tr>
-<tr class="separator:a18a6c690798e6088b55937b25e163841"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>2d particle system </p>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_state_machine_2src_2_state_machine_example_8cpp-example.html#_a3">StateMachine/src/StateMachineExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00093">93</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a2bf36ac146b34311cc59fc3a813ecbd6"></a>
 <div class="memitem">
@@ -251,8 +186,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>initialize </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00015">15</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
 
 </div>
 </div>
@@ -269,8 +202,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>clean up </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00022">22</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
 
 </div>
 </div>
@@ -289,8 +220,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if no more particles will be emitted and all particles lifes have ended </dd></dl>
 
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00117">117</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a34b134b92695ad3bdfc99e54f6bbf2d0"></a>
@@ -306,8 +235,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>emition rate particles per frame </dd></dl>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00217">217</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
 
 </div>
 </div>
@@ -325,8 +252,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>maximum particle count </dd></dl>
 
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00185">185</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="adf1031722d7c7b0e51eae04ced76fdd8"></a>
@@ -343,8 +268,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>current in use particle count </dd></dl>
 
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00192">192</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ad92108fd0bb7651957fe01f042bda9bc"></a>
@@ -360,8 +283,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>particle lifetime in frames </dd></dl>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00222">222</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
 
 </div>
 </div>
@@ -380,8 +301,6 @@ Private Attributes</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>list of particles</dd></dl>
 <p>mainly used for rendering them </p>
 
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00054">54</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a96ac3061fc215fd362024d09900c5c2b"></a>
@@ -398,50 +317,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>handles particle system iteration </p>
 
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00067">67</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aaf0ec7a9a55699c0656d869d306d858c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iParticleSystem2D::resetParticle </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_particle2_d.html">iParticle2D</a> &amp;&#160;</td>
-          <td class="paramname"><em>particle</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>reset a particle to start values in order to reuse it</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">particle</td><td>the particle to reset </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000037">Todo:</a></b></dt><dd></dd></dl>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00031">31</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_particle_system2_d_aaf0ec7a9a55699c0656d869d306d858c_cgraph.svg" width="347" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ac6c7dd15c55a70674f4365c0dcee85f9"></a>
@@ -457,8 +332,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>restarts the particle system </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00059">59</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
 
 </div>
 </div>
@@ -484,8 +357,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00207">207</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a8fba8878a946a93bc949e35ab4243063"></a>
@@ -510,8 +381,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00232">232</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="af581bf1f57510756249a0de4c081d609"></a>
@@ -534,8 +403,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00127">127</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
 
 </div>
 </div>
@@ -560,8 +427,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00197">197</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a580a221688f41d66e933fa23e670574f"></a>
@@ -585,8 +450,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00202">202</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a6531f1a995f3f7d964baf294eb9100a8"></a>
@@ -609,8 +472,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00227">227</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
 
 </div>
 </div>
@@ -636,8 +497,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00167">167</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="af8e4658bfc3f3e626c45bd76a114d362"></a>
@@ -660,8 +519,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00161">161</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
 
 </div>
 </div>
@@ -697,8 +554,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00155">155</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ab8958f7c1e96ed2b1add6fce3426c96b"></a>
@@ -732,8 +587,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00149">149</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
 
 </div>
 </div>
@@ -769,8 +622,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00143">143</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aeeddd2df8ab0991900016289d6d9ec39"></a>
@@ -805,8 +656,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00137">137</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a81761f975ed28940f7378082e48a98ed"></a>
@@ -831,8 +680,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00132">132</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ab1eb3f59994fdda3247f04eceea1e5bf"></a>
@@ -856,544 +703,11 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_particle_system2_d_8cpp_source.html#l00122">122</a> of file <a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="ae949ddd05ce13f159849ff094a22ac7c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem2D::_airDrag = 0.999f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>air drag </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00296">296</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae254a4c79f0d01f6b53b06cb5809eedd"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iParticleSystem2D::_done = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>if true particle system has stopped and does not emitt particles enymore </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00334">334</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="acfb3162bba9e5a6e21cf1529bff8dced"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32 Igor::iParticleSystem2D::_emitRate = 1</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>emittion rate per iteration </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00308">308</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ade3a0977e59b13257445eb4858c3ce30"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a5c88a439642e5787115c367573a85025">iaVector2f</a> Igor::iParticleSystem2D::_emitterPos = { 0.0f, 0.0f }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>emitter position </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00300">300</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aacae727dcede07c41ef94bdcd6d479fa"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#a5baaffb3c744e70fd01650ed047f776f">iEmitterType</a> Igor::iParticleSystem2D::_emitterType = <a class="el" href="namespace_igor.html#a5baaffb3c744e70fd01650ed047f776fafd2ee4d096558d0dde554c433956460c">iEmitterType::PointEmitter</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>emitter type </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00326">326</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a00b626813acdaa4364a1e9391c20a367"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a5c88a439642e5787115c367573a85025">iaVector2f</a> Igor::iParticleSystem2D::_externalForce = { 0.0f, 0.0f }</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>gravitation </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00288">288</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a56bac9b5057da8e0bfc7214a8c697c0d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a5c88a439642e5787115c367573a85025">iaVector2f</a> Igor::iParticleSystem2D::_initialVelocity = {0.0f, 1.0f}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>initial velocity </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00292">292</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a067c097b70b4df5b8483c5508ce55c1b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem2D::_lifeDelta = 0.01f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>life delta reducing particles life every iteration </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00280">280</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac6d0e3b7c9a0a7317be980f264f2fef2"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32 Igor::iParticleSystem2D::_maxParticleCount = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>maximum particle count </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00316">316</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6c2e3810a346714ab851cd9aeaf47955"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem2D::_maxRotation = 0.0f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>max rotation (orientation) during creation </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00268">268</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2799b5565bc30e78f37c335cc0e76840"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem2D::_maxRotationDelta = 0.0f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>max rotation speed of particle during lifetime </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00276">276</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa0069ca2d912616ac1f9837c1a3ed50c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem2D::_maxSize = 10.0f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>max size of particle during creation </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00252">252</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa1ae37b632929080a14a05313cbe588c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem2D::_maxSizeDelta = 0.0f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>max size change of particle during lifetime </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00260">260</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5dc1701110ff1ac7613ab8aae468ebe1"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem2D::_minRotation = 0.0f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>min rotation (orientation) during creation </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00264">264</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4c3c3291fd23d2c0647d2703f56d721f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem2D::_minRotationDelta = 0.0f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>min rotation speed of particle during lifetime </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00272">272</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2d8879d89cd45cc2a5953b29db063888"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem2D::_minSize = 10.0f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>min size of particle during creation </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00248">248</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ada60f785e7a79ef9b0e03c8325b340d6"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem2D::_minSizeDelta = 0.0f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>min size change of particle during lifetime </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00256">256</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae1dd49041357c2636b2e48f6d208c50a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32 Igor::iParticleSystem2D::_particleCount = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current particle count in buffer</p>
-<p>can not be greater than _maxParticleCount </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00322">322</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a04a1b126c1bbcd96fd592d264db8579e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32 Igor::iParticleSystem2D::_particleLifeTime = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the particle lifetime in frames </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00284">284</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7ea832945bbc28e248b41299ed690eda"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_particle2_d.html">iParticle2D</a>* Igor::iParticleSystem2D::_particles = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of particles </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00330">330</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a18a6c690798e6088b55937b25e163841"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_random_number_generator.html">iaRandomNumberGenerator</a> Igor::iParticleSystem2D::_rand</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>random number generator </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00338">338</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a75157cd710ea1f9b48997724f165d93a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iParticleSystem2D::_rebirth = true</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>if particles are reused after their lifes end </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00312">312</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a47f8979f0697ea2d73f4f56d50bccf50"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iParticleSystem2D::_spreadFactor = 0.0f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>spread factor </p>
-
-<p>Definition at line <a class="el" href="i_particle_system2_d_8h_source.html#l00304">304</a> of file <a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_particle_system2_d_8h_source.html">iParticleSystem2D.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_particle_system2_d_8cpp_source.html">iParticleSystem2D.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_particle_system2_d_8h.html">iParticleSystem2D.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_particle_system2_d_8cpp.html">iParticleSystem2D.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -1402,7 +716,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_particle_system2_d.html">iParticleSystem2D</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:57 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

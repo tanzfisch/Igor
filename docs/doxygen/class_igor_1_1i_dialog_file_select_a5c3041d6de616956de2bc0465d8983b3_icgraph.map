@@ -1,6 +1,0 @@
-<map id="Igor::iDialogFileSelect::load" name="Igor::iDialogFileSelect::load">
-<area shape="rect" id="node2" href="$class_igor_1_1i_user_control_file_chooser.html#abf208141bc278147ca8d87af84f4315d" title="Igor::iUserControlFileChooser\l::onFileSelectButtonPressed" alt="" coords="201,5,392,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_user_control_file_chooser.html#acbdcb369d7f6dabea5fe1a039319b271" title="Igor::iUserControlFileChooser\l::initGUI" alt="" coords="440,5,631,47"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_user_control_file_chooser.html#a5d8f62c79b5df55c4f6c9ad6b1ed52c7" title="Igor::iUserControlFileChooser\l::iUserControlFileChooser" alt="" coords="679,5,869,47"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_user_control_file_chooser.html#a6e0a7af39998d6e3dfb1f24ae499fa03" title="Igor::iUserControlFileChooser\l::createInstance" alt="" coords="917,5,1108,47"/>
-</map>

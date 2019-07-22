@@ -1,8 +1,0 @@
-<map id="Igor::iNode::getInfo" name="Igor::iNode::getInfo">
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_string.html#ad733ce0b92ae32cdb253e4fa0ad85e3f" title="IgorAux::iaString::\lgetSubString" alt="" coords="193,37,319,79"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node.html#a301e06e0e55d6ca93fc64fe44c3ed8bd" title="Igor::iNode::getName" alt="" coords="184,103,328,130"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_node.html#a865efb791b77d29bb489514326037380" title="Igor::iNode::getID" alt="" coords="195,154,317,181"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_node.html#a4352c1e232f3776538387f926abd5b87" title="Igor::iNode::isActive" alt="" coords="187,205,325,231"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_string.html#affa8c96a2d7340a79b9e97d84e2585a4" title="IgorAux::iaString::\liaString" alt="" coords="376,5,503,47"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html#a527c422c83c563c834a12548728e625d" title="IgorAux::iaString::\lgetData" alt="" coords="376,71,503,112"/>
-</map>

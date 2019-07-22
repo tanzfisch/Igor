@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,8 +111,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_key_code_map.html','')
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_key_code_map-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -120,19 +118,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_key_code_map.html','')
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_key_code_map_8h_source.html">iKeyCodeMap.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iKeyCodeMap:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_key_code_map__inherit__graph.svg" width="206" height="218"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iKeyCodeMap:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_key_code_map__coll__graph.svg" width="434" height="231"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iKeyCodeMap.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iKeyCodeMap &gt;</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -140,18 +128,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a072e86ff8d9d68460620789d0155a8f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8fe9e9df19d07a5cc022f77ad60effe4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_key_code_map.html#a8fe9e9df19d07a5cc022f77ad60effe4">getKeyCode</a> (const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;keyname) const </td></tr>
 <tr class="separator:a8fe9e9df19d07a5cc022f77ad60effe4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ad7561aacc3c6636469e932d302e50dce"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_key_code_map.html#ad7561aacc3c6636469e932d302e50dce">iKeyCodeMap</a> ()</td></tr>
-<tr class="separator:ad7561aacc3c6636469e932d302e50dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a174357f299405b60946ab658a23b51c1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_key_code_map.html#a174357f299405b60946ab658a23b51c1">~iKeyCodeMap</a> ()</td></tr>
-<tr class="separator:a174357f299405b60946ab658a23b51c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:acf294ad7e667596834368db4ab1a5909"><td class="memItemLeft" align="right" valign="top">map&lt; <a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a>, <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_key_code_map.html#acf294ad7e667596834368db4ab1a5909">_keyNames</a></td></tr>
-<tr class="separator:acf294ad7e667596834368db4ab1a5909"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -180,64 +156,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>key code map (Singleton) </p>
-
-<p>Definition at line <a class="el" href="i_key_code_map_8h_source.html#l00182">182</a> of file <a class="el" href="i_key_code_map_8h_source.html">iKeyCodeMap.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="ad7561aacc3c6636469e932d302e50dce"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iKeyCodeMap::iKeyCodeMap </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>ctor</p>
-<p>initializes key maps </p>
-
-<p>Definition at line <a class="el" href="i_key_code_map_8cpp_source.html#l00010">10</a> of file <a class="el" href="i_key_code_map_8cpp_source.html">iKeyCodeMap.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a174357f299405b60946ab658a23b51c1"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iKeyCodeMap::~iKeyCodeMap </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>dtor</p>
-<p>does nothing </p>
-
-<p>Definition at line <a class="el" href="i_key_code_map_8cpp_source.html#l00145">145</a> of file <a class="el" href="i_key_code_map_8cpp_source.html">iKeyCodeMap.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a8fe9e9df19d07a5cc022f77ad60effe4"></a>
 <div class="memitem">
 <div class="memproto">
@@ -259,9 +178,6 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>key code </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000012">Todo:</a></b></dt><dd>maybe an oprtunity to try out lamda expression?! </dd></dl>
-
-<p>Definition at line <a class="el" href="i_key_code_map_8cpp_source.html#l00155">155</a> of file <a class="el" href="i_key_code_map_8cpp_source.html">iKeyCodeMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -287,8 +203,6 @@ Additional Inherited Members</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>key name </dd></dl>
 
-<p>Definition at line <a class="el" href="i_key_code_map_8cpp_source.html#l00150">150</a> of file <a class="el" href="i_key_code_map_8cpp_source.html">iKeyCodeMap.cpp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -310,37 +224,11 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_key_code_map_8h_source.html#l00184">184</a> of file <a class="el" href="i_key_code_map_8h_source.html">iKeyCodeMap.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="acf294ad7e667596834368db4ab1a5909"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;<a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a>, <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&gt; Igor::iKeyCodeMap::_keyNames</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>map from code to iaString </p>
-
-<p>Definition at line <a class="el" href="i_key_code_map_8h_source.html#l00190">190</a> of file <a class="el" href="i_key_code_map_8h_source.html">iKeyCodeMap.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_key_code_map_8h_source.html">iKeyCodeMap.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_key_code_map_8cpp_source.html">iKeyCodeMap.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_key_code_map_8h.html">iKeyCodeMap.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_key_code_map_8cpp.html">iKeyCodeMap.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -349,7 +237,7 @@ Additional Inherited Members</h2></td></tr>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_key_code_map.html">iKeyCodeMap</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:47 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

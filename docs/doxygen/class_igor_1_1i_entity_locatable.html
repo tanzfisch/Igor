@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,7 +112,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_entity_locatable.html'
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_entity_locatable-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -120,19 +119,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_entity_locatable.html'
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_entity_locatable_8h_source.html">iEntityLocatable.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iEntityLocatable:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_entity_locatable__inherit__graph.svg" width="155" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iEntityLocatable:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_entity_locatable__coll__graph.svg" width="415" height="451"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iEntityLocatable.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_1_1i_entity.html">Igor::iEntity</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -159,11 +148,6 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a7ee69c0b75261f492941d9429f53fe33"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespace_igor_aux.html#ac312fcf0af77ec8167e9e30b01c0de54">iaVector3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_entity_locatable.html#a7ee69c0b75261f492941d9429f53fe33">getCurrentPos</a> ()=0</td></tr>
 <tr class="separator:a7ee69c0b75261f492941d9429f53fe33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a6f52f78f45f7a5fb56a38419a4481ce7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a53998b2091175c6225d214d1cf48c34a">iSphered</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_entity_locatable.html#a6f52f78f45f7a5fb56a38419a4481ce7">_sphere</a></td></tr>
-<tr class="separator:a6f52f78f45f7a5fb56a38419a4481ce7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a4d75f11b7e88aff423c3f080f635b1f7"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_entity_locatable.html#a4d75f11b7e88aff423c3f080f635b1f7">iEntityManager</a></td></tr>
@@ -180,8 +164,6 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>enetity that can be located by it's position </p>
-
-<p>Definition at line <a class="el" href="i_entity_locatable_8h_source.html#l00043">43</a> of file <a class="el" href="i_entity_locatable_8h_source.html">iEntityLocatable.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aac06c06b03fa79ff6aa3e15d997b6915"></a>
 <div class="memitem">
@@ -196,8 +178,6 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>init type </p>
-
-<p>Definition at line <a class="el" href="i_entity_locatable_8cpp_source.html#l00009">9</a> of file <a class="el" href="i_entity_locatable_8cpp_source.html">iEntityLocatable.cpp</a>.</p>
 
 </div>
 </div>
@@ -248,14 +228,6 @@ Additional Inherited Members</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>current position </dd></dl>
 
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_entity_locatable_a7ee69c0b75261f492941d9429f53fe33_icgraph.svg" width="342" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="af74654af9a68643edff6b90ca8ca4f63"></a>
@@ -271,8 +243,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>current position sphere of entity </dd></dl>
-
-<p>Definition at line <a class="el" href="i_entity_locatable_8cpp_source.html#l00014">14</a> of file <a class="el" href="i_entity_locatable_8cpp_source.html">iEntityLocatable.cpp</a>.</p>
 
 </div>
 </div>
@@ -300,14 +270,6 @@ Here is the caller graph for this function:</div>
 
 <p>Implements <a class="el" href="class_igor_1_1i_entity.html#a7e451738d0e8c927f625d9ecdf659f38">Igor::iEntity</a>.</p>
 
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_entity_locatable_a83f7e8d533c25fa1f37b25d7d7d36eb0_icgraph.svg" width="342" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -330,37 +292,11 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>so we can manipulate the sphere </p>
 
-<p>Definition at line <a class="el" href="i_entity_locatable_8h_source.html#l00048">48</a> of file <a class="el" href="i_entity_locatable_8h_source.html">iEntityLocatable.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a6f52f78f45f7a5fb56a38419a4481ce7"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#a53998b2091175c6225d214d1cf48c34a">iSphered</a> Igor::iEntityLocatable::_sphere</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>position sphere </p>
-
-<p>Definition at line <a class="el" href="i_entity_locatable_8h_source.html#l00078">78</a> of file <a class="el" href="i_entity_locatable_8h_source.html">iEntityLocatable.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_entity_locatable_8h_source.html">iEntityLocatable.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_entity_locatable_8cpp_source.html">iEntityLocatable.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_entity_locatable_8h.html">iEntityLocatable.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_entity_locatable_8cpp.html">iEntityLocatable.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -369,7 +305,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_entity_locatable.html">iEntityLocatable</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:46 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

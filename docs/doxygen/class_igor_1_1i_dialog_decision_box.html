@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,9 +111,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_dialog_decision_box.ht
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_dialog_decision_box-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -121,19 +118,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_dialog_decision_box.ht
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_dialog_decision_box_8h_source.html">iDialogDecisionBox.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iDialogDecisionBox:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_dialog_decision_box__inherit__graph.svg" width="174" height="187"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iDialogDecisionBox:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_dialog_decision_box__coll__graph.svg" width="1007" height="292"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iDialogDecisionBox.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_1_1i_dialog.html">Igor::iDialog</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -281,53 +268,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae90952df44930ba274cdf487153cec4b inherit pub_methods_class_igor_1_1i_widget"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget.html#ae90952df44930ba274cdf487153cec4b">getTooltip</a> () const </td></tr>
 <tr class="separator:ae90952df44930ba274cdf487153cec4b inherit pub_methods_class_igor_1_1i_widget"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a4f0b681adbd3ac88220c6eac23469f46"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_decision_box.html#a4f0b681adbd3ac88220c6eac23469f46">onOK</a> (<a class="el" href="class_igor_1_1i_widget.html">iWidget</a> *source)</td></tr>
-<tr class="separator:a4f0b681adbd3ac88220c6eac23469f46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af331c9d16bed1f6044c841182a0e1f4b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_decision_box.html#af331c9d16bed1f6044c841182a0e1f4b">onCancel</a> (<a class="el" href="class_igor_1_1i_widget.html">iWidget</a> *source)</td></tr>
-<tr class="separator:af331c9d16bed1f6044c841182a0e1f4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89affdbada753d3597e700a12b8b9b33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_decision_box.html#a89affdbada753d3597e700a12b8b9b33">close</a> ()</td></tr>
-<tr class="separator:a89affdbada753d3597e700a12b8b9b33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a29e9baf28d70fd5f6fb949381a4c4332"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_decision_box.html#a29e9baf28d70fd5f6fb949381a4c4332">deinitGUI</a> ()</td></tr>
-<tr class="separator:a29e9baf28d70fd5f6fb949381a4c4332"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab9a09bce5317f878ce6d595c4e0c7a2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_decision_box.html#aab9a09bce5317f878ce6d595c4e0c7a2">iDialogDecisionBox</a> ()=default</td></tr>
-<tr class="separator:aab9a09bce5317f878ce6d595c4e0c7a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64d3479e914fca8787b36a8392b22172"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_decision_box.html#a64d3479e914fca8787b36a8392b22172">~iDialogDecisionBox</a> ()</td></tr>
-<tr class="separator:a64d3479e914fca8787b36a8392b22172"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
-Static Private Member Functions</h2></td></tr>
-<tr class="memitem:a8c22fd2dc6b661a3f35aab1ca9c4e213"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_igor_1_1i_dialog.html">iDialog</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_decision_box.html#a8c22fd2dc6b661a3f35aab1ca9c4e213">createInstance</a> ()</td></tr>
-<tr class="separator:a8c22fd2dc6b661a3f35aab1ca9c4e213"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a224b7dac64982afd3b7e90ddb748f6e1"><td class="memItemLeft" align="right" valign="top">iDecisionBoxCloseEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_decision_box.html#a224b7dac64982afd3b7e90ddb748f6e1">_decisionBoxCloseEvent</a></td></tr>
-<tr class="separator:a224b7dac64982afd3b7e90ddb748f6e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ce7269ce2f45d3b0e54fae4fdc1c727"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_decision_box.html#a0ce7269ce2f45d3b0e54fae4fdc1c727">_selection</a> = -1</td></tr>
-<tr class="separator:a0ce7269ce2f45d3b0e54fae4fdc1c727"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af56b5db725aecb1d53417fba141dd7bf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_widget_button.html">iWidgetButton</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_decision_box.html#af56b5db725aecb1d53417fba141dd7bf">_okButton</a> = nullptr</td></tr>
-<tr class="separator:af56b5db725aecb1d53417fba141dd7bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a6f738d123544e5c3eaa58929b18557"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_widget_button.html">iWidgetButton</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_decision_box.html#a3a6f738d123544e5c3eaa58929b18557">_cancelButton</a> = nullptr</td></tr>
-<tr class="separator:a3a6f738d123544e5c3eaa58929b18557"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e333be4e63baada68825b67efcf12b2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_widget_spacer.html">iWidgetSpacer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_decision_box.html#a7e333be4e63baada68825b67efcf12b2">_spacerLineTop</a> = nullptr</td></tr>
-<tr class="separator:a7e333be4e63baada68825b67efcf12b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0514ff59548b35a1247663554770aca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_widget_spacer.html">iWidgetSpacer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_decision_box.html#ad0514ff59548b35a1247663554770aca">_spacerLineBottom</a> = nullptr</td></tr>
-<tr class="separator:ad0514ff59548b35a1247663554770aca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50bbf9005a00600ef27203216e5309a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_widget_spacer.html">iWidgetSpacer</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_decision_box.html#a50bbf9005a00600ef27203216e5309a7">_spacerLittle</a> = nullptr</td></tr>
-<tr class="separator:a50bbf9005a00600ef27203216e5309a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f8a389f6e455d7ed808ad4511bc63b8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_widget_grid.html">iWidgetGrid</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_decision_box.html#a2f8a389f6e455d7ed808ad4511bc63b8">_grid</a> = nullptr</td></tr>
-<tr class="separator:a2f8a389f6e455d7ed808ad4511bc63b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a13230af2125c8c67dd9435bd9f218f29"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_widget_grid.html">iWidgetGrid</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_decision_box.html#a13230af2125c8c67dd9435bd9f218f29">_buttonGrid</a> = nullptr</td></tr>
-<tr class="separator:a13230af2125c8c67dd9435bd9f218f29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c259fc8873baca06ba6a72415196ce3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_widget_grid.html">iWidgetGrid</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_decision_box.html#a9c259fc8873baca06ba6a72415196ce3">_radioGrid</a> = nullptr</td></tr>
-<tr class="separator:a9c259fc8873baca06ba6a72415196ce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05a5e543b70587d4da00b741944ae46b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_widget_label.html">iWidgetLabel</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_decision_box.html#a05a5e543b70587d4da00b741944ae46b">_messageLabel</a> = nullptr</td></tr>
-<tr class="separator:a05a5e543b70587d4da00b741944ae46b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96f58bd17af45c0cb82ddbc70145b4c3"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_igor_1_1i_widget_check_box.html">iWidgetCheckBox</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_decision_box.html#a96f58bd17af45c0cb82ddbc70145b4c3">_radioButtons</a></td></tr>
-<tr class="separator:a96f58bd17af45c0cb82ddbc70145b4c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a9da20b1c56a70b01ca0ef56f4d4d47fc"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_decision_box.html#a9da20b1c56a70b01ca0ef56f4d4d47fc">iWidgetManager</a></td></tr>
@@ -427,205 +367,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>the decision box dialog </p>
-
-<p>Definition at line <a class="el" href="i_dialog_decision_box_8h_source.html#l00054">54</a> of file <a class="el" href="i_dialog_decision_box_8h_source.html">iDialogDecisionBox.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="aab9a09bce5317f878ce6d595c4e0c7a2"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iDialogDecisionBox::iDialogDecisionBox </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>does nothing </p>
-
-</div>
-</div>
-<a class="anchor" id="a64d3479e914fca8787b36a8392b22172"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iDialogDecisionBox::~iDialogDecisionBox </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>deinitializes gui </p>
-
-<p>Definition at line <a class="el" href="i_dialog_decision_box_8cpp_source.html#l00022">22</a> of file <a class="el" href="i_dialog_decision_box_8cpp_source.html">iDialogDecisionBox.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a89affdbada753d3597e700a12b8b9b33"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iDialogDecisionBox::close </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>closes the dialog and sends closed event</p>
-<p>will be triggered by any button </p>
-
-<p>Definition at line <a class="el" href="i_dialog_decision_box_8cpp_source.html#l00205">205</a> of file <a class="el" href="i_dialog_decision_box_8cpp_source.html">iDialogDecisionBox.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a8c22fd2dc6b661a3f35aab1ca9c4e213"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_dialog.html">iDialog</a> * Igor::iDialogDecisionBox::createInstance </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>creates instance of this widget type </p>
-
-<p>Definition at line <a class="el" href="i_dialog_decision_box_8cpp_source.html#l00027">27</a> of file <a class="el" href="i_dialog_decision_box_8cpp_source.html">iDialogDecisionBox.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a29e9baf28d70fd5f6fb949381a4c4332"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iDialogDecisionBox::deinitGUI </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>deinitializes the gui elements </p>
-
-<p>Definition at line <a class="el" href="i_dialog_decision_box_8cpp_source.html#l00032">32</a> of file <a class="el" href="i_dialog_decision_box_8cpp_source.html">iDialogDecisionBox.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af331c9d16bed1f6044c841182a0e1f4b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iDialogDecisionBox::onCancel </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_widget.html">iWidget</a> *&#160;</td>
-          <td class="paramname"><em>source</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handles cancel button clicked event</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">source</td><td>the cancel button it self </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_dialog_decision_box_8cpp_source.html#l00197">197</a> of file <a class="el" href="i_dialog_decision_box_8cpp_source.html">iDialogDecisionBox.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4f0b681adbd3ac88220c6eac23469f46"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iDialogDecisionBox::onOK </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_widget.html">iWidget</a> *&#160;</td>
-          <td class="paramname"><em>source</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handles ok button clicked event</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">source</td><td>the ok button it self </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_dialog_decision_box_8cpp_source.html#l00171">171</a> of file <a class="el" href="i_dialog_decision_box_8cpp_source.html">iDialogDecisionBox.cpp</a>.</p>
-
-</div>
-</div>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a86e1dc62325ecff2153ea397aef7ca26"></a>
 <div class="memitem">
 <div class="memproto">
@@ -672,24 +414,6 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_dialog_decision_box_8cpp_source.html#l00088">88</a> of file <a class="el" href="i_dialog_decision_box_8cpp_source.html">iDialogDecisionBox.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_dialog_decision_box_a86e1dc62325ecff2153ea397aef7ca26_cgraph.svg" width="400" height="496"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_dialog_decision_box_a86e1dc62325ecff2153ea397aef7ca26_icgraph.svg" width="632" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -711,289 +435,11 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_dialog_decision_box_8h_source.html#l00057">57</a> of file <a class="el" href="i_dialog_decision_box_8h_source.html">iDialogDecisionBox.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a13230af2125c8c67dd9435bd9f218f29"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_widget_grid.html">iWidgetGrid</a>* Igor::iDialogDecisionBox::_buttonGrid = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>grid for the buttons </p>
-
-<p>Definition at line <a class="el" href="i_dialog_decision_box_8h_source.html#l00106">106</a> of file <a class="el" href="i_dialog_decision_box_8h_source.html">iDialogDecisionBox.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3a6f738d123544e5c3eaa58929b18557"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_widget_button.html">iWidgetButton</a>* Igor::iDialogDecisionBox::_cancelButton = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the cancel button </p>
-
-<p>Definition at line <a class="el" href="i_dialog_decision_box_8h_source.html#l00086">86</a> of file <a class="el" href="i_dialog_decision_box_8h_source.html">iDialogDecisionBox.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a224b7dac64982afd3b7e90ddb748f6e1"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iDecisionBoxCloseEvent Igor::iDialogDecisionBox::_decisionBoxCloseEvent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the close event </p>
-
-<p>Definition at line <a class="el" href="i_dialog_decision_box_8h_source.html#l00074">74</a> of file <a class="el" href="i_dialog_decision_box_8h_source.html">iDialogDecisionBox.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2f8a389f6e455d7ed808ad4511bc63b8"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_widget_grid.html">iWidgetGrid</a>* Igor::iDialogDecisionBox::_grid = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>over all grid </p>
-
-<p>Definition at line <a class="el" href="i_dialog_decision_box_8h_source.html#l00102">102</a> of file <a class="el" href="i_dialog_decision_box_8h_source.html">iDialogDecisionBox.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a05a5e543b70587d4da00b741944ae46b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_widget_label.html">iWidgetLabel</a>* Igor::iDialogDecisionBox::_messageLabel = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>label for the message text </p>
-
-<p>Definition at line <a class="el" href="i_dialog_decision_box_8h_source.html#l00114">114</a> of file <a class="el" href="i_dialog_decision_box_8h_source.html">iDialogDecisionBox.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af56b5db725aecb1d53417fba141dd7bf"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_widget_button.html">iWidgetButton</a>* Igor::iDialogDecisionBox::_okButton = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the ok button </p>
-
-<p>Definition at line <a class="el" href="i_dialog_decision_box_8h_source.html#l00082">82</a> of file <a class="el" href="i_dialog_decision_box_8h_source.html">iDialogDecisionBox.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a96f58bd17af45c0cb82ddbc70145b4c3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="class_igor_1_1i_widget_check_box.html">iWidgetCheckBox</a>*&gt; Igor::iDialogDecisionBox::_radioButtons</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_dialog_decision_box_8h_source.html#l00116">116</a> of file <a class="el" href="i_dialog_decision_box_8h_source.html">iDialogDecisionBox.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9c259fc8873baca06ba6a72415196ce3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_widget_grid.html">iWidgetGrid</a>* Igor::iDialogDecisionBox::_radioGrid = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>grid for radio buttons </p>
-
-<p>Definition at line <a class="el" href="i_dialog_decision_box_8h_source.html#l00110">110</a> of file <a class="el" href="i_dialog_decision_box_8h_source.html">iDialogDecisionBox.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a0ce7269ce2f45d3b0e54fae4fdc1c727"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32 Igor::iDialogDecisionBox::_selection = -1</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the selesction made by the user </p>
-
-<p>Definition at line <a class="el" href="i_dialog_decision_box_8h_source.html#l00078">78</a> of file <a class="el" href="i_dialog_decision_box_8h_source.html">iDialogDecisionBox.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad0514ff59548b35a1247663554770aca"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_widget_spacer.html">iWidgetSpacer</a>* Igor::iDialogDecisionBox::_spacerLineBottom = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>a spacer line </p>
-
-<p>Definition at line <a class="el" href="i_dialog_decision_box_8h_source.html#l00094">94</a> of file <a class="el" href="i_dialog_decision_box_8h_source.html">iDialogDecisionBox.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7e333be4e63baada68825b67efcf12b2"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_widget_spacer.html">iWidgetSpacer</a>* Igor::iDialogDecisionBox::_spacerLineTop = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>a spacer line </p>
-
-<p>Definition at line <a class="el" href="i_dialog_decision_box_8h_source.html#l00090">90</a> of file <a class="el" href="i_dialog_decision_box_8h_source.html">iDialogDecisionBox.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a50bbf9005a00600ef27203216e5309a7"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_widget_spacer.html">iWidgetSpacer</a>* Igor::iDialogDecisionBox::_spacerLittle = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>an other spacer </p>
-
-<p>Definition at line <a class="el" href="i_dialog_decision_box_8h_source.html#l00098">98</a> of file <a class="el" href="i_dialog_decision_box_8h_source.html">iDialogDecisionBox.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_dialog_decision_box_8h_source.html">iDialogDecisionBox.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_dialog_decision_box_8cpp_source.html">iDialogDecisionBox.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_dialog_decision_box_8h.html">iDialogDecisionBox.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_dialog_decision_box_8cpp.html">iDialogDecisionBox.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -1002,7 +448,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_dialog_decision_box.html">iDialogDecisionBox</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:45 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

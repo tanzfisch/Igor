@@ -3,7 +3,6 @@ var class_igor_1_1i_voxel_data =
     [ "iVoxelData", "class_igor_1_1i_voxel_data.html#a61625945df6afab0b050f7a2d86c2d4a", null ],
     [ "~iVoxelData", "class_igor_1_1i_voxel_data.html#a05fd3cba8e26d47c9bafc9962532f34f", null ],
     [ "clear", "class_igor_1_1i_voxel_data.html#ac80b3e4330cec2f6c0785d3e251b58c2", null ],
-    [ "freeMemory", "class_igor_1_1i_voxel_data.html#a36c991837801b1ebda0a79f68466523f", null ],
     [ "getClearValue", "class_igor_1_1i_voxel_data.html#a10db0b44acf15339abfa9967a86694cc", null ],
     [ "getCopy", "class_igor_1_1i_voxel_data.html#ae88e8a9001e989304359d6f464767422", null ],
     [ "getDensityPole", "class_igor_1_1i_voxel_data.html#a462e1f1d57ecd8ba5c9d097a5f8b9590", null ],
@@ -21,11 +20,5 @@ var class_igor_1_1i_voxel_data =
     [ "setVoxelDensity", "class_igor_1_1i_voxel_data.html#a47e657ac23a2e3caf4d74c944ac69caf", null ],
     [ "setVoxelLine", "class_igor_1_1i_voxel_data.html#a2a975bb1de2d0e3bf0666f7b9b330e74", null ],
     [ "setVoxelMaterial", "class_igor_1_1i_voxel_data.html#a8f5dbe04729f43f9c65acf0590c06f74", null ],
-    [ "setVoxelPole", "class_igor_1_1i_voxel_data.html#ab488f6cdadf6c103cf02fdcf838df3a7", null ],
-    [ "_clearValue", "class_igor_1_1i_voxel_data.html#a5e7c2b7e71541d09a501fd04a7ea12dc", null ],
-    [ "_data", "class_igor_1_1i_voxel_data.html#a659e256efc17d84dbe62f0929a597147", null ],
-    [ "_depth", "class_igor_1_1i_voxel_data.html#aaa398b70e7731062febfb0821eddfd65", null ],
-    [ "_height", "class_igor_1_1i_voxel_data.html#acc5aa114b1b1024fe16f347ebf17ddf8", null ],
-    [ "_nonSolidValue", "class_igor_1_1i_voxel_data.html#a23d395e782acf627206cd26aed3cf875", null ],
-    [ "_width", "class_igor_1_1i_voxel_data.html#a8242813f5d2821718006a56b1827cc34", null ]
+    [ "setVoxelPole", "class_igor_1_1i_voxel_data.html#ab488f6cdadf6c103cf02fdcf838df3a7", null ]
 ];

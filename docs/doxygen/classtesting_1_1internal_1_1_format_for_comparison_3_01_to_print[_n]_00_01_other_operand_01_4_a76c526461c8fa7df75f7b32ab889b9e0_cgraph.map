@@ -1,9 +1,0 @@
-<map id="testing::internal::FormatForComparison&lt; ToPrint[N], OtherOperand &gt;::Format" name="testing::internal::FormatForComparison&lt; ToPrint[N], OtherOperand &gt;::Format">
-<area shape="rect" id="node2" href="$classtesting_1_1internal_1_1_format_for_comparison.html#a2aeb688fc55b57abd3021d82eccad896" title="testing::internal::\lFormatForComparison\l::Format" alt="" coords="235,27,385,83"/>
-<area shape="rect" id="node3" href="$namespacetesting.html#aa5717bb1144edd1d262d310ba70c82ed" title="testing::PrintToString" alt="" coords="433,42,577,69"/>
-<area shape="rect" id="node4" href="$classtesting_1_1internal_1_1_universal_terse_printer.html#a2e16ee42c9b18fca397cd95f32e8e879" title="testing::internal::\lUniversalTersePrinter\l::Print" alt="" coords="625,27,769,83"/>
-<area shape="rect" id="node5" href="$namespacetesting_1_1internal.html#ad121a890bddf866e59605d1a0198dada" title="testing::internal::\lUniversalPrint" alt="" coords="817,35,936,76"/>
-<area shape="rect" id="node6" href="$singletontesting_1_1internal_1_1_universal_printer.html#a6a7d29444412467c14931bc55a046138" title="testing::internal::\lUniversalPrinter::Print" alt="" coords="984,5,1131,47"/>
-<area shape="rect" id="node7" href="$namespacetesting_1_1internal.html#a46859938b459a1581ec760755bc81fc7" title="testing::internal::\lPrintTo" alt="" coords="1179,5,1297,47"/>
-<area shape="rect" id="node8" href="$namespacetesting_1_1internal.html#a44574d3f9531903e4e80a4a10f2b83a9" title="testing::internal::\lDefaultPrintTo" alt="" coords="1345,35,1464,76"/>
-</map>

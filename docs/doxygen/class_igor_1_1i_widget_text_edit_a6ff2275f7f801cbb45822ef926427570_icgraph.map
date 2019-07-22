@@ -1,8 +1,0 @@
-<map id="Igor::iWidgetTextEdit::getText" name="Igor::iWidgetTextEdit::getText">
-<area shape="rect" id="node2" href="$class_igor_1_1i_user_control_file_chooser.html#a385c31c1ecad69cf5bd75e9f8ffe6b96" title="Igor::iUserControlFileChooser\l::onFileLoadDialogClosed" alt="" coords="196,5,387,47"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_user_control_file_chooser.html#ab0fb744bf32fbd2ab518ed98eb70ab83" title="Igor::iUserControlFileChooser\l::getFileName" alt="" coords="196,71,387,112"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_user_control_file_chooser.html#abf208141bc278147ca8d87af84f4315d" title="Igor::iUserControlFileChooser\l::onFileSelectButtonPressed" alt="" coords="435,5,625,47"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_user_control_file_chooser.html#acbdcb369d7f6dabea5fe1a039319b271" title="Igor::iUserControlFileChooser\l::initGUI" alt="" coords="673,5,864,47"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_user_control_file_chooser.html#a5d8f62c79b5df55c4f6c9ad6b1ed52c7" title="Igor::iUserControlFileChooser\l::iUserControlFileChooser" alt="" coords="912,5,1103,47"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_user_control_file_chooser.html#a6e0a7af39998d6e3dfb1f24ae499fa03" title="Igor::iUserControlFileChooser\l::createInstance" alt="" coords="1151,5,1341,47"/>
-</map>

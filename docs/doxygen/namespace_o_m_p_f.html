@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -122,6 +122,8 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_base_chunk.html">ompfBaseChunk</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_m_p_f_1_1_o_m_p_f_default_configuration.html">OMPFDefaultConfiguration</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_emitter_chunk.html">ompfEmitterChunk</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_o_m_p_f_1_1ompf_external_reference_chunk.html">ompfExternalReferenceChunk</a></td></tr>
@@ -145,6 +147,32 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
+<tr class="memitem:ad54e6abd4c23b31d402494f56a0e11b3"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3">OMPFChunkType</a> { <br />
+&#160;&#160;<a class="el" href="namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3a4bbb8f967da6d1a610596d7257179c2b">OMPFChunkType::Invalid</a> = 0x00, 
+<a class="el" href="namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3abf50d5e661106d0abe925af3c2e6f7e7">OMPFChunkType::Header</a> = 0x01, 
+<a class="el" href="namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3a03937134cedab9078be39a77ee3a48a0">OMPFChunkType::Group</a> = 0x02, 
+<a class="el" href="namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3a2ff4148554480a37f85efd299df04850">OMPFChunkType::Transform</a> = 0x03, 
+<br />
+&#160;&#160;<a class="el" href="namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3ab206a1b4ea1097761f78e8876f6da779">OMPFChunkType::External</a> = 0x04, 
+<a class="el" href="namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3ac69e550c1c1878906fbd48688eaa5759">OMPFChunkType::ResourceSearchPath</a> = 0x05, 
+<a class="el" href="namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3a710fdb6adb881b408116ef95335e1961">OMPFChunkType::Mesh</a> = 0x06, 
+<a class="el" href="namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3ad92a8333dd3ccb895cc65f7455b71206">OMPFChunkType::Material</a> = 0x07, 
+<br />
+&#160;&#160;<a class="el" href="namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3a7efb1083296a38495362c24db34212c3">OMPFChunkType::Emitter</a> = 0x08, 
+<a class="el" href="namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3aadc15343652893741ffdfcb27f92e0f8">OMPFChunkType::ParticleSystem</a> = 0x09
+<br />
+ }</td></tr>
+<tr class="separator:ad54e6abd4c23b31d402494f56a0e11b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af15031174ee135f3059a904aa1457a77"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_m_p_f.html#af15031174ee135f3059a904aa1457a77">OMPFPathType</a> { <br />
+&#160;&#160;<a class="el" href="namespace_o_m_p_f.html#af15031174ee135f3059a904aa1457a77a6c85fcc0627acda7913b399d9105ec2c">OMPFPathType::RelativeToModel</a> = 0, 
+<a class="el" href="namespace_o_m_p_f.html#af15031174ee135f3059a904aa1457a77a63412067ca7371642c0b65ff2584526a">OMPFPathType::RelativeToApplication</a> = 1, 
+<a class="el" href="namespace_o_m_p_f.html#af15031174ee135f3059a904aa1457a77abca4037afe966650b855f9782e4d2200">OMPFPathType::RelativeToCurrentDirectory</a> = 2, 
+<a class="el" href="namespace_o_m_p_f.html#af15031174ee135f3059a904aa1457a77ab51ca26c6c89cfc9bec338f7a0d3e0c8">OMPFPathType::Absolute</a> = 3, 
+<br />
+&#160;&#160;<a class="el" href="namespace_o_m_p_f.html#af15031174ee135f3059a904aa1457a77aec0fc0100c4fc1ce4eea230c3dc10360">OMPFPathType::Undefined</a> = 100
+<br />
+ }</td></tr>
+<tr class="separator:af15031174ee135f3059a904aa1457a77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ed34e0ed2ed26033dc32e1d33c18761"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761">OMPFRenderState</a> { <br />
 &#160;&#160;<a class="el" href="namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761a16704bc95ff0bd3291ba157e6f06e0ee">OMPFRenderState::DepthTest</a> = 0x00, 
 <a class="el" href="namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761a718a74a2684bcd2038799efa42367a0d">OMPFRenderState::DepthMask</a> = 0x01, 
@@ -216,12 +244,88 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad4a5b23b455f09039d9746d5184ea34a"><td class="memItemLeft" align="right" valign="top">wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_m_p_f.html#ad4a5b23b455f09039d9746d5184ea34a">operator&lt;&lt;</a> (wostream &amp;stream, const <a class="el" href="ompf_defines_8h.html#a9a1edab516dc52f62789512d1f11903b">OMPFChunkType</a> chunkType)</td></tr>
+<tr class="memitem:ad4a5b23b455f09039d9746d5184ea34a"><td class="memItemLeft" align="right" valign="top">wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_m_p_f.html#ad4a5b23b455f09039d9746d5184ea34a">operator&lt;&lt;</a> (wostream &amp;stream, const <a class="el" href="namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3">OMPFChunkType</a> chunkType)</td></tr>
 <tr class="separator:ad4a5b23b455f09039d9746d5184ea34a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ae7198d6a006ac238afd3512e42e462"><td class="memItemLeft" align="right" valign="top">wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_m_p_f.html#a4ae7198d6a006ac238afd3512e42e462">operator&lt;&lt;</a> (wostream &amp;stream, const <a class="el" href="ompf_defines_8h.html#a7b93f6e2ed614ddc75eb6f7f112e88c8">OMPFPathType</a> pathType)</td></tr>
+<tr class="memitem:a4ae7198d6a006ac238afd3512e42e462"><td class="memItemLeft" align="right" valign="top">wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_o_m_p_f.html#a4ae7198d6a006ac238afd3512e42e462">operator&lt;&lt;</a> (wostream &amp;stream, const <a class="el" href="namespace_o_m_p_f.html#af15031174ee135f3059a904aa1457a77">OMPFPathType</a> pathType)</td></tr>
 <tr class="separator:a4ae7198d6a006ac238afd3512e42e462"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Enumeration Type Documentation</h2>
+<a class="anchor" id="ad54e6abd4c23b31d402494f56a0e11b3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3">OMPF::OMPFChunkType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>ompf chunk types </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="ad54e6abd4c23b31d402494f56a0e11b3a4bbb8f967da6d1a610596d7257179c2b"></a>Invalid&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad54e6abd4c23b31d402494f56a0e11b3abf50d5e661106d0abe925af3c2e6f7e7"></a>Header&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad54e6abd4c23b31d402494f56a0e11b3a03937134cedab9078be39a77ee3a48a0"></a>Group&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad54e6abd4c23b31d402494f56a0e11b3a2ff4148554480a37f85efd299df04850"></a>Transform&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad54e6abd4c23b31d402494f56a0e11b3ab206a1b4ea1097761f78e8876f6da779"></a>External&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad54e6abd4c23b31d402494f56a0e11b3ac69e550c1c1878906fbd48688eaa5759"></a>ResourceSearchPath&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad54e6abd4c23b31d402494f56a0e11b3a710fdb6adb881b408116ef95335e1961"></a>Mesh&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad54e6abd4c23b31d402494f56a0e11b3ad92a8333dd3ccb895cc65f7455b71206"></a>Material&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad54e6abd4c23b31d402494f56a0e11b3a7efb1083296a38495362c24db34212c3"></a>Emitter&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="ad54e6abd4c23b31d402494f56a0e11b3aadc15343652893741ffdfcb27f92e0f8"></a>ParticleSystem&#160;</td><td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
+<a class="anchor" id="af15031174ee135f3059a904aa1457a77"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="namespace_o_m_p_f.html#af15031174ee135f3059a904aa1457a77">OMPF::OMPFPathType</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>ompf path types </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a class="anchor" id="af15031174ee135f3059a904aa1457a77a6c85fcc0627acda7913b399d9105ec2c"></a>RelativeToModel&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="af15031174ee135f3059a904aa1457a77a63412067ca7371642c0b65ff2584526a"></a>RelativeToApplication&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="af15031174ee135f3059a904aa1457a77abca4037afe966650b855f9782e4d2200"></a>RelativeToCurrentDirectory&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="af15031174ee135f3059a904aa1457a77ab51ca26c6c89cfc9bec338f7a0d3e0c8"></a>Absolute&#160;</td><td class="fielddoc">
+</td></tr>
+<tr><td class="fieldname"><a class="anchor" id="af15031174ee135f3059a904aa1457a77aec0fc0100c4fc1ce4eea230c3dc10360"></a>Undefined&#160;</td><td class="fielddoc">
+</td></tr>
+</table>
+
+</div>
+</div>
 <a class="anchor" id="a6ed34e0ed2ed26033dc32e1d33c18761"></a>
 <div class="memitem">
 <div class="memproto">
@@ -280,8 +384,6 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a class="anchor" id="a6ed34e0ed2ed26033dc32e1d33c18761a843af5716ab3065e30d0a4515ad821e2"></a>InstancedFunc&#160;</td><td class="fielddoc">
 </td></tr>
 </table>
-
-<p>Definition at line <a class="el" href="ompf_material_chunk_8h_source.html#l00038">38</a> of file <a class="el" href="ompf_material_chunk_8h_source.html">ompfMaterialChunk.h</a>.</p>
 
 </div>
 </div>
@@ -356,8 +458,6 @@ Functions</h2></td></tr>
 </td></tr>
 </table>
 
-<p>Definition at line <a class="el" href="ompf_material_chunk_8h_source.html#l00063">63</a> of file <a class="el" href="ompf_material_chunk_8h_source.html">ompfMaterialChunk.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a131201e055054ad7a37e5e7550a477c1"></a>
@@ -389,8 +489,6 @@ Functions</h2></td></tr>
 </td></tr>
 </table>
 
-<p>Definition at line <a class="el" href="ompf_material_chunk_8h_source.html#l00094">94</a> of file <a class="el" href="ompf_material_chunk_8h_source.html">ompfMaterialChunk.h</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
@@ -407,7 +505,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="ompf_defines_8h.html#a9a1edab516dc52f62789512d1f11903b">OMPFChunkType</a>&#160;</td>
+          <td class="paramtype">const OMPFChunkType&#160;</td>
           <td class="paramname"><em>chunkType</em>&#160;</td>
         </tr>
         <tr>
@@ -418,7 +516,6 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>stream operator for chunk type</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000122">Todo:</a></b></dt><dd>fix that</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">stream</td><td>the destination </td></tr>
@@ -427,8 +524,6 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the resulting stream </dd></dl>
-
-<p>Definition at line <a class="el" href="ompf_base_chunk_8cpp_source.html#l00212">212</a> of file <a class="el" href="ompf_base_chunk_8cpp_source.html">ompfBaseChunk.cpp</a>.</p>
 
 </div>
 </div>
@@ -445,7 +540,7 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="ompf_defines_8h.html#a7b93f6e2ed614ddc75eb6f7f112e88c8">OMPFPathType</a>&#160;</td>
+          <td class="paramtype">const OMPFPathType&#160;</td>
           <td class="paramname"><em>pathType</em>&#160;</td>
         </tr>
         <tr>
@@ -456,7 +551,6 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>stream operator for chunk type</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000123">Todo:</a></b></dt><dd>fix that</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">stream</td><td>the destination </td></tr>
@@ -465,8 +559,6 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the resulting stream </dd></dl>
-
-<p>Definition at line <a class="el" href="ompf_base_chunk_8cpp_source.html#l00233">233</a> of file <a class="el" href="ompf_base_chunk_8cpp_source.html">ompfBaseChunk.cpp</a>.</p>
 
 </div>
 </div>
@@ -477,7 +569,7 @@ Functions</h2></td></tr>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_o_m_p_f.html">OMPF</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:21 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

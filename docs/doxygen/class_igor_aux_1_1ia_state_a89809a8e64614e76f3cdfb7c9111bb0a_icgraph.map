@@ -1,7 +1,0 @@
-<map id="IgorAux::iaState::enter" name="IgorAux::iaState::enter">
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_state_machine.html#a36f06385262e4b484fb6c4c9dc933a72" title="IgorAux::iaStateMachine\l::enterCurrentState" alt="" coords="205,39,369,80"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_state_machine.html#a57e7a88381461a7b7259c4295de36b98" title="IgorAux::iaStateMachine\l::start" alt="" coords="417,5,581,47"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_state_machine.html#a91361353dc0886f3f7cee450389688f5" title="IgorAux::iaStateMachine\l::transit" alt="" coords="417,71,581,112"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_state_machine.html#ad884bcc26a5262c7c82ca505065be81b" title="IgorAux::iaStateMachine\l::doTransition" alt="" coords="629,37,793,79"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_state_machine.html#a1668769ea8979928f5683742a0515c4c" title="IgorAux::iaStateMachine\l::openGate" alt="" coords="629,103,793,144"/>
-</map>

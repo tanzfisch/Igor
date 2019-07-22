@@ -1,5 +1,0 @@
-<map id="Igor::iDialogMenu::initGUI" name="Igor::iDialogMenu::initGUI">
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget_grid.html#ada59fc39c0e1f9b6b6b1d244b022e4cf" title="Igor::iWidgetGrid::\lappendRows" alt="" coords="210,5,337,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget.html#a74cedb6d5151910c64b7d51491775e9a" title="Igor::iWidget::setHorizontal\lAlignment" alt="" coords="184,71,363,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_widget_label.html#afb5ed8f5da25c0cb45679dd5c8d9f0ac" title="Igor::iWidgetLabel\l::setText" alt="" coords="210,136,337,177"/>
-</map>

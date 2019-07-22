@@ -62,23 +62,23 @@ namespace Igor
 
         /*! initialisation
         */
-        virtual void preTraverse();
+        void preTraverse() override;
 
         /*! calculates transformations and renders bounding boxes
 
         \param node current node
         */
-        virtual bool preOrderVisit(iNodePtr node);
+        bool preOrderVisit(iNodePtr node, iNodePtr nextSibling) override;
 
         /*! restores transformations
 
         \param node current node
         */
-        virtual void postOrderVisit(iNodePtr node);
+        void postOrderVisit(iNodePtr node) override;
 
         /*! does nothing
         */
-        virtual void postTraverse();
+        void postTraverse() override;
 
     private:
 

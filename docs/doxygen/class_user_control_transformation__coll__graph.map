@@ -1,8 +1,0 @@
-<map id="UserControlTransformation" name="UserControlTransformation">
-<area shape="rect" id="node2" href="$class_igor_1_1i_user_control.html" title="Igor::iUserControl" alt="" coords="106,292,229,319"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget.html" title="Igor::iWidget" alt="" coords="164,215,259,241"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_widget_grid.html" title="Igor::iWidgetGrid" alt="" coords="253,292,372,319"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html" title="IgorAux::iaString" alt="" coords="5,109,124,136"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_timer_handle.html" title="Igor::iTimerHandle" alt="" coords="148,109,275,136"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_vector2.html" title="IgorAux::iaVector2\&lt; T \&gt;" alt="" coords="299,109,459,136"/>
-</map>

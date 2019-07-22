@@ -1,9 +1,0 @@
-<map id="Igor::iMouse" name="Igor::iMouse">
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iMouse \&gt;" alt="" coords="124,392,263,433"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_o_s_event_listener.html" title="Igor::iOSEventListener" alt="" coords="457,199,607,225"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_window.html" title="Igor::iWindow" alt="" coords="374,95,474,121"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html" title="IgorAux::iaString" alt="" coords="365,5,483,32"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_mutex.html" title="IgorAux::iaMutex" alt="" coords="103,5,223,32"/>
-<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\&lt; T \&gt;" alt="" coords="78,199,247,225"/>
-<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_vector2.html" title="IgorAux::iaVector2\&lt; T \&gt;" alt="" coords="272,199,432,225"/>
-</map>

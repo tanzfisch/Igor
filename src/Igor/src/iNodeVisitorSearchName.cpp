@@ -20,7 +20,7 @@ namespace Igor
         return _nodeIDs;
     }
 
-    bool iNodeVisitorSearchName::preOrderVisit(iNodePtr node)
+    bool iNodeVisitorSearchName::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
     {
         if (node->getName() == _name)
         {

@@ -1,7 +1,0 @@
-<map id="UserControlMaterial::deinitGUI" name="UserControlMaterial::deinitGUI">
-<area shape="rect" id="node2" href="$class_user_control_material.html#a76eaa8978bc849d6b6d169c1ad332e70" title="UserControlMaterial\l::onDoUpdateMaterial" alt="" coords="223,5,370,47"/>
-<area shape="rect" id="node3" href="$class_user_control_material.html#a75d75ca092eca18d33fbd924df0743a2" title="UserControlMaterial\l::onTextChangedName" alt="" coords="219,71,374,112"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iWidgetManager \&gt;::getInstance" alt="" coords="189,136,404,177"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_widget_manager.html#a0f280e1395cb1fe0af29e3d06beb465f" title="Igor::iWidgetManager\l::destroyWidget" alt="" coords="224,201,369,243"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_widget_manager.html#afd27ed58f6bc204976ec1bcddd5e9ce3" title="Igor::iWidgetManager\l::destroyDialog" alt="" coords="224,267,369,308"/>
-</map>

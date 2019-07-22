@@ -1,5 +1,0 @@
-<map id="IgorAux::iaState::getID" name="IgorAux::iaState::getID">
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_state_machine.html#abd96422aa345dea5863a8e02e9533a41" title="IgorAux::iaStateMachine\l::getCurrentState" alt="" coords="207,5,371,47"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_state_machine.html#a81a2f35a58ce356965154324d4459857" title="IgorAux::iaStateMachine\l::createState" alt="" coords="207,71,371,112"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_state_machine.html#ad884bcc26a5262c7c82ca505065be81b" title="IgorAux::iaStateMachine\l::doTransition" alt="" coords="207,136,371,177"/>
-</map>

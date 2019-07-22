@@ -1,7 +1,0 @@
-<map id="IgorAux::iaStateMachine::getTransition" name="IgorAux::iaStateMachine::getTransition">
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_state_machine.html#a2771557d2697e9e3d0775ac4b37a2d46" title="IgorAux::iaStateMachine\l::createGate" alt="" coords="217,5,381,47"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_state_machine.html#ad884bcc26a5262c7c82ca505065be81b" title="IgorAux::iaStateMachine\l::doTransition" alt="" coords="217,71,381,112"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_state_machine.html#a1668769ea8979928f5683742a0515c4c" title="IgorAux::iaStateMachine\l::openGate" alt="" coords="217,136,381,177"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_state_machine.html#a01f7e44dc1ff2e29bfdf23fb6304e0ad" title="IgorAux::iaStateMachine\l::closeGate" alt="" coords="217,201,381,243"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_state_machine.html#af80990c73cbab58ee164315ced761567" title="IgorAux::iaStateMachine\l::resetGates" alt="" coords="217,267,381,308"/>
-</map>

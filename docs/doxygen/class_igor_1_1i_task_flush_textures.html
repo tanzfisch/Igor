@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -118,19 +118,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_task_flush_textures.ht
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_task_flush_textures_8h_source.html">iTaskFlushTextures.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iTaskFlushTextures:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_flush_textures__inherit__graph.svg" width="175" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iTaskFlushTextures:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_flush_textures__coll__graph.svg" width="278" height="292"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iTaskFlushTextures.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_1_1i_task.html">Igor::iTask</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -184,9 +174,6 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock"><p>this task triggers the texture resource manager flush function repedatly</p>
 <p>when ever there was a texture requested this task get's it actually loaded from disk</p>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="class_igor_1_1i_texture_resource_factory.html">iTextureResourceFactory</a> </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#_a6">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_task_flush_textures_8h_source.html#l00043">43</a> of file <a class="el" href="i_task_flush_textures_8h_source.html">iTaskFlushTextures.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a7a378e27accc9775e9b94749364e0fb1"></a>
 <div class="memitem">
@@ -208,8 +195,6 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_task_flush_textures_8cpp_source.html#l00015">15</a> of file <a class="el" href="i_task_flush_textures_8cpp_source.html">iTaskFlushTextures.cpp</a>.</p>
 
 </div>
 </div>
@@ -262,16 +247,6 @@ Additional Inherited Members</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="class_igor_1_1i_task.html#a46e2bb8270e40d87fbb26188d2fbc016">Igor::iTask</a>.</p>
 
-<p>Definition at line <a class="el" href="i_task_flush_textures_8cpp_source.html#l00025">25</a> of file <a class="el" href="i_task_flush_textures_8cpp_source.html">iTaskFlushTextures.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_flush_textures_aa8c16154edf5e48e3eda5f25ec96ed28_cgraph.svg" width="402" height="168"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a70ca273bd1c45d354555e56d28424f5c"></a>
@@ -298,21 +273,11 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="class_igor_1_1i_task.html#a3d0a70a268a955d2f28700988959f779">Igor::iTask</a>.</p>
 
-<p>Definition at line <a class="el" href="i_task_flush_textures_8cpp_source.html#l00020">20</a> of file <a class="el" href="i_task_flush_textures_8cpp_source.html">iTaskFlushTextures.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_flush_textures_a70ca273bd1c45d354555e56d28424f5c_cgraph.svg" width="428" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_task_flush_textures_8h_source.html">iTaskFlushTextures.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_task_flush_textures_8cpp_source.html">iTaskFlushTextures.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_task_flush_textures_8h.html">iTaskFlushTextures.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_task_flush_textures_8cpp.html">iTaskFlushTextures.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -321,7 +286,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_task_flush_textures.html">iTaskFlushTextures</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:05 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

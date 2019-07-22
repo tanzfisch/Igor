@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -114,8 +114,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_entity.html','');});
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_entity-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -123,19 +121,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_entity.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_entity_8h_source.html">iEntity.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iEntity:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_entity__inherit__graph.svg" width="155" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iEntity:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_entity__coll__graph.svg" width="131" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iEntity.h&gt;</code></p>
+
+<p>Inherited by <a class="el" href="class_igor_1_1i_entity_locatable.html">Igor::iEntityLocatable</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -163,18 +151,6 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a80f38172ff0bf497caacdb637bffd17a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#afc828a8f3a21084387ab5bc734086b17">iEntityType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_entity.html#a80f38172ff0bf497caacdb637bffd17a">_type</a> = <a class="el" href="namespace_igor.html#aea3bcbf77ead77dc7cb855da623738aeaec0fc0100c4fc1ce4eea230c3dc10360">iEntityType::Undefined</a></td></tr>
 <tr class="separator:a80f38172ff0bf497caacdb637bffd17a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a2d7cbe140d877f47f5327a2f4c7980f4"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_entity.html#a2d7cbe140d877f47f5327a2f4c7980f4">_id</a> = 0</td></tr>
-<tr class="separator:a2d7cbe140d877f47f5327a2f4c7980f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
-Static Private Attributes</h2></td></tr>
-<tr class="memitem:a4510bff3ad3aec306fdf2abe60ed15fc"><td class="memItemLeft" align="right" valign="top">static uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_entity.html#a4510bff3ad3aec306fdf2abe60ed15fc">_nextID</a> = <a class="el" href="class_igor_1_1i_entity.html#a32ca8925cd964c4f257c1aae1d9c4837">iEntity::INVALID_ENTITY_ID</a> + 1</td></tr>
-<tr class="separator:a4510bff3ad3aec306fdf2abe60ed15fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8bd13a9ad99d4ba389e5d0ef91c76ab"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_entity.html#ac8bd13a9ad99d4ba389e5d0ef91c76ab">_mutexID</a></td></tr>
-<tr class="separator:ac8bd13a9ad99d4ba389e5d0ef91c76ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a4d75f11b7e88aff423c3f080f635b1f7"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_entity.html#a4d75f11b7e88aff423c3f080f635b1f7">iEntityManager</a></td></tr>
@@ -182,9 +158,6 @@ Friends</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>entity base class </p>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#_a4">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_entity_8h_source.html#l00051">51</a> of file <a class="el" href="i_entity_8h_source.html">iEntity.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a7147c6bc0a704aaae70e0bcc086a7fb8"></a>
 <div class="memitem">
@@ -199,16 +172,6 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>init id and register entity </p>
-
-<p>Definition at line <a class="el" href="i_entity_8cpp_source.html#l00016">16</a> of file <a class="el" href="i_entity_8cpp_source.html">iEntity.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_entity_a7147c6bc0a704aaae70e0bcc086a7fb8_cgraph.svg" width="400" height="155"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -234,16 +197,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>unregister </p>
 
-<p>Definition at line <a class="el" href="i_entity_8cpp_source.html#l00027">27</a> of file <a class="el" href="i_entity_8cpp_source.html">iEntity.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_entity_a6a1f0ec2d91e6a107005e35c9b18e4b1_cgraph.svg" width="408" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
@@ -261,16 +214,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>entity id </dd></dl>
 
-<p>Definition at line <a class="el" href="i_entity_8cpp_source.html#l00032">32</a> of file <a class="el" href="i_entity_8cpp_source.html">iEntity.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_entity_a72f9ae9eabd7e2b4f8d7a10bca8f1168_icgraph.svg" width="324" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a2a55cbe5d11fe0a739643fd6b3353fe6"></a>
@@ -286,8 +229,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>entity type </dd></dl>
-
-<p>Definition at line <a class="el" href="i_entity_8cpp_source.html#l00037">37</a> of file <a class="el" href="i_entity_8cpp_source.html">iEntity.cpp</a>.</p>
 
 </div>
 </div>
@@ -337,80 +278,9 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>so we can call the handle </p>
 
-<p>Definition at line <a class="el" href="i_entity_8h_source.html#l00056">56</a> of file <a class="el" href="i_entity_8h_source.html">iEntity.h</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a2d7cbe140d877f47f5327a2f4c7980f4"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iEntity::_id = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>entity id </p>
-
-<p>Definition at line <a class="el" href="i_entity_8h_source.html#l00094">94</a> of file <a class="el" href="i_entity_8h_source.html">iEntity.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac8bd13a9ad99d4ba389e5d0ef91c76ab"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> Igor::iEntity::_mutexID</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex to protec id generation </p>
-
-<p>Definition at line <a class="el" href="i_entity_8h_source.html#l00102">102</a> of file <a class="el" href="i_entity_8h_source.html">iEntity.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4510bff3ad3aec306fdf2abe60ed15fc"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iEntity::_nextID = <a class="el" href="class_igor_1_1i_entity.html#a32ca8925cd964c4f257c1aae1d9c4837">iEntity::INVALID_ENTITY_ID</a> + 1</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>next entity id </p>
-
-<p>Definition at line <a class="el" href="i_entity_8h_source.html#l00098">98</a> of file <a class="el" href="i_entity_8h_source.html">iEntity.h</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="a80f38172ff0bf497caacdb637bffd17a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -429,8 +299,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>entity type </p>
-
-<p>Definition at line <a class="el" href="i_entity_8h_source.html#l00088">88</a> of file <a class="el" href="i_entity_8h_source.html">iEntity.h</a>.</p>
 
 </div>
 </div>
@@ -453,13 +321,11 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>invalid entity id definition </p>
 
-<p>Definition at line <a class="el" href="i_entity_8h_source.html#l00062">62</a> of file <a class="el" href="i_entity_8h_source.html">iEntity.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_entity_8h_source.html">iEntity.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_entity_8cpp_source.html">iEntity.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_entity_8h.html">iEntity.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_entity_8cpp.html">iEntity.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -468,7 +334,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_entity.html">iEntity</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:46 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

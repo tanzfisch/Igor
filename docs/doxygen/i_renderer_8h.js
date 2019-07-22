@@ -2,8 +2,6 @@ var i_renderer_8h =
 [
     [ "iRendererTexture", "struct_igor_1_1i_renderer_texture.html", "struct_igor_1_1i_renderer_texture" ],
     [ "iRenderer", "class_igor_1_1i_renderer.html", "class_igor_1_1i_renderer" ],
-    [ "iRendererLight", "struct_igor_1_1i_renderer_1_1i_renderer_light.html", "struct_igor_1_1i_renderer_1_1i_renderer_light" ],
-    [ "iRendererTarget", "struct_igor_1_1i_renderer_1_1i_renderer_target.html", "struct_igor_1_1i_renderer_1_1i_renderer_target" ],
     [ "iRenderTargetType", "i_renderer_8h.html#a3c9d12e14f0211f845ce9b2a1a97125c", [
       [ "ToTexture", "i_renderer_8h.html#a3c9d12e14f0211f845ce9b2a1a97125cafb55ad7d87f507a96a7d851e2366cecb", null ],
       [ "ToRenderBuffer", "i_renderer_8h.html#a3c9d12e14f0211f845ce9b2a1a97125cabcb4bb95a9f5ad744476df6071f48afa", null ]

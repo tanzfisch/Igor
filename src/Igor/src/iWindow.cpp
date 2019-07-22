@@ -19,6 +19,8 @@
 #include <sstream>
 using namespace std;
 
+#include <GLee.h>
+
 namespace Igor
 {
 
@@ -403,6 +405,16 @@ namespace Igor
 
         return true;
     }
+
+	void iWindow::setVSync(bool vsync)
+	{
+		wglSwapIntervalEXT(vsync ? 1 : 0);
+	}
+
+	bool iWindow::getVSync() const
+	{
+		return wglGetSwapIntervalEXT() > 0 ? true : false;
+	}
 
     bool iWindow::open()
     {

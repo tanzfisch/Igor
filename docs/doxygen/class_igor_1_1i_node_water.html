@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,8 +111,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_water.html','');}
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_node_water-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -120,19 +118,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_water.html','');}
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_node_water_8h_source.html">iNodeWater.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iNodeWater:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_water__inherit__graph.svg" width="136" height="187"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iNodeWater:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_water__coll__graph.svg" width="1276" height="458"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iNodeWater.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_1_1i_node_render.html">Igor::iNodeRender</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -170,6 +158,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a301e06e0e55d6ca93fc64fe44c3ed8bd inherit pub_methods_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae397893dd8c9dbca7d895033f8a8923c inherit pub_methods_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#ae397893dd8c9dbca7d895033f8a8923c">getInfo</a> () const </td></tr>
 <tr class="separator:ae397893dd8c9dbca7d895033f8a8923c inherit pub_methods_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3f2b3ca01ccef200d9271cc493311d0 inherit pub_methods_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#ae3f2b3ca01ccef200d9271cc493311d0">getCustomInfo</a> () const </td></tr>
+<tr class="separator:ae3f2b3ca01ccef200d9271cc493311d0 inherit pub_methods_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0d333770cbc83471e71deb2d60465c5 inherit pub_methods_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#ae0d333770cbc83471e71deb2d60465c5">setName</a> (<a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> name)</td></tr>
 <tr class="separator:ae0d333770cbc83471e71deb2d60465c5 inherit pub_methods_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ce1269afdfb50f10f7b2c10e5aa69e0 inherit pub_methods_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a4ce1269afdfb50f10f7b2c10e5aa69e0">insertNode</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node)</td></tr>
@@ -213,22 +203,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a92a082c4e595b2f485e959b54e67c443 inherit pub_methods_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top">iTransformationChangeEvent &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a92a082c4e595b2f485e959b54e67c443">getTransformationChangeEvent</a> ()</td></tr>
 <tr class="separator:a92a082c4e595b2f485e959b54e67c443 inherit pub_methods_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a4656967b998d610087a3e6ecbba9c78c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_water.html#a4656967b998d610087a3e6ecbba9c78c">iNodeWater</a> ()</td></tr>
-<tr class="separator:a4656967b998d610087a3e6ecbba9c78c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aacc66afb01de209d34b620ac3eb7ea3c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_water.html#aacc66afb01de209d34b620ac3eb7ea3c">iNodeWater</a> (<a class="el" href="class_igor_1_1i_node_water.html">iNodeWater</a> *node)</td></tr>
-<tr class="separator:aacc66afb01de209d34b620ac3eb7ea3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a101182d3fc578a85e14395cfd638f232"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_water.html#a101182d3fc578a85e14395cfd638f232">~iNodeWater</a> ()</td></tr>
-<tr class="separator:a101182d3fc578a85e14395cfd638f232"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a35c4ea65840d269148fa96e114cfd02d"><td class="memItemLeft" align="right" valign="top">float32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_water.html#a35c4ea65840d269148fa96e114cfd02d">_yPos</a> = 0</td></tr>
-<tr class="separator:a35c4ea65840d269148fa96e114cfd02d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78f877ad1c03754de056272753d8f7d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#aa007fa54047309abce67d3d15c94d091">iaColor4f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_water.html#a78f877ad1c03754de056272753d8f7d3">_ambient</a></td></tr>
-<tr class="separator:a78f877ad1c03754de056272753d8f7d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a443fcc5b71f6dbb2a68dae3d957024c3"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_water.html#a443fcc5b71f6dbb2a68dae3d957024c3">iNodeFactory</a></td></tr>
@@ -236,6 +210,11 @@ Friends</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_static_methods_class_igor_1_1i_node"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_igor_1_1i_node')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_igor_1_1i_node.html">Igor::iNode</a></td></tr>
+<tr class="memitem:a95205a1c02756c617f1c8ac26d6c1bba inherit pub_static_methods_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a95205a1c02756c617f1c8ac26d6c1bba">getKindName</a> (<a class="el" href="namespace_igor.html#af60214c983d49068fb5a9147cfb723fa">iNodeKind</a> kind)</td></tr>
+<tr class="separator:a95205a1c02756c617f1c8ac26d6c1bba inherit pub_static_methods_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03c53224805c56e7cf45b1be6e63acad inherit pub_static_methods_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a03c53224805c56e7cf45b1be6e63acad">getTypeName</a> (<a class="el" href="namespace_igor.html#abe8ac7d5017f674544ec43881a173c7f">iNodeType</a> nodeType)</td></tr>
+<tr class="separator:a03c53224805c56e7cf45b1be6e63acad inherit pub_static_methods_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_attribs_class_igor_1_1i_node"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_class_igor_1_1i_node')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="class_igor_1_1i_node.html">Igor::iNode</a></td></tr>
 <tr class="memitem:a1bd963f9762bf33432fdeb062c800797 inherit pub_static_attribs_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top">static const uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a1bd963f9762bf33432fdeb062c800797">INVALID_NODE_ID</a> = <a class="el" href="ia_defines_8h.html#a170c60feb8221523e337b3cc009848f5">IGOR_INVALID_ID</a></td></tr>
 <tr class="separator:a1bd963f9762bf33432fdeb062c800797 inherit pub_static_attribs_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -306,105 +285,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>renders a enless water plane relative to current camera </p>
-
-<p>Definition at line <a class="el" href="i_node_water_8h_source.html#l00040">40</a> of file <a class="el" href="i_node_water_8h_source.html">iNodeWater.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a4656967b998d610087a3e6ecbba9c78c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iNodeWater::iNodeWater </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>initializes member variables </p>
-
-<p>Definition at line <a class="el" href="i_node_water_8cpp_source.html#l00018">18</a> of file <a class="el" href="i_node_water_8cpp_source.html">iNodeWater.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_water_a4656967b998d610087a3e6ecbba9c78c_cgraph.svg" width="400" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="aacc66afb01de209d34b620ac3eb7ea3c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iNodeWater::iNodeWater </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_node_water.html">iNodeWater</a> *&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>copy ctor </p>
-
-<p>Definition at line <a class="el" href="i_node_water_8cpp_source.html#l00027">27</a> of file <a class="el" href="i_node_water_8cpp_source.html">iNodeWater.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_water_aacc66afb01de209d34b620ac3eb7ea3c_cgraph.svg" width="398" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a101182d3fc578a85e14395cfd638f232"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iNodeWater::~iNodeWater </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>releases resources </p>
-
-<p>Definition at line <a class="el" href="i_node_water_8cpp_source.html#l00040">40</a> of file <a class="el" href="i_node_water_8cpp_source.html">iNodeWater.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a8721ac4cbdb63677327b5e88678e7619"></a>
 <div class="memitem">
 <div class="memproto">
@@ -429,16 +310,6 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="class_igor_1_1i_node_render.html#a555b40da5534a5e54e4235560678bac0">Igor::iNodeRender</a>.</p>
 
-<p>Definition at line <a class="el" href="i_node_water_8cpp_source.html#l00070">70</a> of file <a class="el" href="i_node_water_8cpp_source.html">iNodeWater.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_water_a8721ac4cbdb63677327b5e88678e7619_cgraph.svg" width="390" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a3b8d389dfce0fb0223eecedc0fa30cb1"></a>
@@ -455,8 +326,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>ambient color of water plane </dd></dl>
 
-<p>Definition at line <a class="el" href="i_node_water_8cpp_source.html#l00065">65</a> of file <a class="el" href="i_node_water_8cpp_source.html">iNodeWater.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a21cdcfbe66483e17575c27123427cd5d"></a>
@@ -472,8 +341,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>y position of water plane </dd></dl>
-
-<p>Definition at line <a class="el" href="i_node_water_8cpp_source.html#l00055">55</a> of file <a class="el" href="i_node_water_8cpp_source.html">iNodeWater.cpp</a>.</p>
 
 </div>
 </div>
@@ -498,8 +365,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_node_water_8cpp_source.html#l00060">60</a> of file <a class="el" href="i_node_water_8cpp_source.html">iNodeWater.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a43da6ebe5bb649986aac6c04f050c7e1"></a>
@@ -522,8 +387,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_node_water_8cpp_source.html#l00050">50</a> of file <a class="el" href="i_node_water_8cpp_source.html">iNodeWater.cpp</a>.</p>
 
 </div>
 </div>
@@ -552,8 +415,6 @@ Here is the call graph for this function:</div>
 
 <p>Reimplemented from <a class="el" href="class_igor_1_1i_node_render.html#aef5fe1bc6120f2cca1284646133293ec">Igor::iNodeRender</a>.</p>
 
-<p>Definition at line <a class="el" href="i_node_water_8cpp_source.html#l00044">44</a> of file <a class="el" href="i_node_water_8cpp_source.html">iNodeWater.cpp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -575,62 +436,12 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>node that handles physics collisions bound to one body</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000029">Todo:</a></b></dt><dd>also need to remove things after adding them. maybe using IDs for that </dd></dl>
-
-<p>Definition at line <a class="el" href="i_node_water_8h_source.html#l00043">43</a> of file <a class="el" href="i_node_water_8h_source.html">iNodeWater.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a78f877ad1c03754de056272753d8f7d3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#aa007fa54047309abce67d3d15c94d091">iaColor4f</a> Igor::iNodeWater::_ambient</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>ambient color of water plane </p>
-
-<p>Definition at line <a class="el" href="i_node_water_8h_source.html#l00085">85</a> of file <a class="el" href="i_node_water_8h_source.html">iNodeWater.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a35c4ea65840d269148fa96e114cfd02d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float32 Igor::iNodeWater::_yPos = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>y position of water plane </p>
-
-<p>Definition at line <a class="el" href="i_node_water_8h_source.html#l00081">81</a> of file <a class="el" href="i_node_water_8h_source.html">iNodeWater.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_water_8h_source.html">iNodeWater.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_water_8cpp_source.html">iNodeWater.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_node_water_8h.html">iNodeWater.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_node_water_8cpp.html">iNodeWater.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -639,7 +450,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_node_water.html">iNodeWater</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:56 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

@@ -66,21 +66,21 @@ namespace Igor
 
         /*! initialisation
         */
-		virtual void preTraverse();
+		void preTraverse() override;
 
         /*! traversing tree and check if the current node's name matches the search string
 
         \param node the current node during traversal
         */
-		virtual bool preOrderVisit(iNodePtr node);
+		bool preOrderVisit(iNodePtr node, iNodePtr nextSibling) override;
 
         /*! not implemented
         */
-        virtual void postOrderVisit(iNodePtr node);
+        void postOrderVisit(iNodePtr node) override;
 
         /*! not implemented
         */
-        virtual void postTraverse();
+        void postTraverse() override;
 
 	private:
 

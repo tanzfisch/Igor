@@ -11,10 +11,11 @@ using namespace Igor;
 
 CharacterController::CharacterController(iNodePtr node, int64 materiaID, const iaMatrixd& startMatrix)
 {
-	// setup character and attache camera to it
-	iaMatrixd rotate;
-	rotate.rotate(M_PI * 0.5, iaAxis::Z);
-	iPhysicsCollision* collision = iPhysics::getInstance().createCylinder(_characterRadius, _characterRadius, _characterHeight, rotate);
+	// setup character and attach camera to it
+	iaMatrixd transformCollision;
+	transformCollision.translate(_stepHeight, 0, 0);
+	transformCollision.rotate(M_PI * 0.5, iaAxis::Z);
+	iPhysicsCollision* collision = iPhysics::getInstance().createCapsule(_characterRadius, _characterRadius, _characterHeight - _stepHeight, transformCollision);
 	iPhysicsBody* charBody = iPhysics::getInstance().createBody(collision);
 	_bodyID = charBody->getID();
 	charBody->setMass(_mass);
@@ -23,7 +24,7 @@ CharacterController::CharacterController(iNodePtr node, int64 materiaID, const i
 	charBody->setLinearDamping(0);
 	iPhysics::getInstance().destroyCollision(collision);
 
-	_collisionCast = iPhysics::getInstance().createCylinder(_characterRadius * 0.9, _characterRadius * 0.9, _characterHeight, rotate);
+	_collisionCast = iPhysics::getInstance().createCapsule(_characterRadius, _characterRadius, _characterHeight - _stepHeight, transformCollision);
 
 	iNodeTransform* physicsTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 	physicsTransform->setMatrix(startMatrix);
@@ -35,6 +36,7 @@ CharacterController::CharacterController(iNodePtr node, int64 materiaID, const i
 	physicsTransform->insertNode(headingTransform);
 
 	iNodeTransform* upperBodyTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	_upperBodyTransformNodeID = upperBodyTransform->getID();
 	upperBodyTransform->translate(0, 0.55, 0);
 	headingTransform->insertNode(upperBodyTransform);
 
@@ -68,6 +70,11 @@ CharacterController::~CharacterController()
 	iNodeFactory::getInstance().destroyNodeAsync(_physicsTransformNodeID);
 	iPhysics::getInstance().destroyBody(_bodyID);
 	iPhysics::getInstance().destroyCollision(_collisionCast);
+}
+
+CharacterController::State CharacterController::getState() const
+{
+	return _state;
 }
 
 iNodeTransform* CharacterController::getHeadingTransform() const
@@ -112,6 +119,8 @@ iaVector3d CharacterController::getForce() const
 
 void CharacterController::onSubmitConstraints(iPhysicsJoint* joint, float32 timestep)
 {
+	// this is to keep the body up right at all times
+
 	iPhysicsBody* body0 = iPhysics::getInstance().getBody(joint->getBody0ID());
 	iaMatrixd matrixBody0;
 	body0->getMatrix(matrixBody0);
@@ -176,107 +185,108 @@ void CharacterController::onSubmitConstraints(iPhysicsJoint* joint, float32 time
 
 void CharacterController::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep)
 {
-	iaVector3d correctionForce;
-	iterate(correctionForce);
-
+	iaVector3d velocity = body->getVelocity();
 	iaVector3d force;
+	iaVector3d point;
+	iaVector3d normal;
+	float64 heightAboveGround = getFloorContactPoint(point, normal);
+	float64 heightAboveTargetHeight = heightAboveGround - _targetHeight;
+	float64 heightAboveStep = heightAboveGround - _stepHeight;
 
-	// vertical dampening if in contact with floor
-	if (_state == CharacterControllerState::Floor)
+	const float64 jumpDetectionThreashold = 1.0;
+	const float64 maxForce = 100000;
+
+	switch (_state)
 	{
-		iaVector3d verticalVelocity = body->getVelocity();
+	case State::Air:
+		// prevent double jump
+		if (_navigationForce._y > jumpDetectionThreashold)
+		{
+			_navigationForce._y = 0;
+		}
+
+		if (heightAboveTargetHeight <= 0.0)
+		{
+			_state = State::Floor;
+		}
+		break;
+
+	case State::Floor:
+		if (_navigationForce._y > jumpDetectionThreashold)
+		{
+			_state = State::Jumped;
+		}
+		
+		if (heightAboveTargetHeight > 0.5)
+		{
+			_state = State::Air;
+		}
+		break;
+
+	case State::Jumped:
+		// prevent double jump
+		if (_navigationForce._y > jumpDetectionThreashold)
+		{
+			_navigationForce._y = 0;
+		}
+
+		if (heightAboveTargetHeight > 0.1)
+		{
+			_state = State::Air;
+		}
+
+		break;
+	}
+
+	if (_state == State::Floor)
+	{
+		// vertical dampening when on floor
+		iaVector3d verticalVelocity = velocity;
 		verticalVelocity.negate();
 		verticalVelocity._x = 0;
-		verticalVelocity._z = 0;
+		verticalVelocity._z = 0;		
+
+		// pull to step height
+		verticalVelocity._y -= heightAboveTargetHeight * 10.0;
+
 		force += (verticalVelocity * _mass / (1.0 / iPhysics::getInstance().getSimulationRate())) * 0.5;
 	}
 	else
 	{
+		// apply gravity when not on floor
 		iaVector3d gravityForce(0.0f, -_mass * static_cast<float64>(__IGOR_GRAVITY__), 0.0f);
 		force += gravityForce;
 	}
 
 	// horrizontal dampening
-	iaVector3d velocity = body->getVelocity();
-	velocity.negate();
-	velocity._y = 0;
-	force += (velocity * _mass / (1.0 / iPhysics::getInstance().getSimulationRate())) * 0.25;
+	iaVector3d horizontalVelocity = velocity;
+	horizontalVelocity.negate();
+	horizontalVelocity._y = 0;
+	force += (horizontalVelocity * _mass / (1.0 / iPhysics::getInstance().getSimulationRate())) * 0.125;
 
-	force += _navigationForce;
-	force += correctionForce;
+	force += _navigationForce;	
 
-	if (force.length() > 100000000)
+	// clamp force
+	if (force.length() > maxForce)
 	{
-		return;
-	}	
-
-	body->setForce(force);
-}
-
-void CharacterController::iterate(iaVector3d & correctionForce)
-{
-	iaVector3d point;
-	iaVector3d normal;
-	float64 heightAboveGround = getContactPoint(point, normal);
-
-	float64 delta = heightAboveGround - _stepHeight;
-	float64 pullThreashold = _stepHeight;
-
-	switch (_state)
-	{
-	case CharacterControllerState::Air:
-		// prevent double jump
-		if (_navigationForce._y > 0)
-		{
-			_navigationForce._y = 0;
-		}
-
-		if (abs(delta) <= pullThreashold)
-		{
-			_state = CharacterControllerState::Floor;
-		}
-		break;
-
-	case CharacterControllerState::Floor:
-		if (_navigationForce._y <= 0)
-		{
-			correctionForce._y += (-delta) * _mass * 1000;
-		}
-		else
-		{
-			_state = CharacterControllerState::Jumped;
-		}
-		break;
-
-	case CharacterControllerState::Jumped:
-		// prevent double jump
-		if (_navigationForce._y > 0)
-		{
-			_navigationForce._y = 0;
-		}
-
-		if (heightAboveGround > 1)
-		{
-			_state = CharacterControllerState::Air;
-		}
-		break;
+		force.normalize();
+		force *= maxForce;
 	}
 
-#ifdef DETACH_HEAD
-	iNodeTransform* head = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_headTransformNodeID));
-	if (delta < 0)
+	body->setForce(force);
+
+	iNodeTransform* upperBodyTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_upperBodyTransformNodeID));
+	if (heightAboveStep < 0)
 	{
-		head->setPosition(iaVector3d(0, _headHeight - delta, 0));
+		upperBodyTransform->setPosition(iaVector3d(0, 0.55 - heightAboveStep, 0));
 	}
 	else
 	{
-		head->setPosition(iaVector3d(0, _headHeight, 0));
+		upperBodyTransform->setPosition(iaVector3d(0, 0.55, 0));
 	}
-#endif
 }
 
-
-unsigned CharacterController::onRayPreFilter(iPhysicsBody * body, iPhysicsCollision * collision, const void* userData)
+unsigned CharacterController::onRayPreFilter(iPhysicsBody* body, iPhysicsCollision* collision, const void* userData)
 {
 	if (_bodyID == body->getID())
 	{
@@ -288,9 +298,9 @@ unsigned CharacterController::onRayPreFilter(iPhysicsBody * body, iPhysicsCollis
 	}
 }
 
-float64 CharacterController::getContactPoint(iaVector3d & point, iaVector3d & normal)
+float64 CharacterController::getFloorContactPoint(iaVector3d& point, iaVector3d& normal)
 {
-	float64 result = 99999999999;
+	float64 result = 10000;
 	iaMatrixd matrix;
 	iaVector3d target;
 

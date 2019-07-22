@@ -16,11 +16,5 @@ var class_o_m_p_f_1_1ompf_base_chunk =
     [ "setID", "class_o_m_p_f_1_1ompf_base_chunk.html#a60c963bf58ea5aacd0f1329bec35163c", null ],
     [ "setName", "class_o_m_p_f_1_1ompf_base_chunk.html#a46fad2b1023518cc102c994ad818a166", null ],
     [ "setParentID", "class_o_m_p_f_1_1ompf_base_chunk.html#aaf3b4e5244ebce9bd164cefbda196c1d", null ],
-    [ "write", "class_o_m_p_f_1_1ompf_base_chunk.html#a6f186b41de009cec29ae83a8929f8cea", null ],
-    [ "_children", "class_o_m_p_f_1_1ompf_base_chunk.html#aae90ff2806c03b75cb80ef46c170f72e", null ],
-    [ "_chunkSize", "class_o_m_p_f_1_1ompf_base_chunk.html#a3bf33ac4c8a75482be65c1eda7fe928f", null ],
-    [ "_ID", "class_o_m_p_f_1_1ompf_base_chunk.html#a0ee3bace984c8053280714293deb37e9", null ],
-    [ "_name", "class_o_m_p_f_1_1ompf_base_chunk.html#ad95ef702931a37f89c3ef2ebe49156a6", null ],
-    [ "_parentID", "class_o_m_p_f_1_1ompf_base_chunk.html#ac300c844bc58a986b3e878f1bf171296", null ],
-    [ "_type", "class_o_m_p_f_1_1ompf_base_chunk.html#a3c02230a32cc4a2331c6ecde04f42fa6", null ]
+    [ "write", "class_o_m_p_f_1_1ompf_base_chunk.html#a6f186b41de009cec29ae83a8929f8cea", null ]
 ];

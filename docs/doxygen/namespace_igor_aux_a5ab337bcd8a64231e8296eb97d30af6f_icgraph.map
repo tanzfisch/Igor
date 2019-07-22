@@ -1,7 +1,0 @@
-<map id="IgorAux::flush" name="IgorAux::flush">
-<area shape="rect" id="node2" href="$class_igor_1_1i_model_resource_factory.html#a0c82a68c6596d90769a70eaf5788c8f2" title="Igor::iModelResourceFactory\l::~iModelResourceFactory" alt="" coords="159,5,347,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_factory.html#a466a40ab9315291c4e0050d49291df90" title="Igor::iNodeFactory\l::onPreDestroyInstance" alt="" coords="173,71,332,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node_factory.html#a60069ff0e9189d490cdedd1a9dba5afc" title="Igor::iNodeFactory\l::handle" alt="" coords="189,136,317,177"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_texture_resource_factory.html#a506680aef6355276902a734b56c9cc45" title="Igor::iTextureResourceFactory\l::~iTextureResourceFactory" alt="" coords="155,201,351,243"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_texture_resource_factory.html#a69d8bf5f7733d941b55254bd342c8b08" title="Igor::iTextureResourceFactory\l::deinit" alt="" coords="155,267,351,308"/>
-</map>

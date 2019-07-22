@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,40 +111,20 @@ $(document).ready(function(){initNavTree('class_igor_aux_1_1ia_i_d_generator.htm
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_aux_1_1ia_i_d_generator-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">IgorAux::iaIDGenerator&lt; T &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="ia_i_d_generator_8h_source.html">iaIDGenerator.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for IgorAux::iaIDGenerator&lt; T &gt;:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_i_d_generator__coll__graph.svg" width="215" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iaIDGenerator.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aca58b7a8624090bbac001dd1aa6e6e27"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_i_d_generator.html#aca58b7a8624090bbac001dd1aa6e6e27">createID</a> ()</td></tr>
 <tr class="separator:aca58b7a8624090bbac001dd1aa6e6e27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:ade5464b1e12d4952216cfe1df2042c2a"><td class="memItemLeft" align="right" valign="top">T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_i_d_generator.html#ade5464b1e12d4952216cfe1df2042c2a">_nextID</a> = static_cast&lt;T&gt;(<a class="el" href="ia_defines_8h.html#a170c60feb8221523e337b3cc009848f5">IGOR_INVALID_ID</a> + 1)</td></tr>
-<tr class="separator:ade5464b1e12d4952216cfe1df2042c2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8b33a3b9cd31d56e1e666be91426ec0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_i_d_generator.html#ab8b33a3b9cd31d56e1e666be91426ec0">_mutex</a></td></tr>
-<tr class="separator:ab8b33a3b9cd31d56e1e666be91426ec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;class T&gt;<br />
-class IgorAux::iaIDGenerator&lt; T &gt;</h3>
-
-
-<p>Definition at line <a class="el" href="ia_i_d_generator_8h_source.html#l00041">41</a> of file <a class="el" href="ia_i_d_generator_8h_source.html">iaIDGenerator.h</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="aca58b7a8624090bbac001dd1aa6e6e27"></a>
 <div class="memitem">
 <div class="memproto">
@@ -162,71 +142,10 @@ template&lt;class T &gt; </div>
 <p>creates a new or recycles an old id</p>
 <dl class="section return"><dt>Returns</dt><dd>an ID </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_i_d_generator_8h_source.html#l00064">64</a> of file <a class="el" href="ia_i_d_generator_8h_source.html">iaIDGenerator.h</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_i_d_generator_aca58b7a8624090bbac001dd1aa6e6e27_icgraph.svg" width="370" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="ab8b33a3b9cd31d56e1e666be91426ec0"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> <a class="el" href="class_igor_aux_1_1ia_i_d_generator.html">IgorAux::iaIDGenerator</a>&lt; T &gt;::_mutex</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>mutex to make shure the ID generation is uninterruped </p>
-
-<p>Definition at line <a class="el" href="ia_i_d_generator_8h_source.html#l00059">59</a> of file <a class="el" href="ia_i_d_generator_8h_source.html">iaIDGenerator.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ade5464b1e12d4952216cfe1df2042c2a"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">T <a class="el" href="class_igor_aux_1_1ia_i_d_generator.html">IgorAux::iaIDGenerator</a>&lt; T &gt;::_nextID = static_cast&lt;T&gt;(<a class="el" href="ia_defines_8h.html#a170c60feb8221523e337b3cc009848f5">IGOR_INVALID_ID</a> + 1)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the next id in case the recycled ID list is empty </p>
-
-<p>Definition at line <a class="el" href="ia_i_d_generator_8h_source.html#l00055">55</a> of file <a class="el" href="ia_i_d_generator_8h_source.html">iaIDGenerator.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_i_d_generator_8h_source.html">iaIDGenerator.h</a></li>
+<li>C:/dev/Igor/Igor/src/IgorAux/src/<a class="el" href="ia_i_d_generator_8h.html">iaIDGenerator.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -235,7 +154,7 @@ template&lt;class T &gt; </div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor_aux.html">IgorAux</a></li><li class="navelem"><a class="el" href="class_igor_aux_1_1ia_i_d_generator.html">iaIDGenerator</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:18 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

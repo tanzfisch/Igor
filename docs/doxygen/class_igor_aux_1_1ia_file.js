@@ -13,15 +13,9 @@ var class_igor_aux_1_1ia_file =
     [ "getPath", "class_igor_aux_1_1ia_file.html#a777e728712c704a9e997eb227a71a6e7", null ],
     [ "isOpen", "class_igor_aux_1_1ia_file.html#a8e5363c6f3d65bc1df7b0f1189345de2", null ],
     [ "open", "class_igor_aux_1_1ia_file.html#ab2e7853a32d75e0d6ed22457ea819185", null ],
-    [ "readCompletionCallback", "class_igor_aux_1_1ia_file.html#a49532917b5ccde3e1a53c558d5d39189", null ],
     [ "readFromFile", "class_igor_aux_1_1ia_file.html#a017d3cd691d0dda745b813302470f75c", null ],
     [ "rename", "class_igor_aux_1_1ia_file.html#a90845a3031c727ffa8a62b33ee323837", null ],
     [ "setFilePointer", "class_igor_aux_1_1ia_file.html#a74e02d9c0c25cb97fb3b2d5cafd820c6", null ],
     [ "setFileSize", "class_igor_aux_1_1ia_file.html#a9654144bffd96edfd4972553e4834f76", null ],
-    [ "writeCompletionCallback", "class_igor_aux_1_1ia_file.html#a91bcc57894f2d9ee9b7f84e1a03f2cf2", null ],
-    [ "writeToFile", "class_igor_aux_1_1ia_file.html#a927928ba0e1bddd48fa412ad943cc1aa", null ],
-    [ "_filename", "class_igor_aux_1_1ia_file.html#a360a2a845a20b05954c3924eae550ccd", null ],
-    [ "_isWriteable", "class_igor_aux_1_1ia_file.html#a6b1b680f0d5ff2d40f219de3de93f22e", null ],
-    [ "_size", "class_igor_aux_1_1ia_file.html#a94bb31bf96a8af725366efb0a5c2e37c", null ],
-    [ "_windowsFileHandle", "class_igor_aux_1_1ia_file.html#a757d9ad0bd0deb8ff57fdf19091487ff", null ]
+    [ "writeToFile", "class_igor_aux_1_1ia_file.html#a927928ba0e1bddd48fa412ad943cc1aa", null ]
 ];

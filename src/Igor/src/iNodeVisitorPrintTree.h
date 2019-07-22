@@ -40,58 +40,60 @@ using namespace std;
 namespace Igor
 {
 
-    /*! traveses node tree and prints basic information in to console
-    */
+	/*! traveses node tree and prints basic information in to console
+	*/
 	class Igor_API iNodeVisitorPrintTree : public iNodeVisitor
 	{
 
 	public:
 
-        /*! initializes traversal config
-        */
+		/*! initializes traversal config
+		*/
 		iNodeVisitorPrintTree();
 
-        /*! does nothing
-        */
+		/*! does nothing
+		*/
 		virtual ~iNodeVisitorPrintTree() = default;
 
-        /*! traverses the tree and prints the output in console
-        */
+		/*! traverses the tree and prints the output in console
+		*/
 		void printToConsole(iNodePtr node);
 
 	protected:
 
-        /*! initialisation
-        */
-		virtual void preTraverse();
+		/*! initialisation
+		*/
+		void preTraverse() override;
 
-        /*! generates information string on every node passed by
-        handles output indentation
+		/*! generates information string on every node passed by
+		handles output indentation
 
-        \param node current node
-        */
-		virtual bool preOrderVisit(iNodePtr node);
+		\param node current node
+		*/
+		bool preOrderVisit(iNodePtr node, iNodePtr nextSibling) override;
 
-        /*! handles output indentation
-        */
-		virtual void postOrderVisit(iNodePtr node);
+		void preLine();
 
-        /*! some more output
-        */
-		virtual void postTraverse();
+		/*! handles output indentation
+		*/
+		void postOrderVisit(iNodePtr node) override;
+
+		/*! some more output
+		*/
+		void postTraverse() override;
 
 	private:
 
-        /*! counter for all nodes passed by
-        */
-        uint64 _nodeCount = 0;
+		/*! counter for all nodes passed by
+		*/
+		uint64 _nodeCount = 0;
 
-        /*! current indentation string
-        */
+		/*! current indentation string
+		*/
 		iaString _indenttation = "";
 
-        /*! all the output ends up in this string
-        */
+		/*! all the output ends up in this string
+		*/
 		wstringstream _stream;
 
 	};

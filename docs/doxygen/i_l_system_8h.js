@@ -1,7 +1,6 @@
 var i_l_system_8h =
 [
     [ "iLSystem", "class_igor_1_1i_l_system.html", "class_igor_1_1i_l_system" ],
-    [ "iLSystemRule", "struct_igor_1_1i_l_system_1_1i_l_system_rule.html", "struct_igor_1_1i_l_system_1_1i_l_system_rule" ],
     [ "iLSystemAgeFunction", "i_l_system_8h.html#a2081511b8afe422e11c11287eb44a3f3", [
       [ "Less", "i_l_system_8h.html#a2081511b8afe422e11c11287eb44a3f3a1cfdf0e8d0c87a228c1f40d9bee7888b", null ],
       [ "LessOrEqual", "i_l_system_8h.html#a2081511b8afe422e11c11287eb44a3f3aa4cbdbb6070a5abb35fc95ecf1e22c14", null ],

@@ -100,6 +100,11 @@ namespace Igor
         }
     }
 
+	void iMesh::setTextureCoordinatesCount(uint32 texCoord)
+	{
+		_textureCoordinatesCount = texCoord;
+	}
+
     void iMesh::setBoundingSphere(const iSphered& sphere)
     {
         _sphere = sphere;

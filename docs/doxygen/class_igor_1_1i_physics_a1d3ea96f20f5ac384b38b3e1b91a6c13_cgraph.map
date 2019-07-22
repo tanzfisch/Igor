@@ -1,7 +1,0 @@
-<map id="Igor::iPhysics::createCone" name="Igor::iPhysics::createCone">
-<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#ab5efe1f7f2c5a4a94d4eae55289c475a" title="Igor::iPhysics::getWorld" alt="" coords="228,33,389,60"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" title="IgorAux::iaMutex::lock" alt="" coords="445,8,597,34"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" title="IgorAux::iaMutex::unlock" alt="" coords="437,70,604,97"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_physics_world.html#ad40b6a4f973b26c1f84c200d3416ab6c" title="Igor::iPhysicsWorld\l::getNewtonWorld" alt="" coords="241,135,376,176"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_matrix.html#a996b71eeda2c5f6e6fc621149f01015d" title="IgorAux::iaMatrix::\lgetData" alt="" coords="245,200,373,242"/>
-</map>

@@ -1,6 +1,0 @@
-<map id="OMPF::ompfBaseChunk::getType" name="OMPF::ompfBaseChunk::getType">
-<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#a33f69ab59a38b65dcae59c9f7ad4c831" title="Igor::iModelDataIOOMPF\l::linkNodes" alt="" coords="216,5,383,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#a4872c9dbcc8050a911e76db6167a1ebf" title="Igor::iModelDataIOOMPF\l::createNodeTree" alt="" coords="216,71,383,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#abd61bea3402181c76af106144f86e66c" title="Igor::iModelDataIOOMPF\l::linkChunks" alt="" coords="216,136,383,177"/>
-<area shape="rect" id="node5" href="$class_o_m_p_f_1_1ompf_base_chunk.html#aeee82ae902fd3cc632f66ef1ea1c1a58" title="OMPF::ompfBaseChunk\l::insertChunk" alt="" coords="218,201,381,243"/>
-</map>

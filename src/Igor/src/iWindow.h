@@ -91,6 +91,15 @@ namespace Igor
         */
         bool getDoubleClick() const;
 
+		/*! sets the usage of vsync or not
+		\param vsync if true vsync will be used
+		*/
+		void setVSync(bool vsync);
+
+		/*! \returns true if vsync is activated
+		*/
+		bool getVSync() const;
+
         /*! sets title of window
 
         \param title the windows title

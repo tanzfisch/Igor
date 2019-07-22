@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,8 +111,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_statistics.html','');}
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_statistics-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -120,19 +118,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_statistics.html','');}
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_statistics_8h_source.html">iStatistics.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iStatistics:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_statistics__inherit__graph.svg" width="183" height="218"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iStatistics:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_statistics__coll__graph.svg" width="418" height="231"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iStatistics.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; iStatistics &gt;</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -150,24 +138,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a82b52fcc36052cf326c06f0cb305481c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3365754dfcf111c32cca0ae64386fb68"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_statistics.html#a3365754dfcf111c32cca0ae64386fb68">getCurrentFrameIndex</a> () const </td></tr>
 <tr class="separator:a3365754dfcf111c32cca0ae64386fb68"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:afdcc340d45bf13e2ef44b73bd4663312"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_statistics.html#afdcc340d45bf13e2ef44b73bd4663312">iStatistics</a> ()=default</td></tr>
-<tr class="separator:afdcc340d45bf13e2ef44b73bd4663312"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2a3f61f46a425a8631661fbef924a7d"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_statistics.html#af2a3f61f46a425a8631661fbef924a7d">~iStatistics</a> ()=default</td></tr>
-<tr class="separator:af2a3f61f46a425a8631661fbef924a7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:ad14c5437386bf15d62012286db042a95"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_statistics.html#ad14c5437386bf15d62012286db042a95">_frame</a> = 0</td></tr>
-<tr class="separator:ad14c5437386bf15d62012286db042a95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e5bdde6d179066084991b9701c67d25"><td class="memItemLeft" align="right" valign="top">map&lt; uint32, <a class="el" href="class_igor_1_1i_statistics_section.html">iStatisticsSection</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_statistics.html#a8e5bdde6d179066084991b9701c67d25">_sections</a></td></tr>
-<tr class="separator:a8e5bdde6d179066084991b9701c67d25"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb0dd4930d15c69fd101c7e57e32b974"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_statistics.html#afb0dd4930d15c69fd101c7e57e32b974">_nextSectionID</a> = <a class="el" href="class_igor_1_1i_statistics_section.html#a9cfc2620a3b9c0cf45cbd00e533f2bd2">iStatisticsSection::INVALID_SECTION_ID</a> + 1</td></tr>
-<tr class="separator:afb0dd4930d15c69fd101c7e57e32b974"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3f12807bb198a1b1affae473a92e6db"><td class="memItemLeft" align="right" valign="top">float64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_statistics.html#af3f12807bb198a1b1affae473a92e6db">_seconds</a> = 0</td></tr>
-<tr class="separator:af3f12807bb198a1b1affae473a92e6db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -196,58 +166,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>render statistics </p>
-
-<p>Definition at line <a class="el" href="i_statistics_8h_source.html#l00052">52</a> of file <a class="el" href="i_statistics_8h_source.html">iStatistics.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="afdcc340d45bf13e2ef44b73bd4663312"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iStatistics::iStatistics </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>nothing todo </p>
-
-</div>
-</div>
-<a class="anchor" id="af2a3f61f46a425a8631661fbef924a7d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual Igor::iStatistics::~iStatistics </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>nothing todo </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a93d851ae2c6c00ed7d2c53a2fb9dfd82"></a>
 <div class="memitem">
 <div class="memproto">
@@ -268,16 +187,6 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_statistics_8cpp_source.html#l00045">45</a> of file <a class="el" href="i_statistics_8cpp_source.html">iStatistics.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_statistics_a93d851ae2c6c00ed7d2c53a2fb9dfd82_cgraph.svg" width="534" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -302,8 +211,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_statistics_8cpp_source.html#l00055">55</a> of file <a class="el" href="i_statistics_8cpp_source.html">iStatistics.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a3365754dfcf111c32cca0ae64386fb68"></a>
@@ -319,8 +226,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>current frame index </dd></dl>
-
-<p>Definition at line <a class="el" href="i_statistics_8cpp_source.html#l00080">80</a> of file <a class="el" href="i_statistics_8cpp_source.html">iStatistics.cpp</a>.</p>
 
 </div>
 </div>
@@ -339,8 +244,6 @@ Here is the call graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>reference to list of sections</dd></dl>
 <p>be carefull to not change that list </p>
 
-<p>Definition at line <a class="el" href="i_statistics_8cpp_source.html#l00075">75</a> of file <a class="el" href="i_statistics_8cpp_source.html">iStatistics.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a91c71150ccbf27dc9707dab2d966068c"></a>
@@ -356,8 +259,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>steps to next frame </p>
-
-<p>Definition at line <a class="el" href="i_statistics_8cpp_source.html#l00065">65</a> of file <a class="el" href="i_statistics_8cpp_source.html">iStatistics.cpp</a>.</p>
 
 </div>
 </div>
@@ -394,16 +295,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_statistics_8cpp_source.html#l00019">19</a> of file <a class="el" href="i_statistics_8cpp_source.html">iStatistics.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_statistics_aafc5132e690873ff1e854d05ed7490f5_cgraph.svg" width="330" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a6fa1d60c7d90c657db1502326de4cd69"></a>
@@ -427,8 +318,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_statistics_8cpp_source.html#l00033">33</a> of file <a class="el" href="i_statistics_8cpp_source.html">iStatistics.cpp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -450,106 +339,11 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_statistics_8h_source.html#l00055">55</a> of file <a class="el" href="i_statistics_8h_source.html">iStatistics.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="ad14c5437386bf15d62012286db042a95"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iStatistics::_frame = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current frame </p>
-
-<p>Definition at line <a class="el" href="i_statistics_8h_source.html#l00103">103</a> of file <a class="el" href="i_statistics_8h_source.html">iStatistics.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="afb0dd4930d15c69fd101c7e57e32b974"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iStatistics::_nextSectionID = <a class="el" href="class_igor_1_1i_statistics_section.html#a9cfc2620a3b9c0cf45cbd00e533f2bd2">iStatisticsSection::INVALID_SECTION_ID</a> + 1</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>next section id </p>
-
-<p>Definition at line <a class="el" href="i_statistics_8h_source.html#l00111">111</a> of file <a class="el" href="i_statistics_8h_source.html">iStatistics.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af3f12807bb198a1b1affae473a92e6db"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float64 Igor::iStatistics::_seconds = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>measures time so we can update statistics in cetain intervals </p>
-
-<p>Definition at line <a class="el" href="i_statistics_8h_source.html#l00115">115</a> of file <a class="el" href="i_statistics_8h_source.html">iStatistics.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a8e5bdde6d179066084991b9701c67d25"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;uint32, <a class="el" href="class_igor_1_1i_statistics_section.html">iStatisticsSection</a>&gt; Igor::iStatistics::_sections</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of sections </p>
-
-<p>Definition at line <a class="el" href="i_statistics_8h_source.html#l00107">107</a> of file <a class="el" href="i_statistics_8h_source.html">iStatistics.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_statistics_8h_source.html">iStatistics.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_statistics_8cpp_source.html">iStatistics.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_statistics_8h.html">iStatistics.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_statistics_8cpp.html">iStatistics.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -558,7 +352,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_statistics.html">iStatistics</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:04 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

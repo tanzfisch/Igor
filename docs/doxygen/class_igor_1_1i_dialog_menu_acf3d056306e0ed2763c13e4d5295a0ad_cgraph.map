@@ -1,7 +1,0 @@
-<map id="Igor::iDialogMenu::initGUI" name="Igor::iDialogMenu::initGUI">
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget_grid.html#a3f9af42fc1b7fdebd5d9f2ad82b68884" title="Igor::iWidgetGrid::\lappendCollumns" alt="" coords="210,5,337,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget_picture.html#a32b3d7d94bda5b6ebe5e19d4fbf44bd2" title="Igor::iWidgetPicture\l::setTexture" alt="" coords="205,71,341,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_widget_picture.html#a05b84c8d5acad9b869d5b37b2beb0237" title="Igor::iWidgetPicture\l::setMaxSize" alt="" coords="205,136,341,177"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_widget.html#a74cedb6d5151910c64b7d51491775e9a" title="Igor::iWidget::setHorizontal\lAlignment" alt="" coords="184,201,363,243"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_widget_label.html#afb5ed8f5da25c0cb45679dd5c8d9f0ac" title="Igor::iWidgetLabel\l::setText" alt="" coords="210,267,337,308"/>
-</map>

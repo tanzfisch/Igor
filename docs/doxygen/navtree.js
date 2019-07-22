@@ -6,19 +6,14 @@ var NAVTREE =
     [ "Contribute to Igor", "contribute.html", null ],
     [ "Igor Code Style Guide", "styleguide.html", null ],
     [ "Tutorials", "tutorials.html", "tutorials" ],
-    [ "Customization Points", "md__c_1_dev__igor_src__igor_vs_packages__microsoft_8googletest_8v140_8windesktop_8msvcstl_8statiff5a3ca1d7a2343ff3daba352c88e468.html", null ],
-    [ "Todo List", "todo.html", null ],
-    [ "Deprecated List", "deprecated.html", null ],
-    [ "Bug List", "bug.html", null ],
     [ "Namespaces", null, [
       [ "Namespace List", "namespaces.html", "namespaces" ],
       [ "Namespace Members", "namespacemembers.html", [
         [ "All", "namespacemembers.html", "namespacemembers_dup" ],
-        [ "Functions", "namespacemembers_func.html", "namespacemembers_func" ],
+        [ "Functions", "namespacemembers_func.html", null ],
         [ "Variables", "namespacemembers_vars.html", null ],
         [ "Typedefs", "namespacemembers_type.html", null ],
-        [ "Enumerations", "namespacemembers_enum.html", null ],
-        [ "Enumerator", "namespacemembers_eval.html", null ]
+        [ "Enumerations", "namespacemembers_enum.html", null ]
       ] ]
     ] ],
     [ "Classes", null, [
@@ -29,19 +24,16 @@ var NAVTREE =
         [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", "functions_func" ],
         [ "Variables", "functions_vars.html", "functions_vars" ],
-        [ "Typedefs", "functions_type.html", null ],
-        [ "Enumerator", "functions_eval.html", null ],
-        [ "Related Functions", "functions_rela.html", "functions_rela" ]
+        [ "Related Functions", "functions_rela.html", null ]
       ] ]
     ] ],
     [ "Files", null, [
       [ "File List", "files.html", "files" ],
       [ "File Members", "globals.html", [
-        [ "All", "globals.html", "globals_dup" ],
+        [ "All", "globals.html", null ],
         [ "Functions", "globals_func.html", null ],
         [ "Variables", "globals_vars.html", null ],
-        [ "Enumerations", "globals_enum.html", null ],
-        [ "Macros", "globals_defs.html", "globals_defs" ]
+        [ "Macros", "globals_defs.html", null ]
       ] ]
     ] ],
     [ "Examples", "examples.html", "examples" ]
@@ -51,49 +43,24 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_igor_8cpp.html",
-"class_frustum.html#a0708a1fe71bdee3d53f9228024c83094",
-"class_igor_1_1i_dialog_graph.html#a2fb0265b4be1d932912232b989b2ec63",
 "class_igor_1_1i_loader3_d_s.html#aac1a7cab4e6a29f97046a0b5bf1b071a",
-"class_igor_1_1i_mesh_builder_1_1_vector_equal_fn.html#a2023f1fbbce8b7643a80a41ca1fcde46",
-"class_igor_1_1i_node_camera.html#a55a45431eab2f459c03c5732f83a6c66",
-"class_igor_1_1i_node_sky_box.html#a7b8cb169fec833fc17fd4110fbcf073a",
-"class_igor_1_1i_particle_system2_d.html#a4c3c3291fd23d2c0647d2703f56d721f",
-"class_igor_1_1i_physics.html#abbdc57d23e7fc2223a77bbf8225759bf",
-"class_igor_1_1i_rectangle.html#a37f7f6be83d8017296859de024b9bc0c",
-"class_igor_1_1i_scene.html#a86e1a8ce9d0520c4f4f4e7dae74976f1",
-"class_igor_1_1i_stop_watch.html#a3784453ca39c611ad18700850297b283",
-"class_igor_1_1i_timer.html#ac4afd3f1ca7a18f0cff90d07c443fbcc",
-"class_igor_1_1i_voxel_operation_sphere.html#a77542e02b1f623b7d2ffaafb32be0329",
-"class_igor_1_1i_widget_base_theme.html#ab6c19d64a688258611643249de47102b",
-"class_igor_1_1i_widget_group_box.html#a9da20b1c56a70b01ca0ef56f4d4d47fc",
-"class_igor_1_1i_widget_spacer.html#abb67521d9d9b79485001998f1a0c743b",
-"class_igor_aux_1_1ia_file.html",
-"class_igor_aux_1_1ia_serializable.html#ab9c67cd6849627e4942eb41ea242ea35",
-"class_igor_aux_1_1ia_vector4.html#a4da605cbd3e078b257db93d5fe21352f",
-"class_model_viewer.html#ad37a241fa457ab27c22dc1d560f6eb02",
-"class_o_m_p_f_1_1ompf_particle_system_chunk.html#ac4f215d550db0a102ec664ca43347dde",
-"class_user_control_material.html#af3ebcffc7e9574b0c1bc73107da97f47",
-"class_widget3_d.html#a30d16fc51e6004892aa924f4a133fdb6",
-"classtesting_1_1_test_property.html#a204e3793205a1e61412fc34be1913c01",
-"classtesting_1_1internal_1_1_r_e.html#a8840bd639642f3d4769a94a68ce463c2",
-"classtesting_1_1internal_1_1_value_array17.html#ac00e101d57e0a9f3978af4807471f389",
-"classtesting_1_1internal_1_1_value_array26.html#aeb346713e3d27563d8c9907da2734903",
-"classtesting_1_1internal_1_1_value_array33.html#ad200ceb215b88e623ca4d69c9c391364",
-"classtesting_1_1internal_1_1_value_array39.html#ad9a5a9736e0a7cf7f56058227e5c860f",
-"classtesting_1_1internal_1_1_value_array44.html#af72975441c710df7fd38bd8fe41bfc6e",
-"classtesting_1_1internal_1_1_value_array49.html#ad06f098e0bc51df70fbdf091ad538d8a",
-"functions_func_p.html",
-"gtest-param-test_8h.html#aeca27a322529e5bbd6331e40c810a123",
-"gtest-tuple_8h.html#a53f36c86a979ed8285bf3c6f82f16483",
-"i_defines_8h.html#a34cb645ec6114bd1969120b4bc31cc25afde5603b6965d5a8c0da74784fab8395",
-"i_l_system_8cpp.html",
-"i_node_physics_8h.html#a00259234b6c223fe283b79bb1b80b7d6",
-"i_render_state_set_8h.html#a490f00fed47903c329843cb921bbace9a5835bab1ade0060909e31a06af2e2cde",
-"i_user_control_file_chooser_8cpp.html",
-"ia_defines_8h.html#a16ab9362a5e14008ca8a761a72aa748c",
-"namespacemembers_func_l.html",
-"struct_igor_1_1i_loader3_d_s_1_1_material.html",
-"structtesting_1_1_test_param_info.html"
+"class_igor_1_1i_node.html#a934eea0db9a4c785b0d6390ead01b68c",
+"class_igor_1_1i_node_visitor_print_tree.html#a9a2fa30487409ce9e6a19156012fb8a9",
+"class_igor_1_1i_physics.html#a61fa9c860fc3cdda0187baceefa65abf",
+"class_igor_1_1i_renderer.html#a28755945d7a2b8c915b06b9290e3006d",
+"class_igor_1_1i_target_material.html#aac88f247be0c6540533d6cb3f6197af6",
+"class_igor_1_1i_voxel_terrain.html#ae17dc81add685384ac7de70f51568df3",
+"class_igor_1_1i_widget_graph.html#a5d1d9807cbbaf21148613039526cea0f",
+"class_igor_1_1i_window.html#aa4e32d7fa4826c2988c8cdd748bf872b",
+"class_igor_aux_1_1ia_mem_block.html#a2f7bad3c20d8c355761428deb44719e4",
+"class_igor_aux_1_1ia_transform.html#ac116347ef94ddcd36f40bc93024952bf",
+"class_o_m_p_f_1_1ompf_particle_system_chunk.html#acb7899cf5968aa90ebad8a4be6cd7e04",
+"i_entity_8h.html#afc828a8f3a21084387ab5bc734086b17ae7f07683c781dbc1f6ba59c606932be2",
+"i_mouse_8h.html",
+"i_plane_8inl.html",
+"i_widget_8h.html#adfe32383ba3d309595fab08dcb73f23e",
+"ia_ring_queue_8h.html",
+"struct_igor_1_1i_voxel_block.html#ac5f0768362108ed29d7d157114d570e3"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

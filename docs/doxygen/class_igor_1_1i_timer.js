@@ -1,26 +1,13 @@
 var class_igor_1_1i_timer =
 [
-    [ "iTimer", "class_igor_1_1i_timer.html#a50879877d91772df1419a9fed9053ddc", null ],
-    [ "~iTimer", "class_igor_1_1i_timer.html#ad16897f2915198bf28bf8fcd2e8bb486", null ],
     [ "getApplicationTime", "class_igor_1_1i_timer.html#ab365ae8f8c1fe9c4ac4d3fb0c34a2036", null ],
     [ "getFPS", "class_igor_1_1i_timer.html#a9242d2375cb9841492ee0fb494faa76c", null ],
     [ "getMilliSeconds", "class_igor_1_1i_timer.html#a6693892027e090f551739415dbbce714", null ],
     [ "getMilliSecondsDelta", "class_igor_1_1i_timer.html#ac3b98e53789a0a5d92d621bbb6a48910", null ],
     [ "getSeconds", "class_igor_1_1i_timer.html#a9831e8fec8abd9284bccc3d7717f5802", null ],
     [ "getSecondsDelta", "class_igor_1_1i_timer.html#a50a5d423d5cd4fe45fd1fbb98cf4e568", null ],
-    [ "handle", "class_igor_1_1i_timer.html#aaa87b03d5a746e8bf7948e0fed4636f1", null ],
     [ "handleTimerHandles", "class_igor_1_1i_timer.html#a64bbd7b54628807fa49c376045783c81", null ],
-    [ "insertTimerHandle", "class_igor_1_1i_timer.html#a54d12ec7edff019fae2686f3d742d997", null ],
-    [ "removeTimerHandle", "class_igor_1_1i_timer.html#a8dc0023bf7dd99e82c33f4c02c440fd1", null ],
     [ "iApplication", "class_igor_1_1i_timer.html#ac95e62eb30700f633cc8c60341f159f6", null ],
     [ "iaSingleton< iTimer >", "class_igor_1_1i_timer.html#a67c09416ab4c47890bdfaf3b5b21c09e", null ],
-    [ "iTimerHandle", "class_igor_1_1i_timer.html#a41b5e2f600ba08086835bd23f0fc514e", null ],
-    [ "_currentTime", "class_igor_1_1i_timer.html#a5951ed8d59659983b76c6b7b34a8d61f", null ],
-    [ "_lastTime", "class_igor_1_1i_timer.html#a3be08788b47a2b5c15c693c73c05ce86", null ],
-    [ "_performance", "class_igor_1_1i_timer.html#a97bba313faf93f542d8ee4dd278f19cb", null ],
-    [ "_startTime", "class_igor_1_1i_timer.html#ae912d5072f33aadffce9c6451e408061", null ],
-    [ "_timeDelta", "class_igor_1_1i_timer.html#a52812fff15ff508eb897b18a85cc2dea", null ],
-    [ "_timerHandles", "class_igor_1_1i_timer.html#ab7a2272b295a75186a1a1da7e232e15f", null ],
-    [ "_timeScale", "class_igor_1_1i_timer.html#ae85af78335ed504a081f45d9b5ba0523", null ],
-    [ "_usingPerformanceCounter", "class_igor_1_1i_timer.html#ac4afd3f1ca7a18f0cff90d07c443fbcc", null ]
+    [ "iTimerHandle", "class_igor_1_1i_timer.html#a41b5e2f600ba08086835bd23f0fc514e", null ]
 ];

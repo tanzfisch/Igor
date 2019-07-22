@@ -1,7 +1,5 @@
 var class_igor_1_1i_material_resource_factory =
 [
-    [ "iMaterialResourceFactory", "class_igor_1_1i_material_resource_factory.html#ad1e208cab1fea029f87798e98de8c068", null ],
-    [ "~iMaterialResourceFactory", "class_igor_1_1i_material_resource_factory.html#a552a588054b5c9575c0872a4354fd987", null ],
     [ "createMaterial", "class_igor_1_1i_material_resource_factory.html#a7f16060265e048a59c11b2a5ef6105cc", null ],
     [ "createTargetMaterial", "class_igor_1_1i_material_resource_factory.html#a55ee78b1783c8787a374907fe17f3d01", null ],
     [ "destroyMaterial", "class_igor_1_1i_material_resource_factory.html#acf490b2841756011dec4fe567b9b403e", null ],
@@ -14,23 +12,9 @@ var class_igor_1_1i_material_resource_factory =
     [ "getMaterial", "class_igor_1_1i_material_resource_factory.html#ad8ae73a47beca8c0d43c43dfd2aac8ca", null ],
     [ "getMaterialID", "class_igor_1_1i_material_resource_factory.html#aa096dffd0e2d737f5fb0148838a6d129", null ],
     [ "getSortedMaterials", "class_igor_1_1i_material_resource_factory.html#a470b7c06bcad28ef79917ae30d58fabe", null ],
-    [ "initDefaultMaterials", "class_igor_1_1i_material_resource_factory.html#aab0cc81e97a5a6a514c2252bbdc4da99", null ],
     [ "registerMaterialCreatedDelegate", "class_igor_1_1i_material_resource_factory.html#aa571e1eb2d9fe1fb9a96c3191a24e7ca", null ],
     [ "registerMaterialDestroyedDelegate", "class_igor_1_1i_material_resource_factory.html#aec091a839aa0ab5668b1c155b4191a60", null ],
-    [ "setMaterial", "class_igor_1_1i_material_resource_factory.html#a80ca5c93e1d758a1a0a895ba432e9aff", null ],
     [ "unregisterMaterialCreatedDelegate", "class_igor_1_1i_material_resource_factory.html#a232ed288a6810c066e286b27ea0c4ae0", null ],
     [ "unregisterMaterialDestroyedDelegate", "class_igor_1_1i_material_resource_factory.html#af4e2cbd7d9daa1576dd1a9e207bad7e0", null ],
-    [ "updateGroups", "class_igor_1_1i_material_resource_factory.html#a7288ca2ed6bbdc2f0faa6f576c8d3740", null ],
-    [ "iaSingleton< iMaterialResourceFactory >", "class_igor_1_1i_material_resource_factory.html#a975244c2c543acf5b531d67b8b14b61f", null ],
-    [ "_colorIDMaterial", "class_igor_1_1i_material_resource_factory.html#ac35879694f5018ceb1fbf23e86443903", null ],
-    [ "_currentMaterial", "class_igor_1_1i_material_resource_factory.html#af1d696436d3802f18c5636b9e4b6e00b", null ],
-    [ "_defaultMaterial", "class_igor_1_1i_material_resource_factory.html#ae482a7a6c7e40a2031d7882e39f445fd", null ],
-    [ "_dirtyMaterials", "class_igor_1_1i_material_resource_factory.html#ac2ff504b4bb89792218656ce555202ed", null ],
-    [ "_materialCreatedEvent", "class_igor_1_1i_material_resource_factory.html#acdec6730038a41ec031fcc5369648206", null ],
-    [ "_materialDestroyedEvent", "class_igor_1_1i_material_resource_factory.html#aaad31f81a4304283f7cad8143d1b981f", null ],
-    [ "_materials", "class_igor_1_1i_material_resource_factory.html#aa47679a2b9d413141e6466656dd8dfd3", null ],
-    [ "_mutexMaterial", "class_igor_1_1i_material_resource_factory.html#a2448c8a42e4890f66601a7a2db358ea8", null ],
-    [ "_sortedMaterials", "class_igor_1_1i_material_resource_factory.html#aa9786b1d96277afda232cd8574cadacd", null ],
-    [ "_targetMaterialMutex", "class_igor_1_1i_material_resource_factory.html#ad595375a917223e75cbe8ca788568c74", null ],
-    [ "_targetMaterials", "class_igor_1_1i_material_resource_factory.html#af7e137156c3e29bab9ac6eb2a9f6d5f1", null ]
+    [ "iaSingleton< iMaterialResourceFactory >", "class_igor_1_1i_material_resource_factory.html#a975244c2c543acf5b531d67b8b14b61f", null ]
 ];

@@ -1,6 +1,0 @@
-<map id="Igor::iWidgetManager::destroyDialog" name="Igor::iWidgetManager::destroyDialog">
-<area shape="rect" id="node2" href="$class_menu_dialog.html#ad45c34150be9cf8c048ee636272137ac" title="MenuDialog::deinitGUI" alt="" coords="213,5,363,32"/>
-<area shape="rect" id="node3" href="$class_user_control_graph_view.html#a4d4ca145202566cef119f54a69ec9827" title="UserControlGraphView\l::deinitGUI" alt="" coords="211,57,365,98"/>
-<area shape="rect" id="node4" href="$class_user_control_material.html#affeba973623aa2dc91737c9bd57c7479" title="UserControlMaterial\l::deinitGUI" alt="" coords="220,122,356,163"/>
-<area shape="rect" id="node5" href="$class_user_control_particle_system.html#a90d59fb69449d6f5677749fae01ab8c7" title="UserControlParticleSystem\l::deinitGUI" alt="" coords="199,187,377,229"/>
-</map>

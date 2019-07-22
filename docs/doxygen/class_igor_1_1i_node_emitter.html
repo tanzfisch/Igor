@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,8 +111,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_emitter.html','')
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_node_emitter-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -120,19 +118,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_emitter.html','')
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_node_emitter_8h_source.html">iNodeEmitter.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iNodeEmitter:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_emitter__inherit__graph.svg" width="138" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iNodeEmitter:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_emitter__coll__graph.svg" width="1154" height="452"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iNodeEmitter.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_1_1i_node.html">Igor::iNode</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -161,6 +149,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a301e06e0e55d6ca93fc64fe44c3ed8bd inherit pub_methods_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae397893dd8c9dbca7d895033f8a8923c inherit pub_methods_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#ae397893dd8c9dbca7d895033f8a8923c">getInfo</a> () const </td></tr>
 <tr class="separator:ae397893dd8c9dbca7d895033f8a8923c inherit pub_methods_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3f2b3ca01ccef200d9271cc493311d0 inherit pub_methods_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#ae3f2b3ca01ccef200d9271cc493311d0">getCustomInfo</a> () const </td></tr>
+<tr class="separator:ae3f2b3ca01ccef200d9271cc493311d0 inherit pub_methods_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0d333770cbc83471e71deb2d60465c5 inherit pub_methods_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#ae0d333770cbc83471e71deb2d60465c5">setName</a> (<a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> name)</td></tr>
 <tr class="separator:ae0d333770cbc83471e71deb2d60465c5 inherit pub_methods_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ce1269afdfb50f10f7b2c10e5aa69e0 inherit pub_methods_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a4ce1269afdfb50f10f7b2c10e5aa69e0">insertNode</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node)</td></tr>
@@ -204,26 +194,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a92a082c4e595b2f485e959b54e67c443 inherit pub_methods_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top">iTransformationChangeEvent &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a92a082c4e595b2f485e959b54e67c443">getTransformationChangeEvent</a> ()</td></tr>
 <tr class="separator:a92a082c4e595b2f485e959b54e67c443 inherit pub_methods_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a4694aa6b4d6b88af9673b29a82e62fbd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_emitter.html#a4694aa6b4d6b88af9673b29a82e62fbd">onUpdateTransform</a> (<a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> &amp;matrix)</td></tr>
-<tr class="separator:a4694aa6b4d6b88af9673b29a82e62fbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63918ab5f5cb74429f362b7fe70c8c6c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_particle_emitter.html">iParticleEmitter</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_emitter.html#a63918ab5f5cb74429f362b7fe70c8c6c">getParticleEmitter</a> ()</td></tr>
-<tr class="separator:a63918ab5f5cb74429f362b7fe70c8c6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f53bea1cc8db3156024e885daf15c29"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_emitter.html#a3f53bea1cc8db3156024e885daf15c29">iNodeEmitter</a> ()</td></tr>
-<tr class="separator:a3f53bea1cc8db3156024e885daf15c29"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4c4d6f76f70448cc052410bca6d6d71a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_emitter.html#a4c4d6f76f70448cc052410bca6d6d71a">iNodeEmitter</a> (<a class="el" href="class_igor_1_1i_node_emitter.html">iNodeEmitter</a> *node)</td></tr>
-<tr class="separator:a4c4d6f76f70448cc052410bca6d6d71a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4069d66130fc03b8e3ec3e6655cb9465"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_emitter.html#a4069d66130fc03b8e3ec3e6655cb9465">~iNodeEmitter</a> ()=default</td></tr>
-<tr class="separator:a4069d66130fc03b8e3ec3e6655cb9465"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:ae1338ebf8a5691a6b8c4c0ddbd6f13f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_particle_emitter.html">iParticleEmitter</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_emitter.html#ae1338ebf8a5691a6b8c4c0ddbd6f13f6">_emitter</a></td></tr>
-<tr class="separator:ae1338ebf8a5691a6b8c4c0ddbd6f13f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d857772ef8afbd659c34e0e240447ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_emitter.html#a3d857772ef8afbd659c34e0e240447ac">_worldMatrix</a></td></tr>
-<tr class="separator:a3d857772ef8afbd659c34e0e240447ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a443fcc5b71f6dbb2a68dae3d957024c3"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_emitter.html#a443fcc5b71f6dbb2a68dae3d957024c3">iNodeFactory</a></td></tr>
@@ -233,6 +203,11 @@ Friends</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_static_methods_class_igor_1_1i_node"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_class_igor_1_1i_node')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="class_igor_1_1i_node.html">Igor::iNode</a></td></tr>
+<tr class="memitem:a95205a1c02756c617f1c8ac26d6c1bba inherit pub_static_methods_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a95205a1c02756c617f1c8ac26d6c1bba">getKindName</a> (<a class="el" href="namespace_igor.html#af60214c983d49068fb5a9147cfb723fa">iNodeKind</a> kind)</td></tr>
+<tr class="separator:a95205a1c02756c617f1c8ac26d6c1bba inherit pub_static_methods_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03c53224805c56e7cf45b1be6e63acad inherit pub_static_methods_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a03c53224805c56e7cf45b1be6e63acad">getTypeName</a> (<a class="el" href="namespace_igor.html#abe8ac7d5017f674544ec43881a173c7f">iNodeType</a> nodeType)</td></tr>
+<tr class="separator:a03c53224805c56e7cf45b1be6e63acad inherit pub_static_methods_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_attribs_class_igor_1_1i_node"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_class_igor_1_1i_node')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="class_igor_1_1i_node.html">Igor::iNode</a></td></tr>
 <tr class="memitem:a1bd963f9762bf33432fdeb062c800797 inherit pub_static_attribs_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top">static const uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a1bd963f9762bf33432fdeb062c800797">INVALID_NODE_ID</a> = <a class="el" href="ia_defines_8h.html#a170c60feb8221523e337b3cc009848f5">IGOR_INVALID_ID</a></td></tr>
 <tr class="separator:a1bd963f9762bf33432fdeb062c800797 inherit pub_static_attribs_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -287,101 +262,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>node to control an emitter for a particle system </p>
-
-<p>Definition at line <a class="el" href="i_node_emitter_8h_source.html#l00044">44</a> of file <a class="el" href="i_node_emitter_8h_source.html">iNodeEmitter.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a3f53bea1cc8db3156024e885daf15c29"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iNodeEmitter::iNodeEmitter </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>init members </p>
-
-<p>Definition at line <a class="el" href="i_node_emitter_8cpp_source.html#l00013">13</a> of file <a class="el" href="i_node_emitter_8cpp_source.html">iNodeEmitter.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4c4d6f76f70448cc052410bca6d6d71a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iNodeEmitter::iNodeEmitter </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_node_emitter.html">iNodeEmitter</a> *&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>copy ctor</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">node</td><td>the node to copy from </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_node_emitter_8cpp_source.html#l00020">20</a> of file <a class="el" href="i_node_emitter_8cpp_source.html">iNodeEmitter.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_emitter_a4c4d6f76f70448cc052410bca6d6d71a_cgraph.svg" width="330" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a4069d66130fc03b8e3ec3e6655cb9465"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual Igor::iNodeEmitter::~iNodeEmitter </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>does nothing </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a18b8604c728c936774cc25743d9a3c93"></a>
 <div class="memitem">
 <div class="memproto">
@@ -403,8 +284,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_node_emitter_8cpp_source.html#l00048">48</a> of file <a class="el" href="i_node_emitter_8cpp_source.html">iNodeEmitter.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a77aa027f91ccf5b88962f2e8a76a4d07"></a>
@@ -420,8 +299,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>removes all emitter triangles from mesh </p>
-
-<p>Definition at line <a class="el" href="i_node_emitter_8cpp_source.html#l00053">53</a> of file <a class="el" href="i_node_emitter_8cpp_source.html">iNodeEmitter.cpp</a>.</p>
 
 </div>
 </div>
@@ -439,50 +316,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the type of the emitter </dd></dl>
 
-<p>Definition at line <a class="el" href="i_node_emitter_8cpp_source.html#l00038">38</a> of file <a class="el" href="i_node_emitter_8cpp_source.html">iNodeEmitter.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_emitter_aed749292f7ac23bf9ffec153a4472644_icgraph.svg" width="587" height="208"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a63918ab5f5cb74429f362b7fe70c8c6c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_particle_emitter.html">iParticleEmitter</a> &amp; Igor::iNodeEmitter::getParticleEmitter </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>internal particle emitter structure </dd></dl>
-
-<p>Definition at line <a class="el" href="i_node_emitter_8cpp_source.html#l00067">67</a> of file <a class="el" href="i_node_emitter_8cpp_source.html">iNodeEmitter.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_emitter_a63918ab5f5cb74429f362b7fe70c8c6c_icgraph.svg" width="367" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ad9c9bec50aad0f6e2c0807f0b5c36b54"></a>
@@ -499,16 +332,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>size of emitter </dd></dl>
 
-<p>Definition at line <a class="el" href="i_node_emitter_8cpp_source.html#l00077">77</a> of file <a class="el" href="i_node_emitter_8cpp_source.html">iNodeEmitter.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_emitter_ad9c9bec50aad0f6e2c0807f0b5c36b54_icgraph.svg" width="587" height="208"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a8d215307dffdbfa05c94376c9aaf2fc6"></a>
@@ -524,43 +347,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>current world matrix of this node </dd></dl>
-
-<p>Definition at line <a class="el" href="i_node_emitter_8cpp_source.html#l00043">43</a> of file <a class="el" href="i_node_emitter_8cpp_source.html">iNodeEmitter.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4694aa6b4d6b88af9673b29a82e62fbd"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iNodeEmitter::onUpdateTransform </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> &amp;&#160;</td>
-          <td class="paramname"><em>matrix</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>set the world matrix of the emitter</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">matrix</td><td>world matrix for the emitter </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="class_igor_1_1i_node.html#a5bb85be2466e22f0aba730fa23620b52">Igor::iNode</a>.</p>
-
-<p>Definition at line <a class="el" href="i_node_emitter_8cpp_source.html#l00058">58</a> of file <a class="el" href="i_node_emitter_8cpp_source.html">iNodeEmitter.cpp</a>.</p>
 
 </div>
 </div>
@@ -585,16 +371,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_node_emitter_8cpp_source.html#l00033">33</a> of file <a class="el" href="i_node_emitter_8cpp_source.html">iNodeEmitter.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_emitter_a71ae08db126b0889d002a6ccf9311854_icgraph.svg" width="352" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ae0d97308b47c3a530dc45198bce9dc7a"></a>
@@ -611,31 +387,13 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>sets size of emitter</p>
-<p>how it's interpreted depends on type of emitter Mesh -&gt; none Point -&gt; none Disc -&gt; radius Circle -&gt; radius <a class="el" href="class_sphere.html">Sphere</a> -&gt; radius Square -&gt; half edge lenght Cube -&gt; half edge lenght</p>
+<p>how it's interpreted depends on type of emitter Mesh -&gt; none Point -&gt; none Disc -&gt; radius Circle -&gt; radius Sphere -&gt; radius Square -&gt; half edge lenght Cube -&gt; half edge lenght</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">size</td><td>size of emitter </td></tr>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_node_emitter_8cpp_source.html#l00072">72</a> of file <a class="el" href="i_node_emitter_8cpp_source.html">iNodeEmitter.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_emitter_ae0d97308b47c3a530dc45198bce9dc7a_cgraph.svg" width="326" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_emitter_ae0d97308b47c3a530dc45198bce9dc7a_icgraph.svg" width="352" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -658,9 +416,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>node that handles physics collisions bound to one body</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000029">Todo:</a></b></dt><dd>also need to remove things after adding them. maybe using IDs for that </dd></dl>
-
-<p>Definition at line <a class="el" href="i_node_emitter_8h_source.html#l00047">47</a> of file <a class="el" href="i_node_emitter_8h_source.html">iNodeEmitter.h</a>.</p>
 
 </div>
 </div>
@@ -682,60 +437,11 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_node_emitter_8h_source.html#l00048">48</a> of file <a class="el" href="i_node_emitter_8h_source.html">iNodeEmitter.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="ae1338ebf8a5691a6b8c4c0ddbd6f13f6"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_particle_emitter.html">iParticleEmitter</a> Igor::iNodeEmitter::_emitter</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the actual particle emitter strucure </p>
-
-<p>Definition at line <a class="el" href="i_node_emitter_8h_source.html#l00099">99</a> of file <a class="el" href="i_node_emitter_8h_source.html">iNodeEmitter.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3d857772ef8afbd659c34e0e240447ac"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> Igor::iNodeEmitter::_worldMatrix</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>matrix including position an orientation of this emitter in world coordinates </p>
-
-<p>Definition at line <a class="el" href="i_node_emitter_8h_source.html#l00103">103</a> of file <a class="el" href="i_node_emitter_8h_source.html">iNodeEmitter.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_emitter_8h_source.html">iNodeEmitter.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_emitter_8cpp_source.html">iNodeEmitter.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_node_emitter_8h.html">iNodeEmitter.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_node_emitter_8cpp.html">iNodeEmitter.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -744,7 +450,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_node_emitter.html">iNodeEmitter</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:52 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,29 +112,14 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_mesh_builder.html','')
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_1_1i_mesh_builder-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Igor::iMeshBuilder Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_mesh_builder_8h_source.html">iMeshBuilder.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for Igor::iMeshBuilder:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder__coll__graph.svg" width="162" height="260"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iMeshBuilder.h&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh_builder_1_1_vector_equal_fn.html">VectorEqualFn</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh_builder_1_1_vector_hasher.html">VectorHasher</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a6704affa7da216efac64b89fea3b11b4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh_builder.html#a6704affa7da216efac64b89fea3b11b4">iMeshBuilder</a> ()</td></tr>
@@ -207,46 +192,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a4a0b02ce56c4a4401383b51676bc2011"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e7f726e5abd15b82c6296c3987f6f62"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh_builder.html#a5e7f726e5abd15b82c6296c3987f6f62">cleanup</a> ()</td></tr>
 <tr class="separator:a5e7f726e5abd15b82c6296c3987f6f62"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a545192a120f47ccf05a9f9f970156b14"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh_builder.html#a545192a120f47ccf05a9f9f970156b14">addVertexIntern</a> (const <a class="el" href="namespace_igor_aux.html#a5c3ef7446f6ebd853b29e38acc5d0fac">iaVector3f</a> &amp;vertex)</td></tr>
-<tr class="separator:a545192a120f47ccf05a9f9f970156b14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad7b098dfbd3d89906ad54e72bc17907"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh_builder.html#aad7b098dfbd3d89906ad54e72bc17907">compile</a> (<a class="el" href="class_igor_1_1i_mesh.html">iMesh</a> *mesh)</td></tr>
-<tr class="separator:aad7b098dfbd3d89906ad54e72bc17907"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a790b5bf95f8c5a22b70184780421ca57"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh_builder.html#a790b5bf95f8c5a22b70184780421ca57">compile</a> (<a class="el" href="class_igor_1_1i_mesh.html">iMesh</a> *mesh, vector&lt; uint32 &gt; triangles)</td></tr>
-<tr class="separator:a790b5bf95f8c5a22b70184780421ca57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefb6e453c60cdf8491703acfa6a13634"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh_builder.html#aefb6e453c60cdf8491703acfa6a13634">checkConsistency</a> ()</td></tr>
-<tr class="separator:aefb6e453c60cdf8491703acfa6a13634"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f60cb6a7652dd70846b4b7c8a558300"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh_builder.html#a7f60cb6a7652dd70846b4b7c8a558300">getIndexOfVertexes</a> (const <a class="el" href="namespace_igor_aux.html#a5c3ef7446f6ebd853b29e38acc5d0fac">iaVector3f</a> &amp;vertexA, int64 &amp;indexA, const <a class="el" href="namespace_igor_aux.html#a5c3ef7446f6ebd853b29e38acc5d0fac">iaVector3f</a> &amp;vertexB, int64 &amp;indexB, const <a class="el" href="namespace_igor_aux.html#a5c3ef7446f6ebd853b29e38acc5d0fac">iaVector3f</a> &amp;vertexC, int64 &amp;indexC)</td></tr>
-<tr class="separator:a7f60cb6a7652dd70846b4b7c8a558300"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a7643bb7e285d3a28c8a43fdca57595ca"><td class="memItemLeft" align="right" valign="top">unordered_map&lt; <a class="el" href="namespace_igor_aux.html#a5c3ef7446f6ebd853b29e38acc5d0fac">iaVector3f</a>, <br class="typebreak" />
-uint32, <a class="el" href="class_igor_1_1i_mesh_builder_1_1_vector_hasher.html">VectorHasher</a>, <br class="typebreak" />
-<a class="el" href="class_igor_1_1i_mesh_builder_1_1_vector_equal_fn.html">VectorEqualFn</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh_builder.html#a7643bb7e285d3a28c8a43fdca57595ca">_indexMap</a></td></tr>
-<tr class="separator:a7643bb7e285d3a28c8a43fdca57595ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27d303084f0ad5f7a35aff3477515c7a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh_builder.html#a27d303084f0ad5f7a35aff3477515c7a">_joinVertexes</a> = true</td></tr>
-<tr class="separator:a27d303084f0ad5f7a35aff3477515c7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf09cd9c2d89b8b2b52d26e957916103"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="namespace_igor_aux.html#a5c3ef7446f6ebd853b29e38acc5d0fac">iaVector3f</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh_builder.html#adf09cd9c2d89b8b2b52d26e957916103">_vertexes</a></td></tr>
-<tr class="separator:adf09cd9c2d89b8b2b52d26e957916103"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa65801c42ca492de05e91c2bc2ff917c"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="namespace_igor_aux.html#a5c3ef7446f6ebd853b29e38acc5d0fac">iaVector3f</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh_builder.html#aa65801c42ca492de05e91c2bc2ff917c">_normals</a></td></tr>
-<tr class="separator:aa65801c42ca492de05e91c2bc2ff917c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ecd77ae0c0a8e0de4be748478c6a4bd"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="namespace_igor_aux.html#aa007fa54047309abce67d3d15c94d091">iaColor4f</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh_builder.html#a5ecd77ae0c0a8e0de4be748478c6a4bd">_colors</a></td></tr>
-<tr class="separator:a5ecd77ae0c0a8e0de4be748478c6a4bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adeb3ea7bbace28aa49e4bdd0ed7dd61e"><td class="memItemLeft" align="right" valign="top">map&lt; uint32, vector&lt; <a class="el" href="namespace_igor_aux.html#a5c88a439642e5787115c367573a85025">iaVector2f</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh_builder.html#adeb3ea7bbace28aa49e4bdd0ed7dd61e">_texCoords</a></td></tr>
-<tr class="separator:adeb3ea7bbace28aa49e4bdd0ed7dd61e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83a0e8869ea7591a595c3a2d9317e6db"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="struct_igor_1_1i_indexed_triangle.html">iIndexedTriangle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh_builder.html#a83a0e8869ea7591a595c3a2d9317e6db">_triangles</a></td></tr>
-<tr class="separator:a83a0e8869ea7591a595c3a2d9317e6db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acab12b1df290bcc6715f9f8265ef481e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a9263d5a1e612a65686c337f842afab89">iaMatrixf</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh_builder.html#acab12b1df290bcc6715f9f8265ef481e">_matrix</a></td></tr>
-<tr class="separator:acab12b1df290bcc6715f9f8265ef481e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>builds up a mesh and spits out <a class="el" href="class_igor_1_1i_mesh.html">iMesh</a></p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000014">Todo:</a></b></dt><dd>how about applying transformations directly on the data before generating buffers from ìt? like baking transformations to the data. or setting a transformation and all vertices set will be transformed first by it? </dd></dl>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8h_source.html#l00075">75</a> of file <a class="el" href="i_mesh_builder_8h_source.html">iMeshBuilder.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a6704affa7da216efac64b89fea3b11b4"></a>
 <div class="memitem">
@@ -261,16 +209,6 @@ uint32, <a class="el" href="class_igor_1_1i_mesh_builder_1_1_vector_hasher.html"
       </table>
 </div><div class="memdoc">
 <p>does nothing </p>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00018">18</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_a6704affa7da216efac64b89fea3b11b4_cgraph.svg" width="264" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -287,8 +225,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>does nothing </p>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00023">23</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -324,16 +260,6 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00150">150</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_a981a52e3fac4e015479f9835b5ba7bc2_icgraph.svg" width="815" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -384,16 +310,6 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>index of triangle created </dd></dl>
 
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00212">212</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_ac3ae47c63dd2b5b18840482d485de85d_icgraph.svg" width="1202" height="710"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ae132784ebd5a29f57ff13f2e242ca50b"></a>
@@ -417,16 +333,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>index of vertex added </dd></dl>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00090">90</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_ae132784ebd5a29f57ff13f2e242ca50b_icgraph.svg" width="1178" height="710"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -453,42 +359,6 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>index of vertex added </dd></dl>
 
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00083">83</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a545192a120f47ccf05a9f9f970156b14"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iMeshBuilder::addVertexIntern </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_igor_aux.html#a5c3ef7446f6ebd853b29e38acc5d0fac">iaVector3f</a> &amp;&#160;</td>
-          <td class="paramname"><em>vertex</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>actually adds the vertex to internal structures</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">vertex</td><td>the vertex to add </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>vertex index </dd></dl>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00096">96</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a7e5ebe29d8813a8ec1617d142819b17c"></a>
@@ -506,8 +376,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>calculating the bounding box </p>
 
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00354">354</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a20a4537fcba1217cfe458404eb356813"></a>
@@ -524,9 +392,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>calculating the bounding sphere</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd>implement bouncing bubble algorithm </dd></dl>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00403">403</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -550,16 +415,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00667">667</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_a46e0762ee333059fd53821e286fc3f08_icgraph.svg" width="918" height="618"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -609,8 +464,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00814">814</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a52407464daa99c2c66802ededaf9be26"></a>
@@ -644,16 +497,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00887">887</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_a52407464daa99c2c66802ededaf9be26_cgraph.svg" width="360" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -696,42 +539,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00864">864</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_a26b91a04889ec6829c929a43a95c2200_cgraph.svg" width="372" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="aefb6e453c60cdf8491703acfa6a13634"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iMeshBuilder::checkConsistency </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>checks boundaries of generated data </p>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00223">223</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a5e7f726e5abd15b82c6296c3987f6f62"></a>
@@ -748,8 +555,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>tries to repair what is inconsistent </p>
 
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00450">450</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aa7721952454d6db77bcb86f207c7bead"></a>
@@ -765,109 +570,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>clears data and set transformation matrix to identity </p>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00027">27</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_aa7721952454d6db77bcb86f207c7bead_icgraph.svg" width="602" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="aad7b098dfbd3d89906ad54e72bc17907"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iMeshBuilder::compile </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_mesh.html">iMesh</a> *&#160;</td>
-          <td class="paramname"><em>mesh</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>fills <a class="el" href="class_igor_1_1i_mesh.html">iMesh</a> with data</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">mesh</td><td>the mesh to fill the data in </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00596">596</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_aad7b098dfbd3d89906ad54e72bc17907_cgraph.svg" width="376" height="611"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a790b5bf95f8c5a22b70184780421ca57"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iMeshBuilder::compile </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_mesh.html">iMesh</a> *&#160;</td>
-          <td class="paramname"><em>mesh</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">vector&lt; uint32 &gt;&#160;</td>
-          <td class="paramname"><em>triangles</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>fills <a class="el" href="class_igor_1_1i_mesh.html">iMesh</a> with data filtered by triangles list</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in,out]</td><td class="paramname">mesh</td><td>the mesh to fill the data in </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">triangles</td><td>list of triangles that are supposed to end up in the mesh </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00503">503</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_a790b5bf95f8c5a22b70184780421ca57_cgraph.svg" width="376" height="611"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -902,16 +604,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00306">306</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_a9d4d79a661205452e7d6c8cb21832869_cgraph.svg" width="312" height="314"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="acc4acc76e9103871efa519e29c2e66bf"></a>
@@ -928,24 +620,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>creates ans returns a mesh based on current data</p>
 <dl class="section return"><dt>Returns</dt><dd>shared pointer to <a class="el" href="class_igor_1_1i_mesh.html">iMesh</a> </dd></dl>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00487">487</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_acc4acc76e9103871efa519e29c2e66bf_cgraph.svg" width="352" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_acc4acc76e9103871efa519e29c2e66bf_icgraph.svg" width="923" height="683"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -971,88 +645,6 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>shared pointer to <a class="el" href="class_igor_1_1i_mesh.html">iMesh</a> </dd></dl>
 
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00433">433</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_a17396320bcaa7c150b1d0f75d3d914fd_cgraph.svg" width="375" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a7f60cb6a7652dd70846b4b7c8a558300"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iMeshBuilder::getIndexOfVertexes </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_igor_aux.html#a5c3ef7446f6ebd853b29e38acc5d0fac">iaVector3f</a> &amp;&#160;</td>
-          <td class="paramname"><em>vertexA</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int64 &amp;&#160;</td>
-          <td class="paramname"><em>indexA</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_igor_aux.html#a5c3ef7446f6ebd853b29e38acc5d0fac">iaVector3f</a> &amp;&#160;</td>
-          <td class="paramname"><em>vertexB</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int64 &amp;&#160;</td>
-          <td class="paramname"><em>indexB</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="namespace_igor_aux.html#a5c3ef7446f6ebd853b29e38acc5d0fac">iaVector3f</a> &amp;&#160;</td>
-          <td class="paramname"><em>vertexC</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int64 &amp;&#160;</td>
-          <td class="paramname"><em>indexC</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>tries to find vertex indexes by their position</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir"></td><td class="paramname">vertexA</td><td>location of vertex A </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">indexA</td><td>index of vertex A </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">vertexB</td><td>location of vertex B </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">indexB</td><td>index of vertex B </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">vertexC</td><td>location of vertex C </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">indexC</td><td>index of vertex C </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00722">722</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="af7d2b13d46de30d089e3f44a696f8779"></a>
@@ -1068,8 +660,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>join vertexes flag </dd></dl>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00078">78</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -1094,8 +684,6 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00048">48</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a5d974157c1a560a0b28231873ae0dee7"></a>
@@ -1111,8 +699,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>list of vertex normals </dd></dl>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00058">58</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -1130,8 +716,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>texture unit count </dd></dl>
 
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00281">281</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a6073ed64918c9094d9215beb38c52885"></a>
@@ -1147,8 +731,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>list of indexed triangles </dd></dl>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00063">63</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -1166,16 +748,6 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>triangle count </dd></dl>
 
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00301">301</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_a3732e9e7aae711f1ec6be5cdcbc70b72_icgraph.svg" width="610" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a7bc707a833d24cff2eebc2a0432af35c"></a>
@@ -1191,16 +763,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>vertex count </dd></dl>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00296">296</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_a7bc707a833d24cff2eebc2a0432af35c_icgraph.svg" width="1118" height="546"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1218,8 +780,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>list of vertex positions </dd></dl>
 
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00053">53</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a9e6497ca2afe6edfddb06e6ceda9dc6d"></a>
@@ -1236,8 +796,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if data contains colors </dd></dl>
 
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00291">291</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a45fc5932db2a0963fc1984a3da5a7330"></a>
@@ -1253,8 +811,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true: if mesh has _normals; false: mesh has no _normals </dd></dl>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00286">286</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
 
 </div>
 </div>
@@ -1279,8 +835,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00038">38</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a87b4b238050ec181357169fc23f295c1"></a>
@@ -1296,24 +850,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>normalizes all normals </p>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00142">142</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_a87b4b238050ec181357169fc23f295c1_cgraph.svg" width="323" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_a87b4b238050ec181357169fc23f295c1_icgraph.svg" width="610" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1348,16 +884,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00165">165</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_aa9a7af3cd4849acfebc07216773a710e_icgraph.svg" width="312" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="add706d99f7f1e430b475ba326c993c54"></a>
@@ -1382,16 +908,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00068">68</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_add706d99f7f1e430b475ba326c993c54_icgraph.svg" width="404" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a458f799e29103966a2c180b0192bb789"></a>
@@ -1414,16 +930,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00043">43</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_a458f799e29103966a2c180b0192bb789_icgraph.svg" width="918" height="256"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1458,16 +964,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00127">127</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_a5db412c786880b035e52b9c1aa80934d_icgraph.svg" width="1042" height="150"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="aafc8cc561920bf82691189463c596223"></a>
@@ -1501,16 +997,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00180">180</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_mesh_builder_aafc8cc561920bf82691189463c596223_icgraph.svg" width="312" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1553,198 +1039,11 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_mesh_builder_8cpp_source.html#l00195">195</a> of file <a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a5ecd77ae0c0a8e0de4be748478c6a4bd"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="namespace_igor_aux.html#aa007fa54047309abce67d3d15c94d091">iaColor4f</a>&gt; Igor::iMeshBuilder::_colors</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the colors of the mesh </p>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8h_source.html#l00321">321</a> of file <a class="el" href="i_mesh_builder_8h_source.html">iMeshBuilder.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7643bb7e285d3a28c8a43fdca57595ca"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">unordered_map&lt;<a class="el" href="namespace_igor_aux.html#a5c3ef7446f6ebd853b29e38acc5d0fac">iaVector3f</a>, uint32, <a class="el" href="class_igor_1_1i_mesh_builder_1_1_vector_hasher.html">VectorHasher</a>, <a class="el" href="class_igor_1_1i_mesh_builder_1_1_vector_equal_fn.html">VectorEqualFn</a>&gt; Igor::iMeshBuilder::_indexMap</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>map for vertex positions </p>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8h_source.html#l00305">305</a> of file <a class="el" href="i_mesh_builder_8h_source.html">iMeshBuilder.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a27d303084f0ad5f7a35aff3477515c7a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iMeshBuilder::_joinVertexes = true</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>if true all vertexes that have the same position will be joined </p>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8h_source.html#l00309">309</a> of file <a class="el" href="i_mesh_builder_8h_source.html">iMeshBuilder.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="acab12b1df290bcc6715f9f8265ef481e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor_aux.html#a9263d5a1e612a65686c337f842afab89">iaMatrixf</a> Igor::iMeshBuilder::_matrix</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current transformation matrix </p>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8h_source.html#l00333">333</a> of file <a class="el" href="i_mesh_builder_8h_source.html">iMeshBuilder.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa65801c42ca492de05e91c2bc2ff917c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="namespace_igor_aux.html#a5c3ef7446f6ebd853b29e38acc5d0fac">iaVector3f</a>&gt; Igor::iMeshBuilder::_normals</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the normals of the mesh </p>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8h_source.html#l00317">317</a> of file <a class="el" href="i_mesh_builder_8h_source.html">iMeshBuilder.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="adeb3ea7bbace28aa49e4bdd0ed7dd61e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">map&lt;uint32, vector&lt;<a class="el" href="namespace_igor_aux.html#a5c88a439642e5787115c367573a85025">iaVector2f</a>&gt; &gt; Igor::iMeshBuilder::_texCoords</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the texture coordinates of the mesh </p>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8h_source.html#l00325">325</a> of file <a class="el" href="i_mesh_builder_8h_source.html">iMeshBuilder.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a83a0e8869ea7591a595c3a2d9317e6db"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="struct_igor_1_1i_indexed_triangle.html">iIndexedTriangle</a>&gt; Igor::iMeshBuilder::_triangles</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the triangles of the mesh </p>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8h_source.html#l00329">329</a> of file <a class="el" href="i_mesh_builder_8h_source.html">iMeshBuilder.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="adf09cd9c2d89b8b2b52d26e957916103"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="namespace_igor_aux.html#a5c3ef7446f6ebd853b29e38acc5d0fac">iaVector3f</a>&gt; Igor::iMeshBuilder::_vertexes</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the vertices of the mesh </p>
-
-<p>Definition at line <a class="el" href="i_mesh_builder_8h_source.html#l00313">313</a> of file <a class="el" href="i_mesh_builder_8h_source.html">iMeshBuilder.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_mesh_builder_8h_source.html">iMeshBuilder.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_mesh_builder_8cpp_source.html">iMeshBuilder.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_mesh_builder_8h.html">iMeshBuilder.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_mesh_builder_8cpp.html">iMeshBuilder.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -1753,7 +1052,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_mesh_builder.html">iMeshBuilder</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:49 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

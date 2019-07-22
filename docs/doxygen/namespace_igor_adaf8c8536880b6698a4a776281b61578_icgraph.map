@@ -1,6 +1,0 @@
-<map id="Igor::onTaskFinished" name="Igor::onTaskFinished">
-<area shape="rect" id="node2" href="$class_igor_1_1i_model_resource_factory.html#a3424cf6379e9f7fe9367b0474e503d1d" title="Igor::iModelResourceFactory\l::iModelResourceFactory" alt="" coords="196,5,384,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_model_resource_factory.html#a0c82a68c6596d90769a70eaf5788c8f2" title="Igor::iModelResourceFactory\l::~iModelResourceFactory" alt="" coords="196,71,384,112"/>
-<area shape="rect" id="node4" href="$namespace_igor.html#a00259234b6c223fe283b79bb1b80b7d6" title="Igor::~iNodePhysics" alt="" coords="221,137,359,163"/>
-<area shape="rect" id="node5" href="$namespace_igor.html#a5fe8dccb73e478843127c8c2a4b7ae1d" title="Igor::finalizeCollision" alt="" coords="220,187,360,214"/>
-</map>

@@ -59,19 +59,19 @@ namespace Igor
 
         /*! called before starting traversation
         */
-        virtual void preTraverse();
+        void preTraverse() override;
 
         /*! called before decent to child nodes
         */
-        virtual bool preOrderVisit(iNodePtr node);
+        bool preOrderVisit(iNodePtr node, iNodePtr nextSibling) override;
 
         /*! called after ascent from child nodes
         */
-        virtual void postOrderVisit(iNodePtr node);
+        void postOrderVisit(iNodePtr node) override;
 
         /*! called after traversation is finisched
         */
-        virtual void postTraverse();
+        void postTraverse() override;
 
     private:
 

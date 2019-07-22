@@ -1,8 +1,5 @@
 var class_igor_1_1i_node_sky_box =
 [
-    [ "iNodeSkyBox", "class_igor_1_1i_node_sky_box.html#a7b8cb169fec833fc17fd4110fbcf073a", null ],
-    [ "iNodeSkyBox", "class_igor_1_1i_node_sky_box.html#ae71aed540705a6d38d905b3d5d40301b", null ],
-    [ "~iNodeSkyBox", "class_igor_1_1i_node_sky_box.html#a032cc19d1233f7400bb0a328957fc330", null ],
     [ "draw", "class_igor_1_1i_node_sky_box.html#a875e5197dab214dade75d4b46b4b7acb", null ],
     [ "getBoxSize", "class_igor_1_1i_node_sky_box.html#ae2961cc83b523d506ce2bbcacd9aa305", null ],
     [ "getOffsetMatrix", "class_igor_1_1i_node_sky_box.html#a3892ca455535a13ec802e461ed40ff9b", null ],
@@ -15,16 +12,5 @@ var class_igor_1_1i_node_sky_box =
     [ "setTextureScale", "class_igor_1_1i_node_sky_box.html#a1c48b582d75c0cb63ff09e7545c95948", null ],
     [ "setUseOffsetMatrix", "class_igor_1_1i_node_sky_box.html#a2762b92538cef320a3038274cdea1c03", null ],
     [ "wasReached", "class_igor_1_1i_node_sky_box.html#a39fc231ab2c7f4330799e0ad6e6ed3fe", null ],
-    [ "iNodeFactory", "class_igor_1_1i_node_sky_box.html#a443fcc5b71f6dbb2a68dae3d957024c3", null ],
-    [ "_alpha", "class_igor_1_1i_node_sky_box.html#afadd4c8212870a1863c2f1ab771dd40f", null ],
-    [ "_back", "class_igor_1_1i_node_sky_box.html#a2a3c04834f61e3b26403e4f9353e885d", null ],
-    [ "_bottom", "class_igor_1_1i_node_sky_box.html#adfae2ae0068134abe2a44a2cf8e49201", null ],
-    [ "_boxSize", "class_igor_1_1i_node_sky_box.html#a3000b6f19c9bac761c8eb7ef140233a8", null ],
-    [ "_front", "class_igor_1_1i_node_sky_box.html#a6e5e6cd44adebe1721d680eec51aaed7", null ],
-    [ "_left", "class_igor_1_1i_node_sky_box.html#ae32bc5545bda6e2254c328ff1bdf0dcb", null ],
-    [ "_offsetMatrix", "class_igor_1_1i_node_sky_box.html#ad7406acf4ae6d40a6cdd1a78de1af555", null ],
-    [ "_right", "class_igor_1_1i_node_sky_box.html#ad2cdc66f0f63d705d5e7a32f049ddd2f", null ],
-    [ "_textureScale", "class_igor_1_1i_node_sky_box.html#a78ccd5ae620f04393bfd7a19b7129b70", null ],
-    [ "_top", "class_igor_1_1i_node_sky_box.html#aac68e3df7dba91701215880451d99ed9", null ],
-    [ "_useMatrix", "class_igor_1_1i_node_sky_box.html#a93988af857859f511a390bb56bd0a06f", null ]
+    [ "iNodeFactory", "class_igor_1_1i_node_sky_box.html#a443fcc5b71f6dbb2a68dae3d957024c3", null ]
 ];

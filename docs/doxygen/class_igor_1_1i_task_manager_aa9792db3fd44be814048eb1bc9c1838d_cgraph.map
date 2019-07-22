@@ -1,5 +1,0 @@
-<map id="Igor::iTaskManager::~iTaskManager" name="Igor::iTaskManager::~iTaskManager">
-<area shape="rect" id="node2" href="$class_igor_1_1i_task_manager.html#ad73b975973467369ec209771d8812f34" title="Igor::iTaskManager\l::flushIncommingTasks" alt="" coords="185,25,340,66"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" title="IgorAux::iaMutex::lock" alt="" coords="395,5,547,32"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" title="IgorAux::iaMutex::unlock" alt="" coords="388,60,555,87"/>
-</map>

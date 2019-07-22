@@ -1,7 +1,0 @@
-<map id="Igor::PhysicsNodeDestructor" name="Igor::PhysicsNodeDestructor">
-<area shape="rect" id="node2" href="$class_igor_1_1i_physics_body.html#a319491c96a8a9760b6d84023ad237ee5" title="Igor::iPhysicsBody\l::release" alt="" coords="267,5,398,47"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iPhysics \&gt;::getInstance" alt="" coords="247,71,418,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_physics.html#a8c7953773bfae128f7794cb927b100ac" title="Igor::iPhysics::destroyBody\lAsync" alt="" coords="241,136,424,177"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" title="IgorAux::iaMutex::lock" alt="" coords="479,118,631,145"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" title="IgorAux::iaMutex::unlock" alt="" coords="472,169,639,195"/>
-</map>

@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,9 +111,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_widget_select_box.html
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_widget_select_box-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -121,19 +118,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_widget_select_box.html
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_widget_select_box_8h_source.html">iWidgetSelectBox.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iWidgetSelectBox:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_select_box__inherit__graph.svg" width="166" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iWidgetSelectBox:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_select_box__coll__graph.svg" width="1411" height="222"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iWidgetSelectBox.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_1_1i_widget.html">Igor::iWidget</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -284,49 +271,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ae90952df44930ba274cdf487153cec4b inherit pub_methods_class_igor_1_1i_widget"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget.html#ae90952df44930ba274cdf487153cec4b">getTooltip</a> () const </td></tr>
 <tr class="separator:ae90952df44930ba274cdf487153cec4b inherit pub_methods_class_igor_1_1i_widget"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ad6ef88939804b766cb7aac844bfb66bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_select_box.html#ad6ef88939804b766cb7aac844bfb66bc">onSelectionChanged</a> (int32 value)</td></tr>
-<tr class="separator:ad6ef88939804b766cb7aac844bfb66bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f352353401ad2407f5562404c3dcd2b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_select_box.html#a2f352353401ad2407f5562404c3dcd2b">handleMouseWheel</a> (int32 d)</td></tr>
-<tr class="separator:a2f352353401ad2407f5562404c3dcd2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aabb0c1b2d59727ff63e575dbbce291c3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_select_box.html#aabb0c1b2d59727ff63e575dbbce291c3">handleMouseKeyDown</a> (<a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a> key)</td></tr>
-<tr class="separator:aabb0c1b2d59727ff63e575dbbce291c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e97864be415a7537e08b7e4de15da31"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_select_box.html#a5e97864be415a7537e08b7e4de15da31">handleMouseKeyUp</a> (<a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a> key)</td></tr>
-<tr class="separator:a5e97864be415a7537e08b7e4de15da31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea81ff78e267dae587d66aa19e362a11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_select_box.html#aea81ff78e267dae587d66aa19e362a11">handleMouseMove</a> (const <a class="el" href="namespace_igor_aux.html#a9f4d278020d24f0b41171f05e05a729d">iaVector2i</a> &amp;pos)</td></tr>
-<tr class="separator:aea81ff78e267dae587d66aa19e362a11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38c5cc99b6a1ab52ea60f7757ffe4505"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_select_box.html#a38c5cc99b6a1ab52ea60f7757ffe4505">calcMinSize</a> ()</td></tr>
-<tr class="separator:a38c5cc99b6a1ab52ea60f7757ffe4505"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22554f9ea57516a11050c7ff5c341b18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_select_box.html#a22554f9ea57516a11050c7ff5c341b18">draw</a> ()</td></tr>
-<tr class="separator:a22554f9ea57516a11050c7ff5c341b18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f06d3c69106a371425dac141734b810"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_select_box.html#a2f06d3c69106a371425dac141734b810">iWidgetSelectBox</a> ()</td></tr>
-<tr class="separator:a2f06d3c69106a371425dac141734b810"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2554c8fe4f3322a692cf6db47e4e6093"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_select_box.html#a2554c8fe4f3322a692cf6db47e4e6093">~iWidgetSelectBox</a> ()</td></tr>
-<tr class="separator:a2554c8fe4f3322a692cf6db47e4e6093"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
-Static Private Member Functions</h2></td></tr>
-<tr class="memitem:ab0d66389fbc88e5b94a3ca8969e46b80"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_igor_1_1i_widget.html">iWidget</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_select_box.html#ab0d66389fbc88e5b94a3ca8969e46b80">createInstance</a> ()</td></tr>
-<tr class="separator:ab0d66389fbc88e5b94a3ca8969e46b80"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:adb1440a8711fb05b3455a09bb3e9cd86"><td class="memItemLeft" align="right" valign="top">vector&lt; pair&lt; <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>, void * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_select_box.html#adb1440a8711fb05b3455a09bb3e9cd86">_entries</a></td></tr>
-<tr class="separator:adb1440a8711fb05b3455a09bb3e9cd86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63d82bc802902d50aeed1ca1357fb49b"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_select_box.html#a63d82bc802902d50aeed1ca1357fb49b">_currentSelection</a> = -1</td></tr>
-<tr class="separator:a63d82bc802902d50aeed1ca1357fb49b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bfe781fdf14058f8df1498e9253d332"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a0b6d70f0e3e322893125cebbe4af2f1a">iRectanglef</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_select_box.html#a2bfe781fdf14058f8df1498e9253d332">_buttonRectangle</a></td></tr>
-<tr class="separator:a2bfe781fdf14058f8df1498e9253d332"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59f42dce202711d098aefdc15acabf9e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_select_box.html#a59f42dce202711d098aefdc15acabf9e">_mouseOverButton</a> = false</td></tr>
-<tr class="separator:a59f42dce202711d098aefdc15acabf9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a3f26bb3e8989d4ebdaa39db5065497"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_select_box.html#a4a3f26bb3e8989d4ebdaa39db5065497">_openSelectBox</a> = false</td></tr>
-<tr class="separator:a4a3f26bb3e8989d4ebdaa39db5065497"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3aa97936bd2c6891589394c97f16db48"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_dialog_menu.html">iDialogMenu</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_select_box.html#a3aa97936bd2c6891589394c97f16db48">_selectBox</a> = nullptr</td></tr>
-<tr class="separator:a3aa97936bd2c6891589394c97f16db48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a808e347206f53df49f90e92562cb61ae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#ae7967e81e61e09024381b817add5bb84">iWidgetAppearanceState</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_select_box.html#a808e347206f53df49f90e92562cb61ae">_buttonAppearanceState</a> = <a class="el" href="namespace_igor.html#ae7967e81e61e09024381b817add5bb84a2dbec34a65724db94f81e8533ee18192">iWidgetAppearanceState::Standby</a></td></tr>
-<tr class="separator:a808e347206f53df49f90e92562cb61ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a9da20b1c56a70b01ca0ef56f4d4d47fc"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_select_box.html#a9da20b1c56a70b01ca0ef56f4d4d47fc">iWidgetManager</a></td></tr>
@@ -413,64 +357,8 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>select box widget</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000098">Todo:</a></b></dt><dd>it should close if we click outside of the dialog and not by a mouse off event</dd></dl>
 <p>Example: Widgets usage example </p>
-
-<p>Definition at line <a class="el" href="i_widget_select_box_8h_source.html#l00049">49</a> of file <a class="el" href="i_widget_select_box_8h_source.html">iWidgetSelectBox.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a2f06d3c69106a371425dac141734b810"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iWidgetSelectBox::iWidgetSelectBox </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>ctro initializes member variables </p>
-
-<p>Definition at line <a class="el" href="i_widget_select_box_8cpp_source.html#l00021">21</a> of file <a class="el" href="i_widget_select_box_8cpp_source.html">iWidgetSelectBox.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2554c8fe4f3322a692cf6db47e4e6093"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iWidgetSelectBox::~iWidgetSelectBox </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>clean up </p>
-
-<p>Definition at line <a class="el" href="i_widget_select_box_8cpp_source.html#l00026">26</a> of file <a class="el" href="i_widget_select_box_8cpp_source.html">iWidgetSelectBox.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a4b9b4ba2304e36e424bb90db8c08fe05"></a>
 <div class="memitem">
 <div class="memproto">
@@ -503,44 +391,6 @@ Additional Inherited Members</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_widget_select_box_8cpp_source.html#l00204">204</a> of file <a class="el" href="i_widget_select_box_8cpp_source.html">iWidgetSelectBox.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_select_box_a4b9b4ba2304e36e424bb90db8c08fe05_icgraph.svg" width="350" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a38c5cc99b6a1ab52ea60f7757ffe4505"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetSelectBox::calcMinSize </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>updates size based on it's content </p>
-
-<p>Implements <a class="el" href="class_igor_1_1i_widget.html#afe71279baaffb4354bd263e118fde096">Igor::iWidget</a>.</p>
-
-<p>Definition at line <a class="el" href="i_widget_select_box_8cpp_source.html#l00040">40</a> of file <a class="el" href="i_widget_select_box_8cpp_source.html">iWidgetSelectBox.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="af1b84d3b60b1dea518eabe0a7261ee55"></a>
@@ -558,62 +408,6 @@ Here is the caller graph for this function:</div>
 <p>clears all entries</p>
 <p>Attention! if you used user data you have to delete it your self </p>
 
-<p>Definition at line <a class="el" href="i_widget_select_box_8cpp_source.html#l00198">198</a> of file <a class="el" href="i_widget_select_box_8cpp_source.html">iWidgetSelectBox.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab0d66389fbc88e5b94a3ca8969e46b80"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_widget.html">iWidget</a> * Igor::iWidgetSelectBox::createInstance </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>creates instance of this widget type </p>
-
-<p>Definition at line <a class="el" href="i_widget_select_box_8cpp_source.html#l00035">35</a> of file <a class="el" href="i_widget_select_box_8cpp_source.html">iWidgetSelectBox.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a22554f9ea57516a11050c7ff5c341b18"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetSelectBox::draw </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>renders widget </p>
-
-<p>Reimplemented from <a class="el" href="class_igor_1_1i_widget.html#ad3fcb454683a38bf542f3bb630c57811">Igor::iWidget</a>.</p>
-
-<p>Definition at line <a class="el" href="i_widget_select_box_8cpp_source.html#l00234">234</a> of file <a class="el" href="i_widget_select_box_8cpp_source.html">iWidgetSelectBox.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a7295281de2250c400c7fc1f9844eedad"></a>
@@ -629,8 +423,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>index of selected entry </dd></dl>
-
-<p>Definition at line <a class="el" href="i_widget_select_box_8cpp_source.html#l00224">224</a> of file <a class="el" href="i_widget_select_box_8cpp_source.html">iWidgetSelectBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -648,8 +440,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>user data pointer of selected entry </dd></dl>
 
-<p>Definition at line <a class="el" href="i_widget_select_box_8cpp_source.html#l00212">212</a> of file <a class="el" href="i_widget_select_box_8cpp_source.html">iWidgetSelectBox.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ad198c18872218dad146fd89bca5aeb03"></a>
@@ -665,8 +455,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>text of selected entry </dd></dl>
-
-<p>Definition at line <a class="el" href="i_widget_select_box_8cpp_source.html#l00229">229</a> of file <a class="el" href="i_widget_select_box_8cpp_source.html">iWidgetSelectBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -684,186 +472,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>ammount of select box entries </dd></dl>
 
-<p>Definition at line <a class="el" href="i_widget_select_box_8cpp_source.html#l00193">193</a> of file <a class="el" href="i_widget_select_box_8cpp_source.html">iWidgetSelectBox.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aabb0c1b2d59727ff63e575dbbce291c3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iWidgetSelectBox::handleMouseKeyDown </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a>&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handles incomming mouse key down events</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>the key that was pressed </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true: if event was consumed and therefore will be ignored by the parent </dd></dl>
-
-<p>Reimplemented from <a class="el" href="class_igor_1_1i_widget.html#a87a58a7cfe94b910f87fd6fdd157d602">Igor::iWidget</a>.</p>
-
-<p>Definition at line <a class="el" href="i_widget_select_box_8cpp_source.html#l00067">67</a> of file <a class="el" href="i_widget_select_box_8cpp_source.html">iWidgetSelectBox.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5e97864be415a7537e08b7e4de15da31"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iWidgetSelectBox::handleMouseKeyUp </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24">iKeyCode</a>&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handles mouse key up events</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>the key that was pressed </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true: if event was consumed and therefore will be ignored by the parent </dd></dl>
-
-<p>Reimplemented from <a class="el" href="class_igor_1_1i_widget.html#a7bd9d2da917630ed718526f5198f30d8">Igor::iWidget</a>.</p>
-
-<p>Definition at line <a class="el" href="i_widget_select_box_8cpp_source.html#l00109">109</a> of file <a class="el" href="i_widget_select_box_8cpp_source.html">iWidgetSelectBox.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_widget_select_box_a5e97864be415a7537e08b7e4de15da31_cgraph.svg" width="368" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="aea81ff78e267dae587d66aa19e362a11"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetSelectBox::handleMouseMove </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespace_igor_aux.html#a9f4d278020d24f0b41171f05e05a729d">iaVector2i</a> &amp;&#160;</td>
-          <td class="paramname"><em>pos</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handles incomming mouse move events</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pos</td><td>mouse position </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Reimplemented from <a class="el" href="class_igor_1_1i_widget.html#adb9f6b7bff85733a6cad665e00b6b0e3">Igor::iWidget</a>.</p>
-
-<p>Definition at line <a class="el" href="i_widget_select_box_8cpp_source.html#l00082">82</a> of file <a class="el" href="i_widget_select_box_8cpp_source.html">iWidgetSelectBox.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2f352353401ad2407f5562404c3dcd2b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iWidgetSelectBox::handleMouseWheel </td>
-          <td>(</td>
-          <td class="paramtype">int32&#160;</td>
-          <td class="paramname"><em>d</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handles incomming mouse wheel event</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">d</td><td>mouse wheel delta </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true: if event was consumed and therefore ignored by the parent </dd></dl>
-
-<p>Reimplemented from <a class="el" href="class_igor_1_1i_widget.html#af704bb25cff36563b2a56d094b168ceb">Igor::iWidget</a>.</p>
-
-<p>Definition at line <a class="el" href="i_widget_select_box_8cpp_source.html#l00157">157</a> of file <a class="el" href="i_widget_select_box_8cpp_source.html">iWidgetSelectBox.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ad6ef88939804b766cb7aac844bfb66bc"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iWidgetSelectBox::onSelectionChanged </td>
-          <td>(</td>
-          <td class="paramtype">int32&#160;</td>
-          <td class="paramname"><em>value</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>triggered when selection has changed </p>
-
-<p>Definition at line <a class="el" href="i_widget_select_box_8cpp_source.html#l00147">147</a> of file <a class="el" href="i_widget_select_box_8cpp_source.html">iWidgetSelectBox.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a3c6b646f3de8467f41ca9e349d9a66fa"></a>
@@ -880,8 +488,6 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>sets selection by index </p>
-
-<p>Definition at line <a class="el" href="i_widget_select_box_8cpp_source.html#l00183">183</a> of file <a class="el" href="i_widget_select_box_8cpp_source.html">iWidgetSelectBox.cpp</a>.</p>
 
 </div>
 </div>
@@ -905,176 +511,11 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>needs to be friend because it's the factory that creates this widget </p>
 
-<p>Definition at line <a class="el" href="i_widget_select_box_8h_source.html#l00054">54</a> of file <a class="el" href="i_widget_select_box_8h_source.html">iWidgetSelectBox.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a808e347206f53df49f90e92562cb61ae"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#ae7967e81e61e09024381b817add5bb84">iWidgetAppearanceState</a> Igor::iWidgetSelectBox::_buttonAppearanceState = <a class="el" href="namespace_igor.html#ae7967e81e61e09024381b817add5bb84a2dbec34a65724db94f81e8533ee18192">iWidgetAppearanceState::Standby</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>appearance state of the button </p>
-
-<p>Definition at line <a class="el" href="i_widget_select_box_8h_source.html#l00121">121</a> of file <a class="el" href="i_widget_select_box_8h_source.html">iWidgetSelectBox.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2bfe781fdf14058f8df1498e9253d332"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#a0b6d70f0e3e322893125cebbe4af2f1a">iRectanglef</a> Igor::iWidgetSelectBox::_buttonRectangle</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>rectangle of select box button area </p>
-
-<p>Definition at line <a class="el" href="i_widget_select_box_8h_source.html#l00105">105</a> of file <a class="el" href="i_widget_select_box_8h_source.html">iWidgetSelectBox.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a63d82bc802902d50aeed1ca1357fb49b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int32 Igor::iWidgetSelectBox::_currentSelection = -1</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current selected index</p>
-<p>-1 stand for no selection </p>
-
-<p>Definition at line <a class="el" href="i_widget_select_box_8h_source.html#l00101">101</a> of file <a class="el" href="i_widget_select_box_8h_source.html">iWidgetSelectBox.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="adb1440a8711fb05b3455a09bb3e9cd86"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;pair&lt;<a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>, void*&gt; &gt; Igor::iWidgetSelectBox::_entries</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of selct box entries </p>
-
-<p>Definition at line <a class="el" href="i_widget_select_box_8h_source.html#l00095">95</a> of file <a class="el" href="i_widget_select_box_8h_source.html">iWidgetSelectBox.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a59f42dce202711d098aefdc15acabf9e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iWidgetSelectBox::_mouseOverButton = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>true: if the mouse cursor is over the button </p>
-
-<p>Definition at line <a class="el" href="i_widget_select_box_8h_source.html#l00109">109</a> of file <a class="el" href="i_widget_select_box_8h_source.html">iWidgetSelectBox.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4a3f26bb3e8989d4ebdaa39db5065497"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iWidgetSelectBox::_openSelectBox = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>true: if the select box is unfoldet </p>
-
-<p>Definition at line <a class="el" href="i_widget_select_box_8h_source.html#l00113">113</a> of file <a class="el" href="i_widget_select_box_8h_source.html">iWidgetSelectBox.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3aa97936bd2c6891589394c97f16db48"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_dialog_menu.html">iDialogMenu</a>* Igor::iWidgetSelectBox::_selectBox = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>select box dialog used for the unfold effect </p>
-
-<p>Definition at line <a class="el" href="i_widget_select_box_8h_source.html#l00117">117</a> of file <a class="el" href="i_widget_select_box_8h_source.html">iWidgetSelectBox.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_widget_select_box_8h_source.html">iWidgetSelectBox.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_widget_select_box_8cpp_source.html">iWidgetSelectBox.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_widget_select_box_8h.html">iWidgetSelectBox.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_widget_select_box_8cpp.html">iWidgetSelectBox.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -1083,7 +524,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_widget_select_box.html">iWidgetSelectBox</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:14 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

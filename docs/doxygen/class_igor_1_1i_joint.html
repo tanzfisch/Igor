@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,8 +111,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_joint.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_joint-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -120,13 +118,7 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_joint.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_joint_8h_source.html">iJoint.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for Igor::iJoint:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_joint__coll__graph.svg" width="303" height="275"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iJoint.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -145,22 +137,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a058d10f373ea7caec6eda6c9419247b9"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_joint.html#a058d10f373ea7caec6eda6c9419247b9">getCustomData</a> () const </td></tr>
 <tr class="separator:a058d10f373ea7caec6eda6c9419247b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:aaa97613a18938d08453ecd26d48bad56"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_joint.html#aaa97613a18938d08453ecd26d48bad56">iJoint</a> ()</td></tr>
-<tr class="separator:aaa97613a18938d08453ecd26d48bad56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab155926c8b764a6b41faa7bce9e99d45"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_joint.html#ab155926c8b764a6b41faa7bce9e99d45">~iJoint</a> ()=default</td></tr>
-<tr class="separator:ab155926c8b764a6b41faa7bce9e99d45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a7b9abd51bcb7d8a9d8e654ae67c1ae2c"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_joint.html#a7b9abd51bcb7d8a9d8e654ae67c1ae2c">_customData</a> = nullptr</td></tr>
-<tr class="separator:a7b9abd51bcb7d8a9d8e654ae67c1ae2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b5784c40adef2ea1668ad06f65665e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_bone.html">iBone</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_joint.html#a4b5784c40adef2ea1668ad06f65665e1">_baseBone</a> = nullptr</td></tr>
-<tr class="separator:a4b5784c40adef2ea1668ad06f65665e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5aba6819493a0612caaada172db6cfb6"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_igor_1_1i_bone.html">iBone</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_joint.html#a5aba6819493a0612caaada172db6cfb6">_childBones</a></td></tr>
-<tr class="separator:a5aba6819493a0612caaada172db6cfb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a237dac8277b2070ac00d76c5aeaccd53"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_joint.html#a237dac8277b2070ac00d76c5aeaccd53">iSkeleton</a></td></tr>
@@ -168,60 +144,7 @@ Friends</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>joining bones togehter </p>
-
-<p>Definition at line <a class="el" href="i_joint_8h_source.html#l00047">47</a> of file <a class="el" href="i_joint_8h_source.html">iJoint.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="aaa97613a18938d08453ecd26d48bad56"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iJoint::iJoint </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>init id </p>
-
-<p>Definition at line <a class="el" href="i_joint_8cpp_source.html#l00015">15</a> of file <a class="el" href="i_joint_8cpp_source.html">iJoint.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab155926c8b764a6b41faa7bce9e99d45"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual Igor::iJoint::~iJoint </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>does nothing </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a0d7bc67b71902df80e17fa696b009c0b"></a>
 <div class="memitem">
 <div class="memproto">
@@ -236,16 +159,6 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>adds cild bone to joint </p>
-
-<p>Definition at line <a class="el" href="i_joint_8cpp_source.html#l00032">32</a> of file <a class="el" href="i_joint_8cpp_source.html">iJoint.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_joint_a0d7bc67b71902df80e17fa696b009c0b_icgraph.svg" width="392" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -263,8 +176,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the base bone </dd></dl>
 
-<p>Definition at line <a class="el" href="i_joint_8cpp_source.html#l00027">27</a> of file <a class="el" href="i_joint_8cpp_source.html">iJoint.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a90d587b28b8ea1c293f5d81d74ee154f"></a>
@@ -280,8 +191,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>reference of child bones list </dd></dl>
-
-<p>Definition at line <a class="el" href="i_joint_8cpp_source.html#l00066">66</a> of file <a class="el" href="i_joint_8cpp_source.html">iJoint.cpp</a>.</p>
 
 </div>
 </div>
@@ -299,8 +208,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>pointer to custom data </dd></dl>
 
-<p>Definition at line <a class="el" href="i_joint_8cpp_source.html#l00076">76</a> of file <a class="el" href="i_joint_8cpp_source.html">iJoint.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a74344391af904dde611660695c855fc4"></a>
@@ -317,8 +224,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>removes child bone from joint </p>
-
-<p>Definition at line <a class="el" href="i_joint_8cpp_source.html#l00049">49</a> of file <a class="el" href="i_joint_8cpp_source.html">iJoint.cpp</a>.</p>
 
 </div>
 </div>
@@ -343,16 +248,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_joint_8cpp_source.html#l00019">19</a> of file <a class="el" href="i_joint_8cpp_source.html">iJoint.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_joint_a69cd5e88d9a77080b769f7a1692152cb_icgraph.svg" width="390" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a2fbbe783f7c8c2ee3c3617b3017ced6e"></a>
@@ -376,8 +271,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_joint_8cpp_source.html#l00071">71</a> of file <a class="el" href="i_joint_8cpp_source.html">iJoint.cpp</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -399,83 +292,11 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_joint_8h_source.html#l00050">50</a> of file <a class="el" href="i_joint_8h_source.html">iJoint.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a4b5784c40adef2ea1668ad06f65665e1"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_bone.html">iBone</a>* Igor::iJoint::_baseBone = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>base bone </p>
-
-<p>Definition at line <a class="el" href="i_joint_8h_source.html#l00094">94</a> of file <a class="el" href="i_joint_8h_source.html">iJoint.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5aba6819493a0612caaada172db6cfb6"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="class_igor_1_1i_bone.html">iBone</a>*&gt; Igor::iJoint::_childBones</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>ids of bones connected to the base bone in this joint </p>
-
-<p>Definition at line <a class="el" href="i_joint_8h_source.html#l00098">98</a> of file <a class="el" href="i_joint_8h_source.html">iJoint.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7b9abd51bcb7d8a9d8e654ae67c1ae2c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void* Igor::iJoint::_customData = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>pointer to custom data </p>
-
-<p>Definition at line <a class="el" href="i_joint_8h_source.html#l00090">90</a> of file <a class="el" href="i_joint_8h_source.html">iJoint.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_joint_8h_source.html">iJoint.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_joint_8cpp_source.html">iJoint.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_joint_8h.html">iJoint.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_joint_8cpp.html">iJoint.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -484,7 +305,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_joint.html">iJoint</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:47 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

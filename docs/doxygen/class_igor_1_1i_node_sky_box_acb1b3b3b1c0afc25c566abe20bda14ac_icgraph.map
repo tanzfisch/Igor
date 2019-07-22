@@ -1,7 +1,0 @@
-<map id="Igor::iNodeSkyBox::setAlpha" name="Igor::iNodeSkyBox::setAlpha">
-<area shape="rect" id="node2" href="$class_igor_1_1i_sky_simulation.html#ad05e2b9a7c83f8b208f8404ea2463abb" title="Igor::iSkySimulation\l::init" alt="" coords="379,5,517,47"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_sky_simulation.html#ada20beecede15afa328ea95ebf15f136" title="Igor::iSkySimulation\l::update" alt="" coords="192,69,331,111"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_sky_simulation.html#a9c884da7016a5b106db44ef9d46630d5" title="Igor::iSkySimulation\l::iSkySimulation" alt="" coords="565,5,704,47"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_sky_simulation.html#a67878fcf92d004aa1dcabaffc146dbc9" title="Igor::iSkySimulation\l::setGeoPos" alt="" coords="379,71,517,112"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_sky_simulation.html#a29729eec9fe1a24dd0f5adc6668bc13d" title="Igor::iSkySimulation\l::setTime" alt="" coords="379,136,517,177"/>
-</map>

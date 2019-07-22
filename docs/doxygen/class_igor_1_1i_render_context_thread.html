@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,26 +112,15 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_render_context_thread.
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_1_1i_render_context_thread-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Igor::iRenderContextThread Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_render_context_thread_8h_source.html">iRenderContextThread.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iRenderContextThread:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_render_context_thread__inherit__graph.svg" width="190" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iRenderContextThread:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_render_context_thread__coll__graph.svg" width="312" height="216"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iRenderContextThread.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_1_1i_thread.html">Igor::iThread</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -161,20 +150,9 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:aab56c66985cae44abb69d5712fdfd5c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa484a7648ddfb1c67ae98ef8d8a6341a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_context_thread.html#aa484a7648ddfb1c67ae98ef8d8a6341a">deinit</a> ()</td></tr>
 <tr class="separator:aa484a7648ddfb1c67ae98ef8d8a6341a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:ab3fd8312a2ffc4757752d70aaa2085a4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_window.html">iWindow</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_context_thread.html#ab3fd8312a2ffc4757752d70aaa2085a4">_window</a> = nullptr</td></tr>
-<tr class="separator:ab3fd8312a2ffc4757752d70aaa2085a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9120237b595fe9c51a0e5b3824c8d744"><td class="memItemLeft" align="right" valign="top">HGLRC&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_context_thread.html#a9120237b595fe9c51a0e5b3824c8d744">_renderContext</a> = nullptr</td></tr>
-<tr class="separator:a9120237b595fe9c51a0e5b3824c8d744"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0bb9a5a71d0a28756a2147656a992e60"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_render_context_thread.html#a0bb9a5a71d0a28756a2147656a992e60">_isValid</a> = false</td></tr>
-<tr class="separator:a0bb9a5a71d0a28756a2147656a992e60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>thread that in addition has a render context </p>
-
-<p>Definition at line <a class="el" href="i_render_context_thread_8h_source.html#l00042">42</a> of file <a class="el" href="i_render_context_thread_8h_source.html">iRenderContextThread.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a9b5e4fa03fe021e64813bb125ba085cc"></a>
 <div class="memitem">
@@ -190,16 +168,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>creates render context and starts sharing lists with parent thread </p>
-
-<p>Definition at line <a class="el" href="i_render_context_thread_8cpp_source.html#l00013">13</a> of file <a class="el" href="i_render_context_thread_8cpp_source.html">iRenderContextThread.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_render_context_thread_a9b5e4fa03fe021e64813bb125ba085cc_cgraph.svg" width="423" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -252,16 +220,6 @@ Here is the call graph for this function:</div>
 
 <p>Reimplemented from <a class="el" href="class_igor_1_1i_thread.html#a0ffb66fc49f4852bfc16077b767af363">Igor::iThread</a>.</p>
 
-<p>Definition at line <a class="el" href="i_render_context_thread_8cpp_source.html#l00060">60</a> of file <a class="el" href="i_render_context_thread_8cpp_source.html">iRenderContextThread.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_render_context_thread_aa484a7648ddfb1c67ae98ef8d8a6341a_cgraph.svg" width="422" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="aab56c66985cae44abb69d5712fdfd5c5"></a>
@@ -288,16 +246,6 @@ Here is the call graph for this function:</div>
 
 <p>Reimplemented from <a class="el" href="class_igor_1_1i_thread.html#a926bb1aff287b52abc968327f4635599">Igor::iThread</a>.</p>
 
-<p>Definition at line <a class="el" href="i_render_context_thread_8cpp_source.html#l00044">44</a> of file <a class="el" href="i_render_context_thread_8cpp_source.html">iRenderContextThread.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_render_context_thread_aab56c66985cae44abb69d5712fdfd5c5_cgraph.svg" width="420" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a6b3f7f9b29c684264b6cb1f6622f7776"></a>
@@ -313,91 +261,11 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_render_context_thread_8cpp_source.html#l00039">39</a> of file <a class="el" href="i_render_context_thread_8cpp_source.html">iRenderContextThread.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_render_context_thread_a6b3f7f9b29c684264b6cb1f6622f7776_icgraph.svg" width="675" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a0bb9a5a71d0a28756a2147656a992e60"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iRenderContextThread::_isValid = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>was this thread correctly created </p>
-
-<p>Definition at line <a class="el" href="i_render_context_thread_8h_source.html#l00081">81</a> of file <a class="el" href="i_render_context_thread_8h_source.html">iRenderContextThread.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9120237b595fe9c51a0e5b3824c8d744"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">HGLRC Igor::iRenderContextThread::_renderContext = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handle to render context </p>
-
-<p>Definition at line <a class="el" href="i_render_context_thread_8h_source.html#l00077">77</a> of file <a class="el" href="i_render_context_thread_8h_source.html">iRenderContextThread.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab3fd8312a2ffc4757752d70aaa2085a4"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_window.html">iWindow</a>* Igor::iRenderContextThread::_window = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>pointer to window to get the device context from </p>
-
-<p>Definition at line <a class="el" href="i_render_context_thread_8h_source.html#l00073">73</a> of file <a class="el" href="i_render_context_thread_8h_source.html">iRenderContextThread.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_render_context_thread_8h_source.html">iRenderContextThread.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_render_context_thread_8cpp_source.html">iRenderContextThread.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_render_context_thread_8h.html">iRenderContextThread.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_render_context_thread_8cpp.html">iRenderContextThread.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -406,7 +274,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_render_context_thread.html">iRenderContextThread</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:01 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

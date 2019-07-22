@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,14 +111,13 @@ $(document).ready(function(){initNavTree('class_igor_aux_1_1ia_clock.html','');}
 <div class="header">
   <div class="summary">
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="class_igor_aux_1_1ia_clock-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">IgorAux::iaClock Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="ia_clock_8h_source.html">iaClock.h</a>&gt;</code></p>
+<p><code>#include &lt;iaClock.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -132,18 +131,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:ad179336ad16c01d32f3a38bd7671bcb1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f5c16561acde973d199f6e3ecf84835"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_clock.html#a9f5c16561acde973d199f6e3ecf84835">initClock</a> ()</td></tr>
 <tr class="separator:a9f5c16561acde973d199f6e3ecf84835"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
-Static Private Attributes</h2></td></tr>
-<tr class="memitem:a8de6e2778293efaed670358203dc85a8"><td class="memItemLeft" align="right" valign="top">static float64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_clock.html#a8de6e2778293efaed670358203dc85a8">m_tickScale</a> = 0</td></tr>
-<tr class="separator:a8de6e2778293efaed670358203dc85a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81896528fef4a9a0857ac23d0b0cb114"><td class="memItemLeft" align="right" valign="top">static uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_clock.html#a81896528fef4a9a0857ac23d0b0cb114">m_startTicks</a> = 0</td></tr>
-<tr class="separator:a81896528fef4a9a0857ac23d0b0cb114"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p>Definition at line <a class="el" href="ia_clock_8h_source.html#l00041">41</a> of file <a class="el" href="ia_clock_8h_source.html">iaClock.h</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="af484ce486472ba88ccc81633759e0fb2"></a>
 <div class="memitem">
 <div class="memproto">
@@ -166,16 +155,6 @@ Static Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>clock time in milliseconds</dd></dl>
 <p>initClock must be called before otherwise result is undefined </p>
-
-<p>Definition at line <a class="el" href="ia_clock_8h_source.html#l00078">78</a> of file <a class="el" href="ia_clock_8h_source.html">iaClock.h</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_clock_af484ce486472ba88ccc81633759e0fb2_icgraph.svg" width="439" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -202,8 +181,6 @@ Here is the caller graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>clock time in seconds</dd></dl>
 <p>initClock must be called before otherwise result is undefined </p>
 
-<p>Definition at line <a class="el" href="ia_clock_8h_source.html#l00063">63</a> of file <a class="el" href="ia_clock_8h_source.html">iaClock.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a41deb840b7f4bd25d1adb2b9b482226d"></a>
@@ -228,16 +205,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>clock time in ticks</dd></dl>
 <p>initClock must be called before otherwise result is undefined </p>
-
-<p>Definition at line <a class="el" href="ia_clock_8h_source.html#l00050">50</a> of file <a class="el" href="ia_clock_8h_source.html">iaClock.h</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_clock_a41deb840b7f4bd25d1adb2b9b482226d_icgraph.svg" width="367" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -264,16 +231,6 @@ Here is the caller graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>clock scale from ticks to seconds</dd></dl>
 <p>initClock must be called before otherwise result is undefined </p>
 
-<p>Definition at line <a class="el" href="ia_clock_8h_source.html#l00093">93</a> of file <a class="el" href="ia_clock_8h_source.html">iaClock.h</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_clock_ad179336ad16c01d32f3a38bd7671bcb1_icgraph.svg" width="355" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a9f5c16561acde973d199f6e3ecf84835"></a>
@@ -298,68 +255,11 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>initializes clock </p>
 
-<p>Definition at line <a class="el" href="ia_clock_8h_source.html#l00100">100</a> of file <a class="el" href="ia_clock_8h_source.html">iaClock.h</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_clock_a9f5c16561acde973d199f6e3ecf84835_icgraph.svg" width="586" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a81896528fef4a9a0857ac23d0b0cb114"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 IgorAux::iaClock::m_startTicks = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>stores the ticks at application start </p>
-
-<p>Definition at line <a class="el" href="ia_clock_8h_source.html#l00128">128</a> of file <a class="el" href="ia_clock_8h_source.html">iaClock.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a8de6e2778293efaed670358203dc85a8"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float64 IgorAux::iaClock::m_tickScale = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>tick to seconds scale </p>
-
-<p>Definition at line <a class="el" href="ia_clock_8h_source.html#l00124">124</a> of file <a class="el" href="ia_clock_8h_source.html">iaClock.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_clock_8h_source.html">iaClock.h</a></li>
-<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_clock_8cpp_source.html">iaClock.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/IgorAux/src/<a class="el" href="ia_clock_8h.html">iaClock.h</a></li>
+<li>C:/dev/Igor/Igor/src/IgorAux/src/<a class="el" href="ia_clock_8cpp.html">iaClock.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -368,7 +268,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor_aux.html">IgorAux</a></li><li class="navelem"><a class="el" href="class_igor_aux_1_1ia_clock.html">iaClock</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:17 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

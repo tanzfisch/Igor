@@ -1,7 +1,5 @@
 var class_igor_1_1i_mouse =
 [
-    [ "iMouse", "class_igor_1_1i_mouse.html#a1c0ddb7724c234a9d0210a9a3606f2d7", null ],
-    [ "~iMouse", "class_igor_1_1i_mouse.html#a8fba0c91f3bc06265f88b10b9945cd64", null ],
     [ "getButton4", "class_igor_1_1i_mouse.html#acec72e4c3d85a7c1d68653f28988832e", null ],
     [ "getButton5", "class_igor_1_1i_mouse.html#aa051d4d54ed8b51a274abe6e057c4e16", null ],
     [ "getLeftButton", "class_igor_1_1i_mouse.html#aa547b39c246d596e6a10f4a76fdb0777", null ],
@@ -10,8 +8,6 @@ var class_igor_1_1i_mouse =
     [ "getPosDelta", "class_igor_1_1i_mouse.html#a5e7743e11a59b2e099508746086560e2", null ],
     [ "getRightButton", "class_igor_1_1i_mouse.html#af4553b6a3d3720aad24ef76ba8e223fd", null ],
     [ "getWheelDelta", "class_igor_1_1i_mouse.html#a38f19ffe9d35186d58052d9a16d3736a", null ],
-    [ "onOSEvent", "class_igor_1_1i_mouse.html#ab28b9a83a441dad90fcc12d5e52c14cf", null ],
-    [ "registerDevice", "class_igor_1_1i_mouse.html#a0993f55f2870f63b0321989f42bd4b9c", null ],
     [ "registerMouseClickDelegate", "class_igor_1_1i_mouse.html#acd955fcce32b39e5d64cc507290460a6", null ],
     [ "registerMouseDoubleClickDelegate", "class_igor_1_1i_mouse.html#a88ab8fecf53cdef8fa134fad48d5a71a", null ],
     [ "registerMouseKeyDownDelegate", "class_igor_1_1i_mouse.html#accbe58f70d710bf2c7ed8414823630fa", null ],
@@ -29,24 +25,5 @@ var class_igor_1_1i_mouse =
     [ "unregisterMouseMoveDelegate", "class_igor_1_1i_mouse.html#a5105f5120286d5533f20e3bcbfb5ae89", null ],
     [ "unregisterMouseMoveFullDelegate", "class_igor_1_1i_mouse.html#a77dc408e4fb183401292e494f4584e36", null ],
     [ "unregisterMouseWheelDelegate", "class_igor_1_1i_mouse.html#ada87b646e46b119a37f89724f15f73fb", null ],
-    [ "iaSingleton< iMouse >", "class_igor_1_1i_mouse.html#a5c6b83e49c1e228c8b81ef3bef4bcaf6", null ],
-    [ "_button4", "class_igor_1_1i_mouse.html#aff6e683f1b929276cf9f5d32feb9bec8", null ],
-    [ "_button5", "class_igor_1_1i_mouse.html#a76ca09b73ae6166827ed5783f5feeaf5", null ],
-    [ "_clickEvent", "class_igor_1_1i_mouse.html#a7a0977b5deece9202d3087163bf532dc", null ],
-    [ "_doubleClickEvent", "class_igor_1_1i_mouse.html#a212717a90bb6271919e6b68c24f63d1f", null ],
-    [ "_ignoreNextMoveEvent", "class_igor_1_1i_mouse.html#a0f571cc479f3da2146a318c3cdc41bde", null ],
-    [ "_keyDownEvent", "class_igor_1_1i_mouse.html#a570501f877570372539ba007444b7b7f", null ],
-    [ "_keyUpEvent", "class_igor_1_1i_mouse.html#ab0c52abd1697a9da1968c96b3d53041d", null ],
-    [ "_lButton", "class_igor_1_1i_mouse.html#a9c7038e436e00a660639a16fcbd3655d", null ],
-    [ "_mButton", "class_igor_1_1i_mouse.html#afe754f134eed763c8555627ea6252b3c", null ],
-    [ "_moveEvent", "class_igor_1_1i_mouse.html#aaf1cb55a93d80a625f79e61891e9ef9a", null ],
-    [ "_moveFullEvent", "class_igor_1_1i_mouse.html#ae571413d609ea23992d25607ac092c89", null ],
-    [ "_pos", "class_igor_1_1i_mouse.html#a57897ddf79dc344f4e26927fa35fddd5", null ],
-    [ "_posLast", "class_igor_1_1i_mouse.html#aa7cc92646071ece1f5213c0861c9ff60", null ],
-    [ "_rawInputBuffer", "class_igor_1_1i_mouse.html#af928cd301bdc035eb4d8506d654f1e30", null ],
-    [ "_rawInputBufferSize", "class_igor_1_1i_mouse.html#a8d59a7d4fa6c9b356f9c9688286bacbb", null ],
-    [ "_rawInputDevice", "class_igor_1_1i_mouse.html#a1fcef66a47739ab2044bdbad04c632f7", null ],
-    [ "_rButton", "class_igor_1_1i_mouse.html#ab52643df6c601875233d28104383f999", null ],
-    [ "_wheelDelta", "class_igor_1_1i_mouse.html#a012e033d957a8f5f2209ee1c0d2b2ba7", null ],
-    [ "_wheelEvent", "class_igor_1_1i_mouse.html#acba8ab77a49b538f1ddaad6f9aaca5ed", null ]
+    [ "iaSingleton< iMouse >", "class_igor_1_1i_mouse.html#a5c6b83e49c1e228c8b81ef3bef4bcaf6", null ]
 ];

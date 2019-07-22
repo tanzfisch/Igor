@@ -38,36 +38,74 @@ namespace IgorAux
 
     the only reason to use this one is to keep seperate instances of seeds so multithreaded tasks don't interfear with each other using rand()
     */
-    class IgorAux_API iaRandomNumberGenerator
+	template <class T>
+    class IgorAux_API_Template iaRandomNumberGenerator
     {
 
     public:
 
-        /*! does nothing
+        /*! init seed
         */
-        iaRandomNumberGenerator() = default;
+        iaRandomNumberGenerator(T seed = 0);
 
         /*! does nothing
         */
-        ~iaRandomNumberGenerator() = default;
+        ~iaRandomNumberGenerator();
 
         /*! sets the seed
 
         \param seed the seed
         */
-        void setSeed(uint32 seed);
+		__IGOR_INLINE__ void setSeed(T seed);
 
         /*! \returns next random number
         */
-        uint32 getNext();
+		__IGOR_INLINE__ T getNext();
 
     private:
 
         /*! the seed
         */
-        uint32 _seed;
+        T _seed;
 
     };
+
+	template <class T>
+	iaRandomNumberGenerator<T>::iaRandomNumberGenerator(T seed)
+	{
+		_seed = seed;
+	}
+
+	template <class T>
+	iaRandomNumberGenerator<T>::~iaRandomNumberGenerator()
+	{
+
+	}
+
+	template <class T>
+	void iaRandomNumberGenerator<T>::setSeed(T seed)
+	{
+		_seed = seed;
+	}
+
+	// is supposed to do the same as C++11 minstd_rand but maybe I got it wrong
+
+	template <class T>
+	__IGOR_INLINE__ T iaRandomNumberGenerator<T>::getNext()
+	{
+		const uint64 _a = 48271;
+		const uint64 _c = 0;
+		const uint64 _m = 0x7FFFFFFF;
+
+		_seed = (static_cast<uint64>(_seed) * _a + _c) % _m;
+		return _seed;
+	}
+
+#include <iaRandomNumberGenerator.inl>
+
+	/*! uint32 random number generator
+	*/
+	typedef iaRandomNumberGenerator<uint32> iaRandomNumberGeneratoru;
 
 }
 

@@ -608,7 +608,7 @@ void Particles::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWind
             cameraPitch->rotate((to._y - from._y) * 0.005f, iaAxis::X);
             cameraHeading->rotate((from._x - to._x) * 0.005f, iaAxis::Y);
 
-            iMouse::getInstance().setCenter(true);
+            iMouse::getInstance().setCenter();
         }
     }
 }
@@ -631,27 +631,31 @@ void Particles::onKeyPressed(iKeyCode key)
         iApplication::getInstance().stop();
         break;
 
-    case iKeyCode::W:
-        _view.setWireframeVisible(!_view.isWireframeVisible());
-        break;
+	case iKeyCode::F8:
+		_statisticsVisualizer.cycleVerbosity();
+		break;
 
-    case iKeyCode::O:
-        _view.setOctreeVisible(!_view.isOctreeVisible());
-        break;
+	case iKeyCode::F9:
+	{
+		iNodeVisitorPrintTree printTree;
+		if (_scene != nullptr)
+		{
+			printTree.printToConsole(_scene->getRoot());
+		}
+	}
+	break;
 
-    case iKeyCode::B:
-        _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
-        break;
+	case iKeyCode::F10:
+		_view.setWireframeVisible(!_view.isWireframeVisible());
+		break;
 
-    case iKeyCode::F1:
-    {
-        iNodeVisitorPrintTree printTree;
-        if (_scene != nullptr)
-        {
-            printTree.printToConsole(_scene->getRoot());
-        }
-    }
-    break;
+	case iKeyCode::F11:
+		_view.setOctreeVisible(!_view.isOctreeVisible());
+		break;
+
+	case iKeyCode::F12:
+		_view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
+		break;
 
     case iKeyCode::Space:
         for (auto particleSystemID : _particleSystemIDs)

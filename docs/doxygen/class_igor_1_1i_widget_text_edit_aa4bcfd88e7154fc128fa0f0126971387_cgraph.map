@@ -1,8 +1,0 @@
-<map id="Igor::iWidgetTextEdit::draw" name="Igor::iWidgetTextEdit::draw">
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget.html#ad0e5bf180d61dcd2947230dfd6ec0877" title="Igor::iWidget::isVisible" alt="" coords="227,5,379,32"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iWidgetManager \&gt;::getInstance" alt="" coords="196,57,411,98"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_widget.html#ae0178c1226bc76a7e165d6e3ff1f7a2e" title="Igor::iWidget::getActualRect" alt="" coords="211,123,396,149"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_widget.html#a3c97e11a6cb336af49db0373f25c6cba" title="Igor::iWidget::hasKeyboard\lFocus" alt="" coords="214,174,393,215"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_widget_text_edit.html#ac0964225d19a85c1c498acc5e82c01ae" title="Igor::iWidgetTextEdit\l::isWriteProtected" alt="" coords="232,239,375,281"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_widget.html#ac7054a328e1bbccd8d7a15c0558f8a08" title="Igor::iWidget::isActive" alt="" coords="229,305,377,332"/>
-</map>

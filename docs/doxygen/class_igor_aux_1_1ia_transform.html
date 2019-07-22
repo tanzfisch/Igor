@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -118,44 +118,62 @@ $(document).ready(function(){initNavTree('class_igor_aux_1_1ia_transform.html','
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="ia_transform_8h_source.html">iaTransform.h</a>&gt;</code></p>
+<p><code>#include &lt;iaTransform.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2883bf24d3522a7b7ca3d55507770d52"><td class="memItemLeft" align="right" valign="top">__IGOR_INLINE__ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#a2883bf24d3522a7b7ca3d55507770d52">getMatrix</a> (<a class="el" href="class_igor_aux_1_1ia_matrix.html">iaMatrix</a>&lt; T &gt; &amp;matrix)</td></tr>
-<tr class="separator:a2883bf24d3522a7b7ca3d55507770d52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0216111c4cecccc9c3e0eedef1bafdd4"><td class="memItemLeft" align="right" valign="top">__IGOR_INLINE__&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#a0216111c4cecccc9c3e0eedef1bafdd4">iaTransform</a> ()</td></tr>
-<tr class="separator:a0216111c4cecccc9c3e0eedef1bafdd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a861b274ee22f74a33f12d284e28ffaf5"><td class="memItemLeft" align="right" valign="top">__IGOR_INLINE__&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#a861b274ee22f74a33f12d284e28ffaf5">~iaTransform</a> ()</td></tr>
+<tr class="memitem:a38f69772056ede803dea6cbc58e0ebde"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#a38f69772056ede803dea6cbc58e0ebde">hasShear</a> () const </td></tr>
+<tr class="separator:a38f69772056ede803dea6cbc58e0ebde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab06ab423f38c75ecaa647f798a7dfcd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#aab06ab423f38c75ecaa647f798a7dfcd">hasScale</a> () const </td></tr>
+<tr class="separator:aab06ab423f38c75ecaa647f798a7dfcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac116347ef94ddcd36f40bc93024952bf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#ac116347ef94ddcd36f40bc93024952bf">hasTranslation</a> () const </td></tr>
+<tr class="separator:ac116347ef94ddcd36f40bc93024952bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e4cf1decb5db570d21095858e2e516e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#a2e4cf1decb5db570d21095858e2e516e">hasRotation</a> () const </td></tr>
+<tr class="separator:a2e4cf1decb5db570d21095858e2e516e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10b3296b6a52f6166146f965a00347c6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#a10b3296b6a52f6166146f965a00347c6">getMatrix</a> (<a class="el" href="class_igor_aux_1_1ia_matrix.html">iaMatrix</a>&lt; T &gt; &amp;matrix) const </td></tr>
+<tr class="separator:a10b3296b6a52f6166146f965a00347c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88523924936db194042d902d523bd984"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#a88523924936db194042d902d523bd984">setMatrix</a> (const <a class="el" href="class_igor_aux_1_1ia_matrix.html">iaMatrix</a>&lt; T &gt; &amp;matrix)</td></tr>
+<tr class="separator:a88523924936db194042d902d523bd984"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10669305811399a4f31db51d4d872713"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#a10669305811399a4f31db51d4d872713">iaTransform</a> ()</td></tr>
+<tr class="separator:a10669305811399a4f31db51d4d872713"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a419c922c8f87da32dfa2758c9a1a2244"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#a419c922c8f87da32dfa2758c9a1a2244">iaTransform</a> (const <a class="el" href="class_igor_aux_1_1ia_matrix.html">iaMatrix</a>&lt; T &gt; &amp;matrix)</td></tr>
+<tr class="separator:a419c922c8f87da32dfa2758c9a1a2244"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accc4cd835e9b1fa2f6e49c6251ed02ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#accc4cd835e9b1fa2f6e49c6251ed02ae">iaTransform</a> (const <a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;translate, const <a class="el" href="class_igor_aux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; orientation, const <a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;scale)</td></tr>
+<tr class="separator:accc4cd835e9b1fa2f6e49c6251ed02ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc5523e2f9b51dfc1660b3640e9e7605"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#adc5523e2f9b51dfc1660b3640e9e7605">iaTransform</a> (const <a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;translate, const <a class="el" href="class_igor_aux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; orientation, const <a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;scale, const <a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;<a class="el" href="class_igor_aux_1_1ia_transform.html#aab4be56dbbb0229d3585bd511ca88454">_shear</a>)</td></tr>
+<tr class="separator:adc5523e2f9b51dfc1660b3640e9e7605"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9938b39f5a0fba402a414c87fb23c42"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#ae9938b39f5a0fba402a414c87fb23c42">iaTransform</a> (const <a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;translate, const <a class="el" href="class_igor_aux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt; orientation, const <a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;scale, const <a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;<a class="el" href="class_igor_aux_1_1ia_transform.html#aab4be56dbbb0229d3585bd511ca88454">_shear</a>, const <a class="el" href="class_igor_aux_1_1ia_vector4.html">iaVector4</a>&lt; T &gt; &amp;<a class="el" href="class_igor_aux_1_1ia_transform.html#a25ac47b2439b1fb5225615ad2da97cb6">_perspective</a>)</td></tr>
+<tr class="separator:ae9938b39f5a0fba402a414c87fb23c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a861b274ee22f74a33f12d284e28ffaf5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#a861b274ee22f74a33f12d284e28ffaf5">~iaTransform</a> ()</td></tr>
 <tr class="separator:a861b274ee22f74a33f12d284e28ffaf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ab0e04c650c05dc79617b683e839b7347"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#ab0e04c650c05dc79617b683e839b7347">_rotate</a></td></tr>
-<tr class="separator:ab0e04c650c05dc79617b683e839b7347"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd510f4ae018a26f089a8f307a8feef3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#abd510f4ae018a26f089a8f307a8feef3">_translate</a></td></tr>
+<tr class="separator:abd510f4ae018a26f089a8f307a8feef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae98d0a79f36e4acdc408c6c6bd803853"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#ae98d0a79f36e4acdc408c6c6bd803853">_orientation</a></td></tr>
+<tr class="separator:ae98d0a79f36e4acdc408c6c6bd803853"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33b37498862401bee7049b69b6c87571"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#a33b37498862401bee7049b69b6c87571">_scale</a></td></tr>
 <tr class="separator:a33b37498862401bee7049b69b6c87571"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aab4be56dbbb0229d3585bd511ca88454"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#aab4be56dbbb0229d3585bd511ca88454">_shear</a></td></tr>
 <tr class="separator:aab4be56dbbb0229d3585bd511ca88454"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd510f4ae018a26f089a8f307a8feef3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#abd510f4ae018a26f089a8f307a8feef3">_translate</a></td></tr>
-<tr class="separator:abd510f4ae018a26f089a8f307a8feef3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25ac47b2439b1fb5225615ad2da97cb6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_vector4.html">iaVector4</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_transform.html#a25ac47b2439b1fb5225615ad2da97cb6">_perspective</a></td></tr>
+<tr class="separator:a25ac47b2439b1fb5225615ad2da97cb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;class T&gt;<br />
 class IgorAux::iaTransform&lt; T &gt;</h3>
 
-<p>Transform </p>
-
-<p>Definition at line <a class="el" href="ia_transform_8h_source.html#l00039">39</a> of file <a class="el" href="ia_transform_8h_source.html">iaTransform.h</a>.</p>
+<p>Transform based on the components translate, rotate, scale, shear and perspective </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a0216111c4cecccc9c3e0eedef1bafdd4"></a>
+<a class="anchor" id="a10669305811399a4f31db51d4d872713"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">__IGOR_INLINE__ iaTransform::iaTransform </td>
+          <td class="memname">iaTransform::iaTransform </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -164,7 +182,180 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 <p>initializes the matrix with the id matrix </p>
 
-<p>Definition at line <a class="el" href="ia_transform_8inl_source.html#l00016">16</a> of file <a class="el" href="ia_transform_8inl_source.html">iaTransform.inl</a>.</p>
+</div>
+</div>
+<a class="anchor" id="a419c922c8f87da32dfa2758c9a1a2244"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">iaTransform::iaTransform </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_igor_aux_1_1ia_matrix.html">iaMatrix</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>matrix</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>ctor set wit matrix to decompose</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">matrix</td><td>the matrix to decompose </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="accc4cd835e9b1fa2f6e49c6251ed02ae"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">iaTransform::iaTransform </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>translate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_igor_aux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt;&#160;</td>
+          <td class="paramname"><em>orientation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>scale</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>initializes the matrix with given components</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">translate</td><td>translation component </td></tr>
+    <tr><td class="paramname">orientation</td><td>the orientation component </td></tr>
+    <tr><td class="paramname">scale</td><td>the scale component </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="adc5523e2f9b51dfc1660b3640e9e7605"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_transform.html">IgorAux::iaTransform</a>&lt; T &gt;::<a class="el" href="class_igor_aux_1_1ia_transform.html">iaTransform</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>translate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_igor_aux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt;&#160;</td>
+          <td class="paramname"><em>orientation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>scale</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>_shear</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>initializes the matrix with given components</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">translate</td><td>translation component </td></tr>
+    <tr><td class="paramname">orientation</td><td>the orientation component </td></tr>
+    <tr><td class="paramname">scale</td><td>the scale component </td></tr>
+    <tr><td class="paramname">shear</td><td>the shear component </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ae9938b39f5a0fba402a414c87fb23c42"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_transform.html">IgorAux::iaTransform</a>&lt; T &gt;::<a class="el" href="class_igor_aux_1_1ia_transform.html">iaTransform</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>translate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_igor_aux_1_1ia_quaternion.html">iaQuaternion</a>&lt; T &gt;&#160;</td>
+          <td class="paramname"><em>orientation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>scale</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>_shear</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="class_igor_aux_1_1ia_vector4.html">iaVector4</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>_perspective</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>initializes the matrix with given components</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">translate</td><td>translation component </td></tr>
+    <tr><td class="paramname">orientation</td><td>the orientation component </td></tr>
+    <tr><td class="paramname">scale</td><td>the scale component </td></tr>
+    <tr><td class="paramname">shear</td><td>the shear component </td></tr>
+    <tr><td class="paramname">perspective</td><td>the perspective component </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -184,12 +375,10 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 <p>does nothing </p>
 
-<p>Definition at line <a class="el" href="ia_transform_8inl_source.html#l00022">22</a> of file <a class="el" href="ia_transform_8inl_source.html">iaTransform.inl</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a2883bf24d3522a7b7ca3d55507770d52"></a>
+<a class="anchor" id="a10b3296b6a52f6166146f965a00347c6"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
@@ -200,38 +389,144 @@ template&lt;class T &gt; </div>
           <td>(</td>
           <td class="paramtype"><a class="el" href="class_igor_aux_1_1ia_matrix.html">iaMatrix</a>&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>matrix</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="ia_transform_8inl_source.html#l00027">27</a> of file <a class="el" href="ia_transform_8inl_source.html">iaTransform.inl</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_transform_a2883bf24d3522a7b7ca3d55507770d52_cgraph.svg" width="328" height="314"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
+<p>returns the transforms matrix based on it's components </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">matrix</td><td>the resulting matrix </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="ab0e04c650c05dc79617b683e839b7347"></a>
+<a class="anchor" id="a2e4cf1decb5db570d21095858e2e516e"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_vector3.html">iaVector3</a>&lt;T&gt; <a class="el" href="class_igor_aux_1_1ia_transform.html">IgorAux::iaTransform</a>&lt; T &gt;::_rotate</td>
+          <td class="memname">__IGOR_INLINE__ bool iaTransform::hasRotation </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>rotatation component in rad </p>
+<dl class="section return"><dt>Returns</dt><dd>true if transform has rotation different from 0,0,0 </dd></dl>
 
-<p>Definition at line <a class="el" href="ia_transform_8h_source.html#l00045">45</a> of file <a class="el" href="ia_transform_8h_source.html">iaTransform.h</a>.</p>
+</div>
+</div>
+<a class="anchor" id="aab06ab423f38c75ecaa647f798a7dfcd"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">__IGOR_INLINE__ bool iaTransform::hasScale </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if transform has scale different from 1,1,1 </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a38f69772056ede803dea6cbc58e0ebde"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">__IGOR_INLINE__ bool iaTransform::hasShear </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if transform has shear differnt from 0,0,0 </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ac116347ef94ddcd36f40bc93024952bf"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">__IGOR_INLINE__ bool iaTransform::hasTranslation </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if transform has translation different from 0,0,0 </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a88523924936db194042d902d523bd984"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">__IGOR_INLINE__ void iaTransform::setMatrix </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="class_igor_aux_1_1ia_matrix.html">iaMatrix</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>matrix</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>decompose matrix and set transform</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">matrix</td><td>the matrix to decompose </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="ae98d0a79f36e4acdc408c6c6bd803853"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_quaternion.html">iaQuaternion</a>&lt;T&gt; <a class="el" href="class_igor_aux_1_1ia_transform.html">IgorAux::iaTransform</a>&lt; T &gt;::_orientation</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>orientation component as quaternion </p>
+
+</div>
+</div>
+<a class="anchor" id="a25ac47b2439b1fb5225615ad2da97cb6"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_vector4.html">iaVector4</a>&lt;T&gt; <a class="el" href="class_igor_aux_1_1ia_transform.html">IgorAux::iaTransform</a>&lt; T &gt;::_perspective</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>perspective </p>
 
 </div>
 </div>
@@ -248,8 +543,6 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 <p>scale component </p>
 
-<p>Definition at line <a class="el" href="ia_transform_8h_source.html#l00049">49</a> of file <a class="el" href="ia_transform_8h_source.html">iaTransform.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aab4be56dbbb0229d3585bd511ca88454"></a>
@@ -264,8 +557,6 @@ template&lt;class T &gt; </div>
       </table>
 </div><div class="memdoc">
 <p>shear component </p>
-
-<p>Definition at line <a class="el" href="ia_transform_8h_source.html#l00053">53</a> of file <a class="el" href="ia_transform_8h_source.html">iaTransform.h</a>.</p>
 
 </div>
 </div>
@@ -282,13 +573,11 @@ template&lt;class T &gt; </div>
 </div><div class="memdoc">
 <p>translate component </p>
 
-<p>Definition at line <a class="el" href="ia_transform_8h_source.html#l00057">57</a> of file <a class="el" href="ia_transform_8h_source.html">iaTransform.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_transform_8h_source.html">iaTransform.h</a></li>
-<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_transform_8inl_source.html">iaTransform.inl</a></li>
+<li>C:/dev/Igor/Igor/src/IgorAux/src/<a class="el" href="ia_transform_8h.html">iaTransform.h</a></li>
+<li>C:/dev/Igor/Igor/src/IgorAux/src/<a class="el" href="ia_transform_8inl.html">iaTransform.inl</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -297,7 +586,7 @@ template&lt;class T &gt; </div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor_aux.html">IgorAux</a></li><li class="navelem"><a class="el" href="class_igor_aux_1_1ia_transform.html">iaTransform</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:21 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

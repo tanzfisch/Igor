@@ -1,5 +1,0 @@
-<map id="Igor::iTaskFlushModels::abort" name="Igor::iTaskFlushModels::abort">
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iModelResourceFactory\l \&gt;::getInstance" alt="" coords="209,5,380,61"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_task.html#a9a6b5fdd96fec5df44942f8df19ee217" title="Igor::iTask::isRunning" alt="" coords="221,85,368,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_task.html#acdadecbd8a4427becbef93a5fa2873b7" title="Igor::iTask::setRepeating" alt="" coords="211,136,378,163"/>
-</map>

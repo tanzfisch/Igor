@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=9"/>
 		<meta name="generator" content="Doxygen 1.8.8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<title>Igor: C:/dev/Igor/src/Igor/src/iModelDataIOOMPF.cpp File Reference</title>
+		<title>Igor: C:/dev/Igor/Igor/src/Igor/src/iModelDataIOOMPF.cpp File Reference</title>
 		<link href="tabs.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" src="jquery.js"></script>
 		<script type="text/javascript" src="dynsections.js"></script>
@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -113,43 +113,35 @@ $(document).ready(function(){initNavTree('i_model_data_i_o_o_m_p_f_8cpp.html',''
 <div class="title">iModelDataIOOMPF.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="i_model_data_i_o_o_m_p_f_8h_source.html">iModelDataIOOMPF.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_model_8h_source.html">iModel.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_node_transform_8h_source.html">iNodeTransform.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_node_model_8h_source.html">iNodeModel.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_node_mesh_8h_source.html">iNodeMesh.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_mesh_8h_source.html">iMesh.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_mesh_builder_8h_source.html">iMeshBuilder.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_texture_resource_factory_8h_source.html">iTextureResourceFactory.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_material_resource_factory_8h_source.html">iMaterialResourceFactory.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_render_state_set_8h_source.html">iRenderStateSet.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_shader_8h_source.html">iShader.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_target_material_8h_source.html">iTargetMaterial.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_node_factory_8h_source.html">iNodeFactory.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_node_emitter_8h_source.html">iNodeEmitter.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_node_particle_system_8h_source.html">iNodeParticleSystem.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_convert_8h_source.html">iaConvert.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_directory_8h_source.html">iaDirectory.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="_o_m_p_f_8h_source.html">OMPF.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ompf_base_chunk_8h_source.html">ompfBaseChunk.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ompf_group_chunk_8h_source.html">ompfGroupChunk.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ompf_header_chunk_8h_source.html">ompfHeaderChunk.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ompf_resource_search_path_chunk_8h_source.html">ompfResourceSearchPathChunk.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ompf_mesh_chunk_8h_source.html">ompfMeshChunk.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ompf_transform_chunk_8h_source.html">ompfTransformChunk.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ompf_external_reference_chunk_8h_source.html">ompfExternalReferenceChunk.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ompf_material_chunk_8h_source.html">ompfMaterialChunk.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ompf_emitter_chunk_8h_source.html">ompfEmitterChunk.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ompf_particle_system_chunk_8h_source.html">ompfParticleSystemChunk.h</a>&gt;</code><br />
-</div><div class="textblock"><div class="dynheader">
-Include dependency graph for iModelDataIOOMPF.cpp:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="i_model_data_i_o_o_m_p_f_8cpp__incl.svg" width="4084" height="500"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</div>
-<p><a href="i_model_data_i_o_o_m_p_f_8cpp_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
+<div class="textblock"><code>#include &lt;<a class="el" href="i_model_data_i_o_o_m_p_f_8h.html">iModelDataIOOMPF.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_model_8h.html">iModel.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_node_transform_8h.html">iNodeTransform.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_node_model_8h.html">iNodeModel.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_node_mesh_8h.html">iNodeMesh.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_mesh_8h.html">iMesh.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_mesh_builder_8h.html">iMeshBuilder.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_texture_resource_factory_8h.html">iTextureResourceFactory.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_material_resource_factory_8h.html">iMaterialResourceFactory.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_render_state_set_8h.html">iRenderStateSet.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_shader_8h.html">iShader.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_target_material_8h.html">iTargetMaterial.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_node_factory_8h.html">iNodeFactory.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_node_emitter_8h.html">iNodeEmitter.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_node_particle_system_8h.html">iNodeParticleSystem.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ia_convert_8h.html">iaConvert.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ia_directory_8h.html">iaDirectory.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_o_m_p_f_8h.html">OMPF.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ompf_base_chunk_8h.html">ompfBaseChunk.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ompf_group_chunk_8h.html">ompfGroupChunk.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ompf_header_chunk_8h.html">ompfHeaderChunk.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ompf_resource_search_path_chunk_8h.html">ompfResourceSearchPathChunk.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ompf_mesh_chunk_8h.html">ompfMeshChunk.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ompf_transform_chunk_8h.html">ompfTransformChunk.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ompf_external_reference_chunk_8h.html">ompfExternalReferenceChunk.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ompf_material_chunk_8h.html">ompfMaterialChunk.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ompf_emitter_chunk_8h.html">ompfEmitterChunk.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ompf_particle_system_chunk_8h.html">ompfParticleSystemChunk.h</a>&gt;</code><br />
+</div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespace_igor"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_igor.html">Igor</a></td></tr>
@@ -160,9 +152,9 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
-				<li class="navelem"><a class="el" href="dir_d038480633c1631388acdc016f2c394d.html">Igor</a></li><li class="navelem"><a class="el" href="dir_c666f9416e68e5cd51b28bff0f98e46c.html">src</a></li><li class="navelem"><a class="el" href="i_model_data_i_o_o_m_p_f_8cpp.html">iModelDataIOOMPF.cpp</a></li>
+				<li class="navelem"><a class="el" href="dir_f25e90d47839bd5aa725b19f9dd3e654.html">Igor</a></li><li class="navelem"><a class="el" href="dir_b12320815bd4967fc918d17f555d23eb.html">src</a></li><li class="navelem"><a class="el" href="i_model_data_i_o_o_m_p_f_8cpp.html">iModelDataIOOMPF.cpp</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:18 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

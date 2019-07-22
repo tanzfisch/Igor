@@ -1,6 +1,0 @@
-<map id="UserControlNode::updateNode" name="UserControlNode::updateNode">
-<area shape="rect" id="node2" href="$namespace_igor.html#abdbfa48a19f5bf62aca91d60d68662ee" title="Igor::iNodeMesh" alt="" coords="257,71,373,97"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iMaterialResourceFactory\l \&gt;::getInstance" alt="" coords="435,5,617,61"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node_factory.html#ab8074664cc7a6692dda729d1e3e4cfa3" title="Igor::iNodeFactory\l::getNode" alt="" coords="251,122,379,163"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_material_resource_factory.html#a55ee78b1783c8787a374907fe17f3d01" title="Igor::iMaterialResourceFactory\l::createTargetMaterial" alt="" coords="427,86,625,127"/>
-</map>

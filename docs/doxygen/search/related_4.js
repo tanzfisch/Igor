@@ -1,10 +1,5 @@
 var searchData=
 [
-  ['asserthelper',['AssertHelper',['../classtesting_1_1_unit_test.html#a183151aa061362c87572e743fe233db1',1,'testing::UnitTest']]],
-  ['defaultglobaltestpartresultreporter',['DefaultGlobalTestPartResultReporter',['../classtesting_1_1_test_result.html#abae39633da9932847b41cb80efd62115',1,'testing::TestResult::DefaultGlobalTestPartResultReporter()'],['../classtesting_1_1_test_event_listeners.html#abae39633da9932847b41cb80efd62115',1,'testing::TestEventListeners::DefaultGlobalTestPartResultReporter()']]],
-  ['execdeathtest',['ExecDeathTest',['../classtesting_1_1_test_result.html#adf5553cae6aea6f8648d47e299237e34',1,'testing::TestResult']]],
-  ['fuchsiadeathtest',['FuchsiaDeathTest',['../classtesting_1_1_test_result.html#af29d5921f68031cdfba0b28cf4b3b559',1,'testing::TestResult']]],
-  ['getunittestimpl',['GetUnitTestImpl',['../classtesting_1_1_unit_test.html#a56e56be7066957d612e53b5c60f6ac08',1,'testing::UnitTest']]],
   ['iafile',['iaFile',['../class_igor_aux_1_1ia_directory.html#a86b456214cb093e5d06962a0e4fd5798',1,'IgorAux::iaDirectory']]],
   ['iapplication',['iApplication',['../class_igor_1_1i_node_factory.html#ac95e62eb30700f633cc8c60341f159f6',1,'Igor::iNodeFactory::iApplication()'],['../class_igor_1_1i_physics.html#ac95e62eb30700f633cc8c60341f159f6',1,'Igor::iPhysics::iApplication()'],['../class_igor_1_1i_timer.html#ac95e62eb30700f633cc8c60341f159f6',1,'Igor::iTimer::iApplication()'],['../class_igor_1_1i_window.html#ac95e62eb30700f633cc8c60341f159f6',1,'Igor::iWindow::iApplication()']]],
   ['iasingleton_3c_20iaconsole_20_3e',['iaSingleton&lt; iaConsole &gt;',['../class_igor_aux_1_1ia_console.html#aa49f5c68d307cd04d594050c33a171ac',1,'IgorAux::iaConsole']]],
@@ -81,15 +76,5 @@ var searchData=
   ['iwidgetscroll',['iWidgetScroll',['../class_igor_1_1i_widget.html#a3f92bc22d83efa209886adab927c0727',1,'Igor::iWidget']]],
   ['iwidgetslider',['iWidgetSlider',['../class_igor_1_1i_widget.html#af877834d99c536f85d76c3776a40299f',1,'Igor::iWidget']]],
   ['iwidgettextedit',['iWidgetTextEdit',['../class_igor_1_1i_widget.html#a924c51408320835af5096442abbc442e',1,'Igor::iWidget']]],
-  ['iwindow',['iWindow',['../class_igor_1_1i_application.html#a62b10979f57015cc1e2e958bbd9308bc',1,'Igor::iApplication::iWindow()'],['../class_igor_1_1i_o_s_event_listener.html#a62b10979f57015cc1e2e958bbd9308bc',1,'Igor::iOSEventListener::iWindow()'],['../class_igor_1_1i_renderer.html#a62b10979f57015cc1e2e958bbd9308bc',1,'Igor::iRenderer::iWindow()'],['../class_igor_1_1i_task_manager.html#a62b10979f57015cc1e2e958bbd9308bc',1,'Igor::iTaskManager::iWindow()'],['../class_igor_1_1i_view.html#a62b10979f57015cc1e2e958bbd9308bc',1,'Igor::iView::iWindow()']]],
-  ['makeandregistertestinfo',['MakeAndRegisterTestInfo',['../classtesting_1_1_test_info.html#a70ddf8a12d8c05f17429f6381abc8ace',1,'testing::TestInfo']]],
-  ['noexecdeathtest',['NoExecDeathTest',['../classtesting_1_1_test_event_listeners.html#afddba49fdf3f493532b4d5efb9814f4e',1,'testing::TestEventListeners']]],
-  ['parameterizedtestfactory',['ParameterizedTestFactory',['../classtesting_1_1_with_param_interface.html#a7543eb7df89f00fff517dba24bc11dd5',1,'testing::WithParamInterface']]],
-  ['reportfailureinunknownlocation',['ReportFailureInUnknownLocation',['../classtesting_1_1_unit_test.html#a73f5a158c13793b90c80d854c9a75120',1,'testing::UnitTest']]],
-  ['streaminglistenertest',['StreamingListenerTest',['../classtesting_1_1_test_info.html#adc037d188dab349a94868991955c9cd4',1,'testing::TestInfo::StreamingListenerTest()'],['../classtesting_1_1_unit_test.html#adc037d188dab349a94868991955c9cd4',1,'testing::UnitTest::StreamingListenerTest()']]],
-  ['testeventlistenersaccessor',['TestEventListenersAccessor',['../classtesting_1_1_test_event_listeners.html#addbc107b6b445617c880182bd4f44cf9',1,'testing::TestEventListeners']]],
-  ['testresultaccessor',['TestResultAccessor',['../classtesting_1_1_test_result.html#ae762da04e74a0d3b0daded3c5bd4a8e8',1,'testing::TestResult']]],
-  ['unittestimpl',['UnitTestImpl',['../classtesting_1_1_test_result.html#acc0a5e7573fd6ae7ad1878613bb86853',1,'testing::TestResult::UnitTestImpl()'],['../classtesting_1_1_test_info.html#acc0a5e7573fd6ae7ad1878613bb86853',1,'testing::TestInfo::UnitTestImpl()'],['../classtesting_1_1_test_case.html#acc0a5e7573fd6ae7ad1878613bb86853',1,'testing::TestCase::UnitTestImpl()'],['../classtesting_1_1_test_event_listeners.html#acc0a5e7573fd6ae7ad1878613bb86853',1,'testing::TestEventListeners::UnitTestImpl()']]],
-  ['unittestrecordpropertytesthelper',['UnitTestRecordPropertyTestHelper',['../classtesting_1_1_unit_test.html#ae970f89a9f477a349fe5778be85ef42e',1,'testing::UnitTest']]],
-  ['windowsdeathtest',['WindowsDeathTest',['../classtesting_1_1_test_result.html#a6aeedc04a0590fcc1b3c5f687dbb0f9f',1,'testing::TestResult']]]
+  ['iwindow',['iWindow',['../class_igor_1_1i_application.html#a62b10979f57015cc1e2e958bbd9308bc',1,'Igor::iApplication::iWindow()'],['../class_igor_1_1i_o_s_event_listener.html#a62b10979f57015cc1e2e958bbd9308bc',1,'Igor::iOSEventListener::iWindow()'],['../class_igor_1_1i_renderer.html#a62b10979f57015cc1e2e958bbd9308bc',1,'Igor::iRenderer::iWindow()'],['../class_igor_1_1i_task_manager.html#a62b10979f57015cc1e2e958bbd9308bc',1,'Igor::iTaskManager::iWindow()'],['../class_igor_1_1i_view.html#a62b10979f57015cc1e2e958bbd9308bc',1,'Igor::iView::iWindow()']]]
 ];

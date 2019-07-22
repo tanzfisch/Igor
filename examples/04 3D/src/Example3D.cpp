@@ -354,7 +354,7 @@ void Example3D::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWind
             allObjectsPitch->rotate((to._y - from._y) * 0.005f, iaAxis::X);
             allObjectsHeading->rotate((to._x - from._x) * 0.005f, iaAxis::Y);
 
-            iMouse::getInstance().setCenter(true);
+            iMouse::getInstance().setCenter();
         }
     }
     else if (iMouse::getInstance().getLeftButton())
@@ -368,7 +368,7 @@ void Example3D::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWind
             cameraPitch->rotate((to._y - from._y) * 0.005f, iaAxis::X);
             cameraHeading->rotate((to._x - from._x) * 0.005f, iaAxis::Y);
 
-            iMouse::getInstance().setCenter(true);
+            iMouse::getInstance().setCenter();
         }
     }
 }
@@ -391,7 +391,11 @@ void Example3D::onKeyPressed(iKeyCode key)
         iApplication::getInstance().stop();
         break;
 
-    case iKeyCode::F1:
+	case iKeyCode::F8:
+		_statisticsVisualizer.cycleVerbosity();
+		break;
+
+    case iKeyCode::F9:
     {
         iNodeVisitorPrintTree printTree;
         if (_scene != nullptr)
@@ -401,15 +405,15 @@ void Example3D::onKeyPressed(iKeyCode key)
     }
     break;
 
-    case iKeyCode::W:
+    case iKeyCode::F10:
         _view.setWireframeVisible(!_view.isWireframeVisible());
         break;
 
-    case iKeyCode::O:
+    case iKeyCode::F11:
         _view.setOctreeVisible(!_view.isOctreeVisible());
         break;
 
-    case iKeyCode::B:
+    case iKeyCode::F12:
         _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
         break;
 

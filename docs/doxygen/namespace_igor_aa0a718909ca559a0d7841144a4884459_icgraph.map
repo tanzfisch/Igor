@@ -1,5 +1,0 @@
-<map id="Igor::convertGLColorFormat" name="Igor::convertGLColorFormat">
-<area shape="rect" id="node2" href="$class_igor_1_1i_renderer.html#a94dd02ef1041d85631e5b5efd75337fa" title="Igor::iRenderer::readPixels" alt="" coords="243,5,417,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_renderer.html#ade195e9ced92e1e9317023e105684030" title="Igor::iRenderer::createTexture" alt="" coords="233,56,427,83"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_renderer.html#a5a5e62054d53cb4c2a0b3511bfa3266b" title="Igor::iRenderer::createRender\lTarget" alt="" coords="235,107,425,149"/>
-</map>

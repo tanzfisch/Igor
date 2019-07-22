@@ -1,9 +1,0 @@
-<map id="Igor::iVoxelTerrainTileInformation" name="Igor::iVoxelTerrainTileInformation">
-<area shape="rect" id="node2" href="$class_igor_1_1i_voxel_data.html" title="Igor::iVoxelData" alt="" coords="31,465,145,492"/>
-<area shape="rect" id="node3" href="$struct_igor_1_1i_voxel_pole.html" title="Igor::iVoxelPole" alt="" coords="31,332,145,359"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_r_l_e.html" title="IgorAux::iaRLE\&lt; uint8,\l uint8 \&gt;" alt="" coords="11,199,165,240"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_r_l_e.html" title="IgorAux::iaRLE\&lt; TValue,\l TIndex \&gt;" alt="" coords="5,95,171,136"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_target_material.html" title="Igor::iTargetMaterial" alt="" coords="171,465,307,492"/>
-<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_color3.html" title="IgorAux::iaColor3\&lt; T \&gt;" alt="" coords="176,332,328,359"/>
-<area shape="rect" id="node10" href="$class_igor_aux_1_1ia_vector3.html" title="IgorAux::iaVector3\&lt; T \&gt;" alt="" coords="303,399,463,425"/>
-</map>

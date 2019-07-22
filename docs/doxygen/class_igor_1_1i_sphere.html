@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,26 +112,13 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_sphere.html','');});
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="class_igor_1_1i_sphere-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Igor::iSphere&lt; T &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_sphere_8h_source.html">iSphere.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iSphere&lt; T &gt;:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_sphere__inherit__graph.svg" width="339" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iSphere&lt; T &gt;:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_sphere__coll__graph.svg" width="138" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iSphere.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -154,20 +141,12 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a2340658d5c15d6e4a32df111aaa78e71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ef18385a7eafc8289dc9716e9b491c2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24ab9ece18c950afbfa6b0fdbfa4ff731d3">T</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_sphere.html#a9ef18385a7eafc8289dc9716e9b491c2">_radius</a> = static_cast&lt;<a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24ab9ece18c950afbfa6b0fdbfa4ff731d3">T</a>&gt;(0)</td></tr>
 <tr class="separator:a9ef18385a7eafc8289dc9716e9b491c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:ab09d55baf863d87f45f3cac81ffa7cf9"><td class="memItemLeft" align="right" valign="top">__IGOR_INLINE__ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_sphere.html#ab09d55baf863d87f45f3cac81ffa7cf9">contains</a> (const <a class="el" href="class_igor_1_1i_sphere.html">iSphere</a>&lt; <a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24ab9ece18c950afbfa6b0fdbfa4ff731d3">T</a> &gt; &amp;sphere)</td></tr>
-<tr class="separator:ab09d55baf863d87f45f3cac81ffa7cf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><h3>template&lt;class T&gt;<br />
 class Igor::iSphere&lt; T &gt;</h3>
 
 <p>sphere</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000073">Todo:</a></b></dt><dd>mode to <a class="el" href="namespace_igor_aux.html">IgorAux</a> </dd></dl>
-
-<p>Definition at line <a class="el" href="i_sphere_8h_source.html#l00043">43</a> of file <a class="el" href="i_sphere_8h_source.html">iSphere.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ad3d295f7a83aa1d111938e261898398d"></a>
 <div class="memitem">
@@ -258,50 +237,6 @@ template&lt;class T&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="ab09d55baf863d87f45f3cac81ffa7cf9"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool iSphere::contains </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="class_igor_1_1i_sphere.html">iSphere</a>&lt; <a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24ab9ece18c950afbfa6b0fdbfa4ff731d3">T</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>sphere</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>containment test with an other sphere</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">sphere</td><td>the other sphere to test with </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>true: if sphere is completely inside sphere; false: if not </dd></dl>
-
-<p>Definition at line <a class="el" href="i_sphere_8inl_source.html#l00013">13</a> of file <a class="el" href="i_sphere_8inl_source.html">iSphere.inl</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_sphere_ab09d55baf863d87f45f3cac81ffa7cf9_icgraph.svg" width="580" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
 <a class="anchor" id="ab7d2f247a9c5cd86208a8d7b5d6e6b2d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -325,24 +260,6 @@ template&lt;class T&gt; </div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_sphere_8inl_source.html#l00041">41</a> of file <a class="el" href="i_sphere_8inl_source.html">iSphere.inl</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_sphere_ab7d2f247a9c5cd86208a8d7b5d6e6b2d_cgraph.svg" width="350" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_sphere_ab7d2f247a9c5cd86208a8d7b5d6e6b2d_icgraph.svg" width="380" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ab6ae621cf162145091ab76cd1844e91b"></a>
@@ -361,8 +278,6 @@ template&lt;class T&gt; </div>
       </table>
 </div><div class="memdoc">
 <p>compares of two spheres are not equal </p>
-
-<p>Definition at line <a class="el" href="i_sphere_8inl_source.html#l00035">35</a> of file <a class="el" href="i_sphere_8inl_source.html">iSphere.inl</a>.</p>
 
 </div>
 </div>
@@ -383,8 +298,6 @@ template&lt;class T&gt; </div>
 </div><div class="memdoc">
 <p>compares of two spheres are equal </p>
 
-<p>Definition at line <a class="el" href="i_sphere_8inl_source.html#l00029">29</a> of file <a class="el" href="i_sphere_8inl_source.html">iSphere.inl</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -401,8 +314,6 @@ template&lt;class T&gt; </div>
 </div><div class="memdoc">
 <p>center position of sphere </p>
 
-<p>Definition at line <a class="el" href="i_sphere_8h_source.html#l00050">50</a> of file <a class="el" href="i_sphere_8h_source.html">iSphere.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a9ef18385a7eafc8289dc9716e9b491c2"></a>
@@ -418,13 +329,11 @@ template&lt;class T&gt; </div>
 </div><div class="memdoc">
 <p>radius of sphere </p>
 
-<p>Definition at line <a class="el" href="i_sphere_8h_source.html#l00054">54</a> of file <a class="el" href="i_sphere_8h_source.html">iSphere.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_sphere_8h_source.html">iSphere.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_sphere_8inl_source.html">iSphere.inl</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_sphere_8h.html">iSphere.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_sphere_8inl.html">iSphere.inl</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -433,7 +342,7 @@ template&lt;class T&gt; </div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_sphere.html">iSphere</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:04 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

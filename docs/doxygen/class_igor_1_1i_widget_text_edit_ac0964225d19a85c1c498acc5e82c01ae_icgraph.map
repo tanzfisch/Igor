@@ -1,6 +1,0 @@
-<map id="Igor::iWidgetTextEdit::isWriteProtected" name="Igor::iWidgetTextEdit::isWriteProtected">
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget_text_edit.html#ae33a89c07b2be35b46652624a3a76348" title="Igor::iWidgetTextEdit\l::handleASCII" alt="" coords="196,5,339,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget_text_edit.html#aab49c9b17ab47ae6f7f40a5f81f84686" title="Igor::iWidgetTextEdit\l::handleKeyUp" alt="" coords="196,71,339,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_widget_text_edit.html#a8dc55fe820b437af2e7fd8bf625379d7" title="Igor::iWidgetTextEdit\l::handleKeyDown" alt="" coords="196,136,339,177"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_widget_text_edit.html#aa4bcfd88e7154fc128fa0f0126971387" title="Igor::iWidgetTextEdit\l::draw" alt="" coords="196,201,339,243"/>
-</map>

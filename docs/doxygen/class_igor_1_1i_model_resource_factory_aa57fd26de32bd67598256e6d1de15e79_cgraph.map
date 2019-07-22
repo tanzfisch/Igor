@@ -1,6 +1,0 @@
-<map id="Igor::iModelResourceFactory::exportModelData" name="Igor::iModelResourceFactory::exportModelData">
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_directory.html#a98786c5b2f0b32bed3db7f2fe452b917" title="IgorAux::iaDirectory\l::directoryIsAbsolute" alt="" coords="250,5,391,47"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_file.html#a777e728712c704a9e997eb227a71a6e7" title="IgorAux::iaFile::getPath" alt="" coords="241,71,400,98"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_model_data_i_o.html#a9992689535f19bd5cf39e1752faeed06" title="Igor::iModelDataIO\l::exportData" alt="" coords="256,123,385,164"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_string.html#a6d9c01e546c1e33c9924bc2695d5fc17" title="IgorAux::iaString::\lgetSize" alt="" coords="448,5,575,47"/>
-</map>

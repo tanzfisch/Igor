@@ -1,4 +1,0 @@
-<map id="Igor::resetForceAndTorqueDelegate" name="Igor::resetForceAndTorqueDelegate">
-<area shape="rect" id="node2" href="$namespace_igor.html#a0c19adde07682d4c78667020bdcf394b" title="Igor::isInitialized" alt="" coords="262,5,377,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_physics_body.html#ab70033ae7f2c7e29044b1259aa55bbad" title="Igor::iPhysicsBody\l::unregisterForceAndTorque\lDelegate" alt="" coords="228,56,411,112"/>
-</map>

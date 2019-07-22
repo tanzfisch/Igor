@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -116,15 +116,13 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_visitor_boundings
 
 <p>This is the complete list of members for <a class="el" href="class_igor_1_1i_node_visitor_boundings.html">Igor::iNodeVisitorBoundings</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html#ae6a7a876f97a478f1d3991fd26b53703">_initialSphere</a></td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html">Igor::iNodeVisitorBoundings</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html#ab129c7345754202a7d1e28f3663afee6">_sphere</a></td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html">Igor::iNodeVisitorBoundings</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html#a9c26834f71c5f30d672b050c817bc65b">getSphere</a>(iSphered &amp;sphere)</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html">Igor::iNodeVisitorBoundings</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html#aa20ea9084089c6cd58a84c87662973d8">iNodeVisitor</a>()=default</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html#a7a8d151a6ded11d183cf2a16ad4846f2">iNodeVisitorBoundings</a>()</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html">Igor::iNodeVisitorBoundings</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html#a59b20f96debb26977b42f73a0985338d">postOrderVisit</a>(iNodePtr node)</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html">Igor::iNodeVisitorBoundings</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html#a08e3987f5bf76af0748aabc0d3c431bd">postTraverse</a>()</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html">Igor::iNodeVisitorBoundings</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html#a4628da61fa0214189f1360b3dd5db685">preOrderVisit</a>(iNodePtr node)</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html">Igor::iNodeVisitorBoundings</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html#a537c92d18837b218292c9b454be07b6a">preTraverse</a>()</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html">Igor::iNodeVisitorBoundings</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html#afc6be8b9c1423a9c0ad7a74a478c0e47">postOrderVisit</a>(iNodePtr node) override</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html">Igor::iNodeVisitorBoundings</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html#a9d6345e78cc0110617c30ddffed36e43">postTraverse</a>() override</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html">Igor::iNodeVisitorBoundings</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html#a4565170a2af949f3869e6cd520345ec4">preOrderVisit</a>(iNodePtr node, iNodePtr nextSibling) override</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html">Igor::iNodeVisitorBoundings</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html#a68e5e0b59c2c8eeceb3e604603222214">preTraverse</a>() override</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor_boundings.html">Igor::iNodeVisitorBoundings</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html#a3513005c92f2ed97ee5e838133715674">setTraverseInactiveChildren</a>(bool traverseInactive=true)</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html#a66c426b8125fa0205d492b2681884520">traverseTree</a>(iNodePtr node)</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html#a132711036177b92b6babdf8d3b7b227d">~iNodeVisitor</a>()=default</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
@@ -135,7 +133,7 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_visitor_boundings
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:55 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

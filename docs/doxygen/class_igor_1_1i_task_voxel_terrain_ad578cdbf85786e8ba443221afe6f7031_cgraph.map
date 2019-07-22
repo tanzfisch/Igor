@@ -1,7 +1,0 @@
-<map id="Igor::iTaskVoxelTerrain::run" name="Igor::iTaskVoxelTerrain::run">
-<area shape="rect" id="node2" href="$class_igor_1_1i_voxel_terrain.html#a01654a6bcafb57ca10f8baf8ebd27b8a" title="Igor::iVoxelTerrain\l::update" alt="" coords="233,100,360,141"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_l_o_d_trigger.html#a6751274c3280da9c94a058bb09bf0e27" title="Igor::iNodeLODTrigger\l::getWorldPosition" alt="" coords="411,5,560,47"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_vector3.html#a242b585744f3f2110d5158a0727cebfb" title="IgorAux::iaVector3\l::length2" alt="" coords="421,71,550,112"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_vector3.html#a9318308d20ed3bd29e16fd1b41b02eef" title="IgorAux::iaVector3::set" alt="" coords="408,137,563,163"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_vector3.html#a460281d7b8c0c4cf63c372320f118c15" title="IgorAux::iaVector3\l::convert" alt="" coords="421,188,550,229"/>
-</map>

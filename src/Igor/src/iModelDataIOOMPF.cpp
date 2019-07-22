@@ -55,7 +55,7 @@ namespace Igor
 	{
 		switch (currentChunk->getType())
 		{
-		case OMPFChunkType::ParticleSystem:
+		case OMPF::OMPFChunkType::ParticleSystem:
 		{
 			OMPF::ompfParticleSystemChunk* particleSystemChunk = static_cast<OMPF::ompfParticleSystemChunk*>(currentChunk);
 			uint32 particleSystemNodeID = getNodeID(particleSystemChunk->getID());
@@ -83,7 +83,7 @@ namespace Igor
 
 		switch (currentChunk->getType())
 		{
-		case OMPFChunkType::Transform:
+		case OMPF::OMPFChunkType::Transform:
 		{
 			OMPF::ompfTransformChunk* transformChunk = static_cast<OMPF::ompfTransformChunk*>(currentChunk);
 			iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -102,7 +102,7 @@ namespace Igor
 			break;
 		}
 
-		case OMPFChunkType::External:
+		case OMPF::OMPFChunkType::External:
 		{
 			OMPF::ompfExternalReferenceChunk* externalRefChunk = static_cast<OMPF::ompfExternalReferenceChunk*>(currentChunk);
 			iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
@@ -111,13 +111,13 @@ namespace Igor
 			break;
 		}
 
-		case OMPFChunkType::Group:
+		case OMPF::OMPFChunkType::Group:
 		{
 			result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
 			break;
 		}
 
-		case OMPFChunkType::Emitter:
+		case OMPF::OMPFChunkType::Emitter:
 		{
 			OMPF::ompfEmitterChunk* emitterChunk = static_cast<OMPF::ompfEmitterChunk*>(currentChunk);
 			iNodeEmitter* emitterNode = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
@@ -127,23 +127,23 @@ namespace Igor
 			break;
 		}
 
-		case OMPFChunkType::ParticleSystem:
+		case OMPF::OMPFChunkType::ParticleSystem:
 			result = createParticleSystem(currentChunk);
 			break;
 
-		case OMPFChunkType::ResourceSearchPath:
+		case OMPF::OMPFChunkType::ResourceSearchPath:
 			// OMPF::ompfResourceSearchPathChunk* resourceSearchPathChunk = static_cast<OMPF::ompfResourceSearchPathChunk*>(currentChunk);
 			// TODO
 			break;
 
-		case OMPFChunkType::Mesh:
+		case OMPF::OMPFChunkType::Mesh:
 		{
 			result = createMeshNode(currentChunk);
 			break;
 		}
 
-		case OMPFChunkType::Header:
-		case OMPFChunkType::Invalid:
+		case OMPF::OMPFChunkType::Header:
+		case OMPF::OMPFChunkType::Invalid:
 			con_err("unexpected chunk type with id 0x" << hex << static_cast<uint64>(currentChunk->getType()));
 			return result;
 
@@ -238,6 +238,7 @@ namespace Igor
 
 		mesh->setHasNormals(meshChunk->getNormalsPerVertex() ? true : false);
 		mesh->setHasColors(meshChunk->getColorsPerVertex() ? true : false);
+		mesh->setTextureCoordinatesCount(meshChunk->getTexCoordPerVertex());
 
 		// calculate boundings
 		iaVector3d minPos;
@@ -481,7 +482,7 @@ namespace Igor
 	{
 		switch (currentChunk->getType())
 		{
-		case OMPFChunkType::ParticleSystem:
+		case OMPF::OMPFChunkType::ParticleSystem:
 		{
 			OMPF::ompfParticleSystemChunk* particleSystemChunk = static_cast<OMPF::ompfParticleSystemChunk*>(currentChunk);
 			uint32 chunkID = particleSystemChunk->getID();
@@ -520,7 +521,7 @@ namespace Igor
 		con_assert(_chunkStack.size() == 0, "stack should be empty");
 	}
 
-	bool iModelDataIOOMPF::preOrderVisit(iNodePtr node)
+	bool iModelDataIOOMPF::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
 	{
 		OMPF::ompfBaseChunk* nextChunk = nullptr;
 		bool callChildren = true;
@@ -710,7 +711,7 @@ namespace Igor
 			{
 				result->setNormalsPerVertex(node->getMesh()->hasNormals() ? 1 : 0);
 				result->setColorsPerVertex(node->getMesh()->hasColors() ? 1 : 0);
-				result->setTexCoordPerVertex(node->getMesh()->getTextureUnitCount());
+				result->setTexCoordPerVertex(node->getMesh()->getTextureCoordinatesCount());
 
 				result->setVertexCount(node->getMesh()->getVertexCount());
 				result->setVertexData(reinterpret_cast<char*>(node->getMesh()->getVertexData()), node->getMesh()->getVertexDataSize());

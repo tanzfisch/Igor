@@ -1,9 +1,0 @@
-<map id="Igor::iNodeFactory::createNode" name="Igor::iNodeFactory::createNode">
-<area shape="rect" id="node2" href="$class_igor_1_1i_voxel_terrain_mesh_generator.html#a573443022d97b40da58a922f413a0326" title="Igor::iVoxelTerrainMeshGenerator\l::importData" alt="" coords="181,5,396,47"/>
-<area shape="rect" id="node3" href="$class_manipulator.html#a2f84c8ed902d8af5e779292aca54a388" title="Manipulator::init" alt="" coords="231,71,346,98"/>
-<area shape="rect" id="node4" href="$class_manipulator.html#ada38b5f63a87e181f60eae4ad7d28ded" title="Manipulator::createRotate\lModifier" alt="" coords="203,123,374,164"/>
-<area shape="rect" id="node5" href="$class_manipulator.html#ad2a69e64a99d9450d3f245b073ef1e32" title="Manipulator::createTranslate\lModifier" alt="" coords="195,188,382,229"/>
-<area shape="rect" id="node6" href="$class_manipulator.html#afcf5d60502dd0a242151edcc551a06a1" title="Manipulator::createScale\lModifier" alt="" coords="205,253,372,295"/>
-<area shape="rect" id="node7" href="$class_o_b_j2_o_m_p_f.html#ad02e6ef54cf7a8530e5c54f4c9d2f61d" title="OBJ2OMPF::convert" alt="" coords="218,319,359,346"/>
-<area shape="rect" id="node8" href="$_o_b_j2_o_m_p_f_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main" alt="" coords="444,319,495,346"/>
-</map>

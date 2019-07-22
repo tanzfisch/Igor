@@ -1,6 +1,0 @@
-<map id="Igor::iNodeModel::onPostSetScene" name="Igor::iNodeModel::onPostSetScene">
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#acd9afcdfae20de27c0ca44bb5cb89e79" title="Igor::iNode::getScene" alt="" coords="249,5,396,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node.html#acfa6ad12dcab840f398ccf5bd2df7d69" title="Igor::iNode::isDataDirty" alt="" coords="245,56,401,83"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_scene.html#acfca34eaff8314fd5edb894074abbe88" title="Igor::iScene::addToDataUpdate\lQueue" alt="" coords="221,107,424,149"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node.html#a865efb791b77d29bb489514326037380" title="Igor::iNode::getID" alt="" coords="472,115,595,141"/>
-</map>

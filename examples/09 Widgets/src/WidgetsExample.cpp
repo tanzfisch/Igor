@@ -52,7 +52,10 @@ void WidgetsExample::init()
 
     // init window with the orthogonal projected view
     _window.addView(&_viewOrtho);
+	// set window size
     _window.setClientSize(1024, 768);
+	// place window centered on screen
+	_window.setCentered();
     // register to window close event so we can shut down the application properly
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &WidgetsExample::onWindowClosed));
     // register to window resize event so we can notify the widget manager of that change

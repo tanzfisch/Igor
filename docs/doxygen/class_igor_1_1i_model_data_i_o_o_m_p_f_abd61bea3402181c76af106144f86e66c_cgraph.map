@@ -1,7 +1,0 @@
-<map id="Igor::iModelDataIOOMPF::linkChunks" name="Igor::iModelDataIOOMPF::linkChunks">
-<area shape="rect" id="node2" href="$class_o_m_p_f_1_1ompf_base_chunk.html#a51f564a9578014072b0deae94ac95a92" title="OMPF::ompfBaseChunk\l::getType" alt="" coords="231,5,394,47"/>
-<area shape="rect" id="node3" href="$class_o_m_p_f_1_1ompf_base_chunk.html#a975a727d2e35826854206a927ab003b0" title="OMPF::ompfBaseChunk\l::getID" alt="" coords="231,71,394,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node_particle_system.html#a609d1e478a0a78d281f3b003ab697fd3" title="Igor::iNodeParticleSystem\l::getEmitter" alt="" coords="226,136,399,177"/>
-<area shape="rect" id="node5" href="$class_o_m_p_f_1_1ompf_particle_system_chunk.html#a4ade426789e0e771733eeb84d55c56af" title="OMPF::ompfParticleSystem\lChunk::setEmitterChunkID" alt="" coords="220,201,405,243"/>
-<area shape="rect" id="node6" href="$class_o_m_p_f_1_1ompf_base_chunk.html#a96554fbe27e060732237486a1fa02979" title="OMPF::ompfBaseChunk\l::getChildren" alt="" coords="231,267,394,308"/>
-</map>

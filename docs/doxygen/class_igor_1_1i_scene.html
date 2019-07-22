@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,8 +111,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_scene.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_scene-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -120,13 +118,7 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_scene.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_scene_8h_source.html">iScene.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for Igor::iScene:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene__coll__graph.svg" width="1059" height="276"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iScene.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -155,84 +147,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:acfca34eaff8314fd5edb894074abbe88"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#acfca34eaff8314fd5edb894074abbe88">addToDataUpdateQueue</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node)</td></tr>
 <tr class="separator:acfca34eaff8314fd5edb894074abbe88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a1c80dc858c4534f1d4aee08b61bfd116"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a1c80dc858c4534f1d4aee08b61bfd116">updateData</a> ()</td></tr>
-<tr class="separator:a1c80dc858c4534f1d4aee08b61bfd116"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7516d4e586dcb3325708ce94cf69c6ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a7516d4e586dcb3325708ce94cf69c6ff">registerCamera</a> (<a class="el" href="class_igor_1_1i_node_camera.html">iNodeCamera</a> *camera)</td></tr>
-<tr class="separator:a7516d4e586dcb3325708ce94cf69c6ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0bcc19ae479922675b19b47f36179189"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a0bcc19ae479922675b19b47f36179189">unregisterCamera</a> (<a class="el" href="class_igor_1_1i_node_camera.html">iNodeCamera</a> *camera)</td></tr>
-<tr class="separator:a0bcc19ae479922675b19b47f36179189"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69f8926cde5b14e3e530d7e4511c1f6f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a69f8926cde5b14e3e530d7e4511c1f6f">registerLODTrigger</a> (<a class="el" href="class_igor_1_1i_node_l_o_d_trigger.html">iNodeLODTrigger</a> *trigger)</td></tr>
-<tr class="separator:a69f8926cde5b14e3e530d7e4511c1f6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1cdd9f294b8ff99653a03fb57b796ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#ac1cdd9f294b8ff99653a03fb57b796ba">unregisterLODTrigger</a> (<a class="el" href="class_igor_1_1i_node_l_o_d_trigger.html">iNodeLODTrigger</a> *trigger)</td></tr>
-<tr class="separator:ac1cdd9f294b8ff99653a03fb57b796ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81ef736ac4c9b89a48781334e67d41ab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a81ef736ac4c9b89a48781334e67d41ab">registerLODSwitch</a> (<a class="el" href="class_igor_1_1i_node_l_o_d_switch.html">iNodeLODSwitch</a> *switchNode)</td></tr>
-<tr class="separator:a81ef736ac4c9b89a48781334e67d41ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1376902e97283f3dded50cd44a7b4838"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a1376902e97283f3dded50cd44a7b4838">unregisterLODSwitch</a> (<a class="el" href="class_igor_1_1i_node_l_o_d_switch.html">iNodeLODSwitch</a> *switchNode)</td></tr>
-<tr class="separator:a1376902e97283f3dded50cd44a7b4838"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac138cbc02aecf2d009eedc88a571d76"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#aac138cbc02aecf2d009eedc88a571d76">updateLOD</a> ()</td></tr>
-<tr class="separator:aac138cbc02aecf2d009eedc88a571d76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5ab60d9af7a275a2aab7082e6f5972d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#ab5ab60d9af7a275a2aab7082e6f5972d">registerLight</a> (<a class="el" href="class_igor_1_1i_node_light.html">iNodeLight</a> *light)</td></tr>
-<tr class="separator:ab5ab60d9af7a275a2aab7082e6f5972d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86e1a8ce9d0520c4f4f4e7dae74976f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a86e1a8ce9d0520c4f4f4e7dae74976f1">unregisterLight</a> (<a class="el" href="class_igor_1_1i_node_light.html">iNodeLight</a> *light)</td></tr>
-<tr class="separator:a86e1a8ce9d0520c4f4f4e7dae74976f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e9c01a5d3c644a497bdac9f943d04bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a6e9c01a5d3c644a497bdac9f943d04bb">registerRenderable</a> (<a class="el" href="class_igor_1_1i_node_render.html">iNodeRender</a> *node)</td></tr>
-<tr class="separator:a6e9c01a5d3c644a497bdac9f943d04bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22b74ff6be7474190f827dbc36316f7e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a22b74ff6be7474190f827dbc36316f7e">unregisterRenderable</a> (<a class="el" href="class_igor_1_1i_node_render.html">iNodeRender</a> *node)</td></tr>
-<tr class="separator:a22b74ff6be7474190f827dbc36316f7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7939cd9585b157e897106e82ad4017ed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a7939cd9585b157e897106e82ad4017ed">registerVolume</a> (<a class="el" href="class_igor_1_1i_node_volume.html">iNodeVolume</a> *volume)</td></tr>
-<tr class="separator:a7939cd9585b157e897106e82ad4017ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a996938a69498c8157dd99785a20acdef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a996938a69498c8157dd99785a20acdef">unregisterVolume</a> (<a class="el" href="class_igor_1_1i_node_volume.html">iNodeVolume</a> *volume)</td></tr>
-<tr class="separator:a996938a69498c8157dd99785a20acdef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a63d0af30f563531ce1feb8ed53f5e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a8a63d0af30f563531ce1feb8ed53f5e2">updateVolume</a> (<a class="el" href="class_igor_1_1i_node_volume.html">iNodeVolume</a> *volume)</td></tr>
-<tr class="separator:a8a63d0af30f563531ce1feb8ed53f5e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61c6f27b83ccdfbfdc1b7ee02d2fcc21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a61c6f27b83ccdfbfdc1b7ee02d2fcc21">signalNodeAdded</a> (uint64 nodeID)</td></tr>
-<tr class="separator:a61c6f27b83ccdfbfdc1b7ee02d2fcc21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadee04cec2c19e6de83645d9de7e614f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#aadee04cec2c19e6de83645d9de7e614f">signalNodeRemoved</a> (uint64 nodeID)</td></tr>
-<tr class="separator:aadee04cec2c19e6de83645d9de7e614f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25a579b29923f9d7409f87727f8429a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a25a579b29923f9d7409f87727f8429a3">iScene</a> ()</td></tr>
-<tr class="separator:a25a579b29923f9d7409f87727f8429a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a56f5439ef6222b7120ad1286b1226b8d"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a56f5439ef6222b7120ad1286b1226b8d">~iScene</a> ()</td></tr>
-<tr class="separator:a56f5439ef6222b7120ad1286b1226b8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a5e19951ebc32729eb7c5af55b69466c9"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a5e19951ebc32729eb7c5af55b69466c9">_sceneHandleSectionID</a> = 0</td></tr>
-<tr class="separator:a5e19951ebc32729eb7c5af55b69466c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5518d39d5dc80f75f329899d0c12abda"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a5518d39d5dc80f75f329899d0c12abda">_updateLODSectionID</a> = 0</td></tr>
-<tr class="separator:a5518d39d5dc80f75f329899d0c12abda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a95112ce01084c7e260e4cae96442cf7f"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a95112ce01084c7e260e4cae96442cf7f">_processUpdateDataSectionID</a> = 0</td></tr>
-<tr class="separator:a95112ce01084c7e260e4cae96442cf7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa52183099fe15b33f8f77bfcad4b4733"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#aa52183099fe15b33f8f77bfcad4b4733">_updateTransformSectionID</a> = 0</td></tr>
-<tr class="separator:aa52183099fe15b33f8f77bfcad4b4733"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa66bc2b60549f9599cbbad31f81b1c65"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_data_update_queue.html">iDataUpdateQueue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#aa66bc2b60549f9599cbbad31f81b1c65">_dataUpdateQueue</a></td></tr>
-<tr class="separator:aa66bc2b60549f9599cbbad31f81b1c65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8421fe08f4c7e0e4a66c0c6cfaa8cdf"><td class="memItemLeft" align="right" valign="top">iAddedNodeEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#aa8421fe08f4c7e0e4a66c0c6cfaa8cdf">_addedNode</a></td></tr>
-<tr class="separator:aa8421fe08f4c7e0e4a66c0c6cfaa8cdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea249d66d1dcde18994e6241e2adf91a"><td class="memItemLeft" align="right" valign="top">iRemovedNodeEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#aea249d66d1dcde18994e6241e2adf91a">_removedNode</a></td></tr>
-<tr class="separator:aea249d66d1dcde18994e6241e2adf91a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8dc958125adfd218f97d38eda88d9cf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#af8dc958125adfd218f97d38eda88d9cf">_name</a> = <a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24ad20caec3b48a1eef164cb4ca81ba2587">L</a>&quot;Scene&quot;</td></tr>
-<tr class="separator:af8dc958125adfd218f97d38eda88d9cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4563dde63d71d63cf6a0d0257072ba23"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a4563dde63d71d63cf6a0d0257072ba23">_root</a> = nullptr</td></tr>
-<tr class="separator:a4563dde63d71d63cf6a0d0257072ba23"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef7775ad2cb13b1a70961574f0b2fbbc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_octree.html">iOctree</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#aef7775ad2cb13b1a70961574f0b2fbbc">_octree</a> = nullptr</td></tr>
-<tr class="separator:aef7775ad2cb13b1a70961574f0b2fbbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a390296da185a0f70b3599f7817455fd3"><td class="memItemLeft" align="right" valign="top">vector&lt; uint64 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a390296da185a0f70b3599f7817455fd3">_cameras</a></td></tr>
-<tr class="separator:a390296da185a0f70b3599f7817455fd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d8e63221b18aeeb7544e7a7e2fc56bf"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_igor_1_1i_node_l_o_d_trigger.html">iNodeLODTrigger</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a1d8e63221b18aeeb7544e7a7e2fc56bf">_lodTriggers</a></td></tr>
-<tr class="separator:a1d8e63221b18aeeb7544e7a7e2fc56bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4b96ed03afcc7d0d4e6d5acfb30cb90"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_igor_1_1i_node_l_o_d_switch.html">iNodeLODSwitch</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#ab4b96ed03afcc7d0d4e6d5acfb30cb90">_lodSwitches</a></td></tr>
-<tr class="separator:ab4b96ed03afcc7d0d4e6d5acfb30cb90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbee7d45b1f82637e1c027e1fd88b4cf"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_igor_1_1i_node_light.html">iNodeLight</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#afbee7d45b1f82637e1c027e1fd88b4cf">_lights</a></td></tr>
-<tr class="separator:afbee7d45b1f82637e1c027e1fd88b4cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a320becc23e55c208405a6c2436f5238b"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_igor_1_1i_node_volume.html">iNodeVolume</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a320becc23e55c208405a6c2436f5238b">_volumes</a></td></tr>
-<tr class="separator:a320becc23e55c208405a6c2436f5238b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fc45e9083f40a5f6fb034660cac672b"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="class_igor_1_1i_node_render.html">iNodeRender</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a4fc45e9083f40a5f6fb034660cac672b">_renderables</a></td></tr>
-<tr class="separator:a4fc45e9083f40a5f6fb034660cac672b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ab3132bdcd806761603a349455b06fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_node_visitor_update_transform.html">iNodeVisitorUpdateTransform</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#a3ab3132bdcd806761603a349455b06fb">_updateTransformVisitor</a></td></tr>
-<tr class="separator:a3ab3132bdcd806761603a349455b06fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:ab5623d34fc7b3b6d01aef0d0ae193bb3"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_scene.html#ab5623d34fc7b3b6d01aef0d0ae193bb3">iNode</a></td></tr>
@@ -258,66 +172,7 @@ Friends</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>the scene graph</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000069">Todo:</a></b></dt><dd>we should use shared pointers to nodes or just use IDs </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#_a0">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00074">74</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a25a579b29923f9d7409f87727f8429a3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iScene::iScene </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>initializes scene and octree </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000067">Todo:</a></b></dt><dd>octree needs to be of variable size </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000068">Todo:</a></b></dt><dd>how do we handle this when we have more than one scene? </dd></dl>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00022">22</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a56f5439ef6222b7120ad1286b1226b8d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Igor::iScene::~iScene </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>releases memory </p>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00041">41</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="acfca34eaff8314fd5edb894074abbe88"></a>
 <div class="memitem">
 <div class="memproto">
@@ -339,24 +194,6 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00296">296</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_acfca34eaff8314fd5edb894074abbe88_cgraph.svg" width="384" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_acfca34eaff8314fd5edb894074abbe88_icgraph.svg" width="1336" height="470"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="aed4b909562ae2ee701b11a5fe613c3a1"></a>
@@ -372,8 +209,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>list of registerred lights </dd></dl>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00119">119</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
 
 </div>
 </div>
@@ -391,16 +226,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>scene name </dd></dl>
 
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00124">124</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_af975e601d89386f2ef11745ecb831870_icgraph.svg" width="1302" height="1634"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ae1db3c711a56f14610fb258465c415b9"></a>
@@ -416,8 +241,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>octree </dd></dl>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00309">309</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
 
 </div>
 </div>
@@ -436,8 +259,6 @@ Here is the caller graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>list of renderables</dd></dl>
 <p>does only contain renderables that are not volumes </p>
 
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00114">114</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ab45a6b64fa3cd065f8434c96432b6f9b"></a>
@@ -453,16 +274,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>root node </dd></dl>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00134">134</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_ab45a6b64fa3cd065f8434c96432b6f9b_icgraph.svg" width="646" height="340"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -480,16 +291,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>cyclic update of scene.</p>
 <p>handles transformation updates and resulting changes in octree. data that was loaded will now be added to scene </p>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00268">268</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_a9d83cabbbcad0834badd2e6cd8b78db5_icgraph.svg" width="498" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -514,180 +315,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00324">324</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7516d4e586dcb3325708ce94cf69c6ff"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iScene::registerCamera </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_node_camera.html">iNodeCamera</a> *&#160;</td>
-          <td class="paramname"><em>camera</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>registers a camera node to the scene so it can be actually used as camera.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">camera</td><td>node to register a camera </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00233">233</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_a7516d4e586dcb3325708ce94cf69c6ff_cgraph.svg" width="368" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_a7516d4e586dcb3325708ce94cf69c6ff_icgraph.svg" width="383" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="ab5ab60d9af7a275a2aab7082e6f5972d"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iScene::registerLight </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_node_light.html">iNodeLight</a> *&#160;</td>
-          <td class="paramname"><em>light</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>register light node to scene.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">light</td><td>node to be registered as light </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00164">164</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_ab5ab60d9af7a275a2aab7082e6f5972d_icgraph.svg" width="391" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a81ef736ac4c9b89a48781334e67d41ab"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iScene::registerLODSwitch </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_node_l_o_d_switch.html">iNodeLODSwitch</a> *&#160;</td>
-          <td class="paramname"><em>switchNode</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>registers a LOD switch node</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">switchNode</td><td>the switch node to add </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00081">81</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_a81ef736ac4c9b89a48781334e67d41ab_icgraph.svg" width="415" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a69f8926cde5b14e3e530d7e4511c1f6f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iScene::registerLODTrigger </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_node_l_o_d_trigger.html">iNodeLODTrigger</a> *&#160;</td>
-          <td class="paramname"><em>trigger</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>registers a LOD trigger node</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">trigger</td><td>the trigger node to add </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00056">56</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_a69f8926cde5b14e3e530d7e4511c1f6f_icgraph.svg" width="415" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a850917da8c68f060cdef27f01bbd385f"></a>
@@ -710,98 +337,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00334">334</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6e9c01a5d3c644a497bdac9f943d04bb"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iScene::registerRenderable </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_node_render.html">iNodeRender</a> *&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>register renderable to scene</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">node</td><td>node to be registered as renderable </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00139">139</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_a6e9c01a5d3c644a497bdac9f943d04bb_icgraph.svg" width="583" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a7939cd9585b157e897106e82ad4017ed"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iScene::registerVolume </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_node_volume.html">iNodeVolume</a> *&#160;</td>
-          <td class="paramname"><em>volume</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>register volume node to scene</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">volume</td><td>node to be registerred to scene </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00189">189</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_a7939cd9585b157e897106e82ad4017ed_cgraph.svg" width="382" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_a7939cd9585b157e897106e82ad4017ed_icgraph.svg" width="382" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -826,90 +361,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00129">129</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a61c6f27b83ccdfbfdc1b7ee02d2fcc21"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iScene::signalNodeAdded </td>
-          <td>(</td>
-          <td class="paramtype">uint64&#160;</td>
-          <td class="paramname"><em>nodeID</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>signals the scene that a node was added</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">nodeID</td><td>the node's id that was added </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00314">314</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_a61c6f27b83ccdfbfdc1b7ee02d2fcc21_icgraph.svg" width="1314" height="1634"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="aadee04cec2c19e6de83645d9de7e614f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iScene::signalNodeRemoved </td>
-          <td>(</td>
-          <td class="paramtype">uint64&#160;</td>
-          <td class="paramname"><em>nodeID</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>signals the scene that a node was removed</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">nodeID</td><td>the node's id that was removed </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00319">319</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_aadee04cec2c19e6de83645d9de7e614f_icgraph.svg" width="1314" height="1634"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a44ca327c2ffb3cc795fec5ee81060f57"></a>
@@ -932,180 +383,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00329">329</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a0bcc19ae479922675b19b47f36179189"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iScene::unregisterCamera </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_node_camera.html">iNodeCamera</a> *&#160;</td>
-          <td class="paramname"><em>camera</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>unregisters a camera node from scene</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">camera</td><td>node to be unregistered </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00251">251</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_a0bcc19ae479922675b19b47f36179189_cgraph.svg" width="359" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_a0bcc19ae479922675b19b47f36179189_icgraph.svg" width="352" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a86e1a8ce9d0520c4f4f4e7dae74976f1"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iScene::unregisterLight </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_node_light.html">iNodeLight</a> *&#160;</td>
-          <td class="paramname"><em>light</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>unregister light node from scene</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">light</td><td>node to be unregisterred </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00177">177</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_a86e1a8ce9d0520c4f4f4e7dae74976f1_icgraph.svg" width="390" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a1376902e97283f3dded50cd44a7b4838"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iScene::unregisterLODSwitch </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_node_l_o_d_switch.html">iNodeLODSwitch</a> *&#160;</td>
-          <td class="paramname"><em>switchNode</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>unregisters a LOD switch node</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">switchNode</td><td>the trigger node to remove </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00094">94</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_a1376902e97283f3dded50cd44a7b4838_icgraph.svg" width="364" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="ac1cdd9f294b8ff99653a03fb57b796ba"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iScene::unregisterLODTrigger </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_node_l_o_d_trigger.html">iNodeLODTrigger</a> *&#160;</td>
-          <td class="paramname"><em>trigger</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>unregisters a LOD trigger node</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">trigger</td><td>the trigger node to remove </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00069">69</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_ac1cdd9f294b8ff99653a03fb57b796ba_icgraph.svg" width="364" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -1130,199 +407,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00339">339</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a22b74ff6be7474190f827dbc36316f7e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iScene::unregisterRenderable </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_node_render.html">iNodeRender</a> *&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>unregister renderable from scene</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">node</td><td>node to be unregistered from scene </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00152">152</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_a22b74ff6be7474190f827dbc36316f7e_icgraph.svg" width="532" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a996938a69498c8157dd99785a20acdef"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iScene::unregisterVolume </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_node_volume.html">iNodeVolume</a> *&#160;</td>
-          <td class="paramname"><em>volume</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>unregister volume node from scene</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">volume</td><td>node to be unregisterred from scene </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00209">209</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_a996938a69498c8157dd99785a20acdef_cgraph.svg" width="338" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_a996938a69498c8157dd99785a20acdef_icgraph.svg" width="351" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a1c80dc858c4534f1d4aee08b61bfd116"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iScene::updateData </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>handles dirty data ans tries to update it </p>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00304">304</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aac138cbc02aecf2d009eedc88a571d76"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iScene::updateLOD </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>updates lod switch nodes </p>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00106">106</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a8a63d0af30f563531ce1feb8ed53f5e2"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iScene::updateVolume </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="class_igor_1_1i_node_volume.html">iNodeVolume</a> *&#160;</td>
-          <td class="paramname"><em>volume</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>updates volume position in octree</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">volume</td><td>node to be updated in octree </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="i_scene_8cpp_source.html#l00222">222</a> of file <a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_a8a63d0af30f563531ce1feb8ed53f5e2_cgraph.svg" width="378" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_scene_a8a63d0af30f563531ce1feb8ed53f5e2_icgraph.svg" width="562" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -1344,8 +428,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00077">77</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ad9be2684c6416da021211fc367533559"></a>
@@ -1365,8 +447,6 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00078">78</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
 
 </div>
 </div>
@@ -1388,8 +468,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00079">79</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ae3a01d5efe76901d9ac137827cc7cf77"></a>
@@ -1409,8 +487,6 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00086">86</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
 
 </div>
 </div>
@@ -1432,8 +508,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00085">85</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="abd92436ef1b441ef4be575428bc11605"></a>
@@ -1454,9 +528,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>represents a mesh within the scene</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000024">Todo:</a></b></dt><dd>remove as many friends as possible </dd></dl>
-
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00081">81</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
 
 </div>
 </div>
@@ -1478,8 +549,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00084">84</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ad64c9a06babde60bdd79e94c1ae6ef70"></a>
@@ -1499,8 +568,6 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00082">82</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
 
 </div>
 </div>
@@ -1522,8 +589,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00080">80</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="a4d18a3a171c8df882723043fdfcf18d7"></a>
@@ -1544,406 +609,11 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00083">83</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="aa8421fe08f4c7e0e4a66c0c6cfaa8cdf"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iAddedNodeEvent Igor::iScene::_addedNode</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>added node event </p>
-
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00179">179</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a390296da185a0f70b3599f7817455fd3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;uint64&gt; Igor::iScene::_cameras</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of registered cameras to the scene </p>
-
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00201">201</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa66bc2b60549f9599cbbad31f81b1c65"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_data_update_queue.html">iDataUpdateQueue</a> Igor::iScene::_dataUpdateQueue</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>data update queue </p>
-
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00175">175</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="afbee7d45b1f82637e1c027e1fd88b4cf"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="class_igor_1_1i_node_light.html">iNodeLight</a>*&gt; Igor::iScene::_lights</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of registered lights to the scene </p>
-
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00213">213</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab4b96ed03afcc7d0d4e6d5acfb30cb90"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="class_igor_1_1i_node_l_o_d_switch.html">iNodeLODSwitch</a>*&gt; Igor::iScene::_lodSwitches</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of registered lod switches </p>
-
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00209">209</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a1d8e63221b18aeeb7544e7a7e2fc56bf"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="class_igor_1_1i_node_l_o_d_trigger.html">iNodeLODTrigger</a>*&gt; Igor::iScene::_lodTriggers</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of registered lod triggers </p>
-
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00205">205</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af8dc958125adfd218f97d38eda88d9cf"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> Igor::iScene::_name = <a class="el" href="namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24ad20caec3b48a1eef164cb4ca81ba2587">L</a>&quot;Scene&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>name of scene </p>
-
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00187">187</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aef7775ad2cb13b1a70961574f0b2fbbc"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_octree.html">iOctree</a>* Igor::iScene::_octree = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>octree </p>
-
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00197">197</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a95112ce01084c7e260e4cae96442cf7f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iScene::_processUpdateDataSectionID = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>id for statistics counter update dirty data </p>
-
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00167">167</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aea249d66d1dcde18994e6241e2adf91a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">iRemovedNodeEvent Igor::iScene::_removedNode</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>removed node event </p>
-
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00183">183</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4fc45e9083f40a5f6fb034660cac672b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="class_igor_1_1i_node_render.html">iNodeRender</a>*&gt; Igor::iScene::_renderables</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of registered renderables to the scene </p>
-
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00221">221</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a4563dde63d71d63cf6a0d0257072ba23"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> Igor::iScene::_root = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>root node in scene.</p>
-<p>there can only be one root node per scene </p>
-
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00193">193</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5e19951ebc32729eb7c5af55b69466c9"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iScene::_sceneHandleSectionID = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>id for statistics counter handle </p>
-
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00159">159</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a5518d39d5dc80f75f329899d0c12abda"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iScene::_updateLODSectionID = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>id for statistics counter LOD </p>
-
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00163">163</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="aa52183099fe15b33f8f77bfcad4b4733"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iScene::_updateTransformSectionID = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>id for statistics counter update transformations </p>
-
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00171">171</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a3ab3132bdcd806761603a349455b06fb"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_node_visitor_update_transform.html">iNodeVisitorUpdateTransform</a> Igor::iScene::_updateTransformVisitor</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>transformation update visitor </p>
-
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00225">225</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a320becc23e55c208405a6c2436f5238b"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;<a class="el" href="class_igor_1_1i_node_volume.html">iNodeVolume</a>*&gt; Igor::iScene::_volumes</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>list of registered volumes to the scene </p>
-
-<p>Definition at line <a class="el" href="i_scene_8h_source.html#l00217">217</a> of file <a class="el" href="i_scene_8h_source.html">iScene.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_scene_8h_source.html">iScene.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_scene_8cpp_source.html">iScene.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_scene_8h.html">iScene.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_scene_8cpp.html">iScene.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -1952,7 +622,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_scene.html">iScene</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:03 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

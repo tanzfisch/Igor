@@ -1,5 +1,0 @@
-<map id="Igor::iNodeRender::setMaterial" name="Igor::iNodeRender::setMaterial">
-<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#a0f7b5e12c682ae67747df9583b849597" title="Igor::iModelDataIOOMPF\l::createParticleSystem" alt="" coords="214,5,381,47"/>
-<area shape="rect" id="node3" href="$class_model_viewer.html#a4f285cd99256bc37dd4b1e60919de91b" title="ModelViewer::renderNodeSelected" alt="" coords="187,71,408,98"/>
-<area shape="rect" id="node4" href="$class_user_control_particle_system.html#ab9d5c0d93ecd969fd6658127d6c26ddd" title="UserControlParticleSystem\l::updateNode" alt="" coords="208,123,387,164"/>
-</map>

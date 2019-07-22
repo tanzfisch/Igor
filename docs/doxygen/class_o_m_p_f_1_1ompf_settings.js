@@ -13,13 +13,5 @@ var class_o_m_p_f_1_1ompf_settings =
     [ "setChunkSizeSize", "class_o_m_p_f_1_1ompf_settings.html#a252cce523eb557a429d300c5db72f3eb", null ],
     [ "setCustomDataSizeSize", "class_o_m_p_f_1_1ompf_settings.html#af5d715048426ceb5a7f64a3d601e0520", null ],
     [ "setStringSizeSize", "class_o_m_p_f_1_1ompf_settings.html#a9c000e77cf07725f7cda977d55ec264f", null ],
-    [ "setTypeIDSize", "class_o_m_p_f_1_1ompf_settings.html#ac651fbd2a01343c6d6510c3c94cb0954", null ],
-    [ "_chunkIDSize", "class_o_m_p_f_1_1ompf_settings.html#a6835c812642f484f470c90e2c4ef9064", null ],
-    [ "_chunkSizeSize", "class_o_m_p_f_1_1ompf_settings.html#ad7310e2ea9a002509e14ed4ce4672fe7", null ],
-    [ "_customDataSizeSize", "class_o_m_p_f_1_1ompf_settings.html#a45df3ea6240859013654621b4371cb17", null ],
-    [ "_majorVersion", "class_o_m_p_f_1_1ompf_settings.html#a008bff4aac58e70c00290935c16ce8f8", null ],
-    [ "_minorVersion", "class_o_m_p_f_1_1ompf_settings.html#a7759aabb557e326662e1481b7d415442", null ],
-    [ "_patchVersion", "class_o_m_p_f_1_1ompf_settings.html#a4c505e63cdbeb8d7cd0b3d1f501a4662", null ],
-    [ "_stringSizeSize", "class_o_m_p_f_1_1ompf_settings.html#a9a1572518dd685abfd8bf1b958604a01", null ],
-    [ "_typeIDSize", "class_o_m_p_f_1_1ompf_settings.html#a0838aa613dfb62b78e7497563c0c0108", null ]
+    [ "setTypeIDSize", "class_o_m_p_f_1_1ompf_settings.html#ac651fbd2a01343c6d6510c3c94cb0954", null ]
 ];

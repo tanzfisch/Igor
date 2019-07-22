@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -113,9 +113,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_task.html','');});
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
-<a href="#pri-static-attribs">Static Private Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_task-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -123,19 +120,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_task.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_task_8h_source.html">iTask.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iTask:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task__inherit__graph.svg" width="318" height="392"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iTask:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task__coll__graph.svg" width="278" height="216"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iTask.h&gt;</code></p>
+
+<p>Inherited by <a class="el" href="class_igor_1_1i_task_flush_models.html">Igor::iTaskFlushModels</a>, <a class="el" href="class_igor_1_1i_task_flush_textures.html">Igor::iTaskFlushTextures</a>, <a class="el" href="class_igor_1_1i_task_generate_voxels.html">Igor::iTaskGenerateVoxels</a>, <a class="el" href="class_igor_1_1i_task_load_model.html">Igor::iTaskLoadModel</a>, <a class="el" href="class_igor_1_1i_task_prepare_collision.html">Igor::iTaskPrepareCollision</a>, <a class="el" href="class_igor_1_1i_task_props_on_voxels.html">Igor::iTaskPropsOnVoxels</a>, <a class="el" href="class_igor_1_1i_task_update_l_o_d.html">Igor::iTaskUpdateLOD</a>, and <a class="el" href="class_igor_1_1i_task_voxel_terrain.html">Igor::iTaskVoxelTerrain</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -178,35 +165,6 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a3d0a70a268a955d2f28700988959f779"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task.html#a3d0a70a268a955d2f28700988959f779">run</a> ()=0</td></tr>
 <tr class="separator:a3d0a70a268a955d2f28700988959f779"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a3b8ccb97febe2fcdb52cb1ca61304e61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task.html#a3b8ccb97febe2fcdb52cb1ca61304e61">finishTask</a> ()</td></tr>
-<tr class="separator:a3b8ccb97febe2fcdb52cb1ca61304e61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a9ea919867223980dffe4281b4987f861"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task.html#a9ea919867223980dffe4281b4987f861">_priority</a> = <a class="el" href="class_igor_1_1i_task.html#ad12f8ffd0d6384073689eb744a2908a8">DEFAULT_PRIORITY</a></td></tr>
-<tr class="separator:a9ea919867223980dffe4281b4987f861"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a996aa4e7083ad2c9c850946cfffd666c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task.html#a996aa4e7083ad2c9c850946cfffd666c">_isRepeating</a> = false</td></tr>
-<tr class="separator:a996aa4e7083ad2c9c850946cfffd666c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77ec738ac9b2327815adfe0b1c8ebea3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_window.html">iWindow</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task.html#a77ec738ac9b2327815adfe0b1c8ebea3">_window</a> = nullptr</td></tr>
-<tr class="separator:a77ec738ac9b2327815adfe0b1c8ebea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d49c86305d3076714a692386bb3f968"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task.html#a0d49c86305d3076714a692386bb3f968">_worldID</a> = <a class="el" href="class_igor_1_1i_physics_world.html#ab4655d1e6805f26656859bc10ef5e513">iPhysicsWorld::INVALID_WORLD_ID</a></td></tr>
-<tr class="separator:a0d49c86305d3076714a692386bb3f968"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c51a248bc83f84e44a3ee1c88867665"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task.html#a8c51a248bc83f84e44a3ee1c88867665">_isRunning</a> = true</td></tr>
-<tr class="separator:a8c51a248bc83f84e44a3ee1c88867665"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae17e30ef89c5ebbd047beb3f725b3264"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task.html#ae17e30ef89c5ebbd047beb3f725b3264">_taskID</a> = <a class="el" href="class_igor_1_1i_task.html#adf76fd8c8b949dcdd7cdcbb225ee0cda">INVALID_TASK_ID</a></td></tr>
-<tr class="separator:ae17e30ef89c5ebbd047beb3f725b3264"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70a57e1d946bbc56636b0c4ef839da1f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#ab02d1970d775268320d0fdf100ad0aef">iTaskContext</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task.html#a70a57e1d946bbc56636b0c4ef839da1f">_taskContext</a> = <a class="el" href="namespace_igor.html#ab02d1970d775268320d0fdf100ad0aefa7a1920d61156abc05a60135aefe8bc67">iTaskContext::Default</a></td></tr>
-<tr class="separator:a70a57e1d946bbc56636b0c4ef839da1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-attribs"></a>
-Static Private Attributes</h2></td></tr>
-<tr class="memitem:a2e3503d24f612f135cd4e572a9d57d13"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task.html#a2e3503d24f612f135cd4e572a9d57d13">_mutexID</a></td></tr>
-<tr class="separator:a2e3503d24f612f135cd4e572a9d57d13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac92c6d628b4d6096a84d475fb03d8888"><td class="memItemLeft" align="right" valign="top">static uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task.html#ac92c6d628b4d6096a84d475fb03d8888">_nextTaskID</a> = 1</td></tr>
-<tr class="separator:ac92c6d628b4d6096a84d475fb03d8888"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:aa7c6d28227948db9e4be591864eda3a5"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_task.html#aa7c6d28227948db9e4be591864eda3a5">iTaskManager</a></td></tr>
@@ -214,8 +172,6 @@ Friends</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>need a task to be done in parallel? than derive from this base class </p>
-
-<p>Definition at line <a class="el" href="i_task_8h_source.html#l00052">52</a> of file <a class="el" href="i_task_8h_source.html">iTask.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aa1e5a747bb1ded943fd0f1d9bbcfff71"></a>
 <div class="memitem">
@@ -262,8 +218,6 @@ Friends</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_task_8cpp_source.html#l00018">18</a> of file <a class="el" href="i_task_8cpp_source.html">iTask.cpp</a>.</p>
 
 </div>
 </div>
@@ -316,50 +270,6 @@ Friends</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="class_igor_1_1i_task_flush_models.html#a244028d6189bf5d44cf6143c3b427f0a">Igor::iTaskFlushModels</a>, and <a class="el" href="class_igor_1_1i_task_flush_textures.html#aa8c16154edf5e48e3eda5f25ec96ed28">Igor::iTaskFlushTextures</a>.</p>
 
-<p>Definition at line <a class="el" href="i_task_8cpp_source.html#l00085">85</a> of file <a class="el" href="i_task_8cpp_source.html">iTask.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_a46e2bb8270e40d87fbb26188d2fbc016_icgraph.svg" width="310" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a3b8ccb97febe2fcdb52cb1ca61304e61"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Igor::iTask::finishTask </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>tells the task manager that the task is finished </p>
-
-<p>Definition at line <a class="el" href="i_task_8cpp_source.html#l00055">55</a> of file <a class="el" href="i_task_8cpp_source.html">iTask.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_a3b8ccb97febe2fcdb52cb1ca61304e61_icgraph.svg" width="898" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="abf0262e0a4191deaa33c4d093f30817e"></a>
@@ -375,8 +285,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>context needed for this task </dd></dl>
-
-<p>Definition at line <a class="el" href="i_task_8cpp_source.html#l00070">70</a> of file <a class="el" href="i_task_8cpp_source.html">iTask.cpp</a>.</p>
 
 </div>
 </div>
@@ -394,16 +302,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>ID of task </dd></dl>
 
-<p>Definition at line <a class="el" href="i_task_8cpp_source.html#l00060">60</a> of file <a class="el" href="i_task_8cpp_source.html">iTask.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_a1286c3225e5b667287de69bf0c0df0c7_icgraph.svg" width="870" height="248"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ad53da65556809ab369ebc2c940955632"></a>
@@ -420,8 +318,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>priority of task </dd></dl>
 
-<p>Definition at line <a class="el" href="i_task_8cpp_source.html#l00065">65</a> of file <a class="el" href="i_task_8cpp_source.html">iTask.cpp</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="aa111f8659510488b4534f54827e74c76"></a>
@@ -437,17 +333,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>pointer to window if present</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000078">Todo:</a></b></dt><dd>broken design? </dd></dl>
-
-<p>Definition at line <a class="el" href="i_task_8cpp_source.html#l00050">50</a> of file <a class="el" href="i_task_8cpp_source.html">iTask.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_aa111f8659510488b4534f54827e74c76_icgraph.svg" width="396" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -464,17 +349,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>physics world id if present </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000076">Todo:</a></b></dt><dd>broken design? </dd></dl>
-
-<p>Definition at line <a class="el" href="i_task_8cpp_source.html#l00045">45</a> of file <a class="el" href="i_task_8cpp_source.html">iTask.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_a19818331fd89e2705c032f0631121f24_icgraph.svg" width="416" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -492,16 +366,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true: task is a repeating task; false: task will only be run once </dd></dl>
 
-<p>Definition at line <a class="el" href="i_task_8cpp_source.html#l00080">80</a> of file <a class="el" href="i_task_8cpp_source.html">iTask.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_ada585c97fa5855939e3aff26624fea51_icgraph.svg" width="908" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a9a6b5fdd96fec5df44942f8df19ee217"></a>
@@ -517,16 +381,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true: if task is still running; false: if it has stopped or not started yet </dd></dl>
-
-<p>Definition at line <a class="el" href="i_task_8cpp_source.html#l00075">75</a> of file <a class="el" href="i_task_8cpp_source.html">iTask.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_a9a6b5fdd96fec5df44942f8df19ee217_icgraph.svg" width="370" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -552,15 +406,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>runs the actual task </p>
 
-<p>Implemented in <a class="el" href="class_igor_1_1i_task_generate_voxels.html#a456b1328bd3544ba7bdc62b703cf368f">Igor::iTaskGenerateVoxels</a>, <a class="el" href="class_igor_1_1i_task_props_on_voxels.html#a48e407a69fa6eeecc714d4e036fc9f53">Igor::iTaskPropsOnVoxels</a>, <a class="el" href="class_igor_1_1i_task_flush_models.html#a8dfe872a0df2a2971b3cdcd1c317a656">Igor::iTaskFlushModels</a>, <a class="el" href="class_igor_1_1i_task_flush_textures.html#a70ca273bd1c45d354555e56d28424f5c">Igor::iTaskFlushTextures</a>, <a class="el" href="class_igor_1_1i_task_load_model.html#a27299e2587a6e465d382c119cb7eaffc">Igor::iTaskLoadModel</a>, <a class="el" href="class_igor_1_1i_task_prepare_collision.html#afdeb0a774847db7fd907aa353b23f9e2">Igor::iTaskPrepareCollision</a>, <a class="el" href="class_igor_1_1i_task_voxel_terrain.html#ad578cdbf85786e8ba443221afe6f7031">Igor::iTaskVoxelTerrain</a>, and <a class="el" href="class_igor_1_1i_task_update_l_o_d.html#a143d3589b591787ab2b28508b64d3338">Igor::iTaskUpdateLOD</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_a3d0a70a268a955d2f28700988959f779_icgraph.svg" width="858" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
+<p>Implemented in <a class="el" href="class_igor_1_1i_task_generate_voxels.html#a456b1328bd3544ba7bdc62b703cf368f">Igor::iTaskGenerateVoxels</a>, <a class="el" href="class_igor_1_1i_task_props_on_voxels.html#a48e407a69fa6eeecc714d4e036fc9f53">Igor::iTaskPropsOnVoxels</a>, <a class="el" href="class_igor_1_1i_task_flush_textures.html#a70ca273bd1c45d354555e56d28424f5c">Igor::iTaskFlushTextures</a>, <a class="el" href="class_igor_1_1i_task_voxel_terrain.html#ad578cdbf85786e8ba443221afe6f7031">Igor::iTaskVoxelTerrain</a>, and <a class="el" href="class_igor_1_1i_task_update_l_o_d.html#a143d3589b591787ab2b28508b64d3338">Igor::iTaskUpdateLOD</a>.</p>
 
 </div>
 </div>
@@ -584,8 +430,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p>Definition at line <a class="el" href="i_task_8cpp_source.html#l00095">95</a> of file <a class="el" href="i_task_8cpp_source.html">iTask.cpp</a>.</p>
 
 </div>
 </div>
@@ -618,16 +462,6 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="i_task_8cpp_source.html#l00040">40</a> of file <a class="el" href="i_task_8cpp_source.html">iTask.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_acdadecbd8a4427becbef93a5fa2873b7_icgraph.svg" width="390" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ab17249cecf2b768cf4f74d4cbb46bdfc"></a>
@@ -650,17 +484,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000077">Todo:</a></b></dt><dd>broken design? </dd></dl>
-
-<p>Definition at line <a class="el" href="i_task_8cpp_source.html#l00035">35</a> of file <a class="el" href="i_task_8cpp_source.html">iTask.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_task_ab17249cecf2b768cf4f74d4cbb46bdfc_icgraph.svg" width="742" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -683,219 +506,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="i_task_8h_source.html#l00055">55</a> of file <a class="el" href="i_task_8h_source.html">iTask.h</a>.</p>
-
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a996aa4e7083ad2c9c850946cfffd666c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iTask::_isRepeating = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>true: task is a repeating task; false: task will only be run once </p>
-
-<p>Definition at line <a class="el" href="i_task_8h_source.html#l00154">154</a> of file <a class="el" href="i_task_8h_source.html">iTask.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a8c51a248bc83f84e44a3ee1c88867665"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Igor::iTask::_isRunning = true</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>true: task is currently running </p>
-
-<p>Definition at line <a class="el" href="i_task_8h_source.html#l00166">166</a> of file <a class="el" href="i_task_8h_source.html">iTask.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2e3503d24f612f135cd4e572a9d57d13"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a> Igor::iTask::_mutexID</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>secure the task id generation </p>
-
-<p>Definition at line <a class="el" href="i_task_8h_source.html#l00170">170</a> of file <a class="el" href="i_task_8h_source.html">iTask.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac92c6d628b4d6096a84d475fb03d8888"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iTask::_nextTaskID = 1</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>counter for next task ID </p>
-
-<p>Definition at line <a class="el" href="i_task_8h_source.html#l00174">174</a> of file <a class="el" href="i_task_8h_source.html">iTask.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9ea919867223980dffe4281b4987f861"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 Igor::iTask::_priority = <a class="el" href="class_igor_1_1i_task.html#ad12f8ffd0d6384073689eb744a2908a8">DEFAULT_PRIORITY</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>priority of task</p>
-<p>zero is highest priority </p>
-
-<p>Definition at line <a class="el" href="i_task_8h_source.html#l00150">150</a> of file <a class="el" href="i_task_8h_source.html">iTask.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a70a57e1d946bbc56636b0c4ef839da1f"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespace_igor.html#ab02d1970d775268320d0fdf100ad0aef">iTaskContext</a> Igor::iTask::_taskContext = <a class="el" href="namespace_igor.html#ab02d1970d775268320d0fdf100ad0aefa7a1920d61156abc05a60135aefe8bc67">iTaskContext::Default</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>task context </p>
-
-<p>Definition at line <a class="el" href="i_task_8h_source.html#l00182">182</a> of file <a class="el" href="i_task_8h_source.html">iTask.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ae17e30ef89c5ebbd047beb3f725b3264"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iTask::_taskID = <a class="el" href="class_igor_1_1i_task.html#adf76fd8c8b949dcdd7cdcbb225ee0cda">INVALID_TASK_ID</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the task id </p>
-
-<p>Definition at line <a class="el" href="i_task_8h_source.html#l00178">178</a> of file <a class="el" href="i_task_8h_source.html">iTask.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a77ec738ac9b2327815adfe0b1c8ebea3"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_1_1i_window.html">iWindow</a>* Igor::iTask::_window = nullptr</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>optional pointer to window. only used by tasks that need the render context </p>
-
-<p>Definition at line <a class="el" href="i_task_8h_source.html#l00158">158</a> of file <a class="el" href="i_task_8h_source.html">iTask.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a0d49c86305d3076714a692386bb3f968"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iTask::_worldID = <a class="el" href="class_igor_1_1i_physics_world.html#ab4655d1e6805f26656859bc10ef5e513">iPhysicsWorld::INVALID_WORLD_ID</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>optional physics world id used by tasks within physics context </p>
-
-<p>Definition at line <a class="el" href="i_task_8h_source.html#l00162">162</a> of file <a class="el" href="i_task_8h_source.html">iTask.h</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="ad12f8ffd0d6384073689eb744a2908a8"></a>
 <div class="memitem">
 <div class="memproto">
@@ -914,8 +527,6 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>default priority for a task to run </p>
-
-<p>Definition at line <a class="el" href="i_task_8h_source.html#l00065">65</a> of file <a class="el" href="i_task_8h_source.html">iTask.h</a>.</p>
 
 </div>
 </div>
@@ -937,15 +548,12 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 <p>invalid task id definition </p>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#a13">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_task_8h_source.html#l00061">61</a> of file <a class="el" href="i_task_8h_source.html">iTask.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_task_8h_source.html">iTask.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_task_8cpp_source.html">iTask.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_task_8h.html">iTask.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_task_8cpp.html">iTask.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -954,7 +562,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_task.html">iTask</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:05 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

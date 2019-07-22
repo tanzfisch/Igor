@@ -1,6 +1,20 @@
 Changelog                           {#changelog}
 =========
 
+0.21.0
+------
+
+- increased unit testing efforts
+- worked on iaQuaternion class
+- turned iaRandomNumberGenerator in to a template
+- improved character controller example
+- improved mouse handling in all examples
+- added interface to control vsync setting
+- improved pretty printing for scene graph
+  ![pretty tree printing](/images/pretty_tree_print.png)
+- added vsync setting on window
+- fixed another bug regarding texture units in ompf
+
 0.20.0
 ------
 

@@ -1,9 +1,0 @@
-<map id="UserControlGraphView::deinitGUI" name="UserControlGraphView::deinitGUI">
-<area shape="rect" id="node2" href="$class_user_control_graph_view.html#a7bd56ab28ed3970e3a115fdeb2127585" title="UserControlGraphView\l::OnSelectionChange" alt="" coords="207,5,360,47"/>
-<area shape="rect" id="node3" href="$class_user_control_graph_view.html#a08a7cc49fd21d13b7be92a52c16ec941" title="UserControlGraphView\l::OnContextMenu" alt="" coords="207,123,360,164"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iMouse \&gt;::getInstance" alt="" coords="408,64,571,105"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_widget_manager.html#a0f280e1395cb1fe0af29e3d06beb465f" title="Igor::iWidgetManager\l::destroyWidget" alt="" coords="211,188,356,229"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_widget_manager.html#afd27ed58f6bc204976ec1bcddd5e9ce3" title="Igor::iWidgetManager\l::destroyDialog" alt="" coords="211,253,356,295"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_mouse.html#abe510afcb8d071342d8cd77094926eeb" title="Igor::iMouse::getPos" alt="" coords="418,130,561,157"/>
-<area shape="rect" id="node6" href="$class_user_control_graph_view.html#ad04c185ed7efa7548004d3ad46d47ba7" title="UserControlGraphView\l::OnContextMenuClose" alt="" coords="411,181,568,223"/>
-</map>

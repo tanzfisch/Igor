@@ -1,7 +1,5 @@
 var class_igor_1_1i_target_material =
 [
-    [ "iTargetMaterial", "class_igor_1_1i_target_material.html#ab0d20a4aa825eb4c2456dbd2506773b3", null ],
-    [ "~iTargetMaterial", "class_igor_1_1i_target_material.html#a037bbd566b8e4f2c809df54d58ca575d", null ],
     [ "getAlpha", "class_igor_1_1i_target_material.html#ad4e8b57524c665e7c4e484c7a23d9b63", null ],
     [ "getAmbient", "class_igor_1_1i_target_material.html#ac2be6eac426027433c2720eb0f95d33b", null ],
     [ "getDiffuse", "class_igor_1_1i_target_material.html#aed66a5bfc421c8bec02fe67b9ce7ae14", null ],
@@ -19,12 +17,5 @@ var class_igor_1_1i_target_material =
     [ "setShininess", "class_igor_1_1i_target_material.html#a62ab2ebf1102ec5226aa6f4a257dbc1a", null ],
     [ "setSpecular", "class_igor_1_1i_target_material.html#a4bb112d04a0552230a40579433466962", null ],
     [ "setTexture", "class_igor_1_1i_target_material.html#a6ca34fd774ab240cf7bb30f2d3ac92cb", null ],
-    [ "iMaterialResourceFactory", "class_igor_1_1i_target_material.html#a4741448fd6adeeeb1916fa880b53f0d2", null ],
-    [ "_alpha", "class_igor_1_1i_target_material.html#aa06bb9bedb8fb1129555e59d4025c119", null ],
-    [ "_ambient", "class_igor_1_1i_target_material.html#acaa2394d06e05d86034d63b64d77b656", null ],
-    [ "_diffuse", "class_igor_1_1i_target_material.html#a6f7630604a11431c14db5f170c7151bf", null ],
-    [ "_emissive", "class_igor_1_1i_target_material.html#adb82033511832e2f9db9205a32f172df", null ],
-    [ "_shininess", "class_igor_1_1i_target_material.html#ac86ae5c31168b43a27988fe341da6241", null ],
-    [ "_specular", "class_igor_1_1i_target_material.html#a8d17974c53e7ce0961ccbe38fdf1bdd9", null ],
-    [ "_textures", "class_igor_1_1i_target_material.html#a152ada210ac9c8444e10e2f054ef9c6e", null ]
+    [ "iMaterialResourceFactory", "class_igor_1_1i_target_material.html#a4741448fd6adeeeb1916fa880b53f0d2", null ]
 ];

@@ -1,31 +1,8 @@
 var class_igor_1_1i_widget_scroll =
 [
-    [ "iWidgetScroll", "class_igor_1_1i_widget_scroll.html#a4cb57ff451974d8a7f4dc4c93f0eb5d0", null ],
-    [ "~iWidgetScroll", "class_igor_1_1i_widget_scroll.html#a2cd878a49125c9fe79db30504c3b9783", null ],
-    [ "calcChildFrame", "class_igor_1_1i_widget_scroll.html#acf0010ee401c3dcf55272c03dd06b41a", null ],
-    [ "calcChildOffsets", "class_igor_1_1i_widget_scroll.html#a9a9cb62229492f44f71fe620bf67e072", null ],
-    [ "calcMinSize", "class_igor_1_1i_widget_scroll.html#aecfc4269b8ef9649a181070eb600fc13", null ],
-    [ "calcScrollButtons", "class_igor_1_1i_widget_scroll.html#a7673d96ae7e8e887c01be4a3f49bbe51", null ],
-    [ "createInstance", "class_igor_1_1i_widget_scroll.html#a6fb42198c1fd821f4091ceca243ac32a", null ],
-    [ "draw", "class_igor_1_1i_widget_scroll.html#a1ee966ffe24e24a937f37167983d912b", null ],
     [ "getScollbarWidth", "class_igor_1_1i_widget_scroll.html#ab2ad4753c6d0491cb75bd0f9286e3900", null ],
-    [ "handleMouseMove", "class_igor_1_1i_widget_scroll.html#aedf3496a9b2d9b2bbb2ec0ad0bbf9735", null ],
-    [ "handleMouseWheel", "class_igor_1_1i_widget_scroll.html#a7ecfa850afc533ba2301ebc736b4949f", null ],
     [ "setHorizontalScroll", "class_igor_1_1i_widget_scroll.html#af896eed3fbf88bd9bbd38cd6c5597c70", null ],
     [ "setScollbarWidth", "class_igor_1_1i_widget_scroll.html#a4225032b7d16edd4b6a2d1345689aeb9", null ],
     [ "setVerticalScroll", "class_igor_1_1i_widget_scroll.html#aaf2d50dcbc4ff89e83429feb21ad88c1", null ],
-    [ "updateAlignment", "class_igor_1_1i_widget_scroll.html#adce86d667014e02d300757f64942dac6", null ],
-    [ "iWidgetManager", "class_igor_1_1i_widget_scroll.html#a9da20b1c56a70b01ca0ef56f4d4d47fc", null ],
-    [ "_childFrame", "class_igor_1_1i_widget_scroll.html#a701f42c1945798c5c81f6f2e051641f7", null ],
-    [ "_downButton", "class_igor_1_1i_widget_scroll.html#af9924c3d157b3ff9504629514902c135", null ],
-    [ "_hscroll", "class_igor_1_1i_widget_scroll.html#a5de6cb87e593ef875565a2567f91ea03", null ],
-    [ "_hscrollActive", "class_igor_1_1i_widget_scroll.html#a53615b3090345cca954b4c00891042d5", null ],
-    [ "_hscrollButton", "class_igor_1_1i_widget_scroll.html#a761850687eca1769853e3faaf01fd35b", null ],
-    [ "_leftButton", "class_igor_1_1i_widget_scroll.html#a7c59758a928ca1355b796f74203a1adc", null ],
-    [ "_rightButton", "class_igor_1_1i_widget_scroll.html#a304b4cf8d6085a3e85e005bd39f57dff", null ],
-    [ "_scrollbarWidth", "class_igor_1_1i_widget_scroll.html#ac9d0ed2631bc62a8eee7e8bb747cac7c", null ],
-    [ "_upButton", "class_igor_1_1i_widget_scroll.html#af8948359123e771534de033b6a604905", null ],
-    [ "_vscroll", "class_igor_1_1i_widget_scroll.html#a6582ebffc4650de614f2ce1876580f4f", null ],
-    [ "_vscrollActive", "class_igor_1_1i_widget_scroll.html#adf292b5e4891a01e9ad6fa363fd1b1cf", null ],
-    [ "_vscrollButton", "class_igor_1_1i_widget_scroll.html#a2aaa7dfa5cb2788dbcd28d0001700d9d", null ]
+    [ "iWidgetManager", "class_igor_1_1i_widget_scroll.html#a9da20b1c56a70b01ca0ef56f4d4d47fc", null ]
 ];

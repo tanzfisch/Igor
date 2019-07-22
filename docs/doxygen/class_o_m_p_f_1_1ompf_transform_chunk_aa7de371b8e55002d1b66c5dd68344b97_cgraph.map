@@ -1,8 +1,0 @@
-<map id="OMPF::ompfTransformChunk::read" name="OMPF::ompfTransformChunk::read">
-<area shape="rect" id="node2" href="$class_o_m_p_f_1_1ompf_base_chunk.html#aa3b931de6ce181c023f66628c67244da" title="OMPF::ompfBaseChunk\l::read" alt="" coords="244,71,407,112"/>
-<area shape="rect" id="node6" href="$class_o_m_p_f_1_1ompf_base_chunk.html#af2301d255ce51d9168b808deccaaf8a2" title="OMPF::ompfBaseChunk\l::getName" alt="" coords="244,136,407,177"/>
-<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_matrix.html#a996b71eeda2c5f6e6fc621149f01015d" title="IgorAux::iaMatrix::\lgetData" alt="" coords="261,201,389,243"/>
-<area shape="rect" id="node3" href="$class_o_m_p_f_1_1ompf_settings.html#ac4b44803b6a70b9eb6f3ca573a0a5242" title="OMPF::ompfSettings\l::getTypeIDSize" alt="" coords="455,5,599,47"/>
-<area shape="rect" id="node4" href="$class_o_m_p_f_1_1ompf_settings.html#ac8b4c4cf739d5c5fd8d09b15d176c90d" title="OMPF::ompfSettings\l::getChunkSizeSize" alt="" coords="455,71,599,112"/>
-<area shape="rect" id="node5" href="$class_o_m_p_f_1_1ompf_settings.html#a3b1a3f75376c3ebee9a59a31d7280aa3" title="OMPF::ompfSettings\l::getChunkIDSize" alt="" coords="455,136,599,177"/>
-</map>

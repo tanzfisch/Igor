@@ -1,5 +1,0 @@
-<map id="Igor::iDialogFileSelect::updateFileDir" name="Igor::iDialogFileSelect::updateFileDir">
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_file.html#ab459bfac7c17fd8bb45b92a07fcdcbf2" title="IgorAux::iaFile::exist" alt="" coords="224,5,365,32"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_file.html#a777e728712c704a9e997eb227a71a6e7" title="IgorAux::iaFile::getPath" alt="" coords="215,56,374,83"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_file.html#a3cfb42293c4b34ba8355b49cdae2dab2" title="IgorAux::iaFile::getFileName" alt="" coords="201,107,388,133"/>
-</map>

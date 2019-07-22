@@ -88,6 +88,7 @@ void ModelViewer::init(iaString fileName)
     iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &ModelViewer::handle));
 
     _window.setSize(1280, 800);
+	_window.setCentered();
     _window.setTitle(WINDOW_TITLE_PREFIX);
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &ModelViewer::onWindowClosed));
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &ModelViewer::onWindowResize));
@@ -933,28 +934,31 @@ void ModelViewer::onKeyDown(iKeyCode key)
     }
     break;
 
-    case iKeyCode::F1:
-    {
-        iNodeVisitorPrintTree printTree;
-        printTree.printToConsole(_scene->getRoot());
-    }
-    break;
+	case iKeyCode::F8:
+		_statisticsVisualizer.cycleVerbosity();
+		break;
 
-    case iKeyCode::F5:
-        _view.setWireframeVisible(!_view.isWireframeVisible());
-        break;
+	case iKeyCode::F9:
+	{
+		iNodeVisitorPrintTree printTree;
+		if (_scene != nullptr)
+		{
+			printTree.printToConsole(_scene->getRoot());
+		}
+	}
+	break;
 
-    case iKeyCode::F6:
-        _view.setOctreeVisible(!_view.isOctreeVisible());
-        break;
+	case iKeyCode::F10:
+		_view.setWireframeVisible(!_view.isWireframeVisible());
+		break;
 
-    case iKeyCode::F7:
-        _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
-        break;
+	case iKeyCode::F11:
+		_view.setOctreeVisible(!_view.isOctreeVisible());
+		break;
 
-    case iKeyCode::F8:
-        _statisticsVisualizer.cycleVerbosity();
-        break;
+	case iKeyCode::F12:
+		_view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
+		break;
 
     case iKeyCode::Q:
         setManipulatorMode(ManipulatorMode::None);

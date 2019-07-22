@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -113,21 +113,13 @@ $(document).ready(function(){initNavTree('class_igor_aux_1_1ia_file.html','');})
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pri-static-methods">Static Private Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_aux_1_1ia_file-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">IgorAux::iaFile Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="ia_file_8h_source.html">iaFile.h</a>&gt;</code></p>
-<div class="dynheader">
-Collaboration diagram for IgorAux::iaFile:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_file__coll__graph.svg" width="131" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iaFile.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -173,34 +165,9 @@ Static Public Member Functions</h2></td></tr>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:a74e02d9c0c25cb97fb3b2d5cafd820c6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_file.html#a74e02d9c0c25cb97fb3b2d5cafd820c6">setFilePointer</a> (uint64 position)</td></tr>
 <tr class="separator:a74e02d9c0c25cb97fb3b2d5cafd820c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-static-methods"></a>
-Static Private Member Functions</h2></td></tr>
-<tr class="memitem:a49532917b5ccde3e1a53c558d5d39189"><td class="memItemLeft" align="right" valign="top">static void __stdcall&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_file.html#a49532917b5ccde3e1a53c558d5d39189">readCompletionCallback</a> (uint32 errorCode, uint32 size, void *overlapped)</td></tr>
-<tr class="separator:a49532917b5ccde3e1a53c558d5d39189"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91bcc57894f2d9ee9b7f84e1a03f2cf2"><td class="memItemLeft" align="right" valign="top">static void __stdcall&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_file.html#a91bcc57894f2d9ee9b7f84e1a03f2cf2">writeCompletionCallback</a> (uint32 errorCode, uint32 size, void *overlapped)</td></tr>
-<tr class="separator:a91bcc57894f2d9ee9b7f84e1a03f2cf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a360a2a845a20b05954c3924eae550ccd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_file.html#a360a2a845a20b05954c3924eae550ccd">_filename</a> = L&quot;&quot;</td></tr>
-<tr class="separator:a360a2a845a20b05954c3924eae550ccd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b1b680f0d5ff2d40f219de3de93f22e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_file.html#a6b1b680f0d5ff2d40f219de3de93f22e">_isWriteable</a> = false</td></tr>
-<tr class="separator:a6b1b680f0d5ff2d40f219de3de93f22e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94bb31bf96a8af725366efb0a5c2e37c"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_file.html#a94bb31bf96a8af725366efb0a5c2e37c">_size</a> = 0</td></tr>
-<tr class="separator:a94bb31bf96a8af725366efb0a5c2e37c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a757d9ad0bd0deb8ff57fdf19091487ff"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_file.html#a757d9ad0bd0deb8ff57fdf19091487ff">_windowsFileHandle</a> = 0</td></tr>
-<tr class="separator:a757d9ad0bd0deb8ff57fdf19091487ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>handles files</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000108">Todo:</a></b></dt><dd><p class="startdd">nice to have getCreationTime </p>
-<p>nice to have getModifyTime </p>
-<p>nice to have getAccessTime </p>
-<p class="enddd">nice to have getDriveLetter </p>
-</dd></dl>
-
-<p>Definition at line <a class="el" href="ia_file_8h_source.html#l00048">48</a> of file <a class="el" href="ia_file_8h_source.html">iaFile.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="adebc89c7b4b4e3764b5c819bc5dac21e"></a>
 <div class="memitem">
@@ -256,14 +223,6 @@ Private Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>closes the file </p>
 
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_file_a6ac7ffa65002a2112a90d03ea735f892_icgraph.svg" width="351" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ac623924404174162c87a40f9630ed7b8"></a>
@@ -303,14 +262,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>checks if the file exist</p>
 <dl class="section return"><dt>Returns</dt><dd>true: if file exists; false: if not </dd></dl>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_file_ab459bfac7c17fd8bb45b92a07fcdcbf2_icgraph.svg" width="388" height="431"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -360,14 +311,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the file extension </dd></dl>
 
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_file_ac65658f79fe9a9a6f57ee7b50a6ffb48_icgraph.svg" width="436" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a3cfb42293c4b34ba8355b49cdae2dab2"></a>
@@ -383,14 +326,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>only the filename </dd></dl>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_file_a3cfb42293c4b34ba8355b49cdae2dab2_icgraph.svg" width="1215" height="303"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -408,14 +343,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the size of the file </dd></dl>
 
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_file_a02e738ec79efebca38e3a48ef7d8af81_icgraph.svg" width="386" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a12cc3de5e34e54df43e15e5a6fbd105e"></a>
@@ -432,14 +359,6 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the full path &amp; filename </dd></dl>
 
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_file_a12cc3de5e34e54df43e15e5a6fbd105e_icgraph.svg" width="370" height="155"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="a777e728712c704a9e997eb227a71a6e7"></a>
@@ -455,14 +374,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>only the parent path </dd></dl>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_file_a777e728712c704a9e997eb227a71a6e7_icgraph.svg" width="1227" height="460"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -499,63 +410,6 @@ Here is the caller graph for this function:</div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">writeable</td><td>true: open for writing; false: open read only </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_file_ab2e7853a32d75e0d6ed22457ea819185_icgraph.svg" width="348" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="a49532917b5ccde3e1a53c558d5d39189"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void __stdcall IgorAux::iaFile::readCompletionCallback </td>
-          <td>(</td>
-          <td class="paramtype">uint32&#160;</td>
-          <td class="paramname"><em>errorCode</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>overlapped</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the completion routine called when finished asynchron reading</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">errorCode</td><td></td></tr>
-    <tr><td class="paramname">size</td><td>number of bytes read </td></tr>
-    <tr><td class="paramname">overlapped</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -598,7 +452,6 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>reads from offset the number of size bytes to a (allocated) destination</p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000109">Todo:</a></b></dt><dd>asynchron callback not implemented</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">offset</td><td>the offset to start reading from </td></tr>
@@ -608,14 +461,6 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_file_a017d3cd691d0dda745b813302470f75c_icgraph.svg" width="396" height="38"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -708,55 +553,6 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a class="anchor" id="a91bcc57894f2d9ee9b7f84e1a03f2cf2"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static void __stdcall IgorAux::iaFile::writeCompletionCallback </td>
-          <td>(</td>
-          <td class="paramtype">uint32&#160;</td>
-          <td class="paramname"><em>errorCode</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint32&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">void *&#160;</td>
-          <td class="paramname"><em>overlapped</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the completion routine called when finished asynchron reading</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">errorCode</td><td></td></tr>
-    <tr><td class="paramname">size</td><td>number of bytes wrote </td></tr>
-    <tr><td class="paramname">overlapped</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a class="anchor" id="a927928ba0e1bddd48fa412ad943cc1aa"></a>
 <div class="memitem">
 <div class="memproto">
@@ -792,7 +588,7 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>writes from offset the number of size bytes from a destination </p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000110">Todo:</a></b></dt><dd>asynchron callback not implemented</dd></dl>
+<p>writes from offset the number of size bytes from a destination </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">offset</td><td>the offset to start writing to </td></tr>
@@ -805,101 +601,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a360a2a845a20b05954c3924eae550ccd"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> IgorAux::iaFile::_filename = L&quot;&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the file name </p>
-
-<p>Definition at line <a class="el" href="ia_file_8h_source.html#l00163">163</a> of file <a class="el" href="ia_file_8h_source.html">iaFile.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a6b1b680f0d5ff2d40f219de3de93f22e"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool IgorAux::iaFile::_isWriteable = false</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>true: the file is opened writeable; false: the file is read only </p>
-
-<p>Definition at line <a class="el" href="ia_file_8h_source.html#l00167">167</a> of file <a class="el" href="ia_file_8h_source.html">iaFile.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a94bb31bf96a8af725366efb0a5c2e37c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 IgorAux::iaFile::_size = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>size of file </p>
-
-<p>Definition at line <a class="el" href="ia_file_8h_source.html#l00171">171</a> of file <a class="el" href="ia_file_8h_source.html">iaFile.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a757d9ad0bd0deb8ff57fdf19091487ff"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void* IgorAux::iaFile::_windowsFileHandle = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the file handle </p>
-
-<p>Definition at line <a class="el" href="ia_file_8h_source.html#l00175">175</a> of file <a class="el" href="ia_file_8h_source.html">iaFile.h</a>.</p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_file_8h_source.html">iaFile.h</a></li>
+<li>C:/dev/Igor/Igor/src/IgorAux/src/<a class="el" href="ia_file_8h.html">iaFile.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -908,7 +611,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor_aux.html">IgorAux</a></li><li class="navelem"><a class="el" href="class_igor_aux_1_1ia_file.html">iaFile</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:18 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

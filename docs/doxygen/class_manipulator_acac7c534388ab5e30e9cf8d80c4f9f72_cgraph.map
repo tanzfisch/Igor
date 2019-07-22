@@ -1,9 +1,0 @@
-<map id="Manipulator::rotate" name="Manipulator::rotate">
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iNodeFactory \&gt;::getInstance" alt="" coords="202,5,401,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_factory.html#ab8074664cc7a6692dda729d1e3e4cfa3" title="Igor::iNodeFactory\l::getNode" alt="" coords="237,71,365,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#afcf9574e0c451509015b42b36be8a6eb" title="Igor::iNode::calcWorldTransformation" alt="" coords="184,137,419,163"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_vector3.html#a8502c49538eb5016666463b0678d255d" title="IgorAux::iaVector3\l::project" alt="" coords="237,188,366,229"/>
-<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_vector2.html#a9b431022c82854003b1268395338096f" title="IgorAux::iaVector2\l::angle" alt="" coords="237,253,366,295"/>
-<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_matrix.html#ae9eba9dbfae8fc7cc139579370386efb" title="IgorAux::iaMatrix::\lrotate" alt="" coords="237,319,365,360"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_matrix.html#ad4c84d3532d5b7555a04018ffcba6122" title="IgorAux::iaMatrix::\lidentity" alt="" coords="467,129,595,171"/>
-</map>

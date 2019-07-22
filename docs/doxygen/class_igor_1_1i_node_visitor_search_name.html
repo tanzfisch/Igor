@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,26 +112,15 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_visitor_search_na
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_1_1i_node_visitor_search_name-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Igor::iNodeVisitorSearchName Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_node_visitor_search_name_8h_source.html">iNodeVisitorSearchName.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iNodeVisitorSearchName:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_visitor_search_name__inherit__graph.svg" width="207" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iNodeVisitorSearchName:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_visitor_search_name__coll__graph.svg" width="275" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iNodeVisitorSearchName.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -153,26 +142,17 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a887505c160e05e3ffaf3f76af8b172ea"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_search_name.html#a887505c160e05e3ffaf3f76af8b172ea">preTraverse</a> ()</td></tr>
-<tr class="separator:a887505c160e05e3ffaf3f76af8b172ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acdef84422cbf0491156abf6ab1d30785"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_search_name.html#acdef84422cbf0491156abf6ab1d30785">preOrderVisit</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node)</td></tr>
-<tr class="separator:acdef84422cbf0491156abf6ab1d30785"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa25834c1f748e8816d0ca01ad4614901"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_search_name.html#aa25834c1f748e8816d0ca01ad4614901">postOrderVisit</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node)</td></tr>
-<tr class="separator:aa25834c1f748e8816d0ca01ad4614901"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ee32fa4bf07e26a92ebb695e4644857"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_search_name.html#a4ee32fa4bf07e26a92ebb695e4644857">postTraverse</a> ()</td></tr>
-<tr class="separator:a4ee32fa4bf07e26a92ebb695e4644857"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a2c39018bf40edd82216de84a6f85d039"><td class="memItemLeft" align="right" valign="top">vector&lt; uint64 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_search_name.html#a2c39018bf40edd82216de84a6f85d039">_nodeIDs</a></td></tr>
-<tr class="separator:a2c39018bf40edd82216de84a6f85d039"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0922c056d40fef39d9c6c2ad18f47207"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_search_name.html#a0922c056d40fef39d9c6c2ad18f47207">_name</a></td></tr>
-<tr class="separator:a0922c056d40fef39d9c6c2ad18f47207"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a232a0fa9adddc2cb0dd5f3a78397df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_search_name.html#a6a232a0fa9adddc2cb0dd5f3a78397df">preTraverse</a> () override</td></tr>
+<tr class="separator:a6a232a0fa9adddc2cb0dd5f3a78397df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e3ec15db1e780f9801c1799d088b408"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_search_name.html#a3e3ec15db1e780f9801c1799d088b408">preOrderVisit</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node, <a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> nextSibling) override</td></tr>
+<tr class="separator:a3e3ec15db1e780f9801c1799d088b408"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fcdf0f7e06eea137c9f46269dde2903"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_search_name.html#a5fcdf0f7e06eea137c9f46269dde2903">postOrderVisit</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node) override</td></tr>
+<tr class="separator:a5fcdf0f7e06eea137c9f46269dde2903"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b07b5c8b585e33d42e7b97595f79622"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_search_name.html#a5b07b5c8b585e33d42e7b97595f79622">postTraverse</a> () override</td></tr>
+<tr class="separator:a5b07b5c8b585e33d42e7b97595f79622"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>traveses node tree and prints basic information in to console </p>
-
-<p>Definition at line <a class="el" href="i_node_visitor_search_name_8h_source.html#l00045">45</a> of file <a class="el" href="i_node_visitor_search_name_8h_source.html">iNodeVisitorSearchName.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a733584faf73aef06e76f294fc2b75018"></a>
 <div class="memitem">
@@ -187,16 +167,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>initializes traversal config </p>
-
-<p>Definition at line <a class="el" href="i_node_visitor_search_name_8cpp_source.html#l00011">11</a> of file <a class="el" href="i_node_visitor_search_name_8cpp_source.html">iNodeVisitorSearchName.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_visitor_search_name_a733584faf73aef06e76f294fc2b75018_cgraph.svg" width="455" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
@@ -257,19 +227,9 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>list of found node ids </dd></dl>
 
-<p>Definition at line <a class="el" href="i_node_visitor_search_name_8cpp_source.html#l00016">16</a> of file <a class="el" href="i_node_visitor_search_name_8cpp_source.html">iNodeVisitorSearchName.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_visitor_search_name_aa44ad814e68f1427ac581dffaa4d5530_cgraph.svg" width="739" height="235"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
-</p>
-
-</div>
-</div>
-<a class="anchor" id="aa25834c1f748e8816d0ca01ad4614901"></a>
+<a class="anchor" id="a5fcdf0f7e06eea137c9f46269dde2903"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -286,7 +246,7 @@ Here is the call graph for this function:</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -294,11 +254,9 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="class_igor_1_1i_node_visitor.html#aac8a35e0f6e32017aa709cd15c51e0e6">Igor::iNodeVisitor</a>.</p>
 
-<p>Definition at line <a class="el" href="i_node_visitor_search_name_8cpp_source.html#l00038">38</a> of file <a class="el" href="i_node_visitor_search_name_8cpp_source.html">iNodeVisitorSearchName.cpp</a>.</p>
-
 </div>
 </div>
-<a class="anchor" id="a4ee32fa4bf07e26a92ebb695e4644857"></a>
+<a class="anchor" id="a5b07b5c8b585e33d42e7b97595f79622"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -314,7 +272,7 @@ Here is the call graph for this function:</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -322,11 +280,9 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="class_igor_1_1i_node_visitor.html#a31fec732bc7641e2ba8cd01bad7f101c">Igor::iNodeVisitor</a>.</p>
 
-<p>Definition at line <a class="el" href="i_node_visitor_search_name_8cpp_source.html#l00043">43</a> of file <a class="el" href="i_node_visitor_search_name_8cpp_source.html">iNodeVisitorSearchName.cpp</a>.</p>
-
 </div>
 </div>
-<a class="anchor" id="acdef84422cbf0491156abf6ab1d30785"></a>
+<a class="anchor" id="a3e3ec15db1e780f9801c1799d088b408"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -337,13 +293,23 @@ Here is the call graph for this function:</div>
           <td class="memname">bool Igor::iNodeVisitorSearchName::preOrderVisit </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&#160;</td>
+          <td class="paramname"><em>nextSibling</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -355,21 +321,11 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="class_igor_1_1i_node_visitor.html#a050cf551c53b773e828351e7e7f7f419">Igor::iNodeVisitor</a>.</p>
-
-<p>Definition at line <a class="el" href="i_node_visitor_search_name_8cpp_source.html#l00023">23</a> of file <a class="el" href="i_node_visitor_search_name_8cpp_source.html">iNodeVisitorSearchName.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_visitor_search_name_acdef84422cbf0491156abf6ab1d30785_cgraph.svg" width="366" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
+<p>Implements <a class="el" href="class_igor_1_1i_node_visitor.html#a151651306b039b174aadd8d2f6edcf2a">Igor::iNodeVisitor</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a887505c160e05e3ffaf3f76af8b172ea"></a>
+<a class="anchor" id="a6a232a0fa9adddc2cb0dd5f3a78397df"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -385,7 +341,7 @@ Here is the call graph for this function:</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -393,60 +349,11 @@ Here is the call graph for this function:</div>
 
 <p>Implements <a class="el" href="class_igor_1_1i_node_visitor.html#a0ffed66a85f892ffee84655b08f01800">Igor::iNodeVisitor</a>.</p>
 
-<p>Definition at line <a class="el" href="i_node_visitor_search_name_8cpp_source.html#l00033">33</a> of file <a class="el" href="i_node_visitor_search_name_8cpp_source.html">iNodeVisitorSearchName.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a0922c056d40fef39d9c6c2ad18f47207"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> Igor::iNodeVisitorSearchName::_name</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>hold a copy of name to search for </p>
-
-<p>Definition at line <a class="el" href="i_node_visitor_search_name_8h_source.html#l00093">93</a> of file <a class="el" href="i_node_visitor_search_name_8h_source.html">iNodeVisitorSearchName.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2c39018bf40edd82216de84a6f85d039"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">vector&lt;uint64&gt; Igor::iNodeVisitorSearchName::_nodeIDs</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>resulting list of found node IDs </p>
-
-<p>Definition at line <a class="el" href="i_node_visitor_search_name_8h_source.html#l00089">89</a> of file <a class="el" href="i_node_visitor_search_name_8h_source.html">iNodeVisitorSearchName.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_visitor_search_name_8h_source.html">iNodeVisitorSearchName.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_visitor_search_name_8cpp_source.html">iNodeVisitorSearchName.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_node_visitor_search_name_8h.html">iNodeVisitorSearchName.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_node_visitor_search_name_8cpp.html">iNodeVisitorSearchName.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -455,7 +362,7 @@ Here is the call graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_node_visitor_search_name.html">iNodeVisitorSearchName</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:56 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

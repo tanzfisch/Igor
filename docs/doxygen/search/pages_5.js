@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['first_20steps_20example',['First Steps Example',['../example00.html',1,'tutorials']]]
+  ['keyboard_20usage_20example',['Keyboard Usage Example',['../example01.html',1,'tutorials']]]
 ];

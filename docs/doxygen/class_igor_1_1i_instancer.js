@@ -10,12 +10,5 @@ var class_igor_1_1i_instancer =
     [ "getInstanceDataBufferSize", "class_igor_1_1i_instancer.html#ac58cbffe61b00be1b3bdc0e38c4ea3ba", null ],
     [ "getInstanceMaxCount", "class_igor_1_1i_instancer.html#ad799842741ee9bf05375427059ea6c6c", null ],
     [ "getInstanceSize", "class_igor_1_1i_instancer.html#a30f6a157114db0ab7213de9ecda66e1e", null ],
-    [ "setInstanceArrayObject", "class_igor_1_1i_instancer.html#a923f0ab05a60ae22aa14ebfe71a86141", null ],
-    [ "_bufferSize", "class_igor_1_1i_instancer.html#aebb5dc0bb244ec910cce237a1aa9db42", null ],
-    [ "_currentBufferPosition", "class_igor_1_1i_instancer.html#af3d03b2ddbfce370348a7d022cd2e54d", null ],
-    [ "_instanceArrayObject", "class_igor_1_1i_instancer.html#aaa974ec19c89ef00f633823030f09433", null ],
-    [ "_instanceCount", "class_igor_1_1i_instancer.html#ac3f5b50a037b998db942dab6c56260be", null ],
-    [ "_instanceDataBuffer", "class_igor_1_1i_instancer.html#ad1a929aff69879b43759106c0f4370a7", null ],
-    [ "_instanceSize", "class_igor_1_1i_instancer.html#a7eb69cfa8da2cd0062c795c20f05d90d", null ],
-    [ "_maxInstanceCount", "class_igor_1_1i_instancer.html#af462658025256214081f3cb533591ffa", null ]
+    [ "setInstanceArrayObject", "class_igor_1_1i_instancer.html#a923f0ab05a60ae22aa14ebfe71a86141", null ]
 ];

@@ -146,7 +146,7 @@ private:
 
     /*! random number generator
     */
-    iaRandomNumberGenerator _rand;
+    iaRandomNumberGeneratoru _rand;
 
     /*! incarnation of mesh
     */

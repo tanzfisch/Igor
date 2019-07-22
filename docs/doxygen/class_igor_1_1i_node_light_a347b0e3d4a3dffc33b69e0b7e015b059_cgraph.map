@@ -1,4 +1,0 @@
-<map id="Igor::iNodeLight::onPostSetScene" name="Igor::iNodeLight::onPostSetScene">
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#acd9afcdfae20de27c0ca44bb5cb89e79" title="Igor::iNode::getScene" alt="" coords="227,5,373,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_scene.html#ab5ab60d9af7a275a2aab7082e6f5972d" title="Igor::iScene::registerLight" alt="" coords="215,56,385,83"/>
-</map>

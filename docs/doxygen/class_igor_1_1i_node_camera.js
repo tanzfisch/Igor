@@ -1,8 +1,5 @@
 var class_igor_1_1i_node_camera =
 [
-    [ "iNodeCamera", "class_igor_1_1i_node_camera.html#add18bdf2fad17aa06e0784f4d51fbbfe", null ],
-    [ "iNodeCamera", "class_igor_1_1i_node_camera.html#af1a669e4d86391467e364bd0fecc2b9f", null ],
-    [ "~iNodeCamera", "class_igor_1_1i_node_camera.html#af184bc72158b42b6596c4569b4d1daff", null ],
     [ "getViewMatrix", "class_igor_1_1i_node_camera.html#a9bcfc636b35bb4f392aeeca9ed4123d4", null ],
     [ "getWorldMatrix", "class_igor_1_1i_node_camera.html#a0bb5bc32a460a0759cdf6db5c90678ad", null ],
     [ "onPostSetScene", "class_igor_1_1i_node_camera.html#ae5f7fc2cab580c69e34ab6547fd07597", null ],

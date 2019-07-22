@@ -1,28 +1,6 @@
 var class_igor_1_1i_dialog_message_box =
 [
-    [ "iDialogMessageBox", "class_igor_1_1i_dialog_message_box.html#a21c5c6a6c77e4abe9523b1aaab479de1", null ],
-    [ "~iDialogMessageBox", "class_igor_1_1i_dialog_message_box.html#a33a4c5d30ef1d0c9f31f6090cc6be0e6", null ],
-    [ "close", "class_igor_1_1i_dialog_message_box.html#aa8239a068d40908427acad471a9441b6", null ],
-    [ "createInstance", "class_igor_1_1i_dialog_message_box.html#a573097ccf249c6ded81db67ddd3a225e", null ],
-    [ "deinitGUI", "class_igor_1_1i_dialog_message_box.html#a1687e9b6a7777995a3ac5ed0cd758c5b", null ],
-    [ "initGUI", "class_igor_1_1i_dialog_message_box.html#ac6ee2559dcaae30b4730e939c8ac46d1", null ],
-    [ "onCancel", "class_igor_1_1i_dialog_message_box.html#add7f08b96f07d706dd3b5cf37f223606", null ],
-    [ "onNo", "class_igor_1_1i_dialog_message_box.html#a22ed6a4de785c98c12303cdab7b61fca", null ],
-    [ "onOK", "class_igor_1_1i_dialog_message_box.html#af6cda90c58ff021978b1bc04b400fd2a", null ],
-    [ "onYes", "class_igor_1_1i_dialog_message_box.html#a6d15a344d8c8b63b205b2c667dfe0218", null ],
     [ "show", "class_igor_1_1i_dialog_message_box.html#ab512263e46683ebe1db8bb38ef338a52", null ],
     [ "show", "class_igor_1_1i_dialog_message_box.html#ae0f23858eb35055aecdfd5dc2f4b47cb", null ],
-    [ "iWidgetManager", "class_igor_1_1i_dialog_message_box.html#a9da20b1c56a70b01ca0ef56f4d4d47fc", null ],
-    [ "_allWidgets", "class_igor_1_1i_dialog_message_box.html#aa61e18435bf9015845903cc0f420f6af", null ],
-    [ "_buttonGrid", "class_igor_1_1i_dialog_message_box.html#ae0a9f15b4f9820d6972f020687ab3ace", null ],
-    [ "_cancelButton", "class_igor_1_1i_dialog_message_box.html#a84982c690b8193cbbc7321870183b41e", null ],
-    [ "_grid", "class_igor_1_1i_dialog_message_box.html#a9e192e2db8e241ade0c8cf2b4445c4b8", null ],
-    [ "_messageBoxCloseEvent", "class_igor_1_1i_dialog_message_box.html#ae5ef8cb2ab902d98643ffb31c3a7b279", null ],
-    [ "_messageBoxReturnValue", "class_igor_1_1i_dialog_message_box.html#aa473ca8bbe425784c1a511d0dc1ff98c", null ],
-    [ "_messageLabel", "class_igor_1_1i_dialog_message_box.html#ae92d54baaed4217500cbaf20aadc51d0", null ],
-    [ "_noButton", "class_igor_1_1i_dialog_message_box.html#ac7c502ebe8182cd578ceb186d56b0055", null ],
-    [ "_okButton", "class_igor_1_1i_dialog_message_box.html#a12bf26a093321c071042108a2eced07e", null ],
-    [ "_spacerLine", "class_igor_1_1i_dialog_message_box.html#af100b4aceb28f4f8fb825c9fdc0024f0", null ],
-    [ "_spacerLittle", "class_igor_1_1i_dialog_message_box.html#aad4ee04e161a5e2736b17ca3670c2d3c", null ],
-    [ "_yesButton", "class_igor_1_1i_dialog_message_box.html#a957bdd9a87cd140cc134f23ded424aa7", null ]
+    [ "iWidgetManager", "class_igor_1_1i_dialog_message_box.html#a9da20b1c56a70b01ca0ef56f4d4d47fc", null ]
 ];

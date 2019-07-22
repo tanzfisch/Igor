@@ -1,6 +1,0 @@
-<map id="Igor::iSkySimulation::setTime" name="Igor::iSkySimulation::setTime">
-<area shape="rect" id="node2" href="$class_igor_1_1i_sky_simulation.html#ada20beecede15afa328ea95ebf15f136" title="Igor::iSkySimulation\l::update" alt="" coords="192,71,331,112"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_matrix.html#ae9eba9dbfae8fc7cc139579370386efb" title="IgorAux::iaMatrix::\lrotate" alt="" coords="384,5,512,47"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_sky_light_node.html#af7ea9d097996ca00bd0880aa99e15056" title="Igor::iSkyLightNode\l::setLightDirection" alt="" coords="381,71,515,112"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node_sky_box.html#acb1b3b3b1c0afc25c566abe20bda14ac" title="Igor::iNodeSkyBox::\lsetAlpha" alt="" coords="379,136,517,177"/>
-</map>

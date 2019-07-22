@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=9"/>
 		<meta name="generator" content="Doxygen 1.8.8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<title>Igor: IgorAux::iaRandomNumberGenerator Class Reference</title>
+		<title>Igor: IgorAux::iaRandomNumberGenerator&lt; T &gt; Class Template Reference</title>
 		<link href="tabs.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" src="jquery.js"></script>
 		<script type="text/javascript" src="dynsections.js"></script>
@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -111,93 +111,78 @@ $(document).ready(function(){initNavTree('class_igor_aux_1_1ia_random_number_gen
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_aux_1_1ia_random_number_generator-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">IgorAux::iaRandomNumberGenerator Class Reference</div>  </div>
+<div class="title">IgorAux::iaRandomNumberGenerator&lt; T &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="ia_random_number_generator_8h_source.html">iaRandomNumberGenerator.h</a>&gt;</code></p>
+<p><code>#include &lt;iaRandomNumberGenerator.h&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6dfbcfc08eaeb64dafaf6d8372dffe44"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_random_number_generator.html#a6dfbcfc08eaeb64dafaf6d8372dffe44">iaRandomNumberGenerator</a> ()=default</td></tr>
-<tr class="separator:a6dfbcfc08eaeb64dafaf6d8372dffe44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a787e260fe97b696c315a8676727c6175"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_random_number_generator.html#a787e260fe97b696c315a8676727c6175">~iaRandomNumberGenerator</a> ()=default</td></tr>
-<tr class="separator:a787e260fe97b696c315a8676727c6175"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1660df0d94d79a73c857bcc140326df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_random_number_generator.html#af1660df0d94d79a73c857bcc140326df">setSeed</a> (uint32 seed)</td></tr>
-<tr class="separator:af1660df0d94d79a73c857bcc140326df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa7a26492c78c1e95b27791132378432"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_random_number_generator.html#aaa7a26492c78c1e95b27791132378432">getNext</a> ()</td></tr>
-<tr class="separator:aaa7a26492c78c1e95b27791132378432"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:aa5837ee591acb54d68f78e6d201b06d0"><td class="memItemLeft" align="right" valign="top">uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_random_number_generator.html#aa5837ee591acb54d68f78e6d201b06d0">_seed</a></td></tr>
-<tr class="separator:aa5837ee591acb54d68f78e6d201b06d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9f3e71f6426c3e1f0dc05621e6472ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_random_number_generator.html#ac9f3e71f6426c3e1f0dc05621e6472ad">iaRandomNumberGenerator</a> (T seed=0)</td></tr>
+<tr class="separator:ac9f3e71f6426c3e1f0dc05621e6472ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a265e28bb2b52fed7c8c4ce9bc20dce76"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_random_number_generator.html#a265e28bb2b52fed7c8c4ce9bc20dce76">~iaRandomNumberGenerator</a> ()</td></tr>
+<tr class="separator:a265e28bb2b52fed7c8c4ce9bc20dce76"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf56329a7a91ab8c54e83e853bd989f8"><td class="memItemLeft" align="right" valign="top">__IGOR_INLINE__ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_random_number_generator.html#adf56329a7a91ab8c54e83e853bd989f8">setSeed</a> (T seed)</td></tr>
+<tr class="separator:adf56329a7a91ab8c54e83e853bd989f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf504455be478bb9f1bb1ef282540e5b"><td class="memItemLeft" align="right" valign="top">__IGOR_INLINE__ T&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_aux_1_1ia_random_number_generator.html#abf504455be478bb9f1bb1ef282540e5b">getNext</a> ()</td></tr>
+<tr class="separator:abf504455be478bb9f1bb1ef282540e5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>pseudo random number generator</p>
+<div class="textblock"><h3>template&lt;class T&gt;<br />
+class IgorAux::iaRandomNumberGenerator&lt; T &gt;</h3>
+
+<p>pseudo random number generator</p>
 <p>the only reason to use this one is to keep seperate instances of seeds so multithreaded tasks don't interfear with each other using rand() </p>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#_a24">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="ia_random_number_generator_8h_source.html#l00041">41</a> of file <a class="el" href="ia_random_number_generator_8h_source.html">iaRandomNumberGenerator.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a6dfbcfc08eaeb64dafaf6d8372dffe44"></a>
+<a class="anchor" id="ac9f3e71f6426c3e1f0dc05621e6472ad"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">IgorAux::iaRandomNumberGenerator::iaRandomNumberGenerator </td>
+          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_random_number_generator.html">IgorAux::iaRandomNumberGenerator</a>&lt; T &gt;::<a class="el" href="class_igor_aux_1_1ia_random_number_generator.html">iaRandomNumberGenerator</a> </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>seed</em> = <code>0</code></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
-<p>does nothing </p>
+<p>init seed </p>
 
 </div>
 </div>
-<a class="anchor" id="a787e260fe97b696c315a8676727c6175"></a>
+<a class="anchor" id="a265e28bb2b52fed7c8c4ce9bc20dce76"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">IgorAux::iaRandomNumberGenerator::~iaRandomNumberGenerator </td>
+          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_random_number_generator.html">IgorAux::iaRandomNumberGenerator</a>&lt; T &gt;::~<a class="el" href="class_igor_aux_1_1ia_random_number_generator.html">iaRandomNumberGenerator</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 <p>does nothing </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="aaa7a26492c78c1e95b27791132378432"></a>
+<a class="anchor" id="abf504455be478bb9f1bb1ef282540e5b"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">uint32 IgorAux::iaRandomNumberGenerator::getNext </td>
+          <td class="memname">__IGOR_INLINE__ T <a class="el" href="class_igor_aux_1_1ia_random_number_generator.html">IgorAux::iaRandomNumberGenerator</a>&lt; T &gt;::getNext </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -205,28 +190,19 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>next random number </dd></dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#a28">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="ia_random_number_generator_8cpp_source.html#l00018">18</a> of file <a class="el" href="ia_random_number_generator_8cpp_source.html">iaRandomNumberGenerator.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_random_number_generator_aaa7a26492c78c1e95b27791132378432_icgraph.svg" width="720" height="183"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
-<a class="anchor" id="af1660df0d94d79a73c857bcc140326df"></a>
+<a class="anchor" id="adf56329a7a91ab8c54e83e853bd989f8"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void IgorAux::iaRandomNumberGenerator::setSeed </td>
+          <td class="memname">void <a class="el" href="class_igor_aux_1_1ia_random_number_generator.html">IgorAux::iaRandomNumberGenerator</a>&lt; T &gt;::setSeed </td>
           <td>(</td>
-          <td class="paramtype">uint32&#160;</td>
+          <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>seed</em></td><td>)</td>
           <td></td>
         </tr>
@@ -239,47 +215,11 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#a25">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="ia_random_number_generator_8cpp_source.html#l00012">12</a> of file <a class="el" href="ia_random_number_generator_8cpp_source.html">iaRandomNumberGenerator.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_aux_1_1ia_random_number_generator_af1660df0d94d79a73c857bcc140326df_icgraph.svg" width="676" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="aa5837ee591acb54d68f78e6d201b06d0"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint32 IgorAux::iaRandomNumberGenerator::_seed</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>the seed </p>
-
-<p>Definition at line <a class="el" href="ia_random_number_generator_8h_source.html#l00068">68</a> of file <a class="el" href="ia_random_number_generator_8h_source.html">iaRandomNumberGenerator.h</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_random_number_generator_8h_source.html">iaRandomNumberGenerator.h</a></li>
-<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_random_number_generator_8cpp_source.html">iaRandomNumberGenerator.cpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>C:/dev/Igor/Igor/src/IgorAux/src/<a class="el" href="ia_random_number_generator_8h.html">iaRandomNumberGenerator.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -288,7 +228,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor_aux.html">IgorAux</a></li><li class="navelem"><a class="el" href="class_igor_aux_1_1ia_random_number_generator.html">iaRandomNumberGenerator</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:09:19 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

@@ -1,7 +1,0 @@
-<map id="Igor::iWindow::iWindow" name="Igor::iWindow::iWindow">
-<area shape="rect" id="node2" href="$namespace_igor.html#a6c0b5f6a110206d49314c2c6e09ac827" title="Igor::WndProc" alt="" coords="211,56,316,83"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_window.html#a6dbf54a39d41c7752db8f8ff658adae3" title="Igor::iWindow::updateSize" alt="" coords="364,31,537,57"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_window.html#a313d0bc55b576c8f315d34f360130fbd" title="Igor::iWindow::updatePos" alt="" coords="365,81,536,108"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_rectangle.html#a29546c0e2d54ee9608adbbc8b041ea56" title="Igor::iRectangle::setWidth" alt="" coords="587,5,759,32"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_rectangle.html#a30533fbc10c5e609aafa8b0f251f82ee" title="Igor::iRectangle::setHeight" alt="" coords="585,56,760,83"/>
-</map>

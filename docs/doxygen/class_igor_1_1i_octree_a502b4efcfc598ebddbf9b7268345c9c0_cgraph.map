@@ -1,6 +1,0 @@
-<map id="Igor::iOctree::remove" name="Igor::iOctree::remove">
-<area shape="rect" id="node2" href="$class_igor_1_1i_octree.html#a480eb157cef57a3cdd299ec710451f67" title="Igor::iOctree::deleteObject" alt="" coords="196,5,371,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_octree.html#a6cc4289341ca30efc93d0b3ea89c8b66" title="Igor::iOctree::tryMerge" alt="" coords="207,56,359,83"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_octree.html#a9ba6628099fad6c435a7827a11c12c49" title="Igor::iOctree::merge" alt="" coords="419,56,556,83"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_octree.html#a9ffa1e44d32e542a74eff22e875fed5f" title="Igor::iOctree::deleteNode" alt="" coords="604,56,771,83"/>
-</map>

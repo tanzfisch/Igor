@@ -1,7 +1,0 @@
-<map id="Igor::iTextureFont::makeFixedDigitWidth" name="Igor::iTextureFont::makeFixedDigitWidth">
-<area shape="rect" id="node2" href="$class_igor_1_1i_texture_font.html#afbaafb654ccbc0802993e0c81c9cf60d" title="Igor::iTextureFont\l::modifyWidth" alt="" coords="208,74,331,115"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_rectangle.html#ad721f25d8a4a69ff29afc9cabb3b6a4e" title="Igor::iRectangle::getWidth" alt="" coords="379,5,551,32"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_rectangle.html#a29546c0e2d54ee9608adbbc8b041ea56" title="Igor::iRectangle::setWidth" alt="" coords="379,56,551,83"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_rectangle.html#a59f42bd4f0c4d838d19ef6bd326d4e43" title="Igor::iRectangle::setX" alt="" coords="392,107,537,133"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_rectangle.html#aa1157c745d71710bef905851ca8ab1bb" title="Igor::iRectangle::getX" alt="" coords="392,157,537,184"/>
-</map>

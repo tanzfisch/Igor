@@ -1,6 +1,0 @@
-<map id="Igor::iWidgetButton" name="Igor::iWidgetButton">
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget.html" title="Igor::iWidget" alt="" coords="167,215,261,241"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_string.html" title="IgorAux::iaString" alt="" coords="5,109,124,136"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_timer_handle.html" title="Igor::iTimerHandle" alt="" coords="149,109,276,136"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_vector2.html" title="IgorAux::iaVector2\&lt; T \&gt;" alt="" coords="301,109,461,136"/>
-</map>

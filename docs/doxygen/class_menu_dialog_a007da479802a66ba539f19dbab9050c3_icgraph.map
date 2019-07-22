@@ -1,4 +1,0 @@
-<map id="MenuDialog::onAddMaterial" name="MenuDialog::onAddMaterial">
-<area shape="rect" id="node2" href="$class_menu_dialog.html#a81fee463a16f315c18f6920f70942182" title="MenuDialog::deinitMaterialView" alt="" coords="235,5,437,32"/>
-<area shape="rect" id="node3" href="$class_menu_dialog.html#a6f3e7454676129ead9fdb277f05d955a" title="MenuDialog::initMaterialView" alt="" coords="241,56,431,83"/>
-</map>

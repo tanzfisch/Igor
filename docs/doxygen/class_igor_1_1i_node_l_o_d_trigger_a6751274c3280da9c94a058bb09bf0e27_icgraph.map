@@ -1,5 +1,0 @@
-<map id="Igor::iNodeLODTrigger::getWorldPosition" name="Igor::iNodeLODTrigger::getWorldPosition">
-<area shape="rect" id="node2" href="$class_igor_1_1i_node_l_o_d_switch.html#aca04b5ee6502da939571007a4cebfe6c" title="Igor::iNodeLODSwitch\l::update" alt="" coords="203,5,352,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_voxel_terrain.html#a01654a6bcafb57ca10f8baf8ebd27b8a" title="Igor::iVoxelTerrain\l::update" alt="" coords="214,71,341,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_task_voxel_terrain.html#ad578cdbf85786e8ba443221afe6f7031" title="Igor::iTaskVoxelTerrain::run" alt="" coords="400,78,580,105"/>
-</map>

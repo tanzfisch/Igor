@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -112,26 +112,15 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_visitor_print_tre
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="class_igor_1_1i_node_visitor_print_tree-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Igor::iNodeVisitorPrintTree Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_node_visitor_print_tree_8h_source.html">iNodeVisitorPrintTree.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iNodeVisitorPrintTree:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_visitor_print_tree__inherit__graph.svg" width="184" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iNodeVisitorPrintTree:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_visitor_print_tree__coll__graph.svg" width="275" height="127"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iNodeVisitorPrintTree.h&gt;</code></p>
+
+<p>Inherits <a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -153,29 +142,19 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a2f608951a301289df8d859f5dc0cca91"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_print_tree.html#a2f608951a301289df8d859f5dc0cca91">preTraverse</a> ()</td></tr>
-<tr class="separator:a2f608951a301289df8d859f5dc0cca91"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae54f176919d1cf6840e74755a42d07ab"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_print_tree.html#ae54f176919d1cf6840e74755a42d07ab">preOrderVisit</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node)</td></tr>
-<tr class="separator:ae54f176919d1cf6840e74755a42d07ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1e010e833b111c2284fc1573629d8ac"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_print_tree.html#ab1e010e833b111c2284fc1573629d8ac">postOrderVisit</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node)</td></tr>
-<tr class="separator:ab1e010e833b111c2284fc1573629d8ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e5a4a9ebcef6a17380892cc0a84d3f7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_print_tree.html#a9e5a4a9ebcef6a17380892cc0a84d3f7">postTraverse</a> ()</td></tr>
-<tr class="separator:a9e5a4a9ebcef6a17380892cc0a84d3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
-Private Attributes</h2></td></tr>
-<tr class="memitem:a71870938f938431a31a62054b64cb021"><td class="memItemLeft" align="right" valign="top">uint64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_print_tree.html#a71870938f938431a31a62054b64cb021">_nodeCount</a> = 0</td></tr>
-<tr class="separator:a71870938f938431a31a62054b64cb021"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada7760a0af48f75904bba91acc331df4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_print_tree.html#ada7760a0af48f75904bba91acc331df4">_indenttation</a> = &quot;&quot;</td></tr>
-<tr class="separator:ada7760a0af48f75904bba91acc331df4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f7294da05ef61bcfbd3cf347e789e31"><td class="memItemLeft" align="right" valign="top">wstringstream&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_print_tree.html#a7f7294da05ef61bcfbd3cf347e789e31">_stream</a></td></tr>
-<tr class="separator:a7f7294da05ef61bcfbd3cf347e789e31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8dda57d06132b382c2a4858b67597757"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_print_tree.html#a8dda57d06132b382c2a4858b67597757">preTraverse</a> () override</td></tr>
+<tr class="separator:a8dda57d06132b382c2a4858b67597757"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05ac0cee28a80d8526d84e69954373a9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_print_tree.html#a05ac0cee28a80d8526d84e69954373a9">preOrderVisit</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node, <a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> nextSibling) override</td></tr>
+<tr class="separator:a05ac0cee28a80d8526d84e69954373a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a2fa30487409ce9e6a19156012fb8a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_print_tree.html#a9a2fa30487409ce9e6a19156012fb8a9">preLine</a> ()</td></tr>
+<tr class="separator:a9a2fa30487409ce9e6a19156012fb8a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3c7203825a2310bca047a44cf9161d9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_print_tree.html#af3c7203825a2310bca047a44cf9161d9">postOrderVisit</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node) override</td></tr>
+<tr class="separator:af3c7203825a2310bca047a44cf9161d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5377b474e3e0f96a31ec2d812697d10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_print_tree.html#af5377b474e3e0f96a31ec2d812697d10">postTraverse</a> () override</td></tr>
+<tr class="separator:af5377b474e3e0f96a31ec2d812697d10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>traveses node tree and prints basic information in to console </p>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#_a57">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_node_visitor_print_tree_8h_source.html#l00045">45</a> of file <a class="el" href="i_node_visitor_print_tree_8h_source.html">iNodeVisitorPrintTree.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a78fdf3d72bbe2ee26bdcac17786842ac"></a>
 <div class="memitem">
@@ -190,8 +169,6 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>initializes traversal config </p>
-
-<p>Definition at line <a class="el" href="i_node_visitor_print_tree_8cpp_source.html#l00015">15</a> of file <a class="el" href="i_node_visitor_print_tree_8cpp_source.html">iNodeVisitorPrintTree.cpp</a>.</p>
 
 </div>
 </div>
@@ -220,7 +197,7 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="ab1e010e833b111c2284fc1573629d8ac"></a>
+<a class="anchor" id="af3c7203825a2310bca047a44cf9161d9"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -237,7 +214,7 @@ Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -245,11 +222,9 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="class_igor_1_1i_node_visitor.html#aac8a35e0f6e32017aa709cd15c51e0e6">Igor::iNodeVisitor</a>.</p>
 
-<p>Definition at line <a class="el" href="i_node_visitor_print_tree_8cpp_source.html#l00034">34</a> of file <a class="el" href="i_node_visitor_print_tree_8cpp_source.html">iNodeVisitorPrintTree.cpp</a>.</p>
-
 </div>
 </div>
-<a class="anchor" id="a9e5a4a9ebcef6a17380892cc0a84d3f7"></a>
+<a class="anchor" id="af5377b474e3e0f96a31ec2d812697d10"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -265,7 +240,7 @@ Private Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -273,11 +248,32 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="class_igor_1_1i_node_visitor.html#a31fec732bc7641e2ba8cd01bad7f101c">Igor::iNodeVisitor</a>.</p>
 
-<p>Definition at line <a class="el" href="i_node_visitor_print_tree_8cpp_source.html#l00044">44</a> of file <a class="el" href="i_node_visitor_print_tree_8cpp_source.html">iNodeVisitorPrintTree.cpp</a>.</p>
+</div>
+</div>
+<a class="anchor" id="a9a2fa30487409ce9e6a19156012fb8a9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Igor::iNodeVisitorPrintTree::preLine </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
-<a class="anchor" id="ae54f176919d1cf6840e74755a42d07ab"></a>
+<a class="anchor" id="a05ac0cee28a80d8526d84e69954373a9"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -288,13 +284,23 @@ Private Attributes</h2></td></tr>
           <td class="memname">bool Igor::iNodeVisitorPrintTree::preOrderVisit </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&#160;</td>
+          <td class="paramname"><em>nextSibling</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -306,21 +312,11 @@ Private Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="class_igor_1_1i_node_visitor.html#a050cf551c53b773e828351e7e7f7f419">Igor::iNodeVisitor</a>.</p>
-
-<p>Definition at line <a class="el" href="i_node_visitor_print_tree_8cpp_source.html#l00026">26</a> of file <a class="el" href="i_node_visitor_print_tree_8cpp_source.html">iNodeVisitorPrintTree.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_visitor_print_tree_ae54f176919d1cf6840e74755a42d07ab_cgraph.svg" width="730" height="231"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
+<p>Implements <a class="el" href="class_igor_1_1i_node_visitor.html#a151651306b039b174aadd8d2f6edcf2a">Igor::iNodeVisitor</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a2f608951a301289df8d859f5dc0cca91"></a>
+<a class="anchor" id="a8dda57d06132b382c2a4858b67597757"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -336,15 +332,13 @@ Here is the call graph for this function:</div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 <p>initialisation </p>
 
 <p>Implements <a class="el" href="class_igor_1_1i_node_visitor.html#a0ffed66a85f892ffee84655b08f01800">Igor::iNodeVisitor</a>.</p>
-
-<p>Definition at line <a class="el" href="i_node_visitor_print_tree_8cpp_source.html#l00039">39</a> of file <a class="el" href="i_node_visitor_print_tree_8cpp_source.html">iNodeVisitorPrintTree.cpp</a>.</p>
 
 </div>
 </div>
@@ -362,93 +356,12 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <p>traverses the tree and prints the output in console </p>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#a58">Physics/src/PhysicsExample.cpp</a>.</dd>
-</dl>
-<p>Definition at line <a class="el" href="i_node_visitor_print_tree_8cpp_source.html#l00020">20</a> of file <a class="el" href="i_node_visitor_print_tree_8cpp_source.html">iNodeVisitorPrintTree.cpp</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_visitor_print_tree_a3e5418f8b4ed47ee581c3e8cae1ee273_icgraph.svg" width="588" height="88"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="ada7760a0af48f75904bba91acc331df4"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> Igor::iNodeVisitorPrintTree::_indenttation = &quot;&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>current indentation string </p>
-
-<p>Definition at line <a class="el" href="i_node_visitor_print_tree_8h_source.html#l00091">91</a> of file <a class="el" href="i_node_visitor_print_tree_8h_source.html">iNodeVisitorPrintTree.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a71870938f938431a31a62054b64cb021"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64 Igor::iNodeVisitorPrintTree::_nodeCount = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>counter for all nodes passed by </p>
-
-<p>Definition at line <a class="el" href="i_node_visitor_print_tree_8h_source.html#l00087">87</a> of file <a class="el" href="i_node_visitor_print_tree_8h_source.html">iNodeVisitorPrintTree.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7f7294da05ef61bcfbd3cf347e789e31"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">wstringstream Igor::iNodeVisitorPrintTree::_stream</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>all the output ends up in this string </p>
-
-<p>Definition at line <a class="el" href="i_node_visitor_print_tree_8h_source.html#l00095">95</a> of file <a class="el" href="i_node_visitor_print_tree_8h_source.html">iNodeVisitorPrintTree.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_visitor_print_tree_8h_source.html">iNodeVisitorPrintTree.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_visitor_print_tree_8cpp_source.html">iNodeVisitorPrintTree.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_node_visitor_print_tree_8h.html">iNodeVisitorPrintTree.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_node_visitor_print_tree_8cpp.html">iNodeVisitorPrintTree.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -457,7 +370,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_node_visitor_print_tree.html">iNodeVisitorPrintTree</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:55 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

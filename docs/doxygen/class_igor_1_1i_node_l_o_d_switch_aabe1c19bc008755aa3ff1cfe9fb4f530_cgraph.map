@@ -1,4 +1,0 @@
-<map id="Igor::iNodeLODSwitch::onPostSetScene" name="Igor::iNodeLODSwitch::onPostSetScene">
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#acd9afcdfae20de27c0ca44bb5cb89e79" title="Igor::iNode::getScene" alt="" coords="233,5,379,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_scene.html#a81ef736ac4c9b89a48781334e67d41ab" title="Igor::iScene::registerLODSwitch" alt="" coords="203,56,409,83"/>
-</map>

@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -113,7 +113,6 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_o_s_event_listener.htm
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="class_igor_1_1i_o_s_event_listener-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -121,19 +120,9 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_o_s_event_listener.htm
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i_o_s_event_listener_8h_source.html">iOSEventListener.h</a>&gt;</code></p>
-<div class="dynheader">
-Inheritance diagram for Igor::iOSEventListener:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_o_s_event_listener__inherit__graph.svg" width="238" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
-<div class="dynheader">
-Collaboration diagram for Igor::iOSEventListener:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_o_s_event_listener__coll__graph.svg" width="275" height="216"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<p><code>#include &lt;iOSEventListener.h&gt;</code></p>
+
+<p>Inherited by <a class="el" href="class_igor_1_1i_keyboard.html">Igor::iKeyboard</a>, and <a class="el" href="class_igor_1_1i_mouse.html">Igor::iMouse</a>.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -150,13 +139,6 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a177608f1ff0eae3081af0165d1e45fea"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_window.html">iWindow</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_o_s_event_listener.html#a177608f1ff0eae3081af0165d1e45fea">_window</a></td></tr>
 <tr class="separator:a177608f1ff0eae3081af0165d1e45fea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
-Private Member Functions</h2></td></tr>
-<tr class="memitem:a7a7ad55d69f5c841c12d419a850f264c"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_o_s_event_listener.html#a7a7ad55d69f5c841c12d419a850f264c">onOSEvent</a> (const void *data)=0</td></tr>
-<tr class="separator:a7a7ad55d69f5c841c12d419a850f264c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9c0c8dd8e26482cdf6c25434115d310"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_o_s_event_listener.html#ab9c0c8dd8e26482cdf6c25434115d310">registerDevice</a> ()=0</td></tr>
-<tr class="separator:ab9c0c8dd8e26482cdf6c25434115d310"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:a62b10979f57015cc1e2e958bbd9308bc"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_o_s_event_listener.html#a62b10979f57015cc1e2e958bbd9308bc">iWindow</a></td></tr>
@@ -165,8 +147,6 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>classes that need operating system messages to work with derive from this class</p>
 <p>currently the window registers all known listeners when opened </p>
-
-<p>Definition at line <a class="el" href="i_o_s_event_listener_8h_source.html#l00047">47</a> of file <a class="el" href="i_o_s_event_listener_8h_source.html">iOSEventListener.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a068e88c20b62cce7e5abba6a99fe2bc9"></a>
 <div class="memitem">
@@ -189,8 +169,6 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>dtor </p>
-
-<p>Definition at line <a class="el" href="i_o_s_event_listener_8h_source.html#l00075">75</a> of file <a class="el" href="i_o_s_event_listener_8h_source.html">iOSEventListener.h</a>.</p>
 
 </div>
 </div>
@@ -217,76 +195,6 @@ Friends</h2></td></tr>
 </div><div class="memdoc">
 <p>pointer to corresponding window </p>
 
-<p>Definition at line <a class="el" href="i_o_s_event_listener_8h_source.html#l00083">83</a> of file <a class="el" href="i_o_s_event_listener_8h_source.html">iOSEventListener.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a7a7ad55d69f5c841c12d419a850f264c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool Igor::iOSEventListener::onOSEvent </td>
-          <td>(</td>
-          <td class="paramtype">const void *&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>called by an os event like key down or close window</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">data</td><td>contains the platformspecific data </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>false if your implementation didn't handle the event </dd></dl>
-
-<p>Implemented in <a class="el" href="class_igor_1_1i_mouse.html#ab28b9a83a441dad90fcc12d5e52c14cf">Igor::iMouse</a>, and <a class="el" href="class_igor_1_1i_keyboard.html#a52ca88c0a3b6b4680f1f10156f39198b">Igor::iKeyboard</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab9c0c8dd8e26482cdf6c25434115d310"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual bool Igor::iOSEventListener::registerDevice </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>does what ever necessairy to get the device running </p>
-
-<p>Implemented in <a class="el" href="class_igor_1_1i_mouse.html#a0993f55f2870f63b0321989f42bd4b9c">Igor::iMouse</a>, and <a class="el" href="class_igor_1_1i_keyboard.html#a0a29415c52fa11618459d396bc8f3c30">Igor::iKeyboard</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_o_s_event_listener_ab9c0c8dd8e26482cdf6c25434115d310_icgraph.svg" width="426" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
-</div>
-</p>
-
 </div>
 </div>
 <h2 class="groupheader">Friends And Related Function Documentation</h2>
@@ -307,8 +215,6 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="i_o_s_event_listener_8h_source.html#l00049">49</a> of file <a class="el" href="i_o_s_event_listener_8h_source.html">iOSEventListener.h</a>.</p>
 
 </div>
 </div>
@@ -332,12 +238,10 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>pointer to the parent window </p>
 
-<p>Definition at line <a class="el" href="i_o_s_event_listener_8h_source.html#l00071">71</a> of file <a class="el" href="i_o_s_event_listener_8h_source.html">iOSEventListener.h</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_o_s_event_listener_8h_source.html">iOSEventListener.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_o_s_event_listener_8h.html">iOSEventListener.h</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -346,7 +250,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_o_s_event_listener.html">iOSEventListener</a></li>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:57 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

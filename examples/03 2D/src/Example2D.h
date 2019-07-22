@@ -161,7 +161,7 @@ private:
 
     /*! random number generator
     */
-    iaRandomNumberGenerator _rand;
+    iaRandomNumberGeneratoru _rand;
 
     /*! mouse move event with minimum data
 

@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -75,7 +75,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -116,15 +116,13 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_visitor.html','')
 
 <p>This is the complete list of members for <a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html#a559f365ee5e3bfecf4f1e34de306edae">_traverseInactiveChildren</a></td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html#aa20ea9084089c6cd58a84c87662973d8">iNodeVisitor</a>()=default</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html#aac8a35e0f6e32017aa709cd15c51e0e6">postOrderVisit</a>(iNodePtr node)=0</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html#a31fec732bc7641e2ba8cd01bad7f101c">postTraverse</a>()=0</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html#a050cf551c53b773e828351e7e7f7f419">preOrderVisit</a>(iNodePtr node)=0</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html#a0ffed66a85f892ffee84655b08f01800">preTraverse</a>()=0</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html#a3513005c92f2ed97ee5e838133715674">setTraverseInactiveChildren</a>(bool traverseInactive=true)</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html#a66c426b8125fa0205d492b2681884520">traverseTree</a>(iNodePtr node)</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html#a7e4167851e1247dfb90837c8f145f1b5">traverseTreeInternal</a>(iNodePtr node)</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html#aa20ea9084089c6cd58a84c87662973d8">iNodeVisitor</a>()=default</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html#aac8a35e0f6e32017aa709cd15c51e0e6">postOrderVisit</a>(iNodePtr node)=0</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html#a31fec732bc7641e2ba8cd01bad7f101c">postTraverse</a>()=0</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html#a151651306b039b174aadd8d2f6edcf2a">preOrderVisit</a>(iNodePtr node, iNodePtr nextSibling)=0</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html#a0ffed66a85f892ffee84655b08f01800">preTraverse</a>()=0</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html#a3513005c92f2ed97ee5e838133715674">setTraverseInactiveChildren</a>(bool traverseInactive=true)</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html#a66c426b8125fa0205d492b2681884520">traverseTree</a>(iNodePtr node)</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html#a132711036177b92b6babdf8d3b7b227d">~iNodeVisitor</a>()=default</td><td class="entry"><a class="el" href="class_igor_1_1i_node_visitor.html">Igor::iNodeVisitor</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
@@ -132,7 +130,7 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_visitor.html','')
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
 				<li class="footer">
-					Generated on Sat May 25 2019 16:08:55 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.8.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

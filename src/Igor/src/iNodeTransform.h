@@ -118,6 +118,10 @@ namespace Igor
         */
         virtual void identity();
 
+		/*! \returns custom information on this node
+		*/
+		iaString getCustomInfo() const;
+
     private:
 
         /*! transformation matrix
