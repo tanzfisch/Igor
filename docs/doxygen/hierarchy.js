@@ -24,7 +24,7 @@ var hierarchy =
     [ "IgorAux::iaMemBlockControl", "class_igor_aux_1_1ia_mem_block_control.html", null ],
     [ "IgorAux::iaMutex", "class_igor_aux_1_1ia_mutex.html", null ],
     [ "IgorAux::iaQuaternion< T >", "class_igor_aux_1_1ia_quaternion.html", null ],
-    [ "IgorAux::iaRandomNumberGenerator", "class_igor_aux_1_1ia_random_number_generator.html", null ],
+    [ "IgorAux::iaRandomNumberGenerator< T >", "class_igor_aux_1_1ia_random_number_generator.html", null ],
     [ "IgorAux::iaRingQueue< TValue >", "class_igor_aux_1_1ia_ring_queue.html", null ],
     [ "IgorAux::iaRLE< TValue, TIndex >", "class_igor_aux_1_1ia_r_l_e.html", null ],
     [ "IgorAux::iaRLE< uint8, uint8 >", "class_igor_aux_1_1ia_r_l_e.html", null ],

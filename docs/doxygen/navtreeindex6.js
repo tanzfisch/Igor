@@ -1,5 +1,12 @@
 var NAVTREEINDEX6 =
 {
+"class_igor_1_1i_target_material.html#aac88f247be0c6540533d6cb3f6197af6":[6,0,0,113,5],
+"class_igor_1_1i_target_material.html#aaee8875c77b258d519db06e98326cf70":[6,0,0,113,12],
+"class_igor_1_1i_target_material.html#abd2a93dd60bc4e5ebc4cf88492505908":[6,0,0,113,4],
+"class_igor_1_1i_target_material.html#ac2be6eac426027433c2720eb0f95d33b":[6,0,0,113,1],
+"class_igor_1_1i_target_material.html#ac3d764ecb35feb15d4c95848ad6e97b1":[6,0,0,113,8],
+"class_igor_1_1i_target_material.html#ad4e8b57524c665e7c4e484c7a23d9b63":[6,0,0,113,0],
+"class_igor_1_1i_target_material.html#ae2d9671f9525dc7cc63d8642e20a1535":[6,0,0,113,11],
 "class_igor_1_1i_target_material.html#aed66a5bfc421c8bec02fe67b9ce7ae14":[6,0,0,113,2],
 "class_igor_1_1i_task.html":[6,0,0,114],
 "class_igor_1_1i_task.html#a1286c3225e5b667287de69bf0c0df0c7":[6,0,0,114,4],
@@ -242,12 +249,5 @@ var NAVTREEINDEX6 =
 "class_igor_1_1i_voxel_terrain.html#a8ea8238ed354338cf92a613aae66f963":[6,0,0,142,12],
 "class_igor_1_1i_voxel_terrain.html#aca713317f6aedca96c70f4424415cf6b":[6,0,0,142,8],
 "class_igor_1_1i_voxel_terrain.html#ada01805869ec017432572a3fba59d994":[6,0,0,142,1],
-"class_igor_1_1i_voxel_terrain.html#adc4fdf1b32adab8de3e97fbe346754a2":[6,0,0,142,0],
-"class_igor_1_1i_voxel_terrain.html#ae17dc81add685384ac7de70f51568df3":[6,0,0,142,13],
-"class_igor_1_1i_voxel_terrain.html#ae4de6d370d64cb0fe064fc9b09bf4fbc":[6,0,0,142,5],
-"class_igor_1_1i_voxel_terrain_mesh_generator.html":[6,0,0,143],
-"class_igor_1_1i_voxel_terrain_mesh_generator.html#a048c88b495d9cd0241573b0be335773b":[6,0,0,143,2],
-"class_igor_1_1i_voxel_terrain_mesh_generator.html#a573443022d97b40da58a922f413a0326":[6,0,0,143,3],
-"class_igor_1_1i_voxel_terrain_mesh_generator.html#a63712e4c7be5df14d473130cac56e896":[6,0,0,143,1],
-"class_igor_1_1i_voxel_terrain_mesh_generator.html#af81d4da40d99669300f1e19b0d9b48ae":[6,0,0,143,0]
+"class_igor_1_1i_voxel_terrain.html#adc4fdf1b32adab8de3e97fbe346754a2":[6,0,0,142,0]
 };

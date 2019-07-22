@@ -32,6 +32,7 @@ var searchData=
   ['iamatrixf',['iaMatrixf',['../namespace_igor_aux.html#a9263d5a1e612a65686c337f842afab89',1,'IgorAux']]],
   ['iaquaterniond',['iaQuaterniond',['../namespace_igor_aux.html#adcca8bb44520dc9c3f566892bcc0b058',1,'IgorAux']]],
   ['iaquaternionf',['iaQuaternionf',['../namespace_igor_aux.html#a203dd6261fc50cb94bf0bf1a4c722f54',1,'IgorAux']]],
+  ['iarandomnumbergeneratoru',['iaRandomNumberGeneratoru',['../namespace_igor_aux.html#ab9dffe77da53396f78fdb097cd19b670',1,'IgorAux']]],
   ['iatransformd',['iaTransformd',['../namespace_igor_aux.html#a1e687619cec79520fd35dd58921ef4a4',1,'IgorAux']]],
   ['iatransformf',['iaTransformf',['../namespace_igor_aux.html#af6173a7b9fe36b5db446d9293429e0a3',1,'IgorAux']]],
   ['iavector2d',['iaVector2d',['../namespace_igor_aux.html#afbb6b9999a4b5a327bab80af67262db5',1,'IgorAux']]],

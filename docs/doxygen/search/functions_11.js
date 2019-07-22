@@ -18,6 +18,7 @@ var searchData=
   ['readuint64',['readUInt64',['../class_igor_aux_1_1ia_mem_block_control.html#aaab45dbf8678fe7ba9d2b9c7d2d04b82',1,'IgorAux::iaMemBlockControl::readUInt64()'],['../class_igor_aux_1_1ia_serializable.html#a19d9fa12bb7a28b0a1cd177cfda9ff6d',1,'IgorAux::iaSerializable::readUInt64()']]],
   ['readuint8',['readUInt8',['../class_igor_aux_1_1ia_mem_block_control.html#a8e6bf7f742e314f1ee660f915e57ab09',1,'IgorAux::iaMemBlockControl::readUInt8()'],['../class_igor_aux_1_1ia_serializable.html#a00d1e340fd9aaabb5c10714a2f33c7f0',1,'IgorAux::iaSerializable::readUInt8()']]],
   ['readutf8',['readUTF8',['../class_igor_aux_1_1ia_serializable.html#abe4b8f6065e617a2bc2777c44b990f69',1,'IgorAux::iaSerializable']]],
+  ['recompose',['recompose',['../class_igor_aux_1_1ia_matrix.html#adcbc7d2adac8744ce84fd58ca9015ac9',1,'IgorAux::iaMatrix']]],
   ['reenter',['reEnter',['../class_igor_aux_1_1ia_state.html#a93d14d53966c658d848cd41a2ce5655c',1,'IgorAux::iaState']]],
   ['registeraddednodedelegate',['registerAddedNodeDelegate',['../class_igor_1_1i_scene.html#a41ae43747ecfd87932b9a82c3ce6449f',1,'Igor::iScene']]],
   ['registerapplicationpostdrawhandledelegate',['registerApplicationPostDrawHandleDelegate',['../class_igor_1_1i_application.html#a8e53d8005118edbf7516ff285b4c50af',1,'Igor::iApplication']]],
