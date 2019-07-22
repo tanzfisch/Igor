@@ -212,7 +212,7 @@ void UserControlTransformation::onChange(iWidget* source)
 			iaString::atof(_translateText[1]->getText()),
 			iaString::atof(_translateText[2]->getText()));
 
-		// rotate order xyz
+		// rotate order zyx
 		matrix.rotate(iaString::atof(_rotateText[2]->getText()) / 180.0 * M_PI, iaAxis::Z);
 		matrix.rotate(iaString::atof(_rotateText[1]->getText()) / 180.0 * M_PI, iaAxis::Y);
 		matrix.rotate(iaString::atof(_rotateText[0]->getText()) / 180.0 * M_PI, iaAxis::X);

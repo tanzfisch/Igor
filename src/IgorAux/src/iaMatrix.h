@@ -40,7 +40,7 @@ using namespace std;
 namespace IgorAux
 {
 
-	/*! 4x4 Matrix
+	/*! right handed 4x4 Matrix 
 
 	data by name
 
@@ -49,7 +49,7 @@ namespace IgorAux
 	_right._z | _top._z | _depth._z | _pos.z
 	_w0       | _w1     | _w2       | _w3
 
-	by index 
+	by index
 
 	0 | 4 | 8 | 12
 	1 | 5 | 9 | 13
@@ -84,14 +84,35 @@ namespace IgorAux
 	0 | 0 | z | 0
 	0 | 0 | 0 | 1
 
+	rotate X
+
+	1 | 0      | 0       | 0
+	0 | cos(a) | -sin(a) | 0
+	0 | sin(a) | cos(a)  | 0
+	0 | 0      | 0       | 1
+
+	rotate Y
+
+	cos(a)  | 0 | sin(a) | 0
+	0       | 1 | 0      | 0
+	-sin(a) | 0 | cos(a) | 0
+	0       | 0 |        | 1
+
+	rotate Z
+
+	cos(a)  | -sin(a) | 0 | 0
+	sin(a)  | cos(a)  | 0 | 0
+	0       | 0       | 1 | 0
+	0       | 0       | 0 | 1
+
 	*/
 	template <class T> 
 	class IgorAux_API_Template iaMatrix
 	{
 	public:
 
-        /*! internal data
-        */
+		/*! internal data
+		*/
 		iaVector3<T> _right;
 		T _w0 = static_cast<T>(0);
 		iaVector3<T> _top;
@@ -103,77 +124,77 @@ namespace IgorAux
 
 		/*! addition
 		*/
-		__IGOR_INLINE__ void operator+= (iaMatrix &a);
+		void operator+=(iaMatrix& a);
 
 		/*! subtraction
 		*/
-		__IGOR_INLINE__ void operator-=(iaMatrix &a);
+		void operator-=(iaMatrix& a);
 
-        /*! comparison of two matrices
+		/*! comparison of two matrices
 
-        \param a the second matrix to compare this matrix with
-        \returns true if matrices are equal
-        */
-        __IGOR_INLINE__ bool operator== (const iaMatrix<T> &a) const;
+		\param a the second matrix to compare this matrix with
+		\returns true if matrices are equal
+		*/
+		bool operator==(const iaMatrix<T>& a) const;
 
-        /*! negated comparison of two matrices
+		/*! negated comparison of two matrices
 
-        \param a the second matrix to compare this matrix with
-        \returns true if matrices are not equal
-        */
-        __IGOR_INLINE__ bool operator!= (const iaMatrix<T> &a) const;
+		\param a the second matrix to compare this matrix with
+		\returns true if matrices are not equal
+		*/
+		bool operator!=(const iaMatrix<T>& a) const;
 
 		/*! matrix vector3 multiplication
 		*/
-		__IGOR_INLINE__ iaVector3<T> operator*(iaVector3<T> &a) const;
+		iaVector3<T> operator*(iaVector3<T>& a) const;
 
-        /*! matrix vector3 multiplication
-        */
-        __IGOR_INLINE__ iaVector3<T> operator*(const iaVector3<T> &a) const;
+		/*! matrix vector3 multiplication
+		*/
+		iaVector3<T> operator*(const iaVector3<T>& a) const;
 
 		/*! matrix vector4 multiplication
 		*/
-		__IGOR_INLINE__ iaVector4<T> operator*(iaVector4<T> &a) const;
+		iaVector4<T> operator*(iaVector4<T>& a) const;
 
-        /*! matrix vector4 multiplication
-        */
-        __IGOR_INLINE__ iaVector4<T> operator*(const iaVector4<T> &a) const;
+		/*! matrix vector4 multiplication
+		*/
+		iaVector4<T> operator*(const iaVector4<T>& a) const;
 
-        /*! matrix multiplication
-        */
-        __IGOR_INLINE__ iaMatrix operator*(const iaMatrix& m);
+		/*! matrix multiplication
+		*/
+		iaMatrix operator*(const iaMatrix& m);
 
-        /*! matrix multiplication
-        */
-        __IGOR_INLINE__ void operator*=(const iaMatrix& m);
+		/*! matrix multiplication
+		*/
+		void operator*=(const iaMatrix& m);
 
 		/*! matrix component by index
 
 		\param i only indexes from 0 to 15 are allowed
 		*/
-		__IGOR_INLINE__ T& operator[](int i);
+		T& operator[](int i);
 
-        __IGOR_INLINE__ T operator[](int i) const;
+		T operator[](int i) const;
 
 		/*! initializes matrix with id matrix
 		*/
-		__IGOR_INLINE__ void identity(void);
+		void identity(void);
 
 		/*! returns the determinant of the matrix
 		*/
-		__IGOR_INLINE__ T determinant();
+		T determinant();
 
 		/*! returns the determinant of the 3x3 part of the matrix
 		*/
-		__IGOR_INLINE__ T determinant3x3();
+		T determinant3x3();
 
 		/*! calculates the inverse of the matrix and overwrites the original value
 		*/
-		__IGOR_INLINE__ bool invert();
+		bool invert();
 
-        /*! transposes the matrix
-        */
-		__IGOR_INLINE__ void transpose();
+		/*! transposes the matrix
+		*/
+		void transpose();
 
 		/*! decompose the matrix in its components
 
@@ -186,7 +207,9 @@ namespace IgorAux
 		thanks to https://glm.g-truc.net
 		and thanks to http://www.opensource.apple.com/source/WebCore/WebCore-514/platform/graphics/transforms/TransformationMatrix.cpp
 		*/
-		bool decompose(iaVector3<T>& scale, iaQuaternion<T>& orientation, iaVector3<T>& translate, iaVector3<T>& shear, iaVector4<T>& perspective);
+		bool decompose(iaVector3<T>& scale, iaQuaternion<T>& orientation, iaVector3<T>& translate, iaVector3<T>& shear, iaVector4<T>& perspective) const;
+
+		void recompose(const iaVector3<T>& scale, const iaQuaternion<T>& orientation, const iaVector3<T>& translate, const iaVector3<T>& shear, const iaVector4<T>& perspective);
 
 		/*! calculates a view matrix
 
@@ -194,7 +217,7 @@ namespace IgorAux
 		\param coi center of interesst
 		\param top the ipvector of the camera
 		*/
-		__IGOR_INLINE__ void lookAt(const iaVector3<T> &eye, const iaVector3<T> &coi, const iaVector3<T> &top);
+		void lookAt(const iaVector3<T>& eye, const iaVector3<T>& coi, const iaVector3<T>& top);
 
 		/*! calculates a frustum matrix
 
@@ -205,16 +228,16 @@ namespace IgorAux
 		\param nearplain the near plain distance
 		\param farplain the far plain distance
 		*/
-		__IGOR_INLINE__ void frustum( T left, T right, T bottom, T top, T nearplain, T farplain);
+		void frustum(T left, T right, T bottom, T top, T nearplain, T farplain);
 
-        /*! calculates a perspective projection matrix
+		/*! calculates a perspective projection matrix
 
-        \param fov field of view in degrees
-        \param aspect aspect ratio
-        \param nearplain near clipping plane distance
-        \param farplain far clipping plane distance
-        */
-        __IGOR_INLINE__ void perspective(T fov, T aspect, T nearplain, T farplain);
+		\param fov field of view in degrees
+		\param aspect aspect ratio
+		\param nearplain near clipping plane distance
+		\param farplain far clipping plane distance
+		*/
+		void perspective(T fov, T aspect, T nearplain, T farplain);
 
 		/*! calculates a othogonal projection matrix
 
@@ -225,33 +248,33 @@ namespace IgorAux
 		\param nearplain the near plain distance
 		\param farplain the far plain distance
 		*/
-		__IGOR_INLINE__ void ortho( T left, T right, T bottom, T top, T nearplain, T farplain);
+		void ortho(T left, T right, T bottom, T top, T nearplain, T farplain);
 
-        /*! calculates a orthogonal matrix based on one direction
+		/*! calculates a orthogonal matrix based on one direction
 
-        does only change the orientation of this matrix
-        the vector does not have top be normalized
+		does only change the orientation of this matrix
+		the vector does not have top be normalized
 
-        \param depth the direction the matrix bases on
-        */
-        __IGOR_INLINE__ void grammSchmidt(iaVector3<T> &depth);
+		\param depth the direction the matrix bases on
+		*/
+		void grammSchmidt(iaVector3<T>& depth);
 
-        /*! calculates a orthogonal matrix based on a plane with primary direction depth
+		/*! calculates a orthogonal matrix based on a plane with primary direction depth
 
-        does only change the orientation of this matrix
-        the vectors do not have to be perpendicular
-        the vectors do not have to be normalized
+		does only change the orientation of this matrix
+		the vectors do not have to be perpendicular
+		the vectors do not have to be normalized
 
-        \param depth the direction the matrix bases on
-        \param top the second vector to define the plane
-        */
-        __IGOR_INLINE__ void grammSchmidt(iaVector3<T> &depth, iaVector3<T> &top);
+		\param depth the direction the matrix bases on
+		\param top the second vector to define the plane
+		*/
+		void grammSchmidt(iaVector3<T>& depth, iaVector3<T>& top);
 
 		/*! translate the matrix by vector 3d
 
-		\param a translation vector 
+		\param a translation vector
 		*/
-		__IGOR_INLINE__ void translate(const iaVector3<T>& a);
+		void translate(const iaVector3<T>& a);
 
 		/*! translate the matrix by vector 3d
 
@@ -259,41 +282,41 @@ namespace IgorAux
 		\param y y component
 		\param z z component
 		*/
-		__IGOR_INLINE__ void translate(T x, T y, T z);
+		void translate(T x, T y, T z);
 
 		/*! scale matrix by vector
 
 		\param s scale vector
 		*/
-		__IGOR_INLINE__ void scale(const iaVector3<T>& s);
+		void scale(const iaVector3<T>& s);
 
-        /*! scales the matrix
+		/*! scales the matrix
 
-        \param x scale in x axis
-        \param y scale in y axis
-        \param z scale in z axis
-        */
-		__IGOR_INLINE__ void scale(T x, T y, T z);
+		\param x scale in x axis
+		\param y scale in y axis
+		\param z scale in z axis
+		*/
+		void scale(T x, T y, T z);
 
 		/*! translate the matrix along it's own orientation vectors
 
 		\param distance distance to translate the matrix
 		\param axis axis to translate along
 		*/
-		__IGOR_INLINE__ void move(T distance, iaAxis axis);
+		void move(T distance, iaAxis axis);
 
 		/*! rotates the matrix around a specified orientation vector of the matrix
 
 		\param angle angle to rotate in radians
 		\param axis axis to rotate around
 		*/
-		__IGOR_INLINE__ void rotate(T angle, iaAxis axis);
+		void rotate(T angle, iaAxis axis);
 
 		/*! rotates matrix in three axis
 
 		\param vec the rotation vector
 		*/
-		__IGOR_INLINE__ void rotate(const iaVector3<T>& vec);
+		void rotate(const iaVector3<T>& vec);
 
 		/*! rotates matrix in three axis
 
@@ -301,40 +324,40 @@ namespace IgorAux
 		\param y y axis
 		\param z z axis
 		*/
-		__IGOR_INLINE__ void rotate(T x, T y, T z);
+		void rotate(T x, T y, T z);
 
 		/*! shears matrix in three axis
 
 		\param vec the shear vector
 		*/
-		__IGOR_INLINE__ void shear(const iaVector3<T>& vec);
+		void shear(const iaVector3<T>& vec);
 
 		/*! shears matrix in three axis
 
-		\param x x axis
-		\param y y axis
-		\param z z axis
+		\param xy shear in xy plane
+		\param xz shear in yz plane
+		\param yz shear in yz plane
 		*/
-		__IGOR_INLINE__ void shear(T x, T y, T z);
-		
+		void shear(T xy, T xz, T yz);
+
 		/*! \returns pointer to the data
 		*/
-		__IGOR_INLINE__ const T* getData() const;
+		const T* getData() const;
 
-        /*! \returns pointer to the data
-        */
-        __IGOR_INLINE__ T* getData();
+		/*! \returns pointer to the data
+		*/
+		T* getData();
 
 		/*! set data
 		*/
-		__IGOR_INLINE__ void setData(const T* data);
+		void setData(const T* data);
 
 		/*! converts the vector in to given type of vector
 
 		\returns vector for given type
 		*/
 		template<class T2>
-		__IGOR_INLINE__ iaMatrix<T2> convert();
+		iaMatrix<T2> convert();
 
 		/*! initializes the matrix with the id matrix
 		*/
@@ -342,7 +365,7 @@ namespace IgorAux
 
 		/*! initializes matrix with a data set
 
-		\param data matrix 
+		\param data matrix
 		*/
 		iaMatrix(const T data[16]);
 
@@ -351,15 +374,15 @@ namespace IgorAux
 		~iaMatrix();
 	};
 
-	#include <iaMatrix.inl>
+#include <iaMatrix.inl>
 
-    /*! float32 4x4 matrix
-    */
+	/*! float32 4x4 matrix
+	*/
 	typedef iaMatrix<float32> iaMatrixf;
 
-    /*! float64 4x4 matrix
-    */
-    typedef iaMatrix<float64> iaMatrixd;
+	/*! float64 4x4 matrix
+	*/
+	typedef iaMatrix<float64> iaMatrixd;
 
 };
 
