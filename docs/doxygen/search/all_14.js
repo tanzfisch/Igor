@@ -22,6 +22,7 @@ var searchData=
   ['readuint8',['readUInt8',['../class_igor_aux_1_1ia_mem_block_control.html#a8e6bf7f742e314f1ee660f915e57ab09',1,'IgorAux::iaMemBlockControl::readUInt8()'],['../class_igor_aux_1_1ia_serializable.html#a00d1e340fd9aaabb5c10714a2f33c7f0',1,'IgorAux::iaSerializable::readUInt8()']]],
   ['readutf8',['readUTF8',['../class_igor_aux_1_1ia_serializable.html#abe4b8f6065e617a2bc2777c44b990f69',1,'IgorAux::iaSerializable']]],
   ['ready',['Ready',['../namespace_igor.html#a3ada26443dfaff731400935076205c3aae7d31fc0602fb2ede144d18cdffd816b',1,'Igor']]],
+  ['recompose',['recompose',['../class_igor_aux_1_1ia_matrix.html#adcbc7d2adac8744ce84fd58ca9015ac9',1,'IgorAux::iaMatrix']]],
   ['rect',['rect',['../class_igor_1_1i_character_dimensions.html#a5cf201eb2a867561ef0f1fea1f6aaaba',1,'Igor::iCharacterDimensions']]],
   ['red',['Red',['../namespace_igor.html#a7e67018151b83309d748c1200262839eaee38e4d5dd68c4e440825018d549cb47',1,'Igor::Red()'],['../namespace_igor_aux.html#a40f0d9edbd2c9519788b20a95a9facc8aee38e4d5dd68c4e440825018d549cb47',1,'IgorAux::Red()'],['../namespace_igor.html#a1591be7a883348974cbed3cab1bd43d5aa2d9547b5d3dd9f05984475f7c926da0',1,'Igor::RED()']]],
   ['reenter',['reEnter',['../class_igor_aux_1_1ia_state.html#a93d14d53966c658d848cd41a2ce5655c',1,'IgorAux::iaState']]],

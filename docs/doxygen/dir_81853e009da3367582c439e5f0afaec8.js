@@ -50,10 +50,8 @@ var dir_81853e009da3367582c439e5f0afaec8 =
     ] ],
     [ "iaQuaternion.h", "ia_quaternion_8h.html", "ia_quaternion_8h" ],
     [ "iaQuaternion.inl", "ia_quaternion_8inl.html", "ia_quaternion_8inl" ],
-    [ "iaRandomNumberGenerator.cpp", "ia_random_number_generator_8cpp.html", null ],
-    [ "iaRandomNumberGenerator.h", "ia_random_number_generator_8h.html", [
-      [ "iaRandomNumberGenerator", "class_igor_aux_1_1ia_random_number_generator.html", "class_igor_aux_1_1ia_random_number_generator" ]
-    ] ],
+    [ "iaRandomNumberGenerator.h", "ia_random_number_generator_8h.html", "ia_random_number_generator_8h" ],
+    [ "iaRandomNumberGenerator.inl", "ia_random_number_generator_8inl.html", null ],
     [ "iaRingQueue.h", "ia_ring_queue_8h.html", [
       [ "iaRingQueue", "class_igor_aux_1_1ia_ring_queue.html", "class_igor_aux_1_1ia_ring_queue" ]
     ] ],

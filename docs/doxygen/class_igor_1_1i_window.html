@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -132,6 +132,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7ad7fc3350f1bf0fb6c01c71aec032bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0eb9a77f20b28863cbeb2933cc2244a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_window.html#ae0eb9a77f20b28863cbeb2933cc2244a">getDoubleClick</a> () const </td></tr>
 <tr class="separator:ae0eb9a77f20b28863cbeb2933cc2244a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95fe61b461eee3d2476ea34d9f5ae407"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_window.html#a95fe61b461eee3d2476ea34d9f5ae407">setVSync</a> (bool vsync)</td></tr>
+<tr class="separator:a95fe61b461eee3d2476ea34d9f5ae407"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12212671077ce73d1eac3e16bb45aea3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_window.html#a12212671077ce73d1eac3e16bb45aea3">getVSync</a> () const </td></tr>
+<tr class="separator:a12212671077ce73d1eac3e16bb45aea3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b104692026a32fc45324865725ec7ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_window.html#a0b104692026a32fc45324865725ec7ae">setTitle</a> (const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;title)</td></tr>
 <tr class="separator:a0b104692026a32fc45324865725ec7ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1fc820fce995e1aa434be7ede404f00"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_window.html#ae1fc820fce995e1aa434be7ede404f00">getTitle</a> () const </td></tr>
@@ -610,6 +614,22 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>title of the window </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a12212671077ce73d1eac3e16bb45aea3"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool Igor::iWindow::getVSync </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>true if vsync is activated </dd></dl>
 
 </div>
 </div>
@@ -1113,6 +1133,28 @@ Friends</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">title</td><td>the windows title </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a95fe61b461eee3d2476ea34d9f5ae407"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Igor::iWindow::setVSync </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>vsync</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>sets the usage of vsync or not </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vsync</td><td>if true vsync will be used </td></tr>
   </table>
   </dd>
 </dl>

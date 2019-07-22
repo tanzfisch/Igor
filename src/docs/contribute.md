@@ -41,7 +41,7 @@ For making a release do the following steps.
 
 2. Update the [Changelog](@ref changelog)
 
-3. Update doxygen config using the new version of the release. And generate the doxygen docs.
+3. Update doxygen config (src/docs/Doxyfile.doxy) using the new version of the release. And generate the doxygen docs.
 
 4. Run some smoke tests (ig run all the examples once) and when satisfied merge in to master and develop. 
 
