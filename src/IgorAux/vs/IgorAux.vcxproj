@@ -237,7 +237,7 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
     <ClCompile Include="..\src\iaMemBlock.cpp" />
     <ClCompile Include="..\src\iaMemBlockControl.cpp" />
     <ClCompile Include="..\src\iaMutex.cpp" />
-    <ClCompile Include="..\src\iaRandomNumberGenerator.cpp" />
+    <ClCompile Include="..\src\iaRandomNumberGenerator.inl" />
     <ClCompile Include="..\src\iaSerializable.cpp" />
     <ClCompile Include="..\src\iaState.cpp" />
     <ClCompile Include="..\src\iaStateMachine.cpp" />

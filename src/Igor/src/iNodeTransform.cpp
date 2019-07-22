@@ -7,6 +7,8 @@
 #include <iaConsole.h>
 using namespace IgorAux;
 
+#include <sstream>
+
 namespace Igor
 {
 
@@ -37,6 +39,26 @@ namespace Igor
     {
         matrix *= _transform;
     }
+
+	iaString iNodeTransform::getCustomInfo() const
+	{
+		std::wstringstream stream;
+
+		iaVector3d scale;
+		iaQuaterniond orientation;
+		iaVector3d rotate;
+		iaVector3d translate;
+		iaVector3d shear;
+		iaVector4d perspective;
+
+		_transform.decompose(scale, orientation, translate, shear, perspective);
+
+		orientation.getEuler(rotate);
+
+		stream << "t" << translate << ", r" << rotate << ", sc" << scale << ", sh" << shear;
+
+		return iaString(stream.str().c_str());
+	}
 
     void iNodeTransform::getMatrix(iaMatrixd& matrix)
     {

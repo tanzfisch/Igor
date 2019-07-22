@@ -88,6 +88,7 @@ void ModelViewer::init(iaString fileName)
     iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &ModelViewer::handle));
 
     _window.setSize(1280, 800);
+	_window.setCentered();
     _window.setTitle(WINDOW_TITLE_PREFIX);
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &ModelViewer::onWindowClosed));
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &ModelViewer::onWindowResize));

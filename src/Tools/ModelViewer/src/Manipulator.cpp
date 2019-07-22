@@ -20,6 +20,7 @@
 using namespace Igor;
 
 #include <iaConvert.h>
+#include <iaTransform.h>
 using namespace IgorAux;
 
 Manipulator::Manipulator(iWindow* window, iView* view, iScene* scene)

@@ -38,9 +38,6 @@
     <ClCompile Include="..\src\iaConvert.cpp">
       <Filter>data types</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iaRandomNumberGenerator.cpp">
-      <Filter>math</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iaMutex.cpp">
       <Filter>threading</Filter>
     </ClCompile>
@@ -49,6 +46,9 @@
     </ClCompile>
     <ClCompile Include="..\src\iaSystem.cpp">
       <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iaRandomNumberGenerator.inl">
+      <Filter>math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

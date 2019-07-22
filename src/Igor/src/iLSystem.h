@@ -127,7 +127,7 @@ namespace Igor
 
         /*! random number generator
         */
-        iaRandomNumberGenerator _rand;
+        iaRandomNumberGeneratoru _rand;
 
         /*! generates next iteration
 
