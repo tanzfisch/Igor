@@ -4,6 +4,9 @@ Changelog                           {#changelog}
 0.21.0
 ------
 
+- increased unit testing efforts
+- worked on iaQuaternion class
+- turned iaRandomNumberGenerator in to a template
 - improved character controller example
 - improved mouse handling in all examples
 - added interface to control vsync setting

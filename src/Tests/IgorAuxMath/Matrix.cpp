@@ -399,8 +399,8 @@ TEST(MatrixTests, DecomposeRecompose)
 {
 	iaMatrixd matrix;
 	matrix.rotate(0.5 * M_PI, 0, 0);
-	//matrix.scale(1, 2, 1);
-	//matrix.translate(10, 0, -7);
+	matrix.scale(1, 2, 1);
+	matrix.translate(10, 0, -7);
 
 	iaVector3d scale;
 	iaQuaterniond orientation;
