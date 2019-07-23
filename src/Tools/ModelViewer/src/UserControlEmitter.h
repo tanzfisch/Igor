@@ -87,7 +87,7 @@ private:
 
     /*! list of all widgets for later release
     */
-    vector<iWidget*> _allWidgets;
+    std::vector<iWidget*> _allWidgets;
 
     /*! current selected node
     */

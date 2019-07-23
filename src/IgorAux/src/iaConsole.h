@@ -39,7 +39,6 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
-using namespace std;
 
 namespace IgorAux
 {
@@ -200,7 +199,7 @@ namespace IgorAux
         */
         template<typename T> iaConsole& operator << (const T &v)
         {
-            wcout << v;
+			std::wcout << v;
             if (_streamToLogfile && _file.is_open())
             {
                 _file << v;
@@ -235,7 +234,7 @@ namespace IgorAux
 
         /*! file stream to log file
         */
-        wfstream _file;
+        std::wfstream _file;
 
         /*! true: log to file is active; false: log to file will be scipped
 
@@ -489,10 +488,10 @@ namespace IgorAux
         uint64 seconds = (time / 1000) % 60;
         uint64 minutes = (time / 1000 * 60) % 60;
         uint64 hours = (time / 1000 * 60 * 60) % 24;
-        console << setfill(L'0') << setw(2) << hours << ":";
-        console << setfill(L'0') << setw(2) << minutes << ":";
-        console << setfill(L'0') << setw(2) << seconds << ":";
-        console << setfill(L'0') << setw(3) << time % 1000 << " ";
+        console << std::setfill(L'0') << std::setw(2) << hours << ":";
+        console << std::setfill(L'0') << std::setw(2) << minutes << ":";
+        console << std::setfill(L'0') << std::setw(2) << seconds << ":";
+        console << std::setfill(L'0') << std::setw(3) << time % 1000 << " ";
         return console;
     }
 
@@ -504,7 +503,7 @@ namespace IgorAux
     __IGOR_INLINE__ iaConsole& endl(iaConsole &console)
     {
         iaConsole::getInstance().setTextColor(iaForegroundColor::Gray);
-        wcout << std::endl;
+		std::wcout << std::endl;
         if (console._streamToLogfile && console._file.is_open())
         {
             console._file << std::endl;
@@ -520,7 +519,7 @@ namespace IgorAux
     __IGOR_INLINE__ iaConsole& flush(iaConsole &console)
     {
         iaConsole::getInstance().setTextColor(iaForegroundColor::Gray);
-        wcout << std::flush;
+		std::wcout << std::flush;
         if (console._streamToLogfile && console._file.is_open())
         {
             console._file << std::flush;
@@ -575,7 +574,7 @@ namespace IgorAux
     __IGOR_INLINE__ iaConsole& printThreadID(iaConsole &console)
     {
         int32 threadID = GetCurrentThreadId();
-        console << "[" << setfill(L'0') << setw(8) << hex << threadID << dec << "] ";
+        console << "[" << std::setfill(L'0') << std::setw(8) << std::hex << threadID << std::dec << "] ";
         return console;
     }
 

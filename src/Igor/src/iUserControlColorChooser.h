@@ -166,7 +166,7 @@ namespace Igor
 
         /*! collect all widgets created
         */
-        vector<iWidget*> _allWidgets;
+        std::vector<iWidget*> _allWidgets;
 
         /*! root widget
         */

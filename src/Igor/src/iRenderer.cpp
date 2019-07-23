@@ -24,7 +24,7 @@
 
 #include <sstream>
 #include <cmath>
-using namespace std;
+
 
 #include <IgorAux.h>
 #include <iaConvert.h>
@@ -180,7 +180,7 @@ namespace Igor
 		glDeleteObjectARB(id); GL_CHECK_ERROR();
 	}
 
-	void iRenderer::linkShaderProgram(uint32 id, vector<uint32> objects)
+	void iRenderer::linkShaderProgram(uint32 id, std::vector<uint32> objects)
 	{
 		auto object = objects.begin();
 		while (objects.end() != object)
@@ -477,7 +477,7 @@ namespace Igor
 		glEnd();		GL_CHECK_ERROR();
 	}
 
-	void iRenderer::drawLineStrip(vector<iaVector3f> & line)
+	void iRenderer::drawLineStrip(std::vector<iaVector3f> & line)
 	{
 		glBegin(GL_LINE_STRIP);
 
@@ -497,7 +497,7 @@ namespace Igor
 		glEnd(); GL_CHECK_ERROR();
 	}
 
-	void iRenderer::drawBillboard(iaVector3f & o, iaVector3f & u, iaVector3f & v, shared_ptr<iTexture> texture, float32 texScaleU, float32 texScaleV)
+	void iRenderer::drawBillboard(iaVector3f & o, iaVector3f & u, iaVector3f & v, iTexturePtr texture, float32 texScaleU, float32 texScaleV)
 	{
 		bindTexture(texture, 0);
 
@@ -516,7 +516,7 @@ namespace Igor
 		glEnd(); GL_CHECK_ERROR();
 	}
 
-	void iRenderer::drawBillboard(iaVector3f & o, iaVector3f & u, iaVector3f & v, shared_ptr<iTexture> texture)
+	void iRenderer::drawBillboard(iaVector3f & o, iaVector3f & u, iaVector3f & v, iTexturePtr texture)
 	{
 		bindTexture(texture, 0);
 
@@ -787,7 +787,7 @@ namespace Igor
 		}
 	}
 
-	void iRenderer::bindTexture(shared_ptr<iTexture> texture, uint32 textureunit)
+	void iRenderer::bindTexture(iTexturePtr texture, uint32 textureunit)
 	{
 		glActiveTexture(GL_TEXTURE0 + textureunit); GL_CHECK_ERROR();
 
@@ -1115,7 +1115,7 @@ namespace Igor
 		glFlush();
 	}
 
-	void iRenderer::drawTextureTiled(float32 x, float32 y, float32 width, float32 height, shared_ptr<iTexture> texture)
+	void iRenderer::drawTextureTiled(float32 x, float32 y, float32 width, float32 height, iTexturePtr texture)
 	{
 		float32 scaleX = width / texture->getWidth();
 		float32 scaleY = height / texture->getHeight();
@@ -1134,7 +1134,7 @@ namespace Igor
 		glEnd(); GL_CHECK_ERROR();
 	}
 
-	void iRenderer::drawTexture(float32 x, float32 y, float32 width, float32 height, shared_ptr<iTexture> texture)
+	void iRenderer::drawTexture(float32 x, float32 y, float32 width, float32 height, iTexturePtr texture)
 	{
 		bindTexture(texture, 0);
 
@@ -1150,7 +1150,7 @@ namespace Igor
 		glEnd(); GL_CHECK_ERROR();
 	}
 
-	void iRenderer::drawTexture(float32 x, float32 y, shared_ptr<iTexture> texture)
+	void iRenderer::drawTexture(float32 x, float32 y, iTexturePtr texture)
 	{
 		bindTexture(texture, 0);
 
@@ -1331,10 +1331,10 @@ namespace Igor
 	void iRenderer::createBuffers(float64 timeLimit)
 	{
 		float64 endTime = iTimer::getInstance().getApplicationTime() + timeLimit;
-		deque<pair<shared_ptr<iMesh>, shared_ptr<iMeshBuffers>>>::iterator entryIter;
+		std::deque<std::pair<iMeshPtr, std::shared_ptr<iMeshBuffers>>>::iterator entryIter;
 
-		shared_ptr<iMesh> mesh;
-		shared_ptr<iMeshBuffers> meshBuffers;
+		iMeshPtr mesh;
+		std::shared_ptr<iMeshBuffers> meshBuffers;
 		bool proceed = false;
 
 		while (true)
@@ -1367,20 +1367,20 @@ namespace Igor
 		}
 	}
 
-	shared_ptr<iMeshBuffers> iRenderer::createBuffersAsync(shared_ptr<iMesh> mesh)
+	std::shared_ptr<iMeshBuffers> iRenderer::createBuffersAsync(iMeshPtr mesh)
 	{
 		iMeshBuffers* meshBuffer = new iMeshBuffers();
 
-		shared_ptr<iMeshBuffers> result = shared_ptr<iMeshBuffers>(meshBuffer);
+		std::shared_ptr<iMeshBuffers> result = std::shared_ptr<iMeshBuffers>(meshBuffer);
 
 		_requestedBuffersMutex.lock();
-		_requestedBuffers.push_back(pair<shared_ptr<iMesh>, shared_ptr<iMeshBuffers>>(mesh, result));
+		_requestedBuffers.push_back(std::pair<iMeshPtr, std::shared_ptr<iMeshBuffers>>(mesh, result));
 		_requestedBuffersMutex.unlock();
 
 		return result;
 	}
 
-	void iRenderer::initBuffers(shared_ptr<iMesh> mesh, shared_ptr<iMeshBuffers> meshBuffers)
+	void iRenderer::initBuffers(iMeshPtr mesh, std::shared_ptr<iMeshBuffers> meshBuffers)
 	{
 		uint32 vao = 0;
 		uint32 ibo = 0;
@@ -1437,10 +1437,10 @@ namespace Igor
 
 	/*! http://in2gpu.com/2014/09/07/instanced-drawing-opengl/
 	*/
-	shared_ptr<iMeshBuffers> iRenderer::createBuffers(shared_ptr<iMesh> mesh)
+	std::shared_ptr<iMeshBuffers> iRenderer::createBuffers(iMeshPtr mesh)
 	{
 		iMeshBuffers* meshBuffer = new iMeshBuffers();
-		shared_ptr<iMeshBuffers> result = shared_ptr<iMeshBuffers>(meshBuffer);
+		std::shared_ptr<iMeshBuffers> result = std::shared_ptr<iMeshBuffers>(meshBuffer);
 
 		initBuffers(mesh, result);
 
@@ -1461,7 +1461,7 @@ namespace Igor
 		}
 	}
 
-	void iRenderer::drawMesh(shared_ptr<iMeshBuffers> meshBuffers, iInstancer * instancer)
+	void iRenderer::drawMesh(std::shared_ptr<iMeshBuffers> meshBuffers, iInstancer * instancer)
 	{
 		iaMatrixd idMatrix;
 		setModelMatrix(idMatrix);
@@ -1546,7 +1546,7 @@ namespace Igor
 		}
 	}
 
-	void iRenderer::drawMesh(shared_ptr<iMeshBuffers> meshBuffers)
+	void iRenderer::drawMesh(std::shared_ptr<iMeshBuffers> meshBuffers)
 	{
 		writeShaderParameters();
 
@@ -1686,7 +1686,7 @@ namespace Igor
 			uint32 textLength = text.getSize();
 			bool changecolor = false;
 			bool donotdraw = false;
-			vector<iCharacterDimensions> characters = _font->getCharacters();
+			std::vector<iCharacterDimensions> characters = _font->getCharacters();
 
 			bindTexture(_font->getTexture(), 0);
 
@@ -1851,7 +1851,7 @@ namespace Igor
 		_renderedTriangles += particleCount * 2;
 	}
 
-	void iRenderer::drawParticles(const deque<iParticle> & particles, const iaGradientColor4f & rainbow)
+	void iRenderer::drawParticles(const std::deque<iParticle> & particles, const iaGradientColor4f & rainbow)
 	{
 		iaVector4f camright;
 		camright.set(_camWorldMatrix._right._x, _camWorldMatrix._right._y, _camWorldMatrix._right._z, 0);
@@ -1939,7 +1939,7 @@ namespace Igor
 		_renderedTriangles += static_cast<uint32>(particles.size()) * 2;
 	}
 
-	void iRenderer::drawVelocityOrientedParticles(const deque<iParticle> & particles, const iaGradientColor4f & rainbow)
+	void iRenderer::drawVelocityOrientedParticles(const std::deque<iParticle> & particles, const iaGradientColor4f & rainbow)
 	{
 		// TODO implement also for local coordinates see drawParticles
 

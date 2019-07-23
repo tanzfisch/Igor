@@ -36,7 +36,7 @@ namespace Igor
     {
         if (isActive())
         {
-            vector<iWidget*> widgets = _children;
+            std::vector<iWidget*> widgets = _children;
 
             for (auto widget : widgets)
             {
@@ -192,7 +192,7 @@ namespace Igor
         }
     }
 
-    void iWidgetScroll::calcChildOffsets(vector<iRectanglei>& offsets)
+    void iWidgetScroll::calcChildOffsets(std::vector<iRectanglei>& offsets)
     {
         offsets.clear();
         offsets.resize(_children.size());

@@ -62,7 +62,7 @@ namespace Igor
         _entities.erase(iter);
     }
 
-    void iEntityManager::getEntities(const iSphered& sphere, vector<uint64>& entities)
+    void iEntityManager::getEntities(const iSphered& sphere, std::vector<uint64>& entities)
     {
         _octree->clearFilter();
         _octree->addFilter(sphere);
@@ -70,7 +70,7 @@ namespace Igor
         _octree->getResult(entities);
     }
 
-    void iEntityManager::getEntities(vector<uint64>& entities)
+    void iEntityManager::getEntities(std::vector<uint64>& entities)
     {
         for (auto entity : _entities)
         {

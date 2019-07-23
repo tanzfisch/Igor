@@ -37,6 +37,7 @@
 #include <iPerlinNoise.h>
 #include <iMaterial.h>
 #include <iStatisticsVisualizer.h>
+#include <iTexture.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -46,12 +47,11 @@ using namespace Igor;
 using namespace IgorAux;
 
 #include <memory>
-using namespace std;
+
 
 namespace Igor
 {
     class iSprite;
-    class iTexture;
     class iTextureFont;
 }
 
@@ -105,7 +105,7 @@ private:
 
     /*! texture used for the particles
     */
-    shared_ptr<iTexture> _particleTexture = nullptr;
+    iTexturePtr _particleTexture = nullptr;
 
     /*! just increases over time and feeds a sinus function to change the orientation of the particle stream
     */
@@ -121,7 +121,7 @@ private:
 
     /*! Igor logo
     */
-    shared_ptr<iTexture> _igorLogo = nullptr;
+    iTexturePtr _igorLogo = nullptr;
 
     /*! current position of renderer logo 
     */
@@ -137,11 +137,11 @@ private:
 
     /*! background tileable texture
     */
-    shared_ptr<iTexture> _backgroundTexture = nullptr;
+    iTexturePtr _backgroundTexture = nullptr;
 
     /*! a dummy texture
     */
-	shared_ptr<iTexture> _dummyTexture = nullptr;
+	iTexturePtr _dummyTexture = nullptr;
 
     /*! material id of a textured material
     */

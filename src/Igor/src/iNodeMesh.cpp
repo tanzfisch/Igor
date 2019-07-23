@@ -14,7 +14,7 @@
 #include <iTargetMaterial.h>
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -100,12 +100,12 @@ namespace Igor
 		return _targetMaterial;
 	}
 
-	shared_ptr<iMeshBuffers> iNodeMesh::getMeshBuffers()
+	std::shared_ptr<iMeshBuffers> iNodeMesh::getMeshBuffers()
 	{
 		return _meshBuffers;
 	}
 
-	shared_ptr<iMesh> iNodeMesh::getMesh()
+	iMeshPtr iNodeMesh::getMesh()
 	{
 		return _mesh;
 	}
@@ -131,7 +131,7 @@ namespace Igor
 		}
 	}
 
-	void iNodeMesh::setMeshBuffers(shared_ptr<iMeshBuffers> meshBuffers)
+	void iNodeMesh::setMeshBuffers(std::shared_ptr<iMeshBuffers> meshBuffers)
 	{
 		_meshBuffers = meshBuffers;
 
@@ -144,7 +144,7 @@ namespace Igor
 		}
 	}
 
-	void iNodeMesh::setMesh(shared_ptr<iMesh> mesh)
+	void iNodeMesh::setMesh(iMeshPtr mesh)
 	{
 		_mesh = mesh;
 

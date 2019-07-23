@@ -113,7 +113,7 @@ namespace Igor
         */
         iWidgetLabel* _messageLabel = nullptr;
 
-        vector<iWidgetCheckBox*> _radioButtons;
+        std::vector<iWidgetCheckBox*> _radioButtons;
 
         /*! handles ok button clicked event
 

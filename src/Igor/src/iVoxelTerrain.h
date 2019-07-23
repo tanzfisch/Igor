@@ -46,7 +46,7 @@ using namespace IgorAux;
 
 #include <unordered_map>
 #include <queue>
-using namespace std;
+
 
 namespace Igor
 {
@@ -208,7 +208,7 @@ namespace Igor
 
         /*! voxel operations queue
         */
-        vector<shared_ptr<iVoxelOperation>> _operationsQueue;
+        std::vector<std::shared_ptr<iVoxelOperation>> _operationsQueue;
 
         /*! voxel operations queue mutex
         */
@@ -224,7 +224,7 @@ namespace Igor
 
         /*! queue of actions
         */
-        vector<iNodeFactory::iAction> _actionQueue;
+        std::vector<iNodeFactory::iAction> _actionQueue;
 
         /*! mutex to protect action queue
         */
@@ -256,11 +256,11 @@ namespace Igor
 
         /*! the voxel data
         */
-        vector<unordered_map<iaVector3I, iVoxelBlock*, iVectorHasher, iVectorEqualFn>> _voxelBlocks;
+        std::vector<std::unordered_map<iaVector3I, iVoxelBlock*, iVectorHasher, iVectorEqualFn>> _voxelBlocks;
 
         /*! map of voxel block IDs to voxel blocks
         */
-        map<uint64, iVoxelBlock*> _voxelBlocksMap;
+        std::map<uint64, iVoxelBlock*> _voxelBlocksMap;
 
         /*! next voxel block id
         */
@@ -268,7 +268,7 @@ namespace Igor
 
         /*! map of voxel blocks that have to be deleted
         */
-        vector<iVoxelBlock*> _voxelBlocksToDelete;
+        std::vector<iVoxelBlock*> _voxelBlocksToDelete;
 
         /*! keep observer position since last discovery
         */
@@ -290,7 +290,7 @@ namespace Igor
         */
         uint32 _lodTrigger = iNode::INVALID_NODE_ID;
 
-        void collectBlocksToDelete(iVoxelBlock* currentBlock, vector<iVoxelBlock*>& dst);
+        void collectBlocksToDelete(iVoxelBlock* currentBlock, std::vector<iVoxelBlock*>& dst);
 
         void setNeighboursDirty(iVoxelBlock* voxelBlock);
         void setInRange(iVoxelBlock* voxelBlock, bool inRange);
@@ -332,7 +332,7 @@ namespace Igor
         void update(iVoxelBlock* voxelBlock, iaVector3I observerPosition);
 
         void applyVoxelOperations();
-        void applyVoxelOperation(shared_ptr<iVoxelOperation> voxelOperation);
+        void applyVoxelOperation(std::shared_ptr<iVoxelOperation> voxelOperation);
 
         bool updateVisibility(iVoxelBlock* voxelBlock);
 

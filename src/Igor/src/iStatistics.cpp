@@ -72,7 +72,7 @@ namespace Igor
         _frame++;
     }
 
-    map<uint32, iStatisticsSection>& iStatistics::getSections()
+    std::map<uint32, iStatisticsSection>& iStatistics::getSections()
     {
         return _sections;
     }

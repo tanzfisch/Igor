@@ -39,7 +39,7 @@ using namespace IgorAux;
 
 #include <map>
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -89,7 +89,7 @@ namespace Igor
 
         /*! list of search paths
         */
-        vector<iaString> _searchPaths;
+        std::vector<iaString> _searchPaths;
 
         /*! does nothing
         */

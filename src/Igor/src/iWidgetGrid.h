@@ -31,7 +31,7 @@
 
 #include <iWidget.h>
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -107,7 +107,7 @@ namespace Igor
         {
             /*! list of widgets within one collumn
             */
-            vector<Field> _widgetCollumn;
+            std::vector<Field> _widgetCollumn;
         };
 
     public:
@@ -277,7 +277,7 @@ namespace Igor
 
         /*! the child widgets
         */
-        vector<GridCollumn> _widgetRows;
+        std::vector<GridCollumn> _widgetRows;
 
         /*! cellspacing within the grid
         */
@@ -364,7 +364,7 @@ namespace Igor
 
         \param offsets vector to be filled with childrens offsets
         */
-        void calcChildOffsets(vector<iRectanglei>& offsets);
+        void calcChildOffsets(std::vector<iRectanglei>& offsets);
 
         /*! ctor initializes member variables
         */

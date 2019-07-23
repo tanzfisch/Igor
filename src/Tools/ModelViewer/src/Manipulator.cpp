@@ -16,7 +16,6 @@
 #include <iMeshBuilderUtils.h>
 #include <iSceneFactory.h>
 #include <iNodeCamera.h>
-#include <iMesh.h>
 using namespace Igor;
 
 #include <iaConvert.h>
@@ -101,10 +100,10 @@ void Manipulator::init()
 	_cyan->setAmbient(iaColor3f(0.0f, 0.3f, 0.3f));
 	_cyan->setAlpha(0.8);
 
-	shared_ptr<iMesh> translateMesh = createTranslateMesh();
-	shared_ptr<iMesh> scaleMesh = createScaleMesh();	
-	shared_ptr<iMesh> ringMesh = createRingMesh();
-	shared_ptr<iMesh> ringMesh2D = create2DRingMesh();
+	iMeshPtr translateMesh = createTranslateMesh();
+	iMeshPtr scaleMesh = createScaleMesh();	
+	iMeshPtr ringMesh = createRingMesh();
+	iMeshPtr ringMesh2D = create2DRingMesh();
 
 	_rootTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 	_rootTransform->setActive(_visible);
@@ -147,7 +146,7 @@ void Manipulator::highlightSelected()
 				iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading));
 
 				iNodeMesh* meshNode = static_cast<iNodeMesh*>(node);
-				shared_ptr<iMeshBuffers> buffers = meshNode->getMeshBuffers();
+				std::shared_ptr<iMeshBuffers> buffers = meshNode->getMeshBuffers();
 				iRenderer::getInstance().setLineWidth(4);
 				iRenderer::getInstance().drawMesh(buffers);
 			}
@@ -161,7 +160,7 @@ void Manipulator::render()
 	highlightSelected();
 }
 
-void Manipulator::createRotateModifier(shared_ptr<iMesh>& ringMesh, shared_ptr<iMesh>& ringMesh2D)
+void Manipulator::createRotateModifier(iMeshPtr& ringMesh, iMeshPtr& ringMesh2D)
 {
 	_roateModifier = iNodeFactory::getInstance().createNode(iNodeType::iNode);
 	_switchNode->insertNode(_roateModifier);
@@ -212,7 +211,7 @@ void Manipulator::createRotateModifier(shared_ptr<iMesh>& ringMesh, shared_ptr<i
 	_rotateIDs.push_back(zRing->getID());
 }
 
-void Manipulator::createTranslateModifier(shared_ptr<iMesh>& translateMesh)
+void Manipulator::createTranslateModifier(iMeshPtr& translateMesh)
 {
 	_translateModifier = iNodeFactory::getInstance().createNode(iNodeType::iNode);
 	_switchNode->insertNode(_translateModifier);
@@ -251,7 +250,7 @@ void Manipulator::createTranslateModifier(shared_ptr<iMesh>& translateMesh)
 	_translateIDs.push_back(zUmbrella->getID());
 }
 
-void Manipulator::createScaleModifier(shared_ptr<iMesh>& scaleMesh)
+void Manipulator::createScaleModifier(iMeshPtr& scaleMesh)
 {
 	_scaleModifier = iNodeFactory::getInstance().createNode(iNodeType::iNode);
 	_switchNode->insertNode(_scaleModifier);
@@ -285,7 +284,7 @@ void Manipulator::createScaleModifier(shared_ptr<iMesh>& scaleMesh)
 	zCube->setTargetMaterial(_blue);
 	zTransform->insertNode(zCube);
 
-	shared_ptr<iMesh> cube = createCube();
+	iMeshPtr cube = createCube();
 
 	iNodeMesh* xyzCube = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
 	xyzCube->setMesh(cube);
@@ -366,7 +365,7 @@ bool Manipulator::isVisible() const
 	return _visible;
 }
 
-shared_ptr<iMesh> Manipulator::createRingMesh()
+iMeshPtr Manipulator::createRingMesh()
 {
 	iMeshBuilder meshBuilder;
 	iMeshBuilderUtils::addCylinder(meshBuilder, 1, 1, 64, false);
@@ -374,7 +373,7 @@ shared_ptr<iMesh> Manipulator::createRingMesh()
 	return meshBuilder.createMesh();
 }
 
-shared_ptr<iMesh> Manipulator::create2DRingMesh()
+iMeshPtr Manipulator::create2DRingMesh()
 {
 	iMeshBuilder meshBuilder;
 	iMeshBuilderUtils::addRing(meshBuilder, 0.99, 1, 64);
@@ -382,7 +381,7 @@ shared_ptr<iMesh> Manipulator::create2DRingMesh()
 	return meshBuilder.createMesh();
 }
 
-shared_ptr<iMesh> Manipulator::createScaleMesh()
+iMeshPtr Manipulator::createScaleMesh()
 {
 	iMeshBuilder meshBuilder;
 
@@ -401,7 +400,7 @@ shared_ptr<iMesh> Manipulator::createScaleMesh()
 	return meshBuilder.createMesh();
 }
 
-shared_ptr<iMesh> Manipulator::createCube()
+iMeshPtr Manipulator::createCube()
 {
 	iMeshBuilder meshBuilder;
 
@@ -414,7 +413,7 @@ shared_ptr<iMesh> Manipulator::createCube()
 	return meshBuilder.createMesh();
 }
 
-shared_ptr<iMesh> Manipulator::createTranslateMesh()
+iMeshPtr Manipulator::createTranslateMesh()
 {
 	iMeshBuilder meshBuilder;
 	meshBuilder.setJoinVertexes(false);

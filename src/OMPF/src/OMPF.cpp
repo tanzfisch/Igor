@@ -19,7 +19,7 @@ using namespace IgorAux;
 #include <ompfParticleSystemChunk.h>
 
 #include <iostream>
-using namespace std;
+
 
 #ifdef __IGOR_MSCOMPILER__
     #ifdef __IGOR_DEBUG__
@@ -107,7 +107,7 @@ namespace OMPF
 
     void OMPF::clearChunks()
     {
-        map<uint32, ompfBaseChunk*>::iterator iterChunk = _chunks.begin();
+        std::map<uint32, ompfBaseChunk*>::iterator iterChunk = _chunks.begin();
         while (iterChunk != _chunks.end())
         {
             delete (*iterChunk).second;
@@ -115,7 +115,7 @@ namespace OMPF
         }
         _chunks.clear();
 
-        vector<ompfMaterialChunk*>::iterator iterMat = _materialChunks.begin();
+        std::vector<ompfMaterialChunk*>::iterator iterMat = _materialChunks.begin();
         while (iterMat != _materialChunks.end())
         {
             delete (*iterMat);
@@ -191,9 +191,9 @@ namespace OMPF
         return _chunks[chunkID];
     }
 
-    bool OMPF::getNextChunk(ifstream& file, uint32& typeID, uint32& chunkSize)
+    bool OMPF::getNextChunk(std::ifstream& file, uint32& typeID, uint32& chunkSize)
     {
-        streampos pos = file.tellg();
+        std::streampos pos = file.tellg();
 
         uint64 value = 0;
         if (!iaSerializable::readUInt(file, value, _settings.getTypeIDSize()))
@@ -213,7 +213,7 @@ namespace OMPF
         return true;
     }
 
-    bool OMPF::analyze(ifstream& file)
+    bool OMPF::analyze(std::ifstream& file)
     {
         if (!_root->read(file, _settings))
         {
@@ -292,7 +292,7 @@ namespace OMPF
 
             default:
                 file.seekg(chunkSize, file.cur);
-                con_warn("skipped unknown chunk with TypeID 0x" << hex << static_cast<int>(typeID) << " and size " << dec << chunkSize << " byte");
+                con_warn("skipped unknown chunk with TypeID 0x" << std::hex << static_cast<int>(typeID) << " and size " << std::dec << chunkSize << " byte");
                 break;
             }
 
@@ -323,8 +323,8 @@ namespace OMPF
 
         reset();
 
-        ifstream file;
-        file.open(filename.getData(), ios_base::in | ios_base::binary);
+        std::ifstream file;
+        file.open(filename.getData(), std::ios_base::in | std::ios_base::binary);
 
         con_debug_endl("reading OMPF file: " << filename);
 
@@ -367,7 +367,7 @@ namespace OMPF
         }
     }
 
-    const vector<ompfMaterialChunk*>& OMPF::getMaterialChunks() const
+    const std::vector<ompfMaterialChunk*>& OMPF::getMaterialChunks() const
     {
         return _materialChunks;
     }
@@ -379,8 +379,8 @@ namespace OMPF
 
         con_assert(_root != nullptr, "can never be zero");
 
-        ofstream outfile;
-        outfile.open(filename.getData(), ios_base::out | ios_base::binary);
+        std::ofstream outfile;
+        outfile.open(filename.getData(), std::ios_base::out | std::ios_base::binary);
         if (!outfile.fail())
         {
             write(outfile, _root, nullptr);
@@ -398,7 +398,7 @@ namespace OMPF
         return _filepath;
     }
 
-    void OMPF::writeMaterials(ofstream& outfile)
+    void OMPF::writeMaterials(std::ofstream& outfile)
     {
         auto iter = _materialChunks.begin();
         while (iter != _materialChunks.end())
@@ -408,13 +408,13 @@ namespace OMPF
         }
     }
 
-    void OMPF::writeMaterial(ofstream& outfile, ompfMaterialChunk* materialChunk)
+    void OMPF::writeMaterial(std::ofstream& outfile, ompfMaterialChunk* materialChunk)
     {
         ompfBaseChunk* chunk = static_cast<ompfBaseChunk*>(materialChunk);
         chunk->write(outfile, _settings);
     }
 
-    void OMPF::write(ofstream& outfile, ompfBaseChunk* currentChunk, ompfBaseChunk* parentChunk)
+    void OMPF::write(std::ofstream& outfile, ompfBaseChunk* currentChunk, ompfBaseChunk* parentChunk)
     {
         if (parentChunk != nullptr)
         {
@@ -422,8 +422,8 @@ namespace OMPF
         }
         currentChunk->write(outfile, _settings);
 
-        const vector<ompfBaseChunk*>& children = currentChunk->getChildren();
-        vector<ompfBaseChunk*>::const_iterator iter = children.begin();
+        const std::vector<ompfBaseChunk*>& children = currentChunk->getChildren();
+        std::vector<ompfBaseChunk*>::const_iterator iter = children.begin();
 
         while (iter != children.end())
         {

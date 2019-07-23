@@ -36,7 +36,7 @@
 using namespace IgorAux;
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -487,7 +487,7 @@ namespace Igor
 
         /*! list of children
         */
-        vector<iWidget*> _children;
+        std::vector<iWidget*> _children;
 
         /*! flag if widget accepts drop
         */
@@ -792,7 +792,7 @@ namespace Igor
 
         \param offsets vector to be filled with childrens offsets
         */
-        virtual void calcChildOffsets(vector<iRectanglei>& offsets);
+        virtual void calcChildOffsets(std::vector<iRectanglei>& offsets);
 
 	};
 

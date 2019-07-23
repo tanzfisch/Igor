@@ -32,7 +32,7 @@
 #include <iaMutex.h>
 
 #include <vector>
-using namespace std;
+
 
 namespace IgorAux
 {

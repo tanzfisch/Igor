@@ -63,7 +63,7 @@ namespace Igor
         }
     }
 
-    vector<iBone*> iJoint::getChildren() const
+    std::vector<iBone*> iJoint::getChildren() const
     {
         return _childBones;
     }

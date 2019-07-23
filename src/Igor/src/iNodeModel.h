@@ -30,6 +30,7 @@
 #define __iMODELNODE__
 
 #include <iNode.h>
+#include <iModel.h>
 
 #include <iaString.h>
 #include <iaEvent.h>
@@ -39,7 +40,6 @@ namespace Igor
 {
 
 	class iModelData;
-    class iModel;
     struct iModelDataInputParameter;
 
     /*! event triggered when model was loaded
@@ -116,7 +116,7 @@ namespace Igor
 
         /*! shared poitner to requested model
         */
-		shared_ptr<iModel> _model = nullptr;
+		iModelPtr _model;
 
         /*! true if requested model was actually loaded and subtree created
         */

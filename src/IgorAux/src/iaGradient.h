@@ -38,7 +38,7 @@
 
 #include <vector>
 #include <algorithm>
-using namespace std;
+
 
 namespace IgorAux
 {
@@ -93,7 +93,7 @@ namespace IgorAux
 
         /*! \returns reference to values
         */
-        const vector<pair<float, T>>& getValues() const;
+        const std::vector<std::pair<float, T>>& getValues() const;
 
         /*! does nothing
         */
@@ -107,7 +107,7 @@ namespace IgorAux
 
         /*! the colors
         */
-        vector<pair<float, T>> _values;
+        std::vector<std::pair<float, T>> _values;
 
     };
 

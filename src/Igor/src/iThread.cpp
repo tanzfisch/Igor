@@ -55,7 +55,7 @@ namespace Igor
 	{
         _threadDelegate = threadDelegate;
 
-        _thread = new thread(threadFunc, (void*)this);
+        _thread = new std::thread(threadFunc, (void*)this);
 	}
 
     void iThread::join()

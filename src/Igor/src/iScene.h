@@ -40,7 +40,7 @@ using namespace IgorAux;
 
 #include<memory>
 #include<vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -107,13 +107,13 @@ namespace Igor
 
         /*! \returns list of registerred lights
         */
-        vector<iNodeLight*>& getLights();
+        std::vector<iNodeLight*>& getLights();
 
         /*! \returns list of renderables
 
         does only contain renderables that are not volumes
         */
-        vector<iNodeRender*>& getRenderables();
+        std::vector<iNodeRender*>& getRenderables();
 
         /*! registers delegate to added node event
 
@@ -198,27 +198,27 @@ namespace Igor
 
         /*! list of registered cameras to the scene
         */
-		vector<uint64> _cameras;
+		std::vector<uint64> _cameras;
 
         /*! list of registered lod triggers
         */
-        vector<iNodeLODTrigger*> _lodTriggers;
+        std::vector<iNodeLODTrigger*> _lodTriggers;
 
         /*! list of registered lod switches
         */
-        vector<iNodeLODSwitch*> _lodSwitches;
+        std::vector<iNodeLODSwitch*> _lodSwitches;
 
         /*! list of registered lights to the scene
         */
-        vector<iNodeLight*> _lights;
+        std::vector<iNodeLight*> _lights;
 
         /*! list of registered volumes to the scene
         */
-        vector<iNodeVolume*> _volumes;
+        std::vector<iNodeVolume*> _volumes;
 
         /*! list of registered renderables to the scene
         */
-        vector<iNodeRender*> _renderables;
+        std::vector<iNodeRender*> _renderables;
 
         /*! transformation update visitor
         */

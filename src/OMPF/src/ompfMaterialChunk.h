@@ -28,7 +28,7 @@
 #include <ompfBaseChunk.h>
 
 #include <vector>
-using namespace std;
+
 
 namespace OMPF
 {
@@ -204,7 +204,7 @@ namespace OMPF
 
         /*! list of shaders stored
         */
-        vector<Shader> _shaders;
+        std::vector<Shader> _shaders;
 
         /*! render states
         */
@@ -219,14 +219,14 @@ namespace OMPF
         \param file the file stream to write to
         \param settings ompf settings that apply for this export
         */
-        virtual bool write(ofstream& stream, const ompfSettings& settings);
+        virtual bool write(std::ofstream& stream, const ompfSettings& settings);
 
         /*! read data from file stream
 
         \param file the file stream to read from
         \param settings ompf settings that apply for this import
         */
-        virtual bool read(ifstream& stream, ompfSettings& settings);
+        virtual bool read(std::ifstream& stream, ompfSettings& settings);
 
 	};
 

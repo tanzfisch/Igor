@@ -40,7 +40,7 @@ namespace OMPF
         return _pathType;
     }
 
-    bool ompfResourceSearchPathChunk::write(ofstream& file, const ompfSettings& settings)
+    bool ompfResourceSearchPathChunk::write(std::ofstream& file, const ompfSettings& settings)
     {
         con_assert(_pathType != OMPFPathType::Undefined, "path type can't be undefined");
 
@@ -65,7 +65,7 @@ namespace OMPF
         return true;
     }
 
-    bool ompfResourceSearchPathChunk::read(ifstream& file, ompfSettings& settings)
+    bool ompfResourceSearchPathChunk::read(std::ifstream& file, ompfSettings& settings)
     {
 		if (!ompfBaseChunk::read(file, settings))
 		{

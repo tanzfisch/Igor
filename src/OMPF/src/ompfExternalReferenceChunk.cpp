@@ -27,7 +27,7 @@ namespace OMPF
         return static_cast<uint32>(_filename.getUTF8Size() + 2) + static_cast<uint32>(ompfBaseChunk::getSize(settings));
     }
 
-    bool ompfExternalReferenceChunk::write(ofstream& stream, const ompfSettings& settings)
+    bool ompfExternalReferenceChunk::write(std::ofstream& stream, const ompfSettings& settings)
     {
         if (!ompfBaseChunk::write(stream, settings))
         {
@@ -46,7 +46,7 @@ namespace OMPF
         return true;
     }
 
-    bool ompfExternalReferenceChunk::read(ifstream& stream, ompfSettings& settings)
+    bool ompfExternalReferenceChunk::read(std::ifstream& stream, ompfSettings& settings)
     {
 		if (!ompfBaseChunk::read(stream, settings))
 		{

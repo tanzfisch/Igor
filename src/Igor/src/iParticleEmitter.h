@@ -36,7 +36,7 @@
 using namespace IgorAux;
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -154,7 +154,7 @@ namespace Igor
 
         /*! mesh used as emitter
         */
-        vector<iEmitterTriangle> _emitterTriangles;
+        std::vector<iEmitterTriangle> _emitterTriangles;
 
         /*! world matrix of emitter
         */

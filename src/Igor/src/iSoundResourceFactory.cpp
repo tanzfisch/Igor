@@ -16,7 +16,7 @@
 namespace Igor
 {
 
-	vector<iSound*> listener_linked_sources; // liste der sourcen die sich mit dem listener mitbewegen
+	std::vector<iSound*> listener_linked_sources; // liste der sourcen die sich mit dem listener mitbewegen
 
 #ifdef __IGOR_DEBUG__
 #define AL_CHECK_ERROR()\
@@ -128,7 +128,7 @@ namespace Igor
 	buffer->filename = filename;
 	buffer->isdummy = true;
 
-	vector<char> char_buffer;
+	std::vector<char> char_buffer;
 	int endian = 0;             // 0 for Little-Endian, 1 for Big-Endian
 	int bitStream;
 	long bytes;
@@ -188,7 +188,7 @@ namespace Igor
 	{
 		if(!sound) return;
 
-		vector<iSound*>::iterator it;
+		std::vector<iSound*>::iterator it;
 
 		for(it=sounds.begin();it<sounds.end();it++)
 		{
@@ -199,7 +199,7 @@ namespace Igor
 					(*it)->buffer->refcount--;
 					if((*it)->buffer->refcount == 0)
 					{
-						vector<iSoundBuffer*>::iterator it_buffer;
+						std::vector<iSoundBuffer*>::iterator it_buffer;
 						for(it_buffer=buffers.begin();it_buffer!=buffers.end();++it_buffer)
 						{
 							if((*it_buffer) == (*it)->buffer)
@@ -225,7 +225,7 @@ namespace Igor
 
 	void iSoundResourceFactory::flush()
 	{
-		/*	vector<iSound*>::iterator it;pre
+		/*	std::vector<iSound*>::iterator it;pre
 
 		it = sounds.begin();
 		while(it != sounds.end())
@@ -343,7 +343,7 @@ namespace Igor
 
 	void iSound::unlinkFromListener()
 	{
-		vector<iSound*>::iterator it;
+		std::vector<iSound*>::iterator it;
 		for(it=listener_linked_sources.begin();it!=listener_linked_sources.end();it++)
 		{
 			if((*it) == this)
@@ -431,7 +431,7 @@ namespace Igor
 	{
 		if(soundid >= sounds.size()) return;
 
-		vector<iSound*>::iterator it;
+		std::vector<iSound*>::iterator it;
 		for(it=activesounds.begin();it!=activesounds.end();++it)
 		{
 			if((*it) == sounds[soundid])
@@ -448,7 +448,7 @@ namespace Igor
 	{
 		if(soundid >= sounds.size()) return;
 
-		vector<iSound*>::iterator it;
+		std::vector<iSound*>::iterator it;
 		for(it=activesounds.begin();it!=activesounds.end();++it)
 		{
 			if((*it) == sounds[soundid])

@@ -92,7 +92,7 @@ namespace Igor
 
         /*! list of selct box entries
         */
-        vector<pair<iaString, void*>> _entries;
+        std::vector<std::pair<iaString, void*>> _entries;
 
         /*! current selected index
 

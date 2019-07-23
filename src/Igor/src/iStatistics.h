@@ -39,7 +39,7 @@
 using namespace IgorAux;
 
 #include <map>
-using namespace std;
+
 
 namespace Igor
 {
@@ -90,7 +90,7 @@ namespace Igor
 
         be carefull to not change that list
         */
-        map<uint32, iStatisticsSection>& getSections();
+        std::map<uint32, iStatisticsSection>& getSections();
 
         /*! \returns current frame index
         */
@@ -104,7 +104,7 @@ namespace Igor
         
         /*! list of sections
         */
-        map<uint32, iStatisticsSection> _sections;
+        std::map<uint32, iStatisticsSection> _sections;
 
         /*! next section id
         */

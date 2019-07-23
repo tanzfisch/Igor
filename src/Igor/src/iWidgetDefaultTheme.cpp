@@ -249,7 +249,7 @@ namespace Igor
 		DRAW_DEBUG_OUTPUT(rect, state);
 	}
 
-	void iWidgetDefaultTheme::drawButton(const iRectanglei & rect, const iaString & text, iHorizontalAlignment align, iVerticalAlignment valign, shared_ptr<iTexture> texture, iWidgetAppearanceState state, bool active)
+	void iWidgetDefaultTheme::drawButton(const iRectanglei & rect, const iaString & text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iWidgetAppearanceState state, bool active)
 	{
 		const int32 reduction = 2;
 		int32 offset = 0;
@@ -481,7 +481,7 @@ namespace Igor
 		drawButton(buttonRect, "V", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, buttonState, active);
 	}
 
-	void iWidgetDefaultTheme::drawSelectBoxDropDown(const iRectanglei & rect, vector<iaString> & text, int highlightIndex, bool active)
+	void iWidgetDefaultTheme::drawSelectBoxDropDown(const iRectanglei & rect, std::vector<iaString> & text, int highlightIndex, bool active)
 	{
 		iRenderer::getInstance().setMaterial(_defaultMaterial);
 
@@ -598,7 +598,7 @@ namespace Igor
 		DRAW_DEBUG_OUTPUT(rect, iWidgetAppearanceState::Pressed);
 	}
 
-	void iWidgetDefaultTheme::drawGraphGridlines(const iRectanglei & rect, float32 lineWidth, const vector<iaVector2f> & verticalLines, const vector<iaVector2f> & horizontalLines, bool active)
+	void iWidgetDefaultTheme::drawGraphGridlines(const iRectanglei & rect, float32 lineWidth, const std::vector<iaVector2f> & verticalLines, const std::vector<iaVector2f> & horizontalLines, bool active)
 	{
 		if (lineWidth > 0.0)
 		{
@@ -629,7 +629,7 @@ namespace Igor
 		}
 	}
 
-	void iWidgetDefaultTheme::drawGraphLabels(const iRectanglei & rect, const vector<iaVector2f> & verticalLines, const vector<iaVector2f> & horizontalLines, bool active)
+	void iWidgetDefaultTheme::drawGraphLabels(const iRectanglei & rect, const std::vector<iaVector2f> & verticalLines, const std::vector<iaVector2f> & horizontalLines, bool active)
 	{
 		iRenderer::getInstance().setMaterial(_texturedMaterial);
 
@@ -678,7 +678,7 @@ namespace Igor
 		}
 	}
 
-	void iWidgetDefaultTheme::drawGraph(const iRectanglei & rect, const iaColor4f & lineColor, const iaColor4f & pointColor, float32 lineWidth, float32 pointSize, const vector<iaVector2f> & points)
+	void iWidgetDefaultTheme::drawGraph(const iRectanglei & rect, const iaColor4f & lineColor, const iaColor4f & pointColor, float32 lineWidth, float32 pointSize, const std::vector<iaVector2f> & points)
 	{
 		iaVector2f currentPoint;
 		iaVector2f lastPoint;
@@ -763,14 +763,14 @@ namespace Igor
 		DRAW_DEBUG_OUTPUT(rect, state);
 	}
 
-	void iWidgetDefaultTheme::drawTiledRectangle(const iRectanglei & rect, shared_ptr<iTexture> texture)
+	void iWidgetDefaultTheme::drawTiledRectangle(const iRectanglei & rect, iTexturePtr texture)
 	{
 		iRenderer::getInstance().setMaterial(_texturedMaterial);
 		iRenderer::getInstance().setColor(COLOR_WHITE);
 		iRenderer::getInstance().drawTextureTiled(static_cast<float32>(rect._x), static_cast<float32>(rect._y), static_cast<float32>(rect._width), static_cast<float32>(rect._height), texture);
 	}
 
-	void iWidgetDefaultTheme::drawPicture(const iRectanglei & rect, shared_ptr<iTexture> texture, iWidgetAppearanceState state, bool active)
+	void iWidgetDefaultTheme::drawPicture(const iRectanglei & rect, iTexturePtr texture, iWidgetAppearanceState state, bool active)
 	{
 		iRenderer::getInstance().setMaterial(_texturedMaterial);
 

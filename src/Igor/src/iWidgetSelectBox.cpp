@@ -13,7 +13,7 @@
 using namespace IgorAux;
 
 #include <sstream>
-using namespace std;
+
 
 namespace Igor
 {
@@ -128,7 +128,7 @@ namespace Igor
                 _selectBox->setX(getActualPosX() + 2);
                 _selectBox->setY(getActualPosY() + getActualHeight() + 2);
 
-                vector<iaString> entries;
+                std::vector<iaString> entries;
                 for (auto entry : _entries)
                 {
                     entries.push_back(entry.first);
@@ -203,7 +203,7 @@ namespace Igor
 
     void iWidgetSelectBox::addSelectionEntry(const iaString& entryText, void* userData)
     {
-        pair<iaString, void*> entry;
+        std::pair<iaString, void*> entry;
         entry.first = entryText;
         entry.second = userData;
         _entries.push_back(entry);

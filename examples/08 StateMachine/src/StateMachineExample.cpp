@@ -30,7 +30,7 @@ void StateMachineExample::init()
     con_endl("");
 
     // init some members
-    _menuEntries = vector<iaString>{ "Play", "Settings", "Help", "Credits", "Exit" };
+    _menuEntries = std::vector<iaString>{ "Play", "Settings", "Help", "Credits", "Exit" };
     
     // init essentials
     _view.setClearColor(iaColor4f(0.5f, 0.5f, 0.5f, 1.0f));

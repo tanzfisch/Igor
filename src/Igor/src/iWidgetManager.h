@@ -38,7 +38,7 @@
 #include <vector>
 #include <map>
 #include <deque>
-using namespace std;
+
 
 namespace Igor
 {
@@ -306,11 +306,11 @@ namespace Igor
 
         /*! registered widget types
         */
-        map<uint64, iInstanciateWidgetDelegate> _widgetTypes;
+        std::map<uint64, iInstanciateWidgetDelegate> _widgetTypes;
 
         /*! registered dialog types
         */
-        map<uint64, iInstanciateDialogDelegate> _dialogTypes;
+        std::map<uint64, iInstanciateDialogDelegate> _dialogTypes;
 
         /*! modal marker
         */
@@ -354,19 +354,19 @@ namespace Igor
 
         /*! list of all widgets
         */
-		map<uint64, iWidget*> _widgets;
+		std::map<uint64, iWidget*> _widgets;
 
         /*! list of all dialogs
         */
-        map<uint64, iDialog*> _dialogs;
+        std::map<uint64, iDialog*> _dialogs;
 
         /*! list of widgets to delete
         */
-        deque<iWidget*> _toDeleteWidgets;
+        std::deque<iWidget*> _toDeleteWidgets;
 
         /*! list of dialogs to delete
         */
-        deque<iDialog*> _toDeleteDialogs;
+        std::deque<iDialog*> _toDeleteDialogs;
 
         /*! current desktop width
         */

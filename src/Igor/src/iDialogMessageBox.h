@@ -142,7 +142,7 @@ namespace Igor
 
         /*! collect all widgets here so we can clean up faster later
         */
-        vector<iWidget*> _allWidgets;
+        std::vector<iWidget*> _allWidgets;
 
         /*! handles ok button clicked event
 

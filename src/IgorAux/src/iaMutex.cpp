@@ -5,14 +5,13 @@
 #include <iaMutex.h>
 
 #include <mutex>
-using namespace std;
 
 namespace IgorAux
 {
 
 	iaMutex::iaMutex()
 	{
-		m_handle = static_cast<iaMutexHandle>(new mutex());
+		m_handle = static_cast<iaMutexHandle>(new std::mutex());
 	}
 
 	iaMutex::~iaMutex()
@@ -25,12 +24,12 @@ namespace IgorAux
 
 	void iaMutex::lock()
 	{
-		static_cast<mutex*>(m_handle)->lock();
+		static_cast<std::mutex*>(m_handle)->lock();
 	}
 
 	void iaMutex::unlock()
 	{
-		static_cast<mutex*>(m_handle)->unlock();
+		static_cast<std::mutex*>(m_handle)->unlock();
 	}
 
 }

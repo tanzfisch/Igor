@@ -611,7 +611,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_60)
         {
             iaString foo("abc defg  hij kl");
-            vector<iaString> tokens;
+            std::vector<iaString> tokens;
             foo.split(" ", tokens);
 
             Assert::IsTrue(tokens.size() == 4);
@@ -628,7 +628,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_61)
         {
             iaString foo("abc de; fg  hij kl");
-            vector<iaString> tokens;
+            std::vector<iaString> tokens;
             foo.split("; ", tokens);
 
             Assert::IsTrue(tokens.size() == 5);
@@ -646,7 +646,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_62)
         {
             iaString foo("abc de; fg  hij kl");
-            vector<iaString> tokens;
+            std::vector<iaString> tokens;
             foo.split(" ;", tokens);
 
             Assert::IsTrue(tokens.size() == 5);
@@ -664,7 +664,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_63)
         {
             iaString foo("abc de; fg  hij kl");
-            vector<iaString> tokens;
+            std::vector<iaString> tokens;
             foo.split(" ;x", tokens);
 
             Assert::IsTrue(tokens.size() == 5);
@@ -682,7 +682,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_64)
         {
             iaString foo("abc");
-            vector<iaString> tokens;
+            std::vector<iaString> tokens;
             foo.split(" ;x", tokens);
 
             Assert::IsTrue(tokens.size() == 1);
@@ -1025,7 +1025,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_98)
         {
             iaString foo("1/2//4");
-            vector<iaString> tokens;
+            std::vector<iaString> tokens;
             foo.split("/", tokens, iaStringSplitMode::RetriveAllEmpties);
 
             Assert::IsTrue(tokens.size() == 4);
@@ -1042,7 +1042,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_99)
         {
             iaString foo("1/2/;4");
-            vector<iaString> tokens;
+            std::vector<iaString> tokens;
             foo.split(";/", tokens, iaStringSplitMode::RetriveAllEmpties);
 
             Assert::IsTrue(tokens.size() == 4);

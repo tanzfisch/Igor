@@ -47,7 +47,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString& sectionName, iModelDataI
     generateSkeleton(sentence);
     generateMesh(_skeleton.getRootJoint());
     
-    shared_ptr<iMesh> meshTrunk = _meshBuilderTrunk.createMesh();
+    iMeshPtr meshTrunk = _meshBuilderTrunk.createMesh();
 
     if (meshTrunk != nullptr)
     {
@@ -65,7 +65,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString& sectionName, iModelDataI
         result->insertNode(meshNodeTrunk);
     }
     
-    shared_ptr<iMesh> meshFlowers = _meshBuilderFlowers.createMesh();
+    iMeshPtr meshFlowers = _meshBuilderFlowers.createMesh();
 
     if (meshFlowers != nullptr)
     {
@@ -83,7 +83,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString& sectionName, iModelDataI
         result->insertNode(meshNodeFlowers);
     }
     
-    shared_ptr<iMesh> meshBuds = _meshBuilderBuds.createMesh();
+    iMeshPtr meshBuds = _meshBuilderBuds.createMesh();
 
     if (meshBuds != nullptr)
     {
@@ -102,7 +102,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString& sectionName, iModelDataI
     }
 
     _meshBuilderLeaves.calcNormals();
-    shared_ptr<iMesh> meshLeafs = _meshBuilderLeaves.createMesh();
+    iMeshPtr meshLeafs = _meshBuilderLeaves.createMesh();
 
     if (meshLeafs != nullptr)
     {
@@ -130,7 +130,7 @@ void PlantMeshGenerator::generateMesh(iJoint* joint)
         iaMatrixf matrixRotate;
         iaMatrixf saveModelMatrix;
 
-        vector<iBone*> children = joint->getChildren();
+        std::vector<iBone*> children = joint->getChildren();
         for (auto bone : children)
         {
             saveModelMatrix = _modelMatrix;

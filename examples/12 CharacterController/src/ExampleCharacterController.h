@@ -146,7 +146,7 @@ private:
 
     /*! igor logo
     */
-    shared_ptr<iTexture> _igorLogo = nullptr;
+    iTexturePtr _igorLogo = nullptr;
 
     int64 _terrainMaterialID = 0;
     int64 _entityMaterialID = 0;

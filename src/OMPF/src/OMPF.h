@@ -34,7 +34,7 @@ using namespace IgorAux;
 
 #include <map>
 #include <fstream>
-using namespace std;
+
 
 namespace OMPF
 {
@@ -135,7 +135,7 @@ namespace OMPF
 
         /*! \returns list of materials
         */
-        const vector<ompfMaterialChunk*>& getMaterialChunks() const;
+        const std::vector<ompfMaterialChunk*>& getMaterialChunks() const;
 
         /*! \returns the directory of the file we want to load or save
 
@@ -159,7 +159,7 @@ namespace OMPF
 
         \param file stream handle
         */
-        bool analyze(ifstream& file);
+        bool analyze(std::ifstream& file);
 
         /*! reads the next few bytes (depends on configuration) to detect the beginning of a new chunk
 
@@ -167,7 +167,7 @@ namespace OMPF
         \param typeID suspected type Id (in out)
         \param chunkSize suspected chunk size (in out)
         */
-        bool getNextChunk(ifstream& file, uint32& typeID, uint32& chunkSize);
+        bool getNextChunk(std::ifstream& file, uint32& typeID, uint32& chunkSize);
 
         /*! write recursive to file
 
@@ -176,20 +176,20 @@ namespace OMPF
         \param currentChunk current chunk during traversation
         \param parentChunk parent of the current
         */
-		void write(ofstream& outfile, ompfBaseChunk* currentChunk, ompfBaseChunk* parentChunk);
+		void write(std::ofstream& outfile, ompfBaseChunk* currentChunk, ompfBaseChunk* parentChunk);
 
         /*! write all the registered materials to stream
 
         \param outfile the stream to write to
         */
-        void writeMaterials(ofstream& outfile);
+        void writeMaterials(std::ofstream& outfile);
 
         /*! write a material to file stream
 
         \param outfile output stream
         \param materialChunk material chunk to write
         */
-        void writeMaterial(ofstream& outfile, ompfMaterialChunk* materialChunk);
+        void writeMaterial(std::ofstream& outfile, ompfMaterialChunk* materialChunk);
 
         /*! \returns chunk by given ID
 
@@ -211,11 +211,11 @@ namespace OMPF
 		
         /*! map with all the chunks
         */
-        map<uint32, ompfBaseChunk*> _chunks;
+        std::map<uint32, ompfBaseChunk*> _chunks;
 
         /*! list of material chunks
         */
-        vector<ompfMaterialChunk*> _materialChunks;
+        std::vector<ompfMaterialChunk*> _materialChunks;
         
         /*! internal counter for chunk IDs
         */

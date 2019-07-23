@@ -63,7 +63,7 @@ private:
     iWidgetLabel* _labelFilename = nullptr;
     iWidgetTextEdit* _textFilename = nullptr;
 
-    vector<iWidget*> _allWidgets;
+    std::vector<iWidget*> _allWidgets;
 
     uint32 _nodeId = 0;
 

@@ -30,19 +30,17 @@
 #define __iWIDGETCOLOR__
 
 #include <iWidget.h>
+#include <iTexture.h>
 
 #include <iaString.h>
 #include <iaColor4.h>
 using namespace IgorAux;
 
 #include <memory>
-using namespace std;
 
 namespace Igor
 {
-
-    class iTexture;
-
+	
     /*! color view widget
 
     Example:
@@ -75,7 +73,7 @@ namespace Igor
 
         /*! shared pointer to background texture
         */
-        shared_ptr<iTexture> _texture = nullptr;
+        iTexturePtr _texture;
 
         /*! updates size based on it's content
         */

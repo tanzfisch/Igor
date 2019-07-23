@@ -74,9 +74,9 @@ private:
 
     iWidget* _rootWidget = nullptr;
     iWidgetGrid* _gridGraph = nullptr;
-    vector<iWidget*> _allWidgets;
-    vector<iWidget*> _gridEntryWidgets;
-	vector<uint32*> _userData;
+    std::vector<iWidget*> _allWidgets;
+    std::vector<iWidget*> _gridEntryWidgets;
+	std::vector<uint32*> _userData;
 
 	uint32 _selectedMaterial = 0;
 

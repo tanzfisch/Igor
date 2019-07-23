@@ -38,7 +38,7 @@ using namespace IgorAux;
 
 #include <vector>
 #include <memory>
-using namespace std;
+
 
 namespace Igor
 {
@@ -137,7 +137,7 @@ namespace Igor
 
         /*! \returns all shader sources that where added before
         */
-        vector<iShaderSource> getShaderSources() const;
+        std::vector<iShaderSource> getShaderSources() const;
 
         /*! compiles the shader including all added sources
         */
@@ -281,7 +281,7 @@ namespace Igor
 
         /*! shader sources
         */
-        vector<iShaderSource> _shaderSources;
+        std::vector<iShaderSource> _shaderSources;
 
         /*! render states set
         */
@@ -325,7 +325,7 @@ namespace Igor
 
     /*! definition of material pointer
     */
-    typedef shared_ptr<iMaterial> iMaterialPtr;
+    typedef std::shared_ptr<iMaterial> iMaterialPtr;
 
 }
 

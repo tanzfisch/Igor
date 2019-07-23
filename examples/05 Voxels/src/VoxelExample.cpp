@@ -261,10 +261,10 @@ void VoxelExample::generateVoxelData()
     const float32 coreOffset = (1.0f - coreSize) * 0.5f;
 
     // define some metaballs
-    vector<pair<iaVector3f, float32>> metaballs;
+    std::vector<std::pair<iaVector3f, float32>> metaballs;
     for (int i = 0; i < 20; ++i)
     {
-        metaballs.push_back(pair<iaVector3f, float32>(iaVector3f(
+        metaballs.push_back(std::pair<iaVector3f, float32>(iaVector3f(
             _rand.getNext() % static_cast<int>(_voxelData->getWidth() * coreSize) + (_voxelData->getWidth() * coreOffset),
             _rand.getNext() % static_cast<int>(_voxelData->getHeight() * coreSize) + (_voxelData->getHeight() * coreOffset),
             _rand.getNext() % static_cast<int>(_voxelData->getDepth()*coreSize) + (_voxelData->getDepth() * coreOffset)),

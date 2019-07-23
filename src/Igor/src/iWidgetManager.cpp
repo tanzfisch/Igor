@@ -184,7 +184,7 @@ namespace Igor
 	void iWidgetManager::onKeyDown(iKeyCode key)
 	{
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
-		map<uint64, iDialog*> dialogs = _dialogs;
+		std::map<uint64, iDialog*> dialogs = _dialogs;
 
 		for (auto dialog : dialogs)
 		{
@@ -215,7 +215,7 @@ namespace Igor
 	void iWidgetManager::onKeyUp(iKeyCode key)
 	{
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
-		map<uint64, iDialog*> dialogs = _dialogs;
+		std::map<uint64, iDialog*> dialogs = _dialogs;
 
 		for (auto dialog : dialogs)
 		{
@@ -246,7 +246,7 @@ namespace Igor
 	void iWidgetManager::onMouseKeyDown(iKeyCode key)
 	{
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
-		map<uint64, iDialog*> dialogs = _dialogs;
+		std::map<uint64, iDialog*> dialogs = _dialogs;
 
 		for (auto dialog : dialogs)
 		{
@@ -278,7 +278,7 @@ namespace Igor
 	void iWidgetManager::onMouseKeyUp(iKeyCode key)
 	{
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
-		map<uint64, iDialog*> dialogs = _dialogs;
+		std::map<uint64, iDialog*> dialogs = _dialogs;
 
 		for (auto dialog : dialogs)
 		{
@@ -308,7 +308,7 @@ namespace Igor
 	void iWidgetManager::onMouseDoubleClick(iKeyCode key)
 	{
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
-		map<uint64, iDialog*> dialogs = _dialogs;
+		std::map<uint64, iDialog*> dialogs = _dialogs;
 
 		for (auto dialog : dialogs)
 		{
@@ -339,7 +339,7 @@ namespace Igor
 	void iWidgetManager::onMouseMove(const iaVector2i & from, const iaVector2i & to, iWindow * window)
 	{
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
-		map<uint64, iDialog*> dialogs = _dialogs;
+		std::map<uint64, iDialog*> dialogs = _dialogs;
 
 		for (auto dialog : dialogs)
 		{
@@ -362,7 +362,7 @@ namespace Igor
 	void iWidgetManager::onMouseWheel(int32 d)
 	{
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
-		map<uint64, iDialog*> dialogs = _dialogs;
+		std::map<uint64, iDialog*> dialogs = _dialogs;
 
 		for (auto dialog : dialogs)
 		{
@@ -393,7 +393,7 @@ namespace Igor
 	void iWidgetManager::onASCII(const char c)
 	{
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
-		map<uint64, iDialog*> dialogs = _dialogs;
+		std::map<uint64, iDialog*> dialogs = _dialogs;
 
 		for (auto dialog : dialogs)
 		{
@@ -441,7 +441,7 @@ namespace Igor
 			widget->updateAlignment(clientRectWidth, clientRectHeight);
 			widget->updatePosition(offsetX, offsetY);
 
-			vector<iRectanglei> offsets;
+			std::vector<iRectanglei> offsets;
 			widget->calcChildOffsets(offsets);
 
 			con_assert(offsets.size() == widget->_children.size(), "inconsistant data");

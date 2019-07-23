@@ -103,7 +103,7 @@ namespace Igor
 
         /*! all widgets
         */
-        vector<iWidget*> _allWidgets;
+        std::vector<iWidget*> _allWidgets;
 
         /*! updates gui part if selection changed
         */

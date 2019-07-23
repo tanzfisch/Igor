@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
-__IGOR_INLINE__ shared_ptr<iTexture> iSprite::getTexture() const
+__IGOR_INLINE__ iTexturePtr iSprite::getTexture() const
 {
     return _texture;
 }

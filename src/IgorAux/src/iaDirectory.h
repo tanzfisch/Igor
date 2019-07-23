@@ -33,7 +33,7 @@
 #include <iaString.h>
 
 #include <vector>
-using namespace std;
+
 
 namespace IgorAux
 {
@@ -83,14 +83,14 @@ namespace IgorAux
         \param searchPattern what to search for
         \param recursive true: search recursively; false: search only in current directory
         */
-		vector<iaDirectory> getDirectorys(iaString searchPattern = L"*", bool recursive = false);
+		std::vector<iaDirectory> getDirectorys(iaString searchPattern = L"*", bool recursive = false);
 
 		/*! \returns all files
 
         \param searchPattern what to search for
         \param recursive true: search recursively; false: search only in current directory
         */
-		vector<iaFile> getFiles(iaString searchPattern = L"*", bool recursive = false);
+		std::vector<iaFile> getFiles(iaString searchPattern = L"*", bool recursive = false);
 
         /*! set's the current or working directory
 
@@ -151,7 +151,7 @@ namespace IgorAux
         \param searchPattern what to search for
         \param recursive true: proceed recursively; false: proceed for current directory
         */
-        vector<iaFile> getFilesRecursive(const iaString &directory, const iaString &searchPattern = L"", const bool recursive = false);
+        std::vector<iaFile> getFilesRecursive(const iaString &directory, const iaString &searchPattern = L"", const bool recursive = false);
 
         /*! internal recursive implementation of getDirectorys
 
@@ -159,7 +159,7 @@ namespace IgorAux
         \param searchPattern what to search for
         \param recursive true: proceed recursively; false: proceed for current directory
         */
-        vector<iaDirectory> getDirectorysRecursive(const iaString &directory, const iaString &searchPattern = L"", const bool recursive = false);
+        std::vector<iaDirectory> getDirectorysRecursive(const iaString &directory, const iaString &searchPattern = L"", const bool recursive = false);
 
 	};
 

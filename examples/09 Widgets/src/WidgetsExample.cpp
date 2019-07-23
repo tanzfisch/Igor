@@ -277,7 +277,7 @@ void WidgetsExample::initGUI()
     _allWidgets.push_back(graph);
     graph->setSize(300, 50);
 
-    vector<iaVector2f> points;
+    std::vector<iaVector2f> points;
     points.push_back(iaVector2f(0.0f, 0.2f));
     points.push_back(iaVector2f(0.2f, 0.4f));
     points.push_back(iaVector2f(0.3f, 0.5f));
@@ -291,7 +291,7 @@ void WidgetsExample::initGUI()
     graph->setPointSize(0, 4.0f);
     graph->setLineWidth(0, 2.0f);
 
-    vector<iaVector2f> points2;
+    std::vector<iaVector2f> points2;
     points2.push_back(iaVector2f(0.2f, 0.5f));
     points2.push_back(iaVector2f(0.3f, 0.3f));
     points2.push_back(iaVector2f(0.4f, 0.2f));
@@ -305,7 +305,7 @@ void WidgetsExample::initGUI()
     graph->setPointSize(1, 4.0f);
     graph->setLineWidth(1, 2.0f);
 
-    vector<iaVector2f> points3;
+    std::vector<iaVector2f> points3;
     points3.push_back(iaVector2f(0.0f, 0.9f));
     points3.push_back(iaVector2f(0.1f, 0.5f));
     points3.push_back(iaVector2f(0.2f, 0.6f));

@@ -37,7 +37,7 @@
 #include <iaGradient.h>
 
 #include <iostream>
-using namespace std;
+
 
 namespace IgorAux
 {
@@ -57,7 +57,7 @@ namespace IgorAux
         \param value value to write
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool writeUInt8(ofstream& stream, uint8 value);
+        static __IGOR_INLINE__ bool writeUInt8(std::ofstream& stream, uint8 value);
 
         /*! reads uint8 value from stream
 
@@ -65,7 +65,7 @@ namespace IgorAux
         \param value value to write
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool readUInt8(ifstream& stream, uint8& value);
+        static __IGOR_INLINE__ bool readUInt8(std::ifstream& stream, uint8& value);
 
         /*! writes int8 value to stream
 
@@ -73,7 +73,7 @@ namespace IgorAux
         \param value value to write
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool writeInt8(ofstream& stream, int8 value);
+        static __IGOR_INLINE__ bool writeInt8(std::ofstream& stream, int8 value);
 
         /*! reads int8 value from stream
 
@@ -81,7 +81,7 @@ namespace IgorAux
         \param value value to write
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool readInt8(ifstream& stream, int8& value);
+        static __IGOR_INLINE__ bool readInt8(std::ifstream& stream, int8& value);
 
         /*! writes uint16 value to stream
 
@@ -89,7 +89,7 @@ namespace IgorAux
         \param value value to write
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool writeUInt16(ofstream& stream, uint16 value);
+        static __IGOR_INLINE__ bool writeUInt16(std::ofstream& stream, uint16 value);
 
         /*! reads uint16 value from stream
 
@@ -97,7 +97,7 @@ namespace IgorAux
         \param value value to write
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool readUInt16(ifstream& stream, uint16& value);
+        static __IGOR_INLINE__ bool readUInt16(std::ifstream& stream, uint16& value);
 
         /*! writes int16 value to stream
 
@@ -105,7 +105,7 @@ namespace IgorAux
         \param value value to write
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool writeInt16(ofstream& stream, int16 value);
+        static __IGOR_INLINE__ bool writeInt16(std::ofstream& stream, int16 value);
 
         /*! reads int16 value from stream
 
@@ -113,7 +113,7 @@ namespace IgorAux
         \param value value to write
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool readInt16(ifstream& stream, int16& value);
+        static __IGOR_INLINE__ bool readInt16(std::ifstream& stream, int16& value);
 
         /*! writes uint32 value to stream
 
@@ -121,7 +121,7 @@ namespace IgorAux
         \param value value to write
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool writeUInt32(ofstream& stream, uint32 value);
+        static __IGOR_INLINE__ bool writeUInt32(std::ofstream& stream, uint32 value);
 
         /*! reads uint32 value from stream
 
@@ -129,7 +129,7 @@ namespace IgorAux
         \param value value to write
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool readUInt32(ifstream& stream, uint32& value);
+        static __IGOR_INLINE__ bool readUInt32(std::ifstream& stream, uint32& value);
 
         /*! writes int32 value to stream
 
@@ -137,7 +137,7 @@ namespace IgorAux
         \param value value to write
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool writeInt32(ofstream& stream, int32 value);
+        static __IGOR_INLINE__ bool writeInt32(std::ofstream& stream, int32 value);
 
         /*! reads int32 value from stream
 
@@ -145,7 +145,7 @@ namespace IgorAux
         \param value value to write
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool readInt32(ifstream& stream, int32& value);
+        static __IGOR_INLINE__ bool readInt32(std::ifstream& stream, int32& value);
 
         /*! writes uint64 value to stream
 
@@ -153,7 +153,7 @@ namespace IgorAux
         \param value value to write
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool writeUInt64(ofstream& stream, uint64 value);
+        static __IGOR_INLINE__ bool writeUInt64(std::ofstream& stream, uint64 value);
 
         /*! reads uint64 value from stream
 
@@ -161,7 +161,7 @@ namespace IgorAux
         \param value value to write
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool readUInt64(ifstream& stream, uint64& value);
+        static __IGOR_INLINE__ bool readUInt64(std::ifstream& stream, uint64& value);
 
         /*! writes int64 value to stream
 
@@ -169,7 +169,7 @@ namespace IgorAux
         \param value value to write
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool writeInt64(ofstream& stream, int64 value);
+        static __IGOR_INLINE__ bool writeInt64(std::ofstream& stream, int64 value);
 
         /*! reads int64 value from stream
 
@@ -177,7 +177,7 @@ namespace IgorAux
         \param value value to write
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool readInt64(ifstream& stream, int64& value);
+        static __IGOR_INLINE__ bool readInt64(std::ifstream& stream, int64& value);
 
         /*! writes float32 value to stream
 
@@ -185,7 +185,7 @@ namespace IgorAux
         \param value value to write
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool writeFloat32(ofstream& stream, float32 value);
+        static __IGOR_INLINE__ bool writeFloat32(std::ofstream& stream, float32 value);
 
         /*! reads float32 value from stream
 
@@ -193,7 +193,7 @@ namespace IgorAux
         \param value value to write
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool readFloat32(ifstream& stream, float32& value);
+        static __IGOR_INLINE__ bool readFloat32(std::ifstream& stream, float32& value);
 
         /*! writes float64 value to stream
 
@@ -201,7 +201,7 @@ namespace IgorAux
         \param value value to write
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool writeFloat64(ofstream& stream, float64 value);
+        static __IGOR_INLINE__ bool writeFloat64(std::ofstream& stream, float64 value);
 
         /*! reads float64 value from stream
 
@@ -209,7 +209,7 @@ namespace IgorAux
         \param value value to write
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool readFloat64(ifstream& stream, float64& value);
+        static __IGOR_INLINE__ bool readFloat64(std::ifstream& stream, float64& value);
 
         /*! writes unsigned integer value with specified lenght to stream
 
@@ -218,7 +218,7 @@ namespace IgorAux
         \param bytes bytes to write count
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool writeUInt(ofstream& stream, uint64 value, uint8 bytes);
+        static __IGOR_INLINE__ bool writeUInt(std::ofstream& stream, uint64 value, uint8 bytes);
 
         /*! reads unsigned integer value with specified lenght from stream
 
@@ -227,7 +227,7 @@ namespace IgorAux
         \param bytes bytes to read count
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool readUInt(ifstream& stream, uint64& value, uint8 bytes);
+        static __IGOR_INLINE__ bool readUInt(std::ifstream& stream, uint64& value, uint8 bytes);
 
         /*! writes integer value with specified lenght to stream
 
@@ -236,7 +236,7 @@ namespace IgorAux
         \param bytes bytes to write count
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool writeInt(ofstream& stream, int64 value, uint8 bytes);
+        static __IGOR_INLINE__ bool writeInt(std::ofstream& stream, int64 value, uint8 bytes);
 
         /*! reads integer value with specified lenght from stream
 
@@ -245,7 +245,7 @@ namespace IgorAux
         \param bytes bytes to read count
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool readInt(ifstream& stream, int64& value, uint8 bytes);
+        static __IGOR_INLINE__ bool readInt(std::ifstream& stream, int64& value, uint8 bytes);
 
         /*! writes buffer with specified lenght to stream
 
@@ -254,7 +254,7 @@ namespace IgorAux
         \param bytes bytes to write count
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool write(ofstream& stream, const char* buffer, uint32 bytes);
+        static __IGOR_INLINE__ bool write(std::ofstream& stream, const char* buffer, uint32 bytes);
 
         /*! reads buffer with specified lenght from stream
 
@@ -263,7 +263,7 @@ namespace IgorAux
         \param bytes bytes to read count
         \returns true if successfull
         */
-        static __IGOR_INLINE__ bool read(ifstream& stream, char* buffer, uint32 bytes);
+        static __IGOR_INLINE__ bool read(std::ifstream& stream, char* buffer, uint32 bytes);
 
         /*! writes UTF8 encoded string in to stream
 
@@ -271,7 +271,7 @@ namespace IgorAux
         \param value the string to write
         \returns true if successfull
         */
-        static bool writeUTF8(ofstream& stream, const iaString& value);
+        static bool writeUTF8(std::ofstream& stream, const iaString& value);
 
         /*! reads UTF8 encoded string from stream
 
@@ -279,7 +279,7 @@ namespace IgorAux
         \param value the string to read
         \returns true if successfull
         */
-        static bool readUTF8(ifstream& stream, iaString& value);
+        static bool readUTF8(std::ifstream& stream, iaString& value);
 
         /*! writes a color3f to stream
 
@@ -287,7 +287,7 @@ namespace IgorAux
         \param value output color
         \returns true if successfull
         */
-        static bool write(ofstream& stream, const iaColor3f& value);
+        static bool write(std::ofstream& stream, const iaColor3f& value);
 
         /*! reads a color3f from stream
 
@@ -295,7 +295,7 @@ namespace IgorAux
         \param value destination color
         \returns true if successfull
         */
-        static bool read(ifstream& stream, iaColor3f& value);
+        static bool read(std::ifstream& stream, iaColor3f& value);
 
         /*! writes a color3c to stream
 
@@ -303,7 +303,7 @@ namespace IgorAux
         \param value output color
         \returns true if successfull
         */
-        static bool write(ofstream& stream, const iaColor3c& value);
+        static bool write(std::ofstream& stream, const iaColor3c& value);
 
         /*! reads a color3c from stream
 
@@ -311,7 +311,7 @@ namespace IgorAux
         \param value destination color
         \returns true if successfull
         */
-        static bool read(ifstream& stream, iaColor3c& value);
+        static bool read(std::ifstream& stream, iaColor3c& value);
 
         /*! writes a color4f to stream
 
@@ -319,7 +319,7 @@ namespace IgorAux
         \param value output color
         \returns true if successfull
         */
-        static bool write(ofstream& stream, const iaColor4f& value);
+        static bool write(std::ofstream& stream, const iaColor4f& value);
 
         /*! reads a color4f from stream
 
@@ -327,7 +327,7 @@ namespace IgorAux
         \param value destination color
         \returns true if successfull
         */
-        static bool read(ifstream& stream, iaColor4f& value);
+        static bool read(std::ifstream& stream, iaColor4f& value);
 
         /*! writes a vector2f to stream
 
@@ -335,7 +335,7 @@ namespace IgorAux
         \param value output vector
         \returns true if successfull
         */
-        static bool write(ofstream& stream, const iaVector2f& value);
+        static bool write(std::ofstream& stream, const iaVector2f& value);
 
         /*! reads a vector2f from stream
 
@@ -343,7 +343,7 @@ namespace IgorAux
         \param value destination vector
         \returns true if successfull
         */
-        static bool read(ifstream& stream, iaVector2f& value);
+        static bool read(std::ifstream& stream, iaVector2f& value);
 
         /*! writes a vector3f to stream
 
@@ -351,7 +351,7 @@ namespace IgorAux
         \param value output vector
         \returns true if successfull
         */
-        static bool write(ofstream& stream, const iaVector3f& value);
+        static bool write(std::ofstream& stream, const iaVector3f& value);
 
         /*! reads a vector3f from stream
 
@@ -359,7 +359,7 @@ namespace IgorAux
         \param value destination vector
         \returns true if successfull
         */
-        static bool read(ifstream& stream, iaVector3f& value);
+        static bool read(std::ifstream& stream, iaVector3f& value);
 
         /*! writes a vector4f to stream
 
@@ -367,7 +367,7 @@ namespace IgorAux
         \param value output vector
         \returns true if successfull
         */
-        static bool write(ofstream& stream, const iaVector4f& value);
+        static bool write(std::ofstream& stream, const iaVector4f& value);
 
         /*! reads a vector4f from stream
 
@@ -375,14 +375,14 @@ namespace IgorAux
         \param value destination vector
         \returns true if successfull
         */
-        static bool read(ifstream& stream, iaVector4f& value);
+        static bool read(std::ifstream& stream, iaVector4f& value);
         
         /*! write float32 gradient to stream
 
         \param stream output stream
         \param value gradient to write
         */
-        static bool write(ofstream& stream, const iaGradientf& value);
+        static bool write(std::ofstream& stream, const iaGradientf& value);
 
         /*! reads a float32 gradient from stream
 
@@ -390,14 +390,14 @@ namespace IgorAux
         \param value destination gradient
         \returns true if successfull
         */
-        static bool read(ifstream& stream, iaGradientf& value);
+        static bool read(std::ifstream& stream, iaGradientf& value);
 
         /*! write uint32 gradient to stream
 
         \param stream output stream
         \param value gradient to write
         */
-        static bool write(ofstream& stream, const iaGradientui& value);
+        static bool write(std::ofstream& stream, const iaGradientui& value);
 
         /*! reads a uint32 gradient from stream
 
@@ -405,14 +405,14 @@ namespace IgorAux
         \param value destination gradient
         \returns true if successfull
         */
-        static bool read(ifstream& stream, iaGradientui& value);
+        static bool read(std::ifstream& stream, iaGradientui& value);
 
         /*! write float32 3d vector gradient to stream
 
         \param stream output stream
         \param value gradient to write
         */
-        static bool write(ofstream& stream, const iaGradientVector3f& value);
+        static bool write(std::ofstream& stream, const iaGradientVector3f& value);
 
         /*! reads a float32 3d vector gradient from stream
 
@@ -420,14 +420,14 @@ namespace IgorAux
         \param value destination gradient
         \returns true if successfull
         */
-        static bool read(ifstream& stream, iaGradientVector3f& value);
+        static bool read(std::ifstream& stream, iaGradientVector3f& value);
 
         /*! write float32 2d vector gradient to stream
 
         \param stream output stream
         \param value gradient to write
         */
-        static bool write(ofstream& stream, const iaGradientVector2f& value);
+        static bool write(std::ofstream& stream, const iaGradientVector2f& value);
 
         /*! reads a float32 2d vector gradient from stream
 
@@ -435,14 +435,14 @@ namespace IgorAux
         \param value destination gradient
         \returns true if successfull
         */
-        static bool read(ifstream& stream, iaGradientVector2f& value);
+        static bool read(std::ifstream& stream, iaGradientVector2f& value);
 
         /*! write float32 color gradient to stream
 
         \param stream output stream
         \param value gradient to write
         */
-        static bool write(ofstream& stream, const iaGradientColor4f& value);
+        static bool write(std::ofstream& stream, const iaGradientColor4f& value);
 
         /*! reads a float32 color gradient from stream
 
@@ -450,7 +450,7 @@ namespace IgorAux
         \param value destination gradient
         \returns true if successfull
         */
-        static bool read(ifstream& stream, iaGradientColor4f& value);
+        static bool read(std::ifstream& stream, iaGradientColor4f& value);
 
     };
 

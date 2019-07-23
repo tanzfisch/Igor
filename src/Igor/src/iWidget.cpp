@@ -298,7 +298,7 @@ namespace Igor
 		{
 			if (_isMouseOver)
 			{
-				vector<iWidget*> widgets = _children;
+				std::vector<iWidget*> widgets = _children;
 				bool result = false;
 
 				for (auto widget : widgets)
@@ -338,7 +338,7 @@ namespace Igor
 		{
 			if (_isMouseOver)
 			{
-				vector<iWidget*> widgets = _children;
+				std::vector<iWidget*> widgets = _children;
 				bool result = false;
 
 				for (auto widget : widgets)
@@ -374,7 +374,7 @@ namespace Igor
 		{
 			if (_isMouseOver)
 			{
-				vector<iWidget*> widgets = _children;
+				std::vector<iWidget*> widgets = _children;
 				bool result = false;
 
 				for (auto widget : widgets)
@@ -445,7 +445,7 @@ namespace Igor
 		{
 			if (_isMouseOver)
 			{
-				vector<iWidget*> widgets = _children;
+				std::vector<iWidget*> widgets = _children;
 				bool result = false;
 
 				for (auto widget : widgets)
@@ -478,7 +478,7 @@ namespace Igor
 	{
 		if (isActive())
 		{
-			vector<iWidget*> widgets = _children;
+			std::vector<iWidget*> widgets = _children;
 
 			for (auto widget : widgets)
 			{
@@ -495,7 +495,7 @@ namespace Igor
 	{
 		if (isActive())
 		{
-			vector<iWidget*> widgets = _children;
+			std::vector<iWidget*> widgets = _children;
 
 			for (auto widget : widgets)
 			{
@@ -512,7 +512,7 @@ namespace Igor
 	{
 		if (isActive())
 		{
-			vector<iWidget*> widgets = _children;
+			std::vector<iWidget*> widgets = _children;
 
 			for (auto widget : widgets)
 			{
@@ -529,7 +529,7 @@ namespace Igor
 	{
 		if (isActive())
 		{
-			vector<iWidget*> widgets = _children;
+			std::vector<iWidget*> widgets = _children;
 
 			for (auto widget : widgets)
 			{
@@ -744,7 +744,7 @@ namespace Igor
 		_absoluteY = _relativeY + offsetY;
 	}
 
-	void iWidget::calcChildOffsets(vector<iRectanglei> & offsets)
+	void iWidget::calcChildOffsets(std::vector<iRectanglei> & offsets)
 	{
 		offsets.clear();
 

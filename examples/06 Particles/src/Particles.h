@@ -128,7 +128,7 @@ private:
 
     /*! ids of particle systems
     */
-    vector<uint64> _particleSystemIDs;
+    std::vector<uint64> _particleSystemIDs;
 
     /*! id of circle emitter transform id
     */
@@ -140,7 +140,7 @@ private:
 
     /*! igor logo
     */
-    shared_ptr<iTexture> _igorLogo = nullptr;
+    iTexturePtr _igorLogo = nullptr;
 
     /*! igor logo material
     */

@@ -29,7 +29,7 @@ namespace OMPF
         matrix = _matrix;
     }
 
-    bool ompfTransformChunk::write(ofstream& file, const ompfSettings& settings)
+    bool ompfTransformChunk::write(std::ofstream& file, const ompfSettings& settings)
     {
         if (!ompfBaseChunk::write(file, settings))
         {
@@ -47,7 +47,7 @@ namespace OMPF
         return true;
     }
 
-    bool ompfTransformChunk::read(ifstream& file, ompfSettings& settings)
+    bool ompfTransformChunk::read(std::ifstream& file, ompfSettings& settings)
     {
         if (!ompfBaseChunk::read(file, settings))
         {

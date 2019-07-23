@@ -34,6 +34,8 @@
 #include <iAABox.h>
 #include <iAACube.h>
 #include <iRenderStateSet.h>
+#include <iMaterial.h>
+#include <iMesh.h>
 
 #include <iaGradient.h>
 #include <iaSingleton.h>
@@ -51,20 +53,16 @@ using namespace IgorAux;
 #include <memory>
 #include <queue>
 #include <deque>
-using namespace std;
 
 namespace Igor
 {
     class iTextureFont;
-    class iMesh;
     class iParticle;
     class iParticle2D;
     class iSprite;
     class iInstancer;
     class iTargetMaterial;
     class iMeshBuffers;
-    class iMaterial;
-    typedef shared_ptr<iMaterial> iMaterialPtr;
 
     /*! shader object types
     */
@@ -224,17 +222,17 @@ namespace Igor
         \param mesh the mesh specified
         \todo this is weired stuff we should do that differently
         */
-        shared_ptr<iMeshBuffers> createBuffers(shared_ptr<iMesh> mesh);
+        std::shared_ptr<iMeshBuffers> createBuffers(iMeshPtr mesh);
 
         /*!
         \todo this is weired stuff we should do that differently
         */
-        void initBuffers(shared_ptr<iMesh> mesh, shared_ptr<iMeshBuffers> meshBuffers);
+        void initBuffers(iMeshPtr mesh, std::shared_ptr<iMeshBuffers> meshBuffers);
 
         /*!
         \todo this is weired stuff we should do that differently
         */
-        shared_ptr<iMeshBuffers> createBuffersAsync(shared_ptr<iMesh> mesh);
+		std::shared_ptr<iMeshBuffers> createBuffersAsync(iMeshPtr mesh);
 
         /*!
         \todo this is weired stuff we should do that differently
@@ -442,7 +440,7 @@ namespace Igor
         \param texture the texture to bind
         \param textureunit the texture unit to bind the texture with
         */
-        void bindTexture(shared_ptr<iTexture> texture, uint32 textureunit);
+        void bindTexture(iTexturePtr texture, uint32 textureunit);
 
         /*! sets current target emissive color
 
@@ -515,7 +513,7 @@ namespace Igor
         \param height height of the rectangle
         \param texture the texture to render the rectangle with
         */
-        void drawTexture(float32 x, float32 y, float32 width, float32 height, shared_ptr<iTexture> texture);
+        void drawTexture(float32 x, float32 y, float32 width, float32 height, iTexturePtr texture);
 
         /*! draw a tiled texture
 
@@ -527,7 +525,7 @@ namespace Igor
         \param height height of the rectangle
         \param texture the texture to render the rectangle with
         */
-        void drawTextureTiled(float32 x, float32 y, float32 width, float32 height, shared_ptr<iTexture> texture);
+        void drawTextureTiled(float32 x, float32 y, float32 width, float32 height, iTexturePtr texture);
 
         /*! draw a filled rectangle with texture.
 
@@ -538,7 +536,7 @@ namespace Igor
         \param y vertical position
         \param texture the texture to render the rectangle with
         */
-        void drawTexture(float32 x, float32 y, shared_ptr<iTexture> texture);
+        void drawTexture(float32 x, float32 y, iTexturePtr texture);
 
         /*! draws a sprite at given position, orientation and scale
 
@@ -568,7 +566,7 @@ namespace Igor
 
         \param line list of line segments
         */
-        void drawLineStrip(vector<iaVector3f>& line);
+        void drawLineStrip(std::vector<iaVector3f>& line);
 
         /*! draws an axis aligned box between two points
 
@@ -596,7 +594,7 @@ namespace Igor
         \param v second of two axis defining a plane
         \param texture texture to draw with
         */
-        void drawBillboard(iaVector3f& pos, iaVector3f& u, iaVector3f& v, shared_ptr<iTexture> texture);
+        void drawBillboard(iaVector3f& pos, iaVector3f& u, iaVector3f& v, iTexturePtr texture);
 
         /*! draws a billboard
 
@@ -607,7 +605,7 @@ namespace Igor
         \param texScaleU scale of texture coordinates along the u axis
         \param texScaleV scale of texture coordinates along the v axis
         */
-        void drawBillboard(iaVector3f& pos, iaVector3f& u, iaVector3f& v, shared_ptr<iTexture> texture, float32 texScaleU, float32 texScaleV);
+        void drawBillboard(iaVector3f& pos, iaVector3f& u, iaVector3f& v, iTexturePtr texture, float32 texScaleU, float32 texScaleV);
 
         
 
@@ -615,14 +613,14 @@ namespace Igor
 
         \param mesh the mesh to be drawn
         */
-        void drawMesh(shared_ptr<iMeshBuffers> mesh);
+        void drawMesh(std::shared_ptr<iMeshBuffers> mesh);
 
         /*! draws a mesh instanced
 
         \param mesh the mesh to be drawn
         \param instanceCount count of instances to be drawn
         */
-        void drawMesh(shared_ptr<iMeshBuffers> mesh, iInstancer* instancer);
+        void drawMesh(std::shared_ptr<iMeshBuffers> mesh, iInstancer* instancer);
 
         /*! set current color
 
@@ -688,8 +686,8 @@ namespace Igor
         void drawString(float32 x, float32 y, iaString text, iHorizontalAlignment horizontalAlignment, iVerticalAlignment verticalAlignment = iVerticalAlignment::Top, float32 angle = 0.0f, float32 maxWidth = 0.0f);
 
         // Particles
-        void drawParticles(const deque<iParticle> &particles, const iaGradientColor4f& rainbow);
-        void drawVelocityOrientedParticles(const deque<iParticle> &particles, const iaGradientColor4f& rainbow);
+        void drawParticles(const std::deque<iParticle> &particles, const iaGradientColor4f& rainbow);
+        void drawVelocityOrientedParticles(const std::deque<iParticle> &particles, const iaGradientColor4f& rainbow);
         void drawParticles(float32 x, float32 y, float32 angle, iParticle2D* particles, int32 particleCount, iaGradientColor4f *rainbow = 0);
 
         // attributes
@@ -713,7 +711,7 @@ namespace Igor
         uint32 createShaderObject(iShaderObjectType type);
         void destroyShaderObject(uint32 id);
 
-        void linkShaderProgram(uint32 id, vector<uint32> objects);
+        void linkShaderProgram(uint32 id, std::vector<uint32> objects);
         bool compileShaderObject(uint32 id, const char* source);
 
         uint32 createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer);
@@ -746,7 +744,7 @@ namespace Igor
         uint32 _currentRenderTarget = DEFAULT_RENDER_TARGET;
 
         iaMutex _requestedBuffersMutex;
-        deque<pair<shared_ptr<iMesh>, shared_ptr<iMeshBuffers>>> _requestedBuffers;
+        std::deque<std::pair<iMeshPtr, std::shared_ptr<iMeshBuffers>>> _requestedBuffers;
 
         /*! world grid resolution
         */
@@ -816,7 +814,7 @@ namespace Igor
 
         /*! list of lights
         */
-        map<int32, iRendererLight> _lights;
+        std::map<int32, iRendererLight> _lights;
 
         /*! just to save the last set viewport values
         */
@@ -866,7 +864,7 @@ namespace Igor
 
         /*! map of render targets
         */
-        map<uint32, iRendererTarget> _renderTargets;
+        std::map<uint32, iRendererTarget> _renderTargets;
 
         /*! creates a Texture
 

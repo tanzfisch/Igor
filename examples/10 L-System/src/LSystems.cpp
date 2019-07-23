@@ -197,22 +197,22 @@ void LSystems::initStyle1()
 {
 	_lSystem.setRule('F', "FF");
 
-	vector<pair<float64, iaString>> weightedRule1;
-	weightedRule1.push_back(pair<float64, iaString>(0.25, "F[+X]OF[-X]+X."));
-	weightedRule1.push_back(pair<float64, iaString>(0.25, "FO[-X]F[+X]-X."));
-	weightedRule1.push_back(pair<float64, iaString>(0.25, "F[RX]F[LX]ORX."));
-	weightedRule1.push_back(pair<float64, iaString>(0.25, "F[LX]FO[RX]LX."));
+	std::vector<std::pair<float64, iaString>> weightedRule1;
+	weightedRule1.push_back(std::pair<float64, iaString>(0.25, "F[+X]OF[-X]+X."));
+	weightedRule1.push_back(std::pair<float64, iaString>(0.25, "FO[-X]F[+X]-X."));
+	weightedRule1.push_back(std::pair<float64, iaString>(0.25, "F[RX]F[LX]ORX."));
+	weightedRule1.push_back(std::pair<float64, iaString>(0.25, "F[LX]FO[RX]LX."));
 	_lSystem.setRule('X', weightedRule1);
 
-	vector<pair<float64, iaString>> weightedRule2;
-	weightedRule2.push_back(pair<float64, iaString>(0.3, "."));
-	weightedRule2.push_back(pair<float64, iaString>(0.7, "*"));
+	std::vector<std::pair<float64, iaString>> weightedRule2;
+	weightedRule2.push_back(std::pair<float64, iaString>(0.3, "."));
+	weightedRule2.push_back(std::pair<float64, iaString>(0.7, "*"));
 	_lSystem.setRule('.', weightedRule2);
 	_lSystem.setAgeFilter('.', iLSystemAgeFunction::Greater, 2);
 
-	vector<pair<float64, iaString>> weightedRule3;
-	weightedRule3.push_back(pair<float64, iaString>(0.3, "*"));
-	weightedRule3.push_back(pair<float64, iaString>(0.7, "o"));
+	std::vector<std::pair<float64, iaString>> weightedRule3;
+	weightedRule3.push_back(std::pair<float64, iaString>(0.3, "*"));
+	weightedRule3.push_back(std::pair<float64, iaString>(0.7, "o"));
 	_lSystem.setRule('*', weightedRule3);
 	_lSystem.setAgeFilter('*', iLSystemAgeFunction::Greater, 4);
 
@@ -228,22 +228,22 @@ void LSystems::initStyle2()
 {
 	_lSystem.setRule('F', "FF");
 
-	vector<pair<float64, iaString>> weightedRule1;
-	weightedRule1.push_back(pair<float64, iaString>(0.25, "F-[[X]+X]O+F[+FX]-X."));
-	weightedRule1.push_back(pair<float64, iaString>(0.25, "F+[[X]-X]-F[-FX]O+X."));
-	weightedRule1.push_back(pair<float64, iaString>(0.25, "FR[[X]LX]LFO[LFX]RX."));
-	weightedRule1.push_back(pair<float64, iaString>(0.25, "FL[[X]RX]ORF[RFX]LX."));
+	std::vector<std::pair<float64, iaString>> weightedRule1;
+	weightedRule1.push_back(std::pair<float64, iaString>(0.25, "F-[[X]+X]O+F[+FX]-X."));
+	weightedRule1.push_back(std::pair<float64, iaString>(0.25, "F+[[X]-X]-F[-FX]O+X."));
+	weightedRule1.push_back(std::pair<float64, iaString>(0.25, "FR[[X]LX]LFO[LFX]RX."));
+	weightedRule1.push_back(std::pair<float64, iaString>(0.25, "FL[[X]RX]ORF[RFX]LX."));
 	_lSystem.setRule('X', weightedRule1);
 
-	vector<pair<float64, iaString>> weightedRule2;
-	weightedRule2.push_back(pair<float64, iaString>(0.3, "."));
-	weightedRule2.push_back(pair<float64, iaString>(0.7, "*"));
+	std::vector<std::pair<float64, iaString>> weightedRule2;
+	weightedRule2.push_back(std::pair<float64, iaString>(0.3, "."));
+	weightedRule2.push_back(std::pair<float64, iaString>(0.7, "*"));
 	_lSystem.setRule('.', weightedRule2);
 	_lSystem.setAgeFilter('.', iLSystemAgeFunction::Greater, 2);
 
-	vector<pair<float64, iaString>> weightedRule3;
-	weightedRule3.push_back(pair<float64, iaString>(0.3, "*"));
-	weightedRule3.push_back(pair<float64, iaString>(0.7, "o"));
+	std::vector<std::pair<float64, iaString>> weightedRule3;
+	weightedRule3.push_back(std::pair<float64, iaString>(0.3, "*"));
+	weightedRule3.push_back(std::pair<float64, iaString>(0.7, "o"));
 	_lSystem.setRule('*', weightedRule3);
 	_lSystem.setAgeFilter('*', iLSystemAgeFunction::Greater, 4);
 
@@ -259,20 +259,20 @@ void LSystems::initStyle3()
 {
 	_lSystem.setRule('F', "FF");
 
-	vector<pair<float64, iaString>> weightedRule1;
-	weightedRule1.push_back(pair<float64, iaString>(0.5, "F[+X]O[-X]FX."));
-	weightedRule1.push_back(pair<float64, iaString>(0.5, "F[RX]O[LX]FX."));
+	std::vector<std::pair<float64, iaString>> weightedRule1;
+	weightedRule1.push_back(std::pair<float64, iaString>(0.5, "F[+X]O[-X]FX."));
+	weightedRule1.push_back(std::pair<float64, iaString>(0.5, "F[RX]O[LX]FX."));
 	_lSystem.setRule('X', weightedRule1);
 
-	vector<pair<float64, iaString>> weightedRule2;
-	weightedRule2.push_back(pair<float64, iaString>(0.3, "."));
-	weightedRule2.push_back(pair<float64, iaString>(0.7, "*"));
+	std::vector<std::pair<float64, iaString>> weightedRule2;
+	weightedRule2.push_back(std::pair<float64, iaString>(0.3, "."));
+	weightedRule2.push_back(std::pair<float64, iaString>(0.7, "*"));
 	_lSystem.setRule('.', weightedRule2);
 	_lSystem.setAgeFilter('.', iLSystemAgeFunction::Greater, 2);
 
-	vector<pair<float64, iaString>> weightedRule3;
-	weightedRule3.push_back(pair<float64, iaString>(0.3, "*"));
-	weightedRule3.push_back(pair<float64, iaString>(0.7, "o"));
+	std::vector<std::pair<float64, iaString>> weightedRule3;
+	weightedRule3.push_back(std::pair<float64, iaString>(0.3, "*"));
+	weightedRule3.push_back(std::pair<float64, iaString>(0.7, "o"));
 	_lSystem.setRule('*', weightedRule3);
 	_lSystem.setAgeFilter('*', iLSystemAgeFunction::Greater, 4);
 

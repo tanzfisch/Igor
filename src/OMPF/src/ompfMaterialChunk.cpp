@@ -162,7 +162,7 @@ namespace OMPF
         return size;
     }
 
-    bool ompfMaterialChunk::write(ofstream& stream, const ompfSettings& settings)
+    bool ompfMaterialChunk::write(std::ofstream& stream, const ompfSettings& settings)
     {
         if (!ompfBaseChunk::write(stream, settings))
         {
@@ -212,7 +212,7 @@ namespace OMPF
         return true;
     }
 
-    bool ompfMaterialChunk::read(ifstream& stream, ompfSettings& settings)
+    bool ompfMaterialChunk::read(std::ifstream& stream, ompfSettings& settings)
     {
         if (!ompfBaseChunk::read(stream, settings))
         {

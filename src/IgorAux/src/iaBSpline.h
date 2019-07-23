@@ -33,13 +33,12 @@
 #include <iaVector3.h>
 
 #include <vector>
-using namespace std;
 
 namespace IgorAux
 {
 
-    /*! BSpline implementation
-    */
+	/*! BSpline implementation
+	*/
 	class IgorAux_API iaBSpline  // non uniform B-Spline  
 	{
 
@@ -48,105 +47,105 @@ namespace IgorAux
 		/*! dirty flag if true recalculate lookup table
 		*/
 		bool _recalc = true;
-		
+
 		/*! resolution setting
 		*/
-        uint32 _resolution = 5;
-		
+		uint32 _resolution = 5;
+
 		/*! rank configuration
 		*/
-        uint32 _rank = 3;
+		uint32 _rank = 3;
 
 		/*! lookup table
 		*/
-        vector<int32> _U;
-		
+		std::vector<int32> _U;
+
 		/*! full processed spline
 		*/
-		vector<iaVector3f> _spline;
-		
+		std::vector<iaVector3f> _spline;
+
 		/*! list of support points
 		*/
-		vector<iaVector3f> _supportpoints;
-        
+		std::vector<iaVector3f> _supportpoints;
+
 		/*! calculates the actual point on the spline
 		*/
-        float32 calc(int32 k, float32 t, int32 i);
-		
+		float32 calc(int32 k, float32 t, int32 i);
+
 		/*! internal calculation of look up table
 		*/
-        void prepareU();
+		void prepareU();
 
 	public:
 
 		/*! add support point to spline
-		
+
 		\param point new point to add
 		*/
 		void addSupportPoint(iaVector3f point);
-		
+
 		/*! clears list of support points
 		*/
 		void clear();
-		
+
 		/*! configure the rank of the spline
-		
+
 		\param rank the rank of the spline (default = 3)
 		*/
-        void setRank(const uint32 rank);
+		void setRank(const uint32 rank);
 
-        /*! \returns rank of this spline
-        */
-        const uint32 getRank() const;
-		
+		/*! \returns rank of this spline
+		*/
+		const uint32 getRank() const;
+
 		/*! configures the resolution of the spline
-		
+
 		only interesting in context of using getSpline
-		
+
 		\param resolution amount of vertices -1 calculated for the whole spline
 		*/
-        void setResolution(int32 resolution);
+		void setResolution(int32 resolution);
 
 		/*! \returns vertex position on specified position on spline
-		
+
 		\param t position on spline 0.0-1.0
 		*/
 		iaVector3f getPointOfSpline(float32 t);
-		
+
 		/*! \retruns list of vertices representing the spline
 		*/
-		vector<iaVector3f>& getSpline();
+		std::vector<iaVector3f>& getSpline();
 
-        /*! \returns list of support points
-        */
-		vector<iaVector3f>& getSupportPoints();
+		/*! \returns list of support points
+		*/
+		std::vector<iaVector3f>& getSupportPoints();
 
-        /*! \returns amount of support points
-        */
-        const uint32 getSupportPointsCount() const;
+		/*! \returns amount of support points
+		*/
+		const uint32 getSupportPointsCount() const;
 
-        /*! overwrites value od specified support point.
-        No range check!
+		/*! overwrites value od specified support point.
+		No range check!
 
-        \param point new position of support point
-        \param index index of support point to change
-        */
-		void setSupportPoint(iaVector3f &point, uint32 index);
+		\param point new position of support point
+		\param index index of support point to change
+		*/
+		void setSupportPoint(iaVector3f& point, uint32 index);
 
-        /*! \returnds specified support point
-        No range check!
+		/*! \returnds specified support point
+		No range check!
 
-        \param index index of support point to return
-        */
-        iaVector3f& getSupportPoint(uint32 index);
+		\param index index of support point to return
+		*/
+		iaVector3f& getSupportPoint(uint32 index);
 
-        /*! does nothing
-        */
+		/*! does nothing
+		*/
 		iaBSpline() = default;
 
-        /*! does nothing
-        */
-        ~iaBSpline() = default;
+		/*! does nothing
+		*/
+		~iaBSpline() = default;
 
 	};
 

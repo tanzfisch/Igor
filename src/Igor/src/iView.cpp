@@ -16,7 +16,7 @@
 using namespace IgorAux;
 
 #include <algorithm>
-using namespace std;
+
 
 namespace Igor
 {
@@ -219,7 +219,7 @@ namespace Igor
 
     uint64 iView::pickcolorID(uint32 posx, uint32 posy)
     {
-        vector<uint64> colorIDs;
+        std::vector<uint64> colorIDs;
 
         pickcolorID(iRectanglei(posx, posy, 1, 1), colorIDs);
 
@@ -227,7 +227,7 @@ namespace Igor
     }
 
     // TODO use alpha channel for color ID as well
-    void iView::pickcolorID(const iRectanglei& rectangle, vector<uint64>& colorIDs)
+    void iView::pickcolorID(const iRectanglei& rectangle, std::vector<uint64>& colorIDs)
     {
         // TODO check ranges
 

@@ -47,7 +47,7 @@ namespace Igor
 	private:
 
         iaVector3f lightdirection = { 1, 0, 0 };
-		shared_ptr<iMesh> _dome = 0;
+		iMeshPtr _dome;
 		
 		void initMesh();
 

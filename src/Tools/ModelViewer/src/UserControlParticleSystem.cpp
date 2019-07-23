@@ -253,10 +253,10 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem* node)
     iaGradientVector2f startSizeGradient;
     node->getStartSizeGradient(startSizeGradient);
 
-    vector<iaVector2f> minStartSize;
-    vector<iaVector2f> maxStartSize;
+    std::vector<iaVector2f> minStartSize;
+    std::vector<iaVector2f> maxStartSize;
 
-    vector<pair<float, iaVector2f>> startSizeValues = startSizeGradient.getValues();
+    std::vector<std::pair<float, iaVector2f>> startSizeValues = startSizeGradient.getValues();
     for (auto value : startSizeValues)
     {
         minStartSize.push_back(iaVector2f(value.first, value.second._x));
@@ -270,8 +270,8 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem* node)
     iaGradientf sizeScaleGradient;
     node->getSizeScaleGradient(sizeScaleGradient);
 
-    vector<iaVector2f> scaleSize;
-    vector<pair<float, float32>> scaleSizeValues = sizeScaleGradient.getValues();
+    std::vector<iaVector2f> scaleSize;
+    std::vector<std::pair<float, float32>> scaleSizeValues = sizeScaleGradient.getValues();
     for (auto value : scaleSizeValues)
     {
         scaleSize.push_back(iaVector2f(value.first, value.second));
@@ -282,10 +282,10 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem* node)
     iaGradientVector2f visibilityGradient;
     node->getStartVisibleTimeGradient(visibilityGradient);
 
-    vector<iaVector2f> minVisibility;
-    vector<iaVector2f> maxVisibility;
+    std::vector<iaVector2f> minVisibility;
+    std::vector<iaVector2f> maxVisibility;
 
-    vector<pair<float, iaVector2f>> visibilityValues = visibilityGradient.getValues();
+    std::vector<std::pair<float, iaVector2f>> visibilityValues = visibilityGradient.getValues();
     for (auto value : visibilityValues)
     {
         minVisibility.push_back(iaVector2f(value.first, value.second._x));
@@ -299,10 +299,10 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem* node)
     iaGradientVector2f startOrientationGradient;
     node->getStartOrientationGradient(startOrientationGradient);
 
-    vector<iaVector2f> minStartOrientation;
-    vector<iaVector2f> maxStartOrientation;
+    std::vector<iaVector2f> minStartOrientation;
+    std::vector<iaVector2f> maxStartOrientation;
 
-    vector<pair<float, iaVector2f>> startOrientationValues = startOrientationGradient.getValues();
+    std::vector<std::pair<float, iaVector2f>> startOrientationValues = startOrientationGradient.getValues();
     for (auto value : startOrientationValues)
     {
         minStartOrientation.push_back(iaVector2f(value.first, value.second._x));
@@ -316,10 +316,10 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem* node)
     iaGradientVector2f startOrientationRateGradient;
     node->getStartOrientationRateGradient(startOrientationRateGradient);
 
-    vector<iaVector2f> minStartOrientationRate;
-    vector<iaVector2f> maxStartOrientationRate;
+    std::vector<iaVector2f> minStartOrientationRate;
+    std::vector<iaVector2f> maxStartOrientationRate;
 
-    vector<pair<float, iaVector2f>> startOrientationRateValues = startOrientationRateGradient.getValues();
+    std::vector<std::pair<float, iaVector2f>> startOrientationRateValues = startOrientationRateGradient.getValues();
     for (auto value : startOrientationRateValues)
     {
         minStartOrientationRate.push_back(iaVector2f(value.first, value.second._x));
@@ -333,10 +333,10 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem* node)
     iaGradientVector2f startVelocityGradient;
     node->getStartVelocityGradient(startVelocityGradient);
 
-    vector<iaVector2f> minStartVelocity;
-    vector<iaVector2f> maxStartVelocity;
+    std::vector<iaVector2f> minStartVelocity;
+    std::vector<iaVector2f> maxStartVelocity;
 
-    vector<pair<float, iaVector2f>> startVelocityValues = startVelocityGradient.getValues();
+    std::vector<std::pair<float, iaVector2f>> startVelocityValues = startVelocityGradient.getValues();
     for (auto value : startVelocityValues)
     {
         minStartVelocity.push_back(iaVector2f(value.first, value.second._x));
@@ -350,10 +350,10 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem* node)
     iaGradientVector2f startLiftGradient;
     node->getStartLiftGradient(startLiftGradient);
 
-    vector<iaVector2f> minStartLift;
-    vector<iaVector2f> maxStartLift;
+    std::vector<iaVector2f> minStartLift;
+    std::vector<iaVector2f> maxStartLift;
 
-    vector<pair<float, iaVector2f>> startLiftValues = startLiftGradient.getValues();
+    std::vector<std::pair<float, iaVector2f>> startLiftValues = startLiftGradient.getValues();
     for (auto value : startLiftValues)
     {
         minStartLift.push_back(iaVector2f(value.first, value.second._x));
@@ -367,8 +367,8 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem* node)
     iaGradientf emissionGradient;
     node->getEmissionGradient(emissionGradient);
 
-    vector<iaVector2f> emissionGraph;
-    vector<pair<float, float32>> emissionValues = emissionGradient.getValues();
+    std::vector<iaVector2f> emissionGraph;
+    std::vector<std::pair<float, float32>> emissionValues = emissionGradient.getValues();
     for (auto value : emissionValues)
     {
         emissionGraph.push_back(iaVector2f(value.first, value.second));
@@ -1100,10 +1100,10 @@ void UserControlParticleSystem::initGUI()
 
 void UserControlParticleSystem::onOpenStartLiftGradientEditor(iWidget* source)
 {
-    vector<vector<iaVector2f>> graphs;
+    std::vector<std::vector<iaVector2f>> graphs;
     for (int i = 0; i < _startLiftGraph->getGraphCount(); ++i)
     {
-        vector<iaVector2f> temp = _startLiftGraph->getPoints(i);
+        std::vector<iaVector2f> temp = _startLiftGraph->getPoints(i);
         graphs.push_back(temp);
     }
 
@@ -1118,7 +1118,7 @@ void UserControlParticleSystem::onOpenStartLiftGradientEditor(iWidget* source)
     _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartLiftGradientEditor), graphs);
 }
 
-void UserControlParticleSystem::onCloseStartLiftGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+void UserControlParticleSystem::onCloseStartLiftGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs)
 {
     if (ok)
     {
@@ -1134,7 +1134,7 @@ void UserControlParticleSystem::onCloseStartLiftGradientEditor(bool ok, const ve
 
 void UserControlParticleSystem::onOpenEmissionGradientEditor(iWidget* source)
 {
-    vector<vector<iaVector2f>> graphs;
+    std::vector<std::vector<iaVector2f>> graphs;
     for (int i = 0; i < _emissionGraph->getGraphCount(); ++i)
     {
         graphs.push_back(_emissionGraph->getPoints(i));
@@ -1150,7 +1150,7 @@ void UserControlParticleSystem::onOpenEmissionGradientEditor(iWidget* source)
     _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseEmissionGradientEditor), graphs);
 }
 
-void UserControlParticleSystem::onCloseEmissionGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+void UserControlParticleSystem::onCloseEmissionGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs)
 {
     if (ok)
     {
@@ -1166,10 +1166,10 @@ void UserControlParticleSystem::onCloseEmissionGradientEditor(bool ok, const vec
 
 void UserControlParticleSystem::onOpenStartVelocityGradientEditor(iWidget* source)
 {
-    vector<vector<iaVector2f>> graphs;
+    std::vector<std::vector<iaVector2f>> graphs;
     for (int i = 0; i < _startVelocityGraph->getGraphCount(); ++i)
     {
-        vector<iaVector2f> temp = _startVelocityGraph->getPoints(i);
+        std::vector<iaVector2f> temp = _startVelocityGraph->getPoints(i);
         graphs.push_back(temp);
     }
 
@@ -1184,7 +1184,7 @@ void UserControlParticleSystem::onOpenStartVelocityGradientEditor(iWidget* sourc
     _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartVelocityGradientEditor), graphs);
 }
 
-void UserControlParticleSystem::onCloseStartVelocityGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+void UserControlParticleSystem::onCloseStartVelocityGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs)
 {
     if (ok)
     {
@@ -1200,10 +1200,10 @@ void UserControlParticleSystem::onCloseStartVelocityGradientEditor(bool ok, cons
 
 void UserControlParticleSystem::onOpenStartSizeGradientEditor(iWidget* source)
 {
-    vector<vector<iaVector2f>> graphs;
+    std::vector<std::vector<iaVector2f>> graphs;
     for (int i = 0; i < _startSizeGraph->getGraphCount(); ++i)
     {
-        vector<iaVector2f> temp = _startSizeGraph->getPoints(i);
+        std::vector<iaVector2f> temp = _startSizeGraph->getPoints(i);
         graphs.push_back(temp);
     }
 
@@ -1218,7 +1218,7 @@ void UserControlParticleSystem::onOpenStartSizeGradientEditor(iWidget* source)
     _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartSizeGradientEditor), graphs);
 }
 
-void UserControlParticleSystem::onCloseStartSizeGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+void UserControlParticleSystem::onCloseStartSizeGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs)
 {
     if (ok)
     {
@@ -1234,7 +1234,7 @@ void UserControlParticleSystem::onCloseStartSizeGradientEditor(bool ok, const ve
 
 void UserControlParticleSystem::onOpenStartOrientationRateGradientEditor(iWidget* source)
 {
-    vector<vector<iaVector2f>> graphs;
+    std::vector<std::vector<iaVector2f>> graphs;
     for (int i = 0; i < _orientationRateGraph->getGraphCount(); ++i)
     {
         graphs.push_back(_orientationRateGraph->getPoints(i));
@@ -1251,7 +1251,7 @@ void UserControlParticleSystem::onOpenStartOrientationRateGradientEditor(iWidget
     _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartOrientationRateGradientEditor), graphs);
 }
 
-void UserControlParticleSystem::onCloseStartOrientationRateGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+void UserControlParticleSystem::onCloseStartOrientationRateGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs)
 {
     if (ok)
     {
@@ -1267,7 +1267,7 @@ void UserControlParticleSystem::onCloseStartOrientationRateGradientEditor(bool o
 
 void UserControlParticleSystem::onOpenStartOrientationGradientEditor(iWidget* source)
 {
-    vector<vector<iaVector2f>> graphs;
+    std::vector<std::vector<iaVector2f>> graphs;
     for (int i = 0; i < _orientationGraph->getGraphCount(); ++i)
     {
         graphs.push_back(_orientationGraph->getPoints(i));
@@ -1284,7 +1284,7 @@ void UserControlParticleSystem::onOpenStartOrientationGradientEditor(iWidget* so
     _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartOrientationGradientEditor), graphs);
 }
 
-void UserControlParticleSystem::onCloseStartOrientationGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+void UserControlParticleSystem::onCloseStartOrientationGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs)
 {
     if (ok)
     {
@@ -1300,7 +1300,7 @@ void UserControlParticleSystem::onCloseStartOrientationGradientEditor(bool ok, c
 
 void UserControlParticleSystem::onOpenScaleSizeGradientEditor(iWidget* source)
 {
-    vector<vector<iaVector2f>> graphs;
+    std::vector<std::vector<iaVector2f>> graphs;
     for (int i = 0; i < _scaleSizeGraph->getGraphCount(); ++i)
     {
         graphs.push_back(_scaleSizeGraph->getPoints(i));
@@ -1316,7 +1316,7 @@ void UserControlParticleSystem::onOpenScaleSizeGradientEditor(iWidget* source)
     _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseScaleSizeGradientEditor), graphs);
 }
 
-void UserControlParticleSystem::onCloseScaleSizeGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+void UserControlParticleSystem::onCloseScaleSizeGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs)
 {
     if (ok)
     {
@@ -1332,10 +1332,10 @@ void UserControlParticleSystem::onCloseScaleSizeGradientEditor(bool ok, const ve
 
 void UserControlParticleSystem::onOpenVisibilityGradientEditor(iWidget* source)
 {
-    vector<vector<iaVector2f>> graphs;
+    std::vector<std::vector<iaVector2f>> graphs;
     for (int i = 0; i < _visibilityGraph->getGraphCount(); ++i)
     {
-        vector<iaVector2f> temp = _visibilityGraph->getPoints(i);
+        std::vector<iaVector2f> temp = _visibilityGraph->getPoints(i);
         graphs.push_back(temp);
     }
 
@@ -1350,7 +1350,7 @@ void UserControlParticleSystem::onOpenVisibilityGradientEditor(iWidget* source)
     _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseVisibilityGradientEditor), graphs);
 }
 
-void UserControlParticleSystem::onCloseVisibilityGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+void UserControlParticleSystem::onCloseVisibilityGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs)
 {
     if (ok)
     {

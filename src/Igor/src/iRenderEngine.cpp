@@ -309,7 +309,7 @@ namespace Igor
     void iRenderEngine::drawScene()
     {
         //! \todo not sure yet how to handle multiple lights. right now it will work only for one light
-        vector<iNodeLight*>& lights = _scene->getLights();
+        std::vector<iNodeLight*>& lights = _scene->getLights();
 
         int lightNum = 0;
         auto light = lights.begin();
