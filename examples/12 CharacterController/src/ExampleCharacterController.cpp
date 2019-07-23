@@ -145,7 +145,7 @@ void ExampleCharacterController::init()
         boxBody->setMaterial(_entityMaterialID);
 
         iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-        transformNode->translate(111, 200, 110);
+        transformNode->translate(10, 200, 10);
 
         iNodeModel* crate = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
         crate->setModel("crate.ompf");
@@ -164,7 +164,7 @@ void ExampleCharacterController::init()
         boxBody->setMaterial(_entityMaterialID);
 
         iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-        transformNode->translate(110, 200, 112);
+        transformNode->translate(-5, 200, -12);
 
         iNodeModel* crate = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
         crate->setModel("crate.ompf");
@@ -176,7 +176,7 @@ void ExampleCharacterController::init()
 
     // setup character and attache camera to it
     iaMatrixd startMatrix;
-    startMatrix.translate(100,200,125);
+    startMatrix.translate(0,200,0);
     _characterController = new CharacterController(_scene->getRoot(), _entityMaterialID, startMatrix);
 
     // setup camera

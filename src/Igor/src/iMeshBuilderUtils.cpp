@@ -225,5 +225,72 @@ namespace Igor
 				meshBuilder.addTriangle((segmentIndex + 1) % moduloValue, (segmentIndex + 3) % moduloValue, (segmentIndex + 2) % moduloValue, offsetIndex);
 			}
 		}
+
+		void addMesh(iMeshBuilder& meshBuilder, const iMeshPtr mesh)
+		{
+			uint32* indexesData = mesh->getIndexData();
+			float32* vertexData = mesh->getVertexData();
+
+			if (indexesData == nullptr || 
+				vertexData == nullptr)
+			{
+				return;
+			}
+
+			if (meshBuilder.getJoinVertexes())
+			{
+				con_err("can't add mesh in join vertexes mode");
+				return;
+			}
+
+			const uint32 offsetIndex = meshBuilder.getVertexCount();
+
+			uint32 trianglesCount = mesh->getTrianglesCount();
+			uint32 vertexCount = mesh->getVertexCount();
+			uint32 vertexDataSize = mesh->getVertexSize() / 4; // get size in floats
+
+			// iterate vertices
+			for (uint32 i = 0; i < vertexCount; ++i)
+			{
+				float32* vertex = vertexData + (vertexDataSize * i);
+
+				uint32 index = meshBuilder.addVertex(iaVector3f(vertex[0], vertex[1], vertex[2]));
+
+				uint32 offset = 0;
+
+				if (mesh->hasNormals())
+				{
+					meshBuilder.setNormal(index, iaVector3f(vertex[3], vertex[4], vertex[5]));
+					offset += 3;
+				}
+
+				if (mesh->hasColors())
+				{
+					meshBuilder.setColor(index, iaColor4f(vertex[offset + 3], vertex[offset + 4], vertex[offset + 5], vertex[offset + 6]));
+					offset += 4;
+				}
+
+				for (uint32 t = 0; t < 4; ++t)
+				{
+					if (mesh->hasTextureUnit(t))
+					{
+						meshBuilder.setTexCoord(index, iaVector2f(vertex[offset + 3], vertex[offset + 4]), t);
+						offset += 2;
+					}
+				}
+			}
+
+			// iterate triangles
+			for (uint32 i = 0; i < trianglesCount; ++i)
+			{
+				// get triangle indeces
+				uint32 triA = indexesData[i * 3];
+				uint32 triB = indexesData[i * 3 + 1];
+				uint32 triC = indexesData[i * 3 + 2];
+
+				// get vertices
+				meshBuilder.addTriangle(triA, triB, triC, offsetIndex);
+			}
+		}
 	};
 };

@@ -145,7 +145,6 @@ private:
     iNodeTransform* _cameraHeadingUI = nullptr;
     iNodeTransform* _cameraPitchUI = nullptr;
     iNodeTransform* _cameraTranslationUI = nullptr;
-    iNodeTransform* _transformModelUI = nullptr;
     iNodeCamera* _cameraUI = nullptr;
 
     uint64 _materialCelShading;

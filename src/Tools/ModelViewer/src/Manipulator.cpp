@@ -78,28 +78,28 @@ void Manipulator::init()
 	_red->setSpecular(iaColor3f(0.2f, 0.0f, 0.0f));
 	_red->setDiffuse(iaColor3f(0.5f, 0.0f, 0.0f));
 	_red->setAmbient(iaColor3f(0.3f, 0.0f, 0.0f));
-	_red->setAlpha(0.6);
+	_red->setAlpha(0.8);
 
 	_green = iMaterialResourceFactory::getInstance().createTargetMaterial();
 	_green->setEmissive(iaColor3f(0.0f, 0.8f, 0.0f));
 	_green->setSpecular(iaColor3f(0.0f, 0.2f, 0.0f));
 	_green->setDiffuse(iaColor3f(0.0f, 0.5f, 0.0f));
 	_green->setAmbient(iaColor3f(0.0f, 0.3f, 0.0f));
-	_green->setAlpha(0.6);
+	_green->setAlpha(0.8);
 
 	_blue = iMaterialResourceFactory::getInstance().createTargetMaterial();
 	_blue->setEmissive(iaColor3f(0.0f, 0.0f, 0.8f));
 	_blue->setSpecular(iaColor3f(0.0f, 0.0f, 0.2f));
 	_blue->setDiffuse(iaColor3f(0.0f, 0.0f, 0.5f));
 	_blue->setAmbient(iaColor3f(0.0f, 0.0f, 0.3f));
-	_blue->setAlpha(0.6);
+	_blue->setAlpha(0.8);
 
 	_cyan = iMaterialResourceFactory::getInstance().createTargetMaterial();
 	_cyan->setEmissive(iaColor3f(0.0f, 0.8f, 0.8f));
 	_cyan->setSpecular(iaColor3f(0.0f, 0.2f, 0.2f));
 	_cyan->setDiffuse(iaColor3f(0.0f, 0.5f, 0.5f));
 	_cyan->setAmbient(iaColor3f(0.0f, 0.3f, 0.3f));
-	_cyan->setAlpha(0.6);
+	_cyan->setAlpha(0.8);
 
 	shared_ptr<iMesh> translateMesh = createTranslateMesh();
 	shared_ptr<iMesh> scaleMesh = createScaleMesh();	
@@ -427,7 +427,7 @@ shared_ptr<iMesh> Manipulator::createTranslateMesh()
 	iMeshBuilderUtils::addCone(meshBuilder, 1, 1, 6);
 
 	matrix.identity();
-	matrix.scale(0.02, 1.5, 0.02);
+	matrix.scale(0.025, 1.5, 0.025);
 	meshBuilder.setMatrix(matrix);
 	iMeshBuilderUtils::addCylinder(meshBuilder, 1, 1, 6);
 

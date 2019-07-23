@@ -107,6 +107,7 @@ private:
     void onEmissiveChange(const iaColor4f& color);
 
     void onDoUpdateNode(iWidget* source);
+	void onBakeAction(iWidget* source);
 
     void onTextChangedShininess(iWidget* source);
     void onSliderChangedShininess(iWidget* source);

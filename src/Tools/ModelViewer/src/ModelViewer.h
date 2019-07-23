@@ -93,7 +93,6 @@ private:
     iNodeTransform* _cameraHeading = nullptr;
     iNodeTransform* _cameraPitch = nullptr;
     iNodeTransform* _cameraTranslation = nullptr;
-    iNodeTransform* _transformModel = nullptr;
     iNodeCamera* _camera = nullptr;
 
     iNodeSkyBox* _skyBoxNode = nullptr;

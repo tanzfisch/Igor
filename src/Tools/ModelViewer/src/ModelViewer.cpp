@@ -114,13 +114,9 @@ void ModelViewer::init(iaString fileName)
     _scene->setName("Model Scene");
     _view.setScene(_scene);
 
-    _transformModel = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _transformModel->setName("model transform");
-    _scene->getRoot()->insertNode(_transformModel);
-
     _groupNode = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
-    _groupNode->setName("groupNode");
-    _transformModel->insertNode(_groupNode);
+    _groupNode->setName("ModelViewerRoot");
+	_scene->getRoot()->insertNode(_groupNode);
 
     // init 3D user controls
 	_viewWidget3D.setName("UIView");

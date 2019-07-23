@@ -30,6 +30,7 @@
 #define __iMESHBUILDERUTILS__
 
 #include <iMeshBuilder.h>
+#include <iMesh.h>
 
 namespace Igor
 {
@@ -99,6 +100,13 @@ namespace Igor
         \param sizeZ size in z axis
         */
         void Igor_API addRectangle(iMeshBuilder& meshBuilder, float32 x, float32 z, float32 sizeX, float32 sizeZ);
+
+		/*! adds a mesh to the mesh builder
+
+		\param meshBuilder the given mesh builder instance
+		\param mesh the mesh to be added
+		*/
+		void Igor_API addMesh(iMeshBuilder& meshBuilder, const iMeshPtr mesh);
 
     }
 
