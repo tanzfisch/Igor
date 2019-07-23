@@ -8,7 +8,7 @@
 using namespace IgorAux;
 
 #include <iomanip>
-using namespace std;
+
 
 namespace OMPF
 {
@@ -44,7 +44,7 @@ namespace OMPF
     }
 	__IGOR_ENABLE_WARNING__(4100)
 
-    bool ompfEmitterChunk::write(ofstream& file, const ompfSettings& settings)
+    bool ompfEmitterChunk::write(std::ofstream& file, const ompfSettings& settings)
     {
         if (!ompfBaseChunk::write(file, settings))
         {
@@ -69,7 +69,7 @@ namespace OMPF
         return true;
     }
     
-    bool ompfEmitterChunk::read(ifstream& file, ompfSettings& settings)
+    bool ompfEmitterChunk::read(std::ifstream& file, ompfSettings& settings)
     {
         if (!ompfBaseChunk::read(file, settings))
         {

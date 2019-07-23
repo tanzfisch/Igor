@@ -8,7 +8,7 @@
 using namespace IgorAux;
 
 #include <iomanip>
-using namespace std;
+
 
 namespace OMPF
 {
@@ -318,7 +318,7 @@ namespace OMPF
     }
 	__IGOR_ENABLE_WARNING__(4100)
 
-    bool ompfParticleSystemChunk::write(ofstream& stream, const ompfSettings& settings)
+    bool ompfParticleSystemChunk::write(std::ofstream& stream, const ompfSettings& settings)
     {
         if (!ompfBaseChunk::write(stream, settings))
         {
@@ -499,7 +499,7 @@ namespace OMPF
         return true;
     }
     
-    bool ompfParticleSystemChunk::read(ifstream& stream, ompfSettings& settings)
+    bool ompfParticleSystemChunk::read(std::ifstream& stream, ompfSettings& settings)
     {
         con_debug_endl("---------------------------------------------------");
         con_debug_endl("read ompfParticleSystemChunk " << this->getName());

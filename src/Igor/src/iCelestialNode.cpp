@@ -28,7 +28,7 @@ namespace Igor
 		setName(name);
 	}
 
-    void iCelestialNode::onPostCopyLink(map<uint32, uint32>& nodeIDMap)
+    void iCelestialNode::onPostCopyLink(std::map<uint32, uint32>& nodeIDMap)
     {
 
     }

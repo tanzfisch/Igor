@@ -34,7 +34,7 @@
 #include <iaGradient.h>
 
 #include <vector>
-using namespace std;
+
 
 #include <iaRandomNumberGenerator.h>
 using namespace IgorAux;

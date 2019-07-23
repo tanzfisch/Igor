@@ -111,12 +111,12 @@ namespace Igor
         }
     }
 
-    vector<iNodeRender*>& iScene::getRenderables()
+    std::vector<iNodeRender*>& iScene::getRenderables()
     {
         return _renderables;
     }
 
-    vector<iNodeLight*>& iScene::getLights()
+    std::vector<iNodeLight*>& iScene::getLights()
     {
         return _lights;
     }

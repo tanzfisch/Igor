@@ -29,7 +29,7 @@ namespace Igor
         setName(node->getName());
     }
 
-    void iNodeSwitch::onPostCopyLink(map<uint32, uint32>& nodeIDMap)
+    void iNodeSwitch::onPostCopyLink(std::map<uint32, uint32>& nodeIDMap)
     {
 
     }
@@ -60,7 +60,7 @@ namespace Igor
     {
         con_assert(node != nullptr, "zero pointer");
 
-        vector<iNodePtr> copyChildren(_children);
+        std::vector<iNodePtr> copyChildren(_children);
 
         auto iter = copyChildren.begin();
         while (iter != copyChildren.end())

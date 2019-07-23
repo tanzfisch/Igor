@@ -370,10 +370,10 @@ namespace Igor
     {
         _cubePosition = start_position;
 
-        vector<iVoxelBlock> *a = _voxelData->getBlocks(_cubePosition._x, _cubePosition._y);
-        vector<iVoxelBlock> *b = _voxelData->getBlocks(_cubePosition._x + 1, _cubePosition._y);        
-        vector<iVoxelBlock> *c = _voxelData->getBlocks(_cubePosition._x + 1, _cubePosition._y + 1);
-        vector<iVoxelBlock> *d = _voxelData->getBlocks(_cubePosition._x, _cubePosition._y + 1);
+        std::vector<iVoxelBlock> *a = _voxelData->getBlocks(_cubePosition._x, _cubePosition._y);
+        std::vector<iVoxelBlock> *b = _voxelData->getBlocks(_cubePosition._x + 1, _cubePosition._y);        
+        std::vector<iVoxelBlock> *c = _voxelData->getBlocks(_cubePosition._x + 1, _cubePosition._y + 1);
+        std::vector<iVoxelBlock> *d = _voxelData->getBlocks(_cubePosition._x, _cubePosition._y + 1);
 
         _aitPos = 0;
         _ait = a->begin();

@@ -34,7 +34,7 @@
 
 #include <memory>
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -66,31 +66,31 @@ namespace Igor
 
         /*! \returns texture
         */
-        __IGOR_INLINE__ shared_ptr<iTexture> getTexture() const;
+        iTexturePtr getTexture() const;
 
         /*! \returns texture coordinates by index
 
         \param index the index to return the texture coordinates from
         */
-        __IGOR_INLINE__ const iaVector2f& getTexCoord(uint32 index) const;
+        const iaVector2f& getTexCoord(uint32 index) const;
 
         /*! \returns center of interesst
         */
-        __IGOR_INLINE__ const iaVector2f& getOrigin() const;
+        const iaVector2f& getOrigin() const;
 
         /*! \returns width
         */
-        __IGOR_INLINE__ float32 getWidth() const;
+        float32 getWidth() const;
 
         /*! \returns height
         */
-        __IGOR_INLINE__ float32 getHeight() const;
+        float32 getHeight() const;
 
         /*! ctor initializes member variables
 
         \param texture texture used for this sprite
         */
-        iSprite(shared_ptr<iTexture> texture);
+        iSprite(iTexturePtr texture);
 
         /*! does nothing
         */
@@ -100,7 +100,7 @@ namespace Igor
 
         /*! texture in use
         */
-		shared_ptr<iTexture> _texture;
+		iTexturePtr _texture;
 
         /*! texture coordinates
         */

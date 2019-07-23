@@ -41,7 +41,7 @@
 using namespace IgorAux;
 
 #include <memory>
-using namespace std;
+
 
 namespace Igor
 {
@@ -113,7 +113,7 @@ namespace Igor
         \param faceAttribute the faceattribute for the whole mesh
         \param offset off the mesh collision object
         */
-        void addMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixd& offset);
+        void addMesh(iMeshPtr mesh, int64 faceAttribute, const iaMatrixd& offset);
 
         /*! finalizes the collisions
         */

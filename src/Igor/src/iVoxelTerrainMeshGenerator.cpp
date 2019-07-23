@@ -55,7 +55,7 @@ namespace Igor
         contouringCubes.setVoxelDataNextLOD(voxelDataNextLOD);
         contouringCubes.setNextLODVoxelOffset(tileInformation->_voxelOffsetToNextLOD);
 
-        shared_ptr<iMesh> mesh = contouringCubes.compile(iaVector3I(), iaVector3I(width, height, depth), tileInformation->_lod, tileInformation->_neighboursLOD);
+        iMeshPtr mesh = contouringCubes.compile(iaVector3I(), iaVector3I(width, height, depth), tileInformation->_lod, tileInformation->_neighboursLOD);
 
         if (mesh.get() != nullptr)
         {

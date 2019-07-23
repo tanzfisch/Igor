@@ -405,7 +405,7 @@ namespace Igor
         return true;
     }
 
-    void iOctree::getResult(vector<uint64>& data)
+    void iOctree::getResult(std::vector<uint64>& data)
     {
         data = _queryResult;
     }

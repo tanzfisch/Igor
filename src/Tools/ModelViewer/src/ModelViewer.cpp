@@ -444,7 +444,7 @@ void ModelViewer::onFileSaveDialogClosed(iFileDialogReturnValue fileDialogReturn
     {
         iaString filename = _fileDialog->getFullPath();
 
-        vector<iNodePtr> children = _groupNode->getChildren();
+        std::vector<iNodePtr> children = _groupNode->getChildren();
         children.insert(children.end(), _groupNode->getInactiveChildren().begin(), _groupNode->getInactiveChildren().end());
 
         if (children.empty())
@@ -1003,7 +1003,7 @@ void ModelViewer::renderNodeSelected(uint64 nodeID)
                 iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading));
 
                 iNodeMesh* meshNode = static_cast<iNodeMesh*>(node);
-                shared_ptr<iMeshBuffers> buffers = meshNode->getMeshBuffers();
+                std::shared_ptr<iMeshBuffers> buffers = meshNode->getMeshBuffers();
                 iRenderer::getInstance().setLineWidth(4);
                 iRenderer::getInstance().drawMesh(buffers);
             }

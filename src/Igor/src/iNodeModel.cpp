@@ -4,7 +4,6 @@
 
 #include <iNodeModel.h>
 
-#include <iModel.h>
 #include <iNode.h>
 #include <iModelResourceFactory.h>
 #include <iRenderer.h>
@@ -19,7 +18,7 @@
 using namespace IgorAux;
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {

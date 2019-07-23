@@ -17,7 +17,7 @@
 
 #include <algorithm>
 #include <sstream>
-using namespace std;
+
 
 #include <GLee.h>
 

@@ -36,7 +36,7 @@
 using namespace IgorAux;
 
 #include <map>
-using namespace std;
+
 
 namespace Igor
 {
@@ -84,7 +84,7 @@ namespace Igor
 
         \param nodeIDMap map with old node ids to new node ids
         */
-        void onPostCopyLink(map<uint32, uint32>& nodeIDMap);
+        void onPostCopyLink(std::map<uint32, uint32>& nodeIDMap);
 
         /*! initializes memeber varialbes
         */

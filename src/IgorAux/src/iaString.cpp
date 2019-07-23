@@ -35,8 +35,8 @@ namespace IgorAux
 
 	int64 iaString::getHashValue() const
 	{
-		std::hash<wstring> hashFunc;
-		wstring keyValue = getData();
+		std::hash<std::wstring> hashFunc;
+		std::wstring keyValue = getData();
 		return static_cast<int64>(hashFunc(keyValue));
 	}
 
@@ -119,7 +119,7 @@ namespace IgorAux
 		return wcscmp((*this).getData(), text.getData()) < 0;
 	}
 
-	wostream& operator<<(wostream& stream, const iaString& text)
+	std::wostream& operator<<(std::wostream& stream, const iaString& text)
 	{
 		if (!text.isEmpty())
 		{
@@ -464,17 +464,17 @@ namespace IgorAux
 		return *this;
 	}
 
-	void iaString::split(const wchar_t delimiter, vector<iaString> & tokens, iaStringSplitMode splitMode) const
+	void iaString::split(const wchar_t delimiter, std::vector<iaString> & tokens, iaStringSplitMode splitMode) const
 	{
 		split(iaString(delimiter), tokens, splitMode);
 	}
 
-	void iaString::split(const char delimiter, vector<iaString> & tokens, iaStringSplitMode splitMode) const
+	void iaString::split(const char delimiter, std::vector<iaString> & tokens, iaStringSplitMode splitMode) const
 	{
 		split(iaString(delimiter), tokens, splitMode);
 	}
 
-	void iaString::split(const iaString & delimiters, vector<iaString> & tokens, iaStringSplitMode splitMode) const
+	void iaString::split(const iaString & delimiters, std::vector<iaString> & tokens, iaStringSplitMode splitMode) const
 	{
 		CHECK_CONSISTENCY();
 

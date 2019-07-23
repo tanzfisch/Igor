@@ -38,7 +38,7 @@
 using namespace IgorAux;
 
 #include <sstream>
-using namespace std;
+
 
 namespace Igor
 {
@@ -84,7 +84,7 @@ namespace Igor
 
         /*! holds a stack of matrices while traversion tree
         */
-        vector<iaMatrixd> _matrixStack;
+        std::vector<iaMatrixd> _matrixStack;
 
         /*! current matrix that eventually gets pushed on stack or came poped from stack
         */

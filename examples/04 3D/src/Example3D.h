@@ -160,7 +160,7 @@ private:
 
     /*! igor logo
     */
-    shared_ptr<iTexture> _igorLogo = nullptr;
+    iTexturePtr _igorLogo = nullptr;
 
     /*! called on key pressed event
 

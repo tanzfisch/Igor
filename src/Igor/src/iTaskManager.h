@@ -38,7 +38,7 @@ using namespace IgorAux;
 #include <list>
 #include <map>
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -162,7 +162,7 @@ namespace Igor
 
         /*! incomming tasks
         */
-        list<iTask*> _tasksIncomming;
+        std::list<iTask*> _tasksIncomming;
 
         /*! mutex for incomming tasks
         */
@@ -170,7 +170,7 @@ namespace Igor
 
         /*! list of all tasks
         */
-        map<uint64, iTask*> _allTasks;
+        std::map<uint64, iTask*> _allTasks;
 
         /*! mutex for all tasks list
         */
@@ -178,7 +178,7 @@ namespace Igor
 
         /*! list of regular threads
         */
-        vector<iThread*> _regularThreads;
+        std::vector<iThread*> _regularThreads;
 
         /*! mutex for regular threads
         */
@@ -188,7 +188,7 @@ namespace Igor
 
         \todo check if we realy need the extra data. because the thread it self has that data too
         */
-        map<iRenderContextThread*, ThreadContext> _renderContextThreads;
+        std::map<iRenderContextThread*, ThreadContext> _renderContextThreads;
 
         /*! mutex for render context threads
         */
@@ -196,11 +196,11 @@ namespace Igor
 
         /*! list of queued tasks
         */
-        list<iTask*> _regularTasksQueued;
+        std::list<iTask*> _regularTasksQueued;
 
         /*! list of running tasks
         */
-        list<iTask*> _regularTasksRunning;
+		std::list<iTask*> _regularTasksRunning;
 
         /*! mutex for regular tasks
         */
@@ -208,11 +208,11 @@ namespace Igor
 
         /*! list of queued tasks that need render context
         */
-		list<iTask*> _renderContextTasksQueued;
+		std::list<iTask*> _renderContextTasksQueued;
 
         /*! list of running tasks that need render context
         */
-        list<iTask*> _renderContextTasksRunning;
+		std::list<iTask*> _renderContextTasksRunning;
 
         /*! mutex for render context tasks
         */

@@ -235,15 +235,15 @@ private:
 
     /*! list with all widgets for easy cleanup
     */
-    vector<iWidget*> _allWidgets;
+    std::vector<iWidget*> _allWidgets;
 
     /*! list with all available emitters in all scenes
     */
-    vector<uint64> _emitters;
+    std::vector<uint64> _emitters;
 
     /*! contains user data that has to be deleted after use in the widgets
     */
-    vector<uint32*> _userDataMaterialID;
+    std::vector<uint32*> _userDataMaterialID;
 
     /*! current node
     */
@@ -287,7 +287,7 @@ private:
     \param ok the ok button was pressed
     \param graphs the resulting graphs
     */
-    void onCloseStartSizeGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs);
+    void onCloseStartSizeGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs);
 
     /*! triggered when clicked on size scale gradient graph
 
@@ -300,7 +300,7 @@ private:
     \param ok the ok button was pressed
     \param graphs the resulting graphs
     */
-    void onCloseScaleSizeGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs);
+    void onCloseScaleSizeGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs);
 
     /*! triggered when clicked on visibility gradient graph
 
@@ -313,7 +313,7 @@ private:
     \param ok the ok button was pressed
     \param graphs the resulting graphs
     */
-    void onCloseVisibilityGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs);
+    void onCloseVisibilityGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs);
 
     /*! triggered when clicked on start orientation gradient graph
 
@@ -326,7 +326,7 @@ private:
     \param ok the ok button was pressed
     \param graphs the resulting graphs
     */
-    void onCloseStartOrientationGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs);
+    void onCloseStartOrientationGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs);
 
     /*! triggered when clicked on orientation rate gradient graph
 
@@ -339,7 +339,7 @@ private:
     \param ok the ok button was pressed
     \param graphs the resulting graphs
     */
-    void onCloseStartOrientationRateGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs);
+    void onCloseStartOrientationRateGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs);
 
     /*! triggered when clicked on start velocity gradient graph
 
@@ -352,7 +352,7 @@ private:
     \param ok the ok button was pressed
     \param graphs the resulting graphs
     */
-    void onCloseStartVelocityGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs);
+    void onCloseStartVelocityGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs);
 
     /*! triggered when clicked on start lift/weight gradient graph
 
@@ -365,7 +365,7 @@ private:
     \param ok the ok button was pressed
     \param graphs the resulting graphs
     */
-    void onCloseStartLiftGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs);
+    void onCloseStartLiftGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs);
 
     /*! triggered when clicked on particle emission gradient graph
 
@@ -378,7 +378,7 @@ private:
     \param ok the ok button was pressed
     \param graphs the resulting graphs
     */
-    void onCloseEmissionGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs);
+    void onCloseEmissionGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs);
     
     /*! converts particle system gradients to GUI graphs
 

@@ -33,7 +33,7 @@
 
 #include <ostream>
 #include <vector>
-using namespace std;
+
 
 namespace IgorAux
 {
@@ -230,21 +230,21 @@ namespace IgorAux
         \param delimiters string with delimiter characters
         \param tokens the resulting tokens
         */
-        void split(const iaString& delimiters, vector<iaString>& tokens, iaStringSplitMode splitMode = iaStringSplitMode::Normal) const;
+        void split(const iaString& delimiters, std::vector<iaString>& tokens, iaStringSplitMode splitMode = iaStringSplitMode::Normal) const;
 
         /*! same as split with delimiter string but only for one delimiter character
 
         \param delimiter single delimiter character
         \param tokens the resulting tokens
         */
-        void split(const wchar_t delimiter, vector<iaString>& tokens, iaStringSplitMode splitMode = iaStringSplitMode::Normal) const;
+        void split(const wchar_t delimiter, std::vector<iaString>& tokens, iaStringSplitMode splitMode = iaStringSplitMode::Normal) const;
 
         /*! same as split with delimiter string but only for one delimiter character
 
         \param delimiter single delimiter character
         \param tokens the resulting tokens
         */
-        void split(const char delimiter, vector<iaString>& tokens, iaStringSplitMode splitMode = iaStringSplitMode::Normal) const;
+        void split(const char delimiter, std::vector<iaString>& tokens, iaStringSplitMode splitMode = iaStringSplitMode::Normal) const;
 
 		/*! \returns position of first occurence of specified characters
 
@@ -425,7 +425,7 @@ namespace IgorAux
     \param text the string to stream
     \returns the resulting stream
     */
-	IgorAux_API wostream& operator<<(wostream& stream, const iaString& text);
+	IgorAux_API std::wostream& operator<<(std::wostream& stream, const iaString& text);
 
 }
 

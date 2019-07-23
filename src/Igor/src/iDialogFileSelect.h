@@ -169,7 +169,7 @@ namespace Igor
 
         /*! list of widgets in file grid
         */
-        vector<iWidget*> _fileGridWidgets;
+        std::vector<iWidget*> _fileGridWidgets;
 
         /*! handles ok button click
 

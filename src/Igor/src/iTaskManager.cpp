@@ -225,7 +225,7 @@ namespace Igor
         }
         _renderContextTasksQueued.clear();
 
-        vector<uint64> removeFromAllTasks;
+        std::vector<uint64> removeFromAllTasks;
 
         // stop running render context tasks
         auto taskIter = _renderContextTasksRunning.begin();
@@ -333,7 +333,7 @@ namespace Igor
                 uint64 idToDelete = iTask::INVALID_TASK_ID;
 
                 _mutexRenderContextTasks.lock();
-                list<iTask*>::iterator findIter = find(_renderContextTasksRunning.begin(), _renderContextTasksRunning.end(), taskTodo);
+				std::list<iTask*>::iterator findIter = find(_renderContextTasksRunning.begin(), _renderContextTasksRunning.end(), taskTodo);
                 if (findIter != _renderContextTasksRunning.end())
                 {
                     _renderContextTasksRunning.erase(findIter);
@@ -410,7 +410,7 @@ namespace Igor
                 uint64 idToDelete = iTask::INVALID_TASK_ID;
 
                 _mutexRegularTasks.lock();
-                list<iTask*>::iterator findIter = find(_regularTasksRunning.begin(), _regularTasksRunning.end(), taskTodo);
+				std::list<iTask*>::iterator findIter = find(_regularTasksRunning.begin(), _regularTasksRunning.end(), taskTodo);
                 if (findIter != _regularTasksRunning.end())
                 {
                     _regularTasksRunning.erase(findIter);
@@ -461,7 +461,7 @@ namespace Igor
     void iTaskManager::flushIncommingTasks()
     {
         _mutexIncommingTasks.lock();
-        list<iTask*> incomming = _tasksIncomming;
+		std::list<iTask*> incomming = _tasksIncomming;
         _tasksIncomming.clear();
         _mutexIncommingTasks.unlock();
 

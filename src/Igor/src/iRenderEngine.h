@@ -33,7 +33,7 @@
 
 #include <vector>
 #include <map>
-using namespace std;
+
 
 namespace Igor
 {
@@ -157,7 +157,7 @@ namespace Igor
 
         /*! material groups
         */
-        map<uint64, iMaterialGroup> _materialGroups;
+        std::map<uint64, iMaterialGroup> _materialGroups;
 
         /*! dirty flag forcing to sort material groups
         */
@@ -169,7 +169,7 @@ namespace Igor
 
         /*! temporary list of nodes that where filtered by the culling process
         */
-        vector<uint64> _cullResult;
+        std::vector<uint64> _cullResult;
 
         /*! called on material created event
 

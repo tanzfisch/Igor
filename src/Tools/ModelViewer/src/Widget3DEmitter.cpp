@@ -107,7 +107,7 @@ void Widget3DEmitter::update()
 		clearMeshNode();
 
 		// create mesh
-		shared_ptr<iMesh> mesh;
+		iMeshPtr mesh;
 		uint64 material = _material;
 		switch (_emitterType)
 		{
@@ -162,7 +162,7 @@ void Widget3DEmitter::update()
 	_rootTransform->setMatrix(matrix);
 }
 
-shared_ptr<iMesh> Widget3DEmitter::createDisc()
+iMeshPtr Widget3DEmitter::createDisc()
 {
 	iMeshBuilder meshBuilder;
 
@@ -171,7 +171,7 @@ shared_ptr<iMesh> Widget3DEmitter::createDisc()
 	return meshBuilder.createMesh();
 }
 
-shared_ptr<iMesh> Widget3DEmitter::createCircle()
+iMeshPtr Widget3DEmitter::createCircle()
 {
 	iMeshBuilder meshBuilder;
 
@@ -180,7 +180,7 @@ shared_ptr<iMesh> Widget3DEmitter::createCircle()
 	return meshBuilder.createMesh();
 }
 
-shared_ptr<iMesh> Widget3DEmitter::createCube()
+iMeshPtr Widget3DEmitter::createCube()
 {
 	iMeshBuilder meshBuilder;
 
@@ -193,7 +193,7 @@ shared_ptr<iMesh> Widget3DEmitter::createCube()
 	return meshBuilder.createMesh();
 }
 
-shared_ptr<iMesh> Widget3DEmitter::createSphere()
+iMeshPtr Widget3DEmitter::createSphere()
 {
 	iMeshBuilder meshBuilder;
 
@@ -202,7 +202,7 @@ shared_ptr<iMesh> Widget3DEmitter::createSphere()
 	return meshBuilder.createMesh();
 }
 
-shared_ptr<iMesh> Widget3DEmitter::createSquare()
+iMeshPtr Widget3DEmitter::createSquare()
 {
 	iMeshBuilder meshBuilder;
 

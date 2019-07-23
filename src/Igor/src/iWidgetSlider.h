@@ -30,18 +30,16 @@
 #define __iWIDGETSLIDER__
 
 #include <iWidget.h>
+#include <iTexture.h>
 
 #include <iaString.h>
 using namespace IgorAux;
 
 #include <memory>
-using namespace std;
 
 namespace Igor
 {
-
-    class iTexture;
-
+	
     /*! button widget
 
     \todo non linear slider would be nice e.g. logarithmic for setting shininess in phong shading
@@ -141,11 +139,11 @@ namespace Igor
 
         /*! the texture
         */
-        shared_ptr<iTexture> _texture = nullptr;
+        iTexturePtr _texture = nullptr;
 
         /*! optional background texture
         */
-        shared_ptr<iTexture> _backgroundTexture = nullptr;
+        iTexturePtr _backgroundTexture = nullptr;
 
         /*! texture path
         */

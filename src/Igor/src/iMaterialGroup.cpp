@@ -23,12 +23,12 @@ namespace Igor
         }
     }
 
-    vector<uint64> iMaterialGroup::getRenderNodes() const
+    std::vector<uint64> iMaterialGroup::getRenderNodes() const
     {
         return _renderNodeIDs;
     }
 
-    map<shared_ptr<iMeshBuffers>, iInstancedNodes> iMaterialGroup::getInstancedRenderNodes() const
+    std::map<std::shared_ptr<iMeshBuffers>, iInstancedNodes> iMaterialGroup::getInstancedRenderNodes() const
     {
         return _instancedRenderNodes;
     }

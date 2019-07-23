@@ -36,7 +36,7 @@ namespace Igor
 		setScene(nullptr);
 	}
 
-    void iNodeLODTrigger::onPostCopyLink(map<uint32, uint32>& nodeIDMap)
+    void iNodeLODTrigger::onPostCopyLink(std::map<uint32, uint32>& nodeIDMap)
     {
 
     }

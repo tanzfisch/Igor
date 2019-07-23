@@ -14,7 +14,7 @@
 using namespace IgorAux;
 
 #include <algorithm>
-using namespace std;
+
 
 namespace Igor
 {

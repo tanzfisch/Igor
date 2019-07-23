@@ -37,7 +37,7 @@ using namespace IgorAux;
 #include <iaMatrix.h>
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -97,8 +97,8 @@ namespace Igor
 
 		void preRenderCustom();
 
-		vector<iSound*> sounds;
-		vector<iSound*> activesounds;
+		std::vector<iSound*> sounds;
+		std::vector<iSound*> activesounds;
 		iaVector3f sound_position;
 		bool firsttime;
 
@@ -122,8 +122,8 @@ namespace Igor
 
 	private:
 
-		vector<iSound*> sounds;								// liste der sourcen
-		vector<iSoundBuffer*> buffers;						// liste der buffer
+		std::vector<iSound*> sounds;								// liste der sourcen
+		std::vector<iSoundBuffer*> buffers;						// liste der buffer
 
 		iaMatrixf listener_matrix;								// listener iaMatrix
 

@@ -13,7 +13,7 @@ void iaGradient<T>::setValue(float at, const T& value)
 {
     if (_values.size() == 0)
     {
-        _values.push_back(pair<float, T>(at, value));
+        _values.push_back(std::pair<float, T>(at, value));
         return;
     }
 
@@ -29,14 +29,14 @@ void iaGradient<T>::setValue(float at, const T& value)
 
         if ((*iter).first > at)
         {
-            _values.insert(iter, pair<float, T>(at, value));
+            _values.insert(iter, std::pair<float, T>(at, value));
             return;
         }
 
         iter++;
     }
 
-    _values.push_back(pair<float, T>(at, value));
+    _values.push_back(std::pair<float, T>(at, value));
 }
 
 template <class T>
@@ -53,7 +53,7 @@ void iaGradient<T>::setValueAtIndex(int32 index, const T& value)
 {
     if (index < _values.size())
     {
-        _values[index] = pair<float, T>(_values[index].first, value);
+        _values[index] = std::pair<float, T>(_values[index].first, value);
     }
 }
 
@@ -68,7 +68,7 @@ void iaGradient<T>::getValueAtIndex(int32 index, float& at, T& value)
 }
 
 template <class T>
-const vector<pair<float, T>>& iaGradient<T>::getValues() const
+const std::vector<std::pair<float, T>>& iaGradient<T>::getValues() const
 {
     return _values;
 }

@@ -142,7 +142,7 @@ namespace Igor
     {
         con_assert(!name.isEmpty(), "invalid parameter");
 
-        std::hash<wstring> hashFunc;
+        std::hash<std::wstring> hashFunc;
 
         iaString combined = name;
         switch (cacheMode)
@@ -264,7 +264,7 @@ namespace Igor
 
     void iTextureResourceFactory::flush(iResourceCacheMode cacheModeLevel)
     {
-        vector<iTexturePtr> texturesToProcess;
+        std::vector<iTexturePtr> texturesToProcess;
 
         _mutex.lock();
         auto texture = _textures.begin();

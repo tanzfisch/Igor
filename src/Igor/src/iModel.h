@@ -189,6 +189,10 @@ namespace Igor
 
 	};
 
+	/*! definition of model pointer
+	*/
+	typedef std::shared_ptr<iModel> iModelPtr;
+
 }
 
 #endif

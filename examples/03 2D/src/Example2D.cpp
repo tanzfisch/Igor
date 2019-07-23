@@ -18,7 +18,7 @@ using namespace IgorAux;
 using namespace Igor;
 
 #include <sstream>
-using namespace std;
+
 
 Example2D::Example2D()
 {

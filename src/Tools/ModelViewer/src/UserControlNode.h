@@ -73,7 +73,7 @@ private:
     iWidgetCheckBox* _checkBoxActive = nullptr;
     iWidgetTextEdit* _textName = nullptr;
 
-    vector<iWidget*> _allWidgets;
+    std::vector<iWidget*> _allWidgets;
 
     uint32 _nodeId = 0;
 

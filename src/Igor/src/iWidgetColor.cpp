@@ -4,13 +4,13 @@
 
 #include <iWidgetColor.h>
 
-#include <iaConsole.h>
-using namespace IgorAux;
-
 #include <iWidgetManager.h>
 #include <iWidgetBaseTheme.h>
 #include <iTextureFont.h>
 #include <iTextureResourceFactory.h>
+
+#include <iaConsole.h>
+using namespace IgorAux;
 
 namespace Igor
 {

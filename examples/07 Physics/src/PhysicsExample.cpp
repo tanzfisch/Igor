@@ -77,7 +77,7 @@ void PhysicsExample::init()
 
     // create some collision boxes and combine them in one to represent the floor
     iaMatrixd offsetFloor;
-    vector<iPhysicsCollision*> collisions;
+    std::vector<iPhysicsCollision*> collisions;
     collisions.push_back(iPhysics::getInstance().createBox(10, 1, 50, offsetFloor.getData()));
     collisions.push_back(iPhysics::getInstance().createBox(50, 1, 10, offsetFloor.getData()));
     offsetFloor.translate(0, -5, 0);

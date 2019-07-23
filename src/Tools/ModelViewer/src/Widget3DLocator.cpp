@@ -89,7 +89,7 @@ void Widget3DLocator::createLocator()
 	_scene->getRoot()->insertNode(_rootTransform);
 	_rootTransform->setActive(false);
 
-	shared_ptr<iMesh> locatorMesh = createLocatorMesh();
+	iMeshPtr locatorMesh = createLocatorMesh();
 
 	iNodeTransform* xTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 	xTransform->rotate(-M_PI * 0.5, iaAxis::Z);
@@ -121,7 +121,7 @@ void Widget3DLocator::createLocator()
 	zTransform->insertNode(zCylinder);
 }
 
-shared_ptr<iMesh> Widget3DLocator::createLocatorMesh()
+iMeshPtr Widget3DLocator::createLocatorMesh()
 {
 	iMeshBuilder meshBuilder;
 

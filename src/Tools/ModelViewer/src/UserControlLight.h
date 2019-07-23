@@ -60,7 +60,7 @@ public:
 
 private:
 
-    vector<iWidget*> _allWidgets;
+    std::vector<iWidget*> _allWidgets;
 
     iWidgetGrid* _grid = nullptr;
 

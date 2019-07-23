@@ -239,7 +239,7 @@ namespace Igor
         }
     }
 
-    void iNodePhysics::addMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixd& offset)
+    void iNodePhysics::addMesh(iMeshPtr mesh, int64 faceAttribute, const iaMatrixd& offset)
     {
         iPhysicsCollisionConfig* physicsCollisionConfig = iPhysics::getInstance().getCollisionConfig(_physicsCollisionConfigID);
         if (physicsCollisionConfig)

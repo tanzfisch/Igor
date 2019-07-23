@@ -42,7 +42,7 @@ using namespace Igor;
 #include <sstream>
 #include <vector>
 #include <map>
-using namespace std;
+
 
 namespace Igor
 {
@@ -112,8 +112,8 @@ private:
     uint64 _root = iNode::INVALID_NODE_ID;
 	GraphSelectionChanged _selectionChange;
 
-	vector<iWidget*> _gridEntryWidgets;
-	vector<iWidget*> _allWidgets;
+	std::vector<iWidget*> _gridEntryWidgets;
+	std::vector<iWidget*> _allWidgets;
 
     int32 _indentation = 0;
     bool _firstNode = true;
@@ -124,10 +124,10 @@ private:
     iWidgetGrid* _gridGraph = nullptr;
 
     iDialogMenu* _dialogMenu = nullptr;
-    vector<iaString> _dialogMenuTexts;
-    vector<iaString> _dialogMenuPictures;
+    std::vector<iaString> _dialogMenuTexts;
+    std::vector<iaString> _dialogMenuPictures;
 
-    vector<uint64*> _userData;
+    std::vector<uint64*> _userData;
 
     void clearGraph();
 

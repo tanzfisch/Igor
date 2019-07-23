@@ -36,7 +36,7 @@
 using namespace IgorAux;
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {

@@ -30,17 +30,16 @@
 #define __iWIDGETBUTTON__
 
 #include <iWidget.h>
+#include <iTexture.h>
 
 #include <iaString.h>
 using namespace IgorAux;
 
 #include <memory>
-using namespace std;
+
 
 namespace Igor
 {
-
-    class iTexture;
 
     /*! button widget
 
@@ -113,7 +112,7 @@ namespace Igor
 
         /*! the buttons texture
         */
-        shared_ptr<iTexture> _texture = nullptr;
+        iTexturePtr _texture;
 
         /*! texture path
         */

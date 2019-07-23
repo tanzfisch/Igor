@@ -204,43 +204,43 @@ namespace Igor
 
         \param attributes list of strings containing attributes
         */
-		bool analyseAttributes(vector<iaString> &attributes);
+		bool analyseAttributes(std::vector<iaString> &attributes);
 
         /*! read vertex attributes
 
         \param attributes list of attributes
         */
-		bool readVertex(vector<iaString> &attributes);
+		bool readVertex(std::vector<iaString> &attributes);
 
         /*! read normal attributes
 
         \param attributes list of attributes
         */
-        bool readNormal(vector<iaString> &attributes);
+        bool readNormal(std::vector<iaString> &attributes);
 
         /*! read texture coordinate attributes
 
         \param attributes list of attributes
         */
-        bool readTexcoord(vector<iaString> &attributes);
+        bool readTexcoord(std::vector<iaString> &attributes);
 
         /*! read group attributes
 
         \param attributes list of attributes
         */
-        bool readGroup(vector<iaString> &attributes);
+        bool readGroup(std::vector<iaString> &attributes);
 
         /*! read face (aka polygon) attributes
 
         \param attributes list of attributes
         */
-        bool readFace(vector<iaString> &attributes);
+        bool readFace(std::vector<iaString> &attributes);
 
         /*! read material attributes
 
         \param attributes list of attributes
         */
-        bool readMaterial(vector<iaString> &attributes);
+        bool readMaterial(std::vector<iaString> &attributes);
 
         /*! read vertex attributes
 
@@ -258,31 +258,31 @@ namespace Igor
 
         \param attributes list of attributes
         */
-        bool readShininess(vector<iaString> &attributes);
+        bool readShininess(std::vector<iaString> &attributes);
 
         /*! read ambient attributes
 
         \param attributes list of attributes
         */
-        bool readAmbient(vector<iaString> &attributes);
+        bool readAmbient(std::vector<iaString> &attributes);
 
         /*! read diffuse attributes
 
         \param attributes list of attributes
         */
-        bool readDiffuse(vector<iaString> &attributes);
+        bool readDiffuse(std::vector<iaString> &attributes);
 
         /*! read specular attributes
 
         \param attributes list of attributes
         */
-        bool readSpecular(vector<iaString> &attributes);
+        bool readSpecular(std::vector<iaString> &attributes);
 
         /*! read texture attributes
 
         \param attributes list of attributes
         */
-        bool readTexture(vector<iaString> &attributes);
+        bool readTexture(std::vector<iaString> &attributes);
 
         /*! open and read obj (wavefront) file
 
@@ -294,7 +294,7 @@ namespace Igor
 
         \param attributes list of attributes
         */
-        bool readUseMaterial(vector<iaString> &attributes);
+        bool readUseMaterial(std::vector<iaString> &attributes);
 
         /*! \returns material count
         */

@@ -34,7 +34,7 @@
 #include <iaVector3.h>
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -56,10 +56,10 @@ namespace Igor
 
 		iVoxelData* _voxelData = nullptr;
 
-		vector<iVoxelBlock>::iterator _ait;
-		vector<iVoxelBlock>::iterator _bit;
-		vector<iVoxelBlock>::iterator _cit;
-		vector<iVoxelBlock>::iterator _dit;
+		std::vector<iVoxelBlock>::iterator _ait;
+		std::vector<iVoxelBlock>::iterator _bit;
+		std::vector<iVoxelBlock>::iterator _cit;
+		std::vector<iVoxelBlock>::iterator _dit;
 
         uint8 _a1Density = 0;
         uint8 _a2Density = 0;

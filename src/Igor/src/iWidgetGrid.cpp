@@ -399,7 +399,7 @@ namespace Igor
         setMinSize(minWidth, minHeight);
     }
 
-    void iWidgetGrid::calcChildOffsets(vector<iRectanglei>& offsets)
+    void iWidgetGrid::calcChildOffsets(std::vector<iRectanglei>& offsets)
     {
         offsets.clear();
         offsets.resize(_children.size());

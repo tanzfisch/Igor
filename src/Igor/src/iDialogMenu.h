@@ -60,14 +60,14 @@ namespace Igor
         \param pictures paths to textures used as icons next to the text (optional)
 		\param closeDelegate delegate for closing event
 		*/
-        void show(vector<iaString>& texts, vector<iaString>& pictures, iDialogMenuCloseDelegate closeDelegate);
+        void show(std::vector<iaString>& texts, std::vector<iaString>& pictures, iDialogMenuCloseDelegate closeDelegate);
 
         /*! opens dialog
 
         \param texts the texts to put in the selection list
         \param closeDelegate delegate for closing event
         */
-        void show(vector<iaString>& texts, iDialogMenuCloseDelegate closeDelegate);
+        void show(std::vector<iaString>& texts, iDialogMenuCloseDelegate closeDelegate);
 
         /*! sets the height of an entry
 
@@ -103,7 +103,7 @@ namespace Igor
         
         /*! all widgets
         */
-        vector<iWidget*> _allWidgets;
+        std::vector<iWidget*> _allWidgets;
 
         /*! handles change event
 
@@ -127,14 +127,14 @@ namespace Igor
 
         \param texts the texts for the menu
         */
-        void initGUI(vector<iaString>& texts);
+        void initGUI(std::vector<iaString>& texts);
 
         /*! initializes the gui
 
         \param texts the texts for the menu
         \param pictures the pictures for the menu
         */
-        void initGUI(vector<iaString>& texts, vector<iaString>& pictures);
+        void initGUI(std::vector<iaString>& texts, std::vector<iaString>& pictures);
 
         /*! deinitializes the gui elements
         */

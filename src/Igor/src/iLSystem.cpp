@@ -10,7 +10,7 @@ namespace Igor
     void iLSystem::setRule(wchar_t input, iaString output)
     {
         iLSystemRule rule;
-        rule._output.push_back(pair<float64, iaString>(1.0, output));
+        rule._output.push_back(std::pair<float64, iaString>(1.0, output));
 
         _rules[input] = rule;
     }
@@ -29,7 +29,7 @@ namespace Igor
         _rules.clear();
     }
 
-    void iLSystem::setRule(wchar_t input, vector<pair<float64, iaString>> output)
+    void iLSystem::setRule(wchar_t input, std::vector<std::pair<float64, iaString>> output)
     {
         iLSystemRule rule;
         rule._output = output;

@@ -20,7 +20,7 @@ namespace OMPF
 
 	}
 	
-    bool ompfHeaderChunk::write(ofstream& stream, const ompfSettings& settings)
+    bool ompfHeaderChunk::write(std::ofstream& stream, const ompfSettings& settings)
     {
         if (!iaSerializable::write(stream, "OMPF", 4))
         {
@@ -81,7 +81,7 @@ namespace OMPF
         return ompfBaseChunk::write(stream, settings);
     }
     
-    bool ompfHeaderChunk::read(ifstream& stream, ompfSettings& settings)
+    bool ompfHeaderChunk::read(std::ifstream& stream, ompfSettings& settings)
     {
         char magicNumber[5];
 #ifdef __IGOR_DEBUG__
@@ -90,7 +90,7 @@ namespace OMPF
         iaSerializable::read(stream, magicNumber, 4);
         magicNumber[4] = 0;
 
-        if (string(magicNumber) != "OMPF")
+        if (std::string(magicNumber) != "OMPF")
         {
             con_err("invalid magic number");
             return false;

@@ -60,7 +60,7 @@ namespace Igor
 			return 0;
 		}
 
-		vector<iMeshBuilder*> meshBuilders;
+		std::vector<iMeshBuilder*> meshBuilders;
 
 		for (auto section : _sections)
 		{
@@ -159,7 +159,7 @@ namespace Igor
 		}
 	}
 
-	bool iModelDataIOOBJ::analyseAttributes(vector<iaString> & attributes)
+	bool iModelDataIOOBJ::analyseAttributes(std::vector<iaString> & attributes)
 	{
 		if (attributes.size() == 0)
 		{
@@ -236,7 +236,7 @@ namespace Igor
 		return true;
 	}
 
-	bool iModelDataIOOBJ::readShininess(vector<iaString> & attributes)
+	bool iModelDataIOOBJ::readShininess(std::vector<iaString> & attributes)
 	{
 		con_assert(attributes.size() == 2, "invalid count of attributes");
 
@@ -250,7 +250,7 @@ namespace Igor
 		return true;
 	}
 
-	bool iModelDataIOOBJ::readAmbient(vector<iaString> & attributes)
+	bool iModelDataIOOBJ::readAmbient(std::vector<iaString> & attributes)
 	{
 		con_assert(attributes.size() == 4, "invalid count of attributes");
 
@@ -266,7 +266,7 @@ namespace Igor
 		return true;
 	}
 
-	bool iModelDataIOOBJ::readDiffuse(vector<iaString> & attributes)
+	bool iModelDataIOOBJ::readDiffuse(std::vector<iaString> & attributes)
 	{
 		con_assert(attributes.size() == 4, "invalid count of attributes");
 
@@ -281,7 +281,7 @@ namespace Igor
 		return true;
 	}
 
-	bool iModelDataIOOBJ::readSpecular(vector<iaString> & attributes)
+	bool iModelDataIOOBJ::readSpecular(std::vector<iaString> & attributes)
 	{
 		con_assert(attributes.size() == 4, "invalid count of attributes");
 
@@ -296,7 +296,7 @@ namespace Igor
 		return true;
 	}
 
-	bool iModelDataIOOBJ::readTexture(vector<iaString> & attributes)
+	bool iModelDataIOOBJ::readTexture(std::vector<iaString> & attributes)
 	{
 		con_assert(attributes.size() == 2, "invalid count of attributes");
 
@@ -311,15 +311,15 @@ namespace Igor
 
 	bool iModelDataIOOBJ::readMaterialFile(iaString filename)
 	{
-		ifstream file;
+		std::ifstream file;
 		if (iaFile::exist(filename))
 		{
-			file.open(iResourceManager::getInstance().getPath(filename).getData(), ifstream::in);
-			vector<iaString> attributes;
+			file.open(iResourceManager::getInstance().getPath(filename).getData(), std::ifstream::in);
+			std::vector<iaString> attributes;
 
 			if (file.is_open())
 			{
-				string line;
+				std::string line;
 
 				while (getline(file, line, '\n'))
 				{
@@ -339,7 +339,7 @@ namespace Igor
 		return false;
 	}
 
-	bool iModelDataIOOBJ::readMaterial(vector<iaString> & attributes)
+	bool iModelDataIOOBJ::readMaterial(std::vector<iaString> & attributes)
 	{
 		con_assert(attributes.size() >= 2, "invalid count of attributes");
 
@@ -349,7 +349,7 @@ namespace Igor
 		return true;
 	}
 
-	bool iModelDataIOOBJ::readGroup(vector<iaString> & attributes)
+	bool iModelDataIOOBJ::readGroup(std::vector<iaString> & attributes)
 	{
 		_currentSections.clear();
 		_currentGroups.clear();
@@ -383,7 +383,7 @@ namespace Igor
 		return true;
 	}
 
-	bool iModelDataIOOBJ::readUseMaterial(vector<iaString> & attributes)
+	bool iModelDataIOOBJ::readUseMaterial(std::vector<iaString> & attributes)
 	{
 		con_assert(attributes.size() == 2, "invalid count of attributes");
 
@@ -420,7 +420,7 @@ namespace Igor
 		return false;
 	}
 
-	bool iModelDataIOOBJ::readFace(vector<iaString> & attributes)
+	bool iModelDataIOOBJ::readFace(std::vector<iaString> & attributes)
 	{
 		OBJPolygon polygon;
 
@@ -446,7 +446,7 @@ namespace Igor
 		result._t = -1;
 		result._vn = -1;
 
-		vector<iaString> values;
+		std::vector<iaString> values;
 		attributes.split("/", values, iaStringSplitMode::RetriveAllEmpties);
 
 		con_assert(values.size() < 4, "corrupt value count");
@@ -478,7 +478,7 @@ namespace Igor
 		return result;
 	}
 
-	bool iModelDataIOOBJ::readVertex(vector<iaString> & attributes)
+	bool iModelDataIOOBJ::readVertex(std::vector<iaString> & attributes)
 	{
 
 		con_assert(attributes.size() >= 4, "invalid attributes count");
@@ -491,7 +491,7 @@ namespace Igor
 		return true;
 	}
 
-	bool iModelDataIOOBJ::readTexcoord(vector<iaString> & attributes)
+	bool iModelDataIOOBJ::readTexcoord(std::vector<iaString> & attributes)
 	{
 		con_assert(attributes.size() >= 3, "invalid attributes count");
 
@@ -502,7 +502,7 @@ namespace Igor
 		return true;
 	}
 
-	bool iModelDataIOOBJ::readNormal(vector<iaString> & attributes)
+	bool iModelDataIOOBJ::readNormal(std::vector<iaString> & attributes)
 	{
 		con_assert(attributes.size() >= 4, "invalid attributes count");
 
@@ -519,13 +519,13 @@ namespace Igor
 		iaFile file(filename);
 		_pathOfModel = file.getPath();
 
-		ifstream fileStream;
-		fileStream.open(filename.getData(), ifstream::in);
-		vector<iaString> attributes;
+		std::ifstream fileStream;
+		fileStream.open(filename.getData(), std::ifstream::in);
+		std::vector<iaString> attributes;
 
 		if (fileStream.is_open())
 		{
-			string line;
+			std::string line;
 
 			while (getline(fileStream, line, '\n'))
 			{

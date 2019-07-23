@@ -416,7 +416,7 @@ void Ascent::onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1)
         {
             uint64 id0 = reinterpret_cast<uint64>(body0->getUserData());
             _hitListMutex.lock();
-            _hitList.push_back(pair<uint64, uint64>(id0, 0));
+            _hitList.push_back(std::pair<uint64, uint64>(id0, 0));
             _hitListMutex.unlock();
 
         }
@@ -424,7 +424,7 @@ void Ascent::onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1)
         {
             uint64 id1 = reinterpret_cast<uint64>(body1->getUserData());
             _hitListMutex.lock();
-            _hitList.push_back(pair<uint64, uint64>(id1, 0));
+            _hitList.push_back(std::pair<uint64, uint64>(id1, 0));
             _hitListMutex.unlock();
         }
     }
@@ -439,8 +439,8 @@ void Ascent::onContact(iPhysicsBody* body0, iPhysicsBody* body1)
         uint64 id0 = reinterpret_cast<uint64>(body0->getUserData());
         uint64 id1 = reinterpret_cast<uint64>(body1->getUserData());
         _hitListMutex.lock();
-        _hitList.push_back(pair<uint64, uint64>(id0, id1));
-        _hitList.push_back(pair<uint64, uint64>(id1, id0));
+        _hitList.push_back(std::pair<uint64, uint64>(id0, id1));
+        _hitList.push_back(std::pair<uint64, uint64>(id1, id0));
         _hitListMutex.unlock();
     }
 }
@@ -483,7 +483,7 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
             iaVector3d creationPos = pos + offset;
 
             iSphered sphere(creationPos, 5);
-            vector<uint64> result;
+            std::vector<uint64> result;
             iEntityManager::getInstance().getEntities(sphere, result);
             if (result.empty())
             {
@@ -546,7 +546,7 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
             if (_voxelTerrain->castRay(iaVector3I(from._x, from._y, from._z), iaVector3I(to._x, to._y, to._z), outside, inside))
             {
                 iSphered sphere(iaVector3d(outside._x, outside._y, outside._z), 5);
-                vector<uint64> result;
+                std::vector<uint64> result;
                 iEntityManager::getInstance().getEntities(sphere, result);
                 if (result.empty())
                 {
@@ -929,7 +929,7 @@ void Ascent::onHandle()
         BossEnemy* boss = static_cast<BossEnemy*>(iEntityManager::getInstance().getEntity(_bossID));
         if (boss == nullptr)
         {
-            vector<uint64> ids;
+            std::vector<uint64> ids;
             iEntityManager::getInstance().getEntities(ids);
 
             for (auto id : ids)

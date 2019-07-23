@@ -35,7 +35,7 @@ using namespace IgorAux;
 #include <iNodeVisitor.h>
 #include <iDefines.h>
 #include <sstream>
-using namespace std;
+
 
 namespace Igor
 {
@@ -94,7 +94,7 @@ namespace Igor
 
 		/*! all the output ends up in this string
 		*/
-		wstringstream _stream;
+		std::wstringstream _stream;
 
 	};
 

@@ -32,7 +32,7 @@
 #include <iaVector3.h>
 
 #include <ostream>
-using namespace std;
+
 
 namespace IgorAux
 {

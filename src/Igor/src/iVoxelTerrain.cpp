@@ -93,7 +93,7 @@ namespace Igor
     {
         iVoxelOperationSphere* voxelOperationBox = new iVoxelOperationSphere(sphere, density);
         _operationsQueueMutex.lock();
-        _operationsQueue.push_back(shared_ptr<iVoxelOperation>(voxelOperationBox));
+        _operationsQueue.push_back(std::shared_ptr<iVoxelOperation>(voxelOperationBox));
         _operationsQueueMutex.unlock();
     }
 
@@ -101,7 +101,7 @@ namespace Igor
     {
         iVoxelOperationBox* voxelOperationBox = new iVoxelOperationBox(box, density);
         _operationsQueueMutex.lock();
-        _operationsQueue.push_back(shared_ptr<iVoxelOperation>(voxelOperationBox));
+        _operationsQueue.push_back(std::shared_ptr<iVoxelOperation>(voxelOperationBox));
         _operationsQueueMutex.unlock();
     }
 
@@ -178,7 +178,7 @@ namespace Igor
 
     void iVoxelTerrain::init()
     {
-        unordered_map<iaVector3I, iVoxelBlock*, iVectorHasher, iVectorEqualFn> voxelBlocks;
+        std::unordered_map<iaVector3I, iVoxelBlock*, iVectorHasher, iVectorEqualFn> voxelBlocks;
 
         for (int i = 0; i < _lowestLOD + 1; ++i)
         {
@@ -311,7 +311,7 @@ namespace Igor
         }
     }
 
-    void iVoxelTerrain::applyVoxelOperation(shared_ptr<iVoxelOperation> voxelOperation)
+    void iVoxelTerrain::applyVoxelOperation(std::shared_ptr<iVoxelOperation> voxelOperation)
     {
         iAABoxI boundings;
         voxelOperation->getBoundings(boundings);
@@ -616,7 +616,7 @@ namespace Igor
         }
     }
 
-    void iVoxelTerrain::collectBlocksToDelete(iVoxelBlock* currentBlock, vector<iVoxelBlock*>& dst)
+    void iVoxelTerrain::collectBlocksToDelete(iVoxelBlock* currentBlock, std::vector<iVoxelBlock*>& dst)
     {
         detachNeighbours(currentBlock);
 

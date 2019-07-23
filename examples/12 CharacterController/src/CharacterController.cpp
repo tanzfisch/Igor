@@ -310,7 +310,7 @@ float64 CharacterController::getFloorContactPoint(iaVector3d& point, iaVector3d&
 	target = matrix._pos;
 	target._y -= 5;
 
-	vector<ConvexCastReturnInfo> info;
+	std::vector<ConvexCastReturnInfo> info;
 
 	iPhysics::getInstance().convexCast(matrix, target, _collisionCast, iRayPreFilterDelegate(this, &CharacterController::onRayPreFilter), nullptr, info);
 

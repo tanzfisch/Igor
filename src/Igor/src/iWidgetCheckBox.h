@@ -32,7 +32,7 @@
 #include <iWidget.h>
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -101,7 +101,7 @@ namespace Igor
 
         /*! if check box is part of a radio button group. this is the group
         */
-		vector<iWidgetCheckBox*> _radioButtons;
+		std::vector<iWidgetCheckBox*> _radioButtons;
 
         /*! flag to determine if the next check box created is part of a radio button group
         */
@@ -109,7 +109,7 @@ namespace Igor
 
         /*! radio button stack while creating a radio button group
         */
-		static vector<iWidgetCheckBox*> _currentRadioButtons;
+		static std::vector<iWidgetCheckBox*> _currentRadioButtons;
 
         /*! updates size based on it's content
         */

@@ -46,7 +46,7 @@ namespace Igor
 
 	private:
 
-		shared_ptr<iTexture> texture;
+		iTexturePtr texture;
 
 
 		iCelestialNode();
@@ -64,7 +64,7 @@ namespace Igor
 
         \param nodeIDMap map with old node ids to new node ids
         */
-        void onPostCopyLink(map<uint32, uint32>& nodeIDMap);
+        void onPostCopyLink(std::map<uint32, uint32>& nodeIDMap);
 
 		void setTexture(iaString textureFileName);
 	};

@@ -35,7 +35,7 @@
 #include <iOSEventListener.h>
 
 #include <list>
-using namespace std;
+
 
 namespace Igor
 {

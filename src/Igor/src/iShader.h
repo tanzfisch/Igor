@@ -39,7 +39,7 @@
 using namespace IgorAux;
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -105,7 +105,7 @@ namespace Igor
 
         /*! list of shader objects
         */
-        vector<uint32> _shaderObjects;
+        std::vector<uint32> _shaderObjects;
 
         /*! id of glsl shader program
         */

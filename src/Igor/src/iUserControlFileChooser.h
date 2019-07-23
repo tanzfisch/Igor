@@ -132,7 +132,7 @@ namespace Igor
 
         /*! store all created widgets here so we can clean up easily
         */
-        vector<iWidget*> _allWidgets;
+        std::vector<iWidget*> _allWidgets;
 
         /*! called after file dialog is closed
 

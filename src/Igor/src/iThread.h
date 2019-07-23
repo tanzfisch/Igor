@@ -35,7 +35,7 @@
 using namespace IgorAux;
 
 #include <thread>
-using namespace std;
+
 
 #include <iPhysicsWorld.h>
 
@@ -114,7 +114,7 @@ namespace Igor
 
         /*! thread handle
         */
-        thread* _thread = nullptr;
+        std::thread* _thread = nullptr;
 
         /*! the delegate to be called by the thread
         */

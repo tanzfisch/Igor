@@ -46,7 +46,7 @@ namespace Igor
         _yStepping = yStepping;
     }
 
-    void iDialogGraph::show(iDialogGraphCloseDelegate closeDelegate, const vector<vector<iaVector2f>>& graphs)
+    void iDialogGraph::show(iDialogGraphCloseDelegate closeDelegate, const std::vector<std::vector<iaVector2f>>& graphs)
     {
         con_assert(graphs.size() > 0 && graphs[0].size() > 0, "invalid data");
 

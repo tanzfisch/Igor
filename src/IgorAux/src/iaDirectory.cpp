@@ -8,7 +8,7 @@
 #include <iaConsole.h>
 
 #include <sstream>
-using namespace std;
+
 
 namespace IgorAux
 {
@@ -24,15 +24,15 @@ namespace IgorAux
 		return *this;
 	}
 
-	vector<iaDirectory> iaDirectory::getDirectorys(iaString searchPattern, bool recursive)
+	std::vector<iaDirectory> iaDirectory::getDirectorys(iaString searchPattern, bool recursive)
 	{
         iaString fullPath = fixPath(_directoryName, false);
         return getDirectorysRecursive(fullPath, searchPattern, recursive);
 	}
 
-	vector<iaDirectory> iaDirectory::getDirectorysRecursive(const iaString &directory, const iaString &searchPattern, const bool recursive)
+	std::vector<iaDirectory> iaDirectory::getDirectorysRecursive(const iaString &directory, const iaString &searchPattern, const bool recursive)
 	{
-		vector<iaDirectory> result;
+		std::vector<iaDirectory> result;
 		WIN32_FIND_DATA findData;
 		HANDLE findHandle;
 
@@ -80,7 +80,7 @@ namespace IgorAux
 					{
 						if(findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 						{
-							vector<iaDirectory> result_add = getDirectorysRecursive(directory + getPathSeperator() + findData.cFileName, searchPattern, true);
+							std::vector<iaDirectory> result_add = getDirectorysRecursive(directory + getPathSeperator() + findData.cFileName, searchPattern, true);
 
                             for (unsigned int i = 0; i < result_add.size(); ++i)
                             {
@@ -117,15 +117,15 @@ namespace IgorAux
 		return result;
 	}
 
-	vector<iaFile> iaDirectory::getFiles(iaString searchPattern, bool recursive)
+	std::vector<iaFile> iaDirectory::getFiles(iaString searchPattern, bool recursive)
 	{
         iaString fullPath = fixPath(_directoryName, false);
         return getFilesRecursive(fullPath, searchPattern, recursive);
 	}
 
-	vector<iaFile> iaDirectory::getFilesRecursive(const iaString &directory, const iaString &searchPattern, const bool recursive)
+	std::vector<iaFile> iaDirectory::getFilesRecursive(const iaString &directory, const iaString &searchPattern, const bool recursive)
 	{
-		vector<iaFile> result;
+		std::vector<iaFile> result;
 		WIN32_FIND_DATA findData;
 		HANDLE findHandle;
 
@@ -174,7 +174,7 @@ namespace IgorAux
 					{
 						if(findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
 						{
-							vector<iaFile> result_add = getFilesRecursive(directory + getPathSeperator() + findData.cFileName, searchPattern, true);
+							std::vector<iaFile> result_add = getFilesRecursive(directory + getPathSeperator() + findData.cFileName, searchPattern, true);
 
                             for (unsigned int i = 0; i < result_add.size(); ++i)
                             {
@@ -274,7 +274,7 @@ namespace IgorAux
 		}
 
 		// crops the current path for every .. and double slash we find
-		vector<iaString> path;
+		std::vector<iaString> path;
 
         temp.split(iaDirectory::getPathSeperator(), path);
 		temp.clear();
@@ -343,11 +343,11 @@ namespace IgorAux
         }
         
         iaFile fileTo(to);
-        vector<iaString> elementsFrom;
+        std::vector<iaString> elementsFrom;
         fromPath.split(iaDirectory::getPathSeperator(), elementsFrom);
 
         iaString toPath = fileTo.getPath();
-        vector<iaString> elementsTo;
+        std::vector<iaString> elementsTo;
         toPath.split(iaDirectory::getPathSeperator(), elementsTo);
 
         int index = 0;

@@ -18,7 +18,7 @@ using namespace IgorAux;
 
 #include <fstream>
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -198,7 +198,7 @@ namespace Igor
 
     int64 iModelResourceFactory::calcResourceHashValue(const iaString& text, iResourceCacheMode cacheMode)
     {
-        std::hash<wstring> hashFunc;
+        std::hash<std::wstring> hashFunc;
         iaString combined = text;
         switch (cacheMode)
         {
@@ -213,20 +213,20 @@ namespace Igor
             break;
         }
 
-        wstring keyValue = combined.getData();
+        std::wstring keyValue = combined.getData();
         return static_cast<int64>(hashFunc(keyValue));
     }
 
     int64 iModelResourceFactory::calcModelDataIOHashValue(const iaString& text)
     {
-        std::hash<wstring> hashFunc;
-        wstring keyValue = text.getData();
+        std::hash<std::wstring> hashFunc;
+        std::wstring keyValue = text.getData();
         return static_cast<int64>(hashFunc(keyValue));
     }
 
-    shared_ptr<iModel> iModelResourceFactory::requestModelData(const iaString& filename, iResourceCacheMode cacheMode, iModelDataInputParameter* parameter)
+    iModelPtr iModelResourceFactory::requestModelData(const iaString& filename, iResourceCacheMode cacheMode, iModelDataInputParameter* parameter)
     {
-        shared_ptr<iModel> result;
+        iModelPtr result;
         iaString hashKey;
 
         con_assert_sticky(filename != "", "invalid parameter");
@@ -259,7 +259,7 @@ namespace Igor
 
         if (nullptr == result.get())
         {
-            result = shared_ptr<iModel>(new iModel(hashKey, cacheMode, parameter), iModel::private_deleter());
+            result = iModelPtr(new iModel(hashKey, cacheMode, parameter), iModel::private_deleter());
             _mutexModels.lock();
             _models[hashValue] = result;
             _mutexModels.unlock();
@@ -272,9 +272,9 @@ namespace Igor
         return result;
     }
 
-    shared_ptr<iModel> iModelResourceFactory::loadModelData(const iaString& filename, iResourceCacheMode cacheMode, iModelDataInputParameter* parameter)
+    iModelPtr iModelResourceFactory::loadModelData(const iaString& filename, iResourceCacheMode cacheMode, iModelDataInputParameter* parameter)
     {
-        shared_ptr<iModel> result;
+        iModelPtr result;
         iaString hashKey;
 
         con_assert_sticky(filename != "", "invalid parameter");
@@ -310,7 +310,7 @@ namespace Igor
             iNodePtr node = loadData(hashKey, parameter);
             if (node != nullptr)
             {
-                result = shared_ptr<iModel>(new iModel(hashKey, cacheMode, parameter), iModel::private_deleter());
+                result = iModelPtr(new iModel(hashKey, cacheMode, parameter), iModel::private_deleter());
                 result->setNode(node);
                 result->setState(iModelState::Loaded);
 
@@ -320,7 +320,7 @@ namespace Igor
             }
             else
             {
-                result = shared_ptr<iModel>(new iModel(hashKey, cacheMode, parameter), iModel::private_deleter());
+                result = iModelPtr(new iModel(hashKey, cacheMode, parameter), iModel::private_deleter());
                 result->setState(iModelState::LoadFailed);
 
                 _mutexModels.lock();
@@ -366,7 +366,7 @@ namespace Igor
 
         if (!_interrupFlush)
         {
-            vector<shared_ptr<iModel>> modelsToProcess;
+            std::vector<iModelPtr> modelsToProcess;
 
             _mutexModelQueue.lock();
             modelsToProcess = std::move(_loadingQueue);

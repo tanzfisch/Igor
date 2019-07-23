@@ -155,12 +155,12 @@ namespace Igor
         _characters.clear();
     }
 
-    shared_ptr<iTexture> iTextureFont::getTexture()
+    iTexturePtr iTextureFont::getTexture()
     {
         return _texture;
     }
 
-    vector<iCharacterDimensions>& iTextureFont::getCharacters()
+    std::vector<iCharacterDimensions>& iTextureFont::getCharacters()
     {
         return _characters;
     }

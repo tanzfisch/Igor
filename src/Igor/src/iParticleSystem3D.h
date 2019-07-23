@@ -42,7 +42,7 @@ using namespace IgorAux;
 
 #include <memory>
 #include <queue>
-using namespace std;
+
 
 namespace Igor
 {
@@ -264,7 +264,7 @@ namespace Igor
 
         /*! \returns particles of current frame
         */
-        const deque<iParticle>& getCurrentFrame() const;
+        const std::deque<iParticle>& getCurrentFrame() const;
 
         /*! set's the inverse matrix of the particle system coordinate system
         
@@ -647,7 +647,7 @@ namespace Igor
 
         /*! actual particles
         */
-        deque<iParticle> _particles;
+        std::deque<iParticle> _particles;
         
         /*! initializes default gradients
         */

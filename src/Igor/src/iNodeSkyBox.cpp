@@ -60,7 +60,7 @@ namespace Igor
         return true;
     }
 
-    void iNodeSkyBox::setTextures(shared_ptr<iTexture> front, shared_ptr<iTexture> back, shared_ptr<iTexture> left, shared_ptr<iTexture> right, shared_ptr<iTexture> top, shared_ptr<iTexture> bottom)
+    void iNodeSkyBox::setTextures(iTexturePtr front, iTexturePtr back, iTexturePtr left, iTexturePtr right, iTexturePtr top, iTexturePtr bottom)
     {
         _front = front;
         _back = back;

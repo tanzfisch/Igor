@@ -80,7 +80,7 @@ private:
     iWidgetNumberChooser* _textShininess = nullptr;
     iWidgetSlider* _sliderShininess = nullptr;
 
-    vector<iWidget*> _allWidgets;
+    std::vector<iWidget*> _allWidgets;
 
     iaColor4f _ambient;
     iaColor4f _emissive;
@@ -99,7 +99,7 @@ private:
     bool _ignoreNodeUpdate = false;
     uint32 _loadTextureTexUnit = 0;
 
-    vector<uint32*> _userDataMaterialID;
+    std::vector<uint32*> _userDataMaterialID;
 
     void onAmbientChange(const iaColor4f& color);
     void onDiffuseChange(const iaColor4f& color);

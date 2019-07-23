@@ -36,7 +36,7 @@
 using namespace IgorAux;
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -90,15 +90,15 @@ namespace Igor
 
         /*! map of all bones
         */
-        vector<iBone*> _bones;
+        std::vector<iBone*> _bones;
 
         /*! map of all joints
         */
-        vector<iJoint*> _joints;
+        std::vector<iJoint*> _joints;
 
         /*! internal bone stack. handles push and pop
         */
-        vector<iBone*> _boneStack;
+        std::vector<iBone*> _boneStack;
 
         /*! root joint id
         */

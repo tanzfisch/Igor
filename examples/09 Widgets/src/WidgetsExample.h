@@ -35,6 +35,7 @@
 #include <iDialog.h>
 #include <iMaterial.h>
 #include <iStatisticsVisualizer.h>
+#include <iTexture.h>
 using namespace Igor;
 
 #include <iaGradient.h>
@@ -47,7 +48,6 @@ namespace Igor
 	class iWidgetDefaultTheme;
     class iDialogMessageBox;
     class iWidgetLabel;
-    class iTexture;
     class iDialogColorChooser;
     class iWidgetColor;
     class iWidgetColorGradient;
@@ -129,11 +129,11 @@ private:
 
     /*! just put all widgets in here for a easy clean up later
     */
-	vector<iWidget*> _allWidgets;
+	std::vector<iWidget*> _allWidgets;
 
     /*! splash texture
     */
-    shared_ptr<iTexture> _igorLogo = nullptr;
+    iTexturePtr _igorLogo = nullptr;
 
     /*! render function
     */

@@ -37,7 +37,7 @@ using namespace IgorAux;
 
 #include <map>
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -63,7 +63,7 @@ namespace Igor
         */
         struct iLSystemRule
         {
-            vector<pair<float64, iaString>> _output;
+            std::vector<std::pair<float64, iaString>> _output;
             iLSystemAgeFunction _ageFunction = iLSystemAgeFunction::None;
             int32 _ageFilter = 0;
         };
@@ -99,7 +99,7 @@ namespace Igor
         \param input the input character
         \param rules weighted rules
         */
-        void setRule(wchar_t input, vector<pair<float64, iaString>> output);
+        void setRule(wchar_t input, std::vector<std::pair<float64, iaString>> output);
 
         /*! clears rule for specified input character
 
@@ -123,7 +123,7 @@ namespace Igor
 
         /*! the saved replacement rules
         */
-        map<wchar_t, iLSystemRule> _rules;
+        std::map<wchar_t, iLSystemRule> _rules;
 
         /*! random number generator
         */

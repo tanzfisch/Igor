@@ -37,7 +37,7 @@
 using namespace IgorAux;
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -88,7 +88,7 @@ namespace Igor
         \param volume the size of the are to be compiled
         \returns mesh
         */
-		shared_ptr<iMesh> compile(iaVector3I pos, iaVector3I volume, uint32 lod = 0, uint32 neighbors = 0);
+		iMeshPtr compile(iaVector3I pos, iaVector3I volume, uint32 lod = 0, uint32 neighbors = 0);
 
         /*! calculates scale based on LOD
 
@@ -118,7 +118,7 @@ namespace Igor
 
         /*! current poles (3 times 3) for iterating through the voxel data
         */
-        vector<DensityPole> _currentPoles;
+        std::vector<DensityPole> _currentPoles;
 
         /*! density cache
         */
@@ -154,7 +154,7 @@ namespace Igor
 
         /*! keeps a list of all triangles to the corresponding material id
         */
-        map<uint32, vector<uint32>> _trianglesToKeep;
+        std::map<uint32, std::vector<uint32>> _trianglesToKeep;
 
         /*! meshbuilder to work with
         */

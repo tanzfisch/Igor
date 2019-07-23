@@ -35,7 +35,7 @@
 using namespace IgorAux;
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -71,7 +71,7 @@ namespace Igor
 
         /*! \returns reference of child bones list
         */
-        vector<iBone*> getChildren() const;
+        std::vector<iBone*> getChildren() const;
 
         /*! sets custom data
 
@@ -95,7 +95,7 @@ namespace Igor
 
         /*! ids of bones connected to the base bone in this joint
         */
-        vector<iBone*> _childBones;
+        std::vector<iBone*> _childBones;
 
         /*! init id
         */

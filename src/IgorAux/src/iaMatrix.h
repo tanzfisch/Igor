@@ -35,7 +35,7 @@
 #include <fstream>
 #include <cmath>
 #include <iomanip>
-using namespace std;
+
 
 namespace IgorAux
 {

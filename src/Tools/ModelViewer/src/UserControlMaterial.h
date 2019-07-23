@@ -102,7 +102,7 @@ private:
 
     iWidgetButton* _shaderReload = nullptr;
 
-	vector<iWidget*> _allWidgets;
+	std::vector<iWidget*> _allWidgets;
 
 	uint64 _materialID = 0;
 

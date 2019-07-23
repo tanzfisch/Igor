@@ -26,7 +26,7 @@ namespace Igor
         return new iDialogMenu();
     }
 
-    void iDialogMenu::initGUI(vector<iaString>& texts)
+    void iDialogMenu::initGUI(std::vector<iaString>& texts)
     {
         iWidgetManager::setModal(this);
         setActive();
@@ -57,7 +57,7 @@ namespace Igor
         }
     }
 
-    void iDialogMenu::initGUI(vector<iaString>& texts, vector<iaString>& pictures)
+    void iDialogMenu::initGUI(std::vector<iaString>& texts, std::vector<iaString>& pictures)
     {
         con_assert_sticky(texts.size() == pictures.size(), "invalid data");
 
@@ -122,14 +122,14 @@ namespace Igor
         _allWidgets.clear();
     }
 
-    void iDialogMenu::show(vector<iaString>& texts, iDialogMenuCloseDelegate closeDelegate)
+    void iDialogMenu::show(std::vector<iaString>& texts, iDialogMenuCloseDelegate closeDelegate)
     {
         deinitGUI();
         _selectBoxCloseEvent.append(closeDelegate);
         initGUI(texts);
     }
 
-    void iDialogMenu::show(vector<iaString>& texts, vector<iaString>& pictures, iDialogMenuCloseDelegate closeDelegate)
+    void iDialogMenu::show(std::vector<iaString>& texts, std::vector<iaString>& pictures, iDialogMenuCloseDelegate closeDelegate)
     {
         deinitGUI();
         _selectBoxCloseEvent.append(closeDelegate);

@@ -4,14 +4,12 @@
 
 #include <iMeshBuilder.h>
 
-#include <iMesh.h>
 #include <iRenderer.h>
 #include <iaString.h>
 using namespace IgorAux;
 
 #include <list>
 #include <sstream>
-using namespace std;
 
 namespace Igor
 {
@@ -50,17 +48,17 @@ namespace Igor
         matrix = _matrix;
     }
 
-    const vector<iaVector3f>& iMeshBuilder::getVertexes() const
+    const std::vector<iaVector3f>& iMeshBuilder::getVertexes() const
     {
         return _vertexes;
     }
 
-    const vector<iaVector3f>& iMeshBuilder::getNormals() const
+    const std::vector<iaVector3f>& iMeshBuilder::getNormals() const
     {
         return _normals;
     }
 
-    const vector<iIndexedTriangle>& iMeshBuilder::getTriangles() const
+    const std::vector<iIndexedTriangle>& iMeshBuilder::getTriangles() const
     {
         return _triangles;
     }
@@ -303,7 +301,7 @@ namespace Igor
         return static_cast<unsigned int>(_triangles.size());
     }
 
-    void iMeshBuilder::copyTriangles(vector<uint32> srcTriangleIndexes, iMeshBuilder& dst)
+    void iMeshBuilder::copyTriangles(std::vector<uint32> srcTriangleIndexes, iMeshBuilder& dst)
     {
         uint32 indexA = 0;
         uint32 indexB = 0;
@@ -430,7 +428,7 @@ namespace Igor
         sphere._radius = sphereF._radius;
     }
 
-    iMeshPtr iMeshBuilder::createMesh(vector<uint32> triangles)
+    iMeshPtr iMeshBuilder::createMesh(std::vector<uint32> triangles)
     {
         iMesh* mesh = new iMesh();
 
@@ -500,7 +498,7 @@ namespace Igor
         return iMeshPtr(mesh);
     }
 
-    void iMeshBuilder::compile(iMesh* mesh, vector<uint32> triangles)
+    void iMeshBuilder::compile(iMesh* mesh, std::vector<uint32> triangles)
     {
 		if (!checkConsistency())
 		{
@@ -525,8 +523,8 @@ namespace Igor
         uint32 tempBufferSize = (3 + (hasNormals() ? 3 : 0) + (hasColors() ? 4 : 0) + (getTextureUnitCount() * 2)) * _vertexes.size();
         float32* tempBuffer = new float32[tempBufferSize];
 
-        map<uint32, uint32> indexMap;
-        map<uint32, uint32>::iterator foundIndex;
+        std::map<uint32, uint32> indexMap;
+        std::map<uint32, uint32>::iterator foundIndex;
 
         uint32 indexDataIndex = 0;
         uint32 vertexDataIndex = 0;
@@ -761,7 +759,7 @@ namespace Igor
 
     /*    void iMeshBuilder::joinVertexes()
         {
-            vector<iaVector3f> vertices = std::move(_vertexes);
+            std::vector<iaVector3f> vertices = std::move(_vertexes);
             _normals.clear();
             _colors.clear();
 
@@ -773,7 +771,7 @@ namespace Igor
             }
             _texCoords.clear();
 
-            vector<iIndexedTriangle> triangleIndexes = std::move(_triangles);
+            std::vector<iIndexedTriangle> triangleIndexes = std::move(_triangles);
 
             uint32 indexA, indexB, indexC;
             int64 destinationIndexA, destinationIndexB, destinationIndexC;
@@ -1013,7 +1011,7 @@ namespace Igor
         int32 *vertex_neighbors_count = new int32[_vertexes.size()];
         memset(vertex_neighbors_count,0,_vertexes.size() * sizeof(int32));
 
-        vector<iaVector3f> new_vertexes;
+        std::vector<iaVector3f> new_vertexes;
         for(uint32 i=0;i<_vertexes.size();++i)
         {
             new_vertexes.push_back(iaVector3f());
@@ -1115,10 +1113,10 @@ namespace Igor
                 const float32 threshold = 0.8f;
                 int32 currentt = 0;
                 int32 nextt = 0;
-                vector<int32> actualgroup;
+                std::vector<int32> actualgroup;
                 iaVector3f a,ab,ac,n1,n2;
-                vector<vector<int32>> vertexneighbors;
-                vector<int32> temp_vector_long;
+                std::vector<std::vector<int32>> vertexneighbors;
+                std::vector<int32> temp_vector_long;
 
                 calcNeighbors();
 
@@ -1128,7 +1126,7 @@ namespace Igor
                 }
 
                 list<int32> currentmesh;
-                vector<int32> tempvertexneighbors;
+                std::vector<int32> tempvertexneighbors;
 
                 bool goon;
                 bool foundnext;
@@ -1261,7 +1259,7 @@ namespace Igor
                 }
 
                 // find goups
-                vector< vector<int32> > groups;
+                std::vector< std::vector<int32> > groups;
                 int32 firstofgroup;
                 int32 nsize;
 
@@ -1294,7 +1292,7 @@ namespace Igor
                     }
 
                     // build groups
-                    vector<int32> group;
+                    std::vector<int32> group;
 
                     n1 = trianglenormals[vertexneighbors[v][firstofgroup]];
                     groups.clear();

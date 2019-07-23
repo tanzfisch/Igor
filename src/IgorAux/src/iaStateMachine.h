@@ -34,7 +34,7 @@
 using namespace IgorAux;
 
 #include <map>
-using namespace std;
+
 
 namespace IgorAux
 {
@@ -228,11 +228,11 @@ namespace IgorAux
 
         /*! map of all created states
         */
-        map<uint32, iaState*> _states;
+        std::map<uint32, iaState*> _states;
 
         /*! map of all created transitions
         */
-        map<uint32, iaTransition*> _transitions;
+        std::map<uint32, iaTransition*> _transitions;
 
         /*! triggers the current states enter event
         */

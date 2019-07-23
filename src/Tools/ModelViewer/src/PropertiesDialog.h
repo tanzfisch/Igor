@@ -74,7 +74,7 @@ private:
 
     iWidgetGrid* _grid = nullptr;
 
-    vector<iWidget*> _allwidgets;
+    std::vector<iWidget*> _allwidgets;
 
     UserControlProperties* _userControlProperties = nullptr;
 

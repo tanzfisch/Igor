@@ -9,7 +9,7 @@
 namespace Igor
 {
 
-    iSprite::iSprite(shared_ptr<iTexture> texture)
+    iSprite::iSprite(iTexturePtr texture)
     {
         _texture = texture;
 

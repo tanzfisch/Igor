@@ -39,7 +39,7 @@ using namespace IgorAux;
 #include <list>
 #include <map>
 #include <memory>
-using namespace std;
+
 
 namespace Igor
 {
@@ -123,7 +123,7 @@ namespace Igor
 
         /*! map of textures
         */
-        map<int64, iTexturePtr> _textures;
+        std::map<int64, iTexturePtr> _textures;
 
         /*! generated dummy texture
         */

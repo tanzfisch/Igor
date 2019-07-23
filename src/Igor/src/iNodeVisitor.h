@@ -33,7 +33,7 @@
 #include <iNode.h>
 
 #include <memory>
-using namespace std;
+
 
 namespace Igor
 {
