@@ -1,6 +1,12 @@
 Changelog                           {#changelog}
 =========
 
+0.22.0
+------
+
+- added mesh to world bake functionality
+- removed all using namesapce std;
+
 0.21.0
 ------
 
