@@ -280,6 +280,10 @@ namespace Igor
 
 #include <iMesh.inl>
 
+	/*! definition of shared pointer mesh
+	*/
+	typedef shared_ptr<iMesh> iMeshPtr;
+
 }
 
 #endif 
