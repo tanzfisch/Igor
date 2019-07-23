@@ -410,16 +410,14 @@ bool UserControlGraphView::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
 {
     if (!_firstNode)
     {
-        _indentation++;
-
         iaString indentString;
         for (int i = 0; i < _indentation; ++i)
         {
-            indentString += ' ';
+            indentString += "   ";
         }
 
         uint32 currentRowIndex = _gridGraph->getRowCount() - 1;
-        uint32 currentCollumnIndex = _indentation;
+        uint32 currentCollumnIndex = _indentation++;
 
         iWidgetGrid* entry = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         entry->setSelectMode(iSelectionMode::NoSelection);

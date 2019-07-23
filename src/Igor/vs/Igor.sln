@@ -173,8 +173,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "40 tests", "40 tests", "{E2
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IgorAuxMath", "..\..\Tests\IgorAuxMath\IgorAuxMath.vcxproj", "{A1A746BA-34BE-4925-B73D-EB2D91855EA4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "bakeToWorld", "..\..\Tools\bakeToWorld\vs\bakeToWorld.vcxproj", "{1252FE78-3371-412F-9DC3-873132544C4D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -375,14 +373,6 @@ Global
 		{A1A746BA-34BE-4925-B73D-EB2D91855EA4}.Release|x64.Build.0 = Release|x64
 		{A1A746BA-34BE-4925-B73D-EB2D91855EA4}.Release|x86.ActiveCfg = Release|Win32
 		{A1A746BA-34BE-4925-B73D-EB2D91855EA4}.Release|x86.Build.0 = Release|Win32
-		{1252FE78-3371-412F-9DC3-873132544C4D}.Debug|x64.ActiveCfg = Debug|x64
-		{1252FE78-3371-412F-9DC3-873132544C4D}.Debug|x64.Build.0 = Debug|x64
-		{1252FE78-3371-412F-9DC3-873132544C4D}.Debug|x86.ActiveCfg = Debug|Win32
-		{1252FE78-3371-412F-9DC3-873132544C4D}.Debug|x86.Build.0 = Debug|Win32
-		{1252FE78-3371-412F-9DC3-873132544C4D}.Release|x64.ActiveCfg = Release|x64
-		{1252FE78-3371-412F-9DC3-873132544C4D}.Release|x64.Build.0 = Release|x64
-		{1252FE78-3371-412F-9DC3-873132544C4D}.Release|x86.ActiveCfg = Release|Win32
-		{1252FE78-3371-412F-9DC3-873132544C4D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -416,7 +406,6 @@ Global
 		{F4AA71CA-1D8A-49E6-AC48-AB17B4F87133} = {70B0CE8D-2741-417A-88FE-8D22B915E49D}
 		{CD1FE640-EB74-4129-ACC5-F385F85B07E3} = {70B0CE8D-2741-417A-88FE-8D22B915E49D}
 		{A1A746BA-34BE-4925-B73D-EB2D91855EA4} = {E24643EA-12BE-43D9-9F75-39C9B13FA6EC}
-		{1252FE78-3371-412F-9DC3-873132544C4D} = {C9F137FC-86AD-4A45-A55B-67B92D3CA836}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {098BE07D-7587-43C8-B6F6-259A53386771}
