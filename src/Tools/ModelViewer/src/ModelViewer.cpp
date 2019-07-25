@@ -297,6 +297,7 @@ void ModelViewer::deinit()
     _window.close();
     _window.removeView(&_view);
     _window.removeView(&_viewOrtho);
+	_window.removeView(&_viewWidget3D);
 
     _view.unregisterRenderDelegate(RenderDelegate(this, &ModelViewer::render));
     _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &ModelViewer::renderOrtho));
