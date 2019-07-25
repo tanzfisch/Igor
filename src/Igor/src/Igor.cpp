@@ -220,11 +220,6 @@ namespace Igor
 			iTaskManager::destroyInstance();
 		}
 
-		if (iTimer::isInstantiated())
-		{
-			iTimer::destroyInstance();
-		}
-
 		if (iNodeFactory::isInstantiated())
 		{			
 			iNodeFactory::destroyInstance();
@@ -285,6 +280,11 @@ namespace Igor
 		if (iMouse::isInstantiated())
 		{
 			iMouse::destroyInstance();
+		}
+
+		if (iTimer::isInstantiated())
+		{
+			iTimer::destroyInstance();
 		}
 
 		if (iApplication::isInstantiated())

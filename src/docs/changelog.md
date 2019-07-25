@@ -4,6 +4,7 @@ Changelog                           {#changelog}
 0.22.0
 ------
 
+- ownership of widgets transfers to the engine the moment they are children of a dialog
 - added mesh to world bake functionality
 - removed all using namesapce std;
 

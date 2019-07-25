@@ -306,7 +306,7 @@ namespace Igor
 
         /*! registered widget types
         */
-        std::map<uint64, iInstanciateWidgetDelegate> _widgetTypes;
+        std::map<uint64, iInstanciateWidgetDelegate> _widgetTypes; // TODO use unordered map
 
         /*! registered dialog types
         */
@@ -362,11 +362,11 @@ namespace Igor
 
         /*! list of widgets to delete
         */
-        std::deque<iWidget*> _toDeleteWidgets;
+        std::deque<uint64> _toDeleteWidgets;
 
         /*! list of dialogs to delete
         */
-        std::deque<iDialog*> _toDeleteDialogs;
+        std::deque<uint64> _toDeleteDialogs;
 
         /*! current desktop width
         */

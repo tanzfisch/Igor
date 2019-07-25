@@ -29,18 +29,12 @@ namespace Igor
 
     void iDialogMessageBox::deinitGUI()
     {
-        if (_grid != nullptr && 
-            _grid->hasParent())
+        if (_grid != nullptr)
         {
             removeWidget(_grid);
+			iWidgetManager::getInstance().destroyWidget(_grid);
+			_grid = nullptr;
         }
-
-        for (auto widget : _allWidgets)
-        {
-            iWidgetManager::getInstance().destroyWidget(widget);
-        }
-
-        _allWidgets.clear();
     }
 
     void iDialogMessageBox::show(iaString message, iDialogMessageBoxCloseDelegate closeDelegate, iMessageBoxButtons buttons)

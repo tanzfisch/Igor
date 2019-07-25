@@ -169,9 +169,7 @@ private:
     iWidgetButton* _pasteButton = nullptr;
     iWidgetButton* _deleteButton = nullptr;
 
-    std::vector<iWidget*> _allwidgets;
-
-    UserControlGraphView* _userControlGraphView = nullptr;
+	UserControlGraphView* _userControlGraphView = nullptr;
     UserControlMaterialView* _userControlMaterialView = nullptr;
 
 	iDialogDecisionBox* _decisionBoxModelRef = nullptr;

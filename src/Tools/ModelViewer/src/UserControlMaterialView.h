@@ -55,11 +55,9 @@ class UserControlMaterialView : public iUserControl
 {
 public:
 
-    UserControlMaterialView();
-    ~UserControlMaterialView();
+	static iWidget* createInstance();
 
     void refresh();
-    iWidget* getWidget();
 
     void registerOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
     void unregisterOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
@@ -72,22 +70,24 @@ private:
 	MaterialSelectionChanged _materialSelectionChanged;
     AddMaterial _addMaterial;
 
-    iWidget* _rootWidget = nullptr;
     iWidgetGrid* _gridGraph = nullptr;
-    std::vector<iWidget*> _allWidgets;
+
     std::vector<iWidget*> _gridEntryWidgets;
 	std::vector<uint32*> _userData;
 
 	uint32 _selectedMaterial = 0;
 
     void initGUI();
-    void deinitGUI();
 
     void clear();
 
     void OnSelectionChange(iWidget* widget);
 
     void onAddMaterial(iWidget* source);
+
+	UserControlMaterialView();
+	~UserControlMaterialView() = default;
+
 };
 
 #endif

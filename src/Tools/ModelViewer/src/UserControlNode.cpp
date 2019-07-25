@@ -22,9 +22,9 @@ UserControlNode::UserControlNode()
     initGUI();
 }
 
-UserControlNode::~UserControlNode()
+iWidget* UserControlNode::createInstance()
 {
-    deinitGUI();
+	return new UserControlNode();
 }
 
 void UserControlNode::setNode(uint32 id)
@@ -50,28 +50,9 @@ void UserControlNode::updateGUI()
     }
 }
 
-void UserControlNode::deinitGUI()
-{
-    _textName->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlNode::onNameChanged));
-
-    for(auto widget : _allWidgets)
-    {
-        iWidgetManager::getInstance().destroyWidget(widget);
-    }
-
-    _allWidgets.clear();
-
-    _grid = nullptr;
-    _labelName = nullptr;
-    _labelActive = nullptr;
-    _checkBoxActive = nullptr;
-    _textName = nullptr;
-}
-
 void UserControlNode::initGUI()
 {
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-    _allWidgets.push_back(_grid);
     _grid->appendCollumns(1);
     _grid->appendRows(1);
     _grid->setCellSpacing(2);
@@ -80,13 +61,11 @@ void UserControlNode::initGUI()
     _grid->setStrechColumn(1);
 
     _labelName = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
-    _allWidgets.push_back(_labelName);
     _labelName->setText("Name");
     _labelName->setWidth(MV_REGULARBUTTON_SIZE);
     _labelName->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textName = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
-    _allWidgets.push_back(_textName);
     _textName->setMaxTextLength(256);
     _textName->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     _textName->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -94,13 +73,11 @@ void UserControlNode::initGUI()
     _textName->registerOnChangeEvent(iChangeDelegate(this, &UserControlNode::onNameChanged));
 
     _labelActive = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
-    _allWidgets.push_back(_labelActive);
     _labelActive->setText("Active");
     _labelActive->setWidth(MV_REGULARBUTTON_SIZE);
     _labelActive->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxActive = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
-    _allWidgets.push_back(_checkBoxActive);
     _checkBoxActive->setText("");
     _checkBoxActive->setActive(false);
     _checkBoxActive->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -109,6 +86,8 @@ void UserControlNode::initGUI()
     _grid->addWidget(_textName, 1, 0);
     _grid->addWidget(_labelActive, 0, 1);
     _grid->addWidget(_checkBoxActive, 1, 1);
+
+	addWidget(_grid);
 }
 
 void UserControlNode::updateNode()
@@ -135,9 +114,4 @@ void UserControlNode::registerNameChangeDelegate(NameChangedDelegate nameChanged
 void UserControlNode::unregisterNameChangeDelegate(NameChangedDelegate nameChangedDelegate)
 {
     _nameChangedEvent.remove(nameChangedDelegate);
-}
-
-iWidget* UserControlNode::getWidget()
-{
-    return _grid;
 }

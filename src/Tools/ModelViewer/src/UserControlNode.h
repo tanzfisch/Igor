@@ -52,11 +52,8 @@ class UserControlNode : public iUserControl
 {
 public:
 
-    UserControlNode();
-    ~UserControlNode();
-
-    iWidget* getWidget();
-
+	static iWidget* createInstance();
+	
     void setNode(uint32 id);
     uint32 getNode();
 
@@ -73,8 +70,6 @@ private:
     iWidgetCheckBox* _checkBoxActive = nullptr;
     iWidgetTextEdit* _textName = nullptr;
 
-    std::vector<iWidget*> _allWidgets;
-
     uint32 _nodeId = 0;
 
     void onNameChanged(iWidget* source);
@@ -83,7 +78,9 @@ private:
     void updateNode();
 
     void initGUI();
-    void deinitGUI();
+
+	UserControlNode();
+	~UserControlNode() = default;
 
 };
 

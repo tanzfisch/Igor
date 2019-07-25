@@ -58,7 +58,6 @@ namespace Igor
 
         iStatistics::getInstance().beginSection(_handleSectionID);
         iTimer::getInstance().handle();
-
         iNodeFactory::getInstance().handle();
         iStatistics::getInstance().endSection(_handleSectionID);
 

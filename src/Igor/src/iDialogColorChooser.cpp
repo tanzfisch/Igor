@@ -34,30 +34,18 @@ namespace Igor
     {
         _oldColor = color;
         _closeEvent.append(closeDelegate);
-
-        deinitGUI();
+        
         initGUI(color, useAlpha);
     }
 
     void iDialogColorChooser::deinitGUI()
     {
-        if (_grid != nullptr &&
-            _grid->hasParent())
+        if (_grid != nullptr)
         {
             removeWidget(_grid);
+			iWidgetManager::getInstance().destroyWidget(_grid);
+			_grid = nullptr;
         }
-
-        if (_userControlColorChooser != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_userControlColorChooser);
-            _userControlColorChooser = nullptr;
-        }
-
-        for (auto widget : _allWidgets)
-        {
-            iWidgetManager::getInstance().destroyWidget(widget);
-        }
-        _allWidgets.clear();
     }
 
     void iDialogColorChooser::initGUI(const iaColor4f& color, bool useAlpha)
@@ -69,7 +57,6 @@ namespace Igor
         setHeight(20);
 
         _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-        _allWidgets.push_back(_grid);
         _grid->appendRows(2);
         _grid->setHorizontalAlignment(iHorizontalAlignment::Center);
         _grid->setVerticalAlignment(iVerticalAlignment::Center);
@@ -77,7 +64,6 @@ namespace Igor
         _grid->setBorder(4);
 
         iWidgetLabel* headerLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
-        _allWidgets.push_back(headerLabel);
         headerLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
         headerLabel->setText("Choose Color");
 
@@ -88,24 +74,20 @@ namespace Igor
         _userControlColorChooser->setColor(color);
 
         iWidgetGrid* buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-        _allWidgets.push_back(buttonGrid);
         buttonGrid->appendCollumns(2);
         buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
 
         iWidgetButton* okButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-        _allWidgets.push_back(okButton);
         okButton->setText("OK");
 		okButton->setTooltip("Close the dialog and set new color.");
         okButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onOK));
 
         iWidgetButton* cancelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-        _allWidgets.push_back(cancelButton);
         cancelButton->setText("Cancel");
 		cancelButton->setTooltip("Close the dialog without changes.");
         cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onCancel));
 
         iWidgetButton* resetButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-        _allWidgets.push_back(resetButton);
         resetButton->setText("Reset");
 		resetButton->setTooltip("Resets dialog to previous color.");
         resetButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onReset));
@@ -147,5 +129,7 @@ namespace Igor
         setActive(false);
         setVisible(false);
         iWidgetManager::resetModal();
+
+		deinitGUI();
     }
 }

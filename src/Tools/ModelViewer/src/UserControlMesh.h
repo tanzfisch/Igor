@@ -56,15 +56,16 @@ class UserControlMesh : public iUserControl
 {
 public:
 
-    UserControlMesh();
-    ~UserControlMesh();
-
-    iWidget* getWidget();
+	/*! creates instance of this widget type
+	*/
+	static iWidget* createInstance();
 
     void setNode(uint32 id);
     uint32 getNode();
 
 private:
+
+	void draw() override;
 
     iWidgetGrid* _grid = nullptr;
 
@@ -79,8 +80,6 @@ private:
 
     iWidgetNumberChooser* _textShininess = nullptr;
     iWidgetSlider* _sliderShininess = nullptr;
-
-    std::vector<iWidget*> _allWidgets;
 
     iaColor4f _ambient;
     iaColor4f _emissive;
@@ -118,8 +117,11 @@ private:
     void updateNode();
 
     void initGUI();
-    void deinitGUI();
+	void deinitGUI();
 
+	UserControlMesh();
+	~UserControlMesh();
+	
 };
 
 #endif

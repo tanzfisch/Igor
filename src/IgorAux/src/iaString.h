@@ -144,28 +144,28 @@ namespace IgorAux
 		\param text the string to compare with
 		\returns true: if equal; false if not equal
 		*/
-		bool operator== (const iaString& text) const;
+		bool operator==(const iaString& text) const;
 
         /*! == operator to compare to strings
 
         \param text the string to compare with
         \returns true: if equal; false if not equal
         */
-        bool operator== (const wchar_t* text) const;
+        bool operator==(const wchar_t* text) const;
 
         /*! == operator to compare to strings
 
         \param text the string to compare with
         \returns true: if equal; false if not equal
         */
-        bool operator== (const char* text) const;
+        bool operator==(const char* text) const;
 
 		/*! ++ operator to compare to strings
 
 		\param text the strin to compare with
 		\returns true: if not equal; false if equal
 		*/
-		bool operator!= (const iaString& text) const;
+		bool operator!=(const iaString& text) const;
 
 		/*! = operator overwrites current string with new string
 

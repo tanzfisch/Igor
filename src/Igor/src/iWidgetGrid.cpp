@@ -852,7 +852,10 @@ namespace Igor
 
     uint32 iWidgetGrid::getColumnCount()
     {
-        con_assert(!_widgetRows.empty(), "grid can't be empty");
+		if (_widgetRows.empty())
+		{
+			return 0;
+		}
 
         return static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());
     }
@@ -882,7 +885,7 @@ namespace Igor
             }
         }
 
-        con_assert(removed == true, "inconsistant data");
+        // con_assert(removed == true, "inconsistant data");
         iWidget::removeWidget(widget);
     }
 

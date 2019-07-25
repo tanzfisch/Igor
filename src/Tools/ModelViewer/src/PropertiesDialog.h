@@ -74,12 +74,9 @@ private:
 
     iWidgetGrid* _grid = nullptr;
 
-    std::vector<iWidget*> _allwidgets;
-
     UserControlProperties* _userControlProperties = nullptr;
 
     void initGUI();
-    void deinitGUI();
     
     void onStructureChanged();
 

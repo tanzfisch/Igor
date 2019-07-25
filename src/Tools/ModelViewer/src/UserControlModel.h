@@ -48,11 +48,8 @@ class UserControlModel : public iUserControl
 {
 public:
 
-    UserControlModel();
-    ~UserControlModel();
-
-    iWidget* getWidget();
-
+	static iWidget* createInstance();
+	   
     void setNode(uint32 id);
     uint32 getNode();
 
@@ -63,15 +60,15 @@ private:
     iWidgetLabel* _labelFilename = nullptr;
     iWidgetTextEdit* _textFilename = nullptr;
 
-    std::vector<iWidget*> _allWidgets;
-
     uint32 _nodeId = 0;
 
     void updateGUI();
     void updateNode();
 
     void initGUI();
-    void deinitGUI();
+
+	UserControlModel();
+	~UserControlModel();
 
 };
 
