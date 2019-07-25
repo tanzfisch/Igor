@@ -419,7 +419,7 @@ namespace IgorAux
 		CHECK_CONSISTENCY();
 	}
 
-	iaString iaString::operator= (const iaString & text)
+	iaString iaString::operator=(const iaString & text)
 	{
 		setData(text.getData());
 		return *this;

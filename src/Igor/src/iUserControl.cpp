@@ -7,6 +7,11 @@ using namespace IgorAux;
 
 namespace Igor
 {
+	iUserControl::iUserControl()
+	{
+		setHorizontalAlignment(iHorizontalAlignment::Strech);
+		setVerticalAlignment(iVerticalAlignment::Strech);
+	}
 
     void iUserControl::calcMinSize()
     {

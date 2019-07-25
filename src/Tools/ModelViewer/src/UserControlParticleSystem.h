@@ -59,19 +59,9 @@ class UserControlParticleSystem : public iUserControl
 {
 public:
 
-    /*! init gui
-    */
-    UserControlParticleSystem();
-
-    /*! deinit gui
-    */ 
-    ~UserControlParticleSystem();
-
-    /*! \returns root widget
-
-    \todo remove later. but fix the widget mechanism first
-    */
-    iWidget* getWidget();
+	/*! \returns new instance of particle system
+	*/
+	static iWidget* createInstance();
 
     /*! sets the current scene node to work with
 
@@ -232,10 +222,6 @@ private:
     /*! text field to show the current particle simulation frequency
     */
     iWidgetTextEdit* _textFrequency = nullptr;
-
-    /*! list with all widgets for easy cleanup
-    */
-    std::vector<iWidget*> _allWidgets;
 
     /*! list with all available emitters in all scenes
     */
@@ -416,9 +402,14 @@ private:
     */
     void initGUI();
 
-    /*! deinitialize gui
-    */
-    void deinitGUI();
+	/*! init gui
+	*/
+	UserControlParticleSystem();
+
+	/*! deinit gui
+	*/
+	~UserControlParticleSystem();
+
 
 };
 

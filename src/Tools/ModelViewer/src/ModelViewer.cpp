@@ -46,6 +46,17 @@ using namespace Igor;
 
 #include "MenuDialog.h"
 #include "PropertiesDialog.h"
+#include "UserControlMesh.h"
+#include "UserControlModel.h"
+#include "UserControlNode.h"
+#include "UserControlParticleSystem.h"
+#include "UserControlTransformation.h"
+#include "UserControlLight.h"
+#include "UserControlEmitter.h"
+#include "UserControlMaterial.h"
+#include "UserControlProperties.h"
+#include "UserControlMaterialView.h"
+#include "UserControlGraphView.h"
 
 static const wchar_t* WINDOW_TITLE_PREFIX = L"Igor::Model Viewer";
 
@@ -53,13 +64,30 @@ static const wchar_t* DEFAULT_LOAD_SAVE_DIR = L"..\\data\\models";
 
 ModelViewer::ModelViewer()
 {
-    iWidgetManager::getInstance().registerDialogType("MenuDialog", iInstanciateDialogDelegate(MenuDialog::createInstance));
-    iWidgetManager::getInstance().registerDialogType("PropertiesDialog", iInstanciateDialogDelegate(PropertiesDialog::createInstance));
+	registerWidgetTypes();
 }
 
 ModelViewer::~ModelViewer()
 {
     deinit();
+}
+
+void ModelViewer::registerWidgetTypes()
+{
+	iWidgetManager::getInstance().registerDialogType("MenuDialog", iInstanciateDialogDelegate(MenuDialog::createInstance));
+	iWidgetManager::getInstance().registerDialogType("PropertiesDialog", iInstanciateDialogDelegate(PropertiesDialog::createInstance));
+
+	iWidgetManager::getInstance().registerWidgetType("UserControlMesh", iInstanciateWidgetDelegate(UserControlMesh::createInstance));
+	iWidgetManager::getInstance().registerWidgetType("UserControlModel", iInstanciateWidgetDelegate(UserControlModel::createInstance));
+	iWidgetManager::getInstance().registerWidgetType("UserControlNode", iInstanciateWidgetDelegate(UserControlNode::createInstance));
+	iWidgetManager::getInstance().registerWidgetType("UserControlParticleSystem", iInstanciateWidgetDelegate(UserControlParticleSystem::createInstance));
+	iWidgetManager::getInstance().registerWidgetType("UserControlTransformation", iInstanciateWidgetDelegate(UserControlTransformation::createInstance));
+	iWidgetManager::getInstance().registerWidgetType("UserControlLight", iInstanciateWidgetDelegate(UserControlLight::createInstance));
+	iWidgetManager::getInstance().registerWidgetType("UserControlEmitter", iInstanciateWidgetDelegate(UserControlEmitter::createInstance));
+	iWidgetManager::getInstance().registerWidgetType("UserControlMaterial", iInstanciateWidgetDelegate(UserControlMaterial::createInstance));
+	iWidgetManager::getInstance().registerWidgetType("UserControlProperties", iInstanciateWidgetDelegate(UserControlProperties::createInstance));
+	iWidgetManager::getInstance().registerWidgetType("UserControlMaterialView", iInstanciateWidgetDelegate(UserControlMaterialView::createInstance));
+	iWidgetManager::getInstance().registerWidgetType("UserControlGraphView", iInstanciateWidgetDelegate(UserControlGraphView::createInstance));
 }
 
 iModelDataInputParameter* ModelViewer::createDataInputParameter()
@@ -255,10 +283,13 @@ void ModelViewer::deinit()
     deinitGUI();
 
     iSceneFactory::getInstance().destroyScene(_scene);
+	iSceneFactory::getInstance().destroyScene(_sceneWidget3D);
+	
+	// abort flush task
+	iTaskManager::getInstance().abortTask(_taskFlushTextures);
 
-    //! \todo this should happen automatically
+	// flush model resources
     iModelResourceFactory::getInstance().flush(&_window);
-    iTextureResourceFactory::getInstance().flush();
 
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &ModelViewer::onWindowClosed));
     _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &ModelViewer::onWindowResize));
@@ -280,9 +311,7 @@ void ModelViewer::deinit()
     iWidgetManager::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ModelViewer::onMouseKeyDown));
     iWidgetManager::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ModelViewer::onMouseKeyUp));
 	iWidgetManager::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &ModelViewer::onKeyDown));
-    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &ModelViewer::handle));
-
-    iTaskManager::getInstance().abortTask(_taskFlushTextures);
+    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &ModelViewer::handle));    
 }
 
 void ModelViewer::onAddTransformation(uint64 atNodeID)
@@ -384,7 +413,7 @@ void ModelViewer::forceLoadingNow(iNodeModel* modelNode)
         while (!modelNode->isLoaded())
         {
             tempScene->handle();
-            iTextureResourceFactory::getInstance().flush();
+            // iTextureResourceFactory::getInstance().flush();
             iModelResourceFactory::getInstance().flush(&_window);
         }
 
@@ -440,7 +469,7 @@ void ModelViewer::onSaveFile()
 
 void ModelViewer::onFileSaveDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
 {
-    if (_fileDialog->getReturnState() == iFileDialogReturnValue::Ok)
+    if (fileDialogReturnValue == iFileDialogReturnValue::Ok)
     {
         iaString filename = _fileDialog->getFullPath();
 
@@ -466,7 +495,7 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
 {
     iNodePtr selectNode = nullptr;
 
-    if (_fileDialog->getReturnState() == iFileDialogReturnValue::Ok)
+    if (fileDialogReturnValue == iFileDialogReturnValue::Ok)
     {
         iaString filename = _fileDialog->getFullPath();
 
@@ -545,7 +574,7 @@ void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileD
 {
     iNodePtr selectNode = nullptr;
 
-    if (_fileDialog->getReturnState() == iFileDialogReturnValue::Ok)
+    if (fileDialogReturnValue == iFileDialogReturnValue::Ok)
     {
         iaString filename = _fileDialog->getFullPath();
 
@@ -586,7 +615,7 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
 {
     iNodePtr selectNode = nullptr;
 
-    if (_fileDialog->getReturnState() == iFileDialogReturnValue::Ok)
+    if (fileDialogReturnValue == iFileDialogReturnValue::Ok)
     {
         iaString filename = _fileDialog->getFullPath();
 

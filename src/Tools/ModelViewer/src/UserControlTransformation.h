@@ -52,13 +52,10 @@ class UserControlTransformation : public iUserControl
 {
 public:
 
-    UserControlTransformation();
-    ~UserControlTransformation();
+	static iWidget* createInstance();
 
     void setNode(uint32 id);
     uint32 getNode();
-
-    iWidget* getWidget();
 
 private:
 
@@ -71,8 +68,6 @@ private:
 
 	uint32 _nodeId = iNode::INVALID_NODE_ID;
 
-    std::vector<iWidget*> _allWidgets;
-
 	void onTransformationChanged(iNode* node);
 
 	iWidgetTextEdit* createTextEdit();
@@ -83,6 +78,9 @@ private:
 
     void initGUI();
     void deinitGUI();
+
+	UserControlTransformation();
+	~UserControlTransformation();
 
 };
 

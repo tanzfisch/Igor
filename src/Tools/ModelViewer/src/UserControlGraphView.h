@@ -67,8 +67,7 @@ class UserControlGraphView : public iUserControl, public iNodeVisitor
 
 public:
 
-    UserControlGraphView();
-    virtual ~UserControlGraphView();
+	static iWidget* createInstance();
 
     void setSelectedNode(uint64 nodeID);
     uint64 getSelectedNode() const;
@@ -76,8 +75,6 @@ public:
     uint64 getRootNode();
     void refresh();
 
-    iWidget* getWidget();
-    
     void registerOnSelectionChange(GraphSelectionChangedDelegate selectionChangeDelegate);
     void unregisterOnSelectionChange(GraphSelectionChangedDelegate selectionChangeDelegate);
 
@@ -113,14 +110,12 @@ private:
 	GraphSelectionChanged _selectionChange;
 
 	std::vector<iWidget*> _gridEntryWidgets;
-	std::vector<iWidget*> _allWidgets;
 
     int32 _indentation = 0;
     bool _firstNode = true;
 
     uint64 _selectedNode = iNode::INVALID_NODE_ID;
 
-    iWidget* _rootWidget = nullptr;
     iWidgetGrid* _gridGraph = nullptr;
 
     iDialogMenu* _dialogMenu = nullptr;
@@ -134,7 +129,7 @@ private:
     iaString getIconTexture(iNodeType type);
 
     void initGUI();
-    void deinitGUI();
+	void deinitGUI();
 
     void OnSelectionChange(iWidget* widget);
     void OnContextMenu(iWidget* widget);
@@ -151,6 +146,9 @@ private:
     bool preOrderVisit(iNodePtr node, iNodePtr nextSibling) override;
     void postOrderVisit(iNodePtr node) override;
     void postTraverse() override;
+
+	UserControlGraphView();
+	~UserControlGraphView();
 
 };
 

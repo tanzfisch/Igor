@@ -27,8 +27,11 @@ UserControlTransformation::~UserControlTransformation()
 	{
 		node->getTransformationChangeEvent().remove(iTransformationChangeDelegate(this, &UserControlTransformation::onTransformationChanged));
 	}
+}
 
-	deinitGUI();
+iWidget* UserControlTransformation::createInstance()
+{
+	return new UserControlTransformation();
 }
 
 void UserControlTransformation::setNode(uint32 id)
@@ -113,26 +116,9 @@ void UserControlTransformation::updateGUI(iNodeTransform* transformNode)
 
 }
 
-void UserControlTransformation::deinitGUI()
-{
-	auto iter = _allWidgets.begin();
-	while (iter != _allWidgets.end())
-	{
-		iWidgetManager::getInstance().destroyWidget((*iter));
-		iter++;
-	}
-
-	_allWidgets.clear();
-	_translateText.clear();
-	_scaleText.clear();
-	_rotateText.clear();
-	_shearText.clear();
-}
-
 iWidgetTextEdit* UserControlTransformation::createTextEdit()
 {
 	iWidgetTextEdit* textEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
-	_allWidgets.push_back(textEdit);
 	textEdit->setText("");
 	textEdit->setWidth(MV_REGULARBUTTON_SIZE);
 	textEdit->setMaxTextLength(11);
@@ -146,11 +132,11 @@ iWidgetTextEdit* UserControlTransformation::createTextEdit()
 void UserControlTransformation::initGUI()
 {
 	_grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-	_allWidgets.push_back(_grid);
 	_grid->setHorizontalAlignment(iHorizontalAlignment::Right);
 	_grid->setVerticalAlignment(iVerticalAlignment::Top);
 	_grid->appendCollumns(3);
 	_grid->appendRows(3);
+	addWidget(_grid);
 
 	for (int i = 0; i < 3; ++i)
 	{
@@ -229,9 +215,4 @@ void UserControlTransformation::onChange(iWidget* source)
 
 		node->setMatrix(matrix);
 	}
-}
-
-iWidget* UserControlTransformation::getWidget()
-{
-	return _grid;
 }

@@ -177,6 +177,8 @@ private:
     void renderOrtho();
     void renderOrientationPlane();
 
+	void registerWidgetTypes();
+
 	iModelDataInputParameter* createDataInputParameter();
 
 };

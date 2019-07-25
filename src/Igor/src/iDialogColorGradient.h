@@ -101,10 +101,6 @@ namespace Igor
         */
         iWidgetColorGradient* _gradientWidget = nullptr;
 
-        /*! all widgets
-        */
-        std::vector<iWidget*> _allWidgets;
-
         /*! updates gui part if selection changed
         */
         void updateSelection();
@@ -173,9 +169,9 @@ namespace Igor
         */
         iDialogColorGradient() = default;
 
-        /*! deinitializes gui
+        /*! does nothing
         */
-        ~iDialogColorGradient();
+        ~iDialogColorGradient() = default;
 
         /*! creates instance of this widget type
         */

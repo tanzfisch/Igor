@@ -163,11 +163,7 @@ namespace Igor
         /*! color changed event
         */
         iColorChanged _colorChanged;
-
-        /*! collect all widgets created
-        */
-        std::vector<iWidget*> _allWidgets;
-
+		
         /*! root widget
         */
         iWidgetGrid* _grid = nullptr;
@@ -183,10 +179,6 @@ namespace Igor
         /*! button to expand the color chooser
         */
         iWidgetButton* _expandButton = nullptr;
-
-        /*! some spacer
-        */
-        iWidgetSpacer* _collapsedSpacer = nullptr;
 
         /*! collapsed grid
         */

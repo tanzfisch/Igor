@@ -48,7 +48,6 @@ void MenuDialog::initGUI()
     setVerticalAlignment(iVerticalAlignment::Strech);
 
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-    _allwidgets.push_back(_grid);
     _grid->setBorder(2);
     _grid->setCellSpacing(8);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -58,7 +57,6 @@ void MenuDialog::initGUI()
     _grid->setStrechColumn(0);
 
     _gridButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-    _allwidgets.push_back(_gridButtons);
     _gridButtons->setBorder(0);
     _gridButtons->setCellSpacing(2);
     _gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -66,7 +64,6 @@ void MenuDialog::initGUI()
     _gridButtons->appendCollumns(8);
 
     _gridRadioButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-    _allwidgets.push_back(_gridRadioButtons);
     _gridRadioButtons->setBorder(0);
     _gridRadioButtons->setCellSpacing(2);
     _gridRadioButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -84,7 +81,6 @@ void MenuDialog::initGUI()
     _checkBoxGraph->setChecked();
 
     _loadButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-    _allwidgets.push_back(_loadButton);
     _loadButton->setText("");
     _loadButton->setWidth(30);
     _loadButton->setHeight(30);
@@ -93,7 +89,6 @@ void MenuDialog::initGUI()
     _loadButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onLoadFile));
 
     _saveButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-    _allwidgets.push_back(_saveButton);
     _saveButton->setText("");
     _saveButton->setWidth(30);
     _saveButton->setHeight(30);
@@ -102,7 +97,6 @@ void MenuDialog::initGUI()
     _saveButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onSaveFile));
 
     _exitButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-    _allwidgets.push_back(_exitButton);
     _exitButton->setText("");
     _exitButton->setWidth(30);
     _exitButton->setHeight(30);
@@ -111,17 +105,14 @@ void MenuDialog::initGUI()
     _exitButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onExitModelViewer));
 
     _spacer1 = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
-    _allwidgets.push_back(_spacer1);
     _spacer1->setWidth(2);
     _spacer1->setHeight(20);
 
     _spacer2 = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
-    _allwidgets.push_back(_spacer2);
     _spacer2->setWidth(2);
     _spacer2->setHeight(20);
 
     _cutButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-    _allwidgets.push_back(_cutButton);
     _cutButton->setText("");
     _cutButton->setWidth(30);
     _cutButton->setHeight(30);
@@ -130,7 +121,6 @@ void MenuDialog::initGUI()
     _cutButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onCut));
 
     _copyButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-    _allwidgets.push_back(_copyButton);
     _copyButton->setText("");
     _copyButton->setWidth(30);
     _copyButton->setHeight(30);
@@ -139,7 +129,6 @@ void MenuDialog::initGUI()
     _copyButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onCopy));
 
     _pasteButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-    _allwidgets.push_back(_pasteButton);
     _pasteButton->setText("");
     _pasteButton->setWidth(30);
     _pasteButton->setHeight(30);
@@ -148,7 +137,6 @@ void MenuDialog::initGUI()
     _pasteButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onPaste));
 
     _deleteButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-    _allwidgets.push_back(_deleteButton);
     _deleteButton->setText("");
     _deleteButton->setWidth(30);
     _deleteButton->setHeight(30);
@@ -225,7 +213,7 @@ void MenuDialog::deinitMaterialView()
         _userControlMaterialView->unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &MenuDialog::onMaterialSelectionChanged));
         _userControlMaterialView->unregisterOnAddMaterial(AddMaterialDelegate(this, &MenuDialog::onAddMaterial));
 
-        delete _userControlMaterialView;
+		iWidgetManager::getInstance().destroyWidget(_userControlMaterialView);
         _userControlMaterialView = nullptr;
     }
 }
@@ -234,11 +222,11 @@ void MenuDialog::initMaterialView()
 {
     if (_userControlMaterialView == nullptr)
     {
-        _userControlMaterialView = new UserControlMaterialView();
+		_userControlMaterialView = static_cast<UserControlMaterialView*>(iWidgetManager::getInstance().createWidget("UserControlMaterialView"));
         _userControlMaterialView->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &MenuDialog::onMaterialSelectionChanged));
         _userControlMaterialView->registerOnAddMaterial(AddMaterialDelegate(this, &MenuDialog::onAddMaterial));
 
-        _grid->addWidget(_userControlMaterialView->getWidget(), 0, 2);
+        _grid->addWidget(_userControlMaterialView, 0, 2);
     }
     else
     {
@@ -257,7 +245,7 @@ void MenuDialog::deinitGraphView()
         _userControlGraphView->unregisterOnAddParticleSystem(AddParticleSystemDelegate(this, &MenuDialog::onAddParticleSystem));
         _userControlGraphView->unregisterOnAddSwitch(AddSwitchDelegate(this, &MenuDialog::onAddSwitch));
         _userControlGraphView->unregisterOnAddTransformation(AddTransformationDelegate(this, &MenuDialog::onAddTransformation));
-        delete _userControlGraphView;
+		iWidgetManager::getInstance().destroyWidget(_userControlGraphView);
         _userControlGraphView = nullptr;
     }
 }
@@ -266,7 +254,7 @@ void MenuDialog::initGraphView()
 {
     if (_userControlGraphView == nullptr)
     {
-        _userControlGraphView = new UserControlGraphView();
+		_userControlGraphView = static_cast<UserControlGraphView*>(iWidgetManager::getInstance().createWidget("UserControlGraphView"));
         _userControlGraphView->registerOnSelectionChange(GraphSelectionChangedDelegate(this, &MenuDialog::onGraphSelectionChanged));
         _userControlGraphView->registerOnAddEmitter(AddEmitterDelegate(this, &MenuDialog::onAddEmitter));
         _userControlGraphView->registerOnAddGroup(AddGroupDelegate(this, &MenuDialog::onAddGroup));
@@ -275,7 +263,7 @@ void MenuDialog::initGraphView()
         _userControlGraphView->registerOnAddSwitch(AddSwitchDelegate(this, &MenuDialog::onAddSwitch));
         _userControlGraphView->registerOnAddTransformation(AddTransformationDelegate(this, &MenuDialog::onAddTransformation));
 
-        _grid->addWidget(_userControlGraphView->getWidget(), 0, 2);
+        _grid->addWidget(_userControlGraphView, 0, 2);
 
         refreshView();
     }
@@ -438,11 +426,8 @@ void MenuDialog::deinitGUI()
     deinitMaterialView();
 
     removeWidget(_grid);
-
-    for (auto widget : _allwidgets)
-    {
-        iWidgetManager::getInstance().destroyWidget(widget);
-    }
+	iWidgetManager::getInstance().destroyWidget(_grid);
+	_grid = nullptr;
 
     if (_messageBox != nullptr)
     {
@@ -454,11 +439,6 @@ void MenuDialog::deinitGUI()
     {
         iWidgetManager::getInstance().destroyDialog(_decisionBoxModelRef);
         _decisionBoxModelRef = nullptr;
-    }
-
-    if (_userControlGraphView != nullptr)
-    {
-        iWidgetManager::getInstance().destroyWidget(_userControlGraphView);
     }
 }
 

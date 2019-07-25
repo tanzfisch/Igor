@@ -25,9 +25,9 @@ UserControlEmitter::UserControlEmitter()
     initGUI();
 }
 
-UserControlEmitter::~UserControlEmitter()
+iWidget* UserControlEmitter::createInstance()
 {
-    deinitGUI();
+	return new UserControlEmitter();
 }
 
 void UserControlEmitter::updateNode()
@@ -79,22 +79,19 @@ uint32 UserControlEmitter::getNode()
 void UserControlEmitter::initGUI()
 {
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-    _allWidgets.push_back(_grid);
     _grid->appendCollumns(1);
     _grid->appendRows(1);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
     _grid->setStrechColumn(1);
+	addWidget(_grid);
 
     iWidgetLabel* labelType = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
-    _allWidgets.push_back(labelType);
     labelType->setText("Type");
     labelType->setWidth(MV_REGULARBUTTON_SIZE);
     labelType->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _selectType = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget("SelectBox"));
-    _allWidgets.push_back(_selectType);
-    // see iEmitterTypes
     _selectType->addSelectionEntry("Mesh");
     _selectType->addSelectionEntry("Point");
     _selectType->addSelectionEntry("Disc");
@@ -106,13 +103,11 @@ void UserControlEmitter::initGUI()
     _selectType->registerOnChangeEvent(iChangeDelegate(this, &UserControlEmitter::onTypeChanged));
 
     iWidgetLabel* labelSize = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
-    _allWidgets.push_back(labelSize);
     labelSize->setText("Size");
     labelSize->setWidth(MV_REGULARBUTTON_SIZE);
     labelSize->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textSize = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
-    _allWidgets.push_back(_textSize);
     _textSize->setWidth(100);
     _textSize->setWriteProtected(false);
     _textSize->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -133,26 +128,4 @@ void UserControlEmitter::onTypeChanged(iWidget* source)
 void UserControlEmitter::onSizeChanged(iWidget* source)
 {
     updateNode();
-}
-
-void UserControlEmitter::deinitGUI()
-{
-    _selectType->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlEmitter::onTypeChanged));
-    _textSize->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlEmitter::onSizeChanged));
-
-    auto iter = _allWidgets.begin();
-    while (iter != _allWidgets.end())
-    {
-        iWidgetManager::getInstance().destroyWidget((*iter));
-        iter++;
-    }
-
-    _grid = nullptr;
-    _textSize = nullptr;
-    _selectType = nullptr;
-}
-
-iWidget* UserControlEmitter::getWidget()
-{
-    return _grid;
 }

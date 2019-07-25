@@ -87,10 +87,21 @@ namespace Igor
 		{
 			con_err("possible mem leak! did not release all widgets. " << _widgets.size() << " left");
 
+#ifdef __IGOR_DEBUG__
 			for (auto pair : _widgets)
 			{
-				con_debug_endl(pair.second->getInfo());
+				auto widget = pair.second;
+				con_debug_endl(widget->getInfo());
+
+				// to get a better idea which widget this is we also print it's children
+				std::vector<iWidget*> children;
+				widget->getChildren(children);
+				for (auto child : children)
+				{
+					con_debug_endl(" +-- " << widget->getInfo());
+				}
 			}
+#endif
 		}
 
 		// we can not delete widgets here anymore because 
@@ -414,8 +425,11 @@ namespace Igor
 	{
 		for (auto dialog : _dialogs)
 		{
-			traverseContentSize(dialog.second);
-			traverseAlignment(dialog.second, 0, 0, getDesktopWidth(), getDesktopHeight());
+			if (dialog.second->isActive())
+			{
+				traverseContentSize(dialog.second);
+				traverseAlignment(dialog.second, 0, 0, getDesktopWidth(), getDesktopHeight());
+			}
 		}
 
 		runDeleteQueues();
@@ -587,7 +601,7 @@ namespace Igor
 			return;
 		}
 
-		_toDeleteDialogs.push_back(dialog);
+		_toDeleteDialogs.push_back(dialog->getID());
 	}
 
 	void iWidgetManager::destroyDialog(uint64 id)
@@ -620,22 +634,13 @@ namespace Igor
 		{
 			con_err("unknown widget type " << widgetType);
 		}
-
+		
 		return result;
 	}
 
 	void iWidgetManager::destroyWidget(uint64 id)
 	{
-		auto iter = _widgets.find(id);
-
-		if (iter != _widgets.end())
-		{
-			destroyWidget((*iter).second);
-		}
-		else
-		{
-			con_err("widget with id " << id << " does not exist");
-		}
+		_toDeleteWidgets.push_back(id);
 	}
 
 	void iWidgetManager::destroyWidget(iWidget * widget)
@@ -647,7 +652,7 @@ namespace Igor
 			return;
 		}
 
-		_toDeleteWidgets.push_back(widget);
+		_toDeleteWidgets.push_back(widget->getID());
 	}
 
 	iDialog* iWidgetManager::getDialog(uint64 id)
@@ -679,40 +684,33 @@ namespace Igor
 
 	void iWidgetManager::runDeleteQueues()
 	{
-		while (!_toDeleteDialogs.empty() || !_toDeleteWidgets.empty())
+		while (!_toDeleteDialogs.empty() || !_toDeleteWidgets.empty()) 
 		{
-			while (!_toDeleteDialogs.empty())
+			std::deque<uint64> toDeleteDialogs(_toDeleteDialogs);
+			std::deque<uint64> toDeleteWidgets(_toDeleteWidgets);
+			_toDeleteDialogs.clear();
+			_toDeleteWidgets.clear();
+
+			for (auto dialogID : toDeleteDialogs)
 			{
-				auto iter = _dialogs.find(_toDeleteDialogs.front()->getID());
+				auto iter = _dialogs.find(dialogID);
 				if (iter != _dialogs.end())
 				{
 					delete (*iter).second;
 					_dialogs.erase(iter);
 				}
-				else
-				{
-					con_err("can't delete dialog with id " << _toDeleteDialogs.front()->getID());
-				}
-
-				_toDeleteDialogs.pop_front();
 			}
 
-			while (!_toDeleteWidgets.empty())
+			for (auto widgetID : toDeleteWidgets)
 			{
-				auto iter = _widgets.find(_toDeleteWidgets.front()->getID());
+				auto iter = _widgets.find(widgetID);
 				if (iter != _widgets.end())
 				{
 					delete (*iter).second;
 					_widgets.erase(iter);
 				}
-				else
-				{
-					con_err("can't delete widget with id " << _toDeleteWidgets.front()->getID());
-				}
-
-				_toDeleteWidgets.pop_front();
 			}
-		}
+		} 
 	}
 
 	void iWidgetManager::registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate doubleClickDelegate)

@@ -29,6 +29,17 @@ namespace Igor
 		}
 
 		destroyTooltipTimer();
+
+		std::vector<iWidget*> children(_children);
+		for (auto child : children)
+		{
+			iWidgetManager::getInstance().destroyWidget(child);
+		}
+	}
+
+	void iWidget::getChildren(std::vector<iWidget*>& children)
+	{
+		children = _children;
 	}
 
 	void iWidget::setTooltip(const iaString& text)
@@ -65,9 +76,9 @@ namespace Igor
 		result += ", ";
 		result += iaString::itoa(_actualHeight);
 		result += ")";
-		if (hasParent())
+		if (!hasParent())
 		{
-			result += ", parent";
+			result += ", no parent";
 		}
 
 		return result;
@@ -776,8 +787,4 @@ namespace Igor
 		_minHeight = minHeight;
 	}
 
-	bool iWidget::hasParent() const
-	{
-		return _parent != nullptr ? true : false;
-	}
 }

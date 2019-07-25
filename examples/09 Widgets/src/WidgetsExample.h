@@ -126,11 +126,7 @@ private:
     /*! color gradient
     */
     iWidgetColorGradient* _colorGradient = nullptr;
-
-    /*! just put all widgets in here for a easy clean up later
-    */
-	std::vector<iWidget*> _allWidgets;
-
+	
     /*! splash texture
     */
     iTexturePtr _igorLogo = nullptr;
