@@ -127,10 +127,6 @@ private:
     */
     iaVector2f _logoPosition{200, 200};
 
-    /*! rotation angle of logo in radians
-    */
-    float32 _logoRotationAngle = 0.0f;
-
     /*! texture font
     */
 	iTextureFont* _font = nullptr;

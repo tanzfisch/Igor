@@ -541,13 +541,10 @@ namespace Igor
         /*! draws a sprite at given position, orientation and scale
 
         \param sprite the sprite to render
-        \param x horizontal position
-        \param y vertical position
-        \param angle orientation in rad
-        \param scalex horizontal scale
-        \param scaley vertical scale
+        \param frameIndex the index of the frame to render
+        \param pos position on screen
         */
-        void drawSprite(iSprite* sprite, float32 x, float32 y, float32 angle = 0.0f, float32 scalex = 1.0f, float32 scaley = 1.0f);
+		void iRenderer::drawSprite(const iSprite* sprite, uint32 frameIndex, const iaVector2f& pos);
 
         /*! draws a point
 

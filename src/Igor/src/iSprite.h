@@ -29,12 +29,14 @@
 #ifndef __iSPRITE__
 #define __iSPRITE__
 
-#include <iaVector2.h>
 #include <iTexture.h>
+
+#include <iaVector2.h>
+#include <iaConsole.h>
+using namespace IgorAux;
 
 #include <memory>
 #include <vector>
-
 
 namespace Igor
 {
@@ -48,43 +50,57 @@ namespace Igor
 
     public:
 
-        /*! set texture coordinates
+		/*! a frame defines an area within the texture that later can be rendered
+		*/
+		struct Frame
+		{
+			/*! position of frame in texture coordinates
+			*/
+			iaVector2f _pos;
 
-        \param tex0 texcoordinate of vertex 0
-        \param tex1 texcoordinate of vertex 1
-        \param tex2 texcoordinate of vertex 2
-        \param tex3 texcoordinate of vertex 3
-        \param pixel true: texcoordinated in pixel; false: texcoordinates in 0.0-1.0
-        */
-        void setTexcoord(const iaVector2f& tex0, const iaVector2f& tex1, const iaVector2f& tex2, const iaVector2f& tex3);
+			/*! size of frame in texture coordinates
+			*/
+			iaVector2f _size;
+			
+			/*! origin of frame in "texel" coordinates
 
-        /*! sets origin of the sprite
+			can be used to position on screen
+			*/
+			iaVector2f _origin;
+		};
 
-        \param coi center of interesst
-        */
-        void setOrigin(const iaVector2f& pos);
+		/*! adds a frame to the sprite
+
+		\returns index of the added frame
+		\param pos position of frame
+		\param size the size of the frame
+		\param origin the origin of the frame
+		\param pixel if true values are in pixel coordinates if false than 0.0-1.0
+		*/
+		uint32 addFrame(const iaVector2f& pos, const iaVector2f& size, const iaVector2f& origin, bool pixel = true);
 
         /*! \returns texture
         */
         iTexturePtr getTexture() const;
 
-        /*! \returns texture coordinates by index
+		/*! sets txture used by this sprite
 
-        \param index the index to return the texture coordinates from
-        */
-        const iaVector2f& getTexCoord(uint32 index) const;
+		\param texture the texture to use
+		*/
+		void setTexture(iTexturePtr texture);
 
-        /*! \returns center of interesst
-        */
-        const iaVector2f& getOrigin() const;
+		/*! \returns the amount of frames
+		*/
+		uint32 getFrameCount() const;
 
-        /*! \returns width
-        */
-        float32 getWidth() const;
+		/*! returns frame for given index
 
-        /*! \returns height
-        */
-        float32 getHeight() const;
+		no range check!
+
+		\param index the frame index to return
+		\returns the specified frame
+		*/
+		const Frame& getFrame(uint32 index) const;
 
         /*! ctor initializes member variables
 
@@ -98,25 +114,13 @@ namespace Igor
 
 	private:
 
+		/*! the sprite sets
+		*/
+		std::vector<Frame> _frames;
+
         /*! texture in use
         */
 		iTexturePtr _texture;
-
-        /*! texture coordinates
-        */
-		iaVector2f _texCoord[4];
-
-        /*! relative origin
-        */
-		iaVector2f _origin;
-
-        /*! width of sprite
-        */
-		float32 _width = 0;
-
-        /*! height of sprite
-        */
-		float32 _height = 0;
 
 	};
 

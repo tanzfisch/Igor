@@ -9,30 +9,37 @@
 namespace Igor
 {
 
-    iSprite::iSprite(iTexturePtr texture)
-    {
-        _texture = texture;
+	iSprite::iSprite(iTexturePtr texture)
+	{
+		_texture = texture;
+	}
 
-        _texCoord[0] = iaVector2f(0.0f, 0.0f);
-        _texCoord[1] = iaVector2f(0.0f, 1.0f);
-        _texCoord[2] = iaVector2f(1.0f, 1.0f);
-        _texCoord[3] = iaVector2f(1.0f, 0.0f);
+	void iSprite::setTexture(iTexturePtr texture)
+	{
+		_texture = texture;
+		// TODO recalc frames if texture sizes differ
+	}
 
-        _width = static_cast<float32>(_texture->getWidth());
-        _height = static_cast<float32>(_texture->getHeight());
-    }
+	uint32 iSprite::addFrame(const iaVector2f& pos, const iaVector2f& size, const iaVector2f& origin, bool pixel)
+	{
+		Frame frame;
 
-    void iSprite::setTexcoord(const iaVector2f& tex0, const iaVector2f& tex1, const iaVector2f& tex2, const iaVector2f& tex3)
-    {
-        _texCoord[0] = tex0;
-        _texCoord[1] = tex1;
-        _texCoord[2] = tex2;
-        _texCoord[3] = tex3;
-    }
+		if (pixel)
+		{
+			frame._pos.set(pos._x / _texture->getWidth(), pos._y / _texture->getHeight());
+			frame._size.set(size._x / _texture->getWidth(), size._y / _texture->getHeight());
+			frame._origin = origin;
+		}
+		else
+		{
+			frame._pos = pos;
+			frame._size = size;
+			frame._origin.set(origin._x * _texture->getWidth(), origin._y * _texture->getHeight());
+		}
 
-    void iSprite::setOrigin(const iaVector2f& pos)
-    {
-        _origin = pos;
-    }
+		_frames.push_back(frame);
+
+		return _frames.size() - 1;
+	}
 
 };
