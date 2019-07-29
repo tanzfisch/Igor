@@ -38,6 +38,7 @@
 #include <iMaterial.h>
 #include <iStatisticsVisualizer.h>
 #include <iTexture.h>
+#include <iTimerHandle.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -59,6 +60,27 @@ namespace Igor
 */
 class SpriteAnimation
 {
+
+	enum class CharacterState
+	{
+		WalkN,
+		WalkNE,
+		WalkE,
+		WalkSE,
+		WalkS,
+		WalkSW,
+		WalkW,
+		WalkNW,
+		RunN,
+		RunNE,
+		RunE,
+		RunSE,
+		RunS,
+		RunSW,
+		RunW,
+		RunNW,
+		Idle,
+	};
 
 public:
 
@@ -96,7 +118,7 @@ private:
 
 	/*! flags to determine what the character is doing
 	*/
-	bool _flags[4];
+	bool _flags[5];
 
 	/*! current position of character to render
 	*/
@@ -105,6 +127,17 @@ private:
 	/*! character velocity
 	*/
 	iaVector2f _characterVelocity;
+
+	CharacterState _characterState;
+
+	uint32 _animationOffset;
+	uint32 _animationIndex;
+
+	iTimerHandle _animationTimer;
+
+	void onAnimationTimerTick();
+
+	iaString getCharacterStateName(CharacterState state);
 
 	/*! texture font
 	*/
