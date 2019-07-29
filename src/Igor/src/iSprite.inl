@@ -7,22 +7,14 @@ __IGOR_INLINE__ iTexturePtr iSprite::getTexture() const
     return _texture;
 }
 
-__IGOR_INLINE__ const iaVector2f& iSprite::getTexCoord(uint32 index) const
+__IGOR_INLINE__  uint32 iSprite::getFrameCount() const
 {
-    return _texCoord[index];
+	return static_cast<uint32>(_frames.size());
 }
 
-__IGOR_INLINE__  const iaVector2f& iSprite::getOrigin() const
+__IGOR_INLINE__ const iSprite::Frame& iSprite::getFrame(uint32 index) const
 {
-    return _origin;
-}
+	con_assert(index < _frames.size(),"out of range");
 
-__IGOR_INLINE__ float32 iSprite::getWidth() const
-{
-    return _width;
-}
-
-__IGOR_INLINE__ float32 iSprite::getHeight() const
-{
-    return _height;
+	return _frames[index];
 }

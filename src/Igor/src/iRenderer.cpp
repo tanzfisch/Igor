@@ -325,14 +325,14 @@ namespace Igor
 		_dirtyModelViewProjectionMatrix = true;
 	}
 
-	void iRenderer::drawPoint(iaVector3f & a)
+	void iRenderer::drawPoint(iaVector3f& a)
 	{
 		glBegin(GL_POINTS);
 		glVertex3f(a._x, a._y, a._z);
 		glEnd(); GL_CHECK_ERROR();
 	}
 
-	void iRenderer::drawBBox(const iAACubed & bbox)
+	void iRenderer::drawBBox(const iAACubed& bbox)
 	{
 		iaVector3d a = bbox._center;
 		a._x -= bbox._halfEdgeLength;
@@ -383,7 +383,7 @@ namespace Igor
 		glEnd(); GL_CHECK_ERROR();
 	}
 
-	void iRenderer::drawBBox(const iAABoxd & bbox)
+	void iRenderer::drawBBox(const iAABoxd& bbox)
 	{
 		iaVector3d a = bbox._center;
 		a -= bbox._halfWidths;
@@ -430,7 +430,7 @@ namespace Igor
 		glEnd(); GL_CHECK_ERROR();
 	}
 
-	void iRenderer::drawFilledBox(iaVector3f & a, iaVector3f & b)
+	void iRenderer::drawFilledBox(iaVector3f& a, iaVector3f& b)
 	{
 		glBegin(GL_QUADS);
 		// front
@@ -477,7 +477,7 @@ namespace Igor
 		glEnd();		GL_CHECK_ERROR();
 	}
 
-	void iRenderer::drawLineStrip(std::vector<iaVector3f> & line)
+	void iRenderer::drawLineStrip(std::vector<iaVector3f>& line)
 	{
 		glBegin(GL_LINE_STRIP);
 
@@ -489,7 +489,7 @@ namespace Igor
 		glEnd();									GL_CHECK_ERROR();
 	}
 
-	void iRenderer::drawLine(iaVector3f & a, iaVector3f & b)
+	void iRenderer::drawLine(iaVector3f& a, iaVector3f& b)
 	{
 		glBegin(GL_LINES);
 		glVertex3f(a._x, a._y, a._z);
@@ -497,7 +497,7 @@ namespace Igor
 		glEnd(); GL_CHECK_ERROR();
 	}
 
-	void iRenderer::drawBillboard(iaVector3f & o, iaVector3f & u, iaVector3f & v, iTexturePtr texture, float32 texScaleU, float32 texScaleV)
+	void iRenderer::drawBillboard(iaVector3f& o, iaVector3f& u, iaVector3f& v, iTexturePtr texture, float32 texScaleU, float32 texScaleV)
 	{
 		bindTexture(texture, 0);
 
@@ -516,7 +516,7 @@ namespace Igor
 		glEnd(); GL_CHECK_ERROR();
 	}
 
-	void iRenderer::drawBillboard(iaVector3f & o, iaVector3f & u, iaVector3f & v, iTexturePtr texture)
+	void iRenderer::drawBillboard(iaVector3f& o, iaVector3f& u, iaVector3f& v, iTexturePtr texture)
 	{
 		bindTexture(texture, 0);
 
@@ -547,7 +547,7 @@ namespace Igor
 		_dirtyModelViewProjectionMatrix = true;
 	}
 
-	void iRenderer::setClearColor(iaColor4f & color)
+	void iRenderer::setClearColor(iaColor4f& color)
 	{
 		glClearColor(color._r, color._g, color._b, color._a); GL_CHECK_ERROR();
 	}
@@ -663,12 +663,12 @@ namespace Igor
 		glClear(GL_STENCIL_BUFFER_BIT);	GL_CHECK_ERROR();
 	}
 
-	void iRenderer::getProjectionMatrix(iaMatrixd & matrix)
+	void iRenderer::getProjectionMatrix(iaMatrixd& matrix)
 	{
 		matrix = _projectionMatrix;
 	}
 
-	void iRenderer::setProjectionMatrix(const iaMatrixd & matrix)
+	void iRenderer::setProjectionMatrix(const iaMatrixd& matrix)
 	{
 		_projectionMatrix = matrix;
 
@@ -680,7 +680,7 @@ namespace Igor
 		_dirtyModelViewProjectionMatrix = true;
 	}
 
-	void iRenderer::getViewport(iRectanglei & rect)
+	void iRenderer::getViewport(iRectanglei& rect)
 	{
 		rect = _viewport;
 	}
@@ -695,7 +695,7 @@ namespace Igor
 		glViewport(x, y, width, height); GL_CHECK_ERROR();
 	}
 
-	void iRenderer::readPixels(int32 x, int32 y, int32 width, int32 height, iColorFormat format, uint8 * data)
+	void iRenderer::readPixels(int32 x, int32 y, int32 width, int32 height, iColorFormat format, uint8* data)
 	{
 		GLenum glformat = convertGLColorFormat(format);
 		con_assert(glformat != iRenderer::INVALID_ID, "invalid color format");
@@ -770,7 +770,7 @@ namespace Igor
 		return _dummyTextureID;
 	}
 
-	void iRenderer::destroyTexture(iRendererTexture * texture)
+	void iRenderer::destroyTexture(iRendererTexture* texture)
 	{
 		con_assert(texture != nullptr, "zero pointer");
 
@@ -808,19 +808,19 @@ namespace Igor
 		}
 	}
 
-	void iRenderer::getCamWorldMatrix(iaMatrixd & matrix)
+	void iRenderer::getCamWorldMatrix(iaMatrixd& matrix)
 	{
 		matrix = _camWorldMatrix;
 		matrix._pos += _worldOffset;
 	}
 
-	void iRenderer::getModelMatrix(iaMatrixd & matrix)
+	void iRenderer::getModelMatrix(iaMatrixd& matrix)
 	{
 		matrix = _modelMatrix;
 		matrix._pos += _worldOffset;
 	}
 
-	void iRenderer::setModelMatrix(const iaMatrixd & matrix)
+	void iRenderer::setModelMatrix(const iaMatrixd& matrix)
 	{
 		_modelMatrix = matrix;
 		_modelMatrix._pos -= _worldOffset;
@@ -833,7 +833,7 @@ namespace Igor
 		_dirtyModelViewProjectionMatrix = true;
 	}
 
-	void iRenderer::setViewMatrix(const iaMatrixd & viewMatrix)
+	void iRenderer::setViewMatrix(const iaMatrixd& viewMatrix)
 	{
 		_viewMatrix = viewMatrix;
 
@@ -858,7 +858,7 @@ namespace Igor
 		_gridSize = gridSize;
 	}
 
-	void iRenderer::setViewMatrix(const iaMatrixd & viewMatrix, const iaMatrixd & camMatrix)
+	void iRenderer::setViewMatrix(const iaMatrixd& viewMatrix, const iaMatrixd& camMatrix)
 	{
 		_worldOffset = camMatrix._pos;
 
@@ -924,7 +924,7 @@ namespace Igor
 		}
 	}
 
-	void iRenderer::setTargetMaterial(iTargetMaterial * targetMaterial)
+	void iRenderer::setTargetMaterial(iTargetMaterial* targetMaterial)
 	{
 		if (_currentMaterial->getShader() != nullptr)
 		{
@@ -968,22 +968,22 @@ namespace Igor
 		}
 	}
 
-	void iRenderer::setTargetEmissive(iaColor3f & emissive)
+	void iRenderer::setTargetEmissive(iaColor3f& emissive)
 	{
 		glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, emissive.getData());
 	}
 
-	void iRenderer::setTargetAmbient(iaColor3f & ambient)
+	void iRenderer::setTargetAmbient(iaColor3f& ambient)
 	{
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient.getData());
 	}
 
-	void iRenderer::setTargetDiffuse(iaColor3f & diffuse)
+	void iRenderer::setTargetDiffuse(iaColor3f& diffuse)
 	{
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuse.getData());
 	}
 
-	void iRenderer::setTargetSpecular(iaColor3f & specular)
+	void iRenderer::setTargetSpecular(iaColor3f& specular)
 	{
 		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular.getData());
 	}
@@ -1166,42 +1166,30 @@ namespace Igor
 		glEnd(); GL_CHECK_ERROR();
 	}
 
-	void iRenderer::drawSprite(iSprite * sprite, float32 x, float32 y, float32 angle, float32 scalex, float32 scaley)
+	void iRenderer::drawSprite(const iSprite* sprite, uint32 frameIndex, const iaVector2f& pos)
 	{
-		con_assert(sprite != nullptr, "zero pointer");
+		iTexturePtr texture = sprite->getTexture();
+		const iSprite::Frame& frame = sprite->getFrame(frameIndex);
 
-		if (sprite != nullptr)
-		{
-			iaVector2f o(x, y);
-			iaVector2f u(1.0f, 0.0f);
-			iaVector2f v;
-			u.rotateXY(angle);
-			v._x = -u._y;
-			v._y = u._x;
+		iaVector2f position = pos;
+		position -= frame._origin;
+		iaVector2f size(frame._size._x * texture->getWidth(), frame._size._y * texture->getHeight());
 
-			o = o - u * sprite->getOrigin()._x * scalex - v * sprite->getOrigin()._y * scaley;
+		bindTexture(texture, 0);
 
-			iaVector2f b = o + u * (sprite->getWidth() * scalex);
-			iaVector2f c = b + v * (sprite->getHeight() * scaley);
-			iaVector2f d = o + v * (sprite->getHeight() * scaley);
+		glBegin(GL_QUADS);
+		glTexCoord2f(frame._pos._x, frame._pos._y + frame._size._y);
+		glVertex2f(position._x , position._y + size._y);
 
-			bindTexture(sprite->getTexture(), 0);
+		glTexCoord2f(frame._pos._x + frame._size._x, frame._pos._y + frame._size._y);
+		glVertex2f(position._x + size._x, position._y + size._y);
 
-			glBegin(GL_QUADS);
-			glTexCoord2f(sprite->getTexCoord(1)._x, sprite->getTexCoord(1)._y);
-			glVertex2f(d._x, d._y);
+		glTexCoord2f(frame._pos._x + frame._size._x, frame._pos._y);
+		glVertex2f(position._x + size._x, position._y);
 
-			glTexCoord2f(sprite->getTexCoord(2)._x, sprite->getTexCoord(2)._y);
-			glVertex2f(c._x, c._y);
-
-			glTexCoord2f(sprite->getTexCoord(3)._x, sprite->getTexCoord(3)._y);
-			glVertex2f(b._x, b._y);
-
-			glTexCoord2f(sprite->getTexCoord(0)._x, sprite->getTexCoord(0)._y);
-			glVertex2f(o._x, o._y);
-
-			glEnd(); GL_CHECK_ERROR();
-		}
+		glTexCoord2f(frame._pos._x, frame._pos._y);
+		glVertex2f(position._x, position._y);
+		glEnd(); GL_CHECK_ERROR();
 	}
 
 	uint32 iRenderer::createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer)
@@ -1447,7 +1435,7 @@ namespace Igor
 		return result;
 	}
 
-	void iRenderer::createBuffers(iInstancer * instancer)
+	void iRenderer::createBuffers(iInstancer* instancer)
 	{
 		if (instancer->getInstanceArrayObject() == 0)
 		{
@@ -1461,7 +1449,7 @@ namespace Igor
 		}
 	}
 
-	void iRenderer::drawMesh(std::shared_ptr<iMeshBuffers> meshBuffers, iInstancer * instancer)
+	void iRenderer::drawMesh(std::shared_ptr<iMeshBuffers> meshBuffers, iInstancer* instancer)
 	{
 		iaMatrixd idMatrix;
 		setModelMatrix(idMatrix);
@@ -1604,7 +1592,7 @@ namespace Igor
 		glColor4f(_color._r, _color._g, _color._b, _color._a);	GL_CHECK_ERROR();
 	}
 
-	void iRenderer::setFont(iTextureFont * font)
+	void iRenderer::setFont(iTextureFont* font)
 	{
 		_font = font;
 	}
@@ -1755,26 +1743,26 @@ namespace Igor
 		}
 	}
 
-	void iRenderer::setLightPosition(int32 lightnum, iaVector4d & pos)
+	void iRenderer::setLightPosition(int32 lightnum, iaVector4d& pos)
 	{
 		// TODO fix with world offset
 		_lights[lightnum]._position.set(pos._x, pos._y, pos._z, pos._w);
 		glLightfv(GL_LIGHT0 + lightnum, GL_POSITION, _lights[lightnum]._position.getData());		GL_CHECK_ERROR();
 	}
 
-	void iRenderer::setLightAmbient(int32 lightnum, iaColor4f & ambient)
+	void iRenderer::setLightAmbient(int32 lightnum, iaColor4f& ambient)
 	{
 		_lights[lightnum]._ambient = ambient;
 		glLightfv(GL_LIGHT0 + lightnum, GL_AMBIENT, ambient.getData());		GL_CHECK_ERROR();
 	}
 
-	void iRenderer::setLightDiffuse(int32 lightnum, iaColor4f & diffuse)
+	void iRenderer::setLightDiffuse(int32 lightnum, iaColor4f& diffuse)
 	{
 		_lights[lightnum]._diffuse = diffuse;
 		glLightfv(GL_LIGHT0 + lightnum, GL_DIFFUSE, diffuse.getData());		GL_CHECK_ERROR();
 	}
 
-	void iRenderer::setLightSpecular(int32 lightnum, iaColor4f & specular)
+	void iRenderer::setLightSpecular(int32 lightnum, iaColor4f& specular)
 	{
 		_lights[lightnum]._specular = specular;
 		glLightfv(GL_LIGHT0 + lightnum, GL_SPECULAR, specular.getData());		GL_CHECK_ERROR();
@@ -1783,7 +1771,7 @@ namespace Igor
 	/*!
 	\bug in debug mode the rainbow colors are wrong. it's changing back and forth
 	*/
-	void iRenderer::drawParticles(float32 x, float32 y, float32 angle, iParticle2D * particles, int32 particleCount, iaGradientColor4f * rainbow)
+	void iRenderer::drawParticles(float32 x, float32 y, float32 angle, iParticle2D* particles, int32 particleCount, iaGradientColor4f* rainbow)
 	{
 		iaVector2f a, b, c, d, u, v;
 		iaColor4f color;
@@ -1851,7 +1839,7 @@ namespace Igor
 		_renderedTriangles += particleCount * 2;
 	}
 
-	void iRenderer::drawParticles(const std::deque<iParticle> & particles, const iaGradientColor4f & rainbow)
+	void iRenderer::drawParticles(const std::deque<iParticle>& particles, const iaGradientColor4f& rainbow)
 	{
 		iaVector4f camright;
 		camright.set(_camWorldMatrix._right._x, _camWorldMatrix._right._y, _camWorldMatrix._right._z, 0);
@@ -1939,7 +1927,7 @@ namespace Igor
 		_renderedTriangles += static_cast<uint32>(particles.size()) * 2;
 	}
 
-	void iRenderer::drawVelocityOrientedParticles(const std::deque<iParticle> & particles, const iaGradientColor4f & rainbow)
+	void iRenderer::drawVelocityOrientedParticles(const std::deque<iParticle>& particles, const iaGradientColor4f& rainbow)
 	{
 		// TODO implement also for local coordinates see drawParticles
 
@@ -2018,7 +2006,7 @@ namespace Igor
 		_renderedTriangles += static_cast<uint32>(particles.size()) * 2;
 	}
 
-	iaVector3d iRenderer::project(const iaVector3d & objectSpacePos, const iaMatrixd & modelview, const iaMatrixd & projection, const iRectanglei & viewport)
+	iaVector3d iRenderer::project(const iaVector3d& objectSpacePos, const iaMatrixd& modelview, const iaMatrixd& projection, const iRectanglei& viewport)
 	{
 		iaVector4d in(objectSpacePos._x, objectSpacePos._y, objectSpacePos._z, 1);
 		iaVector4d out;
@@ -2038,7 +2026,7 @@ namespace Igor
 		return result;
 	}
 
-	iaVector3d iRenderer::unProject(const iaVector3d & screenpos, const iaMatrixd & modelview, const iaMatrixd & projection, const iRectanglei & viewport)
+	iaVector3d iRenderer::unProject(const iaVector3d& screenpos, const iaMatrixd& modelview, const iaMatrixd& projection, const iRectanglei& viewport)
 	{
 		iaVector4d in;
 		iaVector4d out;

@@ -38,6 +38,7 @@
 #include <iMaterial.h>
 #include <iStatisticsVisualizer.h>
 #include <iTexture.h>
+#include <iTimerHandle.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -57,18 +58,39 @@ namespace Igor
 
 /*! rendering 2d example
 */
-class Example2D
+class SpriteAnimation
 {
+
+	enum class CharacterState
+	{
+		WalkN,
+		WalkNE,
+		WalkE,
+		WalkSE,
+		WalkS,
+		WalkSW,
+		WalkW,
+		WalkNW,
+		RunN,
+		RunNE,
+		RunE,
+		RunSE,
+		RunS,
+		RunSW,
+		RunW,
+		RunNW,
+		Idle,
+	};
 
 public:
 
     /*! initializes the example
     */
-    Example2D();
+	SpriteAnimation();
 
     /*! deinitializes the example
     */
-    virtual ~Example2D();
+    virtual ~SpriteAnimation();
 
     /*! run the example
     */
@@ -89,75 +111,45 @@ private:
     basically contains information about where inside the window to render and projection information
     */
     iView _view;
-
-    /*! perlin noise generator 
-    (default ctor initializes with 1337 as random seed)
-    */
-    iPerlinNoise _perlinNoise;
-
-    /*! stores the last mouse position
-    */
-    iaVector2f _lastMousePos;
-
-    /*! particles
-    */
-    iParticleSystem2D _particleSystem;
-
-    /*! texture used for the particles
-    */
-    iTexturePtr _particleTexture = nullptr;
-
-    /*! just increases over time and feeds a sinus function to change the orientation of the particle stream
-    */
-    float32 _particleAnimatioValue = 0.0f;
-
-    /*! multicolor gradient used for coloring the particles
-    */
-    iaGradientColor4f _rainbow;
 	
-    /*! opengl logo
+    /*! walk animation
     */
-	iSprite* _openGLLogo = nullptr;
+	iSprite* _walk = nullptr;
+
+	/*! flags to determine what the character is doing
+	*/
+	bool _flags[5];
+
+	/*! current position of character to render
+	*/
+	iaVector2f _characterPosition{ 200, 200 };
+
+	/*! character velocity
+	*/
+	iaVector2f _characterVelocity;
+
+	CharacterState _characterState;
+
+	uint32 _animationOffset;
+	uint32 _animationIndex;
+
+	iTimerHandle _animationTimer;
+
+	void onAnimationTimerTick();
+
+	iaString getCharacterStateName(CharacterState state);
+
+	/*! texture font
+	*/
+	iTextureFont* _font = nullptr;
 
     /*! Igor logo
     */
     iTexturePtr _igorLogo = nullptr;
-
-    /*! current position of renderer logo 
-    */
-    iaVector2f _logoPosition{200, 200};
-
-    /*! texture font
-    */
-	iTextureFont* _font = nullptr;
-
-    /*! background tileable texture
-    */
-    iTexturePtr _backgroundTexture = nullptr;
-
-    /*! a dummy texture
-    */
-	iTexturePtr _dummyTexture = nullptr;
-
-    /*! material id of a textured material
-    */
-    uint64 _materialWithTexture = iMaterial::INVALID_MATERIAL_ID;
-
+    
     /*! material id of a textured material with alpha blending
     */
     uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
-
-    /*! material id of a non textured material
-    */
-    uint64 _materialWithoutDepthTest = iMaterial::INVALID_MATERIAL_ID;
-
-    /*! a B-Spline
-    */
-    iaBSpline _spline;
-
-    /*! random number generator
-    */
-    iaRandomNumberGeneratoru _rand;
 
     /*! mouse move event with minimum data
 
@@ -178,9 +170,13 @@ private:
     */
     void onWindowResize(int32 clientWidth, int32 clientHeight);
 
-    /*! called when esc key was pressed
+    /*! called when key was pressed
     */
-	void onKeyESCPressed();
+	void onKeyDown(iKeyCode key);
+
+	/*! called when key was released
+	*/
+	void onKeyUp(iKeyCode key);
 
     /*! called before every frame
     */
@@ -196,12 +192,6 @@ private:
     */
     void drawLogo();
 
-    /*! call the particles system handle to update particle positions
-
-    also changes initiali velocity of particles for waving particle stream effect
-    */
-    void updateParticles();
-
     /*! initializes the example
     */
 	void init();
@@ -209,8 +199,6 @@ private:
     /*! deinitializes the example
     */
 	void deinit();
-
-
 
 };
 
