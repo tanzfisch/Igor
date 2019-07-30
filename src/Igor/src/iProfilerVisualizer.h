@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iSTATISTICSVISUALIZER__
-#define __iSTATISTICSVISUALIZER__
+#ifndef __iPROFILERVISUALIZER__
+#define __iPROFILERVISUALIZER__
 
 #include <iMaterial.h>
 
@@ -47,7 +47,7 @@ namespace Igor
 
     /*! verbosity of statistics output on scree
     */
-    enum class iRenderStatisticsVerbosity
+    enum class ProfilerVerbosity
     {
         None,
         FPSOnly,
@@ -59,7 +59,7 @@ namespace Igor
 
     /*! render statistics
     */
-    class Igor_API iStatisticsVisualizer
+    class Igor_API iProfilerVisualizer
     {
         
     public:
@@ -68,11 +68,11 @@ namespace Igor
 
         \pram renderStatisticsMode the mode to display statistics
         */
-        void setVerbosity(iRenderStatisticsVerbosity renderStatisticsMode);
+        void setVerbosity(ProfilerVerbosity renderStatisticsMode);
 
         /*! \returns current verbosity level
         */
-        iRenderStatisticsVerbosity getVerbosity();
+        ProfilerVerbosity getVerbosity();
 
         /*! cycles through all the verbosity modes one by one for each call
         */
@@ -82,15 +82,15 @@ namespace Igor
 
         only works correctly called within a orthogonal view's render call
         */
-        void drawStatistics(iWindow* window, iTextureFont* font, const iaColor4f& color);
+        void draw(iWindow* window, iTextureFont* font, const iaColor4f& color);
 
         /*! init
         */
-        iStatisticsVisualizer();
+        iProfilerVisualizer();
 
         /*! deinit
         */
-        virtual ~iStatisticsVisualizer();
+        virtual ~iProfilerVisualizer();
 
     private:
 
@@ -104,7 +104,7 @@ namespace Igor
 
         /*! the mode to rende the statistics with
         */
-        iRenderStatisticsVerbosity _renderStatisticsMode = iRenderStatisticsVerbosity::FPSOnly;
+        ProfilerVerbosity _renderStatisticsMode = ProfilerVerbosity::FPSOnly;
 
         /*! measures time so we can update statistics in cetain intervals
         */

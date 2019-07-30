@@ -174,6 +174,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IgorAuxMath", "..\..\Tests\IgorAuxMath\IgorAuxMath.vcxproj", "{A1A746BA-34BE-4925-B73D-EB2D91855EA4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "13 SpriteAnimation", "..\..\..\examples\13 SpriteAnimation\vs\SpriteAnimation.vcxproj", "{271308E6-6556-49F8-9AA7-DE497110FA6A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4BFF697B-A2DC-472B-BA1A-4169BCEFA532} = {4BFF697B-A2DC-472B-BA1A-4169BCEFA532}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -36,7 +36,7 @@
 #include <iaGradient.h>
 #include <iPerlinNoise.h>
 #include <iMaterial.h>
-#include <iStatisticsVisualizer.h>
+#include <iProfilerVisualizer.h>
 #include <iTexture.h>
 using namespace Igor;
 
@@ -80,9 +80,9 @@ private:
     */
     iWindow _window;
 
-    /*! visualizes statistics
+    /*! visualizes profiler data
     */
-    iStatisticsVisualizer _statisticsVisualizer;
+    iProfilerVisualizer _profilerVisualizer;
 
     /*! the view we want to render in
 

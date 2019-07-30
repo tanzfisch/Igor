@@ -26,11 +26,11 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iSTATISTICS__
-#define __iSTATISTICS__
+#ifndef __iPROFILER__
+#define __iPROFILER__
 
 #include <iDefines.h>
-#include <iStatisticsSection.h>
+#include <iProfilerSection.h>
 
 #include <iaSingleton.h>
 #include <iaColor4.h>
@@ -49,10 +49,10 @@ namespace Igor
 
     /*! render statistics
     */
-    class Igor_API iStatistics : public iaSingleton<iStatistics>
+    class Igor_API iProfiler : public iaSingleton<iProfiler>
     {
 
-        friend class iaSingleton<iStatistics>;
+        friend class iaSingleton<iProfiler>;
         
     public:
 
@@ -90,7 +90,7 @@ namespace Igor
 
         be carefull to not change that list
         */
-        std::map<uint32, iStatisticsSection>& getSections();
+        std::map<uint32, iProfilerSection>& getSections();
 
         /*! \returns current frame index
         */
@@ -104,23 +104,23 @@ namespace Igor
         
         /*! list of sections
         */
-        std::map<uint32, iStatisticsSection> _sections;
+        std::map<uint32, iProfilerSection> _sections;
 
         /*! next section id
         */
-        uint32 _nextSectionID = iStatisticsSection::INVALID_SECTION_ID + 1;
+        uint32 _nextSectionID = iProfilerSection::INVALID_SECTION_ID + 1;
 
-        /*! measures time so we can update statistics in cetain intervals
+        /*! measures time so we can update statistics in certain intervals
         */
         float64 _seconds = 0;
 
         /*! nothing todo
         */
-        iStatistics() = default;
+        iProfiler() = default;
 
         /*! nothing todo
         */
-        virtual ~iStatistics() = default;
+        virtual ~iProfiler() = default;
 
     };
 

@@ -28,7 +28,7 @@ using namespace IgorAux;
 #include <iMaterialResourceFactory.h>
 #include <iVoxelData.h>
 #include <iaVector3.h>
-#include <iStatistics.h>
+#include <iProfiler.h>
 #include <iNodeVisitorPrintTree.h>
 using namespace Igor;
 
@@ -51,9 +51,9 @@ void VoxelExample::init()
     initViews();
     initScene();
 
-    // load font for statistics display
+    // load font for profiler
     _font = new iTextureFont("StandardFont.png");
-    _statisticsVisualizer.setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
+    _profilerVisualizer.setVerbosity(ProfilerVerbosity::FPSAndMetrics);
 
     // launch resource handlers
     _flushModelsTask = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
@@ -439,7 +439,7 @@ void VoxelExample::onKeyDown(iKeyCode key)
 	break;
 
 	case iKeyCode::F8:
-		_statisticsVisualizer.cycleVerbosity();
+		_profilerVisualizer.cycleVerbosity();
 		break;
 
 	case iKeyCode::F9:
@@ -494,7 +494,7 @@ void VoxelExample::onRenderOrtho()
     drawLogo();
 
     // draw frame rate in lower right corner
-    _statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+    _profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
 }
 
 void VoxelExample::drawLogo()

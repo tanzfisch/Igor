@@ -37,7 +37,7 @@
 #include <iKeyboard.h>
 #include <iPerlinNoise.h>
 #include <iMaterial.h>
-#include <iStatisticsVisualizer.h>
+#include <iProfilerVisualizer.h>
 using namespace Igor;
 
 #include <iaRandomNumberGenerator.h>
@@ -84,9 +84,9 @@ private:
     */
 	iWindow _window;
 
-    /*! statistics visualizer
+    /*! profiler visualizer
     */
-    iStatisticsVisualizer _statisticsVisualizer;
+    iProfilerVisualizer _profilerVisualizer;
 
     /*! view within the window
     */

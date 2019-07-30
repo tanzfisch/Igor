@@ -362,15 +362,6 @@
     <ClCompile Include="..\src\iDialogGraph.cpp">
       <Filter>GUI\dialogs</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iStatistics.cpp">
-      <Filter>resources\statistics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\iStatisticsSection.cpp">
-      <Filter>resources\statistics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\iStatisticsVisualizer.cpp">
-      <Filter>resources\statistics</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iEntity.cpp">
       <Filter>entities</Filter>
     </ClCompile>
@@ -439,6 +430,15 @@
     </ClCompile>
     <ClCompile Include="..\src\iTextureFont.cpp">
       <Filter>resources\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iProfiler.cpp">
+      <Filter>resources\profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iProfilerSection.cpp">
+      <Filter>resources\profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iProfilerVisualizer.cpp">
+      <Filter>resources\profiler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -835,15 +835,6 @@
     <ClInclude Include="..\src\iDialogGraph.h">
       <Filter>GUI\dialogs</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iStatistics.h">
-      <Filter>resources\statistics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iStatisticsSection.h">
-      <Filter>resources\statistics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iStatisticsVisualizer.h">
-      <Filter>resources\statistics</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iEntity.h">
       <Filter>entities</Filter>
     </ClInclude>
@@ -921,6 +912,15 @@
     </ClInclude>
     <ClInclude Include="..\src\iTextureFont.h">
       <Filter>resources\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iProfiler.h">
+      <Filter>resources\profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iProfilerSection.h">
+      <Filter>resources\profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iProfilerVisualizer.h">
+      <Filter>resources\profiler</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1061,9 +1061,6 @@
     <Filter Include="graphics\generation">
       <UniqueIdentifier>{2c949176-de8e-4a4e-9e9e-dc9b70155d86}</UniqueIdentifier>
     </Filter>
-    <Filter Include="resources\statistics">
-      <UniqueIdentifier>{58005712-136c-489b-80a1-deb7d7ccf43e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="entities">
       <UniqueIdentifier>{1637c4c0-32a5-4ba1-8496-a9f83e01a217}</UniqueIdentifier>
     </Filter>
@@ -1087,6 +1084,9 @@
     </Filter>
     <Filter Include="resources\physics">
       <UniqueIdentifier>{6405a0c4-3aae-45af-a01f-b6fb7526eaf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\profiler">
+      <UniqueIdentifier>{58005712-136c-489b-80a1-deb7d7ccf43e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

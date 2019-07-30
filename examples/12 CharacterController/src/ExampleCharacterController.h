@@ -36,7 +36,7 @@
 #include <iModelResourceFactory.h>
 #include <iKeyCodeMap.h>
 #include <iMaterial.h>
-#include <iStatisticsVisualizer.h>
+#include <iProfilerVisualizer.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -105,7 +105,7 @@ private:
 
     /*! visualizes statistics
     */
-    iStatisticsVisualizer _statisticsVisualizer;
+    iProfilerVisualizer _profilerVisualizer;
 
     /*! the view we render 3D to
     */

@@ -36,7 +36,7 @@ using namespace IgorAux;
 #include <iWidgetGrid.h>
 #include <iWidgetScroll.h>
 #include <iDialogMessageBox.h>
-#include <iStatistics.h>
+#include <iProfiler.h>
 #include <iMaterialResourceFactory.h>
 #include <iTaskFlushTextures.h>
 #include <iNodeMesh.h>
@@ -961,7 +961,7 @@ void ModelViewer::onKeyDown(iKeyCode key)
     break;
 
 	case iKeyCode::F8:
-		_statisticsVisualizer.cycleVerbosity();
+		_profilerVisualizer.cycleVerbosity();
 		break;
 
 	case iKeyCode::F9:
@@ -1094,7 +1094,7 @@ void ModelViewer::renderOrtho()
     iWidgetManager::getInstance().draw();
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
-    _statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+    _profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
 }
 
 void ModelViewer::run(iaString fileName)

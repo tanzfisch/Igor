@@ -34,7 +34,7 @@
 #include <iView.h>
 #include <iDialog.h>
 #include <iMaterial.h>
-#include <iStatisticsVisualizer.h>
+#include <iProfilerVisualizer.h>
 #include <iTexture.h>
 using namespace Igor;
 
@@ -85,7 +85,7 @@ private:
 
     /*! visualize statistics
     */
-    iStatisticsVisualizer _statisticsVisualizer;
+    iProfilerVisualizer _profilerVisualizer;
 
     /*! font handle
     */

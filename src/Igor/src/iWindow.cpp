@@ -13,7 +13,7 @@
 #include <iOSEvent.h>
 #include <iRenderer.h>
 #include <iTaskManager.h>
-#include <iStatistics.h>
+#include <iProfiler.h>
 
 #include <algorithm>
 #include <sstream>
@@ -131,7 +131,7 @@ namespace Igor
 
         calcMinSize();
 
-        _swapBufferSectionID = iStatistics::getInstance().registerSection("window:swap", 0);
+        _swapBufferSectionID = iProfiler::getInstance().registerSection("window:swap", 0);
     }
 
     HGLRC iWindow::createRenderContext()
@@ -752,9 +752,9 @@ namespace Igor
             view->draw();
         }
 
-        iStatistics::getInstance().beginSection(_swapBufferSectionID);
+        iProfiler::getInstance().beginSection(_swapBufferSectionID);
         swapBuffers();
-        iStatistics::getInstance().endSection(_swapBufferSectionID);
+        iProfiler::getInstance().endSection(_swapBufferSectionID);
     }
 
     void iWindow::registerWindowCloseDelegate(WindowCloseDelegate windowCloseDelegate)

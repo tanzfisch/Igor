@@ -325,6 +325,9 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\src\iPhysicsUserMeshCollisionHandler.cpp" />
     <ClCompile Include="..\src\iPhysicsWorld.cpp" />
     <ClCompile Include="..\src\iPixmap.cpp" />
+    <ClCompile Include="..\src\iProfiler.cpp" />
+    <ClCompile Include="..\src\iProfilerSection.cpp" />
+    <ClCompile Include="..\src\iProfilerVisualizer.cpp" />
     <ClCompile Include="..\src\iRenderContextThread.cpp" />
     <ClCompile Include="..\src\iRenderEngine.cpp" />
     <ClCompile Include="..\src\iRenderer.cpp" />
@@ -347,9 +350,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\src\iStatistics.cpp" />
-    <ClCompile Include="..\src\iStatisticsSection.cpp" />
-    <ClCompile Include="..\src\iStatisticsVisualizer.cpp" />
     <ClCompile Include="..\src\iStopWatch.cpp" />
     <ClCompile Include="..\src\iTargetMaterial.cpp" />
     <ClCompile Include="..\src\iTask.cpp" />
@@ -505,6 +505,9 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iPhysicsWorld.h" />
     <ClInclude Include="..\src\iPixmap.h" />
     <ClInclude Include="..\src\iPlane.h" />
+    <ClInclude Include="..\src\iProfiler.h" />
+    <ClInclude Include="..\src\iProfilerSection.h" />
+    <ClInclude Include="..\src\iProfilerVisualizer.h" />
     <ClInclude Include="..\src\iRay.h" />
     <ClInclude Include="..\src\iRectangle.h" />
     <ClInclude Include="..\src\iRenderContextThread.h" />
@@ -530,9 +533,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="..\src\iSphere.h" />
-    <ClInclude Include="..\src\iStatistics.h" />
-    <ClInclude Include="..\src\iStatisticsSection.h" />
-    <ClInclude Include="..\src\iStatisticsVisualizer.h" />
     <ClInclude Include="..\src\iSTBImageExt.h" />
     <ClInclude Include="..\src\iStopWatch.h" />
     <ClInclude Include="..\src\iTargetMaterial.h" />

@@ -14,7 +14,7 @@ using namespace IgorAux;
 #include <iTextureResourceFactory.h>
 #include <iMaterial.h>
 #include <iMaterialResourceFactory.h>
-#include <iStatistics.h>
+#include <iProfiler.h>
 using namespace Igor;
 
 #include <sstream>
@@ -343,7 +343,7 @@ void Example2D::onRender()
 	drawLogo();
 
 	// draw frame rate in lower right corner
-	_statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+	_profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
 }
 
 void Example2D::drawLogo()

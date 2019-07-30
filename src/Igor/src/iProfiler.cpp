@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <iStatistics.h>
+#include <iProfiler.h>
 #include <iMaterialResourceFactory.h>
 #include <iMaterial.h>
 #include <iWindow.h>
@@ -16,12 +16,12 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    uint32 iStatistics::registerSection(const iaString& sectionName, uint64 groupIndex)
+    uint32 iProfiler::registerSection(const iaString& sectionName, uint64 groupIndex)
     {
         con_assert_sticky(groupIndex <= 5, "out of bounds");
 
         uint32 result = _nextSectionID++;
-        iStatisticsSection statisticsSection;
+        iProfilerSection statisticsSection;
         statisticsSection.setName(sectionName);        
         statisticsSection.setGroup(groupIndex);
 
@@ -30,7 +30,7 @@ namespace Igor
         return result;
     }
 
-    void iStatistics::unregisterSection(uint32 sectionID)
+    void iProfiler::unregisterSection(uint32 sectionID)
     {
         auto section = _sections.find(sectionID);
 
@@ -42,7 +42,7 @@ namespace Igor
         }
     }
 
-    void iStatistics::beginSection(uint32 sectionID)
+    void iProfiler::beginSection(uint32 sectionID)
     {
         con_assert(_sections.find(sectionID) != _sections.end(), "out of range");
 
@@ -52,7 +52,7 @@ namespace Igor
         }
     }
 
-    void iStatistics::endSection(uint32 sectionID)
+    void iProfiler::endSection(uint32 sectionID)
     {
         con_assert(_sections.find(sectionID) != _sections.end(), "out of range");
 
@@ -62,7 +62,7 @@ namespace Igor
         }
     }
 
-    void iStatistics::nextFrame()
+    void iProfiler::nextFrame()
     {
         for (auto& section : _sections)
         {
@@ -72,12 +72,12 @@ namespace Igor
         _frame++;
     }
 
-    std::map<uint32, iStatisticsSection>& iStatistics::getSections()
+    std::map<uint32, iProfilerSection>& iProfiler::getSections()
     {
         return _sections;
     }
 
-    uint64 iStatistics::getCurrentFrameIndex() const
+    uint64 iProfiler::getCurrentFrameIndex() const
     {
         return _frame;
     }
