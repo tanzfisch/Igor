@@ -1013,8 +1013,8 @@ void Ascent::onRenderOrtho()
         Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
-            iaString healthText = iaString::ftoa(player->getHealth(), 0);
-            iaString shieldText = iaString::ftoa(player->getShield(), 0);
+            iaString healthText = iaString::toString(player->getHealth(), 0);
+            iaString shieldText = iaString::toString(player->getShield(), 0);
 
             iRenderer::getInstance().setFontSize(15.0f);
             iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));

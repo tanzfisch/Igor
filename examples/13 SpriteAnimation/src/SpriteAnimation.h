@@ -52,7 +52,7 @@ using namespace IgorAux;
 
 namespace Igor
 {
-    class iSprite;
+    class iAtlas;
     class iTextureFont;
 }
 
@@ -114,7 +114,7 @@ private:
 	
     /*! walk animation
     */
-	iSprite* _walk = nullptr;
+	iAtlas* _walk = nullptr;
 
 	/*! flags to determine what the character is doing
 	*/

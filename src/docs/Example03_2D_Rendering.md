@@ -95,7 +95,7 @@ So now the particle system is set up (we gonna have a look at how it's rendered 
 
     // load a texture as a sprite
     // sprites are basically textures that have some additional meta data that help you to place and orientate them
-    _logo = new iSprite(iTextureResourceFactory::getInstance().loadFile("OpenGL-Logo.jpg"));
+    _logo = new iAtlas(iTextureResourceFactory::getInstance().loadFile("OpenGL-Logo.jpg"));
     // set the center as the origin of the sprite
     _logo->setOrigin(iaVector2f(_logo->getTexture()->getWidth() * 0.5, _logo->getTexture()->getHeight() * 0.5));
 

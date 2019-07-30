@@ -1,10 +1,7 @@
 #include <iaString.h>
 
-#include <iaConsole.h>
-
 #include <stdio.h>
 #include <math.h>
-
 #include <string>
 #include <memory>
 
@@ -663,6 +660,27 @@ namespace IgorAux
 		return INVALID_POSITION;
 	}
 
+	uint64 iaString::findLastNotOf(const wchar_t character) const
+	{
+		CHECK_CONSISTENCY();
+
+		if (!isEmpty() &&
+			character != 0)
+		{
+			uint64 index = _charCount;
+			do
+			{
+				index--;
+				if (_data[index] != character)
+				{
+					return index;
+				}
+			} while (index > 0);
+		}
+
+		return INVALID_POSITION;
+	}
+
 	uint64 iaString::findLastOf(const wchar_t character) const
 	{
 		CHECK_CONSISTENCY();
@@ -678,6 +696,33 @@ namespace IgorAux
 				{
 					return index;
 				}
+			} while (index > 0);
+		}
+
+		return INVALID_POSITION;
+	}
+
+	uint64 iaString::findLastNotOf(const wchar_t* characters) const
+	{
+		CHECK_CONSISTENCY();
+
+		if (!isEmpty() && characters != nullptr)
+		{
+			uint64 index = _charCount;
+			uint64 paternLenght = static_cast<uint64>(wcslen(characters));
+
+			do
+			{
+				index--;
+
+				for (uint64 c = 0; c < paternLenght; ++c)
+				{
+					if (_data[index] != characters[c])
+					{
+						return index;
+					}
+				}
+
 			} while (index > 0);
 		}
 
@@ -809,7 +854,22 @@ namespace IgorAux
 		return result;
 	}
 
-	iaString iaString::itoa(int64 value)
+	iaString iaString::toString(int32 value)
+	{
+		return toString(static_cast<int64>(value));
+	}
+
+	iaString iaString::toString(uint32 value)
+	{
+		return toString(static_cast<int64>(value));
+	}
+
+	iaString iaString::toString(uint64 value)
+	{
+		return toString(static_cast<int64>(value));
+	}
+
+	iaString iaString::toString(int64 value)
 	{
 		iaString result;
 		int64 n = value;
@@ -825,8 +885,13 @@ namespace IgorAux
 		return result;
 	}
 
+	iaString iaString::toString(float32 value, int afterpoint)
+	{
+		return toString(static_cast<float64>(value), afterpoint);
+	}
+
 	// Converts a floating point number to string.
-	iaString iaString::ftoa(float64 value, int afterpoint)
+	iaString iaString::toString(float64 value, int afterpoint)
 	{
 		iaString result;
 		float64 n = value;
@@ -862,7 +927,40 @@ namespace IgorAux
 		return result;
 	}
 
-	float64 iaString::atof(const iaString & text)
+	bool iaString::toBool(const iaString& text)
+	{
+		iaString trimmed = iaString::trim(text);
+		trimmed.toLower();
+
+		if (trimmed == "1")
+		{
+			return true;
+		}
+		if (trimmed == "0")
+		{
+			return false;
+		}
+		if (trimmed == "true")
+		{
+			return true;
+		}
+		if (trimmed == "false")
+		{
+			return false;
+		}
+		if (trimmed == "on")
+		{
+			return true;
+		}
+		if (trimmed == "off")
+		{
+			return false;
+		}
+
+		return false;
+	}
+
+	float64 iaString::toFloat(const iaString & text)
 	{
 		float64 integer = 0.0;
 		float64 part = 0.0;
@@ -907,6 +1005,23 @@ namespace IgorAux
 		}
 
 		return (integer + part) * sign;
+	}
+
+	iaString iaString::trimLeft(const iaString& text)
+	{
+		uint64 start = text.findFirstNotOf(L" \n\r\t\f\v");
+		return text.getSubString(start);
+	}
+
+	iaString iaString::trimRight(const iaString& text)
+	{
+		uint64 stop = text.findLastNotOf(L" \n\r\t\f\v");
+		return (stop == iaString::INVALID_POSITION) ? "" : text.getSubString(0, stop + 1);
+	}
+
+	iaString iaString::trim(const iaString& text)
+	{
+		return trimLeft(trimRight(text));
 	}
 
 }

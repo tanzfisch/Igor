@@ -196,7 +196,7 @@ And last but not least here is how we initialize our custom input parameters for
     _voxelMeshModel = voxelMeshModel->getID();
     // tell the model node to load data with specified identifier ans the above defined parameter
     // it is important to have a unique identifier each time we generate a mesh otherwhise the cache system would return us a prvious generated mesh
-    voxelMeshModel->setModel(iaString("VoxelMesh") + iaString::itoa(_incarnation++), inputParam);
+    voxelMeshModel->setModel(iaString("VoxelMesh") + iaString::toString(_incarnation++), inputParam);
     // create a transform node to center the mesh to the origin
     iNodeTransform* voxelMeshTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _voxelMeshTransform = voxelMeshTransform->getID();

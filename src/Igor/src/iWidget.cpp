@@ -66,15 +66,15 @@ namespace Igor
 
 		result = type;
 		result += " [";
-		result += iaString::itoa(_id);
+		result += iaString::toString(_id);
 		result += "] (";
-		result += iaString::itoa(_absoluteX);
+		result += iaString::toString(_absoluteX);
 		result += ", ";
-		result += iaString::itoa(_absoluteY);
+		result += iaString::toString(_absoluteY);
 		result += ", ";
-		result += iaString::itoa(_actualWidth);
+		result += iaString::toString(_actualWidth);
 		result += ", ";
-		result += iaString::itoa(_actualHeight);
+		result += iaString::toString(_actualHeight);
 		result += ")";
 		if (!hasParent())
 		{

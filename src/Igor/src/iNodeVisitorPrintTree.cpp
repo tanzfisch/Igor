@@ -6,7 +6,6 @@
 #include <iNode.h>
 #include <iScene.h>
 
-#include <IgorAux.h>
 #include <iaConsole.h>
 using namespace IgorAux;
 

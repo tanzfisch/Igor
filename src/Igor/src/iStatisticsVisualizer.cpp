@@ -163,7 +163,7 @@ namespace Igor
                 }
             }
 
-            iaString fpsText = iaString::ftoa(_lastFPS, 2);
+            iaString fpsText = iaString::toString(_lastFPS, 2);
             uint32 voffset = 0;
 
             if (_renderStatisticsMode >= iRenderStatisticsVerbosity::FPSAndMetrics)
@@ -183,48 +183,48 @@ namespace Igor
                 iaString dataText = "v:";
                 if (vertices < 1000)
                 {
-                    dataText += iaString::itoa(vertices);
+                    dataText += iaString::toString(vertices);
                 }
                 else if (vertices < 1000000)
                 {
-                    dataText += iaString::itoa(vertices / 1000);
+                    dataText += iaString::toString(vertices / 1000);
                     dataText += "k";
                 }
                 else
                 {
-                    dataText += iaString::itoa(vertices / 1000000);
+                    dataText += iaString::toString(vertices / 1000000);
                     dataText += "mio";
                 }
 
                 dataText += " t:";
                 if (triangles < 1000)
                 {
-                    dataText += iaString::itoa(triangles);
+                    dataText += iaString::toString(triangles);
                 }
                 else if (triangles < 1000000)
                 {
-                    dataText += iaString::itoa(triangles / 1000);
+                    dataText += iaString::toString(triangles / 1000);
                     dataText += "k";
                 }
                 else
                 {
-                    dataText += iaString::itoa(triangles / 1000000);
+                    dataText += iaString::toString(triangles / 1000000);
                     dataText += "mio";
                 }
 
                 dataText += " i:";
                 if (indicies < 1000)
                 {
-                    dataText += iaString::itoa(indicies);
+                    dataText += iaString::toString(indicies);
                 }
                 else if (indicies < 1000000)
                 {
-                    dataText += iaString::itoa(indicies / 1000);
+                    dataText += iaString::toString(indicies / 1000);
                     dataText += "k";
                 }
                 else
                 {
-                    dataText += iaString::itoa(indicies / 1000000);
+                    dataText += iaString::toString(indicies / 1000000);
                     dataText += "mio";
                 }
 
@@ -235,24 +235,24 @@ namespace Igor
             if (_renderStatisticsMode >= iRenderStatisticsVerbosity::FPSMetricsAndTasks)
             {
                 iaString threads = "";
-                threads += iaString::itoa(_lastThreadCount);
+                threads += iaString::toString(_lastThreadCount);
                 threads += ":";
-                threads += iaString::itoa(_lastRunningTaskCount);
+                threads += iaString::toString(_lastRunningTaskCount);
                 threads += ":";
-                threads += iaString::itoa(_lastQueuedTaskCount);
+                threads += iaString::toString(_lastQueuedTaskCount);
 
                 iaString rcthreads = "";
-                rcthreads += iaString::itoa(_lastRenderContextThreadCount);
+                rcthreads += iaString::toString(_lastRenderContextThreadCount);
                 rcthreads += ":";
-                rcthreads += iaString::itoa(_lastRunningRenderContextTaskCount);
+                rcthreads += iaString::toString(_lastRunningRenderContextTaskCount);
                 rcthreads += ":";
-                rcthreads += iaString::itoa(_lastQueuedRenderContextTaskCount);
+                rcthreads += iaString::toString(_lastQueuedRenderContextTaskCount);
 
                 iRenderer::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 30), threads, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
                 iRenderer::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 10), rcthreads, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
 
                 iaString done = "done ";
-                done += iaString::itoa(_lastDoneTaskCount);
+                done += iaString::toString(_lastDoneTaskCount);
 
                 iRenderer::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 50), done, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
             }

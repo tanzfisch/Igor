@@ -60,18 +60,18 @@ namespace Igor
 	{
 		iaString result(L"vtx:");
 
-		result += iaString::itoa(getVertexCount());
+		result += iaString::toString(getVertexCount());
 		result += L" tri:";
-		result += iaString::itoa(getTrianglesCount());
+		result += iaString::toString(getTrianglesCount());
 		result += L" idx:";
-		result += iaString::itoa(getIndexesCount());
+		result += iaString::toString(getIndexesCount());
 
 		if (_mesh != nullptr)
 		{
 			result += L" texUni:";
-			result += iaString::itoa(_mesh->getTextureUnitCount());
+			result += iaString::toString(_mesh->getTextureUnitCount());
 			result += L" texCrd:";
-			result += iaString::itoa(_mesh->getTextureCoordinatesCount());
+			result += iaString::toString(_mesh->getTextureCoordinatesCount());
 		}
 
 		return result;

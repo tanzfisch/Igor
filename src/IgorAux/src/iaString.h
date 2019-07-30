@@ -30,6 +30,10 @@
 #define __IGOR_AUX_STRING__
 
 #include <iaDefines.h>
+#include <iaVector2.h>
+#include <iaVector3.h>
+#include <iaVector4.h>
+#include <iaConsole.h>
 
 #include <ostream>
 #include <vector>
@@ -298,6 +302,22 @@ namespace IgorAux
         */
         uint64 findLastOf(const wchar_t* characters) const;
 
+		/*! \returns position of last occurence NOT of specified character
+
+		if not found INVALID_POSITION will be returned
+
+		\param character the character to search for
+		*/
+		uint64 findLastNotOf(const wchar_t character) const;
+
+		/*! \returns position of last occurence NOT of specified characters
+
+		if not found INVALID_POSITION will be returned
+
+		\param characters the characters to search for
+		*/
+		uint64 findLastNotOf(const wchar_t* characters) const;
+
 		/*! empties the string
 		*/
 		void clear();
@@ -352,24 +372,90 @@ namespace IgorAux
         \param value the integer value
         \returns isString
         */
-        static iaString itoa(int64 value);
+        static iaString toString(int64 value);
+
+		/*! transforms an integer to a iaString
+
+		\param value the integer value
+		\returns isString
+		*/
+		static iaString toString(uint64 value);
+
+		/*! transforms an integer to a iaString
+
+		\param value the integer value
+		\returns isString
+		*/
+		static iaString toString(int32 value);
+
+		/*! transforms an integer to a iaString
+
+		\param value the integer value
+		\returns isString
+		*/
+		static iaString toString(uint32 value);
 
         /*! transforms a float to a iaString
-
-        \todo would be nice to have a version that detects it self how many after points make sense
 
         \param value the float value
         \param afterPoint defines how many digits after the point
         \returns isString
         */
-        static iaString ftoa(float64 value, int afterPoint = 0);
+        static iaString toString(float64 value, int afterPoint = 0);
+
+		/*! transforms a float to a iaString
+
+		\param value the float value
+		\param afterPoint defines how many digits after the point
+		\returns isString
+		*/
+		static iaString toString(float32 value, int afterPoint = 0);
 
         /*! transforms a iaString to a float
 
         \param text the string
         \returns value
         */
-        static float64 atof(const iaString& text);
+        static float64 toFloat(const iaString& text);
+
+		/*! converts string in to bool value
+
+		on error it falls back to false
+
+		\param text the text to convert
+		\returns true of false depending on the text
+		*/
+		static bool toBool(const iaString& text);
+
+		/*! converts a string to a 2d vector
+
+		expect two comma separated values
+
+		\param text the text to parse
+		\param[out] vector the resulting vector
+		*/
+		template<class T>
+		static void toVector(const iaString& text, iaVector2<T>& vector);
+
+		/*! converts a string to a 3d vector
+
+		expect two comma separated values
+
+		\param text the text to parse
+		\param[out] vector the resulting vector
+		*/
+		template<class T>
+		static void toVector(const iaString& text, iaVector3<T>& vector);
+
+		/*! converts a string to a 4d vector
+
+		expect two comma separated values
+
+		\param text the text to parse
+		\param[out] vector the resulting vector
+		*/
+		template<class T>
+		static void toVector(const iaString& text, iaVector4<T>& vector);
 
 		/*! insert text at given position
 
@@ -384,6 +470,27 @@ namespace IgorAux
 		\param length amount of characters to remove
 		*/
 		void remove(uint64 pos, uint64 length);
+
+		/*! trims white spaces on the left hand side
+
+		\param text the source text
+		\returns the trimmed text
+		*/
+		static iaString trimLeft(const iaString& text);
+
+		/*! trims white spaces on the right hand side
+
+		\param text the source text
+		\returns the trimmed text
+		*/
+		static iaString trimRight(const iaString& text);
+		
+		/*! trims white spaces on both ends of the string
+
+		\param text the source text
+		\returns the trimmed text
+		*/
+		static iaString trim(const iaString& text);
 
 	private:
 
@@ -409,7 +516,7 @@ namespace IgorAux
 		*/
 		void setData(const char* text, const uint64 size = INVALID_POSITION);
 
-		/*! internal implementation of itoa
+		/*! internal implementation of toString
 
 		\param x the number to turn in to a string
 		\param d number of digits in output if d is bigger than digits in x 0s will be added
@@ -427,6 +534,47 @@ namespace IgorAux
     */
 	IgorAux_API std::wostream& operator<<(std::wostream& stream, const iaString& text);
 
+	template<class T>
+	void iaString::toVector(const iaString& text, iaVector2<T>& vector)
+	{
+		std::vector<iaString> tokens;
+		text.split(',', tokens);
+		con_assert(tokens.size() == 2, "invalid format");
+
+		float64 x = iaString::toFloat(iaString::trim(tokens[0]));
+		float64 y = iaString::toFloat(iaString::trim(tokens[1]));
+
+		vector.set(static_cast<T>(x), static_cast<T>(y));
+	}
+
+	template<class T>
+	void iaString::toVector(const iaString& text, iaVector3<T>& vector)
+	{
+		std::vector<iaString> tokens;
+		text.split(',', tokens);
+		con_assert(tokens.size() == 3, "invalid format");
+
+		float64 x = iaString::toFloat(iaString::trim(tokens[0]));
+		float64 y = iaString::toFloat(iaString::trim(tokens[1]));
+		float64 z = iaString::toFloat(iaString::trim(tokens[2]));
+
+		vector.set(static_cast<T>(x), static_cast<T>(y), static_cast<T>(z));
+	}
+
+	template<class T>
+	void iaString::toVector(const iaString& text, iaVector4<T>& vector)
+	{
+		std::vector<iaString> tokens;
+		text.split(',', tokens);
+		con_assert(tokens.size() == 4, "invalid format");
+
+		float64 x = iaString::toFloat(iaString::trim(tokens[0]));
+		float64 y = iaString::toFloat(iaString::trim(tokens[1]));
+		float64 z = iaString::toFloat(iaString::trim(tokens[2]));
+		float64 w = iaString::toFloat(iaString::trim(tokens[4]));
+
+		vector.set(static_cast<T>(x), static_cast<T>(y), static_cast<T>(z), static_cast<T>(w));
+	}
 }
 
 namespace std
