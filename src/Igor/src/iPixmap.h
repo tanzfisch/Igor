@@ -209,6 +209,11 @@ namespace Igor
 		iPixmap() = default;
 
 	};
+
+	/*! pixmap pointer definition
+	*/
+	typedef iPixmap* iPixmapPtr;
+
 };
 
 #endif

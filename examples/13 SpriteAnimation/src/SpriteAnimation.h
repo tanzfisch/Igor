@@ -52,6 +52,7 @@ using namespace IgorAux;
 
 namespace Igor
 {
+	class iScene;
     class iAtlas;
     class iTextureFont;
 }
@@ -119,7 +120,9 @@ private:
 	/*! tiles
 	*/
 	iAtlas* _tiles = nullptr;
-
+	
+	iScene* _scene = nullptr;
+	
 	/*! flags to determine what the character is doing
 	*/
 	bool _flags[5];
@@ -154,6 +157,8 @@ private:
     /*! material id of a textured material with alpha blending
     */
     uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
+
+	uint64 _materialTerrain = iMaterial::INVALID_MATERIAL_ID;
 
     /*! mouse move event with minimum data
 
