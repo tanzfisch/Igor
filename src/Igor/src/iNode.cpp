@@ -380,7 +380,7 @@ namespace Igor
 		result += ", ";
 		result += type;
 		result += " [";
-		result += iaString::itoa(getID());
+		result += iaString::toString(getID());
 		result += "]";
 
 		if (isActive())

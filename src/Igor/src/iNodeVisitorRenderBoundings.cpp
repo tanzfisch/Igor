@@ -9,7 +9,6 @@
 #include <iRenderer.h>
 #include <iMaterialResourceFactory.h>
 
-#include <IgorAux.h>
 #include <iaConsole.h>
 using namespace IgorAux;
 

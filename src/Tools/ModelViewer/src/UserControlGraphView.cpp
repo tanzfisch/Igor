@@ -19,7 +19,6 @@
 #include <iMouse.h>
 using namespace Igor;
 
-#include <IgorAux.h>
 #include <iaConsole.h>
 using namespace IgorAux;
 

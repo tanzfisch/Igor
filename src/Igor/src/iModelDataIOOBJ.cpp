@@ -14,7 +14,6 @@
 #include <iNodeMesh.h>
 #include <iNodeFactory.h>
 
-#include <IgorAux.h>
 #include <iaFile.h>
 using namespace IgorAux;
 
@@ -32,7 +31,7 @@ namespace Igor
 		_identifier = iaString("obj");
 
 		iaString groupName = "mesh";
-		groupName += iaString::itoa(_nextID++);
+		groupName += iaString::toString(_nextID++);
 
 		// create a valid section in case there is no groups defined in the obj file
 		_currentGroups.push_back(groupName);
@@ -365,7 +364,7 @@ namespace Igor
 			if (groupName == "(null)")
 			{				
 				groupName = "mesh";
-				groupName += iaString::itoa(_nextID++);
+				groupName += iaString::toString(_nextID++);
 			}
 
 			auto iter = _sections.find(groupName);

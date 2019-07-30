@@ -143,9 +143,9 @@ void UserControlMesh::updateGUI()
 		_sliderShininess->setValue(_shininess);
 		_textShininess->setValue(_shininess);
 
-		_textVertices->setText(iaString::itoa(node->getVertexCount()));
-		_textTriangles->setText(iaString::itoa(node->getTrianglesCount()));
-		_textIndexes->setText(iaString::itoa(node->getIndexesCount()));
+		_textVertices->setText(iaString::toString(node->getVertexCount()));
+		_textTriangles->setText(iaString::toString(node->getTrianglesCount()));
+		_textIndexes->setText(iaString::toString(node->getIndexesCount()));
 
 		if (node->getTargetMaterial()->hasTextureUnit(0))
 		{

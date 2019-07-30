@@ -59,7 +59,7 @@ namespace Igor
     class iTextureFont;
     class iParticle;
     class iParticle2D;
-    class iSprite;
+    class iAtlas;
     class iInstancer;
     class iTargetMaterial;
     class iMeshBuffers;
@@ -544,7 +544,7 @@ namespace Igor
         \param frameIndex the index of the frame to render
         \param pos position on screen
         */
-		void iRenderer::drawSprite(const iSprite* sprite, uint32 frameIndex, const iaVector2f& pos);
+		void iRenderer::drawSprite(const iAtlas* sprite, uint32 frameIndex, const iaVector2f& pos);
 
         /*! draws a point
 

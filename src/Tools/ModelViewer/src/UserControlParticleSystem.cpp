@@ -56,7 +56,7 @@ void UserControlParticleSystem::onCyclickUpdate()
 
     if (node != nullptr)
     {
-        _textParticleCount->setText(iaString::itoa(node->getParticleCount()));
+        _textParticleCount->setText(iaString::toString(node->getParticleCount()));
     }
 }
 
@@ -428,7 +428,7 @@ void UserControlParticleSystem::initGUI()
     _textFrequency->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _textFrequency->setHorizontalTextAlignment(iHorizontalAlignment::Right);
     _textFrequency->setActive(false);
-    iaString frequency = iaString::ftoa(iParticleSystem3D::getSimulationRate(), 2);
+    iaString frequency = iaString::toString(iParticleSystem3D::getSimulationRate(), 2);
     frequency += " Hz";
     _textFrequency->setText(frequency);
 

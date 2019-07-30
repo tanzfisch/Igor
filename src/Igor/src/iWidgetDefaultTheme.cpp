@@ -649,7 +649,7 @@ namespace Igor
 
 		for (int i = 0; i < verticalLines.size(); ++i)
 		{
-			value = iaString::ftoa(verticalLines[i]._y, 2);
+			value = iaString::toString(verticalLines[i]._y, 2);
 
 			if (i < verticalLines.size() - 1)
 			{
@@ -664,7 +664,7 @@ namespace Igor
 		bool first = true;
 		for (auto horizontalLine : horizontalLines)
 		{
-			value = iaString::ftoa(horizontalLine._y, 2);
+			value = iaString::toString(horizontalLine._y, 2);
 
 			if (first)
 			{

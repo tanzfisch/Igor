@@ -6,7 +6,7 @@ using namespace IgorAux;
 
 #include <iMouse.h>
 #include <iKeyboard.h>
-#include <iSprite.h>
+#include <iAtlas.h>
 #include <iTextureFont.h>
 #include <iTimer.h>
 #include <iApplication.h>
@@ -63,60 +63,12 @@ void SpriteAnimation::init()
 	// load a texture font
 	_font = new iTextureFont("StandardFont.png");
 
-	// load a texture as a sprite
-	// sprites are basically textures that have some additional meta data that help you to place and orientate them
-	_walk = new iSprite(iTextureResourceFactory::getInstance().loadFile("walk.png", iResourceCacheMode::Free, iTextureBuildMode::Normal));
-	
-	// walk south
-	for (int i = 1; i < 3; ++i)
-	{
-		_walk->addFrame(iaVector2f(i * 50.0, 0), iaVector2f(50.0, 85), iaVector2f(25, 80));
-	}
+	// load atlantes
+	_walk = new iAtlas(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationWalk.png", iResourceCacheMode::Free, iTextureBuildMode::Normal));
+	_walk->loadFrames("../data/atlantes/SpriteAnimationWalk.xml");
 
-	// walk west
-	for (int i = 1; i < 3; ++i)
-	{
-		_walk->addFrame(iaVector2f(i * 50.0, 82), iaVector2f(50.0, 85), iaVector2f(25, 80));
-	}
-
-	// walk east
-	for (int i = 1; i < 3; ++i)
-	{
-		_walk->addFrame(iaVector2f(i * 50.0, 172), iaVector2f(50.0, 85), iaVector2f(25, 80));
-	}
-
-	// walk north
-	for (int i = 1; i < 3; ++i)
-	{
-		_walk->addFrame(iaVector2f(i * 50.0, 258), iaVector2f(50.0, 85), iaVector2f(25, 80));
-	}
-
-	// idle
-	_walk->addFrame(iaVector2f(550.0, 430), iaVector2f(50.0, 85), iaVector2f(25, 80));
-
-	// run south
-	_walk->addFrame(iaVector2f(772, 0), iaVector2f(50.0, 85), iaVector2f(25, 80));
-	_walk->addFrame(iaVector2f(827, 0), iaVector2f(50.0, 85), iaVector2f(25, 80));
-	_walk->addFrame(iaVector2f(896, 0), iaVector2f(50.0, 85), iaVector2f(25, 80));
-	_walk->addFrame(iaVector2f(964, 0), iaVector2f(50.0, 85), iaVector2f(25, 80));
-
-	// run west
-	_walk->addFrame(iaVector2f(772, 85), iaVector2f(50.0, 85), iaVector2f(25, 80));
-	_walk->addFrame(iaVector2f(827, 85), iaVector2f(50.0, 85), iaVector2f(25, 80));
-	_walk->addFrame(iaVector2f(896, 85), iaVector2f(50.0, 85), iaVector2f(25, 80));
-	_walk->addFrame(iaVector2f(964, 85), iaVector2f(50.0, 85), iaVector2f(25, 80));
-
-	// run east
-	_walk->addFrame(iaVector2f(772, 172), iaVector2f(50.0, 85), iaVector2f(25, 80));
-	_walk->addFrame(iaVector2f(827, 172), iaVector2f(50.0, 85), iaVector2f(25, 80));
-	_walk->addFrame(iaVector2f(896, 172), iaVector2f(50.0, 85), iaVector2f(25, 80));
-	_walk->addFrame(iaVector2f(964, 172), iaVector2f(50.0, 85), iaVector2f(25, 80));
-
-	// run north
-	_walk->addFrame(iaVector2f(772, 258), iaVector2f(50.0, 85), iaVector2f(25, 80));
-	_walk->addFrame(iaVector2f(827, 258), iaVector2f(50.0, 85), iaVector2f(25, 80));
-	_walk->addFrame(iaVector2f(896, 258), iaVector2f(50.0, 85), iaVector2f(25, 80));
-	_walk->addFrame(iaVector2f(964, 258), iaVector2f(50.0, 85), iaVector2f(25, 80));
+	_walk = new iAtlas(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationTiles.png", iResourceCacheMode::Free, iTextureBuildMode::Normal));
+	_walk->loadFrames("../data/atlantes/SpriteAnimationTiles.xml");
 
 	for (int i = 0; i < 5; ++i)
 	{

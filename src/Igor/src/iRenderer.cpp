@@ -5,7 +5,7 @@
 #include <iRenderer.h>
 
 #include <iTextureFont.h>
-#include <iSprite.h>
+#include <iAtlas.h>
 #include <iMesh.h>
 #include <iParticleSystem2D.h>
 #include <iWindow.h>
@@ -25,8 +25,6 @@
 #include <sstream>
 #include <cmath>
 
-
-#include <IgorAux.h>
 #include <iaConvert.h>
 using namespace IgorAux;
 
@@ -1166,10 +1164,10 @@ namespace Igor
 		glEnd(); GL_CHECK_ERROR();
 	}
 
-	void iRenderer::drawSprite(const iSprite* sprite, uint32 frameIndex, const iaVector2f& pos)
+	void iRenderer::drawSprite(const iAtlas* sprite, uint32 frameIndex, const iaVector2f& pos)
 	{
 		iTexturePtr texture = sprite->getTexture();
-		const iSprite::Frame& frame = sprite->getFrame(frameIndex);
+		const iAtlas::Frame& frame = sprite->getFrame(frameIndex);
 
 		iaVector2f position = pos;
 		position -= frame._origin;

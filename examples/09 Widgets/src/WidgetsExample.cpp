@@ -394,9 +394,9 @@ void WidgetsExample::onMouseMove(const iaVector2i& pos)
     if (_labelMousePos != nullptr)
     {
         iaString text;
-        text += iaString::itoa(pos._x);
+        text += iaString::toString(pos._x);
         text += ":";
-        text += iaString::itoa(pos._y);
+        text += iaString::toString(pos._y);
 
         _labelMousePos->setText(text);
     }

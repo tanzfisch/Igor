@@ -98,21 +98,21 @@ void UserControlTransformation::updateGUI(iNodeTransform* transformNode)
 
 	orientation.getEuler(rotate);
 
-	_translateText[0]->setText(iaString::ftoa(translate._x, 4));
-	_translateText[1]->setText(iaString::ftoa(translate._y, 4));
-	_translateText[2]->setText(iaString::ftoa(translate._z, 4));
+	_translateText[0]->setText(iaString::toString(translate._x, 4));
+	_translateText[1]->setText(iaString::toString(translate._y, 4));
+	_translateText[2]->setText(iaString::toString(translate._z, 4));
 
-	_rotateText[0]->setText(iaString::ftoa(rotate._x / M_PI * 180.0, 4));
-	_rotateText[1]->setText(iaString::ftoa(rotate._y / M_PI * 180.0, 4));
-	_rotateText[2]->setText(iaString::ftoa(rotate._z / M_PI * 180.0, 4));
+	_rotateText[0]->setText(iaString::toString(rotate._x / M_PI * 180.0, 4));
+	_rotateText[1]->setText(iaString::toString(rotate._y / M_PI * 180.0, 4));
+	_rotateText[2]->setText(iaString::toString(rotate._z / M_PI * 180.0, 4));
 
-	_scaleText[0]->setText(iaString::ftoa(scale._x, 4));
-	_scaleText[1]->setText(iaString::ftoa(scale._y, 4));
-	_scaleText[2]->setText(iaString::ftoa(scale._z, 4));
+	_scaleText[0]->setText(iaString::toString(scale._x, 4));
+	_scaleText[1]->setText(iaString::toString(scale._y, 4));
+	_scaleText[2]->setText(iaString::toString(scale._z, 4));
 
-	_shearText[0]->setText(iaString::ftoa(shear._x, 4));
-	_shearText[1]->setText(iaString::ftoa(shear._y, 4));
-	_shearText[2]->setText(iaString::ftoa(shear._z, 4));
+	_shearText[0]->setText(iaString::toString(shear._x, 4));
+	_shearText[1]->setText(iaString::toString(shear._y, 4));
+	_shearText[2]->setText(iaString::toString(shear._z, 4));
 
 }
 
@@ -194,24 +194,24 @@ void UserControlTransformation::onChange(iWidget* source)
 		iaMatrixd matrix;
 
 		// translate
-		matrix.translate(iaString::atof(_translateText[0]->getText()),
-			iaString::atof(_translateText[1]->getText()),
-			iaString::atof(_translateText[2]->getText()));
+		matrix.translate(iaString::toFloat(_translateText[0]->getText()),
+			iaString::toFloat(_translateText[1]->getText()),
+			iaString::toFloat(_translateText[2]->getText()));
 
 		// rotate order zyx
-		matrix.rotate(iaString::atof(_rotateText[2]->getText()) / 180.0 * M_PI, iaAxis::Z);
-		matrix.rotate(iaString::atof(_rotateText[1]->getText()) / 180.0 * M_PI, iaAxis::Y);
-		matrix.rotate(iaString::atof(_rotateText[0]->getText()) / 180.0 * M_PI, iaAxis::X);
+		matrix.rotate(iaString::toFloat(_rotateText[2]->getText()) / 180.0 * M_PI, iaAxis::Z);
+		matrix.rotate(iaString::toFloat(_rotateText[1]->getText()) / 180.0 * M_PI, iaAxis::Y);
+		matrix.rotate(iaString::toFloat(_rotateText[0]->getText()) / 180.0 * M_PI, iaAxis::X);
 
 		// scale
-		matrix.scale(iaString::atof(_scaleText[0]->getText()),
-			iaString::atof(_scaleText[1]->getText()),
-			iaString::atof(_scaleText[2]->getText()));
+		matrix.scale(iaString::toFloat(_scaleText[0]->getText()),
+			iaString::toFloat(_scaleText[1]->getText()),
+			iaString::toFloat(_scaleText[2]->getText()));
 
 		// shear
-		matrix.shear(iaString::atof(_shearText[0]->getText()),
-			iaString::atof(_shearText[1]->getText()),
-			iaString::atof(_shearText[2]->getText()));
+		matrix.shear(iaString::toFloat(_shearText[0]->getText()),
+			iaString::toFloat(_shearText[1]->getText()),
+			iaString::toFloat(_shearText[2]->getText()));
 
 		node->setMatrix(matrix);
 	}

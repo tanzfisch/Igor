@@ -51,7 +51,7 @@ using namespace IgorAux;
 
 namespace Igor
 {
-    class iSprite;
+    class iAtlas;
     class iTextureFont;
 }
 
@@ -117,7 +117,7 @@ private:
 	
     /*! opengl logo
     */
-	iSprite* _openGLLogo = nullptr;
+	iAtlas* _openGLLogo = nullptr;
 
     /*! Igor logo
     */

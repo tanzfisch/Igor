@@ -6,7 +6,7 @@ using namespace IgorAux;
 
 #include <iMouse.h>
 #include <iKeyboard.h>
-#include <iSprite.h>
+#include <iAtlas.h>
 #include <iTextureFont.h>
 #include <iTimer.h>
 #include <iApplication.h>
@@ -109,7 +109,7 @@ void Example2D::init()
 
 	// load a texture as a sprite
 	// sprites are basically textures that have some additional meta data that help you to place and orientate them
-	_openGLLogo = new iSprite(iTextureResourceFactory::getInstance().loadFile("OpenGL-Logo.jpg"));
+	_openGLLogo = new iAtlas(iTextureResourceFactory::getInstance().loadFile("OpenGL-Logo.jpg"));
 	// set up sprite frame
 	_openGLLogo->addFrame(iaVector2f(0.0, 0.0), iaVector2f(1.0, 1.0), iaVector2f(0.5, 0.5), false);
 

@@ -8,7 +8,6 @@
 #include <iPixmap.h>
 
 #include <iaConsole.h>
-#include <IgorAux.h>
 using namespace IgorAux;
 
 #include <iSTBImageExt.h>

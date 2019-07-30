@@ -1308,15 +1308,15 @@ namespace Igor
                     // makes a copy of tileInformation so it will also be deleted by iModel
                     inputParam->_parameters.setData(reinterpret_cast<const char*>(&tileInformation), sizeof(iVoxelTerrainTileInformation));
 
-                    iaString tileName = iaString::itoa(voxelBlock->_positionInLOD._x);
+                    iaString tileName = iaString::toString(voxelBlock->_positionInLOD._x);
                     tileName += ":";
-                    tileName += iaString::itoa(voxelBlock->_positionInLOD._y);
+                    tileName += iaString::toString(voxelBlock->_positionInLOD._y);
                     tileName += ":";
-                    tileName += iaString::itoa(voxelBlock->_positionInLOD._z);
+                    tileName += iaString::toString(voxelBlock->_positionInLOD._z);
                     tileName += ":";
-                    tileName += iaString::itoa(voxelBlock->_lod);
+                    tileName += iaString::toString(voxelBlock->_lod);
                     tileName += ":";
-                    tileName += iaString::itoa(voxelBlock->_mutationCounter++);
+                    tileName += iaString::toString(voxelBlock->_mutationCounter++);
 
                     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 					iaVector3d transform = voxelBlock->_positionInLOD.convert<float64>();
