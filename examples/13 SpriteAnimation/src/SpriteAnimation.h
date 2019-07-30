@@ -116,6 +116,10 @@ private:
     */
 	iAtlas* _walk = nullptr;
 
+	/*! tiles
+	*/
+	iAtlas* _tiles = nullptr;
+
 	/*! flags to determine what the character is doing
 	*/
 	bool _flags[5];
