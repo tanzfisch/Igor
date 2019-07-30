@@ -63,10 +63,12 @@ void SpriteAnimation::init()
 	// load a texture font
 	_font = new iTextureFont("StandardFont.png");
 
-	// load a texture as a sprite
-	// sprites are basically textures that have some additional meta data that help you to place and orientate them
-	_walk = new iAtlas(iTextureResourceFactory::getInstance().loadFile("walk.png", iResourceCacheMode::Free, iTextureBuildMode::Normal));
-	_walk->loadFrames("../data/atlantes/walk.xml");
+	// load atlantes
+	_walk = new iAtlas(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationWalk.png", iResourceCacheMode::Free, iTextureBuildMode::Normal));
+	_walk->loadFrames("../data/atlantes/SpriteAnimationWalk.xml");
+
+	_walk = new iAtlas(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationTiles.png", iResourceCacheMode::Free, iTextureBuildMode::Normal));
+	_walk->loadFrames("../data/atlantes/SpriteAnimationTiles.xml");
 
 	for (int i = 0; i < 5; ++i)
 	{
