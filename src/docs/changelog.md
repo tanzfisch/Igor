@@ -4,6 +4,7 @@ Changelog                           {#changelog}
 0.22.0
 ------
 
+- iSprite is now iAtlas and can read frames from file
 - created sprite animation example
   ![sprite animation](/images/SpriteAnimation.gif)
 - ownership of widgets transfers to the engine the moment they are children of a dialog
