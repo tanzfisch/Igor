@@ -40,8 +40,10 @@ namespace Igor
         matrix *= _transform;
     }
 
-	iaString iNodeTransform::getCustomInfo() const
+	void iNodeTransform::getInfo(std::vector<iaString>& info) const
 	{
+		iNode::getInfo(info);
+
 		std::wstringstream stream;
 
 		iaVector3d scale;
@@ -57,7 +59,7 @@ namespace Igor
 
 		stream << "t" << translate << ", r" << rotate << ", sc" << scale << ", sh" << shear;
 
-		return iaString(stream.str().c_str());
+		info.push_back(iaString(stream.str().c_str()));
 	}
 
     void iNodeTransform::getMatrix(iaMatrixd& matrix)

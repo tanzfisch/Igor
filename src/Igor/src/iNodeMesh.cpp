@@ -56,25 +56,27 @@ namespace Igor
 		}
 	}
 
-	iaString iNodeMesh::getCustomInfo() const
+	void iNodeMesh::getInfo(std::vector<iaString>& info) const
 	{
-		iaString result(L"vtx:");
+		iNode::getInfo(info);
 
-		result += iaString::toString(getVertexCount());
-		result += L" tri:";
-		result += iaString::toString(getTrianglesCount());
-		result += L" idx:";
-		result += iaString::toString(getIndexesCount());
+		iaString customInfo(L"vtx:");
+
+		customInfo += iaString::toString(getVertexCount());
+		customInfo += L" tri:";
+		customInfo += iaString::toString(getTrianglesCount());
+		customInfo += L" idx:";
+		customInfo += iaString::toString(getIndexesCount());
 
 		if (_mesh != nullptr)
 		{
-			result += L" texUni:";
-			result += iaString::toString(_mesh->getTextureUnitCount());
-			result += L" texCrd:";
-			result += iaString::toString(_mesh->getTextureCoordinatesCount());
+			customInfo += L" texUni:";
+			customInfo += iaString::toString(_mesh->getTextureUnitCount());
+			customInfo += L" texCrd:";
+			customInfo += iaString::toString(_mesh->getTextureCoordinatesCount());
 		}
 
-		return result;
+		info.push_back(customInfo);
 	}
 
 	void iNodeMesh::setTargetMaterial(const iTargetMaterial* const targetMaterial)

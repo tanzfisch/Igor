@@ -365,35 +365,20 @@ namespace Igor
 		return _name;
 	}
 
-	iaString iNode::getCustomInfo() const
+	void iNode::getInfo(std::vector<iaString>& info) const
 	{
-		iaString result;
-		return result;
-	}
+		iaString header = "\"";
+		header += getName();
+		header += "\" id:";
+		header += iaString::toString(getID());
+		header += (isActive() ? " (active)" : " (inactive)");
+		info.push_back(header);
 
-	iaString iNode::getInfo() const
-	{
-		iaString type(typeid(*this).name());
-		type = type.getSubString(type.findLastOf(':') + 1, type.getSize() - 1);
-
-		iaString result = getName();
-		result += ", ";
-		result += type;
-		result += " [";
-		result += iaString::toString(getID());
-		result += "]";
-
-		if (isActive())
-		{
-			result += ", active";
-		}
-
-		if (_parent != nullptr)
-		{
-			result += ", parent";
-		}
-
-		return result;
+		iaString typeInfo = "type:";
+		typeInfo += iNode::getTypeName(getType());
+		typeInfo += " kind:";
+		typeInfo += iNode::getKindName(getKind());
+		info.push_back(typeInfo);
 	}
 
 	void iNode::setName(iaString name)

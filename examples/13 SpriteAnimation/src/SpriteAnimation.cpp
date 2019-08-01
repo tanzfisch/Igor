@@ -354,9 +354,7 @@ void SpriteAnimation::onHandle()
 
 	_characterVelocity = velocity;
 	_characterPosition += _characterVelocity;
-
-	con_endl(_characterPosition);
-
+	
 	_cameraTranform->setPosition(_characterPosition._x, _characterPosition._y, 30);
 
 	CharacterState oldCharacterState = _characterState;

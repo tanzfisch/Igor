@@ -41,7 +41,7 @@ namespace Igor
 
             for (auto pair : _nodes)
             {
-                con_debug_endl(pair.second->getInfo());
+                con_debug_endl(pair.second->getName() << " id:" << pair.second->getID());
             }
         }
     }

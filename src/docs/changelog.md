@@ -4,6 +4,7 @@ Changelog                           {#changelog}
 0.22.0
 ------
 
+- improved getInfo implementation and pretty print node tree
 - renamed iStatistic* to iProfiler*
 - iSprite is now iAtlas and can read frames from file
 - created sprite animation example
