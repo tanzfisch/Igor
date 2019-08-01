@@ -67,7 +67,7 @@ enum class ViewType
 
 /*! menu dialog
 */
-class MenuDialog : public iDialog
+class Outliner : public iDialog
 {
 
 public:
@@ -127,6 +127,15 @@ public:
 
 	void registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
 	void unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
+
+	void deleteSelected();
+	void duplicateSelected();
+	void copySelected();
+	void cutSelected();
+	void pasteSelected();
+
+	void fileOpen();
+	void fileSave();
 
 private:
 
@@ -217,8 +226,8 @@ private:
     void onGraphViewSelected(iWidget* source);
     void onMaterialViewSelected(iWidget* source);
 
-    MenuDialog();
-    ~MenuDialog();
+    Outliner();
+    ~Outliner();
 
 };
 

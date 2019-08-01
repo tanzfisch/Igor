@@ -44,7 +44,7 @@ using namespace IgorAux;
 #include <iRenderEngine.h>
 using namespace Igor;
 
-#include "MenuDialog.h"
+#include "Outliner.h"
 #include "PropertiesDialog.h"
 #include "UserControlMesh.h"
 #include "UserControlModel.h"
@@ -74,7 +74,7 @@ ModelViewer::~ModelViewer()
 
 void ModelViewer::registerWidgetTypes()
 {
-	iWidgetManager::getInstance().registerDialogType("MenuDialog", iInstanciateDialogDelegate(MenuDialog::createInstance));
+	iWidgetManager::getInstance().registerDialogType("Outliner", iInstanciateDialogDelegate(Outliner::createInstance));
 	iWidgetManager::getInstance().registerDialogType("PropertiesDialog", iInstanciateDialogDelegate(PropertiesDialog::createInstance));
 
 	iWidgetManager::getInstance().registerWidgetType("UserControlMesh", iInstanciateWidgetDelegate(UserControlMesh::createInstance));
@@ -252,7 +252,7 @@ void ModelViewer::init(iaString fileName)
 
     initGUI();
 
-    _menuDialog->setRootNode(_groupNode);
+    _outliner->setRootNode(_groupNode);
 
     if (fileName.isEmpty())
     {
@@ -260,14 +260,14 @@ void ModelViewer::init(iaString fileName)
     }
     else
     {
-        _menuDialog->setActive();
-        _menuDialog->setVisible();
+        _outliner->setActive();
+        _outliner->setVisible();
 
         _propertiesDialog->setActive();
         _propertiesDialog->setVisible();
     }
 
-    _menuDialog->refreshView();
+    _outliner->refreshView();
     resetManipulatorMode();
 
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
@@ -327,8 +327,8 @@ void ModelViewer::onAddTransformation(uint64 atNodeID)
     iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     transform->setName("Transformation");
     destination->insertNode(transform);
-    _menuDialog->refreshView();
-    _menuDialog->setSelectedNode(transform);
+    _outliner->refreshView();
+    _outliner->setSelectedNode(transform);
 }
 
 void ModelViewer::onAddGroup(uint64 atNodeID)
@@ -343,8 +343,8 @@ void ModelViewer::onAddGroup(uint64 atNodeID)
     iNodePtr group = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
     group->setName("Group");
     destination->insertNode(group);
-    _menuDialog->refreshView();
-    _menuDialog->setSelectedNode(group);
+    _outliner->refreshView();
+    _outliner->setSelectedNode(group);
 }
 
 void ModelViewer::onAddEmitter(uint64 atNodeID)
@@ -359,8 +359,8 @@ void ModelViewer::onAddEmitter(uint64 atNodeID)
     iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
     emitter->setName("Emitter");
     destination->insertNode(emitter);
-    _menuDialog->refreshView();
-    _menuDialog->setSelectedNode(emitter);
+    _outliner->refreshView();
+    _outliner->setSelectedNode(emitter);
 }
 
 void ModelViewer::onAddParticleSystem(uint64 atNodeID)
@@ -375,14 +375,14 @@ void ModelViewer::onAddParticleSystem(uint64 atNodeID)
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     particleSystem->setName("ParticleSystem");
     destination->insertNode(particleSystem);
-    _menuDialog->refreshView();
-    _menuDialog->setSelectedNode(particleSystem);
+    _outliner->refreshView();
+    _outliner->setSelectedNode(particleSystem);
 }
 
 void ModelViewer::onAddMaterial()
 {
     iMaterialResourceFactory::getInstance().createMaterial("new Material");
-    _menuDialog->refreshView();
+    _outliner->refreshView();
 }
 
 void ModelViewer::onAddSwitch(uint64 atNodeID)
@@ -397,8 +397,8 @@ void ModelViewer::onAddSwitch(uint64 atNodeID)
     iNodeSwitch* switchNode = static_cast<iNodeSwitch*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSwitch));
     switchNode->setName("Switch");
     destination->insertNode(switchNode);
-    _menuDialog->refreshView();
-    _menuDialog->setSelectedNode(switchNode);
+    _outliner->refreshView();
+    _outliner->setSelectedNode(switchNode);
 }
 
 void ModelViewer::forceLoadingNow(iNodeModel* modelNode)
@@ -560,14 +560,14 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
         iNodeFactory::getInstance().destroyNodeAsync(model);
     }
 
-    _menuDialog->setActive();
-    _menuDialog->setVisible();
-    _menuDialog->refreshView();
+    _outliner->setActive();
+    _outliner->setVisible();
+    _outliner->refreshView();
 
     _propertiesDialog->setActive();
     _propertiesDialog->setVisible();
 
-    _menuDialog->setSelectedNode(selectNode);
+    _outliner->setSelectedNode(selectNode);
     centerCamOnSelectedNode();
 }
 
@@ -601,14 +601,14 @@ void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileD
 		}
     }
 
-    _menuDialog->setActive();
-    _menuDialog->setVisible();
-    _menuDialog->refreshView();
+    _outliner->setActive();
+    _outliner->setVisible();
+    _outliner->refreshView();
 
     _propertiesDialog->setActive();
     _propertiesDialog->setVisible();
 
-    _menuDialog->setSelectedNode(selectNode);
+    _outliner->setSelectedNode(selectNode);
     centerCamOnSelectedNode();
 }
 
@@ -623,12 +623,12 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
         if (_groupNode->getChildren().size() > 0)
         {
             auto children = _groupNode->getChildren();
-            auto child = children.begin();
-            while (child != children.end())
+            auto childIter = children.begin();
+            while (childIter != children.end())
             {
-                _groupNode->removeNode((*child));
-                iNodeFactory::getInstance().destroyNodeAsync((*child));
-                child++;
+                _groupNode->removeNode((*childIter));
+                iNodeFactory::getInstance().destroyNodeAsync((*childIter));
+				childIter++;
             }
         }
 
@@ -671,14 +671,14 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
         iNodeFactory::getInstance().destroyNodeAsync(model);
     }
 
-    _menuDialog->setActive();
-    _menuDialog->setVisible();
-    _menuDialog->refreshView();
+    _outliner->setActive();
+    _outliner->setVisible();
+    _outliner->refreshView();
 
     _propertiesDialog->setActive();
     _propertiesDialog->setVisible();
 
-    _menuDialog->setSelectedNode(selectNode);
+    _outliner->setSelectedNode(selectNode);
     centerCamOnSelectedNode();
 }
 
@@ -688,28 +688,28 @@ void ModelViewer::initGUI()
     iWidgetManager::getInstance().setTheme(_widgetTheme);
     iWidgetManager::getInstance().setDesktopDimensions(_window.getClientWidth(), _window.getClientHeight());
 
-    _menuDialog = static_cast<MenuDialog*>(iWidgetManager::getInstance().createDialog("MenuDialog"));
-    _menuDialog->registerOnExitModelViewer(ExitModelViewerDelegate(this, &ModelViewer::onExitModelViewer));
-    _menuDialog->registerOnLoadFile(LoadFileDelegate(this, &ModelViewer::onLoadFile));
-    _menuDialog->registerOnImportFile(ImportFileDelegate(this, &ModelViewer::onImportFile));
-    _menuDialog->registerOnImportFileReference(ImportFileReferenceDelegate(this, &ModelViewer::onImportFileReference));
-    _menuDialog->registerOnSaveFile(SaveFileDelegate(this, &ModelViewer::onSaveFile));
-    _menuDialog->registerOnAddTransformation(AddTransformationDelegate(this, &ModelViewer::onAddTransformation));
-    _menuDialog->registerOnAddSwitch(AddSwitchDelegate(this, &ModelViewer::onAddSwitch));
-    _menuDialog->registerOnAddGroup(AddGroupDelegate(this, &ModelViewer::onAddGroup));
-    _menuDialog->registerOnAddEmitter(AddEmitterDelegate(this, &ModelViewer::onAddEmitter));
-    _menuDialog->registerOnAddParticleSystem(AddParticleSystemDelegate(this, &ModelViewer::onAddParticleSystem));
-    _menuDialog->registerOnAddMaterial(AddMaterialDelegate(this, &ModelViewer::onAddMaterial));
+    _outliner = static_cast<Outliner*>(iWidgetManager::getInstance().createDialog("Outliner"));
+    _outliner->registerOnExitModelViewer(ExitModelViewerDelegate(this, &ModelViewer::onExitModelViewer));
+    _outliner->registerOnLoadFile(LoadFileDelegate(this, &ModelViewer::onLoadFile));
+    _outliner->registerOnImportFile(ImportFileDelegate(this, &ModelViewer::onImportFile));
+    _outliner->registerOnImportFileReference(ImportFileReferenceDelegate(this, &ModelViewer::onImportFileReference));
+    _outliner->registerOnSaveFile(SaveFileDelegate(this, &ModelViewer::onSaveFile));
+    _outliner->registerOnAddTransformation(AddTransformationDelegate(this, &ModelViewer::onAddTransformation));
+    _outliner->registerOnAddSwitch(AddSwitchDelegate(this, &ModelViewer::onAddSwitch));
+    _outliner->registerOnAddGroup(AddGroupDelegate(this, &ModelViewer::onAddGroup));
+    _outliner->registerOnAddEmitter(AddEmitterDelegate(this, &ModelViewer::onAddEmitter));
+    _outliner->registerOnAddParticleSystem(AddParticleSystemDelegate(this, &ModelViewer::onAddParticleSystem));
+    _outliner->registerOnAddMaterial(AddMaterialDelegate(this, &ModelViewer::onAddMaterial));
 
     _fileDialog = static_cast<iDialogFileSelect*>(iWidgetManager::getInstance().createDialog("DialogFileSelect"));
     _messageBox = static_cast<iDialogMessageBox*>(iWidgetManager::getInstance().createDialog("DialogMessageBox"));
     _propertiesDialog = static_cast<PropertiesDialog*>(iWidgetManager::getInstance().createDialog("PropertiesDialog"));
 
-    _propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_menuDialog, &MenuDialog::refreshView));
+    _propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_outliner, &Outliner::refreshView));
 
-    _menuDialog->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
-    _menuDialog->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(this, &ModelViewer::onGraphViewSelectionChanged));
-    _menuDialog->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onMaterialSelectionChanged));
+    _outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
+    _outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(this, &ModelViewer::onGraphViewSelectionChanged));
+    _outliner->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onMaterialSelectionChanged));
 }
 
 void ModelViewer::onGraphViewSelectionChanged(uint64 nodeID)
@@ -765,30 +765,30 @@ void ModelViewer::setManipulatorMode(ManipulatorMode manipulatorMode)
 
 void ModelViewer::deinitGUI()
 {
-    if (_menuDialog != nullptr &&
+    if (_outliner != nullptr &&
         _propertiesDialog != nullptr)
     {
-        _propertiesDialog->unregisterStructureChangedDelegate(StructureChangedDelegate(_menuDialog, &MenuDialog::refreshView));
-        _menuDialog->unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
-        _menuDialog->unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate(this, &ModelViewer::onGraphViewSelectionChanged));
-        _menuDialog->unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onMaterialSelectionChanged));
+        _propertiesDialog->unregisterStructureChangedDelegate(StructureChangedDelegate(_outliner, &Outliner::refreshView));
+        _outliner->unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
+        _outliner->unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate(this, &ModelViewer::onGraphViewSelectionChanged));
+        _outliner->unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onMaterialSelectionChanged));
     }
 
-    if (_menuDialog != nullptr)
+    if (_outliner != nullptr)
     {
-        _menuDialog->unregisterOnExitModelViewer(ExitModelViewerDelegate(this, &ModelViewer::onExitModelViewer));
-        _menuDialog->unregisterOnLoadFile(LoadFileDelegate(this, &ModelViewer::onLoadFile));
-        _menuDialog->unregisterOnImportFile(ImportFileDelegate(this, &ModelViewer::onImportFile));
-        _menuDialog->unregisterOnImportFileReference(ImportFileReferenceDelegate(this, &ModelViewer::onImportFileReference));
-        _menuDialog->unregisterOnSaveFile(SaveFileDelegate(this, &ModelViewer::onSaveFile));
-        _menuDialog->unregisterOnAddTransformation(AddTransformationDelegate(this, &ModelViewer::onAddTransformation));
-        _menuDialog->unregisterOnAddSwitch(AddSwitchDelegate(this, &ModelViewer::onAddSwitch));
-        _menuDialog->unregisterOnAddGroup(AddGroupDelegate(this, &ModelViewer::onAddGroup));
-        _menuDialog->unregisterOnAddEmitter(AddEmitterDelegate(this, &ModelViewer::onAddEmitter));
-        _menuDialog->unregisterOnAddParticleSystem(AddParticleSystemDelegate(this, &ModelViewer::onAddParticleSystem));
+        _outliner->unregisterOnExitModelViewer(ExitModelViewerDelegate(this, &ModelViewer::onExitModelViewer));
+        _outliner->unregisterOnLoadFile(LoadFileDelegate(this, &ModelViewer::onLoadFile));
+        _outliner->unregisterOnImportFile(ImportFileDelegate(this, &ModelViewer::onImportFile));
+        _outliner->unregisterOnImportFileReference(ImportFileReferenceDelegate(this, &ModelViewer::onImportFileReference));
+        _outliner->unregisterOnSaveFile(SaveFileDelegate(this, &ModelViewer::onSaveFile));
+        _outliner->unregisterOnAddTransformation(AddTransformationDelegate(this, &ModelViewer::onAddTransformation));
+        _outliner->unregisterOnAddSwitch(AddSwitchDelegate(this, &ModelViewer::onAddSwitch));
+        _outliner->unregisterOnAddGroup(AddGroupDelegate(this, &ModelViewer::onAddGroup));
+        _outliner->unregisterOnAddEmitter(AddEmitterDelegate(this, &ModelViewer::onAddEmitter));
+        _outliner->unregisterOnAddParticleSystem(AddParticleSystemDelegate(this, &ModelViewer::onAddParticleSystem));
 
-        iWidgetManager::getInstance().destroyDialog(_menuDialog);
-        _menuDialog = nullptr;
+        iWidgetManager::getInstance().destroyDialog(_outliner);
+        _outliner = nullptr;
     }
 
     if (_propertiesDialog != nullptr)
@@ -853,7 +853,7 @@ void ModelViewer::pickcolorID()
 
     uint64 nodeID = _view.pickcolorID(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
     iNodePtr node = iNodeFactory::getInstance().getNode(nodeID);
-    _menuDialog->setSelectedNode(node);
+    _outliner->setSelectedNode(node);
 
     _skyBoxNode->setVisible(wasVisible);
 }
@@ -1001,7 +1001,74 @@ void ModelViewer::onKeyDown(iKeyCode key)
     case iKeyCode::R:
         setManipulatorMode(ManipulatorMode::Scale);
         break;
+
+	case iKeyCode::N:
+		if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
+		{
+			clearScene();
+		}
+		break;
+
+	case iKeyCode::D:
+		if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
+		{
+			_outliner->duplicateSelected();
+		}
+		break;
+
+	case iKeyCode::X:
+		if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
+		{
+			_outliner->cutSelected();
+		}
+		break;
+
+	case iKeyCode::C:
+		if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
+		{
+			_outliner->copySelected();
+		}
+		break;
+
+	case iKeyCode::V:
+		if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
+		{
+			_outliner->pasteSelected();
+		}
+		break;
+
+	case iKeyCode::O:
+		if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
+		{
+			_outliner->fileOpen();
+		}
+		break;
+
+	case iKeyCode::S:
+		if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
+		{
+			_outliner->fileSave();
+		}
+		break;
+
+	case iKeyCode::Delete:
+		_outliner->deleteSelected();
+		break;
+
     }
+}
+
+void ModelViewer::clearScene()
+{
+	std::vector<iNodePtr> copyChildren(_groupNode->getChildren());
+	for (auto child : copyChildren)
+	{
+		_groupNode->removeNode(child);
+		iNodeFactory::getInstance().destroyNodeAsync(child);
+	}
+
+	iModelResourceFactory::getInstance().flush(&_window);
+	_outliner->refreshView();
 }
 
 void ModelViewer::centerCamOnSelectedNode()

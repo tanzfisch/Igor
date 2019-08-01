@@ -4,6 +4,15 @@ Changelog                           {#changelog}
 0.22.0
 ------
 
+- added some keyboard shortcuts to ModelViewer
+  Ctrl + N - clear scene
+  Del - deletes current selection
+  Ctrl + D - duplicates current selection
+  Ctrl + C - copies current selection
+  Ctrl + X - cuts current selection
+  Ctrl + V - pastes on current selection
+  Ctrl + S - opens save dialog
+  Ctrl + O - opens load dialog
 - improved getInfo implementation and pretty print node tree
 - renamed iStatistic* to iProfiler*
 - iSprite is now iAtlas and can read frames from file

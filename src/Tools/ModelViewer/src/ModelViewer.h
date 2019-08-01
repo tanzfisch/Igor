@@ -61,7 +61,7 @@ namespace Igor
 }
 
 class PropertiesDialog;
-class MenuDialog;
+class Outliner;
 
 class ModelViewer
 {
@@ -104,7 +104,7 @@ private:
     iWidgetDefaultTheme* _widgetTheme = nullptr;
 
     PropertiesDialog* _propertiesDialog = nullptr;
-    MenuDialog* _menuDialog = nullptr;
+    Outliner* _outliner = nullptr;
     iRenderStatistics* _renderStatistics = nullptr;
 
     float32 _camDistance = 0;
@@ -125,6 +125,10 @@ private:
     Manipulator* _manipulator = nullptr;
 
 	Widget3D* _widget3D = nullptr;
+
+	/*! empties the scene
+	*/
+	void clearScene();
 
     void resetManipulatorMode();
     void setManipulatorMode(ManipulatorMode modifierMode);
