@@ -41,7 +41,7 @@
 #include <iaMatrix.h>
 #include <iWidgetManager.h>
 #include <iDialogFileSelect.h>
-#include <iStatisticsVisualizer.h>
+#include <iProfilerVisualizer.h>
 using namespace Igor;
 
 namespace Igor
@@ -120,7 +120,7 @@ private:
 
     uint32 _selectedNodeID = iNode::INVALID_NODE_ID;
 
-    iStatisticsVisualizer _statisticsVisualizer;
+    iProfilerVisualizer _profilerVisualizer;
 
     Manipulator* _manipulator = nullptr;
 

@@ -7,7 +7,7 @@
 #include <iTimerHandle.h>
 #include <iModelResourceFactory.h>
 #include <iKeyboard.h>
-#include <iStatisticsVisualizer.h>
+#include <iProfilerVisualizer.h>
 #include <iSphere.h>
 #include <iPerlinNoise.h>
 using namespace Igor;
@@ -58,7 +58,7 @@ private:
 
     iaRandomNumberGeneratoru rand;
 
-    iStatisticsVisualizer _statisticsVisualizer;
+    iProfilerVisualizer _profilerVisualizer;
 
     bool _loading = true;
     bool _activeControls = false;

@@ -14,11 +14,22 @@ using namespace IgorAux;
 #include <iTextureResourceFactory.h>
 #include <iMaterial.h>
 #include <iMaterialResourceFactory.h>
-#include <iStatistics.h>
+#include <iProfiler.h>
+#include <iSceneFactory.h>
+#include <iNodeMesh.h>
+#include <iNodeFactory.h>
+#include <iTargetMaterial.h>
+#include <iNodeTransform.h>
+#include <iScene.h>
+#include <iNodeVisitorPrintTree.h>
+#include <iNodeCamera.h>
+#include <iNodeModel.h>
 using namespace Igor;
 
 #include <sstream>
 #include <map>
+
+#include "TileMapGenerator.h"
 
 SpriteAnimation::SpriteAnimation()
 {
@@ -63,23 +74,56 @@ void SpriteAnimation::init()
 	// load a texture font
 	_font = new iTextureFont("StandardFont.png");
 
+	// create scene and bind it to view
+	_scene = iSceneFactory::getInstance().createScene();
+	_view.setScene(_scene);
+
+	// create some materials
+	_materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
+	iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
+	material->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+	material->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+	material->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+
+	_materialTerrain = iMaterialResourceFactory::getInstance().createMaterial();
+	material = iMaterialResourceFactory::getInstance().getMaterial(_materialTerrain);
+	material->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+	material->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+	material->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+	material->addShaderSource("igor/textured.vert", iShaderObjectType::Vertex);
+	material->addShaderSource("igor/textured.frag", iShaderObjectType::Fragment);
+	material->compileShader();
+
 	// load atlantes
 	_walk = new iAtlas(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationWalk.png", iResourceCacheMode::Free, iTextureBuildMode::Normal));
 	_walk->loadFrames("../data/atlantes/SpriteAnimationWalk.xml");
 
-	_walk = new iAtlas(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationTiles.png", iResourceCacheMode::Free, iTextureBuildMode::Normal));
-	_walk->loadFrames("../data/atlantes/SpriteAnimationTiles.xml");
+	_tiles = new iAtlas(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationTiles.png", iResourceCacheMode::Free, iTextureBuildMode::Normal));
+	_tiles->loadFrames("../data/atlantes/SpriteAnimationTiles.xml");
+
+	TileMapGenerator tileMapGenerator;
+	tileMapGenerator.setAtlas(_tiles);
+	tileMapGenerator.setMaterial(_materialTerrain);
+	iNodePtr terrainNode = tileMapGenerator.generateFromBitmap("SpriteAnimationTerrain.png");
+
+	_terrainTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	_terrainTransform->translate(0, 0, 0);
+	_terrainTransform->insertNode(terrainNode);
+	_scene->getRoot()->insertNode(_terrainTransform);
+
+	// setup camera
+	_cameraTranform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	_cameraTranform->translate(0, 0, 30);
+	// anf of corse the camera
+	iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
+	_cameraTranform->insertNode(camera);
+	_scene->getRoot()->insertNode(_cameraTranform);
+	_view.setCurrentCamera(camera->getID());
 
 	for (int i = 0; i < 5; ++i)
 	{
 		_flags[i] = false;
 	}
-
-	// create some materials
-	_materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
-	iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-	iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-	iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
 	// load requested textures
 	iTextureResourceFactory::getInstance().flush();
@@ -99,6 +143,8 @@ void SpriteAnimation::init()
 	_animationTimer.setIntervall(300);
 	_animationTimer.registerTimerDelegate(iTimerTickDelegate(this, &SpriteAnimation::onAnimationTimerTick));
 	_animationTimer.start();
+
+	_profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
 }
 
 void SpriteAnimation::deinit()
@@ -193,6 +239,15 @@ void SpriteAnimation::onKeyDown(iKeyCode key)
 	case iKeyCode::LShift:
 		_flags[4] = true;
 		break;
+
+	case iKeyCode::F9:
+	{
+		iNodeVisitorPrintTree printTree;
+		if (_scene != nullptr)
+		{
+			printTree.printToConsole(_scene->getRoot());
+		}
+	}
 	}
 }
 
@@ -277,7 +332,7 @@ void SpriteAnimation::onHandle()
 	}
 	if (_flags[1])
 	{
-		velocity._y -= 1;
+		velocity._y -= 0.5;
 	}
 	if (_flags[2])
 	{
@@ -285,7 +340,7 @@ void SpriteAnimation::onHandle()
 	}
 	if (_flags[3])
 	{
-		velocity._y += 1;
+		velocity._y += 0.5;
 	}
 
 	if (velocity.length())
@@ -299,6 +354,10 @@ void SpriteAnimation::onHandle()
 
 	_characterVelocity = velocity;
 	_characterPosition += _characterVelocity;
+
+	con_endl(_characterPosition);
+
+	_cameraTranform->setPosition(_characterPosition._x, _characterPosition._y, 30);
 
 	CharacterState oldCharacterState = _characterState;
 
@@ -361,7 +420,7 @@ void SpriteAnimation::onHandle()
 		_animationIndex = 0;
 	}
 
-	con_endl(getCharacterStateName(_characterState));
+	// 	con_endl(getCharacterStateName(_characterState));
 }
 
 void SpriteAnimation::onAnimationTimerTick()
@@ -390,7 +449,6 @@ void SpriteAnimation::onAnimationTimerTick()
 	}
 }
 
-
 void SpriteAnimation::onRender()
 {
 	// since the model matrix is by default an identity matrix which would cause all our 2d rendering end up at depth zero
@@ -404,12 +462,13 @@ void SpriteAnimation::onRender()
 	iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
 	iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
-	iRenderer::getInstance().drawSprite(_walk, _animationOffset + _animationIndex, _characterPosition);
+	// draw walking character
+	iRenderer::getInstance().drawSprite(_walk, _animationOffset + _animationIndex, iaVector2f(100, 100));
 
 	drawLogo();
 
 	// draw frame rate in lower right corner
-	_statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+	_profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
 }
 
 void SpriteAnimation::drawLogo()

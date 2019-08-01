@@ -5,7 +5,6 @@
 #include <iTextureResourceFactory.h>
 #include <iRenderer.h>
 #include <iResourceManager.h>
-#include <iPixmap.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -437,10 +436,7 @@ namespace Igor
         return result;
     }
 
-    /*!
-    \todo refactoring combine loadFileAsPixmap with loadFile
-    */
-    iPixmap* iTextureResourceFactory::loadFileAsPixmap(const iaString& filename)
+	iPixmapPtr iTextureResourceFactory::loadPixmap(const iaString& filename)
     {
         iaString fullPath = iResourceManager::getInstance().getPath(filename);
 

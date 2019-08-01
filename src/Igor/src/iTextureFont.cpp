@@ -22,7 +22,7 @@ namespace Igor
 
         if (_texture->isValid())
         {
-            _pixmap = iTextureResourceFactory::getInstance().loadFileAsPixmap(font_file);
+            _pixmap = iTextureResourceFactory::getInstance().loadPixmap(font_file);
 
             if (_pixmap)
             {

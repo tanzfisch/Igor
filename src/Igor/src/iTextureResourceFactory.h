@@ -30,6 +30,7 @@
 #define __iTEXTURERESOURCEFACTORY__
 
 #include <iTexture.h>
+#include <iPixmap.h>
 
 #include <iaSingleton.h>
 #include <iaString.h>
@@ -44,7 +45,6 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    class iPixmap;
     struct iRendererTexture;
 
     /*! handles texture resources
@@ -102,10 +102,12 @@ namespace Igor
 
         /*! synchronously loading a texture and returning a iPixmap
 
+		the returned pixmap must be deleted by the caller
+
         \param filename name of file to load
         \returns pointer to pixmap
         */
-        iPixmap* loadFileAsPixmap(const iaString& filename);
+		iPixmapPtr loadPixmap(const iaString& filename);
 
     private:
 

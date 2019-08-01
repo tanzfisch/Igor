@@ -9,7 +9,7 @@
 #include <iTextureResourceFactory.h>
 #include <iScene.h>
 #include <iOctree.h>
-#include <iStatistics.h>
+#include <iProfiler.h>
 
 #include <iaRandomNumberGenerator.h>
 #include <iaConsole.h>
@@ -24,14 +24,14 @@ namespace Igor
     iView::iView()
     {
 #ifdef USE_VERBOSE_STATISTICS
-        _userDrawSectionID = iStatistics::getInstance().registerSection("view:user", 2);
+        _userDrawSectionID = iProfiler::getInstance().registerSection("view:user", 2);
 #endif
     }
 
     iView::~iView()
     {
 #ifdef USE_VERBOSE_STATISTICS
-        iStatistics::getInstance().unregisterSection(_userDrawSectionID);
+        iProfiler::getInstance().unregisterSection(_userDrawSectionID);
 #endif
 
         if (_renderEvent.hasDelegates())
@@ -207,12 +207,12 @@ namespace Igor
             }
 
 #ifdef USE_VERBOSE_STATISTICS
-            iStatistics::getInstance().beginSection(_userDrawSectionID);
+            iProfiler::getInstance().beginSection(_userDrawSectionID);
 #endif
             _renderEvent();
 
 #ifdef USE_VERBOSE_STATISTICS
-            iStatistics::getInstance().endSection(_userDrawSectionID);
+            iProfiler::getInstance().endSection(_userDrawSectionID);
 #endif
         }
     }

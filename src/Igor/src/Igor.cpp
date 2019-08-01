@@ -12,7 +12,7 @@
 #include <iTextureResourceFactory.h>
 #include <iMaterialResourceFactory.h>
 #include <iWidgetManager.h>
-#include <iStatistics.h>
+#include <iProfiler.h>
 #ifdef __USE_OPENAL__
 #include <iSoundResourceFactory.h>
 #endif
@@ -292,9 +292,9 @@ namespace Igor
 			iApplication::destroyInstance();
 		}
 
-		if (iStatistics::isInstantiated())
+		if (iProfiler::isInstantiated())
 		{
-			iStatistics::destroyInstance();
+			iProfiler::destroyInstance();
 		}
 
 		IgorAux::shutdown();

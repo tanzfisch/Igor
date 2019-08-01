@@ -178,9 +178,11 @@
   <ItemGroup>
     <ClCompile Include="..\src\SpriteAnimation.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\TileMapGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\SpriteAnimation.h" />
+    <ClInclude Include="..\src\TileMapGenerator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

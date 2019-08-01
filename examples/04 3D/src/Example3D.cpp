@@ -26,7 +26,7 @@ using namespace IgorAux;
 #include <iTaskFlushTextures.h>
 #include <iaString.h>
 #include <iMaterialResourceFactory.h>
-#include <iStatistics.h>
+#include <iProfiler.h>
 #include <iNodeSwitch.h>
 #include <iNodeLODSwitch.h>
 #include <iNodeLODTrigger.h>
@@ -254,9 +254,9 @@ void Example3D::init()
     directionalLightRotate->insertNode(directionalLightTranslate);
     directionalLightTranslate->insertNode(lightNode);
 
-    // init font for render statistics
+    // init font for render profiler
     _font = new iTextureFont("StandardFont.png");
-    _statisticsVisualizer.setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
+    _profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
 
     // prepare igor logo
     _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
@@ -291,14 +291,13 @@ void Example3D::deinit()
     _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Example3D::onWindowResized));
     _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &Example3D::onRenderOrtho));
 
-    // deinit statistics
+	// release resources
     if (_font != nullptr)
     {
         delete _font;
         _font = nullptr;
     }
-
-    // release resources
+    
     _igorLogo = nullptr;
 
     // stop light animation
@@ -392,7 +391,7 @@ void Example3D::onKeyPressed(iKeyCode key)
         break;
 
 	case iKeyCode::F8:
-		_statisticsVisualizer.cycleVerbosity();
+		_profilerVisualizer.cycleVerbosity();
 		break;
 
     case iKeyCode::F9:
@@ -464,7 +463,7 @@ void Example3D::onRenderOrtho()
     drawLogo();
 
     // draw frame rate in lower right corner
-    _statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+    _profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
 }
 
 void Example3D::drawLogo()

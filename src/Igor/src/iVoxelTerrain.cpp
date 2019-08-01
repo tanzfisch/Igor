@@ -20,7 +20,7 @@
 #include <iPhysics.h>
 #include <iPhysicsBody.h>
 #include <iMesh.h>
-#include <iStatistics.h>
+#include <iProfiler.h>
 #include <iContouringCubes.h>
 #include <iPerlinNoise.h>
 #include <iIntersection.h>
@@ -186,12 +186,12 @@ namespace Igor
         }
 
 #ifdef USE_VERBOSE_STATISTICS
-        _totalSection = iStatistics::getInstance().registerSection("VT:all", 3);
-        _discoverBlocksSection = iStatistics::getInstance().registerSection("VT:discover", 3);
-        _updateBlocksSection = iStatistics::getInstance().registerSection("VT:update", 3);
-        _deleteBlocksSection = iStatistics::getInstance().registerSection("VT:delete", 3);
-        _applyActionsSection = iStatistics::getInstance().registerSection("VT:applyActions", 3);
-        _updateVisBlocksSection = iStatistics::getInstance().registerSection("VT:vis", 3);
+        _totalSection = iProfiler::getInstance().registerSection("VT:all", 3);
+        _discoverBlocksSection = iProfiler::getInstance().registerSection("VT:discover", 3);
+        _updateBlocksSection = iProfiler::getInstance().registerSection("VT:update", 3);
+        _deleteBlocksSection = iProfiler::getInstance().registerSection("VT:delete", 3);
+        _applyActionsSection = iProfiler::getInstance().registerSection("VT:applyActions", 3);
+        _updateVisBlocksSection = iProfiler::getInstance().registerSection("VT:vis", 3);
 #endif
 
         // set up terrain material
@@ -238,15 +238,15 @@ namespace Igor
     void iVoxelTerrain::update()
     {
 #ifdef USE_VERBOSE_STATISTICS
-        iStatistics::getInstance().beginSection(_totalSection);
+        iProfiler::getInstance().beginSection(_totalSection);
 #endif
 
 #ifdef USE_VERBOSE_STATISTICS
-        iStatistics::getInstance().beginSection(_deleteBlocksSection);
+        iProfiler::getInstance().beginSection(_deleteBlocksSection);
 #endif
         deleteBlocks();
 #ifdef USE_VERBOSE_STATISTICS
-        iStatistics::getInstance().endSection(_deleteBlocksSection);
+        iProfiler::getInstance().endSection(_deleteBlocksSection);
 #endif
 
         iNodeLODTrigger* lodTrigger = static_cast<iNodeLODTrigger*>(iNodeFactory::getInstance().getNode(_lodTrigger));
@@ -269,11 +269,11 @@ namespace Igor
 			iaVector3I observerPosition = pos.convert<int64>();
 
 #ifdef USE_VERBOSE_STATISTICS
-            iStatistics::getInstance().beginSection(_discoverBlocksSection);
+            iProfiler::getInstance().beginSection(_discoverBlocksSection);
 #endif
             discoverBlocks(observerPosition);
 #ifdef USE_VERBOSE_STATISTICS
-            iStatistics::getInstance().endSection(_discoverBlocksSection);
+            iProfiler::getInstance().endSection(_discoverBlocksSection);
 #endif
 
             updateBlocks(observerPosition);
@@ -282,17 +282,17 @@ namespace Igor
         applyVoxelOperations();
 
 #ifdef USE_VERBOSE_STATISTICS
-        iStatistics::getInstance().beginSection(_applyActionsSection);
+        iProfiler::getInstance().beginSection(_applyActionsSection);
 #endif
         // apply all actions at once so they will be synced with next frame
         iNodeFactory::getInstance().applyActionsAsync(_actionQueue);
         _actionQueue.clear();
 #ifdef USE_VERBOSE_STATISTICS
-        iStatistics::getInstance().endSection(_applyActionsSection);
+        iProfiler::getInstance().endSection(_applyActionsSection);
 #endif
 
 #ifdef USE_VERBOSE_STATISTICS
-        iStatistics::getInstance().endSection(_totalSection);
+        iProfiler::getInstance().endSection(_totalSection);
 #endif
     }
 
@@ -388,7 +388,7 @@ namespace Igor
         auto& voxelBlocks = _voxelBlocks[_lowestLOD];
 
 #ifdef USE_VERBOSE_STATISTICS
-        iStatistics::getInstance().beginSection(_updateBlocksSection);
+        iProfiler::getInstance().beginSection(_updateBlocksSection);
 #endif
         for (auto block : voxelBlocks)
         {
@@ -396,18 +396,18 @@ namespace Igor
         }
 
 #ifdef USE_VERBOSE_STATISTICS
-        iStatistics::getInstance().endSection(_updateBlocksSection);
+        iProfiler::getInstance().endSection(_updateBlocksSection);
 #endif
 
 #ifdef USE_VERBOSE_STATISTICS
-        iStatistics::getInstance().beginSection(_updateVisBlocksSection);
+        iProfiler::getInstance().beginSection(_updateVisBlocksSection);
 #endif
         for (auto block : voxelBlocks)
         {
             updateVisibility(block.second);
         }
 #ifdef USE_VERBOSE_STATISTICS
-        iStatistics::getInstance().endSection(_updateVisBlocksSection);
+        iProfiler::getInstance().endSection(_updateVisBlocksSection);
 #endif
     }
 

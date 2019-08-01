@@ -32,7 +32,7 @@
 #include <iContouringCubes.h>
 #include <iTextureResourceFactory.h>
 #include <iPixmap.h>
-#include <iStatistics.h>
+#include <iProfiler.h>
 #include <iTargetMaterial.h>
 #include <iNodeLODTrigger.h>
 #include <iNodeLODSwitch.h>
@@ -587,7 +587,7 @@ void Ascent::init()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    _statisticsVisualizer.setVerbosity(iRenderStatisticsVerbosity::None);
+    _profilerVisualizer.setVerbosity(iProfilerVerbosity::None);
 
     uint64 particlesMaterial = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setName("PMat");
@@ -697,20 +697,20 @@ void Ascent::onKeyPressed(iKeyCode key)
 
     case iKeyCode::F3:
     {
-        iRenderStatisticsVerbosity level = _statisticsVisualizer.getVerbosity();
+        iProfilerVerbosity level = _profilerVisualizer.getVerbosity();
 
-        if (level == iRenderStatisticsVerbosity::All)
+        if (level == iProfilerVerbosity::All)
         {
-            level = iRenderStatisticsVerbosity::None;
+            level = iProfilerVerbosity::None;
         }
         else
         {
             int value = static_cast<int>(level);
             value++;
-            level = static_cast<iRenderStatisticsVerbosity>(value);
+            level = static_cast<iProfilerVerbosity>(value);
         }
 
-        _statisticsVisualizer.setVerbosity(level);
+        _profilerVisualizer.setVerbosity(level);
     }
     break;
     }
@@ -982,7 +982,7 @@ void Ascent::handleHitList()
 
 void Ascent::onRenderOrtho()
 {
-    _statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 0, 0.8, 1));
+    _profilerVisualizer.draw(&_window, _font, iaColor4f(0, 0, 0.8, 1));
 
     iaMatrixd matrix;
     iRenderer::getInstance().setViewMatrix(matrix);

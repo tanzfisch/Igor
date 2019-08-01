@@ -27,7 +27,7 @@ using namespace IgorAux;
 #include <iTaskFlushModels.h>
 #include <iTaskFlushTextures.h>
 #include <iMaterialResourceFactory.h>
-#include <iStatistics.h>
+#include <iProfiler.h>
 using namespace Igor;
 
 PhysicsExample::PhysicsExample()
@@ -234,7 +234,7 @@ void PhysicsExample::init()
     _flushModelsTask = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
     _flushTexturesTask = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
-    _statisticsVisualizer.setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
+    _profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
 }
 
 void PhysicsExample::deinit()
@@ -334,7 +334,7 @@ void PhysicsExample::onKeyPressed(iKeyCode key)
         break;
 
 	case iKeyCode::F8:
-		_statisticsVisualizer.cycleVerbosity();
+		_profilerVisualizer.cycleVerbosity();
 		break;
 
 	case iKeyCode::F9:
@@ -390,7 +390,7 @@ void PhysicsExample::onRenderOrtho()
     drawLogo();
 
     // draw frame rate in lower right corner
-    _statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+    _profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
 }
 
 void PhysicsExample::drawLogo()

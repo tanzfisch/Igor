@@ -36,7 +36,7 @@
 #include <iaGradient.h>
 #include <iPerlinNoise.h>
 #include <iMaterial.h>
-#include <iStatisticsVisualizer.h>
+#include <iProfilerVisualizer.h>
 #include <iTexture.h>
 #include <iTimerHandle.h>
 using namespace Igor;
@@ -52,8 +52,10 @@ using namespace IgorAux;
 
 namespace Igor
 {
+	class iScene;
     class iAtlas;
     class iTextureFont;
+	class iNodeTransform;
 }
 
 /*! rendering 2d example
@@ -104,7 +106,7 @@ private:
 
     /*! visualizes statistics
     */
-    iStatisticsVisualizer _statisticsVisualizer;
+    iProfilerVisualizer _profilerVisualizer;
 
     /*! the view we want to render in
 
@@ -119,14 +121,16 @@ private:
 	/*! tiles
 	*/
 	iAtlas* _tiles = nullptr;
-
+	
+	iScene* _scene = nullptr;
+	
 	/*! flags to determine what the character is doing
 	*/
 	bool _flags[5];
 
 	/*! current position of character to render
 	*/
-	iaVector2f _characterPosition{ 200, 200 };
+	iaVector2f _characterPosition{ -600, 1600 };
 
 	/*! character velocity
 	*/
@@ -155,6 +159,10 @@ private:
     */
     uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
 
+	uint64 _materialTerrain = iMaterial::INVALID_MATERIAL_ID;
+
+	iNodeTransform* _terrainTransform;
+	iNodeTransform* _cameraTranform;
     /*! mouse move event with minimum data
 
     mouse coordinates have their origin in the upper left corner of the parenting window

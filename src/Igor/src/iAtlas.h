@@ -138,6 +138,10 @@ namespace Igor
 
 #include <iAtlas.inl>
 
+	/*! atlas pointer definition
+	*/
+	typedef iAtlas* iAtlasPtr;
+
 };
 
 #endif

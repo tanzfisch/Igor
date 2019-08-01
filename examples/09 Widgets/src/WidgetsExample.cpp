@@ -21,7 +21,7 @@
 #include <iWidgetDefaultTheme.h>
 #include <iWidgetSpacer.h>
 #include <iTextureResourceFactory.h>
-#include <iStatistics.h>
+#include <iProfiler.h>
 #include <iWidgetGraph.h>
 #include <iDialogColorChooser.h>
 #include <iWidgetColor.h>
@@ -483,7 +483,7 @@ void WidgetsExample::onRender()
     drawLogo();
 
     // draw some render statistics
-    _statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+    _profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
 }
 
 void WidgetsExample::drawLogo()
