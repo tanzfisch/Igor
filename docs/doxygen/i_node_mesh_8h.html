@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.22.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -116,6 +116,7 @@ $(document).ready(function(){initNavTree('i_node_mesh_8h.html','');});
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="i_node_volume_8h.html">iNodeVolume.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="i_mesh_8h.html">iMesh.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="ia_color3_8h.html">iaColor3.h</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -125,12 +126,12 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a4614e8f1440b806d814d1f8a4a8b82a3"><td class="memItemLeft" align="right" valign="top">shared_ptr&lt; iMeshBuffers &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_igor.html#a4614e8f1440b806d814d1f8a4a8b82a3">Igor::getMeshBuffers</a> ()</td></tr>
-<tr class="separator:a4614e8f1440b806d814d1f8a4a8b82a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acdce301251cdacf8e067b32b16abec1d"><td class="memItemLeft" align="right" valign="top">shared_ptr&lt; iMesh &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_igor.html#acdce301251cdacf8e067b32b16abec1d">Igor::getMesh</a> ()</td></tr>
-<tr class="separator:acdce301251cdacf8e067b32b16abec1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad47211a0e7c8e74ef4fdd715d6395193"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_igor.html#ad47211a0e7c8e74ef4fdd715d6395193">Igor::setMesh</a> (shared_ptr&lt; iMesh &gt; mesh)</td></tr>
-<tr class="separator:ad47211a0e7c8e74ef4fdd715d6395193"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addaef3316de7a9fea4a8832926b211bf"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; iMeshBuffers &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_igor.html#addaef3316de7a9fea4a8832926b211bf">Igor::getMeshBuffers</a> ()</td></tr>
+<tr class="separator:addaef3316de7a9fea4a8832926b211bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a139417079f6126d87ea3ba2793643098"><td class="memItemLeft" align="right" valign="top">iMeshPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_igor.html#a139417079f6126d87ea3ba2793643098">Igor::getMesh</a> ()</td></tr>
+<tr class="separator:a139417079f6126d87ea3ba2793643098"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a401267c679ef826131d03bb7747002e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_igor.html#a401267c679ef826131d03bb7747002e3">Igor::setMesh</a> (iMeshPtr mesh)</td></tr>
+<tr class="separator:a401267c679ef826131d03bb7747002e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a93bf05900d04810d8f91a87c25083f17"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#ad5a37a6b3fd30965767eb1318f469113">iaColor3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_igor.html#a93bf05900d04810d8f91a87c25083f17">Igor::getEmissive</a> () const </td></tr>
 <tr class="separator:a93bf05900d04810d8f91a87c25083f17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74b76f40113f9c4c8bb8918ad7a94722"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#ad5a37a6b3fd30965767eb1318f469113">iaColor3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_igor.html#a74b76f40113f9c4c8bb8918ad7a94722">Igor::getAmbient</a> () const </td></tr>
@@ -155,8 +156,8 @@ Functions</h2></td></tr>
 <tr class="separator:a75661df830663e0409eb26389369f9ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adaccaab80ee7c52d02ae6217d78c29ea"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_igor.html#adaccaab80ee7c52d02ae6217d78c29ea">Igor::getKeepMesh</a> () const </td></tr>
 <tr class="separator:adaccaab80ee7c52d02ae6217d78c29ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a292c833c67d044a8631f693fe476cab6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_igor.html#a292c833c67d044a8631f693fe476cab6">Igor::getCustomInfo</a> () const override</td></tr>
-<tr class="separator:a292c833c67d044a8631f693fe476cab6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a43b573efa10afdba4a8617960a9f4366"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_igor.html#a43b573efa10afdba4a8617960a9f4366">Igor::getInfo</a> (std::vector&lt; <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &gt; &amp;info) const override</td></tr>
+<tr class="separator:a43b573efa10afdba4a8617960a9f4366"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -164,10 +165,10 @@ Variables</h2></td></tr>
 <tr class="separator:ada52d5a76cc88718bca660c54c7093a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0df36da6b81f88f656ae8fa8e0447448"><td class="memItemLeft" align="right" valign="top">iTargetMaterial *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_igor.html#a0df36da6b81f88f656ae8fa8e0447448">Igor::_targetMaterial</a> = nullptr</td></tr>
 <tr class="separator:a0df36da6b81f88f656ae8fa8e0447448"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a30d6fda1a14a6584aab517c049626a14"><td class="memItemLeft" align="right" valign="top">shared_ptr&lt; iMeshBuffers &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_igor.html#a30d6fda1a14a6584aab517c049626a14">Igor::_meshBuffers</a> = nullptr</td></tr>
-<tr class="separator:a30d6fda1a14a6584aab517c049626a14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26522e8d93d0038125ed9cd798a48c07"><td class="memItemLeft" align="right" valign="top">shared_ptr&lt; iMesh &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_igor.html#a26522e8d93d0038125ed9cd798a48c07">Igor::_mesh</a> = nullptr</td></tr>
-<tr class="separator:a26522e8d93d0038125ed9cd798a48c07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abbbeb4e7844a024b40c199c6761d7c9f"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; iMeshBuffers &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_igor.html#abbbeb4e7844a024b40c199c6761d7c9f">Igor::_meshBuffers</a> = nullptr</td></tr>
+<tr class="separator:abbbeb4e7844a024b40c199c6761d7c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a181ee2b151875dbfbadb45a6ad1e26b4"><td class="memItemLeft" align="right" valign="top">iMeshPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_igor.html#a181ee2b151875dbfbadb45a6ad1e26b4">Igor::_mesh</a> = nullptr</td></tr>
+<tr class="separator:a181ee2b151875dbfbadb45a6ad1e26b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

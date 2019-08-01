@@ -10,7 +10,7 @@ var class_o_m_p_f_1_1_o_m_p_f =
     [ "createParticleSystemChunk", "class_o_m_p_f_1_1_o_m_p_f.html#aa23fd9a6ed1a9e990bc4f7898cd386aa", null ],
     [ "createTransformChunk", "class_o_m_p_f_1_1_o_m_p_f.html#aeded0dcc5398c2d40a986a5a5fce1c76", null ],
     [ "getFileDirectory", "class_o_m_p_f_1_1_o_m_p_f.html#a375c2ec1f0e88671582759a7c5e70e73", null ],
-    [ "getMaterialChunks", "class_o_m_p_f_1_1_o_m_p_f.html#a2bcc89c562b36b97d97e9e3ee86ef7d7", null ],
+    [ "getMaterialChunks", "class_o_m_p_f_1_1_o_m_p_f.html#a39e2c8d7dd05ae645ad6cc0db59832b1", null ],
     [ "getRoot", "class_o_m_p_f_1_1_o_m_p_f.html#acf5f08deb3a9326ef6cdef6a04b51155", null ],
     [ "loadFile", "class_o_m_p_f_1_1_o_m_p_f.html#a584c08a5795d8c119820cda392efd2fe", null ],
     [ "reset", "class_o_m_p_f_1_1_o_m_p_f.html#a59e054d077c2d0e3ddebee33a8a765fa", null ],

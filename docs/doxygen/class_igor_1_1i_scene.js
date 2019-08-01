@@ -1,10 +1,10 @@
 var class_igor_1_1i_scene =
 [
     [ "addToDataUpdateQueue", "class_igor_1_1i_scene.html#acfca34eaff8314fd5edb894074abbe88", null ],
-    [ "getLights", "class_igor_1_1i_scene.html#aed4b909562ae2ee701b11a5fe613c3a1", null ],
+    [ "getLights", "class_igor_1_1i_scene.html#a2578b3840a54c355b562140649753729", null ],
     [ "getName", "class_igor_1_1i_scene.html#af975e601d89386f2ef11745ecb831870", null ],
     [ "getOctree", "class_igor_1_1i_scene.html#ae1db3c711a56f14610fb258465c415b9", null ],
-    [ "getRenderables", "class_igor_1_1i_scene.html#af68189008a74ca460074cf89fa6f4fd1", null ],
+    [ "getRenderables", "class_igor_1_1i_scene.html#a46748dfd4da268b6c8709155df3a248b", null ],
     [ "getRoot", "class_igor_1_1i_scene.html#ab45a6b64fa3cd065f8434c96432b6f9b", null ],
     [ "handle", "class_igor_1_1i_scene.html#a9d83cabbbcad0834badd2e6cd8b78db5", null ],
     [ "registerAddedNodeDelegate", "class_igor_1_1i_scene.html#a41ae43747ecfd87932b9a82c3ce6449f", null ],

@@ -6,7 +6,7 @@ var class_igor_1_1i_target_material =
     [ "getEmissive", "class_igor_1_1i_target_material.html#a43a66dc01dcc779063158db59cef51f5", null ],
     [ "getShininess", "class_igor_1_1i_target_material.html#abd2a93dd60bc4e5ebc4cf88492505908", null ],
     [ "getSpecular", "class_igor_1_1i_target_material.html#aac88f247be0c6540533d6cb3f6197af6", null ],
-    [ "getTexture", "class_igor_1_1i_target_material.html#a0d008e51c21597c2d0eac7865ca0dd2b", null ],
+    [ "getTexture", "class_igor_1_1i_target_material.html#aab216c88667844b9d79a060ba03e29e7", null ],
     [ "getTextureUnitCount", "class_igor_1_1i_target_material.html#a69b9dd1a8599e3b9e278651f8c84507c", null ],
     [ "hasTextures", "class_igor_1_1i_target_material.html#ac3d764ecb35feb15d4c95848ad6e97b1", null ],
     [ "hasTextureUnit", "class_igor_1_1i_target_material.html#a167b6aed52aad5beddcb4eea40627c9f", null ],
@@ -16,6 +16,6 @@ var class_igor_1_1i_target_material =
     [ "setEmissive", "class_igor_1_1i_target_material.html#a3baa6322a8c2409e2b368d8499d38502", null ],
     [ "setShininess", "class_igor_1_1i_target_material.html#a62ab2ebf1102ec5226aa6f4a257dbc1a", null ],
     [ "setSpecular", "class_igor_1_1i_target_material.html#a4bb112d04a0552230a40579433466962", null ],
-    [ "setTexture", "class_igor_1_1i_target_material.html#a6ca34fd774ab240cf7bb30f2d3ac92cb", null ],
+    [ "setTexture", "class_igor_1_1i_target_material.html#aed09bb5c70686c73e0f3cd807e532809", null ],
     [ "iMaterialResourceFactory", "class_igor_1_1i_target_material.html#a4741448fd6adeeeb1916fa880b53f0d2", null ]
 ];

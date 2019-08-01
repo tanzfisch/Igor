@@ -13,8 +13,9 @@ var searchData=
   ['addcone',['addCone',['../class_igor_1_1i_physics_collision_config.html#aa547e4092c31de8ebaf986f32d115de8',1,'Igor::iPhysicsCollisionConfig::addCone()'],['../namespace_igor_1_1i_mesh_builder_utils.html#a551767159394380d9471dfb2f71b7945',1,'Igor::iMeshBuilderUtils::addCone()'],['../namespace_igor.html#a0d7c8dc1081c681e46c9aaa63b5bb9a5',1,'Igor::addCone()']]],
   ['addcylinder',['addCylinder',['../class_igor_1_1i_physics_collision_config.html#a0d715657b9a0102f850afbbaf489a1bd',1,'Igor::iPhysicsCollisionConfig::addCylinder()'],['../namespace_igor_1_1i_mesh_builder_utils.html#a47f09e94d76a32f05fcc8747d341665b',1,'Igor::iMeshBuilderUtils::addCylinder()'],['../namespace_igor.html#a118389cc7ad2a9ebf52372fbb426f189',1,'Igor::addCylinder()']]],
   ['addfilter',['addFilter',['../class_igor_1_1i_octree.html#a8bcf17bcf70c00015576b1e96d3cbfb3',1,'Igor::iOctree::addFilter(const iFrustumd &amp;frustum)'],['../class_igor_1_1i_octree.html#a68f6773e38cbaaf9af900429cf0c8df9',1,'Igor::iOctree::addFilter(const iPlaned &amp;plane)'],['../class_igor_1_1i_octree.html#a0e6f86e72bfdfce299d5e25efa1f29b2',1,'Igor::iOctree::addFilter(const iSphered &amp;sphere)']]],
+  ['addframe',['addFrame',['../class_igor_1_1i_atlas.html#abde3d5c7cfc0718ed4f45534ef36221e',1,'Igor::iAtlas']]],
   ['addinstance',['addInstance',['../class_igor_1_1i_instancer.html#a6b29ed1af25fa23a206c85945930cafa',1,'Igor::iInstancer']]],
-  ['addmesh',['addMesh',['../class_igor_1_1i_physics_collision_config.html#a8105b3817a573b1e1f87a4ba0bf831b1',1,'Igor::iPhysicsCollisionConfig::addMesh()'],['../namespace_igor.html#aebb480ac2cf21e5f1c6bfc3c2369c2a4',1,'Igor::addMesh()']]],
+  ['addmesh',['addMesh',['../class_igor_1_1i_physics_collision_config.html#aaad9fb14b9a14d254b7c9fda254c84e0',1,'Igor::iPhysicsCollisionConfig::addMesh()'],['../namespace_igor_1_1i_mesh_builder_utils.html#acabd7a89e8d7e039c84677ca6e451585',1,'Igor::iMeshBuilderUtils::addMesh()'],['../namespace_igor.html#aa6ffc1dc67cace148af9ba3a640f96af',1,'Igor::addMesh()']]],
   ['addnode',['addNode',['../class_igor_1_1i_data_update_queue.html#aa49c270d9cecbfbb1ef8c5396721c9c9',1,'Igor::iDataUpdateQueue']]],
   ['addrectangle',['addRectangle',['../namespace_igor_1_1i_mesh_builder_utils.html#af9aa4c614f9b40ad137d728e5f1743df',1,'Igor::iMeshBuilderUtils']]],
   ['addrendernode',['addRenderNode',['../class_igor_1_1i_material_group.html#a05017d35bf8586ba9319db823976b592',1,'Igor::iMaterialGroup']]],
@@ -40,7 +41,6 @@ var searchData=
   ['appendrows',['appendRows',['../class_igor_1_1i_widget_grid.html#ada59fc39c0e1f9b6b6b1d244b022e4cf',1,'Igor::iWidgetGrid']]],
   ['applicationtime',['applicationTime',['../namespace_igor_aux.html#aaa07a13fdd4cdc0b5ab00ac00c35d3dc',1,'IgorAux']]],
   ['apply',['apply',['../class_igor_1_1i_voxel_operation.html#a25e701a4b64c0f5d5f155f43c567ae61',1,'Igor::iVoxelOperation::apply()'],['../class_igor_1_1i_voxel_operation_box.html#a577d344903069bd3835b3079f0bd8af3',1,'Igor::iVoxelOperationBox::apply()'],['../class_igor_1_1i_voxel_operation_sphere.html#a6ff8077abac919d193c1026743fda084',1,'Igor::iVoxelOperationSphere::apply()']]],
-  ['applyactionsasync',['applyActionsAsync',['../class_igor_1_1i_node_factory.html#ac5416696bbda5df7b06ab432bc60629c',1,'Igor::iNodeFactory']]],
-  ['applyforceandtorque',['applyForceAndTorque',['../class_igor_1_1i_physics_body.html#a1494a046083e33fb2f8ef5ab4ae54fe9',1,'Igor::iPhysicsBody::applyForceAndTorque()'],['../class_igor_1_1i_physics_player.html#a4bceecfcf0005efc8bd5ded4d1cf674e',1,'Igor::iPhysicsPlayer::ApplyForceAndTorque()']]],
-  ['atof',['atof',['../class_igor_aux_1_1ia_string.html#aa59eadd563a3386484390ca6d8fd2d7b',1,'IgorAux::iaString']]]
+  ['applyactionsasync',['applyActionsAsync',['../class_igor_1_1i_node_factory.html#af3439fd964a26b1c752d2ef8641ef8bf',1,'Igor::iNodeFactory']]],
+  ['applyforceandtorque',['applyForceAndTorque',['../class_igor_1_1i_physics_body.html#a1494a046083e33fb2f8ef5ab4ae54fe9',1,'Igor::iPhysicsBody::applyForceAndTorque()'],['../class_igor_1_1i_physics_player.html#a4bceecfcf0005efc8bd5ded4d1cf674e',1,'Igor::iPhysicsPlayer::ApplyForceAndTorque()']]]
 ];

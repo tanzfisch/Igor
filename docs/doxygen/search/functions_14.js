@@ -49,7 +49,7 @@ var searchData=
   ['unregisterremovednodedelegate',['unregisterRemovedNodeDelegate',['../class_igor_1_1i_scene.html#a6320ccc8f4e11faa2772bae5156dc824',1,'Igor::iScene']]],
   ['unregisterrenderdelegate',['unregisterRenderDelegate',['../class_igor_1_1i_view.html#a81aa1aa8f34a6b6a9f230251b4290bfb',1,'Igor::iView']]],
   ['unregisterrenderstatedelegate',['unregisterRenderStateDelegate',['../class_igor_aux_1_1ia_state.html#ac5e7768d51ef96cfa6aa39ace6f2ede5',1,'IgorAux::iaState::unregisterRenderStateDelegate()'],['../class_igor_aux_1_1ia_state_machine.html#a85d030f80748fc0d05d405ddb4e5336f',1,'IgorAux::iaStateMachine::unregisterRenderStateDelegate()']]],
-  ['unregistersection',['unregisterSection',['../class_igor_1_1i_statistics.html#a6fa1d60c7d90c657db1502326de4cd69',1,'Igor::iStatistics']]],
+  ['unregistersection',['unregisterSection',['../class_igor_1_1i_profiler.html#a0795895339bd68205de999802d24c7e9',1,'Igor::iProfiler']]],
   ['unregistersubmitconstraintsdelegate',['unregisterSubmitConstraintsDelegate',['../class_igor_1_1i_physics_joint.html#a5f5ce9966273690d856521656ae466b5',1,'Igor::iPhysicsJoint']]],
   ['unregistertaskfinisheddelegate',['unregisterTaskFinishedDelegate',['../class_igor_1_1i_task_manager.html#ad77c23d8a3b7fb54aeb1590842d531df',1,'Igor::iTaskManager']]],
   ['unregistertimerdelegate',['unregisterTimerDelegate',['../class_igor_1_1i_timer_handle.html#ac5264235f3ae433ecca15cb6fc68d59b',1,'Igor::iTimerHandle']]],

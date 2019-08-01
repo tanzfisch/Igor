@@ -17,8 +17,9 @@ var searchData=
   ['addcone',['addCone',['../class_igor_1_1i_physics_collision_config.html#aa547e4092c31de8ebaf986f32d115de8',1,'Igor::iPhysicsCollisionConfig::addCone()'],['../namespace_igor_1_1i_mesh_builder_utils.html#a551767159394380d9471dfb2f71b7945',1,'Igor::iMeshBuilderUtils::addCone()'],['../namespace_igor.html#a0d7c8dc1081c681e46c9aaa63b5bb9a5',1,'Igor::addCone()']]],
   ['addcylinder',['addCylinder',['../class_igor_1_1i_physics_collision_config.html#a0d715657b9a0102f850afbbaf489a1bd',1,'Igor::iPhysicsCollisionConfig::addCylinder()'],['../namespace_igor_1_1i_mesh_builder_utils.html#a47f09e94d76a32f05fcc8747d341665b',1,'Igor::iMeshBuilderUtils::addCylinder()'],['../namespace_igor.html#a118389cc7ad2a9ebf52372fbb426f189',1,'Igor::addCylinder()']]],
   ['addfilter',['addFilter',['../class_igor_1_1i_octree.html#a8bcf17bcf70c00015576b1e96d3cbfb3',1,'Igor::iOctree::addFilter(const iFrustumd &amp;frustum)'],['../class_igor_1_1i_octree.html#a68f6773e38cbaaf9af900429cf0c8df9',1,'Igor::iOctree::addFilter(const iPlaned &amp;plane)'],['../class_igor_1_1i_octree.html#a0e6f86e72bfdfce299d5e25efa1f29b2',1,'Igor::iOctree::addFilter(const iSphered &amp;sphere)']]],
+  ['addframe',['addFrame',['../class_igor_1_1i_atlas.html#abde3d5c7cfc0718ed4f45534ef36221e',1,'Igor::iAtlas']]],
   ['addinstance',['addInstance',['../class_igor_1_1i_instancer.html#a6b29ed1af25fa23a206c85945930cafa',1,'Igor::iInstancer']]],
-  ['addmesh',['addMesh',['../class_igor_1_1i_physics_collision_config.html#a8105b3817a573b1e1f87a4ba0bf831b1',1,'Igor::iPhysicsCollisionConfig::addMesh()'],['../namespace_igor.html#aebb480ac2cf21e5f1c6bfc3c2369c2a4',1,'Igor::addMesh()']]],
+  ['addmesh',['addMesh',['../class_igor_1_1i_physics_collision_config.html#aaad9fb14b9a14d254b7c9fda254c84e0',1,'Igor::iPhysicsCollisionConfig::addMesh()'],['../namespace_igor_1_1i_mesh_builder_utils.html#acabd7a89e8d7e039c84677ca6e451585',1,'Igor::iMeshBuilderUtils::addMesh()'],['../namespace_igor.html#aa6ffc1dc67cace148af9ba3a640f96af',1,'Igor::addMesh()']]],
   ['addnode',['addNode',['../class_igor_1_1i_data_update_queue.html#aa49c270d9cecbfbb1ef8c5396721c9c9',1,'Igor::iDataUpdateQueue']]],
   ['addrectangle',['addRectangle',['../namespace_igor_1_1i_mesh_builder_utils.html#af9aa4c614f9b40ad137d728e5f1743df',1,'Igor::iMeshBuilderUtils']]],
   ['addrendernode',['addRenderNode',['../class_igor_1_1i_material_group.html#a05017d35bf8586ba9319db823976b592',1,'Igor::iMaterialGroup']]],
@@ -38,7 +39,7 @@ var searchData=
   ['addwidget',['addWidget',['../class_igor_1_1i_widget.html#a5a2b456163b1592606d8ce5e075166e3',1,'Igor::iWidget::addWidget(iWidget *widget)'],['../class_igor_1_1i_widget.html#aa1dbc4188be9fec7861c5bc66bec5b84',1,'Igor::iWidget::addWidget(uint64 id)'],['../class_igor_1_1i_widget_grid.html#a764137d148d8977d459c6ea0635eadeb',1,'Igor::iWidgetGrid::addWidget(iWidget *widget)'],['../class_igor_1_1i_widget_grid.html#a71ec37f12c277c2a3782cff83b950c81',1,'Igor::iWidgetGrid::addWidget(iWidget *widget, int32 col, int32 row, void *userData=nullptr)']]],
   ['adjust',['adjust',['../class_igor_1_1i_rectangle.html#a1194e43d312a44ed06c5da2e1f2c3748',1,'Igor::iRectangle']]],
   ['al_5fcheck_5ferror',['AL_CHECK_ERROR',['../i_sound_resource_factory_8cpp.html#ae3250642376b4be58c369389444d3390',1,'iSoundResourceFactory.cpp']]],
-  ['all',['All',['../namespace_igor.html#ab2bf8a45681db3503d84e03dd9f1dcfeab1c94ca2fbc3e78fc30069c8d0f01680',1,'Igor']]],
+  ['all',['All',['../namespace_igor.html#a43197990e5686f09dd3845067aafaf5dab1c94ca2fbc3e78fc30069c8d0f01680',1,'Igor']]],
   ['allocmemory',['AllocMemory',['../namespace_igor.html#a2682d455e2d203741c74d1a7d4ff626d',1,'Igor']]],
   ['alpha',['Alpha',['../namespace_igor.html#a7e67018151b83309d748c1200262839ea6132295fcf5570fb8b0a944ef322a598',1,'Igor::Alpha()'],['../namespace_igor.html#a1591be7a883348974cbed3cab1bd43d5a002101f8725e5c78d9f30d87f3fa4c87',1,'Igor::ALPHA()']]],
   ['alt',['Alt',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24aa2e92861b757ab878312dd57993d60cf',1,'Igor']]],
@@ -50,8 +51,7 @@ var searchData=
   ['appendrows',['appendRows',['../class_igor_1_1i_widget_grid.html#ada59fc39c0e1f9b6b6b1d244b022e4cf',1,'Igor::iWidgetGrid']]],
   ['applicationtime',['applicationTime',['../class_igor_aux_1_1ia_console.html#a841307f90e5f3fb7969b5bed0aceaf53',1,'IgorAux::iaConsole::applicationTime()'],['../namespace_igor_aux.html#aaa07a13fdd4cdc0b5ab00ac00c35d3dc',1,'IgorAux::applicationTime()']]],
   ['apply',['apply',['../class_igor_1_1i_voxel_operation.html#a25e701a4b64c0f5d5f155f43c567ae61',1,'Igor::iVoxelOperation::apply()'],['../class_igor_1_1i_voxel_operation_box.html#a577d344903069bd3835b3079f0bd8af3',1,'Igor::iVoxelOperationBox::apply()'],['../class_igor_1_1i_voxel_operation_sphere.html#a6ff8077abac919d193c1026743fda084',1,'Igor::iVoxelOperationSphere::apply()']]],
-  ['applyactionsasync',['applyActionsAsync',['../class_igor_1_1i_node_factory.html#ac5416696bbda5df7b06ab432bc60629c',1,'Igor::iNodeFactory']]],
+  ['applyactionsasync',['applyActionsAsync',['../class_igor_1_1i_node_factory.html#af3439fd964a26b1c752d2ef8641ef8bf',1,'Igor::iNodeFactory']]],
   ['applyforceandtorque',['applyForceAndTorque',['../class_igor_1_1i_physics_body.html#a1494a046083e33fb2f8ef5ab4ae54fe9',1,'Igor::iPhysicsBody::applyForceAndTorque()'],['../class_igor_1_1i_physics_player.html#a4bceecfcf0005efc8bd5ded4d1cf674e',1,'Igor::iPhysicsPlayer::ApplyForceAndTorque()']]],
-  ['assert',['Assert',['../namespace_igor_aux.html#a95b2b44871530bf71a452919620012e3ad530f9d1b94f864f2238775b0e19e48c',1,'IgorAux']]],
-  ['atof',['atof',['../class_igor_aux_1_1ia_string.html#aa59eadd563a3386484390ca6d8fd2d7b',1,'IgorAux::iaString']]]
+  ['assert',['Assert',['../namespace_igor_aux.html#a95b2b44871530bf71a452919620012e3ad530f9d1b94f864f2238775b0e19e48c',1,'IgorAux']]]
 ];

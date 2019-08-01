@@ -8,7 +8,7 @@ var class_igor_1_1i_particle_system3_d =
     [ "getBoundingSphere", "class_igor_1_1i_particle_system3_d.html#ad26246194aa4bf271df50aa7d49b3bfe", null ],
     [ "getColorGradient", "class_igor_1_1i_particle_system3_d.html#add49ea60d3593d3421e709e792897838", null ],
     [ "getColorGradient", "class_igor_1_1i_particle_system3_d.html#a6a6252b50c854f0abda4cef920aa34f3", null ],
-    [ "getCurrentFrame", "class_igor_1_1i_particle_system3_d.html#a2607c091f2870eb808bd01f2f2d9ec78", null ],
+    [ "getCurrentFrame", "class_igor_1_1i_particle_system3_d.html#a2d5c27ba186fb0b5f4659cfd46dee690", null ],
     [ "getEmissionGradient", "class_igor_1_1i_particle_system3_d.html#a8fe1bb238ae191c5910297e0a9915095", null ],
     [ "getFirstTextureColumns", "class_igor_1_1i_particle_system3_d.html#ad57a69bd9f7d791d03fe3417f75c2609", null ],
     [ "getFirstTextureRows", "class_igor_1_1i_particle_system3_d.html#a925abe59f8e2dce1f9cc1910975c15a0", null ],

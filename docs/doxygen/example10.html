@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.22.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -122,20 +122,20 @@ L-System Example</div></div>
 <h1>Code </h1>
 <p>All the meat about how to use the iLSystem class is in the methods initStyle1, initStyle2 and initStyle3. We will only have a closer look at one of them because they are mostly the same except for the values ins use.</p>
 <p>The first line is a typical replacement rule F will be replaced with FF. This basically makes all branches grow double each iteration. </p><pre class="fragment">_lSystem.setRule('F', "FF");
-</pre><p>In the next section we have an example for a weighted rule with 4 cases. Make sure all four probabilities add up to 1.0. </p><pre class="fragment">vector&lt;pair&lt;float64, iaString&gt;&gt; weightedRule1;
-weightedRule1.push_back(pair&lt;float64, iaString&gt;(0.25, "F[+X]OF[-X]+X."));
-weightedRule1.push_back(pair&lt;float64, iaString&gt;(0.25, "FO[-X]F[+X]-X."));
-weightedRule1.push_back(pair&lt;float64, iaString&gt;(0.25, "F[RX]F[LX]ORX."));
-weightedRule1.push_back(pair&lt;float64, iaString&gt;(0.25, "F[LX]FO[RX]LX."));
+</pre><p>In the next section we have an example for a weighted rule with 4 cases. Make sure all four probabilities add up to 1.0. </p><pre class="fragment">std::vector&lt;std::pair&lt;float64, iaString&gt;&gt; weightedRule1;
+weightedRule1.push_back(std::pair&lt;float64, iaString&gt;(0.25, "F[+X]OF[-X]+X."));
+weightedRule1.push_back(std::pair&lt;float64, iaString&gt;(0.25, "FO[-X]F[+X]-X."));
+weightedRule1.push_back(std::pair&lt;float64, iaString&gt;(0.25, "F[RX]F[LX]ORX."));
+weightedRule1.push_back(std::pair&lt;float64, iaString&gt;(0.25, "F[LX]FO[RX]LX."));
 _lSystem.setRule('X', weightedRule1);
-</pre><p>In the following section we also have a weighted rule but it also has an additional age filter. It basically says that it has only effect after the L-System age is greater 2. In our scenario the buds that are represented with a '*' can earliest appear on the 4th plant because it has the age of 4. </p><pre class="fragment">vector&lt;pair&lt;float64, iaString&gt;&gt; weightedRule2;
-weightedRule2.push_back(pair&lt;float64, iaString&gt;(0.3, "."));
-weightedRule2.push_back(pair&lt;float64, iaString&gt;(0.7, "*"));
+</pre><p>In the following section we also have a weighted rule but it also has an additional age filter. It basically says that it has only effect after the L-System age is greater 2. In our scenario the buds that are represented with a '*' can earliest appear on the 4th plant because it has the age of 4. </p><pre class="fragment">std::vector&lt;std::pair&lt;float64, iaString&gt;&gt; weightedRule2;
+weightedRule2.push_back(std::pair&lt;float64, iaString&gt;(0.3, "."));
+weightedRule2.push_back(std::pair&lt;float64, iaString&gt;(0.7, "*"));
 _lSystem.setRule('.', weightedRule2);
 _lSystem.setAgeFilter('.', iLSystemAgeFunction::Greater, 2);
-</pre><p>The next one works exactly the same but instead of turning the '.' placeholder in to buds it turns buds in to flowers. </p><pre class="fragment">vector&lt;pair&lt;float64, iaString&gt;&gt; weightedRule3;
-weightedRule3.push_back(pair&lt;float64, iaString&gt;(0.3, "*"));
-weightedRule3.push_back(pair&lt;float64, iaString&gt;(0.7, "o"));
+</pre><p>The next one works exactly the same but instead of turning the '.' placeholder in to buds it turns buds in to flowers. </p><pre class="fragment">std::vector&lt;std::pair&lt;float64, iaString&gt;&gt; weightedRule3;
+weightedRule3.push_back(std::pair&lt;float64, iaString&gt;(0.3, "*"));
+weightedRule3.push_back(std::pair&lt;float64, iaString&gt;(0.7, "o"));
 _lSystem.setRule('*', weightedRule3);
 _lSystem.setAgeFilter('*', iLSystemAgeFunction::Greater, 4);
 </pre><p>The following definitions have nothing to do with the L-System it self. They are only important for the later generation of meshs and representation of the L-Systems. </p><pre class="fragment">_segmentLength = 0.25;

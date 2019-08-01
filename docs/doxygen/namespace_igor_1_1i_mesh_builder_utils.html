@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.22.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -130,6 +130,8 @@ Functions</h2></td></tr>
 <tr class="separator:abb3d7c5968b045af3ebe65d1ca4c0b6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc61ff1b612713ecaf123a34b11d512c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_igor_1_1i_mesh_builder_utils.html#adc61ff1b612713ecaf123a34b11d512c">addRing</a> (<a class="el" href="class_igor_1_1i_mesh_builder.html">iMeshBuilder</a> &amp;meshBuilder, float32 innerRadius, float32 outerRadius, uint32 segments)</td></tr>
 <tr class="separator:adc61ff1b612713ecaf123a34b11d512c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acabd7a89e8d7e039c84677ca6e451585"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_igor_1_1i_mesh_builder_utils.html#acabd7a89e8d7e039c84677ca6e451585">addMesh</a> (<a class="el" href="class_igor_1_1i_mesh_builder.html">iMeshBuilder</a> &amp;meshBuilder, const <a class="el" href="namespace_igor.html#a559fe4456991a1ae2e1cca07945ad071">iMeshPtr</a> mesh)</td></tr>
+<tr class="separator:acabd7a89e8d7e039c84677ca6e451585"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a476e7c7fee040dbff99a7a8bbcb4e30a"></a>
@@ -318,6 +320,40 @@ Functions</h2></td></tr>
     <tr><td class="paramname">height</td><td>the height of the cylinder </td></tr>
     <tr><td class="paramname">segments</td><td>the segment count of the cylinder </td></tr>
     <tr><td class="paramname">hasCaps</td><td>if true the cylinder will have caps on top and bottom </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="acabd7a89e8d7e039c84677ca6e451585"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Igor_API Igor::iMeshBuilderUtils::addMesh </td>
+          <td>(</td>
+          <td class="paramtype">iMeshBuilder &amp;&#160;</td>
+          <td class="paramname"><em>meshBuilder</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const iMeshPtr&#160;</td>
+          <td class="paramname"><em>mesh</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>adds a mesh to the mesh builder</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">meshBuilder</td><td>the given mesh builder instance </td></tr>
+    <tr><td class="paramname">mesh</td><td>the mesh to be added </td></tr>
   </table>
   </dd>
 </dl>

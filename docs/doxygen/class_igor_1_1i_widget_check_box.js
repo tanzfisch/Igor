@@ -11,8 +11,8 @@ var class_igor_1_1i_widget_check_box =
     [ "setText", "class_igor_1_1i_widget_check_box.html#a99d70ce15ec0659f385c85cdfffe1120", null ],
     [ "iWidgetManager", "class_igor_1_1i_widget_check_box.html#a9da20b1c56a70b01ca0ef56f4d4d47fc", null ],
     [ "_checked", "class_igor_1_1i_widget_check_box.html#a8605b350feda12a9018e7db0c95ba2c6", null ],
-    [ "_currentRadioButtons", "class_igor_1_1i_widget_check_box.html#a2a1f71194e74532c63f4f8ac9cfa62e1", null ],
+    [ "_currentRadioButtons", "class_igor_1_1i_widget_check_box.html#afdbcfdc83a0e842414a0c65c9df7063b", null ],
     [ "_generatingRadioButtonGroup", "class_igor_1_1i_widget_check_box.html#a973aea8285082e8aae4ba779968b216b", null ],
-    [ "_radioButtons", "class_igor_1_1i_widget_check_box.html#a77dda15ab1617fbfbb1c1a6f25d4fe69", null ],
+    [ "_radioButtons", "class_igor_1_1i_widget_check_box.html#a6788dfdc9edf560b9ef6e43573110b64", null ],
     [ "_text", "class_igor_1_1i_widget_check_box.html#ad93d58bf513439f22aa7c945ae27f3f9", null ]
 ];

@@ -7,6 +7,9 @@ var dir_b12320815bd4967fc918d17f555d23eb =
     [ "iAACube.inl", "i_a_a_cube_8inl.html", null ],
     [ "iApplication.cpp", "i_application_8cpp.html", null ],
     [ "iApplication.h", "i_application_8h.html", "i_application_8h" ],
+    [ "iAtlas.cpp", "i_atlas_8cpp.html", null ],
+    [ "iAtlas.h", "i_atlas_8h.html", "i_atlas_8h" ],
+    [ "iAtlas.inl", "i_atlas_8inl.html", null ],
     [ "iBone.cpp", "i_bone_8cpp.html", null ],
     [ "iBone.h", "i_bone_8h.html", [
       [ "iBone", "class_igor_1_1i_bone.html", "class_igor_1_1i_bone" ]
@@ -89,9 +92,7 @@ var dir_b12320815bd4967fc918d17f555d23eb =
     [ "iMaterialResourceFactory.cpp", "i_material_resource_factory_8cpp.html", null ],
     [ "iMaterialResourceFactory.h", "i_material_resource_factory_8h.html", "i_material_resource_factory_8h" ],
     [ "iMesh.cpp", "i_mesh_8cpp.html", null ],
-    [ "iMesh.h", "i_mesh_8h.html", [
-      [ "iMesh", "class_igor_1_1i_mesh.html", "class_igor_1_1i_mesh" ]
-    ] ],
+    [ "iMesh.h", "i_mesh_8h.html", "i_mesh_8h" ],
     [ "iMesh.inl", "i_mesh_8inl.html", null ],
     [ "iMeshBuffers.cpp", "i_mesh_buffers_8cpp.html", null ],
     [ "iMeshBuffers.h", "i_mesh_buffers_8h.html", [
@@ -99,7 +100,10 @@ var dir_b12320815bd4967fc918d17f555d23eb =
     ] ],
     [ "iMeshBuffers.inl", "i_mesh_buffers_8inl.html", null ],
     [ "iMeshBuilder.cpp", "i_mesh_builder_8cpp.html", "i_mesh_builder_8cpp" ],
-    [ "iMeshBuilder.h", "i_mesh_builder_8h.html", "i_mesh_builder_8h" ],
+    [ "iMeshBuilder.h", "i_mesh_builder_8h.html", [
+      [ "iIndexedTriangle", "struct_igor_1_1i_indexed_triangle.html", "struct_igor_1_1i_indexed_triangle" ],
+      [ "iMeshBuilder", "class_igor_1_1i_mesh_builder.html", "class_igor_1_1i_mesh_builder" ]
+    ] ],
     [ "iMeshBuilderUtils.cpp", "i_mesh_builder_utils_8cpp.html", "i_mesh_builder_utils_8cpp" ],
     [ "iMeshBuilderUtils.h", "i_mesh_builder_utils_8h.html", "i_mesh_builder_utils_8h" ],
     [ "iModel.cpp", "i_model_8cpp.html", null ],
@@ -264,11 +268,19 @@ var dir_b12320815bd4967fc918d17f555d23eb =
       [ "iPhysicsWorld", "class_igor_1_1i_physics_world.html", "class_igor_1_1i_physics_world" ]
     ] ],
     [ "iPixmap.cpp", "i_pixmap_8cpp.html", null ],
-    [ "iPixmap.h", "i_pixmap_8h.html", [
-      [ "iPixmap", "class_igor_1_1i_pixmap.html", "class_igor_1_1i_pixmap" ]
-    ] ],
+    [ "iPixmap.h", "i_pixmap_8h.html", "i_pixmap_8h" ],
     [ "iPlane.h", "i_plane_8h.html", "i_plane_8h" ],
     [ "iPlane.inl", "i_plane_8inl.html", null ],
+    [ "iProfiler.cpp", "i_profiler_8cpp.html", null ],
+    [ "iProfiler.h", "i_profiler_8h.html", [
+      [ "iProfiler", "class_igor_1_1i_profiler.html", "class_igor_1_1i_profiler" ]
+    ] ],
+    [ "iProfilerSection.cpp", "i_profiler_section_8cpp.html", null ],
+    [ "iProfilerSection.h", "i_profiler_section_8h.html", [
+      [ "iProfilerSection", "class_igor_1_1i_profiler_section.html", "class_igor_1_1i_profiler_section" ]
+    ] ],
+    [ "iProfilerVisualizer.cpp", "i_profiler_visualizer_8cpp.html", null ],
+    [ "iProfilerVisualizer.h", "i_profiler_visualizer_8h.html", "i_profiler_visualizer_8h" ],
     [ "iRay.h", "i_ray_8h.html", "i_ray_8h" ],
     [ "iRay.inl", "i_ray_8inl.html", null ],
     [ "iRectangle.h", "i_rectangle_8h.html", "i_rectangle_8h" ],
@@ -323,21 +335,6 @@ var dir_b12320815bd4967fc918d17f555d23eb =
     ] ],
     [ "iSphere.h", "i_sphere_8h.html", "i_sphere_8h" ],
     [ "iSphere.inl", "i_sphere_8inl.html", null ],
-    [ "iSprite.cpp", "i_sprite_8cpp.html", null ],
-    [ "iSprite.h", "i_sprite_8h.html", [
-      [ "iSprite", "class_igor_1_1i_sprite.html", "class_igor_1_1i_sprite" ]
-    ] ],
-    [ "iSprite.inl", "i_sprite_8inl.html", null ],
-    [ "iStatistics.cpp", "i_statistics_8cpp.html", null ],
-    [ "iStatistics.h", "i_statistics_8h.html", [
-      [ "iStatistics", "class_igor_1_1i_statistics.html", "class_igor_1_1i_statistics" ]
-    ] ],
-    [ "iStatisticsSection.cpp", "i_statistics_section_8cpp.html", null ],
-    [ "iStatisticsSection.h", "i_statistics_section_8h.html", [
-      [ "iStatisticsSection", "class_igor_1_1i_statistics_section.html", "class_igor_1_1i_statistics_section" ]
-    ] ],
-    [ "iStatisticsVisualizer.cpp", "i_statistics_visualizer_8cpp.html", null ],
-    [ "iStatisticsVisualizer.h", "i_statistics_visualizer_8h.html", "i_statistics_visualizer_8h" ],
     [ "iSTBImageExt.h", "i_s_t_b_image_ext_8h.html", "i_s_t_b_image_ext_8h" ],
     [ "iStopWatch.cpp", "i_stop_watch_8cpp.html", null ],
     [ "iStopWatch.h", "i_stop_watch_8h.html", [

@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.22.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -105,7 +105,32 @@ $(document).ready(function(){initNavTree('changelog.html','');});
 <div class="title">Changelog </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h2>0.21.0 </h2>
+<div class="textblock"><h2>0.22.0 </h2>
+<ul>
+<li>iSprite is now iAtlas and can read frames from file</li>
+<li>created sprite animation example <div class="image">
+<img src="SpriteAnimation.gif" alt="SpriteAnimation.gif"/>
+<div class="caption">
+sprite animation</div></div>
+</li>
+<li>ownership of widgets transfers to the engine the moment they are children of a dialog</li>
+<li>added mesh to world bake functionality</li>
+<li>removed all using namesapce std;</li>
+<li>added some keyboard shortcuts to ModelViewer<ul>
+<li>Ctrl + N - clear scene</li>
+<li>Del - deletes current selection</li>
+<li>Ctrl + D - duplicates current selection</li>
+<li>Ctrl + C - copies current selection</li>
+<li>Ctrl + X - cuts current selection</li>
+<li>Ctrl + V - pastes on current selection</li>
+<li>Ctrl + S - opens save dialog</li>
+<li>Ctrl + O - opens load dialog</li>
+</ul>
+</li>
+<li>improved getInfo implementation and pretty print node tree</li>
+<li>renamed iStatistic* to iProfiler*</li>
+</ul>
+<h2>0.21.0 </h2>
 <ul>
 <li>increased unit testing efforts</li>
 <li>worked on iaQuaternion class</li>

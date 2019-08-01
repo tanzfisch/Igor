@@ -31,9 +31,9 @@ var searchData=
   ['fixeddigitwidth',['FixedDigitWidth',['../namespace_igor.html#a1ee2fe4724a0c9145b92680c7e4b0021a92886d9bd6da89da0f7488b9458bba5a',1,'Igor']]],
   ['fixedwidth',['FixedWidth',['../namespace_igor.html#a1ee2fe4724a0c9145b92680c7e4b0021ae9cb5b14536dcce4a0c02d83301febf2',1,'Igor']]],
   ['four',['Four',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a981b8fcee42e1e726a67a2b9a98ea6e9',1,'Igor']]],
-  ['fpsandmetrics',['FPSAndMetrics',['../namespace_igor.html#ab2bf8a45681db3503d84e03dd9f1dcfeaea55326c3da1b35339a2394107e6d565',1,'Igor']]],
-  ['fpsmetricsandtasks',['FPSMetricsAndTasks',['../namespace_igor.html#ab2bf8a45681db3503d84e03dd9f1dcfeaf436b5de27be311e80706ecd3e3aece3',1,'Igor']]],
-  ['fpsonly',['FPSOnly',['../namespace_igor.html#ab2bf8a45681db3503d84e03dd9f1dcfea21ff57bb8b0ed51910e4d1d624ef00c1',1,'Igor']]],
+  ['fpsandmetrics',['FPSAndMetrics',['../namespace_igor.html#a43197990e5686f09dd3845067aafaf5daea55326c3da1b35339a2394107e6d565',1,'Igor']]],
+  ['fpsmetricsandtasks',['FPSMetricsAndTasks',['../namespace_igor.html#a43197990e5686f09dd3845067aafaf5daf436b5de27be311e80706ecd3e3aece3',1,'Igor']]],
+  ['fpsonly',['FPSOnly',['../namespace_igor.html#a43197990e5686f09dd3845067aafaf5da21ff57bb8b0ed51910e4d1d624ef00c1',1,'Igor']]],
   ['fragment',['Fragment',['../namespace_igor.html#a67a831c60bd28fc48d7fa89c7e09433fa37d01b98065725fe3a1d30acf3a0064a',1,'Igor::Fragment()'],['../namespace_o_m_p_f.html#a131201e055054ad7a37e5e7550a477c1a37d01b98065725fe3a1d30acf3a0064a',1,'OMPF::Fragment()']]],
   ['free',['Free',['../namespace_igor.html#ac9b9b2022cdca46f600793d06ddcce63ab24ce0cd392a5b0b8dedc66c25213594',1,'Igor']]],
   ['front',['Front',['../namespace_igor.html#a490f00fed47903c329843cb921bbace9a5835bab1ade0060909e31a06af2e2cde',1,'Igor::Front()'],['../namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72a5835bab1ade0060909e31a06af2e2cde',1,'OMPF::Front()']]]
