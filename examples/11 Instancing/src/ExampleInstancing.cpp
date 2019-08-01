@@ -195,7 +195,7 @@ void ExampleInstancing::init()
 
     // init font for render statistics
     _font = new iTextureFont("StandardFont.png");
-    _profilerVisualizer.setVerbosity(ProfilerVerbosity::FPSAndMetrics);
+    _profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
 
     // prepare igor logo
     _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);

@@ -234,7 +234,7 @@ void PhysicsExample::init()
     _flushModelsTask = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
     _flushTexturesTask = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
-    _profilerVisualizer.setVerbosity(ProfilerVerbosity::FPSAndMetrics);
+    _profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
 }
 
 void PhysicsExample::deinit()

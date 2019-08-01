@@ -134,7 +134,7 @@ void LSystems::init()
 
 	// init render statistics
 	_font = new iTextureFont("StandardFont.png");
-	_profilerVisualizer.setVerbosity(ProfilerVerbosity::FPSAndMetrics);
+	_profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
 
 	// register some callbacks
 	iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &LSystems::onKeyPressed));

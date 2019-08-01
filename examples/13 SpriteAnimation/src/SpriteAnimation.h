@@ -55,6 +55,7 @@ namespace Igor
 	class iScene;
     class iAtlas;
     class iTextureFont;
+	class iNodeTransform;
 }
 
 /*! rendering 2d example
@@ -129,7 +130,7 @@ private:
 
 	/*! current position of character to render
 	*/
-	iaVector2f _characterPosition{ 200, 200 };
+	iaVector2f _characterPosition{ -600, 1600 };
 
 	/*! character velocity
 	*/
@@ -160,6 +161,8 @@ private:
 
 	uint64 _materialTerrain = iMaterial::INVALID_MATERIAL_ID;
 
+	iNodeTransform* _terrainTransform;
+	iNodeTransform* _cameraTranform;
     /*! mouse move event with minimum data
 
     mouse coordinates have their origin in the upper left corner of the parenting window

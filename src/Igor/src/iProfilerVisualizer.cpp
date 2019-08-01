@@ -107,21 +107,21 @@ namespace Igor
         iMaterialResourceFactory::getInstance().destroyMaterial(_materialBlend);
     }
 
-    void iProfilerVisualizer::setVerbosity(ProfilerVerbosity renderStatisticsMode)
+    void iProfilerVisualizer::setVerbosity(iProfilerVerbosity renderStatisticsMode)
     {
         _renderStatisticsMode = renderStatisticsMode;
     }
 
     void iProfilerVisualizer::cycleVerbosity()
     {
-        _renderStatisticsMode = static_cast<ProfilerVerbosity>(static_cast<int>(_renderStatisticsMode) + 1);
-        if (_renderStatisticsMode > ProfilerVerbosity::All)
+        _renderStatisticsMode = static_cast<iProfilerVerbosity>(static_cast<int>(_renderStatisticsMode) + 1);
+        if (_renderStatisticsMode > iProfilerVerbosity::All)
         {
-            _renderStatisticsMode = ProfilerVerbosity::None;
+            _renderStatisticsMode = iProfilerVerbosity::None;
         }
     }
 
-    ProfilerVerbosity iProfilerVisualizer::getVerbosity()
+    iProfilerVerbosity iProfilerVisualizer::getVerbosity()
     {
         return _renderStatisticsMode;
     }
@@ -129,7 +129,7 @@ namespace Igor
     void iProfilerVisualizer::draw(iWindow* window, iTextureFont* font, const iaColor4f& color)
     {
         if (iRenderer::getInstance().isReady() &&
-            _renderStatisticsMode > ProfilerVerbosity::None)
+            _renderStatisticsMode > iProfilerVerbosity::None)
         {
             iaMatrixd identity;
             iaMatrixd translation;
@@ -149,7 +149,7 @@ namespace Igor
                 _seconds = iTimer::getInstance().getSeconds();
                 _lastFPS = iTimer::getInstance().getFPS();
 
-                if (_renderStatisticsMode >= ProfilerVerbosity::FPSMetricsAndTasks)
+                if (_renderStatisticsMode >= iProfilerVerbosity::FPSMetricsAndTasks)
                 {
                     _lastThreadCount = iTaskManager::getInstance().getRegularThreadCount();
                     _lastQueuedTaskCount = iTaskManager::getInstance().getQueuedRegularTaskCount();
@@ -166,14 +166,14 @@ namespace Igor
             iaString fpsText = iaString::toString(_lastFPS, 2);
             uint32 voffset = 0;
 
-            if (_renderStatisticsMode >= ProfilerVerbosity::FPSAndMetrics)
+            if (_renderStatisticsMode >= iProfilerVerbosity::FPSAndMetrics)
             {
                 voffset = 20;
             }
 
             iRenderer::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 10 - voffset), fpsText, iHorizontalAlignment::Right, iVerticalAlignment::Bottom);
 
-            if (_renderStatisticsMode >= ProfilerVerbosity::FPSAndMetrics)
+            if (_renderStatisticsMode >= iProfilerVerbosity::FPSAndMetrics)
             {
                 uint32 vertices;
                 uint32 triangles;
@@ -232,7 +232,7 @@ namespace Igor
                 iRenderer::getInstance().resetCounters();
             }
 
-            if (_renderStatisticsMode >= ProfilerVerbosity::FPSMetricsAndTasks)
+            if (_renderStatisticsMode >= iProfilerVerbosity::FPSMetricsAndTasks)
             {
                 iaString threads = "";
                 threads += iaString::toString(_lastThreadCount);
@@ -257,7 +257,7 @@ namespace Igor
                 iRenderer::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 50), done, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
             }
 
-            if (_renderStatisticsMode >= ProfilerVerbosity::Sections)
+            if (_renderStatisticsMode >= iProfilerVerbosity::Sections)
             {
                 float64 groupCount = 4;
                 float64 totalHeight = window->getClientHeight() * 0.9f;

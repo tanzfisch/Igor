@@ -53,7 +53,7 @@ void VoxelExample::init()
 
     // load font for profiler
     _font = new iTextureFont("StandardFont.png");
-    _profilerVisualizer.setVerbosity(ProfilerVerbosity::FPSAndMetrics);
+    _profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
 
     // launch resource handlers
     _flushModelsTask = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));

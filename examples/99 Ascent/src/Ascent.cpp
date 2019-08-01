@@ -587,7 +587,7 @@ void Ascent::init()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    _profilerVisualizer.setVerbosity(ProfilerVerbosity::None);
+    _profilerVisualizer.setVerbosity(iProfilerVerbosity::None);
 
     uint64 particlesMaterial = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setName("PMat");
@@ -697,17 +697,17 @@ void Ascent::onKeyPressed(iKeyCode key)
 
     case iKeyCode::F3:
     {
-        ProfilerVerbosity level = _profilerVisualizer.getVerbosity();
+        iProfilerVerbosity level = _profilerVisualizer.getVerbosity();
 
-        if (level == ProfilerVerbosity::All)
+        if (level == iProfilerVerbosity::All)
         {
-            level = ProfilerVerbosity::None;
+            level = iProfilerVerbosity::None;
         }
         else
         {
             int value = static_cast<int>(level);
             value++;
-            level = static_cast<ProfilerVerbosity>(value);
+            level = static_cast<iProfilerVerbosity>(value);
         }
 
         _profilerVisualizer.setVerbosity(level);

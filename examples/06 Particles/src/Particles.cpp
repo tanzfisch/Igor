@@ -134,7 +134,7 @@ void Particles::init()
 
     // init render statistics
     _font = new iTextureFont("StandardFont.png");
-    _profilerVisualizer.setVerbosity(ProfilerVerbosity::FPSAndMetrics);
+    _profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
 
     // animation
     _animationTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &Particles::onTimer), 100);

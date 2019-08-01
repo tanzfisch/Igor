@@ -47,7 +47,7 @@ namespace Igor
 
     /*! verbosity of statistics output on scree
     */
-    enum class ProfilerVerbosity
+    enum class iProfilerVerbosity
     {
         None,
         FPSOnly,
@@ -68,11 +68,11 @@ namespace Igor
 
         \pram renderStatisticsMode the mode to display statistics
         */
-        void setVerbosity(ProfilerVerbosity renderStatisticsMode);
+        void setVerbosity(iProfilerVerbosity renderStatisticsMode);
 
         /*! \returns current verbosity level
         */
-        ProfilerVerbosity getVerbosity();
+        iProfilerVerbosity getVerbosity();
 
         /*! cycles through all the verbosity modes one by one for each call
         */
@@ -104,7 +104,7 @@ namespace Igor
 
         /*! the mode to rende the statistics with
         */
-        ProfilerVerbosity _renderStatisticsMode = ProfilerVerbosity::FPSOnly;
+        iProfilerVerbosity _renderStatisticsMode = iProfilerVerbosity::FPSOnly;
 
         /*! measures time so we can update statistics in cetain intervals
         */

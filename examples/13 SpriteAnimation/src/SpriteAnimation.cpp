@@ -23,6 +23,7 @@ using namespace IgorAux;
 #include <iScene.h>
 #include <iNodeVisitorPrintTree.h>
 #include <iNodeCamera.h>
+#include <iNodeModel.h>
 using namespace Igor;
 
 #include <sstream>
@@ -84,7 +85,7 @@ void SpriteAnimation::init()
 	material->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
 	material->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
-	_materialTerrain = iMaterialResourceFactory::getInstance().createMaterial(); 
+	_materialTerrain = iMaterialResourceFactory::getInstance().createMaterial();
 	material = iMaterialResourceFactory::getInstance().getMaterial(_materialTerrain);
 	material->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
 	material->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
@@ -102,34 +103,27 @@ void SpriteAnimation::init()
 
 	TileMapGenerator tileMapGenerator;
 	tileMapGenerator.setAtlas(_tiles);
-	iMeshPtr terrainMesh = tileMapGenerator.generateFromBitmap("SpriteAnimationTerrain.png");
+	tileMapGenerator.setMaterial(_materialTerrain);
+	iNodePtr terrainNode = tileMapGenerator.generateFromBitmap("SpriteAnimationTerrain.png");
 
-	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-	transformNode->translate(500, 1000, 0);
-
-	iNodeMesh* meshNode = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
-	meshNode->setMesh(terrainMesh);
-	meshNode->setMaterial(_materialTerrain);
-	transformNode->insertNode(meshNode);
-	_scene->getRoot()->insertNode(transformNode);
-
-	iTargetMaterial* targetMaterial = meshNode->getTargetMaterial();
-	targetMaterial->setTexture(_tiles->getTexture(), 0);
+	_terrainTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	_terrainTransform->translate(0, 0, 0);
+	_terrainTransform->insertNode(terrainNode);
+	_scene->getRoot()->insertNode(_terrainTransform);
 
 	// setup camera
-	iNodeTransform* cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-	cameraTranslation->translate(0, 0, 30);
+	_cameraTranform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	_cameraTranform->translate(0, 0, 30);
 	// anf of corse the camera
 	iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
-	cameraTranslation->insertNode(camera);
-	_scene->getRoot()->insertNode(cameraTranslation);
+	_cameraTranform->insertNode(camera);
+	_scene->getRoot()->insertNode(_cameraTranform);
 	_view.setCurrentCamera(camera->getID());
 
 	for (int i = 0; i < 5; ++i)
 	{
 		_flags[i] = false;
 	}
-
 
 	// load requested textures
 	iTextureResourceFactory::getInstance().flush();
@@ -149,6 +143,8 @@ void SpriteAnimation::init()
 	_animationTimer.setIntervall(300);
 	_animationTimer.registerTimerDelegate(iTimerTickDelegate(this, &SpriteAnimation::onAnimationTimerTick));
 	_animationTimer.start();
+
+	_profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
 }
 
 void SpriteAnimation::deinit()
@@ -336,7 +332,7 @@ void SpriteAnimation::onHandle()
 	}
 	if (_flags[1])
 	{
-		velocity._y -= 1;
+		velocity._y -= 0.5;
 	}
 	if (_flags[2])
 	{
@@ -344,7 +340,7 @@ void SpriteAnimation::onHandle()
 	}
 	if (_flags[3])
 	{
-		velocity._y += 1;
+		velocity._y += 0.5;
 	}
 
 	if (velocity.length())
@@ -358,6 +354,10 @@ void SpriteAnimation::onHandle()
 
 	_characterVelocity = velocity;
 	_characterPosition += _characterVelocity;
+
+	con_endl(_characterPosition);
+
+	_cameraTranform->setPosition(_characterPosition._x, _characterPosition._y, 30);
 
 	CharacterState oldCharacterState = _characterState;
 
@@ -463,7 +463,7 @@ void SpriteAnimation::onRender()
 	iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
 	// draw walking character
-	iRenderer::getInstance().drawSprite(_walk, _animationOffset + _animationIndex, _characterPosition);
+	iRenderer::getInstance().drawSprite(_walk, _animationOffset + _animationIndex, iaVector2f(100, 100));
 
 	drawLogo();
 

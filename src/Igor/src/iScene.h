@@ -332,6 +332,10 @@ namespace Igor
 
 	};
 
+	/*! scene pointer definition
+	*/
+	typedef iScene* iScenePtr;
+
 };
 
 #endif
