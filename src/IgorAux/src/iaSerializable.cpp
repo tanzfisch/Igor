@@ -10,67 +10,67 @@
 namespace IgorAux
 {
 
-    bool iaSerializable::write(ofstream& stream, const iaColor3f& value)
+    bool iaSerializable::write(std::ofstream& stream, const iaColor3f& value)
     {
         return iaSerializable::write(stream, reinterpret_cast<const char*>(&value._r), sizeof(iaColor3f));
     }
 
-    bool iaSerializable::read(ifstream& stream, iaColor3f& value)
+    bool iaSerializable::read(std::ifstream& stream, iaColor3f& value)
     {
         return iaSerializable::read(stream, reinterpret_cast<char*>(&value._r), sizeof(iaColor3f));
     }
 
-    bool iaSerializable::write(ofstream& stream, const iaColor3c& value)
+    bool iaSerializable::write(std::ofstream& stream, const iaColor3c& value)
     {
         return iaSerializable::write(stream, reinterpret_cast<const char*>(&value._r), sizeof(iaColor3c));
     }
 
-    bool iaSerializable::read(ifstream& stream, iaColor3c& value)
+    bool iaSerializable::read(std::ifstream& stream, iaColor3c& value)
     {
         return iaSerializable::read(stream, reinterpret_cast<char*>(&value._r), sizeof(iaColor3c));
     }
 
-    bool iaSerializable::write(ofstream& stream, const iaColor4f& value)
+    bool iaSerializable::write(std::ofstream& stream, const iaColor4f& value)
     {
         return iaSerializable::write(stream, reinterpret_cast<const char*>(&value._r), sizeof(iaColor4f));
     }
 
-    bool iaSerializable::read(ifstream& stream, iaColor4f& value)
+    bool iaSerializable::read(std::ifstream& stream, iaColor4f& value)
     {
         return iaSerializable::read(stream, reinterpret_cast<char*>(&value._r), sizeof(iaColor4f));
     }
 
-    bool iaSerializable::write(ofstream& stream, const iaVector2f& value)
+    bool iaSerializable::write(std::ofstream& stream, const iaVector2f& value)
     {
         return iaSerializable::write(stream, reinterpret_cast<const char*>(value.getData()), sizeof(iaVector2f));
     }
 
-    bool iaSerializable::read(ifstream& stream, iaVector2f& value)
+    bool iaSerializable::read(std::ifstream& stream, iaVector2f& value)
     {
         return iaSerializable::read(stream, reinterpret_cast<char*>(value.getData()), sizeof(iaVector2f));
     }
 
-    bool iaSerializable::write(ofstream& stream, const iaVector3f& value)
+    bool iaSerializable::write(std::ofstream& stream, const iaVector3f& value)
     {
         return iaSerializable::write(stream, reinterpret_cast<const char*>(value.getData()), sizeof(iaVector3f));
     }
 
-    bool iaSerializable::read(ifstream& stream, iaVector3f& value)
+    bool iaSerializable::read(std::ifstream& stream, iaVector3f& value)
     {
         return iaSerializable::read(stream, reinterpret_cast<char*>(value.getData()), sizeof(iaVector3f));
     }
 
-    bool iaSerializable::write(ofstream& stream, const iaVector4f& value)
+    bool iaSerializable::write(std::ofstream& stream, const iaVector4f& value)
     {
         return iaSerializable::write(stream, reinterpret_cast<const char*>(value.getData()), sizeof(iaVector4f));
     }
 
-    bool iaSerializable::read(ifstream& stream, iaVector4f& value)
+    bool iaSerializable::read(std::ifstream& stream, iaVector4f& value)
     {
         return iaSerializable::read(stream, reinterpret_cast<char*>(value.getData()), sizeof(iaVector4f));
     }
 
-    bool iaSerializable::write(ofstream& stream, const iaGradientf& value)
+    bool iaSerializable::write(std::ofstream& stream, const iaGradientf& value)
     {
         auto gradient = value.getValues();
         if(!iaSerializable::writeUInt16(stream, static_cast<uint16>(gradient.size())))
@@ -94,7 +94,7 @@ namespace IgorAux
         return true;
     }
 
-    bool iaSerializable::read(ifstream& stream, iaGradientf& value)
+    bool iaSerializable::read(std::ifstream& stream, iaGradientf& value)
     {
         uint16 entryCount = 0;
         float32 gPos = 0;
@@ -123,7 +123,7 @@ namespace IgorAux
         return true;
     }
 
-    bool iaSerializable::write(ofstream& stream, const iaGradientui& value)
+    bool iaSerializable::write(std::ofstream& stream, const iaGradientui& value)
     {
         auto gradient = value.getValues();
         if (!iaSerializable::writeUInt16(stream, static_cast<uint16>(gradient.size())))
@@ -147,7 +147,7 @@ namespace IgorAux
         return true;
     }
 
-    bool iaSerializable::read(ifstream& stream, iaGradientui& value)
+    bool iaSerializable::read(std::ifstream& stream, iaGradientui& value)
     {
         uint16 entryCount = 0;
         float32 gPos = 0;
@@ -176,7 +176,7 @@ namespace IgorAux
         return true;
     }
 
-    bool iaSerializable::write(ofstream& stream, const iaGradientVector3f& value)
+    bool iaSerializable::write(std::ofstream& stream, const iaGradientVector3f& value)
     {
         auto gradient = value.getValues();
         if (!iaSerializable::writeUInt16(stream, static_cast<uint16>(gradient.size())))
@@ -200,7 +200,7 @@ namespace IgorAux
         return true;
     }
 
-    bool iaSerializable::read(ifstream& stream, iaGradientVector3f& value)
+    bool iaSerializable::read(std::ifstream& stream, iaGradientVector3f& value)
     {
         uint16 entryCount = 0;
         float32 gPos = 0;
@@ -229,7 +229,7 @@ namespace IgorAux
         return true;
     }
 
-    bool iaSerializable::write(ofstream& stream, const iaGradientVector2f& value)
+    bool iaSerializable::write(std::ofstream& stream, const iaGradientVector2f& value)
     {
         auto gradient = value.getValues();
         if (!iaSerializable::writeUInt16(stream, static_cast<uint16>(gradient.size())))
@@ -253,7 +253,7 @@ namespace IgorAux
         return true;
     }
 
-    bool iaSerializable::read(ifstream& stream, iaGradientVector2f& value)
+    bool iaSerializable::read(std::ifstream& stream, iaGradientVector2f& value)
     {
         uint16 entryCount = 0;
         float32 gPos = 0;
@@ -282,7 +282,7 @@ namespace IgorAux
         return true;
     }
 
-    bool iaSerializable::write(ofstream& stream, const iaGradientColor4f& value)
+    bool iaSerializable::write(std::ofstream& stream, const iaGradientColor4f& value)
     {
         auto gradient = value.getValues();
         if (!iaSerializable::writeUInt16(stream, static_cast<uint16>(gradient.size())))
@@ -306,7 +306,7 @@ namespace IgorAux
         return true;
     }
 
-    bool iaSerializable::read(ifstream& stream, iaGradientColor4f& value)
+    bool iaSerializable::read(std::ifstream& stream, iaGradientColor4f& value)
     {
         uint16 entryCount = 0;
         float32 gPos = 0;
@@ -335,7 +335,7 @@ namespace IgorAux
         return true;
     }
 
-    bool iaSerializable::writeUTF8(ofstream& stream, const iaString& value)
+    bool iaSerializable::writeUTF8(std::ofstream& stream, const iaString& value)
     {
         con_assert(value.getUTF8Size() <= 0xffff, "string size out of range");
 
@@ -375,7 +375,7 @@ namespace IgorAux
         }
     }
 
-    bool iaSerializable::readUTF8(ifstream& stream, iaString& value)
+    bool iaSerializable::readUTF8(std::ifstream& stream, iaString& value)
     {
         con_assert(stream.is_open(), "stream not open");
 

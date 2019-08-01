@@ -37,7 +37,7 @@ CharacterController::CharacterController(iNodePtr node, int64 materiaID, const i
 
 	iNodeTransform* upperBodyTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 	_upperBodyTransformNodeID = upperBodyTransform->getID();
-	upperBodyTransform->translate(0, 0.55, 0);
+	upperBodyTransform->translate(0, _headHeight, 0);
 	headingTransform->insertNode(upperBodyTransform);
 
 	iNodeTransform* pitchTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -310,7 +310,7 @@ float64 CharacterController::getFloorContactPoint(iaVector3d& point, iaVector3d&
 	target = matrix._pos;
 	target._y -= 5;
 
-	vector<ConvexCastReturnInfo> info;
+	std::vector<ConvexCastReturnInfo> info;
 
 	iPhysics::getInstance().convexCast(matrix, target, _collisionCast, iRayPreFilterDelegate(this, &CharacterController::onRayPreFilter), nullptr, info);
 

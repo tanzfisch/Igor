@@ -42,7 +42,7 @@ using namespace Igor;
 #include <sstream>
 #include <vector>
 #include <map>
-using namespace std;
+
 
 namespace Igor
 {
@@ -67,8 +67,7 @@ class UserControlGraphView : public iUserControl, public iNodeVisitor
 
 public:
 
-    UserControlGraphView();
-    virtual ~UserControlGraphView();
+	static iWidget* createInstance();
 
     void setSelectedNode(uint64 nodeID);
     uint64 getSelectedNode() const;
@@ -76,8 +75,6 @@ public:
     uint64 getRootNode();
     void refresh();
 
-    iWidget* getWidget();
-    
     void registerOnSelectionChange(GraphSelectionChangedDelegate selectionChangeDelegate);
     void unregisterOnSelectionChange(GraphSelectionChangedDelegate selectionChangeDelegate);
 
@@ -112,29 +109,27 @@ private:
     uint64 _root = iNode::INVALID_NODE_ID;
 	GraphSelectionChanged _selectionChange;
 
-	vector<iWidget*> _gridEntryWidgets;
-	vector<iWidget*> _allWidgets;
+	std::vector<iWidget*> _gridEntryWidgets;
 
     int32 _indentation = 0;
     bool _firstNode = true;
 
     uint64 _selectedNode = iNode::INVALID_NODE_ID;
 
-    iWidget* _rootWidget = nullptr;
     iWidgetGrid* _gridGraph = nullptr;
 
     iDialogMenu* _dialogMenu = nullptr;
-    vector<iaString> _dialogMenuTexts;
-    vector<iaString> _dialogMenuPictures;
+    std::vector<iaString> _dialogMenuTexts;
+    std::vector<iaString> _dialogMenuPictures;
 
-    vector<uint64*> _userData;
+    std::vector<uint64*> _userData;
 
     void clearGraph();
 
     iaString getIconTexture(iNodeType type);
 
     void initGUI();
-    void deinitGUI();
+	void deinitGUI();
 
     void OnSelectionChange(iWidget* widget);
     void OnContextMenu(iWidget* widget);
@@ -151,6 +146,9 @@ private:
     bool preOrderVisit(iNodePtr node, iNodePtr nextSibling) override;
     void postOrderVisit(iNodePtr node) override;
     void postTraverse() override;
+
+	UserControlGraphView();
+	~UserControlGraphView();
 
 };
 

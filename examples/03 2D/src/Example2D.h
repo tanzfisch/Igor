@@ -36,7 +36,8 @@
 #include <iaGradient.h>
 #include <iPerlinNoise.h>
 #include <iMaterial.h>
-#include <iStatisticsVisualizer.h>
+#include <iProfilerVisualizer.h>
+#include <iTexture.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -46,12 +47,11 @@ using namespace Igor;
 using namespace IgorAux;
 
 #include <memory>
-using namespace std;
+
 
 namespace Igor
 {
-    class iSprite;
-    class iTexture;
+    class iAtlas;
     class iTextureFont;
 }
 
@@ -80,9 +80,9 @@ private:
     */
     iWindow _window;
 
-    /*! visualizes statistics
+    /*! visualizes profiler data
     */
-    iStatisticsVisualizer _statisticsVisualizer;
+    iProfilerVisualizer _profilerVisualizer;
 
     /*! the view we want to render in
 
@@ -105,7 +105,7 @@ private:
 
     /*! texture used for the particles
     */
-    shared_ptr<iTexture> _particleTexture = nullptr;
+    iTexturePtr _particleTexture = nullptr;
 
     /*! just increases over time and feeds a sinus function to change the orientation of the particle stream
     */
@@ -117,19 +117,15 @@ private:
 	
     /*! opengl logo
     */
-	iSprite* _openGLLogo = nullptr;
+	iAtlas* _openGLLogo = nullptr;
 
     /*! Igor logo
     */
-    shared_ptr<iTexture> _igorLogo = nullptr;
+    iTexturePtr _igorLogo = nullptr;
 
     /*! current position of renderer logo 
     */
     iaVector2f _logoPosition{200, 200};
-
-    /*! rotation angle of logo in radians
-    */
-    float32 _logoRotationAngle = 0.0f;
 
     /*! texture font
     */
@@ -137,11 +133,11 @@ private:
 
     /*! background tileable texture
     */
-    shared_ptr<iTexture> _backgroundTexture = nullptr;
+    iTexturePtr _backgroundTexture = nullptr;
 
     /*! a dummy texture
     */
-	shared_ptr<iTexture> _dummyTexture = nullptr;
+	iTexturePtr _dummyTexture = nullptr;
 
     /*! material id of a textured material
     */

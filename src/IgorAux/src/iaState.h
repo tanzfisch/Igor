@@ -33,7 +33,7 @@
 #include <iaEvent.h>
 
 #include <vector>
-using namespace std;
+
 
 namespace IgorAux
 {

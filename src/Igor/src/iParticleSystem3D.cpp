@@ -14,7 +14,7 @@
 using namespace IgorAux;
 
 #include <iostream>
-using namespace std;
+
 
 namespace Igor
 {
@@ -368,7 +368,7 @@ namespace Igor
         }
     }
 
-    const deque<iParticle>& iParticleSystem3D::getCurrentFrame() const
+    const std::deque<iParticle>& iParticleSystem3D::getCurrentFrame() const
     {
         return _particles;
     }

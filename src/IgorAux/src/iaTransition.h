@@ -35,7 +35,7 @@
 #include <iaState.h>
 
 #include <map>
-using namespace std;
+
 
 namespace IgorAux
 {
@@ -86,7 +86,7 @@ namespace IgorAux
 
         /*! map of gate flags
         */
-        map<uint32, bool> _gates;
+        std::map<uint32, bool> _gates;
 
         /*! creates a gate
 

@@ -56,15 +56,16 @@ class UserControlMesh : public iUserControl
 {
 public:
 
-    UserControlMesh();
-    ~UserControlMesh();
-
-    iWidget* getWidget();
+	/*! creates instance of this widget type
+	*/
+	static iWidget* createInstance();
 
     void setNode(uint32 id);
     uint32 getNode();
 
 private:
+
+	void draw() override;
 
     iWidgetGrid* _grid = nullptr;
 
@@ -79,8 +80,6 @@ private:
 
     iWidgetNumberChooser* _textShininess = nullptr;
     iWidgetSlider* _sliderShininess = nullptr;
-
-    vector<iWidget*> _allWidgets;
 
     iaColor4f _ambient;
     iaColor4f _emissive;
@@ -99,7 +98,7 @@ private:
     bool _ignoreNodeUpdate = false;
     uint32 _loadTextureTexUnit = 0;
 
-    vector<uint32*> _userDataMaterialID;
+    std::vector<uint32*> _userDataMaterialID;
 
     void onAmbientChange(const iaColor4f& color);
     void onDiffuseChange(const iaColor4f& color);
@@ -107,6 +106,7 @@ private:
     void onEmissiveChange(const iaColor4f& color);
 
     void onDoUpdateNode(iWidget* source);
+	void onBakeAction(iWidget* source);
 
     void onTextChangedShininess(iWidget* source);
     void onSliderChangedShininess(iWidget* source);
@@ -117,8 +117,11 @@ private:
     void updateNode();
 
     void initGUI();
-    void deinitGUI();
+	void deinitGUI();
 
+	UserControlMesh();
+	~UserControlMesh();
+	
 };
 
 #endif

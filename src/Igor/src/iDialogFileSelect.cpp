@@ -22,11 +22,6 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iDialogFileSelect::iDialogFileSelect()
-	{
-		initGUI();
-	}
-
 	iDialogFileSelect::~iDialogFileSelect()
 	{
 		deinitGUI();
@@ -39,6 +34,11 @@ namespace Igor
 
 	void iDialogFileSelect::initGUI()
 	{
+		if (_grid != nullptr)
+		{
+			return;
+		}
+
 		_grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
 		_grid->setBorder(4);
 		_grid->setCellSpacing(4);
@@ -112,72 +112,44 @@ namespace Igor
 
 	void iDialogFileSelect::deinitGUI()
 	{
+		if (_grid == nullptr)
+		{
+			return;
+		}
+
+		clearFileGrid();
+
 		removeWidget(_grid);
+		iWidgetManager::getInstance().destroyWidget(_grid);
 
-		if (_filenameEdit != nullptr)
-		{
-			_filenameEdit->unregisterOnChangeEvent(iChangeDelegate(this, &iDialogFileSelect::onFilenameEditChange));
-			iWidgetManager::getInstance().destroyWidget(_filenameEdit);
-		}
-
-		if (_filenameLabel != nullptr)
-		{
-			iWidgetManager::getInstance().destroyWidget(_filenameLabel);
-		}
-
-		if (_filenameGrid != nullptr)
-		{
-			iWidgetManager::getInstance().destroyWidget(_filenameGrid);
-		}
-
-		if (_fileGrid != nullptr)
-		{
-			_fileGrid->unregisterOnDoubleClickEvent(iDoubleClickDelegate(this, &iDialogFileSelect::onDoubleClick));
-			clearFileGrid();
-			iWidgetManager::getInstance().destroyWidget(_fileGrid);
-		}
-
-		if (_pathEdit != nullptr)
-		{
-			_pathEdit->unregisterOnChangeEvent(iChangeDelegate(this, &iDialogFileSelect::onPathEditChange));
-			iWidgetManager::getInstance().destroyWidget(_pathEdit);
-		}
-
-		if (_okButton != nullptr)
-		{
-			_okButton->unregisterOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onOK));
-			iWidgetManager::getInstance().destroyWidget(_okButton);
-		}
-
-		if (_cancelButton != nullptr)
-		{
-			_cancelButton->unregisterOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onCancel));
-			iWidgetManager::getInstance().destroyWidget(_cancelButton);
-		}
-
-		if (_grid != nullptr)
-		{
-			iWidgetManager::getInstance().destroyWidget(_grid);
-		}
-
-		if (_headerLabel != nullptr)
-		{
-			iWidgetManager::getInstance().destroyWidget(_headerLabel);
-		}
-
-		if (_scroll != nullptr)
-		{
-			iWidgetManager::getInstance().destroyWidget(_scroll);
-		}
-
-		if (_buttonGrid != nullptr)
-		{
-			iWidgetManager::getInstance().destroyWidget(_buttonGrid);
-		}
+		_okButton = nullptr;
+		_cancelButton = nullptr;
+		_scroll = nullptr;
+		_grid = nullptr;
+		_fileGrid = nullptr;
+		_headerLabel = nullptr;
+		_filenameLabel = nullptr;
+		_pathEdit = nullptr;
+		_filenameEdit = nullptr;
+		_buttonGrid = nullptr;
+		_filenameGrid = nullptr;
 	}
 
-	void iDialogFileSelect::initDialog(const iaString& path)
+	void iDialogFileSelect::configure(const iaString& path)
 	{
+		initGUI();
+
+		if (_load)
+		{
+			_headerLabel->setText("Load File");
+			_okButton->setText("Load");
+		}
+		else
+		{
+			_headerLabel->setText("Save File");
+			_okButton->setText("Save");
+		}
+
 		if (iaFile::exist(path))
 		{
 			iaFile file(path);
@@ -208,20 +180,16 @@ namespace Igor
 	{
 		_load = true;
 		_fileDialogCloseEvent.append(closeDelegate);
-		_headerLabel->setText("Load File");
-		_okButton->setText("Load");		
-		
-		initDialog(path);
+	
+		configure(path);
 	}
 
 	void iDialogFileSelect::save(iDialogFileSelectCloseDelegate closeDelegate, const iaString& path)
 	{
 		_load = false;
 		_fileDialogCloseEvent.append(closeDelegate);
-		_headerLabel->setText("Save File");
-		_okButton->setText("Save");
 
-		initDialog(path);
+		configure(path);
 	}
 
 	const iaString& iDialogFileSelect::getDirectory() const
@@ -369,32 +337,33 @@ namespace Igor
 		_fileGrid->addWidget(entry, col, row, userData);
 
 		_fileGridWidgets.push_back(entry);
-		_fileGridWidgets.push_back(icon);
-		_fileGridWidgets.push_back(label);
 	}
 
 	void iDialogFileSelect::clearFileGrid()
 	{
+		if (_fileGrid != nullptr)
+		{
+			for (uint32 row = 0; row < _fileGrid->getRowCount(); ++row)
+			{
+				for (uint32 col = 0; col < _fileGrid->getColumnCount(); ++col)
+				{
+					void* data = _fileGrid->getUserData(col, row);
+					if (data != nullptr)
+					{
+						delete data;
+					}
+				}
+			}
+
+			_fileGrid->clear();
+		}
+
 		for (auto iter : _fileGridWidgets)
 		{
 			iWidgetManager::getInstance().destroyWidget(iter);
 		}
 
 		_fileGridWidgets.clear();
-
-		for (uint32 row = 0; row < _fileGrid->getRowCount(); ++row)
-		{
-			for (uint32 col = 0; col < _fileGrid->getColumnCount(); ++col)
-			{
-				void* data = _fileGrid->getUserData(col, row);
-				if (data != nullptr)
-				{
-					delete data;
-				}
-			}
-		}
-
-		_fileGrid->clear();
 	}
 
 	void iDialogFileSelect::onDoubleClick(iWidget* source)
@@ -453,5 +422,7 @@ namespace Igor
 
 		_fileDialogCloseEvent(_fileDialogReturnValue);
 		_fileDialogCloseEvent.clear();
+
+		deinitGUI();
 	}
 }

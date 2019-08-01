@@ -30,17 +30,15 @@
 #define __iWIDGETPICTURE__
 
 #include <iWidget.h>
+#include <iTexture.h>
 
 #include <iaString.h>
 using namespace IgorAux;
 
 #include <memory>
-using namespace std;
 
 namespace Igor
 {
-
-    class iTexture;
 
     /*! picture widget
 
@@ -104,7 +102,7 @@ namespace Igor
 
         /*! shared pointer to texture
         */
-        shared_ptr<iTexture> _texture = nullptr;
+        iTexturePtr _texture;
 
         /*! maximum dispaly width 
         */

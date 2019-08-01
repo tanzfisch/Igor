@@ -3387,9 +3387,9 @@ namespace Igor
         return result;
     }
 
-    shared_ptr<iMesh> iContouringCubes::compile(iaVector3I pos, iaVector3I volume, uint32 lod, uint32 neighborLODs)
+    iMeshPtr iContouringCubes::compile(iaVector3I pos, iaVector3I volume, uint32 lod, uint32 neighborLODs)
     {
-        shared_ptr<iMesh> result;
+        iMeshPtr result;
 
         _lod = lod;
         _scale = calcLODScale(_lod);

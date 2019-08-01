@@ -32,7 +32,7 @@
 #include <iaDefines.h>
 #include <iaConsole.h>
 #include <list>
-using namespace std;
+
 
 namespace IgorAux
 {
@@ -112,7 +112,7 @@ namespace IgorAux
                 
         /*! blocks storing the RLE information
         */
-        vector<iaRLEBlock<TValue, TIndex>> _blocks;
+        std::vector<iaRLEBlock<TValue, TIndex>> _blocks;
 
     };
 

@@ -26,21 +26,21 @@ Widget3DLocator::Widget3DLocator(iWindow* window, iView* view, iScene* scene)
 	_red->setSpecular(iaColor3f(0.2f, 0.0f, 0.0f));
 	_red->setDiffuse(iaColor3f(0.5f, 0.0f, 0.0f));
 	_red->setAmbient(iaColor3f(0.3f, 0.0f, 0.0f));
-	_red->setAlpha(0.6);
+	_red->setAlpha(0.8);
 
 	_green = iMaterialResourceFactory::getInstance().createTargetMaterial();
 	_green->setEmissive(iaColor3f(0.0f, 0.6f, 0.0f));
 	_green->setSpecular(iaColor3f(0.0f, 0.2f, 0.0f));
 	_green->setDiffuse(iaColor3f(0.0f, 0.5f, 0.0f));
 	_green->setAmbient(iaColor3f(0.0f, 0.3f, 0.0f));
-	_green->setAlpha(0.6);
+	_green->setAlpha(0.8);
 
 	_blue = iMaterialResourceFactory::getInstance().createTargetMaterial();
 	_blue->setEmissive(iaColor3f(0.0f, 0.0f, 0.6f));
 	_blue->setSpecular(iaColor3f(0.0f, 0.0f, 0.2f));
 	_blue->setDiffuse(iaColor3f(0.0f, 0.0f, 0.5f));
 	_blue->setAmbient(iaColor3f(0.0f, 0.0f, 0.3f));
-	_blue->setAlpha(0.6);
+	_blue->setAlpha(0.8);
 
 	_material = iMaterialResourceFactory::getInstance().createMaterial("Manipulator");
 	auto material = iMaterialResourceFactory::getInstance().getMaterial(_material);
@@ -89,7 +89,7 @@ void Widget3DLocator::createLocator()
 	_scene->getRoot()->insertNode(_rootTransform);
 	_rootTransform->setActive(false);
 
-	shared_ptr<iMesh> locatorMesh = createLocatorMesh();
+	iMeshPtr locatorMesh = createLocatorMesh();
 
 	iNodeTransform* xTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 	xTransform->rotate(-M_PI * 0.5, iaAxis::Z);
@@ -121,13 +121,13 @@ void Widget3DLocator::createLocator()
 	zTransform->insertNode(zCylinder);
 }
 
-shared_ptr<iMesh> Widget3DLocator::createLocatorMesh()
+iMeshPtr Widget3DLocator::createLocatorMesh()
 {
 	iMeshBuilder meshBuilder;
 
 	iaMatrixf matrix;
 	matrix.translate(0.0, -2.0, 0.0);
-	matrix.scale(0.01, 4.0, 0.01);
+	matrix.scale(0.025, 4.0, 0.025);
 	meshBuilder.setMatrix(matrix);
 	iMeshBuilderUtils::addCylinder(meshBuilder, 1, 1, 4);
 	meshBuilder.calcNormals(true);

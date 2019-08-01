@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.22.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -129,11 +129,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a05017d35bf8586ba9319db823976b592"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5c9c6cedc257e8a6f58ec1ac02d4d1e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_group.html#ae5c9c6cedc257e8a6f58ec1ac02d4d1e">removeRenderNode</a> (uint64 renderNodeID, bool instancing)</td></tr>
 <tr class="separator:ae5c9c6cedc257e8a6f58ec1ac02d4d1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac159f2c1d4d4d226ac8ff15e139677ff"><td class="memItemLeft" align="right" valign="top">vector&lt; uint64 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_group.html#ac159f2c1d4d4d226ac8ff15e139677ff">getRenderNodes</a> () const </td></tr>
-<tr class="separator:ac159f2c1d4d4d226ac8ff15e139677ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5da04cc0e4c0a6133c6f6d1e4057f924"><td class="memItemLeft" align="right" valign="top">map&lt; shared_ptr&lt; <a class="el" href="class_igor_1_1i_mesh_buffers.html">iMeshBuffers</a> &gt;<br class="typebreak" />
-, <a class="el" href="struct_igor_1_1i_instanced_nodes.html">iInstancedNodes</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_group.html#a5da04cc0e4c0a6133c6f6d1e4057f924">getInstancedRenderNodes</a> () const </td></tr>
-<tr class="separator:a5da04cc0e4c0a6133c6f6d1e4057f924"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabbe62610d346db24c6ac932b5c3dea8"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uint64 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_group.html#aabbe62610d346db24c6ac932b5c3dea8">getRenderNodes</a> () const </td></tr>
+<tr class="separator:aabbe62610d346db24c6ac932b5c3dea8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e43301e59762208d42917a174ec2c36"><td class="memItemLeft" align="right" valign="top">std::map&lt; std::shared_ptr<br class="typebreak" />
+&lt; <a class="el" href="class_igor_1_1i_mesh_buffers.html">iMeshBuffers</a> &gt;<br class="typebreak" />
+, <a class="el" href="struct_igor_1_1i_instanced_nodes.html">iInstancedNodes</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material_group.html#a0e43301e59762208d42917a174ec2c36">getInstancedRenderNodes</a> () const </td></tr>
+<tr class="separator:a0e43301e59762208d42917a174ec2c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>material group describes a group of render nodes that use the same material </p>
@@ -221,12 +222,12 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a5da04cc0e4c0a6133c6f6d1e4057f924"></a>
+<a class="anchor" id="a0e43301e59762208d42917a174ec2c36"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">map&lt; shared_ptr&lt; <a class="el" href="class_igor_1_1i_mesh_buffers.html">iMeshBuffers</a> &gt;, <a class="el" href="struct_igor_1_1i_instanced_nodes.html">iInstancedNodes</a> &gt; Igor::iMaterialGroup::getInstancedRenderNodes </td>
+          <td class="memname">std::map&lt; std::shared_ptr&lt; <a class="el" href="class_igor_1_1i_mesh_buffers.html">iMeshBuffers</a> &gt;, <a class="el" href="struct_igor_1_1i_instanced_nodes.html">iInstancedNodes</a> &gt; Igor::iMaterialGroup::getInstancedRenderNodes </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -237,12 +238,12 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ac159f2c1d4d4d226ac8ff15e139677ff"></a>
+<a class="anchor" id="aabbe62610d346db24c6ac932b5c3dea8"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt; uint64 &gt; Igor::iMaterialGroup::getRenderNodes </td>
+          <td class="memname">std::vector&lt; uint64 &gt; Igor::iMaterialGroup::getRenderNodes </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>

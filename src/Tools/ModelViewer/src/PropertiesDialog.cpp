@@ -30,7 +30,6 @@ PropertiesDialog::PropertiesDialog()
 
 PropertiesDialog::~PropertiesDialog()
 {
-    deinitGUI();
 }
 
 iDialog* PropertiesDialog::createInstance()
@@ -45,7 +44,6 @@ void PropertiesDialog::initGUI()
     setVerticalAlignment(iVerticalAlignment::Strech);
 
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-    _allwidgets.push_back(_grid);
     _grid->setBorder(2);
     _grid->setCellSpacing(8);
 	_grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -53,11 +51,11 @@ void PropertiesDialog::initGUI()
 	_grid->setStrechRow(0);
     _grid->setStrechColumn(0);
     
-    _userControlProperties = new UserControlProperties();
+	_userControlProperties = static_cast<UserControlProperties*>(iWidgetManager::getInstance().createWidget("UserControlProperties"));
     _userControlProperties->registerStructureChangedDelegate(StructureChangedDelegate(this, &PropertiesDialog::onStructureChanged));
+	_grid->addWidget(_userControlProperties, 0, 0);
 
     addWidget(_grid);
-    _grid->addWidget(_userControlProperties->getWidget(), 0, 0);
 }
 
 void PropertiesDialog::onStructureChanged()
@@ -73,23 +71,6 @@ void PropertiesDialog::onGraphViewSelectionChanged(uint64 nodeID)
 void PropertiesDialog::onMaterialSelectionChanged(uint64 materialID)
 {
 	_userControlProperties->setProperty(materialID, PropertyType::Material);
-}
-
-void PropertiesDialog::deinitGUI()
-{
-    removeWidget(_grid);
-
-    if (_userControlProperties != nullptr)
-    {
-        _userControlProperties->unregisterStructureChangedDelegate(StructureChangedDelegate(this, &PropertiesDialog::onStructureChanged));
-        delete _userControlProperties;
-        _userControlProperties = nullptr;
-    }
-
-    for (auto widget : _allwidgets)
-    {
-        iWidgetManager::getInstance().destroyWidget(widget);
-    }
 }
 
 void PropertiesDialog::registerPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate)

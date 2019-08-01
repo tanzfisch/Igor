@@ -40,7 +40,7 @@ using namespace IgorAux;
 
 #include <map>
 #include <memory>
-using namespace std;
+
 
 namespace Igor
 {
@@ -68,7 +68,7 @@ namespace Igor
         \param parameter optional generator parameters
         \returns shared pointer to model
         */
-        shared_ptr<iModel> requestModelData(const iaString& filename, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iModelDataInputParameter* parameter = nullptr);
+        iModelPtr requestModelData(const iaString& filename, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iModelDataInputParameter* parameter = nullptr);
 
         /*! loads a model synchronously
 
@@ -78,7 +78,7 @@ namespace Igor
         \param instancing true: instancing will be used; false: instancing will only be used if already configured by the model to be loaded
         \returns shared pointer to model
         */
-        shared_ptr<iModel> loadModelData(const iaString& filename, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iModelDataInputParameter* parameter = nullptr);
+		iModelPtr loadModelData(const iaString& filename, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iModelDataInputParameter* parameter = nullptr);
 
         /*! loads unloads models depending on theirs request status ans reference count
 
@@ -130,15 +130,15 @@ namespace Igor
 
         /*! map of models
         */
-		map<int64, shared_ptr<iModel>> _models;
+		std::map<int64, iModelPtr> _models;
 
         /*! contains models that habe to be loaded asynchronously
         */
-        vector<shared_ptr<iModel>> _loadingQueue;
+        std::vector<iModelPtr> _loadingQueue;
 
         /*! list of running tasks triggered by resource factory
         */
-        vector<uint64> _runningTasks;
+        std::vector<uint64> _runningTasks;
 
         /*! mutex to save the running tasks list
         */
@@ -153,7 +153,7 @@ namespace Igor
         key hash value of model data io identifier
         value function pointer to model data io creator
         */
-        map<int64, iCreateModelDataIOInstance> _modelDataIOCreators;
+        std::map<int64, iCreateModelDataIOInstance> _modelDataIOCreators;
 
         /*! figures out what format we are dealing with
 

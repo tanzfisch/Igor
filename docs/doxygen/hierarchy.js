@@ -1,6 +1,7 @@
 var hierarchy =
 [
     [ "Igor::ConvexCastReturnInfo", "struct_igor_1_1_convex_cast_return_info.html", null ],
+    [ "Igor::iAtlas::Frame", "struct_igor_1_1i_atlas_1_1_frame.html", null ],
     [ "Igor::iAABox< T >", "class_igor_1_1i_a_a_box.html", null ],
     [ "Igor::iAABox< float32 >", "class_igor_1_1i_a_a_box.html", null ],
     [ "Igor::iAABox< float64 >", "class_igor_1_1i_a_a_box.html", null ],
@@ -61,6 +62,9 @@ var hierarchy =
     [ "IgorAux::iaSingleton< iPhysics >", "class_igor_aux_1_1ia_singleton.html", [
       [ "Igor::iPhysics", "class_igor_1_1i_physics.html", null ]
     ] ],
+    [ "IgorAux::iaSingleton< iProfiler >", "class_igor_aux_1_1ia_singleton.html", [
+      [ "Igor::iProfiler", "class_igor_1_1i_profiler.html", null ]
+    ] ],
     [ "IgorAux::iaSingleton< iRenderer >", "class_igor_aux_1_1ia_singleton.html", [
       [ "Igor::iRenderer", "class_igor_1_1i_renderer.html", null ]
     ] ],
@@ -72,9 +76,6 @@ var hierarchy =
     ] ],
     [ "IgorAux::iaSingleton< iSoundResourceFactory >", "class_igor_aux_1_1ia_singleton.html", [
       [ "Igor::iSoundResourceFactory", "class_igor_1_1i_sound_resource_factory.html", null ]
-    ] ],
-    [ "IgorAux::iaSingleton< iStatistics >", "class_igor_aux_1_1ia_singleton.html", [
-      [ "Igor::iStatistics", "class_igor_1_1i_statistics.html", null ]
     ] ],
     [ "IgorAux::iaSingleton< iTaskManager >", "class_igor_aux_1_1ia_singleton.html", [
       [ "Igor::iTaskManager", "class_igor_1_1i_task_manager.html", null ]
@@ -91,6 +92,7 @@ var hierarchy =
     [ "IgorAux::iaState", "class_igor_aux_1_1ia_state.html", null ],
     [ "IgorAux::iaStateMachine", "class_igor_aux_1_1ia_state_machine.html", null ],
     [ "IgorAux::iaString", "class_igor_aux_1_1ia_string.html", null ],
+    [ "Igor::iAtlas", "class_igor_1_1i_atlas.html", null ],
     [ "IgorAux::iaTransform< T >", "class_igor_aux_1_1ia_transform.html", null ],
     [ "IgorAux::iaTransition", "class_igor_aux_1_1ia_transition.html", null ],
     [ "IgorAux::iaVector2< T >", "class_igor_aux_1_1ia_vector2.html", null ],
@@ -182,6 +184,8 @@ var hierarchy =
     [ "Igor::iPhysicsWorld", "class_igor_1_1i_physics_world.html", null ],
     [ "Igor::iPixmap", "class_igor_1_1i_pixmap.html", null ],
     [ "Igor::iPlane< T >", "class_igor_1_1i_plane.html", null ],
+    [ "Igor::iProfilerSection", "class_igor_1_1i_profiler_section.html", null ],
+    [ "Igor::iProfilerVisualizer", "class_igor_1_1i_profiler_visualizer.html", null ],
     [ "Igor::iRay< T >", "class_igor_1_1i_ray.html", null ],
     [ "Igor::iRectangle< T >", "class_igor_1_1i_rectangle.html", null ],
     [ "Igor::iRectangle< float32 >", "class_igor_1_1i_rectangle.html", null ],
@@ -200,9 +204,6 @@ var hierarchy =
     [ "Igor::iSphere< T >", "class_igor_1_1i_sphere.html", null ],
     [ "Igor::iSphere< float64 >", "class_igor_1_1i_sphere.html", null ],
     [ "Igor::iSphere< int64 >", "class_igor_1_1i_sphere.html", null ],
-    [ "Igor::iSprite", "class_igor_1_1i_sprite.html", null ],
-    [ "Igor::iStatisticsSection", "class_igor_1_1i_statistics_section.html", null ],
-    [ "Igor::iStatisticsVisualizer", "class_igor_1_1i_statistics_visualizer.html", null ],
     [ "Igor::iStopWatch", "class_igor_1_1i_stop_watch.html", null ],
     [ "Igor::iTargetMaterial", "class_igor_1_1i_target_material.html", null ],
     [ "Igor::iTask", "class_igor_1_1i_task.html", [

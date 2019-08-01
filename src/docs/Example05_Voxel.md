@@ -57,10 +57,10 @@ Define some thresholds for metaballs and caves.
 Define some metaballs for the base structure
 
         // define some metaballs
-        vector<pair<iaVector3f, float32>> metaballs;
+        std::vector<std::pair<iaVector3f, float32>> metaballs;
         for (int i = 0; i < 20; ++i)
         {
-            metaballs.push_back(pair<iaVector3f, float32>(iaVector3f(rand() % static_cast<int>(_voxelData->getWidth() * 0.6) + (_voxelData->getWidth() * 0.2),
+            metaballs.push_back(std::pair<iaVector3f, float32>(iaVector3f(rand() % static_cast<int>(_voxelData->getWidth() * 0.6) + (_voxelData->getWidth() * 0.2),
                 rand() % static_cast<int>(_voxelData->getHeight()*0.6) + (_voxelData->getHeight()* 0.2),
                 rand() % static_cast<int>(_voxelData->getDepth()*0.6) + (_voxelData->getDepth()*0.2)), (((rand() % 90) + 10) / 100.0) + 0.6));
         }
@@ -146,7 +146,7 @@ Now we use the iContouringCubes class to turn our voxel data in to a mesh.
 
         iContouringCubes contouringCubes;
         contouringCubes.setVoxelData(voxelData);
-        shared_ptr<iMesh> mesh = contouringCubes.compile(iaVector3I(), iaVector3I(width, height, depth));
+        iMeshPtr mesh = contouringCubes.compile(iaVector3I(), iaVector3I(width, height, depth));
 
 Theoretically the voxel data could result in a mesh that does not exists so we have to check that here.
 
@@ -196,7 +196,7 @@ And last but not least here is how we initialize our custom input parameters for
     _voxelMeshModel = voxelMeshModel->getID();
     // tell the model node to load data with specified identifier ans the above defined parameter
     // it is important to have a unique identifier each time we generate a mesh otherwhise the cache system would return us a prvious generated mesh
-    voxelMeshModel->setModel(iaString("VoxelMesh") + iaString::itoa(_incarnation++), inputParam);
+    voxelMeshModel->setModel(iaString("VoxelMesh") + iaString::toString(_incarnation++), inputParam);
     // create a transform node to center the mesh to the origin
     iNodeTransform* voxelMeshTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _voxelMeshTransform = voxelMeshTransform->getID();

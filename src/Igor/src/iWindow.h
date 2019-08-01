@@ -39,7 +39,7 @@
 using namespace IgorAux;
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -248,13 +248,13 @@ namespace Igor
 
         /*! list of windows
         */
-        vector<iView*> _views;
+        std::vector<iView*> _views;
 
         /*! list of registeres os event listeners
 
         currently all devices are singletons so all listeners will be added automatically
         */
-        vector<iOSEventListener*> _oseventlisteners;
+        std::vector<iOSEventListener*> _oseventlisteners;
 
         /*! width of the render area in pixel
         */

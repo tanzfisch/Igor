@@ -77,7 +77,7 @@ namespace Igor
 	void iTimer::handleTimerHandles()
 	{
 		float64 time = getMilliSeconds();
-		vector<iTimerHandle*> timerHandles(_timerHandles);
+		std::vector<iTimerHandle*> timerHandles(_timerHandles);
 		for(auto handle : timerHandles)
 		{
 			handle->handle(time);

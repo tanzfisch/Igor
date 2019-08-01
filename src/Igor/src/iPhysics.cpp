@@ -21,7 +21,6 @@
 #include <iPhysicsMaterialCombo.h>
 #include <iPhysicsCollisionConfig.h>
 #include <iNodeTransform.h>
-#include <iMesh.h>
 #include <iPhysicsUserMeshCollisionHandler.h>
 #include <iaConvert.h>
 
@@ -243,7 +242,7 @@ namespace Igor
         }
     }
 
-    void iPhysics::convexCast(const iaMatrixd& matrix, const iaVector3d& target, iPhysicsCollision* collisionVolume, iRayPreFilterDelegate preFilterDelegate, void* userData, vector<ConvexCastReturnInfo>& result, int32 maxContactCount)
+    void iPhysics::convexCast(const iaMatrixd& matrix, const iaVector3d& target, iPhysicsCollision* collisionVolume, iRayPreFilterDelegate preFilterDelegate, void* userData, std::vector<ConvexCastReturnInfo>& result, int32 maxContactCount)
     {
         con_assert(maxContactCount <= 16, "param out of range");
 
@@ -284,7 +283,7 @@ namespace Igor
     void iPhysics::queueTransformation(iPhysicsBody* body, const iaMatrixd& matrix)
     {
         _mutexBodiesToTransform.lock();
-        _bodiesToTransform.push_back(pair<iPhysicsBody*, iaMatrixd>(body, matrix));
+        _bodiesToTransform.push_back(std::pair<iPhysicsBody*, iaMatrixd>(body, matrix));
         _mutexBodiesToTransform.unlock();
     }
 
@@ -321,7 +320,7 @@ namespace Igor
         return createBox(width, height, depth, offset, _shadowWorldID);
     }
 
-    iPhysicsCollision* iPhysics::createMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixd& offset)
+    iPhysicsCollision* iPhysics::createMesh(iMeshPtr mesh, int64 faceAttribute, const iaMatrixd& offset)
     {
         return createMesh(mesh, faceAttribute, offset, _shadowWorldID);
     }
@@ -346,7 +345,7 @@ namespace Igor
         return createCylinder(radius0, radius1, height, offset, _shadowWorldID);
     }
 
-    iPhysicsCollision* iPhysics::createCompound(vector<iPhysicsCollision*>& collisions)
+    iPhysicsCollision* iPhysics::createCompound(std::vector<iPhysicsCollision*>& collisions)
     {
         return createCompound(collisions, _shadowWorldID);
     }
@@ -912,7 +911,7 @@ namespace Igor
         }
     }
 
-    iPhysicsCollision* iPhysics::createCompound(vector<iPhysicsCollision*>& collisions, uint64 worldID)
+    iPhysicsCollision* iPhysics::createCompound(std::vector<iPhysicsCollision*>& collisions, uint64 worldID)
     {
         iPhysicsCollision* result = nullptr;
         const NewtonWorld* world = static_cast<const NewtonWorld*>(getWorld(worldID)->getNewtonWorld());
@@ -1211,7 +1210,7 @@ namespace Igor
         }
     }
 
-    iPhysicsCollision* iPhysics::createMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixd& offset, uint64 worldID)
+    iPhysicsCollision* iPhysics::createMesh(iMeshPtr mesh, int64 faceAttribute, const iaMatrixd& offset, uint64 worldID)
     {
         con_assert(mesh != nullptr, "zero pointer");
 

@@ -38,7 +38,7 @@ using namespace IgorAux;
 
 #include <vector>
 #include <map>
-using namespace std;
+
 
 namespace Igor
 {
@@ -62,7 +62,7 @@ namespace Igor
         {
             /*! list of points in graph
             */
-            vector<iaVector2f> _points;
+            std::vector<iaVector2f> _points;
 
             /*! the line color
             */
@@ -144,13 +144,13 @@ namespace Igor
         \param id the graphs id
         \param points list of points for the graph
         */
-        void setPoints(uint64 id, vector<iaVector2f> points);
+        void setPoints(uint64 id, std::vector<iaVector2f> points);
 
         /*! \returns points of specified graph
 
         \param id the graphs id
         */
-        vector<iaVector2f> getPoints(uint64 id);
+        std::vector<iaVector2f> getPoints(uint64 id);
 
         /*! set user specified boudings / range of graph coordinate system
 
@@ -265,7 +265,7 @@ namespace Igor
 
         /*! maps with all graphs
         */
-        map<uint64, GraphData> _graphs;
+        std::map<uint64, GraphData> _graphs;
 
         /*! the grid resolution
         */

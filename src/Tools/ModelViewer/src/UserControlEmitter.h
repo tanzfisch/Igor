@@ -51,17 +51,7 @@ class UserControlEmitter : public iUserControl
 {
 public:
 
-    /*! ctor initializes gui
-    */
-    UserControlEmitter();
-
-    /*! dtor deinitializes gui
-    */
-    ~UserControlEmitter();
-
-    /*! \returns root widget
-    */
-    iWidget* getWidget();
+	static iWidget* createInstance();
 
     /*! set node id of emitter to configure
     */
@@ -84,10 +74,6 @@ private:
     /*! text box for emitter size
     */
     iWidgetTextEdit* _textSize = nullptr;
-
-    /*! list of all widgets for later release
-    */
-    vector<iWidget*> _allWidgets;
 
     /*! current selected node
     */
@@ -117,9 +103,14 @@ private:
     */
     void initGUI();
 
-    /*! release gui elements
-    */
-    void deinitGUI();
+	/*! ctor initializes gui
+	*/
+	UserControlEmitter();
+
+	/*! nothing todo
+	*/
+	~UserControlEmitter() = default;
+
 
 };
 

@@ -103,7 +103,7 @@ namespace Igor
         \param top top texture
         \param bottom bottom texture
         */
-        void setTextures(shared_ptr<iTexture> front, shared_ptr<iTexture> back, shared_ptr<iTexture> left, shared_ptr<iTexture> right, shared_ptr<iTexture> top, shared_ptr<iTexture> bottom);
+        void setTextures(iTexturePtr front, iTexturePtr back, iTexturePtr left, iTexturePtr right, iTexturePtr top, iTexturePtr bottom);
 
         /*! sets the sky box size
 
@@ -137,27 +137,27 @@ namespace Igor
 
         /*! shared pointer to front texture
         */
-		shared_ptr<iTexture> _front;
+		iTexturePtr _front;
 
         /*! shared pointer to back texture
         */
-        shared_ptr<iTexture> _back;
+        iTexturePtr _back;
 
         /*! shared pointer to left texture
         */
-        shared_ptr<iTexture> _left;
+        iTexturePtr _left;
 		
         /*! shared pointer to right texture
         */
-        shared_ptr<iTexture> _right;
+        iTexturePtr _right;
 		
         /*! shared pointer to top texture
         */
-        shared_ptr<iTexture> _top;
+        iTexturePtr _top;
 		
         /*! shared pointer to bottom texture
         */
-        shared_ptr<iTexture> _bottom;
+        iTexturePtr _bottom;
 
         /*! initializes member variables
         */

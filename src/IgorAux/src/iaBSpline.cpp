@@ -130,12 +130,12 @@ namespace IgorAux
 		_resolution = resolution;
 	}
 
-	vector<iaVector3f>& iaBSpline::getSupportPoints()
+	std::vector<iaVector3f>& iaBSpline::getSupportPoints()
 	{
 		return _supportpoints;
 	}
 
-	vector<iaVector3f>& iaBSpline::getSpline()
+	std::vector<iaVector3f>& iaBSpline::getSpline()
 	{
         if (_recalc)
         {

@@ -30,19 +30,18 @@
 #define __iWIDGETCOLORGRADIENT__
 
 #include <iWidget.h>
+#include <iTexture.h>
 
 #include <iaString.h>
 #include <iaGradient.h>
 using namespace IgorAux;
 
 #include <memory>
-using namespace std;
+
 
 namespace Igor
 {
-
-    class iTexture;
-
+	
     /*! color created/added event
     */
     iaEVENT(iColorGradientColorCreatedEvent, iColorGradientColorCreatedDelegate, void, (float32 at, const iaColor4f& color), (at, color));
@@ -119,7 +118,7 @@ namespace Igor
 
         /*! shared pointer to background texture
         */
-        shared_ptr<iTexture> _texture = nullptr;
+        iTexturePtr _texture;
 
         /*! color created event
         */

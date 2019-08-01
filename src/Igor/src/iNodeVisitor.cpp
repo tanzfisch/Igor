@@ -14,11 +14,11 @@ namespace Igor
 	{
 		if (preOrderVisit(node, nextSibling))
 		{
-			vector<iNodePtr>& children = node->getChildren();
+			std::vector<iNodePtr>& children = node->getChildren();
 
 			if (_traverseInactiveChildren)
 			{
-				vector<iNodePtr>& inactiveChildren = node->getInactiveChildren();
+				std::vector<iNodePtr>& inactiveChildren = node->getInactiveChildren();
 
 				children.insert(children.end(), inactiveChildren.begin(), inactiveChildren.end());
 			}

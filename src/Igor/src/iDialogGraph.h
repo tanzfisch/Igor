@@ -37,7 +37,7 @@
 using namespace IgorAux;
 
 #include <map>
-using namespace std;
+
 
 namespace Igor
 {
@@ -49,7 +49,7 @@ namespace Igor
 
     /*! event triggered when color chooser was closed
     */
-    iaEVENT(iDialogGraphCloseEvent, iDialogGraphCloseDelegate, void, (bool ok, const vector<vector<iaVector2f>>& graphs), (ok, graphs));
+    iaEVENT(iDialogGraphCloseEvent, iDialogGraphCloseDelegate, void, (bool ok, const std::vector<std::vector<iaVector2f>>& graphs), (ok, graphs));
 
     /*! the graph edit dialog
     */
@@ -66,7 +66,7 @@ namespace Igor
         \param color the color to start with
         \param useAlpha if true also use the alpha channel
         */
-        void show(iDialogGraphCloseDelegate closeDelegate, const vector<vector<iaVector2f>>& graphs);
+        void show(iDialogGraphCloseDelegate closeDelegate, const std::vector<std::vector<iaVector2f>>& graphs);
 
         /*! configures x axis
 
@@ -123,11 +123,11 @@ namespace Igor
 
         /*! axis names
         */
-        map<uint32, iaString> _axisNames;
+        std::map<uint32, iaString> _axisNames;
 
         /*! axis number chooser
         */
-        map<uint32, iWidgetNumberChooser*> _axisNumberChooser;
+        std::map<uint32, iWidgetNumberChooser*> _axisNumberChooser;
 
         /*! the close event
         */
@@ -135,11 +135,11 @@ namespace Igor
 
         /*! copy of initialy set graphs
         */
-        vector<vector<iaVector2f>> _oldGraphs;
+        std::vector<std::vector<iaVector2f>> _oldGraphs;
 
         /*! current graphs
         */
-        vector<vector<iaVector2f>> _graphs;
+        std::vector<std::vector<iaVector2f>> _graphs;
 
         /*! title label
         */
@@ -183,11 +183,11 @@ namespace Igor
         
         /*! all widgets
         */
-        vector<iWidget*> _allWidgets;
+        std::vector<iWidget*> _allWidgets;
 
         /*! all data grid entry widgets
         */
-        vector<iWidget*> _dataGridEntryWidgets;
+        std::vector<iWidget*> _dataGridEntryWidgets;
 
         /*! handles ok button clicked event
 

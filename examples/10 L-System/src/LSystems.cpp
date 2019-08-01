@@ -24,7 +24,7 @@
 #include <iTaskFlushModels.h>
 #include <iTaskFlushTextures.h>
 #include <iMaterialResourceFactory.h>
-#include <iStatistics.h>
+#include <iProfiler.h>
 #include <iNodeSwitch.h>
 #include <iNodeLODSwitch.h>
 #include <iNodeLODTrigger.h>
@@ -134,7 +134,7 @@ void LSystems::init()
 
 	// init render statistics
 	_font = new iTextureFont("StandardFont.png");
-	_statisticsVisualizer.setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
+	_profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
 
 	// register some callbacks
 	iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &LSystems::onKeyPressed));
@@ -197,22 +197,22 @@ void LSystems::initStyle1()
 {
 	_lSystem.setRule('F', "FF");
 
-	vector<pair<float64, iaString>> weightedRule1;
-	weightedRule1.push_back(pair<float64, iaString>(0.25, "F[+X]OF[-X]+X."));
-	weightedRule1.push_back(pair<float64, iaString>(0.25, "FO[-X]F[+X]-X."));
-	weightedRule1.push_back(pair<float64, iaString>(0.25, "F[RX]F[LX]ORX."));
-	weightedRule1.push_back(pair<float64, iaString>(0.25, "F[LX]FO[RX]LX."));
+	std::vector<std::pair<float64, iaString>> weightedRule1;
+	weightedRule1.push_back(std::pair<float64, iaString>(0.25, "F[+X]OF[-X]+X."));
+	weightedRule1.push_back(std::pair<float64, iaString>(0.25, "FO[-X]F[+X]-X."));
+	weightedRule1.push_back(std::pair<float64, iaString>(0.25, "F[RX]F[LX]ORX."));
+	weightedRule1.push_back(std::pair<float64, iaString>(0.25, "F[LX]FO[RX]LX."));
 	_lSystem.setRule('X', weightedRule1);
 
-	vector<pair<float64, iaString>> weightedRule2;
-	weightedRule2.push_back(pair<float64, iaString>(0.3, "."));
-	weightedRule2.push_back(pair<float64, iaString>(0.7, "*"));
+	std::vector<std::pair<float64, iaString>> weightedRule2;
+	weightedRule2.push_back(std::pair<float64, iaString>(0.3, "."));
+	weightedRule2.push_back(std::pair<float64, iaString>(0.7, "*"));
 	_lSystem.setRule('.', weightedRule2);
 	_lSystem.setAgeFilter('.', iLSystemAgeFunction::Greater, 2);
 
-	vector<pair<float64, iaString>> weightedRule3;
-	weightedRule3.push_back(pair<float64, iaString>(0.3, "*"));
-	weightedRule3.push_back(pair<float64, iaString>(0.7, "o"));
+	std::vector<std::pair<float64, iaString>> weightedRule3;
+	weightedRule3.push_back(std::pair<float64, iaString>(0.3, "*"));
+	weightedRule3.push_back(std::pair<float64, iaString>(0.7, "o"));
 	_lSystem.setRule('*', weightedRule3);
 	_lSystem.setAgeFilter('*', iLSystemAgeFunction::Greater, 4);
 
@@ -228,22 +228,22 @@ void LSystems::initStyle2()
 {
 	_lSystem.setRule('F', "FF");
 
-	vector<pair<float64, iaString>> weightedRule1;
-	weightedRule1.push_back(pair<float64, iaString>(0.25, "F-[[X]+X]O+F[+FX]-X."));
-	weightedRule1.push_back(pair<float64, iaString>(0.25, "F+[[X]-X]-F[-FX]O+X."));
-	weightedRule1.push_back(pair<float64, iaString>(0.25, "FR[[X]LX]LFO[LFX]RX."));
-	weightedRule1.push_back(pair<float64, iaString>(0.25, "FL[[X]RX]ORF[RFX]LX."));
+	std::vector<std::pair<float64, iaString>> weightedRule1;
+	weightedRule1.push_back(std::pair<float64, iaString>(0.25, "F-[[X]+X]O+F[+FX]-X."));
+	weightedRule1.push_back(std::pair<float64, iaString>(0.25, "F+[[X]-X]-F[-FX]O+X."));
+	weightedRule1.push_back(std::pair<float64, iaString>(0.25, "FR[[X]LX]LFO[LFX]RX."));
+	weightedRule1.push_back(std::pair<float64, iaString>(0.25, "FL[[X]RX]ORF[RFX]LX."));
 	_lSystem.setRule('X', weightedRule1);
 
-	vector<pair<float64, iaString>> weightedRule2;
-	weightedRule2.push_back(pair<float64, iaString>(0.3, "."));
-	weightedRule2.push_back(pair<float64, iaString>(0.7, "*"));
+	std::vector<std::pair<float64, iaString>> weightedRule2;
+	weightedRule2.push_back(std::pair<float64, iaString>(0.3, "."));
+	weightedRule2.push_back(std::pair<float64, iaString>(0.7, "*"));
 	_lSystem.setRule('.', weightedRule2);
 	_lSystem.setAgeFilter('.', iLSystemAgeFunction::Greater, 2);
 
-	vector<pair<float64, iaString>> weightedRule3;
-	weightedRule3.push_back(pair<float64, iaString>(0.3, "*"));
-	weightedRule3.push_back(pair<float64, iaString>(0.7, "o"));
+	std::vector<std::pair<float64, iaString>> weightedRule3;
+	weightedRule3.push_back(std::pair<float64, iaString>(0.3, "*"));
+	weightedRule3.push_back(std::pair<float64, iaString>(0.7, "o"));
 	_lSystem.setRule('*', weightedRule3);
 	_lSystem.setAgeFilter('*', iLSystemAgeFunction::Greater, 4);
 
@@ -259,20 +259,20 @@ void LSystems::initStyle3()
 {
 	_lSystem.setRule('F', "FF");
 
-	vector<pair<float64, iaString>> weightedRule1;
-	weightedRule1.push_back(pair<float64, iaString>(0.5, "F[+X]O[-X]FX."));
-	weightedRule1.push_back(pair<float64, iaString>(0.5, "F[RX]O[LX]FX."));
+	std::vector<std::pair<float64, iaString>> weightedRule1;
+	weightedRule1.push_back(std::pair<float64, iaString>(0.5, "F[+X]O[-X]FX."));
+	weightedRule1.push_back(std::pair<float64, iaString>(0.5, "F[RX]O[LX]FX."));
 	_lSystem.setRule('X', weightedRule1);
 
-	vector<pair<float64, iaString>> weightedRule2;
-	weightedRule2.push_back(pair<float64, iaString>(0.3, "."));
-	weightedRule2.push_back(pair<float64, iaString>(0.7, "*"));
+	std::vector<std::pair<float64, iaString>> weightedRule2;
+	weightedRule2.push_back(std::pair<float64, iaString>(0.3, "."));
+	weightedRule2.push_back(std::pair<float64, iaString>(0.7, "*"));
 	_lSystem.setRule('.', weightedRule2);
 	_lSystem.setAgeFilter('.', iLSystemAgeFunction::Greater, 2);
 
-	vector<pair<float64, iaString>> weightedRule3;
-	weightedRule3.push_back(pair<float64, iaString>(0.3, "*"));
-	weightedRule3.push_back(pair<float64, iaString>(0.7, "o"));
+	std::vector<std::pair<float64, iaString>> weightedRule3;
+	weightedRule3.push_back(std::pair<float64, iaString>(0.3, "*"));
+	weightedRule3.push_back(std::pair<float64, iaString>(0.7, "o"));
 	_lSystem.setRule('*', weightedRule3);
 	_lSystem.setAgeFilter('*', iLSystemAgeFunction::Greater, 4);
 
@@ -313,7 +313,7 @@ uint64 LSystems::generatePlant(const iaMatrixd& matrix, const iaString& axiom, u
 	inputParam->_parameters.setData(reinterpret_cast<const char*>(&plantInformation), sizeof(PlantInformation));
 
 	iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-	modelNode->setModel(iaString("plant_") + iaString::itoa(iterations) + iaString("_") + iaString::itoa(_incarnation++), iResourceCacheMode::Free, inputParam);
+	modelNode->setModel(iaString("plant_") + iaString::toString(iterations) + iaString("_") + iaString::toString(_incarnation++), iResourceCacheMode::Free, inputParam);
 
 	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 	transformNode->setMatrix(matrix);
@@ -445,7 +445,7 @@ void LSystems::onKeyPressed(iKeyCode key)
 		break;
 
 	case iKeyCode::F8:
-		_statisticsVisualizer.cycleVerbosity();
+		_profilerVisualizer.cycleVerbosity();
 		break;
 
 	case iKeyCode::F9:
@@ -488,7 +488,7 @@ void LSystems::onRenderOrtho()
 	drawLogo();
 
 	// draw frame rate in lower right corner
-	_statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+	_profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
 }
 
 void LSystems::drawLogo()

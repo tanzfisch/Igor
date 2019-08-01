@@ -17,7 +17,7 @@ using namespace Igor;
 using namespace IgorAux;
 
 #include <list>
-using namespace std;
+
 
 bool OBJ2OMPF::analyzeParam(int argc, char* argv[])
 {

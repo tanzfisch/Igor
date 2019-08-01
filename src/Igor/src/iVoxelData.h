@@ -37,7 +37,7 @@ using namespace IgorAux;
 #include <iaVector3.h>
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -131,7 +131,7 @@ namespace Igor
 
         \todo this was not tested
         */
-        void getVoxelLine(iaVector3I pos1, iaVector3I pos2, vector<uint8>& dst);
+        void getVoxelLine(iaVector3I pos1, iaVector3I pos2, std::vector<uint8>& dst);
 
         /*! sets density of specified vertical voxel pole
 

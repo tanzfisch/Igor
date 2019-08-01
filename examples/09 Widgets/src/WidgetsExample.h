@@ -34,7 +34,8 @@
 #include <iView.h>
 #include <iDialog.h>
 #include <iMaterial.h>
-#include <iStatisticsVisualizer.h>
+#include <iProfilerVisualizer.h>
+#include <iTexture.h>
 using namespace Igor;
 
 #include <iaGradient.h>
@@ -47,7 +48,6 @@ namespace Igor
 	class iWidgetDefaultTheme;
     class iDialogMessageBox;
     class iWidgetLabel;
-    class iTexture;
     class iDialogColorChooser;
     class iWidgetColor;
     class iWidgetColorGradient;
@@ -85,7 +85,7 @@ private:
 
     /*! visualize statistics
     */
-    iStatisticsVisualizer _statisticsVisualizer;
+    iProfilerVisualizer _profilerVisualizer;
 
     /*! font handle
     */
@@ -126,14 +126,10 @@ private:
     /*! color gradient
     */
     iWidgetColorGradient* _colorGradient = nullptr;
-
-    /*! just put all widgets in here for a easy clean up later
-    */
-	vector<iWidget*> _allWidgets;
-
+	
     /*! splash texture
     */
-    shared_ptr<iTexture> _igorLogo = nullptr;
+    iTexturePtr _igorLogo = nullptr;
 
     /*! render function
     */

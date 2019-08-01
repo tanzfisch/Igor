@@ -18,9 +18,9 @@ UserControlLight::UserControlLight()
     initGUI();
 }
 
-UserControlLight::~UserControlLight()
+iWidget* UserControlLight::createInstance()
 {
-    deinitGUI();
+	return new UserControlLight();
 }
 
 void UserControlLight::updateGUI()
@@ -83,26 +83,23 @@ uint32 UserControlLight::getNode()
 void UserControlLight::initGUI()
 {
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-    _allWidgets.push_back(_grid);
     _grid->appendRows(2);
     _grid->setBorder(2);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Right);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
+	addWidget(_grid);
 
     _ambientColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("UserControlColorChooser"));
-    _allWidgets.push_back(_ambientColorChooser);
     _ambientColorChooser->setMode(iColorChooserMode::RGB);
     _ambientColorChooser->setText("Ambient");
     _ambientColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlLight::onAmbientChange));
 
     _diffuseColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("UserControlColorChooser")); 
-    _allWidgets.push_back(_diffuseColorChooser);
     _diffuseColorChooser->setMode(iColorChooserMode::RGB);
     _diffuseColorChooser->setText("Diffuse");
     _diffuseColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlLight::onDiffuseChange));
 
     _specularColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("UserControlColorChooser")); 
-    _allWidgets.push_back(_specularColorChooser);
     _specularColorChooser->setMode(iColorChooserMode::RGB);
     _specularColorChooser->setText("Specular");
     _specularColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlLight::onSpecularChange));
@@ -110,22 +107,4 @@ void UserControlLight::initGUI()
     _grid->addWidget(_ambientColorChooser, 0, 0);
     _grid->addWidget(_diffuseColorChooser, 0, 1);
     _grid->addWidget(_specularColorChooser, 0, 2);
-}
-
-void UserControlLight::deinitGUI()
-{
-    for (auto widget : _allWidgets)
-    {
-        iWidgetManager::getInstance().destroyWidget(widget);
-    }
-
-    _grid = nullptr;
-    _ambientColorChooser = nullptr;
-    _diffuseColorChooser = nullptr;
-    _specularColorChooser = nullptr;
-}
-
-iWidget* UserControlLight::getWidget()
-{
-    return _grid;
 }

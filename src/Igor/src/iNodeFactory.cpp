@@ -41,7 +41,7 @@ namespace Igor
 
             for (auto pair : _nodes)
             {
-                con_debug_endl(pair.second->getInfo());
+                con_debug_endl(pair.second->getName() << " id:" << pair.second->getID());
             }
         }
     }
@@ -51,7 +51,7 @@ namespace Igor
         flush();
     }
 
-    void iNodeFactory::applyActionsAsync(const vector<iAction>& actionQueue)
+    void iNodeFactory::applyActionsAsync(const std::vector<iAction>& actionQueue)
     {
         _mutexQueue.lock();
         _actionQueue.insert(_actionQueue.end(), actionQueue.begin(), actionQueue.end());
@@ -185,9 +185,9 @@ namespace Igor
         }
     }
 
-    vector<uint64> iNodeFactory::getNodes(iNodeType nodeType)
+    std::vector<uint64> iNodeFactory::getNodes(iNodeType nodeType)
     {
-        vector<uint64> result;
+        std::vector<uint64> result;
 
         for (auto node : _nodes)
         {
@@ -237,7 +237,7 @@ namespace Igor
     iNodePtr iNodeFactory::createCopy(iNodePtr node)
     {
         iNodePtr result = nullptr;
-        map<uint64, uint64> nodeIDMap;
+        std::map<uint64, uint64> nodeIDMap;
 
         result = createCopyInternal(node, nodeIDMap, UINT32_MAX);
 
@@ -253,7 +253,7 @@ namespace Igor
         return result;
     }
 
-    iNodePtr iNodeFactory::createCopyInternal(iNodePtr node, map<uint64, uint64>& nodeIDMap, uint32 recursiveDepth)
+    iNodePtr iNodeFactory::createCopyInternal(iNodePtr node, std::map<uint64, uint64>& nodeIDMap, uint32 recursiveDepth)
     {
         iNodePtr result = nullptr;
         result = createNodeCopy(node);

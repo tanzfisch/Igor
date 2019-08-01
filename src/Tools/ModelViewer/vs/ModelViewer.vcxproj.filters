@@ -24,9 +24,6 @@
     <ClCompile Include="..\src\UserControlNode.cpp">
       <Filter>NodeUserControls</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\MenuDialog.cpp">
-      <Filter>Dialogs</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\PropertiesDialog.cpp">
       <Filter>Dialogs</Filter>
     </ClCompile>
@@ -54,6 +51,9 @@
     <ClCompile Include="..\src\Widget3DEmitter.cpp">
       <Filter>3DUserControls\Widget</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Outliner.cpp">
+      <Filter>Dialogs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\ModelViewer.h" />
@@ -77,9 +77,6 @@
     </ClInclude>
     <ClInclude Include="..\src\UserControlNode.h">
       <Filter>NodeUserControls</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MenuDialog.h">
-      <Filter>Dialogs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\PropertiesDialog.h">
       <Filter>Dialogs</Filter>
@@ -108,6 +105,9 @@
     </ClInclude>
     <ClInclude Include="..\src\Widget3DEmitter.h">
       <Filter>3DUserControls\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Outliner.h">
+      <Filter>Dialogs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

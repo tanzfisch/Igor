@@ -42,7 +42,7 @@ using namespace Igor;
 using namespace IgorAux;
 
 #include <vector>
-using namespace std;
+
 
 class StateMachineExample
 {
@@ -55,7 +55,7 @@ private:
     iTextureFont* _font = 0;
     int32 _materialWithTextureAndBlending = -1;
     iParticleSystem2D _particleSystems[5];
-    shared_ptr<iTexture> _particleTexture;
+    iTexturePtr _particleTexture;
 
     iaStateMachine _stateMachine;  
     uint32 _initMenuTransition = 0; 
@@ -86,7 +86,7 @@ private:
     iaString _backgroundText = "";
     float32 _spinning = 0.0f;
     int32 _activeMenuEntry = 0;
-    vector<iaString> _menuEntries;
+    std::vector<iaString> _menuEntries;
 
 	void onCloseWindow();
 

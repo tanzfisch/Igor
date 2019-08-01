@@ -14,7 +14,7 @@
 #include <iTargetMaterial.h>
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -56,25 +56,27 @@ namespace Igor
 		}
 	}
 
-	iaString iNodeMesh::getCustomInfo() const
+	void iNodeMesh::getInfo(std::vector<iaString>& info) const
 	{
-		iaString result(L"vtx:");
+		iNode::getInfo(info);
 
-		result += iaString::itoa(getVertexCount());
-		result += L" tri:";
-		result += iaString::itoa(getTrianglesCount());
-		result += L" idx:";
-		result += iaString::itoa(getIndexesCount());
+		iaString customInfo(L"vtx:");
+
+		customInfo += iaString::toString(getVertexCount());
+		customInfo += L" tri:";
+		customInfo += iaString::toString(getTrianglesCount());
+		customInfo += L" idx:";
+		customInfo += iaString::toString(getIndexesCount());
 
 		if (_mesh != nullptr)
 		{
-			result += L" texUni:";
-			result += iaString::itoa(_mesh->getTextureUnitCount());
-			result += L" texCrd:";
-			result += iaString::itoa(_mesh->getTextureCoordinatesCount());
+			customInfo += L" texUni:";
+			customInfo += iaString::toString(_mesh->getTextureUnitCount());
+			customInfo += L" texCrd:";
+			customInfo += iaString::toString(_mesh->getTextureCoordinatesCount());
 		}
 
-		return result;
+		info.push_back(customInfo);
 	}
 
 	void iNodeMesh::setTargetMaterial(const iTargetMaterial* const targetMaterial)
@@ -100,12 +102,12 @@ namespace Igor
 		return _targetMaterial;
 	}
 
-	shared_ptr<iMeshBuffers> iNodeMesh::getMeshBuffers()
+	std::shared_ptr<iMeshBuffers> iNodeMesh::getMeshBuffers()
 	{
 		return _meshBuffers;
 	}
 
-	shared_ptr<iMesh> iNodeMesh::getMesh()
+	iMeshPtr iNodeMesh::getMesh()
 	{
 		return _mesh;
 	}
@@ -131,7 +133,7 @@ namespace Igor
 		}
 	}
 
-	void iNodeMesh::setMeshBuffers(shared_ptr<iMeshBuffers> meshBuffers)
+	void iNodeMesh::setMeshBuffers(std::shared_ptr<iMeshBuffers> meshBuffers)
 	{
 		_meshBuffers = meshBuffers;
 
@@ -144,7 +146,7 @@ namespace Igor
 		}
 	}
 
-	void iNodeMesh::setMesh(shared_ptr<iMesh> mesh)
+	void iNodeMesh::setMesh(iMeshPtr mesh)
 	{
 		_mesh = mesh;
 

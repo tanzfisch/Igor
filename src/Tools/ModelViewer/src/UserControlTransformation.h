@@ -37,7 +37,7 @@ using namespace IgorAux;
 using namespace Igor;
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -52,26 +52,21 @@ class UserControlTransformation : public iUserControl
 {
 public:
 
-    UserControlTransformation();
-    ~UserControlTransformation();
+	static iWidget* createInstance();
 
     void setNode(uint32 id);
     uint32 getNode();
-
-    iWidget* getWidget();
 
 private:
 
     iWidgetGrid* _grid = nullptr;
 
-	vector<iWidgetTextEdit*> _translateText;
-    vector<iWidgetTextEdit*> _scaleText;
-    vector<iWidgetTextEdit*> _rotateText;
-	vector<iWidgetTextEdit*> _shearText;
+	std::vector<iWidgetTextEdit*> _translateText;
+    std::vector<iWidgetTextEdit*> _scaleText;
+    std::vector<iWidgetTextEdit*> _rotateText;
+	std::vector<iWidgetTextEdit*> _shearText;
 
 	uint32 _nodeId = iNode::INVALID_NODE_ID;
-
-    vector<iWidget*> _allWidgets;
 
 	void onTransformationChanged(iNode* node);
 
@@ -83,6 +78,9 @@ private:
 
     void initGUI();
     void deinitGUI();
+
+	UserControlTransformation();
+	~UserControlTransformation();
 
 };
 

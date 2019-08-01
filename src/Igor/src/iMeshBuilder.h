@@ -32,6 +32,7 @@
 #include <iSphere.h>
 #include <iAABox.h>
 #include <iTexture.h>
+#include <iMesh.h>
 
 #include <iaVector2.h>
 #include <iaMatrix.h>
@@ -43,13 +44,10 @@ using namespace IgorAux;
 #include <memory>
 #include <vector>
 #include <unordered_map>
-using namespace std;
+
 
 namespace Igor
 {
-
-    class iMesh;
-    typedef std::shared_ptr<iMesh> iMeshPtr;
 
     /*! triangle defined by three indexes to vertexes
     */
@@ -223,15 +221,15 @@ namespace Igor
 
         /*! \returns list of vertex positions
         */
-        const vector<iaVector3f>& getVertexes() const;
+        const std::vector<iaVector3f>& getVertexes() const;
 
         /*! \returns list of vertex normals
         */
-        const vector<iaVector3f>& getNormals() const;
+        const std::vector<iaVector3f>& getNormals() const;
 
         /*! \returns list of indexed triangles
         */
-        const vector<iIndexedTriangle>& getTriangles() const;
+        const std::vector<iIndexedTriangle>& getTriangles() const;
 
         /*! \returns true: if mesh has _normals; false: mesh has no _normals
         */
@@ -258,7 +256,7 @@ namespace Igor
         \param triangles list of triangle IDs that end up in the mesh
         \returns shared pointer to iMesh
         */
-        iMeshPtr createMesh(vector<uint32> triangles);
+        iMeshPtr createMesh(std::vector<uint32> triangles);
 
         /*! clears data and set transformation matrix to identity
         */
@@ -268,7 +266,7 @@ namespace Igor
 
         \param srcTriangleIndexes list of triangle indexes to copy
         */
-        void copyTriangles(vector<uint32> srcTriangleIndexes, iMeshBuilder& dst);
+        void copyTriangles(std::vector<uint32> srcTriangleIndexes, iMeshBuilder& dst);
 
         /*! calculates spherical texture coordinates based on vertex normal orientation
 
@@ -302,7 +300,7 @@ namespace Igor
 
         /*! map for vertex positions
         */
-        unordered_map<iaVector3f, uint32, VectorHasher, VectorEqualFn> _indexMap;
+        std::unordered_map<iaVector3f, uint32, VectorHasher, VectorEqualFn> _indexMap;
 
         /*! if true all vertexes that have the same position will be joined
         */
@@ -310,23 +308,23 @@ namespace Igor
 
         /*! the vertices of the mesh
         */
-        vector<iaVector3f> _vertexes;
+        std::vector<iaVector3f> _vertexes;
 
         /*! the normals of the mesh
         */
-        vector<iaVector3f> _normals;
+        std::vector<iaVector3f> _normals;
 
         /*! the colors of the mesh
         */
-        vector<iaColor4f> _colors;
+        std::vector<iaColor4f> _colors;
 
         /*! the texture coordinates of the mesh
         */
-        map<uint32, vector<iaVector2f>> _texCoords;
+        std::map<uint32, std::vector<iaVector2f>> _texCoords;
 
         /*! the triangles of the mesh
         */
-        vector<iIndexedTriangle> _triangles;
+        std::vector<iIndexedTriangle> _triangles;
 
         /*! current transformation matrix
         */
@@ -350,7 +348,7 @@ namespace Igor
         \param[in,out] mesh the mesh to fill the data in
         \param triangles list of triangles that are supposed to end up in the mesh
         */
-        void compile(iMesh* mesh, vector<uint32> triangles);
+        void compile(iMesh* mesh, std::vector<uint32> triangles);
 
         /*! checks boundaries of generated data
         */

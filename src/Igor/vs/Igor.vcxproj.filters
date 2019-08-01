@@ -128,15 +128,6 @@
     <ClCompile Include="..\src\iWindow.cpp">
       <Filter>devices</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iPixmap.cpp">
-      <Filter>graphics\texture</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\iSprite.cpp">
-      <Filter>graphics\texture</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\iTextureFont.cpp">
-      <Filter>graphics\texture</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iRenderEngine.cpp">
       <Filter>graphics</Filter>
     </ClCompile>
@@ -371,15 +362,6 @@
     <ClCompile Include="..\src\iDialogGraph.cpp">
       <Filter>GUI\dialogs</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iStatistics.cpp">
-      <Filter>resources\statistics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\iStatisticsSection.cpp">
-      <Filter>resources\statistics</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\iStatisticsVisualizer.cpp">
-      <Filter>resources\statistics</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iEntity.cpp">
       <Filter>entities</Filter>
     </ClCompile>
@@ -439,6 +421,24 @@
     </ClCompile>
     <ClCompile Include="..\src\iVoxelOperationSphere.cpp">
       <Filter>terrain\operations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iAtlas.cpp">
+      <Filter>resources\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iPixmap.cpp">
+      <Filter>resources\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iTextureFont.cpp">
+      <Filter>resources\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iProfiler.cpp">
+      <Filter>resources\profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iProfilerSection.cpp">
+      <Filter>resources\profiler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iProfilerVisualizer.cpp">
+      <Filter>resources\profiler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -569,15 +569,6 @@
     </ClInclude>
     <ClInclude Include="..\src\iWindow.h">
       <Filter>devices</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iPixmap.h">
-      <Filter>graphics\texture</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iSprite.h">
-      <Filter>graphics\texture</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iTextureFont.h">
-      <Filter>graphics\texture</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iRenderEngine.h">
       <Filter>graphics</Filter>
@@ -844,15 +835,6 @@
     <ClInclude Include="..\src\iDialogGraph.h">
       <Filter>GUI\dialogs</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iStatistics.h">
-      <Filter>resources\statistics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iStatisticsSection.h">
-      <Filter>resources\statistics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iStatisticsVisualizer.h">
-      <Filter>resources\statistics</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iEntity.h">
       <Filter>entities</Filter>
     </ClInclude>
@@ -922,11 +904,26 @@
     <ClInclude Include="..\src\iRay.h">
       <Filter>data types</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iAtlas.h">
+      <Filter>resources\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iPixmap.h">
+      <Filter>resources\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iTextureFont.h">
+      <Filter>resources\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iProfiler.h">
+      <Filter>resources\profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iProfilerSection.h">
+      <Filter>resources\profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iProfilerVisualizer.h">
+      <Filter>resources\profiler</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\src\iSprite.inl">
-      <Filter>graphics\texture</Filter>
-    </None>
     <None Include="..\src\iAACube.inl">
       <Filter>data types</Filter>
     </None>
@@ -972,6 +969,9 @@
     <None Include="..\src\iRay.inl">
       <Filter>data types</Filter>
     </None>
+    <None Include="..\src\iAtlas.inl">
+      <Filter>resources\texture</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="3rd">
@@ -1009,9 +1009,6 @@
     </Filter>
     <Filter Include="graphics\simulation">
       <UniqueIdentifier>{adc83f57-4398-46ea-a33d-6d86602a6829}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="graphics\texture">
-      <UniqueIdentifier>{fcb963e9-e4d0-4777-b7fd-8dc9762d2de1}</UniqueIdentifier>
     </Filter>
     <Filter Include="graphics\types">
       <UniqueIdentifier>{9121e140-a5d2-4fbe-afd1-4695d8a50613}</UniqueIdentifier>
@@ -1064,9 +1061,6 @@
     <Filter Include="graphics\generation">
       <UniqueIdentifier>{2c949176-de8e-4a4e-9e9e-dc9b70155d86}</UniqueIdentifier>
     </Filter>
-    <Filter Include="resources\statistics">
-      <UniqueIdentifier>{58005712-136c-489b-80a1-deb7d7ccf43e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="entities">
       <UniqueIdentifier>{1637c4c0-32a5-4ba1-8496-a9f83e01a217}</UniqueIdentifier>
     </Filter>
@@ -1090,6 +1084,9 @@
     </Filter>
     <Filter Include="resources\physics">
       <UniqueIdentifier>{6405a0c4-3aae-45af-a01f-b6fb7526eaf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\profiler">
+      <UniqueIdentifier>{58005712-136c-489b-80a1-deb7d7ccf43e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

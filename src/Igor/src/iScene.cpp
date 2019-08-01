@@ -11,7 +11,7 @@
 #include <iNodeVolume.h>
 #include <iNodeLODSwitch.h>
 #include <iNodeCamera.h>
-#include <iStatistics.h>
+#include <iProfiler.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -31,10 +31,10 @@ namespace Igor
 
         //! \todo how do we handle this when we have more than one scene?
 #ifdef USE_VERBOSE_STATISTICS
-        _sceneHandleSectionID = iStatistics::getInstance().registerSection("scene:handle", 2);
-        _updateLODSectionID = iStatistics::getInstance().registerSection("scene:LOD", 2);
-        _processUpdateDataSectionID = iStatistics::getInstance().registerSection("scene:updateData", 2);
-        _updateTransformSectionID = iStatistics::getInstance().registerSection("scene:traverse", 2);
+        _sceneHandleSectionID = iProfiler::getInstance().registerSection("scene:handle", 2);
+        _updateLODSectionID = iProfiler::getInstance().registerSection("scene:LOD", 2);
+        _processUpdateDataSectionID = iProfiler::getInstance().registerSection("scene:updateData", 2);
+        _updateTransformSectionID = iProfiler::getInstance().registerSection("scene:traverse", 2);
 #endif
 	}
 
@@ -111,12 +111,12 @@ namespace Igor
         }
     }
 
-    vector<iNodeRender*>& iScene::getRenderables()
+    std::vector<iNodeRender*>& iScene::getRenderables()
     {
         return _renderables;
     }
 
-    vector<iNodeLight*>& iScene::getLights()
+    std::vector<iNodeLight*>& iScene::getLights()
     {
         return _lights;
     }
@@ -268,28 +268,28 @@ namespace Igor
 	void iScene::handle()
 	{
 #ifdef USE_VERBOSE_STATISTICS
-        iStatistics::getInstance().beginSection(_sceneHandleSectionID);
+        iProfiler::getInstance().beginSection(_sceneHandleSectionID);
 
-        iStatistics::getInstance().beginSection(_updateLODSectionID);
+        iProfiler::getInstance().beginSection(_updateLODSectionID);
 #endif
         // todo can't not stay here. need to reduce update effort per frame. event based would be nice
         updateLOD();
 #ifdef USE_VERBOSE_STATISTICS
-        iStatistics::getInstance().endSection(_updateLODSectionID);
+        iProfiler::getInstance().endSection(_updateLODSectionID);
 
-        iStatistics::getInstance().beginSection(_processUpdateDataSectionID);
+        iProfiler::getInstance().beginSection(_processUpdateDataSectionID);
 #endif
         updateData(); 
 #ifdef USE_VERBOSE_STATISTICS
-        iStatistics::getInstance().endSection(_processUpdateDataSectionID);
+        iProfiler::getInstance().endSection(_processUpdateDataSectionID);
 
-        iStatistics::getInstance().beginSection(_updateTransformSectionID);
+        iProfiler::getInstance().beginSection(_updateTransformSectionID);
 #endif
         _updateTransformVisitor.traverseTree(_root);
 #ifdef USE_VERBOSE_STATISTICS
-        iStatistics::getInstance().endSection(_updateTransformSectionID);
+        iProfiler::getInstance().endSection(_updateTransformSectionID);
 
-        iStatistics::getInstance().endSection(_sceneHandleSectionID);
+        iProfiler::getInstance().endSection(_sceneHandleSectionID);
 #endif
 	}
 

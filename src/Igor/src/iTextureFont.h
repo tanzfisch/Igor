@@ -37,7 +37,7 @@ using namespace IgorAux;
 
 #include <vector>
 #include <memory>
-using namespace std;
+
 
 namespace Igor
 {
@@ -100,7 +100,7 @@ namespace Igor
 
 		/*! texture
 		*/
-		shared_ptr<iTexture> _texture;
+		iTexturePtr _texture;
 
 		/*! pixmap of the the texture
 		*/
@@ -108,7 +108,7 @@ namespace Igor
 
 		/*! character set of the font
 		*/
-		vector<iCharacterDimensions> _characters;
+		std::vector<iCharacterDimensions> _characters;
 
 	public:
 
@@ -136,13 +136,13 @@ namespace Igor
 
 		\return pointer to font texture
 		*/
-		shared_ptr<iTexture> getTexture();
+		iTexturePtr getTexture();
 
 		/*! returns character set
 
 		\return vector of characters
 		*/
-		vector<iCharacterDimensions>& getCharacters();
+		std::vector<iCharacterDimensions>& getCharacters();
 
 		/*! ctor
 

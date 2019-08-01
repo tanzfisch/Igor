@@ -81,7 +81,7 @@ namespace Igor
         /*! opens dialog in save mode
 
         \param closeDelegate delegate called after dialog was closed
-        \param filepath the file path to start with
+        \param path the file path to start with
         */
         void save(iDialogFileSelectCloseDelegate closeDelegate, const iaString& path = "");
 
@@ -169,7 +169,7 @@ namespace Igor
 
         /*! list of widgets in file grid
         */
-        vector<iWidget*> _fileGridWidgets;
+        std::vector<iWidget*> _fileGridWidgets;
 
         /*! handles ok button click
 
@@ -235,13 +235,15 @@ namespace Igor
         */
         void updateFileGrid();
 
-		/*! init dialog with given path
-		*/
-		void initDialog(const iaString& path);
+		/*! configures dialog with given path
 
-        /*! initializes gui elements
+		\param path the path to start with
+		*/
+		void configure(const iaString& path);
+
+        /*! does nothing
         */
-        iDialogFileSelect();
+        iDialogFileSelect() = default;
 
         /*! deinitializes gui elements
         */

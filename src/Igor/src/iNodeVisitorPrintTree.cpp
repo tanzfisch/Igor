@@ -6,7 +6,6 @@
 #include <iNode.h>
 #include <iScene.h>
 
-#include <IgorAux.h>
 #include <iaConsole.h>
 using namespace IgorAux;
 
@@ -26,10 +25,19 @@ namespace Igor
 
 	bool iNodeVisitorPrintTree::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
 	{
+		std::vector<iaString> info;
+		node->getInfo(info);
+
+		if (info.size() < 2)
+		{
+			con_err("invalid info data");
+			return false;
+		}
+
 		if (_nodeCount == 0)
 		{			
-			_stream << " * \"" << node->getName().getData() << "\" id:" << node->getID() << " (" << (node->isActive() ? "active" : "inactive") << ")\n";
-			_stream << " | type:" << iNode::getTypeName(node->getType()).getData() << " kind:" << iNode::getKindName(node->getKind()).getData() << "\n";
+			_stream << " * " << info[0] << "\n";
+			_stream << " | " << info[1] << "\n";
 			_nodeCount++;
 			return true;
 		}
@@ -39,7 +47,7 @@ namespace Igor
 
 		// actual data
 		preLine();
-		_stream << " +-- \"" << node->getName().getData() << "\" id:" << node->getID() << " (" << (node->isActive() ? "active" : "inactive") << ")\n";
+		_stream << " +-- " << info[0] << "\n";
 
 		// increase indentation
 		if (nextSibling != nullptr)
@@ -53,16 +61,16 @@ namespace Igor
 
 		// second line actual data
 		preLine();
-		_stream << (node->hasChildren() ? " | " : "   ") << "type:" << iNode::getTypeName(node->getType()).getData() << " kind:" << iNode::getKindName(node->getKind()).getData() << "\n";
+		_stream << (node->hasChildren() ? " | " : "   ") << info[1] << "\n";
 
 		// optional custom data
-
-		iaString customInfo = node->getCustomInfo();
-
-		if (!customInfo.isEmpty())
+		if (info.size()>2)
 		{
-			preLine();
-			_stream << (node->hasChildren() ? " | " : "   ") << customInfo.getData() << "\n";
+			for (int i = 2; i < info.size(); ++i)
+			{
+				preLine();
+				_stream << (node->hasChildren() ? " | " : "   ") << info[i] << "\n";
+			}
 		}
 
 		_nodeCount++;

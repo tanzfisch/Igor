@@ -36,7 +36,7 @@ using namespace IgorAux;
 #include <iDefines.h>
 
 #include <map>
-using namespace std;
+
 
 namespace Igor
 {
@@ -187,7 +187,7 @@ namespace Igor
 
 		/*! map from code to iaString
 		*/
-		map<iKeyCode, iaString> _keyNames;
+		std::map<iKeyCode, iaString> _keyNames;
 
 		/*! ctor
 

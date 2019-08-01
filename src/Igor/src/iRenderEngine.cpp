@@ -17,7 +17,7 @@
 #include <iMesh.h>
 #include <iMaterialResourceFactory.h>
 #include <iNodeFactory.h>
-#include <iStatistics.h>
+#include <iProfiler.h>
 #include <iTimer.h>
 #include <iNodeVisitorRenderBoundings.h>
 
@@ -31,9 +31,9 @@ namespace Igor
     iRenderEngine::iRenderEngine()
     {
 #ifdef USE_VERBOSE_STATISTICS
-        _cullSectionID = iStatistics::getInstance().registerSection("renderer:cull", 1);
-        _drawSectionID = iStatistics::getInstance().registerSection("renderer:draw", 1);
-        _bufferCreationSectionID = iStatistics::getInstance().registerSection("renderer:createBuffers", 1);
+        _cullSectionID = iProfiler::getInstance().registerSection("renderer:cull", 1);
+        _drawSectionID = iProfiler::getInstance().registerSection("renderer:draw", 1);
+        _bufferCreationSectionID = iProfiler::getInstance().registerSection("renderer:createBuffers", 1);
 #endif
 
         iMaterialResourceFactory::getInstance().registerMaterialCreatedDelegate(iMaterialCreatedDelegate(this, &iRenderEngine::onMaterialCreated));
@@ -53,9 +53,9 @@ namespace Igor
         iMaterialResourceFactory::getInstance().unregisterMaterialDestroyedDelegate(iMaterialDestroyedDelegate(this, &iRenderEngine::onMaterialDestroyed));
 
 #ifdef USE_VERBOSE_STATISTICS
-        iStatistics::getInstance().unregisterSection(_cullSectionID);
-        iStatistics::getInstance().unregisterSection(_drawSectionID);
-        iStatistics::getInstance().unregisterSection(_bufferCreationSectionID);
+        iProfiler::getInstance().unregisterSection(_cullSectionID);
+        iProfiler::getInstance().unregisterSection(_drawSectionID);
+        iProfiler::getInstance().unregisterSection(_bufferCreationSectionID);
 #endif
     }
 
@@ -167,12 +167,12 @@ namespace Igor
     void iRenderEngine::render()
     {
 #ifdef USE_VERBOSE_STATISTICS
-        iStatistics::getInstance().beginSection(_bufferCreationSectionID);
+        iProfiler::getInstance().beginSection(_bufferCreationSectionID);
 #endif
         createBuffers();
 
 #ifdef USE_VERBOSE_STATISTICS
-        iStatistics::getInstance().endSection(_bufferCreationSectionID);
+        iProfiler::getInstance().endSection(_bufferCreationSectionID);
 #endif
 
         if (_scene != nullptr &&
@@ -180,13 +180,13 @@ namespace Igor
             _currentCamera->getScene() == _scene)
         {
 #ifdef USE_VERBOSE_STATISTICS
-            iStatistics::getInstance().beginSection(_cullSectionID);
+            iProfiler::getInstance().beginSection(_cullSectionID);
 #endif
             cullScene(_currentCamera);
 #ifdef USE_VERBOSE_STATISTICS
-            iStatistics::getInstance().endSection(_cullSectionID);
+            iProfiler::getInstance().endSection(_cullSectionID);
 
-            iStatistics::getInstance().beginSection(_drawSectionID);
+            iProfiler::getInstance().beginSection(_drawSectionID);
 #endif
             if (_renderColorID)
             {
@@ -197,7 +197,7 @@ namespace Igor
                 drawScene();
             }
 #ifdef USE_VERBOSE_STATISTICS
-            iStatistics::getInstance().endSection(_drawSectionID);
+            iProfiler::getInstance().endSection(_drawSectionID);
 #endif
         }
 
@@ -309,7 +309,7 @@ namespace Igor
     void iRenderEngine::drawScene()
     {
         //! \todo not sure yet how to handle multiple lights. right now it will work only for one light
-        vector<iNodeLight*>& lights = _scene->getLights();
+        std::vector<iNodeLight*>& lights = _scene->getLights();
 
         int lightNum = 0;
         auto light = lights.begin();

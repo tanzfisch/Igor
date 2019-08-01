@@ -68,7 +68,7 @@ namespace OMPF
 
         if (chunk != nullptr)
 		{
-            vector<ompfBaseChunk*>::iterator it = _children.begin();
+            std::vector<ompfBaseChunk*>::iterator it = _children.begin();
 
 			while(it != _children.end())
 			{
@@ -93,7 +93,7 @@ namespace OMPF
 		return _children.size() ? true : false;
 	}
 
-	const vector<ompfBaseChunk*>& ompfBaseChunk::getChildren() const
+	const std::vector<ompfBaseChunk*>& ompfBaseChunk::getChildren() const
 	{
 		return _children;
 	}
@@ -123,7 +123,7 @@ namespace OMPF
         return _name;
     }
 
-    bool ompfBaseChunk::write(ofstream& stream, const ompfSettings& settings)
+    bool ompfBaseChunk::write(std::ofstream& stream, const ompfSettings& settings)
     {
         _chunkSize = getSize(settings);
 
@@ -157,12 +157,12 @@ namespace OMPF
         }
 
         con_debug_endl("---------------------------------------------------");
-        con_debug_endl("write chunk type:0x" << hex << static_cast<uint64>(_type) << dec << " size:" << _chunkSize << " ID:" << _ID << " parent:" << _parentID);
+        con_debug_endl("write chunk type:0x" << std::hex << static_cast<uint64>(_type) << std::dec << " size:" << _chunkSize << " ID:" << _ID << " parent:" << _parentID);
 
         return true;
     }
 
-    bool ompfBaseChunk::read(ifstream& stream, ompfSettings& settings)
+    bool ompfBaseChunk::read(std::ifstream& stream, ompfSettings& settings)
     {
         uint64 value = 0;
         if (!iaSerializable::readUInt(stream, value, settings.getTypeIDSize()))
@@ -204,12 +204,12 @@ namespace OMPF
         }
         
         con_debug_endl("---------------------------------------------------");
-        con_debug_endl("read chunk type: 0x" << hex << static_cast<uint32>(_type) << dec << " size:" << _chunkSize << " ID:" << _ID << " parent: " << _parentID << " name:" << _name);
+        con_debug_endl("read chunk type: 0x" << std::hex << static_cast<uint32>(_type) << std::dec << " size:" << _chunkSize << " ID:" << _ID << " parent: " << _parentID << " name:" << _name);
 
         return true;
     }
 
-    wostream& operator<<(wostream& stream, const OMPFChunkType chunkType)
+    std::wostream& operator<<(std::wostream& stream, const OMPFChunkType chunkType)
     {
         static iaString text[] = {
             "Invalid",
@@ -230,7 +230,7 @@ namespace OMPF
         return stream;
     }
 
-    wostream& operator<<(wostream& stream, const OMPFPathType pathType)
+    std::wostream& operator<<(std::wostream& stream, const OMPFPathType pathType)
     {
         static iaString text[] = {
             "RelativeToModel",

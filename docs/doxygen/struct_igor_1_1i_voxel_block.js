@@ -21,6 +21,6 @@ var struct_igor_1_1i_voxel_block =
     [ "_voxelBlockInfo", "struct_igor_1_1i_voxel_block.html#ae54e8668a4d8626de155f9e542e4eec1", null ],
     [ "_voxelData", "struct_igor_1_1i_voxel_block.html#a4c2e0fcfe3e6330520cf9fa9341131c8", null ],
     [ "_voxelGenerationTaskID", "struct_igor_1_1i_voxel_block.html#af56da18310ace6d1386ba5a4f7f43ae6", null ],
-    [ "_voxelOperations", "struct_igor_1_1i_voxel_block.html#a2c10dbc787b717a3b8dda615c0912a79", null ],
+    [ "_voxelOperations", "struct_igor_1_1i_voxel_block.html#a401a682eb5134120bf75e6086cf14c4c", null ],
     [ "INVALID_VOXELBLOCKID", "struct_igor_1_1i_voxel_block.html#aa763c1363b3a109bf27cb091bb7c13e9", null ]
 ];

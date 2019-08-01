@@ -36,7 +36,7 @@ using namespace IgorAux;
 #include <vector>
 #include <fstream>
 #include <ostream>
-using namespace std;
+
 
 namespace OMPF
 {
@@ -64,7 +64,7 @@ namespace OMPF
         \param settings the settings used to write the ompf file
         \returns true if there was no error
         */
-        virtual bool write(ofstream& stream, const ompfSettings& settings);
+        virtual bool write(std::ofstream& stream, const ompfSettings& settings);
 
         /*! reads a chunk from stream
 
@@ -72,7 +72,7 @@ namespace OMPF
         \param settings the settings used to read the stream
         \returns true if there was no error
         */
-        virtual bool read(ifstream& stream, ompfSettings& settings);
+        virtual bool read(std::ifstream& stream, ompfSettings& settings);
 
         /*! insert chunk in chunk
 
@@ -106,7 +106,7 @@ namespace OMPF
 
         /*! \returns list of children
         */
-		const vector<ompfBaseChunk*>& getChildren() const;
+		const std::vector<ompfBaseChunk*>& getChildren() const;
 
         /*! sets chunk id
 
@@ -164,7 +164,7 @@ namespace OMPF
 
         /*! children of chunk
         */
-        vector<ompfBaseChunk*> _children;
+        std::vector<ompfBaseChunk*> _children;
 
 	};
 
@@ -176,7 +176,7 @@ namespace OMPF
     \param chunkType the chunk type to stream
     \returns the resulting stream
     */
-    OMPF_API wostream& operator<<(wostream& stream, const OMPFChunkType chunkType);
+    OMPF_API std::wostream& operator<<(std::wostream& stream, const OMPFChunkType chunkType);
 
     /*! stream operator for chunk type
 
@@ -186,7 +186,7 @@ namespace OMPF
     \param pathType the path type to stream
     \returns the resulting stream
     */
-    OMPF_API wostream& operator<<(wostream& stream, const OMPFPathType pathType);
+    OMPF_API std::wostream& operator<<(std::wostream& stream, const OMPFPathType pathType);
 
 }
 

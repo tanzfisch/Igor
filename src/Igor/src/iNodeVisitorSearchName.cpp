@@ -13,7 +13,7 @@ namespace Igor
         setTraverseInactiveChildren(true);
     }
 
-    const vector<uint64>& iNodeVisitorSearchName::find(iNodePtr node, const iaString& name)
+    const std::vector<uint64>& iNodeVisitorSearchName::find(iNodePtr node, const iaString& name)
     {
         _name = name;
         traverseTree(node);

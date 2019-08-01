@@ -57,10 +57,7 @@ class UserControlMaterial : public iUserControl
 {
 public:
 
-	UserControlMaterial();
-	~UserControlMaterial();
-
-	iWidget* getWidget();
+	static iWidget* createInstance();
 
 	void setMaterial(uint64 id);
 	uint64 getMaterialID() const;
@@ -102,8 +99,6 @@ private:
 
     iWidgetButton* _shaderReload = nullptr;
 
-	vector<iWidget*> _allWidgets;
-
 	uint64 _materialID = 0;
 
     uint32 _loadShaderNumber = 0;
@@ -129,6 +124,10 @@ private:
 
 	void initGUI();
 	void deinitGUI();
+
+	UserControlMaterial();
+	~UserControlMaterial();
+
 
 };
 

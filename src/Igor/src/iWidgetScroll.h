@@ -170,7 +170,7 @@ namespace Igor
 
         \param offsets vector to be filled with childrens offsets
         */
-        void calcChildOffsets(vector<iRectanglei>& offsets);
+        void calcChildOffsets(std::vector<iRectanglei>& offsets);
 
 		/*! does nothing
 		*/

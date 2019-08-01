@@ -30,18 +30,16 @@
 #define __iTARGETMATERIAL__
 
 #include <iDefines.h>
+#include <iTexture.h>
 
 #include <iaColor3.h>
 using namespace IgorAux;
 
 #include <map>
 #include <memory>
-using namespace std;
 
 namespace Igor
 {
-
-    class iTexture;
 
     /*! contains all material information that belong to the surface of an object
     */
@@ -57,13 +55,13 @@ namespace Igor
         \param texture the texture to bind
         \param texunit the texture unit the texture will bond to
         */
-        void setTexture(shared_ptr<iTexture> texture, int texunit);
+        void setTexture(iTexturePtr texture, int texunit);
 
         /*! \returns texture of specified texture unit
 
         \param texunit texture unit
         */
-        shared_ptr<iTexture> getTexture(int texunit) const;
+		iTexturePtr getTexture(int texunit) const;
 
         /*! \returns true if mesh has textures and texture coordinates
         */
@@ -139,7 +137,7 @@ namespace Igor
 
         /*! map of textures associated to the mesh
         */
-        map<uint32, shared_ptr<iTexture>> _textures;
+        std::map<uint32, iTexturePtr> _textures;
 
         /*! material emissive value
         */

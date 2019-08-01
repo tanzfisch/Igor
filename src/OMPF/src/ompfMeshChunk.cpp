@@ -8,7 +8,7 @@
 using namespace IgorAux;
 
 #include <iomanip>
-using namespace std;
+
 
 namespace OMPF
 {
@@ -265,7 +265,7 @@ namespace OMPF
 		return _materialChunkID;
 	}
 
-	bool ompfMeshChunk::write(ofstream & file, const ompfSettings & settings)
+	bool ompfMeshChunk::write(std::ofstream & file, const ompfSettings & settings)
 	{
 		if (!ompfBaseChunk::write(file, settings))
 		{
@@ -369,7 +369,7 @@ namespace OMPF
 		return true;
 	}
 
-	bool ompfMeshChunk::read(ifstream & file, ompfSettings & settings)
+	bool ompfMeshChunk::read(std::ifstream & file, ompfSettings & settings)
 	{
 		con_debug_endl("---------------------------------------------------");
 		con_debug_endl("read ompfMeshChunk " << this->getName());

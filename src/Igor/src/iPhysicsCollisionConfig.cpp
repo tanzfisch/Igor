@@ -124,7 +124,7 @@ namespace Igor
         }
     }
 
-    void iPhysicsCollisionConfig::addMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixd& offset)
+    void iPhysicsCollisionConfig::addMesh(iMeshPtr mesh, int64 faceAttribute, const iaMatrixd& offset)
     {
         con_assert(!_finalized, "already finalized");
 
@@ -146,7 +146,7 @@ namespace Igor
             int32 count = 0;
 
             iPhysicsCollision* resultingCollision = nullptr;
-            vector<iPhysicsCollision*> collisions;
+            std::vector<iPhysicsCollision*> collisions;
 
             for (auto box : _boxes)
             {

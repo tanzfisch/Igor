@@ -50,17 +50,12 @@ class UserControlLight : public iUserControl
 {
 public:
 
-    UserControlLight();
-    ~UserControlLight();
-
-    iWidget* getWidget();
+	static iWidget* createInstance();
 
     void setNode(uint32 id);
     uint32 getNode();
 
 private:
-
-    vector<iWidget*> _allWidgets;
 
     iWidgetGrid* _grid = nullptr;
 
@@ -82,7 +77,9 @@ private:
     void updateNode();
 
     void initGUI();
-    void deinitGUI();
+
+	UserControlLight();
+	~UserControlLight() = default;
 
 };
 

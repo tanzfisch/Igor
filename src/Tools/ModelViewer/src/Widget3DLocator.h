@@ -77,7 +77,7 @@ private:
 
 	/*! create a mesh the represents a locator
 	*/
-	shared_ptr<iMesh> createLocatorMesh();
+	iMeshPtr createLocatorMesh();
 
 	/*! create the locator
 	*/

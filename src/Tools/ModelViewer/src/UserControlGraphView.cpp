@@ -19,7 +19,6 @@
 #include <iMouse.h>
 using namespace Igor;
 
-#include <IgorAux.h>
 #include <iaConsole.h>
 using namespace IgorAux;
 
@@ -30,7 +29,12 @@ UserControlGraphView::UserControlGraphView()
 
 UserControlGraphView::~UserControlGraphView()
 {
-    deinitGUI();
+	iWidgetManager::getInstance().destroyDialog(_dialogMenu);
+}
+
+iWidget* UserControlGraphView::createInstance()
+{
+	return new UserControlGraphView();
 }
 
 void UserControlGraphView::setRootNode(uint64 root)
@@ -56,16 +60,9 @@ uint64 UserControlGraphView::getRootNode()
     return _root;
 }
 
-iWidget* UserControlGraphView::getWidget()
-{
-    return _rootWidget;
-}
-
 void UserControlGraphView::initGUI()
 {
     iWidgetGrid* grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-    _rootWidget = grid;
-    _allWidgets.push_back(grid);
     grid->setBorder(0);
     grid->appendRows(1);
     grid->setCellSpacing(2);
@@ -73,9 +70,9 @@ void UserControlGraphView::initGUI()
     grid->setStrechColumn(0);
     grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     grid->setVerticalAlignment(iVerticalAlignment::Strech);
+	addWidget(grid);
 
     iWidgetGrid* gridButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-    _allWidgets.push_back(gridButtons);
     gridButtons->setBorder(0);
     gridButtons->appendCollumns(10);
     gridButtons->setCellSpacing(2);
@@ -83,7 +80,6 @@ void UserControlGraphView::initGUI()
     gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetButton* addTransformationButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-    _allWidgets.push_back(addTransformationButton);
     addTransformationButton->setText("");
     addTransformationButton->setWidth(30);
     addTransformationButton->setHeight(30);
@@ -92,7 +88,6 @@ void UserControlGraphView::initGUI()
     addTransformationButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddTransformation));
 
     iWidgetButton* addModelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-    _allWidgets.push_back(addModelButton);
     addModelButton->setText("");
     addModelButton->setWidth(30);
     addModelButton->setHeight(30);
@@ -101,7 +96,6 @@ void UserControlGraphView::initGUI()
     addModelButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddModel));
 
     iWidgetButton* addGroupButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-    _allWidgets.push_back(addGroupButton);
     addGroupButton->setText("");
     addGroupButton->setWidth(30);
     addGroupButton->setHeight(30);
@@ -110,7 +104,6 @@ void UserControlGraphView::initGUI()
     addGroupButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddGroup));
 
     iWidgetButton* addEmitterButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-    _allWidgets.push_back(addEmitterButton);
     addEmitterButton->setText("");
     addEmitterButton->setWidth(30);
     addEmitterButton->setHeight(30);
@@ -119,7 +112,6 @@ void UserControlGraphView::initGUI()
     addEmitterButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddEmitter));
 
     iWidgetButton* addParticleSystemButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-    _allWidgets.push_back(addParticleSystemButton);
     addParticleSystemButton->setText("");
     addParticleSystemButton->setWidth(30);
     addParticleSystemButton->setHeight(30);
@@ -128,7 +120,6 @@ void UserControlGraphView::initGUI()
     addParticleSystemButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddParticleSystem));
 
     iWidgetButton* addSwitchButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-    _allWidgets.push_back(addSwitchButton);
     addSwitchButton->setText("");
     addSwitchButton->setWidth(30);
     addSwitchButton->setHeight(30);
@@ -137,18 +128,15 @@ void UserControlGraphView::initGUI()
     addSwitchButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddSwitch));
 
     iWidgetGroupBox* groupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget("GroupBox"));
-    _allWidgets.push_back(groupBox);
     groupBox->setText("Graph");
     groupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
     groupBox->setVerticalAlignment(iVerticalAlignment::Strech);
 
     iWidgetScroll* scroll = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget("Scroll"));
-    _allWidgets.push_back(scroll);
     scroll->setVerticalAlignment(iVerticalAlignment::Strech);
     scroll->setHorizontalAlignment(iHorizontalAlignment::Strech);
 
     _gridGraph = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-    _allWidgets.push_back(_gridGraph);
     _gridGraph->setBorder(0);
     _gridGraph->setWidth(300);
     _gridGraph->setSelectMode(iSelectionMode::Row);
@@ -201,30 +189,6 @@ void UserControlGraphView::initGUI()
 
     _dialogMenuTexts.push_back("Add Particle System");
     _dialogMenuPictures.push_back("icons\\ParticleSystem.png");
-}
-
-void UserControlGraphView::deinitGUI()
-{
-    _gridGraph->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlGraphView::OnSelectionChange));
-    _gridGraph->unregisterOnContextMenuEvent(iContextMenuDelegate(this, &UserControlGraphView::OnContextMenu));
-
-    clearGraph();
-
-    for (auto widget : _allWidgets)
-    {
-        iWidgetManager::getInstance().destroyWidget(widget);
-    }
-
-    _allWidgets.clear();
-
-    _rootWidget = nullptr;
-    _gridGraph = nullptr;
-
-    if (_dialogMenu != nullptr)
-    {
-        iWidgetManager::getInstance().destroyDialog(_dialogMenu);
-        _dialogMenu = nullptr;
-    }
 }
 
 iaString UserControlGraphView::getIconTexture(iNodeType type)
@@ -410,16 +374,14 @@ bool UserControlGraphView::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
 {
     if (!_firstNode)
     {
-        _indentation++;
-
         iaString indentString;
         for (int i = 0; i < _indentation; ++i)
         {
-            indentString += ' ';
+            indentString += "   ";
         }
 
         uint32 currentRowIndex = _gridGraph->getRowCount() - 1;
-        uint32 currentCollumnIndex = _indentation;
+        uint32 currentCollumnIndex = _indentation++;
 
         iWidgetGrid* entry = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         entry->setSelectMode(iSelectionMode::NoSelection);

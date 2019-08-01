@@ -6,14 +6,9 @@
 #include <iaDirectory.h>
 #include <iaSystem.h>
 
-#include <iostream>
-using namespace std;
-
 #ifdef __IGOR_WIN__
 #include <DbgHelp.h>
 #endif
-#include <iomanip> 
-using namespace std;
 
 namespace IgorAux
 {
@@ -74,10 +69,10 @@ namespace IgorAux
 #else
 #error not implemented
 #endif
-            wstring path = result;
+			std::wstring path = result;
             path = path.substr(0, path.find_last_of(separator) + 1);
             path.append(L"\\Igor.log");
-            _file.open(path, fstream::out);
+            _file.open(path, std::fstream::out);
         }
     }
 
@@ -124,7 +119,7 @@ namespace IgorAux
 
 	void iaConsole::printCallStack(uint32 maxDepth)
 	{
-		vector<iaString> callStack;
+		std::vector<iaString> callStack;
 		getCallStack(callStack);
 
 		if (_streamToLogfile && _file.is_open())
@@ -136,7 +131,7 @@ namespace IgorAux
 		{
 
 			*this << __IGOR_LOGGING_TAB__ << callStack[i];
-			cout << std::endl;
+			std::cout << std::endl;
 
 			if (_streamToLogfile && _file.is_open())
 			{

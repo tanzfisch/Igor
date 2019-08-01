@@ -35,7 +35,7 @@
 using namespace IgorAux;
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -69,11 +69,11 @@ namespace Igor
 
         /*! contains model nodes that just got inserted or changed
         */
-        vector<uint64> _loadingQueue;
+        std::vector<uint64> _loadingQueue;
 
         /*! contains model nodes to be processed in current frame
         */
-        vector<uint64> _processingQueue;
+        std::vector<uint64> _processingQueue;
         
 	};
 

@@ -69,16 +69,13 @@ class UserControlProperties : public iUserControl
 {
 public:
 
-    UserControlProperties();
-    ~UserControlProperties();
+	static iWidget* createInstance();
 
     void setProperty(uint64 id, PropertyType propertyType);
 
     iDialog* getDialog();
 
     void clear();
-
-    iWidget* getWidget();
 
     void registerPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate);
     void unregisterPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate);
@@ -136,6 +133,9 @@ private:
     UserControlParticleSystem* _userControlParticleSystem = nullptr;
     UserControlNode* _userControlNode = nullptr;
     UserControlMaterial* _userControlMaterial = nullptr;
+
+	UserControlProperties();
+	~UserControlProperties();
 
 };
 

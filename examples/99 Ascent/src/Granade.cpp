@@ -85,7 +85,7 @@ iaVector3d Granade::getCurrentPos()
 
 void Granade::handle()
 {
-    vector<uint64> detectedEntities;
+    std::vector<uint64> detectedEntities;
     iSphered detectionSphere;
     detectionSphere._center.set(getSphere()._center._x, getSphere()._center._y, getSphere()._center._z);
     detectionSphere._radius = 1.0; // todo size of bullet granade etc.

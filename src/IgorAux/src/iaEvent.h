@@ -36,7 +36,7 @@
 #include <iaConsole.h>
 
 #include <vector>
-using namespace std;
+
 
 namespace IgorAux
 {
@@ -61,7 +61,7 @@ namespace IgorAux
 			void remove(const DelegateName &fpDelegate)													\
 			{																							\
                 _mutex.lock();                                                                          \
-				vector<DelegateName>::iterator it;														\
+				std::vector<DelegateName>::iterator it;														\
 				for(it = _delegates.begin();it != _delegates.end();it++)						        \
 				{																						\
 					if((*it) == fpDelegate)																\
@@ -76,7 +76,7 @@ namespace IgorAux
 			__inline ReturnType operator() ParameterList												\
 			{																							\
                 _mutex.lock();                                                                          \
-                vector<DelegateName> delegates = _delegates;                                            \
+                std::vector<DelegateName> delegates = _delegates;                                            \
                 _mutex.unlock();                                                                        \
 				for (unsigned int i = 0; i<delegates.size(); ++i)									    \
 				{																						\
@@ -99,7 +99,7 @@ namespace IgorAux
 		protected:																						\
 																										\
             iaMutex _mutex;                                                                               \
-			vector<DelegateName> _delegates;														    \
+			std::vector<DelegateName> _delegates;														    \
     };
 
 };

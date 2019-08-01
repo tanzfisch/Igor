@@ -38,7 +38,7 @@
 #include <list>
 #include <map>
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -114,7 +114,7 @@ namespace Igor
 
         \param data in out parameter for the resulting data
         */
-        void getResult(vector<uint64>& data);
+        void getResult(std::vector<uint64>& data);
 
         /*! creates the octree including the root node
 
@@ -172,7 +172,7 @@ namespace Igor
 
             /*! list of objects within the volume of this octree node
             */
-            vector<uint64> _objects;
+            std::vector<uint64> _objects;
         };
 
         /*! lookup table for faster split of octree node volumes
@@ -197,11 +197,11 @@ namespace Igor
 
         /*! lookup table for all objects within the octree
         */
-        map<uint64, OctreeObject*> _objects;
+        std::map<uint64, OctreeObject*> _objects;
 
         /*! lookup table for all nodes within the octree
         */
-        map<uint64, OctreeNode*> _nodes;
+        std::map<uint64, OctreeNode*> _nodes;
 
         /*! id of the root node
         */
@@ -209,19 +209,19 @@ namespace Igor
 
         /*! internal list for filtering
         */
-		vector<uint64> _queryResult;
+		std::vector<uint64> _queryResult;
 
         /*! spheres filter list
         */
-        vector<iSphered> _spheresFilter;
+        std::vector<iSphered> _spheresFilter;
 
         /*! planes filter list
         */
-        vector<iPlaned> _planesFilter;
+        std::vector<iPlaned> _planesFilter;
 
         /*! frustum filter list
         */
-        vector<iFrustumd> _frustumFilter;
+        std::vector<iFrustumd> _frustumFilter;
 
         /*! recursive function to insert a scene node to the octree
 

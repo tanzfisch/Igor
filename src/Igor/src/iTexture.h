@@ -35,13 +35,13 @@ using namespace IgorAux;
 #include <iDefines.h>
 
 #include <memory>
-using namespace std;
+
 
 namespace Igor
 {
 
     struct iRendererTexture;
-    class iTexture;
+	class iTexture;
 
 	class Igor_API iTexture
 	{
@@ -176,9 +176,9 @@ namespace Igor
 		
 	};
 
-    /*! definition of texture shared pointer
-    */
-    typedef shared_ptr<iTexture> iTexturePtr;
+	/*! definition of texture shared pointer
+	*/
+	typedef std::shared_ptr<iTexture> iTexturePtr;
 
 };
 

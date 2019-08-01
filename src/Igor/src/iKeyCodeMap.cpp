@@ -9,7 +9,7 @@ namespace Igor
 {
     iKeyCodeMap::iKeyCodeMap()
     {
-        _keyNames = map<iKeyCode, iaString>{
+        _keyNames = std::map<iKeyCode, iaString>{
             { iKeyCode::Undefined, L"Undefined" },
             { iKeyCode::Backspace, L"Backspace" },
             { iKeyCode::Tab, L"Tab" },

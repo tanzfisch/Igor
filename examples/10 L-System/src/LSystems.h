@@ -39,7 +39,7 @@
 #include <iMaterial.h>
 #include <iTexture.h>
 #include <iSkeleton.h>
-#include <iStatisticsVisualizer.h>
+#include <iProfilerVisualizer.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -88,7 +88,7 @@ private:
 
     /*! visualize statistics
     */
-    iStatisticsVisualizer _statisticsVisualizer;
+    iProfilerVisualizer _profilerVisualizer;
 
     /*! the view we render 2D to
     */
@@ -168,7 +168,7 @@ private:
 
     /*! node ids of plants in progress
     */
-    vector<uint64> _plantsInProgress;
+    std::vector<uint64> _plantsInProgress;
 
     /*! group node where we put the L-System model nodes in so we can delete them all at once
     */
@@ -180,7 +180,7 @@ private:
 
     /*! igor logo
     */
-    shared_ptr<iTexture> _igorLogo = nullptr;
+    iTexturePtr _igorLogo = nullptr;
 
     /*! \returns true if all plants are done creating
     */

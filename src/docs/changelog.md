@@ -1,6 +1,27 @@
 Changelog                           {#changelog}
 =========
 
+0.22.0
+------
+
+- iSprite is now iAtlas and can read frames from file
+- created sprite animation example
+  ![sprite animation](/images/SpriteAnimation.gif)
+- ownership of widgets transfers to the engine the moment they are children of a dialog
+- added mesh to world bake functionality
+- removed all using namesapce std;
+- added some keyboard shortcuts to ModelViewer
+  - Ctrl + N - clear scene
+  - Del - deletes current selection
+  - Ctrl + D - duplicates current selection
+  - Ctrl + C - copies current selection
+  - Ctrl + X - cuts current selection
+  - Ctrl + V - pastes on current selection
+  - Ctrl + S - opens save dialog
+  - Ctrl + O - opens load dialog
+- improved getInfo implementation and pretty print node tree
+- renamed iStatistic* to iProfiler*
+
 0.21.0
 ------
 

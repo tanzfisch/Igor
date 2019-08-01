@@ -36,10 +36,11 @@
 #include <iNode.h>
 #include <iView.h>
 #include <iScene.h>
+#include <iMesh.h>
 using namespace Igor;
 
 #include <memory>
-using namespace std;
+
 
 namespace Igor
 {
@@ -47,7 +48,6 @@ namespace Igor
     class iNodeTransform;
     class iNodeSwitch;
     class iNodeCamera;
-    class iMesh;
 }
 
 /*! manipulator modes
@@ -145,7 +145,6 @@ private:
     iNodeTransform* _cameraHeadingUI = nullptr;
     iNodeTransform* _cameraPitchUI = nullptr;
     iNodeTransform* _cameraTranslationUI = nullptr;
-    iNodeTransform* _transformModelUI = nullptr;
     iNodeCamera* _cameraUI = nullptr;
 
     uint64 _materialCelShading;
@@ -159,10 +158,10 @@ private:
     iNodePtr _parent = nullptr;
     bool _visible = false;
 
-    vector<uint64> _locatorIDs;
-    vector<uint64> _translateIDs;
-    vector<uint64> _scaleIDs;
-    vector<uint64> _rotateIDs;
+    std::vector<uint64> _locatorIDs;
+    std::vector<uint64> _translateIDs;
+    std::vector<uint64> _scaleIDs;
+    std::vector<uint64> _rotateIDs;
 
     iNodeTransform* _rootTransform = nullptr;
 
@@ -183,11 +182,11 @@ private:
 
     uint64 _material = iMaterial::INVALID_MATERIAL_ID;
 
-    shared_ptr<iMesh> createTranslateMesh();
-    shared_ptr<iMesh> createScaleMesh();
-	shared_ptr<iMesh> createCube();
-    shared_ptr<iMesh> createRingMesh();
-    shared_ptr<iMesh> create2DRingMesh();
+    iMeshPtr createTranslateMesh();
+    iMeshPtr createScaleMesh();
+	iMeshPtr createCube();
+    iMeshPtr createRingMesh();
+    iMeshPtr create2DRingMesh();
 
     /*! update internal structure
     */
@@ -211,9 +210,9 @@ private:
 
     void highlightSelected();
 
-    void createTranslateModifier(shared_ptr<iMesh> &translateMesh);
-    void createScaleModifier(shared_ptr<iMesh> &scaleMesh);
-    void createRotateModifier(shared_ptr<iMesh> &ringMesh, shared_ptr<iMesh> &ringMesh2D);
+    void createTranslateModifier(iMeshPtr &translateMesh);
+    void createScaleModifier(iMeshPtr &scaleMesh);
+    void createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D);
 
 };
 

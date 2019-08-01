@@ -31,6 +31,7 @@
 
 #include <iPhysicsBody.h>
 #include <iPhysicsWorld.h>
+#include <iMesh.h>
 
 #include <iaSingleton.h>
 #include <iaMatrix.h>
@@ -39,7 +40,6 @@ using namespace IgorAux;
 #include <memory>
 #include <vector>
 #include <map>
-using namespace std;
 
 namespace Igor
 {
@@ -51,7 +51,6 @@ namespace Igor
     class iPhysicsMaterialCombo;
     class iPhysicsUserMeshCollisionHandler;
     class iPhysicsCollisionConfig;
-    class iMesh;
 
     iaDELEGATE(iRayPreFilterDelegate, unsigned, (iPhysicsBody* body, iPhysicsCollision* collision, const void* userData), (body, collision, userData));
 
@@ -166,7 +165,7 @@ namespace Igor
         */
         bool isWorld(uint64 id);
 
-        void convexCast(const iaMatrixd& matrix, const iaVector3d& target, iPhysicsCollision* collisionVolume, iRayPreFilterDelegate preFilterDelegate, void* userData, vector<ConvexCastReturnInfo>& result, int32 maxContactCount = 10);
+        void convexCast(const iaMatrixd& matrix, const iaVector3d& target, iPhysicsCollision* collisionVolume, iRayPreFilterDelegate preFilterDelegate, void* userData, std::vector<ConvexCastReturnInfo>& result, int32 maxContactCount = 10);
 
         /*! creates a collision configuration
 
@@ -293,7 +292,7 @@ namespace Igor
         \param offset local offset matrix
         \returns physics collision
         */
-        iPhysicsCollision* createMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixd& offset);
+        iPhysicsCollision* createMesh(iMeshPtr mesh, int64 faceAttribute, const iaMatrixd& offset);
 
         /*! creates newton collision in shape of a sphere
 
@@ -335,7 +334,7 @@ namespace Igor
         \param collisions list od collisions
         \returns a compound collision
         */
-        iPhysicsCollision* createCompound(vector<iPhysicsCollision*>& collisions);
+        iPhysicsCollision* createCompound(std::vector<iPhysicsCollision*>& collisions);
 
         /*! returns the mass matrix from given body
 
@@ -421,23 +420,23 @@ namespace Igor
 
         /*! map of worlds
         */
-        map<uint64, iPhysicsWorld*> _worlds;
+        std::map<uint64, iPhysicsWorld*> _worlds;
 
         /*! map of collision configs
         */
-        map<uint64, iPhysicsCollisionConfig*> _collisionConfigs;
+        std::map<uint64, iPhysicsCollisionConfig*> _collisionConfigs;
 
         /*! list of collisions
         */
-        map<uint64, iPhysicsCollision*> _collisions;
+        std::map<uint64, iPhysicsCollision*> _collisions;
 
         /*! list of bodys
         */
-        map<uint64, iPhysicsBody*> _bodys;
+        std::map<uint64, iPhysicsBody*> _bodys;
 
         /*! list of bodys to delete
         */
-        vector<iPhysicsBody*> _bodiesToDelete;
+        std::vector<iPhysicsBody*> _bodiesToDelete;
 
         /*! mutex to protect bodies to delete
         */
@@ -445,7 +444,7 @@ namespace Igor
 
         /*! list of bodys to transform
         */
-        vector<pair<iPhysicsBody*, iaMatrixd>> _bodiesToTransform;
+        std::vector<std::pair<iPhysicsBody*, iaMatrixd>> _bodiesToTransform;
 
         /*! mutex to protect bodies to transform
         */
@@ -460,7 +459,7 @@ namespace Igor
 
         /*! list of contacts to trigger
         */
-        vector<Contact> _bodyContacts;
+        std::vector<Contact> _bodyContacts;
 
         /*! mutex to protect contacts list
         */
@@ -468,11 +467,11 @@ namespace Igor
 
         /*! list of joints
         */
-        map<uint64, iPhysicsJoint*> _joints;
+        std::map<uint64, iPhysicsJoint*> _joints;
 
         /*! map of materials
         */
-        map<int64, iPhysicsMaterial*> _materials;
+        std::map<int64, iPhysicsMaterial*> _materials;
 
         /*! id of default material
         */
@@ -524,7 +523,7 @@ namespace Igor
         \param worldID the world's id this collision will be created with
         \returns physics collision
         */
-        iPhysicsCollision* createMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixd& offset, uint64 worldID);
+        iPhysicsCollision* createMesh(iMeshPtr mesh, int64 faceAttribute, const iaMatrixd& offset, uint64 worldID);
 
         /*! creates a user mesh collision
 
@@ -580,7 +579,7 @@ namespace Igor
         \param worldID the world's id this collision will be created with
         \returns a compound collision
         */
-        iPhysicsCollision* createCompound(vector<iPhysicsCollision*>& collisions, uint64 worldID);
+        iPhysicsCollision* createCompound(std::vector<iPhysicsCollision*>& collisions, uint64 worldID);
 
         /*! setup generic collision callback for specified material combination
 

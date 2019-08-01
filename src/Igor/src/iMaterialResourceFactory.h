@@ -41,7 +41,7 @@ using namespace IgorAux;
 #include <list>
 #include <map>
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -125,7 +125,7 @@ namespace Igor
 
         /*! \returns materials list sorted by render order
         */
-        vector<iMaterialPtr> getSortedMaterials();
+        std::vector<iMaterialPtr> getSortedMaterials();
 
         /*! register delegate to material created event
 
@@ -167,11 +167,11 @@ namespace Igor
 
         /*! materials sorted by render order
         */
-        vector<iMaterialPtr> _sortedMaterials;
+        std::vector<iMaterialPtr> _sortedMaterials;
 
         /*! lookup table for materials
         */
-        map<uint64, iMaterialPtr> _materials;
+        std::map<uint64, iMaterialPtr> _materials;
 
         /*! mutex to protect the target material list
         */
@@ -179,7 +179,7 @@ namespace Igor
 
         /*! list of target materials
         */
-        vector<iTargetMaterial*> _targetMaterials;
+        std::vector<iTargetMaterial*> _targetMaterials;
 
         /*! current material in use
         */

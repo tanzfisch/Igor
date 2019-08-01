@@ -36,7 +36,7 @@
 #include <map>
 #include <vector>
 #include <memory>
-using namespace std;
+
 
 namespace Igor
 {
@@ -49,7 +49,7 @@ namespace Igor
     {
         /*! render node ids
         */
-        vector<uint64> _renderNodeIDs;
+        std::vector<uint64> _renderNodeIDs;
 
         /*! instance of corresponding instancer
         */
@@ -87,21 +87,21 @@ namespace Igor
 
         /*! \returns copy of render nodes in this group
         */
-        vector<uint64> getRenderNodes() const;
+        std::vector<uint64> getRenderNodes() const;
 
         /*! \returns copy of instanced render node meshs in this group
         */
-        map<shared_ptr<iMeshBuffers>, iInstancedNodes> getInstancedRenderNodes() const;
+        std::map<std::shared_ptr<iMeshBuffers>, iInstancedNodes> getInstancedRenderNodes() const;
 
     private:
 
         /*! render node IDs registred to this material
         */
-        vector<uint64> _renderNodeIDs;
+        std::vector<uint64> _renderNodeIDs;
 
         /*! render nodes registred to this material that are also using instancing
         */
-        map<shared_ptr<iMeshBuffers>, iInstancedNodes> _instancedRenderNodes;
+        std::map<std::shared_ptr<iMeshBuffers>, iInstancedNodes> _instancedRenderNodes;
 
 	};
 

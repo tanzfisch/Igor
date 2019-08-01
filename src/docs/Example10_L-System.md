@@ -30,26 +30,26 @@ The first line is a typical replacement rule F will be replaced with FF. This ba
 
 In the next section we have an example for a weighted rule with 4 cases. Make sure all four probabilities add up to 1.0.
 
-    vector<pair<float64, iaString>> weightedRule1;
-    weightedRule1.push_back(pair<float64, iaString>(0.25, "F[+X]OF[-X]+X."));
-    weightedRule1.push_back(pair<float64, iaString>(0.25, "FO[-X]F[+X]-X."));
-    weightedRule1.push_back(pair<float64, iaString>(0.25, "F[RX]F[LX]ORX."));
-    weightedRule1.push_back(pair<float64, iaString>(0.25, "F[LX]FO[RX]LX."));
+    std::vector<std::pair<float64, iaString>> weightedRule1;
+    weightedRule1.push_back(std::pair<float64, iaString>(0.25, "F[+X]OF[-X]+X."));
+    weightedRule1.push_back(std::pair<float64, iaString>(0.25, "FO[-X]F[+X]-X."));
+    weightedRule1.push_back(std::pair<float64, iaString>(0.25, "F[RX]F[LX]ORX."));
+    weightedRule1.push_back(std::pair<float64, iaString>(0.25, "F[LX]FO[RX]LX."));
     _lSystem.setRule('X', weightedRule1);
 
 In the following section we also have a weighted rule but it also has an additional age filter. It basically says that it has only effect after the L-System age is greater 2. In our scenario the buds that are represented with a '*' can earliest appear on the 4th plant because it has the age of 4.
 
-    vector<pair<float64, iaString>> weightedRule2;
-    weightedRule2.push_back(pair<float64, iaString>(0.3, "."));
-    weightedRule2.push_back(pair<float64, iaString>(0.7, "*"));
+    std::vector<std::pair<float64, iaString>> weightedRule2;
+    weightedRule2.push_back(std::pair<float64, iaString>(0.3, "."));
+    weightedRule2.push_back(std::pair<float64, iaString>(0.7, "*"));
     _lSystem.setRule('.', weightedRule2);
     _lSystem.setAgeFilter('.', iLSystemAgeFunction::Greater, 2);
 
 The next one works exactly the same but instead of turning the '.' placeholder in to buds it turns buds in to flowers.
 
-    vector<pair<float64, iaString>> weightedRule3;
-    weightedRule3.push_back(pair<float64, iaString>(0.3, "*"));
-    weightedRule3.push_back(pair<float64, iaString>(0.7, "o"));
+    std::vector<std::pair<float64, iaString>> weightedRule3;
+    weightedRule3.push_back(std::pair<float64, iaString>(0.3, "*"));
+    weightedRule3.push_back(std::pair<float64, iaString>(0.7, "o"));
     _lSystem.setRule('*', weightedRule3);
     _lSystem.setAgeFilter('*', iLSystemAgeFunction::Greater, 4);
 

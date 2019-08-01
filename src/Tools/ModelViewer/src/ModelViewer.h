@@ -41,7 +41,7 @@
 #include <iaMatrix.h>
 #include <iWidgetManager.h>
 #include <iDialogFileSelect.h>
-#include <iStatisticsVisualizer.h>
+#include <iProfilerVisualizer.h>
 using namespace Igor;
 
 namespace Igor
@@ -61,7 +61,7 @@ namespace Igor
 }
 
 class PropertiesDialog;
-class MenuDialog;
+class Outliner;
 
 class ModelViewer
 {
@@ -93,7 +93,6 @@ private:
     iNodeTransform* _cameraHeading = nullptr;
     iNodeTransform* _cameraPitch = nullptr;
     iNodeTransform* _cameraTranslation = nullptr;
-    iNodeTransform* _transformModel = nullptr;
     iNodeCamera* _camera = nullptr;
 
     iNodeSkyBox* _skyBoxNode = nullptr;
@@ -105,7 +104,7 @@ private:
     iWidgetDefaultTheme* _widgetTheme = nullptr;
 
     PropertiesDialog* _propertiesDialog = nullptr;
-    MenuDialog* _menuDialog = nullptr;
+    Outliner* _outliner = nullptr;
     iRenderStatistics* _renderStatistics = nullptr;
 
     float32 _camDistance = 0;
@@ -121,11 +120,15 @@ private:
 
     uint32 _selectedNodeID = iNode::INVALID_NODE_ID;
 
-    iStatisticsVisualizer _statisticsVisualizer;
+    iProfilerVisualizer _profilerVisualizer;
 
     Manipulator* _manipulator = nullptr;
 
 	Widget3D* _widget3D = nullptr;
+
+	/*! empties the scene
+	*/
+	void clearScene();
 
     void resetManipulatorMode();
     void setManipulatorMode(ManipulatorMode modifierMode);
@@ -177,6 +180,8 @@ private:
     void render();
     void renderOrtho();
     void renderOrientationPlane();
+
+	void registerWidgetTypes();
 
 	iModelDataInputParameter* createDataInputParameter();
 

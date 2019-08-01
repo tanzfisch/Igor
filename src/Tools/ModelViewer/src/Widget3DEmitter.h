@@ -99,23 +99,23 @@ private:
 
 	/*! creates a disc mesh
 	*/
-	shared_ptr<iMesh> createDisc();
+	iMeshPtr createDisc();
 
 	/*! creates a circle mesh
 	*/
-	shared_ptr<iMesh> createCircle();
+	iMeshPtr createCircle();
 	
 	/*! creates a cube mesh
 	*/
-	shared_ptr<iMesh> createCube();
+	iMeshPtr createCube();
 
 	/*! creates a cube mesh
 	*/
-	shared_ptr<iMesh> createSquare();
+	iMeshPtr createSquare();
 
 	/*! creates a sphere mesh
 	*/
-	shared_ptr<iMesh> createSphere();
+	iMeshPtr createSphere();
 };
 
 #endif

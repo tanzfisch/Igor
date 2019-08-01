@@ -7,7 +7,7 @@
 #include <iTimerHandle.h>
 #include <iModelResourceFactory.h>
 #include <iKeyboard.h>
-#include <iStatisticsVisualizer.h>
+#include <iProfilerVisualizer.h>
 #include <iSphere.h>
 #include <iPerlinNoise.h>
 using namespace Igor;
@@ -58,7 +58,7 @@ private:
 
     iaRandomNumberGeneratoru rand;
 
-    iStatisticsVisualizer _statisticsVisualizer;
+    iProfilerVisualizer _profilerVisualizer;
 
     bool _loading = true;
     bool _activeControls = false;
@@ -96,10 +96,10 @@ private:
     uint64 _taskFlushTextures = 0;
 
     iaMutex _hitListMutex;
-    vector<pair<uint64, uint64>> _hitList;
+    std::vector<std::pair<uint64, uint64>> _hitList;
 
-    vector<iSphered> _metaballs;
-    vector<iSphered> _holes;
+    std::vector<iSphered> _metaballs;
+    std::vector<iSphered> _holes;
     iVoxelTerrain* _voxelTerrain = nullptr;
 
     int _enemyCount = 0;

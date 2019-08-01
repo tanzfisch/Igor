@@ -32,7 +32,7 @@ namespace Igor
         {
             float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
 
-            iaString displayString = iaString::ftoa(_max, _afterPoint);
+            iaString displayString = iaString::toString(_max, _afterPoint);
             displayString += _postFix;
 
             int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(displayString, fontSize));
@@ -263,7 +263,7 @@ namespace Igor
     {
         if (isVisible())
         {
-            iaString displayString = iaString::ftoa(_value, _afterPoint);
+            iaString displayString = iaString::toString(_value, _afterPoint);
             displayString += _postFix;
 
             iWidgetManager::getInstance().getTheme()->drawNumberChooser(getActualRect(), displayString, _buttonUpAppearanceState, _buttonDownAppearanceState, isActive());

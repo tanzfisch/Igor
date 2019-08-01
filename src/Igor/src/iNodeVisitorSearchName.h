@@ -35,7 +35,7 @@ using namespace IgorAux;
 #include <iNodeVisitor.h>
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -60,7 +60,7 @@ namespace Igor
         \param name the name to search for
         \returns list of found node ids
         */
-		const vector<uint64>& find(iNodePtr node, const iaString& name);
+		const std::vector<uint64>& find(iNodePtr node, const iaString& name);
 
 	protected:
 
@@ -86,7 +86,7 @@ namespace Igor
 
         /*! resulting list of found node IDs
         */
-        vector<uint64> _nodeIDs;
+        std::vector<uint64> _nodeIDs;
 
         /*! hold a copy of name to search for
         */

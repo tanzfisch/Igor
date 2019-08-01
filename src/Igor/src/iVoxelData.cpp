@@ -148,7 +148,7 @@ namespace Igor
         setVoxelDensity(iaVector3I(pos2._x, pos2._y, pos2._z), density);
     }
 
-    void iVoxelData::getVoxelLine(iaVector3I pos1, iaVector3I pos2, vector<uint8>& dst)
+    void iVoxelData::getVoxelLine(iaVector3I pos1, iaVector3I pos2, std::vector<uint8>& dst)
     {
         iaVector3I u(pos1._x, pos1._y, pos1._z);
         iaVector3I delta(pos2._x - pos1._x, pos2._y - pos1._y, pos2._z - pos1._z);
