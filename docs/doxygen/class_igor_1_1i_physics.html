@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.22.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -153,8 +153,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a5df0993d66eb2e5ab70acb21e5a639f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9bc7f823fd495f98c7ff2672fa4ee854"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics.html#a9bc7f823fd495f98c7ff2672fa4ee854">isWorld</a> (uint64 id)</td></tr>
 <tr class="separator:a9bc7f823fd495f98c7ff2672fa4ee854"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34213cfb47436c4ec8989dde4314dc66"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics.html#a34213cfb47436c4ec8989dde4314dc66">convexCast</a> (const <a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> &amp;matrix, const <a class="el" href="namespace_igor_aux.html#ac312fcf0af77ec8167e9e30b01c0de54">iaVector3d</a> &amp;target, <a class="el" href="class_igor_1_1i_physics_collision.html">iPhysicsCollision</a> *collisionVolume, iRayPreFilterDelegate preFilterDelegate, void *userData, vector&lt; <a class="el" href="struct_igor_1_1_convex_cast_return_info.html">ConvexCastReturnInfo</a> &gt; &amp;result, int32 maxContactCount=10)</td></tr>
-<tr class="separator:a34213cfb47436c4ec8989dde4314dc66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff5f4b953f928b2f6753faf3aea473c4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics.html#aff5f4b953f928b2f6753faf3aea473c4">convexCast</a> (const <a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> &amp;matrix, const <a class="el" href="namespace_igor_aux.html#ac312fcf0af77ec8167e9e30b01c0de54">iaVector3d</a> &amp;target, <a class="el" href="class_igor_1_1i_physics_collision.html">iPhysicsCollision</a> *collisionVolume, iRayPreFilterDelegate preFilterDelegate, void *userData, std::vector&lt; <a class="el" href="struct_igor_1_1_convex_cast_return_info.html">ConvexCastReturnInfo</a> &gt; &amp;result, int32 maxContactCount=10)</td></tr>
+<tr class="separator:aff5f4b953f928b2f6753faf3aea473c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90dcd82ece96f39ec61120a36e15ff18"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_physics_collision_config.html">iPhysicsCollisionConfig</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics.html#a90dcd82ece96f39ec61120a36e15ff18">createCollisionConfig</a> ()</td></tr>
 <tr class="separator:a90dcd82ece96f39ec61120a36e15ff18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98d749d54dd900076c24ce362f5ebd23"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_physics_collision_config.html">iPhysicsCollisionConfig</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics.html#a98d749d54dd900076c24ce362f5ebd23">getCollisionConfig</a> (uint64 collisionConfigID)</td></tr>
@@ -195,8 +195,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3c38da2e6ad2c771afade7a964b10eff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afebe6b2fe5cf7dc16ba1c391c0b0315a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_physics_collision.html">iPhysicsCollision</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics.html#afebe6b2fe5cf7dc16ba1c391c0b0315a">createBox</a> (float64 width, float64 height, float64 depth, const <a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> &amp;offset)</td></tr>
 <tr class="separator:afebe6b2fe5cf7dc16ba1c391c0b0315a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b0cdcfbb8def9535529bb88f8491994"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_physics_collision.html">iPhysicsCollision</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics.html#a5b0cdcfbb8def9535529bb88f8491994">createMesh</a> (shared_ptr&lt; <a class="el" href="class_igor_1_1i_mesh.html">iMesh</a> &gt; mesh, int64 faceAttribute, const <a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> &amp;offset)</td></tr>
-<tr class="separator:a5b0cdcfbb8def9535529bb88f8491994"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c5c5a2764f849596e2692116bc54752"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_physics_collision.html">iPhysicsCollision</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics.html#a2c5c5a2764f849596e2692116bc54752">createMesh</a> (<a class="el" href="namespace_igor.html#a559fe4456991a1ae2e1cca07945ad071">iMeshPtr</a> mesh, int64 faceAttribute, const <a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> &amp;offset)</td></tr>
+<tr class="separator:a2c5c5a2764f849596e2692116bc54752"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abddf0c83446d8b84ea4a74f33e95857c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_physics_collision.html">iPhysicsCollision</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics.html#abddf0c83446d8b84ea4a74f33e95857c">createSphere</a> (float64 radius, const <a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> &amp;offset)</td></tr>
 <tr class="separator:abddf0c83446d8b84ea4a74f33e95857c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c7f0310f7fbe23e6f4f395310e286bc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_physics_collision.html">iPhysicsCollision</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics.html#a0c7f0310f7fbe23e6f4f395310e286bc">createCone</a> (float64 radius, float64 height, const <a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> &amp;offset)</td></tr>
@@ -205,8 +205,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:afa1894feb7ff057921906df61a15e042"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e73af2ad2d70e791994c35ab417a098"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_physics_collision.html">iPhysicsCollision</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics.html#a0e73af2ad2d70e791994c35ab417a098">createCylinder</a> (float64 radius0, float64 radius1, float64 height, const <a class="el" href="namespace_igor_aux.html#a2b9d51cf0047388cb92a5c7dd0c9a532">iaMatrixd</a> &amp;offset)</td></tr>
 <tr class="separator:a0e73af2ad2d70e791994c35ab417a098"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27101cdd1ac02f768c293bfe619a8eed"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_physics_collision.html">iPhysicsCollision</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics.html#a27101cdd1ac02f768c293bfe619a8eed">createCompound</a> (vector&lt; <a class="el" href="class_igor_1_1i_physics_collision.html">iPhysicsCollision</a> * &gt; &amp;collisions)</td></tr>
-<tr class="separator:a27101cdd1ac02f768c293bfe619a8eed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a661b482f6134b70088b0835fc2ea8b1d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_physics_collision.html">iPhysicsCollision</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics.html#a661b482f6134b70088b0835fc2ea8b1d">createCompound</a> (std::vector&lt; <a class="el" href="class_igor_1_1i_physics_collision.html">iPhysicsCollision</a> * &gt; &amp;collisions)</td></tr>
+<tr class="separator:a661b482f6134b70088b0835fc2ea8b1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53cf6720a4a17ff3b6806ca46a80da99"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics.html#a53cf6720a4a17ff3b6806ca46a80da99">getMassMatrix</a> (void *newtonBody, float64 &amp;mass, float64 &amp;Ixx, float64 &amp;Iyy, float64 &amp;Izz)</td></tr>
 <tr class="separator:a53cf6720a4a17ff3b6806ca46a80da99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af0ef8dd0fc46a1e86e68ed58af3c6f0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics.html#af0ef8dd0fc46a1e86e68ed58af3c6f0a">setMassMatrix</a> (void *newtonBody, float64 mass, float64 Ixx, float64 Iyy, float64 Izz)</td></tr>
@@ -310,7 +310,7 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a34213cfb47436c4ec8989dde4314dc66"></a>
+<a class="anchor" id="aff5f4b953f928b2f6753faf3aea473c4"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -347,7 +347,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">vector&lt; <a class="el" href="struct_igor_1_1_convex_cast_return_info.html">ConvexCastReturnInfo</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="struct_igor_1_1_convex_cast_return_info.html">ConvexCastReturnInfo</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>result</em>, </td>
         </tr>
         <tr>
@@ -504,14 +504,14 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a27101cdd1ac02f768c293bfe619a8eed"></a>
+<a class="anchor" id="a661b482f6134b70088b0835fc2ea8b1d"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="class_igor_1_1i_physics_collision.html">iPhysicsCollision</a> * Igor::iPhysics::createCompound </td>
           <td>(</td>
-          <td class="paramtype">vector&lt; <a class="el" href="class_igor_1_1i_physics_collision.html">iPhysicsCollision</a> * &gt; &amp;&#160;</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="class_igor_1_1i_physics_collision.html">iPhysicsCollision</a> * &gt; &amp;&#160;</td>
           <td class="paramname"><em>collisions</em></td><td>)</td>
           <td></td>
         </tr>
@@ -669,14 +669,14 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a5b0cdcfbb8def9535529bb88f8491994"></a>
+<a class="anchor" id="a2c5c5a2764f849596e2692116bc54752"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="class_igor_1_1i_physics_collision.html">iPhysicsCollision</a> * Igor::iPhysics::createMesh </td>
           <td>(</td>
-          <td class="paramtype">shared_ptr&lt; <a class="el" href="class_igor_1_1i_mesh.html">iMesh</a> &gt;&#160;</td>
+          <td class="paramtype"><a class="el" href="namespace_igor.html#a559fe4456991a1ae2e1cca07945ad071">iMeshPtr</a>&#160;</td>
           <td class="paramname"><em>mesh</em>, </td>
         </tr>
         <tr>

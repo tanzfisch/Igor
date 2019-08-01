@@ -1,6 +1,6 @@
 var class_igor_1_1i_node_transform =
 [
-    [ "getCustomInfo", "class_igor_1_1i_node_transform.html#a097082fa67e921c2ca90a6441bd82307", null ],
+    [ "getInfo", "class_igor_1_1i_node_transform.html#a4e0bb0cf985a3f384543f54b15d1f7fb", null ],
     [ "getMatrix", "class_igor_1_1i_node_transform.html#a576c7abc9fdf717b81bc649d9dd80838", null ],
     [ "identity", "class_igor_1_1i_node_transform.html#aa6eafa4e6a19eae9880a62626f8e40c3", null ],
     [ "rotate", "class_igor_1_1i_node_transform.html#a36db58a9939509fcb25f957d652b964f", null ],

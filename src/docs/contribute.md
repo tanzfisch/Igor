@@ -45,7 +45,7 @@ For making a release do the following steps.
 
 4. Run some smoke tests (ig run all the examples once) and when satisfied merge in to master and develop. 
 
-5. Create a tag with the new version number on master and push master, devlop and the new tag to github.
+5. Create a tag with the new version number on master and push master, develop and the new tag to github.
 
 Make a Patch Release 
 --------------------

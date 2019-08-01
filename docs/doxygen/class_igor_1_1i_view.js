@@ -12,7 +12,7 @@ var class_igor_1_1i_view =
     [ "isVisible", "class_igor_1_1i_view.html#a16b3ebd0402243366644f9ad84b65162", null ],
     [ "isWireframeVisible", "class_igor_1_1i_view.html#a410a53b52b5061289311756d2e5695b5", null ],
     [ "pickcolorID", "class_igor_1_1i_view.html#a37562758e5ff35f5e1d1e775fe79152e", null ],
-    [ "pickcolorID", "class_igor_1_1i_view.html#a4bf64f1d4d7260afbd3e8f0ea9c3a361", null ],
+    [ "pickcolorID", "class_igor_1_1i_view.html#a71f7af950bec2ab98e061f3e8505804d", null ],
     [ "project", "class_igor_1_1i_view.html#ae595560146454444796b5ce1c518f6a9", null ],
     [ "registerRenderDelegate", "class_igor_1_1i_view.html#a704953b1b89ae88e7996ce23f8f6d20a", null ],
     [ "setBoundingBoxVisible", "class_igor_1_1i_view.html#a9a282ee2c2440a425e4b8806dd97c869", null ],

@@ -5,10 +5,10 @@ var searchData=
   ['backspace',['Backspace',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24acd7d13ceea728b08555f7c818cfb13ef',1,'Igor']]],
   ['base',['Base',['../namespace_igor.html#afc828a8f3a21084387ab5bc734086b17a095a1b43effec73955e31e790438de49',1,'Igor']]],
   ['beginradiobuttongroup',['beginRadioButtonGroup',['../class_igor_1_1i_widget_check_box.html#ae63be6d177fe17290b82ce93fda73bf6',1,'Igor::iWidgetCheckBox']]],
-  ['beginsection',['beginSection',['../class_igor_1_1i_statistics.html#a93d851ae2c6c00ed7d2c53a2fb9dfd82',1,'Igor::iStatistics::beginSection()'],['../class_igor_1_1i_statistics_section.html#ad62fd790709038a38a6b551125ed561c',1,'Igor::iStatisticsSection::beginSection()']]],
+  ['beginsection',['beginSection',['../class_igor_1_1i_profiler.html#a22df7ccfeb84941939b038ab8d3b1b4e',1,'Igor::iProfiler::beginSection()'],['../class_igor_1_1i_profiler_section.html#a7008fa9a03ae5e1311adf88346d4ecfa',1,'Igor::iProfilerSection::beginSection()']]],
   ['bgr',['BGR',['../namespace_igor.html#a1591be7a883348974cbed3cab1bd43d5a2ad5640ebdec72fc79531d1778c6c2dc',1,'Igor']]],
   ['bgra',['BGRA',['../namespace_igor.html#a1591be7a883348974cbed3cab1bd43d5a5a1fe3c61c9e2fd6dbbc823589f6e697',1,'Igor']]],
-  ['bindtexture',['bindTexture',['../class_igor_1_1i_renderer.html#a9dcd7946f0faf6ef0cc231d359d0b385',1,'Igor::iRenderer']]],
+  ['bindtexture',['bindTexture',['../class_igor_1_1i_renderer.html#aa82974dd4e82c7c7846188dcaa71c4e9',1,'Igor::iRenderer']]],
   ['bindtransformnode',['bindTransformNode',['../class_igor_1_1i_physics.html#a6597fa01c5eaf2ffb189786debed1a25',1,'Igor::iPhysics']]],
   ['blend',['Blend',['../namespace_igor.html#ab297c11b2c64e78ac457158bfddd8ed7a09ac609fcdb514c9adca34e7f97b4ac4',1,'Igor::Blend()'],['../namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761a09ac609fcdb514c9adca34e7f97b4ac4',1,'OMPF::Blend()']]],
   ['blendfuncdestination',['BlendFuncDestination',['../namespace_igor.html#ab297c11b2c64e78ac457158bfddd8ed7a09f36b800e36482e25295ee9a2b71688',1,'Igor::BlendFuncDestination()'],['../namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761a09f36b800e36482e25295ee9a2b71688',1,'OMPF::BlendFuncDestination()']]],
@@ -18,5 +18,5 @@ var searchData=
   ['border_5fwidth2',['BORDER_WIDTH2',['../namespace_igor.html#ad29933c1fba912dee0c8b25ecfe3bf3f',1,'Igor']]],
   ['bottom',['Bottom',['../namespace_igor.html#a2526c10e8630ee25d053e6c519b15180a2ad9d63b69c4a10a5cc9cad923133bc4',1,'Igor']]],
   ['break',['Break',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24ae4c38d6d45baf080943d323dd51a2ce8',1,'Igor']]],
-  ['buffer_5fsize',['BUFFER_SIZE',['../class_igor_1_1i_statistics_section.html#a9775abfdce6c69afa2111fbf764b0cb8',1,'Igor::iStatisticsSection']]]
+  ['buffer_5fsize',['BUFFER_SIZE',['../class_igor_1_1i_profiler_section.html#a5101ca0e9180a6e4508c9c104076d2a3',1,'Igor::iProfilerSection']]]
 ];

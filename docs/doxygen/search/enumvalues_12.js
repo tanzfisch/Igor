@@ -2,7 +2,7 @@ var searchData=
 [
   ['s',['S',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a5dbc98dcc983a70728bd082d1a47546e',1,'Igor']]],
   ['scrolllock',['ScrollLock',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a7d7902d5e2998e4fb2b8694a2de4ff65',1,'Igor']]],
-  ['sections',['Sections',['../namespace_igor.html#ab2bf8a45681db3503d84e03dd9f1dcfea855c3eca6c7aaef477b4f03e4699944d',1,'Igor']]],
+  ['sections',['Sections',['../namespace_igor.html#a43197990e5686f09dd3845067aafaf5da855c3eca6c7aaef477b4f03e4699944d',1,'Igor']]],
   ['setup',['Setup',['../namespace_igor.html#a3ada26443dfaff731400935076205c3aaad2376beebecdcf7846ba973fa1a005b',1,'Igor']]],
   ['seven',['Seven',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a12e67aac3e7f9227cc35f8f047d7dc74',1,'Igor']]],
   ['shift',['Shift',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a825a3d98017bab11815ad2817201324c',1,'Igor']]],

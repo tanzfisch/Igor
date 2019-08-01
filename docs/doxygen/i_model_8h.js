@@ -2,6 +2,7 @@ var i_model_8h =
 [
     [ "iModelDataInputParameter", "struct_igor_1_1i_model_data_input_parameter.html", "struct_igor_1_1i_model_data_input_parameter" ],
     [ "iModel", "class_igor_1_1i_model.html", "class_igor_1_1i_model" ],
+    [ "iModelPtr", "i_model_8h.html#a858a8c25fc042e19d4dda1ae1e751464", null ],
     [ "iModelSourceType", "i_model_8h.html#a5cc8d7b72ee55ab097738f9d5b639c35", [
       [ "File", "i_model_8h.html#a5cc8d7b72ee55ab097738f9d5b639c35a0b27918290ff5323bea1e3b78a9cf04e", null ],
       [ "Generated", "i_model_8h.html#a5cc8d7b72ee55ab097738f9d5b639c35a5c5f06440fcb85cd5c8cfafe32e34b78", null ],

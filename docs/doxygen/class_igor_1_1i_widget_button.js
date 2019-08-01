@@ -13,7 +13,7 @@ var class_igor_1_1i_widget_button =
     [ "iWidgetManager", "class_igor_1_1i_widget_button.html#a9da20b1c56a70b01ca0ef56f4d4d47fc", null ],
     [ "_horizontalTextAlignment", "class_igor_1_1i_widget_button.html#a88cd8159169ac52a5708d4b23a88b48c", null ],
     [ "_text", "class_igor_1_1i_widget_button.html#a0a77f2b31e8eef2dfad66183f9bb5a6d", null ],
-    [ "_texture", "class_igor_1_1i_widget_button.html#a9d764633d99373e2c644e9824e08793a", null ],
+    [ "_texture", "class_igor_1_1i_widget_button.html#aaf4ba7fb9e3c6ca955e095c564ae3898", null ],
     [ "_texturePath", "class_igor_1_1i_widget_button.html#aebcafb13ed9cde308dc88269f95f7f07", null ],
     [ "_verticalTextAlignment", "class_igor_1_1i_widget_button.html#a1a6c1a3d5773a70d950d57a4bfbba75b", null ]
 ];

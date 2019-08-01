@@ -9,7 +9,7 @@ var class_igor_1_1i_octree =
     [ "draw", "class_igor_1_1i_octree.html#aac5a4d89939fa38182e146b4c15a35a0", null ],
     [ "filter", "class_igor_1_1i_octree.html#a76d17a0c122ae0bef60be65c6531b23a", null ],
     [ "filter", "class_igor_1_1i_octree.html#af1deb13e0dc9dd5332d825ab7d6606b6", null ],
-    [ "getResult", "class_igor_1_1i_octree.html#ae3b52b4a9ea1227c47df624b177f3904", null ],
+    [ "getResult", "class_igor_1_1i_octree.html#a6ea690c0a3fafcd2c44c74c71456e02f", null ],
     [ "insert", "class_igor_1_1i_octree.html#a02356a9825edc88cf92bd483dd4a3fba", null ],
     [ "remove", "class_igor_1_1i_octree.html#a502b4efcfc598ebddbf9b7268345c9c0", null ],
     [ "update", "class_igor_1_1i_octree.html#a23abc7025f6f141f6493b6a4b89a717d", null ]

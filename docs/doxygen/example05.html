@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.21.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.22.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -142,10 +142,10 @@ Voxel Example</div></div>
     const float64 toMeta = 0.0175;
     float64 factorMeta = 1.0 / (toMeta - fromMeta);
 </pre><p>Define some metaballs for the base structure </p><pre class="fragment">    // define some metaballs
-    vector&lt;pair&lt;iaVector3f, float32&gt;&gt; metaballs;
+    std::vector&lt;std::pair&lt;iaVector3f, float32&gt;&gt; metaballs;
     for (int i = 0; i &lt; 20; ++i)
     {
-        metaballs.push_back(pair&lt;iaVector3f, float32&gt;(iaVector3f(rand() % static_cast&lt;int&gt;(_voxelData-&gt;getWidth() * 0.6) + (_voxelData-&gt;getWidth() * 0.2),
+        metaballs.push_back(std::pair&lt;iaVector3f, float32&gt;(iaVector3f(rand() % static_cast&lt;int&gt;(_voxelData-&gt;getWidth() * 0.6) + (_voxelData-&gt;getWidth() * 0.2),
             rand() % static_cast&lt;int&gt;(_voxelData-&gt;getHeight()*0.6) + (_voxelData-&gt;getHeight()* 0.2),
             rand() % static_cast&lt;int&gt;(_voxelData-&gt;getDepth()*0.6) + (_voxelData-&gt;getDepth()*0.2)), (((rand() % 90) + 10) / 100.0) + 0.6));
     }
@@ -215,7 +215,7 @@ Voxel Example</div></div>
 </pre><p>We create a resulting group node because the engine expects this from us. </p><pre class="fragment">    iNode* result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
 </pre><p>Now we use the iContouringCubes class to turn our voxel data in to a mesh. </p><pre class="fragment">    iContouringCubes contouringCubes;
     contouringCubes.setVoxelData(voxelData);
-    shared_ptr&lt;iMesh&gt; mesh = contouringCubes.compile(iaVector3I(), iaVector3I(width, height, depth));
+    iMeshPtr mesh = contouringCubes.compile(iaVector3I(), iaVector3I(width, height, depth));
 </pre><p>Theoretically the voxel data could result in a mesh that does not exists so we have to check that here. </p><pre class="fragment">    if (mesh.get() != nullptr)
     {
 </pre><p>But if it does exist we create a iNodeMesh and add it to the resulting node. </p><pre class="fragment">        iNodeMesh* meshNode = static_cast&lt;iNodeMesh*&gt;(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
@@ -253,7 +253,7 @@ iNodeModel* voxelMeshModel = static_cast&lt;iNodeModel*&gt;(iNodeFactory::getIns
 _voxelMeshModel = voxelMeshModel-&gt;getID();
 // tell the model node to load data with specified identifier ans the above defined parameter
 // it is important to have a unique identifier each time we generate a mesh otherwhise the cache system would return us a prvious generated mesh
-voxelMeshModel-&gt;setModel(iaString("VoxelMesh") + iaString::itoa(_incarnation++), inputParam);
+voxelMeshModel-&gt;setModel(iaString("VoxelMesh") + iaString::toString(_incarnation++), inputParam);
 // create a transform node to center the mesh to the origin
 iNodeTransform* voxelMeshTransform = static_cast&lt;iNodeTransform*&gt;(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 _voxelMeshTransform = voxelMeshTransform-&gt;getID();
