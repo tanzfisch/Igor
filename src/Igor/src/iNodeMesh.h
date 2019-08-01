@@ -125,9 +125,11 @@ namespace Igor
         */
         bool getKeepMesh() const;
 
-		/*! \returns type specific information
+		/*! returns multiple lines of information about this node
+
+		\param[out] info the returned information
 		*/
-		iaString getCustomInfo() const override;
+		void getInfo(std::vector<iaString>& info) const override;
 
 	private:
 

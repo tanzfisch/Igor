@@ -144,13 +144,13 @@ namespace Igor
         */
         iaString getName() const;
 
-        /*! \returns an information string about this node
-        */
-        iaString getInfo() const;
+        /*! returns multiple lines of information about this node
 
-		/*! \returns type specific information
-		*/
-		virtual iaString getCustomInfo() const;
+		each entry in vector is one line of information
+
+		\param[out] info the returned information
+        */
+        virtual void getInfo(std::vector<iaString>& info) const;
 
         /*! sets name of the node
 

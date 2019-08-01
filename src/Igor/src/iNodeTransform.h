@@ -118,9 +118,11 @@ namespace Igor
         */
         virtual void identity();
 
-		/*! \returns custom information on this node
+		/*! returns multiple lines of information about this node
+
+		\param[out] info the returned information
 		*/
-		iaString getCustomInfo() const;
+		void getInfo(std::vector<iaString>& info) const override;
 
     private:
 
