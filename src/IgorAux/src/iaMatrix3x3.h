@@ -39,123 +39,138 @@
 
 namespace IgorAux
 {
-
+	
 	/*! 3x3 Matrix
 	*/
-	template <class T> class IgorAux_API_Template iaMatrix3x3
+	template <class T> 
+	class IgorAux_API_Template iaMatrix3x3
 	{
 	public:
 
 		/*! internal data
 		*/
-		iaVector2<T> _right;
-		T _w0;
-		iaVector2<T> _top;
-		T _w1;
-		iaVector2<T> _pos;
-		T _w2;
-
+		T _m[9];
 
 		/*! addition
 		*/
-		__IGOR_INLINE__ void operator+= (iaMatrix3x3& a);
+		void operator+= (iaMatrix3x3& a);
 
 		/*! subtraction
 		*/
-		__IGOR_INLINE__ void operator-=(iaMatrix3x3& a);
+		void operator-=(iaMatrix3x3& a);
 
 		/*! comparison of two matrices
 
 		\param a the second matrix to compare this matrix with
 		\returns true if matrices are equal
 		*/
-		__IGOR_INLINE__ bool operator== (const iaMatrix3x3<T>& a) const;
+		bool operator== (const iaMatrix3x3<T>& a) const;
 
 		/*! negated comparison of two matrices
 
 		\param a the second matrix to compare this matrix with
 		\returns true if matrices are not equal
 		*/
-		__IGOR_INLINE__ bool operator!= (const iaMatrix3x3<T>& a) const;
+		bool operator!= (const iaMatrix3x3<T>& a) const;
 
 		/*! matrix vector2 multiplication
 		*/
-		__IGOR_INLINE__ iaVector2<T> operator*(iaVector2<T>& a);
+		iaVector2<T> operator*(iaVector2<T>& a);
 
 		/*! matrix vector3 multiplication
 		*/
-		__IGOR_INLINE__ iaVector3<T> operator*(iaVector3<T>& a);
+		iaVector3<T> operator*(iaVector3<T>& a);
 
 		/*! matrix multiplication
 		*/
-		__IGOR_INLINE__ iaMatrix3x3 operator*(iaMatrix3x3& m);
+		iaMatrix3x3 operator*(iaMatrix3x3& m);
 
 		/*! matrix multiplication
 		*/
-		__IGOR_INLINE__ void operator*=(iaMatrix3x3& m);
+		void operator*=(iaMatrix3x3& m);
 
 		/*! matrix component by index
 
 		\param i only indexes from 0 to 8 are allowed
 		*/
-		__IGOR_INLINE__ T& operator[](int i);
+		T& operator[](const int i);
 
 		/*! initializes matrix with id matrix
 		*/
-		__IGOR_INLINE__ void identity();
+		void identity();
 
 		/*! returns the determinant of the 3x3 part of the matrix
 		*/
-		__IGOR_INLINE__ T determinant();
+		T determinant();
 
 		/*! calculates the inverse of the matrix and overwrites the original value
 		*/
-		__IGOR_INLINE__ void transpose();
+		void transpose();
+
+		/*! translate the matrix by vector dd
+
+		\param a translation vector
+		*/
+		void translate(const iaVector2<T>& a);
+
+		/*! translate the matrix by vector 2d
+
+		\param x x component
+		\param y y component
+		*/
+		void translate(T x, T y);
 
 		/*! scale matrix by vector
 
 		\param s scale vector
 		*/
-		__IGOR_INLINE__ void scale(iaVector2<T>& s);
+		void scale(iaVector2<T>& s);
 
 		/*! scale matrix by vector
 
 		\param x x component of vector
 		\param y y component of vector
 		*/
-		__IGOR_INLINE__ void scale(T x, T y);
+		void scale(T x, T y);
 
 		/*! rotates the matrix
 
 		\param angle angle to rotate in radians
 		*/
-		__IGOR_INLINE__ void rotate(T angle);
+		void rotate(T angle);
 
 		/*! returns pointer to the data
 		*/
-		__IGOR_INLINE__ const T* getData() const;
+		const T* getData() const;
 
 		/*! returns pointer to the data
 		*/
-		__IGOR_INLINE__ T* getData();
+		T* getData();
 
 		/*! set data
 		*/
-		__IGOR_INLINE__ void setData(T* data);
+		void setData(T* data);
+
+		/*! converts the vector in to given type of vector
+
+		\returns matrix for given type
+		*/
+		template<class T2>
+		iaMatrix3x3<T2> convert();
 
 		/*! initializes the matrix with the id matrix
 		*/
-		__IGOR_INLINE__ iaMatrix3x3();
+		iaMatrix3x3();
 
 		/*! initializes matrix with a data set
 
 		\param data matrix
 		*/
-		__IGOR_INLINE__ iaMatrix3x3(const T data[16]);
+		iaMatrix3x3(const T data[9]);
 
 		/*! does nothing
 		*/
-		__IGOR_INLINE__ ~iaMatrix3x3();
+		~iaMatrix3x3();
 	};
 
 #include <iaMatrix3x3.inl>
