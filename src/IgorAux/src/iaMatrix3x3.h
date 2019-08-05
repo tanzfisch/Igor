@@ -29,13 +29,13 @@
 #ifndef __iMATRIX3X3__
 #define __iMATRIX3X3__
 
-#include <iaVector4.h>
+#include <iaVector2.h>
+#include <iaVector3.h>
 
 #include <fstream>
 #include <cmath>
 #include <ostream>
 #include <iomanip>
-
 
 namespace IgorAux
 {
@@ -46,49 +46,53 @@ namespace IgorAux
 	{
 	public:
 
-        /*! internal data
-        */
-		iaVector3<T> _right;
-		iaVector3<T> _top;
-		iaVector3<T> _depth;
+		/*! internal data
+		*/
+		iaVector2<T> _right;
+		T _w0;
+		iaVector2<T> _top;
+		T _w1;
+		iaVector2<T> _pos;
+		T _w2;
+
 
 		/*! addition
 		*/
-		__IGOR_INLINE__ void operator+= (iaMatrix3x3 &a);
+		__IGOR_INLINE__ void operator+= (iaMatrix3x3& a);
 
 		/*! subtraction
 		*/
-		__IGOR_INLINE__ void operator-=(iaMatrix3x3 &a);
+		__IGOR_INLINE__ void operator-=(iaMatrix3x3& a);
 
-        /*! comparison of two matrices
+		/*! comparison of two matrices
 
-        \param a the second matrix to compare this matrix with
-        \returns true if matrices are equal
-        */
-        __IGOR_INLINE__ bool operator== (const iaMatrix3x3<T> &a) const;
+		\param a the second matrix to compare this matrix with
+		\returns true if matrices are equal
+		*/
+		__IGOR_INLINE__ bool operator== (const iaMatrix3x3<T>& a) const;
 
-        /*! negated comparison of two matrices
+		/*! negated comparison of two matrices
 
-        \param a the second matrix to compare this matrix with
-        \returns true if matrices are not equal
-        */
-        __IGOR_INLINE__ bool operator!= (const iaMatrix3x3<T> &a) const;
+		\param a the second matrix to compare this matrix with
+		\returns true if matrices are not equal
+		*/
+		__IGOR_INLINE__ bool operator!= (const iaMatrix3x3<T>& a) const;
+
+		/*! matrix vector2 multiplication
+		*/
+		__IGOR_INLINE__ iaVector2<T> operator*(iaVector2<T>& a);
 
 		/*! matrix vector3 multiplication
 		*/
-		__IGOR_INLINE__ iaVector3<T> operator*(iaVector3<T> &a);
-
-		/*! matrix vector4 multiplication
-		*/
-		__IGOR_INLINE__ iaVector4<T> operator*(iaVector4<T> &a);
+		__IGOR_INLINE__ iaVector3<T> operator*(iaVector3<T>& a);
 
 		/*! matrix multiplication
 		*/
-		__IGOR_INLINE__ iaMatrix3x3 operator*(iaMatrix3x3 &m);
+		__IGOR_INLINE__ iaMatrix3x3 operator*(iaMatrix3x3& m);
 
 		/*! matrix multiplication
 		*/
-		__IGOR_INLINE__ void operator*=(iaMatrix3x3 &m);
+		__IGOR_INLINE__ void operator*=(iaMatrix3x3& m);
 
 		/*! matrix component by index
 
@@ -98,7 +102,7 @@ namespace IgorAux
 
 		/*! initializes matrix with id matrix
 		*/
-		__IGOR_INLINE__ void identity(void);
+		__IGOR_INLINE__ void identity();
 
 		/*! returns the determinant of the 3x3 part of the matrix
 		*/
@@ -106,38 +110,34 @@ namespace IgorAux
 
 		/*! calculates the inverse of the matrix and overwrites the original value
 		*/
-		// TODO nice to have __IGOR_INLINE__ bool invert();
-
 		__IGOR_INLINE__ void transpose();
 
 		/*! scale matrix by vector
 
 		\param s scale vector
 		*/
-		__IGOR_INLINE__ void scale(iaVector3<T> &s);
+		__IGOR_INLINE__ void scale(iaVector2<T>& s);
 
-        /*! scale matrix by vector
+		/*! scale matrix by vector
 
-        \param x x component of vector
-        \param y y component of vector
-        \param z z component of vector
-        */
-		__IGOR_INLINE__ void scale(T x, T y, T z);
+		\param x x component of vector
+		\param y y component of vector
+		*/
+		__IGOR_INLINE__ void scale(T x, T y);
 
-		/*! rotates the matrix around a specified orientation vector of the matrix
+		/*! rotates the matrix
 
 		\param angle angle to rotate in radians
-		\param axis axis to rotate around
 		*/
-		__IGOR_INLINE__ void rotate(T angle, iaAxis axis);
-		
+		__IGOR_INLINE__ void rotate(T angle);
+
 		/*! returns pointer to the data
 		*/
 		__IGOR_INLINE__ const T* getData() const;
 
-        /*! returns pointer to the data
-        */
-        __IGOR_INLINE__ T* getData();
+		/*! returns pointer to the data
+		*/
+		__IGOR_INLINE__ T* getData();
 
 		/*! set data
 		*/
@@ -149,7 +149,7 @@ namespace IgorAux
 
 		/*! initializes matrix with a data set
 
-		\param data matrix 
+		\param data matrix
 		*/
 		__IGOR_INLINE__ iaMatrix3x3(const T data[16]);
 
@@ -158,15 +158,15 @@ namespace IgorAux
 		__IGOR_INLINE__ ~iaMatrix3x3();
 	};
 
-	#include <iaMatrix3x3.inl>
+#include <iaMatrix3x3.inl>
 
-    /*! float32 3x3 matrix
-    */
+	/*! float32 3x3 matrix
+	*/
 	typedef iaMatrix3x3<float32> iaMatrix3x3f;
 
-    /*! float64 3x3 matrix
-    */
-    typedef iaMatrix3x3<float64> iaMatrix3x3d;
+	/*! float64 3x3 matrix
+	*/
+	typedef iaMatrix3x3<float64> iaMatrix3x3d;
 
 };
 
