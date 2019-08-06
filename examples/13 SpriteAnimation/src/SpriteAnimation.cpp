@@ -469,7 +469,7 @@ void SpriteAnimation::onRender()
 	iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
 	// draw walking character
-	iRenderer::getInstance().drawSprite(_walk, _animationOffset + _animationIndex, iaVector2f(100, 100));
+	iRenderer::getInstance().drawSprite(_walk, _animationOffset + _animationIndex, iaVector2f(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5));
 
 	drawLogo();
 
