@@ -130,7 +130,7 @@ private:
 
 	/*! current position of character to render
 	*/
-	iaVector2f _characterPosition{ -600, 1600 };
+	iaVector2f _characterPosition{ 0, 0 };
 
 	/*! character velocity
 	*/
@@ -162,7 +162,7 @@ private:
 	uint64 _materialTerrain = iMaterial::INVALID_MATERIAL_ID;
 
 	iNodeTransform* _terrainTransform;
-	iNodeTransform* _cameraTranform;
+	iNodeTransform* _cameraTransform;
     /*! mouse move event with minimum data
 
     mouse coordinates have their origin in the upper left corner of the parenting window

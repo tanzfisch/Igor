@@ -1,5 +1,5 @@
 #include "pch.h"
-#include <iaMatrix3x3.h>
+#include <iaMatrix2D.h>
 using namespace IgorAux;
 
 #define COMP_MATRIX(m1,m2) \
