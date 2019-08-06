@@ -101,6 +101,7 @@ void SpriteAnimation::init()
 	_tiles = new iAtlas(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationTiles.png", iResourceCacheMode::Free, iTextureBuildMode::Normal));
 	_tiles->loadFrames("../data/atlantes/SpriteAnimationTiles.xml");
 
+	// generate ground map
 	TileMapGenerator tileMapGenerator;
 	tileMapGenerator.setAtlas(_tiles);
 	tileMapGenerator.setMaterial(_materialTerrain);
@@ -111,13 +112,13 @@ void SpriteAnimation::init()
 	terrainGroundTransform->insertNode(terrainNodeGround);
 	_scene->getRoot()->insertNode(terrainGroundTransform);
 
+	// generate dressing and trees map
 	iNodePtr terrainNodeDressing = tileMapGenerator.generateFromTexture("SpriteAnimationTerrain.png");
 	terrainNodeDressing->setName("Dressing");
 	iNodeTransform* terrainDressingTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 	terrainDressingTransform->translate(0, 0, 0);
 	terrainDressingTransform->insertNode(terrainNodeDressing);
 	_scene->getRoot()->insertNode(terrainDressingTransform);
-
 
 	// setup camera
 	_cameraTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -128,6 +129,7 @@ void SpriteAnimation::init()
 	_scene->getRoot()->insertNode(_cameraTransform);
 	_view.setCurrentCamera(camera->getID());
 
+	// some flags to handle the character movement TODO
 	for (int i = 0; i < 5; ++i)
 	{
 		_flags[i] = false;
@@ -148,10 +150,12 @@ void SpriteAnimation::init()
 	// load an other texture with the Igor Logo
 	_igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
 
+	// initialize animation timer
 	_animationTimer.setIntervall(300);
 	_animationTimer.registerTimerDelegate(iTimerTickDelegate(this, &SpriteAnimation::onAnimationTimerTick));
 	_animationTimer.start();
 
+	// set verbosity of profiler
 	_profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
 }
 
@@ -163,18 +167,29 @@ void SpriteAnimation::deinit()
 	iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &SpriteAnimation::onKeyDown));
 	iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &SpriteAnimation::onKeyUp));
 
+	iSceneFactory::getInstance().destroyScene(_scene);
+	_scene = nullptr;
+
 	// unregister the rendering callback. if not you will get a warning message because your shutdown was not complete
 	_view.unregisterRenderDelegate(RenderDelegate(this, &SpriteAnimation::onRender));
 
 	// release materials (optional)
 	iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
-	_materialWithTextureAndBlending = 0;
+	iMaterialResourceFactory::getInstance().destroyMaterial(_materialTerrain);
+	_materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
+	_materialTerrain = iMaterial::INVALID_MATERIAL_ID;
 
 	// release some textures. otherwhise you will get a reminder of possible mem leak
 	if (_walk != nullptr)
 	{
 		delete _walk;
 		_walk = nullptr;
+	}
+
+	if (_tiles != nullptr)
+	{
+		delete _tiles;
+		_tiles = nullptr;
 	}
 
 	if (_font != nullptr)

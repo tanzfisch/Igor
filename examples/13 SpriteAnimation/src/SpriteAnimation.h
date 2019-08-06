@@ -58,11 +58,13 @@ namespace Igor
 	class iNodeTransform;
 }
 
-/*! rendering 2d example
+/*! sprite animation 2d example
 */
 class SpriteAnimation
 {
 
+	/*! animation state of character
+	*/
 	enum class CharacterState
 	{
 		WalkN,
@@ -114,14 +116,16 @@ private:
     */
     iView _view;
 	
-    /*! walk animation
+    /*! walk animation atlas
     */
 	iAtlas* _walk = nullptr;
 
-	/*! tiles
+	/*! tiles atlas
 	*/
 	iAtlas* _tiles = nullptr;
 	
+	/*! the scene
+	*/
 	iScene* _scene = nullptr;
 	
 	/*! flags to determine what the character is doing
@@ -136,16 +140,21 @@ private:
 	*/
 	iaVector2f _characterVelocity;
 
+	/*! current character state
+	*/
 	CharacterState _characterState;
 
+	/*! animation offset in frames
+	*/
 	uint32 _animationOffset;
+
+	/*! animation index in frames
+	*/
 	uint32 _animationIndex;
 
+	/*! timer to control animation speed
+	*/
 	iTimerHandle _animationTimer;
-
-	void onAnimationTimerTick();
-
-	iaString getCharacterStateName(CharacterState state);
 
 	/*! texture font
 	*/
@@ -159,11 +168,25 @@ private:
     */
     uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
 
+	/*! terrain material
+	*/
 	uint64 _materialTerrain = iMaterial::INVALID_MATERIAL_ID;
 
-	iNodeTransform* _terrainTransform;
+	/*! transform of camera
+	*/
 	iNodeTransform* _cameraTransform;
-    /*! mouse move event with minimum data
+
+	/*! handles timer tick
+	*/
+	void onAnimationTimerTick();
+
+	/*! \returns the characters state as string for debugging
+
+	\param state the character state to convert to string
+	*/
+	iaString getCharacterStateName(CharacterState state);
+
+	/*! mouse move event with minimum data
 
     mouse coordinates have their origin in the upper left corner of the parenting window
 
