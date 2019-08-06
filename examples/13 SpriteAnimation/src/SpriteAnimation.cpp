@@ -101,25 +101,35 @@ void SpriteAnimation::init()
 	_tiles = new iAtlas(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationTiles.png", iResourceCacheMode::Free, iTextureBuildMode::Normal));
 	_tiles->loadFrames("../data/atlantes/SpriteAnimationTiles.xml");
 
+	// generate ground map
 	TileMapGenerator tileMapGenerator;
 	tileMapGenerator.setAtlas(_tiles);
 	tileMapGenerator.setMaterial(_materialTerrain);
-	iNodePtr terrainNode = tileMapGenerator.generateFromBitmap("SpriteAnimationTerrain.png");
+	iNodePtr terrainNodeGround = tileMapGenerator.generateFromRandom(iaVector2i(32,32), 0, 18);
+	terrainNodeGround->setName("Ground");
+	iNodeTransform* terrainGroundTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	terrainGroundTransform->translate(0, 0, 0);
+	terrainGroundTransform->insertNode(terrainNodeGround);
+	_scene->getRoot()->insertNode(terrainGroundTransform);
 
-	_terrainTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-	_terrainTransform->translate(0, 0, 0);
-	_terrainTransform->insertNode(terrainNode);
-	_scene->getRoot()->insertNode(_terrainTransform);
+	// generate dressing and trees map
+	iNodePtr terrainNodeDressing = tileMapGenerator.generateFromTexture("SpriteAnimationTerrain.png");
+	terrainNodeDressing->setName("Dressing");
+	iNodeTransform* terrainDressingTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	terrainDressingTransform->translate(0, 0, 0);
+	terrainDressingTransform->insertNode(terrainNodeDressing);
+	_scene->getRoot()->insertNode(terrainDressingTransform);
 
 	// setup camera
-	_cameraTranform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-	_cameraTranform->translate(0, 0, 30);
+	_cameraTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	_cameraTransform->translate(0, 0, 30);
 	// anf of corse the camera
 	iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
-	_cameraTranform->insertNode(camera);
-	_scene->getRoot()->insertNode(_cameraTranform);
+	_cameraTransform->insertNode(camera);
+	_scene->getRoot()->insertNode(_cameraTransform);
 	_view.setCurrentCamera(camera->getID());
 
+	// some flags to handle the character movement TODO
 	for (int i = 0; i < 5; ++i)
 	{
 		_flags[i] = false;
@@ -140,10 +150,12 @@ void SpriteAnimation::init()
 	// load an other texture with the Igor Logo
 	_igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
 
+	// initialize animation timer
 	_animationTimer.setIntervall(300);
 	_animationTimer.registerTimerDelegate(iTimerTickDelegate(this, &SpriteAnimation::onAnimationTimerTick));
 	_animationTimer.start();
 
+	// set verbosity of profiler
 	_profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
 }
 
@@ -155,18 +167,29 @@ void SpriteAnimation::deinit()
 	iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &SpriteAnimation::onKeyDown));
 	iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &SpriteAnimation::onKeyUp));
 
+	iSceneFactory::getInstance().destroyScene(_scene);
+	_scene = nullptr;
+
 	// unregister the rendering callback. if not you will get a warning message because your shutdown was not complete
 	_view.unregisterRenderDelegate(RenderDelegate(this, &SpriteAnimation::onRender));
 
 	// release materials (optional)
 	iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
-	_materialWithTextureAndBlending = 0;
+	iMaterialResourceFactory::getInstance().destroyMaterial(_materialTerrain);
+	_materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
+	_materialTerrain = iMaterial::INVALID_MATERIAL_ID;
 
 	// release some textures. otherwhise you will get a reminder of possible mem leak
 	if (_walk != nullptr)
 	{
 		delete _walk;
 		_walk = nullptr;
+	}
+
+	if (_tiles != nullptr)
+	{
+		delete _tiles;
+		_tiles = nullptr;
 	}
 
 	if (_font != nullptr)
@@ -355,7 +378,7 @@ void SpriteAnimation::onHandle()
 	_characterVelocity = velocity;
 	_characterPosition += _characterVelocity;
 	
-	_cameraTranform->setPosition(_characterPosition._x, _characterPosition._y, 30);
+	_cameraTransform->setPosition(_characterPosition._x, _characterPosition._y, 30);
 
 	CharacterState oldCharacterState = _characterState;
 
@@ -418,7 +441,7 @@ void SpriteAnimation::onHandle()
 		_animationIndex = 0;
 	}
 
-	// 	con_endl(getCharacterStateName(_characterState));
+	// con_endl(getCharacterStateName(_characterState));
 }
 
 void SpriteAnimation::onAnimationTimerTick()
@@ -461,7 +484,7 @@ void SpriteAnimation::onRender()
 	iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
 	// draw walking character
-	iRenderer::getInstance().drawSprite(_walk, _animationOffset + _animationIndex, iaVector2f(100, 100));
+	iRenderer::getInstance().drawSprite(_walk, _animationOffset + _animationIndex, iaVector2f(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5));
 
 	drawLogo();
 

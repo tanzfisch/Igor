@@ -1,6 +1,12 @@
 Changelog                           {#changelog}
 =========
 
+0.23.0
+------
+
+- made iaMatrix2D more usefull
+- made SpriteAnimation more pretty (thank you opengameart.org)
+
 0.22.0
 ------
 

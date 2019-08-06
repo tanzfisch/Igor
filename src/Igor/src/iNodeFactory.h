@@ -35,8 +35,7 @@
 #include <iaMutex.h>
 using namespace IgorAux;
 
-#include <map>
-
+#include <unordered_map>
 
 namespace Igor
 {
@@ -170,7 +169,7 @@ namespace Igor
 
         /*! mapping ids to nodes
         */
-        std::map<uint64, iNodePtr> _nodes;
+        std::unordered_map<uint64, iNodePtr> _nodes;
 
         /*! mutex to protect node list
         */

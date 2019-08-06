@@ -15,13 +15,13 @@ __IGOR_INLINE__ std::wostream& operator<<(std::wostream& ostr, const iaMatrix<T>
 template <class T>
 __IGOR_INLINE__ T& iaMatrix<T>::operator[] (int i)
 {
-	return ((T*)& _right)[i];
+	return ((T*)this)[i];
 }
 
 template <class T>
 __IGOR_INLINE__ T iaMatrix<T>::operator[] (int i) const
 {
-	return ((T*)& _right)[i];
+	return ((T*)this)[i];
 }
 
 template <class T>
