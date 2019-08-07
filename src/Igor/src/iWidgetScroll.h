@@ -37,148 +37,148 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    class iUserControl;
+	class iUserControl;
 
-    /*! scroll widget
+	/*! scroll widget
 
-    basically allows to have a child that is bigger an ads some srcoll bars then
+	basically allows to have a child that is bigger an ads some srcoll bars then
 
-    \todo need to use actual buttons for the scroll bars, or a scroll bar widget
-    */
+	\todo need to use actual buttons for the scroll bars, or a scroll bar widget
+	*/
 	class Igor_API iWidgetScroll : public iWidget
 	{
 
-        /*! needs to be friend because it's the factory that creates this widget
-        */
+		/*! needs to be friend because it's the factory that creates this widget
+		*/
 		friend class iWidgetManager;
 
 	public:
-
-        /*! sets the width or thikness of the scrollbars
-        */
-		void setScollbarWidth(int32 width);
-
-        /*! \returns scrollbar width
-        */
-		int32 getScollbarWidth();
-
-        /*! sets horizontal scroll value
-
-        \param value new value for horizontal scroll
-        */
-        void setHorizontalScroll(float32 value);
-
-        /*! sets vertical scroll value
-
-        \param value new value for vertical scroll
-        */
-        void setVerticalScroll(float32 value);
-
-	private:
-
-        /*! scroll bar width
-        */
-		int32 _scrollbarWidth = 15;
-
-        /*! vertical scroll factor 0.0 - 1.0
-        */
-		float32 _vscroll = 0;
-
-        /*! horizontal scroll factor 0.0 - 1.0
-        */
-        float32 _hscroll = 0;
-
-        /*! vertical scrollbar active aka visible
-        */
-		bool _vscrollActive = false;
-
-        /*! horizontal scrollbar active aka visible
-        */
-        bool _hscrollActive = false;
-
-        /*! rectangle of horizontal scroll button
-        */
-		iRectanglei _hscrollButton;
-
-        /*! rectangle of vertical scroll button
-        */
-        iRectanglei _vscrollButton;
-
-        /*! rectangle of up button
-        */
-		iRectanglei _upButton;
-		
-        /*! rectangle of down button
-        */
-        iRectanglei _downButton;
-		
-        /*! rectangle of left button
-        */
-        iRectanglei _leftButton;
-		
-        /*! rectangle of right button
-        */
-        iRectanglei _rightButton;
-
-        /*! rectangle of child frame
-        */
-		iRectanglei _childFrame;
-
-        /*! handles incomming mouse wheel event
-
-        \param d mouse wheel delta
-        \returns true: if event was consumed and therefore ignored by the parent
-        */
-        bool handleMouseWheel(int32 d);
-
-        /*! handles incomming mouse move events
-
-        \param pos mouse position
-        */
-        void handleMouseMove(const iaVector2i& pos);
-
-        /*! updates size based on it's content
-        */
-        void calcMinSize();
-
-		/*! draws the button
-		*/
-		void draw();
-
-        /*! calculate position and size of scroll buttons
-        */
-		void calcScrollButtons();
-
-        /*! calc child frame
-
-        it's similar to the client area but it can vary if scroll bars are visible
-        */
-		void calcChildFrame();
 
 		/*! ctor initializes membervariables
 		*/
 		iWidgetScroll();
 
-        /*! updates widget alignment
-
-        \param clientWidth maximum width this widget can align to
-        \param clientHeight maximum height this widget can align to
-        */
-        void updateAlignment(int32 clientWidth, int32 clientHeight);
-
-        /*! calculates childrens ofsets relative to thair parent
-
-        \param offsets vector to be filled with childrens offsets
-        */
-        void calcChildOffsets(std::vector<iRectanglei>& offsets);
-
 		/*! does nothing
 		*/
 		~iWidgetScroll() = default;
 
-        /*! creates instance of this widget type
-        */
-        static iWidget* createInstance();
+		/*! sets the width or thikness of the scrollbars
+		*/
+		void setScollbarWidth(int32 width);
+
+		/*! \returns scrollbar width
+		*/
+		int32 getScollbarWidth();
+
+		/*! sets horizontal scroll value
+
+		\param value new value for horizontal scroll
+		*/
+		void setHorizontalScroll(float32 value);
+
+		/*! sets vertical scroll value
+
+		\param value new value for vertical scroll
+		*/
+		void setVerticalScroll(float32 value);
+
+	private:
+
+		/*! scroll bar width
+		*/
+		int32 _scrollbarWidth = 15;
+
+		/*! vertical scroll factor 0.0 - 1.0
+		*/
+		float32 _vscroll = 0;
+
+		/*! horizontal scroll factor 0.0 - 1.0
+		*/
+		float32 _hscroll = 0;
+
+		/*! vertical scrollbar active aka visible
+		*/
+		bool _vscrollActive = false;
+
+		/*! horizontal scrollbar active aka visible
+		*/
+		bool _hscrollActive = false;
+
+		/*! rectangle of horizontal scroll button
+		*/
+		iRectanglei _hscrollButton;
+
+		/*! rectangle of vertical scroll button
+		*/
+		iRectanglei _vscrollButton;
+
+		/*! rectangle of up button
+		*/
+		iRectanglei _upButton;
+
+		/*! rectangle of down button
+		*/
+		iRectanglei _downButton;
+
+		/*! rectangle of left button
+		*/
+		iRectanglei _leftButton;
+
+		/*! rectangle of right button
+		*/
+		iRectanglei _rightButton;
+
+		/*! rectangle of child frame
+		*/
+		iRectanglei _childFrame;
+
+		/*! handles incomming mouse wheel event
+
+		\param d mouse wheel delta
+		\returns true: if event was consumed and therefore ignored by the parent
+		*/
+		bool handleMouseWheel(int32 d);
+
+		/*! handles incomming mouse move events
+
+		\param pos mouse position
+		*/
+		void handleMouseMove(const iaVector2i& pos);
+
+		/*! updates size based on it's content
+		*/
+		void calcMinSize();
+
+		/*! draws the button
+		*/
+		void draw();
+
+		/*! calculate position and size of scroll buttons
+		*/
+		void calcScrollButtons();
+
+		/*! calc child frame
+
+		it's similar to the client area but it can vary if scroll bars are visible
+		*/
+		void calcChildFrame();
+
+		/*! updates widget alignment
+
+		\param clientWidth maximum width this widget can align to
+		\param clientHeight maximum height this widget can align to
+		*/
+		void updateAlignment(int32 clientWidth, int32 clientHeight);
+
+		/*! calculates childrens ofsets relative to thair parent
+
+		\param offsets vector to be filled with childrens offsets
+		*/
+		void calcChildOffsets(std::vector<iRectanglei>& offsets);
+
+		/*! creates instance of this widget type
+		*/
+		static iWidget* createInstance();
 
 	};
 }

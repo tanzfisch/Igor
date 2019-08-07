@@ -33,6 +33,9 @@
 #include <iWindow.h>
 #include <iView.h>
 #include <iDialog.h>
+#include <iDialogMessageBox.h>
+#include <iDialogColorChooser.h>
+#include <iDialogColorGradient.h>
 #include <iMaterial.h>
 #include <iProfilerVisualizer.h>
 #include <iTexture.h>
@@ -46,12 +49,9 @@ namespace Igor
 {
     class iTextureFont;
 	class iWidgetDefaultTheme;
-    class iDialogMessageBox;
     class iWidgetLabel;
-    class iDialogColorChooser;
     class iWidgetColor;
     class iWidgetColorGradient;
-    class iDialogColorGradient;
 }
 
 /*! this example shows how to use Igor Widgets
@@ -101,7 +101,7 @@ private:
 
     /*! the main dialog
     */
-	iDialog* _dialog = nullptr;
+	iDialog _dialog;
 
     /*! mouse position label
     */
@@ -109,15 +109,15 @@ private:
 
     /*! instance of a message box
     */
-    iDialogMessageBox* _messageBox = nullptr;
+    iDialogMessageBox _messageBox;
 
     /*! color chooser dialog
     */
-    iDialogColorChooser* _colorChooserDialog = nullptr;
+    iDialogColorChooser _colorChooserDialog;
 
     /*! color gradient editor dialog
     */
-    iDialogColorGradient* _colorGradientDialog = nullptr;
+    iDialogColorGradient _colorGradientDialog;
 
     /*! color view to display the color selected in color chooser
     */
@@ -142,10 +142,6 @@ private:
     /*! initializes GUI
     */
     void initGUI();
-
-    /*! deinitializes GUI
-    */
-    void deinitGUI();
 
     /*! triggered by exit button. will shut down application
 

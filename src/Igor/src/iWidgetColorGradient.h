@@ -63,6 +63,14 @@ namespace Igor
 
 	public:
 
+		/*! ctor initializes member variables
+		*/
+		iWidgetColorGradient();
+
+		/*! release texture
+		*/
+		virtual ~iWidgetColorGradient();
+
 		/*! sets color gradient
 		\param color color value in rgba
 		*/
@@ -138,14 +146,6 @@ namespace Igor
 		/*! draws the widget
 		*/
 		void draw();
-
-        /*! ctor initializes member variables
-        */
-        iWidgetColorGradient();
-
-        /*! release texture
-        */
-		virtual ~iWidgetColorGradient();
 
         /*! creates instance of this widget type
         */

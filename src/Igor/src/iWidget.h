@@ -649,6 +649,10 @@ namespace Igor
 		*/
 		void setClientArea(int32 left, int32 right, int32 top, int32 bottom);
 
+		/*! \returns last mouse position
+		*/
+		iaVector2i getLastMousePos() const;
+
 		/*! initializes members
 		*/
 		iWidget();
@@ -656,12 +660,6 @@ namespace Igor
 		/*! clean up
 		*/
 		virtual ~iWidget();
-
-	protected:
-
-		/*! \returns last mouse position
-		*/
-		iaVector2i getLastMousePos() const;
 
 	private:
 

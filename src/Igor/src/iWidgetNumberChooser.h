@@ -107,6 +107,14 @@ namespace Igor
 
 	private:
 
+		/*! ctro initializes member variables
+		*/
+		iWidgetNumberChooser();
+
+		/*! does nothing
+		*/
+		virtual ~iWidgetNumberChooser() = default;
+
         /*! defines how many digits are displayed after the point
         */
         int32 _afterPoint = 0;
@@ -224,14 +232,6 @@ namespace Igor
 		/*! draws the button
 		*/
 		void draw();
-
-        /*! ctro initializes member variables
-        */
-		iWidgetNumberChooser();
-
-        /*! does nothing
-        */
-		virtual ~iWidgetNumberChooser() = default;
 
         /*! creates instance of this widget type
         */

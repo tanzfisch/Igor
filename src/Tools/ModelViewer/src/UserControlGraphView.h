@@ -67,7 +67,8 @@ class UserControlGraphView : public iUserControl, public iNodeVisitor
 
 public:
 
-	static iWidget* createInstance();
+	UserControlGraphView();
+	~UserControlGraphView();
 
     void setSelectedNode(uint64 nodeID);
     uint64 getSelectedNode() const;
@@ -146,9 +147,6 @@ private:
     bool preOrderVisit(iNodePtr node, iNodePtr nextSibling) override;
     void postOrderVisit(iNodePtr node) override;
     void postTraverse() override;
-
-	UserControlGraphView();
-	~UserControlGraphView();
 
 };
 

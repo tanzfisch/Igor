@@ -60,6 +60,14 @@ namespace Igor
 
     public:
 
+		/*! does nothing
+		*/
+		iDialogGraph() = default;
+
+		/*! deinitializes gui
+		*/
+		~iDialogGraph();
+
         /*! show/open the decision box
 
         \param closeDelegate the closing delegate
@@ -252,14 +260,6 @@ namespace Igor
         /*! initializes gui elements
         */
         void initGUI();
-
-        /*! does nothing
-        */
-        iDialogGraph() = default;
-
-        /*! deinitializes gui
-        */
-        ~iDialogGraph();
 
         /*! creates instance of this widget type
         */

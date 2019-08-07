@@ -58,6 +58,14 @@ namespace Igor
 
 	public:
 
+		/*! does nothing
+		*/
+		iDialogDecisionBox() = default;
+
+		/*! deinitializes gui
+		*/
+		~iDialogDecisionBox();
+
 		/*! show/open the decision box
 
 		\param message the message
@@ -140,14 +148,6 @@ namespace Igor
 		/*! initializes the gui elements
 		*/
 		void initGUI(const iaString& message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection);
-
-		/*! does nothing
-		*/
-		iDialogDecisionBox() = default;
-
-		/*! deinitializes gui
-		*/
-		~iDialogDecisionBox();
 
 		/*! creates instance of this widget type
 		*/

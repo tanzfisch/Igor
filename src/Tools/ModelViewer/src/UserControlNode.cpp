@@ -22,11 +22,6 @@ UserControlNode::UserControlNode()
     initGUI();
 }
 
-iWidget* UserControlNode::createInstance()
-{
-	return new UserControlNode();
-}
-
 void UserControlNode::setNode(uint32 id)
 {
     _nodeId = id;

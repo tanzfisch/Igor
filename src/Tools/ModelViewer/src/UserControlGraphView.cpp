@@ -32,11 +32,6 @@ UserControlGraphView::~UserControlGraphView()
 	iWidgetManager::getInstance().destroyDialog(_dialogMenu);
 }
 
-iWidget* UserControlGraphView::createInstance()
-{
-	return new UserControlGraphView();
-}
-
 void UserControlGraphView::setRootNode(uint64 root)
 {
     _root = root;

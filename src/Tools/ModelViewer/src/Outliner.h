@@ -74,9 +74,8 @@ class Outliner : public iDialog
 
 public:
 
-    /*! creates instance of this widget type
-    */
-    static iDialog* createInstance();
+	Outliner();
+	~Outliner();
 
     void setRootNode(iNodePtr root);
     void setSelectedNode(iNodePtr node);
@@ -227,9 +226,6 @@ private:
 
     void onGraphViewSelected(iWidget* source);
     void onMaterialViewSelected(iWidget* source);
-
-    Outliner();
-    ~Outliner();
 
 };
 

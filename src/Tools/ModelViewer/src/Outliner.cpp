@@ -34,11 +34,6 @@ Outliner::~Outliner()
     deinitGUI();
 }
 
-iDialog* Outliner::createInstance()
-{
-    return new Outliner();
-}
-
 void Outliner::initGUI()
 {
     _messageBox = iWidgetManager::getInstance().createWidget<iDialogMessageBox>();
@@ -222,7 +217,7 @@ void Outliner::initMaterialView()
 {
     if (_userControlMaterialView == nullptr)
     {
-		_userControlMaterialView = static_cast<UserControlMaterialView*>(iWidgetManager::getInstance().createWidget("UserControlMaterialView"));
+		_userControlMaterialView = new UserControlMaterialView();
         _userControlMaterialView->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &Outliner::onMaterialSelectionChanged));
         _userControlMaterialView->registerOnAddMaterial(AddMaterialDelegate(this, &Outliner::onAddMaterial));
 
@@ -254,7 +249,7 @@ void Outliner::initGraphView()
 {
     if (_userControlGraphView == nullptr)
     {
-		_userControlGraphView = static_cast<UserControlGraphView*>(iWidgetManager::getInstance().createWidget("UserControlGraphView"));
+		_userControlGraphView = new UserControlGraphView();
         _userControlGraphView->registerOnSelectionChange(GraphSelectionChangedDelegate(this, &Outliner::onGraphSelectionChanged));
         _userControlGraphView->registerOnAddEmitter(AddEmitterDelegate(this, &Outliner::onAddEmitter));
         _userControlGraphView->registerOnAddGroup(AddGroupDelegate(this, &Outliner::onAddGroup));

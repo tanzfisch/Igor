@@ -31,11 +31,6 @@ UserControlMaterial::~UserControlMaterial()
 	deinitGUI();
 }
 
-iWidget* UserControlMaterial::createInstance()
-{
-	return new UserControlMaterial();
-}
-
 void UserControlMaterial::updateMaterial()
 {
     iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);

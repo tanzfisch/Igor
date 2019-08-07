@@ -49,6 +49,14 @@ namespace Igor
 
 	public:
 
+		/*! initializes member variables
+		*/
+		iWidgetTextEdit();
+
+		/*! deinitializes member variables
+		*/
+		virtual ~iWidgetTextEdit() = default;
+
 		/*! sets horrizotnal text aligment
 
 		\param align the horizontal allignment of the text
@@ -212,14 +220,6 @@ namespace Igor
 		/*! updates the cursor position and scroll offset
 		*/
 		void updateMetrics();
-
-		/*! initializes member variables
-		*/
-		iWidgetTextEdit();
-
-		/*! deinitializes member variables
-		*/
-		virtual ~iWidgetTextEdit() = default;
 
 		/*! creates instance of this widget type
 		*/

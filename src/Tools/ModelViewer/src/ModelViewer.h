@@ -44,6 +44,9 @@
 #include <iProfilerVisualizer.h>
 using namespace Igor;
 
+#include "Outliner.h"
+#include "PropertiesDialog.h"
+
 namespace Igor
 {
     class iScene;
@@ -59,9 +62,6 @@ namespace Igor
 
     class iNodeSkyBox;
 }
-
-class PropertiesDialog;
-class Outliner;
 
 class ModelViewer
 {

@@ -55,6 +55,14 @@ namespace Igor
 
 	public:
 
+		/*! ctor initializes member variables
+		*/
+		iWidgetPicture();
+
+		/*! release texture
+		*/
+		virtual ~iWidgetPicture();
+
         /*! sets the texture to use for the picture
 
         \param texturePath path to texture
@@ -119,14 +127,6 @@ namespace Igor
 		/*! draws the widget
 		*/
 		void draw();
-
-        /*! ctor initializes member variables
-        */
-		iWidgetPicture();
-
-        /*! release texture
-        */
-		virtual ~iWidgetPicture();
 
         /*! creates instance of this widget type
         */

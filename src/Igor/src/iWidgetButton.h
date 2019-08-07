@@ -56,6 +56,14 @@ namespace Igor
 
 	public:
 
+		/*! ctor initializes member variables
+		*/
+		iWidgetButton();
+
+		/*! release texture
+		*/
+		virtual ~iWidgetButton();
+
         /*! sets text of the widget
 
         \param text new text to set
@@ -127,14 +135,6 @@ namespace Igor
         void draw();
 
 	private:
-
-        /*! ctor initializes member variables
-        */
-		iWidgetButton();
-
-        /*! release texture
-        */
-		virtual ~iWidgetButton();
 
         /*! creates instance of this widget type
         */

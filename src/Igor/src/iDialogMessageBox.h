@@ -79,6 +79,14 @@ namespace Igor
 
     public:
 
+		/*! does nothing
+		*/
+		iDialogMessageBox() = default;
+
+		/*! deinitializes gui
+		*/
+		~iDialogMessageBox();
+
         /*! initializes gui and opens the message box dialog
 
         \param message the message to display
@@ -184,14 +192,6 @@ namespace Igor
         /*! deinitializes the gui elements
         */
         void deinitGUI();
-
-        /*! does nothing
-        */
-        iDialogMessageBox() = default;
-
-        /*! deinitializes gui
-        */
-        ~iDialogMessageBox();
 
         /*! creates instance of this widget type
         */

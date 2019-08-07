@@ -17,16 +17,13 @@
 #include <iWidgetPicture.h>
 #include <iWidgetScroll.h>
 #include <iWidgetSelectBox.h>
-#include <iDialogMessageBox.h>
 #include <iWidgetDefaultTheme.h>
 #include <iWidgetSpacer.h>
 #include <iTextureResourceFactory.h>
 #include <iProfiler.h>
 #include <iWidgetGraph.h>
-#include <iDialogColorChooser.h>
 #include <iWidgetColor.h>
 #include <iWidgetColorGradient.h>
-#include <iDialogColorGradient.h>
 using namespace Igor;
 
 #include <iaConsole.h>
@@ -85,12 +82,11 @@ void WidgetsExample::initGUI()
     _widgetDefaultTheme = new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png");
     iWidgetManager::getInstance().setTheme(_widgetDefaultTheme);
 
-    _dialog = iWidgetManager::getInstance().createWidget<iDialog>();
-    _dialog->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    _dialog->setVerticalAlignment(iVerticalAlignment::Center);
-    _dialog->setHeight(200);
-    _dialog->setActive();
-    _dialog->setVisible();
+    _dialog.setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _dialog.setVerticalAlignment(iVerticalAlignment::Center);
+    _dialog.setHeight(200);
+    _dialog.setActive();
+    _dialog.setVisible();
 
     iWidgetGrid* grid1 = iWidgetManager::getInstance().createWidget<iWidgetGrid>();
     // put all widgets in one list for easier later cleanup. this method might not always be suitable
@@ -292,7 +288,7 @@ void WidgetsExample::initGUI()
     graph->setViewGrid();
 
     // assemble all the widgets with their parents
-    _dialog->addWidget(grid1);
+    _dialog.addWidget(grid1);
 
     grid1->addWidget(groupBox1, 0, 0);
     groupBox1->addWidget(grid4);
@@ -329,8 +325,6 @@ void WidgetsExample::deinit()
 
     iMouse::getInstance().unregisterMouseMoveDelegate(iMouseMoveDelegate(this, &WidgetsExample::onMouseMove));
 
-    deinitGUI();
-
     iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
 
     if (_font)
@@ -345,39 +339,6 @@ void WidgetsExample::deinit()
     _window.removeView(&_viewOrtho);
 }
 
-void WidgetsExample::deinitGUI()
-{
-    if (_widgetDefaultTheme)
-    {
-        delete _widgetDefaultTheme;
-    }
-
-    if (_dialog != nullptr)
-    {
-        iWidgetManager::getInstance().destroyDialog(_dialog);
-        _dialog = nullptr;
-    }
-
-    if (_messageBox != nullptr)
-    {
-        iWidgetManager::getInstance().destroyDialog(_messageBox);
-        _messageBox = nullptr;
-    }
-
-    if (_colorChooserDialog != nullptr)
-    {
-        iWidgetManager::getInstance().destroyDialog(_colorChooserDialog);
-        _colorChooserDialog = nullptr;
-    }
-
-	if (_colorGradientDialog != nullptr)
-	{
-		iWidgetManager::getInstance().destroyDialog(_colorGradientDialog);
-		_colorGradientDialog = nullptr;
-	}
-
-    _color = nullptr;
-}
 
 void WidgetsExample::onWindowResize(int32 clientWidth, int32 clientHeight)
 {
@@ -404,22 +365,12 @@ void WidgetsExample::onMouseMove(const iaVector2i& pos)
 
 void WidgetsExample::onOpenColorChooser(iWidget* source)
 {
-    if (_colorChooserDialog == nullptr)
-    {
-        _colorChooserDialog = iWidgetManager::getInstance().createWidget<iDialogColorChooser>();
-    }
-
-    _colorChooserDialog->show(iColorChooserCloseDelegate(this, &WidgetsExample::onCloseColorChooser), _color->getColor(), true);
+    _colorChooserDialog.show(iColorChooserCloseDelegate(this, &WidgetsExample::onCloseColorChooser), _color->getColor(), true);
 }
 
 void WidgetsExample::onOpenColorGradientEditor(iWidget* source)
 {
-    if (_colorGradientDialog == nullptr)
-    {
-        _colorGradientDialog = iWidgetManager::getInstance().createWidget<iDialogColorGradient>();
-    }
-
-    _colorGradientDialog->show(iColorGradientCloseDelegate(this, &WidgetsExample::onCloseColorGradient), _colorGradient->getGradient(), false);
+    _colorGradientDialog.show(iColorGradientCloseDelegate(this, &WidgetsExample::onCloseColorGradient), _colorGradient->getGradient(), false);
 }
 
 void WidgetsExample::onCloseColorGradient(bool ok, const iaGradientColor4f& gradient)
@@ -440,14 +391,8 @@ void WidgetsExample::onCloseColorChooser(bool ok, const iaColor4f& color)
 
 void WidgetsExample::onOpenMessageBox(iWidget* source)
 {
-    // create message box instance on demant
-    if (_messageBox == nullptr)
-    {
-        _messageBox = iWidgetManager::getInstance().createWidget<iDialogMessageBox>();
-    }
-
     // open a message box with some text
-    _messageBox->show("Please click Yes No or Cancel. Nothing will happen in an case.", iMessageBoxButtons::YesNoCancel);
+    _messageBox.show("Please click Yes No or Cancel. Nothing will happen in an case.", iMessageBoxButtons::YesNoCancel);
 }
 
 void WidgetsExample::onExitClick(iWidget* source)

@@ -54,6 +54,14 @@ namespace Igor
 
 	public:
 
+		/*! ctor initializes member variables
+		*/
+		iWidgetCheckBox();
+
+		/*! does nothing
+		*/
+		virtual ~iWidgetCheckBox() = default;
+
         /*! beginns a radio button group
 
         every check box that is created afterwards will be added to the same radio button group
@@ -120,14 +128,6 @@ namespace Igor
 		void draw();
 
 	private:
-
-        /*! ctor initializes member variables
-        */
-		iWidgetCheckBox();
-
-        /*! does nothing
-        */
-		virtual ~iWidgetCheckBox() = default;
 
         /*! creates instance of this widget type
         */

@@ -73,6 +73,14 @@ namespace Igor
 
     public:
 
+		/*! ctor initializes member variables
+		*/
+		iUserControlColorChooser();
+
+		/*! clean up
+		*/
+		virtual ~iUserControlColorChooser();
+
         /*! sets the headline text
 
         \param text the text
@@ -488,14 +496,6 @@ namespace Igor
         /*! releases resources
         */
         void deinitGUI();
-
-        /*! ctor initializes member variables
-        */
-        iUserControlColorChooser();
-
-        /*! clean up
-        */
-        virtual ~iUserControlColorChooser();
 
         /*! creates instance of this widget type
         */

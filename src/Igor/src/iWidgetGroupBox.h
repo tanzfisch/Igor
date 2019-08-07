@@ -55,6 +55,14 @@ namespace Igor
 
 	public:
 
+		/*! ctor initializes member variables
+		*/
+		iWidgetGroupBox();
+
+		/*! does nothing
+		*/
+		~iWidgetGroupBox() = default;
+
         /*! sets text of widget
 
         \param text new text
@@ -106,14 +114,6 @@ namespace Igor
         /*! updates size based on it's content
         */
         void calcMinSize();
-
-        /*! ctor initializes member variables
-        */
-		iWidgetGroupBox();
-
-        /*! does nothing
-        */
-		~iWidgetGroupBox() = default;
 
         /*! creates instance of this widget type
         */

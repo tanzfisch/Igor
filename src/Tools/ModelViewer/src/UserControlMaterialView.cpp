@@ -27,11 +27,6 @@ UserControlMaterialView::UserControlMaterialView()
     initGUI();
 }
 
-iWidget* UserControlMaterialView::createInstance()
-{
-	return new UserControlMaterialView();
-}
-
 void UserControlMaterialView::initGUI()
 {
     iWidgetGrid* grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));

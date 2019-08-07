@@ -59,6 +59,14 @@ namespace Igor
 
     public:
 
+		/*! does nothing
+		*/
+		iDialogColorGradient() = default;
+
+		/*! does nothing
+		*/
+		~iDialogColorGradient() = default;
+
         /*! show/open the decision box
 
         \param closeDelegate closing delegate
@@ -164,14 +172,6 @@ namespace Igor
         \param useAlpha if true alpha value will be edited too
         */
         void initGUI(const iaGradientColor4f& gradient, bool useAlpha);
-
-        /*! does nothing
-        */
-        iDialogColorGradient() = default;
-
-        /*! does nothing
-        */
-        ~iDialogColorGradient() = default;
 
         /*! creates instance of this widget type
         */

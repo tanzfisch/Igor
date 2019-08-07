@@ -38,11 +38,6 @@ UserControlMesh::~UserControlMesh()
 	deinitGUI();
 }
 
-iWidget* UserControlMesh::createInstance()
-{
-	return new UserControlMesh();
-}
-
 void UserControlMesh::onAmbientChange(const iaColor4f& color)
 {
 	_ambient = color;

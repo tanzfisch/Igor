@@ -53,6 +53,14 @@ namespace Igor
 
     public:
 
+		/*! ctor initializes member variables and registers mouse events
+		*/
+		iDialog();
+
+		/*! dtor unregisters mouse events
+		*/
+		virtual ~iDialog();
+
         /*! set horizontal position of dialog and horizontal alignment to absolute
 
         \param x horizontal position
@@ -74,16 +82,6 @@ namespace Igor
         /*! \retruns border size
         */
         int32 getBorder();
-
-    protected:
-
-        /*! ctor initializes member variables and registers mouse events
-        */
-        iDialog();
-
-        /*! dtor unregisters mouse events
-        */
-        virtual ~iDialog();
 
     private:
 

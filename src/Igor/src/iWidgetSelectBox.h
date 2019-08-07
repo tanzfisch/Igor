@@ -55,6 +55,14 @@ namespace Igor
 
 	public:
 
+		/*! ctro initializes member variables
+		*/
+		iWidgetSelectBox();
+
+		/*! clean up
+		*/
+		virtual ~iWidgetSelectBox();
+
         /*! adds entry to select box
 
         \param entryText the entry text
@@ -158,14 +166,6 @@ namespace Igor
         /*! renders widget
         */
         void draw();
-
-        /*! ctro initializes member variables
-        */
-		iWidgetSelectBox();
-
-        /*! clean up
-        */
-		virtual ~iWidgetSelectBox();
 
         /*! creates instance of this widget type
         */

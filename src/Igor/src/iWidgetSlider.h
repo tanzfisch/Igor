@@ -58,6 +58,14 @@ namespace Igor
 
 	public:
 
+		/*! ctor initializes member variables
+		*/
+		iWidgetSlider();
+
+		/*! release texture
+		*/
+		virtual ~iWidgetSlider();
+
         /*! sets the texture to use for the button
 
         \param texturePath path to texture
@@ -202,14 +210,6 @@ namespace Igor
 		void draw();
 
 	private:
-
-        /*! ctor initializes member variables
-        */
-        iWidgetSlider();
-
-        /*! release texture
-        */
-		virtual ~iWidgetSlider();
 
         /*! creates instance of this widget type
         */

@@ -52,6 +52,14 @@ namespace Igor
 
     public:
 
+		/*! does nothing
+		*/
+		iDialogMenu() = default;
+
+		/*! deinitializes gui
+		*/
+		~iDialogMenu();
+
 		/*! opens dialog
 
         leave the pictures list empty if you don't want pictures or call the alternative implementation of show
@@ -139,14 +147,6 @@ namespace Igor
         /*! deinitializes the gui elements
         */
         void deinitGUI();
-
-        /*! does nothing
-        */
-        iDialogMenu() = default;
-
-        /*! deinitializes gui
-        */
-        ~iDialogMenu();
 
         /*! creates instance of this widget type
         */

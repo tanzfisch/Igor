@@ -56,6 +56,14 @@ namespace Igor
 
     public:
 
+		/*! ctor initializes member variables
+		*/
+		iUserControlFileChooser();
+
+		/*! clean up
+		*/
+		~iUserControlFileChooser();
+
         /*! sets the filename
 
         \param filename the filename
@@ -159,14 +167,6 @@ namespace Igor
         /*! release resources
         */
         void deinitGUI();
-
-        /*! ctor initializes member variables
-        */
-        iUserControlFileChooser();
-
-        /*! clean up
-        */
-        ~iUserControlFileChooser();
 
         /*! creates instance of this widget type
         */

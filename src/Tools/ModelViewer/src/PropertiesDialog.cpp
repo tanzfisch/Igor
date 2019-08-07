@@ -32,11 +32,6 @@ PropertiesDialog::~PropertiesDialog()
 {
 }
 
-iDialog* PropertiesDialog::createInstance()
-{
-    return new PropertiesDialog();
-}
-
 void PropertiesDialog::initGUI()
 {
 	setWidth(350);
@@ -51,9 +46,8 @@ void PropertiesDialog::initGUI()
 	_grid->setStrechRow(0);
     _grid->setStrechColumn(0);
     
-	_userControlProperties = static_cast<UserControlProperties*>(iWidgetManager::getInstance().createWidget("UserControlProperties"));
-    _userControlProperties->registerStructureChangedDelegate(StructureChangedDelegate(this, &PropertiesDialog::onStructureChanged));
-	_grid->addWidget(_userControlProperties, 0, 0);
+    _userControlProperties.registerStructureChangedDelegate(StructureChangedDelegate(this, &PropertiesDialog::onStructureChanged));
+	_grid->addWidget(&_userControlProperties, 0, 0);
 
     addWidget(_grid);
 }
@@ -65,12 +59,12 @@ void PropertiesDialog::onStructureChanged()
 
 void PropertiesDialog::onGraphViewSelectionChanged(uint64 nodeID)
 {
-    _userControlProperties->setProperty(nodeID, PropertyType::Node);
+    _userControlProperties.setProperty(nodeID, PropertyType::Node);
 }
 
 void PropertiesDialog::onMaterialSelectionChanged(uint64 materialID)
 {
-	_userControlProperties->setProperty(materialID, PropertyType::Material);
+	_userControlProperties.setProperty(materialID, PropertyType::Material);
 }
 
 void PropertiesDialog::registerPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate)

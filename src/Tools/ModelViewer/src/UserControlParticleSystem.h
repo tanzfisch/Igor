@@ -59,9 +59,13 @@ class UserControlParticleSystem : public iUserControl
 {
 public:
 
-	/*! \returns new instance of particle system
+	/*! init gui
 	*/
-	static iWidget* createInstance();
+	UserControlParticleSystem();
+
+	/*! deinit gui
+	*/
+	~UserControlParticleSystem();
 
     /*! sets the current scene node to work with
 
@@ -401,15 +405,6 @@ private:
     /*! initialize gui
     */
     void initGUI();
-
-	/*! init gui
-	*/
-	UserControlParticleSystem();
-
-	/*! deinit gui
-	*/
-	~UserControlParticleSystem();
-
 
 };
 

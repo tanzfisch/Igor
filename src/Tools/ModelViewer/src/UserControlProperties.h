@@ -45,7 +45,6 @@ using namespace Igor;
 #include <iaEvent.h>
 using namespace IgorAux;
 
-
 class UserControlLight;
 class UserControlMesh;
 class UserControlTransformation;
@@ -69,7 +68,8 @@ class UserControlProperties : public iUserControl
 {
 public:
 
-	static iWidget* createInstance();
+	UserControlProperties();
+	~UserControlProperties();
 
     void setProperty(uint64 id, PropertyType propertyType);
 
@@ -133,9 +133,6 @@ private:
     UserControlParticleSystem* _userControlParticleSystem = nullptr;
     UserControlNode* _userControlNode = nullptr;
     UserControlMaterial* _userControlMaterial = nullptr;
-
-	UserControlProperties();
-	~UserControlProperties();
 
 };
 

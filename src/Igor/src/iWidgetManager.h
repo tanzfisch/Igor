@@ -65,6 +65,9 @@ namespace Igor
         /*! needs to be friends with singleton base class in order to be a singleton
         */
         friend class iaSingleton<iWidgetManager>;
+
+		friend class iWidget;
+		friend class iDialog;
         
 	public:
 		
@@ -380,6 +383,30 @@ namespace Igor
 		/*! tooltip text
 		*/
 		iaString _tooltipText;
+
+		/*! registers widget to WidgetManager so we can track if all widgets got destroyed at shutdown
+
+		\param widget the widget to track
+		*/
+		void registerWidget(iWidget* widget);
+
+		/*! unregister widget from WidgetManager so we don't track this one anymore
+
+		\param widget the widget to not track anymore
+		*/
+		void unregisterWidget(iWidget* widget);
+
+		/*! registers dialog to WidgetManager so we can track if all dialogs got destroyed at shutdown
+
+		\param dialog the dialog to track
+		*/
+		void registerDialog(iDialog* dialog);
+
+		/*! unregister dialog from WidgetManager so we don't track this one anymore
+
+		\param dialog the dialog to not track anymore
+		*/
+		void unregisterDialog(iDialog* dialog);
 
         /*! last chance for the instance to clean up before shut down
         */

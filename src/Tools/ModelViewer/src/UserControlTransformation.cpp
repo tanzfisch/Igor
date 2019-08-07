@@ -29,11 +29,6 @@ UserControlTransformation::~UserControlTransformation()
 	}
 }
 
-iWidget* UserControlTransformation::createInstance()
-{
-	return new UserControlTransformation();
-}
-
 void UserControlTransformation::setNode(uint32 id)
 {
 	if (_nodeId == id)

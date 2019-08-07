@@ -39,101 +39,101 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    class iWidgetGrid;
-    class iWidgetButton;
-    class iUserControlColorChooser;
+	class iWidgetGrid;
+	class iWidgetButton;
+	class iUserControlColorChooser;
 
-    /*! event triggered when color chooser was closed
-    */
-    iaEVENT(iColorChooserCloseEvent, iColorChooserCloseDelegate, void, (bool ok, const iaColor4f& color), (ok, color));
+	/*! event triggered when color chooser was closed
+	*/
+	iaEVENT(iColorChooserCloseEvent, iColorChooserCloseDelegate, void, (bool ok, const iaColor4f& color), (ok, color));
 
-    /*! the color chooser dialog
-    */
-    class Igor_API iDialogColorChooser : public iDialog
-    {
+	/*! the color chooser dialog
+	*/
+	class Igor_API iDialogColorChooser : public iDialog
+	{
 
-        friend class iWidgetManager;
+		friend class iWidgetManager;
 
-    public:
+	public:
 
-        /*! show/open the decision box
+		/*! does nothing
+		*/
+		iDialogColorChooser() = default;
 
-        \param closeDelegate the closing delegate
-        \param color the color to start with
-        \param useAlpha if true also use the alpha channel
-        */
-        void show(iColorChooserCloseDelegate closeDelegate, const iaColor4f& color, bool useAlpha = true);
+		/*! deinitializes gui
+		*/
+		~iDialogColorChooser();
 
-    private:
+		/*! show/open the decision box
 
-        /*! the close event
-        */
-        iColorChooserCloseEvent _closeEvent;
+		\param closeDelegate the closing delegate
+		\param color the color to start with
+		\param useAlpha if true also use the alpha channel
+		*/
+		void show(iColorChooserCloseDelegate closeDelegate, const iaColor4f& color, bool useAlpha = true);
 
-        /*! old color
-        */
-        iaColor4f _oldColor;
+	private:
 
-        /*! over all grid
-        */
-        iWidgetGrid* _grid = nullptr;
+		/*! the close event
+		*/
+		iColorChooserCloseEvent _closeEvent;
 
-        /*! actual color chooser
-        */
-        iUserControlColorChooser* _userControlColorChooser = nullptr;
+		/*! old color
+		*/
+		iaColor4f _oldColor;
 
-        /*! all widgets
-        */
-        std::vector<iWidget*> _allWidgets;
+		/*! over all grid
+		*/
+		iWidgetGrid* _grid = nullptr;
 
-        /*! handles ok button clicked event
+		/*! actual color chooser
+		*/
+		iUserControlColorChooser* _userControlColorChooser = nullptr;
 
-        \param source the ok button it self
-        */
-        void onOK(iWidget* source);
+		/*! all widgets
+		*/
+		std::vector<iWidget*> _allWidgets;
 
-        /*! handles cancel button clicked event
+		/*! handles ok button clicked event
 
-        \param source the cancel button it self
-        */
-        void onCancel(iWidget* source);
+		\param source the ok button it self
+		*/
+		void onOK(iWidget* source);
 
-        /*! handles reset button click event
+		/*! handles cancel button clicked event
 
-        \param source the reset button it self
-        */
-        void onReset(iWidget* source);
+		\param source the cancel button it self
+		*/
+		void onCancel(iWidget* source);
 
-        /*! closes the dialog and sends closed event
+		/*! handles reset button click event
 
-        will be triggered by any button
-        */
-        void close();
+		\param source the reset button it self
+		*/
+		void onReset(iWidget* source);
 
-        /*! deinitializes the gui elements
-        */
-        void deinitGUI();
+		/*! closes the dialog and sends closed event
 
-        /*! initializes gui elements
+		will be triggered by any button
+		*/
+		void close();
 
-        \param color the color to init with
-        \param useAlpha if true alpha value will be edited too
-        */
-        void initGUI(const iaColor4f& color, bool useAlpha);
+		/*! deinitializes the gui elements
+		*/
+		void deinitGUI();
 
-        /*! does nothing
-        */
-        iDialogColorChooser() = default;
+		/*! initializes gui elements
 
-        /*! deinitializes gui
-        */
-        ~iDialogColorChooser();
+		\param color the color to init with
+		\param useAlpha if true alpha value will be edited too
+		*/
+		void initGUI(const iaColor4f& color, bool useAlpha);
 
-        /*! creates instance of this widget type
-        */
-        static iDialog* createInstance();
+		/*! creates instance of this widget type
+		*/
+		static iDialog* createInstance();
 
-    };
+	};
 
 }
 

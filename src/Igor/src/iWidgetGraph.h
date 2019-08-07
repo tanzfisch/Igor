@@ -83,6 +83,14 @@ namespace Igor
 
 	public:        
 
+		/*! ctor initializes member variables
+		*/
+		iWidgetGraph();
+
+		/*! does nothing
+		*/
+		virtual ~iWidgetGraph() = default;
+
         /*! clears all point data
         */
         void clearPoints();
@@ -309,14 +317,6 @@ namespace Igor
         \returns true: if event was consumed and therefore ignored by the parent
         */
         bool handleMouseKeyDown(iKeyCode key);
-
-        /*! ctor initializes member variables
-        */
-        iWidgetGraph();
-
-        /*! does nothing
-        */
-		virtual ~iWidgetGraph() = default;
 
         /*! creates instance of this widget type
         */

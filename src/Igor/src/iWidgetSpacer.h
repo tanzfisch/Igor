@@ -50,6 +50,16 @@ namespace Igor
         */
 		friend class iWidgetManager;
 
+	public:
+
+		/*! ctor initializes member variables
+		*/
+		iWidgetSpacer();
+
+		/*! does nothing
+		*/
+		virtual ~iWidgetSpacer() = default;
+
 	protected:
 
         /*! updates size based on it's content
@@ -61,14 +71,6 @@ namespace Igor
 		void draw();
 
 	private:
-
-        /*! ctor initializes member variables
-        */
-        iWidgetSpacer();
-
-        /*! does nothing
-        */
-		virtual ~iWidgetSpacer() = default;
 
         /*! creates instance of this widget type
         */

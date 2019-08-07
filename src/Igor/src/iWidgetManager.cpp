@@ -109,6 +109,34 @@ namespace Igor
 		_widgets.clear();
 	}
 
+	void iWidgetManager::registerWidget(iWidget* widget)
+	{
+		_widgets[widget->getID()] = widget;
+	}
+
+	void iWidgetManager::unregisterWidget(iWidget* widget)
+	{
+		auto iter = _widgets.find(widget->getID());
+		if (iter != _widgets.end())
+		{
+			_widgets.erase(iter);
+		}
+	}
+
+	void iWidgetManager::registerDialog(iDialog* dialog)
+	{
+		_dialogs[dialog->getID()] = dialog;
+	}
+
+	void iWidgetManager::unregisterDialog(iDialog* dialog)
+	{
+		auto iter = _dialogs.find(dialog->getID());
+		if (iter != _dialogs.end())
+		{
+			_dialogs.erase(iter);
+		}
+	}
+
 	void iWidgetManager::showTooltip(const iaVector2i& pos, const iaString& text)
 	{
 		_tooltipPos = pos;
@@ -140,7 +168,7 @@ namespace Igor
 		return (_modal == dialog) ? true : false;
 	}
 
-	void iWidgetManager::setModal(iDialog * dialog)
+	void iWidgetManager::setModal(iDialog* dialog)
 	{
 		con_assert(_modal == nullptr, "an other dialog is alsready modal");
 
@@ -347,7 +375,7 @@ namespace Igor
 		}
 	}
 
-	void iWidgetManager::onMouseMove(const iaVector2i & from, const iaVector2i & to, iWindow * window)
+	void iWidgetManager::onMouseMove(const iaVector2i& from, const iaVector2i& to, iWindow* window)
 	{
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
 		std::map<uint64, iDialog*> dialogs = _dialogs;
@@ -435,7 +463,7 @@ namespace Igor
 		runDeleteQueues();
 	}
 
-	void iWidgetManager::traverseContentSize(iWidget * widget)
+	void iWidgetManager::traverseContentSize(iWidget* widget)
 	{
 		if (widget != nullptr)
 		{
@@ -448,7 +476,7 @@ namespace Igor
 		}
 	}
 
-	void iWidgetManager::traverseAlignment(iWidget * widget, int32 offsetX, int32 offsetY, int32 clientRectWidth, int32 clientRectHeight)
+	void iWidgetManager::traverseAlignment(iWidget* widget, int32 offsetX, int32 offsetY, int32 clientRectWidth, int32 clientRectHeight)
 	{
 		if (widget != nullptr)
 		{
@@ -488,7 +516,7 @@ namespace Igor
 		return _currentTheme;
 	}
 
-	void iWidgetManager::setTheme(iWidgetBaseTheme * theme)
+	void iWidgetManager::setTheme(iWidgetBaseTheme* theme)
 	{
 		_currentTheme = theme;
 	}
@@ -516,7 +544,7 @@ namespace Igor
 		}
 	}
 
-	void iWidgetManager::registerDialogType(const iaString & dialogType, iInstanciateDialogDelegate instanciateDialogDelegate)
+	void iWidgetManager::registerDialogType(const iaString& dialogType, iInstanciateDialogDelegate instanciateDialogDelegate)
 	{
 		uint64 key = dialogType.getHashValue();
 		auto iter = _dialogTypes.find(key);
@@ -530,7 +558,7 @@ namespace Igor
 		}
 	}
 
-	void iWidgetManager::unregisterDialogType(const iaString & dialogType)
+	void iWidgetManager::unregisterDialogType(const iaString& dialogType)
 	{
 		uint64 key = dialogType.getHashValue();
 		auto iter = _dialogTypes.find(key);
@@ -544,7 +572,7 @@ namespace Igor
 		}
 	}
 
-	void iWidgetManager::registerWidgetType(const iaString & widgetType, iInstanciateWidgetDelegate instanciateWidgetDelegate)
+	void iWidgetManager::registerWidgetType(const iaString& widgetType, iInstanciateWidgetDelegate instanciateWidgetDelegate)
 	{
 		uint64 key = widgetType.getHashValue();
 		auto iter = _widgetTypes.find(key);
@@ -558,7 +586,7 @@ namespace Igor
 		}
 	}
 
-	void iWidgetManager::unregisterWidgetType(const iaString & widgetType)
+	void iWidgetManager::unregisterWidgetType(const iaString& widgetType)
 	{
 		uint64 key = widgetType.getHashValue();
 		auto iter = _widgetTypes.find(key);
@@ -572,7 +600,7 @@ namespace Igor
 		}
 	}
 
-	void iWidgetManager::destroyDialog(iDialog * dialog)
+	void iWidgetManager::destroyDialog(iDialog* dialog)
 	{
 		con_assert(dialog != nullptr, "zero pointer");
 
@@ -598,7 +626,7 @@ namespace Igor
 		}
 	}
 
-	iWidget* iWidgetManager::createWidget(const iaString & widgetType)
+	iWidget* iWidgetManager::createWidget(const iaString& widgetType)
 	{
 		iWidget* result = nullptr;
 
@@ -614,7 +642,7 @@ namespace Igor
 		{
 			con_err("unknown widget type " << widgetType);
 		}
-		
+
 		return result;
 	}
 
@@ -623,7 +651,7 @@ namespace Igor
 		_toDeleteWidgets.push_back(id);
 	}
 
-	void iWidgetManager::destroyWidget(iWidget * widget)
+	void iWidgetManager::destroyWidget(iWidget* widget)
 	{
 		con_assert(widget != nullptr, "zero pointer");
 
@@ -664,7 +692,7 @@ namespace Igor
 
 	void iWidgetManager::runDeleteQueues()
 	{
-		while (!_toDeleteDialogs.empty() || !_toDeleteWidgets.empty()) 
+		while (!_toDeleteDialogs.empty() || !_toDeleteWidgets.empty())
 		{
 			std::deque<uint64> toDeleteDialogs(_toDeleteDialogs);
 			std::deque<uint64> toDeleteWidgets(_toDeleteWidgets);
@@ -677,7 +705,6 @@ namespace Igor
 				if (iter != _dialogs.end())
 				{
 					delete (*iter).second;
-					_dialogs.erase(iter);
 				}
 			}
 
@@ -687,10 +714,9 @@ namespace Igor
 				if (iter != _widgets.end())
 				{
 					delete (*iter).second;
-					_widgets.erase(iter);
 				}
 			}
-		} 
+		}
 	}
 
 	void iWidgetManager::registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate doubleClickDelegate)

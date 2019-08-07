@@ -44,8 +44,6 @@ using namespace IgorAux;
 #include <iRenderEngine.h>
 using namespace Igor;
 
-#include "Outliner.h"
-#include "PropertiesDialog.h"
 #include "UserControlMesh.h"
 #include "UserControlModel.h"
 #include "UserControlNode.h"
@@ -74,20 +72,6 @@ ModelViewer::~ModelViewer()
 
 void ModelViewer::registerWidgetTypes()
 {
-	iWidgetManager::getInstance().registerDialogType("Outliner", iInstanciateDialogDelegate(Outliner::createInstance));
-	iWidgetManager::getInstance().registerDialogType("PropertiesDialog", iInstanciateDialogDelegate(PropertiesDialog::createInstance));
-
-	iWidgetManager::getInstance().registerWidgetType("UserControlMesh", iInstanciateWidgetDelegate(UserControlMesh::createInstance));
-	iWidgetManager::getInstance().registerWidgetType("UserControlModel", iInstanciateWidgetDelegate(UserControlModel::createInstance));
-	iWidgetManager::getInstance().registerWidgetType("UserControlNode", iInstanciateWidgetDelegate(UserControlNode::createInstance));
-	iWidgetManager::getInstance().registerWidgetType("UserControlParticleSystem", iInstanciateWidgetDelegate(UserControlParticleSystem::createInstance));
-	iWidgetManager::getInstance().registerWidgetType("UserControlTransformation", iInstanciateWidgetDelegate(UserControlTransformation::createInstance));
-	iWidgetManager::getInstance().registerWidgetType("UserControlLight", iInstanciateWidgetDelegate(UserControlLight::createInstance));
-	iWidgetManager::getInstance().registerWidgetType("UserControlEmitter", iInstanciateWidgetDelegate(UserControlEmitter::createInstance));
-	iWidgetManager::getInstance().registerWidgetType("UserControlMaterial", iInstanciateWidgetDelegate(UserControlMaterial::createInstance));
-	iWidgetManager::getInstance().registerWidgetType("UserControlProperties", iInstanciateWidgetDelegate(UserControlProperties::createInstance));
-	iWidgetManager::getInstance().registerWidgetType("UserControlMaterialView", iInstanciateWidgetDelegate(UserControlMaterialView::createInstance));
-	iWidgetManager::getInstance().registerWidgetType("UserControlGraphView", iInstanciateWidgetDelegate(UserControlGraphView::createInstance));
 }
 
 iModelDataInputParameter* ModelViewer::createDataInputParameter()
@@ -684,11 +668,13 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
 
 void ModelViewer::initGUI()
 {
+	_propertiesDialog = new PropertiesDialog();
+	_outliner = new Outliner();
+	
     _widgetTheme = new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png");
     iWidgetManager::getInstance().setTheme(_widgetTheme);
     iWidgetManager::getInstance().setDesktopDimensions(_window.getClientWidth(), _window.getClientHeight());
 
-    _outliner = iWidgetManager::getInstance().createWidget<Outliner>();
     _outliner->registerOnExitModelViewer(ExitModelViewerDelegate(this, &ModelViewer::onExitModelViewer));
     _outliner->registerOnLoadFile(LoadFileDelegate(this, &ModelViewer::onLoadFile));
     _outliner->registerOnImportFile(ImportFileDelegate(this, &ModelViewer::onImportFile));
@@ -703,7 +689,6 @@ void ModelViewer::initGUI()
 
     _fileDialog = iWidgetManager::getInstance().createWidget<iDialogFileSelect>();
     _messageBox = iWidgetManager::getInstance().createWidget<iDialogMessageBox>();
-    _propertiesDialog = iWidgetManager::getInstance().createWidget<PropertiesDialog>();
 
     _propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_outliner, &Outliner::refreshView));
 
@@ -765,45 +750,25 @@ void ModelViewer::setManipulatorMode(ManipulatorMode manipulatorMode)
 
 void ModelViewer::deinitGUI()
 {
-    if (_outliner != nullptr &&
-        _propertiesDialog != nullptr)
-    {
-        _propertiesDialog->unregisterStructureChangedDelegate(StructureChangedDelegate(_outliner, &Outliner::refreshView));
-        _outliner->unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
-        _outliner->unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate(this, &ModelViewer::onGraphViewSelectionChanged));
-        _outliner->unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onMaterialSelectionChanged));
-    }
-
-    if (_outliner != nullptr)
-    {
-        _outliner->unregisterOnExitModelViewer(ExitModelViewerDelegate(this, &ModelViewer::onExitModelViewer));
-        _outliner->unregisterOnLoadFile(LoadFileDelegate(this, &ModelViewer::onLoadFile));
-        _outliner->unregisterOnImportFile(ImportFileDelegate(this, &ModelViewer::onImportFile));
-        _outliner->unregisterOnImportFileReference(ImportFileReferenceDelegate(this, &ModelViewer::onImportFileReference));
-        _outliner->unregisterOnSaveFile(SaveFileDelegate(this, &ModelViewer::onSaveFile));
-        _outliner->unregisterOnAddTransformation(AddTransformationDelegate(this, &ModelViewer::onAddTransformation));
-        _outliner->unregisterOnAddSwitch(AddSwitchDelegate(this, &ModelViewer::onAddSwitch));
-        _outliner->unregisterOnAddGroup(AddGroupDelegate(this, &ModelViewer::onAddGroup));
-        _outliner->unregisterOnAddEmitter(AddEmitterDelegate(this, &ModelViewer::onAddEmitter));
-        _outliner->unregisterOnAddParticleSystem(AddParticleSystemDelegate(this, &ModelViewer::onAddParticleSystem));
-
-        iWidgetManager::getInstance().destroyDialog(_outliner);
-        _outliner = nullptr;
-    }
-
     if (_propertiesDialog != nullptr)
     {
-        iWidgetManager::getInstance().destroyDialog(_propertiesDialog);
-        _propertiesDialog = nullptr;
+		delete _propertiesDialog;
+		_propertiesDialog = nullptr;
     }
 
-    if (_fileDialog != nullptr)
-    {
-        iWidgetManager::getInstance().destroyDialog(_fileDialog);
-        _fileDialog = nullptr;
-    }
+	if (_outliner != nullptr)
+	{
+		delete _outliner;
+		_outliner = nullptr;
+	}
 
-    if (_messageBox != nullptr)
+	if (_fileDialog != nullptr)
+	{
+		iWidgetManager::getInstance().destroyDialog(_fileDialog);
+		_fileDialog = nullptr;
+	}
+
+	if (_messageBox != nullptr)
     {
         iWidgetManager::getInstance().destroyDialog(_messageBox);
         _messageBox = nullptr;

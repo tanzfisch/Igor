@@ -112,6 +112,14 @@ namespace Igor
 
     public:
 
+		/*! ctor initializes member variables
+		*/
+		iWidgetGrid();
+
+		/*! does nothing
+		*/
+		~iWidgetGrid() = default;
+
         /*! appends rows at the bottom of the grid
 
         \param count the amount of rows to be added
@@ -365,14 +373,6 @@ namespace Igor
         \param offsets vector to be filled with childrens offsets
         */
         void calcChildOffsets(std::vector<iRectanglei>& offsets);
-
-        /*! ctor initializes member variables
-        */
-        iWidgetGrid();
-
-        /*! does nothing
-        */
-        ~iWidgetGrid() = default;
 
         /*! creates instance of this widget type
         */

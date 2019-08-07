@@ -45,11 +45,6 @@ UserControlParticleSystem::~UserControlParticleSystem()
 	iApplication::getInstance().unregisterApplicationPostDrawHandleDelegate(iApplicationPostDrawHandleDelegate(this, &UserControlParticleSystem::onCyclickUpdate));
 }
 
-iWidget* UserControlParticleSystem::createInstance()
-{
-	return new UserControlParticleSystem();
-}
-
 void UserControlParticleSystem::onCyclickUpdate()
 {
     iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_nodeId));

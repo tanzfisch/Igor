@@ -71,6 +71,14 @@ namespace Igor
 
     public:
 
+		/*! does nothing
+		*/
+		iDialogFileSelect() = default;
+
+		/*! deinitializes gui elements
+		*/
+		~iDialogFileSelect();
+
         /*! opens dialog in load mode
 
         \param closeDelegate delegate called after dialog was closed
@@ -240,14 +248,6 @@ namespace Igor
 		\param path the path to start with
 		*/
 		void configure(const iaString& path);
-
-        /*! does nothing
-        */
-        iDialogFileSelect() = default;
-
-        /*! deinitializes gui elements
-        */
-        ~iDialogFileSelect();
 
         /*! creates instance of this widget type
         */

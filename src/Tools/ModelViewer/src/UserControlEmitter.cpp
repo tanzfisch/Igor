@@ -25,11 +25,6 @@ UserControlEmitter::UserControlEmitter()
     initGUI();
 }
 
-iWidget* UserControlEmitter::createInstance()
-{
-	return new UserControlEmitter();
-}
-
 void UserControlEmitter::updateNode()
 {
     iNodeEmitter* node = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().getNode(_nodeId));

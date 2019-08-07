@@ -54,6 +54,14 @@ namespace Igor
 
 	public:
 
+		/*! ctor initializes member variables
+		*/
+		iWidgetLabel();
+
+		/*! does nothing
+		*/
+		virtual ~iWidgetLabel() = default;
+
         /*! sets maximum text width
 
         text that needs more space will automatically turn in to multi line text
@@ -95,14 +103,6 @@ namespace Igor
 		/*! draws the widget
 		*/
 		void draw();
-
-        /*! ctor initializes member variables
-        */
-		iWidgetLabel();
-
-        /*! does nothing
-        */
-		virtual ~iWidgetLabel() = default;
 
         /*! creates instance of this widget type
         */

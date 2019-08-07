@@ -26,11 +26,6 @@ UserControlModel::~UserControlModel()
 {
 }
 
-iWidget* UserControlModel::createInstance()
-{
-	return new UserControlModel();
-}
-
 void UserControlModel::updateNode()
 {
     // nothing to do

@@ -18,11 +18,6 @@ UserControlLight::UserControlLight()
     initGUI();
 }
 
-iWidget* UserControlLight::createInstance()
-{
-	return new UserControlLight();
-}
-
 void UserControlLight::updateGUI()
 {
     iNodeLight* lightNode = static_cast<iNodeLight*>(iNodeFactory::getInstance().getNode(_lightNodeId));
