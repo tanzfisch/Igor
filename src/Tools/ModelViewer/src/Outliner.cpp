@@ -41,7 +41,7 @@ iDialog* Outliner::createInstance()
 
 void Outliner::initGUI()
 {
-    _messageBox = static_cast<iDialogMessageBox*>(iWidgetManager::getInstance().createDialog("DialogMessageBox"));
+    _messageBox = iWidgetManager::getInstance().createWidget<iDialogMessageBox>();
 
     setWidth(350);
     setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -702,7 +702,7 @@ void Outliner::onAddModel(uint64 addAt)
 {
     if (_decisionBoxModelRef == nullptr)
     {
-        _decisionBoxModelRef = static_cast<iDialogDecisionBox*>(iWidgetManager::getInstance().createDialog("DialogDecisionBox"));
+        _decisionBoxModelRef = iWidgetManager::getInstance().createWidget<iDialogDecisionBox>();
     }
 
     _decisionBoxModelRef->show("Import model ...", iDecisionBoxCloseDelegate(this, &Outliner::onAddModelDecision), { "embedded", "as reference" }, 0);

@@ -572,26 +572,6 @@ namespace Igor
 		}
 	}
 
-	iDialog* iWidgetManager::createDialog(const iaString & type)
-	{
-		iDialog* result = nullptr;
-
-		uint64 key = type.getHashValue();
-		auto iter = _dialogTypes.find(key);
-		con_assert(iter != _dialogTypes.end(), "dialog type not found");
-		if (iter != _dialogTypes.end())
-		{
-			result = (*iter).second();
-			_dialogs[result->getID()] = result;
-		}
-		else
-		{
-			con_err("unknown widget type " << type);
-		}
-
-		return result;
-	}
-
 	void iWidgetManager::destroyDialog(iDialog * dialog)
 	{
 		con_assert(dialog != nullptr, "zero pointer");

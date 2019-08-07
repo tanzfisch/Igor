@@ -70,6 +70,8 @@ enum class ViewType
 class Outliner : public iDialog
 {
 
+	friend class iWidgetManager;
+
 public:
 
     /*! creates instance of this widget type

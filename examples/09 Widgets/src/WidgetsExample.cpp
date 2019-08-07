@@ -85,14 +85,14 @@ void WidgetsExample::initGUI()
     _widgetDefaultTheme = new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png");
     iWidgetManager::getInstance().setTheme(_widgetDefaultTheme);
 
-    _dialog = static_cast<iDialog*>(iWidgetManager::getInstance().createDialog("Dialog"));
+    _dialog = iWidgetManager::getInstance().createWidget<iDialog>();
     _dialog->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _dialog->setVerticalAlignment(iVerticalAlignment::Center);
     _dialog->setHeight(200);
     _dialog->setActive();
     _dialog->setVisible();
 
-    iWidgetGrid* grid1 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+    iWidgetGrid* grid1 = iWidgetManager::getInstance().createWidget<iWidgetGrid>();
     // put all widgets in one list for easier later cleanup. this method might not always be suitable
     grid1->appendRows(1);
     grid1->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -103,18 +103,18 @@ void WidgetsExample::initGUI()
     grid1->setStrechColumn(0);
     grid1->setSelectMode(iSelectionMode::NoSelection);
 
-    iWidgetGroupBox* groupBox1 = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget("GroupBox"));
+    iWidgetGroupBox* groupBox1 = iWidgetManager::getInstance().createWidget<iWidgetGroupBox>();
     groupBox1->setText("Hello World. This is a group box!");
     groupBox1->setHorizontalAlignment(iHorizontalAlignment::Strech);
     groupBox1->setVerticalAlignment(iVerticalAlignment::Strech);
 
     // a scroll widget can contain a child that is bigger than it self. if so the scroll widget 
     // shows vertical and or horizontal sliders and allows to scroll the child.
-    iWidgetScroll* widgetScoll = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget("Scroll"));
+    iWidgetScroll* widgetScoll = iWidgetManager::getInstance().createWidget<iWidgetScroll>();
     widgetScoll->setHorizontalAlignment(iHorizontalAlignment::Strech);
     widgetScoll->setVerticalAlignment(iVerticalAlignment::Strech);
 
-    iWidgetGrid* grid3 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+    iWidgetGrid* grid3 = iWidgetManager::getInstance().createWidget<iWidgetGrid>();
     grid3->appendCollumns(3);
     grid3->appendRows(4);
     grid3->setCellSpacing(10);
@@ -123,34 +123,34 @@ void WidgetsExample::initGUI()
     grid3->setVerticalAlignment(iVerticalAlignment::Top);
     grid3->setSelectMode(iSelectionMode::NoSelection);
 
-    iWidgetGrid* grid4 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+    iWidgetGrid* grid4 = iWidgetManager::getInstance().createWidget<iWidgetGrid>();
     grid4->appendCollumns(5);
     grid4->setStrechColumn(4);
     grid4->setHorizontalAlignment(iHorizontalAlignment::Strech);
     grid4->setVerticalAlignment(iVerticalAlignment::Top);
     grid4->setSelectMode(iSelectionMode::NoSelection);
 
-    iWidgetLabel* label1 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* label1 = iWidgetManager::getInstance().createWidget<iWidgetLabel>();
     label1->setText("This is a Label with just enough text.");
 
-    iWidgetLabel* label2 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* label2 = iWidgetManager::getInstance().createWidget<iWidgetLabel>();
     label2->setText("This is an other Label with just enough text.");
 
-    iWidgetLabel* label3 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* label3 = iWidgetManager::getInstance().createWidget<iWidgetLabel>();
     label3->setText("Top Right aligned Label");
     label3->setVerticalAlignment(iVerticalAlignment::Top);
     label3->setHorizontalAlignment(iHorizontalAlignment::Right);
 
-    iWidgetLabel* label4 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* label4 = iWidgetManager::getInstance().createWidget<iWidgetLabel>();
     label4->setText("This is a Label with a super long text so you can see the line break feature in action.");
     label4->setMaxTextWidth(200);
 
-    iWidgetLabel* label5 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* label5 = iWidgetManager::getInstance().createWidget<iWidgetLabel>();
     label5->setText("Bottom Left Aligned Label");
     label5->setVerticalAlignment(iVerticalAlignment::Bottom);
     label5->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetButton* button1 = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+    iWidgetButton* button1 = iWidgetManager::getInstance().createWidget<iWidgetButton>();
     button1->setSize(70, 20);
     button1->setVerticalAlignment(iVerticalAlignment::Strech);
     button1->setHorizontalAlignment(iHorizontalAlignment::Center);
@@ -158,11 +158,11 @@ void WidgetsExample::initGUI()
 	button1->setTooltip("Opens a message box");
     button1->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenMessageBox));
 
-    _color = static_cast<iWidgetColor*>(iWidgetManager::getInstance().createWidget("Color"));
+    _color = iWidgetManager::getInstance().createWidget<iWidgetColor>();
     _color->setColor(iaColor4f(1, 1, 1, 0.5));
     _color->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenColorChooser));
 
-    _colorGradient = static_cast<iWidgetColorGradient*>(iWidgetManager::getInstance().createWidget("ColorGradient"));
+    _colorGradient = iWidgetManager::getInstance().createWidget<iWidgetColorGradient>();
     iaGradientColor4f rainbow;
     rainbow.setValue(0.0f, iaColor4f(1.0f, 0.0f, 1.0f, 0.0f));
     rainbow.setValue(0.2f, iaColor4f(0.0f, 0.0f, 1.0f, 0.2f));
@@ -174,12 +174,12 @@ void WidgetsExample::initGUI()
     _colorGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _colorGradient->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenColorGradientEditor));
 
-    iWidgetSpacer* spacer = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
+    iWidgetSpacer* spacer = iWidgetManager::getInstance().createWidget<iWidgetSpacer>();
     spacer->setSize(2, 30);
 
-    _labelMousePos = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _labelMousePos = iWidgetManager::getInstance().createWidget<iWidgetLabel>();
 
-    iWidgetButton* exitButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+    iWidgetButton* exitButton = iWidgetManager::getInstance().createWidget<iWidgetButton>();
     exitButton->setText("");
 	exitButton->setTooltip("Exists the application.");
     exitButton->setTexture("icons\\exit.png");
@@ -189,37 +189,37 @@ void WidgetsExample::initGUI()
     exitButton->setSize(64, 64);
     exitButton->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onExitClick));
 
-    iWidgetSelectBox* selectBox = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget("SelectBox"));
+    iWidgetSelectBox* selectBox = iWidgetManager::getInstance().createWidget<iWidgetSelectBox>();
     selectBox->addSelectionEntry("bla");
     selectBox->addSelectionEntry("blub haha bla blub");
     selectBox->addSelectionEntry("haha");
     selectBox->setSelection(1);
     selectBox->setHorizontalAlignment(iHorizontalAlignment::Right);
 
-    iWidgetNumberChooser* numberChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
+    iWidgetNumberChooser* numberChooser = iWidgetManager::getInstance().createWidget<iWidgetNumberChooser>();
     numberChooser->setPostFix("%");
     numberChooser->setValue(50);
     numberChooser->setHorizontalAlignment(iHorizontalAlignment::Right);
 
-    iWidgetTextEdit* textEditLeft = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
+    iWidgetTextEdit* textEditLeft = iWidgetManager::getInstance().createWidget<iWidgetTextEdit>();
 	textEditLeft->setWidth(150);
 	textEditLeft->setHorizontalTextAlignment(iHorizontalAlignment::Left);
 	textEditLeft->setText("left aligned");
 	textEditLeft->setMaxTextLength(300);
 
-	iWidgetTextEdit* textEditCenter = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
+	iWidgetTextEdit* textEditCenter = iWidgetManager::getInstance().createWidget<iWidgetTextEdit>();
 	textEditCenter->setWidth(150);
 	textEditCenter->setHorizontalTextAlignment(iHorizontalAlignment::Center);
 	textEditCenter->setText("center aligned");
 	textEditCenter->setMaxTextLength(300);
 
-	iWidgetTextEdit* textEditRight = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
+	iWidgetTextEdit* textEditRight = iWidgetManager::getInstance().createWidget<iWidgetTextEdit>();
 	textEditRight->setWidth(150);
 	textEditRight->setHorizontalTextAlignment(iHorizontalAlignment::Right);
 	textEditRight->setText("right aligned");
 	textEditRight->setMaxTextLength(300);
 
-    iWidgetPicture* picture1 = static_cast<iWidgetPicture*>(iWidgetManager::getInstance().createWidget("Picture"));
+    iWidgetPicture* picture1 = iWidgetManager::getInstance().createWidget<iWidgetPicture>();
     picture1->setTexture("OpenGL-Logo.jpg");
     picture1->setMaxSize(200, 64);
     picture1->setVerticalAlignment(iVerticalAlignment::Top);
@@ -227,21 +227,21 @@ void WidgetsExample::initGUI()
 
     // if check boxes are supposed to be connected as radio buttons tell the widget manager by starting a radio button group
     iWidgetCheckBox::beginRadioButtonGroup();
-    iWidgetCheckBox* radio1 = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
+    iWidgetCheckBox* radio1 = iWidgetManager::getInstance().createWidget<iWidgetCheckBox>();
     radio1->setHorizontalAlignment(iHorizontalAlignment::Left);
     radio1->setText("radio1");
 
-    iWidgetCheckBox* radio2 = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
+    iWidgetCheckBox* radio2 = iWidgetManager::getInstance().createWidget<iWidgetCheckBox>();
     radio2->setText("radio2");
     radio2->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetCheckBox* radio3 = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
+    iWidgetCheckBox* radio3 = iWidgetManager::getInstance().createWidget<iWidgetCheckBox>();
     radio3->setText("radio3");
     radio3->setHorizontalAlignment(iHorizontalAlignment::Left);
     // finish the radio button group
     iWidgetCheckBox::endRadioButtonGroup();
 
-    iWidgetGraph* graph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
+    iWidgetGraph* graph = iWidgetManager::getInstance().createWidget<iWidgetGraph>();
     graph->setSize(300, 50);
 
     std::vector<iaVector2f> points;
@@ -406,7 +406,7 @@ void WidgetsExample::onOpenColorChooser(iWidget* source)
 {
     if (_colorChooserDialog == nullptr)
     {
-        _colorChooserDialog = static_cast<iDialogColorChooser*>(iWidgetManager::getInstance().createDialog("DialogColorChooser"));
+        _colorChooserDialog = iWidgetManager::getInstance().createWidget<iDialogColorChooser>();
     }
 
     _colorChooserDialog->show(iColorChooserCloseDelegate(this, &WidgetsExample::onCloseColorChooser), _color->getColor(), true);
@@ -416,7 +416,7 @@ void WidgetsExample::onOpenColorGradientEditor(iWidget* source)
 {
     if (_colorGradientDialog == nullptr)
     {
-        _colorGradientDialog = static_cast<iDialogColorGradient*>(iWidgetManager::getInstance().createDialog("DialogColorGradient"));
+        _colorGradientDialog = iWidgetManager::getInstance().createWidget<iDialogColorGradient>();
     }
 
     _colorGradientDialog->show(iColorGradientCloseDelegate(this, &WidgetsExample::onCloseColorGradient), _colorGradient->getGradient(), false);
@@ -443,7 +443,7 @@ void WidgetsExample::onOpenMessageBox(iWidget* source)
     // create message box instance on demant
     if (_messageBox == nullptr)
     {
-        _messageBox = static_cast<iDialogMessageBox*>(iWidgetManager::getInstance().createDialog("DialogMessageBox"));
+        _messageBox = iWidgetManager::getInstance().createWidget<iDialogMessageBox>();
     }
 
     // open a message box with some text

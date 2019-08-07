@@ -158,7 +158,7 @@ void UserControlGraphView::initGUI()
     groupBox->addWidget(scroll);
     scroll->addWidget(_gridGraph);
 
-    _dialogMenu = static_cast<iDialogMenu*>(iWidgetManager::getInstance().createDialog("DialogMenu"));
+    _dialogMenu = iWidgetManager::getInstance().createWidget<iDialogMenu>();
     _dialogMenu->setWidth(24);
     _dialogMenuTexts.push_back("Cut");
     _dialogMenuPictures.push_back("icons\\cut.png");

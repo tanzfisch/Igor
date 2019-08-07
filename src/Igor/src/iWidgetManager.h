@@ -74,6 +74,9 @@ namespace Igor
         */
 		iWidget* createWidget(const iaString& type);
 
+		template<class T>
+		T* createWidget();
+
         /*! destroyes widget
 
         \param widget the widget to destroy
@@ -98,13 +101,7 @@ namespace Igor
         \param widgetType name of widget type to unregister
         */
         void unregisterWidgetType(const iaString& widgetType);
-
-        /*! creates a dialog of given type
-
-        \param type type of dialog to create
-        */
-        iDialog* createDialog(const iaString& type);
-
+		
         /*! destroyes dialog
 
         \param dialog the dialog to destroy
@@ -471,6 +468,23 @@ namespace Igor
         virtual ~iWidgetManager();
 
 	};
+
+	template <class T>
+	T* iWidgetManager::createWidget()
+	{
+		iWidget* result = new T;
+
+		iDialog* dialog = dynamic_cast<iDialog*>(result);
+		if (dialog != nullptr)
+		{
+			_dialogs[dialog->getID()] = dialog;
+		}
+		else
+		{
+			_widgets[result->getID()] = result;
+		}
+		return static_cast<T*>(result);
+	}
 
 }
 

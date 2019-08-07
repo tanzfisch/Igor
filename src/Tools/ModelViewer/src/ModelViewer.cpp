@@ -688,7 +688,7 @@ void ModelViewer::initGUI()
     iWidgetManager::getInstance().setTheme(_widgetTheme);
     iWidgetManager::getInstance().setDesktopDimensions(_window.getClientWidth(), _window.getClientHeight());
 
-    _outliner = static_cast<Outliner*>(iWidgetManager::getInstance().createDialog("Outliner"));
+    _outliner = iWidgetManager::getInstance().createWidget<Outliner>();
     _outliner->registerOnExitModelViewer(ExitModelViewerDelegate(this, &ModelViewer::onExitModelViewer));
     _outliner->registerOnLoadFile(LoadFileDelegate(this, &ModelViewer::onLoadFile));
     _outliner->registerOnImportFile(ImportFileDelegate(this, &ModelViewer::onImportFile));
@@ -701,9 +701,9 @@ void ModelViewer::initGUI()
     _outliner->registerOnAddParticleSystem(AddParticleSystemDelegate(this, &ModelViewer::onAddParticleSystem));
     _outliner->registerOnAddMaterial(AddMaterialDelegate(this, &ModelViewer::onAddMaterial));
 
-    _fileDialog = static_cast<iDialogFileSelect*>(iWidgetManager::getInstance().createDialog("DialogFileSelect"));
-    _messageBox = static_cast<iDialogMessageBox*>(iWidgetManager::getInstance().createDialog("DialogMessageBox"));
-    _propertiesDialog = static_cast<PropertiesDialog*>(iWidgetManager::getInstance().createDialog("PropertiesDialog"));
+    _fileDialog = iWidgetManager::getInstance().createWidget<iDialogFileSelect>();
+    _messageBox = iWidgetManager::getInstance().createWidget<iDialogMessageBox>();
+    _propertiesDialog = iWidgetManager::getInstance().createWidget<PropertiesDialog>();
 
     _propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_outliner, &Outliner::refreshView));
 

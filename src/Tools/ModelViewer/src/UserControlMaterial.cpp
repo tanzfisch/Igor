@@ -565,7 +565,7 @@ void UserControlMaterial::initGUI()
     _grid->addWidget(paramGroupBox, 0, 0);
     _grid->addWidget(shaderGroupBox, 0, 1);
 
-    _fileDialog = static_cast<iDialogFileSelect*>(iWidgetManager::getInstance().createDialog("DialogFileSelect"));
+    _fileDialog = iWidgetManager::getInstance().createWidget<iDialogFileSelect>();
 }
 
 void UserControlMaterial::onDoUpdateMaterial(iWidget* source)

@@ -52,6 +52,8 @@ namespace Igor
 class PropertiesDialog : public iDialog
 {
 
+	friend class iWidgetManager;
+
 public:
 
     /*! creates instance of this widget type

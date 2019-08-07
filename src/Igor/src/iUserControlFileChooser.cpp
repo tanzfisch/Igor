@@ -111,7 +111,7 @@ namespace Igor
         _grid->addWidget(_fileNameTextEdit, 0, 0);
         _grid->addWidget(_fileSelectButton, 1, 0);
 
-        _fileDialog = static_cast<iDialogFileSelect*>(iWidgetManager::getInstance().createDialog("DialogFileSelect"));
+        _fileDialog = iWidgetManager::getInstance().createWidget<iDialogFileSelect>();
     }
 
     void iUserControlFileChooser::deinitGUI()

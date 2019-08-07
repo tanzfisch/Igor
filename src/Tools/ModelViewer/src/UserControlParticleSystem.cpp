@@ -1008,8 +1008,8 @@ void UserControlParticleSystem::initGUI()
     gridAppearanceProperties->addWidget(labelOrientationRateGradient, 0, 13);
     gridAppearanceProperties->addWidget(_orientationRateGraph, 1, 13);
 
-    _colorGradientDialog = static_cast<iDialogColorGradient*>(iWidgetManager::getInstance().createDialog("DialogColorGradient"));
-    _dialogGraph = static_cast<iDialogGraph*>(iWidgetManager::getInstance().createDialog("DialogGraph"));
+    _colorGradientDialog = iWidgetManager::getInstance().createWidget<iDialogColorGradient>();
+    _dialogGraph = iWidgetManager::getInstance().createWidget<iDialogGraph>();
 
     updateNode();
 }
