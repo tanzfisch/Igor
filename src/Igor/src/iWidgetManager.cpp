@@ -48,34 +48,6 @@ namespace Igor
 
 	iWidgetManager::iWidgetManager()
 	{
-		registerWidgetType("Button", iInstanciateWidgetDelegate(iWidgetButton::createInstance));
-		registerWidgetType("CheckBox", iInstanciateWidgetDelegate(iWidgetCheckBox::createInstance));
-		registerWidgetType("Color", iInstanciateWidgetDelegate(iWidgetColor::createInstance));
-		registerWidgetType("ColorGradient", iInstanciateWidgetDelegate(iWidgetColorGradient::createInstance));
-		registerWidgetType("Graph", iInstanciateWidgetDelegate(iWidgetGraph::createInstance));
-		registerWidgetType("Grid", iInstanciateWidgetDelegate(iWidgetGrid::createInstance));
-		registerWidgetType("GroupBox", iInstanciateWidgetDelegate(iWidgetGroupBox::createInstance));
-		registerWidgetType("Label", iInstanciateWidgetDelegate(iWidgetLabel::createInstance));
-		registerWidgetType("NumberChooser", iInstanciateWidgetDelegate(iWidgetNumberChooser::createInstance));
-		registerWidgetType("Picture", iInstanciateWidgetDelegate(iWidgetPicture::createInstance));
-		registerWidgetType("Scroll", iInstanciateWidgetDelegate(iWidgetScroll::createInstance));
-		registerWidgetType("SelectBox", iInstanciateWidgetDelegate(iWidgetSelectBox::createInstance));
-		registerWidgetType("Slider", iInstanciateWidgetDelegate(iWidgetSlider::createInstance));
-		registerWidgetType("Spacer", iInstanciateWidgetDelegate(iWidgetSpacer::createInstance));
-		registerWidgetType("TextEdit", iInstanciateWidgetDelegate(iWidgetTextEdit::createInstance));
-
-		registerWidgetType("UserControlColorChooser", iInstanciateWidgetDelegate(iUserControlColorChooser::createInstance));
-		registerWidgetType("UserControlFileChooser", iInstanciateWidgetDelegate(iUserControlFileChooser::createInstance));
-
-		registerDialogType("Dialog", iInstanciateDialogDelegate(iDialog::createInstance));
-		registerDialogType("DialogColorChooser", iInstanciateDialogDelegate(iDialogColorChooser::createInstance));
-		registerDialogType("DialogDecisionBox", iInstanciateDialogDelegate(iDialogDecisionBox::createInstance));
-		registerDialogType("DialogFileSelect", iInstanciateDialogDelegate(iDialogFileSelect::createInstance));
-		registerDialogType("DialogMenu", iInstanciateDialogDelegate(iDialogMenu::createInstance));
-		registerDialogType("DialogMessageBox", iInstanciateDialogDelegate(iDialogMessageBox::createInstance));
-		registerDialogType("DialogColorGradient", iInstanciateDialogDelegate(iDialogColorGradient::createInstance));
-		registerDialogType("DialogGraph", iInstanciateDialogDelegate(iDialogGraph::createInstance));
-
 		registerHandles();
 	}
 
@@ -544,62 +516,6 @@ namespace Igor
 		}
 	}
 
-	void iWidgetManager::registerDialogType(const iaString& dialogType, iInstanciateDialogDelegate instanciateDialogDelegate)
-	{
-		uint64 key = dialogType.getHashValue();
-		auto iter = _dialogTypes.find(key);
-		if (iter == _dialogTypes.end())
-		{
-			_dialogTypes[key] = instanciateDialogDelegate;
-		}
-		else
-		{
-			con_err("dialog type " << dialogType << " already registered");
-		}
-	}
-
-	void iWidgetManager::unregisterDialogType(const iaString& dialogType)
-	{
-		uint64 key = dialogType.getHashValue();
-		auto iter = _dialogTypes.find(key);
-		if (iter != _dialogTypes.end())
-		{
-			_dialogTypes.erase(iter);
-		}
-		else
-		{
-			con_err("dialog type " << dialogType << " not found");
-		}
-	}
-
-	void iWidgetManager::registerWidgetType(const iaString& widgetType, iInstanciateWidgetDelegate instanciateWidgetDelegate)
-	{
-		uint64 key = widgetType.getHashValue();
-		auto iter = _widgetTypes.find(key);
-		if (iter == _widgetTypes.end())
-		{
-			_widgetTypes[key] = instanciateWidgetDelegate;
-		}
-		else
-		{
-			con_err("widget type " << widgetType << " already registered");
-		}
-	}
-
-	void iWidgetManager::unregisterWidgetType(const iaString& widgetType)
-	{
-		uint64 key = widgetType.getHashValue();
-		auto iter = _widgetTypes.find(key);
-		if (iter != _widgetTypes.end())
-		{
-			_widgetTypes.erase(iter);
-		}
-		else
-		{
-			con_err("widget type " << widgetType << " not found");
-		}
-	}
-
 	void iWidgetManager::destroyDialog(iDialog* dialog)
 	{
 		con_assert(dialog != nullptr, "zero pointer");
@@ -624,26 +540,6 @@ namespace Igor
 		{
 			con_err("dialog with id " << id << " does not exist");
 		}
-	}
-
-	iWidget* iWidgetManager::createWidget(const iaString& widgetType)
-	{
-		iWidget* result = nullptr;
-
-		uint64 key = widgetType.getHashValue();
-		auto iter = _widgetTypes.find(key);
-		con_assert(iter != _widgetTypes.end(), "widget type not found");
-		if (iter != _widgetTypes.end())
-		{
-			result = (*iter).second();
-			_widgets[result->getID()] = result;
-		}
-		else
-		{
-			con_err("unknown widget type " << widgetType);
-		}
-
-		return result;
 	}
 
 	void iWidgetManager::destroyWidget(uint64 id)

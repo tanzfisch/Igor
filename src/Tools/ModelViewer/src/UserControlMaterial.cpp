@@ -231,7 +231,7 @@ uint64 UserControlMaterial::getMaterialID() const
 
 void UserControlMaterial::initGUI()
 {
-    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+    _grid = new iWidgetGrid();
     _grid->appendRows(1);
     _grid->setBorder(2);
     _grid->setStrechColumn(0);
@@ -239,23 +239,23 @@ void UserControlMaterial::initGUI()
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
 	addWidget(_grid);
 
-    iWidgetGroupBox* paramGroupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget("GroupBox"));
+    iWidgetGroupBox* paramGroupBox = new iWidgetGroupBox();
     paramGroupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
     paramGroupBox->setText("Render States");
     paramGroupBox->setHeaderOnly();
 
-    iWidgetGrid* gridParam = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+    iWidgetGrid* gridParam = new iWidgetGrid();
     gridParam->appendRows(14);
     gridParam->appendCollumns(1);
     gridParam->setBorder(2);
     gridParam->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridParam->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetLabel* labelName = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* labelName = new iWidgetLabel();
     labelName->setText("Name");
     labelName->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textName = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
+    _textName = new iWidgetTextEdit();
     _textName->setMaxTextLength(100);
     _textName->setWidth(200);
     _textName->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -263,19 +263,19 @@ void UserControlMaterial::initGUI()
     _textName->setText("...");
     _textName->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onTextChangedName));
 
-    iWidgetLabel* labelDepthTest = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* labelDepthTest = new iWidgetLabel();
     labelDepthTest->setText("Depth Test");
     labelDepthTest->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _checkBoxDepthTest = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
+    _checkBoxDepthTest = new iWidgetCheckBox();
     _checkBoxDepthTest->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     _checkBoxDepthTest->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel* labelDepthFunction = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* labelDepthFunction = new iWidgetLabel();
     labelDepthFunction->setText("Depth Function");
     labelDepthFunction->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _selectBoxDepthFunc = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget("SelectBox"));
+    _selectBoxDepthFunc = new iWidgetSelectBox();
     _selectBoxDepthFunc->addSelectionEntry("Never");
     _selectBoxDepthFunc->addSelectionEntry("Less");
     _selectBoxDepthFunc->addSelectionEntry("Equal");
@@ -287,27 +287,27 @@ void UserControlMaterial::initGUI()
     _selectBoxDepthFunc->setHorizontalAlignment(iHorizontalAlignment::Left);
     _selectBoxDepthFunc->setWidth(200);
 
-    iWidgetLabel* labelDepthMask = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* labelDepthMask = new iWidgetLabel();
     labelDepthMask->setText("Depth Mask");
     labelDepthMask->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _checkBoxDepthMask = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
+    _checkBoxDepthMask = new iWidgetCheckBox();
     _checkBoxDepthMask->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     _checkBoxDepthMask->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel* labelBlend = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* labelBlend = new iWidgetLabel();
     labelBlend->setText("Blending");
     labelBlend->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _checkBoxBlend = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
+    _checkBoxBlend = new iWidgetCheckBox();
     _checkBoxBlend->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     _checkBoxBlend->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel* labelBlendFuncSource = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* labelBlendFuncSource = new iWidgetLabel();
     labelBlendFuncSource->setText("Blend Source");
     labelBlendFuncSource->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _selectBoxBlendFuncSource = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget("SelectBox"));
+    _selectBoxBlendFuncSource = new iWidgetSelectBox();
     _selectBoxBlendFuncSource->addSelectionEntry("Zero");
     _selectBoxBlendFuncSource->addSelectionEntry("One");
     _selectBoxBlendFuncSource->addSelectionEntry("SourceColor");
@@ -321,11 +321,11 @@ void UserControlMaterial::initGUI()
     _selectBoxBlendFuncSource->setHorizontalAlignment(iHorizontalAlignment::Left);
     _selectBoxBlendFuncSource->setWidth(200);
 
-    iWidgetLabel* labelBlendFuncDestination = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* labelBlendFuncDestination = new iWidgetLabel();
     labelBlendFuncDestination->setText("Blend Destination");
     labelBlendFuncDestination->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _selectBoxBlendFuncDestination = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget("SelectBox"));
+    _selectBoxBlendFuncDestination = new iWidgetSelectBox();
     _selectBoxBlendFuncDestination->addSelectionEntry("Zero");
     _selectBoxBlendFuncDestination->addSelectionEntry("One");
     _selectBoxBlendFuncDestination->addSelectionEntry("SourceColor");
@@ -339,61 +339,61 @@ void UserControlMaterial::initGUI()
     _selectBoxBlendFuncDestination->setHorizontalAlignment(iHorizontalAlignment::Left);
     _selectBoxBlendFuncDestination->setWidth(200);
 
-    iWidgetLabel* labelCullFace = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* labelCullFace = new iWidgetLabel();
     labelCullFace->setText("Cull Face");
     labelCullFace->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _checkBoxCullFace = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
+    _checkBoxCullFace = new iWidgetCheckBox();
     _checkBoxCullFace->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     _checkBoxCullFace->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel* labelCullFaceFunc = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* labelCullFaceFunc = new iWidgetLabel();
     labelCullFaceFunc->setText("Cull Face Function");
     labelCullFaceFunc->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _selectBoxCullFaceFunc = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget("SelectBox"));
+    _selectBoxCullFaceFunc = new iWidgetSelectBox();
     _selectBoxCullFaceFunc->addSelectionEntry("Front");
     _selectBoxCullFaceFunc->addSelectionEntry("Back");
     _selectBoxCullFaceFunc->setHorizontalAlignment(iHorizontalAlignment::Left);
     _selectBoxCullFaceFunc->setWidth(200);
 
-    iWidgetLabel* labelTexture2D0 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* labelTexture2D0 = new iWidgetLabel();
     labelTexture2D0->setText("Texture 0");
     labelTexture2D0->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _checkBoxTexture2D0 = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
+    _checkBoxTexture2D0 = new iWidgetCheckBox();
     _checkBoxTexture2D0->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     _checkBoxTexture2D0->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel* labelTexture2D1 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* labelTexture2D1 = new iWidgetLabel();
     labelTexture2D1->setText("Texture 1");
     labelTexture2D1->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _checkBoxTexture2D1 = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
+    _checkBoxTexture2D1 = new iWidgetCheckBox();
     _checkBoxTexture2D1->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     _checkBoxTexture2D1->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel* labelTexture2D2 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* labelTexture2D2 = new iWidgetLabel();
     labelTexture2D2->setText("Texture 2");
     labelTexture2D2->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _checkBoxTexture2D2 = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
+    _checkBoxTexture2D2 = new iWidgetCheckBox();
     _checkBoxTexture2D2->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     _checkBoxTexture2D2->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel* labelTexture2D3 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* labelTexture2D3 = new iWidgetLabel();
     labelTexture2D3->setText("Texture 3");
     labelTexture2D3->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _checkBoxTexture2D3 = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
+    _checkBoxTexture2D3 = new iWidgetCheckBox();
     _checkBoxTexture2D3->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     _checkBoxTexture2D3->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel* labelWireframe = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* labelWireframe = new iWidgetLabel();
     labelWireframe->setText("Wireframe");
     labelWireframe->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _checkBoxWireframe = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
+    _checkBoxWireframe = new iWidgetCheckBox();
     _checkBoxWireframe->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     _checkBoxWireframe->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -408,11 +408,11 @@ void UserControlMaterial::initGUI()
 
     iWidgetSelectBox* _selectBoxInstancedFunc = nullptr;*/
 
-    iWidgetLabel* labelRenderingOrder = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* labelRenderingOrder = new iWidgetLabel();
     labelRenderingOrder->setText("Rendering Order");
     labelRenderingOrder->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _renderingOrder = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
+    _renderingOrder = new iWidgetNumberChooser();
     _renderingOrder->setMinMaxNumber(iMaterial::RENDER_ORDER_MIN, iMaterial::RENDER_ORDER_MAX);
     _renderingOrder->setAfterPoint(0);
     _renderingOrder->setValue(iMaterial::RENDER_ORDER_DEFAULT);
@@ -422,38 +422,38 @@ void UserControlMaterial::initGUI()
     _renderingOrder->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     _renderingOrder->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetGroupBox* shaderGroupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget("GroupBox"));
+    iWidgetGroupBox* shaderGroupBox = new iWidgetGroupBox();
     shaderGroupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
     shaderGroupBox->setText("Shader Settings");
     shaderGroupBox->setHeaderOnly();
 
-    iWidgetGrid* gridShadersGroup = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+    iWidgetGrid* gridShadersGroup = new iWidgetGrid();
     gridShadersGroup->appendRows(1);
     gridShadersGroup->setBorder(2);
     gridShadersGroup->setHorizontalAlignment(iHorizontalAlignment::Strech);
     gridShadersGroup->setVerticalAlignment(iVerticalAlignment::Top);
     gridShadersGroup->setStrechColumn(0);
 
-    iWidgetGrid* gridShaders = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+    iWidgetGrid* gridShaders = new iWidgetGrid();
     gridShaders->appendRows(2);
     gridShaders->appendCollumns(2);
     gridShaders->setBorder(2);
     gridShaders->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridShaders->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetLabel* labelShader0 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* labelShader0 = new iWidgetLabel();
     labelShader0->setText("Geometry");
     labelShader0->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel* labelShader1 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* labelShader1 = new iWidgetLabel();
     labelShader1->setText("Vertex");
     labelShader1->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel* labelShader2 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* labelShader2 = new iWidgetLabel();
     labelShader2->setText("Fragment");
     labelShader2->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textShaderGeometry = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
+    _textShaderGeometry = new iWidgetTextEdit();
     _textShaderGeometry->setWidth(200);
     _textShaderGeometry->setMaxTextLength(200);
     _textShaderGeometry->setHorizontalAlignment(iHorizontalAlignment::Right);
@@ -461,7 +461,7 @@ void UserControlMaterial::initGUI()
     _textShaderGeometry->setText("");
     _textShaderGeometry->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
-    _textShaderVertex = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
+    _textShaderVertex = new iWidgetTextEdit();
     _textShaderVertex->setWidth(200);
     _textShaderVertex->setMaxTextLength(200);
     _textShaderVertex->setHorizontalAlignment(iHorizontalAlignment::Right);
@@ -469,7 +469,7 @@ void UserControlMaterial::initGUI()
     _textShaderVertex->setText("");
     _textShaderVertex->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
-    _textShaderFragment = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
+    _textShaderFragment = new iWidgetTextEdit();
     _textShaderFragment->setWidth(200);
     _textShaderFragment->setMaxTextLength(200);
     _textShaderFragment->setHorizontalAlignment(iHorizontalAlignment::Right);
@@ -477,28 +477,28 @@ void UserControlMaterial::initGUI()
     _textShaderFragment->setText("");
     _textShaderFragment->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
-    _shader0Button = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+    _shader0Button = new iWidgetButton();
     _shader0Button->setWidth(20);
     _shader0Button->setHeight(20);
     _shader0Button->setText("...");
 	_shader0Button->setTooltip("Browse for geometry shader");
     _shader0Button->registerOnClickEvent(iClickDelegate(this, &UserControlMaterial::onShader0Button));
 
-    _shader1Button = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+    _shader1Button = new iWidgetButton();
     _shader1Button->setWidth(20);
     _shader1Button->setHeight(20);
     _shader1Button->setText("...");
 	_shader1Button->setTooltip("Browse for vertex shader");
     _shader1Button->registerOnClickEvent(iClickDelegate(this, &UserControlMaterial::onShader1Button));
 
-    _shader2Button = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+    _shader2Button = new iWidgetButton();
     _shader2Button->setWidth(20);
     _shader2Button->setHeight(20);
     _shader2Button->setText("...");
 	_shader2Button->setTooltip("Browse for fragment shader");
     _shader2Button->registerOnClickEvent(iClickDelegate(this, &UserControlMaterial::onShader2Button));
 
-    _shaderReload = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+    _shaderReload = new iWidgetButton();
     _shaderReload->setWidth(20);
     _shaderReload->setHeight(20);
     _shaderReload->setText("Reload");
@@ -560,7 +560,7 @@ void UserControlMaterial::initGUI()
     _grid->addWidget(paramGroupBox, 0, 0);
     _grid->addWidget(shaderGroupBox, 0, 1);
 
-    _fileDialog = iWidgetManager::getInstance().createWidget<iDialogFileSelect>();
+    _fileDialog = new iDialogFileSelect();
 }
 
 void UserControlMaterial::onDoUpdateMaterial(iWidget* source)

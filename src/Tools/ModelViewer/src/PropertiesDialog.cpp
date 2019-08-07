@@ -38,7 +38,7 @@ void PropertiesDialog::initGUI()
     setHorizontalAlignment(iHorizontalAlignment::Right);
     setVerticalAlignment(iVerticalAlignment::Strech);
 
-    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+    _grid = new iWidgetGrid();
     _grid->setBorder(2);
     _grid->setCellSpacing(8);
 	_grid->setHorizontalAlignment(iHorizontalAlignment::Strech);

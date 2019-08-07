@@ -86,23 +86,23 @@ namespace Igor
         setWidth(450);
         setHeight(20);
 
-        _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+        _grid = new iWidgetGrid();
         _grid->appendRows(4);
         _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
         _grid->setVerticalAlignment(iVerticalAlignment::Strech);
         _grid->setCellSpacing(4);
         _grid->setBorder(4);
 
-        _titleLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+        _titleLabel = new iWidgetLabel();
         _titleLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
         _titleLabel->setText(_title);
 
-        iWidgetGroupBox* groupBoxGradient = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget("GroupBox"));
+        iWidgetGroupBox* groupBoxGradient = new iWidgetGroupBox();
         groupBoxGradient->setText("Gradient");
         groupBoxGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
         groupBoxGradient->setVerticalAlignment(iVerticalAlignment::Strech);
 
-        _graph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
+        _graph = new iWidgetGraph();
         _graph->setHorizontalAlignment(iHorizontalAlignment::Strech);
         _graph->setHeight(120);
         _graph->setInteractive();
@@ -112,12 +112,12 @@ namespace Igor
         _graph->registerOnSelectionChangedEvent(iSelectionChangedDelegate(this, &iDialogGraph::onSelectionChanged));
         _graph->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onGraphChanged));
 
-        iWidgetGroupBox* groupBoxSelection = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget("GroupBox"));
+        iWidgetGroupBox* groupBoxSelection = new iWidgetGroupBox();
         groupBoxSelection->setText("Selected Value");
         groupBoxSelection->setHorizontalAlignment(iHorizontalAlignment::Strech);
         groupBoxSelection->setVerticalAlignment(iVerticalAlignment::Strech);
 
-        iWidgetGrid* axisGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+        iWidgetGrid* axisGrid = new iWidgetGrid();
         axisGrid->appendRows(static_cast<uint32>(_graphs.size() + 2));
         axisGrid->appendCollumns(1);
         axisGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -126,12 +126,12 @@ namespace Igor
         axisGrid->setCellSpacing(4);
         axisGrid->setBorder(4);
 
-        iWidgetLabel* labelX = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+        iWidgetLabel* labelX = new iWidgetLabel();
         labelX->setHorizontalAlignment(iHorizontalAlignment::Left);
         labelX->setText(_axisNames[0]);
         labelX->setWidth(100);
 
-        _axisNumberChooser[0] = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
+        _axisNumberChooser[0] = new iWidgetNumberChooser();
         _axisNumberChooser[0]->setMinMaxNumber(_xMin, _xMax);
         _axisNumberChooser[0]->setStepping(_xStepping, _xStepping);
         _axisNumberChooser[0]->setSteppingWheel(_xStepping * 10, _xStepping * 10);
@@ -143,12 +143,12 @@ namespace Igor
         axisGrid->addWidget(labelX, 0, 0);
         axisGrid->addWidget(_axisNumberChooser[0], 1, 0);
 
-        iWidgetLabel* labelY1 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+        iWidgetLabel* labelY1 = new iWidgetLabel();
         labelY1->setHorizontalAlignment(iHorizontalAlignment::Left);
         labelY1->setText(_axisNames[1]);
         labelY1->setWidth(100);
 
-        _axisNumberChooser[1] = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
+        _axisNumberChooser[1] = new iWidgetNumberChooser();
         _axisNumberChooser[1]->setMinMaxNumber(_yMin, _yMax);
         _axisNumberChooser[1]->setStepping(_yStepping, _yStepping);
         _axisNumberChooser[1]->setSteppingWheel(_yStepping * 10, _yStepping * 10);
@@ -162,12 +162,12 @@ namespace Igor
 
         if (_graphs.size() > 1)
         {
-            iWidgetLabel* labelY2 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+            iWidgetLabel* labelY2 = new iWidgetLabel();
             labelY2->setHorizontalAlignment(iHorizontalAlignment::Left);
             labelY2->setText(_axisNames[2]);
             labelY2->setWidth(100);
 
-            _axisNumberChooser[2] = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
+            _axisNumberChooser[2] = new iWidgetNumberChooser();
             _axisNumberChooser[2]->setMinMaxNumber(_yMin, _yMax);
             _axisNumberChooser[2]->setStepping(_yStepping, _yStepping);
             _axisNumberChooser[2]->setSteppingWheel(_yStepping * 10, _yStepping * 10);
@@ -182,12 +182,12 @@ namespace Igor
 
         if (_graphs.size() > 2)
         {
-            iWidgetLabel* labelY3 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+            iWidgetLabel* labelY3 = new iWidgetLabel();
             labelY3->setHorizontalAlignment(iHorizontalAlignment::Left);
             labelY3->setText(_axisNames[3]);
             labelY3->setWidth(100);
 
-            _axisNumberChooser[3] = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
+            _axisNumberChooser[3] = new iWidgetNumberChooser();
             _axisNumberChooser[3]->setMinMaxNumber(_yMin, _yMax);
             _axisNumberChooser[3]->setStepping(_yStepping, _yStepping);
             _axisNumberChooser[3]->setSteppingWheel(_yStepping * 10, _yStepping * 10);
@@ -200,25 +200,25 @@ namespace Igor
             axisGrid->addWidget(_axisNumberChooser[3], 1, 3);
         }
 
-        iWidgetButton* delButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+        iWidgetButton* delButton = new iWidgetButton();
         delButton->setText("Delete Value");
         delButton->setHorizontalAlignment(iHorizontalAlignment::Right);
         delButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onDelete));
         axisGrid->addWidget(delButton, 1, static_cast<uint32>(_graphs.size() + 1));
 
-        iWidgetGrid* buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+        iWidgetGrid* buttonGrid = new iWidgetGrid();
         buttonGrid->appendCollumns(2);
         buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
 
-        iWidgetButton* okButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+        iWidgetButton* okButton = new iWidgetButton();
         okButton->setText("OK");
         okButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onOK));
 
-        iWidgetButton* cancelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+        iWidgetButton* cancelButton = new iWidgetButton();
         cancelButton->setText("Cancel");
         cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onCancel));
 
-        iWidgetButton* resetButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+        iWidgetButton* resetButton = new iWidgetButton();
         resetButton->setText("Reset");
         resetButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onReset));
 

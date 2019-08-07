@@ -73,7 +73,7 @@ uint32 UserControlEmitter::getNode()
 
 void UserControlEmitter::initGUI()
 {
-    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+    _grid = new iWidgetGrid();
     _grid->appendCollumns(1);
     _grid->appendRows(1);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -81,12 +81,12 @@ void UserControlEmitter::initGUI()
     _grid->setStrechColumn(1);
 	addWidget(_grid);
 
-    iWidgetLabel* labelType = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* labelType = new iWidgetLabel();
     labelType->setText("Type");
     labelType->setWidth(MV_REGULARBUTTON_SIZE);
     labelType->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _selectType = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget("SelectBox"));
+    _selectType = new iWidgetSelectBox();
     _selectType->addSelectionEntry("Mesh");
     _selectType->addSelectionEntry("Point");
     _selectType->addSelectionEntry("Disc");
@@ -97,12 +97,12 @@ void UserControlEmitter::initGUI()
     _selectType->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _selectType->registerOnChangeEvent(iChangeDelegate(this, &UserControlEmitter::onTypeChanged));
 
-    iWidgetLabel* labelSize = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    iWidgetLabel* labelSize = new iWidgetLabel();
     labelSize->setText("Size");
     labelSize->setWidth(MV_REGULARBUTTON_SIZE);
     labelSize->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textSize = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
+    _textSize = new iWidgetTextEdit();
     _textSize->setWidth(100);
     _textSize->setWriteProtected(false);
     _textSize->setHorizontalAlignment(iHorizontalAlignment::Strech);

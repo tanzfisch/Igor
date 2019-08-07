@@ -58,7 +58,7 @@ namespace Igor
         setWidth(20);
         setHeight(20);
 
-        _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+        _grid = new iWidgetGrid();
         _allWidgets.push_back(_grid);
         _grid->appendRows(2);
         _grid->setHorizontalAlignment(iHorizontalAlignment::Center);
@@ -67,20 +67,20 @@ namespace Igor
         _grid->setBorder(4);
         addWidget(_grid);
 
-        _messageLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+        _messageLabel = new iWidgetLabel();
         _allWidgets.push_back(_messageLabel);
         _messageLabel->setText(message);
         _messageLabel->setMaxTextWidth(280);
         _grid->addWidget(_messageLabel, 0, 0);
 
-        _spacerLine = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
+        _spacerLine = new iWidgetSpacer();
         _allWidgets.push_back(_spacerLine);
         _spacerLine->setWidth(280);
         _spacerLine->setHeight(1);
         _spacerLine->setVisible(true);
         _grid->addWidget(_spacerLine, 0, 1);
 
-        _buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+        _buttonGrid = new iWidgetGrid();
         _allWidgets.push_back(_buttonGrid);
         _buttonGrid->appendCollumns(3);
         _buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
@@ -92,7 +92,7 @@ namespace Igor
 
         if (buttons == iMessageBoxButtons::Ok || buttons == iMessageBoxButtons::CancelOk)
         {
-            _okButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+            _okButton = new iWidgetButton();
             _allWidgets.push_back(_okButton);
             _okButton->setText("OK");
             _okButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onOK));
@@ -101,13 +101,13 @@ namespace Igor
 
         if (buttons == iMessageBoxButtons::CancelOk || buttons == iMessageBoxButtons::YesNoCancel)
         {
-            _cancelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+            _cancelButton = new iWidgetButton();
             _allWidgets.push_back(_cancelButton);
             _cancelButton->setText("Cancel");
             _cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onCancel));
             _buttonGrid->addWidget(_cancelButton, i--, 0);
 
-            _spacerLittle = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
+            _spacerLittle = new iWidgetSpacer();
             _allWidgets.push_back(_spacerLittle);
             _spacerLittle->setWidth(4);
             _spacerLittle->setHeight(1);
@@ -117,7 +117,7 @@ namespace Igor
 
         if (buttons == iMessageBoxButtons::YesNoCancel || buttons == iMessageBoxButtons::YesNo)
         {
-            _noButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+            _noButton = new iWidgetButton();
             _allWidgets.push_back(_noButton);
             _noButton->setText("No");
             _noButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onNo));
@@ -126,7 +126,7 @@ namespace Igor
 
         if (buttons == iMessageBoxButtons::YesNoCancel || buttons == iMessageBoxButtons::YesNo)
         {
-            _yesButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+            _yesButton = new iWidgetButton();
             _allWidgets.push_back(_yesButton);
             _yesButton->setText("Yes");
             _yesButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onYes));

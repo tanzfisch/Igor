@@ -121,7 +121,7 @@ namespace Igor
 
                 if (_selectBox == nullptr)
                 {
-                    _selectBox = iWidgetManager::getInstance().createWidget<iDialogMenu>();
+                    _selectBox = new iDialogMenu();
                 }
 
                 _selectBox->setWidth(getActualWidth() - getActualHeight());

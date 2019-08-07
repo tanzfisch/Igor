@@ -56,38 +56,38 @@ namespace Igor
         setWidth(20);
         setHeight(20);
 
-        _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+        _grid = new iWidgetGrid();
         _grid->appendRows(2);
         _grid->setHorizontalAlignment(iHorizontalAlignment::Center);
         _grid->setVerticalAlignment(iVerticalAlignment::Center);
         _grid->setCellSpacing(4);
         _grid->setBorder(4);
 
-        iWidgetLabel* headerLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+        iWidgetLabel* headerLabel = new iWidgetLabel();
         headerLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
         headerLabel->setText("Choose Color");
 
-        _userControlColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("UserControlColorChooser"));
+        _userControlColorChooser = new iUserControlColorChooser();
         _userControlColorChooser->setMode(useAlpha ? iColorChooserMode::RGBA : iColorChooserMode::RGB);
         _userControlColorChooser->setExpand();
         _userControlColorChooser->setHeadlineVisible(false);
         _userControlColorChooser->setColor(color);
 
-        iWidgetGrid* buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+        iWidgetGrid* buttonGrid = new iWidgetGrid();
         buttonGrid->appendCollumns(2);
         buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
 
-        iWidgetButton* okButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+        iWidgetButton* okButton = new iWidgetButton();
         okButton->setText("OK");
 		okButton->setTooltip("Close the dialog and set new color.");
         okButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onOK));
 
-        iWidgetButton* cancelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+        iWidgetButton* cancelButton = new iWidgetButton();
         cancelButton->setText("Cancel");
 		cancelButton->setTooltip("Close the dialog without changes.");
         cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onCancel));
 
-        iWidgetButton* resetButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+        iWidgetButton* resetButton = new iWidgetButton();
         resetButton->setText("Reset");
 		resetButton->setTooltip("Resets dialog to previous color.");
         resetButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onReset));

@@ -85,21 +85,21 @@ namespace Igor
 
     void iUserControlFileChooser::initGUI()
     {
-        _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+        _grid = new iWidgetGrid();
         _allWidgets.push_back(_grid);
         _grid->appendCollumns(1);
         _grid->setStrechColumn(0);
         _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
         _grid->setVerticalAlignment(iVerticalAlignment::Top);
 
-        _fileNameTextEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
+        _fileNameTextEdit = new iWidgetTextEdit();
         _allWidgets.push_back(_fileNameTextEdit);
         _fileNameTextEdit->setMaxTextLength(256);
         _fileNameTextEdit->setWidth(180); // todo why does strech not work here?
         _fileNameTextEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
         _fileNameTextEdit->registerOnChangeEvent(iChangeDelegate(this, &iUserControlFileChooser::onTextChanged));
 
-        _fileSelectButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+        _fileSelectButton = new iWidgetButton();
         _allWidgets.push_back(_fileSelectButton);
         _fileSelectButton->setText("...");
 		_fileSelectButton->setTooltip("Browse for file.");
@@ -111,7 +111,7 @@ namespace Igor
         _grid->addWidget(_fileNameTextEdit, 0, 0);
         _grid->addWidget(_fileSelectButton, 1, 0);
 
-        _fileDialog = iWidgetManager::getInstance().createWidget<iDialogFileSelect>();
+        _fileDialog = new iDialogFileSelect();
     }
 
     void iUserControlFileChooser::deinitGUI()

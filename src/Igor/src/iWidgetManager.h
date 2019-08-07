@@ -71,15 +71,6 @@ namespace Igor
         
 	public:
 		
-        /*! creates a widget of given type
-
-        \param type type of widget to create
-        */
-		iWidget* createWidget(const iaString& type);
-
-		template<class T>
-		T* createWidget();
-
         /*! destroyes widget
 
         \param widget the widget to destroy
@@ -91,19 +82,6 @@ namespace Igor
         \param id id of the widget to be destroyed
         */
         void destroyWidget(uint64 id);
-
-        /*! registers a widget type to the widget manager
-
-        \param widgetType name of widget type
-        \param instanciateWidgetDelegate delegate to instanciate the type
-        */
-        void registerWidgetType(const iaString& widgetType, iInstanciateWidgetDelegate instanciateWidgetDelegate);
-
-        /*! unregister widget type
-
-        \param widgetType name of widget type to unregister
-        */
-        void unregisterWidgetType(const iaString& widgetType);
 		
         /*! destroyes dialog
 
@@ -127,19 +105,6 @@ namespace Igor
 		/*! hides the tooltip
 		*/
 		void hideTooltip();
-
-        /*! registers a dialog type to the widget manager
-
-        \param dialogType name of dialog type
-        \param instanciateWidgetDelegate delegate to instanciate the type
-        */
-        void registerDialogType(const iaString& dialogType, iInstanciateDialogDelegate instanciateDialogDelegate);
-
-        /*! unregister widget type
-
-        \param dialogType name of dialog type to unregister
-        */
-        void unregisterDialogType(const iaString& dialogType);
 
         /*! \returns widget by id
 
@@ -495,23 +460,6 @@ namespace Igor
         virtual ~iWidgetManager();
 
 	};
-
-	template <class T>
-	T* iWidgetManager::createWidget()
-	{
-		iWidget* result = new T;
-
-		iDialog* dialog = dynamic_cast<iDialog*>(result);
-		if (dialog != nullptr)
-		{
-			_dialogs[dialog->getID()] = dialog;
-		}
-		else
-		{
-			_widgets[result->getID()] = result;
-		}
-		return static_cast<T*>(result);
-	}
 
 }
 

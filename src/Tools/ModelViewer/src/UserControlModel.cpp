@@ -54,18 +54,18 @@ uint32 UserControlModel::getNode()
 
 void UserControlModel::initGUI()
 {
-    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+    _grid = new iWidgetGrid();
     _grid->appendCollumns(1);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
     _grid->setStrechColumn(1);
 
-    _labelFilename = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _labelFilename = new iWidgetLabel();
     _labelFilename->setWidth(80);
     _labelFilename->setText("Filename");
     _labelFilename->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textFilename = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
+    _textFilename = new iWidgetTextEdit();
     _textFilename->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _textFilename->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     _textFilename->setActive(false);

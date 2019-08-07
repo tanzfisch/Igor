@@ -687,8 +687,8 @@ void ModelViewer::initGUI()
     _outliner->registerOnAddParticleSystem(AddParticleSystemDelegate(this, &ModelViewer::onAddParticleSystem));
     _outliner->registerOnAddMaterial(AddMaterialDelegate(this, &ModelViewer::onAddMaterial));
 
-    _fileDialog = iWidgetManager::getInstance().createWidget<iDialogFileSelect>();
-    _messageBox = iWidgetManager::getInstance().createWidget<iDialogMessageBox>();
+    _fileDialog = new iDialogFileSelect();
+    _messageBox = new iDialogMessageBox();
 
     _propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_outliner, &Outliner::refreshView));
 
