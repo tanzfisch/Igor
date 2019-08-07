@@ -1105,16 +1105,21 @@ void ModelViewer::renderOrientationPlane()
     {
         if (i % 2 == 0)
         {
-            iRenderer::getInstance().setColor(1.0f, 1.0f, 1.0f, 0.9f);
+            iRenderer::getInstance().setColor(1.0f, 1.0f, 1.0f, 0.5f);
         }
         else
         {
-            iRenderer::getInstance().setColor(1.0f, 1.0f, 1.0f, 0.4f);
+            iRenderer::getInstance().setColor(1.0f, 1.0f, 1.0f, 0.25f);
         }
 
         iRenderer::getInstance().drawLine(iaVector3f(-20.0f, 0.0f, i), iaVector3f(20.0f, 0.0f, i));
         iRenderer::getInstance().drawLine(iaVector3f(i, 0.0f, 20.0f), iaVector3f(i, 0.0f, -20.0f));
     }
+
+	iRenderer::getInstance().setColor(1.0f, 0.0f, 0.0f, 1.0f);
+	iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(20.0f, 0.0f, 0.0f));
+	iRenderer::getInstance().setColor(0.0f, 0.0f, 1.0f, 1.0f);
+	iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(0.0f, 0.0f, 20.0f));
 }
 
 void ModelViewer::renderOrtho()

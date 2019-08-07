@@ -4,6 +4,7 @@ Changelog                           {#changelog}
 0.23.0
 ------
 
+- added colored axis indication to orientation grid in ModelViewer
 - made iaMatrix2D more usefull
 - made SpriteAnimation more pretty (thank you opengameart.org)
 
