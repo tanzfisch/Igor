@@ -54,6 +54,14 @@ namespace Igor
 
 	public:
 		
+		/*! ctro initializes member variables
+		*/
+		iWidgetNumberChooser();
+
+		/*! does nothing
+		*/
+		virtual ~iWidgetNumberChooser() = default;
+
         /*! sets post fix that will be displayed right after the number
 
         \param text the post fix
@@ -106,14 +114,6 @@ namespace Igor
         void setStepping(float32 up, float32 down);
 
 	private:
-
-		/*! ctro initializes member variables
-		*/
-		iWidgetNumberChooser();
-
-		/*! does nothing
-		*/
-		virtual ~iWidgetNumberChooser() = default;
 
         /*! defines how many digits are displayed after the point
         */
