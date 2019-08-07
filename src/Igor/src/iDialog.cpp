@@ -15,7 +15,9 @@ namespace Igor
 {
 
     iDialog::iDialog()
-    {
+    {		
+		iWidgetManager::getInstance().registerDialog(this);
+
         setActive(false);
         setVisible(false);
         setWidth(100);
@@ -26,15 +28,12 @@ namespace Igor
 
     iDialog::~iDialog()
     {
+		iWidgetManager::getInstance().unregisterDialog(this);
+
         if (iWidgetManager::isModal(this))
         {
             iWidgetManager::resetModal();
         }
-    }
-
-    iDialog* iDialog::createInstance()
-    {
-        return new iDialog();
     }
 
     void iDialog::calcMinSize()

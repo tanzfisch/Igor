@@ -50,7 +50,8 @@ class UserControlLight : public iUserControl
 {
 public:
 
-	static iWidget* createInstance();
+	UserControlLight();
+	~UserControlLight() = default;
 
     void setNode(uint32 id);
     uint32 getNode();
@@ -78,8 +79,7 @@ private:
 
     void initGUI();
 
-	UserControlLight();
-	~UserControlLight() = default;
+
 
 };
 

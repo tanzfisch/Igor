@@ -27,14 +27,9 @@ UserControlMaterialView::UserControlMaterialView()
     initGUI();
 }
 
-iWidget* UserControlMaterialView::createInstance()
-{
-	return new UserControlMaterialView();
-}
-
 void UserControlMaterialView::initGUI()
 {
-    iWidgetGrid* grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+    iWidgetGrid* grid = new iWidgetGrid();
     grid->appendRows(1);
     grid->setBorder(2);
     grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -43,14 +38,14 @@ void UserControlMaterialView::initGUI()
     grid->setStrechRow(1);
 	addWidget(grid);
 
-    iWidgetGrid* gridButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+    iWidgetGrid* gridButtons = new iWidgetGrid();
     gridButtons->setBorder(0);
     gridButtons->appendCollumns(10);
     gridButtons->setCellSpacing(2);
     gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetButton* addMaterialButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+    iWidgetButton* addMaterialButton = new iWidgetButton();
     addMaterialButton->setText("");
 	addMaterialButton->setTooltip("Create new material.");
     addMaterialButton->setWidth(30);
@@ -58,16 +53,16 @@ void UserControlMaterialView::initGUI()
     addMaterialButton->setTexture("icons\\addMaterial.png");
     addMaterialButton->registerOnClickEvent(iClickDelegate(this, &UserControlMaterialView::onAddMaterial));
 
-    iWidgetGroupBox* groupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget("GroupBox"));
+    iWidgetGroupBox* groupBox = new iWidgetGroupBox();
     groupBox->setText("Graph");
     groupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
     groupBox->setVerticalAlignment(iVerticalAlignment::Strech);
 
-    iWidgetScroll* scroll = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget("Scroll"));
+    iWidgetScroll* scroll = new iWidgetScroll();
     scroll->setHorizontalAlignment(iHorizontalAlignment::Strech);
     scroll->setVerticalAlignment(iVerticalAlignment::Strech);
 
-    _gridGraph = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+    _gridGraph = new iWidgetGrid();
     _gridGraph->setBorder(0);
     _gridGraph->setSelectMode(iSelectionMode::Row);
     _gridGraph->setCellSpacing(0);
@@ -127,7 +122,7 @@ void UserControlMaterialView::refresh()
     auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
     for(auto material : materials)
     {
-        iWidgetGrid* entry = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+        iWidgetGrid* entry = new iWidgetGrid();
         entry->setSelectMode(iSelectionMode::NoSelection);
         entry->setBorder(0);
         entry->setCellSpacing(2);
@@ -136,7 +131,7 @@ void UserControlMaterialView::refresh()
         _userData.push_back(userData);
         *userData = material->getID();
 
-        iWidgetLabel* label = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+        iWidgetLabel* label = new iWidgetLabel();
         label->setHorizontalAlignment(iHorizontalAlignment::Right);
         label->setVerticalAlignment(iVerticalAlignment::Center);
         if (material->getName() != "")

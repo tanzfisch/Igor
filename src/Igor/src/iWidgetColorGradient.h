@@ -57,11 +57,15 @@ namespace Igor
 	class Igor_API iWidgetColorGradient : public iWidget
 	{
 
-        /*! needs to be friend because it's the factory that creates this widget
-        */
-        friend class iWidgetManager;
-
 	public:
+
+		/*! ctor initializes member variables
+		*/
+		iWidgetColorGradient();
+
+		/*! release texture
+		*/
+		virtual ~iWidgetColorGradient();
 
 		/*! sets color gradient
 		\param color color value in rgba
@@ -139,17 +143,6 @@ namespace Igor
 		*/
 		void draw();
 
-        /*! ctor initializes member variables
-        */
-        iWidgetColorGradient();
-
-        /*! release texture
-        */
-		virtual ~iWidgetColorGradient();
-
-        /*! creates instance of this widget type
-        */
-        static iWidget* createInstance();
 	};
 }
 

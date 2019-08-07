@@ -33,11 +33,6 @@ namespace Igor
         _texture = nullptr;
     }
 
-    iWidget* iWidgetColor::createInstance()
-    {
-        return new iWidgetColor();
-    }
-
     void iWidgetColor::setColor(const iaColor4f& color)
     {
         _color = color;

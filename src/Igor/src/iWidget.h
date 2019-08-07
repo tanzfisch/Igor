@@ -118,6 +118,7 @@ namespace Igor
 	class Igor_API iWidget
 	{
 
+		// iWidget has sooo many friends <3
 		friend class iWidgetManager;
 		friend class iDialog;
 		friend class iWidgetGrid;
@@ -649,6 +650,10 @@ namespace Igor
 		*/
 		void setClientArea(int32 left, int32 right, int32 top, int32 bottom);
 
+		/*! \returns last mouse position
+		*/
+		iaVector2i getLastMousePos() const;
+
 		/*! initializes members
 		*/
 		iWidget();
@@ -656,12 +661,6 @@ namespace Igor
 		/*! clean up
 		*/
 		virtual ~iWidget();
-
-	protected:
-
-		/*! \returns last mouse position
-		*/
-		iaVector2i getLastMousePos() const;
 
 	private:
 

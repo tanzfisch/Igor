@@ -35,11 +35,6 @@ namespace Igor
         _texture = nullptr;
     }
 
-    iWidget* iWidgetColorGradient::createInstance()
-    {
-        return new iWidgetColorGradient();
-    }
-
     bool iWidgetColorGradient::handleMouseKeyDown(iKeyCode key)
     {
         iaVector2i mousePos = getLastMousePos();

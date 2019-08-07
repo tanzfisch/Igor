@@ -47,11 +47,17 @@ namespace Igor
     class Igor_API iDialog : public iWidget
     {
 
-        /*! needs to be friend because it's the factory that creates this widget
-        */
-        friend class iWidgetManager;
+		friend class iWidgetManager;
 
     public:
+
+		/*! ctor initializes member variables and registers mouse events
+		*/
+		iDialog();
+
+		/*! dtor unregisters mouse events
+		*/
+		virtual ~iDialog();
 
         /*! set horizontal position of dialog and horizontal alignment to absolute
 
@@ -74,16 +80,6 @@ namespace Igor
         /*! \retruns border size
         */
         int32 getBorder();
-
-    protected:
-
-        /*! ctor initializes member variables and registers mouse events
-        */
-        iDialog();
-
-        /*! dtor unregisters mouse events
-        */
-        virtual ~iDialog();
 
     private:
 
@@ -113,10 +109,6 @@ namespace Igor
 		/*! draws the button
 		*/
 		void draw();
-
-        /*! creates instance of this widget type
-        */
-        static iDialog* createInstance();
 
     };
 }

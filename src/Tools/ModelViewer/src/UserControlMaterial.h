@@ -57,7 +57,8 @@ class UserControlMaterial : public iUserControl
 {
 public:
 
-	static iWidget* createInstance();
+	UserControlMaterial();
+	~UserControlMaterial();
 
 	void setMaterial(uint64 id);
 	uint64 getMaterialID() const;
@@ -124,10 +125,6 @@ private:
 
 	void initGUI();
 	void deinitGUI();
-
-	UserControlMaterial();
-	~UserControlMaterial();
-
 
 };
 

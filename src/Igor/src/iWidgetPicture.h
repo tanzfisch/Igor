@@ -40,97 +40,89 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    /*! picture widget
+	/*! picture widget
 
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
+	Example:
+	\ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
 
-    */
+	*/
 	class Igor_API iWidgetPicture : public iWidget
 	{
 
-        /*! needs to be friend because it's the factory that creates this widget
-        */
-        friend class iWidgetManager;
-
 	public:
 
-        /*! sets the texture to use for the picture
+		/*! ctor initializes member variables
+		*/
+		iWidgetPicture();
 
-        \param texturePath path to texture
-        */
+		/*! release texture
+		*/
+		virtual ~iWidgetPicture();
+
+		/*! sets the texture to use for the picture
+
+		\param texturePath path to texture
+		*/
 		void setTexture(const iaString& texturePath);
 
-        /*! \returns texture path
-        */
+		/*! \returns texture path
+		*/
 		const iaString& getTexture() const;
 
-        /*! sets maximum display size of picture
+		/*! sets maximum display size of picture
 
-        \param width max width
-        \param height max height
-        */
-        void setMaxSize(int32 width, int32 height);
+		\param width max width
+		\param height max height
+		*/
+		void setMaxSize(int32 width, int32 height);
 
-        /*! \returns maximum width
-        */
-        int32 getMaxWidth();
+		/*! \returns maximum width
+		*/
+		int32 getMaxWidth();
 
-        /*! \returns maximum height
-        */
-        int32 getMaxHeight();
+		/*! \returns maximum height
+		*/
+		int32 getMaxHeight();
 
-        /*! sets if the aspect ratio of the picture must be kept
+		/*! sets if the aspect ratio of the picture must be kept
 
-        \paran keep if true the aspect ratio must be kept
-        */
-        void setKeepAspectRatio(bool keep = true);
+		\paran keep if true the aspect ratio must be kept
+		*/
+		void setKeepAspectRatio(bool keep = true);
 
-        /*! \returns true if aspect ratio will be kept
-        */
-        bool getKeepAspectRatio() const;
+		/*! \returns true if aspect ratio will be kept
+		*/
+		bool getKeepAspectRatio() const;
 
 	private:
 
-        /*! texture path
-        */
-        iaString _texturePath;
+		/*! texture path
+		*/
+		iaString _texturePath;
 
-        /*! flag if the aspect ratio must be kept when resized
-        */
-        bool _keepAspectRatio = true;
+		/*! flag if the aspect ratio must be kept when resized
+		*/
+		bool _keepAspectRatio = true;
 
-        /*! shared pointer to texture
-        */
-        iTexturePtr _texture;
+		/*! shared pointer to texture
+		*/
+		iTexturePtr _texture;
 
-        /*! maximum dispaly width 
-        */
-        int32 _maxWidth = MAXINT32;
-        
-        /*! maximum dispaly height
-        */
-        int32 _maxHeight = MAXINT32;
+		/*! maximum dispaly width
+		*/
+		int32 _maxWidth = MAXINT32;
 
-        /*! updates size based on it's content
-        */
-        void calcMinSize();
+		/*! maximum dispaly height
+		*/
+		int32 _maxHeight = MAXINT32;
+
+		/*! updates size based on it's content
+		*/
+		void calcMinSize();
 
 		/*! draws the widget
 		*/
 		void draw();
-
-        /*! ctor initializes member variables
-        */
-		iWidgetPicture();
-
-        /*! release texture
-        */
-		virtual ~iWidgetPicture();
-
-        /*! creates instance of this widget type
-        */
-        static iWidget* createInstance();
 
 	};
 }

@@ -32,11 +32,6 @@ namespace Igor
         }
     }
 
-    iWidget* iWidgetCheckBox::createInstance()
-    {
-        return new iWidgetCheckBox();
-    }
-
     void iWidgetCheckBox::beginRadioButtonGroup()
     {
         _generatingRadioButtonGroup = true;

@@ -20,11 +20,6 @@ namespace Igor
         initGrid();
     }
 
-    iWidget* iWidgetGrid::createInstance()
-    {
-        return new iWidgetGrid();
-    }
-
     void iWidgetGrid::clear()
     {
         _widgetRows.clear();

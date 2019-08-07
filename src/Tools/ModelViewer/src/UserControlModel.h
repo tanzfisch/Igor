@@ -48,7 +48,8 @@ class UserControlModel : public iUserControl
 {
 public:
 
-	static iWidget* createInstance();
+	UserControlModel();
+	~UserControlModel();
 	   
     void setNode(uint32 id);
     uint32 getNode();
@@ -67,8 +68,7 @@ private:
 
     void initGUI();
 
-	UserControlModel();
-	~UserControlModel();
+
 
 };
 

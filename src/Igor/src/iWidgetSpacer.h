@@ -37,42 +37,34 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    /*! spacer widget
+	/*! spacer widget
 
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
+	Example:
+	\ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
 
-    */
+	*/
 	class Igor_API iWidgetSpacer : public iWidget
 	{
 
-        /*! needs to be friend because it's the factory that creates this widget
-        */
-		friend class iWidgetManager;
+	public:
+
+		/*! ctor initializes member variables
+		*/
+		iWidgetSpacer();
+
+		/*! does nothing
+		*/
+		virtual ~iWidgetSpacer() = default;
 
 	protected:
 
-        /*! updates size based on it's content
-        */
-        void calcMinSize();
+		/*! updates size based on it's content
+		*/
+		void calcMinSize();
 
 		/*! draws the button
 		*/
 		void draw();
-
-	private:
-
-        /*! ctor initializes member variables
-        */
-        iWidgetSpacer();
-
-        /*! does nothing
-        */
-		virtual ~iWidgetSpacer() = default;
-
-        /*! creates instance of this widget type
-        */
-        static iWidget* createInstance();
 
 	};
 }

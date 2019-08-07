@@ -27,11 +27,6 @@ namespace Igor
         setGrowingByContent(false);
     }
 
-    iWidget* iWidgetScroll::createInstance()
-    {
-        return new iWidgetScroll();
-    }
-
     void iWidgetScroll::handleMouseMove(const iaVector2i& pos)
     {
         if (isActive())

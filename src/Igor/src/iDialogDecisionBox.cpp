@@ -24,11 +24,6 @@ namespace Igor
 		deinitGUI();
 	}
 
-	iDialog* iDialogDecisionBox::createInstance()
-	{
-		return new iDialogDecisionBox();
-	}
-
 	void iDialogDecisionBox::show(const iaString& message, iDecisionBoxCloseDelegate closeDelegate, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
 	{
 		_decisionBoxCloseEvent.append(closeDelegate);
@@ -54,42 +49,42 @@ namespace Igor
 		setWidth(20);
 		setHeight(20);
 
-		_grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+		_grid = new iWidgetGrid();
 		_grid->appendRows(4);
 		_grid->setHorizontalAlignment(iHorizontalAlignment::Center);
 		_grid->setVerticalAlignment(iVerticalAlignment::Center);
 		_grid->setCellSpacing(4);
 		_grid->setBorder(4);
 
-		_messageLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+		_messageLabel = new iWidgetLabel();
 		_messageLabel->setText(message);
 		_messageLabel->setMaxTextWidth(280);
 
-		_spacerLineTop = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
+		_spacerLineTop = new iWidgetSpacer();
 		_spacerLineTop->setWidth(280);
 		_spacerLineTop->setHeight(1);
 		_spacerLineTop->setVisible(true);
 
-		_spacerLineBottom = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
+		_spacerLineBottom = new iWidgetSpacer();
 		_spacerLineBottom->setWidth(280);
 		_spacerLineBottom->setHeight(1);
 		_spacerLineBottom->setVisible(true);
 
-		_buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+		_buttonGrid = new iWidgetGrid();
 		_buttonGrid->appendCollumns(3);
 		_buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
 		_buttonGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
 		_buttonGrid->setCellSpacing(4);
 
-		_okButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+		_okButton = new iWidgetButton();
 		_okButton->setText("OK");
 		_okButton->registerOnClickEvent(iClickDelegate(this, &iDialogDecisionBox::onOK));
 
-		_cancelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+		_cancelButton = new iWidgetButton();
 		_cancelButton->setText("Cancel");
 		_cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogDecisionBox::onCancel));
 
-		_radioGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+		_radioGrid = new iWidgetGrid();
 		_radioGrid->appendRows(static_cast<uint32>(radioButtonTexts.size()) - 1);
 		_radioGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
 		_radioGrid->setVerticalAlignment(iVerticalAlignment::Top);
@@ -100,7 +95,7 @@ namespace Igor
 		auto iter = radioButtonTexts.begin();
 		while (iter != radioButtonTexts.end())
 		{
-			iWidgetCheckBox* checkBox = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
+			iWidgetCheckBox* checkBox = new iWidgetCheckBox();
 			_radioButtons.push_back(checkBox);
 			checkBox->setHorizontalAlignment(iHorizontalAlignment::Left);
 			checkBox->setText((*iter));

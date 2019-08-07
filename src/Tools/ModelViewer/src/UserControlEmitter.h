@@ -51,7 +51,13 @@ class UserControlEmitter : public iUserControl
 {
 public:
 
-	static iWidget* createInstance();
+	/*! ctor initializes gui
+	*/
+	UserControlEmitter();
+
+	/*! nothing todo
+	*/
+	~UserControlEmitter() = default;
 
     /*! set node id of emitter to configure
     */
@@ -102,15 +108,6 @@ private:
     /*! initialize gui elements
     */
     void initGUI();
-
-	/*! ctor initializes gui
-	*/
-	UserControlEmitter();
-
-	/*! nothing todo
-	*/
-	~UserControlEmitter() = default;
-
 
 };
 
