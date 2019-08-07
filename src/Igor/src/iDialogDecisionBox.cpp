@@ -24,11 +24,6 @@ namespace Igor
 		deinitGUI();
 	}
 
-	iDialog* iDialogDecisionBox::createInstance()
-	{
-		return new iDialogDecisionBox();
-	}
-
 	void iDialogDecisionBox::show(const iaString& message, iDecisionBoxCloseDelegate closeDelegate, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
 	{
 		_decisionBoxCloseEvent.append(closeDelegate);

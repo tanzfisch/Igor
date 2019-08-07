@@ -48,10 +48,6 @@ namespace Igor
 	class Igor_API iWidgetCheckBox : public iWidget
 	{
 
-        /*! needs to be friend because it's the factory that creates this widget
-        */
-		friend class iWidgetManager;
-
 	public:
 
 		/*! ctor initializes member variables
@@ -127,11 +123,6 @@ namespace Igor
 		*/
 		void draw();
 
-	private:
-
-        /*! creates instance of this widget type
-        */
-        static iWidget* createInstance();
 	};
 }
 

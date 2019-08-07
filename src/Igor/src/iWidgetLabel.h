@@ -37,20 +37,16 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    /*! label widget
+	/*! label widget
 
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
+	Example:
+	\ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
 
-    \bug vertical alignment does not look right
+	\bug vertical alignment does not look right
 
-    */
+	*/
 	class Igor_API iWidgetLabel : public iWidget
 	{
-
-        /*! needs to be friend because it's the factory that creates this widget
-        */
-        friend class iWidgetManager;
 
 	public:
 
@@ -62,51 +58,47 @@ namespace Igor
 		*/
 		virtual ~iWidgetLabel() = default;
 
-        /*! sets maximum text width
+		/*! sets maximum text width
 
-        text that needs more space will automatically turn in to multi line text
+		text that needs more space will automatically turn in to multi line text
 
-        \param width max width
-        */
+		\param width max width
+		*/
 		void setMaxTextWidth(int32 width);
 
-        /*! \returns max text width
-        */
+		/*! \returns max text width
+		*/
 		int32 getMaxTextWidth();
-        	
-        /*! sets text
 
-        \param text the label text
-        */
+		/*! sets text
+
+		\param text the label text
+		*/
 		void setText(const iaString& text);
 
-        /*! \returns label text
-        */
+		/*! \returns label text
+		*/
 		const iaString& getText() const;
 
 	protected:
 
-        /*! label text
-        */
+		/*! label text
+		*/
 		iaString _text;
 
-        /*! max label width
-        */
+		/*! max label width
+		*/
 		int32 _maxTextWidth = 0;
 
 	private:
 
-        /*! updates size based on it's content
-        */
-        void calcMinSize();
+		/*! updates size based on it's content
+		*/
+		void calcMinSize();
 
 		/*! draws the widget
 		*/
 		void draw();
-
-        /*! creates instance of this widget type
-        */
-        static iWidget* createInstance();
 
 	};
 }

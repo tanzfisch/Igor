@@ -54,8 +54,6 @@ namespace Igor
 	class Igor_API iDialogDecisionBox : public iDialog
 	{
 
-		friend class iWidgetManager;
-
 	public:
 
 		/*! does nothing
@@ -148,10 +146,6 @@ namespace Igor
 		/*! initializes the gui elements
 		*/
 		void initGUI(const iaString& message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection);
-
-		/*! creates instance of this widget type
-		*/
-		static iDialog* createInstance();
 
 	};
 

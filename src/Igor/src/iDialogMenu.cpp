@@ -21,11 +21,6 @@ namespace Igor
 		deinitGUI();
 	}
 
-	iDialog* iDialogMenu::createInstance()
-	{
-		return new iDialogMenu();
-	}
-
 	void iDialogMenu::initGUI(std::vector<iaString>& texts)
 	{
 		iWidgetManager::setModal(this);

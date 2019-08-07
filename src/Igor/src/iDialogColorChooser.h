@@ -52,8 +52,6 @@ namespace Igor
 	class Igor_API iDialogColorChooser : public iDialog
 	{
 
-		friend class iWidgetManager;
-
 	public:
 
 		/*! does nothing
@@ -128,10 +126,6 @@ namespace Igor
 		\param useAlpha if true alpha value will be edited too
 		*/
 		void initGUI(const iaColor4f& color, bool useAlpha);
-
-		/*! creates instance of this widget type
-		*/
-		static iDialog* createInstance();
 
 	};
 

@@ -1049,39 +1049,47 @@ void ModelViewer::handle()
 
 void ModelViewer::renderNodeSelected(uint64 nodeID)
 {
-    if (nodeID != iNode::INVALID_NODE_ID)
+	if (nodeID == iNode::INVALID_NODE_ID)
+	{
+		return;
+	}
+
+    iNodePtr node = iNodeFactory::getInstance().getNode(nodeID);
+	if (node == nullptr)
+	{
+		return;
+	}
+
+	if (node->getKind() != iNodeKind::Renderable &&
+		node->getKind() != iNodeKind::Volume)
+	{
+		return;
+	}
+
+	iNodeRender* renderNode = static_cast<iNodeRender*>(node);
+    iaMatrixd matrix = renderNode->getWorldMatrix();
+    iRenderer::getInstance().setModelMatrix(matrix);
+
+    if (node->getType() == iNodeType::iNodeMesh)
     {
-        iNodePtr node = iNodeFactory::getInstance().getNode(nodeID);
+        iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading));
 
-        if (node->getKind() == iNodeKind::Renderable ||
-            node->getKind() == iNodeKind::Volume)
+        iNodeMesh* meshNode = static_cast<iNodeMesh*>(node);
+        std::shared_ptr<iMeshBuffers> buffers = meshNode->getMeshBuffers();
+        iRenderer::getInstance().setLineWidth(4);
+        iRenderer::getInstance().drawMesh(buffers);
+    }
+    else
+    {
+        if (node->getKind() == iNodeKind::Volume)
         {
-            iNodeRender* renderNode = static_cast<iNodeRender*>(node);
-            iaMatrixd matrix = renderNode->getWorldMatrix();
-            iRenderer::getInstance().setModelMatrix(matrix);
+            iNodeVolume* renderVolume = static_cast<iNodeVolume*>(node);
+            iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialBoundingBox));
 
-            if (node->getType() == iNodeType::iNodeMesh)
-            {
-                iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading));
+            iAABoxd box = renderVolume->getBoundingBox();
 
-                iNodeMesh* meshNode = static_cast<iNodeMesh*>(node);
-                std::shared_ptr<iMeshBuffers> buffers = meshNode->getMeshBuffers();
-                iRenderer::getInstance().setLineWidth(4);
-                iRenderer::getInstance().drawMesh(buffers);
-            }
-            else
-            {
-                if (node->getKind() == iNodeKind::Volume)
-                {
-                    iNodeVolume* renderVolume = static_cast<iNodeVolume*>(node);
-                    iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialBoundingBox));
-
-                    iAABoxd box = renderVolume->getBoundingBox();
-
-                    iRenderer::getInstance().setColor(1, 1, 0, 1);
-                    iRenderer::getInstance().drawBBox(box);
-                }
-            }
+            iRenderer::getInstance().setColor(1, 1, 0, 1);
+            iRenderer::getInstance().drawBBox(box);
         }
     }
 }

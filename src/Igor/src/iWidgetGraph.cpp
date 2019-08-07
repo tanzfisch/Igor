@@ -28,11 +28,6 @@ namespace Igor
         setVerticalAlignment(iVerticalAlignment::Center);
     }
 
-    iWidget* iWidgetGraph::createInstance()
-    {
-        return new iWidgetGraph();
-    }
-
     void iWidgetGraph::setInteractive(bool interactive)
     {
         _interactive = interactive;

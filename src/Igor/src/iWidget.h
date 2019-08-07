@@ -118,6 +118,7 @@ namespace Igor
 	class Igor_API iWidget
 	{
 
+		// iWidget has sooo many friends <3
 		friend class iWidgetManager;
 		friend class iDialog;
 		friend class iWidgetGrid;

@@ -38,19 +38,17 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    class iWidgetGrid;
-    class iWidgetLabel;
+	class iWidgetGrid;
+	class iWidgetLabel;
 
-    iaEVENT(iDialogMenuCloseEvent, iDialogMenuCloseDelegate, void, (int32 index), (index));
+	iaEVENT(iDialogMenuCloseEvent, iDialogMenuCloseDelegate, void, (int32 index), (index));
 
-    /*! pull down menu
-    */
-    class Igor_API iDialogMenu : public iDialog
-    {
+	/*! pull down menu
+	*/
+	class Igor_API iDialogMenu : public iDialog
+	{
 
-        friend class iWidgetManager;
-
-    public:
+	public:
 
 		/*! does nothing
 		*/
@@ -62,97 +60,93 @@ namespace Igor
 
 		/*! opens dialog
 
-        leave the pictures list empty if you don't want pictures or call the alternative implementation of show
+		leave the pictures list empty if you don't want pictures or call the alternative implementation of show
 
 		\param texts the texts to put in the selection list
-        \param pictures paths to textures used as icons next to the text (optional)
+		\param pictures paths to textures used as icons next to the text (optional)
 		\param closeDelegate delegate for closing event
 		*/
-        void show(std::vector<iaString>& texts, std::vector<iaString>& pictures, iDialogMenuCloseDelegate closeDelegate);
+		void show(std::vector<iaString>& texts, std::vector<iaString>& pictures, iDialogMenuCloseDelegate closeDelegate);
 
-        /*! opens dialog
+		/*! opens dialog
 
-        \param texts the texts to put in the selection list
-        \param closeDelegate delegate for closing event
-        */
-        void show(std::vector<iaString>& texts, iDialogMenuCloseDelegate closeDelegate);
+		\param texts the texts to put in the selection list
+		\param closeDelegate delegate for closing event
+		*/
+		void show(std::vector<iaString>& texts, iDialogMenuCloseDelegate closeDelegate);
 
-        /*! sets the height of an entry
+		/*! sets the height of an entry
 
-        it's interpreted as max height and width for pictures
+		it's interpreted as max height and width for pictures
 
-        \param height the entry height in pixel
-        */
-        void setEntryHeight(int32 height);
+		\param height the entry height in pixel
+		*/
+		void setEntryHeight(int32 height);
 
-        /*! \returns height of an entry
-        */
-        int32 getEntryHeight() const;
+		/*! \returns height of an entry
+		*/
+		int32 getEntryHeight() const;
 
-    private:
+	private:
 
-        /*! menu entry height in pixel
-        */
-        int32 _entryHeight = 20;
+		/*! menu entry height in pixel
+		*/
+		int32 _entryHeight = 20;
 
-        /*! the close event
-        */
-        iDialogMenuCloseEvent _selectBoxCloseEvent;
+		/*! the close event
+		*/
+		iDialogMenuCloseEvent _selectBoxCloseEvent;
 
-        /*! the return value of the selection box
+		/*! the return value of the selection box
 
-        -1 stands for cancel
-        */
-        int32 _returnValue = -1;
+		-1 stands for cancel
+		*/
+		int32 _returnValue = -1;
 
-        /*! over all grid
-        */
-        iWidgetGrid* _grid = nullptr;
-        
-        /*! all widgets
-        */
-        std::vector<iWidget*> _allWidgets;
+		/*! over all grid
+		*/
+		iWidgetGrid* _grid = nullptr;
 
-        /*! handles change event
+		/*! all widgets
+		*/
+		std::vector<iWidget*> _allWidgets;
 
-        \param source the source of the event (should be the grid)
-        */
-        void onChange(iWidget* source);
+		/*! handles change event
+
+		\param source the source of the event (should be the grid)
+		*/
+		void onChange(iWidget* source);
 
 		/*! handle mouse off click event
 
-        \param source the source of that event
+		\param source the source of that event
 		*/
-        void onMouseOffClick(iWidget* source);
+		void onMouseOffClick(iWidget* source);
 
-        /*! closes the dialog and sends closed event
+		/*! closes the dialog and sends closed event
 
-        will be triggered by any button
-        */
-        void close();
+		will be triggered by any button
+		*/
+		void close();
 
-        /*! initializes the gui
+		/*! initializes the gui
 
-        \param texts the texts for the menu
-        */
-        void initGUI(std::vector<iaString>& texts);
+		\param texts the texts for the menu
+		*/
+		void initGUI(std::vector<iaString>& texts);
 
-        /*! initializes the gui
+		/*! initializes the gui
 
-        \param texts the texts for the menu
-        \param pictures the pictures for the menu
-        */
-        void initGUI(std::vector<iaString>& texts, std::vector<iaString>& pictures);
+		\param texts the texts for the menu
+		\param pictures the pictures for the menu
+		*/
+		void initGUI(std::vector<iaString>& texts, std::vector<iaString>& pictures);
 
-        /*! deinitializes the gui elements
-        */
-        void deinitGUI();
+		/*! deinitializes the gui elements
+		*/
+		void deinitGUI();
 
-        /*! creates instance of this widget type
-        */
-        static iDialog* createInstance();
-
-    };
+	};
 
 }
 

@@ -36,11 +36,6 @@ namespace Igor
         }
     }
 
-    iDialog* iDialog::createInstance()
-    {
-        return new iDialog();
-    }
-
     void iDialog::calcMinSize()
     {
         int32 minWidth = 0;

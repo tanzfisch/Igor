@@ -48,10 +48,6 @@ namespace Igor
 	class Igor_API iWidgetScroll : public iWidget
 	{
 
-		/*! needs to be friend because it's the factory that creates this widget
-		*/
-		friend class iWidgetManager;
-
 	public:
 
 		/*! ctor initializes membervariables
@@ -175,10 +171,6 @@ namespace Igor
 		\param offsets vector to be filled with childrens offsets
 		*/
 		void calcChildOffsets(std::vector<iRectanglei>& offsets);
-
-		/*! creates instance of this widget type
-		*/
-		static iWidget* createInstance();
 
 	};
 }

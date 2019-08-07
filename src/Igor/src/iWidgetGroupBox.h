@@ -37,21 +37,17 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    class iUserControl;
+	class iUserControl;
 
-    /*! group box widget
+	/*! group box widget
 
-    \todo collapsable group box would be nice/interessting
+	\todo collapsable group box would be nice/interessting
 
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-    */
+	Example:
+	\ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
+	*/
 	class Igor_API iWidgetGroupBox : public iWidget
 	{
-
-        /*! needs to be friend because it's the factory that creates this widget
-        */
-        friend class iWidgetManager;
 
 	public:
 
@@ -63,61 +59,57 @@ namespace Igor
 		*/
 		~iWidgetGroupBox() = default;
 
-        /*! sets text of widget
+		/*! sets text of widget
 
-        \param text new text
-        */
+		\param text new text
+		*/
 		void setText(const iaString& text);
 
-        /*! \returns text of widget
-        */
-        const iaString& getText() const;
+		/*! \returns text of widget
+		*/
+		const iaString& getText() const;
 
-        /*! sets boder size (something like a margin)
+		/*! sets boder size (something like a margin)
 
-        \param border size of border
-        */
+		\param border size of border
+		*/
 		void setBorder(int32 border);
 
-        /*! \returns border size of widget
-        */
+		/*! \returns border size of widget
+		*/
 		int32 getBorder();
 
-        /*! setter for header only mode
+		/*! setter for header only mode
 
-        \param headerOnly if true there will only the header be visible
-        */
-        void setHeaderOnly(bool headerOnly = true);
+		\param headerOnly if true there will only the header be visible
+		*/
+		void setHeaderOnly(bool headerOnly = true);
 
-        /*! \returns if true: header only mode is on
-        */
-        bool getHeaderOnly() const;
+		/*! \returns if true: header only mode is on
+		*/
+		bool getHeaderOnly() const;
 
-    private:
+	private:
 
-        /*! if true only the header of the group box will be drawn
-        */
-        bool _headerOnly = false;
+		/*! if true only the header of the group box will be drawn
+		*/
+		bool _headerOnly = false;
 
-        /*! border size
-        */
+		/*! border size
+		*/
 		int32 _border = 5;
 
-        /*! group box text
-        */
+		/*! group box text
+		*/
 		iaString _text;
 
 		/*! draws the widget
 		*/
 		void draw();
 
-        /*! updates size based on it's content
-        */
-        void calcMinSize();
-
-        /*! creates instance of this widget type
-        */
-        static iWidget* createInstance();
+		/*! updates size based on it's content
+		*/
+		void calcMinSize();
 
 	};
 }

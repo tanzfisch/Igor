@@ -27,11 +27,6 @@ namespace Igor
 		deinitGUI();
 	}
 
-	iDialog* iDialogFileSelect::createInstance()
-	{
-		return new iDialogFileSelect();
-	}
-
 	void iDialogFileSelect::initGUI()
 	{
 		if (_grid != nullptr)
@@ -180,7 +175,7 @@ namespace Igor
 	{
 		_load = true;
 		_fileDialogCloseEvent.append(closeDelegate);
-	
+
 		configure(path);
 	}
 

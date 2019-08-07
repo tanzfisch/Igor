@@ -38,46 +38,44 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    class iWidgetButton;
-    class iWidgetGrid;
-    class iWidgetLabel;
-    class iWidget;
-    class iWidgetSpacer;
+	class iWidgetButton;
+	class iWidgetGrid;
+	class iWidgetLabel;
+	class iWidget;
+	class iWidgetSpacer;
 
-    /*! message box return values
-    */
-    enum class iMessageBoxReturnValue
-    {
-        No = 0,
-        Yes = 1,
-        Ok = 1,
-        Cancel = 2
-    };
+	/*! message box return values
+	*/
+	enum class iMessageBoxReturnValue
+	{
+		No = 0,
+		Yes = 1,
+		Ok = 1,
+		Cancel = 2
+	};
 
-    /*! message box button configuration
-    */
-    enum class iMessageBoxButtons
-    {
-        Ok,
-        CancelOk,
-        YesNo,
-        YesNoCancel
-    };
+	/*! message box button configuration
+	*/
+	enum class iMessageBoxButtons
+	{
+		Ok,
+		CancelOk,
+		YesNo,
+		YesNoCancel
+	};
 
-    /*! message box close event
+	/*! message box close event
 
-    \param value the return value of the message box
-    */
-    iaEVENT(iDialogMessageBoxCloseEvent, iDialogMessageBoxCloseDelegate, void, (iMessageBoxReturnValue value), (value));
+	\param value the return value of the message box
+	*/
+	iaEVENT(iDialogMessageBoxCloseEvent, iDialogMessageBoxCloseDelegate, void, (iMessageBoxReturnValue value), (value));
 
-    /*! the message box
-    */
-    class Igor_API iDialogMessageBox : public iDialog
-    {
+	/*! the message box
+	*/
+	class Igor_API iDialogMessageBox : public iDialog
+	{
 
-        friend class iWidgetManager;
-
-    public:
+	public:
 
 		/*! does nothing
 		*/
@@ -87,117 +85,113 @@ namespace Igor
 		*/
 		~iDialogMessageBox();
 
-        /*! initializes gui and opens the message box dialog
+		/*! initializes gui and opens the message box dialog
 
-        \param message the message to display
-        \param buttons the button configuration to use
-        */
-        void show(iaString message, iMessageBoxButtons buttons = iMessageBoxButtons::Ok);
+		\param message the message to display
+		\param buttons the button configuration to use
+		*/
+		void show(iaString message, iMessageBoxButtons buttons = iMessageBoxButtons::Ok);
 
-        /*! initializes gui and opens the message box dialog
+		/*! initializes gui and opens the message box dialog
 
-        \param message the message to display
-        \param closeDelegate the delegate to be called when closed
-        \param buttons the button configuration to use
-        */
-        void show(iaString message, iDialogMessageBoxCloseDelegate closeDelegate, iMessageBoxButtons buttons = iMessageBoxButtons::Ok);
+		\param message the message to display
+		\param closeDelegate the delegate to be called when closed
+		\param buttons the button configuration to use
+		*/
+		void show(iaString message, iDialogMessageBoxCloseDelegate closeDelegate, iMessageBoxButtons buttons = iMessageBoxButtons::Ok);
 
-    private:
+	private:
 
-        /*! the close event
-        */
-        iDialogMessageBoxCloseEvent _messageBoxCloseEvent;
+		/*! the close event
+		*/
+		iDialogMessageBoxCloseEvent _messageBoxCloseEvent;
 
-        /*! the return value of the message box
-        */
-        iMessageBoxReturnValue _messageBoxReturnValue = iMessageBoxReturnValue::Ok;
+		/*! the return value of the message box
+		*/
+		iMessageBoxReturnValue _messageBoxReturnValue = iMessageBoxReturnValue::Ok;
 
-        /*! the ok button
-        */
-        iWidgetButton* _okButton = nullptr;
+		/*! the ok button
+		*/
+		iWidgetButton* _okButton = nullptr;
 
-        /*! the yes button
-        */
-        iWidgetButton* _yesButton = nullptr;
+		/*! the yes button
+		*/
+		iWidgetButton* _yesButton = nullptr;
 
-        /*! the no button
-        */
-        iWidgetButton* _noButton = nullptr;
+		/*! the no button
+		*/
+		iWidgetButton* _noButton = nullptr;
 
-        /*! the cancel button
-        */
-        iWidgetButton* _cancelButton = nullptr;
+		/*! the cancel button
+		*/
+		iWidgetButton* _cancelButton = nullptr;
 
-        /*! a spacer line
-        */
-        iWidgetSpacer* _spacerLine = nullptr;
+		/*! a spacer line
+		*/
+		iWidgetSpacer* _spacerLine = nullptr;
 
-        /*! an other spacer
-        */
-        iWidgetSpacer* _spacerLittle = nullptr;
+		/*! an other spacer
+		*/
+		iWidgetSpacer* _spacerLittle = nullptr;
 
-        /*! over all grid
-        */
-        iWidgetGrid* _grid = nullptr;
-        
-        /*! grid for the buttons
-        */
-        iWidgetGrid* _buttonGrid = nullptr;
-        
-        /*! label for the message text
-        */
-        iWidgetLabel* _messageLabel = nullptr;
+		/*! over all grid
+		*/
+		iWidgetGrid* _grid = nullptr;
 
-        /*! collect all widgets here so we can clean up faster later
-        */
-        std::vector<iWidget*> _allWidgets;
+		/*! grid for the buttons
+		*/
+		iWidgetGrid* _buttonGrid = nullptr;
 
-        /*! handles ok button clicked event
+		/*! label for the message text
+		*/
+		iWidgetLabel* _messageLabel = nullptr;
 
-        \param source the ok button it self
-        */
-        void onOK(iWidget* source);
+		/*! collect all widgets here so we can clean up faster later
+		*/
+		std::vector<iWidget*> _allWidgets;
 
-        /*! handles cancel button clicked event
+		/*! handles ok button clicked event
 
-        \param source the cancel button it self
-        */
-        void onCancel(iWidget* source);
+		\param source the ok button it self
+		*/
+		void onOK(iWidget* source);
 
-        /*! handles yes button clicked event
+		/*! handles cancel button clicked event
 
-        \param source the yes button it self
-        */
-        void onYes(iWidget* source);
+		\param source the cancel button it self
+		*/
+		void onCancel(iWidget* source);
 
-        /*! handles no button clicked event
+		/*! handles yes button clicked event
 
-        \param source the no button it self
-        */
-        void onNo(iWidget* source);
+		\param source the yes button it self
+		*/
+		void onYes(iWidget* source);
 
-        /*! closes the dialog and sends closed event
+		/*! handles no button clicked event
 
-        will be triggered by any button
-        */
-        void close();
+		\param source the no button it self
+		*/
+		void onNo(iWidget* source);
 
-        /*! initializes the gui
+		/*! closes the dialog and sends closed event
 
-        \param message the message text
-        \param buttons the button configuration
-        */
-        void initGUI(iaString message, iMessageBoxButtons buttons);
+		will be triggered by any button
+		*/
+		void close();
 
-        /*! deinitializes the gui elements
-        */
-        void deinitGUI();
+		/*! initializes the gui
 
-        /*! creates instance of this widget type
-        */
-        static iDialog* createInstance();
+		\param message the message text
+		\param buttons the button configuration
+		*/
+		void initGUI(iaString message, iMessageBoxButtons buttons);
 
-    };
+		/*! deinitializes the gui elements
+		*/
+		void deinitGUI();
+
+	};
 
 }
 
