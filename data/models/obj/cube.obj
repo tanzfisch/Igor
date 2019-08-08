@@ -3,20 +3,10 @@
  
 g cube
 
-newmtl material_red
-	Ka 0.4000 0.0000 0.0000
- 	Kd 0.6500 0.0000 0.0000
- 	Ks 1.0000 0.0000 0.0000
-
-newmtl material_green
-	Ka 0.0000 0.4000 0.0000
- 	Kd 0.0000 0.6500 0.0000
- 	Ks 0.0000 1.0000 0.0000
-
-newmtl material_blue
-	Ka 0.0000 0.0000 0.4000 
- 	Kd 0.0000 0.0000 0.6500
- 	Ks 0.0000 0.0000 1.0000
+newmtl material
+	Ka 0.4000 0.4000 0.4000
+ 	Kd 0.6500 0.6500 0.65000
+ 	Ks 1.0000 1.0000 1.0000
 
 v  -0.5  -0.5  -0.5
 v  -0.5  -0.5  0.5
@@ -34,32 +24,17 @@ vn  0.0 -1.0  0.0
 vn  1.0  0.0  0.0
 vn -1.0  0.0  0.0
  
-usemtl material_red
+usemtl material
  
 f  1//2  7//2  5//2
 f  1//2  3//2  7//2
-
-usemtl material_blue
- 
 f  1//6  4//6  3//6 
 f  1//6  2//6  4//6 
-
-usemtl material_green
-
 f  3//3  8//3  7//3 
 f  3//3  4//3  8//3 
-
-usemtl material_blue
-
 f  5//5  7//5  8//5 
 f  5//5  8//5  6//5 
-
-usemtl material_green
-
 f  1//4  5//4  6//4 
 f  1//4  6//4  2//4 
-
-usemtl material_red
-
 f  2//1  6//1  8//1 
 f  2//1  8//1  4//1 
