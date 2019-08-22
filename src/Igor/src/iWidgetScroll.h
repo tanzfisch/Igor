@@ -80,6 +80,21 @@ namespace Igor
 
 	private:
 
+		struct ScrollButton
+		{
+			/*! rectangle of button
+			*/
+			iRectanglei _rectangle;
+
+			/*! button apearance state
+			*/
+			iWidgetAppearanceState _appearanceState = iWidgetAppearanceState::Standby;
+
+			/*! button mouse over state
+			*/
+			bool _mouseOver = false;
+		};
+
 		/*! scroll bar width
 		*/
 		int32 _scrollbarWidth = 15;
@@ -100,29 +115,29 @@ namespace Igor
 		*/
 		bool _hscrollActive = false;
 
-		/*! rectangle of horizontal scroll button
+		/*! horizontal scroll button
 		*/
-		iRectanglei _hscrollButton;
+		ScrollButton _hscrollButton;
 
-		/*! rectangle of vertical scroll button
+		/*! vertical scroll button
 		*/
-		iRectanglei _vscrollButton;
+		ScrollButton _vscrollButton;
 
-		/*! rectangle of up button
+		/*! up button
 		*/
-		iRectanglei _upButton;
+		ScrollButton _upButton;
 
-		/*! rectangle of down button
+		/*! down button
 		*/
-		iRectanglei _downButton;
+		ScrollButton _downButton;
 
-		/*! rectangle of left button
+		/*! left button
 		*/
-		iRectanglei _leftButton;
+		ScrollButton _leftButton;
 
-		/*! rectangle of right button
+		/*! right button
 		*/
-		iRectanglei _rightButton;
+		ScrollButton _rightButton;
 
 		/*! rectangle of child frame
 		*/
@@ -133,13 +148,27 @@ namespace Igor
 		\param d mouse wheel delta
 		\returns true: if event was consumed and therefore ignored by the parent
 		*/
-		bool handleMouseWheel(int32 d);
+		bool handleMouseWheel(int32 d) override;
 
 		/*! handles incomming mouse move events
 
 		\param pos mouse position
 		*/
-		void handleMouseMove(const iaVector2i& pos);
+		void handleMouseMove(const iaVector2i& pos) override;
+
+		/*! handles incomming mouse key down events
+
+		\param key the key that was pressed
+		\returns true: if event was consumed and therefore ignored by the parent
+		*/
+		bool handleMouseKeyDown(iKeyCode key) override;
+
+		/*! handles mouse key up events
+
+		\param key the key that was pressed
+		\returns true: if event was consumed and therefore ignored by the parent
+		*/
+		bool handleMouseKeyUp(iKeyCode key) override;
 
 		/*! updates size based on it's content
 		*/
@@ -151,7 +180,7 @@ namespace Igor
 
 		/*! calculate position and size of scroll buttons
 		*/
-		void calcScrollButtons();
+		void calcButtons();
 
 		/*! calc child frame
 
