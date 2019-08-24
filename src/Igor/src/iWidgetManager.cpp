@@ -256,95 +256,71 @@ namespace Igor
 
 	void iWidgetManager::onMouseKeyDown(iKeyCode key)
 	{
-		// this copy is not because of a race condition but because the original list might be changed while handling the event
-		std::map<uint64, iDialog*> dialogs = _dialogs;
-
-		for (auto dialog : dialogs)
+		// if there is a modal dialog handle only that one
+		if (getModal() != nullptr)
 		{
-			if (isModal(dialog.second))
-			{
-				dialog.second->handleMouseKeyDown(key);
-				return;
-			}
+			getModal()->handleMouseKeyDown(key);
+			return;
 		}
 
-		bool handled = false;
-
+		// let the dialogs handle the event
+		std::map<uint64, iDialog*> dialogs = _dialogs;
 		for (auto dialog : dialogs)
 		{
 			if (dialog.second->handleMouseKeyDown(key))
 			{
-				handled = true;
-				break;
+				// bail if a dialog handled the event
+				return;
 			}
 		}
-
-
-		if (!handled)
-		{
-			_mouseKeyDownEvent(key);
-		}
+		
+		_mouseKeyDownEvent(key);
 	}
 
 	void iWidgetManager::onMouseKeyUp(iKeyCode key)
 	{
-		// this copy is not because of a race condition but because the original list might be changed while handling the event
-		std::map<uint64, iDialog*> dialogs = _dialogs;
-
-		for (auto dialog : dialogs)
+		// if there is a modal dialog handle only that one
+		if (getModal() != nullptr)
 		{
-			if (isModal(dialog.second))
-			{
-				dialog.second->handleMouseKeyUp(key);
-				return;
-			}
+			getModal()->handleMouseKeyUp(key);
+			return;
 		}
 
-		bool handled = false;
+		// let the dialogs handle the event
+		std::map<uint64, iDialog*> dialogs = _dialogs;
 		for (auto dialog : dialogs)
 		{
 			if (dialog.second->handleMouseKeyUp(key))
 			{
-				handled = true;
-				break;
-			}
-		}
-
-		if (!handled)
-		{
-			_mouseKeyUpEvent(key);
-		}
-	}
-
-	void iWidgetManager::onMouseDoubleClick(iKeyCode key)
-	{
-		// this copy is not because of a race condition but because the original list might be changed while handling the event
-		std::map<uint64, iDialog*> dialogs = _dialogs;
-
-		for (auto dialog : dialogs)
-		{
-			if (isModal(dialog.second))
-			{
-				dialog.second->handleMouseDoubleClick(key);
+				// bail if a dialog handled the event
 				return;
 			}
 		}
 
-		bool handled = false;
+		_mouseKeyUpEvent(key);
+	}
 
+	void iWidgetManager::onMouseDoubleClick(iKeyCode key)
+	{
+		// if there is a modal dialog handle only that one
+		if (getModal() != nullptr)
+		{
+			getModal()->handleMouseDoubleClick(key);
+			return;
+		}
+
+		// let the dialogs handle the event
+		std::map<uint64, iDialog*> dialogs = _dialogs;
 		for (auto dialog : dialogs)
 		{
 			if (dialog.second->handleMouseDoubleClick(key))
 			{
-				handled = true;
-				break;
+				// bail if a dialog handled the event
+				return;
 			}
 		}
 
-		if (!handled)
-		{
-			_doubleClickEvent(key);
-		}
+		_doubleClickEvent(key);
 	}
 
 	void iWidgetManager::onMouseMove(const iaVector2i& from, const iaVector2i& to, iWindow* window)
