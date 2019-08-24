@@ -170,6 +170,13 @@ namespace Igor
 		*/
 		bool handleMouseKeyUp(iKeyCode key) override;
 
+		/*! handles incomming double click
+
+		\param key the key that was pressed
+		\returns true: if event was consumed and therefore ignored by the parent
+		*/
+		bool handleMouseDoubleClick(iKeyCode key) override;
+
 		/*! updates size based on it's content
 		*/
 		void calcMinSize();

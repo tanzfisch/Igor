@@ -65,6 +65,74 @@ namespace Igor
 		return iWidget::handleMouseKeyUp(key);
 	}
 
+	bool iWidgetScroll::handleMouseDoubleClick(iKeyCode key)
+	{
+		if (!isActive())
+		{
+			return false;
+		}
+
+		if (key == iKeyCode::MouseLeft)
+		{
+			if (_leftButton._mouseOver)
+			{
+				_leftButton._appearanceState = iWidgetAppearanceState::Pressed;
+
+				_hscroll -= 1.0f / (_children[0]->getActualWidth() / getActualWidth());
+
+				if (_hscroll < 0.0f)
+				{
+					_hscroll = 0.0f;
+				}
+
+				return true;
+			}
+
+			if (_rightButton._mouseOver)
+			{
+				_rightButton._appearanceState = iWidgetAppearanceState::Pressed;
+
+				_hscroll += 1.0f / (_children[0]->getActualWidth() / getActualWidth());
+
+				if (_hscroll > 1.0f)
+				{
+					_hscroll = 1.0f;
+				}
+
+				return true;
+			}
+
+			if (_upButton._mouseOver)
+			{
+				_upButton._appearanceState = iWidgetAppearanceState::Pressed;
+
+				_vscroll -= 1.0f / (_children[0]->getActualHeight() / getActualHeight());
+
+				if (_vscroll < 0.0f)
+				{
+					_vscroll = 0.0f;
+				}
+
+				return true;
+			}
+
+			if (_downButton._mouseOver)
+			{
+				_downButton._appearanceState = iWidgetAppearanceState::Pressed;
+
+				_vscroll += 1.0f / (_children[0]->getActualHeight() / getActualHeight());
+
+				if (_vscroll > 1.0f)
+				{
+					_vscroll = 1.0f;
+				}
+
+				return true;
+			}
+		}
+
+		return iWidget::handleMouseDoubleClick(key);
+	}
 
 	bool iWidgetScroll::handleMouseKeyDown(iKeyCode key)
 	{
@@ -77,7 +145,7 @@ namespace Igor
 		{
 			if (_leftButton._mouseOver)
 			{
-				_leftButton._appearanceState = iWidgetAppearanceState::Pressed;					
+				_leftButton._appearanceState = iWidgetAppearanceState::Pressed;
 
 				_hscroll -= 1.0f / (_children[0]->getActualWidth() / getActualWidth());
 
