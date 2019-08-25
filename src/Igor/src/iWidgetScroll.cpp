@@ -37,27 +37,45 @@ namespace Igor
 
 		if (key == iKeyCode::MouseLeft)
 		{
+			if (_hscrollButton._mouseOver)
+			{
+				_hscrollButton._appearanceState = iWidgetAppearanceState::Clicked;
+				_hscrollButton._mouseDown = false;
+				return true;
+			}
+
+			if (_vscrollButton._mouseOver)
+			{
+				_vscrollButton._appearanceState = iWidgetAppearanceState::Clicked;
+				_vscrollButton._mouseDown = false;
+				return true;
+			}
+
 			if (_leftButton._mouseOver)
 			{
 				_leftButton._appearanceState = iWidgetAppearanceState::Clicked;
+				_leftButton._mouseDown = false;
 				return true;
 			}
 
 			if (_rightButton._mouseOver)
 			{
 				_rightButton._appearanceState = iWidgetAppearanceState::Clicked;
+				_rightButton._mouseDown = false;
 				return true;
 			}
 
 			if (_upButton._mouseOver)
 			{
 				_upButton._appearanceState = iWidgetAppearanceState::Clicked;
+				_upButton._mouseDown = false;
 				return true;
 			}
 
 			if (_downButton._mouseOver)
 			{
 				_downButton._appearanceState = iWidgetAppearanceState::Clicked;
+				_downButton._mouseDown = false;
 				return true;
 			}
 		}
@@ -143,9 +161,24 @@ namespace Igor
 
 		if (key == iKeyCode::MouseLeft)
 		{
+			if (_hscrollButton._mouseOver)
+			{
+				_hscrollButton._appearanceState = iWidgetAppearanceState::Pressed;
+				_hscrollButton._mouseDown = true;
+				return true;
+			}
+
+			if (_vscrollButton._mouseOver)
+			{
+				_vscrollButton._appearanceState = iWidgetAppearanceState::Pressed;
+				_vscrollButton._mouseDown = true;
+				return true;
+			}
+
 			if (_leftButton._mouseOver)
 			{
 				_leftButton._appearanceState = iWidgetAppearanceState::Pressed;
+				_leftButton._mouseDown = true;
 
 				_hscroll -= 1.0f / (_children[0]->getActualWidth() / getActualWidth());
 
@@ -160,6 +193,7 @@ namespace Igor
 			if (_rightButton._mouseOver)
 			{
 				_rightButton._appearanceState = iWidgetAppearanceState::Pressed;
+				_rightButton._mouseDown = true;
 
 				_hscroll += 1.0f / (_children[0]->getActualWidth() / getActualWidth());
 
@@ -174,6 +208,7 @@ namespace Igor
 			if (_upButton._mouseOver)
 			{
 				_upButton._appearanceState = iWidgetAppearanceState::Pressed;
+				_upButton._mouseDown = true;
 
 				_vscroll -= 1.0f / (_children[0]->getActualHeight() / getActualHeight());
 
@@ -188,6 +223,7 @@ namespace Igor
 			if (_downButton._mouseOver)
 			{
 				_downButton._appearanceState = iWidgetAppearanceState::Pressed;
+				_downButton._mouseDown = true;
 
 				_vscroll += 1.0f / (_children[0]->getActualHeight() / getActualHeight());
 
@@ -217,6 +253,40 @@ namespace Igor
 			widget->handleMouseMove(pos);
 		}
 
+		if (_hscrollButton._mouseDown)
+		{
+			if (!_children.empty())
+			{
+				_hscroll += static_cast<float32>(iMouse::getInstance().getPosDelta()._x) / static_cast<float32>(calcHorizontalScrollSpace() - _hscrollButton._rectangle._width);
+				if (_hscroll < 0.0f)
+				{
+					_hscroll = 0.0f;
+				}
+
+				if (_hscroll > 1.0f)
+				{
+					_hscroll = 1.0f;
+				}
+			}
+		}
+
+		if (_vscrollButton._mouseDown)
+		{
+			if (!_children.empty())
+			{
+				_vscroll += static_cast<float32>(iMouse::getInstance().getPosDelta()._y) / static_cast<float32>(calcVerticalScrollSpace() - _vscrollButton._rectangle._height);
+				if (_vscroll < 0.0f)
+				{
+					_vscroll = 0.0f;
+				}
+
+				if (_vscroll > 1.0f)
+				{
+					_vscroll = 1.0f;
+				}
+			}
+		}
+
 		if (pos._x >= _absoluteX &&
 			pos._x < _absoluteX + _actualWidth &&
 			pos._y >= _absoluteY &&
@@ -229,6 +299,34 @@ namespace Igor
 			}
 
 			_isMouseOver = true;
+
+			if(!_hscrollButton._mouseDown)
+			{
+				if (iIntersection::intersects(pos, _hscrollButton._rectangle))
+				{
+					_hscrollButton._appearanceState = iWidgetAppearanceState::Highlighted;
+					_hscrollButton._mouseOver = true;
+				}
+				else
+				{
+					_hscrollButton._appearanceState = iWidgetAppearanceState::Standby;
+					_hscrollButton._mouseOver = false;
+				}
+			}
+
+			if(!_vscrollButton._mouseDown)
+			{
+				if (iIntersection::intersects(pos, _vscrollButton._rectangle))
+				{
+					_vscrollButton._appearanceState = iWidgetAppearanceState::Highlighted;
+					_vscrollButton._mouseOver = true;
+				}
+				else
+				{
+					_vscrollButton._appearanceState = iWidgetAppearanceState::Standby;
+					_vscrollButton._mouseOver = false;
+				}
+			}
 
 			if (iIntersection::intersects(pos, _leftButton._rectangle))
 			{
@@ -294,7 +392,6 @@ namespace Igor
 
 			_isMouseOver = false;
 		}
-
 	}
 
 	void iWidgetScroll::setHorizontalScroll(float32 value)
@@ -376,8 +473,6 @@ namespace Igor
 
 	void iWidgetScroll::calcButtons()
 	{
-		int32 scrollspace;
-
 		iWidget* widget = _children[0];
 
 		int32 childWidth = widget->getActualWidth();
@@ -385,15 +480,7 @@ namespace Igor
 
 		if (_vscrollActive) // v scrollbar
 		{
-			// v scroll button
-			if (_hscrollActive)
-			{
-				scrollspace = getActualHeight() - 6 - _scrollbarWidth * 3;
-			}
-			else
-			{
-				scrollspace = getActualHeight() - 6 - _scrollbarWidth * 2;
-			}
+			int32 scrollspace = calcVerticalScrollSpace();
 
 			_vscrollButton._rectangle.setHeight(static_cast<int32>((static_cast<float32>(getActualHeight()) / static_cast<float32>(childHeight)) * static_cast<float32>(scrollspace)));
 			_vscrollButton._rectangle.setX(getActualPosX() + getActualWidth() - _scrollbarWidth - 2);
@@ -403,15 +490,7 @@ namespace Igor
 
 		if (_hscrollActive) // h scrollbar
 		{
-			// h scroll button
-			if (_vscrollActive)
-			{
-				scrollspace = getActualWidth() - 6 - _scrollbarWidth * 3;
-			}
-			else
-			{
-				scrollspace = getActualWidth() - 6 - _scrollbarWidth * 2;
-			}
+			int32 scrollspace = calcHorizontalScrollSpace();
 
 			_hscrollButton._rectangle.setWidth(static_cast<int32>((static_cast<float32>(getActualWidth()) / static_cast<float32>(childWidth)) * static_cast<float32>(scrollspace)));
 			_hscrollButton._rectangle.setX(getActualPosX() + static_cast<int32>(static_cast<float32>(scrollspace - _hscrollButton._rectangle.getWidth()) * _hscroll + 4.0f + static_cast<float32>(_scrollbarWidth)));
@@ -434,6 +513,30 @@ namespace Igor
 		else if (_vscrollActive)
 		{
 			_downButton._rectangle.set(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + getActualHeight() - 2 - _scrollbarWidth, _scrollbarWidth, _scrollbarWidth);
+		}
+	}
+
+	int32 iWidgetScroll::calcHorizontalScrollSpace() const
+	{
+		if (_vscrollActive)
+		{
+			return getActualWidth() - 6 - _scrollbarWidth * 3;
+		}
+		else
+		{
+			return getActualWidth() - 6 - _scrollbarWidth * 2;
+		}
+	}
+
+	int32 iWidgetScroll::calcVerticalScrollSpace() const
+	{
+		if (_hscrollActive)
+		{
+			return getActualHeight() - 6 - _scrollbarWidth * 3;
+		}
+		else
+		{
+			return getActualHeight() - 6 - _scrollbarWidth * 2;
 		}
 	}
 

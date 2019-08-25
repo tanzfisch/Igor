@@ -93,6 +93,10 @@ namespace Igor
 			/*! button mouse over state
 			*/
 			bool _mouseOver = false;
+
+			/*! if true the button is kept pressed
+			*/
+			bool _mouseDown = false;
 		};
 
 		/*! scroll bar width
@@ -188,6 +192,14 @@ namespace Igor
 		/*! calculate position and size of scroll buttons
 		*/
 		void calcButtons();
+
+		/*! \returns the space in which the vertical slider button can be moved
+		*/
+		int32 calcVerticalScrollSpace() const;
+
+		/*! \returns the space in which the horizontal slider button can be moved
+		*/
+		int32 calcHorizontalScrollSpace() const;
 
 		/*! calc child frame
 
