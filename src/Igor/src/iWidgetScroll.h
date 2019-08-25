@@ -30,6 +30,7 @@
 #define __iWIDGETSCROLL__
 
 #include <iWidget.h>
+#include <iTexture.h>
 
 #include <iaMatrix.h>
 using namespace IgorAux;
@@ -147,6 +148,22 @@ namespace Igor
 		*/
 		iRectanglei _childFrame;
 
+		/*! texture for button up 
+		*/
+		iTexturePtr _upTexture;
+
+		/*! texture for button down
+		*/
+		iTexturePtr _downTexture;
+
+		/*! texture for button left
+		*/
+		iTexturePtr _leftTexture;
+
+		/*! texture for button uright
+		*/
+		iTexturePtr _rightTexture;
+
 		/*! handles incomming mouse wheel event
 
 		\param d mouse wheel delta
@@ -166,6 +183,11 @@ namespace Igor
 		\returns true: if event was consumed and therefore ignored by the parent
 		*/
 		bool handleMouseKeyDown(iKeyCode key) override;
+
+		/*! handles internal button clicks
+		\return true if click was consumed
+		*/
+		bool handleButtonClicks();
 
 		/*! handles mouse key up events
 
