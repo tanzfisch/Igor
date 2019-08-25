@@ -47,12 +47,6 @@ namespace Igor
     iaEVENT(iColorGradientColorCreatedEvent, iColorGradientColorCreatedDelegate, void, (float32 at, const iaColor4f& color), (at, color));
 
     /*! color view widget
-
-    \todo highlight selection
-
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
     */
 	class Igor_API iWidgetColorGradient : public iWidget
 	{

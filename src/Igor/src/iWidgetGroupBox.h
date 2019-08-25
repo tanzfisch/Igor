@@ -42,9 +42,6 @@ namespace Igor
 	/*! group box widget
 
 	\todo collapsable group box would be nice/interessting
-
-	Example:
-	\ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
 	*/
 	class Igor_API iWidgetGroupBox : public iWidget
 	{

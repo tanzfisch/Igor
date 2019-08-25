@@ -38,12 +38,6 @@ namespace Igor
 {
 
 	/*! label widget
-
-	Example:
-	\ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
-	\bug vertical alignment does not look right
-
 	*/
 	class Igor_API iWidgetLabel : public iWidget
 	{

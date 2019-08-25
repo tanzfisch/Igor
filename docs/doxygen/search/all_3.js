@@ -37,7 +37,7 @@ var searchData=
   ['addvertex',['addVertex',['../class_igor_1_1i_mesh_builder.html#ae132784ebd5a29f57ff13f2e242ca50b',1,'Igor::iMeshBuilder::addVertex(const iaVector3f &amp;vertex)'],['../class_igor_1_1i_mesh_builder.html#a705a3e715c742c204b274a6752b02c30',1,'Igor::iMeshBuilder::addVertex(const iaVector4f &amp;vertex)']]],
   ['addview',['addView',['../class_igor_1_1i_window.html#a5de96f4c9d4896ff7aff48804ec6c756',1,'Igor::iWindow']]],
   ['addwidget',['addWidget',['../class_igor_1_1i_widget.html#a5a2b456163b1592606d8ce5e075166e3',1,'Igor::iWidget::addWidget(iWidget *widget)'],['../class_igor_1_1i_widget.html#aa1dbc4188be9fec7861c5bc66bec5b84',1,'Igor::iWidget::addWidget(uint64 id)'],['../class_igor_1_1i_widget_grid.html#a764137d148d8977d459c6ea0635eadeb',1,'Igor::iWidgetGrid::addWidget(iWidget *widget)'],['../class_igor_1_1i_widget_grid.html#a71ec37f12c277c2a3782cff83b950c81',1,'Igor::iWidgetGrid::addWidget(iWidget *widget, int32 col, int32 row, void *userData=nullptr)']]],
-  ['adjust',['adjust',['../class_igor_1_1i_rectangle.html#a1194e43d312a44ed06c5da2e1f2c3748',1,'Igor::iRectangle']]],
+  ['adjust',['adjust',['../class_igor_1_1i_rectangle.html#a22e04db99ff1deb24525697aeebea2ce',1,'Igor::iRectangle']]],
   ['al_5fcheck_5ferror',['AL_CHECK_ERROR',['../i_sound_resource_factory_8cpp.html#ae3250642376b4be58c369389444d3390',1,'iSoundResourceFactory.cpp']]],
   ['all',['All',['../namespace_igor.html#a43197990e5686f09dd3845067aafaf5dab1c94ca2fbc3e78fc30069c8d0f01680',1,'Igor']]],
   ['allocmemory',['AllocMemory',['../namespace_igor.html#a2682d455e2d203741c74d1a7d4ff626d',1,'Igor']]],

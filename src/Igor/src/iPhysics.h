@@ -65,9 +65,6 @@ namespace Igor
 
     /*! wrapper for newton game dynamics
 
-    Examples:
-    \ref Physics/src/PhysicsExample.cpp "Physics usage example"
-
     \todo way to many friends
     \todo update Omega of bodys ???
     */

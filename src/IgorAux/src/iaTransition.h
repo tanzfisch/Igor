@@ -43,9 +43,6 @@ namespace IgorAux
     /*! transition beween two states
 
     both states are alowed to be the same. than reEnter() will be triggered
-
-    Example:
-    \ref StateMachine/src/StateMachineExample.cpp "StateMachine usage example"
     */
     class IgorAux_API iaTransition
     {

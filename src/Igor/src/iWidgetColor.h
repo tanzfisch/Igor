@@ -42,10 +42,6 @@ namespace Igor
 {
 	
     /*! color view widget
-
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
     */
 	class Igor_API iWidgetColor : public iWidget
 	{

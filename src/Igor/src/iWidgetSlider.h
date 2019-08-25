@@ -41,13 +41,6 @@ namespace Igor
 {
 
 	/*! button widget
-
-	\todo non linear slider would be nice e.g. logarithmic for setting shininess in phong shading
-	\todo would be nice to also have vertical sliders
-
-	Example:
-	\ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
 	*/
 	class Igor_API iWidgetSlider : public iWidget
 	{

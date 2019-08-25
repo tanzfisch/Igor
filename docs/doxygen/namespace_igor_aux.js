@@ -12,7 +12,7 @@ var namespace_igor_aux =
     [ "iaGradient", "class_igor_aux_1_1ia_gradient.html", "class_igor_aux_1_1ia_gradient" ],
     [ "iaIDGenerator", "class_igor_aux_1_1ia_i_d_generator.html", "class_igor_aux_1_1ia_i_d_generator" ],
     [ "iaMatrix", "class_igor_aux_1_1ia_matrix.html", "class_igor_aux_1_1ia_matrix" ],
-    [ "iaMatrix3x3", "class_igor_aux_1_1ia_matrix3x3.html", "class_igor_aux_1_1ia_matrix3x3" ],
+    [ "iaMatrix2D", "class_igor_aux_1_1ia_matrix2_d.html", "class_igor_aux_1_1ia_matrix2_d" ],
     [ "iaMemBlock", "class_igor_aux_1_1ia_mem_block.html", "class_igor_aux_1_1ia_mem_block" ],
     [ "iaMemBlockControl", "class_igor_aux_1_1ia_mem_block_control.html", "class_igor_aux_1_1ia_mem_block_control" ],
     [ "iaMutex", "class_igor_aux_1_1ia_mutex.html", "class_igor_aux_1_1ia_mutex" ],
