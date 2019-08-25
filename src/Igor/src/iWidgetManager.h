@@ -50,14 +50,6 @@ namespace Igor
     iaDELEGATE(iInstanciateDialogDelegate, iDialog*, (), ());
 
     /*! manages the widgets in use and is a singleton
-
-    is also a factory that creates and destroys all the widgets
-
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
-    \todo switch from delegates to function pointers for instance creation
-
     */
 	class Igor_API iWidgetManager : public iaSingleton<iWidgetManager>
 	{

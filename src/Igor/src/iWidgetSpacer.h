@@ -38,10 +38,6 @@ namespace Igor
 {
 
 	/*! spacer widget
-
-	Example:
-	\ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
 	*/
 	class Igor_API iWidgetSpacer : public iWidget
 	{

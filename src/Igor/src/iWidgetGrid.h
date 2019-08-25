@@ -50,10 +50,6 @@ namespace Igor
 
     /*!
     \todo cols und rows dynamisch anpassen
-
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
     */
     class Igor_API iWidgetGrid : public iWidget
     {

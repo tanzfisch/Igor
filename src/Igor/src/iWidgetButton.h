@@ -42,10 +42,6 @@ namespace Igor
 {
 
     /*! button widget
-
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
     */
 	class Igor_API iWidgetButton : public iWidget
 	{

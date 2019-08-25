@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.22.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.23.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -237,8 +237,8 @@ class IgorAux::iaMatrix&lt; T &gt;</h3>
 <p>right handed 4x4 Matrix</p>
 <p>data by name</p>
 <p>_right._x | _top._x | _depth._x | _pos.x _right._y | _top._y | _depth._y | _pos.y _right._z | _top._z | _depth._z | _pos.z _w0 | _w1 | _w2 | _w3</p>
-<p>by index</p>
-<p>0 | 4 | 8 | 12 1 | 5 | 9 | 13 2 | 6 | 10| 14 3 | 7 | 11| 15</p>
+<p>data by index (index equals to position in memory)</p>
+<p>0 | 4 | 8 | 12 1 | 5 | 9 | 13 2 | 6 | 10 | 14 3 | 7 | 11 | 15</p>
 <p>corresponds to</p>
 <p>0,0 | 1,0 | 2,0 | 3,0 0,1 | 1,1 | 2,1 | 3,1 0,2 | 1,2 | 2,2 | 3,2 0,3 | 1,3 | 2,3 | 3,3</p>
 <p>shear</p>
@@ -333,7 +333,7 @@ template&lt;class T2 &gt; </div>
       </table>
 </div><div class="memdoc">
 <p>converts the vector in to given type of vector</p>
-<dl class="section return"><dt>Returns</dt><dd>vector for given type </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>matrix for given type </dd></dl>
 
 </div>
 </div>
@@ -1133,6 +1133,17 @@ template&lt;class T&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>recompose the matrix from it's components</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scale</td><td>scale component </td></tr>
+    <tr><td class="paramname">orientation</td><td>the orientation </td></tr>
+    <tr><td class="paramname">translate</td><td>the translation component </td></tr>
+    <tr><td class="paramname">shear</td><td>the shear component </td></tr>
+    <tr><td class="paramname">perspective</td><td>the perspective component </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1521,7 +1532,7 @@ template&lt;class T&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>internal data </p>
+<p>internal data</p>
 
 </div>
 </div>
@@ -1596,8 +1607,8 @@ template&lt;class T&gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/Igor/src/IgorAux/src/<a class="el" href="ia_matrix_8h.html">iaMatrix.h</a></li>
-<li>C:/dev/Igor/Igor/src/IgorAux/src/<a class="el" href="ia_matrix_8inl.html">iaMatrix.inl</a></li>
+<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_matrix_8h.html">iaMatrix.h</a></li>
+<li>C:/dev/Igor/src/IgorAux/src/<a class="el" href="ia_matrix_8inl.html">iaMatrix.inl</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

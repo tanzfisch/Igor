@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.22.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.23.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -221,7 +221,7 @@ $(document).ready(function(){initNavTree('functions_func_d.html','');});
 : <a class="el" href="class_igor_1_1i_physics.html#a14201cb89e66b399f5c3f3b604db55d8">Igor::iPhysics</a>
 </li>
 <li>determinant()
-: <a class="el" href="class_igor_aux_1_1ia_matrix3x3.html#a74b497d0325a8e6ca4ba6439a80f18bb">IgorAux::iaMatrix3x3&lt; T &gt;</a>
+: <a class="el" href="class_igor_aux_1_1ia_matrix2_d.html#a841fd0274304688a46dfd9c5662f370b">IgorAux::iaMatrix2D&lt; T &gt;</a>
 , <a class="el" href="class_igor_aux_1_1ia_matrix.html#ac23ffdf05fa6a30634115b86fdf1b9dc">IgorAux::iaMatrix&lt; T &gt;</a>
 </li>
 <li>determinant3x3()
@@ -287,7 +287,7 @@ $(document).ready(function(){initNavTree('functions_func_d.html','');});
 </li>
 <li>drawFilledRectangle()
 : <a class="el" href="class_igor_1_1i_widget_base_theme.html#a8fbac93d6ef94ec7e476ff82620da6ac">Igor::iWidgetBaseTheme</a>
-, <a class="el" href="class_igor_1_1i_widget_default_theme.html#a0a51bfe5cd4a34189f4b64380ce9f83b">Igor::iWidgetDefaultTheme</a>
+, <a class="el" href="class_igor_1_1i_widget_default_theme.html#a65a17dfd650c4b4dcbef80c9df33e0c6">Igor::iWidgetDefaultTheme</a>
 </li>
 <li>drawFrame()
 : <a class="el" href="class_igor_1_1i_widget_base_theme.html#a7801b0eb3f7dc0727e8b7b9b65899072">Igor::iWidgetBaseTheme</a>
@@ -334,13 +334,13 @@ $(document).ready(function(){initNavTree('functions_func_d.html','');});
 , <a class="el" href="class_igor_1_1i_widget_default_theme.html#a4b964e53a9a50f8a3dfc920fbfdf0c39">Igor::iWidgetDefaultTheme</a>
 </li>
 <li>drawLine()
-: <a class="el" href="class_igor_1_1i_renderer.html#a404fd654daf76ab4aa3994e2834d62a1">Igor::iRenderer</a>
+: <a class="el" href="class_igor_1_1i_renderer.html#a35b037717c29e2909652b24195308d00">Igor::iRenderer</a>
 </li>
 <li>drawLineStrip()
 : <a class="el" href="class_igor_1_1i_renderer.html#a7f2de4eed52b51c1d65f4adb335acb9d">Igor::iRenderer</a>
 </li>
 <li>drawMesh()
-: <a class="el" href="class_igor_1_1i_renderer.html#a7a5ab586da4ca2878eebcb3a242832cc">Igor::iRenderer</a>
+: <a class="el" href="class_igor_1_1i_renderer.html#ab3331d238a76973a8e1f77d2da5c9af7">Igor::iRenderer</a>
 </li>
 <li>drawNumberChooser()
 : <a class="el" href="class_igor_1_1i_widget_base_theme.html#a8e089dc4394a89231a100ab555414b43">Igor::iWidgetBaseTheme</a>
@@ -358,7 +358,7 @@ $(document).ready(function(){initNavTree('functions_func_d.html','');});
 </li>
 <li>drawRectangle()
 : <a class="el" href="class_igor_1_1i_renderer.html#a2fa63efb0bf195ea0eff10b2f646979d">Igor::iRenderer</a>
-, <a class="el" href="class_igor_1_1i_widget_base_theme.html#ac7f24b138dfe94991137fac1fcfb7c5c">Igor::iWidgetBaseTheme</a>
+, <a class="el" href="class_igor_1_1i_widget_base_theme.html#a9620cdb0cd141b7561931f6e545c979b">Igor::iWidgetBaseTheme</a>
 , <a class="el" href="class_igor_1_1i_widget_default_theme.html#a02bb1ba87dddc6c003168c340a0ba686">Igor::iWidgetDefaultTheme</a>
 </li>
 <li>drawSelectBox()
@@ -374,7 +374,7 @@ $(document).ready(function(){initNavTree('functions_func_d.html','');});
 , <a class="el" href="class_igor_1_1i_widget_default_theme.html#a521bc2270ed9acc5af19426581937331">Igor::iWidgetDefaultTheme</a>
 </li>
 <li>drawString()
-: <a class="el" href="class_igor_1_1i_renderer.html#a3d0f4d7ec7c14b35e10969d8936c2e5f">Igor::iRenderer</a>
+: <a class="el" href="class_igor_1_1i_renderer.html#a2374cd386417d4c1fe40e9ce81df4bfd">Igor::iRenderer</a>
 </li>
 <li>drawText()
 : <a class="el" href="class_igor_1_1i_widget_base_theme.html#a95efb80441c7efad494c8d977b60688d">Igor::iWidgetBaseTheme</a>
@@ -403,12 +403,33 @@ $(document).ready(function(){initNavTree('functions_func_d.html','');});
 </li>
 <li>identity()
 : <a class="el" href="class_igor_1_1i_node_transform.html#aa6eafa4e6a19eae9880a62626f8e40c3">Igor::iNodeTransform</a>
-, <a class="el" href="class_igor_aux_1_1ia_matrix3x3.html#ab697326ad3e974c92f18e77825d36b4d">IgorAux::iaMatrix3x3&lt; T &gt;</a>
+, <a class="el" href="class_igor_aux_1_1ia_matrix2_d.html#ab634c3922c3cd2cdbcdc30b2ce817fdc">IgorAux::iaMatrix2D&lt; T &gt;</a>
 , <a class="el" href="class_igor_aux_1_1ia_matrix.html#ad4c84d3532d5b7555a04018ffcba6122">IgorAux::iaMatrix&lt; T &gt;</a>
 , <a class="el" href="class_igor_aux_1_1ia_quaternion.html#ac4ce26a50b5b85303bf008c98a879f23">IgorAux::iaQuaternion&lt; T &gt;</a>
 </li>
 <li>iDialog()
 : <a class="el" href="class_igor_1_1i_dialog.html#aa7c48c9a7e71391f2965fcae7ef02152">Igor::iDialog</a>
+</li>
+<li>iDialogColorChooser()
+: <a class="el" href="class_igor_1_1i_dialog_color_chooser.html#affeea7a8f232d1d1a216ce84d67dd6a8">Igor::iDialogColorChooser</a>
+</li>
+<li>iDialogColorGradient()
+: <a class="el" href="class_igor_1_1i_dialog_color_gradient.html#ac2dc39c8b994de8bc69152a55b846cef">Igor::iDialogColorGradient</a>
+</li>
+<li>iDialogDecisionBox()
+: <a class="el" href="class_igor_1_1i_dialog_decision_box.html#aab9a09bce5317f878ce6d595c4e0c7a2">Igor::iDialogDecisionBox</a>
+</li>
+<li>iDialogFileSelect()
+: <a class="el" href="class_igor_1_1i_dialog_file_select.html#a6fa986b6c254ba9b5deefd32d38faf59">Igor::iDialogFileSelect</a>
+</li>
+<li>iDialogGraph()
+: <a class="el" href="class_igor_1_1i_dialog_graph.html#af8e66c6e7f08cc4963fd4fe2ad1c66bd">Igor::iDialogGraph</a>
+</li>
+<li>iDialogMenu()
+: <a class="el" href="class_igor_1_1i_dialog_menu.html#accd4961e5531328cf31e731b56d2f1c3">Igor::iDialogMenu</a>
+</li>
+<li>iDialogMessageBox()
+: <a class="el" href="class_igor_1_1i_dialog_message_box.html#a21c5c6a6c77e4abe9523b1aaab479de1">Igor::iDialogMessageBox</a>
 </li>
 </ul>
 </div><!-- contents -->

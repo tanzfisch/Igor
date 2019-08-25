@@ -20,7 +20,7 @@ var hierarchy =
     [ "IgorAux::iaGradient< T >", "class_igor_aux_1_1ia_gradient.html", null ],
     [ "IgorAux::iaIDGenerator< T >", "class_igor_aux_1_1ia_i_d_generator.html", null ],
     [ "IgorAux::iaMatrix< T >", "class_igor_aux_1_1ia_matrix.html", null ],
-    [ "IgorAux::iaMatrix3x3< T >", "class_igor_aux_1_1ia_matrix3x3.html", null ],
+    [ "IgorAux::iaMatrix2D< T >", "class_igor_aux_1_1ia_matrix2_d.html", null ],
     [ "IgorAux::iaMemBlock", "class_igor_aux_1_1ia_mem_block.html", null ],
     [ "IgorAux::iaMemBlockControl", "class_igor_aux_1_1ia_mem_block_control.html", null ],
     [ "IgorAux::iaMutex", "class_igor_aux_1_1ia_mutex.html", null ],

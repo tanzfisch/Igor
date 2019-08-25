@@ -107,9 +107,6 @@ namespace Igor
 
 	coordinatesystems origin within widgets is the upper left corner with x positive to the right and y positive down
 
-	Example:
-	\ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
 	\todo to many friends
 	\todo fix one click and double click handling
 	\todo maybe we should have a widget base class on top so we can treat widgets usercontrols and dialogs more equaly

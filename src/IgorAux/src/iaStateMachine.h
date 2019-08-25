@@ -43,10 +43,6 @@ namespace IgorAux
     class iaTransition;
 
     /*! generall state machine with only one specialisation "render()"
-
-    Example:
-    \ref StateMachine/src/StateMachineExample.cpp "StateMachine usage example"
-
     */
     class IgorAux_API iaStateMachine
     {

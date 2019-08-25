@@ -38,9 +38,6 @@ namespace Igor
 
     /*! dialog widget
 
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
     \todo need more than one apperance type of dialogs e.g. for iWidgetSelectBox
 
     */

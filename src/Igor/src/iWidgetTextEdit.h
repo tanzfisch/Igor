@@ -35,10 +35,6 @@ namespace Igor
 {
 
 	/*! text edit widget
-
-	Example:
-	\ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
 	*/
 	class Igor_API iWidgetTextEdit : public iWidget
 	{

@@ -1,5 +1,7 @@
 var class_igor_1_1i_widget_graph =
 [
+    [ "iWidgetGraph", "class_igor_1_1i_widget_graph.html#a16075d2acb6f794a8b69fcfb3d32873e", null ],
+    [ "~iWidgetGraph", "class_igor_1_1i_widget_graph.html#ad96a694d076d50d9f9797ef6a38a2056", null ],
     [ "clearPoints", "class_igor_1_1i_widget_graph.html#a370e173feb44d7ebe3c1159391b74d90", null ],
     [ "getBoundings", "class_igor_1_1i_widget_graph.html#a97d102d2fdd37e843cca0e2b7126909b", null ],
     [ "getExtrapolateData", "class_igor_1_1i_widget_graph.html#af30d61e6eb137050b147e7d4d5e21c50", null ],
@@ -26,6 +28,5 @@ var class_igor_1_1i_widget_graph =
     [ "setPointSize", "class_igor_1_1i_widget_graph.html#ad69efb80bb23c3bf52207724b4527dfb", null ],
     [ "setUseBoundings", "class_igor_1_1i_widget_graph.html#ac2046b7eceed903fc629e6ff999d6640", null ],
     [ "setViewGrid", "class_igor_1_1i_widget_graph.html#a830c15b98b0e57500b5177fde881e107", null ],
-    [ "setViewLabels", "class_igor_1_1i_widget_graph.html#a6e04d59d64f305c5ec8cfdf3a7578f47", null ],
-    [ "iWidgetManager", "class_igor_1_1i_widget_graph.html#a9da20b1c56a70b01ca0ef56f4d4d47fc", null ]
+    [ "setViewLabels", "class_igor_1_1i_widget_graph.html#a6e04d59d64f305c5ec8cfdf3a7578f47", null ]
 ];

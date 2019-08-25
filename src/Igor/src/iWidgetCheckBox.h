@@ -40,10 +40,6 @@ namespace Igor
 	class iTextureFont;
 
     /*! check box widget
-
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
     */
 	class Igor_API iWidgetCheckBox : public iWidget
 	{
