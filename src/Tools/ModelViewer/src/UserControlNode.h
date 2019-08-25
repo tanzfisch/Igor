@@ -52,7 +52,8 @@ class UserControlNode : public iUserControl
 {
 public:
 
-	static iWidget* createInstance();
+	UserControlNode();
+	~UserControlNode() = default;
 	
     void setNode(uint32 id);
     uint32 getNode();
@@ -79,8 +80,7 @@ private:
 
     void initGUI();
 
-	UserControlNode();
-	~UserControlNode() = default;
+
 
 };
 

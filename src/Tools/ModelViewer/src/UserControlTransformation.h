@@ -52,7 +52,9 @@ class UserControlTransformation : public iUserControl
 {
 public:
 
-	static iWidget* createInstance();
+
+	UserControlTransformation();
+	~UserControlTransformation();
 
     void setNode(uint32 id);
     uint32 getNode();
@@ -79,8 +81,6 @@ private:
     void initGUI();
     void deinitGUI();
 
-	UserControlTransformation();
-	~UserControlTransformation();
 
 };
 

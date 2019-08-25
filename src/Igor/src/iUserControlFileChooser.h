@@ -40,138 +40,132 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    class iWidgetGrid;
-    class iWidgetLabel;
-    class iWidgetTextEdit;
-    class iWidgetButton;
-    class iWidgetSpacer;
-    class iWidgetColor;
-    class iWidgetSlider;
-    class iWidgetNumberChooser;
-    
-    class Igor_API iUserControlFileChooser : public iUserControl
-    {
+	class iWidgetGrid;
+	class iWidgetLabel;
+	class iWidgetTextEdit;
+	class iWidgetButton;
+	class iWidgetSpacer;
+	class iWidgetColor;
+	class iWidgetSlider;
+	class iWidgetNumberChooser;
 
-        friend class iWidgetManager;
+	class Igor_API iUserControlFileChooser : public iUserControl
+	{
 
-    public:
+	public:
 
-        /*! sets the filename
+		/*! ctor initializes member variables
+		*/
+		iUserControlFileChooser();
 
-        \param filename the filename
-        */
-        void setFileName(const iaString& filename);
+		/*! clean up
+		*/
+		~iUserControlFileChooser();
 
-        /*! \returns the filename
-        */
-        const iaString& getFileName() const;
+		/*! sets the filename
 
-        /*! sets path where the file dialog should start from
+		\param filename the filename
+		*/
+		void setFileName(const iaString& filename);
 
-        \param path the path to start the file dialog from
-        */
-        void setPreselectedPath(const iaString& path);
+		/*! \returns the filename
+		*/
+		const iaString& getFileName() const;
 
-        /*! \returns the path where the file dialog starts from
-        */
-        const iaString& getPreselectedPath() const;
+		/*! sets path where the file dialog should start from
 
-        /*! register on filename change event
+		\param path the path to start the file dialog from
+		*/
+		void setPreselectedPath(const iaString& path);
 
-        \param changeDelegate the delegate to register
-        */
-        void registerOnChangedDelegate(iChangeDelegate changeDelegate);
+		/*! \returns the path where the file dialog starts from
+		*/
+		const iaString& getPreselectedPath() const;
 
-        /*! unregister from filename change event
+		/*! register on filename change event
 
-        \param changeDelegate the delegate to unregister
-        */
-        void unregisterOnChangedDelegate(iChangeDelegate changeDelegate);
+		\param changeDelegate the delegate to register
+		*/
+		void registerOnChangedDelegate(iChangeDelegate changeDelegate);
 
-        /*! sets where the path comming from the file dialog will be optimized or not
+		/*! unregister from filename change event
 
-        optimized means in this case to make it a relative path to one of the search paths defined in iResourceManager
+		\param changeDelegate the delegate to unregister
+		*/
+		void unregisterOnChangedDelegate(iChangeDelegate changeDelegate);
 
-        \param optimizePath if true path will be optmimized
-        */
-        void setOptimizePath(bool optimizePath = true);
+		/*! sets where the path comming from the file dialog will be optimized or not
 
-        /*! \returns true if the path optimization is on
-        */
-        bool getOptimizePath() const;
+		optimized means in this case to make it a relative path to one of the search paths defined in iResourceManager
 
-    private:
+		\param optimizePath if true path will be optmimized
+		*/
+		void setOptimizePath(bool optimizePath = true);
 
-        /*! the preselected path where the file dialog starts from
-        */
-        iaString _preselectedPath;
+		/*! \returns true if the path optimization is on
+		*/
+		bool getOptimizePath() const;
 
-        /*! flag if selected path should be optimized
-        */
-        bool _optimizePath = true;
+	private:
 
-        /*! filename changed event
-        */
-        iChangeEvent _fileNameChanged;
+		/*! the preselected path where the file dialog starts from
+		*/
+		iaString _preselectedPath;
 
-        /*! root widget
-        */
-        iWidgetGrid* _grid = nullptr;
-        
-        /*! text edit field for filename
-        */
-        iWidgetTextEdit* _fileNameTextEdit = nullptr;
+		/*! flag if selected path should be optimized
+		*/
+		bool _optimizePath = true;
 
-        /*! button for opening the file dialog
-        */
-        iWidgetButton* _fileSelectButton = nullptr;
+		/*! filename changed event
+		*/
+		iChangeEvent _fileNameChanged;
 
-        /*! file dialog used to select files
-        */
-        iDialogFileSelect* _fileDialog = nullptr;
+		/*! root widget
+		*/
+		iWidgetGrid* _grid = nullptr;
 
-        /*! store all created widgets here so we can clean up easily
-        */
-        std::vector<iWidget*> _allWidgets;
+		/*! text edit field for filename
+		*/
+		iWidgetTextEdit* _fileNameTextEdit = nullptr;
 
-        /*! called after file dialog is closed
+		/*! button for opening the file dialog
+		*/
+		iWidgetButton* _fileSelectButton = nullptr;
 
-        \param fileDialogReturnValue returns value of file dialog
-        */
-        void onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
+		/*! file dialog used to select files
+		*/
+		iDialogFileSelect* _fileDialog = nullptr;
 
-        /*! called when text box's content changed
+		/*! store all created widgets here so we can clean up easily
+		*/
+		std::vector<iWidget*> _allWidgets;
 
-        \param source the source of the event
-        */
-        void onTextChanged(iWidget* source);
+		/*! called after file dialog is closed
 
-        /*! called when button was pressed
+		\param fileDialogReturnValue returns value of file dialog
+		*/
+		void onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
 
-        \param source the source of the event
-        */
-        void onFileSelectButtonPressed(iWidget* source);
+		/*! called when text box's content changed
 
-        /*! initialize gui elements
-        */
-        void initGUI();
+		\param source the source of the event
+		*/
+		void onTextChanged(iWidget* source);
 
-        /*! release resources
-        */
-        void deinitGUI();
+		/*! called when button was pressed
 
-        /*! ctor initializes member variables
-        */
-        iUserControlFileChooser();
+		\param source the source of the event
+		*/
+		void onFileSelectButtonPressed(iWidget* source);
 
-        /*! clean up
-        */
-        ~iUserControlFileChooser();
+		/*! initialize gui elements
+		*/
+		void initGUI();
 
-        /*! creates instance of this widget type
-        */
-        static iWidget* createInstance();
+		/*! release resources
+		*/
+		void deinitGUI();
 
-    };
+	};
 }
 #endif

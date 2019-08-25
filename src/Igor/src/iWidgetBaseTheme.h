@@ -47,10 +47,6 @@ namespace Igor
 
 	\todo need to make a better concept for this interface
 	\todo replace const iRectanglei& rect with iRectanglei
-
-	Example:
-	\ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
 	*/
 	class Igor_API iWidgetBaseTheme
 	{

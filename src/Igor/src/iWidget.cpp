@@ -19,10 +19,14 @@ namespace Igor
 	iWidget::iWidget()
 	{
 		_id = _nextID++;
+
+		iWidgetManager::getInstance().registerWidget(this);
 	}
 
 	iWidget::~iWidget()
 	{
+		iWidgetManager::getInstance().unregisterWidget(this);
+
 		if (hasKeyboardFocus())
 		{
 			_keyboardFocus = nullptr;

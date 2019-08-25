@@ -55,7 +55,8 @@ class UserControlMaterialView : public iUserControl
 {
 public:
 
-	static iWidget* createInstance();
+	UserControlMaterialView();
+	~UserControlMaterialView() = default;
 
     void refresh();
 
@@ -84,9 +85,6 @@ private:
     void OnSelectionChange(iWidget* widget);
 
     void onAddMaterial(iWidget* source);
-
-	UserControlMaterialView();
-	~UserControlMaterialView() = default;
 
 };
 

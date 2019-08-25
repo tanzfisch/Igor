@@ -50,18 +50,10 @@ namespace Igor
 
     /*!
     \todo cols und rows dynamisch anpassen
-
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
     */
     class Igor_API iWidgetGrid : public iWidget
     {
-
-        /*! needs to be friend because it's the factory that creates this widget
-        */
-        friend class iWidgetManager;
-
+		
         /*! internal helper struct that represents a child widget and it's position
         */
         struct Field
@@ -111,6 +103,14 @@ namespace Igor
         };
 
     public:
+
+		/*! ctor initializes member variables
+		*/
+		iWidgetGrid();
+
+		/*! does nothing
+		*/
+		~iWidgetGrid() = default;
 
         /*! appends rows at the bottom of the grid
 
@@ -365,18 +365,6 @@ namespace Igor
         \param offsets vector to be filled with childrens offsets
         */
         void calcChildOffsets(std::vector<iRectanglei>& offsets);
-
-        /*! ctor initializes member variables
-        */
-        iWidgetGrid();
-
-        /*! does nothing
-        */
-        ~iWidgetGrid() = default;
-
-        /*! creates instance of this widget type
-        */
-        static iWidget* createInstance();
 
     };
 }

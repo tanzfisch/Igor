@@ -167,7 +167,7 @@ private:
 
     iNodeSwitch* _switchNode = nullptr;
 
-    iNodePtr _locatorModifier = nullptr;
+    iNodePtr _transformRepresentation = nullptr;
     iNodePtr _translateModifier = nullptr;
     iNodePtr _scaleModifier = nullptr;
     iNodePtr _roateModifier = nullptr;
@@ -187,6 +187,7 @@ private:
 	iMeshPtr createCube();
     iMeshPtr createRingMesh();
     iMeshPtr create2DRingMesh();
+	iMeshPtr createCylinder();
 
     /*! update internal structure
     */
@@ -212,7 +213,8 @@ private:
 
     void createTranslateModifier(iMeshPtr &translateMesh);
     void createScaleModifier(iMeshPtr &scaleMesh);
-    void createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D);
+    void createRotateModifier(iMeshPtr &ringMesh, iMeshPtr &ringMesh2D, iMeshPtr& cylinder);
+	void createTransformRepresentation(iMeshPtr& cylinder);
 
 };
 

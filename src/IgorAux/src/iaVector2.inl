@@ -10,19 +10,19 @@ __IGOR_INLINE__ std::wostream& operator<<(std::wostream &ostr, const iaVector2<T
 }
 
 template <class T>
-T& iaVector2<T>::operator[] (int index)
+T& iaVector2<T>::operator[](int index)
 {
     return (&_x)[index];
 }
 
 template <class T>
-const T& iaVector2<T>::operator[] (int index) const
+const T& iaVector2<T>::operator[](int index) const
 {
     return (&_x)[index];
 }
 
 template <class T>
-iaVector2<T> iaVector2<T>::operator+  (const iaVector2<T> &vec) const
+iaVector2<T> iaVector2<T>::operator+(const iaVector2<T> &vec) const
 {
     iaVector2<T> result;
     result._x = _x + vec._x;
@@ -32,26 +32,26 @@ iaVector2<T> iaVector2<T>::operator+  (const iaVector2<T> &vec) const
 }
 
 template <class T>
-bool iaVector2<T>::operator == (const iaVector2<T> &vec) const
+bool iaVector2<T>::operator==(const iaVector2<T> &vec) const
 {
     return ((_x == vec._x) && (_y == vec._y)) ? true : false;
 }
 
 template <class T>
-bool iaVector2<T>::operator != (const iaVector2<T> &vec) const
+bool iaVector2<T>::operator!=(const iaVector2<T> &vec) const
 {
     return ((_x != vec._x) || (_y != vec._y)) ? true : false;
 }
 
 template <class T>
-void iaVector2<T>::operator+= (const iaVector2<T> &vec)
+void iaVector2<T>::operator+=(const iaVector2<T> &vec)
 {
     _x += vec._x;
     _y += vec._y;
 }
 
 template <class T>
-iaVector2<T> iaVector2<T>::operator- (const iaVector2<T> &vec) const
+iaVector2<T> iaVector2<T>::operator-(const iaVector2<T> &vec) const
 {
     iaVector2<T> result;
     result._x = _x - vec._x;
@@ -61,14 +61,14 @@ iaVector2<T> iaVector2<T>::operator- (const iaVector2<T> &vec) const
 }
 
 template <class T>
-void iaVector2<T>::operator-= (const iaVector2<T> &vec)
+void iaVector2<T>::operator-=(const iaVector2<T> &vec)
 {
     _x -= vec._x;
     _y -= vec._y;
 }
 
 template <class T>
-iaVector2<T> iaVector2<T>::operator = (const iaVector2<T> &vec)
+iaVector2<T> iaVector2<T>::operator=(const iaVector2<T> &vec)
 {
     iaVector2<T> result;
     result._x = _x = vec._x;
@@ -78,7 +78,7 @@ iaVector2<T> iaVector2<T>::operator = (const iaVector2<T> &vec)
 }
 
 template <class T>
-iaVector2<T> iaVector2<T>::operator* (T scalar) const
+iaVector2<T> iaVector2<T>::operator*(T scalar) const
 {
     iaVector2<T> result;
     result._x = _x * scalar;
@@ -88,14 +88,14 @@ iaVector2<T> iaVector2<T>::operator* (T scalar) const
 }
 
 template <class T>
-void iaVector2<T>::operator*= (T scalar)
+void iaVector2<T>::operator*=(T scalar)
 {
     _x *= scalar;
     _y *= scalar;
 }
 
 template <class T>
-iaVector2<T> iaVector2<T>::operator/ (T scalar) const
+iaVector2<T> iaVector2<T>::operator/(T scalar) const
 {
     iaVector2<T> result;
     result._x = _x / scalar;
@@ -105,14 +105,14 @@ iaVector2<T> iaVector2<T>::operator/ (T scalar) const
 }
 
 template <class T>
-void iaVector2<T>::operator/= (T scalar)
+void iaVector2<T>::operator/=(T scalar)
 {
     _x /= scalar;
     _y /= scalar;
 }
 
 template <class T>
-T iaVector2<T>::operator* (const iaVector2<T> &vec) const
+T iaVector2<T>::operator*(const iaVector2<T> &vec) const
 {
     return _x*vec._x + _y*vec._y;
 }

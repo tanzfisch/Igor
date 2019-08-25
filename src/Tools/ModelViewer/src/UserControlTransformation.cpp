@@ -29,11 +29,6 @@ UserControlTransformation::~UserControlTransformation()
 	}
 }
 
-iWidget* UserControlTransformation::createInstance()
-{
-	return new UserControlTransformation();
-}
-
 void UserControlTransformation::setNode(uint32 id)
 {
 	if (_nodeId == id)
@@ -118,7 +113,7 @@ void UserControlTransformation::updateGUI(iNodeTransform* transformNode)
 
 iWidgetTextEdit* UserControlTransformation::createTextEdit()
 {
-	iWidgetTextEdit* textEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
+	iWidgetTextEdit* textEdit = new iWidgetTextEdit();
 	textEdit->setText("");
 	textEdit->setWidth(MV_REGULARBUTTON_SIZE);
 	textEdit->setMaxTextLength(11);
@@ -131,7 +126,7 @@ iWidgetTextEdit* UserControlTransformation::createTextEdit()
 
 void UserControlTransformation::initGUI()
 {
-	_grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+	_grid = new iWidgetGrid();
 	_grid->setHorizontalAlignment(iHorizontalAlignment::Right);
 	_grid->setVerticalAlignment(iVerticalAlignment::Top);
 	_grid->appendCollumns(3);
@@ -166,16 +161,16 @@ void UserControlTransformation::initGUI()
 		_grid->addWidget(textEdit, i + 1, 3);
 	}
 
-	iWidgetLabel* translateLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+	iWidgetLabel* translateLabel = new iWidgetLabel();
 	translateLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
 	translateLabel->setText("Translate");
-	iWidgetLabel* scaleLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+	iWidgetLabel* scaleLabel = new iWidgetLabel();
 	scaleLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
 	scaleLabel->setText("Scale");
-	iWidgetLabel* rotateLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+	iWidgetLabel* rotateLabel = new iWidgetLabel();
 	rotateLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
 	rotateLabel->setText("Rotate");
-	iWidgetLabel* shearLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+	iWidgetLabel* shearLabel = new iWidgetLabel();
 	shearLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
 	shearLabel->setText("Shear");
 

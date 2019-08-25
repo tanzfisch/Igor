@@ -50,14 +50,6 @@ namespace Igor
     iaDELEGATE(iInstanciateDialogDelegate, iDialog*, (), ());
 
     /*! manages the widgets in use and is a singleton
-
-    is also a factory that creates and destroys all the widgets
-
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
-    \todo switch from delegates to function pointers for instance creation
-
     */
 	class Igor_API iWidgetManager : public iaSingleton<iWidgetManager>
 	{
@@ -65,15 +57,12 @@ namespace Igor
         /*! needs to be friends with singleton base class in order to be a singleton
         */
         friend class iaSingleton<iWidgetManager>;
+
+		friend class iWidget;
+		friend class iDialog;
         
 	public:
 		
-        /*! creates a widget of given type
-
-        \param type type of widget to create
-        */
-		iWidget* createWidget(const iaString& type);
-
         /*! destroyes widget
 
         \param widget the widget to destroy
@@ -85,26 +74,7 @@ namespace Igor
         \param id id of the widget to be destroyed
         */
         void destroyWidget(uint64 id);
-
-        /*! registers a widget type to the widget manager
-
-        \param widgetType name of widget type
-        \param instanciateWidgetDelegate delegate to instanciate the type
-        */
-        void registerWidgetType(const iaString& widgetType, iInstanciateWidgetDelegate instanciateWidgetDelegate);
-
-        /*! unregister widget type
-
-        \param widgetType name of widget type to unregister
-        */
-        void unregisterWidgetType(const iaString& widgetType);
-
-        /*! creates a dialog of given type
-
-        \param type type of dialog to create
-        */
-        iDialog* createDialog(const iaString& type);
-
+		
         /*! destroyes dialog
 
         \param dialog the dialog to destroy
@@ -127,19 +97,6 @@ namespace Igor
 		/*! hides the tooltip
 		*/
 		void hideTooltip();
-
-        /*! registers a dialog type to the widget manager
-
-        \param dialogType name of dialog type
-        \param instanciateWidgetDelegate delegate to instanciate the type
-        */
-        void registerDialogType(const iaString& dialogType, iInstanciateDialogDelegate instanciateDialogDelegate);
-
-        /*! unregister widget type
-
-        \param dialogType name of dialog type to unregister
-        */
-        void unregisterDialogType(const iaString& dialogType);
 
         /*! \returns widget by id
 
@@ -383,6 +340,30 @@ namespace Igor
 		/*! tooltip text
 		*/
 		iaString _tooltipText;
+
+		/*! registers widget to WidgetManager so we can track if all widgets got destroyed at shutdown
+
+		\param widget the widget to track
+		*/
+		void registerWidget(iWidget* widget);
+
+		/*! unregister widget from WidgetManager so we don't track this one anymore
+
+		\param widget the widget to not track anymore
+		*/
+		void unregisterWidget(iWidget* widget);
+
+		/*! registers dialog to WidgetManager so we can track if all dialogs got destroyed at shutdown
+
+		\param dialog the dialog to track
+		*/
+		void registerDialog(iDialog* dialog);
+
+		/*! unregister dialog from WidgetManager so we don't track this one anymore
+
+		\param dialog the dialog to not track anymore
+		*/
+		void unregisterDialog(iDialog* dialog);
 
         /*! last chance for the instance to clean up before shut down
         */

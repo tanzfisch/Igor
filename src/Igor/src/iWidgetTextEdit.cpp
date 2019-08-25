@@ -17,11 +17,6 @@ namespace Igor
 		_reactOnMouseWheel = false;
 	}
 
-	iWidget* iWidgetTextEdit::createInstance()
-	{
-		return new iWidgetTextEdit();
-	}
-
 	void iWidgetTextEdit::calcMinSize()
 	{
 		setMinSize(0, 0);

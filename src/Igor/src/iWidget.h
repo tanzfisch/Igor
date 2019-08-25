@@ -107,9 +107,6 @@ namespace Igor
 
 	coordinatesystems origin within widgets is the upper left corner with x positive to the right and y positive down
 
-	Example:
-	\ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
 	\todo to many friends
 	\todo fix one click and double click handling
 	\todo maybe we should have a widget base class on top so we can treat widgets usercontrols and dialogs more equaly
@@ -118,6 +115,7 @@ namespace Igor
 	class Igor_API iWidget
 	{
 
+		// iWidget has sooo many friends <3
 		friend class iWidgetManager;
 		friend class iDialog;
 		friend class iWidgetGrid;
@@ -649,6 +647,10 @@ namespace Igor
 		*/
 		void setClientArea(int32 left, int32 right, int32 top, int32 bottom);
 
+		/*! \returns last mouse position
+		*/
+		iaVector2i getLastMousePos() const;
+
 		/*! initializes members
 		*/
 		iWidget();
@@ -656,12 +658,6 @@ namespace Igor
 		/*! clean up
 		*/
 		virtual ~iWidget();
-
-	protected:
-
-		/*! \returns last mouse position
-		*/
-		iaVector2i getLastMousePos() const;
 
 	private:
 

@@ -1,7 +1,5 @@
 var class_igor_1_1i_widget_manager =
 [
-    [ "createDialog", "class_igor_1_1i_widget_manager.html#a3cf3de26ec38048c079b976e07d6bd13", null ],
-    [ "createWidget", "class_igor_1_1i_widget_manager.html#a6bd957c51cc937fa860f9e2be73f3d27", null ],
     [ "destroyDialog", "class_igor_1_1i_widget_manager.html#afd27ed58f6bc204976ec1bcddd5e9ce3", null ],
     [ "destroyDialog", "class_igor_1_1i_widget_manager.html#aeff40b943120cf3bbd2981c6cfc85ec7", null ],
     [ "destroyWidget", "class_igor_1_1i_widget_manager.html#a0f280e1395cb1fe0af29e3d06beb465f", null ],
@@ -15,7 +13,6 @@ var class_igor_1_1i_widget_manager =
     [ "getWidget", "class_igor_1_1i_widget_manager.html#a971ee147805da10f2005e4f1106aa7bb", null ],
     [ "hideTooltip", "class_igor_1_1i_widget_manager.html#af048259868df5a172088902ea2f6dade", null ],
     [ "isModal", "class_igor_1_1i_widget_manager.html#adeb169a1b32706dd7223e14b37613a54", null ],
-    [ "registerDialogType", "class_igor_1_1i_widget_manager.html#a7d62aba88bb0d811d81dde5365d5e0a5", null ],
     [ "registerKeyDownDelegate", "class_igor_1_1i_widget_manager.html#a821216ee4685ab6e4cf3ef410408b541", null ],
     [ "registerKeyUpDelegate", "class_igor_1_1i_widget_manager.html#a210e7b3fbf808f621e0120373229f82b", null ],
     [ "registerMouseDoubleClickDelegate", "class_igor_1_1i_widget_manager.html#a2203f4d58ceb07b367454b3078d71996", null ],
@@ -24,13 +21,11 @@ var class_igor_1_1i_widget_manager =
     [ "registerMouseMoveDelegate", "class_igor_1_1i_widget_manager.html#a0642ce8eb9fa139cf9c0eac7d1d90825", null ],
     [ "registerMouseMoveFullDelegate", "class_igor_1_1i_widget_manager.html#a365c43c511f2fb124b2945c34ca9c59a", null ],
     [ "registerMouseWheelDelegate", "class_igor_1_1i_widget_manager.html#aad1abfab06f6a19c643255cc4afb9cef", null ],
-    [ "registerWidgetType", "class_igor_1_1i_widget_manager.html#a9f6da06bc992b930d9cc81c821611fe0", null ],
     [ "resetModal", "class_igor_1_1i_widget_manager.html#aa6f1e1a10d0cb78294680fcfc2bb5163", null ],
     [ "setDesktopDimensions", "class_igor_1_1i_widget_manager.html#a1c474b07cf51a4c16788e8ba178819c0", null ],
     [ "setModal", "class_igor_1_1i_widget_manager.html#a296e238e7d791812cae1164ff0ebd11e", null ],
     [ "setTheme", "class_igor_1_1i_widget_manager.html#a8aab72ea9ce2fdf39ddda2e6f38c8a20", null ],
     [ "showTooltip", "class_igor_1_1i_widget_manager.html#a534a283e81a4959b4ad8bce278bda065", null ],
-    [ "unregisterDialogType", "class_igor_1_1i_widget_manager.html#a57d32d46b3ba88d60026d3b947370ce2", null ],
     [ "unregisterKeyDownDelegate", "class_igor_1_1i_widget_manager.html#a92704d74b3de02c3f660ecd9f5d2c666", null ],
     [ "unregisterKeyUpDelegate", "class_igor_1_1i_widget_manager.html#a52eb41ad281f226c694b565cfbe31a2e", null ],
     [ "unregisterMouseDoubleClickDelegate", "class_igor_1_1i_widget_manager.html#a0cdbac22e7de6e2da2defd6b94d94919", null ],
@@ -39,6 +34,7 @@ var class_igor_1_1i_widget_manager =
     [ "unregisterMouseMoveDelegate", "class_igor_1_1i_widget_manager.html#a2e06d7fd40751b90f470facd2954be0f", null ],
     [ "unregisterMouseMoveFullDelegate", "class_igor_1_1i_widget_manager.html#a41377c392209059f1772c34afffecd0b", null ],
     [ "unregisterMouseWheelDelegate", "class_igor_1_1i_widget_manager.html#ae34d7b20eaed5ad0fe1395a1e15db997", null ],
-    [ "unregisterWidgetType", "class_igor_1_1i_widget_manager.html#a89bb6b0115ded8f03a573f3b7416ea34", null ],
-    [ "iaSingleton< iWidgetManager >", "class_igor_1_1i_widget_manager.html#aadcb96bd478615f7a2a6891822cc4798", null ]
+    [ "iaSingleton< iWidgetManager >", "class_igor_1_1i_widget_manager.html#aadcb96bd478615f7a2a6891822cc4798", null ],
+    [ "iDialog", "class_igor_1_1i_widget_manager.html#af7f6f50efeae1e3310a0ba88374672f2", null ],
+    [ "iWidget", "class_igor_1_1i_widget_manager.html#ae2aa33c5f391ceae8d0c3476619fb5cc", null ]
 ];

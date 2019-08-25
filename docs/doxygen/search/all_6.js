@@ -47,7 +47,7 @@ var searchData=
   ['destroyvertexarray',['destroyVertexArray',['../class_igor_1_1i_renderer.html#a21e9be482fcf75fc3ebb674931a86a19',1,'Igor::iRenderer']]],
   ['destroywidget',['destroyWidget',['../class_igor_1_1i_widget_manager.html#a0f280e1395cb1fe0af29e3d06beb465f',1,'Igor::iWidgetManager::destroyWidget(iWidget *widget)'],['../class_igor_1_1i_widget_manager.html#a2913ac9a8ac4e83788670a4e6ff0f071',1,'Igor::iWidgetManager::destroyWidget(uint64 id)']]],
   ['destroyworld',['destroyWorld',['../class_igor_1_1i_physics.html#a14201cb89e66b399f5c3f3b604db55d8',1,'Igor::iPhysics::destroyWorld(uint64 id)'],['../class_igor_1_1i_physics.html#a5df0993d66eb2e5ab70acb21e5a639f3',1,'Igor::iPhysics::destroyWorld(iPhysicsWorld *world)']]],
-  ['determinant',['determinant',['../class_igor_aux_1_1ia_matrix.html#ac23ffdf05fa6a30634115b86fdf1b9dc',1,'IgorAux::iaMatrix::determinant()'],['../class_igor_aux_1_1ia_matrix3x3.html#a74b497d0325a8e6ca4ba6439a80f18bb',1,'IgorAux::iaMatrix3x3::determinant()']]],
+  ['determinant',['determinant',['../class_igor_aux_1_1ia_matrix.html#ac23ffdf05fa6a30634115b86fdf1b9dc',1,'IgorAux::iaMatrix::determinant()'],['../class_igor_aux_1_1ia_matrix2_d.html#a841fd0274304688a46dfd9c5662f370b',1,'IgorAux::iaMatrix2D::determinant()']]],
   ['determinant3x3',['determinant3x3',['../class_igor_aux_1_1ia_matrix.html#a5047b578fd5a6ff58e152c0a0aaeb114',1,'IgorAux::iaMatrix']]],
   ['directional',['Directional',['../namespace_igor.html#a57ff5df1d958a4ba5c7495c3fc7282d0ab04a8341537fac392bfd17776491d03c',1,'Igor']]],
   ['directoryisabsolute',['directoryIsAbsolute',['../class_igor_aux_1_1ia_directory.html#a98786c5b2f0b32bed3db7f2fe452b917',1,'IgorAux::iaDirectory']]],

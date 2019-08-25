@@ -49,12 +49,12 @@ namespace IgorAux
 	_right._z | _top._z | _depth._z | _pos.z
 	_w0       | _w1     | _w2       | _w3
 
-	by index
+	data by index (index equals to position in memory)
 
-	0 | 4 | 8 | 12
-	1 | 5 | 9 | 13
-	2 | 6 | 10| 14
-	3 | 7 | 11| 15
+	 0 |  4 |  8 | 12
+	 1 |  5 |  9 | 13
+	 2 |  6 | 10 | 14
+	 3 |  7 | 11 | 15
 
 	corresponds to
 
@@ -112,6 +112,8 @@ namespace IgorAux
 	public:
 
 		/*! internal data
+
+		\todo replace with T _m[16];
 		*/
 		iaVector3<T> _right;
 		T _w0 = static_cast<T>(0);
@@ -209,6 +211,14 @@ namespace IgorAux
 		*/
 		bool decompose(iaVector3<T>& scale, iaQuaternion<T>& orientation, iaVector3<T>& translate, iaVector3<T>& shear, iaVector4<T>& perspective) const;
 
+		/*! recompose the matrix from it's components
+
+		\param scale scale component
+		\param orientation the orientation
+		\param translate the translation component
+		\param shear the shear component
+		\param perspective the perspective component
+		*/
 		void recompose(const iaVector3<T>& scale, const iaQuaternion<T>& orientation, const iaVector3<T>& translate, const iaVector3<T>& shear, const iaVector4<T>& perspective);
 
 		/*! calculates a view matrix
@@ -354,7 +364,7 @@ namespace IgorAux
 
 		/*! converts the vector in to given type of vector
 
-		\returns vector for given type
+		\returns matrix for given type
 		*/
 		template<class T2>
 		iaMatrix<T2> convert();

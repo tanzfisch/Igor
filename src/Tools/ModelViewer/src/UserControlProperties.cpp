@@ -35,25 +35,20 @@ UserControlProperties::~UserControlProperties()
 	// deinitGUI();
 }
 
-iWidget* UserControlProperties::createInstance()
-{
-	return new UserControlProperties();
-}
-
 void UserControlProperties::initGUI()
 {
-	_groupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget("GroupBox"));
+	_groupBox = new iWidgetGroupBox();
 	_groupBox->setText("Properties");
 	_groupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
 	_groupBox->setVerticalAlignment(iVerticalAlignment::Strech);
 	addWidget(_groupBox);
 
-	_scroll = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget("Scroll"));
+	_scroll = new iWidgetScroll();
 	_scroll->setHorizontalAlignment(iHorizontalAlignment::Strech);
 	_scroll->setVerticalAlignment(iVerticalAlignment::Strech);
 	_groupBox->addWidget(_scroll);
 
-	_grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+	_grid = new iWidgetGrid();
 	_grid->appendRows(1);
 	_grid->setCellSpacing(2);
 	_grid->setWidth(340);
@@ -182,7 +177,7 @@ void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
 
 			if (_userControlNode == nullptr)
 			{
-				_userControlNode = static_cast<UserControlNode*>(iWidgetManager::getInstance().createWidget("UserControlNode"));
+				_userControlNode = new UserControlNode();
 				_userControlNode->registerNameChangeDelegate(NameChangedDelegate(this, &UserControlProperties::onNameChanged));
 				_userControlNode->setNode(_propertyID);
 				_grid->addWidget(_userControlNode, 0, 0);
@@ -236,7 +231,7 @@ void UserControlProperties::initMeshNode()
 
 	if (_userControlMesh == nullptr)
 	{
-		_userControlMesh = static_cast<UserControlMesh*>(iWidgetManager::getInstance().createWidget("UserControlMesh"));
+		_userControlMesh = new UserControlMesh();
 		_grid->addWidget(_userControlMesh, 0, 1);
 		_userControlMesh->setNode(static_cast<uint32>(_propertyID));
 	}
@@ -259,7 +254,7 @@ void UserControlProperties::initModel()
 
 	if (_userControlModel == nullptr)
 	{
-		_userControlModel = static_cast<UserControlModel*>(iWidgetManager::getInstance().createWidget("UserControlModel"));
+		_userControlModel = new UserControlModel();
 		_grid->addWidget(_userControlModel, 0, 1);
 		_userControlModel->setNode(static_cast<uint32>(_propertyID));
 	}
@@ -282,7 +277,7 @@ void UserControlProperties::initEmitter()
 
 	if (_userControlEmitter == nullptr)
 	{
-		_userControlEmitter = static_cast<UserControlEmitter*>(iWidgetManager::getInstance().createWidget("UserControlEmitter"));
+		_userControlEmitter = new UserControlEmitter();
 		_grid->addWidget(_userControlEmitter, 0, 1);
 		_userControlEmitter->setNode(static_cast<uint32>(_propertyID));
 	}
@@ -305,7 +300,7 @@ void UserControlProperties::initParticleSystem()
 
 	if (_userControlParticleSystem == nullptr)
 	{
-		_userControlParticleSystem = static_cast<UserControlParticleSystem*>(iWidgetManager::getInstance().createWidget("UserControlParticleSystem"));
+		_userControlParticleSystem = new UserControlParticleSystem();
 		_grid->addWidget(_userControlParticleSystem, 0, 1);
 		_userControlParticleSystem->setNode(static_cast<uint32>(_propertyID));
 	}
@@ -327,7 +322,7 @@ void UserControlProperties::initMaterial()
 
 	if (_userControlMaterial == nullptr)
 	{
-		_userControlMaterial = static_cast<UserControlMaterial*>(iWidgetManager::getInstance().createWidget("UserControlMaterial"));
+		_userControlMaterial = new UserControlMaterial();
 		_grid->addWidget(_userControlMaterial, 0, 1);
 		_userControlMaterial->setMaterial(static_cast<uint32>(_propertyID));
 		_userControlMaterial->registerNameChangeDelegate(MaterialNameChangedDelegate(this, &UserControlProperties::onNameChanged));
@@ -356,7 +351,7 @@ void UserControlProperties::initLightNode()
 {
 	con_assert(_userControlLight == nullptr, "mem allocation error");
 
-	_userControlLight = static_cast<UserControlLight*>(iWidgetManager::getInstance().createWidget("UserControlLight"));
+	_userControlLight = new UserControlLight();
 	_grid->addWidget(_userControlLight, 0, 1);
 	_userControlLight->setNode(static_cast<uint32>(_propertyID));
 }
@@ -376,7 +371,7 @@ void UserControlProperties::initTransformNode()
 {
 	con_assert(_userControlTransformation == nullptr, "mem allocation error");
 
-	_userControlTransformation = static_cast<UserControlTransformation*>(iWidgetManager::getInstance().createWidget("UserControlTransformation"));
+	_userControlTransformation = new UserControlTransformation();
 	_grid->addWidget(_userControlTransformation, 0, 1);
 	_userControlTransformation->setNode(static_cast<uint32>(_propertyID));
 }

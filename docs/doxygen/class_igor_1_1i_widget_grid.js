@@ -1,5 +1,7 @@
 var class_igor_1_1i_widget_grid =
 [
+    [ "iWidgetGrid", "class_igor_1_1i_widget_grid.html#ae7c954d7f5e58bd6cf6c1ac06c16b872", null ],
+    [ "~iWidgetGrid", "class_igor_1_1i_widget_grid.html#adcac55f02347c4637137254a58e85207", null ],
     [ "addWidget", "class_igor_1_1i_widget_grid.html#a764137d148d8977d459c6ea0635eadeb", null ],
     [ "addWidget", "class_igor_1_1i_widget_grid.html#a71ec37f12c277c2a3782cff83b950c81", null ],
     [ "appendCollumns", "class_igor_1_1i_widget_grid.html#a3f9af42fc1b7fdebd5d9f2ad82b68884", null ],
@@ -28,6 +30,5 @@ var class_igor_1_1i_widget_grid =
     [ "setSelectMode", "class_igor_1_1i_widget_grid.html#a278f96d0b8246ea82d6fc2f18f27aea0", null ],
     [ "setStrechColumn", "class_igor_1_1i_widget_grid.html#a95aaefa85b7b815816b730a6d958cd50", null ],
     [ "setStrechRow", "class_igor_1_1i_widget_grid.html#aa995858da76fa24beaac1c9494489c07", null ],
-    [ "unSelect", "class_igor_1_1i_widget_grid.html#a5191c1c8fe7e8f47f47cd95fd098bf22", null ],
-    [ "iWidgetManager", "class_igor_1_1i_widget_grid.html#a9da20b1c56a70b01ca0ef56f4d4d47fc", null ]
+    [ "unSelect", "class_igor_1_1i_widget_grid.html#a5191c1c8fe7e8f47f47cd95fd098bf22", null ]
 ];

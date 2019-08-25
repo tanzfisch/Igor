@@ -19,7 +19,7 @@ var searchData=
   ['iagradient',['iaGradient',['../class_igor_aux_1_1ia_gradient.html',1,'IgorAux']]],
   ['iaidgenerator',['iaIDGenerator',['../class_igor_aux_1_1ia_i_d_generator.html',1,'IgorAux']]],
   ['iamatrix',['iaMatrix',['../class_igor_aux_1_1ia_matrix.html',1,'IgorAux']]],
-  ['iamatrix3x3',['iaMatrix3x3',['../class_igor_aux_1_1ia_matrix3x3.html',1,'IgorAux']]],
+  ['iamatrix2d',['iaMatrix2D',['../class_igor_aux_1_1ia_matrix2_d.html',1,'IgorAux']]],
   ['iamemblock',['iaMemBlock',['../class_igor_aux_1_1ia_mem_block.html',1,'IgorAux']]],
   ['iamemblockcontrol',['iaMemBlockControl',['../class_igor_aux_1_1ia_mem_block_control.html',1,'IgorAux']]],
   ['iamutex',['iaMutex',['../class_igor_aux_1_1ia_mutex.html',1,'IgorAux']]],

@@ -52,11 +52,13 @@ namespace Igor
 class PropertiesDialog : public iDialog
 {
 
+	friend class iWidgetManager;
+
 public:
 
-    /*! creates instance of this widget type
-    */
-    static iDialog* createInstance();
+
+	PropertiesDialog();
+	~PropertiesDialog();
 
     void registerPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate);
     void unregisterPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate);
@@ -74,14 +76,12 @@ private:
 
     iWidgetGrid* _grid = nullptr;
 
-    UserControlProperties* _userControlProperties = nullptr;
+    UserControlProperties _userControlProperties;
 
     void initGUI();
     
     void onStructureChanged();
 
-    PropertiesDialog();
-    ~PropertiesDialog();
 
 };
 

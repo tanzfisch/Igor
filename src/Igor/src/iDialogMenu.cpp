@@ -21,11 +21,6 @@ namespace Igor
 		deinitGUI();
 	}
 
-	iDialog* iDialogMenu::createInstance()
-	{
-		return new iDialogMenu();
-	}
-
 	void iDialogMenu::initGUI(std::vector<iaString>& texts)
 	{
 		iWidgetManager::setModal(this);
@@ -36,7 +31,7 @@ namespace Igor
 
 		registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
 
-		_grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+		_grid = new iWidgetGrid();
 		_grid->appendRows(static_cast<uint32>(texts.size()) - 1);
 		_grid->setHorizontalAlignment(iHorizontalAlignment::Left);
 		_grid->setVerticalAlignment(iVerticalAlignment::Top);
@@ -48,7 +43,7 @@ namespace Igor
 
 		for (int i = 0; i < texts.size(); ++i)
 		{
-			iWidgetLabel* label = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+			iWidgetLabel* label = new iWidgetLabel();
 			label->setHorizontalAlignment(iHorizontalAlignment::Left);
 			label->setText(texts[i]);
 			_grid->addWidget(label, 0, i);
@@ -67,7 +62,7 @@ namespace Igor
 
 		registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
 
-		_grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+		_grid = new iWidgetGrid();
 		_grid->appendCollumns(1);
 		_grid->appendRows(static_cast<uint32>(texts.size()) - 1);
 		_grid->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -82,13 +77,13 @@ namespace Igor
 		{
 			if (!pictures[i].isEmpty())
 			{
-				iWidgetPicture* picture = static_cast<iWidgetPicture*>(iWidgetManager::getInstance().createWidget("Picture"));
+				iWidgetPicture* picture = new iWidgetPicture();
 				picture->setTexture(pictures[i]);
 				picture->setMaxSize(_entryHeight, _entryHeight);
 				_grid->addWidget(picture, 0, i);
 			}
 
-			iWidgetLabel* label = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+			iWidgetLabel* label = new iWidgetLabel();
 			label->setHorizontalAlignment(iHorizontalAlignment::Left);
 			label->setText(texts[i]);
 			_grid->addWidget(label, 1, i);

@@ -22,11 +22,6 @@ UserControlNode::UserControlNode()
     initGUI();
 }
 
-iWidget* UserControlNode::createInstance()
-{
-	return new UserControlNode();
-}
-
 void UserControlNode::setNode(uint32 id)
 {
     _nodeId = id;
@@ -52,7 +47,7 @@ void UserControlNode::updateGUI()
 
 void UserControlNode::initGUI()
 {
-    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+    _grid = new iWidgetGrid();
     _grid->appendCollumns(1);
     _grid->appendRows(1);
     _grid->setCellSpacing(2);
@@ -60,24 +55,24 @@ void UserControlNode::initGUI()
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
     _grid->setStrechColumn(1);
 
-    _labelName = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _labelName = new iWidgetLabel();
     _labelName->setText("Name");
     _labelName->setWidth(MV_REGULARBUTTON_SIZE);
     _labelName->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textName = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
+    _textName = new iWidgetTextEdit();
     _textName->setMaxTextLength(256);
     _textName->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     _textName->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _textName->setText("");
     _textName->registerOnChangeEvent(iChangeDelegate(this, &UserControlNode::onNameChanged));
 
-    _labelActive = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _labelActive = new iWidgetLabel();
     _labelActive->setText("Active");
     _labelActive->setWidth(MV_REGULARBUTTON_SIZE);
     _labelActive->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _checkBoxActive = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
+    _checkBoxActive = new iWidgetCheckBox();
     _checkBoxActive->setText("");
     _checkBoxActive->setActive(false);
     _checkBoxActive->setHorizontalAlignment(iHorizontalAlignment::Left);

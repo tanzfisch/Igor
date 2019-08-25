@@ -34,20 +34,15 @@ Outliner::~Outliner()
     deinitGUI();
 }
 
-iDialog* Outliner::createInstance()
-{
-    return new Outliner();
-}
-
 void Outliner::initGUI()
 {
-    _messageBox = static_cast<iDialogMessageBox*>(iWidgetManager::getInstance().createDialog("DialogMessageBox"));
+    _messageBox = new iDialogMessageBox();
 
     setWidth(350);
     setHorizontalAlignment(iHorizontalAlignment::Left);
     setVerticalAlignment(iVerticalAlignment::Strech);
 
-    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+    _grid = new iWidgetGrid();
     _grid->setBorder(2);
     _grid->setCellSpacing(8);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -56,14 +51,14 @@ void Outliner::initGUI()
     _grid->setStrechRow(2);
     _grid->setStrechColumn(0);
 
-    _gridButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+    _gridButtons = new iWidgetGrid();
     _gridButtons->setBorder(0);
     _gridButtons->setCellSpacing(2);
     _gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
     _gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
     _gridButtons->appendCollumns(8);
 
-    _gridRadioButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+    _gridRadioButtons = new iWidgetGrid();
     _gridRadioButtons->setBorder(0);
     _gridRadioButtons->setCellSpacing(2);
     _gridRadioButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -71,16 +66,16 @@ void Outliner::initGUI()
     _gridRadioButtons->appendCollumns(1);
 
     iWidgetCheckBox::beginRadioButtonGroup();
-    _checkBoxGraph = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
+    _checkBoxGraph = new iWidgetCheckBox();
     _checkBoxGraph->setText("Graph");
     _checkBoxGraph->registerOnClickEvent(iClickDelegate(this, &Outliner::onGraphViewSelected));
-    _checkBoxMaterial = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
+    _checkBoxMaterial = new iWidgetCheckBox();
     _checkBoxMaterial->setText("Material");
     _checkBoxMaterial->registerOnClickEvent(iClickDelegate(this, &Outliner::onMaterialViewSelected));
     iWidgetCheckBox::endRadioButtonGroup();
     _checkBoxGraph->setChecked();
 
-    _loadButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+    _loadButton = new iWidgetButton();
     _loadButton->setText("");
     _loadButton->setWidth(30);
     _loadButton->setHeight(30);
@@ -88,7 +83,7 @@ void Outliner::initGUI()
     _loadButton->setTexture("icons\\load.png");
     _loadButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onLoadFile));
 
-    _saveButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+    _saveButton = new iWidgetButton();
     _saveButton->setText("");
     _saveButton->setWidth(30);
     _saveButton->setHeight(30);
@@ -96,7 +91,7 @@ void Outliner::initGUI()
     _saveButton->setTexture("icons\\save.png");
     _saveButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onSaveFile));
 
-    _exitButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+    _exitButton = new iWidgetButton();
     _exitButton->setText("");
     _exitButton->setWidth(30);
     _exitButton->setHeight(30);
@@ -104,15 +99,15 @@ void Outliner::initGUI()
     _exitButton->setTexture("icons\\exit.png");
     _exitButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onExitModelViewer));
 
-    _spacer1 = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
+    _spacer1 = new iWidgetSpacer();
     _spacer1->setWidth(2);
     _spacer1->setHeight(20);
 
-    _spacer2 = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
+    _spacer2 = new iWidgetSpacer();
     _spacer2->setWidth(2);
     _spacer2->setHeight(20);
 
-    _cutButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+    _cutButton = new iWidgetButton();
     _cutButton->setText("");
     _cutButton->setWidth(30);
     _cutButton->setHeight(30);
@@ -120,7 +115,7 @@ void Outliner::initGUI()
     _cutButton->setTexture("icons\\cut.png");
     _cutButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onCut));
 
-    _copyButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+    _copyButton = new iWidgetButton();
     _copyButton->setText("");
     _copyButton->setWidth(30);
     _copyButton->setHeight(30);
@@ -128,7 +123,7 @@ void Outliner::initGUI()
     _copyButton->setTexture("icons\\copy.png");
     _copyButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onCopy));
 
-    _pasteButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+    _pasteButton = new iWidgetButton();
     _pasteButton->setText("");
     _pasteButton->setWidth(30);
     _pasteButton->setHeight(30);
@@ -136,7 +131,7 @@ void Outliner::initGUI()
     _pasteButton->setTexture("icons\\paste.png");
     _pasteButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onPaste));
 
-    _deleteButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+    _deleteButton = new iWidgetButton();
     _deleteButton->setText("");
     _deleteButton->setWidth(30);
     _deleteButton->setHeight(30);
@@ -222,7 +217,7 @@ void Outliner::initMaterialView()
 {
     if (_userControlMaterialView == nullptr)
     {
-		_userControlMaterialView = static_cast<UserControlMaterialView*>(iWidgetManager::getInstance().createWidget("UserControlMaterialView"));
+		_userControlMaterialView = new UserControlMaterialView();
         _userControlMaterialView->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &Outliner::onMaterialSelectionChanged));
         _userControlMaterialView->registerOnAddMaterial(AddMaterialDelegate(this, &Outliner::onAddMaterial));
 
@@ -254,7 +249,7 @@ void Outliner::initGraphView()
 {
     if (_userControlGraphView == nullptr)
     {
-		_userControlGraphView = static_cast<UserControlGraphView*>(iWidgetManager::getInstance().createWidget("UserControlGraphView"));
+		_userControlGraphView = new UserControlGraphView();
         _userControlGraphView->registerOnSelectionChange(GraphSelectionChangedDelegate(this, &Outliner::onGraphSelectionChanged));
         _userControlGraphView->registerOnAddEmitter(AddEmitterDelegate(this, &Outliner::onAddEmitter));
         _userControlGraphView->registerOnAddGroup(AddGroupDelegate(this, &Outliner::onAddGroup));
@@ -702,7 +697,7 @@ void Outliner::onAddModel(uint64 addAt)
 {
     if (_decisionBoxModelRef == nullptr)
     {
-        _decisionBoxModelRef = static_cast<iDialogDecisionBox*>(iWidgetManager::getInstance().createDialog("DialogDecisionBox"));
+        _decisionBoxModelRef = new iDialogDecisionBox();
     }
 
     _decisionBoxModelRef->show("Import model ...", iDecisionBoxCloseDelegate(this, &Outliner::onAddModelDecision), { "embedded", "as reference" }, 0);

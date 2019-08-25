@@ -54,11 +54,11 @@ namespace Igor
 
 class UserControlMesh : public iUserControl
 {
+
 public:
 
-	/*! creates instance of this widget type
-	*/
-	static iWidget* createInstance();
+	UserControlMesh();
+	~UserControlMesh();
 
     void setNode(uint32 id);
     uint32 getNode();
@@ -119,8 +119,6 @@ private:
     void initGUI();
 	void deinitGUI();
 
-	UserControlMesh();
-	~UserControlMesh();
 	
 };
 

@@ -15,110 +15,105 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iWidgetPicture::iWidgetPicture()
-    {
-        setHorizontalAlignment(iHorizontalAlignment::Center);
-        setVerticalAlignment(iVerticalAlignment::Center);
-        _reactOnMouseWheel = false;
-    }
+	iWidgetPicture::iWidgetPicture()
+	{
+		setHorizontalAlignment(iHorizontalAlignment::Center);
+		setVerticalAlignment(iVerticalAlignment::Center);
+		_reactOnMouseWheel = false;
+	}
 
-    iWidgetPicture::~iWidgetPicture()
-    {
-        _texture = nullptr;
-    }
+	iWidgetPicture::~iWidgetPicture()
+	{
+		_texture = nullptr;
+	}
 
-    iWidget* iWidgetPicture::createInstance()
-    {
-        return new iWidgetPicture();
-    }
+	void iWidgetPicture::setMaxSize(int32 width, int32 height)
+	{
+		_maxWidth = width;
+		_maxHeight = height;
+	}
 
-    void iWidgetPicture::setMaxSize(int32 width, int32 height)
-    {
-        _maxWidth = width;
-        _maxHeight = height;
-    }
+	int32 iWidgetPicture::getMaxWidth()
+	{
+		return _maxWidth;
+	}
 
-    int32 iWidgetPicture::getMaxWidth()
-    {
-        return _maxWidth;
-    }
+	int32 iWidgetPicture::getMaxHeight()
+	{
+		return _maxHeight;
+	}
 
-    int32 iWidgetPicture::getMaxHeight()
-    {
-        return _maxHeight;
-    }
+	void iWidgetPicture::calcMinSize()
+	{
+		int32 minWidth = 0;
+		int32 minHeight = 0;
 
-    void iWidgetPicture::calcMinSize()
-    {
-        int32 minWidth = 0;
-        int32 minHeight = 0;
-        
 
-        if (isGrowingByContent())
-        {
-            if (_texture != nullptr)
-            {
-                minWidth = _texture->getWidth();
-                minHeight = _texture->getHeight();
-            }
-        }
+		if (isGrowingByContent())
+		{
+			if (_texture != nullptr)
+			{
+				minWidth = _texture->getWidth();
+				minHeight = _texture->getHeight();
+			}
+		}
 
-        setMinSize(minWidth, minHeight);
+		setMinSize(minWidth, minHeight);
 
-        float32 aspect = static_cast<float32>(minHeight) / static_cast<float32>(minWidth);
+		float32 aspect = static_cast<float32>(minHeight) / static_cast<float32>(minWidth);
 
-        if (_minWidth > _maxWidth)
-        {
-            _minWidth = _maxWidth;
+		if (_minWidth > _maxWidth)
+		{
+			_minWidth = _maxWidth;
 
-            if (_keepAspectRatio)
-            {
-                _minHeight = static_cast<int32>(static_cast<float32>(_minWidth) * aspect);
-            }
-        }
+			if (_keepAspectRatio)
+			{
+				_minHeight = static_cast<int32>(static_cast<float32>(_minWidth) * aspect);
+			}
+		}
 
-        if (_minHeight > _maxHeight)
-        {
-            _minHeight = _maxHeight;
+		if (_minHeight > _maxHeight)
+		{
+			_minHeight = _maxHeight;
 
-            if (_keepAspectRatio)
-            {
-                _minWidth = static_cast<int32>(static_cast<float32>(_minHeight) * (1.0f / aspect));
-            }
-        }
-    }
+			if (_keepAspectRatio)
+			{
+				_minWidth = static_cast<int32>(static_cast<float32>(_minHeight) * (1.0f / aspect));
+			}
+		}
+	}
 
-    void iWidgetPicture::setKeepAspectRatio(bool keep)
-    {
-        _keepAspectRatio = keep;
-    }
+	void iWidgetPicture::setKeepAspectRatio(bool keep)
+	{
+		_keepAspectRatio = keep;
+	}
 
-    bool iWidgetPicture::getKeepAspectRatio() const
-    {
-        return _keepAspectRatio;
-    }
+	bool iWidgetPicture::getKeepAspectRatio() const
+	{
+		return _keepAspectRatio;
+	}
 
-    void iWidgetPicture::draw()
-    {
-        if (isVisible() &&
-            _texture != nullptr)
-        {
-            iWidgetManager::getInstance().getTheme()->drawPicture(getActualRect(), _texture, _widgetAppearanceState, isActive());
-        }
-    }
+	void iWidgetPicture::draw()
+	{
+		if (isVisible() &&
+			_texture != nullptr)
+		{
+			iWidgetManager::getInstance().getTheme()->drawPicture(getActualRect(), _texture, _widgetAppearanceState, isActive());
+		}
+	}
 
-    const iaString& iWidgetPicture::getTexture() const
-    {
-        return _texturePath;
-    }
+	const iaString& iWidgetPicture::getTexture() const
+	{
+		return _texturePath;
+	}
 
-    void iWidgetPicture::setTexture(const iaString& texturePath)
-    {
-        if (_texturePath != texturePath)
-        {
-            _texturePath = texturePath;
-            _texture = iTextureResourceFactory::getInstance().loadFile(_texturePath);
-        }
-    }
+	void iWidgetPicture::setTexture(const iaString& texturePath)
+	{
+		if (_texturePath != texturePath)
+		{
+			_texturePath = texturePath;
+			_texture = iTextureResourceFactory::getInstance().loadFile(_texturePath);
+		}
+	}
 
 }
