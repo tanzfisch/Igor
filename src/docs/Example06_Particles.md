@@ -19,7 +19,8 @@ Interaction
 Code
 ====
 
-Well Particles is something you really don't want to configure in code. There fore in future version we can configure it using the ModelViewer and load it like model data later in the the scene. Until that here just one from the numerous particle systems within the example code.
+Particles is something you really don't want to configure in code. Therefore we can configure it using Mica and load it like model data in to the scene. 
+But we have the flexibility to do so in code.
 
 First we define the color gradient of the particles during their life time. Independent from their real lifetime this gradient goes from 0.0 to 1.0. 0.0 defines birth of a particle and 1.0 the dead. So in this case we fade in from white transparent to white opaque and than fade out to black transparent. We don't need any other colors here because the color is already inside the texture.
 

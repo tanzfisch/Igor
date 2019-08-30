@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\Mica.cpp" />
+    <ClCompile Include="..\src\UserControlEmitter.cpp">
+      <Filter>NodeUserControls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UserControlLight.cpp">
+      <Filter>NodeUserControls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UserControlMesh.cpp">
+      <Filter>NodeUserControls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UserControlModel.cpp">
+      <Filter>NodeUserControls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UserControlParticleSystem.cpp">
+      <Filter>NodeUserControls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UserControlTransformation.cpp">
+      <Filter>NodeUserControls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UserControlNode.cpp">
+      <Filter>NodeUserControls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PropertiesDialog.cpp">
+      <Filter>Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UserControlGraphView.cpp">
+      <Filter>UserControls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UserControlProperties.cpp">
+      <Filter>UserControls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UserControlMaterialView.cpp">
+      <Filter>UserControls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UserControlMaterial.cpp">
+      <Filter>NodeUserControls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Manipulator.cpp">
+      <Filter>3DUserControls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Widget3D.cpp">
+      <Filter>3DUserControls\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Widget3DLocator.cpp">
+      <Filter>3DUserControls\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Widget3DEmitter.cpp">
+      <Filter>3DUserControls\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Outliner.cpp">
+      <Filter>Dialogs</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\Mica.h" />
+    <ClInclude Include="..\src\UserControlEmitter.h">
+      <Filter>NodeUserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UserControlLight.h">
+      <Filter>NodeUserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UserControlMesh.h">
+      <Filter>NodeUserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UserControlModel.h">
+      <Filter>NodeUserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UserControlParticleSystem.h">
+      <Filter>NodeUserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UserControlTransformation.h">
+      <Filter>NodeUserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UserControlNode.h">
+      <Filter>NodeUserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\PropertiesDialog.h">
+      <Filter>Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UserControlGraphView.h">
+      <Filter>UserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UserControlProperties.h">
+      <Filter>UserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UserControlMaterialView.h">
+      <Filter>UserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UserControlMaterial.h">
+      <Filter>NodeUserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MicaDefines.h" />
+    <ClInclude Include="..\src\Manipulator.h">
+      <Filter>3DUserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Widget3D.h">
+      <Filter>3DUserControls\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Widget3DLocator.h">
+      <Filter>3DUserControls\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Widget3DEmitter.h">
+      <Filter>3DUserControls\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Outliner.h">
+      <Filter>Dialogs</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Dialogs">
+      <UniqueIdentifier>{aab3b26f-6d0e-4971-bbb5-c445f31a69fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UserControls">
+      <UniqueIdentifier>{787f2285-56d5-41a1-88d0-9b8869265710}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="NodeUserControls">
+      <UniqueIdentifier>{33896c03-0579-4335-90a5-2bddde084c94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3DUserControls">
+      <UniqueIdentifier>{e03b9343-0457-4025-bac1-29a928a847b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3DUserControls\Widget">
+      <UniqueIdentifier>{34730c11-8298-4870-9f12-18a5d140e429}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,6 +1,11 @@
 Changelog                           {#changelog}
 =========
 
+0.24.0
+------
+
+- renamed ModelViewer in to Mica
+
 0.23.0
 ------
 

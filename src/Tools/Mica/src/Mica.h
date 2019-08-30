@@ -1,0 +1,188 @@
+//
+//   ______                                |\___/|  /\___/\
+//  /\__  _\                               )     (  )     (
+//  \/_/\ \/       __      ___    _ __    =\     /==\     /=
+//     \ \ \     /'_ `\   / __`\ /\`'__\    )   (    )   (
+//      \_\ \__ /\ \L\ \ /\ \L\ \\ \ \/    /     \   /   \
+//      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
+//  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
+//                 /\____/                   ( (       ))
+//                 \_/__/  game engine        ) )     ((
+//                                           (_(       \)
+// (c) Copyright 2014-2015 by Martin Loga
+//
+// This library is free software; you can redistribute it and or modify it   
+// under the terms of the GNU Lesser General Public License as published by  
+// the Free Software Foundation; either version 3 of the License, or (at   
+// your option) any later version.                                           
+// 
+// This library is distributed in the hope that it will be useful,           
+// but WITHOUT ANY WARRANTY; without even the implied warranty of            
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
+// Lesser General Public License for more details.                           
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.If not, see <http://www.gnu.org/licenses/>.
+// 
+// contact: martinloga@gmx.de  
+
+#ifndef __MICA__
+#define __MICA__
+
+#include "Manipulator.h"
+#include "Widget3D.h"
+
+#include <Igor.h>
+#include <iWindow.h>
+#include <iView.h>
+#include <iTimerHandle.h>
+#include <iModelResourceFactory.h>
+#include <iKeyboard.h>
+#include <iaMatrix.h>
+#include <iWidgetManager.h>
+#include <iDialogFileSelect.h>
+#include <iProfilerVisualizer.h>
+using namespace Igor;
+
+#include "Outliner.h"
+#include "PropertiesDialog.h"
+
+namespace Igor
+{
+    class iScene;
+    class iNodeTransform;
+    class iNodeLight;
+    class iTextureFont;
+
+    class iWidgetDefaultTheme;
+    class iDialog;
+    class iWidgetScroll;
+    class iDialogMessageBox;
+    class iRenderStatistics;
+
+    class iNodeSkyBox;
+}
+
+class Mica
+{
+
+public:
+
+    Mica() = default;
+    virtual ~Mica();
+
+    void run(iaString fileName);
+
+private:
+
+    iWindow _window;
+    iView _view;
+    iView _viewOrtho;
+	iView _viewWidget3D;
+    iaMatrixd _modelViewOrtho;
+
+    iTextureFont* _font = nullptr;
+    iScene* _scene = nullptr;
+	iScene* _sceneWidget3D = nullptr;
+
+    iDialogFileSelect* _fileDialog = nullptr;
+    iDialogMessageBox* _messageBox = nullptr;
+
+    // TODO need some classes handling different types of cameras
+    iNodeTransform* _cameraCOI = nullptr;
+    iNodeTransform* _cameraHeading = nullptr;
+    iNodeTransform* _cameraPitch = nullptr;
+    iNodeTransform* _cameraTranslation = nullptr;
+    iNodeCamera* _camera = nullptr;
+
+    iNodeSkyBox* _skyBoxNode = nullptr;
+
+    iNodeTransform* _directionalLightTranslate = nullptr;
+    iNodeTransform* _directionalLightRotate = nullptr;
+    iNodeLight* _lightNode = nullptr;
+
+    iWidgetDefaultTheme* _widgetTheme = nullptr;
+
+    PropertiesDialog* _propertiesDialog = nullptr;
+    Outliner* _outliner = nullptr;
+    iRenderStatistics* _renderStatistics = nullptr;
+
+    float32 _camDistance = 0;
+
+    uint64 _taskFlushTextures = 0;
+
+    iNodePtr _groupNode = nullptr;
+
+    uint64 _materialSkyBox;
+    uint64 _materialOrientationPlane;
+    uint64 _materialBoundingBox;
+    uint64 _materialCelShading;
+
+    uint32 _selectedNodeID = iNode::INVALID_NODE_ID;
+
+    iProfilerVisualizer _profilerVisualizer;
+
+    Manipulator* _manipulator = nullptr;
+
+	Widget3D* _widget3D = nullptr;
+
+	/*! empties the scene
+	*/
+	void clearScene();
+
+    void resetManipulatorMode();
+    void setManipulatorMode(ManipulatorMode modifierMode);
+    void pickcolorID();
+
+    void onGraphViewSelectionChanged(uint64 nodeID);
+
+    void onKeyDown(iKeyCode key);
+    void centerCamOnSelectedNode();
+    void onWindowClosed();
+
+    void onLoadFile();
+    void onImportFile(uint64 nodeID);
+    void onImportFileReference(uint64 nodeID);
+    void onSaveFile();
+    void onExitMica();
+
+    void onAddTransformation(uint64 atNodeID);
+    void onAddGroup(uint64 atNodeID);
+    void onAddEmitter(uint64 atNodeID);
+    void onAddParticleSystem(uint64 atNodeID);
+    void onAddSwitch(uint64 atNodeID);
+
+    void onAddMaterial();
+
+    void onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window);
+    void onMouseWheel(int32 d);
+    void onMouseKeyDown(iKeyCode key);
+    void onMouseKeyUp(iKeyCode key);
+
+    void onWindowResize(int32 clientWidth, int32 clientHeight);
+
+    void deinit();
+    void init(iaString fileName);
+    void updateCamDistanceTransform();
+    void centerCamOnNode(iNodePtr node);
+
+    void onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
+    void onImportFileDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
+    void onImportFileReferenceDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
+    void onFileSaveDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
+
+    void forceLoadingNow(iNodeModel* modelNode);
+    void initGUI();
+    void deinitGUI();
+
+    void handle();
+    void renderNodeSelected(uint64 nodeID);
+    void render();
+    void renderOrtho();
+    void renderOrientationPlane();
+
+	iModelDataInputParameter* createDataInputParameter();
+
+};
+
+#endif
