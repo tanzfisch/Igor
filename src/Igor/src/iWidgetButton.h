@@ -30,32 +30,31 @@
 #define __iWIDGETBUTTON__
 
 #include <iWidget.h>
+#include <iTexture.h>
 
 #include <iaString.h>
 using namespace IgorAux;
 
 #include <memory>
-using namespace std;
+
 
 namespace Igor
 {
 
-    class iTexture;
-
     /*! button widget
-
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
     */
 	class Igor_API iWidgetButton : public iWidget
 	{
 
-        /*! needs to be friend because it's the factory that creates this widget
-        */
-		friend class iWidgetManager;
-
 	public:
+
+		/*! ctor initializes member variables
+		*/
+		iWidgetButton();
+
+		/*! release texture
+		*/
+		virtual ~iWidgetButton();
 
         /*! sets text of the widget
 
@@ -113,7 +112,7 @@ namespace Igor
 
         /*! the buttons texture
         */
-        shared_ptr<iTexture> _texture = nullptr;
+        iTexturePtr _texture;
 
         /*! texture path
         */
@@ -127,19 +126,6 @@ namespace Igor
         */
         void draw();
 
-	private:
-
-        /*! ctor initializes member variables
-        */
-		iWidgetButton();
-
-        /*! release texture
-        */
-		virtual ~iWidgetButton();
-
-        /*! creates instance of this widget type
-        */
-        static iWidget* createInstance();
 	};
 }
 

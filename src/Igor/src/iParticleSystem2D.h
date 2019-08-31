@@ -34,7 +34,7 @@
 #include <iaGradient.h>
 
 #include <vector>
-using namespace std;
+
 
 #include <iaRandomNumberGenerator.h>
 using namespace IgorAux;
@@ -335,7 +335,7 @@ namespace Igor
 
         /*! random number generator
         */
-        iaRandomNumberGenerator _rand;
+        iaRandomNumberGeneratoru _rand;
 
         /*! reset a particle to start values in order to reuse it
 

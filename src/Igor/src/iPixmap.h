@@ -44,8 +44,6 @@ namespace Igor
     in order to use it for rendering one have to transform it in to a iTexture
 
     \see iTextureResourceFactory::loadFromPixmap
-
-    \todo many things not implemented anymore since switch from OpenIL to stb_image
     */
 	class Igor_API iPixmap
 	{
@@ -55,46 +53,133 @@ namespace Igor
 
         /*! \returns width of pixmap
         */
-        uint32 getWidth();
+        uint32 getWidth() const;
 
         /*! \returns height of pixmap
         */
-        uint32 getHeight();
+        uint32 getHeight() const;
 
         /*! \returns bytes per pixel
         */
-        uint32 getBytesPerPixel();
+        uint32 getBytesPerPixel() const;
 
         /*! \returns color format in use
         */
-        iColorFormat getColorFormat();
+        iColorFormat getColorFormat() const;
 
         /*! sets pixmap data
 
         \param data 
         */
         void setData(uint8 *data);
-        uint8* getData();
 
-        uint32 getPixel(uint32 x, uint32 y);
+		/*! \returns pointer to pixel data
+		*/
+        uint8* getData() const;
+
+		/*! \returns pixel value from given position
+
+		\param x x coordinate
+		\param x y coordinate
+		*/
+        uint32 getPixel(uint32 x, uint32 y) const;
+
+		/*! sets pixel value at given position
+
+		\param x x coordinate
+		\param x y coordinate
+		\param color the color to set
+		*/
         void setPixel(uint32 x, uint32 y, uint32 color);
 
-        void getPixel(float64 x, float64 y, iaColor4f& color);
-        void getPixelBiLinear(float64 x, float64 y, iaColor4f& color);
+		/*! same as getPixel but returns type iaColor4f
 
+		\param x x coordinate
+		\param x y coordinate
+		\param[out] color the returned color
+		*/
+		void getPixel(float64 x, float64 y, iaColor4f& color) const;
+		
+		/*! same as getPixel but uses bilinear filter to calculate returned color
 
-        void getPixel(float64 x, float64 y, iaColor3f& color);
-        void getPixel(float64 x, float64 y, iaColor4c& color);
-        void getPixel(float64 x, float64 y, iaColor3c& color);
+		\param x x coordinate
+		\param x y coordinate
+		\param[out] color the returned color
+		*/
+		void getPixelBiLinear(float64 x, float64 y, iaColor4f& color) const;
 
-        uint8 getPixel(uint32 x, uint32 y, uint8 byte);
-        void setPixel(uint32 x, uint32 y, uint8 byte, uint8 color);
+		/*! same as getPixel but returns type iaColor3f
+
+		\param x x coordinate
+		\param x y coordinate
+		\param[out] color the returned color
+		*/
+        void getPixel(float64 x, float64 y, iaColor3f& color) const;
+
+		/*! same as getPixel but returns type iaColor4c
+
+		\param x x coordinate
+		\param x y coordinate
+		\param[out] color the returned color
+		*/
+        void getPixel(float64 x, float64 y, iaColor4c& color) const;
+
+		/*! same as getPixel but returns type iaColor3c
+
+		\param x x coordinate
+		\param x y coordinate
+		\param[out] color the returned color
+		*/
+		void getPixel(float64 x, float64 y, iaColor3c& color) const;
+
+		/*! \returns value of color channel at given position
+
+		\param x x coordinate
+		\param x y coordinate
+		\param colorChannel the chosen color channel
+		*/
+        uint8 getPixel(uint32 x, uint32 y, uint8 colorChannel) const;
+
+		/*! sets color channel at given position 
+
+		\param x x coordinate
+		\param x y coordinate
+		\param colorChannel the chosen color channel
+		\param value the new color channel value
+		*/
+        void setPixel(uint32 x, uint32 y, uint8 colorChannel, uint8 value);
+
+		/*! sets pixel color at given position
+
+		\param x x coordinate
+		\param x y coordinate
+		\param r red color channel
+		\param g green color channel
+		\param b blur color channel
+		*/
         void setPixelRGB(uint32 x, uint32 y, uint8 r, uint8 g, uint8 b);
-        void setPixelRGBA(uint32 x, uint32 y, uint8 r, uint8 g, uint8 b, uint8 a);
 
-        bool exportFile(const iaString filename, bool overwrite = true);
+		/*! sets pixel color at given position
 
+		\param x x coordinate
+		\param x y coordinate
+		\param r red color channel
+		\param g green color channel
+		\param b blur color channel
+		\param a alpha color channel
+		*/
+		void setPixelRGBA(uint32 x, uint32 y, uint8 r, uint8 g, uint8 b, uint8 a);
+
+		/*! allocates memory based on size and colorformat
+
+		\param width width of pixmap in pixel
+		\param height height of pixmap in pixel
+		\param colorFormat the color format of the pixmap
+		*/
         iPixmap(uint32 width, uint32 height, iColorFormat colorFormat);
+
+		/*! releases resources
+		*/
         ~iPixmap();
 
 	private:
@@ -124,6 +209,11 @@ namespace Igor
 		iPixmap() = default;
 
 	};
+
+	/*! pixmap pointer definition
+	*/
+	typedef iPixmap* iPixmapPtr;
+
 };
 
 #endif

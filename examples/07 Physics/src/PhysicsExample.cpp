@@ -27,7 +27,7 @@ using namespace IgorAux;
 #include <iTaskFlushModels.h>
 #include <iTaskFlushTextures.h>
 #include <iMaterialResourceFactory.h>
-#include <iStatistics.h>
+#include <iProfiler.h>
 using namespace Igor;
 
 PhysicsExample::PhysicsExample()
@@ -64,6 +64,7 @@ void PhysicsExample::init()
     _window.addView(&_view);
     _window.addView(&_viewOrtho);
     _window.setClientSize(1024, 768);
+	_window.setCentered();
     _window.open();
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &PhysicsExample::onWindowClosed));
 
@@ -76,7 +77,7 @@ void PhysicsExample::init()
 
     // create some collision boxes and combine them in one to represent the floor
     iaMatrixd offsetFloor;
-    vector<iPhysicsCollision*> collisions;
+    std::vector<iPhysicsCollision*> collisions;
     collisions.push_back(iPhysics::getInstance().createBox(10, 1, 50, offsetFloor.getData()));
     collisions.push_back(iPhysics::getInstance().createBox(50, 1, 10, offsetFloor.getData()));
     offsetFloor.translate(0, -5, 0);
@@ -101,7 +102,7 @@ void PhysicsExample::init()
 
     // some random positioned boxes
     // for that we need a random number generator
-    iaRandomNumberGenerator rand;
+    iaRandomNumberGeneratoru rand;
     rand.setSeed(1337);
 
     for (int i = 0; i < 30; ++i)
@@ -233,7 +234,7 @@ void PhysicsExample::init()
     _flushModelsTask = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
     _flushTexturesTask = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
-    _statisticsVisualizer.setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
+    _profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
 }
 
 void PhysicsExample::deinit()
@@ -333,7 +334,7 @@ void PhysicsExample::onKeyPressed(iKeyCode key)
         break;
 
 	case iKeyCode::F8:
-		_statisticsVisualizer.cycleVerbosity();
+		_profilerVisualizer.cycleVerbosity();
 		break;
 
 	case iKeyCode::F9:
@@ -389,7 +390,7 @@ void PhysicsExample::onRenderOrtho()
     drawLogo();
 
     // draw frame rate in lower right corner
-    _statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+    _profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
 }
 
 void PhysicsExample::drawLogo()

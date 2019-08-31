@@ -33,7 +33,7 @@
 using namespace IgorAux;
 
 #include <map>
-using namespace std;
+
 
 namespace OMPF
 {
@@ -323,21 +323,21 @@ namespace OMPF
 
         /*! texture map with textures per texture unit
         */
-        map<uint32, iaString> _textures;
+        std::map<uint32, iaString> _textures;
 
         /*! writes chunk to stream
 
         \param stream destination stream
         \param settings the settings how to write the chunk
         */
-        virtual bool write(ofstream& stream, const ompfSettings& settings);
+        virtual bool write(std::ofstream& stream, const ompfSettings& settings);
 
         /*! reads chunk from stream
 
         \param stream source stream
         \param settings the settings how to read the chunk
         */
-        virtual bool read(ifstream& stream, ompfSettings& settings);
+        virtual bool read(std::ifstream& stream, ompfSettings& settings);
 
 	};
 

@@ -35,7 +35,7 @@
 #include <iOSEventListener.h>
 
 #include <list>
-using namespace std;
+
 
 namespace Igor
 {
@@ -71,9 +71,6 @@ namespace Igor
 	iaEVENT(iKeyASCIIEvent, iKeyASCIIDelegate, void, (char c), (c));
 
 	/*! Handles windows events and triggers Igor events.
-
-	Example:
-	\ref Keyboard/src/KeyboardExample.cpp "Keyboard usage example"
 
 	\todo unstable and incomplete
 	\todo this is not yet working right. problems start the moment you press more than one button at a time

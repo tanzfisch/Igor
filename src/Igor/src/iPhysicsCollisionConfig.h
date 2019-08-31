@@ -39,7 +39,7 @@ using namespace IgorAux;
 
 #include <memory>
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -114,7 +114,7 @@ namespace Igor
         \param faceAttribute the faceattribute for the whole mesh
         \param offset off the mesh collision object
         */
-        void addMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixd& offset);
+        void addMesh(iMeshPtr mesh, int64 faceAttribute, const iaMatrixd& offset);
 
         /*! \returns resulting collision ID
 
@@ -185,7 +185,7 @@ namespace Igor
         */
         struct Mesh
         {
-            shared_ptr<iMesh> _mesh = nullptr;
+            iMeshPtr _mesh = nullptr;
             int64 _faceAttribute;
             iaMatrixd _offset;
         };
@@ -204,27 +204,27 @@ namespace Igor
 
         /*! lsit of boxes
         */
-        vector<Box> _boxes;
+        std::vector<Box> _boxes;
 
         /*! lsit of spheres
         */
-        vector<Sphere> _spheres;
+        std::vector<Sphere> _spheres;
 
         /*! lsit of cones
         */
-        vector<Cone> _cones;
+        std::vector<Cone> _cones;
         
         /*! lsit of capsules
         */
-        vector<Capsule> _capsules;
+        std::vector<Capsule> _capsules;
 
         /*! lsit of cylinders
         */
-        vector<Cylinder> _cylinders;
+        std::vector<Cylinder> _cylinders;
 
         /*! lsit of meshs
         */
-        vector<Mesh> _meshs;
+        std::vector<Mesh> _meshs;
 
         /*! true if data was already finalized
         */

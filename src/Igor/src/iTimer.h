@@ -35,7 +35,7 @@
 using namespace IgorAux;
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -127,7 +127,7 @@ namespace Igor
 
 		\todo why is this pointers?
 		*/
-		vector<iTimerHandle*> _timerHandles;
+		std::vector<iTimerHandle*> _timerHandles;
 
 		/*! registers timer handle to timer
 		*/

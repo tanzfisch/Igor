@@ -32,7 +32,7 @@
 #include <iContouringCubes.h>
 #include <iTextureResourceFactory.h>
 #include <iPixmap.h>
-#include <iStatistics.h>
+#include <iProfiler.h>
 #include <iTargetMaterial.h>
 #include <iNodeLODTrigger.h>
 #include <iNodeLODSwitch.h>
@@ -416,7 +416,7 @@ void Ascent::onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1)
         {
             uint64 id0 = reinterpret_cast<uint64>(body0->getUserData());
             _hitListMutex.lock();
-            _hitList.push_back(pair<uint64, uint64>(id0, 0));
+            _hitList.push_back(std::pair<uint64, uint64>(id0, 0));
             _hitListMutex.unlock();
 
         }
@@ -424,7 +424,7 @@ void Ascent::onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1)
         {
             uint64 id1 = reinterpret_cast<uint64>(body1->getUserData());
             _hitListMutex.lock();
-            _hitList.push_back(pair<uint64, uint64>(id1, 0));
+            _hitList.push_back(std::pair<uint64, uint64>(id1, 0));
             _hitListMutex.unlock();
         }
     }
@@ -439,8 +439,8 @@ void Ascent::onContact(iPhysicsBody* body0, iPhysicsBody* body1)
         uint64 id0 = reinterpret_cast<uint64>(body0->getUserData());
         uint64 id1 = reinterpret_cast<uint64>(body1->getUserData());
         _hitListMutex.lock();
-        _hitList.push_back(pair<uint64, uint64>(id0, id1));
-        _hitList.push_back(pair<uint64, uint64>(id1, id0));
+        _hitList.push_back(std::pair<uint64, uint64>(id0, id1));
+        _hitList.push_back(std::pair<uint64, uint64>(id1, id0));
         _hitListMutex.unlock();
     }
 }
@@ -483,7 +483,7 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
             iaVector3d creationPos = pos + offset;
 
             iSphered sphere(creationPos, 5);
-            vector<uint64> result;
+            std::vector<uint64> result;
             iEntityManager::getInstance().getEntities(sphere, result);
             if (result.empty())
             {
@@ -546,7 +546,7 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
             if (_voxelTerrain->castRay(iaVector3I(from._x, from._y, from._z), iaVector3I(to._x, to._y, to._z), outside, inside))
             {
                 iSphered sphere(iaVector3d(outside._x, outside._y, outside._z), 5);
-                vector<uint64> result;
+                std::vector<uint64> result;
                 iEntityManager::getInstance().getEntities(sphere, result);
                 if (result.empty())
                 {
@@ -587,7 +587,7 @@ void Ascent::init()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    _statisticsVisualizer.setVerbosity(iRenderStatisticsVerbosity::None);
+    _profilerVisualizer.setVerbosity(iProfilerVerbosity::None);
 
     uint64 particlesMaterial = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setName("PMat");
@@ -697,20 +697,20 @@ void Ascent::onKeyPressed(iKeyCode key)
 
     case iKeyCode::F3:
     {
-        iRenderStatisticsVerbosity level = _statisticsVisualizer.getVerbosity();
+        iProfilerVerbosity level = _profilerVisualizer.getVerbosity();
 
-        if (level == iRenderStatisticsVerbosity::All)
+        if (level == iProfilerVerbosity::All)
         {
-            level = iRenderStatisticsVerbosity::None;
+            level = iProfilerVerbosity::None;
         }
         else
         {
             int value = static_cast<int>(level);
             value++;
-            level = static_cast<iRenderStatisticsVerbosity>(value);
+            level = static_cast<iProfilerVerbosity>(value);
         }
 
-        _statisticsVisualizer.setVerbosity(level);
+        _profilerVisualizer.setVerbosity(level);
     }
     break;
     }
@@ -929,7 +929,7 @@ void Ascent::onHandle()
         BossEnemy* boss = static_cast<BossEnemy*>(iEntityManager::getInstance().getEntity(_bossID));
         if (boss == nullptr)
         {
-            vector<uint64> ids;
+            std::vector<uint64> ids;
             iEntityManager::getInstance().getEntities(ids);
 
             for (auto id : ids)
@@ -982,7 +982,7 @@ void Ascent::handleHitList()
 
 void Ascent::onRenderOrtho()
 {
-    _statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 0, 0.8, 1));
+    _profilerVisualizer.draw(&_window, _font, iaColor4f(0, 0, 0.8, 1));
 
     iaMatrixd matrix;
     iRenderer::getInstance().setViewMatrix(matrix);
@@ -1013,8 +1013,8 @@ void Ascent::onRenderOrtho()
         Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
-            iaString healthText = iaString::ftoa(player->getHealth(), 0);
-            iaString shieldText = iaString::ftoa(player->getShield(), 0);
+            iaString healthText = iaString::toString(player->getHealth(), 0);
+            iaString shieldText = iaString::toString(player->getShield(), 0);
 
             iRenderer::getInstance().setFontSize(15.0f);
             iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));

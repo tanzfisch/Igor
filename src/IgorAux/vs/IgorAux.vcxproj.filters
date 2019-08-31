@@ -38,9 +38,6 @@
     <ClCompile Include="..\src\iaConvert.cpp">
       <Filter>data types</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iaRandomNumberGenerator.cpp">
-      <Filter>math</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iaMutex.cpp">
       <Filter>threading</Filter>
     </ClCompile>
@@ -49,6 +46,9 @@
     </ClCompile>
     <ClCompile Include="..\src\iaSystem.cpp">
       <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iaRandomNumberGenerator.inl">
+      <Filter>math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -98,9 +98,6 @@
     </ClInclude>
     <ClInclude Include="..\src\iaColor4.h">
       <Filter>data types</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iaMatrix3x3.h">
-      <Filter>math</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iaConvert.h">
       <Filter>data types</Filter>
@@ -156,6 +153,9 @@
     <ClInclude Include="..\src\iaVector2.inl">
       <Filter>math</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iaMatrix2D.h">
+      <Filter>math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iaMatrix.inl">
@@ -170,9 +170,6 @@
     <None Include="..\src\iaSerializable.inl">
       <Filter>IO</Filter>
     </None>
-    <None Include="..\src\iaMatrix3x3.inl">
-      <Filter>math</Filter>
-    </None>
     <None Include="..\src\iaRLE.inl">
       <Filter>data types</Filter>
     </None>
@@ -186,6 +183,9 @@
       <Filter>data types</Filter>
     </None>
     <None Include="..\src\iaTransform.inl">
+      <Filter>math</Filter>
+    </None>
+    <None Include="..\src\iaMatrix2D.inl">
       <Filter>math</Filter>
     </None>
   </ItemGroup>

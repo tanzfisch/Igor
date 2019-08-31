@@ -40,7 +40,7 @@
 using namespace IgorAux;
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -247,7 +247,7 @@ namespace Igor
 
         /*! renders view in offscreen buffer using the colorID material and returns the color IDs from given rectangle
         */
-        void pickcolorID(const iRectanglei& rectangle, vector<uint64>& colorIDs);
+        void pickcolorID(const iRectanglei& rectangle, std::vector<uint64>& colorIDs);
 
         /*! \returns the z index of this view
         */

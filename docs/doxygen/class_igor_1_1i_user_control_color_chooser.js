@@ -1,5 +1,7 @@
 var class_igor_1_1i_user_control_color_chooser =
 [
+    [ "iUserControlColorChooser", "class_igor_1_1i_user_control_color_chooser.html#a3e12c44e1c409cc8f785c67eda400a85", null ],
+    [ "~iUserControlColorChooser", "class_igor_1_1i_user_control_color_chooser.html#a2a59c28b310f32d77f9a6617d82489b1", null ],
     [ "getColor", "class_igor_1_1i_user_control_color_chooser.html#afcc82a2f7e4dc4f3da556a21daf59112", null ],
     [ "getExpand", "class_igor_1_1i_user_control_color_chooser.html#a681936915c89556df75b436bbd78976d", null ],
     [ "getMode", "class_igor_1_1i_user_control_color_chooser.html#aba71518a2d9c1389cc1f0bb340e6b6ae", null ],
@@ -11,6 +13,5 @@ var class_igor_1_1i_user_control_color_chooser =
     [ "setHeadlineVisible", "class_igor_1_1i_user_control_color_chooser.html#a7f9a58905ee7aa70a01758c5b63a44fe", null ],
     [ "setMode", "class_igor_1_1i_user_control_color_chooser.html#a4265efe2599790df4dfada25be58b95f", null ],
     [ "setText", "class_igor_1_1i_user_control_color_chooser.html#a92b49f94c8489275f28358be3bc4fe80", null ],
-    [ "unregisterOnColorChangedEvent", "class_igor_1_1i_user_control_color_chooser.html#aecfbf4dcbb3325368c4176e2b7773c35", null ],
-    [ "iWidgetManager", "class_igor_1_1i_user_control_color_chooser.html#a9da20b1c56a70b01ca0ef56f4d4d47fc", null ]
+    [ "unregisterOnColorChangedEvent", "class_igor_1_1i_user_control_color_chooser.html#aecfbf4dcbb3325368c4176e2b7773c35", null ]
 ];

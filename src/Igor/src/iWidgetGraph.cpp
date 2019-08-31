@@ -28,11 +28,6 @@ namespace Igor
         setVerticalAlignment(iVerticalAlignment::Center);
     }
 
-    iWidget* iWidgetGraph::createInstance()
-    {
-        return new iWidgetGraph();
-    }
-
     void iWidgetGraph::setInteractive(bool interactive)
     {
         _interactive = interactive;
@@ -92,13 +87,13 @@ namespace Igor
         return _graphs[id]._pointSize;
     }
 
-    void iWidgetGraph::setPoints(uint64 id, vector<iaVector2f> points)
+    void iWidgetGraph::setPoints(uint64 id, std::vector<iaVector2f> points)
     {
         _graphs[id]._points = points;
         _dirty = true;
     }
 
-    vector<iaVector2f> iWidgetGraph::getPoints(uint64 id)
+    std::vector<iaVector2f> iWidgetGraph::getPoints(uint64 id)
     {
         return _graphs[id]._points;
     }
@@ -194,13 +189,13 @@ namespace Igor
                 float32 stepXData = boundings._width / (_gridResolution._x - 1);
                 float32 stepYData = boundings._height / (_gridResolution._y - 1);
 
-                vector<iaVector2f> verticalLines;
+                std::vector<iaVector2f> verticalLines;
                 for (int i = 0; i < _gridResolution._x; ++i)
                 {
                     verticalLines.push_back(iaVector2f(static_cast<float32>(i) * stepX, static_cast<float32>(i) * stepXData + boundings._x));
                 }
 
-                vector<iaVector2f> horizontalLines;
+                std::vector<iaVector2f> horizontalLines;
                 for (int i = 0; i < _gridResolution._y; ++i)
                 {
                     horizontalLines.push_back(iaVector2f(static_cast<float32>(i) * stepY, (boundings._y + boundings._height) - static_cast<float32>(i) * stepYData));
@@ -223,7 +218,7 @@ namespace Igor
             {
                 if (graph.second._points.size() > 0)
                 {
-                    vector<iaVector2f> points;
+                    std::vector<iaVector2f> points;
                     iaVector2f currentPoint;
 
                     if (_extrapolateData &&
@@ -260,7 +255,7 @@ namespace Igor
 
             if (_interactive)
             {
-                vector<iaVector2f> points = _graphs[0]._points;
+                std::vector<iaVector2f> points = _graphs[0]._points;
 
                 iRectanglei buttonRect;
                 buttonRect._height = _buttonHeight;
@@ -330,7 +325,7 @@ namespace Igor
             iRectanglef boundings;
             calcBoundings(boundings);
 
-            vector<iaVector2f> points = _graphs[0]._points;
+            std::vector<iaVector2f> points = _graphs[0]._points;
 
             iRectanglef buttonRect;
             buttonRect._height = static_cast<float32>(_buttonHeight);

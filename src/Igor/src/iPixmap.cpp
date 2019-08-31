@@ -62,13 +62,6 @@ namespace Igor
         }
     }
 
-    bool iPixmap::exportFile(const iaString filename, bool overwrite)
-    {
-        con_err("not implemented");
-
-        return true;
-    }
-
     void iPixmap::setData(uint8 *data)
     {
         if (!data) return;
@@ -90,32 +83,32 @@ namespace Igor
         }
     }
 
-    uint8* iPixmap::getData()
+    uint8* iPixmap::getData() const
     {
         return _data;
     }
 
-    uint32 iPixmap::getWidth()
+    uint32 iPixmap::getWidth() const
     {
         return _width;
     }
 
-    uint32 iPixmap::getHeight()
+    uint32 iPixmap::getHeight() const
     {
         return _height;
     }
 
-    uint32 iPixmap::getBytesPerPixel()
+    uint32 iPixmap::getBytesPerPixel() const
     {
         return _bytesPerPixel;
     }
 
-    iColorFormat iPixmap::getColorFormat()
+    iColorFormat iPixmap::getColorFormat() const
     {
         return _colorFormat;
     }
 
-    uint32 iPixmap::getPixel(uint32 x, uint32 y)
+    uint32 iPixmap::getPixel(uint32 x, uint32 y) const
     {
         con_assert(x < _width && y < _height, "parameter out of range");
         con_assert(_bytesPerPixel == 4, "only 4 byte per pixel supported in this function");
@@ -133,20 +126,20 @@ namespace Igor
         ((uint32*)_data)[y * _width + x] = color;
     }
 
-    uint8 iPixmap::getPixel(uint32 x, uint32 y, uint8 byte)
+    uint8 iPixmap::getPixel(uint32 x, uint32 y, uint8 colorChannel) const
     {
-        con_assert(x < _width && y < _height && byte < _bytesPerPixel, "parameter out of range");
+        con_assert(x < _width && y < _height && colorChannel < _bytesPerPixel, "parameter out of range");
         con_assert(_data != nullptr, "invalid data");
 
-        return _data[(y * _width + x) * _bytesPerPixel + byte];
+        return _data[(y * _width + x) * _bytesPerPixel + colorChannel];
     }
 
-    void iPixmap::setPixel(uint32 x, uint32 y, uint8 byte, uint8 color)
+    void iPixmap::setPixel(uint32 x, uint32 y, uint8 colorChannel, uint8 value)
     {
-        con_assert(x < _width && y < _height && byte < _bytesPerPixel, "parameter out of range");
+        con_assert(x < _width && y < _height && colorChannel < _bytesPerPixel, "parameter out of range");
         con_assert(_data != nullptr, "invalid data");
 
-        _data[(y * _width + x) * _bytesPerPixel + byte] = color;
+        _data[(y * _width + x) * _bytesPerPixel + colorChannel] = value;
     }
 
     void iPixmap::setPixelRGB(uint32 x, uint32 y, uint8 r, uint8 g, uint8 b)
@@ -172,7 +165,7 @@ namespace Igor
         _data[pos++] = a;
     }
 
-    void iPixmap::getPixel(float64 x, float64 y, iaColor4f& color)
+    void iPixmap::getPixel(float64 x, float64 y, iaColor4f& color) const
     {
         con_assert(_data != nullptr && _bytesPerPixel == 4, "invalid data");
         iaColor4c temp;
@@ -187,7 +180,7 @@ namespace Igor
         iaConvert::convert(temp, color);
     }
 
-    void iPixmap::getPixelBiLinear(float64 x, float64 y, iaColor4f& color)
+    void iPixmap::getPixelBiLinear(float64 x, float64 y, iaColor4f& color) const
     {
         con_assert(_data != nullptr && _bytesPerPixel == 4, "invalid data");
         iaColor4c c;
@@ -242,7 +235,7 @@ namespace Igor
         color.lerp(c4, c3, dy);
     }
 
-    void iPixmap::getPixel(float64 x, float64 y, iaColor4c& color)
+    void iPixmap::getPixel(float64 x, float64 y, iaColor4c& color) const
     {
         con_assert(_data != nullptr && _bytesPerPixel == 4, "invalid data");
 
@@ -254,7 +247,7 @@ namespace Igor
         color._a = _data[pos++];
     }
 
-    void iPixmap::getPixel(float64 x, float64 y, iaColor3f& color)
+    void iPixmap::getPixel(float64 x, float64 y, iaColor3f& color) const
     {
         con_assert(_data != nullptr && _bytesPerPixel == 4, "invalid data");
         iaColor3c temp;
@@ -268,7 +261,7 @@ namespace Igor
         iaConvert::convert(temp, color);
     }
 
-    void iPixmap::getPixel(float64 x, float64 y, iaColor3c& color)
+    void iPixmap::getPixel(float64 x, float64 y, iaColor3c& color) const
     {
         con_assert(_data != nullptr && _bytesPerPixel == 4, "invalid data");
 

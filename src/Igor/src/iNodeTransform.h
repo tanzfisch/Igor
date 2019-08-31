@@ -118,6 +118,12 @@ namespace Igor
         */
         virtual void identity();
 
+		/*! returns multiple lines of information about this node
+
+		\param[out] info the returned information
+		*/
+		void getInfo(std::vector<iaString>& info) const override;
+
     private:
 
         /*! transformation matrix

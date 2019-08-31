@@ -28,7 +28,7 @@ using namespace IgorAux;
 #include <iMaterialResourceFactory.h>
 #include <iVoxelData.h>
 #include <iaVector3.h>
-#include <iStatistics.h>
+#include <iProfiler.h>
 #include <iNodeVisitorPrintTree.h>
 using namespace Igor;
 
@@ -51,9 +51,9 @@ void VoxelExample::init()
     initViews();
     initScene();
 
-    // load font for statistics display
+    // load font for profiler
     _font = new iTextureFont("StandardFont.png");
-    _statisticsVisualizer.setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
+    _profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
 
     // launch resource handlers
     _flushModelsTask = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
@@ -261,10 +261,10 @@ void VoxelExample::generateVoxelData()
     const float32 coreOffset = (1.0f - coreSize) * 0.5f;
 
     // define some metaballs
-    vector<pair<iaVector3f, float32>> metaballs;
+    std::vector<std::pair<iaVector3f, float32>> metaballs;
     for (int i = 0; i < 20; ++i)
     {
-        metaballs.push_back(pair<iaVector3f, float32>(iaVector3f(
+        metaballs.push_back(std::pair<iaVector3f, float32>(iaVector3f(
             _rand.getNext() % static_cast<int>(_voxelData->getWidth() * coreSize) + (_voxelData->getWidth() * coreOffset),
             _rand.getNext() % static_cast<int>(_voxelData->getHeight() * coreSize) + (_voxelData->getHeight() * coreOffset),
             _rand.getNext() % static_cast<int>(_voxelData->getDepth()*coreSize) + (_voxelData->getDepth() * coreOffset)),
@@ -381,7 +381,7 @@ void VoxelExample::prepareMeshGeneration()
     _voxelMeshModel = voxelMeshModel->getID();
     // tell the model node to load data with specified identifier ans the above defined parameter
     // it is important to have a unique identifier each time we generate a mesh otherwhise the cache system would return us a prvious generated mesh
-    voxelMeshModel->setModel(iaString("VoxelMesh") + iaString::itoa(_incarnation++), iResourceCacheMode::Keep, inputParam);
+    voxelMeshModel->setModel(iaString("VoxelMesh") + iaString::toString(_incarnation++), iResourceCacheMode::Keep, inputParam);
     // create a transform node to center the mesh to the origin
     iNodeTransform* voxelMeshTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 	voxelMeshTransform->setName("VoxelMeshTransform");
@@ -439,7 +439,7 @@ void VoxelExample::onKeyDown(iKeyCode key)
 	break;
 
 	case iKeyCode::F8:
-		_statisticsVisualizer.cycleVerbosity();
+		_profilerVisualizer.cycleVerbosity();
 		break;
 
 	case iKeyCode::F9:
@@ -494,7 +494,7 @@ void VoxelExample::onRenderOrtho()
     drawLogo();
 
     // draw frame rate in lower right corner
-    _statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+    _profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
 }
 
 void VoxelExample::drawLogo()

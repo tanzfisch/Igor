@@ -72,7 +72,7 @@ public:
 
 private:
 
-    float64 _characterHeight = 2.0;
+    float64 _characterHeight = 1.8;
     float64 _characterRadius = 0.3;
 
 	/// the height of a step that carachter can walk without jumping

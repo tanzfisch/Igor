@@ -36,7 +36,7 @@
 using namespace IgorAux;
 
 #include <map>
-using namespace std;
+
 
 namespace Igor
 {
@@ -127,11 +127,11 @@ namespace Igor
 
         /*! list of triggers that have an effect on this switch node
         */
-        vector<uint32> _triggers;
+        std::vector<uint32> _triggers;
 
         /*! quadric distance thresholds for child nodes
         */
-        map<iNodePtr, Threshold> _thresholds;
+        std::map<iNodePtr, Threshold> _thresholds;
 
         /*! current absolute position
         */
@@ -141,7 +141,7 @@ namespace Igor
 
         \param nodeIDMap map with old node ids to new node ids
         */
-        void onPostCopyLink(map<uint32, uint32>& nodeIDMap);
+        void onPostCopyLink(std::map<uint32, uint32>& nodeIDMap);
 
         /*! update by distance
 

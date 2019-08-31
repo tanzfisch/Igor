@@ -38,7 +38,7 @@
 using namespace IgorAux;
 
 #include <memory>
-using namespace std;
+
 
 namespace Igor
 {
@@ -158,7 +158,7 @@ namespace Igor
         */
         uint64 _neighbours[6];
 
-        vector<shared_ptr<iVoxelOperation>> _voxelOperations;
+        std::vector<std::shared_ptr<iVoxelOperation>> _voxelOperations;
 
     };
 

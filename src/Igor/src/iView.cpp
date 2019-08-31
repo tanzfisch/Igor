@@ -9,14 +9,14 @@
 #include <iTextureResourceFactory.h>
 #include <iScene.h>
 #include <iOctree.h>
-#include <iStatistics.h>
+#include <iProfiler.h>
 
 #include <iaRandomNumberGenerator.h>
 #include <iaConsole.h>
 using namespace IgorAux;
 
 #include <algorithm>
-using namespace std;
+
 
 namespace Igor
 {
@@ -24,14 +24,14 @@ namespace Igor
     iView::iView()
     {
 #ifdef USE_VERBOSE_STATISTICS
-        _userDrawSectionID = iStatistics::getInstance().registerSection("view:user", 2);
+        _userDrawSectionID = iProfiler::getInstance().registerSection("view:user", 2);
 #endif
     }
 
     iView::~iView()
     {
 #ifdef USE_VERBOSE_STATISTICS
-        iStatistics::getInstance().unregisterSection(_userDrawSectionID);
+        iProfiler::getInstance().unregisterSection(_userDrawSectionID);
 #endif
 
         if (_renderEvent.hasDelegates())
@@ -207,19 +207,19 @@ namespace Igor
             }
 
 #ifdef USE_VERBOSE_STATISTICS
-            iStatistics::getInstance().beginSection(_userDrawSectionID);
+            iProfiler::getInstance().beginSection(_userDrawSectionID);
 #endif
             _renderEvent();
 
 #ifdef USE_VERBOSE_STATISTICS
-            iStatistics::getInstance().endSection(_userDrawSectionID);
+            iProfiler::getInstance().endSection(_userDrawSectionID);
 #endif
         }
     }
 
     uint64 iView::pickcolorID(uint32 posx, uint32 posy)
     {
-        vector<uint64> colorIDs;
+        std::vector<uint64> colorIDs;
 
         pickcolorID(iRectanglei(posx, posy, 1, 1), colorIDs);
 
@@ -227,7 +227,7 @@ namespace Igor
     }
 
     // TODO use alpha channel for color ID as well
-    void iView::pickcolorID(const iRectanglei& rectangle, vector<uint64>& colorIDs)
+    void iView::pickcolorID(const iRectanglei& rectangle, std::vector<uint64>& colorIDs)
     {
         // TODO check ranges
 

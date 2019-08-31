@@ -37,7 +37,7 @@ CharacterController::CharacterController(iNodePtr node, int64 materiaID, const i
 
 	iNodeTransform* upperBodyTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 	_upperBodyTransformNodeID = upperBodyTransform->getID();
-	upperBodyTransform->translate(0, 0.55, 0);
+	upperBodyTransform->translate(0, _headHeight, 0);
 	headingTransform->insertNode(upperBodyTransform);
 
 	iNodeTransform* pitchTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -193,11 +193,14 @@ void CharacterController::onApplyForceAndTorque(iPhysicsBody* body, float32 time
 	float64 heightAboveTargetHeight = heightAboveGround - _targetHeight;
 	float64 heightAboveStep = heightAboveGround - _stepHeight;
 
+	const float64 jumpDetectionThreashold = 1.0;
+	const float64 maxForce = 100000;
+
 	switch (_state)
 	{
 	case State::Air:
 		// prevent double jump
-		if (_navigationForce._y > 0)
+		if (_navigationForce._y > jumpDetectionThreashold)
 		{
 			_navigationForce._y = 0;
 		}
@@ -209,7 +212,7 @@ void CharacterController::onApplyForceAndTorque(iPhysicsBody* body, float32 time
 		break;
 
 	case State::Floor:
-		if (_navigationForce._y > 0)
+		if (_navigationForce._y > jumpDetectionThreashold)
 		{
 			_state = State::Jumped;
 		}
@@ -222,7 +225,7 @@ void CharacterController::onApplyForceAndTorque(iPhysicsBody* body, float32 time
 
 	case State::Jumped:
 		// prevent double jump
-		if (_navigationForce._y > 0)
+		if (_navigationForce._y > jumpDetectionThreashold)
 		{
 			_navigationForce._y = 0;
 		}
@@ -261,16 +264,13 @@ void CharacterController::onApplyForceAndTorque(iPhysicsBody* body, float32 time
 	horizontalVelocity._y = 0;
 	force += (horizontalVelocity * _mass / (1.0 / iPhysics::getInstance().getSimulationRate())) * 0.125;
 
-	force += _navigationForce;
-
-	const float64 maxForce = 10000000;
+	force += _navigationForce;	
 
 	// clamp force
 	if (force.length() > maxForce)
 	{
 		force.normalize();
 		force *= maxForce;
-		con_endl("reached max force");
 	}
 
 	body->setForce(force);
@@ -284,8 +284,6 @@ void CharacterController::onApplyForceAndTorque(iPhysicsBody* body, float32 time
 	{
 		upperBodyTransform->setPosition(iaVector3d(0, 0.55, 0));
 	}
-
-	con_endl("heightAboveTargetHeight " << heightAboveTargetHeight);
 }
 
 unsigned CharacterController::onRayPreFilter(iPhysicsBody* body, iPhysicsCollision* collision, const void* userData)
@@ -312,7 +310,7 @@ float64 CharacterController::getFloorContactPoint(iaVector3d& point, iaVector3d&
 	target = matrix._pos;
 	target._y -= 5;
 
-	vector<ConvexCastReturnInfo> info;
+	std::vector<ConvexCastReturnInfo> info;
 
 	iPhysics::getInstance().convexCast(matrix, target, _collisionCast, iRayPreFilterDelegate(this, &CharacterController::onRayPreFilter), nullptr, info);
 

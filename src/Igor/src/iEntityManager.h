@@ -35,7 +35,7 @@
 using namespace IgorAux;
 
 #include <map>
-using namespace std;
+
 
 namespace Igor
 {
@@ -73,13 +73,13 @@ namespace Igor
         \param sphere the sphere to filter with
         \param[out] entities the resulting list with entity ids
         */
-        void getEntities(const iSphered& sphere, vector<uint64>& entities);
+        void getEntities(const iSphered& sphere, std::vector<uint64>& entities);
 
         /*! returns all entities
 
         \param[out] entities list of all the entities
         */
-        void getEntities(vector<uint64>& entities);
+        void getEntities(std::vector<uint64>& entities);
 
         /*! calls all entities handles and updates positions in spatial db
         */
@@ -89,11 +89,11 @@ namespace Igor
 
         /*! list of all the entities
         */
-        map<uint64, iEntity*> _entities;
+        std::map<uint64, iEntity*> _entities;
 
         /*! list of all entitties which are marked for deletion
         */
-        vector<uint64> _toDelete;
+        std::vector<uint64> _toDelete;
 
         /*! spatial db of positioned entitties
         */

@@ -11,7 +11,7 @@ var class_igor_1_1i_voxel_data =
     [ "getIntersection", "class_igor_1_1i_voxel_data.html#a51e75f5bc442a690d8ab07546bce3649", null ],
     [ "getMaterialPole", "class_igor_1_1i_voxel_data.html#a2c1dcad1e7368ce565a64db48e109520", null ],
     [ "getVoxelDensity", "class_igor_1_1i_voxel_data.html#acad28bda9489e5cb57b7a046c5ef1832", null ],
-    [ "getVoxelLine", "class_igor_1_1i_voxel_data.html#aad52a3a0f21328b24de0255e7b09ce2c", null ],
+    [ "getVoxelLine", "class_igor_1_1i_voxel_data.html#a92e92dfcf4671ae2561e5e9d124e98a1", null ],
     [ "getVoxelMaterial", "class_igor_1_1i_voxel_data.html#a11d6d5ae6f81788a0c071cd09354c353", null ],
     [ "getWidth", "class_igor_1_1i_voxel_data.html#ad8e88be6dd6be87540d15b3b6866b46e", null ],
     [ "hasData", "class_igor_1_1i_voxel_data.html#a5a79a411928dd492fc6c10cb63ad098d", null ],

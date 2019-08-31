@@ -51,7 +51,7 @@ void Turret::onModelReady(uint64 modelNodeID)
     {
         iNodeVisitorSearchName searchName;
 
-        vector<uint64> nodeIDs = searchName.find(turret, "platform");
+        std::vector<uint64> nodeIDs = searchName.find(turret, "platform");
         if (!nodeIDs.empty())
         {
             _platformID = nodeIDs.front();

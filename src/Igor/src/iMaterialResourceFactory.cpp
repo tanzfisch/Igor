@@ -109,12 +109,12 @@ namespace Igor
         _mutexMaterial.unlock();
     }
 
-    vector<iMaterialPtr> iMaterialResourceFactory::getSortedMaterials()
+    std::vector<iMaterialPtr> iMaterialResourceFactory::getSortedMaterials()
     {
         updateGroups();
 
         _mutexMaterial.lock();
-        vector<iMaterialPtr> copyList(_sortedMaterials);
+        std::vector<iMaterialPtr> copyList(_sortedMaterials);
         _mutexMaterial.unlock();
 
         return copyList;

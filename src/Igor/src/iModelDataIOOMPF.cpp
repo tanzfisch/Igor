@@ -144,11 +144,11 @@ namespace Igor
 
 		case OMPF::OMPFChunkType::Header:
 		case OMPF::OMPFChunkType::Invalid:
-			con_err("unexpected chunk type with id 0x" << hex << static_cast<uint64>(currentChunk->getType()));
+			con_err("unexpected chunk type with id 0x" << std::hex << static_cast<uint64>(currentChunk->getType()));
 			return result;
 
 		default:
-			con_err("unknown chunk type with id 0x" << hex << static_cast<uint64>(currentChunk->getType()));
+			con_err("unknown chunk type with id 0x" << std::hex << static_cast<uint64>(currentChunk->getType()));
 			return result;
 		}
 
@@ -256,7 +256,7 @@ namespace Igor
 		mesh->setBoundingSphere(sphere);
 
 		// push mesh to mesh node
-		meshNode->setMesh(shared_ptr<iMesh>(mesh));
+		meshNode->setMesh(iMeshPtr(mesh));
 
 		uint32 materialID = getMaterialID(meshChunk->getMaterialChunkID());
 		meshNode->setMaterial(materialID);

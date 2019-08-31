@@ -32,7 +32,7 @@
 #include <iWidget.h>
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -40,19 +40,19 @@ namespace Igor
 	class iTextureFont;
 
     /*! check box widget
-
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
     */
 	class Igor_API iWidgetCheckBox : public iWidget
 	{
 
-        /*! needs to be friend because it's the factory that creates this widget
-        */
-		friend class iWidgetManager;
-
 	public:
+
+		/*! ctor initializes member variables
+		*/
+		iWidgetCheckBox();
+
+		/*! does nothing
+		*/
+		virtual ~iWidgetCheckBox() = default;
 
         /*! beginns a radio button group
 
@@ -101,7 +101,7 @@ namespace Igor
 
         /*! if check box is part of a radio button group. this is the group
         */
-		vector<iWidgetCheckBox*> _radioButtons;
+		std::vector<iWidgetCheckBox*> _radioButtons;
 
         /*! flag to determine if the next check box created is part of a radio button group
         */
@@ -109,7 +109,7 @@ namespace Igor
 
         /*! radio button stack while creating a radio button group
         */
-		static vector<iWidgetCheckBox*> _currentRadioButtons;
+		static std::vector<iWidgetCheckBox*> _currentRadioButtons;
 
         /*! updates size based on it's content
         */
@@ -119,19 +119,6 @@ namespace Igor
 		*/
 		void draw();
 
-	private:
-
-        /*! ctor initializes member variables
-        */
-		iWidgetCheckBox();
-
-        /*! does nothing
-        */
-		virtual ~iWidgetCheckBox() = default;
-
-        /*! creates instance of this widget type
-        */
-        static iWidget* createInstance();
 	};
 }
 

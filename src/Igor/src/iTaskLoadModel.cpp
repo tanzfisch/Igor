@@ -12,7 +12,7 @@
 namespace Igor
 {
 
-    iTaskLoadModel::iTaskLoadModel(iWindow* window, shared_ptr<iModel> model, iTaskContext taskContext, uint32 priority)
+    iTaskLoadModel::iTaskLoadModel(iWindow* window, iModelPtr model, iTaskContext taskContext, uint32 priority)
         : iTask(window, priority, false, taskContext)
     {
         _model = model;

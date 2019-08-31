@@ -36,7 +36,7 @@
 using namespace IgorAux;
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -154,7 +154,7 @@ namespace Igor
 
         /*! mesh used as emitter
         */
-        vector<iEmitterTriangle> _emitterTriangles;
+        std::vector<iEmitterTriangle> _emitterTriangles;
 
         /*! world matrix of emitter
         */
@@ -162,7 +162,7 @@ namespace Igor
 
         /*! random number generator
         */
-        iaRandomNumberGenerator _rand;
+        iaRandomNumberGeneratoru _rand;
 
         void calcRandomStartFromCube(iaVector3d& position, iaVector3d& velocity);
         void calcRandomStartFromSquare(iaVector3d& position, iaVector3d& velocity);

@@ -1,5 +1,7 @@
 var class_igor_1_1i_widget_slider =
 [
+    [ "iWidgetSlider", "class_igor_1_1i_widget_slider.html#a6dc0289e975a3ae4db06813c97768ba1", null ],
+    [ "~iWidgetSlider", "class_igor_1_1i_widget_slider.html#a9feee53439a744e9452f563201e8f3f1", null ],
     [ "calcMinSize", "class_igor_1_1i_widget_slider.html#a4dc75384eedeafe20ec3a02046350e0c", null ],
     [ "cullBoundings", "class_igor_1_1i_widget_slider.html#a3201b3d488b21a42688135afbc852492", null ],
     [ "decreaseNumber", "class_igor_1_1i_widget_slider.html#af3f667302055cd8b31e638a0c852be43", null ],
@@ -20,12 +22,11 @@ var class_igor_1_1i_widget_slider =
     [ "setSteppingWheel", "class_igor_1_1i_widget_slider.html#ab0e047dc7a991dc62727138981aafad5", null ],
     [ "setTexture", "class_igor_1_1i_widget_slider.html#ae18d051507704ee2d2c8d1f0992c2492", null ],
     [ "setValue", "class_igor_1_1i_widget_slider.html#af4134e7768509c7a4b4bd39eecd2c242", null ],
-    [ "iWidgetManager", "class_igor_1_1i_widget_slider.html#a9da20b1c56a70b01ca0ef56f4d4d47fc", null ],
-    [ "_backgroundTexture", "class_igor_1_1i_widget_slider.html#a3d6c341f25b9910468d246f85083421c", null ],
+    [ "_backgroundTexture", "class_igor_1_1i_widget_slider.html#af58ac99cd73df12dffd7d47c8487a6eb", null ],
     [ "_backgroundTexturePath", "class_igor_1_1i_widget_slider.html#a005b0a5acc598bec6d185370a3c1b683", null ],
     [ "_max", "class_igor_1_1i_widget_slider.html#a20b6cbbef04e60a01bc2e9304fd1e849", null ],
     [ "_min", "class_igor_1_1i_widget_slider.html#af43eb9b967145de495a21b9781cfa0b1", null ],
-    [ "_texture", "class_igor_1_1i_widget_slider.html#a1be0d5f26e786ac428472d95a3f371d0", null ],
+    [ "_texture", "class_igor_1_1i_widget_slider.html#af16047a38f75572c861552b2f0c7bb42", null ],
     [ "_texturePath", "class_igor_1_1i_widget_slider.html#a8ebaff4c7c80b4ec66d7a6d8966edc55", null ],
     [ "_value", "class_igor_1_1i_widget_slider.html#a67f8a8ee0dfa2e1170dfa836aa31f0ed", null ],
     [ "_wheelStepDown", "class_igor_1_1i_widget_slider.html#ad63b3600a9273ad5e94264e979ef4c71", null ],

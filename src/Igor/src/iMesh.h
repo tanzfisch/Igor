@@ -37,7 +37,7 @@
 using namespace IgorAux;
 
 #include <map>
-using namespace std;
+
 
 namespace Igor
 {
@@ -267,7 +267,7 @@ namespace Igor
 
         /*! map for texture units
         */
-        map<uint32, bool> _textures;
+        std::map<uint32, bool> _textures;
 
         /*! bounding sphere
         */
@@ -279,6 +279,10 @@ namespace Igor
     };
 
 #include <iMesh.inl>
+
+	/*! definition of shared pointer mesh
+	*/
+	typedef std::shared_ptr<iMesh> iMeshPtr;
 
 }
 

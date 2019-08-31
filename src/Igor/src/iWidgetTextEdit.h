@@ -35,19 +35,19 @@ namespace Igor
 {
 
 	/*! text edit widget
-
-	Example:
-	\ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
 	*/
 	class Igor_API iWidgetTextEdit : public iWidget
 	{
 
-		/*! needs to be friend because it's the factory that creates this widget
-		*/
-		friend class iWidgetManager;
-
 	public:
+
+		/*! initializes member variables
+		*/
+		iWidgetTextEdit();
+
+		/*! deinitializes member variables
+		*/
+		virtual ~iWidgetTextEdit() = default;
 
 		/*! sets horrizotnal text aligment
 
@@ -212,18 +212,6 @@ namespace Igor
 		/*! updates the cursor position and scroll offset
 		*/
 		void updateMetrics();
-
-		/*! initializes member variables
-		*/
-		iWidgetTextEdit();
-
-		/*! deinitializes member variables
-		*/
-		virtual ~iWidgetTextEdit() = default;
-
-		/*! creates instance of this widget type
-		*/
-		static iWidget* createInstance();
 
 	};
 

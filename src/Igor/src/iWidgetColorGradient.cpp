@@ -35,11 +35,6 @@ namespace Igor
         _texture = nullptr;
     }
 
-    iWidget* iWidgetColorGradient::createInstance()
-    {
-        return new iWidgetColorGradient();
-    }
-
     bool iWidgetColorGradient::handleMouseKeyDown(iKeyCode key)
     {
         iaVector2i mousePos = getLastMousePos();
@@ -51,7 +46,7 @@ namespace Igor
             gradientRect._width -= 10;
             gradientRect._height /= 2;
 
-            const vector<pair<float, iaColor4f>> gradient = _gradient.getValues();
+            const std::vector<std::pair<float, iaColor4f>> gradient = _gradient.getValues();
 
             iRectanglei buttonRect(0, 0, 0, 0);
             buttonRect._height = getActualHeight() - gradientRect._height - 1;
@@ -151,7 +146,7 @@ namespace Igor
 
             if (_interactive)
             {
-                const vector<pair<float, iaColor4f>> gradient = _gradient.getValues();
+                const std::vector<std::pair<float, iaColor4f>> gradient = _gradient.getValues();
 
                 iRectanglei buttonRect(0, 0, 0, 0);
                 buttonRect._height = buttonHeight;

@@ -35,8 +35,7 @@
 #include <iaMutex.h>
 using namespace IgorAux;
 
-#include <map>
-using namespace std;
+#include <unordered_map>
 
 namespace Igor
 {
@@ -92,7 +91,7 @@ namespace Igor
 
         \param nodeType type of nodes
         */
-        vector<uint64> getNodes(iNodeType nodeType);
+        std::vector<uint64> getNodes(iNodeType nodeType);
 
         /*! \returns true if node ID exists
 
@@ -126,7 +125,7 @@ namespace Igor
 
         \param actionQueue list of actions to be executed
         */
-        void applyActionsAsync(const vector<iAction>& actionQueue);
+        void applyActionsAsync(const std::vector<iAction>& actionQueue);
 
         /*! creates a node
 
@@ -170,7 +169,7 @@ namespace Igor
 
         /*! mapping ids to nodes
         */
-        map<uint64, iNodePtr> _nodes;
+        std::unordered_map<uint64, iNodePtr> _nodes;
 
         /*! mutex to protect node list
         */
@@ -178,7 +177,7 @@ namespace Igor
 
         /*! queue with actions
         */
-        vector<iAction> _actionQueue;
+        std::vector<iAction> _actionQueue;
 
         /*! mutex to protect activities
         */
@@ -200,7 +199,7 @@ namespace Igor
         \param node the node to copy
         \param recursiveDepth recursive depth
         */
-        iNodePtr createCopyInternal(iNodePtr node, map<uint64, uint64>& nodeIDMap, uint32 recursiveDepth);
+        iNodePtr createCopyInternal(iNodePtr node, std::map<uint64, uint64>& nodeIDMap, uint32 recursiveDepth);
 
         /*! destroys node and all its children
 

@@ -5,10 +5,8 @@
 #include <iTextureResourceFactory.h>
 #include <iRenderer.h>
 #include <iResourceManager.h>
-#include <iPixmap.h>
 
 #include <iaConsole.h>
-#include <IgorAux.h>
 using namespace IgorAux;
 
 #include <iSTBImageExt.h>
@@ -142,7 +140,7 @@ namespace Igor
     {
         con_assert(!name.isEmpty(), "invalid parameter");
 
-        std::hash<wstring> hashFunc;
+        std::hash<std::wstring> hashFunc;
 
         iaString combined = name;
         switch (cacheMode)
@@ -264,7 +262,7 @@ namespace Igor
 
     void iTextureResourceFactory::flush(iResourceCacheMode cacheModeLevel)
     {
-        vector<iTexturePtr> texturesToProcess;
+        std::vector<iTexturePtr> texturesToProcess;
 
         _mutex.lock();
         auto texture = _textures.begin();
@@ -438,10 +436,7 @@ namespace Igor
         return result;
     }
 
-    /*!
-    \todo refactoring combine loadFileAsPixmap with loadFile
-    */
-    iPixmap* iTextureResourceFactory::loadFileAsPixmap(const iaString& filename)
+	iPixmapPtr iTextureResourceFactory::loadPixmap(const iaString& filename)
     {
         iaString fullPath = iResourceManager::getInstance().getPath(filename);
 

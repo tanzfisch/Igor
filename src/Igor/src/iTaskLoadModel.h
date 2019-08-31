@@ -33,7 +33,7 @@
 #include <iModel.h>
 
 #include <memory>
-using namespace std;
+
 
 namespace Igor
 {
@@ -47,7 +47,7 @@ namespace Igor
 
         \param model the model to load
         */
-        iTaskLoadModel(iWindow* window, shared_ptr<iModel> model, iTaskContext taskContext, uint32 priority);
+        iTaskLoadModel(iWindow* window, iModelPtr model, iTaskContext taskContext, uint32 priority);
 
         /*! does nothing
         */
@@ -57,7 +57,7 @@ namespace Igor
 
         /*! the model to load
         */
-        shared_ptr<iModel> _model;
+		iModelPtr _model;
 
         /*! runs the task
         */

@@ -30,22 +30,17 @@
 #define __iWIDGETDEFAULTTHEME__
 
 #include <iWidgetBaseTheme.h>
+#include <iTexture.h>
 
 #include <iaColor4.h>
 using namespace IgorAux;
 
 #include <memory>
-using namespace std;
 
 namespace Igor
 {
-
-    class iTexture;
-
+	
     /*! default widget theme
-
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
     */
 	class Igor_API iWidgetDefaultTheme : public iWidgetBaseTheme
 	{
@@ -59,29 +54,29 @@ namespace Igor
         void drawFilledRectangle(const iRectanglei& rect);
         void drawGradient(const iRectanglei& rect, const iaGradientColor4f& gradient);
 
-        void drawTiledRectangle(const iRectanglei& rect, shared_ptr<iTexture> texture);
+        void drawTiledRectangle(const iRectanglei& rect, iTexturePtr texture);
         
 		void drawGridField(const iRectanglei& rect, iWidgetAppearanceState state);
         void drawGridHighlight(const iRectanglei& rect);
         void drawGridSelection(const iRectanglei& rect);
         void drawFrame(const iRectanglei& rect, iWidgetAppearanceState state, bool active);
         void drawBackgroundFrame(const iRectanglei& rect, iWidgetAppearanceState state, bool active);
-        void drawPicture(const iRectanglei& rect, shared_ptr<iTexture> texture, iWidgetAppearanceState state, bool active);
+        void drawPicture(const iRectanglei& rect, iTexturePtr texture, iWidgetAppearanceState state, bool active);
         void drawDialog(const iRectanglei& rect, iWidgetAppearanceState state, bool active);
         void drawSpacer(const iRectanglei& rect, iWidgetAppearanceState state, bool active);
-        void drawButton(const iRectanglei& rect, const iaString& text, iHorizontalAlignment align, iVerticalAlignment valign, shared_ptr<iTexture> texture, iWidgetAppearanceState state, bool active);
+        void drawButton(const iRectanglei& rect, const iaString& text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iWidgetAppearanceState state, bool active);
         void drawButton(const iRectanglei& rect, const iaColor4f& color, iWidgetAppearanceState state, bool active);
         void drawGroupBox(const iRectanglei& rect, bool headerOnly, const iaString& text, iWidgetAppearanceState state, bool active);
         void drawCheckBox(const iRectanglei& rect, const iaString& text, bool checked, iWidgetAppearanceState state, bool active);
         void drawLabel(const iRectanglei& rect, const iaString& text, int32 textWidth, iWidgetAppearanceState state, bool active);
         void drawNumberChooser(const iRectanglei& rect, const iaString& text, iWidgetAppearanceState button_up_state, iWidgetAppearanceState button_down_state, bool active);
         void drawSelectBox(const iRectanglei& rect, const iaString& text, iWidgetAppearanceState buttonAppearance, bool active);
-        void drawSelectBoxDropDown(const iRectanglei& rect, vector<iaString>& text, int highlightIndex, bool active);
+        void drawSelectBoxDropDown(const iRectanglei& rect, std::vector<iaString>& text, int highlightIndex, bool active);
         void drawTextEdit(const iRectanglei& rect, const iaString& text, const float32 cursorPos, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetAppearanceState state, bool active);
         void drawText(const iRectanglei& rect, const iaString& text, int32 textwidth);
-        void drawGraph(const iRectanglei& rect, const iaColor4f& lineColor, const iaColor4f& pointColor, float32 lineWidth, float32 pointSize, const vector<iaVector2f>& points);
-        void drawGraphGridlines(const iRectanglei& rect, float32 lineWidth, const vector<iaVector2f>& verticalLines, const vector<iaVector2f>& horizontalLines, bool active);
-        void drawGraphLabels(const iRectanglei& rect, const vector<iaVector2f>& verticalLines, const vector<iaVector2f>& horizontalLines, bool active);
+        void drawGraph(const iRectanglei& rect, const iaColor4f& lineColor, const iaColor4f& pointColor, float32 lineWidth, float32 pointSize, const std::vector<iaVector2f>& points);
+        void drawGraphGridlines(const iRectanglei& rect, float32 lineWidth, const std::vector<iaVector2f>& verticalLines, const std::vector<iaVector2f>& horizontalLines, bool active);
+        void drawGraphLabels(const iRectanglei& rect, const std::vector<iaVector2f>& verticalLines, const std::vector<iaVector2f>& horizontalLines, bool active);
         void drawGraphFrame(const iRectanglei& rect, iWidgetAppearanceState state, bool active);
 
 		void drawTooltip(const iaVector2i& pos, const iaString& text) override;
@@ -107,7 +102,7 @@ namespace Igor
 		*/
 		float32 _fontLineHeight = 1.1f;
 
-        shared_ptr<iTexture> _backgroundTexture = nullptr;
+        iTexturePtr _backgroundTexture = nullptr;
 
         /*! texture based font
         */

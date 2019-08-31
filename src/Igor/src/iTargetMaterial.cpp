@@ -24,13 +24,13 @@ namespace Igor
     {
     }
 
-    void iTargetMaterial::setTexture(shared_ptr<iTexture> texture, int texunit)
+    void iTargetMaterial::setTexture(iTexturePtr texture, int texunit)
     {
         con_assert(texunit < 4 && texunit >= 0, "tex unit out of range");
         _textures[texunit] = texture;
     }
 
-    shared_ptr<iTexture> iTargetMaterial::getTexture(int texunit) const
+	iTexturePtr iTargetMaterial::getTexture(int texunit) const
     {
         con_assert(_textures.size() != 0, "no textures available");
 

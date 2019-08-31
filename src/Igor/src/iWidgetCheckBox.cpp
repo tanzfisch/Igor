@@ -12,7 +12,7 @@ namespace Igor
 {
 
     bool iWidgetCheckBox::_generatingRadioButtonGroup = false;
-    vector<iWidgetCheckBox*> iWidgetCheckBox::_currentRadioButtons;
+    std::vector<iWidgetCheckBox*> iWidgetCheckBox::_currentRadioButtons;
 
     iWidgetCheckBox::iWidgetCheckBox()
     {
@@ -30,11 +30,6 @@ namespace Igor
 
             _currentRadioButtons.push_back(this);
         }
-    }
-
-    iWidget* iWidgetCheckBox::createInstance()
-    {
-        return new iWidgetCheckBox();
     }
 
     void iWidgetCheckBox::beginRadioButtonGroup()

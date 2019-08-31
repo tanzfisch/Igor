@@ -36,7 +36,7 @@ using namespace IgorAux;
 #include <iNodeVisitor.h>
 
 #include <map>
-using namespace std;
+
 
 namespace OMPF
 {
@@ -104,7 +104,7 @@ namespace Igor
 
         /*! chunk stack used while traversing the node tree
         */
-        vector<OMPF::ompfBaseChunk*> _chunkStack;
+        std::vector<OMPF::ompfBaseChunk*> _chunkStack;
 
         /*! mode to use while exporting model data
         */
@@ -118,19 +118,19 @@ namespace Igor
 
         /*! maps chunk material id to materil id
         */
-        map<uint32, uint32> _materialMapping;
+        std::map<uint32, uint32> _materialMapping;
 
         /*! maps chunk id to node id
         */
-        map<uint32, uint32> _chunkToNode;
+        std::map<uint32, uint32> _chunkToNode;
 
         /*! maps node id to chunk id
         */
-        map<uint32, uint32> _nodeToChunk;
+        std::map<uint32, uint32> _nodeToChunk;
 
         /*! map of materials currently in use
         */
-        map<uint32, OMPF::ompfMaterialChunk*> _materialsInUse;
+        std::map<uint32, OMPF::ompfMaterialChunk*> _materialsInUse;
 
         /*! additional input parameter
 

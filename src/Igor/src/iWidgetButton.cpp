@@ -25,12 +25,7 @@ namespace Igor
     {
         _texture = nullptr;
     }
-
-    iWidget* iWidgetButton::createInstance()
-    {
-        return new iWidgetButton();
-    }
-
+	
 	void iWidgetButton::setText(const iaString& text)
 	{
 		_text = text;

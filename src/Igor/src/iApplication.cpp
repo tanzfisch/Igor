@@ -8,13 +8,13 @@
 #include <iNodeFactory.h>
 #include <iTimer.h>
 #include <iPhysics.h>
-#include <iStatistics.h>
+#include <iProfiler.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
 
 #include <algorithm>
-using namespace std;
+
 
 namespace Igor
 {
@@ -53,33 +53,32 @@ namespace Igor
 
     void iApplication::iterate()
     {
-        iStatistics::getInstance().nextFrame();
-        iStatistics::getInstance().beginSection(_frameSectionID);
+        iProfiler::getInstance().nextFrame();
+        iProfiler::getInstance().beginSection(_frameSectionID);
 
-        iStatistics::getInstance().beginSection(_handleSectionID);
+        iProfiler::getInstance().beginSection(_handleSectionID);
         iTimer::getInstance().handle();
-
         iNodeFactory::getInstance().handle();
-        iStatistics::getInstance().endSection(_handleSectionID);
+        iProfiler::getInstance().endSection(_handleSectionID);
 
-        iStatistics::getInstance().beginSection(_physicsSectionID);
+        iProfiler::getInstance().beginSection(_physicsSectionID);
         iPhysics::getInstance().handle();
-        iStatistics::getInstance().endSection(_physicsSectionID);
+        iProfiler::getInstance().endSection(_physicsSectionID);
 
-        iStatistics::getInstance().beginSection(_userSectionID);
+        iProfiler::getInstance().beginSection(_userSectionID);
         windowHandle();
         _preDrawHandleEvent();
-        iStatistics::getInstance().endSection(_userSectionID);
+        iProfiler::getInstance().endSection(_userSectionID);
 
-        iStatistics::getInstance().beginSection(_drawSectionID);
+        iProfiler::getInstance().beginSection(_drawSectionID);
         draw();
-        iStatistics::getInstance().endSection(_drawSectionID);
+        iProfiler::getInstance().endSection(_drawSectionID);
 
-        iStatistics::getInstance().beginSection(_userSectionID);
+        iProfiler::getInstance().beginSection(_userSectionID);
         _postDrawHandleEvent();
-        iStatistics::getInstance().endSection(_userSectionID);
+        iProfiler::getInstance().endSection(_userSectionID);
 
-        iStatistics::getInstance().endSection(_frameSectionID);
+        iProfiler::getInstance().endSection(_frameSectionID);
     }
 
     void iApplication::run()
@@ -94,20 +93,20 @@ namespace Igor
 
     void iApplication::deinitStatistics()
     {
-        iStatistics::getInstance().unregisterSection(_frameSectionID);
-        iStatistics::getInstance().unregisterSection(_handleSectionID);
-        iStatistics::getInstance().unregisterSection(_physicsSectionID);
-        iStatistics::getInstance().unregisterSection(_drawSectionID);
-        iStatistics::getInstance().unregisterSection(_userSectionID);
+        iProfiler::getInstance().unregisterSection(_frameSectionID);
+        iProfiler::getInstance().unregisterSection(_handleSectionID);
+        iProfiler::getInstance().unregisterSection(_physicsSectionID);
+        iProfiler::getInstance().unregisterSection(_drawSectionID);
+        iProfiler::getInstance().unregisterSection(_userSectionID);
     }
 
     void iApplication::initStatistics()
     {
-        _frameSectionID = iStatistics::getInstance().registerSection("app:frame", 0);
-        _handleSectionID = iStatistics::getInstance().registerSection("app:handle", 0);
-        _physicsSectionID = iStatistics::getInstance().registerSection("app:physics", 0);
-        _userSectionID = iStatistics::getInstance().registerSection("app:user", 0);
-        _drawSectionID = iStatistics::getInstance().registerSection("app:draw", 0);
+        _frameSectionID = iProfiler::getInstance().registerSection("app:frame", 0);
+        _handleSectionID = iProfiler::getInstance().registerSection("app:handle", 0);
+        _physicsSectionID = iProfiler::getInstance().registerSection("app:physics", 0);
+        _userSectionID = iProfiler::getInstance().registerSection("app:user", 0);
+        _drawSectionID = iProfiler::getInstance().registerSection("app:draw", 0);
     }
 
     bool iApplication::isRunning()

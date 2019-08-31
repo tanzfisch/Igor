@@ -2,12 +2,12 @@
 // (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
-uint64 iWidget::getID()
+__IGOR_INLINE__ uint64 iWidget::getID() const
 {
     return _id;
 }
 
-uint64 iWidget::getParentID()
+__IGOR_INLINE__ uint64 iWidget::getParentID() const
 {
     if (_parent != nullptr)
     {
@@ -19,22 +19,22 @@ uint64 iWidget::getParentID()
     }
 }
 
-bool iWidget::hasKeyboardFocus()
+__IGOR_INLINE__ bool iWidget::hasKeyboardFocus() const
 {
     return (_keyboardFocus == this) ? true : false;
 }
 
-iWidgetAppearanceState iWidget::getAppearanceState()
+__IGOR_INLINE__ iWidgetAppearanceState iWidget::getAppearanceState() const
 {
     return _widgetAppearanceState;
 }
 
-bool iWidget::hasParent()
+__IGOR_INLINE__ bool iWidget::hasParent() const
 {
     return (_parent != nullptr) ? true : false;
 }
 
-bool iWidget::isVisible()
+__IGOR_INLINE__ bool iWidget::isVisible() const
 {
     if (_parent != nullptr)
     {
@@ -47,67 +47,67 @@ bool iWidget::isVisible()
     return _visible;
 }
 
-int32 iWidget::getConfiguredWidth() const
+__IGOR_INLINE__ int32 iWidget::getConfiguredWidth() const
 {
 	return _configuredWidth;
 }
 
-int32 iWidget::getConfiguredHeight() const
+__IGOR_INLINE__ int32 iWidget::getConfiguredHeight() const
 {
 	return _configuredHeight;
 }
 
-int32 iWidget::getActualWidth() const
+__IGOR_INLINE__ int32 iWidget::getActualWidth() const
 {
     return _actualWidth;
 }
 
-int32 iWidget::getActualHeight() const
+__IGOR_INLINE__ int32 iWidget::getActualHeight() const
 {
     return _actualHeight;
 }
 
-int32 iWidget::getMinWidth() const
+__IGOR_INLINE__ int32 iWidget::getMinWidth() const
 {
     return _minWidth;
 }
 
-int32 iWidget::getMinHeight() const
+__IGOR_INLINE__ int32 iWidget::getMinHeight() const
 {
     return _minHeight;
 }
 
-iaVector2i iWidget::getActualPos() const
+__IGOR_INLINE__ iaVector2i iWidget::getActualPos() const
 {
 	return iaVector2i(_absoluteX, _absoluteY);
 }
 
-int32 iWidget::getActualPosX() const
+__IGOR_INLINE__ int32 iWidget::getActualPosX() const
 {
 	return _absoluteX;
 }
 
-int32 iWidget::getActualPosY() const
+__IGOR_INLINE__ int32 iWidget::getActualPosY() const
 {
 	return _absoluteY;
 }
 
-iRectanglei iWidget::getActualRect() const
+__IGOR_INLINE__ iRectanglei iWidget::getActualRect() const
 {
     return iRectanglei(_absoluteX, _absoluteY, _actualWidth, _actualHeight);
 }
 
-int32 iWidget::getRelativePosX() const
+__IGOR_INLINE__ int32 iWidget::getRelativePosX() const
 {
 	return _relativeX;
 }
 
-int32 iWidget::getRelativePosY() const
+__IGOR_INLINE__ int32 iWidget::getRelativePosY() const
 {
 	return _relativeY;
 }
 
-bool iWidget::isActive()
+__IGOR_INLINE__ bool iWidget::isActive() const
 {
     if (_parent != nullptr)
     {

@@ -55,7 +55,7 @@ namespace Igor
         contouringCubes.setVoxelDataNextLOD(voxelDataNextLOD);
         contouringCubes.setNextLODVoxelOffset(tileInformation->_voxelOffsetToNextLOD);
 
-        shared_ptr<iMesh> mesh = contouringCubes.compile(iaVector3I(), iaVector3I(width, height, depth), tileInformation->_lod, tileInformation->_neighboursLOD);
+        iMeshPtr mesh = contouringCubes.compile(iaVector3I(), iaVector3I(width, height, depth), tileInformation->_lod, tileInformation->_neighboursLOD);
 
         if (mesh.get() != nullptr)
         {
@@ -66,7 +66,7 @@ namespace Igor
             meshNode->setVisible(false);
 
 #ifdef DEBUG_VOXEL_TERRAIN_COLORING
-            iaRandomNumberGenerator rand;
+            iaRandomNumberGeneratoru rand;
             rand.setSeed(reinterpret_cast<uint32>(voxelData));
             float32 r = ((rand.getNext() % 30) + 35.0f) / 100.0f;
             float32 g = ((rand.getNext() % 30) + 35.0f) / 100.0f;

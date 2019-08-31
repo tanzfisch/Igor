@@ -30,33 +30,31 @@
 #define __iWIDGETCOLOR__
 
 #include <iWidget.h>
+#include <iTexture.h>
 
 #include <iaString.h>
 #include <iaColor4.h>
 using namespace IgorAux;
 
 #include <memory>
-using namespace std;
 
 namespace Igor
 {
-
-    class iTexture;
-
+	
     /*! color view widget
-
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
     */
 	class Igor_API iWidgetColor : public iWidget
 	{
 
-        /*! needs to be friend because it's the factory that creates this widget
-        */
-        friend class iWidgetManager;
-
 	public:
+
+		/*! ctor initializes member variables
+		*/
+		iWidgetColor();
+
+		/*! release texture
+		*/
+		virtual ~iWidgetColor();
 
 		/*! sets color
 		\param color color value in rgba
@@ -75,7 +73,7 @@ namespace Igor
 
         /*! shared pointer to background texture
         */
-        shared_ptr<iTexture> _texture = nullptr;
+        iTexturePtr _texture;
 
         /*! updates size based on it's content
         */
@@ -85,17 +83,6 @@ namespace Igor
 		*/
 		void draw();
 
-        /*! ctor initializes member variables
-        */
-        iWidgetColor();
-
-        /*! release texture
-        */
-		virtual ~iWidgetColor();
-
-        /*! creates instance of this widget type
-        */
-        static iWidget* createInstance();
 	};
 }
 

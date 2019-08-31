@@ -11,7 +11,7 @@ var class_igor_1_1i_material_resource_factory =
     [ "getMaterial", "class_igor_1_1i_material_resource_factory.html#a51a97edf742ff941daa346679887ee9e", null ],
     [ "getMaterial", "class_igor_1_1i_material_resource_factory.html#ad8ae73a47beca8c0d43c43dfd2aac8ca", null ],
     [ "getMaterialID", "class_igor_1_1i_material_resource_factory.html#aa096dffd0e2d737f5fb0148838a6d129", null ],
-    [ "getSortedMaterials", "class_igor_1_1i_material_resource_factory.html#a470b7c06bcad28ef79917ae30d58fabe", null ],
+    [ "getSortedMaterials", "class_igor_1_1i_material_resource_factory.html#a7adbd7dabb947d26b3cb9cf60fb498e4", null ],
     [ "registerMaterialCreatedDelegate", "class_igor_1_1i_material_resource_factory.html#aa571e1eb2d9fe1fb9a96c3191a24e7ca", null ],
     [ "registerMaterialDestroyedDelegate", "class_igor_1_1i_material_resource_factory.html#aec091a839aa0ab5668b1c155b4191a60", null ],
     [ "unregisterMaterialCreatedDelegate", "class_igor_1_1i_material_resource_factory.html#a232ed288a6810c066e286b27ea0c4ae0", null ],

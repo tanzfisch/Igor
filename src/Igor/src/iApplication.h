@@ -36,7 +36,7 @@
 using namespace IgorAux;
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -137,7 +137,7 @@ namespace Igor
 		
 		/*! list of windows registered to the application
 		*/
-        vector<iWindow*> _windows;
+        std::vector<iWindow*> _windows;
 
 		/*! handle event called before rendering
 		*/

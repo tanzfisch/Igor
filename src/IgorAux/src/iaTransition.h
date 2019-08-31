@@ -35,7 +35,7 @@
 #include <iaState.h>
 
 #include <map>
-using namespace std;
+
 
 namespace IgorAux
 {
@@ -43,9 +43,6 @@ namespace IgorAux
     /*! transition beween two states
 
     both states are alowed to be the same. than reEnter() will be triggered
-
-    Example:
-    \ref StateMachine/src/StateMachineExample.cpp "StateMachine usage example"
     */
     class IgorAux_API iaTransition
     {
@@ -86,7 +83,7 @@ namespace IgorAux
 
         /*! map of gate flags
         */
-        map<uint32, bool> _gates;
+        std::map<uint32, bool> _gates;
 
         /*! creates a gate
 

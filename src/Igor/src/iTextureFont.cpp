@@ -22,7 +22,7 @@ namespace Igor
 
         if (_texture->isValid())
         {
-            _pixmap = iTextureResourceFactory::getInstance().loadFileAsPixmap(font_file);
+            _pixmap = iTextureResourceFactory::getInstance().loadPixmap(font_file);
 
             if (_pixmap)
             {
@@ -155,12 +155,12 @@ namespace Igor
         _characters.clear();
     }
 
-    shared_ptr<iTexture> iTextureFont::getTexture()
+    iTexturePtr iTextureFont::getTexture()
     {
         return _texture;
     }
 
-    vector<iCharacterDimensions>& iTextureFont::getCharacters()
+    std::vector<iCharacterDimensions>& iTextureFont::getCharacters()
     {
         return _characters;
     }

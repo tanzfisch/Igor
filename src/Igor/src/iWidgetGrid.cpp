@@ -20,11 +20,6 @@ namespace Igor
         initGrid();
     }
 
-    iWidget* iWidgetGrid::createInstance()
-    {
-        return new iWidgetGrid();
-    }
-
     void iWidgetGrid::clear()
     {
         _widgetRows.clear();
@@ -399,7 +394,7 @@ namespace Igor
         setMinSize(minWidth, minHeight);
     }
 
-    void iWidgetGrid::calcChildOffsets(vector<iRectanglei>& offsets)
+    void iWidgetGrid::calcChildOffsets(std::vector<iRectanglei>& offsets)
     {
         offsets.clear();
         offsets.resize(_children.size());
@@ -852,7 +847,10 @@ namespace Igor
 
     uint32 iWidgetGrid::getColumnCount()
     {
-        con_assert(!_widgetRows.empty(), "grid can't be empty");
+		if (_widgetRows.empty())
+		{
+			return 0;
+		}
 
         return static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());
     }
@@ -882,7 +880,7 @@ namespace Igor
             }
         }
 
-        con_assert(removed == true, "inconsistant data");
+        // con_assert(removed == true, "inconsistant data");
         iWidget::removeWidget(widget);
     }
 

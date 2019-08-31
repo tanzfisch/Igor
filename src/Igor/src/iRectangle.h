@@ -73,29 +73,31 @@ namespace Igor
             _height = rect._height;
         }
 
-        void adjust(T x, T y, T width, T height)
-        {
-            _x += x;
-            _y += y;
-            _width += width;
-            _height += height;
-        }
+		/*! adjust the size of the rectangle
+
+		\param x the horizontal position adjustment
+		\param y the vertical position adjustment
+		\param width the horizontal size adjustment
+		\param height the vertical size adjustment
+
+		*/
+		void adjust(T x, T y, T width, T height);
 
         /*! \returns horrizonal position
         */
-        __IGOR_INLINE__ const T getX() const;
+        const T getX() const;
 
         /*! \returns vertical position
         */
-        __IGOR_INLINE__ const T getY() const;
+        const T getY() const;
 
         /*! \returns rectangle width
         */
-        __IGOR_INLINE__ const T getWidth() const;
+        const T getWidth() const;
 
         /*! \returns rectangle height
         */
-        __IGOR_INLINE__ const T getHeight() const;
+        const T getHeight() const;
 
         /*! sets horrizontal position
 
@@ -128,12 +130,21 @@ namespace Igor
         */
         void setSize(T width, T height);
 
+		/*! sets all values at once
+
+		\param x the horizontal position
+		\param y the vertical position
+		\param width the horizontal size
+		\param height the vertical size
+		*/
+		void set(T x, T y, T width, T height);
+
         /*! assignment operator
 
         \param rectangle the rectangle to assign
         \returns resulting rectangle
         */
-        __IGOR_INLINE__ iRectangle<T> operator= (const iRectangle<T> &rectangle);
+        iRectangle<T> operator= (const iRectangle<T> &rectangle);
 
         /*! horrizontal position
         */

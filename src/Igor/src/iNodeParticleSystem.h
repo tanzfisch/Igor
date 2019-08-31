@@ -38,7 +38,7 @@
 using namespace IgorAux;
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -402,21 +402,21 @@ namespace Igor
 
         /*! first texture
         */
-        shared_ptr<iTexture> _textureA;
+		iTexturePtr _textureA;
 
         /*! second texture
         */
-        shared_ptr<iTexture> _textureB;
+		iTexturePtr _textureB;
 
         /*! third texture
         */
-        shared_ptr<iTexture> _textureC;
+		iTexturePtr _textureC;
 
         /*! called after a node was copied
 
         \param nodeIDMap map with old node ids to new node ids
         */
-        void onPostCopyLink(map<uint32, uint32>& nodeIDMap);
+        void onPostCopyLink(std::map<uint32, uint32>& nodeIDMap);
 
         /*! draw function
         */

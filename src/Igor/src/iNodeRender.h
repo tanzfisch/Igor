@@ -34,7 +34,7 @@
 #include <iMaterial.h>
 
 #include <memory>
-using namespace std;
+
 
 namespace Igor
 {

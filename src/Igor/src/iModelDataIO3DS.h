@@ -33,7 +33,7 @@
 #include <iTexture.h>
 
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -69,7 +69,7 @@ namespace Igor
 
 		char path[256];
 
-		vector<iMesh*> meshes;
+		std::vector<iMesh*> meshes;
 
 		unsigned char *buffer;
 		uint32 buffersize;
@@ -78,8 +78,8 @@ namespace Igor
 		uint32 trianglecount;
 		bool eof;
 
-		vector<Material*> materials;
-		vector<Vertex*> vertexes;
+		std::vector<Material*> materials;
+		std::vector<Vertex*> vertexes;
 
 		void readMesh(iLoader3DS::Chunk parent);
 		iLoader3DS::Chunk readChunk();

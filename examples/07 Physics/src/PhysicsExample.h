@@ -36,7 +36,7 @@
 #include <iModelResourceFactory.h>
 #include <iKeyboard.h>
 #include <iMaterial.h>
-#include <iStatisticsVisualizer.h>
+#include <iProfilerVisualizer.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -83,7 +83,7 @@ private:
 
     /*! visualizes statistics
     */
-    iStatisticsVisualizer _statisticsVisualizer;
+    iProfilerVisualizer _profilerVisualizer;
 
     /*! view to render the scene with
     */
@@ -127,7 +127,7 @@ private:
 
     /*! list of physics bodies create for later cleanup
     */
-    vector<uint64> _bodyIDs;
+    std::vector<uint64> _bodyIDs;
 
     /*! sky box material ID
     */
@@ -139,7 +139,7 @@ private:
 
     /*! igor logo
     */
-    shared_ptr<iTexture> _igorLogo = nullptr;
+    iTexturePtr _igorLogo = nullptr;
 
     /*! physics callback to apply force and torque to the physics bodies
 

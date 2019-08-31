@@ -95,7 +95,7 @@ So now the particle system is set up (we gonna have a look at how it's rendered 
 
     // load a texture as a sprite
     // sprites are basically textures that have some additional meta data that help you to place and orientate them
-    _logo = new iSprite(iTextureResourceFactory::getInstance().loadFile("OpenGL-Logo.jpg"));
+    _logo = new iAtlas(iTextureResourceFactory::getInstance().loadFile("OpenGL-Logo.jpg"));
     // set the center as the origin of the sprite
     _logo->setOrigin(iaVector2f(_logo->getTexture()->getWidth() * 0.5, _logo->getTexture()->getHeight() * 0.5));
 
@@ -277,9 +277,9 @@ Now that the matrices are set up we can besically just switch between materials 
 
     offset += 1.0f;
 
-Last but not least there is a class alled iStatistics in Igor that can measure for you all about timings. We just use it here to draw the frame rate on the screen.
+Last but not least there is a class alled iProfiler in Igor that can measure for you all about timings. We just use it here to draw the frame rate on the screen.
 
     // draw frame rate in lower right corner
-    iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+    iProfiler::getInstance().draw(&_window, _font, iaColor4f(0, 1, 0, 1));
 
 And that's all to it. For further questions please contact [tanzfisch](https://github.com/tanzfisch).

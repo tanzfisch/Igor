@@ -10,7 +10,7 @@
 #include <iShader.h>
 
 #include <sstream>
-using namespace std;
+
 
 namespace Igor
 {
@@ -115,7 +115,7 @@ namespace Igor
 
             for (int i = 0; i < MAX_TEXTURE_UNITS; ++i)
             {
-                stringstream shaderProperty;
+                std::stringstream shaderProperty;
                 shaderProperty << SAMPLER_TEXTURE << i;
                 _matTexture[i] = iRenderer::getInstance().getShaderPropertyID(program, shaderProperty.str().c_str());
                 _hasTexture[i] = _matTexture[i] != -1 ? true : false;
@@ -145,7 +145,7 @@ namespace Igor
         _shaderSources.push_back(shaderSource);
     }
 
-    vector<iShaderSource> iMaterial::getShaderSources() const
+    std::vector<iShaderSource> iMaterial::getShaderSources() const
     {
         return _shaderSources;
     }

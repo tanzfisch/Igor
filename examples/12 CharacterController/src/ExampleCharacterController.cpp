@@ -27,7 +27,7 @@ using namespace IgorAux;
 #include <iTaskFlushTextures.h>
 #include <iaString.h>
 #include <iMaterialResourceFactory.h>
-#include <iStatistics.h>
+#include <iProfiler.h>
 #include <iNodeSwitch.h>
 #include <iNodeLODSwitch.h>
 #include <iNodeLODTrigger.h>
@@ -145,7 +145,7 @@ void ExampleCharacterController::init()
         boxBody->setMaterial(_entityMaterialID);
 
         iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-        transformNode->translate(111, 200, 110);
+        transformNode->translate(10, 200, 10);
 
         iNodeModel* crate = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
         crate->setModel("crate.ompf");
@@ -164,7 +164,7 @@ void ExampleCharacterController::init()
         boxBody->setMaterial(_entityMaterialID);
 
         iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-        transformNode->translate(110, 200, 112);
+        transformNode->translate(-5, 200, -12);
 
         iNodeModel* crate = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
         crate->setModel("crate.ompf");
@@ -176,7 +176,7 @@ void ExampleCharacterController::init()
 
     // setup character and attache camera to it
     iaMatrixd startMatrix;
-    startMatrix.translate(100,200,125);
+    startMatrix.translate(0,200,0);
     _characterController = new CharacterController(_scene->getRoot(), _entityMaterialID, startMatrix);
 
     // setup camera
@@ -231,7 +231,7 @@ void ExampleCharacterController::init()
 
     // init font for render statistics
     _font = new iTextureFont("StandardFont.png");
-    _statisticsVisualizer.setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
+    _profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
 
     // prepare igor logo
     _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
@@ -288,7 +288,7 @@ void ExampleCharacterController::onKeyPressed(iKeyCode key)
     switch (key)
     {
 	case iKeyCode::F8:
-		_statisticsVisualizer.cycleVerbosity();
+		_profilerVisualizer.cycleVerbosity();
 		break;
 
 	case iKeyCode::F9:
@@ -583,7 +583,7 @@ void ExampleCharacterController::onRenderOrtho()
     drawLogo();
 
     // draw frame rate in lower right corner
-    _statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+    _profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
 
 
 	iRenderer::getInstance().setColor(1,1,1,1);

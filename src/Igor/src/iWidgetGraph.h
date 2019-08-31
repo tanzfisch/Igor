@@ -38,7 +38,7 @@ using namespace IgorAux;
 
 #include <vector>
 #include <map>
-using namespace std;
+
 
 namespace Igor
 {
@@ -52,17 +52,13 @@ namespace Igor
 	class Igor_API iWidgetGraph : public iWidget
 	{
 
-        /*! needs to be friend because it's the factory that creates this widget
-        */
-        friend class iWidgetManager;
-
         /*! graph data
         */
         struct GraphData
         {
             /*! list of points in graph
             */
-            vector<iaVector2f> _points;
+            std::vector<iaVector2f> _points;
 
             /*! the line color
             */
@@ -82,6 +78,14 @@ namespace Igor
         };
 
 	public:        
+
+		/*! ctor initializes member variables
+		*/
+		iWidgetGraph();
+
+		/*! does nothing
+		*/
+		virtual ~iWidgetGraph() = default;
 
         /*! clears all point data
         */
@@ -144,13 +148,13 @@ namespace Igor
         \param id the graphs id
         \param points list of points for the graph
         */
-        void setPoints(uint64 id, vector<iaVector2f> points);
+        void setPoints(uint64 id, std::vector<iaVector2f> points);
 
         /*! \returns points of specified graph
 
         \param id the graphs id
         */
-        vector<iaVector2f> getPoints(uint64 id);
+        std::vector<iaVector2f> getPoints(uint64 id);
 
         /*! set user specified boudings / range of graph coordinate system
 
@@ -265,7 +269,7 @@ namespace Igor
 
         /*! maps with all graphs
         */
-        map<uint64, GraphData> _graphs;
+        std::map<uint64, GraphData> _graphs;
 
         /*! the grid resolution
         */
@@ -309,18 +313,6 @@ namespace Igor
         \returns true: if event was consumed and therefore ignored by the parent
         */
         bool handleMouseKeyDown(iKeyCode key);
-
-        /*! ctor initializes member variables
-        */
-        iWidgetGraph();
-
-        /*! does nothing
-        */
-		virtual ~iWidgetGraph() = default;
-
-        /*! creates instance of this widget type
-        */
-        static iWidget* createInstance();
 
 	};
 }

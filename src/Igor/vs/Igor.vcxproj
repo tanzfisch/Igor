@@ -110,7 +110,7 @@
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level2</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_NEWTON_USE_DOUBLE;_DEBUG;WIN32;_WINDOWS;_USRDLL;__IGOR_BUILDING_DLL__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\newton-dynamics\coreLibrary_300\source;$(MSBuildProgramFiles32)\Visual Leak Detector\include;..\..\..\3rd\TinyXML;</AdditionalIncludeDirectories>
@@ -174,7 +174,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level2</WarningLevel>
       <PrecompiledHeader>
       </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
@@ -234,6 +234,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\..\..\3rd\TinyXML\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\..\3rd\TinyXML\tinyxmlparser.cpp" />
     <ClCompile Include="..\src\iApplication.cpp" />
+    <ClCompile Include="..\src\iAtlas.cpp" />
     <ClCompile Include="..\src\iBone.cpp" />
     <ClCompile Include="..\src\iCelestialNode.cpp" />
     <ClCompile Include="..\src\iConfigReader.cpp" />
@@ -324,6 +325,9 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\src\iPhysicsUserMeshCollisionHandler.cpp" />
     <ClCompile Include="..\src\iPhysicsWorld.cpp" />
     <ClCompile Include="..\src\iPixmap.cpp" />
+    <ClCompile Include="..\src\iProfiler.cpp" />
+    <ClCompile Include="..\src\iProfilerSection.cpp" />
+    <ClCompile Include="..\src\iProfilerVisualizer.cpp" />
     <ClCompile Include="..\src\iRenderContextThread.cpp" />
     <ClCompile Include="..\src\iRenderEngine.cpp" />
     <ClCompile Include="..\src\iRenderer.cpp" />
@@ -346,10 +350,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\src\iSprite.cpp" />
-    <ClCompile Include="..\src\iStatistics.cpp" />
-    <ClCompile Include="..\src\iStatisticsSection.cpp" />
-    <ClCompile Include="..\src\iStatisticsVisualizer.cpp" />
     <ClCompile Include="..\src\iStopWatch.cpp" />
     <ClCompile Include="..\src\iTargetMaterial.cpp" />
     <ClCompile Include="..\src\iTask.cpp" />
@@ -408,6 +408,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iAABox.h" />
     <ClInclude Include="..\src\iAACube.h" />
     <ClInclude Include="..\src\iApplication.h" />
+    <ClInclude Include="..\src\iAtlas.h" />
     <ClInclude Include="..\src\iBone.h" />
     <ClInclude Include="..\src\iCelestialNode.h" />
     <ClInclude Include="..\src\iConfigReader.h" />
@@ -504,6 +505,9 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iPhysicsWorld.h" />
     <ClInclude Include="..\src\iPixmap.h" />
     <ClInclude Include="..\src\iPlane.h" />
+    <ClInclude Include="..\src\iProfiler.h" />
+    <ClInclude Include="..\src\iProfilerSection.h" />
+    <ClInclude Include="..\src\iProfilerVisualizer.h" />
     <ClInclude Include="..\src\iRay.h" />
     <ClInclude Include="..\src\iRectangle.h" />
     <ClInclude Include="..\src\iRenderContextThread.h" />
@@ -529,10 +533,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="..\src\iSphere.h" />
-    <ClInclude Include="..\src\iSprite.h" />
-    <ClInclude Include="..\src\iStatistics.h" />
-    <ClInclude Include="..\src\iStatisticsSection.h" />
-    <ClInclude Include="..\src\iStatisticsVisualizer.h" />
     <ClInclude Include="..\src\iSTBImageExt.h" />
     <ClInclude Include="..\src\iStopWatch.h" />
     <ClInclude Include="..\src\iTargetMaterial.h" />
@@ -601,6 +601,7 @@ git describe --abbrev=0 --tags &gt;&gt; ..\src\gitTag.inl</Command>
     </CustomBuild>
     <None Include="..\src\iAABox.inl" />
     <None Include="..\src\iAACube.inl" />
+    <None Include="..\src\iAtlas.inl" />
     <None Include="..\src\iFrustum.inl" />
     <None Include="..\src\iInstancer.inl" />
     <None Include="..\src\iIntersection.inl" />
@@ -612,7 +613,6 @@ git describe --abbrev=0 --tags &gt;&gt; ..\src\gitTag.inl</Command>
     <None Include="..\src\iRay.inl" />
     <None Include="..\src\iRectangle.inl" />
     <None Include="..\src\iSphere.inl" />
-    <None Include="..\src\iSprite.inl" />
     <None Include="..\src\iTargetMaterial.inl" />
     <None Include="..\src\iWidget.inl" />
   </ItemGroup>

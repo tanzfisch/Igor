@@ -3,12 +3,12 @@
 // see copyright notice in corresponding header file
 
 #include <iConfigReader.h>
-#include <tinyxml.h>
 #include <iResourceManager.h>
 
-#include <IgorAux.h>
 #include <iaConsole.h>
 using namespace IgorAux;
+
+#include <tinyxml.h>
 
 namespace Igor
 {

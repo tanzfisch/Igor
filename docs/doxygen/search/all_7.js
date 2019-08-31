@@ -14,7 +14,7 @@ var searchData=
   ['end',['End',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a87557f11575c0ad78e4e28abedc13b6e',1,'Igor']]],
   ['endl',['endl',['../class_igor_aux_1_1ia_console.html#a9eb46d159959ba928c7cb960b5723ab8',1,'IgorAux::iaConsole::endl()'],['../namespace_igor_aux.html#a95ee90eb942654df4ba5c9f4eb0517f0',1,'IgorAux::endl()']]],
   ['endradiobuttongroup',['endRadioButtonGroup',['../class_igor_1_1i_widget_check_box.html#a08593cbef0515aa979aa99c79cd67907',1,'Igor::iWidgetCheckBox']]],
-  ['endsection',['endSection',['../class_igor_1_1i_statistics.html#a8a830f3eb2e62e608d5570a9dc78e27b',1,'Igor::iStatistics::endSection()'],['../class_igor_1_1i_statistics_section.html#a09df4101ed33bd618cb8de8f37350aff',1,'Igor::iStatisticsSection::endSection()']]],
+  ['endsection',['endSection',['../class_igor_1_1i_profiler.html#afe2ac9611c7976f02c6cb3117279a6a1',1,'Igor::iProfiler::endSection()'],['../class_igor_1_1i_profiler_section.html#aa60a93fec122c03f81b058bcd4772cff',1,'Igor::iProfilerSection::endSection()']]],
   ['enter',['enter',['../class_igor_aux_1_1ia_state.html#a89809a8e64614e76f3cdfb7c9111bb0a',1,'IgorAux::iaState::enter()'],['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24af1851d5600eae616ee802a31ac74701b',1,'Igor::Enter()']]],
   ['eof',['eof',['../class_igor_aux_1_1ia_mem_block_control.html#aa388c772e011e372f465778b52d2ff5a',1,'IgorAux::iaMemBlockControl']]],
   ['equal',['Equal',['../namespace_igor.html#a2081511b8afe422e11c11287eb44a3f3af5f286e73bda105e538310b3190f75c5',1,'Igor::Equal()'],['../namespace_igor.html#a490f00fed47903c329843cb921bbace9af5f286e73bda105e538310b3190f75c5',1,'Igor::Equal()'],['../namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72af5f286e73bda105e538310b3190f75c5',1,'OMPF::Equal()']]],
@@ -32,7 +32,6 @@ var searchData=
   ['exist',['exist',['../class_igor_aux_1_1ia_file.html#ab459bfac7c17fd8bb45b92a07fcdcbf2',1,'IgorAux::iaFile::exist() const '],['../class_igor_aux_1_1ia_file.html#a5a3a092e293bc060df472b8264295f7f',1,'IgorAux::iaFile::exist(const iaString &amp;filename)']]],
   ['exit',['exit',['../class_igor_aux_1_1ia_console.html#adbfabe2cdb65c8a143c371200e4a1956',1,'IgorAux::iaConsole']]],
   ['exportdata',['exportData',['../class_igor_1_1i_model_data_i_o.html#a9992689535f19bd5cf39e1752faeed06',1,'Igor::iModelDataIO::exportData()'],['../class_igor_1_1i_model_data_i_o_o_m_p_f.html#a10393fd88e5d44a312d56b1dd51f11a0',1,'Igor::iModelDataIOOMPF::exportData()']]],
-  ['exportfile',['exportFile',['../class_igor_1_1i_pixmap.html#ad4184897d31f8f3d8b329b9b29360548',1,'Igor::iPixmap']]],
   ['exportmodeldata',['exportModelData',['../class_igor_1_1i_model_resource_factory.html#aa57fd26de32bd67598256e6d1de15e79',1,'Igor::iModelResourceFactory']]],
   ['external',['External',['../namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3ab206a1b4ea1097761f78e8876f6da779',1,'OMPF']]]
 ];

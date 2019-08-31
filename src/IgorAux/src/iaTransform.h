@@ -30,19 +30,26 @@
 #define __iaTRANSFORM__
 
 #include <iaMatrix.h>
+#include <iaQuaternion.h>
 
 namespace IgorAux
 {
 
-	/*! Transform
+	/*! Transform based on the components translate, rotate, scale, shear and perspective
 	*/
-	template <class T> class IgorAux_API_Template iaTransform
+	template <class T> 
+	class IgorAux_API_Template iaTransform
 	{
+
 	public:
 
-        /*! rotatation component in rad
+		/*! translate component
+		*/
+		iaVector3<T> _translate;
+
+        /*! orientation component as quaternion
         */
-		iaVector3<T> _rotate;
+		iaQuaternion<T> _orientation;
 
 		/*! scale component
 		*/
@@ -52,19 +59,77 @@ namespace IgorAux
 		*/
 		iaVector3<T> _shear;
 
-		/*! translate component
+		/*! perspective
 		*/
-		iaVector3<T> _translate;
+		iaVector4<T> _perspective;
 
-		__IGOR_INLINE__ void getMatrix(iaMatrix<T>& matrix);
+		/*! \returns true if transform has shear differnt from 0,0,0
+		*/
+		bool hasShear() const;
+
+		/*! \returns true if transform has scale different from 1,1,1
+		*/
+		bool hasScale() const;
+
+		/*! \returns true if transform has translation different from 0,0,0
+		*/
+		bool hasTranslation() const;
+
+		/*! \returns true if transform has rotation different from 0,0,0
+		*/
+		bool hasRotation() const;
+
+		/*! returns the transforms matrix based on it's components
+		\param[out] matrix the resulting matrix
+		*/
+		void getMatrix(iaMatrix<T>& matrix) const;
+
+		/*! decompose matrix and set transform
+
+		\param matrix the matrix to decompose
+		*/
+		void setMatrix(const iaMatrix<T>& matrix);
 
 		/*! initializes the matrix with the id matrix
 		*/
-		__IGOR_INLINE__ iaTransform();
+		iaTransform();
+
+		/*! ctor set wit matrix to decompose
+
+		\param matrix the matrix to decompose
+		*/
+		iaTransform(const iaMatrix<T>& matrix);
+
+		/*! initializes the matrix with given components
+
+		\param translate translation component
+		\param orientation the orientation component
+		\param scale the scale component
+		*/
+		iaTransform(const iaVector3<T>& translate, const iaQuaternion<T> orientation, const iaVector3<T>& scale);
+
+		/*! initializes the matrix with given components
+
+		\param translate translation component
+		\param orientation the orientation component
+		\param scale the scale component
+		\param shear the shear component
+		*/
+		iaTransform(const iaVector3<T>& translate, const iaQuaternion<T> orientation, const iaVector3<T>& scale, const iaVector3<T>& _shear);
+
+		/*! initializes the matrix with given components
+
+		\param translate translation component
+		\param orientation the orientation component
+		\param scale the scale component
+		\param shear the shear component
+		\param perspective the perspective component
+		*/
+		iaTransform(const iaVector3<T>& translate, const iaQuaternion<T> orientation, const iaVector3<T>& scale, const iaVector3<T>& _shear, const iaVector4<T>& _perspective);
 
 		/*! does nothing
 		*/
-		__IGOR_INLINE__ ~iaTransform();
+		~iaTransform();
 	};
 
 	#include <iaTransform.inl>

@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.23.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -158,6 +158,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a8ef15a63f13a6983c14e4217338192f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a77b06550a57daaa60b046f378808eea0"><td class="memItemLeft" align="right" valign="top">__IGOR_INLINE__ bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh.html#a77b06550a57daaa60b046f378808eea0">hasTextureUnit</a> (uint32 unit) const </td></tr>
 <tr class="separator:a77b06550a57daaa60b046f378808eea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05d686549bf8de7a72416216233a8385"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh.html#a05d686549bf8de7a72416216233a8385">setTextureCoordinatesCount</a> (uint32 texCoord)</td></tr>
+<tr class="separator:a05d686549bf8de7a72416216233a8385"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90f924054c468fa2edc8b4e6f06a9ffb"><td class="memItemLeft" align="right" valign="top">__IGOR_INLINE__ uint32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh.html#a90f924054c468fa2edc8b4e6f06a9ffb">getTextureCoordinatesCount</a> () const </td></tr>
+<tr class="separator:a90f924054c468fa2edc8b4e6f06a9ffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a981a6a6de90268314aabed0b82e1e327"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh.html#a981a6a6de90268314aabed0b82e1e327">setIndexData</a> (uint32 *data, uint32 size)</td></tr>
 <tr class="separator:a981a6a6de90268314aabed0b82e1e327"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7477f9e140004d5c1da9dca3ec185c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mesh.html#ab7477f9e140004d5c1da9dca3ec185c1">resetIndexData</a> ()</td></tr>
@@ -308,6 +312,22 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>indexes count </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a90f924054c468fa2edc8b4e6f06a9ffb"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32 iMesh::getTextureCoordinatesCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>texture coordinates count </dd></dl>
 
 </div>
 </div>
@@ -719,6 +739,29 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a05d686549bf8de7a72416216233a8385"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Igor::iMesh::setTextureCoordinatesCount </td>
+          <td>(</td>
+          <td class="paramtype">uint32&#160;</td>
+          <td class="paramname"><em>texCoord</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>set texture coordinates per vertex count</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">texCoord</td><td>the texture coordinates count </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="a89dbc2de25a7c2a26121409c008a919d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -864,9 +907,9 @@ Friends</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_mesh_8h.html">iMesh.h</a></li>
-<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_mesh_8cpp.html">iMesh.cpp</a></li>
-<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_mesh_8inl.html">iMesh.inl</a></li>
+<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_mesh_8h.html">iMesh.h</a></li>
+<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_mesh_8cpp.html">iMesh.cpp</a></li>
+<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_mesh_8inl.html">iMesh.inl</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

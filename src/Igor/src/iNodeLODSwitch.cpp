@@ -34,7 +34,7 @@ namespace Igor
         setName(node->getName());
     }
 
-    void iNodeLODSwitch::onPostCopyLink(map<uint32, uint32>& nodeIDMap)
+    void iNodeLODSwitch::onPostCopyLink(std::map<uint32, uint32>& nodeIDMap)
     {
 
     }
@@ -124,7 +124,7 @@ namespace Igor
 
     void iNodeLODSwitch::update(float32 distance)
     {
-        vector<iNodePtr> allChildren(_children);
+        std::vector<iNodePtr> allChildren(_children);
         allChildren.insert(std::end(allChildren), std::begin(_inactiveChildren), std::end(_inactiveChildren));
 
         for (auto child : allChildren)

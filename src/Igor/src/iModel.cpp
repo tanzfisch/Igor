@@ -10,7 +10,7 @@
 using namespace IgorAux;
 
 #include <fstream>
-using namespace std;
+
 
 namespace Igor
 {

@@ -30,39 +30,36 @@
 #define __iWIDGETCOLORGRADIENT__
 
 #include <iWidget.h>
+#include <iTexture.h>
 
 #include <iaString.h>
 #include <iaGradient.h>
 using namespace IgorAux;
 
 #include <memory>
-using namespace std;
+
 
 namespace Igor
 {
-
-    class iTexture;
-
+	
     /*! color created/added event
     */
     iaEVENT(iColorGradientColorCreatedEvent, iColorGradientColorCreatedDelegate, void, (float32 at, const iaColor4f& color), (at, color));
 
     /*! color view widget
-
-    \todo highlight selection
-
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
     */
 	class Igor_API iWidgetColorGradient : public iWidget
 	{
 
-        /*! needs to be friend because it's the factory that creates this widget
-        */
-        friend class iWidgetManager;
-
 	public:
+
+		/*! ctor initializes member variables
+		*/
+		iWidgetColorGradient();
+
+		/*! release texture
+		*/
+		virtual ~iWidgetColorGradient();
 
 		/*! sets color gradient
 		\param color color value in rgba
@@ -119,7 +116,7 @@ namespace Igor
 
         /*! shared pointer to background texture
         */
-        shared_ptr<iTexture> _texture = nullptr;
+        iTexturePtr _texture;
 
         /*! color created event
         */
@@ -140,17 +137,6 @@ namespace Igor
 		*/
 		void draw();
 
-        /*! ctor initializes member variables
-        */
-        iWidgetColorGradient();
-
-        /*! release texture
-        */
-		virtual ~iWidgetColorGradient();
-
-        /*! creates instance of this widget type
-        */
-        static iWidget* createInstance();
 	};
 }
 

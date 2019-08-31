@@ -31,7 +31,7 @@
 
 #include <iWidget.h>
 #include <vector>
-using namespace std;
+
 
 namespace Igor
 {
@@ -50,18 +50,10 @@ namespace Igor
 
     /*!
     \todo cols und rows dynamisch anpassen
-
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
     */
     class Igor_API iWidgetGrid : public iWidget
     {
-
-        /*! needs to be friend because it's the factory that creates this widget
-        */
-        friend class iWidgetManager;
-
+		
         /*! internal helper struct that represents a child widget and it's position
         */
         struct Field
@@ -107,10 +99,18 @@ namespace Igor
         {
             /*! list of widgets within one collumn
             */
-            vector<Field> _widgetCollumn;
+            std::vector<Field> _widgetCollumn;
         };
 
     public:
+
+		/*! ctor initializes member variables
+		*/
+		iWidgetGrid();
+
+		/*! does nothing
+		*/
+		~iWidgetGrid() = default;
 
         /*! appends rows at the bottom of the grid
 
@@ -277,7 +277,7 @@ namespace Igor
 
         /*! the child widgets
         */
-        vector<GridCollumn> _widgetRows;
+        std::vector<GridCollumn> _widgetRows;
 
         /*! cellspacing within the grid
         */
@@ -364,19 +364,7 @@ namespace Igor
 
         \param offsets vector to be filled with childrens offsets
         */
-        void calcChildOffsets(vector<iRectanglei>& offsets);
-
-        /*! ctor initializes member variables
-        */
-        iWidgetGrid();
-
-        /*! does nothing
-        */
-        ~iWidgetGrid() = default;
-
-        /*! creates instance of this widget type
-        */
-        static iWidget* createInstance();
+        void calcChildOffsets(std::vector<iRectanglei>& offsets);
 
     };
 }

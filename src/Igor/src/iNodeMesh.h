@@ -30,13 +30,14 @@
 #define __iMESHNODE__
 
 #include <iNodeVolume.h>
+#include <iMesh.h>
+
 #include <iaColor3.h>
 using namespace IgorAux;
 
 namespace Igor
 {
 
-    class iMesh;
     class iMeshBuffers;
     class iTargetMaterial;
 
@@ -57,17 +58,17 @@ namespace Igor
 
         /*! \returns shared pointer to mesh buffers
         */
-        shared_ptr<iMeshBuffers> getMeshBuffers();
+        std::shared_ptr<iMeshBuffers> getMeshBuffers();
 
         /*! \returns shared pointer to mesh
         */
-        shared_ptr<iMesh> getMesh();
+		iMeshPtr getMesh();
 
         /*! sets mesh for mesh node
 
         \param mesh shared pointer to mesh
         */
-        void setMesh(shared_ptr<iMesh> mesh);
+        void setMesh(iMeshPtr mesh);
 
         /*! \returns emissive color
         */
@@ -124,9 +125,11 @@ namespace Igor
         */
         bool getKeepMesh() const;
 
-		/*! \returns type specific information
+		/*! returns multiple lines of information about this node
+
+		\param[out] info the returned information
 		*/
-		iaString getCustomInfo() const override;
+		void getInfo(std::vector<iaString>& info) const override;
 
 	private:
 
@@ -140,17 +143,17 @@ namespace Igor
 
         /*! shared pointer to mesh buffers
         */
-        shared_ptr<iMeshBuffers> _meshBuffers = nullptr;
+		std::shared_ptr<iMeshBuffers> _meshBuffers = nullptr;
 
         /*! shared pointer to mesh
         */
-        shared_ptr<iMesh> _mesh = nullptr;
+		iMeshPtr _mesh = nullptr;
 
         /*! sets mesh buffers for mesh node
 
         \param meshBuffers shared pointer to mesh buffers
         */
-        void setMeshBuffers(shared_ptr<iMeshBuffers> meshBuffers);
+        void setMeshBuffers(std::shared_ptr<iMeshBuffers> meshBuffers);
 
         /*! draw mesh
         */

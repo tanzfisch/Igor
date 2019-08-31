@@ -36,7 +36,7 @@
 #include <iModelResourceFactory.h>
 #include <iKeyCodeMap.h>
 #include <iMaterial.h>
-#include <iStatisticsVisualizer.h>
+#include <iProfilerVisualizer.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -66,9 +66,9 @@ private:
     */
 	iWindow _window;
 
-    /*! visualizes statistics
+    /*! displays profiler
     */
-    iStatisticsVisualizer _statisticsVisualizer;
+    iProfilerVisualizer _profilerVisualizer;
 
     /*! the view we render 3D to
     */
@@ -90,7 +90,7 @@ private:
     */
     uint64 _taskFlushTextures = iTask::INVALID_TASK_ID;
 
-    /*! texture fon we use to render statistics
+    /*! texture font we use to display the profiler
     */
     iTextureFont* _font = nullptr;
 
@@ -160,7 +160,7 @@ private:
 
     /*! igor logo
     */
-    shared_ptr<iTexture> _igorLogo = nullptr;
+    iTexturePtr _igorLogo = nullptr;
 
     /*! called on key pressed event
 

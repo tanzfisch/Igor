@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.23.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -111,6 +111,7 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
@@ -135,8 +136,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a865efb791b77d29bb489514326037380"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a301e06e0e55d6ca93fc64fe44c3ed8bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a301e06e0e55d6ca93fc64fe44c3ed8bd">getName</a> () const </td></tr>
 <tr class="separator:a301e06e0e55d6ca93fc64fe44c3ed8bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae397893dd8c9dbca7d895033f8a8923c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#ae397893dd8c9dbca7d895033f8a8923c">getInfo</a> () const </td></tr>
-<tr class="separator:ae397893dd8c9dbca7d895033f8a8923c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af06a9a77258c35c79497d9341e979791"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#af06a9a77258c35c79497d9341e979791">getInfo</a> (std::vector&lt; <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &gt; &amp;info) const </td></tr>
+<tr class="separator:af06a9a77258c35c79497d9341e979791"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0d333770cbc83471e71deb2d60465c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#ae0d333770cbc83471e71deb2d60465c5">setName</a> (<a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> name)</td></tr>
 <tr class="separator:ae0d333770cbc83471e71deb2d60465c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ce1269afdfb50f10f7b2c10e5aa69e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a4ce1269afdfb50f10f7b2c10e5aa69e0">insertNode</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node)</td></tr>
@@ -157,14 +158,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a691c29ad913f1f9ba4f47110befd957f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa13a0c809d3f0bb17baf52917d04aff0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#aa13a0c809d3f0bb17baf52917d04aff0">hasChildren</a> ()</td></tr>
 <tr class="separator:aa13a0c809d3f0bb17baf52917d04aff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48469e19c040925b4937a2b26ca3e978"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a48469e19c040925b4937a2b26ca3e978">getChildren</a> ()</td></tr>
-<tr class="separator:a48469e19c040925b4937a2b26ca3e978"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a279376dc25fc6671b2d033cb0ded650f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a279376dc25fc6671b2d033cb0ded650f">getChildren</a> ()</td></tr>
+<tr class="separator:a279376dc25fc6671b2d033cb0ded650f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3c78aa85a044adc9797618217f133dc9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a3c78aa85a044adc9797618217f133dc9">getChild</a> (const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;name)</td></tr>
 <tr class="separator:a3c78aa85a044adc9797618217f133dc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59adc54e2e0316cc9dd7abcf9b020011"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a59adc54e2e0316cc9dd7abcf9b020011">getChild</a> (uint64 id)</td></tr>
 <tr class="separator:a59adc54e2e0316cc9dd7abcf9b020011"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac50da5b3f33e9c3c94d19e729fa53c8"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#aac50da5b3f33e9c3c94d19e729fa53c8">getInactiveChildren</a> ()</td></tr>
-<tr class="separator:aac50da5b3f33e9c3c94d19e729fa53c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc87c55d256efbc2d420148f2c25000c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#afc87c55d256efbc2d420148f2c25000c">getInactiveChildren</a> ()</td></tr>
+<tr class="separator:afc87c55d256efbc2d420148f2c25000c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b3d40431eb4c1c79e5d93ef7fe68129"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a1b3d40431eb4c1c79e5d93ef7fe68129">getParent</a> ()</td></tr>
 <tr class="separator:a1b3d40431eb4c1c79e5d93ef7fe68129"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acd9afcdfae20de27c0ca44bb5cb89e79"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_scene.html">iScene</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#acd9afcdfae20de27c0ca44bb5cb89e79">getScene</a> ()</td></tr>
@@ -179,6 +180,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a4352c1e232f3776538387f926abd5b87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92a082c4e595b2f485e959b54e67c443"><td class="memItemLeft" align="right" valign="top">iTransformationChangeEvent &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a92a082c4e595b2f485e959b54e67c443">getTransformationChangeEvent</a> ()</td></tr>
 <tr class="separator:a92a082c4e595b2f485e959b54e67c443"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a95205a1c02756c617f1c8ac26d6c1bba"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a95205a1c02756c617f1c8ac26d6c1bba">getKindName</a> (<a class="el" href="namespace_igor.html#af60214c983d49068fb5a9147cfb723fa">iNodeKind</a> kind)</td></tr>
+<tr class="separator:a95205a1c02756c617f1c8ac26d6c1bba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03c53224805c56e7cf45b1be6e63acad"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a03c53224805c56e7cf45b1be6e63acad">getTypeName</a> (<a class="el" href="namespace_igor.html#abe8ac7d5017f674544ec43881a173c7f">iNodeType</a> nodeType)</td></tr>
+<tr class="separator:a03c53224805c56e7cf45b1be6e63acad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -207,8 +215,8 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a5bb85be2466e22f0aba730fa23620b52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a90b357d410d09c7bcf003d2deb8e33de"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a90b357d410d09c7bcf003d2deb8e33de">onUpdateData</a> ()</td></tr>
 <tr class="separator:a90b357d410d09c7bcf003d2deb8e33de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f094a86558af39e7d572f2658e6dd7e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a7f094a86558af39e7d572f2658e6dd7e">onPostCopyLink</a> (map&lt; uint64, uint64 &gt; &amp;nodeIDMap)</td></tr>
-<tr class="separator:a7f094a86558af39e7d572f2658e6dd7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a911270ce7f283975a3a90008c4e80699"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a911270ce7f283975a3a90008c4e80699">onPostCopyLink</a> (std::map&lt; uint64, uint64 &gt; &amp;nodeIDMap)</td></tr>
+<tr class="separator:a911270ce7f283975a3a90008c4e80699"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d7c75b5caba253a2c5cbd078119e7e7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a0d7c75b5caba253a2c5cbd078119e7e7">iNode</a> ()</td></tr>
 <tr class="separator:a0d7c75b5caba253a2c5cbd078119e7e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a767c71fb9a79be77681ddf213ab70437"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a767c71fb9a79be77681ddf213ab70437">iNode</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node)</td></tr>
@@ -232,10 +240,10 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:ae9eecf7cf169bdb85787c01ef2a4fb48"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d2f464afa7c2e1842582c22cb49ec73"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a2d2f464afa7c2e1842582c22cb49ec73">_parent</a> = nullptr</td></tr>
 <tr class="separator:a2d2f464afa7c2e1842582c22cb49ec73"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd7b3ddac0c909296914b9b9a8d9ead9"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#acd7b3ddac0c909296914b9b9a8d9ead9">_children</a></td></tr>
-<tr class="separator:acd7b3ddac0c909296914b9b9a8d9ead9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45a96d08dd5de4de995caf92169e0531"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a45a96d08dd5de4de995caf92169e0531">_inactiveChildren</a></td></tr>
-<tr class="separator:a45a96d08dd5de4de995caf92169e0531"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a946931aeeb3deb234d6ea3614bf86bf0"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a946931aeeb3deb234d6ea3614bf86bf0">_children</a></td></tr>
+<tr class="separator:a946931aeeb3deb234d6ea3614bf86bf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcdd6dab655a619158b66d738f267779"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#abcdd6dab655a619158b66d738f267779">_inactiveChildren</a></td></tr>
+<tr class="separator:abcdd6dab655a619158b66d738f267779"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c647bfde42f17d248e8ae597a5a910b"><td class="memItemLeft" align="right" valign="top">iTransformationChangeEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a2c647bfde42f17d248e8ae597a5a910b">_transformationChangeEvent</a></td></tr>
 <tr class="separator:a2c647bfde42f17d248e8ae597a5a910b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -402,12 +410,12 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a48469e19c040925b4937a2b26ca3e978"></a>
+<a class="anchor" id="a279376dc25fc6671b2d033cb0ded650f"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt; <a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> &gt; &amp; Igor::iNode::getChildren </td>
+          <td class="memname">std::vector&lt; <a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> &gt; &amp; Igor::iNode::getChildren </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -434,12 +442,12 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aac50da5b3f33e9c3c94d19e729fa53c8"></a>
+<a class="anchor" id="afc87c55d256efbc2d420148f2c25000c"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt; <a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> &gt; &amp; Igor::iNode::getInactiveChildren </td>
+          <td class="memname">std::vector&lt; <a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> &gt; &amp; Igor::iNode::getInactiveChildren </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -450,19 +458,37 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ae397893dd8c9dbca7d895033f8a8923c"></a>
+<a class="anchor" id="af06a9a77258c35c79497d9341e979791"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> Igor::iNode::getInfo </td>
+          <td class="memname">void Igor::iNode::getInfo </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>info</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>an information string about this node </dd></dl>
+<p>returns multiple lines of information about this node</p>
+<p>each entry in vector is one line of information</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">info</td><td>the returned information </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="class_igor_1_1i_node_transform.html#a4e0bb0cf985a3f384543f54b15d1f7fb">Igor::iNodeTransform</a>.</p>
 
 </div>
 </div>
@@ -479,6 +505,37 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>kind (group) of the node </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a95205a1c02756c617f1c8ac26d6c1bba"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> Igor::iNode::getKindName </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_igor.html#af60214c983d49068fb5a9147cfb723fa">iNodeKind</a>&#160;</td>
+          <td class="paramname"><em>kind</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>name for given kind of node </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nodeType</td><td>the given kind of node </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -558,6 +615,37 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the type of the node </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a03c53224805c56e7cf45b1be6e63acad"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> Igor::iNode::getTypeName </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_igor.html#abe8ac7d5017f674544ec43881a173c7f">iNodeType</a>&#160;</td>
+          <td class="paramname"><em>nodeType</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>name for given node type </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nodeType</td><td>the given node type </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -719,7 +807,7 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a7f094a86558af39e7d572f2658e6dd7e"></a>
+<a class="anchor" id="a911270ce7f283975a3a90008c4e80699"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -729,7 +817,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="memname">void Igor::iNode::onPostCopyLink </td>
           <td>(</td>
-          <td class="paramtype">map&lt; uint64, uint64 &gt; &amp;&#160;</td>
+          <td class="paramtype">std::map&lt; uint64, uint64 &gt; &amp;&#160;</td>
           <td class="paramname"><em>nodeIDMap</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1239,7 +1327,7 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="acd7b3ddac0c909296914b9b9a8d9ead9"></a>
+<a class="anchor" id="a946931aeeb3deb234d6ea3614bf86bf0"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1247,7 +1335,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt;<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&gt; Igor::iNode::_children</td>
+          <td class="memname">std::vector&lt;<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&gt; Igor::iNode::_children</td>
         </tr>
       </table>
   </td>
@@ -1260,7 +1348,7 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a45a96d08dd5de4de995caf92169e0531"></a>
+<a class="anchor" id="abcdd6dab655a619158b66d738f267779"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1268,7 +1356,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt;<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&gt; Igor::iNode::_inactiveChildren</td>
+          <td class="memname">std::vector&lt;<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&gt; Igor::iNode::_inactiveChildren</td>
         </tr>
       </table>
   </td>
@@ -1450,8 +1538,8 @@ Friends</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_node_8h.html">iNode.h</a></li>
-<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_node_8cpp.html">iNode.cpp</a></li>
+<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_8h.html">iNode.h</a></li>
+<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_8cpp.html">iNode.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

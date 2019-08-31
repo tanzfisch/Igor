@@ -7,7 +7,7 @@ var class_igor_1_1i_material =
     [ "getName", "class_igor_1_1i_material.html#a664fffdd206a477773e326c0e3d34acc", null ],
     [ "getOrder", "class_igor_1_1i_material.html#aadcb69437097f2d4f6a5bfb1fd08ccf2", null ],
     [ "getRenderStateSet", "class_igor_1_1i_material.html#a1935903a5dcef8737d2dd7163ddd578f", null ],
-    [ "getShaderSources", "class_igor_1_1i_material.html#ab59dcde93408fa14ad41d599e4932ce7", null ],
+    [ "getShaderSources", "class_igor_1_1i_material.html#a65044f84fda7b1c9ce069ca4cccd82c8", null ],
     [ "isValid", "class_igor_1_1i_material.html#a50184c318deb83f154e31d1f36da3c23", null ],
     [ "setName", "class_igor_1_1i_material.html#a6f3811f8c17023644055d11665ff8504", null ],
     [ "setOrder", "class_igor_1_1i_material.html#a5e09e482276eac7488143c0de197504b", null ],

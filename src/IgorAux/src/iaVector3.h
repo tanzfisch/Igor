@@ -33,7 +33,7 @@
 
 #include <cmath>
 #include <ostream>
-using namespace std;
+
 
 namespace IgorAux
 {

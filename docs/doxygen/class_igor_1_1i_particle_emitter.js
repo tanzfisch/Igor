@@ -18,8 +18,8 @@ var class_igor_1_1i_particle_emitter =
     [ "setSize", "class_igor_1_1i_particle_emitter.html#af8ec4d4fa84e58dc7b1a0e47e219f063", null ],
     [ "setType", "class_igor_1_1i_particle_emitter.html#abe51bec77a197197eb45cd43ebf1e04b", null ],
     [ "setWorldMatrix", "class_igor_1_1i_particle_emitter.html#a08f7b4f25b0aaa1db7c4575e83cb3254", null ],
-    [ "_emitterTriangles", "class_igor_1_1i_particle_emitter.html#a8f8c289b23aedee1cb642a5b3eb5797e", null ],
-    [ "_rand", "class_igor_1_1i_particle_emitter.html#a3f7bf50f1da7a8b1a54068704a2e4192", null ],
+    [ "_emitterTriangles", "class_igor_1_1i_particle_emitter.html#a67be2cf5b092020debf5a15aad842a2c", null ],
+    [ "_rand", "class_igor_1_1i_particle_emitter.html#ac4abd12a89c267f3aabc91d64df9b831", null ],
     [ "_size", "class_igor_1_1i_particle_emitter.html#a77c95384235168d72727c1da09bb8ab3", null ],
     [ "_type", "class_igor_1_1i_particle_emitter.html#a91b47500a8143cadd82fcb9df059e8b7", null ],
     [ "_worldMatrix", "class_igor_1_1i_particle_emitter.html#a23e46db35ca9264beb3157259320b49a", null ]

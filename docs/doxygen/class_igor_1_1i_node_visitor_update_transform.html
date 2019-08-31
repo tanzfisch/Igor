@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.20.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.23.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -140,14 +140,14 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:ae2d18e6731d56a21ac7fb85c91a9c06e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_update_transform.html#ae2d18e6731d56a21ac7fb85c91a9c06e">preTraverse</a> ()</td></tr>
-<tr class="separator:ae2d18e6731d56a21ac7fb85c91a9c06e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68949eb0c13e13d98b38c91b8055fcad"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_update_transform.html#a68949eb0c13e13d98b38c91b8055fcad">preOrderVisit</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node)</td></tr>
-<tr class="separator:a68949eb0c13e13d98b38c91b8055fcad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76c8f22b5b7af627548d851cc3ef2ac6"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_update_transform.html#a76c8f22b5b7af627548d851cc3ef2ac6">postOrderVisit</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node)</td></tr>
-<tr class="separator:a76c8f22b5b7af627548d851cc3ef2ac6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8009c67919f95087709779b47d6ce71e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_update_transform.html#a8009c67919f95087709779b47d6ce71e">postTraverse</a> ()</td></tr>
-<tr class="separator:a8009c67919f95087709779b47d6ce71e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3c93e9e528d7a9afb0e2580fc6d046b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_update_transform.html#ab3c93e9e528d7a9afb0e2580fc6d046b">preTraverse</a> () override</td></tr>
+<tr class="separator:ab3c93e9e528d7a9afb0e2580fc6d046b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac232d3b09b88d0dffa0bed89ca277784"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_update_transform.html#ac232d3b09b88d0dffa0bed89ca277784">preOrderVisit</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node, <a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> nextSibling) override</td></tr>
+<tr class="separator:ac232d3b09b88d0dffa0bed89ca277784"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8cb57d9a5d541b7ada0066431e746e9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_update_transform.html#af8cb57d9a5d541b7ada0066431e746e9">postOrderVisit</a> (<a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> node) override</td></tr>
+<tr class="separator:af8cb57d9a5d541b7ada0066431e746e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cfef6b61289bc44cddcebe9d4b92491"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node_visitor_update_transform.html#a4cfef6b61289bc44cddcebe9d4b92491">postTraverse</a> () override</td></tr>
+<tr class="separator:a4cfef6b61289bc44cddcebe9d4b92491"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>scene visitor that updates transformations </p>
@@ -201,7 +201,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a76c8f22b5b7af627548d851cc3ef2ac6"></a>
+<a class="anchor" id="af8cb57d9a5d541b7ada0066431e746e9"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -218,7 +218,7 @@ Protected Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -228,7 +228,7 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a8009c67919f95087709779b47d6ce71e"></a>
+<a class="anchor" id="a4cfef6b61289bc44cddcebe9d4b92491"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -244,7 +244,7 @@ Protected Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -254,7 +254,7 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a68949eb0c13e13d98b38c91b8055fcad"></a>
+<a class="anchor" id="ac232d3b09b88d0dffa0bed89ca277784"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -265,23 +265,33 @@ Protected Member Functions</h2></td></tr>
           <td class="memname">bool Igor::iNodeVisitorUpdateTransform::preOrderVisit </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&#160;</td>
-          <td class="paramname"><em>node</em></td><td>)</td>
+          <td class="paramname"><em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a>&#160;</td>
+          <td class="paramname"><em>nextSibling</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 <p>called before decent to child nodes </p>
 
-<p>Implements <a class="el" href="class_igor_1_1i_node_visitor.html#a050cf551c53b773e828351e7e7f7f419">Igor::iNodeVisitor</a>.</p>
+<p>Implements <a class="el" href="class_igor_1_1i_node_visitor.html#a151651306b039b174aadd8d2f6edcf2a">Igor::iNodeVisitor</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ae2d18e6731d56a21ac7fb85c91a9c06e"></a>
+<a class="anchor" id="ab3c93e9e528d7a9afb0e2580fc6d046b"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -297,7 +307,7 @@ Protected Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -308,8 +318,8 @@ Protected Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_node_visitor_update_transform_8h.html">iNodeVisitorUpdateTransform.h</a></li>
-<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_node_visitor_update_transform_8cpp.html">iNodeVisitorUpdateTransform.cpp</a></li>
+<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_visitor_update_transform_8h.html">iNodeVisitorUpdateTransform.h</a></li>
+<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_node_visitor_update_transform_8cpp.html">iNodeVisitorUpdateTransform.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -43,7 +43,7 @@ using namespace IgorAux;
 #include <vector>
 #include <memory>
 #include <map>
-using namespace std;
+
 
 namespace Igor
 {
@@ -144,13 +144,13 @@ namespace Igor
         */
         iaString getName() const;
 
-        /*! \returns an information string about this node
-        */
-        iaString getInfo() const;
+        /*! returns multiple lines of information about this node
 
-		/*! \returns type specific information
-		*/
-		virtual iaString getCustomInfo() const;
+		each entry in vector is one line of information
+
+		\param[out] info the returned information
+        */
+        virtual void getInfo(std::vector<iaString>& info) const;
 
         /*! sets name of the node
 
@@ -210,7 +210,7 @@ namespace Igor
 
         /*! \returns list of children
         */
-        vector<iNodePtr>& getChildren();
+        std::vector<iNodePtr>& getChildren();
 
         /*! returns child by name
 
@@ -230,7 +230,7 @@ namespace Igor
 
         /*! \returns list of inactive children
         */
-        vector<iNodePtr>& getInactiveChildren();
+        std::vector<iNodePtr>& getInactiveChildren();
 
         /*! \returns pointer to parent node
         */
@@ -304,11 +304,11 @@ namespace Igor
 
         /*! list of pointers to child nodes
         */
-		vector<iNodePtr> _children;
+		std::vector<iNodePtr> _children;
 
         /*! list of pointers to child nodes that are inactive
         */
-        vector<iNodePtr> _inactiveChildren;
+        std::vector<iNodePtr> _inactiveChildren;
 
         /*! traveses child trees ans sets the transformation dirty flag
         */
@@ -362,7 +362,7 @@ namespace Igor
 
         \param nodeIDMap map with old node ids to new node ids
         */
-        virtual void onPostCopyLink(map<uint64, uint64>& nodeIDMap);
+        virtual void onPostCopyLink(std::map<uint64, uint64>& nodeIDMap);
 
 		/*! call this when ever you change something on the node
 		*/
@@ -415,7 +415,7 @@ namespace Igor
 	\param nodeType the node type to stream
 	\returns the resulting stream
 	*/
-    Igor_API wostream& operator<<(wostream& stream, const iNodeType& nodeType);
+    Igor_API std::wostream& operator<<(std::wostream& stream, const iNodeType& nodeType);
 
 	/*! stream operator
 
@@ -423,7 +423,7 @@ namespace Igor
 	\param nodeKind the node kind to stream
 	\returns the resulting stream
 	*/
-    Igor_API wostream& operator<<(wostream& stream, const iNodeKind& nodeKind);
+    Igor_API std::wostream& operator<<(std::wostream& stream, const iNodeKind& nodeKind);
 
 };
 

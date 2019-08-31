@@ -68,7 +68,7 @@ namespace Igor
         return _particleSystem.getParticleCount();
     }
 
-    void iNodeParticleSystem::onPostCopyLink(map<uint32, uint32>& nodeIDMap)
+    void iNodeParticleSystem::onPostCopyLink(std::map<uint32, uint32>& nodeIDMap)
     {
         uint32 oldEmitterID = getEmitter();
 
