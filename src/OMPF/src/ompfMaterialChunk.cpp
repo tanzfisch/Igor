@@ -97,7 +97,7 @@ namespace OMPF
         _renderStates[static_cast<int>(state)] = static_cast<uint8>(value);
     }
 
-    OMPFRenderStateValue ompfMaterialChunk::getRenderStateValue(OMPFRenderState state) const
+    OMPFRenderStateValue ompfMaterialChunk::getRenderState(OMPFRenderState state) const
     {
         return static_cast<OMPFRenderStateValue>(_renderStates[static_cast<int>(state)]);
     }

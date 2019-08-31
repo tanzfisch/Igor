@@ -227,8 +227,8 @@ void Example3D::init()
     // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
     _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
     auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox);
-    material->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    material->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     material->setOrder(iMaterial::RENDER_ORDER_MIN);
     material->setName("SkyBox");
     // set that material
@@ -262,9 +262,9 @@ void Example3D::init()
     _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
     _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
     material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
-    material->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    material->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    material->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
     material->setName("LogoMaterial");
 
     // animation

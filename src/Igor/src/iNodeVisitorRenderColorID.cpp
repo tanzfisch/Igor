@@ -21,7 +21,7 @@ namespace Igor
         iMaterialResourceFactory::getInstance().getMaterial(_material)->addShaderSource("default.vert", iShaderObjectType::Vertex);
         iMaterialResourceFactory::getInstance().getMaterial(_material)->addShaderSource("default_directional_light.frag", iShaderObjectType::Fragment);
         iMaterialResourceFactory::getInstance().getMaterial(_material)->compileShader();
-        iMaterialResourceFactory::getInstance().getMaterial(_material)->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+        iMaterialResourceFactory::getInstance().getMaterial(_material)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
     }
 
     bool iNodeVisitorRenderColorID::preOrderVisit(iNodePtr node, iNodePtr nextSibling)

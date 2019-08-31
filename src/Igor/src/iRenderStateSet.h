@@ -37,8 +37,8 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    /*! render states
-    */
+	/*! render states
+	*/
 	enum class iRenderState
 	{
 		DepthTest,
@@ -58,13 +58,13 @@ namespace Igor
 		CullFaceFunc,
 		BlendFuncSource,
 		BlendFuncDestination,
-        Instanced,
-        InstancedFunc,
+		Instanced,
+		InstancedFunc,
 		RenderStateCount
 	};
 
-    /*! possible values for render states
-    */
+	/*! possible values for render states
+	*/
 	enum class iRenderStateValue
 	{
 		Off = 0,
@@ -90,55 +90,55 @@ namespace Igor
 		Front,
 		Back,
 		Keep,
-		Replace,  
+		Replace,
 		Increment,
-		IncrementWrap, 
-		Decrement, 
-		DecrementWrap, 
+		IncrementWrap,
+		Decrement,
+		DecrementWrap,
 		Invert,
 		Invalid,
-        PositionOrientation, // this one does not map to ogl
-        Position //! \todo not implemented
+		PositionOrientation, // this one does not map to ogl
+		Position //! \todo not implemented
 	};
-	
+
 	/*! render state set holds a list of all render states the renderer can process
 
-    \todo alpha test besides blending would be nice to have
+	\todo alpha test besides blending would be nice to have
 	*/
-    class iRenderStateSet
+	class iRenderStateSet
 	{
 
-        friend class iRenderer;
-
-	private:
-
-		/*! array with all supported render states
-		*/
-		iRenderStateValue _renderStates[static_cast<unsigned int>(iRenderState::RenderStateCount)];
+		friend class iRenderer;
 
 	public:
+
+		/*! initializes default values for the state set
+		*/
+		iRenderStateSet();
+
+		/*! does nothing
+		*/
+		virtual ~iRenderStateSet() = default;
 
 		/*! defines the value of a specific render state
 
 		\param state render state
 		\param value render state value
 		*/
-        void Igor_API setRenderState(const iRenderState state, const iRenderStateValue value);
+		void setRenderState(const iRenderState state, const iRenderStateValue value);
 
 		/*! returns the value of a specific render state
 
 		\param state render state
 		\return render state value
 		*/
-        iRenderStateValue Igor_API getRenderStateValue(const iRenderState state);
+		iRenderStateValue getRenderState(const iRenderState state) const;
 
-        /*! initializes default values for the state set
-        */
-        iRenderStateSet();
+	private:
 
-        /*! does nothing
-        */
-        virtual ~iRenderStateSet() = default;
+		/*! array with all supported render states
+		*/
+		iRenderStateValue _renderStates[static_cast<unsigned int>(iRenderState::RenderStateCount)];
 
 	};
 

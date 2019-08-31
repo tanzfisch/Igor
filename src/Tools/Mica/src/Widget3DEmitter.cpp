@@ -30,9 +30,9 @@ Widget3DEmitter::Widget3DEmitter(iWindow* window, iView* view, iScene* scene)
 
 	_material = iMaterialResourceFactory::getInstance().createMaterial("EmitterFlat");
 	auto material = iMaterialResourceFactory::getInstance().getMaterial(_material);
-	material->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-	material->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-	material->getRenderStateSet().setRenderState(iRenderState::CullFace, iRenderStateValue::Off);
+	material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+	material->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+	material->setRenderState(iRenderState::CullFace, iRenderStateValue::Off);
 	material->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
 	material->addShaderSource("igor/default_directional_light.frag", iShaderObjectType::Fragment);
 	material->compileShader();
@@ -40,8 +40,8 @@ Widget3DEmitter::Widget3DEmitter(iWindow* window, iView* view, iScene* scene)
 
 	_materialVolume = iMaterialResourceFactory::getInstance().createMaterial("EmitterVolume");
 	auto materialVolume = iMaterialResourceFactory::getInstance().getMaterial(_materialVolume);
-	materialVolume->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-	materialVolume->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+	materialVolume->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+	materialVolume->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
 	materialVolume->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
 	materialVolume->addShaderSource("igor/default_directional_light.frag", iShaderObjectType::Fragment);
 	materialVolume->compileShader();

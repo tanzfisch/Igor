@@ -81,15 +81,15 @@ void SpriteAnimation::init()
 	// create some materials
 	_materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
 	iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
-	material->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-	material->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-	material->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+	material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+	material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+	material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
 	_materialTerrain = iMaterialResourceFactory::getInstance().createMaterial();
 	material = iMaterialResourceFactory::getInstance().getMaterial(_materialTerrain);
-	material->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-	material->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-	material->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+	material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+	material->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+	material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 	material->addShaderSource("igor/textured.vert", iShaderObjectType::Vertex);
 	material->addShaderSource("igor/textured.frag", iShaderObjectType::Fragment);
 	material->compileShader();

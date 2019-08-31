@@ -440,8 +440,8 @@ namespace Igor
 
 				for (int i = 0; i < 19; ++i) // TODO magic number
 				{
-					OMPF::OMPFRenderStateValue value = materialChunk->getRenderStateValue(static_cast<OMPF::OMPFRenderState>(i));
-					material->getRenderStateSet().setRenderState(static_cast<iRenderState>(i), static_cast<iRenderStateValue>(value));
+					OMPF::OMPFRenderStateValue value = materialChunk->getRenderState(static_cast<OMPF::OMPFRenderState>(i));
+					material->setRenderState(static_cast<iRenderState>(i), static_cast<iRenderStateValue>(value));
 				}
 			}
 			else
@@ -774,7 +774,7 @@ namespace Igor
 
 			for (int i = 0; i < static_cast<int>(iRenderState::RenderStateCount); ++i)
 			{
-				result->setRenderStateValue(static_cast<OMPF::OMPFRenderState>(i), static_cast<OMPF::OMPFRenderStateValue>(renderStateSet.getRenderStateValue(static_cast<iRenderState>(i))));
+				result->setRenderStateValue(static_cast<OMPF::OMPFRenderState>(i), static_cast<OMPF::OMPFRenderStateValue>(renderStateSet.getRenderState(static_cast<iRenderState>(i))));
 			}
 
 			result->setOrder(material->getOrder());

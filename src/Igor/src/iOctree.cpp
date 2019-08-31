@@ -416,7 +416,7 @@ namespace Igor
         iRenderer::getInstance().setModelMatrix(matrix);
 
         uint64 material = iMaterialResourceFactory::getInstance().createMaterial();
-        iMaterialResourceFactory::getInstance().getMaterial(material)->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+        iMaterialResourceFactory::getInstance().getMaterial(material)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
         iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(material));
 
         iRenderer::getInstance().setColor(0, 0, 1, 1);

@@ -236,7 +236,7 @@ namespace Igor
                 {
                     if (renderNode->isVisible())
                     {
-                        bool instancing = (material->getRenderStateSet().getRenderStateValue(iRenderState::Instanced) == iRenderStateValue::On);
+                        bool instancing = (material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On);
                         _materialGroups[material->getID()].addRenderNode(renderNode->getID(), instancing);
                     }
                 }
@@ -254,7 +254,7 @@ namespace Igor
             {
                 if (renderNode->isVisible())
                 {
-                    bool instancing = (material->getRenderStateSet().getRenderStateValue(iRenderState::Instanced) == iRenderStateValue::On);
+                    bool instancing = (material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On);
                     _materialGroups[material->getID()].addRenderNode(renderNode->getID(), instancing);
                 }
             }
@@ -273,7 +273,7 @@ namespace Igor
         {
             iMaterialGroup& materialGroup = _materialGroups[material->getID()];
 
-            if (iRenderStateValue::On == material->getRenderStateSet().getRenderStateValue(iRenderState::Instanced))
+            if (iRenderStateValue::On == material->getRenderState(iRenderState::Instanced))
             {
                 // TODO later   
             }
@@ -336,7 +336,7 @@ namespace Igor
         for (auto material : materials)
         {
             iRenderer::getInstance().setMaterial(material, _showWireframe);
-            bool instancing = (material->getRenderStateSet().getRenderStateValue(iRenderState::Instanced) == iRenderStateValue::On);
+            bool instancing = (material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On);
             iMaterialGroup& materialGroup = _materialGroups[material->getID()];
             
             if (instancing)

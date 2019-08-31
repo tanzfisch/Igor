@@ -19,7 +19,6 @@ using namespace Igor;
 
 #include <sstream>
 
-
 Example2D::Example2D()
 {
 	init();
@@ -127,17 +126,19 @@ void Example2D::init()
 	_spline.setResolution(20);
 
 	// create some materials
-	_materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
-	iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-	iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-	iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+	_materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial("TextureAndBlending");
+	auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
+	material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+	material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+	material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
-	_materialWithTexture = iMaterialResourceFactory::getInstance().createMaterial();
-	iMaterialResourceFactory::getInstance().getMaterial(_materialWithTexture)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-	iMaterialResourceFactory::getInstance().getMaterial(_materialWithTexture)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+	_materialWithTexture = iMaterialResourceFactory::getInstance().createMaterial("Texture");
+	material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTexture);
+	material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+	material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
-	_materialWithoutDepthTest = iMaterialResourceFactory::getInstance().createMaterial();
-	iMaterialResourceFactory::getInstance().getMaterial(_materialWithoutDepthTest)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+	_materialWithoutDepthTest = iMaterialResourceFactory::getInstance().createMaterial("NoDepthTest");
+	iMaterialResourceFactory::getInstance().getMaterial(_materialWithoutDepthTest)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
 	// load requested textures
 	iTextureResourceFactory::getInstance().flush();
