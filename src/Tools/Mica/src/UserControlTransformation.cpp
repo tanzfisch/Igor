@@ -115,7 +115,7 @@ iWidgetTextEdit* UserControlTransformation::createTextEdit()
 {
 	iWidgetTextEdit* textEdit = new iWidgetTextEdit();
 	textEdit->setText("");
-	textEdit->setWidth(MV_REGULARBUTTON_SIZE);
+	textEdit->setWidth(MICA_REGULARBUTTON_SIZE);
 	textEdit->setMaxTextLength(11);
 	textEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
 	textEdit->setVerticalAlignment(iVerticalAlignment::Top);

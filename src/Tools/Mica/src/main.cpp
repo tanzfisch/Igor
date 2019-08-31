@@ -3,17 +3,18 @@
 
 #include "Mica.h"
 
-#include <iaDirectory.h>
-using namespace IgorAux;
-
 #include <Igor.h>
 using namespace Igor;
 
+#include <iaDirectory.h>
+using namespace IgorAux;
+
 int main(int argc, char* argv[])
 {
-
+	// start the engine
     Igor::startup();
 
+	// create and run mica
     Mica* mica = new Mica();
     if (argc >= 2)
     {
@@ -24,8 +25,10 @@ int main(int argc, char* argv[])
 		mica->run("");
     }
 
+	// kill mica
     delete mica;
 
+	// stop the engine
     Igor::shutdown();
 
 	return 0;

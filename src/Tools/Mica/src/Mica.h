@@ -31,6 +31,8 @@
 
 #include "Manipulator.h"
 #include "Widget3D.h"
+#include "Outliner.h"
+#include "PropertiesDialog.h"
 
 #include <Igor.h>
 #include <iWindow.h>
@@ -44,9 +46,6 @@
 #include <iProfilerVisualizer.h>
 using namespace Igor;
 
-#include "Outliner.h"
-#include "PropertiesDialog.h"
-
 namespace Igor
 {
     class iScene;
@@ -58,7 +57,6 @@ namespace Igor
     class iDialog;
     class iWidgetScroll;
     class iDialogMessageBox;
-    class iRenderStatistics;
 
     class iNodeSkyBox;
 }
@@ -68,25 +66,51 @@ class Mica
 
 public:
 
+	/*! nothing to do
+	*/
     Mica() = default;
+
+	/*! deinit resources
+	*/
     virtual ~Mica();
 
+	/*! run mica
+	*/
     void run(iaString fileName);
 
 private:
 
+	/*! main window of mica
+	*/
     iWindow _window;
-    iView _view;
-    iView _viewOrtho;
-	iView _viewWidget3D;
-    iaMatrixd _modelViewOrtho;
 
-    iTextureFont* _font = nullptr;
+	/*! main scene view
+	*/
+    iView _view;
+
+	/*! UI view
+	*/
+    iView _viewOrtho;
+
+	/*! 3d UI view
+	*/
+	iView _viewWidget3D;    
+
+	/*! font used for widget display
+	*/
+	iTextureFont* _font = nullptr;
+
+	/*! main scene
+	*/
     iScene* _scene = nullptr;
+
+	/*! 3d widget scene eg used for the manipulator
+	*/
 	iScene* _sceneWidget3D = nullptr;
 
+	/*! file open/close dialog 
+	*/
     iDialogFileSelect* _fileDialog = nullptr;
-    iDialogMessageBox* _messageBox = nullptr;
 
     // TODO need some classes handling different types of cameras
     iNodeTransform* _cameraCOI = nullptr;
@@ -94,56 +118,140 @@ private:
     iNodeTransform* _cameraPitch = nullptr;
     iNodeTransform* _cameraTranslation = nullptr;
     iNodeCamera* _camera = nullptr;
+	float32 _camDistance = 0;
 
-    iNodeSkyBox* _skyBoxNode = nullptr;
+	/*! the default sky box
+	*/
+    iNodeSkyBox* _defaultSkyBox = nullptr;
 
+	// TODO need to handle light differently
     iNodeTransform* _directionalLightTranslate = nullptr;
     iNodeTransform* _directionalLightRotate = nullptr;
     iNodeLight* _lightNode = nullptr;
 
+	/*! instance of the widget theme
+	*/
     iWidgetDefaultTheme* _widgetTheme = nullptr;
 
+	/*! the properties dialog or editor
+	*/
     PropertiesDialog* _propertiesDialog = nullptr;
+
+	/*! the outliner
+	*/
     Outliner* _outliner = nullptr;
-    iRenderStatistics* _renderStatistics = nullptr;
 
-    float32 _camDistance = 0;
-
+	/*! id of textures flush task
+	*/
     uint64 _taskFlushTextures = 0;
 
-    iNodePtr _groupNode = nullptr;
+	/*! the node that contains the editable part of the scene or workspace
+	*/
+    iNodePtr _workspace = nullptr;
 
-    uint64 _materialSkyBox;
+	/*! material for orientation plane 
+	*/
     uint64 _materialOrientationPlane;
+
+	/*! material for bounding box display 
+	*/
     uint64 _materialBoundingBox;
+
+	/*! cel shading material for selecting nodes in the scene
+	*/
     uint64 _materialCelShading;
 
+	/*! id of currently selected node 
+	*/
     uint32 _selectedNodeID = iNode::INVALID_NODE_ID;
 
+	/*! visualizer for profiler data
+	*/
     iProfilerVisualizer _profilerVisualizer;
 
+	/*! manipulator
+	*/
     Manipulator* _manipulator = nullptr;
 
+	/*! pointer to active 3d widget
+	*/
 	Widget3D* _widget3D = nullptr;
 
-	/*! empties the scene
+	/*! clear resources
 	*/
-	void clearScene();
+	void deinit();
 
+	/*! initializes mica
+
+	\param filename optional filename to open to start with
+	*/
+	void init(iaString filename);
+
+	/*! empties the workspace
+	*/
+	void clearWorkspace();
+
+	/*! reset manipulator mode to none
+	*/
     void resetManipulatorMode();
-    void setManipulatorMode(ManipulatorMode modifierMode);
-    void pickcolorID();
 
+	/*! sets the manipulator mode on currently selected node 
+	but only if it is a transform node otherwise its set to none
+
+	\param modifierMode the modifier mode to set
+	*/
+    void setManipulatorMode(ManipulatorMode modifierMode);
+
+	/*! \returns node at given screen position
+	\param x horizonral screen position
+	\param y vertical screen position
+	*/
+	iNodePtr getNodeAt(int32 x, int32 y);
+
+	/*! frames the view on current selection
+	*/
+	void frameOnSelectedNode();
+
+	/*! frames the view on given node
+
+	\param node the given node
+ 	*/
+	void frameOnNode(iNodePtr node);
+
+	void updateCamDistanceTransform();
+
+	/*! handle for graph view selection change event
+
+	\param nodeID the id of the selected node
+	*/
     void onGraphViewSelectionChanged(uint64 nodeID);
 
+	/*! handle for keyboard dow event
+	*/
     void onKeyDown(iKeyCode key);
-    void centerCamOnSelectedNode();
+    
+	/*! handle for window closed event
+	*/
     void onWindowClosed();
 
+	/*! handle for load file event
+	*/
     void onLoadFile();
-    void onImportFile(uint64 nodeID);
-    void onImportFileReference(uint64 nodeID);
+
+	/*! handle for import file to existing scene event
+	*/
+    void onImportFile();
+
+	/*! hande for import file by reference to existing scene event
+	*/
+    void onImportFileReference();
+
+	/*! handle for save file event
+	*/
     void onSaveFile();
+
+	/*! hanlde for exist mica event
+	*/
     void onExitMica();
 
     void onAddTransformation(uint64 atNodeID);
@@ -160,11 +268,6 @@ private:
     void onMouseKeyUp(iKeyCode key);
 
     void onWindowResize(int32 clientWidth, int32 clientHeight);
-
-    void deinit();
-    void init(iaString fileName);
-    void updateCamDistanceTransform();
-    void centerCamOnNode(iNodePtr node);
 
     void onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
     void onImportFileDialogClosed(iFileDialogReturnValue fileDialogReturnValue);

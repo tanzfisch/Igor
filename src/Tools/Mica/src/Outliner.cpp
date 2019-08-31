@@ -712,11 +712,11 @@ void Outliner::onAddModelDecision(bool ok, int32 selection)
             switch (selection)
             {
             case 0:
-                _importFile(_userControlGraphView->getSelectedNode());
+                _importFile();
                 break;
 
             case 1:
-                _importFileReference(_userControlGraphView->getSelectedNode());
+                _importFileReference();
                 break;
 
             default:

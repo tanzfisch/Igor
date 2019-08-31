@@ -57,7 +57,7 @@ void UserControlNode::initGUI()
 
     _labelName = new iWidgetLabel();
     _labelName->setText("Name");
-    _labelName->setWidth(MV_REGULARBUTTON_SIZE);
+    _labelName->setWidth(MICA_REGULARBUTTON_SIZE);
     _labelName->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textName = new iWidgetTextEdit();
@@ -69,7 +69,7 @@ void UserControlNode::initGUI()
 
     _labelActive = new iWidgetLabel();
     _labelActive->setText("Active");
-    _labelActive->setWidth(MV_REGULARBUTTON_SIZE);
+    _labelActive->setWidth(MICA_REGULARBUTTON_SIZE);
     _labelActive->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxActive = new iWidgetCheckBox();

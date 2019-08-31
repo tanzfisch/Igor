@@ -83,7 +83,7 @@ void UserControlEmitter::initGUI()
 
     iWidgetLabel* labelType = new iWidgetLabel();
     labelType->setText("Type");
-    labelType->setWidth(MV_REGULARBUTTON_SIZE);
+    labelType->setWidth(MICA_REGULARBUTTON_SIZE);
     labelType->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _selectType = new iWidgetSelectBox();
@@ -99,7 +99,7 @@ void UserControlEmitter::initGUI()
 
     iWidgetLabel* labelSize = new iWidgetLabel();
     labelSize->setText("Size");
-    labelSize->setWidth(MV_REGULARBUTTON_SIZE);
+    labelSize->setWidth(MICA_REGULARBUTTON_SIZE);
     labelSize->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textSize = new iWidgetTextEdit();

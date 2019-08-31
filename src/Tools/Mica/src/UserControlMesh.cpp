@@ -278,17 +278,17 @@ void UserControlMesh::initGUI()
 
 	iWidgetLabel* labelVertexes = new iWidgetLabel();
 	labelVertexes->setText("Vertexes");
-	labelVertexes->setWidth(MV_REGULARBUTTON_SIZE);
+	labelVertexes->setWidth(MICA_REGULARBUTTON_SIZE);
 	labelVertexes->setHorizontalAlignment(iHorizontalAlignment::Left);
 
 	iWidgetLabel* labelTriangles = new iWidgetLabel();
 	labelTriangles->setText("Triangles");
-	labelTriangles->setWidth(MV_REGULARBUTTON_SIZE);
+	labelTriangles->setWidth(MICA_REGULARBUTTON_SIZE);
 	labelTriangles->setHorizontalAlignment(iHorizontalAlignment::Left);
 
 	iWidgetLabel* labelIndexes = new iWidgetLabel();
 	labelIndexes->setText("Indexes");
-	labelIndexes->setWidth(MV_REGULARBUTTON_SIZE);
+	labelIndexes->setWidth(MICA_REGULARBUTTON_SIZE);
 	labelIndexes->setHorizontalAlignment(iHorizontalAlignment::Left);
 
 	_textVertices = new iWidgetTextEdit();
@@ -350,22 +350,22 @@ void UserControlMesh::initGUI()
 
 	iWidgetLabel* labelTextureUnit0 = new iWidgetLabel();
 	labelTextureUnit0->setText("Texture 0");
-	labelTextureUnit0->setWidth(MV_REGULARBUTTON_SIZE);
+	labelTextureUnit0->setWidth(MICA_REGULARBUTTON_SIZE);
 	labelTextureUnit0->setHorizontalAlignment(iHorizontalAlignment::Left);
 
 	iWidgetLabel* labelTextureUnit1 = new iWidgetLabel();
 	labelTextureUnit1->setText("Texture 1");
-	labelTextureUnit1->setWidth(MV_REGULARBUTTON_SIZE);
+	labelTextureUnit1->setWidth(MICA_REGULARBUTTON_SIZE);
 	labelTextureUnit1->setHorizontalAlignment(iHorizontalAlignment::Left);
 
 	iWidgetLabel* labelTextureUnit2 = new iWidgetLabel();
 	labelTextureUnit2->setText("Texture 2");
-	labelTextureUnit2->setWidth(MV_REGULARBUTTON_SIZE);
+	labelTextureUnit2->setWidth(MICA_REGULARBUTTON_SIZE);
 	labelTextureUnit2->setHorizontalAlignment(iHorizontalAlignment::Left);
 
 	iWidgetLabel* labelTextureUnit3 = new iWidgetLabel();
 	labelTextureUnit3->setText("Texture 3");
-	labelTextureUnit3->setWidth(MV_REGULARBUTTON_SIZE);
+	labelTextureUnit3->setWidth(MICA_REGULARBUTTON_SIZE);
 	labelTextureUnit3->setHorizontalAlignment(iHorizontalAlignment::Left);
 
 	_textureChooser0 = new iUserControlFileChooser();

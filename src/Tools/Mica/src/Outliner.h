@@ -50,8 +50,8 @@ namespace Igor
 }
 
 iaEVENT(LoadFile, LoadFileDelegate, void, (), ());
-iaEVENT(ImportFile, ImportFileDelegate, void, (uint64 nodeID), (nodeID));
-iaEVENT(ImportFileReference, ImportFileReferenceDelegate, void, (uint64 nodeID), (nodeID));
+iaEVENT(ImportFile, ImportFileDelegate, void, (), ());
+iaEVENT(ImportFileReference, ImportFileReferenceDelegate, void, (), ());
 iaEVENT(SaveFile, SaveFileDelegate, void, (), ());
 iaEVENT(ExitMica, ExitMicaDelegate, void, (), ());
 

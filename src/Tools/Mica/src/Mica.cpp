@@ -35,7 +35,6 @@ using namespace IgorAux;
 #include <iDialog.h>
 #include <iWidgetGrid.h>
 #include <iWidgetScroll.h>
-#include <iDialogMessageBox.h>
 #include <iProfiler.h>
 #include <iMaterialResourceFactory.h>
 #include <iTaskFlushTextures.h>
@@ -62,7 +61,7 @@ static const wchar_t* DEFAULT_LOAD_SAVE_DIR = L"..\\data\\models";
 
 Mica::~Mica()
 {
-    deinit();
+	deinit();
 }
 
 iModelDataInputParameter* Mica::createDataInputParameter()
@@ -80,406 +79,407 @@ iModelDataInputParameter* Mica::createDataInputParameter()
 
 void Mica::init(iaString fileName)
 {
-    con(" -- Model Viewer --" << endl);
+	con(" -- Model Viewer --" << endl);
 
 	iWidgetManager::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &Mica::onKeyDown));
-    iWidgetManager::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Mica::onMouseMoved));
-    iWidgetManager::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &Mica::onMouseWheel));
-    iWidgetManager::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &Mica::onMouseKeyDown));
-    iWidgetManager::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &Mica::onMouseKeyUp));
+	iWidgetManager::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Mica::onMouseMoved));
+	iWidgetManager::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &Mica::onMouseWheel));
+	iWidgetManager::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &Mica::onMouseKeyDown));
+	iWidgetManager::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &Mica::onMouseKeyUp));
 
-    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &Mica::handle));
+	iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &Mica::handle));
 
-    _window.setSize(1280, 800);
+	_window.setSize(GetSystemMetrics(SM_CXSCREEN) * 0.8, GetSystemMetrics(SM_CYSCREEN) * 0.8);
 	_window.setCentered();
-    _window.setTitle(WINDOW_TITLE_PREFIX);
-    _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &Mica::onWindowClosed));
-    _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &Mica::onWindowResize));
+	_window.setTitle(WINDOW_TITLE_PREFIX);
+	_window.registerWindowCloseDelegate(WindowCloseDelegate(this, &Mica::onWindowClosed));
+	_window.registerWindowResizeDelegate(WindowResizeDelegate(this, &Mica::onWindowResize));
 
-    _view.setName("MainSceneView");
-    _view.setClearColor(iaColor4f(0.25f, 0.25f, 0.25f, 1.0f));
-    _view.setPerspective(45.0f);
-    _view.setClipPlanes(1.0f, 100000.f);
-    _view.registerRenderDelegate(RenderDelegate(this, &Mica::render));
-    _window.addView(&_view);
+	_view.setName("MainSceneView");
+	_view.setClearColor(iaColor4f(0.25f, 0.25f, 0.25f, 1.0f));
+	_view.setPerspective(45.0f);
+	_view.setClipPlanes(1.0f, 100000.f);
+	_view.registerRenderDelegate(RenderDelegate(this, &Mica::render));
+	_window.addView(&_view);
 
-    _viewOrtho.setName("GUIView");
-    _viewOrtho.setClearColor(false);
-    _viewOrtho.setClearDepth(false);
-    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
-    _viewOrtho.registerRenderDelegate(RenderDelegate(this, &Mica::renderOrtho));
-    _window.addView(&_viewOrtho, 10);
+	_viewOrtho.setName("GUIView");
+	_viewOrtho.setClearColor(false);
+	_viewOrtho.setClearDepth(false);
+	_viewOrtho.setClipPlanes(-1.0f, 1.0f);
+	_viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
+	_viewOrtho.registerRenderDelegate(RenderDelegate(this, &Mica::renderOrtho));
+	_window.addView(&_viewOrtho, 10);
 
-    _window.setDoubleClick(true);
-    _window.open(); // open after adding views to prevent warning message
+	_window.setDoubleClick(true);
+	_window.open(); // open after adding views to prevent warning message
 
-    _scene = iSceneFactory::getInstance().createScene();
-    _scene->setName("Model Scene");
-    _view.setScene(_scene);
+	_scene = iSceneFactory::getInstance().createScene();
+	_scene->setName("Model Scene");
+	_view.setScene(_scene);
 
-    _groupNode = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
-    _groupNode->setName("MicaRoot");
-	_scene->getRoot()->insertNode(_groupNode);
+	_workspace = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
+	_workspace->setName("MicaRoot");
+	_scene->getRoot()->insertNode(_workspace);
 
-    // init 3D user controls
+	// init 3D user controls
 	_viewWidget3D.setName("UIView");
 	_viewWidget3D.setClearColor(false);
 	_viewWidget3D.setClearDepth(true);
 	_viewWidget3D.setPerspective(45.0f);
 	_viewWidget3D.setClipPlanes(1.0f, 100000.f);
-	
+
 	_window.addView(&_viewWidget3D, 5);
 
 	_sceneWidget3D = iSceneFactory::getInstance().createScene();
 	_sceneWidget3D->setName("Modifier Scene");
 	_viewWidget3D.setScene(_sceneWidget3D);
 
-    _manipulator = new Manipulator(&_window, &_viewWidget3D, _sceneWidget3D);
-    
-    // cam
-    _cameraCOI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _cameraCOI->setName("camera COI");
-    _cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _cameraHeading->setName("camera heading");
-    _cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _cameraPitch->setName("camera pitch");
-    _cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _cameraTranslation->setName("camera translation");
-    _camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
-    _camera->setName("camera");
+	_manipulator = new Manipulator(&_window, &_viewWidget3D, _sceneWidget3D);
 
-    _scene->getRoot()->insertNode(_cameraCOI);
-    _cameraCOI->insertNode(_cameraHeading);
-    _cameraHeading->insertNode(_cameraPitch);
-    _cameraPitch->insertNode(_cameraTranslation);
-    _cameraTranslation->insertNode(_camera);
-    _view.setCurrentCamera(_camera->getID());
+	// cam
+	_cameraCOI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	_cameraCOI->setName("camera COI");
+	_cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	_cameraHeading->setName("camera heading");
+	_cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	_cameraPitch->setName("camera pitch");
+	_cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	_cameraTranslation->setName("camera translation");
+	_camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
+	_camera->setName("camera");
 
-    _cameraTranslation->translate(0, 0, 80);
+	_scene->getRoot()->insertNode(_cameraCOI);
+	_cameraCOI->insertNode(_cameraHeading);
+	_cameraHeading->insertNode(_cameraPitch);
+	_cameraPitch->insertNode(_cameraTranslation);
+	_cameraTranslation->insertNode(_camera);
+	_view.setCurrentCamera(_camera->getID());
 
-    // default sky box
-    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setOrder(iMaterial::RENDER_ORDER_MIN);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setName("SkyBox");
+	_cameraTranslation->translate(0, 0, 80);
 
-    _skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
-    _skyBoxNode->setTextures(
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/left.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/right.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
-    _skyBoxNode->setMaterial(_materialSkyBox);
-    _skyBoxNode->setVisible(false);
-    _scene->getRoot()->insertNode(_skyBoxNode);
+	// create materials
+	_materialBoundingBox = iMaterialResourceFactory::getInstance().createMaterial("materialBoundingBox");
 
-    _font = new iTextureFont("StandardFont.png");
+	_materialCelShading = iMaterialResourceFactory::getInstance().createMaterial("celShadingMaterial");
+	auto celShadingMaterial = iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading);
+	celShadingMaterial->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
+	celShadingMaterial->addShaderSource("Mica/yellow.frag", iShaderObjectType::Fragment);
+	celShadingMaterial->compileShader();
+	celShadingMaterial->getRenderStateSet().setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
+	celShadingMaterial->getRenderStateSet().setRenderState(iRenderState::CullFace, iRenderStateValue::On);
+	celShadingMaterial->getRenderStateSet().setRenderState(iRenderState::CullFaceFunc, iRenderStateValue::Front);
 
-    // create materials
-    _materialBoundingBox = iMaterialResourceFactory::getInstance().createMaterial();
+	_materialOrientationPlane = iMaterialResourceFactory::getInstance().createMaterial("OrientationPlane");
+	auto oriPlaneMaterial = iMaterialResourceFactory::getInstance().getMaterial(_materialOrientationPlane);
+	oriPlaneMaterial->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+	oriPlaneMaterial->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+	oriPlaneMaterial->setOrder(iMaterial::RENDER_ORDER_MAX);
 
-    _materialCelShading = iMaterialResourceFactory::getInstance().createMaterial();
-    iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->addShaderSource("Mica/yellow.frag", iShaderObjectType::Fragment);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->compileShader();
-    iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->getRenderStateSet().setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->getRenderStateSet().setRenderState(iRenderState::CullFace, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->getRenderStateSet().setRenderState(iRenderState::CullFaceFunc, iRenderStateValue::Front);
+	uint64 materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
+	auto skyBoxMaterial = iMaterialResourceFactory::getInstance().getMaterial(materialSkyBox);
+	skyBoxMaterial->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+	skyBoxMaterial->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+	skyBoxMaterial->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+	skyBoxMaterial->setOrder(iMaterial::RENDER_ORDER_MIN);
+	skyBoxMaterial->setName("SkyBox");
 
-    _materialOrientationPlane = iMaterialResourceFactory::getInstance().createMaterial();
-    iMaterialResourceFactory::getInstance().getMaterial(_materialOrientationPlane)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialOrientationPlane)->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialOrientationPlane)->setOrder(iMaterial::RENDER_ORDER_MAX);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialOrientationPlane)->setName("OrientationPlane");
+	// default sky box
+	_defaultSkyBox = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
+	_defaultSkyBox->setTextures(
+		iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
+		iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
+		iTextureResourceFactory::getInstance().requestFile("skybox_default/left.png"),
+		iTextureResourceFactory::getInstance().requestFile("skybox_default/right.png"),
+		iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
+		iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
+	_defaultSkyBox->setMaterial(materialSkyBox);
+	_defaultSkyBox->setVisible(false);
+	_scene->getRoot()->insertNode(_defaultSkyBox);
 
-    // light
-    _directionalLightRotate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _directionalLightRotate->setName("directional light rotate");
+	_font = new iTextureFont("StandardFont.png");
 
-    _directionalLightTranslate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _directionalLightTranslate->setName("directional light translate");
-    _directionalLightTranslate->translate(10000, 10000, 0);
+	// light
+	_directionalLightRotate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	_directionalLightRotate->setName("directional light rotate");
 
-    _lightNode = static_cast<iNodeLight*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLight));
-    _lightNode->setName("directional light");
-    _lightNode->setAmbient(iaColor4f(0.5f, 0.5f, 0.5f, 1.0f));
-    _lightNode->setDiffuse(iaColor4f(0.9f, 0.9f, 0.9f, 1.0f));
-    _lightNode->setSpecular(iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
+	_directionalLightTranslate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	_directionalLightTranslate->setName("directional light translate");
+	_directionalLightTranslate->translate(10000, 10000, 0);
 
-    _scene->getRoot()->insertNode(_directionalLightRotate);
-    _directionalLightRotate->insertNode(_directionalLightTranslate);
-    _directionalLightTranslate->insertNode(_lightNode);
+	_lightNode = static_cast<iNodeLight*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLight));
+	_lightNode->setName("directional light");
+	_lightNode->setAmbient(iaColor4f(0.5f, 0.5f, 0.5f, 1.0f));
+	_lightNode->setDiffuse(iaColor4f(0.9f, 0.9f, 0.9f, 1.0f));
+	_lightNode->setSpecular(iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
 
-    _modelViewOrtho.translate(0, 0, -30);
+	_scene->getRoot()->insertNode(_directionalLightRotate);
+	_directionalLightRotate->insertNode(_directionalLightTranslate);
+	_directionalLightTranslate->insertNode(_lightNode);
 
-    if (!fileName.isEmpty())
-    {
-        iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-        iModelDataInputParameter* parameter = createDataInputParameter();
+	if (!fileName.isEmpty())
+	{
+		iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+		iModelDataInputParameter* parameter = createDataInputParameter();
 
-        model->setModel(fileName, iResourceCacheMode::Free, parameter);
-        _groupNode->insertNode(model);
-    }
+		model->setModel(fileName, iResourceCacheMode::Free, parameter);
+		_workspace->insertNode(model);
+	}
 
-    initGUI();
+	initGUI();
 
-    _outliner->setRootNode(_groupNode);
+	_outliner->setRootNode(_workspace);
 
-    if (fileName.isEmpty())
-    {
-        _fileDialog->load(iDialogFileSelectCloseDelegate(this, &Mica::onFileLoadDialogClosed), DEFAULT_LOAD_SAVE_DIR);
-    }
-    else
-    {
-        _outliner->setActive();
-        _outliner->setVisible();
+	if (fileName.isEmpty())
+	{
+		_fileDialog->load(iDialogFileSelectCloseDelegate(this, &Mica::onFileLoadDialogClosed), DEFAULT_LOAD_SAVE_DIR);
+	}
+	else
+	{
+		_outliner->setActive();
+		_outliner->setVisible();
 
-        _propertiesDialog->setActive();
-        _propertiesDialog->setVisible();
-    }
+		_propertiesDialog->setActive();
+		_propertiesDialog->setVisible();
+	}
 
-    _outliner->refreshView();
-    resetManipulatorMode();
+	_outliner->refreshView();
+	resetManipulatorMode();
 
-    _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
+	_taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 }
 
 void Mica::resetManipulatorMode()
 {
-    setManipulatorMode(ManipulatorMode::None);
+	setManipulatorMode(ManipulatorMode::None);
 }
 
 void Mica::deinit()
 {
-    deinitGUI();
+	deinitGUI();
 
-    iSceneFactory::getInstance().destroyScene(_scene);
+	iSceneFactory::getInstance().destroyScene(_scene);
 	iSceneFactory::getInstance().destroyScene(_sceneWidget3D);
-	
+
 	// abort flush task
 	iTaskManager::getInstance().abortTask(_taskFlushTextures);
 
 	// flush model resources
-    iModelResourceFactory::getInstance().flush(&_window);
+	iModelResourceFactory::getInstance().flush(&_window);
 
-    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Mica::onWindowClosed));
-    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Mica::onWindowResize));
+	_window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Mica::onWindowClosed));
+	_window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Mica::onWindowResize));
 
-    _window.close();
-    _window.removeView(&_view);
-    _window.removeView(&_viewOrtho);
+	_window.close();
+	_window.removeView(&_view);
+	_window.removeView(&_viewOrtho);
 	_window.removeView(&_viewWidget3D);
 
-    _view.unregisterRenderDelegate(RenderDelegate(this, &Mica::render));
-    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &Mica::renderOrtho));
+	_view.unregisterRenderDelegate(RenderDelegate(this, &Mica::render));
+	_viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &Mica::renderOrtho));
 
-    if (_font)
-    {
-        delete _font;
-    }
+	if (_font)
+	{
+		delete _font;
+	}
 
-    iWidgetManager::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &Mica::onMouseWheel));
-    iWidgetManager::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Mica::onMouseMoved));
-    iWidgetManager::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &Mica::onMouseKeyDown));
-    iWidgetManager::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &Mica::onMouseKeyUp));
+	iWidgetManager::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &Mica::onMouseWheel));
+	iWidgetManager::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Mica::onMouseMoved));
+	iWidgetManager::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &Mica::onMouseKeyDown));
+	iWidgetManager::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &Mica::onMouseKeyUp));
 	iWidgetManager::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &Mica::onKeyDown));
-    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &Mica::handle));    
+	iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &Mica::handle));
 }
 
 void Mica::onAddTransformation(uint64 atNodeID)
 {
-    iNodePtr destination = iNodeFactory::getInstance().getNode(atNodeID);
+	iNodePtr destination = iNodeFactory::getInstance().getNode(atNodeID);
 
-    if (destination == nullptr)
-    {
-        destination = _groupNode;
-    }
+	if (destination == nullptr)
+	{
+		destination = _workspace;
+	}
 
-    iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    transform->setName("Transformation");
-    destination->insertNode(transform);
-    _outliner->refreshView();
-    _outliner->setSelectedNode(transform);
+	iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	transform->setName("Transformation");
+	destination->insertNode(transform);
+	_outliner->refreshView();
+	_outliner->setSelectedNode(transform);
 }
 
 void Mica::onAddGroup(uint64 atNodeID)
 {
-    iNodePtr destination = iNodeFactory::getInstance().getNode(atNodeID);
+	iNodePtr destination = iNodeFactory::getInstance().getNode(atNodeID);
 
-    if (destination == nullptr)
-    {
-        destination = _groupNode;
-    }
+	if (destination == nullptr)
+	{
+		destination = _workspace;
+	}
 
-    iNodePtr group = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
-    group->setName("Group");
-    destination->insertNode(group);
-    _outliner->refreshView();
-    _outliner->setSelectedNode(group);
+	iNodePtr group = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
+	group->setName("Group");
+	destination->insertNode(group);
+	_outliner->refreshView();
+	_outliner->setSelectedNode(group);
 }
 
 void Mica::onAddEmitter(uint64 atNodeID)
 {
-    iNodePtr destination = iNodeFactory::getInstance().getNode(atNodeID);
+	iNodePtr destination = iNodeFactory::getInstance().getNode(atNodeID);
 
-    if (destination == nullptr)
-    {
-        destination = _groupNode;
-    }
+	if (destination == nullptr)
+	{
+		destination = _workspace;
+	}
 
-    iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
-    emitter->setName("Emitter");
-    destination->insertNode(emitter);
-    _outliner->refreshView();
-    _outliner->setSelectedNode(emitter);
+	iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+	emitter->setName("Emitter");
+	destination->insertNode(emitter);
+	_outliner->refreshView();
+	_outliner->setSelectedNode(emitter);
 }
 
 void Mica::onAddParticleSystem(uint64 atNodeID)
 {
-    iNodePtr destination = iNodeFactory::getInstance().getNode(atNodeID);
+	iNodePtr destination = iNodeFactory::getInstance().getNode(atNodeID);
 
-    if (destination == nullptr)
-    {
-        destination = _groupNode;
-    }
+	if (destination == nullptr)
+	{
+		destination = _workspace;
+	}
 
-    iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
-    particleSystem->setName("ParticleSystem");
-    destination->insertNode(particleSystem);
-    _outliner->refreshView();
-    _outliner->setSelectedNode(particleSystem);
+	iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
+	particleSystem->setName("ParticleSystem");
+	destination->insertNode(particleSystem);
+	_outliner->refreshView();
+	_outliner->setSelectedNode(particleSystem);
 }
 
 void Mica::onAddMaterial()
 {
-    iMaterialResourceFactory::getInstance().createMaterial("new Material");
-    _outliner->refreshView();
+	iMaterialResourceFactory::getInstance().createMaterial("new Material");
+	_outliner->refreshView();
 }
 
 void Mica::onAddSwitch(uint64 atNodeID)
 {
-    iNodePtr destination = iNodeFactory::getInstance().getNode(atNodeID);
+	iNodePtr destination = iNodeFactory::getInstance().getNode(atNodeID);
 
-    if (destination == nullptr)
-    {
-        destination = _groupNode;
-    }
+	if (destination == nullptr)
+	{
+		destination = _workspace;
+	}
 
-    iNodeSwitch* switchNode = static_cast<iNodeSwitch*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSwitch));
-    switchNode->setName("Switch");
-    destination->insertNode(switchNode);
-    _outliner->refreshView();
-    _outliner->setSelectedNode(switchNode);
+	iNodeSwitch* switchNode = static_cast<iNodeSwitch*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSwitch));
+	switchNode->setName("Switch");
+	destination->insertNode(switchNode);
+	_outliner->refreshView();
+	_outliner->setSelectedNode(switchNode);
 }
 
 void Mica::forceLoadingNow(iNodeModel* modelNode)
 {
-    if (modelNode != nullptr)
-    {
-        iScene* tempScene = iSceneFactory::getInstance().createScene();
-        tempScene->getRoot()->insertNode(modelNode);
+	if (modelNode != nullptr)
+	{
+		iScene* tempScene = iSceneFactory::getInstance().createScene();
+		tempScene->getRoot()->insertNode(modelNode);
 
-        // want everything to be loaded now!
-        con_endl("loading data synchronously ... ");
+		// want everything to be loaded now!
+		con_endl("loading data synchronously ... ");
 
-        while (!modelNode->isLoaded())
-        {
-            tempScene->handle();
-            // iTextureResourceFactory::getInstance().flush();
-            iModelResourceFactory::getInstance().flush(&_window);
-        }
+		while (!modelNode->isLoaded())
+		{
+			tempScene->handle();
+			// iTextureResourceFactory::getInstance().flush();
+			iModelResourceFactory::getInstance().flush(&_window);
+		}
 
-        tempScene->getRoot()->removeNode(modelNode);
-        iSceneFactory::getInstance().destroyScene(tempScene);
-    }
+		tempScene->getRoot()->removeNode(modelNode);
+		iSceneFactory::getInstance().destroyScene(tempScene);
+	}
 }
 
-void Mica::centerCamOnNode(iNodePtr node)
+void Mica::frameOnNode(iNodePtr node)
 {
-    if (node != nullptr)
-    {
-        iNodeVisitorBoundings visitorBoundings;
-        visitorBoundings.traverseTree(node);
-        iSphered sphere;
-        visitorBoundings.getSphere(sphere);
+	if (node != nullptr)
+	{
+		iNodeVisitorBoundings visitorBoundings;
+		visitorBoundings.traverseTree(node);
+		iSphered sphere;
+		visitorBoundings.getSphere(sphere);
 
-        iaMatrixd coiMatrix;
-        coiMatrix._pos = sphere._center;
-        _cameraCOI->setMatrix(coiMatrix);
-        _manipulator->setCamCOI(coiMatrix);
+		iaMatrixd coiMatrix;
+		coiMatrix._pos = sphere._center;
+		_cameraCOI->setMatrix(coiMatrix);
+		_manipulator->setCamCOI(coiMatrix);
 
-        if (sphere._radius > 0.0f)
-        {
-            _camDistance = sphere._radius * 4.0f;
-        }
-        else
-        {
-            _camDistance = 1.0f;
-        }
-    }
+		if (sphere._radius > 0.0f)
+		{
+			_camDistance = sphere._radius * 4.0f;
+		}
+		else
+		{
+			_camDistance = 1.0f;
+		}
+	}
 }
 
-void Mica::onImportFile(uint64 nodeID)
+void Mica::onImportFile()
 {
-    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &Mica::onImportFileDialogClosed), DEFAULT_LOAD_SAVE_DIR);
+	_fileDialog->load(iDialogFileSelectCloseDelegate(this, &Mica::onImportFileDialogClosed), DEFAULT_LOAD_SAVE_DIR);
 }
 
-void Mica::onImportFileReference(uint64 nodeID)
+void Mica::onImportFileReference()
 {
-    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &Mica::onImportFileReferenceDialogClosed), DEFAULT_LOAD_SAVE_DIR);
+	_fileDialog->load(iDialogFileSelectCloseDelegate(this, &Mica::onImportFileReferenceDialogClosed), DEFAULT_LOAD_SAVE_DIR);
 }
 
 void Mica::onLoadFile()
 {
-    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &Mica::onFileLoadDialogClosed), DEFAULT_LOAD_SAVE_DIR);
+	_fileDialog->load(iDialogFileSelectCloseDelegate(this, &Mica::onFileLoadDialogClosed), DEFAULT_LOAD_SAVE_DIR);
 }
 
 void Mica::onSaveFile()
 {
-    _fileDialog->save(iDialogFileSelectCloseDelegate(this, &Mica::onFileSaveDialogClosed), DEFAULT_LOAD_SAVE_DIR);
+	_fileDialog->save(iDialogFileSelectCloseDelegate(this, &Mica::onFileSaveDialogClosed), DEFAULT_LOAD_SAVE_DIR);
 }
 
 void Mica::onFileSaveDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
 {
-    if (fileDialogReturnValue == iFileDialogReturnValue::Ok)
-    {
-        iaString filename = _fileDialog->getFullPath();
+	if (fileDialogReturnValue == iFileDialogReturnValue::Ok)
+	{
+		iaString filename = _fileDialog->getFullPath();
 
-        std::vector<iNodePtr> children = _groupNode->getChildren();
-        children.insert(children.end(), _groupNode->getInactiveChildren().begin(), _groupNode->getInactiveChildren().end());
+		std::vector<iNodePtr> children = _workspace->getChildren();
+		children.insert(children.end(), _workspace->getInactiveChildren().begin(), _workspace->getInactiveChildren().end());
 
-        if (children.empty())
-        {
-            con_warn("nothing to save");
-        }
-        else if (children.size() == 1)
-        {
-            iModelResourceFactory::getInstance().exportModelData(filename, children[0]);
-        }
-        else
-        {
-            iModelResourceFactory::getInstance().exportModelData(filename, _groupNode);
-        }
-    }
+		if (children.empty())
+		{
+			con_warn("nothing to save");
+		}
+		else if (children.size() == 1)
+		{
+			iModelResourceFactory::getInstance().exportModelData(filename, children[0]);
+		}
+		else
+		{
+			iModelResourceFactory::getInstance().exportModelData(filename, _workspace);
+		}
+	}
 }
 
 void Mica::onImportFileDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
 {
-    iNodePtr selectNode = nullptr;
+	iNodePtr selectNode = nullptr;
 
-    if (fileDialogReturnValue == iFileDialogReturnValue::Ok)
-    {
-        iaString filename = _fileDialog->getFullPath();
+	if (fileDialogReturnValue == iFileDialogReturnValue::Ok)
+	{
+		iaString filename = _fileDialog->getFullPath();
 
-        iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-        iModelDataInputParameter* parameter = createDataInputParameter();
-        model->setModel(filename, iResourceCacheMode::Free, parameter);
+		iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+		iModelDataInputParameter* parameter = createDataInputParameter();
+		model->setModel(filename, iResourceCacheMode::Free, parameter);
 
-        forceLoadingNow(model);
+		forceLoadingNow(model);
 
 		if (model->isValid())
 		{
@@ -500,7 +500,7 @@ void Mica::onImportFileDialogClosed(iFileDialogReturnValue fileDialogReturnValue
 				}
 				else
 				{
-					_groupNode->insertNode(groupNode);
+					_workspace->insertNode(groupNode);
 				}
 
 				selectNode = groupNode;
@@ -514,7 +514,7 @@ void Mica::onImportFileDialogClosed(iFileDialogReturnValue fileDialogReturnValue
 				}
 				else
 				{
-					groupNode = _groupNode;
+					groupNode = _workspace;
 				}
 
 				if (!children.empty())
@@ -532,33 +532,33 @@ void Mica::onImportFileDialogClosed(iFileDialogReturnValue fileDialogReturnValue
 			}
 		}
 
-        iNodeFactory::getInstance().destroyNodeAsync(model);
-    }
+		iNodeFactory::getInstance().destroyNodeAsync(model);
+	}
 
-    _outliner->setActive();
-    _outliner->setVisible();
-    _outliner->refreshView();
+	_outliner->setActive();
+	_outliner->setVisible();
+	_outliner->refreshView();
 
-    _propertiesDialog->setActive();
-    _propertiesDialog->setVisible();
+	_propertiesDialog->setActive();
+	_propertiesDialog->setVisible();
 
-    _outliner->setSelectedNode(selectNode);
-    centerCamOnSelectedNode();
+	_outliner->setSelectedNode(selectNode);
+	frameOnSelectedNode();
 }
 
 void Mica::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
 {
-    iNodePtr selectNode = nullptr;
+	iNodePtr selectNode = nullptr;
 
-    if (fileDialogReturnValue == iFileDialogReturnValue::Ok)
-    {
-        iaString filename = _fileDialog->getFullPath();
+	if (fileDialogReturnValue == iFileDialogReturnValue::Ok)
+	{
+		iaString filename = _fileDialog->getFullPath();
 
-        iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-        iModelDataInputParameter* parameter = createDataInputParameter();
+		iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+		iModelDataInputParameter* parameter = createDataInputParameter();
 
-        model->setModel(filename, iResourceCacheMode::Free, parameter);
-        forceLoadingNow(model);
+		model->setModel(filename, iResourceCacheMode::Free, parameter);
+		forceLoadingNow(model);
 
 		if (model->isValid())
 		{
@@ -569,49 +569,49 @@ void Mica::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileDialogRe
 			}
 			else
 			{
-				_groupNode->insertNode(model);
+				_workspace->insertNode(model);
 			}
 
 			selectNode = model;
 		}
-    }
+	}
 
-    _outliner->setActive();
-    _outliner->setVisible();
-    _outliner->refreshView();
+	_outliner->setActive();
+	_outliner->setVisible();
+	_outliner->refreshView();
 
-    _propertiesDialog->setActive();
-    _propertiesDialog->setVisible();
+	_propertiesDialog->setActive();
+	_propertiesDialog->setVisible();
 
-    _outliner->setSelectedNode(selectNode);
-    centerCamOnSelectedNode();
+	_outliner->setSelectedNode(selectNode);
+	frameOnSelectedNode();
 }
 
 void Mica::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
 {
-    iNodePtr selectNode = nullptr;
+	iNodePtr selectNode = nullptr;
 
-    if (fileDialogReturnValue == iFileDialogReturnValue::Ok)
-    {
-        iaString filename = _fileDialog->getFullPath();
+	if (fileDialogReturnValue == iFileDialogReturnValue::Ok)
+	{
+		iaString filename = _fileDialog->getFullPath();
 
-        if (_groupNode->getChildren().size() > 0)
-        {
-            auto children = _groupNode->getChildren();
-            auto childIter = children.begin();
-            while (childIter != children.end())
-            {
-                _groupNode->removeNode((*childIter));
-                iNodeFactory::getInstance().destroyNodeAsync((*childIter));
+		if (_workspace->getChildren().size() > 0)
+		{
+			auto children = _workspace->getChildren();
+			auto childIter = children.begin();
+			while (childIter != children.end())
+			{
+				_workspace->removeNode((*childIter));
+				iNodeFactory::getInstance().destroyNodeAsync((*childIter));
 				childIter++;
-            }
-        }
+			}
+		}
 
-        iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-        iModelDataInputParameter* parameter = createDataInputParameter();
+		iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+		iModelDataInputParameter* parameter = createDataInputParameter();
 
-        model->setModel(filename, iResourceCacheMode::Free, parameter);
-        forceLoadingNow(model);
+		model->setModel(filename, iResourceCacheMode::Free, parameter);
+		forceLoadingNow(model);
 
 		if (model->isValid())
 		{
@@ -625,12 +625,12 @@ void Mica::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
 				groupName += filename;
 				insertAt->setName(groupName);
 
-				_groupNode->insertNode(insertAt);
+				_workspace->insertNode(insertAt);
 				selectNode = insertAt;
 			}
 			else
 			{
-				insertAt = _groupNode;
+				insertAt = _workspace;
 				selectNode = children.front();
 			}
 
@@ -643,55 +643,54 @@ void Mica::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
 			}
 		}
 
-        iNodeFactory::getInstance().destroyNodeAsync(model);
-    }
+		iNodeFactory::getInstance().destroyNodeAsync(model);
+	}
 
-    _outliner->setActive();
-    _outliner->setVisible();
-    _outliner->refreshView();
+	_outliner->setActive();
+	_outliner->setVisible();
+	_outliner->refreshView();
 
-    _propertiesDialog->setActive();
-    _propertiesDialog->setVisible();
+	_propertiesDialog->setActive();
+	_propertiesDialog->setVisible();
 
-    _outliner->setSelectedNode(selectNode);
-    centerCamOnSelectedNode();
+	_outliner->setSelectedNode(selectNode);
+	frameOnSelectedNode();
 }
 
 void Mica::initGUI()
 {
 	_propertiesDialog = new PropertiesDialog();
 	_outliner = new Outliner();
-	
-    _widgetTheme = new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png");
-    iWidgetManager::getInstance().setTheme(_widgetTheme);
-    iWidgetManager::getInstance().setDesktopDimensions(_window.getClientWidth(), _window.getClientHeight());
 
-    _outliner->registerOnExitMica(ExitMicaDelegate(this, &Mica::onExitMica));
-    _outliner->registerOnLoadFile(LoadFileDelegate(this, &Mica::onLoadFile));
-    _outliner->registerOnImportFile(ImportFileDelegate(this, &Mica::onImportFile));
-    _outliner->registerOnImportFileReference(ImportFileReferenceDelegate(this, &Mica::onImportFileReference));
-    _outliner->registerOnSaveFile(SaveFileDelegate(this, &Mica::onSaveFile));
-    _outliner->registerOnAddTransformation(AddTransformationDelegate(this, &Mica::onAddTransformation));
-    _outliner->registerOnAddSwitch(AddSwitchDelegate(this, &Mica::onAddSwitch));
-    _outliner->registerOnAddGroup(AddGroupDelegate(this, &Mica::onAddGroup));
-    _outliner->registerOnAddEmitter(AddEmitterDelegate(this, &Mica::onAddEmitter));
-    _outliner->registerOnAddParticleSystem(AddParticleSystemDelegate(this, &Mica::onAddParticleSystem));
-    _outliner->registerOnAddMaterial(AddMaterialDelegate(this, &Mica::onAddMaterial));
+	_widgetTheme = new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png");
+	iWidgetManager::getInstance().setTheme(_widgetTheme);
+	iWidgetManager::getInstance().setDesktopDimensions(_window.getClientWidth(), _window.getClientHeight());
 
-    _fileDialog = new iDialogFileSelect();
-    _messageBox = new iDialogMessageBox();
+	_outliner->registerOnExitMica(ExitMicaDelegate(this, &Mica::onExitMica));
+	_outliner->registerOnLoadFile(LoadFileDelegate(this, &Mica::onLoadFile));
+	_outliner->registerOnImportFile(ImportFileDelegate(this, &Mica::onImportFile));
+	_outliner->registerOnImportFileReference(ImportFileReferenceDelegate(this, &Mica::onImportFileReference));
+	_outliner->registerOnSaveFile(SaveFileDelegate(this, &Mica::onSaveFile));
+	_outliner->registerOnAddTransformation(AddTransformationDelegate(this, &Mica::onAddTransformation));
+	_outliner->registerOnAddSwitch(AddSwitchDelegate(this, &Mica::onAddSwitch));
+	_outliner->registerOnAddGroup(AddGroupDelegate(this, &Mica::onAddGroup));
+	_outliner->registerOnAddEmitter(AddEmitterDelegate(this, &Mica::onAddEmitter));
+	_outliner->registerOnAddParticleSystem(AddParticleSystemDelegate(this, &Mica::onAddParticleSystem));
+	_outliner->registerOnAddMaterial(AddMaterialDelegate(this, &Mica::onAddMaterial));
 
-    _propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_outliner, &Outliner::refreshView));
+	_fileDialog = new iDialogFileSelect();
 
-    _outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
-    _outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(this, &Mica::onGraphViewSelectionChanged));
-    _outliner->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onMaterialSelectionChanged));
+	_propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_outliner, &Outliner::refreshView));
+
+	_outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
+	_outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(this, &Mica::onGraphViewSelectionChanged));
+	_outliner->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onMaterialSelectionChanged));
 }
 
 void Mica::onGraphViewSelectionChanged(uint64 nodeID)
 {
-    _selectedNodeID = nodeID;
-    _manipulator->setNodeID(_selectedNodeID);
+	_selectedNodeID = nodeID;
+	_manipulator->setNodeID(_selectedNodeID);
 	resetManipulatorMode();
 
 	// todo caching?
@@ -720,28 +719,28 @@ void Mica::onGraphViewSelectionChanged(uint64 nodeID)
 
 void Mica::setManipulatorMode(ManipulatorMode manipulatorMode)
 {
-    iNodePtr node = iNodeFactory::getInstance().getNode(_selectedNodeID);
+	iNodePtr node = iNodeFactory::getInstance().getNode(_selectedNodeID);
 
-    if (node != nullptr &&
-        node->getKind() == iNodeKind::Transformation)
-    {
-        _manipulator->setVisible(true);
-        _manipulator->setManipulatorMode(manipulatorMode);
-    }
-    else
-    {
-        _manipulator->setVisible(false);
-        _manipulator->setManipulatorMode(ManipulatorMode::None);
-    }
+	if (node != nullptr &&
+		node->getKind() == iNodeKind::Transformation)
+	{
+		_manipulator->setVisible(true);
+		_manipulator->setManipulatorMode(manipulatorMode);
+	}
+	else
+	{
+		_manipulator->setVisible(false);
+		_manipulator->setManipulatorMode(ManipulatorMode::None);
+	}
 }
 
 void Mica::deinitGUI()
 {
-    if (_propertiesDialog != nullptr)
-    {
+	if (_propertiesDialog != nullptr)
+	{
 		delete _propertiesDialog;
 		_propertiesDialog = nullptr;
-    }
+	}
 
 	if (_outliner != nullptr)
 	{
@@ -755,121 +754,116 @@ void Mica::deinitGUI()
 		_fileDialog = nullptr;
 	}
 
-	if (_messageBox != nullptr)
-    {
-        iWidgetManager::getInstance().destroyDialog(_messageBox);
-        _messageBox = nullptr;
-    }
-
-    iWidgetManager::getInstance().setTheme(nullptr);
-    if (_widgetTheme != nullptr)
-    {
-        delete _widgetTheme;
-        _widgetTheme = nullptr;
-    }
+	iWidgetManager::getInstance().setTheme(nullptr);
+	if (_widgetTheme != nullptr)
+	{
+		delete _widgetTheme;
+		_widgetTheme = nullptr;
+	}
 }
 
 void Mica::onWindowResize(int32 clientWidth, int32 clientHeight)
 {
-    iWidgetManager::getInstance().setDesktopDimensions(_window.getClientWidth(), _window.getClientHeight());
-    _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
+	iWidgetManager::getInstance().setDesktopDimensions(_window.getClientWidth(), _window.getClientHeight());
+	_viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
 }
 
 void Mica::updateCamDistanceTransform()
 {
-    _cameraTranslation->identity();
-    _cameraTranslation->translate(0, 0, _camDistance);
+	_cameraTranslation->identity();
+	_cameraTranslation->translate(0, 0, _camDistance);
 
-    iaMatrixd matrix;
-    matrix.translate(0, 0, _camDistance);
-    _manipulator->setCamTranslate(matrix);
+	iaMatrixd matrix;
+	matrix.translate(0, 0, _camDistance);
+	_manipulator->setCamTranslate(matrix);
 }
 
 void Mica::onMouseKeyDown(iKeyCode key)
 {
-    switch (key)
-    {
-    case iKeyCode::MouseLeft:
-        if (!iKeyboard::getInstance().getKey(iKeyCode::LAlt))
-        {
-            _manipulator->onMouseKeyDown(key);
-        }
-        break;
-    }
+	switch (key)
+	{
+	case iKeyCode::MouseLeft:
+		if (!iKeyboard::getInstance().getKey(iKeyCode::LAlt))
+		{
+			_manipulator->onMouseKeyDown(key);
+		}
+		break;
+	}
 }
 
-void Mica::pickcolorID()
+iNodePtr Mica::getNodeAt(int32 x, int32 y)
 {
-    bool wasVisible = _skyBoxNode->isVisible();
-    _skyBoxNode->setVisible(false);
+	bool wasVisible = _defaultSkyBox->isVisible();
+	_defaultSkyBox->setVisible(false);
 
-    uint64 nodeID = _view.pickcolorID(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
-    iNodePtr node = iNodeFactory::getInstance().getNode(nodeID);
-    _outliner->setSelectedNode(node);
+	uint64 nodeID = _view.pickcolorID(x,y);
+	iNodePtr node = iNodeFactory::getInstance().getNode(nodeID);
 
-    _skyBoxNode->setVisible(wasVisible);
+	_defaultSkyBox->setVisible(wasVisible);
+
+	return node;
 }
 
 void Mica::onMouseKeyUp(iKeyCode key)
 {
-    switch (key)
-    {
-    case iKeyCode::MouseLeft:
+	switch (key)
+	{
+	case iKeyCode::MouseLeft:
 
-        if (!iKeyboard::getInstance().getKey(iKeyCode::LAlt) &&
-            !_manipulator->isSelected())
-        {
-            pickcolorID();
-            resetManipulatorMode();
-        }
+		if (!iKeyboard::getInstance().getKey(iKeyCode::LAlt) &&
+			!_manipulator->isSelected())
+		{
+			_outliner->setSelectedNode(getNodeAt(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y));
+			resetManipulatorMode();
+		}
 
-        _manipulator->onMouseKeyUp(key);
-        break;
-    }
+		_manipulator->onMouseKeyUp(key);
+		break;
+	}
 }
 
 void Mica::onMouseWheel(int32 d)
 {
-    if (d < 0)
-    {
-        _camDistance *= 2.0f;
-    }
-    else
-    {
-        _camDistance *= 0.5f;
-    }
+	if (d < 0)
+	{
+		_camDistance *= 2.0f;
+	}
+	else
+	{
+		_camDistance *= 0.5f;
+	}
 }
 
 void Mica::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window)
 {
-    const float64 rotateSensitivity = 0.0075;
+	const float64 rotateSensitivity = 0.0075;
 	const float64 translateSensitivity = 1.0;
 
-    if (iMouse::getInstance().getLeftButton())
-    {
-        if (iKeyboard::getInstance().getKey(iKeyCode::LAlt))
-        {
-            _cameraPitch->rotate((from._y - to._y) * rotateSensitivity, iaAxis::X);
-            _cameraHeading->rotate((from._x - to._x) * rotateSensitivity, iaAxis::Y);
+	if (iMouse::getInstance().getLeftButton())
+	{
+		if (iKeyboard::getInstance().getKey(iKeyCode::LAlt))
+		{
+			_cameraPitch->rotate((from._y - to._y) * rotateSensitivity, iaAxis::X);
+			_cameraHeading->rotate((from._x - to._x) * rotateSensitivity, iaAxis::Y);
 
-            iaMatrixd matrix;
-            _cameraPitch->getMatrix(matrix);
-            _manipulator->setCamPitch(matrix);
+			iaMatrixd matrix;
+			_cameraPitch->getMatrix(matrix);
+			_manipulator->setCamPitch(matrix);
 
-            _cameraHeading->getMatrix(matrix);
-            _manipulator->setCamHeading(matrix);
-        }
-        else
-        {
-            _manipulator->onMouseMoved(from, to, window);
-        }
-    }
+			_cameraHeading->getMatrix(matrix);
+			_manipulator->setCamHeading(matrix);
+		}
+		else
+		{
+			_manipulator->onMouseMoved(from, to, window);
+		}
+	}
 
-    if (iMouse::getInstance().getRightButton())
-    {
-        _directionalLightRotate->rotate((from._y - to._y) * rotateSensitivity, iaAxis::X);
-        _directionalLightRotate->rotate((from._x - to._x) * rotateSensitivity, iaAxis::Y);
-    }
+	if (iMouse::getInstance().getRightButton())
+	{
+		_directionalLightRotate->rotate((from._y - to._y) * rotateSensitivity, iaAxis::X);
+		_directionalLightRotate->rotate((from._x - to._x) * rotateSensitivity, iaAxis::Y);
+	}
 
 	if (iMouse::getInstance().getMiddleButton())
 	{
@@ -879,7 +873,7 @@ void Mica::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* w
 			_camera->calcWorldTransformation(camWorldMatrix);
 			iaVector3d fromWorld = camWorldMatrix * _view.unProject(iaVector3d(from._x, from._y, 0), camWorldMatrix);
 			iaVector3d toWorld = camWorldMatrix * _view.unProject(iaVector3d(to._x, to._y, 0), camWorldMatrix);
-			
+
 			iaMatrixd camTranslateMatrix;
 			_cameraTranslation->getMatrix(camTranslateMatrix);
 			float64 translateFactor = camTranslateMatrix._pos.length() * translateSensitivity;
@@ -894,23 +888,23 @@ void Mica::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* w
 
 void Mica::onExitMica()
 {
-    iApplication::getInstance().stop();
+	iApplication::getInstance().stop();
 }
 
 void Mica::onWindowClosed()
 {
-    iApplication::getInstance().stop();
+	iApplication::getInstance().stop();
 }
 
 void Mica::onKeyDown(iKeyCode key)
 {
-    switch (key)
-    {
-    case iKeyCode::F:
-    {
-        centerCamOnSelectedNode();
-    }
-    break;
+	switch (key)
+	{
+	case iKeyCode::F:
+	{
+		frameOnSelectedNode();
+	}
+	break;
 
 	case iKeyCode::F8:
 		_profilerVisualizer.cycleVerbosity();
@@ -938,26 +932,26 @@ void Mica::onKeyDown(iKeyCode key)
 		_view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
 		break;
 
-    case iKeyCode::Q:
-        setManipulatorMode(ManipulatorMode::None);
-        break;
+	case iKeyCode::Q:
+		setManipulatorMode(ManipulatorMode::None);
+		break;
 
-    case iKeyCode::W:
-        setManipulatorMode(ManipulatorMode::Translate);
-        break;
+	case iKeyCode::W:
+		setManipulatorMode(ManipulatorMode::Translate);
+		break;
 
-    case iKeyCode::E:
-        setManipulatorMode(ManipulatorMode::Rotate);
-        break;
+	case iKeyCode::E:
+		setManipulatorMode(ManipulatorMode::Rotate);
+		break;
 
-    case iKeyCode::R:
-        setManipulatorMode(ManipulatorMode::Scale);
-        break;
+	case iKeyCode::R:
+		setManipulatorMode(ManipulatorMode::Scale);
+		break;
 
 	case iKeyCode::N:
 		if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
 		{
-			clearScene();
+			clearWorkspace();
 		}
 		break;
 
@@ -1007,15 +1001,15 @@ void Mica::onKeyDown(iKeyCode key)
 		_outliner->deleteSelected();
 		break;
 
-    }
+	}
 }
 
-void Mica::clearScene()
+void Mica::clearWorkspace()
 {
-	std::vector<iNodePtr> copyChildren(_groupNode->getChildren());
+	std::vector<iNodePtr> copyChildren(_workspace->getChildren());
 	for (auto child : copyChildren)
 	{
-		_groupNode->removeNode(child);
+		_workspace->removeNode(child);
 		iNodeFactory::getInstance().destroyNodeAsync(child);
 	}
 
@@ -1023,15 +1017,15 @@ void Mica::clearScene()
 	_outliner->refreshView();
 }
 
-void Mica::centerCamOnSelectedNode()
+void Mica::frameOnSelectedNode()
 {
-    iNodePtr node = iNodeFactory::getInstance().getNode(_selectedNodeID);
-    centerCamOnNode(node);
+	iNodePtr node = iNodeFactory::getInstance().getNode(_selectedNodeID);
+	frameOnNode(node);
 }
 
 void Mica::handle()
 {
-    _scene->handle();
+	_scene->handle();
 }
 
 void Mica::renderNodeSelected(uint64 nodeID)
@@ -1041,7 +1035,7 @@ void Mica::renderNodeSelected(uint64 nodeID)
 		return;
 	}
 
-    iNodePtr node = iNodeFactory::getInstance().getNode(nodeID);
+	iNodePtr node = iNodeFactory::getInstance().getNode(nodeID);
 	if (node == nullptr)
 	{
 		return;
@@ -1054,62 +1048,62 @@ void Mica::renderNodeSelected(uint64 nodeID)
 	}
 
 	iNodeRender* renderNode = static_cast<iNodeRender*>(node);
-    iaMatrixd matrix = renderNode->getWorldMatrix();
-    iRenderer::getInstance().setModelMatrix(matrix);
+	iaMatrixd matrix = renderNode->getWorldMatrix();
+	iRenderer::getInstance().setModelMatrix(matrix);
 
-    if (node->getType() == iNodeType::iNodeMesh)
-    {
-        iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading));
+	if (node->getType() == iNodeType::iNodeMesh)
+	{
+		iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading));
 
-        iNodeMesh* meshNode = static_cast<iNodeMesh*>(node);
-        std::shared_ptr<iMeshBuffers> buffers = meshNode->getMeshBuffers();
-        iRenderer::getInstance().setLineWidth(4);
-        iRenderer::getInstance().drawMesh(buffers);
-    }
-    else
-    {
-        if (node->getKind() == iNodeKind::Volume)
-        {
-            iNodeVolume* renderVolume = static_cast<iNodeVolume*>(node);
-            iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialBoundingBox));
+		iNodeMesh* meshNode = static_cast<iNodeMesh*>(node);
+		std::shared_ptr<iMeshBuffers> buffers = meshNode->getMeshBuffers();
+		iRenderer::getInstance().setLineWidth(4);
+		iRenderer::getInstance().drawMesh(buffers);
+	}
+	else
+	{
+		if (node->getKind() == iNodeKind::Volume)
+		{
+			iNodeVolume* renderVolume = static_cast<iNodeVolume*>(node);
+			iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialBoundingBox));
 
-            iAABoxd box = renderVolume->getBoundingBox();
+			iAABoxd box = renderVolume->getBoundingBox();
 
-            iRenderer::getInstance().setColor(1, 1, 0, 1);
-            iRenderer::getInstance().drawBBox(box);
-        }
-    }
+			iRenderer::getInstance().setColor(1, 1, 0, 1);
+			iRenderer::getInstance().drawBBox(box);
+		}
+	}
 }
 
 void Mica::render()
 {
-    updateCamDistanceTransform();
-    renderNodeSelected(_selectedNodeID);
-    renderOrientationPlane();
+	updateCamDistanceTransform();
+	renderNodeSelected(_selectedNodeID);
+	renderOrientationPlane();
 }
 
 void Mica::renderOrientationPlane()
 {
-    iaMatrixd identity;
-    iRenderer::getInstance().setModelMatrix(identity);
+	iaMatrixd identity;
+	iRenderer::getInstance().setModelMatrix(identity);
 
-    iRenderer::getInstance().setMaterial(_materialOrientationPlane);
-    iRenderer::getInstance().setLineWidth(1);
-    
-    for (int i = -20; i < 21; ++i)
-    {
-        if (i % 2 == 0)
-        {
-            iRenderer::getInstance().setColor(1.0f, 1.0f, 1.0f, 0.5f);
-        }
-        else
-        {
-            iRenderer::getInstance().setColor(1.0f, 1.0f, 1.0f, 0.25f);
-        }
+	iRenderer::getInstance().setMaterial(_materialOrientationPlane);
+	iRenderer::getInstance().setLineWidth(1);
 
-        iRenderer::getInstance().drawLine(iaVector3f(-20.0f, 0.0f, i), iaVector3f(20.0f, 0.0f, i));
-        iRenderer::getInstance().drawLine(iaVector3f(i, 0.0f, 20.0f), iaVector3f(i, 0.0f, -20.0f));
-    }
+	for (int i = -20; i < 21; ++i)
+	{
+		if (i % 2 == 0)
+		{
+			iRenderer::getInstance().setColor(1.0f, 1.0f, 1.0f, 0.5f);
+		}
+		else
+		{
+			iRenderer::getInstance().setColor(1.0f, 1.0f, 1.0f, 0.25f);
+		}
+
+		iRenderer::getInstance().drawLine(iaVector3f(-20.0f, 0.0f, i), iaVector3f(20.0f, 0.0f, i));
+		iRenderer::getInstance().drawLine(iaVector3f(i, 0.0f, 20.0f), iaVector3f(i, 0.0f, -20.0f));
+	}
 
 	iRenderer::getInstance().setColor(1.0f, 0.0f, 0.0f, 1.0f);
 	iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(20.0f, 0.0f, 0.0f));
@@ -1119,18 +1113,21 @@ void Mica::renderOrientationPlane()
 
 void Mica::renderOrtho()
 {
-    iaMatrixd identity;
-    iRenderer::getInstance().setViewMatrix(identity);
-    iRenderer::getInstance().setModelMatrix(_modelViewOrtho);
+	// reset matrices
+	iaMatrixd identity;
+	iRenderer::getInstance().setViewMatrix(identity);
+	iRenderer::getInstance().setModelMatrix(identity);
 
-    iWidgetManager::getInstance().draw();
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+	// render widgets
+	iWidgetManager::getInstance().draw();
 
-    _profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
+	// render profiler
+	iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+	_profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
 }
 
 void Mica::run(iaString fileName)
 {
-    init(fileName);
-    iApplication::getInstance().run();
+	init(fileName);
+	iApplication::getInstance().run();
 }
