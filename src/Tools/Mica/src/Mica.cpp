@@ -36,7 +36,6 @@ using namespace IgorAux;
 #include <iWidgetGrid.h>
 #include <iWidgetScroll.h>
 #include <iProfiler.h>
-#include <iMaterialResourceFactory.h>
 #include <iTaskFlushTextures.h>
 #include <iNodeMesh.h>
 #include <iMesh.h>
@@ -165,21 +164,21 @@ void Mica::init(iaString fileName)
 	celShadingMaterial->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
 	celShadingMaterial->addShaderSource("Mica/yellow.frag", iShaderObjectType::Fragment);
 	celShadingMaterial->compileShader();
-	celShadingMaterial->getRenderStateSet().setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
-	celShadingMaterial->getRenderStateSet().setRenderState(iRenderState::CullFace, iRenderStateValue::On);
-	celShadingMaterial->getRenderStateSet().setRenderState(iRenderState::CullFaceFunc, iRenderStateValue::Front);
+	celShadingMaterial->setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
+	celShadingMaterial->setRenderState(iRenderState::CullFace, iRenderStateValue::On);
+	celShadingMaterial->setRenderState(iRenderState::CullFaceFunc, iRenderStateValue::Front);
 
 	_materialOrientationPlane = iMaterialResourceFactory::getInstance().createMaterial("OrientationPlane");
 	auto oriPlaneMaterial = iMaterialResourceFactory::getInstance().getMaterial(_materialOrientationPlane);
-	oriPlaneMaterial->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-	oriPlaneMaterial->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+	oriPlaneMaterial->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+	oriPlaneMaterial->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
 	oriPlaneMaterial->setOrder(iMaterial::RENDER_ORDER_MAX);
 
 	uint64 materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
 	auto skyBoxMaterial = iMaterialResourceFactory::getInstance().getMaterial(materialSkyBox);
-	skyBoxMaterial->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-	skyBoxMaterial->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-	skyBoxMaterial->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+	skyBoxMaterial->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+	skyBoxMaterial->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+	skyBoxMaterial->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
 	skyBoxMaterial->setOrder(iMaterial::RENDER_ORDER_MIN);
 	skyBoxMaterial->setName("SkyBox");
 

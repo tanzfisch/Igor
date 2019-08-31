@@ -130,7 +130,7 @@ namespace Igor
                 material->isValid())
             {
                 //! \todo evil hack
-                if (material->getRenderStateSet().getRenderStateValue(iRenderState::Blend) == iRenderStateValue::On)
+                if (material->getRenderState(iRenderState::Blend) == iRenderStateValue::On)
                 {
                     iRenderer::getInstance().setColor(1, 1, 1, _alpha);
                 }

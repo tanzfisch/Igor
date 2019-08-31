@@ -41,18 +41,18 @@ void UserControlMaterial::updateMaterial()
     {
         material->setName(_textName->getText());
         material->setOrder(static_cast<int32>(_renderingOrder->getValue()));
-        material->getRenderStateSet().setRenderState(iRenderState::CullFace, _checkBoxCullFace->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        material->getRenderStateSet().setRenderState(iRenderState::DepthTest, _checkBoxDepthTest->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        material->getRenderStateSet().setRenderState(iRenderState::DepthMask, _checkBoxDepthMask->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        material->getRenderStateSet().setRenderState(iRenderState::Blend, _checkBoxBlend->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        material->getRenderStateSet().setRenderState(iRenderState::Texture2D0, _checkBoxTexture2D0->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        material->getRenderStateSet().setRenderState(iRenderState::Texture2D1, _checkBoxTexture2D1->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        material->getRenderStateSet().setRenderState(iRenderState::Texture2D2, _checkBoxTexture2D2->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        material->getRenderStateSet().setRenderState(iRenderState::Texture2D3, _checkBoxTexture2D3->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        material->getRenderStateSet().setRenderState(iRenderState::Wireframe, _checkBoxWireframe->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        //material->getRenderStateSet().setRenderState(iRenderState::Instanced, _checkBoxInstanced->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
-        material->getRenderStateSet().setRenderState(iRenderState::DepthFunc, static_cast<iRenderStateValue>(_selectBoxDepthFunc->getSelectedIndex() + static_cast<int>(iRenderStateValue::Never)));
-        material->getRenderStateSet().setRenderState(iRenderState::CullFaceFunc, static_cast<iRenderStateValue>(_selectBoxCullFaceFunc->getSelectedIndex() + static_cast<int>(iRenderStateValue::Front)));
+        material->setRenderState(iRenderState::CullFace, _checkBoxCullFace->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+        material->setRenderState(iRenderState::DepthTest, _checkBoxDepthTest->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+        material->setRenderState(iRenderState::DepthMask, _checkBoxDepthMask->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+        material->setRenderState(iRenderState::Blend, _checkBoxBlend->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+        material->setRenderState(iRenderState::Texture2D0, _checkBoxTexture2D0->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+        material->setRenderState(iRenderState::Texture2D1, _checkBoxTexture2D1->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+        material->setRenderState(iRenderState::Texture2D2, _checkBoxTexture2D2->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+        material->setRenderState(iRenderState::Texture2D3, _checkBoxTexture2D3->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+        material->setRenderState(iRenderState::Wireframe, _checkBoxWireframe->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+        //material->setRenderState(iRenderState::Instanced, _checkBoxInstanced->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
+        material->setRenderState(iRenderState::DepthFunc, static_cast<iRenderStateValue>(_selectBoxDepthFunc->getSelectedIndex() + static_cast<int>(iRenderStateValue::Never)));
+        material->setRenderState(iRenderState::CullFaceFunc, static_cast<iRenderStateValue>(_selectBoxCullFaceFunc->getSelectedIndex() + static_cast<int>(iRenderStateValue::Front)));
 
         // TODO optimize!
         iRenderStateValue value;
@@ -72,7 +72,7 @@ void UserControlMaterial::updateMaterial()
             case 9: value = iRenderStateValue::OneMinusDestinationAlpha; break;
             }
 
-            material->getRenderStateSet().setRenderState(iRenderState::BlendFuncSource, value);
+            material->setRenderState(iRenderState::BlendFuncSource, value);
         }
 
         if (_selectBoxBlendFuncDestination->getSelectedIndex() != -1)
@@ -90,7 +90,7 @@ void UserControlMaterial::updateMaterial()
             case 8: value = iRenderStateValue::DestinationAlpha; break;
             case 9: value = iRenderStateValue::OneMinusDestinationAlpha; break;
             }
-            material->getRenderStateSet().setRenderState(iRenderState::BlendFuncDestination, value);
+            material->setRenderState(iRenderState::BlendFuncDestination, value);
         }
 
         reloadShader(material);
@@ -129,23 +129,23 @@ void UserControlMaterial::updateGUI()
         _ignoreMaterialUpdate = true;
 
         _textName->setText(material->getName());
-        _checkBoxCullFace->setChecked(material->getRenderStateSet().getRenderStateValue(iRenderState::CullFace) == iRenderStateValue::On ? true : false);
-        _checkBoxDepthTest->setChecked(material->getRenderStateSet().getRenderStateValue(iRenderState::DepthTest) == iRenderStateValue::On ? true : false);
-        _checkBoxDepthMask->setChecked(material->getRenderStateSet().getRenderStateValue(iRenderState::DepthMask) == iRenderStateValue::On ? true : false);
-        _checkBoxBlend->setChecked(material->getRenderStateSet().getRenderStateValue(iRenderState::Blend) == iRenderStateValue::On ? true : false);
-        _checkBoxTexture2D0->setChecked(material->getRenderStateSet().getRenderStateValue(iRenderState::Texture2D0) == iRenderStateValue::On ? true : false);
-        _checkBoxTexture2D1->setChecked(material->getRenderStateSet().getRenderStateValue(iRenderState::Texture2D1) == iRenderStateValue::On ? true : false);
-        _checkBoxTexture2D2->setChecked(material->getRenderStateSet().getRenderStateValue(iRenderState::Texture2D2) == iRenderStateValue::On ? true : false);
-        _checkBoxTexture2D3->setChecked(material->getRenderStateSet().getRenderStateValue(iRenderState::Texture2D3) == iRenderStateValue::On ? true : false);
-        _checkBoxWireframe->setChecked(material->getRenderStateSet().getRenderStateValue(iRenderState::Wireframe) == iRenderStateValue::On ? true : false);
-        //_checkBoxInstanced->setChecked(material->getRenderStateSet().getRenderStateValue(iRenderState::Instanced) == iRenderStateValue::On ? true : false);
+        _checkBoxCullFace->setChecked(material->getRenderState(iRenderState::CullFace) == iRenderStateValue::On ? true : false);
+        _checkBoxDepthTest->setChecked(material->getRenderState(iRenderState::DepthTest) == iRenderStateValue::On ? true : false);
+        _checkBoxDepthMask->setChecked(material->getRenderState(iRenderState::DepthMask) == iRenderStateValue::On ? true : false);
+        _checkBoxBlend->setChecked(material->getRenderState(iRenderState::Blend) == iRenderStateValue::On ? true : false);
+        _checkBoxTexture2D0->setChecked(material->getRenderState(iRenderState::Texture2D0) == iRenderStateValue::On ? true : false);
+        _checkBoxTexture2D1->setChecked(material->getRenderState(iRenderState::Texture2D1) == iRenderStateValue::On ? true : false);
+        _checkBoxTexture2D2->setChecked(material->getRenderState(iRenderState::Texture2D2) == iRenderStateValue::On ? true : false);
+        _checkBoxTexture2D3->setChecked(material->getRenderState(iRenderState::Texture2D3) == iRenderStateValue::On ? true : false);
+        _checkBoxWireframe->setChecked(material->getRenderState(iRenderState::Wireframe) == iRenderStateValue::On ? true : false);
+        //_checkBoxInstanced->setChecked(material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On ? true : false);
 
-        _selectBoxDepthFunc->setSelection(static_cast<int>(material->getRenderStateSet().getRenderStateValue(iRenderState::DepthFunc)) - static_cast<int>(iRenderStateValue::Never));
-        _selectBoxCullFaceFunc->setSelection(static_cast<int>(material->getRenderStateSet().getRenderStateValue(iRenderState::CullFaceFunc)) - static_cast<int>(iRenderStateValue::Front));
+        _selectBoxDepthFunc->setSelection(static_cast<int>(material->getRenderState(iRenderState::DepthFunc)) - static_cast<int>(iRenderStateValue::Never));
+        _selectBoxCullFaceFunc->setSelection(static_cast<int>(material->getRenderState(iRenderState::CullFaceFunc)) - static_cast<int>(iRenderStateValue::Front));
 
         // TODO optimize!
         int selection = 0;
-        switch (material->getRenderStateSet().getRenderStateValue(iRenderState::BlendFuncSource))
+        switch (material->getRenderState(iRenderState::BlendFuncSource))
         {
         case iRenderStateValue::Zero: selection = 0; break;
         case iRenderStateValue::One: selection = 1; break;
@@ -161,7 +161,7 @@ void UserControlMaterial::updateGUI()
 
         _selectBoxBlendFuncSource->setSelection(selection);
 
-        switch (material->getRenderStateSet().getRenderStateValue(iRenderState::BlendFuncDestination))
+        switch (material->getRenderState(iRenderState::BlendFuncDestination))
         {
         case iRenderStateValue::Zero: selection = 0; break;
         case iRenderStateValue::One: selection = 1; break;

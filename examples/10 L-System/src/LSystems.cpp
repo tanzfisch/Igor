@@ -149,9 +149,9 @@ void LSystems::init()
 	_igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
 	_materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
 	auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
-	material->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-	material->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-	material->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+	material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+	material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+	material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
 	material->setName("LogoMaterial");
 
 	// generate the L-System

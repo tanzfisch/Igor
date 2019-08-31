@@ -68,8 +68,8 @@ void Manipulator::init()
 	material->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
 	material->addShaderSource("igor/default_directional_light.frag", iShaderObjectType::Fragment);
 	material->compileShader();
-	material->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-	material->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+	material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+	material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 	iMaterialResourceFactory::getInstance().getMaterial(_material)->setOrder(iMaterial::RENDER_ORDER_MAX);
 
 	_red = iMaterialResourceFactory::getInstance().createTargetMaterial();
@@ -123,9 +123,9 @@ void Manipulator::init()
 	iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
 	iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->addShaderSource("Mica/yellow.frag", iShaderObjectType::Fragment);
 	iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->compileShader();
-	iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->getRenderStateSet().setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
-	iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->getRenderStateSet().setRenderState(iRenderState::CullFace, iRenderStateValue::On);
-	iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->getRenderStateSet().setRenderState(iRenderState::CullFaceFunc, iRenderStateValue::Front);
+	iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
+	iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->setRenderState(iRenderState::CullFace, iRenderStateValue::On);
+	iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->setRenderState(iRenderState::CullFaceFunc, iRenderStateValue::Front);
 
 	setManipulatorMode(_manipulatorMode);
 }

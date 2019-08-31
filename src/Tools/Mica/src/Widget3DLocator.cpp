@@ -46,7 +46,7 @@ Widget3DLocator::Widget3DLocator(iWindow* window, iView* view, iScene* scene)
 	auto material = iMaterialResourceFactory::getInstance().getMaterial(_material);
 	material->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
 	material->addShaderSource("igor/default_directional_light.frag", iShaderObjectType::Fragment);
-	material->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+	material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
 	material->compileShader();
 	material->setOrder(iMaterial::RENDER_ORDER_MAX);
 

@@ -4,6 +4,7 @@ Changelog                           {#changelog}
 0.24.0
 ------
 
+- exposed iRenderStateSet interface in iMaterial to reduce writing effort when using it
 - renamed ModelViewer in to Mica
 
 0.23.0
