@@ -475,11 +475,6 @@ void UserControlMesh::onBakeAction(iWidget* source)
 	scene->getRoot()->getChild("MicaRoot")->insertNode(newMeshNode);
 }
 
-/*iWidget* UserControlMesh::getWidget()
-{
-	return _grid;
-}*/
-
 void UserControlMesh::onMaterialChanged(iWidget* source)
 {
 	updateNode();
