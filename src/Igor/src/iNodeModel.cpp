@@ -150,34 +150,23 @@ namespace Igor
 
 	bool iNodeModel::onUpdateData()
 	{
-		if (!_ready)
+		if (!_loaded &&
+			_model != nullptr)
 		{
-			if (!_loaded &&
-				_model != nullptr)
+			if (_model->getState() == iModelState::Loaded)
 			{
-				if (_model->getState() == iModelState::Loaded)
-				{
-					insertNode(_model->getNodeCopy());
-					_loaded = true;
-
-					_ready = true;
-					_modelReadyEvent(getID());
-				}
-				else if (_model->getState() == iModelState::LoadFailed)
-				{
-					_loaded = true;
-					_ready = false;
-				}
-			}
-
-			// TODO !!!
-			/*if (_loaded && checkForBuffers())
-			{
+				insertNode(_model->getNodeCopy());
+				_loaded = true;
 				_ready = true;
 				_modelReadyEvent(getID());
-			}*/
+			}
+			else if (_model->getState() == iModelState::LoadFailed)
+			{
+				_loaded = true;
+				_ready = false;
+			}
 		}
 
-		return _ready;
+		return _loaded;
 	}
 }

@@ -533,7 +533,7 @@ namespace Igor
 		}
 	}
 
-	void iNode::setScene(iScene* scene)
+	void iNode::setScene(iScenePtr scene)
 	{
 		if (_scene != scene)
 		{
@@ -574,7 +574,7 @@ namespace Igor
 		}
 	}
 
-	iScene* iNode::getScene()
+	iScenePtr iNode::getScene()
 	{
 		return _scene;
 	}

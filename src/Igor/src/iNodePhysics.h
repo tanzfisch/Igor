@@ -295,7 +295,7 @@ namespace Igor
 
         \returns true update changed anything
         */
-        virtual bool onUpdateData();
+        virtual bool onUpdateData() override;
 
         /*! does nothing
         */

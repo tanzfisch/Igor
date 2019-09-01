@@ -40,7 +40,8 @@ namespace Igor
 
         _mutex.unlock();
 
-        float64 endTime = iTimer::getInstance().getApplicationTime() + 10;
+		// stop after 5ms
+        float64 endTime = iTimer::getInstance().getApplicationTime() + 5;
 
         auto iterP = _processingQueue.begin();
         while (iterP != _processingQueue.end())

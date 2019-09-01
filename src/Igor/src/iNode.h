@@ -48,6 +48,17 @@ using namespace IgorAux;
 namespace Igor
 {
 	
+	class iScene;
+	class iNode;
+
+	/*! scene pointer definition
+	*/
+	typedef iScene* iScenePtr;
+
+	/*! node pointer definition
+	*/
+	typedef iNode* iNodePtr;
+
     /*! types of nodes
     */
 	enum class iNodeType : unsigned int
@@ -88,13 +99,9 @@ namespace Igor
 		Undefined
 	};
 
-	class iScene;
-    class iNode;
-    typedef iNode* iNodePtr;
-
 	/*! transformation change event
 	*/
-	iaEVENT(iTransformationChangeEvent, iTransformationChangeDelegate, void, (iNode* source), (source));
+	iaEVENT(iTransformationChangeEvent, iTransformationChangeDelegate, void, (iNodePtr source), (source));
 
     /*! base node implementation
 
@@ -238,7 +245,7 @@ namespace Igor
 
         /*! \returns pointer to scene this node is in
         */
-        iScene* getScene();
+		iScenePtr getScene();
 
         /*! \returns true: if transformation flag is dirty; false: if not
 
@@ -296,7 +303,7 @@ namespace Igor
 
         /*! pointer to parenting scene
         */
-		iScene* _scene = nullptr;
+		iScenePtr _scene = nullptr;
 
         /*! pointer to parent node
         */
@@ -336,7 +343,7 @@ namespace Igor
 
         \param scene pointer to scene
         */
-		void setScene(iScene* scene);
+		void setScene(iScenePtr scene);
 
         /*! this is called just before setScene and gives the class the chance to unregister from the current scene if set.
         */

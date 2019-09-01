@@ -93,11 +93,7 @@ namespace Igor
         /*! registers to scene
         */
 		virtual void onPostSetScene();
-
-        /*! \todo dirty workaround. need to look in to this once more
-        */
-        virtual bool onUpdateData();
-
+		
         /*! updates octree if node is within a scene
         */
 		void updateTree();

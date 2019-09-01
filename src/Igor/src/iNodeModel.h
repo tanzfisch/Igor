@@ -138,7 +138,7 @@ namespace Igor
 
         \returns true if model data was present
         */
-        bool onUpdateData();
+        bool onUpdateData() override;
 
         /*! checks if mesh buffers are generated and read for rendering
 

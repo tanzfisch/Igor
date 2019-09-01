@@ -36,12 +36,9 @@ using namespace IgorAux;
 
 #include <vector>
 
-
 namespace Igor
 {
-
-    class iNode;
-
+	
     /*! a queue that calls update data on nodes added
     */
 	class iDataUpdateQueue
@@ -51,7 +48,7 @@ namespace Igor
 
         /*! adds node to queue
 
-        thread save addind to queue
+        thread save adding to queue
         */
         void addNode(uint64 nodeID);
 

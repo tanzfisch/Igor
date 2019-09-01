@@ -111,9 +111,6 @@ namespace Igor
         */
         virtual void onPostSetScene();
 
-        /**/
-        virtual bool onUpdateData();
-
         /*! initializes member variables
         */
 		iNodeRender();
