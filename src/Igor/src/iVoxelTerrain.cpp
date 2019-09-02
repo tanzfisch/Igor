@@ -5,7 +5,7 @@
 #include <iVoxelTerrain.h>
 
 #include <iNodeLODTrigger.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iApplication.h>
 #include <iVoxelData.h>
 #include <iTaskManager.h>
@@ -113,7 +113,7 @@ namespace Igor
         if (scene != nullptr &&
             _rootNode == nullptr)
         {
-            _rootNode = iNodeFactory::getInstance().createNode(iNodeType::iNode);
+            _rootNode = iNodeManager::getInstance().createNode(iNodeType::iNode);
             scene->getRoot()->insertNode(_rootNode);
 
             iModelResourceFactory::getInstance().registerModelDataIO("vtg", &iVoxelTerrainMeshGenerator::createInstance);
@@ -123,8 +123,8 @@ namespace Igor
 
     void iVoxelTerrain::setNodeActiveAsync(iNodePtr node, bool active)
     {
-        iNodeFactory::iAction action;
-        action._action = active ? iNodeFactory::iActionType::Activate : iNodeFactory::iActionType::Deactivate;
+        iNodeManager::iAction action;
+        action._action = active ? iNodeManager::iActionType::Activate : iNodeManager::iActionType::Deactivate;
         action._nodeA = node->getID();
 
         _actionQueue.push_back(action);
@@ -132,8 +132,8 @@ namespace Igor
 
     void iVoxelTerrain::insertNodeAsync(iNodePtr src, iNodePtr dst)
     {
-        iNodeFactory::iAction action;
-        action._action = iNodeFactory::iActionType::Insert;
+        iNodeManager::iAction action;
+        action._action = iNodeManager::iActionType::Insert;
         action._nodeA = src->getID();
         action._nodeB = dst->getID();
 
@@ -157,8 +157,8 @@ namespace Igor
 
     void iVoxelTerrain::removeNodeAsync(iNodePtr src, iNodePtr dst)
     {
-        iNodeFactory::iAction action;
-        action._action = iNodeFactory::iActionType::Remove;
+        iNodeManager::iAction action;
+        action._action = iNodeManager::iActionType::Remove;
         action._nodeA = src->getID();
         action._nodeB = dst->getID();
 
@@ -169,8 +169,8 @@ namespace Igor
     {
         con_assert(nodeID != iNode::INVALID_NODE_ID, "invalid node id");
 
-        iNodeFactory::iAction action;
-        action._action = iNodeFactory::iActionType::Destroy;
+        iNodeManager::iAction action;
+        action._action = iNodeManager::iActionType::Destroy;
         action._nodeA = nodeID;
 
         _actionQueue.push_back(action);
@@ -249,7 +249,7 @@ namespace Igor
         iProfiler::getInstance().endSection(_deleteBlocksSection);
 #endif
 
-        iNodeLODTrigger* lodTrigger = static_cast<iNodeLODTrigger*>(iNodeFactory::getInstance().getNode(_lodTrigger));
+        iNodeLODTrigger* lodTrigger = static_cast<iNodeLODTrigger*>(iNodeManager::getInstance().getNode(_lodTrigger));
         if (lodTrigger != nullptr)
         {
             iaVector3d pos = lodTrigger->getWorldPosition();
@@ -285,7 +285,7 @@ namespace Igor
         iProfiler::getInstance().beginSection(_applyActionsSection);
 #endif
         // apply all actions at once so they will be synced with next frame
-        iNodeFactory::getInstance().applyActionsAsync(_actionQueue);
+        iNodeManager::getInstance().applyActionsAsync(_actionQueue);
         _actionQueue.clear();
 #ifdef USE_VERBOSE_STATISTICS
         iProfiler::getInstance().endSection(_applyActionsSection);
@@ -1070,7 +1070,7 @@ namespace Igor
 
             if (voxelBlock->_dirty && voxelBlock->_lod != _lowestLOD)
             {
-                iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(voxelBlock->_modelNodeIDCurrent));
+                iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeManager::getInstance().getNode(voxelBlock->_modelNodeIDCurrent));
                 if (modelNode == nullptr || (modelNode != nullptr &&
                     modelNode->isValid()))
                 {
@@ -1123,11 +1123,11 @@ namespace Igor
                     iVoxelBlock* child = _voxelBlocksMap[voxelBlock->_children[i]];
                     if (child->_modelNodeIDCurrent != iNode::INVALID_NODE_ID)
                     {
-                        iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(child->_modelNodeIDCurrent));
+                        iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeManager::getInstance().getNode(child->_modelNodeIDCurrent));
                         if (modelNode != nullptr &&
                             modelNode->isValid())
                         {
-                            iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(child->_transformNodeIDCurrent));
+                            iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(child->_transformNodeIDCurrent));
                             if (transformNode != nullptr)
                             {
                                 setNodeActiveAsync(transformNode, false);
@@ -1144,7 +1144,7 @@ namespace Igor
 
         if (voxelBlock->_modelNodeIDCurrent != iNode::INVALID_NODE_ID)
         {
-            iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(voxelBlock->_modelNodeIDCurrent));
+            iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeManager::getInstance().getNode(voxelBlock->_modelNodeIDCurrent));
             if (modelNode != nullptr &&
                 modelNode->isValid())
             {
@@ -1158,7 +1158,7 @@ namespace Igor
                     }
                 }
 
-                iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(voxelBlock->_transformNodeIDCurrent));
+                iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(voxelBlock->_transformNodeIDCurrent));
                 if (transformNode != nullptr)
                 {
                     setNodeActiveAsync(transformNode, meshVisible);
@@ -1318,12 +1318,12 @@ namespace Igor
                     tileName += ":";
                     tileName += iaString::toString(voxelBlock->_mutationCounter++);
 
-                    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+                    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
 					iaVector3d transform = voxelBlock->_positionInLOD.convert<float64>();
                     transform *= voxelBlock->_size;
                     transformNode->translate(transform);
 
-                    iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+                    iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeManager::getInstance().createNode(iNodeType::iNodeModel));
                     modelNode->setModel(tileName, iResourceCacheMode::Free, inputParam);
 
                     transformNode->insertNode(modelNode);
@@ -1345,7 +1345,7 @@ namespace Igor
     void iVoxelTerrain::finalizeMesh(iVoxelBlock* voxelBlock)
     {
         static int count = 0;
-        iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(voxelBlock->_modelNodeIDQueued));
+        iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeManager::getInstance().getNode(voxelBlock->_modelNodeIDQueued));
         if (modelNode != nullptr &&
             modelNode->isValid())
         {

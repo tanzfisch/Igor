@@ -1,6 +1,6 @@
 #include "StaticEnemy.h"
 
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iNodeTransform.h>
 #include <iNodePhysics.h>
 #include <iNodeModel.h>
@@ -32,20 +32,20 @@ StaticEnemy::StaticEnemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMat
     setHealth(300.0);
     setShield(100.0);
 
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
     transformNode->setMatrix(matrix);
     _transformNodeID = transformNode->getID();
 
-    iNodeTransform* bodyTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* bodyTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
     bodyTransform->translate(0, 0, 0);
-    iNodeTransform* bodyScale = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* bodyScale = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
     bodyScale->scale(1, 2, 1);
 
-    iNodeModel* bodyModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+    iNodeModel* bodyModel = static_cast<iNodeModel*>(iNodeManager::getInstance().createNode(iNodeType::iNodeModel));
     bodyModel->setModel("crate.ompf");
 
     iaMatrixd offset;
-    iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
+    iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeManager::getInstance().createNode(iNodeType::iNodePhysics));
     _physicsNodeID = physicsNode->getID();
     physicsNode->addBox(1,2,1, offset);
     physicsNode->finalizeCollision();
@@ -59,7 +59,7 @@ StaticEnemy::StaticEnemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMat
     bodyTransform->insertNode(bodyScale);
     bodyScale->insertNode(bodyModel);
 
-    iNodeTransform* turretATransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* turretATransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
     turretATransform->translate(0, 1.0, 0);
     transformNode->insertNode(turretATransform);
     Turret* turretA = new Turret(_scene, turretATransform, _voxelTerrain, getFraction(), _playerID);
@@ -74,7 +74,7 @@ StaticEnemy::~StaticEnemy()
         turretA->kill();
     }
 
-    iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
+    iNodeManager::getInstance().destroyNodeAsync(_transformNodeID);
 }
 
 void StaticEnemy::hitBy(uint64 entityID)
@@ -105,7 +105,7 @@ void StaticEnemy::hitBy(uint64 entityID)
 
     if (getHealth() <= 0.0)
     {
-        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformNodeID));
         if (transformNode != nullptr)
         {
             iaMatrixd matrix;
@@ -123,7 +123,7 @@ void StaticEnemy::hitBy(uint64 entityID)
 iaVector3d StaticEnemy::getCurrentPos()
 {
     iaVector3d result;
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformNodeID));
     if (transformNode != nullptr)
     {
         iaMatrixd matrix;

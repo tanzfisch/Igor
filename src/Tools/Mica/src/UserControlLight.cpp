@@ -10,7 +10,7 @@
 #include <iWidgetLabel.h>
 #include <iWidgetButton.h>
 #include <iNodeLight.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 using namespace Igor;
 
 UserControlLight::UserControlLight()
@@ -20,7 +20,7 @@ UserControlLight::UserControlLight()
 
 void UserControlLight::updateGUI()
 {
-    iNodeLight* lightNode = static_cast<iNodeLight*>(iNodeFactory::getInstance().getNode(_lightNodeId));
+    iNodeLight* lightNode = static_cast<iNodeLight*>(iNodeManager::getInstance().getNode(_lightNodeId));
 
     if (lightNode != nullptr)
     {
@@ -36,7 +36,7 @@ void UserControlLight::updateGUI()
 
 void UserControlLight::updateNode()
 {
-    iNodeLight* lightNode = static_cast<iNodeLight*>(iNodeFactory::getInstance().getNode(_lightNodeId));
+    iNodeLight* lightNode = static_cast<iNodeLight*>(iNodeManager::getInstance().getNode(_lightNodeId));
 
     if (lightNode != nullptr)
     {

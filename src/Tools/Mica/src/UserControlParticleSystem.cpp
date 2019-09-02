@@ -13,7 +13,7 @@
 #include <iWidgetNumberChooser.h>
 #include <iNodeParticleSystem.h>
 #include <iMesh.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iTargetMaterial.h>
 #include <iWidgetSelectBox.h>
 #include <iWidgetCheckBox.h>
@@ -47,7 +47,7 @@ UserControlParticleSystem::~UserControlParticleSystem()
 
 void UserControlParticleSystem::onCyclickUpdate()
 {
-    iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_nodeId));
+    iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().getNode(_nodeId));
 
     if (node != nullptr)
     {
@@ -59,7 +59,7 @@ void UserControlParticleSystem::updateNode()
 {
     if (!_ignoreNodeUpdate)
     {
-        iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_nodeId));
+        iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().getNode(_nodeId));
 
         if (node != nullptr)
         {
@@ -167,14 +167,14 @@ void UserControlParticleSystem::updateGUI()
     _ignoreNodeUpdate = true;
 
     _emitterSelection->clear();
-    _emitters = iNodeFactory::getInstance().getNodes(iNodeType::iNodeEmitter);
+    _emitters = iNodeManager::getInstance().getNodes(iNodeType::iNodeEmitter);
     for (auto emitterID : _emitters)
     {
-        iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().getNode(emitterID));
+        iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeManager::getInstance().getNode(emitterID));
         _emitterSelection->addSelectionEntry(emitter->getName());
     }
 
-    iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_nodeId));
+    iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().getNode(_nodeId));
 
     if (node != nullptr)
     {
@@ -1297,7 +1297,7 @@ void UserControlParticleSystem::onDoUpdateNode(iWidget* source)
 
 void UserControlParticleSystem::onStart(iWidget* source)
 {
-    iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_nodeId));
+    iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().getNode(_nodeId));
 
     if (node != nullptr)
     {
@@ -1307,7 +1307,7 @@ void UserControlParticleSystem::onStart(iWidget* source)
 
 void UserControlParticleSystem::onStop(iWidget* source)
 {
-    iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_nodeId));
+    iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().getNode(_nodeId));
 
     if (node != nullptr)
     {
@@ -1317,7 +1317,7 @@ void UserControlParticleSystem::onStop(iWidget* source)
 
 void UserControlParticleSystem::onReset(iWidget* source)
 {
-    iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_nodeId));
+    iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().getNode(_nodeId));
 
     if (node != nullptr)
     {

@@ -114,7 +114,7 @@ namespace Igor
 	class Igor_API iNode
 	{
 
-		friend class iNodeFactory;
+		friend class iNodeManager;
 		friend class iScene;
         friend class iNodeVisitorUpdateTransform;
         friend class iDataUpdateQueue;

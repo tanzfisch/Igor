@@ -3,7 +3,7 @@
 // see copyright notice in corresponding header file
 
 #include <iModel.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 
 #include <iaString.h>
 #include <iaConsole.h>
@@ -26,7 +26,7 @@ namespace Igor
 	{
         if (nullptr != _node)
         {            
-            iNodeFactory::getInstance().destroyNodeAsync(_node);
+            iNodeManager::getInstance().destroyNodeAsync(_node);
         }
 
         if (_parameter != nullptr)
@@ -79,7 +79,7 @@ namespace Igor
          
         if (_node != nullptr)
         {            
-            return iNodeFactory::getInstance().createCopy(_node);
+            return iNodeManager::getInstance().createCopy(_node);
         }
         else
         {

@@ -19,7 +19,7 @@ using namespace IgorAux;
 #include <iApplication.h>
 #include <iSceneFactory.h>
 #include <iScene.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iMouse.h>
 #include <iTimer.h>
 #include <iTextureFont.h>
@@ -153,16 +153,16 @@ void VoxelExample::initScene()
 
     // create camera
     // first heading transformation node
-    iNodeTransform* cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* cameraHeading = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
     _cameraHeading = cameraHeading->getID();
     // then pitch transformation node
-    iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
     _cameraPitch = cameraPitch->getID();
     // and distance to origin transformation node
-    iNodeTransform* cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* cameraTranslation = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
     cameraTranslation->translate(0, 0, 120);
     // anf of corse the camera
-    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
+    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeManager::getInstance().createNode(iNodeType::iNodeCamera));
     // add it to the scene
     _scene->getRoot()->insertNode(cameraHeading);
     cameraHeading->insertNode(cameraPitch);
@@ -174,10 +174,10 @@ void VoxelExample::initScene()
 
     // create a directional light
     // transform node
-    iNodeTransform* lightTranslate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* lightTranslate = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
     lightTranslate->translate(100, 100, 100);
     // and light node
-    iNodeLight* lightNode = static_cast<iNodeLight*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLight));
+    iNodeLight* lightNode = static_cast<iNodeLight*>(iNodeManager::getInstance().createNode(iNodeType::iNodeLight));
     lightNode->setAmbient(iaColor4f(0.6f, 0.6f, 0.6f, 1.0f));
     lightNode->setDiffuse(iaColor4f(0.9f, 0.7f, 0.6f, 1.0f));
     lightNode->setSpecular(iaColor4f(1.0f, 0.9f, 0.87f, 1.0f));
@@ -186,7 +186,7 @@ void VoxelExample::initScene()
     lightTranslate->insertNode(lightNode);
 
     // reate a sky box and add it to scene
-    iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
+    iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeManager::getInstance().createNode(iNodeType::iNodeSkyBox));
     skyBoxNode->setTextures(
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/front.jpg"),
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/back.jpg"),
@@ -345,7 +345,7 @@ void VoxelExample::generateVoxelData()
     if (_voxelMeshTransform != iNode::INVALID_NODE_ID)
     {
         // this will also kill all the children of that node
-        iNodeFactory::getInstance().destroyNodeAsync(_voxelMeshTransform);
+        iNodeManager::getInstance().destroyNodeAsync(_voxelMeshTransform);
         _voxelMeshTransform = iNode::INVALID_NODE_ID;
         _voxelMeshModel = iNode::INVALID_NODE_ID;
     }
@@ -376,14 +376,14 @@ void VoxelExample::prepareMeshGeneration()
 	inputParam->_keepMesh = true;
     inputParam->_parameters.setData(reinterpret_cast<const char*>(&tileInformation), sizeof(TileInformation));
     // create a model node
-    iNodeModel* voxelMeshModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+    iNodeModel* voxelMeshModel = static_cast<iNodeModel*>(iNodeManager::getInstance().createNode(iNodeType::iNodeModel));
 	voxelMeshModel->setName("VoxelMeshModel");
     _voxelMeshModel = voxelMeshModel->getID();
     // tell the model node to load data with specified identifier ans the above defined parameter
     // it is important to have a unique identifier each time we generate a mesh otherwhise the cache system would return us a prvious generated mesh
     voxelMeshModel->setModel(iaString("VoxelMesh") + iaString::toString(_incarnation++), iResourceCacheMode::Keep, inputParam);
     // create a transform node to center the mesh to the origin
-    iNodeTransform* voxelMeshTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* voxelMeshTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
 	voxelMeshTransform->setName("VoxelMeshTransform");
     _voxelMeshTransform = voxelMeshTransform->getID();
     voxelMeshTransform->translate(-_voxelData->getWidth() / 2, -_voxelData->getHeight() / 2, -_voxelData->getDepth() / 2);
@@ -398,8 +398,8 @@ void VoxelExample::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iW
     {
         float32 dx = static_cast<float32>(from._x - to._x) * 0.005f;
         float32 dy = static_cast<float32>(from._y - to._y) * 0.005f;
-        iNodeTransform* cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_cameraHeading));
-        iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_cameraPitch));
+        iNodeTransform* cameraHeading = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_cameraHeading));
+        iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_cameraPitch));
         if (cameraHeading != nullptr &&
             cameraPitch != nullptr)
         {
@@ -515,7 +515,7 @@ void VoxelExample::onHandle()
     // detect if loading is done
     if (_voxelMeshModel != iNode::INVALID_NODE_ID)
     {
-        iNodeModel* voxelMeshModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(_voxelMeshModel));
+        iNodeModel* voxelMeshModel = static_cast<iNodeModel*>(iNodeManager::getInstance().getNode(_voxelMeshModel));
 
         if (voxelMeshModel != nullptr &&
             voxelMeshModel->isValid())

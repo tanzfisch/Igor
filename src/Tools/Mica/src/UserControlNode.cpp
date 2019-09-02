@@ -12,7 +12,7 @@
 #include <iWidgetCheckBox.h>
 #include <iNodeMesh.h>
 #include <iMesh.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 using namespace Igor;
 
 #include "MicaDefines.h"
@@ -35,7 +35,7 @@ uint32 UserControlNode::getNode()
 
 void UserControlNode::updateGUI()
 {
-    iNodeMesh* node = static_cast<iNodeMesh*>(iNodeFactory::getInstance().getNode(_nodeId));
+    iNodeMesh* node = static_cast<iNodeMesh*>(iNodeManager::getInstance().getNode(_nodeId));
 
     if (node != nullptr)
     {
@@ -87,7 +87,7 @@ void UserControlNode::initGUI()
 
 void UserControlNode::updateNode()
 {
-    iNodeMesh* node = static_cast<iNodeMesh*>(iNodeFactory::getInstance().getNode(_nodeId));
+    iNodeMesh* node = static_cast<iNodeMesh*>(iNodeManager::getInstance().getNode(_nodeId));
 
     if (node != nullptr)
     {

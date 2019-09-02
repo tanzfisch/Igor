@@ -16,7 +16,7 @@
 #include <iNodeMesh.h>
 #include <iMesh.h>
 #include <iMaterialResourceFactory.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iProfiler.h>
 #include <iTimer.h>
 #include <iNodeVisitorRenderBoundings.h>
@@ -84,7 +84,7 @@ namespace Igor
             return;
         }
 
-        iNodePtr node = iNodeFactory::getInstance().getNode(cameraID);
+        iNodePtr node = iNodeManager::getInstance().getNode(cameraID);
 
         if (node != nullptr &&
             node->getType() == iNodeType::iNodeCamera)
@@ -225,7 +225,7 @@ namespace Igor
 
         for (auto nodeID : _cullResult)
         {
-            iNodeRender* renderNode = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode(nodeID));
+            iNodeRender* renderNode = static_cast<iNodeRender*>(iNodeManager::getInstance().getNode(nodeID));
 
             if (renderNode != nullptr)
             {
@@ -282,7 +282,7 @@ namespace Igor
                 auto renderNodeIDs = materialGroup.getRenderNodes();
                 for (auto renderNodeID : renderNodeIDs)
                 {
-                    iNodeRender* node = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode(renderNodeID));
+                    iNodeRender* node = static_cast<iNodeRender*>(iNodeManager::getInstance().getNode(renderNodeID));
                     if (node != nullptr)
                     {
                         if (node->wasReached() &&
@@ -358,7 +358,7 @@ namespace Igor
 
                          while (instanceList.end() != elementIter)
                          {
-                             iNodeRender* node = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode((*elementIter)));
+                             iNodeRender* node = static_cast<iNodeRender*>(iNodeManager::getInstance().getNode((*elementIter)));
                              if (node != nullptr)
                              {
                                  if (node->wasReached() &&
@@ -406,7 +406,7 @@ namespace Igor
                 auto renderNodeIDs = materialGroup.getRenderNodes();
                 for (auto renderNodeID : renderNodeIDs)
                 {
-                    iNodeRender* node = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode(renderNodeID));
+                    iNodeRender* node = static_cast<iNodeRender*>(iNodeManager::getInstance().getNode(renderNodeID));
                     if (node != nullptr)
                     {
                         if (node->wasReached() &&

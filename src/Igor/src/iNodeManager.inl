@@ -3,7 +3,7 @@
 // see copyright notice in corresponding header file
 
 
-iNodePtr iNodeFactory::getNode(uint64 id) const
+__IGOR_INLINE__ iNodePtr iNodeManager::getNode(uint64 id) const
 {
     iNodePtr result = nullptr;
 
@@ -18,7 +18,7 @@ iNodePtr iNodeFactory::getNode(uint64 id) const
     return result;
 }
 
-bool iNodeFactory::isNode(uint64 id) const
+__IGOR_INLINE__ bool iNodeManager::isNode(uint64 id) const
 {
     bool result = false;;
 

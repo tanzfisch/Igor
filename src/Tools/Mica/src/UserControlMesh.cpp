@@ -14,7 +14,7 @@
 #include <iWidgetNumberChooser.h>
 #include <iNodeMesh.h>
 #include <iMesh.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iTargetMaterial.h>
 #include <iTextureResourceFactory.h>
 #include <iResourceManager.h>
@@ -80,7 +80,7 @@ void UserControlMesh::updateNode()
 {
 	if (!_ignoreNodeUpdate)
 	{
-		iNodeMesh* node = static_cast<iNodeMesh*>(iNodeFactory::getInstance().getNode(_nodeId));
+		iNodeMesh* node = static_cast<iNodeMesh*>(iNodeManager::getInstance().getNode(_nodeId));
 
 		if (node != nullptr)
 		{
@@ -111,7 +111,7 @@ void UserControlMesh::updateNode()
 
 void UserControlMesh::updateGUI()
 {
-	iNodeMesh* node = static_cast<iNodeMesh*>(iNodeFactory::getInstance().getNode(_nodeId));
+	iNodeMesh* node = static_cast<iNodeMesh*>(iNodeManager::getInstance().getNode(_nodeId));
 
 	if (node != nullptr)
 	{
@@ -444,7 +444,7 @@ void UserControlMesh::onBakeAction(iWidget* source)
 {
 	// TODO this kind of action needs to be in an action menu
 
-	iNodeMesh* meshNode = static_cast<iNodeMesh*>(iNodeFactory::getInstance().getNode(_nodeId));
+	iNodeMesh* meshNode = static_cast<iNodeMesh*>(iNodeManager::getInstance().getNode(_nodeId));
 
 	if (meshNode == nullptr)
 	{
@@ -466,7 +466,7 @@ void UserControlMesh::onBakeAction(iWidget* source)
 	iMeshPtr mesh = meshNode->getMesh();
 	iMeshBuilderUtils::addMesh(meshBuilder, mesh);
 
-	iNodeMesh* newMeshNode = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* newMeshNode = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
 	newMeshNode->setKeepMesh();
 	newMeshNode->setMesh(meshBuilder.createMesh());
 	newMeshNode->setMaterial(meshNode->getMaterial());

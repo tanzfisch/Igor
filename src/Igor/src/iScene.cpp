@@ -6,7 +6,7 @@
 
 #include <iNode.h>
 #include <iNodeModel.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iOctree.h>
 #include <iNodeVolume.h>
 #include <iNodeLODSwitch.h>
@@ -21,7 +21,7 @@ namespace Igor
 	
 	iScene::iScene()
 	{
-		_root = iNodeFactory::getInstance().createNode(iNodeType::iNode);
+		_root = iNodeManager::getInstance().createNode(iNodeType::iNode);
 		_root->setName(L"RootNode");
 		_root->setScene(this);
         
@@ -42,7 +42,7 @@ namespace Igor
 	{
 		if (_root != nullptr)
 		{
-			iNodeFactory::getInstance().destroyNode(_root);
+			iNodeManager::getInstance().destroyNode(_root);
             _root = nullptr;
 		}
 

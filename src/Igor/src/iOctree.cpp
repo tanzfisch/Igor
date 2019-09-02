@@ -6,7 +6,7 @@
 
 #include <iAACube.h>
 #include <iRenderer.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iIntersection.h>
 #include <iMaterialResourceFactory.h>
 

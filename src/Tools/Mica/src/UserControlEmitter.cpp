@@ -14,7 +14,7 @@
 #include <iNodeEmitter.h>
 #include <iWidgetSelectBox.h>
 #include <iMesh.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iTargetMaterial.h>
 using namespace Igor;
 
@@ -27,7 +27,7 @@ UserControlEmitter::UserControlEmitter()
 
 void UserControlEmitter::updateNode()
 {
-    iNodeEmitter* node = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().getNode(_nodeId));
+    iNodeEmitter* node = static_cast<iNodeEmitter*>(iNodeManager::getInstance().getNode(_nodeId));
 
     if (node != nullptr)
     {
@@ -40,7 +40,7 @@ void UserControlEmitter::updateNode()
 
 void UserControlEmitter::updateGUI()
 {
-    iNodeEmitter* node = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().getNode(_nodeId));
+    iNodeEmitter* node = static_cast<iNodeEmitter*>(iNodeManager::getInstance().getNode(_nodeId));
 
     if (node != nullptr)
     {
@@ -51,7 +51,7 @@ void UserControlEmitter::updateGUI()
 
 void UserControlEmitter::setNode(uint32 id)
 {
-    iNodePtr node = iNodeFactory::getInstance().getNode(id);
+    iNodePtr node = iNodeManager::getInstance().getNode(id);
     if (node != nullptr)
     {
         if (node->getType() == iNodeType::iNodeEmitter)

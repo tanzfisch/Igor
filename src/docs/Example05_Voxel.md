@@ -140,7 +140,7 @@ As you see we get besides the filename, which in our case is just any string, so
 
 We create a resulting group node because the engine expects this from us.
     
-        iNode* result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
+        iNode* result = iNodeManager::getInstance().createNode(iNodeType::iNode);
 
 Now we use the iContouringCubes class to turn our voxel data in to a mesh.
 
@@ -155,7 +155,7 @@ Theoretically the voxel data could result in a mesh that does not exists so we h
 
 But if it does exist we create a iNodeMesh and add it to the resulting node.
 
-            iNodeMesh* meshNode = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+            iNodeMesh* meshNode = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
             meshNode->setMesh(mesh);
             meshNode->setMaterial(tileInformation->_materialID);
 
@@ -192,13 +192,13 @@ And last but not least here is how we initialize our custom input parameters for
     inputParam->_loadPriority = 0;
     inputParam->_parameters.setData(reinterpret_cast<const char*>(&tileInformation), sizeof(TileInformation));
     // create a model node
-    iNodeModel* voxelMeshModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+    iNodeModel* voxelMeshModel = static_cast<iNodeModel*>(iNodeManager::getInstance().createNode(iNodeType::iNodeModel));
     _voxelMeshModel = voxelMeshModel->getID();
     // tell the model node to load data with specified identifier ans the above defined parameter
     // it is important to have a unique identifier each time we generate a mesh otherwhise the cache system would return us a prvious generated mesh
     voxelMeshModel->setModel(iaString("VoxelMesh") + iaString::toString(_incarnation++), inputParam);
     // create a transform node to center the mesh to the origin
-    iNodeTransform* voxelMeshTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* voxelMeshTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
     _voxelMeshTransform = voxelMeshTransform->getID();
     voxelMeshTransform->translate(-_voxelData->getWidth() / 2, -_voxelData->getHeight() / 2, -_voxelData->getDepth() / 2);
     // and add to scene

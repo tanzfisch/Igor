@@ -1,6 +1,6 @@
 #include "CharacterController.h"
 
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iNodeTransform.h>
 #include <iScene.h>
 #include <iPhysics.h>
@@ -26,35 +26,35 @@ CharacterController::CharacterController(iNodePtr node, int64 materiaID, const i
 
 	_collisionCast = iPhysics::getInstance().createCapsule(_characterRadius, _characterRadius, _characterHeight - _stepHeight, transformCollision);
 
-	iNodeTransform* physicsTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* physicsTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
 	physicsTransform->setMatrix(startMatrix);
 	_physicsTransformNodeID = physicsTransform->getID();
 	node->insertNode(physicsTransform);
 
-	iNodeTransform* headingTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* headingTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
 	_headingTransformNodeID = headingTransform->getID();
 	physicsTransform->insertNode(headingTransform);
 
-	iNodeTransform* upperBodyTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* upperBodyTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
 	_upperBodyTransformNodeID = upperBodyTransform->getID();
 	upperBodyTransform->translate(0, _headHeight, 0);
 	headingTransform->insertNode(upperBodyTransform);
 
-	iNodeTransform* pitchTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* pitchTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
 	_pitchTransformNodeID = pitchTransform->getID();
 	upperBodyTransform->insertNode(pitchTransform);
 
-	iNodeTransform* leftShoulderTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* leftShoulderTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
 	leftShoulderTransform->translate(-0.2, 0, 0);
 	_leftShoulderTransformNodeID = leftShoulderTransform->getID();
 	pitchTransform->insertNode(leftShoulderTransform);
 
-	iNodeTransform* rightShoulderTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* rightShoulderTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
 	rightShoulderTransform->translate(0.2, 0, 0);
 	_rightShoulderTransformNodeID = rightShoulderTransform->getID();
 	pitchTransform->insertNode(rightShoulderTransform);
 
-	iNodeTransform* headTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* headTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
 	_headTransformNodeID = headTransform->getID();
 	headTransform->translate(0, 0.1, 0);
 	pitchTransform->insertNode(headTransform);
@@ -67,7 +67,7 @@ CharacterController::CharacterController(iNodePtr node, int64 materiaID, const i
 
 CharacterController::~CharacterController()
 {
-	iNodeFactory::getInstance().destroyNodeAsync(_physicsTransformNodeID);
+	iNodeManager::getInstance().destroyNodeAsync(_physicsTransformNodeID);
 	iPhysics::getInstance().destroyBody(_bodyID);
 	iPhysics::getInstance().destroyCollision(_collisionCast);
 }
@@ -79,32 +79,32 @@ CharacterController::State CharacterController::getState() const
 
 iNodeTransform* CharacterController::getHeadingTransform() const
 {
-	return static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_headingTransformNodeID));
+	return static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_headingTransformNodeID));
 }
 
 iNodeTransform* CharacterController::getPitchTransform() const
 {
-	return static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_pitchTransformNodeID));
+	return static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_pitchTransformNodeID));
 }
 
 iNodeTransform* CharacterController::getHeadTransform() const
 {
-	return static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_headTransformNodeID));
+	return static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_headTransformNodeID));
 }
 
 iNodeTransform* CharacterController::getLeftSholderTransform() const
 {
-	return static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_leftShoulderTransformNodeID));
+	return static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_leftShoulderTransformNodeID));
 }
 
 iNodeTransform* CharacterController::getRightSholderTransform() const
 {
-	return static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_rightShoulderTransformNodeID));
+	return static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_rightShoulderTransformNodeID));
 }
 
 iNodeTransform* CharacterController::getRootNode() const
 {
-	return static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_physicsTransformNodeID));
+	return static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_physicsTransformNodeID));
 }
 
 void CharacterController::setForce(const iaVector3d& force)
@@ -275,7 +275,7 @@ void CharacterController::onApplyForceAndTorque(iPhysicsBody* body, float32 time
 
 	body->setForce(force);
 
-	iNodeTransform* upperBodyTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_upperBodyTransformNodeID));
+	iNodeTransform* upperBodyTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_upperBodyTransformNodeID));
 	if (heightAboveStep < 0)
 	{
 		upperBodyTransform->setPosition(iaVector3d(0, 0.55 - heightAboveStep, 0));
@@ -304,7 +304,7 @@ float64 CharacterController::getFloorContactPoint(iaVector3d& point, iaVector3d&
 	iaMatrixd matrix;
 	iaVector3d target;
 
-	iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_physicsTransformNodeID));
+	iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_physicsTransformNodeID));
 	transform->getMatrix(matrix);
 
 	target = matrix._pos;

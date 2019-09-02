@@ -15,7 +15,7 @@ using namespace IgorAux;
 #include <iApplication.h>
 #include <iSceneFactory.h>
 #include <iScene.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iMouse.h>
 #include <iTimer.h>
 #include <iTextureFont.h>
@@ -116,13 +116,13 @@ void PhysicsExample::init()
         _bodyIDs.push_back(boxBody->getID());
 
         // generate random position and orientation
-        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
         transformNode->translate((rand.getNext() % 10) - 5.0f, (rand.getNext() % 10) + 20.0f, (rand.getNext() % 10) - 5.0f);
         transformNode->rotate(rand.getNext(), iaAxis::X);
         transformNode->rotate(rand.getNext(), iaAxis::Y);
         transformNode->rotate(rand.getNext(), iaAxis::Z);
         // load the crate model
-        iNodeModel* crate = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+        iNodeModel* crate = static_cast<iNodeModel*>(iNodeManager::getInstance().createNode(iNodeType::iNodeModel));
         crate->setModel("crate.ompf");
         transformNode->insertNode(crate);
         // bind the scene model to the physics body
@@ -139,16 +139,16 @@ void PhysicsExample::init()
             for (int i = 0; i < 5; ++i)
             {
                 // same as above just using a different interface here
-                iNodePhysics* nodePhysics = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
+                iNodePhysics* nodePhysics = static_cast<iNodePhysics*>(iNodeManager::getInstance().createNode(iNodeType::iNodePhysics));
                 nodePhysics->addBox(1, 1, 1, offsetBox);
                 nodePhysics->finalizeCollision();
                 nodePhysics->setMass(100);
                 nodePhysics->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &PhysicsExample::onApplyForceAndTorque));
 
-                iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+                iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
                 transformNode->translate(x, i, z);
 
-                iNodeModel* cube = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+                iNodeModel* cube = static_cast<iNodeModel*>(iNodeManager::getInstance().createNode(iNodeType::iNodeModel));
                 cube->setModel("crate.ompf");
 
                 // binds physics node and transform node implicitly
@@ -170,16 +170,16 @@ void PhysicsExample::init()
     }
 
     // initialize camamera
-    _cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _cameraHeading = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
     _cameraHeading->setName("_cameraHeading");
     _cameraHeading->rotate(0.4, iaAxis::Y);
-    _cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _cameraPitch = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
     _cameraPitch->setName("_cameraPitch");
     _cameraPitch->rotate(-0.4, iaAxis::X);
-    _cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _cameraTranslation = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
     _cameraTranslation->setName("_cameraTranslation");
     _cameraTranslation->translate(0, 0, 80);
-    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
+    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeManager::getInstance().createNode(iNodeType::iNodeCamera));
     camera->setName("camera");
 
     _scene->getRoot()->insertNode(_cameraHeading);
@@ -198,7 +198,7 @@ void PhysicsExample::init()
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setOrder(10);
 
-    iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
+    iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeManager::getInstance().createNode(iNodeType::iNodeSkyBox));
     skyBoxNode->setTextures(
         iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
         iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
@@ -220,10 +220,10 @@ void PhysicsExample::init()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
 
     // init light
-    iNodeTransform* directionalLightTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* directionalLightTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
     directionalLightTransform->translate(100, 100, 100);
 
-    iNodeLight* lightNode = static_cast<iNodeLight*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLight));
+    iNodeLight* lightNode = static_cast<iNodeLight*>(iNodeManager::getInstance().createNode(iNodeType::iNodeLight));
     lightNode->setAmbient(iaColor4f(0.3f, 0.3f, 0.3f, 1.0f));
     lightNode->setDiffuse(iaColor4f(0.8f, 0.8f, 0.8f, 1.0f));
     lightNode->setSpecular(iaColor4f(1.0f, 01.0f, 1.0f, 1.0f));

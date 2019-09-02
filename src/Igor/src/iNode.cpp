@@ -6,7 +6,7 @@
 
 #include <iScene.h>
 #include <iaConsole.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iNodeTransform.h>
 
 namespace Igor
@@ -37,14 +37,14 @@ namespace Igor
 		std::vector<iNodePtr> childrenCopy(_children);
 		for (uint32 i = 0; i < childrenCopy.size(); ++i)
 		{
-			iNodeFactory::getInstance().destroyNode(childrenCopy[i]);
+			iNodeManager::getInstance().destroyNode(childrenCopy[i]);
 		}
 		_children.clear();
 
 		std::vector<iNodePtr> inactiveChildrenCopy(_inactiveChildren);
 		for (uint32 i = 0; i < inactiveChildrenCopy.size(); ++i)
 		{
-			iNodeFactory::getInstance().destroyNode(inactiveChildrenCopy[i]);
+			iNodeManager::getInstance().destroyNode(inactiveChildrenCopy[i]);
 		}
 		_inactiveChildren.clear();
 	}
@@ -388,17 +388,17 @@ namespace Igor
 
 	void iNode::setActiveAsync(bool active)
 	{
-		iNodeFactory::getInstance().setActiveAsync(this, active);
+		iNodeManager::getInstance().setActiveAsync(this, active);
 	}
 
 	void iNode::insertNodeAsync(iNodePtr node)
 	{
-		iNodeFactory::getInstance().insertNodeAsync(this, node);
+		iNodeManager::getInstance().insertNodeAsync(this, node);
 	}
 
 	void iNode::removeNodeAsync(iNodePtr node)
 	{
-		iNodeFactory::getInstance().removeNodeAsync(this, node);
+		iNodeManager::getInstance().removeNodeAsync(this, node);
 	}
 
 	void iNode::insertNode(iNodePtr node)

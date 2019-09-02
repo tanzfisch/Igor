@@ -6,7 +6,7 @@
 #include <iNodeTransform.h>
 #include <iNodeLight.h>
 #include <iNodeSwitch.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 
 #include <iWidgetScroll.h>
 #include <iWidgetGrid.h>
@@ -275,7 +275,7 @@ void Outliner::duplicateSelected()
 		return;
 	}
 
-	iNodePtr node = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
+	iNodePtr node = iNodeManager::getInstance().getNode(_userControlGraphView->getSelectedNode());
 	if (node == nullptr)
 	{
 		return;
@@ -301,7 +301,7 @@ void Outliner::cutSelected()
 
 	if (_userControlGraphView != nullptr)
 	{
-		iNodePtr node = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
+		iNodePtr node = iNodeManager::getInstance().getNode(_userControlGraphView->getSelectedNode());
 		if (node != nullptr)
 		{
 			_cutNodeID = node->getID();
@@ -320,19 +320,19 @@ void Outliner::pasteSelected()
 		if (_copiedNodeID != 0)
 		{
 			iNodePtr pasteNode = nullptr;
-			iNodePtr copiedNode = iNodeFactory::getInstance().getNode(_copiedNodeID);
+			iNodePtr copiedNode = iNodeManager::getInstance().getNode(_copiedNodeID);
 			if (copiedNode != nullptr)
 			{
-				pasteNode = iNodeFactory::getInstance().createCopy(copiedNode);
+				pasteNode = iNodeManager::getInstance().createCopy(copiedNode);
 			}
 
 			if (pasteNode != nullptr)
 			{
-				iNodePtr destination = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
+				iNodePtr destination = iNodeManager::getInstance().getNode(_userControlGraphView->getSelectedNode());
 
 				if (destination == nullptr)
 				{
-					destination = iNodeFactory::getInstance().getNode(_rootNodeID);
+					destination = iNodeManager::getInstance().getNode(_rootNodeID);
 				}
 
 				if (destination != nullptr)
@@ -345,14 +345,14 @@ void Outliner::pasteSelected()
 		}
 		else if (_cutNodeID != 0)
 		{
-			iNodePtr cutNode = iNodeFactory::getInstance().getNode(_cutNodeID);
+			iNodePtr cutNode = iNodeManager::getInstance().getNode(_cutNodeID);
 			if (cutNode != nullptr)
 			{
-				iNodePtr destination = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
+				iNodePtr destination = iNodeManager::getInstance().getNode(_userControlGraphView->getSelectedNode());
 
 				if (destination == nullptr)
 				{
-					destination = iNodeFactory::getInstance().getNode(_rootNodeID);
+					destination = iNodeManager::getInstance().getNode(_rootNodeID);
 				}
 
 				if (destination != nullptr)
@@ -382,7 +382,7 @@ void Outliner::copySelected()
 	{
 		_cutNodeID = 0;
 
-		iNodePtr node = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
+		iNodePtr node = iNodeManager::getInstance().getNode(_userControlGraphView->getSelectedNode());
 		if (node != nullptr)
 		{
 			_copiedNodeID = node->getID();
@@ -400,14 +400,14 @@ void Outliner::deleteSelected()
 	{
 		_graphSelectionChanged(iNode::INVALID_NODE_ID);
 
-		iNodePtr node = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
+		iNodePtr node = iNodeManager::getInstance().getNode(_userControlGraphView->getSelectedNode());
 		if (node != nullptr)
 		{
 			iNodePtr parent = node->getParent();
 			if (parent != nullptr)
 			{
 				parent->removeNode(node);
-				iNodeFactory::getInstance().destroyNodeAsync(node);
+				iNodeManager::getInstance().destroyNodeAsync(node);
 				refreshView();
 			}
 			else

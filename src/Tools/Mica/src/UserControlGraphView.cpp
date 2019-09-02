@@ -11,7 +11,7 @@
 #include <iWidgetLabel.h>
 #include <iWidgetButton.h>
 #include <iWidgetPicture.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iWidgetScroll.h>
 #include <iDialog.h>
 #include <iWidgetGroupBox.h>
@@ -42,7 +42,7 @@ void UserControlGraphView::refresh()
 {
     if (_root != iNode::INVALID_NODE_ID)
     {
-        traverseTree(iNodeFactory::getInstance().getNode(_root));
+        traverseTree(iNodeManager::getInstance().getNode(_root));
     }
     else
     {

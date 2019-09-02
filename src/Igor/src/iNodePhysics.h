@@ -56,7 +56,7 @@ namespace Igor
 	{
 		
 		friend class iNodeVisitorUpdateTransform;
-        friend class iNodeFactory;
+        friend class iNodeManager;
         friend class iPhysicsManager;
         friend class iPhysicsManagerTask;
 

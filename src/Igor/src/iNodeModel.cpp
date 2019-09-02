@@ -9,7 +9,7 @@
 #include <iRenderer.h>
 #include <iNodeTransform.h>
 #include <iNodeMesh.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iScene.h>
 #include <iMaterialResourceFactory.h>
 #include <iMeshBuffers.h>
