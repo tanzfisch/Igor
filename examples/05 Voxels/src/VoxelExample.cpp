@@ -153,16 +153,16 @@ void VoxelExample::initScene()
 
     // create camera
     // first heading transformation node
-    iNodeTransform* cameraHeading = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* cameraHeading = iNodeManager::getInstance().createNode<iNodeTransform>();
     _cameraHeading = cameraHeading->getID();
     // then pitch transformation node
-    iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* cameraPitch = iNodeManager::getInstance().createNode<iNodeTransform>();
     _cameraPitch = cameraPitch->getID();
     // and distance to origin transformation node
-    iNodeTransform* cameraTranslation = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
     cameraTranslation->translate(0, 0, 120);
     // anf of corse the camera
-    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeManager::getInstance().createNode(iNodeType::iNodeCamera));
+    iNodeCamera* camera = iNodeManager::getInstance().createNode<iNodeCamera>();
     // add it to the scene
     _scene->getRoot()->insertNode(cameraHeading);
     cameraHeading->insertNode(cameraPitch);
@@ -174,10 +174,10 @@ void VoxelExample::initScene()
 
     // create a directional light
     // transform node
-    iNodeTransform* lightTranslate = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* lightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
     lightTranslate->translate(100, 100, 100);
     // and light node
-    iNodeLight* lightNode = static_cast<iNodeLight*>(iNodeManager::getInstance().createNode(iNodeType::iNodeLight));
+    iNodeLight* lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
     lightNode->setAmbient(iaColor4f(0.6f, 0.6f, 0.6f, 1.0f));
     lightNode->setDiffuse(iaColor4f(0.9f, 0.7f, 0.6f, 1.0f));
     lightNode->setSpecular(iaColor4f(1.0f, 0.9f, 0.87f, 1.0f));
@@ -186,7 +186,7 @@ void VoxelExample::initScene()
     lightTranslate->insertNode(lightNode);
 
     // reate a sky box and add it to scene
-    iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeManager::getInstance().createNode(iNodeType::iNodeSkyBox));
+    iNodeSkyBox* skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
     skyBoxNode->setTextures(
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/front.jpg"),
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/back.jpg"),
@@ -376,14 +376,14 @@ void VoxelExample::prepareMeshGeneration()
 	inputParam->_keepMesh = true;
     inputParam->_parameters.setData(reinterpret_cast<const char*>(&tileInformation), sizeof(TileInformation));
     // create a model node
-    iNodeModel* voxelMeshModel = static_cast<iNodeModel*>(iNodeManager::getInstance().createNode(iNodeType::iNodeModel));
+    iNodeModel* voxelMeshModel = iNodeManager::getInstance().createNode<iNodeModel>();
 	voxelMeshModel->setName("VoxelMeshModel");
     _voxelMeshModel = voxelMeshModel->getID();
     // tell the model node to load data with specified identifier ans the above defined parameter
     // it is important to have a unique identifier each time we generate a mesh otherwhise the cache system would return us a prvious generated mesh
     voxelMeshModel->setModel(iaString("VoxelMesh") + iaString::toString(_incarnation++), iResourceCacheMode::Keep, inputParam);
     // create a transform node to center the mesh to the origin
-    iNodeTransform* voxelMeshTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* voxelMeshTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	voxelMeshTransform->setName("VoxelMeshTransform");
     _voxelMeshTransform = voxelMeshTransform->getID();
     voxelMeshTransform->translate(-_voxelData->getWidth() / 2, -_voxelData->getHeight() / 2, -_voxelData->getDepth() / 2);

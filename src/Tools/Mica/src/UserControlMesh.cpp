@@ -466,7 +466,7 @@ void UserControlMesh::onBakeAction(iWidget* source)
 	iMeshPtr mesh = meshNode->getMesh();
 	iMeshBuilderUtils::addMesh(meshBuilder, mesh);
 
-	iNodeMesh* newMeshNode = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* newMeshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
 	newMeshNode->setKeepMesh();
 	newMeshNode->setMesh(meshBuilder.createMesh());
 	newMeshNode->setMaterial(meshNode->getMaterial());

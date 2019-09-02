@@ -33,17 +33,17 @@ Enemy::Enemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMatrixd& matrix
     setHealth(100.0);
     setShield(50.0);
 
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
     transformNode->setMatrix(matrix);
     _transformNodeID = transformNode->getID();
 
-    iNodeTransform* bodyScale = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* bodyScale = iNodeManager::getInstance().createNode<iNodeTransform>();
     bodyScale->scale(1,0.25,1);
-    iNodeModel* bodyModel = static_cast<iNodeModel*>(iNodeManager::getInstance().createNode(iNodeType::iNodeModel));
+    iNodeModel* bodyModel = iNodeManager::getInstance().createNode<iNodeModel>();
     bodyModel->setModel("crate.ompf");
 
     iaMatrixd offset;
-    iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeManager::getInstance().createNode(iNodeType::iNodePhysics));
+    iNodePhysics* physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();
     physicsNode->addBox(1,0.5,1, offset);
     physicsNode->finalizeCollision();
     physicsNode->setMass(10);
@@ -57,13 +57,13 @@ Enemy::Enemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMatrixd& matrix
     transformNode->insertNode(bodyScale);
     transformNode->insertNode(physicsNode);
 
-    iNodeTransform* turretATransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* turretATransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     turretATransform->translate(0, 0.125, 0);
     transformNode->insertNode(turretATransform);
     Turret* turretA = new Turret(_scene, turretATransform, _voxelTerrain, getFraction(), _playerID);
     _turretAID = turretA->getID();
 
-    iNodeTransform* turretBTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* turretBTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     turretBTransform->rotate(M_PI, iaAxis::Z);
     turretBTransform->translate(0, 0.125, 0);
     transformNode->insertNode(turretBTransform);

@@ -581,10 +581,12 @@ namespace Igor
 
 	void iNode::onPreSetScene()
 	{
+		// nothing to do
 	}
 
 	void iNode::onPostSetScene()
 	{
+		// nothing to do
 	}
 
 	std::wostream& operator<<(std::wostream& stream, const iNodeType& nodeType)

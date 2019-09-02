@@ -78,24 +78,24 @@ void ExampleInstancing::init()
     // we want a camera which can be rotated arround the origin
     // we will acchive that with 3 transform nodes
     // one is for the heading
-    iNodeTransform* cameraHeading = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* cameraHeading = iNodeManager::getInstance().createNode<iNodeTransform>();
     // give the transform node a name. naming is optional and ist jus for helping to debug. 
     // Names do not have to be unique but since it is possible to find nodes by name they better are
     cameraHeading->setName("camera heading");
     _cameraHeading = cameraHeading->getID();
     // one is for the pitch
-    iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* cameraPitch = iNodeManager::getInstance().createNode<iNodeTransform>();
     cameraPitch->setName("camera pitch");
     _cameraPitch = cameraPitch->getID();
     // and one is for translation or distance from the origin
-    iNodeTransform* cameraTranslation = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
     cameraTranslation->setName("camera translation");
     // translate away from origin
     cameraTranslation->translate(0, 0, 10);
     _cameraTranslation = cameraTranslation->getID();
     // from all nodes that we want to control later we save the node ID
     // and last but not least we create a camera node
-    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeManager::getInstance().createNode(iNodeType::iNodeCamera));
+    iNodeCamera* camera = iNodeManager::getInstance().createNode<iNodeCamera>();
     camera->setName("camera");
     // and build everything together
     // first we add the heading to the root node
@@ -124,7 +124,7 @@ void ExampleInstancing::init()
     const int32 amountPerDimension = 3;
 
     // now we can just put copies of that model in the scene    
-    iNodeTransform* transformGroup = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* transformGroup = iNodeManager::getInstance().createNode<iNodeTransform>();
     transformGroup->translate(-((amountPerDimension -1) * spacing * 0.5), -((amountPerDimension - 1) * spacing * 0.5), ((amountPerDimension - 1) * spacing * 0.5));
     _scene->getRoot()->insertNode(transformGroup);
 
@@ -135,13 +135,13 @@ void ExampleInstancing::init()
         {
             for (int x = 0; x < amountPerDimension; ++x)
             {
-                iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+                iNodeTransform* transform = iNodeManager::getInstance().createNode<iNodeTransform>();
                 transform->translate(x * spacing, y * spacing, -z * spacing);
                 transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::X);
                 transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::Y);
                 transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::Z);
 
-                iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeManager::getInstance().createNode(iNodeType::iNodeModel));
+                iNodeModel* modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
                 // it is important to use the exact same parameters here as before when we direclty loaded the model
                 // because here it will not load it again but get it from the cache where we is still the version with manipulated material
                 modelNode->setModel("cat.ompf", iResourceCacheMode::Keep);
@@ -155,7 +155,7 @@ void ExampleInstancing::init()
     }
     
     // create a skybox
-    iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeManager::getInstance().createNode(iNodeType::iNodeSkyBox));
+    iNodeSkyBox* skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
     // set it up with the default skybox texture
     skyBoxNode->setTextures(
         iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
@@ -177,14 +177,14 @@ void ExampleInstancing::init()
 
     // setup light
     // transform node for the lights orientation
-    iNodeTransform* directionalLightRotate = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* directionalLightRotate = iNodeManager::getInstance().createNode<iNodeTransform>();
     // keep transform node id so we can manipulate the light's position later
     _directionalLightRotate = directionalLightRotate->getID();
     // transform node for the lights distance to the origin
-    iNodeTransform* directionalLightTranslate = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* directionalLightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
     directionalLightTranslate->translate(100, 100, 100);
     // the light node
-    iNodeLight* lightNode = static_cast<iNodeLight*>(iNodeManager::getInstance().createNode(iNodeType::iNodeLight));
+    iNodeLight* lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
     lightNode->setAmbient(iaColor4f(0.3f, 0.3f, 0.3f, 1.0f));
     lightNode->setDiffuse(iaColor4f(0.8f, 0.8f, 0.8f, 1.0f));
     lightNode->setSpecular(iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));

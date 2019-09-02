@@ -37,7 +37,7 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 	setDamage(50.0);
 	setShieldDamage(20.0);
 
-	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
 	transformNode->setMatrix(matrix);
 	_transformNodeID = transformNode->getID();
 
@@ -58,7 +58,7 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 	iaGradientf emission;
 	emission.setValue(0.0, 2);
 
-	iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().createNode(iNodeType::iNodeParticleSystem));
+	iNodeParticleSystem* particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
 	_particleSystemNodeID = particleSystem->getID();
 	particleSystem->setLoop(true);
 	particleSystem->setMaterial(iMaterialResourceFactory::getInstance().getMaterialID("PMat"));
@@ -72,16 +72,16 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 	particleSystem->setAirDrag(0.0);
 	particleSystem->start();
 
-	iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeManager::getInstance().createNode(iNodeType::iNodeEmitter));
+	iNodeEmitter* emitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
 	emitter->setEmitterType(iEmitterType::Disc);
 	emitter->setSize(0.0);
 	particleSystem->setEmitter(emitter->getID());
 
-	iNodeTransform* emitterTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* emitterTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	emitterTransform->rotate(-0.5 * M_PI, iaAxis::X);
 
 	iaMatrixd offset;
-	iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeManager::getInstance().createNode(iNodeType::iNodePhysics));
+	iNodePhysics* physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();
 	physicsNode->addSphere(0.1, offset);
 	physicsNode->finalizeCollision();
 	physicsNode->setMass(0.001);

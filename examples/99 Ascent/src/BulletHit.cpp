@@ -43,7 +43,7 @@ BulletHit::BulletHit(iScene* scene, const iaMatrixd& matrix)
 	emission.setValue(0.0, 20);
     emission.setValue(0.1, 0);
 
-	iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().createNode(iNodeType::iNodeParticleSystem));
+	iNodeParticleSystem* particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
 	_particleSystemNodeID = particleSystem->getID();
 	particleSystem->setLoop(false);
 	particleSystem->setMaterial(iMaterialResourceFactory::getInstance().getMaterialID("PMat"));
@@ -57,12 +57,12 @@ BulletHit::BulletHit(iScene* scene, const iaMatrixd& matrix)
 	particleSystem->setPeriodTime(3.0);
 	particleSystem->start();
 
-	iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeManager::getInstance().createNode(iNodeType::iNodeEmitter));
+	iNodeEmitter* emitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
 	_emitterNodeID = emitter->getID();
 	emitter->setEmitterType(iEmitterType::Point);
 	particleSystem->setEmitter(_emitterNodeID);
 
-	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
 	transformNode->setMatrix(matrix);
 	_pos = matrix._pos;
 

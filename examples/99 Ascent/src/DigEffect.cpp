@@ -44,7 +44,7 @@ DigEffect::DigEffect(iScene* scene, const iaMatrixd& matrix)
     iaGradientVector2f size;
     size.setValue(0.0, iaVector2f(3.0, 4.0));
 
-    iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().createNode(iNodeType::iNodeParticleSystem));
+    iNodeParticleSystem* particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemNodeID = particleSystem->getID();
     particleSystem->setMaterial(iMaterialResourceFactory::getInstance().getMaterialID("PMat"));
     particleSystem->setTextureA("particleSmoke.png");
@@ -59,12 +59,12 @@ DigEffect::DigEffect(iScene* scene, const iaMatrixd& matrix)
     particleSystem->setPeriodTime(4.0);
     particleSystem->start();
 
-	iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeManager::getInstance().createNode(iNodeType::iNodeEmitter));
+	iNodeEmitter* emitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
 	emitter->setEmitterType(iEmitterType::Sphere);
     emitter->setSize(5);
 	particleSystem->setEmitter(emitter->getID());
 
-	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
     _transformNodeID = transformNode->getID();
 	transformNode->setMatrix(matrix);
 	_pos = matrix._pos;

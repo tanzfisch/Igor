@@ -21,7 +21,7 @@ namespace Igor
 	
 	iScene::iScene()
 	{
-		_root = iNodeManager::getInstance().createNode(iNodeType::iNode);
+		_root = iNodeManager::getInstance().createNode<iNode>();
 		_root->setName(L"RootNode");
 		_root->setScene(this);
         

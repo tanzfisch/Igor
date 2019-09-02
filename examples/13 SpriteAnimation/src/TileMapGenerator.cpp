@@ -91,7 +91,7 @@ iNodePtr TileMapGenerator::generateFromRandom(const iaVector2i& size, uint32 fro
 		return nullptr;
 	}
 
-	iNode* result = iNodeManager::getInstance().createNode(iNodeType::iNode);
+	iNode* result = iNodeManager::getInstance().createNode<iNode>();
 
 	iaVector2i patchPos;
 	for (int y = 0; y < (size._y / patchSize._y); ++y)
@@ -101,13 +101,13 @@ iNodePtr TileMapGenerator::generateFromRandom(const iaVector2i& size, uint32 fro
 			patchPos.set(y * patchSize._y, x * patchSize._x);
 			iMeshPtr terrainMesh = generateMesh(from, to, patchPos, patchSize);
 
-			iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+			iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
 
 			iaVector2i patchWorldPos = (xdir * patchPos._x) + (ydir * patchPos._y);
 			transformNode->translate(patchWorldPos._x, -patchWorldPos._y, 0);
 			transformNode->setName(iaString::toString(x) + ":" + iaString::toString(y));
 
-			iNodeMesh* meshNode = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+			iNodeMesh* meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
 			meshNode->setMesh(terrainMesh);
 			meshNode->setMaterial(_material);
 			iTargetMaterial* targetMaterial = meshNode->getTargetMaterial();
@@ -210,7 +210,7 @@ iNodePtr TileMapGenerator::generateFromTexture(const iaString& filename)
 
 	iPixmapPtr pixmap = iTextureResourceFactory::getInstance().loadPixmap(filename);
 
-	iNode* result = iNodeManager::getInstance().createNode(iNodeType::iNode);
+	iNode* result = iNodeManager::getInstance().createNode<iNode>();
 
 	iaVector2i patchPos;
 	for (int y = 0; y < (pixmap->getHeight() / patchSize._y); ++y)
@@ -220,13 +220,13 @@ iNodePtr TileMapGenerator::generateFromTexture(const iaString& filename)
 			patchPos.set(y * patchSize._y, x * patchSize._x);
 			iMeshPtr terrainMesh = generateMesh(pixmap, patchPos, patchSize);
 
-			iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+			iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
 
 			iaVector2i patchWorldPos = (xdir * patchPos._x) + (ydir * patchPos._y);
 			transformNode->translate(patchWorldPos._x, -patchWorldPos._y, 0);
 			transformNode->setName(iaString::toString(x) + ":" + iaString::toString(y));
 
-			iNodeMesh* meshNode = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+			iNodeMesh* meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
 			meshNode->setMesh(terrainMesh);
 			meshNode->setMaterial(_material);
 			iTargetMaterial* targetMaterial = meshNode->getTargetMaterial();

@@ -43,15 +43,15 @@ void Manipulator::init()
 	_view->registerRenderDelegate(RenderDelegate(this, &Manipulator::render));
 
 	// camUI
-	_cameraCOIUI = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	_cameraCOIUI = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_cameraCOIUI->setName("camera COI UI");
-	_cameraHeadingUI = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	_cameraHeadingUI = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_cameraHeadingUI->setName("camera heading UI");
-	_cameraPitchUI = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	_cameraPitchUI = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_cameraPitchUI->setName("camera pitch UI");
-	_cameraTranslationUI = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	_cameraTranslationUI = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_cameraTranslationUI->setName("camera translation UI");
-	_cameraUI = static_cast<iNodeCamera*>(iNodeManager::getInstance().createNode(iNodeType::iNodeCamera));
+	_cameraUI = iNodeManager::getInstance().createNode<iNodeCamera>();
 	_cameraUI->setName("camera UI");
 
 	_scene->getRoot()->insertNode(_cameraCOIUI);
@@ -106,10 +106,10 @@ void Manipulator::init()
 	iMeshPtr ringMesh2D = create2DRingMesh();
 	iMeshPtr cylinder = createCylinder();
 
-	_rootTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	_rootTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_rootTransform->setActive(_visible);
 
-	_switchNode = static_cast<iNodeSwitch*>(iNodeManager::getInstance().createNode(iNodeType::iNodeSwitch));
+	_switchNode = iNodeManager::getInstance().createNode<iNodeSwitch>();
 	_rootTransform->insertNode(_switchNode);
 
 	createTranslateModifier(translateMesh);
@@ -164,45 +164,45 @@ void Manipulator::render()
 
 void Manipulator::createRotateModifier(iMeshPtr& ringMesh, iMeshPtr& ringMesh2D, iMeshPtr& cylinder)
 {
-	_roateModifier = iNodeManager::getInstance().createNode(iNodeType::iNode);
+	_roateModifier = iNodeManager::getInstance().createNode<iNode>();
 	_switchNode->insertNode(_roateModifier);
 
-	iNodeTransform* xRingTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* xRingTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	xRingTransform->rotate(-M_PI * 0.5, iaAxis::Z);
 	xRingTransform->scale(2.0, 0.1, 2.0);
 	_roateModifier->insertNode(xRingTransform);
 
-	iNodeTransform* yRingTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* yRingTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	yRingTransform->scale(1.99, 0.1, 1.99);
 	_roateModifier->insertNode(yRingTransform);
 
-	iNodeTransform* zRingTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* zRingTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	zRingTransform->rotate(M_PI * 0.5, iaAxis::X);
 	zRingTransform->scale(1.98, 0.1, 1.98);
 	_roateModifier->insertNode(zRingTransform);
 
-	iNodeMesh* xRing = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* xRing = iNodeManager::getInstance().createNode<iNodeMesh>();
 	xRing->setMesh(ringMesh);
 	xRing->setMaterial(_material);
 	xRing->setTargetMaterial(_red);
 	xRingTransform->insertNode(xRing);
 
-	iNodeMesh* yRing = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* yRing = iNodeManager::getInstance().createNode<iNodeMesh>();
 	yRing->setMesh(ringMesh);
 	yRing->setMaterial(_material);
 	yRing->setTargetMaterial(_green);
 	yRingTransform->insertNode(yRing);
 
-	iNodeMesh* zRing = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* zRing = iNodeManager::getInstance().createNode<iNodeMesh>();
 	zRing->setMesh(ringMesh);
 	zRing->setMaterial(_material);
 	zRing->setTargetMaterial(_blue);
 	zRingTransform->insertNode(zRing);
 
-	_rotateBillboardTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	_rotateBillboardTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_roateModifier->insertNode(_rotateBillboardTransform);
 
-	iNodeMesh* ring = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* ring = iNodeManager::getInstance().createNode<iNodeMesh>();
 	ring->setMesh(ringMesh2D);
 	ring->setMaterial(_material);
 	ring->setTargetMaterial(_cyan);
@@ -213,30 +213,30 @@ void Manipulator::createRotateModifier(iMeshPtr& ringMesh, iMeshPtr& ringMesh2D,
 	_rotateIDs.push_back(zRing->getID());
 
 	// add a locator in the middle for better orientation
-	iNodeTransform* xTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* xTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	xTransform->rotate(-M_PI * 0.5, iaAxis::Z);
 	_roateModifier->insertNode(xTransform);
 
-	iNodeTransform* yTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* yTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_roateModifier->insertNode(yTransform);
 
-	iNodeTransform* zTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* zTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	zTransform->rotate(M_PI * 0.5, iaAxis::X);
 	_roateModifier->insertNode(zTransform);
 
-	iNodeMesh* xCylinder = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* xCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
 	xCylinder->setMesh(cylinder);
 	xCylinder->setMaterial(_material);
 	xCylinder->setTargetMaterial(_red);
 	xTransform->insertNode(xCylinder);
 
-	iNodeMesh* yCylinder = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* yCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
 	yCylinder->setMesh(cylinder);
 	yCylinder->setMaterial(_material);
 	yCylinder->setTargetMaterial(_green);
 	yTransform->insertNode(yCylinder);
 
-	iNodeMesh* zCylinder = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* zCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
 	zCylinder->setMesh(cylinder);
 	zCylinder->setMaterial(_material);
 	zCylinder->setTargetMaterial(_blue);
@@ -245,33 +245,33 @@ void Manipulator::createRotateModifier(iMeshPtr& ringMesh, iMeshPtr& ringMesh2D,
 
 void Manipulator::createTransformRepresentation(iMeshPtr& cylinder)
 {
-	_transformRepresentation = iNodeManager::getInstance().createNode(iNodeType::iNode);
+	_transformRepresentation = iNodeManager::getInstance().createNode<iNode>();
 	_switchNode->insertNode(_transformRepresentation);
 
-	iNodeTransform* xTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* xTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	xTransform->rotate(-M_PI * 0.5, iaAxis::Z);
 	_transformRepresentation->insertNode(xTransform);
 
-	iNodeTransform* yTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* yTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_transformRepresentation->insertNode(yTransform);
 
-	iNodeTransform* zTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* zTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	zTransform->rotate(M_PI * 0.5, iaAxis::X);
 	_transformRepresentation->insertNode(zTransform);
 
-	iNodeMesh* xCylinder = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* xCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
 	xCylinder->setMesh(cylinder);
 	xCylinder->setMaterial(_material);
 	xCylinder->setTargetMaterial(_red);
 	xTransform->insertNode(xCylinder);
 
-	iNodeMesh* yCylinder = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* yCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
 	yCylinder->setMesh(cylinder);
 	yCylinder->setMaterial(_material);
 	yCylinder->setTargetMaterial(_green);
 	yTransform->insertNode(yCylinder);
 
-	iNodeMesh* zCylinder = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* zCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
 	zCylinder->setMesh(cylinder);
 	zCylinder->setMaterial(_material);
 	zCylinder->setTargetMaterial(_blue);
@@ -280,33 +280,33 @@ void Manipulator::createTransformRepresentation(iMeshPtr& cylinder)
 
 void Manipulator::createTranslateModifier(iMeshPtr& translateMesh)
 {
-	_translateModifier = iNodeManager::getInstance().createNode(iNodeType::iNode);
+	_translateModifier = iNodeManager::getInstance().createNode<iNode>();
 	_switchNode->insertNode(_translateModifier);
 
-	iNodeTransform* xTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* xTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	xTransform->rotate(-M_PI * 0.5, iaAxis::Z);
 	_translateModifier->insertNode(xTransform);
 
-	iNodeTransform* yTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* yTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_translateModifier->insertNode(yTransform);
 
-	iNodeTransform* zTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* zTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	zTransform->rotate(M_PI * 0.5, iaAxis::X);
 	_translateModifier->insertNode(zTransform);
 
-	iNodeMesh* xUmbrella = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* xUmbrella = iNodeManager::getInstance().createNode<iNodeMesh>();
 	xUmbrella->setMesh(translateMesh);
 	xUmbrella->setMaterial(_material);
 	xUmbrella->setTargetMaterial(_red);
 	xTransform->insertNode(xUmbrella);
 
-	iNodeMesh* yUmbrella = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* yUmbrella = iNodeManager::getInstance().createNode<iNodeMesh>();
 	yUmbrella->setMesh(translateMesh);
 	yUmbrella->setMaterial(_material);
 	yUmbrella->setTargetMaterial(_green);
 	yTransform->insertNode(yUmbrella);
 
-	iNodeMesh* zUmbrella = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* zUmbrella = iNodeManager::getInstance().createNode<iNodeMesh>();
 	zUmbrella->setMesh(translateMesh);
 	zUmbrella->setMaterial(_material);
 	zUmbrella->setTargetMaterial(_blue);
@@ -319,33 +319,33 @@ void Manipulator::createTranslateModifier(iMeshPtr& translateMesh)
 
 void Manipulator::createScaleModifier(iMeshPtr& scaleMesh)
 {
-	_scaleModifier = iNodeManager::getInstance().createNode(iNodeType::iNode);
+	_scaleModifier = iNodeManager::getInstance().createNode<iNode>();
 	_switchNode->insertNode(_scaleModifier);
 
-	iNodeTransform* xTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* xTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	xTransform->rotate(-M_PI * 0.5, iaAxis::Z);
 	_scaleModifier->insertNode(xTransform);
 
-	iNodeTransform* yTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* yTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_scaleModifier->insertNode(yTransform);
 
-	iNodeTransform* zTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* zTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	zTransform->rotate(M_PI * 0.5, iaAxis::X);
 	_scaleModifier->insertNode(zTransform);
 
-	iNodeMesh* xCube = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* xCube = iNodeManager::getInstance().createNode<iNodeMesh>();
 	xCube->setMesh(scaleMesh);
 	xCube->setMaterial(_material);
 	xCube->setTargetMaterial(_red);
 	xTransform->insertNode(xCube);
 
-	iNodeMesh* yCube = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* yCube = iNodeManager::getInstance().createNode<iNodeMesh>();
 	yCube->setMesh(scaleMesh);
 	yCube->setMaterial(_material);
 	yCube->setTargetMaterial(_green);
 	yTransform->insertNode(yCube);
 
-	iNodeMesh* zCube = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* zCube = iNodeManager::getInstance().createNode<iNodeMesh>();
 	zCube->setMesh(scaleMesh);
 	zCube->setMaterial(_material);
 	zCube->setTargetMaterial(_blue);
@@ -353,7 +353,7 @@ void Manipulator::createScaleModifier(iMeshPtr& scaleMesh)
 
 	iMeshPtr cube = createCube();
 
-	iNodeMesh* xyzCube = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* xyzCube = iNodeManager::getInstance().createNode<iNodeMesh>();
 	xyzCube->setMesh(cube);
 	xyzCube->setMaterial(_material);
 	xyzCube->setTargetMaterial(_cyan);

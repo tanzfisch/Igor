@@ -426,7 +426,7 @@ namespace Igor
 
         \param matrix the new world matrix
         */
-        void onUpdateTransform(iaMatrixd& matrix);
+        void onUpdateTransform(iaMatrixd& matrix) override;
 
         /*!
         \todo this is just a workaround untill we calc the particle system frames in a seperate thread

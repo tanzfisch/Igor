@@ -39,15 +39,15 @@ Granade::Granade(iScene* scene, const iaMatrixd& matrix, Fraction fraction)
     setDamage(100.0);
     setShieldDamage(0.0);
 
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
     transformNode->setMatrix(startMatrix);
     _transformNodeID = transformNode->getID();
 
-    iNodeModel* bulletModel = static_cast<iNodeModel*>(iNodeManager::getInstance().createNode(iNodeType::iNodeModel));
+    iNodeModel* bulletModel = iNodeManager::getInstance().createNode<iNodeModel>();
     bulletModel->setModel("cube.ompf");
 
     iaMatrixd offset;
-    iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeManager::getInstance().createNode(iNodeType::iNodePhysics));
+    iNodePhysics* physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();
     physicsNode->addSphere(1, offset);
     physicsNode->finalizeCollision();
     physicsNode->setMass(0.1);

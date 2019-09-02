@@ -90,10 +90,10 @@ void Widget3DEmitter::update()
 	// create structure
 	if (_rootTransform == nullptr)
 	{
-		_rootTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+		_rootTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 		_scene->getRoot()->insertNode(_rootTransform);
 
-		_scaleTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+		_scaleTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 		_rootTransform->insertNode(_scaleTransform);
 	}
 
@@ -144,7 +144,7 @@ void Widget3DEmitter::update()
 
 		if (mesh != nullptr)
 		{
-			_meshNode = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+			_meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
 			_meshNode->setMesh(mesh);
 			_meshNode->setMaterial(material);
 			_meshNode->setTargetMaterial(_targetMaterial);

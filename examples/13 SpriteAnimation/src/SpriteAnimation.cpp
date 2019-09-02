@@ -107,7 +107,7 @@ void SpriteAnimation::init()
 	tileMapGenerator.setMaterial(_materialTerrain);
 	iNodePtr terrainNodeGround = tileMapGenerator.generateFromRandom(iaVector2i(32,32), 0, 18);
 	terrainNodeGround->setName("Ground");
-	iNodeTransform* terrainGroundTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* terrainGroundTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	terrainGroundTransform->translate(0, 0, 0);
 	terrainGroundTransform->insertNode(terrainNodeGround);
 	_scene->getRoot()->insertNode(terrainGroundTransform);
@@ -115,16 +115,16 @@ void SpriteAnimation::init()
 	// generate dressing and trees map
 	iNodePtr terrainNodeDressing = tileMapGenerator.generateFromTexture("SpriteAnimationTerrain.png");
 	terrainNodeDressing->setName("Dressing");
-	iNodeTransform* terrainDressingTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* terrainDressingTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	terrainDressingTransform->translate(0, 0, 0);
 	terrainDressingTransform->insertNode(terrainNodeDressing);
 	_scene->getRoot()->insertNode(terrainDressingTransform);
 
 	// setup camera
-	_cameraTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	_cameraTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_cameraTransform->translate(0, 0, 30);
 	// anf of corse the camera
-	iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeManager::getInstance().createNode(iNodeType::iNodeCamera));
+	iNodeCamera* camera = iNodeManager::getInstance().createNode<iNodeCamera>();
 	_cameraTransform->insertNode(camera);
 	_scene->getRoot()->insertNode(_cameraTransform);
 	_view.setCurrentCamera(camera->getID());

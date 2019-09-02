@@ -132,10 +132,10 @@ void Ascent::initScene()
     _view.setScene(_scene);
 
     // light
-    _lightTranslate = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+    _lightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
     _lightTranslate->translate(100, 100, 100);
-    _lightRotate = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
-    _lightNode = static_cast<iNodeLight*>(iNodeManager::getInstance().createNode(iNodeType::iNodeLight));
+    _lightRotate = iNodeManager::getInstance().createNode<iNodeTransform>();
+    _lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
     _lightNode->setAmbient(iaColor4f(0.7f, 0.7f, 0.7f, 1.0f));
     _lightNode->setDiffuse(iaColor4f(1.0f, 0.9f, 0.8f, 1.0f));
     _lightNode->setSpecular(iaColor4f(1.0f, 0.9f, 0.87f, 1.0f));
@@ -145,7 +145,7 @@ void Ascent::initScene()
     _scene->getRoot()->insertNode(_lightRotate);
 
     // reate a sky box and add it to scene
-    iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeManager::getInstance().createNode(iNodeType::iNodeSkyBox));
+    iNodeSkyBox* skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
     skyBoxNode->setTextures(
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/front.jpg"),
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/back.jpg"),

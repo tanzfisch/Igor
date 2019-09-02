@@ -345,6 +345,12 @@ namespace Igor
         */
 		void setScene(iScenePtr scene);
 
+		/*! called by node visitor update transform
+
+		\param[in, out] matrix current transformation matrix
+		*/
+		virtual void onUpdateTransform(iaMatrixd& matrix);
+
         /*! this is called just before setScene and gives the class the chance to unregister from the current scene if set.
         */
 		virtual void onPreSetScene();
@@ -352,12 +358,6 @@ namespace Igor
         /*! this is called just after setScene and gives the class the chance to register it self to the new scene.
         */
 		virtual void onPostSetScene();
-
-        /*! called by node visitor update transform
-
-        \param[in, out] matrix current transformation matrix
-        */
-        virtual void onUpdateTransform(iaMatrixd& matrix);
 
         /*! called by update dirty data queue
 

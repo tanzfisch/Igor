@@ -31,7 +31,7 @@ Turret::Turret(iScene* scene, iNodeTransform* parent, iVoxelTerrain* voxelTerrai
     setDamage(10.0);
     setShieldDamage(10.0);
 
-    iNodeModel* turret = static_cast<iNodeModel*>(iNodeManager::getInstance().createNode(iNodeType::iNodeModel));
+    iNodeModel* turret = iNodeManager::getInstance().createNode<iNodeModel>();
     _turretNodeID = turret->getID();
     turret->setModel("turret.ompf", iResourceCacheMode::Cache, nullptr);
     turret->registerModelReadyDelegate(iModelReadyDelegate(this, &Turret::onModelReady));

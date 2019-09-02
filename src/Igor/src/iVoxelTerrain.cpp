@@ -113,7 +113,7 @@ namespace Igor
         if (scene != nullptr &&
             _rootNode == nullptr)
         {
-            _rootNode = iNodeManager::getInstance().createNode(iNodeType::iNode);
+            _rootNode = iNodeManager::getInstance().createNode<iNode>();
             scene->getRoot()->insertNode(_rootNode);
 
             iModelResourceFactory::getInstance().registerModelDataIO("vtg", &iVoxelTerrainMeshGenerator::createInstance);
@@ -1318,12 +1318,12 @@ namespace Igor
                     tileName += ":";
                     tileName += iaString::toString(voxelBlock->_mutationCounter++);
 
-                    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+                    iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
 					iaVector3d transform = voxelBlock->_positionInLOD.convert<float64>();
                     transform *= voxelBlock->_size;
                     transformNode->translate(transform);
 
-                    iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeManager::getInstance().createNode(iNodeType::iNodeModel));
+                    iNodeModel* modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
                     modelNode->setModel(tileName, iResourceCacheMode::Free, inputParam);
 
                     transformNode->insertNode(modelNode);

@@ -117,13 +117,13 @@ void ExampleCharacterController::init()
     //bulletBullet->registerContactDelegate(iContactDelegate(this, &EntityManager::onContact));
 
     // setup floor model
-    iNodeModel* floorModel = static_cast<iNodeModel*>(iNodeManager::getInstance().createNode(iNodeType::iNodeModel));
+    iNodeModel* floorModel = iNodeManager::getInstance().createNode<iNodeModel>();
     iModelDataInputParameter* param = new iModelDataInputParameter();
     param->_keepMesh = true;
     param->_modelSourceType = iModelSourceType::File;
     floorModel->setModel("level.ompf", iResourceCacheMode::Keep, param);
     floorModel->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleCharacterController::onModelReady));
-    iNodeTransform* floorTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* floorTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     floorTransform->insertNode(floorModel);
     _scene->getRoot()->insertNode(floorTransform);
 
@@ -144,10 +144,10 @@ void ExampleCharacterController::init()
         boxBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &ExampleCharacterController::onApplyForceAndTorqueBox));
         boxBody->setMaterial(_entityMaterialID);
 
-        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+        iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
         transformNode->translate(10, 200, 10);
 
-        iNodeModel* crate = static_cast<iNodeModel*>(iNodeManager::getInstance().createNode(iNodeType::iNodeModel));
+        iNodeModel* crate = iNodeManager::getInstance().createNode<iNodeModel>();
         crate->setModel("crate.ompf");
         transformNode->insertNode(crate);
 
@@ -163,10 +163,10 @@ void ExampleCharacterController::init()
         boxBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &ExampleCharacterController::onApplyForceAndTorqueBox));
         boxBody->setMaterial(_entityMaterialID);
 
-        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+        iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
         transformNode->translate(-5, 200, -12);
 
-        iNodeModel* crate = static_cast<iNodeModel*>(iNodeManager::getInstance().createNode(iNodeType::iNodeModel));
+        iNodeModel* crate = iNodeManager::getInstance().createNode<iNodeModel>();
         crate->setModel("crate.ompf");
         transformNode->insertNode(crate);
 
@@ -180,24 +180,24 @@ void ExampleCharacterController::init()
     _characterController = new CharacterController(_scene->getRoot(), _entityMaterialID, startMatrix);
 
     // setup camera
-    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeManager::getInstance().createNode(iNodeType::iNodeCamera));
+    iNodeCamera* camera = iNodeManager::getInstance().createNode<iNodeCamera>();
     _characterController->getHeadTransform()->insertNode(camera);
     // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a 
     // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
     _view.setCurrentCamera(camera->getID());
 
     // setup gun
-    iNodeTransform* gunTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* gunTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	gunTransform->translate(0, 0, -0.4);
 	gunTransform->rotate(M_PI, iaAxis::Y);
 	gunTransform->scale(0.04, 0.04, 0.04);
-    iNodeModel* gun = static_cast<iNodeModel*>(iNodeManager::getInstance().createNode(iNodeType::iNodeModel));
+    iNodeModel* gun = iNodeManager::getInstance().createNode<iNodeModel>();
 	gun->setModel("M4A1-S.ompf");
     _characterController->getRightSholderTransform()->insertNode(gunTransform);
     gunTransform->insertNode(gun);
 
     // create a skybox
-    iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeManager::getInstance().createNode(iNodeType::iNodeSkyBox));
+    iNodeSkyBox* skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
     // set it up with the default skybox texture
     skyBoxNode->setTextures(
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/front.jpg"),
@@ -218,10 +218,10 @@ void ExampleCharacterController::init()
     _scene->getRoot()->insertNode(skyBoxNode);
 
     // setup light
-    iNodeTransform* directionalLightTranslate = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* directionalLightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
     directionalLightTranslate->translate(100, 100, 100);
     // the light node
-    iNodeLight* lightNode = static_cast<iNodeLight*>(iNodeManager::getInstance().createNode(iNodeType::iNodeLight));
+    iNodeLight* lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
     lightNode->setAmbient(iaColor4f(0.5f, 0.5f, 0.5f, 1.0f));
     lightNode->setDiffuse(iaColor4f(0.9f, 0.9f, 0.9f, 1.0f));
     lightNode->setSpecular(iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));

@@ -95,7 +95,7 @@ void OBJ2OMPF::convert(int argc, char* argv[])
         parameters->_needsRenderContext = false;
         parameters->_keepMesh = true;
 
-        iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeManager::getInstance().createNode(iNodeType::iNodeModel));
+        iNodeModel* modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
         modelNode->setModel(_src, iResourceCacheMode::Keep, parameters);
 
         iScene* scene = iSceneFactory::getInstance().createScene();

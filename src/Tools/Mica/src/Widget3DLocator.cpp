@@ -85,36 +85,36 @@ void Widget3DLocator::update()
 
 void Widget3DLocator::createLocator()
 {
-	_rootTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	_rootTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_scene->getRoot()->insertNode(_rootTransform);
 	_rootTransform->setActive(false);
 
 	iMeshPtr locatorMesh = createLocatorMesh();
 
-	iNodeTransform* xTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* xTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	xTransform->rotate(-M_PI * 0.5, iaAxis::Z);
 	_rootTransform->insertNode(xTransform);
 
-	iNodeTransform* yTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* yTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_rootTransform->insertNode(yTransform);
 
-	iNodeTransform* zTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* zTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	zTransform->rotate(M_PI * 0.5, iaAxis::X);
 	_rootTransform->insertNode(zTransform);
 
-	iNodeMesh* xCylinder = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* xCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
 	xCylinder->setMesh(locatorMesh);
 	xCylinder->setMaterial(_material);
 	xCylinder->setTargetMaterial(_red);
 	xTransform->insertNode(xCylinder);
 
-	iNodeMesh* yCylinder = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* yCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
 	yCylinder->setMesh(locatorMesh);
 	yCylinder->setMaterial(_material);
 	yCylinder->setTargetMaterial(_green);
 	yTransform->insertNode(yCylinder);
 
-	iNodeMesh* zCylinder = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+	iNodeMesh* zCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
 	zCylinder->setMesh(locatorMesh);
 	zCylinder->setMaterial(_material);
 	zCylinder->setTargetMaterial(_blue);

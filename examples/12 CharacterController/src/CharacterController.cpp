@@ -26,35 +26,35 @@ CharacterController::CharacterController(iNodePtr node, int64 materiaID, const i
 
 	_collisionCast = iPhysics::getInstance().createCapsule(_characterRadius, _characterRadius, _characterHeight - _stepHeight, transformCollision);
 
-	iNodeTransform* physicsTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* physicsTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	physicsTransform->setMatrix(startMatrix);
 	_physicsTransformNodeID = physicsTransform->getID();
 	node->insertNode(physicsTransform);
 
-	iNodeTransform* headingTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* headingTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_headingTransformNodeID = headingTransform->getID();
 	physicsTransform->insertNode(headingTransform);
 
-	iNodeTransform* upperBodyTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* upperBodyTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_upperBodyTransformNodeID = upperBodyTransform->getID();
 	upperBodyTransform->translate(0, _headHeight, 0);
 	headingTransform->insertNode(upperBodyTransform);
 
-	iNodeTransform* pitchTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* pitchTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_pitchTransformNodeID = pitchTransform->getID();
 	upperBodyTransform->insertNode(pitchTransform);
 
-	iNodeTransform* leftShoulderTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* leftShoulderTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	leftShoulderTransform->translate(-0.2, 0, 0);
 	_leftShoulderTransformNodeID = leftShoulderTransform->getID();
 	pitchTransform->insertNode(leftShoulderTransform);
 
-	iNodeTransform* rightShoulderTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* rightShoulderTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	rightShoulderTransform->translate(0.2, 0, 0);
 	_rightShoulderTransformNodeID = rightShoulderTransform->getID();
 	pitchTransform->insertNode(rightShoulderTransform);
 
-	iNodeTransform* headTransform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* headTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_headTransformNodeID = headTransform->getID();
 	headTransform->translate(0, 0.1, 0);
 	pitchTransform->insertNode(headTransform);

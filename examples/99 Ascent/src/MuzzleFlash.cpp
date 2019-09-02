@@ -27,13 +27,13 @@ MuzzleFlash::MuzzleFlash(iScene* scene, uint32 emitterID)
     setDamage(0.0);
     setShieldDamage(0.0);
     
-    iNodeModel* particleSystem1 = static_cast<iNodeModel*>(iNodeManager::getInstance().createNode(iNodeType::iNodeModel));
+    iNodeModel* particleSystem1 = iNodeManager::getInstance().createNode<iNodeModel>();
     _muzzleFlashModelID = particleSystem1->getID();
     particleSystem1->setModel("MuzzleFlash.ompf");
     particleSystem1->registerModelReadyDelegate(iModelReadyDelegate(this, &MuzzleFlash::onMuzzleFlashLoaded));
     scene->getRoot()->insertNode(particleSystem1);
 
-    iNodeModel* particleSystem2 = static_cast<iNodeModel*>(iNodeManager::getInstance().createNode(iNodeType::iNodeModel));
+    iNodeModel* particleSystem2 = iNodeManager::getInstance().createNode<iNodeModel>();
     _muzzleSmokeModelID = particleSystem2->getID();
     particleSystem2->setModel("MuzzleSmoke.ompf");
     particleSystem2->registerModelReadyDelegate(iModelReadyDelegate(this, &MuzzleFlash::onMuzzleSmokeLoaded));

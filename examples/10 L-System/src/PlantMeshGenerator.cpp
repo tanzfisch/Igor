@@ -39,7 +39,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString& sectionName, iModelDataI
     _segmentLength = plantInformation->_segmentLenght;
     _segmentAngle = plantInformation->_segmentAngle;
 
-    iNodePtr result = iNodeManager::getInstance().createNode(iNodeType::iNode);
+    iNodePtr result = iNodeManager::getInstance().createNode<iNode>();
 
     _rand.setSeed(plantInformation->_seed);
     iaString sentence = lSystem->generate(plantInformation->_axiom, plantInformation->_iterations, _rand.getNext());
@@ -51,7 +51,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString& sectionName, iModelDataI
 
     if (meshTrunk != nullptr)
     {
-        iNodeMesh* meshNodeTrunk = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+        iNodeMesh* meshNodeTrunk = iNodeManager::getInstance().createNode<iNodeMesh>();
         meshNodeTrunk->setMesh(meshTrunk);
         meshNodeTrunk->setMaterial(plantInformation->_materialID);
 
@@ -69,7 +69,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString& sectionName, iModelDataI
 
     if (meshFlowers != nullptr)
     {
-        iNodeMesh* meshNodeFlowers = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+        iNodeMesh* meshNodeFlowers = iNodeManager::getInstance().createNode<iNodeMesh>();
         meshNodeFlowers->setMesh(meshFlowers);
         meshNodeFlowers->setMaterial(plantInformation->_materialID);
 
@@ -87,7 +87,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString& sectionName, iModelDataI
 
     if (meshBuds != nullptr)
     {
-        iNodeMesh* meshNodeBuds = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+        iNodeMesh* meshNodeBuds = iNodeManager::getInstance().createNode<iNodeMesh>();
         meshNodeBuds->setMesh(meshBuds);
         meshNodeBuds->setMaterial(plantInformation->_materialID);
 
@@ -106,7 +106,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString& sectionName, iModelDataI
 
     if (meshLeafs != nullptr)
     {
-        iNodeMesh* meshNodeLeafs = static_cast<iNodeMesh*>(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
+        iNodeMesh* meshNodeLeafs = iNodeManager::getInstance().createNode<iNodeMesh>();
         meshNodeLeafs->setMesh(meshLeafs);
         meshNodeLeafs->setMaterial(plantInformation->_materialID);
 
