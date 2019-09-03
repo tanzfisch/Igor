@@ -1,6 +1,6 @@
 #include "Turret.h"
 
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iNodeTransform.h>
 #include <iNodeModel.h>
 #include <iModel.h>
@@ -31,7 +31,7 @@ Turret::Turret(iScene* scene, iNodeTransform* parent, iVoxelTerrain* voxelTerrai
     setDamage(10.0);
     setShieldDamage(10.0);
 
-    iNodeModel* turret = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+    iNodeModel* turret = iNodeManager::getInstance().createNode<iNodeModel>();
     _turretNodeID = turret->getID();
     turret->setModel("turret.ompf", iResourceCacheMode::Cache, nullptr);
     turret->registerModelReadyDelegate(iModelReadyDelegate(this, &Turret::onModelReady));
@@ -46,7 +46,7 @@ void Turret::onModelReady(uint64 modelNodeID)
 {
     con_assert(modelNodeID == _turretNodeID, "impossible");
 
-    iNodeModel* turret = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(_turretNodeID));
+    iNodeModel* turret = static_cast<iNodeModel*>(iNodeManager::getInstance().getNode(_turretNodeID));
     if (turret != nullptr)
     {
         iNodeVisitorSearchName searchName;
@@ -82,7 +82,7 @@ Turret::~Turret()
 {
     if (_turretNodeID != iNode::INVALID_NODE_ID)
     {
-        iNodeFactory::getInstance().destroyNodeAsync(_turretNodeID);
+        iNodeManager::getInstance().destroyNodeAsync(_turretNodeID);
     }
 }
 
@@ -93,7 +93,7 @@ void Turret::hitBy(uint64 entityID)
 iaVector3d Turret::getCurrentPos()
 {
     iaVector3d result;
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_parentNodeID));
+    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_parentNodeID));
     if (transformNode != nullptr)
     {
         iaMatrixd matrix;
@@ -124,7 +124,7 @@ void Turret::handle()
             if (distance > 0 &&
                 distance < detectionDistance)
             {
-                iNodeTransform* platform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_platformID));
+                iNodeTransform* platform = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_platformID));
                 if (platform != nullptr)
                 {
                     iaMatrixd world;
@@ -142,8 +142,8 @@ void Turret::handle()
                     iaVector3d upVector(0, 1, 0);
                     upVector = world * upVector;
 
-                    iNodeTransform* headingNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_headingID));
-                    iNodeTransform* pitchNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_pitchID));
+                    iNodeTransform* headingNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_headingID));
+                    iNodeTransform* pitchNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_pitchID));
 
                     float32 heading = localdir.angleXZ();
                     headingNode->identity();

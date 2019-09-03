@@ -7,7 +7,7 @@
 #include <iNodeRender.h>
 #include <iNodeMesh.h>
 #include <iMesh.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iMaterialResourceFactory.h>
 
 namespace Igor
@@ -35,7 +35,7 @@ namespace Igor
 
     void iMaterialGroup::addRenderNode(uint64 renderNodeID, bool instancing)
     {
-        iNodeRender* renderNode = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode(renderNodeID));
+        iNodeRender* renderNode = static_cast<iNodeRender*>(iNodeManager::getInstance().getNode(renderNodeID));
         if (renderNode != nullptr)
         {
             if (instancing && 
@@ -66,7 +66,7 @@ namespace Igor
 
     void iMaterialGroup::removeRenderNode(uint64 renderNodeID, bool instancing)
     {
-        iNodeRender* renderNode = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode(renderNodeID));
+        iNodeRender* renderNode = static_cast<iNodeRender*>(iNodeManager::getInstance().getNode(renderNodeID));
 
         if (renderNode != nullptr)
         {

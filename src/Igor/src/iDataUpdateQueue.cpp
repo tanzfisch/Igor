@@ -5,7 +5,7 @@
 #include <iDataUpdateQueue.h>
 
 #include <iNodeModel.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iTimer.h>
 
 #include <iaConsole.h>
@@ -40,12 +40,13 @@ namespace Igor
 
         _mutex.unlock();
 
-        float64 endTime = iTimer::getInstance().getApplicationTime() + 10;
+		// stop after 5ms
+        float64 endTime = iTimer::getInstance().getApplicationTime() + 5;
 
         auto iterP = _processingQueue.begin();
         while (iterP != _processingQueue.end())
         {
-            iNodePtr node = iNodeFactory::getInstance().getNode((*iterP));
+            iNodePtr node = iNodeManager::getInstance().getNode((*iterP));
             if (node != nullptr)
             {
                 if (node->onUpdateData())

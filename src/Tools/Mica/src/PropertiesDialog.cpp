@@ -6,7 +6,7 @@
 #include <iNodeTransform.h>
 #include <iNodeLight.h>
 #include <iNodeSwitch.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 
 #include <iWidgetScroll.h>
 #include <iWidgetGrid.h>

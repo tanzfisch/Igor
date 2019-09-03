@@ -19,7 +19,7 @@
 #include <iApplication.h>
 #include <iSceneFactory.h>
 #include <iScene.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iMouse.h>
 #include <iTimer.h>
 #include <iTextureFont.h>
@@ -132,10 +132,10 @@ void Ascent::initScene()
     _view.setScene(_scene);
 
     // light
-    _lightTranslate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _lightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
     _lightTranslate->translate(100, 100, 100);
-    _lightRotate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _lightNode = static_cast<iNodeLight*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLight));
+    _lightRotate = iNodeManager::getInstance().createNode<iNodeTransform>();
+    _lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
     _lightNode->setAmbient(iaColor4f(0.7f, 0.7f, 0.7f, 1.0f));
     _lightNode->setDiffuse(iaColor4f(1.0f, 0.9f, 0.8f, 1.0f));
     _lightNode->setSpecular(iaColor4f(1.0f, 0.9f, 0.87f, 1.0f));
@@ -145,7 +145,7 @@ void Ascent::initScene()
     _scene->getRoot()->insertNode(_lightRotate);
 
     // reate a sky box and add it to scene
-    iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
+    iNodeSkyBox* skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
     skyBoxNode->setTextures(
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/front.jpg"),
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/back.jpg"),
@@ -718,7 +718,7 @@ void Ascent::onKeyPressed(iKeyCode key)
 
 bool Ascent::getTerrainIntersectionPoint(iaVector3I& intersection)
 {
-    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().getNode(_view.getCurrentCamera()));
+    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeManager::getInstance().getNode(_view.getCurrentCamera()));
     if (camera != nullptr)
     {
         iaMatrixd modelMatrix;

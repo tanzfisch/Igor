@@ -56,7 +56,7 @@ namespace Igor
 	{
 		
 		friend class iNodeVisitorUpdateTransform;
-        friend class iNodeFactory;
+        friend class iNodeManager;
         friend class iPhysicsManager;
         friend class iPhysicsManagerTask;
 
@@ -295,7 +295,7 @@ namespace Igor
 
         \returns true update changed anything
         */
-        virtual bool onUpdateData();
+        virtual bool onUpdateData() override;
 
         /*! does nothing
         */

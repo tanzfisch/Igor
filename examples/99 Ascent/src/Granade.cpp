@@ -1,6 +1,6 @@
 #include "Granade.h"
 
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iNodeTransform.h>
 #include <iNodePhysics.h>
 #include <iNodeModel.h>
@@ -39,15 +39,15 @@ Granade::Granade(iScene* scene, const iaMatrixd& matrix, Fraction fraction)
     setDamage(100.0);
     setShieldDamage(0.0);
 
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
     transformNode->setMatrix(startMatrix);
     _transformNodeID = transformNode->getID();
 
-    iNodeModel* bulletModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+    iNodeModel* bulletModel = iNodeManager::getInstance().createNode<iNodeModel>();
     bulletModel->setModel("cube.ompf");
 
     iaMatrixd offset;
-    iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
+    iNodePhysics* physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();
     physicsNode->addSphere(1, offset);
     physicsNode->finalizeCollision();
     physicsNode->setMass(0.1);
@@ -62,7 +62,7 @@ Granade::Granade(iScene* scene, const iaMatrixd& matrix, Fraction fraction)
 
 Granade::~Granade()
 {
-    iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
+    iNodeManager::getInstance().destroyNodeAsync(_transformNodeID);
 }
 
 void Granade::hitBy(uint64 entityID)
@@ -73,7 +73,7 @@ void Granade::hitBy(uint64 entityID)
 iaVector3d Granade::getCurrentPos()
 {
     iaVector3d result;
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformNodeID));
     if (transformNode != nullptr)
     {
         iaMatrixd matrix;

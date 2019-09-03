@@ -24,7 +24,7 @@ using namespace IgorAux;
 #include <iApplication.h>
 #include <iSceneFactory.h>
 #include <iScene.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iTimer.h>
 #include <iTextureFont.h>
 #include <iNodeLight.h>
@@ -54,8 +54,12 @@ using namespace Igor;
 #include "UserControlMaterialView.h"
 #include "UserControlGraphView.h"
 
+/*! window title definition
+*/
 static const wchar_t* WINDOW_TITLE_PREFIX = L"Mica";
 
+/*! default file open folder definition
+*/
 static const wchar_t* DEFAULT_LOAD_SAVE_DIR = L"..\\data\\models";
 
 Mica::~Mica()
@@ -116,7 +120,7 @@ void Mica::init(iaString fileName)
 	_scene->setName("Model Scene");
 	_view.setScene(_scene);
 
-	_workspace = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
+	_workspace = iNodeManager::getInstance().createNode<iNode>();
 	_workspace->setName("MicaRoot");
 	_scene->getRoot()->insertNode(_workspace);
 
@@ -136,15 +140,15 @@ void Mica::init(iaString fileName)
 	_manipulator = new Manipulator(&_window, &_viewWidget3D, _sceneWidget3D);
 
 	// cam
-	_cameraCOI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	_cameraCOI = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_cameraCOI->setName("camera COI");
-	_cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	_cameraHeading = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_cameraHeading->setName("camera heading");
-	_cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	_cameraPitch = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_cameraPitch->setName("camera pitch");
-	_cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	_cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_cameraTranslation->setName("camera translation");
-	_camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
+	_camera = iNodeManager::getInstance().createNode<iNodeCamera>();
 	_camera->setName("camera");
 
 	_scene->getRoot()->insertNode(_cameraCOI);
@@ -183,7 +187,7 @@ void Mica::init(iaString fileName)
 	skyBoxMaterial->setName("SkyBox");
 
 	// default sky box
-	_defaultSkyBox = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
+	_defaultSkyBox = iNodeManager::getInstance().createNode<iNodeSkyBox>();
 	_defaultSkyBox->setTextures(
 		iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
 		iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
@@ -198,14 +202,14 @@ void Mica::init(iaString fileName)
 	_font = new iTextureFont("StandardFont.png");
 
 	// light
-	_directionalLightRotate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	_directionalLightRotate = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_directionalLightRotate->setName("directional light rotate");
 
-	_directionalLightTranslate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	_directionalLightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_directionalLightTranslate->setName("directional light translate");
 	_directionalLightTranslate->translate(10000, 10000, 0);
 
-	_lightNode = static_cast<iNodeLight*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLight));
+	_lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
 	_lightNode->setName("directional light");
 	_lightNode->setAmbient(iaColor4f(0.5f, 0.5f, 0.5f, 1.0f));
 	_lightNode->setDiffuse(iaColor4f(0.9f, 0.9f, 0.9f, 1.0f));
@@ -217,7 +221,7 @@ void Mica::init(iaString fileName)
 
 	if (!fileName.isEmpty())
 	{
-		iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+		iNodeModel* model = iNodeManager::getInstance().createNode<iNodeModel>();
 		iModelDataInputParameter* parameter = createDataInputParameter();
 
 		model->setModel(fileName, iResourceCacheMode::Free, parameter);
@@ -291,14 +295,14 @@ void Mica::deinit()
 
 void Mica::onAddTransformation(uint64 atNodeID)
 {
-	iNodePtr destination = iNodeFactory::getInstance().getNode(atNodeID);
+	iNodePtr destination = iNodeManager::getInstance().getNode(atNodeID);
 
 	if (destination == nullptr)
 	{
 		destination = _workspace;
 	}
 
-	iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* transform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	transform->setName("Transformation");
 	destination->insertNode(transform);
 	_outliner->refreshView();
@@ -307,14 +311,14 @@ void Mica::onAddTransformation(uint64 atNodeID)
 
 void Mica::onAddGroup(uint64 atNodeID)
 {
-	iNodePtr destination = iNodeFactory::getInstance().getNode(atNodeID);
+	iNodePtr destination = iNodeManager::getInstance().getNode(atNodeID);
 
 	if (destination == nullptr)
 	{
 		destination = _workspace;
 	}
 
-	iNodePtr group = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
+	iNodePtr group = iNodeManager::getInstance().createNode<iNode>();
 	group->setName("Group");
 	destination->insertNode(group);
 	_outliner->refreshView();
@@ -323,14 +327,14 @@ void Mica::onAddGroup(uint64 atNodeID)
 
 void Mica::onAddEmitter(uint64 atNodeID)
 {
-	iNodePtr destination = iNodeFactory::getInstance().getNode(atNodeID);
+	iNodePtr destination = iNodeManager::getInstance().getNode(atNodeID);
 
 	if (destination == nullptr)
 	{
 		destination = _workspace;
 	}
 
-	iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+	iNodeEmitter* emitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
 	emitter->setName("Emitter");
 	destination->insertNode(emitter);
 	_outliner->refreshView();
@@ -339,14 +343,14 @@ void Mica::onAddEmitter(uint64 atNodeID)
 
 void Mica::onAddParticleSystem(uint64 atNodeID)
 {
-	iNodePtr destination = iNodeFactory::getInstance().getNode(atNodeID);
+	iNodePtr destination = iNodeManager::getInstance().getNode(atNodeID);
 
 	if (destination == nullptr)
 	{
 		destination = _workspace;
 	}
 
-	iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
+	iNodeParticleSystem* particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
 	particleSystem->setName("ParticleSystem");
 	destination->insertNode(particleSystem);
 	_outliner->refreshView();
@@ -361,14 +365,14 @@ void Mica::onAddMaterial()
 
 void Mica::onAddSwitch(uint64 atNodeID)
 {
-	iNodePtr destination = iNodeFactory::getInstance().getNode(atNodeID);
+	iNodePtr destination = iNodeManager::getInstance().getNode(atNodeID);
 
 	if (destination == nullptr)
 	{
 		destination = _workspace;
 	}
 
-	iNodeSwitch* switchNode = static_cast<iNodeSwitch*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSwitch));
+	iNodeSwitch* switchNode = iNodeManager::getInstance().createNode<iNodeSwitch>();
 	switchNode->setName("Switch");
 	destination->insertNode(switchNode);
 	_outliner->refreshView();
@@ -474,7 +478,7 @@ void Mica::onImportFileDialogClosed(iFileDialogReturnValue fileDialogReturnValue
 	{
 		iaString filename = _fileDialog->getFullPath();
 
-		iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+		iNodeModel* model = iNodeManager::getInstance().createNode<iNodeModel>();
 		iModelDataInputParameter* parameter = createDataInputParameter();
 		model->setModel(filename, iResourceCacheMode::Free, parameter);
 
@@ -487,12 +491,12 @@ void Mica::onImportFileDialogClosed(iFileDialogReturnValue fileDialogReturnValue
 			auto children = model->getChildren();
 			if (children.size() > 1)
 			{
-				groupNode = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
+				groupNode = iNodeManager::getInstance().createNode<iNode>();
 				iaString groupName = "group:";
 				groupName += filename;
 				groupNode->setName(groupName);
 
-				iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
+				iNodePtr cursorNode = iNodeManager::getInstance().getNode(_selectedNodeID);
 				if (cursorNode != nullptr)
 				{
 					cursorNode->insertNode(groupNode);
@@ -506,7 +510,7 @@ void Mica::onImportFileDialogClosed(iFileDialogReturnValue fileDialogReturnValue
 			}
 			else
 			{
-				iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
+				iNodePtr cursorNode = iNodeManager::getInstance().getNode(_selectedNodeID);
 				if (cursorNode != nullptr)
 				{
 					groupNode = cursorNode;
@@ -531,7 +535,7 @@ void Mica::onImportFileDialogClosed(iFileDialogReturnValue fileDialogReturnValue
 			}
 		}
 
-		iNodeFactory::getInstance().destroyNodeAsync(model);
+		iNodeManager::getInstance().destroyNodeAsync(model);
 	}
 
 	_outliner->setActive();
@@ -553,7 +557,7 @@ void Mica::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileDialogRe
 	{
 		iaString filename = _fileDialog->getFullPath();
 
-		iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+		iNodeModel* model = iNodeManager::getInstance().createNode<iNodeModel>();
 		iModelDataInputParameter* parameter = createDataInputParameter();
 
 		model->setModel(filename, iResourceCacheMode::Free, parameter);
@@ -561,7 +565,7 @@ void Mica::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileDialogRe
 
 		if (model->isValid())
 		{
-			iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
+			iNodePtr cursorNode = iNodeManager::getInstance().getNode(_selectedNodeID);
 			if (cursorNode != nullptr)
 			{
 				cursorNode->insertNode(model);
@@ -601,12 +605,12 @@ void Mica::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
 			while (childIter != children.end())
 			{
 				_workspace->removeNode((*childIter));
-				iNodeFactory::getInstance().destroyNodeAsync((*childIter));
+				iNodeManager::getInstance().destroyNodeAsync((*childIter));
 				childIter++;
 			}
 		}
 
-		iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+		iNodeModel* model = iNodeManager::getInstance().createNode<iNodeModel>();
 		iModelDataInputParameter* parameter = createDataInputParameter();
 
 		model->setModel(filename, iResourceCacheMode::Free, parameter);
@@ -619,7 +623,7 @@ void Mica::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
 			auto children = model->getChildren();
 			if (children.size() > 1)
 			{
-				insertAt = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
+				insertAt = iNodeManager::getInstance().createNode<iNode>();
 				iaString groupName = "group:";
 				groupName += filename;
 				insertAt->setName(groupName);
@@ -642,7 +646,7 @@ void Mica::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
 			}
 		}
 
-		iNodeFactory::getInstance().destroyNodeAsync(model);
+		iNodeManager::getInstance().destroyNodeAsync(model);
 	}
 
 	_outliner->setActive();
@@ -699,7 +703,7 @@ void Mica::onGraphViewSelectionChanged(uint64 nodeID)
 		_widget3D = nullptr;
 	}
 
-	iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
+	iNode* node = iNodeManager::getInstance().getNode(_selectedNodeID);
 	if (node)
 	{
 		switch (node->getType())
@@ -718,7 +722,7 @@ void Mica::onGraphViewSelectionChanged(uint64 nodeID)
 
 void Mica::setManipulatorMode(ManipulatorMode manipulatorMode)
 {
-	iNodePtr node = iNodeFactory::getInstance().getNode(_selectedNodeID);
+	iNodePtr node = iNodeManager::getInstance().getNode(_selectedNodeID);
 
 	if (node != nullptr &&
 		node->getKind() == iNodeKind::Transformation)
@@ -796,7 +800,7 @@ iNodePtr Mica::getNodeAt(int32 x, int32 y)
 	_defaultSkyBox->setVisible(false);
 
 	uint64 nodeID = _view.pickcolorID(x,y);
-	iNodePtr node = iNodeFactory::getInstance().getNode(nodeID);
+	iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
 
 	_defaultSkyBox->setVisible(wasVisible);
 
@@ -1009,7 +1013,7 @@ void Mica::clearWorkspace()
 	for (auto child : copyChildren)
 	{
 		_workspace->removeNode(child);
-		iNodeFactory::getInstance().destroyNodeAsync(child);
+		iNodeManager::getInstance().destroyNodeAsync(child);
 	}
 
 	iModelResourceFactory::getInstance().flush(&_window);
@@ -1018,7 +1022,7 @@ void Mica::clearWorkspace()
 
 void Mica::frameOnSelectedNode()
 {
-	iNodePtr node = iNodeFactory::getInstance().getNode(_selectedNodeID);
+	iNodePtr node = iNodeManager::getInstance().getNode(_selectedNodeID);
 	frameOnNode(node);
 }
 
@@ -1034,7 +1038,7 @@ void Mica::renderNodeSelected(uint64 nodeID)
 		return;
 	}
 
-	iNodePtr node = iNodeFactory::getInstance().getNode(nodeID);
+	iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
 	if (node == nullptr)
 	{
 		return;

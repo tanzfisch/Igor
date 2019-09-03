@@ -44,7 +44,7 @@ namespace Igor
 	class Igor_API iNodeEmitter : public iNode
 	{
 
-        friend class iNodeFactory;
+        friend class iNodeManager;
         friend class iNodeParticleSystem;
 
 	public:

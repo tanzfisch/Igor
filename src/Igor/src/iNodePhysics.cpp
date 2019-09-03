@@ -434,14 +434,15 @@ namespace Igor
             }
             else
             {
-                // physics is not ready yet
+                // physics is not ready yet. try again
                 return false;
             }
         }
         else
         {
-            con_warn("need a transform node as ancester");
-            return false;
+			// error do not try again
+            con_err("need a transform node as ancester");			
+            return true;
         }
 
         setTransformationDirty();

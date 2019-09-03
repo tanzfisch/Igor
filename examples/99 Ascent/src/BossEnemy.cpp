@@ -1,6 +1,6 @@
 #include "BossEnemy.h"
 
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iNodeTransform.h>
 #include <iNodePhysics.h>
 #include <iNodeModel.h>
@@ -32,20 +32,20 @@ BossEnemy::BossEnemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMatrixd
     setHealth(500.0);
     setShield(200.0);
 
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
     transformNode->setMatrix(matrix);
     _transformNodeID = transformNode->getID();
 
-    iNodeTransform* bodyTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* bodyTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     bodyTransform->translate(0, 0, 0);
-    iNodeTransform* bodyScale = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* bodyScale = iNodeManager::getInstance().createNode<iNodeTransform>();
     bodyScale->scale(3, 3, 3);
 
-    iNodeModel* bodyModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+    iNodeModel* bodyModel = iNodeManager::getInstance().createNode<iNodeModel>();
     bodyModel->setModel("crate.ompf");
 
     iaMatrixd offset;
-    iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
+    iNodePhysics* physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();
     _physicsNodeID = physicsNode->getID();
     physicsNode->addBox(3.0, 3.0, 3.0, offset);
     physicsNode->finalizeCollision();
@@ -59,41 +59,41 @@ BossEnemy::BossEnemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMatrixd
     bodyTransform->insertNode(bodyScale);
     bodyScale->insertNode(bodyModel);
 
-    iNodeTransform* turretATransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* turretATransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     turretATransform->translate(0, 1.5, 0);
     transformNode->insertNode(turretATransform);
     Turret* turretA = new Turret(_scene, turretATransform, _voxelTerrain, getFraction(), _playerID);
     _turretAID = turretA->getID();
 
-	iNodeTransform* turretBTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* turretBTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	turretBTransform->rotate(M_PI * 0.5, iaAxis::Z);
 	turretBTransform->translate(0, 1.5, 0);
 	transformNode->insertNode(turretBTransform);
 	Turret* turretB = new Turret(_scene, turretBTransform, _voxelTerrain, getFraction(), _playerID);
 	_turretBID = turretB->getID();
 
-	iNodeTransform* turretCTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* turretCTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	turretCTransform->rotate(M_PI * -0.5, iaAxis::Z);
 	turretCTransform->translate(0, 1.5, 0);
 	transformNode->insertNode(turretCTransform);
 	Turret* turretC = new Turret(_scene, turretCTransform, _voxelTerrain, getFraction(), _playerID);
 	_turretCID = turretC->getID();
 
-	iNodeTransform* turretDTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* turretDTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	turretDTransform->rotate(M_PI * 1.0, iaAxis::Z);
 	turretDTransform->translate(0, 1.5, 0);
 	transformNode->insertNode(turretDTransform);
 	Turret* turretD = new Turret(_scene, turretDTransform, _voxelTerrain, getFraction(), _playerID);
 	_turretDID = turretD->getID();
 
-	iNodeTransform* turretETransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* turretETransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	turretETransform->rotate(M_PI * 0.5, iaAxis::X);
 	turretETransform->translate(0, 1.5, 0);
 	transformNode->insertNode(turretETransform);
 	Turret* turretE = new Turret(_scene, turretETransform, _voxelTerrain, getFraction(), _playerID);
 	_turretEID = turretE->getID();
 
-	iNodeTransform* turretFTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* turretFTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	turretFTransform->rotate(M_PI * -0.5, iaAxis::X);
 	turretFTransform->translate(0, 1.5, 0);
 	transformNode->insertNode(turretFTransform);
@@ -103,7 +103,7 @@ BossEnemy::BossEnemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMatrixd
 
 BossEnemy::~BossEnemy()
 {
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformNodeID));
     if (transformNode != nullptr)
     {
         iaMatrixd matrix;
@@ -147,7 +147,7 @@ BossEnemy::~BossEnemy()
         turretF->kill(); 
     }
 
-    iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
+    iNodeManager::getInstance().destroyNodeAsync(_transformNodeID);
 }
 
 void BossEnemy::hitBy(uint64 entityID)
@@ -185,7 +185,7 @@ void BossEnemy::hitBy(uint64 entityID)
 iaVector3d BossEnemy::getCurrentPos()
 {
     iaVector3d result;
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformNodeID));
     if (transformNode != nullptr)
     {
         iaMatrixd matrix;

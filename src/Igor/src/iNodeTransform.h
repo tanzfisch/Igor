@@ -40,7 +40,7 @@ namespace Igor
 	class Igor_API iNodeTransform : public iNode
 	{
 
-		friend class iNodeFactory;
+		friend class iNodeManager;
 		friend class iNodeVisitorUpdateTransform;
 
     public:

@@ -168,6 +168,7 @@
       <AdditionalIncludeDirectories>..\..\..\..\src\Igor\src;..\..\..\..\src\IgorAux\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>/we4150 %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

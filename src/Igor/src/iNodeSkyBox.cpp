@@ -9,7 +9,7 @@
 #include <iMaterial.h>
 #include <iScene.h>
 #include <iNodeCamera.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iMaterialResourceFactory.h>
 
 namespace Igor

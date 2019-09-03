@@ -2,7 +2,7 @@
 
 #include <iVoxelData.h>
 #include <iContouringCubes.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iNodeMesh.h>
 #include <iNodeLODSwitch.h>
 #include <iModel.h>
@@ -47,7 +47,7 @@ namespace Igor
         int64 height = voxelData->getHeight();
         int64 depth = voxelData->getDepth();
 
-        iNodePtr result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
+        iNodePtr result = iNodeManager::getInstance().createNode<iNode>();
         result->setName("group");
 
         iContouringCubes contouringCubes;
@@ -59,7 +59,7 @@ namespace Igor
 
         if (mesh.get() != nullptr)
         {
-            iNodeMesh* meshNode = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+            iNodeMesh* meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
             meshNode->setMesh(mesh);
             meshNode->setMaterial(tileInformation->_materialID);
             meshNode->setName("mesh");
@@ -114,7 +114,7 @@ namespace Igor
 #ifndef DEBUG_VOXEL_TERRAIN_NO_PHYSICS
             if (tileInformation->_lod == 0)
             {
-                iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
+                iNodePhysics* physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();
                 iaMatrixd offset;
                 physicsNode->addMesh(mesh, 1, offset);
                 physicsNode->finalizeCollision(true);

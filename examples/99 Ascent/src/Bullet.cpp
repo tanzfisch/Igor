@@ -1,6 +1,6 @@
 #include "Bullet.h"
 
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iNodeTransform.h>
 #include <iNodePhysics.h>
 #include <iNodeModel.h>
@@ -37,7 +37,7 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 	setDamage(50.0);
 	setShieldDamage(20.0);
 
-	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
 	transformNode->setMatrix(matrix);
 	_transformNodeID = transformNode->getID();
 
@@ -58,7 +58,7 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 	iaGradientf emission;
 	emission.setValue(0.0, 2);
 
-	iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
+	iNodeParticleSystem* particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
 	_particleSystemNodeID = particleSystem->getID();
 	particleSystem->setLoop(true);
 	particleSystem->setMaterial(iMaterialResourceFactory::getInstance().getMaterialID("PMat"));
@@ -72,16 +72,16 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 	particleSystem->setAirDrag(0.0);
 	particleSystem->start();
 
-	iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+	iNodeEmitter* emitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
 	emitter->setEmitterType(iEmitterType::Disc);
 	emitter->setSize(0.0);
 	particleSystem->setEmitter(emitter->getID());
 
-	iNodeTransform* emitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* emitterTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	emitterTransform->rotate(-0.5 * M_PI, iaAxis::X);
 
 	iaMatrixd offset;
-	iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
+	iNodePhysics* physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();
 	physicsNode->addSphere(0.1, offset);
 	physicsNode->finalizeCollision();
 	physicsNode->setMass(0.001);
@@ -99,8 +99,8 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 
 Bullet::~Bullet()
 {
-	iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
-	iNodeFactory::getInstance().destroyNodeAsync(_particleSystemNodeID);
+	iNodeManager::getInstance().destroyNodeAsync(_transformNodeID);
+	iNodeManager::getInstance().destroyNodeAsync(_particleSystemNodeID);
 }
 
 void Bullet::hitBy(uint64 entityID)
@@ -121,7 +121,7 @@ void Bullet::hitBy(uint64 entityID)
 
 	if (killit)
 	{
-		iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+		iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformNodeID));
 		if (transformNode != nullptr)
 		{
 			iaMatrixd matrix;
@@ -136,7 +136,7 @@ void Bullet::hitBy(uint64 entityID)
 iaVector3d Bullet::getCurrentPos()
 {
 	iaVector3d result;
-	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformNodeID));
 	if (transformNode != nullptr)
 	{
 		iaMatrixd matrix;

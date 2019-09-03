@@ -42,10 +42,6 @@ iaColor4f STANDBY(0, 0, 1, 0.5f);
             drawRectangle(rect, MOUSEDOUBLECLICKED); \
             break; \
  \
-        case iWidgetAppearanceState::Context: \
-            drawRectangle(rect, MOUSECONTEXT); \
-            break; \
- \
         case iWidgetAppearanceState::Standby: \
             drawRectangle(rect, STANDBY); \
             break; \

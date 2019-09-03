@@ -3,7 +3,7 @@
 // see copyright notice in corresponding header file
 
 
-iNodePtr iNodeFactory::getNode(uint64 id) const
+__IGOR_INLINE__ iNodePtr iNodeManager::getNode(uint64 id) const
 {
     iNodePtr result = nullptr;
 
@@ -18,7 +18,7 @@ iNodePtr iNodeFactory::getNode(uint64 id) const
     return result;
 }
 
-bool iNodeFactory::isNode(uint64 id) const
+__IGOR_INLINE__ bool iNodeManager::isNode(uint64 id) const
 {
     bool result = false;;
 
@@ -31,4 +31,16 @@ bool iNodeFactory::isNode(uint64 id) const
     _mutexNodes.unlock();
 
     return result;
+}
+
+template<class T>
+T* iNodeManager::createNode()
+{
+	T* result = new T();
+
+	_mutexNodes.lock();
+	_nodes[static_cast<iNodePtr>(result)->getID()] = static_cast<iNodePtr>(result);
+	_mutexNodes.unlock();
+
+	return result;
 }

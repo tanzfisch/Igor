@@ -13,7 +13,7 @@
 #include <iWidgetNumberChooser.h>
 #include <iNodeMesh.h>
 #include <iMesh.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iTargetMaterial.h>
 using namespace Igor;
 
@@ -33,7 +33,7 @@ void UserControlModel::updateNode()
 
 void UserControlModel::updateGUI()
 {
-    iNodeModel* node = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(_nodeId));
+    iNodeModel* node = static_cast<iNodeModel*>(iNodeManager::getInstance().getNode(_nodeId));
 
     if (node != nullptr)
     {

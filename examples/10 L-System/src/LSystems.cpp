@@ -14,7 +14,7 @@
 #include <iApplication.h>
 #include <iSceneFactory.h>
 #include <iScene.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iMouse.h>
 #include <iKeyboard.h>
 #include <iTimer.h>
@@ -82,26 +82,26 @@ void LSystems::init()
 	// we want a camera which can be rotated arround the origin
 	// we will acchive that with 3 transform nodes
 	// one is for the heading
-	iNodeTransform* cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* cameraHeading = iNodeManager::getInstance().createNode<iNodeTransform>();
 	// give the transform node a name. naming is optional and ist jus for helping to debug. 
 	// Names do not have to be unique but since it is possible to find nodes by name they better are
 	cameraHeading->setName("camera heading");
 	cameraHeading->rotate(M_PI * 4.0, iaAxis::Y);
 	_cameraHeading = cameraHeading->getID();
 	// one is for the pitch
-	iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* cameraPitch = iNodeManager::getInstance().createNode<iNodeTransform>();
 	cameraPitch->setName("camera pitch");
 	cameraPitch->rotate(0.25, iaAxis::X);
 	_cameraPitch = cameraPitch->getID();
 	// and one is for translation or distance from the origin
-	iNodeTransform* cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
 	cameraTranslation->setName("camera translation");
 	// translate away from origin
 	cameraTranslation->translate(0, 0, 50);
 	_cameraTranslation = cameraTranslation->getID();
 	// from all nodes that we want to control later we save the node ID
 	// and last but not least we create a camera node
-	iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
+	iNodeCamera* camera = iNodeManager::getInstance().createNode<iNodeCamera>();
 	camera->setName("camera");
 	// and build everything together
 	// first we add the heading to the root node
@@ -118,10 +118,10 @@ void LSystems::init()
 
 	// create a directional light
 	// transform node
-	iNodeTransform* lightTranslate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* lightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
 	lightTranslate->translate(100, 100, 100);
 	// and light node
-	iNodeLight* lightNode = static_cast<iNodeLight*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLight));
+	iNodeLight* lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
 	lightNode->setAmbient(iaColor4f(0.6f, 0.6f, 0.6f, 1.0f));
 	lightNode->setDiffuse(iaColor4f(0.9f, 0.7f, 0.6f, 1.0f));
 	lightNode->setSpecular(iaColor4f(1.0f, 0.9f, 0.87f, 1.0f));
@@ -312,16 +312,16 @@ uint64 LSystems::generatePlant(const iaMatrixd& matrix, const iaString& axiom, u
 	inputParam->_loadPriority = 0;
 	inputParam->_parameters.setData(reinterpret_cast<const char*>(&plantInformation), sizeof(PlantInformation));
 
-	iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+	iNodeModel* modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
 	modelNode->setModel(iaString("plant_") + iaString::toString(iterations) + iaString("_") + iaString::toString(_incarnation++), iResourceCacheMode::Free, inputParam);
 
-	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
 	transformNode->setMatrix(matrix);
 
 	// and add to scene
 	transformNode->insertNode(modelNode);
 
-	iNodePtr groupNode = static_cast<iNodePtr>(iNodeFactory::getInstance().getNode(_groupNodeID));
+	iNodePtr groupNode = static_cast<iNodePtr>(iNodeManager::getInstance().getNode(_groupNodeID));
 	groupNode->insertNode(transformNode);
 
 	return modelNode->getID();
@@ -332,7 +332,7 @@ bool LSystems::checkIfDone()
 	bool result = true;
 	for (auto id : _plantsInProgress)
 	{
-		iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(id));
+		iNodeModel* model = static_cast<iNodeModel*>(iNodeManager::getInstance().getNode(id));
 		if (!model->isValid())
 		{
 			result = false;
@@ -351,7 +351,7 @@ void LSystems::generateLSystems()
 
 	if (_groupNodeID != iNode::INVALID_NODE_ID)
 	{
-		iNodeFactory::getInstance().destroyNodeAsync(_groupNodeID);
+		iNodeManager::getInstance().destroyNodeAsync(_groupNodeID);
 		_groupNodeID = iNode::INVALID_NODE_ID;
 	}
 
@@ -379,7 +379,7 @@ void LSystems::generateLSystems()
 	// using the same seed for all instances of plants so we see the different stages of growth of the same plant
 	uint64 seed = static_cast<uint64>(iTimer::getInstance().getApplicationTime());
 
-	iNodePtr groupNode = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
+	iNodePtr groupNode = iNodeManager::getInstance().createNode<iNode>();
 	_groupNodeID = groupNode->getID();
 	_scene->getRoot()->insertNode(groupNode);
 
@@ -395,7 +395,7 @@ void LSystems::generateLSystems()
 
 void LSystems::onMouseWheel(int32 d)
 {
-	iNodeTransform* camTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_cameraTranslation));
+	iNodeTransform* camTranslation = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_cameraTranslation));
 	if (camTranslation != nullptr)
 	{
 		if (d < 0)
@@ -413,8 +413,8 @@ void LSystems::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindo
 {
 	if (iMouse::getInstance().getLeftButton())
 	{
-		iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_cameraPitch));
-		iNodeTransform* cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_cameraHeading));
+		iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_cameraPitch));
+		iNodeTransform* cameraHeading = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_cameraHeading));
 
 		if (cameraPitch != nullptr &&
 			cameraHeading != nullptr)

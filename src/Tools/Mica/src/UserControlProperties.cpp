@@ -6,7 +6,7 @@
 #include <iNodeTransform.h>
 #include <iNodeLight.h>
 #include <iNodeMesh.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 
 #include <iWidgetScroll.h>
 #include <iWidgetGrid.h>
@@ -76,7 +76,7 @@ void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
 	switch (_propertyType)
 	{
 	case PropertyType::Node:
-		node = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(static_cast<uint32>(_propertyID)));
+		node = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(static_cast<uint32>(_propertyID)));
 		if (node != nullptr)
 		{
 			switch (_currentNodeType)
@@ -136,7 +136,7 @@ void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
 	switch (_propertyType)
 	{
 	case PropertyType::Node:
-		node = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_propertyID));
+		node = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_propertyID));
 		if (node != nullptr)
 		{
 			_currentNodeType = node->getType();

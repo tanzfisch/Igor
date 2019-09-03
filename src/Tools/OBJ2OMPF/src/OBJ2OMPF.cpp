@@ -5,7 +5,7 @@
 #include <iModelResourceFactory.h>
 #include <iSceneFactory.h>
 #include <iScene.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iMaterialResourceFactory.h>
 #include <iShader.h>
 #include <iNodeMesh.h>
@@ -95,7 +95,7 @@ void OBJ2OMPF::convert(int argc, char* argv[])
         parameters->_needsRenderContext = false;
         parameters->_keepMesh = true;
 
-        iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+        iNodeModel* modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
         modelNode->setModel(_src, iResourceCacheMode::Keep, parameters);
 
         iScene* scene = iSceneFactory::getInstance().createScene();

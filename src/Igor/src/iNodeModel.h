@@ -53,7 +53,7 @@ namespace Igor
 	class Igor_API iNodeModel : public iNode
 	{
 
-		friend class iNodeFactory;
+		friend class iNodeManager;
         friend class iNodeVisitorUpdateTransform;
 
     public:
@@ -138,7 +138,7 @@ namespace Igor
 
         \returns true if model data was present
         */
-        bool onUpdateData();
+        bool onUpdateData() override;
 
         /*! checks if mesh buffers are generated and read for rendering
 

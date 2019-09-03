@@ -6,7 +6,7 @@
 
 #include <iRenderer.h>
 #include <iTextureResourceFactory.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iNodeEmitter.h>
 #include <iApplication.h>
 
@@ -95,7 +95,7 @@ namespace Igor
 
 	void iNodeParticleSystem::handle()
 	{
-		iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().getNode(_emitterID));
+		iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeManager::getInstance().getNode(_emitterID));
 		if (emitter != nullptr)
 		{
 			_particleSystem.calcNextFrame(emitter->getParticleEmitter());

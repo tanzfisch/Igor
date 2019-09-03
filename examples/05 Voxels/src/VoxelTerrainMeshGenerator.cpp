@@ -6,17 +6,10 @@
 
 #include <iVoxelData.h>
 #include <iContouringCubes.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iNodeMesh.h>
-#include <iNodeLODSwitch.h>
-#include <iModel.h>
-#include <iaMemBlock.h>
-#include <iMeshBuilder.h>
-#include <iMaterialResourceFactory.h>
 #include <iTextureResourceFactory.h>
 #include <iTargetMaterial.h>
-#include <iNodeTransform.h>
-#include <iNodePhysics.h>
 using namespace Igor;
 
 VoxelTerrainMeshGenerator::VoxelTerrainMeshGenerator()
@@ -39,7 +32,7 @@ iNodePtr VoxelTerrainMeshGenerator::importData(const iaString& sectionName, iMod
     int64 depth = voxelData->getDepth() - 1;
     int64 height = voxelData->getHeight() - 1;
     
-    iNodePtr result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
+    iNodePtr result = iNodeManager::getInstance().createNode<iNode>();
 
     iContouringCubes contouringCubes;
     contouringCubes.setVoxelData(voxelData);
@@ -47,8 +40,8 @@ iNodePtr VoxelTerrainMeshGenerator::importData(const iaString& sectionName, iMod
 
     if (mesh.get() != nullptr)
     {
-        iNodeMesh* meshNode = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
-		meshNode->setKeepMesh(parameter->_keepMesh);
+        iNodeMesh* meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
+/*		meshNode->setKeepMesh(parameter->_keepMesh);
         meshNode->setMesh(mesh);
         meshNode->setMaterial(tileInformation->_materialID);
 
@@ -62,7 +55,7 @@ iNodePtr VoxelTerrainMeshGenerator::importData(const iaString& sectionName, iMod
         targetMaterial->setEmissive(iaColor3f(0.01f, 0.01f, 0.01f));
         targetMaterial->setShininess(100.0f);
 
-        result->insertNode(meshNode);
+        result->insertNode(meshNode);*/
     }
 
     return result;

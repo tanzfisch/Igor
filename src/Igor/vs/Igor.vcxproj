@@ -115,6 +115,7 @@
       <PreprocessorDefinitions>_NEWTON_USE_DOUBLE;_DEBUG;WIN32;_WINDOWS;_USRDLL;__IGOR_BUILDING_DLL__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\newton-dynamics\coreLibrary_300\source;$(MSBuildProgramFiles32)\Visual Leak Detector\include;..\..\..\3rd\TinyXML;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251; 4150;</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -183,6 +184,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
       <PreprocessorDefinitions>_NEWTON_USE_DOUBLE;NDEBUG;WIN32;_WINDOWS;_USRDLL;__IGOR_BUILDING_DLL__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\newton-dynamics\coreLibrary_300\source;$(MSBuildProgramFiles32)\Visual Leak Detector\include;..\..\..\3rd\TinyXML;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251; 4150;</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -277,10 +279,10 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\src\iNode.cpp" />
     <ClCompile Include="..\src\iNodeCamera.cpp" />
     <ClCompile Include="..\src\iNodeEmitter.cpp" />
-    <ClCompile Include="..\src\iNodeFactory.cpp" />
     <ClCompile Include="..\src\iNodeLight.cpp" />
     <ClCompile Include="..\src\iNodeLODSwitch.cpp" />
     <ClCompile Include="..\src\iNodeLODTrigger.cpp" />
+    <ClCompile Include="..\src\iNodeManager.cpp" />
     <ClCompile Include="..\src\iNodeMesh.cpp" />
     <ClCompile Include="..\src\iNodeModel.cpp" />
     <ClCompile Include="..\src\iNodeParticleSystem.cpp" />
@@ -454,10 +456,10 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iNode.h" />
     <ClInclude Include="..\src\iNodeCamera.h" />
     <ClInclude Include="..\src\iNodeEmitter.h" />
-    <ClInclude Include="..\src\iNodeFactory.h" />
     <ClInclude Include="..\src\iNodeLight.h" />
     <ClInclude Include="..\src\iNodeLODSwitch.h" />
     <ClInclude Include="..\src\iNodeLODTrigger.h" />
+    <ClInclude Include="..\src\iNodeManager.h" />
     <ClInclude Include="..\src\iNodeMesh.h" />
     <ClInclude Include="..\src\iNodeModel.h" />
     <ClInclude Include="..\src\iNodeParticleSystem.h" />
@@ -607,7 +609,7 @@ git describe --abbrev=0 --tags &gt;&gt; ..\src\gitTag.inl</Command>
     <None Include="..\src\iIntersection.inl" />
     <None Include="..\src\iMesh.inl" />
     <None Include="..\src\iMeshBuffers.inl" />
-    <None Include="..\src\iNodeFactory.inl" />
+    <None Include="..\src\iNodeManager.inl" />
     <None Include="..\src\iPerlinNoise.inl" />
     <None Include="..\src\iPlane.inl" />
     <None Include="..\src\iRay.inl" />

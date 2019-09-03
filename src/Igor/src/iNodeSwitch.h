@@ -45,7 +45,7 @@ namespace Igor
 	class Igor_API iNodeSwitch : public iNode
 	{
 
-		friend class iNodeFactory;
+		friend class iNodeManager;
 
     public:
 

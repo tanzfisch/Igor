@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iNodeTransform.h>
 #include <iNodePhysics.h>
 #include <iNodeModel.h>
@@ -33,17 +33,17 @@ Enemy::Enemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMatrixd& matrix
     setHealth(100.0);
     setShield(50.0);
 
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
     transformNode->setMatrix(matrix);
     _transformNodeID = transformNode->getID();
 
-    iNodeTransform* bodyScale = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* bodyScale = iNodeManager::getInstance().createNode<iNodeTransform>();
     bodyScale->scale(1,0.25,1);
-    iNodeModel* bodyModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+    iNodeModel* bodyModel = iNodeManager::getInstance().createNode<iNodeModel>();
     bodyModel->setModel("crate.ompf");
 
     iaMatrixd offset;
-    iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
+    iNodePhysics* physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();
     physicsNode->addBox(1,0.5,1, offset);
     physicsNode->finalizeCollision();
     physicsNode->setMass(10);
@@ -57,13 +57,13 @@ Enemy::Enemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMatrixd& matrix
     transformNode->insertNode(bodyScale);
     transformNode->insertNode(physicsNode);
 
-    iNodeTransform* turretATransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* turretATransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     turretATransform->translate(0, 0.125, 0);
     transformNode->insertNode(turretATransform);
     Turret* turretA = new Turret(_scene, turretATransform, _voxelTerrain, getFraction(), _playerID);
     _turretAID = turretA->getID();
 
-    iNodeTransform* turretBTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* turretBTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     turretBTransform->rotate(M_PI, iaAxis::Z);
     turretBTransform->translate(0, 0.125, 0);
     transformNode->insertNode(turretBTransform);
@@ -75,7 +75,7 @@ Enemy::Enemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMatrixd& matrix
 
 Enemy::~Enemy()
 {
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformNodeID));
     if (transformNode != nullptr)
     {
         iaMatrixd matrix;
@@ -95,7 +95,7 @@ Enemy::~Enemy()
         turretB->kill();
     }
 
-    iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
+    iNodeManager::getInstance().destroyNodeAsync(_transformNodeID);
 }
 
 void Enemy::hitBy(uint64 entityID)
@@ -133,7 +133,7 @@ void Enemy::hitBy(uint64 entityID)
 iaVector3d Enemy::getCurrentPos()
 {
     iaVector3d result;
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformNodeID));
     if (transformNode != nullptr)
     {
         iaMatrixd matrix;

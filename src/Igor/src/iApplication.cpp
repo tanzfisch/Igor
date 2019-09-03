@@ -5,7 +5,7 @@
 #include <iApplication.h>
 
 #include <iWindow.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iTimer.h>
 #include <iPhysics.h>
 #include <iProfiler.h>
@@ -58,7 +58,7 @@ namespace Igor
 
         iProfiler::getInstance().beginSection(_handleSectionID);
         iTimer::getInstance().handle();
-        iNodeFactory::getInstance().handle();
+        iNodeManager::getInstance().handle();
         iProfiler::getInstance().endSection(_handleSectionID);
 
         iProfiler::getInstance().beginSection(_physicsSectionID);

@@ -10,7 +10,7 @@
 #include <iApplication.h>
 #include <iSceneFactory.h>
 #include <iScene.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iMouse.h>
 #include <iKeyboard.h>
 #include <iTimer.h>
@@ -79,7 +79,7 @@ void Particles::init()
     // we want a camera which can be rotated arround the origin
     // we will acchive that with 3 transform nodes
     // one is for the heading
-    iNodeTransform* cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* cameraHeading = iNodeManager::getInstance().createNode<iNodeTransform>();
     // give the transform node a name. naming is optional and ist jus for helping to debug. 
     // Names do not have to be unique but since it is possible to find nodes by name they better are
     cameraHeading->setName("camera heading");
@@ -87,18 +87,18 @@ void Particles::init()
     cameraHeading->rotate(-0.5, iaAxis::X);
     _cameraHeading = cameraHeading->getID();
     // one is for the pitch
-    iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* cameraPitch = iNodeManager::getInstance().createNode<iNodeTransform>();
     cameraPitch->setName("camera pitch");
     _cameraPitch = cameraPitch->getID();
     // and one is for translation or distance from the origin
-    iNodeTransform* cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
     cameraTranslation->setName("camera translation");
     // translate away from origin
     cameraTranslation->translate(0, 0, 120);
     _cameraTranslation = cameraTranslation->getID();
     // from all nodes that we want to control later we save the node ID
     // and last but not least we create a camera node
-    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
+    iNodeCamera* camera = iNodeManager::getInstance().createNode<iNodeCamera>();
     camera->setName("camera");
     // and build everything together
     // first we add the heading to the root node
@@ -178,7 +178,7 @@ void Particles::createWaveParticleSystem()
     iaGradientVector2f startOrientation;
     startOrientation.setValue(0.0f, iaVector2f(0.0f, 2.0f * static_cast<float32>(M_PI)));
 
-    iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
+    iNodeParticleSystem* particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
     particleSystem->setTextureA("particleKreuzHerzPikKaro.png");
@@ -193,7 +193,7 @@ void Particles::createWaveParticleSystem()
     particleSystem->start();
 
     // create an mesh emitter with the shape of a cos wave
-    iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+    iNodeEmitter* emitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
     particleSystem->setEmitter(emitter->getID());
     emitter->setEmitterType(iEmitterType::Mesh);
 
@@ -221,7 +221,7 @@ void Particles::createWaveParticleSystem()
     }
 
     // position the emitter in scene using a transform node
-    iNodeTransform* emitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* emitterTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     _waveEmitterTransformID = emitterTransform->getID();
     emitterTransform->translate(-60, 15, -15);
     emitterTransform->insertNode(emitter);
@@ -248,7 +248,7 @@ void Particles::createFireParticleSystem()
     iaGradientVector2f startSize;
     startSize.setValue(0.0f, iaVector2f(3.0f, 4.0f));
 
-    iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
+    iNodeParticleSystem* particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
     particleSystem->setTextureA("particleFire.png");
@@ -266,12 +266,12 @@ void Particles::createFireParticleSystem()
     _scene->getRoot()->insertNode(particleSystem);
     particleSystem->start();
 
-    iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+    iNodeEmitter* emitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
     particleSystem->setEmitter(emitter->getID());
     emitter->setEmitterType(iEmitterType::Disc);
     emitter->setSize(3.0f);
 
-    iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* transform = iNodeManager::getInstance().createNode<iNodeTransform>();
     transform->translate(-2, -4, 40);
     transform->insertNode(emitter);
     _scene->getRoot()->insertNode(transform);
@@ -304,7 +304,7 @@ void Particles::createFontainParticleSystem()
     iaGradientVector2f startSize;
     startSize.setValue(0.0f, iaVector2f(0.5f, 0.8f));
 
-    iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
+    iNodeParticleSystem* particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
     particleSystem->setTextureA("particleTrail.png");
@@ -320,12 +320,12 @@ void Particles::createFontainParticleSystem()
     _scene->getRoot()->insertNode(particleSystem);
     particleSystem->start();
 
-    iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+    iNodeEmitter* emitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
     particleSystem->setEmitter(emitter->getID());
     emitter->setEmitterType(iEmitterType::Disc);
     emitter->setSize(1);
 
-    iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* transform = iNodeManager::getInstance().createNode<iNodeTransform>();
     transform->translate(-30, 12, 40);
     transform->rotate(-0.25 * M_PI, iaAxis::Z);
     transform->insertNode(emitter);
@@ -356,7 +356,7 @@ void Particles::createRingParticleSystem()
     iaGradientVector2f startOrientationRate;
     startOrientationRate.setValue(0.0f, iaVector2f(-0.1f, 0.1f));
 
-    iNodeParticleSystem* circleParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
+    iNodeParticleSystem* circleParticleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemIDs.push_back(circleParticleSystem->getID());
     circleParticleSystem->setMaterial(_particlesMaterial);
     circleParticleSystem->setTextureA("particleGem.png");
@@ -370,12 +370,12 @@ void Particles::createRingParticleSystem()
     _scene->getRoot()->insertNode(circleParticleSystem);
     circleParticleSystem->start();
 
-    iNodeEmitter* circleEmitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+    iNodeEmitter* circleEmitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
     circleParticleSystem->setEmitter(circleEmitter->getID());
     circleEmitter->setEmitterType(iEmitterType::Circle);
     circleEmitter->setSize(10.0f);
 
-    iNodeTransform* circleEmitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* circleEmitterTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     _circleEmitterTransformID = circleEmitterTransform->getID();
     circleEmitterTransform->translate(-30, 0, 40);
     circleEmitterTransform->rotate(-0.5 * M_PI, iaAxis::Z);
@@ -413,7 +413,7 @@ void Particles::createSmokeParticleSystem()
     sizeScale.setValue(0.0f, 1.0f);
     sizeScale.setValue(10.0f, 10.0f);
 
-    iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
+    iNodeParticleSystem* particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
     particleSystem->setTextureA("particleDot.png");
@@ -434,12 +434,12 @@ void Particles::createSmokeParticleSystem()
     _scene->getRoot()->insertNode(particleSystem);
     particleSystem->start();
 
-    iNodeEmitter* smokeEmitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+    iNodeEmitter* smokeEmitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
     particleSystem->setEmitter(smokeEmitter->getID());
     smokeEmitter->setEmitterType(iEmitterType::Sphere);
     smokeEmitter->setSize(6.0f);
 
-    iNodeTransform* smokeEmitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* smokeEmitterTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     smokeEmitterTransform->translate(35, 0, 30);
     smokeEmitterTransform->insertNode(smokeEmitter);
     _scene->getRoot()->insertNode(smokeEmitterTransform);
@@ -466,7 +466,7 @@ void Particles::createDotParticleSystem()
     iaGradientVector2f size;
     size.setValue(0.0f, iaVector2f(1.0f, 1.5f));
 
-    iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
+    iNodeParticleSystem* particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
     particleSystem->setTextureA("particleTrail.png");
@@ -508,7 +508,7 @@ void Particles::createDotParticleSystem()
     iaGradientVector2f startOrientationRate;
     startOrientationRate.setValue(0.0f, iaVector2f(-0.01f, 0.01f));
 
-    iNodeParticleSystem* particleSystem2 = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
+    iNodeParticleSystem* particleSystem2 = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemIDs.push_back(particleSystem2->getID());
     particleSystem2->setMaterial(_particlesMaterial);
     particleSystem2->setTextureA("particleFlame.png");
@@ -525,12 +525,12 @@ void Particles::createDotParticleSystem()
     particleSystem2->setPeriodTime(3.0f);
     particleSystem2->start();
 
-    iNodeEmitter* dotEmitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+    iNodeEmitter* dotEmitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
     particleSystem->setEmitter(dotEmitter->getID());
     particleSystem2->setEmitter(dotEmitter->getID());
     dotEmitter->setEmitterType(iEmitterType::Point);
 
-    iNodeTransform* dotEmitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* dotEmitterTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     dotEmitterTransform->translate(20, 0, 20);
 
     _scene->getRoot()->insertNode(particleSystem);
@@ -581,7 +581,7 @@ void Particles::deinit()
 
 void Particles::onMouseWheel(int32 d)
 {
-    iNodeTransform* camTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_cameraTranslation));
+    iNodeTransform* camTranslation = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_cameraTranslation));
     if (camTranslation != nullptr)
     {
         if (d < 0)
@@ -599,8 +599,8 @@ void Particles::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWind
 {
     if (iMouse::getInstance().getLeftButton())
     {
-        iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_cameraPitch));
-        iNodeTransform* cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_cameraHeading));
+        iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_cameraPitch));
+        iNodeTransform* cameraHeading = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_cameraHeading));
 
         if (cameraPitch != nullptr &&
             cameraHeading != nullptr)
@@ -660,7 +660,7 @@ void Particles::onKeyPressed(iKeyCode key)
     case iKeyCode::Space:
         for (auto particleSystemID : _particleSystemIDs)
         {
-            iNodeParticleSystem* circleParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(particleSystemID));
+            iNodeParticleSystem* circleParticleSystem = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().getNode(particleSystemID));
             if (circleParticleSystem != nullptr)
             {
                 if (circleParticleSystem->isRunning())
@@ -678,7 +678,7 @@ void Particles::onKeyPressed(iKeyCode key)
     case iKeyCode::R:
         for (auto particleSystemID : _particleSystemIDs)
         {
-            iNodeParticleSystem* circleParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(particleSystemID));
+            iNodeParticleSystem* circleParticleSystem = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().getNode(particleSystemID));
             if (circleParticleSystem != nullptr)
             {
                 circleParticleSystem->reset();
@@ -690,7 +690,7 @@ void Particles::onKeyPressed(iKeyCode key)
 
 void Particles::onTimer()
 {
-    iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_circleEmitterTransformID));
+    iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_circleEmitterTransformID));
     if (transform != nullptr)
     {
         transform->rotate(0.1, iaAxis::Z);

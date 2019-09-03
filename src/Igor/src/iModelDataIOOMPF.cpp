@@ -15,7 +15,7 @@
 #include <iRenderStateSet.h>
 #include <iShader.h>
 #include <iTargetMaterial.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iNodeEmitter.h>
 #include <iNodeParticleSystem.h>
 
@@ -60,7 +60,7 @@ namespace Igor
 			OMPF::ompfParticleSystemChunk* particleSystemChunk = static_cast<OMPF::ompfParticleSystemChunk*>(currentChunk);
 			uint32 particleSystemNodeID = getNodeID(particleSystemChunk->getID());
 			uint32 emitterNodeID = getNodeID(particleSystemChunk->getEmitterChunkID());
-			iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(particleSystemNodeID));
+			iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().getNode(particleSystemNodeID));
 			if (particleSystem != nullptr)
 			{
 				particleSystem->setEmitter(emitterNodeID);
@@ -86,7 +86,7 @@ namespace Igor
 		case OMPF::OMPFChunkType::Transform:
 		{
 			OMPF::ompfTransformChunk* transformChunk = static_cast<OMPF::ompfTransformChunk*>(currentChunk);
-			iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+			iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
 
 			iaMatrixf matrix;
 			transformChunk->getMatrix(matrix);
@@ -105,7 +105,7 @@ namespace Igor
 		case OMPF::OMPFChunkType::External:
 		{
 			OMPF::ompfExternalReferenceChunk* externalRefChunk = static_cast<OMPF::ompfExternalReferenceChunk*>(currentChunk);
-			iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+			iNodeModel* modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
 			modelNode->setModel(externalRefChunk->getFilename());
 			result = modelNode;
 			break;
@@ -113,14 +113,14 @@ namespace Igor
 
 		case OMPF::OMPFChunkType::Group:
 		{
-			result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
+			result = iNodeManager::getInstance().createNode<iNode>();
 			break;
 		}
 
 		case OMPF::OMPFChunkType::Emitter:
 		{
 			OMPF::ompfEmitterChunk* emitterChunk = static_cast<OMPF::ompfEmitterChunk*>(currentChunk);
-			iNodeEmitter* emitterNode = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+			iNodeEmitter* emitterNode = iNodeManager::getInstance().createNode<iNodeEmitter>();
 			emitterNode->setSize(emitterChunk->getSize());
 			emitterNode->setEmitterType(static_cast<iEmitterType>(emitterChunk->getType()));
 			result = emitterNode;
@@ -184,7 +184,7 @@ namespace Igor
 
 		// create mesh and mesh node
 		iMesh* mesh = new iMesh();
-		iNodeMesh* meshNode = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+		iNodeMesh* meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
 
 		if (_parameter != nullptr)
 		{
@@ -316,7 +316,7 @@ namespace Igor
 	iNodePtr iModelDataIOOMPF::createParticleSystem(OMPF::ompfBaseChunk * chunk)
 	{
 		OMPF::ompfParticleSystemChunk* particleSystemChunk = static_cast<OMPF::ompfParticleSystemChunk*>(chunk);
-		iNodeParticleSystem* particleSystemNode = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
+		iNodeParticleSystem* particleSystemNode = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
 		particleSystemNode->setMaxParticleCount(particleSystemChunk->getMaxParticleCount());
 		particleSystemNode->setLoop(particleSystemChunk->getLoop());
 
@@ -487,7 +487,7 @@ namespace Igor
 			OMPF::ompfParticleSystemChunk* particleSystemChunk = static_cast<OMPF::ompfParticleSystemChunk*>(currentChunk);
 			uint32 chunkID = particleSystemChunk->getID();
 			uint32 nodeID = getNodeID(chunkID);
-			iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(nodeID));
+			iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().getNode(nodeID));
 			if (node != nullptr)
 			{
 				uint32 emitterNodeID = node->getEmitter();

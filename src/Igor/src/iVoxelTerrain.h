@@ -30,7 +30,7 @@
 #define __iVOXELTERRAINGENERATOR__
 
 #include <iNode.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 
 #include <iTaskGenerateVoxels.h>
 #include <iTaskPropsOnVoxels.h>
@@ -224,7 +224,7 @@ namespace Igor
 
         /*! queue of actions
         */
-        std::vector<iNodeFactory::iAction> _actionQueue;
+        std::vector<iNodeManager::iAction> _actionQueue;
 
         /*! mutex to protect action queue
         */

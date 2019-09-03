@@ -52,7 +52,7 @@ And finally the size of the particles between 3.0 and 4.0.
 
 So the data is set now we create the particle system it self and set a couple of parameters and put in the gradients we just defined.
 
-    iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
+    iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().createNode(iNodeType::iNodeParticleSystem));
     _particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
     particleSystem->setTextureA("particleFire.png");
@@ -75,14 +75,14 @@ Put it in the scene root and start it (it does not have to be under the root nod
 
 We also need an emitter otherwise nothing will happen and tell the particle system to use it. It is allowed for multiple particle systems to use the same emitter. In this case we define the emitter as a disc of size 3 which by default points up.
 
-    iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+    iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeManager::getInstance().createNode(iNodeType::iNodeEmitter));
     particleSystem->setEmitter(emitter->getID());
     emitter->setType(iEmitterType::Disc);
     emitter->setSize(3);
 
 Using a transform to position the emitter where it suits us. and put all together in to the scene.
 
-    iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
     transform->translate(-2, -4, 40);
     transform->insertNode(emitter);
     _scene->getRoot()->insertNode(transform);

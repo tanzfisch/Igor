@@ -1,6 +1,6 @@
 #include "BulletHit.h"
 
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iNodeTransform.h>
 #include <iNodePhysics.h>
 #include <iNodeModel.h>
@@ -43,7 +43,7 @@ BulletHit::BulletHit(iScene* scene, const iaMatrixd& matrix)
 	emission.setValue(0.0, 20);
     emission.setValue(0.1, 0);
 
-	iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
+	iNodeParticleSystem* particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
 	_particleSystemNodeID = particleSystem->getID();
 	particleSystem->setLoop(false);
 	particleSystem->setMaterial(iMaterialResourceFactory::getInstance().getMaterialID("PMat"));
@@ -57,12 +57,12 @@ BulletHit::BulletHit(iScene* scene, const iaMatrixd& matrix)
 	particleSystem->setPeriodTime(3.0);
 	particleSystem->start();
 
-	iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+	iNodeEmitter* emitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
 	_emitterNodeID = emitter->getID();
 	emitter->setEmitterType(iEmitterType::Point);
 	particleSystem->setEmitter(_emitterNodeID);
 
-	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
 	transformNode->setMatrix(matrix);
 	_pos = matrix._pos;
 
@@ -74,7 +74,7 @@ BulletHit::BulletHit(iScene* scene, const iaMatrixd& matrix)
 
 BulletHit::~BulletHit()
 {
-	iNodeFactory::getInstance().destroyNodeAsync(_particleSystemNodeID);
+	iNodeManager::getInstance().destroyNodeAsync(_particleSystemNodeID);
 }
 
 void BulletHit::hitBy(uint64 entityID)
@@ -89,7 +89,7 @@ iaVector3d BulletHit::getCurrentPos()
 
 void BulletHit::handle()
 {
-	iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_particleSystemNodeID));
+	iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().getNode(_particleSystemNodeID));
 	if (particleSystem != nullptr)
 	{
 		if (particleSystem->isFinished())

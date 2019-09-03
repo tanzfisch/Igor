@@ -6,7 +6,7 @@
 
 #include <iMeshBuilder.h>
 #include <iMeshBuilderUtils.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iNodeTransform.h>
 #include <iNodeMesh.h>
 #include <iMaterialResourceFactory.h>
@@ -54,7 +54,7 @@ Widget3DEmitter::~Widget3DEmitter()
 
 	if (_rootTransform != nullptr)
 	{
-		iNodeFactory::getInstance().destroyNodeAsync(_rootTransform);
+		iNodeManager::getInstance().destroyNodeAsync(_rootTransform);
 	}
 
 	iMaterialResourceFactory::getInstance().destroyTargetMaterial(_targetMaterial);
@@ -66,7 +66,7 @@ void Widget3DEmitter::clearMeshNode()
 {
 	if (_meshNode != nullptr)
 	{
-		iNodeFactory::getInstance().destroyNodeAsync(_meshNode);
+		iNodeManager::getInstance().destroyNodeAsync(_meshNode);
 	}
 
 	_meshNode = nullptr;
@@ -74,7 +74,7 @@ void Widget3DEmitter::clearMeshNode()
 
 void Widget3DEmitter::update()
 {
-	iNodePtr node = iNodeFactory::getInstance().getNode(_nodeID);
+	iNodePtr node = iNodeManager::getInstance().getNode(_nodeID);
 	if (node == nullptr)
 	{
 		clearMeshNode();
@@ -90,10 +90,10 @@ void Widget3DEmitter::update()
 	// create structure
 	if (_rootTransform == nullptr)
 	{
-		_rootTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+		_rootTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 		_scene->getRoot()->insertNode(_rootTransform);
 
-		_scaleTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+		_scaleTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 		_rootTransform->insertNode(_scaleTransform);
 	}
 
@@ -144,7 +144,7 @@ void Widget3DEmitter::update()
 
 		if (mesh != nullptr)
 		{
-			_meshNode = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+			_meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
 			_meshNode->setMesh(mesh);
 			_meshNode->setMaterial(material);
 			_meshNode->setTargetMaterial(_targetMaterial);

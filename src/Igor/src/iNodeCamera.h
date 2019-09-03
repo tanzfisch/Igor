@@ -50,7 +50,7 @@ namespace Igor
 	{
 
 		friend class iNodeVisitorUpdateTransform;
-		friend class iNodeFactory;
+		friend class iNodeManager;
 
     public:
 

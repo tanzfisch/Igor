@@ -14,7 +14,7 @@ namespace Igor
 {
 
 	uint64 iWidget::_nextID = iWidget::INVALID_WIDGET_ID + 1;
-	iWidget* iWidget::_keyboardFocus = nullptr;
+	iWidgetPtr iWidget::_keyboardFocus = nullptr;
 
 	iWidget::iWidget()
 	{
@@ -34,14 +34,14 @@ namespace Igor
 
 		destroyTooltipTimer();
 
-		std::vector<iWidget*> children(_children);
+		std::vector<iWidgetPtr> children(_children);
 		for (auto child : children)
 		{
 			iWidgetManager::getInstance().destroyWidget(child);
 		}
 	}
 
-	void iWidget::getChildren(std::vector<iWidget*>& children)
+	void iWidget::getChildren(std::vector<iWidgetPtr>& children)
 	{
 		children = _children;
 	}
@@ -56,7 +56,7 @@ namespace Igor
 		return _tooltip;
 	}
 
-	iWidget* iWidget::getKeyboardFocusWidget()
+	iWidgetPtr iWidget::getKeyboardFocusWidget()
 	{
 		return _keyboardFocus;
 	}
@@ -88,7 +88,7 @@ namespace Igor
 		return result;
 	}
 
-	void iWidget::addWidget(iWidget* widget)
+	void iWidget::addWidget(iWidgetPtr widget)
 	{
 		con_assert(widget != nullptr, "zero pointer");
 		con_assert(widget != this, "incest is not supported");
@@ -110,7 +110,7 @@ namespace Igor
 		}
 	}
 
-	void iWidget::removeWidget(iWidget * widget)
+	void iWidget::removeWidget(iWidgetPtr widget)
 	{
 		con_assert(widget != nullptr, "zero pointer");
 
@@ -131,17 +131,7 @@ namespace Igor
 			}
 		}
 	}
-
-	void iWidget::addWidget(uint64 id)
-	{
-		addWidget(iWidgetManager::getInstance().getWidget(id));
-	}
-
-	void iWidget::removeWidget(uint64 id)
-	{
-		removeWidget(iWidgetManager::getInstance().getWidget(id));
-	}
-
+	
 	void iWidget::setAcceptDrop(bool acceptDrop)
 	{
 		_acceptDrop = acceptDrop;
@@ -152,7 +142,7 @@ namespace Igor
 		return _acceptDrop;
 	}
 
-	void iWidget::setParent(iWidget * parent)
+	void iWidget::setParent(iWidgetPtr parent)
 	{
 		_parent = parent;
 	}
@@ -313,7 +303,7 @@ namespace Igor
 		{
 			if (_isMouseOver)
 			{
-				std::vector<iWidget*> widgets = _children;
+				std::vector<iWidgetPtr> widgets = _children;
 				bool result = false;
 
 				for (auto widget : widgets)
@@ -353,7 +343,7 @@ namespace Igor
 		{
 			if (_isMouseOver)
 			{
-				std::vector<iWidget*> widgets = _children;
+				std::vector<iWidgetPtr> widgets = _children;
 				bool result = false;
 
 				for (auto widget : widgets)
@@ -389,7 +379,7 @@ namespace Igor
 		{
 			if (_isMouseOver)
 			{
-				std::vector<iWidget*> widgets = _children;
+				std::vector<iWidgetPtr> widgets = _children;
 				bool result = false;
 
 				for (auto widget : widgets)
@@ -460,7 +450,7 @@ namespace Igor
 		{
 			if (_isMouseOver)
 			{
-				std::vector<iWidget*> widgets = _children;
+				std::vector<iWidgetPtr> widgets = _children;
 				bool result = false;
 
 				for (auto widget : widgets)
@@ -493,7 +483,7 @@ namespace Igor
 	{
 		if (isActive())
 		{
-			std::vector<iWidget*> widgets = _children;
+			std::vector<iWidgetPtr> widgets = _children;
 
 			for (auto widget : widgets)
 			{
@@ -510,7 +500,7 @@ namespace Igor
 	{
 		if (isActive())
 		{
-			std::vector<iWidget*> widgets = _children;
+			std::vector<iWidgetPtr> widgets = _children;
 
 			for (auto widget : widgets)
 			{
@@ -527,7 +517,7 @@ namespace Igor
 	{
 		if (isActive())
 		{
-			std::vector<iWidget*> widgets = _children;
+			std::vector<iWidgetPtr> widgets = _children;
 
 			for (auto widget : widgets)
 			{
@@ -544,7 +534,7 @@ namespace Igor
 	{
 		if (isActive())
 		{
-			std::vector<iWidget*> widgets = _children;
+			std::vector<iWidgetPtr> widgets = _children;
 
 			for (auto widget : widgets)
 			{

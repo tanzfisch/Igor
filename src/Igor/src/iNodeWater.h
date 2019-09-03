@@ -40,7 +40,7 @@ namespace Igor
 	class Igor_API iNodeWater : public iNodeRender
 	{
 
-		friend class iNodeFactory;
+		friend class iNodeManager;
 
     public:
 

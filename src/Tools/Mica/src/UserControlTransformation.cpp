@@ -10,7 +10,7 @@
 #include <iWidgetLabel.h>
 #include <iWidgetButton.h>
 #include <iNodeTransform.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 using namespace Igor;
 
 #include "MicaDefines.h"
@@ -22,7 +22,7 @@ UserControlTransformation::UserControlTransformation()
 
 UserControlTransformation::~UserControlTransformation()
 {
-	iNode* node = iNodeFactory::getInstance().getNode(_nodeId);
+	iNode* node = iNodeManager::getInstance().getNode(_nodeId);
 	if (node != nullptr)
 	{
 		node->getTransformationChangeEvent().remove(iTransformationChangeDelegate(this, &UserControlTransformation::onTransformationChanged));
@@ -37,14 +37,14 @@ void UserControlTransformation::setNode(uint32 id)
 	}
 
 	// unregister from current node
-	iNode* oldNode = iNodeFactory::getInstance().getNode(_nodeId);
+	iNode* oldNode = iNodeManager::getInstance().getNode(_nodeId);
 	if (oldNode != nullptr)
 	{
 		oldNode->getTransformationChangeEvent().remove(iTransformationChangeDelegate(this, &UserControlTransformation::onTransformationChanged));
 	}
 
 	// check if new id is a valid node
-	iNode* node = iNodeFactory::getInstance().getNode(id);
+	iNode* node = iNodeManager::getInstance().getNode(id);
 	if (node == nullptr)
 	{
 		return;
@@ -182,7 +182,7 @@ void UserControlTransformation::initGUI()
 
 void UserControlTransformation::onChange(iWidget* source)
 {
-	iNodeTransform* node = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_nodeId));
+	iNodeTransform* node = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_nodeId));
 
 	if (node != nullptr)
 	{

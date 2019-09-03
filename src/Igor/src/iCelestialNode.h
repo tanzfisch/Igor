@@ -42,7 +42,7 @@ namespace Igor
 	class Igor_API iCelestialNode : public iNodeRender
 	{
 
-		friend class iNodeFactory;
+		friend class iNodeManager;
 
 	private:
 

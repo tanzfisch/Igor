@@ -12,7 +12,7 @@
 #include <iTargetMaterial.h>
 #include <iNode.h>
 #include <iNodeMesh.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 
 #include <iaFile.h>
 using namespace IgorAux;
@@ -51,7 +51,7 @@ namespace Igor
 
 	iNodePtr iModelDataIOOBJ::importData(const iaString& filename, iModelDataInputParameter* parameter)
 	{
-		iNodePtr result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
+		iNodePtr result = iNodeManager::getInstance().createNode<iNode>();
 		result->setName("obj_root");
 
 		if (!readFile(filename))
@@ -86,7 +86,7 @@ namespace Igor
 			}
 
 			// create mesh node
-			iNodeMesh* meshNode = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+			iNodeMesh* meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
 			meshNode->setName(section.first);
 
 			if (parameter != nullptr)

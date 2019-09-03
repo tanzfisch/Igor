@@ -58,58 +58,58 @@ namespace IgorAux
 		\param vec vector to be added to this vector
 		\returns resulting vector
 		*/
-		__IGOR_INLINE__ iaVector2<T> operator+ (const iaVector2<T>& vec) const;
+		iaVector2<T> operator+ (const iaVector2<T>& vec) const;
 
 		/*! vector addition and assignment
 
 		\param vec vector to be added to this vector
 		*/
-		__IGOR_INLINE__ void operator+= (const iaVector2<T>& vec);
+		void operator+= (const iaVector2<T>& vec);
 
 		/*! vector subtraction
 
 		\param vec vector to be subtracted from this vector
 		\returns resulting vector
 		*/
-		__IGOR_INLINE__ iaVector2<T> operator- (const iaVector2<T>& vec) const;
+		iaVector2<T> operator- (const iaVector2<T>& vec) const;
 
 		/*! vector subtraction and assignment
 
 		\param vec vector to be subtracted from this vector
 		*/
-		__IGOR_INLINE__ void operator-= (const iaVector2<T>& vec);
+		void operator-= (const iaVector2<T>& vec);
 
 		/*! vector assignment
 
 		\param vec vector to be assigned to this vector
 		*/
-		__IGOR_INLINE__ iaVector2<T> operator= (const iaVector2<T>& vec);
+		iaVector2<T> operator= (const iaVector2<T>& vec);
 
 		/*! multiplication of vector with scalar
 
 		\param scalar value to multiply with this vector
 		\returns resulting vector
 		*/
-		__IGOR_INLINE__ iaVector2<T> operator* (T scalar) const;
+		iaVector2<T> operator* (T scalar) const;
 
 		/*! multiplication of vector with scalar and assignment
 
 		\param scalar value to multiply with this vector
 		*/
-		__IGOR_INLINE__ void operator*= (T scalar);
+		void operator*= (T scalar);
 
 		/*! division of vector with scalar
 
 		\param scalar value to devide this vector by
 		\returns resulting vector
 		*/
-		__IGOR_INLINE__ iaVector2<T> operator/  (T scalar) const;
+		iaVector2<T> operator/  (T scalar) const;
 
 		/*! division of vector with scalar and assignment
 
 		\param scalar value to devide this vector by
 		*/
-		__IGOR_INLINE__ void operator/= (T scalar);
+		void operator/= (T scalar);
 
 		/*! comparison of two vectors
 
@@ -117,7 +117,7 @@ namespace IgorAux
 
 		\returns true: if excactly equal; false: if not equal
 		*/
-		__IGOR_INLINE__ bool operator== (const iaVector2<T>& vec) const;
+		bool operator== (const iaVector2<T>& vec) const;
 
 		/*! comparison of two vectors
 
@@ -125,92 +125,92 @@ namespace IgorAux
 
 		\returns true: if not equal; false: if excactly equal
 		*/
-		__IGOR_INLINE__ bool operator!= (const iaVector2<T>& vec) const;
+		bool operator!= (const iaVector2<T>& vec) const;
 
 		/*! dot product between two vectors
 
 		\param vec vector to multiply this vector with
 		\returns dot product of both vectors
 		*/
-		__IGOR_INLINE__ T operator*  (const iaVector2<T>& vec) const;
+		T operator*  (const iaVector2<T>& vec) const;
 
 		/*! \returns value by index (const version)
 
 		\param index the index of the value to be returned
 		*/
-		__IGOR_INLINE__ const T& operator[] (int index) const;
+		const T& operator[] (int index) const;
 
 		/*! \returns value by index
 
 		\param index the index of the value to be returned
 		*/
-		__IGOR_INLINE__ T& operator[] (int index);
+		T& operator[] (int index);
 
 		/*! \returns pointer to data
 		*/
-		__IGOR_INLINE__ T* getData();
+		T* getData();
 
 		/*! \returns pointer to data (const version)
 		*/
-		__IGOR_INLINE__ const T* getData() const;
+		const T* getData() const;
 
 		/*! set values
 
 		\param x x value to set
 		\param y y value to set
 		*/
-		__IGOR_INLINE__ void set(T x, T y);
+		void set(T x, T y);
 
 		/*! \returns length of vector
 		*/
-		__IGOR_INLINE__ T length(void) const;
+		T length(void) const;
 
 		/*! \returns quadratic length of vector
 		*/
-		__IGOR_INLINE__ T length2(void) const;
+		T length2(void) const;
 
 		/*! \returns distance between positions
 
 		\param vec the second position to calculate the distance to
 		*/
-		__IGOR_INLINE__ T distance(iaVector2<T>& vec) const;
+		T distance(iaVector2<T>& vec) const;
 
 		/*! \returns quadratic distance between positions
 
 		\param vec the second position to calculate the distance to
 		*/
-		__IGOR_INLINE__ T distance2(iaVector2<T>& vec) const;
+		T distance2(iaVector2<T>& vec) const;
 
 		/*! \returns angle in rad relative to X-Axis
 		*/
-		__IGOR_INLINE__ T angle() const;
+		T angle() const;
 
 		/*! \returns angle in rad between two vectors
 
 		\param vec second vector to calculate the angle with
 		*/
-		__IGOR_INLINE__ T angle(iaVector2<T>& vec) const;
+		T angle(iaVector2<T>& vec) const;
 
 		/*! rotates a vector in XY plane
 
 		\param angle the angle in rad to rotate the vector with
 		*/
-		__IGOR_INLINE__ void  rotateXY(T angle);
+		void  rotateXY(T angle);
 
 		/*! normalizes the vector
 		*/
-		__IGOR_INLINE__ void  normalize(void);
+		void  normalize(void);
 
 		/*! conjugates (or negates) the vector
 		*/
-		__IGOR_INLINE__ void  negate(void);
+		void  negate(void);
 
 		/*! converts the vector in to given type of vector
 
 		\returns vector for given type
 		*/
 		template<class T2>
-		__IGOR_INLINE__ iaVector2<T2> convert() const;
+		iaVector2<T2> convert() const;
 
 		/*! does nothing
 		*/

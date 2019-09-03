@@ -50,7 +50,7 @@ namespace Igor
 	class Igor_API iNodeMesh : public iNodeVolume
 	{
 
-        friend class iNodeFactory;
+        friend class iNodeManager;
 		friend class iNodeModel;
         friend class iModelDataIOOMPF;
 

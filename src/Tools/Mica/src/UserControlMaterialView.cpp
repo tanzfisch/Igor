@@ -16,7 +16,7 @@
 #include <iWidgetGroupBox.h>
 #include <iWidgetScroll.h>
 #include <iMesh.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iTargetMaterial.h>
 #include <iMaterialResourceFactory.h>
 #include <iMaterial.h>
