@@ -130,7 +130,7 @@ namespace Igor
 		/*! creates a node
 		\returns pointer to new node
 		*/
-		template<class T>
+		template<class T> 
 		T* createNode();
 
 		/*! inserts one node as child to an other (asynchronously)
@@ -227,19 +227,6 @@ namespace Igor
 		~iNodeManager();
 
 	};
-
-	template<class T>
-	T* iNodeManager::createNode()
-	{
-		T* result = new T();
-
-		_mutexNodes.lock();
-		_nodes[static_cast<iNode*>(result)->getID()] = static_cast<iNode*>(result);
-		_mutexNodes.unlock();
-
-		return result;
-	}
-
 
 #include <iNodeManager.inl>
 
