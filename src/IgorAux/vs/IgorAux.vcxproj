@@ -112,6 +112,7 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;__IGOR_AUX_BUILDING_DLL__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4714; 4251; 4150; 4091;</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -164,6 +165,7 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;__IGOR_AUX_BUILDING_DLL__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4714; 4251; 4150; 4091;</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
