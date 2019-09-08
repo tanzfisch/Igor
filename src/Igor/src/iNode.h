@@ -29,7 +29,6 @@
 #ifndef __iNODE__
 #define __iNODE__
 
-#include <iDataUpdateQueue.h>
 #include <iDefines.h>
 
 #include <iaEvent.h>

@@ -269,9 +269,6 @@
     <ClCompile Include="..\src\iNodePhysics.cpp">
       <Filter>scene\nodes</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iDataUpdateQueue.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iPhysicsMaterial.cpp">
       <Filter>resources\physics</Filter>
     </ClCompile>
@@ -726,9 +723,6 @@
     </ClInclude>
     <ClInclude Include="..\src\iNodePhysics.h">
       <Filter>scene\nodes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iDataUpdateQueue.h">
-      <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iPhysicsMaterial.h">
       <Filter>resources\physics</Filter>

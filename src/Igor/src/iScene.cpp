@@ -12,29 +12,30 @@
 #include <iNodeLODSwitch.h>
 #include <iNodeCamera.h>
 #include <iProfiler.h>
+#include <iTimer.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
 
 namespace Igor
 {
-	
+
 	iScene::iScene()
 	{
 		_root = iNodeManager::getInstance().createNode<iNode>();
 		_root->setName(L"RootNode");
 		_root->setScene(this);
-        
-		//! \todo octree needs to be of variable size
-        // maybe multiple octrees?
-		_octree = new iOctree(iAACubed(iaVector3d(0,0,0), 10000000.0), 50.0, 8, 4);
 
-        //! \todo how do we handle this when we have more than one scene?
+		//! \todo octree needs to be of variable size
+		// maybe multiple octrees?
+		_octree = new iOctree(iAACubed(iaVector3d(0, 0, 0), 10000000.0), 50.0, 8, 4);
+
+		//! \todo how do we handle this when we have more than one scene?
 #ifdef USE_VERBOSE_STATISTICS
-        _sceneHandleSectionID = iProfiler::getInstance().registerSection("scene:handle", 2);
-        _updateLODSectionID = iProfiler::getInstance().registerSection("scene:LOD", 2);
-        _processUpdateDataSectionID = iProfiler::getInstance().registerSection("scene:updateData", 2);
-        _updateTransformSectionID = iProfiler::getInstance().registerSection("scene:traverse", 2);
+		_sceneHandleSectionID = iProfiler::getInstance().registerSection("scene:handle", 2);
+		_updateLODSectionID = iProfiler::getInstance().registerSection("scene:LOD", 2);
+		_processUpdateDataSectionID = iProfiler::getInstance().registerSection("scene:updateData", 2);
+		_updateTransformSectionID = iProfiler::getInstance().registerSection("scene:traverse", 2);
 #endif
 	}
 
@@ -43,83 +44,83 @@ namespace Igor
 		if (_root != nullptr)
 		{
 			iNodeManager::getInstance().destroyNode(_root);
-            _root = nullptr;
+			_root = nullptr;
 		}
 
-        if (_octree != nullptr)
-        {
-            delete _octree;
-            _octree = nullptr;
-        }
+		if (_octree != nullptr)
+		{
+			delete _octree;
+			_octree = nullptr;
+		}
 	}
 
-    void iScene::registerLODTrigger(iNodeLODTrigger* trigger)
-    {
-        auto iter = find(_lodTriggers.begin(), _lodTriggers.end(), trigger);
-        if (iter != _lodTriggers.end())
-        {
-            con_err("trigger was already registered");
-        }
-        else
-        {
-            _lodTriggers.push_back(trigger);
-        }
-    }
+	void iScene::registerLODTrigger(iNodeLODTrigger* trigger)
+	{
+		auto iter = find(_lodTriggers.begin(), _lodTriggers.end(), trigger);
+		if (iter != _lodTriggers.end())
+		{
+			con_err("trigger was already registered");
+		}
+		else
+		{
+			_lodTriggers.push_back(trigger);
+		}
+	}
 
-    void iScene::unregisterLODTrigger(iNodeLODTrigger* trigger)
-    {
-        auto iter = find(_lodTriggers.begin(), _lodTriggers.end(), trigger);
-        if (iter != _lodTriggers.end())
-        {
-            _lodTriggers.erase(iter);
-            return;
-        }
+	void iScene::unregisterLODTrigger(iNodeLODTrigger* trigger)
+	{
+		auto iter = find(_lodTriggers.begin(), _lodTriggers.end(), trigger);
+		if (iter != _lodTriggers.end())
+		{
+			_lodTriggers.erase(iter);
+			return;
+		}
 
-        con_err("trigger node was not registered");
-    }
+		con_err("trigger node was not registered");
+	}
 
-    void iScene::registerLODSwitch(iNodeLODSwitch* switchNode)
-    {
-        auto iter = find(_lodSwitches.begin(), _lodSwitches.end(), switchNode);
-        if (iter != _lodSwitches.end())
-        {
-            con_err("switch node was already registered");
-        }
-        else
-        {
-            _lodSwitches.push_back(switchNode);
-        }
-    }
+	void iScene::registerLODSwitch(iNodeLODSwitch* switchNode)
+	{
+		auto iter = find(_lodSwitches.begin(), _lodSwitches.end(), switchNode);
+		if (iter != _lodSwitches.end())
+		{
+			con_err("switch node was already registered");
+		}
+		else
+		{
+			_lodSwitches.push_back(switchNode);
+		}
+	}
 
-    void iScene::unregisterLODSwitch(iNodeLODSwitch* switchNode)
-    {
-        auto iter = find(_lodSwitches.begin(), _lodSwitches.end(), switchNode);
-        if (iter != _lodSwitches.end())
-        {
-            _lodSwitches.erase(iter);
-            return;
-        }
+	void iScene::unregisterLODSwitch(iNodeLODSwitch* switchNode)
+	{
+		auto iter = find(_lodSwitches.begin(), _lodSwitches.end(), switchNode);
+		if (iter != _lodSwitches.end())
+		{
+			_lodSwitches.erase(iter);
+			return;
+		}
 
-        con_err("switch node was not registered");
-    }
+		con_err("switch node was not registered");
+	}
 
-    void iScene::updateLOD()
-    {
-        for (auto switchNode : _lodSwitches)
-        {
-            switchNode->update();
-        }
-    }
+	void iScene::updateLOD()
+	{
+		for (auto switchNode : _lodSwitches)
+		{
+			switchNode->update();
+		}
+	}
 
-    std::vector<iNodeRender*>& iScene::getRenderables()
-    {
-        return _renderables;
-    }
+	std::vector<iNodeRender*>& iScene::getRenderables()
+	{
+		return _renderables;
+	}
 
-    std::vector<iNodeLight*>& iScene::getLights()
-    {
-        return _lights;
-    }
+	std::vector<iNodeLight*>& iScene::getLights()
+	{
+		return _lights;
+	}
 
 	iaString iScene::getName() const
 	{
@@ -130,56 +131,56 @@ namespace Igor
 	{
 		_name = name;
 	}
-		
+
 	iNodePtr iScene::getRoot()
 	{
 		return _root;
 	}
 
-    void iScene::registerRenderable(iNodeRender* node)
-    {
-        auto iter = find(_renderables.begin(), _renderables.end(), node);
-        if(iter != _renderables.end())
-        {
-            con_err("this renderable was already registered");
-        }
-        else
-        {
-            _renderables.push_back(node);
-        }
-    }
+	void iScene::registerRenderable(iNodeRender* node)
+	{
+		auto iter = find(_renderables.begin(), _renderables.end(), node);
+		if (iter != _renderables.end())
+		{
+			con_err("this renderable was already registered");
+		}
+		else
+		{
+			_renderables.push_back(node);
+		}
+	}
 
-    void iScene::unregisterRenderable(iNodeRender* node)
-    {
-        auto iter = find(_renderables.begin(), _renderables.end(), node);
-        if(iter != _renderables.end())
-        {
-            _renderables.erase(iter);
-            return;
-        }
+	void iScene::unregisterRenderable(iNodeRender* node)
+	{
+		auto iter = find(_renderables.begin(), _renderables.end(), node);
+		if (iter != _renderables.end())
+		{
+			_renderables.erase(iter);
+			return;
+		}
 
-        con_err("light was not registered");
-    }
+		con_err("light was not registered");
+	}
 
 	void iScene::registerLight(iNodeLight* light)
 	{
-        auto iter = find(_lights.begin(), _lights.end(), light);
-        if(iter != _lights.end())
+		auto iter = find(_lights.begin(), _lights.end(), light);
+		if (iter != _lights.end())
 		{
 			con_err("light was already registered");
 		}
 		else
 		{
-            _lights.push_back(light);
+			_lights.push_back(light);
 		}
 	}
 
 	void iScene::unregisterLight(iNodeLight* light)
 	{
-        auto iter = find(_lights.begin(), _lights.end(), light);
-        if(iter != _lights.end())
+		auto iter = find(_lights.begin(), _lights.end(), light);
+		if (iter != _lights.end())
 		{
-            _lights.erase(iter);
+			_lights.erase(iter);
 			return;
 		}
 
@@ -188,31 +189,31 @@ namespace Igor
 
 	void iScene::registerVolume(iNodeVolume* volume)
 	{
-        auto iter = find(_volumes.begin(), _volumes.end(), volume);
-        if(iter != _volumes.end())
+		auto iter = find(_volumes.begin(), _volumes.end(), volume);
+		if (iter != _volumes.end())
 		{
 			con_err("volume was already registered");
 		}
 		else
 		{
-            _volumes.push_back(volume);
+			_volumes.push_back(volume);
 
-            iSphered sphere;
-            sphere._center._x = volume->getCenter()._x;
-            sphere._center._y = volume->getCenter()._y;
-            sphere._center._z = volume->getCenter()._z;
-            sphere._radius = volume->getBoundingSphere()._radius;
+			iSphered sphere;
+			sphere._center._x = volume->getCenter()._x;
+			sphere._center._y = volume->getCenter()._y;
+			sphere._center._z = volume->getCenter()._z;
+			sphere._radius = volume->getBoundingSphere()._radius;
 			_octree->insert(volume->getID(), sphere);
 		}
 	}
 
 	void iScene::unregisterVolume(iNodeVolume* volume)
 	{
-        auto iter = find(_volumes.begin(), _volumes.end(), volume);
-        if(iter != _volumes.end())
+		auto iter = find(_volumes.begin(), _volumes.end(), volume);
+		if (iter != _volumes.end())
 		{
 			_octree->remove(volume->getID());
-            _volumes.erase(iter);
+			_volumes.erase(iter);
 			return;
 		}
 
@@ -221,124 +222,159 @@ namespace Igor
 
 	void iScene::updateVolume(iNodeVolume* volume)
 	{
-        iSphered sphere;
-        sphere._center._x = volume->getCenter()._x;
-        sphere._center._y = volume->getCenter()._y;
-        sphere._center._z = volume->getCenter()._z;
-        sphere._radius = volume->getBoundingSphere()._radius;
+		iSphered sphere;
+		sphere._center._x = volume->getCenter()._x;
+		sphere._center._y = volume->getCenter()._y;
+		sphere._center._z = volume->getCenter()._z;
+		sphere._radius = volume->getBoundingSphere()._radius;
 
 		_octree->update(volume->getID(), sphere);
 	}
 
 	void iScene::registerCamera(iNodeCamera* camera)
 	{
-        con_assert(camera != nullptr, "zero pointer");
+		con_assert(camera != nullptr, "zero pointer");
 
-        if (camera != nullptr)
-        {
-            auto iter = find(_cameras.begin(), _cameras.end(), camera->getID());
-            if (iter != _cameras.end())
-            {
-                con_err("camera was already registered in scene " << _name);
-            }
-            else
-            {
-                _cameras.push_back(camera->getID());
-            }
-        }
+		if (camera != nullptr)
+		{
+			auto iter = find(_cameras.begin(), _cameras.end(), camera->getID());
+			if (iter != _cameras.end())
+			{
+				con_err("camera was already registered in scene " << _name);
+			}
+			else
+			{
+				_cameras.push_back(camera->getID());
+			}
+		}
 	}
 
 	void iScene::unregisterCamera(iNodeCamera* camera)
 	{
-        con_assert(camera != nullptr, "zero pointer");
+		con_assert(camera != nullptr, "zero pointer");
 
-        if (camera != nullptr)
-        {
-            auto iter = find(_cameras.begin(), _cameras.end(), camera->getID());
-            if (iter != _cameras.end())
-            {
-                _cameras.erase(iter);
-                return;
-            }
+		if (camera != nullptr)
+		{
+			auto iter = find(_cameras.begin(), _cameras.end(), camera->getID());
+			if (iter != _cameras.end())
+			{
+				_cameras.erase(iter);
+				return;
+			}
 
-            con_err("camera " << camera->getName() << " was not registered in scene " << _name);
-        }
+			con_err("camera " << camera->getName() << " was not registered in scene " << _name);
+		}
 	}
 
 	void iScene::handle()
 	{
 #ifdef USE_VERBOSE_STATISTICS
-        iProfiler::getInstance().beginSection(_sceneHandleSectionID);
+		iProfiler::getInstance().beginSection(_sceneHandleSectionID);
 
-        iProfiler::getInstance().beginSection(_updateLODSectionID);
+		iProfiler::getInstance().beginSection(_updateLODSectionID);
 #endif
-        // todo can't not stay here. need to reduce update effort per frame. event based would be nice
-        updateLOD();
+		// todo can't not stay here. need to reduce update effort per frame. event based would be nice
+		updateLOD();
 #ifdef USE_VERBOSE_STATISTICS
-        iProfiler::getInstance().endSection(_updateLODSectionID);
+		iProfiler::getInstance().endSection(_updateLODSectionID);
 
-        iProfiler::getInstance().beginSection(_processUpdateDataSectionID);
+		iProfiler::getInstance().beginSection(_processUpdateDataSectionID);
 #endif
-        updateData(); 
+		updateData();
 #ifdef USE_VERBOSE_STATISTICS
-        iProfiler::getInstance().endSection(_processUpdateDataSectionID);
+		iProfiler::getInstance().endSection(_processUpdateDataSectionID);
 
-        iProfiler::getInstance().beginSection(_updateTransformSectionID);
+		iProfiler::getInstance().beginSection(_updateTransformSectionID);
 #endif
-        _updateTransformVisitor.traverseTree(_root);
+		_updateTransformVisitor.traverseTree(_root);
 #ifdef USE_VERBOSE_STATISTICS
-        iProfiler::getInstance().endSection(_updateTransformSectionID);
+		iProfiler::getInstance().endSection(_updateTransformSectionID);
 
-        iProfiler::getInstance().endSection(_sceneHandleSectionID);
+		iProfiler::getInstance().endSection(_sceneHandleSectionID);
 #endif
 	}
 
-    void iScene::addToDataUpdateQueue(iNodePtr node)
-    {
-        con_assert_sticky(node != nullptr, "zero pointer");
+	void iScene::addToDataUpdateQueue(iNodePtr node)
+	{
+		con_assert_sticky(node != nullptr, "zero pointer");
 
-        node->_queueToDirtyData = false;
-        _dataUpdateQueue.addNode(node->getID());
-    }
+		node->_queueToDirtyData = false;
 
-    void iScene::updateData()
-    {
-        _dataUpdateQueue.process();
-    }
+		_mutex.lock();
+		_loadingQueue.insert(node->getID());
+		_mutex.unlock();
+	}
 
-    iOctree* iScene::getOctree()
-    {
-        return _octree;
-    }
+	void iScene::updateData()
+	{
+		_mutex.lock();
+		_processingQueue.insert(_loadingQueue.begin(), _loadingQueue.end());
+		_mutex.unlock();
 
-    void iScene::signalNodeAdded(uint64 nodeID)
-    {
-        _addedNode(nodeID);
-    }
+		// stop after 5ms
+		float64 endTime = iTimer::getInstance().getApplicationTime() + 5;
 
-    void iScene::signalNodeRemoved(uint64 nodeID)
-    {
-        _removedNode(nodeID);
-    }
+		auto iterP = _processingQueue.begin();
+		while (iterP != _processingQueue.end())
+		{
+			iNodePtr node = iNodeManager::getInstance().getNode((*iterP));
+			if (node != nullptr)
+			{
+				if (node->onUpdateData())
+				{
+					iterP = _processingQueue.erase(iterP);
+				}
+				else
+				{
+					iterP++;
+				}
+			}
+			else
+			{
+				// node was destroyed in the mean time
+				iterP = _processingQueue.erase(iterP);
+			}
 
-    void iScene::registerAddedNodeDelegate(iAddedNodeDelegate addedNodeDelegate)
-    {
-        _addedNode.append(addedNodeDelegate);
-    }
+			if (iTimer::getInstance().getApplicationTime() > endTime)
+			{
+				break;
+			}
+		}
+	}
 
-    void iScene::unregisterAddedNodeDelegate(iAddedNodeDelegate addedNodeDelegate)
-    {
-        _addedNode.remove(addedNodeDelegate);
-    }
+	iOctree* iScene::getOctree()
+	{
+		return _octree;
+	}
 
-    void iScene::registerRemovedNodeDelegate(iRemovedNodeDelegate removedNodeDelegate)
-    {
-        _removedNode.append(removedNodeDelegate);
-    }
+	void iScene::signalNodeAdded(uint64 nodeID)
+	{
+		_addedNode(nodeID);
+	}
 
-    void iScene::unregisterRemovedNodeDelegate(iRemovedNodeDelegate removedNodeDelegate)
-    {
-        _removedNode.remove(removedNodeDelegate);
-    }
+	void iScene::signalNodeRemoved(uint64 nodeID)
+	{
+		_removedNode(nodeID);
+	}
+
+	void iScene::registerAddedNodeDelegate(iAddedNodeDelegate addedNodeDelegate)
+	{
+		_addedNode.append(addedNodeDelegate);
+	}
+
+	void iScene::unregisterAddedNodeDelegate(iAddedNodeDelegate addedNodeDelegate)
+	{
+		_addedNode.remove(addedNodeDelegate);
+	}
+
+	void iScene::registerRemovedNodeDelegate(iRemovedNodeDelegate removedNodeDelegate)
+	{
+		_removedNode.append(removedNodeDelegate);
+	}
+
+	void iScene::unregisterRemovedNodeDelegate(iRemovedNodeDelegate removedNodeDelegate)
+	{
+		_removedNode.remove(removedNodeDelegate);
+	}
 
 };
