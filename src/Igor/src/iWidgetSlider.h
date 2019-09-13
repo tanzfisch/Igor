@@ -48,8 +48,10 @@ namespace Igor
 	public:
 
 		/*! ctor initializes member variables
+
+		\param parent optional parent
 		*/
-		iWidgetSlider();
+		iWidgetSlider(iWidgetPtr parent = nullptr);
 
 		/*! release texture
 		*/

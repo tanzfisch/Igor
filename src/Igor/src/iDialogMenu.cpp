@@ -31,22 +31,22 @@ namespace Igor
 
 		registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
 
-		_grid = new iWidgetGrid();
-		_grid->appendRows(static_cast<uint32>(texts.size()) - 1);
-		_grid->setHorizontalAlignment(iHorizontalAlignment::Left);
-		_grid->setVerticalAlignment(iVerticalAlignment::Top);
-		_grid->setSelectMode(iSelectionMode::Row);
-		_grid->setCellSpacing(4);
-		_grid->setBorder(4);
-		_grid->registerOnChangeEvent(iChangeDelegate(this, &iDialogMenu::onChange));
-		addWidget(_grid);
+		iWidgetGridPtr grid = new iWidgetGrid();
+		grid->appendRows(static_cast<uint32>(texts.size()) - 1);
+		grid->setHorizontalAlignment(iHorizontalAlignment::Left);
+		grid->setVerticalAlignment(iVerticalAlignment::Top);
+		grid->setSelectMode(iSelectionMode::Row);
+		grid->setCellSpacing(4);
+		grid->setBorder(4);
+		grid->registerOnChangeEvent(iChangeDelegate(this, &iDialogMenu::onChange));
+		addWidget(grid);
 
 		for (int i = 0; i < texts.size(); ++i)
 		{
 			iWidgetLabel* label = new iWidgetLabel();
 			label->setHorizontalAlignment(iHorizontalAlignment::Left);
 			label->setText(texts[i]);
-			_grid->addWidget(label, 0, i);
+			grid->addWidget(label, 0, i);
 		}
 	}
 
@@ -62,16 +62,16 @@ namespace Igor
 
 		registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
 
-		_grid = new iWidgetGrid();
-		_grid->appendCollumns(1);
-		_grid->appendRows(static_cast<uint32>(texts.size()) - 1);
-		_grid->setHorizontalAlignment(iHorizontalAlignment::Left);
-		_grid->setVerticalAlignment(iVerticalAlignment::Top);
-		_grid->setSelectMode(iSelectionMode::Row);
-		_grid->setCellSpacing(4);
-		_grid->setBorder(4);
-		_grid->registerOnChangeEvent(iChangeDelegate(this, &iDialogMenu::onChange));
-		addWidget(_grid);
+		iWidgetGridPtr grid = new iWidgetGrid();
+		grid->appendCollumns(1);
+		grid->appendRows(static_cast<uint32>(texts.size()) - 1);
+		grid->setHorizontalAlignment(iHorizontalAlignment::Left);
+		grid->setVerticalAlignment(iVerticalAlignment::Top);
+		grid->setSelectMode(iSelectionMode::Row);
+		grid->setCellSpacing(4);
+		grid->setBorder(4);
+		grid->registerOnChangeEvent(iChangeDelegate(this, &iDialogMenu::onChange));
+		addWidget(grid);
 
 		for (int i = 0; i < texts.size(); ++i)
 		{
@@ -80,26 +80,20 @@ namespace Igor
 				iWidgetPicture* picture = new iWidgetPicture();
 				picture->setTexture(pictures[i]);
 				picture->setMaxSize(_entryHeight, _entryHeight);
-				_grid->addWidget(picture, 0, i);
+				grid->addWidget(picture, 0, i);
 			}
 
 			iWidgetLabel* label = new iWidgetLabel();
 			label->setHorizontalAlignment(iHorizontalAlignment::Left);
 			label->setText(texts[i]);
-			_grid->addWidget(label, 1, i);
+			grid->addWidget(label, 1, i);
 		}
 	}
 
 	void iDialogMenu::deinitGUI()
 	{
 		unregisterOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
-
-		if (_grid != nullptr)
-		{
-			_grid->unregisterOnChangeEvent(iChangeDelegate(this, &iDialogMenu::onChange));
-			removeWidget(_grid);
-			iWidgetManager::getInstance().destroyWidget(_grid);
-		}
+		clearChildren();
 	}
 
 	void iDialogMenu::show(std::vector<iaString>& texts, iDialogMenuCloseDelegate closeDelegate)
@@ -124,20 +118,14 @@ namespace Igor
 		}
 	}
 
-	void iDialogMenu::onMouseOffClick(iWidget* source)
+	void iDialogMenu::onMouseOffClick(iWidgetPtr source)
 	{
 		close();
 	}
 
-	void iDialogMenu::onChange(iWidget* source)
+	void iDialogMenu::onChange(iWidgetPtr source)
 	{
-		con_assert(_grid == source, "unexpected source");
-
-		if (_grid == source)
-		{
-			_returnValue = _grid->getSelectedRow();
-		}
-
+		_returnValue = static_cast<iWidgetGridPtr>(source)->getSelectedRow();
 		close();
 	}
 

@@ -753,7 +753,7 @@ void Mica::deinitGUI()
 
 	if (_fileDialog != nullptr)
 	{
-		iWidgetManager::getInstance().destroyDialog(_fileDialog);
+		delete _fileDialog;
 		_fileDialog = nullptr;
 	}
 

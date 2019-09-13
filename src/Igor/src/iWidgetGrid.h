@@ -105,8 +105,10 @@ namespace Igor
     public:
 
 		/*! ctor initializes member variables
+
+		\param parent optional parent
 		*/
-		iWidgetGrid();
+		iWidgetGrid(iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/
@@ -367,6 +369,11 @@ namespace Igor
         void calcChildOffsets(std::vector<iRectanglei>& offsets);
 
     };
+
+	/*! widget grid pointer definition
+	*/
+	typedef iWidgetGrid* iWidgetGridPtr;
+
 }
 
 #endif

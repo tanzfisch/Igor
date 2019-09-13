@@ -80,8 +80,10 @@ namespace Igor
 	public:        
 
 		/*! ctor initializes member variables
+
+		\param parent optional parnt
 		*/
-		iWidgetGraph();
+		iWidgetGraph(iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/

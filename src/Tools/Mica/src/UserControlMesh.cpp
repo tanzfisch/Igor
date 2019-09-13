@@ -238,17 +238,44 @@ uint32 UserControlMesh::getNode()
 
 void UserControlMesh::deinitGUI()
 {
-	iWidgetManager::getInstance().destroyWidget(_grid);
+	if (!_initialized)
+	{
+		return;
+	}
+
+	clearChildren();
+
+	_ambientColorChooser = nullptr;
+	_diffuseColorChooser = nullptr;
+	_specularColorChooser = nullptr;
+	_emissiveColorChooser = nullptr;
+	_textVertices = nullptr;
+	_textTriangles = nullptr;
+	_textIndexes = nullptr;
+	_sliderShininess = nullptr;
+	_textShininess = nullptr;
+	_textureChooser0 = nullptr;
+	_textureChooser1 = nullptr;
+	_textureChooser2 = nullptr;
+	_textureChooser3 = nullptr;
+	_selectMaterial = nullptr;
+
+	_initialized = false;
 }
 
 void UserControlMesh::initGUI()
 {
-	_grid = new iWidgetGrid();
-	_grid->appendRows(9);
-	_grid->setStrechRow(8);
-	_grid->setStrechColumn(0);
-	_grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-	_grid->setVerticalAlignment(iVerticalAlignment::Strech);
+	if (_initialized)
+	{
+		return;
+	}
+
+	iWidgetGridPtr grid = new iWidgetGrid(this);
+	grid->appendRows(9);
+	grid->setStrechRow(8);
+	grid->setStrechColumn(0);
+	grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+	grid->setVerticalAlignment(iVerticalAlignment::Strech);
 
 	_ambientColorChooser = new iUserControlColorChooser();
 	_ambientColorChooser->setMode(iColorChooserMode::RGB);
@@ -427,17 +454,17 @@ void UserControlMesh::initGUI()
 	gridMaterial->addWidget(labelMaterial, 0, 0);
 	gridMaterial->addWidget(_selectMaterial, 1, 0);
 
-	_grid->addWidget(detailsGrid, 0, 0);
-	_grid->addWidget(_ambientColorChooser, 0, 1);
-	_grid->addWidget(_diffuseColorChooser, 0, 2);
-	_grid->addWidget(_specularColorChooser, 0, 3);
-	_grid->addWidget(_emissiveColorChooser, 0, 4);
-	_grid->addWidget(gridShininess, 0, 5);
-	_grid->addWidget(gridTextures, 0, 6);
-	_grid->addWidget(gridMaterial, 0, 7);
-	_grid->addWidget(bakeButton, 0, 8);
+	grid->addWidget(detailsGrid, 0, 0);
+	grid->addWidget(_ambientColorChooser, 0, 1);
+	grid->addWidget(_diffuseColorChooser, 0, 2);
+	grid->addWidget(_specularColorChooser, 0, 3);
+	grid->addWidget(_emissiveColorChooser, 0, 4);
+	grid->addWidget(gridShininess, 0, 5);
+	grid->addWidget(gridTextures, 0, 6);
+	grid->addWidget(gridMaterial, 0, 7);
+	grid->addWidget(bakeButton, 0, 8);
 
-	addWidget(_grid);
+	_initialized = true;
 }
 
 void UserControlMesh::onBakeAction(iWidget* source)

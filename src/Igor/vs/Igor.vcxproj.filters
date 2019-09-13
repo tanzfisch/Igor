@@ -966,6 +966,9 @@
     <None Include="..\src\iNodeManager.inl">
       <Filter>scene\nodes</Filter>
     </None>
+    <None Include="..\src\iWidgetManager.inl">
+      <Filter>GUI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="3rd">

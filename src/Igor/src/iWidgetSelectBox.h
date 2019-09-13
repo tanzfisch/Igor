@@ -46,8 +46,10 @@ namespace Igor
 	public:
 
 		/*! ctro initializes member variables
+
+		\param parent optional parent
 		*/
-		iWidgetSelectBox();
+		iWidgetSelectBox(iWidgetPtr parent = nullptr);
 
 		/*! clean up
 		*/

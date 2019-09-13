@@ -12,7 +12,8 @@
 namespace Igor
 {
 
-	iWidgetTextEdit::iWidgetTextEdit()
+	iWidgetTextEdit::iWidgetTextEdit(iWidgetPtr parent)
+		: iWidget(parent)
 	{
 		_reactOnMouseWheel = false;
 	}

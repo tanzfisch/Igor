@@ -36,7 +36,7 @@
 #include <iaSingleton.h>
 
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include <deque>
 
 
@@ -62,30 +62,6 @@ namespace Igor
 		friend class iDialog;
         
 	public:
-		
-        /*! destroyes widget
-
-        \param widget the widget to destroy
-        */
-		void destroyWidget(iWidget* widget);
-
-        /*! destroyes widget by id
-
-        \param id id of the widget to be destroyed
-        */
-        void destroyWidget(uint64 id);
-		
-        /*! destroyes dialog
-
-        \param dialog the dialog to destroy
-        */
-        void destroyDialog(iDialog* dialog);
-
-        /*! destroyes dialog by id
-
-        \param id id of the dialog to be destroyed
-        */
-        void destroyDialog(uint64 id);
 
 		/*! shows tooltip at given position
 
@@ -311,19 +287,11 @@ namespace Igor
 
         /*! list of all widgets
         */
-		std::map<uint64, iWidget*> _widgets;
+		std::unordered_map<uint64, iWidget*> _widgets;
 
         /*! list of all dialogs
         */
-        std::map<uint64, iDialog*> _dialogs;
-
-        /*! list of widgets to delete
-        */
-        std::deque<uint64> _toDeleteWidgets;
-
-        /*! list of dialogs to delete
-        */
-        std::deque<uint64> _toDeleteDialogs;
+        std::unordered_map<uint64, iDialog*> _dialogs;
 
         /*! current desktop width
         */
@@ -365,10 +333,6 @@ namespace Igor
 		*/
 		void unregisterDialog(iDialog* dialog);
 
-        /*! last chance for the instance to clean up before shut down
-        */
-        virtual void onPreDestroyInstance();
-
         /*! traverse widget tree and updates positions and sizes
 
         \param widget current widget to update
@@ -382,11 +346,7 @@ namespace Igor
         /*! updates recursively all widgets
         */
         void onHandle();
-
-        /*! destroyes widgets that where put in to the delete queues before
-        */
-        void runDeleteQueues();
-
+		
         /*! handle for mouse key down event
 
         \param key mouse key pressed
@@ -452,6 +412,8 @@ namespace Igor
         virtual ~iWidgetManager();
 
 	};
+
+#include <iWidgetManager.inl>
 
 }
 

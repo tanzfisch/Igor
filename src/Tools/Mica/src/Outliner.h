@@ -163,7 +163,6 @@ private:
     iDialogMessageBox* _messageBox = nullptr;
 
     iWidgetGrid* _grid = nullptr;
-    iWidgetGrid* _gridButtons = nullptr;
 
 	iWidgetGrid* _gridRadioButtons = nullptr;
 	iWidgetCheckBox* _checkBoxGraph = nullptr;
@@ -177,7 +176,6 @@ private:
     iWidgetButton* _cutButton = nullptr;
     iWidgetButton* _copyButton = nullptr;
     iWidgetButton* _pasteButton = nullptr;
-    iWidgetButton* _deleteButton = nullptr;
 
 	UserControlGraphView* _userControlGraphView = nullptr;
     UserControlMaterialView* _userControlMaterialView = nullptr;

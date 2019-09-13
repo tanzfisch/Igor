@@ -22,7 +22,7 @@ namespace Igor
 
 	iDialogColorChooser::~iDialogColorChooser()
 	{
-		deinitGUI();
+		// deinitGUI();
 	}
 
 	void iDialogColorChooser::show(iColorChooserCloseDelegate closeDelegate, const iaColor4f& color, bool useAlpha)
@@ -37,8 +37,8 @@ namespace Igor
 	{
 		if (_grid != nullptr)
 		{
-			removeWidget(_grid);
-			iWidgetManager::getInstance().destroyWidget(_grid);
+			this->removeWidget(_grid);
+			delete _grid;
 			_grid = nullptr;
 		}
 	}

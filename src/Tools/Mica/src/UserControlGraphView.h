@@ -110,8 +110,6 @@ private:
     uint64 _root = iNode::INVALID_NODE_ID;
 	GraphSelectionChanged _selectionChange;
 
-	std::vector<iWidget*> _gridEntryWidgets;
-
     int32 _indentation = 0;
     bool _firstNode = true;
 

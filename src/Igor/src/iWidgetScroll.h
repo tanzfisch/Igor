@@ -52,8 +52,10 @@ namespace Igor
 	public:
 
 		/*! ctor initializes membervariables
+
+		\param parent optional parent
 		*/
-		iWidgetScroll();
+		iWidgetScroll(iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/
@@ -243,6 +245,10 @@ namespace Igor
 		void calcChildOffsets(std::vector<iRectanglei>& offsets);
 
 	};
+
+	/*! widget scroll pointer definition
+	*/
+	typedef iWidgetScroll* iWidgetScrollPtr;
 }
 
 #endif

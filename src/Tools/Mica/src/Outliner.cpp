@@ -42,7 +42,7 @@ void Outliner::initGUI()
     setHorizontalAlignment(iHorizontalAlignment::Left);
     setVerticalAlignment(iVerticalAlignment::Strech);
 
-    _grid = new iWidgetGrid();
+    _grid = new iWidgetGrid(this);
     _grid->setBorder(2);
     _grid->setCellSpacing(8);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -51,12 +51,12 @@ void Outliner::initGUI()
     _grid->setStrechRow(2);
     _grid->setStrechColumn(0);
 
-    _gridButtons = new iWidgetGrid();
-    _gridButtons->setBorder(0);
-    _gridButtons->setCellSpacing(2);
-    _gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
-    _gridButtons->appendCollumns(8);
+	iWidgetGridPtr gridButtons = new iWidgetGrid();
+    gridButtons->setBorder(0);
+    gridButtons->setCellSpacing(2);
+    gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
+    gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
+    gridButtons->appendCollumns(8);
 
     _gridRadioButtons = new iWidgetGrid();
     _gridRadioButtons->setBorder(0);
@@ -131,25 +131,24 @@ void Outliner::initGUI()
     _pasteButton->setTexture("icons\\paste.png");
     _pasteButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onPaste));
 
-    _deleteButton = new iWidgetButton();
-    _deleteButton->setText("");
-    _deleteButton->setWidth(30);
-    _deleteButton->setHeight(30);
-	_deleteButton->setTooltip("delete selection");
-    _deleteButton->setTexture("icons\\delete.png");
-    _deleteButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onDelete));
+	iWidgetButtonPtr deleteButton = new iWidgetButton();
+    deleteButton->setText("");
+    deleteButton->setWidth(30);
+    deleteButton->setHeight(30);
+	deleteButton->setTooltip("delete selection");
+    deleteButton->setTexture("icons\\delete.png");
+    deleteButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onDelete));
 
-    addWidget(_grid);
-    _grid->addWidget(_gridButtons, 0, 0);
-    _gridButtons->addWidget(_loadButton, 0, 0);
-    _gridButtons->addWidget(_saveButton, 1, 0);
-    _gridButtons->addWidget(_exitButton, 2, 0);
-    _gridButtons->addWidget(_spacer1, 3, 0);
-    _gridButtons->addWidget(_cutButton, 4, 0);
-    _gridButtons->addWidget(_copyButton, 5, 0);
-    _gridButtons->addWidget(_pasteButton, 6, 0);
-    _gridButtons->addWidget(_spacer2, 7, 0);
-    _gridButtons->addWidget(_deleteButton, 8, 0);
+    _grid->addWidget(gridButtons, 0, 0);
+    gridButtons->addWidget(_loadButton, 0, 0);
+    gridButtons->addWidget(_saveButton, 1, 0);
+    gridButtons->addWidget(_exitButton, 2, 0);
+    gridButtons->addWidget(_spacer1, 3, 0);
+    gridButtons->addWidget(_cutButton, 4, 0);
+    gridButtons->addWidget(_copyButton, 5, 0);
+    gridButtons->addWidget(_pasteButton, 6, 0);
+    gridButtons->addWidget(_spacer2, 7, 0);
+    gridButtons->addWidget(deleteButton, 8, 0);
 
     _grid->addWidget(_gridRadioButtons, 0, 1);
     _gridRadioButtons->addWidget(_checkBoxGraph, 0, 0);
@@ -208,7 +207,7 @@ void Outliner::deinitMaterialView()
         _userControlMaterialView->unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &Outliner::onMaterialSelectionChanged));
         _userControlMaterialView->unregisterOnAddMaterial(AddMaterialDelegate(this, &Outliner::onAddMaterial));
 
-		iWidgetManager::getInstance().destroyWidget(_userControlMaterialView);
+		delete _userControlMaterialView;
         _userControlMaterialView = nullptr;
     }
 }
@@ -240,7 +239,8 @@ void Outliner::deinitGraphView()
         _userControlGraphView->unregisterOnAddParticleSystem(AddParticleSystemDelegate(this, &Outliner::onAddParticleSystem));
         _userControlGraphView->unregisterOnAddSwitch(AddSwitchDelegate(this, &Outliner::onAddSwitch));
         _userControlGraphView->unregisterOnAddTransformation(AddTransformationDelegate(this, &Outliner::onAddTransformation));
-		iWidgetManager::getInstance().destroyWidget(_userControlGraphView);
+
+		delete _userControlGraphView;
         _userControlGraphView = nullptr;
     }
 }
@@ -464,24 +464,22 @@ void Outliner::deinitGUI()
     _cutButton->unregisterOnClickEvent(iClickDelegate(this, &Outliner::onCut));
     _copyButton->unregisterOnClickEvent(iClickDelegate(this, &Outliner::onCopy));
     _pasteButton->unregisterOnClickEvent(iClickDelegate(this, &Outliner::onPaste));
-    _deleteButton->unregisterOnClickEvent(iClickDelegate(this, &Outliner::onDelete));
 
     deinitGraphView();
     deinitMaterialView();
 
-    removeWidget(_grid);
-	iWidgetManager::getInstance().destroyWidget(_grid);
+	clearChildren();
 	_grid = nullptr;
 
     if (_messageBox != nullptr)
     {
-        iWidgetManager::getInstance().destroyDialog(_messageBox);
+        delete _messageBox;
         _messageBox = nullptr;
     }
 
     if (_decisionBoxModelRef != nullptr)
     {
-        iWidgetManager::getInstance().destroyDialog(_decisionBoxModelRef);
+        delete _decisionBoxModelRef;
         _decisionBoxModelRef = nullptr;
     }
 }

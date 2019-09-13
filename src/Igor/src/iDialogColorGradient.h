@@ -99,9 +99,9 @@ namespace Igor
 		*/
 		iWidgetNumberChooser* _position = nullptr;
 
-		/*! over all grid
+		/*! if true ui is initialized
 		*/
-		iWidgetGrid* _grid = nullptr;
+		bool _initialized = false;
 
 		/*! the widget to visualize the gradient
 		*/

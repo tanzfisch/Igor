@@ -17,7 +17,8 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iWidgetColorGradient::iWidgetColorGradient()
+    iWidgetColorGradient::iWidgetColorGradient(iWidgetPtr parent)
+		: iWidget(parent)
     {
         _configuredWidth = 60;
         _configuredHeight = 20;

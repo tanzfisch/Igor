@@ -110,46 +110,10 @@ namespace Igor
 		*/
 		iMessageBoxReturnValue _messageBoxReturnValue = iMessageBoxReturnValue::Ok;
 
-		/*! the ok button
-		*/
-		iWidgetButton* _okButton = nullptr;
-
-		/*! the yes button
-		*/
-		iWidgetButton* _yesButton = nullptr;
-
-		/*! the no button
-		*/
-		iWidgetButton* _noButton = nullptr;
-
-		/*! the cancel button
-		*/
-		iWidgetButton* _cancelButton = nullptr;
-
-		/*! a spacer line
-		*/
-		iWidgetSpacer* _spacerLine = nullptr;
-
-		/*! an other spacer
-		*/
-		iWidgetSpacer* _spacerLittle = nullptr;
-
-		/*! over all grid
-		*/
-		iWidgetGrid* _grid = nullptr;
-
-		/*! grid for the buttons
-		*/
-		iWidgetGrid* _buttonGrid = nullptr;
-
 		/*! label for the message text
 		*/
 		iWidgetLabel* _messageLabel = nullptr;
-
-		/*! collect all widgets here so we can clean up faster later
-		*/
-		std::vector<iWidget*> _allWidgets;
-
+		
 		/*! handles ok button clicked event
 
 		\param source the ok button it self

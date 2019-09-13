@@ -49,8 +49,10 @@ namespace Igor
 	public:
 
 		/*! ctor initializes member variables
+
+		\param parent the optional parent
 		*/
-		iWidgetButton();
+		iWidgetButton(iWidgetPtr parent = nullptr);
 
 		/*! release texture
 		*/
@@ -127,6 +129,10 @@ namespace Igor
         void draw();
 
 	};
+
+	/*! widget button pointer definition
+	*/
+	typedef iWidgetButton* iWidgetButtonPtr;
 }
 
 #endif

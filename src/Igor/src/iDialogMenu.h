@@ -102,15 +102,7 @@ namespace Igor
 		-1 stands for cancel
 		*/
 		int32 _returnValue = -1;
-
-		/*! over all grid
-		*/
-		iWidgetGrid* _grid = nullptr;
-
-		/*! all widgets
-		*/
-		std::vector<iWidget*> _allWidgets;
-
+		
 		/*! handles change event
 
 		\param source the source of the event (should be the grid)

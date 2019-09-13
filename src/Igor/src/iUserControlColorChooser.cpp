@@ -539,7 +539,7 @@ namespace Igor
 	{
 		// destroy all these widgets manually because we don't keep trak weather they are attached to anything or not
 		// TODO this is stupid. instead of creating everything and move things arrouns we should only create on doemand. like that nothing would be left over
-		iWidgetManager::getInstance().destroyWidget(_headlineGrid);
+		/*iWidgetManager::getInstance().destroyWidget(_headlineGrid);
 
 		iWidgetManager::getInstance().destroyWidget(_valueChooserH);
 		iWidgetManager::getInstance().destroyWidget(_valueChooserS);
@@ -576,7 +576,7 @@ namespace Igor
 		iWidgetManager::getInstance().destroyWidget(_sliderB);
 		iWidgetManager::getInstance().destroyWidget(_sliderA);
 
-		iWidgetManager::getInstance().destroyWidget(_expandedGrid);
+		iWidgetManager::getInstance().destroyWidget(_expandedGrid);*/
 	}
 
 	void iUserControlColorChooser::registerOnColorChangedEvent(iColorChangedDelegate colorChangedDelegate)

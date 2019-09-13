@@ -67,7 +67,9 @@ private:
 
 	void draw() override;
 
-    iWidgetGrid* _grid = nullptr;
+	/*! if true ui is initialized
+	*/
+	bool _initialized = false;
 
     iUserControlFileChooser* _textureChooser0 = nullptr;
     iUserControlFileChooser* _textureChooser1 = nullptr;

@@ -65,28 +65,39 @@ namespace Igor
 
 	void iDialogGraph::deinitGUI()
 	{
-		if (_grid != nullptr)
+		if (!_initialized)
 		{
-			removeWidget(_grid);
-			iWidgetManager::getInstance().destroyWidget(_grid);
-			_grid = nullptr;
+			return;
 		}
+
+		clearChildren();
+
+		_axisNumberChooser.clear();
+		_titleLabel = nullptr;
+		_graph = nullptr;
+
+		_initialized = false;
 	}
 
 	void iDialogGraph::initGUI()
 	{
+		if (_initialized)
+		{
+			return;
+		}
+
 		iWidgetManager::setModal(this);
 		setActive();
 		setVisible();
 		setWidth(450);
 		setHeight(20);
 
-		_grid = new iWidgetGrid();
-		_grid->appendRows(4);
-		_grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-		_grid->setVerticalAlignment(iVerticalAlignment::Strech);
-		_grid->setCellSpacing(4);
-		_grid->setBorder(4);
+		iWidgetGridPtr grid = new iWidgetGrid(this);
+		grid->appendRows(4);
+		grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+		grid->setVerticalAlignment(iVerticalAlignment::Strech);
+		grid->setCellSpacing(4);
+		grid->setBorder(4);
 
 		_titleLabel = new iWidgetLabel();
 		_titleLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -217,12 +228,10 @@ namespace Igor
 		resetButton->setText("Reset");
 		resetButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onReset));
 
-		addWidget(_grid);
-
-		_grid->addWidget(_titleLabel, 0, 0);
-		_grid->addWidget(groupBoxGradient, 0, 1);
-		_grid->addWidget(groupBoxSelection, 0, 2);
-		_grid->addWidget(buttonGrid, 0, 3);
+		grid->addWidget(_titleLabel, 0, 0);
+		grid->addWidget(groupBoxGradient, 0, 1);
+		grid->addWidget(groupBoxSelection, 0, 2);
+		grid->addWidget(buttonGrid, 0, 3);
 
 		groupBoxGradient->addWidget(_graph);
 		groupBoxSelection->addWidget(axisGrid);
@@ -230,6 +239,8 @@ namespace Igor
 		buttonGrid->addWidget(resetButton, 0, 0);
 		buttonGrid->addWidget(cancelButton, 1, 0);
 		buttonGrid->addWidget(okButton, 2, 0);
+
+		_initialized = true;
 
 		updateGraph();
 	}

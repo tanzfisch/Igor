@@ -132,18 +132,14 @@ namespace Igor
 		/*! ok button widget
 		*/
 		iWidgetButton* _okButton = nullptr;
-
-		/*! cancel button widget
-		*/
-		iWidgetButton* _cancelButton = nullptr;
-
+		
 		/*! scroll widget for file and folder grid
 		*/
 		iWidgetScroll* _scroll = nullptr;
 
-		/*! over all grid
+		/*! if true ui is initialized
 		*/
-		iWidgetGrid* _grid = nullptr;
+		bool _initialized = false;
 
 		/*! file and folder grid
 		*/
@@ -153,10 +149,6 @@ namespace Igor
 		*/
 		iWidgetLabel* _headerLabel = nullptr;
 
-		/*! filename label
-		*/
-		iWidgetLabel* _filenameLabel = nullptr;
-
 		/*! path edit text field
 		*/
 		iWidgetTextEdit* _pathEdit = nullptr;
@@ -164,18 +156,6 @@ namespace Igor
 		/*! file name text field
 		*/
 		iWidgetTextEdit* _filenameEdit = nullptr;
-
-		/*! buttion grid
-		*/
-		iWidgetGrid* _buttonGrid = nullptr;
-
-		/*! filename grid
-		*/
-		iWidgetGrid* _filenameGrid = nullptr;
-
-		/*! list of widgets in file grid
-		*/
-		std::vector<iWidget*> _fileGridWidgets;
 
 		/*! handles ok button click
 

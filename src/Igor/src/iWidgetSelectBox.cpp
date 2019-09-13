@@ -18,7 +18,8 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iWidgetSelectBox::iWidgetSelectBox()
+	iWidgetSelectBox::iWidgetSelectBox(iWidgetPtr parent)
+		: iWidget(parent)
 	{
 		_reactOnMouseWheel = false;
 	}
@@ -27,7 +28,7 @@ namespace Igor
 	{
 		if (_selectBox != nullptr)
 		{
-			iWidgetManager::getInstance().destroyDialog(_selectBox);
+			delete _selectBox;
 			_selectBox = nullptr;
 		}
 	}

@@ -37,16 +37,14 @@ UserControlProperties::~UserControlProperties()
 
 void UserControlProperties::initGUI()
 {
-	_groupBox = new iWidgetGroupBox();
-	_groupBox->setText("Properties");
-	_groupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
-	_groupBox->setVerticalAlignment(iVerticalAlignment::Strech);
-	addWidget(_groupBox);
+	iWidgetGroupBoxPtr groupBox = new iWidgetGroupBox(this);
+	groupBox->setText("Properties");
+	groupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
+	groupBox->setVerticalAlignment(iVerticalAlignment::Strech);
 
-	_scroll = new iWidgetScroll();
-	_scroll->setHorizontalAlignment(iHorizontalAlignment::Strech);
-	_scroll->setVerticalAlignment(iVerticalAlignment::Strech);
-	_groupBox->addWidget(_scroll);
+	iWidgetScrollPtr scroll = new iWidgetScroll(groupBox);
+	scroll->setHorizontalAlignment(iHorizontalAlignment::Strech);
+	scroll->setVerticalAlignment(iVerticalAlignment::Strech);
 
 	_grid = new iWidgetGrid();
 	_grid->appendRows(1);
@@ -55,19 +53,22 @@ void UserControlProperties::initGUI()
 	_grid->setHeight(0);
 	_grid->setHorizontalAlignment(iHorizontalAlignment::Left);
 	_grid->setVerticalAlignment(iVerticalAlignment::Top);
-	_scroll->addWidget(_grid);
+	scroll->addWidget(_grid);
 }
 
 void UserControlProperties::deinitGUI()
 {
 	setProperty(0, PropertyType::Undefined);
-	iWidgetManager::getInstance().destroyWidget(_groupBox);
+
+	clearChildren();
+
+	_grid = nullptr;
 }
 
-iDialog* UserControlProperties::getDialog()
+/*iDialog* UserControlProperties::getDialog()
 {
 	return _dialog;
-}
+}*/
 
 void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
 {
@@ -112,7 +113,8 @@ void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
 			{
 				_grid->removeWidget(_userControlNode);
 				_userControlNode->unregisterNameChangeDelegate(NameChangedDelegate(this, &UserControlProperties::onNameChanged));
-				iWidgetManager::getInstance().destroyWidget(_userControlNode);
+				
+				delete _userControlNode;
 				_userControlNode = nullptr;
 			}
 		}
@@ -243,7 +245,7 @@ void UserControlProperties::deinitMeshNode()
 	{
 		_grid->removeWidget(_userControlMesh);
 
-		iWidgetManager::getInstance().destroyWidget(_userControlMesh);
+		delete _userControlMesh;
 		_userControlMesh = nullptr;
 	}
 }
@@ -266,7 +268,7 @@ void UserControlProperties::deinitModel()
 	{
 		_grid->removeWidget(_userControlModel);
 
-		iWidgetManager::getInstance().destroyWidget(_userControlModel);
+		delete _userControlModel;
 		_userControlModel = nullptr;
 	}
 }
@@ -289,7 +291,7 @@ void UserControlProperties::deinitEmitter()
 	{
 		_grid->removeWidget(_userControlEmitter);
 
-		iWidgetManager::getInstance().destroyWidget(_userControlEmitter);
+		delete _userControlEmitter;
 		_userControlEmitter = nullptr;
 	}
 }
@@ -311,7 +313,7 @@ void UserControlProperties::deinitParticleSystem()
 	if (_userControlParticleSystem != nullptr)
 	{
 		_grid->removeWidget(_userControlParticleSystem);
-		iWidgetManager::getInstance().destroyWidget(_userControlParticleSystem);
+		delete _userControlParticleSystem;
 		_userControlParticleSystem = nullptr;
 	}
 }
@@ -337,7 +339,7 @@ void UserControlProperties::deinitMaterial()
 
 		_grid->removeWidget(_userControlMaterial);
 
-		iWidgetManager::getInstance().destroyWidget(_userControlMaterial);
+		delete _userControlMaterial;
 		_userControlMaterial = nullptr;
 	}
 }
@@ -362,7 +364,7 @@ void UserControlProperties::deinitLightNode()
 	{
 		_grid->removeWidget(_userControlLight);
 
-		iWidgetManager::getInstance().destroyWidget(_userControlLight);
+		delete _userControlLight;
 		_userControlLight = nullptr;
 	}
 }
@@ -382,7 +384,7 @@ void UserControlProperties::deinitTransformNode()
 	{
 		_grid->removeWidget(_userControlTransformation);
 
-		iWidgetManager::getInstance().destroyWidget(_userControlTransformation);
+		delete _userControlTransformation;
 		_userControlTransformation = nullptr;
 	}
 }

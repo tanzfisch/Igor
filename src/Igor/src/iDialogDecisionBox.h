@@ -83,42 +83,8 @@ namespace Igor
 		*/
 		int32 _selection = -1;
 
-		/*! the ok button
+		/*! radio buttons
 		*/
-		iWidgetButton* _okButton = nullptr;
-
-		/*! the cancel button
-		*/
-		iWidgetButton* _cancelButton = nullptr;
-
-		/*! a spacer line
-		*/
-		iWidgetSpacer* _spacerLineTop = nullptr;
-
-		/*! a spacer line
-		*/
-		iWidgetSpacer* _spacerLineBottom = nullptr;
-
-		/*! an other spacer
-		*/
-		iWidgetSpacer* _spacerLittle = nullptr;
-
-		/*! over all grid
-		*/
-		iWidgetGrid* _grid = nullptr;
-
-		/*! grid for the buttons
-		*/
-		iWidgetGrid* _buttonGrid = nullptr;
-
-		/*! grid for radio buttons
-		*/
-		iWidgetGrid* _radioGrid = nullptr;
-
-		/*! label for the message text
-		*/
-		iWidgetLabel* _messageLabel = nullptr;
-
 		std::vector<iWidgetCheckBox*> _radioButtons;
 
 		/*! handles ok button clicked event

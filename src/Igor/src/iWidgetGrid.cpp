@@ -13,7 +13,8 @@ using namespace IgorAux;
 
 namespace Igor
 {
-    iWidgetGrid::iWidgetGrid()
+    iWidgetGrid::iWidgetGrid(iWidgetPtr parent)
+		: iWidget(parent)
     {
         _configuredWidth = 0;
         _configuredHeight = 0;
@@ -22,6 +23,7 @@ namespace Igor
 
     void iWidgetGrid::clear()
     {
+		clearChildren();
         _widgetRows.clear();
         _children.clear();
         initGrid();
@@ -408,9 +410,9 @@ namespace Igor
                 int index = 0;
                 int foundIndex = -1;
 
-                for (auto child : _children)
+                for (auto id : _children)
                 {
-                    if (child->getID() == collumn._widgetID)
+                    if (id == collumn._widgetID)
                     {
                         foundIndex = index;
                         break;
@@ -895,7 +897,7 @@ namespace Igor
         {
             if (widgetID != iWidget::INVALID_WIDGET_ID)
             {
-                auto iter = find(_children.begin(), _children.end(), widget);
+                auto iter = find(_children.begin(), _children.end(), widget->getID());
                 if (iter == _children.end())
                 {
                     if (_widgetRows[row]._widgetCollumn[col]._widgetID != iWidget::INVALID_WIDGET_ID)

@@ -44,7 +44,7 @@ namespace Igor
         if (isGrowingByContent() &&
             !_children.empty())
         {
-            iWidget* widget = _children[0];
+            iWidget* widget = iWidgetManager::getInstance().getWidget(*_children.begin());
             minWidth = widget->getMinWidth();
             minHeight = widget->getMinHeight();
         }
@@ -128,11 +128,14 @@ namespace Igor
     {
         if (isVisible())
         {
-            iWidgetManager::getInstance().getTheme()->drawDialog(getActualRect(), getAppearanceState(), isActive());
+			iWidgetManager& wm = iWidgetManager::getInstance();
 
-            for (auto widget : _children)
+            wm.getTheme()->drawDialog(getActualRect(), getAppearanceState(), isActive());
+
+            for (auto id : _children)
             {
-                widget->draw();
+				auto child = wm.getWidget(id);
+                child->draw();
             }
         }
     }

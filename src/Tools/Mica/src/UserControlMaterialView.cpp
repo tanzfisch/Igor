@@ -29,14 +29,13 @@ UserControlMaterialView::UserControlMaterialView()
 
 void UserControlMaterialView::initGUI()
 {
-    iWidgetGrid* grid = new iWidgetGrid();
+    iWidgetGrid* grid = new iWidgetGrid(this);
     grid->appendRows(1);
     grid->setBorder(2);
     grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     grid->setVerticalAlignment(iVerticalAlignment::Strech);
     grid->setStrechColumn(0);
     grid->setStrechRow(1);
-	addWidget(grid);
 
     iWidgetGrid* gridButtons = new iWidgetGrid();
     gridButtons->setBorder(0);
@@ -99,12 +98,7 @@ void UserControlMaterialView::OnSelectionChange(iWidget* widget)
 
 void UserControlMaterialView::clear()
 {
-    for (auto widget : _gridEntryWidgets)
-    {
-        iWidgetManager::getInstance().destroyWidget(widget);
-    }
-
-    _gridEntryWidgets.clear();
+	_gridGraph->clearChildren();
 
     for (auto iter : _userData)
     {
@@ -146,9 +140,6 @@ void UserControlMaterialView::refresh()
         entry->addWidget(label, 0, 0);
         _gridGraph->addWidget(entry, 0, currentRowIndex++, userData);
         _gridGraph->appendRows(1);
-
-        _gridEntryWidgets.push_back(label);
-        _gridEntryWidgets.push_back(entry);
     }
 }
 

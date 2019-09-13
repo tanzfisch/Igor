@@ -27,7 +27,6 @@
 
 #include <iDialogColorChooser.h>
 #include <iDialogDecisionBox.h>
-#include <iDialogFileSelect.h>
 #include <iDialogMenu.h>
 #include <iDialogMessageBox.h>
 #include <iDialogColorGradient.h>
@@ -195,7 +194,7 @@ namespace Igor
 	void iWidgetManager::onKeyDown(iKeyCode key)
 	{
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
-		std::map<uint64, iDialog*> dialogs = _dialogs;
+		auto dialogs = _dialogs;
 
 		for (auto dialog : dialogs)
 		{
@@ -226,7 +225,7 @@ namespace Igor
 	void iWidgetManager::onKeyUp(iKeyCode key)
 	{
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
-		std::map<uint64, iDialog*> dialogs = _dialogs;
+		auto dialogs = _dialogs;
 
 		for (auto dialog : dialogs)
 		{
@@ -264,7 +263,7 @@ namespace Igor
 		}
 
 		// let the dialogs handle the event
-		std::map<uint64, iDialog*> dialogs = _dialogs;
+		auto dialogs = _dialogs;
 		for (auto dialog : dialogs)
 		{
 			if (dialog.second->handleMouseKeyDown(key))
@@ -287,7 +286,7 @@ namespace Igor
 		}
 
 		// let the dialogs handle the event
-		std::map<uint64, iDialog*> dialogs = _dialogs;
+		auto dialogs = _dialogs;
 		for (auto dialog : dialogs)
 		{
 			if (dialog.second->handleMouseKeyUp(key))
@@ -310,7 +309,7 @@ namespace Igor
 		}
 
 		// let the dialogs handle the event
-		std::map<uint64, iDialog*> dialogs = _dialogs;
+		auto dialogs = _dialogs;
 		for (auto dialog : dialogs)
 		{
 			if (dialog.second->handleMouseDoubleClick(key))
@@ -326,7 +325,7 @@ namespace Igor
 	void iWidgetManager::onMouseMove(const iaVector2i& from, const iaVector2i& to, iWindow* window)
 	{
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
-		std::map<uint64, iDialog*> dialogs = _dialogs;
+		auto dialogs = _dialogs;
 
 		for (auto dialog : dialogs)
 		{
@@ -349,7 +348,7 @@ namespace Igor
 	void iWidgetManager::onMouseWheel(int32 d)
 	{
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
-		std::map<uint64, iDialog*> dialogs = _dialogs;
+		auto dialogs = _dialogs;
 
 		for (auto dialog : dialogs)
 		{
@@ -380,7 +379,7 @@ namespace Igor
 	void iWidgetManager::onASCII(const char c)
 	{
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
-		std::map<uint64, iDialog*> dialogs = _dialogs;
+		auto dialogs = _dialogs;
 
 		for (auto dialog : dialogs)
 		{
@@ -407,16 +406,17 @@ namespace Igor
 				traverseAlignment(dialog.second, 0, 0, getDesktopWidth(), getDesktopHeight());
 			}
 		}
-
-		runDeleteQueues();
 	}
 
 	void iWidgetManager::traverseContentSize(iWidget* widget)
 	{
 		if (widget != nullptr)
 		{
-			for (auto child : widget->_children)
+			iWidgetManager& wm = iWidgetManager::getInstance();
+
+			for (auto id : widget->_children)
 			{
+				auto child = wm.getWidget(id);
 				traverseContentSize(child);
 			}
 
@@ -436,9 +436,14 @@ namespace Igor
 
 			con_assert(offsets.size() == widget->_children.size(), "inconsistant data");
 
-			for (int i = 0; i < offsets.size(); ++i)
+			iWidgetManager& wm = iWidgetManager::getInstance();
+			uint32 index = 0;
+
+			for (auto id : widget->_children)
 			{
-				traverseAlignment(widget->_children[i], widget->getActualPosX() + offsets[i].getX(), widget->getActualPosY() + offsets[i].getY(), offsets[i].getWidth(), offsets[i].getHeight());
+				auto child = wm.getWidget(id);
+				traverseAlignment(child, widget->getActualPosX() + offsets[index].getX(), widget->getActualPosY() + offsets[index].getY(), offsets[index].getWidth(), offsets[index].getHeight());
+				index++;
 			}
 		}
 	}
@@ -492,49 +497,6 @@ namespace Igor
 		}
 	}
 
-	void iWidgetManager::destroyDialog(iDialog* dialog)
-	{
-		con_assert(dialog != nullptr, "zero pointer");
-
-		if (dialog == nullptr)
-		{
-			return;
-		}
-
-		_toDeleteDialogs.push_back(dialog->getID());
-	}
-
-	void iWidgetManager::destroyDialog(uint64 id)
-	{
-		auto iter = _dialogs.find(id);
-
-		if (iter != _dialogs.end())
-		{
-			destroyDialog((*iter).second);
-		}
-		else
-		{
-			con_err("dialog with id " << id << " does not exist");
-		}
-	}
-
-	void iWidgetManager::destroyWidget(uint64 id)
-	{
-		_toDeleteWidgets.push_back(id);
-	}
-
-	void iWidgetManager::destroyWidget(iWidget* widget)
-	{
-		con_assert(widget != nullptr, "zero pointer");
-
-		if (widget == nullptr)
-		{
-			return;
-		}
-
-		_toDeleteWidgets.push_back(widget->getID());
-	}
-
 	iDialog* iWidgetManager::getDialog(uint64 id)
 	{
 		auto iter = _dialogs.find(id);
@@ -544,51 +506,6 @@ namespace Igor
 			return (*iter).second;
 		}
 		return nullptr;
-	}
-
-	iWidget* iWidgetManager::getWidget(uint64 id)
-	{
-		auto iter = _widgets.find(id);
-
-		if (iter != _widgets.end())
-		{
-			return (*iter).second;
-		}
-		return nullptr;
-	}
-
-	void iWidgetManager::onPreDestroyInstance()
-	{
-		runDeleteQueues();
-	}
-
-	void iWidgetManager::runDeleteQueues()
-	{
-		while (!_toDeleteDialogs.empty() || !_toDeleteWidgets.empty())
-		{
-			std::deque<uint64> toDeleteDialogs(_toDeleteDialogs);
-			std::deque<uint64> toDeleteWidgets(_toDeleteWidgets);
-			_toDeleteDialogs.clear();
-			_toDeleteWidgets.clear();
-
-			for (auto dialogID : toDeleteDialogs)
-			{
-				auto iter = _dialogs.find(dialogID);
-				if (iter != _dialogs.end())
-				{
-					delete (*iter).second;
-				}
-			}
-
-			for (auto widgetID : toDeleteWidgets)
-			{
-				auto iter = _widgets.find(widgetID);
-				if (iter != _widgets.end())
-				{
-					delete (*iter).second;
-				}
-			}
-		}
 	}
 
 	void iWidgetManager::registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate doubleClickDelegate)

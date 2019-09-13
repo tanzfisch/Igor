@@ -120,25 +120,13 @@ namespace Igor
 		*/
 		iChangeEvent _fileNameChanged;
 
-		/*! root widget
-		*/
-		iWidgetGrid* _grid = nullptr;
-
 		/*! text edit field for filename
 		*/
 		iWidgetTextEdit* _fileNameTextEdit = nullptr;
 
-		/*! button for opening the file dialog
-		*/
-		iWidgetButton* _fileSelectButton = nullptr;
-
 		/*! file dialog used to select files
 		*/
 		iDialogFileSelect* _fileDialog = nullptr;
-
-		/*! store all created widgets here so we can clean up easily
-		*/
-		std::vector<iWidget*> _allWidgets;
 
 		/*! called after file dialog is closed
 

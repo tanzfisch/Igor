@@ -45,8 +45,10 @@ namespace Igor
 	public:
 
 		/*! ctro initializes member variables
+
+		\param parent optional parent
 		*/
-		iWidgetNumberChooser();
+		iWidgetNumberChooser(iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/

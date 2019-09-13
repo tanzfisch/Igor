@@ -14,7 +14,8 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iWidgetLabel::iWidgetLabel()
+	iWidgetLabel::iWidgetLabel(iWidgetPtr parent)
+		: iWidget(parent)
 	{
 		_configuredHeight = 0;
 		_configuredWidth = 0;

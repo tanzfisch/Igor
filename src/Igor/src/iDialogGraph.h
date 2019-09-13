@@ -183,9 +183,9 @@ namespace Igor
 		*/
 		iWidgetGraph* _graph = nullptr;
 
-		/*! root widget
+		/*! if true ui is initialized
 		*/
-		iWidgetGrid* _grid = nullptr;
+		bool _initialized = false;
 
 		/*! all widgets
 		*/

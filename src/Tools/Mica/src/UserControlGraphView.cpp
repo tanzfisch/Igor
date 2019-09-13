@@ -29,7 +29,11 @@ UserControlGraphView::UserControlGraphView()
 
 UserControlGraphView::~UserControlGraphView()
 {
-	iWidgetManager::getInstance().destroyDialog(_dialogMenu);
+	if (_dialogMenu != nullptr)
+	{
+		delete _dialogMenu;
+		_dialogMenu = nullptr;
+	}
 }
 
 void UserControlGraphView::setRootNode(uint64 root)
@@ -355,13 +359,6 @@ void UserControlGraphView::clearGraph()
 
     _userData.clear();
 
-    for (auto widget : _gridEntryWidgets)
-    {
-        iWidgetManager::getInstance().destroyWidget(widget);
-    }
-
-    _gridEntryWidgets.clear();
-
     _selectedNode = iNode::INVALID_NODE_ID;
 }
 
@@ -416,11 +413,6 @@ bool UserControlGraphView::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
         entry->addWidget(indentLabel, 0, 0);
         entry->addWidget(icon, 1, 0);
         entry->addWidget(label, 2, 0);
-
-        _gridEntryWidgets.push_back(indentLabel);
-        _gridEntryWidgets.push_back(label);
-        _gridEntryWidgets.push_back(icon);
-        _gridEntryWidgets.push_back(entry);
 
         _gridGraph->appendRows(1);
     }

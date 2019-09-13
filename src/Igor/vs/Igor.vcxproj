@@ -615,6 +615,7 @@ git describe --abbrev=0 --tags &gt;&gt; ..\src\gitTag.inl</Command>
     <None Include="..\src\iSphere.inl" />
     <None Include="..\src\iTargetMaterial.inl" />
     <None Include="..\src\iWidget.inl" />
+    <None Include="..\src\iWidgetManager.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

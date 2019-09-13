@@ -49,8 +49,10 @@ namespace Igor
 	public:
 
 		/*! ctor initializes member variables
+
+		\param parent optional parent
 		*/
-		iWidgetGroupBox();
+		iWidgetGroupBox(iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/
@@ -109,6 +111,10 @@ namespace Igor
 		void calcMinSize();
 
 	};
+
+	/*! widget group box pointer definition
+	*/
+	typedef iWidgetGroupBox* iWidgetGroupBoxPtr;
 }
 
 #endif

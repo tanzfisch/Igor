@@ -29,20 +29,19 @@ namespace Igor
 
 	void iDialogFileSelect::initGUI()
 	{
-		if (_grid != nullptr)
+		if (_initialized)
 		{
 			return;
 		}
 
-		_grid = new iWidgetGrid();
-		_grid->setBorder(4);
-		_grid->setCellSpacing(4);
-		_grid->appendRows(4);
-		addWidget(_grid);
+		iWidgetGridPtr grid = new iWidgetGrid(this);
+		grid->setBorder(4);
+		grid->setCellSpacing(4);
+		grid->appendRows(4);
 
 		_headerLabel = new iWidgetLabel();
 		_headerLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
-		_grid->addWidget(_headerLabel, 0, 0);
+		grid->addWidget(_headerLabel, 0, 0);
 
 		_pathEdit = new iWidgetTextEdit();
 		_pathEdit->setWidth(600);
@@ -52,31 +51,30 @@ namespace Igor
 		_pathEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
 		_pathEdit->setVerticalAlignment(iVerticalAlignment::Top);
 		_pathEdit->registerOnChangeEvent(iChangeDelegate(this, &iDialogFileSelect::onPathEditChange));
-		_grid->addWidget(_pathEdit, 0, 1);
+		grid->addWidget(_pathEdit, 0, 1);
 
 		_scroll = new iWidgetScroll();
 		_scroll->setWidth(600);
 		_scroll->setHeight(300);
-		_grid->addWidget(_scroll, 0, 2);
+		grid->addWidget(_scroll, 0, 2);
 
-		_fileGrid = new iWidgetGrid();
+		_fileGrid = new iWidgetGrid(_scroll);
 		_fileGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
 		_fileGrid->setVerticalAlignment(iVerticalAlignment::Top);
 		_fileGrid->setSelectMode(iSelectionMode::Field);
 		_fileGrid->registerOnDoubleClickEvent(iDoubleClickDelegate(this, &iDialogFileSelect::onDoubleClick));
-		_scroll->addWidget(_fileGrid);
 
-		_filenameGrid = new iWidgetGrid();
-		_filenameGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
-		_filenameGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
-		_filenameGrid->appendCollumns(1);
-		_filenameGrid->setCellSpacing(4);
-		_grid->addWidget(_filenameGrid, 0, 3);
+		iWidgetGridPtr filenameGrid = new iWidgetGrid();
+		filenameGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
+		filenameGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
+		filenameGrid->appendCollumns(1);
+		filenameGrid->setCellSpacing(4);
+		grid->addWidget(filenameGrid, 0, 3);
 
-		_filenameLabel = new iWidgetLabel();
-		_filenameLabel->setHorizontalAlignment(iHorizontalAlignment::Right);
-		_filenameLabel->setText("File name:");
-		_filenameGrid->addWidget(_filenameLabel, 0, 0);
+		iWidgetLabelPtr filenameLabel = new iWidgetLabel();
+		filenameLabel->setHorizontalAlignment(iHorizontalAlignment::Right);
+		filenameLabel->setText("File name:");
+		filenameGrid->addWidget(filenameLabel, 0, 0);
 
 		_filenameEdit = new iWidgetTextEdit();
 		_filenameEdit->setWidth(300);
@@ -86,48 +84,44 @@ namespace Igor
 		_filenameEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
 		_filenameEdit->setVerticalAlignment(iVerticalAlignment::Top);
 		_filenameEdit->registerOnChangeEvent(iChangeDelegate(this, &iDialogFileSelect::onFilenameEditChange));
-		_filenameGrid->addWidget(_filenameEdit, 1, 0);
+		filenameGrid->addWidget(_filenameEdit, 1, 0);
 
-		_buttonGrid = new iWidgetGrid();
-		_buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
-		_buttonGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
-		_buttonGrid->appendCollumns(1);
-		_buttonGrid->setCellSpacing(4);
-		_grid->addWidget(_buttonGrid, 0, 4);
+		iWidgetGridPtr buttonGrid = new iWidgetGrid();
+		buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
+		buttonGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
+		buttonGrid->appendCollumns(1);
+		buttonGrid->setCellSpacing(4);
+		grid->addWidget(buttonGrid, 0, 4);
 
 		_okButton = new iWidgetButton();
 		_okButton->registerOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onOK));
-		_buttonGrid->addWidget(_okButton, 0, 0);
+		buttonGrid->addWidget(_okButton, 0, 0);
 
-		_cancelButton = new iWidgetButton();
-		_cancelButton->setText("Cancel");
-		_cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onCancel));
-		_buttonGrid->addWidget(_cancelButton, 1, 0);
+		iWidgetButtonPtr cancelButton = new iWidgetButton();
+		cancelButton->setText("Cancel");
+		cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onCancel));
+		buttonGrid->addWidget(cancelButton, 1, 0);
+
+		_initialized = true;
 	}
 
 	void iDialogFileSelect::deinitGUI()
 	{
-		if (_grid == nullptr)
+		if (!_initialized)
 		{
 			return;
 		}
 
-		clearFileGrid();
+		clearChildren();
 
-		removeWidget(_grid);
-		iWidgetManager::getInstance().destroyWidget(_grid);
-
-		_okButton = nullptr;
-		_cancelButton = nullptr;
-		_scroll = nullptr;
-		_grid = nullptr;
 		_fileGrid = nullptr;
+		_scroll = nullptr;
 		_headerLabel = nullptr;
-		_filenameLabel = nullptr;
 		_pathEdit = nullptr;
+		_okButton = nullptr;
 		_filenameEdit = nullptr;
-		_buttonGrid = nullptr;
-		_filenameGrid = nullptr;
+
+		_initialized = false;
 	}
 
 	void iDialogFileSelect::configure(const iaString& path)
@@ -330,8 +324,6 @@ namespace Igor
 		entry->addWidget(label, 1, 0);
 
 		_fileGrid->addWidget(entry, col, row, userData);
-
-		_fileGridWidgets.push_back(entry);
 	}
 
 	void iDialogFileSelect::clearFileGrid()
@@ -352,17 +344,15 @@ namespace Igor
 
 			_fileGrid->clear();
 		}
-
-		for (auto iter : _fileGridWidgets)
-		{
-			iWidgetManager::getInstance().destroyWidget(iter);
-		}
-
-		_fileGridWidgets.clear();
 	}
 
 	void iDialogFileSelect::onDoubleClick(iWidget* source)
 	{
+		if (_fileGrid == nullptr)
+		{
+			return;
+		}
+
 		iaString* userData = static_cast<iaString*>(_fileGrid->getSelectedUserData());
 		if (userData != nullptr)
 		{
@@ -415,9 +405,9 @@ namespace Igor
 			}
 		}
 
+		deinitGUI();
+
 		_fileDialogCloseEvent(_fileDialogReturnValue);
 		_fileDialogCloseEvent.clear();
-
-		deinitGUI();
 	}
 }
