@@ -43,7 +43,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iDialog* iWidgetManager::_modal = nullptr;
+	iDialogPtr iWidgetManager::_modal = nullptr;
 
 	iWidgetManager::iWidgetManager()
 	{
@@ -94,12 +94,12 @@ namespace Igor
 		}
 	}
 
-	void iWidgetManager::registerDialog(iDialog* dialog)
+	void iWidgetManager::registerDialog(iDialogPtr dialog)
 	{
 		_dialogs[dialog->getID()] = dialog;
 	}
 
-	void iWidgetManager::unregisterDialog(iDialog* dialog)
+	void iWidgetManager::unregisterDialog(iDialogPtr dialog)
 	{
 		auto iter = _dialogs.find(dialog->getID());
 		if (iter != _dialogs.end())
@@ -134,12 +134,12 @@ namespace Igor
 		_tooltipText = "";
 	}
 
-	bool iWidgetManager::isModal(iDialog* dialog)
+	bool iWidgetManager::isModal(iDialogPtr dialog)
 	{
 		return (_modal == dialog) ? true : false;
 	}
 
-	void iWidgetManager::setModal(iDialog* dialog)
+	void iWidgetManager::setModal(iDialogPtr dialog)
 	{
 		con_assert(_modal == nullptr, "an other dialog is alsready modal");
 
@@ -153,7 +153,20 @@ namespace Igor
 		}
 	}
 
-	iDialog* iWidgetManager::getModal()
+	void iWidgetManager::closeDialog(iDialogPtr dialog)
+	{
+		con_assert(dialog != nullptr, "zero pointer");
+
+		if (dialog == nullptr)
+		{
+			con_err("zero pointer");
+			return;
+		}
+
+		_dialogsToClose.insert(dialog->getID());
+	}
+
+	iDialogPtr iWidgetManager::getModal()
 	{
 		return _modal;
 	}
@@ -174,7 +187,8 @@ namespace Igor
 		iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &iWidgetManager::onKeyDown));
 		iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &iWidgetManager::onKeyUp));
 
-		iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &iWidgetManager::onHandle));
+		iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &iWidgetManager::onPreDraw));
+		iApplication::getInstance().registerApplicationPostDrawHandleDelegate(iApplicationPostDrawHandleDelegate(this, &iWidgetManager::onPostDraw));
 	}
 
 	void iWidgetManager::unregisterHandles()
@@ -188,7 +202,8 @@ namespace Igor
 		iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &iWidgetManager::onKeyDown));
 		iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &iWidgetManager::onKeyUp));
 
-		iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &iWidgetManager::onHandle));
+		iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &iWidgetManager::onPreDraw));
+		iApplication::getInstance().unregisterApplicationPostDrawHandleDelegate(iApplicationPostDrawHandleDelegate(this, &iWidgetManager::onPostDraw));
 	}
 
 	void iWidgetManager::onKeyDown(iKeyCode key)
@@ -396,7 +411,21 @@ namespace Igor
 		}
 	}
 
-	void iWidgetManager::onHandle()
+	void iWidgetManager::onPostDraw()
+	{
+		for (auto id : _dialogsToClose)
+		{
+			auto dialog = getDialog(id);
+			if (dialog != nullptr)
+			{
+				dialog->_dialogCloseDelegate(dialog);
+			}
+		}
+
+		_dialogsToClose.clear();
+	}
+
+	void iWidgetManager::onPreDraw()
 	{
 		for (auto dialog : _dialogs)
 		{
@@ -497,7 +526,7 @@ namespace Igor
 		}
 	}
 
-	iDialog* iWidgetManager::getDialog(uint64 id)
+	iDialogPtr iWidgetManager::getDialog(uint64 id)
 	{
 		auto iter = _dialogs.find(id);
 

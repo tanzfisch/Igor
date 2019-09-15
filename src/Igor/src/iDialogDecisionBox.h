@@ -62,7 +62,7 @@ namespace Igor
 
 		/*! deinitializes gui
 		*/
-		~iDialogDecisionBox();
+		~iDialogDecisionBox() = default;
 
 		/*! show/open the decision box
 
@@ -104,10 +104,6 @@ namespace Igor
 		will be triggered by any button
 		*/
 		void close();
-
-		/*! deinitializes the gui elements
-		*/
-		void deinitGUI();
 
 		/*! initializes the gui elements
 		*/

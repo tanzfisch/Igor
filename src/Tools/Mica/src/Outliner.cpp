@@ -371,7 +371,7 @@ void Outliner::pasteSelected()
 		}
 		else
 		{
-			_messageBox->show("clipboard is empty");
+			_messageBox->open("clipboard is empty");
 		}
 	}
 }
@@ -412,7 +412,7 @@ void Outliner::deleteSelected()
 			}
 			else
 			{
-				_messageBox->show("can't delete root node");
+				_messageBox->open("can't delete root node");
 			}
 		}
 	}

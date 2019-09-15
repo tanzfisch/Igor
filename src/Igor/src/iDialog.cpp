@@ -28,13 +28,23 @@ namespace Igor
 
     iDialog::~iDialog()
     {
-		iWidgetManager::getInstance().unregisterDialog(this);
-
         if (iWidgetManager::isModal(this))
         {
             iWidgetManager::resetModal();
         }
+
+		iWidgetManager::getInstance().unregisterDialog(this);
     }
+
+	void iDialog::open(iDialogClosedDelegate dialogCloseDelegate)
+	{
+		_dialogCloseDelegate = dialogCloseDelegate;
+	}
+
+	void iDialog::close()
+	{
+		iWidgetManager::getInstance().closeDialog(this);
+	}
 
     void iDialog::calcMinSize()
     {

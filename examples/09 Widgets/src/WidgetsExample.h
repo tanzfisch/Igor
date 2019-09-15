@@ -33,12 +33,12 @@
 #include <iWindow.h>
 #include <iView.h>
 #include <iDialog.h>
-#include <iDialogMessageBox.h>
 #include <iDialogColorChooser.h>
 #include <iDialogColorGradient.h>
 #include <iMaterial.h>
 #include <iProfilerVisualizer.h>
 #include <iTexture.h>
+#include <iDialogMessageBox.h>
 using namespace Igor;
 
 #include <iaGradient.h>
@@ -109,7 +109,7 @@ private:
 
     /*! instance of a message box
     */
-    iDialogMessageBox _messageBox;
+    iDialogMessageBox* _messageBox = nullptr;
 
     /*! color chooser dialog
     */
@@ -148,6 +148,12 @@ private:
     \param source the source widget of this event
     */
     void onExitClick(iWidget* source);
+
+	/*! triggered by closing the message box
+
+	\param dialog the dialog that was closed
+	*/
+	void onCloseMessageBox(iDialogPtr dialog);
 
     /*! triggered by message box button. will open message box
 

@@ -395,8 +395,38 @@ void WidgetsExample::onCloseColorChooser(bool ok, const iaColor4f& color)
 
 void WidgetsExample::onOpenMessageBox(iWidget* source)
 {
-    // open a message box with some text
-    _messageBox.show("Please click Yes No or Cancel. Nothing will happen in an case.", iMessageBoxButtons::YesNoCancel);
+	// open a message box with some text
+	if (_messageBox == nullptr)
+	{
+		_messageBox = new iDialogMessageBox();
+	}
+    
+    _messageBox->open(iDialogClosedDelegate(this, &WidgetsExample::onCloseMessageBox), "Please click Yes No or Cancel. Nothing will happen in an case.", iMessageBoxButtons::YesNoCancel);
+}
+
+void WidgetsExample::onCloseMessageBox(iDialogPtr dialog)
+{
+	iaString returnString;
+	iMessageBoxReturnValue value = static_cast<iDialogMessageBox*>(dialog)->getReturnValue();
+	switch(value)
+	{
+	case iMessageBoxReturnValue::No:
+		returnString = "No";
+		break;
+
+	case iMessageBoxReturnValue::Yes:
+		returnString = "Yes/Ok";
+		break;
+
+	case iMessageBoxReturnValue::Cancel:
+		returnString = "Cancel";
+		break;
+	}
+
+	con_endl("Message box return value is " << returnString);
+
+	delete _messageBox;
+	_messageBox = nullptr;
 }
 
 void WidgetsExample::onExitClick(iWidget* source)

@@ -34,7 +34,16 @@
 namespace Igor
 {
 
-    class iUserControl;
+	class iDialog;
+
+	/*! dialog pointer definition
+	*/
+	typedef iDialog* iDialogPtr;
+
+
+	/*! dialog close event
+	*/
+	iaEVENT(iDialogClosedEvent, iDialogClosedDelegate, void, (iDialogPtr dialog), (dialog));
 
     /*! dialog widget
 
@@ -78,6 +87,16 @@ namespace Igor
         */
         int32 getBorder();
 
+		/*! shows the dialog on screen
+
+		\param dialogCloseDelegate the delegate to call after the dialog was closed
+		*/
+		virtual void open(iDialogClosedDelegate dialogCloseDelegate);
+
+		/*! closes the dialog
+		*/
+		virtual void close();
+
     private:
 
         /*! horizontal position relative to parent if horizontal alignment is absolute
@@ -92,6 +111,10 @@ namespace Igor
         */
         int32 _border = 1;
 
+		/*! the delegate to call after the dialog was closed
+		*/
+		iDialogClosedDelegate _dialogCloseDelegate;
+
         /*! updates size based on it's content
         */
         void calcMinSize();
@@ -103,7 +126,7 @@ namespace Igor
         */
         void updateAlignment(int32 clientWidth, int32 clientHeight);
 
-		/*! draws the button
+		/*! draws the children
 		*/
 		void draw();
 

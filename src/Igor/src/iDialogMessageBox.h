@@ -38,12 +38,6 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	class iWidgetButton;
-	class iWidgetGrid;
-	class iWidgetLabel;
-	class iWidget;
-	class iWidgetSpacer;
-
 	/*! message box return values
 	*/
 	enum class iMessageBoxReturnValue
@@ -64,12 +58,6 @@ namespace Igor
 		YesNoCancel
 	};
 
-	/*! message box close event
-
-	\param value the return value of the message box
-	*/
-	iaEVENT(iDialogMessageBoxCloseEvent, iDialogMessageBoxCloseDelegate, void, (iMessageBoxReturnValue value), (value));
-
 	/*! the message box
 	*/
 	class Igor_API iDialogMessageBox : public iDialog
@@ -83,37 +71,39 @@ namespace Igor
 
 		/*! deinitializes gui
 		*/
-		~iDialogMessageBox();
+		~iDialogMessageBox() = default;
+
+		/*! initializes gui and opens the message box dialog
+
+		\param dialogCloseDelegate the close delegate
+		\param message the message to display
+		\param buttons the button configuration to use
+		*/
+		void open(iDialogClosedDelegate dialogCloseDelegate, iaString message, iMessageBoxButtons buttons = iMessageBoxButtons::Ok);
 
 		/*! initializes gui and opens the message box dialog
 
 		\param message the message to display
 		\param buttons the button configuration to use
 		*/
-		void show(iaString message, iMessageBoxButtons buttons = iMessageBoxButtons::Ok);
+		void open(iaString message, iMessageBoxButtons buttons = iMessageBoxButtons::Ok);
 
-		/*! initializes gui and opens the message box dialog
+		/*! closes the dialog and sends closed event
 
-		\param message the message to display
-		\param closeDelegate the delegate to be called when closed
-		\param buttons the button configuration to use
+		will be triggered by any button
 		*/
-		void show(iaString message, iDialogMessageBoxCloseDelegate closeDelegate, iMessageBoxButtons buttons = iMessageBoxButtons::Ok);
+		void close() override;
+
+		/*! \returns the message box return value
+		*/
+		iMessageBoxReturnValue getReturnValue() const;
 
 	private:
-
-		/*! the close event
-		*/
-		iDialogMessageBoxCloseEvent _messageBoxCloseEvent;
 
 		/*! the return value of the message box
 		*/
 		iMessageBoxReturnValue _messageBoxReturnValue = iMessageBoxReturnValue::Ok;
 
-		/*! label for the message text
-		*/
-		iWidgetLabel* _messageLabel = nullptr;
-		
 		/*! handles ok button clicked event
 
 		\param source the ok button it self
@@ -137,12 +127,6 @@ namespace Igor
 		\param source the no button it self
 		*/
 		void onNo(iWidget* source);
-
-		/*! closes the dialog and sends closed event
-
-		will be triggered by any button
-		*/
-		void close();
 
 		/*! initializes the gui
 

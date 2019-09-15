@@ -19,21 +19,11 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iDialogDecisionBox::~iDialogDecisionBox()
-	{
-		deinitGUI();
-	}
-
 	void iDialogDecisionBox::show(const iaString& message, iDecisionBoxCloseDelegate closeDelegate, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
 	{
 		_decisionBoxCloseEvent.append(closeDelegate);
 
 		initGUI(message, radioButtonTexts, preSelection);
-	}
-
-	void iDialogDecisionBox::deinitGUI()
-	{
-		clearChildren();
 	}
 
 	void iDialogDecisionBox::initGUI(const iaString& message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
@@ -135,22 +125,21 @@ namespace Igor
 			i++;
 		}
 
-		// close after we don't need the radio boxes anymore
-		close();
-
 		if (!selected)
 		{
 			_decisionBoxCloseEvent(false, -1);
 		}
 		_decisionBoxCloseEvent.clear();
+
+		close();
 	}
 
 	void iDialogDecisionBox::onCancel(iWidget* source)
 	{
-		close();
-
 		_decisionBoxCloseEvent(false, -1);
 		_decisionBoxCloseEvent.clear();
+
+		close();
 	}
 
 	void iDialogDecisionBox::close()
@@ -158,7 +147,5 @@ namespace Igor
 		setActive(false);
 		setVisible(false);
 		iWidgetManager::resetModal();
-
-		deinitGUI();
 	}
 }

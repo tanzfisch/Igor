@@ -45,9 +45,10 @@ namespace Igor
 
 	class iWidgetBaseTheme;
     class iDialog;
+	typedef iDialog* iDialogPtr;
 
     iaDELEGATE(iInstanciateWidgetDelegate, iWidget*, (), ());
-    iaDELEGATE(iInstanciateDialogDelegate, iDialog*, (), ());
+    iaDELEGATE(iInstanciateDialogDelegate, iDialogPtr, (), ());
 
     /*! manages the widgets in use and is a singleton
     */
@@ -84,7 +85,7 @@ namespace Igor
 
         \param id id of dialog
         */
-        iDialog* getDialog(uint64 id);
+        iDialogPtr getDialog(uint64 id);
 
         /*! \returns the theme in use
         */
@@ -123,17 +124,17 @@ namespace Igor
 
         /*! set this widget exclusively modal
         */
-        static void setModal(iDialog* dialog);
+        static void setModal(iDialogPtr dialog);
 
         /*! \returns current modal widget
         */
-        static iDialog* getModal();
+        static iDialogPtr getModal();
 
         /*! \returns true: if widget is modal
 
         \param dialog the dialog to check if it is modal
         */
-        static bool isModal(iDialog* dialog);
+        static bool isModal(iDialogPtr dialog);
 
         /*! reset modal flag
         */
@@ -247,7 +248,7 @@ namespace Igor
 
         /*! modal marker
         */
-        static iDialog* _modal;
+        static iDialogPtr _modal;
 
         /*! mouse key down event
         */
@@ -291,7 +292,7 @@ namespace Igor
 
         /*! list of all dialogs
         */
-        std::unordered_map<uint64, iDialog*> _dialogs;
+        std::unordered_map<uint64, iDialogPtr> _dialogs;
 
         /*! current desktop width
         */
@@ -309,6 +310,14 @@ namespace Igor
 		*/
 		iaString _tooltipText;
 
+		/*! list of dialogs to close
+		*/
+		std::set<uint64> _dialogsToClose;
+
+		/*! closes the dialog and queues a close event in to be called after the update handle
+		*/
+		void closeDialog(iDialogPtr dialog);
+
 		/*! registers widget to WidgetManager so we can track if all widgets got destroyed at shutdown
 
 		\param widget the widget to track
@@ -325,13 +334,13 @@ namespace Igor
 
 		\param dialog the dialog to track
 		*/
-		void registerDialog(iDialog* dialog);
+		void registerDialog(iDialogPtr dialog);
 
 		/*! unregister dialog from WidgetManager so we don't track this one anymore
 
 		\param dialog the dialog to not track anymore
 		*/
-		void unregisterDialog(iDialog* dialog);
+		void unregisterDialog(iDialogPtr dialog);
 
         /*! traverse widget tree and updates positions and sizes
 
@@ -343,9 +352,13 @@ namespace Igor
         */
         void traverseAlignment(iWidget* widget, int32 offsetX, int32 offsetY, int32 clientRectWidth, int32 clientRectHeight);
 
-        /*! updates recursively all widgets
+        /*! updates recursively all widgets before rendering
         */
-        void onHandle();
+        void onPreDraw();
+
+		/*! widget handling after the render frame is done
+		*/
+		void onPostDraw();
 		
         /*! handle for mouse key down event
 

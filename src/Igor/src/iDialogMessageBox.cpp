@@ -17,30 +17,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iDialogMessageBox::~iDialogMessageBox()
-	{
-		deinitGUI();
-	}
-
-	void iDialogMessageBox::deinitGUI()
-	{
-		clearChildren();
-	}
-
-	void iDialogMessageBox::show(iaString message, iDialogMessageBoxCloseDelegate closeDelegate, iMessageBoxButtons buttons)
-	{
-		_messageBoxCloseEvent.append(closeDelegate);
-		deinitGUI();
-		initGUI(message, buttons);
-	}
-
-	void iDialogMessageBox::show(iaString message, iMessageBoxButtons buttons)
-	{
-		deinitGUI();
-		initGUI(message, buttons);
-	}
-
-	void iDialogMessageBox::initGUI(iaString message, iMessageBoxButtons buttons)
+	void iDialogMessageBox::open(iaString message, iMessageBoxButtons buttons)
 	{
 		iWidgetManager::setModal(this);
 		setActive();
@@ -48,13 +25,12 @@ namespace Igor
 		setWidth(20);
 		setHeight(20);
 
-		iWidgetGridPtr grid = new iWidgetGrid();
+		iWidgetGridPtr grid = new iWidgetGrid(this);
 		grid->appendRows(2);
 		grid->setHorizontalAlignment(iHorizontalAlignment::Center);
 		grid->setVerticalAlignment(iVerticalAlignment::Center);
 		grid->setCellSpacing(4);
 		grid->setBorder(4);
-		addWidget(grid);
 
 		iWidgetLabelPtr messageLabel = new iWidgetLabel();
 		messageLabel->setText(message);
@@ -115,6 +91,13 @@ namespace Igor
 		}
 	}
 
+	void iDialogMessageBox::open(iDialogClosedDelegate dialogCloseDelegate, iaString message, iMessageBoxButtons buttons)
+	{
+		iDialog::open(dialogCloseDelegate);
+
+		open(message, buttons);
+	}
+
 	__IGOR_DISABLE_WARNING__(4100)
 		void iDialogMessageBox::onOK(iWidget* source)
 	{
@@ -147,7 +130,11 @@ namespace Igor
 		setVisible(false);
 		iWidgetManager::resetModal();
 
-		_messageBoxCloseEvent(_messageBoxReturnValue);
-		_messageBoxCloseEvent.clear();
+		iDialog::close();
+	}
+
+	iMessageBoxReturnValue iDialogMessageBox::getReturnValue() const
+	{
+		return _messageBoxReturnValue;
 	}
 }
