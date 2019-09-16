@@ -16,10 +16,19 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iDialogMenu::~iDialogMenu()
-	{
-		deinitGUI();
-	}
+    void iDialogMenu::open(iDialogClosedDelegate dialogCloseDelegate, std::vector<iaString>& texts, std::vector<iaString>& pictures)
+    {
+        iDialog::open(dialogCloseDelegate);
+
+        if (pictures.empty())
+        {
+            initGUI(texts);
+        }
+        else
+        {
+            initGUI(texts, pictures);
+        }
+    }
 
 	void iDialogMenu::initGUI(std::vector<iaString>& texts)
 	{
@@ -79,7 +88,7 @@ namespace Igor
 			{
 				iWidgetPicture* picture = new iWidgetPicture();
 				picture->setTexture(pictures[i]);
-				picture->setMaxSize(_entryHeight, _entryHeight);
+				picture->setMaxSize(20, 20);
 				grid->addWidget(picture, 0, i);
 			}
 
@@ -90,33 +99,10 @@ namespace Igor
 		}
 	}
 
-	void iDialogMenu::deinitGUI()
-	{
-		unregisterOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
-		clearChildren();
-	}
-
-	void iDialogMenu::show(std::vector<iaString>& texts, iDialogMenuCloseDelegate closeDelegate)
-	{
-		deinitGUI();
-		_selectBoxCloseEvent.append(closeDelegate);
-		initGUI(texts);
-	}
-
-	void iDialogMenu::show(std::vector<iaString>& texts, std::vector<iaString>& pictures, iDialogMenuCloseDelegate closeDelegate)
-	{
-		deinitGUI();
-		_selectBoxCloseEvent.append(closeDelegate);
-
-		if (pictures.empty())
-		{
-			initGUI(texts);
-		}
-		else
-		{
-			initGUI(texts, pictures);
-		}
-	}
+    int32 iDialogMenu::getSelectionIndex() const
+    {
+        return _returnValue;
+    }
 
 	void iDialogMenu::onMouseOffClick(iWidgetPtr source)
 	{
@@ -129,23 +115,4 @@ namespace Igor
 		close();
 	}
 
-	void iDialogMenu::close()
-	{
-		setActive(false);
-		setVisible(false);
-		iWidgetManager::resetModal();
-
-		_selectBoxCloseEvent(_returnValue);
-		_selectBoxCloseEvent.clear();
-	}
-
-	void iDialogMenu::setEntryHeight(int32 height)
-	{
-		_entryHeight = height;
-	}
-
-	int32 iDialogMenu::getEntryHeight() const
-	{
-		return _entryHeight;
-	}
 }

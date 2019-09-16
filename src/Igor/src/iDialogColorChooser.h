@@ -39,14 +39,9 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	class iWidgetGrid;
-	class iWidgetButton;
 	class iUserControlColorChooser;
-
-	/*! event triggered when color chooser was closed
-	*/
-	iaEVENT(iColorChooserCloseEvent, iColorChooserCloseDelegate, void, (bool ok, const iaColor4f& color), (ok, color));
-
+    typedef iUserControlColorChooser* iUserControlColorChooserPtr;
+    
 	/*! the color chooser dialog
 	*/
 	class Igor_API iDialogColorChooser : public iDialog
@@ -58,67 +53,57 @@ namespace Igor
 		*/
 		iDialogColorChooser() = default;
 
-		/*! deinitializes gui
-		*/
-		~iDialogColorChooser();
+        /*! does nothing
+        */
+        ~iDialogColorChooser() = default;
 
 		/*! show/open the decision box
 
-		\param closeDelegate the closing delegate
+		\param dialogCloseDelegate the closing delegate
 		\param color the color to start with
 		\param useAlpha if true also use the alpha channel
 		*/
-		void show(iColorChooserCloseDelegate closeDelegate, const iaColor4f& color, bool useAlpha = true);
+		void open(iDialogClosedDelegate dialogCloseDelegate, const iaColor4f& color, bool useAlpha = true);
+
+        /*! \returns color from color chooser
+        */
+        const iaColor4f& getColor() const;
+
+        /*! \returns color that was set previously
+        */
+        const iaColor4f& getResetColor() const;
 
 	private:
-
-		/*! the close event
-		*/
-		iColorChooserCloseEvent _closeEvent;
 
 		/*! old color
 		*/
 		iaColor4f _oldColor;
 
-		/*! over all grid
-		*/
-		iWidgetGrid* _grid = nullptr;
-
 		/*! actual color chooser
 		*/
-		iUserControlColorChooser* _userControlColorChooser = nullptr;
+		iUserControlColorChooserPtr _userControlColorChooser = nullptr;
 
 		/*! all widgets
 		*/
-		std::vector<iWidget*> _allWidgets;
+		std::vector<iWidgetPtr> _allWidgets;
 
 		/*! handles ok button clicked event
 
 		\param source the ok button it self
 		*/
-		void onOK(iWidget* source);
+		void onOK(iWidgetPtr source);
 
 		/*! handles cancel button clicked event
 
 		\param source the cancel button it self
 		*/
-		void onCancel(iWidget* source);
+		void onCancel(iWidgetPtr source);
 
 		/*! handles reset button click event
 
 		\param source the reset button it self
 		*/
-		void onReset(iWidget* source);
-
-		/*! closes the dialog and sends closed event
-
-		will be triggered by any button
-		*/
-		void close();
-
-		/*! deinitializes the gui elements
-		*/
-		void deinitGUI();
+		void onReset(iWidgetPtr source);
 
 		/*! initializes gui elements
 
@@ -128,6 +113,10 @@ namespace Igor
 		void initGUI(const iaColor4f& color, bool useAlpha);
 
 	};
+
+    /*! dialog color chooser pointer definition
+    */
+    typedef iDialogColorChooser* iDialogColorChooserPtr;
 
 }
 

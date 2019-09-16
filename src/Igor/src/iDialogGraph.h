@@ -42,224 +42,212 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	class iWidgetGrid;
-	class iWidgetButton;
-	class iWidgetGraph;
-	class iWidgetLabel;
+    class iWidgetGraph;
+    class iWidgetLabel;
 
-	/*! event triggered when color chooser was closed
-	*/
-	iaEVENT(iDialogGraphCloseEvent, iDialogGraphCloseDelegate, void, (bool ok, const std::vector<std::vector<iaVector2f>>& graphs), (ok, graphs));
+    /*! the graph edit dialog
+    */
+    class Igor_API iDialogGraph : public iDialog
+    {
 
-	/*! the graph edit dialog
-	*/
-	class Igor_API iDialogGraph : public iDialog
-	{
+    public:
 
-	public:
+        /*! does nothing
+        */
+        iDialogGraph() = default;
 
-		/*! does nothing
-		*/
-		iDialogGraph() = default;
+        /*! does nothing
+        */
+        ~iDialogGraph() = default;
 
-		/*! deinitializes gui
-		*/
-		~iDialogGraph();
+        /*! configures x axis
 
-		/*! show/open the decision box
+        \param xMin minimum value on x axis
+        \param xMax maximum value on x axis
+        \param xStepping the number chooser stepping for the x axis
+        */
+        void configureXAxis(float32 xMin, float32 xMax, float32 xStepping);
 
-		\param closeDelegate the closing delegate
-		\param color the color to start with
-		\param useAlpha if true also use the alpha channel
-		*/
-		void show(iDialogGraphCloseDelegate closeDelegate, const std::vector<std::vector<iaVector2f>>& graphs);
+        /*! configures y axis
 
-		/*! configures x axis
+        \param yMin minimum value on y axis
+        \param yMax maximum value on y axis
+        \param yStepping the number chooser stepping for the y axis
+        */
+        void configureYAxis(float32 yMin, float32 yMax, float32 yStepping);
 
-		\param xMin minimum value on x axis
-		\param xMax maximum value on x axis
-		\param xStepping the number chooser stepping for the x axis
-		*/
-		void configureXAxis(float32 xMin, float32 xMax, float32 xStepping);
+        /*! show/open the decision box
 
-		/*! configures y axis
+        call configure before open
 
-		\param yMin minimum value on y axis
-		\param yMax maximum value on y axis
-		\param yStepping the number chooser stepping for the y axis
-		*/
-		void configureYAxis(float32 yMin, float32 yMax, float32 yStepping);
+        \param dialogCloseDelegate the closing delegate
+        \param color the color to start with
+        \param useAlpha if true also use the alpha channel
+        */
+        void open(iDialogClosedDelegate dialogCloseDelegate, const std::vector<std::vector<iaVector2f>>& graphs);
 
-		/*! sets dialog title
+        /*! sets dialog title
 
-		\param title the new title
-		*/
-		void setTitle(const iaString& title);
+        \param title the new title
+        */
+        void setTitle(const iaString& title);
 
-		/*! \returns dialog title
-		*/
-		iaString getTitle() const;
+        /*! \returns dialog title
+        */
+        iaString getTitle() const;
 
-		/*! set name of axis
+        /*! set name of axis
 
-		\param index axis index
-		\param name name of axis
-		*/
-		void setAxisName(uint32 index, const iaString& name);
+        \param index axis index
+        \param name name of axis
+        */
+        void setAxisName(uint32 index, const iaString& name);
 
-		/*! defines how many after points will be displayed
+        /*! defines how many after points will be displayed
 
-		\param afterPoint amount of digits after point
-		*/
-		void setAfterPoint(int32 afterPoint);
+        \param afterPoint amount of digits after point
+        */
+        void setAfterPoint(int32 afterPoint);
 
-		/*! \returns amount of after point
-		*/
-		int32 getAfterPoint() const;
+        /*! \returns amount of after point
+        */
+        int32 getAfterPoint() const;
 
-	private:
+    private:
 
-		/*! after point digit amount
-		*/
-		int32 _afterPoint = 2;
+        /*! after point digit amount
+        */
+        int32 _afterPoint = 2;
 
-		/*! dialog title
-		*/
-		iaString _title;
+        /*! dialog title
+        */
+        iaString _title;
 
-		/*! axis names
-		*/
-		std::map<uint32, iaString> _axisNames;
+        /*! axis names
+        */
+        std::map<uint32, iaString> _axisNames;
 
-		/*! axis number chooser
-		*/
-		std::map<uint32, iWidgetNumberChooser*> _axisNumberChooser;
+        /*! axis number chooser
+        */
+        std::map<uint32, iWidgetNumberChooser*> _axisNumberChooser;
 
-		/*! the close event
-		*/
-		iDialogGraphCloseEvent _closeEvent;
+        /*! copy of initialy set graphs
+        */
+        std::vector<std::vector<iaVector2f>> _oldGraphs;
 
-		/*! copy of initialy set graphs
-		*/
-		std::vector<std::vector<iaVector2f>> _oldGraphs;
+        /*! current graphs
+        */
+        std::vector<std::vector<iaVector2f>> _graphs;
 
-		/*! current graphs
-		*/
-		std::vector<std::vector<iaVector2f>> _graphs;
+        /*! title label
+        */
+        iWidgetLabel* _titleLabel = nullptr;
 
-		/*! title label
-		*/
-		iWidgetLabel* _titleLabel = nullptr;
+        /*! min value on x axis
+        */
+        float32 _xMin = 0.0f;
 
-		/*! min value on x axis
-		*/
-		float32 _xMin = 0.0f;
+        /*! max value on x axis
+        */
+        float32 _xMax = 1.0f;
 
-		/*! max value on x axis
-		*/
-		float32 _xMax = 1.0f;
+        /*! up down stepping of number choosers for x axis values
+        */
+        float32 _xStepping = 0.1f;
 
-		/*! up down stepping of number choosers for x axis values
-		*/
-		float32 _xStepping = 0.1f;
+        /*! min value on y axis
+        */
+        float32 _yMin = 0.0f;
 
-		/*! min value on y axis
-		*/
-		float32 _yMin = 0.0f;
+        /*! max value on y axis
+        */
+        float32 _yMax = 1.0f;
 
-		/*! max value on y axis
-		*/
-		float32 _yMax = 1.0f;
+        /*! up down stepping of number choosers for y axis values
+        */
+        float32 _yStepping = 0.1f;
 
-		/*! up down stepping of number choosers for y axis values
-		*/
-		float32 _yStepping = 0.1f;
+        /*! index of selected value
+        */
+        int32 _selectedValueIndex = 0;
 
-		/*! index of selected value
-		*/
-		int32 _selectedValueIndex = 0;
+        /*! widget graph
+        */
+        iWidgetGraph* _graph = nullptr;
 
-		/*! widget graph
-		*/
-		iWidgetGraph* _graph = nullptr;
+        /*! all widgets
+        */
+        std::vector<iWidgetPtr> _allWidgets;
 
-		/*! if true ui is initialized
-		*/
-		bool _initialized = false;
+        /*! all data grid entry widgets
+        */
+        std::vector<iWidgetPtr> _dataGridEntryWidgets;
 
-		/*! all widgets
-		*/
-		std::vector<iWidget*> _allWidgets;
+        /*! handles ok button clicked event
 
-		/*! all data grid entry widgets
-		*/
-		std::vector<iWidget*> _dataGridEntryWidgets;
+        \param source the ok button it self
+        */
+        void onOK(iWidgetPtr source);
 
-		/*! handles ok button clicked event
+        /*! triggered when value is to delete
 
-		\param source the ok button it self
-		*/
-		void onOK(iWidget* source);
+        \param source the source widget
+        */
+        void onDelete(iWidgetPtr source);
 
-		/*! triggered when value is to delete
+        /*! handles cancel button clicked event
 
-		\param source the source widget
-		*/
-		void onDelete(iWidget* source);
+        \param source the cancel button it self
+        */
+        void onCancel(iWidgetPtr source);
 
-		/*! handles cancel button clicked event
+        /*! handles reset button click event
 
-		\param source the cancel button it self
-		*/
-		void onCancel(iWidget* source);
+        \param source the reset button it self
+        */
+        void onReset(iWidgetPtr source);
 
-		/*! handles reset button click event
+        /*! triggered by all the number choosers
 
-		\param source the reset button it self
-		*/
-		void onReset(iWidget* source);
+        \param source the source widget
+        */
+        void onValueChanged(iWidgetPtr source);
 
-		/*! triggered by all the number choosers
+        /*! updates gui by selected value
+        */
+        void updateSelection();
 
-		\param source the source widget
-		*/
-		void onValueChanged(iWidget* source);
+        /*! updates the graph
+        */
+        void updateGraph();
 
-		/*! updates gui by selected value
-		*/
-		void updateSelection();
+        /*! triggered when graph selection changed
 
-		/*! updates the graph
-		*/
-		void updateGraph();
+        \param index the index of selection
+        */
+        void onSelectionChanged(int32 index);
 
-		/*! triggered when graph selection changed
+        /*! triggered when graph content changed
 
-		\param index the index of selection
-		*/
-		void onSelectionChanged(int32 index);
+        \param source the source widget
+        */
+        void onGraphChanged(iWidgetPtr source);
 
-		/*! triggered when graph content changed
+        /*! closes the dialog and sends closed event
 
-		\param source the source widget
-		*/
-		void onGraphChanged(iWidget* source);
+        will be triggered by any button
+        */
+        void close();
 
-		/*! closes the dialog and sends closed event
+        /*! deinitializes the gui elements
+        */
+        void deinitGUI();
 
-		will be triggered by any button
-		*/
-		void close();
+        /*! initializes gui elements
+        */
+        void initGUI();
 
-		/*! deinitializes the gui elements
-		*/
-		void deinitGUI();
-
-		/*! initializes gui elements
-		*/
-		void initGUI();
-
-	};
+    };
 
 }
 

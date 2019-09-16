@@ -38,16 +38,6 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	/*! message box return values
-	*/
-	enum class iMessageBoxReturnValue
-	{
-		No = 0,
-		Yes = 1,
-		Ok = 1,
-		Cancel = 2
-	};
-
 	/*! message box button configuration
 	*/
 	enum class iMessageBoxButtons
@@ -88,57 +78,32 @@ namespace Igor
 		*/
 		void open(iaString message, iMessageBoxButtons buttons = iMessageBoxButtons::Ok);
 
-		/*! closes the dialog and sends closed event
-
-		will be triggered by any button
-		*/
-		void close() override;
-
-		/*! \returns the message box return value
-		*/
-		iMessageBoxReturnValue getReturnValue() const;
-
 	private:
-
-		/*! the return value of the message box
-		*/
-		iMessageBoxReturnValue _messageBoxReturnValue = iMessageBoxReturnValue::Ok;
 
 		/*! handles ok button clicked event
 
 		\param source the ok button it self
 		*/
-		void onOK(iWidget* source);
+		void onOK(iWidgetPtr source);
 
 		/*! handles cancel button clicked event
 
 		\param source the cancel button it self
 		*/
-		void onCancel(iWidget* source);
+		void onCancel(iWidgetPtr source);
 
 		/*! handles yes button clicked event
 
 		\param source the yes button it self
 		*/
-		void onYes(iWidget* source);
+		void onYes(iWidgetPtr source);
 
 		/*! handles no button clicked event
 
 		\param source the no button it self
 		*/
-		void onNo(iWidget* source);
-
-		/*! initializes the gui
-
-		\param message the message text
-		\param buttons the button configuration
-		*/
-		void initGUI(iaString message, iMessageBoxButtons buttons);
-
-		/*! deinitializes the gui elements
-		*/
-		void deinitGUI();
-
+		void onNo(iWidgetPtr source);
+        
 	};
 
 }

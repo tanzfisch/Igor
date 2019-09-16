@@ -107,13 +107,13 @@ private:
     void onSpecularChange(const iaColor4f& color);
     void onEmissiveChange(const iaColor4f& color);
 
-    void onDoUpdateNode(iWidget* source);
-	void onBakeAction(iWidget* source);
+    void onDoUpdateNode(iWidgetPtr source);
+	void onBakeAction(iWidgetPtr source);
 
-    void onTextChangedShininess(iWidget* source);
-    void onSliderChangedShininess(iWidget* source);
+    void onTextChangedShininess(iWidgetPtr source);
+    void onSliderChangedShininess(iWidgetPtr source);
 
-    void onMaterialChanged(iWidget* source);
+    void onMaterialChanged(iWidgetPtr source);
 
     void updateGUI();
     void updateNode();

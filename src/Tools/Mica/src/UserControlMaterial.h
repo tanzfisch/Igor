@@ -108,13 +108,13 @@ private:
 
 	bool _ignoreMaterialUpdate = false;
 
-    void onShader0Button(iWidget* source);
-    void onShader1Button(iWidget* source);
-    void onShader2Button(iWidget* source);
-    void onReloadShader(iWidget* source);
+    void onShader0Button(iWidgetPtr source);
+    void onShader1Button(iWidgetPtr source);
+    void onShader2Button(iWidgetPtr source);
+    void onReloadShader(iWidgetPtr source);
 
-	void onTextChangedName(iWidget* source);
-	void onDoUpdateMaterial(iWidget* source);
+	void onTextChangedName(iWidgetPtr source);
+	void onDoUpdateMaterial(iWidgetPtr source);
 
     void onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
 

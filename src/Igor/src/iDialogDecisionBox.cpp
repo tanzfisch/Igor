@@ -4,8 +4,6 @@
 
 #include <iDialogDecisionBox.h>
 
-#include <iDialog.h>
-#include <iWidgetManager.h>
 #include <iWidgetLabel.h>
 #include <iWidgetButton.h>
 #include <iWidgetGrid.h>
@@ -13,18 +11,30 @@
 #include <iWidgetCheckBox.h>
 #include <iWidgetManager.h>
 
-#include <iaConsole.h>
-using namespace IgorAux;
-
 namespace Igor
 {
 
-	void iDialogDecisionBox::show(const iaString& message, iDecisionBoxCloseDelegate closeDelegate, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
+	void iDialogDecisionBox::open(iDialogClosedDelegate dialogCloseDelegate, const iaString& message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
 	{
-		_decisionBoxCloseEvent.append(closeDelegate);
+        iDialog::open(dialogCloseDelegate);
 
 		initGUI(message, radioButtonTexts, preSelection);
 	}
+
+    int32 iDialogDecisionBox::getSelection() const
+    {
+        int32 i = 0;
+        for(auto radioButton : _radioButtons)
+        {
+            if (radioButton->isChecked())
+            {
+                return i;
+            }
+            i++;
+        }
+
+        return -1;
+    }
 
 	void iDialogDecisionBox::initGUI(const iaString& message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
 	{
@@ -86,7 +96,7 @@ namespace Igor
 			checkBox->setText((*iter));
 			radioGrid->addWidget(checkBox, 0, i);
 
-			if (preSelection != -1 && preSelection == i)
+			if (preSelection == i)
 			{
 				checkBox->setChecked();
 			}
@@ -108,44 +118,15 @@ namespace Igor
 		buttonGrid->addWidget(cancelButton, 1, 0);
 	}
 
-	void iDialogDecisionBox::onOK(iWidget* source)
-	{		
-		int i = 0;
-		bool selected = false;
-		auto iter = _radioButtons.begin();
-		while (iter != _radioButtons.end())
-		{
-			if ((*iter)->isChecked())
-			{
-				_decisionBoxCloseEvent(true, i);
-				selected = true;
-				break;
-			}
-			iter++;
-			i++;
-		}
-
-		if (!selected)
-		{
-			_decisionBoxCloseEvent(false, -1);
-		}
-		_decisionBoxCloseEvent.clear();
-
+	void iDialogDecisionBox::onOK(iWidgetPtr source)
+	{	
+        setReturnState(iDialogReturnState::Ok);
 		close();
 	}
 
-	void iDialogDecisionBox::onCancel(iWidget* source)
+	void iDialogDecisionBox::onCancel(iWidgetPtr source)
 	{
-		_decisionBoxCloseEvent(false, -1);
-		_decisionBoxCloseEvent.clear();
-
+        setReturnState(iDialogReturnState::Cancel);
 		close();
-	}
-
-	void iDialogDecisionBox::close()
-	{
-		setActive(false);
-		setVisible(false);
-		iWidgetManager::resetModal();
 	}
 }

@@ -74,7 +74,7 @@ private:
 
 	iWidgetTextEdit* createTextEdit();
 
-    void onChange(iWidget* source);
+    void onChange(iWidgetPtr source);
    
     void updateGUI(iNodeTransform* transformNode);
 

@@ -147,7 +147,7 @@ private:
 
     \param source the source widget of this event
     */
-    void onExitClick(iWidget* source);
+    void onExitClick(iWidgetPtr source);
 
 	/*! triggered by closing the message box
 
@@ -159,17 +159,17 @@ private:
 
     \param source the source widget of this event
     */
-    void onOpenMessageBox(iWidget* source);
+    void onOpenMessageBox(iWidgetPtr source);
 
     /*! triggered by open color chooser button
 
     \param source the source widget
     */
-    void onOpenColorChooser(iWidget* source);
+    void onOpenColorChooser(iWidgetPtr source);
 
     /*! triggered by cllicking on color gradient
     */
-    void onOpenColorGradientEditor(iWidget* source);
+    void onOpenColorGradientEditor(iWidgetPtr source);
 
     /*! triggered when closing color chooser dialog
 

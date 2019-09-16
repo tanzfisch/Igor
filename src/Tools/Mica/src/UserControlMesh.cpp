@@ -62,14 +62,14 @@ void UserControlMesh::onEmissiveChange(const iaColor4f& color)
 	updateNode();
 }
 
-void UserControlMesh::onTextChangedShininess(iWidget* source)
+void UserControlMesh::onTextChangedShininess(iWidgetPtr source)
 {
 	_shininess = _textShininess->getValue();
 	_sliderShininess->setValue(_shininess);
 	updateNode();
 }
 
-void UserControlMesh::onSliderChangedShininess(iWidget* source)
+void UserControlMesh::onSliderChangedShininess(iWidgetPtr source)
 {
 	_shininess = _sliderShininess->getValue();
 	_textShininess->setValue(_shininess);
@@ -467,7 +467,7 @@ void UserControlMesh::initGUI()
 	_initialized = true;
 }
 
-void UserControlMesh::onBakeAction(iWidget* source)
+void UserControlMesh::onBakeAction(iWidgetPtr source)
 {
 	// TODO this kind of action needs to be in an action menu
 
@@ -502,12 +502,12 @@ void UserControlMesh::onBakeAction(iWidget* source)
 	scene->getRoot()->getChild("MicaRoot")->insertNode(newMeshNode);
 }
 
-void UserControlMesh::onMaterialChanged(iWidget* source)
+void UserControlMesh::onMaterialChanged(iWidgetPtr source)
 {
 	updateNode();
 }
 
-void UserControlMesh::onDoUpdateNode(iWidget* source)
+void UserControlMesh::onDoUpdateNode(iWidgetPtr source)
 {
 	updateNode();
 }

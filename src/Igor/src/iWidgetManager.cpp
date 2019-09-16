@@ -65,7 +65,7 @@ namespace Igor
 				con_debug_endl(widget->getInfo());
 
 				// to get a better idea which widget this is we also print it's children
-				std::vector<iWidget*> children;
+				std::vector<iWidgetPtr> children;
 				widget->getChildren(children);
 				for (auto child : children)
 				{
@@ -80,12 +80,12 @@ namespace Igor
 		_widgets.clear();
 	}
 
-	void iWidgetManager::registerWidget(iWidget* widget)
+	void iWidgetManager::registerWidget(iWidgetPtr widget)
 	{
 		_widgets[widget->getID()] = widget;
 	}
 
-	void iWidgetManager::unregisterWidget(iWidget* widget)
+	void iWidgetManager::unregisterWidget(iWidgetPtr widget)
 	{
 		auto iter = _widgets.find(widget->getID());
 		if (iter != _widgets.end())
@@ -437,7 +437,7 @@ namespace Igor
 		}
 	}
 
-	void iWidgetManager::traverseContentSize(iWidget* widget)
+	void iWidgetManager::traverseContentSize(iWidgetPtr widget)
 	{
 		if (widget != nullptr)
 		{
@@ -453,7 +453,7 @@ namespace Igor
 		}
 	}
 
-	void iWidgetManager::traverseAlignment(iWidget* widget, int32 offsetX, int32 offsetY, int32 clientRectWidth, int32 clientRectHeight)
+	void iWidgetManager::traverseAlignment(iWidgetPtr widget, int32 offsetX, int32 offsetY, int32 clientRectWidth, int32 clientRectHeight)
 	{
 		if (widget != nullptr)
 		{

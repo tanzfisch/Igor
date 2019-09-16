@@ -24,44 +24,26 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	void iDialogColorGradient::show(iColorGradientCloseDelegate closeDelegate, const iaGradientColor4f& gradient, bool useAlpha)
+	void iDialogColorGradient::open(iDialogClosedDelegate dialogCloseDelegate, const iaGradientColor4f& gradient, bool useAlpha)
 	{
-		_oldGradient = gradient;
-		_closeEvent.append(closeDelegate);
+        iDialog::open(dialogCloseDelegate);
 
+		_oldGradient = gradient;
 		initGUI(gradient, useAlpha);
 	}
 
-	void iDialogColorGradient::deinitGUI()
-	{
-		if (!_initialized)
-		{
-			return;
-		}
+    const iaGradientColor4f& iDialogColorGradient::getColorGradient() const
+    {
+        return _gradient;
+    }
 
-		clearChildren();
-
-		_gradientWidget = nullptr;
-		_colorChooser = nullptr;
-		_position = nullptr;
-
-		_initialized = false;
-	}
+    const iaGradientColor4f& iDialogColorGradient::getResetColorGradient() const
+    {
+        return _oldGradient;
+    }
 
 	void iDialogColorGradient::initGUI(const iaGradientColor4f& gradient, bool useAlpha)
 	{
-		if (_initialized)
-		{
-			return;
-		}
-
-		con_assert(!gradient.getValues().empty(), "invalid data");
-
-		if (gradient.getValues().empty())
-		{
-			return;
-		}
-
 		_gradient = gradient;
 
 		iWidgetManager::setModal(this);
@@ -177,11 +159,9 @@ namespace Igor
 		buttonGrid->addWidget(resetButton, 0, 0);
 		buttonGrid->addWidget(cancelButton, 1, 0);
 		buttonGrid->addWidget(okButton, 2, 0);
-
-		_initialized = true;
 	}
 
-	void iDialogColorGradient::onPositionChanged(iWidget* source)
+	void iDialogColorGradient::onPositionChanged(iWidgetPtr source)
 	{
 		iaGradientColor4f temp = _gradient;
 
@@ -256,12 +236,10 @@ namespace Igor
 		_gradientWidget->setGradient(_gradient);
 	}
 
-	void iDialogColorGradient::onOK(iWidget* source)
+	void iDialogColorGradient::onOK(iWidgetPtr source)
 	{
+        setReturnState(iDialogReturnState::Ok);
 		close();
-
-		_closeEvent(true, _gradient);
-		_closeEvent.clear();
 	}
 
 	void iDialogColorGradient::updateSelection()
@@ -270,7 +248,7 @@ namespace Igor
 		_position->setValue(_gradient.getValues()[_selectedColor].first * 100.0f);
 	}
 
-	void iDialogColorGradient::onDelete(iWidget* source)
+	void iDialogColorGradient::onDelete(iWidgetPtr source)
 	{
 		if (_gradient.getValues().size() > 1)
 		{
@@ -281,29 +259,18 @@ namespace Igor
 		}
 	}
 
-	void iDialogColorGradient::onCancel(iWidget* source)
+	void iDialogColorGradient::onCancel(iWidgetPtr source)
 	{
+        setReturnState(iDialogReturnState::Cancel);
 		close();
-
-		_closeEvent(true, _gradient);
-		_closeEvent.clear();
 	}
 
-	void iDialogColorGradient::onReset(iWidget* source)
+	void iDialogColorGradient::onReset(iWidgetPtr source)
 	{
 		_gradient = _oldGradient;
 		_gradientWidget->setGradient(_gradient);
 
 		_selectedColor = 0;
 		updateSelection();
-	}
-
-	void iDialogColorGradient::close()
-	{
-		setActive(false);
-		setVisible(false);
-		iWidgetManager::resetModal();
-
-		deinitGUI();
 	}
 }

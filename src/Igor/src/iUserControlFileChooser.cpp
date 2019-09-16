@@ -49,12 +49,12 @@ namespace Igor
 	}
 
 	__IGOR_DISABLE_WARNING__(4100)
-		void iUserControlFileChooser::onTextChanged(iWidget* source)
+		void iUserControlFileChooser::onTextChanged(iWidgetPtr source)
 	{
 		_fileNameChanged(_fileNameTextEdit);
 	}
 
-	void iUserControlFileChooser::onFileSelectButtonPressed(iWidget* source)
+	void iUserControlFileChooser::onFileSelectButtonPressed(iWidgetPtr source)
 	{
 		if (_fileDialog == nullptr)
 		{

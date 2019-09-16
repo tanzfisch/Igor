@@ -99,42 +99,29 @@ namespace Igor
 	}
 
 	__IGOR_DISABLE_WARNING__(4100)
-		void iDialogMessageBox::onOK(iWidget* source)
+		void iDialogMessageBox::onOK(iWidgetPtr source)
 	{
-		_messageBoxReturnValue = iMessageBoxReturnValue::Ok;
+		setReturnState(iDialogReturnState::Ok);
 		close();
 	}
 
-	void iDialogMessageBox::onCancel(iWidget* source)
+	void iDialogMessageBox::onCancel(iWidgetPtr source)
 	{
-		_messageBoxReturnValue = iMessageBoxReturnValue::Cancel;
+        setReturnState(iDialogReturnState::Cancel);
 		close();
 	}
 
-	void iDialogMessageBox::onYes(iWidget* source)
+	void iDialogMessageBox::onYes(iWidgetPtr source)
 	{
-		_messageBoxReturnValue = iMessageBoxReturnValue::Yes;
+        setReturnState(iDialogReturnState::Yes);
 		close();
 	}
 
-	void iDialogMessageBox::onNo(iWidget* source)
+	void iDialogMessageBox::onNo(iWidgetPtr source)
 	{
-		_messageBoxReturnValue = iMessageBoxReturnValue::No;
+        setReturnState(iDialogReturnState::No);
 		close();
 	}
 	__IGOR_ENABLE_WARNING__(4100);
 
-	void iDialogMessageBox::close()
-	{
-		setActive(false);
-		setVisible(false);
-		iWidgetManager::resetModal();
-
-		iDialog::close();
-	}
-
-	iMessageBoxReturnValue iDialogMessageBox::getReturnValue() const
-	{
-		return _messageBoxReturnValue;
-	}
 }

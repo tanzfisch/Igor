@@ -130,16 +130,16 @@ private:
     void initGUI();
 	void deinitGUI();
 
-    void OnSelectionChange(iWidget* widget);
-    void OnContextMenu(iWidget* widget);
+    void OnSelectionChange(iWidgetPtr widget);
+    void OnContextMenu(iWidgetPtr widget);
     void OnContextMenuClose(int32 value);
 
-	void onAddModel(iWidget* source);
-	void onAddTransformation(iWidget* source);
-	void onAddSwitch(iWidget* source);
-	void onAddGroup(iWidget* source);
-	void onAddEmitter(iWidget* source);
-	void onAddParticleSystem(iWidget* source);
+	void onAddModel(iWidgetPtr source);
+	void onAddTransformation(iWidgetPtr source);
+	void onAddSwitch(iWidgetPtr source);
+	void onAddGroup(iWidgetPtr source);
+	void onAddEmitter(iWidgetPtr source);
+	void onAddParticleSystem(iWidgetPtr source);
 
     void preTraverse() override;
     bool preOrderVisit(iNodePtr node, iNodePtr nextSibling) override;

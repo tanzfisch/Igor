@@ -31,23 +31,11 @@
 
 #include <iDialog.h>
 
-#include <iaEvent.h>
 #include <iaString.h>
 using namespace IgorAux;
 
 namespace Igor
 {
-
-	class iWidgetButton;
-	class iWidgetGrid;
-	class iWidgetLabel;
-	class iWidget;
-	class iWidgetSpacer;
-	class iWidgetCheckBox;
-
-	/*! event triggered when decision box was closed
-	*/
-	iaEVENT(iDecisionBoxCloseEvent, iDecisionBoxCloseDelegate, void, (bool ok, int32 selection), (ok, selection));
 
 	/*! the decision box dialog
 	*/
@@ -66,22 +54,20 @@ namespace Igor
 
 		/*! show/open the decision box
 
+        \param dialogCloseDelegate delegate to handle the close desicion box event
 		\param message the message
-		\param closeDelegate delegate to handle the close desicion box event
 		\param radioButtonTexts besides the message you can add a selection of radio buttons
 		\param preSelection optional preselection of radio buttons
 		*/
-		void show(const iaString& message, iDecisionBoxCloseDelegate closeDelegate, std::initializer_list<iaString> radioButtonTexts, int32 preSelection = -1);
+		void open(iDialogClosedDelegate dialogCloseDelegate, const iaString& message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection = -1);
+
+        /*! \returns selection index
+
+        -1 for no selection
+        */
+        int32 getSelection() const;
 
 	private:
-
-		/*! the close event
-		*/
-		iDecisionBoxCloseEvent _decisionBoxCloseEvent;
-
-		/*! the selesction made by the user
-		*/
-		int32 _selection = -1;
 
 		/*! radio buttons
 		*/
@@ -91,19 +77,13 @@ namespace Igor
 
 		\param source the ok button it self
 		*/
-		void onOK(iWidget* source);
+		void onOK(iWidgetPtr source);
 
 		/*! handles cancel button clicked event
 
 		\param source the cancel button it self
 		*/
-		void onCancel(iWidget* source);
-
-		/*! closes the dialog and sends closed event
-
-		will be triggered by any button
-		*/
-		void close();
+		void onCancel(iWidgetPtr source);
 
 		/*! initializes the gui elements
 		*/

@@ -40,10 +40,20 @@ namespace Igor
 	*/
 	typedef iDialog* iDialogPtr;
 
-
 	/*! dialog close event
 	*/
 	iaEVENT(iDialogClosedEvent, iDialogClosedDelegate, void, (iDialogPtr dialog), (dialog));
+
+    /*! dialog return states
+    */
+    enum class iDialogReturnState
+    {
+        No = 0,
+        Yes = 1,
+        Ok = 1,
+        Cancel = 2,
+        Error = 3
+    };
 
     /*! dialog widget
 
@@ -97,7 +107,19 @@ namespace Igor
 		*/
 		virtual void close();
 
+        /*! \returns the return state of this dialog
+        */
+        iDialogReturnState getReturnState() const;
+
+        /*! sets the return state of this dialog
+        */
+        void setReturnState(iDialogReturnState returnState);
+
     private:
+
+        /*! the return state of the this dialog
+        */
+        iDialogReturnState _returnState = iDialogReturnState::Ok;
 
         /*! horizontal position relative to parent if horizontal alignment is absolute
         */

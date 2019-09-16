@@ -31,14 +31,12 @@
 
 #include <iDialog.h>
 
-#include <iaEvent.h>
 #include <iaString.h>
 using namespace IgorAux;
 
 namespace Igor
 {
 
-	class iWidgetButton;
 	class iWidgetGrid;
 	class iWidgetLabel;
 	class iWidget;
@@ -47,18 +45,13 @@ namespace Igor
 	class iWidgetTextEdit;
 	class iWidgetScroll;
 
-	/*! file dialog return value
+	/*! file dialog porpose definition
 	*/
-	enum class iFileDialogReturnValue
+	enum class iFileDialogPurpose
 	{
-		Ok,
-		Cancel,
-		Error
+		Load,
+        Save
 	};
-
-	/*! event triggered after file dialog was closed
-	*/
-	iaEVENT(iDialogFileSelectCloseEvent, iDialogFileSelectCloseDelegate, void, (iFileDialogReturnValue value), (value));
 
 	/*! file select dialog
 
@@ -75,21 +68,14 @@ namespace Igor
 
 		/*! deinitializes gui elements
 		*/
-		~iDialogFileSelect();
+		~iDialogFileSelect() = default;
 
 		/*! opens dialog in load mode
 
 		\param closeDelegate delegate called after dialog was closed
 		\param path the path to start with
 		*/
-		void load(iDialogFileSelectCloseDelegate closeDelegate, const iaString& path = "");
-
-		/*! opens dialog in save mode
-
-		\param closeDelegate delegate called after dialog was closed
-		\param path the file path to start with
-		*/
-		void save(iDialogFileSelectCloseDelegate closeDelegate, const iaString& path = "");
+        void open(iDialogClosedDelegate dialogCloseDelegate, iFileDialogPurpose purpose = iFileDialogPurpose::Load, const iaString& path = "");
 
 		/*! \returns full path currently selected by dialog
 		*/
@@ -103,9 +89,9 @@ namespace Igor
 		*/
 		const iaString& getFilename() const;
 
-		/*! \returns return state of dialog after it was closed
-		*/
-		iFileDialogReturnValue getReturnState();
+        /*! \returns the purpose with which this dialog was opened
+        */
+        iFileDialogPurpose getPurpose() const;
 
 	private:
 
@@ -117,37 +103,17 @@ namespace Igor
 		*/
 		iaString _filename;
 
-		/*! if true dialog is in load mode; if false it is in save mode
+		/*! the purpose of this file dialog
 		*/
-		bool _load = false;
-
-		/*! file dialog close event
-		*/
-		iDialogFileSelectCloseEvent _fileDialogCloseEvent;
-
-		/*! file dialog return value
-		*/
-		iFileDialogReturnValue _fileDialogReturnValue = iFileDialogReturnValue::Error;
-
-		/*! ok button widget
-		*/
-		iWidgetButton* _okButton = nullptr;
+        iFileDialogPurpose _purpose = iFileDialogPurpose::Load;
 		
 		/*! scroll widget for file and folder grid
 		*/
 		iWidgetScroll* _scroll = nullptr;
 
-		/*! if true ui is initialized
-		*/
-		bool _initialized = false;
-
 		/*! file and folder grid
 		*/
 		iWidgetGrid* _fileGrid = nullptr;
-
-		/*! header label
-		*/
-		iWidgetLabel* _headerLabel = nullptr;
 
 		/*! path edit text field
 		*/
@@ -161,31 +127,31 @@ namespace Igor
 
 		\param source source widget of event
 		*/
-		void onOK(iWidget* source);
+		void onOK(iWidgetPtr source);
 
 		/*! handles cancel button click
 
 		\param source source widget of event
 		*/
-		void onCancel(iWidget* source);
+		void onCancel(iWidgetPtr source);
 
 		/*! handles double click in file grid
 
 		\param source source widget of event
 		*/
-		void onDoubleClick(iWidget* source);
+		void onDoubleClick(iWidgetPtr source);
 
 		/*! handles path edit change
 
 		\param source source widget of event
 		*/
-		void onPathEditChange(iWidget* source);
+		void onPathEditChange(iWidgetPtr source);
 
 		/*! handles filename edit change
 
 		\param source source widget of event
 		*/
-		void onFilenameEditChange(iWidget* source);
+		void onFilenameEditChange(iWidgetPtr source);
 
 		/*! initializes directory and file name
 		*/
@@ -210,22 +176,14 @@ namespace Igor
 		void close();
 
 		/*! initialized widgets
-		*/
-		void initGUI();
 
-		/*! deinitializes widgets
+        \param path the path to start with
 		*/
-		void deinitGUI();
+		void initGUI(const iaString& path);
 
 		/*! updates file grid entries
 		*/
 		void updateFileGrid();
-
-		/*! configures dialog with given path
-
-		\param path the path to start with
-		*/
-		void configure(const iaString& path);
 
 	};
 

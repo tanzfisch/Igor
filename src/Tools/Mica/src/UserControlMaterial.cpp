@@ -563,12 +563,12 @@ void UserControlMaterial::initGUI()
     _fileDialog = new iDialogFileSelect();
 }
 
-void UserControlMaterial::onDoUpdateMaterial(iWidget* source)
+void UserControlMaterial::onDoUpdateMaterial(iWidgetPtr source)
 {
     updateMaterial();
 }
 
-void UserControlMaterial::onTextChangedName(iWidget* source)
+void UserControlMaterial::onTextChangedName(iWidgetPtr source)
 {
     updateMaterial();
     _materialNameChangedEvent();
@@ -593,25 +593,25 @@ void UserControlMaterial::unregisterNameChangeDelegate(MaterialNameChangedDelega
     _materialNameChangedEvent.remove(nameChangedDelegate);
 }
 
-void UserControlMaterial::onShader0Button(iWidget* source)
+void UserControlMaterial::onShader0Button(iWidgetPtr source)
 {
     _loadShaderNumber = 0;
     _fileDialog->load(iDialogFileSelectCloseDelegate(this, &UserControlMaterial::onFileLoadDialogClosed), "..\\data\\shaders"); // TODO hard coded path
 }
 
-void UserControlMaterial::onShader1Button(iWidget* source)
+void UserControlMaterial::onShader1Button(iWidgetPtr source)
 {
     _loadShaderNumber = 1;
     _fileDialog->load(iDialogFileSelectCloseDelegate(this, &UserControlMaterial::onFileLoadDialogClosed), "..\\data\\shaders"); // TODO hard coded path
 }
 
-void UserControlMaterial::onShader2Button(iWidget* source)
+void UserControlMaterial::onShader2Button(iWidgetPtr source)
 {
     _loadShaderNumber = 2;
     _fileDialog->load(iDialogFileSelectCloseDelegate(this, &UserControlMaterial::onFileLoadDialogClosed), "..\\data\\shaders"); // TODO hard coded path
 }
 
-void UserControlMaterial::onReloadShader(iWidget* source)
+void UserControlMaterial::onReloadShader(iWidgetPtr source)
 {
     auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
 

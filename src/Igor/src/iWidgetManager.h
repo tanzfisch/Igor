@@ -47,7 +47,7 @@ namespace Igor
     class iDialog;
 	typedef iDialog* iDialogPtr;
 
-    iaDELEGATE(iInstanciateWidgetDelegate, iWidget*, (), ());
+    iaDELEGATE(iInstanciateWidgetDelegate, iWidgetPtr, (), ());
     iaDELEGATE(iInstanciateDialogDelegate, iDialogPtr, (), ());
 
     /*! manages the widgets in use and is a singleton
@@ -79,7 +79,7 @@ namespace Igor
 
         \param id id of widget
         */
-        iWidget* getWidget(uint64 id);
+        iWidgetPtr getWidget(uint64 id);
 
         /*! \returns dialog by id
 
@@ -288,7 +288,7 @@ namespace Igor
 
         /*! list of all widgets
         */
-		std::unordered_map<uint64, iWidget*> _widgets;
+		std::unordered_map<uint64, iWidgetPtr> _widgets;
 
         /*! list of all dialogs
         */
@@ -322,13 +322,13 @@ namespace Igor
 
 		\param widget the widget to track
 		*/
-		void registerWidget(iWidget* widget);
+		void registerWidget(iWidgetPtr widget);
 
 		/*! unregister widget from WidgetManager so we don't track this one anymore
 
 		\param widget the widget to not track anymore
 		*/
-		void unregisterWidget(iWidget* widget);
+		void unregisterWidget(iWidgetPtr widget);
 
 		/*! registers dialog to WidgetManager so we can track if all dialogs got destroyed at shutdown
 
@@ -346,11 +346,11 @@ namespace Igor
 
         \param widget current widget to update
         */
-        void traverseContentSize(iWidget* widget);
+        void traverseContentSize(iWidgetPtr widget);
 
         /*! traverse widget tree and updates alignment
         */
-        void traverseAlignment(iWidget* widget, int32 offsetX, int32 offsetY, int32 clientRectWidth, int32 clientRectHeight);
+        void traverseAlignment(iWidgetPtr widget, int32 offsetX, int32 offsetY, int32 clientRectWidth, int32 clientRectHeight);
 
         /*! updates recursively all widgets before rendering
         */

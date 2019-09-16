@@ -36,6 +36,16 @@ namespace Igor
 		iWidgetManager::getInstance().unregisterDialog(this);
     }
 
+    void iDialog::setReturnState(iDialogReturnState returnState)
+    {
+        _returnState = returnState;
+    }
+
+    iDialogReturnState iDialog::getReturnState() const
+    {
+        return _returnState;
+    }
+
 	void iDialog::open(iDialogClosedDelegate dialogCloseDelegate)
 	{
 		_dialogCloseDelegate = dialogCloseDelegate;
@@ -43,6 +53,10 @@ namespace Igor
 
 	void iDialog::close()
 	{
+        setActive(false);
+        setVisible(false);
+        iWidgetManager::resetModal();
+
 		iWidgetManager::getInstance().closeDialog(this);
 	}
 
@@ -54,7 +68,7 @@ namespace Igor
         if (isGrowingByContent() &&
             !_children.empty())
         {
-            iWidget* widget = iWidgetManager::getInstance().getWidget(*_children.begin());
+            iWidgetPtr widget = iWidgetManager::getInstance().getWidget(*_children.begin());
             minWidth = widget->getMinWidth();
             minHeight = widget->getMinHeight();
         }

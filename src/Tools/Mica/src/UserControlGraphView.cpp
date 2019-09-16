@@ -226,7 +226,7 @@ iaString UserControlGraphView::getIconTexture(iNodeType type)
     return "";
 }
 
-void UserControlGraphView::OnSelectionChange(iWidget* widget)
+void UserControlGraphView::OnSelectionChange(iWidgetPtr widget)
 {
     uint64* nodeIDPtr = static_cast<uint64*>(_gridGraph->getSelectedUserData());
     uint64 nodeID = iNode::INVALID_NODE_ID;
@@ -239,7 +239,7 @@ void UserControlGraphView::OnSelectionChange(iWidget* widget)
     _selectionChange(_selectedNode);
 }
 
-void UserControlGraphView::OnContextMenu(iWidget* widget)
+void UserControlGraphView::OnContextMenu(iWidgetPtr widget)
 {
     iaVector2i pos = iMouse::getInstance().getPos();
     _dialogMenu->setX(pos._x);
@@ -498,32 +498,32 @@ void UserControlGraphView::unregisterOnAddModel(AddModelDelegate addModelDelegat
     _addModel.remove(addModelDelegate);
 }
 
-void UserControlGraphView::onAddTransformation(iWidget* source)
+void UserControlGraphView::onAddTransformation(iWidgetPtr source)
 {
     _addTransformation(_selectedNode);
 }
 
-void UserControlGraphView::onAddGroup(iWidget* source)
+void UserControlGraphView::onAddGroup(iWidgetPtr source)
 {
     _addGroup(_selectedNode);
 }
 
-void UserControlGraphView::onAddEmitter(iWidget* source)
+void UserControlGraphView::onAddEmitter(iWidgetPtr source)
 {
     _addEmitter(_selectedNode);
 }
 
-void UserControlGraphView::onAddParticleSystem(iWidget* source)
+void UserControlGraphView::onAddParticleSystem(iWidgetPtr source)
 {
     _addParticleSystem(_selectedNode);
 }
 
-void UserControlGraphView::onAddSwitch(iWidget* source)
+void UserControlGraphView::onAddSwitch(iWidgetPtr source)
 {
     _addSwitch(_selectedNode);
 }
 
-void UserControlGraphView::onAddModel(iWidget* source)
+void UserControlGraphView::onAddModel(iWidgetPtr source)
 {
     _addModel(_selectedNode);
 }

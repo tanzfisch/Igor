@@ -212,33 +212,33 @@ namespace Igor
 	}
 
 	__IGOR_DISABLE_WARNING__(4100)
-		void iUserControlColorChooser::onExpandButtonPressed(iWidget* source)
+		void iUserControlColorChooser::onExpandButtonPressed(iWidgetPtr source)
 	{
 		setExpanded(!_expanded);
 	}
 
-	void iUserControlColorChooser::onValueChangedH(iWidget* source)
+	void iUserControlColorChooser::onValueChangedH(iWidgetPtr source)
 	{
 		_sliderH->setValue(_valueChooserH->getValue());
 		updateColorRGB();
 		updateWidgets();
 	}
 
-	void iUserControlColorChooser::onValueChangedS(iWidget* source)
+	void iUserControlColorChooser::onValueChangedS(iWidgetPtr source)
 	{
 		_sliderS->setValue(_valueChooserS->getValue());
 		updateColorRGB();
 		updateWidgets();
 	}
 
-	void iUserControlColorChooser::onValueChangedV(iWidget* source)
+	void iUserControlColorChooser::onValueChangedV(iWidgetPtr source)
 	{
 		_sliderV->setValue(_valueChooserV->getValue());
 		updateColorRGB();
 		updateWidgets();
 	}
 
-	void iUserControlColorChooser::onValueChangedR(iWidget* source)
+	void iUserControlColorChooser::onValueChangedR(iWidgetPtr source)
 	{
 		_sliderR->setValue(_valueChooserR->getValue());
 		_valueChooserRExpanded->setValue(_valueChooserR->getValue());
@@ -246,7 +246,7 @@ namespace Igor
 		updateWidgets();
 	}
 
-	void iUserControlColorChooser::onValueChangedG(iWidget* source)
+	void iUserControlColorChooser::onValueChangedG(iWidgetPtr source)
 	{
 		_sliderG->setValue(_valueChooserG->getValue());
 		_valueChooserGExpanded->setValue(_valueChooserG->getValue());
@@ -254,7 +254,7 @@ namespace Igor
 		updateWidgets();
 	}
 
-	void iUserControlColorChooser::onValueChangedB(iWidget* source)
+	void iUserControlColorChooser::onValueChangedB(iWidgetPtr source)
 	{
 		_sliderB->setValue(_valueChooserB->getValue());
 		_valueChooserBExpanded->setValue(_valueChooserB->getValue());
@@ -262,7 +262,7 @@ namespace Igor
 		updateWidgets();
 	}
 
-	void iUserControlColorChooser::onValueChangedA(iWidget* source)
+	void iUserControlColorChooser::onValueChangedA(iWidgetPtr source)
 	{
 		_sliderA->setValue(_valueChooserA->getValue());
 		_valueChooserAExpanded->setValue(_valueChooserA->getValue());
@@ -270,7 +270,7 @@ namespace Igor
 		updateWidgets();
 	}
 
-	void iUserControlColorChooser::onValueChangedRExpanded(iWidget* source)
+	void iUserControlColorChooser::onValueChangedRExpanded(iWidgetPtr source)
 	{
 		_sliderR->setValue(_valueChooserRExpanded->getValue());
 		_valueChooserR->setValue(_valueChooserRExpanded->getValue());
@@ -278,7 +278,7 @@ namespace Igor
 		updateWidgets();
 	}
 
-	void iUserControlColorChooser::onValueChangedGExpanded(iWidget* source)
+	void iUserControlColorChooser::onValueChangedGExpanded(iWidgetPtr source)
 	{
 		_sliderG->setValue(_valueChooserGExpanded->getValue());
 		_valueChooserG->setValue(_valueChooserGExpanded->getValue());
@@ -286,7 +286,7 @@ namespace Igor
 		updateWidgets();
 	}
 
-	void iUserControlColorChooser::onValueChangedBExpanded(iWidget* source)
+	void iUserControlColorChooser::onValueChangedBExpanded(iWidgetPtr source)
 	{
 		_sliderB->setValue(_valueChooserBExpanded->getValue());
 		_valueChooserB->setValue(_valueChooserBExpanded->getValue());
@@ -294,7 +294,7 @@ namespace Igor
 		updateWidgets();
 	}
 
-	void iUserControlColorChooser::onValueChangedAExpanded(iWidget* source)
+	void iUserControlColorChooser::onValueChangedAExpanded(iWidgetPtr source)
 	{
 		_sliderA->setValue(_valueChooserAExpanded->getValue());
 		_valueChooserA->setValue(_valueChooserAExpanded->getValue());
@@ -302,28 +302,28 @@ namespace Igor
 		updateWidgets();
 	}
 
-	void iUserControlColorChooser::onSliderChangedH(iWidget* source)
+	void iUserControlColorChooser::onSliderChangedH(iWidgetPtr source)
 	{
 		_valueChooserH->setValue(_sliderH->getValue());
 		updateColorRGB();
 		updateWidgets();
 	}
 
-	void iUserControlColorChooser::onSliderChangedS(iWidget* source)
+	void iUserControlColorChooser::onSliderChangedS(iWidgetPtr source)
 	{
 		_valueChooserS->setValue(_sliderS->getValue());
 		updateColorRGB();
 		updateWidgets();
 	}
 
-	void iUserControlColorChooser::onSliderChangedV(iWidget* source)
+	void iUserControlColorChooser::onSliderChangedV(iWidgetPtr source)
 	{
 		_valueChooserV->setValue(_sliderV->getValue());
 		updateColorRGB();
 		updateWidgets();
 	}
 
-	void iUserControlColorChooser::onSliderChangedR(iWidget* source)
+	void iUserControlColorChooser::onSliderChangedR(iWidgetPtr source)
 	{
 		_valueChooserR->setValue(_sliderR->getValue());
 		_valueChooserRExpanded->setValue(_sliderR->getValue());
@@ -331,7 +331,7 @@ namespace Igor
 		updateWidgets();
 	}
 
-	void iUserControlColorChooser::onSliderChangedG(iWidget* source)
+	void iUserControlColorChooser::onSliderChangedG(iWidgetPtr source)
 	{
 		_valueChooserG->setValue(_sliderG->getValue());
 		_valueChooserGExpanded->setValue(_sliderR->getValue());
@@ -339,7 +339,7 @@ namespace Igor
 		updateWidgets();
 	}
 
-	void iUserControlColorChooser::onSliderChangedB(iWidget* source)
+	void iUserControlColorChooser::onSliderChangedB(iWidgetPtr source)
 	{
 		_valueChooserB->setValue(_sliderB->getValue());
 		_valueChooserBExpanded->setValue(_sliderR->getValue());
@@ -347,7 +347,7 @@ namespace Igor
 		updateWidgets();
 	}
 
-	void iUserControlColorChooser::onSliderChangedA(iWidget* source)
+	void iUserControlColorChooser::onSliderChangedA(iWidgetPtr source)
 	{
 		_valueChooserA->setValue(_sliderA->getValue());
 		_valueChooserAExpanded->setValue(_sliderR->getValue());

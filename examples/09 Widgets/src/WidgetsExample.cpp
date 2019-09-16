@@ -367,12 +367,12 @@ void WidgetsExample::onMouseMove(const iaVector2i& pos)
     }
 }
 
-void WidgetsExample::onOpenColorChooser(iWidget* source)
+void WidgetsExample::onOpenColorChooser(iWidgetPtr source)
 {
     _colorChooserDialog.show(iColorChooserCloseDelegate(this, &WidgetsExample::onCloseColorChooser), _color->getColor(), true);
 }
 
-void WidgetsExample::onOpenColorGradientEditor(iWidget* source)
+void WidgetsExample::onOpenColorGradientEditor(iWidgetPtr source)
 {
     _colorGradientDialog.show(iColorGradientCloseDelegate(this, &WidgetsExample::onCloseColorGradient), _colorGradient->getGradient(), false);
 }
@@ -393,7 +393,7 @@ void WidgetsExample::onCloseColorChooser(bool ok, const iaColor4f& color)
     }
 }
 
-void WidgetsExample::onOpenMessageBox(iWidget* source)
+void WidgetsExample::onOpenMessageBox(iWidgetPtr source)
 {
 	// open a message box with some text
 	if (_messageBox == nullptr)
@@ -407,18 +407,18 @@ void WidgetsExample::onOpenMessageBox(iWidget* source)
 void WidgetsExample::onCloseMessageBox(iDialogPtr dialog)
 {
 	iaString returnString;
-	iMessageBoxReturnValue value = static_cast<iDialogMessageBox*>(dialog)->getReturnValue();
+	iDialogReturnState value = static_cast<iDialogMessageBox*>(dialog)->getReturnValue();
 	switch(value)
 	{
-	case iMessageBoxReturnValue::No:
+	case iDialogReturnState::No:
 		returnString = "No";
 		break;
 
-	case iMessageBoxReturnValue::Yes:
+	case iDialogReturnState::Yes:
 		returnString = "Yes/Ok";
 		break;
 
-	case iMessageBoxReturnValue::Cancel:
+	case iDialogReturnState::Cancel:
 		returnString = "Cancel";
 		break;
 	}
@@ -429,7 +429,7 @@ void WidgetsExample::onCloseMessageBox(iDialogPtr dialog)
 	_messageBox = nullptr;
 }
 
-void WidgetsExample::onExitClick(iWidget* source)
+void WidgetsExample::onExitClick(iWidgetPtr source)
 {
     // shut down application
     iApplication::getInstance().stop();

@@ -200,11 +200,11 @@ private:
     void deinitMaterialView();
     void initMaterialView();
 
-    void onLoadFile(iWidget* source);
-    void onSaveFile(iWidget* source);
-    void onExitMica(iWidget* source);
+    void onLoadFile(iWidgetPtr source);
+    void onSaveFile(iWidgetPtr source);
+    void onExitMica(iWidgetPtr source);
 
-    void onDelete(iWidget* source);
+    void onDelete(iWidgetPtr source);
     
 	void onAddModel(uint64 addAt);
 	void onAddModelDecision(bool ok, int32 selection);
@@ -214,16 +214,16 @@ private:
 	void onAddEmitter(uint64 addAt);
 	void onAddParticleSystem(uint64 addAt);
 
-    void onCopy(iWidget* source);
-    void onPaste(iWidget* source);
-    void onCut(iWidget* source);
+    void onCopy(iWidgetPtr source);
+    void onPaste(iWidgetPtr source);
+    void onCut(iWidgetPtr source);
 
     void onGraphSelectionChanged(uint64 nodeID);
 	void onAddMaterial();
 	void onMaterialSelectionChanged(uint64 materialID);
 
-    void onGraphViewSelected(iWidget* source);
-    void onMaterialViewSelected(iWidget* source);
+    void onGraphViewSelected(iWidgetPtr source);
+    void onMaterialViewSelected(iWidgetPtr source);
 
 };
 

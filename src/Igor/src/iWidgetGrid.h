@@ -182,11 +182,11 @@ namespace Igor
 
         if there is already a child at 0, 0 it will be replaced
 
-        you might want to use addWidget(iWidget* widget, int32 col, int32 row, void* userData = nullptr); instead
+        you might want to use addWidget(iWidgetPtr widget, int32 col, int32 row, void* userData = nullptr); instead
 
         \param widget the child widget to be added
         */
-        void addWidget(iWidget* widget);
+        void addWidget(iWidgetPtr widget);
 
         /*! removes a child widget frmo this widget regardless of it's position
 
@@ -194,7 +194,7 @@ namespace Igor
 
         \param widget the child widget to be removed
         */
-        void removeWidget(iWidget* widget);
+        void removeWidget(iWidgetPtr widget);
 
         /*! add widget and set it at given position
 
@@ -202,7 +202,7 @@ namespace Igor
         \param col column index
         \param row row index
         */
-        void addWidget(iWidget* widget, int32 col, int32 row, void* userData = nullptr);
+        void addWidget(iWidgetPtr widget, int32 col, int32 row, void* userData = nullptr);
 
         /*! sets selection mode of grid
 

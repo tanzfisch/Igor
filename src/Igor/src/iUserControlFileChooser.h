@@ -138,13 +138,13 @@ namespace Igor
 
 		\param source the source of the event
 		*/
-		void onTextChanged(iWidget* source);
+		void onTextChanged(iWidgetPtr source);
 
 		/*! called when button was pressed
 
 		\param source the source of the event
 		*/
-		void onFileSelectButtonPressed(iWidget* source);
+		void onFileSelectButtonPressed(iWidgetPtr source);
 
 		/*! initialize gui elements
 		*/

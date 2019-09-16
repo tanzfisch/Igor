@@ -81,9 +81,9 @@ private:
 
     void clear();
 
-    void OnSelectionChange(iWidget* widget);
+    void OnSelectionChange(iWidgetPtr widget);
 
-    void onAddMaterial(iWidget* source);
+    void onAddMaterial(iWidgetPtr source);
 
 };
 

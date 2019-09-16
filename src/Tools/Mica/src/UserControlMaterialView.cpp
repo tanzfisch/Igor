@@ -78,12 +78,12 @@ void UserControlMaterialView::initGUI()
     refresh();
 }
 
-void UserControlMaterialView::onAddMaterial(iWidget* source)
+void UserControlMaterialView::onAddMaterial(iWidgetPtr source)
 {
     _addMaterial();
 }
 
-void UserControlMaterialView::OnSelectionChange(iWidget* widget)
+void UserControlMaterialView::OnSelectionChange(iWidgetPtr widget)
 {
 	uint32* materialIDPtr = static_cast<uint32*>(_gridGraph->getSelectedUserData());
 	uint32 materialID = iMaterial::INVALID_MATERIAL_ID;

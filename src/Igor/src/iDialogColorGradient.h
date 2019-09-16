@@ -67,17 +67,21 @@ namespace Igor
 
 		/*! show/open the decision box
 
-		\param closeDelegate closing delegate
+		\param dialogCloseDelegate closing delegate
 		\param gradient to start with
 		\param useAlpha if true use alpha channel too
 		*/
-		void show(iColorGradientCloseDelegate closeDelegate, const iaGradientColor4f& gradient, bool useAlpha = true);
+		void open(iDialogClosedDelegate dialogCloseDelegate, const iaGradientColor4f& gradient, bool useAlpha = true);
+
+        /*! \returns color gradient from dialog
+        */
+        const iaGradientColor4f& getColorGradient() const;
+
+        /*! \returns previsou color gradient
+        */
+        const iaGradientColor4f& getResetColorGradient() const;
 
 	private:
-
-		/*! the close event
-		*/
-		iColorGradientCloseEvent _closeEvent;
 
 		/*! the old gradient
 		*/
@@ -99,10 +103,6 @@ namespace Igor
 		*/
 		iWidgetNumberChooser* _position = nullptr;
 
-		/*! if true ui is initialized
-		*/
-		bool _initialized = false;
-
 		/*! the widget to visualize the gradient
 		*/
 		iWidgetColorGradient* _gradientWidget = nullptr;
@@ -119,7 +119,7 @@ namespace Igor
 
 		\param source source widget
 		*/
-		void onPositionChanged(iWidget* source);
+		void onPositionChanged(iWidgetPtr source);
 
 		/*! triggered when color chooser was manipulated
 		*/
@@ -134,35 +134,25 @@ namespace Igor
 
 		/*! triggered by clicking delete button
 		*/
-		void onDelete(iWidget* source);
+		void onDelete(iWidgetPtr source);
 
 		/*! handles ok button clicked event
 
 		\param source the ok button it self
 		*/
-		void onOK(iWidget* source);
+		void onOK(iWidgetPtr source);
 
 		/*! handles cancel button clicked event
 
 		\param source the cancel button it self
 		*/
-		void onCancel(iWidget* source);
+		void onCancel(iWidgetPtr source);
 
 		/*! handles reset button click event
 
 		\param source the reset button it self
 		*/
-		void onReset(iWidget* source);
-
-		/*! closes the dialog and sends closed event
-
-		will be triggered by any button
-		*/
-		void close();
-
-		/*! deinitializes the gui elements
-		*/
-		void deinitGUI();
+		void onReset(iWidgetPtr source);
 
 		/*! initializes gui elements
 
