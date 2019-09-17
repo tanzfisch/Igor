@@ -29,7 +29,6 @@
 #include <ompfSettings.h>
 
 #include <iaString.h>
-#include <iaMemBlockControl.h>
 using namespace IgorAux;
 
 #include <map>
