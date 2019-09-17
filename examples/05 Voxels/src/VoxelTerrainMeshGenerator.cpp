@@ -41,7 +41,7 @@ iNodePtr VoxelTerrainMeshGenerator::importData(const iaString& sectionName, iMod
     if (mesh.get() != nullptr)
     {
         iNodeMesh* meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
-/*		meshNode->setKeepMesh(parameter->_keepMesh);
+		meshNode->setKeepMesh(parameter->_keepMesh);
         meshNode->setMesh(mesh);
         meshNode->setMaterial(tileInformation->_materialID);
 
@@ -55,7 +55,7 @@ iNodePtr VoxelTerrainMeshGenerator::importData(const iaString& sectionName, iMod
         targetMaterial->setEmissive(iaColor3f(0.01f, 0.01f, 0.01f));
         targetMaterial->setShininess(100.0f);
 
-        result->insertNode(meshNode);*/
+        result->insertNode(meshNode);
     }
 
     return result;
