@@ -419,6 +419,8 @@ void Manipulator::deinit()
 	iMaterialResourceFactory::getInstance().destroyTargetMaterial(_cyan);
 	iMaterialResourceFactory::getInstance().destroyMaterial(_materialCelShading);
 	iMaterialResourceFactory::getInstance().destroyMaterial(_material);
+
+    _view->unregisterRenderDelegate(RenderDelegate(this, &Manipulator::render));
 }
 
 void Manipulator::setVisible(bool visible)

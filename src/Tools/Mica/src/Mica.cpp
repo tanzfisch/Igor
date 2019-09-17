@@ -105,7 +105,7 @@ void Mica::init(iaString fileName)
 	_view.registerRenderDelegate(RenderDelegate(this, &Mica::render));
 	_window.addView(&_view);
 
-	_viewOrtho.setName("GUIView");
+	_viewOrtho.setName("2D_UI_View");
 	_viewOrtho.setClearColor(false);
 	_viewOrtho.setClearDepth(false);
 	_viewOrtho.setClipPlanes(-1.0f, 1.0f);
@@ -125,7 +125,7 @@ void Mica::init(iaString fileName)
 	_scene->getRoot()->insertNode(_workspace);
 
 	// init 3D user controls
-	_viewWidget3D.setName("UIView");
+	_viewWidget3D.setName("3D_UI_View");
 	_viewWidget3D.setClearColor(false);
 	_viewWidget3D.setClearDepth(true);
 	_viewWidget3D.setPerspective(45.0f);
@@ -295,6 +295,12 @@ void Mica::deinit()
 	iWidgetManager::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &Mica::onMouseKeyUp));
 	iWidgetManager::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &Mica::onKeyDown));
 	iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &Mica::handle));
+
+    if (_manipulator != nullptr)
+    {
+        delete _manipulator;
+        _manipulator = nullptr;
+    }
 }
 
 void Mica::onAddTransformation(uint64 atNodeID)
