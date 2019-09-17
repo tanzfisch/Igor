@@ -76,19 +76,31 @@ void WidgetsExample::init()
     iMouse::getInstance().registerMouseMoveDelegate(iMouseMoveDelegate(this, &WidgetsExample::onMouseMove));
 }
 
+void WidgetsExample::onCloseDialog(iDialogPtr dialog)
+{
+    if (_dialog != dialog)
+    {
+        return;
+    }
+
+    delete _dialog;
+    _dialog = nullptr;
+}
+
 void WidgetsExample::initGUI()
 {
     // create a theme and set it up. in this case the build in default theme
     _widgetDefaultTheme = new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png");
     iWidgetManager::getInstance().setTheme(_widgetDefaultTheme);
 
-    _dialog.setHorizontalAlignment(iHorizontalAlignment::Strech);
-    _dialog.setVerticalAlignment(iVerticalAlignment::Center);
-    _dialog.setHeight(200);
-    _dialog.setActive();
-    _dialog.setVisible();
+    _dialog = new iDialog();
+    _dialog->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _dialog->setVerticalAlignment(iVerticalAlignment::Center);
+    _dialog->setHeight(200);    
+    // it does not matter if we open it now or after adding all the child widgets
+    _dialog->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseDialog));
 
-    iWidgetGrid* grid1 = new iWidgetGrid();
+    iWidgetGrid* grid1 = new iWidgetGrid(_dialog);
     // put all widgets in one list for easier later cleanup. this method might not always be suitable
     grid1->appendRows(1);
     grid1->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -288,8 +300,6 @@ void WidgetsExample::initGUI()
     graph->setViewGrid();
 
     // assemble all the widgets with their parents
-    _dialog.addWidget(grid1);
-
     grid1->addWidget(groupBox1, 0, 0);
     groupBox1->addWidget(grid4);
     grid4->addWidget(exitButton, 0, 0);
@@ -454,6 +464,9 @@ void WidgetsExample::onCloseMessageBox(iDialogPtr dialog)
 
 void WidgetsExample::onExitClick(iWidgetPtr source)
 {
+    // close dialog
+    _dialog->close();
+
     // shut down application
     iApplication::getInstance().stop();
 }

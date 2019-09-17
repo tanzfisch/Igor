@@ -101,7 +101,7 @@ private:
 
     /*! the main dialog
     */
-	iDialog _dialog;
+	iDialogPtr _dialog = nullptr;
 
     /*! mouse position label
     */
@@ -130,6 +130,12 @@ private:
     /*! splash texture
     */
     iTexturePtr _igorLogo = nullptr;
+
+    /*! triggered when main dialog got closed
+
+    \param dialog source of the event
+    */
+    void WidgetsExample::onCloseDialog(iDialogPtr dialog);
 
     /*! render function
     */

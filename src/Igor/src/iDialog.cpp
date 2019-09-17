@@ -49,6 +49,8 @@ namespace Igor
 	void iDialog::open(iDialogCloseDelegate dialogCloseDelegate)
 	{
 		_dialogCloseDelegate = dialogCloseDelegate;
+        setActive();
+        setVisible();
 	}
 
 	void iDialog::close()

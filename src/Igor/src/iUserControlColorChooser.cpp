@@ -124,7 +124,7 @@ namespace Igor
 
 	void iUserControlColorChooser::initGUI()
 	{
-		_grid = new iWidgetGrid();
+		_grid = new iWidgetGrid(this);
 		_grid->appendRows(1);
 		_grid->setHorizontalAlignment(iHorizontalAlignment::Left);
 		_grid->setVerticalAlignment(iVerticalAlignment::Top);
@@ -172,8 +172,6 @@ namespace Igor
 		_labelGExpanded = createLabel("G");
 		_labelBExpanded = createLabel("B");
 		_labelAExpanded = createLabel("A");
-
-		addWidget(_grid);
 
 		_headlineGrid->addWidget(_expandButton, 0, 0);
 		_headlineGrid->addWidget(_titleLabel, 1, 0);
@@ -537,46 +535,47 @@ namespace Igor
 
 	void iUserControlColorChooser::deinitGUI()
 	{
-		// destroy all these widgets manually because we don't keep trak weather they are attached to anything or not
-		// TODO this is stupid. instead of creating everything and move things arrouns we should only create on doemand. like that nothing would be left over
-		/*iWidgetManager::getInstance().destroyWidget(_headlineGrid);
+        // this is just a workarround for now to cleanup rogue widgets
+#define KILL_ROGUE(widget) if (widget && !widget->hasParent()) { delete widget; widget = nullptr; }
 
-		iWidgetManager::getInstance().destroyWidget(_valueChooserH);
-		iWidgetManager::getInstance().destroyWidget(_valueChooserS);
-		iWidgetManager::getInstance().destroyWidget(_valueChooserV);
-		iWidgetManager::getInstance().destroyWidget(_valueChooserR);
-		iWidgetManager::getInstance().destroyWidget(_valueChooserG);
-		iWidgetManager::getInstance().destroyWidget(_valueChooserB);
-		iWidgetManager::getInstance().destroyWidget(_valueChooserA);
-		iWidgetManager::getInstance().destroyWidget(_valueChooserRExpanded);
-		iWidgetManager::getInstance().destroyWidget(_valueChooserGExpanded);
-		iWidgetManager::getInstance().destroyWidget(_valueChooserBExpanded);
-		iWidgetManager::getInstance().destroyWidget(_valueChooserAExpanded);
+        KILL_ROGUE(_headlineGrid);
 
-		iWidgetManager::getInstance().destroyWidget(_labelH);
-		iWidgetManager::getInstance().destroyWidget(_labelS);
-		iWidgetManager::getInstance().destroyWidget(_labelV);
-		iWidgetManager::getInstance().destroyWidget(_labelR);
-		iWidgetManager::getInstance().destroyWidget(_labelG);
-		iWidgetManager::getInstance().destroyWidget(_labelB);
-		iWidgetManager::getInstance().destroyWidget(_labelA);
-		iWidgetManager::getInstance().destroyWidget(_labelRExpanded);
-		iWidgetManager::getInstance().destroyWidget(_labelGExpanded);
-		iWidgetManager::getInstance().destroyWidget(_labelBExpanded);
-		iWidgetManager::getInstance().destroyWidget(_labelAExpanded);
+		KILL_ROGUE(_valueChooserH);
+		KILL_ROGUE(_valueChooserS);
+		KILL_ROGUE(_valueChooserV);
+		KILL_ROGUE(_valueChooserR);
+		KILL_ROGUE(_valueChooserG);
+		KILL_ROGUE(_valueChooserB);
+		KILL_ROGUE(_valueChooserA);
+		KILL_ROGUE(_valueChooserRExpanded);
+		KILL_ROGUE(_valueChooserGExpanded);
+		KILL_ROGUE(_valueChooserBExpanded);
+		KILL_ROGUE(_valueChooserAExpanded);
 
-		iWidgetManager::getInstance().destroyWidget(_expandedSliderGrid);
-		iWidgetManager::getInstance().destroyWidget(_collapsedGrid);
+		KILL_ROGUE(_labelH);
+		KILL_ROGUE(_labelS);
+		KILL_ROGUE(_labelV);
+		KILL_ROGUE(_labelR);
+		KILL_ROGUE(_labelG);
+		KILL_ROGUE(_labelB);
+		KILL_ROGUE(_labelA);
+		KILL_ROGUE(_labelRExpanded);
+		KILL_ROGUE(_labelGExpanded);
+		KILL_ROGUE(_labelBExpanded);
+		KILL_ROGUE(_labelAExpanded);
 
-		iWidgetManager::getInstance().destroyWidget(_sliderH);
-		iWidgetManager::getInstance().destroyWidget(_sliderS);
-		iWidgetManager::getInstance().destroyWidget(_sliderV);
-		iWidgetManager::getInstance().destroyWidget(_sliderR);
-		iWidgetManager::getInstance().destroyWidget(_sliderG);
-		iWidgetManager::getInstance().destroyWidget(_sliderB);
-		iWidgetManager::getInstance().destroyWidget(_sliderA);
+		KILL_ROGUE(_expandedSliderGrid);
+		KILL_ROGUE(_collapsedGrid);
 
-		iWidgetManager::getInstance().destroyWidget(_expandedGrid);*/
+		KILL_ROGUE(_sliderH);
+		KILL_ROGUE(_sliderS);
+		KILL_ROGUE(_sliderV);
+		KILL_ROGUE(_sliderR);
+		KILL_ROGUE(_sliderG);
+		KILL_ROGUE(_sliderB);
+		KILL_ROGUE(_sliderA);
+
+		KILL_ROGUE(_expandedGrid);
 	}
 
 	void iUserControlColorChooser::registerOnColorChangedEvent(iColorChangedDelegate colorChangedDelegate)

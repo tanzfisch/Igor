@@ -102,13 +102,9 @@ namespace Igor
 		*/
 		int32 _currentSelection = -1;
 
-		/*! rectangle of select box button area
-		*/
-		iRectanglef _buttonRectangle;
-
 		/*! true: if the mouse cursor is over the button
 		*/
-		bool _mouseOverButton = false;
+		bool _mouseOver = false;
 
 		/*! true: if the select box is unfoldet
 		*/

@@ -37,6 +37,8 @@ namespace Igor
 
 		destroyTooltipTimer();
 
+        clearChildren();
+
 		iWidgetManager::getInstance().unregisterWidget(this);
 	}
 
