@@ -13,7 +13,8 @@ using namespace IgorAux;
 
 namespace Igor
 {
-    iWidgetGrid::iWidgetGrid()
+    iWidgetGrid::iWidgetGrid(iWidgetPtr parent)
+		: iWidget(parent)
     {
         _configuredWidth = 0;
         _configuredHeight = 0;
@@ -22,6 +23,7 @@ namespace Igor
 
     void iWidgetGrid::clear()
     {
+		clearChildren();
         _widgetRows.clear();
         _children.clear();
         initGrid();
@@ -155,7 +157,7 @@ namespace Igor
         {
             if ((*iterCollumn)._widgetID != iWidget::INVALID_WIDGET_ID)
             {
-                iWidget* widget = iWidgetManager::getInstance().getWidget((*iterCollumn)._widgetID);
+                iWidgetPtr widget = iWidgetManager::getInstance().getWidget((*iterCollumn)._widgetID);
 
                 if (widget != nullptr)
                 {
@@ -190,7 +192,7 @@ namespace Igor
 
             if ((*iterCollumn)._widgetID != iWidget::INVALID_WIDGET_ID)
             {
-                iWidget* widget = iWidgetManager::getInstance().getWidget((*iterCollumn)._widgetID);
+                iWidgetPtr widget = iWidgetManager::getInstance().getWidget((*iterCollumn)._widgetID);
 
                 if (widget != nullptr)
                 {
@@ -302,7 +304,7 @@ namespace Igor
 
             for (uint32 y = 0; y < rowCount; y++)
             {
-                iWidget* widget = iWidgetManager::getInstance().getWidget(_widgetRows[y]._widgetCollumn[x]._widgetID);
+                iWidgetPtr widget = iWidgetManager::getInstance().getWidget(_widgetRows[y]._widgetCollumn[x]._widgetID);
 
                 if (widget != nullptr)
                 {
@@ -328,7 +330,7 @@ namespace Igor
 
             for (uint32 x = 0; x < columnCount; ++x)
             {
-                iWidget* widget = iWidgetManager::getInstance().getWidget(_widgetRows[y]._widgetCollumn[x]._widgetID);
+                iWidgetPtr widget = iWidgetManager::getInstance().getWidget(_widgetRows[y]._widgetCollumn[x]._widgetID);
 
                 if (widget != nullptr)
                 {
@@ -408,9 +410,9 @@ namespace Igor
                 int index = 0;
                 int foundIndex = -1;
 
-                for (auto child : _children)
+                for (auto id : _children)
                 {
-                    if (child->getID() == collumn._widgetID)
+                    if (id == collumn._widgetID)
                     {
                         foundIndex = index;
                         break;
@@ -578,19 +580,6 @@ namespace Igor
             return result;
         }
 
-		if (key == iKeyCode::MouseLeft)
-		{
-			if (_selectedCollumn != _mouseOverCollumn ||
-				_selectedRow != _mouseOverRow)
-			{
-				_selectedCollumn = _mouseOverCollumn;
-				_selectedRow = _mouseOverRow;
-				_change(this);
-			}
-
-			return true;
-		}
-
         return false;
     }
 
@@ -610,15 +599,24 @@ namespace Igor
             return result;
         }
 
-        if (key == iKeyCode::MouseLeft ||
-            key == iKeyCode::MouseRight)
+        if (key == iKeyCode::MouseLeft)
         {
             _click(this);
 
-            if (key == iKeyCode::MouseRight)
+            if (_selectedCollumn != _mouseOverCollumn ||
+                _selectedRow != _mouseOverRow)
             {
-                _contextMenu(this);
+                _selectedCollumn = _mouseOverCollumn;
+                _selectedRow = _mouseOverRow;
+                _change(this);
             }
+
+            return true;
+        }
+        else if (key == iKeyCode::MouseRight)
+        {
+            _click(this);
+            _contextMenu(this);
 
             return true;
         }
@@ -643,7 +641,7 @@ namespace Igor
             {
                 if (col._widgetID != iWidget::INVALID_WIDGET_ID)
                 {
-                    iWidget* widget = iWidgetManager::getInstance().getWidget(col._widgetID);
+                    iWidgetPtr widget = iWidgetManager::getInstance().getWidget(col._widgetID);
 
                     if (widget != nullptr)
                     {
@@ -716,7 +714,7 @@ namespace Igor
                 {
                     if ((*iterCollumn)._widgetID != iWidget::INVALID_WIDGET_ID)
                     {
-                        iWidget* widget = iWidgetManager::getInstance().getWidget((*iterCollumn)._widgetID);
+                        iWidgetPtr widget = iWidgetManager::getInstance().getWidget((*iterCollumn)._widgetID);
 
                         if (widget != nullptr &&
                             widget->handleMouseWheel(d))
@@ -825,7 +823,7 @@ namespace Igor
                         }
                     }
 
-                    iWidget* widget = iWidgetManager::getInstance().getWidget(col._widgetID);
+                    iWidgetPtr widget = iWidgetManager::getInstance().getWidget(col._widgetID);
 
                     if (widget != nullptr)
                     {
@@ -855,12 +853,12 @@ namespace Igor
         return static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());
     }
 
-    void iWidgetGrid::addWidget(iWidget* widget)
+    void iWidgetGrid::addWidget(iWidgetPtr widget)
     {
         addWidget(widget, 0, 0, nullptr);
     }
 
-    void iWidgetGrid::removeWidget(iWidget* widget)
+    void iWidgetGrid::removeWidget(iWidgetPtr widget)
     {
         uint32 rowCount = static_cast<uint32>(_widgetRows.size());
         uint32 columnCount = static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());
@@ -869,7 +867,7 @@ namespace Igor
         {
             for (uint32 y = 0; y < rowCount && removed == false; y++)
             {
-                iWidget* temp = iWidgetManager::getInstance().getWidget(_widgetRows[y]._widgetCollumn[x]._widgetID);
+                iWidgetPtr temp = iWidgetManager::getInstance().getWidget(_widgetRows[y]._widgetCollumn[x]._widgetID);
 
                 if (widget == temp)
                 {
@@ -884,7 +882,7 @@ namespace Igor
         iWidget::removeWidget(widget);
     }
 
-    void iWidgetGrid::addWidget(iWidget* widget, int32 col, int32 row, void* userData)
+    void iWidgetGrid::addWidget(iWidgetPtr widget, int32 col, int32 row, void* userData)
     {
         con_assert(_widgetRows.size() > row && _widgetRows[row]._widgetCollumn.size() > col, "out of range " << col << "," << row);
 
@@ -895,12 +893,12 @@ namespace Igor
         {
             if (widgetID != iWidget::INVALID_WIDGET_ID)
             {
-                auto iter = find(_children.begin(), _children.end(), widget);
+                auto iter = find(_children.begin(), _children.end(), widget->getID());
                 if (iter == _children.end())
                 {
                     if (_widgetRows[row]._widgetCollumn[col]._widgetID != iWidget::INVALID_WIDGET_ID)
                     {
-                        iWidget* remove = iWidgetManager::getInstance().getWidget(_widgetRows[row]._widgetCollumn[col]._widgetID);
+                        iWidgetPtr remove = iWidgetManager::getInstance().getWidget(_widgetRows[row]._widgetCollumn[col]._widgetID);
                         if (remove != nullptr)
                         {
                             iWidget::removeWidget(remove);

@@ -13,7 +13,8 @@ using namespace IgorAux;
 
 namespace Igor
 {
-	iWidgetSpacer::iWidgetSpacer()
+	iWidgetSpacer::iWidgetSpacer(iWidgetPtr parent)
+		: iWidget(parent)
 	{
 		setHorizontalAlignment(iHorizontalAlignment::Center);
 		setVerticalAlignment(iVerticalAlignment::Center);

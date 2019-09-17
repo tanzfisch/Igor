@@ -70,7 +70,6 @@ private:
 
 	MaterialNameChangedEvent _materialNameChangedEvent;
 
-	iWidgetGrid* _grid = nullptr;
 	iWidgetTextEdit* _textName = nullptr;
 	iWidgetNumberChooser* _renderingOrder = nullptr;
 
@@ -104,19 +103,19 @@ private:
 
     uint32 _loadShaderNumber = 0;
 
-    iDialogFileSelect* _fileDialog = nullptr;
+    iDialogFileSelectPtr _fileDialog = nullptr;
 
 	bool _ignoreMaterialUpdate = false;
 
-    void onShader0Button(iWidget* source);
-    void onShader1Button(iWidget* source);
-    void onShader2Button(iWidget* source);
-    void onReloadShader(iWidget* source);
+    void onShader0Button(iWidgetPtr source);
+    void onShader1Button(iWidgetPtr source);
+    void onShader2Button(iWidgetPtr source);
+    void onReloadShader(iWidgetPtr source);
 
-	void onTextChangedName(iWidget* source);
-	void onDoUpdateMaterial(iWidget* source);
+	void onTextChangedName(iWidgetPtr source);
+	void onDoUpdateMaterial(iWidgetPtr source);
 
-    void onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
+    void onFileLoadDialogClosed(iDialogPtr dialog);
 
     void reloadShader(iMaterialPtr material);
 

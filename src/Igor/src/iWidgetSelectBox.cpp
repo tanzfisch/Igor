@@ -18,232 +18,232 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iWidgetSelectBox::iWidgetSelectBox()
-	{
-		_reactOnMouseWheel = false;
-	}
+    iWidgetSelectBox::iWidgetSelectBox(iWidgetPtr parent)
+        : iWidget(parent)
+    {
+        _reactOnMouseWheel = false;
+    }
 
-	iWidgetSelectBox::~iWidgetSelectBox()
-	{
-		if (_selectBox != nullptr)
-		{
-			iWidgetManager::getInstance().destroyDialog(_selectBox);
-			_selectBox = nullptr;
-		}
-	}
+    iWidgetSelectBox::~iWidgetSelectBox()
+    {
+        if (_selectBox != nullptr)
+        {
+            delete _selectBox;
+            _selectBox = nullptr;
+        }
+    }
 
-	void iWidgetSelectBox::calcMinSize()
-	{
-		int32 minWidth = 0;
-		int32 minHeight = 0;
+    void iWidgetSelectBox::calcMinSize()
+    {
+        int32 minWidth = 0;
+        int32 minHeight = 0;
 
-		if (isGrowingByContent() &&
-			!_entries.empty())
-		{
-			float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
-			int32 maxTextWidth = 0;
-			for (auto text : _entries)
-			{
-				int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(text.first, fontSize));
-				if (textWidth > maxTextWidth)
-				{
-					maxTextWidth = textWidth;
-				}
-			}
+        if (isGrowingByContent() &&
+            !_entries.empty())
+        {
+            float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
+            int32 maxTextWidth = 0;
+            for (auto text : _entries)
+            {
+                int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(text.first, fontSize));
+                if (textWidth > maxTextWidth)
+                {
+                    maxTextWidth = textWidth;
+                }
+            }
 
-			minHeight = static_cast<int32>(fontSize * 1.5f);
-			maxTextWidth += static_cast<int32>(static_cast<float32>(minHeight) + fontSize);
-			minWidth = maxTextWidth;
-		}
+            minHeight = static_cast<int32>(fontSize * 1.5f);
+            maxTextWidth += static_cast<int32>(static_cast<float32>(minHeight) + fontSize);
+            minWidth = maxTextWidth;
+        }
 
-		setMinSize(minWidth, minHeight);
-	}
+        setMinSize(minWidth, minHeight);
+    }
 
-	bool iWidgetSelectBox::handleMouseKeyDown(iKeyCode key)
-	{
-		if (!isActive())
-		{
-			return false;
-		}
+    bool iWidgetSelectBox::handleMouseKeyDown(iKeyCode key)
+    {
+        if (!isActive())
+        {
+            return false;
+        }
 
-		if (_mouseOverButton)
-		{
-			_buttonAppearanceState = iWidgetAppearanceState::Pressed;
-		}
+        if (_mouseOver)
+        {
+            _buttonAppearanceState = iWidgetAppearanceState::Pressed;
+        }
 
-		return iWidget::handleMouseKeyDown(key);
-	}
+        return iWidget::handleMouseKeyDown(key);
+    }
 
-	void iWidgetSelectBox::handleMouseMove(const iaVector2i& pos)
-	{
-		if (!isActive())
-		{
-			return;
-		}
+    void iWidgetSelectBox::handleMouseMove(const iaVector2i& pos)
+    {
+        if (!isActive())
+        {
+            return;
+        }
 
-		iWidget::handleMouseMove(pos);
+        iWidget::handleMouseMove(pos);
 
-		int32 mx = pos._x - getActualPosX();
-		int32 my = pos._y - getActualPosY();
+        int32 mx = pos._x - getActualPosX() - 2; // TODO where does that offset of 2 come from?
+        int32 my = pos._y - getActualPosY() - 2;
 
-		if (mx >= _buttonRectangle.getX() &&
-			mx < _buttonRectangle.getX() + _buttonRectangle.getWidth() &&
-			my >= _buttonRectangle.getY() &&
-			my < _buttonRectangle.getY() + _buttonRectangle.getHeight())
-		{
-			_mouseOverButton = true;
-			_buttonAppearanceState = iWidgetAppearanceState::Highlighted;
-		}
-		else
-		{
-			_mouseOverButton = false;
-			_buttonAppearanceState = iWidgetAppearanceState::Standby;
-		}
-	}
+        if (mx >= 0 && mx < getActualWidth() &&
+            my >= 0 && my < getActualHeight())
+        {
+            _mouseOver = true;
+            _buttonAppearanceState = iWidgetAppearanceState::Highlighted;
+        }
+        else
+        {
+            _mouseOver = false;
+            _buttonAppearanceState = iWidgetAppearanceState::Standby;
+        }
+    }
 
-	bool iWidgetSelectBox::handleMouseKeyUp(iKeyCode key)
-	{
-		if (!isActive())
-		{
-			return false;
-		}
+    bool iWidgetSelectBox::handleMouseKeyUp(iKeyCode key)
+    {
+        if (!isActive())
+        {
+            return false;
+        }
 
-		if (_mouseOverButton)
-		{
-			if (key == iKeyCode::MouseLeft)
-			{
-				_buttonAppearanceState = iWidgetAppearanceState::Standby;
+        if (_mouseOver)
+        {
+            if (key == iKeyCode::MouseLeft)
+            {
+                _buttonAppearanceState = iWidgetAppearanceState::Standby;
 
-				if (_selectBox == nullptr)
-				{
-					_selectBox = new iDialogMenu();
-				}
+                if (_selectBox == nullptr)
+                {
+                    _selectBox = new iDialogMenu();
+                }
 
-				_selectBox->setWidth(getActualWidth() - getActualHeight());
-				_selectBox->setX(getActualPosX() + 2);
-				_selectBox->setY(getActualPosY() + getActualHeight() + 2);
+                _selectBox->setWidth(getActualWidth());
+                _selectBox->setX(getActualPosX() + 2);
+                _selectBox->setY(getActualPosY() + getActualHeight() + 2);
 
-				std::vector<iaString> entries;
-				for (auto entry : _entries)
-				{
-					entries.push_back(entry.first);
-				}
+                std::vector<iaString> entries;
+                for (auto entry : _entries)
+                {
+                    entries.push_back(entry.first);
+                }
 
-				_selectBox->show(entries, iDialogMenuCloseDelegate(this, &iWidgetSelectBox::onSelectionChanged));
-			}
+                _selectBox->open(iDialogCloseDelegate(this, &iWidgetSelectBox::onSelectBoxClosed), entries);
+            }
 
-			setKeyboardFocus();
-			return true;
-		}
+            setKeyboardFocus();
+            return true;
+        }
 
-		return iWidget::handleMouseKeyUp(key);
-	}
+        return iWidget::handleMouseKeyUp(key);
+    }
 
-	void iWidgetSelectBox::onSelectionChanged(int32 value)
-	{
-		if (value > -1)
-		{
-			_currentSelection = value;
-		}
+    void iWidgetSelectBox::onSelectBoxClosed(iDialogPtr dialog)
+    {
+        iDialogMenuPtr dialogMenu = static_cast<iDialogMenuPtr>(dialog);
+        auto index = dialogMenu->getSelectionIndex();
 
-		_change(this);
-	}
+        if (index != -1)
+        {
+            _currentSelection = index;
+        }
 
-	bool iWidgetSelectBox::handleMouseWheel(int32 d)
-	{
-		if (!isActive())
-		{
-			return false;
-		}
+        _change(this);
 
-		iWidget::handleMouseWheel(d);
+        delete _selectBox;
+        _selectBox = nullptr;
+    }
 
-		if (isMouseOver())
-		{
-			if (d < 0)
-			{
-				// TODO go to next lower entry
-			}
-			else
-			{
-				// TODO go to next higher entry
-			}
+    bool iWidgetSelectBox::handleMouseWheel(int32 d)
+    {
+        if (!isActive())
+        {
+            return false;
+        }
 
-			return true;
-		}
+        iWidget::handleMouseWheel(d);
 
-		return false;
-	}
+        if (isMouseOver())
+        {
+            if (d < 0)
+            {
+                // TODO go to next lower entry
+            }
+            else
+            {
+                // TODO go to next higher entry
+            }
 
-	void iWidgetSelectBox::setSelection(uint32 key)
-	{
-		con_assert(key < _entries.size() || key == -1, "out of range");
+            return true;
+        }
 
-		if (key < _entries.size() || key == -1)
-		{
-			_currentSelection = key;
-		}
-	}
+        return false;
+    }
 
-	uint32 iWidgetSelectBox::getSelectionEntryCount() const
-	{
-		return static_cast<uint32>(_entries.size());
-	}
+    void iWidgetSelectBox::setSelection(uint32 key)
+    {
+        con_assert(key < _entries.size() || key == -1, "out of range");
 
-	void iWidgetSelectBox::clear()
-	{
-		_entries.clear();
-		_currentSelection = -1;
-	}
+        if (key < _entries.size() || key == -1)
+        {
+            _currentSelection = key;
+        }
+    }
 
-	void iWidgetSelectBox::addSelectionEntry(const iaString& entryText, void* userData)
-	{
-		std::pair<iaString, void*> entry;
-		entry.first = entryText;
-		entry.second = userData;
-		_entries.push_back(entry);
-	}
+    uint32 iWidgetSelectBox::getSelectionEntryCount() const
+    {
+        return static_cast<uint32>(_entries.size());
+    }
 
-	void* iWidgetSelectBox::getSelectedUserData() const
-	{
-		if (_currentSelection != -1)
-		{
-			return _entries[_currentSelection].second;
-		}
-		else
-		{
-			return nullptr;
-		}
-	}
+    void iWidgetSelectBox::clear()
+    {
+        _entries.clear();
+        _currentSelection = -1;
+    }
 
-	uint32 iWidgetSelectBox::getSelectedIndex() const
-	{
-		return _currentSelection;
-	}
+    void iWidgetSelectBox::addSelectionEntry(const iaString& entryText, void* userData)
+    {
+        std::pair<iaString, void*> entry;
+        entry.first = entryText;
+        entry.second = userData;
+        _entries.push_back(entry);
+    }
 
-	iaString iWidgetSelectBox::getSelectedValue() const
-	{
-		return _entries[_currentSelection].first;
-	}
+    void* iWidgetSelectBox::getSelectedUserData() const
+    {
+        if (_currentSelection != -1)
+        {
+            return _entries[_currentSelection].second;
+        }
+        else
+        {
+            return nullptr;
+        }
+    }
 
-	void iWidgetSelectBox::draw()
-	{
-		_buttonRectangle.setX(static_cast<float32>(getActualWidth() - getActualHeight() - 1));
-		_buttonRectangle.setY(0.0f);
-		_buttonRectangle.setWidth(static_cast<float32>(getActualHeight()));
-		_buttonRectangle.setHeight(static_cast<float32>(getActualHeight() - 1));
+    uint32 iWidgetSelectBox::getSelectedIndex() const
+    {
+        return _currentSelection;
+    }
 
-		if (isVisible())
-		{
-			iaString displayString;
+    iaString iWidgetSelectBox::getSelectedValue() const
+    {
+        return _entries[_currentSelection].first;
+    }
 
-			if (_currentSelection >= 0 && _currentSelection < _entries.size())
-			{
-				displayString = _entries[_currentSelection].first;
-			}
+    void iWidgetSelectBox::draw()
+    {
+        if (isVisible())
+        {
+            iaString displayString;
 
-			iWidgetManager::getInstance().getTheme()->drawSelectBox(getActualRect(), displayString, _buttonAppearanceState, isActive());
-		}
-	}
+            if (_currentSelection >= 0 && _currentSelection < _entries.size())
+            {
+                displayString = _entries[_currentSelection].first;
+            }
+
+            iWidgetManager::getInstance().getTheme()->drawSelectBox(getActualRect(), displayString, _buttonAppearanceState, isActive());
+        }
+    }
 
 }

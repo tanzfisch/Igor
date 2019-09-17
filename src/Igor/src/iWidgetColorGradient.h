@@ -54,8 +54,10 @@ namespace Igor
 	public:
 
 		/*! ctor initializes member variables
+
+		\param parent optional parent
 		*/
-		iWidgetColorGradient();
+		iWidgetColorGradient(iWidgetPtr parent = nullptr);
 
 		/*! release texture
 		*/

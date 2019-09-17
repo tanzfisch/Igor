@@ -52,6 +52,9 @@ namespace Igor
     class iWidgetGroupBox;
 	class iWidgetButton;
     class iDialogMenu;
+    typedef iDialogMenu* iDialogMenuPtr;
+    class iDialog;
+    typedef iDialog* iDialogPtr;
 }
 
 iaEVENT(AddModel, AddModelDelegate, void, (uint64 nodeID), (nodeID));
@@ -110,8 +113,6 @@ private:
     uint64 _root = iNode::INVALID_NODE_ID;
 	GraphSelectionChanged _selectionChange;
 
-	std::vector<iWidget*> _gridEntryWidgets;
-
     int32 _indentation = 0;
     bool _firstNode = true;
 
@@ -119,9 +120,7 @@ private:
 
     iWidgetGrid* _gridGraph = nullptr;
 
-    iDialogMenu* _dialogMenu = nullptr;
-    std::vector<iaString> _dialogMenuTexts;
-    std::vector<iaString> _dialogMenuPictures;
+    iDialogMenuPtr _dialogMenu = nullptr;
 
     std::vector<uint64*> _userData;
 
@@ -130,18 +129,17 @@ private:
     iaString getIconTexture(iNodeType type);
 
     void initGUI();
-	void deinitGUI();
 
-    void OnSelectionChange(iWidget* widget);
-    void OnContextMenu(iWidget* widget);
-    void OnContextMenuClose(int32 value);
+    void OnSelectionChange(iWidgetPtr widget);
+    void OnContextMenu(iWidgetPtr widget);
+    void OnContextMenuClose(iDialogPtr dialog);
 
-	void onAddModel(iWidget* source);
-	void onAddTransformation(iWidget* source);
-	void onAddSwitch(iWidget* source);
-	void onAddGroup(iWidget* source);
-	void onAddEmitter(iWidget* source);
-	void onAddParticleSystem(iWidget* source);
+	void onAddModel(iWidgetPtr source);
+	void onAddTransformation(iWidgetPtr source);
+	void onAddSwitch(iWidgetPtr source);
+	void onAddGroup(iWidgetPtr source);
+	void onAddEmitter(iWidgetPtr source);
+	void onAddParticleSystem(iWidgetPtr source);
 
     void preTraverse() override;
     bool preOrderVisit(iNodePtr node, iNodePtr nextSibling) override;

@@ -73,7 +73,6 @@ private:
 
     iWidgetGrid* _gridGraph = nullptr;
 
-    std::vector<iWidget*> _gridEntryWidgets;
 	std::vector<uint32*> _userData;
 
 	uint32 _selectedMaterial = 0;
@@ -82,9 +81,9 @@ private:
 
     void clear();
 
-    void OnSelectionChange(iWidget* widget);
+    void OnSelectionChange(iWidgetPtr widget);
 
-    void onAddMaterial(iWidget* source);
+    void onAddMaterial(iWidgetPtr source);
 
 };
 

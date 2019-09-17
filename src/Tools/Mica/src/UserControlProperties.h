@@ -73,7 +73,7 @@ public:
 
     void setProperty(uint64 id, PropertyType propertyType);
 
-    iDialog* getDialog();
+    // iDialog* getDialog();
 
     void clear();
 
@@ -119,11 +119,8 @@ private:
     uint64 _propertyID = 0;
 	PropertyType _propertyType = PropertyType::Undefined;
 
-    iDialog* _dialog = nullptr;
-    iWidgetScroll* _scroll = nullptr;
+    // iDialog* _dialog = nullptr;
     iWidgetGrid* _grid = nullptr;
-    iWidgetGroupBox* _groupBox = nullptr;
-    iWidgetSpacer* _spacer = nullptr;
 
     UserControlTransformation* _userControlTransformation = nullptr;
     UserControlLight* _userControlLight = nullptr;

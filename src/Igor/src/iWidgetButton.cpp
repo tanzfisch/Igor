@@ -14,7 +14,8 @@ using namespace IgorAux;
 
 namespace Igor
 {
-	iWidgetButton::iWidgetButton()
+	iWidgetButton::iWidgetButton(iWidgetPtr parent)
+		:iWidget(parent)
 	{
 		_configuredHeight = 10;
 		_configuredWidth = 20;

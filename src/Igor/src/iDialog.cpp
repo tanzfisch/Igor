@@ -28,13 +28,39 @@ namespace Igor
 
     iDialog::~iDialog()
     {
-		iWidgetManager::getInstance().unregisterDialog(this);
-
         if (iWidgetManager::isModal(this))
         {
             iWidgetManager::resetModal();
         }
+
+		iWidgetManager::getInstance().unregisterDialog(this);
     }
+
+    void iDialog::setReturnState(iDialogReturnState returnState)
+    {
+        _returnState = returnState;
+    }
+
+    iDialogReturnState iDialog::getReturnState() const
+    {
+        return _returnState;
+    }
+
+	void iDialog::open(iDialogCloseDelegate dialogCloseDelegate)
+	{
+		_dialogCloseDelegate = dialogCloseDelegate;
+        setActive();
+        setVisible();
+	}
+
+	void iDialog::close()
+	{
+        setActive(false);
+        setVisible(false);
+        iWidgetManager::resetModal();
+
+		iWidgetManager::getInstance().closeDialog(this);
+	}
 
     void iDialog::calcMinSize()
     {
@@ -44,7 +70,7 @@ namespace Igor
         if (isGrowingByContent() &&
             !_children.empty())
         {
-            iWidget* widget = _children[0];
+            iWidgetPtr widget = iWidgetManager::getInstance().getWidget(*_children.begin());
             minWidth = widget->getMinWidth();
             minHeight = widget->getMinHeight();
         }
@@ -128,11 +154,14 @@ namespace Igor
     {
         if (isVisible())
         {
-            iWidgetManager::getInstance().getTheme()->drawDialog(getActualRect(), getAppearanceState(), isActive());
+			iWidgetManager& wm = iWidgetManager::getInstance();
 
-            for (auto widget : _children)
+            wm.getTheme()->drawDialog(getActualRect(), getAppearanceState(), isActive());
+
+            for (auto id : _children)
             {
-                widget->draw();
+				auto child = wm.getWidget(id);
+                child->draw();
             }
         }
     }

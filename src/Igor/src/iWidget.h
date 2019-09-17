@@ -35,6 +35,7 @@
 #include <iaVector4.h>
 using namespace IgorAux;
 
+#include <set>
 #include <vector>
 
 namespace Igor
@@ -144,6 +145,16 @@ namespace Igor
 		friend class iWidgetSlider;
 
 	public:
+
+		/*! initializes members
+
+		\param parent the optional parent
+		*/
+		iWidget(iWidgetPtr parent = nullptr);
+
+		/*! clean up
+		*/
+		virtual ~iWidget();
 
 		/*! invalid widget ID
 		*/
@@ -482,6 +493,12 @@ namespace Igor
 		*/
 		void getChildren(std::vector<iWidgetPtr>& children);
 
+		/*! removes and deletes all children
+
+		this will also cause all children deleting their children and so on
+		*/
+		void clearChildren();
+
 	protected:
 
 		/*! if true this widget will process mouse clicks outside of the widgets boundings
@@ -490,7 +507,7 @@ namespace Igor
 
 		/*! list of children
 		*/
-		std::vector<iWidgetPtr> _children;
+		std::set<uint64> _children;
 
 		/*! flag if widget accepts drop
 		*/
@@ -654,14 +671,6 @@ namespace Igor
 		/*! \returns last mouse position
 		*/
 		iaVector2i getLastMousePos() const;
-
-		/*! initializes members
-		*/
-		iWidget();
-
-		/*! clean up
-		*/
-		virtual ~iWidget();
 
 	private:
 

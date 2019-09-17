@@ -49,6 +49,9 @@ namespace Igor
     class iWidgetColorGradient;
     class iDialogColorGradient;
     class iDialogGraph;
+    typedef iDialogGraph* iDialogGraphPtr;
+    class iDialog;
+    typedef iDialog* iDialogPtr;
     class iWidgetGraph;
     class iNodeParticleSystem;
 }
@@ -185,7 +188,7 @@ private:
 
     /*! graph dialog. Reused for all the gradients we want to edit
     */
-    iDialogGraph* _dialogGraph = nullptr;
+    iDialogGraphPtr _dialogGraph = nullptr;
 
     /*! start size graph
     */
@@ -247,13 +250,13 @@ private:
     
     \param source the source widget of this event
     */
-    void onDoUpdateNode(iWidget* source);
+    void onDoUpdateNode(iWidgetPtr source);
 
     /*! triggered when the color gradient editor is to open
 
     \param source the source widget
     */
-    void onOpenColorGradientEditor(iWidget* source);
+    void onOpenColorGradientEditor(iWidgetPtr source);
 
     /*! triggered every frame
     */
@@ -261,114 +264,105 @@ private:
 
     /*! triggered when color gradient editor was closed
 
-    \param ok if true the ok button was pressed to close
-    \param gradient the resulting color gradient
+    \param dialog the source of the event
     */
-    void onCloseColorGradientEditor(bool ok, const iaGradientColor4f& gradient);
+    void onCloseColorGradientEditor(iDialogPtr dialog);
 
     /*! triggered when clicked on start size gradient graph
 
     \param source the source widget
     */
-    void onOpenStartSizeGradientEditor(iWidget* source);
+    void onOpenStartSizeGradientEditor(iWidgetPtr source);
 
     /*! triggered when closed the start size gradient graph editor
 
-    \param ok the ok button was pressed
-    \param graphs the resulting graphs
+    \param dialog the source of the event
     */
-    void onCloseStartSizeGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs);
+    void onCloseStartSizeGradientEditor(iDialogPtr dialog);
 
     /*! triggered when clicked on size scale gradient graph
 
     \param source the source widget
     */
-    void onOpenScaleSizeGradientEditor(iWidget* source);
+    void onOpenScaleSizeGradientEditor(iWidgetPtr source);
 
     /*! triggered when closed the size scale gradient graph editor
 
-    \param ok the ok button was pressed
-    \param graphs the resulting graphs
+    \param dialog the source of the event
     */
-    void onCloseScaleSizeGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs);
+    void onCloseScaleSizeGradientEditor(iDialogPtr dialog);
 
     /*! triggered when clicked on visibility gradient graph
 
     \param source the source widget
     */
-    void onOpenVisibilityGradientEditor(iWidget* source);
+    void onOpenVisibilityGradientEditor(iWidgetPtr source);
 
     /*! triggered when closed the visibility gradient graph editor
 
-    \param ok the ok button was pressed
-    \param graphs the resulting graphs
+    \param dialog the source of the event
     */
-    void onCloseVisibilityGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs);
+    void onCloseVisibilityGradientEditor(iDialogPtr dialog);
 
     /*! triggered when clicked on start orientation gradient graph
 
     \param source the source widget
     */
-    void onOpenStartOrientationGradientEditor(iWidget* source);
+    void onOpenStartOrientationGradientEditor(iWidgetPtr source);
 
     /*! triggered when closed the start orientation gradient graph editor
 
-    \param ok the ok button was pressed
-    \param graphs the resulting graphs
+    \param dialog the source of the event
     */
-    void onCloseStartOrientationGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs);
+    void onCloseStartOrientationGradientEditor(iDialogPtr dialog);
 
     /*! triggered when clicked on orientation rate gradient graph
 
     \param source the source widget
     */
-    void onOpenStartOrientationRateGradientEditor(iWidget* source);
+    void onOpenStartOrientationRateGradientEditor(iWidgetPtr source);
 
     /*! triggered when closed the orientation rate gradient graph editor
 
-    \param ok the ok button was pressed
-    \param graphs the resulting graphs
+    \param dialog the source of the event
     */
-    void onCloseStartOrientationRateGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs);
+    void onCloseStartOrientationRateGradientEditor(iDialogPtr dialog);
 
     /*! triggered when clicked on start velocity gradient graph
 
     \param source the source widget
     */
-    void onOpenStartVelocityGradientEditor(iWidget* source);
+    void onOpenStartVelocityGradientEditor(iWidgetPtr source);
 
     /*! triggered when closed the start velocity gradient graph editor
 
-    \param ok the ok button was pressed
-    \param graphs the resulting graphs
+    \param dialog the source of the event
     */
-    void onCloseStartVelocityGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs);
+    void onCloseStartVelocityGradientEditor(iDialogPtr dialog);
 
     /*! triggered when clicked on start lift/weight gradient graph
 
     \param source the source widget
     */
-    void onOpenStartLiftGradientEditor(iWidget* source);
+    void onOpenStartLiftGradientEditor(iWidgetPtr source);
 
     /*! triggered when closed the start lift/weight gradient graph editor
 
-    \param ok the ok button was pressed
-    \param graphs the resulting graphs
+    \param dialog the source of the event
     */
-    void onCloseStartLiftGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs);
+    void onCloseStartLiftGradientEditor(iDialogPtr dialog);
 
     /*! triggered when clicked on particle emission gradient graph
 
     \param source the source widget
     */
-    void onOpenEmissionGradientEditor(iWidget* source);
+    void onOpenEmissionGradientEditor(iWidgetPtr source);
 
     /*! triggered when closed the emission gradient graph editor
 
-    \param ok the ok button was pressed
-    \param graphs the resulting graphs
+    \param dialog the source of the event
     */
-    void onCloseEmissionGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs);
+    void onCloseEmissionGradientEditor(iDialogPtr dialog);
     
     /*! converts particle system gradients to GUI graphs
 
@@ -380,19 +374,19 @@ private:
 
     \param source the source widget
     */
-    void onStart(iWidget* source);
+    void onStart(iWidgetPtr source);
 
     /*! triggered when stop button was clicked
 
     \param source the source widget
     */
-    void onStop(iWidget* source);
+    void onStop(iWidgetPtr source);
     
     /*! triggered when reset button was clicked
 
     \param source the source widget
     */
-    void onReset(iWidget* source);
+    void onReset(iWidgetPtr source);
 
     /*! updates the gui from node data
     */

@@ -38,7 +38,6 @@ using namespace Igor;
 namespace Igor
 {
     class iNode;
-    class iDialog;
     class iWidgetGrid;
     class iWidgetScroll;
     class iWidgetButton;
@@ -163,7 +162,6 @@ private:
     iDialogMessageBox* _messageBox = nullptr;
 
     iWidgetGrid* _grid = nullptr;
-    iWidgetGrid* _gridButtons = nullptr;
 
 	iWidgetGrid* _gridRadioButtons = nullptr;
 	iWidgetCheckBox* _checkBoxGraph = nullptr;
@@ -177,7 +175,6 @@ private:
     iWidgetButton* _cutButton = nullptr;
     iWidgetButton* _copyButton = nullptr;
     iWidgetButton* _pasteButton = nullptr;
-    iWidgetButton* _deleteButton = nullptr;
 
 	UserControlGraphView* _userControlGraphView = nullptr;
     UserControlMaterialView* _userControlMaterialView = nullptr;
@@ -202,30 +199,30 @@ private:
     void deinitMaterialView();
     void initMaterialView();
 
-    void onLoadFile(iWidget* source);
-    void onSaveFile(iWidget* source);
-    void onExitMica(iWidget* source);
+    void onLoadFile(iWidgetPtr source);
+    void onSaveFile(iWidgetPtr source);
+    void onExitMica(iWidgetPtr source);
 
-    void onDelete(iWidget* source);
+    void onDelete(iWidgetPtr source);
     
 	void onAddModel(uint64 addAt);
-	void onAddModelDecision(bool ok, int32 selection);
+	void onAddModelDecision(iDialogPtr dialog);
 	void onAddTransformation(uint64 addAt);
 	void onAddSwitch(uint64 addAt);
 	void onAddGroup(uint64 addAt);
 	void onAddEmitter(uint64 addAt);
 	void onAddParticleSystem(uint64 addAt);
 
-    void onCopy(iWidget* source);
-    void onPaste(iWidget* source);
-    void onCut(iWidget* source);
+    void onCopy(iWidgetPtr source);
+    void onPaste(iWidgetPtr source);
+    void onCut(iWidgetPtr source);
 
     void onGraphSelectionChanged(uint64 nodeID);
 	void onAddMaterial();
 	void onMaterialSelectionChanged(uint64 materialID);
 
-    void onGraphViewSelected(iWidget* source);
-    void onMaterialViewSelected(iWidget* source);
+    void onGraphViewSelected(iWidgetPtr source);
+    void onMaterialViewSelected(iWidgetPtr source);
 
 };
 

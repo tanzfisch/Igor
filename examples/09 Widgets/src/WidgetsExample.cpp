@@ -76,19 +76,31 @@ void WidgetsExample::init()
     iMouse::getInstance().registerMouseMoveDelegate(iMouseMoveDelegate(this, &WidgetsExample::onMouseMove));
 }
 
+void WidgetsExample::onCloseDialog(iDialogPtr dialog)
+{
+    if (_dialog != dialog)
+    {
+        return;
+    }
+
+    delete _dialog;
+    _dialog = nullptr;
+}
+
 void WidgetsExample::initGUI()
 {
     // create a theme and set it up. in this case the build in default theme
     _widgetDefaultTheme = new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png");
     iWidgetManager::getInstance().setTheme(_widgetDefaultTheme);
 
-    _dialog.setHorizontalAlignment(iHorizontalAlignment::Strech);
-    _dialog.setVerticalAlignment(iVerticalAlignment::Center);
-    _dialog.setHeight(200);
-    _dialog.setActive();
-    _dialog.setVisible();
+    _dialog = new iDialog();
+    _dialog->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _dialog->setVerticalAlignment(iVerticalAlignment::Center);
+    _dialog->setHeight(200);    
+    // it does not matter if we open it now or after adding all the child widgets
+    _dialog->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseDialog));
 
-    iWidgetGrid* grid1 = new iWidgetGrid();
+    iWidgetGrid* grid1 = new iWidgetGrid(_dialog);
     // put all widgets in one list for easier later cleanup. this method might not always be suitable
     grid1->appendRows(1);
     grid1->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -288,8 +300,6 @@ void WidgetsExample::initGUI()
     graph->setViewGrid();
 
     // assemble all the widgets with their parents
-    _dialog.addWidget(grid1);
-
     grid1->addWidget(groupBox1, 0, 0);
     groupBox1->addWidget(grid4);
     grid4->addWidget(exitButton, 0, 0);
@@ -367,40 +377,96 @@ void WidgetsExample::onMouseMove(const iaVector2i& pos)
     }
 }
 
-void WidgetsExample::onOpenColorChooser(iWidget* source)
+void WidgetsExample::onOpenColorChooser(iWidgetPtr source)
 {
-    _colorChooserDialog.show(iColorChooserCloseDelegate(this, &WidgetsExample::onCloseColorChooser), _color->getColor(), true);
-}
-
-void WidgetsExample::onOpenColorGradientEditor(iWidget* source)
-{
-    _colorGradientDialog.show(iColorGradientCloseDelegate(this, &WidgetsExample::onCloseColorGradient), _colorGradient->getGradient(), false);
-}
-
-void WidgetsExample::onCloseColorGradient(bool ok, const iaGradientColor4f& gradient)
-{
-    if (ok)
+    if (_colorChooserDialog == nullptr)
     {
-        _colorGradient->setGradient(gradient);
-    }	
-}
-
-void WidgetsExample::onCloseColorChooser(bool ok, const iaColor4f& color)
-{
-    if (ok)
-    {
-        _color->setColor(color);
+        _colorChooserDialog = new iDialogColorChooser();
     }
+    _colorChooserDialog->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseColorChooser), _color->getColor(), true);
 }
 
-void WidgetsExample::onOpenMessageBox(iWidget* source)
+void WidgetsExample::onOpenColorGradientEditor(iWidgetPtr source)
 {
-    // open a message box with some text
-    _messageBox.show("Please click Yes No or Cancel. Nothing will happen in an case.", iMessageBoxButtons::YesNoCancel);
+    if (_colorGradientDialog == nullptr)
+    {
+        _colorGradientDialog = new iDialogColorGradient();
+    }
+    _colorGradientDialog->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseColorGradient), _colorGradient->getGradient(), false);
 }
 
-void WidgetsExample::onExitClick(iWidget* source)
+void WidgetsExample::onCloseColorGradient(iDialogPtr dialog)
 {
+    if (dialog != _colorGradientDialog)
+    {
+        return;
+    }
+
+    if (_colorGradientDialog->getReturnState() == iDialogReturnState::Ok)
+    {
+        _colorGradient->setGradient(_colorGradientDialog->getColorGradient());
+    }	
+
+    delete _colorGradientDialog;
+    _colorGradientDialog = nullptr;
+}
+
+void WidgetsExample::onCloseColorChooser(iDialogPtr dialog)
+{
+    if (dialog != _colorChooserDialog)
+    {
+        return;
+    }
+
+    if (_colorChooserDialog->getReturnState() == iDialogReturnState::Ok)
+    {
+        _color->setColor(_colorChooserDialog->getColor());
+    }
+
+    delete _colorChooserDialog;
+    _colorChooserDialog = nullptr;
+}
+
+void WidgetsExample::onOpenMessageBox(iWidgetPtr source)
+{
+	// open a message box with some text
+	if (_messageBox == nullptr)
+	{
+		_messageBox = new iDialogMessageBox();
+	}
+    
+    _messageBox->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseMessageBox), "Please click Yes No or Cancel and see the output in the console.", iMessageBoxButtons::YesNoCancel);
+}
+
+void WidgetsExample::onCloseMessageBox(iDialogPtr dialog)
+{
+	iaString returnString;
+	switch(static_cast<iDialogMessageBox*>(dialog)->getReturnState())
+	{
+	case iDialogReturnState::No:
+		returnString = "No";
+		break;
+
+	case iDialogReturnState::Yes:
+		returnString = "Yes/Ok";
+		break;
+
+	case iDialogReturnState::Cancel:
+		returnString = "Cancel";
+		break;
+	}
+
+	con_endl("Message box return value is " << returnString);
+
+	delete _messageBox;
+	_messageBox = nullptr;
+}
+
+void WidgetsExample::onExitClick(iWidgetPtr source)
+{
+    // close dialog
+    _dialog->close();
+
     // shut down application
     iApplication::getInstance().stop();
 }

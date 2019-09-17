@@ -15,7 +15,8 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iWidgetPicture::iWidgetPicture()
+	iWidgetPicture::iWidgetPicture(iWidgetPtr parent)
+		: iWidget(parent)
 	{
 		setHorizontalAlignment(iHorizontalAlignment::Center);
 		setVerticalAlignment(iVerticalAlignment::Center);

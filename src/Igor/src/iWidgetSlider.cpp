@@ -14,7 +14,8 @@ using namespace IgorAux;
 
 namespace Igor
 {
-	iWidgetSlider::iWidgetSlider()
+	iWidgetSlider::iWidgetSlider(iWidgetPtr parent)
+		: iWidget(parent)
 	{
 	}
 

@@ -56,7 +56,7 @@ namespace Igor
 
 		/*! deinitializes gui
 		*/
-		~iDialogMenu();
+		~iDialogMenu() = default;
 
 		/*! opens dialog
 
@@ -64,35 +64,18 @@ namespace Igor
 
 		\param texts the texts to put in the selection list
 		\param pictures paths to textures used as icons next to the text (optional)
-		\param closeDelegate delegate for closing event
+		\param dialogCloseDelegate delegate for closing event
 		*/
-		void show(std::vector<iaString>& texts, std::vector<iaString>& pictures, iDialogMenuCloseDelegate closeDelegate);
+        void open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString>& texts, std::vector<iaString>& pictures = std::vector<iaString>());
 
-		/*! opens dialog
+        /*! \returns selected menu entry index
 
-		\param texts the texts to put in the selection list
-		\param closeDelegate delegate for closing event
-		*/
-		void show(std::vector<iaString>& texts, iDialogMenuCloseDelegate closeDelegate);
-
-		/*! sets the height of an entry
-
-		it's interpreted as max height and width for pictures
-
-		\param height the entry height in pixel
-		*/
-		void setEntryHeight(int32 height);
-
-		/*! \returns height of an entry
-		*/
-		int32 getEntryHeight() const;
+        returns -1 if nothing was selected
+        */
+        int32 getSelectionIndex() const;
 
 	private:
-
-		/*! menu entry height in pixel
-		*/
-		int32 _entryHeight = 20;
-
+        
 		/*! the close event
 		*/
 		iDialogMenuCloseEvent _selectBoxCloseEvent;
@@ -102,32 +85,18 @@ namespace Igor
 		-1 stands for cancel
 		*/
 		int32 _returnValue = -1;
-
-		/*! over all grid
-		*/
-		iWidgetGrid* _grid = nullptr;
-
-		/*! all widgets
-		*/
-		std::vector<iWidget*> _allWidgets;
-
+		
 		/*! handles change event
 
 		\param source the source of the event (should be the grid)
 		*/
-		void onChange(iWidget* source);
+		void onChange(iWidgetPtr source);
 
 		/*! handle mouse off click event
 
 		\param source the source of that event
 		*/
-		void onMouseOffClick(iWidget* source);
-
-		/*! closes the dialog and sends closed event
-
-		will be triggered by any button
-		*/
-		void close();
+		void onMouseOffClick(iWidgetPtr source);
 
 		/*! initializes the gui
 
@@ -142,11 +111,11 @@ namespace Igor
 		*/
 		void initGUI(std::vector<iaString>& texts, std::vector<iaString>& pictures);
 
-		/*! deinitializes the gui elements
-		*/
-		void deinitGUI();
-
 	};
+
+    /*! dialog menu pointer definition
+    */
+    typedef iDialogMenu* iDialogMenuPtr;
 
 }
 

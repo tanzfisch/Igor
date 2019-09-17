@@ -18,7 +18,8 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iWidgetGraph::iWidgetGraph()
+    iWidgetGraph::iWidgetGraph(iWidgetPtr parent)
+		: iWidget(parent)
     {
         _configuredWidth = 100;
         _configuredHeight = 40;

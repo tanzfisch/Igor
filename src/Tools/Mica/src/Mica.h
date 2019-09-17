@@ -110,7 +110,7 @@ private:
 
 	/*! file open/close dialog 
 	*/
-    iDialogFileSelect* _fileDialog = nullptr;
+    iDialogFileSelectPtr _fileDialog = nullptr;
 
     // TODO need some classes handling different types of cameras
     iNodeTransform* _cameraCOI = nullptr;
@@ -269,10 +269,10 @@ private:
 
     void onWindowResize(int32 clientWidth, int32 clientHeight);
 
-    void onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
-    void onImportFileDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
-    void onImportFileReferenceDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
-    void onFileSaveDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
+    void onFileLoadDialogClosed(iDialogPtr dialog);
+    void onImportFileDialogClosed(iDialogPtr dialog);
+    void onImportFileReferenceDialogClosed(iDialogPtr dialog);
+    void onFileSaveDialogClosed(iDialogPtr dialog);
 
     void forceLoadingNow(iNodeModel* modelNode);
     void initGUI();

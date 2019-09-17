@@ -4,8 +4,6 @@
 
 #include <iDialogDecisionBox.h>
 
-#include <iDialog.h>
-#include <iWidgetManager.h>
 #include <iWidgetLabel.h>
 #include <iWidgetButton.h>
 #include <iWidgetGrid.h>
@@ -13,33 +11,30 @@
 #include <iWidgetCheckBox.h>
 #include <iWidgetManager.h>
 
-#include <iaConsole.h>
-using namespace IgorAux;
-
 namespace Igor
 {
 
-	iDialogDecisionBox::~iDialogDecisionBox()
+	void iDialogDecisionBox::open(iDialogCloseDelegate dialogCloseDelegate, const iaString& message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
 	{
-		deinitGUI();
-	}
-
-	void iDialogDecisionBox::show(const iaString& message, iDecisionBoxCloseDelegate closeDelegate, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
-	{
-		_decisionBoxCloseEvent.append(closeDelegate);
+        iDialog::open(dialogCloseDelegate);
 
 		initGUI(message, radioButtonTexts, preSelection);
 	}
 
-	void iDialogDecisionBox::deinitGUI()
-	{
-		if (_grid != nullptr)
-		{
-			removeWidget(_grid);
-			iWidgetManager::getInstance().destroyWidget(_grid);
-			_grid = nullptr;
-		}
-	}
+    int32 iDialogDecisionBox::getSelection() const
+    {
+        int32 i = 0;
+        for(auto radioButton : _radioButtons)
+        {
+            if (radioButton->isChecked())
+            {
+                return i;
+            }
+            i++;
+        }
+
+        return -1;
+    }
 
 	void iDialogDecisionBox::initGUI(const iaString& message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
 	{
@@ -49,46 +44,46 @@ namespace Igor
 		setWidth(20);
 		setHeight(20);
 
-		_grid = new iWidgetGrid();
-		_grid->appendRows(4);
-		_grid->setHorizontalAlignment(iHorizontalAlignment::Center);
-		_grid->setVerticalAlignment(iVerticalAlignment::Center);
-		_grid->setCellSpacing(4);
-		_grid->setBorder(4);
+		iWidgetGridPtr grid = new iWidgetGrid();
+		grid->appendRows(4);
+		grid->setHorizontalAlignment(iHorizontalAlignment::Center);
+		grid->setVerticalAlignment(iVerticalAlignment::Center);
+		grid->setCellSpacing(4);
+		grid->setBorder(4);
 
-		_messageLabel = new iWidgetLabel();
-		_messageLabel->setText(message);
-		_messageLabel->setMaxTextWidth(280);
+		iWidgetLabelPtr messageLabel = new iWidgetLabel();
+		messageLabel->setText(message);
+		messageLabel->setMaxTextWidth(280);
 
-		_spacerLineTop = new iWidgetSpacer();
-		_spacerLineTop->setWidth(280);
-		_spacerLineTop->setHeight(1);
-		_spacerLineTop->setVisible(true);
+		iWidgetSpacerPtr spacerLineTop = new iWidgetSpacer();
+		spacerLineTop->setWidth(280);
+		spacerLineTop->setHeight(1);
+		spacerLineTop->setVisible(true);
 
-		_spacerLineBottom = new iWidgetSpacer();
-		_spacerLineBottom->setWidth(280);
-		_spacerLineBottom->setHeight(1);
-		_spacerLineBottom->setVisible(true);
+		iWidgetSpacerPtr spacerLineBottom = new iWidgetSpacer();
+		spacerLineBottom->setWidth(280);
+		spacerLineBottom->setHeight(1);
+		spacerLineBottom->setVisible(true);
 
-		_buttonGrid = new iWidgetGrid();
-		_buttonGrid->appendCollumns(3);
-		_buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
-		_buttonGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
-		_buttonGrid->setCellSpacing(4);
+		iWidgetGridPtr buttonGrid = new iWidgetGrid();
+		buttonGrid->appendCollumns(3);
+		buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
+		buttonGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
+		buttonGrid->setCellSpacing(4);
 
-		_okButton = new iWidgetButton();
-		_okButton->setText("OK");
-		_okButton->registerOnClickEvent(iClickDelegate(this, &iDialogDecisionBox::onOK));
+		iWidgetButtonPtr okButton = new iWidgetButton();
+		okButton->setText("OK");
+		okButton->registerOnClickEvent(iClickDelegate(this, &iDialogDecisionBox::onOK));
 
-		_cancelButton = new iWidgetButton();
-		_cancelButton->setText("Cancel");
-		_cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogDecisionBox::onCancel));
+		iWidgetButtonPtr cancelButton = new iWidgetButton();
+		cancelButton->setText("Cancel");
+		cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogDecisionBox::onCancel));
 
-		_radioGrid = new iWidgetGrid();
-		_radioGrid->appendRows(static_cast<uint32>(radioButtonTexts.size()) - 1);
-		_radioGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
-		_radioGrid->setVerticalAlignment(iVerticalAlignment::Top);
-		_radioGrid->setCellSpacing(4);
+		iWidgetGridPtr radioGrid = new iWidgetGrid();
+		radioGrid->appendRows(static_cast<uint32>(radioButtonTexts.size()) - 1);
+		radioGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
+		radioGrid->setVerticalAlignment(iVerticalAlignment::Top);
+		radioGrid->setCellSpacing(4);
 
 		iWidgetCheckBox::beginRadioButtonGroup();
 		int i = 0;
@@ -99,9 +94,9 @@ namespace Igor
 			_radioButtons.push_back(checkBox);
 			checkBox->setHorizontalAlignment(iHorizontalAlignment::Left);
 			checkBox->setText((*iter));
-			_radioGrid->addWidget(checkBox, 0, i);
+			radioGrid->addWidget(checkBox, 0, i);
 
-			if (preSelection != -1 && preSelection == i)
+			if (preSelection == i)
 			{
 				checkBox->setChecked();
 			}
@@ -111,58 +106,27 @@ namespace Igor
 		}
 		iWidgetCheckBox::endRadioButtonGroup();
 
-		addWidget(_grid);
+		addWidget(grid);
 
-		_grid->addWidget(_messageLabel, 0, 0);
-		_grid->addWidget(_spacerLineTop, 0, 1);
-		_grid->addWidget(_radioGrid, 0, 2);
-		_grid->addWidget(_spacerLineBottom, 0, 3);
-		_grid->addWidget(_buttonGrid, 0, 4);
+		grid->addWidget(messageLabel, 0, 0);
+		grid->addWidget(spacerLineTop, 0, 1);
+		grid->addWidget(radioGrid, 0, 2);
+		grid->addWidget(spacerLineBottom, 0, 3);
+		grid->addWidget(buttonGrid, 0, 4);
 
-		_buttonGrid->addWidget(_okButton, 0, 0);
-		_buttonGrid->addWidget(_cancelButton, 1, 0);
+		buttonGrid->addWidget(okButton, 0, 0);
+		buttonGrid->addWidget(cancelButton, 1, 0);
 	}
 
-	void iDialogDecisionBox::onOK(iWidget* source)
-	{
+	void iDialogDecisionBox::onOK(iWidgetPtr source)
+	{	
+        setReturnState(iDialogReturnState::Ok);
 		close();
-
-		int i = 0;
-		bool selected = false;
-		auto iter = _radioButtons.begin();
-		while (iter != _radioButtons.end())
-		{
-			if ((*iter)->isChecked())
-			{
-				_decisionBoxCloseEvent(true, i);
-				selected = true;
-				break;
-			}
-			iter++;
-			i++;
-		}
-
-		if (!selected)
-		{
-			_decisionBoxCloseEvent(false, -1);
-		}
-		_decisionBoxCloseEvent.clear();
 	}
 
-	void iDialogDecisionBox::onCancel(iWidget* source)
+	void iDialogDecisionBox::onCancel(iWidgetPtr source)
 	{
+        setReturnState(iDialogReturnState::Cancel);
 		close();
-
-		_decisionBoxCloseEvent(false, -1);
-		_decisionBoxCloseEvent.clear();
-	}
-
-	void iDialogDecisionBox::close()
-	{
-		setActive(false);
-		setVisible(false);
-		iWidgetManager::resetModal();
-
-		deinitGUI();
 	}
 }

@@ -231,13 +231,12 @@ uint64 UserControlMaterial::getMaterialID() const
 
 void UserControlMaterial::initGUI()
 {
-    _grid = new iWidgetGrid();
-    _grid->appendRows(1);
-    _grid->setBorder(2);
-    _grid->setStrechColumn(0);
-    _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    _grid->setVerticalAlignment(iVerticalAlignment::Top);
-	addWidget(_grid);
+    iWidgetGridPtr grid = new iWidgetGrid(this);
+    grid->appendRows(1);
+    grid->setBorder(2);
+    grid->setStrechColumn(0);
+    grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    grid->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetGroupBox* paramGroupBox = new iWidgetGroupBox();
     paramGroupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -557,18 +556,16 @@ void UserControlMaterial::initGUI()
 
     paramGroupBox->addWidget(gridParam);
 
-    _grid->addWidget(paramGroupBox, 0, 0);
-    _grid->addWidget(shaderGroupBox, 0, 1);
-
-    _fileDialog = new iDialogFileSelect();
+    grid->addWidget(paramGroupBox, 0, 0);
+    grid->addWidget(shaderGroupBox, 0, 1);
 }
 
-void UserControlMaterial::onDoUpdateMaterial(iWidget* source)
+void UserControlMaterial::onDoUpdateMaterial(iWidgetPtr source)
 {
     updateMaterial();
 }
 
-void UserControlMaterial::onTextChangedName(iWidget* source)
+void UserControlMaterial::onTextChangedName(iWidgetPtr source)
 {
     updateMaterial();
     _materialNameChangedEvent();
@@ -578,7 +575,7 @@ void UserControlMaterial::deinitGUI()
 {
     if (_fileDialog != nullptr)
     {
-        iWidgetManager::getInstance().destroyDialog(_fileDialog);
+        delete _fileDialog;
         _fileDialog = nullptr;
     }
 }
@@ -593,25 +590,43 @@ void UserControlMaterial::unregisterNameChangeDelegate(MaterialNameChangedDelega
     _materialNameChangedEvent.remove(nameChangedDelegate);
 }
 
-void UserControlMaterial::onShader0Button(iWidget* source)
+void UserControlMaterial::onShader0Button(iWidgetPtr source)
 {
     _loadShaderNumber = 0;
-    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &UserControlMaterial::onFileLoadDialogClosed), "..\\data\\shaders"); // TODO hard coded path
+
+    if (_fileDialog == nullptr)
+    {
+        _fileDialog = new iDialogFileSelect();
+    }
+
+    _fileDialog->open(iDialogCloseDelegate(this, &UserControlMaterial::onFileLoadDialogClosed), iFileDialogPurpose::Load, "..\\data\\shaders"); // TODO hard coded path
 }
 
-void UserControlMaterial::onShader1Button(iWidget* source)
+void UserControlMaterial::onShader1Button(iWidgetPtr source)
 {
     _loadShaderNumber = 1;
-    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &UserControlMaterial::onFileLoadDialogClosed), "..\\data\\shaders"); // TODO hard coded path
+
+    if (_fileDialog == nullptr)
+    {
+        _fileDialog = new iDialogFileSelect();
+    }
+
+    _fileDialog->open(iDialogCloseDelegate(this, &UserControlMaterial::onFileLoadDialogClosed), iFileDialogPurpose::Load, "..\\data\\shaders"); // TODO hard coded path
 }
 
-void UserControlMaterial::onShader2Button(iWidget* source)
+void UserControlMaterial::onShader2Button(iWidgetPtr source)
 {
     _loadShaderNumber = 2;
-    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &UserControlMaterial::onFileLoadDialogClosed), "..\\data\\shaders"); // TODO hard coded path
+
+    if (_fileDialog == nullptr)
+    {
+        _fileDialog = new iDialogFileSelect();
+    }
+
+    _fileDialog->open(iDialogCloseDelegate(this, &UserControlMaterial::onFileLoadDialogClosed), iFileDialogPurpose::Load, "..\\data\\shaders"); // TODO hard coded path
 }
 
-void UserControlMaterial::onReloadShader(iWidget* source)
+void UserControlMaterial::onReloadShader(iWidgetPtr source)
 {
     auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
 
@@ -623,9 +638,14 @@ void UserControlMaterial::onReloadShader(iWidget* source)
     }
 }
 
-void UserControlMaterial::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
+void UserControlMaterial::onFileLoadDialogClosed(iDialogPtr dialog)
 {
-    if (_fileDialog->getReturnState() == iFileDialogReturnValue::Ok)
+    if (_fileDialog != dialog)
+    {
+        return;
+    }
+
+    if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
     {
         iaString filename = iResourceManager::getInstance().getRelativePath(_fileDialog->getFullPath());
         switch (_loadShaderNumber)
@@ -647,5 +667,8 @@ void UserControlMaterial::onFileLoadDialogClosed(iFileDialogReturnValue fileDial
         }
         updateMaterial();
     }
+
+    delete _fileDialog;
+    _fileDialog = nullptr;
 }
 

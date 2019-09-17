@@ -14,7 +14,8 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iWidgetNumberChooser::iWidgetNumberChooser()
+	iWidgetNumberChooser::iWidgetNumberChooser(iWidgetPtr parent)
+		: iWidget(parent)
 	{
 	}
 

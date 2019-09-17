@@ -39,81 +39,83 @@ namespace Igor
 
 	class iTextureFont;
 
-    /*! check box widget
-    */
+	/*! check box widget
+	*/
 	class Igor_API iWidgetCheckBox : public iWidget
 	{
 
 	public:
 
 		/*! ctor initializes member variables
+
+		\param parent the optional parent
 		*/
-		iWidgetCheckBox();
+		iWidgetCheckBox(iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/
 		virtual ~iWidgetCheckBox() = default;
 
-        /*! beginns a radio button group
+		/*! beginns a radio button group
 
-        every check box that is created afterwards will be added to the same radio button group
-        */
+		every check box that is created afterwards will be added to the same radio button group
+		*/
 		static void beginRadioButtonGroup();
 
-        /*! ends the radio button group
-        */
+		/*! ends the radio button group
+		*/
 		static void endRadioButtonGroup();
 
-        /*! set text of check box
-        */
+		/*! set text of check box
+		*/
 		void setText(const iaString& buttontext);
 
-        /*! \retruns text of check box
-        */
+		/*! \retruns text of check box
+		*/
 		const iaString& getText() const;
 
-        /*! sets the checked flag
+		/*! sets the checked flag
 
-        \param check bolean value to set if check box is checked
-        */
+		\param check bolean value to set if check box is checked
+		*/
 		void setChecked(bool check = true);
 
-        /*! \returns true: if checked
-        */
-        bool isChecked();
+		/*! \returns true: if checked
+		*/
+		bool isChecked();
 
 	protected:
 
-        /*! check box text
-        */
+		/*! check box text
+		*/
 		iaString _text;
 
-        /*! boolean if check box is checked or not
-        */
+		/*! boolean if check box is checked or not
+		*/
 		bool _checked = false;
 
-        /*! handles incomming mouse up event
+		/*! handles incomming mouse up event
 
-        \parma key released mouse key 
-        \returns true: if event was consumed and therefore ignored by the parent
-        */
+		\parma key released mouse key
+		\returns true: if event was consumed and therefore ignored by the parent
+		*/
 		virtual bool handleMouseKeyUp(iKeyCode key);
 
-        /*! if check box is part of a radio button group. this is the group
-        */
+		/*! if check box is part of a radio button group. this is the group
+		*/
 		std::vector<iWidgetCheckBox*> _radioButtons;
 
-        /*! flag to determine if the next check box created is part of a radio button group
-        */
+		/*! flag to determine if the next check box created is part of a radio button group
+		*/
 		static bool _generatingRadioButtonGroup;
 
-        /*! radio button stack while creating a radio button group
-        */
+		/*! radio button stack while creating a radio button group
+		*/
 		static std::vector<iWidgetCheckBox*> _currentRadioButtons;
 
-        /*! updates size based on it's content
-        */
-        void calcMinSize();
+		/*! updates size based on it's content
+		*/
+		void calcMinSize();
 
 		/*! draws the widget
 		*/
