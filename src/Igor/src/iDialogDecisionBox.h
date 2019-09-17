@@ -59,7 +59,7 @@ namespace Igor
 		\param radioButtonTexts besides the message you can add a selection of radio buttons
 		\param preSelection optional preselection of radio buttons
 		*/
-		void open(iDialogClosedDelegate dialogCloseDelegate, const iaString& message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection = -1);
+		void open(iDialogCloseDelegate dialogCloseDelegate, const iaString& message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection = -1);
 
         /*! \returns selection index
 

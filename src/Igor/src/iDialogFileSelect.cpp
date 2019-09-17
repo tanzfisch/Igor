@@ -22,7 +22,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    void iDialogFileSelect::open(iDialogClosedDelegate dialogCloseDelegate, iFileDialogPurpose purpose, const iaString& path)
+    void iDialogFileSelect::open(iDialogCloseDelegate dialogCloseDelegate, iFileDialogPurpose purpose, const iaString& path)
     {
         iDialog::open(dialogCloseDelegate);
 

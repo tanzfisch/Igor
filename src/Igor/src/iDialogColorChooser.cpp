@@ -20,7 +20,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    void iDialogColorChooser::open(iDialogClosedDelegate dialogCloseDelegate, const iaColor4f& color, bool useAlpha)
+    void iDialogColorChooser::open(iDialogCloseDelegate dialogCloseDelegate, const iaColor4f& color, bool useAlpha)
     {
         iDialog::open(dialogCloseDelegate);
 

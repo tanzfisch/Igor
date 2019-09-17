@@ -42,7 +42,7 @@ UserControlParticleSystem::UserControlParticleSystem()
 
 UserControlParticleSystem::~UserControlParticleSystem()
 {
-	iApplication::getInstance().unregisterApplicationPostDrawHandleDelegate(iApplicationPostDrawHandleDelegate(this, &UserControlParticleSystem::onCyclickUpdate));
+    iApplication::getInstance().unregisterApplicationPostDrawHandleDelegate(iApplicationPostDrawHandleDelegate(this, &UserControlParticleSystem::onCyclickUpdate));
 }
 
 void UserControlParticleSystem::onCyclickUpdate()
@@ -124,7 +124,7 @@ void UserControlParticleSystem::updateNode()
             iaGradientVector2f orientationGradient;
             for (int i = 0; i < _orientationGraph->getPoints(0).size(); ++i)
             {
-                orientationGradient.setValue(_orientationGraph->getPoints(0)[i]._x, 
+                orientationGradient.setValue(_orientationGraph->getPoints(0)[i]._x,
                     iaVector2f(_orientationGraph->getPoints(0)[i]._y / 180.0f * M_PI, _orientationGraph->getPoints(1)[i]._y / 180.0f * M_PI));
             }
             node->setStartOrientationGradient(orientationGradient);
@@ -197,7 +197,7 @@ void UserControlParticleSystem::updateGUI()
         _materialSelection->clear();
 
         auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
-        for(auto material : materials)
+        for (auto material : materials)
         {
             uint32 materialID = material->getID();
 
@@ -386,7 +386,7 @@ void UserControlParticleSystem::initGUI()
     _grid->appendRows(2);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
-	addWidget(_grid);
+    addWidget(_grid);
 
     iWidgetGrid* gridProperties = new iWidgetGrid();
     gridProperties->appendCollumns(0);
@@ -435,19 +435,19 @@ void UserControlParticleSystem::initGUI()
 
     _buttonStart = new iWidgetButton();
     _buttonStart->setText("Start");
-	_buttonStart->setTooltip("Start/Continue particle system playback");
+    _buttonStart->setTooltip("Start/Continue particle system playback");
     _buttonStart->setWidth(MICA_REGULARBUTTON_SIZE);
     _buttonStart->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onStart));
 
     _buttonStop = new iWidgetButton();
     _buttonStop->setText("Stop");
-	_buttonStop->setTooltip("Stop/Pause particle system playback");
+    _buttonStop->setTooltip("Stop/Pause particle system playback");
     _buttonStop->setWidth(MICA_REGULARBUTTON_SIZE);
     _buttonStop->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onStop));
 
     _buttonReset = new iWidgetButton();
     _buttonReset->setText("Reset");
-	_buttonReset->setTooltip("Reset/Restart particle system playback");
+    _buttonReset->setTooltip("Reset/Restart particle system playback");
     _buttonReset->setWidth(MICA_REGULARBUTTON_SIZE);
     _buttonReset->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onReset));
 
@@ -762,7 +762,7 @@ void UserControlParticleSystem::initGUI()
     labelSizeGradient->setWidth(MICA_REGULARBUTTON_SIZE);
     labelSizeGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
     labelSizeGradient->setVerticalAlignment(iVerticalAlignment::Top);
-    
+
     _startSizeGraph = new iWidgetGraph();
     _startSizeGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _startSizeGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartSizeGradientEditor));
@@ -903,7 +903,7 @@ void UserControlParticleSystem::initGUI()
 
     detailsGrid->addWidget(labelParticleCount, 0, 1);
     detailsGrid->addWidget(_textParticleCount, 1, 1);
-    
+
     ///////
     gridProperties->addWidget(simulationGroupBox, 0, 0);
     simulationGroupBox->addWidget(gridSimulationProperties);
@@ -1003,9 +1003,6 @@ void UserControlParticleSystem::initGUI()
     gridAppearanceProperties->addWidget(labelOrientationRateGradient, 0, 13);
     gridAppearanceProperties->addWidget(_orientationRateGraph, 1, 13);
 
-    _colorGradientDialog = new iDialogColorGradient();
-    _dialogGraph = new iDialogGraph();
-
     updateNode();
 }
 
@@ -1018,29 +1015,42 @@ void UserControlParticleSystem::onOpenStartLiftGradientEditor(iWidgetPtr source)
         graphs.push_back(temp);
     }
 
-    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.001f); // todo max should depend on particle lifetime 
-    _dialogGraph->configureYAxis(-5.0f, 5.0f, 0.0001f);
-    _dialogGraph->setTitle("Edit Start Lift/Weight Gradient");
-    _dialogGraph->setAxisName(0, "Time");
-    _dialogGraph->setAxisName(1, "Min");
-    _dialogGraph->setAxisName(2, "Max");
-    _dialogGraph->setAfterPoint(4);
+    if (_dialogGraph == nullptr)
+    {
+        _dialogGraph = new iDialogGraph();
 
-    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartLiftGradientEditor), graphs);
+        _dialogGraph->configureXAxis(0.0f, 100.0f, 0.001f); // todo max should depend on particle lifetime 
+        _dialogGraph->configureYAxis(-5.0f, 5.0f, 0.0001f);
+        _dialogGraph->setTitle("Edit Start Lift/Weight Gradient");
+        _dialogGraph->setAxisName(0, "Time");
+        _dialogGraph->setAxisName(1, "Min");
+        _dialogGraph->setAxisName(2, "Max");
+        _dialogGraph->setAfterPoint(4);
+
+        _dialogGraph->open(iDialogCloseDelegate(this, &UserControlParticleSystem::onCloseStartLiftGradientEditor), graphs);
+    }
 }
 
-void UserControlParticleSystem::onCloseStartLiftGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs)
+void UserControlParticleSystem::onCloseStartLiftGradientEditor(iDialogPtr dialog)
 {
-    if (ok)
+    if (_dialogGraph != dialog)
+    {
+        return;
+    }
+
+    if (_dialogGraph->getReturnState() == iDialogReturnState::Ok)
     {
         _startLiftGraph->clearPoints();
         int i = 0;
-        for (auto points : graphs)
+        for (auto points : _dialogGraph->getGraphs())
         {
             _startLiftGraph->setPoints(i++, points);
         }
         updateNode();
     }
+
+    delete _dialogGraph;
+    _dialogGraph = nullptr;
 }
 
 void UserControlParticleSystem::onOpenEmissionGradientEditor(iWidgetPtr source)
@@ -1051,28 +1061,41 @@ void UserControlParticleSystem::onOpenEmissionGradientEditor(iWidgetPtr source)
         graphs.push_back(_emissionGraph->getPoints(i));
     }
 
-    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
-    _dialogGraph->configureYAxis(0.0f, 100.0f, 0.01f);
-    _dialogGraph->setTitle("Edit Emission Gradient");
-    _dialogGraph->setAxisName(0, "Time");
-    _dialogGraph->setAxisName(1, "Rate");
-    _dialogGraph->setAfterPoint(2);
+    if (_dialogGraph == nullptr)
+    {
+        _dialogGraph = new iDialogGraph();
 
-    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseEmissionGradientEditor), graphs);
+        _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
+        _dialogGraph->configureYAxis(0.0f, 100.0f, 0.01f);
+        _dialogGraph->setTitle("Edit Emission Gradient");
+        _dialogGraph->setAxisName(0, "Time");
+        _dialogGraph->setAxisName(1, "Rate");
+        _dialogGraph->setAfterPoint(2);
+
+        _dialogGraph->open(iDialogCloseDelegate(this, &UserControlParticleSystem::onCloseEmissionGradientEditor), graphs);
+    }
 }
 
-void UserControlParticleSystem::onCloseEmissionGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs)
+void UserControlParticleSystem::onCloseEmissionGradientEditor(iDialogPtr dialog)
 {
-    if (ok)
+    if (_dialogGraph != dialog)
+    {
+        return;
+    }
+
+    if (_dialogGraph->getReturnState() == iDialogReturnState::Ok)
     {
         _emissionGraph->clearPoints();
         int i = 0;
-        for (auto points : graphs)
+        for (auto points : _dialogGraph->getGraphs())
         {
             _emissionGraph->setPoints(i++, points);
         }
         updateNode();
     }
+
+    delete _dialogGraph;
+    _dialogGraph = nullptr;
 }
 
 void UserControlParticleSystem::onOpenStartVelocityGradientEditor(iWidgetPtr source)
@@ -1084,29 +1107,42 @@ void UserControlParticleSystem::onOpenStartVelocityGradientEditor(iWidgetPtr sou
         graphs.push_back(temp);
     }
 
-    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
-    _dialogGraph->configureYAxis(0.0f, 5.0f, 0.001f);
-    _dialogGraph->setTitle("Edit Initial Velocity Gradient");
-    _dialogGraph->setAxisName(0, "Time");
-    _dialogGraph->setAxisName(1, "Min");
-    _dialogGraph->setAxisName(2, "Max");
-    _dialogGraph->setAfterPoint(4);
+    if (_dialogGraph == nullptr)
+    {
+        _dialogGraph = new iDialogGraph();
 
-    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartVelocityGradientEditor), graphs);
+        _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
+        _dialogGraph->configureYAxis(0.0f, 5.0f, 0.001f);
+        _dialogGraph->setTitle("Edit Initial Velocity Gradient");
+        _dialogGraph->setAxisName(0, "Time");
+        _dialogGraph->setAxisName(1, "Min");
+        _dialogGraph->setAxisName(2, "Max");
+        _dialogGraph->setAfterPoint(4);
+
+        _dialogGraph->open(iDialogCloseDelegate(this, &UserControlParticleSystem::onCloseStartVelocityGradientEditor), graphs);
+    }
 }
 
-void UserControlParticleSystem::onCloseStartVelocityGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs)
+void UserControlParticleSystem::onCloseStartVelocityGradientEditor(iDialogPtr dialog)
 {
-    if (ok)
+    if (_dialogGraph != dialog)
+    {
+        return;
+    }
+
+    if (_dialogGraph->getReturnState() == iDialogReturnState::Ok)
     {
         _startVelocityGraph->clearPoints();
         int i = 0;
-        for (auto points : graphs)
+        for (auto points : _dialogGraph->getGraphs())
         {
             _startVelocityGraph->setPoints(i++, points);
         }
         updateNode();
     }
+
+    delete _dialogGraph;
+    _dialogGraph = nullptr;
 }
 
 void UserControlParticleSystem::onOpenStartSizeGradientEditor(iWidgetPtr source)
@@ -1118,29 +1154,42 @@ void UserControlParticleSystem::onOpenStartSizeGradientEditor(iWidgetPtr source)
         graphs.push_back(temp);
     }
 
-    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
-    _dialogGraph->configureYAxis(0.0f, 100.0f, 0.01f);
-    _dialogGraph->setTitle("Edit Start Size Gradient");
-    _dialogGraph->setAxisName(0, "Time");
-    _dialogGraph->setAxisName(1, "Min");
-    _dialogGraph->setAxisName(2, "Max");
-    _dialogGraph->setAfterPoint(2);
+    if (_dialogGraph == nullptr)
+    {
+        _dialogGraph = new iDialogGraph();
 
-    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartSizeGradientEditor), graphs);
+        _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
+        _dialogGraph->configureYAxis(0.0f, 100.0f, 0.01f);
+        _dialogGraph->setTitle("Edit Start Size Gradient");
+        _dialogGraph->setAxisName(0, "Time");
+        _dialogGraph->setAxisName(1, "Min");
+        _dialogGraph->setAxisName(2, "Max");
+        _dialogGraph->setAfterPoint(2);
+
+        _dialogGraph->open(iDialogCloseDelegate(this, &UserControlParticleSystem::onCloseStartSizeGradientEditor), graphs);
+    }
 }
 
-void UserControlParticleSystem::onCloseStartSizeGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs)
+void UserControlParticleSystem::onCloseStartSizeGradientEditor(iDialogPtr dialog)
 {
-    if (ok)
+    if (_dialogGraph != dialog)
+    {
+        return;
+    }
+
+    if (_dialogGraph->getReturnState() == iDialogReturnState::Ok)
     {
         _startSizeGraph->clearPoints();
         int i = 0;
-        for (auto points : graphs)
+        for (auto points : _dialogGraph->getGraphs())
         {
             _startSizeGraph->setPoints(i++, points);
         }
         updateNode();
     }
+
+    delete _dialogGraph;
+    _dialogGraph = nullptr;
 }
 
 void UserControlParticleSystem::onOpenStartOrientationRateGradientEditor(iWidgetPtr source)
@@ -1151,29 +1200,42 @@ void UserControlParticleSystem::onOpenStartOrientationRateGradientEditor(iWidget
         graphs.push_back(_orientationRateGraph->getPoints(i));
     }
 
-    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
-    _dialogGraph->configureYAxis(-360.0f, 360.0f, 0.1f);
-    _dialogGraph->setTitle("Edit Start Orientation Rate Gradient");
-    _dialogGraph->setAxisName(0, "Time");
-    _dialogGraph->setAxisName(1, "Min");
-    _dialogGraph->setAxisName(2, "Max");
-    _dialogGraph->setAfterPoint(2);
+    if (_dialogGraph == nullptr)
+    {
+        _dialogGraph = new iDialogGraph();
 
-    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartOrientationRateGradientEditor), graphs);
+        _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
+        _dialogGraph->configureYAxis(-360.0f, 360.0f, 0.1f);
+        _dialogGraph->setTitle("Edit Start Orientation Rate Gradient");
+        _dialogGraph->setAxisName(0, "Time");
+        _dialogGraph->setAxisName(1, "Min");
+        _dialogGraph->setAxisName(2, "Max");
+        _dialogGraph->setAfterPoint(2);
+
+        _dialogGraph->open(iDialogCloseDelegate(this, &UserControlParticleSystem::onCloseStartOrientationRateGradientEditor), graphs);
+    }
 }
 
-void UserControlParticleSystem::onCloseStartOrientationRateGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs)
+void UserControlParticleSystem::onCloseStartOrientationRateGradientEditor(iDialogPtr dialog)
 {
-    if (ok)
+    if (_dialogGraph != dialog)
+    {
+        return;
+    }
+
+    if (_dialogGraph->getReturnState() == iDialogReturnState::Ok)
     {
         _orientationRateGraph->clearPoints();
         int i = 0;
-        for (auto points : graphs)
+        for (auto points : _dialogGraph->getGraphs())
         {
             _orientationRateGraph->setPoints(i++, points);
         }
         updateNode();
     }
+
+    delete _dialogGraph;
+    _dialogGraph = nullptr;
 }
 
 void UserControlParticleSystem::onOpenStartOrientationGradientEditor(iWidgetPtr source)
@@ -1184,29 +1246,42 @@ void UserControlParticleSystem::onOpenStartOrientationGradientEditor(iWidgetPtr 
         graphs.push_back(_orientationGraph->getPoints(i));
     }
 
-    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
-    _dialogGraph->configureYAxis(-360.0f, 360.0f, 1.0f);
-    _dialogGraph->setTitle("Edit Start Orientation Gradient");
-    _dialogGraph->setAxisName(0, "Time");
-    _dialogGraph->setAxisName(1, "Min");
-    _dialogGraph->setAxisName(2, "Max");
-    _dialogGraph->setAfterPoint(2);
+    if (_dialogGraph == nullptr)
+    {
+        _dialogGraph = new iDialogGraph();
 
-    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartOrientationGradientEditor), graphs);
+        _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
+        _dialogGraph->configureYAxis(-360.0f, 360.0f, 1.0f);
+        _dialogGraph->setTitle("Edit Start Orientation Gradient");
+        _dialogGraph->setAxisName(0, "Time");
+        _dialogGraph->setAxisName(1, "Min");
+        _dialogGraph->setAxisName(2, "Max");
+        _dialogGraph->setAfterPoint(2);
+
+        _dialogGraph->open(iDialogCloseDelegate(this, &UserControlParticleSystem::onCloseStartOrientationGradientEditor), graphs);
+    }
 }
 
-void UserControlParticleSystem::onCloseStartOrientationGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs)
+void UserControlParticleSystem::onCloseStartOrientationGradientEditor(iDialogPtr dialog)
 {
-    if (ok)
+    if (_dialogGraph != dialog)
+    {
+        return;
+    }
+
+    if (_dialogGraph->getReturnState() == iDialogReturnState::Ok)
     {
         _orientationGraph->clearPoints();
         int i = 0;
-        for (auto points : graphs)
+        for (auto points : _dialogGraph->getGraphs())
         {
             _orientationGraph->setPoints(i++, points);
         }
         updateNode();
     }
+
+    delete _dialogGraph;
+    _dialogGraph = nullptr;
 }
 
 void UserControlParticleSystem::onOpenScaleSizeGradientEditor(iWidgetPtr source)
@@ -1217,28 +1292,41 @@ void UserControlParticleSystem::onOpenScaleSizeGradientEditor(iWidgetPtr source)
         graphs.push_back(_scaleSizeGraph->getPoints(i));
     }
 
-    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
-    _dialogGraph->configureYAxis(0.0f, 100.0f, 0.01f);
-    _dialogGraph->setTitle("Edit Size Scale Gradient");
-    _dialogGraph->setAxisName(0, "Time");
-    _dialogGraph->setAxisName(1, "Factor");
-    _dialogGraph->setAfterPoint(2);
+    if (_dialogGraph == nullptr)
+    {
+        _dialogGraph = new iDialogGraph();
 
-    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseScaleSizeGradientEditor), graphs);
+        _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
+        _dialogGraph->configureYAxis(0.0f, 100.0f, 0.01f);
+        _dialogGraph->setTitle("Edit Size Scale Gradient");
+        _dialogGraph->setAxisName(0, "Time");
+        _dialogGraph->setAxisName(1, "Factor");
+        _dialogGraph->setAfterPoint(2);
+
+        _dialogGraph->open(iDialogCloseDelegate(this, &UserControlParticleSystem::onCloseScaleSizeGradientEditor), graphs);
+    }
 }
 
-void UserControlParticleSystem::onCloseScaleSizeGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs)
+void UserControlParticleSystem::onCloseScaleSizeGradientEditor(iDialogPtr dialog)
 {
-    if (ok)
+    if (_dialogGraph != dialog)
+    {
+        return;
+    }
+
+    if (_dialogGraph->getReturnState() == iDialogReturnState::Ok)
     {
         _scaleSizeGraph->clearPoints();
         int i = 0;
-        for (auto points : graphs)
+        for (auto points : _dialogGraph->getGraphs())
         {
             _scaleSizeGraph->setPoints(i++, points);
         }
         updateNode();
     }
+
+    delete _dialogGraph;
+    _dialogGraph = nullptr;
 }
 
 void UserControlParticleSystem::onOpenVisibilityGradientEditor(iWidgetPtr source)
@@ -1250,44 +1338,69 @@ void UserControlParticleSystem::onOpenVisibilityGradientEditor(iWidgetPtr source
         graphs.push_back(temp);
     }
 
-    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
-    _dialogGraph->configureYAxis(0.0f, 100.0f, 0.01f);
-    _dialogGraph->setTitle("Edit Visibility Gradient");
-    _dialogGraph->setAxisName(0, "Time");
-    _dialogGraph->setAxisName(1, "Min");
-    _dialogGraph->setAxisName(2, "Max");
-    _dialogGraph->setAfterPoint(2);
+    if (_dialogGraph == nullptr)
+    {
+        _dialogGraph = new iDialogGraph();
 
-    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseVisibilityGradientEditor), graphs);
+        _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
+        _dialogGraph->configureYAxis(0.0f, 100.0f, 0.01f);
+        _dialogGraph->setTitle("Edit Visibility Gradient");
+        _dialogGraph->setAxisName(0, "Time");
+        _dialogGraph->setAxisName(1, "Min");
+        _dialogGraph->setAxisName(2, "Max");
+        _dialogGraph->setAfterPoint(2);
+
+        _dialogGraph->open(iDialogCloseDelegate(this, &UserControlParticleSystem::onCloseVisibilityGradientEditor), graphs);
+    }
 }
 
-void UserControlParticleSystem::onCloseVisibilityGradientEditor(bool ok, const std::vector<std::vector<iaVector2f>>& graphs)
+void UserControlParticleSystem::onCloseVisibilityGradientEditor(iDialogPtr dialog)
 {
-    if (ok)
+    if (_dialogGraph != dialog)
+    {
+        return;
+    }
+
+    if (_dialogGraph->getReturnState() == iDialogReturnState::Ok)
     {
         _visibilityGraph->clearPoints();
         int i = 0;
-        for (auto points : graphs)
+        for (auto points : _dialogGraph->getGraphs())
         {
             _visibilityGraph->setPoints(i++, points);
         }
         updateNode();
     }
+
+    delete _dialogGraph;
+    _dialogGraph = nullptr;
 }
 
 
 void UserControlParticleSystem::onOpenColorGradientEditor(iWidgetPtr source)
 {
-    _colorGradientDialog->show(iColorGradientCloseDelegate(this, &UserControlParticleSystem::onCloseColorGradientEditor), _colorGradient->getGradient(), true);
+    if (_colorGradientDialog == nullptr)
+    {
+        _colorGradientDialog = new iDialogColorGradient();
+        _colorGradientDialog->open(iDialogCloseDelegate(this, &UserControlParticleSystem::onCloseColorGradientEditor), _colorGradient->getGradient(), true);
+    }
 }
 
-void UserControlParticleSystem::onCloseColorGradientEditor(bool ok, const iaGradientColor4f& gradient)
+void UserControlParticleSystem::onCloseColorGradientEditor(iDialogPtr dialog)
 {
-    if (ok)
+    if (_colorGradientDialog != dialog)
     {
-        _colorGradient->setGradient(gradient);
+        return;
+    }
+
+    if (_colorGradientDialog->getReturnState() == iDialogReturnState::Ok)
+    {
+        _colorGradient->setGradient(_colorGradientDialog->getColorGradient());
         updateNode();
     }
+
+    delete _colorGradientDialog;
+    _colorGradientDialog = nullptr;
 }
 
 void UserControlParticleSystem::onDoUpdateNode(iWidgetPtr source)

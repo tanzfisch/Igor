@@ -24,7 +24,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	void iDialogColorGradient::open(iDialogClosedDelegate dialogCloseDelegate, const iaGradientColor4f& gradient, bool useAlpha)
+	void iDialogColorGradient::open(iDialogCloseDelegate dialogCloseDelegate, const iaGradientColor4f& gradient, bool useAlpha)
 	{
         iDialog::open(dialogCloseDelegate);
 

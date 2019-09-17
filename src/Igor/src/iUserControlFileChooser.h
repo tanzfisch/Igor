@@ -40,14 +40,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	class iWidgetGrid;
-	class iWidgetLabel;
 	class iWidgetTextEdit;
-	class iWidgetButton;
-	class iWidgetSpacer;
-	class iWidgetColor;
-	class iWidgetSlider;
-	class iWidgetNumberChooser;
 
 	class Igor_API iUserControlFileChooser : public iUserControl
 	{
@@ -130,9 +123,9 @@ namespace Igor
 
 		/*! called after file dialog is closed
 
-		\param fileDialogReturnValue returns value of file dialog
+		\param dialog pointer of closed dialog
 		*/
-		void onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
+		void onFileLoadDialogClosed(iDialogPtr dialog);
 
 		/*! called when text box's content changed
 

@@ -34,6 +34,8 @@
 namespace Igor
 {
 
+    class iDialog;
+    typedef iDialog* iDialogPtr;
 	class iTextureFont;
 	class iWidgetManager;
 	class iDialogMenu;
@@ -120,9 +122,11 @@ namespace Igor
 		*/
 		iWidgetAppearanceState _buttonAppearanceState = iWidgetAppearanceState::Standby;
 
-		/*! triggered when selection has changed
+		/*! triggered when selection box closed
+
+        \param dialog source of this event
 		*/
-		void onSelectionChanged(int32 value);
+		void onSelectBoxClosed(iDialogPtr dialog);
 
 		/*! handles incomming mouse wheel event
 

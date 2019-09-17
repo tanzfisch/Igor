@@ -69,7 +69,7 @@ namespace Igor
 		\param message the message to display
 		\param buttons the button configuration to use
 		*/
-		void open(iDialogClosedDelegate dialogCloseDelegate, iaString message, iMessageBoxButtons buttons = iMessageBoxButtons::Ok);
+		void open(iDialogCloseDelegate dialogCloseDelegate, iaString message, iMessageBoxButtons buttons = iMessageBoxButtons::Ok);
 
 		/*! initializes gui and opens the message box dialog
 

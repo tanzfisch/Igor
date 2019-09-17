@@ -42,7 +42,7 @@ namespace Igor
 
 	/*! dialog close event
 	*/
-	iaEVENT(iDialogClosedEvent, iDialogClosedDelegate, void, (iDialogPtr dialog), (dialog));
+	iaEVENT(iDialogClosedEvent, iDialogCloseDelegate, void, (iDialogPtr dialog), (dialog));
 
     /*! dialog return states
     */
@@ -101,7 +101,7 @@ namespace Igor
 
 		\param dialogCloseDelegate the delegate to call after the dialog was closed
 		*/
-		virtual void open(iDialogClosedDelegate dialogCloseDelegate);
+		virtual void open(iDialogCloseDelegate dialogCloseDelegate);
 
 		/*! closes the dialog
 		*/
@@ -135,7 +135,7 @@ namespace Igor
 
 		/*! the delegate to call after the dialog was closed
 		*/
-		iDialogClosedDelegate _dialogCloseDelegate;
+		iDialogCloseDelegate _dialogCloseDelegate;
 
         /*! updates size based on it's content
         */

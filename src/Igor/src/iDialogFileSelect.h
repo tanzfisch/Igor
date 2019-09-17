@@ -75,7 +75,7 @@ namespace Igor
 		\param closeDelegate delegate called after dialog was closed
 		\param path the path to start with
 		*/
-        void open(iDialogClosedDelegate dialogCloseDelegate, iFileDialogPurpose purpose = iFileDialogPurpose::Load, const iaString& path = "");
+        void open(iDialogCloseDelegate dialogCloseDelegate, iFileDialogPurpose purpose = iFileDialogPurpose::Load, const iaString& path = "");
 
 		/*! \returns full path currently selected by dialog
 		*/
@@ -186,6 +186,10 @@ namespace Igor
 		void updateFileGrid();
 
 	};
+
+    /*! dialog file select pointer definition
+    */
+    typedef iDialogFileSelect* iDialogFileSelectPtr;
 
 }
 

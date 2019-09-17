@@ -66,7 +66,7 @@ namespace Igor
 		\param pictures paths to textures used as icons next to the text (optional)
 		\param dialogCloseDelegate delegate for closing event
 		*/
-        void open(iDialogClosedDelegate dialogCloseDelegate, std::vector<iaString>& texts, std::vector<iaString>& pictures = std::vector<iaString>());
+        void open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString>& texts, std::vector<iaString>& pictures = std::vector<iaString>());
 
         /*! \returns selected menu entry index
 
@@ -112,6 +112,10 @@ namespace Igor
 		void initGUI(std::vector<iaString>& texts, std::vector<iaString>& pictures);
 
 	};
+
+    /*! dialog menu pointer definition
+    */
+    typedef iDialogMenu* iDialogMenuPtr;
 
 }
 

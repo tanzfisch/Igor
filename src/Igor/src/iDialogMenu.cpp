@@ -16,7 +16,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    void iDialogMenu::open(iDialogClosedDelegate dialogCloseDelegate, std::vector<iaString>& texts, std::vector<iaString>& pictures)
+    void iDialogMenu::open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString>& texts, std::vector<iaString>& pictures)
     {
         iDialog::open(dialogCloseDelegate);
 

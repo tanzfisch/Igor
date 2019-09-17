@@ -91,7 +91,7 @@ namespace Igor
 		}
 	}
 
-	void iDialogMessageBox::open(iDialogClosedDelegate dialogCloseDelegate, iaString message, iMessageBoxButtons buttons)
+	void iDialogMessageBox::open(iDialogCloseDelegate dialogCloseDelegate, iaString message, iMessageBoxButtons buttons)
 	{
 		iDialog::open(dialogCloseDelegate);
 

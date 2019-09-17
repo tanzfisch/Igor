@@ -113,11 +113,11 @@ private:
 
     /*! color chooser dialog
     */
-    iDialogColorChooser _colorChooserDialog;
+    iDialogColorChooserPtr _colorChooserDialog = nullptr;
 
     /*! color gradient editor dialog
     */
-    iDialogColorGradient _colorGradientDialog;
+    iDialogColorGradientPtr _colorGradientDialog = nullptr;
 
     /*! color view to display the color selected in color chooser
     */
@@ -176,14 +176,14 @@ private:
     \param ok if true value ok, if false dialog was canceled
     \param color the resulting color
     */
-    void onCloseColorChooser(bool ok, const iaColor4f& color);
+    void onCloseColorChooser(iDialogPtr dialog);
 
     /*! triggered when color gradient editor was closed
 
     \param ok if true the ok button was closing the dialog
     \param gradient the resulting gradient
     */
-    void onCloseColorGradient(bool ok, const iaGradientColor4f& gradient);
+    void onCloseColorGradient(iDialogPtr dialog);
 
     /*! triggered by mouse move event
 

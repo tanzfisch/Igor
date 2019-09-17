@@ -52,6 +52,9 @@ namespace Igor
     class iWidgetGroupBox;
 	class iWidgetButton;
     class iDialogMenu;
+    typedef iDialogMenu* iDialogMenuPtr;
+    class iDialog;
+    typedef iDialog* iDialogPtr;
 }
 
 iaEVENT(AddModel, AddModelDelegate, void, (uint64 nodeID), (nodeID));
@@ -117,9 +120,7 @@ private:
 
     iWidgetGrid* _gridGraph = nullptr;
 
-    iDialogMenu* _dialogMenu = nullptr;
-    std::vector<iaString> _dialogMenuTexts;
-    std::vector<iaString> _dialogMenuPictures;
+    iDialogMenuPtr _dialogMenu = nullptr;
 
     std::vector<uint64*> _userData;
 
@@ -128,11 +129,10 @@ private:
     iaString getIconTexture(iNodeType type);
 
     void initGUI();
-	void deinitGUI();
 
     void OnSelectionChange(iWidgetPtr widget);
     void OnContextMenu(iWidgetPtr widget);
-    void OnContextMenuClose(int32 value);
+    void OnContextMenuClose(iDialogPtr dialog);
 
 	void onAddModel(iWidgetPtr source);
 	void onAddTransformation(iWidgetPtr source);

@@ -369,28 +369,52 @@ void WidgetsExample::onMouseMove(const iaVector2i& pos)
 
 void WidgetsExample::onOpenColorChooser(iWidgetPtr source)
 {
-    _colorChooserDialog.show(iColorChooserCloseDelegate(this, &WidgetsExample::onCloseColorChooser), _color->getColor(), true);
+    if (_colorChooserDialog == nullptr)
+    {
+        _colorChooserDialog = new iDialogColorChooser();
+    }
+    _colorChooserDialog->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseColorChooser), _color->getColor(), true);
 }
 
 void WidgetsExample::onOpenColorGradientEditor(iWidgetPtr source)
 {
-    _colorGradientDialog.show(iColorGradientCloseDelegate(this, &WidgetsExample::onCloseColorGradient), _colorGradient->getGradient(), false);
-}
-
-void WidgetsExample::onCloseColorGradient(bool ok, const iaGradientColor4f& gradient)
-{
-    if (ok)
+    if (_colorGradientDialog == nullptr)
     {
-        _colorGradient->setGradient(gradient);
-    }	
-}
-
-void WidgetsExample::onCloseColorChooser(bool ok, const iaColor4f& color)
-{
-    if (ok)
-    {
-        _color->setColor(color);
+        _colorGradientDialog = new iDialogColorGradient();
     }
+    _colorGradientDialog->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseColorGradient), _colorGradient->getGradient(), false);
+}
+
+void WidgetsExample::onCloseColorGradient(iDialogPtr dialog)
+{
+    if (dialog != _colorGradientDialog)
+    {
+        return;
+    }
+
+    if (_colorGradientDialog->getReturnState() == iDialogReturnState::Ok)
+    {
+        _colorGradient->setGradient(_colorGradientDialog->getColorGradient());
+    }	
+
+    delete _colorGradientDialog;
+    _colorGradientDialog = nullptr;
+}
+
+void WidgetsExample::onCloseColorChooser(iDialogPtr dialog)
+{
+    if (dialog != _colorChooserDialog)
+    {
+        return;
+    }
+
+    if (_colorChooserDialog->getReturnState() == iDialogReturnState::Ok)
+    {
+        _color->setColor(_colorChooserDialog->getColor());
+    }
+
+    delete _colorChooserDialog;
+    _colorChooserDialog = nullptr;
 }
 
 void WidgetsExample::onOpenMessageBox(iWidgetPtr source)
@@ -401,14 +425,13 @@ void WidgetsExample::onOpenMessageBox(iWidgetPtr source)
 		_messageBox = new iDialogMessageBox();
 	}
     
-    _messageBox->open(iDialogClosedDelegate(this, &WidgetsExample::onCloseMessageBox), "Please click Yes No or Cancel. Nothing will happen in an case.", iMessageBoxButtons::YesNoCancel);
+    _messageBox->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseMessageBox), "Please click Yes No or Cancel and see the output in the console.", iMessageBoxButtons::YesNoCancel);
 }
 
 void WidgetsExample::onCloseMessageBox(iDialogPtr dialog)
 {
 	iaString returnString;
-	iDialogReturnState value = static_cast<iDialogMessageBox*>(dialog)->getReturnValue();
-	switch(value)
+	switch(static_cast<iDialogMessageBox*>(dialog)->getReturnState())
 	{
 	case iDialogReturnState::No:
 		returnString = "No";

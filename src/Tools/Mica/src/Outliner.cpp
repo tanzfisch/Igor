@@ -51,7 +51,7 @@ void Outliner::initGUI()
     _grid->setStrechRow(2);
     _grid->setStrechColumn(0);
 
-	iWidgetGridPtr gridButtons = new iWidgetGrid();
+    iWidgetGridPtr gridButtons = new iWidgetGrid();
     gridButtons->setBorder(0);
     gridButtons->setCellSpacing(2);
     gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -79,7 +79,7 @@ void Outliner::initGUI()
     _loadButton->setText("");
     _loadButton->setWidth(30);
     _loadButton->setHeight(30);
-	_loadButton->setTooltip("Load file");
+    _loadButton->setTooltip("Load file");
     _loadButton->setTexture("icons\\load.png");
     _loadButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onLoadFile));
 
@@ -87,7 +87,7 @@ void Outliner::initGUI()
     _saveButton->setText("");
     _saveButton->setWidth(30);
     _saveButton->setHeight(30);
-	_saveButton->setTooltip("Save file");
+    _saveButton->setTooltip("Save file");
     _saveButton->setTexture("icons\\save.png");
     _saveButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onSaveFile));
 
@@ -95,7 +95,7 @@ void Outliner::initGUI()
     _exitButton->setText("");
     _exitButton->setWidth(30);
     _exitButton->setHeight(30);
-	_exitButton->setTooltip("Exit Mica");
+    _exitButton->setTooltip("Exit Mica");
     _exitButton->setTexture("icons\\exit.png");
     _exitButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onExitMica));
 
@@ -111,7 +111,7 @@ void Outliner::initGUI()
     _cutButton->setText("");
     _cutButton->setWidth(30);
     _cutButton->setHeight(30);
-	_cutButton->setTooltip("Cut selection");
+    _cutButton->setTooltip("Cut selection");
     _cutButton->setTexture("icons\\cut.png");
     _cutButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onCut));
 
@@ -119,7 +119,7 @@ void Outliner::initGUI()
     _copyButton->setText("");
     _copyButton->setWidth(30);
     _copyButton->setHeight(30);
-	_copyButton->setTooltip("Copy selection");
+    _copyButton->setTooltip("Copy selection");
     _copyButton->setTexture("icons\\copy.png");
     _copyButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onCopy));
 
@@ -127,15 +127,15 @@ void Outliner::initGUI()
     _pasteButton->setText("");
     _pasteButton->setWidth(30);
     _pasteButton->setHeight(30);
-	_pasteButton->setTooltip("paste from clipboard");
+    _pasteButton->setTooltip("paste from clipboard");
     _pasteButton->setTexture("icons\\paste.png");
     _pasteButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onPaste));
 
-	iWidgetButtonPtr deleteButton = new iWidgetButton();
+    iWidgetButtonPtr deleteButton = new iWidgetButton();
     deleteButton->setText("");
     deleteButton->setWidth(30);
     deleteButton->setHeight(30);
-	deleteButton->setTooltip("delete selection");
+    deleteButton->setTooltip("delete selection");
     deleteButton->setTexture("icons\\delete.png");
     deleteButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onDelete));
 
@@ -207,7 +207,7 @@ void Outliner::deinitMaterialView()
         _userControlMaterialView->unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &Outliner::onMaterialSelectionChanged));
         _userControlMaterialView->unregisterOnAddMaterial(AddMaterialDelegate(this, &Outliner::onAddMaterial));
 
-		delete _userControlMaterialView;
+        delete _userControlMaterialView;
         _userControlMaterialView = nullptr;
     }
 }
@@ -216,7 +216,7 @@ void Outliner::initMaterialView()
 {
     if (_userControlMaterialView == nullptr)
     {
-		_userControlMaterialView = new UserControlMaterialView();
+        _userControlMaterialView = new UserControlMaterialView();
         _userControlMaterialView->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &Outliner::onMaterialSelectionChanged));
         _userControlMaterialView->registerOnAddMaterial(AddMaterialDelegate(this, &Outliner::onAddMaterial));
 
@@ -240,7 +240,7 @@ void Outliner::deinitGraphView()
         _userControlGraphView->unregisterOnAddSwitch(AddSwitchDelegate(this, &Outliner::onAddSwitch));
         _userControlGraphView->unregisterOnAddTransformation(AddTransformationDelegate(this, &Outliner::onAddTransformation));
 
-		delete _userControlGraphView;
+        delete _userControlGraphView;
         _userControlGraphView = nullptr;
     }
 }
@@ -249,7 +249,7 @@ void Outliner::initGraphView()
 {
     if (_userControlGraphView == nullptr)
     {
-		_userControlGraphView = new UserControlGraphView();
+        _userControlGraphView = new UserControlGraphView();
         _userControlGraphView->registerOnSelectionChange(GraphSelectionChangedDelegate(this, &Outliner::onGraphSelectionChanged));
         _userControlGraphView->registerOnAddEmitter(AddEmitterDelegate(this, &Outliner::onAddEmitter));
         _userControlGraphView->registerOnAddGroup(AddGroupDelegate(this, &Outliner::onAddGroup));
@@ -270,172 +270,172 @@ void Outliner::initGraphView()
 
 void Outliner::duplicateSelected()
 {
-	if (_userControlGraphView == nullptr)
-	{
-		return;
-	}
+    if (_userControlGraphView == nullptr)
+    {
+        return;
+    }
 
-	iNodePtr node = iNodeManager::getInstance().getNode(_userControlGraphView->getSelectedNode());
-	if (node == nullptr)
-	{
-		return;
-	}
+    iNodePtr node = iNodeManager::getInstance().getNode(_userControlGraphView->getSelectedNode());
+    if (node == nullptr)
+    {
+        return;
+    }
 
-	auto parent = node->getParent();
-	if (parent == nullptr)
-	{
-		return;
-	}
+    auto parent = node->getParent();
+    if (parent == nullptr)
+    {
+        return;
+    }
 
-	_cutNodeID = 0;
-	_copiedNodeID = node->getID();
+    _cutNodeID = 0;
+    _copiedNodeID = node->getID();
 
-	setSelectedNode(parent);
+    setSelectedNode(parent);
 
-	pasteSelected();
+    pasteSelected();
 }
 
 void Outliner::cutSelected()
 {
-	_copiedNodeID = 0;
+    _copiedNodeID = 0;
 
-	if (_userControlGraphView != nullptr)
-	{
-		iNodePtr node = iNodeManager::getInstance().getNode(_userControlGraphView->getSelectedNode());
-		if (node != nullptr)
-		{
-			_cutNodeID = node->getID();
-		}
-		else
-		{
-			_cutNodeID = iNode::INVALID_NODE_ID;
-		}
-	}
+    if (_userControlGraphView != nullptr)
+    {
+        iNodePtr node = iNodeManager::getInstance().getNode(_userControlGraphView->getSelectedNode());
+        if (node != nullptr)
+        {
+            _cutNodeID = node->getID();
+        }
+        else
+        {
+            _cutNodeID = iNode::INVALID_NODE_ID;
+        }
+    }
 }
 
 void Outliner::pasteSelected()
 {
-	if (_userControlGraphView != nullptr)
-	{
-		if (_copiedNodeID != 0)
-		{
-			iNodePtr pasteNode = nullptr;
-			iNodePtr copiedNode = iNodeManager::getInstance().getNode(_copiedNodeID);
-			if (copiedNode != nullptr)
-			{
-				pasteNode = iNodeManager::getInstance().createCopy(copiedNode);
-			}
+    if (_userControlGraphView != nullptr)
+    {
+        if (_copiedNodeID != 0)
+        {
+            iNodePtr pasteNode = nullptr;
+            iNodePtr copiedNode = iNodeManager::getInstance().getNode(_copiedNodeID);
+            if (copiedNode != nullptr)
+            {
+                pasteNode = iNodeManager::getInstance().createCopy(copiedNode);
+            }
 
-			if (pasteNode != nullptr)
-			{
-				iNodePtr destination = iNodeManager::getInstance().getNode(_userControlGraphView->getSelectedNode());
+            if (pasteNode != nullptr)
+            {
+                iNodePtr destination = iNodeManager::getInstance().getNode(_userControlGraphView->getSelectedNode());
 
-				if (destination == nullptr)
-				{
-					destination = iNodeManager::getInstance().getNode(_rootNodeID);
-				}
+                if (destination == nullptr)
+                {
+                    destination = iNodeManager::getInstance().getNode(_rootNodeID);
+                }
 
-				if (destination != nullptr)
-				{
-					destination->insertNode(pasteNode);
-					refreshView();
-					setSelectedNode(pasteNode);
-				}
-			}
-		}
-		else if (_cutNodeID != 0)
-		{
-			iNodePtr cutNode = iNodeManager::getInstance().getNode(_cutNodeID);
-			if (cutNode != nullptr)
-			{
-				iNodePtr destination = iNodeManager::getInstance().getNode(_userControlGraphView->getSelectedNode());
+                if (destination != nullptr)
+                {
+                    destination->insertNode(pasteNode);
+                    refreshView();
+                    setSelectedNode(pasteNode);
+                }
+            }
+        }
+        else if (_cutNodeID != 0)
+        {
+            iNodePtr cutNode = iNodeManager::getInstance().getNode(_cutNodeID);
+            if (cutNode != nullptr)
+            {
+                iNodePtr destination = iNodeManager::getInstance().getNode(_userControlGraphView->getSelectedNode());
 
-				if (destination == nullptr)
-				{
-					destination = iNodeManager::getInstance().getNode(_rootNodeID);
-				}
+                if (destination == nullptr)
+                {
+                    destination = iNodeManager::getInstance().getNode(_rootNodeID);
+                }
 
-				if (destination != nullptr)
-				{
-					iNodePtr parent = cutNode->getParent();
-					if (parent != nullptr)
-					{
-						parent->removeNode(cutNode);
+                if (destination != nullptr)
+                {
+                    iNodePtr parent = cutNode->getParent();
+                    if (parent != nullptr)
+                    {
+                        parent->removeNode(cutNode);
 
-						destination->insertNode(cutNode);
-						refreshView();
-						setSelectedNode(cutNode);
-					}
-				}
-			}
-		}
-		else
-		{
-			_messageBox->open("clipboard is empty");
-		}
-	}
+                        destination->insertNode(cutNode);
+                        refreshView();
+                        setSelectedNode(cutNode);
+                    }
+                }
+            }
+        }
+        else
+        {
+            _messageBox->open("clipboard is empty");
+        }
+    }
 }
 
 void Outliner::copySelected()
 {
-	if (_userControlGraphView != nullptr)
-	{
-		_cutNodeID = 0;
+    if (_userControlGraphView != nullptr)
+    {
+        _cutNodeID = 0;
 
-		iNodePtr node = iNodeManager::getInstance().getNode(_userControlGraphView->getSelectedNode());
-		if (node != nullptr)
-		{
-			_copiedNodeID = node->getID();
-		}
-		else
-		{
-			_copiedNodeID = 0;
-		}
-	}
+        iNodePtr node = iNodeManager::getInstance().getNode(_userControlGraphView->getSelectedNode());
+        if (node != nullptr)
+        {
+            _copiedNodeID = node->getID();
+        }
+        else
+        {
+            _copiedNodeID = 0;
+        }
+    }
 }
 
 void Outliner::deleteSelected()
 {
-	if (_userControlGraphView != nullptr)
-	{
-		_graphSelectionChanged(iNode::INVALID_NODE_ID);
+    if (_userControlGraphView != nullptr)
+    {
+        _graphSelectionChanged(iNode::INVALID_NODE_ID);
 
-		iNodePtr node = iNodeManager::getInstance().getNode(_userControlGraphView->getSelectedNode());
-		if (node != nullptr)
-		{
-			iNodePtr parent = node->getParent();
-			if (parent != nullptr)
-			{
-				parent->removeNode(node);
-				iNodeManager::getInstance().destroyNodeAsync(node);
-				refreshView();
-			}
-			else
-			{
-				_messageBox->open("can't delete root node");
-			}
-		}
-	}
+        iNodePtr node = iNodeManager::getInstance().getNode(_userControlGraphView->getSelectedNode());
+        if (node != nullptr)
+        {
+            iNodePtr parent = node->getParent();
+            if (parent != nullptr)
+            {
+                parent->removeNode(node);
+                iNodeManager::getInstance().destroyNodeAsync(node);
+                refreshView();
+            }
+            else
+            {
+                _messageBox->open("can't delete root node");
+            }
+        }
+    }
 }
 
 void Outliner::onDelete(iWidgetPtr source)
 {
-	deleteSelected();
+    deleteSelected();
 }
 
 void Outliner::onCopy(iWidgetPtr source)
 {
-	copySelected();
+    copySelected();
 }
 
 void Outliner::onPaste(iWidgetPtr source)
 {
-	pasteSelected();
+    pasteSelected();
 }
 
 void Outliner::onCut(iWidgetPtr source)
 {
-	cutSelected();
+    cutSelected();
 }
 
 void Outliner::onGraphSelectionChanged(uint64 nodeID)
@@ -468,8 +468,8 @@ void Outliner::deinitGUI()
     deinitGraphView();
     deinitMaterialView();
 
-	clearChildren();
-	_grid = nullptr;
+    clearChildren();
+    _grid = nullptr;
 
     if (_messageBox != nullptr)
     {
@@ -528,12 +528,12 @@ void Outliner::refreshView()
 
 void Outliner::fileOpen()
 {
-	_loadFile();
+    _loadFile();
 }
 
 void Outliner::fileSave()
 {
-	_saveFile();
+    _saveFile();
 }
 
 void Outliner::onLoadFile(iWidgetPtr source)
@@ -696,32 +696,36 @@ void Outliner::onAddModel(uint64 addAt)
     if (_decisionBoxModelRef == nullptr)
     {
         _decisionBoxModelRef = new iDialogDecisionBox();
+        _decisionBoxModelRef->open(iDialogCloseDelegate(this, &Outliner::onAddModelDecision), "Import model ...", { "embedded", "as reference" }, 0);
     }
-
-    _decisionBoxModelRef->show("Import model ...", iDecisionBoxCloseDelegate(this, &Outliner::onAddModelDecision), { "embedded", "as reference" }, 0);
 }
 
-void Outliner::onAddModelDecision(bool ok, int32 selection)
+void Outliner::onAddModelDecision(iDialogPtr dialog)
 {
-    if (_userControlGraphView != nullptr)
+    if (_decisionBoxModelRef != dialog)
     {
-        if (ok)
+        return;
+    }
+
+    if (_decisionBoxModelRef->getReturnState() == iDialogReturnState::Ok)
+    {
+        switch (_decisionBoxModelRef->getSelection())
         {
-            switch (selection)
-            {
-            case 0:
-                _importFile();
-                break;
+        case 0:
+            _importFile();
+            break;
 
-            case 1:
-                _importFileReference();
-                break;
+        case 1:
+            _importFileReference();
+            break;
 
-            default:
-                con_assert(false, "invalid selection");
-            }
+        default:
+            con_assert(false, "invalid selection");
         }
     }
+
+    delete _decisionBoxModelRef;
+    _decisionBoxModelRef = nullptr;
 }
 
 void Outliner::onAddTransformation(uint64 addAt)

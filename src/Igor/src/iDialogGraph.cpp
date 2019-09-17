@@ -36,7 +36,7 @@ namespace Igor
         _yStepping = yStepping;
     }
 
-    void iDialogGraph::open(iDialogClosedDelegate dialogCloseDelegate, const std::vector<std::vector<iaVector2f>>& graphs)
+    void iDialogGraph::open(iDialogCloseDelegate dialogCloseDelegate, const std::vector<std::vector<iaVector2f>>& graphs)
     {
         iDialog::open(dialogCloseDelegate);
 
@@ -363,6 +363,11 @@ namespace Igor
         _selectedValueIndex = 0;
         updateGraph();
         updateSelection();
+    }
+
+    const std::vector<std::vector<iaVector2f>>& iDialogGraph::getGraphs() const
+    {
+        return _graphs;
     }
 
 }

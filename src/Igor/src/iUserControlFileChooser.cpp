@@ -61,14 +61,16 @@ namespace Igor
 			_fileDialog = new iDialogFileSelect();
 		}
 
-		_fileDialog->load(iDialogFileSelectCloseDelegate(this, &iUserControlFileChooser::onFileLoadDialogClosed), _preselectedPath);
+		_fileDialog->open(iDialogCloseDelegate(this, &iUserControlFileChooser::onFileLoadDialogClosed), iFileDialogPurpose::Load, _preselectedPath);
 	}
 
-	void iUserControlFileChooser::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
+    void iUserControlFileChooser::onFileLoadDialogClosed(iDialogPtr dialog)
 	{
-		if (_fileDialog->getReturnState() == iFileDialogReturnValue::Ok)
+        iDialogFileSelect* fileDialog = static_cast<iDialogFileSelect*>(dialog);
+
+		if (fileDialog->getReturnState() == iDialogReturnState::Ok)
 		{
-			iaString filename = _fileDialog->getFullPath();
+			iaString filename = fileDialog->getFullPath();
 
 			if (_optimizePath)
 			{
@@ -109,9 +111,7 @@ namespace Igor
 
 	void iUserControlFileChooser::deinitGUI()
 	{
-		clearChildren();
-
-		_fileNameTextEdit = nullptr;
+        _fileNameTextEdit = nullptr;
 
 		// destroy the file dialog
 		if (_fileDialog != nullptr)

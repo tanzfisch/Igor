@@ -155,39 +155,7 @@ void UserControlGraphView::initGUI()
     grid->addWidget(gridButtons, 0, 0);
     grid->addWidget(groupBox, 0, 1);
     groupBox->addWidget(scroll);
-    scroll->addWidget(_gridGraph);
-
-    _dialogMenu = new iDialogMenu();
-    _dialogMenu->setWidth(24);
-    _dialogMenuTexts.push_back("Cut");
-    _dialogMenuPictures.push_back("icons\\cut.png");
-
-    _dialogMenuTexts.push_back("Copy");
-    _dialogMenuPictures.push_back("icons\\copy.png");
-
-    _dialogMenuTexts.push_back("Paste");
-    _dialogMenuPictures.push_back("icons\\paste.png");
-
-    _dialogMenuTexts.push_back("Delete");
-    _dialogMenuPictures.push_back("icons\\delete.png");
-
-    _dialogMenuTexts.push_back("Add Transformation");
-    _dialogMenuPictures.push_back("icons\\Transformation.png");
-
-    _dialogMenuTexts.push_back("Add Group");
-    _dialogMenuPictures.push_back("icons\\Group.png");
-
-    _dialogMenuTexts.push_back("Add Switch");
-    _dialogMenuPictures.push_back("icons\\Switch.png");
-
-    _dialogMenuTexts.push_back("Add Model");
-    _dialogMenuPictures.push_back("icons\\Model.png");
-
-    _dialogMenuTexts.push_back("Add Emitter");
-    _dialogMenuPictures.push_back("icons\\Emitter.png");
-
-    _dialogMenuTexts.push_back("Add Particle System");
-    _dialogMenuPictures.push_back("icons\\ParticleSystem.png");
+    scroll->addWidget(_gridGraph);    
 }
 
 iaString UserControlGraphView::getIconTexture(iNodeType type)
@@ -241,15 +209,61 @@ void UserControlGraphView::OnSelectionChange(iWidgetPtr widget)
 
 void UserControlGraphView::OnContextMenu(iWidgetPtr widget)
 {
-    iaVector2i pos = iMouse::getInstance().getPos();
-    _dialogMenu->setX(pos._x);
-    _dialogMenu->setY(pos._y);
-    _dialogMenu->show(_dialogMenuTexts, _dialogMenuPictures, iDialogMenuCloseDelegate(this, &UserControlGraphView::OnContextMenuClose));
+    if (_dialogMenu == nullptr)
+    {
+        _dialogMenu = new iDialogMenu();
+
+        _dialogMenu->setWidth(24);
+
+        iaVector2i pos = iMouse::getInstance().getPos();
+        _dialogMenu->setX(pos._x);
+        _dialogMenu->setY(pos._y);
+
+        std::vector<iaString> dialogMenuTexts;
+        std::vector<iaString> dialogMenuPictures;
+
+        dialogMenuTexts.push_back("Cut");
+        dialogMenuPictures.push_back("icons\\cut.png");
+
+        dialogMenuTexts.push_back("Copy");
+        dialogMenuPictures.push_back("icons\\copy.png");
+
+        dialogMenuTexts.push_back("Paste");
+        dialogMenuPictures.push_back("icons\\paste.png");
+
+        dialogMenuTexts.push_back("Delete");
+        dialogMenuPictures.push_back("icons\\delete.png");
+
+        dialogMenuTexts.push_back("Add Transformation");
+        dialogMenuPictures.push_back("icons\\Transformation.png");
+
+        dialogMenuTexts.push_back("Add Group");
+        dialogMenuPictures.push_back("icons\\Group.png");
+
+        dialogMenuTexts.push_back("Add Switch");
+        dialogMenuPictures.push_back("icons\\Switch.png");
+
+        dialogMenuTexts.push_back("Add Model");
+        dialogMenuPictures.push_back("icons\\Model.png");
+
+        dialogMenuTexts.push_back("Add Emitter");
+        dialogMenuPictures.push_back("icons\\Emitter.png");
+
+        dialogMenuTexts.push_back("Add Particle System");
+        dialogMenuPictures.push_back("icons\\ParticleSystem.png");
+
+        _dialogMenu->open(iDialogCloseDelegate(this, &UserControlGraphView::OnContextMenuClose), dialogMenuTexts, dialogMenuPictures);
+    }
 }
 
-void UserControlGraphView::OnContextMenuClose(int32 value)
+void UserControlGraphView::OnContextMenuClose(iDialogPtr dialog)
 {
-    // TODO ???
+    if (dialog != _dialogMenu)
+    {
+        return;
+    }
+
+    // TODO ??? yeah we need something like Qt QAction
     const int32 cutID = 0;
     const int32 copyID = 1;
     const int32 pasteID = 2;
@@ -261,7 +275,7 @@ void UserControlGraphView::OnContextMenuClose(int32 value)
     const int32 addEmitterID = 8;
     const int32 addParticleSystemID = 9;
 
-    switch (value)
+    switch (_dialogMenu->getSelectionIndex())
     {
     case cutID:
         // TODO
@@ -303,6 +317,8 @@ void UserControlGraphView::OnContextMenuClose(int32 value)
         _addParticleSystem(_selectedNode);
         break;
     }
+
+    delete _dialogMenu;
 }
 
 void UserControlGraphView::setSelectedNode(uint64 nodeID)

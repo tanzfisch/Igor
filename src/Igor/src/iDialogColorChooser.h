@@ -63,7 +63,7 @@ namespace Igor
 		\param color the color to start with
 		\param useAlpha if true also use the alpha channel
 		*/
-		void open(iDialogClosedDelegate dialogCloseDelegate, const iaColor4f& color, bool useAlpha = true);
+		void open(iDialogCloseDelegate dialogCloseDelegate, const iaColor4f& color, bool useAlpha = true);
 
         /*! \returns color from color chooser
         */

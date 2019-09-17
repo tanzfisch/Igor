@@ -234,7 +234,11 @@ void Mica::init(iaString fileName)
 
 	if (fileName.isEmpty())
 	{
-		_fileDialog->load(iDialogFileSelectCloseDelegate(this, &Mica::onFileLoadDialogClosed), DEFAULT_LOAD_SAVE_DIR);
+        if (_fileDialog == nullptr)
+        {
+            _fileDialog = new iDialogFileSelect();
+        }
+		_fileDialog->open(iDialogCloseDelegate(this, &Mica::onFileLoadDialogClosed), iFileDialogPurpose::Load, DEFAULT_LOAD_SAVE_DIR);
 	}
 	else
 	{
@@ -428,27 +432,48 @@ void Mica::frameOnNode(iNodePtr node)
 
 void Mica::onImportFile()
 {
-	_fileDialog->load(iDialogFileSelectCloseDelegate(this, &Mica::onImportFileDialogClosed), DEFAULT_LOAD_SAVE_DIR);
+    if (_fileDialog == nullptr)
+    {
+        _fileDialog = new iDialogFileSelect();
+        _fileDialog->open(iDialogCloseDelegate(this, &Mica::onImportFileDialogClosed), iFileDialogPurpose::Load, DEFAULT_LOAD_SAVE_DIR);
+    }
 }
 
 void Mica::onImportFileReference()
 {
-	_fileDialog->load(iDialogFileSelectCloseDelegate(this, &Mica::onImportFileReferenceDialogClosed), DEFAULT_LOAD_SAVE_DIR);
+    if (_fileDialog == nullptr)
+    {
+        _fileDialog = new iDialogFileSelect();
+        _fileDialog->open(iDialogCloseDelegate(this, &Mica::onImportFileReferenceDialogClosed), iFileDialogPurpose::Load, DEFAULT_LOAD_SAVE_DIR);
+    }
 }
 
 void Mica::onLoadFile()
 {
-	_fileDialog->load(iDialogFileSelectCloseDelegate(this, &Mica::onFileLoadDialogClosed), DEFAULT_LOAD_SAVE_DIR);
+    if (_fileDialog == nullptr)
+    {
+        _fileDialog = new iDialogFileSelect();
+        _fileDialog->open(iDialogCloseDelegate(this, &Mica::onFileLoadDialogClosed), iFileDialogPurpose::Load, DEFAULT_LOAD_SAVE_DIR);
+    }
 }
 
 void Mica::onSaveFile()
 {
-	_fileDialog->save(iDialogFileSelectCloseDelegate(this, &Mica::onFileSaveDialogClosed), DEFAULT_LOAD_SAVE_DIR);
+    if (_fileDialog == nullptr)
+    {
+        _fileDialog = new iDialogFileSelect();
+        _fileDialog->open(iDialogCloseDelegate(this, &Mica::onFileSaveDialogClosed), iFileDialogPurpose::Save, DEFAULT_LOAD_SAVE_DIR);
+    }
 }
 
-void Mica::onFileSaveDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
+void Mica::onFileSaveDialogClosed(iDialogPtr dialog)
 {
-	if (fileDialogReturnValue == iFileDialogReturnValue::Ok)
+    if (_fileDialog != dialog)
+    {
+        return;
+    }
+
+	if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
 	{
 		iaString filename = _fileDialog->getFullPath();
 
@@ -468,13 +493,22 @@ void Mica::onFileSaveDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
 			iModelResourceFactory::getInstance().exportModelData(filename, _workspace);
 		}
 	}
+
+    delete _fileDialog;
+    _fileDialog = nullptr;
+
 }
 
-void Mica::onImportFileDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
+void Mica::onImportFileDialogClosed(iDialogPtr dialog)
 {
+    if (_fileDialog != dialog)
+    {
+        return;
+    }
+
 	iNodePtr selectNode = nullptr;
 
-	if (fileDialogReturnValue == iFileDialogReturnValue::Ok)
+    if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
 	{
 		iaString filename = _fileDialog->getFullPath();
 
@@ -547,13 +581,22 @@ void Mica::onImportFileDialogClosed(iFileDialogReturnValue fileDialogReturnValue
 
 	_outliner->setSelectedNode(selectNode);
 	frameOnSelectedNode();
+
+    delete _fileDialog;
+    _fileDialog = nullptr;
+
 }
 
-void Mica::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
+void Mica::onImportFileReferenceDialogClosed(iDialogPtr dialog)
 {
+    if (_fileDialog != dialog)
+    {
+        return;
+    }
+
 	iNodePtr selectNode = nullptr;
 
-	if (fileDialogReturnValue == iFileDialogReturnValue::Ok)
+    if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
 	{
 		iaString filename = _fileDialog->getFullPath();
 
@@ -588,13 +631,21 @@ void Mica::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileDialogRe
 
 	_outliner->setSelectedNode(selectNode);
 	frameOnSelectedNode();
+
+    delete _fileDialog;
+    _fileDialog = nullptr;
 }
 
-void Mica::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
+void Mica::onFileLoadDialogClosed(iDialogPtr dialog)
 {
+    if (_fileDialog != dialog)
+    {
+        return;
+    }
+
 	iNodePtr selectNode = nullptr;
 
-	if (fileDialogReturnValue == iFileDialogReturnValue::Ok)
+    if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
 	{
 		iaString filename = _fileDialog->getFullPath();
 
@@ -658,6 +709,9 @@ void Mica::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
 
 	_outliner->setSelectedNode(selectNode);
 	frameOnSelectedNode();
+
+    delete _fileDialog;
+    _fileDialog = nullptr;
 }
 
 void Mica::initGUI()
@@ -679,9 +733,7 @@ void Mica::initGUI()
 	_outliner->registerOnAddGroup(AddGroupDelegate(this, &Mica::onAddGroup));
 	_outliner->registerOnAddEmitter(AddEmitterDelegate(this, &Mica::onAddEmitter));
 	_outliner->registerOnAddParticleSystem(AddParticleSystemDelegate(this, &Mica::onAddParticleSystem));
-	_outliner->registerOnAddMaterial(AddMaterialDelegate(this, &Mica::onAddMaterial));
-
-	_fileDialog = new iDialogFileSelect();
+	_outliner->registerOnAddMaterial(AddMaterialDelegate(this, &Mica::onAddMaterial));	
 
 	_propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_outliner, &Outliner::refreshView));
 

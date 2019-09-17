@@ -39,16 +39,8 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	class iWidgetColor;
-	class iWidgetGrid;
-	class iWidgetButton;
-	class iUserControlColorChooser;
 	class iWidgetColorGradient;
 	class iUserControlColorChooser;
-
-	/*! event triggered when color chooser was closed
-	*/
-	iaEVENT(iColorGradientCloseEvent, iColorGradientCloseDelegate, void, (bool ok, const iaGradientColor4f& gradient), (ok, gradient));
 
 	/*! the color chooser dialog
 	*/
@@ -71,7 +63,7 @@ namespace Igor
 		\param gradient to start with
 		\param useAlpha if true use alpha channel too
 		*/
-		void open(iDialogClosedDelegate dialogCloseDelegate, const iaGradientColor4f& gradient, bool useAlpha = true);
+		void open(iDialogCloseDelegate dialogCloseDelegate, const iaGradientColor4f& gradient, bool useAlpha = true);
 
         /*! \returns color gradient from dialog
         */
@@ -162,6 +154,10 @@ namespace Igor
 		void initGUI(const iaGradientColor4f& gradient, bool useAlpha);
 
 	};
+
+    /*! dialog color gradient pointer definition
+    */
+    typedef iDialogColorGradient* iDialogColorGradientPtr;
 
 }
 

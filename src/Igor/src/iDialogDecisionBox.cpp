@@ -14,7 +14,7 @@
 namespace Igor
 {
 
-	void iDialogDecisionBox::open(iDialogClosedDelegate dialogCloseDelegate, const iaString& message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
+	void iDialogDecisionBox::open(iDialogCloseDelegate dialogCloseDelegate, const iaString& message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
 	{
         iDialog::open(dialogCloseDelegate);
 

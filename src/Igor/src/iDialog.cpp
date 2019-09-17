@@ -46,7 +46,7 @@ namespace Igor
         return _returnState;
     }
 
-	void iDialog::open(iDialogClosedDelegate dialogCloseDelegate)
+	void iDialog::open(iDialogCloseDelegate dialogCloseDelegate)
 	{
 		_dialogCloseDelegate = dialogCloseDelegate;
 	}

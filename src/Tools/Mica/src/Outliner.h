@@ -38,7 +38,6 @@ using namespace Igor;
 namespace Igor
 {
     class iNode;
-    class iDialog;
     class iWidgetGrid;
     class iWidgetScroll;
     class iWidgetButton;
@@ -207,7 +206,7 @@ private:
     void onDelete(iWidgetPtr source);
     
 	void onAddModel(uint64 addAt);
-	void onAddModelDecision(bool ok, int32 selection);
+	void onAddModelDecision(iDialogPtr dialog);
 	void onAddTransformation(uint64 addAt);
 	void onAddSwitch(uint64 addAt);
 	void onAddGroup(uint64 addAt);

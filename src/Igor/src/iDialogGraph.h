@@ -84,7 +84,7 @@ namespace Igor
         \param color the color to start with
         \param useAlpha if true also use the alpha channel
         */
-        void open(iDialogClosedDelegate dialogCloseDelegate, const std::vector<std::vector<iaVector2f>>& graphs);
+        void open(iDialogCloseDelegate dialogCloseDelegate, const std::vector<std::vector<iaVector2f>>& graphs);
 
         /*! sets dialog title
 
@@ -112,6 +112,10 @@ namespace Igor
         /*! \returns amount of after point
         */
         int32 getAfterPoint() const;
+
+        /*! \returns current configured graphs
+        */ 
+        const std::vector<std::vector<iaVector2f>>& getGraphs() const;
 
     private:
 
@@ -233,21 +237,15 @@ namespace Igor
         */
         void onGraphChanged(iWidgetPtr source);
 
-        /*! closes the dialog and sends closed event
-
-        will be triggered by any button
-        */
-        void close();
-
-        /*! deinitializes the gui elements
-        */
-        void deinitGUI();
-
         /*! initializes gui elements
         */
         void initGUI();
 
     };
+
+    /*! dialog graph pointer definition
+    */
+    typedef iDialogGraph* iDialogGraphPtr;
 
 }
 
