@@ -4,6 +4,7 @@ Changelog                           {#changelog}
 0.24.0
 ------
 
+- using std::any for user data instead of void* where possible
 - improved dialog close handling
 - improved node creation interface
 - exposed iRenderStateSet interface in iMaterial to reduce writing effort when using it
