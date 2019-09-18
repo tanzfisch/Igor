@@ -69,7 +69,7 @@ namespace Igor
         }
     }
 
-    void iNodePhysics::setUserData(const void* userData)
+    void iNodePhysics::setUserData(const std::any& userData)
     {
         _userData = userData;
 
@@ -80,7 +80,7 @@ namespace Igor
         }
     }
 
-    const void* iNodePhysics::getUserData() const
+    std::any iNodePhysics::getUserData() const
     {
         return _userData;
     }

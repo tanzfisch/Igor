@@ -87,7 +87,7 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 	physicsNode->setMass(0.001);
 	physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Bullet::onApplyForceAndTorque));
 	physicsNode->setMaterial(Ascent::_bulletMaterialID);
-    physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
+    physicsNode->setUserData(getID());
 
 	_scene->getRoot()->insertNode(particleSystem);
 

@@ -73,8 +73,6 @@ private:
 
     iWidgetGrid* _gridGraph = nullptr;
 
-	std::vector<uint32*> _userData;
-
 	uint32 _selectedMaterial = 0;
 
     void initGUI();

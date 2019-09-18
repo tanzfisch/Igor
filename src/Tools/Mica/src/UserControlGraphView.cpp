@@ -196,11 +196,11 @@ iaString UserControlGraphView::getIconTexture(iNodeType type)
 
 void UserControlGraphView::OnSelectionChange(iWidgetPtr widget)
 {
-    uint64* nodeIDPtr = static_cast<uint64*>(_gridGraph->getSelectedUserData());
+    std::any userData = _gridGraph->getSelectedUserData();
     uint64 nodeID = iNode::INVALID_NODE_ID;
-    if (nodeIDPtr != nullptr)
+    if (userData.has_value())
     {
-        nodeID = *nodeIDPtr;
+        nodeID = std::any_cast<uint64>(userData);
     }
 
     _selectedNode = nodeID;
@@ -332,11 +332,11 @@ void UserControlGraphView::setSelectedNode(uint64 nodeID)
     int32 rowCount = _gridGraph->getRowCount();
     for (int row = 0; row < rowCount; ++row)
     {
-        uint64* nodeIDPtr = static_cast<uint64*>(_gridGraph->getUserData(0, row));
+        std::any userData = _gridGraph->getUserData(0, row);
         uint64 id = iNode::INVALID_NODE_ID;
-        if (nodeIDPtr != nullptr)
+        if (userData.has_value())
         {
-            id = *nodeIDPtr;
+            id = std::any_cast<uint64>(userData);
         }
 
         if (nodeID == id)
@@ -367,14 +367,6 @@ void UserControlGraphView::unregisterOnSelectionChange(GraphSelectionChangedDele
 void UserControlGraphView::clearGraph()
 {
     _gridGraph->clear();
-
-    for (auto iter : _userData)
-    {
-        delete[] iter;
-    }
-
-    _userData.clear();
-
     _selectedNode = iNode::INVALID_NODE_ID;
 }
 
@@ -398,10 +390,7 @@ bool UserControlGraphView::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
         entry->appendCollumns(2);
         entry->setHorizontalAlignment(iHorizontalAlignment::Left);
         entry->setWidth(330);
-        uint64* userData = new uint64();
-        _userData.push_back(userData);
-        *userData = node->getID();
-        _gridGraph->addWidget(entry, 0, currentRowIndex, userData);
+        _gridGraph->addWidget(entry, 0, currentRowIndex, node->getID());
 
         iWidgetLabel* indentLabel = new iWidgetLabel();
         indentLabel->setHorizontalAlignment(iHorizontalAlignment::Left);

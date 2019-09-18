@@ -30,7 +30,6 @@
 #define __iMODELDATAIO__
 
 #include <iaString.h>
-#include <iaMemBlock.h>
 using namespace IgorAux;
 
 #include <iNode.h>

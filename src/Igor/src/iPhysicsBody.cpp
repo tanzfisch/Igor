@@ -53,12 +53,12 @@ namespace Igor
         return _transformNodeID;
     }
 
-    void iPhysicsBody::setUserData(const void* userData)
+    void iPhysicsBody::setUserData(const std::any& userData)
     {
         _userData = userData;
     }
 
-    const void* iPhysicsBody::getUserData() const
+    std::any iPhysicsBody::getUserData() const
     {
         return _userData;
     }

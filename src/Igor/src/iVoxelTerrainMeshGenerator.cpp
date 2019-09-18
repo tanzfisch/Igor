@@ -6,7 +6,6 @@
 #include <iNodeMesh.h>
 #include <iNodeLODSwitch.h>
 #include <iModel.h>
-#include <iaMemBlock.h>
 #include <iMeshBuilder.h>
 #include <iMaterialResourceFactory.h>
 #include <iTextureResourceFactory.h>

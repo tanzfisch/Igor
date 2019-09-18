@@ -122,8 +122,6 @@ private:
 
     iDialogMenuPtr _dialogMenu = nullptr;
 
-    std::vector<uint64*> _userData;
-
     void clearGraph();
 
     iaString getIconTexture(iNodeType type);

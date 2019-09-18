@@ -28,7 +28,6 @@
 #include <ompfDefines.h>
 
 #include <iaSerializable.h>
-#include <iaMemBlock.h>
 #include <iaString.h>
 using namespace IgorAux;
 

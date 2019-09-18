@@ -410,34 +410,48 @@ void Ascent::onGenerateVoxelData(iVoxelBlockInfo* voxelBlockInfo)
 
 void Ascent::onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1)
 {
-    if (body0 != nullptr && body1 != nullptr)
+    if (body0 == nullptr || body1 == nullptr)
     {
-        if (body0->getUserData() != nullptr)
-        {
-            uint64 id0 = reinterpret_cast<uint64>(body0->getUserData());
-            _hitListMutex.lock();
-            _hitList.push_back(std::pair<uint64, uint64>(id0, 0));
-            _hitListMutex.unlock();
-
-        }
-        else if (body1->getUserData() != nullptr)
-        {
-            uint64 id1 = reinterpret_cast<uint64>(body1->getUserData());
-            _hitListMutex.lock();
-            _hitList.push_back(std::pair<uint64, uint64>(id1, 0));
-            _hitListMutex.unlock();
-        }
+        return;
     }
+
+    std::any userData0 = body0->getUserData();
+    std::any userData1 = body1->getUserData();
+
+    if (userData0.has_value())
+    {
+        uint64 id0 = std::any_cast<uint64>(userData0);
+        _hitListMutex.lock();
+        _hitList.push_back(std::pair<uint64, uint64>(id0, 0));
+        _hitListMutex.unlock();
+
+    }
+    else if (userData1.has_value())
+    {
+        uint64 id1 = std::any_cast<uint64>(userData1);
+        _hitListMutex.lock();
+        _hitList.push_back(std::pair<uint64, uint64>(id1, 0));
+        _hitListMutex.unlock();
+    }
+
 }
 
 void Ascent::onContact(iPhysicsBody* body0, iPhysicsBody* body1)
 {
-    if (body0 != nullptr && body1 != nullptr &&
-        body0->getUserData() != nullptr &&
-        body1->getUserData() != nullptr)
+    if (body0 == nullptr || body1 == nullptr)
     {
-        uint64 id0 = reinterpret_cast<uint64>(body0->getUserData());
-        uint64 id1 = reinterpret_cast<uint64>(body1->getUserData());
+        return;
+    }
+
+    std::any userData0 = body0->getUserData();
+    std::any userData1 = body1->getUserData();
+
+    
+    if (userData0.has_value() &&
+        userData1.has_value())
+    {
+        uint64 id0 = std::any_cast<uint64>(userData0);
+        uint64 id1 = std::any_cast<uint64>(userData1);
         _hitListMutex.lock();
         _hitList.push_back(std::pair<uint64, uint64>(id0, id1));
         _hitList.push_back(std::pair<uint64, uint64>(id1, id0));
@@ -451,7 +465,7 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
     diff = voxelBlockPropsInfo._max;
     diff -= voxelBlockPropsInfo._min;
 
-	iaVector3d offset = voxelBlockPropsInfo._min.convert<float64>();
+    iaVector3d offset = voxelBlockPropsInfo._min.convert<float64>();
     iaVector3d pos;
     int count = 0;
 
@@ -740,7 +754,7 @@ bool Ascent::getTerrainIntersectionPoint(iaVector3I& intersection)
         {
             iaVector3I f(static_cast<int64>(from._x + 0.5), static_cast<int64>(from._y + 0.5), static_cast<int64>(from._z + 0.5));
             iaVector3I t(static_cast<int64>(to._x + 0.5), static_cast<int64>(to._y + 0.5), static_cast<int64>(to._z + 0.5));
-            
+
             iaVector3I inside;
 
             _voxelTerrain->castRay(f, t, intersection, inside);

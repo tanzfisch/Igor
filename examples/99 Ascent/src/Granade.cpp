@@ -52,7 +52,7 @@ Granade::Granade(iScene* scene, const iaMatrixd& matrix, Fraction fraction)
     physicsNode->finalizeCollision();
     physicsNode->setMass(0.1);
     physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Granade::onApplyForceAndTorque));
-    physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
+    physicsNode->setUserData(getID());
     physicsNode->setMaterial(Ascent::_bulletMaterialID);
 
     _scene->getRoot()->insertNode(transformNode);
@@ -128,16 +128,5 @@ void Granade::calcDamage(float32& shield, float32& health)
 
 void Granade::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep)
 {
-    float32 Ixx;
-    float32 Iyy;
-    float32 Izz;
-    float32 mass;
-    iaVector3d force = _force;
-
- //   iPhysics::getInstance().getMassMatrix(static_cast<void*>(body->getNewtonBody()), mass, Ixx, Iyy, Izz);
-    //force += iaVector3f(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
-
-    body->setForce(force);
-
-  //  _force *= 0.98;
+    body->setForce(_force);
 }

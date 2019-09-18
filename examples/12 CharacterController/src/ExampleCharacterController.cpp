@@ -476,7 +476,7 @@ void ExampleCharacterController::onApplyForceAndTorqueBox(iPhysicsBody* body, fl
     float64 mass;
     iaVector3d force;
 
-    iPhysics::getInstance().getMassMatrix(static_cast<void*>(body->getNewtonBody()), mass, Ixx, Iyy, Izz);
+    iPhysics::getInstance().getMassMatrix(body->getNewtonBody(), mass, Ixx, Iyy, Izz);
     force.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
 
     body->setForce(force);

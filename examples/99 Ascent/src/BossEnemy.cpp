@@ -51,7 +51,7 @@ BossEnemy::BossEnemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMatrixd
     physicsNode->finalizeCollision();
     physicsNode->setMass(0);
     physicsNode->setMaterial(Ascent::_entityMaterialID);
-    physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
+    physicsNode->setUserData(getID());
 
     _scene->getRoot()->insertNode(transformNode);
     transformNode->insertNode(bodyTransform);
