@@ -5,11 +5,10 @@
 #include "PlantMeshGenerator.h"
 
 #include <iLSystem.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iNodeMesh.h>
 #include <iNodeLODSwitch.h>
 #include <iModel.h>
-#include <iaMemBlock.h>
 #include <iMaterialResourceFactory.h>
 #include <iTextureResourceFactory.h>
 #include <iTargetMaterial.h>
@@ -39,7 +38,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString& sectionName, iModelDataI
     _segmentLength = plantInformation->_segmentLenght;
     _segmentAngle = plantInformation->_segmentAngle;
 
-    iNodePtr result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
+    iNodePtr result = iNodeManager::getInstance().createNode<iNode>();
 
     _rand.setSeed(plantInformation->_seed);
     iaString sentence = lSystem->generate(plantInformation->_axiom, plantInformation->_iterations, _rand.getNext());
@@ -51,7 +50,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString& sectionName, iModelDataI
 
     if (meshTrunk != nullptr)
     {
-        iNodeMesh* meshNodeTrunk = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+        iNodeMesh* meshNodeTrunk = iNodeManager::getInstance().createNode<iNodeMesh>();
         meshNodeTrunk->setMesh(meshTrunk);
         meshNodeTrunk->setMaterial(plantInformation->_materialID);
 
@@ -69,7 +68,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString& sectionName, iModelDataI
 
     if (meshFlowers != nullptr)
     {
-        iNodeMesh* meshNodeFlowers = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+        iNodeMesh* meshNodeFlowers = iNodeManager::getInstance().createNode<iNodeMesh>();
         meshNodeFlowers->setMesh(meshFlowers);
         meshNodeFlowers->setMaterial(plantInformation->_materialID);
 
@@ -87,7 +86,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString& sectionName, iModelDataI
 
     if (meshBuds != nullptr)
     {
-        iNodeMesh* meshNodeBuds = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+        iNodeMesh* meshNodeBuds = iNodeManager::getInstance().createNode<iNodeMesh>();
         meshNodeBuds->setMesh(meshBuds);
         meshNodeBuds->setMaterial(plantInformation->_materialID);
 
@@ -106,7 +105,7 @@ iNodePtr PlantMeshGenerator::importData(const iaString& sectionName, iModelDataI
 
     if (meshLeafs != nullptr)
     {
-        iNodeMesh* meshNodeLeafs = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+        iNodeMesh* meshNodeLeafs = iNodeManager::getInstance().createNode<iNodeMesh>();
         meshNodeLeafs->setMesh(meshLeafs);
         meshNodeLeafs->setMaterial(plantInformation->_materialID);
 
@@ -141,7 +140,8 @@ void PlantMeshGenerator::generateMesh(iJoint* joint)
             _modelMatrix *= matrixRotate;
 
             // generate actual mesh now
-            generateMesh(static_cast<SectionType>(reinterpret_cast<int>(bone->getCustomData())), dir);
+            std::any userData = bone->getCustomData();
+            generateMesh(std::any_cast<SectionType>(userData), dir);
 
             _modelMatrix.translate(dir);
 
@@ -367,7 +367,7 @@ void PlantMeshGenerator::generateSkeleton(const iaString& sentence)
             iBone* bone = _skeleton.getLastBone();
             if (bone != nullptr)
             {
-                bone->setCustomData((void*)(int)SectionType::Trunk);
+                bone->setCustomData(SectionType::Trunk);
             }
 
             rotationMatrix.identity();
@@ -380,7 +380,7 @@ void PlantMeshGenerator::generateSkeleton(const iaString& sentence)
             iBone* bone = _skeleton.getLastBone();
             if (bone != nullptr)
             {
-                bone->setCustomData((void*)(int)SectionType::Branch);
+                bone->setCustomData(SectionType::Branch);
             }
 
             rotationMatrix.identity();
@@ -393,7 +393,7 @@ void PlantMeshGenerator::generateSkeleton(const iaString& sentence)
             if (bone != nullptr)
             {
                 bone->setLenght(0);
-                bone->setCustomData((void*)(int)SectionType::Bud);
+                bone->setCustomData(SectionType::Bud);
             }
         }
         break;
@@ -404,7 +404,7 @@ void PlantMeshGenerator::generateSkeleton(const iaString& sentence)
             if (bone != nullptr)
             {
                 bone->setLenght(0);
-                bone->setCustomData((void*)(int)SectionType::Flower);
+                bone->setCustomData(SectionType::Flower);
             }
         }
         break;
@@ -415,7 +415,7 @@ void PlantMeshGenerator::generateSkeleton(const iaString& sentence)
             if (bone != nullptr)
             {
                 bone->setLenght(0);
-                bone->setCustomData((void*)(int)SectionType::Leaf);
+                bone->setCustomData(SectionType::Leaf);
             }
         }
         break;

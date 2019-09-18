@@ -14,73 +14,69 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iWidgetLabel::iWidgetLabel()
-    {
-        _configuredHeight = 0;
-        _configuredWidth = 0;
-        _reactOnMouseWheel = false;
+	iWidgetLabel::iWidgetLabel(iWidgetPtr parent)
+		: iWidget(parent)
+	{
+		_configuredHeight = 0;
+		_configuredWidth = 0;
+		_reactOnMouseWheel = false;
 
-        setHorizontalAlignment(iHorizontalAlignment::Center);
-        setVerticalAlignment(iVerticalAlignment::Center);
-    }
+		setHorizontalAlignment(iHorizontalAlignment::Center);
+		setVerticalAlignment(iVerticalAlignment::Center);
+	}
 
-    iWidget* iWidgetLabel::createInstance()
-    {
-        return new iWidgetLabel();
-    }
+	void iWidgetLabel::calcMinSize()
+	{
+		int32 minWidth = 0;
+		int32 minHeight = 0;
 
-    void iWidgetLabel::calcMinSize()
-    {
-        int32 minWidth = 0;
-        int32 minHeight = 0;
+		if (isGrowingByContent())
+		{
+			float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
 
-        if (isGrowingByContent())
-        {
-            float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
+			if (_maxTextWidth == 0)
+			{
+				int32 textWidth = (int32)iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize);
+				minWidth = textWidth;
+				minHeight = static_cast<int32>(fontSize);
+			}
+			else
+			{
+				int32 textHeight = (int32)iWidgetManager::getInstance().getTheme()->getFont()->measureHeight(_text, fontSize, (float32)_maxTextWidth);
+				minHeight = textHeight;
+				minWidth = _maxTextWidth;
+			}
+		}
 
-            if (_maxTextWidth == 0)
-            {
-                int32 textWidth = (int32)iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize);
-                minWidth = textWidth;
-                minHeight = static_cast<int32>(fontSize);
-            }
-            else
-            {
-                int32 textHeight = (int32)iWidgetManager::getInstance().getTheme()->getFont()->measureHeight(_text, fontSize, (float32)_maxTextWidth);
-                minHeight = textHeight;
-                minWidth = _maxTextWidth;
-            }
-        }
+		setMinSize(minWidth, minHeight);
+	}
 
-        setMinSize(minWidth, minHeight);
-    }
+	void iWidgetLabel::draw()
+	{
+		if (isVisible())
+		{
+			iWidgetManager::getInstance().getTheme()->drawLabel(getActualRect(), _text, _maxTextWidth, getAppearanceState(), isActive());
+		}
+	}
 
-    void iWidgetLabel::draw()
-    {
-        if (isVisible())
-        {
-            iWidgetManager::getInstance().getTheme()->drawLabel(getActualRect(), _text, _maxTextWidth, getAppearanceState(), isActive());
-        }
-    }
+	const iaString& iWidgetLabel::getText() const
+	{
+		return _text;
+	}
 
-    const iaString& iWidgetLabel::getText() const
-    {
-        return _text;
-    }
+	void iWidgetLabel::setMaxTextWidth(int32 width)
+	{
+		_maxTextWidth = width;
+	}
 
-    void iWidgetLabel::setMaxTextWidth(int32 width)
-    {
-        _maxTextWidth = width;
-    }
+	int32 iWidgetLabel::getMaxTextWidth()
+	{
+		return _maxTextWidth;
+	}
 
-    int32 iWidgetLabel::getMaxTextWidth()
-    {
-        return _maxTextWidth;
-    }
-
-    void iWidgetLabel::setText(const iaString& text)
-    {
-        _text = text;
-    }
+	void iWidgetLabel::setText(const iaString& text)
+	{
+		_text = text;
+	}
 
 }

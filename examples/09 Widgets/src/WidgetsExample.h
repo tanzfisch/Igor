@@ -33,9 +33,12 @@
 #include <iWindow.h>
 #include <iView.h>
 #include <iDialog.h>
+#include <iDialogColorChooser.h>
+#include <iDialogColorGradient.h>
 #include <iMaterial.h>
 #include <iProfilerVisualizer.h>
 #include <iTexture.h>
+#include <iDialogMessageBox.h>
 using namespace Igor;
 
 #include <iaGradient.h>
@@ -46,12 +49,9 @@ namespace Igor
 {
     class iTextureFont;
 	class iWidgetDefaultTheme;
-    class iDialogMessageBox;
     class iWidgetLabel;
-    class iDialogColorChooser;
     class iWidgetColor;
     class iWidgetColorGradient;
-    class iDialogColorGradient;
 }
 
 /*! this example shows how to use Igor Widgets
@@ -101,7 +101,7 @@ private:
 
     /*! the main dialog
     */
-	iDialog* _dialog = nullptr;
+	iDialogPtr _dialog = nullptr;
 
     /*! mouse position label
     */
@@ -113,11 +113,11 @@ private:
 
     /*! color chooser dialog
     */
-    iDialogColorChooser* _colorChooserDialog = nullptr;
+    iDialogColorChooserPtr _colorChooserDialog = nullptr;
 
     /*! color gradient editor dialog
     */
-    iDialogColorGradient* _colorGradientDialog = nullptr;
+    iDialogColorGradientPtr _colorGradientDialog = nullptr;
 
     /*! color view to display the color selected in color chooser
     */
@@ -131,6 +131,12 @@ private:
     */
     iTexturePtr _igorLogo = nullptr;
 
+    /*! triggered when main dialog got closed
+
+    \param dialog source of the event
+    */
+    void WidgetsExample::onCloseDialog(iDialogPtr dialog);
+
     /*! render function
     */
     void onRender();
@@ -143,45 +149,47 @@ private:
     */
     void initGUI();
 
-    /*! deinitializes GUI
-    */
-    void deinitGUI();
-
     /*! triggered by exit button. will shut down application
 
     \param source the source widget of this event
     */
-    void onExitClick(iWidget* source);
+    void onExitClick(iWidgetPtr source);
+
+	/*! triggered by closing the message box
+
+	\param dialog the dialog that was closed
+	*/
+	void onCloseMessageBox(iDialogPtr dialog);
 
     /*! triggered by message box button. will open message box
 
     \param source the source widget of this event
     */
-    void onOpenMessageBox(iWidget* source);
+    void onOpenMessageBox(iWidgetPtr source);
 
     /*! triggered by open color chooser button
 
     \param source the source widget
     */
-    void onOpenColorChooser(iWidget* source);
+    void onOpenColorChooser(iWidgetPtr source);
 
     /*! triggered by cllicking on color gradient
     */
-    void onOpenColorGradientEditor(iWidget* source);
+    void onOpenColorGradientEditor(iWidgetPtr source);
 
     /*! triggered when closing color chooser dialog
 
     \param ok if true value ok, if false dialog was canceled
     \param color the resulting color
     */
-    void onCloseColorChooser(bool ok, const iaColor4f& color);
+    void onCloseColorChooser(iDialogPtr dialog);
 
     /*! triggered when color gradient editor was closed
 
     \param ok if true the ok button was closing the dialog
     \param gradient the resulting gradient
     */
-    void onCloseColorGradient(bool ok, const iaGradientColor4f& gradient);
+    void onCloseColorGradient(iDialogPtr dialog);
 
     /*! triggered by mouse move event
 

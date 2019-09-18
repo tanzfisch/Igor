@@ -41,9 +41,6 @@ namespace Igor
 {
 	
     /*! default widget theme
-
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
     */
 	class Igor_API iWidgetDefaultTheme : public iWidgetBaseTheme
 	{

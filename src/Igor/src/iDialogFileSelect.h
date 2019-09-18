@@ -31,229 +31,165 @@
 
 #include <iDialog.h>
 
-#include <iaEvent.h>
 #include <iaString.h>
 using namespace IgorAux;
 
 namespace Igor
 {
 
-    class iWidgetButton;
-    class iWidgetGrid;
-    class iWidgetLabel;
-    class iWidget;
-    class iDialog;
-    class iWidgetSpacer;
-    class iWidgetTextEdit;
-    class iWidgetScroll;
+	class iWidgetGrid;
+	class iWidgetLabel;
+	class iWidget;
+	class iDialog;
+	class iWidgetSpacer;
+	class iWidgetTextEdit;
+	class iWidgetScroll;
 
-    /*! file dialog return value
-    */
-    enum class iFileDialogReturnValue
-    {
-        Ok,
-        Cancel,
-        Error
-    };
+	/*! file dialog porpose definition
+	*/
+	enum class iFileDialogPurpose
+	{
+		Load,
+        Save
+	};
 
-    /*! event triggered after file dialog was closed
-    */
-    iaEVENT(iDialogFileSelectCloseEvent, iDialogFileSelectCloseDelegate, void, (iFileDialogReturnValue value), (value));
+	/*! file select dialog
 
-    /*! file select dialog
+	\todo need some sort of UserDialogBaseClass with some convinient methods
+	*/
+	class Igor_API iDialogFileSelect : public iDialog
+	{
 
-    \todo need some sort of UserDialogBaseClass with some convinient methods
-    */
-    class Igor_API iDialogFileSelect : public iDialog
-    {
+	public:
 
-        friend class iWidgetManager;
-
-    public:
-
-        /*! opens dialog in load mode
-
-        \param closeDelegate delegate called after dialog was closed
-        \param path the path to start with
-        */
-        void load(iDialogFileSelectCloseDelegate closeDelegate, const iaString& path = "");
-
-        /*! opens dialog in save mode
-
-        \param closeDelegate delegate called after dialog was closed
-        \param path the file path to start with
-        */
-        void save(iDialogFileSelectCloseDelegate closeDelegate, const iaString& path = "");
-
-        /*! \returns full path currently selected by dialog
-        */
-        iaString getFullPath();
-
-        /*! \returns directory currently selected by dialog
-        */
-        const iaString& getDirectory() const;
-        
-        /*! \returns filename currently selected by dialog
-        */
-        const iaString& getFilename() const;
-
-        /*! \returns return state of dialog after it was closed
-        */
-        iFileDialogReturnValue getReturnState();
-
-    private:
-
-        /*! current directory in dialog
-        */
-        iaString _directory;
-
-        /*! current filename in dialog
-        */
-        iaString _filename;
-
-        /*! if true dialog is in load mode; if false it is in save mode
-        */
-        bool _load = false;
-
-        /*! file dialog close event
-        */
-        iDialogFileSelectCloseEvent _fileDialogCloseEvent;
-
-        /*! file dialog return value
-        */
-        iFileDialogReturnValue _fileDialogReturnValue = iFileDialogReturnValue::Error;
-
-        /*! ok button widget
-        */
-        iWidgetButton* _okButton = nullptr;
-
-        /*! cancel button widget
-        */
-        iWidgetButton* _cancelButton = nullptr;
-
-        /*! scroll widget for file and folder grid
-        */
-        iWidgetScroll* _scroll = nullptr;
-
-        /*! over all grid
-        */
-        iWidgetGrid* _grid = nullptr;
-
-        /*! file and folder grid
-        */
-        iWidgetGrid* _fileGrid = nullptr;
-
-        /*! header label
-        */
-        iWidgetLabel* _headerLabel = nullptr;
-
-		/*! filename label
+		/*! does nothing
 		*/
-		iWidgetLabel* _filenameLabel = nullptr;
+		iDialogFileSelect() = default;
 
-        /*! path edit text field
+		/*! deinitializes gui elements
+		*/
+		~iDialogFileSelect() = default;
+
+		/*! opens dialog in load mode
+
+		\param closeDelegate delegate called after dialog was closed
+		\param path the path to start with
+		*/
+        void open(iDialogCloseDelegate dialogCloseDelegate, iFileDialogPurpose purpose = iFileDialogPurpose::Load, const iaString& path = "");
+
+		/*! \returns full path currently selected by dialog
+		*/
+		iaString getFullPath();
+
+		/*! \returns directory currently selected by dialog
+		*/
+		const iaString& getDirectory() const;
+
+		/*! \returns filename currently selected by dialog
+		*/
+		const iaString& getFilename() const;
+
+        /*! \returns the purpose with which this dialog was opened
         */
-        iWidgetTextEdit* _pathEdit = nullptr;
+        iFileDialogPurpose getPurpose() const;
+
+	private:
+
+		/*! current directory in dialog
+		*/
+		iaString _directory;
+
+		/*! current filename in dialog
+		*/
+		iaString _filename;
+
+		/*! the purpose of this file dialog
+		*/
+        iFileDialogPurpose _purpose = iFileDialogPurpose::Load;
+		
+		/*! scroll widget for file and folder grid
+		*/
+		iWidgetScroll* _scroll = nullptr;
+
+		/*! file and folder grid
+		*/
+		iWidgetGrid* _fileGrid = nullptr;
+
+		/*! path edit text field
+		*/
+		iWidgetTextEdit* _pathEdit = nullptr;
 
 		/*! file name text field
 		*/
 		iWidgetTextEdit* _filenameEdit = nullptr;
 
-        /*! buttion grid
-        */
-        iWidgetGrid* _buttonGrid = nullptr;
+		/*! handles ok button click
 
-		/*! filename grid
+		\param source source widget of event
 		*/
-		iWidgetGrid* _filenameGrid = nullptr;
+		void onOK(iWidgetPtr source);
 
-        /*! list of widgets in file grid
-        */
-        std::vector<iWidget*> _fileGridWidgets;
+		/*! handles cancel button click
 
-        /*! handles ok button click
+		\param source source widget of event
+		*/
+		void onCancel(iWidgetPtr source);
 
-        \param source source widget of event
-        */
-        void onOK(iWidget* source);
+		/*! handles double click in file grid
 
-        /*! handles cancel button click
+		\param source source widget of event
+		*/
+		void onDoubleClick(iWidgetPtr source);
 
-        \param source source widget of event
-        */
-        void onCancel(iWidget* source);
+		/*! handles path edit change
 
-        /*! handles double click in file grid
-
-        \param source source widget of event
-        */
-        void onDoubleClick(iWidget* source);
-
-        /*! handles path edit change
-
-        \param source source widget of event
-        */
-        void onPathEditChange(iWidget* source);
+		\param source source widget of event
+		*/
+		void onPathEditChange(iWidgetPtr source);
 
 		/*! handles filename edit change
 
 		\param source source widget of event
 		*/
-		void onFilenameEditChange(iWidget* source);
+		void onFilenameEditChange(iWidgetPtr source);
 
-        /*! initializes directory and file name
-        */
-        void updateFileDir();
-
-        /*! clears fiel grid
-        */
-        void clearFileGrid();
-
-        /*! add entry to file grid
-
-        \param col collumn in grid
-        \param row row in grid
-        \param path full path of entry
-        \param displayName representive name of entry
-        \param isFolder if true it is a folder; if fals it is a file
-        */
-        void addToFileGrid(int32 col, int32 row, const iaString& path, iaString displayName, bool isFolder);
-
-        /*! closes the dialog
-        */
-        void close();
-
-        /*! initialized widgets
-        */
-        void initGUI();
-
-        /*! deinitializes widgets
-        */
-        void deinitGUI();
-
-        /*! updates file grid entries
-        */
-        void updateFileGrid();
-
-		/*! configures dialog with given path
-
-		\param path the path to start with
+		/*! initializes directory and file name
 		*/
-		void configure(const iaString& path);
+		void updateFileDir();
 
-        /*! does nothing
-        */
-        iDialogFileSelect() = default;
+		/*! clears fiel grid
+		*/
+		void clearFileGrid();
 
-        /*! deinitializes gui elements
-        */
-        ~iDialogFileSelect();
+		/*! add entry to file grid
 
-        /*! creates instance of this widget type
-        */
-        static iDialog* createInstance();
+		\param col collumn in grid
+		\param row row in grid
+		\param path full path of entry
+		\param displayName representive name of entry
+		\param isFolder if true it is a folder; if fals it is a file
+		*/
+		void addToFileGrid(int32 col, int32 row, const iaString& path, iaString displayName, bool isFolder);
 
-    };
+		/*! closes the dialog
+		*/
+		void close();
+
+		/*! initialized widgets
+
+        \param path the path to start with
+		*/
+		void initGUI(const iaString& path);
+
+		/*! updates file grid entries
+		*/
+		void updateFileGrid();
+
+	};
+
+    /*! dialog file select pointer definition
+    */
+    typedef iDialogFileSelect* iDialogFileSelectPtr;
 
 }
 

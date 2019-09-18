@@ -18,57 +18,59 @@
 namespace Igor
 {
 
-    iUserControlFileChooser::iUserControlFileChooser()
-    {
-        initGUI();
-    }
+	iUserControlFileChooser::iUserControlFileChooser()
+	{
+		initGUI();
+	}
 
-    iUserControlFileChooser::~iUserControlFileChooser()
-    {
-        deinitGUI();
-    }
+	iUserControlFileChooser::~iUserControlFileChooser()
+	{
+		deinitGUI();
+	}
 
-    iWidget* iUserControlFileChooser::createInstance()
-    {
-        return new iUserControlFileChooser();
-    }
+	void iUserControlFileChooser::setOptimizePath(bool optimizePath)
+	{
+		_optimizePath = optimizePath;
+	}
 
-    void iUserControlFileChooser::setOptimizePath(bool optimizePath)
-    {
-        _optimizePath = optimizePath;
-    }
+	bool iUserControlFileChooser::getOptimizePath() const
+	{
+		return _optimizePath;
+	}
 
-    bool iUserControlFileChooser::getOptimizePath() const
-    {
-        return _optimizePath;
-    }
+	void iUserControlFileChooser::setPreselectedPath(const iaString& path)
+	{
+		_preselectedPath = path;
+	}
 
-    void iUserControlFileChooser::setPreselectedPath(const iaString& path)
-    {
-        _preselectedPath = path;
-    }
-
-    const iaString& iUserControlFileChooser::getPreselectedPath() const
-    {
-        return _preselectedPath;
-    }
+	const iaString& iUserControlFileChooser::getPreselectedPath() const
+	{
+		return _preselectedPath;
+	}
 
 	__IGOR_DISABLE_WARNING__(4100)
-    void iUserControlFileChooser::onTextChanged(iWidget* source)
-    {
-        _fileNameChanged(_grid);
-    }
-
-    void iUserControlFileChooser::onFileSelectButtonPressed(iWidget* source)
-    {
-        _fileDialog->load(iDialogFileSelectCloseDelegate(this, &iUserControlFileChooser::onFileLoadDialogClosed), _preselectedPath);
-    }
-
-	void iUserControlFileChooser::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
+		void iUserControlFileChooser::onTextChanged(iWidgetPtr source)
 	{
-		if (_fileDialog->getReturnState() == iFileDialogReturnValue::Ok)
+		_fileNameChanged(_fileNameTextEdit);
+	}
+
+	void iUserControlFileChooser::onFileSelectButtonPressed(iWidgetPtr source)
+	{
+		if (_fileDialog == nullptr)
 		{
-			iaString filename = _fileDialog->getFullPath();
+			_fileDialog = new iDialogFileSelect();
+		}
+
+		_fileDialog->open(iDialogCloseDelegate(this, &iUserControlFileChooser::onFileLoadDialogClosed), iFileDialogPurpose::Load, _preselectedPath);
+	}
+
+    void iUserControlFileChooser::onFileLoadDialogClosed(iDialogPtr dialog)
+	{
+        iDialogFileSelect* fileDialog = static_cast<iDialogFileSelect*>(dialog);
+
+		if (fileDialog->getReturnState() == iDialogReturnState::Ok)
+		{
+			iaString filename = fileDialog->getFullPath();
 
 			if (_optimizePath)
 			{
@@ -83,75 +85,61 @@ namespace Igor
 	}
 	__IGOR_ENABLE_WARNING__(4100)
 
-    void iUserControlFileChooser::initGUI()
-    {
-        _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-        _allWidgets.push_back(_grid);
-        _grid->appendCollumns(1);
-        _grid->setStrechColumn(0);
-        _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-        _grid->setVerticalAlignment(iVerticalAlignment::Top);
+	void iUserControlFileChooser::initGUI()
+	{
+		iWidgetGridPtr grid = new iWidgetGrid(this);
+		grid->appendCollumns(1);
+		grid->setStrechColumn(0);
+		grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+		grid->setVerticalAlignment(iVerticalAlignment::Top);
 
-        _fileNameTextEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
-        _allWidgets.push_back(_fileNameTextEdit);
-        _fileNameTextEdit->setMaxTextLength(256);
-        _fileNameTextEdit->setWidth(180); // todo why does strech not work here?
-        _fileNameTextEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
-        _fileNameTextEdit->registerOnChangeEvent(iChangeDelegate(this, &iUserControlFileChooser::onTextChanged));
+		_fileNameTextEdit = new iWidgetTextEdit();
+		_fileNameTextEdit->setMaxTextLength(256);
+		_fileNameTextEdit->setWidth(180); // todo why does strech not work here?
+		_fileNameTextEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
+		_fileNameTextEdit->registerOnChangeEvent(iChangeDelegate(this, &iUserControlFileChooser::onTextChanged));
 
-        _fileSelectButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-        _allWidgets.push_back(_fileSelectButton);
-        _fileSelectButton->setText("...");
-		_fileSelectButton->setTooltip("Browse for file.");
-        _fileSelectButton->setHorizontalAlignment(iHorizontalAlignment::Left);
-        _fileSelectButton->registerOnClickEvent(iClickDelegate(this, &iUserControlFileChooser::onFileSelectButtonPressed));
+		iWidgetButtonPtr fileSelectButton = new iWidgetButton();
+		fileSelectButton->setText("...");
+		fileSelectButton->setTooltip("Browse for file.");
+		fileSelectButton->setHorizontalAlignment(iHorizontalAlignment::Left);
+		fileSelectButton->registerOnClickEvent(iClickDelegate(this, &iUserControlFileChooser::onFileSelectButtonPressed));
 
-        addWidget(_grid);
+		grid->addWidget(_fileNameTextEdit, 0, 0);
+		grid->addWidget(fileSelectButton, 1, 0);		
+	}
 
-        _grid->addWidget(_fileNameTextEdit, 0, 0);
-        _grid->addWidget(_fileSelectButton, 1, 0);
-
-        _fileDialog = static_cast<iDialogFileSelect*>(iWidgetManager::getInstance().createDialog("DialogFileSelect"));
-    }
-
-    void iUserControlFileChooser::deinitGUI()
-    {
-        for (auto widget : _allWidgets)
-        {
-            iWidgetManager::getInstance().destroyWidget(widget);
-        }
-        _allWidgets.clear();
-
-        _grid = nullptr;
+	void iUserControlFileChooser::deinitGUI()
+	{
         _fileNameTextEdit = nullptr;
-        _fileSelectButton = nullptr;
 
-        if (_fileDialog != nullptr)
-        {
-            iWidgetManager::getInstance().destroyDialog(_fileDialog);
-            _fileDialog = nullptr;
-        }
-    }
+		// destroy the file dialog
+		if (_fileDialog != nullptr)
+		{
+			delete _fileDialog;
+			_fileDialog = nullptr;
+		}
+	}
 
-    void iUserControlFileChooser::setFileName(const iaString& filename)
-    {
-        _fileNameTextEdit->setText(filename);
-        _fileNameChanged(_fileNameTextEdit);
-    }
+	void iUserControlFileChooser::setFileName(const iaString& filename)
+	{
+		_fileNameTextEdit->setText(filename);
+		_fileNameChanged(_fileNameTextEdit);
+	}
 
-    const iaString& iUserControlFileChooser::getFileName() const
-    {
-        return _fileNameTextEdit->getText();
-    }
+	const iaString& iUserControlFileChooser::getFileName() const
+	{
+		return _fileNameTextEdit->getText();
+	}
 
-    void iUserControlFileChooser::registerOnChangedDelegate(iChangeDelegate changeDelegate)
-    {
-        _fileNameChanged.append(changeDelegate);
-    }
+	void iUserControlFileChooser::registerOnChangedDelegate(iChangeDelegate changeDelegate)
+	{
+		_fileNameChanged.append(changeDelegate);
+	}
 
-    void iUserControlFileChooser::unregisterOnChangedDelegate(iChangeDelegate changeDelegate)
-    {
-        _fileNameChanged.remove(changeDelegate);
-    }
+	void iUserControlFileChooser::unregisterOnChangedDelegate(iChangeDelegate changeDelegate)
+	{
+		_fileNameChanged.remove(changeDelegate);
+	}
 
 }

@@ -99,9 +99,6 @@ namespace Igor
 
 	/*! Mouse (Singleton)
 
-	Example:
-	\ref Mouse/src/MouseExample.cpp "Mouse usage example"
-
     \todo use ClipCursor to kleep the cursor inside the window
 	*/
 	class Igor_API iMouse : public iOSEventListener, public iaSingleton<iMouse>

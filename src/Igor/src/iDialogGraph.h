@@ -42,31 +42,23 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    class iWidgetGrid;
-    class iWidgetButton;
     class iWidgetGraph;
     class iWidgetLabel;
-
-    /*! event triggered when color chooser was closed
-    */
-    iaEVENT(iDialogGraphCloseEvent, iDialogGraphCloseDelegate, void, (bool ok, const std::vector<std::vector<iaVector2f>>& graphs), (ok, graphs));
 
     /*! the graph edit dialog
     */
     class Igor_API iDialogGraph : public iDialog
     {
 
-        friend class iWidgetManager;
-
     public:
 
-        /*! show/open the decision box
-
-        \param closeDelegate the closing delegate
-        \param color the color to start with
-        \param useAlpha if true also use the alpha channel
+        /*! does nothing
         */
-        void show(iDialogGraphCloseDelegate closeDelegate, const std::vector<std::vector<iaVector2f>>& graphs);
+        iDialogGraph() = default;
+
+        /*! does nothing
+        */
+        ~iDialogGraph() = default;
 
         /*! configures x axis
 
@@ -83,6 +75,16 @@ namespace Igor
         \param yStepping the number chooser stepping for the y axis
         */
         void configureYAxis(float32 yMin, float32 yMax, float32 yStepping);
+
+        /*! show/open the decision box
+
+        call configure before open
+
+        \param dialogCloseDelegate the closing delegate
+        \param color the color to start with
+        \param useAlpha if true also use the alpha channel
+        */
+        void open(iDialogCloseDelegate dialogCloseDelegate, const std::vector<std::vector<iaVector2f>>& graphs);
 
         /*! sets dialog title
 
@@ -111,6 +113,10 @@ namespace Igor
         */
         int32 getAfterPoint() const;
 
+        /*! \returns current configured graphs
+        */ 
+        const std::vector<std::vector<iaVector2f>>& getGraphs() const;
+
     private:
 
         /*! after point digit amount
@@ -128,10 +134,6 @@ namespace Igor
         /*! axis number chooser
         */
         std::map<uint32, iWidgetNumberChooser*> _axisNumberChooser;
-
-        /*! the close event
-        */
-        iDialogGraphCloseEvent _closeEvent;
 
         /*! copy of initialy set graphs
         */
@@ -177,47 +179,43 @@ namespace Igor
         */
         iWidgetGraph* _graph = nullptr;
 
-        /*! root widget
-        */
-        iWidgetGrid* _grid = nullptr;
-        
         /*! all widgets
         */
-        std::vector<iWidget*> _allWidgets;
+        std::vector<iWidgetPtr> _allWidgets;
 
         /*! all data grid entry widgets
         */
-        std::vector<iWidget*> _dataGridEntryWidgets;
+        std::vector<iWidgetPtr> _dataGridEntryWidgets;
 
         /*! handles ok button clicked event
 
         \param source the ok button it self
         */
-        void onOK(iWidget* source);
+        void onOK(iWidgetPtr source);
 
         /*! triggered when value is to delete
 
         \param source the source widget
         */
-        void onDelete(iWidget* source);
+        void onDelete(iWidgetPtr source);
 
         /*! handles cancel button clicked event
 
         \param source the cancel button it self
         */
-        void onCancel(iWidget* source);
+        void onCancel(iWidgetPtr source);
 
         /*! handles reset button click event
 
         \param source the reset button it self
         */
-        void onReset(iWidget* source);
+        void onReset(iWidgetPtr source);
 
         /*! triggered by all the number choosers
 
         \param source the source widget
         */
-        void onValueChanged(iWidget* source);
+        void onValueChanged(iWidgetPtr source);
 
         /*! updates gui by selected value
         */
@@ -237,35 +235,17 @@ namespace Igor
 
         \param source the source widget
         */
-        void onGraphChanged(iWidget* source);
-
-        /*! closes the dialog and sends closed event
-
-        will be triggered by any button
-        */
-        void close();
-
-        /*! deinitializes the gui elements
-        */
-        void deinitGUI();
+        void onGraphChanged(iWidgetPtr source);
 
         /*! initializes gui elements
         */
         void initGUI();
 
-        /*! does nothing
-        */
-        iDialogGraph() = default;
-
-        /*! deinitializes gui
-        */
-        ~iDialogGraph();
-
-        /*! creates instance of this widget type
-        */
-        static iDialog* createInstance();
-
     };
+
+    /*! dialog graph pointer definition
+    */
+    typedef iDialogGraph* iDialogGraphPtr;
 
 }
 

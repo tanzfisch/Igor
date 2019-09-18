@@ -44,7 +44,7 @@ namespace Igor
 		}
 	}
 
-	iRenderStateValue iRenderStateSet::getRenderStateValue(const iRenderState state)
+	iRenderStateValue iRenderStateSet::getRenderState(const iRenderState state) const
 	{
         if (state != iRenderState::RenderStateCount)
         {

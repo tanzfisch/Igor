@@ -20,32 +20,12 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iDialogColorChooser::~iDialogColorChooser()
+    void iDialogColorChooser::open(iDialogCloseDelegate dialogCloseDelegate, const iaColor4f& color, bool useAlpha)
     {
-        deinitGUI();
-    }
+        iDialog::open(dialogCloseDelegate);
 
-    iDialog* iDialogColorChooser::createInstance()
-    {
-        return new iDialogColorChooser();
-    }
-
-    void iDialogColorChooser::show(iColorChooserCloseDelegate closeDelegate, const iaColor4f& color, bool useAlpha)
-    {
         _oldColor = color;
-        _closeEvent.append(closeDelegate);
-        
         initGUI(color, useAlpha);
-    }
-
-    void iDialogColorChooser::deinitGUI()
-    {
-        if (_grid != nullptr)
-        {
-            removeWidget(_grid);
-			iWidgetManager::getInstance().destroyWidget(_grid);
-			_grid = nullptr;
-        }
     }
 
     void iDialogColorChooser::initGUI(const iaColor4f& color, bool useAlpha)
@@ -56,80 +36,76 @@ namespace Igor
         setWidth(20);
         setHeight(20);
 
-        _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-        _grid->appendRows(2);
-        _grid->setHorizontalAlignment(iHorizontalAlignment::Center);
-        _grid->setVerticalAlignment(iVerticalAlignment::Center);
-        _grid->setCellSpacing(4);
-        _grid->setBorder(4);
+        iWidgetGridPtr grid = new iWidgetGrid(this);
+        grid->appendRows(2);
+        grid->setHorizontalAlignment(iHorizontalAlignment::Center);
+        grid->setVerticalAlignment(iVerticalAlignment::Center);
+        grid->setCellSpacing(4);
+        grid->setBorder(4);
 
-        iWidgetLabel* headerLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+        iWidgetLabel* headerLabel = new iWidgetLabel();
         headerLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
         headerLabel->setText("Choose Color");
 
-        _userControlColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("UserControlColorChooser"));
+        _userControlColorChooser = new iUserControlColorChooser();
         _userControlColorChooser->setMode(useAlpha ? iColorChooserMode::RGBA : iColorChooserMode::RGB);
         _userControlColorChooser->setExpand();
         _userControlColorChooser->setHeadlineVisible(false);
         _userControlColorChooser->setColor(color);
 
-        iWidgetGrid* buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+        iWidgetGrid* buttonGrid = new iWidgetGrid();
         buttonGrid->appendCollumns(2);
         buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
 
-        iWidgetButton* okButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+        iWidgetButton* okButton = new iWidgetButton();
         okButton->setText("OK");
-		okButton->setTooltip("Close the dialog and set new color.");
+        okButton->setTooltip("Close the dialog and set new color.");
         okButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onOK));
 
-        iWidgetButton* cancelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+        iWidgetButton* cancelButton = new iWidgetButton();
         cancelButton->setText("Cancel");
-		cancelButton->setTooltip("Close the dialog without changes.");
+        cancelButton->setTooltip("Close the dialog without changes.");
         cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onCancel));
 
-        iWidgetButton* resetButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+        iWidgetButton* resetButton = new iWidgetButton();
         resetButton->setText("Reset");
-		resetButton->setTooltip("Resets dialog to previous color.");
+        resetButton->setTooltip("Resets dialog to previous color.");
         resetButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onReset));
 
-        addWidget(_grid);
-
-        _grid->addWidget(headerLabel, 0, 0);
-        _grid->addWidget(_userControlColorChooser, 0, 1);
-        _grid->addWidget(buttonGrid, 0, 2);
+        grid->addWidget(headerLabel, 0, 0);
+        grid->addWidget(_userControlColorChooser, 0, 1);
+        grid->addWidget(buttonGrid, 0, 2);
 
         buttonGrid->addWidget(resetButton, 0, 0);
         buttonGrid->addWidget(cancelButton, 1, 0);
         buttonGrid->addWidget(okButton, 2, 0);
     }
 
-    void iDialogColorChooser::onOK(iWidget* source)
+    const iaColor4f& iDialogColorChooser::getColor() const
     {
-        close();
-        
-        _closeEvent(true, _userControlColorChooser->getColor());
-        _closeEvent.clear();
+        return _userControlColorChooser->getColor();
     }
 
-    void iDialogColorChooser::onCancel(iWidget* source)
+    const iaColor4f& iDialogColorChooser::getResetColor() const
     {
-        close();
-
-        _closeEvent(false, _userControlColorChooser->getColor());
-        _closeEvent.clear();
+        return _oldColor;
     }
 
-    void iDialogColorChooser::onReset(iWidget* source)
+    void iDialogColorChooser::onOK(iWidgetPtr source)
+    {
+        setReturnState(iDialogReturnState::Ok);
+        close();
+    }
+
+    void iDialogColorChooser::onCancel(iWidgetPtr source)
+    {
+        setReturnState(iDialogReturnState::Cancel);
+        close();
+    }
+
+    void iDialogColorChooser::onReset(iWidgetPtr source)
     {
         _userControlColorChooser->setColor(_oldColor);
     }
 
-    void iDialogColorChooser::close()
-    {
-        setActive(false);
-        setVisible(false);
-        iWidgetManager::resetModal();
-
-		deinitGUI();
-    }
 }

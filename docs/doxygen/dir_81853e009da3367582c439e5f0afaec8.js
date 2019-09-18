@@ -34,8 +34,8 @@ var dir_81853e009da3367582c439e5f0afaec8 =
     [ "iaIDGenerator.h", "ia_i_d_generator_8h.html", "ia_i_d_generator_8h" ],
     [ "iaMatrix.h", "ia_matrix_8h.html", "ia_matrix_8h" ],
     [ "iaMatrix.inl", "ia_matrix_8inl.html", "ia_matrix_8inl" ],
-    [ "iaMatrix3x3.h", "ia_matrix3x3_8h.html", "ia_matrix3x3_8h" ],
-    [ "iaMatrix3x3.inl", "ia_matrix3x3_8inl.html", "ia_matrix3x3_8inl" ],
+    [ "iaMatrix2D.h", "ia_matrix2_d_8h.html", "ia_matrix2_d_8h" ],
+    [ "iaMatrix2D.inl", "ia_matrix2_d_8inl.html", "ia_matrix2_d_8inl" ],
     [ "iaMemBlock.cpp", "ia_mem_block_8cpp.html", null ],
     [ "iaMemBlock.h", "ia_mem_block_8h.html", [
       [ "iaMemBlock", "class_igor_aux_1_1ia_mem_block.html", "class_igor_aux_1_1ia_mem_block" ]

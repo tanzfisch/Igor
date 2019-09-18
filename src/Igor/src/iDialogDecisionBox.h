@@ -31,115 +31,18 @@
 
 #include <iDialog.h>
 
-#include <iaEvent.h>
 #include <iaString.h>
 using namespace IgorAux;
 
 namespace Igor
 {
 
-	class iWidgetButton;
-	class iWidgetGrid;
-	class iWidgetLabel;
-	class iWidget;
-	class iWidgetSpacer;
-	class iWidgetCheckBox;
-
-	/*! event triggered when decision box was closed
-	*/
-	iaEVENT(iDecisionBoxCloseEvent, iDecisionBoxCloseDelegate, void, (bool ok, int32 selection), (ok, selection));
-
 	/*! the decision box dialog
 	*/
 	class Igor_API iDialogDecisionBox : public iDialog
 	{
 
-		friend class iWidgetManager;
-
 	public:
-
-		/*! show/open the decision box
-
-		\param message the message
-		\param closeDelegate delegate to handle the close desicion box event
-		\param radioButtonTexts besides the message you can add a selection of radio buttons
-		\param preSelection optional preselection of radio buttons
-		*/
-		void show(const iaString& message, iDecisionBoxCloseDelegate closeDelegate, std::initializer_list<iaString> radioButtonTexts, int32 preSelection = -1);
-
-	private:
-
-		/*! the close event
-		*/
-		iDecisionBoxCloseEvent _decisionBoxCloseEvent;
-
-		/*! the selesction made by the user
-		*/
-		int32 _selection = -1;
-
-		/*! the ok button
-		*/
-		iWidgetButton* _okButton = nullptr;
-
-		/*! the cancel button
-		*/
-		iWidgetButton* _cancelButton = nullptr;
-
-		/*! a spacer line
-		*/
-		iWidgetSpacer* _spacerLineTop = nullptr;
-
-		/*! a spacer line
-		*/
-		iWidgetSpacer* _spacerLineBottom = nullptr;
-
-		/*! an other spacer
-		*/
-		iWidgetSpacer* _spacerLittle = nullptr;
-
-		/*! over all grid
-		*/
-		iWidgetGrid* _grid = nullptr;
-
-		/*! grid for the buttons
-		*/
-		iWidgetGrid* _buttonGrid = nullptr;
-
-		/*! grid for radio buttons
-		*/
-		iWidgetGrid* _radioGrid = nullptr;
-
-		/*! label for the message text
-		*/
-		iWidgetLabel* _messageLabel = nullptr;
-
-		std::vector<iWidgetCheckBox*> _radioButtons;
-
-		/*! handles ok button clicked event
-
-		\param source the ok button it self
-		*/
-		void onOK(iWidget* source);
-
-		/*! handles cancel button clicked event
-
-		\param source the cancel button it self
-		*/
-		void onCancel(iWidget* source);
-
-		/*! closes the dialog and sends closed event
-
-		will be triggered by any button
-		*/
-		void close();
-
-		/*! deinitializes the gui elements
-		*/
-		void deinitGUI();
-
-		/*! initializes the gui elements
-		*/
-		void initGUI(const iaString& message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection);
 
 		/*! does nothing
 		*/
@@ -147,11 +50,44 @@ namespace Igor
 
 		/*! deinitializes gui
 		*/
-		~iDialogDecisionBox();
+		~iDialogDecisionBox() = default;
 
-		/*! creates instance of this widget type
+		/*! show/open the decision box
+
+        \param dialogCloseDelegate delegate to handle the close desicion box event
+		\param message the message
+		\param radioButtonTexts besides the message you can add a selection of radio buttons
+		\param preSelection optional preselection of radio buttons
 		*/
-		static iDialog* createInstance();
+		void open(iDialogCloseDelegate dialogCloseDelegate, const iaString& message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection = -1);
+
+        /*! \returns selection index
+
+        -1 for no selection
+        */
+        int32 getSelection() const;
+
+	private:
+
+		/*! radio buttons
+		*/
+		std::vector<iWidgetCheckBox*> _radioButtons;
+
+		/*! handles ok button clicked event
+
+		\param source the ok button it self
+		*/
+		void onOK(iWidgetPtr source);
+
+		/*! handles cancel button clicked event
+
+		\param source the cancel button it self
+		*/
+		void onCancel(iWidgetPtr source);
+
+		/*! initializes the gui elements
+		*/
+		void initGUI(const iaString& message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection);
 
 	};
 

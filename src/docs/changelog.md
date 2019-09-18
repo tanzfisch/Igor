@@ -1,11 +1,24 @@
 Changelog                           {#changelog}
 =========
 
+0.24.0
+------
+
+- using std::any for user data instead of void* where possible
+- improved dialog close handling
+- improved node creation interface
+- exposed iRenderStateSet interface in iMaterial to reduce writing effort when using it
+- renamed ModelViewer in to Mica
+
 0.23.0
 ------
 
+- scroll bars are now fully functional
+  ![sprite animation](/images/scrollbars.gif)
+- new interface to create and destroy widgets. Basically we can use new and delete on widgets now but the engine will keep track of them to prevent mem leaks.
+- added colored axis indication to orientation grid in ModelViewer
 - made iaMatrix2D more usefull
-- made SpriteAnimation more pretty (thank you opengameart.org)
+- made SpriteAnimation example more pretty (thank you opengameart.org)
 
 0.22.0
 ------

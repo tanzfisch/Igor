@@ -17,156 +17,111 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iDialogMessageBox::~iDialogMessageBox()
-    {
-        deinitGUI();
-    }
+	void iDialogMessageBox::open(iaString message, iMessageBoxButtons buttons)
+	{
+		iWidgetManager::setModal(this);
+		setActive();
+		setVisible();
+		setWidth(20);
+		setHeight(20);
 
-    iDialog* iDialogMessageBox::createInstance()
-    {
-        return new iDialogMessageBox();
-    }
+		iWidgetGridPtr grid = new iWidgetGrid(this);
+		grid->appendRows(2);
+		grid->setHorizontalAlignment(iHorizontalAlignment::Center);
+		grid->setVerticalAlignment(iVerticalAlignment::Center);
+		grid->setCellSpacing(4);
+		grid->setBorder(4);
 
-    void iDialogMessageBox::deinitGUI()
-    {
-        if (_grid != nullptr)
-        {
-            removeWidget(_grid);
-			iWidgetManager::getInstance().destroyWidget(_grid);
-			_grid = nullptr;
-        }
-    }
+		iWidgetLabelPtr messageLabel = new iWidgetLabel();
+		messageLabel->setText(message);
+		messageLabel->setMaxTextWidth(280);
+		grid->addWidget(messageLabel, 0, 0);
 
-    void iDialogMessageBox::show(iaString message, iDialogMessageBoxCloseDelegate closeDelegate, iMessageBoxButtons buttons)
-    {
-        _messageBoxCloseEvent.append(closeDelegate);
-        deinitGUI();
-        initGUI(message, buttons);
-    }
+		iWidgetSpacerPtr spacerLine = new iWidgetSpacer();
+		spacerLine->setWidth(280);
+		spacerLine->setHeight(1);
+		spacerLine->setVisible(true);
+		grid->addWidget(spacerLine, 0, 1);
 
-    void iDialogMessageBox::show(iaString message, iMessageBoxButtons buttons)
-    {
-        deinitGUI();
-        initGUI(message, buttons);
-    }
+		iWidgetGridPtr buttonGrid = new iWidgetGrid();
+		buttonGrid->appendCollumns(3);
+		buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
+		buttonGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
+		buttonGrid->setCellSpacing(4);
+		grid->addWidget(buttonGrid, 0, 2);
 
-    void iDialogMessageBox::initGUI(iaString message, iMessageBoxButtons buttons)
-    {
-        iWidgetManager::setModal(this);
-        setActive();
-        setVisible();
-        setWidth(20);
-        setHeight(20);
+		int i = 3;
 
-        _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-        _allWidgets.push_back(_grid);
-        _grid->appendRows(2);
-        _grid->setHorizontalAlignment(iHorizontalAlignment::Center);
-        _grid->setVerticalAlignment(iVerticalAlignment::Center);
-        _grid->setCellSpacing(4);
-        _grid->setBorder(4);
-        addWidget(_grid);
+		if (buttons == iMessageBoxButtons::Ok || buttons == iMessageBoxButtons::CancelOk)
+		{
+			iWidgetButtonPtr okButton = new iWidgetButton();
+			okButton->setText("OK");
+			okButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onOK));
+			buttonGrid->addWidget(okButton, i--, 0);
+		}
 
-        _messageLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
-        _allWidgets.push_back(_messageLabel);
-        _messageLabel->setText(message);
-        _messageLabel->setMaxTextWidth(280);
-        _grid->addWidget(_messageLabel, 0, 0);
+		if (buttons == iMessageBoxButtons::CancelOk || buttons == iMessageBoxButtons::YesNoCancel)
+		{
+			iWidgetButtonPtr cancelButton = new iWidgetButton();
+			cancelButton->setText("Cancel");
+			cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onCancel));
+			buttonGrid->addWidget(cancelButton, i--, 0);
 
-        _spacerLine = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
-        _allWidgets.push_back(_spacerLine);
-        _spacerLine->setWidth(280);
-        _spacerLine->setHeight(1);
-        _spacerLine->setVisible(true);
-        _grid->addWidget(_spacerLine, 0, 1);
+			iWidgetSpacerPtr spacerLittle = new iWidgetSpacer();
+			spacerLittle->setWidth(4);
+			spacerLittle->setHeight(1);
+			spacerLittle->setVisible(false);
+			buttonGrid->addWidget(spacerLittle, i--, 0);
+		}
 
-        _buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-        _allWidgets.push_back(_buttonGrid);
-        _buttonGrid->appendCollumns(3);
-        _buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
-        _buttonGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
-        _buttonGrid->setCellSpacing(4);
-        _grid->addWidget(_buttonGrid, 0, 2);
-        
-        int i = 3;
+		if (buttons == iMessageBoxButtons::YesNoCancel || buttons == iMessageBoxButtons::YesNo)
+		{
+			iWidgetButtonPtr noButton = new iWidgetButton();
+			noButton->setText("No");
+			noButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onNo));
+			buttonGrid->addWidget(noButton, i--, 0);
+		}
 
-        if (buttons == iMessageBoxButtons::Ok || buttons == iMessageBoxButtons::CancelOk)
-        {
-            _okButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-            _allWidgets.push_back(_okButton);
-            _okButton->setText("OK");
-            _okButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onOK));
-            _buttonGrid->addWidget(_okButton, i--, 0);
-        }
+		if (buttons == iMessageBoxButtons::YesNoCancel || buttons == iMessageBoxButtons::YesNo)
+		{
+			iWidgetButtonPtr yesButton = new iWidgetButton();
+			yesButton->setText("Yes");
+			yesButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onYes));
+			buttonGrid->addWidget(yesButton, i--, 0);
+		}
+	}
 
-        if (buttons == iMessageBoxButtons::CancelOk || buttons == iMessageBoxButtons::YesNoCancel)
-        {
-            _cancelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-            _allWidgets.push_back(_cancelButton);
-            _cancelButton->setText("Cancel");
-            _cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onCancel));
-            _buttonGrid->addWidget(_cancelButton, i--, 0);
+	void iDialogMessageBox::open(iDialogCloseDelegate dialogCloseDelegate, iaString message, iMessageBoxButtons buttons)
+	{
+		iDialog::open(dialogCloseDelegate);
 
-            _spacerLittle = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
-            _allWidgets.push_back(_spacerLittle);
-            _spacerLittle->setWidth(4);
-            _spacerLittle->setHeight(1);
-            _spacerLittle->setVisible(false);
-            _buttonGrid->addWidget(_spacerLittle, i--, 0);
-        }
-
-        if (buttons == iMessageBoxButtons::YesNoCancel || buttons == iMessageBoxButtons::YesNo)
-        {
-            _noButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-            _allWidgets.push_back(_noButton);
-            _noButton->setText("No");
-            _noButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onNo));
-            _buttonGrid->addWidget(_noButton, i--, 0);
-        }
-
-        if (buttons == iMessageBoxButtons::YesNoCancel || buttons == iMessageBoxButtons::YesNo)
-        {
-            _yesButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-            _allWidgets.push_back(_yesButton);
-            _yesButton->setText("Yes");
-            _yesButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onYes));
-            _buttonGrid->addWidget(_yesButton, i--, 0);
-        }
-    }
+		open(message, buttons);
+	}
 
 	__IGOR_DISABLE_WARNING__(4100)
-    void iDialogMessageBox::onOK(iWidget* source)
-    {
-        _messageBoxReturnValue = iMessageBoxReturnValue::Ok;
-        close();
-    }
+		void iDialogMessageBox::onOK(iWidgetPtr source)
+	{
+		setReturnState(iDialogReturnState::Ok);
+		close();
+	}
 
-    void iDialogMessageBox::onCancel(iWidget* source)
-    {
-        _messageBoxReturnValue = iMessageBoxReturnValue::Cancel;
-        close();
-    }
+	void iDialogMessageBox::onCancel(iWidgetPtr source)
+	{
+        setReturnState(iDialogReturnState::Cancel);
+		close();
+	}
 
-    void iDialogMessageBox::onYes(iWidget* source)
-    {
-        _messageBoxReturnValue = iMessageBoxReturnValue::Yes;
-        close();
-    }
+	void iDialogMessageBox::onYes(iWidgetPtr source)
+	{
+        setReturnState(iDialogReturnState::Yes);
+		close();
+	}
 
-    void iDialogMessageBox::onNo(iWidget* source)
-    {
-        _messageBoxReturnValue = iMessageBoxReturnValue::No;
-        close();
-    }
+	void iDialogMessageBox::onNo(iWidgetPtr source)
+	{
+        setReturnState(iDialogReturnState::No);
+		close();
+	}
 	__IGOR_ENABLE_WARNING__(4100);
 
-    void iDialogMessageBox::close()
-    {
-        setActive(false);
-        setVisible(false);
-        iWidgetManager::resetModal();
-
-        _messageBoxCloseEvent(_messageBoxReturnValue);
-        _messageBoxCloseEvent.clear();
-    }
 }

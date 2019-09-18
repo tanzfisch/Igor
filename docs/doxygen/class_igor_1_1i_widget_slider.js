@@ -1,5 +1,7 @@
 var class_igor_1_1i_widget_slider =
 [
+    [ "iWidgetSlider", "class_igor_1_1i_widget_slider.html#a6dc0289e975a3ae4db06813c97768ba1", null ],
+    [ "~iWidgetSlider", "class_igor_1_1i_widget_slider.html#a9feee53439a744e9452f563201e8f3f1", null ],
     [ "calcMinSize", "class_igor_1_1i_widget_slider.html#a4dc75384eedeafe20ec3a02046350e0c", null ],
     [ "cullBoundings", "class_igor_1_1i_widget_slider.html#a3201b3d488b21a42688135afbc852492", null ],
     [ "decreaseNumber", "class_igor_1_1i_widget_slider.html#af3f667302055cd8b31e638a0c852be43", null ],
@@ -20,7 +22,6 @@ var class_igor_1_1i_widget_slider =
     [ "setSteppingWheel", "class_igor_1_1i_widget_slider.html#ab0e047dc7a991dc62727138981aafad5", null ],
     [ "setTexture", "class_igor_1_1i_widget_slider.html#ae18d051507704ee2d2c8d1f0992c2492", null ],
     [ "setValue", "class_igor_1_1i_widget_slider.html#af4134e7768509c7a4b4bd39eecd2c242", null ],
-    [ "iWidgetManager", "class_igor_1_1i_widget_slider.html#a9da20b1c56a70b01ca0ef56f4d4d47fc", null ],
     [ "_backgroundTexture", "class_igor_1_1i_widget_slider.html#af58ac99cd73df12dffd7d47c8487a6eb", null ],
     [ "_backgroundTexturePath", "class_igor_1_1i_widget_slider.html#a005b0a5acc598bec6d185370a3c1b683", null ],
     [ "_max", "class_igor_1_1i_widget_slider.html#a20b6cbbef04e60a01bc2e9304fd1e849", null ],

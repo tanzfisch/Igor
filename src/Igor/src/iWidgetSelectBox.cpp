@@ -18,7 +18,8 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iWidgetSelectBox::iWidgetSelectBox()
+    iWidgetSelectBox::iWidgetSelectBox(iWidgetPtr parent)
+        : iWidget(parent)
     {
         _reactOnMouseWheel = false;
     }
@@ -27,14 +28,9 @@ namespace Igor
     {
         if (_selectBox != nullptr)
         {
-            iWidgetManager::getInstance().destroyDialog(_selectBox);
+            delete _selectBox;
             _selectBox = nullptr;
         }
-    }
-
-    iWidget* iWidgetSelectBox::createInstance()
-    {
-        return new iWidgetSelectBox();
     }
 
     void iWidgetSelectBox::calcMinSize()
@@ -71,7 +67,7 @@ namespace Igor
             return false;
         }
 
-        if (_mouseOverButton)
+        if (_mouseOver)
         {
             _buttonAppearanceState = iWidgetAppearanceState::Pressed;
         }
@@ -88,20 +84,18 @@ namespace Igor
 
         iWidget::handleMouseMove(pos);
 
-        int32 mx = pos._x - getActualPosX();
-        int32 my = pos._y - getActualPosY();
+        int32 mx = pos._x - getActualPosX() - 2; // TODO where does that offset of 2 come from?
+        int32 my = pos._y - getActualPosY() - 2;
 
-        if (mx >= _buttonRectangle.getX() &&
-            mx < _buttonRectangle.getX() + _buttonRectangle.getWidth() &&
-            my >= _buttonRectangle.getY() &&
-            my < _buttonRectangle.getY() + _buttonRectangle.getHeight())
+        if (mx >= 0 && mx < getActualWidth() &&
+            my >= 0 && my < getActualHeight())
         {
-            _mouseOverButton = true;
+            _mouseOver = true;
             _buttonAppearanceState = iWidgetAppearanceState::Highlighted;
         }
         else
         {
-            _mouseOverButton = false;
+            _mouseOver = false;
             _buttonAppearanceState = iWidgetAppearanceState::Standby;
         }
     }
@@ -113,7 +107,7 @@ namespace Igor
             return false;
         }
 
-        if (_mouseOverButton)
+        if (_mouseOver)
         {
             if (key == iKeyCode::MouseLeft)
             {
@@ -121,10 +115,10 @@ namespace Igor
 
                 if (_selectBox == nullptr)
                 {
-                    _selectBox = static_cast<iDialogMenu*>(iWidgetManager::getInstance().createDialog("DialogMenu"));
+                    _selectBox = new iDialogMenu();
                 }
 
-                _selectBox->setWidth(getActualWidth() - getActualHeight());
+                _selectBox->setWidth(getActualWidth());
                 _selectBox->setX(getActualPosX() + 2);
                 _selectBox->setY(getActualPosY() + getActualHeight() + 2);
 
@@ -134,7 +128,7 @@ namespace Igor
                     entries.push_back(entry.first);
                 }
 
-                _selectBox->show(entries, iDialogMenuCloseDelegate(this, &iWidgetSelectBox::onSelectionChanged));
+                _selectBox->open(iDialogCloseDelegate(this, &iWidgetSelectBox::onSelectBoxClosed), entries);
             }
 
             setKeyboardFocus();
@@ -144,14 +138,20 @@ namespace Igor
         return iWidget::handleMouseKeyUp(key);
     }
 
-    void iWidgetSelectBox::onSelectionChanged(int32 value)
+    void iWidgetSelectBox::onSelectBoxClosed(iDialogPtr dialog)
     {
-        if (value > -1)
+        iDialogMenuPtr dialogMenu = static_cast<iDialogMenuPtr>(dialog);
+        auto index = dialogMenu->getSelectionIndex();
+
+        if (index != -1)
         {
-            _currentSelection = value;
+            _currentSelection = index;
         }
 
         _change(this);
+
+        delete _selectBox;
+        _selectBox = nullptr;
     }
 
     bool iWidgetSelectBox::handleMouseWheel(int32 d)
@@ -233,11 +233,6 @@ namespace Igor
 
     void iWidgetSelectBox::draw()
     {
-        _buttonRectangle.setX(static_cast<float32>(getActualWidth() - getActualHeight() - 1));
-        _buttonRectangle.setY(0.0f);
-        _buttonRectangle.setWidth(static_cast<float32>(getActualHeight()));
-        _buttonRectangle.setHeight(static_cast<float32>(getActualHeight() - 1));
-
         if (isVisible())
         {
             iaString displayString;

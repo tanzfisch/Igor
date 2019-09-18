@@ -35,6 +35,7 @@
 #include <iaVector4.h>
 using namespace IgorAux;
 
+#include <set>
 #include <vector>
 
 namespace Igor
@@ -42,73 +43,86 @@ namespace Igor
 	class iFont;
 	class iWidgetBaseTheme;
 	class iWidgetManager;
-
-	/*! interaction state of widget
-	*/
-	enum class iWidgetAppearanceState
-	{
-		Highlighted,
-		Pressed,
-		Clicked,
-		DoubleClicked,
-		Context,
-		Standby
-	};
-
 	class iWidget;
+
+	/*! define pointer to widget
+	*/
+	typedef iWidget* iWidgetPtr;
 
 	/*! widget click event
 	*/
-	iaEVENT(iClickEvent, iClickDelegate, void, (iWidget* source), (source));
+	iaEVENT(iClickEvent, iClickDelegate, void, (iWidgetPtr source), (source));
 
 	/*! mouse off click event
 
 	so when there was a click outside the range of a widget
 	*/
-	iaEVENT(iMouseOffClickEvent, iMouseOffClickDelegate, void, (iWidget* source), (source));
+	iaEVENT(iMouseOffClickEvent, iMouseOffClickDelegate, void, (iWidgetPtr source), (source));
 
 	/*! context menu event
 	*/
-	iaEVENT(iContextMenuEvent, iContextMenuDelegate, void, (iWidget* source), (source));
+	iaEVENT(iContextMenuEvent, iContextMenuDelegate, void, (iWidgetPtr source), (source));
 
 	/*! wheel up event
 	*/
-	iaEVENT(iWheelUpEvent, iWheelUpDelegate, void, (iWidget* source), (source));
+	iaEVENT(iWheelUpEvent, iWheelUpDelegate, void, (iWidgetPtr source), (source));
 
 	/*! wheel down event
 	*/
-	iaEVENT(iWheelDownEvent, iWheelDownDelegate, void, (iWidget* source), (source));
+	iaEVENT(iWheelDownEvent, iWheelDownDelegate, void, (iWidgetPtr source), (source));
 
 	/*! double click event
 	*/
-	iaEVENT(iDoubleClickEvent, iDoubleClickDelegate, void, (iWidget* source), (source));
+	iaEVENT(iDoubleClickEvent, iDoubleClickDelegate, void, (iWidgetPtr source), (source));
 
 	/*! mouse over event
 	*/
-	iaEVENT(iMouseOverEvent, iMouseOverDelegate, void, (iWidget* source), (source));
+	iaEVENT(iMouseOverEvent, iMouseOverDelegate, void, (iWidgetPtr source), (source));
 
 	/*! mouse off event
 	*/
-	iaEVENT(iMouseOffEvent, iMouseOffDelegate, void, (iWidget* source), (source));
+	iaEVENT(iMouseOffEvent, iMouseOffDelegate, void, (iWidgetPtr source), (source));
 
 	/*! change event
 	*/
-	iaEVENT(iChangeEvent, iChangeDelegate, void, (iWidget* source), (source));
+	iaEVENT(iChangeEvent, iChangeDelegate, void, (iWidgetPtr source), (source));
 
 	/*! keyboard focus changed event
 	*/
-	iaEVENT(iFocusEvent, iFocusDelegate, void, (iWidget* source), (source));
+	iaEVENT(iFocusEvent, iFocusDelegate, void, (iWidgetPtr source), (source));
 
 	/*! selection changed event
 	*/
 	iaEVENT(iSelectionChangedEvent, iSelectionChangedDelegate, void, (int32 index), (index));
 
+	/*! interaction state of widget
+	*/
+	enum class iWidgetAppearanceState
+	{
+		/*! widget it highlighted
+		*/
+		Highlighted,
+
+		/*! widget if currently pressed and held down
+		*/
+		Pressed,
+
+		/*! widget was just released from clicking it
+		*/
+		Clicked,
+
+		/*! widget was double clicked
+		*/
+		DoubleClicked,
+
+		/*! the widget does nothing except existing
+		*/
+		Standby
+	};
+
 	/*! GUI widget base class
 
 	coordinatesystems origin within widgets is the upper left corner with x positive to the right and y positive down
-
-	Example:
-	\ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
 
 	\todo to many friends
 	\todo fix one click and double click handling
@@ -118,6 +132,7 @@ namespace Igor
 	class Igor_API iWidget
 	{
 
+		// iWidget has sooo many friends <3
 		friend class iWidgetManager;
 		friend class iDialog;
 		friend class iWidgetGrid;
@@ -130,6 +145,16 @@ namespace Igor
 		friend class iWidgetSlider;
 
 	public:
+
+		/*! initializes members
+
+		\param parent the optional parent
+		*/
+		iWidget(iWidgetPtr parent = nullptr);
+
+		/*! clean up
+		*/
+		virtual ~iWidget();
 
 		/*! invalid widget ID
 		*/
@@ -422,25 +447,13 @@ namespace Igor
 
 		\param widget the child widget to be added
 		*/
-		virtual void addWidget(iWidget* widget);
+		virtual void addWidget(iWidgetPtr widget);
 
 		/*! removes a child widget frmo this widget
 
 		\param widget the child widget to be removed
 		*/
-		virtual void removeWidget(iWidget* widget);
-
-		/*! adds a child widget to this widget by id
-
-		\param id the widget id
-		*/
-		virtual void addWidget(uint64 id);
-
-		/*! removed a child widget from this widget by id
-
-		\param id the widget id
-		*/
-		virtual void removeWidget(uint64 id);
+		virtual void removeWidget(iWidgetPtr widget);
 
 		/*! \returns true if has parent
 		*/
@@ -462,7 +475,7 @@ namespace Igor
 
 		/*! \returns the widget that is currently in focus
 		*/
-		static iWidget* getKeyboardFocusWidget();
+		static iWidgetPtr getKeyboardFocusWidget();
 
 		/*! sets the tooltip text
 
@@ -478,7 +491,13 @@ namespace Igor
 
 		\param children[out] list with children
 		*/
-		void getChildren(std::vector<iWidget*>& children);
+		void getChildren(std::vector<iWidgetPtr>& children);
+
+		/*! removes and deletes all children
+
+		this will also cause all children deleting their children and so on
+		*/
+		void clearChildren();
 
 	protected:
 
@@ -488,7 +507,7 @@ namespace Igor
 
 		/*! list of children
 		*/
-		std::vector<iWidget*> _children;
+		std::set<uint64> _children;
 
 		/*! flag if widget accepts drop
 		*/
@@ -630,7 +649,7 @@ namespace Igor
 
 		\parem parent pointer to parent
 		*/
-		void setParent(iWidget* parent);
+		void setParent(iWidgetPtr parent);
 
 		/*! sets the keyboard focus to this widget
 		*/
@@ -648,16 +667,6 @@ namespace Igor
 		\param bottom bottom client area border
 		*/
 		void setClientArea(int32 left, int32 right, int32 top, int32 bottom);
-
-		/*! initializes members
-		*/
-		iWidget();
-
-		/*! clean up
-		*/
-		virtual ~iWidget();
-
-	protected:
 
 		/*! \returns last mouse position
 		*/
@@ -735,7 +744,7 @@ namespace Igor
 
 		/*! pointer to parent widget
 		*/
-		iWidget* _parent = nullptr;
+		iWidgetPtr _parent = nullptr;
 
 		/*! flag if widget is active
 		*/
@@ -759,7 +768,7 @@ namespace Igor
 
 		/*! pointer to widget that owns the keyboard focus
 		*/
-		static iWidget* _keyboardFocus;
+		static iWidgetPtr _keyboardFocus;
 
 		/*! handles tooltip timer
 		*/

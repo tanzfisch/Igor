@@ -52,10 +52,6 @@ namespace Igor
 	class Igor_API iWidgetGraph : public iWidget
 	{
 
-        /*! needs to be friend because it's the factory that creates this widget
-        */
-        friend class iWidgetManager;
-
         /*! graph data
         */
         struct GraphData
@@ -82,6 +78,16 @@ namespace Igor
         };
 
 	public:        
+
+		/*! ctor initializes member variables
+
+		\param parent optional parnt
+		*/
+		iWidgetGraph(iWidgetPtr parent = nullptr);
+
+		/*! does nothing
+		*/
+		virtual ~iWidgetGraph() = default;
 
         /*! clears all point data
         */
@@ -309,18 +315,6 @@ namespace Igor
         \returns true: if event was consumed and therefore ignored by the parent
         */
         bool handleMouseKeyDown(iKeyCode key);
-
-        /*! ctor initializes member variables
-        */
-        iWidgetGraph();
-
-        /*! does nothing
-        */
-		virtual ~iWidgetGraph() = default;
-
-        /*! creates instance of this widget type
-        */
-        static iWidget* createInstance();
 
 	};
 }

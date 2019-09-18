@@ -36,7 +36,7 @@
 #include <iaSingleton.h>
 
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include <deque>
 
 
@@ -45,19 +45,12 @@ namespace Igor
 
 	class iWidgetBaseTheme;
     class iDialog;
+	typedef iDialog* iDialogPtr;
 
-    iaDELEGATE(iInstanciateWidgetDelegate, iWidget*, (), ());
-    iaDELEGATE(iInstanciateDialogDelegate, iDialog*, (), ());
+    iaDELEGATE(iInstanciateWidgetDelegate, iWidgetPtr, (), ());
+    iaDELEGATE(iInstanciateDialogDelegate, iDialogPtr, (), ());
 
     /*! manages the widgets in use and is a singleton
-
-    is also a factory that creates and destroys all the widgets
-
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
-    \todo switch from delegates to function pointers for instance creation
-
     */
 	class Igor_API iWidgetManager : public iaSingleton<iWidgetManager>
 	{
@@ -65,57 +58,11 @@ namespace Igor
         /*! needs to be friends with singleton base class in order to be a singleton
         */
         friend class iaSingleton<iWidgetManager>;
+
+		friend class iWidget;
+		friend class iDialog;
         
 	public:
-		
-        /*! creates a widget of given type
-
-        \param type type of widget to create
-        */
-		iWidget* createWidget(const iaString& type);
-
-        /*! destroyes widget
-
-        \param widget the widget to destroy
-        */
-		void destroyWidget(iWidget* widget);
-
-        /*! destroyes widget by id
-
-        \param id id of the widget to be destroyed
-        */
-        void destroyWidget(uint64 id);
-
-        /*! registers a widget type to the widget manager
-
-        \param widgetType name of widget type
-        \param instanciateWidgetDelegate delegate to instanciate the type
-        */
-        void registerWidgetType(const iaString& widgetType, iInstanciateWidgetDelegate instanciateWidgetDelegate);
-
-        /*! unregister widget type
-
-        \param widgetType name of widget type to unregister
-        */
-        void unregisterWidgetType(const iaString& widgetType);
-
-        /*! creates a dialog of given type
-
-        \param type type of dialog to create
-        */
-        iDialog* createDialog(const iaString& type);
-
-        /*! destroyes dialog
-
-        \param dialog the dialog to destroy
-        */
-        void destroyDialog(iDialog* dialog);
-
-        /*! destroyes dialog by id
-
-        \param id id of the dialog to be destroyed
-        */
-        void destroyDialog(uint64 id);
 
 		/*! shows tooltip at given position
 
@@ -128,30 +75,17 @@ namespace Igor
 		*/
 		void hideTooltip();
 
-        /*! registers a dialog type to the widget manager
-
-        \param dialogType name of dialog type
-        \param instanciateWidgetDelegate delegate to instanciate the type
-        */
-        void registerDialogType(const iaString& dialogType, iInstanciateDialogDelegate instanciateDialogDelegate);
-
-        /*! unregister widget type
-
-        \param dialogType name of dialog type to unregister
-        */
-        void unregisterDialogType(const iaString& dialogType);
-
         /*! \returns widget by id
 
         \param id id of widget
         */
-        iWidget* getWidget(uint64 id);
+        iWidgetPtr getWidget(uint64 id);
 
         /*! \returns dialog by id
 
         \param id id of dialog
         */
-        iDialog* getDialog(uint64 id);
+        iDialogPtr getDialog(uint64 id);
 
         /*! \returns the theme in use
         */
@@ -190,17 +124,17 @@ namespace Igor
 
         /*! set this widget exclusively modal
         */
-        static void setModal(iDialog* dialog);
+        static void setModal(iDialogPtr dialog);
 
         /*! \returns current modal widget
         */
-        static iDialog* getModal();
+        static iDialogPtr getModal();
 
         /*! \returns true: if widget is modal
 
         \param dialog the dialog to check if it is modal
         */
-        static bool isModal(iDialog* dialog);
+        static bool isModal(iDialogPtr dialog);
 
         /*! reset modal flag
         */
@@ -314,7 +248,7 @@ namespace Igor
 
         /*! modal marker
         */
-        static iDialog* _modal;
+        static iDialogPtr _modal;
 
         /*! mouse key down event
         */
@@ -354,19 +288,11 @@ namespace Igor
 
         /*! list of all widgets
         */
-		std::map<uint64, iWidget*> _widgets;
+		std::unordered_map<uint64, iWidgetPtr> _widgets;
 
         /*! list of all dialogs
         */
-        std::map<uint64, iDialog*> _dialogs;
-
-        /*! list of widgets to delete
-        */
-        std::deque<uint64> _toDeleteWidgets;
-
-        /*! list of dialogs to delete
-        */
-        std::deque<uint64> _toDeleteDialogs;
+        std::unordered_map<uint64, iDialogPtr> _dialogs;
 
         /*! current desktop width
         */
@@ -384,28 +310,56 @@ namespace Igor
 		*/
 		iaString _tooltipText;
 
-        /*! last chance for the instance to clean up before shut down
-        */
-        virtual void onPreDestroyInstance();
+		/*! list of dialogs to close
+		*/
+		std::set<uint64> _dialogsToClose;
+
+		/*! closes the dialog and queues a close event in to be called after the update handle
+		*/
+		void closeDialog(iDialogPtr dialog);
+
+		/*! registers widget to WidgetManager so we can track if all widgets got destroyed at shutdown
+
+		\param widget the widget to track
+		*/
+		void registerWidget(iWidgetPtr widget);
+
+		/*! unregister widget from WidgetManager so we don't track this one anymore
+
+		\param widget the widget to not track anymore
+		*/
+		void unregisterWidget(iWidgetPtr widget);
+
+		/*! registers dialog to WidgetManager so we can track if all dialogs got destroyed at shutdown
+
+		\param dialog the dialog to track
+		*/
+		void registerDialog(iDialogPtr dialog);
+
+		/*! unregister dialog from WidgetManager so we don't track this one anymore
+
+		\param dialog the dialog to not track anymore
+		*/
+		void unregisterDialog(iDialogPtr dialog);
 
         /*! traverse widget tree and updates positions and sizes
 
         \param widget current widget to update
         */
-        void traverseContentSize(iWidget* widget);
+        void traverseContentSize(iWidgetPtr widget);
 
         /*! traverse widget tree and updates alignment
         */
-        void traverseAlignment(iWidget* widget, int32 offsetX, int32 offsetY, int32 clientRectWidth, int32 clientRectHeight);
+        void traverseAlignment(iWidgetPtr widget, int32 offsetX, int32 offsetY, int32 clientRectWidth, int32 clientRectHeight);
 
-        /*! updates recursively all widgets
+        /*! updates recursively all widgets before rendering
         */
-        void onHandle();
+        void onPreDraw();
 
-        /*! destroyes widgets that where put in to the delete queues before
-        */
-        void runDeleteQueues();
-
+		/*! widget handling after the render frame is done
+		*/
+		void onPostDraw();
+		
         /*! handle for mouse key down event
 
         \param key mouse key pressed
@@ -471,6 +425,8 @@ namespace Igor
         virtual ~iWidgetManager();
 
 	};
+
+#include <iWidgetManager.inl>
 
 }
 

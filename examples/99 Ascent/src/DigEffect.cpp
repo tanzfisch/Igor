@@ -1,6 +1,6 @@
 #include "DigEffect.h"
 
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iNodeTransform.h>
 #include <iNodePhysics.h>
 #include <iNodeModel.h>
@@ -44,7 +44,7 @@ DigEffect::DigEffect(iScene* scene, const iaMatrixd& matrix)
     iaGradientVector2f size;
     size.setValue(0.0, iaVector2f(3.0, 4.0));
 
-    iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
+    iNodeParticleSystem* particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemNodeID = particleSystem->getID();
     particleSystem->setMaterial(iMaterialResourceFactory::getInstance().getMaterialID("PMat"));
     particleSystem->setTextureA("particleSmoke.png");
@@ -59,12 +59,12 @@ DigEffect::DigEffect(iScene* scene, const iaMatrixd& matrix)
     particleSystem->setPeriodTime(4.0);
     particleSystem->start();
 
-	iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+	iNodeEmitter* emitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
 	emitter->setEmitterType(iEmitterType::Sphere);
     emitter->setSize(5);
 	particleSystem->setEmitter(emitter->getID());
 
-	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
     _transformNodeID = transformNode->getID();
 	transformNode->setMatrix(matrix);
 	_pos = matrix._pos;
@@ -77,8 +77,8 @@ DigEffect::DigEffect(iScene* scene, const iaMatrixd& matrix)
 
 DigEffect::~DigEffect()
 {
-    iNodeFactory::getInstance().destroyNodeAsync(_particleSystemNodeID);
-    iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
+    iNodeManager::getInstance().destroyNodeAsync(_particleSystemNodeID);
+    iNodeManager::getInstance().destroyNodeAsync(_transformNodeID);
 }
 
 void DigEffect::hitBy(uint64 entityID)
@@ -93,7 +93,7 @@ iaVector3d DigEffect::getCurrentPos()
 
 void DigEffect::handle()
 {
-    iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_particleSystemNodeID));
+    iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().getNode(_particleSystemNodeID));
 
 	if (particleSystem != nullptr)
 	{

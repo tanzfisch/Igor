@@ -14,7 +14,8 @@ using namespace IgorAux;
 
 namespace Igor
 {
-	iWidgetButton::iWidgetButton()
+	iWidgetButton::iWidgetButton(iWidgetPtr parent)
+		:iWidget(parent)
 	{
 		_configuredHeight = 10;
 		_configuredWidth = 20;
@@ -25,12 +26,7 @@ namespace Igor
     {
         _texture = nullptr;
     }
-
-    iWidget* iWidgetButton::createInstance()
-    {
-        return new iWidgetButton();
-    }
-
+	
 	void iWidgetButton::setText(const iaString& text)
 	{
 		_text = text;

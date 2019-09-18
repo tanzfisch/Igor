@@ -47,7 +47,7 @@ namespace Igor
 		friend class iNodeVisitorUpdateTransform;
         friend class iOctree;
         friend class iRenderEngine;
-		friend class iNodeFactory;
+		friend class iNodeManager;
 
     public:
 
@@ -101,18 +101,15 @@ namespace Igor
 
         \parma[in, out] matrix current transform matrix
         */
-        void onUpdateTransform(iaMatrixd& matrix);
+        virtual void onUpdateTransform(iaMatrixd& matrix) override;
 
         /*! unregisters from scene
         */
-        virtual void onPreSetScene();
+        virtual void onPreSetScene() override;
 
         /*! register to scene
         */
-        virtual void onPostSetScene();
-
-        /**/
-        virtual bool onUpdateData();
+        virtual void onPostSetScene() override;
 
         /*! initializes member variables
         */

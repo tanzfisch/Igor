@@ -69,7 +69,7 @@ namespace Igor
         }
     }
 
-    void iNodePhysics::setUserData(const void* userData)
+    void iNodePhysics::setUserData(const std::any& userData)
     {
         _userData = userData;
 
@@ -80,7 +80,7 @@ namespace Igor
         }
     }
 
-    const void* iNodePhysics::getUserData() const
+    std::any iNodePhysics::getUserData() const
     {
         return _userData;
     }
@@ -434,14 +434,15 @@ namespace Igor
             }
             else
             {
-                // physics is not ready yet
+                // physics is not ready yet. try again
                 return false;
             }
         }
         else
         {
-            con_warn("need a transform node as ancester");
-            return false;
+			// error do not try again
+            con_err("need a transform node as ancester");			
+            return true;
         }
 
         setTransformationDirty();

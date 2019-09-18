@@ -47,21 +47,21 @@ namespace Igor
     iaEVENT(iColorGradientColorCreatedEvent, iColorGradientColorCreatedDelegate, void, (float32 at, const iaColor4f& color), (at, color));
 
     /*! color view widget
-
-    \todo highlight selection
-
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
     */
 	class Igor_API iWidgetColorGradient : public iWidget
 	{
 
-        /*! needs to be friend because it's the factory that creates this widget
-        */
-        friend class iWidgetManager;
-
 	public:
+
+		/*! ctor initializes member variables
+
+		\param parent optional parent
+		*/
+		iWidgetColorGradient(iWidgetPtr parent = nullptr);
+
+		/*! release texture
+		*/
+		virtual ~iWidgetColorGradient();
 
 		/*! sets color gradient
 		\param color color value in rgba
@@ -139,17 +139,6 @@ namespace Igor
 		*/
 		void draw();
 
-        /*! ctor initializes member variables
-        */
-        iWidgetColorGradient();
-
-        /*! release texture
-        */
-		virtual ~iWidgetColorGradient();
-
-        /*! creates instance of this widget type
-        */
-        static iWidget* createInstance();
 	};
 }
 

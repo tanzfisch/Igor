@@ -39,7 +39,6 @@ using namespace IgorAux;
 #include <vector>
 #include <memory>
 
-
 namespace Igor
 {
 
@@ -124,9 +123,23 @@ namespace Igor
         */
         void setName(iaString name);
 
-        /*! \returns render state set of this material
+        /*! \returns render state set of this material 
         */
         iRenderStateSet& getRenderStateSet();
+
+		/*! defines the value of a specific render state
+
+		\param state render state
+		\param value render state value
+		*/
+		void setRenderState(const iRenderState state, const iRenderStateValue value);
+
+		/*! returns the value of a specific render state
+
+		\param state render state
+		\return render state value
+		*/
+		iRenderStateValue getRenderState(const iRenderState state) const;
 
         /*! add shader source file
 

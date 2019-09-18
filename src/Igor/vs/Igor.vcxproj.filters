@@ -44,9 +44,6 @@
     <ClCompile Include="..\src\iSkyLightNode.cpp">
       <Filter>scene\nodes</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iNodeFactory.cpp">
-      <Filter>scene\nodes</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iConfigReader.cpp">
       <Filter>resources\configuration</Filter>
     </ClCompile>
@@ -272,9 +269,6 @@
     <ClCompile Include="..\src\iNodePhysics.cpp">
       <Filter>scene\nodes</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iDataUpdateQueue.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iPhysicsMaterial.cpp">
       <Filter>resources\physics</Filter>
     </ClCompile>
@@ -440,6 +434,9 @@
     <ClCompile Include="..\src\iProfilerVisualizer.cpp">
       <Filter>resources\profiler</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iNodeManager.cpp">
+      <Filter>scene\nodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -481,9 +478,6 @@
       <Filter>scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iSkyLightNode.h">
-      <Filter>scene\nodes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iNodeFactory.h">
       <Filter>scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iConfigReader.h">
@@ -730,9 +724,6 @@
     <ClInclude Include="..\src\iNodePhysics.h">
       <Filter>scene\nodes</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iDataUpdateQueue.h">
-      <Filter>scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iPhysicsMaterial.h">
       <Filter>resources\physics</Filter>
     </ClInclude>
@@ -922,6 +913,9 @@
     <ClInclude Include="..\src\iProfilerVisualizer.h">
       <Filter>resources\profiler</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iNodeManager.h">
+      <Filter>scene\nodes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iAACube.inl">
@@ -963,14 +957,17 @@
     <None Include="..\src\iIntersection.inl">
       <Filter>data types</Filter>
     </None>
-    <None Include="..\src\iNodeFactory.inl">
-      <Filter>scene\nodes</Filter>
-    </None>
     <None Include="..\src\iRay.inl">
       <Filter>data types</Filter>
     </None>
     <None Include="..\src\iAtlas.inl">
       <Filter>resources\texture</Filter>
+    </None>
+    <None Include="..\src\iNodeManager.inl">
+      <Filter>scene\nodes</Filter>
+    </None>
+    <None Include="..\src\iWidgetManager.inl">
+      <Filter>GUI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

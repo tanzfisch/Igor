@@ -12,7 +12,7 @@
 #include <iaVector3.h>
 #include <iTaskManager.h>
 #include <iPhysicsBody.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iTimer.h>
 #include <iPhysicsPlayer.h>
 #include <iPhysicsCollision.h>

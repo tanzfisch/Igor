@@ -59,9 +59,6 @@ namespace IgorAux
     iaEVENT(RenderStateEvent, RenderStateDelegate, void, (), ());
 
     /*! state in state machine
-
-    Example:
-    \ref StateMachine/src/StateMachineExample.cpp "StateMachine usage example"
     */
     class iaState
     {

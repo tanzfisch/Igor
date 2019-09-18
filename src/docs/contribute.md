@@ -32,25 +32,27 @@ Git Flow
 
 Use git flow for branching and merging etc. Please find [here](https://danielkummer.github.io/git-flow-cheatsheet/) a very usefull cheat sheet.
 
+Maybe get a git client that supports git flow naturally (e.g. [gitkraken](https://www.gitkraken.com/)).
+
 Make a release
 --------------
 
 For making a release do the following steps.
 
-1. create a release branch from develop named by the next release version.
+1. create a release branch from develop named by the next release version (e.g. 0.23.0).
 
 2. Update the [Changelog](@ref changelog)
 
 3. Update doxygen config (src/docs/Doxyfile.doxy) using the new version of the release. And generate the doxygen docs.
 
-4. Run some smoke tests (ig run all the examples once) and when satisfied merge in to master and develop. 
+4. Run some smoke tests (e.g. run all the examples once) and when satisfied merge in to master and develop. 
 
 5. Create a tag with the new version number on master and push master, develop and the new tag to github.
 
 Make a Patch Release 
 --------------------
 
-When happy with the hotfix update the [Changelog](@ref changelog) before mergin back in to master and develop.
+When happy with your hotfix update the [Changelog](@ref changelog) before mergin back in to master and develop.
 
 Crate patch release version tag on master branch.
 

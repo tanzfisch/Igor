@@ -21,7 +21,7 @@
 #include <iTaskManager.h>
 #include <iConfigReader.h>
 #include <iVersion.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iSceneFactory.h>
 #include <iPhysics.h>
 
@@ -220,9 +220,9 @@ namespace Igor
 			iTaskManager::destroyInstance();
 		}
 
-		if (iNodeFactory::isInstantiated())
+		if (iNodeManager::isInstantiated())
 		{			
-			iNodeFactory::destroyInstance();
+			iNodeManager::destroyInstance();
 		}
 
 		if (iSceneFactory::isInstantiated())

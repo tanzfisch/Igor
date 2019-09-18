@@ -42,10 +42,6 @@ iaColor4f STANDBY(0, 0, 1, 0.5f);
             drawRectangle(rect, MOUSEDOUBLECLICKED); \
             break; \
  \
-        case iWidgetAppearanceState::Context: \
-            drawRectangle(rect, MOUSECONTEXT); \
-            break; \
- \
         case iWidgetAppearanceState::Standby: \
             drawRectangle(rect, STANDBY); \
             break; \
@@ -79,14 +75,14 @@ namespace Igor
 
 		_defaultMaterial = iMaterialResourceFactory::getInstance().createMaterial();
 		iMaterialResourceFactory::getInstance().getMaterial(_defaultMaterial)->setName("Widget:Default");
-		iMaterialResourceFactory::getInstance().getMaterial(_defaultMaterial)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-		iMaterialResourceFactory::getInstance().getMaterial(_defaultMaterial)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+		iMaterialResourceFactory::getInstance().getMaterial(_defaultMaterial)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+		iMaterialResourceFactory::getInstance().getMaterial(_defaultMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
 
 		_texturedMaterial = iMaterialResourceFactory::getInstance().createMaterial();
 		iMaterialResourceFactory::getInstance().getMaterial(_texturedMaterial)->setName("Widget:Textured");
-		iMaterialResourceFactory::getInstance().getMaterial(_texturedMaterial)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-		iMaterialResourceFactory::getInstance().getMaterial(_texturedMaterial)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-		iMaterialResourceFactory::getInstance().getMaterial(_texturedMaterial)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+		iMaterialResourceFactory::getInstance().getMaterial(_texturedMaterial)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+		iMaterialResourceFactory::getInstance().getMaterial(_texturedMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+		iMaterialResourceFactory::getInstance().getMaterial(_texturedMaterial)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
 	}
 
 	iWidgetDefaultTheme::~iWidgetDefaultTheme()

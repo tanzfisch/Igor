@@ -49,7 +49,7 @@ namespace Igor
     class Igor_API iNodeLODTrigger : public iNode
 	{
 
-		friend class iNodeFactory;
+		friend class iNodeManager;
         friend class iNodeVisitorUpdateTransform;
 
     public:

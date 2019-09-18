@@ -1,5 +1,7 @@
 var class_igor_1_1i_widget_text_edit =
 [
+    [ "iWidgetTextEdit", "class_igor_1_1i_widget_text_edit.html#a34ffe49598358d28688340295c037aa1", null ],
+    [ "~iWidgetTextEdit", "class_igor_1_1i_widget_text_edit.html#a3786cdab5dc43daf9f40c18eb27f0371", null ],
     [ "decCursorPos", "class_igor_1_1i_widget_text_edit.html#ab9d07198c711fe84b53122d32237e90f", null ],
     [ "getCursorPos", "class_igor_1_1i_widget_text_edit.html#a46449421ccf43fc6efc923cf4736242c", null ],
     [ "getHorizontalTextAlignment", "class_igor_1_1i_widget_text_edit.html#a922d15aaf849b5d6c8818fae38a98016", null ],
@@ -22,7 +24,6 @@ var class_igor_1_1i_widget_text_edit =
     [ "setText", "class_igor_1_1i_widget_text_edit.html#a6c6ff0219d37e32d4b614587e7009213", null ],
     [ "setVerticalTextAlignment", "class_igor_1_1i_widget_text_edit.html#af3c42b7b62021625a91f88d0e69e629d", null ],
     [ "setWriteProtected", "class_igor_1_1i_widget_text_edit.html#aaa59f9692347094814f4367401c3db8b", null ],
-    [ "iWidgetManager", "class_igor_1_1i_widget_text_edit.html#a9da20b1c56a70b01ca0ef56f4d4d47fc", null ],
     [ "_horizontalTextAlignment", "class_igor_1_1i_widget_text_edit.html#a5cac51d63b0987107a6c7780d41f4a86", null ],
     [ "_text", "class_igor_1_1i_widget_text_edit.html#aa14f7201895e575dc6024abba056e1ab", null ],
     [ "_textBackup", "class_igor_1_1i_widget_text_edit.html#a5500df68ec48d50a3b349e274b1c69dd", null ],

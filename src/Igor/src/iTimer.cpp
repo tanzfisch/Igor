@@ -7,6 +7,7 @@
 #include <iApplication.h>
 
 #include <iaClock.h>
+#include <iaConsole.h>
 using namespace IgorAux;
 
 namespace Igor

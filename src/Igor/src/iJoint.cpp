@@ -68,12 +68,12 @@ namespace Igor
         return _childBones;
     }
 
-    void iJoint::setCustomData(void* data)
+    void iJoint::setCustomData(const std::any& data)
     {
         _customData = data;
     }
 
-    void* iJoint::getCustomData() const
+    std::any iJoint::getCustomData() const
     {
         return _customData;
     }

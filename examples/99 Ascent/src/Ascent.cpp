@@ -19,7 +19,7 @@
 #include <iApplication.h>
 #include <iSceneFactory.h>
 #include <iScene.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iMouse.h>
 #include <iTimer.h>
 #include <iTextureFont.h>
@@ -132,10 +132,10 @@ void Ascent::initScene()
     _view.setScene(_scene);
 
     // light
-    _lightTranslate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _lightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
     _lightTranslate->translate(100, 100, 100);
-    _lightRotate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _lightNode = static_cast<iNodeLight*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLight));
+    _lightRotate = iNodeManager::getInstance().createNode<iNodeTransform>();
+    _lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
     _lightNode->setAmbient(iaColor4f(0.7f, 0.7f, 0.7f, 1.0f));
     _lightNode->setDiffuse(iaColor4f(1.0f, 0.9f, 0.8f, 1.0f));
     _lightNode->setSpecular(iaColor4f(1.0f, 0.9f, 0.87f, 1.0f));
@@ -145,7 +145,7 @@ void Ascent::initScene()
     _scene->getRoot()->insertNode(_lightRotate);
 
     // reate a sky box and add it to scene
-    iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
+    iNodeSkyBox* skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
     skyBoxNode->setTextures(
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/front.jpg"),
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/back.jpg"),
@@ -156,8 +156,8 @@ void Ascent::initScene()
     skyBoxNode->setTextureScale(1);
     // create a sky box material
     _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setOrder(10);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setName("SkyBox");
     // and set the sky box material
@@ -410,34 +410,48 @@ void Ascent::onGenerateVoxelData(iVoxelBlockInfo* voxelBlockInfo)
 
 void Ascent::onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1)
 {
-    if (body0 != nullptr && body1 != nullptr)
+    if (body0 == nullptr || body1 == nullptr)
     {
-        if (body0->getUserData() != nullptr)
-        {
-            uint64 id0 = reinterpret_cast<uint64>(body0->getUserData());
-            _hitListMutex.lock();
-            _hitList.push_back(std::pair<uint64, uint64>(id0, 0));
-            _hitListMutex.unlock();
-
-        }
-        else if (body1->getUserData() != nullptr)
-        {
-            uint64 id1 = reinterpret_cast<uint64>(body1->getUserData());
-            _hitListMutex.lock();
-            _hitList.push_back(std::pair<uint64, uint64>(id1, 0));
-            _hitListMutex.unlock();
-        }
+        return;
     }
+
+    std::any userData0 = body0->getUserData();
+    std::any userData1 = body1->getUserData();
+
+    if (userData0.has_value())
+    {
+        uint64 id0 = std::any_cast<uint64>(userData0);
+        _hitListMutex.lock();
+        _hitList.push_back(std::pair<uint64, uint64>(id0, 0));
+        _hitListMutex.unlock();
+
+    }
+    else if (userData1.has_value())
+    {
+        uint64 id1 = std::any_cast<uint64>(userData1);
+        _hitListMutex.lock();
+        _hitList.push_back(std::pair<uint64, uint64>(id1, 0));
+        _hitListMutex.unlock();
+    }
+
 }
 
 void Ascent::onContact(iPhysicsBody* body0, iPhysicsBody* body1)
 {
-    if (body0 != nullptr && body1 != nullptr &&
-        body0->getUserData() != nullptr &&
-        body1->getUserData() != nullptr)
+    if (body0 == nullptr || body1 == nullptr)
     {
-        uint64 id0 = reinterpret_cast<uint64>(body0->getUserData());
-        uint64 id1 = reinterpret_cast<uint64>(body1->getUserData());
+        return;
+    }
+
+    std::any userData0 = body0->getUserData();
+    std::any userData1 = body1->getUserData();
+
+    
+    if (userData0.has_value() &&
+        userData1.has_value())
+    {
+        uint64 id0 = std::any_cast<uint64>(userData0);
+        uint64 id1 = std::any_cast<uint64>(userData1);
         _hitListMutex.lock();
         _hitList.push_back(std::pair<uint64, uint64>(id0, id1));
         _hitList.push_back(std::pair<uint64, uint64>(id1, id0));
@@ -451,7 +465,7 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
     diff = voxelBlockPropsInfo._max;
     diff -= voxelBlockPropsInfo._min;
 
-	iaVector3d offset = voxelBlockPropsInfo._min.convert<float64>();
+    iaVector3d offset = voxelBlockPropsInfo._min.convert<float64>();
     iaVector3d pos;
     int count = 0;
 
@@ -577,28 +591,28 @@ void Ascent::init()
 
     // set up octree debug rendering
     _octreeMaterial = iMaterialResourceFactory::getInstance().createMaterial("Octree");
-    iMaterialResourceFactory::getInstance().getMaterial(_octreeMaterial)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_octreeMaterial)->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_octreeMaterial)->getRenderStateSet().setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(_octreeMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(_octreeMaterial)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+    iMaterialResourceFactory::getInstance().getMaterial(_octreeMaterial)->setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
 
     // set up statistics
     _font = new iTextureFont("StandardFont.png");
     _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial("TextureAndBlending");
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     _profilerVisualizer.setVerbosity(iProfilerVerbosity::None);
 
     uint64 particlesMaterial = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setName("PMat");
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::CullFace, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::Texture2D1, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::Texture2D2, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::BlendFuncSource, iRenderStateValue::SourceAlpha);
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::BlendFuncDestination, iRenderStateValue::OneMinusSourceAlpha);
+    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::CullFace, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Texture2D1, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Texture2D2, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::BlendFuncSource, iRenderStateValue::SourceAlpha);
+    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::BlendFuncDestination, iRenderStateValue::OneMinusSourceAlpha);
 
     // launch resource handlers
     _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
@@ -718,7 +732,7 @@ void Ascent::onKeyPressed(iKeyCode key)
 
 bool Ascent::getTerrainIntersectionPoint(iaVector3I& intersection)
 {
-    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().getNode(_view.getCurrentCamera()));
+    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeManager::getInstance().getNode(_view.getCurrentCamera()));
     if (camera != nullptr)
     {
         iaMatrixd modelMatrix;
@@ -740,7 +754,7 @@ bool Ascent::getTerrainIntersectionPoint(iaVector3I& intersection)
         {
             iaVector3I f(static_cast<int64>(from._x + 0.5), static_cast<int64>(from._y + 0.5), static_cast<int64>(from._z + 0.5));
             iaVector3I t(static_cast<int64>(to._x + 0.5), static_cast<int64>(to._y + 0.5), static_cast<int64>(to._z + 0.5));
-            
+
             iaVector3I inside;
 
             _voxelTerrain->castRay(f, t, intersection, inside);

@@ -17,7 +17,8 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iWidgetColorGradient::iWidgetColorGradient()
+    iWidgetColorGradient::iWidgetColorGradient(iWidgetPtr parent)
+		: iWidget(parent)
     {
         _configuredWidth = 60;
         _configuredHeight = 20;
@@ -33,11 +34,6 @@ namespace Igor
     iWidgetColorGradient::~iWidgetColorGradient()
     {
         _texture = nullptr;
-    }
-
-    iWidget* iWidgetColorGradient::createInstance()
-    {
-        return new iWidgetColorGradient();
     }
 
     bool iWidgetColorGradient::handleMouseKeyDown(iKeyCode key)

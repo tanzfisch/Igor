@@ -39,101 +39,84 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    class iWidgetGrid;
-    class iWidgetButton;
-    class iUserControlColorChooser;
+	class iUserControlColorChooser;
+    typedef iUserControlColorChooser* iUserControlColorChooserPtr;
+    
+	/*! the color chooser dialog
+	*/
+	class Igor_API iDialogColorChooser : public iDialog
+	{
 
-    /*! event triggered when color chooser was closed
-    */
-    iaEVENT(iColorChooserCloseEvent, iColorChooserCloseDelegate, void, (bool ok, const iaColor4f& color), (ok, color));
+	public:
 
-    /*! the color chooser dialog
-    */
-    class Igor_API iDialogColorChooser : public iDialog
-    {
-
-        friend class iWidgetManager;
-
-    public:
-
-        /*! show/open the decision box
-
-        \param closeDelegate the closing delegate
-        \param color the color to start with
-        \param useAlpha if true also use the alpha channel
-        */
-        void show(iColorChooserCloseDelegate closeDelegate, const iaColor4f& color, bool useAlpha = true);
-
-    private:
-
-        /*! the close event
-        */
-        iColorChooserCloseEvent _closeEvent;
-
-        /*! old color
-        */
-        iaColor4f _oldColor;
-
-        /*! over all grid
-        */
-        iWidgetGrid* _grid = nullptr;
-
-        /*! actual color chooser
-        */
-        iUserControlColorChooser* _userControlColorChooser = nullptr;
-
-        /*! all widgets
-        */
-        std::vector<iWidget*> _allWidgets;
-
-        /*! handles ok button clicked event
-
-        \param source the ok button it self
-        */
-        void onOK(iWidget* source);
-
-        /*! handles cancel button clicked event
-
-        \param source the cancel button it self
-        */
-        void onCancel(iWidget* source);
-
-        /*! handles reset button click event
-
-        \param source the reset button it self
-        */
-        void onReset(iWidget* source);
-
-        /*! closes the dialog and sends closed event
-
-        will be triggered by any button
-        */
-        void close();
-
-        /*! deinitializes the gui elements
-        */
-        void deinitGUI();
-
-        /*! initializes gui elements
-
-        \param color the color to init with
-        \param useAlpha if true alpha value will be edited too
-        */
-        void initGUI(const iaColor4f& color, bool useAlpha);
+		/*! does nothing
+		*/
+		iDialogColorChooser() = default;
 
         /*! does nothing
         */
-        iDialogColorChooser() = default;
+        ~iDialogColorChooser() = default;
 
-        /*! deinitializes gui
+		/*! show/open the decision box
+
+		\param dialogCloseDelegate the closing delegate
+		\param color the color to start with
+		\param useAlpha if true also use the alpha channel
+		*/
+		void open(iDialogCloseDelegate dialogCloseDelegate, const iaColor4f& color, bool useAlpha = true);
+
+        /*! \returns color from color chooser
         */
-        ~iDialogColorChooser();
+        const iaColor4f& getColor() const;
 
-        /*! creates instance of this widget type
+        /*! \returns color that was set previously
         */
-        static iDialog* createInstance();
+        const iaColor4f& getResetColor() const;
 
-    };
+	private:
+
+		/*! old color
+		*/
+		iaColor4f _oldColor;
+
+		/*! actual color chooser
+		*/
+		iUserControlColorChooserPtr _userControlColorChooser = nullptr;
+
+		/*! all widgets
+		*/
+		std::vector<iWidgetPtr> _allWidgets;
+
+		/*! handles ok button clicked event
+
+		\param source the ok button it self
+		*/
+		void onOK(iWidgetPtr source);
+
+		/*! handles cancel button clicked event
+
+		\param source the cancel button it self
+		*/
+		void onCancel(iWidgetPtr source);
+
+		/*! handles reset button click event
+
+		\param source the reset button it self
+		*/
+		void onReset(iWidgetPtr source);
+
+		/*! initializes gui elements
+
+		\param color the color to init with
+		\param useAlpha if true alpha value will be edited too
+		*/
+		void initGUI(const iaColor4f& color, bool useAlpha);
+
+	};
+
+    /*! dialog color chooser pointer definition
+    */
+    typedef iDialogColorChooser* iDialogColorChooserPtr;
 
 }
 
