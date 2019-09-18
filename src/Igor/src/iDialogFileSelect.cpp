@@ -257,7 +257,6 @@ namespace Igor
             _fileGrid->appendCollumns(1);
         }
 
-        iaString* userData = new iaString(path);
         iWidgetGrid* entry = new iWidgetGrid();
         entry->setHorizontalAlignment(iHorizontalAlignment::Left);
         entry->appendCollumns(1);
@@ -279,25 +278,13 @@ namespace Igor
         label->setText(displayName);
         entry->addWidget(label, 1, 0);
 
-        _fileGrid->addWidget(entry, col, row, userData);
+        _fileGrid->addWidget(entry, col, row, iaString(path));
     }
 
     void iDialogFileSelect::clearFileGrid()
     {
         if (_fileGrid != nullptr)
         {
-            for (uint32 row = 0; row < _fileGrid->getRowCount(); ++row)
-            {
-                for (uint32 col = 0; col < _fileGrid->getColumnCount(); ++col)
-                {
-                    void* data = _fileGrid->getUserData(col, row);
-                    if (data != nullptr)
-                    {
-                        delete data;
-                    }
-                }
-            }
-
             _fileGrid->clear();
         }
     }
@@ -309,10 +296,10 @@ namespace Igor
             return;
         }
 
-        iaString* userData = static_cast<iaString*>(_fileGrid->getSelectedUserData());
-        if (userData != nullptr)
+        std::any userData = _fileGrid->getSelectedUserData();
+        if (userData.has_value())
         {
-            _directory = *userData;
+            _directory = std::any_cast<iaString>(userData);
             updateFileDir();
             updateFileGrid();
             _fileGrid->unSelect();

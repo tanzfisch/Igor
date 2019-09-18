@@ -61,7 +61,7 @@ Player::Player(iScene* scene, iView* view, const iaMatrixd& matrix)
     physicsNode->setMass(10);
     physicsNode->setMaterial(Ascent::_entityMaterialID);
     physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Player::onApplyForceAndTorque));
-    physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
+    physicsNode->setUserData(getID());
     physicsNode->setAngularDamping(iaVector3d(100000, 100000, 100000));
     physicsNode->setLinearDamping(500);
 

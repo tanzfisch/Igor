@@ -113,6 +113,7 @@
       <AdditionalIncludeDirectories>..\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4714; 4251; 4150; 4091;</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -166,6 +167,7 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
       <AdditionalIncludeDirectories>..\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4714; 4251; 4150; 4091;</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

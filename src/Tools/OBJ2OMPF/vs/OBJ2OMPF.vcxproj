@@ -121,6 +121,7 @@
       <AdditionalOptions>/we4150 %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -169,6 +170,7 @@
       <AdditionalOptions>/we4150 %(AdditionalOptions)</AdditionalOptions>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

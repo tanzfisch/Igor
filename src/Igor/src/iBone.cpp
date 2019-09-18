@@ -48,14 +48,14 @@ namespace Igor
         return _jointBottom;
     }
 
-    void iBone::setCustomData(void* data)
+    void iBone::setCustomData(const std::any& data)
     {
-        _customData = data;
+        _userData = data;
     }
 
-    void* iBone::getCustomData() const
+    std::any iBone::getCustomData() const
     {
-        return _customData;
+        return _userData;
     }
 
 

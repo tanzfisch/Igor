@@ -31,7 +31,7 @@
 
 #include <iWidget.h>
 #include <vector>
-
+#include <any>
 
 namespace Igor
 {
@@ -90,7 +90,7 @@ namespace Igor
 
             /*! user data that can be attached to a grid field
             */
-            void* _userData = nullptr;
+            std::any _userData;
         };
 
         /*! internal struct that represents a collumn of widgets
@@ -179,11 +179,7 @@ namespace Igor
         void setBorder(int32 border);
 
         /*! adds a child widget to this widget at position 0, 0
-
-        if there is already a child at 0, 0 it will be replaced
-
-        you might want to use addWidget(iWidgetPtr widget, int32 col, int32 row, void* userData = nullptr); instead
-
+        
         \param widget the child widget to be added
         */
         void addWidget(iWidgetPtr widget);
@@ -197,12 +193,13 @@ namespace Igor
         void removeWidget(iWidgetPtr widget);
 
         /*! add widget and set it at given position
-
+        
         \param widget the widget pointer
         \param col column index
         \param row row index
+        \param userData any kind of data
         */
-        void addWidget(iWidgetPtr widget, int32 col, int32 row, void* userData = nullptr);
+        void addWidget(iWidgetPtr widget, int32 col, int32 row, const std::any& userData = std::any());
 
         /*! sets selection mode of grid
 
@@ -238,14 +235,14 @@ namespace Igor
 
         /*! \returns pointer to user Data of selected field
         */
-        void* getSelectedUserData();
+        std::any getSelectedUserData();
 
         /*! \returns pointer to user Data of specified field
 
         \param col specfied collumn 
         \param row specfied row
         */
-        void* getUserData(int32 col, int32 row);
+        std::any getUserData(int32 col, int32 row);
 
         /*! defines which row will be streched if the grid is vertically streched
 

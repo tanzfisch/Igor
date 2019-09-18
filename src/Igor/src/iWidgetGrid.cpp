@@ -39,11 +39,11 @@ namespace Igor
         return _selectMode;
     }
 
-    void* iWidgetGrid::getSelectedUserData()
+    std::any iWidgetGrid::getSelectedUserData()
     {
         if (!isSelected())
         {
-            return nullptr;
+            return std::any();
         }
         else
         {
@@ -51,7 +51,7 @@ namespace Igor
         }
     }
 
-    void* iWidgetGrid::getUserData(int32 col, int32 row)
+    std::any iWidgetGrid::getUserData(int32 col, int32 row)
     {
         con_assert(_widgetRows.size() > row, "out of range");
         con_assert(_widgetRows[row]._widgetCollumn.size() > col, "out of range");
@@ -66,7 +66,7 @@ namespace Igor
             con_err("out of range");
         }
 
-        return nullptr;
+        return std::any();
     }
 
     int32 iWidgetGrid::getSelectedRow() const
@@ -882,7 +882,7 @@ namespace Igor
         iWidget::removeWidget(widget);
     }
 
-    void iWidgetGrid::addWidget(iWidgetPtr widget, int32 col, int32 row, void* userData)
+    void iWidgetGrid::addWidget(iWidgetPtr widget, int32 col, int32 row, const std::any& userData)
     {
         con_assert(_widgetRows.size() > row && _widgetRows[row]._widgetCollumn.size() > col, "out of range " << col << "," << row);
 

@@ -48,7 +48,7 @@ Enemy::Enemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMatrixd& matrix
     physicsNode->finalizeCollision();
     physicsNode->setMass(10);
     physicsNode->setMaterial(Ascent::_entityMaterialID);
-    physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
+    physicsNode->setUserData(getID());
     physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Enemy::onApplyForceAndTorque));
     physicsNode->setAngularDamping(iaVector3d(10000, 10000, 10000));
     physicsNode->setLinearDamping(100);

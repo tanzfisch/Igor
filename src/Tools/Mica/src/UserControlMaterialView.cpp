@@ -85,12 +85,12 @@ void UserControlMaterialView::onAddMaterial(iWidgetPtr source)
 
 void UserControlMaterialView::OnSelectionChange(iWidgetPtr widget)
 {
-	uint32* materialIDPtr = static_cast<uint32*>(_gridGraph->getSelectedUserData());
-	uint32 materialID = iMaterial::INVALID_MATERIAL_ID;
-	if (materialIDPtr != nullptr)
-	{
-		materialID = *materialIDPtr;
-	}
+    uint32 materialID = iMaterial::INVALID_MATERIAL_ID;
+    std::any userData = _gridGraph->getSelectedUserData();
+    if (userData.has_value())
+    {
+        materialID = std::any_cast<uint32>(userData);
+    }
 
 	_selectedMaterial = materialID;
 	_materialSelectionChanged(_selectedMaterial);
@@ -99,13 +99,6 @@ void UserControlMaterialView::OnSelectionChange(iWidgetPtr widget)
 void UserControlMaterialView::clear()
 {
 	_gridGraph->clearChildren();
-
-    for (auto iter : _userData)
-    {
-        delete[] iter;
-    }
-
-    _userData.clear();
 }
 
 void UserControlMaterialView::refresh()
@@ -120,10 +113,7 @@ void UserControlMaterialView::refresh()
         entry->setSelectMode(iSelectionMode::NoSelection);
         entry->setBorder(0);
         entry->setCellSpacing(2);
-        entry->setHorizontalAlignment(iHorizontalAlignment::Left);
-        uint32* userData = new uint32();
-        _userData.push_back(userData);
-        *userData = material->getID();
+        entry->setHorizontalAlignment(iHorizontalAlignment::Left);        
 
         iWidgetLabel* label = new iWidgetLabel();
         label->setHorizontalAlignment(iHorizontalAlignment::Right);
@@ -138,7 +128,7 @@ void UserControlMaterialView::refresh()
         }
 
         entry->addWidget(label, 0, 0);
-        _gridGraph->addWidget(entry, 0, currentRowIndex++, userData);
+        _gridGraph->addWidget(entry, 0, currentRowIndex++, material->getID());
         _gridGraph->appendRows(1);
     }
 }

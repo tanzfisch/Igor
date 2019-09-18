@@ -116,6 +116,7 @@
       <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\newton-dynamics\coreLibrary_300\source;$(MSBuildProgramFiles32)\Visual Leak Detector\include;..\..\..\3rd\TinyXML;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251; 4150;</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -185,6 +186,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
       <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\newton-dynamics\coreLibrary_300\source;$(MSBuildProgramFiles32)\Visual Leak Detector\include;..\..\..\3rd\TinyXML;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251; 4150;</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
