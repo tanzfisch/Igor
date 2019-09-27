@@ -130,7 +130,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "igor", "igor", "{EFA7EEBF-F
 		..\..\..\data\shaders\igor\textured_ipo_directional_light.frag = ..\..\..\data\shaders\igor\textured_ipo_directional_light.frag
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ModelViewer", "ModelViewer", "{F4AA71CA-1D8A-49E6-AC48-AB17B4F87133}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mica", "Mica", "{F4AA71CA-1D8A-49E6-AC48-AB17B4F87133}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\..\data\shaders\ModelViewer\yellow.frag = ..\..\..\data\shaders\ModelViewer\yellow.frag
 	EndProjectSection
