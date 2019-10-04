@@ -437,6 +437,12 @@
     <ClCompile Include="..\src\iNodeManager.cpp">
       <Filter>scene\nodes</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iAction.cpp">
+      <Filter>GUI\actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iActionManager.cpp">
+      <Filter>GUI\actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -916,6 +922,12 @@
     <ClInclude Include="..\src\iNodeManager.h">
       <Filter>scene\nodes</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iAction.h">
+      <Filter>GUI\actions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iActionManager.h">
+      <Filter>GUI\actions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iAACube.inl">
@@ -1084,6 +1096,9 @@
     </Filter>
     <Filter Include="resources\profiler">
       <UniqueIdentifier>{58005712-136c-489b-80a1-deb7d7ccf43e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\actions">
+      <UniqueIdentifier>{4de5ee33-eefa-467d-9efa-9e54cd9c0117}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

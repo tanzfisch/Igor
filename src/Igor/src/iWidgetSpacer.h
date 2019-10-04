@@ -54,6 +54,8 @@ namespace Igor
 		*/
 		virtual ~iWidgetSpacer() = default;
 
+
+
 	protected:
 
 		/*! updates size based on it's content

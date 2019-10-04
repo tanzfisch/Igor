@@ -237,6 +237,8 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\..\..\3rd\TinyXML\tinyxml.cpp" />
     <ClCompile Include="..\..\..\3rd\TinyXML\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\..\3rd\TinyXML\tinyxmlparser.cpp" />
+    <ClCompile Include="..\src\iAction.cpp" />
+    <ClCompile Include="..\src\iActionManager.cpp" />
     <ClCompile Include="..\src\iApplication.cpp" />
     <ClCompile Include="..\src\iAtlas.cpp" />
     <ClCompile Include="..\src\iBone.cpp" />
@@ -410,6 +412,8 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\..\..\3rd\TinyXML\tinyxml.h" />
     <ClInclude Include="..\src\iAABox.h" />
     <ClInclude Include="..\src\iAACube.h" />
+    <ClInclude Include="..\src\iAction.h" />
+    <ClInclude Include="..\src\iActionManager.h" />
     <ClInclude Include="..\src\iApplication.h" />
     <ClInclude Include="..\src\iAtlas.h" />
     <ClInclude Include="..\src\iBone.h" />
