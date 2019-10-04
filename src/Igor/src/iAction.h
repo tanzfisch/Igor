@@ -58,9 +58,9 @@ namespace Igor
 		*/
 		virtual void execute() = 0;
 
-		/*! \returns the action name
+		/*! \returns the action identifier
 		*/
-		const iaString& getName() const;
+		const iaString& getIdentifier() const;
 
 		/*! sets text of action
 
@@ -102,7 +102,7 @@ namespace Igor
 
 		\param name the name of the action
 		*/
-		void setName(const iaString& name);
+		void setIdentifier(const iaString& name);
 
 	};
 

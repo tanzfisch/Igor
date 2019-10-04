@@ -35,19 +35,19 @@ namespace Igor
 		}
 
 		_actions[name.getHashValue()] = action;
-		action->setName(name);
+		action->setIdentifier(name);
 	}
 
 	void iActionManager::unregisterAction(const iAction* action)
 	{
 		con_assert(action != nullptr, "zero pointer");
 
-		int64 hash = action->getName().getHashValue();
+		int64 hash = action->getIdentifier().getHashValue();
 
 		auto iter = _actions.find(hash);
 		if (iter == _actions.end())
 		{
-			con_warn("action with name \"" << action->getName() << "\" was not registered");
+			con_warn("action with name \"" << action->getIdentifier() << "\" was not registered");
 			return;
 		}
 
