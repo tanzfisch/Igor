@@ -13,6 +13,7 @@
 #include <iMaterialResourceFactory.h>
 #include <iWidgetManager.h>
 #include <iProfiler.h>
+#include <iActionManager.h>
 #ifdef __USE_OPENAL__
 #include <iSoundResourceFactory.h>
 #endif
@@ -295,6 +296,11 @@ namespace Igor
 		if (iProfiler::isInstantiated())
 		{
 			iProfiler::destroyInstance();
+		}
+
+		if (iActionManager::isInstantiated())
+		{
+			iActionManager::destroyInstance();
 		}
 
 		IgorAux::shutdown();
