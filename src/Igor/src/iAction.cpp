@@ -26,12 +26,17 @@ namespace Igor
 		return _picture;
 	}
 
-	void iAction::setIdentifier(const iaString& name)
+    int64 iAction::getID() const
+    {
+        return _name.getHashValue();
+    }
+
+	void iAction::setIDName(const iaString& name)
 	{
 		_name = name;
 	}
 
-	const iaString& iAction::getIdentifier() const
+	const iaString& iAction::getIDName() const
 	{
 		return _name;
 	}

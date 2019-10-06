@@ -38,9 +38,6 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	class iWidgetGrid;
-	class iWidgetLabel;
-
 	iaEVENT(iDialogMenuCloseEvent, iDialogMenuCloseDelegate, void, (int32 index), (index));
 
 	/*! pull down menu

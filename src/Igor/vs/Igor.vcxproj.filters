@@ -438,10 +438,13 @@
       <Filter>scene\nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iAction.cpp">
-      <Filter>GUI\actions</Filter>
+      <Filter>GUI\menus / actions</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iActionManager.cpp">
-      <Filter>GUI\actions</Filter>
+      <Filter>GUI\menus / actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iWidgetMenu.cpp">
+      <Filter>GUI\widgets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -923,10 +926,13 @@
       <Filter>scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iAction.h">
-      <Filter>GUI\actions</Filter>
+      <Filter>GUI\menus / actions</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iActionManager.h">
-      <Filter>GUI\actions</Filter>
+      <Filter>GUI\menus / actions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iWidgetMenu.h">
+      <Filter>GUI\widgets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1097,7 +1103,7 @@
     <Filter Include="resources\profiler">
       <UniqueIdentifier>{58005712-136c-489b-80a1-deb7d7ccf43e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GUI\actions">
+    <Filter Include="GUI\menus / actions">
       <UniqueIdentifier>{4de5ee33-eefa-467d-9efa-9e54cd9c0117}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

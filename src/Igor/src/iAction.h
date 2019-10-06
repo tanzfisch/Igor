@@ -60,7 +60,11 @@ namespace Igor
 
 		/*! \returns the action identifier
 		*/
-		const iaString& getIdentifier() const;
+		const iaString& getIDName() const;
+
+        /*! \returns hash value of aciton identifier
+        */
+        int64 getID() const;
 
 		/*! sets text of action
 
@@ -102,7 +106,7 @@ namespace Igor
 
 		\param name the name of the action
 		*/
-		void setIdentifier(const iaString& name);
+		void setIDName(const iaString& name);
 
 	};
 

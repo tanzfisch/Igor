@@ -74,6 +74,18 @@ namespace Igor
 		*/
 		iAction* unregisterAction(const iaString& name);
 
+        /*! \returns true if an action was registered to the action manager
+
+        \param action the action to check
+        */
+        bool isRegistered(const iAction* action);
+        
+        /*! \returns true if an action was registered to the action manager
+
+        \param actionName name of the action to check
+        */        
+        bool isRegistered(const iaString& actionName);
+
 		/*! \returns the action by name
 
 		\param name the action name
