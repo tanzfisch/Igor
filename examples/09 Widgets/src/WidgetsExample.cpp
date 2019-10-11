@@ -24,6 +24,10 @@
 #include <iWidgetGraph.h>
 #include <iWidgetColor.h>
 #include <iWidgetColorGradient.h>
+#include <iMenuBar.h>
+#include <iMenu.h>
+#include <iAction.h>
+#include <iActionManager.h>
 using namespace Igor;
 
 #include <iaConsole.h>
@@ -87,6 +91,16 @@ void WidgetsExample::onCloseDialog(iDialogPtr dialog)
     _dialog = nullptr;
 }
 
+void WidgetsExample::onActionOne()
+{
+    con_endl("action one");
+}
+
+void WidgetsExample::onActionTwo()
+{
+    con_endl("action two");
+}
+
 void WidgetsExample::initGUI()
 {
     // create a theme and set it up. in this case the build in default theme
@@ -102,14 +116,21 @@ void WidgetsExample::initGUI()
 
     iWidgetGrid* grid1 = new iWidgetGrid(_dialog);
     // put all widgets in one list for easier later cleanup. this method might not always be suitable
-    grid1->appendRows(1);
+    grid1->appendRows(2);
     grid1->setHorizontalAlignment(iHorizontalAlignment::Strech);
     grid1->setVerticalAlignment(iVerticalAlignment::Strech);
     grid1->setBorder(10);
     grid1->setCellSpacing(5);
-    grid1->setStrechRow(1);
+    grid1->setStrechRow(2);
     grid1->setStrechColumn(0);
     grid1->setSelectMode(iSelectionMode::NoSelection);
+
+    iMenuBarPtr menuBar = new iMenuBar();
+    menuBar->setHorizontalAlignment(iHorizontalAlignment::Left);
+    menuBar->setVerticalAlignment(iVerticalAlignment::Top);
+    menuBar->addAction(iActionManager::getInstance().createAction("action:one", iSimpleDelegate(this, &WidgetsExample::onActionOne), "action one"));
+    menuBar->addAction(iActionManager::getInstance().createAction("action:two", iSimpleDelegate(this, &WidgetsExample::onActionTwo), "action two"));
+    grid1->addWidget(menuBar, 0, 0);
 
     iWidgetGroupBox* groupBox1 = new iWidgetGroupBox();
     groupBox1->setText("Hello World. This is a group box!");
@@ -300,7 +321,7 @@ void WidgetsExample::initGUI()
     graph->setViewGrid();
 
     // assemble all the widgets with their parents
-    grid1->addWidget(groupBox1, 0, 0);
+    grid1->addWidget(groupBox1, 0, 1);
     groupBox1->addWidget(grid4);
     grid4->addWidget(exitButton, 0, 0);
     grid4->addWidget(spacer, 1, 0);
@@ -309,7 +330,7 @@ void WidgetsExample::initGUI()
     grid4->addWidget(_colorGradient, 4, 0);
     grid4->addWidget(graph, 5, 0);
 
-    grid1->addWidget(widgetScoll, 0, 1);
+    grid1->addWidget(widgetScoll, 0, 2);
     widgetScoll->addWidget(grid3);
 
     grid3->addWidget(label1, 0, 0);

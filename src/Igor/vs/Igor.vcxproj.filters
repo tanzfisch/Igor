@@ -443,8 +443,14 @@
     <ClCompile Include="..\src\iActionManager.cpp">
       <Filter>GUI\menus / actions</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iWidgetMenu.cpp">
-      <Filter>GUI\widgets</Filter>
+    <ClCompile Include="..\src\iMenu.cpp">
+      <Filter>GUI\menus / actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iMenuBar.cpp">
+      <Filter>GUI\menus / actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iActionDelegate.cpp">
+      <Filter>GUI\menus / actions</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -931,8 +937,14 @@
     <ClInclude Include="..\src\iActionManager.h">
       <Filter>GUI\menus / actions</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iWidgetMenu.h">
-      <Filter>GUI\widgets</Filter>
+    <ClInclude Include="..\src\iMenu.h">
+      <Filter>GUI\menus / actions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iMenuBar.h">
+      <Filter>GUI\menus / actions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iActionDelegate.h">
+      <Filter>GUI\menus / actions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

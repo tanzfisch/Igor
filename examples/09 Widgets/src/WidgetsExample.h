@@ -131,6 +131,14 @@ private:
     */
     iTexturePtr _igorLogo = nullptr;
 
+    /*! simple action that prints some text in the console
+    */
+    void onActionOne();
+
+    /*! simple action that prints some text in the console
+    */
+    void onActionTwo();
+
     /*! triggered when main dialog got closed
 
     \param dialog source of the event

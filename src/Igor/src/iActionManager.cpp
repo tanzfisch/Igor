@@ -4,9 +4,8 @@
 
 #include <iActionManager.h>
 
-#include <iAction.h>
-
 #include <iaConsole.h>
+using namespace IgorAux;
 
 namespace Igor
 {
@@ -20,7 +19,24 @@ namespace Igor
 		_actions.clear();
 	}
 
-	void iActionManager::registerAction(const iaString& name, iAction* action)
+    iActionPtr iActionManager::createAction(const iaString& name, iSimpleDelegate delegateAction, const iaString& text, const iaString& picturePath)
+    {
+        if (isRegistered(name))
+        {
+            con_err("action with name \"" << name << "\" was already registered");
+            return nullptr;
+        }
+
+        iActionDelegatePtr action = new iActionDelegate(delegateAction);
+        action->setText(text);
+        action->setPicturePath(picturePath);
+
+        registerAction(name, action);
+
+        return action;
+    }
+
+	void iActionManager::registerAction(const iaString& name, iActionPtr action)
 	{
 		con_assert(action != nullptr, "zero pointer");
 		con_assert(!name.isEmpty(), "invalid parameters");
@@ -38,7 +54,7 @@ namespace Igor
 		action->setIDName(name);
 	}
 
-	void iActionManager::unregisterAction(const iAction* action)
+	void iActionManager::unregisterAction(const iActionPtr action)
 	{
 		con_assert(action != nullptr, "zero pointer");
 
@@ -54,7 +70,7 @@ namespace Igor
 		_actions.erase(iter);
 	}
 
-	iAction* iActionManager::unregisterAction(const iaString& name)
+	iActionPtr iActionManager::unregisterAction(const iaString& name)
 	{
 		int64 hash = name.getHashValue();
 
@@ -65,13 +81,13 @@ namespace Igor
 			return nullptr;
 		}
 
-		iAction* result = iter->second;
+		iActionPtr result = iter->second;
 		_actions.erase(iter);
 
 		return result;
 	}
 
-    bool iActionManager::isRegistered(const iAction* action)
+    bool iActionManager::isRegistered(const iActionPtr action)
     {
         con_assert(action != nullptr, "zero pointer");
 
@@ -92,16 +108,21 @@ namespace Igor
         return iter != _actions.end();
     }
 
-	iAction* iActionManager::getAction(const iaString& name) const
+    iActionPtr iActionManager::getAction(const int64 hash) const
+    {
+        auto iter = _actions.find(hash);
+        if (iter == _actions.end())
+        {
+            return nullptr;
+        }
+
+        return iter->second;
+    }
+
+	iActionPtr iActionManager::getAction(const iaString& name) const
 	{
 		int64 hash = name.getHashValue();
 
-		auto iter = _actions.find(hash);
-		if (iter == _actions.end())
-		{
-			return nullptr;
-		}
-
-		return iter->second;
+        return getAction(hash);
 	}
 }

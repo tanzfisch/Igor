@@ -238,6 +238,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\..\..\3rd\TinyXML\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\..\3rd\TinyXML\tinyxmlparser.cpp" />
     <ClCompile Include="..\src\iAction.cpp" />
+    <ClCompile Include="..\src\iActionDelegate.cpp" />
     <ClCompile Include="..\src\iActionManager.cpp" />
     <ClCompile Include="..\src\iApplication.cpp" />
     <ClCompile Include="..\src\iAtlas.cpp" />
@@ -265,6 +266,8 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\src\iMaterial.cpp" />
     <ClCompile Include="..\src\iMaterialGroup.cpp" />
     <ClCompile Include="..\src\iMaterialResourceFactory.cpp" />
+    <ClCompile Include="..\src\iMenu.cpp" />
+    <ClCompile Include="..\src\iMenuBar.cpp" />
     <ClCompile Include="..\src\iMesh.cpp" />
     <ClCompile Include="..\src\iMeshBuffers.cpp" />
     <ClCompile Include="..\src\iMeshBuilder.cpp" />
@@ -396,7 +399,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\src\iWidgetGroupBox.cpp" />
     <ClCompile Include="..\src\iWidgetLabel.cpp" />
     <ClCompile Include="..\src\iWidgetManager.cpp" />
-    <ClCompile Include="..\src\iWidgetMenu.cpp" />
     <ClCompile Include="..\src\iWidgetNumberChooser.cpp" />
     <ClCompile Include="..\src\iWidgetPicture.cpp" />
     <ClCompile Include="..\src\iWidgetScroll.cpp" />
@@ -414,6 +416,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iAABox.h" />
     <ClInclude Include="..\src\iAACube.h" />
     <ClInclude Include="..\src\iAction.h" />
+    <ClInclude Include="..\src\iActionDelegate.h" />
     <ClInclude Include="..\src\iActionManager.h" />
     <ClInclude Include="..\src\iApplication.h" />
     <ClInclude Include="..\src\iAtlas.h" />
@@ -444,6 +447,8 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iMaterial.h" />
     <ClInclude Include="..\src\iMaterialGroup.h" />
     <ClInclude Include="..\src\iMaterialResourceFactory.h" />
+    <ClInclude Include="..\src\iMenu.h" />
+    <ClInclude Include="..\src\iMenuBar.h" />
     <ClInclude Include="..\src\iMesh.h" />
     <ClInclude Include="..\src\iMeshBuffers.h" />
     <ClInclude Include="..\src\iMeshBuilder.h" />
@@ -586,7 +591,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iWidgetGroupBox.h" />
     <ClInclude Include="..\src\iWidgetLabel.h" />
     <ClInclude Include="..\src\iWidgetManager.h" />
-    <ClInclude Include="..\src\iWidgetMenu.h" />
     <ClInclude Include="..\src\iWidgetNumberChooser.h" />
     <ClInclude Include="..\src\iWidgetPicture.h" />
     <ClInclude Include="..\src\iWidgetScroll.h" />

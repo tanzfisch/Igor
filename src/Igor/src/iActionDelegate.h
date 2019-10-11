@@ -26,20 +26,24 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iACTION__
-#define __iACTION__
+#ifndef __iACTION_DELEGATE__
+#define __iACTION_DELEGATE__
 
-#include <iDefines.h>
+#include <iAction.h>
 
-#include <iaString.h>
+#include <iaDelegate.h>
 using namespace IgorAux;
 
 namespace Igor
 {
+    
+    /*! simple delegate with no parameters
+    */
+    iaDELEGATE(iSimpleDelegate, void, (), ());
 
-	/*! action base class
+	/*! action delegate class
 	*/
-	class Igor_API iAction
+	class Igor_API iActionDelegate : public iAction
 	{
 
 		friend class iActionManager;
@@ -48,71 +52,27 @@ namespace Igor
 
 		/*! does nothing
 		*/
-		iAction() = default;
+        iActionDelegate(iSimpleDelegate actionDelegate);
 
 		/*! does nothing
 		*/
-		virtual ~iAction() = default;
+		virtual ~iActionDelegate() = default;
 
 		/*! executed when action gets triggered
 		*/
-		virtual void execute() = 0;
-
-		/*! \returns the action identifier
-		*/
-		const iaString& getIDName() const;
-
-        /*! \returns hash value of aciton identifier
-        */
-        int64 getID() const;
-
-		/*! sets text of action
-
-		\param text the new text
-		*/
-		void setText(const iaString& text);
-
-		/*! \returns the action text
-		*/
-		const iaString& getText() const;
-
-		/*! sets path to a picture for the action
-
-		\param filename the new text
-		*/
-		void setPicturePath(const iaString& filename);
-
-		/*! \returns the action picture file path
-		*/
-		const iaString& getPicturePath() const;
+		void execute() override;
 
 	private:
 
-		/*! text of the action
-		*/
-		iaString _text;
-
-		/*! path to picture of action
-		*/
-		iaString _picture;
-
-		/*! unique name of the action
-		*/
-		iaString _name;
-
-		/*! sets action name (aka identifier)
-
-		the action's name must be gloably unique
-
-		\param name the name of the action
-		*/
-		void setIDName(const iaString& name);
+        /*! the action delegate to trigger with this action
+        */
+        iSimpleDelegate _actionDelegate;
 
 	};
 
-    /*! action pointer definition
+    /*! action delegate pointer definition
     */
-    typedef iAction* iActionPtr;
+    typedef iActionDelegate* iActionDelegatePtr;
 
 }
 

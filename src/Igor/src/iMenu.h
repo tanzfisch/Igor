@@ -26,10 +26,10 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iACTION__
-#define __iACTION__
+#ifndef __iMENU__
+#define __iMENU__
 
-#include <iDefines.h>
+#include <iWidget.h>
 
 #include <iaString.h>
 using namespace IgorAux;
@@ -37,83 +37,47 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	/*! action base class
-	*/
-	class Igor_API iAction
-	{
+    class iAction;
+    typedef iAction* iActionPtr;
+    class iMenu;
 
-		friend class iActionManager;
+    /*! menu widget
+    */
+	class Igor_API iMenu : public iWidget
+	{
 
 	public:
 
-		/*! does nothing
-		*/
-		iAction() = default;
+        iMenu(iWidgetPtr parent = nullptr);
+		virtual ~iMenu();
 
-		/*! does nothing
-		*/
-		virtual ~iAction() = default;
+        /*! adds action to menu
 
-		/*! executed when action gets triggered
-		*/
-		virtual void execute() = 0;
+        only adds actions that are registered to the action manager
+        actions are not owned by the menu
 
-		/*! \returns the action identifier
-		*/
-		const iaString& getIDName() const;
-
-        /*! \returns hash value of aciton identifier
+        \param action the action to be added
         */
-        int64 getID() const;
+        void addAction(const iActionPtr action);
 
-		/*! sets text of action
+        /*! same as add actions just by action name
 
-		\param text the new text
-		*/
-		void setText(const iaString& text);
+        requires that the action we are searchign for was already registered to the action manager
 
-		/*! \returns the action text
-		*/
-		const iaString& getText() const;
+        \param actionName name of the action to be added
+        */
+        void addAction(const iaString& actionName);
 
-		/*! sets path to a picture for the action
+    private:
 
-		\param filename the new text
-		*/
-		void setPicturePath(const iaString& filename);
-
-		/*! \returns the action picture file path
-		*/
-		const iaString& getPicturePath() const;
-
-	private:
-
-		/*! text of the action
-		*/
-		iaString _text;
-
-		/*! path to picture of action
-		*/
-		iaString _picture;
-
-		/*! unique name of the action
-		*/
-		iaString _name;
-
-		/*! sets action name (aka identifier)
-
-		the action's name must be gloably unique
-
-		\param name the name of the action
-		*/
-		void setIDName(const iaString& name);
+        std::vector<int64> _actions;
 
 	};
 
-    /*! action pointer definition
-    */
-    typedef iAction* iActionPtr;
-
+	/*! menu widget pointer definition
+	*/
+	typedef iMenu* iMenuPtr;
 }
 
 #endif
+

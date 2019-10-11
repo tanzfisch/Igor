@@ -29,7 +29,7 @@
 #ifndef __iACTIONMANAGER__
 #define __iACTIONMANAGER__
 
-#include <iDefines.h>
+#include <iActionDelegate.h>
 
 #include <iaSingleton.h>
 #include <iaString.h>
@@ -40,8 +40,6 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	class iAction;
-
     /*! action manager class
     */
     class Igor_API iActionManager : public iaSingleton<iActionManager>
@@ -51,6 +49,14 @@ namespace Igor
 
     public:
 
+        /*! creates and registers an action
+
+        \param name the identifier of thie action
+        \param text the display text of this action
+        \param picturePath the filename of an icon to show
+        */
+        iActionPtr createAction(const iaString& name, iSimpleDelegate delegateAction, const iaString& text = "", const iaString& picturePath = "");
+
 		/*! registers an aciton to the manager
 
 		if it's name is not unique it will not be added
@@ -59,26 +65,26 @@ namespace Igor
 
 		\param action the action to be registered
 		*/
-		void registerAction(const iaString& name, iAction* action);
+		void registerAction(const iaString& name, iActionPtr action);
 
 		/*! unregister action from manager by instance
 
 		\param action the action to unregister
 		*/
-		void unregisterAction(const iAction* action);
+		void unregisterAction(const iActionPtr action);
 
 		/*! unregister action by name
 
 		\param name the name of the action to unregister
 		\returns pointer to unregistered action bbecause ownership was passed to caller
 		*/
-		iAction* unregisterAction(const iaString& name);
+		iActionPtr unregisterAction(const iaString& name);
 
         /*! \returns true if an action was registered to the action manager
 
         \param action the action to check
         */
-        bool isRegistered(const iAction* action);
+        bool isRegistered(const iActionPtr action);
         
         /*! \returns true if an action was registered to the action manager
 
@@ -90,13 +96,19 @@ namespace Igor
 
 		\param name the action name
 		*/
-		iAction* getAction(const iaString& name) const;
+		iActionPtr getAction(const iaString& name) const;
+
+        /*! \returns the action by hash value
+
+        \param hash the hash of the action name
+        */
+        iActionPtr getAction(const int64 hash) const;
 
 	private:
 
 		/*! map of all actions
 		*/
-		std::unordered_map<int64, iAction*> _actions;
+		std::unordered_map<int64, iActionPtr> _actions;
 
 		/*! does nothing
 		*/

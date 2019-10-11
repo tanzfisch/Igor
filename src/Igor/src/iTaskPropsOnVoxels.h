@@ -39,7 +39,6 @@ using namespace IgorAux;
 
 #include <vector>
 
-
 namespace Igor
 {
     class iVoxelData;
