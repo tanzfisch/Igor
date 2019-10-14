@@ -72,9 +72,29 @@ namespace IgorAux
 				}																						\
                 _mutex.unlock();                                                                        \
 			}																							\
-																										\
+                                                                                                        \
+            void block(bool blockEvent = true)                                                          \
+            {                                                                                           \
+                _blocked = blockEvent;                                                                  \
+            }                                                                                           \
+                                                                                                        \
+            void unblock()                                                                              \
+            {                                                                                           \
+                _blocked = false;                                                                       \
+            }                                                                                           \
+                                                                                                        \
+            bool isBlocked()                                                                            \
+            {                                                                                           \
+                return _blocked;                                                                        \
+            }                                                                                           \
+                                                                                                        \
 			__inline ReturnType operator() ParameterList												\
 			{																							\
+                if(_blocked)                                                                            \
+                {                                                                                       \
+                    return ReturnType();                                                                \
+                }                                                                                       \
+                                                                                                        \
                 _mutex.lock();                                                                          \
                 std::vector<DelegateName> delegates = _delegates;                                       \
                 _mutex.unlock();                                                                        \
@@ -100,6 +120,7 @@ namespace IgorAux
 																										\
             iaMutex _mutex;                                                                             \
 			std::vector<DelegateName> _delegates;														\
+            bool _blocked = false;                                                                      \
     };
 
 };

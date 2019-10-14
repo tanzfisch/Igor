@@ -529,6 +529,16 @@ namespace Igor
         return _strechCol;
     }
 
+    int32 iWidgetGrid::getMouseOverRow() const
+    {
+        return _mouseOverRow;
+    }
+
+    int32 iWidgetGrid::getMouseOverCollumn() const
+    {
+        return _mouseOverCollumn;
+    }
+
     bool iWidgetGrid::handleMouseDoubleClick(iKeyCode key)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");

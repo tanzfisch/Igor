@@ -79,6 +79,14 @@ namespace Igor
 		*/
 		virtual ~iUserControlColorChooser();
 
+        /*! set wether events will be blocked or not
+
+        implementation needs to be overriden by deriving classes to make sure all additional events are blocked too
+
+        \param blockEvents if true events from this widget will be blocked
+        */
+        virtual void block(bool blockEvents) override;
+
 		/*! sets the headline text
 
 		\param text the text

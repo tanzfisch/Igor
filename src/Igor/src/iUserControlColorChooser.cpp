@@ -27,6 +27,14 @@ namespace Igor
         deinitGUI();
     }
 
+    void iUserControlColorChooser::block(bool blockEvents)
+    {
+        iWidget::block(blockEvents);
+
+        // update own events
+        _colorChanged.block(isBlocked());
+    }
+
     void iUserControlColorChooser::setMode(iColorChooserMode mode)
     {
         if (_mode != mode)

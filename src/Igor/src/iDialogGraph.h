@@ -38,7 +38,6 @@ using namespace IgorAux;
 
 #include <map>
 
-
 namespace Igor
 {
 

@@ -156,6 +156,18 @@ namespace Igor
 		*/
 		virtual ~iWidget();
 
+        /*! set wether events will be blocked or not
+
+        implementation needs to be overriden by deriving classes to make sure all additional events are blocked too
+
+        \param blockEvents if true events from this widget will be blocked
+        */
+        virtual void block(bool blockEvents);
+
+        /*! @returns true if events on this widget are blocked
+        */
+        bool isBlocked() const;
+
 		/*! invalid widget ID
 		*/
 		static const uint64 INVALID_WIDGET_ID = 0;
@@ -501,21 +513,9 @@ namespace Igor
 
 	protected:
 
-		/*! if true this widget will process mouse clicks outside of the widgets boundings
-		*/
-		bool _acceptOutOfBoundsClicks = false;
-
 		/*! list of children
 		*/
 		std::set<uint64> _children;
-
-		/*! flag if widget accepts drop
-		*/
-		bool _acceptDrop = false;
-
-		/*! true: if currently mouse is over widget
-		*/
-		bool _isMouseOver = false;
 
 		/*! configured width of the widget
 		*/
@@ -569,10 +569,6 @@ namespace Igor
 		*/
 		iSelectionChangedEvent _selectionChanged;
 
-		/*! if true widget will react on mouse wheel
-		*/
-		bool _reactOnMouseWheel = true;
-
 		/*! tooltip text
 		*/
 		iaString _tooltip;
@@ -580,6 +576,26 @@ namespace Igor
 		/*! position for the tooltip to appear
 		*/
 		iaVector2i _tooltipPos;
+
+        /*! if true widget will react on mouse wheel
+        */
+        bool _reactOnMouseWheel = true;
+
+        /*! if true events on this widget are blocked
+        */
+        bool _blockedEvents = false;
+
+        /*! if true this widget will process mouse clicks outside of the widgets boundings
+        */
+        bool _acceptOutOfBoundsClicks = false;
+
+        /*! flag if widget accepts drop
+        */
+        bool _acceptDrop = false;
+
+        /*! true: if currently mouse is over widget
+        */
+        bool _isMouseOver = false;
 
 		/*! handles incomming mouse wheel event
 
@@ -726,33 +742,17 @@ namespace Igor
 		*/
 		int32 _clientAreaBottom = 0;
 
-		/*! grow by content flag
-		*/
-		bool _growsByContent = true;
-
 		/*! last mouse position
 		*/
 		iaVector2i _posLast;
 
-		/*! here you get the next id from
-		*/
-		static uint64 _nextID;
-
-		/*! id of widget
+    	/*! id of widget
 		*/
 		uint64 _id = 0;
 
 		/*! pointer to parent widget
 		*/
 		iWidgetPtr _parent = nullptr;
-
-		/*! flag if widget is active
-		*/
-		bool _active = true;
-
-		/*! flag if widget id visible
-		*/
-		bool _visible = true;
 
 		/*! horizontal alignment relative to parent
 		*/
@@ -765,6 +765,22 @@ namespace Igor
 		/*! current widget state
 		*/
 		iWidgetAppearanceState _widgetAppearanceState = iWidgetAppearanceState::Standby;
+
+        /*! grow by content flag
+        */
+        bool _growsByContent = true;
+
+        /*! flag if widget is active
+        */
+        bool _active = true;
+
+        /*! flag if widget id visible
+        */
+        bool _visible = true;
+
+        /*! here you get the next id from
+        */
+        static uint64 _nextID;
 
 		/*! pointer to widget that owns the keyboard focus
 		*/

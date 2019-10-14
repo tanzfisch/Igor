@@ -88,9 +88,13 @@ namespace Igor
         */
         void init();
 
-        /*! handles on change event. as in menu entry was clicked
+        /*! handles on click event. as in menu entry was clicked
         */
-        void onChange(iWidgetPtr source);
+        void onClick(iWidgetPtr source);
+
+        /*! handle on mouse over event
+        */
+        void onMouseOver(iWidgetPtr source);
 
 	};
 

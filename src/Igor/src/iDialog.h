@@ -42,7 +42,7 @@ namespace Igor
 
 	/*! dialog close event
 	*/
-	iaEVENT(iDialogClosedEvent, iDialogCloseDelegate, void, (iDialogPtr dialog), (dialog));
+	iaDELEGATE(iDialogCloseDelegate, void, (iDialogPtr dialog), (dialog));
 
     /*! dialog return states
     */
@@ -74,7 +74,7 @@ namespace Igor
 		/*! dtor unregisters mouse events
 		*/
 		virtual ~iDialog();
-
+        
         /*! set horizontal position of dialog and horizontal alignment to absolute
 
         \param x horizontal position

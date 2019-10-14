@@ -7,6 +7,11 @@ __IGOR_INLINE__ uint64 iWidget::getID() const
     return _id;
 }
 
+__IGOR_INLINE__ bool iWidget::isBlocked() const
+{
+    return _blockedEvents;
+}
+
 __IGOR_INLINE__ uint64 iWidget::getParentID() const
 {
     if (_parent != nullptr)

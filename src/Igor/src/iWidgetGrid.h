@@ -264,6 +264,14 @@ namespace Igor
         */
 		int32 getStrechColumn() const;
 
+        /*! \returns mouse over row
+        */
+        int32 getMouseOverRow() const;
+
+        /*! \returns mouse over collumn
+        */
+        int32 getMouseOverCollumn() const;
+
     private:
 
         /*! row number to be streched

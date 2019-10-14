@@ -36,6 +36,14 @@ namespace Igor
         _texture = nullptr;
     }
 
+    void iWidgetColorGradient::block(bool blockEvents)
+    {
+        iWidget::block(blockEvents);
+
+        // update own events
+        _colorCreated.block(isBlocked());
+    }
+
     bool iWidgetColorGradient::handleMouseKeyDown(iKeyCode key)
     {
         iaVector2i mousePos = getLastMousePos();

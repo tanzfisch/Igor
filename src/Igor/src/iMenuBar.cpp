@@ -25,18 +25,29 @@ namespace Igor
     void iMenuBar::init()
     {
         _grid = new iWidgetGrid(this);
-        _grid->setSelectMode(iSelectionMode::Collumn);
-        _grid->registerOnChangeEvent(iChangeDelegate(this, &iMenuBar::onChange));
+        _grid->setSelectMode(iSelectionMode::NoSelection);
+        _grid->registerOnClickEvent(iClickDelegate(this, &iMenuBar::onClick));
+        _grid->registerOnMouseOverEvent(iMouseOverDelegate(this, &iMenuBar::onMouseOver));
     }
 
-    void iMenuBar::onChange(iWidgetPtr source)
+    void iMenuBar::onMouseOver(iWidgetPtr source)
+    {
+        int32 col = static_cast<iWidgetGridPtr>(source)->getMouseOverCollumn();
+
+        con_endl("col " << col);
+    }
+
+    void iMenuBar::onClick(iWidgetPtr source)
     {
         int32 col = static_cast<iWidgetGridPtr>(source)->getSelectedCollumn();
+        con_endl("click col " << col);
         
         iActionPtr action = iActionManager::getInstance().getAction(_actions[col]);
         action->execute();
 
-        // TODO we need some event blocking mechanism in widgets _grid->unSelect();
+        _grid->block(true);
+        _grid->unSelect();
+        _grid->block(false);
     }
 
     void iMenuBar::calcMinSize()
