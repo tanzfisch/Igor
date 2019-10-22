@@ -108,11 +108,15 @@ namespace Igor
 
 		\param parent optional parent
 		*/
-		iWidgetGrid(iWidgetPtr parent = nullptr);
+		iWidgetGrid(const iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/
 		~iWidgetGrid() = default;
+
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
 
         /*! appends rows at the bottom of the grid
 
@@ -215,7 +219,7 @@ namespace Igor
 
         /*! unselects the grid
         */
-        void unSelect();
+        void unselect();
 
         /*! \returns true: if grid is selected
         */

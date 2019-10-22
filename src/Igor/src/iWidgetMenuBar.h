@@ -29,7 +29,7 @@
 #ifndef __iWIDGETMENUBAR__
 #define __iWIDGETMENUBAR__
 
-#include <iWidgetGrid.h>
+#include <iWidget.h>
 
 #include <iaString.h>
 using namespace IgorAux;
@@ -39,17 +39,29 @@ namespace Igor
 
     class iAction;
     typedef iAction* iActionPtr;
-    class iMenu;
+    class iWidgetGrid;
+    typedef iWidgetGrid* iWidgetGridPtr;
+    class iWidgetMenu;
+    typedef iWidgetMenu* iWidgetMenuPtr;
 
-    /*! menu widget
+    /*! menu bar widget
     */
-	class Igor_API iMenuBar : public iWidget
+	class Igor_API iWidgetMenuBar : public iWidget
 	{
 
 	public:
 
-        iMenuBar(iWidgetPtr parent = nullptr);
-		virtual ~iMenuBar();
+        /*! init gui
+        */
+        iWidgetMenuBar(const iWidgetPtr parent = nullptr);
+
+        /*! does nothing
+        */
+		virtual ~iWidgetMenuBar() = default;
+
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
 
         /*! adds action to menu
 
@@ -68,39 +80,31 @@ namespace Igor
         */
         void addAction(const iaString& actionName);
 
+        /*! adds a menu to the menu bar
+
+        \param menu the menu to add
+        */
+        void addMenu(const iWidgetMenuPtr menu);
+
+        /*! unselects the menu bar
+        */
+        void unselect();
+
     private:
 
         /*! menu grid
         */
         iWidgetGridPtr _grid;
-
-        /*! action hash codes
-        */
-        std::vector<int64> _actions;
-
-        /*! updates size based on widgets content
-
-        all widgets have to derive from this
-        */
-        void calcMinSize() override;
-
+        
         /*! initializes ui elements
         */
-        void init();
-
-        /*! handles on click event. as in menu entry was clicked
-        */
-        void onClick(iWidgetPtr source);
-
-        /*! handle on mouse over event
-        */
-        void onMouseOver(iWidgetPtr source);
+        void init();        
 
 	};
 
 	/*! menu widget pointer definition
 	*/
-	typedef iMenuBar* iMenuBarPtr;
+	typedef iWidgetMenuBar* iWidgetMenuBarPtr;
 }
 
 #endif

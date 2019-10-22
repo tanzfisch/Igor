@@ -115,12 +115,12 @@ void UserControlEmitter::initGUI()
     _grid->addWidget(_textSize, 1, 1);
 }
 
-void UserControlEmitter::onTypeChanged(iWidgetPtr source)
+void UserControlEmitter::onTypeChanged(const iWidgetPtr source)
 {
     updateNode();
 }
 
-void UserControlEmitter::onSizeChanged(iWidgetPtr source)
+void UserControlEmitter::onSizeChanged(const iWidgetPtr source)
 {
     updateNode();
 }

@@ -52,7 +52,7 @@ namespace Igor
 
 		\param parent optional parent
 		*/
-		iWidgetGroupBox(iWidgetPtr parent = nullptr);
+		iWidgetGroupBox(const iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/

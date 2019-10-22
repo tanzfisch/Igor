@@ -24,7 +24,7 @@ namespace Igor
 	static const int32 BORDER_WIDTH = 2;
 	static const int32 BORDER_WIDTH2 = 4;
 
-	iWidgetScroll::iWidgetScroll(iWidgetPtr parent)
+	iWidgetScroll::iWidgetScroll(const iWidgetPtr parent)
 		: iWidget(parent)
 	{
 		setGrowingByContent(false);
@@ -47,42 +47,42 @@ namespace Igor
 		{
 			if (_hscrollButton._mouseOver)
 			{
-				_hscrollButton._appearanceState = iWidgetAppearanceState::Clicked;
+				_hscrollButton._appearanceState = iWidgetState::Clicked;
 				_hscrollButton._mouseDown = false;
 				return true;
 			}
 
 			if (_vscrollButton._mouseOver)
 			{
-				_vscrollButton._appearanceState = iWidgetAppearanceState::Clicked;
+				_vscrollButton._appearanceState = iWidgetState::Clicked;
 				_vscrollButton._mouseDown = false;
 				return true;
 			}
 
 			if (_leftButton._mouseOver)
 			{
-				_leftButton._appearanceState = iWidgetAppearanceState::Clicked;
+				_leftButton._appearanceState = iWidgetState::Clicked;
 				_leftButton._mouseDown = false;
 				return true;
 			}
 
 			if (_rightButton._mouseOver)
 			{
-				_rightButton._appearanceState = iWidgetAppearanceState::Clicked;
+				_rightButton._appearanceState = iWidgetState::Clicked;
 				_rightButton._mouseDown = false;
 				return true;
 			}
 
 			if (_upButton._mouseOver)
 			{
-				_upButton._appearanceState = iWidgetAppearanceState::Clicked;
+				_upButton._appearanceState = iWidgetState::Clicked;
 				_upButton._mouseDown = false;
 				return true;
 			}
 
 			if (_downButton._mouseOver)
 			{
-				_downButton._appearanceState = iWidgetAppearanceState::Clicked;
+				_downButton._appearanceState = iWidgetState::Clicked;
 				_downButton._mouseDown = false;
 				return true;
 			}
@@ -120,14 +120,14 @@ namespace Igor
 		{
 			if (_hscrollButton._mouseOver)
 			{
-				_hscrollButton._appearanceState = iWidgetAppearanceState::Pressed;
+				_hscrollButton._appearanceState = iWidgetState::Pressed;
 				_hscrollButton._mouseDown = true;
 				return true;
 			}
 
 			if (_vscrollButton._mouseOver)
 			{
-				_vscrollButton._appearanceState = iWidgetAppearanceState::Pressed;
+				_vscrollButton._appearanceState = iWidgetState::Pressed;
 				_vscrollButton._mouseDown = true;
 				return true;
 			}
@@ -151,7 +151,7 @@ namespace Igor
 
 		if (_leftButton._mouseOver)
 		{
-			_leftButton._appearanceState = iWidgetAppearanceState::Pressed;
+			_leftButton._appearanceState = iWidgetState::Pressed;
 			_leftButton._mouseDown = true;
 
 			_hscroll -= 1.0f / (child->getActualWidth() / getActualWidth());
@@ -166,7 +166,7 @@ namespace Igor
 
 		if (_rightButton._mouseOver)
 		{
-			_rightButton._appearanceState = iWidgetAppearanceState::Pressed;
+			_rightButton._appearanceState = iWidgetState::Pressed;
 			_rightButton._mouseDown = true;
 
 			_hscroll += 1.0f / (child->getActualWidth() / getActualWidth());
@@ -181,7 +181,7 @@ namespace Igor
 
 		if (_upButton._mouseOver)
 		{
-			_upButton._appearanceState = iWidgetAppearanceState::Pressed;
+			_upButton._appearanceState = iWidgetState::Pressed;
 			_upButton._mouseDown = true;
 
 			_vscroll -= 1.0f / (child->getActualHeight() / getActualHeight());
@@ -196,7 +196,7 @@ namespace Igor
 
 		if (_downButton._mouseOver)
 		{
-			_downButton._appearanceState = iWidgetAppearanceState::Pressed;
+			_downButton._appearanceState = iWidgetState::Pressed;
 			_downButton._mouseDown = true;
 
 			_vscroll += 1.0f / (child->getActualHeight() / getActualHeight());
@@ -268,7 +268,7 @@ namespace Igor
 		{
 			if (!_isMouseOver)
 			{
-				_widgetAppearanceState = iWidgetAppearanceState::Highlighted;
+				_widgetState = iWidgetState::Highlighted;
 				_mouseOver(this);
 			}
 
@@ -278,12 +278,12 @@ namespace Igor
 			{
 				if (iIntersection::intersects(pos, _hscrollButton._rectangle))
 				{
-					_hscrollButton._appearanceState = iWidgetAppearanceState::Highlighted;
+					_hscrollButton._appearanceState = iWidgetState::Highlighted;
 					_hscrollButton._mouseOver = true;
 				}
 				else
 				{
-					_hscrollButton._appearanceState = iWidgetAppearanceState::Standby;
+					_hscrollButton._appearanceState = iWidgetState::Standby;
 					_hscrollButton._mouseOver = false;
 				}
 			}
@@ -292,57 +292,57 @@ namespace Igor
 			{
 				if (iIntersection::intersects(pos, _vscrollButton._rectangle))
 				{
-					_vscrollButton._appearanceState = iWidgetAppearanceState::Highlighted;
+					_vscrollButton._appearanceState = iWidgetState::Highlighted;
 					_vscrollButton._mouseOver = true;
 				}
 				else
 				{
-					_vscrollButton._appearanceState = iWidgetAppearanceState::Standby;
+					_vscrollButton._appearanceState = iWidgetState::Standby;
 					_vscrollButton._mouseOver = false;
 				}
 			}
 
 			if (iIntersection::intersects(pos, _leftButton._rectangle))
 			{
-				_leftButton._appearanceState = iWidgetAppearanceState::Highlighted;
+				_leftButton._appearanceState = iWidgetState::Highlighted;
 				_leftButton._mouseOver = true;
 			}
 			else
 			{
-				_leftButton._appearanceState = iWidgetAppearanceState::Standby;
+				_leftButton._appearanceState = iWidgetState::Standby;
 				_leftButton._mouseOver = false;
 			}
 
 			if (iIntersection::intersects(pos, _rightButton._rectangle))
 			{
-				_rightButton._appearanceState = iWidgetAppearanceState::Highlighted;
+				_rightButton._appearanceState = iWidgetState::Highlighted;
 				_rightButton._mouseOver = true;
 			}
 			else
 			{
-				_rightButton._appearanceState = iWidgetAppearanceState::Standby;
+				_rightButton._appearanceState = iWidgetState::Standby;
 				_rightButton._mouseOver = false;
 			}
 
 			if (iIntersection::intersects(pos, _upButton._rectangle))
 			{
-				_upButton._appearanceState = iWidgetAppearanceState::Highlighted;
+				_upButton._appearanceState = iWidgetState::Highlighted;
 				_upButton._mouseOver = true;
 			}
 			else
 			{
-				_upButton._appearanceState = iWidgetAppearanceState::Standby;
+				_upButton._appearanceState = iWidgetState::Standby;
 				_upButton._mouseOver = false;
 			}
 
 			if (iIntersection::intersects(pos, _downButton._rectangle))
 			{
-				_downButton._appearanceState = iWidgetAppearanceState::Highlighted;
+				_downButton._appearanceState = iWidgetState::Highlighted;
 				_downButton._mouseOver = true;
 			}
 			else
 			{
-				_downButton._appearanceState = iWidgetAppearanceState::Standby;
+				_downButton._appearanceState = iWidgetState::Standby;
 				_downButton._mouseOver = false;
 			}
 		}
@@ -350,15 +350,15 @@ namespace Igor
 		{
 			if (_isMouseOver)
 			{
-				_widgetAppearanceState = iWidgetAppearanceState::Standby;
+				_widgetState = iWidgetState::Standby;
 
-				_leftButton._appearanceState = iWidgetAppearanceState::Standby;
+				_leftButton._appearanceState = iWidgetState::Standby;
 				_leftButton._mouseOver = false;
-				_rightButton._appearanceState = iWidgetAppearanceState::Standby;
+				_rightButton._appearanceState = iWidgetState::Standby;
 				_rightButton._mouseOver = false;
-				_upButton._appearanceState = iWidgetAppearanceState::Standby;
+				_upButton._appearanceState = iWidgetState::Standby;
 				_upButton._mouseOver = false;
-				_downButton._appearanceState = iWidgetAppearanceState::Standby;
+				_downButton._appearanceState = iWidgetState::Standby;
 				_downButton._mouseOver = false;
 
 				_mouseOff(this);
@@ -640,7 +640,7 @@ namespace Igor
 		calcButtons();
 
 		// begin rendering
-		iWidgetManager::getInstance().getTheme()->drawBackgroundFrame(getActualRect(), _widgetAppearanceState, isActive());
+		iWidgetManager::getInstance().getTheme()->drawBackgroundFrame(getActualRect(), _widgetState, isActive());
 
 		iaColor4f dark(0.3f, 0.3f, 0.3f, 1.0f);
 

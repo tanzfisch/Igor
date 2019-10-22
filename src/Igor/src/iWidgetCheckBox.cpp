@@ -14,7 +14,7 @@ namespace Igor
 	bool iWidgetCheckBox::_generatingRadioButtonGroup = false;
 	std::vector<iWidgetCheckBox*> iWidgetCheckBox::_currentRadioButtons;
 
-	iWidgetCheckBox::iWidgetCheckBox(iWidgetPtr parent)
+	iWidgetCheckBox::iWidgetCheckBox(const iWidgetPtr parent)
 		: iWidget(parent)
 	{
 		_configuredHeight = 20;
@@ -53,7 +53,7 @@ namespace Igor
 
 		iWidget::handleMouseKeyUp(key);
 
-		if (_widgetAppearanceState == iWidgetAppearanceState::Clicked)
+		if (_widgetState == iWidgetState::Clicked)
 		{
 			if (_radioButtons.size())
 			{
@@ -123,7 +123,7 @@ namespace Igor
 	{
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawCheckBox(getActualRect(), _text, _checked, getAppearanceState(), isActive());
+			iWidgetManager::getInstance().getTheme()->drawCheckBox(getActualRect(), _text, _checked, getState(), isActive());
 		}
 	}
 

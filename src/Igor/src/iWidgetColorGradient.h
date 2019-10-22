@@ -57,7 +57,7 @@ namespace Igor
 
 		\param parent optional parent
 		*/
-		iWidgetColorGradient(iWidgetPtr parent = nullptr);
+		iWidgetColorGradient(const iWidgetPtr parent = nullptr);
 
 		/*! release texture
 		*/

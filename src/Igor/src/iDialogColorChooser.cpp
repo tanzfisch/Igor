@@ -30,7 +30,7 @@ namespace Igor
 
     void iDialogColorChooser::initGUI(const iaColor4f& color, bool useAlpha)
     {
-        iWidgetManager::setModal(this);
+        iWidgetManager::getInstance().setModal(this);
         setActive();
         setVisible();
         setWidth(20);
@@ -91,19 +91,19 @@ namespace Igor
         return _oldColor;
     }
 
-    void iDialogColorChooser::onOK(iWidgetPtr source)
+    void iDialogColorChooser::onOK(const iWidgetPtr source)
     {
         setReturnState(iDialogReturnState::Ok);
         close();
     }
 
-    void iDialogColorChooser::onCancel(iWidgetPtr source)
+    void iDialogColorChooser::onCancel(const iWidgetPtr source)
     {
         setReturnState(iDialogReturnState::Cancel);
         close();
     }
 
-    void iDialogColorChooser::onReset(iWidgetPtr source)
+    void iDialogColorChooser::onReset(const iWidgetPtr source)
     {
         _userControlColorChooser->setColor(_oldColor);
     }

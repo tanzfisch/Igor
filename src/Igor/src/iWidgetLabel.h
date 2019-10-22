@@ -48,7 +48,7 @@ namespace Igor
 
 		\param parent optional parent
 		*/
-		iWidgetLabel(iWidgetPtr parent = nullptr);
+		iWidgetLabel(const iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/

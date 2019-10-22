@@ -15,7 +15,7 @@
 #include <iWidgetScroll.h>
 #include <iDialog.h>
 #include <iWidgetGroupBox.h>
-#include <iDialogMenu.h>
+#include <iDialogIndexMenu.h>
 #include <iMouse.h>
 using namespace Igor;
 
@@ -211,7 +211,7 @@ void UserControlGraphView::OnContextMenu(iWidgetPtr widget)
 {
     if (_dialogMenu == nullptr)
     {
-        _dialogMenu = new iDialogMenu();
+        _dialogMenu = new iDialogIndexMenu();
 
         _dialogMenu->setWidth(24);
 
@@ -325,7 +325,7 @@ void UserControlGraphView::setSelectedNode(uint64 nodeID)
 {
     if (nodeID == iNode::INVALID_NODE_ID)
     {
-        _gridGraph->unSelect();
+        _gridGraph->unselect();
         return;
     }
 
@@ -346,7 +346,7 @@ void UserControlGraphView::setSelectedNode(uint64 nodeID)
         }
     }
 
-    _gridGraph->unSelect();
+    _gridGraph->unselect();
 }
 
 uint64 UserControlGraphView::getSelectedNode() const
@@ -503,32 +503,32 @@ void UserControlGraphView::unregisterOnAddModel(AddModelDelegate addModelDelegat
     _addModel.remove(addModelDelegate);
 }
 
-void UserControlGraphView::onAddTransformation(iWidgetPtr source)
+void UserControlGraphView::onAddTransformation(const iWidgetPtr source)
 {
     _addTransformation(_selectedNode);
 }
 
-void UserControlGraphView::onAddGroup(iWidgetPtr source)
+void UserControlGraphView::onAddGroup(const iWidgetPtr source)
 {
     _addGroup(_selectedNode);
 }
 
-void UserControlGraphView::onAddEmitter(iWidgetPtr source)
+void UserControlGraphView::onAddEmitter(const iWidgetPtr source)
 {
     _addEmitter(_selectedNode);
 }
 
-void UserControlGraphView::onAddParticleSystem(iWidgetPtr source)
+void UserControlGraphView::onAddParticleSystem(const iWidgetPtr source)
 {
     _addParticleSystem(_selectedNode);
 }
 
-void UserControlGraphView::onAddSwitch(iWidgetPtr source)
+void UserControlGraphView::onAddSwitch(const iWidgetPtr source)
 {
     _addSwitch(_selectedNode);
 }
 
-void UserControlGraphView::onAddModel(iWidgetPtr source)
+void UserControlGraphView::onAddModel(const iWidgetPtr source)
 {
     _addModel(_selectedNode);
 }

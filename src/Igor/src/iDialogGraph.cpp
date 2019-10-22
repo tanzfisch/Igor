@@ -59,7 +59,7 @@ namespace Igor
 
     void iDialogGraph::initGUI()
     {
-        iWidgetManager::setModal(this);
+        iWidgetManager::getInstance().setModal(this);
         setActive();
         setVisible();
         setWidth(450);
@@ -226,7 +226,7 @@ namespace Igor
         return _afterPoint;
     }
 
-    void iDialogGraph::onGraphChanged(iWidgetPtr source)
+    void iDialogGraph::onGraphChanged(const iWidgetPtr source)
     {
         for (int i = 0; i < _graph->getGraphCount(); ++i)
         {
@@ -248,7 +248,7 @@ namespace Igor
         }
     }
 
-    void iDialogGraph::onValueChanged(iWidgetPtr source)
+    void iDialogGraph::onValueChanged(const iWidgetPtr source)
     {
         if (_axisNumberChooser[0] == source)
         {
@@ -330,13 +330,13 @@ namespace Igor
         }
     }
 
-    void iDialogGraph::onOK(iWidgetPtr source)
+    void iDialogGraph::onOK(const iWidgetPtr source)
     {
         setReturnState(iDialogReturnState::Ok);
         close();
     }
 
-    void iDialogGraph::onDelete(iWidgetPtr source)
+    void iDialogGraph::onDelete(const iWidgetPtr source)
     {
         if (_graphs[0].size() > 1)
         {
@@ -351,13 +351,13 @@ namespace Igor
         }
     }
 
-    void iDialogGraph::onCancel(iWidgetPtr source)
+    void iDialogGraph::onCancel(const iWidgetPtr source)
     {
         setReturnState(iDialogReturnState::Cancel);
         close();
     }
 
-    void iDialogGraph::onReset(iWidgetPtr source)
+    void iDialogGraph::onReset(const iWidgetPtr source)
     {
         _graphs = _oldGraphs;
         _selectedValueIndex = 0;

@@ -127,31 +127,31 @@ namespace Igor
 
 		\param source source widget of event
 		*/
-		void onOK(iWidgetPtr source);
+		void onOK(const iWidgetPtr source);
 
 		/*! handles cancel button click
 
 		\param source source widget of event
 		*/
-		void onCancel(iWidgetPtr source);
+		void onCancel(const iWidgetPtr source);
 
 		/*! handles double click in file grid
 
 		\param source source widget of event
 		*/
-		void onDoubleClick(iWidgetPtr source);
+		void onDoubleClick(const iWidgetPtr source);
 
 		/*! handles path edit change
 
 		\param source source widget of event
 		*/
-		void onPathEditChange(iWidgetPtr source);
+		void onPathEditChange(const iWidgetPtr source);
 
 		/*! handles filename edit change
 
 		\param source source widget of event
 		*/
-		void onFilenameEditChange(iWidgetPtr source);
+		void onFilenameEditChange(const iWidgetPtr source);
 
 		/*! initializes directory and file name
 		*/

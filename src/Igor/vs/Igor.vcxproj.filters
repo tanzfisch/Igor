@@ -314,9 +314,6 @@
     <ClCompile Include="..\src\iDialogFileSelect.cpp">
       <Filter>GUI\dialogs</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iDialogMenu.cpp">
-      <Filter>GUI\dialogs</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iBone.cpp">
       <Filter>graphics\types\bones</Filter>
     </ClCompile>
@@ -443,14 +440,23 @@
     <ClCompile Include="..\src\iActionManager.cpp">
       <Filter>GUI\menus / actions</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iMenu.cpp">
+    <ClCompile Include="..\src\iWidgetMenuBar.cpp">
+      <Filter>GUI\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iWidgetMenu.cpp">
+      <Filter>GUI\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iActionSimpleDelegate.cpp">
       <Filter>GUI\menus / actions</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iMenuBar.cpp">
-      <Filter>GUI\menus / actions</Filter>
+    <ClCompile Include="..\src\iUserControlAction.cpp">
+      <Filter>GUI\user controls</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iActionDelegate.cpp">
-      <Filter>GUI\menus / actions</Filter>
+    <ClCompile Include="..\src\iDialogIndexMenu.cpp">
+      <Filter>GUI\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iDialogMenu.cpp">
+      <Filter>GUI\dialogs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -787,9 +793,6 @@
     <ClInclude Include="..\src\iDialogFileSelect.h">
       <Filter>GUI\dialogs</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iDialogMenu.h">
-      <Filter>GUI\dialogs</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iThread.h">
       <Filter>threading</Filter>
     </ClInclude>
@@ -937,14 +940,23 @@
     <ClInclude Include="..\src\iActionManager.h">
       <Filter>GUI\menus / actions</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iMenu.h">
+    <ClInclude Include="..\src\iWidgetMenuBar.h">
+      <Filter>GUI\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iWidgetMenu.h">
+      <Filter>GUI\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iActionSimpleDelegate.h">
       <Filter>GUI\menus / actions</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iMenuBar.h">
-      <Filter>GUI\menus / actions</Filter>
+    <ClInclude Include="..\src\iUserControlAction.h">
+      <Filter>GUI\user controls</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iActionDelegate.h">
-      <Filter>GUI\menus / actions</Filter>
+    <ClInclude Include="..\src\iDialogIndexMenu.h">
+      <Filter>GUI\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iDialogMenu.h">
+      <Filter>GUI\dialogs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

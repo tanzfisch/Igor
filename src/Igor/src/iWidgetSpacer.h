@@ -48,13 +48,11 @@ namespace Igor
 
 		\param parent optional parent
 		*/
-		iWidgetSpacer(iWidgetPtr parent = nullptr);
+		iWidgetSpacer(const iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/
 		virtual ~iWidgetSpacer() = default;
-
-
 
 	protected:
 

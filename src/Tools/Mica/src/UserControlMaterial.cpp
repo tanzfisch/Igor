@@ -560,12 +560,12 @@ void UserControlMaterial::initGUI()
     grid->addWidget(shaderGroupBox, 0, 1);
 }
 
-void UserControlMaterial::onDoUpdateMaterial(iWidgetPtr source)
+void UserControlMaterial::onDoUpdateMaterial(const iWidgetPtr source)
 {
     updateMaterial();
 }
 
-void UserControlMaterial::onTextChangedName(iWidgetPtr source)
+void UserControlMaterial::onTextChangedName(const iWidgetPtr source)
 {
     updateMaterial();
     _materialNameChangedEvent();
@@ -590,7 +590,7 @@ void UserControlMaterial::unregisterNameChangeDelegate(MaterialNameChangedDelega
     _materialNameChangedEvent.remove(nameChangedDelegate);
 }
 
-void UserControlMaterial::onShader0Button(iWidgetPtr source)
+void UserControlMaterial::onShader0Button(const iWidgetPtr source)
 {
     _loadShaderNumber = 0;
 
@@ -602,7 +602,7 @@ void UserControlMaterial::onShader0Button(iWidgetPtr source)
     _fileDialog->open(iDialogCloseDelegate(this, &UserControlMaterial::onFileLoadDialogClosed), iFileDialogPurpose::Load, "..\\data\\shaders"); // TODO hard coded path
 }
 
-void UserControlMaterial::onShader1Button(iWidgetPtr source)
+void UserControlMaterial::onShader1Button(const iWidgetPtr source)
 {
     _loadShaderNumber = 1;
 
@@ -614,7 +614,7 @@ void UserControlMaterial::onShader1Button(iWidgetPtr source)
     _fileDialog->open(iDialogCloseDelegate(this, &UserControlMaterial::onFileLoadDialogClosed), iFileDialogPurpose::Load, "..\\data\\shaders"); // TODO hard coded path
 }
 
-void UserControlMaterial::onShader2Button(iWidgetPtr source)
+void UserControlMaterial::onShader2Button(const iWidgetPtr source)
 {
     _loadShaderNumber = 2;
 
@@ -626,7 +626,7 @@ void UserControlMaterial::onShader2Button(iWidgetPtr source)
     _fileDialog->open(iDialogCloseDelegate(this, &UserControlMaterial::onFileLoadDialogClosed), iFileDialogPurpose::Load, "..\\data\\shaders"); // TODO hard coded path
 }
 
-void UserControlMaterial::onReloadShader(iWidgetPtr source)
+void UserControlMaterial::onReloadShader(const iWidgetPtr source)
 {
     auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
 

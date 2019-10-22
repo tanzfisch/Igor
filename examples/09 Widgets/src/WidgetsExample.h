@@ -139,6 +139,10 @@ private:
     */
     void onActionTwo();
 
+    /*! simple action that prints some text in the console
+    */
+    void onActionThree();
+
     /*! triggered when main dialog got closed
 
     \param dialog source of the event
@@ -161,7 +165,7 @@ private:
 
     \param source the source widget of this event
     */
-    void onExitClick(iWidgetPtr source);
+    void onExitClick(const iWidgetPtr source);
 
 	/*! triggered by closing the message box
 
@@ -173,17 +177,17 @@ private:
 
     \param source the source widget of this event
     */
-    void onOpenMessageBox(iWidgetPtr source);
+    void onOpenMessageBox(const iWidgetPtr source);
 
     /*! triggered by open color chooser button
 
     \param source the source widget
     */
-    void onOpenColorChooser(iWidgetPtr source);
+    void onOpenColorChooser(const iWidgetPtr source);
 
     /*! triggered by cllicking on color gradient
     */
-    void onOpenColorGradientEditor(iWidgetPtr source);
+    void onOpenColorGradientEditor(const iWidgetPtr source);
 
     /*! triggered when closing color chooser dialog
 

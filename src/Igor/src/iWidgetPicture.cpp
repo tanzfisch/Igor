@@ -15,7 +15,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iWidgetPicture::iWidgetPicture(iWidgetPtr parent)
+	iWidgetPicture::iWidgetPicture(const iWidgetPtr parent)
 		: iWidget(parent)
 	{
 		setHorizontalAlignment(iHorizontalAlignment::Center);
@@ -33,6 +33,11 @@ namespace Igor
 		_maxWidth = width;
 		_maxHeight = height;
 	}
+
+    bool iWidgetPicture::hasTexture() const
+    {
+        return _texture != nullptr;
+    }
 
 	int32 iWidgetPicture::getMaxWidth()
 	{
@@ -99,7 +104,7 @@ namespace Igor
 		if (isVisible() &&
 			_texture != nullptr)
 		{
-			iWidgetManager::getInstance().getTheme()->drawPicture(getActualRect(), _texture, _widgetAppearanceState, isActive());
+			iWidgetManager::getInstance().getTheme()->drawPicture(getActualRect(), _texture, _widgetState, isActive());
 		}
 	}
 

@@ -29,10 +29,9 @@
 #ifndef __iACTIONMANAGER__
 #define __iACTIONMANAGER__
 
-#include <iActionDelegate.h>
+#include <iActionSimpleDelegate.h>
 
 #include <iaSingleton.h>
-#include <iaString.h>
 using namespace IgorAux;
 
 #include <unordered_map>

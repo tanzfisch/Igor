@@ -7,7 +7,8 @@ using namespace IgorAux;
 
 namespace Igor
 {
-	iUserControl::iUserControl()
+	iUserControl::iUserControl(const iWidgetPtr parent)
+        : iWidget(parent)
 	{
 		setHorizontalAlignment(iHorizontalAlignment::Strech);
 		setVerticalAlignment(iVerticalAlignment::Strech);

@@ -78,7 +78,7 @@ void UserControlMaterialView::initGUI()
     refresh();
 }
 
-void UserControlMaterialView::onAddMaterial(iWidgetPtr source)
+void UserControlMaterialView::onAddMaterial(const iWidgetPtr source)
 {
     _addMaterial();
 }

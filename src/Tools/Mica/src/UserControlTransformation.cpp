@@ -180,7 +180,7 @@ void UserControlTransformation::initGUI()
 	_grid->addWidget(shearLabel, 0, 3);
 }
 
-void UserControlTransformation::onChange(iWidgetPtr source)
+void UserControlTransformation::onChange(const iWidgetPtr source)
 {
 	iNodeTransform* node = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_nodeId));
 

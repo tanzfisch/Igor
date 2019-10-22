@@ -84,25 +84,25 @@ namespace Igor
 
 		\param source the ok button it self
 		*/
-		void onOK(iWidgetPtr source);
+		void onOK(const iWidgetPtr source);
 
 		/*! handles cancel button clicked event
 
 		\param source the cancel button it self
 		*/
-		void onCancel(iWidgetPtr source);
+		void onCancel(const iWidgetPtr source);
 
 		/*! handles yes button clicked event
 
 		\param source the yes button it self
 		*/
-		void onYes(iWidgetPtr source);
+		void onYes(const iWidgetPtr source);
 
 		/*! handles no button clicked event
 
 		\param source the no button it self
 		*/
-		void onNo(iWidgetPtr source);
+		void onNo(const iWidgetPtr source);
         
 	};
 

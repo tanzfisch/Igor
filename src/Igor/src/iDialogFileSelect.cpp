@@ -48,7 +48,7 @@ namespace Igor
 
         updateFileDir();
 
-        iWidgetManager::setModal(this);
+        iWidgetManager::getInstance().setModal(this);
         setActive();
         setVisible();
 
@@ -220,7 +220,7 @@ namespace Igor
         _scroll->setVerticalScroll(0);
     }
 
-    void iDialogFileSelect::onFilenameEditChange(iWidgetPtr source)
+    void iDialogFileSelect::onFilenameEditChange(const iWidgetPtr source)
     {
         _filename = _filenameEdit->getText();
 
@@ -234,7 +234,7 @@ namespace Igor
         }
     }
 
-    void iDialogFileSelect::onPathEditChange(iWidgetPtr source)
+    void iDialogFileSelect::onPathEditChange(const iWidgetPtr source)
     {
         _directory = _pathEdit->getText();
         updateFileDir();
@@ -289,7 +289,7 @@ namespace Igor
         }
     }
 
-    void iDialogFileSelect::onDoubleClick(iWidgetPtr source)
+    void iDialogFileSelect::onDoubleClick(const iWidgetPtr source)
     {
         if (_fileGrid == nullptr)
         {
@@ -302,7 +302,7 @@ namespace Igor
             _directory = std::any_cast<iaString>(userData);
             updateFileDir();
             updateFileGrid();
-            _fileGrid->unSelect();
+            _fileGrid->unselect();
         }
 
         if (_purpose == iFileDialogPurpose::Load &&
@@ -313,13 +313,13 @@ namespace Igor
         }
     }
 
-    void iDialogFileSelect::onOK(iWidgetPtr source)
+    void iDialogFileSelect::onOK(const iWidgetPtr source)
     {
         setReturnState(iDialogReturnState::Ok);
         close();
     }
 
-    void iDialogFileSelect::onCancel(iWidgetPtr source)
+    void iDialogFileSelect::onCancel(const iWidgetPtr source)
     {
         setReturnState(iDialogReturnState::Cancel);
         close();

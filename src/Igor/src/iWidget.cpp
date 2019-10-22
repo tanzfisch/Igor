@@ -5,7 +5,6 @@
 #include <iWidget.h>
 
 #include <iWidgetManager.h>
-#include <iWidgetBaseTheme.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -16,7 +15,7 @@ namespace Igor
     uint64 iWidget::_nextID = iWidget::INVALID_WIDGET_ID + 1;
     iWidgetPtr iWidget::_keyboardFocus = nullptr;
 
-    iWidget::iWidget(iWidgetPtr parent)
+    iWidget::iWidget(const iWidgetPtr parent)
     {
         _id = _nextID++;
 
@@ -40,6 +39,31 @@ namespace Igor
         clearChildren();
 
         iWidgetManager::getInstance().unregisterWidget(this);
+    }
+
+    iWidgetType iWidget::getWidgetType() const
+    {
+        return iWidgetType::iUndefinedType;
+    }
+
+    void iWidget::setBackground(const iaColor4f& color)
+    {
+        _background = color;
+    }
+
+    iaColor4f iWidget::getBackground() const
+    {
+        return _background;
+    }
+
+    void iWidget::setForeground(const iaColor4f& color)
+    {
+        _foreground = color;
+    }
+
+    iaColor4f iWidget::getForeground() const
+    {
+        return _foreground;
     }
 
     void iWidget::block(bool blockEvents)
@@ -344,7 +368,7 @@ namespace Igor
                     }
                 }
 
-                if (result)
+                if (!_ignoreChildEventHandling && result)
                 {
                     return true;
                 }
@@ -386,7 +410,7 @@ namespace Igor
                     }
                 }
 
-                if (result)
+                if (!_ignoreChildEventHandling && result)
                 {
                     return true;
                 }
@@ -394,7 +418,7 @@ namespace Igor
                 {
                     if (key == iKeyCode::MouseLeft)
                     {
-                        _widgetAppearanceState = iWidgetAppearanceState::DoubleClicked;
+                        _widgetState = iWidgetState::DoubleClicked;
                         setKeyboardFocus();
                         _doubleClick(this);
                         return true;
@@ -424,7 +448,7 @@ namespace Igor
                     }
                 }
 
-                if (result)
+                if (!_ignoreChildEventHandling && result)
                 {
                     return true;
                 }
@@ -433,9 +457,9 @@ namespace Igor
                     if (key == iKeyCode::MouseLeft ||
                         key == iKeyCode::MouseRight)
                     {
-                        if (_widgetAppearanceState == iWidgetAppearanceState::Pressed)
+                        if (_widgetState == iWidgetState::Pressed)
                         {
-                            _widgetAppearanceState = iWidgetAppearanceState::Clicked;
+                            _widgetState = iWidgetState::Clicked;
                             setKeyboardFocus();
 
                             _click(this);
@@ -453,9 +477,20 @@ namespace Igor
             else if (_acceptOutOfBoundsClicks)
             {
                 _mouseOffClick(this);
+                return true;
             }
         }
         return false;
+    }
+
+    void iWidget::setIgnoreChildEventHandling(bool value)
+    {
+        _ignoreChildEventHandling = value;
+    }
+
+    bool iWidget::isIgnoringChildEventHandling() const
+    {
+        return _ignoreChildEventHandling;
     }
 
     void iWidget::setAcceptOutOfBoundsClicks(bool acceptOutOfBoundsClick)
@@ -497,7 +532,7 @@ namespace Igor
                     }
                 }
 
-                if (result)
+                if (!_ignoreChildEventHandling && result)
                 {
                     return true;
                 }
@@ -506,7 +541,7 @@ namespace Igor
                     if (key == iKeyCode::MouseLeft ||
                         key == iKeyCode::MouseRight)
                     {
-                        _widgetAppearanceState = iWidgetAppearanceState::Pressed;
+                        _widgetState = iWidgetState::Pressed;
                         return true;
                     }
                 }
@@ -530,6 +565,8 @@ namespace Igor
                     return true;
                 }
             }
+
+            // TODO ? if (!_ignoreChildEventHandling && result)
         }
         return false;
     }
@@ -549,6 +586,8 @@ namespace Igor
                     return true;
                 }
             }
+
+            // TODO ? if (!_ignoreChildEventHandling && result)
         }
         return false;
     }
@@ -568,6 +607,8 @@ namespace Igor
                     return true;
                 }
             }
+
+            // TODO ? if (!_ignoreChildEventHandling && result)
         }
         return false;
     }
@@ -592,7 +633,7 @@ namespace Igor
             {
                 if (!_isMouseOver)
                 {
-                    _widgetAppearanceState = iWidgetAppearanceState::Highlighted;
+                    _widgetState = iWidgetState::Highlighted;
                     _mouseOver(this);
 
                     if (!_tooltip.isEmpty())
@@ -615,7 +656,7 @@ namespace Igor
             {
                 if (_isMouseOver)
                 {
-                    _widgetAppearanceState = iWidgetAppearanceState::Standby;
+                    _widgetState = iWidgetState::Standby;
                     _mouseOff(this);
 
                     iWidgetManager::getInstance().hideTooltip();
@@ -677,7 +718,7 @@ namespace Igor
 
         if (!isVisible())
         {
-            _widgetAppearanceState = iWidgetAppearanceState::Standby;
+            _widgetState = iWidgetState::Standby;
         }
     }
 
@@ -687,7 +728,7 @@ namespace Igor
 
         if (!isActive())
         {
-            _widgetAppearanceState = iWidgetAppearanceState::Standby;
+            _widgetState = iWidgetState::Standby;
             _isMouseOver = false;
         }
     }
@@ -804,6 +845,22 @@ namespace Igor
 
             offsets.push_back(iRectanglei(_clientAreaLeft, _clientAreaTop, clientWidth, clientHeight));
         }
+    }
+
+    void iWidget::calcMinSize()
+    {
+        int32 minWidth = 0;
+        int32 minHeight = 0;
+
+        if (isGrowingByContent() &&
+            !_children.empty())
+        {
+            iWidgetPtr widget = iWidgetManager::getInstance().getWidget(*_children.begin());
+            minWidth = widget->getMinWidth();
+            minHeight = widget->getMinHeight();
+        }
+
+        setMinSize(minWidth, minHeight);
     }
 
     void iWidget::setMinSize(int32 width, int32 height)

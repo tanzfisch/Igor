@@ -9,6 +9,9 @@
 #include <iWidgetLabel.h>
 #include <iWidgetPicture.h>
 #include <iWidgetGrid.h>
+#include <iWidgetMenu.h>
+#include <iActionManager.h>
+#include <iUserControlAction.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -16,103 +19,64 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    void iDialogMenu::open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString>& texts, std::vector<iaString>& pictures)
+    iDialogMenu::iDialogMenu()
+    {
+        init();
+    }
+
+    void iDialogMenu::open(iDialogCloseDelegate dialogCloseDelegate)
     {
         iDialog::open(dialogCloseDelegate);
-
-        if (pictures.empty())
-        {
-            initGUI(texts);
-        }
-        else
-        {
-            initGUI(texts, pictures);
-        }
+        iWidgetManager::getInstance().setModal(this);
     }
 
-	void iDialogMenu::initGUI(std::vector<iaString>& texts)
-	{
-		iWidgetManager::setModal(this);
-		setActive();
-		setVisible();
-		setHeight(0);
-		setAcceptOutOfBoundsClicks();
-
-		registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
-
-		iWidgetGridPtr grid = new iWidgetGrid();
-		grid->appendRows(static_cast<uint32>(texts.size()) - 1);
-		grid->setHorizontalAlignment(iHorizontalAlignment::Left);
-		grid->setVerticalAlignment(iVerticalAlignment::Top);
-		grid->setSelectMode(iSelectionMode::Row);
-		grid->setCellSpacing(4);
-		grid->setBorder(4);
-		grid->registerOnChangeEvent(iChangeDelegate(this, &iDialogMenu::onChange));
-		addWidget(grid);
-
-		for (int i = 0; i < texts.size(); ++i)
-		{
-			iWidgetLabel* label = new iWidgetLabel();
-			label->setHorizontalAlignment(iHorizontalAlignment::Left);
-			label->setText(texts[i]);
-			grid->addWidget(label, 0, i);
-		}
-	}
-
-	void iDialogMenu::initGUI(std::vector<iaString>& texts, std::vector<iaString>& pictures)
-	{
-		con_assert_sticky(texts.size() == pictures.size(), "invalid data");
-
-		iWidgetManager::setModal(this);
-		setActive();
-		setVisible();
-		setHeight(0);
-		setAcceptOutOfBoundsClicks();
-
-		registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
-
-		iWidgetGridPtr grid = new iWidgetGrid();
-		grid->appendCollumns(1);
-		grid->appendRows(static_cast<uint32>(texts.size()) - 1);
-		grid->setHorizontalAlignment(iHorizontalAlignment::Left);
-		grid->setVerticalAlignment(iVerticalAlignment::Top);
-		grid->setSelectMode(iSelectionMode::Row);
-		grid->setCellSpacing(4);
-		grid->setBorder(4);
-		grid->registerOnChangeEvent(iChangeDelegate(this, &iDialogMenu::onChange));
-		addWidget(grid);
-
-		for (int i = 0; i < texts.size(); ++i)
-		{
-			if (!pictures[i].isEmpty())
-			{
-				iWidgetPicture* picture = new iWidgetPicture();
-				picture->setTexture(pictures[i]);
-				picture->setMaxSize(20, 20);
-				grid->addWidget(picture, 0, i);
-			}
-
-			iWidgetLabel* label = new iWidgetLabel();
-			label->setHorizontalAlignment(iHorizontalAlignment::Left);
-			label->setText(texts[i]);
-			grid->addWidget(label, 1, i);
-		}
-	}
-
-    int32 iDialogMenu::getSelectionIndex() const
+    void iDialogMenu::init()
     {
-        return _returnValue;
+        setSize(0, 0);
+        setAcceptOutOfBoundsClicks();
+        registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
+
+        _grid = new iWidgetGrid(this);
+        _grid->setSelectMode(iSelectionMode::NoSelection);
     }
 
-	void iDialogMenu::onMouseOffClick(iWidgetPtr source)
-	{
-		close();
-	}
+    void iDialogMenu::onMouseOffClick(const iWidgetPtr source)
+    {
+        close();
+    }
 
-	void iDialogMenu::onChange(iWidgetPtr source)
-	{
-		_returnValue = static_cast<iWidgetGridPtr>(source)->getSelectedRow();
-		close();
-	}
+    void iDialogMenu::onActionClick(const iWidgetPtr source)
+    {
+        close();
+    }
+
+    void iDialogMenu::addMenu(const iWidgetMenuPtr menu)
+    {
+        _grid->addWidget(menu, 0, _grid->getRowCount() - 1);
+        _grid->appendRows(1);
+    }
+
+    void iDialogMenu::addAction(const iActionPtr action)
+    {
+        if (!iActionManager::getInstance().isRegistered(action))
+        {
+            con_err("can't add unregistered actions");
+            return;
+        }
+
+        iUserControlActionPtr userControlAction = new iUserControlAction();
+        userControlAction->setHorizontalAlignment(iHorizontalAlignment::Strech);
+        userControlAction->setAction(action);
+        userControlAction->setFixedPictureSize();
+        userControlAction->registerOnClickEvent(iClickDelegate(this, &iDialogMenu::onActionClick));
+
+        _grid->addWidget(userControlAction, 0, _grid->getRowCount() - 1);
+        _grid->appendRows(1);
+    }
+
+    void iDialogMenu::addAction(const iaString& actionName)
+    {
+        addAction(iActionManager::getInstance().getAction(actionName));
+    }
 
 }

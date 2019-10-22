@@ -38,7 +38,7 @@ namespace Igor
 
 	void iDialogDecisionBox::initGUI(const iaString& message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
 	{
-		iWidgetManager::setModal(this);
+		iWidgetManager::getInstance().setModal(this);
 		setActive();
 		setVisible();
 		setWidth(20);
@@ -118,13 +118,13 @@ namespace Igor
 		buttonGrid->addWidget(cancelButton, 1, 0);
 	}
 
-	void iDialogDecisionBox::onOK(iWidgetPtr source)
+	void iDialogDecisionBox::onOK(const iWidgetPtr source)
 	{	
         setReturnState(iDialogReturnState::Ok);
 		close();
 	}
 
-	void iDialogDecisionBox::onCancel(iWidgetPtr source)
+	void iDialogDecisionBox::onCancel(const iWidgetPtr source)
 	{
         setReturnState(iDialogReturnState::Cancel);
 		close();

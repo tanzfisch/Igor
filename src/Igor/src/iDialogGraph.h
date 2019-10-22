@@ -190,31 +190,31 @@ namespace Igor
 
         \param source the ok button it self
         */
-        void onOK(iWidgetPtr source);
+        void onOK(const iWidgetPtr source);
 
         /*! triggered when value is to delete
 
         \param source the source widget
         */
-        void onDelete(iWidgetPtr source);
+        void onDelete(const iWidgetPtr source);
 
         /*! handles cancel button clicked event
 
         \param source the cancel button it self
         */
-        void onCancel(iWidgetPtr source);
+        void onCancel(const iWidgetPtr source);
 
         /*! handles reset button click event
 
         \param source the reset button it self
         */
-        void onReset(iWidgetPtr source);
+        void onReset(const iWidgetPtr source);
 
         /*! triggered by all the number choosers
 
         \param source the source widget
         */
-        void onValueChanged(iWidgetPtr source);
+        void onValueChanged(const iWidgetPtr source);
 
         /*! updates gui by selected value
         */
@@ -234,7 +234,7 @@ namespace Igor
 
         \param source the source widget
         */
-        void onGraphChanged(iWidgetPtr source);
+        void onGraphChanged(const iWidgetPtr source);
 
         /*! initializes gui elements
         */

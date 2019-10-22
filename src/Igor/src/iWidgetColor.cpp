@@ -15,7 +15,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iWidgetColor::iWidgetColor(iWidgetPtr parent)
+	iWidgetColor::iWidgetColor(const iWidgetPtr parent)
 		: iWidget(parent)
 	{
 		_configuredWidth = 60;

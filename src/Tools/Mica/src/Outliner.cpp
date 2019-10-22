@@ -157,12 +157,12 @@ void Outliner::initGUI()
     setViewType(ViewType::GraphView);
 }
 
-void Outliner::onGraphViewSelected(iWidgetPtr source)
+void Outliner::onGraphViewSelected(const iWidgetPtr source)
 {
     setViewType(ViewType::GraphView);
 }
 
-void Outliner::onMaterialViewSelected(iWidgetPtr source)
+void Outliner::onMaterialViewSelected(const iWidgetPtr source)
 {
     setViewType(ViewType::MaterialView);
 }
@@ -418,22 +418,22 @@ void Outliner::deleteSelected()
     }
 }
 
-void Outliner::onDelete(iWidgetPtr source)
+void Outliner::onDelete(const iWidgetPtr source)
 {
     deleteSelected();
 }
 
-void Outliner::onCopy(iWidgetPtr source)
+void Outliner::onCopy(const iWidgetPtr source)
 {
     copySelected();
 }
 
-void Outliner::onPaste(iWidgetPtr source)
+void Outliner::onPaste(const iWidgetPtr source)
 {
     pasteSelected();
 }
 
-void Outliner::onCut(iWidgetPtr source)
+void Outliner::onCut(const iWidgetPtr source)
 {
     cutSelected();
 }
@@ -536,17 +536,17 @@ void Outliner::fileSave()
     _saveFile();
 }
 
-void Outliner::onLoadFile(iWidgetPtr source)
+void Outliner::onLoadFile(const iWidgetPtr source)
 {
     _loadFile();
 }
 
-void Outliner::onSaveFile(iWidgetPtr source)
+void Outliner::onSaveFile(const iWidgetPtr source)
 {
     _saveFile();
 }
 
-void Outliner::onExitMica(iWidgetPtr source)
+void Outliner::onExitMica(const iWidgetPtr source)
 {
     _exitMica();
 }

@@ -13,7 +13,7 @@ using namespace IgorAux;
 
 namespace Igor
 {
-	iWidgetSpacer::iWidgetSpacer(iWidgetPtr parent)
+	iWidgetSpacer::iWidgetSpacer(const iWidgetPtr parent)
 		: iWidget(parent)
 	{
 		setHorizontalAlignment(iHorizontalAlignment::Center);
@@ -30,7 +30,7 @@ namespace Igor
 	{
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawSpacer(getActualRect(), getAppearanceState(), isActive());
+			iWidgetManager::getInstance().getTheme()->drawSpacer(getActualRect(), getState(), isActive());
 		}
 	}
 

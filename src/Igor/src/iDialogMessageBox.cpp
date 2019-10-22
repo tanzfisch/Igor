@@ -19,7 +19,7 @@ namespace Igor
 
 	void iDialogMessageBox::open(iaString message, iMessageBoxButtons buttons)
 	{
-		iWidgetManager::setModal(this);
+		iWidgetManager::getInstance().setModal(this);
 		setActive();
 		setVisible();
 		setWidth(20);
@@ -99,25 +99,25 @@ namespace Igor
 	}
 
 	__IGOR_DISABLE_WARNING__(4100)
-		void iDialogMessageBox::onOK(iWidgetPtr source)
+		void iDialogMessageBox::onOK(const iWidgetPtr source)
 	{
 		setReturnState(iDialogReturnState::Ok);
 		close();
 	}
 
-	void iDialogMessageBox::onCancel(iWidgetPtr source)
+	void iDialogMessageBox::onCancel(const iWidgetPtr source)
 	{
         setReturnState(iDialogReturnState::Cancel);
 		close();
 	}
 
-	void iDialogMessageBox::onYes(iWidgetPtr source)
+	void iDialogMessageBox::onYes(const iWidgetPtr source)
 	{
         setReturnState(iDialogReturnState::Yes);
 		close();
 	}
 
-	void iDialogMessageBox::onNo(iWidgetPtr source)
+	void iDialogMessageBox::onNo(const iWidgetPtr source)
 	{
         setReturnState(iDialogReturnState::No);
 		close();

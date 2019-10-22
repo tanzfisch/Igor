@@ -45,7 +45,7 @@ namespace Igor
 
 		\param parent optional parent
 		*/
-		iWidgetTextEdit(iWidgetPtr parent = nullptr);
+		iWidgetTextEdit(const iWidgetPtr parent = nullptr);
 
 		/*! deinitializes member variables
 		*/

@@ -50,7 +50,7 @@ namespace Igor
 
 		\param parent the optional parent
 		*/
-		iWidgetCheckBox(iWidgetPtr parent = nullptr);
+		iWidgetCheckBox(const iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/

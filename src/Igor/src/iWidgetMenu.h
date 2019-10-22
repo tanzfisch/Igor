@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iMENU__
-#define __iMENU__
+#ifndef __iWIDGETMENU__
+#define __iWIDGETMENU__
 
 #include <iWidget.h>
 
@@ -37,19 +37,42 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    class iAction;
-    typedef iAction* iActionPtr;
-    class iMenu;
+    class iAction; typedef iAction* iActionPtr;
+    class iWidgetLabel; typedef iWidgetLabel* iWidgetLabelPtr;
+    class iDialogMenu; typedef iDialogMenu* iDialogMenuPtr;
+    class iWidgetMenu; typedef iWidgetMenu* iWidgetMenuPtr;
+    class iDialog; typedef iDialog* iDialogPtr;
 
     /*! menu widget
     */
-	class Igor_API iMenu : public iWidget
+	class Igor_API iWidgetMenu : public iWidget
 	{
+
+        friend class iWidgetMenuBar;
 
 	public:
 
-        iMenu(iWidgetPtr parent = nullptr);
-		virtual ~iMenu();
+        /*! initializes gui elements
+        */
+        iWidgetMenu(const iWidgetPtr parent = nullptr);
+
+        /*! clean up
+        */
+		virtual ~iWidgetMenu();
+
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
+        /*! sets the menu title
+
+        \param title the menu title
+        */
+        void setTitle(const iaString& title);
+
+        /*! \returns the menu's title
+        */
+        const iaString& getTitle() const;
 
         /*! adds action to menu
 
@@ -68,15 +91,41 @@ namespace Igor
         */
         void addAction(const iaString& actionName);
 
+        /*! adds a menu to the menu
+
+        \param menu the menu to add
+        */
+        void addMenu(const iWidgetMenuPtr menu);
+
     private:
 
-        std::vector<int64> _actions;
+        /*! menu title
+        */
+        iWidgetLabelPtr _title = nullptr;
+
+        /*! menu body
+        */
+        iDialogMenuPtr _menu = nullptr;
+
+        /*! ID of parent in menu hierarchy
+        */
+        uint64 _menuParent = IGOR_INVALID_ID;
+
+        void onDialogClose(iDialogPtr dialog);
+
+        /*! initialize GUI elements
+        */
+        void init();
+
+        void onClick(const iWidgetPtr source);
+
+        void onMenuClosed(const iDialogPtr source);
 
 	};
 
 	/*! menu widget pointer definition
 	*/
-	typedef iMenu* iMenuPtr;
+	typedef iWidgetMenu* iMenuPtr;
 }
 
 #endif

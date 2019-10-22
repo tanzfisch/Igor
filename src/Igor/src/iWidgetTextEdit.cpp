@@ -12,7 +12,7 @@
 namespace Igor
 {
 
-	iWidgetTextEdit::iWidgetTextEdit(iWidgetPtr parent)
+	iWidgetTextEdit::iWidgetTextEdit(const iWidgetPtr parent)
 		: iWidget(parent)
 	{
 		_reactOnMouseWheel = false;
@@ -188,7 +188,7 @@ namespace Igor
 	{
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, _cursorPosPix, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetAppearanceState, isActive() && !_writeProtected);
+			iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, _cursorPosPix, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetState, isActive() && !_writeProtected);
 		}
 	}
 

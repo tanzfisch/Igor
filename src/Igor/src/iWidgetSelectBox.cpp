@@ -7,7 +7,7 @@
 #include <iWidgetManager.h>
 #include <iWidgetBaseTheme.h>
 #include <iTextureFont.h>
-#include <iDialogMenu.h>
+#include <iDialogIndexMenu.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -18,7 +18,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iWidgetSelectBox::iWidgetSelectBox(iWidgetPtr parent)
+    iWidgetSelectBox::iWidgetSelectBox(const iWidgetPtr parent)
         : iWidget(parent)
     {
         _reactOnMouseWheel = false;
@@ -69,7 +69,7 @@ namespace Igor
 
         if (_mouseOver)
         {
-            _buttonAppearanceState = iWidgetAppearanceState::Pressed;
+            _buttonAppearanceState = iWidgetState::Pressed;
         }
 
         return iWidget::handleMouseKeyDown(key);
@@ -91,12 +91,12 @@ namespace Igor
             my >= 0 && my < getActualHeight())
         {
             _mouseOver = true;
-            _buttonAppearanceState = iWidgetAppearanceState::Highlighted;
+            _buttonAppearanceState = iWidgetState::Highlighted;
         }
         else
         {
             _mouseOver = false;
-            _buttonAppearanceState = iWidgetAppearanceState::Standby;
+            _buttonAppearanceState = iWidgetState::Standby;
         }
     }
 
@@ -111,11 +111,11 @@ namespace Igor
         {
             if (key == iKeyCode::MouseLeft)
             {
-                _buttonAppearanceState = iWidgetAppearanceState::Standby;
+                _buttonAppearanceState = iWidgetState::Standby;
 
                 if (_selectBox == nullptr)
                 {
-                    _selectBox = new iDialogMenu();
+                    _selectBox = new iDialogIndexMenu();
                 }
 
                 _selectBox->setWidth(getActualWidth());
@@ -140,7 +140,7 @@ namespace Igor
 
     void iWidgetSelectBox::onSelectBoxClosed(iDialogPtr dialog)
     {
-        iDialogMenuPtr dialogMenu = static_cast<iDialogMenuPtr>(dialog);
+        iDialogIndexMenuPtr dialogMenu = static_cast<iDialogIndexMenuPtr>(dialog);
         auto index = dialogMenu->getSelectionIndex();
 
         if (index != -1)

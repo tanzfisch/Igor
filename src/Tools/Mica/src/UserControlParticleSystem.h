@@ -250,13 +250,13 @@ private:
     
     \param source the source widget of this event
     */
-    void onDoUpdateNode(iWidgetPtr source);
+    void onDoUpdateNode(const iWidgetPtr source);
 
     /*! triggered when the color gradient editor is to open
 
     \param source the source widget
     */
-    void onOpenColorGradientEditor(iWidgetPtr source);
+    void onOpenColorGradientEditor(const iWidgetPtr source);
 
     /*! triggered every frame
     */
@@ -272,7 +272,7 @@ private:
 
     \param source the source widget
     */
-    void onOpenStartSizeGradientEditor(iWidgetPtr source);
+    void onOpenStartSizeGradientEditor(const iWidgetPtr source);
 
     /*! triggered when closed the start size gradient graph editor
 
@@ -284,7 +284,7 @@ private:
 
     \param source the source widget
     */
-    void onOpenScaleSizeGradientEditor(iWidgetPtr source);
+    void onOpenScaleSizeGradientEditor(const iWidgetPtr source);
 
     /*! triggered when closed the size scale gradient graph editor
 
@@ -296,7 +296,7 @@ private:
 
     \param source the source widget
     */
-    void onOpenVisibilityGradientEditor(iWidgetPtr source);
+    void onOpenVisibilityGradientEditor(const iWidgetPtr source);
 
     /*! triggered when closed the visibility gradient graph editor
 
@@ -308,7 +308,7 @@ private:
 
     \param source the source widget
     */
-    void onOpenStartOrientationGradientEditor(iWidgetPtr source);
+    void onOpenStartOrientationGradientEditor(const iWidgetPtr source);
 
     /*! triggered when closed the start orientation gradient graph editor
 
@@ -320,7 +320,7 @@ private:
 
     \param source the source widget
     */
-    void onOpenStartOrientationRateGradientEditor(iWidgetPtr source);
+    void onOpenStartOrientationRateGradientEditor(const iWidgetPtr source);
 
     /*! triggered when closed the orientation rate gradient graph editor
 
@@ -332,7 +332,7 @@ private:
 
     \param source the source widget
     */
-    void onOpenStartVelocityGradientEditor(iWidgetPtr source);
+    void onOpenStartVelocityGradientEditor(const iWidgetPtr source);
 
     /*! triggered when closed the start velocity gradient graph editor
 
@@ -344,7 +344,7 @@ private:
 
     \param source the source widget
     */
-    void onOpenStartLiftGradientEditor(iWidgetPtr source);
+    void onOpenStartLiftGradientEditor(const iWidgetPtr source);
 
     /*! triggered when closed the start lift/weight gradient graph editor
 
@@ -356,7 +356,7 @@ private:
 
     \param source the source widget
     */
-    void onOpenEmissionGradientEditor(iWidgetPtr source);
+    void onOpenEmissionGradientEditor(const iWidgetPtr source);
 
     /*! triggered when closed the emission gradient graph editor
 
@@ -374,19 +374,19 @@ private:
 
     \param source the source widget
     */
-    void onStart(iWidgetPtr source);
+    void onStart(const iWidgetPtr source);
 
     /*! triggered when stop button was clicked
 
     \param source the source widget
     */
-    void onStop(iWidgetPtr source);
+    void onStop(const iWidgetPtr source);
     
     /*! triggered when reset button was clicked
 
     \param source the source widget
     */
-    void onReset(iWidgetPtr source);
+    void onReset(const iWidgetPtr source);
 
     /*! updates the gui from node data
     */

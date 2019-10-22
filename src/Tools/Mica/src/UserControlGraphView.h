@@ -51,8 +51,8 @@ namespace Igor
     class iWidgetScroll;
     class iWidgetGroupBox;
 	class iWidgetButton;
-    class iDialogMenu;
-    typedef iDialogMenu* iDialogMenuPtr;
+    class iDialogIndexMenu;
+    typedef iDialogIndexMenu* iDialogIndexMenuPtr;
     class iDialog;
     typedef iDialog* iDialogPtr;
 }
@@ -120,7 +120,7 @@ private:
 
     iWidgetGrid* _gridGraph = nullptr;
 
-    iDialogMenuPtr _dialogMenu = nullptr;
+    iDialogIndexMenuPtr _dialogMenu = nullptr;
 
     void clearGraph();
 
@@ -132,12 +132,12 @@ private:
     void OnContextMenu(iWidgetPtr widget);
     void OnContextMenuClose(iDialogPtr dialog);
 
-	void onAddModel(iWidgetPtr source);
-	void onAddTransformation(iWidgetPtr source);
-	void onAddSwitch(iWidgetPtr source);
-	void onAddGroup(iWidgetPtr source);
-	void onAddEmitter(iWidgetPtr source);
-	void onAddParticleSystem(iWidgetPtr source);
+	void onAddModel(const iWidgetPtr source);
+	void onAddTransformation(const iWidgetPtr source);
+	void onAddSwitch(const iWidgetPtr source);
+	void onAddGroup(const iWidgetPtr source);
+	void onAddEmitter(const iWidgetPtr source);
+	void onAddParticleSystem(const iWidgetPtr source);
 
     void preTraverse() override;
     bool preOrderVisit(iNodePtr node, iNodePtr nextSibling) override;

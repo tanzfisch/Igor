@@ -27,7 +27,7 @@ namespace Igor
             return nullptr;
         }
 
-        iActionDelegatePtr action = new iActionDelegate(delegateAction);
+        iActionDelegatePtr action = new iActionSimpleDelegate(delegateAction);
         action->setText(text);
         action->setPicturePath(picturePath);
 

@@ -91,19 +91,19 @@ namespace Igor
 
 		\param source the ok button it self
 		*/
-		void onOK(iWidgetPtr source);
+		void onOK(const iWidgetPtr source);
 
 		/*! handles cancel button clicked event
 
 		\param source the cancel button it self
 		*/
-		void onCancel(iWidgetPtr source);
+		void onCancel(const iWidgetPtr source);
 
 		/*! handles reset button click event
 
 		\param source the reset button it self
 		*/
-		void onReset(iWidgetPtr source);
+		void onReset(const iWidgetPtr source);
 
 		/*! initializes gui elements
 

@@ -29,9 +29,9 @@ __IGOR_INLINE__ bool iWidget::hasKeyboardFocus() const
     return (_keyboardFocus == this) ? true : false;
 }
 
-__IGOR_INLINE__ iWidgetAppearanceState iWidget::getAppearanceState() const
+__IGOR_INLINE__ iWidgetState iWidget::getState() const
 {
-    return _widgetAppearanceState;
+    return _widgetState;
 }
 
 __IGOR_INLINE__ bool iWidget::hasParent() const

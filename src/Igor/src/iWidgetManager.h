@@ -47,9 +47,6 @@ namespace Igor
     class iDialog;
 	typedef iDialog* iDialogPtr;
 
-    iaDELEGATE(iInstanciateWidgetDelegate, iWidgetPtr, (), ());
-    iaDELEGATE(iInstanciateDialogDelegate, iDialogPtr, (), ());
-
     /*! manages the widgets in use and is a singleton
     */
 	class Igor_API iWidgetManager : public iaSingleton<iWidgetManager>
@@ -79,7 +76,7 @@ namespace Igor
 
         \param id id of widget
         */
-        iWidgetPtr getWidget(uint64 id);
+        iWidgetPtr getWidget(uint64 id) const;
 
         /*! \returns dialog by id
 
@@ -124,21 +121,21 @@ namespace Igor
 
         /*! set this widget exclusively modal
         */
-        static void setModal(iDialogPtr dialog);
+        void setModal(iDialogPtr dialog);
 
         /*! \returns current modal widget
         */
-        static iDialogPtr getModal();
+        iDialogPtr getModal() const;
 
         /*! \returns true: if widget is modal
 
         \param dialog the dialog to check if it is modal
         */
-        static bool isModal(iDialogPtr dialog);
+        bool isModal(iDialogPtr dialog);
 
         /*! reset modal flag
         */
-        static void resetModal();
+        void resetModal();
 
         /*! register delegate to "redirected" mouse double click event
 
@@ -238,17 +235,9 @@ namespace Igor
 
 	private:
 
-        /*! registered widget types
-        */
-        std::map<uint64, iInstanciateWidgetDelegate> _widgetTypes; // TODO use unordered map
-
-        /*! registered dialog types
-        */
-        std::map<uint64, iInstanciateDialogDelegate> _dialogTypes;
-
         /*! modal marker
         */
-        static iDialogPtr _modal;
+        iDialogPtr _modal = nullptr;
 
         /*! mouse key down event
         */
@@ -365,6 +354,12 @@ namespace Igor
         \param key mouse key pressed
         */
         void onMouseKeyDown(iKeyCode key);
+
+        /*! returns the active dialogs
+
+        \param[out] dialogs resulting list of active dialogs
+        */
+        void getActiveDialogs(std::vector<iDialogPtr>& dialogs);
 
         /*! handle for mouse key up event
 

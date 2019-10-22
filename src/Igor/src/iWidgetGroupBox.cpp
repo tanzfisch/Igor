@@ -14,7 +14,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iWidgetGroupBox::iWidgetGroupBox(iWidgetPtr parent)
+	iWidgetGroupBox::iWidgetGroupBox(const iWidgetPtr parent)
 		: iWidget(parent)
 	{
 		_configuredWidth = 60;
@@ -121,7 +121,7 @@ namespace Igor
 		if (isVisible())
 		{
 			iWidgetManager& wm = iWidgetManager::getInstance();
-			wm.getTheme()->drawGroupBox(getActualRect(), _headerOnly, _text, getAppearanceState(), isActive());
+			wm.getTheme()->drawGroupBox(getActualRect(), _headerOnly, _text, getState(), isActive());
 
 			if (!_children.empty())
 			{

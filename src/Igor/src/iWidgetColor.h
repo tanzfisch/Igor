@@ -52,7 +52,7 @@ namespace Igor
 
 		\param parent optional parent
 		*/
-		iWidgetColor(iWidgetPtr parent = nullptr);
+		iWidgetColor(const iWidgetPtr parent = nullptr);
 
 		/*! release texture
 		*/

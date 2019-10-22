@@ -30,7 +30,6 @@
 #define __iUSERCONTROLFILECHOOSER__
 
 #include <iUserControl.h>
-#include <iWidget.h>
 #include <iDialogFileSelect.h>
 
 #include <iaEvent.h>
@@ -48,8 +47,10 @@ namespace Igor
 	public:
 
 		/*! ctor initializes member variables
+
+        \param parent the optional parent
 		*/
-		iUserControlFileChooser();
+		iUserControlFileChooser(const iWidgetPtr parent = nullptr);
 
 		/*! clean up
 		*/
@@ -131,13 +132,13 @@ namespace Igor
 
 		\param source the source of the event
 		*/
-		void onTextChanged(iWidgetPtr source);
+		void onTextChanged(const iWidgetPtr source);
 
 		/*! called when button was pressed
 
 		\param source the source of the event
 		*/
-		void onFileSelectButtonPressed(iWidgetPtr source);
+		void onFileSelectButtonPressed(const iWidgetPtr source);
 
 		/*! initialize gui elements
 		*/

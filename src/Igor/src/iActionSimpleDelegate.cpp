@@ -2,17 +2,17 @@
 // (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <iActionDelegate.h>
+#include <iActionSimpleDelegate.h>
 
 namespace Igor
 {
-    iActionDelegate::iActionDelegate(iSimpleDelegate actionDelegate)
+    iActionSimpleDelegate::iActionSimpleDelegate(iSimpleDelegate actionDelegate)
         : _actionDelegate(actionDelegate)
     {
 
     }
 
-    void iActionDelegate::execute()
+    void iActionSimpleDelegate::execute()
     {
         _actionDelegate();
     }

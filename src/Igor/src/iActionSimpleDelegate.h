@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iACTION_DELEGATE__
-#define __iACTION_DELEGATE__
+#ifndef __iACTION_SIMPLE_DELEGATE__
+#define __iACTION_SIMPLE_DELEGATE__
 
 #include <iAction.h>
 
@@ -41,22 +41,22 @@ namespace Igor
     */
     iaDELEGATE(iSimpleDelegate, void, (), ());
 
-	/*! action delegate class
+	/*! action class providing a delegate interface
 	*/
-	class Igor_API iActionDelegate : public iAction
+	class Igor_API iActionSimpleDelegate : public iAction
 	{
 
 		friend class iActionManager;
 
 	public:
 
-		/*! does nothing
+		/*! init members
 		*/
-        iActionDelegate(iSimpleDelegate actionDelegate);
+        iActionSimpleDelegate(iSimpleDelegate actionDelegate);
 
 		/*! does nothing
 		*/
-		virtual ~iActionDelegate() = default;
+		virtual ~iActionSimpleDelegate() = default;
 
 		/*! executed when action gets triggered
 		*/
@@ -72,7 +72,7 @@ namespace Igor
 
     /*! action delegate pointer definition
     */
-    typedef iActionDelegate* iActionDelegatePtr;
+    typedef iActionSimpleDelegate* iActionDelegatePtr;
 
 }
 

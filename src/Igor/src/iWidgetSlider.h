@@ -51,7 +51,7 @@ namespace Igor
 
 		\param parent optional parent
 		*/
-		iWidgetSlider(iWidgetPtr parent = nullptr);
+		iWidgetSlider(const iWidgetPtr parent = nullptr);
 
 		/*! release texture
 		*/

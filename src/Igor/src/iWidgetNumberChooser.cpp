@@ -14,7 +14,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iWidgetNumberChooser::iWidgetNumberChooser(iWidgetPtr parent)
+	iWidgetNumberChooser::iWidgetNumberChooser(const iWidgetPtr parent)
 		: iWidget(parent)
 	{
 	}
@@ -90,12 +90,12 @@ namespace Igor
 
 		if (_mouseOverButtonUp)
 		{
-			_buttonUpAppearanceState = iWidgetAppearanceState::Pressed;
+			_buttonUpAppearanceState = iWidgetState::Pressed;
 		}
 
 		if (_mouseOverButtonDown)
 		{
-			_buttonDownAppearanceState = iWidgetAppearanceState::Pressed;
+			_buttonDownAppearanceState = iWidgetState::Pressed;
 		}
 
 		return iWidget::handleMouseKeyDown(key);
@@ -120,12 +120,12 @@ namespace Igor
 		{
 
 			_mouseOverButtonUp = true;
-			_buttonUpAppearanceState = iWidgetAppearanceState::Highlighted;
+			_buttonUpAppearanceState = iWidgetState::Highlighted;
 		}
 		else
 		{
 			_mouseOverButtonUp = false;
-			_buttonUpAppearanceState = iWidgetAppearanceState::Standby;
+			_buttonUpAppearanceState = iWidgetState::Standby;
 		}
 
 		if (mx >= _buttonDownRectangle.getX() &&
@@ -134,12 +134,12 @@ namespace Igor
 			my < _buttonDownRectangle.getY() + _buttonDownRectangle.getHeight())
 		{
 			_mouseOverButtonDown = true;
-			_buttonDownAppearanceState = iWidgetAppearanceState::Highlighted;
+			_buttonDownAppearanceState = iWidgetState::Highlighted;
 		}
 		else
 		{
 			_mouseOverButtonDown = false;
-			_buttonDownAppearanceState = iWidgetAppearanceState::Standby;
+			_buttonDownAppearanceState = iWidgetState::Standby;
 		}
 	}
 
@@ -154,7 +154,7 @@ namespace Igor
 		{
 			if (key == iKeyCode::MouseLeft)
 			{
-				_buttonUpAppearanceState = iWidgetAppearanceState::Standby;
+				_buttonUpAppearanceState = iWidgetState::Standby;
 				increaseNumber(_stepUp);
 			}
 
@@ -166,7 +166,7 @@ namespace Igor
 		{
 			if (key == iKeyCode::MouseLeft)
 			{
-				_buttonDownAppearanceState = iWidgetAppearanceState::Standby;
+				_buttonDownAppearanceState = iWidgetState::Standby;
 				decreaseNumber(_stepDown);
 			}
 

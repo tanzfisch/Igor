@@ -55,7 +55,7 @@ namespace Igor
 
 		\param parent optional parent
 		*/
-		iWidgetScroll(iWidgetPtr parent = nullptr);
+		iWidgetScroll(const iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/
@@ -91,7 +91,7 @@ namespace Igor
 
 			/*! button apearance state
 			*/
-			iWidgetAppearanceState _appearanceState = iWidgetAppearanceState::Standby;
+			iWidgetState _appearanceState = iWidgetState::Standby;
 
 			/*! button mouse over state
 			*/

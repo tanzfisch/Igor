@@ -1006,7 +1006,7 @@ void UserControlParticleSystem::initGUI()
     updateNode();
 }
 
-void UserControlParticleSystem::onOpenStartLiftGradientEditor(iWidgetPtr source)
+void UserControlParticleSystem::onOpenStartLiftGradientEditor(const iWidgetPtr source)
 {
     std::vector<std::vector<iaVector2f>> graphs;
     for (int i = 0; i < _startLiftGraph->getGraphCount(); ++i)
@@ -1053,7 +1053,7 @@ void UserControlParticleSystem::onCloseStartLiftGradientEditor(iDialogPtr dialog
     _dialogGraph = nullptr;
 }
 
-void UserControlParticleSystem::onOpenEmissionGradientEditor(iWidgetPtr source)
+void UserControlParticleSystem::onOpenEmissionGradientEditor(const iWidgetPtr source)
 {
     std::vector<std::vector<iaVector2f>> graphs;
     for (int i = 0; i < _emissionGraph->getGraphCount(); ++i)
@@ -1098,7 +1098,7 @@ void UserControlParticleSystem::onCloseEmissionGradientEditor(iDialogPtr dialog)
     _dialogGraph = nullptr;
 }
 
-void UserControlParticleSystem::onOpenStartVelocityGradientEditor(iWidgetPtr source)
+void UserControlParticleSystem::onOpenStartVelocityGradientEditor(const iWidgetPtr source)
 {
     std::vector<std::vector<iaVector2f>> graphs;
     for (int i = 0; i < _startVelocityGraph->getGraphCount(); ++i)
@@ -1145,7 +1145,7 @@ void UserControlParticleSystem::onCloseStartVelocityGradientEditor(iDialogPtr di
     _dialogGraph = nullptr;
 }
 
-void UserControlParticleSystem::onOpenStartSizeGradientEditor(iWidgetPtr source)
+void UserControlParticleSystem::onOpenStartSizeGradientEditor(const iWidgetPtr source)
 {
     std::vector<std::vector<iaVector2f>> graphs;
     for (int i = 0; i < _startSizeGraph->getGraphCount(); ++i)
@@ -1192,7 +1192,7 @@ void UserControlParticleSystem::onCloseStartSizeGradientEditor(iDialogPtr dialog
     _dialogGraph = nullptr;
 }
 
-void UserControlParticleSystem::onOpenStartOrientationRateGradientEditor(iWidgetPtr source)
+void UserControlParticleSystem::onOpenStartOrientationRateGradientEditor(const iWidgetPtr source)
 {
     std::vector<std::vector<iaVector2f>> graphs;
     for (int i = 0; i < _orientationRateGraph->getGraphCount(); ++i)
@@ -1238,7 +1238,7 @@ void UserControlParticleSystem::onCloseStartOrientationRateGradientEditor(iDialo
     _dialogGraph = nullptr;
 }
 
-void UserControlParticleSystem::onOpenStartOrientationGradientEditor(iWidgetPtr source)
+void UserControlParticleSystem::onOpenStartOrientationGradientEditor(const iWidgetPtr source)
 {
     std::vector<std::vector<iaVector2f>> graphs;
     for (int i = 0; i < _orientationGraph->getGraphCount(); ++i)
@@ -1284,7 +1284,7 @@ void UserControlParticleSystem::onCloseStartOrientationGradientEditor(iDialogPtr
     _dialogGraph = nullptr;
 }
 
-void UserControlParticleSystem::onOpenScaleSizeGradientEditor(iWidgetPtr source)
+void UserControlParticleSystem::onOpenScaleSizeGradientEditor(const iWidgetPtr source)
 {
     std::vector<std::vector<iaVector2f>> graphs;
     for (int i = 0; i < _scaleSizeGraph->getGraphCount(); ++i)
@@ -1329,7 +1329,7 @@ void UserControlParticleSystem::onCloseScaleSizeGradientEditor(iDialogPtr dialog
     _dialogGraph = nullptr;
 }
 
-void UserControlParticleSystem::onOpenVisibilityGradientEditor(iWidgetPtr source)
+void UserControlParticleSystem::onOpenVisibilityGradientEditor(const iWidgetPtr source)
 {
     std::vector<std::vector<iaVector2f>> graphs;
     for (int i = 0; i < _visibilityGraph->getGraphCount(); ++i)
@@ -1377,7 +1377,7 @@ void UserControlParticleSystem::onCloseVisibilityGradientEditor(iDialogPtr dialo
 }
 
 
-void UserControlParticleSystem::onOpenColorGradientEditor(iWidgetPtr source)
+void UserControlParticleSystem::onOpenColorGradientEditor(const iWidgetPtr source)
 {
     if (_colorGradientDialog == nullptr)
     {
@@ -1403,12 +1403,12 @@ void UserControlParticleSystem::onCloseColorGradientEditor(iDialogPtr dialog)
     _colorGradientDialog = nullptr;
 }
 
-void UserControlParticleSystem::onDoUpdateNode(iWidgetPtr source)
+void UserControlParticleSystem::onDoUpdateNode(const iWidgetPtr source)
 {
     updateNode();
 }
 
-void UserControlParticleSystem::onStart(iWidgetPtr source)
+void UserControlParticleSystem::onStart(const iWidgetPtr source)
 {
     iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().getNode(_nodeId));
 
@@ -1418,7 +1418,7 @@ void UserControlParticleSystem::onStart(iWidgetPtr source)
     }
 }
 
-void UserControlParticleSystem::onStop(iWidgetPtr source)
+void UserControlParticleSystem::onStop(const iWidgetPtr source)
 {
     iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().getNode(_nodeId));
 
@@ -1428,7 +1428,7 @@ void UserControlParticleSystem::onStop(iWidgetPtr source)
     }
 }
 
-void UserControlParticleSystem::onReset(iWidgetPtr source)
+void UserControlParticleSystem::onReset(const iWidgetPtr source)
 {
     iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().getNode(_nodeId));
 

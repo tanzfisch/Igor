@@ -72,8 +72,10 @@ namespace Igor
 	public:
 
 		/*! ctor initializes member variables
+
+        \param parent the optional parent
 		*/
-		iUserControlColorChooser();
+		iUserControlColorChooser(const iWidgetPtr parent = nullptr);
 
 		/*! clean up
 		*/
@@ -338,109 +340,109 @@ namespace Igor
 
 		\param source source widget
 		*/
-		void onValueChangedH(iWidgetPtr source);
+		void onValueChangedH(const iWidgetPtr source);
 
 		/*! triggered when saturation component changed
 
 		\param source source widget
 		*/
-		void onValueChangedS(iWidgetPtr source);
+		void onValueChangedS(const iWidgetPtr source);
 
 		/*! triggered when value component changed
 
 		\param source source widget
 		*/
-		void onValueChangedV(iWidgetPtr source);
+		void onValueChangedV(const iWidgetPtr source);
 
 		/*! triggered when red component changed
 
 		\param source source widget
 		*/
-		void onValueChangedR(iWidgetPtr source);
+		void onValueChangedR(const iWidgetPtr source);
 
 		/*! triggered when green component changed
 
 		\param source source widget
 		*/
-		void onValueChangedG(iWidgetPtr source);
+		void onValueChangedG(const iWidgetPtr source);
 
 		/*! triggered when blue component changed
 
 		\param source source widget
 		*/
-		void onValueChangedB(iWidgetPtr source);
+		void onValueChangedB(const iWidgetPtr source);
 
 		/*! triggered when alpha component changed
 
 		\param source source widget
 		*/
-		void onValueChangedA(iWidgetPtr source);
+		void onValueChangedA(const iWidgetPtr source);
 
 		/*! triggered when red component changed from expanded mode widget
 
 		\param source source widget
 		*/
-		void onValueChangedRExpanded(iWidgetPtr source);
+		void onValueChangedRExpanded(const iWidgetPtr source);
 
 		/*! triggered when green component changed from expanded mode widget
 
 		\param source source widget
 		*/
-		void onValueChangedGExpanded(iWidgetPtr source);
+		void onValueChangedGExpanded(const iWidgetPtr source);
 
 		/*! triggered when blue component changed from expanded mode widget
 
 		\param source source widget
 		*/
-		void onValueChangedBExpanded(iWidgetPtr source);
+		void onValueChangedBExpanded(const iWidgetPtr source);
 
 		/*! triggered when alpha component changed from expanded mode widget
 
 		\param source source widget
 		*/
-		void onValueChangedAExpanded(iWidgetPtr source);
+		void onValueChangedAExpanded(const iWidgetPtr source);
 
 		/*! triggered when hue component changed by slider
 
 		\param source source widget
 		*/
-		void onSliderChangedH(iWidgetPtr source);
+		void onSliderChangedH(const iWidgetPtr source);
 
 		/*! triggered when saturation component changed by slider
 
 		\param source source widget
 		*/
-		void onSliderChangedS(iWidgetPtr source);
+		void onSliderChangedS(const iWidgetPtr source);
 
 		/*! triggered when value component changed by slider
 
 		\param source source widget
 		*/
-		void onSliderChangedV(iWidgetPtr source);
+		void onSliderChangedV(const iWidgetPtr source);
 
 		/*! triggered when red component changed by slider
 
 		\param source source widget
 		*/
-		void onSliderChangedR(iWidgetPtr source);
+		void onSliderChangedR(const iWidgetPtr source);
 
 		/*! triggered when green component changed by slider
 
 		\param source source widget
 		*/
-		void onSliderChangedG(iWidgetPtr source);
+		void onSliderChangedG(const iWidgetPtr source);
 
 		/*! triggered when blue component changed by slider
 
 		\param source source widget
 		*/
-		void onSliderChangedB(iWidgetPtr source);
+		void onSliderChangedB(const iWidgetPtr source);
 
 		/*! triggered when alpha component changed by slider
 
 		\param source source widget
 		*/
-		void onSliderChangedA(iWidgetPtr source);
+		void onSliderChangedA(const iWidgetPtr source);
 
 		/*! updates color view widgets based on current color
 		*/
@@ -493,7 +495,7 @@ namespace Igor
 
 		\param source the source widget
 		*/
-		void onExpandButtonPressed(iWidgetPtr source);
+		void onExpandButtonPressed(const iWidgetPtr source);
 
 		/*! initializes the gui
 		*/

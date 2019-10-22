@@ -51,7 +51,7 @@ namespace Igor
 
 		\param parent optional parnt
 		*/
-		iWidgetPicture(iWidgetPtr parent = nullptr);
+		iWidgetPicture(const iWidgetPtr parent = nullptr);
 
 		/*! release texture
 		*/
@@ -66,6 +66,10 @@ namespace Igor
 		/*! \returns texture path
 		*/
 		const iaString& getTexture() const;
+
+        /*! \returns true if picture has a valid and loaded texture
+        */
+        bool hasTexture() const;
 
 		/*! sets maximum display size of picture
 

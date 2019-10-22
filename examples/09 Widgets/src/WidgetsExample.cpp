@@ -24,8 +24,8 @@
 #include <iWidgetGraph.h>
 #include <iWidgetColor.h>
 #include <iWidgetColorGradient.h>
-#include <iMenuBar.h>
-#include <iMenu.h>
+#include <iWidgetMenuBar.h>
+#include <iWidgetMenu.h>
 #include <iAction.h>
 #include <iActionManager.h>
 using namespace Igor;
@@ -101,6 +101,11 @@ void WidgetsExample::onActionTwo()
     con_endl("action two");
 }
 
+void WidgetsExample::onActionThree()
+{
+    con_endl("action three");
+}
+
 void WidgetsExample::initGUI()
 {
     // create a theme and set it up. in this case the build in default theme
@@ -125,12 +130,37 @@ void WidgetsExample::initGUI()
     grid1->setStrechColumn(0);
     grid1->setSelectMode(iSelectionMode::NoSelection);
 
-    iMenuBarPtr menuBar = new iMenuBar();
+    iWidgetMenuBarPtr menuBar = new iWidgetMenuBar();
     menuBar->setHorizontalAlignment(iHorizontalAlignment::Left);
     menuBar->setVerticalAlignment(iVerticalAlignment::Top);
-    menuBar->addAction(iActionManager::getInstance().createAction("action:one", iSimpleDelegate(this, &WidgetsExample::onActionOne), "action one"));
-    menuBar->addAction(iActionManager::getInstance().createAction("action:two", iSimpleDelegate(this, &WidgetsExample::onActionTwo), "action two"));
     grid1->addWidget(menuBar, 0, 0);
+
+    iActionPtr action1 = iActionManager::getInstance().createAction("action:one", iSimpleDelegate(this, &WidgetsExample::onActionOne), "action one", "icons\\exit.png");
+    iActionPtr action2 = iActionManager::getInstance().createAction("action:two", iSimpleDelegate(this, &WidgetsExample::onActionTwo), "action two");
+    iActionPtr action3 = iActionManager::getInstance().createAction("action:three", iSimpleDelegate(this, &WidgetsExample::onActionThree), "action three with extra long label");    
+    
+    iWidgetMenuPtr menu1 = new iWidgetMenu();
+    menu1->setTitle("menu 1");
+    menu1->addAction(action3);
+    menu1->addAction(action1);
+    menuBar->addMenu(menu1);
+
+    iWidgetMenuPtr menu2b = new iWidgetMenu();
+    menu2b->setTitle("menu 2");
+    menu2b->addAction(action2);
+    menu2b->addAction(action3);
+    menu2b->addAction(action1);
+
+    iWidgetMenuPtr menu2 = new iWidgetMenu();
+    menu2->setTitle("menu 2");
+    menu2->addAction(action2);
+    menu2->addAction(action3);
+    menu2->addMenu(menu2b);
+    menu2->addAction(action1);
+    menuBar->addMenu(menu2);
+
+    menuBar->addAction(action1);
+    menuBar->addAction(action2);
 
     iWidgetGroupBox* groupBox1 = new iWidgetGroupBox();
     groupBox1->setText("Hello World. This is a group box!");
@@ -398,7 +428,7 @@ void WidgetsExample::onMouseMove(const iaVector2i& pos)
     }
 }
 
-void WidgetsExample::onOpenColorChooser(iWidgetPtr source)
+void WidgetsExample::onOpenColorChooser(const iWidgetPtr source)
 {
     if (_colorChooserDialog == nullptr)
     {
@@ -407,7 +437,7 @@ void WidgetsExample::onOpenColorChooser(iWidgetPtr source)
     _colorChooserDialog->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseColorChooser), _color->getColor(), true);
 }
 
-void WidgetsExample::onOpenColorGradientEditor(iWidgetPtr source)
+void WidgetsExample::onOpenColorGradientEditor(const iWidgetPtr source)
 {
     if (_colorGradientDialog == nullptr)
     {
@@ -448,7 +478,7 @@ void WidgetsExample::onCloseColorChooser(iDialogPtr dialog)
     _colorChooserDialog = nullptr;
 }
 
-void WidgetsExample::onOpenMessageBox(iWidgetPtr source)
+void WidgetsExample::onOpenMessageBox(const iWidgetPtr source)
 {
 	// open a message box with some text
 	if (_messageBox == nullptr)
@@ -483,7 +513,7 @@ void WidgetsExample::onCloseMessageBox(iDialogPtr dialog)
 	_messageBox = nullptr;
 }
 
-void WidgetsExample::onExitClick(iWidgetPtr source)
+void WidgetsExample::onExitClick(const iWidgetPtr source)
 {
     // close dialog
     _dialog->close();

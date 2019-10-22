@@ -33,6 +33,7 @@
 #include <iTimerHandle.h>
 
 #include <iaVector4.h>
+#include <iaColor4.h>
 using namespace IgorAux;
 
 #include <set>
@@ -40,9 +41,8 @@ using namespace IgorAux;
 
 namespace Igor
 {
-	class iFont;
-	class iWidgetBaseTheme;
-	class iWidgetManager;
+
+    class iWidgetManager;
 	class iWidget;
 
 	/*! define pointer to widget
@@ -51,45 +51,45 @@ namespace Igor
 
 	/*! widget click event
 	*/
-	iaEVENT(iClickEvent, iClickDelegate, void, (iWidgetPtr source), (source));
+	iaEVENT(iClickEvent, iClickDelegate, void, (const iWidgetPtr source), (source));
 
 	/*! mouse off click event
 
 	so when there was a click outside the range of a widget
 	*/
-	iaEVENT(iMouseOffClickEvent, iMouseOffClickDelegate, void, (iWidgetPtr source), (source));
+	iaEVENT(iMouseOffClickEvent, iMouseOffClickDelegate, void, (const iWidgetPtr source), (source));
 
 	/*! context menu event
 	*/
-	iaEVENT(iContextMenuEvent, iContextMenuDelegate, void, (iWidgetPtr source), (source));
+	iaEVENT(iContextMenuEvent, iContextMenuDelegate, void, (const iWidgetPtr source), (source));
 
 	/*! wheel up event
 	*/
-	iaEVENT(iWheelUpEvent, iWheelUpDelegate, void, (iWidgetPtr source), (source));
+	iaEVENT(iWheelUpEvent, iWheelUpDelegate, void, (const iWidgetPtr source), (source));
 
 	/*! wheel down event
 	*/
-	iaEVENT(iWheelDownEvent, iWheelDownDelegate, void, (iWidgetPtr source), (source));
+	iaEVENT(iWheelDownEvent, iWheelDownDelegate, void, (const iWidgetPtr source), (source));
 
 	/*! double click event
 	*/
-	iaEVENT(iDoubleClickEvent, iDoubleClickDelegate, void, (iWidgetPtr source), (source));
+	iaEVENT(iDoubleClickEvent, iDoubleClickDelegate, void, (const iWidgetPtr source), (source));
 
 	/*! mouse over event
 	*/
-	iaEVENT(iMouseOverEvent, iMouseOverDelegate, void, (iWidgetPtr source), (source));
+	iaEVENT(iMouseOverEvent, iMouseOverDelegate, void, (const iWidgetPtr source), (source));
 
 	/*! mouse off event
 	*/
-	iaEVENT(iMouseOffEvent, iMouseOffDelegate, void, (iWidgetPtr source), (source));
+	iaEVENT(iMouseOffEvent, iMouseOffDelegate, void, (const iWidgetPtr source), (source));
 
 	/*! change event
 	*/
-	iaEVENT(iChangeEvent, iChangeDelegate, void, (iWidgetPtr source), (source));
+	iaEVENT(iChangeEvent, iChangeDelegate, void, (const iWidgetPtr source), (source));
 
 	/*! keyboard focus changed event
 	*/
-	iaEVENT(iFocusEvent, iFocusDelegate, void, (iWidgetPtr source), (source));
+	iaEVENT(iFocusEvent, iFocusDelegate, void, (const iWidgetPtr source), (source));
 
 	/*! selection changed event
 	*/
@@ -97,7 +97,7 @@ namespace Igor
 
 	/*! interaction state of widget
 	*/
-	enum class iWidgetAppearanceState
+	enum class iWidgetState
 	{
 		/*! widget it highlighted
 		*/
@@ -119,6 +119,45 @@ namespace Igor
 		*/
 		Standby
 	};
+
+    /*! types of igor widgets
+    */
+    enum class iWidgetType
+    {
+        iWidgetButton,
+        iWidgetCheckBox,
+        iWidgetColor,
+        iWidgetColorGradient,
+        iWidgetGraph,
+        iWidgetGrid,
+        iWidgetGroupBox,
+        iWidgetLabel,
+        iWidgetMenu,
+        iWidgetMenuBar,
+        iWidgetNumberChooser,
+        iWidgetPicture,
+        iWidgetScroll,
+        iWidgetSelectBox,
+        iWidgetSlider,
+        iWidgetSpacer,
+        iWidgetTextEdit,
+
+        iUserControl,
+        iUserControlAction,
+        iUserControlColorChooser,
+        iUserControlFileChooser,
+
+        iDialog,
+        iDialogColorChooser,
+        iDialogDecisionBox,
+        iDialogFileSelect,
+        iDialogGraph,
+        iDialogIndexMenu,
+        iDialogMessageBox,
+
+        iUserType = 100,
+        iUndefinedType = 100
+    };
 
 	/*! GUI widget base class
 
@@ -146,15 +185,31 @@ namespace Igor
 
 	public:
 
-		/*! initializes members
+        /*! \returns the widgets type
 
-		\param parent the optional parent
-		*/
-		iWidget(iWidgetPtr parent = nullptr);
+        if not implemented by widget it will return iUndefinedType
+        */
+        virtual iWidgetType getWidgetType() const;
 
-		/*! clean up
-		*/
-		virtual ~iWidget();
+        /*! sets background color
+
+        \param color the new background color
+        */
+        void setBackground(const iaColor4f& color);
+
+        /*! \returns the background color
+        */
+        iaColor4f getBackground() const;
+
+        /*! sets foreground color
+
+        \param color the new foreground color
+        */
+        void setForeground(const iaColor4f& color);
+
+        /*! \returns the foreground color
+        */
+        iaColor4f getForeground() const;
 
         /*! set wether events will be blocked or not
 
@@ -178,7 +233,7 @@ namespace Igor
 
 		/*! \returns current interaction state of widget
 		*/
-		iWidgetAppearanceState getAppearanceState() const;
+		iWidgetState getState() const;
 
 		/*! registers delegate to click event (click is left mouse button)
 
@@ -511,6 +566,16 @@ namespace Igor
 		*/
 		void clearChildren();
 
+        /*! sets id this widget handles all events regardles whether or not its child already has handled the events
+
+        \param value if true this widget handles all events
+        */
+        void setIgnoreChildEventHandling(bool value = true);
+
+        /*! \returns true if event handling is done an any case
+        */
+        bool isIgnoringChildEventHandling() const;
+
 	protected:
 
 		/*! list of children
@@ -596,6 +661,20 @@ namespace Igor
         /*! true: if currently mouse is over widget
         */
         bool _isMouseOver = false;
+
+        /*! if true this widget handles all events regardles whether or not its child already has handled the events
+        */
+        bool _ignoreChildEventHandling = false;
+
+        /*! initializes members
+
+        \param parent the optional parent
+        */
+        iWidget(const iWidgetPtr parent = nullptr);
+
+        /*! clean up
+        */
+        virtual ~iWidget();
 
 		/*! handles incomming mouse wheel event
 
@@ -764,7 +843,7 @@ namespace Igor
 
 		/*! current widget state
 		*/
-		iWidgetAppearanceState _widgetAppearanceState = iWidgetAppearanceState::Standby;
+		iWidgetState _widgetState = iWidgetState::Standby;
 
         /*! grow by content flag
         */
@@ -798,7 +877,15 @@ namespace Igor
 
 		all widgets have to derive from this
 		*/
-		virtual void calcMinSize() = 0;
+		virtual void calcMinSize();
+
+        /*! background color
+        */
+        iaColor4f _background;
+
+        /*! foreground color
+        */
+        iaColor4f _foreground;
 
 		/*! updates widget alignment
 

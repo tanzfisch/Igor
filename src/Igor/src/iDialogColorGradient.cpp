@@ -46,7 +46,7 @@ namespace Igor
 	{
 		_gradient = gradient;
 
-		iWidgetManager::setModal(this);
+		iWidgetManager::getInstance().setModal(this);
 		setActive();
 		setVisible();
 		setWidth(350);
@@ -161,7 +161,7 @@ namespace Igor
 		buttonGrid->addWidget(okButton, 2, 0);
 	}
 
-	void iDialogColorGradient::onPositionChanged(iWidgetPtr source)
+	void iDialogColorGradient::onPositionChanged(const iWidgetPtr source)
 	{
 		iaGradientColor4f temp = _gradient;
 
@@ -236,7 +236,7 @@ namespace Igor
 		_gradientWidget->setGradient(_gradient);
 	}
 
-	void iDialogColorGradient::onOK(iWidgetPtr source)
+	void iDialogColorGradient::onOK(const iWidgetPtr source)
 	{
         setReturnState(iDialogReturnState::Ok);
 		close();
@@ -248,7 +248,7 @@ namespace Igor
 		_position->setValue(_gradient.getValues()[_selectedColor].first * 100.0f);
 	}
 
-	void iDialogColorGradient::onDelete(iWidgetPtr source)
+	void iDialogColorGradient::onDelete(const iWidgetPtr source)
 	{
 		if (_gradient.getValues().size() > 1)
 		{
@@ -259,13 +259,13 @@ namespace Igor
 		}
 	}
 
-	void iDialogColorGradient::onCancel(iWidgetPtr source)
+	void iDialogColorGradient::onCancel(const iWidgetPtr source)
 	{
         setReturnState(iDialogReturnState::Cancel);
 		close();
 	}
 
-	void iDialogColorGradient::onReset(iWidgetPtr source)
+	void iDialogColorGradient::onReset(const iWidgetPtr source)
 	{
 		_gradient = _oldGradient;
 		_gradientWidget->setGradient(_gradient);

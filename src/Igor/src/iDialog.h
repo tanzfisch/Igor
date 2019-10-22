@@ -56,9 +56,6 @@ namespace Igor
     };
 
     /*! dialog widget
-
-    \todo need more than one apperance type of dialogs e.g. for iWidgetSelectBox
-
     */
     class Igor_API iDialog : public iWidget
     {

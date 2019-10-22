@@ -18,7 +18,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iWidgetGraph::iWidgetGraph(iWidgetPtr parent)
+    iWidgetGraph::iWidgetGraph(const iWidgetPtr parent)
 		: iWidget(parent)
     {
         _configuredWidth = 100;
@@ -180,7 +180,7 @@ namespace Igor
             iRectanglef graphRenderArea;
             calcRenderArea(graphRenderArea);
 
-            iWidgetManager::getInstance().getTheme()->drawGraphFrame(getActualRect(), getAppearanceState(), isActive());
+            iWidgetManager::getInstance().getTheme()->drawGraphFrame(getActualRect(), getState(), isActive());
 
             if (_viewGrid)
             {
@@ -266,7 +266,7 @@ namespace Igor
                 for (auto point : points)
                 {
                     buttonRect._x = static_cast<int32>((((point._x - boundings._x) / boundings._width) * graphRenderArea._width) + graphRenderArea._x - 4.0f);
-                    iWidgetManager::getInstance().getTheme()->drawButton(buttonRect, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, iWidgetAppearanceState::Standby, isActive());
+                    iWidgetManager::getInstance().getTheme()->drawButton(buttonRect, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, iWidgetState::Standby, isActive());
                 }
             }
         }

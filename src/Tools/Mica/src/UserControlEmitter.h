@@ -89,13 +89,13 @@ private:
 
     \param source the source widget
     */
-    void onTypeChanged(iWidgetPtr source);
+    void onTypeChanged(const iWidgetPtr source);
 
     /*! triggered when size of emitter changes
 
     \param source the source widget
     */
-    void onSizeChanged(iWidgetPtr source);
+    void onSizeChanged(const iWidgetPtr source);
 
     /*! updates gui based on settings from node
     */

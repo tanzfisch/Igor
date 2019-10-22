@@ -83,7 +83,7 @@ namespace Igor
 
 		\param parent optional parnt
 		*/
-		iWidgetGraph(iWidgetPtr parent = nullptr);
+		iWidgetGraph(const iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/

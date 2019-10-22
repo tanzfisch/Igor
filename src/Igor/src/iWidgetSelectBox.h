@@ -38,7 +38,7 @@ namespace Igor
     typedef iDialog* iDialogPtr;
 	class iTextureFont;
 	class iWidgetManager;
-	class iDialogMenu;
+	class iDialogIndexMenu;
 
 	/*! select box widget
 	*/
@@ -51,7 +51,7 @@ namespace Igor
 
 		\param parent optional parent
 		*/
-		iWidgetSelectBox(iWidgetPtr parent = nullptr);
+		iWidgetSelectBox(const iWidgetPtr parent = nullptr);
 
 		/*! clean up
 		*/
@@ -112,11 +112,11 @@ namespace Igor
 
 		/*! select box dialog used for the unfold effect
 		*/
-		iDialogMenu* _selectBox = nullptr;
+		iDialogIndexMenu* _selectBox = nullptr;
 
 		/*! appearance state of the button
 		*/
-		iWidgetAppearanceState _buttonAppearanceState = iWidgetAppearanceState::Standby;
+		iWidgetState _buttonAppearanceState = iWidgetState::Standby;
 
 		/*! triggered when selection box closed
 

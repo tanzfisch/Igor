@@ -95,7 +95,7 @@ void UserControlNode::updateNode()
     }
 }
 
-void UserControlNode::onNameChanged(iWidgetPtr source)
+void UserControlNode::onNameChanged(const iWidgetPtr source)
 {
     updateNode();
     _nameChangedEvent();

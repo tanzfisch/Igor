@@ -62,7 +62,7 @@ namespace Igor
 		*/
 		const iaString& getIDName() const;
 
-        /*! \returns hash value of aciton identifier
+        /*! \returns hash value of action identifier
         */
         int64 getID() const;
 

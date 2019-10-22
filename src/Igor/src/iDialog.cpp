@@ -28,9 +28,9 @@ namespace Igor
 
     iDialog::~iDialog()
     {
-        if (iWidgetManager::isModal(this))
+        if (iWidgetManager::getInstance().isModal(this))
         {
-            iWidgetManager::resetModal();
+            iWidgetManager::getInstance().resetModal();
         }
 
 		iWidgetManager::getInstance().unregisterDialog(this);
@@ -57,7 +57,7 @@ namespace Igor
 	{
         setActive(false);
         setVisible(false);
-        iWidgetManager::resetModal();
+        iWidgetManager::getInstance().resetModal();
 
 		iWidgetManager::getInstance().closeDialog(this);
 	}
@@ -156,7 +156,7 @@ namespace Igor
         {
 			iWidgetManager& wm = iWidgetManager::getInstance();
 
-            wm.getTheme()->drawDialog(getActualRect(), getAppearanceState(), isActive());
+            wm.getTheme()->drawDialog(getActualRect(), getState(), isActive());
 
             for (auto id : _children)
             {

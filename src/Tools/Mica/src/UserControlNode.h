@@ -73,7 +73,7 @@ private:
 
     uint32 _nodeId = 0;
 
-    void onNameChanged(iWidgetPtr source);
+    void onNameChanged(const iWidgetPtr source);
 
     void updateGUI();
     void updateNode();

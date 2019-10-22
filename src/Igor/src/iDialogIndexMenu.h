@@ -26,85 +26,93 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iDIALOG_MENU__
-#define __iDIALOG_MENU__
+#ifndef __iDIALOG_INDEX_MENU__
+#define __iDIALOG_INDEX_MENU__
 
 #include <iDialog.h>
+
+#include <iaEvent.h>
+#include <iaString.h>
+using namespace IgorAux;
 
 namespace Igor
 {
 
-    class iWidgetGrid; typedef iWidgetGrid* iWidgetGridPtr;
-    class iWidgetMenu; typedef iWidgetMenu* iWidgetMenuPtr;
-    class iAction; typedef iAction* iActionPtr;
+	iaEVENT(iDialogIndexMenuCloseEvent, iDialogIndexMenuCloseDelegate, void, (int32 index), (index));
 
-	/*! menu dialog
+	/*! pull down menu
 	*/
-	class Igor_API iDialogMenu : public iDialog
+	class Igor_API iDialogIndexMenu : public iDialog
 	{
 
 	public:
 
 		/*! does nothing
 		*/
-		iDialogMenu();
+		iDialogIndexMenu() = default;
 
 		/*! deinitializes gui
 		*/
-		virtual ~iDialogMenu() = default;
+		virtual ~iDialogIndexMenu() = default;
 
-        /*! adds action to menu
+		/*! opens dialog
 
-        only adds actions that are registered to the action manager
-        actions are not owned by the menu
+		leave the pictures list empty if you don't want pictures or call the alternative implementation of show
 
-        \param action the action to be added
+		\param texts the texts to put in the selection list
+		\param pictures paths to textures used as icons next to the text (optional)
+		\param dialogCloseDelegate delegate for closing event
+		*/
+        void open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString>& texts, std::vector<iaString>& pictures = std::vector<iaString>());
+
+        /*! \returns selected menu entry index
+
+        returns -1 if nothing was selected
         */
-        void addAction(const iActionPtr action);
-
-        /*! same as add actions just by action name
-
-        requires that the action we are searchign for was already registered to the action manager
-
-        \param actionName name of the action to be added
-        */
-        void addAction(const iaString& actionName);
-
-        /*! adds a menu to the menu
-
-        \param menu the menu to add
-        */
-        void addMenu(const iWidgetMenuPtr menu);
-
-        /*! shows the dialog on screen
-
-        \param dialogCloseDelegate the delegate to call after the dialog was closed
-        */
-        virtual void open(iDialogCloseDelegate dialogCloseDelegate) override;
+        int32 getSelectionIndex() const;
 
 	private:
-
-        /*! main grid
-        */
-        iWidgetGridPtr _grid = nullptr;
         
+		/*! the close event
+		*/
+		iDialogIndexMenuCloseEvent _selectBoxCloseEvent;
+
+		/*! the return value of the selection box
+
+		-1 stands for cancel
+		*/
+		int32 _returnValue = -1;
+		
+		/*! handles change event
+
+		\param source the source of the event (should be the grid)
+		*/
+		void onChange(const iWidgetPtr source);
+
 		/*! handle mouse off click event
 
 		\param source the source of that event
 		*/
 		void onMouseOffClick(const iWidgetPtr source);
 
-        void onActionClick(const iWidgetPtr source);
+		/*! initializes the gui
+
+		\param texts the texts for the menu
+		*/
+		void initGUI(std::vector<iaString>& texts);
 
 		/*! initializes the gui
+
+		\param texts the texts for the menu
+		\param pictures the pictures for the menu
 		*/
-		void init();
+		void initGUI(std::vector<iaString>& texts, std::vector<iaString>& pictures);
 
 	};
 
     /*! dialog menu pointer definition
     */
-    typedef iDialogMenu* iDialogMenuPtr;
+    typedef iDialogIndexMenu* iDialogIndexMenuPtr;
 
 }
 
