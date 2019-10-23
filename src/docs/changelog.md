@@ -6,6 +6,7 @@ Changelog                           {#changelog}
 
 - Added z value order for widgets. For now only used for dialog order
 - Introduced event blocking (used in widgets)
+- Introduced Actions
 - Using std::any for user data instead of void* where possible
 - Improved dialog close handling
 - Improved node creation interface
