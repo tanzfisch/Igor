@@ -40,6 +40,8 @@
 #include <iaConsole.h>
 using namespace IgorAux;
 
+#include <algorithm>
+
 namespace Igor
 {
 
@@ -214,7 +216,7 @@ namespace Igor
         iApplication::getInstance().unregisterApplicationPostDrawHandleDelegate(iApplicationPostDrawHandleDelegate(this, &iWidgetManager::onPostDraw));
     }
 
-    void iWidgetManager::getActiveDialogs(std::vector<iDialogPtr>& dialogs)
+    void iWidgetManager::getActiveDialogs(std::vector<iDialogPtr>& dialogs, bool sortedAccending)
     {
         dialogs.clear();
 
@@ -224,6 +226,15 @@ namespace Igor
             {
                 dialogs.push_back(dialog.second);
             }
+        }
+
+        if (sortedAccending)
+        {
+            std::sort(dialogs.begin(), dialogs.end(), [](iDialogPtr const a, iDialogPtr const b) { return a->getZValue() < b->getZValue(); });
+        }
+        else
+        {
+            std::sort(dialogs.begin(), dialogs.end(), [](iDialogPtr const a, iDialogPtr const b) { return a->getZValue() > b->getZValue(); });
         }
     }
 
@@ -236,23 +247,18 @@ namespace Igor
             return;
         }
 
-        bool handled = false;
         std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs);
+        getActiveDialogs(dialogs, false);
 
         for (auto dialog : dialogs)
         {
             if (dialog->handleKeyDown(key))
             {
-                handled = true;
-                break;
+                return;
             }
         }
 
-        if (!handled)
-        {
-            _keyDownEvent(key);
-        }
+        _keyDownEvent(key);
     }
 
     void iWidgetManager::onKeyUp(iKeyCode key)
@@ -264,23 +270,18 @@ namespace Igor
             return;
         }
 
-        bool handled = false;
         std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs);
+        getActiveDialogs(dialogs, false);
 
         for (auto dialog : dialogs)
         {
             if (dialog->handleKeyUp(key))
             {
-                handled = true;
-                break;
+                return;
             }
         }
 
-        if (!handled)
-        {
-            _keyUpEvent(key);
-        }
+        _keyUpEvent(key);
     }
 
     void iWidgetManager::onMouseKeyDown(iKeyCode key)
@@ -292,23 +293,19 @@ namespace Igor
             return;
         }
 
-        bool handled = false;
         std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs);
+        getActiveDialogs(dialogs, false);
 
         // let the dialogs handle the event
         for (auto dialog : dialogs)
         {
             if (dialog->handleMouseKeyDown(key))
             {
-                handled = true;
+                return;
             }
         }
 
-        if (!handled)
-        {
-            _mouseKeyDownEvent(key);
-        }
+        _mouseKeyDownEvent(key);
     }
 
     void iWidgetManager::onMouseKeyUp(iKeyCode key)
@@ -320,23 +317,19 @@ namespace Igor
             return;
         }
 
-        bool handled = false;
         std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs);
+        getActiveDialogs(dialogs, false);
 
         // let the dialogs handle the event
         for (auto dialog : dialogs)
         {
             if (dialog->handleMouseKeyUp(key))
             {
-                handled = true;
+                return;
             }
         }
 
-        if (!handled)
-        {
-            _mouseKeyUpEvent(key);
-        }
+        _mouseKeyUpEvent(key);
     }
 
     void iWidgetManager::onMouseDoubleClick(iKeyCode key)
@@ -348,23 +341,19 @@ namespace Igor
             return;
         }
 
-        bool handled = false;
         std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs);
+        getActiveDialogs(dialogs, false);
 
         // let the dialogs handle the event
         for (auto dialog : dialogs)
         {
             if (dialog->handleMouseDoubleClick(key))
             {
-                handled = true;
+                return;
             }
         }
 
-        if (!handled)
-        {
-            _doubleClickEvent(key);
-        }
+        _doubleClickEvent(key);
     }
 
     void iWidgetManager::onMouseMove(const iaVector2i& from, const iaVector2i& to, iWindow* window)
@@ -377,7 +366,7 @@ namespace Igor
         }
 
         std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs);
+        getActiveDialogs(dialogs, false);
 
         for (auto dialog : dialogs)
         {
@@ -397,23 +386,18 @@ namespace Igor
             return;
         }
 
-        bool handled = false;
         std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs);
+        getActiveDialogs(dialogs, false);
 
         for (auto dialog : dialogs)
         {
             if (dialog->handleMouseWheel(d))
             {
-                handled = true;
-                break;
+                return;
             }
         }
 
-        if (!handled)
-        {
-            _wheelEvent(d);
-        }
+        _wheelEvent(d);
     }
 
     void iWidgetManager::onASCII(const char c)
@@ -426,7 +410,7 @@ namespace Igor
         }
 
         std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs);
+        getActiveDialogs(dialogs, false);
 
         for (auto dialog : dialogs)
         {
@@ -466,9 +450,8 @@ namespace Igor
         {
             iWidgetManager& wm = iWidgetManager::getInstance();
 
-            for (auto id : widget->_children)
+            for (const auto child : widget->_children)
             {
-                auto child = wm.getWidget(id);
                 traverseContentSize(child);
             }
 
@@ -491,9 +474,8 @@ namespace Igor
             iWidgetManager& wm = iWidgetManager::getInstance();
             uint32 index = 0;
 
-            for (auto id : widget->_children)
+            for (const auto child : widget->_children)
             {
-                auto child = wm.getWidget(id);
                 traverseAlignment(child, widget->getActualPosX() + offsets[index].getX(), widget->getActualPosY() + offsets[index].getY(), offsets[index].getWidth(), offsets[index].getHeight());
                 index++;
             }
@@ -530,11 +512,14 @@ namespace Igor
     {
         con_assert(_currentTheme != nullptr, "no theme defined");
 
-        for (auto dialog : _dialogs)
+        std::vector<iDialogPtr> dialogs;
+        getActiveDialogs(dialogs);
+
+        for (const auto dialog : dialogs)
         {
-            if (!isModal(dialog.second))
+            if (!isModal(dialog))
             {
-                dialog.second->draw();
+                dialog->draw();
             }
         }
 

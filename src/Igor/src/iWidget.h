@@ -191,6 +191,16 @@ namespace Igor
         */
         virtual iWidgetType getWidgetType() const;
 
+        /*! sets the z value which determines the render order of siglings
+
+        \param zvalue the z value to set
+        */
+        void setZValue(int32 zvalue);
+
+        /*! \returns the z value of this widget
+        */
+        int32 getZValue() const;
+
         /*! sets background color
 
         \param color the new background color
@@ -576,11 +586,17 @@ namespace Igor
         */
         bool isIgnoringChildEventHandling() const;
 
+        /*! \returns the root widget which owns this widget
+
+        returns nullptr if there is no parent
+        */
+        iWidgetPtr getRoot();
+
 	protected:
 
 		/*! list of children
 		*/
-		std::set<uint64> _children;
+		std::vector<iWidgetPtr> _children;
 
 		/*! configured width of the widget
 		*/
@@ -641,6 +657,10 @@ namespace Igor
 		/*! position for the tooltip to appear
 		*/
 		iaVector2i _tooltipPos;
+
+        /*! z value of this widget
+        */
+        int32 _zValue = 0;
 
         /*! if true widget will react on mouse wheel
         */

@@ -22,8 +22,7 @@ namespace Igor
 		if (isGrowingByContent() &&
 			!_children.empty())
 		{
-			iWidgetPtr widget = iWidgetManager::getInstance().getWidget(*_children.begin());
-			
+			iWidgetPtr widget = _children.front();
 			minWidth = widget->getMinWidth();
 			minHeight = widget->getMinHeight();
 		}

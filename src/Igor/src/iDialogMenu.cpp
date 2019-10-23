@@ -27,7 +27,6 @@ namespace Igor
     void iDialogMenu::open(iDialogCloseDelegate dialogCloseDelegate)
     {
         iDialog::open(dialogCloseDelegate);
-        iWidgetManager::getInstance().setModal(this);
     }
 
     void iDialogMenu::init()

@@ -358,8 +358,9 @@ namespace Igor
         /*! returns the active dialogs
 
         \param[out] dialogs resulting list of active dialogs
+        \param sortedAccending if true the output list is sorted z index accending if false the opposite
         */
-        void getActiveDialogs(std::vector<iDialogPtr>& dialogs);
+        void getActiveDialogs(std::vector<iDialogPtr>& dialogs, bool sortedAccending = true);
 
         /*! handle for mouse key up event
 

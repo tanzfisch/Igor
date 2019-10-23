@@ -72,6 +72,10 @@ namespace Igor
 		*/
 		virtual ~iDialog();
         
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
         /*! set horizontal position of dialog and horizontal alignment to absolute
 
         \param x horizontal position

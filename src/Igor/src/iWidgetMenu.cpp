@@ -58,6 +58,14 @@ namespace Igor
     {
         _menu->setX(getActualPosX());
         _menu->setY(getActualPosY() + getActualHeight());
+
+        iWidgetPtr root = getRoot();
+        if (root != nullptr &&
+            root->getWidgetType() == iWidgetType::iDialog)
+        {
+            _menu->setZValue(root->getZValue() + 10);
+        }
+
         _menu->open(iDialogCloseDelegate(this, &iWidgetMenu::onDialogClose));
     }
 
@@ -91,6 +99,7 @@ namespace Igor
     void iWidgetMenu::addMenu(const iWidgetMenuPtr menu)
     {
         _menu->addMenu(menu);
+
         menu->_menuParent = getID();
     }
 

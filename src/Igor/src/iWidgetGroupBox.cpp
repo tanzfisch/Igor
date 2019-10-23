@@ -49,7 +49,7 @@ namespace Igor
 		if (isGrowingByContent() &&
 			!_children.empty())
 		{
-			iWidgetPtr widget = iWidgetManager::getInstance().getWidget(*_children.begin());
+			iWidgetPtr widget = _children.front();
 
 			if (widget->getMinWidth() > minWidth)
 			{
@@ -123,15 +123,10 @@ namespace Igor
 			iWidgetManager& wm = iWidgetManager::getInstance();
 			wm.getTheme()->drawGroupBox(getActualRect(), _headerOnly, _text, getState(), isActive());
 
-			if (!_children.empty())
-			{
-				iWidgetPtr widget = wm.getWidget(*_children.begin());
-
-				if (widget != nullptr)
-				{
-					widget->draw();
-				}
-			}
+            for (const auto child : _children)
+            {
+                child->draw();
+            }
 		}
 	}
 

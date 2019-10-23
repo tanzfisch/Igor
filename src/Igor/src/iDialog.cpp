@@ -70,7 +70,7 @@ namespace Igor
         if (isGrowingByContent() &&
             !_children.empty())
         {
-            iWidgetPtr widget = iWidgetManager::getInstance().getWidget(*_children.begin());
+            iWidgetPtr widget = _children.front();
             minWidth = widget->getMinWidth();
             minHeight = widget->getMinHeight();
         }
@@ -158,9 +158,8 @@ namespace Igor
 
             wm.getTheme()->drawDialog(getActualRect(), getState(), isActive());
 
-            for (auto id : _children)
+            for (const auto child : _children)
             {
-				auto child = wm.getWidget(id);
                 child->draw();
             }
         }
@@ -176,5 +175,10 @@ namespace Igor
     {
         _offsetY = y;
         setVerticalAlignment(iVerticalAlignment::Absolut);
+    }
+
+    iWidgetType iDialog::getWidgetType() const
+    {
+        return iWidgetType::iDialog;
     }
 }

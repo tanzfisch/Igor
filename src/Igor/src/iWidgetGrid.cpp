@@ -411,9 +411,9 @@ namespace Igor
                 int index = 0;
                 int foundIndex = -1;
 
-                for (auto id : _children)
+                for (const auto child : _children)
                 {
-                    if (id == collumn._widgetID)
+                    if (child->getID() == collumn._widgetID)
                     {
                         foundIndex = index;
                         break;
@@ -926,7 +926,7 @@ namespace Igor
         {
             if (widgetID != iWidget::INVALID_WIDGET_ID)
             {
-                auto iter = find(_children.begin(), _children.end(), widget->getID());
+                auto iter = find(_children.begin(), _children.end(), widget);
                 if (iter == _children.end())
                 {
                     if (_widgetRows[row]._widgetCollumn[col]._widgetID != iWidget::INVALID_WIDGET_ID)

@@ -9,6 +9,8 @@
 #include <iaConsole.h>
 using namespace IgorAux;
 
+#include <algorithm>
+
 namespace Igor
 {
 
@@ -85,10 +87,9 @@ namespace Igor
 
     void iWidget::clearChildren()
     {
-        std::vector<iWidgetPtr> children;
-        getChildren(children);
+        std::vector<iWidgetPtr> children = _children;
 
-        for (const auto& child : children)
+        for (const auto child : children)
         {
             delete child;
         }
@@ -98,12 +99,7 @@ namespace Igor
 
     void iWidget::getChildren(std::vector<iWidgetPtr>& children)
     {
-        children.clear();
-
-        for (uint64 id : _children)
-        {
-            children.push_back(iWidgetManager::getInstance().getWidget(id));
-        }
+        children = _children;
     }
 
     void iWidget::setTooltip(const iaString& text)
@@ -148,6 +144,18 @@ namespace Igor
         return result;
     }
 
+    iWidgetPtr iWidget::getRoot()
+    {
+        iWidgetPtr current = this;
+
+        while (current->_parent != nullptr)
+        {
+            current = current->_parent;
+        }
+        
+        return current;
+    }
+
     void iWidget::addWidget(iWidgetPtr widget)
     {
         con_assert(widget != nullptr, "zero pointer");
@@ -156,7 +164,12 @@ namespace Igor
         if (widget != nullptr &&
             widget != this)
         {
-            _children.insert(widget->getID());
+            _children.push_back(widget);
+
+            std::sort(_children.begin(), _children.end(),
+                [](iWidgetPtr const a, iWidgetPtr const b) { return a->getZValue() < b->getZValue(); });
+
+            widget->setParent(this);
         }
     }
 
@@ -166,7 +179,7 @@ namespace Igor
 
         if (widget != nullptr)
         {
-            auto iter = find(_children.begin(), _children.end(), widget->getID());
+            auto iter = std::find(_children.begin(), _children.end(), widget);
 
             if (iter != _children.end())
             {
@@ -302,14 +315,9 @@ namespace Igor
         if (isVisible())
         {
             iWidgetManager& wm = iWidgetManager::getInstance();
-            for (auto id : _children)
+            for (const auto child : _children)
             {
-                auto widget = wm.getWidget(id);
-
-                if (widget != nullptr)
-                {
-                    widget->draw();
-                }
+                child->draw();
             }
         }
     }
@@ -481,6 +489,16 @@ namespace Igor
             }
         }
         return false;
+    }
+
+    void iWidget::setZValue(int32 zValue)
+    {
+        _zValue = zValue;
+    }
+
+    int32 iWidget::getZValue() const
+    {
+        return _zValue;
     }
 
     void iWidget::setIgnoreChildEventHandling(bool value)
@@ -855,7 +873,7 @@ namespace Igor
         if (isGrowingByContent() &&
             !_children.empty())
         {
-            iWidgetPtr widget = iWidgetManager::getInstance().getWidget(*_children.begin());
+            iWidgetPtr widget = _children.front();
             minWidth = widget->getMinWidth();
             minHeight = widget->getMinHeight();
         }

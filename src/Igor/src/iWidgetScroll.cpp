@@ -143,7 +143,7 @@ namespace Igor
 
 	bool iWidgetScroll::handleButtonClicks()
 	{
-		auto child = iWidgetManager::getInstance().getWidget(*_children.begin());
+		auto child = _children.front();
 		if (child == nullptr)
 		{
 			return false;
@@ -219,7 +219,7 @@ namespace Igor
 			return;
 		}
 
-		auto child = iWidgetManager::getInstance().getWidget(*_children.begin());
+		auto child = _children.front();
 		if (child == nullptr)
 		{
 			return;
@@ -387,7 +387,7 @@ namespace Igor
 			return false;
 		}
 
-		auto child = iWidgetManager::getInstance().getWidget(*_children.begin());
+		const auto child = _children.front();
 		if (child == nullptr)
 		{
 			return false;
@@ -449,7 +449,7 @@ namespace Igor
 
 	void iWidgetScroll::calcButtons()
 	{
-		auto child = iWidgetManager::getInstance().getWidget(*_children.begin());
+		const auto child = _children.front();
 		if (child == nullptr)
 		{
 			return;
@@ -530,7 +530,7 @@ namespace Igor
 			return;
 		}
 
-		auto child = iWidgetManager::getInstance().getWidget(*_children.begin());
+		const auto child = _children.front();
 		if (child == nullptr)
 		{
 			return;
@@ -607,7 +607,7 @@ namespace Igor
 			return;
 		}
 
-		auto child = iWidgetManager::getInstance().getWidget(*_children.begin());
+		const auto child = _children.front();
 		if (child == nullptr)
 		{
 			return;
