@@ -35,10 +35,8 @@
 namespace Igor
 {
 
-    class iWidgetLabel;
-    typedef iWidgetLabel* iWidgetLabelPtr;
-    class iWidgetPicture;
-    typedef iWidgetPicture* iWidgetPicturePtr;
+    class iWidgetLabel; typedef iWidgetLabel* iWidgetLabelPtr;
+    class iWidgetPicture; typedef iWidgetPicture* iWidgetPicturePtr;
 
     /*! user control which represents an action in eg a menu
     */
@@ -85,11 +83,11 @@ namespace Igor
 
         /*! handle to text label
         */
-        iWidgetLabelPtr _textLabel;
+        iWidgetLabelPtr _textLabel = nullptr;
 
         /*! handle to action picture
         */
-        iWidgetPicturePtr _picture;
+        iWidgetPicturePtr _picture = nullptr;
 
         /*! if true we reserve space for a picture even if none was defined
         */

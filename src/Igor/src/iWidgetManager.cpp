@@ -358,23 +358,45 @@ namespace Igor
 
     void iWidgetManager::onMouseMove(const iaVector2i& from, const iaVector2i& to, iWindow* window)
     {
+        if (handleMouseMove(to))
+        {
+            return;
+        }
+
+        _moveFullEvent(from, to, window);
+        _moveEvent(to);
+    }
+
+    bool iWidgetManager::handleMouseMove(const IgorAux::iaVector2i& to)
+    {
+        
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {
             getModal()->handleMouseMove(to);
-            return;
+            return true;
         }
 
         std::vector<iDialogPtr> dialogs;
         getActiveDialogs(dialogs, false);
 
-        for (auto dialog : dialogs)
+        if (!dialogs.empty())
         {
-            dialog->handleMouseMove(to);
+            int32 zValue = dialogs.front()->getZValue();
+            // only have the top level dialogs with the 
+            // same z value get the mouse move event
+            for (auto dialog : dialogs)
+            {
+                if (dialog->getZValue() < zValue)
+                {
+                    return true;
+                }
+
+                dialog->handleMouseMove(to);
+            }
         }
 
-        _moveFullEvent(from, to, window);
-        _moveEvent(to);
+        return false;
     }
 
     void iWidgetManager::onMouseWheel(int32 d)
@@ -420,16 +442,26 @@ namespace Igor
 
     void iWidgetManager::onPostDraw()
     {
+        bool refreshMousePos = false;
+
         for (auto id : _dialogsToClose)
         {
             auto dialog = getDialog(id);
             if (dialog != nullptr)
             {
                 dialog->_dialogCloseDelegate(dialog);
+                refreshMousePos = true;
             }
         }
 
         _dialogsToClose.clear();
+
+        // refresh mouse pos on other dialogs because they have been blocked so far
+        if (refreshMousePos)
+        {
+            auto pos = iMouse::getInstance().getPos();
+            handleMouseMove(pos);
+        }
     }
 
     void iWidgetManager::onPreDraw()

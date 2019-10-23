@@ -51,9 +51,8 @@ namespace Igor
 
 	void iWidgetPicture::calcMinSize()
 	{
-		int32 minWidth = 0;
-		int32 minHeight = 0;
-
+		int32 minWidth = _configuredWidth;
+		int32 minHeight = _configuredHeight;
 
 		if (isGrowingByContent())
 		{

@@ -600,7 +600,7 @@ namespace Igor
 
 		/*! configured width of the widget
 		*/
-		int32 _configuredWidth = 100;
+		int32 _configuredWidth = 0;
 
 		/*! configured height of the widget
 		*/
@@ -888,6 +888,10 @@ namespace Igor
 		/*! handles tooltip timer
 		*/
 		void onToolTipTimer();
+
+        /*! called when parent of this widget changes
+        */
+        virtual void onParentChanged();
 
 		/*! destroy tooltip timer
 		*/

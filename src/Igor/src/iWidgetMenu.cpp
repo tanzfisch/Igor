@@ -11,6 +11,8 @@
 #include <iWidgetManager.h>
 #include <iDialogMenu.h>
 #include <iWidgetMenuBar.h>
+#include <iWidgetSpacer.h>
+#include <iWidgetPicture.h>
 
 namespace Igor
 {
@@ -18,6 +20,60 @@ namespace Igor
         :iWidget(parent)
     {
         init();
+    }
+
+    void iWidgetMenu::init()
+    {
+        setHorizontalAlignment(iHorizontalAlignment::Strech);
+
+        iWidgetGridPtr grid = new iWidgetGrid(this);
+        grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+        grid->appendCollumns(2);
+        grid->setStrechColumn(1);
+        grid->setCellSpacing(4);
+
+        _spacer = new iWidgetSpacer();
+        _spacer->setSize(16, 16);
+        _spacer->setVisible(false);
+        grid->addWidget(_spacer, 0, 0);
+
+        _title = new iWidgetLabel();
+        _title->setHorizontalAlignment(iHorizontalAlignment::Left);
+        grid->addWidget(_title, 1, 0);
+
+        _picture = new iWidgetPicture();
+        _picture->setMaxSize(8, 8);
+        _picture->setKeepAspectRatio(false);
+        _picture->setTexture("icons\\right.png");
+
+        grid->addWidget(_picture, 2, 0);
+
+        grid->registerOnClickEvent(iClickDelegate(this, &iWidgetMenu::onClick));
+
+        _menu = new iDialogMenu();
+    }
+
+    void iWidgetMenu::update()
+    {
+        iWidgetPtr parent = iWidgetManager::getInstance().getWidget(_menuParent);
+
+        if (parent == nullptr)
+        {
+            return;
+        }
+
+        bool parentIsMenuBar = parent->getWidgetType() == iWidgetType::iWidgetMenuBar;
+
+        if (parentIsMenuBar)
+        {
+            _spacer->setSize(0, 16);
+            _picture->setMaxSize(0, 8);
+        }
+        else
+        {
+            _spacer->setSize(16, 16);
+            _picture->setMaxSize(8, 8);
+        }
     }
 
     iWidgetMenu::~iWidgetMenu()
@@ -29,12 +85,17 @@ namespace Igor
         }
     }
 
+    void iWidgetMenu::onParentChanged()
+    {
+        update();
+    }
+
     iWidgetType iWidgetMenu::getWidgetType() const
     {
         return iWidgetType::iWidgetMenu;
     }
 
-    void iWidgetMenu::onMenuClosed(const iDialogPtr source)
+    void iWidgetMenu::onClick(const iWidgetPtr source)
     {
         iWidgetPtr parent = iWidgetManager::getInstance().getWidget(_menuParent);
 
@@ -43,21 +104,18 @@ namespace Igor
             return;
         }
 
-        if (parent->getWidgetType() == iWidgetType::iWidgetMenuBar)
-        {
-            iWidgetMenuBarPtr menuBar = static_cast<iWidgetMenuBarPtr>(parent);
-            menuBar->unselect();
-        }
-        else if (parent->getWidgetType() == iWidgetType::iWidgetMenu)
-        {
-            // TODO
-        }
-    }
+        bool parentIsMenuBar = parent->getWidgetType() == iWidgetType::iWidgetMenuBar;
 
-    void iWidgetMenu::onClick(const iWidgetPtr source)
-    {
-        _menu->setX(getActualPosX());
-        _menu->setY(getActualPosY() + getActualHeight());
+        if (parentIsMenuBar)
+        {
+            _menu->setX(getActualPosX());
+            _menu->setY(getActualPosY() + getActualHeight() - 1);
+        }
+        else
+        {
+            _menu->setX(getActualPosX() + getActualWidth());
+            _menu->setY(getActualPosY() - 1);
+        }
 
         iWidgetPtr root = getRoot();
         if (root != nullptr &&
@@ -71,19 +129,7 @@ namespace Igor
 
     void iWidgetMenu::onDialogClose(iDialogPtr dialog)
     {
-        // TODO close
-    }
-
-    void iWidgetMenu::init()
-    {
-        iWidgetGridPtr grid = new iWidgetGrid(this);
-        grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-        grid->setVerticalAlignment(iVerticalAlignment::Strech);
-        grid->registerOnClickEvent(iClickDelegate(this, &iWidgetMenu::onClick));
-
-        _title = new iWidgetLabel(grid);
-
-        _menu = new iDialogMenu();
+        // TODO 
     }
 
     void iWidgetMenu::setTitle(const iaString& title)
@@ -98,9 +144,9 @@ namespace Igor
 
     void iWidgetMenu::addMenu(const iWidgetMenuPtr menu)
     {
-        _menu->addMenu(menu);
+        menu->_menuParent = getID(); // TODO little hack to track menu structures
 
-        menu->_menuParent = getID();
+        _menu->addMenu(menu);
     }
 
     void iWidgetMenu::addAction(const iActionPtr action)

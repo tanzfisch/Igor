@@ -43,6 +43,11 @@ namespace Igor
         iWidgetManager::getInstance().unregisterWidget(this);
     }
 
+    void iWidget::onParentChanged()
+    {
+        // implement in deriving classes
+    }
+
     iWidgetType iWidget::getWidgetType() const
     {
         return iWidgetType::iUndefinedType;
@@ -204,6 +209,7 @@ namespace Igor
     void iWidget::setParent(iWidgetPtr parent)
     {
         _parent = parent;
+        onParentChanged();
     }
 
     void iWidget::unregisterOnClickEvent(iClickDelegate iClickDelegate)

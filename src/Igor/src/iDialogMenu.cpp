@@ -41,12 +41,19 @@ namespace Igor
 
     void iDialogMenu::onMouseOffClick(const iWidgetPtr source)
     {
+        _returnState = iDialogMenuState::MouseOffClick;
         close();
     }
 
     void iDialogMenu::onActionClick(const iWidgetPtr source)
     {
+        _returnState = iDialogMenuState::ActionClick;
         close();
+    }
+
+    iDialogMenuState iDialogMenu::getReturnState() const
+    {
+        return _returnState;
     }
 
     void iDialogMenu::addMenu(const iWidgetMenuPtr menu)

@@ -31,7 +31,8 @@ namespace Igor
         actionGrid->setStrechColumn(1);
 
         _picture = new iWidgetPicture();
-        _picture->setMaxSize(0, 16);
+        _picture->setSize(16, 16);
+        _picture->setMaxSize(16, 16);
         _picture->setKeepAspectRatio(false);
         actionGrid->addWidget(_picture, 0, 0);
 
@@ -75,6 +76,7 @@ namespace Igor
         {
             _textLabel->setText("");
             _picture->setTexture("");
+            _picture->setSize(_fixPictureSize ? 16 : 0, 16);
             _picture->setMaxSize(_fixPictureSize ? 16 : 0, 16);
         }
         else
@@ -83,10 +85,12 @@ namespace Igor
             _picture->setTexture(action->getPicturePath());
             if (_picture->hasTexture())
             {
+                _picture->setSize(16, 16);
                 _picture->setMaxSize(16, 16);
             }
             else
             {
+                _picture->setSize(_fixPictureSize ? 16 : 0, 16);
                 _picture->setMaxSize(_fixPictureSize ? 16 : 0, 16);
             }
         }

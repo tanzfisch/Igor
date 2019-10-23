@@ -38,6 +38,15 @@ namespace Igor
     class iWidgetMenu; typedef iWidgetMenu* iWidgetMenuPtr;
     class iAction; typedef iAction* iActionPtr;
 
+    /*! dialog closing / return value
+    */
+    enum class iDialogMenuState
+    {
+        Undefined,
+        MouseOffClick,
+        ActionClick
+    };
+
 	/*! menu dialog
 	*/
 	class Igor_API iDialogMenu : public iDialog
@@ -82,11 +91,19 @@ namespace Igor
         */
         virtual void open(iDialogCloseDelegate dialogCloseDelegate) override;
 
+        /*! \returns the close return state of this dialog
+        */
+        iDialogMenuState getReturnState() const;
+
 	private:
 
         /*! main grid
         */
         iWidgetGridPtr _grid = nullptr;
+
+        /*! dialog close return state
+        */
+        iDialogMenuState _returnState = iDialogMenuState::Undefined;
         
 		/*! handle mouse off click event
 

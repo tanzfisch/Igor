@@ -41,6 +41,8 @@ namespace Igor
     class iWidgetLabel; typedef iWidgetLabel* iWidgetLabelPtr;
     class iDialogMenu; typedef iDialogMenu* iDialogMenuPtr;
     class iWidgetMenu; typedef iWidgetMenu* iWidgetMenuPtr;
+    class iWidgetSpacer; typedef iWidgetSpacer* iWidgetSpacerPtr;
+    class iWidgetPicture; typedef iWidgetPicture* iWidgetPicturePtr;
     class iDialog; typedef iDialog* iDialogPtr;
 
     /*! menu widget
@@ -103,6 +105,14 @@ namespace Igor
         */
         iWidgetLabelPtr _title = nullptr;
 
+        /*! spacer
+        */
+        iWidgetSpacerPtr _spacer = nullptr;
+
+        /*! picture
+        */
+        iWidgetPicturePtr _picture = nullptr;
+
         /*! menu body
         */
         iDialogMenuPtr _menu = nullptr;
@@ -111,15 +121,25 @@ namespace Igor
         */
         uint64 _menuParent = IGOR_INVALID_ID;
 
+        /*! called when the parent of this widget changed
+        */
+        void onParentChanged() override;
+
+        /*! called after sub menu was closed
+        */
         void onDialogClose(iDialogPtr dialog);
 
         /*! initialize GUI elements
         */
         void init();
 
-        void onClick(const iWidgetPtr source);
+        /*! updates the widget
+        */
+        void update();
 
-        void onMenuClosed(const iDialogPtr source);
+        /*! handles when menu was clicked on
+        */
+        void onClick(const iWidgetPtr source);
 
 	};
 

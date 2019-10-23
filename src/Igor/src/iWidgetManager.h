@@ -384,6 +384,12 @@ namespace Igor
         */
         void onMouseMove(const iaVector2i& from, const iaVector2i& to, iWindow* window);
 
+        /*! actual implementation that handles a moved mouse
+
+        \param to the mouse postion to use
+        */
+        bool handleMouseMove(const IgorAux::iaVector2i& to);
+
         /*! handle for mouse wheel event
 
         \param d mouse wheel delta

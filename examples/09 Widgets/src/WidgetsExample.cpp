@@ -52,10 +52,10 @@ void WidgetsExample::init()
 
     // init window with the orthogonal projected view
     _window.addView(&_viewOrtho);
-	// set window size
+    // set window size
     _window.setClientSize(1024, 768);
-	// place window centered on screen
-	_window.setCentered();
+    // place window centered on screen
+    _window.setCentered();
     // register to window close event so we can shut down the application properly
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &WidgetsExample::onWindowClosed));
     // register to window resize event so we can notify the widget manager of that change
@@ -115,7 +115,7 @@ void WidgetsExample::initGUI()
     _dialog = new iDialog();
     _dialog->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _dialog->setVerticalAlignment(iVerticalAlignment::Center);
-    _dialog->setHeight(200);    
+    _dialog->setHeight(200);
     // it does not matter if we open it now or after adding all the child widgets
     _dialog->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseDialog));
 
@@ -135,32 +135,41 @@ void WidgetsExample::initGUI()
     menuBar->setVerticalAlignment(iVerticalAlignment::Top);
     grid1->addWidget(menuBar, 0, 0);
 
-    iActionPtr action1 = iActionManager::getInstance().createAction("action:one", iSimpleDelegate(this, &WidgetsExample::onActionOne), "action one", "icons\\exit.png");
-    iActionPtr action2 = iActionManager::getInstance().createAction("action:two", iSimpleDelegate(this, &WidgetsExample::onActionTwo), "action two");
-    iActionPtr action3 = iActionManager::getInstance().createAction("action:three", iSimpleDelegate(this, &WidgetsExample::onActionThree), "action three with extra long label");    
-    
+    iActionPtr action1 = iActionManager::getInstance().createAction("action:camera", iSimpleDelegate(this, &WidgetsExample::onActionOne), "Create Camera", "icons\\camera.png");
+    iActionPtr action2 = iActionManager::getInstance().createAction("action:delete", iSimpleDelegate(this, &WidgetsExample::onActionTwo), "Delete Something", "icons\\delete.png");
+    iActionPtr action3 = iActionManager::getInstance().createAction("action:action", iSimpleDelegate(this, &WidgetsExample::onActionThree), "Action");
+    iActionPtr action4 = iActionManager::getInstance().createAction("action:transform", iSimpleDelegate(this, &WidgetsExample::onActionThree), "Transform", "icons\\transformation.png");
+
     iWidgetMenuPtr menu1 = new iWidgetMenu();
-    menu1->setTitle("menu 1");
+    menu1->setTitle("File");
     menu1->addAction(action3);
     menu1->addAction(action1);
     menuBar->addMenu(menu1);
 
+    iWidgetMenuPtr menu2 = new iWidgetMenu();
+    menu2->setTitle("Edit");
+    menu2->addAction(action2);
+    menu2->addAction(action3);
+
     iWidgetMenuPtr menu2b = new iWidgetMenu();
-    menu2b->setTitle("menu 2");
+    menu2b->setTitle("Sub Menu");
     menu2b->addAction(action2);
     menu2b->addAction(action3);
     menu2b->addAction(action1);
-
-    iWidgetMenuPtr menu2 = new iWidgetMenu();
-    menu2->setTitle("menu 2");
-    menu2->addAction(action2);
-    menu2->addAction(action3);
     menu2->addMenu(menu2b);
+
+    iWidgetMenuPtr menu2c = new iWidgetMenu();
+    menu2c->setTitle("An Other Sub Menu");
+    menu2c->addAction(action2);
+    menu2c->addAction(action4);
+    menu2c->addAction(action1);
+    menu2c->addAction(action3);
+    menu2->addMenu(menu2c);
+
     menu2->addAction(action1);
     menuBar->addMenu(menu2);
 
-    menuBar->addAction(action1);
-    menuBar->addAction(action2);
+
 
     iWidgetGroupBox* groupBox1 = new iWidgetGroupBox();
     groupBox1->setText("Hello World. This is a group box!");
@@ -214,7 +223,7 @@ void WidgetsExample::initGUI()
     button1->setVerticalAlignment(iVerticalAlignment::Strech);
     button1->setHorizontalAlignment(iHorizontalAlignment::Center);
     button1->setText("Open Message Box");
-	button1->setTooltip("Opens a message box");
+    button1->setTooltip("Opens a message box");
     button1->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenMessageBox));
 
     _color = new iWidgetColor();
@@ -240,7 +249,7 @@ void WidgetsExample::initGUI()
 
     iWidgetButton* exitButton = new iWidgetButton();
     exitButton->setText("");
-	exitButton->setTooltip("Exists the application.");
+    exitButton->setTooltip("Exists the application.");
     exitButton->setTexture("icons\\exit.png");
     exitButton->setVerticalTextAlignment(iVerticalAlignment::Bottom);
     exitButton->setVerticalAlignment(iVerticalAlignment::Center);
@@ -261,22 +270,22 @@ void WidgetsExample::initGUI()
     numberChooser->setHorizontalAlignment(iHorizontalAlignment::Right);
 
     iWidgetTextEdit* textEditLeft = new iWidgetTextEdit();
-	textEditLeft->setWidth(150);
-	textEditLeft->setHorizontalTextAlignment(iHorizontalAlignment::Left);
-	textEditLeft->setText("left aligned");
-	textEditLeft->setMaxTextLength(300);
+    textEditLeft->setWidth(150);
+    textEditLeft->setHorizontalTextAlignment(iHorizontalAlignment::Left);
+    textEditLeft->setText("left aligned");
+    textEditLeft->setMaxTextLength(300);
 
-	iWidgetTextEdit* textEditCenter = new iWidgetTextEdit();
-	textEditCenter->setWidth(150);
-	textEditCenter->setHorizontalTextAlignment(iHorizontalAlignment::Center);
-	textEditCenter->setText("center aligned");
-	textEditCenter->setMaxTextLength(300);
+    iWidgetTextEdit* textEditCenter = new iWidgetTextEdit();
+    textEditCenter->setWidth(150);
+    textEditCenter->setHorizontalTextAlignment(iHorizontalAlignment::Center);
+    textEditCenter->setText("center aligned");
+    textEditCenter->setMaxTextLength(300);
 
-	iWidgetTextEdit* textEditRight = new iWidgetTextEdit();
-	textEditRight->setWidth(150);
-	textEditRight->setHorizontalTextAlignment(iHorizontalAlignment::Right);
-	textEditRight->setText("right aligned");
-	textEditRight->setMaxTextLength(300);
+    iWidgetTextEdit* textEditRight = new iWidgetTextEdit();
+    textEditRight->setWidth(150);
+    textEditRight->setHorizontalTextAlignment(iHorizontalAlignment::Right);
+    textEditRight->setText("right aligned");
+    textEditRight->setMaxTextLength(300);
 
     iWidgetPicture* picture1 = new iWidgetPicture();
     picture1->setTexture("OpenGL-Logo.jpg");
@@ -366,8 +375,8 @@ void WidgetsExample::initGUI()
     grid3->addWidget(label1, 0, 0);
     grid3->addWidget(_labelMousePos, 1, 0);
     grid3->addWidget(textEditLeft, 0, 1);
-	grid3->addWidget(textEditCenter, 0, 2);
-	grid3->addWidget(textEditRight, 0, 3);
+    grid3->addWidget(textEditCenter, 0, 2);
+    grid3->addWidget(textEditRight, 0, 3);
     grid3->addWidget(label2, 1, 1);
     grid3->addWidget(label3, 1, 2);
     grid3->addWidget(label4, 2, 2);
@@ -396,9 +405,9 @@ void WidgetsExample::deinit()
 
     _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &WidgetsExample::onRender));
 
-	iWidgetManager::getInstance().setTheme(nullptr);
-	delete _widgetDefaultTheme;
-	_widgetDefaultTheme = nullptr;
+    iWidgetManager::getInstance().setTheme(nullptr);
+    delete _widgetDefaultTheme;
+    _widgetDefaultTheme = nullptr;
 
     _window.close();
     _window.removeView(&_viewOrtho);
@@ -456,7 +465,7 @@ void WidgetsExample::onCloseColorGradient(iDialogPtr dialog)
     if (_colorGradientDialog->getReturnState() == iDialogReturnState::Ok)
     {
         _colorGradient->setGradient(_colorGradientDialog->getColorGradient());
-    }	
+    }
 
     delete _colorGradientDialog;
     _colorGradientDialog = nullptr;
@@ -480,37 +489,37 @@ void WidgetsExample::onCloseColorChooser(iDialogPtr dialog)
 
 void WidgetsExample::onOpenMessageBox(const iWidgetPtr source)
 {
-	// open a message box with some text
-	if (_messageBox == nullptr)
-	{
-		_messageBox = new iDialogMessageBox();
-	}
-    
+    // open a message box with some text
+    if (_messageBox == nullptr)
+    {
+        _messageBox = new iDialogMessageBox();
+    }
+
     _messageBox->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseMessageBox), "Please click Yes No or Cancel and see the output in the console.", iMessageBoxButtons::YesNoCancel);
 }
 
 void WidgetsExample::onCloseMessageBox(iDialogPtr dialog)
 {
-	iaString returnString;
-	switch(static_cast<iDialogMessageBox*>(dialog)->getReturnState())
-	{
-	case iDialogReturnState::No:
-		returnString = "No";
-		break;
+    iaString returnString;
+    switch (static_cast<iDialogMessageBox*>(dialog)->getReturnState())
+    {
+    case iDialogReturnState::No:
+        returnString = "No";
+        break;
 
-	case iDialogReturnState::Yes:
-		returnString = "Yes/Ok";
-		break;
+    case iDialogReturnState::Yes:
+        returnString = "Yes/Ok";
+        break;
 
-	case iDialogReturnState::Cancel:
-		returnString = "Cancel";
-		break;
-	}
+    case iDialogReturnState::Cancel:
+        returnString = "Cancel";
+        break;
+    }
 
-	con_endl("Message box return value is " << returnString);
+    con_endl("Message box return value is " << returnString);
 
-	delete _messageBox;
-	_messageBox = nullptr;
+    delete _messageBox;
+    _messageBox = nullptr;
 }
 
 void WidgetsExample::onExitClick(const iWidgetPtr source)

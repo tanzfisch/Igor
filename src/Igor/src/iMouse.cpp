@@ -213,6 +213,11 @@ namespace Igor
         setPosition(_window->getClientWidth() >> 1, _window->getClientHeight() >> 1, supressMoveEvent);
     }
 
+    void iMouse::setPosition(const iaVector2i& pos, bool supressMoveEvent)
+    {
+        setPosition(pos._x, pos._y, supressMoveEvent);
+    }
+
     void iMouse::setPosition(int32 x, int32 y, bool supressMoveEvent)
     {
         _ignoreNextMoveEvent = supressMoveEvent;

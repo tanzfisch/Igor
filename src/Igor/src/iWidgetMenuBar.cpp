@@ -31,12 +31,12 @@ namespace Igor
 
     void iWidgetMenuBar::addMenu(const iWidgetMenuPtr menu)
     {
+        menu->_menuParent = getID(); // TODO little hack to track menu structures
+
         _grid->addWidget(menu, _grid->getColumnCount() - 1, 0);
 
         _grid->appendCollumns(1);
-        _grid->setStrechColumn(_grid->getColumnCount() - 1);
-
-        menu->_menuParent = getID();
+        _grid->setStrechColumn(_grid->getColumnCount() - 1);        
     }
 
     void iWidgetMenuBar::init()
