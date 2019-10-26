@@ -22,6 +22,6 @@ var searchData=
   ['destinationcolor',['DestinationColor',['../namespace_igor.html#a490f00fed47903c329843cb921bbace9ace2f1c6b2f0f03394c916d88e68157e5',1,'Igor::DestinationColor()'],['../namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72ace2f1c6b2f0f03394c916d88e68157e5',1,'OMPF::DestinationColor()']]],
   ['directional',['Directional',['../namespace_igor.html#a57ff5df1d958a4ba5c7495c3fc7282d0ab04a8341537fac392bfd17776491d03c',1,'Igor']]],
   ['done',['Done',['../namespace_igor.html#a3af37bcf6bd4d914e362497090556f74af92965e2c8a7afb3c1b9a5c09a263636',1,'Igor']]],
-  ['doubleclicked',['DoubleClicked',['../namespace_igor.html#ae7967e81e61e09024381b817add5bb84a8b30fa45122b0d171b402273ec23de83',1,'Igor']]],
+  ['doubleclicked',['DoubleClicked',['../namespace_igor.html#a48cd75ff6b40f17a4c3ee177138182f4a8b30fa45122b0d171b402273ec23de83',1,'Igor']]],
   ['down',['Down',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a08a38277b0309070706f6652eeae9a53',1,'Igor']]]
 ];

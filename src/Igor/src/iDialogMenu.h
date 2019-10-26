@@ -39,6 +39,8 @@ namespace Igor
     class iAction; typedef iAction* iActionPtr;
 
 	/*! menu dialog
+
+    technically a dialog it is used as menu, sub menu or context menu
 	*/
 	class Igor_API iDialogMenu : public iDialog
 	{
@@ -96,9 +98,9 @@ namespace Igor
 		*/
 		void onMouseOffClick(const iWidgetPtr source);
 
+        /*! called when action was clicked
+        */
         void onActionClick(const iWidgetPtr source);
-
-        
 
 		/*! initializes the gui
 		*/

@@ -1,6 +1,7 @@
 var searchData=
 [
   ['s',['S',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a5dbc98dcc983a70728bd082d1a47546e',1,'Igor']]],
+  ['save',['Save',['../namespace_igor.html#af4d659f29149d31b584a06c67d3b24d8ac9cc8cce247e49bae79f15173ce97354',1,'Igor']]],
   ['scrolllock',['ScrollLock',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a7d7902d5e2998e4fb2b8694a2de4ff65',1,'Igor']]],
   ['sections',['Sections',['../namespace_igor.html#a43197990e5686f09dd3845067aafaf5da855c3eca6c7aaef477b4f03e4699944d',1,'Igor']]],
   ['setup',['Setup',['../namespace_igor.html#a3ada26443dfaff731400935076205c3aaad2376beebecdcf7846ba973fa1a005b',1,'Igor']]],
@@ -11,6 +12,6 @@ var searchData=
   ['sourcecolor',['SourceColor',['../namespace_igor.html#a490f00fed47903c329843cb921bbace9a1901920023e2275becaae076a28b590a',1,'Igor::SourceColor()'],['../namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72a1901920023e2275becaae076a28b590a',1,'OMPF::SourceColor()']]],
   ['space',['Space',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24ad511f8439ecde36647437fbba67a4394',1,'Igor']]],
   ['standard',['Standard',['../namespace_igor.html#a1ee2fe4724a0c9145b92680c7e4b0021aeb6d8ae6f20283755b339c0dc273988b',1,'Igor']]],
-  ['standby',['Standby',['../namespace_igor.html#ae7967e81e61e09024381b817add5bb84a2dbec34a65724db94f81e8533ee18192',1,'Igor']]],
+  ['standby',['Standby',['../namespace_igor.html#a48cd75ff6b40f17a4c3ee177138182f4a2dbec34a65724db94f81e8533ee18192',1,'Igor']]],
   ['strech',['Strech',['../namespace_igor.html#aea3bcbf77ead77dc7cb855da623738aea6e5ab7ebfc243e8589be54e64b51d7bc',1,'Igor::Strech()'],['../namespace_igor.html#a2526c10e8630ee25d053e6c519b15180a6e5ab7ebfc243e8589be54e64b51d7bc',1,'Igor::Strech()']]]
 ];

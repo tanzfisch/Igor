@@ -12,6 +12,6 @@ var class_igor_1_1i_node_transform =
     [ "setPosition", "class_igor_1_1i_node_transform.html#a2f5826fc4d6563dd0938c2a1d474cfe7", null ],
     [ "translate", "class_igor_1_1i_node_transform.html#aa14a8d9d83fd2de1370c662b29bb4b81", null ],
     [ "translate", "class_igor_1_1i_node_transform.html#a1ed0476c0a47b9b749e95d497394a79f", null ],
-    [ "iNodeFactory", "class_igor_1_1i_node_transform.html#a443fcc5b71f6dbb2a68dae3d957024c3", null ],
+    [ "iNodeManager", "class_igor_1_1i_node_transform.html#a90c36aa3a19c099cd083a002d56f9c47", null ],
     [ "iNodeVisitorUpdateTransform", "class_igor_1_1i_node_transform.html#ad64c9a06babde60bdd79e94c1ae6ef70", null ]
 ];

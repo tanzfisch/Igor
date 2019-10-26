@@ -1,6 +1,6 @@
 var class_igor_1_1i_widget_group_box =
 [
-    [ "iWidgetGroupBox", "class_igor_1_1i_widget_group_box.html#a01389d758ece682ea6baf260e7191a72", null ],
+    [ "iWidgetGroupBox", "class_igor_1_1i_widget_group_box.html#af819f51cce93aad70e25dda0b04737f4", null ],
     [ "~iWidgetGroupBox", "class_igor_1_1i_widget_group_box.html#a1aa75695bdfc812d4b2c6c52b6193a75", null ],
     [ "getBorder", "class_igor_1_1i_widget_group_box.html#aba976bda4e3aa98bbf27bb6e7db063a9", null ],
     [ "getHeaderOnly", "class_igor_1_1i_widget_group_box.html#a81323ff6e9514adf156be27bd450bf60", null ],

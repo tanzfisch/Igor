@@ -5,6 +5,14 @@ var dir_b12320815bd4967fc918d17f555d23eb =
     [ "iAABox.inl", "i_a_a_box_8inl.html", null ],
     [ "iAACube.h", "i_a_a_cube_8h.html", "i_a_a_cube_8h" ],
     [ "iAACube.inl", "i_a_a_cube_8inl.html", null ],
+    [ "iAction.cpp", "i_action_8cpp.html", null ],
+    [ "iAction.h", "i_action_8h.html", "i_action_8h" ],
+    [ "iActionManager.cpp", "i_action_manager_8cpp.html", null ],
+    [ "iActionManager.h", "i_action_manager_8h.html", [
+      [ "iActionManager", "class_igor_1_1i_action_manager.html", "class_igor_1_1i_action_manager" ]
+    ] ],
+    [ "iActionSimpleDelegate.cpp", "i_action_simple_delegate_8cpp.html", null ],
+    [ "iActionSimpleDelegate.h", "i_action_simple_delegate_8h.html", "i_action_simple_delegate_8h" ],
     [ "iApplication.cpp", "i_application_8cpp.html", null ],
     [ "iApplication.h", "i_application_8h.html", "i_application_8h" ],
     [ "iAtlas.cpp", "i_atlas_8cpp.html", null ],
@@ -26,25 +34,23 @@ var dir_b12320815bd4967fc918d17f555d23eb =
     [ "iContouringCubes.h", "i_contouring_cubes_8h.html", [
       [ "iContouringCubes", "class_igor_1_1i_contouring_cubes.html", "class_igor_1_1i_contouring_cubes" ]
     ] ],
-    [ "iDataUpdateQueue.cpp", "i_data_update_queue_8cpp.html", null ],
-    [ "iDataUpdateQueue.h", "i_data_update_queue_8h.html", [
-      [ "iDataUpdateQueue", "class_igor_1_1i_data_update_queue.html", "class_igor_1_1i_data_update_queue" ]
-    ] ],
     [ "iDefines.h", "i_defines_8h.html", "i_defines_8h" ],
     [ "iDialog.cpp", "i_dialog_8cpp.html", null ],
-    [ "iDialog.h", "i_dialog_8h.html", [
-      [ "iDialog", "class_igor_1_1i_dialog.html", "class_igor_1_1i_dialog" ]
-    ] ],
+    [ "iDialog.h", "i_dialog_8h.html", "i_dialog_8h" ],
     [ "iDialogColorChooser.cpp", "i_dialog_color_chooser_8cpp.html", null ],
     [ "iDialogColorChooser.h", "i_dialog_color_chooser_8h.html", "i_dialog_color_chooser_8h" ],
     [ "iDialogColorGradient.cpp", "i_dialog_color_gradient_8cpp.html", null ],
     [ "iDialogColorGradient.h", "i_dialog_color_gradient_8h.html", "i_dialog_color_gradient_8h" ],
     [ "iDialogDecisionBox.cpp", "i_dialog_decision_box_8cpp.html", null ],
-    [ "iDialogDecisionBox.h", "i_dialog_decision_box_8h.html", "i_dialog_decision_box_8h" ],
+    [ "iDialogDecisionBox.h", "i_dialog_decision_box_8h.html", [
+      [ "iDialogDecisionBox", "class_igor_1_1i_dialog_decision_box.html", "class_igor_1_1i_dialog_decision_box" ]
+    ] ],
     [ "iDialogFileSelect.cpp", "i_dialog_file_select_8cpp.html", null ],
     [ "iDialogFileSelect.h", "i_dialog_file_select_8h.html", "i_dialog_file_select_8h" ],
     [ "iDialogGraph.cpp", "i_dialog_graph_8cpp.html", null ],
     [ "iDialogGraph.h", "i_dialog_graph_8h.html", "i_dialog_graph_8h" ],
+    [ "iDialogIndexMenu.cpp", "i_dialog_index_menu_8cpp.html", null ],
+    [ "iDialogIndexMenu.h", "i_dialog_index_menu_8h.html", "i_dialog_index_menu_8h" ],
     [ "iDialogMenu.cpp", "i_dialog_menu_8cpp.html", null ],
     [ "iDialogMenu.h", "i_dialog_menu_8h.html", "i_dialog_menu_8h" ],
     [ "iDialogMessageBox.cpp", "i_dialog_message_box_8cpp.html", "i_dialog_message_box_8cpp" ],
@@ -136,9 +142,6 @@ var dir_b12320815bd4967fc918d17f555d23eb =
     [ "iNodeEmitter.h", "i_node_emitter_8h.html", [
       [ "iNodeEmitter", "class_igor_1_1i_node_emitter.html", "class_igor_1_1i_node_emitter" ]
     ] ],
-    [ "iNodeFactory.cpp", "i_node_factory_8cpp.html", null ],
-    [ "iNodeFactory.h", "i_node_factory_8h.html", "i_node_factory_8h" ],
-    [ "iNodeFactory.inl", "i_node_factory_8inl.html", null ],
     [ "iNodeLight.cpp", "i_node_light_8cpp.html", null ],
     [ "iNodeLight.h", "i_node_light_8h.html", "i_node_light_8h" ],
     [ "iNodeLODSwitch.cpp", "i_node_l_o_d_switch_8cpp.html", null ],
@@ -149,6 +152,9 @@ var dir_b12320815bd4967fc918d17f555d23eb =
     [ "iNodeLODTrigger.h", "i_node_l_o_d_trigger_8h.html", [
       [ "iNodeLODTrigger", "class_igor_1_1i_node_l_o_d_trigger.html", "class_igor_1_1i_node_l_o_d_trigger" ]
     ] ],
+    [ "iNodeManager.cpp", "i_node_manager_8cpp.html", null ],
+    [ "iNodeManager.h", "i_node_manager_8h.html", "i_node_manager_8h" ],
+    [ "iNodeManager.inl", "i_node_manager_8inl.html", null ],
     [ "iNodeMesh.cpp", "i_node_mesh_8cpp.html", null ],
     [ "iNodeMesh.h", "i_node_mesh_8h.html", "i_node_mesh_8h" ],
     [ "iNodeModel.cpp", "i_node_model_8cpp.html", null ],
@@ -397,7 +403,9 @@ var dir_b12320815bd4967fc918d17f555d23eb =
     [ "iUserControl.h", "i_user_control_8h.html", [
       [ "iUserControl", "class_igor_1_1i_user_control.html", "class_igor_1_1i_user_control" ]
     ] ],
-    [ "iUserControlColorChooser.cpp", "i_user_control_color_chooser_8cpp.html", null ],
+    [ "iUserControlAction.cpp", "i_user_control_action_8cpp.html", null ],
+    [ "iUserControlAction.h", "i_user_control_action_8h.html", "i_user_control_action_8h" ],
+    [ "iUserControlColorChooser.cpp", "i_user_control_color_chooser_8cpp.html", "i_user_control_color_chooser_8cpp" ],
     [ "iUserControlColorChooser.h", "i_user_control_color_chooser_8h.html", "i_user_control_color_chooser_8h" ],
     [ "iUserControlFileChooser.cpp", "i_user_control_file_chooser_8cpp.html", null ],
     [ "iUserControlFileChooser.h", "i_user_control_file_chooser_8h.html", [
@@ -439,9 +447,7 @@ var dir_b12320815bd4967fc918d17f555d23eb =
       [ "iWidgetBaseTheme", "class_igor_1_1i_widget_base_theme.html", "class_igor_1_1i_widget_base_theme" ]
     ] ],
     [ "iWidgetButton.cpp", "i_widget_button_8cpp.html", null ],
-    [ "iWidgetButton.h", "i_widget_button_8h.html", [
-      [ "iWidgetButton", "class_igor_1_1i_widget_button.html", "class_igor_1_1i_widget_button" ]
-    ] ],
+    [ "iWidgetButton.h", "i_widget_button_8h.html", "i_widget_button_8h" ],
     [ "iWidgetCheckBox.cpp", "i_widget_check_box_8cpp.html", null ],
     [ "iWidgetCheckBox.h", "i_widget_check_box_8h.html", [
       [ "iWidgetCheckBox", "class_igor_1_1i_widget_check_box.html", "class_igor_1_1i_widget_check_box" ]
@@ -463,15 +469,20 @@ var dir_b12320815bd4967fc918d17f555d23eb =
     [ "iWidgetGrid.cpp", "i_widget_grid_8cpp.html", null ],
     [ "iWidgetGrid.h", "i_widget_grid_8h.html", "i_widget_grid_8h" ],
     [ "iWidgetGroupBox.cpp", "i_widget_group_box_8cpp.html", null ],
-    [ "iWidgetGroupBox.h", "i_widget_group_box_8h.html", [
-      [ "iWidgetGroupBox", "class_igor_1_1i_widget_group_box.html", "class_igor_1_1i_widget_group_box" ]
-    ] ],
+    [ "iWidgetGroupBox.h", "i_widget_group_box_8h.html", "i_widget_group_box_8h" ],
     [ "iWidgetLabel.cpp", "i_widget_label_8cpp.html", null ],
     [ "iWidgetLabel.h", "i_widget_label_8h.html", [
       [ "iWidgetLabel", "class_igor_1_1i_widget_label.html", "class_igor_1_1i_widget_label" ]
     ] ],
     [ "iWidgetManager.cpp", "i_widget_manager_8cpp.html", null ],
-    [ "iWidgetManager.h", "i_widget_manager_8h.html", "i_widget_manager_8h" ],
+    [ "iWidgetManager.h", "i_widget_manager_8h.html", [
+      [ "iWidgetManager", "class_igor_1_1i_widget_manager.html", "class_igor_1_1i_widget_manager" ]
+    ] ],
+    [ "iWidgetManager.inl", "i_widget_manager_8inl.html", null ],
+    [ "iWidgetMenu.cpp", "i_widget_menu_8cpp.html", null ],
+    [ "iWidgetMenu.h", "i_widget_menu_8h.html", "i_widget_menu_8h" ],
+    [ "iWidgetMenuBar.cpp", "i_widget_menu_bar_8cpp.html", null ],
+    [ "iWidgetMenuBar.h", "i_widget_menu_bar_8h.html", "i_widget_menu_bar_8h" ],
     [ "iWidgetNumberChooser.cpp", "i_widget_number_chooser_8cpp.html", null ],
     [ "iWidgetNumberChooser.h", "i_widget_number_chooser_8h.html", [
       [ "iWidgetNumberChooser", "class_igor_1_1i_widget_number_chooser.html", "class_igor_1_1i_widget_number_chooser" ]
@@ -481,9 +492,7 @@ var dir_b12320815bd4967fc918d17f555d23eb =
       [ "iWidgetPicture", "class_igor_1_1i_widget_picture.html", "class_igor_1_1i_widget_picture" ]
     ] ],
     [ "iWidgetScroll.cpp", "i_widget_scroll_8cpp.html", "i_widget_scroll_8cpp" ],
-    [ "iWidgetScroll.h", "i_widget_scroll_8h.html", [
-      [ "iWidgetScroll", "class_igor_1_1i_widget_scroll.html", "class_igor_1_1i_widget_scroll" ]
-    ] ],
+    [ "iWidgetScroll.h", "i_widget_scroll_8h.html", "i_widget_scroll_8h" ],
     [ "iWidgetSelectBox.cpp", "i_widget_select_box_8cpp.html", null ],
     [ "iWidgetSelectBox.h", "i_widget_select_box_8h.html", [
       [ "iWidgetSelectBox", "class_igor_1_1i_widget_select_box.html", "class_igor_1_1i_widget_select_box" ]

@@ -1,6 +1,6 @@
 var class_igor_1_1i_widget_select_box =
 [
-    [ "iWidgetSelectBox", "class_igor_1_1i_widget_select_box.html#a2f06d3c69106a371425dac141734b810", null ],
+    [ "iWidgetSelectBox", "class_igor_1_1i_widget_select_box.html#a8138cd312d1fb4210728eaf4db747418", null ],
     [ "~iWidgetSelectBox", "class_igor_1_1i_widget_select_box.html#a2554c8fe4f3322a692cf6db47e4e6093", null ],
     [ "addSelectionEntry", "class_igor_1_1i_widget_select_box.html#a4b9b4ba2304e36e424bb90db8c08fe05", null ],
     [ "clear", "class_igor_1_1i_widget_select_box.html#af1b84d3b60b1dea518eabe0a7261ee55", null ],

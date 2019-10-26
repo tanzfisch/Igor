@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.23.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.24.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -189,16 +189,16 @@ _spline.addSupportPoint(iaVector3f(100, 100, 0));
 _spline.setResolution(20);
 </pre><p>For rendering anything in <a class="el" href="namespace_igor.html">Igor</a> we need to set up a couple of materials. Basically a material is a set of OpenGL based render states and or some shaders. Right now most of <a class="el" href="namespace_igor.html">Igor</a> still uses old school fix function pipeline due to laziness of the programmer ;-) but given enough time this will change. </p><pre class="fragment">// create some materials
 _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
-iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)-&gt;getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)-&gt;getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)-&gt;getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)-&gt;setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)-&gt;setRenderState(iRenderState::Blend, iRenderStateValue::On);
+iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)-&gt;setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
 _materialWithTexture = iMaterialResourceFactory::getInstance().createMaterial();
-iMaterialResourceFactory::getInstance().getMaterial(_materialWithTexture)-&gt;getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-iMaterialResourceFactory::getInstance().getMaterial(_materialWithTexture)-&gt;getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+iMaterialResourceFactory::getInstance().getMaterial(_materialWithTexture)-&gt;setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+iMaterialResourceFactory::getInstance().getMaterial(_materialWithTexture)-&gt;setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
 _materialWithoutDepthTest = iMaterialResourceFactory::getInstance().createMaterial();
-iMaterialResourceFactory::getInstance().getMaterial(_materialWithoutDepthTest)-&gt;getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+iMaterialResourceFactory::getInstance().getMaterial(_materialWithoutDepthTest)-&gt;setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 </pre><p>No it's time to load the requested textures by doing a flush in the iTextureResourceFactory. So technically this is not asynchronous loading of textures. And that is correct but this way you can choose whether to just make a flush between level loading or run it in a separate thread to continuously loading/unloading textures in the background. The last scenario is easiest by just creating iTaskFlushTextures and add it in to the iTaskManager. </p><pre class="fragment">// load requested textures
 iTextureResourceFactory::getInstance().flush();
 </pre><p>On the deinit end we destroy the created materials ... </p><pre class="fragment">// release materials (optional)

@@ -15,7 +15,7 @@ var class_igor_1_1i_physics_body =
     [ "getTorque", "class_igor_1_1i_physics_body.html#a4cb5e0b0130b4ec969679187bbaaa76d", null ],
     [ "getTransformNodeID", "class_igor_1_1i_physics_body.html#a7aa247128e23b59a5ff8b22af833ffcb", null ],
     [ "getTransformNodeMatrix", "class_igor_1_1i_physics_body.html#aa5cda00ba12853ee4e487cc372f3a990", null ],
-    [ "getUserData", "class_igor_1_1i_physics_body.html#a7cadd2a3bbc054809a6068934236ee07", null ],
+    [ "getUserData", "class_igor_1_1i_physics_body.html#ae371ce7f9e7e4a359ec814e2b5718f71", null ],
     [ "getVelocity", "class_igor_1_1i_physics_body.html#a8e31d1a8a37d056979834d4f068cefb3", null ],
     [ "registerForceAndTorqueDelegate", "class_igor_1_1i_physics_body.html#a3a5ba78edb4ee9f8fc31ac145a2d878b", null ],
     [ "setAngularDamping", "class_igor_1_1i_physics_body.html#aa0be581e6f78b579969f66d6abd948d9", null ],
@@ -27,7 +27,7 @@ var class_igor_1_1i_physics_body =
     [ "setOmega", "class_igor_1_1i_physics_body.html#ac16ed6d371ab645881604478d759de3a", null ],
     [ "setTorque", "class_igor_1_1i_physics_body.html#a633ec7a273a8f78362d2953ba5e6cb0a", null ],
     [ "setTransformNodeMatrix", "class_igor_1_1i_physics_body.html#a4f82a7ebad173b99196d46a5d7266f6f", null ],
-    [ "setUserData", "class_igor_1_1i_physics_body.html#aa4f881a54530a30e103d2792e7a2423b", null ],
+    [ "setUserData", "class_igor_1_1i_physics_body.html#aaa85ce2c12614646fad0c1868c3a1605", null ],
     [ "unregisterForceAndTorqueDelegate", "class_igor_1_1i_physics_body.html#ab70033ae7f2c7e29044b1259aa55bbad", null ],
     [ "iPhysics", "class_igor_1_1i_physics_body.html#a68f9306b9fe2369173dfd12456aa5d41", null ],
     [ "PhysicsApplyForceAndTorque", "class_igor_1_1i_physics_body.html#a10046047cb0db9723462edb037177b29", null ],
@@ -45,7 +45,7 @@ var class_igor_1_1i_physics_body =
     [ "_omega", "class_igor_1_1i_physics_body.html#ae5ca88002f70692e78ba28b2a5295136", null ],
     [ "_torque", "class_igor_1_1i_physics_body.html#a665ca1584fa46b32a1c64b8297682790", null ],
     [ "_transformNodeID", "class_igor_1_1i_physics_body.html#afe0cd76c905b01d79a4898941be39d58", null ],
-    [ "_userData", "class_igor_1_1i_physics_body.html#a45a972888104705c5a5b0a7dd3030a0a", null ],
+    [ "_userData", "class_igor_1_1i_physics_body.html#ab112eff8ab2700c49222ba168faaef90", null ],
     [ "_velocity", "class_igor_1_1i_physics_body.html#a83174a9ef7d50eac798342380ce57288", null ],
     [ "INVALID_PHYSICSBODY_ID", "class_igor_1_1i_physics_body.html#a041482287d2b5dc81e75d54c8fd6de79", null ]
 ];

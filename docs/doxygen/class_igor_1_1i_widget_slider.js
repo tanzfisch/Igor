@@ -1,6 +1,6 @@
 var class_igor_1_1i_widget_slider =
 [
-    [ "iWidgetSlider", "class_igor_1_1i_widget_slider.html#a6dc0289e975a3ae4db06813c97768ba1", null ],
+    [ "iWidgetSlider", "class_igor_1_1i_widget_slider.html#ab71afa66f4a4999b33f56939415506e0", null ],
     [ "~iWidgetSlider", "class_igor_1_1i_widget_slider.html#a9feee53439a744e9452f563201e8f3f1", null ],
     [ "calcMinSize", "class_igor_1_1i_widget_slider.html#a4dc75384eedeafe20ec3a02046350e0c", null ],
     [ "cullBoundings", "class_igor_1_1i_widget_slider.html#a3201b3d488b21a42688135afbc852492", null ],

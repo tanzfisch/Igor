@@ -6,5 +6,5 @@ var class_igor_1_1i_node_water =
     [ "setAmbient", "class_igor_1_1i_node_water.html#a8b82115cddf8feced2219c594cda13f3", null ],
     [ "setWaterPosition", "class_igor_1_1i_node_water.html#a43da6ebe5bb649986aac6c04f050c7e1", null ],
     [ "wasReached", "class_igor_1_1i_node_water.html#a359a5f3ff999f21928df69c397ce480f", null ],
-    [ "iNodeFactory", "class_igor_1_1i_node_water.html#a443fcc5b71f6dbb2a68dae3d957024c3", null ]
+    [ "iNodeManager", "class_igor_1_1i_node_water.html#a90c36aa3a19c099cd083a002d56f9c47", null ]
 ];
