@@ -418,6 +418,15 @@ namespace Igor
         _colorHSV._b = _valueChooserV->getValue() / 255.0f;
         _colorHSV._a = 1.0f;
 
+        if (_mode == iColorChooserMode::RGBA)
+        {
+            _colorHSV._a = _valueChooserA->getValue() / 255.0f;
+        }
+        else
+        {
+            _colorRGBA._a = 1.0f;
+        }
+
         _colorRGBA = iaColor4f::convertHSVtoRGB(_colorHSV);
     }
 
@@ -544,9 +553,8 @@ namespace Igor
 
     void iUserControlColorChooser::deinitGUI()
     {
-        // TODO we need to clean this mess up
         // this is just a workarround for now to cleanup rogue widgets
-/*#define KILL_ROGUE(widget) con_endl("delete" << "#widget"); if (widget && !widget->hasParent()) { delete widget; widget = nullptr; }
+#define KILL_ROGUE(widget) if (widget && !widget->hasParent()) { delete widget; widget = nullptr; }
 
         KILL_ROGUE(_headlineGrid);
 
@@ -585,7 +593,7 @@ namespace Igor
         KILL_ROGUE(_sliderB);
         KILL_ROGUE(_sliderA);
 
-        KILL_ROGUE(_expandedGrid);*/
+        KILL_ROGUE(_expandedGrid);
     }
 
     void iUserControlColorChooser::registerOnColorChangedEvent(iColorChangedDelegate colorChangedDelegate)

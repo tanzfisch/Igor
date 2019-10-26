@@ -51,7 +51,7 @@ namespace Igor
 
 		/*! does nothing
 		*/
-		iDialogColorGradient() = default;
+		iDialogColorGradient();
 
 		/*! does nothing
 		*/
@@ -63,7 +63,13 @@ namespace Igor
 		\param gradient to start with
 		\param useAlpha if true use alpha channel too
 		*/
-		void open(iDialogCloseDelegate dialogCloseDelegate, const iaGradientColor4f& gradient, bool useAlpha = true);
+		void open(iDialogCloseDelegate dialogCloseDelegate) override;
+
+        void setColorGradient(const iaGradientColor4f& gradient);
+            
+        void setUseAlpha(bool useAlpha);
+
+        bool isUsingAlpha() const;
 
         /*! \returns color gradient from dialog
         */
@@ -98,6 +104,10 @@ namespace Igor
 		/*! the widget to visualize the gradient
 		*/
 		iWidgetColorGradient* _gradientWidget = nullptr;
+
+        /*! flag if alpha will be available for edit or not 
+        */
+        bool _useAlpha = true;
 
 		/*! updates gui part if selection changed
 		*/
@@ -147,12 +157,12 @@ namespace Igor
 		void onReset(const iWidgetPtr source);
 
 		/*! initializes gui elements
-
-		\param color the color to init with
-		\param useAlpha if true alpha value will be edited too
 		*/
-		void initGUI(const iaGradientColor4f& gradient, bool useAlpha);
+		void initUI();
 
+        /*! update UI with current settings
+        */
+        void update();
 	};
 
     /*! dialog color gradient pointer definition

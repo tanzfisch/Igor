@@ -1382,7 +1382,8 @@ void UserControlParticleSystem::onOpenColorGradientEditor(const iWidgetPtr sourc
     if (_colorGradientDialog == nullptr)
     {
         _colorGradientDialog = new iDialogColorGradient();
-        _colorGradientDialog->open(iDialogCloseDelegate(this, &UserControlParticleSystem::onCloseColorGradientEditor), _colorGradient->getGradient(), true);
+        _colorGradientDialog->setColorGradient(_colorGradient->getGradient());
+        _colorGradientDialog->open(iDialogCloseDelegate(this, &UserControlParticleSystem::onCloseColorGradientEditor));
     }
 }
 

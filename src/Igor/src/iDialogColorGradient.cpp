@@ -24,13 +24,38 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	void iDialogColorGradient::open(iDialogCloseDelegate dialogCloseDelegate, const iaGradientColor4f& gradient, bool useAlpha)
+    iDialogColorGradient::iDialogColorGradient()
+    {
+        initUI();
+    }
+
+	void iDialogColorGradient::open(iDialogCloseDelegate dialogCloseDelegate)
 	{
         iDialog::open(dialogCloseDelegate);
 
-		_oldGradient = gradient;
-		initGUI(gradient, useAlpha);
+        iWidgetManager::getInstance().setModal(this);
+        setActive();
+        setVisible();
 	}
+
+    void iDialogColorGradient::setColorGradient(const iaGradientColor4f& gradient)
+    {
+        con_assert(_gradient.isEmpty(), "invalid parameter");
+
+        _oldGradient = gradient;
+        _gradient = gradient;
+        update();
+    }
+
+    void iDialogColorGradient::setUseAlpha(bool useAlpha)
+    {
+        _useAlpha = useAlpha;
+    }
+
+    bool iDialogColorGradient::isUsingAlpha() const
+    {
+        return _useAlpha;
+    }
 
     const iaGradientColor4f& iDialogColorGradient::getColorGradient() const
     {
@@ -42,15 +67,27 @@ namespace Igor
         return _oldGradient;
     }
 
-	void iDialogColorGradient::initGUI(const iaGradientColor4f& gradient, bool useAlpha)
-	{
-		_gradient = gradient;
+    void iDialogColorGradient::update()
+    {
+        if (_gradient.isEmpty())
+        {
+            con_err("invalid data");
+            return;
+        }
 
-		iWidgetManager::getInstance().setModal(this);
-		setActive();
-		setVisible();
-		setWidth(350);
-		setHeight(100);
+        _gradientWidget->setGradient(_gradient);
+        _gradientWidget->setUseAlpha(_useAlpha);
+
+        _colorChooser->setColor(_gradient.getValues()[0].second);
+        _colorChooser->setMode(_useAlpha ? iColorChooserMode::RGBA : iColorChooserMode::RGB);
+
+        _position->setValue(_gradient.getValues()[0].first * 100.0f);
+    }
+
+	void iDialogColorGradient::initUI()
+	{
+        setWidth(350);
+        setHeight(100);
 
 		iWidgetGridPtr grid = new iWidgetGrid(this);
 		grid->appendRows(4);
@@ -63,39 +100,63 @@ namespace Igor
 		iWidgetLabel* headerLabel = new iWidgetLabel();
 		headerLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
 		headerLabel->setText("Edit Gradient");
+        grid->addWidget(headerLabel, 0, 0);
 
 		iWidgetGroupBox* groupBoxGradient = new iWidgetGroupBox();
 		groupBoxGradient->setText("Gradient");
 		groupBoxGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
 		groupBoxGradient->setVerticalAlignment(iVerticalAlignment::Strech);
+        grid->addWidget(groupBoxGradient, 0, 1);
+        
+        iWidgetGrid* buttonGrid = new iWidgetGrid();
+        buttonGrid->appendCollumns(2);
+        buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
+        grid->addWidget(buttonGrid, 0, 3);
 
 		_gradientWidget = new iWidgetColorGradient();
-		_gradientWidget->setGradient(_gradient);
 		_gradientWidget->setHorizontalAlignment(iHorizontalAlignment::Strech);
 		_gradientWidget->setVerticalAlignment(iVerticalAlignment::Strech);
-		_gradientWidget->setUseAlpha(useAlpha);
 		_gradientWidget->setInteractive();
 		_gradientWidget->setHeight(60);
 		_gradientWidget->registerOnSelectionChangedEvent(iSelectionChangedDelegate(this, &iDialogColorGradient::onSelectionChanged));
 		_gradientWidget->registerOnColorCreatedEvent(iColorGradientColorCreatedDelegate(this, &iDialogColorGradient::onColorCreated));
+        groupBoxGradient->addWidget(_gradientWidget);
 
 		iWidgetGroupBox* groupBox = new iWidgetGroupBox();
 		groupBox->setText("Selected Color");
 		groupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
 		groupBox->setVerticalAlignment(iVerticalAlignment::Strech);
+        grid->addWidget(groupBox, 0, 2);
 
 		iWidgetGrid* controlGrid = new iWidgetGrid();
 		controlGrid->appendRows(3);
 		controlGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
+        groupBox->addWidget(controlGrid);
 
-		iWidgetGrid* positionGrid = new iWidgetGrid();
-		positionGrid->appendCollumns(1);
-		positionGrid->setStrechColumn(1);
-		positionGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+        _colorChooser = new iUserControlColorChooser();
+        _colorChooser->setExpand();
+        _colorChooser->setHeadlineVisible(false);
+        _colorChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+        _colorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &iDialogColorGradient::onColorChanged));
+        controlGrid->addWidget(_colorChooser, 0, 0);
+
+        iWidgetGrid* positionGrid = new iWidgetGrid();
+        positionGrid->appendCollumns(1);
+        positionGrid->setStrechColumn(1);
+        positionGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+        controlGrid->addWidget(positionGrid, 0, 1);
+
+        iWidgetButton* delButton = new iWidgetButton();
+        delButton->setText("Delete Color");
+        delButton->setTooltip("Deletes selected color key.");
+        delButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorGradient::onDelete));
+        delButton->setHorizontalAlignment(iHorizontalAlignment::Right);
+        controlGrid->addWidget(delButton, 0, 2);
 
 		iWidgetLabel* labelPosition = new iWidgetLabel();
 		labelPosition->setText("Position");
 		labelPosition->setWidth(100);
+        positionGrid->addWidget(labelPosition, 0, 0);
 
 		_position = new iWidgetNumberChooser();
 		_position->setMinMaxNumber(0.0f, 100.0f);
@@ -103,62 +164,27 @@ namespace Igor
 		_position->setSteppingWheel(1.0f, 1.0f);
 		_position->setAfterPoint(2);
 		_position->setPostFix("%");
-		_position->setValue(_gradient.getValues()[0].first * 100.0f);
 		_position->setHorizontalAlignment(iHorizontalAlignment::Strech);
 		_position->registerOnChangeEvent(iChangeDelegate(this, &iDialogColorGradient::onPositionChanged));
-
-		iWidgetButton* delButton = new iWidgetButton();
-		delButton->setText("Delete Color");
-		delButton->setTooltip("Deletes selected color key.");
-		delButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorGradient::onDelete));
-		delButton->setHorizontalAlignment(iHorizontalAlignment::Right);
-
-		_colorChooser = new iUserControlColorChooser();
-		_colorChooser->setMode(useAlpha ? iColorChooserMode::RGBA : iColorChooserMode::RGB);
-		_colorChooser->setExpand();
-		_colorChooser->setHeadlineVisible(false);
-		_colorChooser->setColor(_gradient.getValues()[0].second);
-		_colorChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
-		_colorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &iDialogColorGradient::onColorChanged));
-
-		iWidgetGrid* buttonGrid = new iWidgetGrid();
-		buttonGrid->appendCollumns(2);
-		buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
+        positionGrid->addWidget(_position, 1, 0);
 
 		iWidgetButton* okButton = new iWidgetButton();
 		okButton->setText("OK");
 		okButton->setTooltip("Closes the dialog and applies new color gradient.");
 		okButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorGradient::onOK));
+        buttonGrid->addWidget(okButton, 2, 0);
 
 		iWidgetButton* cancelButton = new iWidgetButton();
 		cancelButton->setText("Cancel");
 		cancelButton->setTooltip("Closes the dialog without changes.");
 		cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorGradient::onCancel));
+        buttonGrid->addWidget(cancelButton, 1, 0);
 
 		iWidgetButton* resetButton = new iWidgetButton();
 		resetButton->setText("Reset");
 		resetButton->setTooltip("Resets dialog to previous color gradient.");
 		resetButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorGradient::onReset));
-
-		grid->addWidget(headerLabel, 0, 0);
-		grid->addWidget(groupBoxGradient, 0, 1);
-		grid->addWidget(groupBox, 0, 2);
-		grid->addWidget(buttonGrid, 0, 3);
-
-		groupBoxGradient->addWidget(_gradientWidget);
-
-		groupBox->addWidget(controlGrid);
-
-		controlGrid->addWidget(_colorChooser, 0, 0);
-		controlGrid->addWidget(positionGrid, 0, 1);
-		controlGrid->addWidget(delButton, 0, 2);
-
-		positionGrid->addWidget(labelPosition, 0, 0);
-		positionGrid->addWidget(_position, 1, 0);
-
 		buttonGrid->addWidget(resetButton, 0, 0);
-		buttonGrid->addWidget(cancelButton, 1, 0);
-		buttonGrid->addWidget(okButton, 2, 0);
 	}
 
 	void iDialogColorGradient::onPositionChanged(const iWidgetPtr source)
