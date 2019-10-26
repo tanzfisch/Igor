@@ -42,7 +42,7 @@ namespace Igor
 	class Igor_API iSkyLightNode : public iNodeRender
 	{
 
-		friend class iNodeFactory;
+		friend class iNodeManager;
 
 	private:
 

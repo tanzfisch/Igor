@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.23.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.24.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -152,10 +152,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af7e50684442558b2aaddf3dd6ef4e9ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ada87b646e46b119a37f89724f15f73fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mouse.html#ada87b646e46b119a37f89724f15f73fb">unregisterMouseWheelDelegate</a> (iMouseWheelDelegate wheel_delegate)</td></tr>
 <tr class="separator:ada87b646e46b119a37f89724f15f73fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e47006caf6781de70e88d72b3985ae3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mouse.html#a2e47006caf6781de70e88d72b3985ae3">setCenter</a> (bool supressMoveEvent=false)</td></tr>
+<tr class="memitem:a2e47006caf6781de70e88d72b3985ae3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mouse.html#a2e47006caf6781de70e88d72b3985ae3">setCenter</a> (bool supressMoveEvent=false)</td></tr>
 <tr class="separator:a2e47006caf6781de70e88d72b3985ae3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad79e27f894736fd41076e19efc588e78"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mouse.html#ad79e27f894736fd41076e19efc588e78">setPosition</a> (int32 x, int32, bool supressMoveEvent=false)</td></tr>
+<tr class="memitem:ad79e27f894736fd41076e19efc588e78"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mouse.html#ad79e27f894736fd41076e19efc588e78">setPosition</a> (int32 x, int32, bool supressMoveEvent=false)</td></tr>
 <tr class="separator:ad79e27f894736fd41076e19efc588e78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6b30df9f992428a1fe14f22ea0298c00"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mouse.html#a6b30df9f992428a1fe14f22ea0298c00">setPosition</a> (const <a class="el" href="namespace_igor_aux.html#a9f4d278020d24f0b41171f05e05a729d">iaVector2i</a> &amp;pos, bool supressMoveEvent=false)</td></tr>
+<tr class="separator:a6b30df9f992428a1fe14f22ea0298c00"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad13a104103d56f349158f12fd22fdc85"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mouse.html#ad13a104103d56f349158f12fd22fdc85">showCursor</a> (bool show)</td></tr>
 <tr class="separator:ad13a104103d56f349158f12fd22fdc85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe510afcb8d071342d8cd77094926eeb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#a9f4d278020d24f0b41171f05e05a729d">iaVector2i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_mouse.html#abe510afcb8d071342d8cd77094926eeb">getPos</a> ()</td></tr>
@@ -505,9 +507,6 @@ Additional Inherited Members</h2></td></tr>
 <a class="anchor" id="a2e47006caf6781de70e88d72b3985ae3"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Igor::iMouse::setCenter </td>
@@ -517,11 +516,6 @@ Additional Inherited Members</h2></td></tr>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 <p>set mouse to center of currently focused window</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -536,9 +530,6 @@ Additional Inherited Members</h2></td></tr>
 <a class="anchor" id="ad79e27f894736fd41076e19efc588e78"></a>
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void Igor::iMouse::setPosition </td>
@@ -564,17 +555,46 @@ Additional Inherited Members</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 <p>set mouse to a position relative to currently focussed window</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">x</td><td>horizontal position of the mouse cursor in pixel </td></tr>
     <tr><td class="paramname">y</td><td>vertical position of the mouse cursor in pixel </td></tr>
+    <tr><td class="paramname">supressMoveEvent</td><td>if true supress next mouse event </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a6b30df9f992428a1fe14f22ea0298c00"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Igor::iMouse::setPosition </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_igor_aux.html#a9f4d278020d24f0b41171f05e05a729d">iaVector2i</a> &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>supressMoveEvent</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>set mouse to a position relative to currently focussed window</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>horizontal and vertical position of the mouse cursor in pixel </td></tr>
     <tr><td class="paramname">supressMoveEvent</td><td>if true supress next mouse event </td></tr>
   </table>
   </dd>

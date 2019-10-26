@@ -29,7 +29,6 @@
 #ifndef __iNODE__
 #define __iNODE__
 
-#include <iDataUpdateQueue.h>
 #include <iDefines.h>
 
 #include <iaEvent.h>
@@ -48,6 +47,17 @@ using namespace IgorAux;
 namespace Igor
 {
 	
+	class iScene;
+	class iNode;
+
+	/*! scene pointer definition
+	*/
+	typedef iScene* iScenePtr;
+
+	/*! node pointer definition
+	*/
+	typedef iNode* iNodePtr;
+
     /*! types of nodes
     */
 	enum class iNodeType : unsigned int
@@ -88,13 +98,9 @@ namespace Igor
 		Undefined
 	};
 
-	class iScene;
-    class iNode;
-    typedef iNode* iNodePtr;
-
 	/*! transformation change event
 	*/
-	iaEVENT(iTransformationChangeEvent, iTransformationChangeDelegate, void, (iNode* source), (source));
+	iaEVENT(iTransformationChangeEvent, iTransformationChangeDelegate, void, (iNodePtr source), (source));
 
     /*! base node implementation
 
@@ -107,7 +113,7 @@ namespace Igor
 	class Igor_API iNode
 	{
 
-		friend class iNodeFactory;
+		friend class iNodeManager;
 		friend class iScene;
         friend class iNodeVisitorUpdateTransform;
         friend class iDataUpdateQueue;
@@ -238,7 +244,7 @@ namespace Igor
 
         /*! \returns pointer to scene this node is in
         */
-        iScene* getScene();
+		iScenePtr getScene();
 
         /*! \returns true: if transformation flag is dirty; false: if not
 
@@ -296,7 +302,7 @@ namespace Igor
 
         /*! pointer to parenting scene
         */
-		iScene* _scene = nullptr;
+		iScenePtr _scene = nullptr;
 
         /*! pointer to parent node
         */
@@ -336,7 +342,13 @@ namespace Igor
 
         \param scene pointer to scene
         */
-		void setScene(iScene* scene);
+		void setScene(iScenePtr scene);
+
+		/*! called by node visitor update transform
+
+		\param[in, out] matrix current transformation matrix
+		*/
+		virtual void onUpdateTransform(iaMatrixd& matrix);
 
         /*! this is called just before setScene and gives the class the chance to unregister from the current scene if set.
         */
@@ -345,12 +357,6 @@ namespace Igor
         /*! this is called just after setScene and gives the class the chance to register it self to the new scene.
         */
 		virtual void onPostSetScene();
-
-        /*! called by node visitor update transform
-
-        \param[in, out] matrix current transformation matrix
-        */
-        virtual void onUpdateTransform(iaMatrixd& matrix);
 
         /*! called by update dirty data queue
 

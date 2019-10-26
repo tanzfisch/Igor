@@ -1,26 +1,40 @@
 Changelog                           {#changelog}
 =========
 
+0.24.0
+------
+
+- Basic iWidgetMenuBar and iWidgetMenu implementation
+  ![menu demonstration](/images/menu.gif)
+- Added z value order for widgets. For now only used for dialog order
+- Introduced event blocking (used in widgets)
+- Introduced Actions
+- Using std::any for user data instead of void* where possible
+- Improved dialog close handling
+- Improved node creation interface
+- Exposed iRenderStateSet interface in iMaterial to reduce writing effort when using it
+- Renamed ModelViewer in to Mica
+
 0.23.0
 ------
 
-- scroll bars are now fully functional
-  ![sprite animation](/images/scrollbars.gif)
-- new interface to create and destroy widgets. Basically we can use new and delete on widgets now but the engine will keep track of them to prevent mem leaks.
-- added colored axis indication to orientation grid in ModelViewer
-- made iaMatrix2D more usefull
-- made SpriteAnimation example more pretty (thank you opengameart.org)
+- Scroll bars are now fully functional
+  ![Scroll bars](/images/scrollbars.gif)
+- New interface to create and destroy widgets. Basically we can use new and delete on widgets now but the engine will keep track of them to prevent mem leaks.
+- Added colored axis indication to orientation grid in ModelViewer
+- Made iaMatrix2D more usefull
+- Made SpriteAnimation example more pretty (thank you opengameart.org)
 
 0.22.0
 ------
 
 - iSprite is now iAtlas and can read frames from file
-- created sprite animation example
+- Created sprite animation example
   ![sprite animation](/images/SpriteAnimation.gif)
-- ownership of widgets transfers to the engine the moment they are children of a dialog
-- added mesh to world bake functionality
-- removed all using namesapce std;
-- added some keyboard shortcuts to ModelViewer
+- Ownership of widgets transfers to the engine the moment they are children of a dialog
+- Sdded mesh to world bake functionality
+- Removed all using namesapce std;
+- Sdded some keyboard shortcuts to ModelViewer
   - Ctrl + N - clear scene
   - Del - deletes current selection
   - Ctrl + D - duplicates current selection
@@ -29,22 +43,22 @@ Changelog                           {#changelog}
   - Ctrl + V - pastes on current selection
   - Ctrl + S - opens save dialog
   - Ctrl + O - opens load dialog
-- improved getInfo implementation and pretty print node tree
-- renamed iStatistic* to iProfiler*
+- Improved getInfo implementation and pretty print node tree
+- Renamed iStatistic* to iProfiler*
 
 0.21.0
 ------
 
-- increased unit testing efforts
-- worked on iaQuaternion class
-- turned iaRandomNumberGenerator in to a template
-- improved character controller example
-- improved mouse handling in all examples
-- added interface to control vsync setting
-- improved pretty printing for scene graph
+- Increased unit testing efforts
+- Worked on iaQuaternion class
+- Turned iaRandomNumberGenerator in to a template
+- Improved character controller example
+- Improved mouse handling in all examples
+- Added interface to control vsync setting
+- Improved pretty printing for scene graph
   ![pretty tree printing](/images/pretty_tree_print.png)
-- added vsync setting on window
-- fixed another bug regarding texture units in ompf
+- Added vsync setting on window
+- Fixed another bug regarding texture units in ompf
 
 0.20.0
 ------

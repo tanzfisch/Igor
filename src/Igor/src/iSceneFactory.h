@@ -45,6 +45,20 @@ namespace Igor
 	{
         friend class iaSingleton<iSceneFactory>;
 
+	public:
+
+		/*! creates a scene
+
+		\returns pointer to new scene
+		*/
+		iScene* createScene();
+
+		/*! releases a scene
+
+		\param scene pointer to scene to be released
+		*/
+		void destroyScene(iScene* scene);
+
 	private:
 
         /*! keeps track on how many scenes where alocated
@@ -58,20 +72,6 @@ namespace Igor
         /*! cheks scene counter
         */
         ~iSceneFactory();
-
-	public:
-
-        /*! creates a scene
-
-        \returns pointer to new scene
-        */
-		iScene* createScene();
-
-        /*! releases a scene
-
-        \param scene pointer to scene to be released
-        */
-		void destroyScene(iScene* scene);
 
 	};
 }

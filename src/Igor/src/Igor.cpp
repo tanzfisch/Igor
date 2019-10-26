@@ -13,6 +13,7 @@
 #include <iMaterialResourceFactory.h>
 #include <iWidgetManager.h>
 #include <iProfiler.h>
+#include <iActionManager.h>
 #ifdef __USE_OPENAL__
 #include <iSoundResourceFactory.h>
 #endif
@@ -21,7 +22,7 @@
 #include <iTaskManager.h>
 #include <iConfigReader.h>
 #include <iVersion.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iSceneFactory.h>
 #include <iPhysics.h>
 
@@ -220,9 +221,9 @@ namespace Igor
 			iTaskManager::destroyInstance();
 		}
 
-		if (iNodeFactory::isInstantiated())
+		if (iNodeManager::isInstantiated())
 		{			
-			iNodeFactory::destroyInstance();
+			iNodeManager::destroyInstance();
 		}
 
 		if (iSceneFactory::isInstantiated())
@@ -295,6 +296,11 @@ namespace Igor
 		if (iProfiler::isInstantiated())
 		{
 			iProfiler::destroyInstance();
+		}
+
+		if (iActionManager::isInstantiated())
+		{
+			iActionManager::destroyInstance();
 		}
 
 		IgorAux::shutdown();

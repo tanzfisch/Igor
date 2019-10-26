@@ -196,7 +196,7 @@ namespace Igor
 
         \param supressMoveEvent if true supress next mouse event
 		*/
-		virtual void setCenter(bool supressMoveEvent = false);
+		void setCenter(bool supressMoveEvent = false);
 
 		/*! set mouse to a position relative to currently focussed window
 
@@ -204,7 +204,14 @@ namespace Igor
 		\param y vertical position of the mouse cursor in pixel
         \param supressMoveEvent if true supress next mouse event
 		*/
-		virtual void setPosition(int32 x, int32, bool supressMoveEvent = false);
+		void setPosition(int32 x, int32, bool supressMoveEvent = false);
+
+        /*! set mouse to a position relative to currently focussed window
+
+        \param pos horizontal and vertical position of the mouse cursor in pixel
+        \param supressMoveEvent if true supress next mouse event
+        */
+        void setPosition(const iaVector2i& pos, bool supressMoveEvent = false);
 
 		/*! switches the cursor on or of
 

@@ -84,20 +84,16 @@ namespace Igor
 
         \param[in, out] matrix current transformation matrix
         */
-        virtual void onUpdateTransform(iaMatrixd& matrix);
+        virtual Igor_API void onUpdateTransform(iaMatrixd& matrix) override;
 
         /*! unregisters from scene
         */
-		virtual void onPreSetScene();
+		virtual Igor_API void onPreSetScene() override;
 
         /*! registers to scene
         */
-		virtual void onPostSetScene();
-
-        /*! \todo dirty workaround. need to look in to this once more
-        */
-        virtual bool onUpdateData();
-
+		virtual Igor_API void onPostSetScene() override;
+		
         /*! updates octree if node is within a scene
         */
 		void updateTree();

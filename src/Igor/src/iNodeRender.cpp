@@ -45,12 +45,6 @@ namespace Igor
         return _visible;
     }
 
-    bool iNodeRender::onUpdateData()
-    {
-        // does nothing
-        return true;
-    }
-
     bool iNodeRender::wasReached()
     {
         return _reached;

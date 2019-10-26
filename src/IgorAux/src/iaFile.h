@@ -34,7 +34,6 @@
 
 #include <vector>
 
-
 namespace IgorAux
 {
 
@@ -172,7 +171,7 @@ namespace IgorAux
 
         /*! the file handle
         */
-        void* _windowsFileHandle = 0;
+        void* _windowsFileHandle = nullptr;
 
         /*! the completion routine called when finished asynchron reading
 

@@ -26,127 +26,91 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iDIALOGMENU__
-#define __iDIALOGMENU__
+#ifndef __iDIALOG_MENU__
+#define __iDIALOG_MENU__
 
 #include <iDialog.h>
-
-#include <iaEvent.h>
-#include <iaString.h>
-using namespace IgorAux;
 
 namespace Igor
 {
 
-	class iWidgetGrid;
-	class iWidgetLabel;
+    class iWidgetGrid; typedef iWidgetGrid* iWidgetGridPtr;
+    class iWidgetMenu; typedef iWidgetMenu* iWidgetMenuPtr;
+    class iAction; typedef iAction* iActionPtr;
 
-	iaEVENT(iDialogMenuCloseEvent, iDialogMenuCloseDelegate, void, (int32 index), (index));
+	/*! menu dialog
 
-	/*! pull down menu
+    technically a dialog it is used as menu, sub menu or context menu
 	*/
 	class Igor_API iDialogMenu : public iDialog
 	{
+
+        friend class iWidgetMenu;
 
 	public:
 
 		/*! does nothing
 		*/
-		iDialogMenu() = default;
+		iDialogMenu();
 
 		/*! deinitializes gui
 		*/
-		~iDialogMenu();
+		virtual ~iDialogMenu() = default;
 
-		/*! opens dialog
+        /*! adds action to menu
 
-		leave the pictures list empty if you don't want pictures or call the alternative implementation of show
+        only adds actions that are registered to the action manager
+        actions are not owned by the menu
 
-		\param texts the texts to put in the selection list
-		\param pictures paths to textures used as icons next to the text (optional)
-		\param closeDelegate delegate for closing event
-		*/
-		void show(std::vector<iaString>& texts, std::vector<iaString>& pictures, iDialogMenuCloseDelegate closeDelegate);
+        \param action the action to be added
+        */
+        void addAction(const iActionPtr action);
 
-		/*! opens dialog
+        /*! same as add actions just by action name
 
-		\param texts the texts to put in the selection list
-		\param closeDelegate delegate for closing event
-		*/
-		void show(std::vector<iaString>& texts, iDialogMenuCloseDelegate closeDelegate);
+        requires that the action we are searchign for was already registered to the action manager
 
-		/*! sets the height of an entry
+        \param actionName name of the action to be added
+        */
+        void addAction(const iaString& actionName);
 
-		it's interpreted as max height and width for pictures
+        /*! adds a menu to the menu
 
-		\param height the entry height in pixel
-		*/
-		void setEntryHeight(int32 height);
+        \param menu the menu to add
+        */
+        void addMenu(const iWidgetMenuPtr menu);
 
-		/*! \returns height of an entry
-		*/
-		int32 getEntryHeight() const;
+        /*! shows the dialog on screen
+
+        \param dialogCloseDelegate the delegate to call after the dialog was closed
+        */
+        virtual void open(iDialogCloseDelegate dialogCloseDelegate) override;
 
 	private:
 
-		/*! menu entry height in pixel
-		*/
-		int32 _entryHeight = 20;
-
-		/*! the close event
-		*/
-		iDialogMenuCloseEvent _selectBoxCloseEvent;
-
-		/*! the return value of the selection box
-
-		-1 stands for cancel
-		*/
-		int32 _returnValue = -1;
-
-		/*! over all grid
-		*/
-		iWidgetGrid* _grid = nullptr;
-
-		/*! all widgets
-		*/
-		std::vector<iWidget*> _allWidgets;
-
-		/*! handles change event
-
-		\param source the source of the event (should be the grid)
-		*/
-		void onChange(iWidget* source);
-
+        /*! main grid
+        */
+        iWidgetGridPtr _grid = nullptr;
+        
 		/*! handle mouse off click event
 
 		\param source the source of that event
 		*/
-		void onMouseOffClick(iWidget* source);
+		void onMouseOffClick(const iWidgetPtr source);
 
-		/*! closes the dialog and sends closed event
-
-		will be triggered by any button
-		*/
-		void close();
+        /*! called when action was clicked
+        */
+        void onActionClick(const iWidgetPtr source);
 
 		/*! initializes the gui
-
-		\param texts the texts for the menu
 		*/
-		void initGUI(std::vector<iaString>& texts);
-
-		/*! initializes the gui
-
-		\param texts the texts for the menu
-		\param pictures the pictures for the menu
-		*/
-		void initGUI(std::vector<iaString>& texts, std::vector<iaString>& pictures);
-
-		/*! deinitializes the gui elements
-		*/
-		void deinitGUI();
+		void init();
 
 	};
+
+    /*! dialog menu pointer definition
+    */
+    typedef iDialogMenu* iDialogMenuPtr;
 
 }
 

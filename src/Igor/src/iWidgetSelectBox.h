@@ -34,9 +34,11 @@
 namespace Igor
 {
 
+    class iDialog;
+    typedef iDialog* iDialogPtr;
 	class iTextureFont;
 	class iWidgetManager;
-	class iDialogMenu;
+	class iDialogIndexMenu;
 
 	/*! select box widget
 	*/
@@ -46,8 +48,10 @@ namespace Igor
 	public:
 
 		/*! ctro initializes member variables
+
+		\param parent optional parent
 		*/
-		iWidgetSelectBox();
+		iWidgetSelectBox(const iWidgetPtr parent = nullptr);
 
 		/*! clean up
 		*/
@@ -98,13 +102,9 @@ namespace Igor
 		*/
 		int32 _currentSelection = -1;
 
-		/*! rectangle of select box button area
-		*/
-		iRectanglef _buttonRectangle;
-
 		/*! true: if the mouse cursor is over the button
 		*/
-		bool _mouseOverButton = false;
+		bool _mouseOver = false;
 
 		/*! true: if the select box is unfoldet
 		*/
@@ -112,15 +112,17 @@ namespace Igor
 
 		/*! select box dialog used for the unfold effect
 		*/
-		iDialogMenu* _selectBox = nullptr;
+		iDialogIndexMenu* _selectBox = nullptr;
 
 		/*! appearance state of the button
 		*/
-		iWidgetAppearanceState _buttonAppearanceState = iWidgetAppearanceState::Standby;
+		iWidgetState _buttonAppearanceState = iWidgetState::Standby;
 
-		/*! triggered when selection has changed
+		/*! triggered when selection box closed
+
+        \param dialog source of this event
 		*/
-		void onSelectionChanged(int32 value);
+		void onSelectBoxClosed(iDialogPtr dialog);
 
 		/*! handles incomming mouse wheel event
 

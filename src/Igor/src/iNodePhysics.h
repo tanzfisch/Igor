@@ -41,7 +41,7 @@
 using namespace IgorAux;
 
 #include <memory>
-
+#include <any>
 
 namespace Igor
 {
@@ -56,7 +56,7 @@ namespace Igor
 	{
 		
 		friend class iNodeVisitorUpdateTransform;
-        friend class iNodeFactory;
+        friend class iNodeManager;
         friend class iPhysicsManager;
         friend class iPhysicsManagerTask;
 
@@ -159,11 +159,11 @@ namespace Igor
 
         \param userData pointer to user data
         */
-        void setUserData(const void* userData);
+        void setUserData(const std::any& userData);
 
         /*! \retruns pointer to user data
         */
-        const void* getUserData() const;
+        std::any getUserData() const;
 
         /*! \returns current torque
         */
@@ -223,9 +223,9 @@ namespace Igor
         */
         uint64 _prepareCollisionTask = iTask::INVALID_TASK_ID;
 
-        /*! pointer to user data
+        /*! user data
         */
-        const void* _userData = nullptr;
+        std::any _userData;
 
         /*! the bodys mass
         */
@@ -295,7 +295,7 @@ namespace Igor
 
         \returns true update changed anything
         */
-        virtual bool onUpdateData();
+        virtual bool onUpdateData() override;
 
         /*! does nothing
         */

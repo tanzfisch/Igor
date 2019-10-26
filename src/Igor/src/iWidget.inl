@@ -7,6 +7,11 @@ __IGOR_INLINE__ uint64 iWidget::getID() const
     return _id;
 }
 
+__IGOR_INLINE__ bool iWidget::isBlocked() const
+{
+    return _blockedEvents;
+}
+
 __IGOR_INLINE__ uint64 iWidget::getParentID() const
 {
     if (_parent != nullptr)
@@ -24,9 +29,9 @@ __IGOR_INLINE__ bool iWidget::hasKeyboardFocus() const
     return (_keyboardFocus == this) ? true : false;
 }
 
-__IGOR_INLINE__ iWidgetAppearanceState iWidget::getAppearanceState() const
+__IGOR_INLINE__ iWidgetState iWidget::getState() const
 {
-    return _widgetAppearanceState;
+    return _widgetState;
 }
 
 __IGOR_INLINE__ bool iWidget::hasParent() const

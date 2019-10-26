@@ -5,7 +5,7 @@
 #include <iNodeLODSwitch.h>
 
 #include <iNodeLODTrigger.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iScene.h>
 
 #include <iaConsole.h>
@@ -98,7 +98,7 @@ namespace Igor
 
         for (auto triggerID : _triggers)
         {
-            iNodeLODTrigger* trigger = static_cast<iNodeLODTrigger*>(iNodeFactory::getInstance().getNode(triggerID));
+            iNodeLODTrigger* trigger = static_cast<iNodeLODTrigger*>(iNodeManager::getInstance().getNode(triggerID));
             con_assert(trigger != nullptr, "zero pointer");
             if (trigger != nullptr)
             {

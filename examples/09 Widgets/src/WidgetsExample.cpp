@@ -24,6 +24,10 @@
 #include <iWidgetGraph.h>
 #include <iWidgetColor.h>
 #include <iWidgetColorGradient.h>
+#include <iWidgetMenuBar.h>
+#include <iWidgetMenu.h>
+#include <iAction.h>
+#include <iActionManager.h>
 using namespace Igor;
 
 #include <iaConsole.h>
@@ -48,10 +52,10 @@ void WidgetsExample::init()
 
     // init window with the orthogonal projected view
     _window.addView(&_viewOrtho);
-	// set window size
+    // set window size
     _window.setClientSize(1024, 768);
-	// place window centered on screen
-	_window.setCentered();
+    // place window centered on screen
+    _window.setCentered();
     // register to window close event so we can shut down the application properly
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &WidgetsExample::onWindowClosed));
     // register to window resize event so we can notify the widget manager of that change
@@ -65,9 +69,9 @@ void WidgetsExample::init()
     // prepare igor logo
     _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
     _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial("TextureAndBlending");
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
     // initialize the GUI
     initGUI();
@@ -76,28 +80,96 @@ void WidgetsExample::init()
     iMouse::getInstance().registerMouseMoveDelegate(iMouseMoveDelegate(this, &WidgetsExample::onMouseMove));
 }
 
+void WidgetsExample::onCloseDialog(iDialogPtr dialog)
+{
+    if (_dialog != dialog)
+    {
+        return;
+    }
+
+    delete _dialog;
+    _dialog = nullptr;
+}
+
+void WidgetsExample::onActionOne()
+{
+    con_endl("action one");
+}
+
+void WidgetsExample::onActionTwo()
+{
+    con_endl("action two");
+}
+
+void WidgetsExample::onActionThree()
+{
+    con_endl("action three");
+}
+
 void WidgetsExample::initGUI()
 {
     // create a theme and set it up. in this case the build in default theme
     _widgetDefaultTheme = new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png");
     iWidgetManager::getInstance().setTheme(_widgetDefaultTheme);
 
-    _dialog.setHorizontalAlignment(iHorizontalAlignment::Strech);
-    _dialog.setVerticalAlignment(iVerticalAlignment::Center);
-    _dialog.setHeight(200);
-    _dialog.setActive();
-    _dialog.setVisible();
+    _dialog = new iDialog();
+    _dialog->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _dialog->setVerticalAlignment(iVerticalAlignment::Center);
+    _dialog->setHeight(200);
+    // it does not matter if we open it now or after adding all the child widgets
+    _dialog->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseDialog));
 
-    iWidgetGrid* grid1 = new iWidgetGrid();
+    iWidgetGrid* grid1 = new iWidgetGrid(_dialog);
     // put all widgets in one list for easier later cleanup. this method might not always be suitable
-    grid1->appendRows(1);
+    grid1->appendRows(2);
     grid1->setHorizontalAlignment(iHorizontalAlignment::Strech);
     grid1->setVerticalAlignment(iVerticalAlignment::Strech);
     grid1->setBorder(10);
     grid1->setCellSpacing(5);
-    grid1->setStrechRow(1);
+    grid1->setStrechRow(2);
     grid1->setStrechColumn(0);
     grid1->setSelectMode(iSelectionMode::NoSelection);
+
+    iWidgetMenuBarPtr menuBar = new iWidgetMenuBar();
+    menuBar->setHorizontalAlignment(iHorizontalAlignment::Left);
+    menuBar->setVerticalAlignment(iVerticalAlignment::Top);
+    grid1->addWidget(menuBar, 0, 0);
+
+    iActionPtr action1 = iActionManager::getInstance().createAction("action:camera", iSimpleDelegate(this, &WidgetsExample::onActionOne), "Create Camera", "icons\\camera.png");
+    iActionPtr action2 = iActionManager::getInstance().createAction("action:delete", iSimpleDelegate(this, &WidgetsExample::onActionTwo), "Delete Something", "icons\\delete.png");
+    iActionPtr action3 = iActionManager::getInstance().createAction("action:action", iSimpleDelegate(this, &WidgetsExample::onActionThree), "Action");
+    iActionPtr action4 = iActionManager::getInstance().createAction("action:transform", iSimpleDelegate(this, &WidgetsExample::onActionThree), "Transform", "icons\\transformation.png");
+
+    iWidgetMenuPtr menu1 = new iWidgetMenu();
+    menu1->setTitle("File");
+    menu1->addAction(action3);
+    menu1->addAction(action1);
+    menuBar->addMenu(menu1);
+
+    iWidgetMenuPtr menu2 = new iWidgetMenu();
+    menu2->setTitle("Edit");
+    menu2->addAction(action2);
+    menu2->addAction(action3);
+
+    iWidgetMenuPtr menu2b = new iWidgetMenu();
+    menu2b->setTitle("Sub Menu");
+    menu2b->addAction(action2);
+    menu2b->addAction(action3);
+    menu2b->addAction(action1);
+    menu2->addMenu(menu2b);
+
+    iWidgetMenuPtr menu2c = new iWidgetMenu();
+    menu2c->setTitle("An Other Sub Menu");
+    menu2c->addAction(action2);
+    menu2c->addAction(action4);
+    menu2c->addAction(action1);
+    menu2c->addAction(action3);
+    menu2->addMenu(menu2c);
+
+    menu2->addAction(action1);
+    menuBar->addMenu(menu2);
+
+
 
     iWidgetGroupBox* groupBox1 = new iWidgetGroupBox();
     groupBox1->setText("Hello World. This is a group box!");
@@ -151,7 +223,7 @@ void WidgetsExample::initGUI()
     button1->setVerticalAlignment(iVerticalAlignment::Strech);
     button1->setHorizontalAlignment(iHorizontalAlignment::Center);
     button1->setText("Open Message Box");
-	button1->setTooltip("Opens a message box");
+    button1->setTooltip("Opens a message box");
     button1->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenMessageBox));
 
     _color = new iWidgetColor();
@@ -177,7 +249,7 @@ void WidgetsExample::initGUI()
 
     iWidgetButton* exitButton = new iWidgetButton();
     exitButton->setText("");
-	exitButton->setTooltip("Exists the application.");
+    exitButton->setTooltip("Exists the application.");
     exitButton->setTexture("icons\\exit.png");
     exitButton->setVerticalTextAlignment(iVerticalAlignment::Bottom);
     exitButton->setVerticalAlignment(iVerticalAlignment::Center);
@@ -198,22 +270,22 @@ void WidgetsExample::initGUI()
     numberChooser->setHorizontalAlignment(iHorizontalAlignment::Right);
 
     iWidgetTextEdit* textEditLeft = new iWidgetTextEdit();
-	textEditLeft->setWidth(150);
-	textEditLeft->setHorizontalTextAlignment(iHorizontalAlignment::Left);
-	textEditLeft->setText("left aligned");
-	textEditLeft->setMaxTextLength(300);
+    textEditLeft->setWidth(150);
+    textEditLeft->setHorizontalTextAlignment(iHorizontalAlignment::Left);
+    textEditLeft->setText("left aligned");
+    textEditLeft->setMaxTextLength(300);
 
-	iWidgetTextEdit* textEditCenter = new iWidgetTextEdit();
-	textEditCenter->setWidth(150);
-	textEditCenter->setHorizontalTextAlignment(iHorizontalAlignment::Center);
-	textEditCenter->setText("center aligned");
-	textEditCenter->setMaxTextLength(300);
+    iWidgetTextEdit* textEditCenter = new iWidgetTextEdit();
+    textEditCenter->setWidth(150);
+    textEditCenter->setHorizontalTextAlignment(iHorizontalAlignment::Center);
+    textEditCenter->setText("center aligned");
+    textEditCenter->setMaxTextLength(300);
 
-	iWidgetTextEdit* textEditRight = new iWidgetTextEdit();
-	textEditRight->setWidth(150);
-	textEditRight->setHorizontalTextAlignment(iHorizontalAlignment::Right);
-	textEditRight->setText("right aligned");
-	textEditRight->setMaxTextLength(300);
+    iWidgetTextEdit* textEditRight = new iWidgetTextEdit();
+    textEditRight->setWidth(150);
+    textEditRight->setHorizontalTextAlignment(iHorizontalAlignment::Right);
+    textEditRight->setText("right aligned");
+    textEditRight->setMaxTextLength(300);
 
     iWidgetPicture* picture1 = new iWidgetPicture();
     picture1->setTexture("OpenGL-Logo.jpg");
@@ -288,9 +360,7 @@ void WidgetsExample::initGUI()
     graph->setViewGrid();
 
     // assemble all the widgets with their parents
-    _dialog.addWidget(grid1);
-
-    grid1->addWidget(groupBox1, 0, 0);
+    grid1->addWidget(groupBox1, 0, 1);
     groupBox1->addWidget(grid4);
     grid4->addWidget(exitButton, 0, 0);
     grid4->addWidget(spacer, 1, 0);
@@ -299,14 +369,14 @@ void WidgetsExample::initGUI()
     grid4->addWidget(_colorGradient, 4, 0);
     grid4->addWidget(graph, 5, 0);
 
-    grid1->addWidget(widgetScoll, 0, 1);
+    grid1->addWidget(widgetScoll, 0, 2);
     widgetScoll->addWidget(grid3);
 
     grid3->addWidget(label1, 0, 0);
     grid3->addWidget(_labelMousePos, 1, 0);
     grid3->addWidget(textEditLeft, 0, 1);
-	grid3->addWidget(textEditCenter, 0, 2);
-	grid3->addWidget(textEditRight, 0, 3);
+    grid3->addWidget(textEditCenter, 0, 2);
+    grid3->addWidget(textEditRight, 0, 3);
     grid3->addWidget(label2, 1, 1);
     grid3->addWidget(label3, 1, 2);
     grid3->addWidget(label4, 2, 2);
@@ -335,9 +405,9 @@ void WidgetsExample::deinit()
 
     _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &WidgetsExample::onRender));
 
-	iWidgetManager::getInstance().setTheme(nullptr);
-	delete _widgetDefaultTheme;
-	_widgetDefaultTheme = nullptr;
+    iWidgetManager::getInstance().setTheme(nullptr);
+    delete _widgetDefaultTheme;
+    _widgetDefaultTheme = nullptr;
 
     _window.close();
     _window.removeView(&_viewOrtho);
@@ -367,40 +437,96 @@ void WidgetsExample::onMouseMove(const iaVector2i& pos)
     }
 }
 
-void WidgetsExample::onOpenColorChooser(iWidget* source)
+void WidgetsExample::onOpenColorChooser(const iWidgetPtr source)
 {
-    _colorChooserDialog.show(iColorChooserCloseDelegate(this, &WidgetsExample::onCloseColorChooser), _color->getColor(), true);
-}
-
-void WidgetsExample::onOpenColorGradientEditor(iWidget* source)
-{
-    _colorGradientDialog.show(iColorGradientCloseDelegate(this, &WidgetsExample::onCloseColorGradient), _colorGradient->getGradient(), false);
-}
-
-void WidgetsExample::onCloseColorGradient(bool ok, const iaGradientColor4f& gradient)
-{
-    if (ok)
+    if (_colorChooserDialog == nullptr)
     {
-        _colorGradient->setGradient(gradient);
-    }	
-}
-
-void WidgetsExample::onCloseColorChooser(bool ok, const iaColor4f& color)
-{
-    if (ok)
-    {
-        _color->setColor(color);
+        _colorChooserDialog = new iDialogColorChooser();
     }
+    _colorChooserDialog->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseColorChooser), _color->getColor(), true);
 }
 
-void WidgetsExample::onOpenMessageBox(iWidget* source)
+void WidgetsExample::onOpenColorGradientEditor(const iWidgetPtr source)
+{
+    if (_colorGradientDialog == nullptr)
+    {
+        _colorGradientDialog = new iDialogColorGradient();
+    }
+    _colorGradientDialog->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseColorGradient), _colorGradient->getGradient(), false);
+}
+
+void WidgetsExample::onCloseColorGradient(iDialogPtr dialog)
+{
+    if (dialog != _colorGradientDialog)
+    {
+        return;
+    }
+
+    if (_colorGradientDialog->getReturnState() == iDialogReturnState::Ok)
+    {
+        _colorGradient->setGradient(_colorGradientDialog->getColorGradient());
+    }
+
+    delete _colorGradientDialog;
+    _colorGradientDialog = nullptr;
+}
+
+void WidgetsExample::onCloseColorChooser(iDialogPtr dialog)
+{
+    if (dialog != _colorChooserDialog)
+    {
+        return;
+    }
+
+    if (_colorChooserDialog->getReturnState() == iDialogReturnState::Ok)
+    {
+        _color->setColor(_colorChooserDialog->getColor());
+    }
+
+    delete _colorChooserDialog;
+    _colorChooserDialog = nullptr;
+}
+
+void WidgetsExample::onOpenMessageBox(const iWidgetPtr source)
 {
     // open a message box with some text
-    _messageBox.show("Please click Yes No or Cancel. Nothing will happen in an case.", iMessageBoxButtons::YesNoCancel);
+    if (_messageBox == nullptr)
+    {
+        _messageBox = new iDialogMessageBox();
+    }
+
+    _messageBox->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseMessageBox), "Please click Yes No or Cancel and see the output in the console.", iMessageBoxButtons::YesNoCancel);
 }
 
-void WidgetsExample::onExitClick(iWidget* source)
+void WidgetsExample::onCloseMessageBox(iDialogPtr dialog)
 {
+    iaString returnString;
+    switch (static_cast<iDialogMessageBox*>(dialog)->getReturnState())
+    {
+    case iDialogReturnState::No:
+        returnString = "No";
+        break;
+
+    case iDialogReturnState::Yes:
+        returnString = "Yes/Ok";
+        break;
+
+    case iDialogReturnState::Cancel:
+        returnString = "Cancel";
+        break;
+    }
+
+    con_endl("Message box return value is " << returnString);
+
+    delete _messageBox;
+    _messageBox = nullptr;
+}
+
+void WidgetsExample::onExitClick(const iWidgetPtr source)
+{
+    // close dialog
+    _dialog->close();
+
     // shut down application
     iApplication::getInstance().stop();
 }

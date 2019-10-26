@@ -6,7 +6,7 @@
 
 #include <iPhysics.h>
 #include <iNodeTransform.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -53,12 +53,12 @@ namespace Igor
         return _transformNodeID;
     }
 
-    void iPhysicsBody::setUserData(const void* userData)
+    void iPhysicsBody::setUserData(const std::any& userData)
     {
         _userData = userData;
     }
 
-    const void* iPhysicsBody::getUserData() const
+    std::any iPhysicsBody::getUserData() const
     {
         return _userData;
     }
@@ -91,7 +91,7 @@ namespace Igor
 
     void iPhysicsBody::setTransformNodeMatrix(const iaMatrixd& matrix)
     {
-        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformNodeID));
         con_assert(transformNode != nullptr, "body " << _id << " is not bound to a node");
 
         if (transformNode != nullptr)
@@ -102,7 +102,7 @@ namespace Igor
 
     void iPhysicsBody::getTransformNodeMatrix(iaMatrixd& matrix) const
     {
-        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformNodeID));
         con_assert(transformNode != nullptr, "body is not bound to a node");
 
         if (transformNode != nullptr)

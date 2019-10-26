@@ -36,7 +36,7 @@
 #include <iaSingleton.h>
 
 #include <vector>
-#include <map>
+#include <unordered_map>
 #include <deque>
 
 
@@ -45,9 +45,7 @@ namespace Igor
 
 	class iWidgetBaseTheme;
     class iDialog;
-
-    iaDELEGATE(iInstanciateWidgetDelegate, iWidget*, (), ());
-    iaDELEGATE(iInstanciateDialogDelegate, iDialog*, (), ());
+	typedef iDialog* iDialogPtr;
 
     /*! manages the widgets in use and is a singleton
     */
@@ -62,30 +60,6 @@ namespace Igor
 		friend class iDialog;
         
 	public:
-		
-        /*! destroyes widget
-
-        \param widget the widget to destroy
-        */
-		void destroyWidget(iWidget* widget);
-
-        /*! destroyes widget by id
-
-        \param id id of the widget to be destroyed
-        */
-        void destroyWidget(uint64 id);
-		
-        /*! destroyes dialog
-
-        \param dialog the dialog to destroy
-        */
-        void destroyDialog(iDialog* dialog);
-
-        /*! destroyes dialog by id
-
-        \param id id of the dialog to be destroyed
-        */
-        void destroyDialog(uint64 id);
 
 		/*! shows tooltip at given position
 
@@ -102,13 +76,13 @@ namespace Igor
 
         \param id id of widget
         */
-        iWidget* getWidget(uint64 id);
+        iWidgetPtr getWidget(uint64 id) const;
 
         /*! \returns dialog by id
 
         \param id id of dialog
         */
-        iDialog* getDialog(uint64 id);
+        iDialogPtr getDialog(uint64 id);
 
         /*! \returns the theme in use
         */
@@ -147,21 +121,21 @@ namespace Igor
 
         /*! set this widget exclusively modal
         */
-        static void setModal(iDialog* dialog);
+        void setModal(iDialogPtr dialog);
 
         /*! \returns current modal widget
         */
-        static iDialog* getModal();
+        iDialogPtr getModal() const;
 
         /*! \returns true: if widget is modal
 
         \param dialog the dialog to check if it is modal
         */
-        static bool isModal(iDialog* dialog);
+        bool isModal(iDialogPtr dialog);
 
         /*! reset modal flag
         */
-        static void resetModal();
+        void resetModal();
 
         /*! register delegate to "redirected" mouse double click event
 
@@ -261,17 +235,9 @@ namespace Igor
 
 	private:
 
-        /*! registered widget types
-        */
-        std::map<uint64, iInstanciateWidgetDelegate> _widgetTypes; // TODO use unordered map
-
-        /*! registered dialog types
-        */
-        std::map<uint64, iInstanciateDialogDelegate> _dialogTypes;
-
         /*! modal marker
         */
-        static iDialog* _modal;
+        iDialogPtr _modal = nullptr;
 
         /*! mouse key down event
         */
@@ -311,19 +277,11 @@ namespace Igor
 
         /*! list of all widgets
         */
-		std::map<uint64, iWidget*> _widgets;
+		std::unordered_map<uint64, iWidgetPtr> _widgets;
 
         /*! list of all dialogs
         */
-        std::map<uint64, iDialog*> _dialogs;
-
-        /*! list of widgets to delete
-        */
-        std::deque<uint64> _toDeleteWidgets;
-
-        /*! list of dialogs to delete
-        */
-        std::deque<uint64> _toDeleteDialogs;
+        std::unordered_map<uint64, iDialogPtr> _dialogs;
 
         /*! current desktop width
         */
@@ -341,57 +299,68 @@ namespace Igor
 		*/
 		iaString _tooltipText;
 
+		/*! list of dialogs to close
+		*/
+		std::set<uint64> _dialogsToClose;
+
+		/*! closes the dialog and queues a close event in to be called after the update handle
+		*/
+		void closeDialog(iDialogPtr dialog);
+
 		/*! registers widget to WidgetManager so we can track if all widgets got destroyed at shutdown
 
 		\param widget the widget to track
 		*/
-		void registerWidget(iWidget* widget);
+		void registerWidget(iWidgetPtr widget);
 
 		/*! unregister widget from WidgetManager so we don't track this one anymore
 
 		\param widget the widget to not track anymore
 		*/
-		void unregisterWidget(iWidget* widget);
+		void unregisterWidget(iWidgetPtr widget);
 
 		/*! registers dialog to WidgetManager so we can track if all dialogs got destroyed at shutdown
 
 		\param dialog the dialog to track
 		*/
-		void registerDialog(iDialog* dialog);
+		void registerDialog(iDialogPtr dialog);
 
 		/*! unregister dialog from WidgetManager so we don't track this one anymore
 
 		\param dialog the dialog to not track anymore
 		*/
-		void unregisterDialog(iDialog* dialog);
-
-        /*! last chance for the instance to clean up before shut down
-        */
-        virtual void onPreDestroyInstance();
+		void unregisterDialog(iDialogPtr dialog);
 
         /*! traverse widget tree and updates positions and sizes
 
         \param widget current widget to update
         */
-        void traverseContentSize(iWidget* widget);
+        void traverseContentSize(iWidgetPtr widget);
 
         /*! traverse widget tree and updates alignment
         */
-        void traverseAlignment(iWidget* widget, int32 offsetX, int32 offsetY, int32 clientRectWidth, int32 clientRectHeight);
+        void traverseAlignment(iWidgetPtr widget, int32 offsetX, int32 offsetY, int32 clientRectWidth, int32 clientRectHeight);
 
-        /*! updates recursively all widgets
+        /*! updates recursively all widgets before rendering
         */
-        void onHandle();
+        void onPreDraw();
 
-        /*! destroyes widgets that where put in to the delete queues before
-        */
-        void runDeleteQueues();
-
+		/*! widget handling after the render frame is done
+		*/
+		void onPostDraw();
+		
         /*! handle for mouse key down event
 
         \param key mouse key pressed
         */
         void onMouseKeyDown(iKeyCode key);
+
+        /*! returns the active dialogs
+
+        \param[out] dialogs resulting list of active dialogs
+        \param sortedAccending if true the output list is sorted z index accending if false the opposite
+        */
+        void getActiveDialogs(std::vector<iDialogPtr>& dialogs, bool sortedAccending = true);
 
         /*! handle for mouse key up event
 
@@ -414,6 +383,12 @@ namespace Igor
         \param window parent window of mouse event
         */
         void onMouseMove(const iaVector2i& from, const iaVector2i& to, iWindow* window);
+
+        /*! actual implementation that handles a moved mouse
+
+        \param to the mouse postion to use
+        */
+        bool handleMouseMove(const IgorAux::iaVector2i& to);
 
         /*! handle for mouse wheel event
 
@@ -452,6 +427,8 @@ namespace Igor
         virtual ~iWidgetManager();
 
 	};
+
+#include <iWidgetManager.inl>
 
 }
 

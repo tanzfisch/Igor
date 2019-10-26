@@ -1,6 +1,6 @@
 #include "Player.h"
 
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iNodeTransform.h>
 #include <iNodePhysics.h>
 #include <iNodeModel.h>
@@ -41,59 +41,59 @@ Player::Player(iScene* scene, iView* view, const iaMatrixd& matrix)
     setDamage(1.0);
     setShieldDamage(1.0);
 
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
     transformNode->setMatrix(matrix);
     _transformNodeID = transformNode->getID();
 
-    iNodeTransform* transformCam = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* transformCam = iNodeManager::getInstance().createNode<iNodeTransform>();
     _transformCamNodeID = transformCam->getID();
 
-    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
+    iNodeCamera* camera = iNodeManager::getInstance().createNode<iNodeCamera>();
     _cameraNodeID = camera->getID();
-    iNodeLODTrigger* lodTrigger = static_cast<iNodeLODTrigger*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLODTrigger));
+    iNodeLODTrigger* lodTrigger = iNodeManager::getInstance().createNode<iNodeLODTrigger>();
     _lodTriggerID = lodTrigger->getID();
 
     iaMatrixd offset;
-    iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
+    iNodePhysics* physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();
     _physicsNodeID = physicsNode->getID();
     physicsNode->addSphere(1, offset);
     physicsNode->finalizeCollision();
     physicsNode->setMass(10);
     physicsNode->setMaterial(Ascent::_entityMaterialID);
     physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Player::onApplyForceAndTorque));
-    physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
+    physicsNode->setUserData(getID());
     physicsNode->setAngularDamping(iaVector3d(100000, 100000, 100000));
     physicsNode->setLinearDamping(500);
 
-    iNodeTransform* transformRecoilLeftGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* transformRecoilLeftGun = iNodeManager::getInstance().createNode<iNodeTransform>();
     _transformRecoilLeftGun = transformRecoilLeftGun->getID();
 
-    iNodeTransform* transformRecoilRightGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* transformRecoilRightGun = iNodeManager::getInstance().createNode<iNodeTransform>();
     _transformRecoilRightGun = transformRecoilRightGun->getID();
 
-    iNodeTransform* transformLeftGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* transformLeftGun = iNodeManager::getInstance().createNode<iNodeTransform>();
     transformLeftGun->translate(-0.5, -0.4, -0.75);
     transformLeftGun->scale(0.1, 0.1, 1);
-    iNodeModel* leftgun = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+    iNodeModel* leftgun = iNodeManager::getInstance().createNode<iNodeModel>();
     leftgun->setModel("crate.ompf");
 
-    iNodeTransform* transformRightGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* transformRightGun = iNodeManager::getInstance().createNode<iNodeTransform>();
     transformRightGun->translate(0.5, -0.4, -0.75);
     transformRightGun->scale(0.1, 0.1, 1);
-    iNodeModel* rightgun = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+    iNodeModel* rightgun = iNodeManager::getInstance().createNode<iNodeModel>();
     rightgun->setModel("crate.ompf");
 
-    iNodeTransform* transformLeftGunEmitter = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* transformLeftGunEmitter = iNodeManager::getInstance().createNode<iNodeTransform>();
     transformLeftGunEmitter->translate(-0.5, -0.4, -1.25);
 
-    iNodeTransform* transformRightGunEmitter = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* transformRightGunEmitter = iNodeManager::getInstance().createNode<iNodeTransform>();
     transformRightGunEmitter->translate(0.5, -0.4, -1.25);
 
-    iNodeEmitter* emitterLeftGun = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+    iNodeEmitter* emitterLeftGun = iNodeManager::getInstance().createNode<iNodeEmitter>();
     _emitterLeftGunNodeID = emitterLeftGun->getID();
     emitterLeftGun->setEmitterType(iEmitterType::Point);
 
-    iNodeEmitter* emitterRightGun = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+    iNodeEmitter* emitterRightGun = iNodeManager::getInstance().createNode<iNodeEmitter>();
     _emitterRightGunNodeID = emitterRightGun->getID();
     emitterRightGun->setEmitterType(iEmitterType::Point);
 
@@ -121,15 +121,15 @@ Player::Player(iScene* scene, iView* view, const iaMatrixd& matrix)
     view->setCurrentCamera(_cameraNodeID);
 
     _materialSolid = iMaterialResourceFactory::getInstance().createMaterial();
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
 
     _primaryWeaponTime = iTimer::getInstance().getApplicationTime();
 }
 
 Player::~Player()
 {
-    iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
+    iNodeManager::getInstance().destroyNodeAsync(_transformNodeID);
 
     con_endl("player dead");
 }
@@ -177,7 +177,7 @@ iaVector3I Player::getGunPointPosition()
 
 void Player::shootSecondaryWeapon(iView& view, const iaVector3d& screenCoordinates)
 {
-    iNodeTransform* transformationNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+    iNodeTransform* transformationNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformNodeID));
     if (transformationNode != nullptr)
     {
         iaMatrixd matrix;
@@ -193,7 +193,7 @@ void Player::shootPrimaryWeapon(iView& view, const iaVector3d& screenCoordinates
     float64 currentTime = iTimer::getInstance().getApplicationTime();
     if (currentTime > _primaryWeaponTime + 100)
     {
-        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformNodeID));
         if (transformNode != nullptr)
         {
             iaMatrixd worldMatrix;
@@ -230,8 +230,8 @@ void Player::shootPrimaryWeapon(iView& view, const iaVector3d& screenCoordinates
             new MuzzleFlash(_scene, _emitterLeftGunNodeID);
             new MuzzleFlash(_scene, _emitterRightGunNodeID);
 
-            iNodeTransform* transformRecoilLeftGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformRecoilLeftGun));
-            iNodeTransform* transformRecoilRightGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformRecoilRightGun));
+            iNodeTransform* transformRecoilLeftGun = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformRecoilLeftGun));
+            iNodeTransform* transformRecoilRightGun = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformRecoilRightGun));
 
             if (transformRecoilLeftGun != nullptr &&
                 transformRecoilRightGun != nullptr)
@@ -260,7 +260,7 @@ iaVector3d Player::getCurrentPos()
 {
     iaVector3d result;
 
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformNodeID));
     if (transformNode != nullptr)
     {
         iaMatrixd matrix;
@@ -293,7 +293,7 @@ void Player::handle()
     iaMatrixd matrix;
     iaVector3d resultingForce;
 
-    iNodeTransform* transformationNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+    iNodeTransform* transformationNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformNodeID));
     transformationNode->getMatrix(matrix);
 
     if (_forward)
@@ -362,7 +362,7 @@ void Player::handle()
 
     _force = resultingForce;
 
-    iNodeTransform* transformCam = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformCamNodeID));
+    iNodeTransform* transformCam = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformCamNodeID));
     if (transformCam != nullptr)
     {
         iaMatrixd camMatrix;
@@ -377,8 +377,8 @@ void Player::handle()
         transformCam->setMatrix(camMatrix);
     }
 
-    iNodeTransform* transformRecoilLeftGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformRecoilLeftGun));
-    iNodeTransform* transformRecoilRightGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformRecoilRightGun));
+    iNodeTransform* transformRecoilLeftGun = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformRecoilLeftGun));
+    iNodeTransform* transformRecoilRightGun = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformRecoilRightGun));
 
     if (transformRecoilLeftGun != nullptr &&
         transformRecoilRightGun != nullptr)
@@ -396,7 +396,7 @@ void Player::handle()
 
 void Player::rotate(float32 heading, float32 pitch)
 {
-    iNodeTransform* transformationNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+    iNodeTransform* transformationNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformNodeID));
     iaMatrixd matrix;
 
     transformationNode->getMatrix(matrix);

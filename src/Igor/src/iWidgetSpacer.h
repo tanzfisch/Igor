@@ -45,8 +45,10 @@ namespace Igor
 	public:
 
 		/*! ctor initializes member variables
+
+		\param parent optional parent
 		*/
-		iWidgetSpacer();
+		iWidgetSpacer(const iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/
@@ -63,6 +65,10 @@ namespace Igor
 		void draw();
 
 	};
+
+	/*! widget spacer pointer definition
+	*/
+	typedef iWidgetSpacer* iWidgetSpacerPtr;
 }
 
 #endif

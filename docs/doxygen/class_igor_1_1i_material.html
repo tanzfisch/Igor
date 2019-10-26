@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.23.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.24.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -132,6 +132,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6f3811f8c17023644055d11665ff8504"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1935903a5dcef8737d2dd7163ddd578f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_render_state_set.html">iRenderStateSet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material.html#a1935903a5dcef8737d2dd7163ddd578f">getRenderStateSet</a> ()</td></tr>
 <tr class="separator:a1935903a5dcef8737d2dd7163ddd578f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0592e91ae183b9e7b6ea794a2e56dda"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material.html#ab0592e91ae183b9e7b6ea794a2e56dda">setRenderState</a> (const <a class="el" href="namespace_igor.html#ab297c11b2c64e78ac457158bfddd8ed7">iRenderState</a> state, const <a class="el" href="namespace_igor.html#a490f00fed47903c329843cb921bbace9">iRenderStateValue</a> value)</td></tr>
+<tr class="separator:ab0592e91ae183b9e7b6ea794a2e56dda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cd3314e902dee753279de062b977f53"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor.html#a490f00fed47903c329843cb921bbace9">iRenderStateValue</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material.html#a2cd3314e902dee753279de062b977f53">getRenderState</a> (const <a class="el" href="namespace_igor.html#ab297c11b2c64e78ac457158bfddd8ed7">iRenderState</a> state) const </td></tr>
+<tr class="separator:a2cd3314e902dee753279de062b977f53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1539cfed11409d58baa942b7a2025709"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material.html#a1539cfed11409d58baa942b7a2025709">addShaderSource</a> (<a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> filename, <a class="el" href="namespace_igor.html#a67a831c60bd28fc48d7fa89c7e09433f">iShaderObjectType</a> type)</td></tr>
 <tr class="separator:a1539cfed11409d58baa942b7a2025709"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65044f84fda7b1c9ce069ca4cccd82c8"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="struct_igor_1_1i_shader_source.html">iShaderSource</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_material.html#a65044f84fda7b1c9ce069ca4cccd82c8">getShaderSources</a> () const </td></tr>
@@ -314,6 +318,30 @@ Friends</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a2cd3314e902dee753279de062b977f53"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_igor.html#a490f00fed47903c329843cb921bbace9">iRenderStateValue</a> Igor::iMaterial::getRenderState </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_igor.html#ab297c11b2c64e78ac457158bfddd8ed7">iRenderState</a>&#160;</td>
+          <td class="paramname"><em>state</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>returns the value of a specific render state</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>render state </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>render state value </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a1935903a5dcef8737d2dd7163ddd578f"></a>
 <div class="memitem">
 <div class="memproto">
@@ -402,6 +430,40 @@ Friends</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">order</td><td>the higher the value the later it get's rendered (default is <a class="el" href="class_igor_1_1i_material.html#a8b3943f55ff009a9b51bd5c3c611cf58">iMaterial::RENDER_ORDER_DEFAULT</a>) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ab0592e91ae183b9e7b6ea794a2e56dda"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Igor::iMaterial::setRenderState </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespace_igor.html#ab297c11b2c64e78ac457158bfddd8ed7">iRenderState</a>&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespace_igor.html#a490f00fed47903c329843cb921bbace9">iRenderStateValue</a>&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>defines the value of a specific render state</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>render state </td></tr>
+    <tr><td class="paramname">value</td><td>render state value </td></tr>
   </table>
   </dd>
 </dl>

@@ -14,7 +14,8 @@ using namespace IgorAux;
 
 namespace Igor
 {
-	iWidgetButton::iWidgetButton()
+	iWidgetButton::iWidgetButton(const iWidgetPtr parent)
+		:iWidget(parent)
 	{
 		_configuredHeight = 10;
 		_configuredWidth = 20;
@@ -92,7 +93,7 @@ namespace Igor
 	{
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawButton(getActualRect(), _text, _horizontalTextAlignment, _verticalTextAlignment, _texture, getAppearanceState(), isActive());
+			iWidgetManager::getInstance().getTheme()->drawButton(getActualRect(), _text, _horizontalTextAlignment, _verticalTextAlignment, _texture, getState(), isActive());
 		}
 	}
 

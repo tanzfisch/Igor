@@ -14,7 +14,7 @@ var class_igor_1_1i_node_light =
     [ "setDiffuse", "class_igor_1_1i_node_light.html#a74a7335588bbe010bc7eace0930b0b90", null ],
     [ "setSpecular", "class_igor_1_1i_node_light.html#ab069ba47745eef7f8e08644f2ebcd2e9", null ],
     [ "setType", "class_igor_1_1i_node_light.html#aeba13aaf750051822b8a532a69edbf5d", null ],
-    [ "iNodeFactory", "class_igor_1_1i_node_light.html#a443fcc5b71f6dbb2a68dae3d957024c3", null ],
+    [ "iNodeManager", "class_igor_1_1i_node_light.html#a90c36aa3a19c099cd083a002d56f9c47", null ],
     [ "iNodeVisitorUpdateTransform", "class_igor_1_1i_node_light.html#ad64c9a06babde60bdd79e94c1ae6ef70", null ],
     [ "_ambient", "class_igor_1_1i_node_light.html#a59e13b42bad695d8a1faa0fba3a0b88b", null ],
     [ "_diffuse", "class_igor_1_1i_node_light.html#a267af7c35214a9a122b0e0ba32cda8b8", null ],

@@ -52,8 +52,10 @@ namespace Igor
 	public:
 
 		/*! ctor initializes membervariables
+
+		\param parent optional parent
 		*/
-		iWidgetScroll();
+		iWidgetScroll(const iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/
@@ -89,7 +91,7 @@ namespace Igor
 
 			/*! button apearance state
 			*/
-			iWidgetAppearanceState _appearanceState = iWidgetAppearanceState::Standby;
+			iWidgetState _appearanceState = iWidgetState::Standby;
 
 			/*! button mouse over state
 			*/
@@ -243,6 +245,10 @@ namespace Igor
 		void calcChildOffsets(std::vector<iRectanglei>& offsets);
 
 	};
+
+	/*! widget scroll pointer definition
+	*/
+	typedef iWidgetScroll* iWidgetScrollPtr;
 }
 
 #endif

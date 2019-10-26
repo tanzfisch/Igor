@@ -9,7 +9,7 @@ var searchData=
   ['end',['End',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a87557f11575c0ad78e4e28abedc13b6e',1,'Igor']]],
   ['enter',['Enter',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24af1851d5600eae616ee802a31ac74701b',1,'Igor']]],
   ['equal',['Equal',['../namespace_igor.html#a2081511b8afe422e11c11287eb44a3f3af5f286e73bda105e538310b3190f75c5',1,'Igor::Equal()'],['../namespace_igor.html#a490f00fed47903c329843cb921bbace9af5f286e73bda105e538310b3190f75c5',1,'Igor::Equal()'],['../namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72af5f286e73bda105e538310b3190f75c5',1,'OMPF::Equal()']]],
-  ['error',['Error',['../namespace_igor.html#ae37d44017cf75f9b23db4ffa70db82fca902b0d55fddef6f8d651fe1035b7d4bd',1,'Igor::Error()'],['../namespace_igor_aux.html#a95b2b44871530bf71a452919620012e3a902b0d55fddef6f8d651fe1035b7d4bd',1,'IgorAux::Error()']]],
+  ['error',['Error',['../namespace_igor.html#a1314a119813da18d245083b42e8627dfa902b0d55fddef6f8d651fe1035b7d4bd',1,'Igor::Error()'],['../namespace_igor_aux.html#a95b2b44871530bf71a452919620012e3a902b0d55fddef6f8d651fe1035b7d4bd',1,'IgorAux::Error()']]],
   ['esc',['ESC',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a6351aefd1e5e1b62c76f8580116964be',1,'Igor']]],
   ['external',['External',['../namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3ab206a1b4ea1097761f78e8876f6da779',1,'OMPF']]]
 ];

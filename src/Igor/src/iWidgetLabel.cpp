@@ -14,7 +14,8 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iWidgetLabel::iWidgetLabel()
+	iWidgetLabel::iWidgetLabel(const iWidgetPtr parent)
+		: iWidget(parent)
 	{
 		_configuredHeight = 0;
 		_configuredWidth = 0;
@@ -54,7 +55,7 @@ namespace Igor
 	{
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawLabel(getActualRect(), _text, _maxTextWidth, getAppearanceState(), isActive());
+			iWidgetManager::getInstance().getTheme()->drawLabel(getActualRect(), _text, _maxTextWidth, getState(), isActive());
 		}
 	}
 

@@ -45,8 +45,10 @@ namespace Igor
 	public:
 
 		/*! ctor initializes member variables
+
+		\param parent optional parent
 		*/
-		iWidgetLabel();
+		iWidgetLabel(const iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/
@@ -95,6 +97,10 @@ namespace Igor
 		void draw();
 
 	};
+
+	/*! widget label pointer definition
+	*/
+	typedef iWidgetLabel* iWidgetLabelPtr;
 }
 
 #endif

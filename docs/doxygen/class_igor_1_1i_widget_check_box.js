@@ -1,6 +1,6 @@
 var class_igor_1_1i_widget_check_box =
 [
-    [ "iWidgetCheckBox", "class_igor_1_1i_widget_check_box.html#a514dea8267761f494440cc83c5bc4a40", null ],
+    [ "iWidgetCheckBox", "class_igor_1_1i_widget_check_box.html#a832469ea9033da5e8d4a8eca68fc6f16", null ],
     [ "~iWidgetCheckBox", "class_igor_1_1i_widget_check_box.html#a48588e50c8492e96cd9fcb371b34dfaf", null ],
     [ "beginRadioButtonGroup", "class_igor_1_1i_widget_check_box.html#ae63be6d177fe17290b82ce93fda73bf6", null ],
     [ "calcMinSize", "class_igor_1_1i_widget_check_box.html#a71c7bf404994e38ffd8432f55d4fd53e", null ],

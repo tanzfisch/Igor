@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.23.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.24.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -212,13 +212,13 @@ Voxel Example</div></div>
     int64 width = voxelData-&gt;getWidth() - 1;
     int64 depth = voxelData-&gt;getDepth() - 1;
     int64 height = voxelData-&gt;getHeight() - 1;
-</pre><p>We create a resulting group node because the engine expects this from us. </p><pre class="fragment">    iNode* result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
+</pre><p>We create a resulting group node because the engine expects this from us. </p><pre class="fragment">    iNode* result = iNodeManager::getInstance().createNode(iNodeType::iNode);
 </pre><p>Now we use the iContouringCubes class to turn our voxel data in to a mesh. </p><pre class="fragment">    iContouringCubes contouringCubes;
     contouringCubes.setVoxelData(voxelData);
     iMeshPtr mesh = contouringCubes.compile(iaVector3I(), iaVector3I(width, height, depth));
 </pre><p>Theoretically the voxel data could result in a mesh that does not exists so we have to check that here. </p><pre class="fragment">    if (mesh.get() != nullptr)
     {
-</pre><p>But if it does exist we create a iNodeMesh and add it to the resulting node. </p><pre class="fragment">        iNodeMesh* meshNode = static_cast&lt;iNodeMesh*&gt;(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+</pre><p>But if it does exist we create a iNodeMesh and add it to the resulting node. </p><pre class="fragment">        iNodeMesh* meshNode = static_cast&lt;iNodeMesh*&gt;(iNodeManager::getInstance().createNode(iNodeType::iNodeMesh));
         meshNode-&gt;setMesh(mesh);
         meshNode-&gt;setMaterial(tileInformation-&gt;_materialID);
 </pre><p>We also set up the target material of our mesh for tri planar texture mapping as defined earlier in material _voxelMeshMaterialID. </p><pre class="fragment">        iTargetMaterial* targetMaterial = meshNode-&gt;getTargetMaterial();
@@ -249,13 +249,13 @@ inputParam-&gt;_modelSourceType = iModelSourceType::Generated;
 inputParam-&gt;_loadPriority = 0;
 inputParam-&gt;_parameters.setData(reinterpret_cast&lt;const char*&gt;(&amp;tileInformation), sizeof(TileInformation));
 // create a model node
-iNodeModel* voxelMeshModel = static_cast&lt;iNodeModel*&gt;(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+iNodeModel* voxelMeshModel = static_cast&lt;iNodeModel*&gt;(iNodeManager::getInstance().createNode(iNodeType::iNodeModel));
 _voxelMeshModel = voxelMeshModel-&gt;getID();
 // tell the model node to load data with specified identifier ans the above defined parameter
 // it is important to have a unique identifier each time we generate a mesh otherwhise the cache system would return us a prvious generated mesh
 voxelMeshModel-&gt;setModel(iaString("VoxelMesh") + iaString::toString(_incarnation++), inputParam);
 // create a transform node to center the mesh to the origin
-iNodeTransform* voxelMeshTransform = static_cast&lt;iNodeTransform*&gt;(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+iNodeTransform* voxelMeshTransform = static_cast&lt;iNodeTransform*&gt;(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
 _voxelMeshTransform = voxelMeshTransform-&gt;getID();
 voxelMeshTransform-&gt;translate(-_voxelData-&gt;getWidth() / 2, -_voxelData-&gt;getHeight() / 2, -_voxelData-&gt;getDepth() / 2);
 // and add to scene

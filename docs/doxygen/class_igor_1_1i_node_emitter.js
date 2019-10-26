@@ -7,6 +7,6 @@ var class_igor_1_1i_node_emitter =
     [ "getWorldMatrix", "class_igor_1_1i_node_emitter.html#a8d215307dffdbfa05c94376c9aaf2fc6", null ],
     [ "setEmitterType", "class_igor_1_1i_node_emitter.html#a71ae08db126b0889d002a6ccf9311854", null ],
     [ "setSize", "class_igor_1_1i_node_emitter.html#ae0d97308b47c3a530dc45198bce9dc7a", null ],
-    [ "iNodeFactory", "class_igor_1_1i_node_emitter.html#a443fcc5b71f6dbb2a68dae3d957024c3", null ],
+    [ "iNodeManager", "class_igor_1_1i_node_emitter.html#a90c36aa3a19c099cd083a002d56f9c47", null ],
     [ "iNodeParticleSystem", "class_igor_1_1i_node_emitter.html#ae3071b66fc24de4ba280a9e9463e3545", null ]
 ];

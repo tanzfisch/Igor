@@ -34,12 +34,28 @@
 namespace Igor
 {
 
-    class iUserControl;
+	class iDialog;
+
+	/*! dialog pointer definition
+	*/
+	typedef iDialog* iDialogPtr;
+
+	/*! dialog close event
+	*/
+	iaDELEGATE(iDialogCloseDelegate, void, (iDialogPtr dialog), (dialog));
+
+    /*! dialog return states
+    */
+    enum class iDialogReturnState
+    {
+        No = 0,
+        Yes = 1,
+        Ok = 1,
+        Cancel = 2,
+        Error = 3
+    };
 
     /*! dialog widget
-
-    \todo need more than one apperance type of dialogs e.g. for iWidgetSelectBox
-
     */
     class Igor_API iDialog : public iWidget
     {
@@ -55,6 +71,10 @@ namespace Igor
 		/*! dtor unregisters mouse events
 		*/
 		virtual ~iDialog();
+        
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
 
         /*! set horizontal position of dialog and horizontal alignment to absolute
 
@@ -78,7 +98,29 @@ namespace Igor
         */
         int32 getBorder();
 
+		/*! shows the dialog on screen
+
+		\param dialogCloseDelegate the delegate to call after the dialog was closed
+		*/
+		virtual void open(iDialogCloseDelegate dialogCloseDelegate);
+
+		/*! closes the dialog
+		*/
+		virtual void close();
+
+        /*! \returns the return state of this dialog
+        */
+        iDialogReturnState getReturnState() const;
+
+        /*! sets the return state of this dialog
+        */
+        void setReturnState(iDialogReturnState returnState);
+
     private:
+
+        /*! the return state of the this dialog
+        */
+        iDialogReturnState _returnState = iDialogReturnState::Ok;
 
         /*! horizontal position relative to parent if horizontal alignment is absolute
         */
@@ -92,6 +134,10 @@ namespace Igor
         */
         int32 _border = 1;
 
+		/*! the delegate to call after the dialog was closed
+		*/
+		iDialogCloseDelegate _dialogCloseDelegate;
+
         /*! updates size based on it's content
         */
         void calcMinSize();
@@ -103,7 +149,7 @@ namespace Igor
         */
         void updateAlignment(int32 clientWidth, int32 clientHeight);
 
-		/*! draws the button
+		/*! draws the children
 		*/
 		void draw();
 

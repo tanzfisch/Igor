@@ -1,7 +1,7 @@
 var searchData=
 [
   ['iaconsole',['iaConsole',['../namespace_igor_aux.html#ad7530b3ba1cfd576d7099e596af01f23',1,'IgorAux']]],
-  ['insert',['Insert',['../i_node_factory_8h.html#a8c1f14f07c9eedcbbb2cc61988030646',1,'iNodeFactory.h']]],
+  ['insert',['Insert',['../i_node_manager_8h.html#a8c1f14f07c9eedcbbb2cc61988030646',1,'iNodeManager.h']]],
   ['invalid_5fbuffer_5fid',['INVALID_BUFFER_ID',['../class_igor_1_1i_mesh_buffers.html#aa8f852a38a255de80b7484f597e7213e',1,'Igor::iMeshBuffers']]],
   ['invalid_5fchunk_5fid',['INVALID_CHUNK_ID',['../struct_o_m_p_f_1_1_o_m_p_f_default_configuration.html#a652f81b781ce2135405f5d4482ab634f',1,'OMPF::OMPFDefaultConfiguration']]],
   ['invalid_5fcollisionconfig_5fid',['INVALID_COLLISIONCONFIG_ID',['../class_igor_1_1i_physics_collision_config.html#aa2b7e7a6748293f006b43ab55f99aab7',1,'Igor::iPhysicsCollisionConfig']]],

@@ -33,75 +33,131 @@
 #include <iTimerHandle.h>
 
 #include <iaVector4.h>
+#include <iaColor4.h>
 using namespace IgorAux;
 
+#include <set>
 #include <vector>
 
 namespace Igor
 {
-	class iFont;
-	class iWidgetBaseTheme;
-	class iWidgetManager;
 
-	/*! interaction state of widget
-	*/
-	enum class iWidgetAppearanceState
-	{
-		Highlighted,
-		Pressed,
-		Clicked,
-		DoubleClicked,
-		Context,
-		Standby
-	};
-
+    class iWidgetManager;
 	class iWidget;
+
+	/*! define pointer to widget
+	*/
+	typedef iWidget* iWidgetPtr;
 
 	/*! widget click event
 	*/
-	iaEVENT(iClickEvent, iClickDelegate, void, (iWidget* source), (source));
+	iaEVENT(iClickEvent, iClickDelegate, void, (const iWidgetPtr source), (source));
 
 	/*! mouse off click event
 
 	so when there was a click outside the range of a widget
 	*/
-	iaEVENT(iMouseOffClickEvent, iMouseOffClickDelegate, void, (iWidget* source), (source));
+	iaEVENT(iMouseOffClickEvent, iMouseOffClickDelegate, void, (const iWidgetPtr source), (source));
 
 	/*! context menu event
 	*/
-	iaEVENT(iContextMenuEvent, iContextMenuDelegate, void, (iWidget* source), (source));
+	iaEVENT(iContextMenuEvent, iContextMenuDelegate, void, (const iWidgetPtr source), (source));
 
 	/*! wheel up event
 	*/
-	iaEVENT(iWheelUpEvent, iWheelUpDelegate, void, (iWidget* source), (source));
+	iaEVENT(iWheelUpEvent, iWheelUpDelegate, void, (const iWidgetPtr source), (source));
 
 	/*! wheel down event
 	*/
-	iaEVENT(iWheelDownEvent, iWheelDownDelegate, void, (iWidget* source), (source));
+	iaEVENT(iWheelDownEvent, iWheelDownDelegate, void, (const iWidgetPtr source), (source));
 
 	/*! double click event
 	*/
-	iaEVENT(iDoubleClickEvent, iDoubleClickDelegate, void, (iWidget* source), (source));
+	iaEVENT(iDoubleClickEvent, iDoubleClickDelegate, void, (const iWidgetPtr source), (source));
 
 	/*! mouse over event
 	*/
-	iaEVENT(iMouseOverEvent, iMouseOverDelegate, void, (iWidget* source), (source));
+	iaEVENT(iMouseOverEvent, iMouseOverDelegate, void, (const iWidgetPtr source), (source));
 
 	/*! mouse off event
 	*/
-	iaEVENT(iMouseOffEvent, iMouseOffDelegate, void, (iWidget* source), (source));
+	iaEVENT(iMouseOffEvent, iMouseOffDelegate, void, (const iWidgetPtr source), (source));
 
 	/*! change event
 	*/
-	iaEVENT(iChangeEvent, iChangeDelegate, void, (iWidget* source), (source));
+	iaEVENT(iChangeEvent, iChangeDelegate, void, (const iWidgetPtr source), (source));
 
 	/*! keyboard focus changed event
 	*/
-	iaEVENT(iFocusEvent, iFocusDelegate, void, (iWidget* source), (source));
+	iaEVENT(iFocusEvent, iFocusDelegate, void, (const iWidgetPtr source), (source));
 
 	/*! selection changed event
 	*/
 	iaEVENT(iSelectionChangedEvent, iSelectionChangedDelegate, void, (int32 index), (index));
+
+	/*! interaction state of widget
+	*/
+	enum class iWidgetState
+	{
+		/*! widget it highlighted
+		*/
+		Highlighted,
+
+		/*! widget if currently pressed and held down
+		*/
+		Pressed,
+
+		/*! widget was just released from clicking it
+		*/
+		Clicked,
+
+		/*! widget was double clicked
+		*/
+		DoubleClicked,
+
+		/*! the widget does nothing except existing
+		*/
+		Standby
+	};
+
+    /*! types of igor widgets
+    */
+    enum class iWidgetType
+    {
+        iWidgetButton,
+        iWidgetCheckBox,
+        iWidgetColor,
+        iWidgetColorGradient,
+        iWidgetGraph,
+        iWidgetGrid,
+        iWidgetGroupBox,
+        iWidgetLabel,
+        iWidgetMenu,
+        iWidgetMenuBar,
+        iWidgetNumberChooser,
+        iWidgetPicture,
+        iWidgetScroll,
+        iWidgetSelectBox,
+        iWidgetSlider,
+        iWidgetSpacer,
+        iWidgetTextEdit,
+
+        iUserControl,
+        iUserControlAction,
+        iUserControlColorChooser,
+        iUserControlFileChooser,
+
+        iDialog,
+        iDialogColorChooser,
+        iDialogDecisionBox,
+        iDialogFileSelect,
+        iDialogGraph,
+        iDialogIndexMenu,
+        iDialogMessageBox,
+
+        iUserType = 100,
+        iUndefinedType = 100
+    };
 
 	/*! GUI widget base class
 
@@ -129,6 +185,54 @@ namespace Igor
 
 	public:
 
+        /*! \returns the widgets type
+
+        if not implemented by widget it will return iUndefinedType
+        */
+        virtual iWidgetType getWidgetType() const;
+
+        /*! sets the z value which determines the render order of siglings
+
+        \param zvalue the z value to set
+        */
+        void setZValue(int32 zvalue);
+
+        /*! \returns the z value of this widget
+        */
+        int32 getZValue() const;
+
+        /*! sets background color
+
+        \param color the new background color
+        */
+        void setBackground(const iaColor4f& color);
+
+        /*! \returns the background color
+        */
+        iaColor4f getBackground() const;
+
+        /*! sets foreground color
+
+        \param color the new foreground color
+        */
+        void setForeground(const iaColor4f& color);
+
+        /*! \returns the foreground color
+        */
+        iaColor4f getForeground() const;
+
+        /*! set wether events will be blocked or not
+
+        implementation needs to be overriden by deriving classes to make sure all additional events are blocked too
+
+        \param blockEvents if true events from this widget will be blocked
+        */
+        virtual void block(bool blockEvents);
+
+        /*! @returns true if events on this widget are blocked
+        */
+        bool isBlocked() const;
+
 		/*! invalid widget ID
 		*/
 		static const uint64 INVALID_WIDGET_ID = 0;
@@ -139,7 +243,7 @@ namespace Igor
 
 		/*! \returns current interaction state of widget
 		*/
-		iWidgetAppearanceState getAppearanceState() const;
+		iWidgetState getState() const;
 
 		/*! registers delegate to click event (click is left mouse button)
 
@@ -420,25 +524,13 @@ namespace Igor
 
 		\param widget the child widget to be added
 		*/
-		virtual void addWidget(iWidget* widget);
+		virtual void addWidget(iWidgetPtr widget);
 
 		/*! removes a child widget frmo this widget
 
 		\param widget the child widget to be removed
 		*/
-		virtual void removeWidget(iWidget* widget);
-
-		/*! adds a child widget to this widget by id
-
-		\param id the widget id
-		*/
-		virtual void addWidget(uint64 id);
-
-		/*! removed a child widget from this widget by id
-
-		\param id the widget id
-		*/
-		virtual void removeWidget(uint64 id);
+		virtual void removeWidget(iWidgetPtr widget);
 
 		/*! \returns true if has parent
 		*/
@@ -460,7 +552,7 @@ namespace Igor
 
 		/*! \returns the widget that is currently in focus
 		*/
-		static iWidget* getKeyboardFocusWidget();
+		static iWidgetPtr getKeyboardFocusWidget();
 
 		/*! sets the tooltip text
 
@@ -476,29 +568,39 @@ namespace Igor
 
 		\param children[out] list with children
 		*/
-		void getChildren(std::vector<iWidget*>& children);
+		void getChildren(std::vector<iWidgetPtr>& children);
+
+		/*! removes and deletes all children
+
+		this will also cause all children deleting their children and so on
+		*/
+		void clearChildren();
+
+        /*! sets id this widget handles all events regardles whether or not its child already has handled the events
+
+        \param value if true this widget handles all events
+        */
+        void setIgnoreChildEventHandling(bool value = true);
+
+        /*! \returns true if event handling is done an any case
+        */
+        bool isIgnoringChildEventHandling() const;
+
+        /*! \returns the root widget which owns this widget
+
+        returns nullptr if there is no parent
+        */
+        iWidgetPtr getRoot();
 
 	protected:
 
-		/*! if true this widget will process mouse clicks outside of the widgets boundings
-		*/
-		bool _acceptOutOfBoundsClicks = false;
-
 		/*! list of children
 		*/
-		std::vector<iWidget*> _children;
-
-		/*! flag if widget accepts drop
-		*/
-		bool _acceptDrop = false;
-
-		/*! true: if currently mouse is over widget
-		*/
-		bool _isMouseOver = false;
+		std::vector<iWidgetPtr> _children;
 
 		/*! configured width of the widget
 		*/
-		int32 _configuredWidth = 100;
+		int32 _configuredWidth = 0;
 
 		/*! configured height of the widget
 		*/
@@ -548,10 +650,6 @@ namespace Igor
 		*/
 		iSelectionChangedEvent _selectionChanged;
 
-		/*! if true widget will react on mouse wheel
-		*/
-		bool _reactOnMouseWheel = true;
-
 		/*! tooltip text
 		*/
 		iaString _tooltip;
@@ -559,6 +657,44 @@ namespace Igor
 		/*! position for the tooltip to appear
 		*/
 		iaVector2i _tooltipPos;
+
+        /*! z value of this widget
+        */
+        int32 _zValue = 0;
+
+        /*! if true widget will react on mouse wheel
+        */
+        bool _reactOnMouseWheel = true;
+
+        /*! if true events on this widget are blocked
+        */
+        bool _blockedEvents = false;
+
+        /*! if true this widget will process mouse clicks outside of the widgets boundings
+        */
+        bool _acceptOutOfBoundsClicks = false;
+
+        /*! flag if widget accepts drop
+        */
+        bool _acceptDrop = false;
+
+        /*! true: if currently mouse is over widget
+        */
+        bool _isMouseOver = false;
+
+        /*! if true this widget handles all events regardles whether or not its child already has handled the events
+        */
+        bool _ignoreChildEventHandling = false;
+
+        /*! initializes members
+
+        \param parent the optional parent
+        */
+        iWidget(const iWidgetPtr parent = nullptr);
+
+        /*! clean up
+        */
+        virtual ~iWidget();
 
 		/*! handles incomming mouse wheel event
 
@@ -628,7 +764,7 @@ namespace Igor
 
 		\parem parent pointer to parent
 		*/
-		void setParent(iWidget* parent);
+		void setParent(iWidgetPtr parent);
 
 		/*! sets the keyboard focus to this widget
 		*/
@@ -650,14 +786,6 @@ namespace Igor
 		/*! \returns last mouse position
 		*/
 		iaVector2i getLastMousePos() const;
-
-		/*! initializes members
-		*/
-		iWidget();
-
-		/*! clean up
-		*/
-		virtual ~iWidget();
 
 	private:
 
@@ -713,33 +841,17 @@ namespace Igor
 		*/
 		int32 _clientAreaBottom = 0;
 
-		/*! grow by content flag
-		*/
-		bool _growsByContent = true;
-
 		/*! last mouse position
 		*/
 		iaVector2i _posLast;
 
-		/*! here you get the next id from
-		*/
-		static uint64 _nextID;
-
-		/*! id of widget
+    	/*! id of widget
 		*/
 		uint64 _id = 0;
 
 		/*! pointer to parent widget
 		*/
-		iWidget* _parent = nullptr;
-
-		/*! flag if widget is active
-		*/
-		bool _active = true;
-
-		/*! flag if widget id visible
-		*/
-		bool _visible = true;
+		iWidgetPtr _parent = nullptr;
 
 		/*! horizontal alignment relative to parent
 		*/
@@ -751,15 +863,35 @@ namespace Igor
 
 		/*! current widget state
 		*/
-		iWidgetAppearanceState _widgetAppearanceState = iWidgetAppearanceState::Standby;
+		iWidgetState _widgetState = iWidgetState::Standby;
+
+        /*! grow by content flag
+        */
+        bool _growsByContent = true;
+
+        /*! flag if widget is active
+        */
+        bool _active = true;
+
+        /*! flag if widget id visible
+        */
+        bool _visible = true;
+
+        /*! here you get the next id from
+        */
+        static uint64 _nextID;
 
 		/*! pointer to widget that owns the keyboard focus
 		*/
-		static iWidget* _keyboardFocus;
+		static iWidgetPtr _keyboardFocus;
 
 		/*! handles tooltip timer
 		*/
 		void onToolTipTimer();
+
+        /*! called when parent of this widget changes
+        */
+        virtual void onParentChanged();
 
 		/*! destroy tooltip timer
 		*/
@@ -769,7 +901,15 @@ namespace Igor
 
 		all widgets have to derive from this
 		*/
-		virtual void calcMinSize() = 0;
+		virtual void calcMinSize();
+
+        /*! background color
+        */
+        iaColor4f _background;
+
+        /*! foreground color
+        */
+        iaColor4f _foreground;
 
 		/*! updates widget alignment
 

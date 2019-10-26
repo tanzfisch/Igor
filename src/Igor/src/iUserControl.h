@@ -44,8 +44,10 @@ namespace Igor
 	public:
 
 		/*! does nothing
+
+        \param parent the optional parent
 		*/
-		iUserControl();
+		iUserControl(const iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/

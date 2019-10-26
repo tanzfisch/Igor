@@ -59,5 +59,5 @@ var class_igor_1_1i_node_particle_system =
     [ "start", "class_igor_1_1i_node_particle_system.html#a75ef806092ebbb68a6201d51aed6561b", null ],
     [ "stop", "class_igor_1_1i_node_particle_system.html#a8a3e6d816d75fee82ff11cededc05288", null ],
     [ "unregisterParticleSystemFinishedDelegate", "class_igor_1_1i_node_particle_system.html#a3dceef38c715aa1aff1831e21e5f567c", null ],
-    [ "iNodeFactory", "class_igor_1_1i_node_particle_system.html#a443fcc5b71f6dbb2a68dae3d957024c3", null ]
+    [ "iNodeManager", "class_igor_1_1i_node_particle_system.html#a90c36aa3a19c099cd083a002d56f9c47", null ]
 ];

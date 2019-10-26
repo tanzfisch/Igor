@@ -31,7 +31,7 @@
 
 #include <iWidget.h>
 #include <vector>
-
+#include <any>
 
 namespace Igor
 {
@@ -53,7 +53,7 @@ namespace Igor
     */
     class Igor_API iWidgetGrid : public iWidget
     {
-		
+
         /*! internal helper struct that represents a child widget and it's position
         */
         struct Field
@@ -90,7 +90,7 @@ namespace Igor
 
             /*! user data that can be attached to a grid field
             */
-            void* _userData = nullptr;
+            std::any _userData;
         };
 
         /*! internal struct that represents a collumn of widgets
@@ -104,13 +104,19 @@ namespace Igor
 
     public:
 
-		/*! ctor initializes member variables
-		*/
-		iWidgetGrid();
+        /*! ctor initializes member variables
 
-		/*! does nothing
-		*/
-		~iWidgetGrid() = default;
+        \param parent optional parent
+        */
+        iWidgetGrid(const iWidgetPtr parent = nullptr);
+
+        /*! does nothing
+        */
+        ~iWidgetGrid() = default;
+
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
 
         /*! appends rows at the bottom of the grid
 
@@ -178,13 +184,9 @@ namespace Igor
 
         /*! adds a child widget to this widget at position 0, 0
 
-        if there is already a child at 0, 0 it will be replaced
-
-        you might want to use addWidget(iWidget* widget, int32 col, int32 row, void* userData = nullptr); instead
-
         \param widget the child widget to be added
         */
-        void addWidget(iWidget* widget);
+        void addWidget(iWidgetPtr widget);
 
         /*! removes a child widget frmo this widget regardless of it's position
 
@@ -192,31 +194,42 @@ namespace Igor
 
         \param widget the child widget to be removed
         */
-        void removeWidget(iWidget* widget);
+        void removeWidget(iWidgetPtr widget);
 
         /*! add widget and set it at given position
 
         \param widget the widget pointer
         \param col column index
         \param row row index
+        \param userData any kind of data
         */
-        void addWidget(iWidget* widget, int32 col, int32 row, void* userData = nullptr);
+        void addWidget(iWidgetPtr widget, int32 col, int32 row, const std::any& userData = std::any());
 
         /*! sets selection mode of grid
 
-        \param mode the mode of selection
+        \param selectMode the mode of selection
         */
-        void setSelectMode(iSelectionMode mode);
+        void setSelectMode(iSelectionMode selectMode);
+
+        /*! sets highlight mode
+
+        \param highlightMode the mode of highlight
+        */
+        void setHighlightMode(iSelectionMode highlightMode);
 
         /*! \returns selection mode
         */
         iSelectionMode getSelectMode() const;
 
+        /*! \returns highlight mode
+        */
+        iSelectionMode getHighlightMode() const;
+
         void select(int32 collumn, int32 row);
 
         /*! unselects the grid
         */
-        void unSelect();
+        void unselect();
 
         /*! \returns true: if grid is selected
         */
@@ -236,20 +249,20 @@ namespace Igor
 
         /*! \returns pointer to user Data of selected field
         */
-        void* getSelectedUserData();
+        std::any getSelectedUserData();
 
         /*! \returns pointer to user Data of specified field
 
-        \param col specfied collumn 
+        \param col specfied collumn
         \param row specfied row
         */
-        void* getUserData(int32 col, int32 row);
+        std::any getUserData(int32 col, int32 row);
 
         /*! defines which row will be streched if the grid is vertically streched
 
         \param row row number to be streched
         */
-		void setStrechRow(int32 row);
+        void setStrechRow(int32 row);
 
         /*! \returns row number to be streched
         */
@@ -259,21 +272,29 @@ namespace Igor
 
         \param col column number to be streched
         */
-		void setStrechColumn(int32 col);
+        void setStrechColumn(int32 col);
 
         /*! \retruns column number to be streched
         */
-		int32 getStrechColumn() const;
+        int32 getStrechColumn() const;
+
+        /*! \returns mouse over row
+        */
+        int32 getMouseOverRow() const;
+
+        /*! \returns mouse over collumn
+        */
+        int32 getMouseOverCollumn() const;
 
     private:
 
         /*! row number to be streched
         */
-		int32 _strechRow = 0;
+        int32 _strechRow = 0;
 
         /*! column number to be streched
         */
-		int32 _strechCol = 0;
+        int32 _strechCol = 0;
 
         /*! the child widgets
         */
@@ -306,7 +327,11 @@ namespace Igor
         /*! mode of selection
         */
         iSelectionMode _selectMode = iSelectionMode::NoSelection;
-		
+
+        /*! mode of highlight
+        */
+        iSelectionMode _highlightMode = iSelectionMode::NoSelection;
+
         /*! handles incomming mouse wheel event
 
         \param d mouse wheel delta
@@ -345,9 +370,9 @@ namespace Igor
         */
         void calcMinSize();
 
-		/*! draws the widget
-		*/
-		void draw();
+        /*! draws the widget
+        */
+        void draw();
 
         /*! initializes an empty grid with default size of one row and collumn
         */
@@ -367,6 +392,11 @@ namespace Igor
         void calcChildOffsets(std::vector<iRectanglei>& offsets);
 
     };
+
+    /*! widget grid pointer definition
+    */
+    typedef iWidgetGrid* iWidgetGridPtr;
+
 }
 
 #endif

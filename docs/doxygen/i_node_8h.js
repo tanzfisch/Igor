@@ -2,6 +2,7 @@ var i_node_8h =
 [
     [ "iNode", "class_igor_1_1i_node.html", "class_igor_1_1i_node" ],
     [ "iNodePtr", "i_node_8h.html#a8653487f79196f88f6ffd3a6a1a77e19", null ],
+    [ "iScenePtr", "i_node_8h.html#af75611482c6e0e7b7fbce28cc4b95136", null ],
     [ "iNodeKind", "i_node_8h.html#af60214c983d49068fb5a9147cfb723fa", [
       [ "Node", "i_node_8h.html#af60214c983d49068fb5a9147cfb723faa6c3a6944a808a7c0bbb6788dbec54a9f", null ],
       [ "Renderable", "i_node_8h.html#af60214c983d49068fb5a9147cfb723faaf77c38be501be6af485917f8d6525bde", null ],
@@ -32,7 +33,7 @@ var i_node_8h =
       [ "iNodeWater", "i_node_8h.html#abe8ac7d5017f674544ec43881a173c7fa6c8918b2a7e33ff3f5341b66e8ef17d5", null ],
       [ "Undefined", "i_node_8h.html#abe8ac7d5017f674544ec43881a173c7faec0fc0100c4fc1ce4eea230c3dc10360", null ]
     ] ],
-    [ "iaEVENT", "i_node_8h.html#aa027a515799281e7a44e18307f51cb0e", null ],
+    [ "iaEVENT", "i_node_8h.html#af76c3251ecce57889a54e31885018268", null ],
     [ "operator<<", "i_node_8h.html#a91ce469b6141d21120a080b7f7999a09", null ],
     [ "operator<<", "i_node_8h.html#a5d7631686ba52c6bf2ec1ed29eabe733", null ]
 ];

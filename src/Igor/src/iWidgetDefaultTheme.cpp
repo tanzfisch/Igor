@@ -26,27 +26,23 @@ iaColor4f STANDBY(0, 0, 1, 0.5f);
 #define DRAW_DEBUG_OUTPUT(rect, state) \
     switch(state) \
     { \
-        case iWidgetAppearanceState::Highlighted: \
+        case iWidgetState::Highlighted: \
             drawRectangle(rect, MOUSEOVER); \
             break; \
  \
-        case iWidgetAppearanceState::Pressed: \
+        case iWidgetState::Pressed: \
             drawRectangle(rect, MOUSEPRESSED); \
             break; \
  \
-        case iWidgetAppearanceState::Clicked: \
+        case iWidgetState::Clicked: \
             drawRectangle(rect, MOUSECLICKED); \
             break; \
  \
-        case iWidgetAppearanceState::DoubleClicked: \
+        case iWidgetState::DoubleClicked: \
             drawRectangle(rect, MOUSEDOUBLECLICKED); \
             break; \
  \
-        case iWidgetAppearanceState::Context: \
-            drawRectangle(rect, MOUSECONTEXT); \
-            break; \
- \
-        case iWidgetAppearanceState::Standby: \
+        case iWidgetState::Standby: \
             drawRectangle(rect, STANDBY); \
             break; \
     }
@@ -59,7 +55,7 @@ static const iaColor4f COLOR_AMBIENT = { 0.2f, 0.2f, 0.2f, 1.0f };
 static const iaColor4f COLOR_DIFFUSE_DARK = { 0.35f, 0.35f, 0.35f, 1.0f };
 static const iaColor4f COLOR_DIFFUSE = { 0.5f, 0.5f, 0.5f, 1.0f };
 static const iaColor4f COLOR_DIFFUSE_TRANSPARENT = { 0.5f, 0.5f, 0.5f, 0.75f };
-static const iaColor4f COLOR_DIFFUSE_LIGHT = { 0.55f, 0.55f, 0.55f, 1.0f };
+static const iaColor4f COLOR_DIFFUSE_LIGHT = { 0.6f, 0.6f, 0.6f, 1.0f };
 static const iaColor4f COLOR_SPECULAR = { 0.8f, 0.8f, 0.8f, 1.0f };
 static const iaColor4f COLOR_WHITE = { 1.0f, 1.0f, 1.0f, 1.0f };
 static const iaColor4f COLOR_BLACK = { 0.0f, 0.0f, 0.0f, 1.0f };
@@ -79,14 +75,14 @@ namespace Igor
 
 		_defaultMaterial = iMaterialResourceFactory::getInstance().createMaterial();
 		iMaterialResourceFactory::getInstance().getMaterial(_defaultMaterial)->setName("Widget:Default");
-		iMaterialResourceFactory::getInstance().getMaterial(_defaultMaterial)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-		iMaterialResourceFactory::getInstance().getMaterial(_defaultMaterial)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+		iMaterialResourceFactory::getInstance().getMaterial(_defaultMaterial)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+		iMaterialResourceFactory::getInstance().getMaterial(_defaultMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
 
 		_texturedMaterial = iMaterialResourceFactory::getInstance().createMaterial();
 		iMaterialResourceFactory::getInstance().getMaterial(_texturedMaterial)->setName("Widget:Textured");
-		iMaterialResourceFactory::getInstance().getMaterial(_texturedMaterial)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-		iMaterialResourceFactory::getInstance().getMaterial(_texturedMaterial)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-		iMaterialResourceFactory::getInstance().getMaterial(_texturedMaterial)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+		iMaterialResourceFactory::getInstance().getMaterial(_texturedMaterial)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+		iMaterialResourceFactory::getInstance().getMaterial(_texturedMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+		iMaterialResourceFactory::getInstance().getMaterial(_texturedMaterial)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
 	}
 
 	iWidgetDefaultTheme::~iWidgetDefaultTheme()
@@ -198,12 +194,12 @@ namespace Igor
 		drawRectangleInt(rect);
 	}
 
-	void iWidgetDefaultTheme::drawGridField(const iRectanglei & rect, iWidgetAppearanceState state)
+	void iWidgetDefaultTheme::drawGridField(const iRectanglei & rect, iWidgetState state)
 	{
 		DRAW_DEBUG_OUTPUT(rect, state);
 	}
 
-	void iWidgetDefaultTheme::drawGraphFrame(const iRectanglei & rect, iWidgetAppearanceState state, bool active)
+	void iWidgetDefaultTheme::drawGraphFrame(const iRectanglei & rect, iWidgetState state, bool active)
 	{
 		iRenderer::getInstance().setMaterial(_defaultMaterial);
 
@@ -220,7 +216,7 @@ namespace Igor
 		drawLineInt(rect._x + rect._width, rect._y, rect._x + rect._width, rect._y + rect._height);
 	}
 
-	void iWidgetDefaultTheme::drawBackgroundFrame(const iRectanglei & rect, iWidgetAppearanceState state, bool active)
+	void iWidgetDefaultTheme::drawBackgroundFrame(const iRectanglei & rect, iWidgetState state, bool active)
 	{
 		iRenderer::getInstance().setMaterial(_defaultMaterial);
 
@@ -241,7 +237,7 @@ namespace Igor
 		drawLineInt(rect._x + rect._width - 1, rect._y + 1, rect._x + rect._width - 1, rect._y + rect._height - 1);
 	}
 
-	void iWidgetDefaultTheme::drawButton(const iRectanglei & rect, const iaColor4f & color, iWidgetAppearanceState state, bool active)
+	void iWidgetDefaultTheme::drawButton(const iRectanglei & rect, const iaColor4f & color, iWidgetState state, bool active)
 	{
 		iRenderer::getInstance().setMaterial(_defaultMaterial);
 		drawButtonFrame(rect, color, state, active);
@@ -249,11 +245,11 @@ namespace Igor
 		DRAW_DEBUG_OUTPUT(rect, state);
 	}
 
-	void iWidgetDefaultTheme::drawButton(const iRectanglei & rect, const iaString & text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iWidgetAppearanceState state, bool active)
+	void iWidgetDefaultTheme::drawButton(const iRectanglei & rect, const iaString & text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iWidgetState state, bool active)
 	{
 		const int32 reduction = 2;
 		int32 offset = 0;
-		if (state == iWidgetAppearanceState::Pressed)
+		if (state == iWidgetState::Pressed)
 		{
 			offset = +1;
 		}
@@ -265,8 +261,8 @@ namespace Igor
 		}
 		else
 		{
-			if (state == iWidgetAppearanceState::Highlighted ||
-				state == iWidgetAppearanceState::Pressed)
+			if (state == iWidgetState::Highlighted ||
+				state == iWidgetState::Pressed)
 			{
 				iRenderer::getInstance().setColor(COLOR_DIFFUSE_LIGHT);
 				drawRectangleInt(rect);
@@ -319,7 +315,7 @@ namespace Igor
 		DRAW_DEBUG_OUTPUT(rect, state);
 	}
 
-	void iWidgetDefaultTheme::drawTextEdit(const iRectanglei & rect, const iaString & text, const float32 cursorPos, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetAppearanceState state, bool active)
+	void iWidgetDefaultTheme::drawTextEdit(const iRectanglei & rect, const iaString & text, const float32 cursorPos, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetState state, bool active)
 	{
 		iaString modText = text;
 
@@ -421,7 +417,7 @@ namespace Igor
 		DRAW_DEBUG_OUTPUT(rect, state);
 	}
 
-	void iWidgetDefaultTheme::drawNumberChooser(const iRectanglei & rect, const iaString & text, iWidgetAppearanceState button_up_state, iWidgetAppearanceState button_down_state, bool active)
+	void iWidgetDefaultTheme::drawNumberChooser(const iRectanglei & rect, const iaString & text, iWidgetState button_up_state, iWidgetState button_down_state, bool active)
 	{
 		drawNumberChooserFrame(rect, button_up_state, button_down_state, active);
 		iRectanglei textRect(rect._x + static_cast<int32>((static_cast<float32>(rect._height) - _fontSize) * 0.5f),
@@ -431,7 +427,7 @@ namespace Igor
 		DRAW_DEBUG_OUTPUT(rect, button_up_state);
 	}
 
-	void iWidgetDefaultTheme::drawNumberChooserFrame(const iRectanglei & rect, iWidgetAppearanceState state_button_up, iWidgetAppearanceState state_button_down, bool active)
+	void iWidgetDefaultTheme::drawNumberChooserFrame(const iRectanglei & rect, iWidgetState state_button_up, iWidgetState state_button_down, bool active)
 	{
 		iRenderer::getInstance().setMaterial(_defaultMaterial);
 
@@ -451,7 +447,7 @@ namespace Igor
 		drawButton(iRectanglei(rect._x + rect._width - rect._height - 1, rect._y + rect._height / 2, rect._height, rect._height / 2 - 1), "-", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, state_button_down, active);
 	}
 
-	void iWidgetDefaultTheme::drawSelectBox(const iRectanglei & rect, const iaString & text, iWidgetAppearanceState buttonAppearance, bool active)
+	void iWidgetDefaultTheme::drawSelectBox(const iRectanglei & rect, const iaString & text, iWidgetState buttonAppearance, bool active)
 	{
 		drawSelectBoxFrame(rect, buttonAppearance, active);
 		iRectanglei textRect(rect._x + static_cast<int32>((static_cast<float32>(rect._height) - _fontSize) * 0.5f),
@@ -461,7 +457,7 @@ namespace Igor
 		DRAW_DEBUG_OUTPUT(rect, buttonAppearance);
 	}
 
-	void iWidgetDefaultTheme::drawSelectBoxFrame(const iRectanglei & rect, iWidgetAppearanceState buttonState, bool active)
+	void iWidgetDefaultTheme::drawSelectBoxFrame(const iRectanglei & rect, iWidgetState buttonState, bool active)
 	{
 		iRenderer::getInstance().setMaterial(_defaultMaterial);
 
@@ -513,18 +509,18 @@ namespace Igor
 		_fontLineHeight = lineHeight;
 	}
 
-	void iWidgetDefaultTheme::drawCheckBoxFrame(const iRectanglei & rect, iWidgetAppearanceState state, bool active)
+	void iWidgetDefaultTheme::drawCheckBoxFrame(const iRectanglei & rect, iWidgetState state, bool active)
 	{
 		iRenderer::getInstance().setMaterial(_defaultMaterial);
 
-		if (state != iWidgetAppearanceState::Standby)
+		if (state != iWidgetState::Standby)
 		{
 			iRenderer::getInstance().setColor(COLOR_SPECULAR);
 			drawRectangleInt(rect);
 		}
 	}
 
-	void iWidgetDefaultTheme::drawCheckBox(const iRectanglei & rect, iWidgetAppearanceState state, bool active, bool checked)
+	void iWidgetDefaultTheme::drawCheckBox(const iRectanglei & rect, iWidgetState state, bool active, bool checked)
 	{
 		iRenderer::getInstance().setMaterial(_defaultMaterial);
 
@@ -567,7 +563,7 @@ namespace Igor
 		}
 	}
 
-	void iWidgetDefaultTheme::drawCheckBox(const iRectanglei & rect, const iaString & text, bool checked, iWidgetAppearanceState state, bool active)
+	void iWidgetDefaultTheme::drawCheckBox(const iRectanglei & rect, const iaString & text, bool checked, iWidgetState state, bool active)
 	{
 		drawCheckBoxFrame(rect, state, active);
 		drawCheckBox(iRectanglei(rect._x + static_cast<int32>((static_cast<float32>(rect._height) - _fontSize) * 0.5f),
@@ -578,7 +574,7 @@ namespace Igor
 		DRAW_DEBUG_OUTPUT(rect, state);
 	}
 
-	void iWidgetDefaultTheme::drawLabel(const iRectanglei & rect, const iaString & text, int32 textwidth, iWidgetAppearanceState state, bool active)
+	void iWidgetDefaultTheme::drawLabel(const iRectanglei & rect, const iaString & text, int32 textwidth, iWidgetState state, bool active)
 	{
 		drawText(rect, text, textwidth);
 
@@ -595,7 +591,7 @@ namespace Igor
 		iRenderer::getInstance().setFontLineHeight(_fontLineHeight);
 		drawStringInt(rect._x, rect._y, text, 0.0f, textwidth);
 
-		DRAW_DEBUG_OUTPUT(rect, iWidgetAppearanceState::Pressed);
+		DRAW_DEBUG_OUTPUT(rect, iWidgetState::Pressed);
 	}
 
 	void iWidgetDefaultTheme::drawGraphGridlines(const iRectanglei & rect, float32 lineWidth, const std::vector<iaVector2f> & verticalLines, const std::vector<iaVector2f> & horizontalLines, bool active)
@@ -721,10 +717,10 @@ namespace Igor
 		}
 
 
-		DRAW_DEBUG_OUTPUT(rect, iWidgetAppearanceState::Pressed);
+		DRAW_DEBUG_OUTPUT(rect, iWidgetState::Pressed);
 	}
 
-	void iWidgetDefaultTheme::drawGroupBox(const iRectanglei & rect, bool headerOnly, const iaString & text, iWidgetAppearanceState state, bool active)
+	void iWidgetDefaultTheme::drawGroupBox(const iRectanglei & rect, bool headerOnly, const iaString & text, iWidgetState state, bool active)
 	{
 		float32 x = static_cast<float32>(rect._x);
 		float32 y = static_cast<float32>(rect._y);
@@ -770,7 +766,7 @@ namespace Igor
 		iRenderer::getInstance().drawTextureTiled(static_cast<float32>(rect._x), static_cast<float32>(rect._y), static_cast<float32>(rect._width), static_cast<float32>(rect._height), texture);
 	}
 
-	void iWidgetDefaultTheme::drawPicture(const iRectanglei & rect, iTexturePtr texture, iWidgetAppearanceState state, bool active)
+	void iWidgetDefaultTheme::drawPicture(const iRectanglei & rect, iTexturePtr texture, iWidgetState state, bool active)
 	{
 		iRenderer::getInstance().setMaterial(_texturedMaterial);
 
@@ -799,7 +795,7 @@ namespace Igor
 		drawStringInt(rect._x, rect._y, text);
 	}
 
-	void iWidgetDefaultTheme::drawButtonFrame(const iRectanglei & rect, iWidgetAppearanceState state, bool active)
+	void iWidgetDefaultTheme::drawButtonFrame(const iRectanglei & rect, iWidgetState state, bool active)
 	{
 		iRenderer::getInstance().setMaterial(_defaultMaterial);
 
@@ -811,7 +807,7 @@ namespace Igor
 
 		switch (state)
 		{
-		case iWidgetAppearanceState::Pressed:
+		case iWidgetState::Pressed:
 			iRenderer::getInstance().setColor(COLOR_DIFFUSE_LIGHT);
 			drawRectangleInt(rect);
 
@@ -825,12 +821,12 @@ namespace Igor
 			drawLineInt(rect._x, rect._height + rect._y, rect._width + rect._x, rect._height + rect._y);
 			break;
 
-		case iWidgetAppearanceState::Highlighted:
-		case iWidgetAppearanceState::Clicked:
-		case iWidgetAppearanceState::DoubleClicked:
+		case iWidgetState::Highlighted:
+		case iWidgetState::Clicked:
+		case iWidgetState::DoubleClicked:
 			diffuse = COLOR_DIFFUSE_LIGHT;
 
-		case iWidgetAppearanceState::Standby:
+		case iWidgetState::Standby:
 		default:
 			iRenderer::getInstance().setColor(diffuse);
 			drawRectangleInt(rect);
@@ -846,7 +842,7 @@ namespace Igor
 		};
 	}
 
-	void iWidgetDefaultTheme::drawButtonFrame(const iRectanglei & rect, const iaColor4f & color, iWidgetAppearanceState state, bool active)
+	void iWidgetDefaultTheme::drawButtonFrame(const iRectanglei & rect, const iaColor4f & color, iWidgetState state, bool active)
 	{
 		iRenderer::getInstance().setMaterial(_defaultMaterial);
 
@@ -861,7 +857,7 @@ namespace Igor
 
 		switch (state)
 		{
-		case iWidgetAppearanceState::Pressed:
+		case iWidgetState::Pressed:
 			iRenderer::getInstance().setColor(diffuse);
 			drawRectangleInt(rect);
 
@@ -875,10 +871,10 @@ namespace Igor
 			drawLineInt(rect._x, rect._height + rect._y, rect._width + rect._x, rect._height + rect._y);
 			break;
 
-		case iWidgetAppearanceState::Highlighted:
-		case iWidgetAppearanceState::Clicked:
-		case iWidgetAppearanceState::DoubleClicked:
-		case iWidgetAppearanceState::Standby:
+		case iWidgetState::Highlighted:
+		case iWidgetState::Clicked:
+		case iWidgetState::DoubleClicked:
+		case iWidgetState::Standby:
 		default:
 			iRenderer::getInstance().setColor(diffuse);
 			drawRectangleInt(rect);
@@ -894,7 +890,7 @@ namespace Igor
 		};
 	}
 
-	void iWidgetDefaultTheme::drawFrame(const iRectanglei & rect, iWidgetAppearanceState state, bool active)
+	void iWidgetDefaultTheme::drawFrame(const iRectanglei & rect, iWidgetState state, bool active)
 	{
 		iRenderer::getInstance().setMaterial(_defaultMaterial);
 
@@ -914,7 +910,7 @@ namespace Igor
 		drawLineInt(rect._width + rect._x, rect._y, rect._width + rect._x, rect._height + rect._y);
 	}
 
-	void iWidgetDefaultTheme::drawSpacer(const iRectanglei & rect, iWidgetAppearanceState state, bool active)
+	void iWidgetDefaultTheme::drawSpacer(const iRectanglei & rect, iWidgetState state, bool active)
 	{
 		iRenderer::getInstance().setMaterial(_defaultMaterial);
 
@@ -930,7 +926,7 @@ namespace Igor
 		drawRectangleInt(rect);
 	}
 
-	void iWidgetDefaultTheme::drawDialog(const iRectanglei & rect, iWidgetAppearanceState state, bool active)
+	void iWidgetDefaultTheme::drawDialog(const iRectanglei & rect, iWidgetState state, bool active)
 	{
 		iRenderer::getInstance().setMaterial(_defaultMaterial);
 

@@ -17,7 +17,7 @@ using namespace IgorAux;
 #include <iProfiler.h>
 #include <iSceneFactory.h>
 #include <iNodeMesh.h>
-#include <iNodeFactory.h>
+#include <iNodeManager.h>
 #include <iTargetMaterial.h>
 #include <iNodeTransform.h>
 #include <iScene.h>
@@ -81,15 +81,15 @@ void SpriteAnimation::init()
 	// create some materials
 	_materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
 	iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
-	material->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-	material->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-	material->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+	material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+	material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+	material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
 	_materialTerrain = iMaterialResourceFactory::getInstance().createMaterial();
 	material = iMaterialResourceFactory::getInstance().getMaterial(_materialTerrain);
-	material->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-	material->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-	material->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+	material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+	material->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+	material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 	material->addShaderSource("igor/textured.vert", iShaderObjectType::Vertex);
 	material->addShaderSource("igor/textured.frag", iShaderObjectType::Fragment);
 	material->compileShader();
@@ -107,7 +107,7 @@ void SpriteAnimation::init()
 	tileMapGenerator.setMaterial(_materialTerrain);
 	iNodePtr terrainNodeGround = tileMapGenerator.generateFromRandom(iaVector2i(32,32), 0, 18);
 	terrainNodeGround->setName("Ground");
-	iNodeTransform* terrainGroundTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* terrainGroundTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	terrainGroundTransform->translate(0, 0, 0);
 	terrainGroundTransform->insertNode(terrainNodeGround);
 	_scene->getRoot()->insertNode(terrainGroundTransform);
@@ -115,16 +115,16 @@ void SpriteAnimation::init()
 	// generate dressing and trees map
 	iNodePtr terrainNodeDressing = tileMapGenerator.generateFromTexture("SpriteAnimationTerrain.png");
 	terrainNodeDressing->setName("Dressing");
-	iNodeTransform* terrainDressingTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	iNodeTransform* terrainDressingTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	terrainDressingTransform->translate(0, 0, 0);
 	terrainDressingTransform->insertNode(terrainNodeDressing);
 	_scene->getRoot()->insertNode(terrainDressingTransform);
 
 	// setup camera
-	_cameraTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	_cameraTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_cameraTransform->translate(0, 0, 30);
 	// anf of corse the camera
-	iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
+	iNodeCamera* camera = iNodeManager::getInstance().createNode<iNodeCamera>();
 	_cameraTransform->insertNode(camera);
 	_scene->getRoot()->insertNode(_cameraTransform);
 	_view.setCurrentCamera(camera->getID());

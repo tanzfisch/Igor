@@ -30,7 +30,6 @@
 #define __iUSERCONTROLFILECHOOSER__
 
 #include <iUserControl.h>
-#include <iWidget.h>
 #include <iDialogFileSelect.h>
 
 #include <iaEvent.h>
@@ -40,14 +39,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	class iWidgetGrid;
-	class iWidgetLabel;
 	class iWidgetTextEdit;
-	class iWidgetButton;
-	class iWidgetSpacer;
-	class iWidgetColor;
-	class iWidgetSlider;
-	class iWidgetNumberChooser;
 
 	class Igor_API iUserControlFileChooser : public iUserControl
 	{
@@ -55,8 +47,10 @@ namespace Igor
 	public:
 
 		/*! ctor initializes member variables
+
+        \param parent the optional parent
 		*/
-		iUserControlFileChooser();
+		iUserControlFileChooser(const iWidgetPtr parent = nullptr);
 
 		/*! clean up
 		*/
@@ -120,43 +114,31 @@ namespace Igor
 		*/
 		iChangeEvent _fileNameChanged;
 
-		/*! root widget
-		*/
-		iWidgetGrid* _grid = nullptr;
-
 		/*! text edit field for filename
 		*/
 		iWidgetTextEdit* _fileNameTextEdit = nullptr;
-
-		/*! button for opening the file dialog
-		*/
-		iWidgetButton* _fileSelectButton = nullptr;
 
 		/*! file dialog used to select files
 		*/
 		iDialogFileSelect* _fileDialog = nullptr;
 
-		/*! store all created widgets here so we can clean up easily
-		*/
-		std::vector<iWidget*> _allWidgets;
-
 		/*! called after file dialog is closed
 
-		\param fileDialogReturnValue returns value of file dialog
+		\param dialog pointer of closed dialog
 		*/
-		void onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
+		void onFileLoadDialogClosed(iDialogPtr dialog);
 
 		/*! called when text box's content changed
 
 		\param source the source of the event
 		*/
-		void onTextChanged(iWidget* source);
+		void onTextChanged(const iWidgetPtr source);
 
 		/*! called when button was pressed
 
 		\param source the source of the event
 		*/
-		void onFileSelectButtonPressed(iWidget* source);
+		void onFileSelectButtonPressed(const iWidgetPtr source);
 
 		/*! initialize gui elements
 		*/

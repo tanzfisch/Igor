@@ -34,7 +34,6 @@
 #include <iModelDataIOOBJ.h>
 
 #include <iaSingleton.h>
-#include <iaMemBlock.h>
 #include <iaMutex.h>
 using namespace IgorAux;
 

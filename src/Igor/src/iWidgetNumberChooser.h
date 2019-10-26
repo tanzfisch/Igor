@@ -45,8 +45,10 @@ namespace Igor
 	public:
 
 		/*! ctro initializes member variables
+
+		\param parent optional parent
 		*/
-		iWidgetNumberChooser();
+		iWidgetNumberChooser(const iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/
@@ -151,11 +153,11 @@ namespace Igor
 
 		/*! appearance state of button up
 		*/
-		iWidgetAppearanceState _buttonUpAppearanceState = iWidgetAppearanceState::Standby;
+		iWidgetState _buttonUpAppearanceState = iWidgetState::Standby;
 
 		/*! appearance state of button down
 		*/
-		iWidgetAppearanceState _buttonDownAppearanceState = iWidgetAppearanceState::Standby;
+		iWidgetState _buttonDownAppearanceState = iWidgetState::Standby;
 
 		/*! button up rectangle
 		*/

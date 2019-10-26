@@ -115,6 +115,8 @@
       <PreprocessorDefinitions>_NEWTON_USE_DOUBLE;_DEBUG;WIN32;_WINDOWS;_USRDLL;__IGOR_BUILDING_DLL__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\newton-dynamics\coreLibrary_300\source;$(MSBuildProgramFiles32)\Visual Leak Detector\include;..\..\..\3rd\TinyXML;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251; 4150;</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -183,6 +185,8 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
       <PreprocessorDefinitions>_NEWTON_USE_DOUBLE;NDEBUG;WIN32;_WINDOWS;_USRDLL;__IGOR_BUILDING_DLL__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\newton-dynamics\coreLibrary_300\source;$(MSBuildProgramFiles32)\Visual Leak Detector\include;..\..\..\3rd\TinyXML;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251; 4150;</DisableSpecificWarnings>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -233,19 +237,22 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\..\..\3rd\TinyXML\tinyxml.cpp" />
     <ClCompile Include="..\..\..\3rd\TinyXML\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\..\3rd\TinyXML\tinyxmlparser.cpp" />
+    <ClCompile Include="..\src\iAction.cpp" />
+    <ClCompile Include="..\src\iActionManager.cpp" />
+    <ClCompile Include="..\src\iActionSimpleDelegate.cpp" />
     <ClCompile Include="..\src\iApplication.cpp" />
     <ClCompile Include="..\src\iAtlas.cpp" />
     <ClCompile Include="..\src\iBone.cpp" />
     <ClCompile Include="..\src\iCelestialNode.cpp" />
     <ClCompile Include="..\src\iConfigReader.cpp" />
     <ClCompile Include="..\src\iContouringCubes.cpp" />
-    <ClCompile Include="..\src\iDataUpdateQueue.cpp" />
     <ClCompile Include="..\src\iDialog.cpp" />
     <ClCompile Include="..\src\iDialogColorChooser.cpp" />
     <ClCompile Include="..\src\iDialogColorGradient.cpp" />
     <ClCompile Include="..\src\iDialogDecisionBox.cpp" />
     <ClCompile Include="..\src\iDialogFileSelect.cpp" />
     <ClCompile Include="..\src\iDialogGraph.cpp" />
+    <ClCompile Include="..\src\iDialogIndexMenu.cpp" />
     <ClCompile Include="..\src\iDialogMenu.cpp" />
     <ClCompile Include="..\src\iDialogMessageBox.cpp" />
     <ClCompile Include="..\src\iEntity.cpp" />
@@ -277,10 +284,10 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\src\iNode.cpp" />
     <ClCompile Include="..\src\iNodeCamera.cpp" />
     <ClCompile Include="..\src\iNodeEmitter.cpp" />
-    <ClCompile Include="..\src\iNodeFactory.cpp" />
     <ClCompile Include="..\src\iNodeLight.cpp" />
     <ClCompile Include="..\src\iNodeLODSwitch.cpp" />
     <ClCompile Include="..\src\iNodeLODTrigger.cpp" />
+    <ClCompile Include="..\src\iNodeManager.cpp" />
     <ClCompile Include="..\src\iNodeMesh.cpp" />
     <ClCompile Include="..\src\iNodeModel.cpp" />
     <ClCompile Include="..\src\iNodeParticleSystem.cpp" />
@@ -372,6 +379,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\src\iTimer.cpp" />
     <ClCompile Include="..\src\iTimerHandle.cpp" />
     <ClCompile Include="..\src\iUserControl.cpp" />
+    <ClCompile Include="..\src\iUserControlAction.cpp" />
     <ClCompile Include="..\src\iUserControlColorChooser.cpp" />
     <ClCompile Include="..\src\iUserControlFileChooser.cpp" />
     <ClCompile Include="..\src\iView.cpp" />
@@ -391,6 +399,8 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\src\iWidgetGroupBox.cpp" />
     <ClCompile Include="..\src\iWidgetLabel.cpp" />
     <ClCompile Include="..\src\iWidgetManager.cpp" />
+    <ClCompile Include="..\src\iWidgetMenu.cpp" />
+    <ClCompile Include="..\src\iWidgetMenuBar.cpp" />
     <ClCompile Include="..\src\iWidgetNumberChooser.cpp" />
     <ClCompile Include="..\src\iWidgetPicture.cpp" />
     <ClCompile Include="..\src\iWidgetScroll.cpp" />
@@ -407,13 +417,15 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\..\..\3rd\TinyXML\tinyxml.h" />
     <ClInclude Include="..\src\iAABox.h" />
     <ClInclude Include="..\src\iAACube.h" />
+    <ClInclude Include="..\src\iAction.h" />
+    <ClInclude Include="..\src\iActionManager.h" />
+    <ClInclude Include="..\src\iActionSimpleDelegate.h" />
     <ClInclude Include="..\src\iApplication.h" />
     <ClInclude Include="..\src\iAtlas.h" />
     <ClInclude Include="..\src\iBone.h" />
     <ClInclude Include="..\src\iCelestialNode.h" />
     <ClInclude Include="..\src\iConfigReader.h" />
     <ClInclude Include="..\src\iContouringCubes.h" />
-    <ClInclude Include="..\src\iDataUpdateQueue.h" />
     <ClInclude Include="..\src\iDefines.h" />
     <ClInclude Include="..\src\iDialog.h" />
     <ClInclude Include="..\src\iDialogColorChooser.h" />
@@ -421,6 +433,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iDialogDecisionBox.h" />
     <ClInclude Include="..\src\iDialogFileSelect.h" />
     <ClInclude Include="..\src\iDialogGraph.h" />
+    <ClInclude Include="..\src\iDialogIndexMenu.h" />
     <ClInclude Include="..\src\iDialogMenu.h" />
     <ClInclude Include="..\src\iDialogMessageBox.h" />
     <ClInclude Include="..\src\iEntity.h" />
@@ -454,10 +467,10 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iNode.h" />
     <ClInclude Include="..\src\iNodeCamera.h" />
     <ClInclude Include="..\src\iNodeEmitter.h" />
-    <ClInclude Include="..\src\iNodeFactory.h" />
     <ClInclude Include="..\src\iNodeLight.h" />
     <ClInclude Include="..\src\iNodeLODSwitch.h" />
     <ClInclude Include="..\src\iNodeLODTrigger.h" />
+    <ClInclude Include="..\src\iNodeManager.h" />
     <ClInclude Include="..\src\iNodeMesh.h" />
     <ClInclude Include="..\src\iNodeModel.h" />
     <ClInclude Include="..\src\iNodeParticleSystem.h" />
@@ -556,6 +569,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iTimer.h" />
     <ClInclude Include="..\src\iTimerHandle.h" />
     <ClInclude Include="..\src\iUserControl.h" />
+    <ClInclude Include="..\src\iUserControlAction.h" />
     <ClInclude Include="..\src\iUserControlColorChooser.h" />
     <ClInclude Include="..\src\iUserControlFileChooser.h" />
     <ClInclude Include="..\src\iVersion.h" />
@@ -579,6 +593,8 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iWidgetGroupBox.h" />
     <ClInclude Include="..\src\iWidgetLabel.h" />
     <ClInclude Include="..\src\iWidgetManager.h" />
+    <ClInclude Include="..\src\iWidgetMenu.h" />
+    <ClInclude Include="..\src\iWidgetMenuBar.h" />
     <ClInclude Include="..\src\iWidgetNumberChooser.h" />
     <ClInclude Include="..\src\iWidgetPicture.h" />
     <ClInclude Include="..\src\iWidgetScroll.h" />
@@ -607,7 +623,7 @@ git describe --abbrev=0 --tags &gt;&gt; ..\src\gitTag.inl</Command>
     <None Include="..\src\iIntersection.inl" />
     <None Include="..\src\iMesh.inl" />
     <None Include="..\src\iMeshBuffers.inl" />
-    <None Include="..\src\iNodeFactory.inl" />
+    <None Include="..\src\iNodeManager.inl" />
     <None Include="..\src\iPerlinNoise.inl" />
     <None Include="..\src\iPlane.inl" />
     <None Include="..\src\iRay.inl" />
@@ -615,6 +631,7 @@ git describe --abbrev=0 --tags &gt;&gt; ..\src\gitTag.inl</Command>
     <None Include="..\src\iSphere.inl" />
     <None Include="..\src\iTargetMaterial.inl" />
     <None Include="..\src\iWidget.inl" />
+    <None Include="..\src\iWidgetManager.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

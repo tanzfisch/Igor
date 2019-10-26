@@ -1,6 +1,6 @@
 var class_igor_1_1i_widget_number_chooser =
 [
-    [ "iWidgetNumberChooser", "class_igor_1_1i_widget_number_chooser.html#a088c0192ba896449b55a021d736ee0af", null ],
+    [ "iWidgetNumberChooser", "class_igor_1_1i_widget_number_chooser.html#ada53b962e3cb9a452ac33f1c3b8f8e7b", null ],
     [ "~iWidgetNumberChooser", "class_igor_1_1i_widget_number_chooser.html#ad380a464061f35b34fdbf9d9182fade4", null ],
     [ "getAfterPoint", "class_igor_1_1i_widget_number_chooser.html#add501d098de95e5170db9a45ccbd03e1", null ],
     [ "getPostFix", "class_igor_1_1i_widget_number_chooser.html#a0851650d878b6766098077bb7d009031", null ],

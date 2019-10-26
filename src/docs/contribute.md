@@ -27,6 +27,8 @@ To build Igor open the solution at src\Igor\vs\Igor.sln set the target platform 
 
 Only ever the latest Visual Studio project files are included. There is no time to maintain more.
 
+Note: The git command line tool needs to be present in order to build.
+
 Git Flow
 --------
 

@@ -7,7 +7,8 @@ using namespace IgorAux;
 
 namespace Igor
 {
-	iUserControl::iUserControl()
+	iUserControl::iUserControl(const iWidgetPtr parent)
+        : iWidget(parent)
 	{
 		setHorizontalAlignment(iHorizontalAlignment::Strech);
 		setVerticalAlignment(iVerticalAlignment::Strech);
@@ -21,7 +22,7 @@ namespace Igor
 		if (isGrowingByContent() &&
 			!_children.empty())
 		{
-			iWidget* widget = _children[0];
+			iWidgetPtr widget = _children.front();
 			minWidth = widget->getMinWidth();
 			minHeight = widget->getMinHeight();
 		}

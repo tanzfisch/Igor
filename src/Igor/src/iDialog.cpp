@@ -28,13 +28,39 @@ namespace Igor
 
     iDialog::~iDialog()
     {
-		iWidgetManager::getInstance().unregisterDialog(this);
-
-        if (iWidgetManager::isModal(this))
+        if (iWidgetManager::getInstance().isModal(this))
         {
-            iWidgetManager::resetModal();
+            iWidgetManager::getInstance().resetModal();
         }
+
+		iWidgetManager::getInstance().unregisterDialog(this);
     }
+
+    void iDialog::setReturnState(iDialogReturnState returnState)
+    {
+        _returnState = returnState;
+    }
+
+    iDialogReturnState iDialog::getReturnState() const
+    {
+        return _returnState;
+    }
+
+	void iDialog::open(iDialogCloseDelegate dialogCloseDelegate)
+	{
+		_dialogCloseDelegate = dialogCloseDelegate;
+        setActive();
+        setVisible();
+	}
+
+	void iDialog::close()
+	{
+        setActive(false);
+        setVisible(false);
+        iWidgetManager::getInstance().resetModal();
+
+		iWidgetManager::getInstance().closeDialog(this);
+	}
 
     void iDialog::calcMinSize()
     {
@@ -44,7 +70,7 @@ namespace Igor
         if (isGrowingByContent() &&
             !_children.empty())
         {
-            iWidget* widget = _children[0];
+            iWidgetPtr widget = _children.front();
             minWidth = widget->getMinWidth();
             minHeight = widget->getMinHeight();
         }
@@ -128,11 +154,13 @@ namespace Igor
     {
         if (isVisible())
         {
-            iWidgetManager::getInstance().getTheme()->drawDialog(getActualRect(), getAppearanceState(), isActive());
+			iWidgetManager& wm = iWidgetManager::getInstance();
 
-            for (auto widget : _children)
+            wm.getTheme()->drawDialog(getActualRect(), getState(), isActive());
+
+            for (const auto child : _children)
             {
-                widget->draw();
+                child->draw();
             }
         }
     }
@@ -147,5 +175,10 @@ namespace Igor
     {
         _offsetY = y;
         setVerticalAlignment(iVerticalAlignment::Absolut);
+    }
+
+    iWidgetType iDialog::getWidgetType() const
+    {
+        return iWidgetType::iDialog;
     }
 }

@@ -44,9 +44,6 @@
     <ClCompile Include="..\src\iSkyLightNode.cpp">
       <Filter>scene\nodes</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iNodeFactory.cpp">
-      <Filter>scene\nodes</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iConfigReader.cpp">
       <Filter>resources\configuration</Filter>
     </ClCompile>
@@ -272,9 +269,6 @@
     <ClCompile Include="..\src\iNodePhysics.cpp">
       <Filter>scene\nodes</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iDataUpdateQueue.cpp">
-      <Filter>scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iPhysicsMaterial.cpp">
       <Filter>resources\physics</Filter>
     </ClCompile>
@@ -318,9 +312,6 @@
       <Filter>GUI\dialogs</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iDialogFileSelect.cpp">
-      <Filter>GUI\dialogs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\iDialogMenu.cpp">
       <Filter>GUI\dialogs</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iBone.cpp">
@@ -440,6 +431,33 @@
     <ClCompile Include="..\src\iProfilerVisualizer.cpp">
       <Filter>resources\profiler</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iNodeManager.cpp">
+      <Filter>scene\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iAction.cpp">
+      <Filter>GUI\menus / actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iActionManager.cpp">
+      <Filter>GUI\menus / actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iWidgetMenuBar.cpp">
+      <Filter>GUI\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iWidgetMenu.cpp">
+      <Filter>GUI\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iActionSimpleDelegate.cpp">
+      <Filter>GUI\menus / actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iUserControlAction.cpp">
+      <Filter>GUI\user controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iDialogIndexMenu.cpp">
+      <Filter>GUI\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iDialogMenu.cpp">
+      <Filter>GUI\dialogs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -481,9 +499,6 @@
       <Filter>scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iSkyLightNode.h">
-      <Filter>scene\nodes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iNodeFactory.h">
       <Filter>scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iConfigReader.h">
@@ -730,9 +745,6 @@
     <ClInclude Include="..\src\iNodePhysics.h">
       <Filter>scene\nodes</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iDataUpdateQueue.h">
-      <Filter>scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iPhysicsMaterial.h">
       <Filter>resources\physics</Filter>
     </ClInclude>
@@ -779,9 +791,6 @@
       <Filter>GUI\dialogs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iDialogFileSelect.h">
-      <Filter>GUI\dialogs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iDialogMenu.h">
       <Filter>GUI\dialogs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iThread.h">
@@ -922,6 +931,33 @@
     <ClInclude Include="..\src\iProfilerVisualizer.h">
       <Filter>resources\profiler</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iNodeManager.h">
+      <Filter>scene\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iAction.h">
+      <Filter>GUI\menus / actions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iActionManager.h">
+      <Filter>GUI\menus / actions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iWidgetMenuBar.h">
+      <Filter>GUI\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iWidgetMenu.h">
+      <Filter>GUI\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iActionSimpleDelegate.h">
+      <Filter>GUI\menus / actions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iUserControlAction.h">
+      <Filter>GUI\user controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iDialogIndexMenu.h">
+      <Filter>GUI\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iDialogMenu.h">
+      <Filter>GUI\dialogs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iAACube.inl">
@@ -963,14 +999,17 @@
     <None Include="..\src\iIntersection.inl">
       <Filter>data types</Filter>
     </None>
-    <None Include="..\src\iNodeFactory.inl">
-      <Filter>scene\nodes</Filter>
-    </None>
     <None Include="..\src\iRay.inl">
       <Filter>data types</Filter>
     </None>
     <None Include="..\src\iAtlas.inl">
       <Filter>resources\texture</Filter>
+    </None>
+    <None Include="..\src\iNodeManager.inl">
+      <Filter>scene\nodes</Filter>
+    </None>
+    <None Include="..\src\iWidgetManager.inl">
+      <Filter>GUI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1087,6 +1126,9 @@
     </Filter>
     <Filter Include="resources\profiler">
       <UniqueIdentifier>{58005712-136c-489b-80a1-deb7d7ccf43e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\menus / actions">
+      <UniqueIdentifier>{4de5ee33-eefa-467d-9efa-9e54cd9c0117}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

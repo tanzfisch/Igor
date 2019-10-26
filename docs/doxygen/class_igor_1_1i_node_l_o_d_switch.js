@@ -9,6 +9,6 @@ var class_igor_1_1i_node_l_o_d_switch =
     [ "setThresholds", "class_igor_1_1i_node_l_o_d_switch.html#af3796795002e581a06d38fa5c8aca55f", null ],
     [ "setThresholds", "class_igor_1_1i_node_l_o_d_switch.html#a41dfe913a67270287c3d7c0c78edc65e", null ],
     [ "update", "class_igor_1_1i_node_l_o_d_switch.html#aca04b5ee6502da939571007a4cebfe6c", null ],
-    [ "iNodeFactory", "class_igor_1_1i_node_l_o_d_switch.html#a443fcc5b71f6dbb2a68dae3d957024c3", null ],
+    [ "iNodeManager", "class_igor_1_1i_node_l_o_d_switch.html#a90c36aa3a19c099cd083a002d56f9c47", null ],
     [ "iNodeVisitorUpdateTransform", "class_igor_1_1i_node_l_o_d_switch.html#ad64c9a06babde60bdd79e94c1ae6ef70", null ]
 ];

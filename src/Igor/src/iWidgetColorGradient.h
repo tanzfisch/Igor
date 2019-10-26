@@ -54,12 +54,22 @@ namespace Igor
 	public:
 
 		/*! ctor initializes member variables
+
+		\param parent optional parent
 		*/
-		iWidgetColorGradient();
+		iWidgetColorGradient(const iWidgetPtr parent = nullptr);
 
 		/*! release texture
 		*/
 		virtual ~iWidgetColorGradient();
+
+        /*! set wether events will be blocked or not
+
+        implementation needs to be overriden by deriving classes to make sure all additional events are blocked too
+
+        \param blockEvents if true events from this widget will be blocked
+        */
+        virtual void block(bool blockEvents) override;
 
 		/*! sets color gradient
 		\param color color value in rgba

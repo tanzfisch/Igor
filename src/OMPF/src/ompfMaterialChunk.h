@@ -186,7 +186,7 @@ namespace OMPF
 
         \param state the state given
         */
-        OMPFRenderStateValue getRenderStateValue(OMPFRenderState state) const;
+        OMPFRenderStateValue getRenderState(OMPFRenderState state) const;
 
     private:
 

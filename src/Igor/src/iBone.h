@@ -35,7 +35,7 @@
 using namespace IgorAux;
 
 #include <vector>
-
+#include <any>
 
 namespace Igor
 {
@@ -88,17 +88,17 @@ namespace Igor
 
         \param data pointer to custom data
         */
-        void setCustomData(void* data);
+        void setCustomData(const std::any &data);
 
-        /*! \returns pointer to custom data
+        /*! \returns custom data
         */
-        void* getCustomData() const;
+        std::any getCustomData() const;
 
     private:
 
-        /*! pointer to custom data
+        /*! pointer to user data
         */
-        void* _customData = nullptr;
+        std::any _userData;
 
         /*! the top joint id
         */

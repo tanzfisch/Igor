@@ -14,7 +14,10 @@ var hierarchy =
     [ "IgorAux::iaColor3< T >", "class_igor_aux_1_1ia_color3.html", null ],
     [ "IgorAux::iaColor4< T >", "class_igor_aux_1_1ia_color4.html", null ],
     [ "IgorAux::iaConvert", "class_igor_aux_1_1ia_convert.html", null ],
-    [ "Igor::iNodeFactory::iAction", "struct_igor_1_1i_node_factory_1_1i_action.html", null ],
+    [ "Igor::iNodeManager::iAction", "struct_igor_1_1i_node_manager_1_1i_action.html", null ],
+    [ "Igor::iAction", "class_igor_1_1i_action.html", [
+      [ "Igor::iActionSimpleDelegate", "class_igor_1_1i_action_simple_delegate.html", null ]
+    ] ],
     [ "IgorAux::iaDirectory", "class_igor_aux_1_1ia_directory.html", null ],
     [ "IgorAux::iaFile", "class_igor_aux_1_1ia_file.html", null ],
     [ "IgorAux::iaGradient< T >", "class_igor_aux_1_1ia_gradient.html", null ],
@@ -34,6 +37,9 @@ var hierarchy =
     [ "IgorAux::iaSingleton< T >", "class_igor_aux_1_1ia_singleton.html", null ],
     [ "IgorAux::iaSingleton< iaConsole >", "class_igor_aux_1_1ia_singleton.html", [
       [ "IgorAux::iaConsole", "class_igor_aux_1_1ia_console.html", null ]
+    ] ],
+    [ "IgorAux::iaSingleton< iActionManager >", "class_igor_aux_1_1ia_singleton.html", [
+      [ "Igor::iActionManager", "class_igor_1_1i_action_manager.html", null ]
     ] ],
     [ "IgorAux::iaSingleton< iApplication >", "class_igor_aux_1_1ia_singleton.html", [
       [ "Igor::iApplication", "class_igor_1_1i_application.html", null ]
@@ -56,8 +62,8 @@ var hierarchy =
     [ "IgorAux::iaSingleton< iMouse >", "class_igor_aux_1_1ia_singleton.html", [
       [ "Igor::iMouse", "class_igor_1_1i_mouse.html", null ]
     ] ],
-    [ "IgorAux::iaSingleton< iNodeFactory >", "class_igor_aux_1_1ia_singleton.html", [
-      [ "Igor::iNodeFactory", "class_igor_1_1i_node_factory.html", null ]
+    [ "IgorAux::iaSingleton< iNodeManager >", "class_igor_aux_1_1ia_singleton.html", [
+      [ "Igor::iNodeManager", "class_igor_1_1i_node_manager.html", null ]
     ] ],
     [ "IgorAux::iaSingleton< iPhysics >", "class_igor_aux_1_1ia_singleton.html", [
       [ "Igor::iPhysics", "class_igor_1_1i_physics.html", null ]
@@ -105,7 +111,6 @@ var hierarchy =
     [ "Igor::iCharacterDimensions", "class_igor_1_1i_character_dimensions.html", null ],
     [ "Igor::iConfigReader", "class_igor_1_1i_config_reader.html", null ],
     [ "Igor::iContouringCubes", "class_igor_1_1i_contouring_cubes.html", null ],
-    [ "Igor::iDataUpdateQueue", "class_igor_1_1i_data_update_queue.html", null ],
     [ "Igor::iEmitterTriangle", "class_igor_1_1i_emitter_triangle.html", null ],
     [ "Igor::iEntity", "class_igor_1_1i_entity.html", [
       [ "Igor::iEntityLocatable", "class_igor_1_1i_entity_locatable.html", null ]
@@ -241,10 +246,12 @@ var hierarchy =
         [ "Igor::iDialogDecisionBox", "class_igor_1_1i_dialog_decision_box.html", null ],
         [ "Igor::iDialogFileSelect", "class_igor_1_1i_dialog_file_select.html", null ],
         [ "Igor::iDialogGraph", "class_igor_1_1i_dialog_graph.html", null ],
+        [ "Igor::iDialogIndexMenu", "class_igor_1_1i_dialog_index_menu.html", null ],
         [ "Igor::iDialogMenu", "class_igor_1_1i_dialog_menu.html", null ],
         [ "Igor::iDialogMessageBox", "class_igor_1_1i_dialog_message_box.html", null ]
       ] ],
       [ "Igor::iUserControl", "class_igor_1_1i_user_control.html", [
+        [ "Igor::iUserControlAction", "class_igor_1_1i_user_control_action.html", null ],
         [ "Igor::iUserControlColorChooser", "class_igor_1_1i_user_control_color_chooser.html", null ],
         [ "Igor::iUserControlFileChooser", "class_igor_1_1i_user_control_file_chooser.html", null ]
       ] ],
@@ -256,6 +263,8 @@ var hierarchy =
       [ "Igor::iWidgetGrid", "class_igor_1_1i_widget_grid.html", null ],
       [ "Igor::iWidgetGroupBox", "class_igor_1_1i_widget_group_box.html", null ],
       [ "Igor::iWidgetLabel", "class_igor_1_1i_widget_label.html", null ],
+      [ "Igor::iWidgetMenu", "class_igor_1_1i_widget_menu.html", null ],
+      [ "Igor::iWidgetMenuBar", "class_igor_1_1i_widget_menu_bar.html", null ],
       [ "Igor::iWidgetNumberChooser", "class_igor_1_1i_widget_number_chooser.html", null ],
       [ "Igor::iWidgetPicture", "class_igor_1_1i_widget_picture.html", null ],
       [ "Igor::iWidgetScroll", "class_igor_1_1i_widget_scroll.html", null ],

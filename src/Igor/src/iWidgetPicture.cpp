@@ -15,7 +15,8 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iWidgetPicture::iWidgetPicture()
+	iWidgetPicture::iWidgetPicture(const iWidgetPtr parent)
+		: iWidget(parent)
 	{
 		setHorizontalAlignment(iHorizontalAlignment::Center);
 		setVerticalAlignment(iVerticalAlignment::Center);
@@ -33,6 +34,11 @@ namespace Igor
 		_maxHeight = height;
 	}
 
+    bool iWidgetPicture::hasTexture() const
+    {
+        return _texture != nullptr;
+    }
+
 	int32 iWidgetPicture::getMaxWidth()
 	{
 		return _maxWidth;
@@ -45,9 +51,8 @@ namespace Igor
 
 	void iWidgetPicture::calcMinSize()
 	{
-		int32 minWidth = 0;
-		int32 minHeight = 0;
-
+		int32 minWidth = _configuredWidth;
+		int32 minHeight = _configuredHeight;
 
 		if (isGrowingByContent())
 		{
@@ -98,7 +103,7 @@ namespace Igor
 		if (isVisible() &&
 			_texture != nullptr)
 		{
-			iWidgetManager::getInstance().getTheme()->drawPicture(getActualRect(), _texture, _widgetAppearanceState, isActive());
+			iWidgetManager::getInstance().getTheme()->drawPicture(getActualRect(), _texture, _widgetState, isActive());
 		}
 	}
 

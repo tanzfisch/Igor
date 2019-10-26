@@ -39,16 +39,8 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	class iWidgetColor;
-	class iWidgetGrid;
-	class iWidgetButton;
-	class iUserControlColorChooser;
 	class iWidgetColorGradient;
 	class iUserControlColorChooser;
-
-	/*! event triggered when color chooser was closed
-	*/
-	iaEVENT(iColorGradientCloseEvent, iColorGradientCloseDelegate, void, (bool ok, const iaGradientColor4f& gradient), (ok, gradient));
 
 	/*! the color chooser dialog
 	*/
@@ -67,17 +59,21 @@ namespace Igor
 
 		/*! show/open the decision box
 
-		\param closeDelegate closing delegate
+		\param dialogCloseDelegate closing delegate
 		\param gradient to start with
 		\param useAlpha if true use alpha channel too
 		*/
-		void show(iColorGradientCloseDelegate closeDelegate, const iaGradientColor4f& gradient, bool useAlpha = true);
+		void open(iDialogCloseDelegate dialogCloseDelegate, const iaGradientColor4f& gradient, bool useAlpha = true);
+
+        /*! \returns color gradient from dialog
+        */
+        const iaGradientColor4f& getColorGradient() const;
+
+        /*! \returns previsou color gradient
+        */
+        const iaGradientColor4f& getResetColorGradient() const;
 
 	private:
-
-		/*! the close event
-		*/
-		iColorGradientCloseEvent _closeEvent;
 
 		/*! the old gradient
 		*/
@@ -99,10 +95,6 @@ namespace Igor
 		*/
 		iWidgetNumberChooser* _position = nullptr;
 
-		/*! over all grid
-		*/
-		iWidgetGrid* _grid = nullptr;
-
 		/*! the widget to visualize the gradient
 		*/
 		iWidgetColorGradient* _gradientWidget = nullptr;
@@ -119,7 +111,7 @@ namespace Igor
 
 		\param source source widget
 		*/
-		void onPositionChanged(iWidget* source);
+		void onPositionChanged(const iWidgetPtr source);
 
 		/*! triggered when color chooser was manipulated
 		*/
@@ -134,35 +126,25 @@ namespace Igor
 
 		/*! triggered by clicking delete button
 		*/
-		void onDelete(iWidget* source);
+		void onDelete(const iWidgetPtr source);
 
 		/*! handles ok button clicked event
 
 		\param source the ok button it self
 		*/
-		void onOK(iWidget* source);
+		void onOK(const iWidgetPtr source);
 
 		/*! handles cancel button clicked event
 
 		\param source the cancel button it self
 		*/
-		void onCancel(iWidget* source);
+		void onCancel(const iWidgetPtr source);
 
 		/*! handles reset button click event
 
 		\param source the reset button it self
 		*/
-		void onReset(iWidget* source);
-
-		/*! closes the dialog and sends closed event
-
-		will be triggered by any button
-		*/
-		void close();
-
-		/*! deinitializes the gui elements
-		*/
-		void deinitGUI();
+		void onReset(const iWidgetPtr source);
 
 		/*! initializes gui elements
 
@@ -172,6 +154,10 @@ namespace Igor
 		void initGUI(const iaGradientColor4f& gradient, bool useAlpha);
 
 	};
+
+    /*! dialog color gradient pointer definition
+    */
+    typedef iDialogColorGradient* iDialogColorGradientPtr;
 
 }
 

@@ -14,7 +14,8 @@ using namespace IgorAux;
 
 namespace Igor
 {
-	iWidgetSlider::iWidgetSlider()
+	iWidgetSlider::iWidgetSlider(const iWidgetPtr parent)
+		: iWidget(parent)
 	{
 	}
 
@@ -218,7 +219,7 @@ namespace Igor
 
 			if (_texture != nullptr)
 			{
-				iWidgetManager::getInstance().getTheme()->drawPicture(iRectanglei(getActualPosX(), getActualPosY() + getActualHeight() / 4, getActualWidth(), getActualHeight() / 2), _texture, getAppearanceState(), isActive());
+				iWidgetManager::getInstance().getTheme()->drawPicture(iRectanglei(getActualPosX(), getActualPosY() + getActualHeight() / 4, getActualWidth(), getActualHeight() / 2), _texture, getState(), isActive());
 			}
 
 			if (_backgroundTexture == nullptr &&
@@ -231,7 +232,7 @@ namespace Igor
 			float32 factor = _value / (_max - _min);
 			float32 offset = (getActualWidth() - 9) * factor;
 			iWidgetManager::getInstance().getTheme()->drawButton(iRectanglei(getActualPosX() + static_cast<int32>(offset), getActualPosY(), 9, getActualHeight()),
-				"", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, getAppearanceState(), isActive());
+				"", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, getState(), isActive());
 		}
 	}
 

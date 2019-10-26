@@ -49,8 +49,10 @@ namespace Igor
 	public:
 
 		/*! ctor initializes member variables
+
+		\param parent optional parent
 		*/
-		iWidgetColor();
+		iWidgetColor(const iWidgetPtr parent = nullptr);
 
 		/*! release texture
 		*/

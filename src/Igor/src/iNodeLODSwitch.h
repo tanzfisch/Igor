@@ -52,7 +52,7 @@ namespace Igor
 	class Igor_API iNodeLODSwitch : public iNode
 	{
 
-        friend class iNodeFactory;
+        friend class iNodeManager;
         friend class iNodeVisitorUpdateTransform;
 
         /*! threashold when to switch to a specific LOD

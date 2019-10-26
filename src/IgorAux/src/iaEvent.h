@@ -33,17 +33,15 @@
 
 #include <iaMutex.h>
 #include <iaDelegate.h>
-#include <iaConsole.h>
 
 #include <vector>
-
 
 namespace IgorAux
 {
 
     /*! event
     */
-#define iaEVENT(EventName,DelegateName,ReturnType,ParameterList,InnerParameterList)				    \
+#define iaEVENT(EventName,DelegateName,ReturnType,ParameterList,InnerParameterList)				        \
 	iaDELEGATE(DelegateName, ReturnType, ParameterList, InnerParameterList);							\
 																										\
 	class EventName                 																	\
@@ -54,33 +52,55 @@ namespace IgorAux
 			void append(const DelegateName &fpDelegate)													\
 			{																							\
                 _mutex.lock();                                                                          \
-				_delegates.push_back(fpDelegate);													    \
+                std::vector<DelegateName>::iterator it;													\
+				it = std::find(_delegates.begin(), _delegates.end(), fpDelegate);                       \
+				if(it == _delegates.end())						                                        \
+				{																						\
+				    _delegates.push_back(fpDelegate);													\
+                }                                                                                       \
                 _mutex.unlock();                                                                        \
 			}																							\
 																										\
 			void remove(const DelegateName &fpDelegate)													\
 			{																							\
                 _mutex.lock();                                                                          \
-				std::vector<DelegateName>::iterator it;														\
-				for(it = _delegates.begin();it != _delegates.end();it++)						        \
+				std::vector<DelegateName>::iterator it;													\
+				it = std::find(_delegates.begin(), _delegates.end(), fpDelegate);                       \
+				if(it != _delegates.end())						                                        \
 				{																						\
-					if((*it) == fpDelegate)																\
-					{																					\
-						_delegates.erase(it);														    \
-						break;																			\
-					}																					\
+					_delegates.erase(it);														        \
 				}																						\
                 _mutex.unlock();                                                                        \
 			}																							\
-																										\
+                                                                                                        \
+            void block(bool blockEvent = true)                                                          \
+            {                                                                                           \
+                _blocked = blockEvent;                                                                  \
+            }                                                                                           \
+                                                                                                        \
+            void unblock()                                                                              \
+            {                                                                                           \
+                _blocked = false;                                                                       \
+            }                                                                                           \
+                                                                                                        \
+            bool isBlocked()                                                                            \
+            {                                                                                           \
+                return _blocked;                                                                        \
+            }                                                                                           \
+                                                                                                        \
 			__inline ReturnType operator() ParameterList												\
 			{																							\
+                if(_blocked)                                                                            \
+                {                                                                                       \
+                    return ReturnType();                                                                \
+                }                                                                                       \
+                                                                                                        \
                 _mutex.lock();                                                                          \
-                std::vector<DelegateName> delegates = _delegates;                                            \
+                std::vector<DelegateName> delegates = _delegates;                                       \
                 _mutex.unlock();                                                                        \
-				for (unsigned int i = 0; i<delegates.size(); ++i)									    \
+				for (auto dgate : delegates)									                        \
 				{																						\
-                    delegates[i] InnerParameterList;												    \
+                    dgate InnerParameterList;												            \
 				}																						\
 			}																							\
 																										\
@@ -98,10 +118,12 @@ namespace IgorAux
 																										\
 		protected:																						\
 																										\
-            iaMutex _mutex;                                                                               \
-			std::vector<DelegateName> _delegates;														    \
+            iaMutex _mutex;                                                                             \
+			std::vector<DelegateName> _delegates;														\
+            bool _blocked = false;                                                                      \
     };
 
 };
+
 
 #endif
