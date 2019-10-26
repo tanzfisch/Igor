@@ -29,7 +29,7 @@
 #ifndef __iWIDGETMENU__
 #define __iWIDGETMENU__
 
-#include <iWidget.h>
+#include <iDialog.h>
 
 #include <iaString.h>
 using namespace IgorAux;
@@ -43,7 +43,6 @@ namespace Igor
     class iWidgetMenu; typedef iWidgetMenu* iWidgetMenuPtr;
     class iWidgetSpacer; typedef iWidgetSpacer* iWidgetSpacerPtr;
     class iWidgetPicture; typedef iWidgetPicture* iWidgetPicturePtr;
-    class iDialog; typedef iDialog* iDialogPtr;
 
     /*! menu widget
     */
@@ -120,6 +119,8 @@ namespace Igor
         /*! ID of parent in menu hierarchy
         */
         uint64 _menuParent = IGOR_INVALID_ID;
+
+        void onSubMenuClosed(iDialogReturnState returnState);
 
         /*! called when the parent of this widget changed
         */

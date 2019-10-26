@@ -43,6 +43,7 @@ namespace Igor
     {
         _grid = new iWidgetGrid(this);
         _grid->setSelectMode(iSelectionMode::NoSelection);
+        _grid->setHighlightMode(iSelectionMode::Collumn);
     }
 
     void iWidgetMenuBar::addAction(const iActionPtr action)

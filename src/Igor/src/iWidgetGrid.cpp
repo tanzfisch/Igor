@@ -30,14 +30,24 @@ namespace Igor
         initGrid();
     }
 
-    void iWidgetGrid::setSelectMode(iSelectionMode mode)
+    void iWidgetGrid::setHighlightMode(iSelectionMode highlightMode)
     {
-        _selectMode = mode;
+        _highlightMode = highlightMode;
+    }
+
+    void iWidgetGrid::setSelectMode(iSelectionMode selectMode)
+    {
+        _selectMode = selectMode;
     }
 
     iSelectionMode iWidgetGrid::getSelectMode() const
     {
         return _selectMode;
+    }
+
+    iSelectionMode iWidgetGrid::getHighlightMode() const
+    {
+        return _highlightMode;
     }
 
     std::any iWidgetGrid::getSelectedUserData()
@@ -793,58 +803,55 @@ namespace Igor
                     iWidgetManager::getInstance().getTheme()->drawGridField(iRectanglei(colPosX, colPosY,
                         col._actualWidth, col._actualHeight), getState());
 
+                    bool drawSelected = false;
+                    bool drawHighlight = false;
+
                     if (_selectMode != iSelectionMode::NoSelection)
                     {
-                        bool drawSelected = false;
-                        bool drawHighlight = false;
-
                         switch (_selectMode)
                         {
                         case iSelectionMode::Collumn:
-                            if (_selectedCollumn == colIndex)
-                            {
-                                drawSelected = true;
-                            }
-
-                            if (_mouseOverCollumn == colIndex)
-                            {
-                                drawHighlight = true;
-                            }
+                            drawSelected = _selectedCollumn == colIndex;
                             break;
 
                         case iSelectionMode::Row:
-                            if (_selectedRow == rowIndex)
-                            {
-                                drawSelected = true;
-                            }
-
-                            if (_mouseOverRow == rowIndex)
-                            {
-                                drawHighlight = true;
-                            }
+                            drawSelected = _selectedRow == rowIndex;
                             break;
 
                         case iSelectionMode::Field:
-                            if (_selectedCollumn == colIndex &&
-                                _selectedRow == rowIndex)
-                            {
-                                drawSelected = true;
-                            }
-
-                            if (_mouseOverCollumn == colIndex &&
-                                _mouseOverRow == rowIndex)
-                            {
-                                drawHighlight = true;
-                            }
+                            drawSelected = _selectedCollumn == colIndex &&
+                                _selectedRow == rowIndex;
                             break;
                         }
+                    }
 
-                        if (drawSelected)
+                    if (drawSelected)
+                    {
+                        iWidgetManager::getInstance().getTheme()->drawGridSelection(
+                            iRectanglei(colPosX, colPosY, col._actualWidth, col._actualHeight));
+                    }
+                    else
+                    {
+                        if (_highlightMode != iSelectionMode::NoSelection)
                         {
-                            iWidgetManager::getInstance().getTheme()->drawGridSelection(
-                                iRectanglei(colPosX, colPosY, col._actualWidth, col._actualHeight));
+                            switch (_highlightMode)
+                            {
+                            case iSelectionMode::Collumn:
+                                drawHighlight = _mouseOverCollumn == colIndex;
+                                break;
+
+                            case iSelectionMode::Row:
+                                drawHighlight = _mouseOverRow == rowIndex;
+                                break;
+
+                            case iSelectionMode::Field:
+                                drawHighlight = _mouseOverCollumn == colIndex &&
+                                    _mouseOverRow == rowIndex;
+                                break;
+                            }
                         }
-                        else if (drawHighlight)
+
+                        if (drawHighlight)
                         {
                             iWidgetManager::getInstance().getTheme()->drawGridHighlight(
                                 iRectanglei(colPosX, colPosY, col._actualWidth, col._actualHeight));

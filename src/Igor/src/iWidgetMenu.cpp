@@ -129,7 +129,12 @@ namespace Igor
 
     void iWidgetMenu::onDialogClose(iDialogPtr dialog)
     {
-        // TODO 
+        iWidgetMenuPtr menu = dynamic_cast<iWidgetMenuPtr>(iWidgetManager::getInstance().getWidget(_menuParent));
+
+        if (menu != nullptr)
+        {
+            menu->onSubMenuClosed(dialog->getReturnState());
+        }
     }
 
     void iWidgetMenu::setTitle(const iaString& title)
@@ -157,6 +162,11 @@ namespace Igor
     void iWidgetMenu::addAction(const iaString& actionName)
     {
         addAction(iActionManager::getInstance().getAction(actionName));
+    }
+
+    void iWidgetMenu::onSubMenuClosed(iDialogReturnState returnState)
+    {
+        _menu->close();
     }
 
 }

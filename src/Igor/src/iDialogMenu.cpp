@@ -37,23 +37,19 @@ namespace Igor
 
         _grid = new iWidgetGrid(this);
         _grid->setSelectMode(iSelectionMode::NoSelection);
+        _grid->setHighlightMode(iSelectionMode::Row);
     }
 
     void iDialogMenu::onMouseOffClick(const iWidgetPtr source)
     {
-        _returnState = iDialogMenuState::MouseOffClick;
+        setReturnState(iDialogReturnState::Cancel);
         close();
     }
 
     void iDialogMenu::onActionClick(const iWidgetPtr source)
     {
-        _returnState = iDialogMenuState::ActionClick;
+        setReturnState(iDialogReturnState::Ok);
         close();
-    }
-
-    iDialogMenuState iDialogMenu::getReturnState() const
-    {
-        return _returnState;
     }
 
     void iDialogMenu::addMenu(const iWidgetMenuPtr menu)
