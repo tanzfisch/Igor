@@ -4,6 +4,8 @@ Changelog                           {#changelog}
 0.24.0
 ------
 
+- Basic iWidgetMenuBar and iWidgetMenu implementation
+  ![menu demonstration](/images/menu.gif)
 - Added z value order for widgets. For now only used for dialog order
 - Introduced event blocking (used in widgets)
 - Introduced Actions
@@ -17,7 +19,7 @@ Changelog                           {#changelog}
 ------
 
 - Scroll bars are now fully functional
-  ![sprite animation](/images/scrollbars.gif)
+  ![Scroll bars](/images/scrollbars.gif)
 - New interface to create and destroy widgets. Basically we can use new and delete on widgets now but the engine will keep track of them to prevent mem leaks.
 - Added colored axis indication to orientation grid in ModelViewer
 - Made iaMatrix2D more usefull
