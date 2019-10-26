@@ -6,16 +6,16 @@ var searchData=
   ['icolorchoosermode',['iColorChooserMode',['../namespace_igor.html#af9ae6a2ce98fd0b2149203447eec8346',1,'Igor']]],
   ['icolorformat',['iColorFormat',['../namespace_igor.html#a1591be7a883348974cbed3cab1bd43d5',1,'Igor']]],
   ['icolormask',['iColorMask',['../namespace_igor.html#a7e67018151b83309d748c1200262839e',1,'Igor']]],
+  ['idialogreturnstate',['iDialogReturnState',['../namespace_igor.html#a1314a119813da18d245083b42e8627df',1,'Igor']]],
   ['iemittertype',['iEmitterType',['../namespace_igor.html#a5baaffb3c744e70fd01650ed047f776f',1,'Igor']]],
   ['ientitytype',['iEntityType',['../namespace_igor.html#afc828a8f3a21084387ab5bc734086b17',1,'Igor']]],
-  ['ifiledialogreturnvalue',['iFileDialogReturnValue',['../namespace_igor.html#ae37d44017cf75f9b23db4ffa70db82fc',1,'Igor']]],
+  ['ifiledialogpurpose',['iFileDialogPurpose',['../namespace_igor.html#af4d659f29149d31b584a06c67d3b24d8',1,'Igor']]],
   ['ifonttype',['iFontType',['../namespace_igor.html#a1ee2fe4724a0c9145b92680c7e4b0021',1,'Igor']]],
   ['ihorizontalalignment',['iHorizontalAlignment',['../namespace_igor.html#aea3bcbf77ead77dc7cb855da623738ae',1,'Igor']]],
   ['ikeycode',['iKeyCode',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24',1,'Igor']]],
   ['ilighttype',['iLightType',['../namespace_igor.html#a57ff5df1d958a4ba5c7495c3fc7282d0',1,'Igor']]],
   ['ilsystemagefunction',['iLSystemAgeFunction',['../namespace_igor.html#a2081511b8afe422e11c11287eb44a3f3',1,'Igor']]],
   ['imessageboxbuttons',['iMessageBoxButtons',['../namespace_igor.html#a1406ee80c5c6d2b94077b390d0c42bec',1,'Igor']]],
-  ['imessageboxreturnvalue',['iMessageBoxReturnValue',['../namespace_igor.html#adb07501faf35e05e15e7c37056cec74c',1,'Igor']]],
   ['imodelsourcetype',['iModelSourceType',['../namespace_igor.html#a5cc8d7b72ee55ab097738f9d5b639c35',1,'Igor']]],
   ['imodelstate',['iModelState',['../namespace_igor.html#a0416129063ce9a370b0bb1f06168374e',1,'Igor']]],
   ['inodekind',['iNodeKind',['../namespace_igor.html#af60214c983d49068fb5a9147cfb723fa',1,'Igor']]],
@@ -34,5 +34,6 @@ var searchData=
   ['ithreadstate',['iThreadState',['../namespace_igor.html#a3af37bcf6bd4d914e362497090556f74',1,'Igor']]],
   ['iverticalalignment',['iVerticalAlignment',['../namespace_igor.html#a2526c10e8630ee25d053e6c519b15180',1,'Igor']]],
   ['ivoxelblockstate',['iVoxelBlockState',['../namespace_igor.html#a3ada26443dfaff731400935076205c3a',1,'Igor']]],
-  ['iwidgetappearancestate',['iWidgetAppearanceState',['../namespace_igor.html#ae7967e81e61e09024381b817add5bb84',1,'Igor']]]
+  ['iwidgetstate',['iWidgetState',['../namespace_igor.html#a48cd75ff6b40f17a4c3ee177138182f4',1,'Igor']]],
+  ['iwidgettype',['iWidgetType',['../namespace_igor.html#a5a5955ee3dc842505db53a523ad0c1e4',1,'Igor']]]
 ];

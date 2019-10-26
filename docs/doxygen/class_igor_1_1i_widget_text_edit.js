@@ -1,6 +1,6 @@
 var class_igor_1_1i_widget_text_edit =
 [
-    [ "iWidgetTextEdit", "class_igor_1_1i_widget_text_edit.html#a34ffe49598358d28688340295c037aa1", null ],
+    [ "iWidgetTextEdit", "class_igor_1_1i_widget_text_edit.html#a33c8008a6a75589152a1a9ddf22f7bfe", null ],
     [ "~iWidgetTextEdit", "class_igor_1_1i_widget_text_edit.html#a3786cdab5dc43daf9f40c18eb27f0371", null ],
     [ "decCursorPos", "class_igor_1_1i_widget_text_edit.html#ab9d07198c711fe84b53122d32237e90f", null ],
     [ "getCursorPos", "class_igor_1_1i_widget_text_edit.html#a46449421ccf43fc6efc923cf4736242c", null ],

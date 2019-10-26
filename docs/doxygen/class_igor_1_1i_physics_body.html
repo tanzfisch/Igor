@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.23.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.24.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -150,10 +150,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac761eeb65487aedd4a56bcf0765202de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a672dd4514eaa0e85990fd4a7c347f93b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_body.html#a672dd4514eaa0e85990fd4a7c347f93b">setForce</a> (const <a class="el" href="namespace_igor_aux.html#ac312fcf0af77ec8167e9e30b01c0de54">iaVector3d</a> &amp;force)</td></tr>
 <tr class="separator:a672dd4514eaa0e85990fd4a7c347f93b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4f881a54530a30e103d2792e7a2423b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_body.html#aa4f881a54530a30e103d2792e7a2423b">setUserData</a> (const void *userData)</td></tr>
-<tr class="separator:aa4f881a54530a30e103d2792e7a2423b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cadd2a3bbc054809a6068934236ee07"><td class="memItemLeft" align="right" valign="top">const void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_body.html#a7cadd2a3bbc054809a6068934236ee07">getUserData</a> () const </td></tr>
-<tr class="separator:a7cadd2a3bbc054809a6068934236ee07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa85ce2c12614646fad0c1868c3a1605"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_body.html#aaa85ce2c12614646fad0c1868c3a1605">setUserData</a> (const std::any &amp;userData)</td></tr>
+<tr class="separator:aaa85ce2c12614646fad0c1868c3a1605"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae371ce7f9e7e4a359ec814e2b5718f71"><td class="memItemLeft" align="right" valign="top">std::any&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_body.html#ae371ce7f9e7e4a359ec814e2b5718f71">getUserData</a> () const </td></tr>
+<tr class="separator:ae371ce7f9e7e4a359ec814e2b5718f71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4cb5e0b0130b4ec969679187bbaaa76d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespace_igor_aux.html#ac312fcf0af77ec8167e9e30b01c0de54">iaVector3d</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_body.html#a4cb5e0b0130b4ec969679187bbaaa76d">getTorque</a> () const </td></tr>
 <tr class="separator:a4cb5e0b0130b4ec969679187bbaaa76d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a633ec7a273a8f78362d2953ba5e6cb0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_body.html#a633ec7a273a8f78362d2953ba5e6cb0a">setTorque</a> (const <a class="el" href="namespace_igor_aux.html#ac312fcf0af77ec8167e9e30b01c0de54">iaVector3d</a> &amp;torque)</td></tr>
@@ -203,8 +203,8 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a27c8dd45004fd2ee1b3e3ae61bc9a601"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aff26816a77efab094cee90e67023a5a7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_mutex.html">iaMutex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_body.html#aff26816a77efab094cee90e67023a5a7">_mutex</a></td></tr>
 <tr class="separator:aff26816a77efab094cee90e67023a5a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45a972888104705c5a5b0a7dd3030a0a"><td class="memItemLeft" align="right" valign="top">const void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_body.html#a45a972888104705c5a5b0a7dd3030a0a">_userData</a> = nullptr</td></tr>
-<tr class="separator:a45a972888104705c5a5b0a7dd3030a0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab112eff8ab2700c49222ba168faaef90"><td class="memItemLeft" align="right" valign="top">std::any&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_body.html#ab112eff8ab2700c49222ba168faaef90">_userData</a></td></tr>
+<tr class="separator:ab112eff8ab2700c49222ba168faaef90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a950a8183323b66f2140b3c8ffa5e0810"><td class="memItemLeft" align="right" valign="top">float64&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_body.html#a950a8183323b66f2140b3c8ffa5e0810">_mass</a> = 0</td></tr>
 <tr class="separator:a950a8183323b66f2140b3c8ffa5e0810"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae63ce4d2a2cb7352d264e965a564839f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespace_igor_aux.html#ac312fcf0af77ec8167e9e30b01c0de54">iaVector3d</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_physics_body.html#ae63ce4d2a2cb7352d264e965a564839f">_angularDamping</a></td></tr>
@@ -540,12 +540,12 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a7cadd2a3bbc054809a6068934236ee07"></a>
+<a class="anchor" id="ae371ce7f9e7e4a359ec814e2b5718f71"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const void * Igor::iPhysicsBody::getUserData </td>
+          <td class="memname">std::any Igor::iPhysicsBody::getUserData </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -820,14 +820,14 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aa4f881a54530a30e103d2792e7a2423b"></a>
+<a class="anchor" id="aaa85ce2c12614646fad0c1868c3a1605"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void Igor::iPhysicsBody::setUserData </td>
           <td>(</td>
-          <td class="paramtype">const void *&#160;</td>
+          <td class="paramtype">const std::any &amp;&#160;</td>
           <td class="paramname"><em>userData</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1260,7 +1260,7 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a45a972888104705c5a5b0a7dd3030a0a"></a>
+<a class="anchor" id="ab112eff8ab2700c49222ba168faaef90"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -1268,7 +1268,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const void* Igor::iPhysicsBody::_userData = nullptr</td>
+          <td class="memname">std::any Igor::iPhysicsBody::_userData</td>
         </tr>
       </table>
   </td>
@@ -1277,7 +1277,7 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>pointer to user data </p>
+<p>user data </p>
 
 </div>
 </div>

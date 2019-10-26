@@ -17,6 +17,7 @@ var class_igor_1_1i_mouse =
     [ "registerMouseWheelDelegate", "class_igor_1_1i_mouse.html#af7e50684442558b2aaddf3dd6ef4e9ae", null ],
     [ "setCenter", "class_igor_1_1i_mouse.html#a2e47006caf6781de70e88d72b3985ae3", null ],
     [ "setPosition", "class_igor_1_1i_mouse.html#ad79e27f894736fd41076e19efc588e78", null ],
+    [ "setPosition", "class_igor_1_1i_mouse.html#a6b30df9f992428a1fe14f22ea0298c00", null ],
     [ "showCursor", "class_igor_1_1i_mouse.html#ad13a104103d56f349158f12fd22fdc85", null ],
     [ "unregisterMouseClickDelegate", "class_igor_1_1i_mouse.html#a492faf476108aa31851395f622ad1890", null ],
     [ "unregisterMouseDoubleClickDelegate", "class_igor_1_1i_mouse.html#a8f6ae0ac6a99cccba336471047015ce9", null ],

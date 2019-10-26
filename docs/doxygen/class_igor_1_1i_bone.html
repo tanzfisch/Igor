@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.23.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.24.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -134,10 +134,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a199ac4c3e405ebc5f353316aad730eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a462ef648c1359abeefcfecda6b787633"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_1_1i_joint.html">iJoint</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_bone.html#a462ef648c1359abeefcfecda6b787633">getBottomJoint</a> () const </td></tr>
 <tr class="separator:a462ef648c1359abeefcfecda6b787633"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade341dfe9b1d7f7880b79fa16bcd026c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_bone.html#ade341dfe9b1d7f7880b79fa16bcd026c">setCustomData</a> (void *data)</td></tr>
-<tr class="separator:ade341dfe9b1d7f7880b79fa16bcd026c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad5516e5be1fa1a2ea2f1c0050a059d4"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_bone.html#aad5516e5be1fa1a2ea2f1c0050a059d4">getCustomData</a> () const </td></tr>
-<tr class="separator:aad5516e5be1fa1a2ea2f1c0050a059d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad851eea032c62af32ea6868ab0c1b72"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_bone.html#aad851eea032c62af32ea6868ab0c1b72">setCustomData</a> (const std::any &amp;data)</td></tr>
+<tr class="separator:aad851eea032c62af32ea6868ab0c1b72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade0c591182b46179c10bc25b78a9feda"><td class="memItemLeft" align="right" valign="top">std::any&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_bone.html#ade0c591182b46179c10bc25b78a9feda">getCustomData</a> () const </td></tr>
+<tr class="separator:ade0c591182b46179c10bc25b78a9feda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -166,19 +166,19 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aad5516e5be1fa1a2ea2f1c0050a059d4"></a>
+<a class="anchor" id="ade0c591182b46179c10bc25b78a9feda"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void * Igor::iBone::getCustomData </td>
+          <td class="memname">std::any Igor::iBone::getCustomData </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>pointer to custom data </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>custom data </dd></dl>
 
 </div>
 </div>
@@ -237,14 +237,14 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ade341dfe9b1d7f7880b79fa16bcd026c"></a>
+<a class="anchor" id="aad851eea032c62af32ea6868ab0c1b72"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void Igor::iBone::setCustomData </td>
           <td>(</td>
-          <td class="paramtype">void *&#160;</td>
+          <td class="paramtype">const std::any &amp;&#160;</td>
           <td class="paramname"><em>data</em></td><td>)</td>
           <td></td>
         </tr>

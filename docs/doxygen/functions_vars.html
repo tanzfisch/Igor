@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.23.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.24.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -147,7 +147,7 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 : <a class="el" href="class_igor_1_1i_widget.html#ac04929549338bf0dc73f38e4bf23d582">Igor::iWidget</a>
 </li>
 <li>_action
-: <a class="el" href="struct_igor_1_1i_node_factory_1_1i_action.html#a48964fe0360ecfc14721503630277582">Igor::iNodeFactory::iAction</a>
+: <a class="el" href="struct_igor_1_1i_node_manager_1_1i_action.html#abdcb3649c19b1a9cb060c9b8b33ed23e">Igor::iNodeManager::iAction</a>
 </li>
 <li>_active
 : <a class="el" href="class_igor_1_1i_node.html#a166703c88c21744ff4781326ead45830">Igor::iNode</a>
@@ -178,6 +178,9 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 <li>_bb
 : <a class="el" href="class_igor_1_1i_physics_user_mesh_collision_handler.html#a1350d7b73d70fef3c6fe3b4dcca7f61e">Igor::iPhysicsUserMeshCollisionHandler</a>
 </li>
+<li>_blockedEvents
+: <a class="el" href="class_igor_1_1i_widget.html#a5fa1d11f9fad81f5b2cc87c4fa791a2f">Igor::iWidget</a>
+</li>
 <li>_bottomPlane
 : <a class="el" href="class_igor_1_1i_frustum.html#ac3de6df3dd646e18e3b6e13e92a19b20">Igor::iFrustum&lt; T &gt;</a>
 </li>
@@ -204,7 +207,7 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 <li>_children
 : <a class="el" href="class_igor_1_1i_node.html#a946931aeeb3deb234d6ea3614bf86bf0">Igor::iNode</a>
 , <a class="el" href="struct_igor_1_1i_voxel_block.html#afc080710cf3099cd893a79f73d63e642">Igor::iVoxelBlock</a>
-, <a class="el" href="class_igor_1_1i_widget.html#aca829b11afe59413dde29801ffa7f9c0">Igor::iWidget</a>
+, <a class="el" href="class_igor_1_1i_widget.html#a219bc0ede1ca5f760e90c428a1f9b26d">Igor::iWidget</a>
 </li>
 <li>_click
 : <a class="el" href="class_igor_1_1i_widget.html#aac23e7a5a48af8000375d3edd9864c69">Igor::iWidget</a>
@@ -308,6 +311,9 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 <li>_identifier
 : <a class="el" href="struct_igor_1_1i_model_data_input_parameter.html#a06f9f45901430379bf1ee331362c6c8c">Igor::iModelDataInputParameter</a>
 , <a class="el" href="class_igor_1_1i_model_data_i_o.html#a1cb45fc4c21d21cceedb7905778e2e2c">Igor::iModelDataIO</a>
+</li>
+<li>_ignoreChildEventHandling
+: <a class="el" href="class_igor_1_1i_widget.html#a4c34180b441215248d219104dd08b726">Igor::iWidget</a>
 </li>
 <li>_inactiveChildren
 : <a class="el" href="class_igor_1_1i_node.html#abcdd6dab655a619158b66d738f267779">Igor::iNode</a>
@@ -432,10 +438,10 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 : <a class="el" href="class_igor_1_1i_physics_body.html#a5fa201d0557aef6a635dac78e1cf9159">Igor::iPhysicsBody</a>
 </li>
 <li>_nodeA
-: <a class="el" href="struct_igor_1_1i_node_factory_1_1i_action.html#a80602673153b3c8c1cca61549e64aaab">Igor::iNodeFactory::iAction</a>
+: <a class="el" href="struct_igor_1_1i_node_manager_1_1i_action.html#a874aa35b1958c233c31a78488304c797">Igor::iNodeManager::iAction</a>
 </li>
 <li>_nodeB
-: <a class="el" href="struct_igor_1_1i_node_factory_1_1i_action.html#a829d3fb135211f3dab97a08b93e05686">Igor::iNodeFactory::iAction</a>
+: <a class="el" href="struct_igor_1_1i_node_manager_1_1i_action.html#ad173b84312f3a101de5578ca699a1d8b">Igor::iNodeManager::iAction</a>
 </li>
 <li>_nodeKind
 : <a class="el" href="class_igor_1_1i_node.html#a934eea0db9a4c785b0d6390ead01b68c">Igor::iNode</a>
@@ -533,7 +539,7 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 : <a class="el" href="class_igor_aux_1_1ia_transform.html#a33b37498862401bee7049b69b6c87571">IgorAux::iaTransform&lt; T &gt;</a>
 </li>
 <li>_scene
-: <a class="el" href="class_igor_1_1i_node.html#ae9eecf7cf169bdb85787c01ef2a4fb48">Igor::iNode</a>
+: <a class="el" href="class_igor_1_1i_node.html#ac0e43e598f7e3e115673762b5a307711">Igor::iNode</a>
 </li>
 <li>_selectionChanged
 : <a class="el" href="class_igor_1_1i_widget.html#a085205456e93130ed399ab97df573e3c">Igor::iWidget</a>
@@ -644,7 +650,7 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 , <a class="el" href="struct_igor_1_1i_shader_source.html#aecb894ddd3c40c411ee8263d96669c87">Igor::iShaderSource</a>
 </li>
 <li>_userData
-: <a class="el" href="class_igor_1_1i_physics_body.html#a45a972888104705c5a5b0a7dd3030a0a">Igor::iPhysicsBody</a>
+: <a class="el" href="class_igor_1_1i_physics_body.html#ab112eff8ab2700c49222ba168faaef90">Igor::iPhysicsBody</a>
 </li>
 <li>_value
 : <a class="el" href="class_igor_1_1i_widget_slider.html#a67f8a8ee0dfa2e1170dfa836aa31f0ed">Igor::iWidgetSlider</a>
@@ -772,6 +778,9 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 : <a class="el" href="class_igor_aux_1_1ia_quaternion.html#a00d293136142d804dbfd673848bcd304">IgorAux::iaQuaternion&lt; T &gt;</a>
 , <a class="el" href="class_igor_aux_1_1ia_vector3.html#a3e0d8ae4a94e4e1b33d71b173d1e9331">IgorAux::iaVector3&lt; T &gt;</a>
 , <a class="el" href="class_igor_aux_1_1ia_vector4.html#a8d082a3fa9246ecead58019f23f2b02b">IgorAux::iaVector4&lt; T &gt;</a>
+</li>
+<li>_zValue
+: <a class="el" href="class_igor_1_1i_widget.html#a39765dcf9558700c3e18170bc8342f9e">Igor::iWidget</a>
 </li>
 </ul>
 </div><!-- contents -->

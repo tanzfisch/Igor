@@ -5,7 +5,7 @@ var class_o_m_p_f_1_1ompf_material_chunk =
     [ "addShader", "class_o_m_p_f_1_1ompf_material_chunk.html#a40f723ab37126c4aa56e74851ac26081", null ],
     [ "getMaterialName", "class_o_m_p_f_1_1ompf_material_chunk.html#abe4722ab158b56136a0de947ce9ba15c", null ],
     [ "getOrder", "class_o_m_p_f_1_1ompf_material_chunk.html#a100950f36ec4c8c36d998e7ef65258de", null ],
-    [ "getRenderStateValue", "class_o_m_p_f_1_1ompf_material_chunk.html#a7b22f40f20ab9d01462bc4488f60e8c0", null ],
+    [ "getRenderState", "class_o_m_p_f_1_1ompf_material_chunk.html#a2dc8c1c49df84e575f414063de4191c1", null ],
     [ "getShaderFilename", "class_o_m_p_f_1_1ompf_material_chunk.html#a415b7998f8e1c217ba9c1869a7f77765", null ],
     [ "getShaderObjectCount", "class_o_m_p_f_1_1ompf_material_chunk.html#ae93a078a79520d57509d316044965ab7", null ],
     [ "getShaderType", "class_o_m_p_f_1_1ompf_material_chunk.html#a79f0fec154468c14c7bcd7f0661c8960", null ],

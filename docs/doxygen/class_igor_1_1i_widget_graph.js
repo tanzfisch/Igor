@@ -1,6 +1,6 @@
 var class_igor_1_1i_widget_graph =
 [
-    [ "iWidgetGraph", "class_igor_1_1i_widget_graph.html#a16075d2acb6f794a8b69fcfb3d32873e", null ],
+    [ "iWidgetGraph", "class_igor_1_1i_widget_graph.html#a3225f9b0f43c510f69252730e504ace8", null ],
     [ "~iWidgetGraph", "class_igor_1_1i_widget_graph.html#ad96a694d076d50d9f9797ef6a38a2056", null ],
     [ "clearPoints", "class_igor_1_1i_widget_graph.html#a370e173feb44d7ebe3c1159391b74d90", null ],
     [ "getBoundings", "class_igor_1_1i_widget_graph.html#a97d102d2fdd37e843cca0e2b7126909b", null ],

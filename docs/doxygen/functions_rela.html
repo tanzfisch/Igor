@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.23.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.24.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -143,17 +143,24 @@ $(document).ready(function(){initNavTree('functions_rela.html','');});
 <li>applicationTime
 : <a class="el" href="class_igor_aux_1_1ia_console.html#a841307f90e5f3fb7969b5bed0aceaf53">IgorAux::iaConsole</a>
 </li>
+<li>iActionManager
+: <a class="el" href="class_igor_1_1i_action.html#a170d33c7d25f38eb4ed00c29187640da">Igor::iAction</a>
+, <a class="el" href="class_igor_1_1i_action_simple_delegate.html#a170d33c7d25f38eb4ed00c29187640da">Igor::iActionSimpleDelegate</a>
+</li>
 <li>iaFile
 : <a class="el" href="class_igor_aux_1_1ia_directory.html#a86b456214cb093e5d06962a0e4fd5798">IgorAux::iaDirectory</a>
 </li>
 <li>iApplication
-: <a class="el" href="class_igor_1_1i_node_factory.html#ac95e62eb30700f633cc8c60341f159f6">Igor::iNodeFactory</a>
+: <a class="el" href="class_igor_1_1i_node_manager.html#ac95e62eb30700f633cc8c60341f159f6">Igor::iNodeManager</a>
 , <a class="el" href="class_igor_1_1i_physics.html#ac95e62eb30700f633cc8c60341f159f6">Igor::iPhysics</a>
 , <a class="el" href="class_igor_1_1i_timer.html#ac95e62eb30700f633cc8c60341f159f6">Igor::iTimer</a>
 , <a class="el" href="class_igor_1_1i_window.html#ac95e62eb30700f633cc8c60341f159f6">Igor::iWindow</a>
 </li>
 <li>iaSingleton&lt; iaConsole &gt;
 : <a class="el" href="class_igor_aux_1_1ia_console.html#aa49f5c68d307cd04d594050c33a171ac">IgorAux::iaConsole</a>
+</li>
+<li>iaSingleton&lt; iActionManager &gt;
+: <a class="el" href="class_igor_1_1i_action_manager.html#a7dc8689045eea85253f0760d46af2d84">Igor::iActionManager</a>
 </li>
 <li>iaSingleton&lt; iApplication &gt;
 : <a class="el" href="class_igor_1_1i_application.html#ae468ecca168a4a68be9c0daa3b5a3f83">Igor::iApplication</a>
@@ -176,8 +183,8 @@ $(document).ready(function(){initNavTree('functions_rela.html','');});
 <li>iaSingleton&lt; iMouse &gt;
 : <a class="el" href="class_igor_1_1i_mouse.html#a5c6b83e49c1e228c8b81ef3bef4bcaf6">Igor::iMouse</a>
 </li>
-<li>iaSingleton&lt; iNodeFactory &gt;
-: <a class="el" href="class_igor_1_1i_node_factory.html#a6e8f645bed8125e39b72910341051e32">Igor::iNodeFactory</a>
+<li>iaSingleton&lt; iNodeManager &gt;
+: <a class="el" href="class_igor_1_1i_node_manager.html#a4586af3b03d265b1ae5d5cdb0a85334e">Igor::iNodeManager</a>
 </li>
 <li>iaSingleton&lt; iPhysics &gt;
 : <a class="el" href="class_igor_1_1i_physics.html#aac3d1ae3167ac2f021e27ac508a1e9b7">Igor::iPhysics</a>
@@ -296,28 +303,11 @@ $(document).ready(function(){initNavTree('functions_rela.html','');});
 : <a class="el" href="class_igor_aux_1_1ia_console.html#ad5e50117d5b40b1f8e7855ef7ee3924a">IgorAux::iaConsole</a>
 </li>
 <li>iNode
-: <a class="el" href="class_igor_1_1i_node_factory.html#ab5623d34fc7b3b6d01aef0d0ae193bb3">Igor::iNodeFactory</a>
+: <a class="el" href="class_igor_1_1i_node_manager.html#ab5623d34fc7b3b6d01aef0d0ae193bb3">Igor::iNodeManager</a>
 , <a class="el" href="class_igor_1_1i_scene.html#ab5623d34fc7b3b6d01aef0d0ae193bb3">Igor::iScene</a>
 </li>
 <li>iNodeCamera
 : <a class="el" href="class_igor_1_1i_scene.html#ad9be2684c6416da021211fc367533559">Igor::iScene</a>
-</li>
-<li>iNodeFactory
-: <a class="el" href="class_igor_1_1i_celestial_node.html#a443fcc5b71f6dbb2a68dae3d957024c3">Igor::iCelestialNode</a>
-, <a class="el" href="class_igor_1_1i_node.html#a443fcc5b71f6dbb2a68dae3d957024c3">Igor::iNode</a>
-, <a class="el" href="class_igor_1_1i_node_camera.html#a443fcc5b71f6dbb2a68dae3d957024c3">Igor::iNodeCamera</a>
-, <a class="el" href="class_igor_1_1i_node_emitter.html#a443fcc5b71f6dbb2a68dae3d957024c3">Igor::iNodeEmitter</a>
-, <a class="el" href="class_igor_1_1i_node_light.html#a443fcc5b71f6dbb2a68dae3d957024c3">Igor::iNodeLight</a>
-, <a class="el" href="class_igor_1_1i_node_l_o_d_switch.html#a443fcc5b71f6dbb2a68dae3d957024c3">Igor::iNodeLODSwitch</a>
-, <a class="el" href="class_igor_1_1i_node_l_o_d_trigger.html#a443fcc5b71f6dbb2a68dae3d957024c3">Igor::iNodeLODTrigger</a>
-, <a class="el" href="class_igor_1_1i_node_model.html#a443fcc5b71f6dbb2a68dae3d957024c3">Igor::iNodeModel</a>
-, <a class="el" href="class_igor_1_1i_node_particle_system.html#a443fcc5b71f6dbb2a68dae3d957024c3">Igor::iNodeParticleSystem</a>
-, <a class="el" href="class_igor_1_1i_node_render.html#a443fcc5b71f6dbb2a68dae3d957024c3">Igor::iNodeRender</a>
-, <a class="el" href="class_igor_1_1i_node_sky_box.html#a443fcc5b71f6dbb2a68dae3d957024c3">Igor::iNodeSkyBox</a>
-, <a class="el" href="class_igor_1_1i_node_switch.html#a443fcc5b71f6dbb2a68dae3d957024c3">Igor::iNodeSwitch</a>
-, <a class="el" href="class_igor_1_1i_node_transform.html#a443fcc5b71f6dbb2a68dae3d957024c3">Igor::iNodeTransform</a>
-, <a class="el" href="class_igor_1_1i_node_water.html#a443fcc5b71f6dbb2a68dae3d957024c3">Igor::iNodeWater</a>
-, <a class="el" href="class_igor_1_1i_sky_light_node.html#a443fcc5b71f6dbb2a68dae3d957024c3">Igor::iSkyLightNode</a>
 </li>
 <li>iNodeLight
 : <a class="el" href="class_igor_1_1i_scene.html#a28883a3544a5965c1c622362d17ad1de">Igor::iScene</a>
@@ -327,6 +317,23 @@ $(document).ready(function(){initNavTree('functions_rela.html','');});
 </li>
 <li>iNodeLODTrigger
 : <a class="el" href="class_igor_1_1i_scene.html#a412dc71b52ca5a946641f1c664428ed5">Igor::iScene</a>
+</li>
+<li>iNodeManager
+: <a class="el" href="class_igor_1_1i_celestial_node.html#a90c36aa3a19c099cd083a002d56f9c47">Igor::iCelestialNode</a>
+, <a class="el" href="class_igor_1_1i_node.html#a90c36aa3a19c099cd083a002d56f9c47">Igor::iNode</a>
+, <a class="el" href="class_igor_1_1i_node_camera.html#a90c36aa3a19c099cd083a002d56f9c47">Igor::iNodeCamera</a>
+, <a class="el" href="class_igor_1_1i_node_emitter.html#a90c36aa3a19c099cd083a002d56f9c47">Igor::iNodeEmitter</a>
+, <a class="el" href="class_igor_1_1i_node_light.html#a90c36aa3a19c099cd083a002d56f9c47">Igor::iNodeLight</a>
+, <a class="el" href="class_igor_1_1i_node_l_o_d_switch.html#a90c36aa3a19c099cd083a002d56f9c47">Igor::iNodeLODSwitch</a>
+, <a class="el" href="class_igor_1_1i_node_l_o_d_trigger.html#a90c36aa3a19c099cd083a002d56f9c47">Igor::iNodeLODTrigger</a>
+, <a class="el" href="class_igor_1_1i_node_model.html#a90c36aa3a19c099cd083a002d56f9c47">Igor::iNodeModel</a>
+, <a class="el" href="class_igor_1_1i_node_particle_system.html#a90c36aa3a19c099cd083a002d56f9c47">Igor::iNodeParticleSystem</a>
+, <a class="el" href="class_igor_1_1i_node_render.html#a90c36aa3a19c099cd083a002d56f9c47">Igor::iNodeRender</a>
+, <a class="el" href="class_igor_1_1i_node_sky_box.html#a90c36aa3a19c099cd083a002d56f9c47">Igor::iNodeSkyBox</a>
+, <a class="el" href="class_igor_1_1i_node_switch.html#a90c36aa3a19c099cd083a002d56f9c47">Igor::iNodeSwitch</a>
+, <a class="el" href="class_igor_1_1i_node_transform.html#a90c36aa3a19c099cd083a002d56f9c47">Igor::iNodeTransform</a>
+, <a class="el" href="class_igor_1_1i_node_water.html#a90c36aa3a19c099cd083a002d56f9c47">Igor::iNodeWater</a>
+, <a class="el" href="class_igor_1_1i_sky_light_node.html#a90c36aa3a19c099cd083a002d56f9c47">Igor::iSkyLightNode</a>
 </li>
 <li>iNodeModel
 : <a class="el" href="class_igor_1_1i_scene.html#abd92436ef1b441ef4be575428bc11605">Igor::iScene</a>
@@ -425,7 +432,7 @@ $(document).ready(function(){initNavTree('functions_rela.html','');});
 <h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
 <li>iScene
 : <a class="el" href="class_igor_1_1i_node.html#af91eaba0940ecfe6529c1497ec97586e">Igor::iNode</a>
-, <a class="el" href="class_igor_1_1i_node_factory.html#af91eaba0940ecfe6529c1497ec97586e">Igor::iNodeFactory</a>
+, <a class="el" href="class_igor_1_1i_node_manager.html#af91eaba0940ecfe6529c1497ec97586e">Igor::iNodeManager</a>
 , <a class="el" href="class_igor_1_1i_node_volume.html#af91eaba0940ecfe6529c1497ec97586e">Igor::iNodeVolume</a>
 </li>
 <li>iSceneFactory
@@ -505,6 +512,12 @@ $(document).ready(function(){initNavTree('functions_rela.html','');});
 <li>iWidgetManager
 : <a class="el" href="class_igor_1_1i_dialog.html#a9da20b1c56a70b01ca0ef56f4d4d47fc">Igor::iDialog</a>
 , <a class="el" href="class_igor_1_1i_widget.html#a9da20b1c56a70b01ca0ef56f4d4d47fc">Igor::iWidget</a>
+</li>
+<li>iWidgetMenu
+: <a class="el" href="class_igor_1_1i_dialog_menu.html#ab710690e7794a85cb004d5969e1ee0e0">Igor::iDialogMenu</a>
+</li>
+<li>iWidgetMenuBar
+: <a class="el" href="class_igor_1_1i_widget_menu.html#ad8064058fd59d57f6e98d1b399423518">Igor::iWidgetMenu</a>
 </li>
 <li>iWidgetNumberChooser
 : <a class="el" href="class_igor_1_1i_widget.html#a55d77ea3a4ec652503d0a227b08987ed">Igor::iWidget</a>

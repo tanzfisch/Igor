@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.23.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.24.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -166,6 +166,10 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 <li>getAcceptOutOfBoundsClicks()
 : <a class="el" href="class_igor_1_1i_widget.html#a6341e2fdd9ff26f5912b7c525221d2d8">Igor::iWidget</a>
 </li>
+<li>getAction()
+: <a class="el" href="class_igor_1_1i_action_manager.html#abe62f8df8559ef82ba87c6e4fdaabf53">Igor::iActionManager</a>
+, <a class="el" href="class_igor_1_1i_user_control_action.html#a6517fa86a1ccd8ca3788f04325c688a4">Igor::iUserControlAction</a>
+</li>
 <li>getActualHeight()
 : <a class="el" href="class_igor_1_1i_widget.html#aaa8d9368b2446e6f56f297ed514ca1b3">Igor::iWidget</a>
 </li>
@@ -206,9 +210,6 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 <li>getAngularDamping()
 : <a class="el" href="class_igor_1_1i_physics_body.html#adedbe6a94938b5ac3e5445630eb4540c">Igor::iPhysicsBody</a>
 </li>
-<li>getAppearanceState()
-: <a class="el" href="class_igor_1_1i_widget.html#a939bb90ce36924e3edd36e1581a32dba">Igor::iWidget</a>
-</li>
 <li>getApplicationDirectory()
 : <a class="el" href="class_igor_aux_1_1ia_directory.html#a6cf94c9a16a01913992b16b24782757b">IgorAux::iaDirectory</a>
 </li>
@@ -220,6 +221,9 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 </li>
 <li>getAxisAngle()
 : <a class="el" href="class_igor_aux_1_1ia_quaternion.html#adbc2fa069d1a79fcac1c64294a3f6576">IgorAux::iaQuaternion&lt; T &gt;</a>
+</li>
+<li>getBackground()
+: <a class="el" href="class_igor_1_1i_widget.html#a6bd19b46f54cede452ce051172b869a3">Igor::iWidget</a>
 </li>
 <li>getBackgroundTexture()
 : <a class="el" href="class_igor_1_1i_widget_slider.html#a2a2710f42699422713ae6afd6472555b">Igor::iWidgetSlider</a>
@@ -294,12 +298,12 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 : <a class="el" href="class_igor_1_1i_texture_font.html#a537b74d53a01b48ebf4c968060d35082">Igor::iTextureFont</a>
 </li>
 <li>getChild()
-: <a class="el" href="class_igor_1_1i_node.html#a3c78aa85a044adc9797618217f133dc9">Igor::iNode</a>
+: <a class="el" href="class_igor_1_1i_node.html#a59adc54e2e0316cc9dd7abcf9b020011">Igor::iNode</a>
 </li>
 <li>getChildren()
 : <a class="el" href="class_igor_1_1i_joint.html#a6dcf50a91563e11f9f948f59e049c17d">Igor::iJoint</a>
 , <a class="el" href="class_igor_1_1i_node.html#a279376dc25fc6671b2d033cb0ded650f">Igor::iNode</a>
-, <a class="el" href="class_igor_1_1i_widget.html#aced504a67cf394df8aff7da0a40dac40">Igor::iWidget</a>
+, <a class="el" href="class_igor_1_1i_widget.html#a47490962210648e09e6ca39145f5efe5">Igor::iWidget</a>
 , <a class="el" href="class_o_m_p_f_1_1ompf_base_chunk.html#ab42e5148692f8c69042d87070ff359e1">OMPF::ompfBaseChunk</a>
 </li>
 <li>getChunkIDSize()
@@ -340,7 +344,8 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 : <a class="el" href="class_igor_1_1i_physics_user_mesh_collision_handler.html#a37512da0d0dd3c50cd0f5ac54372c4d5">Igor::iPhysicsUserMeshCollisionHandler</a>
 </li>
 <li>getColor()
-: <a class="el" href="class_igor_1_1i_user_control_color_chooser.html#afcc82a2f7e4dc4f3da556a21daf59112">Igor::iUserControlColorChooser</a>
+: <a class="el" href="class_igor_1_1i_dialog_color_chooser.html#aac3bd4c6f490e39a3f6e9a19f7a248ad">Igor::iDialogColorChooser</a>
+, <a class="el" href="class_igor_1_1i_user_control_color_chooser.html#afcc82a2f7e4dc4f3da556a21daf59112">Igor::iUserControlColorChooser</a>
 , <a class="el" href="class_igor_1_1i_widget_color.html#a2e7dffd575e7231e67c35c10a20a5302">Igor::iWidgetColor</a>
 </li>
 <li>getColorFormat()
@@ -348,7 +353,8 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 , <a class="el" href="class_igor_1_1i_texture.html#a65d54c3ce8bb7b818edb73dff0c24605">Igor::iTexture</a>
 </li>
 <li>getColorGradient()
-: <a class="el" href="class_igor_1_1i_node_particle_system.html#ac6b06549631b8d72d0c19c22440a7b17">Igor::iNodeParticleSystem</a>
+: <a class="el" href="class_igor_1_1i_dialog_color_gradient.html#a9c9507a5cc189a7d9b3bc651344d4329">Igor::iDialogColorGradient</a>
+, <a class="el" href="class_igor_1_1i_node_particle_system.html#ac6b06549631b8d72d0c19c22440a7b17">Igor::iNodeParticleSystem</a>
 , <a class="el" href="class_igor_1_1i_particle_system3_d.html#add49ea60d3593d3421e709e792897838">Igor::iParticleSystem3D</a>
 , <a class="el" href="class_o_m_p_f_1_1ompf_particle_system_chunk.html#ad7cf88223c3826df157004532681e195">OMPF::ompfParticleSystemChunk</a>
 </li>
@@ -409,8 +415,8 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 : <a class="el" href="class_igor_1_1i_widget_text_edit.html#a46449421ccf43fc6efc923cf4736242c">Igor::iWidgetTextEdit</a>
 </li>
 <li>getCustomData()
-: <a class="el" href="class_igor_1_1i_bone.html#aad5516e5be1fa1a2ea2f1c0050a059d4">Igor::iBone</a>
-, <a class="el" href="class_igor_1_1i_joint.html#a058d10f373ea7caec6eda6c9419247b9">Igor::iJoint</a>
+: <a class="el" href="class_igor_1_1i_bone.html#ade0c591182b46179c10bc25b78a9feda">Igor::iBone</a>
+, <a class="el" href="class_igor_1_1i_joint.html#a10b206f480728a7aee693c50f6220833">Igor::iJoint</a>
 </li>
 <li>getCustomDataSizeSize()
 : <a class="el" href="class_o_m_p_f_1_1ompf_settings.html#a26027931d5984e3c73cdfc20d819ed96">OMPF::ompfSettings</a>
@@ -423,7 +429,7 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 , <a class="el" href="class_igor_aux_1_1ia_mem_block_control.html#a1436586d6543ed43418077d3c2adde2e">IgorAux::iaMemBlockControl</a>
 , <a class="el" href="class_igor_aux_1_1ia_quaternion.html#a0895ecb7f676591ec2b896509bf2aa97">IgorAux::iaQuaternion&lt; T &gt;</a>
 , <a class="el" href="class_igor_aux_1_1ia_string.html#a527c422c83c563c834a12548728e625d">IgorAux::iaString</a>
-, <a class="el" href="class_igor_aux_1_1ia_vector2.html#afe00d6cb20f5354d847d85eb759d637b">IgorAux::iaVector2&lt; T &gt;</a>
+, <a class="el" href="class_igor_aux_1_1ia_vector2.html#a0d6b62fafd73549e0371181920d1c986">IgorAux::iaVector2&lt; T &gt;</a>
 , <a class="el" href="class_igor_aux_1_1ia_vector3.html#a472d397bcfae85248afadb2345716e07">IgorAux::iaVector3&lt; T &gt;</a>
 , <a class="el" href="class_igor_aux_1_1ia_vector4.html#ab61c3c681514a045eb24a09f92adb690">IgorAux::iaVector4&lt; T &gt;</a>
 </li>
@@ -460,7 +466,7 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 : <a class="el" href="class_igor_1_1i_window.html#a0889345833a8f6f39fa3a529bbcb923a">Igor::iWindow</a>
 </li>
 <li>getDialog()
-: <a class="el" href="class_igor_1_1i_widget_manager.html#a7ce9bff725377bb53e85350f29fa86fd">Igor::iWidgetManager</a>
+: <a class="el" href="class_igor_1_1i_widget_manager.html#a2415fb701bf36ec927e56414c96e6e0f">Igor::iWidgetManager</a>
 </li>
 <li>getDiffuse()
 : <a class="el" href="class_igor_1_1i_node_light.html#af692cb96d4e4b616fc77718283c430e4">Igor::iNodeLight</a>
@@ -514,9 +520,6 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 </li>
 <li>getEntity()
 : <a class="el" href="class_igor_1_1i_entity_manager.html#a0293dd16c62aeb296f58e0d3b0a8a19c">Igor::iEntityManager</a>
-</li>
-<li>getEntryHeight()
-: <a class="el" href="class_igor_1_1i_dialog_menu.html#a7212eadb564aabc3e2c6ffc487f6dbc2">Igor::iDialogMenu</a>
 </li>
 <li>getErrors()
 : <a class="el" href="class_igor_aux_1_1ia_console.html#a22cde0e9529cd95f56ca27ec62d5e09a">IgorAux::iaConsole</a>
@@ -572,6 +575,9 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 , <a class="el" href="class_igor_1_1i_particle_system3_d.html#a925abe59f8e2dce1f9cc1910975c15a0">Igor::iParticleSystem3D</a>
 , <a class="el" href="class_o_m_p_f_1_1ompf_particle_system_chunk.html#a4e3e65d210aaf1bd344fbe58ae69046f">OMPF::ompfParticleSystemChunk</a>
 </li>
+<li>getFixedPictureSize()
+: <a class="el" href="class_igor_1_1i_user_control_action.html#a6023b1d68f66c77f21dcc35a7e6fe001">Igor::iUserControlAction</a>
+</li>
 <li>getFont()
 : <a class="el" href="class_igor_1_1i_widget_base_theme.html#aae726600432bda8d1b7f81770494baed">Igor::iWidgetBaseTheme</a>
 , <a class="el" href="class_igor_1_1i_widget_default_theme.html#ab35319ec1a29ed8905b6261d9cd9ff95">Igor::iWidgetDefaultTheme</a>
@@ -582,6 +588,9 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 </li>
 <li>getForce()
 : <a class="el" href="class_igor_1_1i_physics_body.html#ac761eeb65487aedd4a56bcf0765202de">Igor::iPhysicsBody</a>
+</li>
+<li>getForeground()
+: <a class="el" href="class_igor_1_1i_widget.html#a995ef8703b881991021e63da393889cc">Igor::iWidget</a>
 </li>
 <li>getFPS()
 : <a class="el" href="class_igor_1_1i_timer.html#a9242d2375cb9841492ee0fb494faa76c">Igor::iTimer</a>
@@ -610,6 +619,9 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 <li>getGraphCount()
 : <a class="el" href="class_igor_1_1i_widget_graph.html#a7f3c0987d9959f00bc35c6c0c23fece9">Igor::iWidgetGraph</a>
 </li>
+<li>getGraphs()
+: <a class="el" href="class_igor_1_1i_dialog_graph.html#a859cc20d122f0e3f3ada10851c90ded5">Igor::iDialogGraph</a>
+</li>
 <li>getGridXResolution()
 : <a class="el" href="class_igor_1_1i_widget_graph.html#ac319bda8f92f5cb5d21a63f4f62860a3">Igor::iWidgetGraph</a>
 </li>
@@ -635,6 +647,9 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 , <a class="el" href="class_igor_1_1i_voxel_data.html#abd43940ac52f3eb20475b6eeb5e286f1">Igor::iVoxelData</a>
 , <a class="el" href="class_igor_1_1i_window.html#ae09d44c5cb262072451eaa42c7f6cda1">Igor::iWindow</a>
 </li>
+<li>getHighlightMode()
+: <a class="el" href="class_igor_1_1i_widget_grid.html#ab4210b37c799946507809fbe6cfda0a6">Igor::iWidgetGrid</a>
+</li>
 <li>getHorizontalAlignment()
 : <a class="el" href="class_igor_1_1i_widget.html#a55cd1761d8ed8e87f88f84b1dc8a6295">Igor::iWidget</a>
 </li>
@@ -643,7 +658,8 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 , <a class="el" href="class_igor_1_1i_widget_text_edit.html#a922d15aaf849b5d6c8818fae38a98016">Igor::iWidgetTextEdit</a>
 </li>
 <li>getID()
-: <a class="el" href="class_igor_1_1i_entity.html#a72f9ae9eabd7e2b4f8d7a10bca8f1168">Igor::iEntity</a>
+: <a class="el" href="class_igor_1_1i_action.html#a9062dcf84e6d22bb2438f1909769710c">Igor::iAction</a>
+, <a class="el" href="class_igor_1_1i_entity.html#a72f9ae9eabd7e2b4f8d7a10bca8f1168">Igor::iEntity</a>
 , <a class="el" href="class_igor_1_1i_material.html#a96a6a781d02097245f4a04a7e1f2be8d">Igor::iMaterial</a>
 , <a class="el" href="class_igor_1_1i_node.html#a865efb791b77d29bb489514326037380">Igor::iNode</a>
 , <a class="el" href="class_igor_1_1i_physics_body.html#a73ad740d3d2e8f39ea4c3cf4d58bd65c">Igor::iPhysicsBody</a>
@@ -660,6 +676,9 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 </li>
 <li>getIdentifier()
 : <a class="el" href="class_igor_1_1i_model_data_i_o.html#a9c30892be34780771869f0df4c1fc042">Igor::iModelDataIO</a>
+</li>
+<li>getIDName()
+: <a class="el" href="class_igor_1_1i_action.html#a641d4fb352a7b0edb52ebbf58afe1dd7">Igor::iAction</a>
 </li>
 <li>getInactiveChildren()
 : <a class="el" href="class_igor_1_1i_node.html#afc87c55d256efbc2d420148f2c25000c">Igor::iNode</a>
@@ -731,7 +750,7 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 : <a class="el" href="class_igor_1_1i_keyboard.html#a9efc4e92e23f37600859c16cd62cd1f8">Igor::iKeyboard</a>
 </li>
 <li>getKeyboardFocusWidget()
-: <a class="el" href="class_igor_1_1i_widget.html#a3d35531fc945ef44b45623c1ccecf404">Igor::iWidget</a>
+: <a class="el" href="class_igor_1_1i_widget.html#aa05f7b9667feaf0c36002a78c9cee28a">Igor::iWidget</a>
 </li>
 <li>getKeyCode()
 : <a class="el" href="class_igor_1_1i_key_code_map.html#a8fe9e9df19d07a5cc022f77ad60effe4">Igor::iKeyCodeMap</a>
@@ -874,7 +893,7 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 : <a class="el" href="class_igor_1_1i_widget.html#a2f760b4508a00c6ae4a127665d714091">Igor::iWidget</a>
 </li>
 <li>getModal()
-: <a class="el" href="class_igor_1_1i_widget_manager.html#a2fa72d5f19dc90bc754b18f298e532e7">Igor::iWidgetManager</a>
+: <a class="el" href="class_igor_1_1i_widget_manager.html#a5c755b592e1f1872b114aa4e658d8481">Igor::iWidgetManager</a>
 </li>
 <li>getMode()
 : <a class="el" href="class_igor_1_1i_user_control_color_chooser.html#aba71518a2d9c1389cc1f0bb340e6b6ae">Igor::iUserControlColorChooser</a>
@@ -884,6 +903,12 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 </li>
 <li>getModelName()
 : <a class="el" href="class_igor_1_1i_node_model.html#a2cc0bff3d271cd2a7a42951d0086730d">Igor::iNodeModel</a>
+</li>
+<li>getMouseOverCollumn()
+: <a class="el" href="class_igor_1_1i_widget_grid.html#a5065ba0367b7564824b3ca052ff28fa2">Igor::iWidgetGrid</a>
+</li>
+<li>getMouseOverRow()
+: <a class="el" href="class_igor_1_1i_widget_grid.html#af5b12225df07ea3b29969a6820603491">Igor::iWidgetGrid</a>
 </li>
 <li>getName()
 : <a class="el" href="class_igor_1_1i_material.html#a664fffdd206a477773e326c0e3d34acc">Igor::iMaterial</a>
@@ -911,13 +936,13 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 </li>
 <li>getNode()
 : <a class="el" href="class_igor_1_1i_model.html#ae0afc658b09e3378674b4b39734322ab">Igor::iModel</a>
-, <a class="el" href="class_igor_1_1i_node_factory.html#ab8074664cc7a6692dda729d1e3e4cfa3">Igor::iNodeFactory</a>
+, <a class="el" href="class_igor_1_1i_node_manager.html#a871b686cc3d7f5f1c4507de088a7e72e">Igor::iNodeManager</a>
 </li>
 <li>getNodeCopy()
 : <a class="el" href="class_igor_1_1i_model.html#a0d4acb619fb8b8ecf2b89aeaa76b8af4">Igor::iModel</a>
 </li>
 <li>getNodes()
-: <a class="el" href="class_igor_1_1i_node_factory.html#a9fa52328abba2cc46301932337f95051">Igor::iNodeFactory</a>
+: <a class="el" href="class_igor_1_1i_node_manager.html#ac12cc3b424fa2c417d73e92a42d864d5">Igor::iNodeManager</a>
 </li>
 <li>getNormals()
 : <a class="el" href="class_igor_1_1i_mesh_builder.html#a2c487511e7105760facabd055a92f2e4">Igor::iMeshBuilder</a>
@@ -984,8 +1009,11 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 <li>getPhysicsMaterialID()
 : <a class="el" href="class_igor_1_1i_voxel_terrain.html#a20832a55abdeffad3f455c2f33175be2">Igor::iVoxelTerrain</a>
 </li>
+<li>getPicturePath()
+: <a class="el" href="class_igor_1_1i_action.html#ae98e7516960ea9fe351d5dfdd19c13e8">Igor::iAction</a>
+</li>
 <li>getPixel()
-: <a class="el" href="class_igor_1_1i_pixmap.html#a0f165dff47d20381ed56434b8e81c308">Igor::iPixmap</a>
+: <a class="el" href="class_igor_1_1i_pixmap.html#a389a235fb958883edf5785da0477e36c">Igor::iPixmap</a>
 </li>
 <li>getPixelBiLinear()
 : <a class="el" href="class_igor_1_1i_pixmap.html#a386ea85cefa8a212c6ff5f886a141741">Igor::iPixmap</a>
@@ -1025,6 +1053,9 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 </li>
 <li>getProjectionMatrix()
 : <a class="el" href="class_igor_1_1i_renderer.html#a86dd67b958db528a732d2f32ca0f300c">Igor::iRenderer</a>
+</li>
+<li>getPurpose()
+: <a class="el" href="class_igor_1_1i_dialog_file_select.html#a4bd51a540034c476024fbe5c47f979d2">Igor::iDialogFileSelect</a>
 </li>
 <li>getQueuedRegularTaskCount()
 : <a class="el" href="class_igor_1_1i_task_manager.html#a1209fa89e61399bb29ed6516a3393e0f">Igor::iTaskManager</a>
@@ -1066,27 +1097,35 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 <li>getRenderNodes()
 : <a class="el" href="class_igor_1_1i_material_group.html#aabbe62610d346db24c6ac932b5c3dea8">Igor::iMaterialGroup</a>
 </li>
+<li>getRenderState()
+: <a class="el" href="class_igor_1_1i_material.html#a2cd3314e902dee753279de062b977f53">Igor::iMaterial</a>
+, <a class="el" href="class_igor_1_1i_render_state_set.html#a8fcb8e7653d43645169e50f42a151f5b">Igor::iRenderStateSet</a>
+, <a class="el" href="class_o_m_p_f_1_1ompf_material_chunk.html#a2dc8c1c49df84e575f414063de4191c1">OMPF::ompfMaterialChunk</a>
+</li>
 <li>getRenderStateSet()
 : <a class="el" href="class_igor_1_1i_material.html#a1935903a5dcef8737d2dd7163ddd578f">Igor::iMaterial</a>
 </li>
-<li>getRenderStateValue()
-: <a class="el" href="class_igor_1_1i_render_state_set.html#aa4d9063c8ae28d506bd7059715cc946e">Igor::iRenderStateSet</a>
-, <a class="el" href="class_o_m_p_f_1_1ompf_material_chunk.html#a7b22f40f20ab9d01462bc4488f60e8c0">OMPF::ompfMaterialChunk</a>
-</li>
 <li>getRenderTarget()
 : <a class="el" href="class_igor_1_1i_renderer.html#a36f6dc207f06b505651b7f2823c2de8a">Igor::iRenderer</a>
+</li>
+<li>getResetColor()
+: <a class="el" href="class_igor_1_1i_dialog_color_chooser.html#a5b5c8ccffc9cbac695ce6ba52b199c02">Igor::iDialogColorChooser</a>
+</li>
+<li>getResetColorGradient()
+: <a class="el" href="class_igor_1_1i_dialog_color_gradient.html#a17bdd5a0c9cef12a6b006bc817faf86f">Igor::iDialogColorGradient</a>
 </li>
 <li>getResult()
 : <a class="el" href="class_igor_1_1i_octree.html#a6ea690c0a3fafcd2c44c74c71456e02f">Igor::iOctree</a>
 </li>
 <li>getReturnState()
-: <a class="el" href="class_igor_1_1i_dialog_file_select.html#a44e6acae3733f31766696fb940d0e2c5">Igor::iDialogFileSelect</a>
+: <a class="el" href="class_igor_1_1i_dialog.html#a1676b1705c684456ae7e47f9919049d5">Igor::iDialog</a>
 </li>
 <li>getRightButton()
 : <a class="el" href="class_igor_1_1i_mouse.html#af4553b6a3d3720aad24ef76ba8e223fd">Igor::iMouse</a>
 </li>
 <li>getRoot()
 : <a class="el" href="class_igor_1_1i_scene.html#ab45a6b64fa3cd065f8434c96432b6f9b">Igor::iScene</a>
+, <a class="el" href="class_igor_1_1i_widget.html#a0afadaa2a2f7687e437fd8be3f344ae3">Igor::iWidget</a>
 , <a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#acf5f08deb3a9326ef6cdef6a04b51155">OMPF::OMPF</a>
 </li>
 <li>getRootJoint()
@@ -1102,7 +1141,7 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 : <a class="el" href="class_igor_1_1i_task_manager.html#a2ea15d00f4eae31fc6ae2e3ca85f4d76">Igor::iTaskManager</a>
 </li>
 <li>getScene()
-: <a class="el" href="class_igor_1_1i_node.html#acd9afcdfae20de27c0ca44bb5cb89e79">Igor::iNode</a>
+: <a class="el" href="class_igor_1_1i_node.html#a5b462b70883a4eee085f7622ac3a1c6c">Igor::iNode</a>
 , <a class="el" href="class_igor_1_1i_render_engine.html#a7480589aa3084873e499825ee4b1f2da">Igor::iRenderEngine</a>
 , <a class="el" href="class_igor_1_1i_view.html#af0091786784fd5e6da963f5ff5702860">Igor::iView</a>
 </li>
@@ -1132,14 +1171,20 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 : <a class="el" href="class_igor_1_1i_widget_grid.html#a144684c6f0e15f222b7e77a137421d45">Igor::iWidgetGrid</a>
 </li>
 <li>getSelectedUserData()
-: <a class="el" href="class_igor_1_1i_widget_grid.html#aa5a8d61e8ade40e3265fd4da632aac63">Igor::iWidgetGrid</a>
+: <a class="el" href="class_igor_1_1i_widget_grid.html#a300acb17f49155e111a904b0fdd963c8">Igor::iWidgetGrid</a>
 , <a class="el" href="class_igor_1_1i_widget_select_box.html#a40d0d2bb45bde58bae821e2f479c9f34">Igor::iWidgetSelectBox</a>
 </li>
 <li>getSelectedValue()
 : <a class="el" href="class_igor_1_1i_widget_select_box.html#ad198c18872218dad146fd89bca5aeb03">Igor::iWidgetSelectBox</a>
 </li>
+<li>getSelection()
+: <a class="el" href="class_igor_1_1i_dialog_decision_box.html#a103728c1c74dda5131b4509756c4bae4">Igor::iDialogDecisionBox</a>
+</li>
 <li>getSelectionEntryCount()
 : <a class="el" href="class_igor_1_1i_widget_select_box.html#a442fb19df0f47c1216350b3d6cdefdf7">Igor::iWidgetSelectBox</a>
+</li>
+<li>getSelectionIndex()
+: <a class="el" href="class_igor_1_1i_dialog_index_menu.html#ad06559f382de91c093fcda11591f83ca">Igor::iDialogIndexMenu</a>
 </li>
 <li>getSelectMode()
 : <a class="el" href="class_igor_1_1i_widget_grid.html#a13f21ea4d67b6fc89615690b8d615ce6">Igor::iWidgetGrid</a>
@@ -1173,7 +1218,7 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 , <a class="el" href="class_igor_aux_1_1ia_mem_block_control.html#a5911174674c71ae6c5c43d130020af26">IgorAux::iaMemBlockControl</a>
 , <a class="el" href="class_igor_aux_1_1ia_string.html#a6d9c01e546c1e33c9924bc2695d5fc17">IgorAux::iaString</a>
 , <a class="el" href="class_o_m_p_f_1_1ompf_base_chunk.html#aa10a43d86b3c7f1efeb2ecb0ca0bf401">OMPF::ompfBaseChunk</a>
-, <a class="el" href="class_o_m_p_f_1_1ompf_emitter_chunk.html#a0564cef0f3b746c15e3d9b701c9bd18e">OMPF::ompfEmitterChunk</a>
+, <a class="el" href="class_o_m_p_f_1_1ompf_emitter_chunk.html#a6f2918c68cdddc086c6f033eac3be80e">OMPF::ompfEmitterChunk</a>
 , <a class="el" href="class_o_m_p_f_1_1ompf_external_reference_chunk.html#a2c053e2524ee60e83375476e794f9841">OMPF::ompfExternalReferenceChunk</a>
 , <a class="el" href="class_o_m_p_f_1_1ompf_group_chunk.html#a96c2548c838c158106ad603a7df214e0">OMPF::ompfGroupChunk</a>
 , <a class="el" href="class_o_m_p_f_1_1ompf_header_chunk.html#a53154e081557780d08d9b3a303ada97a">OMPF::ompfHeaderChunk</a>
@@ -1236,6 +1281,7 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 <li>getState()
 : <a class="el" href="class_igor_1_1i_model.html#aaa479777ad2a79aa82cf42afb21543eb">Igor::iModel</a>
 , <a class="el" href="class_igor_1_1i_thread.html#a6bdadbfb029da8f0492800e5fd0f017f">Igor::iThread</a>
+, <a class="el" href="class_igor_1_1i_widget.html#a5c9a2321547d517a164b8357a5db0afa">Igor::iWidget</a>
 </li>
 <li>getStrechColumn()
 : <a class="el" href="class_igor_1_1i_widget_grid.html#aaa93dfeba38b63517056a1272853b107">Igor::iWidgetGrid</a>
@@ -1271,7 +1317,8 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 : <a class="el" href="class_o_m_p_f_1_1ompf_mesh_chunk.html#ac26772155a5776a4365ff66a2d031b7b">OMPF::ompfMeshChunk</a>
 </li>
 <li>getText()
-: <a class="el" href="class_igor_1_1i_user_control_color_chooser.html#aa15c8323433fa3822dcfed8494ea5859">Igor::iUserControlColorChooser</a>
+: <a class="el" href="class_igor_1_1i_action.html#ad45f21ae1a31307fcf65690cc7e90b42">Igor::iAction</a>
+, <a class="el" href="class_igor_1_1i_user_control_color_chooser.html#aa15c8323433fa3822dcfed8494ea5859">Igor::iUserControlColorChooser</a>
 , <a class="el" href="class_igor_1_1i_widget_button.html#af6a7a75290dfbe717ccab2ae3c9b7f45">Igor::iWidgetButton</a>
 , <a class="el" href="class_igor_1_1i_widget_check_box.html#adc3bd65e6c01b9fe8e775ec308f3ac00">Igor::iWidgetCheckBox</a>
 , <a class="el" href="class_igor_1_1i_widget_group_box.html#af81cc61e588b385dcd9e7ab132ca0e62">Igor::iWidgetGroupBox</a>
@@ -1324,6 +1371,7 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 </li>
 <li>getTitle()
 : <a class="el" href="class_igor_1_1i_dialog_graph.html#a7eba63520a769a5f0760f7dcac071ba2">Igor::iDialogGraph</a>
+, <a class="el" href="class_igor_1_1i_widget_menu.html#a03b31b5c4bbd1ab06114dc5601ca6544">Igor::iWidgetMenu</a>
 , <a class="el" href="class_igor_1_1i_window.html#ae1fc820fce995e1aa434be7ede404f00">Igor::iWindow</a>
 </li>
 <li>getTooltip()
@@ -1367,8 +1415,8 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 : <a class="el" href="class_igor_1_1i_node.html#a03c53224805c56e7cf45b1be6e63acad">Igor::iNode</a>
 </li>
 <li>getUserData()
-: <a class="el" href="class_igor_1_1i_physics_body.html#a7cadd2a3bbc054809a6068934236ee07">Igor::iPhysicsBody</a>
-, <a class="el" href="class_igor_1_1i_widget_grid.html#a5e206896cff7203ee8d8bf4f1275661e">Igor::iWidgetGrid</a>
+: <a class="el" href="class_igor_1_1i_physics_body.html#ae371ce7f9e7e4a359ec814e2b5718f71">Igor::iPhysicsBody</a>
+, <a class="el" href="class_igor_1_1i_widget_grid.html#ab21e438962d8bef82a6bac984b733b7a">Igor::iWidgetGrid</a>
 </li>
 <li>getUTF8()
 : <a class="el" href="class_igor_aux_1_1ia_string.html#a9e29c1ced7cd48ef1a5dcaf53e2684d0">IgorAux::iaString</a>
@@ -1377,7 +1425,7 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 : <a class="el" href="class_igor_aux_1_1ia_string.html#a7793c7a60aff4ef3e35bd60c7d6ee703">IgorAux::iaString</a>
 </li>
 <li>getValue()
-: <a class="el" href="class_igor_1_1i_perlin_noise.html#a4b29f06e9698d8e5a5210bf21a86a2fd">Igor::iPerlinNoise</a>
+: <a class="el" href="class_igor_1_1i_perlin_noise.html#af06576cdfc4327d50082eefac2f71bb3">Igor::iPerlinNoise</a>
 , <a class="el" href="class_igor_1_1i_widget_number_chooser.html#a51236dfd880ef08c0def5c17bdf28f3c">Igor::iWidgetNumberChooser</a>
 , <a class="el" href="class_igor_1_1i_widget_slider.html#acfb10ec998faf7d2afd16c7f32a5a784">Igor::iWidgetSlider</a>
 , <a class="el" href="class_igor_aux_1_1ia_gradient.html#a3442746cb0eb369b524b3a6e1a42942c">IgorAux::iaGradient&lt; T &gt;</a>
@@ -1513,7 +1561,14 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 : <a class="el" href="class_igor_1_1i_mouse.html#a38f19ffe9d35186d58052d9a16d3736a">Igor::iMouse</a>
 </li>
 <li>getWidget()
-: <a class="el" href="class_igor_1_1i_widget_manager.html#a971ee147805da10f2005e4f1106aa7bb">Igor::iWidgetManager</a>
+: <a class="el" href="class_igor_1_1i_widget_manager.html#a4a35cd00a934f77f733f4ce6e668e334">Igor::iWidgetManager</a>
+</li>
+<li>getWidgetType()
+: <a class="el" href="class_igor_1_1i_dialog.html#a8448b52019e45bf473a042c4a2c52edc">Igor::iDialog</a>
+, <a class="el" href="class_igor_1_1i_widget.html#aeda799fe50ed7f922e3a598843fb9112">Igor::iWidget</a>
+, <a class="el" href="class_igor_1_1i_widget_grid.html#a67cf299b9422f27eda8b85fa6b705b3a">Igor::iWidgetGrid</a>
+, <a class="el" href="class_igor_1_1i_widget_menu.html#ac7a4ac24c20e82e7f62945367b47816c">Igor::iWidgetMenu</a>
+, <a class="el" href="class_igor_1_1i_widget_menu_bar.html#a510d52de46bdca16304a8dd748b4b2b0">Igor::iWidgetMenuBar</a>
 </li>
 <li>getWidth()
 : <a class="el" href="class_igor_1_1i_pixmap.html#afb4dc5ac0e5dc0e81a58b6e887157aa6">Igor::iPixmap</a>
@@ -1566,8 +1621,11 @@ $(document).ready(function(){initNavTree('functions_g.html','');});
 <li>getZIndex()
 : <a class="el" href="class_igor_1_1i_view.html#ab679610e7acec8ef689d45adbc345408">Igor::iView</a>
 </li>
+<li>getZValue()
+: <a class="el" href="class_igor_1_1i_widget.html#af241faab1ddb23a6d8d382ddb7cc78e3">Igor::iWidget</a>
+</li>
 <li>grammSchmidt()
-: <a class="el" href="class_igor_aux_1_1ia_matrix.html#a701f912e2415def3ed203fb07b4f9f3d">IgorAux::iaMatrix&lt; T &gt;</a>
+: <a class="el" href="class_igor_aux_1_1ia_matrix.html#ab55fa8b34219d1bb1294ca46abc3526d">IgorAux::iaMatrix&lt; T &gt;</a>
 </li>
 </ul>
 </div><!-- contents -->

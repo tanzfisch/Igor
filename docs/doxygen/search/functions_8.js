@@ -24,6 +24,7 @@ var searchData=
   ['hasrotation',['hasRotation',['../class_igor_aux_1_1ia_transform.html#a2e4cf1decb5db570d21095858e2e516e',1,'IgorAux::iaTransform']]],
   ['hasscale',['hasScale',['../class_igor_aux_1_1ia_transform.html#aab06ab423f38c75ecaa647f798a7dfcd',1,'IgorAux::iaTransform']]],
   ['hasshear',['hasShear',['../class_igor_aux_1_1ia_transform.html#a38f69772056ede803dea6cbc58e0ebde',1,'IgorAux::iaTransform']]],
+  ['hastexture',['hasTexture',['../class_igor_1_1i_widget_picture.html#a03b1cad0e1fe54547ac8e32a041edd45',1,'Igor::iWidgetPicture']]],
   ['hastextures',['hasTextures',['../class_igor_1_1i_mesh.html#aed0d0a8fd0d9c792e182a115fac266c8',1,'Igor::iMesh::hasTextures()'],['../class_igor_1_1i_target_material.html#ac3d764ecb35feb15d4c95848ad6e97b1',1,'Igor::iTargetMaterial::hasTextures()']]],
   ['hastextureunit',['hasTextureUnit',['../class_igor_1_1i_mesh.html#a77b06550a57daaa60b046f378808eea0',1,'Igor::iMesh::hasTextureUnit()'],['../class_igor_1_1i_target_material.html#a167b6aed52aad5beddcb4eea40627c9f',1,'Igor::iTargetMaterial::hasTextureUnit()']]],
   ['hastranslation',['hasTranslation',['../class_igor_aux_1_1ia_transform.html#ac116347ef94ddcd36f40bc93024952bf',1,'IgorAux::iaTransform']]],

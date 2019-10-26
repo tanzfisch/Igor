@@ -1,6 +1,6 @@
 var class_igor_1_1i_widget_button =
 [
-    [ "iWidgetButton", "class_igor_1_1i_widget_button.html#aa7e9e7372cf67df64b5bff75db047085", null ],
+    [ "iWidgetButton", "class_igor_1_1i_widget_button.html#adc2e1029df2036f643dd5d31c9f8feec", null ],
     [ "~iWidgetButton", "class_igor_1_1i_widget_button.html#a589cf5f95e695c23b276f75f01142ede", null ],
     [ "calcMinSize", "class_igor_1_1i_widget_button.html#aae6de7467b8d09b0a870e96c2769a4e0", null ],
     [ "draw", "class_igor_1_1i_widget_button.html#a1d2d4a0b527d90fae1ebe80aa24f21d6", null ],

@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.23.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.24.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -131,24 +131,24 @@ _view.setScene(_scene);
 // we want a camera which can be rotated arround the origin
 // we will acchive that with 3 transform nodes
 // one is for the heading
-iNodeTransform* cameraHeading = static_cast&lt;iNodeTransform*&gt;(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+iNodeTransform* cameraHeading = static_cast&lt;iNodeTransform*&gt;(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
 // give the transform node a name. naming is optional and ist jus for helping to debug. 
 // Names do not have to be unique but since it is possible to find nodes by name they better are
 cameraHeading-&gt;setName("camera heading");
 _cameraHeading = cameraHeading-&gt;getID();
 // one is for the pitch
-iNodeTransform* cameraPitch = static_cast&lt;iNodeTransform*&gt;(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+iNodeTransform* cameraPitch = static_cast&lt;iNodeTransform*&gt;(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
 cameraPitch-&gt;setName("camera pitch");
 _cameraPitch = cameraPitch-&gt;getID();
 // and one is for translation or distance from the origin
-iNodeTransform* cameraTranslation = static_cast&lt;iNodeTransform*&gt;(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+iNodeTransform* cameraTranslation = static_cast&lt;iNodeTransform*&gt;(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
 cameraTranslation-&gt;setName("camera translation");
 // translate away from origin
 cameraTranslation-&gt;translate(0, 0, 10);
 _cameraTranslation = cameraTranslation-&gt;getID();
 // from all nodes that we want to control later we save the node ID
 // and last but not least we create a camera node
-iNodeCamera* camera = static_cast&lt;iNodeCamera*&gt;(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
+iNodeCamera* camera = static_cast&lt;iNodeCamera*&gt;(iNodeManager::getInstance().createNode(iNodeType::iNodeCamera));
 camera-&gt;setName("camera");
 // and build everything together
 // first we add the heading to the root node
@@ -163,18 +163,18 @@ cameraTranslation-&gt;insertNode(camera);
 // wich we achived by adding all those nodes on to an other starting with the root node
 camera-&gt;makeCurrent();
 </pre><p>Only one camera per scene can be active at a time. If an other camera was active already it will be deactivated. Next we have a look at how to add a model node. </p><pre class="fragment">// create a single cat model
-iNodeTransform* justCatTransform = static_cast&lt;iNodeTransform*&gt;(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+iNodeTransform* justCatTransform = static_cast&lt;iNodeTransform*&gt;(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
 justCatTransform-&gt;setName("just a cat transform");
 justCatTransform-&gt;translate(0, 1, 0);
 // create a cat model
-iNodeModel* justCatModel = static_cast&lt;iNodeModel*&gt;(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+iNodeModel* justCatModel = static_cast&lt;iNodeModel*&gt;(iNodeManager::getInstance().createNode(iNodeType::iNodeModel));
 // Node model names can be altered but they also are generated based on the file name
 justCatModel-&gt;setModel("cat.ompf");
 // building the created nodes together and insert them in the scene
 _scene-&gt;getRoot()-&gt;insertNode(justCatTransform);
 justCatTransform-&gt;insertNode(justCatModel);
 </pre><p>The *.ompf model will be located by <a class="el" href="namespace_igor.html">Igor</a> within the predefined search paths. Now we are going to take a look at the switch node. It is a node that can set on of it's children active while all the others are inactive. One scenario for this could be a model of a vehicle and a model of a vehicle that is broken or burned out. And when ever the vehicle is broken you can just flip the switch. In the example we add 3 nodes to the switch node. </p><pre class="fragment">// creating the switch node
-iNodeSwitch* switchNode = static_cast&lt;iNodeSwitch*&gt;(iNodeFactory::getInstance().createNode(iNodeType::iNodeSwitch));
+iNodeSwitch* switchNode = static_cast&lt;iNodeSwitch*&gt;(iNodeManager::getInstance().createNode(iNodeType::iNodeSwitch));
 _switchNode = switchNode-&gt;getID();
 // add the switch node to the all objects pitch / group
 allObjectsPitch-&gt;insertNode(switchNode);
@@ -185,7 +185,7 @@ switchNode-&gt;insertNode(catTransform);
 // set the current activated child
 switchNode-&gt;setActiveChild("crate transform");
 </pre><p>Similar to the switch node. Is the LOD switch node. Again it has multiple children and again it controls where a child is active or not. But this time it depends on the distance to an LOD trigger node which we attach in this case to the camera. </p><pre class="fragment">// creating the LOD switch node
-iNodeLODSwitch* lodswitch = static_cast&lt;iNodeLODSwitch*&gt;(iNodeFactory::getInstance().createNode(iNodeType::iNodeLODSwitch));
+iNodeLODSwitch* lodswitch = static_cast&lt;iNodeLODSwitch*&gt;(iNodeManager::getInstance().createNode(iNodeType::iNodeLODSwitch));
 // add it to the scene
 allObjectsPitch-&gt;insertNode(lodswitch);
 // and add the nodes to it
@@ -198,13 +198,13 @@ lodswitch-&gt;setThresholds(lod1Transform, 5.0f, 11.0f);
 lodswitch-&gt;setThresholds(lod2Transform, 11.0f, 22.0f);
 // in order to causing the LOD switch to change the active child node it needs to be triggered by a LOD trigger node
 // creating the lod trigger node
-iNodeLODTrigger* lodtrigger = static_cast&lt;iNodeLODTrigger*&gt;(iNodeFactory::getInstance().createNode(iNodeType::iNodeLODTrigger));
+iNodeLODTrigger* lodtrigger = static_cast&lt;iNodeLODTrigger*&gt;(iNodeManager::getInstance().createNode(iNodeType::iNodeLODTrigger));
 // bind the lod switch node with the lod trigger node
 lodswitch-&gt;addTrigger(lodtrigger);
 // and add the lod trigger to the scene by attaching it to the camera. there can be multiple LOD triggers and any lod switch can react on any lod trigger
 camera-&gt;insertNode(lodtrigger);
 </pre><p>Let's add also a sky box as background for better orientation. </p><pre class="fragment">// create a skybox
-iNodeSkyBox* skyBoxNode = static_cast&lt;iNodeSkyBox*&gt;(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
+iNodeSkyBox* skyBoxNode = static_cast&lt;iNodeSkyBox*&gt;(iNodeManager::getInstance().createNode(iNodeType::iNodeSkyBox));
 // set it up with the default skybox texture
 skyBoxNode-&gt;setTextures(
     "skybox_default/front.png",
@@ -217,8 +217,8 @@ skyBoxNode-&gt;setTextures(
 skyBoxNode-&gt;setTextureScale(10);
 // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
 _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
-iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)-&gt;getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)-&gt;getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)-&gt;setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)-&gt;setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
 iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)-&gt;setOrder(iMaterial::RENDER_ORDER_EARLY);
 iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)-&gt;getMaterial()-&gt;setName("SkyBox");
 // set that material
@@ -227,14 +227,14 @@ skyBoxNode-&gt;setMaterial(_materialSkyBox);
 _scene-&gt;getRoot()-&gt;insertNode(skyBoxNode);
 </pre><p>And also switch the light on. </p><pre class="fragment">// setup light
 // transform node for the lights orientation
-iNodeTransform* directionalLightRotate = static_cast&lt;iNodeTransform*&gt;(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+iNodeTransform* directionalLightRotate = static_cast&lt;iNodeTransform*&gt;(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
 // keep transform node id so we can manipulate the light's position later
 _directionalLightRotate = directionalLightRotate-&gt;getID();
 // transform node for the lights distance to the origin
-iNodeTransform* directionalLightTranslate = static_cast&lt;iNodeTransform*&gt;(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+iNodeTransform* directionalLightTranslate = static_cast&lt;iNodeTransform*&gt;(iNodeManager::getInstance().createNode(iNodeType::iNodeTransform));
 directionalLightTranslate-&gt;translate(100, 100, 100);
 // the light node
-iNodeLight* lightNode = static_cast&lt;iNodeLight*&gt;(iNodeFactory::getInstance().createNode(iNodeType::iNodeLight));
+iNodeLight* lightNode = static_cast&lt;iNodeLight*&gt;(iNodeManager::getInstance().createNode(iNodeType::iNodeLight));
 lightNode-&gt;setAmbient(iaColor4f(0.3f, 0.3f, 0.3f, 1.0f));
 lightNode-&gt;setDiffuse(iaColor4f(0.8f, 0.8f, 0.8f, 1.0f));
 lightNode-&gt;setSpecular(iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));

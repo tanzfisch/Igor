@@ -12,5 +12,5 @@ var class_igor_1_1i_node_sky_box =
     [ "setTextureScale", "class_igor_1_1i_node_sky_box.html#a1c48b582d75c0cb63ff09e7545c95948", null ],
     [ "setUseOffsetMatrix", "class_igor_1_1i_node_sky_box.html#a2762b92538cef320a3038274cdea1c03", null ],
     [ "wasReached", "class_igor_1_1i_node_sky_box.html#a39fc231ab2c7f4330799e0ad6e6ed3fe", null ],
-    [ "iNodeFactory", "class_igor_1_1i_node_sky_box.html#a443fcc5b71f6dbb2a68dae3d957024c3", null ]
+    [ "iNodeManager", "class_igor_1_1i_node_sky_box.html#a90c36aa3a19c099cd083a002d56f9c47", null ]
 ];

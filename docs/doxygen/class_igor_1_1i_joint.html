@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.23.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.24.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -132,10 +132,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a74344391af904dde611660695c855fc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6dcf50a91563e11f9f948f59e049c17d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_igor_1_1i_bone.html">iBone</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_joint.html#a6dcf50a91563e11f9f948f59e049c17d">getChildren</a> () const </td></tr>
 <tr class="separator:a6dcf50a91563e11f9f948f59e049c17d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2fbbe783f7c8c2ee3c3617b3017ced6e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_joint.html#a2fbbe783f7c8c2ee3c3617b3017ced6e">setCustomData</a> (void *data)</td></tr>
-<tr class="separator:a2fbbe783f7c8c2ee3c3617b3017ced6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a058d10f373ea7caec6eda6c9419247b9"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_joint.html#a058d10f373ea7caec6eda6c9419247b9">getCustomData</a> () const </td></tr>
-<tr class="separator:a058d10f373ea7caec6eda6c9419247b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a264663a33a53a3b03f0345102e8e9ea7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_joint.html#a264663a33a53a3b03f0345102e8e9ea7">setCustomData</a> (const std::any &amp;data)</td></tr>
+<tr class="separator:a264663a33a53a3b03f0345102e8e9ea7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10b206f480728a7aee693c50f6220833"><td class="memItemLeft" align="right" valign="top">std::any&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_joint.html#a10b206f480728a7aee693c50f6220833">getCustomData</a> () const </td></tr>
+<tr class="separator:a10b206f480728a7aee693c50f6220833"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -194,12 +194,12 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a058d10f373ea7caec6eda6c9419247b9"></a>
+<a class="anchor" id="a10b206f480728a7aee693c50f6220833"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void * Igor::iJoint::getCustomData </td>
+          <td class="memname">std::any Igor::iJoint::getCustomData </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -250,14 +250,14 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a2fbbe783f7c8c2ee3c3617b3017ced6e"></a>
+<a class="anchor" id="a264663a33a53a3b03f0345102e8e9ea7"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void Igor::iJoint::setCustomData </td>
           <td>(</td>
-          <td class="paramtype">void *&#160;</td>
+          <td class="paramtype">const std::any &amp;&#160;</td>
           <td class="paramname"><em>data</em></td><td>)</td>
           <td></td>
         </tr>

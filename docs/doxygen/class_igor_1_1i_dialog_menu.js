@@ -1,9 +1,10 @@
 var class_igor_1_1i_dialog_menu =
 [
-    [ "iDialogMenu", "class_igor_1_1i_dialog_menu.html#accd4961e5531328cf31e731b56d2f1c3", null ],
-    [ "~iDialogMenu", "class_igor_1_1i_dialog_menu.html#a9bd024633c9eefc5585fb7fb5cdda86c", null ],
-    [ "getEntryHeight", "class_igor_1_1i_dialog_menu.html#a7212eadb564aabc3e2c6ffc487f6dbc2", null ],
-    [ "setEntryHeight", "class_igor_1_1i_dialog_menu.html#a3aa93e998db1df005db24ba2692a4edf", null ],
-    [ "show", "class_igor_1_1i_dialog_menu.html#a8dceae0e8749731ddb15e7cb0b91b9e9", null ],
-    [ "show", "class_igor_1_1i_dialog_menu.html#a732ea274b738f23fde98c77aa794d25a", null ]
+    [ "iDialogMenu", "class_igor_1_1i_dialog_menu.html#a14a3f987f3efe9cb85329209391945a7", null ],
+    [ "~iDialogMenu", "class_igor_1_1i_dialog_menu.html#ab3722627a1b5e75b3da09b90418b3946", null ],
+    [ "addAction", "class_igor_1_1i_dialog_menu.html#ac0b4ed259db78f4983bdb466304462ec", null ],
+    [ "addAction", "class_igor_1_1i_dialog_menu.html#a50de367193a0d34e7b51858e44dcd06f", null ],
+    [ "addMenu", "class_igor_1_1i_dialog_menu.html#a8880d131f83b0fac43cd31563a8d670c", null ],
+    [ "open", "class_igor_1_1i_dialog_menu.html#af98221c594e8e866dd59fa48f07f8bb7", null ],
+    [ "iWidgetMenu", "class_igor_1_1i_dialog_menu.html#ab710690e7794a85cb004d5969e1ee0e0", null ]
 ];
