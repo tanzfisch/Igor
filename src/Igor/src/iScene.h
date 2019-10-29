@@ -53,6 +53,7 @@ namespace Igor
 	class iNodeRender;
 	class iNodeLODTrigger;
 	class iNodeLODSwitch;
+    class iEvaluator; typedef iEvaluator* iEvaluatorPtr;
 
 	/*! event triggered when node was added to scene
 
@@ -228,6 +229,10 @@ namespace Igor
 		/*! list of registered renderables to the scene
 		*/
 		std::vector<iNodeRender*> _renderables;
+
+        /*! list of evaluators
+        */
+        std::vector<iEvaluatorPtr> _evaluators;
 
 		/*! transformation update visitor
 		*/

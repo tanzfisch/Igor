@@ -958,6 +958,9 @@
     <ClInclude Include="..\src\iDialogMenu.h">
       <Filter>GUI\dialogs</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iEvaluator.h">
+      <Filter>scene\evaluation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iAACube.inl">
@@ -1129,6 +1132,9 @@
     </Filter>
     <Filter Include="GUI\menus / actions">
       <UniqueIdentifier>{4de5ee33-eefa-467d-9efa-9e54cd9c0117}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene\evaluation">
+      <UniqueIdentifier>{155d76d8-4136-4819-b03c-85a73b612881}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
