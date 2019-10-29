@@ -149,10 +149,12 @@ namespace Igor
 
         iDialog,
         iDialogColorChooser,
+        iDialogColorGradient,
         iDialogDecisionBox,
         iDialogFileSelect,
         iDialogGraph,
         iDialogIndexMenu,
+        iDialogMenu,
         iDialogMessageBox,
 
         iUserType = 100,

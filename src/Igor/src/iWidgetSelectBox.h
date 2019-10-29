@@ -57,6 +57,10 @@ namespace Igor
 		*/
 		virtual ~iWidgetSelectBox();
 
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
 		/*! adds entry to select box
 
 		\param entryText the entry text

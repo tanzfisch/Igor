@@ -28,6 +28,11 @@ namespace Igor
         deinitGUI();
     }
 
+    iWidgetType iUserControlColorChooser::getWidgetType() const
+    {
+        return iWidgetType::iUserControlColorChooser;
+    }
+
     void iUserControlColorChooser::block(bool blockEvents)
     {
         iWidget::block(blockEvents);
@@ -553,7 +558,7 @@ namespace Igor
 
     void iUserControlColorChooser::deinitGUI()
     {
-        // this is just a workarround for now to cleanup rogue widgets
+        // not elegant but robust
 #define KILL_ROGUE(widget) if (widget && !widget->hasParent()) { delete widget; widget = nullptr; }
 
         KILL_ROGUE(_headlineGrid);

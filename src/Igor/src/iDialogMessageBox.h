@@ -63,6 +63,10 @@ namespace Igor
 		*/
 		~iDialogMessageBox() = default;
 
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
 		/*! initializes gui and opens the message box dialog
 
 		\param dialogCloseDelegate the close delegate

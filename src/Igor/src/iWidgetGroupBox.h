@@ -58,6 +58,10 @@ namespace Igor
 		*/
 		~iWidgetGroupBox() = default;
 
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
 		/*! sets text of widget
 
 		\param text new text

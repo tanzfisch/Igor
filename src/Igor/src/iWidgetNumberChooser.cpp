@@ -19,6 +19,11 @@ namespace Igor
 	{
 	}
 
+    iWidgetType iWidgetNumberChooser::getWidgetType() const
+    {
+        return iWidgetType::iWidgetNumberChooser;
+    }
+
 	void iWidgetNumberChooser::calcMinSize()
 	{
 		int32 minWidth = 0;

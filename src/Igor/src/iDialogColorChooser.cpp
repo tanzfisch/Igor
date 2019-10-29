@@ -20,6 +20,11 @@ using namespace IgorAux;
 namespace Igor
 {
 
+    iWidgetType iDialogColorChooser::getWidgetType() const
+    {
+        return iWidgetType::iDialogColorChooser;
+    }
+
     void iDialogColorChooser::open(iDialogCloseDelegate dialogCloseDelegate, const iaColor4f& color, bool useAlpha)
     {
         iDialog::open(dialogCloseDelegate);

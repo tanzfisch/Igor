@@ -57,6 +57,10 @@ namespace Igor
 		*/
 		virtual ~iDialogMenu() = default;
 
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
         /*! adds action to menu
 
         only adds actions that are registered to the action manager

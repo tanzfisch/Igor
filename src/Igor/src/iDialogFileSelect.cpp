@@ -22,6 +22,11 @@ using namespace IgorAux;
 namespace Igor
 {
 
+    iWidgetType iDialogFileSelect::getWidgetType() const
+    {
+        return iWidgetType::iDialogFileSelect;
+    }
+
     void iDialogFileSelect::open(iDialogCloseDelegate dialogCloseDelegate, iFileDialogPurpose purpose, const iaString& path)
     {
         iDialog::open(dialogCloseDelegate);

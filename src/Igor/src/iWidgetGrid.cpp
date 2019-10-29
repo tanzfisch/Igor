@@ -22,6 +22,11 @@ namespace Igor
         initGrid();
     }
 
+    iWidgetType iWidgetGrid::getWidgetType() const
+    {
+        return iWidgetType::iWidgetGrid;
+    }
+
     void iWidgetGrid::clear()
     {
         clearChildren();
@@ -891,11 +896,6 @@ namespace Igor
     void iWidgetGrid::addWidget(iWidgetPtr widget)
     {
         addWidget(widget, 0, 0, nullptr);
-    }
-
-    iWidgetType iWidgetGrid::getWidgetType() const
-    {
-        return iWidgetType::iWidgetGrid;
     }
 
     void iWidgetGrid::removeWidget(iWidgetPtr widget)

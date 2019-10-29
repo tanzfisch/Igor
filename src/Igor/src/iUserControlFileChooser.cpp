@@ -29,6 +29,11 @@ namespace Igor
         deinitGUI();
     }
 
+    iWidgetType iUserControlFileChooser::getWidgetType() const
+    {
+        return iWidgetType::iUserControlFileChooser;
+    }
+
     void iUserControlFileChooser::setOptimizePath(bool optimizePath)
     {
         _optimizePath = optimizePath;

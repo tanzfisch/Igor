@@ -52,6 +52,10 @@ namespace Igor
 		*/
 		~iDialogDecisionBox() = default;
 
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
 		/*! show/open the decision box
 
         \param dialogCloseDelegate delegate to handle the close desicion box event

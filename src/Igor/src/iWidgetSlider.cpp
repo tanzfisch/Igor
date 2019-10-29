@@ -24,6 +24,11 @@ namespace Igor
 		_texture = nullptr;
 	}
 
+    iWidgetType iWidgetSlider::getWidgetType() const
+    {
+        return iWidgetType::iWidgetSlider;
+    }
+
 	void iWidgetSlider::setSteppingWheel(float32 up, float32 down)
 	{
 		_wheelStepUp = up;

@@ -28,6 +28,11 @@ namespace Igor
 		_texture = nullptr;
 	}
 
+    iWidgetType iWidgetPicture::getWidgetType() const
+    {
+        return iWidgetType::iWidgetPicture;
+    }
+
 	void iWidgetPicture::setMaxSize(int32 width, int32 height)
 	{
 		_maxWidth = width;

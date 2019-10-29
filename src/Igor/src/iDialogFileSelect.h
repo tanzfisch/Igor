@@ -70,6 +70,10 @@ namespace Igor
 		*/
 		~iDialogFileSelect() = default;
 
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
 		/*! opens dialog in load mode
 
 		\param closeDelegate delegate called after dialog was closed

@@ -22,6 +22,11 @@ using namespace IgorAux;
 namespace Igor
 {
 
+    iWidgetType iDialogGraph::getWidgetType() const
+    {
+        return iWidgetType::iDialogGraph;
+    }
+
     void iDialogGraph::configureXAxis(float32 xMin, float32 xMax, float32 xStepping)
     {
         _xMin = xMin;

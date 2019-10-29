@@ -61,6 +61,10 @@ namespace Igor
 		*/
 		~iWidgetScroll() = default;
 
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
 		/*! sets the width or thikness of the scrollbars
 		*/
 		void setScollbarWidth(int32 width);

@@ -36,6 +36,11 @@ namespace Igor
         _texture = nullptr;
     }
 
+    iWidgetType iWidgetColorGradient::getWidgetType() const
+    {
+        return iWidgetType::iWidgetColorGradient;
+    }
+
     void iWidgetColorGradient::block(bool blockEvents)
     {
         iWidget::block(blockEvents);

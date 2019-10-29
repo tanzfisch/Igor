@@ -21,6 +21,12 @@ namespace Igor
         init();        
 	}
 
+    iWidgetType iUserControlAction::getWidgetType() const
+    {
+        return iWidgetType::iUserControlAction;
+    }
+
+
     void iUserControlAction::init()
     {
         setIgnoreChildEventHandling();

@@ -25,6 +25,11 @@ namespace Igor
 		setVerticalAlignment(iVerticalAlignment::Center);
 	}
 
+    iWidgetType iWidgetLabel::getWidgetType() const
+    {
+        return iWidgetType::iWidgetLabel;
+    }
+
 	void iWidgetLabel::calcMinSize()
 	{
 		int32 minWidth = 0;

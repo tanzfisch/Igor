@@ -26,6 +26,11 @@ namespace Igor
     {
         _texture = nullptr;
     }
+
+    iWidgetType iWidgetButton::getWidgetType() const
+    {
+        return iWidgetType::iWidgetButton;
+    }
 	
 	void iWidgetButton::setText(const iaString& text)
 	{

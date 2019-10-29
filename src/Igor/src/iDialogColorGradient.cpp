@@ -29,6 +29,11 @@ namespace Igor
         initUI();
     }
 
+    iWidgetType iDialogColorGradient::getWidgetType() const
+    {
+        return iWidgetType::iDialogColorGradient;
+    }
+
 	void iDialogColorGradient::open(iDialogCloseDelegate dialogCloseDelegate)
 	{
         iDialog::open(dialogCloseDelegate);

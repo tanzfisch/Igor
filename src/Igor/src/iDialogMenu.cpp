@@ -24,6 +24,11 @@ namespace Igor
         init();
     }
 
+    iWidgetType iDialogMenu::getWidgetType() const
+    {
+        return iWidgetType::iDialogMenu;
+    }
+
     void iDialogMenu::open(iDialogCloseDelegate dialogCloseDelegate)
     {
         iDialog::open(dialogCloseDelegate);
