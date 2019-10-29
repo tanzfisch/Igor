@@ -32,6 +32,7 @@
 #include <iaDefines.h>
 
 #include <fstream>
+#include <algorithm>
 
 namespace IgorAux
 {
@@ -215,7 +216,7 @@ namespace IgorAux
                 }
             }
             
-            T min = min(min(rgb._r, rgb._g), rgb._b);
+            T min = std::min(std::min(rgb._r, rgb._g), rgb._b);
             T delta = max - min;
 
             if (delta == 0)

@@ -96,7 +96,7 @@ namespace Igor
 
 	void iWidgetDefaultTheme::drawTooltip(const iaVector2i& pos, const iaString& text)
 	{
-		float32 textWidth = min(300.0f, _font->measureWidth(text, _fontSize));
+		float32 textWidth = std::min(300.0f, _font->measureWidth(text, _fontSize));
 		float32 textHeight = _font->measureHeight(text, _fontSize, textWidth);
 
 		iRectanglei rect(pos._x, pos._y, textWidth + 10, textHeight + 10);

@@ -160,7 +160,7 @@ namespace Igor
 
 	void iWidgetTextEdit::setCursorPos(uint64 cursorPos)
 	{
-		_cursorPos = min(_text.getSize(), cursorPos);
+		_cursorPos = std::min(_text.getSize(), cursorPos);
 		updateMetrics();
 	}
 

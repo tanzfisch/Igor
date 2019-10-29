@@ -560,9 +560,9 @@ namespace Igor
 
             // make sure the window title stays on screen
             int32 y = (desktopHeight - static_cast<int32>(_height)) / 2;
-            y = max(y, 0);
+            y = std::max(y, 0);
             int32 x = (desktopWidth - static_cast<int32>(_width)) / 2;
-            x = max(x, 0);
+            x = std::max(x, 0);
             setPosition(x, y);
         }
     }
