@@ -154,7 +154,21 @@ namespace Igor
 
         \param colordepth in bit per pixel
         */
-        void setColorDepth(unsigned char colordepth);
+        void setColorDepth(uint8 colordepth);
+
+        /*! \returns color buffer depth
+        */
+        uint8 getColorDepth() const;
+
+        /*! set depth buffer depth
+
+        \param zdepth the depth buffer depth in bits
+        */
+        void setZDepth(uint8 zdepth);
+
+        /*! \returns depth buffer depth in bits
+        */
+        uint8 getZDepth() const;
 
         /*! set resolution of window
 
@@ -286,7 +300,11 @@ namespace Igor
 
         /*! color depth of the render area in bit per pixel
         */
-        unsigned char _colordepth = 32;
+        uint8 _colordepth = 32;
+
+        /*! depth buffer depth in bits
+        */
+        uint8 _zdepth = 16;
 
         /*! true for fullscreen mode
         */
