@@ -54,6 +54,10 @@ namespace Igor
 		*/
 		virtual ~iWidgetSpacer() = default;
 
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
 	protected:
 
 		/*! updates size based on it's content

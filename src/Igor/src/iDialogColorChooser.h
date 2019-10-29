@@ -57,6 +57,10 @@ namespace Igor
         */
         ~iDialogColorChooser() = default;
 
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
 		/*! show/open the decision box
 
 		\param dialogCloseDelegate the closing delegate

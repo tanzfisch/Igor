@@ -81,6 +81,10 @@ namespace Igor
 		*/
 		virtual ~iUserControlColorChooser();
 
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
         /*! set wether events will be blocked or not
 
         implementation needs to be overriden by deriving classes to make sure all additional events are blocked too

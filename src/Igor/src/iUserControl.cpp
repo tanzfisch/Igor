@@ -14,6 +14,11 @@ namespace Igor
 		setVerticalAlignment(iVerticalAlignment::Strech);
 	}
 
+    iWidgetType iUserControl::getWidgetType() const
+    {
+        return iWidgetType::iUserControl;
+    }
+
 	void iUserControl::calcMinSize()
 	{
 		int32 minWidth = 0;

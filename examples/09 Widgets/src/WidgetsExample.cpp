@@ -452,7 +452,10 @@ void WidgetsExample::onOpenColorGradientEditor(const iWidgetPtr source)
     {
         _colorGradientDialog = new iDialogColorGradient();
     }
-    _colorGradientDialog->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseColorGradient), _colorGradient->getGradient(), false);
+
+    _colorGradientDialog->setColorGradient(_colorGradient->getGradient());
+    _colorGradientDialog->setUseAlpha(false);
+    _colorGradientDialog->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseColorGradient));
 }
 
 void WidgetsExample::onCloseColorGradient(iDialogPtr dialog)

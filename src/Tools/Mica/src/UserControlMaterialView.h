@@ -32,6 +32,7 @@
 #include <iaEvent.h>
 using namespace IgorAux;
 
+#include <iMaterial.h>
 #include <iNodeModel.h>
 #include <iUserControl.h>
 using namespace Igor;
@@ -73,7 +74,9 @@ private:
 
     iWidgetGrid* _gridGraph = nullptr;
 
-	uint32 _selectedMaterial = 0;
+    /*! id of current selected material
+    */
+	uint64 _selectedMaterial = iMaterial::INVALID_MATERIAL_ID;
 
     void initGUI();
 

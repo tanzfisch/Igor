@@ -34,6 +34,11 @@ namespace Igor
 		_texture = nullptr;
 	}
 
+    iWidgetType iWidgetColor::getWidgetType() const
+    {
+        return iWidgetType::iWidgetColor;
+    }
+
 	void iWidgetColor::setColor(const iaColor4f& color)
 	{
 		_color = color;

@@ -21,6 +21,11 @@ namespace Igor
 		_reactOnMouseWheel = false;
 	}
 
+    iWidgetType iWidgetSpacer::getWidgetType() const
+    {
+        return iWidgetType::iWidgetSpacer;
+    }
+
 	void iWidgetSpacer::calcMinSize()
 	{
 		setMinSize(0, 0);

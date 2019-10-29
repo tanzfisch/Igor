@@ -56,6 +56,10 @@ namespace Igor
 		*/
 		~iUserControlFileChooser();
 
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
 		/*! sets the filename
 
 		\param filename the filename

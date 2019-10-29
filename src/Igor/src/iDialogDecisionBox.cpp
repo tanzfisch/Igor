@@ -14,6 +14,11 @@
 namespace Igor
 {
 
+    iWidgetType iDialogDecisionBox::getWidgetType() const
+    {
+        return iWidgetType::iDialogDecisionBox;
+    }
+
 	void iDialogDecisionBox::open(iDialogCloseDelegate dialogCloseDelegate, const iaString& message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
 	{
         iDialog::open(dialogCloseDelegate);

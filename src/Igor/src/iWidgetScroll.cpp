@@ -36,6 +36,11 @@ namespace Igor
 		_rightTexture = iTextureResourceFactory::getInstance().loadFile("icons/right.png");
 	}
 
+    iWidgetType iWidgetScroll::getWidgetType() const
+    {
+        return iWidgetType::iWidgetScroll;
+    }
+
 	bool iWidgetScroll::handleMouseKeyUp(iKeyCode key)
 	{
 		if (!isActive())

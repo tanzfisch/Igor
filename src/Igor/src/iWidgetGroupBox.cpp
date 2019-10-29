@@ -21,6 +21,11 @@ namespace Igor
 		_configuredHeight = 20;
 	}
 
+    iWidgetType iWidgetGroupBox::getWidgetType() const
+    {
+        return iWidgetType::iWidgetGroupBox;
+    }
+
 	void iWidgetGroupBox::setBorder(int32 border)
 	{
 		_border = border;

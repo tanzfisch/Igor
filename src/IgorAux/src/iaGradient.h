@@ -95,6 +95,10 @@ namespace IgorAux
         */
         const std::vector<std::pair<float, T>>& getValues() const;
 
+        /*! \returns true if color gradient is empty
+        */
+        bool isEmpty() const;
+
         /*! does nothing
         */
         iaGradient() = default;

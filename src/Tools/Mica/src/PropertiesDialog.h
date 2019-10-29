@@ -34,19 +34,6 @@ using namespace Igor;
 
 #include "UserControlProperties.h"
 
-namespace Igor
-{
-    class iNode;
-    class iDialog;
-    class iWidgetGrid;
-    class iWidgetScroll;
-    class iWidgetButton;
-    class iWidgetGroupBox;
-    class iWidgetSpacer;
-    class iDialogMessageBox;
-    class iDialogDecisionBox;
-}
-
 /*! menu dialog
 */
 class PropertiesDialog : public iDialog
@@ -56,9 +43,13 @@ class PropertiesDialog : public iDialog
 
 public:
 
-
+    /*! init UI
+    */
 	PropertiesDialog();
-	~PropertiesDialog();
+
+    /*! does nothing
+    */
+	~PropertiesDialog() = default;
 
     void registerPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate);
     void unregisterPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate);
@@ -74,10 +65,10 @@ private:
     PropertiesChangedEvent _propertiesChangedEvent;
     StructureChangedEvent _structureChangedEvent;
 
-    iWidgetGrid* _grid = nullptr;
+    UserControlProperties* _userControlProperties = nullptr;
 
-    UserControlProperties _userControlProperties;
-
+    /*! init UI
+    */
     void initGUI();
     
     void onStructureChanged();

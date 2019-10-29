@@ -58,6 +58,10 @@ namespace Igor
 		*/
 		virtual ~iWidgetColor();
 
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
 		/*! sets color
 		\param color color value in rgba
 		*/

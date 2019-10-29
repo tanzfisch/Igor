@@ -59,6 +59,10 @@ namespace Igor
         */
         ~iDialogGraph() = default;
 
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
         /*! configures x axis
 
         \param xMin minimum value on x axis

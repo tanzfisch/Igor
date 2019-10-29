@@ -36,6 +36,11 @@ namespace Igor
 		iWidgetManager::getInstance().unregisterDialog(this);
     }
 
+    iWidgetType iDialog::getWidgetType() const
+    {
+        return iWidgetType::iDialog;
+    }
+
     void iDialog::setReturnState(iDialogReturnState returnState)
     {
         _returnState = returnState;
@@ -177,8 +182,4 @@ namespace Igor
         setVerticalAlignment(iVerticalAlignment::Absolut);
     }
 
-    iWidgetType iDialog::getWidgetType() const
-    {
-        return iWidgetType::iDialog;
-    }
 }

@@ -16,6 +16,11 @@ using namespace IgorAux;
 namespace Igor
 {
 
+    iWidgetType iDialogIndexMenu::getWidgetType() const
+    {
+        return iWidgetType::iDialogIndexMenu;
+    }
+
     void iDialogIndexMenu::open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString>& texts, std::vector<iaString>& pictures)
     {
         iDialog::open(dialogCloseDelegate);

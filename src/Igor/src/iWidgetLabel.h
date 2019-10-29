@@ -54,6 +54,10 @@ namespace Igor
 		*/
 		virtual ~iWidgetLabel() = default;
 
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
 		/*! sets maximum text width
 
 		text that needs more space will automatically turn in to multi line text

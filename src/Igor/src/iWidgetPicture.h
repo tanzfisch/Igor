@@ -57,6 +57,10 @@ namespace Igor
 		*/
 		virtual ~iWidgetPicture();
 
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
 		/*! sets the texture to use for the picture
 
 		\param texturePath path to texture

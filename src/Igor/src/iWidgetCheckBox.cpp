@@ -33,6 +33,11 @@ namespace Igor
 		}
 	}
 
+    iWidgetType iWidgetCheckBox::getWidgetType() const
+    {
+        return iWidgetType::iWidgetCheckBox;
+    }
+
 	void iWidgetCheckBox::beginRadioButtonGroup()
 	{
 		_generatingRadioButtonGroup = true;

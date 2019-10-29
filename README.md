@@ -22,7 +22,7 @@
  Doxygen docs
  ------------
  
- https://tanzfisch.github.io/Igor/doxygen/index.html
+ http://igor.logasoft.co.nz/doxygen/index.html
  
  Submodules
  ----------
