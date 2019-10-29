@@ -4,7 +4,13 @@ Changelog                           {#changelog}
 0.25.0
 ------
 
-TODO
+0.24.1
+------
+
+- fixed iDialogColorGradient
+- fixed crash in Mica related to widget ownership problems
+- fixed exception in Mica related to wrong type cast of std::any
+- did some maintenance
 
 0.24.0
 ------
