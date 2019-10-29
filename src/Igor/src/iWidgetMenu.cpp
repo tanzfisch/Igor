@@ -22,6 +22,15 @@ namespace Igor
         init();
     }
 
+    iWidgetMenu::~iWidgetMenu()
+    {
+        if (_menu != nullptr)
+        {
+            delete _menu;
+            _menu = nullptr;
+        }
+    }
+
     void iWidgetMenu::init()
     {
         setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -73,15 +82,6 @@ namespace Igor
         {
             _spacer->setSize(16, 16);
             _picture->setMaxSize(8, 8);
-        }
-    }
-
-    iWidgetMenu::~iWidgetMenu()
-    {
-        if (_menu != nullptr)
-        {
-            delete _menu;
-            _menu = nullptr;
         }
     }
 

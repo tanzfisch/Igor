@@ -54,6 +54,10 @@ namespace Igor
 		*/
 		virtual ~iWidgetNumberChooser() = default;
 
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
 		/*! sets post fix that will be displayed right after the number
 
 		\param text the post fix

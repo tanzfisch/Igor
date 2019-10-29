@@ -157,25 +157,34 @@ namespace Igor
         {
             current = current->_parent;
         }
-        
+
         return current;
     }
 
     void iWidget::addWidget(iWidgetPtr widget)
     {
         con_assert(widget != nullptr, "zero pointer");
-        con_assert(widget != this, "incest is not supported");
+        con_assert(widget != this, "widget can't be added to it self");
 
-        if (widget != nullptr &&
-            widget != this)
+        if (widget == nullptr ||
+            widget == this)
         {
-            _children.push_back(widget);
-
-            std::sort(_children.begin(), _children.end(),
-                [](iWidgetPtr const a, iWidgetPtr const b) { return a->getZValue() < b->getZValue(); });
-
-            widget->setParent(this);
+            return;
         }
+
+        if (std::find(_children.begin(), _children.end(), widget) != _children.end())
+        {
+            con_err("widget \"" << widget->getID() << "\" was added already");
+            return;
+        }
+
+        _children.push_back(widget);
+
+        std::sort(_children.begin(), _children.end(),
+            [](iWidgetPtr const a, iWidgetPtr const b) { return a->getZValue() < b->getZValue(); });
+
+        widget->setParent(this);
+
     }
 
     void iWidget::removeWidget(iWidgetPtr widget)

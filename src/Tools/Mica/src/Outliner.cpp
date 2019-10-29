@@ -58,78 +58,78 @@ void Outliner::initGUI()
     gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
     gridButtons->appendCollumns(8);
 
-    _gridRadioButtons = new iWidgetGrid();
-    _gridRadioButtons->setBorder(0);
-    _gridRadioButtons->setCellSpacing(2);
-    _gridRadioButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _gridRadioButtons->setVerticalAlignment(iVerticalAlignment::Top);
-    _gridRadioButtons->appendCollumns(1);
+    iWidgetGridPtr gridRadioButtons = new iWidgetGrid();
+    gridRadioButtons->setBorder(0);
+    gridRadioButtons->setCellSpacing(2);
+    gridRadioButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
+    gridRadioButtons->setVerticalAlignment(iVerticalAlignment::Top);
+    gridRadioButtons->appendCollumns(1);
 
     iWidgetCheckBox::beginRadioButtonGroup();
-    _checkBoxGraph = new iWidgetCheckBox();
-    _checkBoxGraph->setText("Graph");
-    _checkBoxGraph->registerOnClickEvent(iClickDelegate(this, &Outliner::onGraphViewSelected));
-    _checkBoxMaterial = new iWidgetCheckBox();
-    _checkBoxMaterial->setText("Material");
-    _checkBoxMaterial->registerOnClickEvent(iClickDelegate(this, &Outliner::onMaterialViewSelected));
+    iWidgetCheckBoxPtr checkBoxGraph = new iWidgetCheckBox();
+    checkBoxGraph->setText("Graph");
+    checkBoxGraph->registerOnClickEvent(iClickDelegate(this, &Outliner::onGraphViewSelected));
+    iWidgetCheckBoxPtr checkBoxMaterial = new iWidgetCheckBox();
+    checkBoxMaterial->setText("Material");
+    checkBoxMaterial->registerOnClickEvent(iClickDelegate(this, &Outliner::onMaterialViewSelected));
     iWidgetCheckBox::endRadioButtonGroup();
-    _checkBoxGraph->setChecked();
+    checkBoxGraph->setChecked();
 
-    _loadButton = new iWidgetButton();
-    _loadButton->setText("");
-    _loadButton->setWidth(30);
-    _loadButton->setHeight(30);
-    _loadButton->setTooltip("Load file");
-    _loadButton->setTexture("icons\\load.png");
-    _loadButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onLoadFile));
+    iWidgetButtonPtr loadButton = new iWidgetButton();
+    loadButton->setText("");
+    loadButton->setWidth(30);
+    loadButton->setHeight(30);
+    loadButton->setTooltip("Load file");
+    loadButton->setTexture("icons\\load.png");
+    loadButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onLoadFile));
 
-    _saveButton = new iWidgetButton();
-    _saveButton->setText("");
-    _saveButton->setWidth(30);
-    _saveButton->setHeight(30);
-    _saveButton->setTooltip("Save file");
-    _saveButton->setTexture("icons\\save.png");
-    _saveButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onSaveFile));
+    iWidgetButtonPtr saveButton = new iWidgetButton();
+    saveButton->setText("");
+    saveButton->setWidth(30);
+    saveButton->setHeight(30);
+    saveButton->setTooltip("Save file");
+    saveButton->setTexture("icons\\save.png");
+    saveButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onSaveFile));
 
-    _exitButton = new iWidgetButton();
-    _exitButton->setText("");
-    _exitButton->setWidth(30);
-    _exitButton->setHeight(30);
-    _exitButton->setTooltip("Exit Mica");
-    _exitButton->setTexture("icons\\exit.png");
-    _exitButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onExitMica));
+    iWidgetButtonPtr exitButton = new iWidgetButton();
+    exitButton->setText("");
+    exitButton->setWidth(30);
+    exitButton->setHeight(30);
+    exitButton->setTooltip("Exit Mica");
+    exitButton->setTexture("icons\\exit.png");
+    exitButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onExitMica));
 
-    _spacer1 = new iWidgetSpacer();
-    _spacer1->setWidth(2);
-    _spacer1->setHeight(20);
+    iWidgetSpacerPtr spacer1 = new iWidgetSpacer();
+    spacer1->setWidth(2);
+    spacer1->setHeight(20);
 
-    _spacer2 = new iWidgetSpacer();
-    _spacer2->setWidth(2);
-    _spacer2->setHeight(20);
+    iWidgetSpacerPtr spacer2 = new iWidgetSpacer();
+    spacer2->setWidth(2);
+    spacer2->setHeight(20);
 
-    _cutButton = new iWidgetButton();
-    _cutButton->setText("");
-    _cutButton->setWidth(30);
-    _cutButton->setHeight(30);
-    _cutButton->setTooltip("Cut selection");
-    _cutButton->setTexture("icons\\cut.png");
-    _cutButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onCut));
+    iWidgetButtonPtr cutButton = new iWidgetButton();
+    cutButton->setText("");
+    cutButton->setWidth(30);
+    cutButton->setHeight(30);
+    cutButton->setTooltip("Cut selection");
+    cutButton->setTexture("icons\\cut.png");
+    cutButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onCut));
 
-    _copyButton = new iWidgetButton();
-    _copyButton->setText("");
-    _copyButton->setWidth(30);
-    _copyButton->setHeight(30);
-    _copyButton->setTooltip("Copy selection");
-    _copyButton->setTexture("icons\\copy.png");
-    _copyButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onCopy));
+    iWidgetButtonPtr copyButton = new iWidgetButton();
+    copyButton->setText("");
+    copyButton->setWidth(30);
+    copyButton->setHeight(30);
+    copyButton->setTooltip("Copy selection");
+    copyButton->setTexture("icons\\copy.png");
+    copyButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onCopy));
 
-    _pasteButton = new iWidgetButton();
-    _pasteButton->setText("");
-    _pasteButton->setWidth(30);
-    _pasteButton->setHeight(30);
-    _pasteButton->setTooltip("paste from clipboard");
-    _pasteButton->setTexture("icons\\paste.png");
-    _pasteButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onPaste));
+    iWidgetButtonPtr pasteButton = new iWidgetButton();
+    pasteButton->setText("");
+    pasteButton->setWidth(30);
+    pasteButton->setHeight(30);
+    pasteButton->setTooltip("paste from clipboard");
+    pasteButton->setTexture("icons\\paste.png");
+    pasteButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onPaste));
 
     iWidgetButtonPtr deleteButton = new iWidgetButton();
     deleteButton->setText("");
@@ -140,21 +140,50 @@ void Outliner::initGUI()
     deleteButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onDelete));
 
     _grid->addWidget(gridButtons, 0, 0);
-    gridButtons->addWidget(_loadButton, 0, 0);
-    gridButtons->addWidget(_saveButton, 1, 0);
-    gridButtons->addWidget(_exitButton, 2, 0);
-    gridButtons->addWidget(_spacer1, 3, 0);
-    gridButtons->addWidget(_cutButton, 4, 0);
-    gridButtons->addWidget(_copyButton, 5, 0);
-    gridButtons->addWidget(_pasteButton, 6, 0);
-    gridButtons->addWidget(_spacer2, 7, 0);
+    gridButtons->addWidget(loadButton, 0, 0);
+    gridButtons->addWidget(saveButton, 1, 0);
+    gridButtons->addWidget(exitButton, 2, 0);
+    gridButtons->addWidget(spacer1, 3, 0);
+    gridButtons->addWidget(cutButton, 4, 0);
+    gridButtons->addWidget(copyButton, 5, 0);
+    gridButtons->addWidget(pasteButton, 6, 0);
+    gridButtons->addWidget(spacer2, 7, 0);
     gridButtons->addWidget(deleteButton, 8, 0);
 
-    _grid->addWidget(_gridRadioButtons, 0, 1);
-    _gridRadioButtons->addWidget(_checkBoxGraph, 0, 0);
-    _gridRadioButtons->addWidget(_checkBoxMaterial, 1, 0);
+    _grid->addWidget(gridRadioButtons, 0, 1);
+    gridRadioButtons->addWidget(checkBoxGraph, 0, 0);
+    gridRadioButtons->addWidget(checkBoxMaterial, 1, 0);
 
     setViewType(ViewType::GraphView);
+}
+
+void Outliner::deinitGUI()
+{
+    if (_userControlGraphView != nullptr &&
+        !_userControlGraphView->hasParent())
+    {
+        delete _userControlGraphView;
+        _userControlGraphView = nullptr;
+    }
+
+    if (_userControlMaterialView != nullptr &&
+        !_userControlMaterialView->hasParent())
+    {
+        delete _userControlMaterialView;
+        _userControlMaterialView = nullptr;
+    }
+
+    if (_messageBox != nullptr)
+    {
+        delete _messageBox;
+        _messageBox = nullptr;
+    }
+
+    if (_decisionBoxModelRef != nullptr)
+    {
+        delete _decisionBoxModelRef;
+        _decisionBoxModelRef = nullptr;
+    }
 }
 
 void Outliner::onGraphViewSelected(const iWidgetPtr source)
@@ -207,8 +236,7 @@ void Outliner::deinitMaterialView()
         _userControlMaterialView->unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &Outliner::onMaterialSelectionChanged));
         _userControlMaterialView->unregisterOnAddMaterial(AddMaterialDelegate(this, &Outliner::onAddMaterial));
 
-        delete _userControlMaterialView;
-        _userControlMaterialView = nullptr;
+        _grid->removeWidget(_userControlMaterialView);
     }
 }
 
@@ -219,13 +247,10 @@ void Outliner::initMaterialView()
         _userControlMaterialView = new UserControlMaterialView();
         _userControlMaterialView->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &Outliner::onMaterialSelectionChanged));
         _userControlMaterialView->registerOnAddMaterial(AddMaterialDelegate(this, &Outliner::onAddMaterial));
+    }
 
-        _grid->addWidget(_userControlMaterialView, 0, 2);
-    }
-    else
-    {
-        con_err("internal error");
-    }
+    _grid->addWidget(_userControlMaterialView, 0, 2);
+    refreshView();
 }
 
 void Outliner::deinitGraphView()
@@ -240,8 +265,7 @@ void Outliner::deinitGraphView()
         _userControlGraphView->unregisterOnAddSwitch(AddSwitchDelegate(this, &Outliner::onAddSwitch));
         _userControlGraphView->unregisterOnAddTransformation(AddTransformationDelegate(this, &Outliner::onAddTransformation));
 
-        delete _userControlGraphView;
-        _userControlGraphView = nullptr;
+        _grid->removeWidget(_userControlGraphView);
     }
 }
 
@@ -257,15 +281,10 @@ void Outliner::initGraphView()
         _userControlGraphView->registerOnAddParticleSystem(AddParticleSystemDelegate(this, &Outliner::onAddParticleSystem));
         _userControlGraphView->registerOnAddSwitch(AddSwitchDelegate(this, &Outliner::onAddSwitch));
         _userControlGraphView->registerOnAddTransformation(AddTransformationDelegate(this, &Outliner::onAddTransformation));
-
-        _grid->addWidget(_userControlGraphView, 0, 2);
-
-        refreshView();
     }
-    else
-    {
-        con_err("internal error");
-    }
+
+    _grid->addWidget(_userControlGraphView, 0, 2);
+    refreshView();
 }
 
 void Outliner::duplicateSelected()
@@ -451,37 +470,6 @@ void Outliner::onMaterialSelectionChanged(uint64 materialID)
 void Outliner::onAddMaterial()
 {
     _addMaterial();
-}
-
-void Outliner::deinitGUI()
-{
-    _checkBoxGraph->unregisterOnClickEvent(iClickDelegate(this, &Outliner::onGraphViewSelected));
-    _checkBoxMaterial->unregisterOnClickEvent(iClickDelegate(this, &Outliner::onMaterialViewSelected));
-    _loadButton->unregisterOnClickEvent(iClickDelegate(this, &Outliner::onLoadFile));
-    _saveButton->unregisterOnClickEvent(iClickDelegate(this, &Outliner::onSaveFile));
-    _exitButton->unregisterOnClickEvent(iClickDelegate(this, &Outliner::onExitMica));
-
-    _cutButton->unregisterOnClickEvent(iClickDelegate(this, &Outliner::onCut));
-    _copyButton->unregisterOnClickEvent(iClickDelegate(this, &Outliner::onCopy));
-    _pasteButton->unregisterOnClickEvent(iClickDelegate(this, &Outliner::onPaste));
-
-    deinitGraphView();
-    deinitMaterialView();
-
-    clearChildren();
-    _grid = nullptr;
-
-    if (_messageBox != nullptr)
-    {
-        delete _messageBox;
-        _messageBox = nullptr;
-    }
-
-    if (_decisionBoxModelRef != nullptr)
-    {
-        delete _decisionBoxModelRef;
-        _decisionBoxModelRef = nullptr;
-    }
 }
 
 void Outliner::setSelectedNode(iNodePtr node)

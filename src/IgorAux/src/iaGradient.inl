@@ -9,6 +9,12 @@ void iaGradient<T>::clear()
 }
 
 template <class T>
+__IGOR_INLINE__ bool iaGradient<T>::isEmpty() const
+{
+    return _values.empty();
+}
+
+template <class T>
 void iaGradient<T>::setValue(float at, const T& value)
 {
     if (_values.size() == 0)

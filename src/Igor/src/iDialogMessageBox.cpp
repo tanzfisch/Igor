@@ -17,6 +17,11 @@ using namespace IgorAux;
 namespace Igor
 {
 
+    iWidgetType iDialogMessageBox::getWidgetType() const
+    {
+        return iWidgetType::iDialogMessageBox;
+    }
+
 	void iDialogMessageBox::open(iaString message, iMessageBoxButtons buttons)
 	{
 		iWidgetManager::getInstance().setModal(this);

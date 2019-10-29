@@ -57,6 +57,10 @@ namespace Igor
 		*/
 		virtual ~iWidgetSlider();
 
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
 		/*! sets the texture to use for the button
 
 		\param texturePath path to texture

@@ -56,6 +56,10 @@ namespace Igor
 		*/
 		virtual ~iWidgetCheckBox() = default;
 
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
 		/*! beginns a radio button group
 
 		every check box that is created afterwards will be added to the same radio button group
@@ -122,6 +126,10 @@ namespace Igor
 		void draw();
 
 	};
+
+    /*! checkbox pointer definition
+    */
+    typedef iWidgetCheckBox* iWidgetCheckBoxPtr;
 }
 
 #endif

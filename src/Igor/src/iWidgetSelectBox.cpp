@@ -33,6 +33,11 @@ namespace Igor
         }
     }
 
+    iWidgetType iWidgetSelectBox::getWidgetType() const
+    {
+        return iWidgetType::iWidgetSelectBox;
+    }
+
     void iWidgetSelectBox::calcMinSize()
     {
         int32 minWidth = 0;

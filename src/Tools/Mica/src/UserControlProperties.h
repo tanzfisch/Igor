@@ -68,12 +68,15 @@ class UserControlProperties : public iUserControl
 {
 public:
 
+    /*! init ui
+    */
 	UserControlProperties();
-	~UserControlProperties();
+
+    /*! does nothing
+    */
+	~UserControlProperties() = default;
 
     void setProperty(uint64 id, PropertyType propertyType);
-
-    // iDialog* getDialog();
 
     void clear();
 
@@ -91,7 +94,6 @@ private:
     iNodeType _currentNodeType = iNodeType::Undefined;
 
     void initGUI();
-    void deinitGUI();
 
     void initTransformNode();
     void deinitTransformNode();

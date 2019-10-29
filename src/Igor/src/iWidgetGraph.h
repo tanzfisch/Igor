@@ -89,6 +89,10 @@ namespace Igor
 		*/
 		virtual ~iWidgetGraph() = default;
 
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
         /*! clears all point data
         */
         void clearPoints();

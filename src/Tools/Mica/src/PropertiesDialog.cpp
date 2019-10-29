@@ -28,28 +28,23 @@ PropertiesDialog::PropertiesDialog()
     initGUI();
 }
 
-PropertiesDialog::~PropertiesDialog()
-{
-}
-
 void PropertiesDialog::initGUI()
 {
 	setWidth(350);
     setHorizontalAlignment(iHorizontalAlignment::Right);
     setVerticalAlignment(iVerticalAlignment::Strech);
 
-    _grid = new iWidgetGrid();
-    _grid->setBorder(2);
-    _grid->setCellSpacing(8);
-	_grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    _grid->setVerticalAlignment(iVerticalAlignment::Strech);
-	_grid->setStrechRow(0);
-    _grid->setStrechColumn(0);
+    iWidgetGridPtr grid = new iWidgetGrid(this);
+    grid->setBorder(2);
+    grid->setCellSpacing(8);
+	grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    grid->setVerticalAlignment(iVerticalAlignment::Strech);
+	grid->setStrechRow(0);
+    grid->setStrechColumn(0);
     
-    _userControlProperties.registerStructureChangedDelegate(StructureChangedDelegate(this, &PropertiesDialog::onStructureChanged));
-	_grid->addWidget(&_userControlProperties, 0, 0);
-
-    addWidget(_grid);
+    _userControlProperties = new UserControlProperties();
+    _userControlProperties->registerStructureChangedDelegate(StructureChangedDelegate(this, &PropertiesDialog::onStructureChanged));
+	grid->addWidget(_userControlProperties, 0, 0);
 }
 
 void PropertiesDialog::onStructureChanged()
@@ -59,12 +54,12 @@ void PropertiesDialog::onStructureChanged()
 
 void PropertiesDialog::onGraphViewSelectionChanged(uint64 nodeID)
 {
-    _userControlProperties.setProperty(nodeID, PropertyType::Node);
+    _userControlProperties->setProperty(nodeID, PropertyType::Node);
 }
 
 void PropertiesDialog::onMaterialSelectionChanged(uint64 materialID)
 {
-	_userControlProperties.setProperty(materialID, PropertyType::Material);
+	_userControlProperties->setProperty(materialID, PropertyType::Material);
 }
 
 void PropertiesDialog::registerPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate)

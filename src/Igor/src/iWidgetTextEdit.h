@@ -51,6 +51,10 @@ namespace Igor
 		*/
 		virtual ~iWidgetTextEdit() = default;
 
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
 		/*! sets horrizotnal text aligment
 
 		\param align the horizontal allignment of the text

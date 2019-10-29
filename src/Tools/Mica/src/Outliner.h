@@ -159,26 +159,12 @@ private:
     CutNode _cutNode;
     PasteNode _pasteNode;
 
-    iDialogMessageBox* _messageBox = nullptr;
-
     iWidgetGrid* _grid = nullptr;
-
-	iWidgetGrid* _gridRadioButtons = nullptr;
-	iWidgetCheckBox* _checkBoxGraph = nullptr;
-	iWidgetCheckBox* _checkBoxMaterial = nullptr;
-
-    iWidgetButton* _exitButton = nullptr;
-    iWidgetButton* _loadButton = nullptr;
-    iWidgetButton* _saveButton = nullptr;
-    iWidgetSpacer* _spacer1 = nullptr;
-    iWidgetSpacer* _spacer2 = nullptr;
-    iWidgetButton* _cutButton = nullptr;
-    iWidgetButton* _copyButton = nullptr;
-    iWidgetButton* _pasteButton = nullptr;
 
 	UserControlGraphView* _userControlGraphView = nullptr;
     UserControlMaterialView* _userControlMaterialView = nullptr;
 
+    iDialogMessageBox* _messageBox = nullptr;
 	iDialogDecisionBox* _decisionBoxModelRef = nullptr;
 
     ViewType _currentView = ViewType::GraphView;

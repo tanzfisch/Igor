@@ -30,11 +30,6 @@ UserControlProperties::UserControlProperties()
 	initGUI();
 }
 
-UserControlProperties::~UserControlProperties()
-{
-	// deinitGUI();
-}
-
 void UserControlProperties::initGUI()
 {
 	iWidgetGroupBoxPtr groupBox = new iWidgetGroupBox(this);
@@ -55,20 +50,6 @@ void UserControlProperties::initGUI()
 	_grid->setVerticalAlignment(iVerticalAlignment::Top);
 	scroll->addWidget(_grid);
 }
-
-void UserControlProperties::deinitGUI()
-{
-	setProperty(0, PropertyType::Undefined);
-
-	clearChildren();
-
-	_grid = nullptr;
-}
-
-/*iDialog* UserControlProperties::getDialog()
-{
-	return _dialog;
-}*/
 
 void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
 {

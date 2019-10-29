@@ -55,6 +55,10 @@ namespace Igor
 		*/
 		virtual ~iDialogIndexMenu() = default;
 
+        /*! \returns the widgets type
+        */
+        virtual iWidgetType getWidgetType() const override;
+
 		/*! opens dialog
 
 		leave the pictures list empty if you don't want pictures or call the alternative implementation of show
