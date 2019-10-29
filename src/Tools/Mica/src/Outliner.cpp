@@ -159,6 +159,20 @@ void Outliner::initGUI()
 
 void Outliner::deinitGUI()
 {
+    if (_userControlGraphView != nullptr &&
+        !_userControlGraphView->hasParent())
+    {
+        delete _userControlGraphView;
+        _userControlGraphView = nullptr;
+    }
+
+    if (_userControlMaterialView != nullptr &&
+        !_userControlMaterialView->hasParent())
+    {
+        delete _userControlMaterialView;
+        _userControlMaterialView = nullptr;
+    }
+
     if (_messageBox != nullptr)
     {
         delete _messageBox;
@@ -223,9 +237,6 @@ void Outliner::deinitMaterialView()
         _userControlMaterialView->unregisterOnAddMaterial(AddMaterialDelegate(this, &Outliner::onAddMaterial));
 
         _grid->removeWidget(_userControlMaterialView);
-
-        delete _userControlMaterialView;
-        _userControlMaterialView = nullptr;
     }
 }
 
@@ -236,13 +247,10 @@ void Outliner::initMaterialView()
         _userControlMaterialView = new UserControlMaterialView();
         _userControlMaterialView->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &Outliner::onMaterialSelectionChanged));
         _userControlMaterialView->registerOnAddMaterial(AddMaterialDelegate(this, &Outliner::onAddMaterial));
+    }
 
-        _grid->addWidget(_userControlMaterialView, 0, 2);
-    }
-    else
-    {
-        con_err("internal error");
-    }
+    _grid->addWidget(_userControlMaterialView, 0, 2);
+    refreshView();
 }
 
 void Outliner::deinitGraphView()
@@ -258,9 +266,6 @@ void Outliner::deinitGraphView()
         _userControlGraphView->unregisterOnAddTransformation(AddTransformationDelegate(this, &Outliner::onAddTransformation));
 
         _grid->removeWidget(_userControlGraphView);
-
-        delete _userControlGraphView;
-        _userControlGraphView = nullptr;
     }
 }
 
@@ -276,15 +281,10 @@ void Outliner::initGraphView()
         _userControlGraphView->registerOnAddParticleSystem(AddParticleSystemDelegate(this, &Outliner::onAddParticleSystem));
         _userControlGraphView->registerOnAddSwitch(AddSwitchDelegate(this, &Outliner::onAddSwitch));
         _userControlGraphView->registerOnAddTransformation(AddTransformationDelegate(this, &Outliner::onAddTransformation));
-
-        _grid->addWidget(_userControlGraphView, 0, 2);
-
-        refreshView();
     }
-    else
-    {
-        con_err("internal error");
-    }
+
+    _grid->addWidget(_userControlGraphView, 0, 2);
+    refreshView();
 }
 
 void Outliner::duplicateSelected()
