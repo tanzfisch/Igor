@@ -458,6 +458,12 @@
     <ClCompile Include="..\src\iDialogMenu.cpp">
       <Filter>GUI\dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iEvaluationManager.cpp">
+      <Filter>scene\evaluation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iEvaluatorTransformLinear.cpp">
+      <Filter>scene\evaluation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -959,6 +965,15 @@
       <Filter>GUI\dialogs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iEvaluator.h">
+      <Filter>scene\evaluation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iEvaluationManager.h">
+      <Filter>scene\evaluation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iEvaluatorNode.h">
+      <Filter>scene\evaluation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iEvaluatorTransformLinear.h">
       <Filter>scene\evaluation</Filter>
     </ClInclude>
   </ItemGroup>

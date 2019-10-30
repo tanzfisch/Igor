@@ -258,6 +258,8 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\src\iEntity.cpp" />
     <ClCompile Include="..\src\iEntityLocatable.cpp" />
     <ClCompile Include="..\src\iEntityManager.cpp" />
+    <ClCompile Include="..\src\iEvaluationManager.cpp" />
+    <ClCompile Include="..\src\iEvaluatorTransformLinear.cpp" />
     <ClCompile Include="..\src\Igor.cpp" />
     <ClCompile Include="..\src\iInstancer.cpp" />
     <ClCompile Include="..\src\iJoint.cpp" />
@@ -439,7 +441,10 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iEntity.h" />
     <ClInclude Include="..\src\iEntityLocatable.h" />
     <ClInclude Include="..\src\iEntityManager.h" />
+    <ClInclude Include="..\src\iEvaluationManager.h" />
     <ClInclude Include="..\src\iEvaluator.h" />
+    <ClInclude Include="..\src\iEvaluatorNode.h" />
+    <ClInclude Include="..\src\iEvaluatorTransformLinear.h" />
     <ClInclude Include="..\src\iFrustum.h" />
     <ClInclude Include="..\src\Igor.h" />
     <ClInclude Include="..\src\iInstancer.h" />
