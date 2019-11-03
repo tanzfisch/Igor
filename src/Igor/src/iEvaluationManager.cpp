@@ -1,3 +1,7 @@
+// Igor game engine
+// (c) Copyright 2012-2019 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include <iEvaluationManager.h>
 
 #include <iaConsole.h>
@@ -7,43 +11,19 @@ namespace Igor
 {
     iEvaluationManager::~iEvaluationManager()
     {
-        for (auto evaluator : _evaluators)
+        for (auto evaluation : _evaluations)
         {
-            delete evaluator;
+            delete evaluation.second;
         }
 
-        _evaluators.clear();
-    }
-
-    void iEvaluationManager::registerEvaluator(const iEvaluatorPtr evaluator)
-    {
-        if (std::find(_evaluators.begin(), _evaluators.end(), evaluator) != _evaluators.end())
-        {
-            con_warn("evaluator already registered");
-            return;
-        }
-
-        _evaluators.push_back(evaluator);
-    }
-
-    void iEvaluationManager::unregisterEvaluator(const iEvaluatorPtr evaluator)
-    {
-        auto iter = std::find(_evaluators.begin(), _evaluators.end(), evaluator);
-
-        if (iter == _evaluators.end())
-        {
-            con_warn("evaluator already unregistered");
-            return;
-        }
-
-        _evaluators.erase(iter);
+        _evaluations.clear();
     }
 
     void iEvaluationManager::handle()
     {
-        for (auto evaluator : _evaluators)
+        for (auto evaluation : _evaluations)
         {
-            evaluator->evaluate();
+            evaluation.second->evaluate();
         }
     }
 

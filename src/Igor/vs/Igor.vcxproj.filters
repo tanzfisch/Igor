@@ -461,7 +461,10 @@
     <ClCompile Include="..\src\iEvaluationManager.cpp">
       <Filter>scene\evaluation</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iEvaluatorTransformLinear.cpp">
+    <ClCompile Include="..\src\iEvaluationTransformLinear.cpp">
+      <Filter>scene\evaluation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iEvaluation.cpp">
       <Filter>scene\evaluation</Filter>
     </ClCompile>
   </ItemGroup>
@@ -964,16 +967,13 @@
     <ClInclude Include="..\src\iDialogMenu.h">
       <Filter>GUI\dialogs</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iEvaluator.h">
-      <Filter>scene\evaluation</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iEvaluationManager.h">
       <Filter>scene\evaluation</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iEvaluatorNode.h">
+    <ClInclude Include="..\src\iEvaluationTransformLinear.h">
       <Filter>scene\evaluation</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iEvaluatorTransformLinear.h">
+    <ClInclude Include="..\src\iEvaluation.h">
       <Filter>scene\evaluation</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1028,6 +1028,9 @@
     </None>
     <None Include="..\src\iWidgetManager.inl">
       <Filter>GUI</Filter>
+    </None>
+    <None Include="..\src\iEvaluationManager.inl">
+      <Filter>scene\evaluation</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

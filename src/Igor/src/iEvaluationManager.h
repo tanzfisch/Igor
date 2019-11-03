@@ -29,12 +29,12 @@
 #ifndef __iEVALUATION_MANAGER__
 #define __iEVALUATION_MANAGER__
 
-#include <iEvaluator.h>
+#include <iEvaluation.h>
 
 #include <iaSingleton.h>
 using namespace IgorAux;
 
-#include <vector>
+#include <map>
 
 namespace Igor
 {
@@ -49,29 +49,36 @@ namespace Igor
 
     public:
 
-        /*! registers an evaluator for evaluation
-
-        ownership moves to the iEvaluationManager
-
-        \param evaluator the evaluator to register
+        /*! creates a node
+        \returns pointer to new node
         */
-        void registerEvaluator(const iEvaluatorPtr evaluator);
+        template<class T>
+        T* createEvaluation();
 
-        /*! unregisters an evaluator from evaluation
+        /*! \returns true if evaluation ID exists
 
-        ownership moves back to caller
-
-        \param evaluator the evaluator to unregister
+        \param id the evaluation ID
         */
-        void unregisterEvaluator(const iEvaluatorPtr evaluator);        
+        bool isEvaluation(uint64 id) const;
+
+        /*! \returns evaluation for given evaluatin id
+
+        returns nullptr for invalid id
+
+        \param id the given evaluaiton id
+        */
+        iEvaluationPtr getEvaluation(uint64 id) const;
 
     private:
 
-        std::vector<iEvaluatorPtr> _evaluators;
+        std::map<uint64, iEvaluationPtr> _evaluations;
 
         /*! does nothing
         */
         iEvaluationManager() = default;
+
+        /*! clean up
+        */
         ~iEvaluationManager();
 
         /*! called by application every frame. calls all the evaluator handles
@@ -80,9 +87,7 @@ namespace Igor
 
 	};
 
-    /*! evaluator pointer definition
-    */
-    typedef iEvaluator* iEvaluatorPtr;
+#include <iEvaluationManager.inl>
 
 };
 

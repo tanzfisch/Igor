@@ -62,6 +62,11 @@ namespace Igor
         iNodeManager::getInstance().handle();
         iProfiler::getInstance().endSection(_handleSectionID);
 
+        iProfiler::getInstance().beginSection(_userSectionID);
+        windowHandle();
+        _preDrawHandleEvent();
+        iProfiler::getInstance().endSection(_userSectionID);
+
         iProfiler::getInstance().beginSection(_evaluationSectionID);
         iEvaluationManager::getInstance().handle();
         iProfiler::getInstance().endSection(_evaluationSectionID);
@@ -69,11 +74,6 @@ namespace Igor
         iProfiler::getInstance().beginSection(_physicsSectionID);
         iPhysics::getInstance().handle();
         iProfiler::getInstance().endSection(_physicsSectionID);
-
-        iProfiler::getInstance().beginSection(_userSectionID);
-        windowHandle();
-        _preDrawHandleEvent();
-        iProfiler::getInstance().endSection(_userSectionID);
 
         iProfiler::getInstance().beginSection(_drawSectionID);
         draw();

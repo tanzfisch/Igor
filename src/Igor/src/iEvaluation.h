@@ -26,69 +26,98 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iEVALUATOR_TRANSFORM_LINEAR__
-#define __iEVALUATOR_TRANSFORM_LINEAR__
+#ifndef __iEVALUATION__
+#define __iEVALUATION__
 
-#include <iEvaluatorNode.h>
+#include <iDefines.h>
 
-#include <iaMatrix.h>
+#include <iaIDGenerator.h>
 using namespace IgorAux;
 
-#include <map>
+#include <vector>
 
 namespace Igor
 {
 
-    /*! evaluation that menipulates transform nodes in a linear fashion
+    class iNode; typedef iNode* iNodePtr;
+
+    /*! evaluation base class
     */
-	class Igor_API iEvaluatorTransformLinear : public iEvaluatorNode
-	{
+    class Igor_API iEvaluation
+    {
 
     public:
 
+        /*! invalid node id definition
+        */
+        static const uint64 INVALID_EVALUATOR_ID = IGOR_INVALID_ID;
+
+        /*! init members
+        */
+        iEvaluation();
+
+        /*! does nothing
+        */
+        virtual ~iEvaluation() = default;
+
+        /*! \returns id of the evaluation
+        */
+        uint64 getID() const;
+
         /*! evaluates something
         */
-        virtual void evaluate() override;
+        virtual void evaluate() = 0;
 
-        /*! adds a node to this evaluator
+        /*! \returns true if evaluation is finished
+        */
+        //virtual bool finalized() const = 0;
+
+        /*! adds a node to this evaluation
 
         \param node the node to add
         */
-        virtual void addNode(const iNodePtr node) override;
+        virtual void addNode(const iNodePtr node);
 
-        /*! removes node frmo evaluator
+        /*! removes node frmo evaluation
 
         \param node the node to remove
         */
-        virtual void removeNode(const iNodePtr node) override;
+        virtual void removeNode(const iNodePtr node);
 
-        /*!
+        /*! sets if this evaluation runs in an endless loop
         */
-        void setTransform(const iNodePtr node, float64 startTime, float64 stopTime, const iaMatrixd& matrix);
+        void setLooped(bool loop);
+
+        /*! \returns true if evaluation is in loop mode
+        */
+        bool isLooped() const;
+
+    protected:
+
+        std::vector<uint64> _nodes;
 
     private:
 
-        struct Transform
-        {
-            /*! destination transform matrix
-            */
-            iaMatrixd _matrix;
-
-            /*! start time in seconds
-            */
-            float64 _startTime;
-
-            /*! stop time in seconds
-            */
-            float64 _stopTime;
-        };
-
-        /*! registered node IDs
+        /*! the next node id
         */
-        std::map<uint64, Transform> _transforms;
+        static iaIDGenerator64 _idGenerator;
 
-	};
 
-};
+
+        /*! id of this evaluation
+        */
+        uint64 _evaluatorID = iEvaluation::INVALID_EVALUATOR_ID;
+
+        /*! looped flag
+        */
+        bool _looped = false;
+
+    };
+
+    /*! evaluation pointer definition
+    */
+    typedef iEvaluation* iEvaluationPtr;
+
+}
 
 #endif

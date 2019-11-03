@@ -26,30 +26,35 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iEVALUATOR__
-#define __iEVALUATOR__
+#ifndef __iEVALUATOR_TRANSFORM_LINEAR__
+#define __iEVALUATOR_TRANSFORM_LINEAR__
 
-#include <iDefines.h>
+#include <iEvaluation.h>
+
+#include <iaMatrix.h>
+using namespace IgorAux;
+
+#include <map>
 
 namespace Igor
 {
 
-    /*! evaluation base class
+    /*! evaluation that menipulates transform nodes in a linear fashion
     */
-	class Igor_API iEvaluator
+	class Igor_API iEvaluatorTransformLinear : public iEvaluation
 	{
 
     public:
 
         /*! evaluates something
         */
-        virtual void evaluate() = 0;
+        virtual void evaluate() override;
+
+    private:
 
 	};
 
-    /*! evaluator pointer definition
-    */
-    typedef iEvaluator* iEvaluatorPtr;
+    typedef iEvaluatorTransformLinear* iEvaluatorTransformLinearPtr;
 
 };
 
