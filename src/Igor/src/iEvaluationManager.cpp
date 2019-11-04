@@ -3,6 +3,7 @@
 // see copyright notice in corresponding header file
 
 #include <iEvaluationManager.h>
+#include <iTimer.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -21,9 +22,10 @@ namespace Igor
 
     void iEvaluationManager::handle()
     {
+        float64 time = iTimer::getInstance().getSeconds();
         for (auto evaluation : _evaluations)
         {
-            evaluation.second->evaluate();
+            evaluation.second->evaluate(time);
         }
     }
 

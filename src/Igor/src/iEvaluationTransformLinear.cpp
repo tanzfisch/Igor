@@ -14,25 +14,28 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    void iEvaluatorTransformLinear::evaluate()
+    iEvaluationTransformLinear::iEvaluationTransformLinear(uint64 nodeID)
+        :iEvaluation(nodeID)
+    {
+
+    }
+
+    void iEvaluationTransformLinear::evaluate(float64 time)
     {
         float64 delta = iTimer::getInstance().getSecondsDelta();
 
         // TODO
 
-        for (auto nodeID : _nodes)
+        iNodeTransformPtr transformNode = static_cast<iNodeTransformPtr>(iNodeManager::getInstance().getNode(_nodeID));
+
+        if (transformNode == nullptr)
         {
-            iNodeTransformPtr transformNode = static_cast<iNodeTransformPtr>(iNodeManager::getInstance().getNode(nodeID));
-
-            if (transformNode == nullptr)
-            {
-                continue;
-            }
-
-            transformNode->rotate(0.1 * delta, iaAxis::Y);
+            return;
         }
+
+        transformNode->rotate(0.1 * delta, iaAxis::Y);
     }
 
-    
+
 
 }

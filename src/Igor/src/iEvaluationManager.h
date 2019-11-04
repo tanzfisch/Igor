@@ -49,11 +49,13 @@ namespace Igor
 
     public:
 
-        /*! creates a node
+        /*! creates an evaluation
+
+        \param nodeID id of node this evaluation controls
         \returns pointer to new node
         */
         template<class T>
-        T* createEvaluation();
+        T* createEvaluation(uint64 nodeID);
 
         /*! \returns true if evaluation ID exists
 

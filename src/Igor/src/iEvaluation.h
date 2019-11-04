@@ -29,7 +29,7 @@
 #ifndef __iEVALUATION__
 #define __iEVALUATION__
 
-#include <iDefines.h>
+#include <iNodeTransform.h>
 
 #include <iaIDGenerator.h>
 using namespace IgorAux;
@@ -39,12 +39,12 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    class iNode; typedef iNode* iNodePtr;
-
     /*! evaluation base class
     */
     class Igor_API iEvaluation
     {
+
+        friend class iEvaluationManager;
 
     public:
 
@@ -52,37 +52,35 @@ namespace Igor
         */
         static const uint64 INVALID_EVALUATOR_ID = IGOR_INVALID_ID;
 
-        /*! init members
-        */
-        iEvaluation();
+        /*! sets start time of evaluation
 
-        /*! does nothing
+        \param start the start time for evaluation
         */
-        virtual ~iEvaluation() = default;
+        void setStart(float64 start);
+
+        /*! \returns start time of evaluation
+        */
+        float64 getStart() const;
+
+        /*! sets stop time of evaluation
+
+        \param stop the stop time for evaluation
+        */
+        void setStop(float64 stop);
+
+        /*! \returns stop time of evaluation
+        */
+        float64 getStop() const;
 
         /*! \returns id of the evaluation
         */
         uint64 getID() const;
 
         /*! evaluates something
+
+        \param time current application time in seconds
         */
-        virtual void evaluate() = 0;
-
-        /*! \returns true if evaluation is finished
-        */
-        //virtual bool finalized() const = 0;
-
-        /*! adds a node to this evaluation
-
-        \param node the node to add
-        */
-        virtual void addNode(const iNodePtr node);
-
-        /*! removes node frmo evaluation
-
-        \param node the node to remove
-        */
-        virtual void removeNode(const iNodePtr node);
+        virtual void evaluate(float64 time) = 0;
 
         /*! sets if this evaluation runs in an endless loop
         */
@@ -94,7 +92,19 @@ namespace Igor
 
     protected:
 
-        std::vector<uint64> _nodes;
+        /*! id of node to control
+        */
+        uint64 _nodeID = iNode::INVALID_NODE_ID;
+
+        /*! init members
+
+        \param nodeID id of node to take control of
+        */
+        iEvaluation(uint64 nodeID);
+
+        /*! does nothing
+        */
+        virtual ~iEvaluation() = default;
 
     private:
 
@@ -102,15 +112,21 @@ namespace Igor
         */
         static iaIDGenerator64 _idGenerator;
 
-
-
-        /*! id of this evaluation
+        /*! start time of evaluation
         */
-        uint64 _evaluatorID = iEvaluation::INVALID_EVALUATOR_ID;
+        float64 _start = 0;
+
+        /*! stop time of evaluation
+        */
+        float64 _stop = 0;
 
         /*! looped flag
         */
         bool _looped = false;
+
+        /*! id of this evaluation
+        */
+        uint64 _evaluatorID = iEvaluation::INVALID_EVALUATOR_ID;
 
     };
 

@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iEVALUATOR_TRANSFORM_LINEAR__
-#define __iEVALUATOR_TRANSFORM_LINEAR__
+#ifndef __iEVALUATION_TRANSFORM_LINEAR__
+#define __iEVALUATION_TRANSFORM_LINEAR__
 
 #include <iEvaluation.h>
 
@@ -41,20 +41,32 @@ namespace Igor
 
     /*! evaluation that menipulates transform nodes in a linear fashion
     */
-	class Igor_API iEvaluatorTransformLinear : public iEvaluation
+	class Igor_API iEvaluationTransformLinear : public iEvaluation
 	{
+
+        friend class iEvaluationManager;
 
     public:
 
         /*! evaluates something
+
+        \param time current application time in seconds
         */
-        virtual void evaluate() override;
+        virtual void evaluate(float64 time) override;
+
+    protected:
+
+        /*! init members
+
+        \param nodeID id of node to take control of
+        */
+        iEvaluationTransformLinear(uint64 nodeID);
 
     private:
 
 	};
 
-    typedef iEvaluatorTransformLinear* iEvaluatorTransformLinearPtr;
+    typedef iEvaluationTransformLinear* iEvaluationTransformLinearPtr;
 
 };
 

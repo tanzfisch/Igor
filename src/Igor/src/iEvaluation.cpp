@@ -3,7 +3,7 @@
 // see copyright notice in corresponding header file
 
 #include <iEvaluation.h>
-#include <iNode.h>
+#include <iNodeTransform.h>
 #include <iNodeManager.h>
 
 #include <iaConsole.h>
@@ -13,8 +13,13 @@ namespace Igor
 {
     iaIDGenerator64 iEvaluation::_idGenerator;
 
-    iEvaluation::iEvaluation()
+    iEvaluation::iEvaluation(uint64 nodeID)
     {
+        if(iNodeManager::getInstance().isNode(nodeID))
+        {
+            _nodeID = nodeID;
+        }
+
         _evaluatorID = iEvaluation::_idGenerator.createID();
     }
 
@@ -33,49 +38,24 @@ namespace Igor
         return _looped;
     }
 
-    void iEvaluation::addNode(const iNodePtr node)
+    void iEvaluation::setStart(float64 start)
     {
-        con_assert(node != nullptr, "zero pointer");
-
-        if (node == nullptr)
-        {
-            return;
-        }
-
-        uint64 nodeID = node->getID();
-
-        if (!iNodeManager::getInstance().isNode(nodeID))
-        {
-            return;
-        }
-
-        if (std::find(_nodes.begin(), _nodes.end(), nodeID) != _nodes.end())
-        {
-            return;
-        }
-
-        _nodes.push_back(nodeID);
+        _start = start;
     }
 
-    void iEvaluation::removeNode(const iNodePtr node)
+    float64 iEvaluation::getStart() const
     {
-        con_assert(node != nullptr, "zero pointer");
+        return _start;
+    }
 
-        if (node == nullptr)
-        {
-            return;
-        }
-
-        uint64 nodeID = node->getID();
-
-        auto iter = std::find(_nodes.begin(), _nodes.end(), nodeID);
-        if(iter == _nodes.end())
-        {
-            return;
-        }
-
-        _nodes.erase(iter);
-
+    void iEvaluation::setStop(float64 stop)
+    {
+        _stop = stop;
+    }
+    
+    float64 iEvaluation::getStop() const
+    {
+        return _stop;
     }
 
 };
