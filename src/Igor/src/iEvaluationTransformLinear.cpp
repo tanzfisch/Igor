@@ -20,12 +20,17 @@ namespace Igor
 
     }
 
+    void iEvaluationTransformLinear::setTarget(const iaMatrixd& matrix, float64 time)
+    {
+        float64 currentTime = iTimer::getInstance().getSeconds();
+        setStart(currentTime);
+        setStop(currentTime + time);
+
+        _targetTransform.setMatrix(matrix);
+    }
+
     void iEvaluationTransformLinear::evaluate(float64 time)
     {
-        float64 delta = iTimer::getInstance().getSecondsDelta();
-
-        // TODO
-
         iNodeTransformPtr transformNode = static_cast<iNodeTransformPtr>(iNodeManager::getInstance().getNode(_nodeID));
 
         if (transformNode == nullptr)
@@ -33,7 +38,18 @@ namespace Igor
             return;
         }
 
-        transformNode->rotate(0.1 * delta, iaAxis::Y);
+        float64 timeFrame = getStop() - getStart();
+        float64 t = (time - getStart()) / timeFrame;
+
+        iaMatrixd nodeMatrix;
+        transformNode->getMatrix(nodeMatrix);
+        iaTransformd transform(nodeMatrix);
+
+        transform = lerp(transform, _targetTransform, t);
+
+        transform.getMatrix(nodeMatrix);
+
+        transformNode->setMatrix(nodeMatrix);
     }
 
 

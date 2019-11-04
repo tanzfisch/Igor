@@ -125,6 +125,10 @@ void Example3D::init()
 	justCatTransform->insertNode(justCatModel);
 
     iEvaluationTransformLinearPtr evalTrans = iEvaluationManager::getInstance().createEvaluation<iEvaluationTransformLinear>(justCatTransform->getID());
+    iaMatrixd targetMatrix;
+    targetMatrix.rotate(0.5, iaAxis::Y);
+    targetMatrix.translate(10, 0 ,0);
+    evalTrans->setTarget(targetMatrix, 5);
 
 	// create a group of models that can be moved together due to being child to the same transform node
 	// creating transformation node used for the heading of it's children

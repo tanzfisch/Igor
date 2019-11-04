@@ -32,6 +32,7 @@
 #include <iEvaluation.h>
 
 #include <iaMatrix.h>
+#include <iaTransform.h>
 using namespace IgorAux;
 
 #include <map>
@@ -54,6 +55,13 @@ namespace Igor
         */
         virtual void evaluate(float64 time) override;
 
+        /*! set up the evaluation to reach matrix in given time
+
+        \param matrix the target matrix to reach
+        \param time the time to reach target in seconds
+        */
+        void setTarget(const iaMatrixd& matrix, float64 time);
+
     protected:
 
         /*! init members
@@ -63,6 +71,8 @@ namespace Igor
         iEvaluationTransformLinear(uint64 nodeID);
 
     private:
+
+        iaTransformd _targetTransform;
 
 	};
 

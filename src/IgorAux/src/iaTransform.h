@@ -100,6 +100,8 @@ namespace IgorAux
 		*/
 		iaTransform(const iaMatrix<T>& matrix);
 
+   
+
 		/*! initializes the matrix with given components
 
 		\param translate translation component
@@ -131,6 +133,9 @@ namespace IgorAux
 		*/
 		~iaTransform();
 	};
+
+    template <class T>
+    iaTransform<T> lerp(const iaTransform<T>& a, const iaTransform<T>& b, float64 t);
 
 	#include <iaTransform.inl>
 

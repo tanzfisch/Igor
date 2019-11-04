@@ -15,6 +15,16 @@ __IGOR_INLINE__ std::wostream& operator<<(std::wostream& ostr, const iaTransform
 }
 
 template <class T>
+iaTransform<T> lerp(const iaTransform<T>& a, const iaTransform<T>& b, float64 t)
+{
+    iaTransform<T> result;
+    // (1 - t) * v0 + t * v1;
+    result._translate = a._translate * (1.0 - t) + b._translate * t;
+
+    return result;
+}
+
+template <class T>
 iaTransform<T>::iaTransform(const iaVector3<T>& translate, const iaQuaternion<T> orientation, const iaVector3<T>& scale)
 {
 	_translate = translate;
