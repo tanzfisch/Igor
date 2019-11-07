@@ -120,9 +120,9 @@ namespace IgorAux
 		*/
 		void identity();
 
-		/*! invert quaternion
+		/*! negate quaternion
 		*/
-		void invert();
+		void negate();
 
 		/*! set by euler angles
 

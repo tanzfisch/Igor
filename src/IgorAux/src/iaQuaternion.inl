@@ -178,7 +178,7 @@ void iaQuaternion<T>::getAxisAngle(iaVector3<T>& axis, T& angle) const
 }
 
 template <class T>
-void iaQuaternion<T>::invert()
+void iaQuaternion<T>::negate()
 {
     _x *= -1;
     _y *= -1;
