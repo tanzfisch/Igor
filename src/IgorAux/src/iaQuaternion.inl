@@ -213,7 +213,7 @@ bool iaQuaternion<T>::operator!=(const iaQuaternion<T>& rhs) const
 }
 
 template <class T>
-iaQuaternion<T> iaQuaternion<T>::operator+(iaQuaternion<T>& rhs)
+iaQuaternion<T> iaQuaternion<T>::operator+(const iaQuaternion<T>& rhs)
 {
     iaQuaternion<T> c;
 
@@ -226,7 +226,7 @@ iaQuaternion<T> iaQuaternion<T>::operator+(iaQuaternion<T>& rhs)
 }
 
 template <class T>
-void iaQuaternion<T>::operator+=(iaQuaternion<T>& rhs)
+void iaQuaternion<T>::operator+=(const iaQuaternion<T>& rhs)
 {
     _x += rhs._x;
     _y += rhs._y;
@@ -235,7 +235,29 @@ void iaQuaternion<T>::operator+=(iaQuaternion<T>& rhs)
 }
 
 template <class T>
-iaQuaternion<T> iaQuaternion<T>::operator * (iaQuaternion<T>& rhs)
+iaQuaternion<T> iaQuaternion<T>::operator-(const iaQuaternion<T>& rhs)
+{
+    iaQuaternion<T> c;
+
+    c._x = _x - rhs._x;
+    c._y = _y - rhs._y;
+    c._z = _z - rhs._z;
+    c._w = _w - rhs._w;
+
+    return c;
+}
+
+template <class T>
+void iaQuaternion<T>::operator-=(const iaQuaternion<T>& rhs)
+{
+    _x -= rhs._x;
+    _y -= rhs._y;
+    _z -= rhs._z;
+    _w -= rhs._w;
+}
+
+template <class T>
+iaQuaternion<T> iaQuaternion<T>::operator * (const iaQuaternion<T>& rhs)
 {
     iaQuaternion<T> c;
 
@@ -316,7 +338,7 @@ __IGOR_INLINE__ void iaQuaternion<T>::normalize()
     _x /= d;
     _y /= d;
     _z /= d;
-    _W /= d;
+    _w /= d;
 }
 
 template <class T>
@@ -350,7 +372,7 @@ iaQuaternion<T> slerp(iaQuaternion<T> a, iaQuaternion<T> b, T t) {
         // If the inputs are too close for comfort, linearly interpolate
         // and normalize the result.
 
-        iaQuaternion<T> result = a + t * (b - a);
+        iaQuaternion<T> result = a + (b - a) * t;
         result.normalize();
         return result;
     }
@@ -364,5 +386,5 @@ iaQuaternion<T> slerp(iaQuaternion<T> a, iaQuaternion<T> b, T t) {
     T s0 = cos(theta) - dot * sin_theta / sin_theta_0;  // == sin(theta_0 - theta) / sin(theta_0)
     T s1 = sin_theta / sin_theta_0;
 
-    return (s0 * a) + (s1 * b);
+    return (a * s0) + (b * s1);
 }

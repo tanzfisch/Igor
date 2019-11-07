@@ -105,7 +105,7 @@ namespace IgorAux
 		\param axis[out] the rotation axis
 		\parma angle[out] the rotation angle
 		*/
-		void getAxisAngle(const iaVector3<T>& axis, T& angle) const;
+		void getAxisAngle(iaVector3<T>& axis, T& angle) const;
 
 		/*! set by direct value
 
@@ -150,7 +150,7 @@ namespace IgorAux
 
 		\param vec[out] euler angles in a vector
 		*/
-		void getEuler(const iaVector3<T>& vec) const;
+		void getEuler(iaVector3<T>& vec) const;
 
 		/*! \returns true if both quaternions are equal
 
@@ -182,13 +182,13 @@ namespace IgorAux
         \returns the resulting quaternion
         \param rhs the right hand side quaternion
         */
-        // TODO iaQuaternion<T>	operator-(const iaQuaternion<T>& rhs);
+        iaQuaternion<T>	operator-(const iaQuaternion<T>& rhs);
 
         /*! subtracts one quaternion from the other
 
         \param rhs the right hand side quaternion
         */
-        // TODO void operator-=(const iaQuaternion<T>& rhs);
+        void operator-=(const iaQuaternion<T>& rhs);
 		
         /*! multiply one quaternion to this quaternion
 
