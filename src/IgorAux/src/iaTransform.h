@@ -135,7 +135,7 @@ namespace IgorAux
 	};
 
     template <class T>
-    iaTransform<T> lerp(const iaTransform<T>& a, const iaTransform<T>& b, float64 t);
+    iaTransform<T> lerp(const iaTransform<T>& a, const iaTransform<T>& b, T t);
 
 	#include <iaTransform.inl>
 

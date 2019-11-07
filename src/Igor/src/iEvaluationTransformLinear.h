@@ -57,10 +57,20 @@ namespace Igor
 
         /*! set up the evaluation to reach matrix in given time
 
+        the start time will be automatically set to current frame time
+
         \param matrix the target matrix to reach
-        \param time the time to reach target in seconds
+        \param duration the time to reach the target in seconds from now
         */
-        void setTarget(const iaMatrixd& matrix, float64 time);
+        void setTarget(const iaMatrixd& matrix, float64 duration);
+
+        /*! same as setTarget but including start time
+
+        \param matrix the target matrix to reach
+        \param startTime the time the evaluation begins
+        \param duration the time to reach the target in seconds
+        */
+        void setTarget(const iaMatrixd& matrix, float64 startTime, float64 duration);
 
     protected:
 

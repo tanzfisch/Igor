@@ -11,6 +11,8 @@
 #include <iaConsole.h>
 using namespace IgorAux;
 
+#include<algorithm>
+
 namespace Igor
 {
 
@@ -20,17 +22,33 @@ namespace Igor
 
     }
 
-    void iEvaluationTransformLinear::setTarget(const iaMatrixd& matrix, float64 time)
+    void iEvaluationTransformLinear::setTarget(const iaMatrixd& matrix, float64 duration)
     {
         float64 currentTime = iTimer::getInstance().getSeconds();
         setStart(currentTime);
-        setStop(currentTime + time);
+        setStop(currentTime + duration);
+
+        _targetTransform.setMatrix(matrix);
+    }
+
+    void iEvaluationTransformLinear::setTarget(const iaMatrixd& matrix, float64 startTime, float64 duration)
+    {
+        float64 currentTime = iTimer::getInstance().getSeconds();
+        setStart(startTime);
+        setStop(startTime + duration);
 
         _targetTransform.setMatrix(matrix);
     }
 
     void iEvaluationTransformLinear::evaluate(float64 time)
     {
+        con_assert(getStart() < getStop(), "invalid start stop values");
+
+        if (getStart() > time)
+        {
+            return;
+        }
+
         iNodeTransformPtr transformNode = static_cast<iNodeTransformPtr>(iNodeManager::getInstance().getNode(_nodeID));
 
         if (transformNode == nullptr)
@@ -38,8 +56,10 @@ namespace Igor
             return;
         }
 
-        float64 timeFrame = getStop() - getStart();
-        float64 t = (time - getStart()) / timeFrame;
+        float64 delta = getStop() - getStart();
+        float64 t = (time - getStart()) / delta;
+
+        t = std::min(1.0, std::max(0.0, t));
 
         iaMatrixd nodeMatrix;
         transformNode->getMatrix(nodeMatrix);

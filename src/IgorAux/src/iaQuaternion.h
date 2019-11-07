@@ -37,11 +37,10 @@
 namespace IgorAux
 {
 
-    /*!
-
-    \todo not in use yet
+    /*! quaternion class
     */
-    template <class T> class IgorAux_API_Template iaQuaternion
+    template <class T>
+    class IgorAux_API_Template iaQuaternion
     {
     public:
 
@@ -106,7 +105,7 @@ namespace IgorAux
 		\param axis[out] the rotation axis
 		\parma angle[out] the rotation angle
 		*/
-		void getAxisAngle(iaVector3<T>& axis, T& angle) const;
+		void getAxisAngle(const iaVector3<T>& axis, T& angle) const;
 
 		/*! set by direct value
 
@@ -119,11 +118,11 @@ namespace IgorAux
 
 		/*! reset quaternion to identity
 		*/
-		__IGOR_INLINE__ void identity();
+		void identity();
 
 		/*! invert quaternion
 		*/
-		__IGOR_INLINE__ void invert();
+		void invert();
 
 		/*! set by euler angles
 
@@ -151,7 +150,7 @@ namespace IgorAux
 
 		\param vec[out] euler angles in a vector
 		*/
-		void getEuler(iaVector3<T>& vec) const;
+		void getEuler(const iaVector3<T>& vec) const;
 
 		/*! \returns true if both quaternions are equal
 
@@ -170,27 +169,71 @@ namespace IgorAux
 		\returns the resulting quaternion
 		\param rhs the right hand side quaternion
 		*/
-		__IGOR_INLINE__ iaQuaternion<T>	operator+(iaQuaternion<T>& rhs);
+		iaQuaternion<T>	operator+(const iaQuaternion<T>& rhs);
 
 		/*! add one quaternion to this quaternion
 
 		\param rhs the right hand side quaternion
 		*/
-		__IGOR_INLINE__ void operator+=(iaQuaternion<T>& rhs);
+		void operator+=(const iaQuaternion<T>& rhs);
+
+        /*! subtracts one quaternion from an other
+
+        \returns the resulting quaternion
+        \param rhs the right hand side quaternion
+        */
+        // TODO iaQuaternion<T>	operator-(const iaQuaternion<T>& rhs);
+
+        /*! subtracts one quaternion from the other
+
+        \param rhs the right hand side quaternion
+        */
+        // TODO void operator-=(const iaQuaternion<T>& rhs);
 		
+        /*! multiply one quaternion to this quaternion
 
-		__IGOR_INLINE__ iaQuaternion<T> operator*(iaQuaternion<T>& rhs);
+        \param rhs the right hand side quaternion
+        \returns the resulting quaternion
+        */
+		iaQuaternion<T> operator*(const iaQuaternion<T>& rhs);
+        
+        // TODO void operator*=(const iaQuaternion<T>& rhs);
+
+        /*! multiply quaternion wiht scalar
+
+        \param rhs right hand side the scalar value
+        \returns resulting quaternion
+        */
+        iaQuaternion<T> operator*(T rhs);
+
+        /*! multiplays quaternion with scalar
+
+        \param rhs right hand side scalar value
+        */
+        void operator*=(T rhs);
+
+        // TODO inverse 
+        // https://stackoverflow.com/questions/6689967/calculate-quaternion-inverse
+
+        /*! normalize the quaternion to unit length
+        */
+        void normalize();
 
 		/*! \returns pointer to the data
 		*/
-		__IGOR_INLINE__ const T* getData() const;
+		const T* getData() const;
 
 		/*! \returns pointer to the data
 		*/
-		__IGOR_INLINE__ T* getData();
-
+		T* getData();
 
     };
+
+    template <class T>
+    iaQuaternion<T> slerp(iaQuaternion<T> a, iaQuaternion<T> b, T t);
+
+    template <class T>
+    T dotProduct(iaQuaternion<T> a, iaQuaternion<T> b);
 
 #include <iaQuaternion.inl>
 
