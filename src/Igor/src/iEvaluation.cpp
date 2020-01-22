@@ -15,11 +15,7 @@ namespace Igor
 
     iEvaluation::iEvaluation(uint64 nodeID)
     {
-        if(iNodeManager::getInstance().isNode(nodeID))
-        {
-            _nodeID = nodeID;
-        }
-
+        _nodeID = nodeID;
         _evaluatorID = iEvaluation::_idGenerator.createID();
     }
 
@@ -52,7 +48,7 @@ namespace Igor
     {
         _stop = stop;
     }
-    
+
     float64 iEvaluation::getStop() const
     {
         return _stop;

@@ -32,6 +32,12 @@ __IGOR_INLINE__ bool iEvaluationManager::isEvaluation(uint64 id) const
 template<class T>
 T* iEvaluationManager::createEvaluation(uint64 nodeID)
 {
+    if (!iNodeManager::getInstance().isNode(nodeID))
+    {
+        con_err("invalid node id " << nodeID);
+        return nullptr;
+    }
+
 	T* result = new T(nodeID);
 
 	_evaluations[static_cast<iEvaluationPtr>(result)->getID()] = static_cast<iEvaluationPtr>(result);
