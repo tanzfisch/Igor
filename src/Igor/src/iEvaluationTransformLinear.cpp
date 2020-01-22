@@ -21,27 +21,7 @@ namespace Igor
     {
     }
 
-    void iEvaluationTransformLinear::setTarget(const iaMatrixd& matrix, float64 duration)
-    {
-        con_assert(duration > 0, "invalid start stop values");
-
-        float64 currentTime = iTimer::getInstance().getSeconds();
-        setStart(currentTime);
-        setStop(currentTime + duration);
-
-        iNodeTransformPtr transformNode = static_cast<iNodeTransformPtr>(iNodeManager::getInstance().getNode(_nodeID));
-        if (transformNode != nullptr)
-        {
-            iaMatrixd nodeMatrix;
-            transformNode->getMatrix(nodeMatrix);
-            _sourceTransform.setMatrix(nodeMatrix);
-            _sourceIsSet = true;
-        }
-
-        _targetTransform.setMatrix(matrix);
-    }
-
-    void iEvaluationTransformLinear::setTarget(const iaMatrixd& matrix, float64 startTime, float64 duration)
+    void iEvaluationTransformLinear::setTarget(const iaMatrixd& source, const iaMatrixd& destination, float64 startTime, float64 duration)
     {
         con_assert(startTime < startTime + duration, "invalid start stop values");
 
@@ -49,7 +29,8 @@ namespace Igor
         setStart(startTime);
         setStop(startTime + duration);
 
-        _targetTransform.setMatrix(matrix);
+        _source.setMatrix(source);
+        _destination.setMatrix(destination);
     }
 
     void iEvaluationTransformLinear::evaluate(float64 time)
@@ -64,22 +45,12 @@ namespace Igor
         {
             return;
         }
+        
+        const float64 delta = _stop - _start;
+        const float64 t = std::min(1.0, std::max(0.0, (time - _start) / delta));
+        const iaTransformd transform = lerp(_source, _destination, t);
 
         iaMatrixd nodeMatrix;
-
-        if (!_sourceIsSet)
-        {
-            transformNode->getMatrix(nodeMatrix);
-            _sourceTransform.setMatrix(nodeMatrix);
-            _sourceIsSet = true;
-        }
-
-        float64 delta = _stop - _start;
-        float64 t = (time - _start) / delta;
-        t = std::min(1.0, std::max(0.0, t));
-
-        iaTransformd transform = lerp(_sourceTransform, _targetTransform, t);
-
         transform.getMatrix(nodeMatrix);
         transformNode->setMatrix(nodeMatrix);
     }

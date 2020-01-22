@@ -55,22 +55,14 @@ namespace Igor
         */
         virtual void evaluate(float64 time) override;
 
-        /*! set up the evaluation to reach matrix in given time
-
-        the start time will be automatically set to current frame time
-
-        \param matrix the target matrix to reach
-        \param duration the time to reach the target in seconds from now
-        */
-        void setTarget(const iaMatrixd& matrix, float64 duration);
-
         /*! same as setTarget but including start time
 
-        \param matrix the target matrix to reach
+        \param source the source matrix we come from
+        \param destination the target matrix to reach
         \param startTime the time the evaluation begins
         \param duration the time to reach the target in seconds
         */
-        void setTarget(const iaMatrixd& matrix, float64 startTime, float64 duration);
+        void setTarget(const iaMatrixd& source, const iaMatrixd& destination, float64 startTime, float64 duration);
 
     protected:
 
@@ -84,15 +76,11 @@ namespace Igor
 
         /*! the transform we come from
         */
-        iaTransformd _sourceTransform;
-
-        /*! flag to determine if the source was set already
-        */
-        bool _sourceIsSet = false;
+        iaTransformd _source;
 
         /*! the transform we go to
         */
-        iaTransformd _targetTransform;
+        iaTransformd _destination;
 
 	};
 
