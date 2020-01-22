@@ -19,20 +19,32 @@ namespace Igor
     iEvaluationTransformLinear::iEvaluationTransformLinear(uint64 nodeID)
         :iEvaluation(nodeID)
     {
-
     }
 
     void iEvaluationTransformLinear::setTarget(const iaMatrixd& matrix, float64 duration)
     {
+        con_assert(duration > 0, "invalid start stop values");
+
         float64 currentTime = iTimer::getInstance().getSeconds();
         setStart(currentTime);
         setStop(currentTime + duration);
+
+        iNodeTransformPtr transformNode = static_cast<iNodeTransformPtr>(iNodeManager::getInstance().getNode(_nodeID));
+        if (transformNode != nullptr)
+        {
+            iaMatrixd nodeMatrix;
+            transformNode->getMatrix(nodeMatrix);
+            _sourceTransform.setMatrix(nodeMatrix);
+            _sourceIsSet = true;
+        }
 
         _targetTransform.setMatrix(matrix);
     }
 
     void iEvaluationTransformLinear::setTarget(const iaMatrixd& matrix, float64 startTime, float64 duration)
     {
+        con_assert(startTime < startTime + duration, "invalid start stop values");
+
         float64 currentTime = iTimer::getInstance().getSeconds();
         setStart(startTime);
         setStop(startTime + duration);
@@ -42,33 +54,33 @@ namespace Igor
 
     void iEvaluationTransformLinear::evaluate(float64 time)
     {
-        con_assert(getStart() < getStop(), "invalid start stop values");
-
-        if (getStart() > time)
+        if (_start > time)
         {
             return;
         }
 
         iNodeTransformPtr transformNode = static_cast<iNodeTransformPtr>(iNodeManager::getInstance().getNode(_nodeID));
-
         if (transformNode == nullptr)
         {
             return;
         }
 
-        float64 delta = getStop() - getStart();
-        float64 t = (time - getStart()) / delta;
+        iaMatrixd nodeMatrix;
 
+        if (!_sourceIsSet)
+        {
+            transformNode->getMatrix(nodeMatrix);
+            _sourceTransform.setMatrix(nodeMatrix);
+            _sourceIsSet = true;
+        }
+
+        float64 delta = _stop - _start;
+        float64 t = (time - _start) / delta;
         t = std::min(1.0, std::max(0.0, t));
 
-        iaMatrixd nodeMatrix;
-        transformNode->getMatrix(nodeMatrix);
-        iaTransformd transform(nodeMatrix);
-
-        transform = lerp(transform, _targetTransform, t);
+        iaTransformd transform = lerp(_sourceTransform, _targetTransform, t);
 
         transform.getMatrix(nodeMatrix);
-
         transformNode->setMatrix(nodeMatrix);
     }
 

@@ -216,3 +216,14 @@ __IGOR_INLINE__ iaVector2<T2> iaVector2<T>::convert() const
 	iaVector2<T2> result(static_cast<T2>(_x), static_cast<T2>(_y));
 	return result;
 }
+
+template <class T>
+iaVector2<T> lerp(const iaVector2<T>& a, const iaVector2<T>& b, T t)
+{
+    iaVector2<T> result;
+    // (1 - t) * v0 + t * v1;
+    result._x = b._x * t + a._x * (1.0 - t);
+    result._y = b._y * t + a._y * (1.0 - t);
+
+    return result;
+}

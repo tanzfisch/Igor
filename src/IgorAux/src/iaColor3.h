@@ -34,7 +34,6 @@
 #include <fstream>
 #include <iostream>
 
-
 namespace IgorAux
 {
 

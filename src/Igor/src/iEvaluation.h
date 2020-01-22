@@ -96,6 +96,14 @@ namespace Igor
         */
         uint64 _nodeID = iNode::INVALID_NODE_ID;
 
+        /*! start time of evaluation
+        */
+        float64 _start = 0;
+
+        /*! stop time of evaluation
+        */
+        float64 _stop = 0;
+
         /*! init members
 
         \param nodeID id of node to take control of
@@ -111,14 +119,6 @@ namespace Igor
         /*! the next node id
         */
         static iaIDGenerator64 _idGenerator;
-
-        /*! start time of evaluation
-        */
-        float64 _start = 0;
-
-        /*! stop time of evaluation
-        */
-        float64 _stop = 0;
 
         /*! looped flag
         */

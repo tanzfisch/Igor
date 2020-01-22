@@ -5,10 +5,10 @@
 template <class T>
 __IGOR_INLINE__ std::wostream& operator<<(std::wostream& ostr, const iaMatrix<T>& m)
 {
-	ostr << "|" << fixed << right << setprecision(2) << setw(10) << m._right._x << " " << right << setprecision(2) << setw(10) << m._top._x << " " << right << setprecision(2) << setw(10) << m._depth._x << " " << right << setprecision(2) << setw(10) << m._pos._x << "|\n";
-	ostr << "|" << fixed << right << setprecision(2) << setw(10) << m._right._y << " " << right << setprecision(2) << setw(10) << m._top._y << " " << right << setprecision(2) << setw(10) << m._depth._y << " " << right << setprecision(2) << setw(10) << m._pos._y << "|\n";
-	ostr << "|" << fixed << right << setprecision(2) << setw(10) << m._right._z << " " << right << setprecision(2) << setw(10) << m._top._z << " " << right << setprecision(2) << setw(10) << m._depth._z << " " << right << setprecision(2) << setw(10) << m._pos._z << "|\n";
-	ostr << "|" << fixed << right << setprecision(2) << setw(10) << m._w0 << " " << right << setprecision(2) << setw(10) << m._w1 << " " << right << setprecision(2) << setw(10) << m._w2 << " " << right << setprecision(2) << setw(10) << m._w3 << "|\n";
+	ostr << "|" << std::fixed << std::right << std::setprecision(2) << std::setw(10) << m._right._x << " " << std::right << std::setprecision(2) << std::setw(10) << m._top._x << " " << std::right << std::setprecision(2) << std::setw(10) << m._depth._x << " " << std::right << std::setprecision(2) << std::setw(10) << m._pos._x << "|\n";
+	ostr << "|" << std::fixed << std::right << std::setprecision(2) << std::setw(10) << m._right._y << " " << std::right << std::setprecision(2) << std::setw(10) << m._top._y << " " << std::right << std::setprecision(2) << std::setw(10) << m._depth._y << " " << std::right << std::setprecision(2) << std::setw(10) << m._pos._y << "|\n";
+	ostr << "|" << std::fixed << std::right << std::setprecision(2) << std::setw(10) << m._right._z << " " << std::right << std::setprecision(2) << std::setw(10) << m._top._z << " " << std::right << std::setprecision(2) << std::setw(10) << m._depth._z << " " << std::right << std::setprecision(2) << std::setw(10) << m._pos._z << "|\n";
+	ostr << "|" << std::fixed << std::right << std::setprecision(2) << std::setw(10) << m._w0 << " " << std::right << std::setprecision(2) << std::setw(10) << m._w1 << " " << std::right << std::setprecision(2) << std::setw(10) << m._w2 << " " << std::right << std::setprecision(2) << std::setw(10) << m._w3 << "|\n";
 	return ostr;
 }
 

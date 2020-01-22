@@ -82,6 +82,16 @@ namespace Igor
 
     private:
 
+        /*! the transform we come from
+        */
+        iaTransformd _sourceTransform;
+
+        /*! flag to determine if the source was set already
+        */
+        bool _sourceIsSet = false;
+
+        /*! the transform we go to
+        */
         iaTransformd _targetTransform;
 
 	};
