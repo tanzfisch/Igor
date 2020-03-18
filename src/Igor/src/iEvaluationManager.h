@@ -73,7 +73,11 @@ namespace Igor
 
     private:
 
+        /*! map of all evaluations
+        */
         std::map<uint64, iEvaluationPtr> _evaluations;
+
+        // TODO make list of active evaluations so we don't iterate all of them
 
         /*! does nothing
         */
