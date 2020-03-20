@@ -107,6 +107,10 @@ namespace IgorAux
         */
         iaString getFileName() const;
 
+        /*! \returns filename without extension
+        */
+        iaString getStem() const;
+
         /*! \returns the full path & filename
         */
         iaString getFullFileName() const;
