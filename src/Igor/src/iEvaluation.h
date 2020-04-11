@@ -39,6 +39,16 @@ using namespace IgorAux;
 namespace Igor
 {
 
+    /*! interpolation function type definitions
+    */
+    enum class InterpolationFunction
+    {
+        Linear,
+        Accelerate,
+        Decelerate,
+        SmoothStep
+    };
+
     /*! evaluation base class
     */
     class Igor_API iEvaluation
@@ -73,6 +83,7 @@ namespace Igor
         float64 getStop() const;
 
         /*! sets stop based on current start plus duration
+
         \param duration the duration to be set
         */
         void setDuration(float64 duration);
@@ -80,6 +91,16 @@ namespace Igor
         /*! \retuens duration
         */
         float64 getDuration() const;
+
+        /*! sets the interpolation function
+
+        \param interpolationFunction the interpolation function type to set
+        */
+        void setInterpolationFunction(InterpolationFunction interpolationFunction);
+
+        /*! \retruns interpolation function type
+        */
+        InterpolationFunction getInterpolationFunction() const;
 
         /*! \returns id of the evaluation
         */
@@ -98,6 +119,10 @@ namespace Igor
         /*! id of node to control
         */
         uint64 _nodeID = iNode::INVALID_NODE_ID;
+
+        /*! interpolation function
+        */
+        InterpolationFunction _interpolationFunction = InterpolationFunction::Linear;
 
         /*! start time of evaluation
         */
@@ -133,9 +158,9 @@ namespace Igor
 
         /*! evaluates something
 
-        \param time current application time in seconds
+        \param t the scale form 0 to 1 from start to stop
         */
-        virtual void evaluate(float64 time) = 0;
+        virtual void evaluate(float64 t) = 0;
 
     };
 

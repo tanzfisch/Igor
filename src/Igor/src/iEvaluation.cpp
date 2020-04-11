@@ -64,5 +64,15 @@ namespace Igor
         return _stop - _start;
     }
 
+    void iEvaluation::setInterpolationFunction(InterpolationFunction interpolationFunction)
+    {
+        _interpolationFunction = interpolationFunction;
+    }
+
+    InterpolationFunction iEvaluation::getInterpolationFunction() const
+    {
+        return _interpolationFunction;
+    }
+
 };
 

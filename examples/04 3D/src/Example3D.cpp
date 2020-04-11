@@ -125,17 +125,21 @@ void Example3D::init()
     justCatTransform->insertNode(justCatModel);
 
     iEvaluationTransformPtr evalTrans = iEvaluationManager::getInstance().createEvaluation<iEvaluationTransform>(justCatTransform->getID());
-    iaMatrixd sourceMatrix;
-    iaMatrixd destinationMatrix;
-    justCatTransform->getMatrix(sourceMatrix);
-    destinationMatrix = sourceMatrix;
-    destinationMatrix.rotate(1.4, iaAxis::Y);
-    destinationMatrix.scale(1.5, 1.5, 1.5);
-    destinationMatrix.translate(0, -1, 0);
-    evalTrans->setSource(sourceMatrix);
-    evalTrans->setDestination(destinationMatrix);
-    evalTrans->setStart(5);
-    evalTrans->setStop(5);
+    if (evalTrans != nullptr)
+    {
+        iaMatrixd sourceMatrix;
+        iaMatrixd destinationMatrix;
+        justCatTransform->getMatrix(sourceMatrix);
+        destinationMatrix = sourceMatrix;
+        destinationMatrix.rotate(1.4, iaAxis::Y);
+        destinationMatrix.scale(1.5, 1.5, 1.5);
+        destinationMatrix.translate(0, -2, 0);
+        evalTrans->setSource(sourceMatrix);
+        evalTrans->setDestination(destinationMatrix);
+        evalTrans->setStart(5);
+        evalTrans->setDuration(5);
+        evalTrans->setInterpolationFunction(InterpolationFunction::SmoothStep);
+    }
 
     // create a group of models that can be moved together due to being child to the same transform node
     // creating transformation node used for the heading of it's children

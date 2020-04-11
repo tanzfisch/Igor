@@ -81,12 +81,14 @@ namespace Igor
 
         /*! evaluates something
 
-        \param time current application time in seconds
+        \param t the scale form 0 to 1 from start to stop
         */
-        virtual void evaluate(float64 time) override;
+        virtual void evaluate(float64 t) override;
 
 	};
 
+    /*! evaluation transform pointer definition
+    */
     typedef iEvaluationTransform* iEvaluationTransformPtr;
 
 };

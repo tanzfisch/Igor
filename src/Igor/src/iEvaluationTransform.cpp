@@ -11,7 +11,6 @@
 #include <iaConsole.h>
 using namespace IgorAux;
 
-#include<algorithm>
 
 namespace Igor
 {
@@ -19,6 +18,8 @@ namespace Igor
     iEvaluationTransform::iEvaluationTransform(uint64 nodeID)
         :iEvaluation(nodeID)
     {
+        iNodeTransformPtr transformNode = static_cast<iNodeTransformPtr>(iNodeManager::getInstance().getNode(_nodeID));
+        con_assert(transformNode != nullptr && transformNode->getKind() == iNodeKind::Transformation, "invalid node");
     }
 
     void iEvaluationTransform::setSource(const iaMatrixd& source)
@@ -31,21 +32,14 @@ namespace Igor
         _destination.setMatrix(destination);
     }
 
-    void iEvaluationTransform::evaluate(float64 time)
+    void iEvaluationTransform::evaluate(float64 t)
     {
-        if (_start > time)
-        {
-            return;
-        }
-
         iNodeTransformPtr transformNode = static_cast<iNodeTransformPtr>(iNodeManager::getInstance().getNode(_nodeID));
         if (transformNode == nullptr)
         {
             return;
         }
-        
-        const float64 delta = _stop - _start;
-        const float64 t = std::min(1.0, std::max(0.0, (time - _start) / delta));
+
         const iaTransformd transform = lerp(_source, _destination, t);
 
         iaMatrixd nodeMatrix;

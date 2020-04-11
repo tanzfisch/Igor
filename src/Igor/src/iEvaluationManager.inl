@@ -32,9 +32,17 @@ __IGOR_INLINE__ bool iEvaluationManager::isEvaluation(uint64 id) const
 template<class T>
 T* iEvaluationManager::createEvaluation(uint64 nodeID)
 {
-    if (!iNodeManager::getInstance().isNode(nodeID))
+    iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
+
+    if (node == nullptr)
     {
         con_err("invalid node id " << nodeID);
+        return nullptr;
+    }
+
+    if (node->getKind() != iNodeKind::Transformation)
+    {
+        con_err("invalid node kind " << node->getKind());
         return nullptr;
     }
 

@@ -8,6 +8,8 @@
 #include <iaConsole.h>
 using namespace IgorAux;
 
+#include<algorithm>
+
 namespace Igor
 {
     iEvaluationManager::~iEvaluationManager()
@@ -23,9 +25,34 @@ namespace Igor
     void iEvaluationManager::handle()
     {
         float64 time = iTimer::getInstance().getSeconds();
-        for (auto evaluation : _evaluations)
+        for (auto pair : _evaluations)
         {
-            evaluation.second->evaluate(time);
+            iEvaluationPtr evaluation = pair.second;
+
+            if (evaluation->_start > time)
+            {
+                continue;
+            }
+
+            const float64 delta = evaluation->_stop - evaluation->_start;
+            float64 t = std::min(1.0, std::max(0.0, (time - evaluation->_start) / delta));
+
+            switch (evaluation->getInterpolationFunction())
+            {
+            case InterpolationFunction::Accelerate:
+                t = t * t;
+                break;
+
+            case InterpolationFunction::Decelerate:
+                t = 1.0 - (1.0 - t) * (1.0 - t);
+                break;
+
+            case InterpolationFunction::SmoothStep:
+                t = (t * t) * (3.0 - (2.0 * t));
+                break;
+            }
+
+            evaluation->evaluate(t);
         }
     }
 
