@@ -72,15 +72,18 @@ namespace Igor
         */
         float64 getStop() const;
 
+        /*! sets stop based on current start plus duration
+        \param duration the duration to be set
+        */
+        void setDuration(float64 duration);
+
+        /*! \retuens duration
+        */
+        float64 getDuration() const;
+
         /*! \returns id of the evaluation
         */
         uint64 getID() const;
-
-        /*! evaluates something
-
-        \param time current application time in seconds
-        */
-        virtual void evaluate(float64 time) = 0;
 
         /*! sets if this evaluation runs in an endless loop
         */
@@ -127,6 +130,12 @@ namespace Igor
         /*! id of this evaluation
         */
         uint64 _evaluatorID = iEvaluation::INVALID_EVALUATOR_ID;
+
+        /*! evaluates something
+
+        \param time current application time in seconds
+        */
+        virtual void evaluate(float64 time) = 0;
 
     };
 

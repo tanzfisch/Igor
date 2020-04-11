@@ -34,7 +34,7 @@
 #include <iaSingleton.h>
 using namespace IgorAux;
 
-#include <map>
+#include <unordered_map>
 
 namespace Igor
 {
@@ -75,7 +75,7 @@ namespace Igor
 
         /*! map of all evaluations
         */
-        std::map<uint64, iEvaluationPtr> _evaluations;
+        std::unordered_map<uint64, iEvaluationPtr> _evaluations;
 
         // TODO make list of active evaluations so we don't iterate all of them
 

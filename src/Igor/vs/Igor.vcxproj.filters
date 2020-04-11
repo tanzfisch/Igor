@@ -21,13 +21,13 @@
       <Filter>application</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iKeyboard.cpp">
-      <Filter>devices</Filter>
+      <Filter>I/O</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iKeyCodeMap.cpp">
-      <Filter>devices</Filter>
+      <Filter>I/O</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iMouse.cpp">
-      <Filter>devices</Filter>
+      <Filter>I/O</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iRenderer.cpp">
       <Filter>graphics\Renderer-OpenGL</Filter>
@@ -36,13 +36,13 @@
       <Filter>graphics\simulation</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iCelestialNode.cpp">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNode.cpp">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iSkyLightNode.cpp">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iConfigReader.cpp">
       <Filter>resources\configuration</Filter>
@@ -99,31 +99,31 @@
       <Filter>threading</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iOctree.cpp">
-      <Filter>scene\octree</Filter>
+      <Filter>graphics\scene\octree</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeVisitor.cpp">
-      <Filter>scene\traversal</Filter>
+      <Filter>graphics\scene\traversal</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeVisitorBoundings.cpp">
-      <Filter>scene\traversal</Filter>
+      <Filter>graphics\scene\traversal</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeVisitorPrintTree.cpp">
-      <Filter>scene\traversal</Filter>
+      <Filter>graphics\scene\traversal</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeVisitorUpdateTransform.cpp">
-      <Filter>scene\traversal</Filter>
+      <Filter>graphics\scene\traversal</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iStopWatch.cpp">
-      <Filter>devices</Filter>
+      <Filter>I/O</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iTimer.cpp">
-      <Filter>devices</Filter>
+      <Filter>I/O</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iTimerHandle.cpp">
-      <Filter>devices</Filter>
+      <Filter>I/O</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWindow.cpp">
-      <Filter>devices</Filter>
+      <Filter>I/O</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iRenderEngine.cpp">
       <Filter>graphics</Filter>
@@ -135,13 +135,13 @@
       <Filter>graphics</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iScene.cpp">
-      <Filter>scene</Filter>
+      <Filter>graphics\scene</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iSceneFactory.cpp">
-      <Filter>scene</Filter>
+      <Filter>graphics\scene</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeVolume.cpp">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iInstancer.cpp">
       <Filter>graphics</Filter>
@@ -159,79 +159,79 @@
       <Filter>resources\material</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidgetDefaultTheme.cpp">
-      <Filter>GUI</Filter>
+      <Filter>widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidgetManager.cpp">
-      <Filter>GUI</Filter>
+      <Filter>widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeCamera.cpp">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeMesh.cpp">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeModel.cpp">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeLight.cpp">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeRender.cpp">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeSkyBox.cpp">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeTransform.cpp">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidget.cpp">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidgetButton.cpp">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidgetCheckBox.cpp">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidgetGroupBox.cpp">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidgetLabel.cpp">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidgetNumberChooser.cpp">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidgetPicture.cpp">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidgetScroll.cpp">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidgetTextEdit.cpp">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidgetSpacer.cpp">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iUserControlColorChooser.cpp">
-      <Filter>GUI\user controls</Filter>
+      <Filter>widgets\user controls</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidgetSlider.cpp">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidgetGrid.cpp">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeSwitch.cpp">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeLODSwitch.cpp">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeLODTrigger.cpp">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iTargetMaterial.cpp">
       <Filter>resources\material</Filter>
@@ -267,7 +267,7 @@
       <Filter>resources\mesh</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodePhysics.cpp">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iPhysicsMaterial.cpp">
       <Filter>resources\physics</Filter>
@@ -291,28 +291,28 @@
       <Filter>graphics\simulation</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeParticleSystem.cpp">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeEmitter.cpp">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iParticleEmitter.cpp">
       <Filter>graphics\simulation</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidgetSelectBox.cpp">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iUserControlFileChooser.cpp">
-      <Filter>GUI\user controls</Filter>
+      <Filter>widgets\user controls</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iDialogMessageBox.cpp">
-      <Filter>GUI\dialogs</Filter>
+      <Filter>widgets\dialogs</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iDialogDecisionBox.cpp">
-      <Filter>GUI\dialogs</Filter>
+      <Filter>widgets\dialogs</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iDialogFileSelect.cpp">
-      <Filter>GUI\dialogs</Filter>
+      <Filter>widgets\dialogs</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iBone.cpp">
       <Filter>graphics\types\bones</Filter>
@@ -327,31 +327,31 @@
       <Filter>graphics\generation</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeWater.cpp">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidgetGraph.cpp">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iDialogColorChooser.cpp">
-      <Filter>GUI\dialogs</Filter>
+      <Filter>widgets\dialogs</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidgetColor.cpp">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidgetColorGradient.cpp">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iDialogColorGradient.cpp">
-      <Filter>GUI\dialogs</Filter>
+      <Filter>widgets\dialogs</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iDialog.cpp">
-      <Filter>GUI\dialogs</Filter>
+      <Filter>widgets\dialogs</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iUserControl.cpp">
-      <Filter>GUI\user controls</Filter>
+      <Filter>widgets\user controls</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iDialogGraph.cpp">
-      <Filter>GUI\dialogs</Filter>
+      <Filter>widgets\dialogs</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iEntity.cpp">
       <Filter>entities</Filter>
@@ -363,28 +363,28 @@
       <Filter>entities</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iVoxelData.cpp">
-      <Filter>terrain\data</Filter>
+      <Filter>graphics\terrain\data</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iTaskGenerateVoxels.cpp">
-      <Filter>terrain\tasks</Filter>
+      <Filter>graphics\terrain\tasks</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iTaskVoxelTerrain.cpp">
-      <Filter>terrain\tasks</Filter>
+      <Filter>graphics\terrain\tasks</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iVoxelOperationBox.cpp">
-      <Filter>terrain\operations</Filter>
+      <Filter>graphics\terrain\operations</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iVoxelTerrain.cpp">
-      <Filter>terrain</Filter>
+      <Filter>graphics\terrain</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iVoxelTerrainMeshGenerator.cpp">
-      <Filter>terrain</Filter>
+      <Filter>graphics\terrain</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeVisitorRenderBoundings.cpp">
-      <Filter>scene\traversal</Filter>
+      <Filter>graphics\scene\traversal</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeVisitorRenderColorID.cpp">
-      <Filter>scene\traversal</Filter>
+      <Filter>graphics\scene\traversal</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iModelDataIO3DS.cpp">
       <Filter>todo</Filter>
@@ -405,13 +405,13 @@
       <Filter>resources\mesh</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeVisitorSearchName.cpp">
-      <Filter>scene\traversal</Filter>
+      <Filter>graphics\scene\traversal</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iTaskPropsOnVoxels.cpp">
-      <Filter>terrain\tasks</Filter>
+      <Filter>graphics\terrain\tasks</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iVoxelOperationSphere.cpp">
-      <Filter>terrain\operations</Filter>
+      <Filter>graphics\terrain\operations</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iAtlas.cpp">
       <Filter>resources\texture</Filter>
@@ -432,40 +432,40 @@
       <Filter>resources\profiler</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeManager.cpp">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iAction.cpp">
-      <Filter>GUI\menus / actions</Filter>
+      <Filter>widgets\menus / actions</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iActionManager.cpp">
-      <Filter>GUI\menus / actions</Filter>
+      <Filter>widgets\menus / actions</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidgetMenuBar.cpp">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidgetMenu.cpp">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iActionSimpleDelegate.cpp">
-      <Filter>GUI\menus / actions</Filter>
+      <Filter>widgets\menus / actions</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iUserControlAction.cpp">
-      <Filter>GUI\user controls</Filter>
+      <Filter>widgets\user controls</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iDialogIndexMenu.cpp">
-      <Filter>GUI\dialogs</Filter>
+      <Filter>widgets\dialogs</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iDialogMenu.cpp">
-      <Filter>GUI\dialogs</Filter>
+      <Filter>widgets\dialogs</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iEvaluationManager.cpp">
-      <Filter>scene\evaluation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\iEvaluationTransformLinear.cpp">
-      <Filter>scene\evaluation</Filter>
+      <Filter>graphics\evaluation</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iEvaluation.cpp">
-      <Filter>scene\evaluation</Filter>
+      <Filter>graphics\evaluation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iEvaluationTransform.cpp">
+      <Filter>graphics\evaluation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -487,13 +487,13 @@
       <Filter>application</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iKeyboard.h">
-      <Filter>devices</Filter>
+      <Filter>I/O</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iKeyCodeMap.h">
-      <Filter>devices</Filter>
+      <Filter>I/O</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iMouse.h">
-      <Filter>devices</Filter>
+      <Filter>I/O</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iRenderer.h">
       <Filter>graphics\Renderer-OpenGL</Filter>
@@ -502,13 +502,13 @@
       <Filter>graphics\simulation</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iCelestialNode.h">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNode.h">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iSkyLightNode.h">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iConfigReader.h">
       <Filter>resources\configuration</Filter>
@@ -562,37 +562,37 @@
       <Filter>threading</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iOctree.h">
-      <Filter>scene\octree</Filter>
+      <Filter>graphics\scene\octree</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeVisitor.h">
-      <Filter>scene\traversal</Filter>
+      <Filter>graphics\scene\traversal</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeVisitorBoundings.h">
-      <Filter>scene\traversal</Filter>
+      <Filter>graphics\scene\traversal</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeVisitorPrintTree.h">
-      <Filter>scene\traversal</Filter>
+      <Filter>graphics\scene\traversal</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeVisitorUpdateTransform.h">
-      <Filter>scene\traversal</Filter>
+      <Filter>graphics\scene\traversal</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iOSEvent.h">
-      <Filter>devices</Filter>
+      <Filter>I/O</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iOSEventListener.h">
-      <Filter>devices</Filter>
+      <Filter>I/O</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iStopWatch.h">
-      <Filter>devices</Filter>
+      <Filter>I/O</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iTimer.h">
-      <Filter>devices</Filter>
+      <Filter>I/O</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iTimerHandle.h">
-      <Filter>devices</Filter>
+      <Filter>I/O</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWindow.h">
-      <Filter>devices</Filter>
+      <Filter>I/O</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iRenderEngine.h">
       <Filter>graphics</Filter>
@@ -604,10 +604,10 @@
       <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iScene.h">
-      <Filter>scene</Filter>
+      <Filter>graphics\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iSceneFactory.h">
-      <Filter>scene</Filter>
+      <Filter>graphics\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iAACube.h">
       <Filter>data types</Filter>
@@ -622,7 +622,7 @@
       <Filter>data types</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeVolume.h">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iSTBImageExt.h">
       <Filter>3rd\stb_image</Filter>
@@ -643,79 +643,79 @@
       <Filter>resources\material</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetBaseTheme.h">
-      <Filter>GUI</Filter>
+      <Filter>widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetDefaultTheme.h">
-      <Filter>GUI</Filter>
+      <Filter>widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetManager.h">
-      <Filter>GUI</Filter>
+      <Filter>widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeCamera.h">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeMesh.h">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeModel.h">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeLight.h">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeRender.h">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeSkyBox.h">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeTransform.h">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidget.h">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetButton.h">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetCheckBox.h">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetGrid.h">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetGroupBox.h">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetLabel.h">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetNumberChooser.h">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetPicture.h">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetScroll.h">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetSpacer.h">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iUserControlColorChooser.h">
-      <Filter>GUI\user controls</Filter>
+      <Filter>widgets\user controls</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetSlider.h">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeSwitch.h">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeLODSwitch.h">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeLODTrigger.h">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iTargetMaterial.h">
       <Filter>resources\material</Filter>
@@ -752,7 +752,7 @@
       <Filter>resources\mesh</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodePhysics.h">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iPhysicsMaterial.h">
       <Filter>resources\physics</Filter>
@@ -779,28 +779,28 @@
       <Filter>graphics\simulation</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeParticleSystem.h">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeEmitter.h">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iParticleEmitter.h">
       <Filter>graphics\simulation</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetSelectBox.h">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iUserControlFileChooser.h">
-      <Filter>GUI\user controls</Filter>
+      <Filter>widgets\user controls</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iDialogMessageBox.h">
-      <Filter>GUI\dialogs</Filter>
+      <Filter>widgets\dialogs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iDialogDecisionBox.h">
-      <Filter>GUI\dialogs</Filter>
+      <Filter>widgets\dialogs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iDialogFileSelect.h">
-      <Filter>GUI\dialogs</Filter>
+      <Filter>widgets\dialogs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iThread.h">
       <Filter>threading</Filter>
@@ -818,31 +818,31 @@
       <Filter>graphics\generation</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeWater.h">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetTextEdit.h">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetGraph.h">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iDialogColorChooser.h">
-      <Filter>GUI\dialogs</Filter>
+      <Filter>widgets\dialogs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetColor.h">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetColorGradient.h">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iDialogColorGradient.h">
-      <Filter>GUI\dialogs</Filter>
+      <Filter>widgets\dialogs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iDialog.h">
-      <Filter>GUI\dialogs</Filter>
+      <Filter>widgets\dialogs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iUserControl.h">
-      <Filter>GUI\user controls</Filter>
+      <Filter>widgets\user controls</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iRectangle.h">
       <Filter>data types</Filter>
@@ -851,7 +851,7 @@
       <Filter>data types</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iDialogGraph.h">
-      <Filter>GUI\dialogs</Filter>
+      <Filter>widgets\dialogs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iEntity.h">
       <Filter>entities</Filter>
@@ -863,34 +863,34 @@
       <Filter>entities</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iVoxelData.h">
-      <Filter>terrain\data</Filter>
+      <Filter>graphics\terrain\data</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iTaskGenerateVoxels.h">
-      <Filter>terrain\tasks</Filter>
+      <Filter>graphics\terrain\tasks</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iTaskVoxelTerrain.h">
-      <Filter>terrain\tasks</Filter>
+      <Filter>graphics\terrain\tasks</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iVoxelBlock.h">
-      <Filter>terrain\data</Filter>
+      <Filter>graphics\terrain\data</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iVoxelOperation.h">
-      <Filter>terrain\operations</Filter>
+      <Filter>graphics\terrain\operations</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iVoxelOperationBox.h">
-      <Filter>terrain\operations</Filter>
+      <Filter>graphics\terrain\operations</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iVoxelTerrain.h">
-      <Filter>terrain</Filter>
+      <Filter>graphics\terrain</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iVoxelTerrainMeshGenerator.h">
-      <Filter>terrain</Filter>
+      <Filter>graphics\terrain</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeVisitorRenderBoundings.h">
-      <Filter>scene\traversal</Filter>
+      <Filter>graphics\scene\traversal</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeVisitorRenderColorID.h">
-      <Filter>scene\traversal</Filter>
+      <Filter>graphics\scene\traversal</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iModelDataIO3DS.h">
       <Filter>todo</Filter>
@@ -911,13 +911,13 @@
       <Filter>resources\mesh</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeVisitorSearchName.h">
-      <Filter>scene\traversal</Filter>
+      <Filter>graphics\scene\traversal</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iTaskPropsOnVoxels.h">
-      <Filter>terrain\tasks</Filter>
+      <Filter>graphics\terrain\tasks</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iVoxelOperationSphere.h">
-      <Filter>terrain\operations</Filter>
+      <Filter>graphics\terrain\operations</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iRay.h">
       <Filter>data types</Filter>
@@ -941,40 +941,40 @@
       <Filter>resources\profiler</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeManager.h">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iAction.h">
-      <Filter>GUI\menus / actions</Filter>
+      <Filter>widgets\menus / actions</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iActionManager.h">
-      <Filter>GUI\menus / actions</Filter>
+      <Filter>widgets\menus / actions</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetMenuBar.h">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetMenu.h">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iActionSimpleDelegate.h">
-      <Filter>GUI\menus / actions</Filter>
+      <Filter>widgets\menus / actions</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iUserControlAction.h">
-      <Filter>GUI\user controls</Filter>
+      <Filter>widgets\user controls</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iDialogIndexMenu.h">
-      <Filter>GUI\dialogs</Filter>
+      <Filter>widgets\dialogs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iDialogMenu.h">
-      <Filter>GUI\dialogs</Filter>
+      <Filter>widgets\dialogs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iEvaluationManager.h">
-      <Filter>scene\evaluation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iEvaluationTransformLinear.h">
-      <Filter>scene\evaluation</Filter>
+      <Filter>graphics\evaluation</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iEvaluation.h">
-      <Filter>scene\evaluation</Filter>
+      <Filter>graphics\evaluation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iEvaluationTransform.h">
+      <Filter>graphics\evaluation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -997,7 +997,7 @@
       <Filter>graphics</Filter>
     </None>
     <None Include="..\src\iWidget.inl">
-      <Filter>GUI\widgets</Filter>
+      <Filter>widgets\widgets</Filter>
     </None>
     <None Include="..\src\iTargetMaterial.inl">
       <Filter>resources\material</Filter>
@@ -1024,13 +1024,13 @@
       <Filter>resources\texture</Filter>
     </None>
     <None Include="..\src\iNodeManager.inl">
-      <Filter>scene\nodes</Filter>
+      <Filter>graphics\scene\nodes</Filter>
     </None>
     <None Include="..\src\iWidgetManager.inl">
-      <Filter>GUI</Filter>
+      <Filter>widgets</Filter>
     </None>
     <None Include="..\src\iEvaluationManager.inl">
-      <Filter>scene\evaluation</Filter>
+      <Filter>graphics\evaluation</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1049,17 +1049,11 @@
     <Filter Include="3rd\TinyXML">
       <UniqueIdentifier>{4835bc69-e1bc-46e7-9c19-17d2806009e9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="devices">
-      <UniqueIdentifier>{7439be0e-0be3-4059-ba0c-446d35c87cf1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="graphics">
       <UniqueIdentifier>{9c9458da-a174-40b8-a62e-0d736743c77f}</UniqueIdentifier>
     </Filter>
     <Filter Include="resources">
       <UniqueIdentifier>{6711d7d9-35a5-4a6a-8709-50a91a382a66}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scene">
-      <UniqueIdentifier>{80183df9-8e19-4b5f-89fa-e4f981a9a683}</UniqueIdentifier>
     </Filter>
     <Filter Include="threading">
       <UniqueIdentifier>{8e75589a-e993-4b37-a60d-e93963ecde0e}</UniqueIdentifier>
@@ -1072,9 +1066,6 @@
     </Filter>
     <Filter Include="graphics\types">
       <UniqueIdentifier>{9121e140-a5d2-4fbe-afd1-4695d8a50613}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scene\nodes">
-      <UniqueIdentifier>{bd96684d-4510-4c26-82b0-d9690a6e2dc6}</UniqueIdentifier>
     </Filter>
     <Filter Include="resources\configuration">
       <UniqueIdentifier>{7fa8a902-3040-4cf9-862b-707797ef1083}</UniqueIdentifier>
@@ -1094,26 +1085,8 @@
     <Filter Include="threading\tasks">
       <UniqueIdentifier>{5473f40e-6e38-4c78-a977-b578420715cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="scene\traversal">
-      <UniqueIdentifier>{d24b4dfe-e782-4ee1-9e5f-8900c0f4c9d1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="resources\material">
       <UniqueIdentifier>{638ae758-7383-4864-852e-b29ff69ccf82}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GUI">
-      <UniqueIdentifier>{b62dc271-c0f3-416d-970b-09c15311a96f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GUI\widgets">
-      <UniqueIdentifier>{63bf3126-5565-433e-9fd3-b112a8f7e2a2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GUI\dialogs">
-      <UniqueIdentifier>{649c416c-f9bb-43d8-a399-9705d77e47dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GUI\user controls">
-      <UniqueIdentifier>{2f0e59f2-09be-454c-bbc6-0c709a633d7e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="scene\octree">
-      <UniqueIdentifier>{104fa5da-7f85-4598-a502-c30f41d4f8b4}</UniqueIdentifier>
     </Filter>
     <Filter Include="graphics\types\bones">
       <UniqueIdentifier>{0f96c3a3-c80d-41c3-b0ba-c7cd9045209f}</UniqueIdentifier>
@@ -1123,18 +1096,6 @@
     </Filter>
     <Filter Include="entities">
       <UniqueIdentifier>{1637c4c0-32a5-4ba1-8496-a9f83e01a217}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="terrain">
-      <UniqueIdentifier>{8fa6a8e6-6632-481d-aee0-f49045e8ba35}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="terrain\data">
-      <UniqueIdentifier>{2abde1d1-2ead-430c-a31f-d51588d7d058}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="terrain\tasks">
-      <UniqueIdentifier>{1b99dad5-d970-461c-840e-debbbee6f339}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="terrain\operations">
-      <UniqueIdentifier>{48fdb292-5fb3-404a-9378-aaf533b9daf4}</UniqueIdentifier>
     </Filter>
     <Filter Include="graphics\Renderer-OpenGL">
       <UniqueIdentifier>{e7a7a7e5-4e38-488f-a442-f1d26a7be27c}</UniqueIdentifier>
@@ -1148,11 +1109,50 @@
     <Filter Include="resources\profiler">
       <UniqueIdentifier>{58005712-136c-489b-80a1-deb7d7ccf43e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GUI\menus / actions">
+    <Filter Include="graphics\evaluation">
+      <UniqueIdentifier>{155d76d8-4136-4819-b03c-85a73b612881}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\scene">
+      <UniqueIdentifier>{80183df9-8e19-4b5f-89fa-e4f981a9a683}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\scene\nodes">
+      <UniqueIdentifier>{bd96684d-4510-4c26-82b0-d9690a6e2dc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\scene\traversal">
+      <UniqueIdentifier>{d24b4dfe-e782-4ee1-9e5f-8900c0f4c9d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\scene\octree">
+      <UniqueIdentifier>{104fa5da-7f85-4598-a502-c30f41d4f8b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="widgets">
+      <UniqueIdentifier>{b62dc271-c0f3-416d-970b-09c15311a96f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="widgets\widgets">
+      <UniqueIdentifier>{63bf3126-5565-433e-9fd3-b112a8f7e2a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="widgets\dialogs">
+      <UniqueIdentifier>{649c416c-f9bb-43d8-a399-9705d77e47dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="widgets\user controls">
+      <UniqueIdentifier>{2f0e59f2-09be-454c-bbc6-0c709a633d7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="widgets\menus / actions">
       <UniqueIdentifier>{4de5ee33-eefa-467d-9efa-9e54cd9c0117}</UniqueIdentifier>
     </Filter>
-    <Filter Include="scene\evaluation">
-      <UniqueIdentifier>{155d76d8-4136-4819-b03c-85a73b612881}</UniqueIdentifier>
+    <Filter Include="I/O">
+      <UniqueIdentifier>{7439be0e-0be3-4059-ba0c-446d35c87cf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\terrain">
+      <UniqueIdentifier>{8fa6a8e6-6632-481d-aee0-f49045e8ba35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\terrain\data">
+      <UniqueIdentifier>{2abde1d1-2ead-430c-a31f-d51588d7d058}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\terrain\tasks">
+      <UniqueIdentifier>{1b99dad5-d970-461c-840e-debbbee6f339}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\terrain\operations">
+      <UniqueIdentifier>{48fdb292-5fb3-404a-9378-aaf533b9daf4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

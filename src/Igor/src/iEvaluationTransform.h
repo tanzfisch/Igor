@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iEVALUATION_TRANSFORM_LINEAR__
-#define __iEVALUATION_TRANSFORM_LINEAR__
+#ifndef __iEVALUATION_TRANSFORM__
+#define __iEVALUATION_TRANSFORM__
 
 #include <iEvaluation.h>
 
@@ -42,27 +42,24 @@ namespace Igor
 
     /*! evaluation that menipulates transform nodes in a linear fashion
     */
-	class Igor_API iEvaluationTransformLinear : public iEvaluation
+	class Igor_API iEvaluationTransform : public iEvaluation
 	{
 
         friend class iEvaluationManager;
 
     public:
 
-        /*! evaluates something
-
-        \param time current application time in seconds
-        */
-        virtual void evaluate(float64 time) override;
-
-        /*! same as setTarget but including start time
+        /*! sets source transformation
 
         \param source the source matrix we come from
-        \param destination the target matrix to reach
-        \param startTime the time the evaluation begins
-        \param duration the time to reach the target in seconds
         */
-        void setTarget(const iaMatrixd& source, const iaMatrixd& destination, float64 startTime, float64 duration);
+        void setSource(const iaMatrixd& source);
+
+        /*! sets destination transformation
+
+        \param destination the destination matrix we transforma to
+        */
+        void setDestination(const iaMatrixd& destination);
 
     protected:
 
@@ -70,7 +67,7 @@ namespace Igor
 
         \param nodeID id of node to take control of
         */
-        iEvaluationTransformLinear(uint64 nodeID);
+        iEvaluationTransform(uint64 nodeID);
 
     private:
 
@@ -82,9 +79,15 @@ namespace Igor
         */
         iaTransformd _destination;
 
+        /*! evaluates something
+
+        \param time current application time in seconds
+        */
+        virtual void evaluate(float64 time) override;
+
 	};
 
-    typedef iEvaluationTransformLinear* iEvaluationTransformLinearPtr;
+    typedef iEvaluationTransform* iEvaluationTransformPtr;
 
 };
 

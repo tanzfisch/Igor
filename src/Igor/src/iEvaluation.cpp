@@ -54,5 +54,15 @@ namespace Igor
         return _stop;
     }
 
+    void iEvaluation::setDuration(float64 duration)
+    {
+        _stop = _start + duration;
+    }
+
+    float64 iEvaluation::getDuration() const
+    {
+        return _stop - _start;
+    }
+
 };
 

@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <iEvaluationTransformLinear.h>
+#include <iEvaluationTransform.h>
 
 #include <iNodeManager.h>
 #include <iTimer.h>
@@ -16,24 +16,22 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iEvaluationTransformLinear::iEvaluationTransformLinear(uint64 nodeID)
+    iEvaluationTransform::iEvaluationTransform(uint64 nodeID)
         :iEvaluation(nodeID)
     {
     }
 
-    void iEvaluationTransformLinear::setTarget(const iaMatrixd& source, const iaMatrixd& destination, float64 startTime, float64 duration)
+    void iEvaluationTransform::setSource(const iaMatrixd& source)
     {
-        con_assert(startTime < startTime + duration, "invalid start stop values");
-
-        float64 currentTime = iTimer::getInstance().getSeconds();
-        setStart(startTime);
-        setStop(startTime + duration);
-
         _source.setMatrix(source);
+    }
+
+    void iEvaluationTransform::setDestination(const iaMatrixd& destination)
+    {
         _destination.setMatrix(destination);
     }
 
-    void iEvaluationTransformLinear::evaluate(float64 time)
+    void iEvaluationTransform::evaluate(float64 time)
     {
         if (_start > time)
         {
