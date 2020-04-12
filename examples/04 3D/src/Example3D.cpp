@@ -131,14 +131,12 @@ void Example3D::init()
         iaMatrixd destinationMatrix;
         justCatTransform->getMatrix(sourceMatrix);
         destinationMatrix = sourceMatrix;
-        destinationMatrix.rotate(1.4, iaAxis::Y);
-        destinationMatrix.scale(1.5, 1.5, 1.5);
-        destinationMatrix.translate(0, -2, 0);
+        destinationMatrix.translate(0, -1, 0);
         evalTrans->setSource(sourceMatrix);
         evalTrans->setDestination(destinationMatrix);
         evalTrans->setStart(5);
-        evalTrans->setDuration(5);
-        evalTrans->setInterpolationFunction(InterpolationFunction::SmoothStep);
+        evalTrans->setDuration(2);
+        evalTrans->setEasingFunction(Easing::EasingFunction::OutElastic);
     }
 
     // create a group of models that can be moved together due to being child to the same transform node

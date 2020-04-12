@@ -5,6 +5,7 @@
 #include <iEvaluation.h>
 #include <iNodeTransform.h>
 #include <iNodeManager.h>
+#include <iEvaluationManager.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -64,15 +65,46 @@ namespace Igor
         return _stop - _start;
     }
 
-    void iEvaluation::setInterpolationFunction(InterpolationFunction interpolationFunction)
+    void iEvaluation::setEasingFunction(Easing::EasingFunction easingFunction)
     {
-        _interpolationFunction = interpolationFunction;
+        _easingFunction = easingFunction;
     }
 
-    InterpolationFunction iEvaluation::getInterpolationFunction() const
+    Easing::EasingFunction iEvaluation::getEasingFunction() const
     {
-        return _interpolationFunction;
+        return _easingFunction;
     }
+
+    void iEvaluation::setAmplitude(float64 amplitude)
+    {
+        _amplitude = amplitude;
+    }
+
+    float64 iEvaluation::getAmplitude() const
+    {
+        return _amplitude;
+    }
+
+    void iEvaluation::setPeriod(float64 period)
+    {
+        _period = period;
+    }
+
+    float64 iEvaluation::getPeriod() const
+    {
+        return _period;
+    }
+
+    void iEvaluation::setOvershoot(float64 overshoot)
+    {
+        _overshoot = overshoot;
+    }
+
+    float64 iEvaluation::getOvershoot() const
+    {
+        return _overshoot;
+    }
+
 
 };
 

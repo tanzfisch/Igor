@@ -205,6 +205,7 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
     <ClInclude Include="..\src\iaDefines.h" />
     <ClInclude Include="..\src\iaDelegate.h" />
     <ClInclude Include="..\src\iaDirectory.h" />
+    <ClInclude Include="..\src\iaEasing.h" />
     <ClInclude Include="..\src\iaEvent.h" />
     <ClInclude Include="..\src\iaFile.h" />
     <ClInclude Include="..\src\iaGradient.h" />

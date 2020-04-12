@@ -32,22 +32,13 @@
 #include <iNodeTransform.h>
 
 #include <iaIDGenerator.h>
+#include <iaEasing.h>
 using namespace IgorAux;
 
 #include <vector>
 
 namespace Igor
 {
-
-    /*! interpolation function type definitions
-    */
-    enum class InterpolationFunction
-    {
-        Linear,
-        Accelerate,
-        Decelerate,
-        SmoothStep
-    };
 
     /*! evaluation base class
     */
@@ -96,11 +87,47 @@ namespace Igor
 
         \param interpolationFunction the interpolation function type to set
         */
-        void setInterpolationFunction(InterpolationFunction interpolationFunction);
+        void setEasingFunction(Easing::EasingFunction interpolationFunction);
 
         /*! \retruns interpolation function type
         */
-        InterpolationFunction getInterpolationFunction() const;
+        Easing::EasingFunction getEasingFunction() const;
+
+        /*! sets the amplitude of the easing function
+
+        only has an effect with Elastic ease function
+
+        \param amplitude the new amplitude
+        */
+        void setAmplitude(float64 amplitude);
+
+        /*! \returns the amplitude of the easing function
+        */
+        float64 getAmplitude() const;
+
+        /*! sets the period of the easing function
+
+        only has an effect with Elastic ease function
+
+        \param period the new period
+        */
+        void setPeriod(float64 period);
+
+        /*! \returns the period of the easing function
+        */
+        float64 getPeriod() const;
+
+        /*! sets the overshoot of the easing function
+
+        only has an effect with Back ease function
+
+        \param overshoot the new overshoot value
+        */
+        void setOvershoot(float64 overshoot);
+
+        /*! \returns the overshoot of the easing function
+        */
+        float64 getOvershoot() const;
 
         /*! \returns id of the evaluation
         */
@@ -122,7 +149,7 @@ namespace Igor
 
         /*! interpolation function
         */
-        InterpolationFunction _interpolationFunction = InterpolationFunction::Linear;
+        Easing::EasingFunction _easingFunction = Easing::EasingFunction::Linear;
 
         /*! start time of evaluation
         */
@@ -131,6 +158,18 @@ namespace Igor
         /*! stop time of evaluation
         */
         float64 _stop = 0;
+
+        /*! amplitude of elastic easing function
+        */
+        float64 _amplitude = 0.5;
+
+        /*! period of elastic easing function
+        */
+        float64 _period = 0.25;
+
+        /*! overshoot of back easing function
+        */
+        float64 _overshoot = 1.70158;
 
         /*! init members
 
