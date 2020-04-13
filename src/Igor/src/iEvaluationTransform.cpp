@@ -11,7 +11,6 @@
 #include <iaConsole.h>
 using namespace IgorAux;
 
-
 namespace Igor
 {
 
@@ -22,31 +21,49 @@ namespace Igor
         con_assert(transformNode != nullptr && transformNode->getKind() == iNodeKind::Transformation, "invalid node");
     }
 
-    void iEvaluationTransform::setSource(const iaMatrixd& source)
+    void iEvaluationTransform::addKeyframe(const iaMatrixd& matrix)
     {
-        _source.setMatrix(source);
-    }
-
-    void iEvaluationTransform::setDestination(const iaMatrixd& destination)
-    {
-        _destination.setMatrix(destination);
+        _keyframes.push_back(matrix);
     }
 
     void iEvaluationTransform::evaluate(float64 t)
     {
+        con_assert(_keyframes.size() >= 2, "not enough keyframes");
+        if (_keyframes.size() < 2)
+        {
+            return;
+        }
+
         iNodeTransformPtr transformNode = static_cast<iNodeTransformPtr>(iNodeManager::getInstance().getNode(_nodeID));
         if (transformNode == nullptr)
         {
             return;
         }
 
-        const iaTransformd transform = lerp(_source, _destination, t);
+        iaTransformd transform;
+
+        const float64 frameLength = 1.0 / (_keyframes.size() - 1);
+        int64 frame = t / frameLength;
+        float64 newT = (t / frameLength) - float64(frame);
+
+        if (frame == _keyframes.size() - 1)
+        {
+            // allowing to overshoot to Elastic and Back are working too
+            transform = lerp(_keyframes[frame - 1], _keyframes[frame], newT + 1.0);
+        }
+        else
+        {
+            transform = lerp(_keyframes[frame], _keyframes[frame + 1], newT);
+        }
 
         iaMatrixd nodeMatrix;
         transform.getMatrix(nodeMatrix);
         transformNode->setMatrix(nodeMatrix);
     }
 
-
+    void iEvaluationTransform::reset()
+    {
+        iEvaluation::reset();
+    }
 
 }

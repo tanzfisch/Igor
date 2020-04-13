@@ -85,6 +85,8 @@ namespace Igor
 
         /*! sets the interpolation function
 
+        only has an effect on deriving classes that respect the easing function like iEvaluationTransform
+
         \param interpolationFunction the interpolation function type to set
         */
         void setEasingFunction(Easing::EasingFunction interpolationFunction);
@@ -141,6 +143,10 @@ namespace Igor
         */
         bool isLooped() const;
 
+        /*! resets to original settings/data
+        */
+        virtual void reset();
+
     protected:
 
         /*! id of node to control
@@ -149,27 +155,31 @@ namespace Igor
 
         /*! interpolation function
         */
-        Easing::EasingFunction _easingFunction = Easing::EasingFunction::Linear;
+        Easing::EasingFunction _easingFunction;
 
         /*! start time of evaluation
         */
-        float64 _start = 0;
+        float64 _start;
 
         /*! stop time of evaluation
         */
-        float64 _stop = 0;
+        float64 _stop;
 
         /*! amplitude of elastic easing function
         */
-        float64 _amplitude = 0.5;
+        float64 _amplitude;
 
         /*! period of elastic easing function
         */
-        float64 _period = 0.25;
+        float64 _period;
 
         /*! overshoot of back easing function
         */
-        float64 _overshoot = 1.70158;
+        float64 _overshoot;
+
+        /*! looped flag
+        */
+        bool _looped;
 
         /*! init members
 
@@ -179,17 +189,13 @@ namespace Igor
 
         /*! does nothing
         */
-        virtual ~iEvaluation() = default;
+        virtual ~iEvaluation() = default;        
 
     private:
 
         /*! the next node id
         */
         static iaIDGenerator64 _idGenerator;
-
-        /*! looped flag
-        */
-        bool _looped = false;
 
         /*! id of this evaluation
         */

@@ -128,14 +128,17 @@ void Example3D::init()
     if (evalTrans != nullptr)
     {
         iaMatrixd sourceMatrix;
-        iaMatrixd destinationMatrix;
         justCatTransform->getMatrix(sourceMatrix);
-        destinationMatrix = sourceMatrix;
-        destinationMatrix.translate(0, -1, 0);
-        evalTrans->setSource(sourceMatrix);
-        evalTrans->setDestination(destinationMatrix);
+        iaMatrixd intermediateMatrix = sourceMatrix;
+        intermediateMatrix.translate(0, -1, 5);
+        intermediateMatrix.rotate(0.5, iaAxis::Z);
+        iaMatrixd destinationMatrix = sourceMatrix;
+        destinationMatrix.translate(0, -2, 0);
+        evalTrans->addKeyframe(sourceMatrix);
+        evalTrans->addKeyframe(intermediateMatrix);
+        evalTrans->addKeyframe(destinationMatrix);
         evalTrans->setStart(5);
-        evalTrans->setDuration(2);
+        evalTrans->setDuration(5);
         evalTrans->setEasingFunction(Easing::EasingFunction::OutElastic);
     }
 

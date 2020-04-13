@@ -49,35 +49,29 @@ namespace Igor
 
     public:
 
-        /*! sets source transformation
+        /*! adds a matrix as keyframe
 
-        \param source the source matrix we come from
+        If using Elastic or Back more then two key frames will 
+
+        \param matrix the matrix to add
         */
-        void setSource(const iaMatrixd& source);
+        void addKeyframe(const iaMatrixd& matrix);
 
-        /*! sets destination transformation
-
-        \param destination the destination matrix we transforma to
+        /*! resets to original settings/data
         */
-        void setDestination(const iaMatrixd& destination);
+        virtual void reset() override;
 
-    protected:
+    private:
+
+        /*! the transform keyframes
+        */
+        std::vector<iaTransformd> _keyframes;
 
         /*! init members
 
         \param nodeID id of node to take control of
         */
         iEvaluationTransform(uint64 nodeID);
-
-    private:
-
-        /*! the transform we come from
-        */
-        iaTransformd _source;
-
-        /*! the transform we go to
-        */
-        iaTransformd _destination;
 
         /*! evaluates something
 

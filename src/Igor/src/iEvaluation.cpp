@@ -18,6 +18,8 @@ namespace Igor
     {
         _nodeID = nodeID;
         _evaluatorID = iEvaluation::_idGenerator.createID();
+
+        reset();
     }
 
     uint64 iEvaluation::getID() const
@@ -105,6 +107,16 @@ namespace Igor
         return _overshoot;
     }
 
+    void iEvaluation::reset()
+    {
+        _easingFunction = Easing::EasingFunction::Linear;
+        _start = 0;
+        _stop = 0;
+        _amplitude = 0.5;
+        _period = 0.25;
+        _overshoot = 1.70158;
+        _looped = false;
+    }
 
 };
 
