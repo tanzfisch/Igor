@@ -62,8 +62,6 @@ namespace Igor
 
     void iEvaluationManager::handle()
     {
-        con_endl("eval " << _dirtyEvaluations.size() << " -> " << _activeEvaluations.size());
-
         float64 time = iTimer::getInstance().getSeconds();
 
         if (!_dirtyEvaluations.empty())
@@ -91,145 +89,152 @@ namespace Igor
         {
             auto evaluation = _evaluations[*iterActive];
 
-            if (evaluation->_stop < time)
+            if (!evaluation->_looped &&
+                evaluation->_stop < time)
             {
                 iterActive = _activeEvaluations.erase(iterActive);
                 continue;
             }
 
-            const float64 delta = evaluation->_stop - evaluation->_start;
-            float64 t = std::min(1.0, std::max(0.0, (time - evaluation->_start) / delta));
+            const float64 interval = evaluation->_stop - evaluation->_start;
+            const uint64 intervalCount = (time - evaluation->_start) / interval;
+            const float64 in = ((time - evaluation->_start) / interval) - float64(intervalCount);
+            float64 t;            
 
             switch (evaluation->getEasingFunction())
             {
             case Easing::EasingFunction::InSine:
-                t = Easing::inSine(t);
+                t = Easing::inSine(in);
                 break;
             case Easing::EasingFunction::OutSine:
-                t = Easing::outSine(t);
+                t = Easing::outSine(in);
                 break;
             case Easing::EasingFunction::InOutSine:
-                t = Easing::inOutSine(t);
+                t = Easing::inOutSine(in);
                 break;
             case Easing::EasingFunction::OutInSine:
-                t = Easing::outInSine(t);
+                t = Easing::outInSine(in);
                 break;
 
             case Easing::EasingFunction::InQuad:
-                t = Easing::inQuad(t);
+                t = Easing::inQuad(in);
                 break;
             case Easing::EasingFunction::OutQuad:
-                t = Easing::outQuad(t);
+                t = Easing::outQuad(in);
                 break;
             case Easing::EasingFunction::InOutQuad:
-                t = Easing::inOutQuad(t);
+                t = Easing::inOutQuad(in);
                 break;
             case Easing::EasingFunction::OutInQuad:
-                t = Easing::outInQuad(t);
+                t = Easing::outInQuad(in);
                 break;
 
             case Easing::EasingFunction::InCubic:
-                t = Easing::inCubic(t);
+                t = Easing::inCubic(in);
                 break;
             case Easing::EasingFunction::OutCubic:
-                t = Easing::outCubic(t);
+                t = Easing::outCubic(in);
                 break;
             case Easing::EasingFunction::InOutCubic:
-                t = Easing::inOutCubic(t);
+                t = Easing::inOutCubic(in);
                 break;
             case Easing::EasingFunction::OutInCubic:
-                t = Easing::outInCubic(t);
+                t = Easing::outInCubic(in);
                 break;
 
             case Easing::EasingFunction::InQuart:
-                t = Easing::inQuart(t);
+                t = Easing::inQuart(in);
                 break;
             case Easing::EasingFunction::OutQuart:
-                t = Easing::outQuart(t);
+                t = Easing::outQuart(in);
                 break;
             case Easing::EasingFunction::InOutQuart:
-                t = Easing::inOutQuart(t);
+                t = Easing::inOutQuart(in);
                 break;
             case Easing::EasingFunction::OutInQuart:
-                t = Easing::outInQuart(t);
+                t = Easing::outInQuart(in);
                 break;
 
             case Easing::EasingFunction::InQuint:
-                t = Easing::inQuint(t);
+                t = Easing::inQuint(in);
                 break;
             case Easing::EasingFunction::OutQuint:
-                t = Easing::outQuint(t);
+                t = Easing::outQuint(in);
                 break;
             case Easing::EasingFunction::InOutQuint:
-                t = Easing::inOutQuint(t);
+                t = Easing::inOutQuint(in);
                 break;
             case Easing::EasingFunction::OutInQuint:
-                t = Easing::outInQuint(t);
+                t = Easing::outInQuint(in);
                 break;
 
             case Easing::EasingFunction::InExpo:
-                t = Easing::inExpo(t);
+                t = Easing::inExpo(in);
                 break;
             case Easing::EasingFunction::OutExpo:
-                t = Easing::outExpo(t);
+                t = Easing::outExpo(in);
                 break;
             case Easing::EasingFunction::InOutExpo:
-                t = Easing::inOutExpo(t);
+                t = Easing::inOutExpo(in);
                 break;
             case Easing::EasingFunction::OutInExpo:
-                t = Easing::outInExpo(t);
+                t = Easing::outInExpo(in);
                 break;
 
             case Easing::EasingFunction::InCirc:
-                t = Easing::inCirc(t);
+                t = Easing::inCirc(in);
                 break;
             case Easing::EasingFunction::OutCirc:
-                t = Easing::outCirc(t);
+                t = Easing::outCirc(in);
                 break;
             case Easing::EasingFunction::InOutCirc:
-                t = Easing::inOutCirc(t);
+                t = Easing::inOutCirc(in);
                 break;
             case Easing::EasingFunction::OutInCirc:
-                t = Easing::outInCirc(t);
+                t = Easing::outInCirc(in);
                 break;
 
             case Easing::EasingFunction::InBack:
-                t = Easing::inBack(t, 0.0, 1.0, 1.0, evaluation->getOvershoot());
+                t = Easing::inBack(in, 0.0, 1.0, 1.0, evaluation->getOvershoot());
                 break;
             case Easing::EasingFunction::OutBack:
-                t = Easing::outBack(t, 0.0, 1.0, 1.0, evaluation->getOvershoot());
+                t = Easing::outBack(in, 0.0, 1.0, 1.0, evaluation->getOvershoot());
                 break;
             case Easing::EasingFunction::InOutBack:
-                t = Easing::inOutBack(t, 0.0, 1.0, 1.0, evaluation->getOvershoot());
+                t = Easing::inOutBack(in, 0.0, 1.0, 1.0, evaluation->getOvershoot());
                 break;
             case Easing::EasingFunction::OutInBack:
-                t = Easing::outInBack(t, 0.0, 1.0, 1.0, evaluation->getOvershoot());
+                t = Easing::outInBack(in, 0.0, 1.0, 1.0, evaluation->getOvershoot());
                 break;
 
             case Easing::EasingFunction::InElastic:
-                t = Easing::inElastic(t, 0.0, 1.0, 1.0, evaluation->getAmplitude(), evaluation->getPeriod());
+                t = Easing::inElastic(in, 0.0, 1.0, 1.0, evaluation->getAmplitude(), evaluation->getPeriod());
                 break;
             case Easing::EasingFunction::OutElastic:
-                t = Easing::outElastic(t, 0.0, 1.0, 1.0, evaluation->getAmplitude(), evaluation->getPeriod());
+                t = Easing::outElastic(in, 0.0, 1.0, 1.0, evaluation->getAmplitude(), evaluation->getPeriod());
                 break;
             case Easing::EasingFunction::InOutElastic:
-                t = Easing::inOutElastic(t, 0.0, 1.0, 1.0, evaluation->getAmplitude(), evaluation->getPeriod());
+                t = Easing::inOutElastic(in, 0.0, 1.0, 1.0, evaluation->getAmplitude(), evaluation->getPeriod());
                 break;
             case Easing::EasingFunction::OutInElastic:
-                t = Easing::outInElastic(t, 0.0, 1.0, 1.0, evaluation->getAmplitude(), evaluation->getPeriod());
+                t = Easing::outInElastic(in, 0.0, 1.0, 1.0, evaluation->getAmplitude(), evaluation->getPeriod());
                 break;
 
             case Easing::EasingFunction::InBounce:
-                t = Easing::inBounce(t);
+                t = Easing::inBounce(in);
                 break;
             case Easing::EasingFunction::OutBounce:
-                t = Easing::outBounce(t);
+                t = Easing::outBounce(in);
                 break;
             case Easing::EasingFunction::InOutBounce:
-                t = Easing::inOutBounce(t);
+                t = Easing::inOutBounce(in);
                 break;
             case Easing::EasingFunction::OutInBounce:
-                t = Easing::outInBounce(t);
+                t = Easing::outInBounce(in);
+                break;
+
+            default: 
+                t = in;
                 break;
             }
 

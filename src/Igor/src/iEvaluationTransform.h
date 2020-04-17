@@ -51,11 +51,15 @@ namespace Igor
 
         /*! adds a matrix as keyframe
 
-        If using Elastic or Back more then two key frames will 
-
         \param matrix the matrix to add
         */
         void addKeyframe(const iaMatrixd& matrix);
+
+        /*! adds a transform as keyframe
+
+        \param matrix the matrix to add
+        */
+        void addKeyframe(const iaTransformd& transform);
 
         /*! resets to original settings/data
         */

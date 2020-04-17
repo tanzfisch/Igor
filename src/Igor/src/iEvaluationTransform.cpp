@@ -21,6 +21,11 @@ namespace Igor
         con_assert(transformNode != nullptr && transformNode->getKind() == iNodeKind::Transformation, "invalid node");
     }
 
+    void iEvaluationTransform::addKeyframe(const iaTransformd& transform)
+    {
+        _keyframes.push_back(transform);
+    }
+
     void iEvaluationTransform::addKeyframe(const iaMatrixd& matrix)
     {
         _keyframes.push_back(matrix);

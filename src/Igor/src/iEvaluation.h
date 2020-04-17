@@ -137,7 +137,7 @@ namespace Igor
 
         /*! sets if this evaluation runs in an endless loop
         */
-        void setLooped(bool loop);
+        void setLooped(bool loop = true);
 
         /*! \returns true if evaluation is in loop mode
         */

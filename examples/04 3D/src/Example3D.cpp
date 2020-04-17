@@ -124,24 +124,6 @@ void Example3D::init()
     _scene->getRoot()->insertNode(justCatTransform);
     justCatTransform->insertNode(justCatModel);
 
-    iEvaluationTransformPtr evalTrans = iEvaluationManager::getInstance().createEvaluation<iEvaluationTransform>(justCatTransform->getID());
-    if (evalTrans != nullptr)
-    {
-        iaMatrixd sourceMatrix;
-        justCatTransform->getMatrix(sourceMatrix);
-        iaMatrixd intermediateMatrix = sourceMatrix;
-        intermediateMatrix.translate(0, -1, 5);
-        intermediateMatrix.rotate(0.5, iaAxis::Z);
-        iaMatrixd destinationMatrix = sourceMatrix;
-        destinationMatrix.translate(0, -2, 0);
-        evalTrans->addKeyframe(sourceMatrix);
-        evalTrans->addKeyframe(intermediateMatrix);
-        evalTrans->addKeyframe(destinationMatrix);
-        evalTrans->setStart(5);
-        evalTrans->setDuration(5);
-        evalTrans->setEasingFunction(Easing::EasingFunction::OutElastic);
-    }
-
     // create a group of models that can be moved together due to being child to the same transform node
     // creating transformation node used for the heading of it's children
     iNodeTransform* allObjectsHeading = iNodeManager::getInstance().createNode<iNodeTransform>();
