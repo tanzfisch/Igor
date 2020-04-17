@@ -51,11 +51,19 @@ namespace Igor
 
         /*! creates an evaluation
 
+        evaluations are owned by the manager but will stick arround until destroyed by application
+
         \param nodeID id of node this evaluation controls
         \returns pointer to new node
         */
         template<class T>
         T* createEvaluation(uint64 nodeID);
+
+        /*! destroyes evaluation by id
+
+        \param id given id
+        */
+        void destroyEvaluation(uint64 id);
 
         /*! \returns true if evaluation ID exists
 
@@ -71,11 +79,25 @@ namespace Igor
         */
         iEvaluationPtr getEvaluation(uint64 id) const;
 
+        /*! sets given evaluation dirty by id
+
+        \param id of given evaluation to set dirty
+        */
+        void setEvaluationDirty(uint64 id);
+
     private:
 
         /*! map of all evaluations
         */
         std::unordered_map<uint64, iEvaluationPtr> _evaluations;
+
+        /*! list with active evaluations
+        */
+        std::vector<uint64> _activeEvaluations;
+
+        /*! list with dirty evaluations
+        */
+        std::vector<uint64> _dirtyEvaluations;
 
         // TODO make list of active evaluations so we don't iterate all of them
 

@@ -15,24 +15,85 @@ namespace Igor
 {
     iEvaluationManager::~iEvaluationManager()
     {
-        for (auto evaluation : _evaluations)
+        _evaluations.clear();
+    }
+
+    void iEvaluationManager::setEvaluationDirty(uint64 id)
+    {
+        auto iterActive = std::find(_activeEvaluations.begin(), _activeEvaluations.end(), id);
+        if (iterActive != _activeEvaluations.end())
         {
-            delete evaluation.second;
+            _activeEvaluations.erase(iterActive);
         }
 
-        _evaluations.clear();
+        auto iter = std::find(_dirtyEvaluations.begin(), _dirtyEvaluations.end(), id);
+        if (iter == _dirtyEvaluations.end())
+        {
+            _dirtyEvaluations.push_back(id);
+        }
+
+        std::sort(_dirtyEvaluations.begin(), _dirtyEvaluations.end(), [](const uint64 a, const uint64 b) {
+            auto evaluationA = iEvaluationManager::getInstance().getEvaluation(a);
+            auto evaluationB = iEvaluationManager::getInstance().getEvaluation(b);
+            return evaluationA->getStart() < evaluationB->getStart();
+            });
+    }
+
+    void iEvaluationManager::destroyEvaluation(uint64 id)
+    {
+        auto iterDirty = std::find(_dirtyEvaluations.begin(), _dirtyEvaluations.end(), id);
+        if (iterDirty != _dirtyEvaluations.end())
+        {
+            _dirtyEvaluations.erase(iterDirty);
+        }
+
+        auto iterActive = std::find(_activeEvaluations.begin(), _activeEvaluations.end(), id);
+        if (iterActive != _activeEvaluations.end())
+        {
+            _activeEvaluations.erase(iterActive);
+        }
+
+        auto iterEval = _evaluations.find(id);
+        if (iterEval != _evaluations.end())
+        {
+            _evaluations.erase(iterEval);
+        }
     }
 
     void iEvaluationManager::handle()
     {
+        con_endl("eval " << _dirtyEvaluations.size() << " -> " << _activeEvaluations.size());
+
         float64 time = iTimer::getInstance().getSeconds();
 
-        for (auto pair : _evaluations)
+        if (!_dirtyEvaluations.empty())
         {
-            iEvaluationPtr evaluation = pair.second;
-
-            if (evaluation->_start > time)
+            int move = 0;
+            for (auto id : _dirtyEvaluations)
             {
+                if (_evaluations[id]->_start >= time)
+                {
+                    break;
+                }
+
+                ++move;
+            }
+
+            if (move > 0)
+            {
+                _activeEvaluations.insert(_activeEvaluations.end(), _dirtyEvaluations.begin(), _dirtyEvaluations.begin() + move);
+                _dirtyEvaluations.erase(_dirtyEvaluations.begin(), _dirtyEvaluations.begin() + move);
+            }
+        }
+
+        auto iterActive = _activeEvaluations.begin();
+        while (iterActive != _activeEvaluations.end())
+        {
+            auto evaluation = _evaluations[*iterActive];
+
+            if (evaluation->_stop < time)
+            {
+                iterActive = _activeEvaluations.erase(iterActive);
                 continue;
             }
 
@@ -173,6 +234,8 @@ namespace Igor
             }
 
             evaluation->evaluate(t);
+
+            ++iterActive;
         }
     }
 

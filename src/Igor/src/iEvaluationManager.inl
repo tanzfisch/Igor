@@ -47,8 +47,7 @@ T* iEvaluationManager::createEvaluation(uint64 nodeID)
     }
 
 	T* result = new T(nodeID);
-
-	_evaluations[static_cast<iEvaluationPtr>(result)->getID()] = static_cast<iEvaluationPtr>(result);
+	_evaluations[result->getID()] = result;
 
 	return result;
 }

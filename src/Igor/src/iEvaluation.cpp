@@ -22,6 +22,18 @@ namespace Igor
         reset();
     }
 
+    void iEvaluation::reset()
+    {
+        _easingFunction = Easing::EasingFunction::Linear;
+        _start = 0;
+        _stop = 0;
+        _amplitude = 0.5;
+        _period = 0.25;
+        _overshoot = 1.70158;
+        _looped = false;
+        iEvaluationManager::getInstance().setEvaluationDirty(_evaluatorID);
+    }
+
     uint64 iEvaluation::getID() const
     {
         return _evaluatorID;
@@ -40,6 +52,7 @@ namespace Igor
     void iEvaluation::setStart(float64 start)
     {
         _start = start;
+        iEvaluationManager::getInstance().setEvaluationDirty(_evaluatorID);
     }
 
     float64 iEvaluation::getStart() const
@@ -105,17 +118,6 @@ namespace Igor
     float64 iEvaluation::getOvershoot() const
     {
         return _overshoot;
-    }
-
-    void iEvaluation::reset()
-    {
-        _easingFunction = Easing::EasingFunction::Linear;
-        _start = 0;
-        _stop = 0;
-        _amplitude = 0.5;
-        _period = 0.25;
-        _overshoot = 1.70158;
-        _looped = false;
     }
 
 };
