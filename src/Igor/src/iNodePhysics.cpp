@@ -19,13 +19,14 @@ namespace Igor
     iNodePhysics::iNodePhysics()
         : iNodeVolume()
     {
-        _physicsCollisionConfigID = iPhysics::getInstance().createCollisionConfig()->getID();
-
         setName(L"iNodePhysics");
+
         _nodeType = iNodeType::iNodePhysics;
         _nodeKind = iNodeKind::Physics;
 
         setMaterial(iMaterial::INVALID_MATERIAL_ID); // physics should only render for debugging purposes        
+
+        _physicsCollisionConfigID = iPhysics::getInstance().createCollisionConfig()->getID();
     }
 
     iNodePhysics::iNodePhysics(const iNodePhysics* node)
@@ -33,16 +34,17 @@ namespace Igor
     {
         con_assert(node != nullptr, "zero pointer");
 
+        setName(node->getName());
+
         _nodeType = node->_nodeType;
         _nodeKind = node->_nodeKind;
 
-        setName(node->getName());
+        _materialID = node->_materialID;        
         _bodyID = node->getBodyID();
 
-        _physicsCollisionConfigID = node->_physicsCollisionConfigID; // todo create copy here
+        _physicsCollisionConfigID = node->_physicsCollisionConfigID; // todo create copy of collision config here. not just id
 
         _mass = node->_mass;
-        _materialID = node->_materialID;
 
         if (node->_applyForceAndTorqueDelegate != nullptr)
         {
