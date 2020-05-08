@@ -117,3 +117,17 @@ iaVector4<T2> iaVector4<T>::convert() const
 	iaVector4<T2> result(static_cast<T2>(_x), static_cast<T2>(_y), static_cast<T2>(_z), static_cast<T2>(_w));
 	return result;
 }
+
+template <class T>
+iaVector4<T> lerp(const iaVector4<T>& a, const iaVector4<T>& b, T t)
+{
+    iaVector4<T> result;
+    // (1 - t) * v0 + t * v1;
+    result._x = b._x * t + a._x * (1.0 - t);
+    result._y = b._y * t + a._y * (1.0 - t);
+    result._z = b._z * t + a._z * (1.0 - t);
+    result._w = b._w * t + a._w * (1.0 - t);
+
+    return result;
+}
+

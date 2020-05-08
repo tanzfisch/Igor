@@ -7,6 +7,8 @@
 #include <iVoxelBlock.h>
 #include <iVoxelTerrain.h>
 
+#include <algorithm>
+
 namespace Igor
 {
 
@@ -56,13 +58,13 @@ namespace Igor
         }
 
         // clip against voxel block boundings
-        from._x = max(from._x, 0);
-        from._y = max(from._y, 0);
-        from._z = max(from._z, 0);
+        from._x = std::max(from._x, 0LL);
+        from._y = std::max(from._y, 0LL);
+        from._z = std::max(from._z, 0LL);
 
-        to._x = min(to._x, fullVoxelBlockSize);
-        to._y = min(to._y, fullVoxelBlockSize);
-        to._z = min(to._z, fullVoxelBlockSize);
+        to._x = std::min(to._x, fullVoxelBlockSize);
+        to._y = std::min(to._y, fullVoxelBlockSize);
+        to._z = std::min(to._z, fullVoxelBlockSize);
 
         // iterate though positions
         int64 poleHeight = to._y - from._y;

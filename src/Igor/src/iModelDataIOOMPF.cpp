@@ -36,6 +36,8 @@ using namespace IgorAux;
 #include <ompfParticleSystemChunk.h>
 #include <OMPF.h>
 
+#include <algorithm>
+
 namespace Igor
 {
 	iModelDataIOOMPF::iModelDataIOOMPF()
@@ -252,7 +254,7 @@ namespace Igor
 
 		iSphered sphere;
 		sphere._center = bbox._center;
-		sphere._radius = max(bbox._halfWidths._x, max(bbox._halfWidths._y, bbox._halfWidths._z));
+		sphere._radius = std::max(bbox._halfWidths._x, std::max(bbox._halfWidths._y, bbox._halfWidths._z));
 		mesh->setBoundingSphere(sphere);
 
 		// push mesh to mesh node

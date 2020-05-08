@@ -342,10 +342,10 @@ namespace Igor
             _colordepth,							    // Select Our Color Depth
             0, 0, 0, 0, 0, 0,							// Color Bits Ignored
             0,											// No Alpha Buffer
-            0,											// Shift Bit Ignored
-            0,											// No Accumulation Buffer
+            0,                                          // Shift Bit Ignored
+            0,	                                        // No Accumulation Buffer
             0, 0, 0, 0,									// Accumulation Bits Ignored
-            16,											// 16Bit Z-Buffer (Depth Buffer)
+            _zdepth,  								    // Z-Buffer bits (Depth Buffer)
             1,											// use stencil buffer
             0,											// No Auxiliary Buffer
             PFD_MAIN_PLANE,								// Main Drawing Layer
@@ -406,15 +406,15 @@ namespace Igor
         return true;
     }
 
-	void iWindow::setVSync(bool vsync)
-	{
-		wglSwapIntervalEXT(vsync ? 1 : 0);
-	}
+    void iWindow::setVSync(bool vsync)
+    {
+        wglSwapIntervalEXT(vsync ? 1 : 0);
+    }
 
-	bool iWindow::getVSync() const
-	{
-		return wglGetSwapIntervalEXT() > 0 ? true : false;
-	}
+    bool iWindow::getVSync() const
+    {
+        return wglGetSwapIntervalEXT() > 0 ? true : false;
+    }
 
     bool iWindow::open()
     {
@@ -560,17 +560,43 @@ namespace Igor
 
             // make sure the window title stays on screen
             int32 y = (desktopHeight - static_cast<int32>(_height)) / 2;
-            y = max(y, 0);
+            y = std::max(y, 0);
             int32 x = (desktopWidth - static_cast<int32>(_width)) / 2;
-            x = max(x, 0);
+            x = std::max(x, 0);
             setPosition(x, y);
         }
     }
 
-    void iWindow::setColorDepth(unsigned char colordepth)
+    void iWindow::setZDepth(uint8 zdepth)
     {
-        _colordepth = colordepth;
-        //! \todo not implemented
+        if (isOpen())
+        {
+            con_warn("depth buffer depth can only be changed before the windows was opened");
+            return;
+        }
+
+        _zdepth = zdepth;
+    }
+
+    uint8 iWindow::getZDepth() const
+    {
+        return _zdepth;
+    }
+
+    uint8 iWindow::getColorDepth() const
+    {
+        return _colordepth;
+    }
+
+    void iWindow::setColorDepth(uint8 colordepth)
+    {
+        if (isOpen())
+        {
+            con_warn("color depth can only be changed before the windows was opened");
+            return;
+        }
+
+        _colordepth = colordepth;        
     }
 
     void iWindow::addView(iView* view, int32 zIndex)
@@ -585,9 +611,9 @@ namespace Igor
         view->setZIndex(zIndex);
 
         sort(_views.begin(), _views.end(), [](const iView* a, const iView* b) -> bool
-        {
-            return a->getZIndex() < b->getZIndex();
-        });
+            {
+                return a->getZIndex() < b->getZIndex();
+            });
     }
 
     void iWindow::removeView(iView* view)
@@ -712,7 +738,7 @@ namespace Igor
         return _yPos;
     }
 
-    void iWindow::registerOSListener(iOSEventListener *listener)
+    void iWindow::registerOSListener(iOSEventListener* listener)
     {
         auto found = find(_oseventlisteners.begin(), _oseventlisteners.end(), listener);
 
@@ -730,7 +756,7 @@ namespace Igor
         }
     }
 
-    void iWindow::unregisterOSListener(iOSEventListener *listener)
+    void iWindow::unregisterOSListener(iOSEventListener* listener)
     {
         auto found = find(_oseventlisteners.begin(), _oseventlisteners.end(), listener);
 

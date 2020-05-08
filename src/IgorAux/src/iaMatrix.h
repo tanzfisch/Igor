@@ -35,7 +35,7 @@
 #include <fstream>
 #include <cmath>
 #include <iomanip>
-
+#include <iostream>
 
 namespace IgorAux
 {
@@ -383,6 +383,15 @@ namespace IgorAux
 		*/
 		~iaMatrix();
 	};
+
+    /*! stream operator
+
+    \param stream the destination
+    \param m the matrix to stream
+    \returns the resulting stream
+    */
+    template <class T>
+    IgorAux_API std::wostream& operator<<(std::wostream& stream, const iaMatrix<T>& m);
 
 #include <iaMatrix.inl>
 

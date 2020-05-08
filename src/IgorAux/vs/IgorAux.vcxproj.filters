@@ -156,6 +156,9 @@
     <ClInclude Include="..\src\iaMatrix2D.h">
       <Filter>math</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iaEasing.h">
+      <Filter>math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iaMatrix.inl">

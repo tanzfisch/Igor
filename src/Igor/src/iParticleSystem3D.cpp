@@ -602,7 +602,7 @@ namespace Igor
             _boundingBox._halfWidths *= 0.5;
 
             _boundingSphere._center = _boundingBox._center;
-            _boundingSphere._radius = max(_boundingBox._halfWidths._x, max(_boundingBox._halfWidths._y, _boundingBox._halfWidths._z));
+            _boundingSphere._radius = std::max(_boundingBox._halfWidths._x, std::max(_boundingBox._halfWidths._y, _boundingBox._halfWidths._z));
         }
     }
 

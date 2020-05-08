@@ -84,7 +84,7 @@ namespace Igor
         const int height = 256;
         const int Bpp = 4;
 
-        uint8 data[width*height*Bpp];
+        uint8 data[width * height * Bpp];
 
         bool black = false;
 
@@ -106,17 +106,17 @@ namespace Igor
 
                 if (black)
                 {
-                    data[(y*width + x)*Bpp + 0] = 0;
-                    data[(y*width + x)*Bpp + 1] = 0;
-                    data[(y*width + x)*Bpp + 2] = 0;
-                    data[(y*width + x)*Bpp + 3] = (uint8)(255 * (x / (float)width));
+                    data[(y * width + x) * Bpp + 0] = 0;
+                    data[(y * width + x) * Bpp + 1] = 0;
+                    data[(y * width + x) * Bpp + 2] = 0;
+                    data[(y * width + x) * Bpp + 3] = (uint8)(255 * (x / (float)width));
                 }
                 else
                 {
-                    data[(y*width + x)*Bpp + 0] = (uint8)(255 * (x / (float)width));
-                    data[(y*width + x)*Bpp + 1] = (uint8)(255 * ((128 - x) / (float)width));
-                    data[(y*width + x)*Bpp + 2] = (uint8)(255 * (y / (float)height));
-                    data[(y*width + x)*Bpp + 3] = 255;
+                    data[(y * width + x) * Bpp + 0] = (uint8)(255 * (x / (float)width));
+                    data[(y * width + x) * Bpp + 1] = (uint8)(255 * ((128 - x) / (float)width));
+                    data[(y * width + x) * Bpp + 2] = (uint8)(255 * (y / (float)height));
+                    data[(y * width + x) * Bpp + 3] = 255;
                 }
             }
         }
@@ -269,25 +269,21 @@ namespace Igor
 
         while (texture != _textures.end())
         {
-            if ((*texture).second->isProcessed())
+            if (texture->second->isProcessed())
             {
-                if ((*texture).second->isValid())
+                if (texture->second->isValid() && 
+                    texture->second.use_count() == 1 && 
+                    texture->second->_cacheMode <= cacheModeLevel)
                 {
-                    if ((*texture).second.use_count() == 1)
-                    {
-                        if ((*texture).second->_cacheMode <= cacheModeLevel)
-                        {
-                            iRenderer::getInstance().destroyTexture((*texture).second->_rendererTexture);
-                            con_info("released texture", "\"" << (*texture).second->getFilename() << "\"");
-                            texture = _textures.erase(texture);
-                            continue;
-                        }
-                    }
+                    iRenderer::getInstance().destroyTexture((*texture).second->_rendererTexture);
+                    con_info("released texture", "\"" << (*texture).second->getFilename() << "\"");
+                    texture = _textures.erase(texture);
+                    continue;
                 }
             }
             else
             {
-                texturesToProcess.push_back((*texture).second);
+                texturesToProcess.push_back(texture->second);
             }
 
             texture++;
@@ -408,7 +404,7 @@ namespace Igor
             long height = pixmap->getHeight();
             long bpp = pixmap->getBytesPerPixel();
 
-            uint8 *data = pixmap->getData();
+            uint8* data = pixmap->getData();
             iColorFormat colorformat = iColorFormat::Undefined;
 
             switch (bpp)
@@ -436,11 +432,11 @@ namespace Igor
         return result;
     }
 
-	iPixmapPtr iTextureResourceFactory::loadPixmap(const iaString& filename)
+    iPixmapPtr iTextureResourceFactory::loadPixmap(const iaString& filename)
     {
         iaString fullPath = iResourceManager::getInstance().getPath(filename);
 
-        iPixmap *pixmap = nullptr;
+        iPixmap* pixmap = nullptr;
 
         int width = 0;
         int height = 0;

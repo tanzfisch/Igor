@@ -59,13 +59,13 @@ namespace Igor
         */
         float64 getApplicationTime() const;
 
-        /*! Absolute handle time in ms since last frame / handle call
+        /*! Absolute time in ms at last handle call (aka current frame time)
 
         This is basically the time from program start to last handle call (right after last render frame)
         */
         float64 getMilliSeconds() const;
 
-        /*! Absolute handle time in s since last frame / handle call
+        /*! Absolute time in s at last handle call (aka current frame time)
 
         This is basically the time from program start to last handle call (right after last render frame)
         */
@@ -83,7 +83,7 @@ namespace Igor
         */
         float64 getSecondsDelta() const;
 
-        /*! Returns handle frame rate. It's connected to render framerate.
+        /*! Returns handle frame rate. It's equal to the render framerate.
         */
         float32 getFPS() const;
 

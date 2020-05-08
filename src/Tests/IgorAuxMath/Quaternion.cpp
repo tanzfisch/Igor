@@ -158,10 +158,10 @@ TEST(QuaternionTests, SetDirect)
 	EXPECT_EQ(quat._w, 1);
 }
 
-TEST(QuaternionTests, Invert)
+TEST(QuaternionTests, Negate)
 {
 	iaQuaterniond quat(iaVector3d(0.0, 1.0, 0.0), 0.5 * M_PI);
-	quat.invert();
+	quat.negate();
 
 	EXPECT_NEAR(quat._x, 0, 0.000001);
 	EXPECT_NEAR(quat._y, -0.707107, 0.000001);
