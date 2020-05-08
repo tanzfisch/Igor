@@ -299,6 +299,9 @@ namespace Igor
 
         switch (nodeType)
         {
+        case iNodeType::iNode:
+            result = "iNode";
+            break;
         case iNodeType::iNodeCamera:
             result = "iNodeCamera";
             break;
