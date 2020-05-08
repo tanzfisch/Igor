@@ -131,7 +131,7 @@ void PhysicsExample::init()
         _scene->getRoot()->insertNode(transformNode);
     }
 
-    // ans some more boxes
+    // and some more boxes
     for (int z = -24; z < 25; z += 4)
     {
         for (int x = -24; x < 25; x += 4)
