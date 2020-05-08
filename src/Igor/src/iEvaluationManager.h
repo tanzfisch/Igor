@@ -46,6 +46,7 @@ namespace Igor
 
         friend class iaSingleton<iEvaluationManager>;
         friend class iApplication;
+        friend class iEvaluation;
 
     public:
 
@@ -79,12 +80,6 @@ namespace Igor
         */
         iEvaluationPtr getEvaluation(uint64 id) const;
 
-        /*! sets given evaluation dirty by id
-
-        \param id of given evaluation to set dirty
-        */
-        void setEvaluationDirty(uint64 id);
-
     private:
 
         /*! map of all evaluations
@@ -99,8 +94,6 @@ namespace Igor
         */
         std::vector<uint64> _dirtyEvaluations;
 
-        // TODO make list of active evaluations so we don't iterate all of them
-
         /*! does nothing
         */
         iEvaluationManager() = default;
@@ -112,6 +105,12 @@ namespace Igor
         /*! called by application every frame. calls all the evaluator handles
         */
         void handle();
+
+        /*! sets given evaluation dirty by id
+
+        \param id of given evaluation to set dirty
+        */
+        void setEvaluationDirty(uint64 id);
 
 	};
 

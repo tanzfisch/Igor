@@ -52,6 +52,8 @@ namespace Igor
         /*! adds a matrix as keyframe
 
         \param matrix the matrix to add
+
+        \todo totally forgot to add t per keyframe
         */
         void addKeyframe(const iaMatrixd& matrix);
 

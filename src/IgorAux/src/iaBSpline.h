@@ -38,43 +38,11 @@ namespace IgorAux
 {
 
 	/*! BSpline implementation
+
+	\todo make it a template
 	*/
 	class IgorAux_API iaBSpline  // non uniform B-Spline  
 	{
-
-	private:
-
-		/*! dirty flag if true recalculate lookup table
-		*/
-		bool _recalc = true;
-
-		/*! resolution setting
-		*/
-		uint32 _resolution = 5;
-
-		/*! rank configuration
-		*/
-		uint32 _rank = 3;
-
-		/*! lookup table
-		*/
-		std::vector<int32> _U;
-
-		/*! full processed spline
-		*/
-		std::vector<iaVector3f> _spline;
-
-		/*! list of support points
-		*/
-		std::vector<iaVector3f> _supportpoints;
-
-		/*! calculates the actual point on the spline
-		*/
-		float32 calc(int32 k, float32 t, int32 i);
-
-		/*! internal calculation of look up table
-		*/
-		void prepareU();
 
 	public:
 
@@ -98,27 +66,22 @@ namespace IgorAux
 		*/
 		const uint32 getRank() const;
 
-		/*! configures the resolution of the spline
-
-		only interesting in context of using getSpline
-
-		\param resolution amount of vertices -1 calculated for the whole spline
-		*/
-		void setResolution(int32 resolution);
-
 		/*! \returns vertex position on specified position on spline
 
 		\param t position on spline 0.0-1.0
 		*/
-		iaVector3f getPointOfSpline(float32 t);
+		iaVector3f getPointOnSpline(float32 t);
 
-		/*! \retruns list of vertices representing the spline
+		/*! retruns points on the spline
+
+		\param[out] points the resulting points 
+		\param pointCount the amount of points to generate on the spline (min 2)
 		*/
-		std::vector<iaVector3f>& getSpline();
+		void getPoints(std::vector<iaVector3f>& points, int32 pointCount);
 
 		/*! \returns list of support points
 		*/
-		std::vector<iaVector3f>& getSupportPoints();
+		const std::vector<iaVector3f>& getSupportPoints() const;
 
 		/*! \returns amount of support points
 		*/
@@ -146,6 +109,32 @@ namespace IgorAux
 		/*! does nothing
 		*/
 		~iaBSpline() = default;
+
+	private:
+
+		/*! dirty flag if true recalculate lookup table
+		*/
+		bool _recalc = true;
+
+		/*! rank configuration
+		*/
+		uint32 _rank = 3;
+
+		/*! lookup table
+		*/
+		std::vector<int32> _U;
+
+		/*! list of support points
+		*/
+		std::vector<iaVector3f> _supportpoints;
+
+		/*! calculates the actual point on the spline
+		*/
+		float32 calc(int32 k, float32 t, int32 i);
+
+		/*! internal calculation of look up table
+		*/
+		void prepareU();
 
 	};
 

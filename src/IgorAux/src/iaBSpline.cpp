@@ -103,7 +103,7 @@ namespace IgorAux
 		return(left+right);
 	}
 
-	iaVector3f iaBSpline::getPointOfSpline(float32 t)
+	iaVector3f iaBSpline::getPointOnSpline(float32 t)
 	{
         con_assert(0.0 <= t && t <= 1.0, "t out of range");
         con_assert(_supportpoints.size() >= 2, "too few support points");
@@ -125,34 +125,32 @@ namespace IgorAux
 		return temp;
 	}
 
-	void iaBSpline::setResolution(int32 resolution)
-	{
-		_resolution = resolution;
-	}
-
-	std::vector<iaVector3f>& iaBSpline::getSupportPoints()
+	const std::vector<iaVector3f>& iaBSpline::getSupportPoints() const
 	{
 		return _supportpoints;
 	}
 
-	std::vector<iaVector3f>& iaBSpline::getSpline()
+	void iaBSpline::getPoints(std::vector<iaVector3f> &points, int32 pointCount)
 	{
+		con_assert(pointCount >= 2, "invalid param");
+
+		points.clear();
+
+		if (pointCount < 2)
+		{
+			return;
+		}
+
         if (_recalc)
         {
             prepareU();
             _recalc = false;
         }
 
-        _spline.clear();
-
-        int points = (static_cast<uint32>(_supportpoints.size()) - 1) * _resolution;
-
-		for(int32 i=0;i<=points;++i)
+		for(int32 i=0;i<= pointCount;++i)
 		{
-            _spline.push_back(getPointOfSpline(static_cast<float32>(i) / static_cast<float32>(points)));
+			points.push_back(getPointOnSpline(static_cast<float32>(i) / static_cast<float32>(pointCount)));
 		}	
-
-		return _spline;
 	}	
 
 }
