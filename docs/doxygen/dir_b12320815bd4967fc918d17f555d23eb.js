@@ -65,6 +65,17 @@ var dir_b12320815bd4967fc918d17f555d23eb =
     [ "iEntityManager.h", "i_entity_manager_8h.html", [
       [ "iEntityManager", "class_igor_1_1i_entity_manager.html", "class_igor_1_1i_entity_manager" ]
     ] ],
+    [ "iEvaluation.cpp", "i_evaluation_8cpp.html", null ],
+    [ "iEvaluation.h", "i_evaluation_8h.html", "i_evaluation_8h" ],
+    [ "iEvaluationManager.cpp", "i_evaluation_manager_8cpp.html", null ],
+    [ "iEvaluationManager.h", "i_evaluation_manager_8h.html", [
+      [ "iEvaluationManager", "class_igor_1_1i_evaluation_manager.html", "class_igor_1_1i_evaluation_manager" ]
+    ] ],
+    [ "iEvaluationManager.inl", "i_evaluation_manager_8inl.html", null ],
+    [ "iEvaluationScript.cpp", "i_evaluation_script_8cpp.html", null ],
+    [ "iEvaluationScript.h", "i_evaluation_script_8h.html", "i_evaluation_script_8h" ],
+    [ "iEvaluationTransform.cpp", "i_evaluation_transform_8cpp.html", null ],
+    [ "iEvaluationTransform.h", "i_evaluation_transform_8h.html", "i_evaluation_transform_8h" ],
     [ "iFrustum.h", "i_frustum_8h.html", "i_frustum_8h" ],
     [ "iFrustum.inl", "i_frustum_8inl.html", null ],
     [ "Igor.cpp", "_igor_8cpp.html", "_igor_8cpp" ],
@@ -176,9 +187,7 @@ var dir_b12320815bd4967fc918d17f555d23eb =
       [ "iNodeSwitch", "class_igor_1_1i_node_switch.html", "class_igor_1_1i_node_switch" ]
     ] ],
     [ "iNodeTransform.cpp", "i_node_transform_8cpp.html", null ],
-    [ "iNodeTransform.h", "i_node_transform_8h.html", [
-      [ "iNodeTransform", "class_igor_1_1i_node_transform.html", "class_igor_1_1i_node_transform" ]
-    ] ],
+    [ "iNodeTransform.h", "i_node_transform_8h.html", "i_node_transform_8h" ],
     [ "iNodeVisitor.cpp", "i_node_visitor_8cpp.html", null ],
     [ "iNodeVisitor.h", "i_node_visitor_8h.html", [
       [ "iNodeVisitor", "class_igor_1_1i_node_visitor.html", "class_igor_1_1i_node_visitor" ]
@@ -449,9 +458,7 @@ var dir_b12320815bd4967fc918d17f555d23eb =
     [ "iWidgetButton.cpp", "i_widget_button_8cpp.html", null ],
     [ "iWidgetButton.h", "i_widget_button_8h.html", "i_widget_button_8h" ],
     [ "iWidgetCheckBox.cpp", "i_widget_check_box_8cpp.html", null ],
-    [ "iWidgetCheckBox.h", "i_widget_check_box_8h.html", [
-      [ "iWidgetCheckBox", "class_igor_1_1i_widget_check_box.html", "class_igor_1_1i_widget_check_box" ]
-    ] ],
+    [ "iWidgetCheckBox.h", "i_widget_check_box_8h.html", "i_widget_check_box_8h" ],
     [ "iWidgetColor.cpp", "i_widget_color_8cpp.html", null ],
     [ "iWidgetColor.h", "i_widget_color_8h.html", [
       [ "iWidgetColor", "class_igor_1_1i_widget_color.html", "class_igor_1_1i_widget_color" ]

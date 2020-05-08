@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.24.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.25.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -127,6 +127,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a459cd84b1ed4bec1fac0a77959761b78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a59c28b310f32d77f9a6617d82489b1"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_user_control_color_chooser.html#a2a59c28b310f32d77f9a6617d82489b1">~iUserControlColorChooser</a> ()</td></tr>
 <tr class="separator:a2a59c28b310f32d77f9a6617d82489b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd531cf9f0ef54ef3010580d974cc1b5"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespace_igor.html#a5a5955ee3dc842505db53a523ad0c1e4">iWidgetType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_user_control_color_chooser.html#abd531cf9f0ef54ef3010580d974cc1b5">getWidgetType</a> () const override</td></tr>
+<tr class="separator:abd531cf9f0ef54ef3010580d974cc1b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7750e7184402309d384841b07cfa65f2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_user_control_color_chooser.html#a7750e7184402309d384841b07cfa65f2">block</a> (bool blockEvents) override</td></tr>
 <tr class="separator:a7750e7184402309d384841b07cfa65f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92b49f94c8489275f28358be3bc4fe80"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_user_control_color_chooser.html#a92b49f94c8489275f28358be3bc4fe80">setText</a> (const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;text)</td></tr>
@@ -159,8 +161,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a53e3bd39107e390e5ce156ca3e0b308f inherit pub_methods_class_igor_1_1i_user_control"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_user_control.html#a53e3bd39107e390e5ce156ca3e0b308f">~iUserControl</a> ()=default</td></tr>
 <tr class="separator:a53e3bd39107e390e5ce156ca3e0b308f inherit pub_methods_class_igor_1_1i_user_control"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_igor_1_1i_widget"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_igor_1_1i_widget')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_igor_1_1i_widget.html">Igor::iWidget</a></td></tr>
-<tr class="memitem:aeda799fe50ed7f922e3a598843fb9112 inherit pub_methods_class_igor_1_1i_widget"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespace_igor.html#a5a5955ee3dc842505db53a523ad0c1e4">iWidgetType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget.html#aeda799fe50ed7f922e3a598843fb9112">getWidgetType</a> () const </td></tr>
-<tr class="separator:aeda799fe50ed7f922e3a598843fb9112 inherit pub_methods_class_igor_1_1i_widget"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e1b9687ba7448df1221e56e2cdaeea8 inherit pub_methods_class_igor_1_1i_widget"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget.html#a6e1b9687ba7448df1221e56e2cdaeea8">setZValue</a> (int32 zvalue)</td></tr>
 <tr class="separator:a6e1b9687ba7448df1221e56e2cdaeea8 inherit pub_methods_class_igor_1_1i_widget"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af241faab1ddb23a6d8d382ddb7cc78e3 inherit pub_methods_class_igor_1_1i_widget"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget.html#af241faab1ddb23a6d8d382ddb7cc78e3">getZValue</a> () const </td></tr>
@@ -557,6 +557,32 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="abd531cf9f0ef54ef3010580d974cc1b5"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_igor.html#a5a5955ee3dc842505db53a523ad0c1e4">iWidgetType</a> Igor::iUserControlColorChooser::getWidgetType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>the widgets type </dd></dl>
+
+<p>Reimplemented from <a class="el" href="class_igor_1_1i_user_control.html#a84e8e1db1613bbbe55823de90afd3f4a">Igor::iUserControl</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ac775f6aac7f9ef02b9995e94fdcd56c8"></a>
 <div class="memitem">
 <div class="memproto">
@@ -734,8 +760,8 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_user_control_color_chooser_8h.html">iUserControlColorChooser.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_user_control_color_chooser_8cpp.html">iUserControlColorChooser.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_user_control_color_chooser_8h.html">iUserControlColorChooser.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_user_control_color_chooser_8cpp.html">iUserControlColorChooser.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

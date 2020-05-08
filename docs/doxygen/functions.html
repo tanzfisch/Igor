@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.24.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.25.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -167,6 +167,9 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>_ambient
 : <a class="el" href="class_igor_1_1i_node_light.html#a59e13b42bad695d8a1faa0fba3a0b88b">Igor::iNodeLight</a>
 </li>
+<li>_amplitude
+: <a class="el" href="class_igor_1_1i_evaluation.html#a65f53d5241a05cc9e0c8f364aea0a96b">Igor::iEvaluation</a>
+</li>
 <li>_angle
 : <a class="el" href="class_igor_1_1i_particle2_d.html#a37dfc97b0d7602e0e3042cfc2c95e439">Igor::iParticle2D</a>
 </li>
@@ -231,7 +234,7 @@ $(document).ready(function(){initNavTree('functions.html','');});
 : <a class="el" href="class_igor_1_1i_window.html#a7733f9384fbcd616e06d378ddf7fa6f9">Igor::iWindow</a>
 </li>
 <li>_colordepth
-: <a class="el" href="class_igor_1_1i_window.html#a140fb66d41c425b9a97bc240add58567">Igor::iWindow</a>
+: <a class="el" href="class_igor_1_1i_window.html#acc0910206656e643a59059fe82e808d5">Igor::iWindow</a>
 </li>
 <li>_configuredHeight
 : <a class="el" href="class_igor_1_1i_widget.html#a0a2bd6619db52565ec6e7e9647987af9">Igor::iWidget</a>
@@ -269,6 +272,9 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>_doubleClick
 : <a class="el" href="class_igor_1_1i_widget.html#a65ea4753cbabc050bbb65b9c659ffd95">Igor::iWidget</a>
 , <a class="el" href="class_igor_1_1i_window.html#aabb07008a911df06f89acb81458d01b9">Igor::iWindow</a>
+</li>
+<li>_easingFunction
+: <a class="el" href="class_igor_1_1i_evaluation.html#ae7fd7bd3458ec2061823a11bb91bfeac">Igor::iEvaluation</a>
 </li>
 <li>_emitterTriangles
 : <a class="el" href="class_igor_1_1i_particle_emitter.html#a67be2cf5b092020debf5a15aad842a2c">Igor::iParticleEmitter</a>
@@ -378,6 +384,9 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>_lodOffset
 : <a class="el" href="struct_igor_1_1i_voxel_block_info.html#a08f5884ac65f9cd26ae342a344201937">Igor::iVoxelBlockInfo</a>
 </li>
+<li>_looped
+: <a class="el" href="class_igor_1_1i_evaluation.html#ad6c3ce3c033c54cedab9fad9aa001d7a">Igor::iEvaluation</a>
+</li>
 <li>_m
 : <a class="el" href="class_igor_aux_1_1ia_matrix2_d.html#a25acf426738d6970a82d0121e0ff98b2">IgorAux::iaMatrix2D&lt; T &gt;</a>
 </li>
@@ -455,6 +464,9 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>_nodeB
 : <a class="el" href="struct_igor_1_1i_node_manager_1_1i_action.html#ad173b84312f3a101de5578ca699a1d8b">Igor::iNodeManager::iAction</a>
 </li>
+<li>_nodeID
+: <a class="el" href="class_igor_1_1i_evaluation.html#a9c2629b0887c010bc46b4dad4facebf8">Igor::iEvaluation</a>
+</li>
 <li>_nodeKind
 : <a class="el" href="class_igor_1_1i_node.html#a934eea0db9a4c785b0d6390ead01b68c">Igor::iNode</a>
 </li>
@@ -482,6 +494,9 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>_oseventlisteners
 : <a class="el" href="class_igor_1_1i_window.html#a09e47e7cd009c241dc8dae1d4e3c0fea">Igor::iWindow</a>
 </li>
+<li>_overshoot
+: <a class="el" href="class_igor_1_1i_evaluation.html#a2b01b1e319047721ab7b3a917db4428e">Igor::iEvaluation</a>
+</li>
 <li>_parameters
 : <a class="el" href="struct_igor_1_1i_model_data_input_parameter.html#a0ea041544b239bae1b28514d18d9ae1c">Igor::iModelDataInputParameter</a>
 </li>
@@ -491,6 +506,9 @@ $(document).ready(function(){initNavTree('functions.html','');});
 </li>
 <li>_penetration
 : <a class="el" href="struct_igor_1_1_convex_cast_return_info.html#ad60ba1b13b05858a7894b1b53f2ce34e">Igor::ConvexCastReturnInfo</a>
+</li>
+<li>_period
+: <a class="el" href="class_igor_1_1i_evaluation.html#a8ba8b579f07112cb2e2b04de6d996b8d">Igor::iEvaluation</a>
 </li>
 <li>_perspective
 : <a class="el" href="class_igor_aux_1_1ia_transform.html#a25ac47b2439b1fb5225615ad2da97cb6">IgorAux::iaTransform&lt; T &gt;</a>
@@ -577,8 +595,14 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>_specular
 : <a class="el" href="class_igor_1_1i_node_light.html#a7a1de29b921c1df6d592520fe55cee84">Igor::iNodeLight</a>
 </li>
+<li>_start
+: <a class="el" href="class_igor_1_1i_evaluation.html#a02dbce4673b3ebe8f141125c99869248">Igor::iEvaluation</a>
+</li>
 <li>_state
 : <a class="el" href="struct_igor_1_1i_voxel_block.html#af29839238d2356baca594c0691b4e530">Igor::iVoxelBlock</a>
+</li>
+<li>_stop
+: <a class="el" href="class_igor_1_1i_evaluation.html#ac8e6dd5f004781faf1058c80e7da49fe">Igor::iEvaluation</a>
 </li>
 <li>_swapBufferSectionID
 : <a class="el" href="class_igor_1_1i_window.html#ac03ecb9b21ce5bf1e3be8d7a59f4ca34">Igor::iWindow</a>
@@ -790,6 +814,9 @@ $(document).ready(function(){initNavTree('functions.html','');});
 : <a class="el" href="class_igor_aux_1_1ia_quaternion.html#a00d293136142d804dbfd673848bcd304">IgorAux::iaQuaternion&lt; T &gt;</a>
 , <a class="el" href="class_igor_aux_1_1ia_vector3.html#a3e0d8ae4a94e4e1b33d71b173d1e9331">IgorAux::iaVector3&lt; T &gt;</a>
 , <a class="el" href="class_igor_aux_1_1ia_vector4.html#a8d082a3fa9246ecead58019f23f2b02b">IgorAux::iaVector4&lt; T &gt;</a>
+</li>
+<li>_zdepth
+: <a class="el" href="class_igor_1_1i_window.html#a230a83f61edf62ef627714d7cf81fd85">Igor::iWindow</a>
 </li>
 <li>_zValue
 : <a class="el" href="class_igor_1_1i_widget.html#a39765dcf9558700c3e18170bc8342f9e">Igor::iWidget</a>

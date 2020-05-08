@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.24.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.25.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -127,6 +127,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af819f51cce93aad70e25dda0b04737f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1aa75695bdfc812d4b2c6c52b6193a75"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_group_box.html#a1aa75695bdfc812d4b2c6c52b6193a75">~iWidgetGroupBox</a> ()=default</td></tr>
 <tr class="separator:a1aa75695bdfc812d4b2c6c52b6193a75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b62cc55ebae5acd359bd6bf370f9d21"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespace_igor.html#a5a5955ee3dc842505db53a523ad0c1e4">iWidgetType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_group_box.html#a1b62cc55ebae5acd359bd6bf370f9d21">getWidgetType</a> () const override</td></tr>
+<tr class="separator:a1b62cc55ebae5acd359bd6bf370f9d21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c26446befaab4da76d335cc040761dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_group_box.html#a1c26446befaab4da76d335cc040761dd">setText</a> (const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;text)</td></tr>
 <tr class="separator:a1c26446befaab4da76d335cc040761dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af81cc61e588b385dcd9e7ab132ca0e62"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_group_box.html#af81cc61e588b385dcd9e7ab132ca0e62">getText</a> () const </td></tr>
@@ -140,8 +142,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a81323ff6e9514adf156be27bd450bf60"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_group_box.html#a81323ff6e9514adf156be27bd450bf60">getHeaderOnly</a> () const </td></tr>
 <tr class="separator:a81323ff6e9514adf156be27bd450bf60"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_igor_1_1i_widget"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_igor_1_1i_widget')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_igor_1_1i_widget.html">Igor::iWidget</a></td></tr>
-<tr class="memitem:aeda799fe50ed7f922e3a598843fb9112 inherit pub_methods_class_igor_1_1i_widget"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespace_igor.html#a5a5955ee3dc842505db53a523ad0c1e4">iWidgetType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget.html#aeda799fe50ed7f922e3a598843fb9112">getWidgetType</a> () const </td></tr>
-<tr class="separator:aeda799fe50ed7f922e3a598843fb9112 inherit pub_methods_class_igor_1_1i_widget"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e1b9687ba7448df1221e56e2cdaeea8 inherit pub_methods_class_igor_1_1i_widget"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget.html#a6e1b9687ba7448df1221e56e2cdaeea8">setZValue</a> (int32 zvalue)</td></tr>
 <tr class="separator:a6e1b9687ba7448df1221e56e2cdaeea8 inherit pub_methods_class_igor_1_1i_widget"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af241faab1ddb23a6d8d382ddb7cc78e3 inherit pub_methods_class_igor_1_1i_widget"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget.html#af241faab1ddb23a6d8d382ddb7cc78e3">getZValue</a> () const </td></tr>
@@ -485,6 +485,32 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a1b62cc55ebae5acd359bd6bf370f9d21"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_igor.html#a5a5955ee3dc842505db53a523ad0c1e4">iWidgetType</a> Igor::iWidgetGroupBox::getWidgetType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>the widgets type </dd></dl>
+
+<p>Reimplemented from <a class="el" href="class_igor_1_1i_widget.html#aeda799fe50ed7f922e3a598843fb9112">Igor::iWidget</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a9897085df58c5ea00d5b239f2323561a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -555,8 +581,8 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_widget_group_box_8h.html">iWidgetGroupBox.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_widget_group_box_8cpp.html">iWidgetGroupBox.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_widget_group_box_8h.html">iWidgetGroupBox.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_widget_group_box_8cpp.html">iWidgetGroupBox.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

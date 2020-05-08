@@ -7,6 +7,7 @@ var class_igor_1_1i_user_control_color_chooser =
     [ "getExpand", "class_igor_1_1i_user_control_color_chooser.html#a681936915c89556df75b436bbd78976d", null ],
     [ "getMode", "class_igor_1_1i_user_control_color_chooser.html#aba71518a2d9c1389cc1f0bb340e6b6ae", null ],
     [ "getText", "class_igor_1_1i_user_control_color_chooser.html#aa15c8323433fa3822dcfed8494ea5859", null ],
+    [ "getWidgetType", "class_igor_1_1i_user_control_color_chooser.html#abd531cf9f0ef54ef3010580d974cc1b5", null ],
     [ "isHeadlineVisible", "class_igor_1_1i_user_control_color_chooser.html#ac775f6aac7f9ef02b9995e94fdcd56c8", null ],
     [ "registerOnColorChangedEvent", "class_igor_1_1i_user_control_color_chooser.html#a859db9103c55f3556a1c9de22399c7d2", null ],
     [ "setColor", "class_igor_1_1i_user_control_color_chooser.html#acf026d67acaf86b063f3ac3f6a9d4bb1", null ],

@@ -4,6 +4,7 @@ var class_igor_1_1i_widget_color_gradient =
     [ "~iWidgetColorGradient", "class_igor_1_1i_widget_color_gradient.html#a80025af75d988e12a44e8675b2ef7685", null ],
     [ "block", "class_igor_1_1i_widget_color_gradient.html#a78b35a311aa81a7e36a736e2dbc0f62e", null ],
     [ "getGradient", "class_igor_1_1i_widget_color_gradient.html#ab04928652d82e33a7c43ce8ed58ea010", null ],
+    [ "getWidgetType", "class_igor_1_1i_widget_color_gradient.html#a227656fb3a4b4aadcacd97badd46e58a", null ],
     [ "isInteractive", "class_igor_1_1i_widget_color_gradient.html#af978ee310eeb02edfb05a6f8a5d153e4", null ],
     [ "isUsingAlpha", "class_igor_1_1i_widget_color_gradient.html#a68f1601539a91b9d64b4081488951509", null ],
     [ "registerOnColorCreatedEvent", "class_igor_1_1i_widget_color_gradient.html#a229e3ff3d6facfe53dcae9a3fceb4d0d", null ],

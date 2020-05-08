@@ -5,6 +5,7 @@ var class_igor_1_1i_user_control_file_chooser =
     [ "getFileName", "class_igor_1_1i_user_control_file_chooser.html#ab0fb744bf32fbd2ab518ed98eb70ab83", null ],
     [ "getOptimizePath", "class_igor_1_1i_user_control_file_chooser.html#a01170c9f54eb79aa5a1a5e6a689628ba", null ],
     [ "getPreselectedPath", "class_igor_1_1i_user_control_file_chooser.html#a6daf446263da71caaacc27a50612c6b6", null ],
+    [ "getWidgetType", "class_igor_1_1i_user_control_file_chooser.html#a2c47d1473c5e3a16c660b464515e5344", null ],
     [ "registerOnChangedDelegate", "class_igor_1_1i_user_control_file_chooser.html#a9b1db005bebb2b4e5ec387a0f057aa75", null ],
     [ "setFileName", "class_igor_1_1i_user_control_file_chooser.html#ad8d3af19f48e2eaf2df7475e55faba2d", null ],
     [ "setOptimizePath", "class_igor_1_1i_user_control_file_chooser.html#a715327f5de2452346cf0c362ff9d4aed", null ],
