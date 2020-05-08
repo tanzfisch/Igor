@@ -8,6 +8,7 @@ var class_igor_1_1i_widget_button =
     [ "getText", "class_igor_1_1i_widget_button.html#af6a7a75290dfbe717ccab2ae3c9b7f45", null ],
     [ "getTexture", "class_igor_1_1i_widget_button.html#a0da114be3c8b21d44d240169e9848e2a", null ],
     [ "getVerticalTextAlignment", "class_igor_1_1i_widget_button.html#a0bb5fbf5d53409bde7d25da35d7aaf5b", null ],
+    [ "getWidgetType", "class_igor_1_1i_widget_button.html#ae79b832fed09db6f7310e187428e80d2", null ],
     [ "setHorizontalTextAlignment", "class_igor_1_1i_widget_button.html#aeb16798a0fe92c1f355f84fd6b4944f0", null ],
     [ "setText", "class_igor_1_1i_widget_button.html#a510b3c7d7e0e6b0be6cd1c15da1b550a", null ],
     [ "setTexture", "class_igor_1_1i_widget_button.html#a212435b455ddb8bed63779fd145c6a2e", null ],

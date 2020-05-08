@@ -9,6 +9,7 @@
 #include <iTimer.h>
 #include <iPhysics.h>
 #include <iProfiler.h>
+#include <iEvaluationManager.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -61,14 +62,18 @@ namespace Igor
         iNodeManager::getInstance().handle();
         iProfiler::getInstance().endSection(_handleSectionID);
 
-        iProfiler::getInstance().beginSection(_physicsSectionID);
-        iPhysics::getInstance().handle();
-        iProfiler::getInstance().endSection(_physicsSectionID);
-
         iProfiler::getInstance().beginSection(_userSectionID);
         windowHandle();
         _preDrawHandleEvent();
         iProfiler::getInstance().endSection(_userSectionID);
+
+        iProfiler::getInstance().beginSection(_evaluationSectionID);
+        iEvaluationManager::getInstance().handle();
+        iProfiler::getInstance().endSection(_evaluationSectionID);
+
+        iProfiler::getInstance().beginSection(_physicsSectionID);
+        iPhysics::getInstance().handle();
+        iProfiler::getInstance().endSection(_physicsSectionID);
 
         iProfiler::getInstance().beginSection(_drawSectionID);
         draw();
@@ -95,6 +100,7 @@ namespace Igor
     {
         iProfiler::getInstance().unregisterSection(_frameSectionID);
         iProfiler::getInstance().unregisterSection(_handleSectionID);
+        iProfiler::getInstance().unregisterSection(_evaluationSectionID);
         iProfiler::getInstance().unregisterSection(_physicsSectionID);
         iProfiler::getInstance().unregisterSection(_drawSectionID);
         iProfiler::getInstance().unregisterSection(_userSectionID);
@@ -104,6 +110,7 @@ namespace Igor
     {
         _frameSectionID = iProfiler::getInstance().registerSection("app:frame", 0);
         _handleSectionID = iProfiler::getInstance().registerSection("app:handle", 0);
+        _evaluationSectionID = iProfiler::getInstance().registerSection("app:eval", 0);
         _physicsSectionID = iProfiler::getInstance().registerSection("app:physics", 0);
         _userSectionID = iProfiler::getInstance().registerSection("app:user", 0);
         _drawSectionID = iProfiler::getInstance().registerSection("app:draw", 0);

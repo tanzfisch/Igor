@@ -8,5 +8,6 @@ var class_igor_1_1i_widget_select_box =
     [ "getSelectedUserData", "class_igor_1_1i_widget_select_box.html#a40d0d2bb45bde58bae821e2f479c9f34", null ],
     [ "getSelectedValue", "class_igor_1_1i_widget_select_box.html#ad198c18872218dad146fd89bca5aeb03", null ],
     [ "getSelectionEntryCount", "class_igor_1_1i_widget_select_box.html#a442fb19df0f47c1216350b3d6cdefdf7", null ],
+    [ "getWidgetType", "class_igor_1_1i_widget_select_box.html#a35251b8aaebe2c05c4a28ae849e6733d", null ],
     [ "setSelection", "class_igor_1_1i_widget_select_box.html#a3c6b646f3de8467f41ca9e349d9a66fa", null ]
 ];

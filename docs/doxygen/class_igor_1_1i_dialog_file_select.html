@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.24.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.25.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -127,6 +127,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6fa986b6c254ba9b5deefd32d38faf59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c85b084f0d7207dee8a547c73701e36"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_file_select.html#a6c85b084f0d7207dee8a547c73701e36">~iDialogFileSelect</a> ()=default</td></tr>
 <tr class="separator:a6c85b084f0d7207dee8a547c73701e36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5287769133d9b2d8fa3975bc88464a3"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespace_igor.html#a5a5955ee3dc842505db53a523ad0c1e4">iWidgetType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_file_select.html#ae5287769133d9b2d8fa3975bc88464a3">getWidgetType</a> () const override</td></tr>
+<tr class="separator:ae5287769133d9b2d8fa3975bc88464a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a68dad2f8c8caa42193d69766726eb8e8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_file_select.html#a68dad2f8c8caa42193d69766726eb8e8">open</a> (iDialogCloseDelegate dialogCloseDelegate, <a class="el" href="namespace_igor.html#af4d659f29149d31b584a06c67d3b24d8">iFileDialogPurpose</a> purpose=<a class="el" href="namespace_igor.html#af4d659f29149d31b584a06c67d3b24d8af19dbf2edb3a0bd74b0524d960ff21eb">iFileDialogPurpose::Load</a>, const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;path=&quot;&quot;)</td></tr>
 <tr class="separator:a68dad2f8c8caa42193d69766726eb8e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a622e7780aa38ad6e55dff5a05ad41070"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog_file_select.html#a622e7780aa38ad6e55dff5a05ad41070">getFullPath</a> ()</td></tr>
@@ -142,8 +144,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa7c48c9a7e71391f2965fcae7ef02152 inherit pub_methods_class_igor_1_1i_dialog"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afdee004bd5ce2775e21223fa12131520 inherit pub_methods_class_igor_1_1i_dialog"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog.html#afdee004bd5ce2775e21223fa12131520">~iDialog</a> ()</td></tr>
 <tr class="separator:afdee004bd5ce2775e21223fa12131520 inherit pub_methods_class_igor_1_1i_dialog"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8448b52019e45bf473a042c4a2c52edc inherit pub_methods_class_igor_1_1i_dialog"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespace_igor.html#a5a5955ee3dc842505db53a523ad0c1e4">iWidgetType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog.html#a8448b52019e45bf473a042c4a2c52edc">getWidgetType</a> () const override</td></tr>
-<tr class="separator:a8448b52019e45bf473a042c4a2c52edc inherit pub_methods_class_igor_1_1i_dialog"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4de8386e4aa82ea1e70968ba4b60b303 inherit pub_methods_class_igor_1_1i_dialog"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog.html#a4de8386e4aa82ea1e70968ba4b60b303">setX</a> (int32 x)</td></tr>
 <tr class="separator:a4de8386e4aa82ea1e70968ba4b60b303 inherit pub_methods_class_igor_1_1i_dialog"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a846d3af36fb1365fa2571e08219ad60c inherit pub_methods_class_igor_1_1i_dialog"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_dialog.html#a846d3af36fb1365fa2571e08219ad60c">setY</a> (int32 y)</td></tr>
@@ -519,6 +519,32 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ae5287769133d9b2d8fa3975bc88464a3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_igor.html#a5a5955ee3dc842505db53a523ad0c1e4">iWidgetType</a> Igor::iDialogFileSelect::getWidgetType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>the widgets type </dd></dl>
+
+<p>Reimplemented from <a class="el" href="class_igor_1_1i_dialog.html#a8448b52019e45bf473a042c4a2c52edc">Igor::iDialog</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="a68dad2f8c8caa42193d69766726eb8e8"></a>
 <div class="memitem">
 <div class="memproto">
@@ -560,8 +586,8 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_dialog_file_select_8h.html">iDialogFileSelect.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_dialog_file_select_8cpp.html">iDialogFileSelect.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_dialog_file_select_8h.html">iDialogFileSelect.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_dialog_file_select_8cpp.html">iDialogFileSelect.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

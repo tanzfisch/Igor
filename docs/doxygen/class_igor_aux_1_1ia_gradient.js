@@ -6,6 +6,7 @@ var class_igor_aux_1_1ia_gradient =
     [ "getValue", "class_igor_aux_1_1ia_gradient.html#a3442746cb0eb369b524b3a6e1a42942c", null ],
     [ "getValueAtIndex", "class_igor_aux_1_1ia_gradient.html#ac1a62a502fff0f1eea2087fc358c7da9", null ],
     [ "getValues", "class_igor_aux_1_1ia_gradient.html#acba440dbca4e3d70fff0bec40357b17a", null ],
+    [ "isEmpty", "class_igor_aux_1_1ia_gradient.html#a8607694cb8e6a889c38ee9b5b737dc7b", null ],
     [ "removeIndex", "class_igor_aux_1_1ia_gradient.html#ae288ece6a08165a494cc16375f21e16d", null ],
     [ "setValue", "class_igor_aux_1_1ia_gradient.html#a3ce9a96516704eb9b7e8e88cadb77043", null ],
     [ "setValueAtIndex", "class_igor_aux_1_1ia_gradient.html#a7dd08119a08bb66b57fcfd80962cb9a9", null ]

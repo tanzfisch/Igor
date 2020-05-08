@@ -43,6 +43,8 @@ namespace Igor
     struct iRendererTexture;
 	class iTexture;
 
+    /*! represents a texture resource
+    */
 	class Igor_API iTexture
 	{
 

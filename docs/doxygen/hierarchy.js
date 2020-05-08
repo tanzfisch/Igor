@@ -47,6 +47,9 @@ var hierarchy =
     [ "IgorAux::iaSingleton< iEntityManager >", "class_igor_aux_1_1ia_singleton.html", [
       [ "Igor::iEntityManager", "class_igor_1_1i_entity_manager.html", null ]
     ] ],
+    [ "IgorAux::iaSingleton< iEvaluationManager >", "class_igor_aux_1_1ia_singleton.html", [
+      [ "Igor::iEvaluationManager", "class_igor_1_1i_evaluation_manager.html", null ]
+    ] ],
     [ "IgorAux::iaSingleton< iKeyboard >", "class_igor_aux_1_1ia_singleton.html", [
       [ "Igor::iKeyboard", "class_igor_1_1i_keyboard.html", null ]
     ] ],
@@ -114,6 +117,10 @@ var hierarchy =
     [ "Igor::iEmitterTriangle", "class_igor_1_1i_emitter_triangle.html", null ],
     [ "Igor::iEntity", "class_igor_1_1i_entity.html", [
       [ "Igor::iEntityLocatable", "class_igor_1_1i_entity_locatable.html", null ]
+    ] ],
+    [ "Igor::iEvaluation", "class_igor_1_1i_evaluation.html", [
+      [ "Igor::iEvaluationScript", "class_igor_1_1i_evaluation_script.html", null ],
+      [ "Igor::iEvaluationTransform", "class_igor_1_1i_evaluation_transform.html", null ]
     ] ],
     [ "Igor::iFrustum< T >", "class_igor_1_1i_frustum.html", null ],
     [ "Igor::iIndexedTriangle", "struct_igor_1_1i_indexed_triangle.html", null ],

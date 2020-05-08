@@ -74,7 +74,7 @@ namespace Igor
     }
 
     void iNodeRender::onUpdateTransform(iaMatrixd& matrix)
-    {
+    {        
         _worldMatrix = matrix;
     }
 

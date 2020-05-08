@@ -8,6 +8,7 @@ var class_igor_1_1i_widget_text_edit =
     [ "getMaxTextLength", "class_igor_1_1i_widget_text_edit.html#a61eec4d83ceb73bd1cc7c8b7e2786210", null ],
     [ "getText", "class_igor_1_1i_widget_text_edit.html#a6ff2275f7f801cbb45822ef926427570", null ],
     [ "getVerticalTextAlignment", "class_igor_1_1i_widget_text_edit.html#a57666636beb23c927e6cf7ccf57d4906", null ],
+    [ "getWidgetType", "class_igor_1_1i_widget_text_edit.html#a80cca5dfe8f358a3b46f5c0de9b71630", null ],
     [ "handleASCII", "class_igor_1_1i_widget_text_edit.html#ae33a89c07b2be35b46652624a3a76348", null ],
     [ "handleChanges", "class_igor_1_1i_widget_text_edit.html#acf3149d0161d924a8f471a437ba45fbd", null ],
     [ "handleGainedKeyboardFocus", "class_igor_1_1i_widget_text_edit.html#afd336cfdfb20f34f57da19b12fa4e0d4", null ],

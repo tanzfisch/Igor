@@ -273,7 +273,7 @@ namespace Igor
 
 		iProfiler::getInstance().beginSection(_updateLODSectionID);
 #endif
-		// todo can't not stay here. need to reduce update effort per frame. event based would be nice
+		// todo can not stay here. need to reduce update effort per frame. event based would be nice
 		updateLOD();
 #ifdef USE_VERBOSE_STATISTICS
 		iProfiler::getInstance().endSection(_updateLODSectionID);

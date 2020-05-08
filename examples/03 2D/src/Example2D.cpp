@@ -122,8 +122,6 @@ void Example2D::init()
 	_spline.addSupportPoint(iaVector3f(50, 150, 0));
 	// close the loop by having the end point at the same position as the start point
 	_spline.addSupportPoint(iaVector3f(100, 100, 0));
-	// defines the resolution of the output line strip if we later call getSpline
-	_spline.setResolution(20);
 
 	// create some materials
 	_materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial("TextureAndBlending");
@@ -321,7 +319,10 @@ void Example2D::onRender()
 	// draw spline
 	iRenderer::getInstance().setMaterial(_materialWithoutDepthTest);
 	iRenderer::getInstance().setColor(iaColor4f(1, 0, 0.5, 1));
-	iRenderer::getInstance().drawLineStrip(_spline.getSpline());
+
+	std::vector<iaVector3f> points;
+	_spline.getPoints(points, 100);
+	iRenderer::getInstance().drawLineStrip(points);
 
 	// draw random graph in the upper right corner
 	iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));

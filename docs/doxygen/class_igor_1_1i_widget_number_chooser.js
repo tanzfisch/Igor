@@ -5,6 +5,7 @@ var class_igor_1_1i_widget_number_chooser =
     [ "getAfterPoint", "class_igor_1_1i_widget_number_chooser.html#add501d098de95e5170db9a45ccbd03e1", null ],
     [ "getPostFix", "class_igor_1_1i_widget_number_chooser.html#a0851650d878b6766098077bb7d009031", null ],
     [ "getValue", "class_igor_1_1i_widget_number_chooser.html#a51236dfd880ef08c0def5c17bdf28f3c", null ],
+    [ "getWidgetType", "class_igor_1_1i_widget_number_chooser.html#a57ca16aa67a9e86768e396b9d8878e1d", null ],
     [ "setAfterPoint", "class_igor_1_1i_widget_number_chooser.html#a9f5327dc1daadc951ee4166b0c752942", null ],
     [ "setMinMaxNumber", "class_igor_1_1i_widget_number_chooser.html#a4b8f280d0189e7cfa933f092375150da", null ],
     [ "setPostFix", "class_igor_1_1i_widget_number_chooser.html#ac04470066acd2a502271de336b54e569", null ],

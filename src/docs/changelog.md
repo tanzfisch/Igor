@@ -4,6 +4,10 @@ Changelog                           {#changelog}
 0.25.0
 ------
 
+- added basic evaluaiton functionality to control animations on transform nodes
+  ![basic evaluation](/images/basicEvaluation.gif)
+- added iaFile::getStem
+
 0.24.1
 ------
 

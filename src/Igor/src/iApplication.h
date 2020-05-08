@@ -115,6 +115,10 @@ namespace Igor
         */
         uint32 _handleSectionID = 0;
 
+        /*! evaluation performance section id
+        */
+        uint32 _evaluationSectionID = 0;
+
         /*! physics performance section id
         */
         uint32 _physicsSectionID = 0;

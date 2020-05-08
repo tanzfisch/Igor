@@ -15,6 +15,7 @@ var class_igor_1_1i_widget_graph =
     [ "getPointSize", "class_igor_1_1i_widget_graph.html#a5d1d9807cbbaf21148613039526cea0f", null ],
     [ "getViewGrid", "class_igor_1_1i_widget_graph.html#a3b623c6319fd179c691fd26275ab19ad", null ],
     [ "getViewLabels", "class_igor_1_1i_widget_graph.html#a914e46905057ac9aa2244a0672aa9dc0", null ],
+    [ "getWidgetType", "class_igor_1_1i_widget_graph.html#a3b958fed6447d182b263c82e3a36b475", null ],
     [ "isInteractive", "class_igor_1_1i_widget_graph.html#a610a02ef3ae4037d1558630b17a9ac37", null ],
     [ "isUsingBoundings", "class_igor_1_1i_widget_graph.html#a45b9680e1caa929e3dd99b83d01697bd", null ],
     [ "setBoundings", "class_igor_1_1i_widget_graph.html#a9c90550442ed1ad385f4d39c7f839ed6", null ],

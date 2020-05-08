@@ -152,6 +152,10 @@ namespace Igor
 		
 	};
 
+    /*! definition of transform node pointer
+    */
+    typedef iNodeTransform* iNodeTransformPtr;
+
 };
 
 #endif

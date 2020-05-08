@@ -33,10 +33,12 @@ var i_widget_8h =
       [ "iUserControlFileChooser", "i_widget_8h.html#a5a5955ee3dc842505db53a523ad0c1e4a0be42edf3263e3ac34ae19d31269bc21", null ],
       [ "iDialog", "i_widget_8h.html#a5a5955ee3dc842505db53a523ad0c1e4ae47738832438f1fe138c849f81f49ded", null ],
       [ "iDialogColorChooser", "i_widget_8h.html#a5a5955ee3dc842505db53a523ad0c1e4adaeced69e6c5e4e9f9dc894ccb895f40", null ],
+      [ "iDialogColorGradient", "i_widget_8h.html#a5a5955ee3dc842505db53a523ad0c1e4a0cff16f295b11668b706718753d65a1b", null ],
       [ "iDialogDecisionBox", "i_widget_8h.html#a5a5955ee3dc842505db53a523ad0c1e4abc08a30df29a5c8e36ca18b324177612", null ],
       [ "iDialogFileSelect", "i_widget_8h.html#a5a5955ee3dc842505db53a523ad0c1e4afc4d0d0177d525a00cc6ce85b676409c", null ],
       [ "iDialogGraph", "i_widget_8h.html#a5a5955ee3dc842505db53a523ad0c1e4abfcd661f3150a8d0710e607816d31b72", null ],
       [ "iDialogIndexMenu", "i_widget_8h.html#a5a5955ee3dc842505db53a523ad0c1e4a398669d5fcf5454dc3ab4dd30c82fb2a", null ],
+      [ "iDialogMenu", "i_widget_8h.html#a5a5955ee3dc842505db53a523ad0c1e4a656a677fa80bb418c05af87d664cd8d0", null ],
       [ "iDialogMessageBox", "i_widget_8h.html#a5a5955ee3dc842505db53a523ad0c1e4a6158e98bc06a07d65fde90fdb5a9939f", null ],
       [ "iUserType", "i_widget_8h.html#a5a5955ee3dc842505db53a523ad0c1e4a1ebfbf482ab458929ddc36d6c2aa062d", null ],
       [ "iUndefinedType", "i_widget_8h.html#a5a5955ee3dc842505db53a523ad0c1e4adb5b1a3beea7eb8499d465c616d438d1", null ]

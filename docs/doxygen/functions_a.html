@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.24.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.25.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -194,6 +194,9 @@ $(document).ready(function(){initNavTree('functions_a.html','');});
 <li>addInstance()
 : <a class="el" href="class_igor_1_1i_instancer.html#a6b29ed1af25fa23a206c85945930cafa">Igor::iInstancer</a>
 </li>
+<li>addKeyframe()
+: <a class="el" href="class_igor_1_1i_evaluation_transform.html#a63042c2c301bac21b637be2f0950ecc5">Igor::iEvaluationTransform</a>
+</li>
 <li>addMenu()
 : <a class="el" href="class_igor_1_1i_dialog_menu.html#a8880d131f83b0fac43cd31563a8d670c">Igor::iDialogMenu</a>
 , <a class="el" href="class_igor_1_1i_widget_menu.html#aa57279f95793181b744727d97a337784">Igor::iWidgetMenu</a>
@@ -334,13 +337,14 @@ $(document).ready(function(){initNavTree('functions_a.html','');});
 : <a class="el" href="class_igor_aux_1_1ia_mutex.html#af9d81e67b463c746134d401a84738788">IgorAux::iaMutex</a>
 </li>
 <li>iApplication
-: <a class="el" href="class_igor_1_1i_node_manager.html#ac95e62eb30700f633cc8c60341f159f6">Igor::iNodeManager</a>
+: <a class="el" href="class_igor_1_1i_evaluation_manager.html#ac95e62eb30700f633cc8c60341f159f6">Igor::iEvaluationManager</a>
+, <a class="el" href="class_igor_1_1i_node_manager.html#ac95e62eb30700f633cc8c60341f159f6">Igor::iNodeManager</a>
 , <a class="el" href="class_igor_1_1i_physics.html#ac95e62eb30700f633cc8c60341f159f6">Igor::iPhysics</a>
 , <a class="el" href="class_igor_1_1i_timer.html#ac95e62eb30700f633cc8c60341f159f6">Igor::iTimer</a>
 , <a class="el" href="class_igor_1_1i_window.html#ac95e62eb30700f633cc8c60341f159f6">Igor::iWindow</a>
 </li>
 <li>iaQuaternion()
-: <a class="el" href="class_igor_aux_1_1ia_quaternion.html#aea746b14dbcdbd8d86506a52acb63b75">IgorAux::iaQuaternion&lt; T &gt;</a>
+: <a class="el" href="class_igor_aux_1_1ia_quaternion.html#a6310f69b074a3ff4da5d08817d718e2c">IgorAux::iaQuaternion&lt; T &gt;</a>
 </li>
 <li>iaRandomNumberGenerator()
 : <a class="el" href="class_igor_aux_1_1ia_random_number_generator.html#ac9f3e71f6426c3e1f0dc05621e6472ad">IgorAux::iaRandomNumberGenerator&lt; T &gt;</a>
@@ -362,6 +366,9 @@ $(document).ready(function(){initNavTree('functions_a.html','');});
 </li>
 <li>iaSingleton&lt; iEntityManager &gt;
 : <a class="el" href="class_igor_1_1i_entity_manager.html#ab9e1f55c27100f2b273af131177e4800">Igor::iEntityManager</a>
+</li>
+<li>iaSingleton&lt; iEvaluationManager &gt;
+: <a class="el" href="class_igor_1_1i_evaluation_manager.html#a51df36f14091d429eede467775193108">Igor::iEvaluationManager</a>
 </li>
 <li>iaSingleton&lt; iKeyboard &gt;
 : <a class="el" href="class_igor_1_1i_keyboard.html#af84982e77484ff4a0ef880a66612dd84">Igor::iKeyboard</a>
@@ -419,19 +426,19 @@ $(document).ready(function(){initNavTree('functions_a.html','');});
 , <a class="el" href="class_igor_aux_1_1ia_transition.html#aeaf8109c5f62b1c9e7f6f095f0a10f87">IgorAux::iaTransition</a>
 </li>
 <li>iaString()
-: <a class="el" href="class_igor_aux_1_1ia_string.html#af84854619716d34c54a838abcb5fdb2f">IgorAux::iaString</a>
+: <a class="el" href="class_igor_aux_1_1ia_string.html#abe2a725bfd65ea2fc9e0e269b1e5c378">IgorAux::iaString</a>
 </li>
 <li>iAtlas()
 : <a class="el" href="class_igor_1_1i_atlas.html#a22715a6443ff7341c831a22d985473a7">Igor::iAtlas</a>
 </li>
 <li>iaTransform()
-: <a class="el" href="class_igor_aux_1_1ia_transform.html#a10669305811399a4f31db51d4d872713">IgorAux::iaTransform&lt; T &gt;</a>
+: <a class="el" href="class_igor_aux_1_1ia_transform.html#adc5523e2f9b51dfc1660b3640e9e7605">IgorAux::iaTransform&lt; T &gt;</a>
 </li>
 <li>iaVector2()
 : <a class="el" href="class_igor_aux_1_1ia_vector2.html#ad25b03db2abd4c66c08f9146ddbf7b57">IgorAux::iaVector2&lt; T &gt;</a>
 </li>
 <li>iaVector3()
-: <a class="el" href="class_igor_aux_1_1ia_vector3.html#ab46ba8430b69fb22fbedea9c69c326c7">IgorAux::iaVector3&lt; T &gt;</a>
+: <a class="el" href="class_igor_aux_1_1ia_vector3.html#a38f9940d3a72c188718e74b7982eea6a">IgorAux::iaVector3&lt; T &gt;</a>
 </li>
 <li>iaVector4()
 : <a class="el" href="class_igor_aux_1_1ia_vector4.html#ad907a1f055e52226e80656e8217d310a">IgorAux::iaVector4&lt; T &gt;</a>

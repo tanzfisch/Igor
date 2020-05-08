@@ -113,7 +113,7 @@ namespace Igor
         _tooltipPos = pos;
         _tooltipText = text;
 
-        float32 textWidth = min(300.0f, getTheme()->getFont()->measureWidth(text, getTheme()->getFontSize()));
+        float32 textWidth = std::min(300.0f, getTheme()->getFont()->measureWidth(text, getTheme()->getFontSize()));
         float32 textHeight = getTheme()->getFont()->measureHeight(text, getTheme()->getFontSize(), textWidth);
 
         if (_tooltipPos._x + textWidth > _desktopWidth)

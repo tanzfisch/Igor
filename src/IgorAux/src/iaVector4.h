@@ -148,6 +148,15 @@ namespace IgorAux
         ~iaVector4() = default;
     };
 
+    /*! linear interpolation of two vectors
+
+    \param a vector a
+    \param b vector b
+    \param t interpolation weight
+    */
+    template <class T>
+    iaVector4<T> lerp(const iaVector4<T>& a, const iaVector4<T>& b, T t);
+
 #include <iaVector4.inl>
 
     /*! float32 4d vector

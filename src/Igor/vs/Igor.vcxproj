@@ -112,7 +112,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level2</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_NEWTON_USE_DOUBLE;_DEBUG;WIN32;_WINDOWS;_USRDLL;__IGOR_BUILDING_DLL__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_NEWTON_USE_DOUBLE;NOMINMAX;_DEBUG;WIN32;_WINDOWS;_USRDLL;__IGOR_BUILDING_DLL__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\newton-dynamics\coreLibrary_300\source;$(MSBuildProgramFiles32)\Visual Leak Detector\include;..\..\..\3rd\TinyXML;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251; 4150;</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -182,7 +182,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>_NEWTON_USE_DOUBLE;NDEBUG;WIN32;_WINDOWS;_USRDLL;__IGOR_BUILDING_DLL__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_NEWTON_USE_DOUBLE;NOMINMAX;NDEBUG;WIN32;_WINDOWS;_USRDLL;__IGOR_BUILDING_DLL__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\newton-dynamics\coreLibrary_300\source;$(MSBuildProgramFiles32)\Visual Leak Detector\include;..\..\..\3rd\TinyXML;</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4251; 4150;</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -258,6 +258,10 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\src\iEntity.cpp" />
     <ClCompile Include="..\src\iEntityLocatable.cpp" />
     <ClCompile Include="..\src\iEntityManager.cpp" />
+    <ClCompile Include="..\src\iEvaluation.cpp" />
+    <ClCompile Include="..\src\iEvaluationManager.cpp" />
+    <ClCompile Include="..\src\iEvaluationScript.cpp" />
+    <ClCompile Include="..\src\iEvaluationTransform.cpp" />
     <ClCompile Include="..\src\Igor.cpp" />
     <ClCompile Include="..\src\iInstancer.cpp" />
     <ClCompile Include="..\src\iJoint.cpp" />
@@ -439,6 +443,10 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iEntity.h" />
     <ClInclude Include="..\src\iEntityLocatable.h" />
     <ClInclude Include="..\src\iEntityManager.h" />
+    <ClInclude Include="..\src\iEvaluation.h" />
+    <ClInclude Include="..\src\iEvaluationManager.h" />
+    <ClInclude Include="..\src\iEvaluationScript.h" />
+    <ClInclude Include="..\src\iEvaluationTransform.h" />
     <ClInclude Include="..\src\iFrustum.h" />
     <ClInclude Include="..\src\Igor.h" />
     <ClInclude Include="..\src\iInstancer.h" />
@@ -618,6 +626,7 @@ git describe --abbrev=0 --tags &gt;&gt; ..\src\gitTag.inl</Command>
     <None Include="..\src\iAABox.inl" />
     <None Include="..\src\iAACube.inl" />
     <None Include="..\src\iAtlas.inl" />
+    <None Include="..\src\iEvaluationManager.inl" />
     <None Include="..\src\iFrustum.inl" />
     <None Include="..\src\iInstancer.inl" />
     <None Include="..\src\iIntersection.inl" />

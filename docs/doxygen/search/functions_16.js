@@ -34,6 +34,7 @@ var searchData=
   ['_7eidialogmessagebox',['~iDialogMessageBox',['../class_igor_1_1i_dialog_message_box.html#a6d8ecad599760fd764effefc46c02d0a',1,'Igor::iDialogMessageBox']]],
   ['_7eientity',['~iEntity',['../class_igor_1_1i_entity.html#a6a1f0ec2d91e6a107005e35c9b18e4b1',1,'Igor::iEntity']]],
   ['_7eientitylocatable',['~iEntityLocatable',['../class_igor_1_1i_entity_locatable.html#a47cc3d70792a79fe6dcb6971355afdea',1,'Igor::iEntityLocatable']]],
+  ['_7eievaluation',['~iEvaluation',['../class_igor_1_1i_evaluation.html#aaa6190d87dbfd2ac509a9e93536b38ac',1,'Igor::iEvaluation']]],
   ['_7eifrustum',['~iFrustum',['../class_igor_1_1i_frustum.html#aa2f5967b989a0109fbeaf7b1183cb041',1,'Igor::iFrustum']]],
   ['_7eiinstancer',['~iInstancer',['../class_igor_1_1i_instancer.html#ab2548f5e8dcd201b0f3c0d1db263ede5',1,'Igor::iInstancer']]],
   ['_7eiloader3ds',['~iLoader3DS',['../class_igor_1_1i_loader3_d_s.html#af433f84cbee476557a38f9446161b8de',1,'Igor::iLoader3DS']]],
