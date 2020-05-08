@@ -260,6 +260,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\src\iEntityManager.cpp" />
     <ClCompile Include="..\src\iEvaluation.cpp" />
     <ClCompile Include="..\src\iEvaluationManager.cpp" />
+    <ClCompile Include="..\src\iEvaluationScript.cpp" />
     <ClCompile Include="..\src\iEvaluationTransform.cpp" />
     <ClCompile Include="..\src\Igor.cpp" />
     <ClCompile Include="..\src\iInstancer.cpp" />
@@ -444,6 +445,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iEntityManager.h" />
     <ClInclude Include="..\src\iEvaluation.h" />
     <ClInclude Include="..\src\iEvaluationManager.h" />
+    <ClInclude Include="..\src\iEvaluationScript.h" />
     <ClInclude Include="..\src\iEvaluationTransform.h" />
     <ClInclude Include="..\src\iFrustum.h" />
     <ClInclude Include="..\src\Igor.h" />

@@ -12,7 +12,6 @@ using namespace IgorAux;
 #include <iNodeSkyBox.h>
 #include <iNodeCamera.h>
 #include <iNodeModel.h> 
-#include <iNodeTransform.h>
 #include <iRenderer.h>
 #include <iApplication.h>
 #include <iSceneFactory.h>
@@ -35,6 +34,7 @@ using namespace IgorAux;
 #include <iNodeVisitorRenderColorID.h>
 #include <iEvaluationManager.h>
 #include <iEvaluationTransform.h>
+#include <iEvaluationScript.h>
 using namespace Igor;
 
 Evaluation::Evaluation()
@@ -178,7 +178,7 @@ void Evaluation::init()
 void Evaluation::setupEvaluation()
 {
     // create a cat model
-    iNodeTransform* catTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransformPtr catTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     catTransform->setName("cat transform");
     catTransform->translate(0, 0, 0);
     iNodeModel* catModel = iNodeManager::getInstance().createNode<iNodeModel>();
@@ -194,7 +194,8 @@ void Evaluation::setupEvaluation()
     // create some key frames using a bspline
     iaBSpline bspline;
     bspline.addSupportPoint(iaVector3f(-4,0,0));
-    bspline.addSupportPoint(iaVector3f(0, 5, 0));
+    bspline.addSupportPoint(iaVector3f(-2, 5, 0));
+    bspline.addSupportPoint(iaVector3f(2, -5, 0));
     bspline.addSupportPoint(iaVector3f(4, 0, 0));
 
     std::vector<iaVector3f> points;
@@ -207,11 +208,29 @@ void Evaluation::setupEvaluation()
         transformEvaluation->addKeyframe(matrix);
     }
 
+    // keep repeating the animation
     transformEvaluation->setLooped();
+
+    // set smooth easing function
     transformEvaluation->setEasingFunction(Easing::EasingFunction::InOutCubic);
 
-    transformEvaluation->setDuration(2.0);
-    transformEvaluation->setStart(0.0);
+    // set duration aka period to 2 seconds
+    transformEvaluation->setDuration(4.0);
+    // start now
+    transformEvaluation->setStart(iTimer::getInstance().getSeconds());
+
+    // add a script evaluation on top
+    iEvaluationScript* scriptEvaluation = iEvaluationManager::getInstance().createEvaluation<iEvaluationScript>(catTransform->getID());
+    scriptEvaluation->setLooped();
+    scriptEvaluation->setDuration(4.0);
+    scriptEvaluation->setStart(iTimer::getInstance().getSeconds());
+    scriptEvaluation->setScript(iEvaluationScriptDelegate(this, &Evaluation::evalScript));
+    scriptEvaluation->setEasingFunction(Easing::EasingFunction::OutElastic);
+}
+
+void Evaluation::evalScript(iNodeTransformPtr transform, float64 t)
+{
+    transform->rotate(t, iaAxis::Y);
 }
 
 void Evaluation::createDirectionalLight()

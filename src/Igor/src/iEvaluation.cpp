@@ -17,9 +17,7 @@ namespace Igor
     iEvaluation::iEvaluation(uint64 nodeID)
     {
         _nodeID = nodeID;
-        _evaluatorID = iEvaluation::_idGenerator.createID();
-
-        reset();
+        _evaluatorID = iEvaluation::_idGenerator.createID();       
     }
 
     void iEvaluation::reset()

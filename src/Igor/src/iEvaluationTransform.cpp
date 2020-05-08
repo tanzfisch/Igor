@@ -66,9 +66,4 @@ namespace Igor
         transformNode->setMatrix(nodeMatrix);
     }
 
-    void iEvaluationTransform::reset()
-    {
-        iEvaluation::reset();
-    }
-
 }

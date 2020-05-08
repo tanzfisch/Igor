@@ -467,6 +467,9 @@
     <ClCompile Include="..\src\iEvaluationTransform.cpp">
       <Filter>graphics\evaluation</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iEvaluationScript.cpp">
+      <Filter>graphics\evaluation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -974,6 +977,9 @@
       <Filter>graphics\evaluation</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iEvaluationTransform.h">
+      <Filter>graphics\evaluation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iEvaluationScript.h">
       <Filter>graphics\evaluation</Filter>
     </ClInclude>
   </ItemGroup>

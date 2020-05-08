@@ -26,13 +26,15 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iEVALUATION_TRANSFORM__
-#define __iEVALUATION_TRANSFORM__
+#ifndef __iEVALUATION_SCRIPT__
+#define __iEVALUATION_SCRIPT__
 
 #include <iEvaluation.h>
+#include <iNodeTransform.h>
 
 #include <iaMatrix.h>
 #include <iaTransform.h>
+#include <iaDelegate.h>
 using namespace IgorAux;
 
 #include <map>
@@ -40,40 +42,34 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    /*! evaluation that menipulates transform nodes using key frames
+    /*! evaluation script delegate
     */
-	class Igor_API iEvaluationTransform : public iEvaluation
+    iaDELEGATE(iEvaluationScriptDelegate, void, (iNodeTransformPtr transformNode, float64 t), (transformNode, t));
+
+    /*! evaluation that menipulates transform nodes via given callback function
+    */
+	class Igor_API iEvaluationScript : public iEvaluation
 	{
 
         friend class iEvaluationManager;
 
     public:
 
-        /*! adds a matrix as keyframe
-
-        \param matrix the matrix to add
-
-        \todo totally forgot to add t per keyframe
+        /*! sets script to use for evaluation
         */
-        void addKeyframe(const iaMatrixd& matrix);
-
-        /*! adds a transform as keyframe
-
-        \param matrix the matrix to add
-        */
-        void addKeyframe(const iaTransformd& transform);
+        void setScript(iEvaluationScriptDelegate evaluationScriptDelegate);
 
     private:
 
-        /*! the transform keyframes
+        /*! evaluation script delegate
         */
-        std::vector<iaTransformd> _keyframes;
+        iEvaluationScriptDelegate _evaluationScriptDelegate;
 
         /*! init members
 
         \param nodeID id of node to take control of
         */
-        iEvaluationTransform(uint64 nodeID);
+        iEvaluationScript(uint64 nodeID);
 
         /*! evaluates something
 
@@ -83,9 +79,9 @@ namespace Igor
 
 	};
 
-    /*! evaluation transform pointer definition
+    /*! evaluation script pointer definition
     */
-    typedef iEvaluationTransform* iEvaluationTransformPtr;
+    typedef iEvaluationScript* iEvaluationScriptPtr;
 
 };
 

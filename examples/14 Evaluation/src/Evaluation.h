@@ -37,6 +37,7 @@
 #include <iKeyCodeMap.h>
 #include <iMaterial.h>
 #include <iProfilerVisualizer.h>
+#include <iNodeTransform.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -191,6 +192,15 @@ private:
     */
     void setupEvaluation();
 
+    /*! evaluation script
+
+    \param transform the transform to manipulate
+    \param t the time where we are at
+    */
+    void evalScript(iNodeTransformPtr transform, float64 t);
+
+    /*! create light in the scene
+    */
     void createDirectionalLight();
 
 };

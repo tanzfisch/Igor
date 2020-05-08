@@ -155,31 +155,31 @@ namespace Igor
 
         /*! interpolation function
         */
-        Easing::EasingFunction _easingFunction;
+        Easing::EasingFunction _easingFunction = Easing::EasingFunction::Linear;
 
         /*! start time of evaluation
         */
-        float64 _start;
+        float64 _start = 0.0;
 
         /*! stop time of evaluation
         */
-        float64 _stop;
+        float64 _stop = 0.0;
 
         /*! amplitude of elastic easing function
         */
-        float64 _amplitude;
+        float64 _amplitude = 0.5;
 
         /*! period of elastic easing function
         */
-        float64 _period;
+        float64 _period = 0.25;
 
         /*! overshoot of back easing function
         */
-        float64 _overshoot;
+        float64 _overshoot = 1.70158;
 
         /*! looped flag
         */
-        bool _looped;
+        bool _looped = false;
 
         /*! init members
 
