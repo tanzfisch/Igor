@@ -5,6 +5,7 @@ var class_igor_1_1i_dialog_menu =
     [ "addAction", "class_igor_1_1i_dialog_menu.html#ac0b4ed259db78f4983bdb466304462ec", null ],
     [ "addAction", "class_igor_1_1i_dialog_menu.html#a50de367193a0d34e7b51858e44dcd06f", null ],
     [ "addMenu", "class_igor_1_1i_dialog_menu.html#a8880d131f83b0fac43cd31563a8d670c", null ],
+    [ "getWidgetType", "class_igor_1_1i_dialog_menu.html#a9957cc93187e664cc381fd8ad89e2fda", null ],
     [ "open", "class_igor_1_1i_dialog_menu.html#af98221c594e8e866dd59fa48f07f8bb7", null ],
     [ "iWidgetMenu", "class_igor_1_1i_dialog_menu.html#ab710690e7794a85cb004d5969e1ee0e0", null ]
 ];

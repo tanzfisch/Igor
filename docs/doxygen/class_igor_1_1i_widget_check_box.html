@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.24.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.25.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -131,6 +131,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a832469ea9033da5e8d4a8eca68fc6f16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48588e50c8492e96cd9fcb371b34dfaf"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_check_box.html#a48588e50c8492e96cd9fcb371b34dfaf">~iWidgetCheckBox</a> ()=default</td></tr>
 <tr class="separator:a48588e50c8492e96cd9fcb371b34dfaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab027ff0753c0f44dec2e66055655e2e4"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespace_igor.html#a5a5955ee3dc842505db53a523ad0c1e4">iWidgetType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_check_box.html#ab027ff0753c0f44dec2e66055655e2e4">getWidgetType</a> () const override</td></tr>
+<tr class="separator:ab027ff0753c0f44dec2e66055655e2e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99d70ce15ec0659f385c85cdfffe1120"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_check_box.html#a99d70ce15ec0659f385c85cdfffe1120">setText</a> (const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;buttontext)</td></tr>
 <tr class="separator:a99d70ce15ec0659f385c85cdfffe1120"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc3bd65e6c01b9fe8e775ec308f3ac00"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_igor_aux_1_1ia_string.html">iaString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_check_box.html#adc3bd65e6c01b9fe8e775ec308f3ac00">getText</a> () const </td></tr>
@@ -140,8 +142,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ade60771b06b277866e254ec465228643"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget_check_box.html#ade60771b06b277866e254ec465228643">isChecked</a> ()</td></tr>
 <tr class="separator:ade60771b06b277866e254ec465228643"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_igor_1_1i_widget"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_igor_1_1i_widget')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_igor_1_1i_widget.html">Igor::iWidget</a></td></tr>
-<tr class="memitem:aeda799fe50ed7f922e3a598843fb9112 inherit pub_methods_class_igor_1_1i_widget"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespace_igor.html#a5a5955ee3dc842505db53a523ad0c1e4">iWidgetType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget.html#aeda799fe50ed7f922e3a598843fb9112">getWidgetType</a> () const </td></tr>
-<tr class="separator:aeda799fe50ed7f922e3a598843fb9112 inherit pub_methods_class_igor_1_1i_widget"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6e1b9687ba7448df1221e56e2cdaeea8 inherit pub_methods_class_igor_1_1i_widget"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget.html#a6e1b9687ba7448df1221e56e2cdaeea8">setZValue</a> (int32 zvalue)</td></tr>
 <tr class="separator:a6e1b9687ba7448df1221e56e2cdaeea8 inherit pub_methods_class_igor_1_1i_widget"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af241faab1ddb23a6d8d382ddb7cc78e3 inherit pub_methods_class_igor_1_1i_widget"><td class="memItemLeft" align="right" valign="top">int32&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_widget.html#af241faab1ddb23a6d8d382ddb7cc78e3">getZValue</a> () const </td></tr>
@@ -585,6 +585,32 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ab027ff0753c0f44dec2e66055655e2e4"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespace_igor.html#a5a5955ee3dc842505db53a523ad0c1e4">iWidgetType</a> Igor::iWidgetCheckBox::getWidgetType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>the widgets type </dd></dl>
+
+<p>Reimplemented from <a class="el" href="class_igor_1_1i_widget.html#aeda799fe50ed7f922e3a598843fb9112">Igor::iWidget</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="aee99e0fb8acedbfdf3f2fe39d19d9a7d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -776,8 +802,8 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_widget_check_box_8h.html">iWidgetCheckBox.h</a></li>
-<li>C:/dev/Igor/src/Igor/src/<a class="el" href="i_widget_check_box_8cpp.html">iWidgetCheckBox.cpp</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_widget_check_box_8h.html">iWidgetCheckBox.h</a></li>
+<li>C:/dev/Igor/Igor/src/Igor/src/<a class="el" href="i_widget_check_box_8cpp.html">iWidgetCheckBox.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

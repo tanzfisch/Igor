@@ -7,6 +7,7 @@ var class_igor_1_1i_widget_check_box =
     [ "draw", "class_igor_1_1i_widget_check_box.html#aa54db8546decd504d661331f88225f7d", null ],
     [ "endRadioButtonGroup", "class_igor_1_1i_widget_check_box.html#a08593cbef0515aa979aa99c79cd67907", null ],
     [ "getText", "class_igor_1_1i_widget_check_box.html#adc3bd65e6c01b9fe8e775ec308f3ac00", null ],
+    [ "getWidgetType", "class_igor_1_1i_widget_check_box.html#ab027ff0753c0f44dec2e66055655e2e4", null ],
     [ "handleMouseKeyUp", "class_igor_1_1i_widget_check_box.html#aee99e0fb8acedbfdf3f2fe39d19d9a7d", null ],
     [ "isChecked", "class_igor_1_1i_widget_check_box.html#ade60771b06b277866e254ec465228643", null ],
     [ "setChecked", "class_igor_1_1i_widget_check_box.html#a3bb3174d71b2100714947e0ca47e3fa7", null ],

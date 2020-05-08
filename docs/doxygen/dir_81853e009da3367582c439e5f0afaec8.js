@@ -24,6 +24,7 @@ var dir_81853e009da3367582c439e5f0afaec8 =
     [ "iaDirectory.h", "ia_directory_8h.html", [
       [ "iaDirectory", "class_igor_aux_1_1ia_directory.html", "class_igor_aux_1_1ia_directory" ]
     ] ],
+    [ "iaEasing.h", "ia_easing_8h.html", "ia_easing_8h" ],
     [ "iaEvent.h", "ia_event_8h.html", "ia_event_8h" ],
     [ "iaFile.cpp", "ia_file_8cpp.html", null ],
     [ "iaFile.h", "ia_file_8h.html", [

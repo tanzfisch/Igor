@@ -11,6 +11,7 @@ var class_igor_1_1i_widget_slider =
     [ "getMinValue", "class_igor_1_1i_widget_slider.html#afff10c16175638b81e66f5f093d7c5b0", null ],
     [ "getTexture", "class_igor_1_1i_widget_slider.html#ae2c91fe526dc6610a975578be9939c22", null ],
     [ "getValue", "class_igor_1_1i_widget_slider.html#acfb10ec998faf7d2afd16c7f32a5a784", null ],
+    [ "getWidgetType", "class_igor_1_1i_widget_slider.html#a7e52463038e84f6d8aaba3ffea7e3b8e", null ],
     [ "handleMouseInput", "class_igor_1_1i_widget_slider.html#ac46e4c6f2a69d5a00e9e0ffe541367aa", null ],
     [ "handleMouseKeyDown", "class_igor_1_1i_widget_slider.html#a078f110fa88340e1f09554ab07948d86", null ],
     [ "handleMouseMove", "class_igor_1_1i_widget_slider.html#a6d875f52fef9c3a593ca733252ef3cd6", null ],

@@ -11,6 +11,7 @@ var class_igor_aux_1_1ia_file =
     [ "getFileSize", "class_igor_aux_1_1ia_file.html#a02e738ec79efebca38e3a48ef7d8af81", null ],
     [ "getFullFileName", "class_igor_aux_1_1ia_file.html#a12cc3de5e34e54df43e15e5a6fbd105e", null ],
     [ "getPath", "class_igor_aux_1_1ia_file.html#a777e728712c704a9e997eb227a71a6e7", null ],
+    [ "getStem", "class_igor_aux_1_1ia_file.html#afc362560d6c82ad673237e69314cf4c1", null ],
     [ "isOpen", "class_igor_aux_1_1ia_file.html#a8e5363c6f3d65bc1df7b0f1189345de2", null ],
     [ "open", "class_igor_aux_1_1ia_file.html#ab2e7853a32d75e0d6ed22457ea819185", null ],
     [ "readFromFile", "class_igor_aux_1_1ia_file.html#a017d3cd691d0dda745b813302470f75c", null ],

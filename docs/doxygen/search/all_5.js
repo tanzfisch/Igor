@@ -101,6 +101,7 @@ var searchData=
   ['createcopy',['createCopy',['../class_igor_1_1i_node_manager.html#a1d999b3dc2b312933cf1af5b1f33b0c7',1,'Igor::iNodeManager']]],
   ['createcylinder',['createCylinder',['../class_igor_1_1i_physics.html#a0e73af2ad2d70e791994c35ab417a098',1,'Igor::iPhysics']]],
   ['createemitterchunk',['createEmitterChunk',['../class_o_m_p_f_1_1_o_m_p_f.html#a3560031d9892e6e9c06bf452a7bd1a6f',1,'OMPF::OMPF']]],
+  ['createevaluation',['createEvaluation',['../class_igor_1_1i_evaluation_manager.html#a0d314dee6f1a6ada800c77cd4baaf4b6',1,'Igor::iEvaluationManager::createEvaluation(uint64 nodeID)'],['../class_igor_1_1i_evaluation_manager.html#a0d314dee6f1a6ada800c77cd4baaf4b6',1,'Igor::iEvaluationManager::createEvaluation(uint64 nodeID)']]],
   ['createexternalreferencechunk',['createExternalReferenceChunk',['../class_o_m_p_f_1_1_o_m_p_f.html#a2b8b0578b445f58bc201c0483c4daab9',1,'OMPF::OMPF']]],
   ['creategate',['createGate',['../class_igor_aux_1_1ia_state_machine.html#a2771557d2697e9e3d0775ac4b37a2d46',1,'IgorAux::iaStateMachine']]],
   ['creategroupchunk',['createGroupChunk',['../class_o_m_p_f_1_1_o_m_p_f.html#a6901856f7e376c3ff059eac965a78b00',1,'OMPF::OMPF']]],
