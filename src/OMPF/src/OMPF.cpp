@@ -21,7 +21,7 @@ using namespace IgorAux;
 #include <iostream>
 
 
-#ifdef __IGOR_MSCOMPILER__
+/*#ifdef __IGOR_MSCOMPILER__
     #ifdef __IGOR_DEBUG__
         #pragma comment(lib, "IgorAux_d.lib")
     
@@ -32,7 +32,7 @@ using namespace IgorAux;
     #else
         #pragma comment(lib, "IgorAux.lib")
     #endif
-#endif
+#endif*/
 
 #ifdef __IGOR_WIN__
 #include <windows.h>

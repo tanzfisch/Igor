@@ -77,7 +77,6 @@ namespace Igor
         friend class iPhysicsCollision;
         friend class iTaskPhysics;
         friend class iPhysicsBody; // needed so newton can call dtor on bodys by it self
-        friend class iPhysicsPlayer;
         friend class iPhysicsMaterialCombo;
         friend class iPhysicsCollisionConfig;
         friend class iApplication;
