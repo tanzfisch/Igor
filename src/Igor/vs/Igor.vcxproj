@@ -75,8 +75,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\..\tmp\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\..\tmp\$(ProjectName)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_d</TargetName>
     <IncludePath>$(VCInstallDir)UnitTest\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(MSBuildProgramFiles32)\Visual Leak Detector\include</IncludePath>
     <LibraryPath>$(VCInstallDir)UnitTest\lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(MSBuildProgramFiles32)\Visual Leak Detector\lib\Win64</LibraryPath>
@@ -88,8 +88,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\..\tmp\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\..\tmp\$(ProjectName)\$(Configuration)\</IntDir>
     <IncludePath>$(VCInstallDir)UnitTest\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(VCInstallDir)UnitTest\lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
     <PreBuildEventUseInBuild />
