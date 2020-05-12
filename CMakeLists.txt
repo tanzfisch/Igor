@@ -11,8 +11,14 @@ add_definitions(-D_UNICODE -DNOMINMAX -D_NEWTON_USE_DOUBLE)
 # 3rd party definitions
 #tinyXML
 set(TINYXML_HEADERS_DIR "${CMAKE_SOURCE_DIR}/3rd/TinyXML/")
-file(GLOB TINYXML_SOURCES RELATIVE ${CMAKE_SOURCE_DIR} "3rd/TinyXML/*.cpp")
-file(GLOB TINYXML_HEADERS RELATIVE ${CMAKE_SOURCE_DIR} "3rd/TinyXML/*.h")
+set(TINYXML_SOURCES 
+    "${TINYXML_HEADERS_DIR}/tinystr.cpp"
+    "${TINYXML_HEADERS_DIR}/tinyxml.cpp"
+    "${TINYXML_HEADERS_DIR}/tinyxmlerror.cpp"
+    "${TINYXML_HEADERS_DIR}/tinyxmlparser.cpp")
+set(TINYXML_HEADERS 
+    "${TINYXML_HEADERS_DIR}/tinystr.h"
+    "${TINYXML_HEADERS_DIR}/tinyxml.h")
 
 # GLee
 set(GLEE_HEADERS_DIR "${CMAKE_SOURCE_DIR}/3rd/GLee/include/")
@@ -27,6 +33,8 @@ file(GLOB NEWTON_CORE_SOURCES RELATIVE ${CMAKE_SOURCE_DIR} "3rd/newton-dynamics/
 file(GLOB NEWTON_CORE_HEADERS RELATIVE ${CMAKE_SOURCE_DIR} "3rd/newton-dynamics/coreLibrary_300/source/core/*.h")
 
 set(NEWTON_MESH_UTIL_HEADERS_DIR "${CMAKE_SOURCE_DIR}/3rd/newton-dynamics/coreLibrary_300/source/meshUtil/")
+file(GLOB NEWTON_MESH_UTIL_SOURCES RELATIVE ${CMAKE_SOURCE_DIR} "3rd/newton-dynamics/coreLibrary_300/source/meshUtil/*.cpp")
+file(GLOB NEWTON_MESH_UTIL_HEADERS RELATIVE ${CMAKE_SOURCE_DIR} "3rd/newton-dynamics/coreLibrary_300/source/meshUtil/*.h")
 
 set(NEWTON_PHYSICS_HEADERS_DIR "${CMAKE_SOURCE_DIR}/3rd/newton-dynamics/coreLibrary_300/source/physics/")
 file(GLOB NEWTON_PHYSICS_SOURCES RELATIVE ${CMAKE_SOURCE_DIR} "3rd/newton-dynamics/coreLibrary_300/source/physics/*.cpp")
@@ -73,23 +81,32 @@ endif()
 target_compile_definitions(physics PRIVATE -D_NEWTON_USE_DOUBLE)
 target_include_directories(physics PRIVATE  ${NEWTON_PHYSICS_HEADERS_DIR} ${NEWTON_CORE_HEADERS_DIR} ${TIME_TRACKER_HEADERS_DIR} ${NEWTON_MESH_UTIL_HEADERS_DIR})
 
-add_library(newton STATIC ${NEWTON_SOURCES} ${NEWTON_HEADERS})
+add_library(meshUtil STATIC ${NEWTON_MESH_UTIL_SOURCES} ${NEWTON_MESH_UTIL_HEADERS})
 if (MSVC_VERSION GREATER_EQUAL "1900")
-  target_compile_options(newton PRIVATE "/MP")
+    target_compile_options(meshUtil PRIVATE "/MP")
 endif()
-target_compile_definitions(newton PRIVATE -D_NEWTON_USE_DOUBLE -D_NEWTON_STATIC_LIB)
-target_include_directories(newton PRIVATE  ${NEWTON_HEADERS_DIR} ${NEWTON_PHYSICS_HEADERS_DIR} ${NEWTON_CORE_HEADERS_DIR} ${TIME_TRACKER_HEADERS_DIR} ${NEWTON_MESH_UTIL_HEADERS_DIR})
+target_compile_definitions(meshUtil PRIVATE -D_NEWTON_USE_DOUBLE)
+target_include_directories(meshUtil PRIVATE  ${NEWTON_MESH_UTIL_HEADERS_DIR} ${NEWTON_CORE_HEADERS_DIR} ${TIME_TRACKER_HEADERS_DIR}  ${NEWTON_PHYSICS_HEADERS_DIR})
+
+add_library(Newton SHARED ${NEWTON_SOURCES} ${NEWTON_HEADERS})
+if (MSVC_VERSION GREATER_EQUAL "1900")
+  target_compile_options(Newton PRIVATE "/MP")
+endif()
+target_compile_definitions(Newton PRIVATE -D_NEWTON_USE_DOUBLE -D_NEWTON_BUILD_DLL)
+target_include_directories(Newton PRIVATE  ${NEWTON_HEADERS_DIR} ${NEWTON_PHYSICS_HEADERS_DIR} ${NEWTON_CORE_HEADERS_DIR} ${TIME_TRACKER_HEADERS_DIR} ${NEWTON_MESH_UTIL_HEADERS_DIR})
+target_link_libraries(Newton core physics meshUtil)
 
 # setup IgorAux build
-add_library(IgorAux STATIC ${IGOR_AUX_SOURCES} ${IGOR_AUX_HEADERS} ${TINYXML_AUX_SOURCES} ${TINYXML_AUX_HEADERS})
+add_library(IgorAux SHARED ${IGOR_AUX_SOURCES} ${IGOR_AUX_HEADERS})
 if (MSVC_VERSION GREATER_EQUAL "1900")
     target_compile_options(IgorAux PRIVATE "/std:c++latest" "/MP")
 endif()
 target_compile_definitions(IgorAux PRIVATE -D__IGOR_AUX_BUILDING_DLL__)
-target_include_directories(IgorAux PRIVATE  ${IGOR_AUX_HEADERS_DIR} ${TINYXML_HEADERS_DIR})
+target_include_directories(IgorAux PRIVATE  ${IGOR_AUX_HEADERS_DIR})
+target_link_libraries(IgorAux DbgHelp)
 
 # setup OMPF build
-add_library(OMPF STATIC ${OMPF_SOURCES} ${OMPF_HEADERS})
+add_library(OMPF SHARED ${OMPF_SOURCES} ${OMPF_HEADERS})
 if (MSVC_VERSION GREATER_EQUAL "1900")
     target_compile_options(OMPF PRIVATE "/std:c++latest" "/MP")
 endif()
@@ -98,13 +115,13 @@ target_include_directories(OMPF PRIVATE  ${OMPF_HEADERS_DIR} ${IGOR_AUX_HEADERS_
 target_link_libraries(OMPF IgorAux)
 
 # setup Igor build
-add_library(Igor SHARED ${IGOR_SOURCES} ${IGOR_HEADERS} ${GLEE_SOURCES} ${GLEE_HEADERS})
+add_library(Igor SHARED ${IGOR_SOURCES} ${IGOR_HEADERS} ${GLEE_SOURCES} ${GLEE_HEADERS} ${TINYXML_SOURCES} ${TINYXML_HEADERS})
 if (MSVC_VERSION GREATER_EQUAL "1900")
     target_compile_options(Igor PRIVATE "/std:c++latest" "/MP")
 endif()
 target_compile_definitions(Igor PRIVATE -D__IGOR_BUILDING_DLL__)
 target_include_directories(Igor PRIVATE  ${IGOR_HEADERS_DIR} ${IGOR_AUX_HEADERS_DIR} ${OMPF_HEADERS_DIR} ${GLEE_HEADERS_DIR} ${TINYXML_HEADERS_DIR} ${STB_IMAGE_HEADERS_DIR} ${NEWTON_PHYSICS_HEADERS_DIR} ${NEWTON_CORE_HEADERS_DIR} ${NEWTON_HEADERS_DIR})
-target_link_libraries(Igor OMPF IgorAux core physics newton)
+target_link_libraries(Igor IgorAux OMPF OpenGL32 glu32 Newton)
 
 
 #add_library(OMPF ${OMPF_SOURCES})
