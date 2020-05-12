@@ -61,11 +61,6 @@ set(OMPF_HEADERS_DIR "${CMAKE_SOURCE_DIR}/src/OMPF/src/")
 file(GLOB_RECURSE OMPF_SOURCES RELATIVE ${CMAKE_SOURCE_DIR} "src/OMPF/src/*.cpp")
 file(GLOB_RECURSE OMPF_HEADERS RELATIVE ${CMAKE_SOURCE_DIR} "src/OMPF/src/*.h")
 
-# MICA
-set(MICA_HEADERS_DIR "${CMAKE_SOURCE_DIR}/src/Tools/Mica/src/")
-file(GLOB_RECURSE MICA_SOURCES RELATIVE ${CMAKE_SOURCE_DIR} "src/Tools/Mica/src/*.cpp")
-file(GLOB_RECURSE MICA_HEADERS RELATIVE ${CMAKE_SOURCE_DIR} "src/Tools/Mica/src/*.h")
-
 # setup newton build
 add_library(core STATIC ${NEWTON_CORE_SOURCES} ${NEWTON_CORE_HEADERS})
 if (MSVC_VERSION GREATER_EQUAL "1900")
@@ -123,11 +118,39 @@ target_compile_definitions(Igor PRIVATE -D__IGOR_BUILDING_DLL__)
 target_include_directories(Igor PRIVATE  ${IGOR_HEADERS_DIR} ${IGOR_AUX_HEADERS_DIR} ${OMPF_HEADERS_DIR} ${GLEE_HEADERS_DIR} ${TINYXML_HEADERS_DIR} ${STB_IMAGE_HEADERS_DIR} ${NEWTON_PHYSICS_HEADERS_DIR} ${NEWTON_CORE_HEADERS_DIR} ${NEWTON_HEADERS_DIR})
 target_link_libraries(Igor IgorAux OMPF OpenGL32 glu32 Newton)
 
+# MICA
+set(MICA_HEADERS_DIR "${CMAKE_SOURCE_DIR}/src/Tools/Mica/src/")
+file(GLOB_RECURSE MICA_SOURCES RELATIVE ${CMAKE_SOURCE_DIR} "src/Tools/Mica/src/*.cpp")
+file(GLOB_RECURSE MICA_HEADERS RELATIVE ${CMAKE_SOURCE_DIR} "src/Tools/Mica/src/*.h")
+add_executable(Mica ${MICA_SOURCES} ${MICA_HEADERS} )
+if (MSVC_VERSION GREATER_EQUAL "1900")
+    target_compile_options(Mica PRIVATE "/std:c++latest" "/MP")
+endif()
+target_include_directories(Mica PRIVATE  ${IGOR_HEADERS_DIR} ${IGOR_AUX_HEADERS_DIR} ${OMPF_HEADERS_DIR} ${MICA_HEADERS})
+target_link_libraries(Mica Igor)
 
-#add_library(OMPF ${OMPF_SOURCES})
-# add_library(Igor foo.cpp)
-# add_executable(app main.cpp)
-#target_link_libraries(IgorAux)
+# OBJ2OMPF
+set(OBJ2OMPF_HEADERS_DIR "${CMAKE_SOURCE_DIR}/src/Tools/OBJ2OMPF/src/")
+file(GLOB_RECURSE OBJ2OMPF_SOURCES RELATIVE ${CMAKE_SOURCE_DIR} "src/Tools/OBJ2OMPF/src/*.cpp")
+file(GLOB_RECURSE OBJ2OMPF_HEADERS RELATIVE ${CMAKE_SOURCE_DIR} "src/Tools/OBJ2OMPF/src/*.h")
+add_executable(obj2ompf ${OBJ2OMPF_SOURCES} ${OBJ2OMPF_HEADERS} )
+if (MSVC_VERSION GREATER_EQUAL "1900")
+    target_compile_options(obj2ompf PRIVATE "/std:c++latest" "/MP")
+endif()
+target_include_directories(obj2ompf PRIVATE  ${IGOR_HEADERS_DIR} ${IGOR_AUX_HEADERS_DIR} ${OMPF_HEADERS_DIR} ${OBJ2OMPF_HEADERS})
+target_link_libraries(obj2ompf Igor)
 
+# Examples
+foreach(EXAMPLE 00_FirstSteps 01_Keyboard 02_Mouse 03_2D 04_3D 05_Voxels 06_Particles 07_Physics 08_StateMachine 09_Widgets 10_LSystem 11_Instancing 12_CharacterController 13_SpriteAnimation 14_Evaluation 99_Ascent)    
+    message(${EXAMPLE})
+    set(EXAMPLE_HEADERS_DIR "${CMAKE_SOURCE_DIR}/examples/${EXAMPLE}/src/")
+    file(GLOB_RECURSE EXAMPLE_SOURCES RELATIVE ${CMAKE_SOURCE_DIR} "examples/${EXAMPLE}/src/*.cpp")
+    file(GLOB_RECURSE EXAMPLE_HEADERS RELATIVE ${CMAKE_SOURCE_DIR} "examples/${EXAMPLE}/src/*.h")
+    add_executable(${EXAMPLE} ${EXAMPLE_SOURCES} ${EXAMPLE_HEADERS} )
+    if (MSVC_VERSION GREATER_EQUAL "1900")
+        target_compile_options(${EXAMPLE} PRIVATE "/std:c++latest" "/MP")
+    endif()
+    target_include_directories(${EXAMPLE} PRIVATE  ${IGOR_HEADERS_DIR} ${IGOR_AUX_HEADERS_DIR} ${OMPF_HEADERS_DIR} ${EXAMPLE_HEADERS})
+    target_link_libraries(${EXAMPLE} Igor)
+endforeach(EXAMPLE)
 
-#install(TARGETS IgorAux DESTINATION bin)
