@@ -155,6 +155,8 @@ endif()
 target_include_directories(obj2ompf PRIVATE  ${IGOR_HEADERS_DIR} ${IGOR_AUX_HEADERS_DIR} ${OMPF_HEADERS_DIR} ${OBJ2OMPF_HEADERS})
 target_link_libraries(obj2ompf Igor)
 
+
+
 # Examples
 # currently don't work 99_Ascent 11_Instancing
 foreach(EXAMPLE 00_FirstSteps 01_Keyboard 02_Mouse 03_2D 04_3D 05_Voxels 06_Particles 07_Physics 08_StateMachine 09_Widgets 10_LSystem 12_CharacterController 13_SpriteAnimation 14_Evaluation)
@@ -170,3 +172,54 @@ foreach(EXAMPLE 00_FirstSteps 01_Keyboard 02_Mouse 03_2D 04_3D 05_Voxels 06_Part
     target_link_libraries(${EXAMPLE} Igor)
 endforeach()
 
+###########
+# Testing #
+###########
+# source of cmake gtest script https://crascit.com/2015/07/25/cmake-gtest/
+# Download and unpack googletest at configure time
+configure_file(CMakeLists.txt.inl googletest-download/CMakeLists.txt)
+execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
+    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download"
+)
+execute_process(COMMAND "${CMAKE_COMMAND}" --build .
+    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download"
+)
+
+# Prevent GoogleTest from overriding our compiler/linker options
+# when building with Visual Studio
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+# Add googletest directly to our build. This adds the following targets:
+# gtest, gtest_main, gmock and gmock_main
+add_subdirectory("${CMAKE_BINARY_DIR}/googletest-src"
+                 "${CMAKE_BINARY_DIR}/googletest-build"
+)
+
+# The gtest/gmock targets carry header search path dependencies
+# automatically when using CMake 2.8.11 or later. Otherwise we
+# have to add them here ourselves.
+if(CMAKE_VERSION VERSION_LESS 2.8.11)
+    include_directories("${gtest_SOURCE_DIR}/include"
+                        "${gmock_SOURCE_DIR}/include"
+    )
+endif()
+
+if(INSTALL_GTEST)
+    message("Testing Enabled")
+    enable_testing()
+    set(IGOR_AUX_TEST_SRC_DIR "${CMAKE_SOURCE_DIR}/src/Tests/IgorAux/")
+    set(IGOR_AUX_TEST_HEADERS_DIR ${IGOR_AUX_TEST_SRC_DIR})
+    file(GLOB_RECURSE IGOR_AUX_TEST_SOURCES LIST_DIRECTORIES false "${IGOR_AUX_TEST_SRC_DIR}*.c*")
+    file(GLOB_RECURSE IGOR_AUX_TEST_HEADERS LIST_DIRECTORIES false "${IGOR_AUX_TEST_SRC_DIR}*.h*")
+    list(APPEND IGOR_AUX_TEST_SOURCES ${IGOR_AUX_TEST_HEADERS})
+    add_executable(IgorAuxTest ${IGOR_AUX_TEST_SOURCES})
+    if (MSVC_VERSION GREATER_EQUAL "1900")
+        target_compile_options(IgorAuxTest PRIVATE "/std:c++latest" "/MP")
+    endif()
+    target_include_directories(IgorAuxTest PRIVATE  ${IGOR_AUX_TEST_HEADERS_DIR} ${IGOR_AUX_HEADERS_DIR} ${GTEST_INCLUDE_DIRS})
+
+    # Now simply link your own targets against gtest, gmock,
+    # etc. as appropriate
+    target_link_libraries(IgorAuxTest IgorAux gtest)
+    add_test(AllTestsInIgorAux IgorAuxTest)
+endif()

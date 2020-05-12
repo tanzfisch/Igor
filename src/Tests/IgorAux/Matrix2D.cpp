@@ -1,4 +1,4 @@
-#include "pch.h"
+#include <gtest/gtest.h>
 #include <iaMatrix2D.h>
 using namespace IgorAux;
 

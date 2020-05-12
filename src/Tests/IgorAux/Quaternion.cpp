@@ -1,4 +1,4 @@
-#include "pch.h"
+#include <gtest/gtest.h>
 #include <iaQuaternion.h>
 using namespace IgorAux;
 

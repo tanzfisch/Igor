@@ -1,4 +1,4 @@
-#include "pch.h"
+#include <gtest/gtest.h>
 #include <iaVector4.h>
 using namespace IgorAux;
 

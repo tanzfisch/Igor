@@ -1,4 +1,4 @@
-#include "pch.h"
+#include <gtest/gtest.h>
 #include <iaTransform.h>
 using namespace IgorAux;
 

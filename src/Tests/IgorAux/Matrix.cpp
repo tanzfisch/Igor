@@ -1,4 +1,4 @@
-#include "pch.h"
+#include <gtest/gtest.h>
 #include <iaMatrix.h>
 #include <iaRandomNumberGenerator.h>
 using namespace IgorAux;
