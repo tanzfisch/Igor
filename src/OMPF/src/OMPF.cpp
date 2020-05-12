@@ -20,20 +20,6 @@ using namespace IgorAux;
 
 #include <iostream>
 
-
-#ifdef __IGOR_MSCOMPILER__
-    #ifdef __IGOR_DEBUG__
-        #pragma comment(lib, "IgorAux_d.lib")
-    
-            #ifdef __USE_VLD__
-                #pragma comment(lib, "vld.lib")
-                #include <vld.h>
-            #endif
-    #else
-        #pragma comment(lib, "IgorAux.lib")
-    #endif
-#endif
-
 #ifdef __IGOR_WIN__
 #include <windows.h>
 

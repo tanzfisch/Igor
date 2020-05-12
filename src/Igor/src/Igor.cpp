@@ -33,31 +33,6 @@
 #include <iaString.h>
 using namespace IgorAux;
 
-#ifdef __IGOR_MSCOMPILER__
-#pragma comment(lib, "OpenGL32.lib")
-#pragma comment(lib, "glu32.lib")
-
-#ifdef __USE_OPENAL__
-#pragma comment(lib, "alut.lib")
-#pragma comment(lib, "OpenAL32.lib")
-#endif
-
-#ifdef __USE_VLD__
-#pragma comment(lib, "vld.lib")
-#include <vld.h>
-#endif
-
-#ifdef __IGOR_DEBUG__
-#pragma comment(lib, "IgorAux_d.lib")
-#pragma comment(lib, "OMPF_d.lib")
-#pragma comment(lib, "newton_d.lib")
-#else
-#pragma comment(lib, "IgorAux.lib")
-#pragma comment(lib, "OMPF.lib")
-#pragma comment(lib, "newton.lib")
-#endif
-#endif	// __IGOR_MSCOMPILER__
-
 #include <ctime>
 
 #ifdef __IGOR_WIN__

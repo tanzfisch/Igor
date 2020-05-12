@@ -29,7 +29,7 @@
 using namespace IgorAux;
 
 #ifdef __IGOR_WIN__
-	#ifdef OMPF_BUILDING_DLL
+	#ifdef __OMPF_BUILDING_DLL__
 		#define OMPF_API __declspec(dllexport)
 		#define OMPF_API_Template __declspec(dllexport)
 	#else

@@ -8,16 +8,6 @@
 #include <iaConsole.h>
 
 #ifdef __IGOR_WIN__
-    #ifdef __IGOR_MSCOMPILER__
-        #pragma comment(lib, "DbgHelp.lib")
-
-        #ifdef __IGOR_DEBUG__
-            #ifdef __USE_VLD__
-                #pragma comment(lib, "vld.lib")
-                #include <vld.h>
-            #endif
-        #endif
-    #endif
 
 #include <windows.h>
 

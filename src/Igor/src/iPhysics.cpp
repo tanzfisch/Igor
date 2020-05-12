@@ -14,7 +14,6 @@
 #include <iPhysicsBody.h>
 #include <iNodeManager.h>
 #include <iTimer.h>
-#include <iPhysicsPlayer.h>
 #include <iPhysicsCollision.h>
 #include <iPhysicsJoint.h>
 #include <iPhysicsMaterial.h>
