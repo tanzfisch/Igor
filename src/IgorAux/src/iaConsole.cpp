@@ -6,7 +6,7 @@
 #include <iaDirectory.h>
 #include <iaSystem.h>
 
-#ifdef __IGOR_WIN__
+#ifdef __IGOR_WINDOWS__
 #include <DbgHelp.h>
 #endif
 
@@ -61,24 +61,26 @@ namespace IgorAux
     {
         if (!_file.is_open())
         {
+#ifdef __IGOR_WINDOWS__            
             wchar_t result[MAX_PATH];
-            GetModuleFileName(NULL, result, MAX_PATH);
-
-#ifdef __IGOR_WIN__
-            char separator = '\\';
-#else
-#error not implemented
-#endif
+            GetModuleFileName(NULL, result, MAX_PATH);            
 			std::wstring path = result;
-            path = path.substr(0, path.find_last_of(separator) + 1);
-            path.append(L"\\Igor.log");
+            path = path.substr(0, path.find_last_of(__IGOR_SEPARATOR__) + 1);
+            path.append(L"\\igor.log");
             _file.open(path, std::fstream::out);
+#endif
+
+#ifdef __IGOR_LINUX__
+            _file.open("/tmp/igor.log", std::fstream::out);
+#endif
         }
     }
 
     void iaConsole::exit()
     {
+#ifdef __IGOR_WINDOWS__        
         __debugbreak();
+#endif
         std::exit(EXIT_FAILURE);
     }
 

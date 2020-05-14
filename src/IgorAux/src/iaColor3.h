@@ -38,6 +38,11 @@ namespace IgorAux
 {
 
     /*! 3 component color class
+
+    for floating point variant we expect values in range from 0.0 - 1.0
+    for integer variant we expect values in range from 0.0 - 255.0    
+
+    \todo mode code in to inline file
     */
     template <class T>
     class IgorAux_API_Template iaColor3
@@ -93,7 +98,7 @@ namespace IgorAux
 
         /*! \returns pointer to data
         */
-        T* iaColor3<T>::getData()
+        T* getData()
         {
             return &_r;
         }
@@ -116,7 +121,7 @@ namespace IgorAux
 
         \parm color the color to add
         */
-        __IGOR_INLINE__ void iaColor3<T>::operator+=(const iaColor3<T> &color)
+        __IGOR_INLINE__ void operator+=(const iaColor3<T> &color)
         {
             _r += color._r;
             _g += color._g;
@@ -127,7 +132,7 @@ namespace IgorAux
 
         \parm color the color to subtract
         */
-        __IGOR_INLINE__ void iaColor3<T>::operator-=(const iaColor3<T> &color)
+        __IGOR_INLINE__ void operator-=(const iaColor3<T> &color)
         {
             _r -= color._r;
             _g -= color._g;
@@ -138,7 +143,7 @@ namespace IgorAux
 
         \param value the value to scale with
         */
-        void iaColor3<T>::operator*=(T value)
+        void operator*=(T value)
         {
             _r = static_cast<T>(static_cast<float32>(_r) * static_cast<float32>(value));
             _g = static_cast<T>(static_cast<float32>(_g) * static_cast<float32>(value));
@@ -151,7 +156,7 @@ namespace IgorAux
         \param color2 second color
         \param w factor to interpolate with
         */
-        void iaColor3<T>::lerp(iaColor3<T> &color1, iaColor3<T> &color2, float32 w)
+        void lerp(iaColor3<T> &color1, iaColor3<T> &color2, float32 w)
         {
             _r = static_cast<T>(static_cast<float32>(color1._r) * w + static_cast<float32>(color2._r) * (1.0f - w));
             _g = static_cast<T>(static_cast<float32>(color1._g) * w + static_cast<float32>(color2._g) * (1.0f - w));

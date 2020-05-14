@@ -132,24 +132,19 @@ namespace IgorAux
 
         /*! reads from offset the number of size bytes to a (allocated) destination
 
-        \todo asynchron callback not implemented
-
         \param offset the offset to start reading from
         \param size size in bytes to read
         \param destination the destination to write to
-        \param asynchron true: read asynchronnous; false: read synchronous
         */
-        bool readFromFile(uint64 offset, int32 size, char* destination, bool asynchron = false);
+        bool readFromFile(uint64 offset, int32 size, char* destination);
 
         /*! writes from offset the number of size bytes from a destination
-        \todo asynchron callback not implemented
 
         \param offset the offset to start writing to
         \param size size in bytes to write
         \param source the source to read from
-        \param asynchron true: write asynchronnous; false: write synchronous
         */
-        bool writeToFile(uint64 offset, int32 size, const char* source, bool asynchron = false);
+        bool writeToFile(uint64 offset, int32 size, const char* source);
 
 	protected:
 
@@ -175,23 +170,7 @@ namespace IgorAux
 
         /*! the file handle
         */
-        void* _windowsFileHandle = nullptr;
-
-        /*! the completion routine called when finished asynchron reading
-
-        \param errorCode
-        \param size number of bytes read
-        \param overlapped
-        */
-        static void __stdcall readCompletionCallback(uint32 errorCode, uint32 size, void* overlapped);
-
-        /*! the completion routine called when finished asynchron reading
-
-        \param errorCode
-        \param size number of bytes wrote
-        \param overlapped
-        */
-        static void __stdcall writeCompletionCallback(uint32 errorCode, uint32 size, void* overlapped);
+        void* _fileHandle = nullptr;
 
 	};
 

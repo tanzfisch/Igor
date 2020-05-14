@@ -47,7 +47,7 @@ namespace Igor
     class iWindow;
 	class iNode;
 
-    __IGOR_FUNCTION_POINTER__(iCreateModelDataIOInstance, __IGOR_DEFAULTCALL__, iModelDataIO*, ());
+    __IGOR_FUNCTION_POINTER__(iCreateModelDataIOInstance, iModelDataIO*, ());
 
     /*! model resource factory
     */

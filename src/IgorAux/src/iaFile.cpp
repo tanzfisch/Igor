@@ -4,14 +4,13 @@
 
 #include <iaFile.h>
 
-#ifdef __IGOR_WIN__
 #include <iaConsole.h>
 #include <iaDirectory.h>
 
 namespace IgorAux
 {
 
-    iaFile::iaFile(const iaString& fileName)
+    iaFile::iaFile(const iaString &fileName)
     {
         _filename = iaDirectory::fixPath(fileName, true);
     }
@@ -23,7 +22,7 @@ namespace IgorAux
 
     bool iaFile::open(bool writeableMode)
     {
-        if (_windowsFileHandle)
+        if (_fileHandle != nullptr)
         {
             con_err("file is already open");
             return false;
@@ -31,6 +30,7 @@ namespace IgorAux
 
         _isWriteable = writeableMode;
 
+#ifdef __IGOR_WINDOWS__
         // open mode
         DWORD accessMode = (_isWriteable) ? (GENERIC_WRITE | GENERIC_READ) : (GENERIC_READ);
         DWORD openMode = OPEN_EXISTING;
@@ -52,17 +52,17 @@ namespace IgorAux
         }
 
         // open the file
-        _windowsFileHandle = CreateFile(getFullFileName().getData(), accessMode, shareMode, 0, openMode, FILE_ATTRIBUTE_NORMAL, 0);
-        if (_windowsFileHandle == INVALID_HANDLE_VALUE)
+        _fileHandle = CreateFile(getFullFileName().getData(), accessMode, shareMode, 0, openMode, FILE_ATTRIBUTE_NORMAL, 0);
+        if (_fileHandle == INVALID_HANDLE_VALUE)
         {
             con_err_win("cannot open/create file: " << getFullFileName());
-            _windowsFileHandle = 0;
+            _fileHandle = 0;
             return false;
         }
 
         // get the 64bit size
         DWORD sizeHigh = 0;
-        const DWORD sizeLow = GetFileSize(_windowsFileHandle, &sizeHigh);
+        const DWORD sizeLow = GetFileSize(_fileHandle, &sizeHigh);
         if (sizeLow == INVALID_FILE_SIZE)
         {
             // must not be an error
@@ -77,28 +77,46 @@ namespace IgorAux
         {
             _size = sizeLow + ((uint64)sizeHigh) * ((uint64)((uint32)-1));
         }
+#endif
+
+#ifdef __IGOR_LINUX__
+        // TODO
+        return false;
+#endif
 
         return true;
     }
 
-    void iaFile::rename(const iaString& newFileName, bool replaceExisting)
+    void iaFile::rename(const iaString &newFileName, bool replaceExisting)
     {
         const iaString newName = iaDirectory::fixPath(newFileName, true);
 
+#ifdef __IGOR_WINDOWS__
         if (!MoveFileEx(getFullFileName().getData(), newName.getData(), (replaceExisting) ? MOVEFILE_REPLACE_EXISTING : 0))
         {
             con_err_win("cant rename file: " << getFullFileName() << " to: " << newName);
         }
+#endif
+
+#ifdef __IGOR_LINUX__
+        // TODO
+#endif
     }
 
-    iaFile iaFile::copy(const iaString& newFileName) const
+    iaFile iaFile::copy(const iaString &newFileName) const
     {
         const iaString newName = iaDirectory::fixPath(newFileName, true);
 
+#ifdef __IGOR_WINDOWS__
         if (!CopyFile(getFullFileName().getData(), newName.getData(), false))
         {
             con_err_win("cant copy file: " << getFullFileName() << " to: " << newName);
         }
+#endif
+
+#ifdef __IGOR_LINUX__
+        // TODO
+#endif
 
         return iaFile(newName);
     }
@@ -108,8 +126,9 @@ namespace IgorAux
         return iaFile::exist(getFullFileName());
     }
 
-    bool iaFile::exist(const iaString& filename)
+    bool iaFile::exist(const iaString &filename)
     {
+#ifdef __IGOR_WINDOWS__
         WIN32_FIND_DATAW findData;
         HANDLE findHandle = FindFirstFile(filename.getData(), &findData);
 
@@ -126,6 +145,12 @@ namespace IgorAux
 
         FindClose(findHandle);
         return true;
+#endif
+
+#ifdef __IGOR_LINUX__
+        // TODO
+        return false;
+#endif
     }
 
     iaString iaFile::getPath() const
@@ -186,7 +211,7 @@ namespace IgorAux
         uint64 pos = _filename.findLastOf('.');
 
         if (pos != iaString::INVALID_POSITION &&
-            pos < _filename.getLength() )
+            pos < _filename.getLength())
         {
             return _filename.getSubString(pos + 1, iaString::INVALID_POSITION);
         }
@@ -196,28 +221,35 @@ namespace IgorAux
 
     void iaFile::close()
     {
-        if (_windowsFileHandle)
+        if (_fileHandle)
         {
-            if (!CloseHandle(_windowsFileHandle))
+#ifdef __IGOR_WINDOWS__
+            if (!CloseHandle(_fileHandle))
             {
                 con_err("cant close file: " << getFullFileName());
             }
-            _windowsFileHandle = 0;
+#endif
+
+#ifdef __IGOR_LINUX__
+            // TODO
+#endif
+            _fileHandle = nullptr;
         }
     }
 
     bool iaFile::isOpen()
     {
-        return (nullptr != _windowsFileHandle) ? true : false;
+        return (nullptr != _fileHandle) ? true : false;
     }
 
     bool iaFile::setFilePointer(uint64 position)
     {
+#ifdef __IGOR_WINDOWS__
         _LARGE_INTEGER largeInt;
         largeInt.QuadPart = position;
 
         // set the file pointer
-        if (SetFilePointerEx(_windowsFileHandle, largeInt, nullptr, FILE_BEGIN) == INVALID_SET_FILE_POINTER)
+        if (SetFilePointerEx(_fileHandle, largeInt, nullptr, FILE_BEGIN) == INVALID_SET_FILE_POINTER)
         {
             // must not be an error
             const DWORD error = GetLastError();
@@ -227,11 +259,17 @@ namespace IgorAux
                 return false;
             }
         }
+#endif
+
+#ifdef __IGOR_LINUX__
+        // TODO
+        return false;
+#endif
 
         return true;
     }
 
-    bool iaFile::readFromFile(uint64 offset, int32 size, char* destination, bool asynchron)
+    bool iaFile::readFromFile(uint64 offset, int32 size, char *destination)
     {
         if (!(offset >= 0 && size > 0))
         {
@@ -244,29 +282,25 @@ namespace IgorAux
             return false;
         }
 
-        // synchron / asynchron read
+        // read
+#ifdef __IGOR_WINDOWS__
         DWORD bytesRead = 0;
-        if (!asynchron)
+        if (!ReadFile(_fileHandle, destination, (DWORD)size, &bytesRead, 0))
         {
-            if (!ReadFile(_windowsFileHandle, destination, (DWORD)size, &bytesRead, 0))
-            {
-                con_err("read from file: " << getFullFileName());
-                return false;
-            }
+            con_err("read from file: " << getFullFileName());
+            return false;
         }
-        else
-        {
-            if (!ReadFileEx(_windowsFileHandle, destination, (DWORD)size, 0, (LPOVERLAPPED_COMPLETION_ROUTINE)readCompletionCallback))
-            {
-                con_err("read from file: " << getFullFileName());
-                return false;
-            }
-        }
+#endif
+
+#ifdef __IGOR_LINUX__
+        // TODO
+        return false;
+#endif
 
         return true;
     }
 
-    bool iaFile::writeToFile(uint64 offset, int32 size, const char* source, bool asynchron)
+    bool iaFile::writeToFile(uint64 offset, int32 size, const char *source)
     {
         if (!(offset >= 0 && size > 0))
         {
@@ -279,30 +313,26 @@ namespace IgorAux
             return false;
         }
 
-        if (!_isWriteable && _windowsFileHandle)
+        if (!_isWriteable && _fileHandle)
         {
             con_err("file openend readonly!");
             return false;
         }
 
-        // synchron / asynchron write
+        // write
+#ifdef __IGOR_WINDOWS__
         DWORD bytesWriten = 0;
-        if (!asynchron)
+        if (!WriteFile(_fileHandle, source, (DWORD)size, &bytesWriten, 0))
         {
-            if (!WriteFile(_windowsFileHandle, source, (DWORD)size, &bytesWriten, 0))
-            {
-                con_err("write to file: " << getFullFileName());
-                return false;
-            }
+            con_err("write to file: " << getFullFileName());
+            return false;
         }
-        else
-        {
-            if (!WriteFileEx(_windowsFileHandle, source, (DWORD)size, 0, (LPOVERLAPPED_COMPLETION_ROUTINE)writeCompletionCallback))
-            {
-                con_err("write to file: " << getFullFileName());
-                return false;
-            }
-        }
+#endif
+
+#ifdef __IGOR_LINUX__
+        // TODO
+        return false;
+#endif
 
         return true;
     }
@@ -316,7 +346,8 @@ namespace IgorAux
     {
         if (setFilePointer(newSize))
         {
-            if (!SetEndOfFile(_windowsFileHandle))
+#ifdef __IGOR_WINDOWS__
+            if (!SetEndOfFile(_fileHandle))
             {
                 con_err_win("cant change size of file: " << getFullFileName());
                 return false;
@@ -325,28 +356,16 @@ namespace IgorAux
             {
                 return true;
             }
+#endif
+
+#ifdef __IGOR_LINUX__
+            // TODO
+            return false;
+#endif
         }
         else
         {
             return false;
         }
     }
-
-#pragma warning(disable:4100)
-    void __stdcall iaFile::writeCompletionCallback(uint32 errorCode, uint32 size, void* overlapped)
-    {
-        con_err("not implemented");
-        //! \todo: maybe pass some function pointer to execute after read/write
-    }
-#pragma warning(default:4100)
-
-#pragma warning(disable:4100)
-    void __stdcall iaFile::readCompletionCallback(uint32 errorCode, uint32 size, void* overlapped)
-    {
-        con_err("not implemented");
-        //! \todo: maybe pass some function pointer to execute after read/write
-    }
-#pragma warning(default:4100)
-}
-
-#endif
+} // namespace IgorAux

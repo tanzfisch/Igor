@@ -18,7 +18,7 @@ namespace IgorAux
 	{
 		if (m_handle != nullptr)
 		{
-			delete m_handle;
+			delete static_cast<std::mutex*>(m_handle);
 		}
 	}
 

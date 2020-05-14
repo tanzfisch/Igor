@@ -4,7 +4,7 @@
 
 #include <iaSystem.h>
 
-#ifdef __IGOR_WIN__
+#ifdef __IGOR_WINDOWS__
 #include <Windows.h>
 #include <DbgHelp.h>
 #endif

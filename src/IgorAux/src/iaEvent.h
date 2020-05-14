@@ -35,6 +35,7 @@
 #include <iaDelegate.h>
 
 #include <vector>
+#include <algorithm>
 
 namespace IgorAux
 {

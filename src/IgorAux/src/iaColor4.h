@@ -33,6 +33,7 @@
 
 #include <fstream>
 #include <algorithm>
+#include <math.h>
 
 namespace IgorAux
 {
@@ -41,6 +42,8 @@ namespace IgorAux
 
     for floating point variant we expect values in range from 0.0 - 1.0
     for integer variant we expect values in range from 0.0 - 255.0
+
+    \todo mode code in to inline file
     */
     template <class T>
     class IgorAux_API_Template iaColor4
@@ -105,7 +108,7 @@ namespace IgorAux
 
         /*! \returns pointer to data
         */
-        T* iaColor4<T>::getData()
+        T* getData()
         {
             return &_r;
         }
@@ -129,7 +132,7 @@ namespace IgorAux
 
         \param color the color to add
         */
-        __IGOR_INLINE__ void iaColor4<T>::operator += (const iaColor4<T> &color)
+        __IGOR_INLINE__ void operator += (const iaColor4<T> &color)
         {
             _r += color._r;
             _g += color._g;
@@ -141,7 +144,7 @@ namespace IgorAux
 
         \param color the color to subtract
         */
-        __IGOR_INLINE__ void iaColor4<T>::operator -= (const iaColor4<T> &color)
+        __IGOR_INLINE__ void operator -= (const iaColor4<T> &color)
         {
             _r -= color._r;
             _g -= color._g;
@@ -153,7 +156,7 @@ namespace IgorAux
 
         \param factor the value to scale with
         */        
-        void iaColor4<T>::operator *= (T factor)
+        void operator *= (T factor)
         {
             _r *= factor;
             _g *= factor;
@@ -167,7 +170,7 @@ namespace IgorAux
         \param color2 second color
         \param w factor to interpolate with
         */
-        void iaColor4<T>::lerp(iaColor4<T> &color1, iaColor4<T> &color2, float32 w)
+        void lerp(iaColor4<T> &color1, iaColor4<T> &color2, float32 w)
         {
             _r = color1._r * w + color2._r * (1.0f - w);
             _g = color1._g * w + color2._g * (1.0f - w);
@@ -225,7 +228,8 @@ namespace IgorAux
             }
             else if(maxR)
             {
-                result._r = static_cast<T>(60.0 * fabs((fmod(static_cast<double>(((rgb._g - rgb._b) / delta)), 6))));
+                const float64 tmp = static_cast<float64>(((rgb._g - rgb._b) / delta));
+                result._r = static_cast<T>(60.0 * fabs(fmod(tmp, 6.0)));
             }
             else if (maxG)
             {

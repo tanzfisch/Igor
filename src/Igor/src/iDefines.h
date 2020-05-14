@@ -47,14 +47,6 @@
     #define __IGOR_CONFIG_STR__ RELEASE
 #endif
 
-#ifdef __IGOR_X64__
-    #define __IGOR_BIT_STR__ x64
-#endif
-
-#ifdef __IGOR_X32__
-    #define __IGOR_BIT_STR__ x32
-#endif
-
 /*! default igor window title
 */
 #define IGOR_DFAULT_WINDOW_TITLE TEXT("#Igor")

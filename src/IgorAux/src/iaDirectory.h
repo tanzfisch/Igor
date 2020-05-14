@@ -11,20 +11,20 @@
 //                                           (_(       \)
 // (c) Copyright 2012-2019 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: martinloga@gmx.de  
+//
+// contact: martinloga@gmx.de
 
 #ifndef __IGOR_AUX_DIRECTORY__
 #define __IGOR_AUX_DIRECTORY__
@@ -34,30 +34,30 @@
 
 #include <vector>
 
-
 namespace IgorAux
 {
 
+    class iaFile;
+
     /*! handles directories and containing files
     */
-	class IgorAux_API iaDirectory
-	{
+    class IgorAux_API iaDirectory
+    {
 
-		friend class iaFile;
+        friend class iaFile;
 
-	public:
-
+    public:
         /*! copy operator
 
         \param directoryName path of directory
         */
-		iaDirectory operator= (const iaString& directoryName);
+        iaDirectory operator=(const iaString &directoryName);
 
-		/*! \returns get the absolute path name
+        /*! \returns get the absolute path name
 
         e.g. if the path is c:\foo\bar then this returns c:\foo\bar
         */
-		iaString getFullDirectoryName() const;
+        iaString getFullDirectoryName() const;
 
         /*! \returns the name of the directory
 
@@ -65,60 +65,60 @@ namespace IgorAux
         */
         iaString getDirectoryName() const;
 
-		/*! \returns the absolute path name of parent directory
+        /*! \returns the absolute path name of parent directory
 
         e.g. if the path is c:\foo\bar then this returns c:\foo
         */
-		iaString getFullParentDirectoryName() const;
+        iaString getFullParentDirectoryName() const;
 
         /*! \returns relative path from path to path
 
         \param from the path from where the relative path comes from (can also be a full file path)
         \param to the path the relative path will point to
         */
-        static iaString getRelativePath(const iaString& from, const iaString& to);
+        static iaString getRelativePath(const iaString &from, const iaString &to);
 
-		/*! \returns all subdirectorys
-
-        \param searchPattern what to search for
-        \param recursive true: search recursively; false: search only in current directory
-        */
-		std::vector<iaDirectory> getDirectorys(iaString searchPattern = L"*", bool recursive = false);
-
-		/*! \returns all files
+        /*! \returns all subdirectorys
 
         \param searchPattern what to search for
         \param recursive true: search recursively; false: search only in current directory
         */
-		std::vector<iaFile> getFiles(iaString searchPattern = L"*", bool recursive = false);
+        std::vector<iaDirectory> getDirectorys(iaString searchPattern = L"*", bool recursive = false);
+
+        /*! \returns all files
+
+        \param searchPattern what to search for
+        \param recursive true: search recursively; false: search only in current directory
+        */
+        std::vector<iaFile> getFiles(iaString searchPattern = L"*", bool recursive = false);
 
         /*! set's the current or working directory
 
         \param directoyName the directory path
         */
-        static void setCurrentDirectory(const iaString& directoyName);
+        static void setCurrentDirectory(const iaString &directoyName);
 
         /*! \returns the current or working directory
         */
-		static iaString getCurrentDirectory();
+        static iaString getCurrentDirectory();
 
-		/*! \returns the directory where the program starts from
+        /*! \returns the directory where the program starts from
         */
-		static iaString getApplicationDirectory();
+        static iaString getApplicationDirectory();
 
-		/*! \returns true: if a directory is absolute; false: if diretory is relative
+        /*! \returns true: if a directory is absolute; false: if diretory is relative
         */
-		static bool directoryIsAbsolute(const iaString &directoryname);
+        static bool directoryIsAbsolute(const iaString &directoryname);
 
-		/*! \returns true: if a directory is realy a directory; false: if directory is a file
+        /*! \returns true: if a directory is realy a directory; false: if directory is a file
 		don't use this to check if a path is a file try iaFile::exist
         */
-		static bool isDirectory(const iaString &directoryname);
+        static bool isDirectory(const iaString &directoryname);
 
         /*! \returns the path seperator (win: \, linux: /)
         */
         static const wchar_t getPathSeperator();
-        
+
         /*! \returns true: if root folder aka c:, d: or /
         */
         bool isRoot();
@@ -129,22 +129,20 @@ namespace IgorAux
         \param file true: it's a file; false: it's a directory
         \returns fixed path
         */
-        static iaString fixPath(const iaString& directoryName, bool file);
+        static iaString fixPath(const iaString &directoryName, bool file);
 
         /*! creates an object for some directory
 
         \param directoryName path of directory
         */
-        iaDirectory(const iaString& directoryName);
+        iaDirectory(const iaString &directoryName);
 
     private:
-
         /*! the path to the directory
         */
         iaString _directoryName;
 
     protected:
-
         /*! internal recursive implementation of getFiles
 
         \param directory current directory
@@ -160,9 +158,8 @@ namespace IgorAux
         \param recursive true: proceed recursively; false: proceed for current directory
         */
         std::vector<iaDirectory> getDirectorysRecursive(const iaString &directory, const iaString &searchPattern = L"", const bool recursive = false);
+    };
 
-	};
-
-}
+} // namespace IgorAux
 
 #endif

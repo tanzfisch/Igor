@@ -39,6 +39,7 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
+#include <thread>
 
 namespace IgorAux
 {
@@ -47,7 +48,7 @@ namespace IgorAux
     /*!
     \todo forgot what this is good for
     */
-    __IGOR_FUNCTION_POINTER__(superspecialfuncptrtype, __CLRCALL_OR_CDECL, iaConsole&, (iaConsole&));
+    __IGOR_FUNCTION_POINTER__(superspecialfuncptrtype, iaConsole&, (iaConsole&));
 
     /*! used as foreground colors for console output
     */
@@ -124,8 +125,11 @@ namespace IgorAux
         friend iaConsole& LOCK(iaConsole &console);
         friend iaConsole& UNLOCK(iaConsole &console);
         friend iaConsole& printThreadID(iaConsole &console);
-        friend iaConsole& generateWindowsError(iaConsole &console);
         friend iaConsole& applicationTime(iaConsole &console);
+
+#ifdef __IGOR_WINDOWS__
+        friend iaConsole& generateWindowsError(iaConsole &console);
+#endif                
 
     public:
 
@@ -273,7 +277,6 @@ namespace IgorAux
 
     };
 
-#ifdef __IGOR_WIN__
 #ifdef __IGOR_DEBUG__
 
     /*! works like the original assert
@@ -378,9 +381,11 @@ namespace IgorAux
 		con_assert_sticky(iaConsole::getInstance().getErrors() < 100, "too many errors"); \
 	}
 
+#ifdef __IGOR_WINDOWS__
     /*! prints an windows specific error message to console and optionally to the log file
 
     \param Message message to be printed
+    \todo get rid of con_err_win
     */
 #define con_err_win(Message) \
 	if(iaConsole::getInstance().getLogLevel() >= LogLevel::Error) \
@@ -395,6 +400,9 @@ namespace IgorAux
 		iaConsole::getInstance() << iaForegroundColor::Gray << UNLOCK; \
 		con_assert_sticky(iaConsole::getInstance().getErrors() < 100, "too many errors"); \
 	}
+#else
+    #define con_err_win(Message) con_err(Message)
+#endif    
 
     /*! prints an warning message to console and optionally to the log file
 
@@ -443,8 +451,7 @@ namespace IgorAux
 		iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID << iaForegroundColor::Gray << Message << endl << UNLOCK; \
 	}
 
-#endif
-
+#ifdef __IGOR_WINDOWS__
     /*! generated a windows specific error message and pipes it in to the console
 
     \param console console instance to use
@@ -481,6 +488,7 @@ namespace IgorAux
 
         return console;
     }
+#endif    
 
     __IGOR_INLINE__ iaConsole& applicationTime(iaConsole &console)
     {
@@ -573,8 +581,7 @@ namespace IgorAux
 
     __IGOR_INLINE__ iaConsole& printThreadID(iaConsole &console)
     {
-        int32 threadID = GetCurrentThreadId();
-        console << "[" << std::setfill(L'0') << std::setw(8) << std::hex << threadID << std::dec << "] ";
+        console << "[" << std::setfill(L'0') << std::setw(8) << std::hex << std::this_thread::get_id() << std::dec << "] ";
         return console;
     }
 

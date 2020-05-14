@@ -6,7 +6,7 @@ project(Igor)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-add_definitions(-D_UNICODE -DNOMINMAX -D_NEWTON_USE_DOUBLE)
+add_definitions(-D_UNICODE -DUNICODE -DNOMINMAX -D_NEWTON_USE_DOUBLE)
 
 # 3rd party definitions
 #tinyXML
@@ -101,7 +101,11 @@ if (MSVC_VERSION GREATER_EQUAL "1900")
 endif()
 target_compile_definitions(IgorAux PRIVATE -D__IGOR_AUX_BUILDING_DLL__)
 target_include_directories(IgorAux PRIVATE  ${IGOR_AUX_HEADERS_DIR})
-target_link_libraries(IgorAux DbgHelp)
+if (MSVC_VERSION GREATER_EQUAL "1900")
+    target_link_libraries(IgorAux DbgHelp)
+else()
+    target_link_libraries(IgorAux)
+endif()
 
 # OMPF
 message(OMPF)

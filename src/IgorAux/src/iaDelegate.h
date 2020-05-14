@@ -29,6 +29,8 @@
 #ifndef __IGOR_AUX_DELEGATE__
 #define __IGOR_AUX_DELEGATE__
 
+#include <cstdlib>
+
 namespace IgorAux
 {
 
@@ -87,7 +89,7 @@ namespace IgorAux
 		class InternalDefaultCall:public InternalBase\
 		{\
 		public:\
-			__IGOR_FUNCTION_POINTER__(FunctionPointer, __IGOR_DEFAULTCALL__, ReturnType, ParameterList);\
+			__IGOR_FUNCTION_POINTER__(FunctionPointer, ReturnType, ParameterList);\
 	\
 			InternalDefaultCall(FunctionPointer fpFunction):function(fpFunction) {}\
 	\
