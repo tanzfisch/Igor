@@ -31,7 +31,7 @@
 
 #include <iaDefines.h>
 
-#ifdef __IGOR_WIN__
+#ifdef __IGOR_WINDOWS__
 #include <Windows.h>
 #endif
 
@@ -50,7 +50,7 @@ namespace IgorAux
         __IGOR_INLINE__ static uint64 getClockTicks()
         {
             uint64 result;
-#ifdef __IGOR_WIN__
+#ifdef __IGOR_WINDOWS__
             QueryPerformanceCounter((LARGE_INTEGER*)&result);
 #endif
             return result - m_startTicks;
@@ -63,7 +63,7 @@ namespace IgorAux
         __IGOR_INLINE__ static float64 getClockSeconds()
         {
             float64 result;
-#ifdef __IGOR_WIN__
+#ifdef __IGOR_WINDOWS__
             uint64 time;
             QueryPerformanceCounter((LARGE_INTEGER*)&time);
             result = static_cast<float64>(time - m_startTicks) * m_tickScale;
@@ -78,7 +78,7 @@ namespace IgorAux
         __IGOR_INLINE__ static float64 getClockMiliseconds()
         {
             float64 result;
-#ifdef __IGOR_WIN__
+#ifdef __IGOR_WINDOWS__
             uint64 time;
             QueryPerformanceCounter((LARGE_INTEGER*)&time);
             result = static_cast<float64>(time - m_startTicks) * m_tickScale * __IGOR_SECOND__;
@@ -99,13 +99,13 @@ namespace IgorAux
         */
         static void initClock()
         {
-#ifdef __IGOR_WIN__
+#ifdef __IGOR_WINDOWS__
             uint64 clockPerformance = 0;
             if (QueryPerformanceFrequency((LARGE_INTEGER*)&clockPerformance))
             {
                 m_tickScale = 1.0 / static_cast<float64>(clockPerformance);
 
-#ifdef __IGOR_WIN__
+#ifdef __IGOR_WINDOWS__
                 QueryPerformanceCounter((LARGE_INTEGER*)&m_startTicks);
 #endif
             }

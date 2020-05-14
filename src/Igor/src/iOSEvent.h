@@ -31,58 +31,58 @@
 
 #include <iDefines.h>
 
-#ifdef __IGOR_WIN__
+#ifdef __IGOR_WINDOWS__
 
-	#include <windows.h>
+#include <windows.h>
 
-	/*! helper data set for windows specific messages
-	*/
-	struct iOSEventWin32
-	{
-		/*! window handle
-		*/
-		HWND _hWnd;
+/*! helper data set for windows specific messages
+*/
+struct iOSEventWin32
+{
+    /*! window handle
+    */
+    HWND _hWnd;
 
-		/*! message Id
-		*/
-		UINT _uMsg;
+    /*! message Id
+    */
+    UINT _uMsg;
 
-		/*! first part of message 
-		*/
-		WPARAM _wParam;
+    /*! first part of message
+    */
+    WPARAM _wParam;
 
-		/*! second part of message
-		*/
-		LPARAM _lParam;
-	};
+    /*! second part of message
+    */
+    LPARAM _lParam;
+};
 
-#endif
+#endif // __IGOR_WINDOWS__
 
-#ifdef __LINUX__
+#ifdef __IGOR_LINUX__
 
-	#include <X11/Xlib.h>
-	#include <GL/glx.h>
+#include <X11/Xlib.h>
+#include <GL/glx.h>
 
-	/*! helper data set for windows specific messages
+/*! helper data set for windows specific messages
 
-	\deprecated currently thers is no Linux support in Igor anymore
-	*/
-	struct iOSEventLinux
-	{
-		/*! window handle
-		*/
-		Display* _xdisplay;
+\deprecated currently thers is no Linux support in Igor anymore
+*/
+struct iOSEventLinux
+{
+    /*! window handle
+    */
+    Display* _xdisplay;
 
-		/*! event message 
-		*/
-		XEvent _xevent;
+    /*! event message
+    */
+    XEvent _xevent;
 
-		/*! forgot what that was		
-		*/
-		XVisualInfo* _xvisual;
-	};
+    /*! forgot what that was
+    */
+    XVisualInfo* _xvisual;
+};
 
-#endif
+#endif // __IGOR_LINUX__
 
 #endif
 

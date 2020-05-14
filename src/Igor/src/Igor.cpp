@@ -35,7 +35,7 @@ using namespace IgorAux;
 
 #include <ctime>
 
-#ifdef __IGOR_WIN__
+#ifdef __IGOR_WINDOWS__
 #include <windows.h>
 
 //! gets called when the dll is loaded into memory

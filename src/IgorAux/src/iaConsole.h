@@ -32,7 +32,7 @@
 #include <iaSingleton.h>
 #include <iaClock.h>
 
-#ifdef __IGOR_WIN__
+#ifdef __IGOR_WINDOWS__
 #include <windows.h>
 #endif
 

@@ -34,7 +34,7 @@
 // detect environment
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
 #ifdef _WIN64
-#define __IGOR_WIN__
+#define __IGOR_WINDOWS__
 #else
 #error Igor currently does not support win32
 #endif
@@ -61,7 +61,7 @@
 #endif
 
 // configure windows environment
-#ifdef __IGOR_WIN__
+#ifdef __IGOR_WINDOWS__
 
 #ifdef _DEBUG
 #define __IGOR_DEBUG__

@@ -17,7 +17,7 @@ namespace IgorAux
 	*/
 	void getCallStack(std::vector<iaString>& callStack)
 	{
-#ifdef __IGOR_WIN__
+#ifdef __IGOR_WINDOWS__
 		void* stack[100];
 
 		HANDLE process = GetCurrentProcess();

@@ -31,7 +31,7 @@
 
 
 
-#ifdef __IGOR_WIN__
+#ifdef __IGOR_WINDOWS__
 #include <windows.h>
 #endif
 
@@ -47,7 +47,7 @@ namespace Igor
 	class Igor_API iOSEventListener
 	{
 		friend class iWindow;
-#ifdef __IGOR_WIN__
+#ifdef __IGOR_WINDOWS__
 		friend LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 #endif
 

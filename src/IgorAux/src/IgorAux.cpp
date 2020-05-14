@@ -7,7 +7,7 @@
 #include <iaClock.h>
 #include <iaConsole.h>
 
-#ifdef __IGOR_WIN__
+#ifdef __IGOR_WINDOWS__
 
 #include <windows.h>
 
@@ -35,7 +35,7 @@ bool WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 	return true;
 }
 #pragma warning(default:4100)
-#endif // __IGOR_WIN__
+#endif // __IGOR_WINDOWS__
 
 namespace IgorAux
 {

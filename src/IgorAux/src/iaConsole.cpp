@@ -13,7 +13,7 @@
 namespace IgorAux
 {
     
-#ifdef __IGOR_WIN__
+#ifdef __IGOR_WINDOWS__
     // mapping der winapi farben auf die Igor Konsolen Farben
     WORD winapi_colors[] = { FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY,
         FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE,
@@ -36,7 +36,7 @@ namespace IgorAux
 
     iaConsole::iaConsole()
     {
-#ifdef __IGOR_WIN__
+#ifdef __IGOR_WINDOWS__
         console_handle = GetStdHandle(STD_OUTPUT_HANDLE);
         if (console_handle)
         {
@@ -154,7 +154,7 @@ namespace IgorAux
 
     void iaConsole::setTextColor(iaForegroundColor color)
     {
-#ifdef __IGOR_WIN__
+#ifdef __IGOR_WINDOWS__
         if (console_handle)
         {
             if (color != iaForegroundColor::Gray)

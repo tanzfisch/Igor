@@ -265,7 +265,7 @@ namespace IgorAux
 		}
 
 #ifdef __IGOR_WINDOWS__
-		if (iswalpha(_directoryName[0]) &&
+		if (iswalpha(directoryname[0]) &&
 			directoryname[1] == ':')
 		{
 			return true;
