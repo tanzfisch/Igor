@@ -31,6 +31,7 @@
 
 #include <iaSingleton.h>
 #include <iaClock.h>
+#include <iaString.h>
 
 #ifdef __IGOR_WINDOWS__
 #include <windows.h>
@@ -82,7 +83,7 @@ namespace IgorAux
 
 		/*! there is a problem and the application might or moght not be able to deal with it	
 
-		con_err, con_err_win
+		con_err
 		*/
 		Error,
 
@@ -125,11 +126,7 @@ namespace IgorAux
         friend iaConsole& LOCK(iaConsole &console);
         friend iaConsole& UNLOCK(iaConsole &console);
         friend iaConsole& printThreadID(iaConsole &console);
-        friend iaConsole& applicationTime(iaConsole &console);
-
-#ifdef __IGOR_WINDOWS__
-        friend iaConsole& generateWindowsError(iaConsole &console);
-#endif                
+        friend iaConsole& applicationTime(iaConsole &console);       
 
     public:
 
@@ -381,29 +378,6 @@ namespace IgorAux
 		con_assert_sticky(iaConsole::getInstance().getErrors() < 100, "too many errors"); \
 	}
 
-#ifdef __IGOR_WINDOWS__
-    /*! prints an windows specific error message to console and optionally to the log file
-
-    \param Message message to be printed
-    \todo get rid of con_err_win
-    */
-#define con_err_win(Message) \
-	if(iaConsole::getInstance().getLogLevel() >= LogLevel::Error) \
-    { \
-		iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID << iaForegroundColor::Red << incerr << "ERROR " << Message << endl; \
-		iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_LOGGING_TAB__ << __IGOR_FILE_LINE__ << endl; \
-		iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_LOGGING_TAB__ << __IGOR_FUNCTION__ << endl;\
-		iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_LOGGING_TAB__ << endl; \
-		iaConsole::getInstance() << generateWindowsError << endl; \
-		iaConsole::getInstance() << iaForegroundColor::DarkRed; \
-		iaConsole::getInstance().printCallStack(10); \
-		iaConsole::getInstance() << iaForegroundColor::Gray << UNLOCK; \
-		con_assert_sticky(iaConsole::getInstance().getErrors() < 100, "too many errors"); \
-	}
-#else
-    #define con_err_win(Message) con_err(Message)
-#endif    
-
     /*! prints an warning message to console and optionally to the log file
 
     \param Message message to be printed
@@ -449,46 +423,7 @@ namespace IgorAux
 	if (iaConsole::getInstance().getLogLevel() >= LogLevel::DebugInfo) \
     { \
 		iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID << iaForegroundColor::Gray << Message << endl << UNLOCK; \
-	}
-
-#ifdef __IGOR_WINDOWS__
-    /*! generated a windows specific error message and pipes it in to the console
-
-    \param console console instance to use
-    \returns the console instance
-    */
-    __IGOR_INLINE__ iaConsole& generateWindowsError(iaConsole &console)
-    {
-        int error = GetLastError();
-
-        if (error != 0)
-        {
-            char * errorString = 0;
-            FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
-                0, error, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPTSTR)& errorString, 0, 0);
-
-            if (errorString)
-            {
-                console << errorString;
-                if (console._streamToLogfile && console._file.is_open())
-                {
-                    console._file << errorString;
-                }
-                LocalFree(errorString);
-            }
-        }
-        else
-        {
-            console << "no error code";
-            if (console._streamToLogfile && console._file.is_open())
-            {
-                console._file << "no error code";
-            }
-        }
-
-        return console;
-    }
-#endif    
+	} 
 
     __IGOR_INLINE__ iaConsole& applicationTime(iaConsole &console)
     {

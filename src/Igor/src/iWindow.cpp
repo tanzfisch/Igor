@@ -160,7 +160,7 @@ namespace Igor
 
         if (!result)
         {
-            con_err_win("can't share lists");
+            con_err("can't share lists");
         }
 
         return result;
@@ -176,7 +176,7 @@ namespace Igor
 
         if (!result)
         {
-            con_err_win("can't make render context current");
+            con_err("can't make render context current");
         }
 
         return result;
@@ -192,7 +192,7 @@ namespace Igor
 
         if (!result)
         {
-            con_err_win("can't delete render context");
+            con_err("can't delete render context");
         }
 
         return result;

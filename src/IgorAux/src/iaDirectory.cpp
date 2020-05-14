@@ -461,8 +461,8 @@ namespace IgorAux
 
 		// got an error
 		if (numChars == 0)
-		{
-			con_err_win("cant get directory");
+		{			
+			con_err("can't get current directory");
 			return L"";
 		}
 		else if (numChars < 1024) // got current directory correctly
@@ -477,7 +477,7 @@ namespace IgorAux
 			wchar_t *tempDirectory = new wchar_t[numChars];
 			if (GetCurrentDirectory(numChars, tempDirectory) == 0)
 			{
-				con_err_win("cant get directory");
+				con_err("can't get current directory");
 				return L"";
 			}
 
@@ -501,7 +501,7 @@ namespace IgorAux
 #ifdef __IGOR_WINDOWS__		
 		if (!SetCurrentDirectory(fixedDirectory.getData()))
 		{
-			con_err_win("cant set directory to: " << fixedDirectory);
+			con_err("can't set directory to: " << fixedDirectory);
 		}
 #endif		
 

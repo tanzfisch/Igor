@@ -55,7 +55,7 @@ namespace IgorAux
         _fileHandle = CreateFile(getFullFileName().getData(), accessMode, shareMode, 0, openMode, FILE_ATTRIBUTE_NORMAL, 0);
         if (_fileHandle == INVALID_HANDLE_VALUE)
         {
-            con_err_win("cannot open/create file: " << getFullFileName());
+            con_err("cannot open/create file: " << getFullFileName());
             _fileHandle = 0;
             return false;
         }
@@ -69,7 +69,7 @@ namespace IgorAux
             const DWORD error = GetLastError();
             if (error != NO_ERROR)
             {
-                con_err_win("cannot get file size: " << getFullFileName());
+                con_err("cannot get file size: " << getFullFileName());
                 return false;
             }
         }
@@ -94,7 +94,7 @@ namespace IgorAux
 #ifdef __IGOR_WINDOWS__
         if (!MoveFileEx(getFullFileName().getData(), newName.getData(), (replaceExisting) ? MOVEFILE_REPLACE_EXISTING : 0))
         {
-            con_err_win("cant rename file: " << getFullFileName() << " to: " << newName);
+            con_err("cant rename file: " << getFullFileName() << " to: " << newName);
         }
 #endif
 
@@ -110,7 +110,7 @@ namespace IgorAux
 #ifdef __IGOR_WINDOWS__
         if (!CopyFile(getFullFileName().getData(), newName.getData(), false))
         {
-            con_err_win("cant copy file: " << getFullFileName() << " to: " << newName);
+            con_err("cant copy file: " << getFullFileName() << " to: " << newName);
         }
 #endif
 
@@ -349,7 +349,7 @@ namespace IgorAux
 #ifdef __IGOR_WINDOWS__
             if (!SetEndOfFile(_fileHandle))
             {
-                con_err_win("cant change size of file: " << getFullFileName());
+                con_err("cant change size of file: " << getFullFileName());
                 return false;
             }
             else
