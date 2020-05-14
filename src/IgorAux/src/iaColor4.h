@@ -43,7 +43,7 @@ namespace IgorAux
     for floating point variant we expect values in range from 0.0 - 1.0
     for integer variant we expect values in range from 0.0 - 255.0
 
-    \todo mode code in to inline file
+    \todo move code in to inline file
     */
     template <class T>
     class IgorAux_API_Template iaColor4
