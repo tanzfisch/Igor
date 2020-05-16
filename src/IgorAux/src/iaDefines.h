@@ -33,15 +33,18 @@
 
 // detect environment
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
-#ifdef _WIN64
-#define __IGOR_WINDOWS__
-#else
-#error Igor currently does not support win32
-#endif
+    #ifdef _WIN64
+        #define __IGOR_WINDOWS__
+        #ifndef _UNICODE
+            #error Igor needs unicode!
+        #endif
+    #else
+        #error Igor currently does not support win32
+    #endif
 #elif __linux__
-#define __IGOR_LINUX__
+    #define __IGOR_LINUX__
 #else
-#error unsupported environment
+    #error unsupported environment
 #endif
 
 #define __IGOR_FILE__ (strrchr(__FILE__, '\\') ? strrchr(__FILE__, '\\') + 1 : __FILE__)
@@ -266,7 +269,13 @@ namespace IgorAux
 
 /*! logging tab definition including size of time and thread ID
 */
+#ifdef __IGOR_WINDOWS__
 #define __IGOR_LOGGING_TAB__ L"                        "
+#endif
+
+#ifdef __IGOR_LINUX__
+#define __IGOR_LOGGING_TAB__ L"                            "
+#endif
 
 //! helper macro to handle scrings in macros
 #define STR2(x) #x
@@ -370,9 +379,5 @@ namespace IgorAux
 #define __IGOR_BIT_31__ 0x80000000
 
 #define IGOR_INVALID_ID 0
-
-#ifndef _UNICODE
-#error Igor needs unicode!
-#endif
 
 #endif

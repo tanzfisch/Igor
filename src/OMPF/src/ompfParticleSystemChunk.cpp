@@ -309,9 +309,9 @@ namespace OMPF
         result += 4; // air drag
         result += 4; // period time
         result += 1; // velocity oriented
-        result += static_cast<uint32>(_textureA.getSize()) + 2;
-        result += static_cast<uint32>(_textureB.getSize()) + 2;
-        result += static_cast<uint32>(_textureC.getSize()) + 2;
+        result += static_cast<uint32>(_textureA.getLength()) + 2;
+        result += static_cast<uint32>(_textureB.getLength()) + 2;
+        result += static_cast<uint32>(_textureC.getLength()) + 2;
         result += 4; // material chunk id
         result += 4; // emitter chunk id
         return result; // 24

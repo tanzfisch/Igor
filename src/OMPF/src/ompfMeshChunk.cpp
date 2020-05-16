@@ -196,7 +196,7 @@ namespace OMPF
 		auto iterTex = _textures.begin();
 		while (iterTex != _textures.end())
 		{
-			textures += static_cast<uint32>((*iterTex).second.getSize()) + 2;
+			textures += static_cast<uint32>((*iterTex).second.getLength()) + 2;
 			iterTex++;
 		}
 

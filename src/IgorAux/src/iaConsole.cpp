@@ -10,28 +10,52 @@
 #include <DbgHelp.h>
 #endif
 
+#ifdef __IGOR_LINUX__
+#include <unistd.h>
+#include <wchar.h>
+#endif
+
 namespace IgorAux
 {
-    
+
 #ifdef __IGOR_WINDOWS__
     // mapping der winapi farben auf die Igor Konsolen Farben
-    WORD winapi_colors[] = { FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY,
-        FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE,
-        FOREGROUND_BLUE | FOREGROUND_INTENSITY,
-        FOREGROUND_BLUE,
-        FOREGROUND_GREEN | FOREGROUND_INTENSITY,
-        FOREGROUND_GREEN,
-        FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY,
-        FOREGROUND_BLUE | FOREGROUND_GREEN,
-        FOREGROUND_RED | FOREGROUND_INTENSITY,
-        FOREGROUND_RED,
-        FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY,
-        FOREGROUND_BLUE | FOREGROUND_RED,
-        FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY,
-        FOREGROUND_GREEN | FOREGROUND_RED };
+    WORD winapi_colors[] = {FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY,
+                            FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE,
+                            FOREGROUND_BLUE | FOREGROUND_INTENSITY,
+                            FOREGROUND_BLUE,
+                            FOREGROUND_GREEN | FOREGROUND_INTENSITY,
+                            FOREGROUND_GREEN,
+                            FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY,
+                            FOREGROUND_BLUE | FOREGROUND_GREEN,
+                            FOREGROUND_RED | FOREGROUND_INTENSITY,
+                            FOREGROUND_RED,
+                            FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_INTENSITY,
+                            FOREGROUND_BLUE | FOREGROUND_RED,
+                            FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY,
+                            FOREGROUND_GREEN | FOREGROUND_RED};
 
     HANDLE console_handle;
     CONSOLE_SCREEN_BUFFER_INFO console_info;
+#endif
+
+#ifdef __IGOR_LINUX__
+    std::vector<std::wstring> linux_console_colors = {
+        L"\x1B[97m", // White,
+        L"\x1B[90m", // Gray
+        L"\x1B[94m", // Blue
+        L"\x1B[34m", // DarkBlue
+        L"\x1B[92m", // Green
+        L"\x1B[32m", // DarkGreen
+        L"\x1B[96m", // Cyan
+        L"\x1B[36m", // DarkCyan
+        L"\x1B[91m", // Red
+        L"\x1B[31m", // DarkRed
+        L"\x1B[95m", // Magenta
+        L"\x1B[35m", // DarkMagenta
+        L"\x1B[93m", // Yellow
+        L"\x1B[33m"  // DarkYellow
+    };
 #endif
 
     iaConsole::iaConsole()
@@ -41,17 +65,38 @@ namespace IgorAux
         if (console_handle)
         {
             GetConsoleScreenBufferInfo(console_handle, &console_info);
-        }        
+            _useColorsSupported = true;
+        }
+#endif
+
+#ifdef __IGOR_LINUX__
+        if (isatty(0) &&
+            isatty(1) &&
+            isatty(2))
+        {
+            // TODO add some code to actually figure out if it is supported
+            _useColorsSupported = true;
+        }
 #endif
     }
 
-	void iaConsole::closeLogfile()
-	{
-		if (_file.is_open())
-		{
-			_file.close();
-		}
-	}
+    void iaConsole::closeLogfile()
+    {
+        if (_file.is_open())
+        {
+            _file.close();
+        }
+    }
+
+    void iaConsole::setUseColors(bool useColors = true)
+    {
+        _useColors = useColors;
+    }
+
+    bool iaConsole::isUsingColors() const
+    {
+        return _useColors;
+    }
 
     /*! Note: can't use classes iaDirectory or iaFile here because of possible deadlock in logging
 
@@ -61,16 +106,17 @@ namespace IgorAux
     {
         if (!_file.is_open())
         {
-#ifdef __IGOR_WINDOWS__            
+#ifdef __IGOR_WINDOWS__
             wchar_t result[MAX_PATH];
-            GetModuleFileName(NULL, result, MAX_PATH);            
-			std::wstring path = result;
+            GetModuleFileName(NULL, result, MAX_PATH);
+            std::wstring path = result;
             path = path.substr(0, path.find_last_of(__IGOR_SEPARATOR__) + 1);
             path.append(L"\\igor.log");
             _file.open(path, std::fstream::out);
 #endif
 
 #ifdef __IGOR_LINUX__
+
             _file.open("/tmp/igor.log", std::fstream::out);
 #endif
         }
@@ -78,26 +124,26 @@ namespace IgorAux
 
     void iaConsole::exit()
     {
-#ifdef __IGOR_WINDOWS__        
+#ifdef __IGOR_WINDOWS__
         __debugbreak();
 #endif
         std::exit(EXIT_FAILURE);
     }
 
-	void iaConsole::setLogLevel(LogLevel logLevel)
-	{
-		_logLevel = logLevel;
-	}
+    void iaConsole::setLogLevel(LogLevel logLevel)
+    {
+        _logLevel = logLevel;
+    }
 
-	LogLevel iaConsole::getLogLevel() const
-	{
-		return _logLevel;
-	}
+    LogLevel iaConsole::getLogLevel() const
+    {
+        return _logLevel;
+    }
 
     void iaConsole::printTombstone()
     {
         *this << endl;
-        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__  << "     .-------." << endl;
+        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "     .-------." << endl;
         *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "   .'         `." << endl;
         *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "   |  " << iaForegroundColor::White << "R  I  P" << iaForegroundColor::Gray << "  |" << endl;
         *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "   |           |" << endl;
@@ -116,31 +162,32 @@ namespace IgorAux
         *this << iaForegroundColor::White << __IGOR_LOGGING_TAB__ << "   {~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~}  BIRTHDAY" << endl;
         *this << iaForegroundColor::White << __IGOR_LOGGING_TAB__ << "  {~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~}" << endl;
         *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "__" << iaForegroundColor::White << "{~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~}" << iaForegroundColor::Gray << "__" << iaForegroundColor::White << "   IGOR" << endl;
-        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "\\___________/" << endl << endl;
+        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "\\___________/" << endl
+              << endl;
     }
 
-	void iaConsole::printCallStack(uint32 maxDepth)
-	{
-		std::vector<iaString> callStack;
-		getCallStack(callStack);
+    void iaConsole::printCallStack(uint32 maxDepth)
+    {
+        std::vector<iaString> callStack;
+        getCallStack(callStack);
 
-		if (_streamToLogfile && _file.is_open())
-		{
-			_file << std::endl;
-		}
+        if (_streamToLogfile && _file.is_open())
+        {
+            _file << std::endl;
+        }
 
-		for (unsigned int i = 1; i < callStack.size() && i < maxDepth; i++)
-		{
+        for (unsigned int i = 1; i < callStack.size() && i < maxDepth; i++)
+        {
 
-			*this << __IGOR_LOGGING_TAB__ << callStack[i];
-			std::cout << std::endl;
+            *this << __IGOR_LOGGING_TAB__ << callStack[i];
+            std::cout << std::endl;
 
-			if (_streamToLogfile && _file.is_open())
-			{
-				_file << std::endl;
-			}
-		}
-	}
+            if (_streamToLogfile && _file.is_open())
+            {
+                _file << std::endl;
+            }
+        }
+    }
 
     void iaConsole::lock()
     {
@@ -154,19 +201,26 @@ namespace IgorAux
 
     void iaConsole::setTextColor(iaForegroundColor color)
     {
-#ifdef __IGOR_WINDOWS__
-        if (console_handle)
+        if (_useColors && _useColorsSupported)
         {
-            if (color != iaForegroundColor::Gray)
+#ifdef __IGOR_WINDOWS__
+            if (console_handle)
             {
-                SetConsoleTextAttribute(console_handle, winapi_colors[static_cast<int>(color)]);
+                if (color != iaForegroundColor::Gray)
+                {
+                    SetConsoleTextAttribute(console_handle, winapi_colors[static_cast<int>(color)]);
+                }
+                else
+                {
+                    SetConsoleTextAttribute(console_handle, console_info.wAttributes);
+                }
             }
-            else
-            {
-                SetConsoleTextAttribute(console_handle, console_info.wAttributes);
-            }
-        }
 #endif
+
+#ifdef __IGOR_LINUX__
+            std::wcout << linux_console_colors[static_cast<int>(color)];
+#endif
+        }
     }
 
     uint32 iaConsole::getErrors()
@@ -200,4 +254,4 @@ namespace IgorAux
         _streamToLogfile = activate;
     }
 
-};
+}; // namespace IgorAux

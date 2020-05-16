@@ -2,6 +2,8 @@
 #include <iaMatrix2D.h>
 using namespace IgorAux;
 
+#include <cstring>
+
 #define COMP_MATRIX(m1,m2) \
 	EXPECT_NEAR(m1._m[0], m2._m[0], 0.0000001); \
 	EXPECT_NEAR(m1._m[1], m2._m[1], 0.0000001); \

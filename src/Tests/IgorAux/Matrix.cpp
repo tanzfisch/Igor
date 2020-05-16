@@ -3,6 +3,8 @@
 #include <iaRandomNumberGenerator.h>
 using namespace IgorAux;
 
+#include <cstring>
+
 #define COMP_MATRIX(m1,m2) \
 EXPECT_NEAR(m1._pos._x, m2._pos._x, 0.0000001); \
 EXPECT_NEAR(m1._pos._y, m2._pos._y, 0.0000001); \

@@ -310,7 +310,10 @@ namespace OMPF
         reset();
 
         std::ifstream file;
-        file.open(filename.getData(), std::ios_base::in | std::ios_base::binary);
+        char cfilename[1024];
+        filename.getData(cfilename, 1024);
+
+        file.open(cfilename, std::ios_base::in | std::ios_base::binary);
 
         con_debug_endl("reading OMPF file: " << filename);
 
@@ -366,7 +369,10 @@ namespace OMPF
         con_assert(_root != nullptr, "can never be zero");
 
         std::ofstream outfile;
-        outfile.open(filename.getData(), std::ios_base::out | std::ios_base::binary);
+        char cfilename[1024];
+        filename.getData(cfilename, 1024);
+
+        outfile.open(cfilename, std::ios_base::out | std::ios_base::binary);
         if (!outfile.fail())
         {
             write(outfile, _root, nullptr);

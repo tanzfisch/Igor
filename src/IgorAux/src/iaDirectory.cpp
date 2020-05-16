@@ -235,8 +235,8 @@ namespace IgorAux
 		}
 
 #ifdef __IGOR_WINDOWS__
-		if (_directoryName.getSize() > 1 &&
-			_directoryName.getSize() <= 3)
+		if (_directoryName.getLength() > 1 &&
+			_directoryName.getLength() <= 3)
 		{
 			if (iswalpha(_directoryName[0]) &&
 				_directoryName[1] == ':')
@@ -247,7 +247,7 @@ namespace IgorAux
 #endif
 
 #ifdef __IGOR_LINUX__
-		if (_directoryName.getSize() == 1 &&
+		if (_directoryName.getLength() == 1 &&
 			_directoryName[1] == getPathSeperator())
 		{
 			return true;
