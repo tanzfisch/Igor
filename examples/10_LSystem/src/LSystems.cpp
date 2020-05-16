@@ -288,7 +288,7 @@ uint64 LSystems::generatePlant(const iaMatrixd& matrix, const iaString& axiom, u
 {
 	PlantInformation plantInformation;
 	plantInformation._lSystem = &_lSystem;
-	for (int i = 0; i < 10, i < axiom.getSize(); ++i)
+	for (int64 i = 0; i < 10, i < axiom.getLength(); ++i)
 	{
 		plantInformation._axiom[i] = axiom[i];
 	}

@@ -33,7 +33,6 @@
 
 #include <ostream>
 
-
 namespace IgorAux
 {
 

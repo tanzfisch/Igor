@@ -48,8 +48,10 @@ namespace IgorAux
 
 	void shutdown()
 	{
-		iaConsole::getInstance().printStats();
+		iaConsole::getInstance().printStats();		
 		iaConsole::getInstance().closeLogfile();
+		iaConsole::getInstance().resetStats();
+		iaConsole::getInstance().setLogLevel(LogLevel::DebugInfo);
 		// do not destroy instance of iaConsole
 	}
 

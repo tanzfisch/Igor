@@ -354,7 +354,7 @@ void PlantMeshGenerator::generateSkeleton(const iaString& sentence)
 {
     iaMatrixf rotationMatrix;
 
-    for (int i = 0; i < sentence.getSize(); ++i)
+    for (int64 i = 0; i < sentence.getLength(); ++i)
     {
         float32 variation = 1.5 - (((_rand.getNext() % 100) / 100.0f));
 

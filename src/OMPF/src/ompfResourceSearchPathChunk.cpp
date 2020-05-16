@@ -4,9 +4,6 @@
 
 #include <ompfResourceSearchPathChunk.h>
 
-#include <windows.h>
-#include <Stringapiset.h>
-
 namespace OMPF
 {
 

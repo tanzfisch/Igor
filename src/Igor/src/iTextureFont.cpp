@@ -233,7 +233,7 @@ namespace Igor
         if (valid)
         {
             float32 lenght = 0;
-            for (uint32 i = 0; i < text.getSize(); i++)
+            for (uint32 i = 0; i < text.getLength(); i++)
             {
                 if (text[i] > 0 &&
                     text[i] < _characters.size())
@@ -258,7 +258,7 @@ namespace Igor
             float32 length = 0;
             float32 lastlength = 0;
 
-            for (uint32 i = 0; i < text.getSize(); i++)
+            for (uint32 i = 0; i < text.getLength(); i++)
             {
                 length += _characters[((unsigned char)text[i]) - 32].relRenderWidth*size;
                 if ((unsigned char)text[i] == ' ')

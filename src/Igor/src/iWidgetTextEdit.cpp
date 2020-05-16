@@ -9,6 +9,8 @@
 #include <iKeyboard.h>
 #include <iTextureFont.h>
 
+#include <algorithm>
+
 namespace Igor
 {
 
@@ -51,7 +53,7 @@ namespace Igor
 			return true;
 		}
 
-		if (_text.getSize() < _maxTextLenght)
+		if (_text.getLength() < _maxTextLenght)
 		{
 			_text.insert(iaString(static_cast<const char>(c)), getCursorPos());
 			incCursorPos();
@@ -94,7 +96,7 @@ namespace Igor
 			break;
 
 		case iKeyCode::End:
-			setCursorPos(_text.getSize());
+			setCursorPos(_text.getLength());
 			break;
 
 		case iKeyCode::ESC:
@@ -142,7 +144,7 @@ namespace Igor
 
 	void iWidgetTextEdit::incCursorPos()
 	{
-		if (_cursorPos < _text.getSize())
+		if (_cursorPos < _text.getLength())
 		{
 			_cursorPos++;
 			updateMetrics();
@@ -160,7 +162,7 @@ namespace Igor
 
 	void iWidgetTextEdit::setCursorPos(uint64 cursorPos)
 	{
-		_cursorPos = std::min(_text.getSize(), cursorPos);
+		_cursorPos = std::min((uint64)_text.getLength(), cursorPos);
 		updateMetrics();
 	}
 
@@ -224,7 +226,7 @@ namespace Igor
 
 	void iWidgetTextEdit::handleGainedKeyboardFocus()
 	{
-		setCursorPos(_text.getSize());
+		setCursorPos(_text.getLength());
 		_textBackup = _text;
 	}
 

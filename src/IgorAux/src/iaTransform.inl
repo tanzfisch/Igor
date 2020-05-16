@@ -6,11 +6,11 @@ template <class T>
 __IGOR_INLINE__ std::wostream& operator<<(std::wostream& ostr, const iaTransform<T>& t)
 {
     iaVector3d rotate;
-    _orientation.getEuler(rotate);
+    t._orientation.getEuler(rotate);
 
-    ostr << "t" << m_translate << "\n";
+    ostr << "t" << t._translate << "\n";
     ostr << "r" << rotate << "\n";
-    ostr << "s" << m_scale << "\n";
+    ostr << "s" << t._scale << "\n";
     return ostr;
 }
 

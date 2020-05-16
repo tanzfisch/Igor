@@ -127,7 +127,7 @@ namespace Igor
         iaString result;
 
         iaString type(typeid(*this).name());
-        type = type.getSubString(type.findLastOf(':') + 1, type.getSize() - 1);
+        type = type.getSubString(type.findLastOf(':') + 1, type.getLength() - 1);
 
         result = type;
         result += " [";

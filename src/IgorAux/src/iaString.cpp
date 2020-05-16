@@ -2,6 +2,12 @@
 
 #include <stdio.h>
 #include <math.h>
+
+#ifdef __IGOR_LINUX__
+#include <iconv.h>
+#include <errno.h>
+#endif
+
 #include <string>
 #include <memory>
 
@@ -37,7 +43,7 @@ namespace IgorAux
 		return static_cast<int64>(hashFunc(keyValue));
 	}
 
-	iaString::iaString(const char *text, const uint64 lenght)
+	iaString::iaString(const char *text, const int64 lenght)
 	{
 		if (lenght != INVALID_POSITION)
 		{
@@ -48,7 +54,7 @@ namespace IgorAux
 		CHECK_CONSISTENCY();
 	}
 
-	iaString::iaString(const wchar_t *text, const uint64 lenght)
+	iaString::iaString(const wchar_t *text, const int64 lenght)
 	{
 		if (lenght != INVALID_POSITION)
 		{
@@ -78,7 +84,7 @@ namespace IgorAux
 
 	void iaString::toLower()
 	{
-		for (uint64 i = 0; i < getSize(); i++)
+		for (int64 i = 0; i < getLength(); i++)
 		{
 			(*this)[i] = static_cast<wchar_t>(tolower((*this)[i]));
 		}
@@ -86,7 +92,7 @@ namespace IgorAux
 
 	void iaString::toUpper()
 	{
-		for (uint64 i = 0; i < getSize(); i++)
+		for (int64 i = 0; i < getLength(); i++)
 		{
 			(*this)[i] = static_cast<wchar_t>(toupper((*this)[i]));
 		}
@@ -97,14 +103,14 @@ namespace IgorAux
 		return _data;
 	}
 
-	const wchar_t &iaString::operator[](const uint64 index) const
+	const wchar_t &iaString::operator[](const int64 index) const
 	{
 		con_assert(_data != nullptr, "no data");
 		con_assert(index < _charCount, "invalid index");
 		return _data[index];
 	}
 
-	wchar_t &iaString::operator[](const uint64 index)
+	wchar_t &iaString::operator[](const int64 index)
 	{
 		con_assert(_data != nullptr, "no data");
 		con_assert(index < _charCount, "invalid index");
@@ -116,6 +122,11 @@ namespace IgorAux
 		return wcscmp((*this).getData(), text.getData()) < 0;
 	}
 
+	bool iaString::operator>(const iaString &text) const
+	{
+		return wcscmp((*this).getData(), text.getData()) > 0;
+	}
+
 	std::wostream &operator<<(std::wostream &stream, const iaString &text)
 	{
 		if (!text.isEmpty())
@@ -125,7 +136,7 @@ namespace IgorAux
 		return stream;
 	}
 
-	uint64 iaString::getData(char *buffer, const uint64 size) const
+	int64 iaString::getData(char *buffer, const int64 size) const
 	{
 		con_assert(buffer != nullptr, "no destination data");
 		con_assert(size != 0, "no destination size");
@@ -134,7 +145,7 @@ namespace IgorAux
 			size != 0 &&
 			!isEmpty())
 		{
-			uint64 result = _charCount + 1;
+			int64 result = _charCount + 1;
 
 			if (size < result)
 			{
@@ -151,48 +162,79 @@ namespace IgorAux
 		return 0;
 	}
 
-	uint64 iaString::getUTF8Size() const
+	int64 iaString::getUTF8Size() const
 	{
+		int64 result = 0;
+
 		if (isEmpty())
 		{
-			return 0;
+			return result;
 		}
 
 #ifdef __IGOR_WINDOWS__
-		return static_cast<uint64>(WideCharToMultiByte(CP_UTF8, 0, getData(), static_cast<int>(getSize()), nullptr, 0, nullptr, nullptr));
+		result = static_cast<int64>(WideCharToMultiByte(CP_UTF8, 0, getData(), static_cast<int>(getLength()), nullptr, 0, nullptr, nullptr));
 #endif
 
 #ifdef __IGOR_LINUX__
-		// TODO
-		return 0;
+
+		iconv_t conv = iconv_open("UTF-8", "WCHAR_T");
+		if (conv == (iconv_t)-1)
+		{
+			con_err("iconv_open " << strerror(errno));
+		}
+		else
+		{
+			// create tmp buffer
+			size_t bufferSize = _charCount * 6;
+			char buffer[bufferSize];
+
+			size_t inLeft = (_charCount + 1) * sizeof(wchar_t);
+			size_t outLeft = bufferSize;
+			char *inptr = reinterpret_cast<char *>(_data);
+			char *outptr = buffer;
+
+			size_t res = iconv(conv, &inptr, &inLeft, &outptr, &outLeft);
+			if (res == -1)
+			{
+				con_err("iconv " << strerror(errno));
+			}
+			else
+			{
+				result = bufferSize - outLeft;
+			}
+
+			iconv_close(conv);
+		}
+
 #endif
+
+		return result;
 	}
 
-	uint64 iaString::getUTF8(char *buffer, const uint64 size) const
+	int64 iaString::getUTF8(char *buffer, const int64 size) const
 	{
 		con_assert(buffer != nullptr, "no destination data");
 		con_assert(size != 0, "no destination size");
+		int64 result = 0;
 
 		if (buffer == nullptr ||
 			size == 0 ||
 			isEmpty())
 		{
-			return 0;
+			return result;
 		}
 
 #ifdef __IGOR_WINDOWS__
-		uint64 measuredSize = static_cast<uint64>(WideCharToMultiByte(CP_UTF8, 0, getData(), static_cast<int>(getSize()), nullptr, 0, nullptr, nullptr));
+		int64 measuredSize = static_cast<int64>(WideCharToMultiByte(CP_UTF8, 0, getData(), static_cast<int>(getLength()), nullptr, 0, nullptr, nullptr));
 
 		if (size < measuredSize)
 		{
 			measuredSize = size;
 		}
 
-		uint64 result = 0;
-
 		if (measuredSize != 0)
 		{
-			result = static_cast<uint64>(WideCharToMultiByte(CP_UTF8, 0, getData(), static_cast<int>(getSize()), buffer, static_cast<int>(measuredSize), nullptr, nullptr));
+			result = static_cast<int64>(WideCharToMultiByte(CP_UTF8, 0, getData(), static_cast<int>(getLength()), buffer, static_cast<int>(measuredSize), nullptr, nullptr));
 
 			con_assert(result != 0, "conversion failed");
 			if (result == 0)
@@ -201,16 +243,41 @@ namespace IgorAux
 			}
 		}
 
-		return result;
 #endif
 
 #ifdef __IGOR_LINUX__
-		// TODO
-		return 0;
+
+		iconv_t conv = iconv_open("UTF-8//TRANSLIT", "WCHAR_T");
+		if (conv == (iconv_t)-1)
+		{
+			con_err("iconv_open " << strerror(errno));
+		}
+		else
+		{
+			size_t inLeft = (_charCount) * sizeof(wchar_t);
+			size_t outLeft = size;
+			char *inptr = reinterpret_cast<char *>(_data);
+			char *outptr = buffer;
+			size_t res = iconv(conv, &inptr, &inLeft, &outptr, &outLeft);
+
+			if (res == -1)
+			{
+				con_err("iconv " << strerror(errno));
+			}
+			else
+			{
+				result = size - outLeft;
+			}
+
+			iconv_close(conv);
+		}
+
 #endif
+
+		return result;
 	}
 
-	void iaString::setUTF8(const char *buffer, const uint64 size)
+	void iaString::setUTF8(const char *buffer, const int64 size)
 	{
 		con_assert(buffer != nullptr, "no source data");
 		con_assert(size != 0, "no source size");
@@ -218,7 +285,7 @@ namespace IgorAux
 		clear();
 
 #ifdef __IGOR_WINDOWS__
-		_charCount = static_cast<uint64>(MultiByteToWideChar(CP_UTF8, 0, buffer, static_cast<int>(size), nullptr, 0));
+		_charCount = static_cast<int64>(MultiByteToWideChar(CP_UTF8, 0, buffer, static_cast<int>(size), nullptr, 0));
 		_data = new wchar_t[_charCount + 1];
 
 		MultiByteToWideChar(CP_UTF8, 0, buffer, static_cast<int>(size), _data, static_cast<int>(_charCount));
@@ -227,11 +294,43 @@ namespace IgorAux
 #endif
 
 #ifdef __IGOR_LINUX__
-		// TODO
+		iconv_t conv = iconv_open("WCHAR_T", "UTF-8");
+		if (conv == (iconv_t)-1)
+		{
+			con_err("iconv_open " << strerror(errno));
+		}
+		else
+		{
+			// create tmp buffer
+			size_t bufferSize = size * sizeof(wchar_t);
+			char tmpbuffer[bufferSize];
+
+			size_t inLeft = size;
+			size_t outLeft = bufferSize;
+			char *inptr = const_cast<char *>(buffer);
+			char *outptr = tmpbuffer;
+			size_t res = iconv(conv, &inptr, &inLeft, &outptr, &outLeft);
+
+			if (res == -1)
+			{
+				con_err("iconv " << strerror(errno));
+			}
+			else
+			{
+				_charCount = bufferSize - outLeft;
+				_data = new wchar_t[_charCount + 1];
+
+				memcpy(_data, tmpbuffer, (_charCount) * sizeof(wchar_t));
+				_data[_charCount] = 0;
+			}
+
+			iconv_close(conv);
+		}
+
 #endif
 	}
 
-	void iaString::setData(const wchar_t *text, const uint64 size)
+	void iaString::setData(const wchar_t *text, const int64 size)
 	{
 		clear();
 
@@ -244,7 +343,7 @@ namespace IgorAux
 			}
 			else
 			{
-				_charCount = static_cast<uint64>(wcslen(text));
+				_charCount = static_cast<int64>(wcslen(text));
 			}
 
 			_data = new wchar_t[_charCount + 1];
@@ -255,7 +354,7 @@ namespace IgorAux
 		}
 	}
 
-	void iaString::setData(const char *text, const uint64 size)
+	void iaString::setData(const char *text, const int64 size)
 	{
 		clear();
 
@@ -268,7 +367,7 @@ namespace IgorAux
 			}
 			else
 			{
-				_charCount = static_cast<uint64>(strlen(text));
+				_charCount = static_cast<int64>(strlen(text));
 			}
 
 			_data = new wchar_t[_charCount + 1];
@@ -305,7 +404,12 @@ namespace IgorAux
 		return false;
 	}
 
-	uint64 iaString::getSize() const
+	int64 iaString::getSize() const
+	{
+		return (_charCount + 1) * sizeof(wchar_t);
+	}
+
+	int64 iaString::getLength() const
 	{
 		return _charCount;
 	}
@@ -328,7 +432,7 @@ namespace IgorAux
 
 	bool iaString::operator==(const iaString &text) const
 	{
-		if (getSize() != text.getSize())
+		if (getLength() != text.getLength())
 		{
 			return false;
 		}
@@ -338,7 +442,7 @@ namespace IgorAux
 			return true;
 		}
 
-		uint64 i = _charCount;
+		int64 i = _charCount;
 
 		do
 		{
@@ -354,7 +458,7 @@ namespace IgorAux
 
 	bool iaString::operator!=(const iaString &text) const
 	{
-		if (getSize() != text.getSize())
+		if (getLength() != text.getLength())
 		{
 			return true;
 		}
@@ -364,7 +468,7 @@ namespace IgorAux
 			return false;
 		}
 
-		uint64 i = _charCount;
+		int64 i = _charCount;
 		do
 		{
 			con_assert(i > 0, "value underflow");
@@ -393,13 +497,13 @@ namespace IgorAux
 
 		if (!text.isEmpty())
 		{
-			wchar_t *temp = new wchar_t[_charCount + text.getSize() + 1];
+			wchar_t *temp = new wchar_t[_charCount + text.getLength() + 1];
 			if (_charCount > 0)
 			{
 				wmemcpy(temp, _data, _charCount);
 			}
-			wmemcpy(temp + _charCount, text.getData(), text.getSize());
-			_charCount += text.getSize();
+			wmemcpy(temp + _charCount, text.getData(), text.getLength());
+			_charCount += text.getLength();
 			temp[_charCount] = 0;
 			delete[] _data;
 			_data = temp;
@@ -493,8 +597,8 @@ namespace IgorAux
 	{
 		CHECK_CONSISTENCY();
 
-		uint64 from = 0;
-		uint64 to = 0;
+		int64 from = 0;
+		int64 to = 0;
 
 		if (!isEmpty())
 		{
@@ -511,7 +615,7 @@ namespace IgorAux
 
 					to = findFirstOf(delimiters.getData(), from);
 					tokens.push_back(getSubString(from, to == iaString::INVALID_POSITION ? to : to - from));
-				} while (from < getSize() && to != iaString::INVALID_POSITION);
+				} while (from < getLength() && to != iaString::INVALID_POSITION);
 				break;
 
 			case iaStringSplitMode::RetriveAllEmpties:
@@ -535,7 +639,7 @@ namespace IgorAux
 					}
 
 					from++;
-				} while (from < getSize() && to != iaString::INVALID_POSITION);
+				} while (from < getLength() && to != iaString::INVALID_POSITION);
 				break;
 
 			default:
@@ -545,14 +649,14 @@ namespace IgorAux
 		}
 	}
 
-	uint64 iaString::findFirstNotOf(const wchar_t character, const uint64 from) const
+	int64 iaString::findFirstNotOf(const wchar_t character, const int64 from) const
 	{
 		con_assert(from < _charCount || from == INVALID_POSITION, "out of range");
 		CHECK_CONSISTENCY();
 
 		if (!isEmpty())
 		{
-			uint64 index = 0;
+			int64 index = 0;
 			if (from != INVALID_POSITION)
 			{
 				index = from;
@@ -571,7 +675,7 @@ namespace IgorAux
 		return INVALID_POSITION;
 	}
 
-	uint64 iaString::findFirstNotOf(const wchar_t *characters, const uint64 from) const
+	int64 iaString::findFirstNotOf(const wchar_t *characters, const int64 from) const
 	{
 		CHECK_CONSISTENCY();
 
@@ -583,18 +687,18 @@ namespace IgorAux
 
 		con_assert(from < _charCount || from == INVALID_POSITION, "out of range");
 
-		uint64 index = 0;
+		int64 index = 0;
 		if (from != INVALID_POSITION)
 		{
 			index = from;
 		}
 
-		uint64 paternLenght = static_cast<uint64>(wcslen(characters));
+		int64 paternLenght = static_cast<int64>(wcslen(characters));
 
 		while (index < _charCount)
 		{
 			bool found = false;
-			for (uint64 c = 0; c < paternLenght; ++c)
+			for (int64 c = 0; c < paternLenght; ++c)
 			{
 				if (_data[index] == characters[c])
 				{
@@ -613,14 +717,14 @@ namespace IgorAux
 		return INVALID_POSITION;
 	}
 
-	uint64 iaString::findFirstOf(const wchar_t character, const uint64 from) const
+	int64 iaString::findFirstOf(const wchar_t character, const int64 from) const
 	{
 		CHECK_CONSISTENCY();
 
 		if (!isEmpty() &&
 			character != 0)
 		{
-			uint64 index = 0;
+			int64 index = 0;
 			if (from != INVALID_POSITION)
 			{
 				index = from;
@@ -639,7 +743,7 @@ namespace IgorAux
 		return INVALID_POSITION;
 	}
 
-	uint64 iaString::findFirstOf(const wchar_t *characters, const uint64 from) const
+	int64 iaString::findFirstOf(const wchar_t *characters, const int64 from) const
 	{
 		CHECK_CONSISTENCY();
 
@@ -655,17 +759,17 @@ namespace IgorAux
 			return INVALID_POSITION;
 		}
 
-		uint64 index = 0;
+		int64 index = 0;
 		if (from != INVALID_POSITION)
 		{
 			index = from;
 		}
 
-		uint64 paternLenght = static_cast<uint64>(wcslen(characters));
+		int64 paternLenght = static_cast<int64>(wcslen(characters));
 
 		while (index < _charCount)
 		{
-			for (uint64 c = 0; c < paternLenght; ++c)
+			for (int64 c = 0; c < paternLenght; ++c)
 			{
 				if (_data[index] == characters[c])
 				{
@@ -678,14 +782,14 @@ namespace IgorAux
 		return INVALID_POSITION;
 	}
 
-	uint64 iaString::findLastNotOf(const wchar_t character) const
+	int64 iaString::findLastNotOf(const wchar_t character) const
 	{
 		CHECK_CONSISTENCY();
 
 		if (!isEmpty() &&
 			character != 0)
 		{
-			uint64 index = _charCount;
+			int64 index = _charCount;
 			do
 			{
 				index--;
@@ -699,14 +803,14 @@ namespace IgorAux
 		return INVALID_POSITION;
 	}
 
-	uint64 iaString::findLastOf(const wchar_t character) const
+	int64 iaString::findLastOf(const wchar_t character) const
 	{
 		CHECK_CONSISTENCY();
 
 		if (!isEmpty() &&
 			character != 0)
 		{
-			uint64 index = _charCount;
+			int64 index = _charCount;
 			do
 			{
 				index--;
@@ -720,20 +824,20 @@ namespace IgorAux
 		return INVALID_POSITION;
 	}
 
-	uint64 iaString::findLastNotOf(const wchar_t *characters) const
+	int64 iaString::findLastNotOf(const wchar_t *characters) const
 	{
 		CHECK_CONSISTENCY();
 
 		if (!isEmpty() && characters != nullptr)
 		{
-			uint64 index = _charCount;
-			uint64 paternLenght = static_cast<uint64>(wcslen(characters));
+			int64 index = _charCount;
+			int64 paternLenght = static_cast<int64>(wcslen(characters));
 
 			do
 			{
 				index--;
 
-				for (uint64 c = 0; c < paternLenght; ++c)
+				for (int64 c = 0; c < paternLenght; ++c)
 				{
 					if (_data[index] != characters[c])
 					{
@@ -747,20 +851,20 @@ namespace IgorAux
 		return INVALID_POSITION;
 	}
 
-	uint64 iaString::findLastOf(const wchar_t *characters) const
+	int64 iaString::findLastOf(const wchar_t *characters) const
 	{
 		CHECK_CONSISTENCY();
 
 		if (!isEmpty() && characters != nullptr)
 		{
-			uint64 index = _charCount;
-			uint64 paternLenght = static_cast<uint64>(wcslen(characters));
+			int64 index = _charCount;
+			int64 paternLenght = static_cast<int64>(wcslen(characters));
 
 			do
 			{
 				index--;
 
-				for (uint64 c = 0; c < paternLenght; ++c)
+				for (int64 c = 0; c < paternLenght; ++c)
 				{
 					if (_data[index] == characters[c])
 					{
@@ -774,7 +878,7 @@ namespace IgorAux
 		return INVALID_POSITION;
 	}
 
-	void iaString::insert(const iaString &text, uint64 pos)
+	void iaString::insert(const iaString &text, int64 pos)
 	{
 		con_assert(pos != INVALID_POSITION, "out of range");
 		con_assert(pos <= _charCount, "out of range");
@@ -786,7 +890,7 @@ namespace IgorAux
 		setData(result.getData());
 	}
 
-	void iaString::remove(uint64 pos, uint64 length)
+	void iaString::remove(int64 pos, int64 length)
 	{
 		iaString result;
 
@@ -797,12 +901,7 @@ namespace IgorAux
 		setData(result.getData());
 	}
 
-	uint64 iaString::getLength() const
-	{
-		return _charCount;
-	}
-
-	iaString iaString::getSubString(const uint64 pos, const uint64 len) const
+	iaString iaString::getSubString(const int64 pos, const int64 len) const
 	{
 		CHECK_CONSISTENCY();
 
@@ -813,7 +912,7 @@ namespace IgorAux
 
 		con_assert(pos != INVALID_POSITION, "out of range");
 
-		uint64 length = len;
+		int64 length = len;
 		if (length == INVALID_POSITION ||
 			length + pos >= _charCount)
 		{
@@ -826,8 +925,8 @@ namespace IgorAux
 
 	void iaString::reverse()
 	{
-		uint64 i = 0;
-		uint64 j = _charCount - 1;
+		int64 i = 0;
+		int64 j = _charCount - 1;
 		wchar_t temp;
 
 		while (i < j)
@@ -988,7 +1087,7 @@ namespace IgorAux
 		bool beforeDecimal = true;
 		wchar_t character;
 
-		for (int i = 0; i < text.getSize(); ++i)
+		for (int i = 0; i < text.getLength(); ++i)
 		{
 			character = text[i];
 			if (character >= '0' &&
@@ -1028,13 +1127,13 @@ namespace IgorAux
 
 	iaString iaString::trimLeft(const iaString &text)
 	{
-		uint64 start = text.findFirstNotOf(L" \n\r\t\f\v");
+		int64 start = text.findFirstNotOf(L" \n\r\t\f\v");
 		return text.getSubString(start);
 	}
 
 	iaString iaString::trimRight(const iaString &text)
 	{
-		uint64 stop = text.findLastNotOf(L" \n\r\t\f\v");
+		int64 stop = text.findLastNotOf(L" \n\r\t\f\v");
 		return (stop == iaString::INVALID_POSITION) ? "" : text.getSubString(0, stop + 1);
 	}
 
