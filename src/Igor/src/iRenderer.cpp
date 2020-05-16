@@ -1669,7 +1669,7 @@ namespace Igor
 			iaVector2f textureSize;
 			iaVector2f renderSize(_fontSize, _fontSize);
 			iaVector2f renderPos;
-			uint32 textLength = text.getSize();
+			uint32 textLength = text.getLength();
 			bool changecolor = false;
 			bool donotdraw = false;
 			std::vector<iCharacterDimensions> characters = _font->getCharacters();
@@ -1702,7 +1702,7 @@ namespace Igor
 					if (ascii_code == ' ')
 					{
 						int j = 1;
-						while ((i + j < text.getSize()) && (text[i + j] != ' '))
+						while ((i + j < text.getLength()) && (text[i + j] != ' '))
 						{
 							temptext[j - 1] = text[i + j];
 							j++;

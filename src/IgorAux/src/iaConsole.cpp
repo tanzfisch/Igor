@@ -88,7 +88,7 @@ namespace IgorAux
         }
     }
 
-    void iaConsole::setUseColors(bool useColors = true)
+    void iaConsole::setUseColors(bool useColors)
     {
         _useColors = useColors;
     }

@@ -33,15 +33,15 @@ TEST(StringTests, UTF8)
 {
     iaString string(L"¡こんにちは!");
 
-    EXPECT_EQ(string.getUTF8Size(), 18);
+    EXPECT_EQ(string.getUTF8Size(), 38);
     EXPECT_EQ(string.getLength(), 7);
 
-    char utf8[18];
-    string.getUTF8(utf8, 18);
+    char utf8[38];
+    string.getUTF8(utf8, 38);
 
-    string.setUTF8(utf8, 18);
+    string.setUTF8(utf8, 38);
 
-    EXPECT_EQ(string.getUTF8Size(), 18);
+    EXPECT_EQ(string.getUTF8Size(), 38);
     EXPECT_EQ(string.getLength(), 7);
     EXPECT_EQ(string, L"¡こんにちは!");
 }

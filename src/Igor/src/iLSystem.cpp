@@ -64,7 +64,7 @@ namespace Igor
     {
         iaString result;
 
-        for (int c = 0; c < sentence.getSize(); ++c)
+        for (int c = 0; c < sentence.getLength(); ++c)
         {
             bool skiped = true;
 

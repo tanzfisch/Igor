@@ -2,23 +2,29 @@ cmake_minimum_required(VERSION 3.0)
 
 project(Igor)
 
+set(COMPILER "none")
+
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
     MESSAGE("using GCC")
     add_compile_options("-fpermissive" "--std=c++17")
     add_definitions(-D_NEWTON_USE_DOUBLE)
+    set(COMPILER "GCC")
 
-elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+elseif (MSVC_VERSION GREATER_EQUAL "1900")
+    
+    MESSAGE("using Visual Studio C++")
+    add_compile_options("/std:c++latest" "/MP")
+    add_definitions(-D_UNICODE -DUNICODE -DNOMINMAX -D_NEWTON_USE_DOUBLE)
+    set(COMPILER "MSVCXX")
+    
+elseif()
 
-    if (MSVC_VERSION GREATER_EQUAL "1900")
-        MESSAGE("using Visual Studio C++")
-        add_compile_options("/std:c++latest" "/MP")
-        add_definitions(-D_UNICODE -DUNICODE -DNOMINMAX -D_NEWTON_USE_DOUBLE)
-    elseif()
-        MESSAGE(FATAL_ERROR "unsupported compiler version")
-    endif()
-
+    MESSAGE(FATAL_ERROR "unsupported compiler version")
+    
 endif()
+
+
 
 # global definitions
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -68,28 +74,28 @@ file(GLOB NEWTON_HEADERS RELATIVE ${CMAKE_SOURCE_DIR} "3rd/newton-dynamics/coreL
 # setup newton build
 message(Newton)
 add_library(core STATIC ${NEWTON_CORE_SOURCES} ${NEWTON_CORE_HEADERS})
-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+if(${COMPILER} STREQUAL "GNU")
     target_compile_definitions(core PRIVATE -D_POSIX_VER_64)
     target_compile_options(core PRIVATE -fpic -msse -msse3 -msse4 -mfpmath=sse -ffloat-store -ffast-math -freciprocal-math -funsafe-math-optimizations -fsingle-precision-constant)
 endif()
 target_include_directories(core PRIVATE ${NEWTON_CORE_HEADERS_DIR} ${TIME_TRACKER_HEADERS_DIR})
 
 add_library(physics STATIC ${NEWTON_PHYSICS_SOURCES} ${NEWTON_PHYSICS_HEADERS})
-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+if(${COMPILER} STREQUAL "GNU")
     target_compile_definitions(physics PRIVATE -D_POSIX_VER_64)
     target_compile_options(physics PRIVATE -fpic -msse -msse3 -msse4 -mfpmath=sse -ffloat-store -ffast-math -freciprocal-math -funsafe-math-optimizations -fsingle-precision-constant)
 endif()
 target_include_directories(physics PRIVATE  ${NEWTON_PHYSICS_HEADERS_DIR} ${NEWTON_CORE_HEADERS_DIR} ${TIME_TRACKER_HEADERS_DIR} ${NEWTON_MESH_UTIL_HEADERS_DIR})
 
 add_library(meshUtil STATIC ${NEWTON_MESH_UTIL_SOURCES} ${NEWTON_MESH_UTIL_HEADERS})
-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+if(${COMPILER} STREQUAL "GNU")
 target_compile_definitions(meshUtil PRIVATE -D_POSIX_VER_64)
     target_compile_options(meshUtil PRIVATE -fpic -msse -msse3 -msse4 -mfpmath=sse -ffloat-store -ffast-math -freciprocal-math -funsafe-math-optimizations -fsingle-precision-constant)
 endif()
 target_include_directories(meshUtil PRIVATE  ${NEWTON_MESH_UTIL_HEADERS_DIR} ${NEWTON_CORE_HEADERS_DIR} ${TIME_TRACKER_HEADERS_DIR}  ${NEWTON_PHYSICS_HEADERS_DIR})
 
 add_library(Newton SHARED ${NEWTON_SOURCES} ${NEWTON_HEADERS})
-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+if(${COMPILER} STREQUAL "GNU")
     target_compile_definitions(Newton PRIVATE -D_POSIX_VER_64)
     target_compile_options(Newton PRIVATE -fpic -msse -msse3 -msse4 -mfpmath=sse -ffloat-store -ffast-math -freciprocal-math -funsafe-math-optimizations -fsingle-precision-constant)
 endif()
@@ -117,9 +123,9 @@ endforeach()
 target_compile_definitions(IgorAux PRIVATE -D__IGOR_AUX_BUILDING_DLL__)
 target_include_directories(IgorAux PRIVATE  ${IGOR_AUX_HEADERS_DIR})
 
-if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+if(${COMPILER} STREQUAL "GNU")
     target_link_libraries(IgorAux)
-elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+elseif(${COMPILER} STREQUAL "MSVCXX")
     target_link_libraries(IgorAux DbgHelp)
 endif()
 
@@ -233,7 +239,7 @@ if(INSTALL_GTEST)
     file(GLOB_RECURSE IGOR_AUX_TEST_HEADERS LIST_DIRECTORIES false "${IGOR_AUX_TEST_SRC_DIR}*.h*")
     list(APPEND IGOR_AUX_TEST_SOURCES ${IGOR_AUX_TEST_HEADERS})
     add_executable(IgorAuxTest ${IGOR_AUX_TEST_SOURCES})
-    if (MSVC_VERSION GREATER_EQUAL "1900")
+    if(${COMPILER} STREQUAL "MSVCXX")
         target_compile_options(IgorAuxTest PRIVATE "/std:c++latest" "/MP")
     endif()
     target_include_directories(IgorAuxTest PRIVATE  ${IGOR_AUX_TEST_HEADERS_DIR} ${IGOR_AUX_HEADERS_DIR} ${GTEST_INCLUDE_DIRS})

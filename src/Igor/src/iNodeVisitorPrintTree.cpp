@@ -89,7 +89,7 @@ namespace Igor
 	void iNodeVisitorPrintTree::postOrderVisit(iNodePtr node)
 	{
 		// reduce indentation
-		_indenttation = _indenttation.getSubString(0, _indenttation.getSize() - 2);
+		_indenttation = _indenttation.getSubString(0, _indenttation.getLength() - 2);
 	}
 
 	void iNodeVisitorPrintTree::preTraverse()
