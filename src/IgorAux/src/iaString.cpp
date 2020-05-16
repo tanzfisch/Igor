@@ -122,6 +122,11 @@ namespace IgorAux
 		return wcscmp((*this).getData(), text.getData()) < 0;
 	}
 
+	bool iaString::operator>(const iaString &text) const
+	{
+		return wcscmp((*this).getData(), text.getData()) > 0;
+	}
+
 	std::wostream &operator<<(std::wostream &stream, const iaString &text)
 	{
 		if (!text.isEmpty())
@@ -188,8 +193,6 @@ namespace IgorAux
 			char *inptr = reinterpret_cast<char *>(_data);
 			char *outptr = buffer;
 
-			con_endl("");
-
 			size_t res = iconv(conv, &inptr, &inLeft, &outptr, &outLeft);
 			if (res == -1)
 			{
@@ -199,9 +202,9 @@ namespace IgorAux
 			{
 				result = bufferSize - outLeft;
 			}
-		}
 
-		iconv_close(conv);
+			iconv_close(conv);
+		}
 
 #endif
 
@@ -265,9 +268,9 @@ namespace IgorAux
 			{
 				result = size - outLeft;
 			}
-		}
 
-		iconv_close(conv);
+			iconv_close(conv);
+		}
 
 #endif
 
@@ -291,7 +294,7 @@ namespace IgorAux
 #endif
 
 #ifdef __IGOR_LINUX__
-		iconv_t conv = iconv_open("WCHAR_T", "UTF-8//TRANSLIT");
+		iconv_t conv = iconv_open("WCHAR_T", "UTF-8");
 		if (conv == (iconv_t)-1)
 		{
 			con_err("iconv_open " << strerror(errno));
@@ -320,9 +323,10 @@ namespace IgorAux
 				memcpy(_data, tmpbuffer, (_charCount) * sizeof(wchar_t));
 				_data[_charCount] = 0;
 			}
+
+			iconv_close(conv);
 		}
 
-		iconv_close(conv);
 #endif
 	}
 
@@ -398,6 +402,11 @@ namespace IgorAux
 		}
 
 		return false;
+	}
+
+	int64 iaString::getSize() const
+	{
+		return (_charCount + 1) * sizeof(wchar_t);
 	}
 
 	int64 iaString::getLength() const
