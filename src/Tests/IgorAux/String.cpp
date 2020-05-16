@@ -3,8 +3,6 @@
 #include <iaString.h>
 using namespace IgorAux;
 
-#include <iconv.h>
-
 TEST(StringTests, Initial)
 {
     iaString string;
@@ -47,22 +45,22 @@ TEST(StringTests, Assignment)
 
 TEST(StringTests, ToLower)
 {
-    iaString string(L"FooBar!124こん");
+    iaString string(L"FooBar!124");
     string.toLower();
 
     EXPECT_EQ(string.isEmpty(), false);
-    EXPECT_EQ(string.getLength(), 12);
-    EXPECT_EQ(string, L"foobar!124こん");
+    EXPECT_EQ(string.getLength(), 10);
+    EXPECT_EQ(string, L"foobar!124");
 }
 
 TEST(StringTests, ToUpper)
 {
-    iaString string(L"FooBar!124こん");
+    iaString string(L"FooBar!124");
     string.toUpper();
 
     EXPECT_EQ(string.isEmpty(), false);
-    EXPECT_EQ(string.getLength(), 12);
-    EXPECT_EQ(string, L"FOOBAR!124こん");
+    EXPECT_EQ(string.getLength(), 10);
+    EXPECT_EQ(string, L"FOOBAR!124");
 }
 
 TEST(StringTests, getData)
@@ -103,28 +101,19 @@ TEST(StringTests, FooBar)
     EXPECT_EQ(string, "FooBar");
 }
 
-TEST(StringTests, WideCharacters)
+TEST(StringTests, UTF8Trivial)
 {
-    iaString string(L"¡Hola!こんにちは");
+    iaString string(L"abc123()");
 
-    EXPECT_EQ(string.isEmpty(), false);
-    EXPECT_EQ(string.getLength(), 11);
-    EXPECT_EQ(string, L"¡Hola!こんにちは");
-}
+    EXPECT_EQ(string.getUTF8Size(), 8);
+    EXPECT_EQ(string.getLength(), 8);
 
-TEST(StringTests, UTF8)
-{
-    iaString string(L"¡こんにちは!");
+    char utf8[8];
+    string.getUTF8(utf8, 8);
 
-    EXPECT_EQ(string.getUTF8Size(), 19);
-    EXPECT_EQ(string.getLength(), 7);
+    string.setUTF8(utf8, 8);
 
-    char utf8[19];
-    string.getUTF8(utf8, 19);
-
-    string.setUTF8(utf8, 19);
-
-    EXPECT_EQ(string.getUTF8Size(), 19);
-    EXPECT_EQ(string.getLength(), 7);
-    EXPECT_EQ(string, L"¡こんにちは!");
+    EXPECT_EQ(string.getUTF8Size(), 8);
+    EXPECT_EQ(string.getLength(), 8);
+    EXPECT_EQ(string, L"abc123()");
 }
