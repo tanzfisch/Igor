@@ -1,10 +1,10 @@
 var class_igor_1_1i_bone =
 [
-    [ "getBottomJoint", "class_igor_1_1i_bone.html#a462ef648c1359abeefcfecda6b787633", null ],
-    [ "getCustomData", "class_igor_1_1i_bone.html#ade0c591182b46179c10bc25b78a9feda", null ],
-    [ "getLenght", "class_igor_1_1i_bone.html#a4a9ef981c2d84608b8639a3cabb58fdf", null ],
-    [ "getMatrix", "class_igor_1_1i_bone.html#a238144a2b2aa6dba567a2c9b68feebe9", null ],
-    [ "getTopJoint", "class_igor_1_1i_bone.html#a199ac4c3e405ebc5f353316aad730eea", null ],
+    [ "getBottomJoint", "class_igor_1_1i_bone.html#a902b1e700083c4ec8099733ed4e95086", null ],
+    [ "getCustomData", "class_igor_1_1i_bone.html#a374ad6a659dd0b5a025a22d284c06a33", null ],
+    [ "getLenght", "class_igor_1_1i_bone.html#a9ea3895c00f96e60f276af28cd156346", null ],
+    [ "getMatrix", "class_igor_1_1i_bone.html#a566b943a85fcef7bc20ac45886ca420b", null ],
+    [ "getTopJoint", "class_igor_1_1i_bone.html#af6ba79c14037263b4861dc615d7597ba", null ],
     [ "setCustomData", "class_igor_1_1i_bone.html#aad851eea032c62af32ea6868ab0c1b72", null ],
     [ "setLenght", "class_igor_1_1i_bone.html#afefbb2c626c99a04a22fae0a445163ef", null ],
     [ "setMatrix", "class_igor_1_1i_bone.html#a1393b368a445b9175a61b434c0a2793a", null ],

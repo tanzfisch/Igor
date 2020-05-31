@@ -14,6 +14,5 @@ var searchData=
   ['color_5ftext',['COLOR_TEXT',['../i_widget_default_theme_8cpp.html#a6be58cf7521da7e17d025478ba2e1848',1,'iWidgetDefaultTheme.cpp']]],
   ['color_5ftext_5fdark',['COLOR_TEXT_DARK',['../i_widget_default_theme_8cpp.html#aa81158675a695aa64616d3d4be0eb2be',1,'iWidgetDefaultTheme.cpp']]],
   ['color_5fwhite',['COLOR_WHITE',['../i_widget_default_theme_8cpp.html#a06ae910e9ad1c0ac096e711db4cb2e17',1,'iWidgetDefaultTheme.cpp']]],
-  ['corners',['corners',['../namespace_igor.html#a955dd3946ad8a6d70910f94f3d5e5a7e',1,'Igor']]],
   ['customdatasizesize',['CustomDataSizeSize',['../struct_o_m_p_f_1_1_o_m_p_f_default_configuration.html#ae39552b8ebb46424fba2def6cb4470b7',1,'OMPF::OMPFDefaultConfiguration']]]
 ];

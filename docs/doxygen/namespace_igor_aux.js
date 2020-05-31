@@ -26,6 +26,7 @@ var namespace_igor_aux =
     [ "iaState", "class_igor_aux_1_1ia_state.html", "class_igor_aux_1_1ia_state" ],
     [ "iaStateMachine", "class_igor_aux_1_1ia_state_machine.html", "class_igor_aux_1_1ia_state_machine" ],
     [ "iaString", "class_igor_aux_1_1ia_string.html", "class_igor_aux_1_1ia_string" ],
+    [ "iaTime", "class_igor_aux_1_1ia_time.html", "class_igor_aux_1_1ia_time" ],
     [ "iaTransform", "class_igor_aux_1_1ia_transform.html", "class_igor_aux_1_1ia_transform" ],
     [ "iaTransition", "class_igor_aux_1_1ia_transition.html", "class_igor_aux_1_1ia_transition" ],
     [ "iaVector2", "class_igor_aux_1_1ia_vector2.html", "class_igor_aux_1_1ia_vector2" ],

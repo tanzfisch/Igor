@@ -14,10 +14,11 @@ var searchData=
   ['blendfuncdestination',['BlendFuncDestination',['../namespace_igor.html#ab297c11b2c64e78ac457158bfddd8ed7a09f36b800e36482e25295ee9a2b71688',1,'Igor::BlendFuncDestination()'],['../namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761a09f36b800e36482e25295ee9a2b71688',1,'OMPF::BlendFuncDestination()']]],
   ['blendfuncsource',['BlendFuncSource',['../namespace_igor.html#ab297c11b2c64e78ac457158bfddd8ed7a3f2ce0a00cce48a33b601c21e1ed4643',1,'Igor::BlendFuncSource()'],['../namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761a3f2ce0a00cce48a33b601c21e1ed4643',1,'OMPF::BlendFuncSource()']]],
   ['block',['block',['../class_igor_1_1i_user_control_color_chooser.html#a7750e7184402309d384841b07cfa65f2',1,'Igor::iUserControlColorChooser::block()'],['../class_igor_1_1i_widget.html#aa2ead76f10f21ef7cd608e122bb000c0',1,'Igor::iWidget::block()'],['../class_igor_1_1i_widget_color_gradient.html#a78b35a311aa81a7e36a736e2dbc0f62e',1,'Igor::iWidgetColorGradient::block()']]],
-  ['blue',['Blue',['../namespace_igor.html#a7e67018151b83309d748c1200262839ea9594eec95be70e7b1710f730fdda33d9',1,'Igor::Blue()'],['../namespace_igor_aux.html#a40f0d9edbd2c9519788b20a95a9facc8a9594eec95be70e7b1710f730fdda33d9',1,'IgorAux::Blue()'],['../namespace_igor.html#a1591be7a883348974cbed3cab1bd43d5a1b3e1ee9bff86431dea6b181365ba65f',1,'Igor::BLUE()']]],
+  ['blue',['BLUE',['../namespace_igor.html#a1591be7a883348974cbed3cab1bd43d5a1b3e1ee9bff86431dea6b181365ba65f',1,'Igor::BLUE()'],['../namespace_igor_aux.html#a40f0d9edbd2c9519788b20a95a9facc8a9594eec95be70e7b1710f730fdda33d9',1,'IgorAux::Blue()'],['../namespace_igor.html#a7e67018151b83309d748c1200262839ea9594eec95be70e7b1710f730fdda33d9',1,'Igor::Blue()']]],
   ['border_5fwidth',['BORDER_WIDTH',['../namespace_igor.html#a597acb3551ac82725db16ab88dc4174e',1,'Igor']]],
   ['border_5fwidth2',['BORDER_WIDTH2',['../namespace_igor.html#ad29933c1fba912dee0c8b25ecfe3bf3f',1,'Igor']]],
   ['bottom',['Bottom',['../namespace_igor.html#a2526c10e8630ee25d053e6c519b15180a2ad9d63b69c4a10a5cc9cad923133bc4',1,'Igor']]],
   ['break',['Break',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24ae4c38d6d45baf080943d323dd51a2ce8',1,'Igor']]],
+  ['buffer_5foffset',['BUFFER_OFFSET',['../i_renderer_8cpp.html#a063a3af905ecefe83d76ca3f0fe0653e',1,'iRenderer.cpp']]],
   ['buffer_5fsize',['BUFFER_SIZE',['../class_igor_1_1i_profiler_section.html#a5101ca0e9180a6e4508c9c104076d2a3',1,'Igor::iProfilerSection']]]
 ];

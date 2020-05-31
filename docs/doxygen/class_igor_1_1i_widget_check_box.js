@@ -6,7 +6,7 @@ var class_igor_1_1i_widget_check_box =
     [ "calcMinSize", "class_igor_1_1i_widget_check_box.html#a71c7bf404994e38ffd8432f55d4fd53e", null ],
     [ "draw", "class_igor_1_1i_widget_check_box.html#aa54db8546decd504d661331f88225f7d", null ],
     [ "endRadioButtonGroup", "class_igor_1_1i_widget_check_box.html#a08593cbef0515aa979aa99c79cd67907", null ],
-    [ "getText", "class_igor_1_1i_widget_check_box.html#adc3bd65e6c01b9fe8e775ec308f3ac00", null ],
+    [ "getText", "class_igor_1_1i_widget_check_box.html#a8fe60431643597d7e0349e23a3c4e9f5", null ],
     [ "getWidgetType", "class_igor_1_1i_widget_check_box.html#ab027ff0753c0f44dec2e66055655e2e4", null ],
     [ "handleMouseKeyUp", "class_igor_1_1i_widget_check_box.html#aee99e0fb8acedbfdf3f2fe39d19d9a7d", null ],
     [ "isChecked", "class_igor_1_1i_widget_check_box.html#ade60771b06b277866e254ec465228643", null ],
@@ -15,6 +15,6 @@ var class_igor_1_1i_widget_check_box =
     [ "_checked", "class_igor_1_1i_widget_check_box.html#a8605b350feda12a9018e7db0c95ba2c6", null ],
     [ "_currentRadioButtons", "class_igor_1_1i_widget_check_box.html#afdbcfdc83a0e842414a0c65c9df7063b", null ],
     [ "_generatingRadioButtonGroup", "class_igor_1_1i_widget_check_box.html#a973aea8285082e8aae4ba779968b216b", null ],
-    [ "_radioButtons", "class_igor_1_1i_widget_check_box.html#a6788dfdc9edf560b9ef6e43573110b64", null ],
+    [ "_radioButtons", "class_igor_1_1i_widget_check_box.html#ae07ce09b95797862eb209de5def5b3e5", null ],
     [ "_text", "class_igor_1_1i_widget_check_box.html#ad93d58bf513439f22aa7c945ae27f3f9", null ]
 ];

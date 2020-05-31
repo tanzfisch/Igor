@@ -6,7 +6,6 @@ var searchData=
   ['sections',['Sections',['../namespace_igor.html#a43197990e5686f09dd3845067aafaf5da855c3eca6c7aaef477b4f03e4699944d',1,'Igor']]],
   ['setup',['Setup',['../namespace_igor.html#a3ada26443dfaff731400935076205c3aaad2376beebecdcf7846ba973fa1a005b',1,'Igor']]],
   ['seven',['Seven',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a12e67aac3e7f9227cc35f8f047d7dc74',1,'Igor']]],
-  ['shift',['Shift',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a825a3d98017bab11815ad2817201324c',1,'Igor']]],
   ['six',['Six',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24ae6fbc0b9673f8c86726688d7607fc8f5',1,'Igor']]],
   ['sourcealpha',['SourceAlpha',['../namespace_igor.html#a490f00fed47903c329843cb921bbace9a5660d86f4a66c824e699b26a51201a70',1,'Igor::SourceAlpha()'],['../namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72a5660d86f4a66c824e699b26a51201a70',1,'OMPF::SourceAlpha()']]],
   ['sourcecolor',['SourceColor',['../namespace_igor.html#a490f00fed47903c329843cb921bbace9a1901920023e2275becaae076a28b590a',1,'Igor::SourceColor()'],['../namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72a1901920023e2275becaae076a28b590a',1,'OMPF::SourceColor()']]],

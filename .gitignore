@@ -18,6 +18,7 @@
 x64/
 x86/
 bld/
+build/
 [Bb]in/
 [Oo]bj/
 [Ll]og/
@@ -241,3 +242,4 @@ _Pvt_Extensions
 include/
 lib/
 src/Igor/src/gitTag\.inl
+.vscode

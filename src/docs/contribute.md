@@ -4,7 +4,7 @@ Contribute to Igor                   {#contribute}
 Get Igor
 --------
 
-You can get the Igor sources from [github](https://github.com/tanzfisch/Igor.git).
+Get the Igor sources from [github](https://github.com/tanzfisch/Igor.git).
  
 Submodules
 ----------
@@ -23,11 +23,12 @@ and
 
 Build
 -----
-To build Igor open the solution at src\Igor\vs\Igor.sln set the target platform to x64 (32bit is no longer supported) and build.
 
-Only ever the latest Visual Studio project files are included. There is no time to maintain more.
+Igor is using cmake. The build is configured to work with Debian/g++ and Windows/MSVC. Other platforms might work too.
 
-Note: The git command line tool needs to be present in order to build.
+Under linux zou might need to install some additional dependencies
+
+`sudo apt-get install libx11-dev libgl1-mesa-dev libglu1-mesa-dev libglfw3-dev`
 
 Git Flow
 --------

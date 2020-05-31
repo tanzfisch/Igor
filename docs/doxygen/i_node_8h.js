@@ -2,7 +2,6 @@ var i_node_8h =
 [
     [ "iNode", "class_igor_1_1i_node.html", "class_igor_1_1i_node" ],
     [ "iNodePtr", "i_node_8h.html#a8653487f79196f88f6ffd3a6a1a77e19", null ],
-    [ "iScenePtr", "i_node_8h.html#af75611482c6e0e7b7fbce28cc4b95136", null ],
     [ "iNodeKind", "i_node_8h.html#af60214c983d49068fb5a9147cfb723fa", [
       [ "Node", "i_node_8h.html#af60214c983d49068fb5a9147cfb723faa6c3a6944a808a7c0bbb6788dbec54a9f", null ],
       [ "Renderable", "i_node_8h.html#af60214c983d49068fb5a9147cfb723faaf77c38be501be6af485917f8d6525bde", null ],

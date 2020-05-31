@@ -4,7 +4,6 @@ var searchData=
   ['physics_20example',['Physics Example',['../example07.html',1,'tutorials']]],
   ['p',['P',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a44c29edb103a2872f519ad0c9a0fdaaa',1,'Igor']]],
   ['particlesystem',['ParticleSystem',['../namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3aadc15343652893741ffdfcb27f92e0f8',1,'OMPF']]],
-  ['pause',['pause',['../class_igor_1_1i_sound.html#acf961f8f780a5fb5a4087ae883fff70c',1,'Igor::iSound']]],
   ['perspective',['perspective',['../class_igor_aux_1_1ia_matrix.html#aa99c7c8d3fdc3b92d2f79c86dab3bba6',1,'IgorAux::iaMatrix']]],
   ['pgdown',['PgDown',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a33b68dcba2c2265cf01efcc65f7e3a53',1,'Igor']]],
   ['pgup',['PgUp',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a753a2fb3083e135b9236c92ecc560a50',1,'Igor']]],
@@ -14,10 +13,9 @@ var searchData=
   ['physicsnodesettransform',['PhysicsNodeSetTransform',['../class_igor_1_1i_physics.html#a4d0d07ff15000d37cd93021ea8c42626',1,'Igor::iPhysics::PhysicsNodeSetTransform()'],['../class_igor_1_1i_physics_body.html#aa653cb3466a341b3404c711f9d36a1ba',1,'Igor::iPhysicsBody::PhysicsNodeSetTransform()'],['../namespace_igor.html#a1e16cb316c480e53b31cf99584c3f7c6',1,'Igor::PhysicsNodeSetTransform()']]],
   ['physicsnodesettransformation',['PhysicsNodeSetTransformation',['../namespace_igor.html#afb63d89d590fb411b03899a40ed32f9d',1,'Igor']]],
   ['pickcolorid',['pickcolorID',['../class_igor_1_1i_view.html#a37562758e5ff35f5e1d1e775fe79152e',1,'Igor::iView::pickcolorID(uint32 posx, uint32 posy)'],['../class_igor_1_1i_view.html#a71f7af950bec2ab98e061f3e8505804d',1,'Igor::iView::pickcolorID(const iRectanglei &amp;rectangle, std::vector&lt; uint64 &gt; &amp;colorIDs)']]],
-  ['play',['play',['../class_igor_1_1i_sound.html#a39c0f018d2c41ecbd70c849f78ecf408',1,'Igor::iSound']]],
   ['point',['Point',['../i_particle_emitter_8h.html#a1de5e45af54f9f098e4ae388726e9677',1,'Point():&#160;iParticleEmitter.h'],['../ompf_emitter_chunk_8h.html#a1de5e45af54f9f098e4ae388726e9677',1,'Point():&#160;ompfEmitterChunk.h'],['../namespace_igor.html#a57ff5df1d958a4ba5c7495c3fc7282d0a2a3cd5946cfd317eb99c3d32e35e2d4c',1,'Igor::Point()']]],
   ['pointemitter',['PointEmitter',['../namespace_igor.html#a5baaffb3c744e70fd01650ed047f776fafd2ee4d096558d0dde554c433956460c',1,'Igor']]],
-  ['pop',['pop',['../class_igor_1_1i_skeleton.html#acd5bea86fda11324fb27c9fdd2d301fe',1,'Igor::iSkeleton::pop()'],['../class_igor_aux_1_1ia_ring_queue.html#a898cce3b39071517134195ba7594222e',1,'IgorAux::iaRingQueue::pop()']]],
+  ['pop',['pop',['../class_igor_aux_1_1ia_ring_queue.html#a898cce3b39071517134195ba7594222e',1,'IgorAux::iaRingQueue::pop()'],['../class_igor_1_1i_skeleton.html#acd5bea86fda11324fb27c9fdd2d301fe',1,'Igor::iSkeleton::pop()']]],
   ['pos',['pos',['../class_igor_1_1i_emitter_triangle.html#a04cdca226410165d7f0841cbabafb971',1,'Igor::iEmitterTriangle']]],
   ['position',['Position',['../namespace_igor.html#a490f00fed47903c329843cb921bbace9a52f5e0bc3859bc5f5e25130b6c7e8881',1,'Igor::Position()'],['../namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72a52f5e0bc3859bc5f5e25130b6c7e8881',1,'OMPF::Position()']]],
   ['positionorientation',['PositionOrientation',['../namespace_igor.html#a490f00fed47903c329843cb921bbace9adb27a62351b3d0ab4c1e83ffaba33d1d',1,'Igor::PositionOrientation()'],['../namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72adb27a62351b3d0ab4c1e83ffaba33d1d',1,'OMPF::PositionOrientation()']]],
@@ -37,6 +35,6 @@ var searchData=
   ['printthreadid',['printThreadID',['../class_igor_aux_1_1ia_console.html#ac12f2bcfb38d6f14c3e30b4a66697b87',1,'IgorAux::iaConsole::printThreadID()'],['../namespace_igor_aux.html#aeb2f92e445fe348731233a2bc5cf94d8',1,'IgorAux::printThreadID()']]],
   ['printtoconsole',['printToConsole',['../class_igor_1_1i_node_visitor_print_tree.html#a3e5418f8b4ed47ee581c3e8cae1ee273',1,'Igor::iNodeVisitorPrintTree']]],
   ['printtombstone',['printTombstone',['../class_igor_aux_1_1ia_console.html#a6d58812fef212a8e6f90ad18d9535a2d',1,'IgorAux::iaConsole']]],
-  ['project',['project',['../class_igor_1_1i_renderer.html#a4321ab9584c1e87a59248daf439d396a',1,'Igor::iRenderer::project()'],['../class_igor_1_1i_view.html#ae595560146454444796b5ce1c518f6a9',1,'Igor::iView::project()'],['../class_igor_aux_1_1ia_vector3.html#a8502c49538eb5016666463b0678d255d',1,'IgorAux::iaVector3::project()']]],
-  ['push',['push',['../class_igor_1_1i_skeleton.html#a39ff4e7f15965026439ac6ba492b3ad4',1,'Igor::iSkeleton::push()'],['../class_igor_aux_1_1ia_ring_queue.html#a9fca81e78300b4b83055bb12031e0220',1,'IgorAux::iaRingQueue::push()']]]
+  ['project',['project',['../class_igor_aux_1_1ia_vector3.html#a5f8a5b457691d9db6139d2b0c941aa5e',1,'IgorAux::iaVector3::project()'],['../class_igor_1_1i_renderer.html#a4321ab9584c1e87a59248daf439d396a',1,'Igor::iRenderer::project()'],['../class_igor_1_1i_view.html#ae595560146454444796b5ce1c518f6a9',1,'Igor::iView::project()']]],
+  ['push',['push',['../class_igor_aux_1_1ia_ring_queue.html#a9fca81e78300b4b83055bb12031e0220',1,'IgorAux::iaRingQueue::push()'],['../class_igor_1_1i_skeleton.html#a39ff4e7f15965026439ac6ba492b3ad4',1,'Igor::iSkeleton::push()']]]
 ];
