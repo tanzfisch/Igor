@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2014-2015 by Martin Loga
+//    (c) Copyright 2014-2020 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it   
 // under the terms of the GNU Lesser General Public License as published by  
@@ -29,20 +29,19 @@
 #ifndef __STATEMACHINEEXAMPLE__
 #define __STATEMACHINEEXAMPLE__
 
-#include <iWindow.h>
-#include <iView.h>
-#include <iKeyboard.h>
-#include <iTextureFont.h>
-#include <iTexture.h>
-#include <iParticleSystem2D.h>
+#include <igor/os/iWindow.h>
+#include <igor/graphics/iView.h>
+#include <igor/os/iKeyboard.h>
+#include <igor/resources/texture/iTextureFont.h>
+#include <igor/resources/texture/iTexture.h>
+#include <igor/graphics/simulation/iParticleSystem2D.h>
 using namespace Igor;
 
-#include <iaStateMachine.h>
-#include <iaString.h>
+#include <iaux/statemachine/iaStateMachine.h>
+#include <iaux/data/iaString.h>
 using namespace IgorAux;
 
 #include <vector>
-
 
 class StateMachineExample
 {

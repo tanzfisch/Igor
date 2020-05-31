@@ -1,0 +1,32 @@
+// Igor game engine
+// (c) Copyright 2012-2020 by Martin Loga
+// see copyright notice in corresponding header file
+
+#include <igor/physics/iPhysicsMaterial.h>
+
+#include <igor/physics/iPhysics.h>
+
+namespace Igor
+{
+
+    iPhysicsMaterial::iPhysicsMaterial(int64 id)
+    {
+        _id = id;
+    }
+
+    int64 iPhysicsMaterial::getID()
+    {
+        return _id;
+    }
+
+    void iPhysicsMaterial::setName(const iaString &name)
+    {
+        _name = name;
+    }
+
+    const iaString &iPhysicsMaterial::getName() const
+    {
+        return _name;
+    }
+
+} // namespace Igor

@@ -1,38 +1,38 @@
 #include "Example3D.h"
 
-#include <iaConsole.h>
-#include <iaString.h>
+#include <iaux/system/iaConsole.h>
+#include <iaux/data/iaString.h>
 using namespace IgorAux;
 
-#include <iMaterial.h>
-#include <iNodeVisitorPrintTree.h>
-#include <iTaskManager.h>
-#include <iNodeSkyBox.h>
-#include <iNodeCamera.h>
-#include <iNodeModel.h> 
-#include <iNodeTransform.h>
-#include <iRenderer.h>
-#include <iApplication.h>
-#include <iSceneFactory.h>
-#include <iScene.h>
-#include <iNodeManager.h>
-#include <iMouse.h>
-#include <iKeyboard.h>
-#include <iTimer.h>
-#include <iTextureFont.h>
-#include <iNodeLight.h>
-#include <iModelResourceFactory.h>
-#include <iTaskFlushModels.h>
-#include <iTaskFlushTextures.h>
-#include <iaString.h>
-#include <iMaterialResourceFactory.h>
-#include <iProfiler.h>
-#include <iNodeSwitch.h>
-#include <iNodeLODSwitch.h>
-#include <iNodeLODTrigger.h>
-#include <iNodeVisitorRenderColorID.h>
-#include <iEvaluationManager.h>
-#include <iEvaluationTransform.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/graphics/scene/traversal/iNodeVisitorPrintTree.h>
+#include <igor/threading/iTaskManager.h>
+#include <igor/graphics/scene/nodes/iNodeSkyBox.h>
+#include <igor/graphics/scene/nodes/iNodeCamera.h>
+#include <igor/graphics/scene/nodes/iNodeModel.h>
+#include <igor/graphics/scene/nodes/iNodeTransform.h>
+#include <igor/graphics/iRenderer.h>
+#include <igor/os/iApplication.h>
+#include <igor/graphics/scene/iSceneFactory.h>
+#include <igor/graphics/scene/iScene.h>
+#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/os/iMouse.h>
+#include <igor/os/iKeyboard.h>
+#include <igor/os/iTimer.h>
+#include <igor/resources/texture/iTextureFont.h>
+#include <igor/graphics/scene/nodes/iNodeLight.h>
+#include <igor/resources/model/iModelResourceFactory.h>
+#include <igor/threading/tasks/iTaskFlushModels.h>
+#include <igor/threading/tasks/iTaskFlushTextures.h>
+#include <iaux/data/iaString.h>
+#include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/resources/profiler/iProfiler.h>
+#include <igor/graphics/scene/nodes/iNodeSwitch.h>
+#include <igor/graphics/scene/nodes/iNodeLODSwitch.h>
+#include <igor/graphics/scene/nodes/iNodeLODTrigger.h>
+#include <igor/graphics/scene/traversal/iNodeVisitorRenderColorID.h>
+#include <igor/graphics/evaluation/iEvaluationManager.h>
+#include <igor/graphics/evaluation/iEvaluationTransform.h>
 using namespace Igor;
 
 Example3D::Example3D()
@@ -53,6 +53,7 @@ void Example3D::init()
     _window.setTitle("Igor - 3D Example");
     _window.setClientSize(1024, 768);
     _window.setCentered();
+    _window.setVSync(true);
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &Example3D::onWindowClosed));
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &Example3D::onWindowResized));
 
@@ -80,24 +81,24 @@ void Example3D::init()
     // we want a camera which can be rotated arround the origin
     // we will acchive that with 3 transform nodes
     // one is for the heading
-    iNodeTransform* cameraHeading = iNodeManager::getInstance().createNode<iNodeTransform>();
-    // give the transform node a name. naming is optional and ist jus for helping to debug. 
+    iNodeTransform *cameraHeading = iNodeManager::getInstance().createNode<iNodeTransform>();
+    // give the transform node a name. naming is optional and ist jus for helping to debug.
     // Names do not have to be unique but since it is possible to find nodes by name they better are
     cameraHeading->setName("camera heading");
     _cameraHeading = cameraHeading->getID();
     // one is for the pitch
-    iNodeTransform* cameraPitch = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *cameraPitch = iNodeManager::getInstance().createNode<iNodeTransform>();
     cameraPitch->setName("camera pitch");
     _cameraPitch = cameraPitch->getID();
     // and one is for translation or distance from the origin
-    iNodeTransform* cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
     cameraTranslation->setName("camera translation");
     // translate away from origin
     cameraTranslation->translate(0, 0, 10);
     _cameraTranslation = cameraTranslation->getID();
     // from all nodes that we want to control later we save the node ID
     // and last but not least we create a camera node
-    iNodeCamera* camera = iNodeManager::getInstance().createNode<iNodeCamera>();
+    iNodeCamera *camera = iNodeManager::getInstance().createNode<iNodeCamera>();
     camera->setName("camera");
     // and build everything together
     // first we add the heading to the root node
@@ -108,16 +109,16 @@ void Example3D::init()
     cameraPitch->insertNode(cameraTranslation);
     // and than we add the camera to the translation
     cameraTranslation->insertNode(camera);
-    // and finally we set the camera active. for this to work a camera must be part of a scene 
+    // and finally we set the camera active. for this to work a camera must be part of a scene
     // wich we achived by adding all those nodes on to an other starting with the root node
     _view.setCurrentCamera(camera->getID());
 
     // create a single cat model
-    iNodeTransform* justCatTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *justCatTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     justCatTransform->setName("just a cat transform");
     justCatTransform->translate(0, 1, 0);
     // create a cat model
-    iNodeModel* justCatModel = iNodeManager::getInstance().createNode<iNodeModel>();
+    iNodeModel *justCatModel = iNodeManager::getInstance().createNode<iNodeModel>();
     // Node model names can be altered but they also are generated based on the file name
     justCatModel->setModel("cat.ompf");
     // building the created nodes together and insert them in the scene
@@ -126,11 +127,11 @@ void Example3D::init()
 
     // create a group of models that can be moved together due to being child to the same transform node
     // creating transformation node used for the heading of it's children
-    iNodeTransform* allObjectsHeading = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *allObjectsHeading = iNodeManager::getInstance().createNode<iNodeTransform>();
     allObjectsHeading->setName("all objects heading");
     _allObjectsHeading = allObjectsHeading->getID();
     // creating transformation node used for the pitch of it's children
-    iNodeTransform* allObjectsPitch = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *allObjectsPitch = iNodeManager::getInstance().createNode<iNodeTransform>();
     allObjectsPitch->setName("all objects pitch");
     _allObjectsPitch = allObjectsPitch->getID();
     // and add the nodes to the scene
@@ -139,30 +140,30 @@ void Example3D::init()
 
     // next we create a couple of model nodes that will be connected to be alternative representations of each other controled by a switch node
     // create a cat model including a transform node to add later to the switch node
-    iNodeTransform* catTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *catTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     catTransform->setName("cat transform");
     catTransform->translate(1, -1, 0);
-    iNodeModel* catModel = iNodeManager::getInstance().createNode<iNodeModel>();
+    iNodeModel *catModel = iNodeManager::getInstance().createNode<iNodeModel>();
     catModel->setModel("cat.ompf");
     // add the cat to the cat transform
     catTransform->insertNode(catModel);
     // repead for the teapot
-    iNodeTransform* teapotTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *teapotTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     teapotTransform->setName("teapot transform");
     teapotTransform->translate(1, -1, 0);
     teapotTransform->scale(0.33, 0.33, 0.33);
-    iNodeModel* teapotModel = iNodeManager::getInstance().createNode<iNodeModel>();
+    iNodeModel *teapotModel = iNodeManager::getInstance().createNode<iNodeModel>();
     teapotModel->setModel("teapot.ompf");
     teapotTransform->insertNode(teapotModel);
     // repeat for a crate
-    iNodeTransform* crateTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *crateTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     crateTransform->setName("crate transform");
     crateTransform->translate(1, -0.5, 0);
-    iNodeModel* crateModel = iNodeManager::getInstance().createNode<iNodeModel>();
+    iNodeModel *crateModel = iNodeManager::getInstance().createNode<iNodeModel>();
     crateModel->setModel("crate.ompf");
     crateTransform->insertNode(crateModel);
     // creating the switch node
-    iNodeSwitch* switchNode = iNodeManager::getInstance().createNode<iNodeSwitch>();
+    iNodeSwitch *switchNode = iNodeManager::getInstance().createNode<iNodeSwitch>();
     _switchNode = switchNode->getID();
     // add the switch node to the all objects pitch / group
     allObjectsPitch->insertNode(switchNode);
@@ -175,29 +176,29 @@ void Example3D::init()
 
     // now we basically do the same again. creating three models and tree transform nodes but this time we add them not to a switch node but to an level of detail node
     // the teapot as LOD0
-    iNodeTransform* lod0Transform = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *lod0Transform = iNodeManager::getInstance().createNode<iNodeTransform>();
     lod0Transform->setName("lod0 transform");
     lod0Transform->translate(-1, -1, 0);
     lod0Transform->scale(0.33, 0.33, 0.33);
-    iNodeModel* lod0Model = iNodeManager::getInstance().createNode<iNodeModel>();
+    iNodeModel *lod0Model = iNodeManager::getInstance().createNode<iNodeModel>();
     lod0Model->setModel("teapot.ompf");
     lod0Transform->insertNode(lod0Model);
     // the cat as LOD1
-    iNodeTransform* lod1Transform = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *lod1Transform = iNodeManager::getInstance().createNode<iNodeTransform>();
     lod1Transform->setName("lod1 transform");
     lod1Transform->translate(-1, -1, 0);
-    iNodeModel* lod1Model = iNodeManager::getInstance().createNode<iNodeModel>();
+    iNodeModel *lod1Model = iNodeManager::getInstance().createNode<iNodeModel>();
     lod1Model->setModel("cat.ompf");
     lod1Transform->insertNode(lod1Model);
     // the create as LOD2
-    iNodeTransform* lod2Transform = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *lod2Transform = iNodeManager::getInstance().createNode<iNodeTransform>();
     lod2Transform->setName("lod0 transform");
     lod2Transform->translate(-1, -0.5, 0);
-    iNodeModel* lod2Model = iNodeManager::getInstance().createNode<iNodeModel>();
+    iNodeModel *lod2Model = iNodeManager::getInstance().createNode<iNodeModel>();
     lod2Model->setModel("crate.ompf");
     lod2Transform->insertNode(lod2Model);
     // creating the LOD switch node
-    iNodeLODSwitch* lodswitch = iNodeManager::getInstance().createNode<iNodeLODSwitch>();
+    iNodeLODSwitch *lodswitch = iNodeManager::getInstance().createNode<iNodeLODSwitch>();
     // add it to the scene
     allObjectsPitch->insertNode(lodswitch);
     // and add the nodes to it
@@ -210,14 +211,14 @@ void Example3D::init()
     lodswitch->setThresholds(lod2Transform, 11.0f, 22.0f);
     // in order to causing the LOD switch to change the active child node it needs to be triggered by a LOD trigger node
     // creating the lod trigger node
-    iNodeLODTrigger* lodtrigger = iNodeManager::getInstance().createNode<iNodeLODTrigger>();
+    iNodeLODTrigger *lodtrigger = iNodeManager::getInstance().createNode<iNodeLODTrigger>();
     // bind the lod switch node with the lod trigger node
     lodswitch->addTrigger(lodtrigger);
     // and add the lod trigger to the scene by attaching it to the camera. there can be multiple LOD triggers and any lod switch can react on any lod trigger
     camera->insertNode(lodtrigger);
 
     // create a skybox
-    iNodeSkyBox* skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
+    iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
     // set it up with the default skybox texture
     skyBoxNode->setTextures(
         iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
@@ -240,14 +241,14 @@ void Example3D::init()
 
     // setup light
     // transform node for the lights orientation
-    iNodeTransform* directionalLightRotate = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *directionalLightRotate = iNodeManager::getInstance().createNode<iNodeTransform>();
     // keep transform node id so we can manipulate the light's position later
     _directionalLightRotate = directionalLightRotate->getID();
     // transform node for the lights distance to the origin
-    iNodeTransform* directionalLightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *directionalLightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
     directionalLightTranslate->translate(100, 100, 100);
     // the light node
-    iNodeLight* lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
+    iNodeLight *lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
     lightNode->setAmbient(iaColor4f(0.3f, 0.3f, 0.3f, 1.0f));
     lightNode->setDiffuse(iaColor4f(0.8f, 0.8f, 0.8f, 1.0f));
     lightNode->setSpecular(iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
@@ -328,7 +329,7 @@ void Example3D::deinit()
 
 void Example3D::onMouseWheel(int32 d)
 {
-    iNodeTransform* camTranslation = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_cameraTranslation));
+    iNodeTransform *camTranslation = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraTranslation));
     if (camTranslation != nullptr)
     {
         if (d < 0)
@@ -342,12 +343,12 @@ void Example3D::onMouseWheel(int32 d)
     }
 }
 
-void Example3D::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* _window)
+void Example3D::onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *_window)
 {
     if (iMouse::getInstance().getRightButton())
     {
-        iNodeTransform* allObjectsPitch = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_allObjectsPitch));
-        iNodeTransform* allObjectsHeading = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_allObjectsHeading));
+        iNodeTransform *allObjectsPitch = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_allObjectsPitch));
+        iNodeTransform *allObjectsHeading = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_allObjectsHeading));
 
         if (allObjectsPitch != nullptr &&
             allObjectsHeading != nullptr)
@@ -360,8 +361,8 @@ void Example3D::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWind
     }
     else if (iMouse::getInstance().getLeftButton())
     {
-        iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_cameraPitch));
-        iNodeTransform* cameraHeading = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_cameraHeading));
+        iNodeTransform *cameraPitch = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraPitch));
+        iNodeTransform *cameraHeading = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraHeading));
 
         if (cameraPitch != nullptr &&
             cameraHeading != nullptr)
@@ -426,7 +427,7 @@ void Example3D::onKeyPressed(iKeyCode key)
             _activeNode = 0;
         }
 
-        iNodeSwitch* switchNode = static_cast<iNodeSwitch*>(iNodeManager::getInstance().getNode(_switchNode));
+        iNodeSwitch *switchNode = static_cast<iNodeSwitch *>(iNodeManager::getInstance().getNode(_switchNode));
         if (switchNode != nullptr)
         {
             switch (_activeNode)
@@ -449,7 +450,7 @@ void Example3D::onKeyPressed(iKeyCode key)
 
 void Example3D::onTimer()
 {
-    iNodeTransform* directionalLightRotate = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_directionalLightRotate));
+    iNodeTransform *directionalLightRotate = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_directionalLightRotate));
     directionalLightRotate->rotate(0.005f, iaAxis::Y);
 }
 

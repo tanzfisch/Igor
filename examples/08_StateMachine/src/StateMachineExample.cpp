@@ -1,17 +1,17 @@
 #include "StateMachineExample.h"
 
-#include <Igor.h>
-#include <iApplication.h>
-#include <iRenderer.h>
-#include <iMaterial.h>
-#include <iTimer.h>
-#include <iTextureResourceFactory.h>
+#include <igor/igor.h>
+#include <igor/os/iApplication.h>
+#include <igor/graphics/iRenderer.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/os/iTimer.h>
+#include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/resources/material/iMaterialResourceFactory.h>
 using namespace Igor;
 
-#include <iaConsole.h>
-#include <iaState.h>
-#include <iaTransition.h>
-#include <iMaterialResourceFactory.h>
+#include <iaux/system/iaConsole.h>
+#include <iaux/statemachine/iaState.h>
+#include <iaux/statemachine/iaTransition.h>
 using namespace IgorAux;
 
 StateMachineExample::StateMachineExample()

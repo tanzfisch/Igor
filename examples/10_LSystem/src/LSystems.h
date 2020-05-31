@@ -9,53 +9,52 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2014-2015 by Martin Loga
+//    (c) Copyright 2014-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: martinloga@gmx.de  
+//
+// contact: martinloga@gmx.de
 
 #ifndef __LSYSTEMS__
 #define __LSYSTEMS__
 
-#include <Igor.h>
-#include <iWindow.h>
-#include <iView.h>
-#include <iTimerHandle.h>
-#include <iModelResourceFactory.h>
-#include <iKeyCodeMap.h>
-#include <iLSystem.h>
-#include <iMaterial.h>
-#include <iTexture.h>
-#include <iSkeleton.h>
-#include <iProfilerVisualizer.h>
+#include <igor/igor.h>
+#include <igor/os/iWindow.h>
+#include <igor/graphics/iView.h>
+#include <igor/os/iTimerHandle.h>
+#include <igor/resources/model/iModelResourceFactory.h>
+#include <igor/graphics/generation/iLSystem.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/texture/iTexture.h>
+#include <igor/data/iSkeleton.h>
+#include <igor/resources/profiler/iProfilerVisualizer.h>
 using namespace Igor;
 
-#include <iaMatrix.h>
+#include <iaux/math/iaMatrix.h>
 using namespace IgorAux;
 
 namespace Igor
 {
-	class iScene;
-	class iNodeTransform;
+    class iScene;
+    class iNodeTransform;
     class iNodeLight;
     class iNodeSwitch;
     class iTextureFont;
     class iTaskFlushModels;
     class iNodeModel;
     class iTexture;
-}
+} // namespace Igor
 
 /*! the LSystems example class
 */
@@ -63,7 +62,6 @@ class LSystems
 {
 
 public:
-
     /*! init
     */
     LSystems();
@@ -77,14 +75,13 @@ public:
     void run();
 
 private:
-
     /*! the window
     */
-	iWindow _window;
+    iWindow _window;
 
     /*! the view we render 3D to
     */
-	iView _view;
+    iView _view;
 
     /*! visualize statistics
     */
@@ -104,11 +101,11 @@ private:
 
     /*! the scene holding our 3d nodes
     */
-    iScene* _scene = nullptr;
+    iScene *_scene = nullptr;
 
     /*! texture fon we use to render statistics
     */
-    iTextureFont* _font = nullptr;
+    iTextureFont *_font = nullptr;
 
     /*! id to transform node used for manipulating the heading of the camera
     */
@@ -124,8 +121,8 @@ private:
 
     /*! timer handle to control the movement of the light source over time
     */
-    iTimerHandle* _animationTimingHandle = nullptr;
-    
+    iTimerHandle *_animationTimingHandle = nullptr;
+
     /*! counter to switch between styles of L-Systems
     */
     uint32 _styleCounter = 0;
@@ -210,17 +207,17 @@ private:
     \param seed random seed
     \retruns id of generated plant node
     */
-    uint64 generatePlant(const iaMatrixd& matrix, const iaString& axiom, uint32 iterations, uint64 seed);
+    uint64 generatePlant(const iaMatrixd &matrix, const iaString &axiom, uint32 iterations, uint64 seed);
 
     /*! called on key pressed event
 
     \param key the key code of the pressed key
     */
-	void onKeyPressed(iKeyCode key);
+    void onKeyPressed(iKeyCode key);
 
     /*! called when window was closed
     */
-	void onWindowClosed();
+    void onWindowClosed();
 
     /*! called when window was resized
 
@@ -235,7 +232,7 @@ private:
     \param to current mouse position
     \param window the window the coordinates are related to
     */
-    void onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window);
+    void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window);
 
     /*! called when mouse wheel was turned
 
@@ -253,12 +250,11 @@ private:
 
     /*! deinit example
     */
-	void deinit();
+    void deinit();
 
     /*! init example
     */
-	void init();
-
+    void init();
 };
 
 #endif

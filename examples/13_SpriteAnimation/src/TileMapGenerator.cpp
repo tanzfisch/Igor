@@ -1,19 +1,19 @@
 #include "TileMapGenerator.h"
 
-#include <iTextureResourceFactory.h>
-#include <iMeshBuilder.h>
-#include <iNodeTransform.h>
-#include <iNodeManager.h>
-#include <iNodeMesh.h>
-#include <iTargetMaterial.h>
+#include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/resources/mesh/iMeshBuilder.h>
+#include <igor/graphics/scene/nodes/iNodeTransform.h>
+#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/graphics/scene/nodes/iNodeMesh.h>
+#include <igor/resources/material/iTargetMaterial.h>
 using namespace Igor;
 
-#include <iaConsole.h>
+#include <iaux/system/iaConsole.h>
 using namespace IgorAux;
 
 #include <map>
 
-void TileMapGenerator::addTile(iMeshBuilder& meshBuilder, const iaVector2i& pos, const iaVector2i& size, const iAtlas::Frame& frame)
+void TileMapGenerator::addTile(iMeshBuilder &meshBuilder, const iaVector2i &pos, const iaVector2i &size, const iAtlas::Frame &frame)
 {
 	const uint32 offsetIndex = meshBuilder.getVertexCount();
 
@@ -47,7 +47,7 @@ static const iaVector2i xdir(gridSize / 2, -gridSize / 4);
 static const iaVector2i ydir(-gridSize / 2, -gridSize / 4);
 static const iaVector2i patchSize(32, 32);
 
-iMeshPtr TileMapGenerator::generateMesh(uint32 from, uint32 to, const iaVector2i& pos, const iaVector2i& size)
+iMeshPtr TileMapGenerator::generateMesh(uint32 from, uint32 to, const iaVector2i &pos, const iaVector2i &size)
 {
 	_random.setSeed(pos._x << 8 | pos._y + 42);
 
@@ -79,7 +79,7 @@ iMeshPtr TileMapGenerator::generateMesh(uint32 from, uint32 to, const iaVector2i
 	return meshBuilder.createMesh();
 }
 
-iNodePtr TileMapGenerator::generateFromRandom(const iaVector2i& size, uint32 from, uint32 to)
+iNodePtr TileMapGenerator::generateFromRandom(const iaVector2i &size, uint32 from, uint32 to)
 {
 	con_assert(_atlas != nullptr, "zero pointer");
 	con_assert(from < to, "invalid parameters");
@@ -91,26 +91,26 @@ iNodePtr TileMapGenerator::generateFromRandom(const iaVector2i& size, uint32 fro
 		return nullptr;
 	}
 
-	iNode* result = iNodeManager::getInstance().createNode<iNode>();
+	iNode *result = iNodeManager::getInstance().createNode<iNode>();
 
 	iaVector2i patchPos;
-	for (int y = 0; y < (size._y / patchSize._y); ++y)
+	for (int64 y = 0; y < (size._y / patchSize._y); ++y)
 	{
-		for (int x = 0; x < (size._x / patchSize._x); ++x)
+		for (int64 x = 0; x < (size._x / patchSize._x); ++x)
 		{
 			patchPos.set(y * patchSize._y, x * patchSize._x);
 			iMeshPtr terrainMesh = generateMesh(from, to, patchPos, patchSize);
 
-			iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
+			iNodeTransform *transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
 
 			iaVector2i patchWorldPos = (xdir * patchPos._x) + (ydir * patchPos._y);
 			transformNode->translate(patchWorldPos._x, -patchWorldPos._y, 0);
 			transformNode->setName(iaString::toString(x) + ":" + iaString::toString(y));
 
-			iNodeMesh* meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
+			iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
 			meshNode->setMesh(terrainMesh);
 			meshNode->setMaterial(_material);
-			iTargetMaterial* targetMaterial = meshNode->getTargetMaterial();
+			iTargetMaterial *targetMaterial = meshNode->getTargetMaterial();
 			targetMaterial->setTexture(_atlas->getTexture(), 0);
 
 			transformNode->insertNode(meshNode);
@@ -121,7 +121,7 @@ iNodePtr TileMapGenerator::generateFromRandom(const iaVector2i& size, uint32 fro
 	return result;
 }
 
-iMeshPtr TileMapGenerator::generateMesh(const iPixmapPtr pixmap, const iaVector2i& pos, const iaVector2i& size)
+iMeshPtr TileMapGenerator::generateMesh(const iPixmapPtr pixmap, const iaVector2i &pos, const iaVector2i &size)
 {
 	iMeshBuilder meshBuilder;
 	meshBuilder.setJoinVertexes(false);
@@ -166,7 +166,7 @@ iMeshPtr TileMapGenerator::generateMesh(const iPixmapPtr pixmap, const iaVector2
 
 	colorToType[0xff643c00] = 69;
 	colorToType[0xff645000] = 67;
-	
+
 	int wy, wx;
 
 	iTexturePtr texture = _atlas->getTexture();
@@ -197,7 +197,7 @@ iMeshPtr TileMapGenerator::generateMesh(const iPixmapPtr pixmap, const iaVector2
 	return meshBuilder.createMesh();
 }
 
-iNodePtr TileMapGenerator::generateFromTexture(const iaString& filename)
+iNodePtr TileMapGenerator::generateFromTexture(const iaString &filename)
 {
 	con_assert(_atlas != nullptr, "zero pointer");
 	con_assert(_material != iMaterial::INVALID_MATERIAL_ID, "no material defined");
@@ -210,26 +210,26 @@ iNodePtr TileMapGenerator::generateFromTexture(const iaString& filename)
 
 	iPixmapPtr pixmap = iTextureResourceFactory::getInstance().loadPixmap(filename);
 
-	iNode* result = iNodeManager::getInstance().createNode<iNode>();
+	iNode *result = iNodeManager::getInstance().createNode<iNode>();
 
 	iaVector2i patchPos;
-	for (int y = 0; y < (pixmap->getHeight() / patchSize._y); ++y)
+	for (int64 y = 0; y < (pixmap->getHeight() / patchSize._y); ++y)
 	{
-		for (int x = 0; x < (pixmap->getWidth() / patchSize._x); ++x)
+		for (int64 x = 0; x < (pixmap->getWidth() / patchSize._x); ++x)
 		{
 			patchPos.set(y * patchSize._y, x * patchSize._x);
 			iMeshPtr terrainMesh = generateMesh(pixmap, patchPos, patchSize);
 
-			iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
+			iNodeTransform *transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
 
 			iaVector2i patchWorldPos = (xdir * patchPos._x) + (ydir * patchPos._y);
 			transformNode->translate(patchWorldPos._x, -patchWorldPos._y, 0);
 			transformNode->setName(iaString::toString(x) + ":" + iaString::toString(y));
 
-			iNodeMesh* meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
+			iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
 			meshNode->setMesh(terrainMesh);
 			meshNode->setMaterial(_material);
-			iTargetMaterial* targetMaterial = meshNode->getTargetMaterial();
+			iTargetMaterial *targetMaterial = meshNode->getTargetMaterial();
 			targetMaterial->setTexture(_atlas->getTexture(), 0);
 
 			transformNode->insertNode(meshNode);

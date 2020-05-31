@@ -1,18 +1,18 @@
 // Igor game engine
-// (c) Copyright 2014-2015 by Martin Loga
+// (c) Copyright 2014-2020 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include "PlantMeshGenerator.h"
 
-#include <iLSystem.h>
-#include <iNodeManager.h>
-#include <iNodeMesh.h>
-#include <iNodeLODSwitch.h>
-#include <iModel.h>
-#include <iMaterialResourceFactory.h>
-#include <iTextureResourceFactory.h>
-#include <iTargetMaterial.h>
-#include <iNodeTransform.h>
+#include <igor/graphics/generation/iLSystem.h>
+#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/graphics/scene/nodes/iNodeMesh.h>
+#include <igor/graphics/scene/nodes/iNodeLODSwitch.h>
+#include <igor/resources/model/iModel.h>
+#include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/resources/material/iTargetMaterial.h>
+#include <igor/graphics/scene/nodes/iNodeTransform.h>
 using namespace Igor;
 
 PlantMeshGenerator::PlantMeshGenerator()

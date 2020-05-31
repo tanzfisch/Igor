@@ -1,29 +1,29 @@
 #include "SpriteAnimation.h"
 
-#include <iaConsole.h>
-#include <iaString.h>
+#include <iaux/system/iaConsole.h>
+#include <iaux/data/iaString.h>
 using namespace IgorAux;
 
-#include <iMouse.h>
-#include <iKeyboard.h>
-#include <iAtlas.h>
-#include <iTextureFont.h>
-#include <iTimer.h>
-#include <iApplication.h>
-#include <iRenderer.h>
-#include <iTextureResourceFactory.h>
-#include <iMaterial.h>
-#include <iMaterialResourceFactory.h>
-#include <iProfiler.h>
-#include <iSceneFactory.h>
-#include <iNodeMesh.h>
-#include <iNodeManager.h>
-#include <iTargetMaterial.h>
-#include <iNodeTransform.h>
-#include <iScene.h>
-#include <iNodeVisitorPrintTree.h>
-#include <iNodeCamera.h>
-#include <iNodeModel.h>
+#include <igor/os/iMouse.h>
+#include <igor/os/iKeyboard.h>
+#include <igor/resources/texture/iAtlas.h>
+#include <igor/resources/texture/iTextureFont.h>
+#include <igor/os/iTimer.h>
+#include <igor/os/iApplication.h>
+#include <igor/graphics/iRenderer.h>
+#include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/resources/profiler/iProfiler.h>
+#include <igor/graphics/scene/iSceneFactory.h>
+#include <igor/graphics/scene/nodes/iNodeMesh.h>
+#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/resources/material/iTargetMaterial.h>
+#include <igor/graphics/scene/nodes/iNodeTransform.h>
+#include <igor/graphics/scene/iScene.h>
+#include <igor/graphics/scene/traversal/iNodeVisitorPrintTree.h>
+#include <igor/graphics/scene/nodes/iNodeCamera.h>
+#include <igor/graphics/scene/nodes/iNodeModel.h>
 using namespace Igor;
 
 #include <sstream>

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2019 by Martin Loga
+// (c) Copyright 2012-2020 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iSoundResourceFactory.h>
@@ -16,95 +16,113 @@
 namespace Igor
 {
 
-	std::vector<iSound*> listener_linked_sources; // liste der sourcen die sich mit dem listener mitbewegen
+	std::vector<iSound *> listener_linked_sources; // liste der sourcen die sich mit dem listener mitbewegen
 
 #ifdef __IGOR_DEBUG__
-#define AL_CHECK_ERROR()\
-	do\
-	{\
-	ALenum error = alGetError();\
-	if (error != AL_NO_ERROR)\
-	{\
-	switch(error)\
-	{\
-	case AL_INVALID_NAME:		con_err("AL_INVALID_NAME"); break;\
-	case AL_INVALID_ENUM:		con_err("AL_INVALID_ENUM"); break;\
-	case AL_INVALID_VALUE:		con_err("AL_INVALID_VALUE"); break;\
-	case AL_INVALID_OPERATION:	con_err("AL_INVALID_OPERATION"); break;\
-	case AL_OUT_OF_MEMORY:		con_err("AL_OUT_OF_MEMORY"); break;\
-	default: con_err("UNKNOWN");\
-	};\
-	}\
-		else break;\
-	} while(0)
+#define AL_CHECK_ERROR()                         \
+	do                                           \
+	{                                            \
+		ALenum error = alGetError();             \
+		if (error != AL_NO_ERROR)                \
+		{                                        \
+			switch (error)                       \
+			{                                    \
+			case AL_INVALID_NAME:                \
+				con_err("AL_INVALID_NAME");      \
+				break;                           \
+			case AL_INVALID_ENUM:                \
+				con_err("AL_INVALID_ENUM");      \
+				break;                           \
+			case AL_INVALID_VALUE:               \
+				con_err("AL_INVALID_VALUE");     \
+				break;                           \
+			case AL_INVALID_OPERATION:           \
+				con_err("AL_INVALID_OPERATION"); \
+				break;                           \
+			case AL_OUT_OF_MEMORY:               \
+				con_err("AL_OUT_OF_MEMORY");     \
+				break;                           \
+			default:                             \
+				con_err("UNKNOWN");              \
+			};                                   \
+		}                                        \
+		else                                     \
+			break;                               \
+	} while (0)
 #else
 #define AL_CHECK_ERROR() 1
 #endif
 
 	iSoundResourceFactory::iSoundResourceFactory()
 	{
-		alutInit(0,NULL);												AL_CHECK_ERROR();
+		alutInit(0, NULL);
+		AL_CHECK_ERROR();
 	}
 
 	iSoundResourceFactory::~iSoundResourceFactory()
 	{
-		if(sounds.size())
+		if (sounds.size())
 			con_warn(sounds.size() << " sounds(s) not released");
 		sounds.clear();
 
-		alutExit();														AL_CHECK_ERROR();
+		alutExit();
+		AL_CHECK_ERROR();
 
 		listener_linked_sources.clear();
 	}
 
 	void iSoundResourceFactory::setListenerMatrix(iaMatrixf &matrix, bool calc_velocity)
 	{
-		if(calc_velocity)
+		if (calc_velocity)
 		{
 			setListenerVelocity(matrix.pos - listener_matrix.pos);
 		}
 
 		listener_matrix = matrix;
 
-		alListenerfv(AL_POSITION, matrix.pos.getData());				AL_CHECK_ERROR();
-		float32 ori[6] = {matrix.depth.x,matrix.depth.y,matrix.depth.z, matrix.top.x,matrix.top.y,matrix.top.z};
-		alListenerfv(AL_ORIENTATION, ori);								AL_CHECK_ERROR();
+		alListenerfv(AL_POSITION, matrix.pos.getData());
+		AL_CHECK_ERROR();
+		float32 ori[6] = {matrix.depth.x, matrix.depth.y, matrix.depth.z, matrix.top.x, matrix.top.y, matrix.top.z};
+		alListenerfv(AL_ORIENTATION, ori);
+		AL_CHECK_ERROR();
 
 		// update linked sources
-		for(int i=0;i<listener_linked_sources.size();++i)
+		for (int i = 0; i < listener_linked_sources.size(); ++i)
 			listener_linked_sources[i]->setSourcePosition(listener_matrix.pos);
 	}
 
 	void iSoundResourceFactory::setListenerVelocity(iaVector3f &vel)
 	{
-		alListenerfv(AL_VELOCITY, vel.getData());						AL_CHECK_ERROR();
+		alListenerfv(AL_VELOCITY, vel.getData());
+		AL_CHECK_ERROR();
 	}
 
-	iSoundBuffer* iSoundResourceFactory::loadWAVBuffer(iaString filename)
+	iSoundBuffer *iSoundResourceFactory::loadWAVBuffer(iaString filename)
 	{
-		ALenum     format;
-		ALsizei    size;
-		ALsizei    freq;
-		ALboolean  loop;
-		ALvoid*    data;
+		ALenum format;
+		ALsizei size;
+		ALsizei freq;
+		ALboolean loop;
+		ALvoid *data;
 
 		iSoundBuffer *buffer = new iSoundBuffer(filename);
 
-		alutLoadWAVFile((ALbyte*)filename.c_str(), &format, &data, &size, &freq, &loop);
+		alutLoadWAVFile((ALbyte *)filename.c_str(), &format, &data, &size, &freq, &loop);
 		if (alGetError() != AL_NO_ERROR)
 		{
-            con_warn("can't load file \"" << filename << "\"");
+			con_warn("can't load file \"" << filename << "\"");
 			return buffer;
 		}
 
-		alBufferData(buffer->bufferid,format,data,size,freq);
+		alBufferData(buffer->bufferid, format, data, size, freq);
 		if (alGetError() != AL_NO_ERROR)
 		{
 			con_err("can't fill buffer with \"" << filename << "\"");
 			return buffer;
 		}
 
-		alutUnloadWAV(format,data,size,freq);						AL_CHECK_ERROR();
+		alutUnloadWAV(format, data, size, freq);
+		AL_CHECK_ERROR();
 
 		buffer->isdummy = false;
 
@@ -186,23 +204,24 @@ namespace Igor
 
 	void iSoundResourceFactory::unloadFile(iSound *sound)
 	{
-		if(!sound) return;
+		if (!sound)
+			return;
 
-		std::vector<iSound*>::iterator it;
+		std::vector<iSound *>::iterator it;
 
-		for(it=sounds.begin();it<sounds.end();it++)
+		for (it = sounds.begin(); it < sounds.end(); it++)
 		{
-			if((*it) == sound)
+			if ((*it) == sound)
 			{
-				if((*it)->buffer->refcount > 0)
+				if ((*it)->buffer->refcount > 0)
 				{
 					(*it)->buffer->refcount--;
-					if((*it)->buffer->refcount == 0)
+					if ((*it)->buffer->refcount == 0)
 					{
-						std::vector<iSoundBuffer*>::iterator it_buffer;
-						for(it_buffer=buffers.begin();it_buffer!=buffers.end();++it_buffer)
+						std::vector<iSoundBuffer *>::iterator it_buffer;
+						for (it_buffer = buffers.begin(); it_buffer != buffers.end(); ++it_buffer)
 						{
-							if((*it_buffer) == (*it)->buffer)
+							if ((*it_buffer) == (*it)->buffer)
 							{
 								delete (*it_buffer);
 								buffers.erase(it_buffer);
@@ -249,14 +268,14 @@ namespace Igor
 		}*/
 	}
 
-	iSoundBuffer* iSoundResourceFactory::loadBuffer(iaString filename)
+	iSoundBuffer *iSoundResourceFactory::loadBuffer(iaString filename)
 	{
-        filename = iResourceManager::getInstance().getSoundFolder(filename);
+		filename = iResourceManager::getInstance().getSoundFolder(filename);
 
 		iSoundBuffer *buffer = 0;
 
-		iaString fileex = filename.substr(filename.find_last_of('.')+1);
-		if(fileex == "wav")
+		iaString fileex = filename.substr(filename.find_last_of('.') + 1);
+		if (fileex == "wav")
 		{
 			buffer = loadWAVBuffer(filename);
 		}
@@ -275,11 +294,11 @@ namespace Igor
 		return buffer;
 	}
 
-	iSound* iSoundResourceFactory::loadFile(iaString filename)
+	iSound *iSoundResourceFactory::loadFile(iaString filename)
 	{
-		for(uint32 i=0;i<sounds.size();i++)
+		for (uint32 i = 0; i < sounds.size(); i++)
 		{
-			if(sounds[i]->buffer->filename == filename)
+			if (sounds[i]->buffer->filename == filename)
 			{
 				sounds[i]->buffer->refcount++;
 				return sounds[i];
@@ -288,11 +307,13 @@ namespace Igor
 
 		iSound *temp = new iSound(loadBuffer(filename));
 
-		if(!temp->buffer->isdummy)
-			alSourcei(temp->sourceid, AL_BUFFER, temp->buffer->bufferid);			AL_CHECK_ERROR();
+		if (!temp->buffer->isdummy)
+			alSourcei(temp->sourceid, AL_BUFFER, temp->buffer->bufferid);
+		AL_CHECK_ERROR();
 
-		if(temp) sounds.push_back(temp);
-		temp->buffer->refcount ++;
+		if (temp)
+			sounds.push_back(temp);
+		temp->buffer->refcount++;
 		return temp;
 	}
 
@@ -304,14 +325,16 @@ namespace Igor
 		isdummy = true;
 		refcount = 0;
 
-		alGenBuffers(1, (ALuint*)&bufferid);							AL_CHECK_ERROR();
-		if(!alIsBuffer(bufferid))
+		alGenBuffers(1, (ALuint *)&bufferid);
+		AL_CHECK_ERROR();
+		if (!alIsBuffer(bufferid))
 			con_err("invalid buffer number");
 	}
 
 	iSoundBuffer::~iSoundBuffer()
 	{
-		alDeleteBuffers(1, (ALuint*)&bufferid);							AL_CHECK_ERROR(); 
+		alDeleteBuffers(1, (ALuint *)&bufferid);
+		AL_CHECK_ERROR();
 	}
 
 	////////////// iSound Methoden ////////////////
@@ -321,19 +344,22 @@ namespace Igor
 		this->buffer = buffer;
 		loop = false;
 
-		alGenSources(1, (ALuint*)&sourceid);							AL_CHECK_ERROR();
-		if(!alIsSource(sourceid))
+		alGenSources(1, (ALuint *)&sourceid);
+		AL_CHECK_ERROR();
+		if (!alIsSource(sourceid))
 			con_err("invalid source number");
 	}
 
 	iSound::~iSound()
 	{
-		alDeleteSources(1, (ALuint*)&sourceid);							AL_CHECK_ERROR();
+		alDeleteSources(1, (ALuint *)&sourceid);
+		AL_CHECK_ERROR();
 	}
 
 	void iSound::setSourcePosition(iaVector3f &vec)
 	{
-		alSourcefv(sourceid, AL_POSITION, vec.getData());				AL_CHECK_ERROR();
+		alSourcefv(sourceid, AL_POSITION, vec.getData());
+		AL_CHECK_ERROR();
 	}
 
 	void iSound::linkToListener()
@@ -343,10 +369,10 @@ namespace Igor
 
 	void iSound::unlinkFromListener()
 	{
-		std::vector<iSound*>::iterator it;
-		for(it=listener_linked_sources.begin();it!=listener_linked_sources.end();it++)
+		std::vector<iSound *>::iterator it;
+		for (it = listener_linked_sources.begin(); it != listener_linked_sources.end(); it++)
 		{
-			if((*it) == this)
+			if ((*it) == this)
 			{
 				listener_linked_sources.erase(it);
 				break;
@@ -356,33 +382,39 @@ namespace Igor
 
 	void iSound::setSourceVelocity(iaVector3f &vel)
 	{
-		alSourcefv(sourceid, AL_VELOCITY, vel.getData());				AL_CHECK_ERROR();
+		alSourcefv(sourceid, AL_VELOCITY, vel.getData());
+		AL_CHECK_ERROR();
 	}
 
 	void iSound::play(bool loop)
 	{
-		alSourcei(sourceid, AL_LOOPING, loop);							AL_CHECK_ERROR();
-		alSourcePlay(sourceid);											AL_CHECK_ERROR();
+		alSourcei(sourceid, AL_LOOPING, loop);
+		AL_CHECK_ERROR();
+		alSourcePlay(sourceid);
+		AL_CHECK_ERROR();
 	}
 
 	void iSound::pause()
 	{
-		alSourcePause(sourceid);										AL_CHECK_ERROR();
+		alSourcePause(sourceid);
+		AL_CHECK_ERROR();
 	}
 
 	void iSound::stop()
 	{
-		alSourceStop(sourceid);											AL_CHECK_ERROR();
+		alSourceStop(sourceid);
+		AL_CHECK_ERROR();
 	}
 
 	void iSound::rewind()
 	{
-		alSourceRewind(sourceid);										AL_CHECK_ERROR();
+		alSourceRewind(sourceid);
+		AL_CHECK_ERROR();
 	}
 
 	/////////////// iSoundNode
 
-/*	iSoundNode::iSoundNode()
+	/*	iSoundNode::iSoundNode()
 	{
 		firsttime = true;
 	}
@@ -467,5 +499,4 @@ namespace Igor
 		sounds[soundid]->rewind();
 	}
 	*/
-};
-
+}; // namespace Igor

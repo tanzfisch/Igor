@@ -1,6 +1,6 @@
 #include "MouseExample.h"
 
-#include <Igor.h>
+#include <igor/igor.h>
 
 int main(void)
 {

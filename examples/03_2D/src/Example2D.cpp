@@ -1,20 +1,20 @@
 #include "Example2D.h"
 
-#include <iaConsole.h>
-#include <iaString.h>
+#include <iaux/system/iaConsole.h>
+#include <iaux/data/iaString.h>
 using namespace IgorAux;
 
-#include <iMouse.h>
-#include <iKeyboard.h>
-#include <iAtlas.h>
-#include <iTextureFont.h>
-#include <iTimer.h>
-#include <iApplication.h>
-#include <iRenderer.h>
-#include <iTextureResourceFactory.h>
-#include <iMaterial.h>
-#include <iMaterialResourceFactory.h>
-#include <iProfiler.h>
+#include <igor/os/iMouse.h>
+#include <igor/os/iKeyboard.h>
+#include <igor/resources/texture/iAtlas.h>
+#include <igor/resources/texture/iTextureFont.h>
+#include <igor/os/iTimer.h>
+#include <igor/os/iApplication.h>
+#include <igor/graphics/iRenderer.h>
+#include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/resources/profiler/iProfiler.h>
 using namespace Igor;
 
 #include <sstream>
@@ -33,7 +33,6 @@ void Example2D::init()
 {
 	// some console output
 	con_endl(" -- Rendering 2D Example --");
-	con_endl("");
 
 	// define the window as we want it
 	_window.setTitle("Rendering 2D Example");
@@ -55,7 +54,7 @@ void Example2D::init()
 	// add the view to the window
 	_window.addView(&_view);
 
-	// open the window after you added the view to prevent a warning message that there was no view defined. 
+	// open the window after you added the view to prevent a warning message that there was no view defined.
 	// but it is also allowed to add views after the window was already opened
 	_window.open();
 
@@ -64,10 +63,12 @@ void Example2D::init()
 
 	// let's see what happens if we want Igor to load a texture that does not exist
 	con_endl("!!! next statement will fail with an error message about a missing texture !!!");
-	con_endl("");
 	_dummyTexture = iTextureResourceFactory::getInstance().loadFile("doesnotexist.foobar");
 	// by default Igor generates a dummy texture that will be returned instead
 	// it is a checker texture with some gradients in color and alpha channels
+
+	// let's reset the error counter
+	iaConsole::getInstance().resetStats();
 
 	// set up particle system
 	// load a texture for our particle system
@@ -84,7 +85,7 @@ void Example2D::init()
 	_particleSystem.setParticleLifetime(80);
 	// set the emission rate per frame
 	_particleSystem.setEmitRate(5);
-	// set maximal particle count. since the particle system is in loop mode we need at least as 
+	// set maximal particle count. since the particle system is in loop mode we need at least as
 	// much particles as the life time times the emission rate to have a constant stream of particles
 	_particleSystem.setMaxParticleCount(_particleSystem.getParticleLifetime() * _particleSystem.getEmitRate());
 	// set the spread factor to 5% of the distribution circle
@@ -201,7 +202,7 @@ void Example2D::deinit()
 	_window.removeView(&_view);
 }
 
-void Example2D::onMouseMove(const iaVector2i& position)
+void Example2D::onMouseMove(const iaVector2i &position)
 {
 	// save mouse position for later
 	_lastMousePos.set(static_cast<float32>(position._x), static_cast<float32>(position._y));
@@ -360,5 +361,3 @@ void Example2D::drawLogo()
 
 	iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }
-
-

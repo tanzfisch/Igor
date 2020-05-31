@@ -1,14 +1,14 @@
 // Igor game engine
-// (c) Copyright 2012-2019 by Martin Loga
+// (c) Copyright 2012-2020 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include "FirstSteps.h"
 
-#include <iApplication.h>
-#include <iTimer.h>
+#include <igor/os/iApplication.h>
+#include <igor/os/iTimer.h>
 using namespace Igor;
 
-#include <iaConsole.h>
+#include <iaux/system/iaConsole.h>
 using namespace IgorAux;
 
 FirstSteps::FirstSteps()
@@ -38,7 +38,7 @@ void FirstSteps::run()
     con_endl("run");
 
     // starts the applications endless loop
-	iApplication::getInstance().run();
+    iApplication::getInstance().run();
 }
 
 void FirstSteps::onHandle()
@@ -51,7 +51,7 @@ void FirstSteps::onHandle()
 
     // print the counter
     con_endl("handle " << _counter);
-    
+
     if (_counter >= 5)
     {
         // breaks the applications endless loop

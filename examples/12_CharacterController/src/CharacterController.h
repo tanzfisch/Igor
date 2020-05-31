@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2014-2015 by Martin Loga
+//    (c) Copyright 2014-2020 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it   
 // under the terms of the GNU Lesser General Public License as published by  
@@ -29,8 +29,8 @@
 #ifndef __CHARACTERCONTROLLER__
 #define __CHARACTERCONTROLLER__
 
-#include <iNode.h>
-#include <iPhysicsBody.h>
+#include <igor/graphics/scene/nodes/iNode.h>
+#include <igor/physics/iPhysicsBody.h>
 using namespace Igor;
 
 namespace Igor

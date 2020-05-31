@@ -1,37 +1,37 @@
 #include "Particles.h"
 
-#include <iMaterial.h>
-#include <iNodeVisitorPrintTree.h>
-#include <iTaskManager.h>
-#include <iNodeCamera.h>
-#include <iNodeModel.h> 
-#include <iNodeTransform.h>
-#include <iRenderer.h>
-#include <iApplication.h>
-#include <iSceneFactory.h>
-#include <iScene.h>
-#include <iNodeManager.h>
-#include <iMouse.h>
-#include <iKeyboard.h>
-#include <iTimer.h>
-#include <iTextureFont.h>
-#include <iNodeLight.h>
-#include <iModelResourceFactory.h>
-#include <iTaskFlushModels.h>
-#include <iTaskFlushTextures.h>
-#include <iMaterialResourceFactory.h>
-#include <iProfiler.h>
-#include <iNodeSwitch.h>
-#include <iNodeLODSwitch.h>
-#include <iNodeLODTrigger.h>
-#include <iNodeParticleSystem.h>
-#include <iNodeEmitter.h>
-#include <iaGradient.h>
-#include <iTextureResourceFactory.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/graphics/scene/traversal/iNodeVisitorPrintTree.h>
+#include <igor/threading/iTaskManager.h>
+#include <igor/graphics/scene/nodes/iNodeCamera.h>
+#include <igor/graphics/scene/nodes/iNodeModel.h>
+#include <igor/graphics/scene/nodes/iNodeTransform.h>
+#include <igor/graphics/iRenderer.h>
+#include <igor/os/iApplication.h>
+#include <igor/graphics/scene/iSceneFactory.h>
+#include <igor/graphics/scene/iScene.h>
+#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/os/iMouse.h>
+#include <igor/os/iKeyboard.h>
+#include <igor/os/iTimer.h>
+#include <igor/resources/texture/iTextureFont.h>
+#include <igor/graphics/scene/nodes/iNodeLight.h>
+#include <igor/resources/model/iModelResourceFactory.h>
+#include <igor/threading/tasks/iTaskFlushModels.h>
+#include <igor/threading/tasks/iTaskFlushTextures.h>
+#include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/resources/profiler/iProfiler.h>
+#include <igor/graphics/scene/nodes/iNodeSwitch.h>
+#include <igor/graphics/scene/nodes/iNodeLODSwitch.h>
+#include <igor/graphics/scene/nodes/iNodeLODTrigger.h>
+#include <igor/graphics/scene/nodes/iNodeParticleSystem.h>
+#include <igor/graphics/scene/nodes/iNodeEmitter.h>
+#include <iaux/data/iaGradient.h>
+#include <igor/resources/texture/iTextureResourceFactory.h>
 using namespace Igor;
 
-#include <iaConsole.h>
-#include <iaString.h>
+#include <iaux/system/iaConsole.h>
+#include <iaux/data/iaString.h>
 using namespace IgorAux;
 
 Particles::Particles()

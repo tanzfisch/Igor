@@ -1,15 +1,15 @@
 // Igor game engine
-// (c) Copyright 2014-2015 by Martin Loga
+// (c) Copyright 2014-2020 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include "VoxelTerrainMeshGenerator.h"
 
-#include <iVoxelData.h>
-#include <iContouringCubes.h>
-#include <iNodeManager.h>
-#include <iNodeMesh.h>
-#include <iTextureResourceFactory.h>
-#include <iTargetMaterial.h>
+#include <igor/graphics/terrain/data/iVoxelBlock.h>
+#include <igor/graphics/generation/iContouringCubes.h>
+#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/graphics/scene/nodes/iNodeMesh.h>
+#include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/resources/material/iTargetMaterial.h>
 using namespace Igor;
 
 VoxelTerrainMeshGenerator::VoxelTerrainMeshGenerator()

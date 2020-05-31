@@ -9,51 +9,49 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2014-2015 by Martin Loga
+//    (c) Copyright 2014-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: martinloga@gmx.de  
+//
+// contact: martinloga@gmx.de
 
 #ifndef __EXAMPLE2D__
 #define __EXAMPLE2D__
 
-#include <iWindow.h>
-#include <iView.h>
-#include <iParticleSystem2D.h>
-#include <iKeyCodeMap.h>
-#include <iaGradient.h>
-#include <iPerlinNoise.h>
-#include <iMaterial.h>
-#include <iProfilerVisualizer.h>
-#include <iTexture.h>
+#include <igor/os/iWindow.h>
+#include <igor/graphics/iView.h>
+#include <igor/graphics/simulation/iParticleSystem2D.h>
+#include <iaux/data/iaGradient.h>
+#include <igor/graphics/generation/iPerlinNoise.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/profiler/iProfilerVisualizer.h>
+#include <igor/resources/texture/iTexture.h>
 using namespace Igor;
 
-#include <iaMatrix.h>
-#include <iaVector2.h>
-#include <iaBSpline.h>
-#include <iaRandomNumberGenerator.h>
+#include <iaux/math/iaMatrix.h>
+#include <iaux/math/iaVector2.h>
+#include <iaux/math/iaBSpline.h>
+#include <iaux/math/iaRandomNumberGenerator.h>
 using namespace IgorAux;
 
 #include <memory>
-
 
 namespace Igor
 {
     class iAtlas;
     class iTextureFont;
-}
+} // namespace Igor
 
 /*! rendering 2d example
 */
@@ -61,7 +59,6 @@ class Example2D
 {
 
 public:
-
     /*! initializes the example
     */
     Example2D();
@@ -75,7 +72,6 @@ public:
     void run();
 
 private:
-
     /*! the window
     */
     iWindow _window;
@@ -114,10 +110,10 @@ private:
     /*! multicolor gradient used for coloring the particles
     */
     iaGradientColor4f _rainbow;
-	
+
     /*! opengl logo
     */
-	iAtlas* _openGLLogo = nullptr;
+    iAtlas *_openGLLogo = nullptr;
 
     /*! Igor logo
     */
@@ -129,7 +125,7 @@ private:
 
     /*! texture font
     */
-	iTextureFont* _font = nullptr;
+    iTextureFont *_font = nullptr;
 
     /*! background tileable texture
     */
@@ -137,7 +133,7 @@ private:
 
     /*! a dummy texture
     */
-	iTexturePtr _dummyTexture = nullptr;
+    iTexturePtr _dummyTexture = nullptr;
 
     /*! material id of a textured material
     */
@@ -165,11 +161,11 @@ private:
 
     \param position last mouse position
     */
-    void onMouseMove(const iaVector2i& position);
+    void onMouseMove(const iaVector2i &position);
 
     /*! called when window was closed
     */
-	void onWindowClosed();
+    void onWindowClosed();
 
     /*! called on window resize
 
@@ -180,17 +176,17 @@ private:
 
     /*! called when esc key was pressed
     */
-	void onKeyESCPressed();
+    void onKeyESCPressed();
 
     /*! called before every frame
     */
-	void onHandle();
-	
+    void onHandle();
+
     /*! called every frame 
     
     here we render everyting
     */
-	void onRender();
+    void onRender();
 
     /*! draw Igor Logo
     */
@@ -204,15 +200,11 @@ private:
 
     /*! initializes the example
     */
-	void init();
+    void init();
 
     /*! deinitializes the example
     */
-	void deinit();
-
-
-
+    void deinit();
 };
 
 #endif
-

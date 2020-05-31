@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2014-2015 by Martin Loga
+//    (c) Copyright 2014-2020 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it   
 // under the terms of the GNU Lesser General Public License as published by  
@@ -30,7 +30,7 @@
 #define __FIRSTSTEPS__
 
 // Include this to have all the bysic types in Igor fashion
-#include <iDefines.h>
+#include <igor/iDefines.h>
 
 /*! the first steps example class
 

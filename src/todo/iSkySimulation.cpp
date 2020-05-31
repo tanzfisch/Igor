@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2019 by Martin Loga
+// (c) Copyright 2012-2020 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iSkySimulation.h>
@@ -15,7 +15,7 @@
 namespace Igor
 {
 
-	iSkySimulation::iSkySimulation(iScene* scene)
+	iSkySimulation::iSkySimulation(iScene *scene)
 	{
 		this->scene = scene;
 
@@ -46,7 +46,7 @@ namespace Igor
 		skyLightNode->setName("SkyLight");
 
 		directionalLightNode = new iDirectionalLightNode();
-		directionalLightNode->setColor(1,1,1);
+		directionalLightNode->setColor(1, 1, 1);
 		skySimRoot->insertNode(directionalLightNode);
 
 		skyBoxNode = new iNodeSkyBox("skybox_stars/front.jpg", "skybox_stars/back.jpg", "skybox_stars/left.jpg", "skybox_stars/right.jpg", "skybox_stars/top.jpg", "skybox_stars/bottom.jpg");
@@ -68,17 +68,19 @@ namespace Igor
 
 		skyLightNode->setLightDirection(lightDirection);
 
-		iaVector3f up(0,1,0);
+		iaVector3f up(0, 1, 0);
 		float32 elevation = up * lightDirection;
 
 		iaColor3f color;
-		color.lerp(iaColor3f(1,1,1), iaColor3f(0.95,0.5,0), elevation);
+		color.lerp(iaColor3f(1, 1, 1), iaColor3f(0.95, 0.5, 0), elevation);
 		directionalLightNode->setColor(color);
 		directionalLightNode->setDirection(lightDirection);
-	
+
 		float32 alpha = -elevation + 0.1f * 0.2f; //! \todo
-		if(alpha < 0.0f) alpha = 0.0f;
-		if(alpha > 1.0f) alpha = 1.0f;
+		if (alpha < 0.0f)
+			alpha = 0.0f;
+		if (alpha > 1.0f)
+			alpha = 1.0f;
 		skyBoxNode->setAlpha(alpha);
 
 		skyBoxNode->setMatrix(rotate);
@@ -105,4 +107,4 @@ namespace Igor
 		con_err("not implemented");
 	}
 
-}
+} // namespace Igor
