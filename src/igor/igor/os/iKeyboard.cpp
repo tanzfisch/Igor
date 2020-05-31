@@ -285,8 +285,6 @@ namespace Igor
                     return iKeyCode::Backspace;
                 case 9:
                     return iKeyCode::Tab;
-                case 12:
-                    return iKeyCode::Clear;
                 case 13:
                     return iKeyCode::Return;
                 case 16:
