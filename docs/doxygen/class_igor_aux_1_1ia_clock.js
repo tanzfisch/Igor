@@ -1,8 +1,7 @@
 var class_igor_aux_1_1ia_clock =
 [
-    [ "getClockMiliseconds", "class_igor_aux_1_1ia_clock.html#af484ce486472ba88ccc81633759e0fb2", null ],
-    [ "getClockSeconds", "class_igor_aux_1_1ia_clock.html#ab2830e1be63d821198a8e6d4715d2bf7", null ],
-    [ "getClockTicks", "class_igor_aux_1_1ia_clock.html#a41deb840b7f4bd25d1adb2b9b482226d", null ],
-    [ "getTickScale", "class_igor_aux_1_1ia_clock.html#ad179336ad16c01d32f3a38bd7671bcb1", null ],
-    [ "initClock", "class_igor_aux_1_1ia_clock.html#a9f5c16561acde973d199f6e3ecf84835", null ]
+    [ "getTimeMicrosenconds", "class_igor_aux_1_1ia_clock.html#ab760fec7ccee63f259be86474cf1eb85", null ],
+    [ "getTimeMiliseconds", "class_igor_aux_1_1ia_clock.html#ac2549220aa53dcdbbeb18f01a5a2e97e", null ],
+    [ "getTimeSeconds", "class_igor_aux_1_1ia_clock.html#acf01174bca76921a7d6064a0de4a94fc", null ],
+    [ "resetClock", "class_igor_aux_1_1ia_clock.html#a8d770c71f4209b3fcb4747610f8ce651", null ]
 ];

@@ -8,10 +8,8 @@ var searchData=
   ['capslock',['CapsLock',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a8d0f4171170104d094d8b6d4f8bf49e6',1,'Igor']]],
   ['center',['Center',['../namespace_igor.html#aea3bcbf77ead77dc7cb855da623738aea4f1f6016fc9f3f2353c0cc7c67b292bd',1,'Igor::Center()'],['../namespace_igor.html#a2526c10e8630ee25d053e6c519b15180a4f1f6016fc9f3f2353c0cc7c67b292bd',1,'Igor::Center()']]],
   ['clamp',['Clamp',['../namespace_igor.html#a10541984fb40d8f093520c0847d01be8a08825280e3f8137556325061ba67ff8c',1,'Igor']]],
-  ['clear',['Clear',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24adc30bc0c7914db5918da4263fce93ad2',1,'Igor']]],
   ['clicked',['Clicked',['../namespace_igor.html#a48cd75ff6b40f17a4c3ee177138182f4aaac77152dd6ab723d807092db6e0daf4',1,'Igor']]],
   ['collumn',['Collumn',['../namespace_igor.html#ad1f2bb46a86a3c8c906a9f02b512a326a1f1ff3a401d7fad7e6565bf7d4311bc7',1,'Igor']]],
-  ['control',['Control',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24aa1595abbb4c3a326636dd178757cd6c1',1,'Igor']]],
   ['cullface',['CullFace',['../namespace_igor.html#ab297c11b2c64e78ac457158bfddd8ed7a5fbf085d301b88f5c73689461c9b221b',1,'Igor::CullFace()'],['../namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761a5fbf085d301b88f5c73689461c9b221b',1,'OMPF::CullFace()']]],
   ['cullfacefunc',['CullFaceFunc',['../namespace_igor.html#ab297c11b2c64e78ac457158bfddd8ed7af4f87a3c628c9d9564fc908b98bc70a1',1,'Igor::CullFaceFunc()'],['../namespace_o_m_p_f.html#a6ed34e0ed2ed26033dc32e1d33c18761af4f87a3c628c9d9564fc908b98bc70a1',1,'OMPF::CullFaceFunc()']]],
   ['cyan',['Cyan',['../namespace_igor_aux.html#a40f0d9edbd2c9519788b20a95a9facc8a023c239d2f2538f140a20e72c7b73f20',1,'IgorAux']]]

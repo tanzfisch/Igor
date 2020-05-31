@@ -1,6 +1,11 @@
 Changelog                           {#changelog}
 =========
 
+0.26.0
+------
+
+- Linux and Windows support using cmake
+
 0.25.0
 ------
 

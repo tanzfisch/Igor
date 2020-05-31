@@ -1,12 +1,12 @@
 var class_igor_1_1i_mesh_buffers =
 [
     [ "~iMeshBuffers", "class_igor_1_1i_mesh_buffers.html#a10a33a74059b56595b41533905e5a014", null ],
-    [ "getIndexBufferObject", "class_igor_1_1i_mesh_buffers.html#acea139695099778f02db8ea9e070de78", null ],
-    [ "getIndexesCount", "class_igor_1_1i_mesh_buffers.html#ad2e07d2ad90986610240609725c00834", null ],
-    [ "getTrianglesCount", "class_igor_1_1i_mesh_buffers.html#adb26929cef5d9ae51b09b436d9e40706", null ],
-    [ "getVertexArrayObject", "class_igor_1_1i_mesh_buffers.html#ab9b5d0586de13346d0ced1f4a47654ed", null ],
-    [ "getVertexBufferObject", "class_igor_1_1i_mesh_buffers.html#ae5577dd960b5e07d097fb924ba547b21", null ],
-    [ "getVertexCount", "class_igor_1_1i_mesh_buffers.html#a86892e1c06e7fbfda3ce2fb6707c621a", null ],
+    [ "getIndexBufferObject", "class_igor_1_1i_mesh_buffers.html#abba27c3b2b2b146bfc9cd397dd19488e", null ],
+    [ "getIndexesCount", "class_igor_1_1i_mesh_buffers.html#a30ca06f9af1021eac46bb4bd26eb3a6b", null ],
+    [ "getTrianglesCount", "class_igor_1_1i_mesh_buffers.html#a16170b69519e201001e3a8e9dd175383", null ],
+    [ "getVertexArrayObject", "class_igor_1_1i_mesh_buffers.html#a50501ce58a0cdf5fcf658f074c8c0dca", null ],
+    [ "getVertexBufferObject", "class_igor_1_1i_mesh_buffers.html#a37f1662208fb639a9a25943af885f41a", null ],
+    [ "getVertexCount", "class_igor_1_1i_mesh_buffers.html#a651d5ec964f2b6e04807e87ca9601d86", null ],
     [ "isReady", "class_igor_1_1i_mesh_buffers.html#a81bf2548371ff9b3048e65c0cae28562", null ],
     [ "setIndexBufferObject", "class_igor_1_1i_mesh_buffers.html#a10b9d02617a9772775d864c5dbd62767", null ],
     [ "setIndexesCount", "class_igor_1_1i_mesh_buffers.html#a04f8195f1f9b5dd7b08f1c67cb27fc35", null ],

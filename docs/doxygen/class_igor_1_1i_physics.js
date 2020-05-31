@@ -6,7 +6,7 @@ var class_igor_1_1i_physics =
     [ "createBox", "class_igor_1_1i_physics.html#afebe6b2fe5cf7dc16ba1c391c0b0315a", null ],
     [ "createCapsule", "class_igor_1_1i_physics.html#afa1894feb7ff057921906df61a15e042", null ],
     [ "createCollisionConfig", "class_igor_1_1i_physics.html#a90dcd82ece96f39ec61120a36e15ff18", null ],
-    [ "createCompound", "class_igor_1_1i_physics.html#a661b482f6134b70088b0835fc2ea8b1d", null ],
+    [ "createCompound", "class_igor_1_1i_physics.html#a25ae11e94b6d3fbb037e1b8531760421", null ],
     [ "createCone", "class_igor_1_1i_physics.html#a0c7f0310f7fbe23e6f4f395310e286bc", null ],
     [ "createCylinder", "class_igor_1_1i_physics.html#a0e73af2ad2d70e791994c35ab417a098", null ],
     [ "createJoint", "class_igor_1_1i_physics.html#ab08566234153b58519067def76caf8e6", null ],
@@ -54,7 +54,6 @@ var class_igor_1_1i_physics =
     [ "iPhysicsCollision", "class_igor_1_1i_physics.html#a6f590f1d48b30e767997d3f67c399eda", null ],
     [ "iPhysicsCollisionConfig", "class_igor_1_1i_physics.html#a61fa9c860fc3cdda0187baceefa65abf", null ],
     [ "iPhysicsMaterialCombo", "class_igor_1_1i_physics.html#a72f84a1a644c0e5244bb781db019bc7e", null ],
-    [ "iPhysicsPlayer", "class_igor_1_1i_physics.html#ae93b77e98c54967fc87ffdda13e562fb", null ],
     [ "iTaskPhysics", "class_igor_1_1i_physics.html#a31d600da0c8da56a3e346515e7818b24", null ],
     [ "PhysicsNodeDestructor", "class_igor_1_1i_physics.html#aacac62f80c5ab05ae8458fb42ca68604", null ],
     [ "PhysicsNodeSetTransform", "class_igor_1_1i_physics.html#a4d0d07ff15000d37cd93021ea8c42626", null ]

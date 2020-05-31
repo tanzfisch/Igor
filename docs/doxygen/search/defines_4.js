@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['edit3ds',['EDIT3DS',['../i_model_data_i_o3_d_s_8cpp.html#af00ff38c2ca2f5278a135bc4302f23ce',1,'iModelDataIO3DS.cpp']]],
-  ['edit_5fmaterial',['EDIT_MATERIAL',['../i_model_data_i_o3_d_s_8cpp.html#adc62d551c5959780c87369cdad3ec29c',1,'iModelDataIO3DS.cpp']]],
-  ['edit_5fobject',['EDIT_OBJECT',['../i_model_data_i_o3_d_s_8cpp.html#a3382608a5f7d73fc7e5539160aaa4b38',1,'iModelDataIO3DS.cpp']]]
+  ['fill_5flod_5fgaps',['FILL_LOD_GAPS',['../i_contouring_cubes_8cpp.html#a3dd88a7daff552bac1c3d9a13a71c5a2',1,'iContouringCubes.cpp']]]
 ];

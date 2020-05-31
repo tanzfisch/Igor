@@ -8,7 +8,7 @@ var class_igor_1_1i_task_manager =
     [ "getRenderContextThreadCount", "class_igor_1_1i_task_manager.html#a588ea1293fd4f50c1c65674a3e43e4ad", null ],
     [ "getRunningRegularTaskCount", "class_igor_1_1i_task_manager.html#aedbf90046cde47b5f6d487953a13bf0d", null ],
     [ "getRunningRenderContextTaskCount", "class_igor_1_1i_task_manager.html#a2ea15d00f4eae31fc6ae2e3ca85f4d76", null ],
-    [ "getTaksDoneCount", "class_igor_1_1i_task_manager.html#a8ed56b9d225d6be4b42a23c71fa715a2", null ],
+    [ "getTaksDoneCount", "class_igor_1_1i_task_manager.html#ac35c8a4bc27e6fa81856711c79c3530d", null ],
     [ "getTask", "class_igor_1_1i_task_manager.html#a443ca201f4e6fdfc673c232c7b839fe9", null ],
     [ "isRunning", "class_igor_1_1i_task_manager.html#adfa0bd6c22c3afe1709e626e8197794e", null ],
     [ "registerTaskFinishedDelegate", "class_igor_1_1i_task_manager.html#a4a35f55cfff078416fb0b94f3928f037", null ],

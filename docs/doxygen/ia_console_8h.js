@@ -1,6 +1,15 @@
 var ia_console_8h =
 [
     [ "iaConsole", "class_igor_aux_1_1ia_console.html", "class_igor_aux_1_1ia_console" ],
+    [ "con", "ia_console_8h.html#a013e663380036999ed38f9752c5481cc", null ],
+    [ "con_assert", "ia_console_8h.html#a6eebaa67b0bd67ba43d04abc729897c1", null ],
+    [ "con_assert_sticky", "ia_console_8h.html#a4fc2be5c01a5e9bcacda006dadc2cc35", null ],
+    [ "con_debug", "ia_console_8h.html#a2fe059dd74a3e01c2082a11490b6f04f", null ],
+    [ "con_debug_endl", "ia_console_8h.html#af7a4141dfae7dcf8005d54e8ac52489f", null ],
+    [ "con_endl", "ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7", null ],
+    [ "con_err", "ia_console_8h.html#a78f0115042eb1a14efffca278878e5b6", null ],
+    [ "con_info", "ia_console_8h.html#a296a568a625679f49a56655cd5e55ba1", null ],
+    [ "con_warn", "ia_console_8h.html#ac961fd7ad9bdd11be6aaca8c678ccae4", null ],
     [ "iaForegroundColor", "ia_console_8h.html#a40f0d9edbd2c9519788b20a95a9facc8", [
       [ "White", "ia_console_8h.html#a40f0d9edbd2c9519788b20a95a9facc8a25a81701fbfa4a1efdf660a950c1d006", null ],
       [ "Gray", "ia_console_8h.html#a40f0d9edbd2c9519788b20a95a9facc8a994ae1d9731cebe455aff211bcb25b93", null ],
@@ -25,11 +34,10 @@ var ia_console_8h =
       [ "DebugInfo", "ia_console_8h.html#a95b2b44871530bf71a452919620012e3af6f6931771db95a6bffec131b856bd50", null ],
       [ "Debug", "ia_console_8h.html#a95b2b44871530bf71a452919620012e3aa603905470e2a5b8c13e96b579ef0dba", null ]
     ] ],
-    [ "__IGOR_FUNCTION_POINTER__", "ia_console_8h.html#a9179263f314e94a68b38277d350e0e3d", null ],
+    [ "__IGOR_FUNCTION_POINTER__", "ia_console_8h.html#a366c74bd9edacff84ed0607d78ee6cf8", null ],
     [ "applicationTime", "ia_console_8h.html#aaa07a13fdd4cdc0b5ab00ac00c35d3dc", null ],
     [ "endl", "ia_console_8h.html#a95ee90eb942654df4ba5c9f4eb0517f0", null ],
     [ "flush", "ia_console_8h.html#a5ab337bcd8a64231e8296eb97d30af6f", null ],
-    [ "generateWindowsError", "ia_console_8h.html#a09ebd6c4ca87ccc30102137997a48f42", null ],
     [ "incerr", "ia_console_8h.html#a30a819b107bfd5b41c2f73430107b226", null ],
     [ "incwarn", "ia_console_8h.html#a43eee15fdd95e094c9465962be150e9d", null ],
     [ "LOCK", "ia_console_8h.html#a7dce861889a3c2884129ceb9d03ddb24", null ],

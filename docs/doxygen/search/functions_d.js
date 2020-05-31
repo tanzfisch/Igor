@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['makecurrent',['makeCurrent',['../class_igor_1_1i_window.html#abe94f7dad83e8f39089b1fe655861ae2',1,'Igor::iWindow']]],
+  ['makecurrent',['makeCurrent',['../class_igor_1_1i_window_impl.html#a28772f07f8433776b09f375c4230735d',1,'Igor::iWindowImpl']]],
+  ['match',['match',['../class_igor_aux_1_1ia_string.html#a381008d93f7b16d950e37f8f8f69c65f',1,'IgorAux::iaString']]],
   ['measureheight',['measureHeight',['../class_igor_1_1i_texture_font.html#ad42cb219c3d61f3062262cc0411ca0b3',1,'Igor::iTextureFont']]],
   ['measurewidth',['measureWidth',['../class_igor_1_1i_texture_font.html#aae9286a9964b07e8e01eef8fe0aca4be',1,'Igor::iTextureFont']]],
   ['merge',['merge',['../class_igor_1_1i_sphere.html#ab7d2f247a9c5cd86208a8d7b5d6e6b2d',1,'Igor::iSphere']]],

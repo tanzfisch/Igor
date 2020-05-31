@@ -53,9 +53,6 @@ var hierarchy =
     [ "IgorAux::iaSingleton< iKeyboard >", "class_igor_aux_1_1ia_singleton.html", [
       [ "Igor::iKeyboard", "class_igor_1_1i_keyboard.html", null ]
     ] ],
-    [ "IgorAux::iaSingleton< iKeyCodeMap >", "class_igor_aux_1_1ia_singleton.html", [
-      [ "Igor::iKeyCodeMap", "class_igor_1_1i_key_code_map.html", null ]
-    ] ],
     [ "IgorAux::iaSingleton< iMaterialResourceFactory >", "class_igor_aux_1_1ia_singleton.html", [
       [ "Igor::iMaterialResourceFactory", "class_igor_1_1i_material_resource_factory.html", null ]
     ] ],
@@ -83,9 +80,6 @@ var hierarchy =
     [ "IgorAux::iaSingleton< iSceneFactory >", "class_igor_aux_1_1ia_singleton.html", [
       [ "Igor::iSceneFactory", "class_igor_1_1i_scene_factory.html", null ]
     ] ],
-    [ "IgorAux::iaSingleton< iSoundResourceFactory >", "class_igor_aux_1_1ia_singleton.html", [
-      [ "Igor::iSoundResourceFactory", "class_igor_1_1i_sound_resource_factory.html", null ]
-    ] ],
     [ "IgorAux::iaSingleton< iTaskManager >", "class_igor_aux_1_1ia_singleton.html", [
       [ "Igor::iTaskManager", "class_igor_1_1i_task_manager.html", null ]
     ] ],
@@ -101,6 +95,7 @@ var hierarchy =
     [ "IgorAux::iaState", "class_igor_aux_1_1ia_state.html", null ],
     [ "IgorAux::iaStateMachine", "class_igor_aux_1_1ia_state_machine.html", null ],
     [ "IgorAux::iaString", "class_igor_aux_1_1ia_string.html", null ],
+    [ "IgorAux::iaTime", "class_igor_aux_1_1ia_time.html", null ],
     [ "Igor::iAtlas", "class_igor_1_1i_atlas.html", null ],
     [ "IgorAux::iaTransform< T >", "class_igor_aux_1_1ia_transform.html", null ],
     [ "IgorAux::iaTransition", "class_igor_aux_1_1ia_transition.html", null ],
@@ -111,6 +106,7 @@ var hierarchy =
     [ "IgorAux::iaVector3< int64 >", "class_igor_aux_1_1ia_vector3.html", null ],
     [ "IgorAux::iaVector4< T >", "class_igor_aux_1_1ia_vector4.html", null ],
     [ "Igor::iBone", "class_igor_1_1i_bone.html", null ],
+    [ "Igor::iButtonState", "struct_igor_1_1i_button_state.html", null ],
     [ "Igor::iCharacterDimensions", "class_igor_1_1i_character_dimensions.html", null ],
     [ "Igor::iConfigReader", "class_igor_1_1i_config_reader.html", null ],
     [ "Igor::iContouringCubes", "class_igor_1_1i_contouring_cubes.html", null ],
@@ -128,9 +124,7 @@ var hierarchy =
     [ "Igor::iInstancer", "class_igor_1_1i_instancer.html", null ],
     [ "Igor::iIntersection", "class_igor_1_1i_intersection.html", null ],
     [ "Igor::iJoint", "class_igor_1_1i_joint.html", null ],
-    [ "iLoader", null, [
-      [ "Igor::iLoader3DS", "class_igor_1_1i_loader3_d_s.html", null ]
-    ] ],
+    [ "Igor::iKeyboardImpl", "class_igor_1_1i_keyboard_impl.html", null ],
     [ "Igor::iLSystem", "class_igor_1_1i_l_system.html", null ],
     [ "Igor::iMaterial", "class_igor_1_1i_material.html", null ],
     [ "Igor::iMaterialGroup", "class_igor_1_1i_material_group.html", null ],
@@ -144,6 +138,7 @@ var hierarchy =
       [ "Igor::iModelDataIOOMPF", "class_igor_1_1i_model_data_i_o_o_m_p_f.html", null ],
       [ "Igor::iVoxelTerrainMeshGenerator", "class_igor_1_1i_voxel_terrain_mesh_generator.html", null ]
     ] ],
+    [ "Igor::iMouseImpl", "class_igor_1_1i_mouse_impl.html", null ],
     [ "Igor::iNode", "class_igor_1_1i_node.html", [
       [ "Igor::iNodeCamera", "class_igor_1_1i_node_camera.html", null ],
       [ "Igor::iNodeEmitter", "class_igor_1_1i_node_emitter.html", null ],
@@ -152,13 +147,11 @@ var hierarchy =
       [ "Igor::iNodeLODTrigger", "class_igor_1_1i_node_l_o_d_trigger.html", null ],
       [ "Igor::iNodeModel", "class_igor_1_1i_node_model.html", null ],
       [ "Igor::iNodeRender", "class_igor_1_1i_node_render.html", [
-        [ "Igor::iCelestialNode", "class_igor_1_1i_celestial_node.html", null ],
         [ "Igor::iNodeSkyBox", "class_igor_1_1i_node_sky_box.html", null ],
         [ "Igor::iNodeVolume", "class_igor_1_1i_node_volume.html", [
           [ "Igor::iNodeParticleSystem", "class_igor_1_1i_node_particle_system.html", null ]
         ] ],
-        [ "Igor::iNodeWater", "class_igor_1_1i_node_water.html", null ],
-        [ "Igor::iSkyLightNode", "class_igor_1_1i_sky_light_node.html", null ]
+        [ "Igor::iNodeWater", "class_igor_1_1i_node_water.html", null ]
       ] ],
       [ "Igor::iNodeSwitch", "class_igor_1_1i_node_switch.html", null ],
       [ "Igor::iNodeTransform", "class_igor_1_1i_node_transform.html", null ]
@@ -183,13 +176,10 @@ var hierarchy =
     [ "Igor::iParticleSystem2D", "class_igor_1_1i_particle_system2_d.html", null ],
     [ "Igor::iParticleSystem3D", "class_igor_1_1i_particle_system3_d.html", null ],
     [ "Igor::iPerlinNoise", "class_igor_1_1i_perlin_noise.html", null ],
-    [ "Igor::iPhysicsBody", "class_igor_1_1i_physics_body.html", [
-      [ "Igor::iPhysicsPlayer", "class_igor_1_1i_physics_player.html", null ]
-    ] ],
+    [ "Igor::iPhysicsBody", "class_igor_1_1i_physics_body.html", null ],
     [ "Igor::iPhysicsCollision", "class_igor_1_1i_physics_collision.html", null ],
     [ "Igor::iPhysicsCollisionConfig", "class_igor_1_1i_physics_collision_config.html", null ],
     [ "Igor::iPhysicsJoint", "class_igor_1_1i_physics_joint.html", null ],
-    [ "Igor::iPhysicsJointUpVector", "class_igor_1_1i_physics_joint_up_vector.html", null ],
     [ "Igor::iPhysicsMaterial", "class_igor_1_1i_physics_material.html", null ],
     [ "Igor::iPhysicsMaterialCombo", "class_igor_1_1i_physics_material_combo.html", null ],
     [ "Igor::iPhysicsUserMeshCollisionHandler", "class_igor_1_1i_physics_user_mesh_collision_handler.html", null ],
@@ -208,11 +198,7 @@ var hierarchy =
     [ "Igor::iScene", "class_igor_1_1i_scene.html", null ],
     [ "Igor::iShader", "class_igor_1_1i_shader.html", null ],
     [ "Igor::iShaderSource", "struct_igor_1_1i_shader_source.html", null ],
-    [ "Igor::iSimpleCubes", "class_igor_1_1i_simple_cubes.html", null ],
     [ "Igor::iSkeleton", "class_igor_1_1i_skeleton.html", null ],
-    [ "Igor::iSkySimulation", "class_igor_1_1i_sky_simulation.html", null ],
-    [ "Igor::iSound", "class_igor_1_1i_sound.html", null ],
-    [ "Igor::iSoundBuffer", "class_igor_1_1i_sound_buffer.html", null ],
     [ "Igor::iSphere< T >", "class_igor_1_1i_sphere.html", null ],
     [ "Igor::iSphere< float64 >", "class_igor_1_1i_sphere.html", null ],
     [ "Igor::iSphere< int64 >", "class_igor_1_1i_sphere.html", null ],
@@ -225,7 +211,6 @@ var hierarchy =
       [ "Igor::iTaskLoadModel", "class_igor_1_1i_task_load_model.html", null ],
       [ "Igor::iTaskPrepareCollision", "class_igor_1_1i_task_prepare_collision.html", null ],
       [ "Igor::iTaskPropsOnVoxels", "class_igor_1_1i_task_props_on_voxels.html", null ],
-      [ "Igor::iTaskUpdateLOD", "class_igor_1_1i_task_update_l_o_d.html", null ],
       [ "Igor::iTaskVoxelTerrain", "class_igor_1_1i_task_voxel_terrain.html", null ]
     ] ],
     [ "Igor::iTexture", "class_igor_1_1i_texture.html", null ],
@@ -284,6 +269,7 @@ var hierarchy =
       [ "Igor::iWidgetDefaultTheme", "class_igor_1_1i_widget_default_theme.html", null ]
     ] ],
     [ "Igor::iWindow", "class_igor_1_1i_window.html", null ],
+    [ "Igor::iWindowImpl", "class_igor_1_1i_window_impl.html", null ],
     [ "std::less< IgorAux::iaString >", "structstd_1_1less_3_01_igor_aux_1_1ia_string_01_4.html", null ],
     [ "OMPF::OMPF", "class_o_m_p_f_1_1_o_m_p_f.html", null ],
     [ "OMPF::ompfBaseChunk", "class_o_m_p_f_1_1ompf_base_chunk.html", [

@@ -1,8 +1,6 @@
 var i_mouse_8h =
 [
     [ "iMouse", "class_igor_1_1i_mouse.html", "class_igor_1_1i_mouse" ],
-    [ "WHEEL_DELTA", "i_mouse_8h.html#a2a0e477b7ffd2a6e6cb81454a3238140", null ],
-    [ "WM_MOUSEWHEEL", "i_mouse_8h.html#a9d3b2a3f4572e6ec9d3ce57fec9d8083", null ],
     [ "iaEVENT", "i_mouse_8h.html#af5023533a7cd8fa6722de2999e18b868", null ],
     [ "iaEVENT", "i_mouse_8h.html#a8ac305728a30aba67eb0ae850d226b90", null ],
     [ "iaEVENT", "i_mouse_8h.html#af231e58cd36fcd0660c313ce6e966dd5", null ],

@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['_5f_5fgit_5ftag_5f_5f',['__GIT_TAG__',['../git_tag_8inl.html#aacdd7b0851cf757c03f7de1594cd2299',1,'gitTag.inl']]],
-  ['_5f_5figor_5faux_5fconfig_5fstr_5f_5f',['__IGOR_AUX_CONFIG_STR__',['../ia_defines_8h.html#a0c06ed665c18c61d73da6cec65742b78',1,'iaDefines.h']]],
+  ['_5f_5fiaux_5fconfig_5fstr_5f_5f',['__IAUX_CONFIG_STR__',['../ia_defines_8h.html#a768b493af3e3cdfb497cec6313a3ab44',1,'iaDefines.h']]],
   ['_5f_5figor_5fbase_5flenght_5f_5f',['__IGOR_BASE_LENGHT__',['../ia_defines_8h.html#aecdcc79435e20a3de4ca800443fa0a29',1,'iaDefines.h']]],
   ['_5f_5figor_5fbase_5ftime_5f_5f',['__IGOR_BASE_TIME__',['../ia_defines_8h.html#a517d5f37abcf499fb45948e9a5ef6580',1,'iaDefines.h']]],
   ['_5f_5figor_5fbase_5fweight_5f_5f',['__IGOR_BASE_WEIGHT__',['../ia_defines_8h.html#a2b068e4835e49e2c7db941a3c0a13195',1,'iaDefines.h']]],
@@ -37,21 +36,24 @@ var searchData=
   ['_5f_5figor_5fbit_5f7_5f_5f',['__IGOR_BIT_7__',['../ia_defines_8h.html#ae8f928fb633d9dbd7608d8e5452c06b6',1,'iaDefines.h']]],
   ['_5f_5figor_5fbit_5f8_5f_5f',['__IGOR_BIT_8__',['../ia_defines_8h.html#ac302da54608a8fe3417b354ef8e50f20',1,'iaDefines.h']]],
   ['_5f_5figor_5fbit_5f9_5f_5f',['__IGOR_BIT_9__',['../ia_defines_8h.html#ae41e4d3211a1e0051b95ef27968e4461',1,'iaDefines.h']]],
+  ['_5f_5figor_5fcdecl_5f_5f',['__IGOR_CDECL__',['../ia_defines_8h.html#a13ed3b1be55d8ebeeda876153e71c22c',1,'iaDefines.h']]],
   ['_5f_5figor_5fcentimeter_5f_5f',['__IGOR_CENTIMETER__',['../ia_defines_8h.html#ab14ddc04664d99649471bbeac02ec9b6',1,'iaDefines.h']]],
-  ['_5f_5figor_5fconfig_5fstr_5f_5f',['__IGOR_CONFIG_STR__',['../i_defines_8h.html#ad6ff1ecd54413ed490a0226c03234773',1,'iDefines.h']]],
-  ['_5f_5figor_5fconfiguration_5f_5f',['__IGOR_CONFIGURATION__',['../i_version_8h.html#a3e9dbc5e64aa17784a696b2f28dea196',1,'iVersion.h']]],
   ['_5f_5figor_5fdecimeter_5f_5f',['__IGOR_DECIMETER__',['../ia_defines_8h.html#ac71a05779c53cec629cdc5a7016c1c3e',1,'iaDefines.h']]],
+  ['_5f_5figor_5fdefaultcall_5f_5f',['__IGOR_DEFAULTCALL__',['../ia_defines_8h.html#abda816f875e6b7516551783fb21bb696',1,'iaDefines.h']]],
+  ['_5f_5figor_5ffile_5f_5f',['__IGOR_FILE__',['../ia_defines_8h.html#a6a2c0c124d9f1811db4497884c8dfaa4',1,'iaDefines.h']]],
+  ['_5f_5figor_5ffile_5fline_5f_5f',['__IGOR_FILE_LINE__',['../ia_defines_8h.html#a697e3f8d08a488719c8168bad998393f',1,'iaDefines.h']]],
+  ['_5f_5figor_5ffunction_5f_5f',['__IGOR_FUNCTION__',['../ia_defines_8h.html#a9a216b611b5a622763f2b6ba59bd9e8a',1,'iaDefines.h']]],
   ['_5f_5figor_5fgramm_5f_5f',['__IGOR_GRAMM__',['../ia_defines_8h.html#a13b400b9a9e0bccec87f9493988e503e',1,'iaDefines.h']]],
   ['_5f_5figor_5fgravity_5f_5f',['__IGOR_GRAVITY__',['../ia_defines_8h.html#a62836e238200be78731465d4aba1e4c3',1,'iaDefines.h']]],
   ['_5f_5figor_5fkilo_5f_5f',['__IGOR_KILO__',['../ia_defines_8h.html#ab095b53816c8eb73c33b8de2e14234cc',1,'iaDefines.h']]],
   ['_5f_5figor_5fkilometer_5f_5f',['__IGOR_KILOMETER__',['../ia_defines_8h.html#a16ab9362a5e14008ca8a761a72aa748c',1,'iaDefines.h']]],
-  ['_5f_5figor_5flogging_5ftab_5f_5f',['__IGOR_LOGGING_TAB__',['../ia_defines_8h.html#a9b487d736f1ff95216577b03f57f1b2d',1,'iaDefines.h']]],
+  ['_5f_5figor_5fline_5f_5f',['__IGOR_LINE__',['../ia_defines_8h.html#af4764c6d8b2d6ab8f06210f85fd99669',1,'iaDefines.h']]],
   ['_5f_5figor_5fmeter_5f_5f',['__IGOR_METER__',['../ia_defines_8h.html#a9eff74efe47cd54ccf678a3e9f931c86',1,'iaDefines.h']]],
   ['_5f_5figor_5fmilimeter_5f_5f',['__IGOR_MILIMETER__',['../ia_defines_8h.html#a34f1b798e107548ba507ce783f5aea1a',1,'iaDefines.h']]],
   ['_5f_5figor_5fmillisecond_5f_5f',['__IGOR_MILLISECOND__',['../ia_defines_8h.html#a98bf4723876b84677be155cce5e5226f',1,'iaDefines.h']]],
   ['_5f_5figor_5fminute_5f_5f',['__IGOR_MINUTE__',['../ia_defines_8h.html#aaaed87c66d4c369b13636752b4b0f1ef',1,'iaDefines.h']]],
   ['_5f_5figor_5fsecond_5f_5f',['__IGOR_SECOND__',['../ia_defines_8h.html#ab002cf07de858bb4fdd4cc014c057bb9',1,'iaDefines.h']]],
+  ['_5f_5figor_5fstdcall_5f_5f',['__IGOR_STDCALL__',['../ia_defines_8h.html#a123d326c50822a7f5fdbff8f0dec986f',1,'iaDefines.h']]],
   ['_5f_5figor_5ftab_5f_5f',['__IGOR_TAB__',['../ia_defines_8h.html#a952845fc924ffb57aed31aec66298bf5',1,'iaDefines.h']]],
-  ['_5f_5figor_5fton_5f_5f',['__IGOR_TON__',['../ia_defines_8h.html#a86691a226e2969d9c5eb708cbbbc6c7f',1,'iaDefines.h']]],
-  ['_5f_5figor_5fversion_5f_5f',['__IGOR_VERSION__',['../i_version_8h.html#a8627ea2f5e4d63c19c2a530975fec0cd',1,'iVersion.h']]]
+  ['_5f_5figor_5fton_5f_5f',['__IGOR_TON__',['../ia_defines_8h.html#a86691a226e2969d9c5eb708cbbbc6c7f',1,'iaDefines.h']]]
 ];

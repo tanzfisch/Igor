@@ -1,12 +1,12 @@
 var class_igor_1_1i_widget_manager =
 [
     [ "draw", "class_igor_1_1i_widget_manager.html#a913d26bf12b98d7cf662268cdd9ef0c7", null ],
-    [ "getDesktopHeight", "class_igor_1_1i_widget_manager.html#a6a29e1759c0dc5590a017f05b272be04", null ],
-    [ "getDesktopWidth", "class_igor_1_1i_widget_manager.html#a8d8e719f0b95acd48cef9fff82acac4c", null ],
+    [ "getDesktopHeight", "class_igor_1_1i_widget_manager.html#a8de8e64783926f604ce82587adb10530", null ],
+    [ "getDesktopWidth", "class_igor_1_1i_widget_manager.html#a21979e6115e10372cb877890010e4f62", null ],
     [ "getDialog", "class_igor_1_1i_widget_manager.html#a2415fb701bf36ec927e56414c96e6e0f", null ],
-    [ "getModal", "class_igor_1_1i_widget_manager.html#a5c755b592e1f1872b114aa4e658d8481", null ],
+    [ "getModal", "class_igor_1_1i_widget_manager.html#a6b1a768c90b6dce868f790d9e7fbca8d", null ],
     [ "getTheme", "class_igor_1_1i_widget_manager.html#a039e91eb863a84d773a0171caa4a08e5", null ],
-    [ "getWidget", "class_igor_1_1i_widget_manager.html#a4a35cd00a934f77f733f4ce6e668e334", null ],
+    [ "getWidget", "class_igor_1_1i_widget_manager.html#afa9f38c7a5918ab44f332640cc57cd49", null ],
     [ "hideTooltip", "class_igor_1_1i_widget_manager.html#af048259868df5a172088902ea2f6dade", null ],
     [ "isModal", "class_igor_1_1i_widget_manager.html#a61aa33bea79bec4bc521a5e1386607bb", null ],
     [ "registerKeyDownDelegate", "class_igor_1_1i_widget_manager.html#a821216ee4685ab6e4cf3ef410408b541", null ],

@@ -1,7 +1,7 @@
 var searchData=
 [
   ['mouse_20usage_20example',['Mouse Usage Example',['../example02.html',1,'tutorials']]],
-  ['m',['M',['../_igor_8cpp.html#a52037c938e3c1b126c6277da5ca689d0',1,'M():&#160;Igor.cpp'],['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a69691c7bdcc3ce6d5d8a1361f22d04ac',1,'Igor::M()']]],
+  ['m',['M',['../igor_8cpp.html#a52037c938e3c1b126c6277da5ca689d0',1,'M():&#160;igor.cpp'],['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a69691c7bdcc3ce6d5d8a1361f22d04ac',1,'Igor::M()']]],
   ['m_5f1_5fpi',['M_1_PI',['../ia_defines_8h.html#a08dfac3cca9601a02fc88356cc078e1d',1,'iaDefines.h']]],
   ['m_5f2_5fpi',['M_2_PI',['../ia_defines_8h.html#a97f6d6514d3d3dd50c3a2a6d622673db',1,'iaDefines.h']]],
   ['m_5f2_5fsqrtpi',['M_2_SQRTPI',['../ia_defines_8h.html#a631ff334c4a1a6db2e8a7ff4acbe48a5',1,'iaDefines.h']]],
@@ -18,11 +18,9 @@ var searchData=
   ['m_5fsqrt1_5f2',['M_SQRT1_2',['../ia_defines_8h.html#acdbb2c2f9429f08916f03c8786d2d2d7',1,'iaDefines.h']]],
   ['m_5fsqrt2',['M_SQRT2',['../ia_defines_8h.html#a66b3ab30f1332874326ed93969e496e0',1,'iaDefines.h']]],
   ['magenta',['Magenta',['../namespace_igor_aux.html#a40f0d9edbd2c9519788b20a95a9facc8ab91cc2c1416fcca942b61c7ac5b1a9ac',1,'IgorAux']]],
-  ['main3ds',['MAIN3DS',['../i_model_data_i_o3_d_s_8cpp.html#a989e0563d45aaff3ba8d7e4c0a740d39',1,'iModelDataIO3DS.cpp']]],
   ['mainpage_2emd',['mainpage.md',['../mainpage_8md.html',1,'']]],
-  ['makecurrent',['makeCurrent',['../class_igor_1_1i_window.html#abe94f7dad83e8f39089b1fe655861ae2',1,'Igor::iWindow']]],
-  ['mat_5fname',['MAT_NAME',['../i_model_data_i_o3_d_s_8cpp.html#a9f231395af542b2c0a140d318ac3be57',1,'iModelDataIO3DS.cpp']]],
-  ['mat_5ftexture',['MAT_TEXTURE',['../i_model_data_i_o3_d_s_8cpp.html#adddab570d679e1d08c681f1ae0e3d99a',1,'iModelDataIO3DS.cpp']]],
+  ['makecurrent',['makeCurrent',['../class_igor_1_1i_window_impl.html#a28772f07f8433776b09f375c4230735d',1,'Igor::iWindowImpl']]],
+  ['match',['match',['../class_igor_aux_1_1ia_string.html#a381008d93f7b16d950e37f8f8f69c65f',1,'IgorAux::iaString']]],
   ['material',['Material',['../namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3ad92a8333dd3ccb895cc65f7455b71206',1,'OMPF']]],
   ['matswap',['MATSWAP',['../ia_matrix_8inl.html#afae867f65efaeeb6dc9f87b17b3208cf',1,'iaMatrix.inl']]],
   ['max_5ftexture_5funits',['MAX_TEXTURE_UNITS',['../class_igor_1_1i_material.html#af214abe62b77ff03356bdf8887d47700',1,'Igor::iMaterial']]],

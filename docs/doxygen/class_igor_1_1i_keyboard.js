@@ -1,6 +1,8 @@
 var class_igor_1_1i_keyboard =
 [
     [ "getKey", "class_igor_1_1i_keyboard.html#a9efc4e92e23f37600859c16cd62cd1f8", null ],
+    [ "getKeyCode", "class_igor_1_1i_keyboard.html#acf961a67aec9e8bdb5372b3312b967e7", null ],
+    [ "getWindow", "class_igor_1_1i_keyboard.html#ae5e296808db00b7a799bed6b9a57a402", null ],
     [ "keyPressed", "class_igor_1_1i_keyboard.html#a09b45a1cc0525073acb2c143e2ad3f78", null ],
     [ "registerKeyASCIIDelegate", "class_igor_1_1i_keyboard.html#ab7c36e48de64de79ed65306ecd839063", null ],
     [ "registerKeyDownDelegate", "class_igor_1_1i_keyboard.html#ab3515d2dd7b10bb322b2a4176f17100e", null ],

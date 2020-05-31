@@ -4,7 +4,7 @@ var class_igor_1_1i_dialog =
     [ "~iDialog", "class_igor_1_1i_dialog.html#afdee004bd5ce2775e21223fa12131520", null ],
     [ "close", "class_igor_1_1i_dialog.html#af3d218cdb72b06a3e7cc3a80da31929a", null ],
     [ "getBorder", "class_igor_1_1i_dialog.html#acbaa32b076fd6f712b93604f8c796f81", null ],
-    [ "getReturnState", "class_igor_1_1i_dialog.html#a1676b1705c684456ae7e47f9919049d5", null ],
+    [ "getReturnState", "class_igor_1_1i_dialog.html#aa7193fb9e2ac888efcdb7a85a4bc570f", null ],
     [ "getWidgetType", "class_igor_1_1i_dialog.html#a8448b52019e45bf473a042c4a2c52edc", null ],
     [ "open", "class_igor_1_1i_dialog.html#a92914ea32b4938b4abcb2cb7c3eadf8c", null ],
     [ "setBorder", "class_igor_1_1i_dialog.html#a920057e399f92d473cf94c53aa9a95d1", null ],

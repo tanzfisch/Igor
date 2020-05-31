@@ -1,11 +1,7 @@
 var searchData=
 [
-  ['obj_5fcamera',['OBJ_CAMERA',['../i_model_data_i_o3_d_s_8cpp.html#af2e5faea46473e5cb7d851803824bbf9',1,'iModelDataIO3DS.cpp']]],
-  ['obj_5flight',['OBJ_LIGHT',['../i_model_data_i_o3_d_s_8cpp.html#a0d1dec70d7e015ca5b2c5e065a38a40e',1,'iModelDataIO3DS.cpp']]],
-  ['obj_5ftrimesh',['OBJ_TRIMESH',['../i_model_data_i_o3_d_s_8cpp.html#a4925d3d641bec11ca0c49ba3d636393c',1,'iModelDataIO3DS.cpp']]],
-  ['ompf_5fconfiguration',['OMPF_CONFIGURATION',['../ompf_version_8h.html#a71a801b36cca0699d8e484121d3e0911',1,'ompfVersion.h']]],
-  ['ompf_5fversion',['OMPF_VERSION',['../ompf_version_8h.html#adbb1210113445324ce74b6ed78e491a3',1,'ompfVersion.h']]],
-  ['ompf_5fversion_5fmajor',['OMPF_VERSION_MAJOR',['../ompf_version_8h.html#a379f95657e49e5055c92fd0936d02c01',1,'ompfVersion.h']]],
-  ['ompf_5fversion_5fminor',['OMPF_VERSION_MINOR',['../ompf_version_8h.html#acb67df7b9060ed3fafcf8e7c9c12abb7',1,'ompfVersion.h']]],
-  ['ompf_5fversion_5fpatch',['OMPF_VERSION_PATCH',['../ompf_version_8h.html#a2ab3bf9ea1d00686e180b9eedd53c428',1,'ompfVersion.h']]]
+  ['sqrt2',['SQRT2',['../i_intersection_8inl.html#a514396dd60fa0621c83072091fb2a0cd',1,'iIntersection.inl']]],
+  ['stb_5fimage_5fimplementation',['STB_IMAGE_IMPLEMENTATION',['../i_texture_resource_factory_8cpp.html#a18372412ad2fc3ce1e3240b3cf0efe78',1,'iTextureResourceFactory.cpp']]],
+  ['str',['STR',['../ia_defines_8h.html#a18d295a837ac71add5578860b55e5502',1,'STR():&#160;iaDefines.h'],['../ompf_version_8h.html#a18d295a837ac71add5578860b55e5502',1,'STR():&#160;ompfVersion.h']]],
+  ['str2',['STR2',['../ia_defines_8h.html#ac8a66a18d26209f0d893dbe246f6cc1f',1,'STR2():&#160;iaDefines.h'],['../ompf_version_8h.html#ac8a66a18d26209f0d893dbe246f6cc1f',1,'STR2():&#160;ompfVersion.h']]]
 ];
