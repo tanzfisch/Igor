@@ -57,7 +57,6 @@ namespace Igor
 
 	void iTimerHandle::setIntervall(float64 interval)
 	{
-		con_endl("set intervall " << interval);
 		if (interval <= 0)
 		{
 			con_err("invalid value for _intervall");

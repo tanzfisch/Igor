@@ -300,12 +300,37 @@ namespace Igor
             setPosition(_window->getClientWidth() >> 1, _window->getClientHeight() >> 1);
         }
 
+        void handlePressEvent(iKeyCode buttonKey)
+        {
+            const iaTime doubleClickDelay = iaTime::fromMilliseconds(200);
+
+            int buttonIndex = (int)buttonKey - (int)iKeyCode::MouseLeft;
+            bool doubleClick = false;
+            iaTime time = iaTime::now();
+
+            if (!_buttonStates[buttonIndex]._pressed &&
+                time - _buttonStates[buttonIndex]._time < doubleClickDelay)
+            {
+                doubleClick = true;
+            }
+
+            _buttonStates[buttonIndex]._pressed = true;
+            _buttonStates[buttonIndex]._time = time;
+
+            if (doubleClick)
+            {
+                _doubleClickEvent(iKeyCode::MouseLeft);
+            }
+            else
+            {
+                _keyDownEvent(iKeyCode::MouseLeft);
+            }
+        }
+
         bool onOSEvent(const void *data) override
         {
             const iOSEvent *osevent = static_cast<const iOSEvent *>(data);
             XEvent xevent = osevent->_event;
-            const iaTime time = iaTime::now();
-            const iaTime doubleClickDelay = iaTime::fromMilliseconds(200);
 
             switch (xevent.type)
             {
@@ -313,42 +338,15 @@ namespace Igor
                 switch (xevent.xbutton.button)
                 {
                 case 1:
-                    _buttonStates[0]._pressed = true;
-                    if (time - _buttonStates[0]._time > doubleClickDelay)
-                    {
-                        _doubleClickEvent(iKeyCode::MouseLeft);
-                    }
-                    else
-                    {
-                        _keyDownEvent(iKeyCode::MouseLeft);
-                    }
-                    _buttonStates[0]._time = time;
+                    handlePressEvent(iKeyCode::MouseLeft);
                     break;
 
                 case 2:
-                    _buttonStates[1]._pressed = true;
-                    if (time - _buttonStates[1]._time > doubleClickDelay)
-                    {
-                        _doubleClickEvent(iKeyCode::MouseMiddle);
-                    }
-                    else
-                    {
-                        _keyDownEvent(iKeyCode::MouseMiddle);
-                    }
-                    _buttonStates[1]._time = time;
+                    handlePressEvent(iKeyCode::MouseMiddle);
                     break;
 
                 case 3:
-                    _buttonStates[2]._pressed = true;
-                    if (time - _buttonStates[2]._time > doubleClickDelay)
-                    {
-                        _doubleClickEvent(iKeyCode::MouseRight);
-                    }
-                    else
-                    {
-                        _keyDownEvent(iKeyCode::MouseRight);
-                    }
-                    _buttonStates[2]._time = time;
+                    handlePressEvent(iKeyCode::MouseRight);
                     break;
 
                 case 4:
@@ -360,29 +358,11 @@ namespace Igor
                     break;
 
                 case 8:
-                    _buttonStates[3]._pressed = true;
-                    if (time - _buttonStates[3]._time > doubleClickDelay)
-                    {
-                        _doubleClickEvent(iKeyCode::MouseButton4);
-                    }
-                    else
-                    {
-                        _keyDownEvent(iKeyCode::MouseButton4);
-                    }
-                    _buttonStates[3]._time = time;
+                    handlePressEvent(iKeyCode::MouseButton4);
                     break;
 
                 case 9:
-                    _buttonStates[4]._pressed = true;
-                    if (time - _buttonStates[4]._time > doubleClickDelay)
-                    {
-                        _doubleClickEvent(iKeyCode::MouseButton5);
-                    }
-                    else
-                    {
-                        _keyDownEvent(iKeyCode::MouseButton5);
-                    }
-                    _buttonStates[4]._time = time;
+                    handlePressEvent(iKeyCode::MouseButton5);
                     break;
                 };
                 break;

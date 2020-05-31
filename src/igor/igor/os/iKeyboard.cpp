@@ -134,10 +134,10 @@ namespace Igor
         L"MouseLeft",
         L"MouseMiddle",
         L"MouseRight",
-        L"MouseWheelUp",
-        L"MouseWheelDown",
         L"MouseButton4",
-        L"MouseButton5"};
+        L"MouseButton5",
+        L"MouseWheelUp",
+        L"MouseWheelDown"};
 
     std::wostream &operator<<(std::wostream &stream, const iKeyCode &keyCode)
     {
@@ -818,7 +818,6 @@ namespace Igor
                 }
 
                 currentKey = translate(xevent.xkey.keycode);
-                con_endl("translate " << xevent.xkey.keycode << " " << currentKey);
                 if (currentKey != iKeyCode::Undefined)
                 {
                     _keys[static_cast<unsigned int>(currentKey)] = true;

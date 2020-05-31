@@ -248,10 +248,10 @@ namespace Igor
         MouseLeft,
         MouseMiddle,
         MouseRight,
-        MouseWheelUp,
-        MouseWheelDown,
         MouseButton4,
         MouseButton5,
+        MouseWheelUp,
+        MouseWheelDown,
         KeyCodeCount
     };
 
