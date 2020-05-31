@@ -94,7 +94,7 @@ void Mica::init(iaString fileName)
 
 	int32 width, height;
 	_window.getDesktopSize(width, height);
-	_window.setSize(width * 0.8, height * 0.8);
+	_window.setSize(width * 0.7, height * 0.7);
 	_window.setCentered();
 	_window.setTitle(WINDOW_TITLE_PREFIX);
 	_window.registerWindowCloseDelegate(WindowCloseDelegate(this, &Mica::onWindowClosed));

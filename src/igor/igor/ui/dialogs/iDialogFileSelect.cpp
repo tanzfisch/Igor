@@ -47,8 +47,21 @@ namespace Igor
         }
         else
         {
-            _filename = "";
-            _directory = iaDirectory::getCurrentDirectory();
+            if (!path.isEmpty())
+            {
+                _filename = "";
+                _directory = iaDirectory::fixPath(path, false);
+
+                if (!iaDirectory::isDirectory(_directory))
+                {
+                    _directory = iaDirectory::getCurrentDirectory();
+                }
+            }
+            else
+            {
+                _filename = "";
+                _directory = iaDirectory::getCurrentDirectory();
+            }
         }
 
         updateFileDir();
