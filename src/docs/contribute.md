@@ -24,19 +24,11 @@ and
 Build
 -----
 
-Igor is using cmake. Preffered way is to make an out of source build as following.
+Igor is using cmake. The build is configured to work with Debian/g++ and Windows/MSVC. Other platforms might work too.
 
-`mkdir build`
-`cd build`
-`cmake ..`
-`make`
+Under linux zou might need to install some additional dependencies
 
-Note: TODO google test
-
-Dependencies
-------------
-
-sudo apt-get install libx11-dev libgl1-mesa-dev libglu1-mesa-dev libglfw3-dev
+`sudo apt-get install libx11-dev libgl1-mesa-dev libglu1-mesa-dev libglfw3-dev`
 
 Git Flow
 --------
