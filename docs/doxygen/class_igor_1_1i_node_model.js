@@ -1,6 +1,6 @@
 var class_igor_1_1i_node_model =
 [
-    [ "getModelName", "class_igor_1_1i_node_model.html#a2cc0bff3d271cd2a7a42951d0086730d", null ],
+    [ "getModelName", "class_igor_1_1i_node_model.html#adf2dd0b4004625024c4daf12d65eb532", null ],
     [ "isLoaded", "class_igor_1_1i_node_model.html#a98833ff9666c269341597f2e569e57a5", null ],
     [ "isValid", "class_igor_1_1i_node_model.html#acbbe59860156b14802c6c9442c330854", null ],
     [ "registerModelReadyDelegate", "class_igor_1_1i_node_model.html#a482b2e7478992ad69836f794c066ca83", null ],

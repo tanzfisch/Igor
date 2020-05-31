@@ -1,72 +1,6 @@
-var NAVTREE =
-[
-  [ "Igor", "index.html", [
-    [ "Igor Game Engine", "index.html", null ],
-    [ "Changelog", "changelog.html", null ],
-    [ "Contribute to Igor", "contribute.html", null ],
-    [ "Igor Code Style Guide", "styleguide.html", null ],
-    [ "Tutorials", "tutorials.html", "tutorials" ],
-    [ "Namespaces", null, [
-      [ "Namespace List", "namespaces.html", "namespaces" ],
-      [ "Namespace Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", "namespacemembers_dup" ],
-        [ "Functions", "namespacemembers_func.html", "namespacemembers_func" ],
-        [ "Variables", "namespacemembers_vars.html", null ],
-        [ "Typedefs", "namespacemembers_type.html", null ],
-        [ "Enumerations", "namespacemembers_enum.html", null ]
-      ] ]
-    ] ],
-    [ "Classes", null, [
-      [ "Class List", "annotated.html", "annotated" ],
-      [ "Class Index", "classes.html", null ],
-      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
-      [ "Class Members", "functions.html", [
-        [ "All", "functions.html", "functions_dup" ],
-        [ "Functions", "functions_func.html", "functions_func" ],
-        [ "Variables", "functions_vars.html", "functions_vars" ],
-        [ "Related Functions", "functions_rela.html", null ]
-      ] ]
-    ] ],
-    [ "Files", null, [
-      [ "File List", "files.html", "files" ],
-      [ "File Members", "globals.html", [
-        [ "All", "globals.html", null ],
-        [ "Functions", "globals_func.html", null ],
-        [ "Variables", "globals_vars.html", null ],
-        [ "Macros", "globals_defs.html", null ]
-      ] ]
-    ] ],
-    [ "Examples", "examples.html", "examples" ]
-  ] ]
-];
-
-var NAVTREEINDEX =
-[
-"_igor_8cpp.html",
-"class_igor_1_1i_evaluation.html#ac8183515040a8c24a4df55c1806fe595",
-"class_igor_1_1i_mesh_builder.html#a7e5ebe29d8813a8ec1617d142819b17c",
-"class_igor_1_1i_node_particle_system.html#a4d6cb804680c9d3b598cd9a08303cee6",
-"class_igor_1_1i_particle_system2_d.html#a81761f975ed28940f7378082e48a98ed",
-"class_igor_1_1i_physics_player.html",
-"class_igor_1_1i_scene.html#a44ca327c2ffb3cc795fec5ee81060f57",
-"class_igor_1_1i_user_control_action.html#a0fffdaf607787f9fe6577d176f8d28a4",
-"class_igor_1_1i_widget.html#af241faab1ddb23a6d8d382ddb7cc78e3",
-"class_igor_1_1i_widget_manager.html#ab01c6dbc46df4ec4edd48a3bc672e52e",
-"class_igor_aux_1_1ia_color4.html",
-"class_igor_aux_1_1ia_r_l_e.html#a030ef04f2ac95f904954c73df7815573",
-"class_igor_aux_1_1ia_vector3.html#a333939b32b36b906bf8cb030d56bf824",
-"class_o_m_p_f_1_1ompf_transform_chunk.html#adb7af4fa66ff34ba20a20183e4eb1c91",
-"i_intersection_8inl.html#a514396dd60fa0621c83072091fb2a0cd",
-"i_node_8cpp.html#a91ce469b6141d21120a080b7f7999a09",
-"i_profiler_visualizer_8h.html#a43197990e5686f09dd3845067aafaf5da6adf97f83acf6453d4a6a4b1070f3754",
-"i_widget_8h.html#a48cd75ff6b40f17a4c3ee177138182f4ad78a68f6a85421ae121c2cb5b73a1040",
-"ia_easing_8h.html#a14be389fff1ae6a6e46089c387227c2aa1c46f922a5f4a357df4ba7fda2dc5662",
-"ompf_defines_8h.html"
-];
-
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
 var navTreeSubIndices = new Array();
+var arrowDown = '&#9660;';
+var arrowRight = '&#9658;';
 
 function getData(varName)
 {
@@ -139,17 +73,17 @@ function cachedLink()
 
 function getScript(scriptName,func,show)
 {
-  var head = document.getElementsByTagName("head")[0]; 
+  var head = document.getElementsByTagName("head")[0];
   var script = document.createElement('script');
   script.id = scriptName;
   script.type = 'text/javascript';
-  script.onload = func; 
-  script.src = scriptName+'.js'; 
-  if ($.browser.msie && $.browser.version<=8) { 
+  script.onload = func;
+  script.src = scriptName+'.js';
+  if ($.browser.msie && $.browser.version<=8) {
     // script.onload does not work with older versions of IE
     script.onreadystatechange = function() {
-      if (script.readyState=='complete' || script.readyState=='loaded') { 
-        func(); if (show) showRoot(); 
+      if (script.readyState=='complete' || script.readyState=='loaded') {
+        func(); if (show) showRoot();
       }
     }
   }
@@ -162,18 +96,17 @@ function createIndent(o,domNode,node,level)
   var n = node;
   while (n.parentNode) { level++; n=n.parentNode; }
   if (node.childrenData) {
-    var imgNode = document.createElement("img");
+    var imgNode = document.createElement("span");
+    imgNode.className = 'arrow';
     imgNode.style.paddingLeft=(16*level).toString()+'px';
-    imgNode.width  = 16;
-    imgNode.height = 22;
-    imgNode.border = 0;
+    imgNode.innerHTML=arrowRight;
     node.plus_img = imgNode;
     node.expandToggle = document.createElement("a");
     node.expandToggle.href = "javascript:void(0)";
     node.expandToggle.onclick = function() {
       if (node.expanded) {
         $(node.getChildrenUL()).slideUp("fast");
-        node.plus_img.src = node.relpath+"ftv2pnode.png";
+        node.plus_img.innerHTML=arrowRight;
         node.expanded = false;
       } else {
         expandNode(o, node, false, false);
@@ -181,15 +114,13 @@ function createIndent(o,domNode,node,level)
     }
     node.expandToggle.appendChild(imgNode);
     domNode.appendChild(node.expandToggle);
-    imgNode.src = node.relpath+"ftv2pnode.png";
   } else {
     var span = document.createElement("span");
-    span.style.display = 'inline-block';
+    span.className = 'arrow';
     span.style.width   = 16*(level+1)+'px';
-    span.style.height  = '22px';
     span.innerHTML = '&#160;';
     domNode.appendChild(span);
-  } 
+  }
 }
 
 var animationInProgress = false;
@@ -263,7 +194,7 @@ function newNode(o, po, text, link, childrenData, lastNode)
       var aname = '#'+link.split('#')[1];
       var srcPage = stripPath(pathName());
       var targetPage = stripPath(link.split('#')[0]);
-      a.href = srcPage!=targetPage ? url : "javascript:void(0)"; 
+      a.href = srcPage!=targetPage ? url : "javascript:void(0)";
       a.onclick = function(){
         storeLink(link);
         if (!$(a).parent().parent().hasClass('selected'))
@@ -281,7 +212,7 @@ function newNode(o, po, text, link, childrenData, lastNode)
       a.onclick = function() { storeLink(link); }
     }
   } else {
-    if (childrenData != null) 
+    if (childrenData != null)
     {
       a.className = "nolink";
       a.href = "javascript:void(0)";
@@ -330,17 +261,13 @@ function expandNode(o, node, imm, showRoot)
     } else {
       if (!node.childrenVisited) {
         getNode(o, node);
-      } if (imm || ($.browser.msie && $.browser.version>8)) { 
+      } if (imm || ($.browser.msie && $.browser.version>8)) {
         // somehow slideDown jumps to the start of tree for IE9 :-(
         $(node.getChildrenUL()).show();
       } else {
         $(node.getChildrenUL()).slideDown("fast");
       }
-      if (node.isLast) {
-        node.plus_img.src = node.relpath+"ftv2mlastnode.png";
-      } else {
-        node.plus_img.src = node.relpath+"ftv2mnode.png";
-      }
+      node.plus_img.innerHTML = arrowDown;
       node.expanded = true;
     }
   }
@@ -409,11 +336,7 @@ function showNode(o, node, index, hash)
         getNode(o, node);
       }
       $(node.getChildrenUL()).css({'display':'block'});
-      if (node.isLast) {
-        node.plus_img.src = node.relpath+"ftv2mlastnode.png";
-      } else {
-        node.plus_img.src = node.relpath+"ftv2mnode.png";
-      }
+      node.plus_img.innerHTML = arrowDown;
       node.expanded = true;
       var n = node.children[o.breadcrumbs[index]];
       if (index+1<o.breadcrumbs.length) {
@@ -550,10 +473,9 @@ function initNavTree(toroot,relpath)
   o.node.relpath = relpath;
   o.node.expanded = false;
   o.node.isLast = true;
-  o.node.plus_img = document.createElement("img");
-  o.node.plus_img.src = relpath+"ftv2pnode.png";
-  o.node.plus_img.width = 16;
-  o.node.plus_img.height = 22;
+  o.node.plus_img = document.createElement("span");
+  o.node.plus_img.className = 'arrow';
+  o.node.plus_img.innerHTML = arrowRight;
 
   if (localStorageSupported()) {
     var navSync = $('#nav-sync');

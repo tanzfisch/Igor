@@ -1,7 +1,6 @@
 var searchData=
 [
   ['l',['L',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24ad20caec3b48a1eef164cb4ca81ba2587',1,'Igor']]],
-  ['lalt',['LAlt',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24aab527e774a30bf52a69de316727ce4cd',1,'Igor']]],
   ['lcontrol',['LControl',['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a9e6bbb54b2d06e4a49ebcea834724afd',1,'Igor']]],
   ['left',['Left',['../namespace_igor.html#aea3bcbf77ead77dc7cb855da623738aea945d5e233cf7d6240f6b783b36a374ff',1,'Igor::Left()'],['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a945d5e233cf7d6240f6b783b36a374ff',1,'Igor::Left()']]],
   ['less',['Less',['../namespace_igor.html#a2081511b8afe422e11c11287eb44a3f3a1cfdf0e8d0c87a228c1f40d9bee7888b',1,'Igor::Less()'],['../namespace_igor.html#a490f00fed47903c329843cb921bbace9a1cfdf0e8d0c87a228c1f40d9bee7888b',1,'Igor::Less()'],['../namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72a1cfdf0e8d0c87a228c1f40d9bee7888b',1,'OMPF::Less()']]],

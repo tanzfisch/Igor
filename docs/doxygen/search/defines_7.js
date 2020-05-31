@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['higher_5fneighbor_5flod_5fxnegative',['HIGHER_NEIGHBOR_LOD_XNEGATIVE',['../i_contouring_cubes_8cpp.html#a56d846d682e74f5d3277499508c412aa',1,'HIGHER_NEIGHBOR_LOD_XNEGATIVE():&#160;iContouringCubes.cpp'],['../i_voxel_terrain_8cpp.html#a56d846d682e74f5d3277499508c412aa',1,'HIGHER_NEIGHBOR_LOD_XNEGATIVE():&#160;iVoxelTerrain.cpp']]],
-  ['higher_5fneighbor_5flod_5fxpositive',['HIGHER_NEIGHBOR_LOD_XPOSITIVE',['../i_contouring_cubes_8cpp.html#a593991d6a3797dbcf3fb4b32e4dd559f',1,'HIGHER_NEIGHBOR_LOD_XPOSITIVE():&#160;iContouringCubes.cpp'],['../i_voxel_terrain_8cpp.html#a593991d6a3797dbcf3fb4b32e4dd559f',1,'HIGHER_NEIGHBOR_LOD_XPOSITIVE():&#160;iVoxelTerrain.cpp']]],
-  ['higher_5fneighbor_5flod_5fynegative',['HIGHER_NEIGHBOR_LOD_YNEGATIVE',['../i_contouring_cubes_8cpp.html#a97fa4d6791cdb4642a838f41cf8b0745',1,'HIGHER_NEIGHBOR_LOD_YNEGATIVE():&#160;iContouringCubes.cpp'],['../i_voxel_terrain_8cpp.html#a97fa4d6791cdb4642a838f41cf8b0745',1,'HIGHER_NEIGHBOR_LOD_YNEGATIVE():&#160;iVoxelTerrain.cpp']]],
-  ['higher_5fneighbor_5flod_5fypositive',['HIGHER_NEIGHBOR_LOD_YPOSITIVE',['../i_contouring_cubes_8cpp.html#ae80099a171f9ffe865af42909cf3db03',1,'HIGHER_NEIGHBOR_LOD_YPOSITIVE():&#160;iContouringCubes.cpp'],['../i_voxel_terrain_8cpp.html#ae80099a171f9ffe865af42909cf3db03',1,'HIGHER_NEIGHBOR_LOD_YPOSITIVE():&#160;iVoxelTerrain.cpp']]],
-  ['higher_5fneighbor_5flod_5fznegative',['HIGHER_NEIGHBOR_LOD_ZNEGATIVE',['../i_contouring_cubes_8cpp.html#a970eca23fbe2eb66f820430d7ee7c91b',1,'HIGHER_NEIGHBOR_LOD_ZNEGATIVE():&#160;iContouringCubes.cpp'],['../i_voxel_terrain_8cpp.html#a970eca23fbe2eb66f820430d7ee7c91b',1,'HIGHER_NEIGHBOR_LOD_ZNEGATIVE():&#160;iVoxelTerrain.cpp']]],
-  ['higher_5fneighbor_5flod_5fzpositive',['HIGHER_NEIGHBOR_LOD_ZPOSITIVE',['../i_contouring_cubes_8cpp.html#ab476c95007fb2a88ed814caffa68405f',1,'HIGHER_NEIGHBOR_LOD_ZPOSITIVE():&#160;iContouringCubes.cpp'],['../i_voxel_terrain_8cpp.html#ab476c95007fb2a88ed814caffa68405f',1,'HIGHER_NEIGHBOR_LOD_ZPOSITIVE():&#160;iVoxelTerrain.cpp']]]
+  ['iadelegate',['iaDELEGATE',['../ia_delegate_8h.html#afe569e105ba8c22ad66f6398972dbd62',1,'iaDelegate.h']]],
+  ['iaevent',['iaEVENT',['../ia_event_8h.html#a2b427e16471f2139b9999344e11562b4',1,'iaEvent.h']]],
+  ['igor_5finvalid_5fid',['IGOR_INVALID_ID',['../ia_defines_8h.html#a170c60feb8221523e337b3cc009848f5',1,'iaDefines.h']]]
 ];

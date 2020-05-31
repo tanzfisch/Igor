@@ -5,5 +5,6 @@ var i_keyboard_8h =
     [ "iaEVENT", "i_keyboard_8h.html#a2a94ca76e6773eedbeb632216daedecf", null ],
     [ "iaEVENT", "i_keyboard_8h.html#a8cfee113f0955155e80cb4fc34295001", null ],
     [ "iaEVENT", "i_keyboard_8h.html#a77103bd2ee808b5f0ca2511d4a684802", null ],
-    [ "iaEVENT", "i_keyboard_8h.html#aabc54f9f2e65a79ae7c0364d0893ce56", null ]
+    [ "iaEVENT", "i_keyboard_8h.html#aabc54f9f2e65a79ae7c0364d0893ce56", null ],
+    [ "operator<<", "i_keyboard_8h.html#ae60eb8daee7502878987e2920cf74603", null ]
 ];

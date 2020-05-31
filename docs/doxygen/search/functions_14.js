@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['unlinkfromlistener',['unlinkFromListener',['../class_igor_1_1i_sound.html#a3842acf7f6d6fa4b8255cff8254eab6d',1,'Igor::iSound']]],
-  ['unloadfile',['unloadFile',['../class_igor_1_1i_sound_resource_factory.html#abab336690b80aaea7ef2d860c3ae10fa',1,'Igor::iSoundResourceFactory']]],
   ['unlock',['unlock',['../class_igor_aux_1_1ia_console.html#ac2ec4404fbf045cefd3c95f31ace3af2',1,'IgorAux::iaConsole::unlock()'],['../class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279',1,'IgorAux::iaMutex::unlock()'],['../namespace_igor_aux.html#ab41772b65bbf298c005b49c1353ed50c',1,'IgorAux::UNLOCK()']]],
   ['unproject',['unProject',['../class_igor_1_1i_renderer.html#aa118709cc370ba9d3b824cfcfaa8d739',1,'Igor::iRenderer::unProject()'],['../class_igor_1_1i_view.html#ad19aabd0f4649fa410184908a2200ea9',1,'Igor::iView::unProject()']]],
   ['unregisteraction',['unregisterAction',['../class_igor_1_1i_action_manager.html#a1204cb2bc1aee032140bb4cbdca9c838',1,'Igor::iActionManager::unregisterAction(const iActionPtr action)'],['../class_igor_1_1i_action_manager.html#a383edad355f3bd73ccf52317b130884e',1,'Igor::iActionManager::unregisterAction(const iaString &amp;name)']]],
@@ -42,7 +40,7 @@ var searchData=
   ['unregisteronselectionchangedevent',['unregisterOnSelectionChangedEvent',['../class_igor_1_1i_widget.html#ad8670eb2c34fef9a44e31e08d2e50c2b',1,'Igor::iWidget']]],
   ['unregisteronwheeldownevent',['unregisterOnWheelDownEvent',['../class_igor_1_1i_widget.html#aeb3ea43563acf891d29f0cd953abc707',1,'Igor::iWidget']]],
   ['unregisteronwheelupevent',['unregisterOnWheelUpEvent',['../class_igor_1_1i_widget.html#a6de099e4a92d62d716d49ae42cc7d0cc',1,'Igor::iWidget']]],
-  ['unregisteroslistener',['unregisterOSListener',['../class_igor_1_1i_window.html#ad974da07c4d7cfd7b520c8321c34d87b',1,'Igor::iWindow']]],
+  ['unregisteroslistener',['unregisterOSListener',['../class_igor_1_1i_window_impl.html#aa0faf20d4b5db413fa7a21d2a719d92a',1,'Igor::iWindowImpl']]],
   ['unregisterparticlesystemfinisheddelegate',['unregisterParticleSystemFinishedDelegate',['../class_igor_1_1i_node_particle_system.html#a3dceef38c715aa1aff1831e21e5f567c',1,'Igor::iNodeParticleSystem']]],
   ['unregisterpredeinitializedelegate',['unregisterPreDeinitializeDelegate',['../class_igor_1_1i_renderer.html#a57dbb60dad69380e4eaaab2ee1cb92e4',1,'Igor::iRenderer']]],
   ['unregisterreenterstatedelegate',['unregisterReEnterStateDelegate',['../class_igor_aux_1_1ia_state.html#afd03702ac1ed92600a1435db75982359',1,'IgorAux::iaState::unregisterReEnterStateDelegate()'],['../class_igor_aux_1_1ia_state_machine.html#ad0fa255aec434b38b15417fcaa78eedd',1,'IgorAux::iaStateMachine::unregisterReEnterStateDelegate()']]],
@@ -57,8 +55,6 @@ var searchData=
   ['unregisterwindowresizedelegate',['unregisterWindowResizeDelegate',['../class_igor_1_1i_window.html#a7b6268523f6c94d02c8a8c52d383f76e',1,'Igor::iWindow']]],
   ['unselect',['unselect',['../class_igor_1_1i_widget_grid.html#aa059dfb3b4d42793f17c1b4a45e70ce4',1,'Igor::iWidgetGrid::unselect()'],['../class_igor_1_1i_widget_menu_bar.html#adb53ea5995e543664ca55b9fcf77f0a3',1,'Igor::iWidgetMenuBar::unselect()']]],
   ['update',['update',['../class_igor_1_1i_node_l_o_d_switch.html#aca04b5ee6502da939571007a4cebfe6c',1,'Igor::iNodeLODSwitch::update()'],['../class_igor_1_1i_octree.html#a23abc7025f6f141f6493b6a4b89a717d',1,'Igor::iOctree::update()']]],
-  ['updatepos',['updatePos',['../class_igor_1_1i_window.html#a313d0bc55b576c8f315d34f360130fbd',1,'Igor::iWindow']]],
-  ['updatesize',['updateSize',['../class_igor_1_1i_window.html#a6dbf54a39d41c7752db8f8ff658adae3',1,'Igor::iWindow']]],
   ['updatetree',['updateTree',['../class_igor_1_1i_node_volume.html#a17aa3c42829bb7e6c302207d7f9568db',1,'Igor::iNodeVolume']]],
   ['useshaderprogram',['useShaderProgram',['../class_igor_1_1i_renderer.html#ad9a0c44dec40f2f6b1c8887e9cd0c1f5',1,'Igor::iRenderer']]]
 ];

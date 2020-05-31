@@ -6,7 +6,7 @@ var class_igor_1_1i_node_render =
     [ "draw", "class_igor_1_1i_node_render.html#a555b40da5534a5e54e4235560678bac0", null ],
     [ "getMaterial", "class_igor_1_1i_node_render.html#a71aab4f3ed63aa71b2ea85aed1b4bd08", null ],
     [ "getWorldMatrix", "class_igor_1_1i_node_render.html#ad63121d64309698004ff654ca42cfb43", null ],
-    [ "isVisible", "class_igor_1_1i_node_render.html#a5506a0bfcea153a15a8b03923e375949", null ],
+    [ "isVisible", "class_igor_1_1i_node_render.html#a3a820bf3205cb6e8556da2544fd53a67", null ],
     [ "onPostSetScene", "class_igor_1_1i_node_render.html#a0ac2b4e43e5964f3065a0b24b549545f", null ],
     [ "onPreSetScene", "class_igor_1_1i_node_render.html#a386c18822c8628afdbf780dbcdc9808b", null ],
     [ "onUpdateTransform", "class_igor_1_1i_node_render.html#a0f7c1c90374251887ce5734a4ef9fdcd", null ],
