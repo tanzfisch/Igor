@@ -319,11 +319,11 @@ namespace Igor
 
             if (doubleClick)
             {
-                _doubleClickEvent(iKeyCode::MouseLeft);
+                _doubleClickEvent(buttonKey);
             }
             else
             {
-                _keyDownEvent(iKeyCode::MouseLeft);
+                _keyDownEvent(buttonKey);
             }
         }
 

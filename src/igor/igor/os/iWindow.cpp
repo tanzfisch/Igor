@@ -757,7 +757,11 @@ namespace Igor
                 _clientHeight = _height;
             }
         }
-        void setDoubleClick(bool doubleClick) override {}
+
+        void setDoubleClick(bool doubleClick) override 
+        {
+            //TODO
+        }
 
         void swapBuffers() override
         {

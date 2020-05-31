@@ -412,7 +412,7 @@ namespace Igor
         setMinSize(minWidth, minHeight);
     }
 
-    void iWidgetGrid::calcChildOffsets(std::vector<iRectanglei> &offsets)
+    void iWidgetGrid::calcChildOffsets(std::vector<iRectanglei>& offsets)
     {
         offsets.clear();
         offsets.resize(_children.size());
@@ -559,12 +559,28 @@ namespace Igor
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
-        if (!isActive())
+        if (!isActive() || !_isMouseOver)
         {
             return false;
         }
 
-        bool result = iWidget::handleMouseDoubleClick(key);
+        // get copy of children
+        std::vector<iWidgetPtr> widgets;
+        getChildren(widgets);
+        bool result = false;
+
+        for (auto widget : widgets)
+        {
+            if (widget->handleMouseDoubleClick(key))
+            {
+                result = true;
+            }
+        }
+
+        if (!_ignoreChildEventHandling && result)
+        {
+            return true;
+        }        
 
         if (_selectMode == iSelectionMode::NoSelection)
         {
@@ -667,7 +683,7 @@ namespace Igor
         return false;
     }
 
-    void iWidgetGrid::handleMouseMove(const iaVector2i &pos)
+    void iWidgetGrid::handleMouseMove(const iaVector2i& pos)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -806,8 +822,8 @@ namespace Igor
                     int32 colPosY = col._y + getActualPosY();
 
                     iWidgetManager::getInstance().getTheme()->drawGridField(iRectanglei(colPosX, colPosY,
-                                                                                        col._actualWidth, col._actualHeight),
-                                                                            getState());
+                        col._actualWidth, col._actualHeight),
+                        getState());
 
                     bool drawSelected = false;
                     bool drawHighlight = false;
@@ -826,7 +842,7 @@ namespace Igor
 
                         case iSelectionMode::Field:
                             drawSelected = _selectedCollumn == colIndex &&
-                                           _selectedRow == rowIndex;
+                                _selectedRow == rowIndex;
                             break;
                         }
                     }
@@ -852,7 +868,7 @@ namespace Igor
 
                             case iSelectionMode::Field:
                                 drawHighlight = _mouseOverCollumn == colIndex &&
-                                                _mouseOverRow == rowIndex;
+                                    _mouseOverRow == rowIndex;
                                 break;
                             }
                         }
@@ -923,7 +939,7 @@ namespace Igor
         iWidget::removeWidget(widget);
     }
 
-    void iWidgetGrid::addWidget(iWidgetPtr widget, int32 col, int32 row, const std::any &userData)
+    void iWidgetGrid::addWidget(iWidgetPtr widget, int32 col, int32 row, const std::any& userData)
     {
         con_assert(_widgetRows.size() > row && _widgetRows[row]._widgetCollumn.size() > col, "out of range " << col << "," << row);
 
