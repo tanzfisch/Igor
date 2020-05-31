@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2014-2015 by Martin Loga
+//    (c) Copyright 2014-2020 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it   
 // under the terms of the GNU Lesser General Public License as published by  
@@ -29,17 +29,17 @@
 #ifndef __OPENGL3DEXAMPLE__
 #define __OPENGL3DEXAMPLE__
 
-#include <Igor.h>
-#include <iWindow.h>
-#include <iView.h>
-#include <iTimerHandle.h>
-#include <iModelResourceFactory.h>
-#include <iKeyboard.h>
-#include <iMaterial.h>
-#include <iProfilerVisualizer.h>
+#include <igor/igor.h>
+#include <igor/os/iWindow.h>
+#include <igor/graphics/iView.h>
+#include <igor/os/iTimerHandle.h>
+#include <igor/resources/model/iModelResourceFactory.h>
+#include <igor/os/iKeyboard.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/profiler/iProfilerVisualizer.h>
 using namespace Igor;
 
-#include <iaMatrix.h>
+#include <iaux/math/iaMatrix.h>
 using namespace IgorAux;
 
 namespace Igor

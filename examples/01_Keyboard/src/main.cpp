@@ -1,6 +1,6 @@
 #include "KeyboardExample.h"
 
-#include <Igor.h>
+#include <igor/igor.h>
 using namespace Igor;
 
 int main(void)

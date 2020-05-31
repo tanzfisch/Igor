@@ -1,14 +1,14 @@
 // Igor game engine
-// (c) Copyright 2012-2019 by Martin Loga
+// (c) Copyright 2012-2020 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include "FirstSteps.h"
 
-#include <Igor.h>
-#include <iApplication.h>
+#include <igor/igor.h>
+#include <igor/os/iApplication.h>
 using namespace Igor;
 
-#include <iaConsole.h>
+#include <iaux/system/iaConsole.h>
 using namespace IgorAux;
 
 int main(void)
@@ -17,7 +17,7 @@ int main(void)
     Igor::startup();
 
     // create and run first steps class
-    FirstSteps* firstSteps = new FirstSteps();
+    FirstSteps *firstSteps = new FirstSteps();
     firstSteps->run();
     delete firstSteps;
 
@@ -26,7 +26,7 @@ int main(void)
 
     // as alternative you can also implement your main loop your self like folloed
     // we recommend to use the variant above
-        
+
     // call this before you call anything else of Igor
     Igor::startup();
 

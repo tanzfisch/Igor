@@ -9,43 +9,42 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2014-2015 by Martin Loga
+//    (c) Copyright 2014-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: martinloga@gmx.de  
+//
+// contact: martinloga@gmx.de
 
 #ifndef __EXAMPLE3D__
 #define __EXAMPLE3D__
 
-#include <Igor.h>
-#include <iWindow.h>
-#include <iView.h>
-#include <iTimerHandle.h>
-#include <iModelResourceFactory.h>
-#include <iKeyCodeMap.h>
-#include <iMaterial.h>
-#include <iProfilerVisualizer.h>
+#include <igor/igor.h>
+#include <igor/os/iWindow.h>
+#include <igor/graphics/iView.h>
+#include <igor/os/iTimerHandle.h>
+#include <igor/resources/model/iModelResourceFactory.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/profiler/iProfilerVisualizer.h>
 using namespace Igor;
 
-#include <iaMatrix.h>
+#include <iaux/math/iaMatrix.h>
 using namespace IgorAux;
 
 namespace Igor
 {
-	class iScene;
-	class iNodeTransform;
+    class iScene;
+    class iNodeTransform;
     class iNodeLight;
     class iNodeSwitch;
     class iTextureFont;
@@ -57,7 +56,7 @@ namespace Igor
     class iPhysicsBody;
     class iPhysicsJoint;
     class iTexture;
-}
+} // namespace Igor
 
 #include "CharacterController.h"
 
@@ -65,7 +64,6 @@ class ExampleCharacterController
 {
 
 public:
-
     /*! init
     */
     ExampleCharacterController();
@@ -79,7 +77,6 @@ public:
     void run();
 
 private:
-
     struct InputFlags
     {
         bool _forward = false;
@@ -90,18 +87,18 @@ private:
         bool _down = false;
 
         bool _jump = false;
-		bool _crouch = false;
+        bool _crouch = false;
 
-		bool _shootPrimary = false;
+        bool _shootPrimary = false;
     };
 
-	bool _captureMouse = false;
+    bool _captureMouse = false;
 
     InputFlags _inputFlags;
 
     /*! the window
     */
-	iWindow _window;
+    iWindow _window;
 
     /*! visualizes statistics
     */
@@ -109,7 +106,7 @@ private:
 
     /*! the view we render 3D to
     */
-	iView _view;
+    iView _view;
 
     /*! the view we render 2D to
     */
@@ -117,7 +114,7 @@ private:
 
     /*! the scene holding our 3d nodes
     */
-    iScene* _scene = nullptr;
+    iScene *_scene = nullptr;
 
     /*! async loading of models
     */
@@ -129,7 +126,7 @@ private:
 
     /*! texture fon we use to render statistics
     */
-    iTextureFont* _font = nullptr;
+    iTextureFont *_font = nullptr;
 
     void onModelReady(uint64 modelNodeID);
     void makeCollisions(iNodePtr node);
@@ -138,7 +135,7 @@ private:
     */
     uint64 _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
 
-    CharacterController* _characterController = nullptr;
+    CharacterController *_characterController = nullptr;
 
     /*! material for igor logo
     */
@@ -156,7 +153,7 @@ private:
 
     \param key the key code of the pressed key
     */
-	void onKeyPressed(iKeyCode key);
+    void onKeyPressed(iKeyCode key);
 
     /*! called on key released event
 
@@ -170,7 +167,7 @@ private:
 
     /*! called when window was closed
     */
-	void onWindowClosed();
+    void onWindowClosed();
 
     /*! called when window was resized
 
@@ -185,7 +182,7 @@ private:
     \param to current mouse position
     \param window the window the coordinates are related to
     */
-    void onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window);
+    void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window);
 
     /*! called when mouse wheel was turned
 
@@ -193,13 +190,13 @@ private:
     */
     void onMouseWheel(int32 d);
 
-	/*! handles mouse key down events
+    /*! handles mouse key down events
 
 	\param keyCode the key code of the pressed button
 	*/
-	void onMouseKeyDown(iKeyCode keyCode);
+    void onMouseKeyDown(iKeyCode keyCode);
 
-	void onMouseKeyUp(iKeyCode keyCode);
+    void onMouseKeyUp(iKeyCode keyCode);
 
     /*! called by orthogonal view
     */
@@ -211,14 +208,13 @@ private:
 
     /*! deinit example
     */
-	void deinit();
+    void deinit();
 
     /*! init example
     */
-	void init();
+    void init();
 
-    void onApplyForceAndTorqueBox(iPhysicsBody* body, float32 timestep);
-
+    void onApplyForceAndTorqueBox(iPhysicsBody *body, float32 timestep);
 };
 
 #endif

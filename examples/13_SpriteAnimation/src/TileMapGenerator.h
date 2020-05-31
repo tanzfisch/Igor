@@ -1,16 +1,21 @@
 #ifndef __TILEMAPGENERATOR__
 #define __TILEMAPGENERATOR__
 
-#include <iMesh.h>
-#include <iAtlas.h>
-#include <iPixmap.h>
-#include <iScene.h>
-#include <iMaterial.h>
+#include <igor/resources/mesh/iMesh.h>
+#include <igor/resources/texture/iAtlas.h>
+#include <igor/resources/texture/iPixmap.h>
+#include <igor/graphics/scene/iScene.h>
+#include <igor/resources/material/iMaterial.h>
 using namespace Igor;
 
-#include <iaString.h>
-#include <iaRandomNumberGenerator.h>
+#include <iaux/data/iaString.h>
+#include <iaux/math/iaRandomNumberGenerator.h>
 using namespace IgorAux;
+
+namespace Igor
+{
+	class iMeshBuilder;
+}
 
 /*! The tile map generator it's generating a mesh based on tiles
 */
@@ -18,7 +23,6 @@ class TileMapGenerator
 {
 
 public:
-
 	/*! nothing to do
 	*/
 	TileMapGenerator() = default;
@@ -35,8 +39,8 @@ public:
 
 	\param filename filename of texture to use
 	\returns a node containing a hierarchy of multiple patches of tiles
-	*/ 
-	iNodePtr generateFromTexture(const iaString& filename);
+	*/
+	iNodePtr generateFromTexture(const iaString &filename);
 
 	/*! generates map based on ranged random values
 
@@ -45,7 +49,7 @@ public:
 	\param to the upper end of the range
 	\returns a node containing a hierarchy of multiple patches of tiles
 	*/
-	iNodePtr generateFromRandom(const iaVector2i& size, uint32 from, uint32 to);
+	iNodePtr generateFromRandom(const iaVector2i &size, uint32 from, uint32 to);
 
 	/*! set's material to use for the mesh node
 
@@ -54,7 +58,6 @@ public:
 	void setMaterial(uint64 material);
 
 private:
-
 	/*! the material to use
 	*/
 	uint64 _material = iMaterial::INVALID_MATERIAL_ID;
@@ -74,7 +77,7 @@ private:
 	\param size the size of the tile in world space
 	\param frame the frame to use within the atlas
 	*/
-	void addTile(iMeshBuilder& meshBuilder, const iaVector2i& pos, const iaVector2i& size, const iAtlas::Frame& frame);
+	void addTile(iMeshBuilder &meshBuilder, const iaVector2i &pos, const iaVector2i &size, const iAtlas::Frame &frame);
 
 	/*! generates the mesh of a single patch of tiles based on texture information
 
@@ -83,7 +86,7 @@ private:
 	\param size size in pixel within the pixmap
 	\returns the mesh patch
 	*/
-	iMeshPtr generateMesh(const iPixmapPtr pixmap, const iaVector2i& pos, const iaVector2i& size);
+	iMeshPtr generateMesh(const iPixmapPtr pixmap, const iaVector2i &pos, const iaVector2i &size);
 
 	/*! generates the mesh of a single patch of tiles based on randomized tiles
 
@@ -93,8 +96,7 @@ private:
 	\param size size in pixel within the pixmap
 	\returns the mesh patch
 	*/
-	iMeshPtr generateMesh(uint32 from, uint32 to, const iaVector2i& pos, const iaVector2i& size);
-
+	iMeshPtr generateMesh(uint32 from, uint32 to, const iaVector2i &pos, const iaVector2i &size);
 };
 
 #endif

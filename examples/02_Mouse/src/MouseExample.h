@@ -9,38 +9,36 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2014-2015 by Martin Loga
+//    (c) Copyright 2014-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: martinloga@gmx.de  
+//
+// contact: martinloga@gmx.de
 
 #ifndef __MOUSEEXAMPLE__
 #define __MOUSEEXAMPLE__
 
-#include <iaVector2.h>
+#include <iaux/math/iaVector2.h>
 using namespace IgorAux;
 
-#include <iWindow.h>
-#include <iKeyCodeMap.h>
+#include <igor/os/iWindow.h>
 using namespace Igor;
 
 class MouseExample
 {
 
 public:
-
     /*! run the example
     */
     void run();
@@ -52,25 +50,24 @@ public:
     /*! deinit example
     */
     ~MouseExample();
-    
-private:
 
+private:
     /*! the window we need to receive io events
     */
-	iWindow _window;
+    iWindow _window;
 
     /*! called when mouse was moved
     \param from last mouse position
     \param to current mouse position
     \param window the window the coordinates are related to
     */
-    void onMouseMovedFull(const iaVector2i& from, const iaVector2i& to, iWindow* window);
+    void onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window);
 
     /*! called when any mouse key was pressed
 
     \pram key the key code of the key that was pressed
     */
-	void onMouseKeyDown(iKeyCode key);
+    void onMouseKeyDown(iKeyCode key);
 
     /*! called when any mouse key was released
 
@@ -94,24 +91,23 @@ private:
 
     \param d mouse wheel delta
     */
-	void onMouseWheel(int32 d);
+    void onMouseWheel(int32 d);
 
     /*! called when ESC key was pressed
     */
-	void onKeyESCDown();
+    void onKeyESCDown();
 
     /*! called when window was closed
     */
-	void onCloseWindow();
+    void onCloseWindow();
 
     /*! init example
     */
-	void init();
+    void init();
 
     /*! deinit example
     */
-	void deinit();
-
+    void deinit();
 };
 
 #endif

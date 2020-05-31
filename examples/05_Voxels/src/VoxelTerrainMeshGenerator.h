@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2014-2015 by Martin Loga
+//    (c) Copyright 2014-2020 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it   
 // under the terms of the GNU Lesser General Public License as published by  
@@ -29,10 +29,10 @@
 #ifndef __GENERATORTERRAIN__
 #define __GENERATORTERRAIN__
 
-#include <iaVector3.h>
+#include <iaux/math/iaVector3.h>
 using namespace IgorAux;
 
-#include <iModelDataIO.h>
+#include <igor/resources/model/loader/iModelDataIO.h>
 using namespace Igor;
 
 namespace Igor

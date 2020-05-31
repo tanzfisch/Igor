@@ -9,44 +9,43 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2014-2015 by Martin Loga
+//    (c) Copyright 2014-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: martinloga@gmx.de  
+//
+// contact: martinloga@gmx.de
 
 #ifndef __EVALUATION__
 #define __EVALUATION__
 
-#include <Igor.h>
-#include <iWindow.h>
-#include <iView.h>
-#include <iTimerHandle.h>
-#include <iModelResourceFactory.h>
-#include <iKeyCodeMap.h>
-#include <iMaterial.h>
-#include <iProfilerVisualizer.h>
-#include <iNodeTransform.h>
+#include <igor/igor.h>
+#include <igor/os/iWindow.h>
+#include <igor/graphics/iView.h>
+#include <igor/os/iTimerHandle.h>
+#include <igor/resources/model/iModelResourceFactory.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/profiler/iProfilerVisualizer.h>
+#include <igor/graphics/scene/nodes/iNodeTransform.h>
 using namespace Igor;
 
-#include <iaMatrix.h>
+#include <iaux/math/iaMatrix.h>
 using namespace IgorAux;
 
 namespace Igor
 {
-	class iScene;
-	class iNodeTransform;
+    class iScene;
+    class iNodeTransform;
     class iNodeLight;
     class iNodeSwitch;
     class iTextureFont;
@@ -56,13 +55,12 @@ namespace Igor
     class iNodeLODSwitch;
     class iNodeModel;
     class iTexture;
-}
+} // namespace Igor
 
 class Evaluation
 {
 
 public:
-
     /*! init
     */
     Evaluation();
@@ -76,10 +74,9 @@ public:
     void run();
 
 private:
-
     /*! the window
     */
-	iWindow _window;
+    iWindow _window;
 
     /*! displays profiler
     */
@@ -87,7 +84,7 @@ private:
 
     /*! the view we render 3D to
     */
-	iView _view;
+    iView _view;
 
     /*! the view we render 2D to
     */
@@ -95,7 +92,7 @@ private:
 
     /*! the scene holding our 3d nodes
     */
-    iScene* _scene = nullptr;
+    iScene *_scene = nullptr;
 
     /*! async loading of models
     */
@@ -107,7 +104,7 @@ private:
 
     /*! texture font we use to display the profiler
     */
-    iTextureFont* _font = nullptr;
+    iTextureFont *_font = nullptr;
 
     /*! id to transform node used for manipulating the heading of the camera
     */
@@ -137,11 +134,11 @@ private:
 
     \param key the key code of the pressed key
     */
-	void onKeyPressed(iKeyCode key);
+    void onKeyPressed(iKeyCode key);
 
     /*! called when window was closed
     */
-	void onWindowClosed();
+    void onWindowClosed();
 
     /*! called when window was resized
 
@@ -156,7 +153,7 @@ private:
     \param to current mouse position
     \param window the window the coordinates are related to
     */
-    void onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window);
+    void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window);
 
     /*! called when mouse wheel was turned
 
@@ -182,11 +179,11 @@ private:
 
     /*! deinit example
     */
-	void deinit();
+    void deinit();
 
     /*! init example
     */
-	void init();
+    void init();
 
     /*! setup the evaluation example
     */
@@ -202,7 +199,6 @@ private:
     /*! create light in the scene
     */
     void createDirectionalLight();
-
 };
 
 #endif

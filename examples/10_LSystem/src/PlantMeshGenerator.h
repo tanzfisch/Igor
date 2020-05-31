@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2014-2015 by Martin Loga
+//    (c) Copyright 2014-2020 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it   
 // under the terms of the GNU Lesser General Public License as published by  
@@ -29,14 +29,14 @@
 #ifndef __PLANTMESHGENERATOR__
 #define __PLANTMESHGENERATOR__
 
-#include <iaVector3.h>
-#include <iaRandomNumberGenerator.h>
+#include <iaux/math/iaVector3.h>
+#include <iaux/math/iaRandomNumberGenerator.h>
 using namespace IgorAux;
 
-#include <iMeshBuilder.h>
-#include <iModelDataIO.h>
-#include <iMaterial.h>
-#include <iSkeleton.h>
+#include <igor/resources/mesh/iMeshBuilder.h>
+#include <igor/resources/model/loader/iModelDataIO.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/data/iSkeleton.h>
 using namespace Igor;
 
 namespace Igor

@@ -1,36 +1,36 @@
 #include "WidgetsExample.h"
 
-#include <iRenderer.h>
-#include <iApplication.h>
-#include <iMouse.h>
-#include <iTextureFont.h>
-#include <iMaterialResourceFactory.h>
-#include <iWidgetManager.h>
-#include <iDialog.h>
-#include <iWidgetLabel.h>
-#include <iWidgetButton.h>
-#include <iWidgetGroupBox.h>
-#include <iWidgetGrid.h>
-#include <iWidgetCheckBox.h>
-#include <iWidgetNumberChooser.h>
-#include <iWidgetTextEdit.h>
-#include <iWidgetPicture.h>
-#include <iWidgetScroll.h>
-#include <iWidgetSelectBox.h>
-#include <iWidgetDefaultTheme.h>
-#include <iWidgetSpacer.h>
-#include <iTextureResourceFactory.h>
-#include <iProfiler.h>
-#include <iWidgetGraph.h>
-#include <iWidgetColor.h>
-#include <iWidgetColorGradient.h>
-#include <iWidgetMenuBar.h>
-#include <iWidgetMenu.h>
-#include <iAction.h>
-#include <iActionManager.h>
+#include <igor/graphics/iRenderer.h>
+#include <igor/os/iApplication.h>
+#include <igor/os/iMouse.h>
+#include <igor/resources/texture/iTextureFont.h>
+#include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/ui/iWidgetManager.h>
+#include <igor/ui/dialogs/iDialog.h>
+#include <igor/ui/widgets/iWidgetLabel.h>
+#include <igor/ui/widgets/iWidgetButton.h>
+#include <igor/ui/widgets/iWidgetGroupBox.h>
+#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/widgets/iWidgetCheckBox.h>
+#include <igor/ui/widgets/iWidgetNumberChooser.h>
+#include <igor/ui/widgets/iWidgetTextEdit.h>
+#include <igor/ui/widgets/iWidgetPicture.h>
+#include <igor/ui/widgets/iWidgetScroll.h>
+#include <igor/ui/widgets/iWidgetSelectBox.h>
+#include <igor/ui/theme/iWidgetDefaultTheme.h>
+#include <igor/ui/widgets/iWidgetSpacer.h>
+#include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/resources/profiler/iProfiler.h>
+#include <igor/ui/widgets/iWidgetGraph.h>
+#include <igor/ui/widgets/iWidgetColor.h>
+#include <igor/ui/widgets/iWidgetColorGradient.h>
+#include <igor/ui/widgets/iWidgetMenuBar.h>
+#include <igor/ui/widgets/iWidgetMenu.h>
+#include <igor/ui/actions/iAction.h>
+#include <igor/ui/actions/iActionManager.h>
 using namespace Igor;
 
-#include <iaConsole.h>
+#include <iaux/system/iaConsole.h>
 using namespace IgorAux;
 
 WidgetsExample::WidgetsExample()

@@ -1,39 +1,39 @@
 // Igor game engine
-// (c) Copyright 2014-2015 by Martin Loga
+// (c) Copyright 2014-2020 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include "LSystems.h"
 
-#include <iMaterial.h>
-#include <iNodeVisitorPrintTree.h>
-#include <iTaskManager.h>
-#include <iNodeCamera.h>
-#include <iNodeModel.h> 
-#include <iNodeTransform.h>
-#include <iRenderer.h>
-#include <iApplication.h>
-#include <iSceneFactory.h>
-#include <iScene.h>
-#include <iNodeManager.h>
-#include <iMouse.h>
-#include <iKeyboard.h>
-#include <iTimer.h>
-#include <iTextureFont.h>
-#include <iNodeLight.h>
-#include <iModelResourceFactory.h>
-#include <iTaskFlushModels.h>
-#include <iTaskFlushTextures.h>
-#include <iMaterialResourceFactory.h>
-#include <iProfiler.h>
-#include <iNodeSwitch.h>
-#include <iNodeLODSwitch.h>
-#include <iNodeLODTrigger.h>
-#include <iSkeleton.h>
-#include <iTextureResourceFactory.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/graphics/scene/traversal/iNodeVisitorPrintTree.h>
+#include <igor/threading/iTaskManager.h>
+#include <igor/graphics/scene/nodes/iNodeCamera.h>
+#include <igor/graphics/scene/nodes/iNodeModel.h>
+#include <igor/graphics/scene/nodes/iNodeTransform.h>
+#include <igor/graphics/iRenderer.h>
+#include <igor/os/iApplication.h>
+#include <igor/graphics/scene/iSceneFactory.h>
+#include <igor/graphics/scene/iScene.h>
+#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/os/iMouse.h>
+#include <igor/os/iKeyboard.h>
+#include <igor/os/iTimer.h>
+#include <igor/resources/texture/iTextureFont.h>
+#include <igor/graphics/scene/nodes/iNodeLight.h>
+#include <igor/resources/model/iModelResourceFactory.h>
+#include <igor/threading/tasks/iTaskFlushModels.h>
+#include <igor/threading/tasks/iTaskFlushTextures.h>
+#include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/resources/profiler/iProfiler.h>
+#include <igor/graphics/scene/nodes/iNodeSwitch.h>
+#include <igor/graphics/scene/nodes/iNodeLODSwitch.h>
+#include <igor/graphics/scene/nodes/iNodeLODTrigger.h>
+#include <igor/data/iSkeleton.h>
+#include <igor/resources/texture/iTextureResourceFactory.h>
 using namespace Igor;
 
-#include <iaConsole.h>
-#include <iaString.h>
+#include <iaux/system/iaConsole.h>
+#include <iaux/data/iaString.h>
 using namespace IgorAux;
 
 #include "PlantMeshGenerator.h"
@@ -288,7 +288,7 @@ uint64 LSystems::generatePlant(const iaMatrixd& matrix, const iaString& axiom, u
 {
 	PlantInformation plantInformation;
 	plantInformation._lSystem = &_lSystem;
-	for (int i = 0; i < 10, i < axiom.getSize(); ++i)
+	for (int64 i = 0; i < 10, i < axiom.getLength(); ++i)
 	{
 		plantInformation._axiom[i] = axiom[i];
 	}

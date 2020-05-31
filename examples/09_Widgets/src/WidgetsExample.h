@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2014-2015 by Martin Loga
+//    (c) Copyright 2014-2020 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it   
 // under the terms of the GNU Lesser General Public License as published by  
@@ -29,20 +29,20 @@
 #ifndef __WIDGETEXAMPLE__
 #define __WIDGETEXAMPLE__
 
-#include <Igor.h>
-#include <iWindow.h>
-#include <iView.h>
-#include <iDialog.h>
-#include <iDialogColorChooser.h>
-#include <iDialogColorGradient.h>
-#include <iMaterial.h>
-#include <iProfilerVisualizer.h>
-#include <iTexture.h>
-#include <iDialogMessageBox.h>
+#include <igor/igor.h>
+#include <igor/os/iWindow.h>
+#include <igor/graphics/iView.h>
+#include <igor/ui/dialogs/iDialog.h>
+#include <igor/ui/dialogs/iDialogColorChooser.h>
+#include <igor/ui/dialogs/iDialogColorGradient.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/profiler/iProfilerVisualizer.h>
+#include <igor/resources/texture/iTexture.h>
+#include <igor/ui/dialogs/iDialogMessageBox.h>
 using namespace Igor;
 
-#include <iaGradient.h>
-#include <iaMatrix.h>
+#include <iaux/data/iaGradient.h>
+#include <iaux/math/iaMatrix.h>
 using namespace IgorAux;
 
 namespace Igor

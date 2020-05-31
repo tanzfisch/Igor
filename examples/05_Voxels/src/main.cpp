@@ -1,10 +1,10 @@
 // Igor game engine
-// (c) Copyright 2014-2015 by Martin Loga
+// (c) Copyright 2014-2020 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include "VoxelExample.h"
 
-#include <Igor.h>
+#include <igor/igor.h>
 using namespace Igor;
 
 int main()

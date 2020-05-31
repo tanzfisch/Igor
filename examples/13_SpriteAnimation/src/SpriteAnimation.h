@@ -9,54 +9,52 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2014-2015 by Martin Loga
+//    (c) Copyright 2014-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: martinloga@gmx.de  
+//
+// contact: martinloga@gmx.de
 
 #ifndef __EXAMPLE2D__
 #define __EXAMPLE2D__
 
-#include <iWindow.h>
-#include <iView.h>
-#include <iParticleSystem2D.h>
-#include <iKeyCodeMap.h>
-#include <iaGradient.h>
-#include <iPerlinNoise.h>
-#include <iMaterial.h>
-#include <iProfilerVisualizer.h>
-#include <iTexture.h>
-#include <iTimerHandle.h>
+#include <igor/os/iWindow.h>
+#include <igor/graphics/iView.h>
+#include <igor/graphics/simulation/iParticleSystem2D.h>
+#include <iaux/data/iaGradient.h>
+#include <igor/graphics/generation/iPerlinNoise.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/resources/profiler/iProfilerVisualizer.h>
+#include <igor/resources/texture/iTexture.h>
+#include <igor/os/iTimerHandle.h>
 using namespace Igor;
 
-#include <iaMatrix.h>
-#include <iaVector2.h>
-#include <iaBSpline.h>
-#include <iaRandomNumberGenerator.h>
+#include <iaux/math/iaMatrix.h>
+#include <iaux/math/iaVector2.h>
+#include <iaux/math/iaBSpline.h>
+#include <iaux/math/iaRandomNumberGenerator.h>
 using namespace IgorAux;
 
 #include <memory>
 
-
 namespace Igor
 {
 	class iScene;
-    class iAtlas;
-    class iTextureFont;
+	class iAtlas;
+	class iTextureFont;
 	class iNodeTransform;
-}
+} // namespace Igor
 
 /*! sprite animation 2d example
 */
@@ -87,54 +85,52 @@ class SpriteAnimation
 	};
 
 public:
-
-    /*! initializes the example
+	/*! initializes the example
     */
 	SpriteAnimation();
 
-    /*! deinitializes the example
+	/*! deinitializes the example
     */
-    virtual ~SpriteAnimation();
+	virtual ~SpriteAnimation();
 
-    /*! run the example
+	/*! run the example
     */
-    void run();
+	void run();
 
 private:
-
-    /*! the window
+	/*! the window
     */
-    iWindow _window;
+	iWindow _window;
 
-    /*! visualizes statistics
+	/*! visualizes statistics
     */
-    iProfilerVisualizer _profilerVisualizer;
+	iProfilerVisualizer _profilerVisualizer;
 
-    /*! the view we want to render in
+	/*! the view we want to render in
 
     basically contains information about where inside the window to render and projection information
     */
-    iView _view;
-	
-    /*! walk animation atlas
+	iView _view;
+
+	/*! walk animation atlas
     */
-	iAtlas* _walk = nullptr;
+	iAtlas *_walk = nullptr;
 
 	/*! tiles atlas
 	*/
-	iAtlas* _tiles = nullptr;
-	
+	iAtlas *_tiles = nullptr;
+
 	/*! the scene
 	*/
-	iScene* _scene = nullptr;
-	
+	iScene *_scene = nullptr;
+
 	/*! flags to determine what the character is doing
 	*/
 	bool _flags[5];
 
 	/*! current position of character to render
 	*/
-	iaVector2f _characterPosition{ 0, 0 };
+	iaVector2f _characterPosition{0, 0};
 
 	/*! character velocity
 	*/
@@ -158,15 +154,15 @@ private:
 
 	/*! texture font
 	*/
-	iTextureFont* _font = nullptr;
+	iTextureFont *_font = nullptr;
 
-    /*! Igor logo
+	/*! Igor logo
     */
-    iTexturePtr _igorLogo = nullptr;
-    
-    /*! material id of a textured material with alpha blending
+	iTexturePtr _igorLogo = nullptr;
+
+	/*! material id of a textured material with alpha blending
     */
-    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
+	uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
 
 	/*! terrain material
 	*/
@@ -174,7 +170,7 @@ private:
 
 	/*! transform of camera
 	*/
-	iNodeTransform* _cameraTransform;
+	iNodeTransform *_cameraTransform;
 
 	/*! handles timer tick
 	*/
@@ -192,20 +188,20 @@ private:
 
     \param position last mouse position
     */
-    void onMouseMove(const iaVector2i& position);
+	void onMouseMove(const iaVector2i &position);
 
-    /*! called when window was closed
+	/*! called when window was closed
     */
 	void onWindowClosed();
 
-    /*! called on window resize
+	/*! called on window resize
 
     \param clientWidth width of client rectangle
     \param clientHeight height of client rectangle
     */
-    void onWindowResize(int32 clientWidth, int32 clientHeight);
+	void onWindowResize(int32 clientWidth, int32 clientHeight);
 
-    /*! called when key was pressed
+	/*! called when key was pressed
     */
 	void onKeyDown(iKeyCode key);
 
@@ -213,29 +209,27 @@ private:
 	*/
 	void onKeyUp(iKeyCode key);
 
-    /*! called before every frame
+	/*! called before every frame
     */
 	void onHandle();
-	
-    /*! called every frame 
+
+	/*! called every frame 
     
     here we render everyting
     */
 	void onRender();
 
-    /*! draw Igor Logo
+	/*! draw Igor Logo
     */
-    void drawLogo();
+	void drawLogo();
 
-    /*! initializes the example
+	/*! initializes the example
     */
 	void init();
 
-    /*! deinitializes the example
+	/*! deinitializes the example
     */
 	void deinit();
-
 };
 
 #endif
-

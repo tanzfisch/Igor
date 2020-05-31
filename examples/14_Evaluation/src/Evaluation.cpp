@@ -1,40 +1,40 @@
 #include "Evaluation.h"
 
-#include <iaConsole.h>
-#include <iaString.h>
-#include <iaBSpline.h>
-#include <iaConvert.h>
+#include <iaux/system/iaConsole.h>
+#include <iaux/data/iaString.h>
+#include <iaux/math/iaBSpline.h>
+#include <iaux/data/iaConvert.h>
 using namespace IgorAux;
 
-#include <iMaterial.h>
-#include <iNodeVisitorPrintTree.h>
-#include <iTaskManager.h>
-#include <iNodeSkyBox.h>
-#include <iNodeCamera.h>
-#include <iNodeModel.h> 
-#include <iRenderer.h>
-#include <iApplication.h>
-#include <iSceneFactory.h>
-#include <iScene.h>
-#include <iNodeManager.h>
-#include <iMouse.h>
-#include <iKeyboard.h>
-#include <iTimer.h>
-#include <iTextureFont.h>
-#include <iNodeLight.h>
-#include <iModelResourceFactory.h>
-#include <iTaskFlushModels.h>
-#include <iTaskFlushTextures.h>
-#include <iaString.h>
-#include <iMaterialResourceFactory.h>
-#include <iProfiler.h>
-#include <iNodeSwitch.h>
-#include <iNodeLODSwitch.h>
-#include <iNodeLODTrigger.h>
-#include <iNodeVisitorRenderColorID.h>
-#include <iEvaluationManager.h>
-#include <iEvaluationTransform.h>
-#include <iEvaluationScript.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/graphics/scene/traversal/iNodeVisitorPrintTree.h>
+#include <igor/threading/iTaskManager.h>
+#include <igor/graphics/scene/nodes/iNodeSkyBox.h>
+#include <igor/graphics/scene/nodes/iNodeCamera.h>
+#include <igor/graphics/scene/nodes/iNodeModel.h>
+#include <igor/graphics/iRenderer.h>
+#include <igor/os/iApplication.h>
+#include <igor/graphics/scene/iSceneFactory.h>
+#include <igor/graphics/scene/iScene.h>
+#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/os/iMouse.h>
+#include <igor/os/iKeyboard.h>
+#include <igor/os/iTimer.h>
+#include <igor/resources/texture/iTextureFont.h>
+#include <igor/graphics/scene/nodes/iNodeLight.h>
+#include <igor/resources/model/iModelResourceFactory.h>
+#include <igor/threading/tasks/iTaskFlushModels.h>
+#include <igor/threading/tasks/iTaskFlushTextures.h>
+#include <iaux/data/iaString.h>
+#include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/resources/profiler/iProfiler.h>
+#include <igor/graphics/scene/nodes/iNodeSwitch.h>
+#include <igor/graphics/scene/nodes/iNodeLODSwitch.h>
+#include <igor/graphics/scene/nodes/iNodeLODTrigger.h>
+#include <igor/graphics/scene/traversal/iNodeVisitorRenderColorID.h>
+#include <igor/graphics/evaluation/iEvaluationManager.h>
+#include <igor/graphics/evaluation/iEvaluationTransform.h>
+#include <igor/graphics/evaluation/iEvaluationScript.h>
 using namespace Igor;
 
 Evaluation::Evaluation()
@@ -52,24 +52,24 @@ void Evaluation::createCamera()
     // we want a camera which can be rotated arround the origin
     // we will acchive that with 3 transform nodes
     // one is for the heading
-    iNodeTransform* cameraHeading = iNodeManager::getInstance().createNode<iNodeTransform>();
-    // give the transform node a name. naming is optional and ist jus for helping to debug. 
+    iNodeTransform *cameraHeading = iNodeManager::getInstance().createNode<iNodeTransform>();
+    // give the transform node a name. naming is optional and ist jus for helping to debug.
     // Names do not have to be unique but since it is possible to find nodes by name they better are
     cameraHeading->setName("camera heading");
     _cameraHeading = cameraHeading->getID();
     // one is for the pitch
-    iNodeTransform* cameraPitch = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *cameraPitch = iNodeManager::getInstance().createNode<iNodeTransform>();
     cameraPitch->setName("camera pitch");
     _cameraPitch = cameraPitch->getID();
     // and one is for translation or distance from the origin
-    iNodeTransform* cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
     cameraTranslation->setName("camera translation");
     // translate away from origin
     cameraTranslation->translate(0, 0, 10);
     _cameraTranslation = cameraTranslation->getID();
     // from all nodes that we want to control later we save the node ID
     // and last but not least we create a camera node
-    iNodeCamera* camera = iNodeManager::getInstance().createNode<iNodeCamera>();
+    iNodeCamera *camera = iNodeManager::getInstance().createNode<iNodeCamera>();
     camera->setName("camera");
     // and build everything together
     // first we add the heading to the root node
@@ -80,14 +80,14 @@ void Evaluation::createCamera()
     cameraPitch->insertNode(cameraTranslation);
     // and than we add the camera to the translation
     cameraTranslation->insertNode(camera);
-    // and finally we set the camera active. for this to work a camera must be part of a scene 
+    // and finally we set the camera active. for this to work a camera must be part of a scene
     // wich we achived by adding all those nodes on to an other starting with the root node
     _view.setCurrentCamera(camera->getID());
 }
 
 void Evaluation::createSkybox()
 {
-    iNodeSkyBox* skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
+    iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
     // set it up with the default skybox texture
     skyBoxNode->setTextures(
         iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
@@ -121,7 +121,7 @@ void Evaluation::init()
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &Evaluation::onWindowResized));
 
     // setup perspective view
-    _view.setClearColor(iaColor4f(0.5f, 0, 0.5f, 1));
+    _view.setClearColor(iaColor4f(0.5f, 0.0f, 0.5f, 1.0f));
     _view.setPerspective(45);
     _view.setClipPlanes(0.1f, 10000.f);
     _window.addView(&_view);
@@ -181,7 +181,7 @@ void Evaluation::setupEvaluation()
     iNodeTransformPtr catTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     catTransform->setName("cat transform");
     catTransform->translate(0, 0, 0);
-    iNodeModel* catModel = iNodeManager::getInstance().createNode<iNodeModel>();
+    iNodeModel *catModel = iNodeManager::getInstance().createNode<iNodeModel>();
     // Node model names can be altered but they also are generated based on the file name
     catModel->setModel("cat.ompf");
     // building the created nodes together and insert them in the scene
@@ -189,11 +189,11 @@ void Evaluation::setupEvaluation()
     catTransform->insertNode(catModel);
 
     // animate the cat model using evaluation
-    iEvaluationTransform* transformEvaluation = iEvaluationManager::getInstance().createEvaluation<iEvaluationTransform>(catTransform->getID());
+    iEvaluationTransform *transformEvaluation = iEvaluationManager::getInstance().createEvaluation<iEvaluationTransform>(catTransform->getID());
 
     // create some key frames using a bspline
     iaBSpline bspline;
-    bspline.addSupportPoint(iaVector3f(-4,0,0));
+    bspline.addSupportPoint(iaVector3f(-4, 0, 0));
     bspline.addSupportPoint(iaVector3f(-2, 5, 0));
     bspline.addSupportPoint(iaVector3f(2, -5, 0));
     bspline.addSupportPoint(iaVector3f(4, 0, 0));
@@ -220,7 +220,7 @@ void Evaluation::setupEvaluation()
     transformEvaluation->setStart(iTimer::getInstance().getSeconds());
 
     // add a script evaluation on top
-    iEvaluationScript* scriptEvaluation = iEvaluationManager::getInstance().createEvaluation<iEvaluationScript>(catTransform->getID());
+    iEvaluationScript *scriptEvaluation = iEvaluationManager::getInstance().createEvaluation<iEvaluationScript>(catTransform->getID());
     scriptEvaluation->setLooped();
     scriptEvaluation->setDuration(4.0);
     scriptEvaluation->setStart(iTimer::getInstance().getSeconds());
@@ -236,12 +236,12 @@ void Evaluation::evalScript(iNodeTransformPtr transform, float64 t)
 void Evaluation::createDirectionalLight()
 {
     // transform node for the lights orientation
-    iNodeTransform* directionalLightRotate = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *directionalLightRotate = iNodeManager::getInstance().createNode<iNodeTransform>();
     // transform node for the lights distance to the origin
-    iNodeTransform* directionalLightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *directionalLightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
     directionalLightTranslate->translate(100, 100, 100);
     // the light node
-    iNodeLight* lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
+    iNodeLight *lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
     lightNode->setAmbient(iaColor4f(0.3f, 0.3f, 0.3f, 1.0f));
     lightNode->setDiffuse(iaColor4f(0.8f, 0.8f, 0.8f, 1.0f));
     lightNode->setSpecular(iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
@@ -289,7 +289,7 @@ void Evaluation::deinit()
 
 void Evaluation::onMouseWheel(int32 d)
 {
-    iNodeTransform* camTranslation = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_cameraTranslation));
+    iNodeTransform *camTranslation = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraTranslation));
     if (camTranslation != nullptr)
     {
         if (d < 0)
@@ -303,12 +303,12 @@ void Evaluation::onMouseWheel(int32 d)
     }
 }
 
-void Evaluation::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* _window)
+void Evaluation::onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *_window)
 {
     if (iMouse::getInstance().getLeftButton())
     {
-        iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_cameraPitch));
-        iNodeTransform* cameraHeading = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_cameraHeading));
+        iNodeTransform *cameraPitch = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraPitch));
+        iNodeTransform *cameraHeading = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraHeading));
 
         if (cameraPitch != nullptr &&
             cameraHeading != nullptr)

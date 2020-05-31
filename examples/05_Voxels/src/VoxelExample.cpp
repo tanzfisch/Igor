@@ -1,35 +1,35 @@
 // Igor game engine
-// (c) Copyright 2014-2015 by Martin Loga
+// (c) Copyright 2014-2020 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include "VoxelExample.h"
 
-#include <iaConsole.h>
+#include <iaux/system/iaConsole.h>
 using namespace IgorAux;
 
-#include <iSphere.h>
-#include <iMaterial.h>
-#include <iRenderer.h>
-#include <iTaskManager.h>
-#include <iNodeSkyBox.h>
-#include <iNodeLight.h>
-#include <iNodeCamera.h>
-#include <iNodeModel.h> 
-#include <iNodeTransform.h>
-#include <iApplication.h>
-#include <iSceneFactory.h>
-#include <iScene.h>
-#include <iNodeManager.h>
-#include <iMouse.h>
-#include <iTimer.h>
-#include <iTextureFont.h>
-#include <iTaskFlushModels.h>
-#include <iTaskFlushTextures.h>
-#include <iMaterialResourceFactory.h>
-#include <iVoxelData.h>
-#include <iaVector3.h>
-#include <iProfiler.h>
-#include <iNodeVisitorPrintTree.h>
+#include <igor/data/iSphere.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/graphics/iRenderer.h>
+#include <igor/threading/iTaskManager.h>
+#include <igor/graphics/scene/nodes/iNodeSkyBox.h>
+#include <igor/graphics/scene/nodes/iNodeLight.h>
+#include <igor/graphics/scene/nodes/iNodeCamera.h>
+#include <igor/graphics/scene/nodes/iNodeModel.h>
+#include <igor/graphics/scene/nodes/iNodeTransform.h>
+#include <igor/os/iApplication.h>
+#include <igor/graphics/scene/iSceneFactory.h>
+#include <igor/graphics/scene/iScene.h>
+#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/os/iMouse.h>
+#include <igor/os/iTimer.h>
+#include <igor/resources/texture/iTextureFont.h>
+#include <igor/threading/tasks/iTaskFlushModels.h>
+#include <igor/threading/tasks/iTaskFlushTextures.h>
+#include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/graphics/terrain/data/iVoxelBlock.h>
+#include <iaux/math/iaVector3.h>
+#include <igor/resources/profiler/iProfiler.h>
+#include <igor/graphics/scene/traversal/iNodeVisitorPrintTree.h>
 using namespace Igor;
 
 #include "VoxelTerrainMeshGenerator.h"
@@ -105,7 +105,7 @@ void VoxelExample::deinit()
 void VoxelExample::registerHandles()
 {
     // register callbacks to all the events that are of interest to us
-	iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &VoxelExample::onKeyDown));
+    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &VoxelExample::onKeyDown));
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &VoxelExample::onMouseMoved));
     iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &VoxelExample::onHandle));
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &VoxelExample::onWindowResized));
@@ -119,7 +119,7 @@ void VoxelExample::unregisterHandles()
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &VoxelExample::onWindowClosed));
     iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &VoxelExample::onHandle));
     iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &VoxelExample::onMouseMoved));
-	iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &VoxelExample::onKeyDown));
+    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &VoxelExample::onKeyDown));
 }
 
 void VoxelExample::initViews()
@@ -138,7 +138,8 @@ void VoxelExample::initViews()
     _window.setTitle("Voxel Example");
     _window.addView(&_view);
     _window.addView(&_viewOrtho);
-    _window.setClientSize(1024, 768);
+    _window.setClientSize(600, 600);
+    _window.setCentered();
     _window.open();
 
     // update the orthogonal projection after we know the windows cient rectangle. the same we do after a resize
@@ -153,31 +154,31 @@ void VoxelExample::initScene()
 
     // create camera
     // first heading transformation node
-    iNodeTransform* cameraHeading = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *cameraHeading = iNodeManager::getInstance().createNode<iNodeTransform>();
     _cameraHeading = cameraHeading->getID();
     // then pitch transformation node
-    iNodeTransform* cameraPitch = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *cameraPitch = iNodeManager::getInstance().createNode<iNodeTransform>();
     _cameraPitch = cameraPitch->getID();
     // and distance to origin transformation node
-    iNodeTransform* cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
     cameraTranslation->translate(0, 0, 120);
     // anf of corse the camera
-    iNodeCamera* camera = iNodeManager::getInstance().createNode<iNodeCamera>();
+    iNodeCamera *camera = iNodeManager::getInstance().createNode<iNodeCamera>();
     // add it to the scene
     _scene->getRoot()->insertNode(cameraHeading);
     cameraHeading->insertNode(cameraPitch);
     cameraPitch->insertNode(cameraTranslation);
     cameraTranslation->insertNode(camera);
-    // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a 
+    // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a
     // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
     _view.setCurrentCamera(camera->getID());
 
     // create a directional light
     // transform node
-    iNodeTransform* lightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *lightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
     lightTranslate->translate(100, 100, 100);
     // and light node
-    iNodeLight* lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
+    iNodeLight *lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
     lightNode->setAmbient(iaColor4f(0.6f, 0.6f, 0.6f, 1.0f));
     lightNode->setDiffuse(iaColor4f(0.9f, 0.7f, 0.6f, 1.0f));
     lightNode->setSpecular(iaColor4f(1.0f, 0.9f, 0.87f, 1.0f));
@@ -186,7 +187,7 @@ void VoxelExample::initScene()
     lightTranslate->insertNode(lightNode);
 
     // reate a sky box and add it to scene
-    iNodeSkyBox* skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
+    iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
     skyBoxNode->setTextures(
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/front.jpg"),
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/back.jpg"),
@@ -265,10 +266,10 @@ void VoxelExample::generateVoxelData()
     for (int i = 0; i < 20; ++i)
     {
         metaballs.push_back(std::pair<iaVector3f, float32>(iaVector3f(
-            _rand.getNext() % static_cast<int>(_voxelData->getWidth() * coreSize) + (_voxelData->getWidth() * coreOffset),
-            _rand.getNext() % static_cast<int>(_voxelData->getHeight() * coreSize) + (_voxelData->getHeight() * coreOffset),
-            _rand.getNext() % static_cast<int>(_voxelData->getDepth()*coreSize) + (_voxelData->getDepth() * coreOffset)),
-            (((_rand.getNext() % 30) + 70) / 100.0) + 0.4));
+                                                               _rand.getNext() % static_cast<int>(_voxelData->getWidth() * coreSize) + (_voxelData->getWidth() * coreOffset),
+                                                               _rand.getNext() % static_cast<int>(_voxelData->getHeight() * coreSize) + (_voxelData->getHeight() * coreOffset),
+                                                               _rand.getNext() % static_cast<int>(_voxelData->getDepth() * coreSize) + (_voxelData->getDepth() * coreOffset)),
+                                                           (((_rand.getNext() % 30) + 70) / 100.0) + 0.4));
     }
 
     // now iterate through all the voxels and define their density
@@ -306,7 +307,7 @@ void VoxelExample::generateVoxelData()
                     }
                 }
 
-                // using some perline noise to cut holes in the sphere. this time we skip the smoothing part due to much effort and cluttering the tutorial 
+                // using some perline noise to cut holes in the sphere. this time we skip the smoothing part due to much effort and cluttering the tutorial
                 // with bad understandable code. Ask the author if you'd like to know about smoothing the values
                 float64 onoff = _perlinNoise.getValue(iaVector3d(pos._x * 0.04, pos._y * 0.04, pos._z * 0.04), 3, 0.5);
 
@@ -367,24 +368,24 @@ void VoxelExample::prepareMeshGeneration()
     tileInformation._materialID = _voxelMeshMaterialID;
     tileInformation._voxelData = _voxelData;
     // define the input parameter so Igor knows which iModelDataIO implementation to use and how
-    iModelDataInputParameter* inputParam = new iModelDataInputParameter();
+    iModelDataInputParameter *inputParam = new iModelDataInputParameter();
     inputParam->_identifier = "example_vtg";
     inputParam->_joinVertexes = true;
     inputParam->_needsRenderContext = false;
     inputParam->_modelSourceType = iModelSourceType::Generated;
     inputParam->_loadPriority = 0;
-	inputParam->_keepMesh = true;
-    inputParam->_parameters.setData(reinterpret_cast<const char*>(&tileInformation), sizeof(TileInformation));
+    inputParam->_keepMesh = true;
+    inputParam->_parameters.setData(reinterpret_cast<const char *>(&tileInformation), sizeof(TileInformation));
     // create a model node
-    iNodeModel* voxelMeshModel = iNodeManager::getInstance().createNode<iNodeModel>();
-	voxelMeshModel->setName("VoxelMeshModel");
+    iNodeModel *voxelMeshModel = iNodeManager::getInstance().createNode<iNodeModel>();
+    voxelMeshModel->setName("VoxelMeshModel");
     _voxelMeshModel = voxelMeshModel->getID();
     // tell the model node to load data with specified identifier ans the above defined parameter
     // it is important to have a unique identifier each time we generate a mesh otherwhise the cache system would return us a prvious generated mesh
     voxelMeshModel->setModel(iaString("VoxelMesh") + iaString::toString(_incarnation++), iResourceCacheMode::Keep, inputParam);
     // create a transform node to center the mesh to the origin
-    iNodeTransform* voxelMeshTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
-	voxelMeshTransform->setName("VoxelMeshTransform");
+    iNodeTransform *voxelMeshTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
+    voxelMeshTransform->setName("VoxelMeshTransform");
     _voxelMeshTransform = voxelMeshTransform->getID();
     voxelMeshTransform->translate(-_voxelData->getWidth() / 2, -_voxelData->getHeight() / 2, -_voxelData->getDepth() / 2);
     // and add to scene
@@ -392,14 +393,14 @@ void VoxelExample::prepareMeshGeneration()
     _scene->getRoot()->insertNode(voxelMeshTransform);
 }
 
-void VoxelExample::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* _window)
+void VoxelExample::onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *_window)
 {
     if (iMouse::getInstance().getLeftButton())
     {
         float32 dx = static_cast<float32>(from._x - to._x) * 0.005f;
         float32 dy = static_cast<float32>(from._y - to._y) * 0.005f;
-        iNodeTransform* cameraHeading = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_cameraHeading));
-        iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_cameraPitch));
+        iNodeTransform *cameraHeading = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraHeading));
+        iNodeTransform *cameraPitch = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraPitch));
         if (cameraHeading != nullptr &&
             cameraPitch != nullptr)
         {
@@ -423,47 +424,47 @@ void VoxelExample::onWindowResized(int32 clientWidth, int32 clientHeight)
 
 void VoxelExample::onKeyDown(iKeyCode key)
 {
-	switch (key)
-	{
-	case iKeyCode::Space:
-		generateVoxelData();
-		break;
+    switch (key)
+    {
+    case iKeyCode::Space:
+        generateVoxelData();
+        break;
 
-	case iKeyCode::ESC:
-		iApplication::getInstance().stop();
-		break;
+    case iKeyCode::ESC:
+        iApplication::getInstance().stop();
+        break;
 
-	case iKeyCode::F4:
-		
-		iModelResourceFactory::getInstance().exportModelData("voxelExample.ompf", _scene->getRoot()->getChild("VoxelMeshTransform")->getChild("VoxelMeshModel"), "ompf", iSaveMode::EmbedExternals);
-	break;
+    case iKeyCode::F4:
 
-	case iKeyCode::F8:
-		_profilerVisualizer.cycleVerbosity();
-		break;
+        iModelResourceFactory::getInstance().exportModelData("voxelExample.ompf", _scene->getRoot()->getChild("VoxelMeshTransform")->getChild("VoxelMeshModel"), "ompf", iSaveMode::EmbedExternals);
+        break;
 
-	case iKeyCode::F9:
-	{
-		iNodeVisitorPrintTree printTree;
-		if (_scene != nullptr)
-		{
-			printTree.printToConsole(_scene->getRoot());
-		}
-	}
-	break;
+    case iKeyCode::F8:
+        _profilerVisualizer.cycleVerbosity();
+        break;
 
-	case iKeyCode::F10:
-		_view.setWireframeVisible(!_view.isWireframeVisible());
-		break;
+    case iKeyCode::F9:
+    {
+        iNodeVisitorPrintTree printTree;
+        if (_scene != nullptr)
+        {
+            printTree.printToConsole(_scene->getRoot());
+        }
+    }
+    break;
 
-	case iKeyCode::F11:
-		_view.setOctreeVisible(!_view.isOctreeVisible());
-		break;
+    case iKeyCode::F10:
+        _view.setWireframeVisible(!_view.isWireframeVisible());
+        break;
 
-	case iKeyCode::F12:
-		_view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
-		break;
-	}
+    case iKeyCode::F11:
+        _view.setOctreeVisible(!_view.isOctreeVisible());
+        break;
+
+    case iKeyCode::F12:
+        _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
+        break;
+    }
 }
 
 void VoxelExample::onRenderOrtho()
@@ -515,7 +516,7 @@ void VoxelExample::onHandle()
     // detect if loading is done
     if (_voxelMeshModel != iNode::INVALID_NODE_ID)
     {
-        iNodeModel* voxelMeshModel = static_cast<iNodeModel*>(iNodeManager::getInstance().getNode(_voxelMeshModel));
+        iNodeModel *voxelMeshModel = static_cast<iNodeModel *>(iNodeManager::getInstance().getNode(_voxelMeshModel));
 
         if (voxelMeshModel != nullptr &&
             voxelMeshModel->isValid())
@@ -533,4 +534,3 @@ void VoxelExample::run()
 {
     iApplication::getInstance().run();
 }
-
