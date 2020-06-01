@@ -11,20 +11,20 @@
 //                                           (_(       \)
 //    (c) Copyright 2014-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: martinloga@gmx.de  
+//
+// contact: martinloga@gmx.de
 
 #ifndef __VOXELEXAMPLE__
 #define __VOXELEXAMPLE__
@@ -46,9 +46,9 @@ using namespace IgorAux;
 
 namespace Igor
 {
-	class iScene;
-	class iNodeTransform;
-	class iNodeLight;
+    class iScene;
+    class iNodeTransform;
+    class iNodeLight;
     class iTextureFont;
     class iVoxelData;
     class iContouringCubes;
@@ -57,7 +57,7 @@ namespace Igor
     class iTargetMaterial;
     class iNodeTransformControl;
     class iTexture;
-}
+} // namespace Igor
 
 /*! the voxel example
 */
@@ -65,7 +65,6 @@ class VoxelExample
 {
 
 public:
-
     /*! init
     */
     VoxelExample();
@@ -79,10 +78,9 @@ public:
     void run();
 
 private:
-
     /*! window to render in
     */
-	iWindow _window;
+    iWindow _window;
 
     /*! profiler visualizer
     */
@@ -90,7 +88,7 @@ private:
 
     /*! view within the window
     */
-	iView _view;
+    iView _view;
 
     /*! an other view to render orthogonal projected stuff
     */
@@ -98,11 +96,11 @@ private:
 
     /*! font to display framerate
     */
-    iTextureFont* _font = nullptr;
+    iTextureFont *_font = nullptr;
 
     /*! the scene
     */
-	iScene* _scene = nullptr;
+    iScene *_scene = nullptr;
 
     /*! heading of camera
     */
@@ -126,7 +124,7 @@ private:
 
     /*! the actual voxel data
     */
-    iVoxelData* _voxelData = nullptr;
+    iVoxelData *_voxelData = nullptr;
 
     /*! material for the sky box
     */
@@ -142,7 +140,7 @@ private:
 
     /*! measure some time
     */
-    float64 _time = 0;
+    iaTime _time;
 
     /*! random number generator
     */
@@ -155,7 +153,7 @@ private:
     /*! id of flush model task
     */
     uint64 _flushModelsTask = iTask::INVALID_TASK_ID;
-    
+
     /*! id of flush textures task
     */
     uint64 _flushTexturesTask = iTask::INVALID_TASK_ID;
@@ -170,7 +168,7 @@ private:
 
     /*! called when ESC key was pressed
     */
-	void onKeyDown(iKeyCode key);
+    void onKeyDown(iKeyCode key);
 
     /*! called when space key was released
     */
@@ -178,7 +176,7 @@ private:
 
     /*! called when window was closed
     */
-	void onWindowClosed();
+    void onWindowClosed();
 
     /*! called before every frame
     */
@@ -197,7 +195,7 @@ private:
     \param to current mouse position
     \param window the window the coordinates are related to
     */
-    void onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window);
+    void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window);
 
     /*! called when orthogonal view was rendred
     */
@@ -213,11 +211,11 @@ private:
 
     /*! initialize window and views
     */
-	void initViews();
+    void initViews();
 
     /*! initialize scene
     */
-	void initScene();
+    void initScene();
 
     /*! register some callbacks
     */
@@ -238,7 +236,6 @@ private:
     /*! triggers mesh generation
     */
     void prepareMeshGeneration();
-
 };
 
 #endif

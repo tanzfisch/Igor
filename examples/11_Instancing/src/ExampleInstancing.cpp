@@ -1,21 +1,21 @@
 #include "ExampleInstancing.h"
 
 #include <iaConsole.h>
-#include <iaString.h>
+#include <iaux/data/iaString.h>
 using namespace IgorAux;
 
-#include <iMaterial.h>
-#include <iNodeVisitorPrintTree.h>
-#include <iTaskManager.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/graphics/scene/traversal/iNodeVisitorPrintTree.h>
+#include <igor/threading/iTaskManager.h>
 #include <iNodeSkyBox.h>
 #include <iNodeCamera.h>
-#include <iNodeModel.h> 
-#include <iNodeTransform.h>
+#include <igor/graphics/scene/nodes/iNodeModel.h>
+#include igor / graphics / scene / nodes / iNodeTransform.h>
 #include <iRenderer.h>
 #include <iApplication.h>
 #include <iSceneFactory.h>
-#include <iScene.h>
-#include <iNodeManager.h>
+#include <igor/graphics/scene/iScene.h>
+#include <igor/graphics/scene/nodes/iNodeManager.h>
 #include <iMouse.h>
 #include <iKeyboard.h>
 #include <iTimer.h>
@@ -24,8 +24,8 @@ using namespace IgorAux;
 #include <iModelResourceFactory.h>
 #include <iTaskFlushModels.h>
 #include <iTaskFlushTextures.h>
-#include <iaString.h>
-#include <iMaterialResourceFactory.h>
+#include <iaux/data/iaString.h>
+#include <igor/resources/material/iMaterialResourceFactory.h>
 #include <iProfiler.h>
 #include <iNodeSwitch.h>
 #include <iNodeLODSwitch.h>
@@ -78,24 +78,24 @@ void ExampleInstancing::init()
     // we want a camera which can be rotated arround the origin
     // we will acchive that with 3 transform nodes
     // one is for the heading
-    iNodeTransform* cameraHeading = iNodeManager::getInstance().createNode<iNodeTransform>();
-    // give the transform node a name. naming is optional and ist jus for helping to debug. 
+    iNodeTransform *cameraHeading = iNodeManager::getInstance().createNode<iNodeTransform>();
+    // give the transform node a name. naming is optional and ist jus for helping to debug.
     // Names do not have to be unique but since it is possible to find nodes by name they better are
     cameraHeading->setName("camera heading");
     _cameraHeading = cameraHeading->getID();
     // one is for the pitch
-    iNodeTransform* cameraPitch = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *cameraPitch = iNodeManager::getInstance().createNode<iNodeTransform>();
     cameraPitch->setName("camera pitch");
     _cameraPitch = cameraPitch->getID();
     // and one is for translation or distance from the origin
-    iNodeTransform* cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
     cameraTranslation->setName("camera translation");
     // translate away from origin
     cameraTranslation->translate(0, 0, 10);
     _cameraTranslation = cameraTranslation->getID();
     // from all nodes that we want to control later we save the node ID
     // and last but not least we create a camera node
-    iNodeCamera* camera = iNodeManager::getInstance().createNode<iNodeCamera>();
+    iNodeCamera *camera = iNodeManager::getInstance().createNode<iNodeCamera>();
     camera->setName("camera");
     // and build everything together
     // first we add the heading to the root node
@@ -106,7 +106,7 @@ void ExampleInstancing::init()
     cameraPitch->insertNode(cameraTranslation);
     // and than we add the camera to the translation
     cameraTranslation->insertNode(camera);
-    // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a 
+    // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a
     // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
     _view.setCurrentCamera(camera->getID());
 
@@ -119,13 +119,13 @@ void ExampleInstancing::init()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->addShaderSource("igor/textured_ipo.vert", iShaderObjectType::Vertex);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->addShaderSource("igor/textured_ipo_directional_light.frag", iShaderObjectType::Fragment);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->compileShader();
-    
+
     const float32 spacing = 3.0f;
     const int32 amountPerDimension = 3;
 
-    // now we can just put copies of that model in the scene    
-    iNodeTransform* transformGroup = iNodeManager::getInstance().createNode<iNodeTransform>();
-    transformGroup->translate(-((amountPerDimension -1) * spacing * 0.5), -((amountPerDimension - 1) * spacing * 0.5), ((amountPerDimension - 1) * spacing * 0.5));
+    // now we can just put copies of that model in the scene
+    iNodeTransform *transformGroup = iNodeManager::getInstance().createNode<iNodeTransform>();
+    transformGroup->translate(-((amountPerDimension - 1) * spacing * 0.5), -((amountPerDimension - 1) * spacing * 0.5), ((amountPerDimension - 1) * spacing * 0.5));
     _scene->getRoot()->insertNode(transformGroup);
 
     // create an array of models
@@ -135,13 +135,13 @@ void ExampleInstancing::init()
         {
             for (int x = 0; x < amountPerDimension; ++x)
             {
-                iNodeTransform* transform = iNodeManager::getInstance().createNode<iNodeTransform>();
+                iNodeTransform *transform = iNodeManager::getInstance().createNode<iNodeTransform>();
                 transform->translate(x * spacing, y * spacing, -z * spacing);
                 transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::X);
                 transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::Y);
                 transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::Z);
 
-                iNodeModel* modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
+                iNodeModel *modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
                 // it is important to use the exact same parameters here as before when we direclty loaded the model
                 // because here it will not load it again but get it from the cache where we is still the version with manipulated material
                 modelNode->setModel("cat.ompf", iResourceCacheMode::Keep);
@@ -153,9 +153,9 @@ void ExampleInstancing::init()
             }
         }
     }
-    
+
     // create a skybox
-    iNodeSkyBox* skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
+    iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
     // set it up with the default skybox texture
     skyBoxNode->setTextures(
         iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
@@ -177,14 +177,14 @@ void ExampleInstancing::init()
 
     // setup light
     // transform node for the lights orientation
-    iNodeTransform* directionalLightRotate = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *directionalLightRotate = iNodeManager::getInstance().createNode<iNodeTransform>();
     // keep transform node id so we can manipulate the light's position later
     _directionalLightRotate = directionalLightRotate->getID();
     // transform node for the lights distance to the origin
-    iNodeTransform* directionalLightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *directionalLightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
     directionalLightTranslate->translate(100, 100, 100);
     // the light node
-    iNodeLight* lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
+    iNodeLight *lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
     lightNode->setAmbient(iaColor4f(0.3f, 0.3f, 0.3f, 1.0f));
     lightNode->setDiffuse(iaColor4f(0.8f, 0.8f, 0.8f, 1.0f));
     lightNode->setSpecular(iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
@@ -210,7 +210,7 @@ void ExampleInstancing::init()
 
     // start resource tasks
     _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
-     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
+    _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
     // register some callbacks
     iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &ExampleInstancing::onKeyPressed));
@@ -262,7 +262,7 @@ void ExampleInstancing::deinit()
 
 void ExampleInstancing::onMouseWheel(int32 d)
 {
-    iNodeTransform* camTranslation = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_cameraTranslation));
+    iNodeTransform *camTranslation = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraTranslation));
     if (camTranslation != nullptr)
     {
         if (d < 0)
@@ -276,12 +276,12 @@ void ExampleInstancing::onMouseWheel(int32 d)
     }
 }
 
-void ExampleInstancing::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* _window)
+void ExampleInstancing::onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *_window)
 {
     if (iMouse::getInstance().getLeftButton())
     {
-        iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_cameraPitch));
-        iNodeTransform* cameraHeading = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_cameraHeading));
+        iNodeTransform *cameraPitch = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraPitch));
+        iNodeTransform *cameraHeading = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraHeading));
 
         if (cameraPitch != nullptr &&
             cameraHeading != nullptr)
@@ -323,7 +323,7 @@ void ExampleInstancing::onKeyPressed(iKeyCode key)
 
 void ExampleInstancing::onTimer()
 {
-    iNodeTransform* directionalLightRotate = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_directionalLightRotate));
+    iNodeTransform *directionalLightRotate = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_directionalLightRotate));
     directionalLightRotate->rotate(0.005f, iaAxis::Y);
 }
 
@@ -333,7 +333,7 @@ void ExampleInstancing::onRenderOrtho()
     iRenderer::getInstance().setViewMatrix(viewMatrix);
 
     iaMatrixd modelMatrix;
-    modelMatrix.translate(0,0,-30);
+    modelMatrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
 
     drawLogo();
@@ -357,15 +357,14 @@ void ExampleInstancing::drawLogo()
 
 void ExampleInstancing::onModelReady(uint64 modelNodeID)
 {
-    iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeManager::getInstance().getNode(modelNodeID));
+    iNodeModel *modelNode = static_cast<iNodeModel *>(iNodeManager::getInstance().getNode(modelNodeID));
     if (modelNode != nullptr &&
         modelNode->isValid())
     {
-        iNodeMesh* meshNode = static_cast<iNodeMesh*>(modelNode->getChild("mesh0001"));
+        iNodeMesh *meshNode = static_cast<iNodeMesh *>(modelNode->getChild("mesh0001"));
         meshNode->setMaterial(_materialWithInstancing);
     }
 }
-
 
 void ExampleInstancing::run()
 {

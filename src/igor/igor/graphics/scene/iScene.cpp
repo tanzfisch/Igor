@@ -15,6 +15,7 @@
 #include <igor/os/iTimer.h>
 
 #include <iaux/system/iaConsole.h>
+#include <iaux/system/iaTime.h>
 using namespace IgorAux;
 
 namespace Igor
@@ -312,7 +313,8 @@ namespace Igor
 		_mutex.unlock();
 
 		// stop after 5ms
-		float64 endTime = iTimer::getInstance().getApplicationTime() + 5;
+		iaTime endTime = iaTime::now();
+		endTime += iaTime::fromMilliseconds(5);
 
 		auto iterP = _processingQueue.begin();
 		while (iterP != _processingQueue.end())
@@ -335,7 +337,7 @@ namespace Igor
 				iterP = _processingQueue.erase(iterP);
 			}
 
-			if (iTimer::getInstance().getApplicationTime() > endTime)
+			if (iaTime::now() > endTime)
 			{
 				break;
 			}

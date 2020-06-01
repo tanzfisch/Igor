@@ -34,6 +34,7 @@
 #include <iaux/data/iaColor4.h>
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaConsole.h>
+#include <iaux/system/iaTime.h>
 using namespace IgorAux;
 
 #include <map>
@@ -105,7 +106,7 @@ namespace Igor
 
         /*! measures time so we can update statistics in cetain intervals
         */
-        float64 _seconds = 0;
+        iaTime _time;
 
         /*! stores the last measured fps
         */

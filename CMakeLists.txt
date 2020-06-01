@@ -390,7 +390,8 @@ foreach(
   10_LSystem
   12_CharacterController
   13_SpriteAnimation
-  14_Evaluation)
+  14_Evaluation
+  99_Ascent)
   message(${EXAMPLE})
   set(EXAMPLE_HEADERS_DIR "${CMAKE_SOURCE_DIR}/examples/${EXAMPLE}/src/")
   file(

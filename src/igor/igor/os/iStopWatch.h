@@ -31,6 +31,9 @@
 
 #include <igor/iDefines.h>
 
+#include <iaux/system/iaTime.h>
+using namespace IgorAux;
+
 namespace Igor
 {
 
@@ -40,32 +43,8 @@ namespace Igor
 	*/
 	class Igor_API iStopWatch
 	{
-	private:
-		/*! start time in ms
-		*/
-		float64 _startTime = 0;
-
-		/*! stop time in ms
-		*/
-		float64 _stopTime = 0;
-
-#ifdef __IGOR_DEBUG__
-		/*! the last time we measured
-
-        only interessting for debugging
-        */
-		float64 _lastMeasuredDelta = 0;
-#endif
-
-		/*! true if currently running
-        */
-		bool _running = false;
 
 	public:
-		/*! initializes member variables
-		*/
-		iStopWatch();
-
 		/*! saves current time as start time in ms
 		*/
 		void start();
@@ -76,23 +55,26 @@ namespace Igor
 
 		/*! \returns true: if currently running
         */
-		bool isRunning();
+		bool isRunning() const;
 
-		/*! returns the difference between start and stop time in ms
+		/*! \returns the difference between start and stop time in ms
+
+		if it is still running it returns the difference between start and current time
 		*/
-		float64 getMilliSeconds();
+		iaTime getTime() const;
 
-		/*! returns the difference between start and stop time in s
+	private:
+		/*! start time in ms
 		*/
-		float64 getSeconds();
+		iaTime _startTime;
 
-		/*! returns the difference between start and current time in ms
-        */
-		float64 getCurrentMilliSeconds();
+		/*! stop time in ms
+		*/
+		iaTime _stopTime;
 
-		/*! returns the difference between start and current time in s
+		/*! true if currently running
         */
-		float64 getCurrentSeconds();
+		bool _running = false;
 	};
 
 } // namespace Igor

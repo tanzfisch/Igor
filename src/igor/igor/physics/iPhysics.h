@@ -35,6 +35,7 @@
 
 #include <iaux/system/iaSingleton.h>
 #include <iaux/math/iaMatrix.h>
+#include <iaux/system/iaTime.h>
 using namespace IgorAux;
 
 #include <memory>
@@ -473,7 +474,7 @@ namespace Igor
 
         /*! last frame time
         */
-        float64 _lastTime;
+        iaTime _lastTime;
 
         /*! if true physics is running
         */

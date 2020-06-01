@@ -62,7 +62,7 @@ namespace Igor
 
     void iEvaluationManager::handle()
     {
-        float64 time = iTimer::getInstance().getSeconds();
+        iaTime time = iTimer::getInstance().getFrameTime();
 
         if (!_dirtyEvaluations.empty())
         {
@@ -96,9 +96,9 @@ namespace Igor
                 continue;
             }
 
-            const float64 interval = evaluation->_stop - evaluation->_start;
-            const uint64 intervalCount = (time - evaluation->_start) / interval;
-            const float64 in = ((time - evaluation->_start) / interval) - float64(intervalCount);
+            const iaTime interval = evaluation->_stop - evaluation->_start;
+            const uint64 intervalCount = (time - evaluation->_start).getMilliseconds() / interval.getMilliseconds();
+            const float64 in = ((time - evaluation->_start).getMilliseconds() / interval.getMilliseconds()) - float64(intervalCount);
             float64 t;
 
             switch (evaluation->getEasingFunction())

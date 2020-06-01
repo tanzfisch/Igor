@@ -11,20 +11,20 @@
 //                                           (_(       \)
 //    (c) Copyright 2014-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: martinloga@gmx.de  
+//
+// contact: martinloga@gmx.de
 
 #ifndef __STATEMACHINEEXAMPLE__
 #define __STATEMACHINEEXAMPLE__
@@ -39,25 +39,25 @@ using namespace Igor;
 
 #include <iaux/statemachine/iaStateMachine.h>
 #include <iaux/data/iaString.h>
+#include <iaux/system/iaTime.h>
 using namespace IgorAux;
 
 #include <vector>
 
 class StateMachineExample
 {
-    
+
 private:
+    iWindow _window;
+    iView _view;
 
-	iWindow _window;
-	iView _view;
-
-    iTextureFont* _font = 0;
+    iTextureFont *_font = 0;
     int32 _materialWithTextureAndBlending = -1;
     iParticleSystem2D _particleSystems[5];
     iTexturePtr _particleTexture;
 
-    iaStateMachine _stateMachine;  
-    uint32 _initMenuTransition = 0; 
+    iaStateMachine _stateMachine;
+    uint32 _initMenuTransition = 0;
     uint32 _menuExitTransition = 0;
     uint32 _menuHelpTransition = 0;
     uint32 _helpMenuTransition = 0;
@@ -80,14 +80,14 @@ private:
     bool _drawB = false;
     bool _drawC = false;
 
-    float64 _time = 0.0;
+    iaTime _time;
 
     iaString _backgroundText = "";
     float32 _spinning = 0.0f;
     int32 _activeMenuEntry = 0;
     std::vector<iaString> _menuEntries;
 
-	void onCloseWindow();
+    void onCloseWindow();
 
     void onKeyReleasedMenuState(iKeyCode key);
     void onEnterMenuState();
@@ -119,15 +119,14 @@ private:
 
     void onEnterExitState();
 
-	void init();
-	void deinit();
+    void init();
+    void deinit();
 
 public:
-
     StateMachineExample();
     ~StateMachineExample();
 
-	void run();
+    void run();
 };
 
 #endif

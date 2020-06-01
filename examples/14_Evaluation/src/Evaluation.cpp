@@ -214,16 +214,16 @@ void Evaluation::setupEvaluation()
     // set smooth easing function
     transformEvaluation->setEasingFunction(Easing::EasingFunction::InOutCubic);
 
-    // set duration aka period to 2 seconds
-    transformEvaluation->setDuration(4.0);
+    // set duration aka period to 4 seconds
+    transformEvaluation->setDuration(iaTime::fromSeconds(4.0));
     // start now
-    transformEvaluation->setStart(iTimer::getInstance().getSeconds());
+    transformEvaluation->setStart(iTimer::getInstance().getFrameTime());
 
     // add a script evaluation on top
     iEvaluationScript *scriptEvaluation = iEvaluationManager::getInstance().createEvaluation<iEvaluationScript>(catTransform->getID());
     scriptEvaluation->setLooped();
-    scriptEvaluation->setDuration(4.0);
-    scriptEvaluation->setStart(iTimer::getInstance().getSeconds());
+    scriptEvaluation->setDuration(iaTime::fromSeconds(4.0));
+    scriptEvaluation->setStart(iTimer::getInstance().getFrameTime());
     scriptEvaluation->setScript(iEvaluationScriptDelegate(this, &Evaluation::evalScript));
     scriptEvaluation->setEasingFunction(Easing::EasingFunction::OutElastic);
 }

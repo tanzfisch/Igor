@@ -5,6 +5,7 @@
 #include "VoxelExample.h"
 
 #include <iaux/system/iaConsole.h>
+#include <iaux/system/iaTime.h>
 using namespace IgorAux;
 
 #include <igor/data/iSphere.h>
@@ -230,7 +231,7 @@ float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)
 
 void VoxelExample::generateVoxelData()
 {
-    _rand.setSeed(static_cast<uint32>(iTimer::getInstance().getApplicationTime()));
+    _rand.setSeed(static_cast<uint32>(iaTime::now().getMicrosenconds()));
 
     // if there is none create it
     if (_voxelData == nullptr)
@@ -358,7 +359,7 @@ void VoxelExample::generateVoxelData()
     _loading = true;
 
     // get current time so we can measure how long it took to generate the mesh
-    _time = iTimer::getInstance().getApplicationTime();
+    _time = iaTime::now();
 }
 
 void VoxelExample::prepareMeshGeneration()
@@ -524,7 +525,7 @@ void VoxelExample::onHandle()
             if (_loading)
             {
                 _loading = false;
-                con_endl("generation time: " << iTimer::getInstance().getApplicationTime() - _time << "ms");
+                con_endl("generation time: " << (iaTime::now() - _time));
             }
         }
     }

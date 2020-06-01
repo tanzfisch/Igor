@@ -1,24 +1,24 @@
 #include "EnemyDestroyed.h"
 
-#include <iNodeManager.h>
-#include <iNodeTransform.h>
-#include <iNodePhysics.h>
-#include <iNodeModel.h>
-#include <iModel.h>
-#include <iScene.h>
-#include <iPhysics.h>
-#include <iPhysicsBody.h>
-#include <iPhysicsCollision.h>
-#include <iNodeParticleSystem.h>
-#include <iNodeEmitter.h>
-#include <iMaterialResourceFactory.h>
-#include <iMaterial.h>
+#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/graphics/scene/nodes/iNodeTransform.h>
+#include <igor/graphics/scene/nodes/iNodePhysics.h>
+#include <igor/graphics/scene/nodes/iNodeModel.h>
+#include <igor/resources/model/iModel.h>
+#include <igor/graphics/scene/iScene.h>
+#include <igor/physics/iPhysics.h>
+#include <igor/physics/iPhysicsBody.h>
+#include <igor/physics/iPhysicsCollision.h>
+#include <igor/graphics/scene/nodes/iNodeParticleSystem.h>
+#include <igor/graphics/scene/nodes/iNodeEmitter.h>
+#include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/resources/material/iMaterial.h>
 using namespace Igor;
 
-#include <iaString.h>
+#include <iaux/data/iaString.h>
 using namespace IgorAux;
 
-EnemyDestroyed::EnemyDestroyed(iScene* scene, const iaMatrixd& matrix)
+EnemyDestroyed::EnemyDestroyed(iScene *scene, const iaMatrixd &matrix)
     : GameObject(Fraction::None, GameObjectType::None)
 {
     setHealth(100.0);
@@ -45,7 +45,7 @@ EnemyDestroyed::EnemyDestroyed(iScene* scene, const iaMatrixd& matrix)
     iaGradientVector2f size;
     size.setValue(0.0, iaVector2f(0.3, 0.5));
 
-    iNodeParticleSystem* particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
+    iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _traceNodeID = particleSystem->getID();
     particleSystem->setMaterial(iMaterialResourceFactory::getInstance().getMaterialID("PMat"));
     particleSystem->setTextureA("particleTrail.png");
@@ -88,7 +88,7 @@ EnemyDestroyed::EnemyDestroyed(iScene* scene, const iaMatrixd& matrix)
     iaGradientVector2f startOrientationRate2;
     startOrientationRate2.setValue(0.0, iaVector2f(-0.04, 0.04));
 
-    iNodeParticleSystem* particleSystem2 = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
+    iNodeParticleSystem *particleSystem2 = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _smokeNodeID = particleSystem2->getID();
     particleSystem2->setMaterial(iMaterialResourceFactory::getInstance().getMaterialID("PMat"));
     particleSystem2->setTextureA("particleSmoke.png");
@@ -132,7 +132,7 @@ EnemyDestroyed::EnemyDestroyed(iScene* scene, const iaMatrixd& matrix)
     iaGradientVector2f startOrientationRate3;
     startOrientationRate3.setValue(0.0, iaVector2f(-0.1, 0.1));
 
-    iNodeParticleSystem* particleSystem3 = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
+    iNodeParticleSystem *particleSystem3 = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _fireBallNodeID = particleSystem3->getID();
     particleSystem3->setMaterial(iMaterialResourceFactory::getInstance().getMaterialID("PMat"));
     particleSystem3->setTextureA("particleFlame.png");
@@ -150,14 +150,14 @@ EnemyDestroyed::EnemyDestroyed(iScene* scene, const iaMatrixd& matrix)
     particleSystem3->setPeriodTime(3.0);
     particleSystem3->start();
 
-    iNodeEmitter* emitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
+    iNodeEmitter *emitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
     emitter->setEmitterType(iEmitterType::Sphere);
     emitter->setSize(1);
     particleSystem->setEmitter(emitter->getID());
     particleSystem2->setEmitter(emitter->getID());
     particleSystem3->setEmitter(emitter->getID());
 
-    iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
     _transformNodeID = transformNode->getID();
     transformNode->setMatrix(matrix);
     _pos = matrix._pos;
@@ -190,9 +190,9 @@ iaVector3d EnemyDestroyed::getCurrentPos()
 
 void EnemyDestroyed::handle()
 {
-    iNodeParticleSystem* particleSystem1 = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().getNode(_fireBallNodeID));
-    iNodeParticleSystem* particleSystem2 = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().getNode(_smokeNodeID));
-    iNodeParticleSystem* particleSystem3 = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().getNode(_traceNodeID));
+    iNodeParticleSystem *particleSystem1 = static_cast<iNodeParticleSystem *>(iNodeManager::getInstance().getNode(_fireBallNodeID));
+    iNodeParticleSystem *particleSystem2 = static_cast<iNodeParticleSystem *>(iNodeManager::getInstance().getNode(_smokeNodeID));
+    iNodeParticleSystem *particleSystem3 = static_cast<iNodeParticleSystem *>(iNodeManager::getInstance().getNode(_traceNodeID));
 
     if (particleSystem1 != nullptr &&
         particleSystem2 != nullptr &&

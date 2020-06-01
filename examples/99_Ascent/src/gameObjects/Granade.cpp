@@ -1,23 +1,23 @@
 #include "Granade.h"
 
-#include <iNodeManager.h>
-#include <iNodeTransform.h>
-#include <iNodePhysics.h>
-#include <iNodeModel.h>
-#include <iModel.h>
-#include <iScene.h>
-#include <iPhysics.h>
-#include <iPhysicsBody.h>
-#include <iPhysicsCollision.h>
-#include <iEntityManager.h>
+#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/graphics/scene/nodes/iNodeTransform.h>
+#include <igor/graphics/scene/nodes/iNodePhysics.h>
+#include <igor/graphics/scene/nodes/iNodeModel.h>
+#include <igor/resources/model/iModel.h>
+#include <igor/graphics/scene/iScene.h>
+#include <igor/physics/iPhysics.h>
+#include <igor/physics/iPhysicsBody.h>
+#include <igor/physics/iPhysicsCollision.h>
+#include <igor/entities/iEntityManager.h>
 using namespace Igor;
 
-#include <iaString.h>
+#include <iaux/data/iaString.h>
 using namespace IgorAux;
 
-#include "Ascent.h"
+#include "../Ascent.h"
 
-Granade::Granade(iScene* scene, const iaMatrixd& matrix, Fraction fraction)
+Granade::Granade(iScene *scene, const iaMatrixd &matrix, Fraction fraction)
     : GameObject(fraction, GameObjectType::Weapon)
 {
     _scene = scene;
@@ -39,15 +39,15 @@ Granade::Granade(iScene* scene, const iaMatrixd& matrix, Fraction fraction)
     setDamage(100.0);
     setShieldDamage(0.0);
 
-    iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
     transformNode->setMatrix(startMatrix);
     _transformNodeID = transformNode->getID();
 
-    iNodeModel* bulletModel = iNodeManager::getInstance().createNode<iNodeModel>();
+    iNodeModel *bulletModel = iNodeManager::getInstance().createNode<iNodeModel>();
     bulletModel->setModel("cube.ompf");
 
     iaMatrixd offset;
-    iNodePhysics* physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();
+    iNodePhysics *physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();
     physicsNode->addSphere(1, offset);
     physicsNode->finalizeCollision();
     physicsNode->setMass(0.1);
@@ -73,7 +73,7 @@ void Granade::hitBy(uint64 entityID)
 iaVector3d Granade::getCurrentPos()
 {
     iaVector3d result;
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformNodeID));
+    iNodeTransform *transformNode = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_transformNodeID));
     if (transformNode != nullptr)
     {
         iaMatrixd matrix;
@@ -98,7 +98,7 @@ void Granade::handle()
         {
             if (entityID != getID())
             {
-                GameObject* target = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(entityID));
+                GameObject *target = static_cast<GameObject *>(iEntityManager::getInstance().getEntity(entityID));
                 if (target->getFraction() != getFraction())
                 {
                     float32 targetHealth = target->getHealth();
@@ -117,7 +117,7 @@ void Granade::handle()
     //setHealth(getHealth() - 0.5);
 }
 
-void Granade::calcDamage(float32& shield, float32& health)
+void Granade::calcDamage(float32 &shield, float32 &health)
 {
     health -= 10;
     if (health < 0)
@@ -126,7 +126,7 @@ void Granade::calcDamage(float32& shield, float32& health)
     }
 }
 
-void Granade::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep)
+void Granade::onApplyForceAndTorque(iPhysicsBody *body, float32 timestep)
 {
     body->setForce(_force);
 }

@@ -12,7 +12,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iTimerHandle::iTimerHandle(iTimerTickDelegate timerDelegate, float64 interval, bool oneShot)
+	iTimerHandle::iTimerHandle(iTimerTickDelegate timerDelegate, const iaTime &interval, bool oneShot)
 	{
 		_timerEvent.append(timerDelegate);
 		setIntervall(interval);
@@ -40,7 +40,7 @@ namespace Igor
 		_intervall = _configuredIntervall;
 
 		iTimer::getInstance().insertTimerHandle(this);
-		_time = iTimer::getInstance().getMilliSeconds();
+		_time = iTimer::getInstance().getFrameTime();
 		_playing = true;
 	}
 
@@ -55,9 +55,9 @@ namespace Igor
 		iTimer::getInstance().removeTimerHandle(this);
 	}
 
-	void iTimerHandle::setIntervall(float64 interval)
+	void iTimerHandle::setIntervall(iaTime interval)
 	{
-		if (interval <= 0)
+		if (interval <= iaTime::zero())
 		{
 			con_err("invalid value for _intervall");
 			return;
@@ -67,7 +67,7 @@ namespace Igor
 		restart();
 	}
 
-	float64 iTimerHandle::getIntervall()
+	iaTime iTimerHandle::getIntervall() const
 	{
 		return _configuredIntervall;
 	}
@@ -82,7 +82,7 @@ namespace Igor
 		_timerEvent.remove(timerDelegate);
 	}
 
-	void iTimerHandle::handle(float64 time)
+	void iTimerHandle::handle(iaTime time)
 	{
 		int maxIntervalls = 10;
 		while (time - _time >= _intervall)
@@ -102,7 +102,7 @@ namespace Igor
 				if (_intervall < _configuredIntervall * 4)
 				{
 					_intervall *= 2;
-					con_warn("Dropping frames. Increasing intervall from " << _configuredIntervall << " to " << _intervall << "ms");
+					con_warn("Dropping frames. Increasing intervall from " << _configuredIntervall << " to " << _intervall);
 				}
 				return;
 			}

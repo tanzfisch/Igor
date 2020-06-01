@@ -3,13 +3,13 @@
 // see copyright notice in corresponding header file
 
 #include <iPhysicsPlayer.h>
-#include <iPhysics.h>
+#include <igor/physics/iPhysics.h>
 #include <iEntity.h>
 
 namespace Igor
 {
 
-    iPhysicsPlayer::iPhysicsPlayer(void* newtonBody)
+    iPhysicsPlayer::iPhysicsPlayer(void *newtonBody)
         : iPhysicsBody(newtonBody)
     {
         _bodyType = PhysicsBodyType::Player;
@@ -40,4 +40,4 @@ namespace Igor
 
         iPhysics::getInstance().setForce(_newtonBody, force);
     }
-}
+} // namespace Igor

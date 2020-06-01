@@ -4,8 +4,8 @@
 
 #include <iSkySimulation.h>
 
-#include <iScene.h>
-#include <iNode.h>
+#include <igor/graphics/scene/iScene.h>
+#include <igor/graphics/scene/nodes/iNode.h>
 #include <iaConsole.h>
 #include <iSkyLightNode.h>
 #include <iNodeSkyBox.h>

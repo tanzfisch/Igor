@@ -4,6 +4,8 @@
 
 #include <igor/os/iMouse.h>
 
+#include <igor/os/iKeyboard.h>
+
 #include <igor/os/iWindow.h>
 #include <igor/os/iDefinesWindows.h>
 #include <igor/os/iDefinesLinux.h>
@@ -394,12 +396,18 @@ namespace Igor
                 break;
 
             case MotionNotify:
-                _posLast = _pos;
-                _pos.set(xevent.xmotion.x, xevent.xmotion.y);
+            {
+                iaVector2i pos(xevent.xmotion.x, xevent.xmotion.y);
+                if (_pos != pos)
+                {
+                    _posLast = _pos;
+                    _pos = pos;
 
-                _moveFullEvent(_posLast, _pos, _window);
-                _moveEvent(_pos);
-                break;
+                    _moveFullEvent(_posLast, _pos, _window);
+                    _moveEvent(_pos);
+                }
+            }
+            break;
 
             default:
                 return false;
@@ -434,6 +442,12 @@ namespace Igor
 
             if (show)
             {
+                if (None != _cursor)
+                {
+                    XFreeCursor(_display, _cursor);
+                    _cursor = None;
+                }
+
                 XUndefineCursor(_display, _xWindow);
             }
             else
@@ -444,7 +458,7 @@ namespace Igor
 
     private:
         bool _cursorinitialised = false;
-        Cursor _cursor;
+        Cursor _cursor = None;
 
         Display *_display = nullptr;
         Window _xWindow = 0;

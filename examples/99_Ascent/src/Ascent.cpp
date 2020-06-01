@@ -1,53 +1,51 @@
 #include "Ascent.h"
 
-#include "Player.h"
-#include "Enemy.h"
-#include "Bullet.h"
-#include "BossEnemy.h"
-#include "StaticEnemy.h"
-#include "DigEffect.h"
+#include "gameObjects/Player.h"
+#include "gameObjects/Enemy.h"
+#include "gameObjects/Bullet.h"
+#include "gameObjects/BossEnemy.h"
+#include "gameObjects/StaticEnemy.h"
+#include "gameObjects/DigEffect.h"
 
-#include <iMaterial.h>
-#include <iNodeVisitorPrintTree.h>
-#include <iTaskManager.h>
-#include <iNodeSkyBox.h>
-#include <iNodeLight.h>
-#include <iNodeCamera.h>
-#include <iNodeModel.h> 
-#include <iNodeTransform.h>
-#include <iRenderer.h>
-#include <iApplication.h>
-#include <iSceneFactory.h>
-#include <iScene.h>
-#include <iNodeManager.h>
-#include <iMouse.h>
-#include <iTimer.h>
-#include <iTextureFont.h>
-#include <iTaskFlushModels.h>
-#include <iTaskFlushTextures.h>
-#include <iMaterialResourceFactory.h>
-#include <iVoxelData.h>
-#include <iMeshBuilder.h>
-#include <iaVector3.h>
-#include <iContouringCubes.h>
-#include <iTextureResourceFactory.h>
-#include <iPixmap.h>
-#include <iProfiler.h>
-#include <iTargetMaterial.h>
-#include <iNodeLODTrigger.h>
-#include <iNodeLODSwitch.h>
-#include <iOctree.h>
-#include <iPhysics.h>
-#include <iPhysicsMaterialCombo.h>
-#include <iPhysicsBody.h>
-#include <iEntityManager.h>
-#include <iVoxelTerrain.h>
-#include <iTaskGenerateVoxels.h>
-#include <iTaskPropsOnVoxels.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/graphics/scene/traversal/iNodeVisitorPrintTree.h>
+#include <igor/threading/iTaskManager.h>
+#include <igor/graphics/scene/nodes/iNodeSkyBox.h>
+#include <igor/graphics/scene/nodes/iNodeLight.h>
+#include <igor/graphics/scene/nodes/iNodeCamera.h>
+#include <igor/graphics/scene/nodes/iNodeModel.h>
+#include <igor/graphics/scene/nodes/iNodeTransform.h>
+#include <igor/graphics/iRenderer.h>
+#include <igor/os/iApplication.h>
+#include <igor/graphics/scene/iSceneFactory.h>
+#include <igor/graphics/scene/iScene.h>
+#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/os/iMouse.h>
+#include <igor/os/iTimer.h>
+#include <igor/resources/texture/iTextureFont.h>
+#include <igor/threading/tasks/iTaskFlushModels.h>
+#include <igor/threading/tasks/iTaskFlushTextures.h>
+#include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/graphics/terrain/data/iVoxelData.h>
+#include <igor/resources/mesh/iMeshBuilder.h>
+#include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/resources/texture/iPixmap.h>
+#include <igor/resources/profiler/iProfiler.h>
+#include <igor/resources/material/iTargetMaterial.h>
+#include <igor/graphics/scene/nodes/iNodeLODTrigger.h>
+#include <igor/graphics/scene/nodes/iNodeLODSwitch.h>
+#include <igor/physics/iPhysics.h>
+#include <igor/physics/iPhysicsMaterialCombo.h>
+#include <igor/physics/iPhysicsBody.h>
+#include <igor/entities/iEntityManager.h>
+#include <igor/graphics/terrain/iVoxelTerrain.h>
+#include <igor/graphics/terrain/tasks/iTaskGenerateVoxels.h>
+#include <igor/graphics/terrain/tasks/iTaskPropsOnVoxels.h>
 using namespace Igor;
 
-#include <iaConsole.h>
-#include <iaConvert.h>
+#include <iaux/system/iaConsole.h>
+#include <iaux/data/iaConvert.h>
+#include <iaux/math/iaVector3.h>
 using namespace IgorAux;
 
 uint64 Ascent::_terrainMaterialID = 0;
@@ -118,7 +116,7 @@ void Ascent::initViews()
 #else
     _window.setSizeByDesktop();
     _window.setFullscreen();
-#endif   
+#endif
     _window.open();
 
     iMouse::getInstance().showCursor(false);
@@ -145,7 +143,7 @@ void Ascent::initScene()
     _scene->getRoot()->insertNode(_lightRotate);
 
     // reate a sky box and add it to scene
-    iNodeSkyBox* skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
+    iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
     skyBoxNode->setTextures(
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/front.jpg"),
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/back.jpg"),
@@ -170,44 +168,44 @@ void Ascent::initPlayer()
 {
     iaMatrixd matrix;
     matrix.translate(10000, 10000, 10000);
-    Player* player = new Player(_scene, &_view, matrix);
+    Player *player = new Player(_scene, &_view, matrix);
     _playerID = player->getID();
 
     matrix.translate(static_cast<int32>(rand.getNext() % 200) - 100, static_cast<int32>(rand.getNext() % 200) - 100, -200);
-    BossEnemy* boss = new BossEnemy(_scene, _voxelTerrain, matrix, _playerID);
+    BossEnemy *boss = new BossEnemy(_scene, _voxelTerrain, matrix, _playerID);
     _bossID = boss->getID();
 }
 
 void Ascent::initPhysics()
 {
-    iPhysicsMaterial* materialTerrain = iPhysics::getInstance().createMaterial("terrain");
+    iPhysicsMaterial *materialTerrain = iPhysics::getInstance().createMaterial("terrain");
     _terrainMaterialID = materialTerrain->getID();
 
-    iPhysicsMaterial* materialEntity = iPhysics::getInstance().createMaterial("entity");
+    iPhysicsMaterial *materialEntity = iPhysics::getInstance().createMaterial("entity");
     _entityMaterialID = materialEntity->getID();
 
-    iPhysicsMaterial* materialBullet = iPhysics::getInstance().createMaterial("bullet");
+    iPhysicsMaterial *materialBullet = iPhysics::getInstance().createMaterial("bullet");
     _bulletMaterialID = materialBullet->getID();
 
-    iPhysicsMaterialCombo* terrainEntity = new iPhysicsMaterialCombo(materialTerrain, materialEntity);
+    iPhysicsMaterialCombo *terrainEntity = new iPhysicsMaterialCombo(materialTerrain, materialEntity);
     terrainEntity->setName("terrain-entity");
     terrainEntity->registerContactDelegate(iContactDelegate(this, &Ascent::onContact));
     terrainEntity->setElasticity(0.0);
     terrainEntity->setFriction(0.0, 0.0);
 
-    iPhysicsMaterialCombo* terrainBullet = new iPhysicsMaterialCombo(materialTerrain, materialBullet);
+    iPhysicsMaterialCombo *terrainBullet = new iPhysicsMaterialCombo(materialTerrain, materialBullet);
     terrainBullet->setName("terrain-bullet");
     terrainBullet->registerContactDelegate(iContactDelegate(this, &Ascent::onContactTerrainBullet));
 
-    iPhysicsMaterialCombo* bulletEntity = new iPhysicsMaterialCombo(materialBullet, materialEntity);
+    iPhysicsMaterialCombo *bulletEntity = new iPhysicsMaterialCombo(materialBullet, materialEntity);
     bulletEntity->setName("bullet-entity");
     bulletEntity->registerContactDelegate(iContactDelegate(this, &Ascent::onContact));
 
-    iPhysicsMaterialCombo* entityEntity = new iPhysicsMaterialCombo(materialEntity, materialEntity);
+    iPhysicsMaterialCombo *entityEntity = new iPhysicsMaterialCombo(materialEntity, materialEntity);
     entityEntity->setName("entity-entity");
     entityEntity->registerContactDelegate(iContactDelegate(this, &Ascent::onContact));
 
-    iPhysicsMaterialCombo* bulletBullet = new iPhysicsMaterialCombo(materialBullet, materialBullet);
+    iPhysicsMaterialCombo *bulletBullet = new iPhysicsMaterialCombo(materialBullet, materialBullet);
     bulletBullet->setName("bullet-bullet");
     bulletBullet->registerContactDelegate(iContactDelegate(this, &Ascent::onContact));
 
@@ -229,9 +227,9 @@ void Ascent::initVoxelData()
 
     // using a lower LOD count because we don't create such huge structures anyway and the transition detection in details is better
     _voxelTerrain = new iVoxelTerrain(iVoxelTerrainGenerateDelegate(this, &Ascent::onGenerateVoxelData),
-        iVoxelTerrainPlacePropsDelegate(this, &Ascent::onVoxelDataGenerated), 7);
+                                      iVoxelTerrainPlacePropsDelegate(this, &Ascent::onVoxelDataGenerated), 7);
 
-    iTargetMaterial* targetMaterial = _voxelTerrain->getTargetMaterial();
+    iTargetMaterial *targetMaterial = _voxelTerrain->getTargetMaterial();
     targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 0);
     targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 1);
     targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 2);
@@ -252,7 +250,7 @@ void Ascent::initVoxelData()
     _voxelTerrain->setPhysicsMaterialID(_terrainMaterialID);
 
     _voxelTerrain->setScene(_scene);
-    Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
+    Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
     if (player != nullptr)
     {
         _voxelTerrain->setLODTrigger(player->getLODTriggerID());
@@ -261,7 +259,7 @@ void Ascent::initVoxelData()
 
 void Ascent::oulineLevelStructure()
 {
-    BossEnemy* boss = static_cast<BossEnemy*>(iEntityManager::getInstance().getEntity(_bossID));
+    BossEnemy *boss = static_cast<BossEnemy *>(iEntityManager::getInstance().getEntity(_bossID));
     if (boss != nullptr)
     {
         iaVector3d bossPosition = boss->getCurrentPos();
@@ -290,19 +288,19 @@ void Ascent::oulineLevelStructure()
     }
 }
 
-__IGOR_INLINE__ float64 metaballFunction(const iaVector3d& metaballPos, const iaVector3d& checkPos)
+__IGOR_INLINE__ float64 metaballFunction(const iaVector3d &metaballPos, const iaVector3d &checkPos)
 {
     return 1.0 / ((checkPos._x - metaballPos._x) * (checkPos._x - metaballPos._x) + (checkPos._y - metaballPos._y) * (checkPos._y - metaballPos._y) + (checkPos._z - metaballPos._z) * (checkPos._z - metaballPos._z));
 }
 
-void Ascent::onGenerateVoxelData(iVoxelBlockInfo* voxelBlockInfo)
+void Ascent::onGenerateVoxelData(iVoxelBlockInfo *voxelBlockInfo)
 {
     uint32 lodFactor = static_cast<uint32>(pow(2, voxelBlockInfo->_lod)); // TODO move to engine
 
-    iVoxelData* voxelData = voxelBlockInfo->_voxelData;
-    iaVector3I& offset = voxelBlockInfo->_positionInLOD;
+    iVoxelData *voxelData = voxelBlockInfo->_voxelData;
+    iaVector3I &offset = voxelBlockInfo->_positionInLOD;
     offset *= (32 * lodFactor); // TODO move to engine
-    iaVector3f& lodOffset = voxelBlockInfo->_lodOffset;
+    iaVector3f &lodOffset = voxelBlockInfo->_lodOffset;
     uint64 size = voxelBlockInfo->_size;
 
     voxelData->setClearValue(0);
@@ -323,8 +321,8 @@ void Ascent::onGenerateVoxelData(iVoxelBlockInfo* voxelBlockInfo)
             for (int64 y = 0; y < voxelData->getHeight(); ++y)
             {
                 iaVector3d pos(x * lodFactor + offset._x + lodOffset._x,
-                    y * lodFactor + offset._y + lodOffset._y,
-                    z * lodFactor + offset._z + lodOffset._z); // TODO move to engine
+                               y * lodFactor + offset._y + lodOffset._y,
+                               z * lodFactor + offset._z + lodOffset._z); // TODO move to engine
 
                 float64 noise = (_perlinNoise.getValue(iaVector3d(pos._x * 0.01, pos._y * 0.01, pos._z * 0.01), 2) - 0.5) * 0.04;
                 noise += (_perlinNoise.getValue(iaVector3d(pos._x * 0.1, pos._y * 0.1, pos._z * 0.1), 3) - 0.5) * 0.003;
@@ -408,7 +406,7 @@ void Ascent::onGenerateVoxelData(iVoxelBlockInfo* voxelBlockInfo)
     }
 }
 
-void Ascent::onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1)
+void Ascent::onContactTerrainBullet(iPhysicsBody *body0, iPhysicsBody *body1)
 {
     if (body0 == nullptr || body1 == nullptr)
     {
@@ -424,7 +422,6 @@ void Ascent::onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1)
         _hitListMutex.lock();
         _hitList.push_back(std::pair<uint64, uint64>(id0, 0));
         _hitListMutex.unlock();
-
     }
     else if (userData1.has_value())
     {
@@ -433,10 +430,9 @@ void Ascent::onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1)
         _hitList.push_back(std::pair<uint64, uint64>(id1, 0));
         _hitListMutex.unlock();
     }
-
 }
 
-void Ascent::onContact(iPhysicsBody* body0, iPhysicsBody* body1)
+void Ascent::onContact(iPhysicsBody *body0, iPhysicsBody *body1)
 {
     if (body0 == nullptr || body1 == nullptr)
     {
@@ -446,7 +442,6 @@ void Ascent::onContact(iPhysicsBody* body0, iPhysicsBody* body1)
     std::any userData0 = body0->getUserData();
     std::any userData1 = body1->getUserData();
 
-    
     if (userData0.has_value() &&
         userData1.has_value())
     {
@@ -565,7 +560,7 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
                 if (result.empty())
                 {
                     matrix._pos.set(outside._x, outside._y, outside._z);
-                    StaticEnemy* enemy = new StaticEnemy(_scene, _voxelTerrain, matrix, _playerID);
+                    StaticEnemy *enemy = new StaticEnemy(_scene, _voxelTerrain, matrix, _playerID);
                     count++;
                 }
             }
@@ -650,7 +645,7 @@ void Ascent::onKeyPressed(iKeyCode key)
 {
     if (_activeControls)
     {
-        Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
+        Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
 
         if (player != nullptr)
         {
@@ -730,9 +725,9 @@ void Ascent::onKeyPressed(iKeyCode key)
     }
 }
 
-bool Ascent::getTerrainIntersectionPoint(iaVector3I& intersection)
+bool Ascent::getTerrainIntersectionPoint(iaVector3I &intersection)
 {
-    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeManager::getInstance().getNode(_view.getCurrentCamera()));
+    iNodeCamera *camera = static_cast<iNodeCamera *>(iNodeManager::getInstance().getNode(_view.getCurrentCamera()));
     if (camera != nullptr)
     {
         iaMatrixd modelMatrix;
@@ -786,7 +781,7 @@ void Ascent::onKeyReleased(iKeyCode key)
 {
     if (_activeControls)
     {
-        Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
+        Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
             switch (key)
@@ -855,7 +850,7 @@ void Ascent::onMouseWheel(int d)
     }
 }
 
-void Ascent::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* _window)
+void Ascent::onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *_window)
 {
     if (_activeControls)
     {
@@ -872,7 +867,7 @@ void Ascent::onMouseDown(iKeyCode key)
 {
     if (_activeControls)
     {
-        Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
+        Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
             /* if (key == iKeyCode::MouseRight)
@@ -892,7 +887,6 @@ void Ascent::onMouseDown(iKeyCode key)
 
 void Ascent::onMouseUp(iKeyCode key)
 {
-
 }
 
 void Ascent::onWindowClosed()
@@ -909,7 +903,7 @@ void Ascent::handleMouse() // TODO
 {
     if (_activeControls)
     {
-        Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
+        Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
             // TODO WTF? if I use set() it does not work in release mode here
@@ -940,7 +934,7 @@ void Ascent::onHandle()
     }
     else
     {
-        BossEnemy* boss = static_cast<BossEnemy*>(iEntityManager::getInstance().getEntity(_bossID));
+        BossEnemy *boss = static_cast<BossEnemy *>(iEntityManager::getInstance().getEntity(_bossID));
         if (boss == nullptr)
         {
             std::vector<uint64> ids;
@@ -950,7 +944,7 @@ void Ascent::onHandle()
             {
                 if (_playerID != id)
                 {
-                    GameObject* entity = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(id));
+                    GameObject *entity = static_cast<GameObject *>(iEntityManager::getInstance().getEntity(id));
                     if (entity != nullptr &&
                         entity->getType() == GameObjectType::Vehicle)
                     {
@@ -981,12 +975,12 @@ void Ascent::handleHitList()
 
     for (auto hit : hitList)
     {
-        GameObject* go1 = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(hit.first));
+        GameObject *go1 = static_cast<GameObject *>(iEntityManager::getInstance().getEntity(hit.first));
         if (go1 != nullptr)
         {
             go1->hitBy(hit.second);
         }
-        GameObject* go2 = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(hit.second));
+        GameObject *go2 = static_cast<GameObject *>(iEntityManager::getInstance().getEntity(hit.second));
         if (go2 != nullptr)
         {
             go2->hitBy(hit.first);
@@ -1016,7 +1010,7 @@ void Ascent::onRenderOrtho()
     }
     else
     {
-        BossEnemy* boss = static_cast<BossEnemy*>(iEntityManager::getInstance().getEntity(_bossID));
+        BossEnemy *boss = static_cast<BossEnemy *>(iEntityManager::getInstance().getEntity(_bossID));
         if (boss == nullptr)
         {
             iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
@@ -1024,7 +1018,7 @@ void Ascent::onRenderOrtho()
             iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "you win!", iHorizontalAlignment::Center, iVerticalAlignment::Center);
         }
 
-        Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
+        Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
             iaString healthText = iaString::toString(player->getHealth(), 0);
@@ -1055,5 +1049,3 @@ void Ascent::run()
 {
     iApplication::getInstance().run();
 }
-
-

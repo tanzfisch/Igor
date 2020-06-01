@@ -57,6 +57,10 @@ namespace IgorAux
         */
         static iaTime now();
 
+        /*! \returns zero time
+        */
+        static iaTime zero();
+
         /*! \returns time object based on given seconds
 
         \param time time in seconds
@@ -164,9 +168,16 @@ namespace IgorAux
     */
     __IGOR_INLINE__ std::wostream &operator<<(std::wostream &ostr, const iaTime &time)
     {
-        ostr << time.getMilliseconds();
+        if (time.getSeconds() > 1.0)
+        {
+            ostr << time.getSeconds() << L"s";
+        }
+        else
+        {
+            ostr << time.getMilliseconds() << L"ms";
+        }
         return ostr;
-    }
+    } // namespace IgorAux
 
 } // namespace IgorAux
 

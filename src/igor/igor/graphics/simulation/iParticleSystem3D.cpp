@@ -22,7 +22,7 @@ namespace Igor
 
     iParticleSystem3D::iParticleSystem3D()
     {
-        _rand.setSeed(static_cast<uint32>(iTimer::getInstance().getApplicationTime()));
+        _rand.setSeed(static_cast<uint32>(iaTime::now().getMicrosenconds()));
         initDefaultGradients();
     }
 
@@ -183,7 +183,7 @@ namespace Igor
 
     void iParticleSystem3D::start()
     {
-        _startTime = iTimer::getInstance().getMilliSeconds();
+        _startTime = iTimer::getInstance().getFrameTime();
         _playbackTime = _startTime;
         _running = true;
     }
@@ -429,15 +429,15 @@ namespace Igor
             uint32 startIndex;
             uint32 endIndex;
 
-            float64 frameTime = iTimer::getInstance().getMilliSeconds();
+            iaTime frameTime = iTimer::getInstance().getFrameTime();
 
             // ignore hickups
-            if (frameTime - _playbackTime > 100.0)
+            if (frameTime - _playbackTime > iaTime::fromMilliseconds(100))
             {
                 _playbackTime = frameTime;
             }
 
-            float64 particleSystemTime = _playbackTime - _startTime;
+            iaTime particleSystemTime = _playbackTime - _startTime;
 
             if (particleSystemTime >= _particleSystemPeriodTime)
             {
@@ -540,14 +540,14 @@ namespace Igor
                 }
 
                 float32 emissionRate = 0.0f;
-                _emissionRateGradient.getValue(particleSystemTime / __IGOR_SECOND__, emissionRate);
+                _emissionRateGradient.getValue(particleSystemTime.getSeconds(), emissionRate);
                 _emissionImpulseStack += emissionRate;
                 int32 createCount = static_cast<int32>(_emissionImpulseStack);
                 _emissionImpulseStack -= static_cast<float32>(createCount);
-                createParticles(createCount, emitter, particleSystemTime / __IGOR_SECOND__);
+                createParticles(createCount, emitter, particleSystemTime.getSeconds());
 
-                _playbackTime += 1000.0 / _simulationRate;
-                particleSystemTime += 1000.0 / _simulationRate; // TODO redundant
+                _playbackTime += iaTime::fromMilliseconds(1000.0 / _simulationRate);
+                particleSystemTime += iaTime::fromMilliseconds(1000.0 / _simulationRate); // TODO redundant
             }
         }
 

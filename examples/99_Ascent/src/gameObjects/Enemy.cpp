@@ -1,29 +1,29 @@
 #include "Enemy.h"
 
-#include <iNodeManager.h>
-#include <iNodeTransform.h>
-#include <iNodePhysics.h>
-#include <iNodeModel.h>
-#include <iModel.h>
-#include <iScene.h>
-#include <iPhysics.h>
-#include <iPhysicsBody.h>
-#include <iPhysicsJoint.h>
-#include <iPhysicsCollision.h>
-#include <iTimer.h>
-#include <iEntityManager.h>
-#include <iVoxelTerrain.h>
+#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/graphics/scene/nodes/iNodeTransform.h>
+#include <igor/graphics/scene/nodes/iNodePhysics.h>
+#include <igor/graphics/scene/nodes/iNodeModel.h>
+#include <igor/resources/model/iModel.h>
+#include <igor/graphics/scene/iScene.h>
+#include <igor/physics/iPhysics.h>
+#include <igor/physics/iPhysicsBody.h>
+#include <igor/physics/iPhysicsJoint.h>
+#include <igor/physics/iPhysicsCollision.h>
+#include <igor/os/iTimer.h>
+#include <igor/entities/iEntityManager.h>
+#include <igor/graphics/terrain/iVoxelTerrain.h>
 using namespace Igor;
 
-#include <iaString.h>
-#include <iaConvert.h>
+#include <iaux/data/iaString.h>
+#include <iaux/data/iaConvert.h>
 using namespace IgorAux;
 
 #include "Turret.h"
 #include "EnemyDestroyed.h"
-#include "Ascent.h"
+#include "../Ascent.h"
 
-Enemy::Enemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMatrixd& matrix, uint64 playerID)
+Enemy::Enemy(iScene *scene, iVoxelTerrain *voxelTerrain, const iaMatrixd &matrix, uint64 playerID)
     : GameObject(Fraction::Red, GameObjectType::Vehicle)
 {
     _playerID = playerID;
@@ -33,18 +33,18 @@ Enemy::Enemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMatrixd& matrix
     setHealth(100.0);
     setShield(50.0);
 
-    iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
     transformNode->setMatrix(matrix);
     _transformNodeID = transformNode->getID();
 
-    iNodeTransform* bodyScale = iNodeManager::getInstance().createNode<iNodeTransform>();
-    bodyScale->scale(1,0.25,1);
-    iNodeModel* bodyModel = iNodeManager::getInstance().createNode<iNodeModel>();
+    iNodeTransform *bodyScale = iNodeManager::getInstance().createNode<iNodeTransform>();
+    bodyScale->scale(1, 0.25, 1);
+    iNodeModel *bodyModel = iNodeManager::getInstance().createNode<iNodeModel>();
     bodyModel->setModel("crate.ompf");
 
     iaMatrixd offset;
-    iNodePhysics* physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();
-    physicsNode->addBox(1,0.5,1, offset);
+    iNodePhysics *physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();
+    physicsNode->addBox(1, 0.5, 1, offset);
     physicsNode->finalizeCollision();
     physicsNode->setMass(10);
     physicsNode->setMaterial(Ascent::_entityMaterialID);
@@ -57,17 +57,17 @@ Enemy::Enemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMatrixd& matrix
     transformNode->insertNode(bodyScale);
     transformNode->insertNode(physicsNode);
 
-    iNodeTransform* turretATransform = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *turretATransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     turretATransform->translate(0, 0.125, 0);
     transformNode->insertNode(turretATransform);
-    Turret* turretA = new Turret(_scene, turretATransform, _voxelTerrain, getFraction(), _playerID);
+    Turret *turretA = new Turret(_scene, turretATransform, _voxelTerrain, getFraction(), _playerID);
     _turretAID = turretA->getID();
 
-    iNodeTransform* turretBTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *turretBTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     turretBTransform->rotate(M_PI, iaAxis::Z);
     turretBTransform->translate(0, 0.125, 0);
     transformNode->insertNode(turretBTransform);
-    Turret* turretB = new Turret(_scene, turretBTransform, _voxelTerrain, getFraction(), _playerID);
+    Turret *turretB = new Turret(_scene, turretBTransform, _voxelTerrain, getFraction(), _playerID);
     _turretBID = turretB->getID();
 
     _scene->getRoot()->insertNodeAsync(transformNode);
@@ -75,21 +75,21 @@ Enemy::Enemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMatrixd& matrix
 
 Enemy::~Enemy()
 {
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformNodeID));
+    iNodeTransform *transformNode = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_transformNodeID));
     if (transformNode != nullptr)
     {
         iaMatrixd matrix;
         transformNode->getMatrix(matrix);
-        EnemyDestroyed* effect = new EnemyDestroyed(_scene, matrix);
+        EnemyDestroyed *effect = new EnemyDestroyed(_scene, matrix);
     }
 
-    GameObject* turretA = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(_turretAID));
+    GameObject *turretA = static_cast<GameObject *>(iEntityManager::getInstance().getEntity(_turretAID));
     if (turretA != nullptr)
     {
         turretA->kill();
     }
 
-    GameObject* turretB = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(_turretBID));
+    GameObject *turretB = static_cast<GameObject *>(iEntityManager::getInstance().getEntity(_turretBID));
     if (turretB != nullptr)
     {
         turretB->kill();
@@ -100,7 +100,7 @@ Enemy::~Enemy()
 
 void Enemy::hitBy(uint64 entityID)
 {
-    GameObject* entity = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(entityID));
+    GameObject *entity = static_cast<GameObject *>(iEntityManager::getInstance().getEntity(entityID));
     if (entity != nullptr &&
         entity->getFraction() != getFraction())
     {
@@ -108,7 +108,7 @@ void Enemy::hitBy(uint64 entityID)
         float32 health = getHealth();
 
         shield -= entity->getShieldDamage();
-        
+
         if (shield <= 0)
         {
             shield = 0;
@@ -133,7 +133,7 @@ void Enemy::hitBy(uint64 entityID)
 iaVector3d Enemy::getCurrentPos()
 {
     iaVector3d result;
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformNodeID));
+    iNodeTransform *transformNode = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_transformNodeID));
     if (transformNode != nullptr)
     {
         iaMatrixd matrix;
@@ -155,7 +155,7 @@ void Enemy::handle()
         const float32 approachDistance = 20;
         bool upperGunActive = true;
 
-        GameObject* identifiedTarget = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(_playerID));
+        GameObject *identifiedTarget = static_cast<GameObject *>(iEntityManager::getInstance().getEntity(_playerID));
 
         _force.set(0, 0, 0);
 
@@ -169,7 +169,7 @@ void Enemy::handle()
             dir -= getSphere()._center;
             float64 distance = dir.length();
 
-            if(distance < detectionDistance && 
+            if (distance < detectionDistance &&
                 distance > approachDistance)
             {
                 _force = dir;
@@ -184,7 +184,7 @@ void Enemy::handle()
     }
 }
 
-void Enemy::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep)
-{  
+void Enemy::onApplyForceAndTorque(iPhysicsBody *body, float32 timestep)
+{
     body->setForce(_force);
 }
