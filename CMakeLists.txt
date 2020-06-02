@@ -51,8 +51,7 @@ elseif(MSVC_VERSION GREATER_EQUAL "1920") # which ever version supports c++17
                                           # filesystem
   message("using Visual Studio C++")
   add_compile_options(
-    "/std:c++17" "/MP" "/W2" "$<$<CONFIG:RELEASE>:/MD NDEBUG>"
-    "$<$<CONFIG:DEBUG>:/MDd /ZI DEBUG>")
+    "/std:c++17" "/MP" "/W2")
   add_definitions(-D_UNICODE -DUNICODE -DNOMINMAX -D_NEWTON_USE_DOUBLE)
   set(COMPILER "MSVCXX")
 elseif()

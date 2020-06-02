@@ -42,7 +42,7 @@ BossEnemy::BossEnemy(iScene *scene, iVoxelTerrain *voxelTerrain, const iaMatrixd
     bodyScale->scale(3, 3, 3);
 
     iNodeModel *bodyModel = iNodeManager::getInstance().createNode<iNodeModel>();
-    bodyModel->setModel("crate.ompf");
+    bodyModel->setModel("cube.ompf");
 
     iaMatrixd offset;
     iNodePhysics *physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();

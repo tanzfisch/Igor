@@ -40,7 +40,7 @@ Enemy::Enemy(iScene *scene, iVoxelTerrain *voxelTerrain, const iaMatrixd &matrix
     iNodeTransform *bodyScale = iNodeManager::getInstance().createNode<iNodeTransform>();
     bodyScale->scale(1, 0.25, 1);
     iNodeModel *bodyModel = iNodeManager::getInstance().createNode<iNodeModel>();
-    bodyModel->setModel("crate.ompf");
+    bodyModel->setModel("cube.ompf");
 
     iaMatrixd offset;
     iNodePhysics *physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();

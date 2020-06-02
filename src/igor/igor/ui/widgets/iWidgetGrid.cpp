@@ -580,7 +580,7 @@ namespace Igor
         if (!_ignoreChildEventHandling && result)
         {
             return true;
-        }        
+        }
 
         if (_selectMode == iSelectionMode::NoSelection)
         {
@@ -929,7 +929,7 @@ namespace Igor
                 if (widget == temp)
                 {
                     _widgetRows[y]._widgetCollumn[x]._widgetID = iWidget::INVALID_WIDGET_ID;
-                    _widgetRows[y]._widgetCollumn[x]._userData = nullptr;
+                    _widgetRows[y]._widgetCollumn[x]._userData.reset();
                     removed = true;
                 }
             }
@@ -943,44 +943,42 @@ namespace Igor
     {
         con_assert(_widgetRows.size() > row && _widgetRows[row]._widgetCollumn.size() > col, "out of range " << col << "," << row);
 
-        uint64 widgetID = (widget != nullptr) ? widget->getID() : iWidget::INVALID_WIDGET_ID;
-
-        if (_widgetRows.size() > row &&
-            _widgetRows[row]._widgetCollumn.size() > col)
-        {
-            if (widgetID != iWidget::INVALID_WIDGET_ID)
-            {
-                auto iter = find(_children.begin(), _children.end(), widget);
-                if (iter == _children.end())
-                {
-                    if (_widgetRows[row]._widgetCollumn[col]._widgetID != iWidget::INVALID_WIDGET_ID)
-                    {
-                        iWidgetPtr remove = iWidgetManager::getInstance().getWidget(_widgetRows[row]._widgetCollumn[col]._widgetID);
-                        if (remove != nullptr)
-                        {
-                            iWidget::removeWidget(remove);
-                        }
-                    }
-
-                    iWidget::addWidget(widget);
-
-                    _widgetRows[row]._widgetCollumn[col]._userData = userData;
-                    _widgetRows[row]._widgetCollumn[col]._widgetID = widgetID;
-                }
-                else
-                {
-                    con_err("widget " << widgetID << " already added. remove first to set it at different position");
-                }
-            }
-            else
-            {
-                con_err("can't add invalid widget id. use iWidgetGrid::removeWidget");
-            }
-        }
-        else
+        if (row >= _widgetRows.size() ||
+            col >= _widgetRows[row]._widgetCollumn.size())
         {
             con_err("out of range");
+            return;
         }
+
+        uint64 widgetID = (widget != nullptr) ? widget->getID() : iWidget::INVALID_WIDGET_ID;
+
+        if (widgetID == iWidget::INVALID_WIDGET_ID)
+        {
+            con_err("can't add invalid widget id. use iWidgetGrid::removeWidget");
+            return;
+        }
+
+        auto iter = find(_children.begin(), _children.end(), widget);
+        if (iter != _children.end())
+        {
+            con_err("widget " << widgetID << " already added. remove first to set it at different position");
+            return;
+        }
+
+        // remove if cell contains a widget already
+        if (_widgetRows[row]._widgetCollumn[col]._widgetID != iWidget::INVALID_WIDGET_ID)
+        {
+            iWidgetPtr remove = iWidgetManager::getInstance().getWidget(_widgetRows[row]._widgetCollumn[col]._widgetID);
+            if (remove != nullptr)
+            {
+                iWidget::removeWidget(remove);
+            }
+        }
+
+        // now add the widget
+        iWidget::addWidget(widget);
+        _widgetRows[row]._widgetCollumn[col]._userData = userData;
+        _widgetRows[row]._widgetCollumn[col]._widgetID = widgetID;
     }
 
 } // namespace Igor
