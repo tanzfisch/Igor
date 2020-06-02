@@ -225,10 +225,6 @@ void Ascent::initVoxelData()
 {
     oulineLevelStructure();
 
-    // using a lower LOD count because we don't create such huge structures anyway and the transition detection in details is better
-    _voxelTerrain = new iVoxelTerrain(iVoxelTerrainGenerateDelegate(this, &Ascent::onGenerateVoxelData),
-                                      iVoxelTerrainPlacePropsDelegate(this, &Ascent::onVoxelDataGenerated), 7);
-
     iTargetMaterial *targetMaterial = _voxelTerrain->getTargetMaterial();
     targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 0);
     targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 1);
@@ -580,7 +576,13 @@ void Ascent::init()
     initViews();
     initScene();
 
-    initPhysics();
+    initPhysics();    
+
+    // need to create voxel terrain before we create the boss enemy
+    // using a lower LOD count because we don't create such huge structures anyway and the transition detection in details is better
+    _voxelTerrain = new iVoxelTerrain(iVoxelTerrainGenerateDelegate(this, &Ascent::onGenerateVoxelData),
+        iVoxelTerrainPlacePropsDelegate(this, &Ascent::onVoxelDataGenerated), 7);
+
     initPlayer();
     initVoxelData();
 

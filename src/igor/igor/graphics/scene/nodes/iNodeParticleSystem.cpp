@@ -22,9 +22,7 @@ namespace Igor
         _nodeType = iNodeType::iNodeParticleSystem;
         _nodeKind = iNodeKind::Volume;
 
-        // TODO better would be post tree traversation or culling
-        // TODO or maybe we can have a particle system updater as special part in the main loop
-        iApplication::getInstance().registerApplicationPostDrawHandleDelegate(iApplicationPostDrawHandleDelegate(this, &iNodeParticleSystem::handle));
+        iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &iNodeParticleSystem::handle));
     }
 
     iNodeParticleSystem::iNodeParticleSystem(iNodeParticleSystem *node)
@@ -44,13 +42,13 @@ namespace Igor
         setMaterial(node->getMaterial());
         setEmitter(node->getEmitter());
 
-        iApplication::getInstance().registerApplicationPostDrawHandleDelegate(iApplicationPostDrawHandleDelegate(this, &iNodeParticleSystem::handle));
+        iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &iNodeParticleSystem::handle));
     }
 
     iNodeParticleSystem::~iNodeParticleSystem()
     {
         setScene(nullptr);
-        iApplication::getInstance().unregisterApplicationPostDrawHandleDelegate(iApplicationPostDrawHandleDelegate(this, &iNodeParticleSystem::handle));
+        iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &iNodeParticleSystem::handle));
     }
 
     void iNodeParticleSystem::registerParticleSystemFinishedDelegate(iParticleSystemFinishedDelegate delegate)
