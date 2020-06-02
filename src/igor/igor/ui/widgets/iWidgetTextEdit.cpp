@@ -102,16 +102,12 @@ namespace Igor
 		case iKeyCode::ESC:
 			_text = _textBackup;
 			resetKeyboardFocus();
-			break;
+			return true;
 
 		case iKeyCode::Enter:
 		case iKeyCode::Return:
-			if (!_triggerChangeAtOnce)
-			{
-				resetKeyboardFocus();
-				handleChanges();
-			}
-			break;
+			resetKeyboardFocus();
+			return true;
 
 		case iKeyCode::Backspace:
 			decCursorPos();

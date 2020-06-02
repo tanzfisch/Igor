@@ -47,33 +47,33 @@ namespace Igor
         return _looped;
     }
 
-    void iEvaluation::setStart(float64 start)
+    void iEvaluation::setStart(const iaTime &start)
     {
         _start = start;
         iEvaluationManager::getInstance().setEvaluationDirty(_evaluatorID);
     }
 
-    float64 iEvaluation::getStart() const
+    const iaTime &iEvaluation::getStart() const
     {
         return _start;
     }
 
-    void iEvaluation::setStop(float64 stop)
+    void iEvaluation::setStop(const iaTime &stop)
     {
         _stop = stop;
     }
 
-    float64 iEvaluation::getStop() const
+    const iaTime &iEvaluation::getStop() const
     {
         return _stop;
     }
 
-    void iEvaluation::setDuration(float64 duration)
+    void iEvaluation::setDuration(const iaTime &duration)
     {
         _stop = _start + duration;
     }
 
-    float64 iEvaluation::getDuration() const
+    const iaTime &iEvaluation::getDuration() const
     {
         return _stop - _start;
     }

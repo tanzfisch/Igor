@@ -29,7 +29,6 @@ using namespace Igor;
 
 UserControlMesh::UserControlMesh()
 {
-	con_endl("UserControlMesh id " << getID());	
 	initGUI();
 }
 

@@ -1,20 +1,20 @@
 #ifndef __ASCENT__
 #define __ASCENT__
 
-#include <Igor.h>
-#include <iWindow.h>
-#include <iView.h>
-#include <iTimerHandle.h>
-#include <iModelResourceFactory.h>
-#include <iKeyboard.h>
-#include <iProfilerVisualizer.h>
-#include <iSphere.h>
-#include <iPerlinNoise.h>
+#include <igor/igor.h>
+#include <igor/os/iWindow.h>
+#include <igor/graphics/iView.h>
+#include <igor/os/iTimerHandle.h>
+#include <igor/resources/model/iModelResourceFactory.h>
+#include <igor/os/iKeyboard.h>
+#include <igor/resources/profiler/iProfilerVisualizer.h>
+#include <igor/data/iSphere.h>
+#include <igor/graphics/generation/iPerlinNoise.h>
 using namespace Igor;
 
-#include <iaMatrix.h>
-#include <iaMutex.h>
-#include <iaRandomNumberGenerator.h>
+#include <iaux/math/iaMatrix.h>
+#include <iaux/system/iaMutex.h>
+#include <iaux/math/iaRandomNumberGenerator.h>
 using namespace IgorAux;
 
 namespace Igor
@@ -33,7 +33,7 @@ namespace Igor
     class iVoxelTerrain;
     class iVoxelBlockInfo;
     class iVoxelBlockPropsInfo;
-}
+} // namespace Igor
 
 class Enemy;
 
@@ -41,7 +41,6 @@ class Ascent
 {
 
 public:
-
     // TODO replace later with data from loaded model
     static uint64 _terrainMaterialID;
     static uint64 _entityMaterialID;
@@ -53,8 +52,7 @@ public:
     void run();
 
 private:
-
-	bool _captureMouse = true;
+    bool _captureMouse = true;
 
     iaRandomNumberGeneratoru rand;
 
@@ -72,9 +70,9 @@ private:
 
     iPerlinNoise _perlinNoise;
 
-    iTextureFont* _font = nullptr;
+    iTextureFont *_font = nullptr;
 
-    iScene* _scene = nullptr;
+    iScene *_scene = nullptr;
 
     uint64 _toolSize = 3;
     uint8 _toolDensity = 0;
@@ -82,9 +80,9 @@ private:
     iaVector2f _mouseDelta;
     iaVector3f _weaponPos;
 
-    iNodeTransform* _lightTranslate = nullptr;
-    iNodeTransform* _lightRotate = nullptr;
-    iNodeLight* _lightNode = nullptr;
+    iNodeTransform *_lightTranslate = nullptr;
+    iNodeTransform *_lightRotate = nullptr;
+    iNodeLight *_lightNode = nullptr;
 
     float64 _startTime;
 
@@ -100,17 +98,17 @@ private:
 
     std::vector<iSphered> _metaballs;
     std::vector<iSphered> _holes;
-    iVoxelTerrain* _voxelTerrain = nullptr;
+    iVoxelTerrain *_voxelTerrain = nullptr;
 
     int _enemyCount = 0;
 
     void oulineLevelStructure();
     void deinitVoxelData();
     void initVoxelData();
-    void onGenerateVoxelData(iVoxelBlockInfo* voxelBlockInfo);
+    void onGenerateVoxelData(iVoxelBlockInfo *voxelBlockInfo);
     void onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockInfo);
 
-    bool getTerrainIntersectionPoint(iaVector3I& intersection);
+    bool getTerrainIntersectionPoint(iaVector3I &intersection);
     void dig(iaVector3I position, uint64 toolSize, uint8 toolDensity);
 
     void onKeyPressed(iKeyCode key);
@@ -119,7 +117,7 @@ private:
     void onWindowClosed();
     void onWindowResized(int32 clientWidth, int32 clientHeight);
 
-    void onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* _window);
+    void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *_window);
 
     void onMouseUp(iKeyCode key);
     void onMouseDown(iKeyCode key);
@@ -143,9 +141,8 @@ private:
     void initPlayer();
 
     void initPhysics();
-    void onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1);
-    void onContact(iPhysicsBody* body0, iPhysicsBody* body1);
-
+    void onContactTerrainBullet(iPhysicsBody *body0, iPhysicsBody *body1);
+    void onContact(iPhysicsBody *body0, iPhysicsBody *body1);
 };
 
 #endif

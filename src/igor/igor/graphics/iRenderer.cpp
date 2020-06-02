@@ -27,6 +27,7 @@
 #include <cmath>
 
 #include <iaux/data/iaConvert.h>
+#include <iaux/system/iaTime.h>
 using namespace IgorAux;
 
 // comes from X.h. don't know how this get's included here
@@ -1466,7 +1467,8 @@ namespace Igor
 
     void iRenderer::createBuffers(float64 timeLimit)
     {
-        float64 endTime = iTimer::getInstance().getApplicationTime() + timeLimit;
+        iaTime endTime = iaTime::now();
+        endTime += iaTime::fromMilliseconds(timeLimit);
         std::deque<std::pair<iMeshPtr, std::shared_ptr<iMeshBuffers>>>::iterator entryIter;
 
         iMeshPtr mesh;
@@ -1496,7 +1498,7 @@ namespace Igor
                 break;
             }
 
-            if (iTimer::getInstance().getApplicationTime() > endTime)
+            if (iaTime::now() > endTime)
             {
                 break;
             }

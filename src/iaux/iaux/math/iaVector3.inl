@@ -11,7 +11,7 @@ iaVector3<T>::iaVector3(T x, T y, T z)
 }
 
 template <class T>
-__IGOR_INLINE__ iaVector3<T> iaVector3<T>::operator + (const iaVector3<T> &a) const
+__IGOR_INLINE__ iaVector3<T> iaVector3<T>::operator+(const iaVector3<T> &a) const
 {
     iaVector3<T> c;
 
@@ -23,7 +23,7 @@ __IGOR_INLINE__ iaVector3<T> iaVector3<T>::operator + (const iaVector3<T> &a) co
 }
 
 template <class T>
-std::wostream& operator << (std::wostream &ostr, const iaVector3<T> &v)
+std::wostream &operator<<(std::wostream &ostr, const iaVector3<T> &v)
 {
     ostr << "(" << v._x << ", " << v._y << ", " << v._z << ")";
     return ostr;
@@ -61,19 +61,19 @@ iaVector3<T> iaVector3<T>::reject(const iaVector3<T> &v)
 }
 
 template <class T>
-T& iaVector3<T>::operator[] (int i)
+T &iaVector3<T>::operator[](int i)
 {
     return (&_x)[i];
 }
 
 template <class T>
-const T& iaVector3<T>::operator[] (int i) const
+const T &iaVector3<T>::operator[](int i) const
 {
     return (&_x)[i];
 }
 
 template <class T>
-__IGOR_INLINE__ iaVector3<T> iaVector3<T>::operator - (const iaVector3<T> &a) const
+__IGOR_INLINE__ iaVector3<T> iaVector3<T>::operator-(const iaVector3<T> &a) const
 {
     iaVector3<T> c;
     c._x = _x - a._x;
@@ -84,7 +84,7 @@ __IGOR_INLINE__ iaVector3<T> iaVector3<T>::operator - (const iaVector3<T> &a) co
 }
 
 template <class T>
-bool iaVector3<T>::operator == (const iaVector3<T> &a) const
+bool iaVector3<T>::operator==(const iaVector3<T> &a) const
 {
     if (_x == a._x &&
         _y == a._y &&
@@ -99,7 +99,7 @@ bool iaVector3<T>::operator == (const iaVector3<T> &a) const
 }
 
 template <class T>
-bool iaVector3<T>::operator != (const iaVector3<T> &a) const
+bool iaVector3<T>::operator!=(const iaVector3<T> &a) const
 {
     if (_x != a._x ||
         _y != a._y ||
@@ -114,7 +114,7 @@ bool iaVector3<T>::operator != (const iaVector3<T> &a) const
 }
 
 template <class T>
-__IGOR_INLINE__ void iaVector3<T>::operator += (const iaVector3<T> &a)
+__IGOR_INLINE__ void iaVector3<T>::operator+=(const iaVector3<T> &a)
 {
     _x += a._x;
     _y += a._y;
@@ -122,7 +122,7 @@ __IGOR_INLINE__ void iaVector3<T>::operator += (const iaVector3<T> &a)
 }
 
 template <class T>
-__IGOR_INLINE__ void iaVector3<T>::operator -= (const iaVector3<T> &a)
+__IGOR_INLINE__ void iaVector3<T>::operator-=(const iaVector3<T> &a)
 {
     _x -= a._x;
     _y -= a._y;
@@ -130,7 +130,7 @@ __IGOR_INLINE__ void iaVector3<T>::operator -= (const iaVector3<T> &a)
 }
 
 template <class T>
-iaVector3<T> iaVector3<T>::operator = (const iaVector3<T> &a)
+iaVector3<T> iaVector3<T>::operator=(const iaVector3<T> &a)
 {
     iaVector3<T> result;
     result._x = _x = a._x;
@@ -141,7 +141,7 @@ iaVector3<T> iaVector3<T>::operator = (const iaVector3<T> &a)
 }
 
 template <class T>
-__IGOR_INLINE__ iaVector3<T> iaVector3<T>::operator % (const iaVector3<T> &a) const
+__IGOR_INLINE__ iaVector3<T> iaVector3<T>::operator%(const iaVector3<T> &a) const
 {
     iaVector3<T> result;
 
@@ -153,18 +153,18 @@ __IGOR_INLINE__ iaVector3<T> iaVector3<T>::operator % (const iaVector3<T> &a) co
 }
 
 template <class T>
-__IGOR_INLINE__ iaVector3<T> iaVector3<T>::operator * (T a) const
+__IGOR_INLINE__ iaVector3<T> iaVector3<T>::operator*(T a) const
 {
     iaVector3<T> result;
-    result._x = _x*a;
-    result._y = _y*a;
-    result._z = _z*a;
+    result._x = _x * a;
+    result._y = _y * a;
+    result._z = _z * a;
 
     return result;
 }
 
 template <class T>
-__IGOR_INLINE__ iaVector3<T> iaVector3<T>::operator / (T a) const
+__IGOR_INLINE__ iaVector3<T> iaVector3<T>::operator/(T a) const
 {
     iaVector3<T> result;
     result._x = _x / a;
@@ -175,7 +175,7 @@ __IGOR_INLINE__ iaVector3<T> iaVector3<T>::operator / (T a) const
 }
 
 template <class T>
-__IGOR_INLINE__ void iaVector3<T>::operator *= (T a)
+__IGOR_INLINE__ void iaVector3<T>::operator*=(T a)
 {
     _x *= a;
     _y *= a;
@@ -183,7 +183,7 @@ __IGOR_INLINE__ void iaVector3<T>::operator *= (T a)
 }
 
 template <class T>
-__IGOR_INLINE__ void iaVector3<T>::operator /= (T a)
+__IGOR_INLINE__ void iaVector3<T>::operator/=(T a)
 {
     _x /= a;
     _y /= a;
@@ -191,19 +191,19 @@ __IGOR_INLINE__ void iaVector3<T>::operator /= (T a)
 }
 
 template <class T>
-__IGOR_INLINE__ T iaVector3<T>::operator * (const iaVector3<T> &a) const
+__IGOR_INLINE__ T iaVector3<T>::operator*(const iaVector3<T> &a) const
 {
     return _x * a._x + _y * a._y + _z * a._z;
 }
 
 template <class T>
-const T* iaVector3<T>::getData() const
+const T *iaVector3<T>::getData() const
 {
     return &_x;
 }
 
 template <class T>
-T* iaVector3<T>::getData()
+T *iaVector3<T>::getData()
 {
     return &_x;
 }
@@ -219,25 +219,25 @@ void iaVector3<T>::set(T x, T y, T z)
 template <class T>
 __IGOR_INLINE__ T iaVector3<T>::length(void) const
 {
-    return (T)sqrt(_x*_x + _y*_y + _z*_z);
+    return (T)sqrt(_x * _x + _y * _y + _z * _z);
 }
 
 template <class T>
 __IGOR_INLINE__ T iaVector3<T>::length2(void) const
 {
-    return (_x*_x + _y*_y + _z*_z);
+    return (_x * _x + _y * _y + _z * _z);
 }
 
 template <class T>
 __IGOR_INLINE__ T iaVector3<T>::distance(const iaVector3<T> &V) const
 {
-    return static_cast<T>(sqrt((_x - V._x)*(_x - V._x) + (_y - V._y)*(_y - V._y) + (_z - V._z)*(_z - V._z)));
+    return static_cast<T>(sqrt((_x - V._x) * (_x - V._x) + (_y - V._y) * (_y - V._y) + (_z - V._z) * (_z - V._z)));
 }
 
 template <class T>
 __IGOR_INLINE__ T iaVector3<T>::distance2(const iaVector3<T> &V) const
 {
-    return ((_x - V._x)*(_x - V._x) + (_y - V._y)*(_y - V._y) + (_z - V._z)*(_z - V._z));
+    return ((_x - V._x) * (_x - V._x) + (_y - V._y) * (_y - V._y) + (_z - V._z) * (_z - V._z));
 }
 
 template <class T>
@@ -253,7 +253,7 @@ __IGOR_INLINE__ iaVector3<T> iaVector3<T>::negate(void)
 template <class T>
 iaVector3<T> iaVector3<T>::normalize(void)
 {
-    T h = static_cast<T>(sqrt(static_cast<float64>(_x)*static_cast<float64>(_x) + static_cast<float64>(_y)*static_cast<float64>(_y) + static_cast<float64>(_z)*static_cast<float64>(_z)));
+    T h = static_cast<T>(sqrt(static_cast<float64>(_x) * static_cast<float64>(_x) + static_cast<float64>(_y) * static_cast<float64>(_y) + static_cast<float64>(_z) * static_cast<float64>(_z)));
     _x /= h;
     _y /= h;
     _z /= h;
@@ -262,9 +262,9 @@ iaVector3<T> iaVector3<T>::normalize(void)
 }
 
 template <class T>
-T iaVector3<T>::angle(iaVector3<T> &a) const
+T iaVector3<T>::angle(const iaVector3<T> &a) const
 {
-    return (T)(acos(((*this)*a) / (length()*a.length())));
+    return (T)(acos(((*this) * a) / (length() * a.length())));
 }
 
 template <class T>
@@ -288,12 +288,12 @@ template <class T>
 template <class T2>
 iaVector3<T2> iaVector3<T>::convert() const
 {
-	iaVector3<T2> result(static_cast<T2>(_x), static_cast<T2>(_y), static_cast<T2>(_z));
-	return result;
+    iaVector3<T2> result(static_cast<T2>(_x), static_cast<T2>(_y), static_cast<T2>(_z));
+    return result;
 }
 
 template <class T>
-iaVector3<T> lerp(const iaVector3<T>& a, const iaVector3<T>& b, T t)
+iaVector3<T> lerp(const iaVector3<T> &a, const iaVector3<T> &b, T t)
 {
     iaVector3<T> result;
     // (1 - t) * v0 + t * v1;

@@ -16,7 +16,12 @@ namespace IgorAux
 
     iaTime iaTime::now()
     {
-        return iaTime(iaClock::getTimeMicrosenconds());
+        return iaTime(iaClock::getTimeMicroseconds());
+    }
+
+    iaTime iaTime::zero()
+    {
+        return iaTime(0);
     }
 
     iaTime iaTime::fromSeconds(float64 time)

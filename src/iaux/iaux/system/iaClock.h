@@ -39,7 +39,7 @@ namespace IgorAux
     public:
         /*! \returns time in microseconds
         */
-        static int64 getTimeMicrosenconds();
+        static int64 getTimeMicroseconds();
 
         /*! \returns clock time in seconds
 
@@ -51,7 +51,7 @@ namespace IgorAux
 
         initClock must be called before otherwise result is undefined
         */
-        static float64 getTimeMiliseconds();
+        static float64 getTimeMilliseconds();
 
         /*! initializes clock
         */

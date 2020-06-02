@@ -1,24 +1,24 @@
 #include "DigEffect.h"
 
-#include <iNodeManager.h>
-#include <iNodeTransform.h>
-#include <iNodePhysics.h>
-#include <iNodeModel.h>
-#include <iModel.h>
-#include <iScene.h>
-#include <iPhysics.h>
-#include <iPhysicsBody.h>
-#include <iPhysicsCollision.h>
-#include <iNodeParticleSystem.h>
-#include <iNodeEmitter.h>
-#include <iMaterialResourceFactory.h>
-#include <iMaterial.h>
+#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/graphics/scene/nodes/iNodeTransform.h>
+#include <igor/graphics/scene/nodes/iNodePhysics.h>
+#include <igor/graphics/scene/nodes/iNodeModel.h>
+#include <igor/resources/model/iModel.h>
+#include <igor/graphics/scene/iScene.h>
+#include <igor/physics/iPhysics.h>
+#include <igor/physics/iPhysicsBody.h>
+#include <igor/physics/iPhysicsCollision.h>
+#include <igor/graphics/scene/nodes/iNodeParticleSystem.h>
+#include <igor/graphics/scene/nodes/iNodeEmitter.h>
+#include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/resources/material/iMaterial.h>
 using namespace Igor;
 
-#include <iaString.h>
+#include <iaux/data/iaString.h>
 using namespace IgorAux;
 
-DigEffect::DigEffect(iScene* scene, const iaMatrixd& matrix)
+DigEffect::DigEffect(iScene *scene, const iaMatrixd &matrix)
     : GameObject(Fraction::None, GameObjectType::None)
 {
     setHealth(100.0);
@@ -44,7 +44,7 @@ DigEffect::DigEffect(iScene* scene, const iaMatrixd& matrix)
     iaGradientVector2f size;
     size.setValue(0.0, iaVector2f(3.0, 4.0));
 
-    iNodeParticleSystem* particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
+    iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemNodeID = particleSystem->getID();
     particleSystem->setMaterial(iMaterialResourceFactory::getInstance().getMaterialID("PMat"));
     particleSystem->setTextureA("particleSmoke.png");
@@ -59,20 +59,20 @@ DigEffect::DigEffect(iScene* scene, const iaMatrixd& matrix)
     particleSystem->setPeriodTime(4.0);
     particleSystem->start();
 
-	iNodeEmitter* emitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
-	emitter->setEmitterType(iEmitterType::Sphere);
+    iNodeEmitter *emitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
+    emitter->setEmitterType(iEmitterType::Sphere);
     emitter->setSize(5);
-	particleSystem->setEmitter(emitter->getID());
+    particleSystem->setEmitter(emitter->getID());
 
-	iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
     _transformNodeID = transformNode->getID();
-	transformNode->setMatrix(matrix);
-	_pos = matrix._pos;
+    transformNode->setMatrix(matrix);
+    _pos = matrix._pos;
 
-	scene->getRoot()->insertNode(particleSystem);
-    
+    scene->getRoot()->insertNode(particleSystem);
+
     transformNode->insertNode(emitter);
-	scene->getRoot()->insertNode(transformNode);
+    scene->getRoot()->insertNode(transformNode);
 }
 
 DigEffect::~DigEffect()
@@ -83,23 +83,23 @@ DigEffect::~DigEffect()
 
 void DigEffect::hitBy(uint64 entityID)
 {
-	// nothing to do
+    // nothing to do
 }
 
 iaVector3d DigEffect::getCurrentPos()
 {
-	return _pos;
+    return _pos;
 }
 
 void DigEffect::handle()
 {
-    iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeManager::getInstance().getNode(_particleSystemNodeID));
+    iNodeParticleSystem *particleSystem = static_cast<iNodeParticleSystem *>(iNodeManager::getInstance().getNode(_particleSystemNodeID));
 
-	if (particleSystem != nullptr)
-	{
-		if (particleSystem->isFinished())
-		{
-			kill();
-		}
-	}
+    if (particleSystem != nullptr)
+    {
+        if (particleSystem->isFinished())
+        {
+            kill();
+        }
+    }
 }

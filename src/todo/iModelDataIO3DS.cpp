@@ -1,43 +1,43 @@
 #include <iLoader3DS.h>
 #include <iTextureManager.h>
 #include <iModelManager.h>
-#include <iModel.h>
+#include <igor/resources/model/iModel.h>
 
 #include <string.h>
 
 namespace Igor
 {
 
-#define SEEK_START           1900
-#define SEEK_CURSOR          1901
+#define SEEK_START 1900
+#define SEEK_CURSOR 1901
 
-#define MAIN3DS             0x4D4D
-#define EDIT3DS             0x3D3D  
+#define MAIN3DS 0x4D4D
+#define EDIT3DS 0x3D3D
 
-#define EDIT_MATERIAL       0xAFFF
-#define MAT_NAME			0xA000
-#define MAT_TEXTURE			0xA200
-#define TEX_NAME			0xA300
+#define EDIT_MATERIAL 0xAFFF
+#define MAT_NAME 0xA000
+#define MAT_TEXTURE 0xA200
+#define TEX_NAME 0xA300
 	//#define TEX_PERCENTAGE		0x0030
 
-#define EDIT_OBJECT         0x4000
-#define OBJ_TRIMESH         0x4100
-#define OBJ_LIGHT           0x4600
-#define OBJ_CAMERA          0x4700
+#define EDIT_OBJECT 0x4000
+#define OBJ_TRIMESH 0x4100
+#define OBJ_LIGHT 0x4600
+#define OBJ_CAMERA 0x4700
 
-#define LIT_OFF             0x4620
-#define LIT_SPOT            0x4610
+#define LIT_OFF 0x4620
+#define LIT_SPOT 0x4610
 
-#define TRI_VERTEXLIST      0x4110
-#define TRI_VERTEXOPTIONS   0x4111
-#define TRI_FACELIST        0x4120
-#define TRI_FACEMAPPING     0x4140
-#define TRI_MATRIX          0x4160
-#define TRI_MATERIAL		0x4130
+#define TRI_VERTEXLIST 0x4110
+#define TRI_VERTEXOPTIONS 0x4111
+#define TRI_FACELIST 0x4120
+#define TRI_FACEMAPPING 0x4140
+#define TRI_MATRIX 0x4160
+#define TRI_MATERIAL 0x4130
 
-#define RGB_COLOR           0x0010
-#define COLOR24             0x0011
-#define SPOTLIGHT           0x4610
+#define RGB_COLOR 0x0010
+#define COLOR24 0x0011
+#define SPOTLIGHT 0x4610
 
 	iLoader3DS::iLoader3DS()
 	{
@@ -45,18 +45,18 @@ namespace Igor
 
 	iLoader3DS::~iLoader3DS()
 	{
-		if(buffer)
+		if (buffer)
 			free(buffer);
 
 		uint32 i;
-		for(i=0;i<vertexes.size();++i)
+		for (i = 0; i < vertexes.size(); ++i)
 		{
 			delete vertexes[i];
 		}
 
 		vertexes.clear();
 
-		for(i=0;i<materials.size();++i)
+		for (i = 0; i < materials.size(); ++i)
 		{
 			delete materials[i];
 		}
@@ -69,12 +69,12 @@ namespace Igor
 		con_err("not implemented" << endl;
 	}
 
-	iModel* iLoader3DS::loadFile(string filename)
+	iModel *iLoader3DS::loadFile(string filename)
 	{
 		FILE *File;
-		vertexcount=0;
-		trianglecount=0;
-		buffer=0;
+		vertexcount = 0;
+		trianglecount = 0;
+		buffer = 0;
 
 		File = fopen(filename.c_str(), "rb");
 		if (File == 0)
@@ -83,56 +83,56 @@ namespace Igor
 			return 0;
 		}
 
-		buffer=(unsigned char*)malloc(2);
+		buffer = (unsigned char *)malloc(2);
 
-		if (fread(buffer, 2,1,  File) != 1)
+		if (fread(buffer, 2, 1, File) != 1)
 		{
 			fclose(File);
-			if(buffer)
+			if (buffer)
 			{
 				free(buffer);
-				buffer=0;
+				buffer = 0;
 			}
 			buffersize = 0;
 			con_err("can't read file \"" << filename << "\"" << endl;
 			return 0;
 		}
 
-		uint32 pos=strlen(filename.c_str());
-		while((filename[pos]!='/')&&(filename[pos]!='\\')&&(pos!=0))
+		uint32 pos = strlen(filename.c_str());
+		while ((filename[pos] != '/') && (filename[pos] != '\\') && (pos != 0))
 		{
 			pos--;
 		}
 
-		if(pos)
+		if (pos)
 		{
-			path[pos]=0;
-			do{
+			path[pos] = 0;
+			do
+			{
 				pos--;
-				path[pos]=filename[pos];
-			}
-			while(pos>0);
+				path[pos] = filename[pos];
+			} while (pos > 0);
 		}
 		else
 		{
-			path[0]=0;
+			path[0] = 0;
 		}
 
-		if((buffer[0]==0x4D)&&(buffer[1]==0x4D))
+		if ((buffer[0] == 0x4D) && (buffer[1] == 0x4D))
 		{
 			con << "loading 3DS model \"" << filename << "\" ..." << endl;
-			fseek(File,0,SEEK_END);
+			fseek(File, 0, SEEK_END);
 			buffersize = ftell(File);
-			fseek(File,0,SEEK_SET);
-			buffer = (unsigned char*) realloc(buffer,buffersize);
+			fseek(File, 0, SEEK_SET);
+			buffer = (unsigned char *)realloc(buffer, buffersize);
 
-			if (fread(buffer, buffersize,1,  File) != 1)
+			if (fread(buffer, buffersize, 1, File) != 1)
 			{
 				fclose(File);
-				if(buffer)
+				if (buffer)
 				{
 					free(buffer);
-					buffer=0;
+					buffer = 0;
 				}
 				buffersize = 0;
 				con_err("can't read file \"" << filename << "\"" << endl;
@@ -140,29 +140,30 @@ namespace Igor
 			}
 			fclose(File);
 
-			if(!analyze3DS())
+			if (!analyze3DS())
 			{
 				con_err("no valid 3DS file" << endl;
 				if(buffer)
 				{
 					free(buffer);
-					buffer=0;
+					buffer = 0;
 				}
 				buffersize=0;
 				return 0;
 			}
 
-			if(buffer)
+			if (buffer)
 			{
 				free(buffer);
-				buffer=0;
+				buffer = 0;
 				buffersize = 0;
 			}
 
 			/*for(uint32 i=0;i<meshes.size();i++)
 			{
 				meshes[i]->calcNormals();
-			}*/ // not the right place for that
+			}*/
+			// not the right place for that
 
 			con << filename << " loaded with: ";
 			con << vertexcount << " vertices / " << trianglecount << " triangles / " << meshes.size() << " meshes" << endl;
@@ -172,13 +173,13 @@ namespace Igor
 		else
 		{
 			fclose(File);
-			if(buffer)
+			if (buffer)
 				free(buffer);
 			return 0;
 		}
 
-		iModel* model = createModel(filename);
-		for(int i=0;i<meshes.size();++i)
+		iModel *model = createModel(filename);
+		for (int i = 0; i < meshes.size(); ++i)
 		{
 			model->addMesh(meshes[i]);
 		}
@@ -189,7 +190,7 @@ namespace Igor
 	bool iLoader3DS::analyze3DS()
 	{
 		char completepath[256];
-		bufferpos=0;
+		bufferpos = 0;
 		Chunk mainchunk;
 		Chunk editchunk;
 
@@ -199,24 +200,23 @@ namespace Igor
 		if (mainchunk.id != MAIN3DS)
 			return false;
 
-		if (!findChunk(editchunk, mainchunk))		// Sucht editchunk innerhalb mainchunk
+		if (!findChunk(editchunk, mainchunk)) // Sucht editchunk innerhalb mainchunk
 			return false;
 
-
-		Chunk matchunk,matnamechunk,texchunk,texnamechunk;
+		Chunk matchunk, matnamechunk, texchunk, texnamechunk;
 		char MaterialName[100];
 		char ObjectName[100];
 		char TextureName[100];
 
-		matchunk.id=EDIT_MATERIAL;
+		matchunk.id = EDIT_MATERIAL;
 
-		uint32 pushBuffer = bufferpos;					// Position merken fr zweiten Durchlauf
+		uint32 pushBuffer = bufferpos; // Position merken fr zweiten Durchlauf
 
-		while (findChunk(matchunk,editchunk))					// Suche nach allen Materialien innerhalb editchunk
+		while (findChunk(matchunk, editchunk)) // Suche nach allen Materialien innerhalb editchunk
 		{
 			uint32 pushBuffer2 = bufferpos;
-			matnamechunk.id=MAT_NAME;
-			if(findChunk(matnamechunk,matchunk))
+			matnamechunk.id = MAT_NAME;
+			if (findChunk(matnamechunk, matchunk))
 			{
 				readASCIIString(MaterialName, 100);
 				//Write("\nloading material \"%s\"",MaterialName);
@@ -225,26 +225,26 @@ namespace Igor
 			bufferpos = pushBuffer2;
 
 			texchunk.id = MAT_TEXTURE;
-			if(findChunk(texchunk,matchunk))
+			if (findChunk(texchunk, matchunk))
 			{
 				texnamechunk.id = TEX_NAME;
-				if(findChunk(texnamechunk,texchunk))
+				if (findChunk(texnamechunk, texchunk))
 				{
 					readASCIIString(TextureName, 100);
 					Material *temp = new Material;
 					materials.push_back(temp);
 
-					sprintf(completepath,"%s/%s",path,TextureName);
-					temp->texture=iTextureManager::getInstance().loadFile(completepath);
+					sprintf(completepath, "%s/%s", path, TextureName);
+					temp->texture = iTextureManager::getInstance().loadFile(completepath);
 
-					strcpy(temp->name,MaterialName);
+					strcpy(temp->name, MaterialName);
 					skipChunk(texnamechunk);
 				}
 				skipChunk(texchunk);
 			}
 		}
 
-		Chunk objchunk,meshchunk;
+		Chunk objchunk, meshchunk;
 		bufferpos = pushBuffer;
 
 		// reading object meshes
@@ -271,7 +271,7 @@ namespace Igor
 		chunk.id = readShort();
 		uint32 length = readLong();
 		chunk.start = pos();
-		chunk.end = chunk.start+length-6;	//-6 weil start hinter ID und length liegt
+		chunk.end = chunk.start + length - 6; //-6 weil start hinter ID und length liegt
 		return chunk;
 	}
 
@@ -281,12 +281,13 @@ namespace Igor
 			return false;
 		Chunk chunk;
 		chunk = readChunk();
-		while (( chunk.id != target.id) && (chunk.end <= parent.end))
+		while ((chunk.id != target.id) && (chunk.end <= parent.end))
 		{
 			skipChunk(chunk);
 			if (chunk.end >= parent.end)
 				break;
-			if (chunk.id==0) break; // added because of "hanging"-bug.
+			if (chunk.id == 0)
+				break; // added because of "hanging"-bug.
 			chunk = readChunk();
 		}
 		if (chunk.id == target.id)
@@ -300,9 +301,9 @@ namespace Igor
 
 	unsigned short iLoader3DS::readShort()
 	{
-		if ((buffer!=0) && (buffersize != 0) && ((bufferpos+2)<buffersize))
+		if ((buffer != 0) && (buffersize != 0) && ((bufferpos + 2) < buffersize))
 		{
-			unsigned short *w = (unsigned short*)(buffer+bufferpos);
+			unsigned short *w = (unsigned short *)(buffer + bufferpos);
 			unsigned short s = *w;
 			bufferpos += 2;
 			return s;
@@ -313,9 +314,9 @@ namespace Igor
 
 	uint32 iLoader3DS::readLong()
 	{
-		if ((buffer!=0) && (buffersize != 0) && ((bufferpos+4)<buffersize))
+		if ((buffer != 0) && (buffersize != 0) && ((bufferpos + 4) < buffersize))
 		{
-			uint32 *w = (uint32*)(buffer+bufferpos);
+			uint32 *w = (uint32 *)(buffer + bufferpos);
 			uint32 s = *w;
 			bufferpos += 4;
 			return s;
@@ -326,9 +327,9 @@ namespace Igor
 
 	char iLoader3DS::readChar()
 	{
-		if ((buffer!=0) && (buffersize != 0) && ((bufferpos+1)<buffersize))
+		if ((buffer != 0) && (buffersize != 0) && ((bufferpos + 1) < buffersize))
 		{
-			char s = (char)*(buffer+bufferpos);
+			char s = (char)*(buffer + bufferpos);
 			bufferpos += 1;
 			return s;
 		}
@@ -338,9 +339,9 @@ namespace Igor
 
 	float32 iLoader3DS::readfloat32()
 	{
-		if ((buffer!=0) && (buffersize != 0) && ((bufferpos+4)<buffersize))
+		if ((buffer != 0) && (buffersize != 0) && ((bufferpos + 4) < buffersize))
 		{
-			float32 *w = (float32*)(buffer+bufferpos);
+			float32 *w = (float32 *)(buffer + bufferpos);
 			float32 s = *w;
 			bufferpos += 4;
 			return s;
@@ -351,18 +352,18 @@ namespace Igor
 
 	void iLoader3DS::readASCIIString(char *buf, unsigned short max_count)
 	{
-		unsigned short count=0;
-		if ((buffer==0) || (buffersize == 0) || (bufferpos>=buffersize))
+		unsigned short count = 0;
+		if ((buffer == 0) || (buffersize == 0) || (bufferpos >= buffersize))
 		{
 			eof = true;
 			return;
 		}
 
 		char c = readChar();
-		while ((c!=0) && (count<max_count-1))
+		while ((c != 0) && (count < max_count - 1))
 		{
 			buf[count] = c;
-			count ++;
+			count++;
 			c = readChar();
 		}
 		buf[count] = 0;
@@ -377,7 +378,7 @@ namespace Igor
 		if (bufferpos < 0)
 			bufferpos = 0;
 		if (bufferpos >= buffersize)
-			bufferpos = buffersize-1;
+			bufferpos = buffersize - 1;
 		eof = false;
 	}
 
@@ -386,28 +387,27 @@ namespace Igor
 		return bufferpos;
 	}
 
-
 	void iLoader3DS::skipChunk(iLoader3DS::Chunk chunk)
 	{
-		bufferpos=chunk.end;
+		bufferpos = chunk.end;
 	}
 
 	void iLoader3DS::readMesh(iLoader3DS::Chunk parent)
 	{
 		char MaterialName[100];
-		bool fixedvertex=false;
-		uint32 Tris=0,Vers=0;
-		unsigned short count,i,k;
+		bool fixedvertex = false;
+		uint32 Tris = 0, Vers = 0;
+		unsigned short count, i, k;
 
 		Chunk mat;
-		iVector3f xAxis,yAxis,zAxis,pos;
+		iVector3f xAxis, yAxis, zAxis, pos;
 		iMesh *mesh = new iMesh();
 		meshes.push_back(mesh);
 
 		//	CMaterial *temp2;
 		Vertex *vertex;
 
-		for(i=0;i<vertexes.size();++i)
+		for (i = 0; i < vertexes.size(); ++i)
 		{
 			delete vertexes[i];
 		}
@@ -421,26 +421,26 @@ namespace Igor
 			{
 			case TRI_VERTEXLIST:
 				count = readShort();
-				for (i=0; i < count; i++)
+				for (i = 0; i < count; i++)
 				{
 					vertexcount++;
 					Vers++;
 					vertex = new Vertex;
-					vertex->posx=readfloat32();
-					vertex->posz=-readfloat32();
-					vertex->posy=readfloat32();
+					vertex->posx = readfloat32();
+					vertex->posz = -readfloat32();
+					vertex->posy = readfloat32();
 					vertexes.push_back(vertex);
 				}
 				//			Write(".");
 				break;
 			case TRI_FACEMAPPING:
 				count = readShort();
-				for (i=0; i < count; i++)
+				for (i = 0; i < count; i++)
 				{
-					if(vertexes.size()>i)
+					if (vertexes.size() > i)
 					{
-						vertexes[i]->texx=readfloat32();
-						vertexes[i]->texy=readfloat32();
+						vertexes[i]->texx = readfloat32();
+						vertexes[i]->texy = readfloat32();
 					}
 					else
 					{
@@ -451,35 +451,35 @@ namespace Igor
 				//			Write(".");
 				break;
 			case TRI_FACELIST:
-				if(!fixedvertex)
+				if (!fixedvertex)
 				{
-					mesh->setNormal3f(0,1,0);
-					for(i=0;i<vertexes.size();i++)
+					mesh->setNormal3f(0, 1, 0);
+					for (i = 0; i < vertexes.size(); i++)
 					{
-						vertex=vertexes[i];
+						vertex = vertexes[i];
 						mesh->setTexCoord2f(vertex->texx, vertex->texy, 0);
 						mesh->setVertex3f(vertex->posx, vertex->posy, vertex->posz);
 					}
-					fixedvertex=true;
+					fixedvertex = true;
 				}
 
 				count = readShort();
-				for (k=0; k < count; k++)
+				for (k = 0; k < count; k++)
 				{
 					Tris++;
-					unsigned short a=readShort(),b=readShort(),c=readShort();
-					mesh->setTriangle(a,b,c);
+					unsigned short a = readShort(), b = readShort(), c = readShort();
+					mesh->setTriangle(a, b, c);
 					trianglecount++;
 					readShort(); // dummy
 				}
 				mat.id = TRI_MATERIAL;
-				if(findChunk(mat,chunk))
+				if (findChunk(mat, chunk))
 				{
 					readASCIIString(MaterialName, 100);
 
-					for(i=0;i<materials.size();i++)
+					for (i = 0; i < materials.size(); i++)
 					{
-						if(strcmp(materials[i]->name,MaterialName)==0)
+						if (strcmp(materials[i]->name, MaterialName) == 0)
 						{
 							mesh->bindTexture(materials[i]->texture, 0);
 						}
@@ -497,4 +497,4 @@ namespace Igor
 		}
 	}
 
-}
+} // namespace Igor

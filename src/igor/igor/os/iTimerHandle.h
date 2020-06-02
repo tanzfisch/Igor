@@ -29,10 +29,11 @@
 #ifndef __iRUNTIMEMANAGER__
 #define __iRUNTIMEMANAGER__
 
-#include <iaux/system/iaEvent.h>
-using namespace IgorAux;
-
 #include <igor/iDefines.h>
+
+#include <iaux/system/iaEvent.h>
+#include <iaux/system/iaTime.h>
+using namespace IgorAux;
 
 namespace Igor
 {
@@ -51,17 +52,17 @@ namespace Igor
 		friend class iTimer;
 
 	public:
-		/*! creates timer handle and registers it to the iTimer
+		/*! does nothing
 		*/
 		iTimerHandle() = default;
 
 		/*! creates timer handle and registers it to the iTimer running with given interval
 
 		\param timer_delegate timer delegate to register
-		\param intervall intervall in ms the timer handle event will be called
+		\param intervall the lenght of the intervall
 		\param oneShot if true the timed even only occurs once
 		*/
-		iTimerHandle(iTimerTickDelegate timerDelegate, float64 interval, bool oneShot = false);
+		iTimerHandle(iTimerTickDelegate timerDelegate, const iaTime &interval, bool oneShot = false);
 
 		/*! unregisters from iTimer
 		*/
@@ -81,15 +82,15 @@ namespace Igor
 
 		/*! changes timer interval
 
-		\param interval interval in ms
+		\param interval the lenght of the intervall
 
 		triggers restart()
 		*/
-		void setIntervall(float64 interval);
+		void setIntervall(iaTime interval);
 
 		/*! returns current intervall time
 		*/
-		float64 getIntervall();
+		iaTime getIntervall() const;
 
 		/*! restarts timer by resetting to current time
 		*/
@@ -106,7 +107,7 @@ namespace Igor
 	protected:
 		/*! calls timer event according to how much time passed by
 		*/
-		virtual void handle(float64 time);
+		virtual void handle(iaTime time);
 
 	private:
 		/*! the timer event to trigger
@@ -115,15 +116,15 @@ namespace Igor
 
 		/*! the intervall in ms in use
 		*/
-		float64 _intervall = 20;
+		iaTime _intervall = iaTime::fromMilliseconds(20);
 
 		/*! the configured intervall in ms
 		*/
-		float64 _configuredIntervall = 20;
+		iaTime _configuredIntervall = iaTime::fromMilliseconds(20);
 
 		/*! time the handle was triggered last time
 		*/
-		float64 _time = 0;
+		iaTime _time = 0;
 
 		/*! if true timer triggers event only one time
 		*/

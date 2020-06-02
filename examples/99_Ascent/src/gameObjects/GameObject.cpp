@@ -1,6 +1,6 @@
 #include "GameObject.h"
 
-#include <iEntityManager.h>
+#include <igor/entities/iEntityManager.h>
 using namespace Igor;
 
 GameObject::GameObject(Fraction fraction, GameObjectType type)

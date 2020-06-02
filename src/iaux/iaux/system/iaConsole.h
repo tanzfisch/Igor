@@ -442,7 +442,7 @@ namespace IgorAux
 
     __IGOR_INLINE__ iaConsole &applicationTime(iaConsole &console)
     {
-        uint64 time = static_cast<uint64>(iaClock::getTimeMiliseconds());
+        uint64 time = static_cast<uint64>(iaClock::getTimeMilliseconds());
         uint64 seconds = (time / 1000) % 60;
         uint64 minutes = (time / 1000 * 60) % 60;
         uint64 hours = (time / 1000 * 60 * 60) % 24;

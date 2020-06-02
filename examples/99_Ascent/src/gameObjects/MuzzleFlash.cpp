@@ -1,24 +1,24 @@
 #include "MuzzleFlash.h"
 
-#include <iNodeManager.h>
-#include <iNodeTransform.h>
-#include <iNodePhysics.h>
-#include <iNodeModel.h>
-#include <iModel.h>
-#include <iScene.h>
-#include <iPhysics.h>
-#include <iPhysicsBody.h>
-#include <iPhysicsCollision.h>
-#include <iNodeParticleSystem.h>
-#include <iNodeEmitter.h>
-#include <iMaterialResourceFactory.h>
-#include <iMaterial.h>
+#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/graphics/scene/nodes/iNodeTransform.h>
+#include <igor/graphics/scene/nodes/iNodePhysics.h>
+#include <igor/graphics/scene/nodes/iNodeModel.h>
+#include <igor/resources/model/iModel.h>
+#include <igor/graphics/scene/iScene.h>
+#include <igor/physics/iPhysics.h>
+#include <igor/physics/iPhysicsBody.h>
+#include <igor/physics/iPhysicsCollision.h>
+#include <igor/graphics/scene/nodes/iNodeParticleSystem.h>
+#include <igor/graphics/scene/nodes/iNodeEmitter.h>
+#include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/resources/material/iMaterial.h>
 using namespace Igor;
 
-#include <iaString.h>
+#include <iaux/data/iaString.h>
 using namespace IgorAux;
 
-MuzzleFlash::MuzzleFlash(iScene* scene, uint32 emitterID)
+MuzzleFlash::MuzzleFlash(iScene *scene, uint32 emitterID)
     : GameObject(Fraction::None, GameObjectType::None)
 {
     _emitterNodeID = emitterID;
@@ -26,19 +26,19 @@ MuzzleFlash::MuzzleFlash(iScene* scene, uint32 emitterID)
     setHealth(100.0);
     setDamage(0.0);
     setShieldDamage(0.0);
-    
-    iNodeModel* particleSystem1 = iNodeManager::getInstance().createNode<iNodeModel>();
+
+    iNodeModel *particleSystem1 = iNodeManager::getInstance().createNode<iNodeModel>();
     _muzzleFlashModelID = particleSystem1->getID();
     particleSystem1->setModel("MuzzleFlash.ompf");
     particleSystem1->registerModelReadyDelegate(iModelReadyDelegate(this, &MuzzleFlash::onMuzzleFlashLoaded));
     scene->getRoot()->insertNode(particleSystem1);
 
-    iNodeModel* particleSystem2 = iNodeManager::getInstance().createNode<iNodeModel>();
+    iNodeModel *particleSystem2 = iNodeManager::getInstance().createNode<iNodeModel>();
     _muzzleSmokeModelID = particleSystem2->getID();
     particleSystem2->setModel("MuzzleSmoke.ompf");
     particleSystem2->registerModelReadyDelegate(iModelReadyDelegate(this, &MuzzleFlash::onMuzzleSmokeLoaded));
     scene->getRoot()->insertNode(particleSystem2);
-    
+
     iNodePtr emitterNode = iNodeManager::getInstance().getNode(_emitterNodeID);
     if (emitterNode != nullptr)
     {
@@ -59,8 +59,8 @@ void MuzzleFlash::onMuzzleFlashLoaded(uint64 nodeID)
     iNodePtr emitterNode = iNodeManager::getInstance().getNode(_emitterNodeID);
     if (emitterNode != nullptr)
     {
-        iNodeModel* muzzleFlashNode = static_cast<iNodeModel*>(iNodeManager::getInstance().getNode(_muzzleFlashModelID));
-        iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(muzzleFlashNode->getChild("ParticleSystem"));
+        iNodeModel *muzzleFlashNode = static_cast<iNodeModel *>(iNodeManager::getInstance().getNode(_muzzleFlashModelID));
+        iNodeParticleSystem *particleSystem = static_cast<iNodeParticleSystem *>(muzzleFlashNode->getChild("ParticleSystem"));
         if (particleSystem != nullptr)
         {
             particleSystem->setEmitter(_emitterNodeID);
@@ -85,8 +85,8 @@ void MuzzleFlash::onMuzzleSmokeLoaded(uint64 nodeID)
     iNodePtr emitterNode = iNodeManager::getInstance().getNode(_emitterNodeID);
     if (emitterNode != nullptr)
     {
-        iNodeModel* muzzleSmokeNode = static_cast<iNodeModel*>(iNodeManager::getInstance().getNode(_muzzleSmokeModelID));
-        iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(muzzleSmokeNode->getChild("ParticleSystem"));
+        iNodeModel *muzzleSmokeNode = static_cast<iNodeModel *>(iNodeManager::getInstance().getNode(_muzzleSmokeModelID));
+        iNodeParticleSystem *particleSystem = static_cast<iNodeParticleSystem *>(muzzleSmokeNode->getChild("ParticleSystem"));
         if (particleSystem != nullptr)
         {
             particleSystem->setEmitter(_emitterNodeID);
@@ -114,4 +114,3 @@ iaVector3d MuzzleFlash::getCurrentPos()
 {
     return _pos;
 }
-

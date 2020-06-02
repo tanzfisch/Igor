@@ -4,14 +4,14 @@
 
 #include <iTaskUpdateLOD.h>
 
-#include <iScene.h>
+#include <igor/graphics/scene/iScene.h>
 
 #include <thread>
 
 namespace Igor
 {
 
-    iTaskUpdateLOD::iTaskUpdateLOD(iScene* scene)
+    iTaskUpdateLOD::iTaskUpdateLOD(iScene *scene)
         : iTask(nullptr)
     {
         _needsRenderContext = false;
@@ -49,4 +49,4 @@ namespace Igor
         return _running;
     }
 
-};
+}; // namespace Igor

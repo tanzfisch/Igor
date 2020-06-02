@@ -199,7 +199,10 @@ namespace IgorAux
 
         /*! \returns angle beween to vectors in radians
         */
-        __IGOR_INLINE__ T angle(iaVector3<T> &a) const;
+        __IGOR_INLINE__ T angle(const iaVector3<T> &a) const;
+
+        /*! returns angle relative to XZ plane
+        */
         __IGOR_INLINE__ T angleXZ() const;
 
         /*! normalizes the vector

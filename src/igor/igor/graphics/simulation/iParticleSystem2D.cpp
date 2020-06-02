@@ -7,6 +7,7 @@
 #include <igor/os/iTimer.h>
 
 #include <iaux/system/iaConsole.h>
+#include <iaux/system/iaTime.h>
 using namespace IgorAux;
 
 namespace Igor
@@ -14,7 +15,7 @@ namespace Igor
 
     iParticleSystem2D::iParticleSystem2D()
     {
-        _rand.setSeed(static_cast<uint32>(iTimer::getInstance().getApplicationTime()));
+        _rand.setSeed(static_cast<uint32>(iaTime::now().getMicrosenconds()));
 
         setMaxParticleCount(100);
     }

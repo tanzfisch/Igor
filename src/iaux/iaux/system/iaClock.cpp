@@ -27,15 +27,15 @@ namespace IgorAux
 
     float64 iaClock::getTimeSeconds()
     {
-        return static_cast<float64>(getTimeMicrosenconds()) / 1000000.0;
+        return static_cast<float64>(getTimeMicroseconds()) / 1000000.0;
     }
 
-    float64 iaClock::getTimeMiliseconds()
+    float64 iaClock::getTimeMilliseconds()
     {
-        return static_cast<float64>(getTimeMicrosenconds()) / 1000.0;
+        return static_cast<float64>(getTimeMicroseconds()) / 1000.0;
     }
 
-    int64 iaClock::getTimeMicrosenconds()
+    int64 iaClock::getTimeMicroseconds()
     {
 #ifdef __IGOR_WINDOWS__
         LARGE_INTEGER count;
@@ -48,7 +48,7 @@ namespace IgorAux
 #ifdef __IGOR_LINUX__
         timespec ts;
         clock_gettime(CLOCK_REALTIME, &ts);
-        return int64(ts.tv_sec) * 1000000 + ts.tv_nsec / 1000 - s_startTime;
+        return (int64(ts.tv_sec) * 1000000) + int64(ts.tv_nsec / 1000) - s_startTime;
 #endif
     }
 

@@ -64,30 +64,30 @@ void PhysicsExample::init()
     _window.addView(&_view);
     _window.addView(&_viewOrtho);
     _window.setClientSize(1024, 768);
-	_window.setCentered();
+    _window.setCentered();
     _window.open();
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &PhysicsExample::onWindowClosed));
 
     // setting up the scene
     _scene = iSceneFactory::getInstance().createScene();
     _view.setScene(_scene);
-    
+
     // set physics simulation rate to 60Hz
     iPhysics::getInstance().setSimulationRate(60);
 
     // create some collision boxes and combine them in one to represent the floor
     iaMatrixd offsetFloor;
-    std::vector<iPhysicsCollision*> collisions;
+    std::vector<iPhysicsCollision *> collisions;
     collisions.push_back(iPhysics::getInstance().createBox(10, 1, 50, offsetFloor.getData()));
     collisions.push_back(iPhysics::getInstance().createBox(50, 1, 10, offsetFloor.getData()));
     offsetFloor.translate(0, -5, 0);
     collisions.push_back(iPhysics::getInstance().createBox(50, 1, 50, offsetFloor.getData()));
-    iPhysicsCollision* floorCollision = iPhysics::getInstance().createCompound(collisions);
+    iPhysicsCollision *floorCollision = iPhysics::getInstance().createCompound(collisions);
     // make a body from the floor collision
-    iPhysicsBody* floorBody = iPhysics::getInstance().createBody(floorCollision);
+    iPhysicsBody *floorBody = iPhysics::getInstance().createBody(floorCollision);
     // zero mass turns the floor in to a static body
     floorBody->setMass(0);
-    // position the floor 
+    // position the floor
     iaMatrixd floorMatrix;
     floorMatrix.translate(0, -1, 0);
     floorBody->setMatrix(floorMatrix);
@@ -96,7 +96,7 @@ void PhysicsExample::init()
 
     // create a box collision used by all boxes we create
     iaMatrixd offsetBox;
-    iPhysicsCollision* boxCollision = iPhysics::getInstance().createBox(1, 1, 1, offsetBox.getData());
+    iPhysicsCollision *boxCollision = iPhysics::getInstance().createBox(1, 1, 1, offsetBox.getData());
 
     // now create boxes in various patterns
 
@@ -108,21 +108,21 @@ void PhysicsExample::init()
     for (int i = 0; i < 30; ++i)
     {
         // create the box body and giv him mass
-        iPhysicsBody* boxBody = iPhysics::getInstance().createBody(boxCollision);
-        boxBody->setMass(100);
+        iPhysicsBody *boxBody = iPhysics::getInstance().createBody(boxCollision);
+        boxBody->setMass(1000);
         // register force ans torque callback
         boxBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &PhysicsExample::onApplyForceAndTorque));
         // store body id
         _bodyIDs.push_back(boxBody->getID());
 
         // generate random position and orientation
-        iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
+        iNodeTransform *transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
         transformNode->translate((rand.getNext() % 10) - 5.0f, (rand.getNext() % 10) + 20.0f, (rand.getNext() % 10) - 5.0f);
         transformNode->rotate(rand.getNext(), iaAxis::X);
         transformNode->rotate(rand.getNext(), iaAxis::Y);
         transformNode->rotate(rand.getNext(), iaAxis::Z);
         // load the crate model
-        iNodeModel* crate = iNodeManager::getInstance().createNode<iNodeModel>();
+        iNodeModel *crate = iNodeManager::getInstance().createNode<iNodeModel>();
         crate->setModel("crate.ompf");
         transformNode->insertNode(crate);
         // bind the scene model to the physics body
@@ -139,16 +139,16 @@ void PhysicsExample::init()
             for (int i = 0; i < 5; ++i)
             {
                 // same as above just using a different interface here
-                iNodePhysics* nodePhysics = iNodeManager::getInstance().createNode<iNodePhysics>();
+                iNodePhysics *nodePhysics = iNodeManager::getInstance().createNode<iNodePhysics>();
                 nodePhysics->addBox(1, 1, 1, offsetBox);
                 nodePhysics->finalizeCollision();
                 nodePhysics->setMass(100);
                 nodePhysics->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &PhysicsExample::onApplyForceAndTorque));
 
-                iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
+                iNodeTransform *transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
                 transformNode->translate(x, i, z);
 
-                iNodeModel* cube = iNodeManager::getInstance().createNode<iNodeModel>();
+                iNodeModel *cube = iNodeManager::getInstance().createNode<iNodeModel>();
                 cube->setModel("crate.ompf");
 
                 // binds physics node and transform node implicitly
@@ -179,7 +179,7 @@ void PhysicsExample::init()
     _cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
     _cameraTranslation->setName("_cameraTranslation");
     _cameraTranslation->translate(0, 0, 80);
-    iNodeCamera* camera = iNodeManager::getInstance().createNode<iNodeCamera>();
+    iNodeCamera *camera = iNodeManager::getInstance().createNode<iNodeCamera>();
     camera->setName("camera");
 
     _scene->getRoot()->insertNode(_cameraHeading);
@@ -187,7 +187,7 @@ void PhysicsExample::init()
     _cameraPitch->insertNode(_cameraTranslation);
     _cameraTranslation->insertNode(camera);
 
-    // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a 
+    // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a
     // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
     _view.setCurrentCamera(camera->getID());
 
@@ -198,7 +198,7 @@ void PhysicsExample::init()
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setOrder(10);
 
-    iNodeSkyBox* skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
+    iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
     skyBoxNode->setTextures(
         iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
         iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
@@ -220,10 +220,10 @@ void PhysicsExample::init()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
 
     // init light
-    iNodeTransform* directionalLightTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *directionalLightTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     directionalLightTransform->translate(100, 100, 100);
 
-    iNodeLight* lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
+    iNodeLight *lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
     lightNode->setAmbient(iaColor4f(0.3f, 0.3f, 0.3f, 1.0f));
     lightNode->setDiffuse(iaColor4f(0.8f, 0.8f, 0.8f, 1.0f));
     lightNode->setSpecular(iaColor4f(1.0f, 01.0f, 1.0f, 1.0f));
@@ -274,7 +274,7 @@ void PhysicsExample::deinit()
     }
 }
 
-void PhysicsExample::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep)
+void PhysicsExample::onApplyForceAndTorque(iPhysicsBody *body, float32 timestep)
 {
     float64 Ixx;
     float64 Iyy;
@@ -300,7 +300,7 @@ void PhysicsExample::onMouseWheel(int32 d)
     }
 }
 
-void PhysicsExample::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window)
+void PhysicsExample::onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window)
 {
     if (iMouse::getInstance().getLeftButton())
     {
@@ -333,31 +333,31 @@ void PhysicsExample::onKeyPressed(iKeyCode key)
         iApplication::getInstance().stop();
         break;
 
-	case iKeyCode::F8:
-		_profilerVisualizer.cycleVerbosity();
-		break;
+    case iKeyCode::F8:
+        _profilerVisualizer.cycleVerbosity();
+        break;
 
-	case iKeyCode::F9:
-	{
-		iNodeVisitorPrintTree printTree;
-		if (_scene != nullptr)
-		{
-			printTree.printToConsole(_scene->getRoot());
-		}
-	}
-	break;
+    case iKeyCode::F9:
+    {
+        iNodeVisitorPrintTree printTree;
+        if (_scene != nullptr)
+        {
+            printTree.printToConsole(_scene->getRoot());
+        }
+    }
+    break;
 
-	case iKeyCode::F10:
-		_view.setWireframeVisible(!_view.isWireframeVisible());
-		break;
+    case iKeyCode::F10:
+        _view.setWireframeVisible(!_view.isWireframeVisible());
+        break;
 
-	case iKeyCode::F11:
-		_view.setOctreeVisible(!_view.isOctreeVisible());
-		break;
+    case iKeyCode::F11:
+        _view.setOctreeVisible(!_view.isOctreeVisible());
+        break;
 
-	case iKeyCode::F12:
-		_view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
-		break;
+    case iKeyCode::F12:
+        _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
+        break;
 
     case iKeyCode::Space:
         _running = !_running;

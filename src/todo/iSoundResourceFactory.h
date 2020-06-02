@@ -30,10 +30,10 @@
 #define __iSOUNDRESOURCEFACTORY__
 
 #include <iaSingleton.h>
-#include <iaString.h>
+#include <iaux/data/iaString.h>
 using namespace IgorAux;
 
-#include <iScene.h>
+#include <igor/graphics/scene/iScene.h>
 #include <iaMatrix.h>
 
 #include <vector>

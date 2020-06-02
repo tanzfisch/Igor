@@ -53,7 +53,7 @@ namespace Igor
         return iWidgetType::iUndefinedType;
     }
 
-    void iWidget::setBackground(const iaColor4f &color)
+    void iWidget::setBackground(const iaColor4f& color)
     {
         _background = color;
     }
@@ -63,7 +63,7 @@ namespace Igor
         return _background;
     }
 
-    void iWidget::setForeground(const iaColor4f &color)
+    void iWidget::setForeground(const iaColor4f& color)
     {
         _foreground = color;
     }
@@ -102,12 +102,12 @@ namespace Igor
         _children.clear();
     }
 
-    void iWidget::getChildren(std::vector<iWidgetPtr> &children)
+    void iWidget::getChildren(std::vector<iWidgetPtr>& children)
     {
         children = _children;
     }
 
-    void iWidget::setTooltip(const iaString &text)
+    void iWidget::setTooltip(const iaString& text)
     {
         _tooltip = text;
     }
@@ -181,7 +181,7 @@ namespace Igor
         _children.push_back(widget);
 
         std::sort(_children.begin(), _children.end(),
-                  [](iWidgetPtr const a, iWidgetPtr const b) { return a->getZValue() < b->getZValue(); });
+            [](iWidgetPtr const a, iWidgetPtr const b) { return a->getZValue() < b->getZValue(); });
 
         widget->setParent(this);
     }
@@ -190,17 +190,17 @@ namespace Igor
     {
         con_assert(widget != nullptr, "zero pointer");
 
-        if (widget != nullptr)
+        if (widget == nullptr)
         {
-            auto iter = std::find(_children.begin(), _children.end(), widget);
+            return;
+        }
 
-            if (iter != _children.end())
-            {
-                widget->setParent(nullptr);
-                widget->setActive(false);
-                widget->setVisible(false);
-                _children.erase(iter);
-            }
+        auto iter = std::find(_children.begin(), _children.end(), widget);
+
+        if (iter != _children.end())
+        {
+            widget->setParent(nullptr);
+            _children.erase(iter);
         }
     }
 
@@ -328,7 +328,7 @@ namespace Igor
     {
         if (isVisible())
         {
-            iWidgetManager &wm = iWidgetManager::getInstance();
+            iWidgetManager& wm = iWidgetManager::getInstance();
             for (const auto child : _children)
             {
                 child->draw();
@@ -645,7 +645,7 @@ namespace Igor
         return false;
     }
 
-    void iWidget::handleMouseMove(const iaVector2i &pos)
+    void iWidget::handleMouseMove(const iaVector2i& pos)
     {
         if (isActive())
         {
@@ -866,7 +866,7 @@ namespace Igor
         _absoluteY = _relativeY + offsetY;
     }
 
-    void iWidget::calcChildOffsets(std::vector<iRectanglei> &offsets)
+    void iWidget::calcChildOffsets(std::vector<iRectanglei>& offsets)
     {
         offsets.clear();
 
