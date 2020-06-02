@@ -33,6 +33,7 @@
 
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaColor4.h>
+#include <iaux/system/iaTime.h>
 using namespace IgorAux;
 
 #include <vector>
@@ -86,7 +87,7 @@ namespace Igor
 
         /*! \returns measurements
         */
-        const float64 *getValues() const;
+        const iaTime *getValues() const;
 
         /*! sets current frame to keep all secitons in sync
 
@@ -119,11 +120,11 @@ namespace Igor
 
         /*! time used per frame
         */
-        float64 _values[BUFFER_SIZE];
+        iaTime _values[BUFFER_SIZE];
 
         /*! time at beginning of section
         */
-        float64 _beginTime = 0;
+        iaTime _beginTime;
     };
 
 } // namespace Igor

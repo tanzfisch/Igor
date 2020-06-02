@@ -1,7 +1,7 @@
 #ifndef __GAMEOBJECT__
 #define __GAMEOBJECT__
 
-#include <iEntityLocatable.h>
+#include <igor/entities/iEntityLocatable.h>
 using namespace Igor;
 
 enum class Fraction
@@ -26,7 +26,6 @@ class GameObject : public iEntityLocatable
     friend class Ascent;
 
 public:
-
     Fraction getFraction() const;
     GameObjectType getType() const;
 
@@ -49,12 +48,10 @@ public:
     virtual ~GameObject();
 
 protected:
-
     virtual void handle() = 0;
     virtual void hitBy(uint64 entityID) = 0;
 
 private:
-
     float32 _shield = 0;
     float32 _health = 0;
     float32 _shieldDamage = 0;
@@ -62,7 +59,6 @@ private:
 
     Fraction _fraction = Fraction::None;
     GameObjectType _type = GameObjectType::None;
-
 };
 
 #endif

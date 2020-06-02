@@ -18,9 +18,6 @@ FirstSteps::FirstSteps()
 
     // registers our handle to the application handle event. it will be called every frame
     iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &FirstSteps::onHandle));
-
-    // save current time
-    _time = iTimer::getInstance().getApplicationTime();
 }
 
 FirstSteps::~FirstSteps()
@@ -58,7 +55,7 @@ void FirstSteps::onHandle()
         iApplication::getInstance().stop();
 
         // print some information about the time
-        con_endl("ms since the programm started " << iTimer::getInstance().getApplicationTime() - _time);
+        con_endl("ms since the programm started " << iTimer::getInstance().getApplicationTime());
         con_endl("the frame rate was " << iTimer::getInstance().getFPS());
     }
 }

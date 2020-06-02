@@ -17,7 +17,7 @@ namespace Igor
 
 	iTimer::iTimer()
 	{
-		_startTime = _currentTime = _lastTime = iaClock::getTimeMiliseconds();
+		_startTime = _currentTime = _lastTime = iaTime::now();
 		_timeDelta = 0;
 	}
 
@@ -53,14 +53,14 @@ namespace Igor
 		return now->tm_year;
 	}
 
-	float64 iTimer::getApplicationTime() const
+	iaTime iTimer::getApplicationTime() const
 	{
-		return iaClock::getTimeMiliseconds();
+		return iaTime::now();
 	}
 
 	void iTimer::handle()
 	{
-		_currentTime = iaClock::getTimeMiliseconds();
+		_currentTime = iaTime::now();
 		_timeDelta = _currentTime - _lastTime;
 
 		if (_currentTime < _lastTime)
@@ -73,38 +73,27 @@ namespace Igor
 		handleTimerHandles();
 	}
 
-	float64 iTimer::getMilliSecondsDelta() const
+	iaTime iTimer::getFrameTime() const
 	{
-		return _timeDelta * 1000 * __IGOR_SECOND__;
+		return _currentTime;
 	}
 
-	float64 iTimer::getSecondsDelta() const
+	iaTime iTimer::getFrameTimeDelta() const
 	{
-		return _timeDelta * 1000;
+		return _timeDelta;
 	}
 
-	float32 iTimer::getFPS() const
+	float64 iTimer::getFPS() const
 	{
-		return 1000.0f / static_cast<float32>(_timeDelta);
-	}
-
-	float64 iTimer::getMilliSeconds() const
-	{
-		return _lastTime * 1000 * __IGOR_SECOND__;
-	}
-
-	float64 iTimer::getSeconds() const
-	{
-		return _lastTime * 1000;
+		return 1.0 / _timeDelta.getSeconds();
 	}
 
 	void iTimer::handleTimerHandles()
 	{
-		float64 time = getMilliSeconds();
 		std::vector<iTimerHandle *> timerHandles(_timerHandles);
 		for (auto handle : timerHandles)
 		{
-			handle->handle(time);
+			handle->handle(_currentTime);
 		}
 	}
 

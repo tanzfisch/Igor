@@ -32,6 +32,7 @@
 #include <igor/os/iTimerHandle.h>
 
 #include <iaux/system/iaSingleton.h>
+#include <iaux/system/iaTime.h>
 using namespace IgorAux;
 
 #include <vector>
@@ -51,39 +52,21 @@ namespace Igor
 		friend class iaSingleton<iTimer>;
 
 	public:
-		/*! Absolute time in milliseconds since application start.
-
-        \returns time in milliseconds
+		/*! \returns time since application start
         */
-		float64 getApplicationTime() const;
+		iaTime getApplicationTime() const;
 
-		/*! Absolute time in ms at last handle call (aka current frame time)
-
-        This is basically the time from program start to last handle call (right after last render frame)
+		/*! \returns time at beginning of current frame
         */
-		float64 getMilliSeconds() const;
+		iaTime getFrameTime() const;
 
-		/*! Absolute time in s at last handle call (aka current frame time)
-
-        This is basically the time from program start to last handle call (right after last render frame)
+		/*! \returns delta time since last frame
         */
-		float64 getSeconds() const;
+		iaTime getFrameTimeDelta() const;
 
-		/*! delta since last handle call in ms
-
-        Basically the delta between the two last render frames.
+		/*! \returns frame rate based only on one frame's time delta
         */
-		float64 getMilliSecondsDelta() const;
-
-		/*! delta since last handle call in s
-
-        Basically the delta between the two last render frames.
-        */
-		float64 getSecondsDelta() const;
-
-		/*! Returns handle frame rate. It's equal to the render framerate.
-        */
-		float32 getFPS() const;
+		float64 getFPS() const;
 
 		/*! \returns todays day
 		*/
@@ -105,19 +88,19 @@ namespace Igor
 	private:
 		/*! time delta between last and current frame (in miliseconds)
 		*/
-		float64 _timeDelta = 0;
+		iaTime _timeDelta;
 
 		/*! time since timer was initialized (in miliseconds)
 		*/
-		float64 _startTime = 0;
+		iaTime _startTime;
 
 		/*! time meshured current frame (in miliseconds)
 		*/
-		float64 _currentTime = 0;
+		iaTime _currentTime;
 
 		/*! time meshured last frame (in miliseconds)
 		*/
-		float64 _lastTime = 0;
+		iaTime _lastTime;
 
 		/*! registered timer handles
 

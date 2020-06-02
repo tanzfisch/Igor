@@ -73,7 +73,7 @@ namespace Igor
     void iProfilerVisualizer::init()
     {
         initMaterials();
-        _seconds = iTimer::getInstance().getSeconds();
+        _time = iTimer::getInstance().getFrameTime();
     }
 
     void iProfilerVisualizer::deinit()
@@ -143,9 +143,9 @@ namespace Igor
             iRenderer::getInstance().setFont(font);
             iRenderer::getInstance().setFontSize(15.0f);
 
-            if (iTimer::getInstance().getSeconds() > _seconds + 0.25f)
+            if (iTimer::getInstance().getFrameTime() > _time + iaTime::fromSeconds(0.25))
             {
-                _seconds = iTimer::getInstance().getSeconds();
+                _time = iTimer::getInstance().getFrameTime();
                 _lastFPS = iTimer::getInstance().getFPS();
 
                 if (_renderStatisticsMode >= iProfilerVerbosity::FPSMetricsAndTasks)
@@ -294,7 +294,7 @@ namespace Igor
                 for (auto section : sections)
                 {
                     uint32 currentIndex = 0;
-                    const float64 *values = section.second.getValues();
+                    const iaTime *values = section.second.getValues();
                     uint64 currentFrame = frame % iProfilerSection::BUFFER_SIZE;
                     float64 yPos = totalHeight - section.second.getGroup() * groupTotalHeight;
 
@@ -307,14 +307,14 @@ namespace Igor
                     iRenderer::getInstance().setMaterial(_materialSolid);
 
                     currentIndex = static_cast<uint32>(currentFrame);
-                    float64 lastValue = values[currentIndex] * scale;
-                    float64 value;
+                    iaTime lastValue = values[currentIndex] * scale;
+                    iaTime value;
 
                     for (int i = 1; i < iProfilerSection::BUFFER_SIZE - 1; ++i)
                     {
                         currentIndex = (currentFrame + i) % iProfilerSection::BUFFER_SIZE;
-                        value = (values[currentIndex]) * scale;
-                        iRenderer::getInstance().drawLine(static_cast<float32>((static_cast<float64>(i) * horizontalScale) + x), static_cast<float32>(yPos - lastValue), static_cast<float32>((static_cast<float64>(i + 1) * horizontalScale) + x), static_cast<float32>(yPos - value));
+                        value = values[currentIndex] * scale;
+                        iRenderer::getInstance().drawLine(static_cast<float32>((static_cast<float64>(i) * horizontalScale) + x), static_cast<float32>(yPos - lastValue.getMilliseconds()), static_cast<float32>((static_cast<float64>(i + 1) * horizontalScale) + x), static_cast<float32>(yPos - value.getMilliseconds()));
                         lastValue = value;
                     }
                 }

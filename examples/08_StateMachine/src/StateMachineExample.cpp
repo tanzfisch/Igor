@@ -15,33 +15,33 @@ using namespace Igor;
 using namespace IgorAux;
 
 StateMachineExample::StateMachineExample()
-{ 
-	init();
+{
+    init();
 }
 
 StateMachineExample::~StateMachineExample()
 {
-	deinit();
+    deinit();
 }
 
 void StateMachineExample::init()
 {
-	con_endl("--- State Machine Example --- ");
+    con_endl("--- State Machine Example --- ");
     con_endl("");
 
     // init some members
-    _menuEntries = std::vector<iaString>{ "Play", "Settings", "Help", "Credits", "Exit" };
-    
+    _menuEntries = std::vector<iaString>{"Play", "Settings", "Help", "Credits", "Exit"};
+
     // init essentials
     _view.setClearColor(iaColor4f(0.5f, 0.5f, 0.5f, 1.0f));
     _view.setOrthogonal(0, 1024, 768, 0);
     _view.registerRenderDelegate(RenderDelegate(this, &StateMachineExample::onRender));
 
-	_window.setTitle("State Machine Example");
-	_window.addView(&_view);
-	_window.setCentered();
-	_window.open();
-	_window.registerWindowCloseDelegate(WindowCloseDelegate(this, &StateMachineExample::onCloseWindow));
+    _window.setTitle("State Machine Example");
+    _window.addView(&_view);
+    _window.setCentered();
+    _window.open();
+    _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &StateMachineExample::onCloseWindow));
 
     // init state machine
     uint32 initState = _stateMachine.createState();
@@ -102,7 +102,7 @@ void StateMachineExample::init()
     _gameGateA = _stateMachine.createGate(_gameWinTransition);
     _gameGateB = _stateMachine.createGate(_gameWinTransition);
     _gameGateC = _stateMachine.createGate(_gameWinTransition);
-   
+
     iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(&_stateMachine, &iaStateMachine::handle));
     _view.registerRenderDelegate(RenderDelegate(&_stateMachine, &iaStateMachine::render));
 
@@ -145,8 +145,8 @@ void StateMachineExample::deinit()
     iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
     _materialWithTextureAndBlending = 0;
 
-	_window.close();
-	_window.removeView(&_view);
+    _window.close();
+    _window.removeView(&_view);
 
     _view.unregisterRenderDelegate(RenderDelegate(this, &StateMachineExample::onRender));
     _view.unregisterRenderDelegate(RenderDelegate(&_stateMachine, &iaStateMachine::render));
@@ -162,9 +162,9 @@ void StateMachineExample::onEnterLooseState()
 
 void StateMachineExample::onHandleLooseState()
 {
-    float64 currentTime = iTimer::getInstance().getApplicationTime();
+    iaTime currentTime = iTimer::getInstance().getApplicationTime();
 
-    if (currentTime > _time + 2 * __IGOR_SECOND__)
+    if (currentTime > _time + iaTime::fromMilliseconds(2))
     {
         _stateMachine.doTransition(_looseMenuTransition);
     }
@@ -177,7 +177,7 @@ void StateMachineExample::onEnterWinState()
 
     for (int i = 0; i < 5; ++i)
     {
-      _particleSystems[i].restart();
+        _particleSystems[i].restart();
     }
 }
 
@@ -187,9 +187,9 @@ void StateMachineExample::onLeaveWinState()
 
 void StateMachineExample::onHandleWinState()
 {
-    float64 currentTime = iTimer::getInstance().getApplicationTime();
+    iaTime currentTime = iTimer::getInstance().getApplicationTime();
 
-    if (currentTime > _time + 2 * __IGOR_SECOND__)
+    if (currentTime > _time + iaTime::fromSeconds(2))
     {
         _stateMachine.doTransition(_winMenuTransition);
     }
@@ -206,7 +206,7 @@ void StateMachineExample::onRenderWinState()
     modelMatrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
     iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-    iRenderer::getInstance().setColor(iaColor4f(1,0,0,1));
+    iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
 
     iRenderer::getInstance().bindTexture(_particleTexture, 0);
     iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
@@ -216,7 +216,7 @@ void StateMachineExample::onRenderWinState()
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 0, 1));
     iRenderer::getInstance().drawParticles(_window.getClientWidth() * 0.7, _window.getClientHeight() * 0.4, 0, _particleSystems[2].getParticles(), _particleSystems[2].getParticleCount());
     iRenderer::getInstance().setColor(iaColor4f(1, 0, 1, 1));
-    iRenderer::getInstance().drawParticles(_window.getClientWidth() * 0.6, _window.getClientHeight() * 0.55, 0, _particleSystems[3].getParticles(), _particleSystems[3].getParticleCount()); 
+    iRenderer::getInstance().drawParticles(_window.getClientWidth() * 0.6, _window.getClientHeight() * 0.55, 0, _particleSystems[3].getParticles(), _particleSystems[3].getParticleCount());
     iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
     iRenderer::getInstance().drawParticles(_window.getClientWidth() * 0.45, _window.getClientHeight() * 0.6, 0, _particleSystems[4].getParticles(), _particleSystems[4].getParticleCount());
 }
@@ -283,9 +283,9 @@ void StateMachineExample::onLeaveGameState()
 
 void StateMachineExample::onHandleGameState()
 {
-    float64 currentTime = iTimer::getInstance().getApplicationTime();
+    iaTime currentTime = iTimer::getInstance().getApplicationTime();
 
-    if (currentTime > _time + 5 * __IGOR_SECOND__)
+    if (currentTime > _time + iaTime::fromSeconds(5))
     {
         _stateMachine.doTransition(_gameLooseTransition);
     }
@@ -325,19 +325,19 @@ void StateMachineExample::onEnterInitState()
 
 void StateMachineExample::onHandleInitState()
 {
-    float64 currentTime = iTimer::getInstance().getApplicationTime();
+    iaTime currentTime = iTimer::getInstance().getApplicationTime();
 
-    if (currentTime > _time + 1 * __IGOR_SECOND__)
+    if (currentTime > _time + iaTime::fromSeconds(1))
     {
         _backgroundText = "2";
     }
 
-    if (currentTime > _time + 2 * __IGOR_SECOND__)
+    if (currentTime > _time + iaTime::fromSeconds(2))
     {
         _backgroundText = "1";
     }
 
-    if (currentTime > _time + 3 * __IGOR_SECOND__)
+    if (currentTime > _time + iaTime::fromSeconds(3))
     {
         _stateMachine.doTransition(_initMenuTransition);
     }
@@ -407,7 +407,7 @@ void StateMachineExample::onLeaveMenuState()
 }
 
 void StateMachineExample::onHandleMenuState()
-{    
+{
 }
 
 void StateMachineExample::onRenderMenuState()
@@ -464,11 +464,11 @@ void StateMachineExample::onEnterExitState()
 
 void StateMachineExample::run()
 {
-	iApplication::getInstance().run();
+    iApplication::getInstance().run();
 }
 
 void StateMachineExample::onCloseWindow()
 {
-	con_endl("windows was closed");
-	iApplication::getInstance().stop();
+    con_endl("windows was closed");
+    iApplication::getInstance().stop();
 }

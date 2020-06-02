@@ -25,12 +25,12 @@ namespace Igor
 
     void iProfilerSection::beginSection()
     {
-        _beginTime = iTimer::getInstance().getApplicationTime();
+        _beginTime = iaTime::now();
     }
 
     void iProfilerSection::endSection()
     {
-        _values[_currentFrame] += (iTimer::getInstance().getApplicationTime() - _beginTime);
+        _values[_currentFrame] += iaTime::now() - _beginTime;
     }
 
     const iaString &iProfilerSection::getName()
@@ -49,7 +49,7 @@ namespace Igor
         _values[_currentFrame] = 0;
     }
 
-    const float64 *iProfilerSection::getValues() const
+    const iaTime *iProfilerSection::getValues() const
     {
         return _values;
     }

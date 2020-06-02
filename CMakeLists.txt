@@ -51,8 +51,7 @@ elseif(MSVC_VERSION GREATER_EQUAL "1920") # which ever version supports c++17
                                           # filesystem
   message("using Visual Studio C++")
   add_compile_options(
-    "/std:c++17" "/MP" "/W2" "$<$<CONFIG:RELEASE>:/MD NDEBUG>"
-    "$<$<CONFIG:DEBUG>:/MDd /ZI DEBUG>")
+    "/std:c++17" "/MP" "/W2")
   add_definitions(-D_UNICODE -DUNICODE -DNOMINMAX -D_NEWTON_USE_DOUBLE)
   set(COMPILER "MSVCXX")
 elseif()
@@ -390,7 +389,8 @@ foreach(
   10_LSystem
   12_CharacterController
   13_SpriteAnimation
-  14_Evaluation)
+  14_Evaluation
+  99_Ascent)
   message(${EXAMPLE})
   set(EXAMPLE_HEADERS_DIR "${CMAKE_SOURCE_DIR}/examples/${EXAMPLE}/src/")
   file(

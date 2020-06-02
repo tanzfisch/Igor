@@ -1,25 +1,25 @@
 #include "Turret.h"
 
-#include <iNodeManager.h>
-#include <iNodeTransform.h>
-#include <iNodeModel.h>
-#include <iModel.h>
-#include <iScene.h>
-#include <iPhysics.h>
-#include <iTimer.h>
-#include <iEntityManager.h>
-#include <iVoxelTerrain.h>
-#include <iNodeVisitorSearchName.h>
+#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/graphics/scene/nodes/iNodeTransform.h>
+#include <igor/graphics/scene/nodes/iNodeModel.h>
+#include <igor/resources/model/iModel.h>
+#include <igor/graphics/scene/iScene.h>
+#include <igor/physics/iPhysics.h>
+#include <igor/os/iTimer.h>
+#include <igor/entities/iEntityManager.h>
+#include <igor/graphics/terrain/iVoxelTerrain.h>
+#include <igor/graphics/scene/traversal/iNodeVisitorSearchName.h>
 using namespace Igor;
 
-#include <iaString.h>
-#include <iaConvert.h>
+#include <iaux/data/iaString.h>
+#include <iaux/data/iaConvert.h>
 using namespace IgorAux;
 
 #include "Bullet.h"
 #include "Granade.h"
 
-Turret::Turret(iScene* scene, iNodeTransform* parent, iVoxelTerrain* voxelTerrain, Fraction fraction, uint64 playerID)
+Turret::Turret(iScene *scene, iNodeTransform *parent, iVoxelTerrain *voxelTerrain, Fraction fraction, uint64 playerID)
     : GameObject(fraction, GameObjectType::None)
 {
     _playerID = playerID;
@@ -31,7 +31,7 @@ Turret::Turret(iScene* scene, iNodeTransform* parent, iVoxelTerrain* voxelTerrai
     setDamage(10.0);
     setShieldDamage(10.0);
 
-    iNodeModel* turret = iNodeManager::getInstance().createNode<iNodeModel>();
+    iNodeModel *turret = iNodeManager::getInstance().createNode<iNodeModel>();
     _turretNodeID = turret->getID();
     turret->setModel("turret.ompf", iResourceCacheMode::Cache, nullptr);
     turret->registerModelReadyDelegate(iModelReadyDelegate(this, &Turret::onModelReady));
@@ -39,14 +39,14 @@ Turret::Turret(iScene* scene, iNodeTransform* parent, iVoxelTerrain* voxelTerrai
     _parentNodeID = parent->getID();
     parent->insertNode(turret);
 
-    _time = iTimer::getInstance().getApplicationTime();
+    _time = iTimer::getInstance().getFrameTime();
 }
 
 void Turret::onModelReady(uint64 modelNodeID)
 {
     con_assert(modelNodeID == _turretNodeID, "impossible");
 
-    iNodeModel* turret = static_cast<iNodeModel*>(iNodeManager::getInstance().getNode(_turretNodeID));
+    iNodeModel *turret = static_cast<iNodeModel *>(iNodeManager::getInstance().getNode(_turretNodeID));
     if (turret != nullptr)
     {
         iNodeVisitorSearchName searchName;
@@ -93,7 +93,7 @@ void Turret::hitBy(uint64 entityID)
 iaVector3d Turret::getCurrentPos()
 {
     iaVector3d result;
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_parentNodeID));
+    iNodeTransform *transformNode = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_parentNodeID));
     if (transformNode != nullptr)
     {
         iaMatrixd matrix;
@@ -112,7 +112,7 @@ void Turret::handle()
         bool fired = false;
         bool canFire = false;
 
-        GameObject* identifiedTarget = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(_playerID));
+        GameObject *identifiedTarget = static_cast<GameObject *>(iEntityManager::getInstance().getEntity(_playerID));
 
         if (identifiedTarget != nullptr)
         {
@@ -124,7 +124,7 @@ void Turret::handle()
             if (distance > 0 &&
                 distance < detectionDistance)
             {
-                iNodeTransform* platform = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_platformID));
+                iNodeTransform *platform = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_platformID));
                 if (platform != nullptr)
                 {
                     iaMatrixd world;
@@ -142,15 +142,15 @@ void Turret::handle()
                     iaVector3d upVector(0, 1, 0);
                     upVector = world * upVector;
 
-                    iNodeTransform* headingNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_headingID));
-                    iNodeTransform* pitchNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_pitchID));
+                    iNodeTransform *headingNode = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_headingID));
+                    iNodeTransform *pitchNode = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_pitchID));
 
                     float32 heading = localdir.angleXZ();
                     headingNode->identity();
 
                     headingNode->rotate(heading - (M_PI * 0.5f), iaAxis::Y);
 
-                    float32 pitch = (M_PI * 0.5f) - localdir.angle(iaVector3d(0, 1, 0));
+                    float32 pitch = (M_PI * 0.5f) - localdir.angle(iaVector3d(0.0, 1.0, 0.0));
                     if (pitch > 0)
                     {
                         pitchNode->identity();
@@ -160,11 +160,15 @@ void Turret::handle()
 
                     if (canFire &&
                         distance < fireDistance &&
-                        _time + 1000 < iTimer::getInstance().getApplicationTime())
+                        _time + iaTime::fromSeconds(1) < iTimer::getInstance().getFrameTime())
                     {
                         // check line of sight
-                        iaVector3I outside, inside;						iaVector3I center = getSphere()._center.convert<int64>();						iaVector3I pos = targetPos.convert<int64>();
-                        if (_voxelTerrain->castRay(center, pos, outside, inside))                        {
+                        iaVector3I outside, inside;
+                        iaVector3I center = getSphere()._center.convert<int64>();
+                        iaVector3I pos = targetPos.convert<int64>();
+
+                        if (_voxelTerrain->castRay(center, pos, outside, inside))
+                        {
                             iaMatrixd matrixOrientation;
                             matrixOrientation._depth = dir;
                             matrixOrientation._depth.negate();
@@ -179,7 +183,7 @@ void Turret::handle()
                             matrixOrientation._pos = worldPos;
                             matrixOrientation._pos -= matrixOrientation._depth * 2.0;
 
-                            Bullet* bullet = new Bullet(_scene, iaVector3d(), matrixOrientation, getFraction());
+                            Bullet *bullet = new Bullet(_scene, iaVector3d(), matrixOrientation, getFraction());
                             _time = iTimer::getInstance().getApplicationTime();
 
                             fired = true;

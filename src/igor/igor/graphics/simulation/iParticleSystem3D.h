@@ -37,6 +37,7 @@
 #include <iaux/math/iaVector2.h>
 #include <iaux/data/iaColor4.h>
 #include <iaux/math/iaMatrix.h>
+#include <iaux/system/iaTime.h>
 #include <iaux/math/iaRandomNumberGenerator.h>
 using namespace IgorAux;
 
@@ -592,16 +593,21 @@ namespace Igor
         */
         float32 _airDrag = 1.0;
 
+        /*! angular velocity of octave 1
+        */
         float32 _octave1Rotation = 0.01f;
+
+        /*! angular velocity of octave 2
+        */
         float32 _octave2Rotation = -0.01f;
 
         /*! time when the particle system was started last time
         */
-        float64 _startTime = 0.0;
+        iaTime _startTime;
 
         /*! current time in a simulation rate grid
         */
-        float64 _playbackTime = 0.0;
+        iaTime _playbackTime;
 
         /*! vortex to particle rate
 

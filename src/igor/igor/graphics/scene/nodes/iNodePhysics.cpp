@@ -426,17 +426,19 @@ namespace Igor
         if (nextTransformNode != nullptr &&
             nextTransformNode->getType() == iNodeType::iNodeTransform)
         {
-            _bodyID = initPhysics();
-
-            if (_bodyID != iPhysicsBody::INVALID_PHYSICSBODY_ID)
+            if (!isInitialized())
             {
-                iPhysicsBody *body = iPhysics::getInstance().getBody(_bodyID);
-                iPhysics::getInstance().bindTransformNode(body, nextTransformNode, true);
-            }
-            else
-            {
-                // physics is not ready yet. try again
-                return false;
+                _bodyID = initPhysics();
+                if (_bodyID != iPhysicsBody::INVALID_PHYSICSBODY_ID)
+                {
+                    iPhysicsBody *body = iPhysics::getInstance().getBody(_bodyID);
+                    iPhysics::getInstance().bindTransformNode(body, nextTransformNode, true);
+                }
+                else
+                {
+                    // physics is not ready yet. try again
+                    return false;
+                }
             }
         }
         else

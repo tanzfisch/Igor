@@ -1,31 +1,31 @@
 #include "Bullet.h"
 
-#include <iNodeManager.h>
-#include <iNodeTransform.h>
-#include <iNodePhysics.h>
-#include <iNodeModel.h>
-#include <iModel.h>
-#include <iScene.h>
-#include <iPhysics.h>
-#include <iPhysicsBody.h>
-#include <iPhysicsCollision.h>
-#include <iNodeEmitter.h>
-#include <iNodeParticleSystem.h>
-#include <iMaterialResourceFactory.h>
-#include <iEntityManager.h>
+#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/graphics/scene/nodes/iNodeTransform.h>
+#include <igor/graphics/scene/nodes/iNodePhysics.h>
+#include <igor/graphics/scene/nodes/iNodeModel.h>
+#include <igor/resources/model/iModel.h>
+#include <igor/graphics/scene/iScene.h>
+#include <igor/physics/iPhysics.h>
+#include <igor/physics/iPhysicsBody.h>
+#include <igor/physics/iPhysicsCollision.h>
+#include <igor/graphics/scene/nodes/iNodeEmitter.h>
+#include <igor/graphics/scene/nodes/iNodeParticleSystem.h>
+#include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/entities/iEntityManager.h>
 using namespace Igor;
 
-#include <iaString.h>
+#include <iaux/data/iaString.h>
 using namespace IgorAux;
 
 #include "BulletHit.h"
-#include "Ascent.h"
+#include "../Ascent.h"
 
-Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matrix, Fraction fraction)
+Bullet::Bullet(iScene *scene, const iaVector3d &addForce, const iaMatrixd &matrix, Fraction fraction)
 	: GameObject(fraction, GameObjectType::Weapon)
 {
 	_scene = scene;
-    
+
 	_force = matrix._depth;
 	_force.negate();
 	_force.normalize();
@@ -37,7 +37,7 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 	setDamage(50.0);
 	setShieldDamage(20.0);
 
-	iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
+	iNodeTransform *transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
 	transformNode->setMatrix(matrix);
 	_transformNodeID = transformNode->getID();
 
@@ -58,7 +58,7 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 	iaGradientf emission;
 	emission.setValue(0.0, 2);
 
-	iNodeParticleSystem* particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
+	iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
 	_particleSystemNodeID = particleSystem->getID();
 	particleSystem->setLoop(true);
 	particleSystem->setMaterial(iMaterialResourceFactory::getInstance().getMaterialID("PMat"));
@@ -68,26 +68,26 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 	particleSystem->setStartVisibleTimeGradient(visibility);
 	particleSystem->setStartSizeGradient(size);
 	particleSystem->setEmissionGradient(emission);
-    particleSystem->setPeriodTime(1.0);
+	particleSystem->setPeriodTime(1.0);
 	particleSystem->setAirDrag(0.0);
 	particleSystem->start();
 
-	iNodeEmitter* emitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
+	iNodeEmitter *emitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
 	emitter->setEmitterType(iEmitterType::Disc);
 	emitter->setSize(0.0);
 	particleSystem->setEmitter(emitter->getID());
 
-	iNodeTransform* emitterTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
+	iNodeTransform *emitterTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	emitterTransform->rotate(-0.5 * M_PI, iaAxis::X);
 
 	iaMatrixd offset;
-	iNodePhysics* physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();
+	iNodePhysics *physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();
 	physicsNode->addSphere(0.1, offset);
 	physicsNode->finalizeCollision();
 	physicsNode->setMass(0.001);
 	physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Bullet::onApplyForceAndTorque));
 	physicsNode->setMaterial(Ascent::_bulletMaterialID);
-    physicsNode->setUserData(getID());
+	physicsNode->setUserData(getID());
 
 	_scene->getRoot()->insertNode(particleSystem);
 
@@ -106,7 +106,7 @@ Bullet::~Bullet()
 void Bullet::hitBy(uint64 entityID)
 {
 	bool killit = false;
-	GameObject* gameObject = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(entityID));
+	GameObject *gameObject = static_cast<GameObject *>(iEntityManager::getInstance().getEntity(entityID));
 	if (gameObject != nullptr)
 	{
 		if (gameObject->getFraction() != getFraction())
@@ -121,12 +121,12 @@ void Bullet::hitBy(uint64 entityID)
 
 	if (killit)
 	{
-		iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformNodeID));
+		iNodeTransform *transformNode = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_transformNodeID));
 		if (transformNode != nullptr)
 		{
 			iaMatrixd matrix;
 			transformNode->getMatrix(matrix);
-			BulletHit* bulletHit = new BulletHit(_scene, matrix);
+			BulletHit *bulletHit = new BulletHit(_scene, matrix);
 		}
 
 		kill();
@@ -136,7 +136,7 @@ void Bullet::hitBy(uint64 entityID)
 iaVector3d Bullet::getCurrentPos()
 {
 	iaVector3d result;
-	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_transformNodeID));
+	iNodeTransform *transformNode = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_transformNodeID));
 	if (transformNode != nullptr)
 	{
 		iaMatrixd matrix;
@@ -151,21 +151,20 @@ void Bullet::handle()
 	float32 health = getHealth() - 0.1;
 	if (health <= 0.0)
 	{
-        health = 0;
-        kill();
+		health = 0;
+		kill();
 	}
-    setHealth(health);
+	setHealth(health);
 
-    // making sure bullets don't leave the scene
-    const iaVector3d center(10000,10000,10000);
-    if (getCurrentPos().distance(center) > 5000)
-    {
-        kill();
-    }
-
+	// making sure bullets don't leave the scene
+	const iaVector3d center(10000, 10000, 10000);
+	if (getCurrentPos().distance(center) > 5000)
+	{
+		kill();
+	}
 }
 
-void Bullet::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep)
+void Bullet::onApplyForceAndTorque(iPhysicsBody *body, float32 timestep)
 {
 	body->setForce(_force);
 }

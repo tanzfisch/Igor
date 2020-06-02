@@ -7,60 +7,31 @@
 
 namespace Igor
 {
-
-        iStopWatch::iStopWatch()
-        {
-        }
-
         void iStopWatch::start()
         {
-                _startTime = iTimer::getInstance().getApplicationTime();
+                _stopTime = _startTime = iaTime::now();
                 _running = true;
         }
 
         void iStopWatch::stop()
         {
-                _stopTime = iTimer::getInstance().getApplicationTime();
+                _stopTime = iaTime::now();
                 _running = false;
         }
 
-        float64 iStopWatch::getMilliSeconds()
+        iaTime iStopWatch::getTime() const
         {
-#ifdef __IGOR_DEBUG__
-                _lastMeasuredDelta = _stopTime - _startTime;
-#endif
-
-                return _stopTime - _startTime;
+                if (_running)
+                {
+                        return iaTime::now() - _startTime;
+                }
+                else
+                {
+                        return _stopTime - _startTime;
+                }
         }
 
-        float64 iStopWatch::getSeconds()
-        {
-#ifdef __IGOR_DEBUG__
-                _lastMeasuredDelta = _stopTime - _startTime;
-#endif
-
-                return (_stopTime - _startTime) / __IGOR_SECOND__;
-        }
-
-        float64 iStopWatch::getCurrentMilliSeconds()
-        {
-                float64 stopTime = iTimer::getInstance().getApplicationTime();
-#ifdef __IGOR_DEBUG__
-                _lastMeasuredDelta = stopTime - _startTime;
-#endif
-                return stopTime - _startTime;
-        }
-
-        float64 iStopWatch::getCurrentSeconds()
-        {
-                float64 stopTime = iTimer::getInstance().getApplicationTime();
-#ifdef __IGOR_DEBUG__
-                _lastMeasuredDelta = stopTime - _startTime;
-#endif
-                return (stopTime - _startTime) / __IGOR_SECOND__;
-        }
-
-        bool iStopWatch::isRunning()
+        bool iStopWatch::isRunning() const
         {
                 return _running;
         }

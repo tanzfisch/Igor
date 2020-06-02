@@ -3,8 +3,11 @@
 
 #include "GameObject.h"
 
-#include <iNode.h>
-#include <iaMatrix.h>
+#include <igor/graphics/scene/nodes/iNode.h>
+using namespace Igor;
+
+#include <iaux/math/iaMatrix.h>
+#include <iaux/system/iaTime.h>
 using namespace IgorAux;
 
 namespace Igor
@@ -15,14 +18,13 @@ namespace Igor
     class iPhysicsJoint;
     class iView;
     class iWindow;
-}
+} // namespace Igor
 
 class Player : public GameObject
 {
 
 public:
-
-    Player(iScene* scene, iView* view, const iaMatrixd& matrix);
+    Player(iScene *scene, iView *view, const iaMatrixd &matrix);
     virtual ~Player();
 
     void startUp();
@@ -48,18 +50,17 @@ public:
     void startFastTurn();
     void stopFastTurn();
 
-    void shootPrimaryWeapon(iView& view, const iaVector3d& screenCoordinates);
-    void shootSecondaryWeapon(iView& view, const iaVector3d& screenCoordinates);
+    void shootPrimaryWeapon(iView &view, const iaVector3d &screenCoordinates);
+    void shootSecondaryWeapon(iView &view, const iaVector3d &screenCoordinates);
     iaVector3I getGunPointPosition();
 
     void rotate(float32 heading, float32 pitch);
 
-    void drawReticle(const iWindow& window);
+    void drawReticle(const iWindow &window);
 
     uint32 getLODTriggerID();
 
 private:
-
     bool _up = false;
     bool _forward = false;
     bool _backward = false;
@@ -70,21 +71,21 @@ private:
     bool _rollRight = false;
     bool _fastTurn = false;
 
-	uint32 _physicsNodeID = iNode::INVALID_NODE_ID;
+    uint32 _physicsNodeID = iNode::INVALID_NODE_ID;
     uint32 _lodTriggerID = iNode::INVALID_NODE_ID;
     uint32 _transformNodeID = iNode::INVALID_NODE_ID;
     uint32 _transformRecoilLeftGun = iNode::INVALID_NODE_ID;
     uint32 _transformRecoilRightGun = iNode::INVALID_NODE_ID;
-	uint32 _transformCamNodeID = iNode::INVALID_NODE_ID;
+    uint32 _transformCamNodeID = iNode::INVALID_NODE_ID;
     uint32 _cameraNodeID = iNode::INVALID_NODE_ID;
     uint32 _emitterRightGunNodeID = iNode::INVALID_NODE_ID;
     uint32 _emitterLeftGunNodeID = iNode::INVALID_NODE_ID;
 
-    float64 _primaryWeaponTime = 0;
+    iaTime _primaryWeaponTime;
 
     uint32 _materialSolid = 0;
 
-    iScene* _scene = nullptr;
+    iScene *_scene = nullptr;
 
     iaVector3d _force;
     iaVector3d _torque;
@@ -93,8 +94,7 @@ private:
     iaVector3d getCurrentPos();
     void hitBy(uint64 entityID);
 
-    void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep);
-
+    void onApplyForceAndTorque(iPhysicsBody *body, float32 timestep);
 };
 
 #endif

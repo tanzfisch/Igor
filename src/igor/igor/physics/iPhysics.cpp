@@ -454,7 +454,7 @@ namespace Igor
     {
         if (!_running)
         {
-            _lastTime = iTimer::getInstance().getSeconds();
+            _lastTime = iTimer::getInstance().getFrameTime();
             _running = true;
         }
     }
@@ -538,17 +538,17 @@ namespace Igor
         {
             handleQueues();
 
-            const float64 timeDelta = 1.0 / _simulationRate;
             const uint32 maxUpdateCount = 2;
+            const iaTime timeDelta = iaTime::fromSeconds(1.0 / _simulationRate);
 
             uint32 updateCount = 0;
-            float64 currentTime = iTimer::getInstance().getSeconds();
+            iaTime currentTime = iTimer::getInstance().getFrameTime();
 
             while ((_lastTime + timeDelta < currentTime) &&
                    (updateCount < maxUpdateCount))
             {
                 // "if you call another NewtonUpdateAsync before anothe one is still running the the secund will wait act as a NewtonUpdate wating fo rteh first updateAsyn To complete." Julio Jerez
-                NewtonUpdateAsync(static_cast<const NewtonWorld *>(_defaultWorld), timeDelta);
+                NewtonUpdateAsync(static_cast<const NewtonWorld *>(_defaultWorld), timeDelta.getSeconds());
                 _lastTime += timeDelta;
                 updateCount++;
             };

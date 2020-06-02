@@ -153,7 +153,7 @@ void Example2D::init()
 	_igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
 
 	// generate a random seed
-	_rand.setSeed(static_cast<uint32>(iTimer::getInstance().getApplicationTime()));
+	_rand.setSeed(static_cast<uint32>(iaTime::now().getMicrosenconds()));
 }
 
 void Example2D::deinit()

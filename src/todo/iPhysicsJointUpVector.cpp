@@ -4,12 +4,12 @@
 
 #include <iPhysicsJoint.h>
 
-#include <iPhysics.h>
+#include <igor/physics/iPhysics.h>
 
 namespace Igor
 {
 
-    iPhysicsJoint::iPhysicsJoint(void* joint, uint64 jointID)
+    iPhysicsJoint::iPhysicsJoint(void *joint, uint64 jointID)
     {
         _joint = joint;
         _jointID = jointID;
@@ -20,9 +20,9 @@ namespace Igor
         return _jointID;
     }
 
-    void* iPhysicsJoint::getJoint() const
+    void *iPhysicsJoint::getJoint() const
     {
         return _joint;
     }
 
-}
+} // namespace Igor

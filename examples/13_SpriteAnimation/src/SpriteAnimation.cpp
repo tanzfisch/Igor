@@ -67,7 +67,7 @@ void SpriteAnimation::init()
 	// add the view to the window
 	_window.addView(&_view);
 
-	// open the window after you added the view to prevent a warning message that there was no view defined. 
+	// open the window after you added the view to prevent a warning message that there was no view defined.
 	// but it is also allowed to add views after the window was already opened
 	_window.open();
 
@@ -105,9 +105,9 @@ void SpriteAnimation::init()
 	TileMapGenerator tileMapGenerator;
 	tileMapGenerator.setAtlas(_tiles);
 	tileMapGenerator.setMaterial(_materialTerrain);
-	iNodePtr terrainNodeGround = tileMapGenerator.generateFromRandom(iaVector2i(32,32), 0, 18);
+	iNodePtr terrainNodeGround = tileMapGenerator.generateFromRandom(iaVector2i(32, 32), 0, 18);
 	terrainNodeGround->setName("Ground");
-	iNodeTransform* terrainGroundTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
+	iNodeTransform *terrainGroundTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	terrainGroundTransform->translate(0, 0, 0);
 	terrainGroundTransform->insertNode(terrainNodeGround);
 	_scene->getRoot()->insertNode(terrainGroundTransform);
@@ -115,7 +115,7 @@ void SpriteAnimation::init()
 	// generate dressing and trees map
 	iNodePtr terrainNodeDressing = tileMapGenerator.generateFromTexture("SpriteAnimationTerrain.png");
 	terrainNodeDressing->setName("Dressing");
-	iNodeTransform* terrainDressingTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
+	iNodeTransform *terrainDressingTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	terrainDressingTransform->translate(0, 0, 0);
 	terrainDressingTransform->insertNode(terrainNodeDressing);
 	_scene->getRoot()->insertNode(terrainDressingTransform);
@@ -124,7 +124,7 @@ void SpriteAnimation::init()
 	_cameraTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	_cameraTransform->translate(0, 0, 30);
 	// anf of corse the camera
-	iNodeCamera* camera = iNodeManager::getInstance().createNode<iNodeCamera>();
+	iNodeCamera *camera = iNodeManager::getInstance().createNode<iNodeCamera>();
 	_cameraTransform->insertNode(camera);
 	_scene->getRoot()->insertNode(_cameraTransform);
 	_view.setCurrentCamera(camera->getID());
@@ -151,7 +151,7 @@ void SpriteAnimation::init()
 	_igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
 
 	// initialize animation timer
-	_animationTimer.setIntervall(300);
+	_animationTimer.setIntervall(iaTime::fromMilliseconds(200));
 	_animationTimer.registerTimerDelegate(iTimerTickDelegate(this, &SpriteAnimation::onAnimationTimerTick));
 	_animationTimer.start();
 
@@ -210,7 +210,7 @@ void SpriteAnimation::deinit()
 	_window.removeView(&_view);
 }
 
-void SpriteAnimation::onMouseMove(const iaVector2i& position)
+void SpriteAnimation::onMouseMove(const iaVector2i &position)
 {
 	// save mouse position for later
 	// TODO _lastMousePos.set(static_cast<float32>(position._x), static_cast<float32>(position._y));
@@ -377,7 +377,7 @@ void SpriteAnimation::onHandle()
 
 	_characterVelocity = velocity;
 	_characterPosition += _characterVelocity;
-	
+
 	_cameraTransform->setPosition(_characterPosition._x, _characterPosition._y, 30);
 
 	CharacterState oldCharacterState = _characterState;
@@ -504,5 +504,3 @@ void SpriteAnimation::drawLogo()
 
 	iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }
-
-

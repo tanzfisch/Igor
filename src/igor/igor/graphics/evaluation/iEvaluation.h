@@ -33,6 +33,7 @@
 
 #include <iaux/data/iaIDGenerator.h>
 #include <iaux/math/iaEasing.h>
+#include <iaux/system/iaTime.h>
 using namespace IgorAux;
 
 #include <vector>
@@ -56,31 +57,31 @@ namespace Igor
 
         \param start the start time for evaluation
         */
-        void setStart(float64 start);
+        void setStart(const iaTime &start);
 
         /*! \returns start time of evaluation
         */
-        float64 getStart() const;
+        const iaTime &getStart() const;
 
         /*! sets stop time of evaluation
 
         \param stop the stop time for evaluation
         */
-        void setStop(float64 stop);
+        void setStop(const iaTime &stop);
 
         /*! \returns stop time of evaluation
         */
-        float64 getStop() const;
+        const iaTime &getStop() const;
 
         /*! sets stop based on current start plus duration
 
         \param duration the duration to be set
         */
-        void setDuration(float64 duration);
+        void setDuration(const iaTime &duration);
 
         /*! \retuens duration
         */
-        float64 getDuration() const;
+        const iaTime &getDuration() const;
 
         /*! sets the interpolation function
 
@@ -157,11 +158,11 @@ namespace Igor
 
         /*! start time of evaluation
         */
-        float64 _start = 0.0;
+        iaTime _start;
 
         /*! stop time of evaluation
         */
-        float64 _stop = 0.0;
+        iaTime _stop;
 
         /*! amplitude of elastic easing function
         */
