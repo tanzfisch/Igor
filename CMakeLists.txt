@@ -39,7 +39,6 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     message("build type ${CMAKE_BUILD_TYPE}")
   endif()
   add_compile_options(-fpermissive -std=c++17)
-  # "$<$<CONFIG:RELEASE>:-O3>" "$<$<CONFIG:DEBUG>:-g>"
   add_definitions(-D_NEWTON_USE_DOUBLE -D_cplusplus=201703L)
   if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
     add_definitions(-DDEBUG)
@@ -50,8 +49,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 elseif(MSVC_VERSION GREATER_EQUAL "1920") # which ever version supports c++17
                                           # filesystem
   message("using Visual Studio C++")
-  add_compile_options(
-    "/std:c++17" "/MP" "/W2")
+  add_compile_options("/std:c++17" "/MP" "/W2")
   add_definitions(-D_UNICODE -DUNICODE -DNOMINMAX -D_NEWTON_USE_DOUBLE)
   set(COMPILER "MSVCXX")
 elseif()

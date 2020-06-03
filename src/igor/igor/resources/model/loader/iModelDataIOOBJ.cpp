@@ -116,7 +116,7 @@ namespace Igor
 
 		if (result != nullptr)
 		{
-			con_info("loaded obj", "\"" << filename << "\"");
+			con_info("loaded obj \"" << filename << "\"");
 		}
 
 		return result;

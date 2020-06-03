@@ -125,7 +125,7 @@ namespace Igor
 			iaConsole::getInstance().printCake();
 		}
 
-		con_info("info", "current directory " << iaDirectory::getCurrentDirectory());
+		con_info("current directory \"" << iaDirectory::getCurrentDirectory() << "\"");
 	}
 
 	void startup()
@@ -199,7 +199,7 @@ namespace Igor
 		if (!configurationFilepath.isEmpty())
 		{
 			configReader.readConfiguration(configurationFilepath);
-			con_info("info", "load configuration " << configurationFilepath);
+			con_info("load configuration \"" << configurationFilepath << "\"");
 		}
 	}
 

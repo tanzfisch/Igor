@@ -100,7 +100,7 @@ namespace Igor
                 if (modelDataIO != nullptr)
                 {
                     modelDataIO->exportData(filename, node, saveMode);
-                    con_info("exported " << formatIdentifier, filename);
+                    con_info("exported " << formatIdentifier << " \"" << filename << "\"");
                     delete modelDataIO;
                 }
                 else
@@ -351,7 +351,7 @@ namespace Igor
                         {
                             if (!(*modelIter).second->getName().isEmpty())
                             {
-                                con_info("released model", "\"" << (*modelIter).second->getName() << "\"");
+                                con_info("released model \"" << (*modelIter).second->getName() << "\"");
                             }
                         }
 

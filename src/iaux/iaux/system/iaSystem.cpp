@@ -9,6 +9,10 @@
 #include <DbgHelp.h>
 #endif
 
+#ifdef __IGOR_LINUX__
+#include <execinfo.h>
+#endif
+
 namespace IgorAux
 {
 
@@ -17,6 +21,8 @@ namespace IgorAux
 	*/
 	void getCallStack(std::vector<iaString> &callStack)
 	{
+		callStack.clear();
+
 #ifdef __IGOR_WINDOWS__
 		void *stack[100];
 
@@ -35,6 +41,24 @@ namespace IgorAux
 		}
 
 		free(symbol);
+#endif
+
+#ifdef __IGOR_LINUX__
+		const int buffSize = 100;
+
+		void *buffer[buffSize];
+		int count = backtrace(buffer, buffSize);
+
+		char **strings = backtrace_symbols(buffer, count);
+		if (strings != nullptr && count > 2)
+		{
+			for (int i = 2; i < count; ++i)
+			{
+				callStack.push_back(iaString(strings[i]) + iaString('\n'));
+			}
+		}
+
+		free(strings);
 #endif
 	}
 

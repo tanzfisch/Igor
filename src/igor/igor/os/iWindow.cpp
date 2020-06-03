@@ -758,7 +758,7 @@ namespace Igor
             }
         }
 
-        void setDoubleClick(bool doubleClick) override 
+        void setDoubleClick(bool doubleClick) override
         {
             //TODO
         }
@@ -1257,7 +1257,7 @@ namespace Igor
             return false;
         }
 
-        con_endl("opening GL Context \"" << _impl->_title << "\" (" << _impl->_clientWidth << "x" << _impl->_clientHeight << ")" << (_impl->_fullscreen ? " FULLSCREEN" : ""));
+        con_info("open window \"" << _impl->_title << "\" (" << _impl->_clientWidth << "x" << _impl->_clientHeight << ")" << (_impl->_fullscreen ? " FULLSCREEN" : ""));
 
         if (_views.empty())
         {
@@ -1295,6 +1295,8 @@ namespace Igor
         _impl->close();
 
         iApplication::getInstance().removeWindow(this);
+
+        con_info("closed window \"" << _impl->_title << "\"");
     }
 
     void iWindow::getDesktopSize(int32 &width, int32 &height)

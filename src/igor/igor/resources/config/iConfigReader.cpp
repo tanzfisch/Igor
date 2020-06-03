@@ -54,7 +54,7 @@ namespace Igor
 
 				if (level == "Assert")
 				{
-					iaConsole::getInstance().setLogLevel(LogLevel::Assert);
+					iaConsole::getInstance().setLogLevel(LogLevel::Fatal);
 				}
 				else if (level == "Error")
 				{
@@ -75,6 +75,10 @@ namespace Igor
 				else if (level == "Debug")
 				{
 					iaConsole::getInstance().setLogLevel(LogLevel::Debug);
+				}
+				else if (level == "Trace")
+				{
+					iaConsole::getInstance().setLogLevel(LogLevel::Trace);
 				}
 			}
 		}
