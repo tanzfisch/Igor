@@ -55,24 +55,19 @@
 #define __IGOR_PATHSEPARATOR__ '/'
 #endif
 
-#define __IGOR_FILE__ (strrchr(__FILE__, __IGOR_PATHSEPARATOR__) ? strrchr(__FILE__, __IGOR_PATHSEPARATOR__) + 1 : __FILE__)
 #define __IGOR_LINE__ __LINE__
-#define __IGOR_FILE_LINE__ __IGOR_FILE__ << " (" << __IGOR_LINE__ << ")"
+#define __IGOR_FILE_LINE__ __FILE__ << ":" << __IGOR_LINE__
 
 #define __IGOR_STDCALL__ stdcall
 #define __IGOR_CDECL__ cdecl
 #define __IGOR_DEFAULTCALL__ __IGOR_CDECL__
 
-// Some Information arround __func__ __FUNCSIG__ and __FUNCTION__
-// http://stackoverflow.com/questions/4384765/whats-the-difference-between-pretty-function-function-func
-#ifdef __FUNCTION__
-#define __IGOR_FUNCTION__ __FUNCTION__ "(...)"
-#else
-#define __IGOR_FUNCTION__ "unknown(...)"
-#endif
-
 // configure windows environment
 #ifdef __IGOR_WINDOWS__
+
+// Some Information arround __func__ __FUNCSIG__ and __FUNCTION__
+// http://stackoverflow.com/questions/4384765/whats-the-difference-between-pretty-function-function-func
+#define __IGOR_FUNCTION__ __FUNCTION__ "(...)"
 
 #ifdef _DEBUG
 #define __IGOR_DEBUG__
@@ -104,6 +99,8 @@
 
 // configure linux environment
 #ifdef __IGOR_LINUX__
+
+#define __IGOR_FUNCTION__ __PRETTY_FUNCTION__
 
 #if defined(DEBUG) || defined(_DEBUG)
 #define __IGOR_DEBUG__

@@ -35,7 +35,7 @@ namespace Igor
             createRegularThread();
         }
 
-        con_info("created threads", numThreads << " regular threads");
+        con_info("created " << numThreads << " regular threads");
     }
 
     iTaskManager::~iTaskManager()
@@ -187,7 +187,7 @@ namespace Igor
             createRenderContextThread(window);
         }
 
-        con_info("created threads", numThreads << " render context threads");
+        con_info("created " << numThreads << " render context threads");
     }
 
     bool iTaskManager::createRenderContextThread(iWindow *window)

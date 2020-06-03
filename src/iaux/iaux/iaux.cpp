@@ -43,10 +43,7 @@ namespace IgorAux
 	void startup()
 	{
 		iaClock::resetClock();
-
 		iaConsole::getInstance().openLogfile();
-		con_info("iaux", "startup");
-
 		con_assert_sticky(1 == sizeof(int8), "sizeof(int8) != 1");
 		con_assert_sticky(2 == sizeof(int16), "sizeof(int16) != 2");
 		con_assert_sticky(4 == sizeof(int32), "sizeof(int32) != 4");
@@ -55,8 +52,6 @@ namespace IgorAux
 
 	void shutdown()
 	{
-		con_info("iaux", "shutdown");
-
 		iaConsole::getInstance().printStats();
 		iaConsole::getInstance().closeLogfile();
 		iaConsole::getInstance().resetStats();

@@ -113,7 +113,7 @@ namespace Igor
 
             if (loadSource(buffer, type))
             {
-                con_info("loaded " << ((type == iShaderObjectType::Vertex) ? "vertex" : "fragment") << " shader", file.getFullFileName());
+                con_info("loaded " << ((type == iShaderObjectType::Vertex) ? "vertex" : "fragment") << " shader \"" << file.getFullFileName() << "\"");
             }
             else
             {
