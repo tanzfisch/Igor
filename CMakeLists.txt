@@ -32,14 +32,32 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
+# Set a default build type if none was specified
+set(default_build_type "Release")
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
+  set(default_build_type "RelWithDebInfo")
+endif()
+
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+  message(
+    STATUS
+      "Setting build type to '${default_build_type}' as none was specified.")
+  set(CMAKE_BUILD_TYPE
+      "${default_build_type}"
+      CACHE STRING "Choose the type of build." FORCE)
+  # Set the possible values of build type for cmake-gui
+  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release"
+                                               "RelWithDebInfo")
+endif()
+
+if(${CMAKE_BUILD_TYPE} STREQUAL "RelWithDebInfo")
+  add_definitions(-DRELWITHDEBINFO)
+endif()
+
 # global compiler/linker settings
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   message("using GCC")
-  if(DEFINED CMAKE_BUILD_TYPE)
-    message("build type ${CMAKE_BUILD_TYPE}")
-  endif()
   add_compile_options(-fpermissive -std=c++17)
-  # "$<$<CONFIG:RELEASE>:-O3>" "$<$<CONFIG:DEBUG>:-g>"
   add_definitions(-D_NEWTON_USE_DOUBLE -D_cplusplus=201703L)
   if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
     add_definitions(-DDEBUG)
@@ -47,11 +65,11 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     add_definitions(-DNDEBUG)
   endif()
   set(COMPILER "GCC")
+
 elseif(MSVC_VERSION GREATER_EQUAL "1920") # which ever version supports c++17
                                           # filesystem
   message("using Visual Studio C++")
-  add_compile_options(
-    "/std:c++17" "/MP" "/W2")
+  add_compile_options("/std:c++17" "/MP" "/W2")
   add_definitions(-D_UNICODE -DUNICODE -DNOMINMAX -D_NEWTON_USE_DOUBLE)
   set(COMPILER "MSVCXX")
 elseif()
@@ -102,13 +120,17 @@ source_group_special("${GLEE_SOURCES}" ${GLEE_SRC_DIR} "\\3rd\\GLee\\")
 # setup newton build
 message(newton)
 set(TIME_TRACKER_HEADERS_DIR
-    "${CMAKE_CURRENT_SOURCE_DIR}/3rd/newton-dynamics/packages/thirdParty/timeTracker/")
+    "${CMAKE_CURRENT_SOURCE_DIR}/3rd/newton-dynamics/packages/thirdParty/timeTracker/"
+)
 set(NEWTON_CORE_HEADERS_DIR
-    "${CMAKE_CURRENT_SOURCE_DIR}/3rd/newton-dynamics/coreLibrary_300/source/core/")
+    "${CMAKE_CURRENT_SOURCE_DIR}/3rd/newton-dynamics/coreLibrary_300/source/core/"
+)
 set(NEWTON_PHYSICS_HEADERS_DIR
-    "${CMAKE_CURRENT_SOURCE_DIR}/3rd/newton-dynamics/coreLibrary_300/source/physics/")
+    "${CMAKE_CURRENT_SOURCE_DIR}/3rd/newton-dynamics/coreLibrary_300/source/physics/"
+)
 set(NEWTON_MESH_UTIL_HEADERS_DIR
-    "${CMAKE_CURRENT_SOURCE_DIR}/3rd/newton-dynamics/coreLibrary_300/source/meshUtil/")
+    "${CMAKE_CURRENT_SOURCE_DIR}/3rd/newton-dynamics/coreLibrary_300/source/meshUtil/"
+)
 set(NEWTON_HEADERS_DIR
     "${CMAKE_CURRENT_SOURCE_DIR}/3rd/newton-dynamics/coreLibrary_300/source/")
 
@@ -392,7 +414,8 @@ foreach(
   14_Evaluation
   99_Ascent)
   message(${EXAMPLE})
-  set(EXAMPLE_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/examples/${EXAMPLE}/src/")
+  set(EXAMPLE_HEADERS_DIR
+      "${CMAKE_CURRENT_SOURCE_DIR}/examples/${EXAMPLE}/src/")
   file(
     GLOB_RECURSE EXAMPLE_SOURCES
     RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
