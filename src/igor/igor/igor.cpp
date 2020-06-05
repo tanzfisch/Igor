@@ -32,9 +32,13 @@ using namespace IgorAux;
 
 #ifdef __IGOR_DEBUG__
 extern const iaString __IGOR_CONFIGURATION__ = "debug";
-#else  // __IGOR_DEBUG__
+#else
+#ifdef RELWITHDEBINFO
+extern const iaString __IGOR_CONFIGURATION__ = "release with debug info";
+#else
 extern const iaString __IGOR_CONFIGURATION__ = "release";
-#endif // __IGOR_DEBUG__
+#endif
+#endif
 
 #ifdef __IGOR_WINDOWS__
 #include <windows.h>
