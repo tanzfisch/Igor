@@ -9,9 +9,6 @@
                      /\____/                   ( (       ))
                      \_/__/  game engine        ) )     ((
                                                (_(       \)
-     (c) Copyright 2012-2020 by Martin Loga
-
-     contact: martinloga@protonmail.com  
  
  Get Igor
  --------
