@@ -1,6 +1,14 @@
 Changelog                           {#changelog}
 =========
 
+0.27.0
+------
+
+- sound support using OpenAL Soft (www.openal-soft.org/)
+  including audio listener and audio source nodes (see usage in sound example)
+- introduced ExampleBase class for prototyping
+- changed namespaces from Igor and IgorAux to igor and iaux
+
 0.26.0
 ------
 
