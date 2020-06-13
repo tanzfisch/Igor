@@ -14,9 +14,9 @@
 #include <igor/ui/user_controls/iUserControlAction.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     iDialogMenu::iDialogMenu()
@@ -86,4 +86,4 @@ namespace Igor
         addAction(iActionManager::getInstance().getAction(actionName));
     }
 
-} // namespace Igor
+} // namespace igor

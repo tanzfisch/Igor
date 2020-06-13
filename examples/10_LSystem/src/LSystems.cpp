@@ -5,36 +5,36 @@
 #include "LSystems.h"
 
 #include <igor/resources/material/iMaterial.h>
-#include <igor/graphics/scene/traversal/iNodeVisitorPrintTree.h>
+#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
 #include <igor/threading/iTaskManager.h>
-#include <igor/graphics/scene/nodes/iNodeCamera.h>
-#include <igor/graphics/scene/nodes/iNodeModel.h>
-#include <igor/graphics/scene/nodes/iNodeTransform.h>
+#include <igor/scene/nodes/iNodeCamera.h>
+#include <igor/scene/nodes/iNodeModel.h>
+#include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/graphics/iRenderer.h>
-#include <igor/os/iApplication.h>
-#include <igor/graphics/scene/iSceneFactory.h>
-#include <igor/graphics/scene/iScene.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
-#include <igor/os/iMouse.h>
-#include <igor/os/iKeyboard.h>
-#include <igor/os/iTimer.h>
+#include <igor/system/iApplication.h>
+#include <igor/scene/iSceneFactory.h>
+#include <igor/scene/iScene.h>
+#include <igor/scene/nodes/iNodeManager.h>
+#include <igor/system/iMouse.h>
+#include <igor/system/iKeyboard.h>
+#include <igor/system/iTimer.h>
 #include <igor/resources/texture/iTextureFont.h>
-#include <igor/graphics/scene/nodes/iNodeLight.h>
+#include <igor/scene/nodes/iNodeLight.h>
 #include <igor/resources/model/iModelResourceFactory.h>
 #include <igor/threading/tasks/iTaskFlushModels.h>
 #include <igor/threading/tasks/iTaskFlushTextures.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/profiler/iProfiler.h>
-#include <igor/graphics/scene/nodes/iNodeSwitch.h>
-#include <igor/graphics/scene/nodes/iNodeLODSwitch.h>
-#include <igor/graphics/scene/nodes/iNodeLODTrigger.h>
+#include <igor/scene/nodes/iNodeSwitch.h>
+#include <igor/scene/nodes/iNodeLODSwitch.h>
+#include <igor/scene/nodes/iNodeLODTrigger.h>
 #include <igor/data/iSkeleton.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
-using namespace Igor;
+using namespace igor;
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include "PlantMeshGenerator.h"
 
@@ -69,7 +69,7 @@ void LSystems::init()
 	_viewOrtho.setClearColor(false);
 	_viewOrtho.setClearDepth(false);
 	_viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
-	_viewOrtho.registerRenderDelegate(RenderDelegate(this, &LSystems::onRenderOrtho));
+	_viewOrtho.registerRenderDelegate(iDrawDelegate(this, &LSystems::onRenderOrtho));
 	_window.addView(&_viewOrtho);
 	_window.open();
 
@@ -166,7 +166,7 @@ void LSystems::deinit()
 	iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &LSystems::onMouseWheel));
 	_window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &LSystems::onWindowClosed));
 	_window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &LSystems::onWindowResized));
-	_viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &LSystems::onRenderOrtho));
+	_viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &LSystems::onRenderOrtho));
 
 	// deinit statistics
 	if (_font != nullptr)

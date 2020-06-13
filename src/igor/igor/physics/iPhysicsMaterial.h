@@ -32,9 +32,9 @@
 #include <igor/iDefines.h>
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     /*! physics material
@@ -81,6 +81,6 @@ namespace Igor
         virtual ~iPhysicsMaterial() = default;
     };
 
-} // namespace Igor
+} // namespace igor
 
 #endif

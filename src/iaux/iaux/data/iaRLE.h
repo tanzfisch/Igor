@@ -34,7 +34,7 @@
 
 #include <list>
 
-namespace IgorAux
+namespace iaux
 {
 
     /*! one bock in rle
@@ -115,6 +115,6 @@ namespace IgorAux
 
 #include <iaux/data/iaRLE.inl>
 
-} // namespace IgorAux
+} // namespace iaux
 
 #endif

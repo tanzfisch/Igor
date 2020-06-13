@@ -34,7 +34,7 @@
 
 #include <memory>
 
-namespace Igor
+namespace igor
 {
 
     class Igor_API iTaskLoadModel : public iTask
@@ -61,6 +61,6 @@ namespace Igor
         void run();
     };
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

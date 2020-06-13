@@ -2,20 +2,20 @@
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
-#include <igor/os/iMouse.h>
-#include <igor/os/iKeyboard.h>
+#include <igor/system/iMouse.h>
+#include <igor/system/iKeyboard.h>
 #include <igor/resources/texture/iAtlas.h>
 #include <igor/resources/texture/iTextureFont.h>
-#include <igor/os/iTimer.h>
-#include <igor/os/iApplication.h>
+#include <igor/system/iTimer.h>
+#include <igor/system/iApplication.h>
 #include <igor/graphics/iRenderer.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/profiler/iProfiler.h>
-using namespace Igor;
+using namespace igor;
 
 #include <sstream>
 
@@ -50,7 +50,7 @@ void Example2D::init()
 	// the client rectangle is the size of the actual rendering area
 	_view.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
 	// register callback to the rendering event of this view
-	_view.registerRenderDelegate(RenderDelegate(this, &Example2D::onRender));
+	_view.registerRenderDelegate(iDrawDelegate(this, &Example2D::onRender));
 	// add the view to the window
 	_window.addView(&_view);
 
@@ -143,7 +143,7 @@ void Example2D::init()
 	iTextureResourceFactory::getInstance().flush();
 
 	// register callback to application handle event. the application handle event will be called every frame just before the rendering
-	iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &Example2D::onHandle));
+	iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &Example2D::onHandle));
 	// register callback to esc key pressed event
 	iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownSpecificDelegate(this, &Example2D::onKeyESCPressed), iKeyCode::ESC);
 	// register callback to mosue moved event
@@ -159,12 +159,12 @@ void Example2D::init()
 void Example2D::deinit()
 {
 	// unregister some callbacks. otherwhise you will be reminded of callbacks that where not released
-	iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &Example2D::onHandle));
+	iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &Example2D::onHandle));
 	iMouse::getInstance().unregisterMouseMoveDelegate(iMouseMoveDelegate(this, &Example2D::onMouseMove));
 	iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownSpecificDelegate(this, &Example2D::onKeyESCPressed), iKeyCode::ESC);
 
 	// unregister the rendering callback. if not you will get a warning message because your shutdown was not complete
-	_view.unregisterRenderDelegate(RenderDelegate(this, &Example2D::onRender));
+	_view.unregisterRenderDelegate(iDrawDelegate(this, &Example2D::onRender));
 
 	// release materials (optional)
 	iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);

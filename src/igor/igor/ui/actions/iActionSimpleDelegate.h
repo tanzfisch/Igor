@@ -32,9 +32,9 @@
 #include <igor/ui/actions/iAction.h>
 
 #include <iaux/system/iaDelegate.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
 	/*! simple delegate with no parameters
@@ -71,6 +71,6 @@ namespace Igor
     */
 	typedef iActionSimpleDelegate *iActionDelegatePtr;
 
-} // namespace Igor
+} // namespace igor
 
 #endif

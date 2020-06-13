@@ -29,32 +29,32 @@
 #ifndef __EXAMPLE2D__
 #define __EXAMPLE2D__
 
-#include <igor/os/iWindow.h>
+#include <igor/system/iWindow.h>
 #include <igor/graphics/iView.h>
-#include <igor/graphics/simulation/iParticleSystem2D.h>
+#include <igor/simulation/iParticleSystem2D.h>
 #include <iaux/data/iaGradient.h>
-#include <igor/graphics/generation/iPerlinNoise.h>
+#include <igor/generation/iPerlinNoise.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/profiler/iProfilerVisualizer.h>
 #include <igor/resources/texture/iTexture.h>
-#include <igor/os/iTimerHandle.h>
-using namespace Igor;
+#include <igor/system/iTimerHandle.h>
+using namespace igor;
 
 #include <iaux/math/iaMatrix.h>
 #include <iaux/math/iaVector2.h>
 #include <iaux/math/iaBSpline.h>
 #include <iaux/math/iaRandomNumberGenerator.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <memory>
 
-namespace Igor
+namespace igor
 {
 	class iScene;
 	class iAtlas;
 	class iTextureFont;
 	class iNodeTransform;
-} // namespace Igor
+} // namespace igor
 
 /*! sprite animation 2d example
 */

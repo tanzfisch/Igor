@@ -4,7 +4,7 @@
 
 #include <igor/graphics/iRenderStateSet.h>
 
-namespace Igor
+namespace igor
 {
 
 	iRenderStateSet::iRenderStateSet()
@@ -58,4 +58,4 @@ namespace Igor
 		return iRenderStateValue::Invalid;
 	}
 
-}; // namespace Igor
+}; // namespace igor

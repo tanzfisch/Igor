@@ -5,9 +5,9 @@
 #include <igor/resources/model/loader/iModelDataIOOMPF.h>
 
 #include <igor/resources/model/iModel.h>
-#include <igor/graphics/scene/nodes/iNodeTransform.h>
-#include <igor/graphics/scene/nodes/iNodeModel.h>
-#include <igor/graphics/scene/nodes/iNodeMesh.h>
+#include <igor/scene/nodes/iNodeTransform.h>
+#include <igor/scene/nodes/iNodeModel.h>
+#include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
@@ -15,19 +15,19 @@
 #include <igor/graphics/iRenderStateSet.h>
 #include <igor/resources/material/iShader.h>
 #include <igor/resources/material/iTargetMaterial.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
-#include <igor/graphics/scene/nodes/iNodeEmitter.h>
-#include <igor/graphics/scene/nodes/iNodeParticleSystem.h>
+#include <igor/scene/nodes/iNodeManager.h>
+#include <igor/scene/nodes/iNodeEmitter.h>
+#include <igor/scene/nodes/iNodeParticleSystem.h>
 
 #include <iaux/data/iaConvert.h>
 #include <iaux/system/iaDirectory.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <ompf/ompf.h>
 
 #include <algorithm>
 
-namespace Igor
+namespace igor
 {
 	iModelDataIOOMPF::iModelDataIOOMPF()
 	{
@@ -856,4 +856,4 @@ namespace Igor
 		_materialsInUse.clear();
 	}
 
-} // namespace Igor
+} // namespace igor

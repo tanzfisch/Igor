@@ -1,17 +1,17 @@
 #include "PhysicsExample.h"
 
 #include <igor/igor.h>
-using namespace Igor;
+using namespace igor;
 
 int main()
 {
-	Igor::startup();
+	igor::startup();
 
 	PhysicsExample* example = new PhysicsExample();
 	example->run();
 	delete example;
 	
-	Igor::shutdown();
+	igor::shutdown();
 
 	return 0;
 }

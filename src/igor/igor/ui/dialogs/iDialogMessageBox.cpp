@@ -12,9 +12,9 @@
 #include <igor/ui/widgets/iWidgetSpacer.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
 	iWidgetType iDialogMessageBox::getWidgetType() const
@@ -129,4 +129,4 @@ namespace Igor
 	}
 	__IGOR_ENABLE_WARNING__(4100);
 
-} // namespace Igor
+} // namespace igor

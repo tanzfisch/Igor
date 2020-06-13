@@ -14,7 +14,7 @@
 #include <igor/ui/widgets/iWidgetSpacer.h>
 #include <igor/ui/widgets/iWidgetPicture.h>
 
-namespace Igor
+namespace igor
 {
     iWidgetMenu::iWidgetMenu(const iWidgetPtr parent)
         : iWidget(parent)
@@ -169,4 +169,4 @@ namespace Igor
         _menu->close();
     }
 
-} // namespace Igor
+} // namespace igor

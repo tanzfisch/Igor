@@ -31,17 +31,17 @@
 
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/material/iMaterial.h>
-#include <igor/graphics/scene/nodes/iNodeEmitter.h>
-using namespace Igor;
+#include <igor/scene/nodes/iNodeEmitter.h>
+using namespace igor;
 
 #include "Widget3D.h"
 
-namespace Igor
+namespace igor
 {
 	class iTargetMaterial;
 	class iNodeTransform;
 	class iNodeMesh;
-} // namespace Igor
+} // namespace igor
 
 class Widget3DEmitter : public Widget3D
 {

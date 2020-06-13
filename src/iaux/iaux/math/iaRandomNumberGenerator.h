@@ -31,7 +31,7 @@
 
 #include <iaux/iaDefines.h>
 
-namespace IgorAux
+namespace iaux
 {
 
 	/*! pseudo random number generator
@@ -103,6 +103,6 @@ namespace IgorAux
 	*/
 	typedef iaRandomNumberGenerator<uint32> iaRandomNumberGeneratoru;
 
-} // namespace IgorAux
+} // namespace iaux
 
 #endif

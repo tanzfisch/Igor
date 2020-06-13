@@ -1,17 +1,17 @@
 #include "Ascent.h"
 
 #include <igor/igor.h>
-using namespace Igor;
+using namespace igor;
 
 int main()
 {
-	Igor::startup();
+	igor::startup();
 
 	Ascent *ascent = new Ascent();
 	ascent->run();
 	delete ascent;
 
-	Igor::shutdown();
+	igor::shutdown();
 
 	return 0;
 }

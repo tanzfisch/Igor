@@ -3,15 +3,15 @@
 // see copyright notice in corresponding header file
 
 #include <igor/resources/model/iModel.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/scene/nodes/iNodeManager.h>
 
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <fstream>
 
-namespace Igor
+namespace igor
 {
 
     iModel::iModel(const iaString &name, iResourceCacheMode cacheMode, iModelDataInputParameter *parameter)
@@ -89,4 +89,4 @@ namespace Igor
         return _node;
     }
 
-} // namespace Igor
+} // namespace igor

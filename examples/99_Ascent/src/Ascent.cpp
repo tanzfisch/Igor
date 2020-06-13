@@ -8,45 +8,45 @@
 #include "gameObjects/DigEffect.h"
 
 #include <igor/resources/material/iMaterial.h>
-#include <igor/graphics/scene/traversal/iNodeVisitorPrintTree.h>
+#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
 #include <igor/threading/iTaskManager.h>
-#include <igor/graphics/scene/nodes/iNodeSkyBox.h>
-#include <igor/graphics/scene/nodes/iNodeLight.h>
-#include <igor/graphics/scene/nodes/iNodeCamera.h>
-#include <igor/graphics/scene/nodes/iNodeModel.h>
-#include <igor/graphics/scene/nodes/iNodeTransform.h>
+#include <igor/scene/nodes/iNodeSkyBox.h>
+#include <igor/scene/nodes/iNodeLight.h>
+#include <igor/scene/nodes/iNodeCamera.h>
+#include <igor/scene/nodes/iNodeModel.h>
+#include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/graphics/iRenderer.h>
-#include <igor/os/iApplication.h>
-#include <igor/graphics/scene/iSceneFactory.h>
-#include <igor/graphics/scene/iScene.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
-#include <igor/os/iMouse.h>
-#include <igor/os/iTimer.h>
+#include <igor/system/iApplication.h>
+#include <igor/scene/iSceneFactory.h>
+#include <igor/scene/iScene.h>
+#include <igor/scene/nodes/iNodeManager.h>
+#include <igor/system/iMouse.h>
+#include <igor/system/iTimer.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/threading/tasks/iTaskFlushModels.h>
 #include <igor/threading/tasks/iTaskFlushTextures.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/graphics/terrain/data/iVoxelData.h>
+#include <igor/terrain/data/iVoxelData.h>
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/resources/texture/iPixmap.h>
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/resources/material/iTargetMaterial.h>
-#include <igor/graphics/scene/nodes/iNodeLODTrigger.h>
-#include <igor/graphics/scene/nodes/iNodeLODSwitch.h>
+#include <igor/scene/nodes/iNodeLODTrigger.h>
+#include <igor/scene/nodes/iNodeLODSwitch.h>
 #include <igor/physics/iPhysics.h>
 #include <igor/physics/iPhysicsMaterialCombo.h>
 #include <igor/physics/iPhysicsBody.h>
 #include <igor/entities/iEntityManager.h>
-#include <igor/graphics/terrain/iVoxelTerrain.h>
-#include <igor/graphics/terrain/tasks/iTaskGenerateVoxels.h>
-#include <igor/graphics/terrain/tasks/iTaskPropsOnVoxels.h>
-using namespace Igor;
+#include <igor/terrain/iVoxelTerrain.h>
+#include <igor/terrain/tasks/iTaskGenerateVoxels.h>
+#include <igor/terrain/tasks/iTaskPropsOnVoxels.h>
+using namespace igor;
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/data/iaConvert.h>
 #include <iaux/math/iaVector3.h>
-using namespace IgorAux;
+using namespace iaux;
 
 uint64 Ascent::_terrainMaterialID = 0;
 uint64 Ascent::_entityMaterialID = 0;
@@ -74,12 +74,12 @@ void Ascent::registerHandles()
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &Ascent::onWindowResized));
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &Ascent::onWindowClosed));
 
-    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &Ascent::onHandle));
+    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &Ascent::onHandle));
 }
 
 void Ascent::unregisterHandles()
 {
-    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &Ascent::onHandle));
+    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &Ascent::onHandle));
 
     _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Ascent::onWindowResized));
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Ascent::onWindowClosed));
@@ -98,13 +98,13 @@ void Ascent::initViews()
     _view.setClearColor(iaColor4f(0.0f, 0.0f, 0.0f, 1.0f));
     _view.setPerspective(60);
     _view.setClipPlanes(0.1f, 50000.f);
-    _view.registerRenderDelegate(RenderDelegate(this, &Ascent::onRender));
+    _view.registerRenderDelegate(iDrawDelegate(this, &Ascent::onRender));
     _view.setName("3d");
 
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
     _viewOrtho.setClipPlanes(0.1, 100);
-    _viewOrtho.registerRenderDelegate(RenderDelegate(this, &Ascent::onRenderOrtho));
+    _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &Ascent::onRenderOrtho));
     _viewOrtho.setName("ortho");
 
     _window.setTitle("Ascent");
@@ -635,8 +635,8 @@ void Ascent::deinit()
     iTaskManager::getInstance().abortTask(_taskFlushModels);
     iTaskManager::getInstance().abortTask(_taskFlushTextures);
 
-    _view.unregisterRenderDelegate(RenderDelegate(this, &Ascent::onRender));
-    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &Ascent::onRenderOrtho));
+    _view.unregisterRenderDelegate(iDrawDelegate(this, &Ascent::onRender));
+    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &Ascent::onRenderOrtho));
 
     _window.close();
     _window.removeView(&_view);

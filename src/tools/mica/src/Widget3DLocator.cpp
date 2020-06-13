@@ -6,20 +6,20 @@
 
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/mesh/iMeshBuilderUtils.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
-#include <igor/graphics/scene/nodes/iNodeTransform.h>
-#include <igor/graphics/scene/nodes/iNodeMesh.h>
+#include <igor/scene/nodes/iNodeManager.h>
+#include <igor/scene/nodes/iNodeTransform.h>
+#include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/graphics/iRenderer.h>
 #include <igor/graphics/iView.h>
 #include <igor/resources/material/iTargetMaterial.h>
-#include <igor/graphics/scene/iScene.h>
-using namespace Igor;
+#include <igor/scene/iScene.h>
+using namespace igor;
 
 Widget3DLocator::Widget3DLocator(iWindow *window, iView *view, iScene *scene)
 	: Widget3D(window, view, scene)
 {
-	_view->registerRenderDelegate(RenderDelegate(this, &Widget3DLocator::update));
+	_view->registerRenderDelegate(iDrawDelegate(this, &Widget3DLocator::update));
 
 	_red = iMaterialResourceFactory::getInstance().createTargetMaterial();
 	_red->setEmissive(iaColor3f(0.6f, 0.0f, 0.0f));
@@ -55,7 +55,7 @@ Widget3DLocator::Widget3DLocator(iWindow *window, iView *view, iScene *scene)
 
 Widget3DLocator::~Widget3DLocator()
 {
-	_view->unregisterRenderDelegate(RenderDelegate(this, &Widget3DLocator::update));
+	_view->unregisterRenderDelegate(iDrawDelegate(this, &Widget3DLocator::update));
 
 	iNodeManager::getInstance().destroyNodeAsync(_rootTransform);
 

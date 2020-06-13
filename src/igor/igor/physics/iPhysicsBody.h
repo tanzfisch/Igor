@@ -30,18 +30,18 @@
 #define __iPHYSICSBODY__
 
 #include <igor/iDefines.h>
-#include <igor/graphics/scene/nodes/iNode.h>
+#include <igor/scene/nodes/iNode.h>
 #include <igor/physics/iPhysicsMaterial.h>
 
 #include <iaux/system/iaEvent.h>
 #include <iaux/math/iaMatrix.h>
 #include <iaux/system/iaMutex.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <memory>
 #include <any>
 
-namespace Igor
+namespace igor
 {
 
     class iNodeTransform;
@@ -304,6 +304,6 @@ namespace Igor
         void bindTransformNode(iNodeTransform *transformNode);
     };
 
-} // namespace Igor
+} // namespace igor
 
 #endif

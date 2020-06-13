@@ -31,7 +31,7 @@
 
 #include <igor/ui/widgets/iWidget.h>
 
-namespace Igor
+namespace igor
 {
 
     class iDialog;
@@ -151,6 +151,6 @@ namespace Igor
 		*/
         void draw();
     };
-} // namespace Igor
+} // namespace igor
 
 #endif

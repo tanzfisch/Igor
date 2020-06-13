@@ -6,7 +6,7 @@
 
 #include <igor/physics/iPhysics.h>
 
-namespace Igor
+namespace igor
 {
     uint64 iPhysicsCollision::_nextCollisionID = INVALID_PHYSICSCOLLISION_ID + 1;
 
@@ -35,4 +35,4 @@ namespace Igor
         return _collision;
     }
 
-} // namespace Igor
+} // namespace igor

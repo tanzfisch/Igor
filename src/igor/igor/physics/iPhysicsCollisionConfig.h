@@ -35,12 +35,12 @@
 #include <iaux/math/iaVector3.h>
 #include <iaux/math/iaMatrix.h>
 #include <iaux/system/iaMutex.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <memory>
 #include <vector>
 
-namespace Igor
+namespace igor
 {
 
     /*! collision configuration is to be finalized by iPhysics or iTaskPrepareCollision
@@ -244,6 +244,6 @@ namespace Igor
         virtual ~iPhysicsCollisionConfig() = default;
     };
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

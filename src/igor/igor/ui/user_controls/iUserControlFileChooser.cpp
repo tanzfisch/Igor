@@ -15,7 +15,7 @@
 #include <igor/ui/widgets/iWidgetNumberChooser.h>
 #include <igor/resources/iResourceManager.h>
 
-namespace Igor
+namespace igor
 {
 
     iUserControlFileChooser::iUserControlFileChooser(const iWidgetPtr parent)
@@ -148,4 +148,4 @@ namespace Igor
         _fileNameChanged.remove(changeDelegate);
     }
 
-} // namespace Igor
+} // namespace igor

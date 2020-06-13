@@ -14,12 +14,12 @@
 #include <iaux/system/iaFile.h>
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <fstream>
 #include <vector>
 
-namespace Igor
+namespace igor
 {
 
     iModelResourceFactory::iModelResourceFactory()
@@ -403,4 +403,4 @@ namespace Igor
         return result;
     }
 
-} // namespace Igor
+} // namespace igor

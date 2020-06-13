@@ -5,11 +5,11 @@
 #include <igor/threading/tasks/iTaskFlushModels.h>
 
 #include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/os/iWindow.h>
+#include <igor/system/iWindow.h>
 
 #include <thread>
 
-namespace Igor
+namespace igor
 {
 
     iTaskFlushModels::iTaskFlushModels(iWindow *window)
@@ -34,4 +34,4 @@ namespace Igor
         setRepeating(false);
     }
 
-}; // namespace Igor
+}; // namespace igor

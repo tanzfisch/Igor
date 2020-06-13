@@ -32,9 +32,9 @@
 #include <igor/iDefines.h>
 
 #include <iaux/system/iaMutex.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     class Igor_API iPhysicsWorld
@@ -83,6 +83,6 @@ namespace Igor
         virtual ~iPhysicsWorld() = default;
     };
 
-} // namespace Igor
+} // namespace igor
 
 #endif

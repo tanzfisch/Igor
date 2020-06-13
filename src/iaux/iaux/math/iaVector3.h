@@ -34,7 +34,7 @@
 #include <cmath>
 #include <ostream>
 
-namespace IgorAux
+namespace iaux
 {
 
     /*! 3d vector class
@@ -272,6 +272,6 @@ namespace IgorAux
     */
     typedef iaVector3<int64> iaVector3I;
 
-}; // namespace IgorAux
+}; // namespace iaux
 
 #endif

@@ -6,10 +6,10 @@
 
 #include <igor/threading/iTaskManager.h>
 #include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/graphics/scene/nodes/iNodeMesh.h>
-#include <igor/os/iWindow.h>
+#include <igor/scene/nodes/iNodeMesh.h>
+#include <igor/system/iWindow.h>
 
-namespace Igor
+namespace igor
 {
 
     iTaskLoadModel::iTaskLoadModel(iWindow *window, iModelPtr model, iTaskContext taskContext, uint32 priority)
@@ -32,4 +32,4 @@ namespace Igor
         }
     }
 
-}; // namespace Igor
+}; // namespace igor

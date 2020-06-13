@@ -29,18 +29,18 @@
 #ifndef __STATEMACHINEEXAMPLE__
 #define __STATEMACHINEEXAMPLE__
 
-#include <igor/os/iWindow.h>
+#include <igor/system/iWindow.h>
 #include <igor/graphics/iView.h>
-#include <igor/os/iKeyboard.h>
+#include <igor/system/iKeyboard.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iTexture.h>
-#include <igor/graphics/simulation/iParticleSystem2D.h>
-using namespace Igor;
+#include <igor/simulation/iParticleSystem2D.h>
+using namespace igor;
 
 #include <iaux/statemachine/iaStateMachine.h>
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaTime.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <vector>
 

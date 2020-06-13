@@ -2,14 +2,14 @@
 
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/resources/mesh/iMeshBuilder.h>
-#include <igor/graphics/scene/nodes/iNodeTransform.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
-#include <igor/graphics/scene/nodes/iNodeMesh.h>
+#include <igor/scene/nodes/iNodeTransform.h>
+#include <igor/scene/nodes/iNodeManager.h>
+#include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/resources/material/iTargetMaterial.h>
-using namespace Igor;
+using namespace igor;
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <map>
 

@@ -7,7 +7,7 @@
 #include <igor/physics/iPhysics.h>
 #include <iaux/system/iaConsole.h>
 
-namespace Igor
+namespace igor
 {
 
     iThread::~iThread()
@@ -70,4 +70,4 @@ namespace Igor
         }
     }
 
-}; // namespace Igor
+}; // namespace igor

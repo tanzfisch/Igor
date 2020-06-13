@@ -5,13 +5,13 @@
 #include <igor/physics/iPhysicsBody.h>
 
 #include <igor/physics/iPhysics.h>
-#include <igor/graphics/scene/nodes/iNodeTransform.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/scene/nodes/iNodeTransform.h>
+#include <igor/scene/nodes/iNodeManager.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     uint64 iPhysicsBody::_nextBodyID = INVALID_PHYSICSBODY_ID + 1;
@@ -208,4 +208,4 @@ namespace Igor
         _applyForceAndTorque.remove(applyForceAndTorqueDelegate);
     }
 
-} // namespace Igor
+} // namespace igor

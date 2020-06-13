@@ -1,22 +1,22 @@
 #include "StaticEnemy.h"
 
-#include <igor/graphics/scene/nodes/iNodeManager.h>
-#include <igor/graphics/scene/nodes/iNodeTransform.h>
-#include <igor/graphics/scene/nodes/iNodePhysics.h>
-#include <igor/graphics/scene/nodes/iNodeModel.h>
+#include <igor/scene/nodes/iNodeManager.h>
+#include <igor/scene/nodes/iNodeTransform.h>
+#include <igor/scene/nodes/iNodePhysics.h>
+#include <igor/scene/nodes/iNodeModel.h>
 #include <igor/resources/model/iModel.h>
-#include <igor/graphics/scene/iScene.h>
+#include <igor/scene/iScene.h>
 #include <igor/physics/iPhysics.h>
 #include <igor/physics/iPhysicsBody.h>
 #include <igor/physics/iPhysicsJoint.h>
 #include <igor/physics/iPhysicsCollision.h>
-#include <igor/os/iTimer.h>
+#include <igor/system/iTimer.h>
 #include <igor/entities/iEntityManager.h>
-using namespace Igor;
+using namespace igor;
 
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaConvert.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include "Turret.h"
 #include "EnemyDestroyed.h"

@@ -33,11 +33,11 @@
 #include <igor/data/iBone.h>
 
 #include <iaux/math/iaMatrix.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <vector>
 
-namespace Igor
+namespace igor
 {
 
     class iBone;
@@ -134,6 +134,6 @@ namespace Igor
         void destroyJoint(iJoint *joint);
     };
 
-} // namespace Igor
+} // namespace igor
 
 #endif

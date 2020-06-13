@@ -35,7 +35,7 @@
 #include <iaux/math/iaVector3.h>
 #include <iaux/math/iaMatrix.h>
 
-namespace IgorAux
+namespace iaux
 {
 
     /*! contains some simple converters
@@ -72,6 +72,6 @@ namespace IgorAux
         */
         static void convert(const iaColor4c &src, iaColor4f &dst);
     };
-} // namespace IgorAux
+} // namespace iaux
 
 #endif

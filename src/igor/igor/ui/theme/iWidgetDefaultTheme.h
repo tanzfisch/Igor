@@ -33,11 +33,11 @@
 #include <igor/resources/texture/iTexture.h>
 
 #include <iaux/data/iaColor4.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <memory>
 
-namespace Igor
+namespace igor
 {
 
 	/*! default widget theme
@@ -152,6 +152,6 @@ namespace Igor
 		void drawNumberChooserFrame(const iRectanglei &rect, iWidgetState state_button_up, iWidgetState state_button_down, bool active);
 		void drawSelectBoxFrame(const iRectanglei &rect, iWidgetState buttonState, bool active);
 	};
-} // namespace Igor
+} // namespace igor
 
 #endif

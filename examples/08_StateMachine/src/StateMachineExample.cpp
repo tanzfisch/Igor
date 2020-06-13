@@ -1,18 +1,18 @@
 #include "StateMachineExample.h"
 
 #include <igor/igor.h>
-#include <igor/os/iApplication.h>
+#include <igor/system/iApplication.h>
 #include <igor/graphics/iRenderer.h>
 #include <igor/resources/material/iMaterial.h>
-#include <igor/os/iTimer.h>
+#include <igor/system/iTimer.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
-using namespace Igor;
+using namespace igor;
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/statemachine/iaState.h>
 #include <iaux/statemachine/iaTransition.h>
-using namespace IgorAux;
+using namespace iaux;
 
 StateMachineExample::StateMachineExample()
 {
@@ -35,7 +35,7 @@ void StateMachineExample::init()
     // init essentials
     _view.setClearColor(iaColor4f(0.5f, 0.5f, 0.5f, 1.0f));
     _view.setOrthogonal(0, 1024, 768, 0);
-    _view.registerRenderDelegate(RenderDelegate(this, &StateMachineExample::onRender));
+    _view.registerRenderDelegate(iDrawDelegate(this, &StateMachineExample::onRender));
 
     _window.setTitle("State Machine Example");
     _window.addView(&_view);
@@ -103,8 +103,8 @@ void StateMachineExample::init()
     _gameGateB = _stateMachine.createGate(_gameWinTransition);
     _gameGateC = _stateMachine.createGate(_gameWinTransition);
 
-    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(&_stateMachine, &iaStateMachine::handle));
-    _view.registerRenderDelegate(RenderDelegate(&_stateMachine, &iaStateMachine::render));
+    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(&_stateMachine, &iaStateMachine::handle));
+    _view.registerRenderDelegate(iDrawDelegate(&_stateMachine, &iaStateMachine::render));
 
     _stateMachine.start();
 
@@ -148,10 +148,10 @@ void StateMachineExample::deinit()
     _window.close();
     _window.removeView(&_view);
 
-    _view.unregisterRenderDelegate(RenderDelegate(this, &StateMachineExample::onRender));
-    _view.unregisterRenderDelegate(RenderDelegate(&_stateMachine, &iaStateMachine::render));
-    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(&_stateMachine, &iaStateMachine::handle));
-    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &StateMachineExample::onHandle));
+    _view.unregisterRenderDelegate(iDrawDelegate(this, &StateMachineExample::onRender));
+    _view.unregisterRenderDelegate(iDrawDelegate(&_stateMachine, &iaStateMachine::render));
+    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate(&_stateMachine, &iaStateMachine::handle));
+    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &StateMachineExample::onHandle));
 }
 
 void StateMachineExample::onEnterLooseState()
@@ -346,7 +346,7 @@ void StateMachineExample::onHandleInitState()
 void StateMachineExample::onLeaveInitState()
 {
     // start spinning background after init
-    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &StateMachineExample::onHandle));
+    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &StateMachineExample::onHandle));
 }
 
 void StateMachineExample::onKeyReleasedMenuState(iKeyCode key)

@@ -6,32 +6,32 @@
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/system/iaTime.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <igor/data/iSphere.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/graphics/iRenderer.h>
 #include <igor/threading/iTaskManager.h>
-#include <igor/graphics/scene/nodes/iNodeSkyBox.h>
-#include <igor/graphics/scene/nodes/iNodeLight.h>
-#include <igor/graphics/scene/nodes/iNodeCamera.h>
-#include <igor/graphics/scene/nodes/iNodeModel.h>
-#include <igor/graphics/scene/nodes/iNodeTransform.h>
-#include <igor/os/iApplication.h>
-#include <igor/graphics/scene/iSceneFactory.h>
-#include <igor/graphics/scene/iScene.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
-#include <igor/os/iMouse.h>
-#include <igor/os/iTimer.h>
+#include <igor/scene/nodes/iNodeSkyBox.h>
+#include <igor/scene/nodes/iNodeLight.h>
+#include <igor/scene/nodes/iNodeCamera.h>
+#include <igor/scene/nodes/iNodeModel.h>
+#include <igor/scene/nodes/iNodeTransform.h>
+#include <igor/system/iApplication.h>
+#include <igor/scene/iSceneFactory.h>
+#include <igor/scene/iScene.h>
+#include <igor/scene/nodes/iNodeManager.h>
+#include <igor/system/iMouse.h>
+#include <igor/system/iTimer.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/threading/tasks/iTaskFlushModels.h>
 #include <igor/threading/tasks/iTaskFlushTextures.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/graphics/terrain/data/iVoxelBlock.h>
+#include <igor/terrain/data/iVoxelBlock.h>
 #include <iaux/math/iaVector3.h>
 #include <igor/resources/profiler/iProfiler.h>
-#include <igor/graphics/scene/traversal/iNodeVisitorPrintTree.h>
-using namespace Igor;
+#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
+using namespace igor;
 
 #include "VoxelTerrainMeshGenerator.h"
 
@@ -87,7 +87,7 @@ void VoxelExample::deinit()
 
     unregisterHandles();
 
-    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &VoxelExample::onRenderOrtho));
+    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &VoxelExample::onRenderOrtho));
 
     if (_font != nullptr)
     {
@@ -108,7 +108,7 @@ void VoxelExample::registerHandles()
     // register callbacks to all the events that are of interest to us
     iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &VoxelExample::onKeyDown));
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &VoxelExample::onMouseMoved));
-    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &VoxelExample::onHandle));
+    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &VoxelExample::onHandle));
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &VoxelExample::onWindowResized));
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &VoxelExample::onWindowClosed));
 }
@@ -118,7 +118,7 @@ void VoxelExample::unregisterHandles()
     // unregister all the callbacks
     _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &VoxelExample::onWindowResized));
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &VoxelExample::onWindowClosed));
-    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &VoxelExample::onHandle));
+    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &VoxelExample::onHandle));
     iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &VoxelExample::onMouseMoved));
     iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &VoxelExample::onKeyDown));
 }
@@ -133,7 +133,7 @@ void VoxelExample::initViews()
     // init an other view to display the frame rate
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
-    _viewOrtho.registerRenderDelegate(RenderDelegate(this, &VoxelExample::onRenderOrtho));
+    _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &VoxelExample::onRenderOrtho));
 
     // add the views to the window and open it
     _window.setTitle("Voxel Example");

@@ -4,15 +4,15 @@
 #include "Mica.h"
 
 #include <igor/igor.h>
-using namespace Igor;
+using namespace igor;
 
 #include <iaux/system/iaDirectory.h>
-using namespace IgorAux;
+using namespace iaux;
 
 int main(int argc, char* argv[])
 {
 	// start the engine
-    Igor::startup();
+    igor::startup();
 
 	// create and run mica
     Mica* mica = new Mica();
@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
     delete mica;
 
 	// stop the engine
-    Igor::shutdown();
+    igor::shutdown();
 
 	return 0;
 }

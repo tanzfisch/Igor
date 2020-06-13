@@ -1,7 +1,7 @@
 #include "GameObject.h"
 
 #include <igor/entities/iEntityManager.h>
-using namespace Igor;
+using namespace igor;
 
 GameObject::GameObject(Fraction fraction, GameObjectType type)
 {

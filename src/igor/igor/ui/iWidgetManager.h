@@ -30,7 +30,7 @@
 #define __iDIALOGMANAGER__
 
 #include <igor/iDefines.h>
-#include <igor/os/iKeyboard.h>
+#include <igor/system/iKeyboard.h>
 #include <igor/ui/widgets/iWidget.h>
 
 #include <iaux/system/iaSingleton.h>
@@ -39,7 +39,7 @@
 #include <unordered_map>
 #include <deque>
 
-namespace Igor
+namespace igor
 {
 
     class iWidgetBaseTheme;
@@ -385,7 +385,7 @@ namespace Igor
 
         \param to the mouse postion to use
         */
-        bool handleMouseMove(const IgorAux::iaVector2i &to);
+        bool handleMouseMove(const iaux::iaVector2i &to);
 
         /*! handle for mouse wheel event
 
@@ -426,6 +426,6 @@ namespace Igor
 
 #include <igor/ui/iWidgetManager.inl>
 
-} // namespace Igor
+} // namespace igor
 
 #endif

@@ -6,9 +6,9 @@
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/statemachine/iaStateMachine.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace IgorAux
+namespace iaux
 {
 
     uint32 iaTransition::_nextID = INVALID_TRANSITION_ID + 1;

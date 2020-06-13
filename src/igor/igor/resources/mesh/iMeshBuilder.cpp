@@ -6,12 +6,12 @@
 
 #include <igor/graphics/iRenderer.h>
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <list>
 #include <sstream>
 
-namespace Igor
+namespace igor
 {
     iMeshBuilder::iMeshBuilder()
     {
@@ -1355,4 +1355,4 @@ namespace Igor
                 vertexneighbors.clear();
             }*/
 
-}; // namespace Igor
+}; // namespace igor

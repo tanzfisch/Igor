@@ -1,13 +1,13 @@
 #include "CharacterController.h"
 
-#include <igor/graphics/scene/nodes/iNodeManager.h>
-#include <igor/graphics/scene/nodes/iNodeTransform.h>
-#include <igor/graphics/scene/iScene.h>
+#include <igor/scene/nodes/iNodeManager.h>
+#include <igor/scene/nodes/iNodeTransform.h>
+#include <igor/scene/iScene.h>
 #include <igor/physics/iPhysics.h>
 #include <igor/physics/iPhysicsCollision.h>
 #include <igor/physics/iPhysicsJoint.h>
-#include <igor/os/iApplication.h>
-using namespace Igor;
+#include <igor/system/iApplication.h>
+using namespace igor;
 
 CharacterController::CharacterController(iNodePtr node, int64 materiaID, const iaMatrixd& startMatrix)
 {

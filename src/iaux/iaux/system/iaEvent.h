@@ -37,7 +37,7 @@
 #include <vector>
 #include <algorithm>
 
-namespace IgorAux
+namespace iaux
 {
 
 	/*! event
@@ -122,6 +122,6 @@ namespace IgorAux
 		bool _blocked = false;                                                          \
 	};
 
-}; // namespace IgorAux
+}; // namespace iaux
 
 #endif

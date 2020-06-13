@@ -4,13 +4,13 @@
 
 #include "VoxelTerrainMeshGenerator.h"
 
-#include <igor/graphics/terrain/data/iVoxelBlock.h>
-#include <igor/graphics/generation/iContouringCubes.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
-#include <igor/graphics/scene/nodes/iNodeMesh.h>
+#include <igor/terrain/data/iVoxelBlock.h>
+#include <igor/generation/iContouringCubes.h>
+#include <igor/scene/nodes/iNodeManager.h>
+#include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/resources/material/iTargetMaterial.h>
-using namespace Igor;
+using namespace igor;
 
 VoxelTerrainMeshGenerator::VoxelTerrainMeshGenerator()
 {

@@ -31,7 +31,7 @@
 
 #include <iaux/iaDefines.h>
 
-namespace IgorAux
+namespace iaux
 {
 
     class IgorAux_API iaClock
@@ -58,6 +58,6 @@ namespace IgorAux
         static void resetClock();
     };
 
-} // namespace IgorAux
+} // namespace iaux
 
 #endif

@@ -31,7 +31,7 @@
 
 #include <iaux/math/iaVector3.h>
 
-namespace IgorAux
+namespace iaux
 {
 
     /*! 4d vector
@@ -175,6 +175,6 @@ namespace IgorAux
     */
     typedef iaVector4<int64> iaVector4I;
 
-}; // namespace IgorAux
+}; // namespace iaux
 
 #endif

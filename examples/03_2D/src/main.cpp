@@ -1,12 +1,12 @@
 #include "Example2D.h"
 
 #include <igor/igor.h>
-using namespace Igor;
+using namespace igor;
 
 int main(void)
 {
     // first thing to do
-	Igor::startup();
+	igor::startup();
 
     // create and run example
     Example2D *example = new Example2D();
@@ -14,7 +14,7 @@ int main(void)
 	delete example;
 	
     // last thing to do
-	Igor::shutdown();
+	igor::shutdown();
 
 	return 0;
 }

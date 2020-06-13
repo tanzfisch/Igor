@@ -6,7 +6,7 @@
 
 #include <iaux/system/iaConsole.h>
 
-namespace IgorAux
+namespace iaux
 {
 
 	void iaBSpline::addSupportPoint(const iaVector3f &point)
@@ -154,4 +154,4 @@ namespace IgorAux
 		}
 	}
 
-} // namespace IgorAux
+} // namespace iaux

@@ -18,7 +18,7 @@
 
 #include <cmath>
 
-namespace IgorAux
+namespace iaux
 {
 
     namespace Easing

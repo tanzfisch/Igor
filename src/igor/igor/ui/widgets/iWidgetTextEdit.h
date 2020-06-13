@@ -31,7 +31,7 @@
 
 #include <igor/ui/widgets/iWidget.h>
 
-namespace Igor
+namespace igor
 {
 
 	/*! text edit widget
@@ -217,6 +217,6 @@ namespace Igor
 		void updateMetrics();
 	};
 
-} // namespace Igor
+} // namespace igor
 
 #endif

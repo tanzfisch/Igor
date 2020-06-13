@@ -29,15 +29,15 @@
 #ifndef __WIDGET3D__
 #define __WIDGET3D__
 
-#include <igor/graphics/scene/nodes/iNode.h>
-using namespace Igor;
+#include <igor/scene/nodes/iNode.h>
+using namespace igor;
 
-namespace Igor
+namespace igor
 {
 	class iScene;
 	class iWindow;
 	class iView;
-} // namespace Igor
+} // namespace igor
 
 class Widget3D
 {

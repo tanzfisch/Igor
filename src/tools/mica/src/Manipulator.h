@@ -29,19 +29,19 @@
 #ifndef __MODIFIER__
 #define __MODIFIER__
 
-#include <igor/os/iMouse.h>
+#include <igor/system/iMouse.h>
 #include <igor/resources/mesh/iMeshBuffers.h>
 #include <igor/resources/material/iMaterial.h>
-#include <igor/os/iWindow.h>
-#include <igor/graphics/scene/nodes/iNode.h>
+#include <igor/system/iWindow.h>
+#include <igor/scene/nodes/iNode.h>
 #include <igor/graphics/iView.h>
-#include <igor/graphics/scene/iScene.h>
+#include <igor/scene/iScene.h>
 #include <igor/resources/mesh/iMesh.h>
-using namespace Igor;
+using namespace igor;
 
 #include <memory>
 
-namespace Igor
+namespace igor
 {
     class iTargetMaterial;
     class iNodeTransform;

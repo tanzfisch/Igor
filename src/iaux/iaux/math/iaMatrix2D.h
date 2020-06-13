@@ -37,7 +37,7 @@
 #include <ostream>
 #include <iomanip>
 
-namespace IgorAux
+namespace iaux
 {
 
 	/*! 3x3 Matrix
@@ -182,6 +182,6 @@ namespace IgorAux
 	*/
 	typedef iaMatrix2D<float64> iaMatrix3x3d;
 
-}; // namespace IgorAux
+}; // namespace iaux
 
 #endif

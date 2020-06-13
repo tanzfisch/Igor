@@ -8,9 +8,9 @@
 #include <igor/data/iIntersection.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     iPhysicsUserMeshCollisionHandler::iPhysicsUserMeshCollisionHandler()
@@ -51,4 +51,4 @@ namespace Igor
         return 0;
     }
 
-} // namespace Igor
+} // namespace igor

@@ -3,9 +3,9 @@
 #include <igor/ui/iWidgetManager.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 	iUserControl::iUserControl(const iWidgetPtr parent)
         : iWidget(parent)

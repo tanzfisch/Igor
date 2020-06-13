@@ -30,9 +30,9 @@
 #define __iRENDERCONTEXTTHREAD__
 
 #include <igor/threading/iThread.h>
-#include <igor/os/iWindow.h>
+#include <igor/system/iWindow.h>
 
-namespace Igor
+namespace igor
 {
 
     class iWindow;
@@ -78,6 +78,6 @@ namespace Igor
         bool _isValid = false;
     };
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

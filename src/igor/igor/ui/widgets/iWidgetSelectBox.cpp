@@ -10,11 +10,11 @@
 #include <igor/ui/dialogs/iDialogIndexMenu.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <sstream>
 
-namespace Igor
+namespace igor
 {
 
     iWidgetSelectBox::iWidgetSelectBox(const iWidgetPtr parent)
@@ -250,4 +250,4 @@ namespace Igor
         }
     }
 
-} // namespace Igor
+} // namespace igor

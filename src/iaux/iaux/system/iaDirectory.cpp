@@ -10,7 +10,7 @@
 #include <sstream>
 #include <filesystem>
 
-namespace IgorAux
+namespace iaux
 {
 
     iaDirectory::iaDirectory(const iaString &directoryName)
@@ -68,7 +68,7 @@ namespace IgorAux
     \param entry the file entry
     \param searchPattern the given pattern
     */
-    static bool fileMatch(const std::filesystem::directory_entry &entry, IgorAux::iaString &searchPattern)
+    static bool fileMatch(const std::filesystem::directory_entry &entry, iaux::iaString &searchPattern)
     {
         if (entry.is_regular_file())
         {
@@ -265,4 +265,4 @@ namespace IgorAux
         }
     }
 
-} // namespace IgorAux
+} // namespace iaux

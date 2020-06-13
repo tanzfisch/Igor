@@ -11,7 +11,7 @@
 #include <igor/ui/widgets/iWidgetCheckBox.h>
 #include <igor/ui/iWidgetManager.h>
 
-namespace Igor
+namespace igor
 {
 
 	iWidgetType iDialogDecisionBox::getWidgetType() const
@@ -134,4 +134,4 @@ namespace Igor
 		setReturnState(iDialogReturnState::Cancel);
 		close();
 	}
-} // namespace Igor
+} // namespace igor

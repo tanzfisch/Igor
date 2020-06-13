@@ -32,9 +32,9 @@
 #include <igor/iDefines.h>
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
 	/*! action base class
@@ -111,6 +111,6 @@ namespace Igor
     */
 	typedef iAction *iActionPtr;
 
-} // namespace Igor
+} // namespace igor
 
 #endif

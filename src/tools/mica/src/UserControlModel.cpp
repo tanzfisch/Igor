@@ -11,11 +11,11 @@
 #include <igor/ui/widgets/iWidgetButton.h>
 #include <igor/ui/widgets/iWidgetSlider.h>
 #include <igor/ui/widgets/iWidgetNumberChooser.h>
-#include <igor/graphics/scene/nodes/iNodeMesh.h>
+#include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/resources/mesh/iMesh.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/scene/nodes/iNodeManager.h>
 #include <igor/resources/material/iTargetMaterial.h>
-using namespace Igor;
+using namespace igor;
 
 UserControlModel::UserControlModel()
 {

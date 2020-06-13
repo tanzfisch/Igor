@@ -33,7 +33,7 @@
 
 #include <iostream>
 
-namespace IgorAux
+namespace iaux
 {
 
     /*! stores time
@@ -177,8 +177,8 @@ namespace IgorAux
             ostr << time.getMilliseconds() << L"ms";
         }
         return ostr;
-    } // namespace IgorAux
+    } // namespace iaux
 
-} // namespace IgorAux
+} // namespace iaux
 
 #endif // __IAUX_TIME__

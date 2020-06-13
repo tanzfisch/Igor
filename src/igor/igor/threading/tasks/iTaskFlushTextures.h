@@ -31,7 +31,7 @@
 
 #include <igor/threading/tasks/iTask.h>
 
-namespace Igor
+namespace igor
 {
 
     /*! this task triggers the texture resource manager flush function repedatly
@@ -64,6 +64,6 @@ namespace Igor
         void run();
     };
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <iaux/math/iaVector3.h>
-using namespace IgorAux;
+using namespace iaux;
 
 TEST(Vector3Tests, Initial)
 {

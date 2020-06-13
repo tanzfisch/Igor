@@ -36,7 +36,7 @@
 
 #include <map>
 
-namespace IgorAux
+namespace iaux
 {
 
     /*! transition beween two states
@@ -132,6 +132,6 @@ namespace IgorAux
         ~iaTransition() = default;
     };
 
-} // namespace IgorAux
+} // namespace iaux
 
 #endif

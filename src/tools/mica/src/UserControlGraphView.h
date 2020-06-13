@@ -31,19 +31,19 @@
 
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaEvent.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <igor/ui/user_controls/iUserControl.h>
-#include <igor/graphics/scene/traversal/iNodeVisitor.h>
+#include <igor/scene/traversal/iNodeVisitor.h>
 #include <igor/iDefines.h>
-#include <igor/graphics/scene/nodes/iNode.h>
-using namespace Igor;
+#include <igor/scene/nodes/iNode.h>
+using namespace igor;
 
 #include <sstream>
 #include <vector>
 #include <map>
 
-namespace Igor
+namespace igor
 {
     class iWidgetGrid;
     class iWidget;

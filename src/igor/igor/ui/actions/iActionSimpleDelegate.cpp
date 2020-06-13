@@ -4,7 +4,7 @@
 
 #include <igor/ui/actions/iActionSimpleDelegate.h>
 
-namespace Igor
+namespace igor
 {
     iActionSimpleDelegate::iActionSimpleDelegate(iSimpleDelegate actionDelegate)
         : _actionDelegate(actionDelegate)
@@ -15,4 +15,4 @@ namespace Igor
     {
         _actionDelegate();
     }
-} // namespace Igor
+} // namespace igor

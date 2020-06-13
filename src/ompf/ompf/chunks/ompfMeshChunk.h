@@ -30,7 +30,7 @@
 
 #include <iaux/data/iaColor3.h>
 #include <iaux/math/iaVector3.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <map>
 

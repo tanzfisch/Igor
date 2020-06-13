@@ -5,11 +5,11 @@
 #include <igor/threading/tasks/iTaskFlushTextures.h>
 
 #include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/os/iWindow.h>
+#include <igor/system/iWindow.h>
 
 #include <thread>
 
-namespace Igor
+namespace igor
 {
 
     iTaskFlushTextures::iTaskFlushTextures(iWindow *window)
@@ -34,4 +34,4 @@ namespace Igor
         setRepeating(false);
     }
 
-}; // namespace Igor
+}; // namespace igor

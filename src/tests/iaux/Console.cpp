@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <iaux/iaux.h>
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 TEST(ConsoleTests, StartStop)
 {

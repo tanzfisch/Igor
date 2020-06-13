@@ -36,11 +36,11 @@
 #include <iaux/data/iaColor4.h>
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <vector>
 
-namespace Igor
+namespace igor
 {
 
     enum class iShaderObjectType : uint8;
@@ -113,6 +113,6 @@ namespace Igor
         bool _ready = false;
     };
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

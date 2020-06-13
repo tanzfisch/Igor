@@ -6,7 +6,7 @@
 
 #include <iaux/system/iaConsole.h>
 
-namespace IgorAux
+namespace iaux
 {
     iaMemBlock::iaMemBlock()
     {
@@ -101,4 +101,4 @@ namespace IgorAux
         return _dataSize;
     }
 
-} // namespace IgorAux
+} // namespace iaux

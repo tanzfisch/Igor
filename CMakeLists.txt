@@ -14,7 +14,7 @@ include(GetGitRevisionDescription)
 # get git version tag
 git_describe(VERSION --tags)
 git_describe(VERSION_SHORT --abbrev=0 --tags)
-message("building version: ${VERSION}")
+message(STATUS "building version: ${VERSION}")
 
 # set up project
 project(
@@ -27,7 +27,7 @@ set(ENGINE_FOLDER "01 engine")
 set(EXAMPLES_FOLDER "02 examples")
 set(TOOLS_FOLDER "02 tools")
 set(TESTING_FOLDER "03 testing")
-set(THIRD_FOLDER "04 3rd")
+set(VENDOR_FOLDER "04 vendor")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -38,7 +38,7 @@ if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
   set(default_build_type "RelWithDebInfo")
 endif()
 
-if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+if(NOT CMAKE_BUILD_TYPE)
   message(
     STATUS
       "Setting build type to '${default_build_type}' as none was specified.")
@@ -56,7 +56,7 @@ endif()
 
 # global compiler/linker settings
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-  message("using GCC")
+  message(STATUS "using GCC")
   add_compile_options(-fpermissive -std=c++17)
   add_definitions(-D_NEWTON_USE_DOUBLE -D_cplusplus=201703L)
   if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
@@ -68,7 +68,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
 elseif(MSVC_VERSION GREATER_EQUAL "1920") # which ever version supports c++17
                                           # filesystem
-  message("using Visual Studio C++")
+  message(STATUS "using Visual Studio C++")
   add_compile_options("/std:c++17" "/MP" "/W2")
   add_definitions(-D_UNICODE -DUNICODE -DNOMINMAX -D_NEWTON_USE_DOUBLE)
   set(COMPILER "MSVCXX")
@@ -76,13 +76,23 @@ elseif()
   message(FATAL_ERROR "unsupported environment")
 endif()
 
-# 3rd party OpenGL
+# OpenGL
 set(OpenGL_GL_PREFERENCE GLVND)
 find_package(OpenGL REQUIRED)
 
+# OpenAL Soft
+add_subdirectory(vendor/openal-soft)
+set_property(TARGET alrecord PROPERTY FOLDER ${VENDOR_FOLDER})
+set_property(TARGET altonegen PROPERTY FOLDER ${VENDOR_FOLDER})
+set_property(TARGET build_version PROPERTY FOLDER ${VENDOR_FOLDER})
+set_property(TARGET common PROPERTY FOLDER ${VENDOR_FOLDER})
+set_property(TARGET ex-common PROPERTY FOLDER ${VENDOR_FOLDER})
+set_property(TARGET OpenAL PROPERTY FOLDER ${VENDOR_FOLDER})
+set_property(TARGET openal-info PROPERTY FOLDER ${VENDOR_FOLDER})
+
 # tinyXML
-message(tinyXML)
-set(TINYXML_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rd/TinyXML/")
+message(STATUS "tinyXML")
+set(TINYXML_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/TinyXML/")
 set(TINYXML_HEADERS_DIR ${TINYXML_SRC_DIR})
 set(TINYXML_SOURCES
     "${TINYXML_SRC_DIR}/tinystr.cpp" "${TINYXML_SRC_DIR}/tinyxml.cpp"
@@ -91,20 +101,21 @@ set(TINYXML_SOURCES
 set(TINYXML_HEADERS "${TINYXML_HEADERS_DIR}/tinystr.h"
                     "${TINYXML_HEADERS_DIR}/tinyxml.h")
 list(APPEND TINYXML_SOURCES ${TINYXML_HEADERS})
-source_group_special("${TINYXML_SOURCES}" ${TINYXML_SRC_DIR} "\\3rd\\TinyXML\\")
+source_group_special("${TINYXML_SOURCES}" ${TINYXML_SRC_DIR}
+                     "\\vendor\\TinyXML\\")
 
 # stb_image
-message(stb_image)
-set(STB_IMAGE_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rd/stb_image/")
+message(STATUS "stb_image")
+set(STB_IMAGE_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/stb_image/")
 set(STB_IMAGE_HEADERS_DIR ${STB_IMAGE_SRC_DIR})
 set(STB_IMAGE_HEADERS "${STB_IMAGE_HEADERS_DIR}stb_image.h")
 list(APPEND STB_IMAGE_SOURCES ${STB_IMAGE_HEADERS})
 source_group_special("${STB_IMAGE_SOURCES}" ${STB_IMAGE_SRC_DIR}
-                     "\\3rd\\stb_image\\")
+                     "\\vendor\\stb_image\\")
 
 # GLee
-message(GLee)
-set(GLEE_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/3rd/GLee")
+message(STATUS "GLee")
+set(GLEE_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/GLee")
 set(GLEE_HEADERS_DIR ${GLEE_SRC_DIR})
 file(
   GLOB_RECURSE GLEE_SOURCES
@@ -115,33 +126,34 @@ file(
   LIST_DIRECTORIES false
   "${GLEE_SRC_DIR}*.h*")
 list(APPEND GLEE_SOURCES ${GLEE_HEADERS})
-source_group_special("${GLEE_SOURCES}" ${GLEE_SRC_DIR} "\\3rd\\GLee\\")
+source_group_special("${GLEE_SOURCES}" ${GLEE_SRC_DIR} "\\vendor\\GLee\\")
 
 # setup newton build
-message(newton)
+message(STATUS "newton")
 set(TIME_TRACKER_HEADERS_DIR
-    "${CMAKE_CURRENT_SOURCE_DIR}/3rd/newton-dynamics/packages/thirdParty/timeTracker/"
+    "${CMAKE_CURRENT_SOURCE_DIR}/vendor/newton-dynamics/packages/thirdParty/timeTracker/"
 )
 set(NEWTON_CORE_HEADERS_DIR
-    "${CMAKE_CURRENT_SOURCE_DIR}/3rd/newton-dynamics/coreLibrary_300/source/core/"
+    "${CMAKE_CURRENT_SOURCE_DIR}/vendor/newton-dynamics/coreLibrary_300/source/core/"
 )
 set(NEWTON_PHYSICS_HEADERS_DIR
-    "${CMAKE_CURRENT_SOURCE_DIR}/3rd/newton-dynamics/coreLibrary_300/source/physics/"
+    "${CMAKE_CURRENT_SOURCE_DIR}/vendor/newton-dynamics/coreLibrary_300/source/physics/"
 )
 set(NEWTON_MESH_UTIL_HEADERS_DIR
-    "${CMAKE_CURRENT_SOURCE_DIR}/3rd/newton-dynamics/coreLibrary_300/source/meshUtil/"
+    "${CMAKE_CURRENT_SOURCE_DIR}/vendor/newton-dynamics/coreLibrary_300/source/meshUtil/"
 )
 set(NEWTON_HEADERS_DIR
-    "${CMAKE_CURRENT_SOURCE_DIR}/3rd/newton-dynamics/coreLibrary_300/source/")
+    "${CMAKE_CURRENT_SOURCE_DIR}/vendor/newton-dynamics/coreLibrary_300/source/"
+)
 
 file(
   GLOB NEWTON_CORE_SOURCES
   RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-  "3rd/newton-dynamics/coreLibrary_300/source/core/*.c*")
+  "vendor/newton-dynamics/coreLibrary_300/source/core/*.c*")
 file(
   GLOB NEWTON_CORE_HEADERS
   RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-  "3rd/newton-dynamics/coreLibrary_300/source/core/*.h*")
+  "vendor/newton-dynamics/coreLibrary_300/source/core/*.h*")
 add_library(core STATIC ${NEWTON_CORE_SOURCES} ${NEWTON_CORE_HEADERS})
 if(${COMPILER} STREQUAL "GCC")
   target_compile_definitions(core PRIVATE -D_POSIX_VER_64)
@@ -160,16 +172,16 @@ if(${COMPILER} STREQUAL "GCC")
 endif()
 target_include_directories(core PRIVATE ${NEWTON_CORE_HEADERS_DIR}
                                         ${TIME_TRACKER_HEADERS_DIR})
-set_property(TARGET core PROPERTY FOLDER ${THIRD_FOLDER})
+set_property(TARGET core PROPERTY FOLDER ${VENDOR_FOLDER})
 
 file(
   GLOB NEWTON_PHYSICS_SOURCES
   RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-  "3rd/newton-dynamics/coreLibrary_300/source/physics/*.c*")
+  "vendor/newton-dynamics/coreLibrary_300/source/physics/*.c*")
 file(
   GLOB NEWTON_PHYSICS_HEADERS
   RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-  "3rd/newton-dynamics/coreLibrary_300/source/physics/*.h*")
+  "vendor/newton-dynamics/coreLibrary_300/source/physics/*.h*")
 add_library(physics STATIC ${NEWTON_PHYSICS_SOURCES} ${NEWTON_PHYSICS_HEADERS})
 if(${COMPILER} STREQUAL "GCC")
   target_compile_definitions(physics PRIVATE -D_POSIX_VER_64)
@@ -189,16 +201,16 @@ endif()
 target_include_directories(
   physics PRIVATE ${NEWTON_PHYSICS_HEADERS_DIR} ${NEWTON_CORE_HEADERS_DIR}
                   ${TIME_TRACKER_HEADERS_DIR} ${NEWTON_MESH_UTIL_HEADERS_DIR})
-set_property(TARGET physics PROPERTY FOLDER ${THIRD_FOLDER})
+set_property(TARGET physics PROPERTY FOLDER ${VENDOR_FOLDER})
 
 file(
   GLOB NEWTON_MESH_UTIL_SOURCES
   RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-  "3rd/newton-dynamics/coreLibrary_300/source/meshUtil/*.c*")
+  "vendor/newton-dynamics/coreLibrary_300/source/meshUtil/*.c*")
 file(
   GLOB NEWTON_MESH_UTIL_HEADERS
   RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-  "3rd/newton-dynamics/coreLibrary_300/source/meshUtil/*.h*")
+  "vendor/newton-dynamics/coreLibrary_300/source/meshUtil/*.h*")
 add_library(meshUtil STATIC ${NEWTON_MESH_UTIL_SOURCES}
                             ${NEWTON_MESH_UTIL_HEADERS})
 if(${COMPILER} STREQUAL "GCC")
@@ -219,16 +231,16 @@ endif()
 target_include_directories(
   meshUtil PRIVATE ${NEWTON_MESH_UTIL_HEADERS_DIR} ${NEWTON_CORE_HEADERS_DIR}
                    ${TIME_TRACKER_HEADERS_DIR} ${NEWTON_PHYSICS_HEADERS_DIR})
-set_property(TARGET meshUtil PROPERTY FOLDER ${THIRD_FOLDER})
+set_property(TARGET meshUtil PROPERTY FOLDER ${VENDOR_FOLDER})
 
 file(
   GLOB NEWTON_SOURCES
   RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-  "3rd/newton-dynamics/coreLibrary_300/source/newton/*.c*")
+  "vendor/newton-dynamics/coreLibrary_300/source/newton/*.c*")
 file(
   GLOB NEWTON_HEADERS
   RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
-  "3rd/newton-dynamics/coreLibrary_300/source/newton/*.h*")
+  "vendor/newton-dynamics/coreLibrary_300/source/newton/*.h*")
 add_library(newton SHARED ${NEWTON_SOURCES} ${NEWTON_HEADERS})
 if(${COMPILER} STREQUAL "GCC")
   target_compile_definitions(newton PRIVATE -D_POSIX_VER_64)
@@ -252,10 +264,10 @@ target_include_directories(
           ${NEWTON_CORE_HEADERS_DIR} ${TIME_TRACKER_HEADERS_DIR}
           ${NEWTON_PHYSICS_HEADERS_DIR})
 target_link_libraries(newton core physics meshUtil)
-set_property(TARGET newton PROPERTY FOLDER ${THIRD_FOLDER})
+set_property(TARGET newton PROPERTY FOLDER ${VENDOR_FOLDER})
 
 # iaux
-message(iaux)
+message(STATUS "iaux")
 set(IAUX_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/iaux/")
 set(IAUX_HEADERS_DIR ${IAUX_SRC_DIR})
 file(
@@ -283,7 +295,7 @@ endif()
 set_property(TARGET iaux PROPERTY FOLDER ${ENGINE_FOLDER})
 
 # OMPF
-message(ompf)
+message(STATUS "ompf")
 
 set(OMPF_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/ompf/")
 set(OMPF_HEADERS_DIR ${OMPF_SRC_DIR})
@@ -308,7 +320,7 @@ target_link_libraries(ompf iaux)
 set_property(TARGET ompf PROPERTY FOLDER ${ENGINE_FOLDER})
 
 # Igor
-message(igor)
+message(STATUS "igor")
 
 # create igor version file
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/cmake/iVersion.cpp.inl
@@ -336,22 +348,26 @@ source_group_special("${IGOR_SOURCES}" ${IGOR_SRC_DIR})
 
 target_include_directories(
   igor
-  PRIVATE ${GLEE_HEADERS_DIR} ${TINYXML_HEADERS_DIR} ${STB_IMAGE_HEADERS_DIR}
-          ${NEWTON_PHYSICS_HEADERS_DIR} ${NEWTON_CORE_HEADERS_DIR}
+  PRIVATE ${GLEE_HEADERS_DIR}
+          ${TINYXML_HEADERS_DIR}
+          ${STB_IMAGE_HEADERS_DIR}
+          ${NEWTON_PHYSICS_HEADERS_DIR}
+          ${NEWTON_CORE_HEADERS_DIR}
           ${NEWTON_HEADERS_DIR}
+          ${ALSOFT_HEADERS_DIR}
   PUBLIC ${IGOR_HEADERS_DIR})
 
 if(${COMPILER} STREQUAL "GCC")
   target_link_libraries(
     igor
     PUBLIC iaux
-    PRIVATE ompf newton ${OPENGL_LIBRARIES} Xxf86vm)
+    PRIVATE ompf newton ${OPENGL_LIBRARIES} Xxf86vm OpenAL)
   target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__)
 elseif(${COMPILER} STREQUAL "MSVCXX")
   target_link_libraries(
     igor
     PUBLIC iaux
-    PRIVATE ompf OpenGL32 glu32 newton)
+    PRIVATE ompf OpenGL32 glu32 newton OpenAL)
   target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__)
 endif()
 
@@ -395,7 +411,18 @@ target_include_directories(
 target_link_libraries(obj2ompf igor)
 set_property(TARGET obj2ompf PROPERTY FOLDER ${TOOLS_FOLDER})
 
-# Examples currently don't work 99_Ascent 11_Instancing
+# Examples
+set(EXAMPLE_BASE_HEADERS_DIR
+    "${CMAKE_CURRENT_SOURCE_DIR}/examples/00_ExampleBase/src/")
+file(
+  GLOB_RECURSE EXAMPLE_BASE_SOURCES
+  RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
+  "examples/00_ExampleBase/src/*.c*")
+file(
+  GLOB_RECURSE EXAMPLE_BASE_HEADERS
+  RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
+  "examples/00_ExampleBase/src/*.h*")
+
 foreach(
   EXAMPLE
   00_FirstSteps
@@ -409,11 +436,14 @@ foreach(
   08_StateMachine
   09_Widgets
   10_LSystem
+  # 11_Instancing
   12_CharacterController
   13_SpriteAnimation
   14_Evaluation
+  15_Sound
   99_Ascent)
-  message(${EXAMPLE})
+
+  message(STATUS "${EXAMPLE}")
   set(EXAMPLE_HEADERS_DIR
       "${CMAKE_CURRENT_SOURCE_DIR}/examples/${EXAMPLE}/src/")
   file(
@@ -424,14 +454,18 @@ foreach(
     GLOB_RECURSE EXAMPLE_HEADERS
     RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
     "examples/${EXAMPLE}/src/*.h*")
-  add_executable(${EXAMPLE} ${EXAMPLE_SOURCES} ${EXAMPLE_HEADERS})
+  add_executable(${EXAMPLE} ${EXAMPLE_SOURCES} ${EXAMPLE_HEADERS}
+                            ${EXAMPLE_BASE_SOURCES} ${EXAMPLE_BASE_HEADERS})
   target_include_directories(
     ${EXAMPLE} PRIVATE ${IGOR_HEADERS_DIR} ${IAUX_HEADERS_DIR}
-                       ${OMPF_HEADERS_DIR})
+                       ${OMPF_HEADERS_DIR} ${EXAMPLE_BASE_HEADERS_DIR})
   target_link_libraries(${EXAMPLE} igor)
 
   set_property(TARGET ${EXAMPLE} PROPERTY FOLDER ${EXAMPLES_FOLDER})
 endforeach()
+
+# skipping testing for now
+return()
 
 # ##############################################################################
 # Testing #
@@ -464,9 +498,9 @@ if(IS_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-src")
                         "${gmock_SOURCE_DIR}/include")
   endif()
 
-  message("Testing Enabled")
+  message(STATUS "Testing Enabled")
   enable_testing()
-  set(IAUX_TEST_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/tests/iaux/")
+  set(IAUX_TEST_SRC_DIR "${CMAKE_SOURCE_DIR}/src/tests/iaux/")
   set(IAUX_TEST_HEADERS_DIR ${IAUX_TEST_SRC_DIR})
   file(
     GLOB_RECURSE IAUX_TEST_SOURCES
@@ -488,7 +522,7 @@ if(IS_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-src")
 
   set_property(TARGET iauxTest PROPERTY FOLDER ${TESTING_FOLDER})
   set_property(TARGET gmock gmock_main gtest gtest_main
-               PROPERTY FOLDER ${THIRD_FOLDER})
+               PROPERTY FOLDER ${VENDOR_FOLDER})
 else()
-  message("Testing Disabled")
+  message(WARNING "Testing Disabled")
 endif()

@@ -200,7 +200,7 @@ typedef double float64;
 
 #endif
 
-namespace IgorAux
+namespace iaux
 {
     /*! axis definition
     */
@@ -210,7 +210,7 @@ namespace IgorAux
         Y,
         Z
     };
-} // namespace IgorAux
+} // namespace iaux
 
 #ifdef __IGOR_DEBUG__
 #define __IAUX_CONFIG_STR__ debug

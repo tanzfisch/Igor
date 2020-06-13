@@ -4,7 +4,7 @@
 
 #include <igor/resources/mesh/iMeshBuilderUtils.h>
 
-namespace Igor
+namespace igor
 {
 	namespace iMeshBuilderUtils
 	{

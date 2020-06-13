@@ -33,9 +33,9 @@
 #include <igor/data/iSphere.h>
 
 #include <iaux/math/iaVector3.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     /*! enetity that can be located by it's position
@@ -75,6 +75,6 @@ namespace Igor
         iSphered _sphere;
     };
 
-} // namespace Igor
+} // namespace igor
 
 #endif

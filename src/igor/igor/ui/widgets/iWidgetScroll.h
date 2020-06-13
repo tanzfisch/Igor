@@ -33,9 +33,9 @@
 #include <igor/resources/texture/iTexture.h>
 
 #include <iaux/math/iaMatrix.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
 	class iUserControl;
@@ -250,6 +250,6 @@ namespace Igor
 	/*! widget scroll pointer definition
 	*/
 	typedef iWidgetScroll *iWidgetScrollPtr;
-} // namespace Igor
+} // namespace igor
 
 #endif

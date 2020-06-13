@@ -35,11 +35,11 @@
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaConsole.h>
 #include <iaux/system/iaTime.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <map>
 
-namespace Igor
+namespace igor
 {
 
     class iTextureFont;
@@ -165,6 +165,6 @@ namespace Igor
         void deinit();
     };
 
-} // namespace Igor
+} // namespace igor
 
 #endif

@@ -37,11 +37,11 @@
 #include <iaux/system/iaEvent.h>
 #include <iaux/data/iaString.h>
 #include <iaux/math/iaMatrix.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <vector>
 
-namespace Igor
+namespace igor
 {
 
     class iWindow;
@@ -52,7 +52,7 @@ namespace Igor
 
     /*! render event triggered for every frame a view is rendered
     */
-    iaEVENT(RenderEvent, RenderDelegate, void, (), ());
+    iaEVENT(iDrawEvent, iDrawDelegate, void, (), ());
 
     /*! represents a view rectangle within a window and projection of the scene
 
@@ -94,13 +94,13 @@ namespace Igor
 
         \param renderDelegate delegate to register
         */
-        void registerRenderDelegate(RenderDelegate renderDelegate);
+        void registerRenderDelegate(iDrawDelegate renderDelegate);
 
         /*! unregister delegate from render event
 
         \param renderDelegate delegate to unregister
         */
-        void unregisterRenderDelegate(RenderDelegate renderDelegate);
+        void unregisterRenderDelegate(iDrawDelegate renderDelegate);
 
         /*! sets the view port within a window.
 
@@ -343,7 +343,7 @@ namespace Igor
 
         /*! event called one per render frame
         */
-        RenderEvent _renderEvent;
+        iDrawEvent _renderEvent;
 
         /*! render engine that turns a scene in to something visible
         */
@@ -366,6 +366,6 @@ namespace Igor
         void updateWindowRect(const iRectanglei &windowRect);
     };
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

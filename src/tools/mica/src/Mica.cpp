@@ -8,28 +8,28 @@
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/system/iaDirectory.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <igor/resources/material/iMaterial.h>
-#include <igor/graphics/scene/traversal/iNodeVisitorPrintTree.h>
+#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
 #include <igor/threading/iTaskManager.h>
-#include <igor/graphics/scene/nodes/iNodeSkyBox.h>
-#include <igor/graphics/scene/nodes/iNodeCamera.h>
-#include <igor/graphics/scene/nodes/iNodeModel.h>
-#include <igor/graphics/scene/nodes/iNodeSwitch.h>
-#include <igor/graphics/scene/nodes/iNodeEmitter.h>
-#include <igor/graphics/scene/nodes/iNodeParticleSystem.h>
-#include <igor/graphics/scene/nodes/iNodeTransform.h>
+#include <igor/scene/nodes/iNodeSkyBox.h>
+#include <igor/scene/nodes/iNodeCamera.h>
+#include <igor/scene/nodes/iNodeModel.h>
+#include <igor/scene/nodes/iNodeSwitch.h>
+#include <igor/scene/nodes/iNodeEmitter.h>
+#include <igor/scene/nodes/iNodeParticleSystem.h>
+#include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/graphics/iRenderer.h>
-#include <igor/os/iApplication.h>
-#include <igor/graphics/scene/iSceneFactory.h>
-#include <igor/graphics/scene/iScene.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
-#include <igor/os/iTimer.h>
+#include <igor/system/iApplication.h>
+#include <igor/scene/iSceneFactory.h>
+#include <igor/scene/iScene.h>
+#include <igor/scene/nodes/iNodeManager.h>
+#include <igor/system/iTimer.h>
 #include <igor/resources/texture/iTextureFont.h>
-#include <igor/graphics/scene/nodes/iNodeLight.h>
+#include <igor/scene/nodes/iNodeLight.h>
 #include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/graphics/scene/traversal/iNodeVisitorBoundings.h>
+#include <igor/scene/traversal/iNodeVisitorBoundings.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/ui/theme/iWidgetDefaultTheme.h>
 #include <igor/ui/dialogs/iDialog.h>
@@ -37,10 +37,10 @@ using namespace IgorAux;
 #include <igor/ui/widgets/iWidgetScroll.h>
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/threading/tasks/iTaskFlushTextures.h>
-#include <igor/graphics/scene/nodes/iNodeMesh.h>
+#include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/graphics/iRenderEngine.h>
-using namespace Igor;
+using namespace igor;
 
 #include "UserControlMesh.h"
 #include "UserControlModel.h"
@@ -90,7 +90,7 @@ void Mica::init(iaString fileName)
 	iWidgetManager::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &Mica::onMouseKeyDown));
 	iWidgetManager::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &Mica::onMouseKeyUp));
 
-	iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &Mica::handle));
+	iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &Mica::handle));
 
 	int32 width, height;
 	_window.getDesktopSize(width, height);
@@ -104,7 +104,7 @@ void Mica::init(iaString fileName)
 	_view.setClearColor(iaColor4f(0.25f, 0.25f, 0.25f, 1.0f));
 	_view.setPerspective(45.0f);
 	_view.setClipPlanes(1.0f, 100000.f);
-	_view.registerRenderDelegate(RenderDelegate(this, &Mica::render));
+	_view.registerRenderDelegate(iDrawDelegate(this, &Mica::render));
 	_window.addView(&_view);
 
 	_viewOrtho.setName("2D_UI_View");
@@ -112,7 +112,7 @@ void Mica::init(iaString fileName)
 	_viewOrtho.setClearDepth(false);
 	_viewOrtho.setClipPlanes(-1.0f, 1.0f);
 	_viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
-	_viewOrtho.registerRenderDelegate(RenderDelegate(this, &Mica::renderOrtho));
+	_viewOrtho.registerRenderDelegate(iDrawDelegate(this, &Mica::renderOrtho));
 	_window.addView(&_viewOrtho, 10);
 
 	_window.setDoubleClick(true);
@@ -283,8 +283,8 @@ void Mica::deinit()
 	_window.removeView(&_viewOrtho);
 	_window.removeView(&_viewWidget3D);
 
-	_view.unregisterRenderDelegate(RenderDelegate(this, &Mica::render));
-	_viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &Mica::renderOrtho));
+	_view.unregisterRenderDelegate(iDrawDelegate(this, &Mica::render));
+	_viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &Mica::renderOrtho));
 
 	if (_font)
 	{
@@ -296,7 +296,7 @@ void Mica::deinit()
 	iWidgetManager::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &Mica::onMouseKeyDown));
 	iWidgetManager::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &Mica::onMouseKeyUp));
 	iWidgetManager::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &Mica::onKeyDown));
-	iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &Mica::handle));
+	iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &Mica::handle));
 
 	if (_manipulator != nullptr)
 	{

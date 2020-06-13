@@ -31,7 +31,7 @@
 
 #include <igor/ui/widgets/iWidget.h>
 
-namespace Igor
+namespace igor
 {
 
 	/*! use control base class
@@ -64,6 +64,6 @@ namespace Igor
 		virtual void calcMinSize() override;
 	};
 
-} // namespace Igor
+} // namespace igor
 
 #endif

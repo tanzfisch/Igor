@@ -19,7 +19,7 @@
 #include <igor/resources/iResourceManager.h>
 #include <igor/ui/widgets/iWidgetGroupBox.h>
 #include <igor/graphics/iRenderer.h>
-using namespace Igor;
+using namespace igor;
 
 UserControlMaterial::UserControlMaterial()
 {

@@ -4,7 +4,7 @@
 
 #include <igor/entities/iEntityLocatable.h>
 
-namespace Igor
+namespace igor
 {
     iEntityLocatable::iEntityLocatable()
     {

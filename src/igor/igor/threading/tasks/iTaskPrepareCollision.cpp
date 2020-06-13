@@ -6,9 +6,9 @@
 
 #include <igor/physics/iPhysics.h>
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     iTaskPrepareCollision::iTaskPrepareCollision(uint64 collisionConfigID, uint32 priority)
@@ -33,4 +33,4 @@ namespace Igor
         }
     }
 
-}; // namespace Igor
+}; // namespace igor

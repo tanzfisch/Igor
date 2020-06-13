@@ -32,9 +32,9 @@
 #include <igor/ui/widgets/iWidget.h>
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
 	/*! label widget
@@ -101,6 +101,6 @@ namespace Igor
 	/*! widget label pointer definition
 	*/
 	typedef iWidgetLabel *iWidgetLabelPtr;
-} // namespace Igor
+} // namespace igor
 
 #endif

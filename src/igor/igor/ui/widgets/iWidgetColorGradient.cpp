@@ -12,9 +12,9 @@
 #include <igor/data/iIntersection.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     iWidgetColorGradient::iWidgetColorGradient(const iWidgetPtr parent)
@@ -180,4 +180,4 @@ namespace Igor
         }
     }
 
-} // namespace Igor
+} // namespace igor

@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
 TEST(StringTests, Initial)
 {

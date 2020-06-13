@@ -35,12 +35,12 @@
 
 #include <iaux/system/iaSingleton.h>
 #include <iaux/system/iaMutex.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <map>
 #include <memory>
 
-namespace Igor
+namespace igor
 {
 
     class iWindow;
@@ -195,6 +195,6 @@ namespace Igor
         virtual ~iModelResourceFactory();
     };
 
-} // namespace Igor
+} // namespace igor
 
 #endif

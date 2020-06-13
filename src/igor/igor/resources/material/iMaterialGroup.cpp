@@ -4,13 +4,13 @@
 
 #include <igor/resources/material/iMaterialGroup.h>
 
-#include <igor/graphics/scene/nodes/iNodeRender.h>
-#include <igor/graphics/scene/nodes/iNodeMesh.h>
+#include <igor/scene/nodes/iNodeRender.h>
+#include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/resources/mesh/iMesh.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/scene/nodes/iNodeManager.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 
-namespace Igor
+namespace igor
 {
     iMaterialGroup::~iMaterialGroup()
     {
@@ -91,4 +91,4 @@ namespace Igor
         }
     }
 
-} // namespace Igor
+} // namespace igor

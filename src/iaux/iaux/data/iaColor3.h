@@ -34,7 +34,7 @@
 #include <fstream>
 #include <iostream>
 
-namespace IgorAux
+namespace iaux
 {
 
     /*! 3 component color class
@@ -183,6 +183,6 @@ namespace IgorAux
     */
     typedef iaColor3<uint8> iaColor3c;
 
-}; // namespace IgorAux
+}; // namespace iaux
 
 #endif

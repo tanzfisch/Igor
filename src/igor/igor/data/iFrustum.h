@@ -32,9 +32,9 @@
 #include <igor/data/iPlane.h>
 
 #include <iaux/math/iaMatrix.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     /*! frustum defined by 8 planes
@@ -97,6 +97,6 @@ namespace Igor
     */
     typedef iFrustum<float64> iFrustumd;
 
-} // namespace Igor
+} // namespace igor
 
 #endif

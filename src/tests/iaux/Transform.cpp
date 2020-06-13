@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <iaux/math/iaTransform.h>
-using namespace IgorAux;
+using namespace iaux;
 
 TEST(TransformTests, Initial)
 {

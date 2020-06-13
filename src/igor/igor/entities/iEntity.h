@@ -32,9 +32,9 @@
 #include <igor/iDefines.h>
 
 #include <iaux/system/iaMutex.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     /*! engine internal entity base types
@@ -99,6 +99,6 @@ namespace Igor
         static iaMutex _mutexID;
     };
 
-} // namespace Igor
+} // namespace igor
 
 #endif

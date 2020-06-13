@@ -32,9 +32,9 @@
 #include <igor/ui/dialogs/iDialog.h>
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     class iAction;
@@ -150,6 +150,6 @@ namespace Igor
     /*! menu widget pointer definition
 	*/
     typedef iWidgetMenu *iMenuPtr;
-} // namespace Igor
+} // namespace igor
 
 #endif

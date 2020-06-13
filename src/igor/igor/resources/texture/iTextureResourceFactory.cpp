@@ -7,12 +7,12 @@
 #include <igor/resources/iResourceManager.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-namespace Igor
+namespace igor
 {
 
     iTextureResourceFactory::iTextureResourceFactory()
@@ -489,4 +489,4 @@ namespace Igor
         return pixmap;
     }
 
-}; // namespace Igor
+}; // namespace igor

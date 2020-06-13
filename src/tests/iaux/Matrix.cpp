@@ -2,7 +2,7 @@
 
 #include <iaux/math/iaMatrix.h>
 #include <iaux/math/iaRandomNumberGenerator.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <cstring>
 

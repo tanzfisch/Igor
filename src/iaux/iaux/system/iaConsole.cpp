@@ -16,7 +16,7 @@
 #include <wchar.h>
 #endif
 
-namespace IgorAux
+namespace iaux
 {
 
 #ifdef __IGOR_WINDOWS__
@@ -255,4 +255,4 @@ namespace IgorAux
         _streamToLogfile = activate;
     }
 
-}; // namespace IgorAux
+}; // namespace iaux

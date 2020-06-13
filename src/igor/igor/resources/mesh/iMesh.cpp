@@ -7,9 +7,9 @@
 #include <igor/graphics/iRenderer.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     iMesh::iMesh()
@@ -115,4 +115,4 @@ namespace Igor
         _bbox = bbox;
     }
 
-} // namespace Igor
+} // namespace igor

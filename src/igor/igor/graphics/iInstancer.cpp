@@ -7,9 +7,9 @@
 #include <igor/graphics/iRenderer.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     iInstancer::iInstancer(uint32 instanceSize, uint32 maxInstanceCount)
@@ -47,4 +47,4 @@ namespace Igor
         _instanceArrayObject = instanceArrayObject;
     }
 
-} // namespace Igor
+} // namespace igor

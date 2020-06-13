@@ -3,7 +3,7 @@
 
 #include "GameObject.h"
 
-namespace Igor
+namespace igor
 {
     class iScene;
     class iPhysicsBody;

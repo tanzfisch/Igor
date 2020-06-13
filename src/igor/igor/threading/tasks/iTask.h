@@ -34,18 +34,24 @@
 
 #include <iaux/system/iaDelegate.h>
 #include <iaux/system/iaMutex.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     class iWindow;
 
+    /*! task context
+    */
     enum class iTaskContext
     {
         Default,
         RenderContext
     };
+
+    /*! task id definition
+    */
+    typedef uint64 iTaskID;
 
     /*! need a task to be done in parallel? than derive from this base class
     */
@@ -57,7 +63,7 @@ namespace Igor
     public:
         /*! invalid task id definition
         */
-        static const uint64 INVALID_TASK_ID = 0;
+        static const iTaskID INVALID_TASK_ID = 0;
 
         /*! default priority for a task to run
         */
@@ -104,7 +110,7 @@ namespace Igor
 
         /*! \returns ID of task
         */
-        uint64 getID();
+        iTaskID getID();
 
         /*! \returns physics world id if present
         \todo broken design?
@@ -168,17 +174,17 @@ namespace Igor
 
         /*! counter for next task ID
         */
-        static uint64 _nextTaskID;
+        static iTaskID _nextTaskID;
 
         /*! the task id
         */
-        uint64 _taskID = INVALID_TASK_ID;
+        iTaskID _taskID = INVALID_TASK_ID;
 
         /*! task context
         */
         iTaskContext _taskContext = iTaskContext::Default;
     };
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

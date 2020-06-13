@@ -31,7 +31,7 @@
 
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaIDGenerator.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <igor/graphics/iRenderStateSet.h>
 #include <igor/resources/material/iShader.h>
@@ -39,7 +39,7 @@ using namespace IgorAux;
 #include <vector>
 #include <memory>
 
-namespace Igor
+namespace igor
 {
 
     class iNodeLight;
@@ -57,6 +57,10 @@ namespace Igor
         */
         iShaderObjectType _type;
     };
+
+    /*! material id definition
+    */
+    typedef uint64 iMaterialID;
 
     /*! defines visual material
 
@@ -114,7 +118,7 @@ namespace Igor
 
         /*! \returns material ID
         */
-        uint64 getID() const;
+        iMaterialID getID() const;
 
         /*! sets name of material
 
@@ -184,7 +188,7 @@ namespace Igor
 
         /*! material id
         */
-        uint64 _id = iMaterial::INVALID_MATERIAL_ID;
+        iMaterialID _id = iMaterial::INVALID_MATERIAL_ID;
 
         /*! if false the material was already destroyed by the iMaterialResourceFactory
         */
@@ -323,6 +327,6 @@ namespace Igor
     */
     typedef std::shared_ptr<iMaterial> iMaterialPtr;
 
-} // namespace Igor
+} // namespace igor
 
 #endif

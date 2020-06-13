@@ -12,9 +12,9 @@
 #include <igor/ui/widgets/iWidgetButton.h>
 #include <igor/ui/widgets/iWidgetSlider.h>
 #include <igor/ui/widgets/iWidgetNumberChooser.h>
-#include <igor/graphics/scene/nodes/iNodeMesh.h>
+#include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/resources/mesh/iMesh.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/scene/nodes/iNodeManager.h>
 #include <igor/resources/material/iTargetMaterial.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/resources/iResourceManager.h>
@@ -22,8 +22,8 @@
 #include <igor/resources/material/iMaterial.h>
 #include <igor/ui/user_controls/iUserControlFileChooser.h>
 #include <igor/resources/mesh/iMeshBuilderUtils.h>
-#include <igor/graphics/scene/iScene.h>
-using namespace Igor;
+#include <igor/scene/iScene.h>
+using namespace igor;
 
 #include "MicaDefines.h"
 

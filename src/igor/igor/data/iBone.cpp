@@ -5,9 +5,9 @@
 #include <igor/data/iBone.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     iBone::iBone()
@@ -58,4 +58,4 @@ namespace Igor
         return _userData;
     }
 
-} // namespace Igor
+} // namespace igor

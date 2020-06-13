@@ -5,12 +5,12 @@
 #include "VoxelExample.h"
 
 #include <igor/igor.h>
-using namespace Igor;
+using namespace igor;
 
 int main()
 {
     // the verry first thing to do before using Igor
-	Igor::startup();
+	igor::startup();
 
     // create and run voxel example
 	VoxelExample* example = new VoxelExample();
@@ -18,7 +18,7 @@ int main()
 	delete example;
 	
     // give Igor a chance to clean up you mess ;-)
-	Igor::shutdown();
+	igor::shutdown();
 
 	return 0;
 }
