@@ -34,11 +34,11 @@
 #include <igor/data/iAABox.h>
 
 #include <iaux/data/iaColor3.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <map>
 
-namespace Igor
+namespace igor
 {
 
     /*! internal mesh structure
@@ -281,6 +281,6 @@ namespace Igor
 	*/
     typedef std::shared_ptr<iMesh> iMeshPtr;
 
-} // namespace Igor
+} // namespace igor
 
 #endif

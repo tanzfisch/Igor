@@ -38,14 +38,14 @@
 #include <iaux/math/iaMatrix.h>
 #include <iaux/data/iaColor3.h>
 #include <iaux/data/iaColor4.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <map>
 #include <memory>
 #include <vector>
 #include <unordered_map>
 
-namespace Igor
+namespace igor
 {
 
     /*! triangle defined by three indexes to vertexes
@@ -363,6 +363,6 @@ namespace Igor
         void getIndexOfVertexes(const iaVector3f &vertexA, int64 &indexA, const iaVector3f &vertexB, int64 &indexB, const iaVector3f &vertexC, int64 &indexC);
     };
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

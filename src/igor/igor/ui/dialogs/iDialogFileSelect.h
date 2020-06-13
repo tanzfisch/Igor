@@ -32,9 +32,9 @@
 #include <igor/ui/dialogs/iDialog.h>
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
 	class iWidgetGrid;
@@ -190,6 +190,6 @@ namespace Igor
     */
 	typedef iDialogFileSelect *iDialogFileSelectPtr;
 
-} // namespace Igor
+} // namespace igor
 
 #endif

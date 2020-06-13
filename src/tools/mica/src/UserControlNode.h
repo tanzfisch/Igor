@@ -30,13 +30,13 @@
 #define __USERCONTROLNODE__
 
 #include <iaux/system/iaEvent.h>
-using namespace IgorAux;
+using namespace iaux;
 
-#include <igor/graphics/scene/nodes/iNode.h>
+#include <igor/scene/nodes/iNode.h>
 #include <igor/ui/user_controls/iUserControl.h>
-using namespace Igor;
+using namespace igor;
 
-namespace Igor
+namespace igor
 {
     class iWidgetGrid;
     class iWidgetTextEdit;

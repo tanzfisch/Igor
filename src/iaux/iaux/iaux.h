@@ -33,7 +33,7 @@
 
 /*! IgorAux namespace that contains all basic functionality of the Igor game engine
 */
-namespace IgorAux
+namespace iaux
 {
 
 	/*! should be called before any other interface of IgorAux is used	
@@ -47,6 +47,6 @@ namespace IgorAux
 	*/
 	IgorAux_API void shutdown();
 
-} // namespace IgorAux
+} // namespace iaux
 
 #endif

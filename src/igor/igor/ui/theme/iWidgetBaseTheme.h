@@ -34,11 +34,11 @@
 
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaGradient.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <memory>
 
-namespace Igor
+namespace igor
 {
 
 	class iTextureFont;
@@ -94,6 +94,6 @@ namespace Igor
 		virtual ~iWidgetBaseTheme() = default;
 	};
 
-} // namespace Igor
+} // namespace igor
 
 #endif

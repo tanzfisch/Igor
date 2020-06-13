@@ -5,7 +5,7 @@
 #include <ompf/chunks/ompfParticleSystemChunk.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <iomanip>
 

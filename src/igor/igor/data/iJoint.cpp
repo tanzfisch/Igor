@@ -7,11 +7,11 @@
 #include <igor/data/iBone.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <algorithm>
 
-namespace Igor
+namespace igor
 {
 
     iJoint::iJoint()
@@ -80,4 +80,4 @@ namespace Igor
         return _customData;
     }
 
-} // namespace Igor
+} // namespace igor

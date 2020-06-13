@@ -4,38 +4,38 @@
 #include <iaux/data/iaString.h>
 #include <iaux/math/iaBSpline.h>
 #include <iaux/data/iaConvert.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <igor/resources/material/iMaterial.h>
-#include <igor/graphics/scene/traversal/iNodeVisitorPrintTree.h>
+#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
 #include <igor/threading/iTaskManager.h>
-#include <igor/graphics/scene/nodes/iNodeSkyBox.h>
-#include <igor/graphics/scene/nodes/iNodeCamera.h>
-#include <igor/graphics/scene/nodes/iNodeModel.h>
+#include <igor/scene/nodes/iNodeSkyBox.h>
+#include <igor/scene/nodes/iNodeCamera.h>
+#include <igor/scene/nodes/iNodeModel.h>
 #include <igor/graphics/iRenderer.h>
-#include <igor/os/iApplication.h>
-#include <igor/graphics/scene/iSceneFactory.h>
-#include <igor/graphics/scene/iScene.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
-#include <igor/os/iMouse.h>
-#include <igor/os/iKeyboard.h>
-#include <igor/os/iTimer.h>
+#include <igor/system/iApplication.h>
+#include <igor/scene/iSceneFactory.h>
+#include <igor/scene/iScene.h>
+#include <igor/scene/nodes/iNodeManager.h>
+#include <igor/system/iMouse.h>
+#include <igor/system/iKeyboard.h>
+#include <igor/system/iTimer.h>
 #include <igor/resources/texture/iTextureFont.h>
-#include <igor/graphics/scene/nodes/iNodeLight.h>
+#include <igor/scene/nodes/iNodeLight.h>
 #include <igor/resources/model/iModelResourceFactory.h>
 #include <igor/threading/tasks/iTaskFlushModels.h>
 #include <igor/threading/tasks/iTaskFlushTextures.h>
 #include <iaux/data/iaString.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/profiler/iProfiler.h>
-#include <igor/graphics/scene/nodes/iNodeSwitch.h>
-#include <igor/graphics/scene/nodes/iNodeLODSwitch.h>
-#include <igor/graphics/scene/nodes/iNodeLODTrigger.h>
-#include <igor/graphics/scene/traversal/iNodeVisitorRenderColorID.h>
-#include <igor/graphics/evaluation/iEvaluationManager.h>
-#include <igor/graphics/evaluation/iEvaluationTransform.h>
-#include <igor/graphics/evaluation/iEvaluationScript.h>
-using namespace Igor;
+#include <igor/scene/nodes/iNodeSwitch.h>
+#include <igor/scene/nodes/iNodeLODSwitch.h>
+#include <igor/scene/nodes/iNodeLODTrigger.h>
+#include <igor/scene/traversal/iNodeVisitorRenderColorID.h>
+#include <igor/evaluation/iEvaluationManager.h>
+#include <igor/evaluation/iEvaluationTransform.h>
+#include <igor/evaluation/iEvaluationScript.h>
+using namespace igor;
 
 Evaluation::Evaluation()
 {
@@ -130,7 +130,7 @@ void Evaluation::init()
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
     _viewOrtho.setOrthogonal(0.0, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0);
-    _viewOrtho.registerRenderDelegate(RenderDelegate(this, &Evaluation::onRenderOrtho));
+    _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &Evaluation::onRenderOrtho));
     _window.addView(&_viewOrtho);
     // and open the window
     _window.open();
@@ -259,7 +259,7 @@ void Evaluation::deinit()
     iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &Evaluation::onMouseWheel));
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Evaluation::onWindowClosed));
     _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Evaluation::onWindowResized));
-    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &Evaluation::onRenderOrtho));
+    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &Evaluation::onRenderOrtho));
 
     // release resources
     if (_font != nullptr)

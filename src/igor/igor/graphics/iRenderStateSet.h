@@ -32,9 +32,9 @@
 #include <igor/iDefines.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
 	/*! render states
@@ -139,6 +139,6 @@ namespace Igor
 		iRenderStateValue _renderStates[static_cast<unsigned int>(iRenderState::RenderStateCount)];
 	};
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

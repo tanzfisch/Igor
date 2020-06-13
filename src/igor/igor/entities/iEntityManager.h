@@ -29,14 +29,14 @@
 #ifndef __iENTITYMANAGER__
 #define __iENTITYMANAGER__
 
-#include <igor/graphics/scene/octree/iOctree.h>
+#include <igor/scene/octree/iOctree.h>
 
 #include <iaux/system/iaSingleton.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <map>
 
-namespace Igor
+namespace igor
 {
 
     class iEntity;
@@ -123,6 +123,6 @@ namespace Igor
         ~iEntityManager();
     };
 
-} // namespace Igor
+} // namespace igor
 
 #endif

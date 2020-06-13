@@ -31,7 +31,7 @@
 
 #include <igor/ui/dialogs/iDialog.h>
 
-namespace Igor
+namespace igor
 {
 
     class iWidgetGrid;
@@ -116,6 +116,6 @@ namespace Igor
     */
     typedef iDialogMenu *iDialogMenuPtr;
 
-} // namespace Igor
+} // namespace igor
 
 #endif

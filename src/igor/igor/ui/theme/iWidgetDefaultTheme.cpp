@@ -11,7 +11,7 @@
 #include <igor/graphics/iRenderer.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #define DEBUG_OUTPUT 0
 
@@ -62,7 +62,7 @@ static const iaColor4f COLOR_BLACK = {0.0f, 0.0f, 0.0f, 1.0f};
 static const iaColor4f COLOR_TEXT = {0.2f, 0.2f, 0.2f, 1.0f};
 static const iaColor4f COLOR_TEXT_DARK = {0.0f, 0.0f, 0.0f, 1.0f};
 
-namespace Igor
+namespace igor
 {
 	__IGOR_DISABLE_WARNING__(4100)
 
@@ -943,4 +943,4 @@ namespace Igor
 	}
 
 	__IGOR_ENABLE_WARNING__(4100)
-} // namespace Igor
+} // namespace igor

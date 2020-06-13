@@ -1,13 +1,13 @@
 #include "KeyboardExample.h"
 
 #include <igor/igor.h>
-using namespace Igor;
+using namespace igor;
 
 int main(void)
 {
     /*! call this before you call anything else of Igor
     */
-	Igor::startup();
+	igor::startup();
 
     // create and run example class
 	KeyboardExample* example = new KeyboardExample();
@@ -16,7 +16,7 @@ int main(void)
 
     /*! call this after you are done with using Igor
     */
-    Igor::shutdown();
+    igor::shutdown();
 
 	return 0;
 }

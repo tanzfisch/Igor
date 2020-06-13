@@ -30,7 +30,7 @@
 #define __WIDGETEXAMPLE__
 
 #include <igor/igor.h>
-#include <igor/os/iWindow.h>
+#include <igor/system/iWindow.h>
 #include <igor/graphics/iView.h>
 #include <igor/ui/dialogs/iDialog.h>
 #include <igor/ui/dialogs/iDialogColorChooser.h>
@@ -39,13 +39,13 @@
 #include <igor/resources/profiler/iProfilerVisualizer.h>
 #include <igor/resources/texture/iTexture.h>
 #include <igor/ui/dialogs/iDialogMessageBox.h>
-using namespace Igor;
+using namespace igor;
 
 #include <iaux/data/iaGradient.h>
 #include <iaux/math/iaMatrix.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
     class iTextureFont;
 	class iWidgetDefaultTheme;

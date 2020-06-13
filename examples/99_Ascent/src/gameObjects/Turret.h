@@ -3,18 +3,18 @@
 
 #include "GameObject.h"
 
-#include <igor/graphics/scene/nodes/iNode.h>
-using namespace Igor;
+#include <igor/scene/nodes/iNode.h>
+using namespace igor;
 
 #include <iaux/system/iaTime.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
     class iScene;
     class iNodeTransform;
     class iVoxelTerrain;
-} // namespace Igor
+} // namespace igor
 
 class Turret : public GameObject
 {

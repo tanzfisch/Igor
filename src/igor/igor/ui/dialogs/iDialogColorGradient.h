@@ -32,9 +32,9 @@
 #include <igor/ui/dialogs/iDialog.h>
 
 #include <iaux/data/iaGradient.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
 	class iWidgetColorGradient;
@@ -170,6 +170,6 @@ namespace Igor
     */
 	typedef iDialogColorGradient *iDialogColorGradientPtr;
 
-} // namespace Igor
+} // namespace igor
 
 #endif

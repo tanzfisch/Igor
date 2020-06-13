@@ -13,9 +13,9 @@
 #include <igor/data/iIntersection.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     iWidgetGraph::iWidgetGraph(const iWidgetPtr parent)
@@ -465,4 +465,4 @@ namespace Igor
         return _extrapolateData;
     }
 
-} // namespace Igor
+} // namespace igor

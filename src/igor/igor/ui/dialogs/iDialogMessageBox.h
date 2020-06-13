@@ -33,9 +33,9 @@
 
 #include <iaux/system/iaEvent.h>
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
 	/*! message box button configuration
@@ -107,6 +107,6 @@ namespace Igor
 		void onNo(const iWidgetPtr source);
 	};
 
-} // namespace Igor
+} // namespace igor
 
 #endif

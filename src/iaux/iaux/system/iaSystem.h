@@ -33,7 +33,7 @@
 
 #include <vector>
 
-namespace IgorAux
+namespace iaux
 {
 
 	/*! returns current callstack
@@ -42,6 +42,6 @@ namespace IgorAux
 	*/
 	IgorAux_API void getCallStack(std::vector<iaString> &callStack);
 
-} // namespace IgorAux
+} // namespace iaux
 
 #endif

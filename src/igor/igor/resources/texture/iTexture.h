@@ -30,17 +30,16 @@
 #define __iTEXTURE__
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <igor/iDefines.h>
 
 #include <memory>
 
-namespace Igor
+namespace igor
 {
 
     struct iRendererTexture;
-    class iTexture;
 
     /*! represents a texture resource
     */
@@ -162,6 +161,6 @@ namespace Igor
 	*/
     typedef std::shared_ptr<iTexture> iTexturePtr;
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

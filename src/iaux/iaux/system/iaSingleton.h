@@ -31,7 +31,7 @@
 
 #include <iaux/system/iaMutex.h>
 
-namespace IgorAux
+namespace iaux
 {
 
 #pragma warning(disable : 4100)
@@ -131,6 +131,6 @@ namespace IgorAux
     iaMutex iaSingleton<T>::_mutex;
 
 #pragma warning(default : 4100)
-}; // namespace IgorAux
+}; // namespace iaux
 
 #endif

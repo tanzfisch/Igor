@@ -30,17 +30,17 @@
 #define __iWIDGET__
 
 #include <igor/iDefines.h>
-#include <igor/os/iMouse.h>
-#include <igor/os/iTimerHandle.h>
+#include <igor/system/iMouse.h>
+#include <igor/system/iTimerHandle.h>
 
 #include <iaux/math/iaVector4.h>
 #include <iaux/data/iaColor4.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <set>
 #include <vector>
 
-namespace Igor
+namespace igor
 {
 
 	class iWidgetManager;
@@ -934,6 +934,6 @@ namespace Igor
 
 #include <igor/ui/widgets/iWidget.inl>
 
-} // namespace Igor
+} // namespace igor
 
 #endif

@@ -4,10 +4,10 @@
 
 #include <igor/threading/iRenderContextThread.h>
 
-#include <igor/os/iWindow.h>
+#include <igor/system/iWindow.h>
 #include <iaux/system/iaConsole.h>
 
-namespace Igor
+namespace igor
 {
 
     iRenderContextThread::iRenderContextThread(iWindow *window)
@@ -63,4 +63,4 @@ namespace Igor
         _isValid = false;
     }
 
-}; // namespace Igor
+}; // namespace igor

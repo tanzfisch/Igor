@@ -34,12 +34,12 @@
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaColor4.h>
 #include <iaux/math/iaVector2.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <vector>
 #include <map>
 
-namespace Igor
+namespace igor
 {
 
     class iTexture;
@@ -317,6 +317,6 @@ namespace Igor
         */
         bool handleMouseKeyDown(iKeyCode key);
     };
-} // namespace Igor
+} // namespace igor
 
 #endif

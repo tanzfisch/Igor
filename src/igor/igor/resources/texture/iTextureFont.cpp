@@ -7,7 +7,7 @@
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/resources/iResourceManager.h>
 
-namespace Igor
+namespace igor
 {
 
 #define CHARACTERINTEXWIDTH 16
@@ -284,4 +284,4 @@ namespace Igor
         return height;
     }
 
-}; // namespace Igor
+}; // namespace igor

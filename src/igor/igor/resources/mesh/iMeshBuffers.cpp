@@ -5,7 +5,7 @@
 #include <igor/resources/mesh/iMeshBuffers.h>
 #include <igor/graphics/iRenderer.h>
 
-namespace Igor
+namespace igor
 {
 
     iMeshBuffers::~iMeshBuffers()

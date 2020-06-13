@@ -4,7 +4,7 @@
 
 #include <igor/resources/texture/iTexture.h>
 
-namespace Igor
+namespace igor
 {
 
 	iTexture::iTexture(iaString name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
@@ -71,4 +71,4 @@ namespace Igor
 		return _filename;
 	}
 
-}; // namespace Igor
+}; // namespace igor

@@ -37,7 +37,7 @@ bool WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 #pragma warning(default : 4100)
 #endif // __IGOR_WINDOWS__
 
-namespace IgorAux
+namespace iaux
 {
 
 	void startup()
@@ -59,4 +59,4 @@ namespace IgorAux
 		// do not destroy instance of iaConsole
 	}
 
-} // namespace IgorAux
+} // namespace iaux

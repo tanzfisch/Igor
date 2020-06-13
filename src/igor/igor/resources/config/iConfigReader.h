@@ -30,11 +30,11 @@
 #define __iCONFIGREADER__
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
 class TiXmlElement;
 
-namespace Igor
+namespace igor
 {
 
 	/*! reader for generall Igor configuration file.
@@ -75,6 +75,6 @@ namespace Igor
 		void readLoggingConfig(TiXmlElement *logging);
 	};
 
-} // namespace Igor
+} // namespace igor
 
 #endif

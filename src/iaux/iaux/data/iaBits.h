@@ -31,7 +31,7 @@
 
 #include <iaux/iaDefines.h>
 
-namespace IgorAux
+namespace iaux
 {
 
     /*! bit field
@@ -109,6 +109,6 @@ namespace IgorAux
     /*! 64 bit field
     */
     typedef iaBits<uint64> iaBits64;
-}; // namespace IgorAux
+}; // namespace iaux
 
 #endif

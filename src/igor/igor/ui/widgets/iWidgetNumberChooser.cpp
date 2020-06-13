@@ -9,9 +9,9 @@
 #include <igor/resources/texture/iTextureFont.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
 	iWidgetNumberChooser::iWidgetNumberChooser(const iWidgetPtr parent)
@@ -271,4 +271,4 @@ namespace Igor
 		}
 	}
 
-} // namespace Igor
+} // namespace igor

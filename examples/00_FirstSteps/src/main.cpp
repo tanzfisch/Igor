@@ -5,16 +5,19 @@
 #include "FirstSteps.h"
 
 #include <igor/igor.h>
-#include <igor/os/iApplication.h>
-using namespace Igor;
+#include <igor/system/iApplication.h>
+#include <igor/system/iTimer.h>
+using namespace igor;
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 int main(void)
 {
     // call this before you call anything else of Igor
-    Igor::startup();
+    igor::startup();
+
+    con_info("letting the engine control the main loop");
 
     // create and run first steps class
     FirstSteps *firstSteps = new FirstSteps();
@@ -22,22 +25,24 @@ int main(void)
     delete firstSteps;
 
     // call this after you are done with using Igor
-    Igor::shutdown();
+    igor::shutdown();
 
     // as alternative you can also implement your main loop your self like folloed
     // we recommend to use the variant above
 
     // call this before you call anything else of Igor
-    Igor::startup();
+    igor::startup();
+
+    con_info("now the application controls the main loop");
 
     for (int i = 0; i < 10; ++i)
     {
         iApplication::getInstance().iterate();
-        con_endl("iteration " << i);
+        con_endl("iteration " << i + 1);
     }
 
     // call this after you are done with using Igor
-    Igor::shutdown();
+    igor::shutdown();
 
     return 0;
 }

@@ -4,18 +4,18 @@
 
 #include <igor/resources/profiler/iProfilerVisualizer.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/os/iWindow.h>
+#include <igor/system/iWindow.h>
 #include <igor/resources/texture/iTextureFont.h>
-#include <igor/os/iTimer.h>
+#include <igor/system/iTimer.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/graphics/iRenderer.h>
 #include <igor/resources/profiler/iProfilerSection.h>
 #include <igor/resources/profiler/iProfiler.h>
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     const iaColor4f iProfilerVisualizer::_colors[] =
@@ -327,4 +327,4 @@ namespace Igor
         iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
     }
 
-} // namespace Igor
+} // namespace igor

@@ -33,13 +33,13 @@
 
 #include <iaux/system/iaSingleton.h>
 #include <iaux/system/iaEvent.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <list>
 #include <map>
 #include <vector>
 
-namespace Igor
+namespace igor
 {
 
     class iTask;
@@ -262,6 +262,6 @@ namespace Igor
         virtual ~iTaskManager();
     };
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

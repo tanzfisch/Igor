@@ -2,41 +2,41 @@
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <igor/resources/material/iMaterial.h>
-#include <igor/graphics/scene/traversal/iNodeVisitorPrintTree.h>
+#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
 #include <igor/threading/iTaskManager.h>
-#include <igor/graphics/scene/nodes/iNodeSkyBox.h>
-#include <igor/graphics/scene/nodes/iNodeCamera.h>
-#include <igor/graphics/scene/nodes/iNodeModel.h>
-#include <igor/graphics/scene/nodes/iNodeMesh.h>
-#include <igor/graphics/scene/nodes/iNodeTransform.h>
+#include <igor/scene/nodes/iNodeSkyBox.h>
+#include <igor/scene/nodes/iNodeCamera.h>
+#include <igor/scene/nodes/iNodeModel.h>
+#include <igor/scene/nodes/iNodeMesh.h>
+#include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/graphics/iRenderer.h>
-#include <igor/os/iApplication.h>
-#include <igor/graphics/scene/iSceneFactory.h>
-#include <igor/graphics/scene/iScene.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
-#include <igor/os/iMouse.h>
-#include <igor/os/iKeyboard.h>
-#include <igor/os/iTimer.h>
+#include <igor/system/iApplication.h>
+#include <igor/scene/iSceneFactory.h>
+#include <igor/scene/iScene.h>
+#include <igor/scene/nodes/iNodeManager.h>
+#include <igor/system/iMouse.h>
+#include <igor/system/iKeyboard.h>
+#include <igor/system/iTimer.h>
 #include <igor/resources/texture/iTextureFont.h>
-#include <igor/graphics/scene/nodes/iNodeLight.h>
+#include <igor/scene/nodes/iNodeLight.h>
 #include <igor/resources/model/iModelResourceFactory.h>
 #include <igor/threading/tasks/iTaskFlushModels.h>
 #include <igor/threading/tasks/iTaskFlushTextures.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/profiler/iProfiler.h>
-#include <igor/graphics/scene/nodes/iNodeSwitch.h>
-#include <igor/graphics/scene/nodes/iNodeLODSwitch.h>
-#include <igor/graphics/scene/nodes/iNodeLODTrigger.h>
+#include <igor/scene/nodes/iNodeSwitch.h>
+#include <igor/scene/nodes/iNodeLODSwitch.h>
+#include <igor/scene/nodes/iNodeLODTrigger.h>
 #include <igor/physics/iPhysics.h>
 #include <igor/physics/iPhysicsCollision.h>
 #include <igor/physics/iPhysicsBody.h>
 #include <igor/physics/iPhysicsJoint.h>
 #include <igor/physics/iPhysicsMaterial.h>
 #include <igor/physics/iPhysicsMaterialCombo.h>
-using namespace Igor;
+using namespace igor;
 
 ExampleCharacterController::ExampleCharacterController()
 {
@@ -51,7 +51,7 @@ ExampleCharacterController::~ExampleCharacterController()
 void ExampleCharacterController::init()
 {
     con(" -- Example character Controller --" << endl);
-    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &ExampleCharacterController::onHandle));
+    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &ExampleCharacterController::onHandle));
 
     // setup window
     _window.setTitle("Igor - 3D Example");
@@ -73,7 +73,7 @@ void ExampleCharacterController::init()
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
     _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
-    _viewOrtho.registerRenderDelegate(RenderDelegate(this, &ExampleCharacterController::onRenderOrtho));
+    _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &ExampleCharacterController::onRenderOrtho));
     _window.addView(&_viewOrtho);
     // and open the window
     _window.open();
@@ -489,8 +489,8 @@ void ExampleCharacterController::deinit()
     iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &ExampleCharacterController::onMouseWheel));
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &ExampleCharacterController::onWindowClosed));
     _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &ExampleCharacterController::onWindowResized));
-    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &ExampleCharacterController::onRenderOrtho));
-    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &ExampleCharacterController::onHandle));
+    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &ExampleCharacterController::onRenderOrtho));
+    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &ExampleCharacterController::onHandle));
 
     // deinit statistics
     if (_font != nullptr)

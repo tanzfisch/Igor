@@ -1,17 +1,17 @@
 #include "WidgetsExample.h"
 
 #include <igor/igor.h>
-using namespace Igor;
+using namespace igor;
 
 int main()
 {
-	Igor::startup();
+	igor::startup();
 
     WidgetsExample* example = new WidgetsExample();
 	example->run();
 	delete example;
 	
-	Igor::shutdown();
+	igor::shutdown();
 
 	return 0;
 }

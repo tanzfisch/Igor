@@ -31,7 +31,7 @@
 
 #include <cstdlib>
 
-namespace IgorAux
+namespace iaux
 {
 
 /*! delegate
@@ -180,6 +180,6 @@ namespace IgorAux
 		InternalBase *delegateInternal;                                                                           \
 	};
 
-}; // namespace IgorAux
+}; // namespace iaux
 
 #endif

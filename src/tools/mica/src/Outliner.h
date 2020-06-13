@@ -30,12 +30,12 @@
 #define __MENUDIALOG__
 
 #include <igor/ui/dialogs/iDialog.h>
-using namespace Igor;
+using namespace igor;
 
 #include "UserControlGraphView.h"
 #include "UserControlMaterialView.h"
 
-namespace Igor
+namespace igor
 {
     class iNode;
     class iWidgetGrid;

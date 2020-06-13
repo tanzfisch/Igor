@@ -1,43 +1,27 @@
 #include "KeyboardExample.h"
 
-#include <igor/os/iApplication.h>
-#include <igor/os/iKeyboard.h>
-using namespace Igor;
+#include <igor/system/iApplication.h>
+#include <igor/system/iKeyboard.h>
+using namespace igor;
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 KeyboardExample::KeyboardExample()
-	: _outputSwitch(true)
+	: ExampleBase(L"Keyboard Input")
+	, _outputSwitch(true)
 {
-	init();
-}
-
-KeyboardExample::~KeyboardExample()
-{
-	deinit();
 }
 
 void KeyboardExample::init()
 {
 	// print some helpfull text
-	con_endl("--- Keyboard Example --- ");
 	con_endl("press ESC - to exit");
 	con_endl("press F1  - to switch output method");
 	con_endl("Keep keyboard focus on \"Keyboard Example\" _window.");
 	con_endl("");
 	con_endl("!!! One Warning about a missing view is supposed to pop up. !!!");
 	con_endl("");
-
-	// init window
-	_window.setTitle("Keyboard Example");
-	// opening the window will result in a warning since we have no view to render to defined. but for this example we don't need anything to render
-	_window.open();
-	// need to know when the window was closed so we can shut down the application
-	_window.registerWindowCloseDelegate(WindowCloseDelegate(this, &KeyboardExample::onCloseWindow));
-
-	// center the window on screen
-	_window.setCentered();
 
 	// registers a callback to the key pressed event. called when any key was pressed
 	iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &KeyboardExample::onKeyPressed));
@@ -59,18 +43,6 @@ void KeyboardExample::deinit()
 	iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &KeyboardExample::onKeyPressed));
 	iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &KeyboardExample::onKeyReleased));
 	iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownSpecificDelegate(this, &KeyboardExample::onKeyESCPressed), iKeyCode::ESC);
-
-	// closes the window if it was not closed already
-	_window.close();
-	// unregisters an other callback
-	_window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &KeyboardExample::onCloseWindow));
-}
-
-void KeyboardExample::run()
-{
-	// makes the game engine run
-	// one of the things it does is runing in an endless loop fetching the message queue so we get our keyboard input events
-	iApplication::getInstance().run();
 }
 
 void KeyboardExample::onKeyASCIIInput(const char c)
@@ -125,10 +97,3 @@ void KeyboardExample::onKeyESCPressed()
 	iApplication::getInstance().stop();
 }
 
-void KeyboardExample::onCloseWindow()
-{
-	con_endl("windows was closed");
-	// stop the application of the window was closed.
-	// because once the window is closed we loose the keyboard input and we have to close the console manually (with e.g. Ctrl+C)
-	iApplication::getInstance().stop();
-}

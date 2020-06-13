@@ -33,7 +33,7 @@
 
 #include <vector>
 
-namespace IgorAux
+namespace iaux
 {
 
     template <class T>
@@ -78,6 +78,6 @@ namespace IgorAux
     typedef iaIDGenerator<iaID16> iaIDGenerator16;
     typedef iaIDGenerator<iaID8> iaIDGenerator8;
 
-}; // namespace IgorAux
+}; // namespace iaux
 
 #endif

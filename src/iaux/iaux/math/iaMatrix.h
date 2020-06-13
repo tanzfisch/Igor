@@ -37,7 +37,7 @@
 #include <iomanip>
 #include <iostream>
 
-namespace IgorAux
+namespace iaux
 {
 
 	/*! right handed 4x4 Matrix 
@@ -402,6 +402,6 @@ namespace IgorAux
 	*/
 	typedef iaMatrix<float64> iaMatrixd;
 
-}; // namespace IgorAux
+}; // namespace iaux
 
 #endif

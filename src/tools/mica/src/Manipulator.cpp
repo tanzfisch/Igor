@@ -8,19 +8,19 @@
 #include <igor/resources/material/iTargetMaterial.h>
 #include <igor/graphics/iRenderer.h>
 #include <igor/resources/mesh/iMeshBuilder.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/scene/nodes/iNodeManager.h>
 #include <igor/graphics/iRenderStateSet.h>
-#include <igor/graphics/scene/nodes/iNodeTransform.h>
-#include <igor/graphics/scene/nodes/iNodeMesh.h>
-#include <igor/graphics/scene/nodes/iNodeSwitch.h>
+#include <igor/scene/nodes/iNodeTransform.h>
+#include <igor/scene/nodes/iNodeMesh.h>
+#include <igor/scene/nodes/iNodeSwitch.h>
 #include <igor/resources/mesh/iMeshBuilderUtils.h>
-#include <igor/graphics/scene/iSceneFactory.h>
-#include <igor/graphics/scene/nodes/iNodeCamera.h>
-using namespace Igor;
+#include <igor/scene/iSceneFactory.h>
+#include <igor/scene/nodes/iNodeCamera.h>
+using namespace igor;
 
 #include <iaux/data/iaConvert.h>
 #include <iaux/math/iaTransform.h>
-using namespace IgorAux;
+using namespace iaux;
 
 Manipulator::Manipulator(iWindow* window, iView* view, iScene* scene)
 {
@@ -40,7 +40,7 @@ Manipulator::~Manipulator()
 
 void Manipulator::init()
 {
-	_view->registerRenderDelegate(RenderDelegate(this, &Manipulator::render));
+	_view->registerRenderDelegate(iDrawDelegate(this, &Manipulator::render));
 
 	// camUI
 	_cameraCOIUI = iNodeManager::getInstance().createNode<iNodeTransform>();
@@ -420,7 +420,7 @@ void Manipulator::deinit()
 	iMaterialResourceFactory::getInstance().destroyMaterial(_materialCelShading);
 	iMaterialResourceFactory::getInstance().destroyMaterial(_material);
 
-    _view->unregisterRenderDelegate(RenderDelegate(this, &Manipulator::render));
+    _view->unregisterRenderDelegate(iDrawDelegate(this, &Manipulator::render));
 }
 
 void Manipulator::setVisible(bool visible)

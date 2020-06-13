@@ -34,7 +34,7 @@
 
 #include <vector>
 
-namespace IgorAux
+namespace iaux
 {
 
     /*! enter state event
@@ -187,6 +187,6 @@ namespace IgorAux
         RenderStateEvent _renderStateEvent;
     };
 
-} // namespace IgorAux
+} // namespace iaux
 
 #endif

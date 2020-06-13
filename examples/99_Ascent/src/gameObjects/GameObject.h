@@ -2,7 +2,7 @@
 #define __GAMEOBJECT__
 
 #include <igor/entities/iEntityLocatable.h>
-using namespace Igor;
+using namespace igor;
 
 enum class Fraction
 {

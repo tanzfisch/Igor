@@ -38,7 +38,7 @@
 #include <iomanip>
 #include <thread>
 
-namespace IgorAux
+namespace iaux
 {
     class IgorAux_API iaConsole;
 
@@ -554,6 +554,6 @@ namespace IgorAux
         console << "[" << std::setfill(L'0') << std::setw(8) << std::hex << std::this_thread::get_id() << std::dec << "] ";
         return console;
     }
-}; // namespace IgorAux
+}; // namespace iaux
 
 #endif

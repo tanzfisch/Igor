@@ -5,15 +5,15 @@
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/material/iMaterial.h>
-#include <igor/os/iWindow.h>
+#include <igor/system/iWindow.h>
 #include <igor/resources/texture/iTextureFont.h>
-#include <igor/os/iTimer.h>
+#include <igor/system/iTimer.h>
 #include <igor/threading/iTaskManager.h>
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     uint32 iProfiler::registerSection(const iaString &sectionName, uint64 groupIndex)
@@ -82,4 +82,4 @@ namespace Igor
         return _frame;
     }
 
-} // namespace Igor
+} // namespace igor

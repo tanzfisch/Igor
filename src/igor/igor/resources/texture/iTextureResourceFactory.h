@@ -35,13 +35,13 @@
 #include <iaux/system/iaSingleton.h>
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaMutex.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <list>
 #include <map>
 #include <memory>
 
-namespace Igor
+namespace igor
 {
 
     struct iRendererTexture;
@@ -158,6 +158,6 @@ namespace Igor
         virtual ~iTextureResourceFactory();
     };
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

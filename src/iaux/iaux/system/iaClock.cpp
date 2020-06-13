@@ -14,7 +14,7 @@
 
 #include <iostream>
 
-namespace IgorAux
+namespace iaux
 {
 #ifdef __IGOR_WINDOWS__
     static LARGE_INTEGER s_frequency;
@@ -75,4 +75,4 @@ namespace IgorAux
 #endif
     }
 
-} // namespace IgorAux
+} // namespace iaux

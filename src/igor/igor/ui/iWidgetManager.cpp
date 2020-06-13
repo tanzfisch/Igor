@@ -19,8 +19,8 @@
 #include <igor/ui/widgets/iWidgetColorGradient.h>
 #include <igor/ui/widgets/iWidgetSlider.h>
 #include <igor/ui/widgets/iWidgetSelectBox.h>
-#include <igor/os/iKeyboard.h>
-#include <igor/os/iApplication.h>
+#include <igor/system/iKeyboard.h>
+#include <igor/system/iApplication.h>
 #include <igor/ui/widgets/iWidgetGraph.h>
 #include <igor/ui/theme/iWidgetBaseTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
@@ -38,11 +38,11 @@
 #include <igor/resources/material/iMaterialResourceFactory.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <algorithm>
 
-namespace Igor
+namespace igor
 {
 
     iWidgetManager::iWidgetManager()
@@ -197,8 +197,8 @@ namespace Igor
         iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &iWidgetManager::onKeyDown));
         iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &iWidgetManager::onKeyUp));
 
-        iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &iWidgetManager::onPreDraw));
-        iApplication::getInstance().registerApplicationPostDrawHandleDelegate(iApplicationPostDrawHandleDelegate(this, &iWidgetManager::onPostDraw));
+        iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &iWidgetManager::onPreDraw));
+        iApplication::getInstance().registerApplicationPostDrawHandleDelegate(iPostDrawDelegate(this, &iWidgetManager::onPostDraw));
     }
 
     void iWidgetManager::unregisterHandles()
@@ -212,8 +212,8 @@ namespace Igor
         iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &iWidgetManager::onKeyDown));
         iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &iWidgetManager::onKeyUp));
 
-        iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &iWidgetManager::onPreDraw));
-        iApplication::getInstance().unregisterApplicationPostDrawHandleDelegate(iApplicationPostDrawHandleDelegate(this, &iWidgetManager::onPostDraw));
+        iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &iWidgetManager::onPreDraw));
+        iApplication::getInstance().unregisterApplicationPostDrawHandleDelegate(iPostDrawDelegate(this, &iWidgetManager::onPostDraw));
     }
 
     void iWidgetManager::getActiveDialogs(std::vector<iDialogPtr> &dialogs, bool sortedAccending)
@@ -367,7 +367,7 @@ namespace Igor
         _moveEvent(to);
     }
 
-    bool iWidgetManager::handleMouseMove(const IgorAux::iaVector2i &to)
+    bool iWidgetManager::handleMouseMove(const iaux::iaVector2i &to)
     {
 
         // if there is a modal dialog handle only that one
@@ -657,4 +657,4 @@ namespace Igor
         _keyUpEvent.remove(delegate);
     }
 
-} // namespace Igor
+} // namespace igor

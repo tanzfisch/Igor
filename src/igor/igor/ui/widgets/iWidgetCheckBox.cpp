@@ -8,7 +8,7 @@
 #include <igor/ui/theme/iWidgetBaseTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 
-namespace Igor
+namespace igor
 {
 
 	bool iWidgetCheckBox::_generatingRadioButtonGroup = false;
@@ -132,4 +132,4 @@ namespace Igor
 		}
 	}
 
-} // namespace Igor
+} // namespace igor

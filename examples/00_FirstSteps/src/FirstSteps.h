@@ -26,17 +26,16 @@
 //
 // contact: martinloga@gmx.de
 
-#ifndef __FIRSTSTEPS__
-#define __FIRSTSTEPS__
+#ifndef __FIRSTSTEPS_H__
+#define __FIRSTSTEPS_H__
 
-// Include this to have all the bysic types in Igor fashion
-#include <igor/iDefines.h>
+#include <ExampleBase.h>
 
 /*! the first steps example class
 
 it shows how to register to the application handle event.
 */
-class FirstSteps
+class FirstSteps : public ExampleBase
 {
 
 public:
@@ -44,13 +43,9 @@ public:
     */
     FirstSteps();
 
-    /*! release resources
+    /*! does nothing
     */
-    ~FirstSteps();
-
-    /*! run example
-    */
-    void run();
+    ~FirstSteps() = default;
 
 private:
     /*! let's count something
@@ -59,7 +54,7 @@ private:
 
     /*! called every frame
     */
-    void onHandle();
+    void onPreDraw() override;
 };
 
-#endif
+#endif // __FIRSTSTEPS_H__

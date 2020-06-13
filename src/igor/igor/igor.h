@@ -33,7 +33,7 @@
 
 /*! Igor namespace that contains all high level functionality of Igor
 */
-namespace Igor
+namespace igor
 {
 	/*! should be called before any other interface of Igor is used	
 
@@ -55,6 +55,6 @@ namespace Igor
 	*/
 	void Igor_API shutdown();
 
-} // namespace Igor
+} // namespace igor
 
 #endif

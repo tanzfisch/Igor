@@ -45,7 +45,7 @@
 #include <iaux/system/iaSingleton.h>
 #include <iaux/system/iaEvent.h>
 #include <iaux/system/iaMutex.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <list>
 #include <vector>
@@ -54,7 +54,7 @@ using namespace IgorAux;
 #include <queue>
 #include <deque>
 
-namespace Igor
+namespace igor
 {
     class iTextureFont;
     class iParticle;
@@ -85,7 +85,6 @@ namespace Igor
     */
     struct Igor_API iRendererTexture
     {
-    public:
         uint32 _id;
     };
 
@@ -149,6 +148,8 @@ namespace Igor
             */
             uint32 _colorBuffer = 0;
 
+            /*! if true render target has depth buffer
+            */
             bool _hasDepth = false;
 
             /*! depth render buffer id
@@ -926,6 +927,6 @@ namespace Igor
     \include OpenGL2D/src/OpenGL2DExample.h
     */
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

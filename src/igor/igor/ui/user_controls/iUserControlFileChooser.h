@@ -34,9 +34,9 @@
 
 #include <iaux/system/iaEvent.h>
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
 	class iWidgetTextEdit;
@@ -150,5 +150,5 @@ namespace Igor
 		*/
 		void deinitGUI();
 	};
-} // namespace Igor
+} // namespace igor
 #endif

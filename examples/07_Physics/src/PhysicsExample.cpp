@@ -2,25 +2,25 @@
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/math/iaRandomNumberGenerator.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <igor/resources/material/iMaterial.h>
-#include <igor/graphics/scene/traversal/iNodeVisitorPrintTree.h>
+#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
 #include <igor/threading/iTaskManager.h>
-#include <igor/graphics/scene/nodes/iNodeSkyBox.h>
-#include <igor/graphics/scene/nodes/iNodeCamera.h>
-#include <igor/graphics/scene/nodes/iNodeModel.h>
-#include <igor/graphics/scene/nodes/iNodeTransform.h>
+#include <igor/scene/nodes/iNodeSkyBox.h>
+#include <igor/scene/nodes/iNodeCamera.h>
+#include <igor/scene/nodes/iNodeModel.h>
+#include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/graphics/iRenderer.h>
-#include <igor/os/iApplication.h>
-#include <igor/graphics/scene/iSceneFactory.h>
-#include <igor/graphics/scene/iScene.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
-#include <igor/os/iMouse.h>
-#include <igor/os/iTimer.h>
+#include <igor/system/iApplication.h>
+#include <igor/scene/iSceneFactory.h>
+#include <igor/scene/iScene.h>
+#include <igor/scene/nodes/iNodeManager.h>
+#include <igor/system/iMouse.h>
+#include <igor/system/iTimer.h>
 #include <igor/resources/texture/iTextureFont.h>
-#include <igor/graphics/scene/nodes/iNodeLight.h>
-#include <igor/graphics/scene/nodes/iNodePhysics.h>
+#include <igor/scene/nodes/iNodeLight.h>
+#include <igor/scene/nodes/iNodePhysics.h>
 #include <igor/resources/model/iModelResourceFactory.h>
 #include <igor/physics/iPhysics.h>
 #include <igor/physics/iPhysicsJoint.h>
@@ -28,7 +28,7 @@ using namespace IgorAux;
 #include <igor/threading/tasks/iTaskFlushTextures.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/profiler/iProfiler.h>
-using namespace Igor;
+using namespace igor;
 
 PhysicsExample::PhysicsExample()
 {
@@ -46,7 +46,7 @@ void PhysicsExample::init()
     iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &PhysicsExample::onKeyPressed));
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &PhysicsExample::onMouseMoved));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &PhysicsExample::onMouseWheel));
-    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &PhysicsExample::onHandle));
+    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &PhysicsExample::onHandle));
 
     // setup view for scene
     _view.setClearColor(iaColor4f(0.5f, 0, 0.5f, 1));
@@ -57,7 +57,7 @@ void PhysicsExample::init()
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
     _viewOrtho.setOrthogonal(0, 1024, 768, 0);
-    _viewOrtho.registerRenderDelegate(RenderDelegate(this, &PhysicsExample::onRenderOrtho));
+    _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &PhysicsExample::onRenderOrtho));
 
     // init window
     _window.setTitle("Physics Example");
@@ -242,8 +242,8 @@ void PhysicsExample::deinit()
     iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &PhysicsExample::onMouseWheel));
     iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &PhysicsExample::onMouseMoved));
     iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &PhysicsExample::onKeyPressed));
-    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &PhysicsExample::onRenderOrtho));
-    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &PhysicsExample::onHandle));
+    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &PhysicsExample::onRenderOrtho));
+    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &PhysicsExample::onHandle));
 
     // free some resources
     _igorLogo = nullptr;

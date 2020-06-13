@@ -11,7 +11,7 @@
 #include <igor/ui/user_controls/iUserControlAction.h>
 #include <igor/ui/widgets/iWidgetGrid.h>
 
-namespace Igor
+namespace igor
 {
     iWidgetMenuBar::iWidgetMenuBar(const iWidgetPtr parent)
         : iWidget(parent)
@@ -67,4 +67,4 @@ namespace Igor
         addAction(iActionManager::getInstance().getAction(actionName));
     }
 
-} // namespace Igor
+} // namespace igor

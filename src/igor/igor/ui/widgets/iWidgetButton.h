@@ -33,11 +33,11 @@
 #include <igor/resources/texture/iTexture.h>
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <memory>
 
-namespace Igor
+namespace igor
 {
 
     /*! button widget
@@ -133,6 +133,6 @@ namespace Igor
     /*! widget button pointer definition
 	*/
     typedef iWidgetButton *iWidgetButtonPtr;
-} // namespace Igor
+} // namespace igor
 
 #endif

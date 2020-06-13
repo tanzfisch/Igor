@@ -30,7 +30,7 @@
 #define __PROPERTIESDIALOG__
 
 #include <igor/ui/dialogs/iDialog.h>
-using namespace Igor;
+using namespace igor;
 
 #include "UserControlProperties.h"
 

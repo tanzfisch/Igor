@@ -4,11 +4,11 @@
 
 #include <igor/graphics/iRenderer.h>
 
-// #include <igor/os/iWindow.h>
-#include <igor/os/iTimer.h>
-#include <igor/graphics/simulation/iParticleSystem2D.h>
+// #include <igor/system/iWindow.h>
+#include <igor/system/iTimer.h>
+#include <igor/simulation/iParticleSystem2D.h>
 #include <igor/graphics/iInstancer.h>
-#include <igor/graphics/simulation/iParticleSystem3D.h>
+#include <igor/simulation/iParticleSystem3D.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iAtlas.h>
 #include <igor/resources/mesh/iMesh.h>
@@ -28,14 +28,14 @@
 
 #include <iaux/data/iaConvert.h>
 #include <iaux/system/iaTime.h>
-using namespace IgorAux;
+using namespace iaux;
 
 // comes from X.h. don't know how this get's included here
 #undef Always
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
-namespace Igor
+namespace igor
 {
 
     // needs to be a mecro so we can retrive the line number of the actual problem
@@ -2258,4 +2258,4 @@ namespace Igor
         return result;
     }
 
-}; // namespace Igor
+}; // namespace igor

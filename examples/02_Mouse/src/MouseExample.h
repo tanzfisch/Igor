@@ -30,10 +30,10 @@
 #define __MOUSEEXAMPLE__
 
 #include <iaux/math/iaVector2.h>
-using namespace IgorAux;
+using namespace iaux;
 
-#include <igor/os/iWindow.h>
-using namespace Igor;
+#include <igor/system/iWindow.h>
+using namespace igor;
 
 class MouseExample
 {

@@ -16,9 +16,9 @@
 #include <igor/ui/widgets/iWidgetGroupBox.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     iWidgetType iDialogGraph::getWidgetType() const
@@ -374,4 +374,4 @@ namespace Igor
         return _graphs;
     }
 
-} // namespace Igor
+} // namespace igor

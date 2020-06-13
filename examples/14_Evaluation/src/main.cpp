@@ -5,12 +5,12 @@
 #include "Evaluation.h"
 
 #include <igor/igor.h>
-using namespace Igor;
+using namespace igor;
 
 int main()
 {
     // first thing to do
-	Igor::startup();
+	igor::startup();
 
     // create and run example
 	Evaluation* example = new Evaluation();
@@ -18,7 +18,7 @@ int main()
 	delete example;
 	
     // last thing to do
-	Igor::shutdown();
+	igor::shutdown();
 
 	return 0;
 }

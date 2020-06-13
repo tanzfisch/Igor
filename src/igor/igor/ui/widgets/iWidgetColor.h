@@ -34,11 +34,11 @@
 
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaColor4.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <memory>
 
-namespace Igor
+namespace igor
 {
 
 	/*! color view widget
@@ -87,6 +87,6 @@ namespace Igor
 		*/
 		void draw();
 	};
-} // namespace Igor
+} // namespace igor
 
 #endif

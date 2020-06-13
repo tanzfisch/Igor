@@ -4,20 +4,20 @@
 
 #include <igor/graphics/iView.h>
 
-#include <igor/os/iWindow.h>
+#include <igor/system/iWindow.h>
 #include <igor/graphics/iRenderer.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/graphics/scene/iScene.h>
-#include <igor/graphics/scene/octree/iOctree.h>
+#include <igor/scene/iScene.h>
+#include <igor/scene/octree/iOctree.h>
 #include <igor/resources/profiler/iProfiler.h>
 
 #include <iaux/math/iaRandomNumberGenerator.h>
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <algorithm>
 
-namespace Igor
+namespace igor
 {
 
     iView::iView()
@@ -302,12 +302,12 @@ namespace Igor
         return _scene;
     }
 
-    void iView::registerRenderDelegate(RenderDelegate render_delegate)
+    void iView::registerRenderDelegate(iDrawDelegate render_delegate)
     {
         _renderEvent.append(render_delegate);
     }
 
-    void iView::unregisterRenderDelegate(RenderDelegate render_delegate)
+    void iView::unregisterRenderDelegate(iDrawDelegate render_delegate)
     {
         _renderEvent.remove(render_delegate);
     }
@@ -360,4 +360,4 @@ namespace Igor
     return pixmap;
     }*/
 
-}; // namespace Igor
+}; // namespace igor

@@ -2,7 +2,7 @@
 
 #include <iaux/system/iaFile.h>
 #include <iaux/system/iaDirectory.h>
-using namespace IgorAux;
+using namespace iaux;
 
 TEST(FileDirTests, Initial)
 {

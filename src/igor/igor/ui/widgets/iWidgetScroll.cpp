@@ -16,9 +16,9 @@
 #include <iaux/system/iaConsole.h>
 #include <iaux/data/iaColor4.h>
 #include <iaux/math/iaMatrix.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
 	static const int32 BORDER_WIDTH = 2;
@@ -733,4 +733,4 @@ namespace Igor
 		iRenderer::getInstance().setProjectionMatrix(projectionMatrix);
 		iRenderer::getInstance().setViewport(viewport.getX(), viewport.getY(), viewport.getWidth(), viewport.getHeight());
 	}
-} // namespace Igor
+} // namespace igor

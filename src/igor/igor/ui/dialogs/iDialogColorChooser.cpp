@@ -15,9 +15,9 @@
 #include <igor/ui/user_controls/iUserControlColorChooser.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     iWidgetType iDialogColorChooser::getWidgetType() const
@@ -113,4 +113,4 @@ namespace Igor
         _userControlColorChooser->setColor(_oldColor);
     }
 
-} // namespace Igor
+} // namespace igor

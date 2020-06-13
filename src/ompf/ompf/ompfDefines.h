@@ -26,7 +26,7 @@
 #define __OMPF_DEFINES__
 
 #include <iaux/iaDefines.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #ifdef __IGOR_WINDOWS__
 #ifdef __OMPF_BUILDING_DLL__

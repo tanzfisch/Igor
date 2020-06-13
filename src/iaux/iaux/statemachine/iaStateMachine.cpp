@@ -7,7 +7,7 @@
 #include <iaux/statemachine/iaTransition.h>
 #include <iaux/system/iaConsole.h>
 
-namespace IgorAux
+namespace iaux
 {
 
     void iaStateMachine::enterCurrentState()
@@ -263,4 +263,4 @@ namespace IgorAux
         getState(stateID)->unregisterRenderStateDelegate(renderStateDelegate);
     }
 
-} // namespace IgorAux
+} // namespace iaux

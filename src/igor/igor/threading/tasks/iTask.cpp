@@ -5,14 +5,14 @@
 #include <igor/threading/tasks/iTask.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <thread>
 
-namespace Igor
+namespace igor
 {
 
-    uint64 iTask::_nextTaskID = 1;
+    iTaskID iTask::_nextTaskID = 1;
     iaMutex iTask::_mutexID;
 
     iTask::iTask(iWindow *window, uint32 priority, bool isRepeating, iTaskContext taskContext)
@@ -57,7 +57,7 @@ namespace Igor
         _isRunning = false;
     }
 
-    uint64 iTask::getID()
+    iTaskID iTask::getID()
     {
         return _taskID;
     }
@@ -97,4 +97,4 @@ namespace Igor
         _priority = priority;
     }
 
-}; // namespace Igor
+}; // namespace igor

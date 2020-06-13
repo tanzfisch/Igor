@@ -31,7 +31,7 @@
 
 #include <iaux/iaDefines.h>
 
-namespace IgorAux
+namespace iaux
 {
 
 	/*! mutex
@@ -70,6 +70,6 @@ namespace IgorAux
 		iaMutexHandle m_handle;
 	};
 
-} // namespace IgorAux
+} // namespace iaux
 
 #endif

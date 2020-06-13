@@ -6,7 +6,7 @@
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/system/iaDirectory.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <iostream>
 

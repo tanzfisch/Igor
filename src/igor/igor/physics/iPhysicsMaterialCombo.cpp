@@ -7,7 +7,7 @@
 #include <igor/physics/iPhysicsMaterial.h>
 #include <igor/physics/iPhysics.h>
 
-namespace Igor
+namespace igor
 {
     iPhysicsMaterialCombo::iPhysicsMaterialCombo(iPhysicsMaterial *material0, iPhysicsMaterial *material1)
     {
@@ -67,4 +67,4 @@ namespace Igor
         return _material1;
     }
 
-} // namespace Igor
+} // namespace igor

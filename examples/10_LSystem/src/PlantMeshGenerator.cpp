@@ -4,16 +4,16 @@
 
 #include "PlantMeshGenerator.h"
 
-#include <igor/graphics/generation/iLSystem.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
-#include <igor/graphics/scene/nodes/iNodeMesh.h>
-#include <igor/graphics/scene/nodes/iNodeLODSwitch.h>
+#include <igor/generation/iLSystem.h>
+#include <igor/scene/nodes/iNodeManager.h>
+#include <igor/scene/nodes/iNodeMesh.h>
+#include <igor/scene/nodes/iNodeLODSwitch.h>
 #include <igor/resources/model/iModel.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/resources/material/iTargetMaterial.h>
-#include <igor/graphics/scene/nodes/iNodeTransform.h>
-using namespace Igor;
+#include <igor/scene/nodes/iNodeTransform.h>
+using namespace igor;
 
 PlantMeshGenerator::PlantMeshGenerator()
 {

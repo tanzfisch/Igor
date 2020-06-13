@@ -10,19 +10,19 @@
 #include <igor/resources/model/iModel.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/material/iTargetMaterial.h>
-#include <igor/graphics/scene/nodes/iNode.h>
-#include <igor/graphics/scene/nodes/iNodeMesh.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/scene/nodes/iNode.h>
+#include <igor/scene/nodes/iNodeMesh.h>
+#include <igor/scene/nodes/iNodeManager.h>
 
 #include <iaux/system/iaFile.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <math.h>
 #include <iostream>
 #include <fstream>
 #include <sstream>
 
-namespace Igor
+namespace igor
 {
 
 	iModelDataIOOBJ::iModelDataIOOBJ()
@@ -606,4 +606,4 @@ namespace Igor
 		return static_cast<uint32>(_texcoord.size());
 	}
 
-} // namespace Igor
+} // namespace igor

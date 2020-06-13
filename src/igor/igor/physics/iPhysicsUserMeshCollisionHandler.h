@@ -33,7 +33,7 @@
 
 #include <igor/data/iAABox.h>
 
-namespace Igor
+namespace igor
 {
 
     class Igor_API iPhysicsUserMeshCollisionHandler
@@ -57,6 +57,6 @@ namespace Igor
         iAABoxf _bb;
     };
 
-} // namespace Igor
+} // namespace igor
 
 #endif

@@ -10,9 +10,9 @@
 #include <igor/resources/texture/iTextureResourceFactory.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 	iWidgetSlider::iWidgetSlider(const iWidgetPtr parent)
 		: iWidget(parent)
@@ -255,4 +255,4 @@ namespace Igor
 		return _backgroundTexturePath;
 	}
 
-} // namespace Igor
+} // namespace igor

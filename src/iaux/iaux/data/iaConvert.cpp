@@ -4,7 +4,7 @@
 
 #include <iaux/data/iaConvert.h>
 
-namespace IgorAux
+namespace iaux
 {
 
     void iaConvert::convert(const iaColor3f &src, iaColor3c &dst)
@@ -36,4 +36,4 @@ namespace IgorAux
         dst._b = static_cast<float32>(src._b / 255.0f);
         dst._a = static_cast<float32>(src._a / 255.0f);
     }
-} // namespace IgorAux
+} // namespace iaux

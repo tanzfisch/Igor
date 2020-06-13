@@ -10,10 +10,10 @@
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>
 #include <igor/ui/widgets/iWidgetCheckBox.h>
-#include <igor/graphics/scene/nodes/iNodeMesh.h>
+#include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/resources/mesh/iMesh.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
-using namespace Igor;
+#include <igor/scene/nodes/iNodeManager.h>
+using namespace igor;
 
 #include "MicaDefines.h"
 

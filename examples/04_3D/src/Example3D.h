@@ -29,92 +29,64 @@
 #ifndef __EXAMPLE3D__
 #define __EXAMPLE3D__
 
+#include <ExampleBase.h>
+
 #include <igor/igor.h>
-#include <igor/os/iWindow.h>
-#include <igor/graphics/iView.h>
-#include <igor/os/iTimerHandle.h>
+#include <igor/system/iWindow.h>
+#include <igor/system/iTimerHandle.h>
 #include <igor/resources/model/iModelResourceFactory.h>
 #include <igor/resources/material/iMaterial.h>
-#include <igor/resources/profiler/iProfilerVisualizer.h>
-using namespace Igor;
+using namespace igor;
 
-#include <iaux/math/iaMatrix.h>
-using namespace IgorAux;
-
-namespace Igor
+namespace igor
 {
-    class iScene;
     class iNodeTransform;
     class iNodeLight;
-    class iNodeSwitch;
-    class iTextureFont;
+    class iNodeSwitch;    
     class iTaskFlushModels;
     class iTaskFlushTextures;
     class iNodeLODTrigger;
     class iNodeLODSwitch;
     class iNodeModel;
-    class iTexture;
-} // namespace Igor
+} // namespace igor
 
-class Example3D
+class Example3D : public ExampleBase
 {
 
+public:
+    /*! ctor
+    */
+    Example3D();
+
+    /*! nothing to do
+    */
+    ~Example3D() = default;
+
 private:
-    /*! the window
-    */
-    iWindow _window;
-
-    /*! displays profiler
-    */
-    iProfilerVisualizer _profilerVisualizer;
-
-    /*! the view we render 3D to
-    */
-    iView _view;
-
-    /*! the view we render 2D to
-    */
-    iView _viewOrtho;
-
-    /*! the scene holding our 3d nodes
-    */
-    iScene *_scene = nullptr;
-
-    /*! async loading of models
-    */
-    uint64 _taskFlushModels = iTask::INVALID_TASK_ID;
-
-    /*! async loading of textures
-    */
-    uint64 _taskFlushTextures = iTask::INVALID_TASK_ID;
-
-    /*! texture font we use to display the profiler
-    */
-    iTextureFont *_font = nullptr;
 
     /*! id to transform node used for manipulating the heading of all objects in scene
     */
-    uint64 _allObjectsHeading = iNode::INVALID_NODE_ID;
+    iNodeID _allObjectsHeading = iNode::INVALID_NODE_ID;
 
     /*! id to transform node used for manipulating the pitch of all objects in scene
     */
-    uint64 _allObjectsPitch = iNode::INVALID_NODE_ID;
+    iNodeID _allObjectsPitch = iNode::INVALID_NODE_ID;
 
     /*! id to transform node used for manipulating the heading of the camera
     */
-    uint64 _cameraHeading = iNode::INVALID_NODE_ID;
+    iNodeID _cameraHeading = iNode::INVALID_NODE_ID;
 
     /*! id to transform node used for manipulating the pitch of the camera
     */
-    uint64 _cameraPitch = iNode::INVALID_NODE_ID;
+    iNodeID _cameraPitch = iNode::INVALID_NODE_ID;
 
     /*! id to transform node used for manipulating the distance of the camera to the origin
     */
-    uint64 _cameraTranslation = iNode::INVALID_NODE_ID;
+    iNodeID _cameraTranslation = iNode::INVALID_NODE_ID;
 
     /*! id to transform node used for manipulating the direction of the light relative to the origin
     */
-    uint64 _directionalLightRotate = iNode::INVALID_NODE_ID;
+    iNodeID _directionalLightRotate = iNode::INVALID_NODE_ID;
 
     /*! timer handle to control the movement of the light source over time
     */
@@ -122,60 +94,37 @@ private:
 
     /*! id to crate model node
     */
-    uint64 _crateModel = iNode::INVALID_NODE_ID;
+    iNodeID _crateModel = iNode::INVALID_NODE_ID;
 
     /*! id to cat model node
     */
-    uint64 _catModel = iNode::INVALID_NODE_ID;
+    iNodeID _catModel = iNode::INVALID_NODE_ID;
 
     /*! id to teapot model node
     */
-    uint64 _teapotModel = iNode::INVALID_NODE_ID;
+    iNodeID _teapotModel = iNode::INVALID_NODE_ID;
 
     /*! id to switch node
     */
-    uint64 _switchNode = iNode::INVALID_NODE_ID;
+    iNodeID _switchNode = iNode::INVALID_NODE_ID;
 
     /*! index of switch position
     */
-    int32 _activeNode = 0;
+    iNodeID _activeNode = 0;
 
     /*! id to lod trigger node
     */
-    uint64 _LODTrigger = iNode::INVALID_NODE_ID;
+    iNodeID _LODTrigger = iNode::INVALID_NODE_ID;
 
     /*! id to lod switch node
     */
-    uint64 _LODSwitch = iNode::INVALID_NODE_ID;
-
-    /*! material definition for the sky box
-    */
-    uint64 _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
-
-    /*! material for igor logo
-    */
-    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
-
-    /*! igor logo
-    */
-    iTexturePtr _igorLogo = nullptr;
+    iNodeID _LODSwitch = iNode::INVALID_NODE_ID;
 
     /*! called on key pressed event
 
     \param key the key code of the pressed key
     */
-    void onKeyPressed(iKeyCode key);
-
-    /*! called when window was closed
-    */
-    void onWindowClosed();
-
-    /*! called when window was resized
-
-    \param clientWidth the client rectangle width
-    \param clientHeight the client rectangle height
-    */
-    void onWindowResized(int32 clientWidth, int32 clientHeight);
+    void onKeyPressed(iKeyCode key);    
 
     /*! called when the mouse was moved
 
@@ -191,14 +140,6 @@ private:
     */
     void onMouseWheel(int32 d);
 
-    /*! called by orthogonal view
-    */
-    void onRenderOrtho();
-
-    /*! draw igor logo
-    */
-    void drawLogo();
-
     /*! called by timer
     */
     void onTimer();
@@ -211,18 +152,6 @@ private:
     */
     void init();
 
-public:
-    /*! init
-    */
-    Example3D();
-
-    /*! deinit
-    */
-    virtual ~Example3D();
-
-    /*! run example
-    */
-    void run();
 };
 
 #endif

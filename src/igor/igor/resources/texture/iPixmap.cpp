@@ -6,9 +6,9 @@
 
 #include <iaux/data/iaConvert.h>
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
     iPixmap::iPixmap(uint32 width, uint32 height, iColorFormat colorFormat)
     {
@@ -274,4 +274,4 @@ namespace Igor
         color._b = _data[pos++];
     }
 
-}; // namespace Igor
+}; // namespace igor

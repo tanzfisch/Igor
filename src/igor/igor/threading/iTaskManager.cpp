@@ -5,17 +5,17 @@
 #include <igor/threading/iTaskManager.h>
 
 #include <igor/threading/tasks/iTask.h>
-#include <igor/os/iApplication.h>
+#include <igor/system/iApplication.h>
 #include <igor/threading/iThread.h>
 #include <igor/threading/iRenderContextThread.h>
 #include <igor/threading/tasks/iTask.h>
-#include <igor/os/iWindow.h>
+#include <igor/system/iWindow.h>
 
 #include <iaux/system/iaConsole.h>
 
 #include <thread>
 
-namespace Igor
+namespace igor
 {
     bool iTaskManager::_running = false;
 
@@ -564,4 +564,4 @@ namespace Igor
         _taskFinished.remove(taskFinishedDelegate);
     }
 
-}; // namespace Igor
+}; // namespace igor

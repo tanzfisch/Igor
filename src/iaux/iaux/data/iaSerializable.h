@@ -38,7 +38,7 @@
 
 #include <iostream>
 
-namespace IgorAux
+namespace iaux
 {
 
     class iaString;
@@ -453,6 +453,6 @@ namespace IgorAux
 
 #include <iaux/data/iaSerializable.inl>
 
-}; // namespace IgorAux
+}; // namespace iaux
 
 #endif

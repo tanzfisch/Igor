@@ -17,7 +17,7 @@
 #include <unistd.h>
 #endif
 
-namespace IgorAux
+namespace iaux
 {
 
     iaFile::iaFile(const iaString &fileName)
@@ -30,7 +30,10 @@ namespace IgorAux
         close();
     }
 
-    static int64 getSize(FILE *fileHandle)
+    /*! \returns file size for given file handle
+    \param fileHandle the given file handle
+    */
+    static int64 getFileSize(FILE *fileHandle)
     {
         int64 size = 0;
         fseek(fileHandle, 0, SEEK_END);
@@ -65,7 +68,9 @@ namespace IgorAux
         _filename.getData(temp, 1024);
         _fileHandle = fopen(temp, _isWriteable ? "rwb" : "rb");
 
-        _size = getSize(_fileHandle);
+        _size = getFileSize(_fileHandle);
+
+        setFilePointer(0);
 
         return true;
     }
@@ -219,17 +224,20 @@ namespace IgorAux
         return true;
     }
 
-    bool iaFile::readFromFile(int64 offset, int32 size, char *destination)
+    bool iaFile::read(int32 size, char *destination, int64 offset)
     {
-        if (!(offset >= 0 && size > 0))
+        if (offset != -1)
         {
-            return false;
-        }
+            if (!(offset >= 0 && size > 0))
+            {
+                return false;
+            }
 
-        // set position inside file
-        if (!setFilePointer(offset))
-        {
-            return false;
+            // set position inside file
+            if (!setFilePointer(offset))
+            {
+                return false;
+            }
         }
 
         if (fread(destination, size, 1, _fileHandle) != 1)
@@ -241,17 +249,20 @@ namespace IgorAux
         return true;
     }
 
-    bool iaFile::writeToFile(int64 offset, int32 size, const char *source)
+    bool iaFile::write(int32 size, const char *source, int64 offset)
     {
-        if (!(offset >= 0 && size > 0))
+        if (offset != -1)
         {
-            return false;
-        }
+            if (!(offset >= 0 && size > 0))
+            {
+                return false;
+            }
 
-        // set position inside file
-        if (!setFilePointer(offset))
-        {
-            return false;
+            // set position inside file
+            if (!setFilePointer(offset))
+            {
+                return false;
+            }
         }
 
         if (!_isWriteable && _fileHandle != nullptr)
@@ -267,17 +278,17 @@ namespace IgorAux
             return false;
         }
 
-        _size = getSize(_fileHandle);
+        _size = getFileSize(_fileHandle);
 
         return true;
     }
 
-    int64 iaFile::getFileSize()
+    int64 iaFile::getSize()
     {
         return _size;
     }
 
-    bool iaFile::setFileSize(int64 size)
+    bool iaFile::setSize(int64 size)
     {
 #ifdef __IGOR_WINDOWS__
         if (_chsize(fileno(_fileHandle), size) != 0)
@@ -297,4 +308,4 @@ namespace IgorAux
 
         return true;
     }
-} // namespace IgorAux
+} // namespace iaux

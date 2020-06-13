@@ -11,9 +11,9 @@
 #include <igor/ui/widgets/iWidgetButton.h>
 #include <igor/ui/widgets/iWidgetSlider.h>
 #include <igor/ui/widgets/iWidgetNumberChooser.h>
-#include <igor/graphics/scene/nodes/iNodeParticleSystem.h>
+#include <igor/scene/nodes/iNodeParticleSystem.h>
 #include <igor/resources/mesh/iMesh.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/scene/nodes/iNodeManager.h>
 #include <igor/resources/material/iTargetMaterial.h>
 #include <igor/ui/widgets/iWidgetSelectBox.h>
 #include <igor/ui/widgets/iWidgetCheckBox.h>
@@ -27,9 +27,9 @@
 #include <igor/ui/dialogs/iDialogColorGradient.h>
 #include <igor/ui/widgets/iWidgetGraph.h>
 #include <igor/ui/dialogs/iDialogGraph.h>
-#include <igor/os/iApplication.h>
-#include <igor/graphics/scene/nodes/iNodeEmitter.h>
-using namespace Igor;
+#include <igor/system/iApplication.h>
+#include <igor/scene/nodes/iNodeEmitter.h>
+using namespace igor;
 
 #include "MicaDefines.h"
 
@@ -37,12 +37,12 @@ UserControlParticleSystem::UserControlParticleSystem()
 {
     initGUI();
 
-    iApplication::getInstance().registerApplicationPostDrawHandleDelegate(iApplicationPostDrawHandleDelegate(this, &UserControlParticleSystem::onCyclickUpdate));
+    iApplication::getInstance().registerApplicationPostDrawHandleDelegate(iPostDrawDelegate(this, &UserControlParticleSystem::onCyclickUpdate));
 }
 
 UserControlParticleSystem::~UserControlParticleSystem()
 {
-    iApplication::getInstance().unregisterApplicationPostDrawHandleDelegate(iApplicationPostDrawHandleDelegate(this, &UserControlParticleSystem::onCyclickUpdate));
+    iApplication::getInstance().unregisterApplicationPostDrawHandleDelegate(iPostDrawDelegate(this, &UserControlParticleSystem::onCyclickUpdate));
 }
 
 void UserControlParticleSystem::onCyclickUpdate()

@@ -32,11 +32,11 @@
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaColor4.h>
 #include <iaux/data/iaColor3.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <igor/iDefines.h>
 
-namespace Igor
+namespace igor
 {
 
 	/*! pixmap is an editable texture
@@ -211,6 +211,6 @@ namespace Igor
 	*/
 	typedef iPixmap *iPixmapPtr;
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

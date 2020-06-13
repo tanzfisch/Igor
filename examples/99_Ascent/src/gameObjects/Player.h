@@ -3,14 +3,14 @@
 
 #include "GameObject.h"
 
-#include <igor/graphics/scene/nodes/iNode.h>
-using namespace Igor;
+#include <igor/scene/nodes/iNode.h>
+using namespace igor;
 
 #include <iaux/math/iaMatrix.h>
 #include <iaux/system/iaTime.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
     class iScene;
     class iView;
@@ -18,7 +18,7 @@ namespace Igor
     class iPhysicsJoint;
     class iView;
     class iWindow;
-} // namespace Igor
+} // namespace igor
 
 class Player : public GameObject
 {

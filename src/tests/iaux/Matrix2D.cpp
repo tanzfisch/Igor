@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <iaux/math/iaMatrix2D.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <cstring>
 

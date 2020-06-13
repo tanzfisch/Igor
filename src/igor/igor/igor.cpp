@@ -4,9 +4,9 @@
 
 #include <igor/igor.h>
 
-#include <igor/os/iApplication.h>
-#include <igor/os/iKeyboard.h>
-#include <igor/os/iMouse.h>
+#include <igor/system/iApplication.h>
+#include <igor/system/iKeyboard.h>
+#include <igor/system/iMouse.h>
 #include <igor/resources/model/iModelResourceFactory.h>
 #include <igor/resources/iResourceManager.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
@@ -14,13 +14,13 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/ui/actions/iActionManager.h>
-#include <igor/os/iTimer.h>
+#include <igor/system/iTimer.h>
 #include <igor/graphics/iRenderer.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/resources/config/iConfigReader.h>
 #include <igor/iVersion.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
-#include <igor/graphics/scene/iSceneFactory.h>
+#include <igor/scene/nodes/iNodeManager.h>
+#include <igor/scene/iSceneFactory.h>
 #include <igor/physics/iPhysics.h>
 
 #include <iaux/iaux.h>
@@ -28,13 +28,17 @@
 #include <iaux/system/iaFile.h>
 #include <iaux/system/iaDirectory.h>
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #ifdef __IGOR_DEBUG__
 extern const iaString __IGOR_CONFIGURATION__ = "debug";
-#else  // __IGOR_DEBUG__
+#else
+#ifdef RELWITHDEBINFO
+extern const iaString __IGOR_CONFIGURATION__ = "release with debug info";
+#else
 extern const iaString __IGOR_CONFIGURATION__ = "release";
-#endif // __IGOR_DEBUG__
+#endif
+#endif
 
 #ifdef __IGOR_WINDOWS__
 #include <windows.h>
@@ -61,7 +65,7 @@ bool WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 }
 #endif
 
-namespace Igor
+namespace igor
 {
 
 	void printInfo()
@@ -135,7 +139,7 @@ namespace Igor
 
 	void startup(int argc, wchar_t **argv)
 	{
-		IgorAux::startup();
+		iaux::startup();
 		printInfo();
 
 		iConfigReader configReader;
@@ -176,23 +180,24 @@ namespace Igor
 			{
 				configurationFilepath = file.getFullFileName();
 			}
-			else
-			{
-				con_warn("config file " << file.getFileName() << " not found");
-			}
 #endif
 
 #ifdef __IGOR_LINUX__
-			iaFile file(L"/etc/igor/igor.xml");
+			const static iaString configLocations[] = {
+				L"/etc/igor/igor.xml",
+				L"../config/igor.xml"};
 
-			if (file.exist())
+			for (int i = 0; i < 2; ++i)
 			{
-				configurationFilepath = file.getFullFileName();
+				iaFile file(configLocations[i]);
+
+				if (file.exist())
+				{
+					configurationFilepath = file.getFullFileName();
+					break;
+				}
 			}
-			else
-			{
-				con_warn("config file " << file.getFileName() << " not found");
-			}
+
 #endif
 		}
 
@@ -200,6 +205,10 @@ namespace Igor
 		{
 			configReader.readConfiguration(configurationFilepath);
 			con_info("load configuration \"" << configurationFilepath << "\"");
+		}
+		else
+		{
+			con_err("found no configuration file");
 		}
 	}
 
@@ -287,7 +296,7 @@ namespace Igor
 			iActionManager::destroyInstance();
 		}
 
-		IgorAux::shutdown();
+		iaux::shutdown();
 	}
 
-} // namespace Igor
+} // namespace igor

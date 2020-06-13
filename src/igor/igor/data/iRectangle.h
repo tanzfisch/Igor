@@ -31,7 +31,7 @@
 
 #include <igor/iDefines.h>
 
-namespace Igor
+namespace igor
 {
 
     /*! 2d rectangle
@@ -179,6 +179,6 @@ namespace Igor
     /*! int64 precision of rectangle
     */
     typedef iRectangle<int64> iRectangleI;
-}; // namespace Igor
+}; // namespace igor
 
 #endif

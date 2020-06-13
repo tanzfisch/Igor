@@ -31,7 +31,7 @@
 
 #include <iaux/iaDefines.h>
 
-namespace IgorAux
+namespace iaux
 {
 
     /*! just a block of memory
@@ -89,6 +89,6 @@ namespace IgorAux
         uint64 _dataSize = 0;
     };
 
-} // namespace IgorAux
+} // namespace iaux
 
 #endif

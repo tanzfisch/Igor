@@ -33,9 +33,9 @@
 
 #include <iaux/system/iaEvent.h>
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
 	iaEVENT(iDialogIndexMenuCloseEvent, iDialogIndexMenuCloseDelegate, void, (int32 index), (index));
@@ -124,6 +124,6 @@ namespace Igor
     */
 	typedef iDialogIndexMenu *iDialogIndexMenuPtr;
 
-} // namespace Igor
+} // namespace igor
 
 #endif

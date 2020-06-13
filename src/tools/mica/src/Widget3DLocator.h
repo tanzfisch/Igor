@@ -31,15 +31,15 @@
 
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/material/iMaterial.h>
-using namespace Igor;
+using namespace igor;
 
 #include "Widget3D.h"
 
-namespace Igor
+namespace igor
 {
 	class iTargetMaterial;
 	class iNodeTransform;
-} // namespace Igor
+} // namespace igor
 
 class Widget3DLocator : public Widget3D
 {

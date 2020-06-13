@@ -33,9 +33,9 @@
 #include <igor/physics/iPhysicsWorld.h>
 
 #include <iaux/system/iaMutex.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     /*! wrapper for the NewtonCollision handle
@@ -93,6 +93,6 @@ namespace Igor
         virtual ~iPhysicsCollision() = default;
     };
 
-} // namespace Igor
+} // namespace igor
 
 #endif

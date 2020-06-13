@@ -1,3 +1,6 @@
-[submodule "3rd/newton-dynamics"]
-	path = 3rd/newton-dynamics
+[submodule "vendor/newton-dynamics"]
+	path = vendor/newton-dynamics
 	url = https://github.com/tanzfisch/newton-dynamics.git
+[submodule "vendor/openal-soft"]
+	path = vendor/openal-soft
+	url = https://github.com/kcat/openal-soft.git

@@ -10,9 +10,9 @@
 #include <igor/resources/texture/iTextureResourceFactory.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
 	iWidgetColor::iWidgetColor(const iWidgetPtr parent)
@@ -71,4 +71,4 @@ namespace Igor
 		}
 	}
 
-} // namespace Igor
+} // namespace igor

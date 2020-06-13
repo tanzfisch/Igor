@@ -31,7 +31,7 @@
 
 #include <igor/iDefines.h>
 
-namespace Igor
+namespace igor
 {
 
     /*! set of opengl buffer IDs
@@ -152,6 +152,6 @@ namespace Igor
 
 #include <igor/resources/mesh/iMeshBuffers.inl>
 
-} // namespace Igor
+} // namespace igor
 
 #endif

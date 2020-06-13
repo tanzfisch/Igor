@@ -8,7 +8,7 @@
 
 #include <tinyxml.h>
 
-namespace Igor
+namespace igor
 {
 
 	iAtlas::iAtlas(iTexturePtr texture)
@@ -86,4 +86,4 @@ namespace Igor
 			}
 		}
 	}
-}; // namespace Igor
+}; // namespace igor

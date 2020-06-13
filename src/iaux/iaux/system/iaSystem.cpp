@@ -13,7 +13,7 @@
 #include <execinfo.h>
 #endif
 
-namespace IgorAux
+namespace iaux
 {
 
 	/*! thank you Macmade
@@ -62,4 +62,4 @@ namespace IgorAux
 #endif
 	}
 
-} // namespace IgorAux
+} // namespace iaux

@@ -32,9 +32,9 @@
 #include <igor/ui/widgets/iWidget.h>
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
 	class iUserControl;
@@ -116,6 +116,6 @@ namespace Igor
 	/*! widget group box pointer definition
 	*/
 	typedef iWidgetGroupBox *iWidgetGroupBoxPtr;
-} // namespace Igor
+} // namespace igor
 
 #endif

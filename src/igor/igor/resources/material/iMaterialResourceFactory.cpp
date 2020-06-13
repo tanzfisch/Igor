@@ -10,9 +10,9 @@
 #include <igor/resources/material/iTargetMaterial.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     iMaterialResourceFactory::iMaterialResourceFactory()
@@ -327,4 +327,4 @@ namespace Igor
         return _currentMaterial;
     }
 
-} // namespace Igor
+} // namespace igor

@@ -29,7 +29,7 @@
 
 #include <iaux/data/iaSerializable.h>
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <iostream>
 #include <vector>

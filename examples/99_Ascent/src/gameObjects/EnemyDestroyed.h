@@ -3,9 +3,9 @@
 
 #include "GameObject.h"
 
-#include <igor/graphics/scene/nodes/iNode.h>
+#include <igor/scene/nodes/iNode.h>
 
-namespace Igor
+namespace igor
 {
     class iScene;
 }
