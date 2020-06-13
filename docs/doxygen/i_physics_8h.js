@@ -1,6 +1,6 @@
 var i_physics_8h =
 [
-    [ "ConvexCastReturnInfo", "struct_igor_1_1_convex_cast_return_info.html", "struct_igor_1_1_convex_cast_return_info" ],
-    [ "iPhysics", "class_igor_1_1i_physics.html", "class_igor_1_1i_physics" ],
-    [ "iaDELEGATE", "i_physics_8h.html#a8bedbed11dc6ab6496e8d4d72f5b3368", null ]
+    [ "ConvexCastReturnInfo", "structigor_1_1_convex_cast_return_info.html", "structigor_1_1_convex_cast_return_info" ],
+    [ "iPhysics", "classigor_1_1i_physics.html", "classigor_1_1i_physics" ],
+    [ "iaDELEGATE", "i_physics_8h.html#ac040b0a806cb88279d4cc6d4af6fdf6d", null ]
 ];

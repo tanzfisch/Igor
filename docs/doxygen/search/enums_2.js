@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['loglevel',['LogLevel',['../namespace_igor_aux.html#a95b2b44871530bf71a452919620012e3',1,'IgorAux']]]
+  ['loglevel',['LogLevel',['../namespaceiaux.html#af18ed1b4cbf6e13d17aa9a71995ebb9c',1,'iaux']]]
 ];

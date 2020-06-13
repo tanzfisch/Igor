@@ -11,6 +11,6 @@ var dir_7aa4603867f934fedef9d5e94bbf9165 =
     [ "iTextureFont.h", "i_texture_font_8h.html", "i_texture_font_8h" ],
     [ "iTextureResourceFactory.cpp", "i_texture_resource_factory_8cpp.html", "i_texture_resource_factory_8cpp" ],
     [ "iTextureResourceFactory.h", "i_texture_resource_factory_8h.html", [
-      [ "iTextureResourceFactory", "class_igor_1_1i_texture_resource_factory.html", "class_igor_1_1i_texture_resource_factory" ]
+      [ "iTextureResourceFactory", "classigor_1_1i_texture_resource_factory.html", "classigor_1_1i_texture_resource_factory" ]
     ] ]
 ];

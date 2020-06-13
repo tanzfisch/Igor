@@ -1,5 +1,5 @@
 var i_widget_scroll_8cpp =
 [
-    [ "BORDER_WIDTH", "i_widget_scroll_8cpp.html#a597acb3551ac82725db16ab88dc4174e", null ],
-    [ "BORDER_WIDTH2", "i_widget_scroll_8cpp.html#ad29933c1fba912dee0c8b25ecfe3bf3f", null ]
+    [ "BORDER_WIDTH", "i_widget_scroll_8cpp.html#a25305e6e6b1cdf55cd5db1ad69a3d921", null ],
+    [ "BORDER_WIDTH2", "i_widget_scroll_8cpp.html#aea4e11912b1354b980207d6f28af7174", null ]
 ];

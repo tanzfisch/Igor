@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['childoffsetposition',['childOffsetPosition',['../namespace_igor.html#aa0fcd85494a3c35b7994dcdc744fc699',1,'Igor']]],
+  ['childoffsetposition',['childOffsetPosition',['../namespaceigor.html#a343c41ca12ee24c087c427b04e62b347',1,'igor']]],
   ['chunkidsize',['ChunkIDSize',['../struct_o_m_p_f_1_1_o_m_p_f_default_configuration.html#a2956f76851c97d784a4dc12a8b35a3a7',1,'OMPF::OMPFDefaultConfiguration']]],
   ['chunksizesize',['ChunkSizeSize',['../struct_o_m_p_f_1_1_o_m_p_f_default_configuration.html#a9e6b03e2a51ed42b4a72fd18798a470b',1,'OMPF::OMPFDefaultConfiguration']]],
   ['circle',['Circle',['../i_particle_emitter_8h.html#a4347e07a7e65ba8b2203de8cf50a3655',1,'Circle():&#160;iParticleEmitter.h'],['../ompf_emitter_chunk_8h.html#a4347e07a7e65ba8b2203de8cf50a3655',1,'Circle():&#160;ompfEmitterChunk.h']]],

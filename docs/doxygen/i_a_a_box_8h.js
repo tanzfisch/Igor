@@ -1,8 +1,8 @@
 var i_a_a_box_8h =
 [
-    [ "iAABox", "class_igor_1_1i_a_a_box.html", "class_igor_1_1i_a_a_box" ],
-    [ "iAABoxd", "i_a_a_box_8h.html#a4e1cfebc2e1394335b507108720f0ab6", null ],
-    [ "iAABoxf", "i_a_a_box_8h.html#aef3857d57d5e3d5c3d49eec05c307100", null ],
-    [ "iAABoxi", "i_a_a_box_8h.html#aac7713fb0ae3166dd6db019a74716d23", null ],
-    [ "iAABoxI", "i_a_a_box_8h.html#ac34e67d46ad8e1548c0ffbbb6e69b84d", null ]
+    [ "iAABox", "classigor_1_1i_a_a_box.html", "classigor_1_1i_a_a_box" ],
+    [ "iAABoxd", "i_a_a_box_8h.html#a503ba06ae6b1e9c1752d24113ae764cf", null ],
+    [ "iAABoxf", "i_a_a_box_8h.html#ae290e06782c9f5e19ccba610b79ea920", null ],
+    [ "iAABoxi", "i_a_a_box_8h.html#ae2a3182d64d741b9df36ae3b47b71d1b", null ],
+    [ "iAABoxI", "i_a_a_box_8h.html#a3a602dc896525b4c603356b4d70b7345", null ]
 ];

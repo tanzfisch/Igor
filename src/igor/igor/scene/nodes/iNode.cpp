@@ -9,6 +9,8 @@
 #include <igor/scene/nodes/iNodeManager.h>
 #include <igor/scene/nodes/iNodeTransform.h>
 
+#include <sstream>
+
 namespace igor
 {
 

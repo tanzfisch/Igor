@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['higher_5fneighbor_5flod_5fxnegative',['HIGHER_NEIGHBOR_LOD_XNEGATIVE',['../i_contouring_cubes_8cpp.html#a56d846d682e74f5d3277499508c412aa',1,'HIGHER_NEIGHBOR_LOD_XNEGATIVE():&#160;iContouringCubes.cpp'],['../i_voxel_terrain_8cpp.html#a56d846d682e74f5d3277499508c412aa',1,'HIGHER_NEIGHBOR_LOD_XNEGATIVE():&#160;iVoxelTerrain.cpp']]],
-  ['higher_5fneighbor_5flod_5fxpositive',['HIGHER_NEIGHBOR_LOD_XPOSITIVE',['../i_contouring_cubes_8cpp.html#a593991d6a3797dbcf3fb4b32e4dd559f',1,'HIGHER_NEIGHBOR_LOD_XPOSITIVE():&#160;iContouringCubes.cpp'],['../i_voxel_terrain_8cpp.html#a593991d6a3797dbcf3fb4b32e4dd559f',1,'HIGHER_NEIGHBOR_LOD_XPOSITIVE():&#160;iVoxelTerrain.cpp']]],
-  ['higher_5fneighbor_5flod_5fynegative',['HIGHER_NEIGHBOR_LOD_YNEGATIVE',['../i_contouring_cubes_8cpp.html#a97fa4d6791cdb4642a838f41cf8b0745',1,'HIGHER_NEIGHBOR_LOD_YNEGATIVE():&#160;iContouringCubes.cpp'],['../i_voxel_terrain_8cpp.html#a97fa4d6791cdb4642a838f41cf8b0745',1,'HIGHER_NEIGHBOR_LOD_YNEGATIVE():&#160;iVoxelTerrain.cpp']]],
-  ['higher_5fneighbor_5flod_5fypositive',['HIGHER_NEIGHBOR_LOD_YPOSITIVE',['../i_contouring_cubes_8cpp.html#ae80099a171f9ffe865af42909cf3db03',1,'HIGHER_NEIGHBOR_LOD_YPOSITIVE():&#160;iContouringCubes.cpp'],['../i_voxel_terrain_8cpp.html#ae80099a171f9ffe865af42909cf3db03',1,'HIGHER_NEIGHBOR_LOD_YPOSITIVE():&#160;iVoxelTerrain.cpp']]],
-  ['higher_5fneighbor_5flod_5fznegative',['HIGHER_NEIGHBOR_LOD_ZNEGATIVE',['../i_contouring_cubes_8cpp.html#a970eca23fbe2eb66f820430d7ee7c91b',1,'HIGHER_NEIGHBOR_LOD_ZNEGATIVE():&#160;iContouringCubes.cpp'],['../i_voxel_terrain_8cpp.html#a970eca23fbe2eb66f820430d7ee7c91b',1,'HIGHER_NEIGHBOR_LOD_ZNEGATIVE():&#160;iVoxelTerrain.cpp']]],
-  ['higher_5fneighbor_5flod_5fzpositive',['HIGHER_NEIGHBOR_LOD_ZPOSITIVE',['../i_contouring_cubes_8cpp.html#ab476c95007fb2a88ed814caffa68405f',1,'HIGHER_NEIGHBOR_LOD_ZPOSITIVE():&#160;iContouringCubes.cpp'],['../i_voxel_terrain_8cpp.html#ab476c95007fb2a88ed814caffa68405f',1,'HIGHER_NEIGHBOR_LOD_ZPOSITIVE():&#160;iVoxelTerrain.cpp']]]
+  ['g',['G',['../igor_8cpp.html#aed9ea78689ecce0b7264c02c7f8a9a54',1,'igor.cpp']]],
+  ['gl_5fcheck_5ferror',['GL_CHECK_ERROR',['../i_renderer_8cpp.html#abc9f35edf8218f4662573e4662d8c6bd',1,'iRenderer.cpp']]],
+  ['gl_5fglext_5fprototypes',['GL_GLEXT_PROTOTYPES',['../i_renderer_8cpp.html#a120fb070bddb21f0bd899f50252c4cb5',1,'iRenderer.cpp']]]
 ];
