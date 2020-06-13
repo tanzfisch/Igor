@@ -8,7 +8,7 @@ var dir_94c0fe460ca8a5af276b02beb9123b44 =
     [ "iDialogColorGradient.h", "i_dialog_color_gradient_8h.html", "i_dialog_color_gradient_8h" ],
     [ "iDialogDecisionBox.cpp", "i_dialog_decision_box_8cpp.html", null ],
     [ "iDialogDecisionBox.h", "i_dialog_decision_box_8h.html", [
-      [ "iDialogDecisionBox", "class_igor_1_1i_dialog_decision_box.html", "class_igor_1_1i_dialog_decision_box" ]
+      [ "iDialogDecisionBox", "classigor_1_1i_dialog_decision_box.html", "classigor_1_1i_dialog_decision_box" ]
     ] ],
     [ "iDialogFileSelect.cpp", "i_dialog_file_select_8cpp.html", null ],
     [ "iDialogFileSelect.h", "i_dialog_file_select_8h.html", "i_dialog_file_select_8h" ],

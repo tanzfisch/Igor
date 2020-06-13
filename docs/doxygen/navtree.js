@@ -1,6 +1,74 @@
+var NAVTREE =
+[
+  [ "Igor", "index.html", [
+    [ "Igor Game Engine", "index.html", null ],
+    [ "Changelog", "changelog.html", null ],
+    [ "Contribute to Igor", "contribute.html", null ],
+    [ "Igor Code Style Guide", "styleguide.html", null ],
+    [ "Tutorials", "tutorials.html", "tutorials" ],
+    [ "Namespaces", null, [
+      [ "Namespace List", "namespaces.html", "namespaces" ],
+      [ "Namespace Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", "namespacemembers_dup" ],
+        [ "Functions", "namespacemembers_func.html", "namespacemembers_func" ],
+        [ "Variables", "namespacemembers_vars.html", null ],
+        [ "Typedefs", "namespacemembers_type.html", null ],
+        [ "Enumerations", "namespacemembers_enum.html", null ]
+      ] ]
+    ] ],
+    [ "Classes", null, [
+      [ "Class List", "annotated.html", "annotated" ],
+      [ "Class Index", "classes.html", null ],
+      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
+      [ "Class Members", "functions.html", [
+        [ "All", "functions.html", "functions_dup" ],
+        [ "Functions", "functions_func.html", "functions_func" ],
+        [ "Variables", "functions_vars.html", "functions_vars" ],
+        [ "Related Functions", "functions_rela.html", null ]
+      ] ]
+    ] ],
+    [ "Files", null, [
+      [ "File List", "files.html", "files" ],
+      [ "File Members", "globals.html", [
+        [ "All", "globals.html", null ],
+        [ "Functions", "globals_func.html", null ],
+        [ "Variables", "globals_vars.html", null ],
+        [ "Typedefs", "globals_type.html", null ],
+        [ "Macros", "globals_defs.html", null ]
+      ] ]
+    ] ],
+    [ "Examples", "examples.html", "examples" ]
+  ] ]
+];
+
+var NAVTREEINDEX =
+[
+"_keyboard_2src_2_keyboard_example_8cpp-example.html",
+"classiaux_1_1ia_color4.html#a0a70545b2c997300be39922035edbdf9",
+"classiaux_1_1ia_r_l_e.html#a7c48ec9450b3be1226552e5f01e7977f",
+"classiaux_1_1ia_vector2.html#a6ff0cfda9ba68db3c39feff3d7c0639d",
+"classigor_1_1i_dialog_menu.html",
+"classigor_1_1i_material_resource_factory.html#aa6145b5c535c0d93afe8f11b64a2e51e",
+"classigor_1_1i_node_audio_listener.html#a75eeb72777bd8e079fdce5fd6b78de0b",
+"classigor_1_1i_node_visitor_render_boundings.html#a9a31794f45e0e2f24817bf9df3b071d5",
+"classigor_1_1i_physics.html#a81c13a45e87d85b1b64b239a6fa23765",
+"classigor_1_1i_renderer.html",
+"classigor_1_1i_task_load_model.html",
+"classigor_1_1i_widget.html#a2f6a4986ac7addd76669ac43f012eea3",
+"classigor_1_1i_widget_graph.html#a68184f23cd3aca1a3c767705e5a38c51",
+"classigor_1_1i_window.html#a4fd45a03e9330a29a66791a1b5a47ee9",
+"i_defines_8h.html#a09233c080a182bbad53c9d2881358650a5a1fe3c61c9e2fd6dbbc823589f6e697",
+"i_keyboard_8h.html#ad0fb2ee4cad1492cf988582eb718f217",
+"i_node_visitor_8cpp.html",
+"i_texture_font_8h.html#ac450821c5132fd6e9fbfc1b140f17c38ae9cb5b14536dcce4a0c02d83301febf2",
+"ia_console_8h.html#ac961fd7ad9bdd11be6aaca8c678ccae4",
+"ia_state_8h.html#aac536b6e93028c11fd0655031b5bae2d",
+"struct_o_m_p_f_1_1_o_m_p_f_default_configuration.html#a9e6b03e2a51ed42b4a72fd18798a470b"
+];
+
+var SYNCONMSG = 'click to disable panel synchronisation';
+var SYNCOFFMSG = 'click to enable panel synchronisation';
 var navTreeSubIndices = new Array();
-var arrowDown = '&#9660;';
-var arrowRight = '&#9658;';
 
 function getData(varName)
 {
@@ -73,17 +141,17 @@ function cachedLink()
 
 function getScript(scriptName,func,show)
 {
-  var head = document.getElementsByTagName("head")[0];
+  var head = document.getElementsByTagName("head")[0]; 
   var script = document.createElement('script');
   script.id = scriptName;
   script.type = 'text/javascript';
-  script.onload = func;
-  script.src = scriptName+'.js';
-  if ($.browser.msie && $.browser.version<=8) {
+  script.onload = func; 
+  script.src = scriptName+'.js'; 
+  if ($.browser.msie && $.browser.version<=8) { 
     // script.onload does not work with older versions of IE
     script.onreadystatechange = function() {
-      if (script.readyState=='complete' || script.readyState=='loaded') {
-        func(); if (show) showRoot();
+      if (script.readyState=='complete' || script.readyState=='loaded') { 
+        func(); if (show) showRoot(); 
       }
     }
   }
@@ -96,17 +164,18 @@ function createIndent(o,domNode,node,level)
   var n = node;
   while (n.parentNode) { level++; n=n.parentNode; }
   if (node.childrenData) {
-    var imgNode = document.createElement("span");
-    imgNode.className = 'arrow';
+    var imgNode = document.createElement("img");
     imgNode.style.paddingLeft=(16*level).toString()+'px';
-    imgNode.innerHTML=arrowRight;
+    imgNode.width  = 16;
+    imgNode.height = 22;
+    imgNode.border = 0;
     node.plus_img = imgNode;
     node.expandToggle = document.createElement("a");
     node.expandToggle.href = "javascript:void(0)";
     node.expandToggle.onclick = function() {
       if (node.expanded) {
         $(node.getChildrenUL()).slideUp("fast");
-        node.plus_img.innerHTML=arrowRight;
+        node.plus_img.src = node.relpath+"ftv2pnode.png";
         node.expanded = false;
       } else {
         expandNode(o, node, false, false);
@@ -114,13 +183,15 @@ function createIndent(o,domNode,node,level)
     }
     node.expandToggle.appendChild(imgNode);
     domNode.appendChild(node.expandToggle);
+    imgNode.src = node.relpath+"ftv2pnode.png";
   } else {
     var span = document.createElement("span");
-    span.className = 'arrow';
+    span.style.display = 'inline-block';
     span.style.width   = 16*(level+1)+'px';
+    span.style.height  = '22px';
     span.innerHTML = '&#160;';
     domNode.appendChild(span);
-  }
+  } 
 }
 
 var animationInProgress = false;
@@ -194,7 +265,7 @@ function newNode(o, po, text, link, childrenData, lastNode)
       var aname = '#'+link.split('#')[1];
       var srcPage = stripPath(pathName());
       var targetPage = stripPath(link.split('#')[0]);
-      a.href = srcPage!=targetPage ? url : "javascript:void(0)";
+      a.href = srcPage!=targetPage ? url : "javascript:void(0)"; 
       a.onclick = function(){
         storeLink(link);
         if (!$(a).parent().parent().hasClass('selected'))
@@ -212,7 +283,7 @@ function newNode(o, po, text, link, childrenData, lastNode)
       a.onclick = function() { storeLink(link); }
     }
   } else {
-    if (childrenData != null)
+    if (childrenData != null) 
     {
       a.className = "nolink";
       a.href = "javascript:void(0)";
@@ -261,13 +332,17 @@ function expandNode(o, node, imm, showRoot)
     } else {
       if (!node.childrenVisited) {
         getNode(o, node);
-      } if (imm || ($.browser.msie && $.browser.version>8)) {
+      } if (imm || ($.browser.msie && $.browser.version>8)) { 
         // somehow slideDown jumps to the start of tree for IE9 :-(
         $(node.getChildrenUL()).show();
       } else {
         $(node.getChildrenUL()).slideDown("fast");
       }
-      node.plus_img.innerHTML = arrowDown;
+      if (node.isLast) {
+        node.plus_img.src = node.relpath+"ftv2mlastnode.png";
+      } else {
+        node.plus_img.src = node.relpath+"ftv2mnode.png";
+      }
       node.expanded = true;
     }
   }
@@ -336,7 +411,11 @@ function showNode(o, node, index, hash)
         getNode(o, node);
       }
       $(node.getChildrenUL()).css({'display':'block'});
-      node.plus_img.innerHTML = arrowDown;
+      if (node.isLast) {
+        node.plus_img.src = node.relpath+"ftv2mlastnode.png";
+      } else {
+        node.plus_img.src = node.relpath+"ftv2mnode.png";
+      }
       node.expanded = true;
       var n = node.children[o.breadcrumbs[index]];
       if (index+1<o.breadcrumbs.length) {
@@ -473,9 +552,10 @@ function initNavTree(toroot,relpath)
   o.node.relpath = relpath;
   o.node.expanded = false;
   o.node.isLast = true;
-  o.node.plus_img = document.createElement("span");
-  o.node.plus_img.className = 'arrow';
-  o.node.plus_img.innerHTML = arrowRight;
+  o.node.plus_img = document.createElement("img");
+  o.node.plus_img.src = relpath+"ftv2pnode.png";
+  o.node.plus_img.width = 16;
+  o.node.plus_img.height = 22;
 
   if (localStorageSupported()) {
     var navSync = $('#nav-sync');

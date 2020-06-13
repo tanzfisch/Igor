@@ -2,7 +2,7 @@ var dir_19b5bc5409016bb3896fdbbd861978d7 =
 [
     [ "iaBSpline.cpp", "ia_b_spline_8cpp.html", null ],
     [ "iaBSpline.h", "ia_b_spline_8h.html", [
-      [ "iaBSpline", "class_igor_aux_1_1ia_b_spline.html", "class_igor_aux_1_1ia_b_spline" ]
+      [ "iaBSpline", "classiaux_1_1ia_b_spline.html", "classiaux_1_1ia_b_spline" ]
     ] ],
     [ "iaEasing.h", "ia_easing_8h.html", "ia_easing_8h" ],
     [ "iaMatrix.h", "ia_matrix_8h.html", "ia_matrix_8h" ],

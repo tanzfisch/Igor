@@ -1,10 +1,10 @@
 var i_keyboard_8h =
 [
-    [ "iKeyboard", "class_igor_1_1i_keyboard.html", "class_igor_1_1i_keyboard" ],
-    [ "iaEVENT", "i_keyboard_8h.html#a57e55eeb2be9c0fabd3af4faaa199db0", null ],
-    [ "iaEVENT", "i_keyboard_8h.html#a2a94ca76e6773eedbeb632216daedecf", null ],
-    [ "iaEVENT", "i_keyboard_8h.html#a8cfee113f0955155e80cb4fc34295001", null ],
-    [ "iaEVENT", "i_keyboard_8h.html#a77103bd2ee808b5f0ca2511d4a684802", null ],
-    [ "iaEVENT", "i_keyboard_8h.html#aabc54f9f2e65a79ae7c0364d0893ce56", null ],
-    [ "operator<<", "i_keyboard_8h.html#ae60eb8daee7502878987e2920cf74603", null ]
+    [ "iKeyboard", "classigor_1_1i_keyboard.html", "classigor_1_1i_keyboard" ],
+    [ "iaEVENT", "i_keyboard_8h.html#a484bb450070e3cbf1f9b291f8d1ecf3c", null ],
+    [ "iaEVENT", "i_keyboard_8h.html#add9117f342e34c5cd7236939e6ff2311", null ],
+    [ "iaEVENT", "i_keyboard_8h.html#ad0fb2ee4cad1492cf988582eb718f217", null ],
+    [ "iaEVENT", "i_keyboard_8h.html#ad9fb485c23f533413f0dea55dfb57138", null ],
+    [ "iaEVENT", "i_keyboard_8h.html#a3a6f08feb80ac6d81a104e7b14d079ea", null ],
+    [ "operator<<", "i_keyboard_8h.html#af83aac5505f66e6899386d3e2a87b89a", null ]
 ];

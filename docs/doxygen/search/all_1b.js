@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['y',['Y',['../namespace_igor_aux.html#a00df2dbd8efb9c5fbc036de99e582f3aa57cec4137b614c87cb4e24a3d003a3e0',1,'IgorAux::Y()'],['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a57cec4137b614c87cb4e24a3d003a3e0',1,'Igor::Y()']]],
-  ['yellow',['Yellow',['../namespace_igor_aux.html#a40f0d9edbd2c9519788b20a95a9facc8a51e6cd92b6c45f9affdc158ecca2b8b8',1,'IgorAux']]],
-  ['yes',['Yes',['../namespace_igor.html#a1314a119813da18d245083b42e8627dfa93cba07454f06a4a960172bbd6e2a435',1,'Igor']]],
-  ['yesno',['YesNo',['../namespace_igor.html#a1406ee80c5c6d2b94077b390d0c42becab65ffbcb4dcfb93ecdc257d6e4ba42c4',1,'Igor']]],
-  ['yesnocancel',['YesNoCancel',['../namespace_igor.html#a1406ee80c5c6d2b94077b390d0c42beca71fc7b7aece69111c0b6967de4b101c5',1,'Igor']]]
+  ['y',['Y',['../namespaceiaux.html#ad667fe7c1ad6757a475a5913e3789d2ba57cec4137b614c87cb4e24a3d003a3e0',1,'iaux::Y()'],['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda57cec4137b614c87cb4e24a3d003a3e0',1,'igor::Y()']]],
+  ['yellow',['Yellow',['../namespaceiaux.html#a7a980d16835582248027a8d24139690aa51e6cd92b6c45f9affdc158ecca2b8b8',1,'iaux']]],
+  ['yes',['Yes',['../namespaceigor.html#a122478c90d48716251aee24739420db4a93cba07454f06a4a960172bbd6e2a435',1,'igor']]],
+  ['yesno',['YesNo',['../namespaceigor.html#ac9a241f289e04683e63e4a3e8db917a5ab65ffbcb4dcfb93ecdc257d6e4ba42c4',1,'igor']]],
+  ['yesnocancel',['YesNoCancel',['../namespaceigor.html#ac9a241f289e04683e63e4a3e8db917a5a71fc7b7aece69111c0b6967de4b101c5',1,'igor']]]
 ];

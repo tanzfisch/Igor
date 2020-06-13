@@ -1,4 +1,4 @@
 var ia_file_8cpp =
 [
-    [ "getSize", "ia_file_8cpp.html#a54959efba101facec68e1267a6d1fd1d", null ]
+    [ "getFileSize", "ia_file_8cpp.html#ab48638555316a6087b551f3ff36f8c7e", null ]
 ];

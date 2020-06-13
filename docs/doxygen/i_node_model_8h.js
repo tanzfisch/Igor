@@ -1,5 +1,5 @@
 var i_node_model_8h =
 [
-    [ "iNodeModel", "class_igor_1_1i_node_model.html", "class_igor_1_1i_node_model" ],
-    [ "iaEVENT", "i_node_model_8h.html#abadd38557dc10780fd5f04067d37eda4", null ]
+    [ "iNodeModel", "classigor_1_1i_node_model.html", "classigor_1_1i_node_model" ],
+    [ "iaEVENT", "i_node_model_8h.html#aa01fa4fd5ef4e782c729da30cc2a322c", null ]
 ];

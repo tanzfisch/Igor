@@ -1,5 +1,5 @@
 var i_pixmap_8h =
 [
-    [ "iPixmap", "class_igor_1_1i_pixmap.html", "class_igor_1_1i_pixmap" ],
-    [ "iPixmapPtr", "i_pixmap_8h.html#a9bf9880c9fffd7ed2a479f0fa5bf8be2", null ]
+    [ "iPixmap", "classigor_1_1i_pixmap.html", "classigor_1_1i_pixmap" ],
+    [ "iPixmapPtr", "i_pixmap_8h.html#a5ca8b70f1cd7cae06bbe30593636f370", null ]
 ];

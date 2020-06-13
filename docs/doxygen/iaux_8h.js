@@ -1,5 +1,5 @@
 var iaux_8h =
 [
-    [ "shutdown", "iaux_8h.html#a39537901e9950d2231244072573697bb", null ],
-    [ "startup", "iaux_8h.html#a016335a59650872e308a07ef7d4143d0", null ]
+    [ "shutdown", "iaux_8h.html#addcb08e0cedd1e24ae9663655cc71ccc", null ],
+    [ "startup", "iaux_8h.html#a2ecdb72dcc2c1419d328e003f1809f8a", null ]
 ];

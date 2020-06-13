@@ -1,7 +1,7 @@
 var i_window_8h =
 [
-    [ "iWindow", "class_igor_1_1i_window.html", "class_igor_1_1i_window" ],
-    [ "iRenderContextPtr", "i_window_8h.html#a2889170bf758077e18f294ad9e010429", null ],
-    [ "iaEVENT", "i_window_8h.html#a259c59ae9223cf1ca3ea6d55d1e663be", null ],
-    [ "iaEVENT", "i_window_8h.html#a197d1b53a49e9157797115fa70f22d28", null ]
+    [ "iWindow", "classigor_1_1i_window.html", "classigor_1_1i_window" ],
+    [ "iRenderContextPtr", "i_window_8h.html#ae2644d9b73104baa2aed8f6649bbc3ca", null ],
+    [ "iaEVENT", "i_window_8h.html#a72021d031e62a2bbb5bad71574cee249", null ],
+    [ "iaEVENT", "i_window_8h.html#a24578c86898d8ebdfbdcb4115f9a42b9", null ]
 ];

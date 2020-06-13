@@ -40,9 +40,7 @@ var ia_defines_8h =
     [ "__IGOR_CENTIMETER__", "ia_defines_8h.html#ab14ddc04664d99649471bbeac02ec9b6", null ],
     [ "__IGOR_DECIMETER__", "ia_defines_8h.html#ac71a05779c53cec629cdc5a7016c1c3e", null ],
     [ "__IGOR_DEFAULTCALL__", "ia_defines_8h.html#abda816f875e6b7516551783fb21bb696", null ],
-    [ "__IGOR_FILE__", "ia_defines_8h.html#a6a2c0c124d9f1811db4497884c8dfaa4", null ],
     [ "__IGOR_FILE_LINE__", "ia_defines_8h.html#a697e3f8d08a488719c8168bad998393f", null ],
-    [ "__IGOR_FUNCTION__", "ia_defines_8h.html#a9a216b611b5a622763f2b6ba59bd9e8a", null ],
     [ "__IGOR_GRAMM__", "ia_defines_8h.html#a13b400b9a9e0bccec87f9493988e503e", null ],
     [ "__IGOR_GRAVITY__", "ia_defines_8h.html#a62836e238200be78731465d4aba1e4c3", null ],
     [ "__IGOR_KILO__", "ia_defines_8h.html#ab095b53816c8eb73c33b8de2e14234cc", null ],
@@ -82,9 +80,9 @@ var ia_defines_8h =
     [ "uint32", "ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2", null ],
     [ "uint64", "ia_defines_8h.html#abc0f5bc07737e498f287334775dff2b6", null ],
     [ "uint8", "ia_defines_8h.html#a33a5e996e7a90acefb8b1c0bea47e365", null ],
-    [ "iaAxis", "ia_defines_8h.html#a00df2dbd8efb9c5fbc036de99e582f3a", [
-      [ "X", "ia_defines_8h.html#a00df2dbd8efb9c5fbc036de99e582f3aa02129bb861061d1a052c592e2dc6b383", null ],
-      [ "Y", "ia_defines_8h.html#a00df2dbd8efb9c5fbc036de99e582f3aa57cec4137b614c87cb4e24a3d003a3e0", null ],
-      [ "Z", "ia_defines_8h.html#a00df2dbd8efb9c5fbc036de99e582f3aa21c2e59531c8710156d34a3c30ac81d5", null ]
+    [ "iaAxis", "ia_defines_8h.html#ad667fe7c1ad6757a475a5913e3789d2b", [
+      [ "X", "ia_defines_8h.html#ad667fe7c1ad6757a475a5913e3789d2ba02129bb861061d1a052c592e2dc6b383", null ],
+      [ "Y", "ia_defines_8h.html#ad667fe7c1ad6757a475a5913e3789d2ba57cec4137b614c87cb4e24a3d003a3e0", null ],
+      [ "Z", "ia_defines_8h.html#ad667fe7c1ad6757a475a5913e3789d2ba21c2e59531c8710156d34a3c30ac81d5", null ]
     ] ]
 ];

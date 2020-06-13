@@ -1,5 +1,5 @@
 var i_dialog_graph_8h =
 [
-    [ "iDialogGraph", "class_igor_1_1i_dialog_graph.html", "class_igor_1_1i_dialog_graph" ],
-    [ "iDialogGraphPtr", "i_dialog_graph_8h.html#abb06e02783d7edf8f640550e396cf572", null ]
+    [ "iDialogGraph", "classigor_1_1i_dialog_graph.html", "classigor_1_1i_dialog_graph" ],
+    [ "iDialogGraphPtr", "i_dialog_graph_8h.html#a7de4c8ced6ab7ad8261f3f87a89be52c", null ]
 ];

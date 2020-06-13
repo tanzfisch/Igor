@@ -1,8 +1,8 @@
 var ia_quaternion_8h =
 [
-    [ "iaQuaternion", "class_igor_aux_1_1ia_quaternion.html", "class_igor_aux_1_1ia_quaternion" ],
-    [ "iaQuaterniond", "ia_quaternion_8h.html#adcca8bb44520dc9c3f566892bcc0b058", null ],
-    [ "iaQuaternionf", "ia_quaternion_8h.html#a203dd6261fc50cb94bf0bf1a4c722f54", null ],
-    [ "dotProduct", "ia_quaternion_8h.html#ac26fa9ea9119881d802dda02a9259598", null ],
-    [ "slerp", "ia_quaternion_8h.html#ab0136d199d1cd151ecfbe3d509489c12", null ]
+    [ "iaQuaternion", "classiaux_1_1ia_quaternion.html", "classiaux_1_1ia_quaternion" ],
+    [ "iaQuaterniond", "ia_quaternion_8h.html#ac78973c3fff5f55e1d6f6ddfed912ae7", null ],
+    [ "iaQuaternionf", "ia_quaternion_8h.html#a112b7231bf9b60e4fbc30db6517b249b", null ],
+    [ "dotProduct", "ia_quaternion_8h.html#ac7012d0cfb5ea118b2ee0495491123ab", null ],
+    [ "slerp", "ia_quaternion_8h.html#ad1149934c1bcd907201d42fd480bc57c", null ]
 ];

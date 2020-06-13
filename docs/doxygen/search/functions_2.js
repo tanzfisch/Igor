@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['beginradiobuttongroup',['beginRadioButtonGroup',['../class_igor_1_1i_widget_check_box.html#ae63be6d177fe17290b82ce93fda73bf6',1,'Igor::iWidgetCheckBox']]],
-  ['beginsection',['beginSection',['../class_igor_1_1i_profiler.html#a22df7ccfeb84941939b038ab8d3b1b4e',1,'Igor::iProfiler::beginSection()'],['../class_igor_1_1i_profiler_section.html#a7008fa9a03ae5e1311adf88346d4ecfa',1,'Igor::iProfilerSection::beginSection()']]],
-  ['bindtexture',['bindTexture',['../class_igor_1_1i_renderer.html#aa82974dd4e82c7c7846188dcaa71c4e9',1,'Igor::iRenderer']]],
-  ['bindtransformnode',['bindTransformNode',['../class_igor_1_1i_physics.html#a6597fa01c5eaf2ffb189786debed1a25',1,'Igor::iPhysics']]],
-  ['block',['block',['../class_igor_1_1i_user_control_color_chooser.html#a7750e7184402309d384841b07cfa65f2',1,'Igor::iUserControlColorChooser::block()'],['../class_igor_1_1i_widget.html#aa2ead76f10f21ef7cd608e122bb000c0',1,'Igor::iWidget::block()'],['../class_igor_1_1i_widget_color_gradient.html#a78b35a311aa81a7e36a736e2dbc0f62e',1,'Igor::iWidgetColorGradient::block()']]]
+  ['beginradiobuttongroup',['beginRadioButtonGroup',['../classigor_1_1i_widget_check_box.html#a10b63197b3a04aeebf3a7a0abe735a5e',1,'igor::iWidgetCheckBox']]],
+  ['beginsection',['beginSection',['../classigor_1_1i_profiler.html#a9fbe4c96d80f4d740ce81d54e239aa0e',1,'igor::iProfiler::beginSection()'],['../classigor_1_1i_profiler_section.html#a3ae3417a5f23cdb0f3e582ee1c8db2ec',1,'igor::iProfilerSection::beginSection()']]],
+  ['bindsource',['bindSource',['../classigor_1_1i_audio_impl.html#aa36d50a0b46bc97887eb9c97b0d04b9c',1,'igor::iAudioImpl::bindSource()'],['../classigor_1_1i_audio.html#ad68473a040fb72d00d621ec9fe36718d',1,'igor::iAudio::bindSource()']]],
+  ['bindtexture',['bindTexture',['../classigor_1_1i_renderer.html#aeab592d7b5b722c870dddaa02d009c7c',1,'igor::iRenderer']]],
+  ['bindtransformnode',['bindTransformNode',['../classigor_1_1i_physics.html#a5a0135b08e5c92540f56c53d00f05c55',1,'igor::iPhysics']]],
+  ['block',['block',['../classigor_1_1i_user_control_color_chooser.html#a4230bf2de264ccbb44236d91a8d3608b',1,'igor::iUserControlColorChooser::block()'],['../classigor_1_1i_widget.html#a31b9da0d03d6934d9409c0eac78ac23c',1,'igor::iWidget::block()'],['../classigor_1_1i_widget_color_gradient.html#a2cfb76764e154874d44ba7eec25bb9d3',1,'igor::iWidgetColorGradient::block()']]]
 ];

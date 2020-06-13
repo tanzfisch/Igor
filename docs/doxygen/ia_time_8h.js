@@ -1,5 +1,5 @@
 var ia_time_8h =
 [
-    [ "iaTime", "class_igor_aux_1_1ia_time.html", "class_igor_aux_1_1ia_time" ],
-    [ "operator<<", "ia_time_8h.html#a9358e441759ba67a1ed898dd5f6abf19", null ]
+    [ "iaTime", "classiaux_1_1ia_time.html", "classiaux_1_1ia_time" ],
+    [ "operator<<", "ia_time_8h.html#a21a9f417e653ed5555438605ea775166", null ]
 ];

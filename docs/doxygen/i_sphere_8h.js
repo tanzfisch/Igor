@@ -1,7 +1,7 @@
 var i_sphere_8h =
 [
-    [ "iSphere", "class_igor_1_1i_sphere.html", "class_igor_1_1i_sphere" ],
-    [ "iSphered", "i_sphere_8h.html#a53998b2091175c6225d214d1cf48c34a", null ],
-    [ "iSpheref", "i_sphere_8h.html#aaa47913e5b3af8102e2d9531dfaf75d3", null ],
-    [ "iSphereI", "i_sphere_8h.html#a4fb8ea7af062f6f15b5ebf36f85eacc8", null ]
+    [ "iSphere", "classigor_1_1i_sphere.html", "classigor_1_1i_sphere" ],
+    [ "iSphered", "i_sphere_8h.html#a02320f0f59e542b63102e204bab928f1", null ],
+    [ "iSpheref", "i_sphere_8h.html#a91dd4f1e1a784105fb268fcff0964483", null ],
+    [ "iSphereI", "i_sphere_8h.html#aa9cd84e11001988315ae68f8229bd4c4", null ]
 ];

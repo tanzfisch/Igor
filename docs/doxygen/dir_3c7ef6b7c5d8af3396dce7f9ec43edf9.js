@@ -7,7 +7,7 @@ var dir_3c7ef6b7c5d8af3396dce7f9ec43edf9 =
     [ "widgets", "dir_21f60eb933ce29a4fbda08e75b144bcd.html", "dir_21f60eb933ce29a4fbda08e75b144bcd" ],
     [ "iWidgetManager.cpp", "i_widget_manager_8cpp.html", null ],
     [ "iWidgetManager.h", "i_widget_manager_8h.html", [
-      [ "iWidgetManager", "class_igor_1_1i_widget_manager.html", "class_igor_1_1i_widget_manager" ]
+      [ "iWidgetManager", "classigor_1_1i_widget_manager.html", "classigor_1_1i_widget_manager" ]
     ] ],
     [ "iWidgetManager.inl", "i_widget_manager_8inl.html", null ]
 ];

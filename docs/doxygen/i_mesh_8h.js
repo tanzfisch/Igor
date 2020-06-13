@@ -1,5 +1,5 @@
 var i_mesh_8h =
 [
-    [ "iMesh", "class_igor_1_1i_mesh.html", "class_igor_1_1i_mesh" ],
-    [ "iMeshPtr", "i_mesh_8h.html#a559fe4456991a1ae2e1cca07945ad071", null ]
+    [ "iMesh", "classigor_1_1i_mesh.html", "classigor_1_1i_mesh" ],
+    [ "iMeshPtr", "i_mesh_8h.html#abce6ba2a517934f61e1c0b6570b5411c", null ]
 ];
