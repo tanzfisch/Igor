@@ -29,7 +29,7 @@
 #ifndef __USERCONTROLPROPERTIES__
 #define __USERCONTROLPROPERTIES__
 
-namespace Igor
+namespace igor
 {
     class iDialog;
     class iWidgetGrid;
@@ -38,12 +38,12 @@ namespace Igor
     class iWidgetSpacer;
 }
 
-#include <igor/graphics/scene/nodes/iNode.h>
+#include <igor/scene/nodes/iNode.h>
 #include <igor/ui/user_controls/iUserControl.h>
-using namespace Igor;
+using namespace igor;
 
 #include <iaux/system/iaEvent.h>
-using namespace IgorAux;
+using namespace iaux;
 
 class UserControlLight;
 class UserControlMesh;

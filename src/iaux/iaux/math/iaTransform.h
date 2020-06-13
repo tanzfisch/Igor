@@ -32,7 +32,7 @@
 #include <iaux/math/iaMatrix.h>
 #include <iaux/math/iaQuaternion.h>
 
-namespace IgorAux
+namespace iaux
 {
 
 	/*! Transform based on the components translate, rotate, scale, shear and perspective
@@ -144,6 +144,6 @@ namespace IgorAux
 	*/
 	typedef iaTransform<float64> iaTransformd;
 
-}; // namespace IgorAux
+}; // namespace iaux
 
 #endif

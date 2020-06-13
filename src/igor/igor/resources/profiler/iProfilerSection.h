@@ -34,11 +34,11 @@
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaColor4.h>
 #include <iaux/system/iaTime.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <vector>
 
-namespace Igor
+namespace igor
 {
 
     /*! to measure how long a section of code takes per
@@ -127,6 +127,6 @@ namespace Igor
         iaTime _beginTime;
     };
 
-} // namespace Igor
+} // namespace igor
 
 #endif

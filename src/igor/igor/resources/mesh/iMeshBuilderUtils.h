@@ -32,7 +32,7 @@
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/mesh/iMesh.h>
 
-namespace Igor
+namespace igor
 {
 
     namespace iMeshBuilderUtils
@@ -110,6 +110,6 @@ namespace Igor
 
     } // namespace iMeshBuilderUtils
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

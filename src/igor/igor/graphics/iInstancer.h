@@ -31,7 +31,7 @@
 
 #include <igor/iDefines.h>
 
-namespace Igor
+namespace igor
 {
 
     /*! handles multiple render instances 
@@ -127,6 +127,6 @@ namespace Igor
 
 #include <igor/graphics/iInstancer.inl>
 
-} // namespace Igor
+} // namespace igor
 
 #endif

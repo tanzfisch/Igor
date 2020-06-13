@@ -6,7 +6,7 @@
 
 #include <igor/physics/iPhysics.h>
 
-namespace Igor
+namespace igor
 {
 
     iPhysicsMaterial::iPhysicsMaterial(int64 id)
@@ -29,4 +29,4 @@ namespace Igor
         return _name;
     }
 
-} // namespace Igor
+} // namespace igor

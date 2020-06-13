@@ -36,12 +36,12 @@
 #include <iaux/math/iaVector4.h>
 #include <iaux/math/iaVector2.h>
 #include <iaux/data/iaColor3.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <vector>
 #include <map>
 
-namespace Igor
+namespace igor
 {
 
     /*! model data loader for the OBJ aka Wavefront format
@@ -335,6 +335,6 @@ namespace Igor
         iaVector2f *getTexCoord(uint32 index);
     };
 
-} // namespace Igor
+} // namespace igor
 
 #endif

@@ -32,7 +32,7 @@
 #include <igor/data/iFrustum.h>
 #include <iaux/system/iaConsole.h>
 
-namespace Igor
+namespace igor
 {
 
     /*! sphere
@@ -104,6 +104,6 @@ namespace Igor
     */
     typedef iSphere<int64> iSphereI;
 
-} // namespace Igor
+} // namespace igor
 
 #endif

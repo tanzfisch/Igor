@@ -36,13 +36,13 @@
 #include <iaux/system/iaSingleton.h>
 #include <iaux/system/iaMutex.h>
 #include <iaux/system/iaEvent.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <list>
 #include <map>
 #include <vector>
 
-namespace Igor
+namespace igor
 {
 
     /*! event triggered by material created
@@ -221,6 +221,6 @@ namespace Igor
         virtual ~iMaterialResourceFactory();
     };
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

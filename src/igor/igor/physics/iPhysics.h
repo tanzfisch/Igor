@@ -36,13 +36,13 @@
 #include <iaux/system/iaSingleton.h>
 #include <iaux/math/iaMatrix.h>
 #include <iaux/system/iaTime.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <memory>
 #include <vector>
 #include <map>
 
-namespace Igor
+namespace igor
 {
 
     class iNodeTransform;
@@ -712,6 +712,6 @@ namespace Igor
     \include Physics/src/PhysicsExample.h
     */
 
-} // namespace Igor
+} // namespace igor
 
 #endif

@@ -32,9 +32,9 @@
 #include <igor/ui/widgets/iWidget.h>
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
 	/*! spacer widget
@@ -70,6 +70,6 @@ namespace Igor
 	/*! widget spacer pointer definition
 	*/
 	typedef iWidgetSpacer *iWidgetSpacerPtr;
-} // namespace Igor
+} // namespace igor
 
 #endif

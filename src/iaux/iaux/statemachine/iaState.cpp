@@ -5,9 +5,9 @@
 #include <iaux/statemachine/iaState.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace IgorAux
+namespace iaux
 {
     uint32 iaState::_nextID = INVALID_STATE_ID + 1;
 
@@ -96,4 +96,4 @@ namespace IgorAux
         _leaveStateEvent.remove(leaveStateDelegate);
     }
 
-} // namespace IgorAux
+} // namespace iaux

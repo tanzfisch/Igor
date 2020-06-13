@@ -30,7 +30,7 @@
 #define __iFONT__
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <igor/data/iRectangle.h>
 #include <igor/resources/texture/iTexture.h>
@@ -38,7 +38,7 @@ using namespace IgorAux;
 #include <vector>
 #include <memory>
 
-namespace Igor
+namespace igor
 {
 
 	class iPixmap;
@@ -153,6 +153,10 @@ namespace Igor
 		~iTextureFont();
 	};
 
-}; // namespace Igor
+	/*! texture font pointer definition
+	*/
+	typedef iTextureFont* iTextureFontPtr;
+
+}; // namespace igor
 
 #endif

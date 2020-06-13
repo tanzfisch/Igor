@@ -6,11 +6,11 @@
 #include <igor/resources/iResourceManager.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <tinyxml.h>
 
-namespace Igor
+namespace igor
 {
 	iConfigReader::iConfigReader()
 	{
@@ -54,7 +54,7 @@ namespace Igor
 
 				if (level == "Assert")
 				{
-					iaConsole::getInstance().setLogLevel(LogLevel::Assert);
+					iaConsole::getInstance().setLogLevel(LogLevel::Fatal);
 				}
 				else if (level == "Error")
 				{
@@ -76,6 +76,10 @@ namespace Igor
 				{
 					iaConsole::getInstance().setLogLevel(LogLevel::Debug);
 				}
+				else if (level == "Trace")
+				{
+					iaConsole::getInstance().setLogLevel(LogLevel::Trace);
+				}
 			}
 		}
 	}
@@ -86,22 +90,23 @@ namespace Igor
 		filename.getData(temp, 2048);
 
 		TiXmlDocument document(temp);
-		document.LoadFile();
-
-		TiXmlElement *root = document.FirstChildElement("Igor");
-		if (root)
+		if (document.LoadFile())
 		{
-			TiXmlElement *resourceManager = root->FirstChildElement("ResourceManager");
-			if (resourceManager)
+			TiXmlElement *root = document.FirstChildElement("Igor");
+			if (root)
 			{
-				readResourceManagerConfig(resourceManager);
-			}
+				TiXmlElement *resourceManager = root->FirstChildElement("ResourceManager");
+				if (resourceManager)
+				{
+					readResourceManagerConfig(resourceManager);
+				}
 
-			TiXmlElement *logging = root->FirstChildElement("Logging");
-			if (logging)
-			{
-				readLoggingConfig(logging);
+				TiXmlElement *logging = root->FirstChildElement("Logging");
+				if (logging)
+				{
+					readLoggingConfig(logging);
+				}
 			}
 		}
 	}
-} // namespace Igor
+} // namespace igor

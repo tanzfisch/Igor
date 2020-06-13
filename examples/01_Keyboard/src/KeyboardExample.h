@@ -29,13 +29,12 @@
 #ifndef __KEYBOARDEXAMPLE__
 #define __KEYBOARDEXAMPLE__
 
-// need window and keyboard
-#include <igor/os/iWindow.h>
-using namespace Igor;
+#include <ExampleBase.h>
+using namespace igor;
 
 /*! keyboard input example
 */
-class KeyboardExample
+class KeyboardExample : public ExampleBase
 {
 
 public:
@@ -43,18 +42,20 @@ public:
     */
     KeyboardExample();
 
-    /*! release resources
+    /*! does nothing
     */
-    ~KeyboardExample();
+    ~KeyboardExample() = default;
 
-    /*! run example
+protected:
+    /*! initialize example
     */
-    void run();
+    void init() override;
+
+    /*! deinitialize example
+    */
+    void deinit() override;
 
 private:
-    /*! the window that receives the input messages
-    */
-    iWindow _window;
 
     /*! switches beween ascii output or single key output
     */
@@ -78,21 +79,9 @@ private:
     */
     void onKeyASCIIInput(char c);
 
-    /*! called when window got closed
-    */
-    void onCloseWindow();
-
     /*! called when ESC key 
     */
     void onKeyESCPressed();
-
-    /*! initialize example
-    */
-    void init();
-
-    /*! release resources
-    */
-    void deinit();
 };
 
 #endif

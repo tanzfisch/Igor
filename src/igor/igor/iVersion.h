@@ -30,17 +30,16 @@
 #define __IGOR_VERSION_FILE__
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
 
-namespace Igor
+namespace igor
 {
 
     //! Igor version short
-    extern const iaString __IGOR_VERSION__;
+    extern const iaux::iaString __IGOR_VERSION__;
 
     //! Igor version full
-    extern const iaString __IGOR_VERSION_FULL__;
+    extern const iaux::iaString __IGOR_VERSION_FULL__;
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

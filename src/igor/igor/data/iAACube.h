@@ -32,9 +32,9 @@
 #include <igor/iDefines.h>
 
 #include <iaux/math/iaVector3.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     /*! Axis aligned cube
@@ -74,6 +74,6 @@ namespace Igor
     */
     typedef iAACube<float64> iAACubed;
 
-} // namespace Igor
+} // namespace igor
 
 #endif

@@ -33,12 +33,12 @@
 #include <igor/resources/texture/iTexture.h>
 
 #include <iaux/data/iaColor3.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <map>
 #include <memory>
 
-namespace Igor
+namespace igor
 {
 
     /*! contains all material information that belong to the surface of an object
@@ -172,6 +172,6 @@ namespace Igor
 
 #include <igor/resources/material/iTargetMaterial.inl>
 
-} // namespace Igor
+} // namespace igor
 
 #endif

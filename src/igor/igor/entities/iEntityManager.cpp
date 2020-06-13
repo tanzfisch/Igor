@@ -7,7 +7,7 @@
 #include <igor/entities/iEntity.h>
 #include <igor/entities/iEntityLocatable.h>
 
-namespace Igor
+namespace igor
 {
 
     iEntityManager::iEntityManager()
@@ -108,4 +108,4 @@ namespace Igor
         }
     }
 
-} // namespace Igor
+} // namespace igor

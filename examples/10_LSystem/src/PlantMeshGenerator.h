@@ -31,15 +31,15 @@
 
 #include <iaux/math/iaVector3.h>
 #include <iaux/math/iaRandomNumberGenerator.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/model/loader/iModelDataIO.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/data/iSkeleton.h>
-using namespace Igor;
+using namespace igor;
 
-namespace Igor
+namespace igor
 {
     class iLSystem;
     class iMeshBuilder;

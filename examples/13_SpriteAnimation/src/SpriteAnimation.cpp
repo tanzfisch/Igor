@@ -2,29 +2,29 @@
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
-#include <igor/os/iMouse.h>
-#include <igor/os/iKeyboard.h>
+#include <igor/system/iMouse.h>
+#include <igor/system/iKeyboard.h>
 #include <igor/resources/texture/iAtlas.h>
 #include <igor/resources/texture/iTextureFont.h>
-#include <igor/os/iTimer.h>
-#include <igor/os/iApplication.h>
+#include <igor/system/iTimer.h>
+#include <igor/system/iApplication.h>
 #include <igor/graphics/iRenderer.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/profiler/iProfiler.h>
-#include <igor/graphics/scene/iSceneFactory.h>
-#include <igor/graphics/scene/nodes/iNodeMesh.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/scene/iSceneFactory.h>
+#include <igor/scene/nodes/iNodeMesh.h>
+#include <igor/scene/nodes/iNodeManager.h>
 #include <igor/resources/material/iTargetMaterial.h>
-#include <igor/graphics/scene/nodes/iNodeTransform.h>
-#include <igor/graphics/scene/iScene.h>
-#include <igor/graphics/scene/traversal/iNodeVisitorPrintTree.h>
-#include <igor/graphics/scene/nodes/iNodeCamera.h>
-#include <igor/graphics/scene/nodes/iNodeModel.h>
-using namespace Igor;
+#include <igor/scene/nodes/iNodeTransform.h>
+#include <igor/scene/iScene.h>
+#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
+#include <igor/scene/nodes/iNodeCamera.h>
+#include <igor/scene/nodes/iNodeModel.h>
+using namespace igor;
 
 #include <sstream>
 #include <map>
@@ -61,7 +61,7 @@ void SpriteAnimation::init()
 	// the client rectangle is the size of the actual rendering area
 	_view.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
 	// register callback to the rendering event of this view
-	_view.registerRenderDelegate(RenderDelegate(this, &SpriteAnimation::onRender));
+	_view.registerRenderDelegate(iDrawDelegate(this, &SpriteAnimation::onRender));
 	// set background color
 	_view.setClearColor(1.0, 1.0, 1.0, 1.0);
 	// add the view to the window
@@ -139,7 +139,7 @@ void SpriteAnimation::init()
 	iTextureResourceFactory::getInstance().flush();
 
 	// register callback to application handle event. the application handle event will be called every frame just before the rendering
-	iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &SpriteAnimation::onHandle));
+	iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &SpriteAnimation::onHandle));
 	// register callback to key pressed event
 	iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &SpriteAnimation::onKeyDown));
 	// register callback to key released event
@@ -162,7 +162,7 @@ void SpriteAnimation::init()
 void SpriteAnimation::deinit()
 {
 	// unregister some callbacks. otherwhise you will be reminded of callbacks that where not released
-	iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &SpriteAnimation::onHandle));
+	iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &SpriteAnimation::onHandle));
 	iMouse::getInstance().unregisterMouseMoveDelegate(iMouseMoveDelegate(this, &SpriteAnimation::onMouseMove));
 	iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &SpriteAnimation::onKeyDown));
 	iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &SpriteAnimation::onKeyUp));
@@ -171,7 +171,7 @@ void SpriteAnimation::deinit()
 	_scene = nullptr;
 
 	// unregister the rendering callback. if not you will get a warning message because your shutdown was not complete
-	_view.unregisterRenderDelegate(RenderDelegate(this, &SpriteAnimation::onRender));
+	_view.unregisterRenderDelegate(iDrawDelegate(this, &SpriteAnimation::onRender));
 
 	// release materials (optional)
 	iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);

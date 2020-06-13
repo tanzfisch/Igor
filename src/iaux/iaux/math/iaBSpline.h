@@ -34,7 +34,7 @@
 
 #include <vector>
 
-namespace IgorAux
+namespace iaux
 {
 
 	/*! BSpline implementation
@@ -135,6 +135,6 @@ namespace IgorAux
 		void prepareU();
 	};
 
-}; // namespace IgorAux
+}; // namespace iaux
 
 #endif

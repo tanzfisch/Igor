@@ -14,7 +14,7 @@
 #include <string>
 #include <memory>
 
-namespace IgorAux
+namespace iaux
 {
 
 #ifdef __IGOR_DEBUG__
@@ -1286,4 +1286,4 @@ namespace IgorAux
         return trimLeft(trimRight(text));
     }
 
-} // namespace IgorAux
+} // namespace iaux

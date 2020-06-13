@@ -4,15 +4,15 @@
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/texture/iAtlas.h>
 #include <igor/resources/texture/iPixmap.h>
-#include <igor/graphics/scene/iScene.h>
+#include <igor/scene/iScene.h>
 #include <igor/resources/material/iMaterial.h>
-using namespace Igor;
+using namespace igor;
 
 #include <iaux/data/iaString.h>
 #include <iaux/math/iaRandomNumberGenerator.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 	class iMeshBuilder;
 }

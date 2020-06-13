@@ -38,9 +38,9 @@
 
 #include <iaux/math/iaVector2.h>
 #include <iaux/math/iaVector3.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     /*! collection of intersection functions
@@ -172,6 +172,6 @@ namespace Igor
 
 #include <igor/data/iIntersection.inl>
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

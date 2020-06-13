@@ -30,19 +30,19 @@
 #define __OPENGL3DEXAMPLE__
 
 #include <igor/igor.h>
-#include <igor/os/iWindow.h>
+#include <igor/system/iWindow.h>
 #include <igor/graphics/iView.h>
-#include <igor/os/iTimerHandle.h>
+#include <igor/system/iTimerHandle.h>
 #include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/os/iKeyboard.h>
+#include <igor/system/iKeyboard.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/profiler/iProfilerVisualizer.h>
-using namespace Igor;
+using namespace igor;
 
 #include <iaux/math/iaMatrix.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 	class iScene;
 	class iNodeTransform;

@@ -6,26 +6,26 @@
 
 #include <iaux/system/iaConsole.h>
 #include <igor/physics/iPhysicsWorld.h>
-#include <igor/os/iTimer.h>
+#include <igor/system/iTimer.h>
 #include <igor/graphics/iRenderer.h>
-#include <igor/os/iApplication.h>
+#include <igor/system/iApplication.h>
 #include <iaux/math/iaVector3.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/physics/iPhysicsBody.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
-#include <igor/os/iTimer.h>
+#include <igor/scene/nodes/iNodeManager.h>
+#include <igor/system/iTimer.h>
 #include <igor/physics/iPhysicsCollision.h>
 #include <igor/physics/iPhysicsJoint.h>
 #include <igor/physics/iPhysicsMaterial.h>
 #include <igor/physics/iPhysicsMaterialCombo.h>
 #include <igor/physics/iPhysicsCollisionConfig.h>
-#include <igor/graphics/scene/nodes/iNodeTransform.h>
+#include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/physics/iPhysicsUserMeshCollisionHandler.h>
 #include <iaux/data/iaConvert.h>
 
 #include <newton/Newton.h>
 
-namespace Igor
+namespace igor
 {
 
     /*! callback to allocate memory for newton
@@ -1271,4 +1271,4 @@ namespace Igor
         return result;
     }
 
-} // namespace Igor
+} // namespace igor

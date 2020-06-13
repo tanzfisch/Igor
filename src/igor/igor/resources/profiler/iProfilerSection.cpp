@@ -3,9 +3,9 @@
 // see copyright notice in corresponding header file
 
 #include <igor/resources/profiler/iProfilerSection.h>
-#include <igor/os/iTimer.h>
+#include <igor/system/iTimer.h>
 
-namespace Igor
+namespace igor
 {
 
     iProfilerSection::iProfilerSection()
@@ -54,4 +54,4 @@ namespace Igor
         return _values;
     }
 
-} // namespace Igor
+} // namespace igor

@@ -8,7 +8,7 @@
 #include <ompf/ompfSettings.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 namespace OMPF
 {

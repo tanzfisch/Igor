@@ -33,7 +33,7 @@
 
 #include <ostream>
 
-namespace IgorAux
+namespace iaux
 {
 
 	/*! quaternion class
@@ -237,6 +237,6 @@ namespace IgorAux
 	typedef iaQuaternion<float32> iaQuaternionf;
 	typedef iaQuaternion<float64> iaQuaterniond;
 
-} // namespace IgorAux
+} // namespace iaux
 
 #endif

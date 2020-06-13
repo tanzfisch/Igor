@@ -32,9 +32,9 @@
 #include <igor/iDefines.h>
 
 #include <iaux/math/iaVector3.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     /*! a plane
@@ -84,6 +84,6 @@ namespace Igor
     */
     typedef iPlane<float64> iPlaned;
 
-} // namespace Igor
+} // namespace igor
 
 #endif

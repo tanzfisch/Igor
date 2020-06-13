@@ -33,7 +33,7 @@
 
 #include <vector>
 
-namespace Igor
+namespace igor
 {
 
 	class iTextureFont;
@@ -126,6 +126,6 @@ namespace Igor
 	/*! checkbox pointer definition
     */
 	typedef iWidgetCheckBox *iWidgetCheckBoxPtr;
-} // namespace Igor
+} // namespace igor
 
 #endif

@@ -33,14 +33,14 @@
 
 #include <iaux/math/iaVector2.h>
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <memory>
 #include <vector>
 
 class TiXmlElement;
 
-namespace Igor
+namespace igor
 {
 
 	class iTexture;
@@ -139,6 +139,6 @@ namespace Igor
 	*/
 	typedef iAtlas *iAtlasPtr;
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

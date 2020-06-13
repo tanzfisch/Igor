@@ -35,7 +35,7 @@
 #include <vector>
 #include <stdio.h>
 
-namespace IgorAux
+namespace iaux
 {
 
     /*! handles files
@@ -63,7 +63,7 @@ namespace IgorAux
 
         \param writeable true: open for writing; false: open read only
         */
-        bool open(bool writeable);
+        bool open(bool writeable = false);
 
         /*! closes the file
         */
@@ -121,30 +121,30 @@ namespace IgorAux
 
         /*! \returns the size of the file
         */
-        int64 getFileSize();
+        int64 getSize();
 
         /*! resizes the file
 
         \param newSize the new size of the file
         \returns true: success; false: fail
         */
-        bool setFileSize(int64 size);
+        bool setSize(int64 size);
 
         /*! reads from offset the number of size bytes to a (allocated) destination
 
-        \param offset the offset to start reading from
+        \param offset the offset to start reading from (-1 reads from current file pointer position)
         \param size size in bytes to read
         \param destination the destination to write to
         */
-        bool readFromFile(int64 offset, int32 size, char *destination);
+        bool read(int32 size, char *destination, int64 offset = -1);
 
         /*! writes from offset the number of size bytes from a destination
 
-        \param offset the offset to start writing to
+        \param offset the offset to start writing to (-1 writes at current file pointer position)
         \param size size in bytes to write
         \param source the source to read from
         */
-        bool writeToFile(int64 offset, int32 size, const char *source);
+        bool write(int32 size, const char *source, int64 offset = -1);
 
     protected:
         /*! sets the file pointer to a destination
@@ -168,9 +168,9 @@ namespace IgorAux
 
         /*! the file handle
         */
-        FILE* _fileHandle = nullptr;
+        FILE *_fileHandle = nullptr;
     };
 
-} // namespace IgorAux
+} // namespace iaux
 
 #endif

@@ -5,13 +5,13 @@
 #include <igor/resources/material/iMaterial.h>
 
 #include <igor/graphics/iRenderer.h>
-#include <igor/graphics/scene/nodes/iNodeLight.h>
-#include <igor/graphics/scene/nodes/iNodeCamera.h>
+#include <igor/scene/nodes/iNodeLight.h>
+#include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/resources/material/iShader.h>
 
 #include <sstream>
 
-namespace Igor
+namespace igor
 {
 
 	iaIDGenerator64 iMaterial::_idGenerator;
@@ -35,7 +35,7 @@ namespace Igor
 		}
 	}
 
-	uint64 iMaterial::getID() const
+	iMaterialID iMaterial::getID() const
 	{
 		return _id;
 	}
@@ -207,4 +207,4 @@ namespace Igor
 		_name = name;
 	}
 
-} // namespace Igor
+} // namespace igor

@@ -34,7 +34,7 @@
 #include <vector>
 #include <map>
 
-namespace Igor
+namespace igor
 {
 
     class iScene;
@@ -200,6 +200,6 @@ namespace Igor
         */
         void createBuffers();
     };
-} // namespace Igor
+} // namespace igor
 
 #endif

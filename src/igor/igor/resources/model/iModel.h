@@ -31,13 +31,13 @@
 
 #include <igor/iDefines.h>
 #include <igor/threading/tasks/iTask.h>
-#include <igor/graphics/scene/nodes/iNode.h>
+#include <igor/scene/nodes/iNode.h>
 
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaMemBlock.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     /*! state of model
@@ -176,6 +176,6 @@ namespace Igor
 	*/
     typedef std::shared_ptr<iModel> iModelPtr;
 
-} // namespace Igor
+} // namespace igor
 
 #endif

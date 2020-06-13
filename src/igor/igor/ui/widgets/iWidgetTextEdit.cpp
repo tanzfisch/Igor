@@ -6,12 +6,12 @@
 
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/theme/iWidgetBaseTheme.h>
-#include <igor/os/iKeyboard.h>
+#include <igor/system/iKeyboard.h>
 #include <igor/resources/texture/iTextureFont.h>
 
 #include <algorithm>
 
-namespace Igor
+namespace igor
 {
 
 	iWidgetTextEdit::iWidgetTextEdit(const iWidgetPtr parent)
@@ -244,4 +244,4 @@ namespace Igor
 		_text = text;
 	}
 
-} // namespace Igor
+} // namespace igor

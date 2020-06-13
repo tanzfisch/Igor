@@ -1,8 +1,18 @@
 var searchData=
 [
-  ['ompf_5fconfiguration',['OMPF_CONFIGURATION',['../ompf_version_8h.html#a71a801b36cca0699d8e484121d3e0911',1,'ompfVersion.h']]],
-  ['ompf_5fversion',['OMPF_VERSION',['../ompf_version_8h.html#adbb1210113445324ce74b6ed78e491a3',1,'ompfVersion.h']]],
-  ['ompf_5fversion_5fmajor',['OMPF_VERSION_MAJOR',['../ompf_version_8h.html#a379f95657e49e5055c92fd0936d02c01',1,'ompfVersion.h']]],
-  ['ompf_5fversion_5fminor',['OMPF_VERSION_MINOR',['../ompf_version_8h.html#acb67df7b9060ed3fafcf8e7c9c12abb7',1,'ompfVersion.h']]],
-  ['ompf_5fversion_5fpatch',['OMPF_VERSION_PATCH',['../ompf_version_8h.html#a2ab3bf9ea1d00686e180b9eedd53c428',1,'ompfVersion.h']]]
+  ['m',['M',['../igor_8cpp.html#a52037c938e3c1b126c6277da5ca689d0',1,'igor.cpp']]],
+  ['m_5f1_5fpi',['M_1_PI',['../ia_defines_8h.html#a08dfac3cca9601a02fc88356cc078e1d',1,'iaDefines.h']]],
+  ['m_5f2_5fpi',['M_2_PI',['../ia_defines_8h.html#a97f6d6514d3d3dd50c3a2a6d622673db',1,'iaDefines.h']]],
+  ['m_5f2_5fsqrtpi',['M_2_SQRTPI',['../ia_defines_8h.html#a631ff334c4a1a6db2e8a7ff4acbe48a5',1,'iaDefines.h']]],
+  ['m_5fe',['M_E',['../ia_defines_8h.html#a9bf5d952c5c93c70f9e66c9794d406c9',1,'iaDefines.h']]],
+  ['m_5fln10',['M_LN10',['../ia_defines_8h.html#a0a53871497a155afe91424c28a8ec3c4',1,'iaDefines.h']]],
+  ['m_5fln2',['M_LN2',['../ia_defines_8h.html#a92428112a5d24721208748774a4f23e6',1,'iaDefines.h']]],
+  ['m_5flog10e',['M_LOG10E',['../ia_defines_8h.html#a9ed2b5582226f3896424ff6d2a3ebb14',1,'iaDefines.h']]],
+  ['m_5flog2e',['M_LOG2E',['../ia_defines_8h.html#ac5c747ee5bcbe892875672a0b9d8171c',1,'iaDefines.h']]],
+  ['m_5fpi',['M_PI',['../ia_defines_8h.html#ae71449b1cc6e6250b91f539153a7a0d3',1,'iaDefines.h']]],
+  ['m_5fpi_5f2',['M_PI_2',['../ia_defines_8h.html#a958e4508ed28ee5cc04249144312c15f',1,'iaDefines.h']]],
+  ['m_5fpi_5f4',['M_PI_4',['../ia_defines_8h.html#aeb24420b096a677f3a2dc5a72b36bf22',1,'iaDefines.h']]],
+  ['m_5fsqrt1_5f2',['M_SQRT1_2',['../ia_defines_8h.html#acdbb2c2f9429f08916f03c8786d2d2d7',1,'iaDefines.h']]],
+  ['m_5fsqrt2',['M_SQRT2',['../ia_defines_8h.html#a66b3ab30f1332874326ed93969e496e0',1,'iaDefines.h']]],
+  ['matswap',['MATSWAP',['../ia_matrix_8inl.html#afae867f65efaeeb6dc9f87b17b3208cf',1,'iaMatrix.inl']]]
 ];

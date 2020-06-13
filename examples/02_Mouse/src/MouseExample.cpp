@@ -1,12 +1,12 @@
 #include "MouseExample.h"
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-#include <igor/os/iMouse.h>
-#include <igor/os/iKeyboard.h>
-#include <igor/os/iApplication.h>
-using namespace Igor;
+#include <igor/system/iMouse.h>
+#include <igor/system/iKeyboard.h>
+#include <igor/system/iApplication.h>
+using namespace igor;
 
 MouseExample::MouseExample()
 {

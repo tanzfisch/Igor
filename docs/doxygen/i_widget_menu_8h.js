@@ -1,6 +1,6 @@
 var i_widget_menu_8h =
 [
-    [ "iWidgetMenu", "class_igor_1_1i_widget_menu.html", "class_igor_1_1i_widget_menu" ],
-    [ "iMenuPtr", "i_widget_menu_8h.html#a552197158c9d788bc732540ff79c7df3", null ],
-    [ "iWidgetSpacerPtr", "i_widget_menu_8h.html#a1de8bda9bfe2113a0fa7a74e11b68942", null ]
+    [ "iWidgetMenu", "classigor_1_1i_widget_menu.html", "classigor_1_1i_widget_menu" ],
+    [ "iMenuPtr", "i_widget_menu_8h.html#ad186e6c98a8ea104fdc6767bd0f928ff", null ],
+    [ "iWidgetSpacerPtr", "i_widget_menu_8h.html#a20c5da2baff0292a05a84e965cf30374", null ]
 ];

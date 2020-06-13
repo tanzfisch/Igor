@@ -26,8 +26,8 @@
 //
 // contact: martinloga@gmx.de
 
-#ifndef __IAUX_STRING__
-#define __IAUX_STRING__
+#ifndef __IAUX_STRING_H__
+#define __IAUX_STRING_H__
 
 #include <iaux/iaDefines.h>
 #include <iaux/math/iaVector2.h>
@@ -38,7 +38,7 @@
 #include <ostream>
 #include <vector>
 
-namespace IgorAux
+namespace iaux
 {
 
 	/*! string slpit mode
@@ -596,18 +596,18 @@ namespace IgorAux
 
 		vector.set(static_cast<T>(x), static_cast<T>(y), static_cast<T>(z), static_cast<T>(w));
 	}
-} // namespace IgorAux
+} // namespace iaux
 
 namespace std
 {
 	template <>
-	struct less<IgorAux::iaString>
+	struct less<iaux::iaString>
 	{
-		bool operator()(const IgorAux::iaString &lhs, const IgorAux::iaString &rhs) const
+		bool operator()(const iaux::iaString &lhs, const iaux::iaString &rhs) const
 		{
 			return lhs < rhs;
 		}
 	};
 } // namespace std
 
-#endif
+#endif // __IAUX_STRING_H__

@@ -9,9 +9,9 @@
 #include <igor/ui/user_controls/iUserControl.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     iDialog::iDialog()
@@ -182,4 +182,4 @@ namespace Igor
         setVerticalAlignment(iVerticalAlignment::Absolut);
     }
 
-} // namespace Igor
+} // namespace igor

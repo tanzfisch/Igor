@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <iaux/system/iaTime.h>
-using namespace IgorAux;
+using namespace iaux;
 
 TEST(TimeTests, Initial)
 {

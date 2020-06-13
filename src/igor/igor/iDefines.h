@@ -30,7 +30,7 @@
 #define __iDEFINES__
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #ifdef __IGOR_WINDOWS__
 
@@ -55,7 +55,7 @@ using namespace IgorAux;
 //! Igor configuration short
 extern const iaString __IGOR_CONFIGURATION__;
 
-namespace Igor
+namespace igor
 {
     /*! horizontal alignment relative to parent widget
     */
@@ -255,6 +255,6 @@ namespace Igor
         KeyCodeCount
     };
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

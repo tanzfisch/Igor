@@ -34,7 +34,7 @@
 #include <igor/physics/iPhysicsCollisionConfig.h>
 #include <igor/physics/iPhysicsWorld.h>
 
-namespace Igor
+namespace igor
 {
 
   class Igor_API iTaskPrepareCollision : public iTask
@@ -61,6 +61,6 @@ namespace Igor
     void run();
   };
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

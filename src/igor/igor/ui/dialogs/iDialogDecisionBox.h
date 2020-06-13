@@ -32,9 +32,9 @@
 #include <igor/ui/dialogs/iDialog.h>
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
 	class iWidgetCheckBox;
@@ -94,6 +94,6 @@ namespace Igor
 		void initGUI(const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection);
 	};
 
-} // namespace Igor
+} // namespace igor
 
 #endif

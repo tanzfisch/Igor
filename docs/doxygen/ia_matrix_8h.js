@@ -1,7 +1,7 @@
 var ia_matrix_8h =
 [
-    [ "iaMatrix", "class_igor_aux_1_1ia_matrix.html", "class_igor_aux_1_1ia_matrix" ],
-    [ "iaMatrixd", "ia_matrix_8h.html#a2b9d51cf0047388cb92a5c7dd0c9a532", null ],
-    [ "iaMatrixf", "ia_matrix_8h.html#a9263d5a1e612a65686c337f842afab89", null ],
-    [ "operator<<", "ia_matrix_8h.html#a8fe87ec0085f5df075f0a8ceb734775b", null ]
+    [ "iaMatrix", "classiaux_1_1ia_matrix.html", "classiaux_1_1ia_matrix" ],
+    [ "iaMatrixd", "ia_matrix_8h.html#a3b3ecae191d331ad79198b631e30db4d", null ],
+    [ "iaMatrixf", "ia_matrix_8h.html#a432307a0d88a5be8ae54aefb779b127a", null ],
+    [ "operator<<", "ia_matrix_8h.html#ac5ea169300af6d0a16c8743937daeb94", null ]
 ];

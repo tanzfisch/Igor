@@ -29,11 +29,11 @@
 #ifndef __USERCONTROLEMITTER__
 #define __USERCONTROLEMITTER__
 
-#include <igor/graphics/scene/nodes/iNodeModel.h>
+#include <igor/scene/nodes/iNodeModel.h>
 #include <igor/ui/user_controls/iUserControl.h>
-using namespace Igor;
+using namespace igor;
 
-namespace Igor
+namespace igor
 {
     class iWidgetGrid;
     class iWidgetTextEdit;

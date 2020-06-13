@@ -1,7 +1,7 @@
 var i_dialog_menu_8h =
 [
-    [ "iDialogMenu", "class_igor_1_1i_dialog_menu.html", "class_igor_1_1i_dialog_menu" ],
-    [ "iDialogMenuPtr", "i_dialog_menu_8h.html#a51495f44b0a89edc8b9b34c5e59d2965", null ],
-    [ "iWidgetGridPtr", "i_dialog_menu_8h.html#a1c54a9c91c9430b2b7cac7cee0df8c7b", null ],
-    [ "iWidgetMenuPtr", "i_dialog_menu_8h.html#a915cf005f798452353537a433ab97bd2", null ]
+    [ "iDialogMenu", "classigor_1_1i_dialog_menu.html", "classigor_1_1i_dialog_menu" ],
+    [ "iDialogMenuPtr", "i_dialog_menu_8h.html#ab581d0c2437811a90d8104fffbb12e17", null ],
+    [ "iWidgetGridPtr", "i_dialog_menu_8h.html#ad4273422629a906eff7bd06f817bb91b", null ],
+    [ "iWidgetMenuPtr", "i_dialog_menu_8h.html#a6e726eb32f03f312845e24ccf2d6d190", null ]
 ];

@@ -5,14 +5,14 @@
 #include <igor/ui/widgets/iWidgetPicture.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/theme/iWidgetBaseTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 
-namespace Igor
+namespace igor
 {
 
 	iWidgetPicture::iWidgetPicture(const iWidgetPtr parent)
@@ -126,4 +126,4 @@ namespace Igor
 		}
 	}
 
-} // namespace Igor
+} // namespace igor

@@ -7,11 +7,11 @@
 #include <igor/ui/iWidgetManager.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <algorithm>
 
-namespace Igor
+namespace igor
 {
 
     uint64 iWidget::_nextID = iWidget::INVALID_WIDGET_ID + 1;
@@ -53,7 +53,7 @@ namespace Igor
         return iWidgetType::iUndefinedType;
     }
 
-    void iWidget::setBackground(const iaColor4f& color)
+    void iWidget::setBackground(const iaColor4f &color)
     {
         _background = color;
     }
@@ -63,7 +63,7 @@ namespace Igor
         return _background;
     }
 
-    void iWidget::setForeground(const iaColor4f& color)
+    void iWidget::setForeground(const iaColor4f &color)
     {
         _foreground = color;
     }
@@ -102,12 +102,12 @@ namespace Igor
         _children.clear();
     }
 
-    void iWidget::getChildren(std::vector<iWidgetPtr>& children)
+    void iWidget::getChildren(std::vector<iWidgetPtr> &children)
     {
         children = _children;
     }
 
-    void iWidget::setTooltip(const iaString& text)
+    void iWidget::setTooltip(const iaString &text)
     {
         _tooltip = text;
     }
@@ -181,7 +181,7 @@ namespace Igor
         _children.push_back(widget);
 
         std::sort(_children.begin(), _children.end(),
-            [](iWidgetPtr const a, iWidgetPtr const b) { return a->getZValue() < b->getZValue(); });
+                  [](iWidgetPtr const a, iWidgetPtr const b) { return a->getZValue() < b->getZValue(); });
 
         widget->setParent(this);
     }
@@ -328,7 +328,7 @@ namespace Igor
     {
         if (isVisible())
         {
-            iWidgetManager& wm = iWidgetManager::getInstance();
+            iWidgetManager &wm = iWidgetManager::getInstance();
             for (const auto child : _children)
             {
                 child->draw();
@@ -645,7 +645,7 @@ namespace Igor
         return false;
     }
 
-    void iWidget::handleMouseMove(const iaVector2i& pos)
+    void iWidget::handleMouseMove(const iaVector2i &pos)
     {
         if (isActive())
         {
@@ -672,7 +672,7 @@ namespace Igor
                     {
                         if (_timerTooltip == nullptr)
                         {
-                            _timerTooltip = new iTimerHandle(iTimerTickDelegate(this, &iWidget::onToolTipTimer), 1000, true);
+                            _timerTooltip = new iTimerHandle(iTimerTickDelegate(this, &iWidget::onToolTipTimer), iaTime::fromMilliseconds(1000), true);
                         }
 
                         _tooltipPos._x = pos._x + 15;
@@ -866,7 +866,7 @@ namespace Igor
         _absoluteY = _relativeY + offsetY;
     }
 
-    void iWidget::calcChildOffsets(std::vector<iRectanglei>& offsets)
+    void iWidget::calcChildOffsets(std::vector<iRectanglei> &offsets)
     {
         offsets.clear();
 
@@ -914,4 +914,4 @@ namespace Igor
         _minHeight = minHeight;
     }
 
-} // namespace Igor
+} // namespace igor

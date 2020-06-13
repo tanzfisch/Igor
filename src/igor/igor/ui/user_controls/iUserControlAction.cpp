@@ -10,9 +10,9 @@
 #include <igor/ui/widgets/iWidgetGrid.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     iUserControlAction::iUserControlAction(const iWidgetPtr parent)
@@ -120,4 +120,4 @@ namespace Igor
         return iActionManager::getInstance().getAction(_actionID);
     }
 
-} // namespace Igor
+} // namespace igor

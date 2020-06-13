@@ -4,23 +4,23 @@
 
 #include "UserControlGraphView.h"
 
-#include <igor/graphics/scene/nodes/iNode.h>
+#include <igor/scene/nodes/iNode.h>
 #include <igor/ui/widgets/iWidgetGrid.h>
 #include <igor/ui/dialogs/iDialog.h>
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>
 #include <igor/ui/widgets/iWidgetPicture.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/scene/nodes/iNodeManager.h>
 #include <igor/ui/widgets/iWidgetScroll.h>
 #include <igor/ui/dialogs/iDialog.h>
 #include <igor/ui/widgets/iWidgetGroupBox.h>
 #include <igor/ui/dialogs/iDialogIndexMenu.h>
-#include <igor/os/iMouse.h>
-using namespace Igor;
+#include <igor/system/iMouse.h>
+using namespace igor;
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 UserControlGraphView::UserControlGraphView()
 {

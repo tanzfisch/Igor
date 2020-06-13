@@ -4,7 +4,7 @@
 
 #include <igor/ui/actions/iAction.h>
 
-namespace Igor
+namespace igor
 {
 	void iAction::setText(const iaString &text)
 	{
@@ -40,4 +40,4 @@ namespace Igor
 	{
 		return _name;
 	}
-} // namespace Igor
+} // namespace igor

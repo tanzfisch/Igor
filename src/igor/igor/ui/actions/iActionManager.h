@@ -32,11 +32,11 @@
 #include <igor/ui/actions/iActionSimpleDelegate.h>
 
 #include <iaux/system/iaSingleton.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <unordered_map>
 
-namespace Igor
+namespace igor
 {
 
 	/*! action manager class
@@ -116,6 +116,6 @@ namespace Igor
 		~iActionManager();
 	};
 
-} // namespace Igor
+} // namespace igor
 
 #endif

@@ -5,9 +5,9 @@
 #include <igor/resources/model/loader/iModelDataIO.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     const iaString &iModelDataIO::getName()
@@ -31,4 +31,4 @@ namespace Igor
         con_err("export functionality is not supported by \"" << _name << "\"");
     }
 
-} // namespace Igor
+} // namespace igor

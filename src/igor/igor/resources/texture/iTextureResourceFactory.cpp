@@ -7,12 +7,12 @@
 #include <igor/resources/iResourceManager.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-namespace Igor
+namespace igor
 {
 
     iTextureResourceFactory::iTextureResourceFactory()
@@ -138,7 +138,7 @@ namespace Igor
         int64 hashValue = calcHashValue(_dummyTexture->getFilename(), _dummyTexture->_cacheMode, _dummyTexture->_buildMode, _dummyTexture->_wrapMode);
         _textures[hashValue] = _dummyTexture;
 
-        con_info("loaded texture", "\"" << _dummyTexture->getFilename() << "\" [" << width << ":" << height << "]");
+        con_info("loaded texture \"" << _dummyTexture->getFilename() << "\" [" << width << ":" << height << "]");
     }
 
     int64 iTextureResourceFactory::calcHashValue(const iaString &name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
@@ -280,7 +280,7 @@ namespace Igor
                     texture->second->_cacheMode <= cacheModeLevel)
                 {
                     iRenderer::getInstance().destroyTexture((*texture).second->_rendererTexture);
-                    con_info("released texture", "\"" << (*texture).second->getFilename() << "\"");
+                    con_info("released texture \"" << (*texture).second->getFilename() << "\"");
                     texture = _textures.erase(texture);
                     continue;
                 }
@@ -381,7 +381,7 @@ namespace Igor
                 break;
             }
 
-            con_info("loaded texture", "\"" << texture->getFilename() << "\" [" << width << ":" << height << "] " << build << " " << wrap);
+            con_info("loaded texture \"" << texture->getFilename() << "\" [" << width << ":" << height << "] " << build << " " << wrap);
 
             _mutexImageLibrary.lock();
             stbi_image_free(textureData);
@@ -489,4 +489,4 @@ namespace Igor
         return pixmap;
     }
 
-}; // namespace Igor
+}; // namespace igor

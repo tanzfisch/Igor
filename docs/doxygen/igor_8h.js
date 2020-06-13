@@ -1,6 +1,6 @@
 var igor_8h =
 [
-    [ "shutdown", "igor_8h.html#a76b8a2eed715a5c4c7b52bd75b515bc2", null ],
-    [ "startup", "igor_8h.html#a472510f542a6f710b0aa0e5924fb805d", null ],
-    [ "startup", "igor_8h.html#ab4553401ec6fe3c6bf480432cfa232cb", null ]
+    [ "shutdown", "igor_8h.html#a10b2ddc4c372b6753c6e09e7a3299abf", null ],
+    [ "startup", "igor_8h.html#aac0acbe5b467c273c0b8a66c9d3ff788", null ],
+    [ "startup", "igor_8h.html#a00e6a0b58bb1ec452ac82bc3f56543df", null ]
 ];

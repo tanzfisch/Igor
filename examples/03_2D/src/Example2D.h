@@ -29,29 +29,29 @@
 #ifndef __EXAMPLE2D__
 #define __EXAMPLE2D__
 
-#include <igor/os/iWindow.h>
+#include <igor/system/iWindow.h>
 #include <igor/graphics/iView.h>
-#include <igor/graphics/simulation/iParticleSystem2D.h>
+#include <igor/simulation/iParticleSystem2D.h>
 #include <iaux/data/iaGradient.h>
-#include <igor/graphics/generation/iPerlinNoise.h>
+#include <igor/generation/iPerlinNoise.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/profiler/iProfilerVisualizer.h>
 #include <igor/resources/texture/iTexture.h>
-using namespace Igor;
+using namespace igor;
 
 #include <iaux/math/iaMatrix.h>
 #include <iaux/math/iaVector2.h>
 #include <iaux/math/iaBSpline.h>
 #include <iaux/math/iaRandomNumberGenerator.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <memory>
 
-namespace Igor
+namespace igor
 {
     class iAtlas;
     class iTextureFont;
-} // namespace Igor
+} // namespace igor
 
 /*! rendering 2d example
 */

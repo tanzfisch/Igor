@@ -8,11 +8,11 @@
 #include <igor/data/iJoint.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <algorithm>
 
-namespace Igor
+namespace igor
 {
 
     iBone *iSkeleton::createBone()
@@ -137,4 +137,4 @@ namespace Igor
         _lastBone = nullptr;
     }
 
-} // namespace Igor
+} // namespace igor

@@ -1,82 +1,40 @@
 #include "Example3D.h"
 
-#include <iaux/system/iaConsole.h>
-#include <iaux/data/iaString.h>
-using namespace IgorAux;
-
 #include <igor/resources/material/iMaterial.h>
-#include <igor/graphics/scene/traversal/iNodeVisitorPrintTree.h>
-#include <igor/threading/iTaskManager.h>
-#include <igor/graphics/scene/nodes/iNodeSkyBox.h>
-#include <igor/graphics/scene/nodes/iNodeCamera.h>
-#include <igor/graphics/scene/nodes/iNodeModel.h>
-#include <igor/graphics/scene/nodes/iNodeTransform.h>
-#include <igor/graphics/iRenderer.h>
-#include <igor/os/iApplication.h>
-#include <igor/graphics/scene/iSceneFactory.h>
-#include <igor/graphics/scene/iScene.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
-#include <igor/os/iMouse.h>
-#include <igor/os/iKeyboard.h>
-#include <igor/os/iTimer.h>
-#include <igor/resources/texture/iTextureFont.h>
-#include <igor/graphics/scene/nodes/iNodeLight.h>
+#include <igor/scene/nodes/iNodeCamera.h>
+#include <igor/scene/nodes/iNodeModel.h>
+#include <igor/scene/nodes/iNodeTransform.h>
+#include <igor/system/iApplication.h>
+#include <igor/scene/iScene.h>
+#include <igor/scene/nodes/iNodeManager.h>
+#include <igor/system/iMouse.h>
+#include <igor/system/iKeyboard.h>
+#include <igor/system/iTimer.h>
+#include <igor/scene/nodes/iNodeLight.h>
 #include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/threading/tasks/iTaskFlushModels.h>
-#include <igor/threading/tasks/iTaskFlushTextures.h>
 #include <iaux/data/iaString.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/profiler/iProfiler.h>
-#include <igor/graphics/scene/nodes/iNodeSwitch.h>
-#include <igor/graphics/scene/nodes/iNodeLODSwitch.h>
-#include <igor/graphics/scene/nodes/iNodeLODTrigger.h>
-#include <igor/graphics/scene/traversal/iNodeVisitorRenderColorID.h>
-#include <igor/graphics/evaluation/iEvaluationManager.h>
-#include <igor/graphics/evaluation/iEvaluationTransform.h>
-using namespace Igor;
+#include <igor/scene/nodes/iNodeSwitch.h>
+#include <igor/scene/nodes/iNodeLODSwitch.h>
+#include <igor/scene/nodes/iNodeLODTrigger.h>
+#include <igor/scene/traversal/iNodeVisitorRenderColorID.h>
+#include <igor/evaluation/iEvaluationManager.h>
+#include <igor/evaluation/iEvaluationTransform.h>
+using namespace igor;
+
+#include <iaux/system/iaConsole.h>
+#include <iaux/data/iaString.h>
+#include <iaux/math/iaMatrix.h>
+using namespace iaux;
 
 Example3D::Example3D()
+    : ExampleBase("3D Scene")
 {
-    init();
-}
-
-Example3D::~Example3D()
-{
-    deinit();
 }
 
 void Example3D::init()
 {
-    con(" -- 3D Example --" << endl);
-
-    // setup window
-    _window.setTitle("Igor - 3D Example");
-    _window.setClientSize(1024, 768);
-    _window.setCentered();
-    _window.setVSync(true);
-    _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &Example3D::onWindowClosed));
-    _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &Example3D::onWindowResized));
-
-    // setup perspective view
-    _view.setClearColor(iaColor4f(0.5f, 0, 0.5f, 1));
-    _view.setPerspective(45);
-    _view.setClipPlanes(0.1f, 10000.f);
-    _window.addView(&_view);
-
-    // setup orthogonal view
-    _viewOrtho.setClearColor(false);
-    _viewOrtho.setClearDepth(false);
-    _viewOrtho.setOrthogonal(0.0, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0);
-    _viewOrtho.registerRenderDelegate(RenderDelegate(this, &Example3D::onRenderOrtho));
-    _window.addView(&_viewOrtho);
-    // and open the window
-    _window.open();
-
-    // init scene
-    _scene = iSceneFactory::getInstance().createScene();
-    // bind scene to perspective view
-    _view.setScene(_scene);
-
     // setup camera
     // we want a camera which can be rotated arround the origin
     // we will acchive that with 3 transform nodes
@@ -102,7 +60,7 @@ void Example3D::init()
     camera->setName("camera");
     // and build everything together
     // first we add the heading to the root node
-    _scene->getRoot()->insertNode(cameraHeading);
+    getScene()->getRoot()->insertNode(cameraHeading);
     // than the pitch to the heading node
     cameraHeading->insertNode(cameraPitch);
     // then the translation to the pitch node
@@ -111,7 +69,7 @@ void Example3D::init()
     cameraTranslation->insertNode(camera);
     // and finally we set the camera active. for this to work a camera must be part of a scene
     // wich we achived by adding all those nodes on to an other starting with the root node
-    _view.setCurrentCamera(camera->getID());
+    getView().setCurrentCamera(camera->getID());
 
     // create a single cat model
     iNodeTransform *justCatTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
@@ -122,7 +80,7 @@ void Example3D::init()
     // Node model names can be altered but they also are generated based on the file name
     justCatModel->setModel("cat.ompf");
     // building the created nodes together and insert them in the scene
-    _scene->getRoot()->insertNode(justCatTransform);
+    getScene()->getRoot()->insertNode(justCatTransform);
     justCatTransform->insertNode(justCatModel);
 
     // create a group of models that can be moved together due to being child to the same transform node
@@ -135,7 +93,7 @@ void Example3D::init()
     allObjectsPitch->setName("all objects pitch");
     _allObjectsPitch = allObjectsPitch->getID();
     // and add the nodes to the scene
-    _scene->getRoot()->insertNode(allObjectsHeading);
+    getScene()->getRoot()->insertNode(allObjectsHeading);
     allObjectsHeading->insertNode(allObjectsPitch);
 
     // next we create a couple of model nodes that will be connected to be alternative representations of each other controled by a switch node
@@ -217,28 +175,6 @@ void Example3D::init()
     // and add the lod trigger to the scene by attaching it to the camera. there can be multiple LOD triggers and any lod switch can react on any lod trigger
     camera->insertNode(lodtrigger);
 
-    // create a skybox
-    iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
-    // set it up with the default skybox texture
-    skyBoxNode->setTextures(
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/left.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/right.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
-    // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
-    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox);
-    material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    material->setOrder(iMaterial::RENDER_ORDER_MIN);
-    material->setName("SkyBox");
-    // set that material
-    skyBoxNode->setMaterial(_materialSkyBox);
-    // and add it to the scene
-    _scene->getRoot()->insertNode(skyBoxNode);
-
     // setup light
     // transform node for the lights orientation
     iNodeTransform *directionalLightRotate = iNodeManager::getInstance().createNode<iNodeTransform>();
@@ -253,33 +189,15 @@ void Example3D::init()
     lightNode->setDiffuse(iaColor4f(0.8f, 0.8f, 0.8f, 1.0f));
     lightNode->setSpecular(iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
     // insert light to scene
-    _scene->getRoot()->insertNode(directionalLightRotate);
+    getScene()->getRoot()->insertNode(directionalLightRotate);
     directionalLightRotate->insertNode(directionalLightTranslate);
     directionalLightTranslate->insertNode(lightNode);
 
-    // init font for render profiler
-    _font = new iTextureFont("StandardFont.png");
-    _profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
-
-    // prepare igor logo
-    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
-    _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
-    material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
-    material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    material->setName("LogoMaterial");
-
     // animation
-    _animationTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &Example3D::onTimer), 10);
+    _animationTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &Example3D::onTimer), iaTime::fromMilliseconds(10));
     _animationTimingHandle->start();
 
-    // start resource tasks
-    _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
-    _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
-
     // register some callbacks
-    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &Example3D::onKeyPressed));
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Example3D::onMouseMoved));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &Example3D::onMouseWheel));
 }
@@ -287,43 +205,14 @@ void Example3D::init()
 void Example3D::deinit()
 {
     // unregister some callbacks
-    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &Example3D::onKeyPressed));
     iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Example3D::onMouseMoved));
     iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &Example3D::onMouseWheel));
-    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Example3D::onWindowClosed));
-    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Example3D::onWindowResized));
-    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &Example3D::onRenderOrtho));
-
-    // release resources
-    if (_font != nullptr)
-    {
-        delete _font;
-        _font = nullptr;
-    }
-
-    _igorLogo = nullptr;
 
     // stop light animation
     if (_animationTimingHandle)
     {
         delete _animationTimingHandle;
         _animationTimingHandle = nullptr;
-    }
-
-    iSceneFactory::getInstance().destroyScene(_scene);
-    _scene = nullptr;
-
-    // abort resource tasks
-    iTaskManager::getInstance().abortTask(_taskFlushModels);
-    iTaskManager::getInstance().abortTask(_taskFlushTextures);
-
-    iMaterialResourceFactory::getInstance().destroyMaterial(_materialSkyBox);
-
-    if (_window.isOpen())
-    {
-        _window.close();
-        _window.removeView(&_view);
-        _window.removeView(&_viewOrtho);
     }
 }
 
@@ -375,50 +264,12 @@ void Example3D::onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWind
     }
 }
 
-void Example3D::onWindowClosed()
-{
-    iApplication::getInstance().stop();
-}
-
-void Example3D::onWindowResized(int32 clientWidth, int32 clientHeight)
-{
-    _viewOrtho.setOrthogonal(0.0, static_cast<float32>(clientWidth), static_cast<float32>(clientHeight), 0.0);
-}
-
 void Example3D::onKeyPressed(iKeyCode key)
 {
+    ExampleBase::onKeyPressed(key);
+
     switch (key)
     {
-    case iKeyCode::ESC:
-        iApplication::getInstance().stop();
-        break;
-
-    case iKeyCode::F8:
-        _profilerVisualizer.cycleVerbosity();
-        break;
-
-    case iKeyCode::F9:
-    {
-        iNodeVisitorPrintTree printTree;
-        if (_scene != nullptr)
-        {
-            printTree.printToConsole(_scene->getRoot());
-        }
-    }
-    break;
-
-    case iKeyCode::F10:
-        _view.setWireframeVisible(!_view.isWireframeVisible());
-        break;
-
-    case iKeyCode::F11:
-        _view.setOctreeVisible(!_view.isOctreeVisible());
-        break;
-
-    case iKeyCode::F12:
-        _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
-        break;
-
     case iKeyCode::Space:
     {
         _activeNode++;
@@ -452,37 +303,4 @@ void Example3D::onTimer()
 {
     iNodeTransform *directionalLightRotate = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_directionalLightRotate));
     directionalLightRotate->rotate(0.005f, iaAxis::Y);
-}
-
-void Example3D::onRenderOrtho()
-{
-    iaMatrixd viewMatrix;
-    iRenderer::getInstance().setViewMatrix(viewMatrix);
-
-    iaMatrixd modelMatrix;
-    modelMatrix.translate(0, 0, -30);
-    iRenderer::getInstance().setModelMatrix(modelMatrix);
-
-    drawLogo();
-
-    // draw frame rate in lower right corner
-    _profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
-}
-
-void Example3D::drawLogo()
-{
-    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-
-    float32 width = static_cast<float32>(_igorLogo->getWidth());
-    float32 height = static_cast<float32>(_igorLogo->getHeight());
-    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
-    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
-
-    iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
-}
-
-void Example3D::run()
-{
-    iApplication::getInstance().run();
 }

@@ -15,9 +15,9 @@
 #include <igor/ui/user_controls/iUserControlColorChooser.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
 	iDialogColorGradient::iDialogColorGradient()
@@ -300,4 +300,4 @@ namespace Igor
 		_selectedColor = 0;
 		updateSelection();
 	}
-} // namespace Igor
+} // namespace igor

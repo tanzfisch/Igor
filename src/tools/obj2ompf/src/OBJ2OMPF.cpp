@@ -1,20 +1,20 @@
 #include "OBJ2OMPF.h"
 
-#include <igor/graphics/scene/traversal/iNodeVisitorPrintTree.h>
-#include <igor/graphics/scene/nodes/iNodeModel.h>
+#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
+#include <igor/scene/nodes/iNodeModel.h>
 #include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/graphics/scene/iSceneFactory.h>
-#include <igor/graphics/scene/iScene.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/scene/iSceneFactory.h>
+#include <igor/scene/iScene.h>
+#include <igor/scene/nodes/iNodeManager.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/material/iShader.h>
-#include <igor/graphics/scene/nodes/iNodeMesh.h>
+#include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/graphics/iRenderer.h>
-using namespace Igor;
+using namespace igor;
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/system/iaDirectory.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <list>
 

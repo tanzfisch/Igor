@@ -9,9 +9,9 @@
 #include <igor/ui/widgets/iWidgetTextEdit.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/graphics/scene/nodes/iNodeTransform.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
-using namespace Igor;
+#include <igor/scene/nodes/iNodeTransform.h>
+#include <igor/scene/nodes/iNodeManager.h>
+using namespace igor;
 
 #include "MicaDefines.h"
 

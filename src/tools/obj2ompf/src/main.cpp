@@ -6,19 +6,19 @@
 
 #include <iaux/system/iaDirectory.h>
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <igor/igor.h>
-using namespace Igor;
+using namespace igor;
 
 int main(int argc, char* argv[])
 {
-    Igor::startup();
+    igor::startup();
 
     OBJ2OMPF obj2ompf;
     obj2ompf.convert(argc, argv);
 
-    Igor::shutdown();
+    igor::shutdown();
 
 	return 0;
 }

@@ -28,7 +28,7 @@
 #include <ompf/chunks/ompfBaseChunk.h>
 
 #include <iaux/math/iaMatrix.h>
-using namespace IgorAux;
+using namespace iaux;
 
 namespace OMPF
 {

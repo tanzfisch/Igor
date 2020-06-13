@@ -2,26 +2,26 @@ var dir_d4bf329ef8ddafe8186da6240e562cf4 =
 [
     [ "iaClock.cpp", "ia_clock_8cpp.html", null ],
     [ "iaClock.h", "ia_clock_8h.html", [
-      [ "iaClock", "class_igor_aux_1_1ia_clock.html", "class_igor_aux_1_1ia_clock" ]
+      [ "iaClock", "classiaux_1_1ia_clock.html", "classiaux_1_1ia_clock" ]
     ] ],
     [ "iaConsole.cpp", "ia_console_8cpp.html", null ],
     [ "iaConsole.h", "ia_console_8h.html", "ia_console_8h" ],
     [ "iaDelegate.h", "ia_delegate_8h.html", "ia_delegate_8h" ],
     [ "iaDirectory.cpp", "ia_directory_8cpp.html", "ia_directory_8cpp" ],
     [ "iaDirectory.h", "ia_directory_8h.html", [
-      [ "iaDirectory", "class_igor_aux_1_1ia_directory.html", "class_igor_aux_1_1ia_directory" ]
+      [ "iaDirectory", "classiaux_1_1ia_directory.html", "classiaux_1_1ia_directory" ]
     ] ],
     [ "iaEvent.h", "ia_event_8h.html", "ia_event_8h" ],
     [ "iaFile.cpp", "ia_file_8cpp.html", "ia_file_8cpp" ],
     [ "iaFile.h", "ia_file_8h.html", [
-      [ "iaFile", "class_igor_aux_1_1ia_file.html", "class_igor_aux_1_1ia_file" ]
+      [ "iaFile", "classiaux_1_1ia_file.html", "classiaux_1_1ia_file" ]
     ] ],
     [ "iaMutex.cpp", "ia_mutex_8cpp.html", null ],
     [ "iaMutex.h", "ia_mutex_8h.html", [
-      [ "iaMutex", "class_igor_aux_1_1ia_mutex.html", "class_igor_aux_1_1ia_mutex" ]
+      [ "iaMutex", "classiaux_1_1ia_mutex.html", "classiaux_1_1ia_mutex" ]
     ] ],
     [ "iaSingleton.h", "ia_singleton_8h.html", [
-      [ "iaSingleton", "class_igor_aux_1_1ia_singleton.html", "class_igor_aux_1_1ia_singleton" ]
+      [ "iaSingleton", "classiaux_1_1ia_singleton.html", "classiaux_1_1ia_singleton" ]
     ] ],
     [ "iaSystem.cpp", "ia_system_8cpp.html", "ia_system_8cpp" ],
     [ "iaSystem.h", "ia_system_8h.html", "ia_system_8h" ],

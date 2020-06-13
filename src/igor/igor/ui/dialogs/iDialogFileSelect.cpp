@@ -17,9 +17,9 @@
 #include <iaux/system/iaConsole.h>
 #include <iaux/system/iaFile.h>
 #include <iaux/system/iaDirectory.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     iWidgetType iDialogFileSelect::getWidgetType() const
@@ -356,4 +356,4 @@ namespace Igor
 
         iDialog::close();
     }
-} // namespace Igor
+} // namespace igor

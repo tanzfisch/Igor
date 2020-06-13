@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 #include <iaux/math/iaVector4.h>
-using namespace IgorAux;
+using namespace iaux;
 
 TEST(Vector4Tests, Initial)
 {

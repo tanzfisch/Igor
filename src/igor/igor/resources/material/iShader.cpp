@@ -8,9 +8,9 @@
 #include <iaux/system/iaConsole.h>
 #include <igor/resources/iResourceManager.h>
 #include <iaux/system/iaFile.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     iShader::iShader()
@@ -105,15 +105,16 @@ namespace Igor
         iaFile file(iResourceManager::getInstance().getPath(filename));
         if (file.open(false))
         {
-            auto fileSize = file.getFileSize();
+
+            auto fileSize = file.getSize();
             char *buffer = new char[fileSize + 1];
             buffer[fileSize] = 0;
-            file.readFromFile(0, fileSize, buffer);
+            file.read(fileSize, buffer);
             file.close();
 
             if (loadSource(buffer, type))
             {
-                con_info("loaded " << ((type == iShaderObjectType::Vertex) ? "vertex" : "fragment") << " shader", file.getFullFileName());
+                con_info("loaded " << ((type == iShaderObjectType::Vertex) ? "vertex" : "fragment") << " shader \"" << file.getFullFileName() << "\"");
             }
             else
             {
@@ -155,4 +156,4 @@ namespace Igor
         }
     }
 
-} // namespace Igor
+} // namespace igor

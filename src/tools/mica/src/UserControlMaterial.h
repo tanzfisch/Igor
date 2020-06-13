@@ -29,16 +29,16 @@
 #ifndef __USERCONTROLMATERIAL__
 #define __USERCONTROLMATERIAL__
 
-#include <igor/graphics/scene/nodes/iNodeMesh.h>
+#include <igor/scene/nodes/iNodeMesh.h>
 #include <iaux/data/iaColor4.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <igor/ui/user_controls/iUserControl.h>
 #include <igor/ui/user_controls/iUserControlColorChooser.h>
 #include <igor/ui/dialogs/iDialogFileSelect.h>
-using namespace Igor;
+using namespace igor;
 
-namespace Igor
+namespace igor
 {
 	class iWidgetGrid;
 	class iWidgetTextEdit;

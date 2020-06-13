@@ -6,7 +6,7 @@
 
 #include <igor/physics/iPhysics.h>
 
-namespace Igor
+namespace igor
 {
 
     uint64 iPhysicsJoint::_nextJointID = 1;
@@ -57,4 +57,4 @@ namespace Igor
         _submitConstraints.remove(submitConstraintsDelegate);
     }
 
-} // namespace Igor
+} // namespace igor

@@ -6,7 +6,7 @@
 
 #include <igor/entities/iEntityManager.h>
 
-namespace Igor
+namespace igor
 {
 
     const uint64 iEntity::INVALID_ENTITY_ID = 0;

@@ -2,19 +2,19 @@
 
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/dialogs/iDialog.h>
-#include <igor/graphics/scene/nodes/iNode.h>
-#include <igor/graphics/scene/nodes/iNodeTransform.h>
-#include <igor/graphics/scene/nodes/iNodeLight.h>
-#include <igor/graphics/scene/nodes/iNodeMesh.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/scene/nodes/iNode.h>
+#include <igor/scene/nodes/iNodeTransform.h>
+#include <igor/scene/nodes/iNodeLight.h>
+#include <igor/scene/nodes/iNodeMesh.h>
+#include <igor/scene/nodes/iNodeManager.h>
 
 #include <igor/ui/widgets/iWidgetScroll.h>
 #include <igor/ui/widgets/iWidgetGrid.h>
 #include <igor/ui/widgets/iWidgetGroupBox.h>
-using namespace Igor;
+using namespace igor;
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include "UserControlTransformation.h"
 #include "UserControlLight.h"

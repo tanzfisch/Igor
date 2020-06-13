@@ -31,11 +31,11 @@
 
 #include <iaux/iaDefines.h>
 #include <iaux/statemachine/iaState.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <map>
 
-namespace IgorAux
+namespace iaux
 {
 
     class iaState;
@@ -186,7 +186,7 @@ namespace IgorAux
 
         /*! calles the render method of the current state
 
-        is ment to be registered to RenderDelegate but can be called by anyone
+        is ment to be registered to iDrawDelegate but can be called by anyone
         */
         void render();
 
@@ -258,6 +258,6 @@ namespace IgorAux
     \include StateMachine/src/StateMachineExample.h
     */
 
-} // namespace IgorAux
+} // namespace iaux
 
 #endif

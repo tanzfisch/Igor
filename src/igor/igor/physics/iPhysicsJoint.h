@@ -33,9 +33,9 @@
 
 #include <iaux/system/iaEvent.h>
 #include <iaux/system/iaMutex.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     class iPhysicsJoint;
@@ -98,6 +98,6 @@ namespace Igor
         virtual ~iPhysicsJoint() = default;
     };
 
-} // namespace Igor
+} // namespace igor
 
 #endif

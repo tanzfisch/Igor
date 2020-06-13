@@ -34,7 +34,7 @@
 
 #include <vector>
 
-namespace IgorAux
+namespace iaux
 {
 
     class iaFile;
@@ -137,6 +137,6 @@ namespace IgorAux
         iaString _directoryName;
     };
 
-} // namespace IgorAux
+} // namespace iaux
 
 #endif

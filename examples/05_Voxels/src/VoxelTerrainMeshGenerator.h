@@ -30,12 +30,12 @@
 #define __GENERATORTERRAIN__
 
 #include <iaux/math/iaVector3.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <igor/resources/model/loader/iModelDataIO.h>
-using namespace Igor;
+using namespace igor;
 
-namespace Igor
+namespace igor
 {
     class iContouringCubes;
     class iVoxelData;

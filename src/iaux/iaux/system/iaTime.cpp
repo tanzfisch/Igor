@@ -2,7 +2,7 @@
 
 #include <iaux/system/iaClock.h>
 
-namespace IgorAux
+namespace iaux
 {
     iaTime::iaTime(const iaTime &other)
     {
@@ -108,4 +108,4 @@ namespace IgorAux
         return _microSeconds >= time._microSeconds;
     }
 
-} // namespace IgorAux
+} // namespace iaux

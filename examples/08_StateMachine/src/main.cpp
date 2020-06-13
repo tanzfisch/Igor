@@ -1,17 +1,17 @@
 #include "StateMachineExample.h"
 
 #include <igor/igor.h>
-using namespace Igor;
+using namespace igor;
 
 int main(void)
 {
-	Igor::startup();
+	igor::startup();
 
 	StateMachineExample* example = new StateMachineExample();
 	example->run();
 	delete example;
 
-	Igor::shutdown();
+	igor::shutdown();
 
 	return 0;
 }

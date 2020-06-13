@@ -6,5 +6,5 @@ var i_voxel_terrain_8cpp =
     [ "HIGHER_NEIGHBOR_LOD_YPOSITIVE", "i_voxel_terrain_8cpp.html#ae80099a171f9ffe865af42909cf3db03", null ],
     [ "HIGHER_NEIGHBOR_LOD_ZNEGATIVE", "i_voxel_terrain_8cpp.html#a970eca23fbe2eb66f820430d7ee7c91b", null ],
     [ "HIGHER_NEIGHBOR_LOD_ZPOSITIVE", "i_voxel_terrain_8cpp.html#ab476c95007fb2a88ed814caffa68405f", null ],
-    [ "childOffsetPosition", "i_voxel_terrain_8cpp.html#aa0fcd85494a3c35b7994dcdc744fc699", null ]
+    [ "childOffsetPosition", "i_voxel_terrain_8cpp.html#a343c41ca12ee24c087c427b04e62b347", null ]
 ];

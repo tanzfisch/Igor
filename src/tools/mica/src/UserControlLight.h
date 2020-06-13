@@ -29,15 +29,15 @@
 #ifndef __USERCONTROLLIGHT__
 #define __USERCONTROLLIGHT__
 
-#include <igor/graphics/scene/nodes/iNodeLight.h>
+#include <igor/scene/nodes/iNodeLight.h>
 #include <iaux/data/iaColor4.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <igor/ui/user_controls/iUserControl.h>
 #include <igor/ui/user_controls/iUserControlColorChooser.h>
-using namespace Igor;
+using namespace igor;
 
-namespace Igor
+namespace igor
 {
     class iWidgetGrid;
     class iWidgetTextEdit;

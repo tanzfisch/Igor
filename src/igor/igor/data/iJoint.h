@@ -32,12 +32,12 @@
 #include <igor/iDefines.h>
 
 #include <iaux/math/iaMatrix.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <vector>
 #include <any>
 
-namespace Igor
+namespace igor
 {
 
     class iBone;
@@ -104,6 +104,6 @@ namespace Igor
         virtual ~iJoint() = default;
     };
 
-} // namespace Igor
+} // namespace igor
 
 #endif

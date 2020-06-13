@@ -38,7 +38,7 @@
 #include <iomanip>
 #include <thread>
 
-namespace IgorAux
+namespace iaux
 {
     class IgorAux_API iaConsole;
 
@@ -75,7 +75,7 @@ namespace IgorAux
 
 		con_assert, con_assert_sticky
 		*/
-        Assert,
+        Fatal,
 
         /*! there is a problem and the application might or moght not be able to deal with it	
 
@@ -89,7 +89,7 @@ namespace IgorAux
 		*/
         Warning,
 
-        /*! informational output like arround what the engine does
+        /*! informational output about what the engine does
 
 		con_info
 		*/
@@ -100,13 +100,19 @@ namespace IgorAux
 
 		con, con_endl
 		*/
-        DebugInfo,
+        DebugInfo, // TODO need better name for this... or we can put it together with Info
 
         /*! debug output
 
 		con_debug, con_debug_endl
 		*/
-        Debug
+        Debug,
+
+        /*! trace everything that there is
+
+        con_trace
+        */
+        Trace
     };
 
     /*! console and logging interface
@@ -295,7 +301,7 @@ namespace IgorAux
     \param Message additional message output
     */
 #define con_assert(Condition, Message)                                                                                                                                                                                     \
-    if (iaConsole::getInstance().getLogLevel() >= LogLevel::Assert && !(Condition))                                                                                                                                        \
+    if (iaConsole::getInstance().getLogLevel() >= LogLevel::Fatal && !(Condition))                                                                                                                                         \
     {                                                                                                                                                                                                                      \
         iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID << iaForegroundColor::Red << "ASSERTION " << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endl; \
         iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_LOGGING_TAB__ << __IGOR_FILE_LINE__ << endl;                                                                                                      \
@@ -314,7 +320,7 @@ namespace IgorAux
     \param Message additional message output
     */
 #define con_assert_sticky(Condition, Message)                                                                                                                                                                                          \
-    if (iaConsole::getInstance().getLogLevel() >= LogLevel::Assert && !(Condition))                                                                                                                                                    \
+    if (iaConsole::getInstance().getLogLevel() >= LogLevel::Fatal && !(Condition))                                                                                                                                                     \
     {                                                                                                                                                                                                                                  \
         iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID << iaForegroundColor::Red << "ASSERTION_DEBUG_BREAK " << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endl; \
         iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_LOGGING_TAB__ << __IGOR_FILE_LINE__ << endl;                                                                                                                  \
@@ -332,7 +338,7 @@ namespace IgorAux
     \param Message message output
     */
 #define con_debug(Message)                                                                                                                               \
-    if (iaConsole::getInstance().getLogLevel() >= LogLevel::Assert)                                                                                      \
+    if (iaConsole::getInstance().getLogLevel() >= LogLevel::Debug)                                                                                       \
     {                                                                                                                                                    \
         iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID << iaForegroundColor::Gray << Message << UNLOCK; \
     }
@@ -344,10 +350,24 @@ namespace IgorAux
     \param Message message output
     */
 #define con_debug_endl(Message)                                                                                                                       \
-    if (iaConsole::getInstance().getLogLevel() >= LogLevel::Assert)                                                                                   \
+    if (iaConsole::getInstance().getLogLevel() >= LogLevel::Debug)                                                                                    \
     {                                                                                                                                                 \
         iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID << iaForegroundColor::Gray << Message << endl \
                                  << UNLOCK;                                                                                                           \
+    }
+
+/*! only called in debug mode
+
+    including line feed
+
+    \param Message message output
+    */
+#define con_trace()                                                                                                               \
+    if (iaConsole::getInstance().getLogLevel() >= LogLevel::Trace)                                                                \
+    {                                                                                                                             \
+        iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID;                          \
+        iaConsole::getInstance() << iaForegroundColor::Gray << "TRACE " << __IGOR_FUNCTION__ << " " << __IGOR_FILE_LINE__ << endl \
+                                 << UNLOCK;                                                                                       \
     }
 
 #else // __IGOR_DEBUG__
@@ -355,7 +375,7 @@ namespace IgorAux
 #define con_assert(Condition, Message)
 
 #define con_assert_sticky(Condition, Message)                                                                                                                                                                                   \
-    if (iaConsole::getInstance().getLogLevel() >= LogLevel::Assert && !(Condition))                                                                                                                                             \
+    if (iaConsole::getInstance().getLogLevel() >= LogLevel::Fatal && !(Condition))                                                                                                                                              \
     {                                                                                                                                                                                                                           \
         iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID << iaForegroundColor::Red << "INTERNAL ERROR " << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endl; \
         iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_LOGGING_TAB__ << __IGOR_FILE_LINE__ << endl;                                                                                                           \
@@ -372,10 +392,11 @@ namespace IgorAux
 
 #define con_debug(Message)
 #define con_debug_endl(Message)
+#define con_trace()
 
 #endif // __IGOR_DEBUG__
 
-    /*! prints an error message to console and optionally to the log file
+/*! prints an error message to console and optionally to the log file
 
     \param Message message to be printed
     */
@@ -391,7 +412,7 @@ namespace IgorAux
         con_assert_sticky(iaConsole::getInstance().getErrors() < 100, "too many errors");                                                                                   \
     }
 
-    /*! prints an warning message to console and optionally to the log file
+/*! prints an warning message to console and optionally to the log file
 
     \param Message message to be printed
     */
@@ -405,20 +426,19 @@ namespace IgorAux
         con_assert_sticky(iaConsole::getInstance().getWarnings() < 100, "too many warnings");                                                                                     \
     }
 
-    /*! prints an info message to console and optionally to the log file
+/*! prints an info message to console and optionally to the log file
 
-    \param Type type of information to be printed
     \param Message message to be printed
 	\todo would be nice to have a fixed size of info type collumn
     */
-#define con_info(Type, Message)                                                                                                                                                                                                  \
-    if (iaConsole::getInstance().getLogLevel() >= LogLevel::Info)                                                                                                                                                                \
-    {                                                                                                                                                                                                                            \
-        iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID << iaForegroundColor::Cyan << Type << iaForegroundColor::Gray << " - " << iaForegroundColor::DarkCyan << Message << endl \
-                                 << UNLOCK;                                                                                                                                                                                      \
+#define con_info(Message)                                                                                                                                                                       \
+    if (iaConsole::getInstance().getLogLevel() >= LogLevel::Info)                                                                                                                               \
+    {                                                                                                                                                                                           \
+        iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID << iaForegroundColor::Cyan << "INFO " << iaForegroundColor::DarkCyan << Message << endl \
+                                 << UNLOCK;                                                                                                                                                     \
     }
 
-    /*! prints an message to console and optionally to the log file
+/*! prints an message to console and optionally to the log file
 
     \param Message message to be printed
     */
@@ -428,7 +448,7 @@ namespace IgorAux
         iaConsole::getInstance() << LOCK << Message << flush << UNLOCK; \
     }
 
-    /*! prints an message to console and optionally to the log file.
+/*! prints an message to console and optionally to the log file.
     In addition it prints an end line at the end.
 
     \param Message message to be printed
@@ -534,7 +554,6 @@ namespace IgorAux
         console << "[" << std::setfill(L'0') << std::setw(8) << std::hex << std::this_thread::get_id() << std::dec << "] ";
         return console;
     }
-
-}; // namespace IgorAux
+}; // namespace iaux
 
 #endif

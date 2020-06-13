@@ -31,7 +31,7 @@
 
 #include <igor/threading/tasks/iTask.h>
 
-namespace Igor
+namespace igor
 {
 
     /*! this task runs the model resource manager flush function repeadetly
@@ -64,6 +64,6 @@ namespace Igor
         void run();
     };
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

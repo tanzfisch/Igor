@@ -30,21 +30,21 @@
 #define __VOXELEXAMPLE__
 
 #include <igor/igor.h>
-#include <igor/os/iWindow.h>
+#include <igor/system/iWindow.h>
 #include <igor/graphics/iView.h>
-#include <igor/os/iTimerHandle.h>
+#include <igor/system/iTimerHandle.h>
 #include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/os/iKeyboard.h>
-#include <igor/graphics/generation/iPerlinNoise.h>
+#include <igor/system/iKeyboard.h>
+#include <igor/generation/iPerlinNoise.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/profiler/iProfilerVisualizer.h>
-using namespace Igor;
+using namespace igor;
 
 #include <iaux/math/iaRandomNumberGenerator.h>
 #include <iaux/math/iaMatrix.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
     class iScene;
     class iNodeTransform;
@@ -57,7 +57,7 @@ namespace Igor
     class iTargetMaterial;
     class iNodeTransformControl;
     class iTexture;
-} // namespace Igor
+} // namespace igor
 
 /*! the voxel example
 */

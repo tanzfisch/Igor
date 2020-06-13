@@ -1,22 +1,22 @@
 #include "EnemyDestroyed.h"
 
-#include <igor/graphics/scene/nodes/iNodeManager.h>
-#include <igor/graphics/scene/nodes/iNodeTransform.h>
-#include <igor/graphics/scene/nodes/iNodePhysics.h>
-#include <igor/graphics/scene/nodes/iNodeModel.h>
+#include <igor/scene/nodes/iNodeManager.h>
+#include <igor/scene/nodes/iNodeTransform.h>
+#include <igor/scene/nodes/iNodePhysics.h>
+#include <igor/scene/nodes/iNodeModel.h>
 #include <igor/resources/model/iModel.h>
-#include <igor/graphics/scene/iScene.h>
+#include <igor/scene/iScene.h>
 #include <igor/physics/iPhysics.h>
 #include <igor/physics/iPhysicsBody.h>
 #include <igor/physics/iPhysicsCollision.h>
-#include <igor/graphics/scene/nodes/iNodeParticleSystem.h>
-#include <igor/graphics/scene/nodes/iNodeEmitter.h>
+#include <igor/scene/nodes/iNodeParticleSystem.h>
+#include <igor/scene/nodes/iNodeEmitter.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/material/iMaterial.h>
-using namespace Igor;
+using namespace igor;
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
 EnemyDestroyed::EnemyDestroyed(iScene *scene, const iaMatrixd &matrix)
     : GameObject(Fraction::None, GameObjectType::None)

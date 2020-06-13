@@ -1,7 +1,7 @@
 var namespaces =
 [
-    [ "Igor", "namespace_igor.html", "namespace_igor" ],
-    [ "IgorAux", "namespace_igor_aux.html", "namespace_igor_aux" ],
+    [ "iaux", "namespaceiaux.html", "namespaceiaux" ],
+    [ "igor", "namespaceigor.html", "namespaceigor" ],
     [ "OMPF", "namespace_o_m_p_f.html", null ],
     [ "std", "namespacestd.html", null ]
 ];

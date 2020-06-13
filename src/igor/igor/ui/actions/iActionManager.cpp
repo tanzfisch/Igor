@@ -5,9 +5,9 @@
 #include <igor/ui/actions/iActionManager.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 	iActionManager::~iActionManager()
 	{
@@ -125,4 +125,4 @@ namespace Igor
 
 		return getAction(hash);
 	}
-} // namespace Igor
+} // namespace igor

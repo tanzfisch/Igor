@@ -7,7 +7,7 @@
 #include <iaux/system/iaConsole.h>
 #include <iaux/data/iaString.h>
 
-namespace IgorAux
+namespace iaux
 {
 
     bool iaSerializable::write(std::ofstream &stream, const iaColor3f &value)
@@ -401,4 +401,4 @@ namespace IgorAux
         return true;
     }
 
-} // namespace IgorAux
+} // namespace iaux

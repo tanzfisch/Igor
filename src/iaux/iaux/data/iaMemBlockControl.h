@@ -31,9 +31,9 @@
 
 #include <iaux/iaDefines.h>
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace IgorAux
+namespace iaux
 {
 
     /*! memory block with some convinient methods
@@ -175,6 +175,6 @@ namespace IgorAux
         uint64 _size = 0;
     };
 
-} // namespace IgorAux
+} // namespace iaux
 
 #endif

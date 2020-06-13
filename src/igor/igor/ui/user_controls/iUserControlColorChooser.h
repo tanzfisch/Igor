@@ -35,9 +35,9 @@
 #include <iaux/system/iaEvent.h>
 #include <iaux/data/iaColor4.h>
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
 	class iWidgetGrid;
@@ -511,5 +511,5 @@ namespace Igor
 	/*! user control color chooser pointer definition
     */
 	typedef iUserControlColorChooser *iUserControlColorChooserPtr;
-} // namespace Igor
+} // namespace igor
 #endif

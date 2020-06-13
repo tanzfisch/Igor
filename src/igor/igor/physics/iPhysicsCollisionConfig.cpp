@@ -7,9 +7,9 @@
 #include <igor/physics/iPhysics.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     uint64 iPhysicsCollisionConfig::_nextID = iPhysicsCollisionConfig::INVALID_COLLISIONCONFIG_ID + 1;
@@ -205,4 +205,4 @@ namespace Igor
         return _collisionID;
     }
 
-}; // namespace Igor
+}; // namespace igor

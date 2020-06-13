@@ -31,7 +31,7 @@
 
 #include <iaux/iaDefines.h>
 
-namespace IgorAux
+namespace iaux
 {
 
     /*! todo not in use yet and not tested yet
@@ -107,5 +107,5 @@ namespace IgorAux
         return result;
     }
 
-}; // namespace IgorAux
+}; // namespace iaux
 #endif

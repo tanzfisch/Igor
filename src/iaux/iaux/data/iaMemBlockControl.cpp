@@ -5,7 +5,7 @@
 #include <iaux/data/iaMemBlockControl.h>
 #include <iaux/system/iaConsole.h>
 
-namespace IgorAux
+namespace iaux
 {
 
     void iaMemBlockControl::setBuffer(void *data, uint64 size)
@@ -154,4 +154,4 @@ namespace IgorAux
         return result;
     }
 
-} // namespace IgorAux
+} // namespace iaux

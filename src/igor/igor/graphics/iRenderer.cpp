@@ -4,11 +4,11 @@
 
 #include <igor/graphics/iRenderer.h>
 
-// #include <igor/os/iWindow.h>
-#include <igor/os/iTimer.h>
-#include <igor/graphics/simulation/iParticleSystem2D.h>
+// #include <igor/system/iWindow.h>
+#include <igor/system/iTimer.h>
+#include <igor/simulation/iParticleSystem2D.h>
 #include <igor/graphics/iInstancer.h>
-#include <igor/graphics/simulation/iParticleSystem3D.h>
+#include <igor/simulation/iParticleSystem3D.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iAtlas.h>
 #include <igor/resources/mesh/iMesh.h>
@@ -28,14 +28,14 @@
 
 #include <iaux/data/iaConvert.h>
 #include <iaux/system/iaTime.h>
-using namespace IgorAux;
+using namespace iaux;
 
 // comes from X.h. don't know how this get's included here
 #undef Always
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
-namespace Igor
+namespace igor
 {
 
     // needs to be a mecro so we can retrive the line number of the actual problem
@@ -299,10 +299,7 @@ namespace Igor
             _versionOGL = iaString::toString((int32)major) + "." + iaString::toString((int32)minor);
             _extensionsOGL = (const char *)glGetString(GL_EXTENSIONS);
 
-            con_endl("Initializing OpenGL");
-            con_endl("Vendor:   " << _vendorOGL);
-            con_endl("Renderer: " << _rendererOGL);
-            con_endl("Version:  " << _versionOGL);
+            con_info("initializing OpenGL: " << _vendorOGL << " " << _rendererOGL << " ver" << _versionOGL);
 
             setClearColor(iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
             setClearDepth(1.0f);
@@ -2261,4 +2258,4 @@ namespace Igor
         return result;
     }
 
-}; // namespace Igor
+}; // namespace igor

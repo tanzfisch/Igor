@@ -14,7 +14,7 @@
 #include <igor/ui/widgets/iWidgetSlider.h>
 #include <igor/ui/widgets/iWidgetNumberChooser.h>
 
-namespace Igor
+namespace igor
 {
 
     iUserControlColorChooser::iUserControlColorChooser(const iWidgetPtr parent)
@@ -643,4 +643,4 @@ namespace Igor
         updateWidgets();
     }
 
-} // namespace Igor
+} // namespace igor

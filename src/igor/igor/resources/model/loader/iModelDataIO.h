@@ -30,12 +30,12 @@
 #define __iMODELDATAIO__
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
-#include <igor/graphics/scene/nodes/iNode.h>
+#include <igor/scene/nodes/iNode.h>
 #include <igor/resources/model/iModel.h>
 
-namespace Igor
+namespace igor
 {
 
     /*! save mode
@@ -104,6 +104,6 @@ namespace Igor
         iaString _identifier;
     };
 
-} // namespace Igor
+} // namespace igor
 
 #endif

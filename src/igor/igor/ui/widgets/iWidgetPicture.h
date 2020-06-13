@@ -33,12 +33,12 @@
 #include <igor/resources/texture/iTexture.h>
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <memory>
 #include <limits>
 
-namespace Igor
+namespace igor
 {
 
 	/*! picture widget
@@ -129,6 +129,6 @@ namespace Igor
 		*/
 		void draw();
 	};
-} // namespace Igor
+} // namespace igor
 
 #endif

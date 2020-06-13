@@ -37,7 +37,7 @@
 #include <vector>
 #include <memory>
 
-namespace Igor
+namespace igor
 {
 
     class iMeshBuffers;
@@ -100,6 +100,6 @@ namespace Igor
         std::map<std::shared_ptr<iMeshBuffers>, iInstancedNodes> _instancedRenderNodes;
     };
 
-} // namespace Igor
+} // namespace igor
 
 #endif

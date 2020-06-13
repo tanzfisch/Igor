@@ -29,21 +29,22 @@
 #ifndef __RESOURCEMANAGER__
 #define __RESOURCEMANAGER__
 
-#include <igor/iDefines.h>
+#include <igor/resources/iFactory.h>
 
 #include <iaux/system/iaSingleton.h>
 #include <iaux/system/iaDirectory.h>
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaMutex.h>
-using namespace IgorAux;
+using namespace iaux;
 
+#include <unordered_map>
 #include <map>
 #include <vector>
 
-namespace Igor
+namespace igor
 {
 
-    /*! manages locations of resoruces
+    /*! manages resoruces and their factories
     */
     class Igor_API iResourceManager : public iaSingleton<iResourceManager>
     {
@@ -63,9 +64,13 @@ namespace Igor
         */
         void removeSearchPath(const iaString &folder);
 
+        /*! \returns list of search paths
+        */
+        const std::vector<iaString>& getSearchPaths() const;
+
         /*! clears search path list
         */
-        void clear();
+        void clearSearchPaths();
 
         /*! \returns full path to a file if it exists
 
@@ -79,6 +84,46 @@ namespace Igor
         */
         iaString getRelativePath(const iaString &filename);
 
+        /*! requests a resource to be loaded asynchronously.
+
+        \param param parameters for loading resource
+        \returns shared pointer to resource
+        */
+        iResourcePtr requestResource(const iResourceParameters& parameters);
+
+        /*! loads a resource synchronously.
+
+        \param param parameters for loading resource
+        \returns shared pointer to resource
+        */
+        iResourcePtr loadResource(const iResourceParameters& parameters);
+
+        /*! works like a garbage collector.
+
+        Interrates through all textures and checks how many references every texture has. If reference count
+        goes down to 1 then the texture will be released. If reference count is greater 1 and the texture was
+        not loaded yet and the texture will be loaded.
+
+        \param cacheModeLevel level of cache mode to be released
+        */
+        void flush(iResourceCacheMode cacheModeLevel = iResourceCacheMode::Free);
+
+        /*! if a flush in a different thread is currently running. this will prevent loading new data from disk and in consequence make it stop earlier
+        */
+        void interruptFlush();
+
+        /*! registers factory to resource manager
+
+        \param factory the given factory
+        */
+        void registerFactory(iFactoryPtr factory);
+
+        /*! unregisters factory from resource manager
+
+        \param factory the given factory
+        */
+        void unregisterFactory(iFactoryPtr factory);
+
     private:
         /*! mutex to manage access to internal data
         */
@@ -88,15 +133,47 @@ namespace Igor
         */
         std::vector<iaString> _searchPaths;
 
-        /*! does nothing
+        /*! map of registered factories
         */
-        iResourceManager() = default;
+        std::map<iaString, iFactoryPtr> _factories;
+
+        /*! flag to interrupt flush cross threads
+        */
+        bool _interrupLoading = false;
+
+        /*! map of resources
+        */
+        std::unordered_map<int64, iResourcePtr> _resources;
+
+        /*! \returns resource for given parameters
+
+        \param parameters the resource parameters
+        \param factory the factory used to create the resource if not found
+        */
+        iResourcePtr getResource(const iResourceParameters& parameters, iFactoryPtr factory);
+
+        /*! \returns factory for given resource parameters
+
+        \param parameters given resource parameters
+        */
+        iFactoryPtr getFactory(const igor::iResourceParameters& parameters);
+
+        /*! calculates hash value based on resource parameters
+
+        \param parameters the resource parameters
+        \param factory the factory that will be used to load this resource
+        */
+        int64 calcHashValue(const iResourceParameters& parameters, iFactoryPtr factory);
 
         /*! does nothing
         */
-        ~iResourceManager() = default;
+        iResourceManager();
+
+        /*! free resources
+        */
+        ~iResourceManager();
     };
 
-} // namespace Igor
+} // namespace igor
 
 #endif

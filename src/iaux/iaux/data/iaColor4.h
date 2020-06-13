@@ -35,7 +35,7 @@
 #include <algorithm>
 #include <math.h>
 
-namespace IgorAux
+namespace iaux
 {
 
     /*! color class the represents the red, green, blue and alpha channel
@@ -341,6 +341,6 @@ namespace IgorAux
     */
     typedef iaColor4<uint8> iaColor4c;
 
-}; // namespace IgorAux
+}; // namespace iaux
 
 #endif

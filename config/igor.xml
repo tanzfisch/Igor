@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Igor>
-	<!-- all paths have to be relative to bin folder -->
+	<!-- all paths have to be relative to current directory when igor is executed -->
 	<ResourceManager>
 		<SearchPaths>
 			<SearchPath>..\data\textures</SearchPath>
@@ -12,7 +12,7 @@
 		</SearchPaths>
 	</ResourceManager>
     <Logging>
-        <!-- available log levels Assert, Error, Warning, Info, DebugInfo, Debug (default) -->
-        <LogLevel>Debug</LogLevel> 
+        <!-- available log levels: Assert, Error, Warning, Info, DebugInfo (default), Debug, Trace -->
+        <LogLevel>Trace</LogLevel> 
     </Logging>
 </Igor>

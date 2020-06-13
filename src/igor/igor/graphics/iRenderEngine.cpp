@@ -4,28 +4,28 @@
 
 #include <igor/graphics/iRenderEngine.h>
 
-#include <igor/graphics/scene/iScene.h>
-#include <igor/graphics/scene/octree/iOctree.h>
-#include <igor/graphics/scene/nodes/iNodeCamera.h>
+#include <igor/scene/iScene.h>
+#include <igor/scene/octree/iOctree.h>
+#include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/data/iFrustum.h>
 #include <igor/resources/material/iMaterialGroup.h>
-#include <igor/graphics/scene/nodes/iNodeRender.h>
-#include <igor/graphics/scene/nodes/iNodeVolume.h>
+#include <igor/scene/nodes/iNodeRender.h>
+#include <igor/scene/nodes/iNodeVolume.h>
 #include <igor/graphics/iRenderer.h>
-#include <igor/graphics/scene/nodes/iNodeLight.h>
-#include <igor/graphics/scene/nodes/iNodeMesh.h>
+#include <igor/scene/nodes/iNodeLight.h>
+#include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/scene/nodes/iNodeManager.h>
 #include <igor/resources/profiler/iProfiler.h>
-#include <igor/os/iTimer.h>
-#include <igor/graphics/scene/traversal/iNodeVisitorRenderBoundings.h>
+#include <igor/system/iTimer.h>
+#include <igor/scene/traversal/iNodeVisitorRenderBoundings.h>
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/data/iaConvert.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     iRenderEngine::iRenderEngine()
@@ -438,4 +438,4 @@ namespace Igor
         }
     }
 
-} // namespace Igor
+} // namespace igor

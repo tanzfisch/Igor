@@ -34,11 +34,11 @@
 
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaGradient.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <memory>
 
-namespace Igor
+namespace igor
 {
 
     /*! color created/added event
@@ -148,6 +148,6 @@ namespace Igor
 		*/
         void draw();
     };
-} // namespace Igor
+} // namespace igor
 
 #endif

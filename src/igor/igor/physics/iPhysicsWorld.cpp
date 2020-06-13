@@ -7,9 +7,9 @@
 #include <igor/physics/iPhysics.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
     uint64 iPhysicsWorld::_nextID = iPhysicsWorld::INVALID_WORLD_ID + 1;
@@ -32,4 +32,4 @@ namespace Igor
         return _id;
     }
 
-} // namespace Igor
+} // namespace igor

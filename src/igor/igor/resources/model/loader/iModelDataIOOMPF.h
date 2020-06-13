@@ -30,10 +30,10 @@
 #define __iLOADERIGOR__
 
 #include <iaux/data/iaString.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <igor/resources/model/loader/iModelDataIO.h>
-#include <igor/graphics/scene/traversal/iNodeVisitor.h>
+#include <igor/scene/traversal/iNodeVisitor.h>
 
 #include <map>
 
@@ -49,7 +49,7 @@ namespace OMPF
     class ompfParticleSystemChunk;
 } // namespace OMPF
 
-namespace Igor
+namespace igor
 {
 
     class iNodeTransform;
@@ -265,6 +265,6 @@ namespace Igor
         void clearMaterials();
     };
 
-} // namespace Igor
+} // namespace igor
 
 #endif

@@ -6,7 +6,7 @@
 
 #include <mutex>
 
-namespace IgorAux
+namespace iaux
 {
 
 	iaMutex::iaMutex()
@@ -32,4 +32,4 @@ namespace IgorAux
 		static_cast<std::mutex *>(m_handle)->unlock();
 	}
 
-} // namespace IgorAux
+} // namespace iaux

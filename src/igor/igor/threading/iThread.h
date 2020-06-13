@@ -32,13 +32,13 @@
 #include <igor/iDefines.h>
 
 #include <iaux/system/iaDelegate.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <thread>
 
 #include <igor/physics/iPhysicsWorld.h>
 
-namespace Igor
+namespace igor
 {
 
     class iThreadHandle;
@@ -117,6 +117,6 @@ namespace Igor
         ThreadDelegate _threadDelegate;
     };
 
-}; // namespace Igor
+}; // namespace igor
 
 #endif

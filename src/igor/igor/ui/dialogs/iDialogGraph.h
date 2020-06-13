@@ -33,7 +33,7 @@
 
 #include <map>
 
-namespace Igor
+namespace igor
 {
 
     class iWidgetGraph;
@@ -243,6 +243,6 @@ namespace Igor
     */
     typedef iDialogGraph *iDialogGraphPtr;
 
-} // namespace Igor
+} // namespace igor
 
 #endif

@@ -33,7 +33,7 @@
 #include <vector>
 #include <any>
 
-namespace Igor
+namespace igor
 {
 
     class iUserControl;
@@ -393,6 +393,6 @@ namespace Igor
     */
     typedef iWidgetGrid *iWidgetGridPtr;
 
-} // namespace Igor
+} // namespace igor
 
 #endif

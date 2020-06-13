@@ -32,7 +32,7 @@
 #include <igor/ui/actions/iAction.h>
 #include <igor/ui/user_controls/iUserControl.h>
 
-namespace Igor
+namespace igor
 {
 
     class iWidgetLabel;
@@ -116,5 +116,5 @@ namespace Igor
     */
     typedef iUserControlAction *iUserControlActionPtr;
 
-} // namespace Igor
+} // namespace igor
 #endif

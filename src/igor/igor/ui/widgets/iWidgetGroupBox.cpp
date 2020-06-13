@@ -9,9 +9,9 @@
 #include <igor/ui/user_controls/iUserControl.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
 
 	iWidgetGroupBox::iWidgetGroupBox(const iWidgetPtr parent)
@@ -135,4 +135,4 @@ namespace Igor
 		}
 	}
 
-} // namespace Igor
+} // namespace igor

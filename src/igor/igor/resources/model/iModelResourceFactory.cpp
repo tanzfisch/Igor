@@ -14,12 +14,12 @@
 #include <iaux/system/iaFile.h>
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <fstream>
 #include <vector>
 
-namespace Igor
+namespace igor
 {
 
     iModelResourceFactory::iModelResourceFactory()
@@ -100,7 +100,7 @@ namespace Igor
                 if (modelDataIO != nullptr)
                 {
                     modelDataIO->exportData(filename, node, saveMode);
-                    con_info("exported " << formatIdentifier, filename);
+                    con_info("exported " << formatIdentifier << " \"" << filename << "\"");
                     delete modelDataIO;
                 }
                 else
@@ -351,7 +351,7 @@ namespace Igor
                         {
                             if (!(*modelIter).second->getName().isEmpty())
                             {
-                                con_info("released model", "\"" << (*modelIter).second->getName() << "\"");
+                                con_info("released model \"" << (*modelIter).second->getName() << "\"");
                             }
                         }
 
@@ -403,4 +403,4 @@ namespace Igor
         return result;
     }
 
-} // namespace Igor
+} // namespace igor

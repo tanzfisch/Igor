@@ -5,13 +5,13 @@
 #include <igor/ui/widgets/iWidgetLabel.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/theme/iWidgetBaseTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 
-namespace Igor
+namespace igor
 {
 
 	iWidgetLabel::iWidgetLabel(const iWidgetPtr parent)
@@ -84,4 +84,4 @@ namespace Igor
 		_text = text;
 	}
 
-} // namespace Igor
+} // namespace igor

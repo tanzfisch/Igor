@@ -1,8 +1,8 @@
 #include "WidgetsExample.h"
 
 #include <igor/graphics/iRenderer.h>
-#include <igor/os/iApplication.h>
-#include <igor/os/iMouse.h>
+#include <igor/system/iApplication.h>
+#include <igor/system/iMouse.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/ui/iWidgetManager.h>
@@ -28,10 +28,10 @@
 #include <igor/ui/widgets/iWidgetMenu.h>
 #include <igor/ui/actions/iAction.h>
 #include <igor/ui/actions/iActionManager.h>
-using namespace Igor;
+using namespace igor;
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
 WidgetsExample::WidgetsExample()
 {
@@ -48,7 +48,7 @@ void WidgetsExample::init()
     con(" -- Widget Example --" << endl);
 
     // register our render function to the view with the ortho projection
-    _viewOrtho.registerRenderDelegate(RenderDelegate(this, &WidgetsExample::onRender));
+    _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &WidgetsExample::onRender));
 
     // init window with the orthogonal projected view
     _window.addView(&_viewOrtho);
@@ -403,7 +403,7 @@ void WidgetsExample::deinit()
         _font = nullptr;
     }
 
-    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &WidgetsExample::onRender));
+    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &WidgetsExample::onRender));
 
     iWidgetManager::getInstance().setTheme(nullptr);
     delete _widgetDefaultTheme;

@@ -3,13 +3,13 @@
 
 #include <igor/iVersion.h>
 
-namespace Igor
+namespace igor
 {
     
     //! Igor version short
-    extern const iaString __IGOR_VERSION__ = "@VERSION_SHORT@";
+    extern const iaux::iaString __IGOR_VERSION__ = "@VERSION_SHORT@";
     
     //! Igor version full
-    extern const iaString __IGOR_VERSION_FULL__ = "@VERSION@";
+    extern const iaux::iaString __IGOR_VERSION_FULL__ = "@VERSION@";
     
 };

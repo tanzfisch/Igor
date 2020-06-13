@@ -39,7 +39,7 @@
 #include <vector>
 #include <algorithm>
 
-namespace IgorAux
+namespace iaux
 {
 
     /*! multi color gradient
@@ -134,6 +134,6 @@ namespace IgorAux
     */
     typedef iaGradient<iaColor4f> iaGradientColor4f;
 
-}; // namespace IgorAux
+}; // namespace iaux
 
 #endif

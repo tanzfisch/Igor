@@ -9,9 +9,9 @@
 #include <igor/ui/user_controls/iUserControl.h>
 
 #include <iaux/system/iaConsole.h>
-using namespace IgorAux;
+using namespace iaux;
 
-namespace Igor
+namespace igor
 {
     iWidgetGrid::iWidgetGrid(const iWidgetPtr parent)
         : iWidget(parent)
@@ -981,4 +981,4 @@ namespace Igor
         _widgetRows[row]._widgetCollumn[col]._widgetID = widgetID;
     }
 
-} // namespace Igor
+} // namespace igor
