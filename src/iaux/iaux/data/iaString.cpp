@@ -1213,7 +1213,7 @@ namespace iaux
             }
             else
             {
-                con_err("invalid number format " << text);
+                con_err("invalid integer format " << text);
                 return 0;
             }
         }
@@ -1261,7 +1261,7 @@ namespace iaux
             }
             else
             {
-                con_err("invalid number format " << text);
+                con_err("invalid floating number format " << text);
                 return 0.0;
             }
         }
