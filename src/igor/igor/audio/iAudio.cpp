@@ -90,19 +90,17 @@ namespace igor
                 }
             }
 
-            if (deviceNames.empty())
+            deviceNames.push_back("");
+
+            for (const auto deviceName : deviceNames)
             {
-                _device = alcOpenDevice(nullptr);
-            }
-            else
-            {
-                for (const auto deviceName : deviceNames)
+                con_debug_endl("try to open: " << deviceName.c_str());
+
+                _device = alcOpenDevice(deviceName.c_str());
+                if (_device != nullptr)
                 {
-                    _device = alcOpenDevice(deviceName.c_str());
-                    if (_device != nullptr)
-                    {
-                        break;
-                    }
+                    con_info("OpenAL Device  : " << ((deviceName == "") ? "default" : deviceName.c_str()));
+                    break;
                 }
             }
 
@@ -130,7 +128,7 @@ namespace igor
                 _device = nullptr;
                 return;
             }
-
+            
             con_info("OpenAL Version : " << alGetString(AL_VERSION));
             con_info("OpenAL Vendor  : " << alGetString(AL_VENDOR));
             con_info("OpenAL Renderer: " << alGetString(AL_RENDERER));
