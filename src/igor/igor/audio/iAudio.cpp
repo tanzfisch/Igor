@@ -53,57 +53,7 @@ namespace igor
         {
             con_info("initialize audio");
 
-            std::vector<std::string> deviceNames;
-
-            if (alcIsExtensionPresent(nullptr, "ALC_ENUMERATION_EXT"))
-            {
-                const char *devicesString = alcGetString(nullptr, ALC_DEVICE_SPECIFIER);
-
-                bool inString = false;
-                int from = 0;
-                int to = 0;
-
-                while (true)
-                {
-                    if (inString)
-                    {
-                        if (devicesString[to] == 0)
-                        {
-                            deviceNames.push_back(std::string(devicesString + from));
-                            inString = false;
-                        }
-                    }
-                    else
-                    {
-                        if (devicesString[to] == 0)
-                        {
-                            break;
-                        }
-                        else
-                        {
-                            from = to;
-                            inString = true;
-                        }
-                    }
-
-                    to++;
-                }
-            }
-
-            deviceNames.push_back("");
-
-            for (const auto deviceName : deviceNames)
-            {
-                con_debug_endl("try to open: " << ((deviceName == "") ? "default" : deviceName.c_str()));
-
-                _device = alcOpenDevice(deviceName.c_str());
-                if (_device != nullptr)
-                {
-                    con_info("OpenAL Device  : " << ((deviceName == "") ? "default" : deviceName.c_str()));
-                    break;
-                }
-            }
-
+            _device = alcOpenDevice(nullptr);
             if (_device == nullptr)
             {
                 con_err("can't open sound device");
