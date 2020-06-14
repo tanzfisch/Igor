@@ -203,6 +203,27 @@ namespace iaux
         {
             stream << text.getData();
         }
+
+        return stream;
+    }
+
+    std::wostream &operator<<(std::wostream &stream, const std::vector<iaString> &texts)
+    {
+        bool found = false;
+        for (const auto &text : texts)
+        {
+            if (!text.isEmpty())
+            {
+                if (found)
+                {
+                    stream << ", ";
+                }
+
+                stream << text.getData();
+                found = true;
+            }
+        }
+
         return stream;
     }
 

@@ -28,7 +28,7 @@ Igor is using cmake. The build is configured to work with Debian/g++ and Windows
 
 Under Linux you might need to install some additional dependencies
 
-`sudo apt-get install libx11-dev libgl1-mesa-dev libglu1-mesa-dev libglfw3-dev`
+`sudo apt-get install libx11-dev libgl1-mesa-dev libglu1-mesa-dev libglfw3-dev libalsa-ocaml-dev`
 
 Git Flow
 --------

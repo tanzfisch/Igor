@@ -572,6 +572,14 @@ namespace iaux
     */
 	IgorAux_API std::wostream &operator<<(std::wostream &stream, const iaString &text);
 
+	/*! stream operator
+
+    \param stream the destination
+    \param texts a list of string to stream
+    \returns the resulting stream
+    */
+	IgorAux_API std::wostream &operator<<(std::wostream &stream, const std::vector<iaString> &texts);
+
 	template <class T>
 	void iaString::toVector(const iaString &text, iaVector2<T> &vector)
 	{
