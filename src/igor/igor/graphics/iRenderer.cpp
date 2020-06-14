@@ -299,7 +299,9 @@ namespace igor
             _versionOGL = iaString::toString((int32)major) + "." + iaString::toString((int32)minor);
             _extensionsOGL = (const char *)glGetString(GL_EXTENSIONS);
 
-            con_info("initializing OpenGL: " << _vendorOGL << " " << _rendererOGL << " ver" << _versionOGL);
+            con_info("OpenGL Version : " << _versionOGL);
+            con_info("OpenGL Vendor  : " << _vendorOGL);
+            con_info("OpenGL Renderer: " << _rendererOGL);
 
             setClearColor(iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
             setClearDepth(1.0f);

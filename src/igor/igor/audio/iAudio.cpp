@@ -52,10 +52,11 @@ namespace igor
         iAudioImpl()
         {
             con_info("initialize audio");
+
             _device = alcOpenDevice(nullptr);
             if (_device == nullptr)
             {
-                con_err("no sound device found");
+                con_err("can't open sound device");
                 return;
             }
 
@@ -77,6 +78,10 @@ namespace igor
                 _device = nullptr;
                 return;
             }
+
+            con_info("OpenAL Version : " << alGetString(AL_VERSION));
+            con_info("OpenAL Vendor  : " << alGetString(AL_VENDOR));
+            con_info("OpenAL Renderer: " << alGetString(AL_RENDERER));
 
             _initialized = true;
         }

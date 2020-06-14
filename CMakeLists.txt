@@ -81,6 +81,9 @@ set(OpenGL_GL_PREFERENCE GLVND)
 find_package(OpenGL REQUIRED)
 
 # OpenAL Soft
+if(${COMPILER} STREQUAL "GCC")
+  find_package(ALSA REQUIRED)
+endif()
 add_subdirectory(vendor/openal-soft)
 set_property(TARGET alrecord PROPERTY FOLDER ${VENDOR_FOLDER})
 set_property(TARGET altonegen PROPERTY FOLDER ${VENDOR_FOLDER})
