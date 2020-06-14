@@ -160,10 +160,8 @@ TEST(StringTests, Match)
 TEST(StringTests, Search)
 {
     std::vector<iaString> matches;
-
     iaString::searchRegex(L"foo foobar frubar fuo bar", L"foo", matches);
-
-    EXPECT_EQ(matches.size(), 3);
+    EXPECT_EQ(matches.size(), 2);
 }
 
 TEST(StringTests, Replace)

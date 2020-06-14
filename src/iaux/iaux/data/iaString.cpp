@@ -96,10 +96,11 @@ namespace iaux
         }
 
         std::wsmatch sm;
-        std::regex_search(searchString, sm, exp);
-        for(auto m : sm)
+        
+        while(std::regex_search(searchString, sm, exp))
         {
-            matches.push_back(m.str().data());
+            matches.push_back(sm.str().data());
+            searchString = sm.suffix();
         }
 
         return !matches.empty();
