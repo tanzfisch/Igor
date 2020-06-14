@@ -52,10 +52,63 @@ namespace igor
         iAudioImpl()
         {
             con_info("initialize audio");
-            _device = alcOpenDevice(nullptr);
+
+            std::vector<std::string> deviceNames;
+
+            if (alcIsExtensionPresent(nullptr, "ALC_ENUMERATION_EXT"))
+            {
+                const char *devicesString = alcGetString(nullptr, ALC_DEVICE_SPECIFIER);
+
+                bool inString = false;
+                int from = 0;
+                int to = 0;
+
+                while (true)
+                {
+                    if (inString)
+                    {
+                        if (devicesString[to] == 0)
+                        {
+                            deviceNames.push_back(std::string(devicesString + from));
+                            inString = false;
+                        }
+                    }
+                    else
+                    {
+                        if (devicesString[to] == 0)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            from = to;
+                            inString = true;
+                        }
+                    }
+
+                    to++;
+                }
+            }
+
+            if (deviceNames.empty())
+            {
+                _device = alcOpenDevice(nullptr);
+            }
+            else
+            {
+                for (const auto deviceName : deviceNames)
+                {
+                    _device = alcOpenDevice(deviceName.c_str());
+                    if (_device != nullptr)
+                    {
+                        break;
+                    }
+                }
+            }
+
             if (_device == nullptr)
             {
-                con_err("no sound device found");
+                con_err("can't open sound device");
                 return;
             }
 
@@ -77,6 +130,10 @@ namespace igor
                 _device = nullptr;
                 return;
             }
+
+            con_info("OpenAL Version : " << alGetString(AL_VERSION));
+            con_info("OpenAL Vendor  : " << alGetString(AL_VENDOR));
+            con_info("OpenAL Renderer: " << alGetString(AL_RENDERER));
 
             _initialized = true;
         }
