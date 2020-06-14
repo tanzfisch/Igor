@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 
+#include <iaux/iaux.h>
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
@@ -105,47 +106,71 @@ TEST(StringTests, ToFloat)
 {
     EXPECT_EQ(iaString::toFloat(iaString(L"1.234")), 1.234);
     EXPECT_EQ(iaString::toFloat(iaString(L"-11.234")), -11.234);
+}
+
+TEST(StringTests, ToFloatFail)
+{
+    startup(); // since we are producing error messages we need to init the console
     EXPECT_EQ(iaString::toFloat(iaString(L"-1.1.234")), 0.0);
     EXPECT_EQ(iaString::toFloat(iaString(L"abc")), 0.0);
+    shutdown();
 }
 
 TEST(StringTests, ToInt)
 {
     EXPECT_EQ(iaString::toInt(iaString(L"100")), 100);
     EXPECT_EQ(iaString::toInt(iaString(L"-344")), -344);
+}
+
+TEST(StringTests, ToIntFail)
+{
+    startup(); // since we are producing error messages we need to init the console
     EXPECT_EQ(iaString::toInt(iaString(L"-3a44")), 0);
     EXPECT_EQ(iaString::toInt(iaString(L"-3.44")), 0);
+    shutdown();
 }
 
 TEST(StringTests, ToString)
 {
-    /*EXPECT_EQ(iaString::toString(100), L"100");
+    EXPECT_EQ(iaString::toString(100), L"100");
     EXPECT_EQ(iaString::toString(100, 2), L"1100100");
     EXPECT_EQ(iaString::toString(100, 8), L"144");
     EXPECT_EQ(iaString::toString(100, 16), L"64");
-
-    EXPECT_EQ(iaString::toString(-100), L"-100");*/
+    EXPECT_EQ(iaString::toString(-100), L"-100");
+    EXPECT_EQ(iaString::toString(-10.23), L"-10.2300");
+    EXPECT_EQ(iaString::toString(-10.234567,3), L"-10.234");
 }
 
 TEST(StringTests, Match)
 {
-    EXPECT_EQ(iaString::match("FooBar", ""), false);
-    EXPECT_EQ(iaString::match("FooBar", "FooBar"), true);
-    EXPECT_EQ(iaString::match("FooBar", "BarFoo"), false);
+    EXPECT_EQ(iaString::matchRegex("FooBar", ""), false);
+    EXPECT_EQ(iaString::matchRegex("FooBar", "FooBar"), true);
+    EXPECT_EQ(iaString::matchRegex("FooBar", "BarFoo"), false);
 
-    EXPECT_EQ(iaString::match("FooBar", "*"), true);
-    EXPECT_EQ(iaString::match("FooBar", "**"), true);
-    EXPECT_EQ(iaString::match("FooBar", "*****"), true);
+    EXPECT_EQ(iaString::matchRegex("FooBar", "(Foo)(.*)"), true);
 
-    EXPECT_EQ(iaString::match("FooBar.ompf.back", "*.ompf*"), true);
-    EXPECT_EQ(iaString::match("FooBar.ompf.back", "*.ompf"), false);
-    EXPECT_EQ(iaString::match("FooBar.ompf", "*.ompf"), true);
-    EXPECT_EQ(iaString::match("crate.ompf", "*rate.omp*"), true);
-    EXPECT_EQ(iaString::match("igor/cat.ompf", "*rate.omp*"), false);
-    EXPECT_EQ(iaString::match("cat.ompf", "cat.*"), true);
-    // EXPECT_EQ(iaString::match("catert.ompf", "ca*t.*"), true); // TODO
-    // EXPECT_EQ(iaString::match("foocatert.ompf", "*ca*t.ompf"), true); // TODO
-    // EXPECT_EQ(iaString::match("foocatert.onmpf", "*ca*t.o*pf"), true); // TODO
+    EXPECT_EQ(iaString::matchRegex("FooBar.ompf.back", "(.*)(.ompf.)(.*)"), true);
+    EXPECT_EQ(iaString::matchRegex("FooBar.ompf.back", "(.*)(.ompf)"), false);
+    EXPECT_EQ(iaString::matchRegex("FooBar.ompf", "(.*)(.ompf)"), true);
+    EXPECT_EQ(iaString::matchRegex("crate.ompf", "(.*)(rate.ompf)"), true);
+    EXPECT_EQ(iaString::matchRegex("igor/cat.ompf", "(.*)(rate.ompf)"), false);
+    EXPECT_EQ(iaString::matchRegex("cat.ompf", "(cat.)(.*)"), true);
+}
+
+TEST(StringTests, Search)
+{
+    std::vector<iaString> matches;
+
+    iaString::searchRegex(L"foo foobar frubar fuo bar", L"foo", matches);
+
+    EXPECT_EQ(matches.size(), 3);
+}
+
+TEST(StringTests, Replace)
+{
+    iaString dst;
+    iaString::replaceRegex("This is foobar.", "foobar", "great", dst);
+    EXPECT_EQ(dst == "This is great.", true);
 }
 
 TEST(StringTests, UTF8Trivial)

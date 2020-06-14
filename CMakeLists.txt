@@ -515,7 +515,12 @@ if(IS_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-src")
                      ${GTEST_INCLUDE_DIRS})
 
   # Now simply link your own targets against gtest, gmock, etc. as appropriate
-  target_link_libraries(iauxTest iaux gtest pthread)
+  if(${COMPILER} STREQUAL "GCC")
+    target_link_libraries(iauxTest iaux gtest pthread)  
+  elseif(${COMPILER} STREQUAL "MSVCXX")
+    target_link_libraries(iauxTest iaux gtest)
+  endif()  
+  
   add_test(AllTestsInIgorAux iauxTest)
 
   set_property(TARGET iauxTest PROPERTY FOLDER ${TESTING_FOLDER})

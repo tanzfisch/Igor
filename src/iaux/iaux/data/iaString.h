@@ -406,7 +406,7 @@ namespace iaux
         \param afterPoint defines how many digits after the point
         \returns isString
         */
-		static iaString toString(float64 value, int afterPoint = 0);
+		static iaString toString(float64 value, int afterPoint = 4);
 
 		/*! transforms a float to a iaString
 
@@ -414,7 +414,7 @@ namespace iaux
 		\param afterPoint defines how many digits after the point
 		\returns isString
 		*/
-		static iaString toString(float32 value, int afterPoint = 0);
+		static iaString toString(float32 value, int afterPoint = 4);
 
 		/*! transforms a iaString to a float
 
@@ -504,12 +504,29 @@ namespace iaux
 		*/
 		static iaString trim(const iaString &text);
 
-		/*! \returns true if the text matches the pattern
+		/*! \returns true if the text matches the regular expression
 
 		\param text the given text
-		\param pattern the given pattern
+		\param regex the given regular expression
 		*/
-		static bool match(const iaString &text, const iaString &pattern);
+		static bool matchRegex(const iaString &text, const iaString &regex);
+
+		/*! replace sections in source text and return destination text
+
+		\param[out] dst the destination text
+		\param src the source text
+		\param regex the regular expression to find the patterns to replace
+		\param replaceWith the text to replace the patterns with
+		*/
+		static void replaceRegex(const iaString& src, const iaString& regex, const iaString& replaceWith, iaString& dst);
+
+		/*! searches for matches in string with given regular expression
+
+		\param src the source string to search
+		\param regex the regular expression
+		\param[out] the found matches
+		*/
+		static bool searchRegex(const iaString& src, const iaString& regex, std::vector<iaString>& matches);
 
 	private:
 		/*! string length without ending zero
