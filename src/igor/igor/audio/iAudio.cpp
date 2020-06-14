@@ -94,7 +94,7 @@ namespace igor
 
             for (const auto deviceName : deviceNames)
             {
-                con_debug_endl("try to open: " << deviceName.c_str());
+                con_debug_endl("try to open: " << ((deviceName == "") ? "default" : deviceName.c_str()));
 
                 _device = alcOpenDevice(deviceName.c_str());
                 if (_device != nullptr)
@@ -128,7 +128,7 @@ namespace igor
                 _device = nullptr;
                 return;
             }
-            
+
             con_info("OpenAL Version : " << alGetString(AL_VERSION));
             con_info("OpenAL Vendor  : " << alGetString(AL_VENDOR));
             con_info("OpenAL Renderer: " << alGetString(AL_RENDERER));
