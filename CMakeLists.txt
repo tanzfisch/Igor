@@ -464,15 +464,13 @@ foreach(
   set_property(TARGET ${EXAMPLE} PROPERTY FOLDER ${EXAMPLES_FOLDER})
 endforeach()
 
-# skipping testing for now
-return()
-
 # ##############################################################################
 # Testing #
 # ##############################################################################
 # source of cmake gtest script https://crascit.com/2015/07/25/cmake-gtest/
 # Download and unpack googletest at configure time
-configure_file(src/cmake/googletest.inl googletest-download/CMakeLists.txt)
+configure_file(src/cmake/googletest.inl.cmake
+               googletest-download/CMakeLists.txt)
 execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
                 WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download")
 execute_process(COMMAND "${CMAKE_COMMAND}" --build .
@@ -517,7 +515,12 @@ if(IS_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-src")
                      ${GTEST_INCLUDE_DIRS})
 
   # Now simply link your own targets against gtest, gmock, etc. as appropriate
-  target_link_libraries(iauxTest iaux gtest)
+  if(${COMPILER} STREQUAL "GCC")
+    target_link_libraries(iauxTest iaux gtest pthread)  
+  elseif(${COMPILER} STREQUAL "MSVCXX")
+    target_link_libraries(iauxTest iaux gtest)
+  endif()  
+  
   add_test(AllTestsInIgorAux iauxTest)
 
   set_property(TARGET iauxTest PROPERTY FOLDER ${TESTING_FOLDER})

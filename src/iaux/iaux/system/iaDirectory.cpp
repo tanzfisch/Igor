@@ -73,7 +73,7 @@ namespace iaux
         if (entry.is_regular_file())
         {
             iaString filename(entry.path().c_str());
-            if (iaString::match(filename, searchPattern))
+            if (iaString::matchRegex(filename, searchPattern))
             {
                 return true;
             }

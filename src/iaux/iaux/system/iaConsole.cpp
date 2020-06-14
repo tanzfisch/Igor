@@ -117,7 +117,6 @@ namespace iaux
 #endif
 
 #ifdef __IGOR_LINUX__
-
             _file.open("/tmp/igor.log", std::fstream::out);
 #endif
         }

@@ -13,6 +13,7 @@
 #include <math.h>
 #include <string>
 #include <memory>
+#include <regex>
 
 namespace iaux
 {
@@ -39,109 +40,70 @@ namespace iaux
         CHECK_CONSISTENCY();
     }
 
-    bool iaString::match(const iaString &text, const iaString &pattern)
+    bool iaString::matchRegex(const iaString& text, const iaString& regex)
     {
-        // if there is no pattern to match with returns false
-        if (pattern.isEmpty())
+        std::basic_string<wchar_t> searchString(text.getData());
+        std::basic_regex<wchar_t> exp;
+
+        try
+        {
+            exp = std::basic_regex<wchar_t>(regex.getData(), std::regex::extended);
+        }
+        catch (...)
         {
             return false;
         }
 
-        std::vector<iaString> tokens;
-        pattern.split('*', tokens);
+        return std::regex_match(searchString, exp);
+    }
 
-        if (pattern[0] == '*')
+    void iaString::replaceRegex(const iaString& src, const iaString& regex, const iaString& replaceWith, iaString& dst)
+    {
+        dst = "";
+
+        std::basic_string<wchar_t> searchString(src.getData());
+        std::basic_regex<wchar_t> exp;
+
+        try
         {
-            tokens.insert(tokens.begin(), "");
+            exp = std::basic_regex<wchar_t>(regex.getData(), std::regex::extended);
+        }
+        catch (...)
+        {
+            con_err("invalid regular expression \"" << regex << "\"");            
+            return;
         }
 
-        if (pattern[pattern.getLength() - 1] == '*')
+        std::basic_string<wchar_t> r(replaceWith.getData());
+        dst = iaString(std::regex_replace(searchString, exp, r).data());
+    }
+
+    bool iaString::searchRegex(const iaString& src, const iaString& regex, std::vector<iaString>& matches)
+    {
+        matches.clear();
+
+        std::basic_string<wchar_t> searchString(src.getData());
+        std::basic_regex<wchar_t> exp;
+
+        try
         {
-            tokens.push_back("");
+            exp = std::basic_regex<wchar_t>(regex.getData(), std::regex::extended);
         }
-
-        // just one token means no wild card so we can directly compare
-        if (tokens.size() == 1)
+        catch (...)
         {
-            return text == tokens[0];
-        }
-
-        int64 tIndex = 0;
-        int64 pIndex = 0;
-        wchar_t t = text[tIndex];
-        wchar_t p;
-
-        auto iterToken = tokens.begin();
-        while (iterToken != tokens.end())
-        {
-            iaString token = *iterToken;
-
-            if (token.isEmpty())
-            {
-                auto nextIterToken = iterToken + 1;
-
-                // done if this was the last token
-                if (nextIterToken == tokens.end())
-                {
-                    return true;
-                }
-                else
-                {
-                    // get first char from next token and iterate through text to find it's position
-                    iaString nextToken = *nextIterToken;
-                    if (!nextToken.isEmpty())
-                    {
-                        p = nextToken[0];
-
-                        while (t != p)
-                        {
-                            if (tIndex + 1 >= text.getLength())
-                            {
-                                break;
-                            }
-
-                            t = text[++tIndex];
-                        }
-                    }
-                }
-            }
-            else
-            {
-                pIndex = 0;
-                p = token[pIndex];
-                t = text[tIndex];
-
-                while (t == p)
-                {
-                    if (tIndex + 1 >= text.getLength())
-                    {
-                        return true;
-                    }
-
-                    if (pIndex + 1 >= token.getLength())
-                    {
-                        break;
-                    }
-
-                    t = text[++tIndex];
-                    p = token[++pIndex];
-                }
-
-                if (pIndex != token.getLength() - 1)
-                {
-                    return false;
-                }
-            }
-
-            iterToken++;
-        }
-
-        if (tIndex != text.getLength() - 1)
-        {
+            con_err("invalid regular expression \"" << regex << "\"");
             return false;
         }
 
-        return true;
+        std::wsmatch sm;
+        
+        while(std::regex_search(searchString, sm, exp))
+        {
+            matches.push_back(sm.str().data());
+            searchString = sm.suffix();
+        }
+
+        return !matches.empty();
     }
 
     int64 iaString::getHashValue() const
@@ -151,7 +113,7 @@ namespace iaux
         return static_cast<int64>(hashFunc(keyValue));
     }
 
-    iaString::iaString(const char *text, const int64 lenght)
+    iaString::iaString(const char* text, const int64 lenght)
     {
         if (lenght != INVALID_POSITION)
         {
@@ -162,7 +124,7 @@ namespace iaux
         CHECK_CONSISTENCY();
     }
 
-    iaString::iaString(const wchar_t *text, const int64 lenght)
+    iaString::iaString(const wchar_t* text, const int64 lenght)
     {
         if (lenght != INVALID_POSITION)
         {
@@ -1213,7 +1175,7 @@ namespace iaux
             }
             else
             {
-                con_err("invalid number format " << text);
+                con_err("invalid integer format " << text);
                 return 0;
             }
         }
@@ -1261,7 +1223,7 @@ namespace iaux
             }
             else
             {
-                con_err("invalid number format " << text);
+                con_err("invalid floating number format " << text);
                 return 0.0;
             }
         }
