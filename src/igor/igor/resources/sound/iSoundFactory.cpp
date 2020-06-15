@@ -44,6 +44,9 @@ namespace igor
             sound->_numChannels = header._numChannels;
             sound->_sampleRate = header._sampleRate;
 
+            sound->_bytesPerSample = header._blockAlign;
+            sound->_sampleCount = bufferSize / sound->_bytesPerSample;
+
             if (iAudio::getInstance().createAudioBuffer(sound->_buffer, sound->_numChannels, sound->_bitsPerSample, sound->_sampleRate, buffer, bufferSize))
             {
                 iaString channels;

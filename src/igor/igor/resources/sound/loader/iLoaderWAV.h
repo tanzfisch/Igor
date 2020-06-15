@@ -51,6 +51,7 @@ namespace igor
         int32 _byteRate;
         int16 _blockAlign;
         int16 _bitsPerSample;
+        int16 _extraParamSize;
         char _subchunk2ID[4];
         int32 _subchunk2Size;
     };
