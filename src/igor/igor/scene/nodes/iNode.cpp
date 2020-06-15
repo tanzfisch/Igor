@@ -215,14 +215,11 @@ namespace igor
 
     void iNode::setTransformationDirtyDown()
     {
-        if (!_transformationDirty)
-        {
-            _transformationDirty = true;
+        _transformationDirty = true;
 
-            for (auto child : _children)
-            {
-                child->setTransformationDirtyDown();
-            }
+        for (auto child : _children)
+        {
+            child->setTransformationDirtyDown();
         }
     }
 

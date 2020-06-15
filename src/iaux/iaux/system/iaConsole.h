@@ -31,12 +31,13 @@
 
 #include <iaux/system/iaSingleton.h>
 #include <iaux/system/iaClock.h>
-#include <iaux/data/iaString.h>
 
 #include <fstream>
 #include <iostream>
 #include <iomanip>
+#include <string>
 #include <thread>
+#include <map>
 
 namespace iaux
 {
@@ -45,7 +46,7 @@ namespace iaux
     /*!
     \todo forgot what this is good for
     */
-    __IGOR_FUNCTION_POINTER__(superspecialfuncptrtype, iaConsole &, (iaConsole &));
+    __IGOR_FUNCTION_POINTER__(superspecialfuncptrtype, iaConsole&, (iaConsole&));
 
     /*! used as foreground colors for console output
     */
@@ -68,44 +69,44 @@ namespace iaux
     };
 
     /*! logging level definitions
-	*/
+    */
     enum class LogLevel
     {
         /*! this would make the application stop
 
-		con_assert, con_assert_sticky
-		*/
+        con_assert, con_assert_sticky
+        */
         Fatal,
 
-        /*! there is a problem and the application might or moght not be able to deal with it	
+        /*! there is a problem and the application might or moght not be able to deal with it
 
-		con_err
-		*/
+        con_err
+        */
         Error,
 
         /*! there is a minor problem and you should fix it
 
-		con_warn
-		*/
+        con_warn
+        */
         Warning,
 
         /*! informational output about what the engine does
 
-		con_info
-		*/
+        con_info
+        */
         Info,
 
-        /*! it's stuff somewhere between info and what the engine would log when actually compiled for debug. 
-		It's the equivalent of a plain cout or printf.
+        /*! it's stuff somewhere between info and what the engine would log when actually compiled for debug.
+        It's the equivalent of a plain cout or printf.
 
-		con, con_endl
-		*/
+        con, con_endl
+        */
         DebugInfo, // TODO need better name for this... or we can put it together with Info
 
         /*! debug output
 
-		con_debug, con_debug_endl
-		*/
+        con_debug, con_debug_endl
+        */
         Debug,
 
         /*! trace everything that there is
@@ -120,15 +121,16 @@ namespace iaux
     class IgorAux_API iaConsole : public iaSingleton<iaConsole>
     {
         friend class iaSingleton<iaConsole>;
+        friend void* threadFunc(void* data);
 
-        friend iaConsole &endl(iaConsole &console);
-        friend iaConsole &flush(iaConsole &console);
-        friend iaConsole &incerr(iaConsole &console);
-        friend iaConsole &incwarn(iaConsole &console);
-        friend iaConsole &LOCK(iaConsole &console);
-        friend iaConsole &UNLOCK(iaConsole &console);
-        friend iaConsole &printThreadID(iaConsole &console);
-        friend iaConsole &applicationTime(iaConsole &console);
+        friend iaConsole& endl(iaConsole& console);
+        friend iaConsole& flush(iaConsole& console);
+        friend iaConsole& incerr(iaConsole& console);
+        friend iaConsole& incwarn(iaConsole& console);
+        friend iaConsole& LOCK(iaConsole& console);
+        friend iaConsole& UNLOCK(iaConsole& console);
+        friend iaConsole& printThreadID(iaConsole& console);
+        friend iaConsole& applicationTime(iaConsole& console);
 
     public:
         /*! lock console for exclusive access
@@ -141,12 +143,12 @@ namespace iaux
 
         /*! sets the log level
 
-		\param logLevel the log level
-		*/
+        \param logLevel the log level
+        */
         void setLogLevel(LogLevel logLevel);
 
         /*! \returns the current log level
-		*/
+        */
         LogLevel getLogLevel() const;
 
         /*! prints call stack
@@ -190,17 +192,17 @@ namespace iaux
         uint32 getWarnings();
 
         /*! manually initializing the log file
-		*/
+        */
         void openLogfile();
 
         /*! closes logging to log file
-		*/
+        */
         void closeLogfile();
 
         /*! pipes anything in to console and log
         */
         template <typename T>
-        iaConsole &operator<<(const T &v)
+        iaConsole& operator<<(const T& v)
         {
             std::wcout << v;
             if (_streamToLogfile && _file.is_open())
@@ -213,7 +215,7 @@ namespace iaux
         /*!
         \todo forgot what this is good for
         */
-        iaConsole &operator<<(const superspecialfuncptrtype v)
+        iaConsole& operator<<(const superspecialfuncptrtype v)
         {
             v(*this);
             return *this;
@@ -223,7 +225,7 @@ namespace iaux
 
         \param color foreground color
         */
-        iaConsole &operator<<(const iaForegroundColor color)
+        iaConsole& operator<<(const iaForegroundColor color)
         {
             setTextColor(color);
             return *this;
@@ -241,7 +243,7 @@ namespace iaux
 
     private:
         /*! the log level. default is logging everything
-		*/
+        */
         LogLevel _logLevel = LogLevel::DebugInfo;
 
         /*! file stream to log file
@@ -274,6 +276,10 @@ namespace iaux
         */
         bool _useColorsSupported = false;
 
+        /*! maps thread IDs to thread names
+        */
+        std::map<size_t, iaID32> _threadIDs;
+
         /*! changes foreground color of the console text
 
         \param color foreground color
@@ -288,7 +294,7 @@ namespace iaux
         iaConsole();
 
         /*! nothing to do. the console is not meant to be destructed
-		*/
+        */
         virtual ~iaConsole() = default;
     };
 
@@ -356,12 +362,12 @@ namespace iaux
                                  << UNLOCK;                                                                                                           \
     }
 
-/*! only called in debug mode
+    /*! only called in debug mode
 
-    including line feed
+        including line feed
 
-    \param Message message output
-    */
+        \param Message message output
+        */
 #define con_trace()                                                                                                               \
     if (iaConsole::getInstance().getLogLevel() >= LogLevel::Trace)                                                                \
     {                                                                                                                             \
@@ -396,10 +402,10 @@ namespace iaux
 
 #endif // __IGOR_DEBUG__
 
-/*! prints an error message to console and optionally to the log file
+    /*! prints an error message to console and optionally to the log file
 
-    \param Message message to be printed
-    */
+        \param Message message to be printed
+        */
 #define con_err(Message)                                                                                                                                                    \
     if (iaConsole::getInstance().getLogLevel() >= LogLevel::Error)                                                                                                          \
     {                                                                                                                                                                       \
@@ -412,10 +418,10 @@ namespace iaux
         con_assert_sticky(iaConsole::getInstance().getErrors() < 100, "too many errors");                                                                                   \
     }
 
-/*! prints an warning message to console and optionally to the log file
+        /*! prints an warning message to console and optionally to the log file
 
-    \param Message message to be printed
-    */
+            \param Message message to be printed
+            */
 #define con_warn(Message)                                                                                                                                                         \
     if (iaConsole::getInstance().getLogLevel() >= LogLevel::Warning)                                                                                                              \
     {                                                                                                                                                                             \
@@ -426,11 +432,11 @@ namespace iaux
         con_assert_sticky(iaConsole::getInstance().getWarnings() < 100, "too many warnings");                                                                                     \
     }
 
-/*! prints an info message to console and optionally to the log file
+            /*! prints an info message to console and optionally to the log file
 
-    \param Message message to be printed
-	\todo would be nice to have a fixed size of info type collumn
-    */
+                \param Message message to be printed
+                \todo would be nice to have a fixed size of info type collumn
+                */
 #define con_info(Message)                                                                                                                                                                       \
     if (iaConsole::getInstance().getLogLevel() >= LogLevel::Info)                                                                                                                               \
     {                                                                                                                                                                                           \
@@ -438,21 +444,21 @@ namespace iaux
                                  << UNLOCK;                                                                                                                                                     \
     }
 
-/*! prints an message to console and optionally to the log file
+                /*! prints an message to console and optionally to the log file
 
-    \param Message message to be printed
-    */
+                    \param Message message to be printed
+                    */
 #define con(Message)                                                    \
     if (iaConsole::getInstance().getLogLevel() >= LogLevel::DebugInfo)  \
     {                                                                   \
         iaConsole::getInstance() << LOCK << Message << flush << UNLOCK; \
     }
 
-/*! prints an message to console and optionally to the log file.
-    In addition it prints an end line at the end.
+                    /*! prints an message to console and optionally to the log file.
+                        In addition it prints an end line at the end.
 
-    \param Message message to be printed
-    */
+                        \param Message message to be printed
+                        */
 #define con_endl(Message)                                                                                                                             \
     if (iaConsole::getInstance().getLogLevel() >= LogLevel::DebugInfo)                                                                                \
     {                                                                                                                                                 \
@@ -460,7 +466,7 @@ namespace iaux
                                  << UNLOCK;                                                                                                           \
     }
 
-    __IGOR_INLINE__ iaConsole &applicationTime(iaConsole &console)
+    __IGOR_INLINE__ iaConsole& applicationTime(iaConsole& console)
     {
         uint64 time = static_cast<uint64>(iaClock::getTimeMilliseconds());
         uint64 seconds = (time / 1000) % 60;
@@ -478,7 +484,7 @@ namespace iaux
     \param console console instance to use
     \returns the console instance
     */
-    __IGOR_INLINE__ iaConsole &endl(iaConsole &console)
+    __IGOR_INLINE__ iaConsole& endl(iaConsole& console)
     {
         iaConsole::getInstance().setTextColor(iaForegroundColor::Gray);
         std::wcout << std::endl;
@@ -494,7 +500,7 @@ namespace iaux
     \param console console instance to use
     \returns the console instance
     */
-    __IGOR_INLINE__ iaConsole &flush(iaConsole &console)
+    __IGOR_INLINE__ iaConsole& flush(iaConsole& console)
     {
         iaConsole::getInstance().setTextColor(iaForegroundColor::Gray);
         std::wcout << std::flush;
@@ -510,7 +516,7 @@ namespace iaux
     \param console console instance to use
     \returns the console instance
     */
-    __IGOR_INLINE__ iaConsole &incerr(iaConsole &console)
+    __IGOR_INLINE__ iaConsole& incerr(iaConsole& console)
     {
         console._errors++;
         return console;
@@ -521,7 +527,7 @@ namespace iaux
     \param console console instance to use
     \returns the console instance
     */
-    __IGOR_INLINE__ iaConsole &incwarn(iaConsole &console)
+    __IGOR_INLINE__ iaConsole& incwarn(iaConsole& console)
     {
         console._warnings++;
         return console;
@@ -532,7 +538,7 @@ namespace iaux
     \param console console instance to use
     \returns the console instance
     */
-    __IGOR_INLINE__ iaConsole &LOCK(iaConsole &console)
+    __IGOR_INLINE__ iaConsole& LOCK(iaConsole& console)
     {
         console.lock();
         return console;
@@ -543,15 +549,25 @@ namespace iaux
     \param console console instance to use
     \returns the console instance
     */
-    __IGOR_INLINE__ iaConsole &UNLOCK(iaConsole &console)
+    __IGOR_INLINE__ iaConsole& UNLOCK(iaConsole& console)
     {
         console.unlock();
         return console;
     }
 
-    __IGOR_INLINE__ iaConsole &printThreadID(iaConsole &console)
+    __IGOR_INLINE__ iaConsole& printThreadID(iaConsole& console)
     {
-        console << "[" << std::setfill(L'0') << std::setw(8) << std::hex << std::this_thread::get_id() << std::dec << "] ";
+        uint32 id = 0;
+        std::hash<std::thread::id> hashFunc;
+        size_t threadID = hashFunc(std::this_thread::get_id());
+
+        auto iter = console._threadIDs.find(threadID);
+        if (iter != console._threadIDs.end())
+        {
+            id = iter->second;
+        }
+
+        console << "[" << std::setfill(L'0') << std::setw(4) << std::hex << id << "] ";
         return console;
     }
 }; // namespace iaux

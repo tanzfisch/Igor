@@ -26,8 +26,8 @@
 //
 // contact: martinloga@gmx.de
 
-#ifndef __IAUX_IDGENERATOR__
-#define __IAUX_IDGENERATOR__
+#ifndef __IAUX_IDGENERATOR_H__
+#define __IAUX_IDGENERATOR_H__
 
 #include <iaux/system/iaMutex.h>
 
@@ -57,7 +57,7 @@ namespace iaux
     };
 
     template <class T>
-    T iaIDGenerator<T>::createID()
+    __IGOR_INLINE__ T iaIDGenerator<T>::createID()
     {
         T result;
 
@@ -68,11 +68,6 @@ namespace iaux
         return result;
     }
 
-    typedef uint64 iaID64;
-    typedef uint32 iaID32;
-    typedef uint16 iaID16;
-    typedef uint8 iaID8;
-
     typedef iaIDGenerator<iaID64> iaIDGenerator64;
     typedef iaIDGenerator<iaID32> iaIDGenerator32;
     typedef iaIDGenerator<iaID16> iaIDGenerator16;
@@ -80,4 +75,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif
+#endif // __IAUX_IDGENERATOR_H__
