@@ -111,6 +111,14 @@ namespace igor
         */
         int16 _bitsPerSample = 0;
 
+        /*! bytes per sample
+        */
+        int32 _bytesPerSample = 0;
+
+        /*! sample count
+        */
+        int32 _sampleCount = 0;
+
         /*! initializes members
 
         \param parameters the parameters which define the resource
