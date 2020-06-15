@@ -151,7 +151,7 @@ namespace igor
             alBufferData((ALuint)audioBuffer._id, format, buffer, (ALsizei)(bufferSize), (ALsizei)(sampleRate));
             if (alGetError() != AL_NO_ERROR)
             {
-                con_err("Can't fill audio buffer");
+                con_err("Can't fill audio buffer: " << numChannels << "ch " << bitsPerSample << "bit " << sampleRate << "Hz");
                 return false;
             }
 
@@ -176,7 +176,7 @@ namespace igor
             }
 
             const ALfloat listenerOri[] = {
-                matrix._right._x, matrix._right._y, matrix._right._z,
+                matrix._depth._x, matrix._depth._y, matrix._depth._z,
                 matrix._top._x, matrix._top._y, matrix._top._z};
 
             alListener3f(AL_POSITION, matrix._pos._x, matrix._pos._y, matrix._pos._z);
