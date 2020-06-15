@@ -30,6 +30,7 @@
 #define __iTASKMANAGER__
 
 #include <igor/iDefines.h>
+#include <igor/threading/iThread.h>
 
 #include <iaux/system/iaSingleton.h>
 #include <iaux/system/iaEvent.h>
@@ -218,13 +219,13 @@ namespace igor
 
         \param thread the thread this method is launched with
         */
-        void workWithRegularTasks(iThread *thread);
+        void workWithRegularTasks(iaThread *thread);
 
         /*! the method a thread with render context is launched with
 
         \param thread the thread this method is launched with
         */
-        void workWithRenderContextTasks(iThread *thread);
+        void workWithRenderContextTasks(iaThread *thread);
 
         /*! creates a number of render context threads for a specified window
 
@@ -247,7 +248,7 @@ namespace igor
 
         /*! creates a regular thread
         */
-        void createRegularThread();
+        void createThread();
 
         /*! flush incomming tasks queue to task list
 		*/

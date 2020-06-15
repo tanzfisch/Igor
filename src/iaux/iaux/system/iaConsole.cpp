@@ -61,6 +61,11 @@ namespace iaux
 
     iaConsole::iaConsole()
     {
+        // assuming this is the main thread
+        std::hash<std::thread::id> hashFunc;
+        size_t hashValue = hashFunc(std::this_thread::get_id());
+        _threadIDs[hashValue] = 1;
+
 #ifdef __IGOR_WINDOWS__
         console_handle = GetStdHandle(STD_OUTPUT_HANDLE);
         if (console_handle)

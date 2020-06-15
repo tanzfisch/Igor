@@ -96,6 +96,7 @@ namespace igor
 
         if (transformNode != nullptr)
         {
+            con_endl("setTransformNodeMatrix");
             transformNode->setMatrix(matrix);
         }
     }

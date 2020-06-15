@@ -6,7 +6,6 @@
 
 #include <igor/threading/tasks/iTask.h>
 #include <igor/system/iApplication.h>
-#include <igor/threading/iThread.h>
 #include <igor/threading/iRenderContextThread.h>
 #include <igor/threading/tasks/iTask.h>
 #include <igor/system/iWindow.h>
@@ -32,7 +31,7 @@ namespace igor
 #endif
         for (int i = 0; i < numThreads; ++i)
         {
-            createRegularThread();
+            createThread();
         }
 
         con_info("created " << numThreads << " regular threads");
@@ -182,7 +181,7 @@ namespace igor
         // TODO
         int32 numThreads = 1;
 
-        for (int i = 0; i < numThreads; ++i)
+        for (uint32 i = 0; i < numThreads; ++i)
         {
             createRenderContextThread(window);
         }
@@ -212,7 +211,7 @@ namespace igor
         }
     }
 
-    void iTaskManager::createRegularThread()
+    void iTaskManager::createThread()
     {
         iThread *workerThread = new iThread();
         workerThread->run(ThreadDelegate(this, &iTaskManager::workWithRegularTasks));
@@ -297,7 +296,7 @@ namespace igor
         _mutexRenderContextThreads.unlock();
     }
 
-    void iTaskManager::workWithRenderContextTasks(iThread *thread)
+    void iTaskManager::workWithRenderContextTasks(iaThread *thread)
     {
         iTask *taskTodo = nullptr;
         ThreadContext *context = nullptr;
@@ -388,7 +387,7 @@ namespace igor
         return _tasksDone;
     }
 
-    void iTaskManager::workWithRegularTasks(iThread *thread)
+    void iTaskManager::workWithRegularTasks(iaThread *thread)
     {
         iTask *taskTodo = nullptr;
 
@@ -409,7 +408,7 @@ namespace igor
 
             if (taskTodo != nullptr)
             {
-                taskTodo->setWorld(thread->getWorld());
+                taskTodo->setWorld(static_cast<iThread*>(thread)->getWorld());
                 taskTodo->run();
                 taskTodo->finishTask();
 

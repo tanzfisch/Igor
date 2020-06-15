@@ -26,8 +26,8 @@
 //
 // contact: martinloga@gmx.de
 
-#ifndef __IAUX_DELEGATE__
-#define __IAUX_DELEGATE__
+#ifndef __IAUX_DELEGATE_H__
+#define __IAUX_DELEGATE_H__
 
 #include <cstdlib>
 
@@ -182,4 +182,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif
+#endif // __IAUX_DELEGATE_H__
