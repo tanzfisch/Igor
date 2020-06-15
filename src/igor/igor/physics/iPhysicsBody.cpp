@@ -14,7 +14,7 @@ using namespace iaux;
 namespace igor
 {
 
-    uint64 iPhysicsBody::_nextBodyID = INVALID_PHYSICSBODY_ID + 1;
+    iaIDGenerator64 iPhysicsBody::_idGenerator;
 
     iPhysicsBody::iPhysicsBody(void *newtonBody)
     {
@@ -22,9 +22,7 @@ namespace igor
 
         _newtonBody = newtonBody;
 
-        _mutex.lock();
-        _id = _nextBodyID++;
-        _mutex.unlock();
+        _id = _idGenerator.createID();
     }
 
     iPhysicsBody::~iPhysicsBody()
@@ -96,7 +94,6 @@ namespace igor
 
         if (transformNode != nullptr)
         {
-            con_endl("setTransformNodeMatrix");
             transformNode->setMatrix(matrix);
         }
     }
@@ -114,11 +111,15 @@ namespace igor
 
     void iPhysicsBody::getMatrix(iaMatrixd &matrix)
     {
+        con_assert(_newtonBody != nullptr, "zero pointer");
+
         iPhysics::getInstance().getMatrix(_newtonBody, matrix);
     }
 
     void iPhysicsBody::setMatrix(const iaMatrixd &matrix)
     {
+        con_assert(_newtonBody != nullptr, "zero pointer");
+
         iPhysics::getInstance().updateMatrix(_newtonBody, matrix);
     }
 
@@ -129,6 +130,8 @@ namespace igor
 
     void iPhysicsBody::setForce(const iaVector3d &force)
     {
+        con_assert(_newtonBody != nullptr, "zero pointer");
+
         _force = force;
         iPhysics::getInstance().setForce(_newtonBody, _force);
     }
@@ -140,12 +143,16 @@ namespace igor
 
     void iPhysicsBody::setTorque(const iaVector3d &torque)
     {
+        con_assert(_newtonBody != nullptr, "zero pointer");
+
         _torque = torque;
         iPhysics::getInstance().setTorque(_newtonBody, _torque);
     }
 
     iaVector3d iPhysicsBody::getVelocity() const
     {
+        con_assert(_newtonBody != nullptr, "zero pointer");
+
         iaVector3d velocity;
         iPhysics::getInstance().getVelocity(_newtonBody, velocity);
         return velocity;
@@ -168,6 +175,8 @@ namespace igor
 
     void iPhysicsBody::setAngularDamping(const iaVector3d &damping)
     {
+        con_assert(_newtonBody != nullptr, "zero pointer");
+
         _angularDamping = damping;
         iPhysics::getInstance().setAngularDamping(_newtonBody, _angularDamping);
     }
@@ -179,6 +188,8 @@ namespace igor
 
     void iPhysicsBody::setLinearDamping(float64 damping)
     {
+        con_assert(_newtonBody != nullptr, "zero pointer");
+
         _linearDamping = damping;
         iPhysics::getInstance().setLinearDamping(_newtonBody, _linearDamping);
     }
@@ -190,6 +201,8 @@ namespace igor
 
     void iPhysicsBody::setMass(float64 mass)
     {
+        con_assert(_newtonBody != nullptr, "zero pointer");
+
         _mass = mass;
         iPhysics::getInstance().setMassMatrix(_newtonBody, mass, mass / 6.0f, mass / 6.0f, mass / 6.0f);
     }

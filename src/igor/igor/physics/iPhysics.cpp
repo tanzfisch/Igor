@@ -172,30 +172,26 @@ namespace igor
     {
         stop();
 
-        if (!_bodys.empty())
+        if (!_bodies.empty())
         {
-            con_err("possible mem leak! " << _bodys.size() << " physic bodys left");
+            con_err("possible mem leak! " << iaString::toString(_bodies.size()) << " physics bodys left");
+            auto bodies = _bodies;
 
-            auto iter = _bodys.begin();
-            while (iter != _bodys.end())
+            for(auto pair : bodies)
             {
-                destroyBody((*iter).second);
-                iter++;
+                destroyBody(pair.second);
             }
-            _bodys.clear();
         }
 
         if (!_collisions.empty())
         {
-            con_err("possible mem leak! " << _collisions.size() << " physic collisions left");
+            con_err("possible mem leak! " << iaString::toString(_collisions.size()) << " physics collisions left");
+            auto collisions = _collisions;
 
-            auto iter = _collisions.begin();
-            while (iter != _collisions.end())
+            for(auto pair : collisions)
             {
-                destroyCollision((*iter).second);
-                iter++;
+                destroyCollision(pair.second);
             }
-            _collisions.clear();
         }
 
         destroyMaterials();
@@ -690,7 +686,7 @@ namespace igor
             result = new iPhysicsBody(newtonBody);
 
             _bodyListMutex.lock();
-            _bodys[result->getID()] = result;
+            _bodies[result->getID()] = result;
             _bodyListMutex.unlock();
         }
         else
@@ -806,8 +802,8 @@ namespace igor
         bool result = false;
 
         _bodyListMutex.lock();
-        auto iter = _bodys.find(bodyID);
-        if (iter != _bodys.end())
+        auto iter = _bodies.find(bodyID);
+        if (iter != _bodies.end())
         {
             result = true;
         }
@@ -820,9 +816,9 @@ namespace igor
     {
         iPhysicsBody *result = nullptr;
         _bodyListMutex.lock();
-        auto iter = _bodys.find(bodyID);
+        auto iter = _bodies.find(bodyID);
 
-        if (iter != _bodys.end())
+        if (iter != _bodies.end())
         {
             result = (*iter).second;
         }
@@ -848,11 +844,11 @@ namespace igor
         if (body != nullptr)
         {
             _bodyListMutex.lock();
-            auto iter = _bodys.find(body->_id);
-            con_assert(iter != _bodys.end(), "corrupt data");
-            if (iter != _bodys.end())
+            auto iter = _bodies.find(body->_id);
+            con_assert(iter != _bodies.end(), "corrupt data");
+            if (iter != _bodies.end())
             {
-                _bodys.erase(iter);
+                _bodies.erase(iter);
             }
             _bodyListMutex.unlock();
 

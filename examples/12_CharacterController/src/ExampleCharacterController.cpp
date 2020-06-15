@@ -36,6 +36,7 @@ using namespace iaux;
 #include <igor/physics/iPhysicsJoint.h>
 #include <igor/physics/iPhysicsMaterial.h>
 #include <igor/physics/iPhysicsMaterialCombo.h>
+#include <igor/scene/nodes/iNodePhysics.h>
 using namespace igor;
 
 ExampleCharacterController::ExampleCharacterController()
@@ -46,6 +47,26 @@ ExampleCharacterController::ExampleCharacterController()
 ExampleCharacterController::~ExampleCharacterController()
 {
     deinit();
+}
+
+void ExampleCharacterController::createBox(const iaVector3d& pos)
+{
+    iNodePhysics* physicsBox = iNodeManager::getInstance().createNode<iNodePhysics>();
+    physicsBox->addBox(1, 1, 1, iaMatrixd());
+    physicsBox->setMass(10);
+    physicsBox->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &ExampleCharacterController::onApplyForceAndTorqueBox));
+    physicsBox->setMaterial(_entityMaterialID);
+    physicsBox->finalizeCollision();
+
+    iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
+    transformNode->translate(pos);
+
+    iNodeModel* crate = iNodeManager::getInstance().createNode<iNodeModel>();
+    crate->setModel("cube.ompf");
+    transformNode->insertNode(crate);
+    transformNode->insertNode(physicsBox);
+
+    _scene->getRoot()->insertNode(transformNode);
 }
 
 void ExampleCharacterController::init()
@@ -126,56 +147,15 @@ void ExampleCharacterController::init()
     floorTransform->insertNode(floorModel);
     _scene->getRoot()->insertNode(floorTransform);
 
-    iPhysicsCollision *floorCollision = iPhysics::getInstance().createBox(3, 1, 3, iaMatrixd());
-    iPhysicsBody *floorBody = iPhysics::getInstance().createBody(floorCollision);
-    floorBody->setMass(10);
-    iaMatrixd floorM;
-    floorM.translate(5, 5, 0);
-    floorBody->setMatrix(floorM);
-    floorBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &ExampleCharacterController::onApplyForceAndTorqueBox));
-    floorBody->setMaterial(_terrainMaterialID);
-
-    // create a box that drops on floor
-    {
-        iPhysicsCollision *boxCollision = iPhysics::getInstance().createBox(1, 1, 1, iaMatrixd());
-        iPhysicsBody *boxBody = iPhysics::getInstance().createBody(boxCollision);
-        boxBody->setMass(10);
-        boxBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &ExampleCharacterController::onApplyForceAndTorqueBox));
-        boxBody->setMaterial(_entityMaterialID);
-
-        iNodeTransform *transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
-        transformNode->translate(10, 200, 10);
-
-        iNodeModel *crate = iNodeManager::getInstance().createNode<iNodeModel>();
-        crate->setModel("crate.ompf");
-        transformNode->insertNode(crate);
-
-        iPhysics::getInstance().bindTransformNode(boxBody, transformNode);
-        _scene->getRoot()->insertNode(transformNode);
-    }
-
-    // create another box that drops on floor
-    {
-        iPhysicsCollision *boxCollision = iPhysics::getInstance().createBox(1, 1, 1, iaMatrixd());
-        iPhysicsBody *boxBody = iPhysics::getInstance().createBody(boxCollision);
-        boxBody->setMass(10);
-        boxBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &ExampleCharacterController::onApplyForceAndTorqueBox));
-        boxBody->setMaterial(_entityMaterialID);
-
-        iNodeTransform *transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
-        transformNode->translate(-5, 200, -12);
-
-        iNodeModel *crate = iNodeManager::getInstance().createNode<iNodeModel>();
-        crate->setModel("crate.ompf");
-        transformNode->insertNode(crate);
-
-        iPhysics::getInstance().bindTransformNode(boxBody, transformNode);
-        _scene->getRoot()->insertNode(transformNode);
-    }
+    // create some moving boxes
+    createBox(iaVector3d(5, 180, -12));
+    createBox(iaVector3d(3, 180, -10));
+    createBox(iaVector3d(2, 180, -4));
+    createBox(iaVector3d(-3, 180, -2));
 
     // setup character and attache camera to it
     iaMatrixd startMatrix;
-    startMatrix.translate(0, 200, 0);
+    startMatrix.translate(0, 176, 0);
     _characterController = new CharacterController(_scene->getRoot(), _entityMaterialID, startMatrix);
 
     // setup camera
@@ -268,11 +248,13 @@ void ExampleCharacterController::makeCollisions(iNodePtr node)
         iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
         iaMatrixd matrix;
         meshNode->calcWorldTransformation(matrix);
-        iPhysicsCollision *collision = iPhysics::getInstance().createMesh(meshNode->getMesh(), 0, iaMatrixd());
-        iPhysicsBody *body = iPhysics::getInstance().createBody(collision);
-        body->setMass(0);
-        body->setMatrix(matrix);
-        body->setMaterial(_terrainMaterialID);
+
+        iNodePhysics* physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();
+        physicsNode->addMesh(meshNode->getMesh(), 0, iaMatrixd());
+        physicsNode->finalizeCollision();
+        physicsNode->setMass(0);
+        physicsNode->setMaterial(_terrainMaterialID);
+        meshNode->insertNode(physicsNode);
     }
 
     for (auto child : node->getChildren())
@@ -482,11 +464,19 @@ void ExampleCharacterController::onApplyForceAndTorqueBox(iPhysicsBody *body, fl
 
 void ExampleCharacterController::deinit()
 {
+    if (_characterController != nullptr)
+    {
+        delete _characterController;
+    }
+
     // unregister some callbacks
     iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &ExampleCharacterController::onKeyPressed));
     iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &ExampleCharacterController::onKeyReleased));
     iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ExampleCharacterController::onMouseMoved));
     iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &ExampleCharacterController::onMouseWheel));
+    iMouse::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ExampleCharacterController::onMouseKeyDown));
+    iMouse::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ExampleCharacterController::onMouseKeyUp));
+
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &ExampleCharacterController::onWindowClosed));
     _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &ExampleCharacterController::onWindowResized));
     _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &ExampleCharacterController::onRenderOrtho));

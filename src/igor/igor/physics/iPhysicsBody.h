@@ -33,6 +33,7 @@
 #include <igor/scene/nodes/iNode.h>
 #include <igor/physics/iPhysicsMaterial.h>
 
+#include <iaux/data/iaIDGenerator.h>
 #include <iaux/system/iaEvent.h>
 #include <iaux/math/iaMatrix.h>
 #include <iaux/system/iaMutex.h>
@@ -46,6 +47,10 @@ namespace igor
 
     class iNodeTransform;
     class iPhysicsBody;
+
+    /*! physics body id defintion
+    */
+    typedef uint64 iPhysicsBodyID;
 
     /*! event called by newton to apply force and Torque
     */
@@ -173,7 +178,7 @@ namespace igor
 
         /*! \returns body ID
         */
-        uint64 getID();
+        iPhysicsBodyID getID();
 
         /*! \returns pointer to newton body
         */
@@ -198,15 +203,11 @@ namespace igor
 
         /*! body id
         */
-        uint64 _id = INVALID_PHYSICSBODY_ID;
+        iPhysicsBodyID _id = INVALID_PHYSICSBODY_ID;
 
         /*! next body id
         */
-        static uint64 _nextBodyID;
-
-        /*! mutex to protex id generation
-		*/
-        iaMutex _mutex;
+        static iaIDGenerator64 _idGenerator;
 
         /*! user data
         */

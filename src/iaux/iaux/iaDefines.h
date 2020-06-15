@@ -224,13 +224,7 @@ namespace iaux
 
 /*! logging tab definition including size of time and thread ID
 */
-#ifdef __IGOR_WINDOWS__
 #define __IGOR_LOGGING_TAB__ L"                    "
-#endif
-
-#ifdef __IGOR_LINUX__
-#define __IGOR_LOGGING_TAB__ L"                    "
-#endif
 
 //! helper macro to handle scrings in macros
 #define STR2(x) #x

@@ -53,6 +53,8 @@ namespace igor
         ~iThread() = default;
 
         /*! \returns world id
+
+        \todo this is weird. we need to find an other solution. maybe some sort of thread context in form of user data
         */
         uint64 getWorld() const;
 
