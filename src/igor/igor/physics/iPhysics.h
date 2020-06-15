@@ -427,7 +427,7 @@ namespace igor
 
         /*! list of bodys
         */
-        std::map<uint64, iPhysicsBody *> _bodys;
+        std::map<uint64, iPhysicsBody *> _bodies;
 
         /*! list of bodys to delete
         */

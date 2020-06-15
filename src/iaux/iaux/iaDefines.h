@@ -224,13 +224,7 @@ namespace iaux
 
 /*! logging tab definition including size of time and thread ID
 */
-#ifdef __IGOR_WINDOWS__
-#define __IGOR_LOGGING_TAB__ L"                        "
-#endif
-
-#ifdef __IGOR_LINUX__
-#define __IGOR_LOGGING_TAB__ L"                            "
-#endif
+#define __IGOR_LOGGING_TAB__ L"                    "
 
 //! helper macro to handle scrings in macros
 #define STR2(x) #x
@@ -334,5 +328,11 @@ namespace iaux
 #define __IGOR_BIT_31__ 0x80000000
 
 #define IGOR_INVALID_ID 0
+
+// id types
+typedef uint64 iaID64;
+typedef uint32 iaID32;
+typedef uint16 iaID16;
+typedef uint8 iaID8;
 
 #endif

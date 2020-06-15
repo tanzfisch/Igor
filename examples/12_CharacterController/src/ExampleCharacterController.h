@@ -77,6 +77,7 @@ public:
     void run();
 
 private:
+
     struct InputFlags
     {
         bool _forward = false;
@@ -92,7 +93,9 @@ private:
         bool _shootPrimary = false;
     };
 
-    bool _captureMouse = false;
+    /*! flat to control weather or not the mouse stays trapped
+    */
+    bool _captureMouse = true;
 
     InputFlags _inputFlags;
 
@@ -130,6 +133,12 @@ private:
 
     void onModelReady(uint64 modelNodeID);
     void makeCollisions(iNodePtr node);
+
+    /*! creates a physics box at given position
+
+    \param pos the given position
+    */
+    void createBox(const iaVector3d& pos);
 
     /*! material definition for the sky box
     */

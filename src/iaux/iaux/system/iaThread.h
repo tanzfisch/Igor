@@ -26,53 +26,101 @@
 //
 // contact: martinloga@gmx.de
 
-#ifndef __IGOR_THREAD_H__
-#define __IGOR_THREAD_H__
+#ifndef __IAUX_THREAD_H__
+#define __IAUX_THREAD_H__
 
-#include <iaux/system/iaThread.h>
-using namespace iaux;
+#include <iaux/iaDefines.h>
+#include <iaux/system/iaDelegate.h>
+#include <iaux/data/iaIDGenerator.h>
 
-#include <igor/iDefines.h>
-#include <igor/physics/iPhysicsWorld.h>
+#include <thread>
 
-namespace igor
+namespace iaux
 {
 
-    /*! igor thread
+    class iaThread;
+
+    /*! thread delegate calls the actuall function run by this thread
     */
-    class iThread : public iaThread
+    iaDELEGATE(ThreadDelegate, void, (iaThread* thread), (thread));
+
+    /*! the state a thread is currently in
+    */
+    enum class iaThreadState
     {
+        Init,
+        Running,
+        Deinit,
+        Done
+    };
+
+    /*! basic thread
+    */
+    class IgorAux_API iaThread
+    {
+
+        friend void* threadFunc(void* data);
 
     public:
         /*! does nothing
         */
-        iThread() = default;
+        iaThread();
 
-        /*! does nothing
+        /*! delete thread handle
         */
-        ~iThread() = default;
+        virtual ~iaThread();
 
-        /*! \returns world id
-
-        \todo this is weird. we need to find an other solution. maybe some sort of thread context in form of user data
+        /*! \returns true: if thread is initialized; false: if not
         */
-        uint64 getWorld() const;
+        iaThreadState getState() const;
+
+        /*! start thread with a specified delegate
+
+        \param threadDelegate the specified delegate
+        */
+        void run(ThreadDelegate threadDelegate);
+
+        /*! waits for the thread to finish
+        */
+        void join();
+
+        /*! \returns igor aux thread id
+        */
+        iaID32 getID() const;
 
     protected:
         /*! init function will be called as first by the thread
         */
-        void init() override;
+        virtual void init();
 
         /*! deinit function is called last by the thread. right before join
         */
-        void deinit() override;
+        virtual void deinit();
 
     private:
-        /*! the world id
+
+        /*! thread id
         */
-        uint64 _worldID = iPhysicsWorld::INVALID_WORLD_ID;
+        iaID32 _id = 0;
+
+        /*! the next node id
+        */
+        static iaIDGenerator32 _idGenerator;
+
+        /*! current state of this thread
+        */
+        iaThreadState _currentState = iaThreadState::Init;
+
+        /*! thread handle
+        */
+        std::thread* _thread = nullptr;
+
+        /*! the delegate to be called by the thread
+        */
+        ThreadDelegate _threadDelegate;
 
     };
+
 
 }; // namespace igor
 
