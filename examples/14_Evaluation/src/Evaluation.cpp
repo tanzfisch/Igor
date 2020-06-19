@@ -1,3 +1,7 @@
+// Igor game engine
+// (c) Copyright 2012-2019 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "Evaluation.h"
 
 #include <iaux/system/iaConsole.h>
@@ -192,7 +196,7 @@ void Evaluation::setupEvaluation()
     iEvaluationTransform *transformEvaluation = iEvaluationManager::getInstance().createEvaluation<iEvaluationTransform>(catTransform->getID());
 
     // create some key frames using a bspline
-    iaBSpline bspline;
+    iaBSplinef bspline;
     bspline.addSupportPoint(iaVector3f(-4, 0, 0));
     bspline.addSupportPoint(iaVector3f(-2, 5, 0));
     bspline.addSupportPoint(iaVector3f(2, -5, 0));

@@ -42,7 +42,6 @@ using namespace igor;
 
 #include <iaux/math/iaMatrix.h>
 #include <iaux/math/iaVector2.h>
-#include <iaux/math/iaBSpline.h>
 #include <iaux/math/iaRandomNumberGenerator.h>
 using namespace iaux;
 

@@ -149,7 +149,7 @@ private:
 
     /*! a B-Spline
     */
-    iaBSpline _spline;
+    iaBSplinef _spline;
 
     /*! random number generator
     */
