@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __PARTICLES__
-#define __PARTICLES__
+#ifndef __PARTICLES_EXAMPLE_H__
+#define __PARTICLES_EXAMPLE_H__
 
 #include <igor/igor.h>
 #include <igor/system/iWindow.h>
