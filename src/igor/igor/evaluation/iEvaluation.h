@@ -24,7 +24,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
 #ifndef __iEVALUATION__
 #define __iEVALUATION__
@@ -81,7 +81,7 @@ namespace igor
 
         /*! \retuens duration
         */
-        const iaTime &getDuration() const;
+        iaTime getDuration() const;
 
         /*! sets the interpolation function
 

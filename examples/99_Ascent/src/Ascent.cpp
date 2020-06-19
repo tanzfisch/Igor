@@ -571,7 +571,7 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
 
 void Ascent::init()
 {
-    con(" -- OpenGL 3D Test --" << endl);
+    con_endl(" -- OpenGL 3D Test --");
 
     initViews();
     initScene();

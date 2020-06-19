@@ -45,7 +45,7 @@ WidgetsExample::~WidgetsExample()
 
 void WidgetsExample::init()
 {
-    con(" -- Widget Example --" << endl);
+    con_endl(" -- Widget Example --");
 
     // register our render function to the view with the ortho projection
     _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &WidgetsExample::onRender));

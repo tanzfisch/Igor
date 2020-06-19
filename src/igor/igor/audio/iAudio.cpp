@@ -79,9 +79,9 @@ namespace igor
                 return;
             }
 
-            con_info("OpenAL Version : " << alGetString(AL_VERSION));
-            con_info("OpenAL Vendor  : " << alGetString(AL_VENDOR));
-            con_info("OpenAL Renderer: " << alGetString(AL_RENDERER));
+            con_info("OpenAL Version : " << alGetString(AL_VERSION) << endlTab
+                                         << "OpenAL Vendor  : " << alGetString(AL_VENDOR) << endlTab
+                                         << "OpenAL Renderer: " << alGetString(AL_RENDERER));
 
             _initialized = true;
         }
@@ -176,8 +176,8 @@ namespace igor
             }
 
             const ALfloat listenerOri[] = {
-                matrix._depth._x, matrix._depth._y, matrix._depth._z,
-                matrix._top._x, matrix._top._y, matrix._top._z};
+                (ALfloat)matrix._depth._x, (ALfloat)matrix._depth._y, (ALfloat)matrix._depth._z,
+                (ALfloat)matrix._top._x, (ALfloat)matrix._top._y, (ALfloat)matrix._top._z};
 
             alListener3f(AL_POSITION, matrix._pos._x, matrix._pos._y, matrix._pos._z);
             AL_CHECK_ERROR();

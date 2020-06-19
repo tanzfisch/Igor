@@ -20,12 +20,12 @@ namespace OMPF
 	{
 		if (_vertexData != nullptr)
 		{
-			delete[] _vertexData;
+			delete[](char *) _vertexData;
 		}
 
 		if (_indexData != nullptr)
 		{
-			delete[] _indexData;
+			delete[](char *) _indexData;
 		}
 	}
 
@@ -206,7 +206,7 @@ namespace OMPF
 	{
 		if (_indexData != nullptr)
 		{
-			delete[] _indexData;
+			delete[](char *) _indexData;
 		}
 
 		_indexDataSize = size;
@@ -224,7 +224,7 @@ namespace OMPF
 	{
 		if (_vertexData != nullptr)
 		{
-			delete[] _vertexData;
+			delete[](char *) _vertexData;
 		}
 
 		_vertexDataSize = size;
@@ -460,7 +460,7 @@ namespace OMPF
 		_vertexDataSize = (getVertexSize() * _vertexCount);
 		if (_vertexData != nullptr)
 		{
-			delete[] _vertexData;
+			delete[](char *) _vertexData;
 		}
 		_vertexData = new char[_vertexDataSize];
 		iaSerializable::read(file, static_cast<char *>(_vertexData), _vertexDataSize);
@@ -470,7 +470,7 @@ namespace OMPF
 		_indexDataSize = 4 * _indexCount;
 		if (_indexData != nullptr)
 		{
-			delete[] _indexData;
+			delete[](char *) _indexData;
 		}
 		_indexData = new char[_indexDataSize];
 		iaSerializable::read(file, static_cast<char *>(_indexData), _indexDataSize);

@@ -50,8 +50,8 @@ void KeyboardExample::onKeyASCIIInput(const char c)
 	// check in which output mode we are
 	if (!_outputSwitch)
 	{
-		// print character to console
-		con(c);
+		// print single character to console bypassing all the standard interfaces
+		iaConsole::getInstance() << LOCK << c << UNLOCK;
 	}
 }
 

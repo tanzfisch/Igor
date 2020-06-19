@@ -55,7 +55,7 @@ namespace iaux
 		iaConsole::getInstance().printStats();
 		iaConsole::getInstance().closeLogfile();
 		iaConsole::getInstance().resetStats();
-		iaConsole::getInstance().setLogLevel(LogLevel::DebugInfo);
+		iaConsole::getInstance().setLogLevel(iaLogLevel::DebugInfo);
 		// do not destroy instance of iaConsole
 	}
 

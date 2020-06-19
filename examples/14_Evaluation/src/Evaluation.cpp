@@ -111,7 +111,7 @@ void Evaluation::createSkybox()
 
 void Evaluation::init()
 {
-    con(" -- Evaluation Example --" << endl);
+    con_endl(" -- Evaluation Example --");
 
     // setup window
     _window.setTitle("Igor - Evaluation Example");

@@ -73,7 +73,7 @@ namespace igor
         _stop = _start + duration;
     }
 
-    const iaTime &iEvaluation::getDuration() const
+    iaTime iEvaluation::getDuration() const
     {
         return _stop - _start;
     }

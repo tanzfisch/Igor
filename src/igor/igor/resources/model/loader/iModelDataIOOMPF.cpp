@@ -135,11 +135,11 @@ namespace igor
 
 		case OMPF::OMPFChunkType::Header:
 		case OMPF::OMPFChunkType::Invalid:
-			con_err("unexpected chunk type with id 0x" << std::hex << static_cast<uint64>(currentChunk->getType()));
+			con_err("unexpected chunk type with id 0x" << std::hex << static_cast<uint64>(currentChunk->getType()) << std::dec);
 			return result;
 
 		default:
-			con_err("unknown chunk type with id 0x" << std::hex << static_cast<uint64>(currentChunk->getType()));
+			con_err("unknown chunk type with id 0x" << std::hex << static_cast<uint64>(currentChunk->getType()) << std::dec);
 			return result;
 		}
 

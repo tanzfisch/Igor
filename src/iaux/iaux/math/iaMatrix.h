@@ -24,13 +24,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
 #ifndef __iaMATRIX__
 #define __iaMATRIX__
 
 #include <iaux/math/iaVector4.h>
 #include <iaux/math/iaQuaternion.h>
+#include <iaux/system/iaConsole.h>
 
 #include <fstream>
 #include <cmath>
@@ -390,7 +391,7 @@ namespace iaux
     \returns the resulting stream
     */
 	template <class T>
-	IgorAux_API std::wostream &operator<<(std::wostream &stream, const iaMatrix<T> &m);
+	IgorAux_API iaConsole &operator<<(iaConsole &console, const iaMatrix<T> &m);
 
 #include <iaux/math/iaMatrix.inl>
 

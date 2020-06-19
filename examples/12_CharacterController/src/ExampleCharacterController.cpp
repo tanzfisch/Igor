@@ -71,7 +71,7 @@ void ExampleCharacterController::createBox(const iaVector3d& pos)
 
 void ExampleCharacterController::init()
 {
-    con(" -- Example character Controller --" << endl);
+    con_endl(" -- Example character Controller --");
     iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &ExampleCharacterController::onHandle));
 
     // setup window

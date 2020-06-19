@@ -129,69 +129,127 @@ namespace iaux
 
     void iaConsole::exit()
     {
+        printTombstone();
+
+        *this << endlTab << iaForegroundColor::DarkRed << "Sorry Igor could not recover from that. Please feel free to send" << endlTab;
+        *this << iaForegroundColor::DarkRed << "me the error log so I can improve Igor for you!" << endlTab;
+        *this << iaForegroundColor::White << "Martin Loga (igorgameengine@protonmail.com)" << endl;
+
 #ifdef __IGOR_WINDOWS__
         __debugbreak();
 #endif
         std::exit(EXIT_FAILURE);
     }
 
-    void iaConsole::setLogLevel(LogLevel logLevel)
+    void iaConsole::setLogLevel(iaLogLevel logLevel)
     {
+        _logLevel = iaLogLevel::Info;
+        con_info("log level is " << logLevel);
         _logLevel = logLevel;
     }
 
-    LogLevel iaConsole::getLogLevel() const
+    iaConsole& operator<<(iaConsole& console, const iaLogLevel& logLevel)
+    {
+        const static iaString text[] = {
+        "Fatal",
+        "Error",
+        "Warning",
+        "Info",
+        "DebugInfo",
+        "Debug",
+        "Trace" };
+
+        console << text[static_cast<int>(logLevel)].getData();
+        return console;
+    }
+
+    iaLogLevel iaConsole::getLogLevel() const
     {
         return _logLevel;
     }
 
     void iaConsole::printTombstone()
     {
-        *this << endl;
-        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "     .-------." << endl;
-        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "   .'         `." << endl;
-        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "   |  " << iaForegroundColor::White << "R  I  P" << iaForegroundColor::Gray << "  |" << endl;
-        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "   |           |" << endl;
-        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "   |           |" << endl;
-        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "   | " << iaForegroundColor::Blue << "@" << iaForegroundColor::Gray << "         |" << endl;
-        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << " " << iaForegroundColor::Green << "\\" << iaForegroundColor::Gray << " |" << iaForegroundColor::Green << "//       \\" << iaForegroundColor::Gray << " |" << iaForegroundColor::Green << "/" << endl;
-        *this << iaForegroundColor::DarkGreen << __IGOR_LOGGING_TAB__ << "^^^^^^^^^^^^^^^^^^^" << endl;
+        *this << endlTab;
+        *this << iaForegroundColor::Gray << "     .-------." << endlTab;
+        *this << iaForegroundColor::Gray << "   .'         `." << endlTab;
+        *this << iaForegroundColor::Gray << "   |  " << iaForegroundColor::White << "R  I  P" << iaForegroundColor::Gray << "  |" << endlTab;
+        *this << iaForegroundColor::Gray << "   |           |" << endlTab;
+        *this << iaForegroundColor::Gray << "   |           |" << endlTab;
+        *this << iaForegroundColor::Gray << "   | " << iaForegroundColor::Blue << "@" << iaForegroundColor::Gray << "         |" << endlTab;
+        *this << iaForegroundColor::Green << " \\" << iaForegroundColor::Gray << " |" << iaForegroundColor::Green << "//       \\" << iaForegroundColor::Gray << " |" << iaForegroundColor::Green << "/" << endlTab;
+        *this << iaForegroundColor::DarkGreen << "^^^^^^^^^^^^^^^^^^^" << endl;
     }
 
     void iaConsole::printCake()
     {
-        *this << endl;
-        *this << iaForegroundColor::Yellow << __IGOR_LOGGING_TAB__ << "    , , ,    " << endl;
-        *this << iaForegroundColor::White << __IGOR_LOGGING_TAB__ << "    " << iaForegroundColor::Red << "|" << iaForegroundColor::White << "_" << iaForegroundColor::Red << "|" << iaForegroundColor::White << "_" << iaForegroundColor::Red << "|" << iaForegroundColor::White << "   HAPPY" << endl;
-        *this << iaForegroundColor::White << __IGOR_LOGGING_TAB__ << "   {~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~} " << endl;
-        *this << iaForegroundColor::White << __IGOR_LOGGING_TAB__ << "   {~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~}  BIRTHDAY" << endl;
-        *this << iaForegroundColor::White << __IGOR_LOGGING_TAB__ << "  {~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~}" << endl;
-        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "__" << iaForegroundColor::White << "{~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~}" << iaForegroundColor::Gray << "__" << iaForegroundColor::White << "   IGOR" << endl;
-        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "\\___________/" << endl
-              << endl;
+        *this << endlTab;
+        *this << iaForegroundColor::Yellow << "    , , ,    " << endlTab;
+        *this << iaForegroundColor::White << "    " << iaForegroundColor::Red << "|" << iaForegroundColor::White << "_" << iaForegroundColor::Red << "|" << iaForegroundColor::White << "_" << iaForegroundColor::Red << "|" << iaForegroundColor::White << "   HAPPY" << endlTab;
+        *this << iaForegroundColor::White << "   {~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~} " << endlTab;
+        *this << iaForegroundColor::White << "   {~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~}  BIRTHDAY" << endlTab;
+        *this << iaForegroundColor::White << "  {~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~}" << endlTab;
+        *this << iaForegroundColor::Gray << "__" << iaForegroundColor::White << "{~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~}" << iaForegroundColor::Gray << "__" << iaForegroundColor::White << "   IGOR" << endlTab;
+        *this << iaForegroundColor::Gray << "\\___________/" << endlTab << endl;
     }
 
     void iaConsole::printCallStack(uint32 maxDepth)
     {
         std::vector<iaString> callStack;
         getCallStack(callStack);
-
-        if (_streamToLogfile && _file.is_open())
+        bool skip = true;
+        for (int i = 1; i < callStack.size(); ++i)
         {
-            _file << std::endl;
-        }
-
-        for (unsigned int i = 1; i < callStack.size() && i < maxDepth; i++)
-        {
-
-            *this << __IGOR_LOGGING_TAB__ << callStack[i];
-            std::cout << std::endl;
-
-            if (_streamToLogfile && _file.is_open())
+            *this << callStack[i];
+            if (i != callStack.size() - 1)
             {
-                _file << std::endl;
+                *this << endlTab;
             }
         }
+    }
+
+    void iaConsole::printHead(iaLogLevel logLevel)
+    {
+        iaForegroundColor color;
+        iaString tag;
+
+        switch (logLevel)
+        {
+        case iaLogLevel::Fatal:
+            color = iaForegroundColor::Red;
+            tag = " FATAL ";
+            break;
+
+        case iaLogLevel::Error:
+            color = iaForegroundColor::Red;
+            tag = " ERROR ";
+            break;
+
+        case iaLogLevel::Warning:
+            color = iaForegroundColor::Yellow;
+            tag = "WARNING";
+            break;
+
+        case iaLogLevel::Info:
+            color = iaForegroundColor::Cyan;
+            tag = " INFO  ";
+            break;
+
+        case iaLogLevel::DebugInfo:
+        case iaLogLevel::Debug:
+            color = iaForegroundColor::White;
+            tag = " DEBUG ";
+            break;
+
+        case iaLogLevel::Trace:
+            color = iaForegroundColor::Magenta;
+            tag = " TRACE ";
+            break;
+        }
+
+        *this << iaForegroundColor::White << "IGOR " << iaForegroundColor::Gray
+              << applicationTime << printThreadID << iaForegroundColor::White
+              << "[" << color << tag << iaForegroundColor::White << "] ";
     }
 
     void iaConsole::lock()
@@ -246,11 +304,9 @@ namespace iaux
 
     void iaConsole::printStats()
     {
-        iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID << iaForegroundColor::Red << "Errors: " << _errors << iaForegroundColor::Yellow << " Warnings: " << _warnings << endl;
-        if (_streamToLogfile && _file.is_open())
-        {
-            _file << "Errors: " << _errors << " Warnings: " << _warnings << endl;
-        }
+        *this << LOCK;
+        printHead(iaLogLevel::Info);
+        *this << iaForegroundColor::Red << "Errors: " << _errors << iaForegroundColor::Yellow << " Warnings: " << _warnings << endl;
         iaConsole::getInstance() << UNLOCK;
     }
 

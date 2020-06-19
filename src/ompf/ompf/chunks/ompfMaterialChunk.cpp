@@ -121,30 +121,31 @@ namespace OMPF
 
     void ompfMaterialChunk::printInfo()
     {
-        con_debug_endl("---------------------------------------------------");
-        con_debug_endl("ompfMaterialChunk " << getName());
-        con_debug_endl("materialName " << _materialName);
-        con_debug_endl("shader count " << _shaders.size());
+        con_debug_endl("---------------------------------------------------" << endlTab
+            << "ompfMaterialChunk: " << getName() << endlTab
+            << "materialName: " << _materialName << endlTab
+            << "shader count: " << _shaders.size());
 
-        auto iterShader = _shaders.begin();
-        while (iterShader != _shaders.end())
+        for(auto shader : _shaders)
         {
-            con_debug_endl("shader " << ((*iterShader)._filename));
-            iterShader++;
+            con_debug_endl("shader: " << shader._filename);
         }
 
         con_debug_endl("render states count " << _renderStateSetCount);
-        con_debug("render states ");
+        iaString renderStates;
         for (int i = 0; i < _renderStateSetCount; ++i)
         {
-            con_debug(_renderStates[i]);
+            renderStates += "0x";
+            renderStates += iaString::toString((uint32)_renderStates[i], 16);
+            con_debug_endl(renderStates);
 
             if (i < _renderStateSetCount - 1)
             {
-                con_debug(", ");
+                renderStates += ", ";
             }
+            con_debug_endl(renderStates);
         }
-        con_debug_endl("");
+        con_debug_endl("render states " << renderStates);
     }
 
     uint32 ompfMaterialChunk::getSize(const ompfSettings &settings)

@@ -50,7 +50,7 @@ LSystems::~LSystems()
 
 void LSystems::init()
 {
-	con(" -- 3D Example --" << endl);
+	con_endl(" -- 3D Example --");
 
 	// setup window
 	_window.setTitle("Igor - LSystems");

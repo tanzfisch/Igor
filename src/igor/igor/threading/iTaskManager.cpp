@@ -22,13 +22,7 @@ namespace igor
     {
         iTaskManager::_running = true;
 
-        int32 numThreads = 4;
-
-#ifdef __IGOR_WNIDOWS__
-        SYSTEM_INFO sysinfo;
-        GetSystemInfo(&sysinfo);
-        numThreads = sysinfo.dwNumberOfProcessors;
-#endif
+        int32 numThreads = std::max(4u, std::thread::hardware_concurrency());
         for (int i = 0; i < numThreads; ++i)
         {
             createThread();
@@ -408,7 +402,7 @@ namespace igor
 
             if (taskTodo != nullptr)
             {
-                taskTodo->setWorld(static_cast<iThread*>(thread)->getWorld());
+                taskTodo->setWorld(static_cast<iThread *>(thread)->getWorld());
                 taskTodo->run();
                 taskTodo->finishTask();
 

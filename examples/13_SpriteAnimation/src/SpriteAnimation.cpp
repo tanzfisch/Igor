@@ -45,7 +45,6 @@ void SpriteAnimation::init()
 {
 	// some console output
 	con_endl(" -- Sprite Animation Example --");
-	con_endl("");
 
 	// define the window as we want it
 	_window.setTitle("Sprite Animation Example");

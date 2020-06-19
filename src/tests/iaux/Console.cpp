@@ -9,13 +9,13 @@ TEST(ConsoleTests, StartStop)
 
     EXPECT_EQ(iaConsole::getInstance().getErrors(), 0);
     EXPECT_EQ(iaConsole::getInstance().getWarnings(), 0);
-    EXPECT_EQ(iaConsole::getInstance().getLogLevel(), LogLevel::DebugInfo);
+    EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::DebugInfo);
 
     shutdown();
 
     EXPECT_EQ(iaConsole::getInstance().getErrors(), 0);
     EXPECT_EQ(iaConsole::getInstance().getWarnings(), 0);
-    EXPECT_EQ(iaConsole::getInstance().getLogLevel(), LogLevel::DebugInfo);
+    EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::DebugInfo);
 }
 
 TEST(ConsoleTests, ErrorAndWarnings)
@@ -27,7 +27,7 @@ TEST(ConsoleTests, ErrorAndWarnings)
 
     EXPECT_EQ(iaConsole::getInstance().getErrors(), 1);
     EXPECT_EQ(iaConsole::getInstance().getWarnings(), 1);
-    EXPECT_EQ(iaConsole::getInstance().getLogLevel(), LogLevel::DebugInfo);
+    EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::DebugInfo);
 
     shutdown();
 }
@@ -36,20 +36,20 @@ TEST(ConsoleTests, SupressWarning)
 {
     startup();
 
-    iaConsole::getInstance().setLogLevel(LogLevel::Error);
+    iaConsole::getInstance().setLogLevel(iaLogLevel::Error);
 
     con_err("some error");
     con_warn("some warning");
 
     EXPECT_EQ(iaConsole::getInstance().getErrors(), 1);
     EXPECT_EQ(iaConsole::getInstance().getWarnings(), 0);
-    EXPECT_EQ(iaConsole::getInstance().getLogLevel(), LogLevel::Error);
+    EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::Error);
 
     shutdown();
 
     EXPECT_EQ(iaConsole::getInstance().getErrors(), 0);
     EXPECT_EQ(iaConsole::getInstance().getWarnings(), 0);
-    EXPECT_EQ(iaConsole::getInstance().getLogLevel(), LogLevel::DebugInfo);
+    EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::DebugInfo);
 }
 
 TEST(ConsoleTests, TestColors)
@@ -75,5 +75,5 @@ TEST(ConsoleTests, TestColors)
 
     EXPECT_EQ(iaConsole::getInstance().getErrors(), 0);
     EXPECT_EQ(iaConsole::getInstance().getWarnings(), 0);
-    EXPECT_EQ(iaConsole::getInstance().getLogLevel(), LogLevel::DebugInfo);
+    EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::DebugInfo);
 }

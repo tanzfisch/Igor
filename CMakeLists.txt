@@ -32,48 +32,54 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
-# Set a default build type if none was specified
-set(default_build_type "Release")
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
-  set(default_build_type "RelWithDebInfo")
-endif()
-
-if(NOT CMAKE_BUILD_TYPE)
-  message(
-    STATUS
-      "Setting build type to '${default_build_type}' as none was specified.")
-  set(CMAKE_BUILD_TYPE
-      "${default_build_type}"
-      CACHE STRING "Choose the type of build." FORCE)
-  # Set the possible values of build type for cmake-gui
-  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release"
-                                               "RelWithDebInfo")
-endif()
-
-if(${CMAKE_BUILD_TYPE} STREQUAL "RelWithDebInfo")
-  add_definitions(-DRELWITHDEBINFO)
-endif()
-
 # global compiler/linker settings
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   message(STATUS "using GCC")
-  add_compile_options(-fpermissive -std=c++17)
-  add_definitions(-D_NEWTON_USE_DOUBLE -D_cplusplus=201703L)
+  set(COMPILER "GCC")
+elseif(MSVC_VERSION GREATER_EQUAL "1920") # which ever version supports c++17
+                                          # filesystem
+  message(STATUS "using Visual Studio C++")
+  set(COMPILER "MSVCXX")
+elseif()
+  message(FATAL_ERROR "unsupported environment")
+endif()
+
+if(${COMPILER} STREQUAL "GCC")
+  # Set a default build type if none was specified
+  set(default_build_type "Release")
+  if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
+    set(default_build_type "RelWithDebInfo")
+  endif()
+
+  if(NOT CMAKE_BUILD_TYPE)
+    message(
+      STATUS
+        "Setting build type to '${default_build_type}' as none was specified.")
+    set(CMAKE_BUILD_TYPE
+        "${default_build_type}"
+        CACHE STRING "Choose the type of build." FORCE)
+    # Set the possible values of build type for cmake-gui
+    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release"
+                                                 "RelWithDebInfo")
+  endif()
+
+  if(${CMAKE_BUILD_TYPE} STREQUAL "RelWithDebInfo")
+    add_definitions(-DRELWITHDEBINFO)
+  endif()
+
   if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
     add_definitions(-DDEBUG)
   elseif()
     add_definitions(-DNDEBUG)
   endif()
-  set(COMPILER "GCC")
 
-elseif(MSVC_VERSION GREATER_EQUAL "1920") # which ever version supports c++17
-                                          # filesystem
-  message(STATUS "using Visual Studio C++")
+  add_compile_options(-fpermissive -std=c++17)
+  add_definitions(-D_NEWTON_USE_DOUBLE -D_cplusplus=201703L)
+endif()
+
+if(${COMPILER} STREQUAL "MSVCXX")
   add_compile_options("/std:c++17" "/MP" "/W2")
   add_definitions(-D_UNICODE -DUNICODE -DNOMINMAX -D_NEWTON_USE_DOUBLE)
-  set(COMPILER "MSVCXX")
-elseif()
-  message(FATAL_ERROR "unsupported environment")
 endif()
 
 # OpenGL
@@ -519,11 +525,11 @@ if(IS_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-src")
 
   # Now simply link your own targets against gtest, gmock, etc. as appropriate
   if(${COMPILER} STREQUAL "GCC")
-    target_link_libraries(iauxTest iaux gtest pthread)  
+    target_link_libraries(iauxTest iaux gtest pthread)
   elseif(${COMPILER} STREQUAL "MSVCXX")
     target_link_libraries(iauxTest iaux gtest)
-  endif()  
-  
+  endif()
+
   add_test(AllTestsInIgorAux iauxTest)
 
   set_property(TARGET iauxTest PROPERTY FOLDER ${TESTING_FOLDER})
