@@ -69,7 +69,7 @@ Ascent::~Ascent()
 void Ascent::registerHandles()
 {
     iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &Ascent::onKeyDown));
-    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &Ascent::onKeyReleased));
+    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &Ascent::onKeyUp));
     iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &Ascent::onMouseDown));
     iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &Ascent::onMouseUp));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &Ascent::onMouseWheel));
@@ -93,7 +93,7 @@ void Ascent::unregisterHandles()
     iMouse::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &Ascent::onMouseUp));
     iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &Ascent::onMouseWheel));
 
-    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &Ascent::onKeyReleased));
+    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &Ascent::onKeyUp));
     iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &Ascent::onKeyDown));
 }
 
@@ -783,7 +783,7 @@ void Ascent::dig(iaVector3I position, uint64 toolSize, uint8 density)
     new DigEffect(_scene, effectMatrix);
 }
 
-void Ascent::onKeyReleased(iKeyCode key)
+void Ascent::onKeyUp(iKeyCode key)
 {
     if (_activeControls)
     {

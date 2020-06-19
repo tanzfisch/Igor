@@ -58,7 +58,7 @@ void KeyboardExample::onKeyDown(iKeyCode key)
 	ExampleBase::onKeyDown(key);
 }
 
-void KeyboardExample::onKeyReleased(iKeyCode key)
+void KeyboardExample::onKeyUp(iKeyCode key)
 {
 	// check in which output mode we are
 	if (_outputSwitch)
@@ -84,5 +84,5 @@ void KeyboardExample::onKeyReleased(iKeyCode key)
 	}
 
 	// call base class to inherit the default behaviour
-	ExampleBase::onKeyReleased(key);
+	ExampleBase::onKeyUp(key);
 }

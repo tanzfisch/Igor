@@ -112,7 +112,7 @@ private:
     void dig(iaVector3I position, uint64 toolSize, uint8 toolDensity);
 
     void onKeyDown(iKeyCode key);
-    void onKeyReleased(iKeyCode key);
+    void onKeyUp(iKeyCode key);
 
     void onWindowClosed();
     void onWindowResized(int32 clientWidth, int32 clientHeight);

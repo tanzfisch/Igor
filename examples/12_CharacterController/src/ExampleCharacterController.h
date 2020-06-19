@@ -26,41 +26,22 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __EXAMPLE3D__
-#define __EXAMPLE3D__
+#ifndef __EXAMPLE_CHARACTER_CONTROLLER_H__
+#define __EXAMPLE_CHARACTER_CONTROLLER_H__
 
-#include <igor/igor.h>
-#include <igor/system/iWindow.h>
-#include <igor/graphics/iView.h>
-#include <igor/system/iTimerHandle.h>
-#include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/resources/profiler/iProfilerVisualizer.h>
-using namespace igor;
-
-#include <iaux/math/iaMatrix.h>
-using namespace iaux;
-
-namespace igor
-{
-    class iScene;
-    class iNodeTransform;
-    class iNodeLight;
-    class iNodeSwitch;
-    class iTextureFont;
-    class iTaskFlushModels;
-    class iTaskFlushTextures;
-    class iNodeLODTrigger;
-    class iNodeLODSwitch;
-    class iNodeModel;
-    class iPhysicsBody;
-    class iPhysicsJoint;
-    class iTexture;
-} // namespace igor
+#include <ExampleBase.h>
 
 #include "CharacterController.h"
 
-class ExampleCharacterController
+#include <igor/resources/material/iMaterial.h>
+using namespace igor;
+
+namespace igor
+{
+    class iPhysicsBody;
+} // namespace igor
+
+class ExampleCharacterController : public ExampleBase
 {
 
 public:
@@ -68,15 +49,13 @@ public:
     */
     ExampleCharacterController();
 
-    /*! deinit
+    /*! does nothing
     */
-    virtual ~ExampleCharacterController();
-
-    /*! run example
-    */
-    void run();
+    ~ExampleCharacterController() = default;
 
 private:
+    /*! character input flags
+    */
     struct InputFlags
     {
         bool _forward = false;
@@ -96,41 +75,38 @@ private:
     */
     bool _captureMouse = true;
 
+    /*! character input flags
+    */
     InputFlags _inputFlags;
 
-    /*! the window
+    /*! material definition for the sky box
     */
-    iWindow _window;
+    iMaterialID _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
 
-    /*! visualizes statistics
+    /*! the character controller
     */
-    iProfilerVisualizer _profilerVisualizer;
+    CharacterController *_characterController = nullptr;
 
-    /*! the view we render 3D to
+    /*! physics material for terrain
     */
-    iView _view;
+    iPhysicsMaterialID _terrainMaterialID = 0;
 
-    /*! the view we render 2D to
+    /*! physics material for entity / character
     */
-    iView _viewOrtho;
+    iPhysicsMaterialID _entityMaterialID = 0;
 
-    /*! the scene holding our 3d nodes
+    /*! physics material for bullet
     */
-    iScene *_scene = nullptr;
+    iPhysicsMaterialID _bulletMaterialID = 0;
 
-    /*! async loading of models
+    /*! handles initializing the level after the models where loaded
     */
-    uint64 _taskFlushModels = iTask::INVALID_TASK_ID;
-
-    /*! async loading of textures
-    */
-    uint64 _taskFlushTextures = iTask::INVALID_TASK_ID;
-
-    /*! texture fon we use to render statistics
-    */
-    iTextureFont *_font = nullptr;
-
     void onModelReady(uint64 modelNodeID);
+
+    /*! recursively creates collisions for all meshes in giben sub scene
+
+    \param node the current node in sub scene
+    */
     void makeCollisions(iNodePtr node);
 
     /*! creates a physics box at given position
@@ -139,50 +115,28 @@ private:
     */
     void createBox(const iaVector3d &pos);
 
-    /*! material definition for the sky box
+    /*! applies force and torque to moveable boxes in scene
+
+    \param body the body affected
+    \param timestep the physics time
     */
-    uint64 _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
-
-    CharacterController *_characterController = nullptr;
-
-    /*! material for igor logo
-    */
-    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
-
-    /*! igor logo
-    */
-    iTexturePtr _igorLogo = nullptr;
-
-    int64 _terrainMaterialID = 0;
-    int64 _entityMaterialID = 0;
-    int64 _bulletMaterialID = 0;
+    void onApplyForceAndTorqueBox(iPhysicsBody *body, float32 timestep);
 
     /*! called on key pressed event
 
     \param key the key code of the pressed key
     */
-    void onKeyDown(iKeyCode key);
+    void onKeyDown(iKeyCode key) override;
 
     /*! called on key released event
 
     \param key the key that was released
     */
-    void onKeyReleased(iKeyCode key);
+    void onKeyUp(iKeyCode key) override;
 
     /*! handle called once per frame
     */
-    void onHandle();
-
-    /*! called when window was closed
-    */
-    void onWindowClosed();
-
-    /*! called when window was resized
-
-    \param clientWidth the client rectangle width
-    \param clientHeight the client rectangle height
-    */
-    void onWindowResized(int32 clientWidth, int32 clientHeight);
+    void onPreDraw() override;
 
     /*! called when the mouse was moved
 
@@ -190,39 +144,37 @@ private:
     \param to current mouse position
     \param window the window the coordinates are related to
     */
-    void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window);
+    void onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window) override;
 
     /*! called when mouse wheel was turned
 
     \param d mouse wheel delta
     */
-    void onMouseWheel(int32 d);
+    void onMouseWheel(int32 d) override;
 
     /*! handles mouse key down events
 
 	\param keyCode the key code of the pressed button
 	*/
-    void onMouseKeyDown(iKeyCode keyCode);
+    void onMouseKeyDown(iKeyCode keyCode) override;
 
-    void onMouseKeyUp(iKeyCode keyCode);
+    /*! handles mouse key up events
+
+	\param keyCode the key code of the released button
+	*/
+    void onMouseKeyUp(iKeyCode keyCode) override;
 
     /*! called by orthogonal view
     */
-    void onRenderOrtho();
-
-    /*! draw igor logo
-    */
-    void drawLogo();
+    void onRenderOrtho() override;
 
     /*! deinit example
     */
-    void deinit();
+    void deinit() override;
 
     /*! init example
     */
-    void init();
-
-    void onApplyForceAndTorqueBox(iPhysicsBody *body, float32 timestep);
+    void init() override;
 };
 
-#endif
+#endif // __EXAMPLE_CHARACTER_CONTROLLER_H__

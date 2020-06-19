@@ -113,7 +113,7 @@ ExampleBase::ExampleBase(const iaString &name, bool createBaseSetup, bool create
 
         // register some callbacks
         iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &ExampleBase::onKeyDown));
-        iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &ExampleBase::onKeyReleased));
+        iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &ExampleBase::onKeyUp));
         iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ExampleBase::onMouseKeyDown));
         iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ExampleBase::onMouseKeyUp));
         iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ExampleBase::onMouseMovedFull));
@@ -129,7 +129,7 @@ ExampleBase::~ExampleBase()
     {
         // unregister callbacks
         iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &ExampleBase::onKeyDown));
-        iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &ExampleBase::onKeyReleased));
+        iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &ExampleBase::onKeyUp));
         iMouse::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ExampleBase::onMouseKeyDown));
         iMouse::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ExampleBase::onMouseKeyUp));
         iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ExampleBase::onMouseMovedFull));
@@ -207,7 +207,7 @@ void ExampleBase::onMouseKeyUp(iKeyCode key)
 {
 }
 
-void ExampleBase::onKeyReleased(iKeyCode key)
+void ExampleBase::onKeyUp(iKeyCode key)
 {
 }
 

@@ -61,7 +61,7 @@ private:
 
     \param key the keycode of the released key
     */
-    void onKeyReleased(iKeyCode key) override;
+    void onKeyUp(iKeyCode key) override;
 
     /*! called on ascii input
 

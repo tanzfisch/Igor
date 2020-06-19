@@ -118,7 +118,7 @@ protected:
 
     \param key the keycode of the released key
     */
-    virtual void onKeyReleased(iKeyCode key);
+    virtual void onKeyUp(iKeyCode key);
 
     /*! called when any mouse key was pressed
 
