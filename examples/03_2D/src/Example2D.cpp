@@ -24,44 +24,12 @@ using namespace igor;
 #include <sstream>
 
 Example2D::Example2D()
+	: ExampleBase(L"2D Interfaces")
 {
-	init();
-}
-
-Example2D::~Example2D()
-{
-	deinit();
 }
 
 void Example2D::init()
 {
-	// some console output
-	con_endl(" -- Rendering 2D Example --");
-
-	// define the window as we want it
-	_window.setTitle("Rendering 2D Example");
-	_window.setClientSize(1024, 768);
-	_window.setCentered();
-	// register calback to window close event so we can shutdown the application propperly
-	_window.registerWindowCloseDelegate(WindowCloseDelegate(this, &Example2D::onWindowClosed));
-	// register callback to window resize event so we can adopt the view to resolution
-	_window.registerWindowResizeDelegate(WindowResizeDelegate(this, &Example2D::onWindowResize));
-
-	// define a view
-	// switch of the clear color step because we will use a tiled background so there is no need to clear the framebuffer every frame
-	_view.setClearColor(false);
-	// set up an orthogonal projection with the dimensions of the windows client rectangle
-	// the client rectangle is the size of the actual rendering area
-	_view.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
-	// register callback to the rendering event of this view
-	_view.registerRenderDelegate(iDrawDelegate(this, &Example2D::onRender));
-	// add the view to the window
-	_window.addView(&_view);
-
-	// open the window after you added the view to prevent a warning message that there was no view defined.
-	// but it is also allowed to add views after the window was already opened
-	_window.open();
-
 	// load the background tile texture
 	_backgroundTexture = iTextureResourceFactory::getInstance().loadFile("WidgetThemePattern.png");
 
@@ -146,30 +114,12 @@ void Example2D::init()
 	// load requested textures
 	iTextureResourceFactory::getInstance().flush();
 
-	// register callback to application handle event. the application handle event will be called every frame just before the rendering
-	iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &Example2D::onHandle));
-	// register callback to esc key pressed event
-	iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownSpecificDelegate(this, &Example2D::onKeyESCPressed), iKeyCode::ESC);
-	// register callback to mosue moved event
-	iMouse::getInstance().registerMouseMoveDelegate(iMouseMoveDelegate(this, &Example2D::onMouseMove));
-
-	// load an other texture with the Igor Logo
-	_igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
-
 	// generate a random seed
 	_rand.setSeed(static_cast<uint32>(iaTime::now().getMicrosenconds()));
 }
 
 void Example2D::deinit()
 {
-	// unregister some callbacks. otherwhise you will be reminded of callbacks that where not released
-	iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &Example2D::onHandle));
-	iMouse::getInstance().unregisterMouseMoveDelegate(iMouseMoveDelegate(this, &Example2D::onMouseMove));
-	iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownSpecificDelegate(this, &Example2D::onKeyESCPressed), iKeyCode::ESC);
-
-	// unregister the rendering callback. if not you will get a warning message because your shutdown was not complete
-	_view.unregisterRenderDelegate(iDrawDelegate(this, &Example2D::onRender));
-
 	// release materials (optional)
 	iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
 	_materialWithTextureAndBlending = 0;
@@ -194,49 +144,20 @@ void Example2D::deinit()
 	_particleTexture = nullptr;
 	_backgroundTexture = nullptr;
 	_dummyTexture = nullptr;
-	_igorLogo = nullptr;
 
 	// tell texture manager to flush and actually release textures
 	iTextureResourceFactory::getInstance().flush();
-
-	// close the window, release callback and remove the view. if not you will get various reminders that you should
-	_window.close();
-	_window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Example2D::onWindowClosed));
-	_window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Example2D::onWindowResize));
-	_window.removeView(&_view);
 }
 
-void Example2D::onMouseMove(const iaVector2i &position)
+void Example2D::onMouseMoved(const iaVector2i &pos)
 {
 	// save mouse position for later
-	_lastMousePos.set(static_cast<float32>(position._x), static_cast<float32>(position._y));
+	_lastMousePos.set(static_cast<float32>(pos._x), static_cast<float32>(pos._y));
+
+	ExampleBase::onMouseMoved(pos);
 }
 
-void Example2D::run()
-{
-	// calls the applications endless loop
-	iApplication::getInstance().run();
-}
-
-void Example2D::onWindowClosed()
-{
-	// breaks the applications endless loop
-	iApplication::getInstance().stop();
-}
-
-void Example2D::onWindowResize(int32 clientWidth, int32 clientHeight)
-{
-	// to keep pixel coordinates
-	_view.setOrthogonal(0.0f, static_cast<float32>(clientWidth), static_cast<float32>(clientHeight), 0.0f);
-}
-
-void Example2D::onKeyESCPressed()
-{
-	// breaks the applications endless loop
-	iApplication::getInstance().stop();
-}
-
-void Example2D::onHandle()
+void Example2D::onPreDraw()
 {
 	// moves the logo towards the mouse position
 	_logoPosition += (_lastMousePos - _logoPosition) * 0.01f;
@@ -262,7 +183,7 @@ void Example2D::updateParticles()
 	_particleSystem.handle();
 }
 
-void Example2D::onRender()
+void Example2D::onRenderOrtho()
 {
 	// since the model matrix is by default an identity matrix which would cause all our 2d rendering end up at depth zero
 	// and the near clipping plane of our frustum can't be zero we have to push the scene a bit away from zero (e.g. -30 just a random number with no meaning)
@@ -274,7 +195,7 @@ void Example2D::onRender()
 	// set a textured material and draw the tiles texture as background
 	iRenderer::getInstance().setMaterial(_materialWithTexture);
 	iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-	iRenderer::getInstance().drawTextureTiled(0.0f, 0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), _backgroundTexture);
+	iRenderer::getInstance().drawTextureTiled(0.0f, 0.0f, static_cast<float32>(getWindow().getClientWidth()), static_cast<float32>(getWindow().getClientHeight()), _backgroundTexture);
 
 	// set non textured material and draw some primitves
 	iRenderer::getInstance().setMaterial(_materialWithoutDepthTest);
@@ -312,10 +233,15 @@ void Example2D::onRender()
 	// draw the particles
 	iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 0.5));
 	iRenderer::getInstance().bindTexture(_particleTexture, 0);
-	iRenderer::getInstance().drawParticles(-10.0f, static_cast<float32>(_window.getClientHeight() - 150), 0.0f, _particleSystem.getParticles(), _particleSystem.getParticleCount(), &_rainbow);
+	iRenderer::getInstance().drawParticles(-10.0f, static_cast<float32>(getWindow().getClientHeight() - 150), 0.0f,
+										   _particleSystem.getParticles(), _particleSystem.getParticleCount(), &_rainbow);
 
 	// draw some text from wikipedia
-	iaString wikipediaOpenGL = "OpenGL (Open Graphics Library) ist eine Spezifikation fuer eine plattform- und programmiersprachenunabhaengige Programmierschnittstelle zur Entwicklung von 2D- und 3D-Computergrafik. Der OpenGL-Standard beschreibt etwa 250 Befehle, die die Darstellung komplexer 3D-Szenen in Echtzeit erlauben. Zudem koennen andere Organisationen (zumeist Hersteller von Grafikkarten) proprietaere Erweiterungen definieren. Wikipedia";
+	iaString wikipediaOpenGL = "OpenGL (Open Graphics Library) ist eine Spezifikation fuer eine plattform- und programmiersprachenunabhaengige "
+							   "Programmierschnittstelle zur Entwicklung von 2D- und 3D-Computergrafik. Der OpenGL-Standard beschreibt etwa 250 "
+							   "Befehle, die die Darstellung komplexer 3D-Szenen in Echtzeit erlauben. Zudem koennen andere Organisationen "
+							   "(zumeist Hersteller von Grafikkarten) proprietaere Erweiterungen definieren. Wikipedia";
+
 	iRenderer::getInstance().setFont(_font);
 	iRenderer::getInstance().setFontSize(15.0f);
 	iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
@@ -331,7 +257,7 @@ void Example2D::onRender()
 
 	// draw random graph in the upper right corner
 	iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
-	iRenderer::getInstance().drawRectangle(static_cast<float32>(_window.getClientWidth() - 260), 10.0f, 250.0f, 150.0f);
+	iRenderer::getInstance().drawRectangle(static_cast<float32>(getWindow().getClientWidth() - 260), 10.0f, 250.0f, 150.0f);
 
 	static float32 offset = 0.0f;
 	iRenderer::getInstance().setLineWidth(1);
@@ -341,27 +267,14 @@ void Example2D::onRender()
 	for (int x = 1; x < 250; ++x)
 	{
 		float64 value = _perlinNoise.getValue((offset + x) * 0.01, 6) * 150;
-		iRenderer::getInstance().drawLine(static_cast<float32>(_window.getClientWidth() - 260 + x - 1), static_cast<float32>(10 + lastValue), static_cast<float32>(_window.getClientWidth() - 260 + x), static_cast<float32>(10 + value));
+		iRenderer::getInstance().drawLine(static_cast<float32>(getWindow().getClientWidth() - 260 + x - 1),
+										  static_cast<float32>(10 + lastValue),
+										  static_cast<float32>(getWindow().getClientWidth() - 260 + x),
+										  static_cast<float32>(10 + value));
 		lastValue = value;
 	}
 
 	offset += 1.0f;
 
-	drawLogo();
-
-	// draw frame rate in lower right corner
-	_profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
-}
-
-void Example2D::drawLogo()
-{
-	iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-	iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-
-	float32 width = static_cast<float32>(_igorLogo->getWidth());
-	float32 height = static_cast<float32>(_igorLogo->getHeight());
-	float32 x = static_cast<float32>(_window.getClientWidth()) - width;
-	float32 y = static_cast<float32>(_window.getClientHeight()) - height;
-
-	iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
+	ExampleBase::onRenderOrtho();
 }

@@ -273,16 +273,6 @@ void ExampleBase::run()
     deinit();
 }
 
-void ExampleBase::onPreDraw()
-{
-    // nothing to do
-}
-
-void ExampleBase::onPostDraw()
-{
-    // nothing to do
-}
-
 const iaString &ExampleBase::getName() const
 {
     return _name;
@@ -300,6 +290,14 @@ void ExampleBase::onCloseWindow()
     // stop the application of the window was closed.
     // because once the window is closed we loose the keyboard input and we have to close the console manually (with e.g. Ctrl+C)
     iApplication::getInstance().stop();
+}
+
+void ExampleBase::onPreDraw()
+{
+}
+
+void ExampleBase::onPostDraw()
+{
 }
 
 void ExampleBase::onRenderOrtho()

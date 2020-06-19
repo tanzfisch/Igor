@@ -96,6 +96,10 @@ protected:
     */
     virtual void onPostDraw();
 
+    /*! called by orthogonal view
+    */
+    virtual void onRenderOrtho();
+
     /*! called on key pressed event
 
     \param key the key code of the pressed key
@@ -193,10 +197,6 @@ private:
     /*! material for igor logo
     */
     iMaterialID _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
-
-    /*! called by orthogonal view
-    */
-    void onRenderOrtho();
 
     /*! draw igor logo
     */
