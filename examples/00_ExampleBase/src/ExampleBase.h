@@ -67,6 +67,10 @@ public:
     */
     iView &getView();
 
+    /*! \retruns the example's orthogonal view
+    */
+    iView &getViewOrtho();
+
     /*! \returns the examples scene
     */
     iScenePtr getScene();

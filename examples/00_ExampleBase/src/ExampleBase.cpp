@@ -252,6 +252,11 @@ iView &ExampleBase::getView()
     return _view;
 }
 
+iView &ExampleBase::getViewOrtho()
+{
+    return _viewOrtho;
+}
+
 iScenePtr ExampleBase::getScene()
 {
     return _scene;

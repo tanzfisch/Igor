@@ -73,7 +73,7 @@ private:
 
     /*! flat to control weather or not the mouse stays trapped
     */
-    bool _captureMouse = true;
+    bool _captureMouse = false;
 
     /*! character input flags
     */
