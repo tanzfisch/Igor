@@ -26,39 +26,23 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __OPENGL3DEXAMPLE__
-#define __OPENGL3DEXAMPLE__
+#ifndef __OPENGL3D_EXAMPLE_H__
+#define __OPENGL3D_EXAMPLE_H__
 
-#include <igor/igor.h>
-#include <igor/system/iWindow.h>
-#include <igor/graphics/iView.h>
+#include <ExampleBase.h>
+
 #include <igor/system/iTimerHandle.h>
-#include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/system/iKeyboard.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/resources/profiler/iProfilerVisualizer.h>
 using namespace igor;
-
-#include <iaux/math/iaMatrix.h>
-using namespace iaux;
 
 namespace igor
 {
-    class iScene;
     class iNodeTransform;
-    class iNodeLight;
-    class iTextureFont;
-    class iEntity;
-    class iTaskFlushModels;
-    class iTaskFlushTextures;
     class iPhysicsBody;
-    class iPhysicsJoint;
-    class iTexture;
 } // namespace igor
 
 /*! physics example
 */
-class PhysicsExample
+class PhysicsExample : public ExampleBase
 {
 
 public:
@@ -66,50 +50,14 @@ public:
     */
     PhysicsExample();
 
-    /*! deinit
+    /*! does nothing
     */
-    virtual ~PhysicsExample();
-
-    /*! run example
-    */
-    void run();
+    ~PhysicsExample() = default;
 
 private:
-    /*! the window
-    */
-    iWindow _window;
-
-    /*! visualizes statistics
-    */
-    iProfilerVisualizer _profilerVisualizer;
-
-    /*! view to render the scene with
-    */
-    iView _view;
-
-    /*! ortogonal view to render statistics with
-    */
-    iView _viewOrtho;
-
     /*! controls wether the physics simulation is running or not
     */
     bool _running = false;
-
-    /*! handle for the flush model task
-    */
-    uint64 _flushModelsTask = iTask::INVALID_TASK_ID;
-
-    /*! handle for the flush textures task
-    */
-    uint64 _flushTexturesTask = iTask::INVALID_TASK_ID;
-
-    /*! font handle for statistics
-    */
-    iTextureFont *_font = nullptr;
-
-    /*! the scene
-    */
-    iScene *_scene = nullptr;
 
     /*! camera heading transform
     */
@@ -127,18 +75,6 @@ private:
     */
     std::vector<uint64> _bodyIDs;
 
-    /*! sky box material ID
-    */
-    uint64 _materialSkyBox = 0;
-
-    /*! material for igor logo
-    */
-    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
-
-    /*! igor logo
-    */
-    iTexturePtr _igorLogo = nullptr;
-
     /*! physics callback to apply force and torque to the physics bodies
 
     \param body the body affected
@@ -146,49 +82,37 @@ private:
     */
     void onApplyForceAndTorque(iPhysicsBody *body, float32 timestep);
 
-    /*! handle keyboard events
-
-    \param key the key pressed
-    */
-    void onKeyDown(iKeyCode key);
-
-    /*! handles window close evnt
-    */
-    void onWindowClosed();
-
     /*! handles mouse moved event
 
     \param from last mouse position
     \param to current mouse position
     \param window the window the coordinates are related to
     */
-    void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window);
+    void onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window) override;
 
     /*! handles mouse wheel event
 
     \param d mouse wheel delta
     */
-    void onMouseWheel(int32 d);
+    void onMouseWheel(int32 d) override;
 
     /*! initialize scene
     */
-    void init();
+    void init() override;
 
     /*! clean up scene
     */
-    void deinit();
-
-    /*! run scene handle
-    */
-    void onHandle();
+    void deinit() override;
 
     /*! renders orthogonal stuff
     */
-    void onRenderOrtho();
+    void onRenderOrtho() override;
 
-    /*! renders igor logo
+    /*! handle keyboard events
+
+    \param key the key pressed
     */
-    void drawLogo();
+    void onKeyDown(iKeyCode key) override;
 };
 
-#endif
+#endif // __OPENGL3D_EXAMPLE_H__
