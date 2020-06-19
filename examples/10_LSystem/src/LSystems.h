@@ -26,39 +26,21 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __LSYSTEMS__
-#define __LSYSTEMS__
+#ifndef __LSYSTEMS_EXAMPLE_H__
+#define __LSYSTEMS_EXAMPLE_H__
 
-#include <igor/igor.h>
-#include <igor/system/iWindow.h>
-#include <igor/graphics/iView.h>
+#include <ExampleBase.h>
+
 #include <igor/system/iTimerHandle.h>
-#include <igor/resources/model/iModelResourceFactory.h>
 #include <igor/generation/iLSystem.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/resources/texture/iTexture.h>
-#include <igor/data/iSkeleton.h>
-#include <igor/resources/profiler/iProfilerVisualizer.h>
 using namespace igor;
 
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
 
-namespace igor
-{
-    class iScene;
-    class iNodeTransform;
-    class iNodeLight;
-    class iNodeSwitch;
-    class iTextureFont;
-    class iTaskFlushModels;
-    class iNodeModel;
-    class iTexture;
-} // namespace igor
-
 /*! the LSystems example class
 */
-class LSystems
+class LSystems : public ExampleBase
 {
 
 public:
@@ -66,47 +48,11 @@ public:
     */
     LSystems();
 
-    /*! deinit
+    /*! does nothing
     */
-    virtual ~LSystems();
-
-    /*! run example
-    */
-    void run();
+    ~LSystems() = default;
 
 private:
-    /*! the window
-    */
-    iWindow _window;
-
-    /*! the view we render 3D to
-    */
-    iView _view;
-
-    /*! visualize statistics
-    */
-    iProfilerVisualizer _profilerVisualizer;
-
-    /*! the view we render 2D to
-    */
-    iView _viewOrtho;
-
-    /*! id of flush model task
-    */
-    uint64 _flushModelsTask = iTask::INVALID_TASK_ID;
-
-    /*! id of flush textures task
-    */
-    uint64 _flushTexturesTask = iTask::INVALID_TASK_ID;
-
-    /*! the scene holding our 3d nodes
-    */
-    iScene *_scene = nullptr;
-
-    /*! texture fon we use to render statistics
-    */
-    iTextureFont *_font = nullptr;
-
     /*! id to transform node used for manipulating the heading of the camera
     */
     uint64 _cameraHeading = iNode::INVALID_NODE_ID;
@@ -171,14 +117,6 @@ private:
     */
     uint64 _groupNodeID = iNode::INVALID_NODE_ID;
 
-    /*! material for igor logo
-    */
-    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
-
-    /*! igor logo
-    */
-    iTexturePtr _igorLogo = nullptr;
-
     /*! \returns true if all plants are done creating
     */
     bool checkIfDone();
@@ -209,52 +147,33 @@ private:
     */
     uint64 generatePlant(const iaMatrixd &matrix, const iaString &axiom, uint32 iterations, uint64 seed);
 
-    /*! called on key pressed event
-
-    \param key the key code of the pressed key
-    */
-    void onKeyDown(iKeyCode key);
-
-    /*! called when window was closed
-    */
-    void onWindowClosed();
-
-    /*! called when window was resized
-
-    \param clientWidth the client rectangle width
-    \param clientHeight the client rectangle height
-    */
-    void onWindowResized(int32 clientWidth, int32 clientHeight);
-
     /*! called when the mouse was moved
 
     \param from last mouse position
     \param to current mouse position
     \param window the window the coordinates are related to
     */
-    void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window);
+    void onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window) override;
 
     /*! called when mouse wheel was turned
 
     \param d mouse wheel delta
     */
-    void onMouseWheel(int32 d);
-
-    /*! called by orthogonal view
-    */
-    void onRenderOrtho();
-
-    /*! draw igor logo
-    */
-    void drawLogo();
+    void onMouseWheel(int32 d) override;
 
     /*! deinit example
     */
-    void deinit();
+    void deinit() override;
 
     /*! init example
     */
-    void init();
+    void init() override;
+
+    /*! called on key pressed event
+
+    \param key the key code of the pressed key
+    */
+    void onKeyDown(iKeyCode key) override;
 };
 
-#endif
+#endif // __LSYSTEMS_EXAMPLE_H__
