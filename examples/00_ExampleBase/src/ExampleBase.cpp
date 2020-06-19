@@ -264,6 +264,7 @@ iMaterialID ExampleBase::getFontMaterial() const
 
 void ExampleBase::onWindowResized(int32 clientWidth, int32 clientHeight)
 {
+    // update the the view port projection matrix so the widget manager desktop will fit on screen
     _viewOrtho.setOrthogonal(0.0, static_cast<float32>(clientWidth), static_cast<float32>(clientHeight), 0.0);
 }
 

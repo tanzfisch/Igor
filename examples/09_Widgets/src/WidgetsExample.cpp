@@ -6,11 +6,11 @@
 
 #include <igor/graphics/iRenderer.h>
 #include <igor/system/iApplication.h>
-#include <igor/system/iMouse.h>
-#include <igor/resources/texture/iTextureFont.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/ui/iWidgetManager.h>
+#include <igor/ui/actions/iAction.h>
+#include <igor/ui/actions/iActionManager.h>
 #include <igor/ui/dialogs/iDialog.h>
+#include <igor/ui/theme/iWidgetDefaultTheme.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>
 #include <igor/ui/widgets/iWidgetGroupBox.h>
@@ -21,67 +21,20 @@
 #include <igor/ui/widgets/iWidgetPicture.h>
 #include <igor/ui/widgets/iWidgetScroll.h>
 #include <igor/ui/widgets/iWidgetSelectBox.h>
-#include <igor/ui/theme/iWidgetDefaultTheme.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/resources/profiler/iProfiler.h>
 #include <igor/ui/widgets/iWidgetGraph.h>
 #include <igor/ui/widgets/iWidgetColor.h>
 #include <igor/ui/widgets/iWidgetColorGradient.h>
 #include <igor/ui/widgets/iWidgetMenuBar.h>
 #include <igor/ui/widgets/iWidgetMenu.h>
-#include <igor/ui/actions/iAction.h>
-#include <igor/ui/actions/iActionManager.h>
 using namespace igor;
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
 WidgetsExample::WidgetsExample()
+    : ExampleBase("Widgets")
 {
-    init();
-}
-
-WidgetsExample::~WidgetsExample()
-{
-    deinit();
-}
-
-void WidgetsExample::init()
-{
-    con_endl(" -- Widget Example --");
-
-    // register our render function to the view with the ortho projection
-    _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &WidgetsExample::onRender));
-
-    // init window with the orthogonal projected view
-    _window.addView(&_viewOrtho);
-    // set window size
-    _window.setClientSize(1024, 768);
-    // place window centered on screen
-    _window.setCentered();
-    // register to window close event so we can shut down the application properly
-    _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &WidgetsExample::onWindowClosed));
-    // register to window resize event so we can notify the widget manager of that change
-    _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &WidgetsExample::onWindowResize));
-    // opens the window
-    _window.open();
-
-    // set up font for FPS display
-    _font = new iTextureFont("StandardFont.png");
-
-    // prepare igor logo
-    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
-    _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial("TextureAndBlending");
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-
-    // initialize the GUI
-    initGUI();
-
-    // register to mouse move event
-    iMouse::getInstance().registerMouseMoveDelegate(iMouseMoveDelegate(this, &WidgetsExample::onMouseMove));
 }
 
 void WidgetsExample::onCloseDialog(iDialogPtr dialog)
@@ -110,7 +63,7 @@ void WidgetsExample::onActionThree()
     con_endl("action three");
 }
 
-void WidgetsExample::initGUI()
+void WidgetsExample::init()
 {
     // create a theme and set it up. in this case the build in default theme
     _widgetDefaultTheme = new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png");
@@ -389,42 +342,19 @@ void WidgetsExample::initGUI()
     grid3->addWidget(radio1, 0, 4);
     grid3->addWidget(radio2, 1, 4);
     grid3->addWidget(radio3, 2, 4);
+
+    // update desktop size
+    iWidgetManager::getInstance().setDesktopDimensions(getWindow().getClientWidth(), getWindow().getClientHeight());
 }
 
 void WidgetsExample::deinit()
 {
-    _igorLogo = nullptr;
-
-    iMouse::getInstance().unregisterMouseMoveDelegate(iMouseMoveDelegate(this, &WidgetsExample::onMouseMove));
-
-    iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
-
-    if (_font)
-    {
-        delete _font;
-        _font = nullptr;
-    }
-
-    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &WidgetsExample::onRender));
-
     iWidgetManager::getInstance().setTheme(nullptr);
     delete _widgetDefaultTheme;
     _widgetDefaultTheme = nullptr;
-
-    _window.close();
-    _window.removeView(&_viewOrtho);
 }
 
-void WidgetsExample::onWindowResize(int32 clientWidth, int32 clientHeight)
-{
-    // update the widget managers desktop dimensions
-    iWidgetManager::getInstance().setDesktopDimensions(_window.getClientWidth(), _window.getClientHeight());
-
-    // update the the view port projection matrix so the widget manager desktop will fit on screen
-    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
-}
-
-void WidgetsExample::onMouseMove(const iaVector2i &pos)
+void WidgetsExample::onMouseMoved(const iaVector2i &pos)
 {
     // updates a label with current mouse position
     if (_labelMousePos != nullptr)
@@ -436,6 +366,8 @@ void WidgetsExample::onMouseMove(const iaVector2i &pos)
 
         _labelMousePos->setText(text);
     }
+
+    ExampleBase::onMouseMoved(pos);
 }
 
 void WidgetsExample::onOpenColorChooser(const iWidgetPtr source)
@@ -535,15 +467,15 @@ void WidgetsExample::onExitClick(const iWidgetPtr source)
     iApplication::getInstance().stop();
 }
 
-void WidgetsExample::onWindowClosed()
+void WidgetsExample::onWindowResized(int32 clientWidth, int32 clientHeight)
 {
-    // shut down application
-    // closing the window alone will not shut down the application
-    // because it's a console application and the windows come on top
-    iApplication::getInstance().stop();
+    // update the widget managers desktop dimensions
+    iWidgetManager::getInstance().setDesktopDimensions(getWindow().getClientWidth(), getWindow().getClientHeight());
+
+    ExampleBase::onWindowResized(clientWidth, clientHeight);
 }
 
-void WidgetsExample::onRender()
+void WidgetsExample::onRenderOrtho()
 {
     // initialize view matrix with identity matrix
     iaMatrixd identity;
@@ -558,28 +490,5 @@ void WidgetsExample::onRender()
     // tell the widget manager to draw the widgets
     iWidgetManager::getInstance().draw();
 
-    // draw Igor Logo
-    drawLogo();
-
-    // draw some render statistics
-    _profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
-}
-
-void WidgetsExample::drawLogo()
-{
-    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-
-    float32 width = static_cast<float32>(_igorLogo->getWidth());
-    float32 height = static_cast<float32>(_igorLogo->getHeight());
-    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
-    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
-
-    iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
-}
-
-void WidgetsExample::run()
-{
-    // call application main loop. will not stop until application was shut down
-    iApplication::getInstance().run();
+    ExampleBase::onRenderOrtho();
 }

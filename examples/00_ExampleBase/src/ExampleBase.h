@@ -157,6 +157,13 @@ protected:
     */
     virtual void onMouseWheel(int32 d);
 
+    /*! called when window was resized
+
+    \param clientWidth the client rectangle width
+    \param clientHeight the client rectangle height
+    */
+    virtual void onWindowResized(int32 clientWidth, int32 clientHeight);
+
 private:
     /*! the window that receives the input messages
     */
@@ -213,13 +220,6 @@ private:
     /*! called when window got closed
     */
     void onCloseWindow();
-
-    /*! called when window was resized
-
-    \param clientWidth the client rectangle width
-    \param clientHeight the client rectangle height
-    */
-    void onWindowResized(int32 clientWidth, int32 clientHeight);
 };
 
 #endif // __EXAMPLEBASE_H__
