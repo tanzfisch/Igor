@@ -49,7 +49,7 @@ class ExampleBase
 public:
     /*! init example
     */
-    ExampleBase(const iaString &name, bool createBaseSetup = true);
+    ExampleBase(const iaString &name, bool createBaseSetup = true, bool createSkyBox = true);
 
     /*! release resources
     */
@@ -70,6 +70,14 @@ public:
     /*! \returns the examples scene
     */
     iScenePtr getScene();
+
+    /*! \returns font
+    */
+    iTextureFontPtr getFont() const;
+
+    /*! \returns font material
+    */
+    iMaterialID getFontMaterial() const;
 
     /*! run example
     */
@@ -104,7 +112,7 @@ protected:
 
     \param key the key code of the pressed key
     */
-    virtual void onKeyPressed(iKeyCode key);
+    virtual void onKeyDown(iKeyCode key);
 
     /*! called when key was released
 

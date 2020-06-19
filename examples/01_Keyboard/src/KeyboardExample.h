@@ -55,7 +55,7 @@ private:
 
     \param key the keycode of the pressed key
     */
-    void onKeyPressed(iKeyCode key) override;
+    void onKeyDown(iKeyCode key) override;
 
     /*! called when key was released
 

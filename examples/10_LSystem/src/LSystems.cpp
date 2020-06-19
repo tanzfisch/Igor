@@ -137,7 +137,7 @@ void LSystems::init()
 	_profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
 
 	// register some callbacks
-	iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &LSystems::onKeyPressed));
+	iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &LSystems::onKeyDown));
 	iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &LSystems::onMouseMoved));
 	iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &LSystems::onMouseWheel));
 
@@ -161,7 +161,7 @@ void LSystems::init()
 void LSystems::deinit()
 {
 	// unregister some callbacks
-	iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &LSystems::onKeyPressed));
+	iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &LSystems::onKeyDown));
 	iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &LSystems::onMouseMoved));
 	iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &LSystems::onMouseWheel));
 	_window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &LSystems::onWindowClosed));
@@ -436,7 +436,7 @@ void LSystems::onWindowResized(int32 clientWidth, int32 clientHeight)
 	_viewOrtho.setOrthogonal(0.0f, static_cast<float32>(clientWidth), static_cast<float32>(clientHeight), 0.0f);
 }
 
-void LSystems::onKeyPressed(iKeyCode key)
+void LSystems::onKeyDown(iKeyCode key)
 {
 	switch (key)
 	{

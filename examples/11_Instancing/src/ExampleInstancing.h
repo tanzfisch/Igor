@@ -141,7 +141,7 @@ private:
 
     \param key the key code of the pressed key
     */
-    void onKeyPressed(iKeyCode key);
+    void onKeyDown(iKeyCode key);
 
     /*! called when window was closed
     */

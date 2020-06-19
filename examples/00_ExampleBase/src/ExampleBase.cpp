@@ -23,7 +23,7 @@ using namespace igor;
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
 
-ExampleBase::ExampleBase(const iaString &name, bool createBaseSetup)
+ExampleBase::ExampleBase(const iaString &name, bool createBaseSetup, bool createSkyBox)
     : _name(name)
 {
     con_info("starting example \"" << _name << "\"");
@@ -74,27 +74,30 @@ ExampleBase::ExampleBase(const iaString &name, bool createBaseSetup)
         // setup profiler visualisation
         _profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
 
-        // create a skybox
-        iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
-        // set it up with the default skybox texture
-        skyBoxNode->setTextures(
-            iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
-            iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
-            iTextureResourceFactory::getInstance().requestFile("skybox_default/left.png"),
-            iTextureResourceFactory::getInstance().requestFile("skybox_default/right.png"),
-            iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
-            iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
-        // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-        _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
-        auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox);
-        material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-        material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-        material->setOrder(iMaterial::RENDER_ORDER_MIN);
-        material->setName("SkyBox");
-        // set that material
-        skyBoxNode->setMaterial(_materialSkyBox);
-        // and add it to the scene
-        getScene()->getRoot()->insertNode(skyBoxNode);
+        if (createSkyBox)
+        {
+            // create a skybox
+            iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
+            // set it up with the default skybox texture
+            skyBoxNode->setTextures(
+                iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
+                iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
+                iTextureResourceFactory::getInstance().requestFile("skybox_default/left.png"),
+                iTextureResourceFactory::getInstance().requestFile("skybox_default/right.png"),
+                iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
+                iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
+            // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
+            _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
+            auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox);
+            material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+            material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+            material->setOrder(iMaterial::RENDER_ORDER_MIN);
+            material->setName("SkyBox");
+            // set that material
+            skyBoxNode->setMaterial(_materialSkyBox);
+            // and add it to the scene
+            getScene()->getRoot()->insertNode(skyBoxNode);
+        }
 
         // init font for render profiler
         _font = new iTextureFont("StandardFont.png");
@@ -102,14 +105,14 @@ ExampleBase::ExampleBase(const iaString &name, bool createBaseSetup)
         // prepare igor logo
         _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
         _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
-        material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
+        auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
         material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
         material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
         material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
         material->setName("LogoMaterial");
 
         // register some callbacks
-        iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &ExampleBase::onKeyPressed));
+        iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &ExampleBase::onKeyDown));
         iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &ExampleBase::onKeyReleased));
         iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ExampleBase::onMouseKeyDown));
         iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ExampleBase::onMouseKeyUp));
@@ -125,7 +128,7 @@ ExampleBase::~ExampleBase()
     if (_window.isOpen())
     {
         // unregister callbacks
-        iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &ExampleBase::onKeyPressed));
+        iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &ExampleBase::onKeyDown));
         iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &ExampleBase::onKeyReleased));
         iMouse::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ExampleBase::onMouseKeyDown));
         iMouse::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ExampleBase::onMouseKeyUp));
@@ -135,7 +138,10 @@ ExampleBase::~ExampleBase()
         iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &ExampleBase::onMouseWheel));
 
         // destroy materials
-        iMaterialResourceFactory::getInstance().destroyMaterial(_materialSkyBox);
+        if (_materialSkyBox != iMaterial::INVALID_MATERIAL_ID)
+        {
+            iMaterialResourceFactory::getInstance().destroyMaterial(_materialSkyBox);
+        }
         iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
 
         // clear scene by destoying it
@@ -172,6 +178,11 @@ ExampleBase::~ExampleBase()
     con_info("stopped example \"" << _name << "\"");
 }
 
+iTextureFontPtr ExampleBase::getFont() const
+{
+    return _font;
+}
+
 void ExampleBase::onMouseMoved(const iaVector2i &pos)
 {
 }
@@ -200,7 +211,7 @@ void ExampleBase::onKeyReleased(iKeyCode key)
 {
 }
 
-void ExampleBase::onKeyPressed(iKeyCode key)
+void ExampleBase::onKeyDown(iKeyCode key)
 {
     switch (key)
     {
@@ -244,6 +255,11 @@ iView &ExampleBase::getView()
 iScenePtr ExampleBase::getScene()
 {
     return _scene;
+}
+
+iMaterialID ExampleBase::getFontMaterial() const
+{
+    return _materialWithTextureAndBlending;
 }
 
 void ExampleBase::onWindowResized(int32 clientWidth, int32 clientHeight)

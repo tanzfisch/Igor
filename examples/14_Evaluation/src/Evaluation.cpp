@@ -174,7 +174,7 @@ void Evaluation::init()
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
     // register some callbacks
-    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &Evaluation::onKeyPressed));
+    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &Evaluation::onKeyDown));
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Evaluation::onMouseMoved));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &Evaluation::onMouseWheel));
 }
@@ -258,7 +258,7 @@ void Evaluation::createDirectionalLight()
 void Evaluation::deinit()
 {
     // unregister some callbacks
-    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &Evaluation::onKeyPressed));
+    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &Evaluation::onKeyDown));
     iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Evaluation::onMouseMoved));
     iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &Evaluation::onMouseWheel));
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Evaluation::onWindowClosed));
@@ -335,7 +335,7 @@ void Evaluation::onWindowResized(int32 clientWidth, int32 clientHeight)
     _viewOrtho.setOrthogonal(0.0, static_cast<float32>(clientWidth), static_cast<float32>(clientHeight), 0.0);
 }
 
-void Evaluation::onKeyPressed(iKeyCode key)
+void Evaluation::onKeyDown(iKeyCode key)
 {
     switch (key)
     {

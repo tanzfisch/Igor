@@ -49,19 +49,19 @@ ExampleCharacterController::~ExampleCharacterController()
     deinit();
 }
 
-void ExampleCharacterController::createBox(const iaVector3d& pos)
+void ExampleCharacterController::createBox(const iaVector3d &pos)
 {
-    iNodePhysics* physicsBox = iNodeManager::getInstance().createNode<iNodePhysics>();
+    iNodePhysics *physicsBox = iNodeManager::getInstance().createNode<iNodePhysics>();
     physicsBox->addBox(1, 1, 1, iaMatrixd());
     physicsBox->setMass(10);
     physicsBox->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &ExampleCharacterController::onApplyForceAndTorqueBox));
     physicsBox->setMaterial(_entityMaterialID);
     physicsBox->finalizeCollision();
 
-    iNodeTransform* transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeTransform *transformNode = iNodeManager::getInstance().createNode<iNodeTransform>();
     transformNode->translate(pos);
 
-    iNodeModel* crate = iNodeManager::getInstance().createNode<iNodeModel>();
+    iNodeModel *crate = iNodeManager::getInstance().createNode<iNodeModel>();
     crate->setModel("cube.ompf");
     transformNode->insertNode(crate);
     transformNode->insertNode(physicsBox);
@@ -224,7 +224,7 @@ void ExampleCharacterController::init()
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
     // register some callbacks
-    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &ExampleCharacterController::onKeyPressed));
+    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &ExampleCharacterController::onKeyDown));
     iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &ExampleCharacterController::onKeyReleased));
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ExampleCharacterController::onMouseMoved));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &ExampleCharacterController::onMouseWheel));
@@ -249,7 +249,7 @@ void ExampleCharacterController::makeCollisions(iNodePtr node)
         iaMatrixd matrix;
         meshNode->calcWorldTransformation(matrix);
 
-        iNodePhysics* physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();
+        iNodePhysics *physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();
         physicsNode->addMesh(meshNode->getMesh(), 0, iaMatrixd());
         physicsNode->finalizeCollision();
         physicsNode->setMass(0);
@@ -263,7 +263,7 @@ void ExampleCharacterController::makeCollisions(iNodePtr node)
     }
 }
 
-void ExampleCharacterController::onKeyPressed(iKeyCode key)
+void ExampleCharacterController::onKeyDown(iKeyCode key)
 {
     switch (key)
     {
@@ -470,7 +470,7 @@ void ExampleCharacterController::deinit()
     }
 
     // unregister some callbacks
-    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &ExampleCharacterController::onKeyPressed));
+    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &ExampleCharacterController::onKeyDown));
     iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &ExampleCharacterController::onKeyReleased));
     iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ExampleCharacterController::onMouseMoved));
     iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &ExampleCharacterController::onMouseWheel));

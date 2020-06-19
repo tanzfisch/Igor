@@ -31,11 +31,7 @@
 
 #include <ExampleBase.h>
 
-#include <igor/igor.h>
-#include <igor/system/iWindow.h>
 #include <igor/system/iTimerHandle.h>
-#include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/resources/material/iMaterial.h>
 using namespace igor;
 
 namespace igor
@@ -89,7 +85,7 @@ private:
 
     /*! timer handle to control the movement of the light source over time
     */
-    iTimerHandle *_animationTimingHandle = nullptr;
+    iTimerHandlePtr _animationTimingHandle = nullptr;
 
     /*! id to crate model node
     */
@@ -127,7 +123,7 @@ private:
 
     \param key the key code of the pressed key
     */
-    void onKeyPressed(iKeyCode key) override;
+    void onKeyDown(iKeyCode key) override;
 
     /*! called when the mouse was moved
 

@@ -76,9 +76,6 @@ void Example2D::init()
 	_rainbow.setValue(0.8f, iaColor4f(1.0f, 1.0f, 0.0f, 0.8f));
 	_rainbow.setValue(1.0f, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
 
-	// load a texture font
-	_font = new iTextureFont("StandardFont.png");
-
 	// load a texture as a sprite
 	// sprites are basically textures that have some additional meta data that help you to place and orientate them
 	_openGLLogo = new iAtlas(iTextureResourceFactory::getInstance().loadFile("OpenGL-Logo.jpg"));
@@ -133,12 +130,6 @@ void Example2D::deinit()
 	{
 		delete _openGLLogo;
 		_openGLLogo = nullptr;
-	}
-
-	if (_font != nullptr)
-	{
-		delete _font;
-		_font = nullptr;
 	}
 
 	_particleTexture = nullptr;
@@ -242,7 +233,7 @@ void Example2D::onRenderOrtho()
 							   "Befehle, die die Darstellung komplexer 3D-Szenen in Echtzeit erlauben. Zudem koennen andere Organisationen "
 							   "(zumeist Hersteller von Grafikkarten) proprietaere Erweiterungen definieren. Wikipedia";
 
-	iRenderer::getInstance().setFont(_font);
+	iRenderer::getInstance().setFont(getFont());
 	iRenderer::getInstance().setFontSize(15.0f);
 	iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
 	iRenderer::getInstance().drawString(600, 100, wikipediaOpenGL, -30, 400);

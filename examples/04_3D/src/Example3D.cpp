@@ -258,7 +258,7 @@ void Example3D::onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, i
     ExampleBase::onMouseMovedFull(from, to, window);
 }
 
-void Example3D::onKeyPressed(iKeyCode key)
+void Example3D::onKeyDown(iKeyCode key)
 {
     switch (key)
     {
@@ -290,7 +290,7 @@ void Example3D::onKeyPressed(iKeyCode key)
     break;
     }
 
-    ExampleBase::onKeyPressed(key);
+    ExampleBase::onKeyDown(key);
 }
 
 void Example3D::onTimer()

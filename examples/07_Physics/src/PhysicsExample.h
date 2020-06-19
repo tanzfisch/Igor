@@ -11,20 +11,20 @@
 //                                           (_(       \)
 //    (c) Copyright 2014-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: igorgameengine@protonmail.com  
+//
+// contact: igorgameengine@protonmail.com
 
 #ifndef __OPENGL3DEXAMPLE__
 #define __OPENGL3DEXAMPLE__
@@ -44,8 +44,8 @@ using namespace iaux;
 
 namespace igor
 {
-	class iScene;
-	class iNodeTransform;
+    class iScene;
+    class iNodeTransform;
     class iNodeLight;
     class iTextureFont;
     class iEntity;
@@ -54,7 +54,7 @@ namespace igor
     class iPhysicsBody;
     class iPhysicsJoint;
     class iTexture;
-}
+} // namespace igor
 
 /*! physics example
 */
@@ -62,7 +62,6 @@ class PhysicsExample
 {
 
 public:
-
     /*! init
     */
     PhysicsExample();
@@ -76,10 +75,9 @@ public:
     void run();
 
 private:
-
     /*! the window
     */
-	iWindow _window;
+    iWindow _window;
 
     /*! visualizes statistics
     */
@@ -87,7 +85,7 @@ private:
 
     /*! view to render the scene with
     */
-	iView _view;
+    iView _view;
 
     /*! ortogonal view to render statistics with
     */
@@ -107,23 +105,23 @@ private:
 
     /*! font handle for statistics
     */
-    iTextureFont* _font = nullptr;
+    iTextureFont *_font = nullptr;
 
     /*! the scene
     */
-	iScene* _scene = nullptr;
+    iScene *_scene = nullptr;
 
     /*! camera heading transform
     */
-	iNodeTransform* _cameraHeading = nullptr;
+    iNodeTransform *_cameraHeading = nullptr;
 
     /*! camera pitch transform
     */
-    iNodeTransform* _cameraPitch = nullptr;
+    iNodeTransform *_cameraPitch = nullptr;
 
     /*! camera distance to origin transform
     */
-    iNodeTransform* _cameraTranslation = nullptr;
+    iNodeTransform *_cameraTranslation = nullptr;
 
     /*! list of physics bodies create for later cleanup
     */
@@ -131,7 +129,7 @@ private:
 
     /*! sky box material ID
     */
-	uint64 _materialSkyBox = 0;
+    uint64 _materialSkyBox = 0;
 
     /*! material for igor logo
     */
@@ -146,17 +144,17 @@ private:
     \param body the body affected
     \param timestep the time passed
     */
-    void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep);
+    void onApplyForceAndTorque(iPhysicsBody *body, float32 timestep);
 
     /*! handle keyboard events
 
     \param key the key pressed
     */
-	void onKeyPressed(iKeyCode key);
+    void onKeyDown(iKeyCode key);
 
     /*! handles window close evnt
     */
-	void onWindowClosed();
+    void onWindowClosed();
 
     /*! handles mouse moved event
 
@@ -164,7 +162,7 @@ private:
     \param to current mouse position
     \param window the window the coordinates are related to
     */
-    void onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window);
+    void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window);
 
     /*! handles mouse wheel event
 
@@ -178,11 +176,11 @@ private:
 
     /*! clean up scene
     */
-	void deinit();
+    void deinit();
 
     /*! run scene handle
     */
-	void onHandle();
+    void onHandle();
 
     /*! renders orthogonal stuff
     */
@@ -191,7 +189,6 @@ private:
     /*! renders igor logo
     */
     void drawLogo();
-
 };
 
 #endif

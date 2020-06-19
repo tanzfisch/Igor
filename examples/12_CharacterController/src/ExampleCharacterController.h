@@ -77,7 +77,6 @@ public:
     void run();
 
 private:
-
     struct InputFlags
     {
         bool _forward = false;
@@ -138,7 +137,7 @@ private:
 
     \param pos the given position
     */
-    void createBox(const iaVector3d& pos);
+    void createBox(const iaVector3d &pos);
 
     /*! material definition for the sky box
     */
@@ -162,7 +161,7 @@ private:
 
     \param key the key code of the pressed key
     */
-    void onKeyPressed(iKeyCode key);
+    void onKeyDown(iKeyCode key);
 
     /*! called on key released event
 

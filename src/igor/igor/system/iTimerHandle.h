@@ -135,6 +135,10 @@ namespace igor
 		bool _playing = false;
 	};
 
+	/*! timer handle pointer definition
+	*/
+	typedef iTimerHandle *iTimerHandlePtr;
+
 }; // namespace igor
 
 #endif

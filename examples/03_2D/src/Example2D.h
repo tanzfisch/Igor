@@ -47,11 +47,6 @@ using namespace iaux;
 
 #include <memory>
 
-namespace igor
-{
-    class iTextureFont;
-} // namespace igor
-
 /*! rendering 2d example
 */
 class Example2D : public ExampleBase
@@ -99,10 +94,6 @@ private:
     /*! current position of renderer logo 
     */
     iaVector2f _logoPosition{200, 200};
-
-    /*! texture font
-    */
-    iTextureFont *_font = nullptr;
 
     /*! background tileable texture
     */

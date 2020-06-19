@@ -43,7 +43,7 @@ PhysicsExample::~PhysicsExample()
 void PhysicsExample::init()
 {
     // register keyboard and mouse events
-    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &PhysicsExample::onKeyPressed));
+    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &PhysicsExample::onKeyDown));
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &PhysicsExample::onMouseMoved));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &PhysicsExample::onMouseWheel));
     iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &PhysicsExample::onHandle));
@@ -241,7 +241,7 @@ void PhysicsExample::deinit()
 {
     iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &PhysicsExample::onMouseWheel));
     iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &PhysicsExample::onMouseMoved));
-    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &PhysicsExample::onKeyPressed));
+    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &PhysicsExample::onKeyDown));
     _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &PhysicsExample::onRenderOrtho));
     iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &PhysicsExample::onHandle));
 
@@ -325,7 +325,7 @@ void PhysicsExample::onWindowClosed()
     iApplication::getInstance().stop();
 }
 
-void PhysicsExample::onKeyPressed(iKeyCode key)
+void PhysicsExample::onKeyDown(iKeyCode key)
 {
     switch (key)
     {

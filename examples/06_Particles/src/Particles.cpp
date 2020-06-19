@@ -150,7 +150,7 @@ void Particles::init()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
 
     // register some callbacks
-    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &Particles::onKeyPressed));
+    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &Particles::onKeyDown));
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Particles::onMouseMoved));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &Particles::onMouseWheel));
 }
@@ -543,7 +543,7 @@ void Particles::createDotParticleSystem()
 void Particles::deinit()
 {
     // unregister some callbacks
-    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &Particles::onKeyPressed));
+    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &Particles::onKeyDown));
     iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Particles::onMouseMoved));
     iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &Particles::onMouseWheel));
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Particles::onWindowClosed));
@@ -623,7 +623,7 @@ void Particles::onWindowResized(int32 clientWidth, int32 clientHeight)
     _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(clientWidth), static_cast<float32>(clientHeight), 0);
 }
 
-void Particles::onKeyPressed(iKeyCode key)
+void Particles::onKeyDown(iKeyCode key)
 {
     switch (key)
     {

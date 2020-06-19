@@ -41,7 +41,7 @@ void KeyboardExample::onKeyASCIIInput(const char c)
 	}
 }
 
-void KeyboardExample::onKeyPressed(iKeyCode key)
+void KeyboardExample::onKeyDown(iKeyCode key)
 {
 	// check in which output mode we are
 	if (_outputSwitch)
@@ -51,7 +51,7 @@ void KeyboardExample::onKeyPressed(iKeyCode key)
 	}
 
 	// call base class to inherit the default behaviour
-	ExampleBase::onKeyPressed(key);
+	ExampleBase::onKeyDown(key);
 }
 
 void KeyboardExample::onKeyReleased(iKeyCode key)
