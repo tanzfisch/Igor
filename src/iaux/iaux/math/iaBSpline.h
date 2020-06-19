@@ -41,7 +41,8 @@ namespace iaux
 
 	\todo make it a template
 	*/
-	class IgorAux_API iaBSpline // non uniform B-Spline
+	template <class T>
+	class IgorAux_API_Template iaBSpline // non uniform B-Spline
 	{
 
 	public:
@@ -49,7 +50,7 @@ namespace iaux
 
 		\param point new point to add
 		*/
-		void addSupportPoint(const iaVector3f &point);
+		void addSupportPoint(const iaVector3<T> &point);
 
 		/*! clears list of support points
 		*/
@@ -69,22 +70,18 @@ namespace iaux
 
 		\param t position on spline 0.0-1.0
 		*/
-		iaVector3f getPointOnSpline(float32 t);
+		iaVector3<T> getPointOnSpline(T t);
 
 		/*! retruns points on the spline
 
 		\param[out] points the resulting points 
 		\param pointCount the amount of points to generate on the spline (min 2)
 		*/
-		void getPoints(std::vector<iaVector3f> &points, int32 pointCount);
+		void getPoints(std::vector<iaVector3<T>> &points, int32 pointCount);
 
 		/*! \returns list of support points
 		*/
-		const std::vector<iaVector3f> &getSupportPoints() const;
-
-		/*! \returns amount of support points
-		*/
-		const uint32 getSupportPointsCount() const;
+		const std::vector<iaVector3<T>> &getSupportPoints() const;
 
 		/*! overwrites value od specified support point.
 		No range check!
@@ -92,14 +89,14 @@ namespace iaux
 		\param point new position of support point
 		\param index index of support point to change
 		*/
-		void setSupportPoint(const iaVector3f &point, uint32 index);
+		void setSupportPoint(const iaVector3<T> &point, uint32 index);
 
-		/*! \returnds specified support point
+		/*! \returns specified support point
 		No range check!
 
 		\param index index of support point to return
 		*/
-		iaVector3f &getSupportPoint(uint32 index);
+		const iaVector3<T> &getSupportPoint(uint32 index) const;
 
 		/*! does nothing
 		*/
@@ -124,16 +121,26 @@ namespace iaux
 
 		/*! list of support points
 		*/
-		std::vector<iaVector3f> _supportpoints;
+		std::vector<iaVector3<T>> _supportpoints;
 
 		/*! calculates the actual point on the spline
 		*/
-		float32 calc(int32 k, float32 t, int32 i);
+		T calc(int32 k, T t, int32 i);
 
 		/*! internal calculation of look up table
 		*/
 		void prepareU();
 	};
+
+#include <iaux/math/iaBSpline.inl>
+
+	/*! float32 BSpline
+	*/
+	typedef iaBSpline<float32> iaBSplinef;
+
+	/*! float64 BSpline
+	*/
+	typedef iaBSpline<float64> iaBSplined;
 
 }; // namespace iaux
 
