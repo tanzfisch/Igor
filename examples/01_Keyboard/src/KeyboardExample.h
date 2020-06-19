@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __KEYBOARDEXAMPLE__
-#define __KEYBOARDEXAMPLE__
+#ifndef __KEYBOARDEXAMPLE_H__
+#define __KEYBOARDEXAMPLE_H__
 
 #include <ExampleBase.h>
 using namespace igor;
@@ -46,17 +46,7 @@ public:
     */
     ~KeyboardExample() = default;
 
-protected:
-    /*! initialize example
-    */
-    void init() override;
-
-    /*! deinitialize example
-    */
-    void deinit() override;
-
 private:
-
     /*! switches beween ascii output or single key output
     */
     bool _outputSwitch;
@@ -65,13 +55,13 @@ private:
 
     \param key the keycode of the pressed key
     */
-    void onKeyPressed(iKeyCode key);
+    void onKeyPressed(iKeyCode key) override;
 
     /*! called when key was released
 
     \param key the keycode of the released key
     */
-    void onKeyReleased(iKeyCode key);
+    void onKeyReleased(iKeyCode key) override;
 
     /*! called on ascii input
 
@@ -79,9 +69,13 @@ private:
     */
     void onKeyASCIIInput(char c);
 
-    /*! called when ESC key 
+    /*! initialize example
     */
-    void onKeyESCPressed();
+    void init() override;
+
+    /*! deinitialize example
+    */
+    void deinit() override;
 };
 
-#endif
+#endif // __KEYBOARDEXAMPLE_H__

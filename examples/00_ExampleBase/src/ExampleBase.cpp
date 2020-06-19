@@ -14,6 +14,7 @@
 #include <igor/scene/iSceneFactory.h>
 #include <igor/scene/traversal/iNodeVisitorPrintTree.h>
 #include <igor/system/iKeyboard.h>
+#include <igor/system/iMouse.h>
 #include <igor/scene/nodes/iNodeSkyBox.h>
 #include <igor/scene/nodes/iNodeManager.h>
 using namespace igor;
@@ -22,8 +23,8 @@ using namespace igor;
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
 
-ExampleBase::ExampleBase(const iaString& name, bool createBaseSetup)
-    :_name(name)
+ExampleBase::ExampleBase(const iaString &name, bool createBaseSetup)
+    : _name(name)
 {
     con_info("starting example \"" << _name << "\"");
 
@@ -62,7 +63,7 @@ ExampleBase::ExampleBase(const iaString& name, bool createBaseSetup)
         _viewOrtho.setOrthogonal(0.0, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0);
         _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));
         _window.addView(&_viewOrtho);
-        
+
         // and open the window
         _window.open();
 
@@ -74,7 +75,7 @@ ExampleBase::ExampleBase(const iaString& name, bool createBaseSetup)
         _profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
 
         // create a skybox
-        iNodeSkyBox* skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
+        iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
         // set it up with the default skybox texture
         skyBoxNode->setTextures(
             iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
@@ -107,9 +108,16 @@ ExampleBase::ExampleBase(const iaString& name, bool createBaseSetup)
         material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
         material->setName("LogoMaterial");
 
-        // register some callbacks 
+        // register some callbacks
         iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &ExampleBase::onKeyPressed));
-    }    
+        iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &ExampleBase::onKeyReleased));
+        iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ExampleBase::onMouseKeyDown));
+        iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ExampleBase::onMouseKeyUp));
+        iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ExampleBase::onMouseMovedFull));
+        iMouse::getInstance().registerMouseMoveDelegate(iMouseMoveDelegate(this, &ExampleBase::onMouseMoved));
+        iMouse::getInstance().registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate(this, &ExampleBase::onMouseDoubleClick));
+        iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &ExampleBase::onMouseWheel));
+    }
 }
 
 ExampleBase::~ExampleBase()
@@ -118,6 +126,13 @@ ExampleBase::~ExampleBase()
     {
         // unregister callbacks
         iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &ExampleBase::onKeyPressed));
+        iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &ExampleBase::onKeyReleased));
+        iMouse::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ExampleBase::onMouseKeyDown));
+        iMouse::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ExampleBase::onMouseKeyUp));
+        iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ExampleBase::onMouseMovedFull));
+        iMouse::getInstance().unregisterMouseMoveDelegate(iMouseMoveDelegate(this, &ExampleBase::onMouseMoved));
+        iMouse::getInstance().unregisterMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate(this, &ExampleBase::onMouseDoubleClick));
+        iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &ExampleBase::onMouseWheel));
 
         // destroy materials
         iMaterialResourceFactory::getInstance().destroyMaterial(_materialSkyBox);
@@ -157,6 +172,34 @@ ExampleBase::~ExampleBase()
     con_info("stopped example \"" << _name << "\"");
 }
 
+void ExampleBase::onMouseMoved(const iaVector2i &pos)
+{
+}
+
+void ExampleBase::onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window)
+{
+}
+
+void ExampleBase::onMouseDoubleClick(iKeyCode key)
+{
+}
+
+void ExampleBase::onMouseWheel(int32 d)
+{
+}
+
+void ExampleBase::onMouseKeyDown(iKeyCode key)
+{
+}
+
+void ExampleBase::onMouseKeyUp(iKeyCode key)
+{
+}
+
+void ExampleBase::onKeyReleased(iKeyCode key)
+{
+}
+
 void ExampleBase::onKeyPressed(iKeyCode key)
 {
     switch (key)
@@ -193,7 +236,7 @@ void ExampleBase::onKeyPressed(iKeyCode key)
     }
 }
 
-iView& ExampleBase::getView()
+iView &ExampleBase::getView()
 {
     return _view;
 }
@@ -240,12 +283,12 @@ void ExampleBase::onPostDraw()
     // nothing to do
 }
 
-const iaString& ExampleBase::getName() const
+const iaString &ExampleBase::getName() const
 {
     return _name;
 }
 
-iWindow& ExampleBase::getWindow()
+iWindow &ExampleBase::getWindow()
 {
     return _window;
 }

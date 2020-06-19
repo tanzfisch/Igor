@@ -26,88 +26,58 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __MOUSEEXAMPLE__
-#define __MOUSEEXAMPLE__
+#ifndef __MOUSEEXAMPLE_H__
+#define __MOUSEEXAMPLE_H__
+
+#include <ExampleBase.h>
+using namespace igor;
 
 #include <iaux/math/iaVector2.h>
 using namespace iaux;
 
-#include <igor/system/iWindow.h>
-using namespace igor;
-
-class MouseExample
+class MouseExample : public ExampleBase
 {
 
 public:
-    /*! run the example
-    */
-    void run();
-
     /*! init example
     */
     MouseExample();
 
-    /*! deinit example
+    /*! does nothing
     */
-    ~MouseExample();
+    ~MouseExample() = default;
 
 private:
-    /*! the window we need to receive io events
-    */
-    iWindow _window;
-
     /*! called when mouse was moved
     \param from last mouse position
     \param to current mouse position
     \param window the window the coordinates are related to
     */
-    void onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window);
+    void onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window) override;
 
     /*! called when any mouse key was pressed
 
     \pram key the key code of the key that was pressed
     */
-    void onMouseKeyDown(iKeyCode key);
+    void onMouseKeyDown(iKeyCode key) override;
 
     /*! called when any mouse key was released
 
     \param key the key code of the key that was pressed
     */
-    void onMouseKeyUp(iKeyCode key);
-
-    /*! called when any mouse key was released after if was presed
-
-    \param key the key code of the key that was clicked
-    */
-    void onMouseClick(iKeyCode key);
+    void onMouseKeyUp(iKeyCode key) override;
 
     /*! called when mouse was double clicked
 
     \param key the key that was double clicked
     */
-    void onMouseDoubleClick(iKeyCode key);
+    void onMouseDoubleClick(iKeyCode key) override;
 
     /*! called when mouse wheel was turned
 
     \param d mouse wheel delta
     */
-    void onMouseWheel(int32 d);
-
-    /*! called when ESC key was pressed
-    */
-    void onKeyESCDown();
-
-    /*! called when window was closed
-    */
-    void onCloseWindow();
-
-    /*! init example
-    */
-    void init();
-
-    /*! deinit example
-    */
-    void deinit();
+    void onMouseWheel(int32 d) override;
 };
 
-#endif
+#endif // __MOUSEEXAMPLE_H__
