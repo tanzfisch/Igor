@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __EXAMPLE3D__
-#define __EXAMPLE3D__
+#ifndef __EXAMPLE3D_H__
+#define __EXAMPLE3D_H__
 
 #include <ExampleBase.h>
 
@@ -42,7 +42,7 @@ namespace igor
 {
     class iNodeTransform;
     class iNodeLight;
-    class iNodeSwitch;    
+    class iNodeSwitch;
     class iTaskFlushModels;
     class iTaskFlushTextures;
     class iNodeLODTrigger;
@@ -63,7 +63,6 @@ public:
     ~Example3D() = default;
 
 private:
-
     /*! id to transform node used for manipulating the heading of all objects in scene
     */
     iNodeID _allObjectsHeading = iNode::INVALID_NODE_ID;
@@ -120,11 +119,15 @@ private:
     */
     iNodeID _LODSwitch = iNode::INVALID_NODE_ID;
 
+    /*! called by timer
+    */
+    void onTimer();
+
     /*! called on key pressed event
 
     \param key the key code of the pressed key
     */
-    void onKeyPressed(iKeyCode key);    
+    void onKeyPressed(iKeyCode key) override;
 
     /*! called when the mouse was moved
 
@@ -132,26 +135,21 @@ private:
     \param to current mouse position
     \param window the window the coordinates are related to
     */
-    void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window);
+    void onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window) override;
 
     /*! called when mouse wheel was turned
 
     \param d mouse wheel delta
     */
-    void onMouseWheel(int32 d);
-
-    /*! called by timer
-    */
-    void onTimer();
+    void onMouseWheel(int32 d) override;
 
     /*! deinit example
     */
-    void deinit();
+    void deinit() override;
 
     /*! init example
     */
-    void init();
-
+    void init() override;
 };
 
-#endif
+#endif // __EXAMPLE3D_H__

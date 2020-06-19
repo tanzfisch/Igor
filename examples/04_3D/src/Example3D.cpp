@@ -196,18 +196,10 @@ void Example3D::init()
     // animation
     _animationTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &Example3D::onTimer), iaTime::fromMilliseconds(10));
     _animationTimingHandle->start();
-
-    // register some callbacks
-    iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Example3D::onMouseMoved));
-    iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &Example3D::onMouseWheel));
 }
 
 void Example3D::deinit()
 {
-    // unregister some callbacks
-    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Example3D::onMouseMoved));
-    iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &Example3D::onMouseWheel));
-
     // stop light animation
     if (_animationTimingHandle)
     {
@@ -232,7 +224,7 @@ void Example3D::onMouseWheel(int32 d)
     }
 }
 
-void Example3D::onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *_window)
+void Example3D::onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window)
 {
     if (iMouse::getInstance().getRightButton())
     {
@@ -262,12 +254,12 @@ void Example3D::onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWind
             iMouse::getInstance().setCenter();
         }
     }
+
+    ExampleBase::onMouseMovedFull(from, to, window);
 }
 
 void Example3D::onKeyPressed(iKeyCode key)
 {
-    ExampleBase::onKeyPressed(key);
-
     switch (key)
     {
     case iKeyCode::Space:
@@ -297,6 +289,8 @@ void Example3D::onKeyPressed(iKeyCode key)
     }
     break;
     }
+
+    ExampleBase::onKeyPressed(key);
 }
 
 void Example3D::onTimer()
