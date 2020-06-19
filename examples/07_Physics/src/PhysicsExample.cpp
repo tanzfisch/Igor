@@ -16,22 +16,11 @@ using namespace iaux;
 #include <igor/scene/nodes/iNodeModel.h>
 #include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/graphics/iRenderer.h>
-#include <igor/system/iApplication.h>
-#include <igor/scene/iSceneFactory.h>
-#include <igor/scene/iScene.h>
 #include <igor/scene/nodes/iNodeManager.h>
 #include <igor/system/iMouse.h>
-#include <igor/system/iTimer.h>
-#include <igor/resources/texture/iTextureFont.h>
 #include <igor/scene/nodes/iNodeLight.h>
 #include <igor/scene/nodes/iNodePhysics.h>
-#include <igor/resources/model/iModelResourceFactory.h>
 #include <igor/physics/iPhysics.h>
-#include <igor/physics/iPhysicsJoint.h>
-#include <igor/threading/tasks/iTaskFlushModels.h>
-#include <igor/threading/tasks/iTaskFlushTextures.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/profiler/iProfiler.h>
 using namespace igor;
 
 PhysicsExample::PhysicsExample()
