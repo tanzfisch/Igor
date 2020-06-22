@@ -64,17 +64,6 @@ namespace igor
     class iTargetMaterial;
     class iMeshBuffers;
 
-    /*! shader object types
-    */
-    enum class iShaderObjectType : uint8
-    {
-        Vertex,
-        Fragment,
-        Geometry,
-        Effect,
-        Undefined
-    };
-
     enum class iRenderTargetType
     {
         ToTexture,

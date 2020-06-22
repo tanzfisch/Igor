@@ -26,73 +26,28 @@
 //
 // contact: martinloga@gmx.de
 
-#ifndef __EXAMPLE3D__
-#define __EXAMPLE3D__
+#ifndef __EXAMPLE_INSTANCING_H__
+#define __EXAMPLE_INSTANCING_H__
 
-#include <Igor.h>
-#include <iWindow.h>
-#include <iView.h>
-#include <iTimerHandle.h>
-#include <iModelResourceFactory.h>
-#include <iKeyCodeMap.h>
+#include <ExampleBase.h>
+
 #include <igor/resources/material/iMaterial.h>
-#include <iProfilerVisualizer.h>
-using namespace Igor;
+#include <igor/system/iTimerHandle.h>
+using namespace igor;
 
-#include <iaMatrix.h>
-using namespace IgorAux;
-
-namespace Igor
+class ExampleInstancing : public ExampleBase
 {
-    class iScene;
-    class iNodeTransform;
-    class iNodeLight;
-    class iNodeSwitch;
-    class iTextureFont;
-    class iTaskFlushModels;
-    class iTaskFlushTextures;
-    class iNodeLODTrigger;
-    class iNodeLODSwitch;
-    class iNodeModel;
-    class iTexture;
-} // namespace Igor
 
-class ExampleInstancing
-{
+public:
+    /*! init members
+    */
+    ExampleInstancing();
+
+    /*! does nothing
+    */
+    ~ExampleInstancing() = default;
 
 private:
-    /*! the window
-    */
-    iWindow _window;
-
-    /*! visualizes statistics
-    */
-    iProfilerVisualizer _profilerVisualizer;
-
-    /*! the view we render 3D to
-    */
-    iView _view;
-
-    /*! the view we render 2D to
-    */
-    iView _viewOrtho;
-
-    /*! the scene holding our 3d nodes
-    */
-    iScene *_scene = nullptr;
-
-    /*! async loading of models
-    */
-    uint64 _taskFlushModels = iTask::INVALID_TASK_ID;
-
-    /*! async loading of textures
-    */
-    uint64 _taskFlushTextures = iTask::INVALID_TASK_ID;
-
-    /*! texture fon we use to render statistics
-    */
-    iTextureFont *_font = nullptr;
-
     /*! id to transform node used for manipulating the heading of the camera
     */
     uint64 _cameraHeading = iNode::INVALID_NODE_ID;
@@ -115,44 +70,21 @@ private:
 
     /*! timer handle to control the movement of the light source over time
     */
-    iTimerHandle *_animationTimingHandle = nullptr;
-
-    /*! material definition for the sky box
-    */
-    uint64 _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
-
-    /*! material for igor logo
-    */
-    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
+    iTimerHandlePtr _animationTimingHandle = nullptr;
 
     /*! instancing material
     */
     uint64 _materialWithInstancing = iMaterial::INVALID_MATERIAL_ID;
 
-    /*! igor logo
+    /*! called when model was loaded
+
+    \param modelNodeID the node id of the loaded model
     */
-    iTexturePtr _igorLogo = nullptr;
-
-    uint64 _modelNodeID = 0;
-
     void onModelReady(uint64 modelNodeID);
 
-    /*! called on key pressed event
-
-    \param key the key code of the pressed key
+    /*! called by timer
     */
-    void onKeyDown(iKeyCode key);
-
-    /*! called when window was closed
-    */
-    void onWindowClosed();
-
-    /*! called when window was resized
-
-    \param clientWidth the client rectangle width
-    \param clientHeight the client rectangle height
-    */
-    void onWindowResized(int32 clientWidth, int32 clientHeight);
+    void onTimer();
 
     /*! called when the mouse was moved
 
@@ -160,46 +92,21 @@ private:
     \param to current mouse position
     \param window the window the coordinates are related to
     */
-    void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window);
+    void onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window) override;
 
     /*! called when mouse wheel was turned
 
     \param d mouse wheel delta
     */
-    void onMouseWheel(int32 d);
-
-    /*! called by orthogonal view
-    */
-    void onRenderOrtho();
-
-    /*! draw igor logo
-    */
-    void drawLogo();
-
-    /*! called by timer
-    */
-    void onTimer();
+    void onMouseWheel(int32 d) override;
 
     /*! deinit example
     */
-    void deinit();
+    void deinit() override;
 
     /*! init example
     */
-    void init();
-
-public:
-    /*! init
-    */
-    ExampleInstancing();
-
-    /*! deinit
-    */
-    virtual ~ExampleInstancing();
-
-    /*! run example
-    */
-    void run();
+    void init() override;
 };
 
-#endif
+#endif // __EXAMPLE_INSTANCING_H__
