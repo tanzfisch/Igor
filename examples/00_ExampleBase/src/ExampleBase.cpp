@@ -112,8 +112,8 @@ ExampleBase::ExampleBase(const iaString &name, bool createBaseSetup, bool create
         material->setName("LogoMaterial");
 
         // register some callbacks
-        iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &ExampleBase::onKeyDown));
-        iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &ExampleBase::onKeyUp));
+        iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &ExampleBase::onKeyUp));
+        iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &ExampleBase::onKeyDown));
         iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ExampleBase::onMouseKeyDown));
         iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ExampleBase::onMouseKeyUp));
         iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ExampleBase::onMouseMovedFull));
@@ -128,8 +128,8 @@ ExampleBase::~ExampleBase()
     if (_window.isOpen())
     {
         // unregister callbacks
-        iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &ExampleBase::onKeyDown));
-        iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &ExampleBase::onKeyUp));
+        iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &ExampleBase::onKeyUp));
+        iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &ExampleBase::onKeyDown));
         iMouse::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ExampleBase::onMouseKeyDown));
         iMouse::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ExampleBase::onMouseKeyUp));
         iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ExampleBase::onMouseMovedFull));
