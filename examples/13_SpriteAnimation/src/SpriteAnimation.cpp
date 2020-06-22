@@ -1,3 +1,7 @@
+// Igor game engine
+// (c) Copyright 2012-2020 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "SpriteAnimation.h"
 
 #include <iaux/system/iaConsole.h>
@@ -32,60 +36,17 @@ using namespace igor;
 #include "TileMapGenerator.h"
 
 SpriteAnimation::SpriteAnimation()
+	: ExampleBase("Sprite Animation")
 {
-	init();
-}
-
-SpriteAnimation::~SpriteAnimation()
-{
-	deinit();
 }
 
 void SpriteAnimation::init()
 {
-	// some console output
-	con_endl(" -- Sprite Animation Example --");
-
-	// define the window as we want it
-	_window.setTitle("Sprite Animation Example");
-	_window.setClientSize(1024, 768);
-	_window.setCentered();
-	// register calback to window close event so we can shutdown the application propperly
-	_window.registerWindowCloseDelegate(WindowCloseDelegate(this, &SpriteAnimation::onWindowClosed));
-	// register callback to window resize event so we can adopt the view to resolution
-	_window.registerWindowResizeDelegate(WindowResizeDelegate(this, &SpriteAnimation::onWindowResize));
-
-	// define a view
-	// set up an orthogonal projection with the dimensions of the windows client rectangle
-	// the client rectangle is the size of the actual rendering area
-	_view.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
-	// register callback to the rendering event of this view
-	_view.registerRenderDelegate(iDrawDelegate(this, &SpriteAnimation::onRender));
-	// set background color
-	_view.setClearColor(1.0, 1.0, 1.0, 1.0);
-	// add the view to the window
-	_window.addView(&_view);
-
-	// open the window after you added the view to prevent a warning message that there was no view defined.
-	// but it is also allowed to add views after the window was already opened
-	_window.open();
-
-	// load a texture font
-	_font = new iTextureFont("StandardFont.png");
-
-	// create scene and bind it to view
-	_scene = iSceneFactory::getInstance().createScene();
-	_view.setScene(_scene);
-
-	// create some materials
-	_materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
-	iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
-	material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-	material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-	material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+	getView().setClearColor(1.0, 1.0, 1.0, 1.0);
+	getViewOrtho().setScene(getScene());
 
 	_materialTerrain = iMaterialResourceFactory::getInstance().createMaterial();
-	material = iMaterialResourceFactory::getInstance().getMaterial(_materialTerrain);
+	auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialTerrain);
 	material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
 	material->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
 	material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
@@ -109,7 +70,7 @@ void SpriteAnimation::init()
 	iNodeTransform *terrainGroundTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	terrainGroundTransform->translate(0, 0, 0);
 	terrainGroundTransform->insertNode(terrainNodeGround);
-	_scene->getRoot()->insertNode(terrainGroundTransform);
+	getScene()->getRoot()->insertNode(terrainGroundTransform);
 
 	// generate dressing and trees map
 	iNodePtr terrainNodeDressing = tileMapGenerator.generateFromTexture("SpriteAnimationTerrain.png");
@@ -117,7 +78,7 @@ void SpriteAnimation::init()
 	iNodeTransform *terrainDressingTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
 	terrainDressingTransform->translate(0, 0, 0);
 	terrainDressingTransform->insertNode(terrainNodeDressing);
-	_scene->getRoot()->insertNode(terrainDressingTransform);
+	getScene()->getRoot()->insertNode(terrainDressingTransform);
 
 	// setup camera
 	_cameraTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
@@ -125,8 +86,8 @@ void SpriteAnimation::init()
 	// anf of corse the camera
 	iNodeCamera *camera = iNodeManager::getInstance().createNode<iNodeCamera>();
 	_cameraTransform->insertNode(camera);
-	_scene->getRoot()->insertNode(_cameraTransform);
-	_view.setCurrentCamera(camera->getID());
+	getScene()->getRoot()->insertNode(_cameraTransform);
+	getViewOrtho().setCurrentCamera(camera->getID());
 
 	// some flags to handle the character movement TODO
 	for (int i = 0; i < 5; ++i)
@@ -134,48 +95,19 @@ void SpriteAnimation::init()
 		_flags[i] = false;
 	}
 
-	// load requested textures
+	// load requested textures right now
 	iTextureResourceFactory::getInstance().flush();
-
-	// register callback to application handle event. the application handle event will be called every frame just before the rendering
-	iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &SpriteAnimation::onHandle));
-	// register callback to key pressed event
-	iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &SpriteAnimation::onKeyDown));
-	// register callback to key released event
-	iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &SpriteAnimation::onKeyUp));
-	// register callback to mosue moved event
-	iMouse::getInstance().registerMouseMoveDelegate(iMouseMoveDelegate(this, &SpriteAnimation::onMouseMove));
-
-	// load an other texture with the Igor Logo
-	_igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
 
 	// initialize animation timer
 	_animationTimer.setIntervall(iaTime::fromMilliseconds(200));
 	_animationTimer.registerTimerDelegate(iTimerTickDelegate(this, &SpriteAnimation::onAnimationTimerTick));
 	_animationTimer.start();
-
-	// set verbosity of profiler
-	_profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
 }
 
 void SpriteAnimation::deinit()
 {
-	// unregister some callbacks. otherwhise you will be reminded of callbacks that where not released
-	iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &SpriteAnimation::onHandle));
-	iMouse::getInstance().unregisterMouseMoveDelegate(iMouseMoveDelegate(this, &SpriteAnimation::onMouseMove));
-	iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &SpriteAnimation::onKeyDown));
-	iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &SpriteAnimation::onKeyUp));
-
-	iSceneFactory::getInstance().destroyScene(_scene);
-	_scene = nullptr;
-
-	// unregister the rendering callback. if not you will get a warning message because your shutdown was not complete
-	_view.unregisterRenderDelegate(iDrawDelegate(this, &SpriteAnimation::onRender));
-
 	// release materials (optional)
-	iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
 	iMaterialResourceFactory::getInstance().destroyMaterial(_materialTerrain);
-	_materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
 	_materialTerrain = iMaterial::INVALID_MATERIAL_ID;
 
 	// release some textures. otherwhise you will get a reminder of possible mem leak
@@ -190,58 +122,17 @@ void SpriteAnimation::deinit()
 		delete _tiles;
 		_tiles = nullptr;
 	}
-
-	if (_font != nullptr)
-	{
-		delete _font;
-		_font = nullptr;
-	}
-
-	_igorLogo = nullptr;
-
-	// tell texture manager to flush and actually release textures
-	iTextureResourceFactory::getInstance().flush();
-
-	// close the window, release callback and remove the view. if not you will get various reminders that you should
-	_window.close();
-	_window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &SpriteAnimation::onWindowClosed));
-	_window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &SpriteAnimation::onWindowResize));
-	_window.removeView(&_view);
 }
 
-void SpriteAnimation::onMouseMove(const iaVector2i &position)
+void SpriteAnimation::onMouseMoved(const iaVector2i &position)
 {
-	// save mouse position for later
-	// TODO _lastMousePos.set(static_cast<float32>(position._x), static_cast<float32>(position._y));
-}
-
-void SpriteAnimation::run()
-{
-	// calls the applications endless loop
-	iApplication::getInstance().run();
-}
-
-void SpriteAnimation::onWindowClosed()
-{
-	// breaks the applications endless loop
-	iApplication::getInstance().stop();
-}
-
-void SpriteAnimation::onWindowResize(int32 clientWidth, int32 clientHeight)
-{
-	// to keep pixel coordinates
-	_view.setOrthogonal(0.0f, static_cast<float32>(clientWidth), static_cast<float32>(clientHeight), 0.0f);
+	ExampleBase::onMouseMoved(position);
 }
 
 void SpriteAnimation::onKeyDown(iKeyCode key)
 {
 	switch (key)
 	{
-	case iKeyCode::ESC:
-		// breaks the applications endless loop
-		iApplication::getInstance().stop();
-		break;
-
 	case iKeyCode::Left:
 		_flags[0] = true;
 		break;
@@ -261,16 +152,9 @@ void SpriteAnimation::onKeyDown(iKeyCode key)
 	case iKeyCode::LShift:
 		_flags[4] = true;
 		break;
+	}
 
-	case iKeyCode::F9:
-	{
-		iNodeVisitorPrintTree printTree;
-		if (_scene != nullptr)
-		{
-			printTree.printToConsole(_scene->getRoot());
-		}
-	}
-	}
+	ExampleBase::onKeyDown(key);
 }
 
 void SpriteAnimation::onKeyUp(iKeyCode key)
@@ -297,6 +181,8 @@ void SpriteAnimation::onKeyUp(iKeyCode key)
 		_flags[4] = false;
 		break;
 	}
+
+	ExampleBase::onKeyUp(key);
 }
 
 iaString SpriteAnimation::getCharacterStateName(CharacterState state)
@@ -342,7 +228,7 @@ iaString SpriteAnimation::getCharacterStateName(CharacterState state)
 	return "unknown";
 }
 
-void SpriteAnimation::onHandle()
+void SpriteAnimation::onPreDraw()
 {
 	// moves the logo towards the mouse position
 
@@ -469,7 +355,7 @@ void SpriteAnimation::onAnimationTimerTick()
 	}
 }
 
-void SpriteAnimation::onRender()
+void SpriteAnimation::onRenderOrtho()
 {
 	// since the model matrix is by default an identity matrix which would cause all our 2d rendering end up at depth zero
 	// and the near clipping plane of our frustum can't be zero we have to push the scene a bit away from zero (e.g. -30 just a random number with no meaning)
@@ -478,28 +364,12 @@ void SpriteAnimation::onRender()
 	matrix.translate(0, 0, -30);
 	iRenderer::getInstance().setModelMatrix(matrix);
 
-	// change material again to textured an draw the logo
-	iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
+	// change material again to textured an draw the character
+	iRenderer::getInstance().setMaterial(getFontMaterial());
 	iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
 	// draw walking character
-	iRenderer::getInstance().drawSprite(_walk, _animationOffset + _animationIndex, iaVector2f(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5));
+	iRenderer::getInstance().drawSprite(_walk, _animationOffset + _animationIndex, iaVector2f(getWindow().getClientWidth() * 0.5, getWindow().getClientHeight() * 0.5));
 
-	drawLogo();
-
-	// draw frame rate in lower right corner
-	_profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
-}
-
-void SpriteAnimation::drawLogo()
-{
-	iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-	iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-
-	float32 width = static_cast<float32>(_igorLogo->getWidth());
-	float32 height = static_cast<float32>(_igorLogo->getHeight());
-	float32 x = static_cast<float32>(_window.getClientWidth()) - width;
-	float32 y = static_cast<float32>(_window.getClientHeight()) - height;
-
-	iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
+	ExampleBase::onRenderOrtho();
 }

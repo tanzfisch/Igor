@@ -28,7 +28,6 @@
 #include <igor/scene/nodes/iNodeSwitch.h>
 #include <igor/scene/nodes/iNodeLODSwitch.h>
 #include <igor/scene/nodes/iNodeLODTrigger.h>
-#include <igor/data/iSkeleton.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 using namespace igor;
 
@@ -39,45 +38,12 @@ using namespace iaux;
 #include "PlantMeshGenerator.h"
 
 LSystems::LSystems()
+	: ExampleBase("L-System")
 {
-	init();
-}
-
-LSystems::~LSystems()
-{
-	deinit();
 }
 
 void LSystems::init()
 {
-	con_endl(" -- 3D Example --");
-
-	// setup window
-	_window.setTitle("Igor - LSystems");
-	_window.setClientSize(1024, 768);
-	_window.setCentered();
-	_window.registerWindowCloseDelegate(WindowCloseDelegate(this, &LSystems::onWindowClosed));
-	_window.registerWindowResizeDelegate(WindowResizeDelegate(this, &LSystems::onWindowResized));
-
-	// setup perspective view
-	_view.setClearColor(iaColor4f(0.0f, 0.0f, 0.0f, 1));
-	_view.setPerspective(45);
-	_view.setClipPlanes(0.1f, 10000.f);
-	_window.addView(&_view);
-
-	// setup orthogonal view
-	_viewOrtho.setClearColor(false);
-	_viewOrtho.setClearDepth(false);
-	_viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
-	_viewOrtho.registerRenderDelegate(iDrawDelegate(this, &LSystems::onRenderOrtho));
-	_window.addView(&_viewOrtho);
-	_window.open();
-
-	// init scene
-	_scene = iSceneFactory::getInstance().createScene();
-	// bind scene to perspective view
-	_view.setScene(_scene);
-
 	// setup camera
 	// we want a camera which can be rotated arround the origin
 	// we will acchive that with 3 transform nodes
@@ -105,7 +71,7 @@ void LSystems::init()
 	camera->setName("camera");
 	// and build everything together
 	// first we add the heading to the root node
-	_scene->getRoot()->insertNode(cameraHeading);
+	getScene()->getRoot()->insertNode(cameraHeading);
 	// than the pitch to the heading node
 	cameraHeading->insertNode(cameraPitch);
 	// then the translation to the pitch node
@@ -114,7 +80,7 @@ void LSystems::init()
 	cameraTranslation->insertNode(camera);
 	// and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a
 	// scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
-	_view.setCurrentCamera(camera->getID());
+	getView().setCurrentCamera(camera->getID());
 
 	// create a directional light
 	// transform node
@@ -126,33 +92,11 @@ void LSystems::init()
 	lightNode->setDiffuse(iaColor4f(0.9f, 0.7f, 0.6f, 1.0f));
 	lightNode->setSpecular(iaColor4f(1.0f, 0.9f, 0.87f, 1.0f));
 	// and add it to the scene
-	_scene->getRoot()->insertNode(lightTranslate);
+	getScene()->getRoot()->insertNode(lightTranslate);
 	lightTranslate->insertNode(lightNode);
 
 	// register plant mesh generator
 	iModelResourceFactory::getInstance().registerModelDataIO("pg", &PlantMeshGenerator::createInstance);
-
-	// init render statistics
-	_font = new iTextureFont("StandardFont.png");
-	_profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
-
-	// register some callbacks
-	iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &LSystems::onKeyPressed));
-	iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &LSystems::onMouseMoved));
-	iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &LSystems::onMouseWheel));
-
-	// launch resource handlers
-	_flushModelsTask = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
-	_flushTexturesTask = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
-
-	// prepare igor logo
-	_igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
-	_materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
-	auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
-	material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-	material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-	material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-	material->setName("LogoMaterial");
 
 	// generate the L-System
 	generateLSystems();
@@ -160,37 +104,8 @@ void LSystems::init()
 
 void LSystems::deinit()
 {
-	// unregister some callbacks
-	iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &LSystems::onKeyPressed));
-	iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &LSystems::onMouseMoved));
-	iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &LSystems::onMouseWheel));
-	_window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &LSystems::onWindowClosed));
-	_window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &LSystems::onWindowResized));
-	_viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &LSystems::onRenderOrtho));
-
-	// deinit statistics
-	if (_font != nullptr)
-	{
-		delete _font;
-		_font = nullptr;
-	}
-
 	// unregister plant mesh generator
 	iModelResourceFactory::getInstance().unregisterModelDataIO("pg");
-
-	// destroy scene
-	iSceneFactory::getInstance().destroyScene(_scene);
-
-	// abort resource tasks
-	iTaskManager::getInstance().abortTask(_flushModelsTask);
-	iTaskManager::getInstance().abortTask(_flushTexturesTask);
-
-	if (_window.isOpen())
-	{
-		_window.close();
-		_window.removeView(&_view);
-		_window.removeView(&_viewOrtho);
-	}
 }
 
 void LSystems::initStyle1()
@@ -381,7 +296,7 @@ void LSystems::generateLSystems()
 
 	iNodePtr groupNode = iNodeManager::getInstance().createNode<iNode>();
 	_groupNodeID = groupNode->getID();
-	_scene->getRoot()->insertNode(groupNode);
+	getScene()->getRoot()->insertNode(groupNode);
 
 	_plantsInProgress.clear();
 
@@ -409,7 +324,7 @@ void LSystems::onMouseWheel(int32 d)
 	}
 }
 
-void LSystems::onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *_window)
+void LSystems::onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window)
 {
 	if (iMouse::getInstance().getLeftButton())
 	{
@@ -424,87 +339,18 @@ void LSystems::onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindo
 			iMouse::getInstance().setCenter();
 		}
 	}
+
+	ExampleBase::onMouseMovedFull(from, to, window);
 }
 
-void LSystems::onWindowClosed()
-{
-	iApplication::getInstance().stop();
-}
-
-void LSystems::onWindowResized(int32 clientWidth, int32 clientHeight)
-{
-	_viewOrtho.setOrthogonal(0.0f, static_cast<float32>(clientWidth), static_cast<float32>(clientHeight), 0.0f);
-}
-
-void LSystems::onKeyPressed(iKeyCode key)
+void LSystems::onKeyDown(iKeyCode key)
 {
 	switch (key)
 	{
-	case iKeyCode::ESC:
-		iApplication::getInstance().stop();
-		break;
-
-	case iKeyCode::F8:
-		_profilerVisualizer.cycleVerbosity();
-		break;
-
-	case iKeyCode::F9:
-	{
-		iNodeVisitorPrintTree printTree;
-		if (_scene != nullptr)
-		{
-			printTree.printToConsole(_scene->getRoot());
-		}
-	}
-	break;
-
-	case iKeyCode::F10:
-		_view.setWireframeVisible(!_view.isWireframeVisible());
-		break;
-
-	case iKeyCode::F11:
-		_view.setOctreeVisible(!_view.isOctreeVisible());
-		break;
-
-	case iKeyCode::F12:
-		_view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
-		break;
-
 	case iKeyCode::Space:
 		generateLSystems();
 		break;
 	}
-}
 
-void LSystems::onRenderOrtho()
-{
-	iaMatrixd viewMatrix;
-	iRenderer::getInstance().setViewMatrix(viewMatrix);
-
-	iaMatrixd modelMatrix;
-	modelMatrix.translate(0, 0, -30);
-	iRenderer::getInstance().setModelMatrix(modelMatrix);
-
-	drawLogo();
-
-	// draw frame rate in lower right corner
-	_profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
-}
-
-void LSystems::drawLogo()
-{
-	iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-	iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-
-	float32 width = static_cast<float32>(_igorLogo->getWidth());
-	float32 height = static_cast<float32>(_igorLogo->getHeight());
-	float32 x = static_cast<float32>(_window.getClientWidth()) - width;
-	float32 y = static_cast<float32>(_window.getClientHeight()) - height;
-
-	iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
-}
-
-void LSystems::run()
-{
-	iApplication::getInstance().run();
+	ExampleBase::onKeyDown(key);
 }

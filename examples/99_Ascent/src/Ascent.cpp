@@ -1,3 +1,7 @@
+// Igor game engine
+// (c) Copyright 2012-2020 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "Ascent.h"
 
 #include "gameObjects/Player.h"
@@ -64,8 +68,8 @@ Ascent::~Ascent()
 
 void Ascent::registerHandles()
 {
-    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &Ascent::onKeyPressed));
-    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &Ascent::onKeyReleased));
+    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &Ascent::onKeyDown));
+    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &Ascent::onKeyUp));
     iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &Ascent::onMouseDown));
     iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &Ascent::onMouseUp));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &Ascent::onMouseWheel));
@@ -89,8 +93,8 @@ void Ascent::unregisterHandles()
     iMouse::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &Ascent::onMouseUp));
     iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &Ascent::onMouseWheel));
 
-    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &Ascent::onKeyReleased));
-    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &Ascent::onKeyPressed));
+    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &Ascent::onKeyUp));
+    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &Ascent::onKeyDown));
 }
 
 void Ascent::initViews()
@@ -576,12 +580,12 @@ void Ascent::init()
     initViews();
     initScene();
 
-    initPhysics();    
+    initPhysics();
 
     // need to create voxel terrain before we create the boss enemy
     // using a lower LOD count because we don't create such huge structures anyway and the transition detection in details is better
     _voxelTerrain = new iVoxelTerrain(iVoxelTerrainGenerateDelegate(this, &Ascent::onGenerateVoxelData),
-        iVoxelTerrainPlacePropsDelegate(this, &Ascent::onVoxelDataGenerated), 7);
+                                      iVoxelTerrainPlacePropsDelegate(this, &Ascent::onVoxelDataGenerated), 7);
 
     initPlayer();
     initVoxelData();
@@ -643,7 +647,7 @@ void Ascent::deinit()
     _window.removeView(&_viewOrtho);
 }
 
-void Ascent::onKeyPressed(iKeyCode key)
+void Ascent::onKeyDown(iKeyCode key)
 {
     if (_activeControls)
     {
@@ -779,7 +783,7 @@ void Ascent::dig(iaVector3I position, uint64 toolSize, uint8 density)
     new DigEffect(_scene, effectMatrix);
 }
 
-void Ascent::onKeyReleased(iKeyCode key)
+void Ascent::onKeyUp(iKeyCode key)
 {
     if (_activeControls)
     {

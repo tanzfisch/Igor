@@ -26,38 +26,29 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __EXAMPLE2D__
-#define __EXAMPLE2D__
+#ifndef __EXAMPLE_SPRITE_ANIMATION_H__
+#define __EXAMPLE_SPRITE_ANIMATION_H__
 
-#include <igor/system/iWindow.h>
-#include <igor/graphics/iView.h>
-#include <igor/simulation/iParticleSystem2D.h>
-#include <iaux/data/iaGradient.h>
-#include <igor/generation/iPerlinNoise.h>
+#include <ExampleBase.h>
+
 #include <igor/resources/material/iMaterial.h>
-#include <igor/resources/profiler/iProfilerVisualizer.h>
-#include <igor/resources/texture/iTexture.h>
 #include <igor/system/iTimerHandle.h>
 using namespace igor;
 
-#include <iaux/math/iaMatrix.h>
 #include <iaux/math/iaVector2.h>
-#include <iaux/math/iaRandomNumberGenerator.h>
 using namespace iaux;
 
 #include <memory>
 
 namespace igor
 {
-	class iScene;
 	class iAtlas;
-	class iTextureFont;
 	class iNodeTransform;
 } // namespace igor
 
 /*! sprite animation 2d example
 */
-class SpriteAnimation
+class SpriteAnimation : public ExampleBase
 {
 
 	/*! animation state of character
@@ -88,29 +79,11 @@ public:
     */
 	SpriteAnimation();
 
-	/*! deinitializes the example
+	/*! does nothing
     */
-	virtual ~SpriteAnimation();
-
-	/*! run the example
-    */
-	void run();
+	~SpriteAnimation() = default;
 
 private:
-	/*! the window
-    */
-	iWindow _window;
-
-	/*! visualizes statistics
-    */
-	iProfilerVisualizer _profilerVisualizer;
-
-	/*! the view we want to render in
-
-    basically contains information about where inside the window to render and projection information
-    */
-	iView _view;
-
 	/*! walk animation atlas
     */
 	iAtlas *_walk = nullptr;
@@ -119,17 +92,13 @@ private:
 	*/
 	iAtlas *_tiles = nullptr;
 
-	/*! the scene
-	*/
-	iScene *_scene = nullptr;
-
 	/*! flags to determine what the character is doing
 	*/
 	bool _flags[5];
 
 	/*! current position of character to render
 	*/
-	iaVector2f _characterPosition{0, 0};
+	iaVector2f _characterPosition;
 
 	/*! character velocity
 	*/
@@ -151,21 +120,9 @@ private:
 	*/
 	iTimerHandle _animationTimer;
 
-	/*! texture font
-	*/
-	iTextureFont *_font = nullptr;
-
-	/*! Igor logo
-    */
-	iTexturePtr _igorLogo = nullptr;
-
-	/*! material id of a textured material with alpha blending
-    */
-	uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
-
 	/*! terrain material
 	*/
-	uint64 _materialTerrain = iMaterial::INVALID_MATERIAL_ID;
+	iMaterialID _materialTerrain = iMaterial::INVALID_MATERIAL_ID;
 
 	/*! transform of camera
 	*/
@@ -187,48 +144,33 @@ private:
 
     \param position last mouse position
     */
-	void onMouseMove(const iaVector2i &position);
-
-	/*! called when window was closed
-    */
-	void onWindowClosed();
-
-	/*! called on window resize
-
-    \param clientWidth width of client rectangle
-    \param clientHeight height of client rectangle
-    */
-	void onWindowResize(int32 clientWidth, int32 clientHeight);
+	void onMouseMoved(const iaVector2i &position) override;
 
 	/*! called when key was pressed
     */
-	void onKeyDown(iKeyCode key);
+	void onKeyDown(iKeyCode key) override;
 
 	/*! called when key was released
 	*/
-	void onKeyUp(iKeyCode key);
+	void onKeyUp(iKeyCode key) override;
 
 	/*! called before every frame
     */
-	void onHandle();
+	void onPreDraw() override;
 
 	/*! called every frame 
     
     here we render everyting
     */
-	void onRender();
-
-	/*! draw Igor Logo
-    */
-	void drawLogo();
+	void onRenderOrtho() override;
 
 	/*! initializes the example
     */
-	void init();
+	void init() override;
 
 	/*! deinitializes the example
     */
-	void deinit();
+	void deinit() override;
 };
 
-#endif
+#endif // __EXAMPLE_SPRITE_ANIMATION_H__

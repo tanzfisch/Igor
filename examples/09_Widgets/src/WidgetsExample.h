@@ -11,27 +11,26 @@
 //                                           (_(       \)
 //    (c) Copyright 2014-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: igorgameengine@protonmail.com  
+//
+// contact: igorgameengine@protonmail.com
 
-#ifndef __WIDGETEXAMPLE__
-#define __WIDGETEXAMPLE__
+#ifndef __WIDGET_EXAMPLE_H__
+#define __WIDGET_EXAMPLE_H__
 
-#include <igor/igor.h>
-#include <igor/system/iWindow.h>
-#include <igor/graphics/iView.h>
+#include <ExampleBase.h>
+
 #include <igor/ui/dialogs/iDialog.h>
 #include <igor/ui/dialogs/iDialogColorChooser.h>
 #include <igor/ui/dialogs/iDialogColorGradient.h>
@@ -47,69 +46,42 @@ using namespace iaux;
 
 namespace igor
 {
-    class iTextureFont;
-	class iWidgetDefaultTheme;
+    class iWidgetDefaultTheme;
     class iWidgetLabel;
     class iWidgetColor;
     class iWidgetColorGradient;
-}
+} // namespace igor
 
 /*! this example shows how to use Igor Widgets
 */
-class WidgetsExample
+class WidgetsExample : public ExampleBase
 {
 
 public:
-
     /*! ctor initializes widgets
     */
     WidgetsExample();
 
-    /*! dtor clean up
+    /*! does nothing
     */
-    virtual ~WidgetsExample();
-
-    /*! runs main loop
-    */
-    void run();
+    ~WidgetsExample() = default;
 
 private:
-
-    /*! the window it self
-    */
-	iWindow _window;
-
-    /*! orthogonal view port
-    */
-    iView _viewOrtho;
-
-    /*! visualize statistics
-    */
-    iProfilerVisualizer _profilerVisualizer;
-
-    /*! font handle
-    */
-    iTextureFont* _font = nullptr;
-
-    /*! material for drawing igor logo
-    */
-    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
-
     /*! using the default widget theme
     */
-	iWidgetDefaultTheme* _widgetDefaultTheme = nullptr;
+    iWidgetDefaultTheme *_widgetDefaultTheme = nullptr;
 
     /*! the main dialog
     */
-	iDialogPtr _dialog = nullptr;
+    iDialogPtr _dialog = nullptr;
 
     /*! mouse position label
     */
-	iWidgetLabel* _labelMousePos = nullptr;
+    iWidgetLabel *_labelMousePos = nullptr;
 
     /*! instance of a message box
     */
-    iDialogMessageBox* _messageBox = nullptr;
+    iDialogMessageBox *_messageBox = nullptr;
 
     /*! color chooser dialog
     */
@@ -121,15 +93,11 @@ private:
 
     /*! color view to display the color selected in color chooser
     */
-    iWidgetColor* _color = nullptr;
+    iWidgetColor *_color = nullptr;
 
     /*! color gradient
     */
-    iWidgetColorGradient* _colorGradient = nullptr;
-	
-    /*! splash texture
-    */
-    iTexturePtr _igorLogo = nullptr;
+    iWidgetColorGradient *_colorGradient = nullptr;
 
     /*! simple action that prints some text in the console
     */
@@ -149,14 +117,6 @@ private:
     */
     void WidgetsExample::onCloseDialog(iDialogPtr dialog);
 
-    /*! render function
-    */
-    void onRender();
-
-    /*! draw Igor logo
-    */
-    void drawLogo();
-
     /*! initializes GUI
     */
     void initGUI();
@@ -167,11 +127,11 @@ private:
     */
     void onExitClick(const iWidgetPtr source);
 
-	/*! triggered by closing the message box
+    /*! triggered by closing the message box
 
 	\param dialog the dialog that was closed
 	*/
-	void onCloseMessageBox(iDialogPtr dialog);
+    void onCloseMessageBox(iDialogPtr dialog);
 
     /*! triggered by message box button. will open message box
 
@@ -207,24 +167,26 @@ private:
 
     \param pos position of mouse cursor
     */
-	void onMouseMove(const iaVector2i& pos);
-
-    /*! triggred if window was closed
-    */
-    void onWindowClosed();
-
-    /*! triggered if window was resized
-    */
-    void onWindowResize(int32 clientWidth, int32 clientHeight);
+    void onMouseMoved(const iaVector2i &pos) override;
 
     /*! initialize example
     */
-    void init();
+    void init() override;
 
     /*! deinitialize example
     */
-    void deinit();
+    void deinit() override;
 
+    /*! called by orthogonal view
+    */
+    void onRenderOrtho() override;
+
+    /*! called when window was resized
+
+    \param clientWidth the client rectangle width
+    \param clientHeight the client rectangle height
+    */
+    void onWindowResized(int32 clientWidth, int32 clientHeight) override;
 };
 
-#endif
+#endif // __WIDGET_EXAMPLE_H__

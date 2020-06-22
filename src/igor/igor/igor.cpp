@@ -103,11 +103,11 @@ namespace igor
 
 		iaConsole::getInstance() << T << "    (c) Copyright 2012-2020 by Martin Loga" << endl
 								 << endl;
-		iaConsole::getInstance() << T << "    ver. " << __IGOR_VERSION__ << " (" << __IGOR_CONFIGURATION__ << ") LGPL v3.0" << endl
+		iaConsole::getInstance() << T << "    version " << __IGOR_VERSION__ << " (" << __IGOR_CONFIGURATION__ << ") LGPL v3.0" << endl
 								 << endl;
 		iaConsole::getInstance() << T << "    thanks to M. Rochel, M. Schulz, T. Drevensek, I. Yozova" << endl
 								 << endl;
-		iaConsole::getInstance() << T << "    powered by NewtonDynamics, OpenGL, GLee, stb_image, TinyXML, LogaSoft" << endl
+		iaConsole::getInstance() << T << "    powered by NewtonDynamics, OpenGL, OpenAL-Soft, GLee, stb_image, TinyXML" << endl
 								 << endl;
 		iaConsole::getInstance() << T << "    get sources from https://github.com/tanzfisch/Igor.git" << endl;
 		iaConsole::getInstance() << W << "  ____________________________________________________________________________" << endl

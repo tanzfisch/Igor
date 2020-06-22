@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iPHYSICSMATERIAL__
-#define __iPHYSICSMATERIAL__
+#ifndef __IGOR_PHYSICSMATERIAL_H__
+#define __IGOR_PHYSICSMATERIAL_H__
 
 #include <igor/iDefines.h>
 
@@ -37,6 +37,10 @@ using namespace iaux;
 namespace igor
 {
 
+    /*! physics material id defintiion
+    */
+    typedef int64 iPhysicsMaterialID;
+
     /*! physics material
     */
     class Igor_API iPhysicsMaterial
@@ -45,11 +49,11 @@ namespace igor
         friend class iPhysics;
 
     public:
-        static const int64 INVALID_PHYSICSMATERIAL_ID = 0;
+        static const iPhysicsMaterialID INVALID_PHYSICSMATERIAL_ID = 0;
 
         /*! \returns material ID
         */
-        int64 getID();
+        iPhysicsMaterialID getID();
 
         /*! sets name of material
 
@@ -66,15 +70,15 @@ namespace igor
         */
         iaString _name;
 
-        /*! id of material
+        /*! id of physics material
         */
-        int64 _id = INVALID_PHYSICSMATERIAL_ID;
+        iPhysicsMaterialID _id = INVALID_PHYSICSMATERIAL_ID;
 
         /*! initializes members
 
-        \param id newton material id
+        \param id physics material id
         */
-        iPhysicsMaterial(int64 id);
+        iPhysicsMaterial(iPhysicsMaterialID id);
 
         /*! does nothing
         */
@@ -83,4 +87,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_PHYSICSMATERIAL_H__

@@ -49,7 +49,7 @@ class ExampleBase
 public:
     /*! init example
     */
-    ExampleBase(const iaString& name, bool createBaseSetup = true);
+    ExampleBase(const iaString &name, bool createBaseSetup = true, bool createSkyBox = true);
 
     /*! release resources
     */
@@ -57,26 +57,37 @@ public:
 
     /*! \returns name of example
     */
-    const iaString& getName() const;
+    const iaString &getName() const;
 
     /*! \returns the example's window
     */
-    iWindow& getWindow();
+    iWindow &getWindow();
 
     /*! \retruns the example's view
     */
-    iView& getView();
+    iView &getView();
+
+    /*! \retruns the example's orthogonal view
+    */
+    iView &getViewOrtho();
 
     /*! \returns the examples scene
     */
     iScenePtr getScene();
+
+    /*! \returns font
+    */
+    iTextureFontPtr getFont() const;
+
+    /*! \returns font material
+    */
+    iMaterialID getFontMaterial() const;
 
     /*! run example
     */
     virtual void run();
 
 protected:
-
     /*! initialize example
     */
     virtual void init();
@@ -97,14 +108,67 @@ protected:
     */
     virtual void onPostDraw();
 
+    /*! called by orthogonal view
+    */
+    virtual void onRenderOrtho();
+
     /*! called on key pressed event
 
     \param key the key code of the pressed key
     */
-    virtual void onKeyPressed(iKeyCode key);
+    virtual void onKeyDown(iKeyCode key);
+
+    /*! called when key was released
+
+    \param key the keycode of the released key
+    */
+    virtual void onKeyUp(iKeyCode key);
+
+    /*! called when any mouse key was pressed
+
+    \pram key the key code of the key that was pressed
+    */
+    virtual void onMouseKeyDown(iKeyCode key);
+
+    /*! called when any mouse key was released
+
+    \param key the key code of the key that was pressed
+    */
+    virtual void onMouseKeyUp(iKeyCode key);
+
+    /*! called when mouse was moved
+    \param from last mouse position
+    \param to current mouse position
+    \param window the window the coordinates are related to
+    */
+    virtual void onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window);
+
+    /*! called when mouse has moved
+
+    \param pos the new mouse position
+    */
+    virtual void onMouseMoved(const iaVector2i &pos);
+
+    /*! called when mouse was double clicked
+
+    \param key the key that was double clicked
+    */
+    virtual void onMouseDoubleClick(iKeyCode key);
+
+    /*! called when mouse wheel was turned
+
+    \param d mouse wheel delta
+    */
+    virtual void onMouseWheel(int32 d);
+
+    /*! called when window was resized
+
+    \param clientWidth the client rectangle width
+    \param clientHeight the client rectangle height
+    */
+    virtual void onWindowResized(int32 clientWidth, int32 clientHeight);
 
 private:
-
     /*! the window that receives the input messages
     */
     iWindow _window;
@@ -153,10 +217,6 @@ private:
     */
     iMaterialID _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
 
-    /*! called by orthogonal view
-    */
-    void onRenderOrtho();
-
     /*! draw igor logo
     */
     void drawLogo();
@@ -164,14 +224,6 @@ private:
     /*! called when window got closed
     */
     void onCloseWindow();
-
-    /*! called when window was resized
-
-    \param clientWidth the client rectangle width
-    \param clientHeight the client rectangle height
-    */
-    void onWindowResized(int32 clientWidth, int32 clientHeight);
-
 };
 
 #endif // __EXAMPLEBASE_H__

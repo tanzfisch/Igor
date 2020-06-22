@@ -14,6 +14,7 @@
 #include <igor/scene/iSceneFactory.h>
 #include <igor/scene/traversal/iNodeVisitorPrintTree.h>
 #include <igor/system/iKeyboard.h>
+#include <igor/system/iMouse.h>
 #include <igor/scene/nodes/iNodeSkyBox.h>
 #include <igor/scene/nodes/iNodeManager.h>
 using namespace igor;
@@ -22,8 +23,8 @@ using namespace igor;
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
 
-ExampleBase::ExampleBase(const iaString& name, bool createBaseSetup)
-    :_name(name)
+ExampleBase::ExampleBase(const iaString &name, bool createBaseSetup, bool createSkyBox)
+    : _name(name)
 {
     con_info("starting example \"" << _name << "\"");
 
@@ -62,7 +63,7 @@ ExampleBase::ExampleBase(const iaString& name, bool createBaseSetup)
         _viewOrtho.setOrthogonal(0.0, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0);
         _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));
         _window.addView(&_viewOrtho);
-        
+
         // and open the window
         _window.open();
 
@@ -73,27 +74,30 @@ ExampleBase::ExampleBase(const iaString& name, bool createBaseSetup)
         // setup profiler visualisation
         _profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
 
-        // create a skybox
-        iNodeSkyBox* skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
-        // set it up with the default skybox texture
-        skyBoxNode->setTextures(
-            iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
-            iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
-            iTextureResourceFactory::getInstance().requestFile("skybox_default/left.png"),
-            iTextureResourceFactory::getInstance().requestFile("skybox_default/right.png"),
-            iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
-            iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
-        // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-        _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
-        auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox);
-        material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-        material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-        material->setOrder(iMaterial::RENDER_ORDER_MIN);
-        material->setName("SkyBox");
-        // set that material
-        skyBoxNode->setMaterial(_materialSkyBox);
-        // and add it to the scene
-        getScene()->getRoot()->insertNode(skyBoxNode);
+        if (createSkyBox)
+        {
+            // create a skybox
+            iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
+            // set it up with the default skybox texture
+            skyBoxNode->setTextures(
+                iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
+                iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
+                iTextureResourceFactory::getInstance().requestFile("skybox_default/left.png"),
+                iTextureResourceFactory::getInstance().requestFile("skybox_default/right.png"),
+                iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
+                iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
+            // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
+            _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
+            auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox);
+            material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+            material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+            material->setOrder(iMaterial::RENDER_ORDER_MIN);
+            material->setName("SkyBox");
+            // set that material
+            skyBoxNode->setMaterial(_materialSkyBox);
+            // and add it to the scene
+            getScene()->getRoot()->insertNode(skyBoxNode);
+        }
 
         // init font for render profiler
         _font = new iTextureFont("StandardFont.png");
@@ -101,15 +105,22 @@ ExampleBase::ExampleBase(const iaString& name, bool createBaseSetup)
         // prepare igor logo
         _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
         _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
-        material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
+        auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
         material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
         material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
         material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
         material->setName("LogoMaterial");
 
-        // register some callbacks 
-        iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &ExampleBase::onKeyPressed));
-    }    
+        // register some callbacks
+        iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &ExampleBase::onKeyUp));
+        iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &ExampleBase::onKeyDown));
+        iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ExampleBase::onMouseKeyDown));
+        iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ExampleBase::onMouseKeyUp));
+        iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ExampleBase::onMouseMovedFull));
+        iMouse::getInstance().registerMouseMoveDelegate(iMouseMoveDelegate(this, &ExampleBase::onMouseMoved));
+        iMouse::getInstance().registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate(this, &ExampleBase::onMouseDoubleClick));
+        iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &ExampleBase::onMouseWheel));
+    }
 }
 
 ExampleBase::~ExampleBase()
@@ -117,10 +128,20 @@ ExampleBase::~ExampleBase()
     if (_window.isOpen())
     {
         // unregister callbacks
-        iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &ExampleBase::onKeyPressed));
+        iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &ExampleBase::onKeyUp));
+        iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &ExampleBase::onKeyDown));
+        iMouse::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ExampleBase::onMouseKeyDown));
+        iMouse::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ExampleBase::onMouseKeyUp));
+        iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ExampleBase::onMouseMovedFull));
+        iMouse::getInstance().unregisterMouseMoveDelegate(iMouseMoveDelegate(this, &ExampleBase::onMouseMoved));
+        iMouse::getInstance().unregisterMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate(this, &ExampleBase::onMouseDoubleClick));
+        iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &ExampleBase::onMouseWheel));
 
         // destroy materials
-        iMaterialResourceFactory::getInstance().destroyMaterial(_materialSkyBox);
+        if (_materialSkyBox != iMaterial::INVALID_MATERIAL_ID)
+        {
+            iMaterialResourceFactory::getInstance().destroyMaterial(_materialSkyBox);
+        }
         iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
 
         // clear scene by destoying it
@@ -157,7 +178,40 @@ ExampleBase::~ExampleBase()
     con_info("stopped example \"" << _name << "\"");
 }
 
-void ExampleBase::onKeyPressed(iKeyCode key)
+iTextureFontPtr ExampleBase::getFont() const
+{
+    return _font;
+}
+
+void ExampleBase::onMouseMoved(const iaVector2i &pos)
+{
+}
+
+void ExampleBase::onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window)
+{
+}
+
+void ExampleBase::onMouseDoubleClick(iKeyCode key)
+{
+}
+
+void ExampleBase::onMouseWheel(int32 d)
+{
+}
+
+void ExampleBase::onMouseKeyDown(iKeyCode key)
+{
+}
+
+void ExampleBase::onMouseKeyUp(iKeyCode key)
+{
+}
+
+void ExampleBase::onKeyUp(iKeyCode key)
+{
+}
+
+void ExampleBase::onKeyDown(iKeyCode key)
 {
     switch (key)
     {
@@ -193,9 +247,14 @@ void ExampleBase::onKeyPressed(iKeyCode key)
     }
 }
 
-iView& ExampleBase::getView()
+iView &ExampleBase::getView()
 {
     return _view;
+}
+
+iView &ExampleBase::getViewOrtho()
+{
+    return _viewOrtho;
 }
 
 iScenePtr ExampleBase::getScene()
@@ -203,8 +262,14 @@ iScenePtr ExampleBase::getScene()
     return _scene;
 }
 
+iMaterialID ExampleBase::getFontMaterial() const
+{
+    return _materialWithTextureAndBlending;
+}
+
 void ExampleBase::onWindowResized(int32 clientWidth, int32 clientHeight)
 {
+    // update the the view port projection matrix so the widget manager desktop will fit on screen
     _viewOrtho.setOrthogonal(0.0, static_cast<float32>(clientWidth), static_cast<float32>(clientHeight), 0.0);
 }
 
@@ -230,22 +295,12 @@ void ExampleBase::run()
     deinit();
 }
 
-void ExampleBase::onPreDraw()
-{
-    // nothing to do
-}
-
-void ExampleBase::onPostDraw()
-{
-    // nothing to do
-}
-
-const iaString& ExampleBase::getName() const
+const iaString &ExampleBase::getName() const
 {
     return _name;
 }
 
-iWindow& ExampleBase::getWindow()
+iWindow &ExampleBase::getWindow()
 {
     return _window;
 }
@@ -257,6 +312,14 @@ void ExampleBase::onCloseWindow()
     // stop the application of the window was closed.
     // because once the window is closed we loose the keyboard input and we have to close the console manually (with e.g. Ctrl+C)
     iApplication::getInstance().stop();
+}
+
+void ExampleBase::onPreDraw()
+{
+}
+
+void ExampleBase::onPostDraw()
+{
 }
 
 void ExampleBase::onRenderOrtho()

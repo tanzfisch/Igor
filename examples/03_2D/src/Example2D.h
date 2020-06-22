@@ -26,17 +26,17 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __EXAMPLE2D__
-#define __EXAMPLE2D__
+#ifndef __EXAMPLE2D_H__
+#define __EXAMPLE2D_H__
 
-#include <igor/system/iWindow.h>
-#include <igor/graphics/iView.h>
+#include <ExampleBase.h>
+
 #include <igor/simulation/iParticleSystem2D.h>
 #include <iaux/data/iaGradient.h>
 #include <igor/generation/iPerlinNoise.h>
 #include <igor/resources/material/iMaterial.h>
-#include <igor/resources/profiler/iProfilerVisualizer.h>
 #include <igor/resources/texture/iTexture.h>
+#include <igor/resources/texture/iAtlas.h>
 using namespace igor;
 
 #include <iaux/math/iaMatrix.h>
@@ -47,15 +47,9 @@ using namespace iaux;
 
 #include <memory>
 
-namespace igor
-{
-    class iAtlas;
-    class iTextureFont;
-} // namespace igor
-
 /*! rendering 2d example
 */
-class Example2D
+class Example2D : public ExampleBase
 {
 
 public:
@@ -63,29 +57,11 @@ public:
     */
     Example2D();
 
-    /*! deinitializes the example
+    /*! does nothing
     */
-    virtual ~Example2D();
-
-    /*! run the example
-    */
-    void run();
+    ~Example2D() = default;
 
 private:
-    /*! the window
-    */
-    iWindow _window;
-
-    /*! visualizes profiler data
-    */
-    iProfilerVisualizer _profilerVisualizer;
-
-    /*! the view we want to render in
-
-    basically contains information about where inside the window to render and projection information
-    */
-    iView _view;
-
     /*! perlin noise generator 
     (default ctor initializes with 1337 as random seed)
     */
@@ -101,7 +77,7 @@ private:
 
     /*! texture used for the particles
     */
-    iTexturePtr _particleTexture = nullptr;
+    iTexturePtr _particleTexture;
 
     /*! just increases over time and feeds a sinus function to change the orientation of the particle stream
     */
@@ -113,19 +89,11 @@ private:
 
     /*! opengl logo
     */
-    iAtlas *_openGLLogo = nullptr;
-
-    /*! Igor logo
-    */
-    iTexturePtr _igorLogo = nullptr;
+    iAtlasPtr _openGLLogo = nullptr;
 
     /*! current position of renderer logo 
     */
     iaVector2f _logoPosition{200, 200};
-
-    /*! texture font
-    */
-    iTextureFont *_font = nullptr;
 
     /*! background tileable texture
     */
@@ -155,56 +123,35 @@ private:
     */
     iaRandomNumberGeneratoru _rand;
 
-    /*! mouse move event with minimum data
-
-    mouse coordinates have their origin in the upper left corner of the parenting window
-
-    \param position last mouse position
-    */
-    void onMouseMove(const iaVector2i &position);
-
-    /*! called when window was closed
-    */
-    void onWindowClosed();
-
-    /*! called on window resize
-
-    \param clientWidth width of client rectangle
-    \param clientHeight height of client rectangle
-    */
-    void onWindowResize(int32 clientWidth, int32 clientHeight);
-
-    /*! called when esc key was pressed
-    */
-    void onKeyESCPressed();
-
-    /*! called before every frame
-    */
-    void onHandle();
-
-    /*! called every frame 
-    
-    here we render everyting
-    */
-    void onRender();
-
-    /*! draw Igor Logo
-    */
-    void drawLogo();
-
     /*! call the particles system handle to update particle positions
 
     also changes initiali velocity of particles for waving particle stream effect
     */
     void updateParticles();
 
+    /*! mouse move event with minimum data
+
+    mouse coordinates have their origin in the upper left corner of the parenting window
+
+    \param pos last mouse position
+    */
+    void onMouseMoved(const iaVector2i &pos) override;
+
+    /*! called by orthogonal view
+    */
+    void onRenderOrtho() override;
+
+    /*! called before every frame
+    */
+    void onPreDraw() override;
+
     /*! initializes the example
     */
-    void init();
+    void init() override;
 
     /*! deinitializes the example
     */
-    void deinit();
+    void deinit() override;
 };
 
-#endif
+#endif // __EXAMPLE2D_H__

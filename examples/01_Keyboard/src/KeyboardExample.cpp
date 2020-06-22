@@ -1,3 +1,7 @@
+// Igor game engine
+// (c) Copyright 2012-2020 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "KeyboardExample.h"
 
 #include <igor/system/iApplication.h>
@@ -8,41 +12,27 @@ using namespace igor;
 using namespace iaux;
 
 KeyboardExample::KeyboardExample()
-	: ExampleBase(L"Keyboard Input")
-	, _outputSwitch(true)
+	: ExampleBase(L"Keyboard Input"), _outputSwitch(true)
 {
 }
 
 void KeyboardExample::init()
 {
 	// print some helpfull text
-	con_endl("press ESC - to exit");
-	con_endl("press F1  - to switch output method");
-	con_endl("Keep keyboard focus on \"Keyboard Example\" _window.");
-	con_endl("");
-	con_endl("!!! One Warning about a missing view is supposed to pop up. !!!");
-	con_endl("");
+	con_info("press F1  - to switch output method");
+	con_info("Keep keyboard focus on \"Keyboard Example\" _window.");
 
-	// registers a callback to the key pressed event. called when any key was pressed
-	iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &KeyboardExample::onKeyPressed));
-	// registers a callback to the key release event. called when any key was released
-	iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &KeyboardExample::onKeyReleased));
-	// registers a callback to the specific key pressed event. In this case the ESC key. called only when the esc key was pressed
-	iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownSpecificDelegate(this, &KeyboardExample::onKeyESCPressed), iKeyCode::ESC);
 	// registers a callback to the ASCII input event. called for every ascii input event
 	iKeyboard::getInstance().registerKeyASCIIDelegate(iKeyASCIIDelegate(this, &KeyboardExample::onKeyASCIIInput));
 
 	// some more helpfull text
-	con_endl(" --- starting with single key message output mode ---");
+	con_info(" --- starting with single key message output mode ---");
 }
 
 void KeyboardExample::deinit()
 {
-	// unregisters all callbacks. in principle this is optional because we shut down here anyway but if you want a clean shutdown you should do that
+	// unregister callback
 	iKeyboard::getInstance().unregisterKeyASCIIDelegate(iKeyASCIIDelegate(this, &KeyboardExample::onKeyASCIIInput));
-	iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &KeyboardExample::onKeyPressed));
-	iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &KeyboardExample::onKeyReleased));
-	iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownSpecificDelegate(this, &KeyboardExample::onKeyESCPressed), iKeyCode::ESC);
 }
 
 void KeyboardExample::onKeyASCIIInput(const char c)
@@ -55,7 +45,7 @@ void KeyboardExample::onKeyASCIIInput(const char c)
 	}
 }
 
-void KeyboardExample::onKeyPressed(iKeyCode key)
+void KeyboardExample::onKeyDown(iKeyCode key)
 {
 	// check in which output mode we are
 	if (_outputSwitch)
@@ -63,9 +53,12 @@ void KeyboardExample::onKeyPressed(iKeyCode key)
 		// print to console name and value of the key that was pressed
 		con_endl("pressed: " << key << " (" << static_cast<int>(key) << ")");
 	}
+
+	// call base class to inherit the default behaviour
+	ExampleBase::onKeyDown(key);
 }
 
-void KeyboardExample::onKeyReleased(iKeyCode key)
+void KeyboardExample::onKeyUp(iKeyCode key)
 {
 	// check in which output mode we are
 	if (_outputSwitch)
@@ -80,20 +73,16 @@ void KeyboardExample::onKeyReleased(iKeyCode key)
 		if (_outputSwitch)
 		{
 			_outputSwitch = false;
-			con_endl(" --- switched to ascii code output mode ---");
+			con_info(" --- switched to ascii code output mode ---");
 		}
 		else
 		{
 			_outputSwitch = true;
 			con_endl("");
-			con_endl(" --- switched to single key message output mode ---");
+			con_info(" --- switched to single key message output mode ---");
 		}
 	}
-}
 
-void KeyboardExample::onKeyESCPressed()
-{
-	// breaks the endless loop of our running application
-	iApplication::getInstance().stop();
+	// call base class to inherit the default behaviour
+	ExampleBase::onKeyUp(key);
 }
-

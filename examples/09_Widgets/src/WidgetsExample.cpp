@@ -1,12 +1,16 @@
+// Igor game engine
+// (c) Copyright 2012-2020 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "WidgetsExample.h"
 
 #include <igor/graphics/iRenderer.h>
 #include <igor/system/iApplication.h>
-#include <igor/system/iMouse.h>
-#include <igor/resources/texture/iTextureFont.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/ui/iWidgetManager.h>
+#include <igor/ui/actions/iAction.h>
+#include <igor/ui/actions/iActionManager.h>
 #include <igor/ui/dialogs/iDialog.h>
+#include <igor/ui/theme/iWidgetDefaultTheme.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetButton.h>
 #include <igor/ui/widgets/iWidgetGroupBox.h>
@@ -17,67 +21,20 @@
 #include <igor/ui/widgets/iWidgetPicture.h>
 #include <igor/ui/widgets/iWidgetScroll.h>
 #include <igor/ui/widgets/iWidgetSelectBox.h>
-#include <igor/ui/theme/iWidgetDefaultTheme.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/resources/profiler/iProfiler.h>
 #include <igor/ui/widgets/iWidgetGraph.h>
 #include <igor/ui/widgets/iWidgetColor.h>
 #include <igor/ui/widgets/iWidgetColorGradient.h>
 #include <igor/ui/widgets/iWidgetMenuBar.h>
 #include <igor/ui/widgets/iWidgetMenu.h>
-#include <igor/ui/actions/iAction.h>
-#include <igor/ui/actions/iActionManager.h>
 using namespace igor;
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
 WidgetsExample::WidgetsExample()
+    : ExampleBase("Widgets")
 {
-    init();
-}
-
-WidgetsExample::~WidgetsExample()
-{
-    deinit();
-}
-
-void WidgetsExample::init()
-{
-    con_endl(" -- Widget Example --");
-
-    // register our render function to the view with the ortho projection
-    _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &WidgetsExample::onRender));
-
-    // init window with the orthogonal projected view
-    _window.addView(&_viewOrtho);
-    // set window size
-    _window.setClientSize(1024, 768);
-    // place window centered on screen
-    _window.setCentered();
-    // register to window close event so we can shut down the application properly
-    _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &WidgetsExample::onWindowClosed));
-    // register to window resize event so we can notify the widget manager of that change
-    _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &WidgetsExample::onWindowResize));
-    // opens the window
-    _window.open();
-
-    // set up font for FPS display
-    _font = new iTextureFont("StandardFont.png");
-
-    // prepare igor logo
-    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
-    _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial("TextureAndBlending");
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-
-    // initialize the GUI
-    initGUI();
-
-    // register to mouse move event
-    iMouse::getInstance().registerMouseMoveDelegate(iMouseMoveDelegate(this, &WidgetsExample::onMouseMove));
 }
 
 void WidgetsExample::onCloseDialog(iDialogPtr dialog)
@@ -106,7 +63,7 @@ void WidgetsExample::onActionThree()
     con_endl("action three");
 }
 
-void WidgetsExample::initGUI()
+void WidgetsExample::init()
 {
     // create a theme and set it up. in this case the build in default theme
     _widgetDefaultTheme = new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png");
@@ -119,7 +76,7 @@ void WidgetsExample::initGUI()
     // it does not matter if we open it now or after adding all the child widgets
     _dialog->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseDialog));
 
-    iWidgetGrid* grid1 = new iWidgetGrid(_dialog);
+    iWidgetGrid *grid1 = new iWidgetGrid(_dialog);
     // put all widgets in one list for easier later cleanup. this method might not always be suitable
     grid1->appendRows(2);
     grid1->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -169,20 +126,18 @@ void WidgetsExample::initGUI()
     menu2->addAction(action1);
     menuBar->addMenu(menu2);
 
-
-
-    iWidgetGroupBox* groupBox1 = new iWidgetGroupBox();
+    iWidgetGroupBox *groupBox1 = new iWidgetGroupBox();
     groupBox1->setText("Hello World. This is a group box!");
     groupBox1->setHorizontalAlignment(iHorizontalAlignment::Strech);
     groupBox1->setVerticalAlignment(iVerticalAlignment::Strech);
 
-    // a scroll widget can contain a child that is bigger than it self. if so the scroll widget 
+    // a scroll widget can contain a child that is bigger than it self. if so the scroll widget
     // shows vertical and or horizontal sliders and allows to scroll the child.
-    iWidgetScroll* widgetScoll = new iWidgetScroll();
+    iWidgetScroll *widgetScoll = new iWidgetScroll();
     widgetScoll->setHorizontalAlignment(iHorizontalAlignment::Strech);
     widgetScoll->setVerticalAlignment(iVerticalAlignment::Strech);
 
-    iWidgetGrid* grid3 = new iWidgetGrid();
+    iWidgetGrid *grid3 = new iWidgetGrid();
     grid3->appendCollumns(3);
     grid3->appendRows(4);
     grid3->setCellSpacing(10);
@@ -191,34 +146,34 @@ void WidgetsExample::initGUI()
     grid3->setVerticalAlignment(iVerticalAlignment::Top);
     grid3->setSelectMode(iSelectionMode::NoSelection);
 
-    iWidgetGrid* grid4 = new iWidgetGrid();
+    iWidgetGrid *grid4 = new iWidgetGrid();
     grid4->appendCollumns(5);
     grid4->setStrechColumn(4);
     grid4->setHorizontalAlignment(iHorizontalAlignment::Strech);
     grid4->setVerticalAlignment(iVerticalAlignment::Top);
     grid4->setSelectMode(iSelectionMode::NoSelection);
 
-    iWidgetLabel* label1 = new iWidgetLabel();
+    iWidgetLabel *label1 = new iWidgetLabel();
     label1->setText("This is a Label with just enough text.");
 
-    iWidgetLabel* label2 = new iWidgetLabel();
+    iWidgetLabel *label2 = new iWidgetLabel();
     label2->setText("This is an other Label with just enough text.");
 
-    iWidgetLabel* label3 = new iWidgetLabel();
+    iWidgetLabel *label3 = new iWidgetLabel();
     label3->setText("Top Right aligned Label");
     label3->setVerticalAlignment(iVerticalAlignment::Top);
     label3->setHorizontalAlignment(iHorizontalAlignment::Right);
 
-    iWidgetLabel* label4 = new iWidgetLabel();
+    iWidgetLabel *label4 = new iWidgetLabel();
     label4->setText("This is a Label with a super long text so you can see the line break feature in action.");
     label4->setMaxTextWidth(200);
 
-    iWidgetLabel* label5 = new iWidgetLabel();
+    iWidgetLabel *label5 = new iWidgetLabel();
     label5->setText("Bottom Left Aligned Label");
     label5->setVerticalAlignment(iVerticalAlignment::Bottom);
     label5->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetButton* button1 = new iWidgetButton();
+    iWidgetButton *button1 = new iWidgetButton();
     button1->setSize(70, 20);
     button1->setVerticalAlignment(iVerticalAlignment::Strech);
     button1->setHorizontalAlignment(iHorizontalAlignment::Center);
@@ -242,12 +197,12 @@ void WidgetsExample::initGUI()
     _colorGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _colorGradient->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenColorGradientEditor));
 
-    iWidgetSpacer* spacer = new iWidgetSpacer();
+    iWidgetSpacer *spacer = new iWidgetSpacer();
     spacer->setSize(2, 30);
 
     _labelMousePos = new iWidgetLabel();
 
-    iWidgetButton* exitButton = new iWidgetButton();
+    iWidgetButton *exitButton = new iWidgetButton();
     exitButton->setText("");
     exitButton->setTooltip("Exists the application.");
     exitButton->setTexture("icons\\exit.png");
@@ -257,37 +212,37 @@ void WidgetsExample::initGUI()
     exitButton->setSize(64, 64);
     exitButton->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onExitClick));
 
-    iWidgetSelectBox* selectBox = new iWidgetSelectBox();
+    iWidgetSelectBox *selectBox = new iWidgetSelectBox();
     selectBox->addSelectionEntry("bla");
     selectBox->addSelectionEntry("blub haha bla blub");
     selectBox->addSelectionEntry("haha");
     selectBox->setSelection(1);
     selectBox->setHorizontalAlignment(iHorizontalAlignment::Right);
 
-    iWidgetNumberChooser* numberChooser = new iWidgetNumberChooser();
+    iWidgetNumberChooser *numberChooser = new iWidgetNumberChooser();
     numberChooser->setPostFix("%");
     numberChooser->setValue(50);
     numberChooser->setHorizontalAlignment(iHorizontalAlignment::Right);
 
-    iWidgetTextEdit* textEditLeft = new iWidgetTextEdit();
+    iWidgetTextEdit *textEditLeft = new iWidgetTextEdit();
     textEditLeft->setWidth(150);
     textEditLeft->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     textEditLeft->setText("left aligned");
     textEditLeft->setMaxTextLength(300);
 
-    iWidgetTextEdit* textEditCenter = new iWidgetTextEdit();
+    iWidgetTextEdit *textEditCenter = new iWidgetTextEdit();
     textEditCenter->setWidth(150);
     textEditCenter->setHorizontalTextAlignment(iHorizontalAlignment::Center);
     textEditCenter->setText("center aligned");
     textEditCenter->setMaxTextLength(300);
 
-    iWidgetTextEdit* textEditRight = new iWidgetTextEdit();
+    iWidgetTextEdit *textEditRight = new iWidgetTextEdit();
     textEditRight->setWidth(150);
     textEditRight->setHorizontalTextAlignment(iHorizontalAlignment::Right);
     textEditRight->setText("right aligned");
     textEditRight->setMaxTextLength(300);
 
-    iWidgetPicture* picture1 = new iWidgetPicture();
+    iWidgetPicture *picture1 = new iWidgetPicture();
     picture1->setTexture("OpenGL-Logo.jpg");
     picture1->setMaxSize(200, 64);
     picture1->setVerticalAlignment(iVerticalAlignment::Top);
@@ -295,21 +250,21 @@ void WidgetsExample::initGUI()
 
     // if check boxes are supposed to be connected as radio buttons tell the widget manager by starting a radio button group
     iWidgetCheckBox::beginRadioButtonGroup();
-    iWidgetCheckBox* radio1 = new iWidgetCheckBox();
+    iWidgetCheckBox *radio1 = new iWidgetCheckBox();
     radio1->setHorizontalAlignment(iHorizontalAlignment::Left);
     radio1->setText("radio1");
 
-    iWidgetCheckBox* radio2 = new iWidgetCheckBox();
+    iWidgetCheckBox *radio2 = new iWidgetCheckBox();
     radio2->setText("radio2");
     radio2->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetCheckBox* radio3 = new iWidgetCheckBox();
+    iWidgetCheckBox *radio3 = new iWidgetCheckBox();
     radio3->setText("radio3");
     radio3->setHorizontalAlignment(iHorizontalAlignment::Left);
     // finish the radio button group
     iWidgetCheckBox::endRadioButtonGroup();
 
-    iWidgetGraph* graph = new iWidgetGraph();
+    iWidgetGraph *graph = new iWidgetGraph();
     graph->setSize(300, 50);
 
     std::vector<iaVector2f> points;
@@ -387,43 +342,19 @@ void WidgetsExample::initGUI()
     grid3->addWidget(radio1, 0, 4);
     grid3->addWidget(radio2, 1, 4);
     grid3->addWidget(radio3, 2, 4);
+
+    // update desktop size
+    iWidgetManager::getInstance().setDesktopDimensions(getWindow().getClientWidth(), getWindow().getClientHeight());
 }
 
 void WidgetsExample::deinit()
 {
-    _igorLogo = nullptr;
-
-    iMouse::getInstance().unregisterMouseMoveDelegate(iMouseMoveDelegate(this, &WidgetsExample::onMouseMove));
-
-    iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
-
-    if (_font)
-    {
-        delete _font;
-        _font = nullptr;
-    }
-
-    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &WidgetsExample::onRender));
-
     iWidgetManager::getInstance().setTheme(nullptr);
     delete _widgetDefaultTheme;
     _widgetDefaultTheme = nullptr;
-
-    _window.close();
-    _window.removeView(&_viewOrtho);
 }
 
-
-void WidgetsExample::onWindowResize(int32 clientWidth, int32 clientHeight)
-{
-    // update the widget managers desktop dimensions
-    iWidgetManager::getInstance().setDesktopDimensions(_window.getClientWidth(), _window.getClientHeight());
-
-    // update the the view port projection matrix so the widget manager desktop will fit on screen
-    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
-}
-
-void WidgetsExample::onMouseMove(const iaVector2i& pos)
+void WidgetsExample::onMouseMoved(const iaVector2i &pos)
 {
     // updates a label with current mouse position
     if (_labelMousePos != nullptr)
@@ -435,6 +366,8 @@ void WidgetsExample::onMouseMove(const iaVector2i& pos)
 
         _labelMousePos->setText(text);
     }
+
+    ExampleBase::onMouseMoved(pos);
 }
 
 void WidgetsExample::onOpenColorChooser(const iWidgetPtr source)
@@ -504,7 +437,7 @@ void WidgetsExample::onOpenMessageBox(const iWidgetPtr source)
 void WidgetsExample::onCloseMessageBox(iDialogPtr dialog)
 {
     iaString returnString;
-    switch (static_cast<iDialogMessageBox*>(dialog)->getReturnState())
+    switch (static_cast<iDialogMessageBox *>(dialog)->getReturnState())
     {
     case iDialogReturnState::No:
         returnString = "No";
@@ -534,15 +467,15 @@ void WidgetsExample::onExitClick(const iWidgetPtr source)
     iApplication::getInstance().stop();
 }
 
-void WidgetsExample::onWindowClosed()
+void WidgetsExample::onWindowResized(int32 clientWidth, int32 clientHeight)
 {
-    // shut down application
-    // closing the window alone will not shut down the application 
-    // because it's a console application and the windows come on top
-    iApplication::getInstance().stop();
+    // update the widget managers desktop dimensions
+    iWidgetManager::getInstance().setDesktopDimensions(getWindow().getClientWidth(), getWindow().getClientHeight());
+
+    ExampleBase::onWindowResized(clientWidth, clientHeight);
 }
 
-void WidgetsExample::onRender()
+void WidgetsExample::onRenderOrtho()
 {
     // initialize view matrix with identity matrix
     iaMatrixd identity;
@@ -557,28 +490,5 @@ void WidgetsExample::onRender()
     // tell the widget manager to draw the widgets
     iWidgetManager::getInstance().draw();
 
-    // draw Igor Logo
-    drawLogo();
-
-    // draw some render statistics
-    _profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
-}
-
-void WidgetsExample::drawLogo()
-{
-    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-
-    float32 width = static_cast<float32>(_igorLogo->getWidth());
-    float32 height = static_cast<float32>(_igorLogo->getHeight());
-    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
-    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
-
-    iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
-}
-
-void WidgetsExample::run()
-{
-    // call application main loop. will not stop until application was shut down
-    iApplication::getInstance().run();
+    ExampleBase::onRenderOrtho();
 }

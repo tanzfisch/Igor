@@ -26,39 +26,18 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __PARTICLES__
-#define __PARTICLES__
+#ifndef __PARTICLES_EXAMPLE_H__
+#define __PARTICLES_EXAMPLE_H__
 
-#include <igor/igor.h>
-#include <igor/system/iWindow.h>
-#include <igor/graphics/iView.h>
-#include <igor/system/iTimerHandle.h>
-#include <igor/resources/model/iModelResourceFactory.h>
+#include <ExampleBase.h>
+
 #include <igor/resources/material/iMaterial.h>
-#include <igor/resources/profiler/iProfilerVisualizer.h>
+#include <igor/system/iTimerHandle.h>
 using namespace igor;
-
-#include <iaux/math/iaMatrix.h>
-using namespace iaux;
-
-namespace igor
-{
-    class iScene;
-    class iNodeTransform;
-    class iNodeLight;
-    class iNodeSwitch;
-    class iTextureFont;
-    class iTaskFlushModels;
-    class iTaskFlushTextures;
-    class iNodeLODTrigger;
-    class iNodeLODSwitch;
-    class iNodeModel;
-    class iTexture;
-} // namespace igor
 
 /*! the particles example class
 */
-class Particles
+class Particles : public ExampleBase
 {
 
 public:
@@ -66,39 +45,11 @@ public:
     */
     Particles();
 
-    /*! deinit
+    /*! does nothing
     */
-    virtual ~Particles();
-
-    /*! run example
-    */
-    void run();
+    ~Particles() = default;
 
 private:
-    /*! the window
-    */
-    iWindow _window;
-
-    /*! visualizes statistics
-    */
-    iProfilerVisualizer _profilerVisualizer;
-
-    /*! the view we render 3D to
-    */
-    iView _view;
-
-    /*! the view we render 2D to
-    */
-    iView _viewOrtho;
-
-    /*! the scene holding our 3d nodes
-    */
-    iScene *_scene = nullptr;
-
-    /*! texture fon we use to render statistics
-    */
-    iTextureFont *_font = nullptr;
-
     /*! id to transform node used for manipulating the heading of the camera
     */
     uint64 _cameraHeading = iNode::INVALID_NODE_ID;
@@ -117,11 +68,7 @@ private:
 
     /*! particles material
     */
-    uint64 _particlesMaterial = 0;
-
-    /*! id of task to load textures
-    */
-    uint64 _taskFlushTexturesID = iTask::INVALID_TASK_ID;
+    uint64 _particlesMaterial = iMaterial::INVALID_MATERIAL_ID;
 
     /*! ids of particle systems
     */
@@ -134,14 +81,6 @@ private:
     /*! id of wave emitter transform id
     */
     uint64 _waveEmitterTransformID = iNode::INVALID_NODE_ID;
-
-    /*! igor logo
-    */
-    iTexturePtr _igorLogo = nullptr;
-
-    /*! igor logo material
-    */
-    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
 
     /*! creates the dot shaped particle system
     */
@@ -167,22 +106,13 @@ private:
     */
     void createFireParticleSystem();
 
-    /*! called on key pressed event
-
-    \param key the key code of the pressed key
+    /*! called by orthogonal view
     */
-    void onKeyPressed(iKeyCode key);
+    void onRenderOrtho();
 
-    /*! called when window was closed
+    /*! called by timer
     */
-    void onWindowClosed();
-
-    /*! called when window was resized
-
-    \param clientWidth the client rectangle width
-    \param clientHeight the client rectangle height
-    */
-    void onWindowResized(int32 clientWidth, int32 clientHeight);
+    void onTimer();
 
     /*! called when the mouse was moved
 
@@ -190,33 +120,27 @@ private:
     \param to current mouse position
     \param window the window the coordinates are related to
     */
-    void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window);
+    void onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window) override;
 
     /*! called when mouse wheel was turned
 
     \param d mouse wheel delta
     */
-    void onMouseWheel(int32 d);
+    void onMouseWheel(int32 d) override;
 
-    /*! called by orthogonal view
-    */
-    void onRenderOrtho();
+    /*! called on key pressed event
 
-    /*! draws igor logo
+    \param key the key code of the pressed key
     */
-    void drawLogo();
-
-    /*! called by timer
-    */
-    void onTimer();
+    void onKeyDown(iKeyCode key) override;
 
     /*! deinit example
     */
-    void deinit();
+    void deinit() override;
 
     /*! init example
     */
-    void init();
+    void init() override;
 };
 
 #endif

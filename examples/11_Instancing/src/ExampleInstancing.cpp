@@ -1,3 +1,7 @@
+// Igor game engine
+// (c) Copyright 2012-2020 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "ExampleInstancing.h"
 
 #include <iaConsole.h>
@@ -9,13 +13,13 @@ using namespace IgorAux;
 #include <igor/threading/iTaskManager.h>
 #include <iNodeSkyBox.h>
 #include <iNodeCamera.h>
-#include <igor/graphics/scene/nodes/iNodeModel.h>
-#include igor / graphics / scene / nodes / iNodeTransform.h>
+#include <igor/scene/nodes/iNodeModel.h>
+#include <igor/scene/nodes/iNodeTransform.h>
 #include <iRenderer.h>
 #include <iApplication.h>
 #include <iSceneFactory.h>
-#include <igor/graphics/scene/iScene.h>
-#include <igor/graphics/scene/nodes/iNodeManager.h>
+#include <igor/scene/iScene.h>
+#include <igor/scene/nodes/iNodeManager.h>
 #include <iMouse.h>
 #include <iKeyboard.h>
 #include <iTimer.h>

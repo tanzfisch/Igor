@@ -57,12 +57,6 @@ namespace igor
 	*/
     iaEVENT(iMouseKeyUpEvent, iMouseKeyUpDelegate, void, (iKeyCode key), (key));
 
-    /*! mouse clicked event. triggered on moue up after there was a mouse down
-
-    \param key the key code of the key that was pressed
-    */
-    iaEVENT(iMouseClickEvent, iMouseClickDelegate, void, (iKeyCode key), (key));
-
     /*! mouse double click event
 
     will be called for a any mouse key that does a double click
@@ -140,18 +134,6 @@ namespace igor
 		\param keyupDelegate the delegate to unregister
 		*/
         void unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate keyupDelegate);
-
-        /*! register delegate to mouse key clicked event
-
-        \param clickDelegate the delegate to register
-        */
-        void registerMouseClickDelegate(iMouseClickDelegate clickDelegate);
-
-        /*! unregister delegate from mouse key up event
-
-        \param clickDelegate the delegate to unregister
-        */
-        void unregisterMouseClickDelegate(iMouseClickDelegate clickDelegate);
 
         /*! register delegate to mouse move full data event
 

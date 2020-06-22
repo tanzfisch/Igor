@@ -46,7 +46,6 @@ namespace igor
         iMouse *_mouse;
         iMouseKeyDownEvent _keyDownEvent;
         iMouseKeyUpEvent _keyUpEvent;
-        iMouseClickEvent _clickEvent;
         iMouseKeyDoubleClickEvent _doubleClickEvent;
         iMouseMoveFullEvent _moveFullEvent;
         iMouseMoveEvent _moveEvent;
@@ -167,11 +166,6 @@ namespace igor
                 break;
 
             case WM_RBUTTONUP:
-                if (_buttonStates[2]._pressed)
-                {
-                    _clickEvent(iKeyCode::MouseRight);
-                }
-
                 _buttonStates[2]._pressed = false;
                 _keyUpEvent(iKeyCode::MouseRight);
                 break;
@@ -187,11 +181,6 @@ namespace igor
                 break;
 
             case WM_LBUTTONUP:
-                if (_buttonStates[0]._pressed)
-                {
-                    _clickEvent(iKeyCode::MouseLeft);
-                }
-
                 _buttonStates[0]._pressed = false;
                 _keyUpEvent(iKeyCode::MouseLeft);
                 break;
@@ -207,11 +196,6 @@ namespace igor
                 break;
 
             case WM_MBUTTONUP:
-                if (_buttonStates[1]._pressed)
-                {
-                    _clickEvent(iKeyCode::MouseMiddle);
-                }
-
                 _buttonStates[1]._pressed = false;
                 _keyUpEvent(iKeyCode::MouseMiddle);
                 break;
@@ -550,16 +534,6 @@ namespace igor
     void iMouse::showCursor(bool show)
     {
         _impl->showCursor(show);
-    }
-
-    void iMouse::registerMouseClickDelegate(iMouseClickDelegate clickDelegate)
-    {
-        _impl->_clickEvent.append(clickDelegate);
-    }
-
-    void iMouse::unregisterMouseClickDelegate(iMouseClickDelegate clickDelegate)
-    {
-        _impl->_clickEvent.remove(clickDelegate);
     }
 
     void iMouse::registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate doubleClickDelegate)

@@ -1,3 +1,7 @@
+// Igor game engine
+// (c) Copyright 2012-2020 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "EnemyDestroyed.h"
 
 #include <igor/scene/nodes/iNodeManager.h>

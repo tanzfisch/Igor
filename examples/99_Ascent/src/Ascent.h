@@ -111,8 +111,8 @@ private:
     bool getTerrainIntersectionPoint(iaVector3I &intersection);
     void dig(iaVector3I position, uint64 toolSize, uint8 toolDensity);
 
-    void onKeyPressed(iKeyCode key);
-    void onKeyReleased(iKeyCode key);
+    void onKeyDown(iKeyCode key);
+    void onKeyUp(iKeyCode key);
 
     void onWindowClosed();
     void onWindowResized(int32 clientWidth, int32 clientHeight);

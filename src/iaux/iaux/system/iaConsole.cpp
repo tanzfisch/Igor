@@ -143,21 +143,24 @@ namespace iaux
 
     void iaConsole::setLogLevel(iaLogLevel logLevel)
     {
-        _logLevel = iaLogLevel::Info;
-        con_info("log level is " << logLevel);
-        _logLevel = logLevel;
+        if (_logLevel != logLevel)
+        {
+            _logLevel = iaLogLevel::Info;
+            con_info("log level is " << logLevel);
+            _logLevel = logLevel;
+        }
     }
 
-    iaConsole& operator<<(iaConsole& console, const iaLogLevel& logLevel)
+    iaConsole &operator<<(iaConsole &console, const iaLogLevel &logLevel)
     {
         const static iaString text[] = {
-        "Fatal",
-        "Error",
-        "Warning",
-        "Info",
-        "DebugInfo",
-        "Debug",
-        "Trace" };
+            "Fatal",
+            "Error",
+            "Warning",
+            "Info",
+            "DebugInfo",
+            "Debug",
+            "Trace"};
 
         console << text[static_cast<int>(logLevel)].getData();
         return console;
