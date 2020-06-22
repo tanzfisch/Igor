@@ -430,8 +430,8 @@ void ExampleCharacterController::onMouseMovedFull(const iaVector2i &from, const 
         if (cameraPitch != nullptr &&
             cameraHeading != nullptr)
         {
-            cameraPitch->rotate((from._y - to._y) * 0.001f, iaAxis::X);
-            cameraHeading->rotate((from._x - to._x) * 0.001f, iaAxis::Y);
+            cameraPitch->rotate((from._y - to._y) * 0.00025f, iaAxis::X);
+            cameraHeading->rotate((from._x - to._x) * 0.00025f, iaAxis::Y);
 
             iMouse::getInstance().setCenter();
         }
