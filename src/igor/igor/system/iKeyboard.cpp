@@ -827,6 +827,19 @@ namespace igor
                 return true;
 
             case KeyRelease:
+                if (XEventsQueued(osevent->_display, QueuedAlready))
+                {
+                    XEvent nev;
+                    XPeekEvent(osevent->_display, &nev);
+
+                    if (nev.type == KeyPress &&
+                        nev.xkey.time == xevent.xkey.time &&
+                        nev.xkey.keycode == xevent.xkey.keycode)
+                    {
+                        return true;
+                    }
+                }
+
                 currentKey = translate(xevent.xkey.keycode);
                 if (currentKey != iKeyCode::Undefined)
                 {

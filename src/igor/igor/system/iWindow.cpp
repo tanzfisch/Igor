@@ -783,7 +783,6 @@ namespace igor
 
         void handle() override
         {
-            std::vector<iOSEvent> events;
             iOSEvent os_event;
             os_event._display = _display;
             os_event._visual = _visual;
@@ -791,16 +790,12 @@ namespace igor
             while (pending())
             {
                 XNextEvent(_display, &os_event._event);
-                events.push_back(os_event);
-            }
 
-            for (auto &event : events)
-            {
                 bool eventHandled = false;
 
                 for (auto listener : _oseventlisteners)
                 {
-                    if (listener->onOSEvent(&event))
+                    if (listener->onOSEvent(&os_event))
                     {
                         eventHandled = true;
                         break;
