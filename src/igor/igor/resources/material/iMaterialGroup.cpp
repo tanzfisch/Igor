@@ -44,7 +44,7 @@ namespace igor
                 auto meshBuffers = static_cast<iNodeMesh *>(renderNode)->getMeshBuffers();
                 if (_instancedRenderNodes[meshBuffers]._instancer == nullptr)
                 {
-                    _instancedRenderNodes[meshBuffers]._instancer = new iInstancer(64, 100000); // big TODO
+                    _instancedRenderNodes[meshBuffers]._instancer = new iInstancer(64, 100000); // TODO ... later
                 }
 
                 auto iter = find(_instancedRenderNodes[meshBuffers]._renderNodeIDs.begin(), _instancedRenderNodes[meshBuffers]._renderNodeIDs.end(), renderNodeID);

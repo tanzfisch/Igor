@@ -73,27 +73,27 @@ namespace igor
 
         /*! \returns per instance size
         */
-        __IGOR_INLINE__ uint32 getInstanceSize() const;
+        uint32 getInstanceSize() const;
 
         /*! \returns instances count
         */
-        __IGOR_INLINE__ uint32 getInstanceCount() const;
+        uint32 getInstanceCount() const;
 
         /*! \returns max instances count
         */
-        __IGOR_INLINE__ uint32 getInstanceMaxCount() const;
+        uint32 getInstanceMaxCount() const;
 
         /*! \returns instances data buffer
         */
-        __IGOR_INLINE__ char *getInstanceDataBuffer() const;
+        char *getInstanceDataBuffer() const;
 
         /*! \returns instances buffer size
         */
-        __IGOR_INLINE__ uint32 getInstanceDataBufferSize() const;
+        uint32 getInstanceDataBufferSize() const;
 
         /*! \returns instance array object id
         */
-        __IGOR_INLINE__ uint32 getInstanceArrayObject() const;
+        uint32 getInstanceArrayObject() const;
 
     private:
         /*! instance array object id
