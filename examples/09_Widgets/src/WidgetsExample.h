@@ -115,7 +115,7 @@ private:
 
     \param dialog source of the event
     */
-    void WidgetsExample::onCloseDialog(iDialogPtr dialog);
+    void onCloseDialog(iDialogPtr dialog);
 
     /*! initializes GUI
     */

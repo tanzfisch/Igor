@@ -11,24 +11,23 @@
 //                                           (_(       \)
 // (c) Copyright 2014-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: igorgameengine@protonmail.com  
+//
+// contact: igorgameengine@protonmail.com
 
 #ifndef __USERCONTROLMESH__
 #define __USERCONTROLMESH__
-
 
 #include <iaux/data/iaColor4.h>
 using namespace iaux;
@@ -36,7 +35,6 @@ using namespace iaux;
 #include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/ui/user_controls/iUserControl.h>
 #include <igor/ui/user_controls/iUserControlColorChooser.h>
-#include <igor/ui/dialogs/iDialogFileSelect.h>
 using namespace igor;
 
 namespace igor
@@ -50,38 +48,36 @@ namespace igor
     class iWidgetNumberChooser;
     class iWidgetSelectBox;
     class iUserControlFileChooser;
-}
+} // namespace igor
 
 class UserControlMesh : public iUserControl
 {
 
 public:
-
-	UserControlMesh();
-	~UserControlMesh();
+    UserControlMesh();
+    ~UserControlMesh();
 
     void setNode(uint32 id);
     uint32 getNode();
 
 private:
+    void draw() override;
 
-	void draw() override;
-
-	/*! if true ui is initialized
+    /*! if true ui is initialized
 	*/
-	bool _initialized = false;
+    bool _initialized = false;
 
-    iUserControlFileChooser* _textureChooser0 = nullptr;
-    iUserControlFileChooser* _textureChooser1 = nullptr;
-    iUserControlFileChooser* _textureChooser2 = nullptr;
-    iUserControlFileChooser* _textureChooser3 = nullptr;
+    iUserControlFileChooser *_textureChooser0 = nullptr;
+    iUserControlFileChooser *_textureChooser1 = nullptr;
+    iUserControlFileChooser *_textureChooser2 = nullptr;
+    iUserControlFileChooser *_textureChooser3 = nullptr;
 
-    iWidgetTextEdit* _textVertices = nullptr;
-    iWidgetTextEdit* _textTriangles = nullptr;
-    iWidgetTextEdit* _textIndexes = nullptr;
+    iWidgetTextEdit *_textVertices = nullptr;
+    iWidgetTextEdit *_textTriangles = nullptr;
+    iWidgetTextEdit *_textIndexes = nullptr;
 
-    iWidgetNumberChooser* _textShininess = nullptr;
-    iWidgetSlider* _sliderShininess = nullptr;
+    iWidgetNumberChooser *_textShininess = nullptr;
+    iWidgetSlider *_sliderShininess = nullptr;
 
     iaColor4f _ambient;
     iaColor4f _emissive;
@@ -89,26 +85,26 @@ private:
     iaColor4f _specular;
     float32 _shininess;
 
-    iUserControlColorChooser* _ambientColorChooser = nullptr;
-    iUserControlColorChooser* _emissiveColorChooser = nullptr;
-    iUserControlColorChooser* _diffuseColorChooser = nullptr;
-    iUserControlColorChooser* _specularColorChooser = nullptr;
+    iUserControlColorChooser *_ambientColorChooser = nullptr;
+    iUserControlColorChooser *_emissiveColorChooser = nullptr;
+    iUserControlColorChooser *_diffuseColorChooser = nullptr;
+    iUserControlColorChooser *_specularColorChooser = nullptr;
 
-    iWidgetSelectBox* _selectMaterial = nullptr;
+    iWidgetSelectBox *_selectMaterial = nullptr;
 
     uint32 _nodeId = 0;
     bool _ignoreNodeUpdate = false;
     uint32 _loadTextureTexUnit = 0;
 
-    std::vector<uint32*> _userDataMaterialID;
+    std::vector<uint32 *> _userDataMaterialID;
 
-    void onAmbientChange(const iaColor4f& color);
-    void onDiffuseChange(const iaColor4f& color);
-    void onSpecularChange(const iaColor4f& color);
-    void onEmissiveChange(const iaColor4f& color);
+    void onAmbientChange(const iaColor4f &color);
+    void onDiffuseChange(const iaColor4f &color);
+    void onSpecularChange(const iaColor4f &color);
+    void onEmissiveChange(const iaColor4f &color);
 
     void onDoUpdateNode(const iWidgetPtr source);
-	void onBakeAction(const iWidgetPtr source);
+    void onBakeAction(const iWidgetPtr source);
 
     void onTextChangedShininess(const iWidgetPtr source);
     void onSliderChangedShininess(const iWidgetPtr source);
@@ -119,9 +115,7 @@ private:
     void updateNode();
 
     void initGUI();
-	void deinitGUI();
-
-	
+    void deinitGUI();
 };
 
 #endif
