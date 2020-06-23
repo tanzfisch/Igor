@@ -312,9 +312,9 @@ namespace igor
 		_processingQueue.insert(_loadingQueue.begin(), _loadingQueue.end());
 		_mutex.unlock();
 
-		// stop after 5ms
+		// stop after 50ms to keep the front end responsive
 		iaTime endTime = iaTime::now();
-		endTime += iaTime::fromMilliseconds(5);
+		endTime += iaTime::fromMilliseconds(50);
 
 		auto iterP = _processingQueue.begin();
 		while (iterP != _processingQueue.end())

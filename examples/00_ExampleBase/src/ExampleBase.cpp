@@ -128,8 +128,8 @@ ExampleBase::~ExampleBase()
     if (_window.isOpen())
     {
         // unregister callbacks
-        iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &ExampleBase::onKeyUp));
-        iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &ExampleBase::onKeyDown));
+        iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &ExampleBase::onKeyUp));
+        iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &ExampleBase::onKeyDown));
         iMouse::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ExampleBase::onMouseKeyDown));
         iMouse::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ExampleBase::onMouseKeyUp));
         iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ExampleBase::onMouseMovedFull));

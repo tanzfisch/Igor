@@ -23,12 +23,12 @@ namespace igor
         }
     }
 
-    std::vector<uint64> iMaterialGroup::getRenderNodes() const
+    const std::vector<uint64> iMaterialGroup::getRenderNodes() const
     {
         return _renderNodeIDs;
     }
 
-    std::map<std::shared_ptr<iMeshBuffers>, iInstancedNodes> iMaterialGroup::getInstancedRenderNodes() const
+    const std::map<std::shared_ptr<iMeshBuffers>, iInstancedNodes> iMaterialGroup::getInstancedRenderNodes() const
     {
         return _instancedRenderNodes;
     }
@@ -44,7 +44,7 @@ namespace igor
                 auto meshBuffers = static_cast<iNodeMesh *>(renderNode)->getMeshBuffers();
                 if (_instancedRenderNodes[meshBuffers]._instancer == nullptr)
                 {
-                    _instancedRenderNodes[meshBuffers]._instancer = new iInstancer(64, 10000); // big TODO
+                    _instancedRenderNodes[meshBuffers]._instancer = new iInstancer(64, 100000); // big TODO
                 }
 
                 auto iter = find(_instancedRenderNodes[meshBuffers]._renderNodeIDs.begin(), _instancedRenderNodes[meshBuffers]._renderNodeIDs.end(), renderNodeID);

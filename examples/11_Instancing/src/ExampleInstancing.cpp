@@ -12,6 +12,7 @@
 #include <igor/scene/iScene.h>
 #include <igor/scene/nodes/iNodeLight.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
+#include <igor/resources/model/iModelResourceFactory.h>
 #include <igor/resources/material/iShader.h>
 #include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/system/iMouse.h>
@@ -24,6 +25,9 @@ ExampleInstancing::ExampleInstancing()
 
 void ExampleInstancing::init()
 {
+    const float32 spacing = 2.0f;
+    const int32 amountPerDimension = 20;
+
     // setup camera
     // we want a camera which can be rotated arround the origin
     // we will acchive that with 3 transform nodes
@@ -41,7 +45,7 @@ void ExampleInstancing::init()
     iNodeTransform *cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
     cameraTranslation->setName("camera translation");
     // translate away from origin
-    cameraTranslation->translate(0, 0, 10);
+    cameraTranslation->translate(0, 0, spacing * amountPerDimension * 0.5);
     _cameraTranslation = cameraTranslation->getID();
     // from all nodes that we want to control later we save the node ID
     // and last but not least we create a camera node
@@ -63,22 +67,22 @@ void ExampleInstancing::init()
     // first we have to override the material which is stored within the model
     // to do that we create a new material using instancing
     _materialWithInstancing = iMaterialResourceFactory::getInstance().createMaterial();
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->setRenderState(iRenderState::Instanced, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->setRenderState(iRenderState::InstancedFunc, iRenderStateValue::PositionOrientation);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->addShaderSource("igor/textured_ipo.vert", iShaderObjectType::Vertex);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->addShaderSource("igor/textured_ipo_directional_light.frag", iShaderObjectType::Fragment);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->compileShader();
-
-    const float32 spacing = 3.0f;
-    const int32 amountPerDimension = 3;
+    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing);
+    material->setRenderState(iRenderState::Instanced, iRenderStateValue::On);
+    material->setRenderState(iRenderState::InstancedFunc, iRenderStateValue::PositionOrientation);
+    material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    material->addShaderSource("igor/textured_ipo.vert", iShaderObjectType::Vertex);
+    material->addShaderSource("igor/textured_ipo_directional_light.frag", iShaderObjectType::Fragment);
+    material->compileShader();
 
     // now we can just put copies of that model in the scene
     iNodeTransform *transformGroup = iNodeManager::getInstance().createNode<iNodeTransform>();
-    transformGroup->translate(-((amountPerDimension - 1) * spacing * 0.5), -((amountPerDimension - 1) * spacing * 0.5), ((amountPerDimension - 1) * spacing * 0.5));
+    transformGroup->translate(-((amountPerDimension - 1) * spacing * 0.5), -((amountPerDimension - 1) * spacing * 0.5), -((amountPerDimension - 1) * spacing * 0.5));
     getScene()->getRoot()->insertNode(transformGroup);
 
-    // create an array of models
+    int count = 0;
+
+    // create a bunch of models
     for (int z = 0; z < amountPerDimension; ++z)
     {
         for (int y = 0; y < amountPerDimension; ++y)
@@ -86,7 +90,7 @@ void ExampleInstancing::init()
             for (int x = 0; x < amountPerDimension; ++x)
             {
                 iNodeTransform *transform = iNodeManager::getInstance().createNode<iNodeTransform>();
-                transform->translate(x * spacing, y * spacing, -z * spacing);
+                transform->translate(x * spacing, y * spacing, z * spacing);
                 transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::X);
                 transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::Y);
                 transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::Z);
@@ -100,9 +104,13 @@ void ExampleInstancing::init()
                 // building the created nodes together and insert them in the scene
                 transformGroup->insertNode(transform);
                 transform->insertNode(modelNode);
+
+                count++;
             }
         }
     }
+
+    con_info("instance count: " << count);
 
     // setup light
     // transform node for the lights orientation
@@ -166,8 +174,8 @@ void ExampleInstancing::onMouseMovedFull(const iaVector2i &from, const iaVector2
         if (cameraPitch != nullptr &&
             cameraHeading != nullptr)
         {
-            cameraPitch->rotate((to._y - from._y) * 0.005f, iaAxis::X);
-            cameraHeading->rotate((from._x - to._x) * 0.005f, iaAxis::Y);
+            cameraPitch->rotate((to._y - from._y) * 0.00025f, iaAxis::X);
+            cameraHeading->rotate((from._x - to._x) * 0.00025f, iaAxis::Y);
 
             iMouse::getInstance().setCenter();
         }
