@@ -55,47 +55,17 @@ namespace iaux
 
         \param seed the seed
         */
-		__IGOR_INLINE__ void setSeed(T seed);
+		void setSeed(T seed);
 
 		/*! \returns next random number
         */
-		__IGOR_INLINE__ T getNext();
+		T getNext();
 
 	private:
 		/*! the seed
         */
 		T _seed;
 	};
-
-	template <class T>
-	iaRandomNumberGenerator<T>::iaRandomNumberGenerator(T seed)
-	{
-		_seed = seed;
-	}
-
-	template <class T>
-	iaRandomNumberGenerator<T>::~iaRandomNumberGenerator()
-	{
-	}
-
-	template <class T>
-	void iaRandomNumberGenerator<T>::setSeed(T seed)
-	{
-		_seed = seed;
-	}
-
-	// is supposed to do the same as C++11 minstd_rand but maybe I got it wrong
-
-	template <class T>
-	__IGOR_INLINE__ T iaRandomNumberGenerator<T>::getNext()
-	{
-		const uint64 _a = 48271;
-		const uint64 _c = 0;
-		const uint64 _m = 0x7FFFFFFF;
-
-		_seed = (static_cast<uint64>(_seed) * _a + _c) % _m;
-		return _seed;
-	}
 
 #include <iaux/math/iaRandomNumberGenerator.inl>
 

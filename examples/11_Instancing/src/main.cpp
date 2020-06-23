@@ -5,12 +5,11 @@
 #include "ExampleInstancing.h"
 
 #include <igor/igor.h>
-using namespace Igor;
 
 int main()
 {
 	// first thing to do
-	Igor::startup();
+	igor::startup();
 
 	// create and run example
 	ExampleInstancing *example = new ExampleInstancing();
@@ -18,7 +17,7 @@ int main()
 	delete example;
 
 	// last thing to do
-	Igor::shutdown();
+	igor::shutdown();
 
 	return 0;
 }

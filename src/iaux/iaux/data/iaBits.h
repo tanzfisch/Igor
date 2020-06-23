@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_BITS__
-#define __IAUX_BITS__
+#ifndef __IAUX_BITS_H__
+#define __IAUX_BITS_H__
 
 #include <iaux/iaDefines.h>
 
@@ -36,15 +36,19 @@ namespace iaux
 
     /*! bit field
 
-    0 is the least significant bit
+    bit 0 is the least significant bit    
     */
     template <class T>
     class IgorAux_API_Template iaBits
     {
 
     public:
+        /*! init with zeros
+        */
         iaBits();
 
+        /*! copy ctor
+        */
         iaBits(T values);
 
         /*! resets nth bit to specified value
@@ -52,43 +56,45 @@ namespace iaux
         \param bit the nth bit
         \param value the values to set
         */
-        __IGOR_INLINE__ void set(uint64 bit, bool value);
+        void set(uint64 bit, bool value);
 
-        /*! overwrites all values
+        /*! sets all data
 
-        \param values the new values
+        \param values the new data
         */
-        __IGOR_INLINE__ void setValues(T values);
+        void setData(T data);
+
+        /*! \returns the internal data
+        */
+        T getData() const;
 
         /*! sets nth bit
 
         \param bit the nth bit
         */
-        __IGOR_INLINE__ void set(uint64 bit);
+        void set(uint64 bit);
 
         /*! resets nth bit
 
         \param bit the nth bit
         */
-        __IGOR_INLINE__ void reset(uint64 bit);
+        void reset(uint64 bit);
 
         /*! \returns bit value at specified position
 
         \param bit the nth bit
         */
-        __IGOR_INLINE__ void toggle(uint64 bit);
+        void toggle(uint64 bit);
 
         /*! \returns bit value at specified position
 
         \param bit the nth bit. 
         */
-        __IGOR_INLINE__ bool get(uint64 bit) const;
-
-        /*! \returns all values
-        */
-        __IGOR_INLINE__ T getValues() const;
+        bool get(uint64 bit) const;
 
     private:
+        /*! the bit field
+        */
         T _bitField;
     };
 
@@ -109,6 +115,7 @@ namespace iaux
     /*! 64 bit field
     */
     typedef iaBits<uint64> iaBits64;
+
 }; // namespace iaux
 
-#endif
+#endif // __IAUX_BITS_H__

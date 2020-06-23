@@ -43,7 +43,16 @@ using namespace iaux;
 namespace igor
 {
 
-    enum class iShaderObjectType : uint8;
+    /*! shader object types
+    */
+    enum class iShaderObjectType : uint8
+    {
+        Vertex,
+        Fragment,
+        Geometry,
+        Effect,
+        Undefined
+    };
 
     /*! handles glsl shader programs and objects
     

@@ -86,10 +86,10 @@ namespace iaux
 
         /*! \returns all files
 
-        \param searchPattern what to search for
+        \param searchPattern what to search for using regular expression
         \param recursive true: search recursively; false: search only in current directory
         */
-        std::vector<iaFile> getFiles(iaString searchPattern = L"*", bool recursive = false);
+        std::vector<iaFile> getFiles(iaString searchPattern = L"(.*)", bool recursive = false);
 
         /*! set's the current or working directory
 

@@ -84,11 +84,11 @@ namespace igor
 
         /*! \returns copy of render nodes in this group
         */
-        std::vector<uint64> getRenderNodes() const;
+        const std::vector<uint64> getRenderNodes() const;
 
         /*! \returns copy of instanced render node meshs in this group
         */
-        std::map<std::shared_ptr<iMeshBuffers>, iInstancedNodes> getInstancedRenderNodes() const;
+        const std::map<std::shared_ptr<iMeshBuffers>, iInstancedNodes> getInstancedRenderNodes() const;
 
     private:
         /*! render node IDs registred to this material

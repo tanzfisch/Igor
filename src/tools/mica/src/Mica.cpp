@@ -93,8 +93,7 @@ void Mica::init(iaString fileName)
 	iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &Mica::handle));
 
 	int32 width, height;
-	_window.getDesktopSize(width, height);
-	_window.setSize(width * 0.7, height * 0.7);
+	_window.setSize(1280, 720);
 	_window.setCentered();
 	_window.setTitle(WINDOW_TITLE_PREFIX);
 	_window.registerWindowCloseDelegate(WindowCloseDelegate(this, &Mica::onWindowClosed));

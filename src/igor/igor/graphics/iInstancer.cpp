@@ -17,6 +17,7 @@ namespace igor
     {
         _bufferSize = _maxInstanceCount * _instanceSize;
         _instanceDataBuffer = new char[_bufferSize];
+        _currentBufferPosition = _instanceDataBuffer;
     }
 
     iInstancer::~iInstancer()
@@ -37,6 +38,12 @@ namespace igor
 
     void iInstancer::addInstance(void *buffer)
     {
+        if (_instanceCount >= _maxInstanceCount)
+        {
+            con_err("instancer ran out of memory. max count is " << _maxInstanceCount);
+            return;
+        }
+
         memcpy(_currentBufferPosition, buffer, _instanceSize);
         _currentBufferPosition += _instanceSize;
         _instanceCount++;
