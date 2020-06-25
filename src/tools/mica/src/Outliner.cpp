@@ -22,8 +22,8 @@ using namespace igor;
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
-#include "UserControlTransformation.h"
-#include "UserControlLight.h"
+#include "usercontrols/UserControlTransformation.h"
+#include "usercontrols/UserControlLight.h"
 
 Outliner::Outliner()
 {
@@ -687,7 +687,7 @@ void Outliner::onAddModel(uint64 addAt)
     if (_decisionBoxModelRef == nullptr)
     {
         _decisionBoxModelRef = new iDialogDecisionBox();
-        _decisionBoxModelRef->open(iDialogCloseDelegate(this, &Outliner::onAddModelDecision), "Import model ...", { "embedded", "as reference" }, 0);
+        _decisionBoxModelRef->open(iDialogCloseDelegate(this, &Outliner::onAddModelDecision), "Import model ...", {"embedded", "as reference"}, 0);
     }
 }
 

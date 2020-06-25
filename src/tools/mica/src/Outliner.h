@@ -11,29 +11,29 @@
 //                                           (_(       \)
 // (c) Copyright 2014-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: igorgameengine@protonmail.com  
+//
+// contact: igorgameengine@protonmail.com
 
-#ifndef __MENUDIALOG__
-#define __MENUDIALOG__
+#ifndef __OUTLINER_H__
+#define __OUTLINER_H__
 
 #include <igor/ui/dialogs/iDialog.h>
 using namespace igor;
 
-#include "UserControlGraphView.h"
-#include "UserControlMaterialView.h"
+#include "usercontrols/UserControlGraphView.h"
+#include "usercontrols/UserControlMaterialView.h"
 
 namespace igor
 {
@@ -45,15 +45,14 @@ namespace igor
     class iWidgetSpacer;
     class iDialogMessageBox;
     class iDialogDecisionBox;
-	class iWidgetCheckBox;
-}
+    class iWidgetCheckBox;
+} // namespace igor
 
 iaEVENT(LoadFile, LoadFileDelegate, void, (), ());
 iaEVENT(ImportFile, ImportFileDelegate, void, (), ());
 iaEVENT(ImportFileReference, ImportFileReferenceDelegate, void, (), ());
 iaEVENT(SaveFile, SaveFileDelegate, void, (), ());
 iaEVENT(ExitMica, ExitMicaDelegate, void, (), ());
-
 iaEVENT(CopyNode, CopyNodeDelegate, void, (uint64 nodeID), (nodeID));
 iaEVENT(PasteNode, PasteNodeDelegate, void, (uint64 nodeID), (nodeID));
 iaEVENT(CutNode, CutNodeDelegate, void, (uint64 nodeID), (nodeID));
@@ -69,12 +68,11 @@ enum class ViewType
 class Outliner : public iDialog
 {
 
-	friend class iWidgetManager;
+    friend class iWidgetManager;
 
 public:
-
-	Outliner();
-	~Outliner();
+    Outliner();
+    ~Outliner();
 
     void setRootNode(iNodePtr root);
     void setSelectedNode(iNodePtr node);
@@ -122,50 +120,49 @@ public:
     void registerOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate);
     void unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate);
 
-	void registerOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
-	void unregisterOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
+    void registerOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
+    void unregisterOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
 
-	void registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
-	void unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
+    void registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
+    void unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
 
-	void deleteSelected();
-	void duplicateSelected();
-	void copySelected();
-	void cutSelected();
-	void pasteSelected();
+    void deleteSelected();
+    void duplicateSelected();
+    void copySelected();
+    void cutSelected();
+    void pasteSelected();
 
-	void fileOpen();
-	void fileSave();
+    void fileOpen();
+    void fileSave();
 
 private:
-
     LoadFile _loadFile;
     ImportFile _importFile;
     ImportFileReference _importFileReference;
     SaveFile _saveFile;
     ExitMica _exitMica;
-    
-	AddTransformation _addTransformation;
+
+    AddTransformation _addTransformation;
     AddGroup _addGroup;
     AddEmitter _addEmitter;
     AddParticleSystem _addParticleSystem;
     AddSwitch _addSwitch;
-	GraphSelectionChanged _graphSelectionChanged;
+    GraphSelectionChanged _graphSelectionChanged;
 
-	AddMaterial _addMaterial;
-	MaterialSelectionChanged _materialSelectionChanged;
+    AddMaterial _addMaterial;
+    MaterialSelectionChanged _materialSelectionChanged;
 
     CopyNode _copyNode;
     CutNode _cutNode;
     PasteNode _pasteNode;
 
-    iWidgetGrid* _grid = nullptr;
+    iWidgetGrid *_grid = nullptr;
 
-	UserControlGraphView* _userControlGraphView = nullptr;
-    UserControlMaterialView* _userControlMaterialView = nullptr;
+    UserControlGraphView *_userControlGraphView = nullptr;
+    UserControlMaterialView *_userControlMaterialView = nullptr;
 
-    iDialogMessageBox* _messageBox = nullptr;
-	iDialogDecisionBox* _decisionBoxModelRef = nullptr;
+    iDialogMessageBox *_messageBox = nullptr;
+    iDialogDecisionBox *_decisionBoxModelRef = nullptr;
 
     ViewType _currentView = ViewType::GraphView;
 
@@ -179,8 +176,8 @@ private:
     void initGUI();
     void deinitGUI();
 
-	void deinitGraphView();
-	void initGraphView();
+    void deinitGraphView();
+    void initGraphView();
 
     void deinitMaterialView();
     void initMaterialView();
@@ -190,28 +187,25 @@ private:
     void onExitMica(const iWidgetPtr source);
 
     void onDelete(const iWidgetPtr source);
-    
-	void onAddModel(uint64 addAt);
-	void onAddModelDecision(iDialogPtr dialog);
-	void onAddTransformation(uint64 addAt);
-	void onAddSwitch(uint64 addAt);
-	void onAddGroup(uint64 addAt);
-	void onAddEmitter(uint64 addAt);
-	void onAddParticleSystem(uint64 addAt);
+
+    void onAddModel(uint64 addAt);
+    void onAddModelDecision(iDialogPtr dialog);
+    void onAddTransformation(uint64 addAt);
+    void onAddSwitch(uint64 addAt);
+    void onAddGroup(uint64 addAt);
+    void onAddEmitter(uint64 addAt);
+    void onAddParticleSystem(uint64 addAt);
 
     void onCopy(const iWidgetPtr source);
     void onPaste(const iWidgetPtr source);
     void onCut(const iWidgetPtr source);
 
     void onGraphSelectionChanged(uint64 nodeID);
-	void onAddMaterial();
-	void onMaterialSelectionChanged(uint64 materialID);
+    void onAddMaterial();
+    void onMaterialSelectionChanged(uint64 materialID);
 
     void onGraphViewSelected(const iWidgetPtr source);
     void onMaterialViewSelected(const iWidgetPtr source);
-
 };
 
-
-#endif
-
+#endif // __OUTLINER_H__

@@ -11,28 +11,28 @@
 //                                           (_(       \)
 // (c) Copyright 2014-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: igorgameengine@protonmail.com  
+//
+// contact: igorgameengine@protonmail.com
 
-#ifndef __MICA__
-#define __MICA__
+#ifndef __MICA_H__
+#define __MICA_H__
 
 #include "Manipulator.h"
-#include "Widget3D.h"
 #include "Outliner.h"
 #include "PropertiesDialog.h"
+#include "widget3d/Widget3D.h"
 
 #include <igor/igor.h>
 #include <igor/system/iWindow.h>
@@ -48,134 +48,132 @@ using namespace igor;
 
 namespace igor
 {
-    class iScene;
-    class iNodeTransform;
-    class iNodeLight;
-    class iTextureFont;
+	class iScene;
+	class iNodeTransform;
+	class iNodeLight;
+	class iTextureFont;
 
-    class iWidgetDefaultTheme;
-    class iDialog;
-    class iWidgetScroll;
-    class iDialogMessageBox;
+	class iWidgetDefaultTheme;
+	class iDialog;
+	class iWidgetScroll;
+	class iDialogMessageBox;
 
-    class iNodeSkyBox;
-}
+	class iNodeSkyBox;
+} // namespace igor
 
 class Mica
 {
 
 public:
-
 	/*! nothing to do
 	*/
-    Mica() = default;
+	Mica() = default;
 
 	/*! deinit resources
 	*/
-    virtual ~Mica();
+	virtual ~Mica();
 
 	/*! run mica
 	*/
-    void run(iaString fileName);
+	void run(iaString fileName);
 
 private:
-
 	/*! main window of mica
 	*/
-    iWindow _window;
+	iWindow _window;
 
 	/*! main scene view
 	*/
-    iView _view;
+	iView _view;
 
 	/*! UI view
 	*/
-    iView _viewOrtho;
+	iView _viewOrtho;
 
 	/*! 3d UI view
 	*/
-	iView _viewWidget3D;    
+	iView _viewWidget3D;
 
 	/*! font used for widget display
 	*/
-	iTextureFont* _font = nullptr;
+	iTextureFont *_font = nullptr;
 
 	/*! main scene
 	*/
-    iScene* _scene = nullptr;
+	iScene *_scene = nullptr;
 
 	/*! 3d widget scene eg used for the manipulator
 	*/
-	iScene* _sceneWidget3D = nullptr;
+	iScene *_sceneWidget3D = nullptr;
 
 	/*! file open/close dialog 
 	*/
-    iDialogFileSelectPtr _fileDialog = nullptr;
+	iDialogFileSelectPtr _fileDialog = nullptr;
 
-    // TODO need some classes handling different types of cameras
-    iNodeTransform* _cameraCOI = nullptr;
-    iNodeTransform* _cameraHeading = nullptr;
-    iNodeTransform* _cameraPitch = nullptr;
-    iNodeTransform* _cameraTranslation = nullptr;
-    iNodeCamera* _camera = nullptr;
+	// TODO need some classes handling different types of cameras
+	iNodeTransform *_cameraCOI = nullptr;
+	iNodeTransform *_cameraHeading = nullptr;
+	iNodeTransform *_cameraPitch = nullptr;
+	iNodeTransform *_cameraTranslation = nullptr;
+	iNodeCamera *_camera = nullptr;
 	float32 _camDistance = 0;
 
 	/*! the default sky box
 	*/
-    iNodeSkyBox* _defaultSkyBox = nullptr;
+	iNodeSkyBox *_defaultSkyBox = nullptr;
 
 	// TODO need to handle light differently
-    iNodeTransform* _directionalLightTranslate = nullptr;
-    iNodeTransform* _directionalLightRotate = nullptr;
-    iNodeLight* _lightNode = nullptr;
+	iNodeTransform *_directionalLightTranslate = nullptr;
+	iNodeTransform *_directionalLightRotate = nullptr;
+	iNodeLight *_lightNode = nullptr;
 
 	/*! instance of the widget theme
 	*/
-    iWidgetDefaultTheme* _widgetTheme = nullptr;
+	iWidgetDefaultTheme *_widgetTheme = nullptr;
 
 	/*! the properties dialog or editor
 	*/
-    PropertiesDialog* _propertiesDialog = nullptr;
+	PropertiesDialog *_propertiesDialog = nullptr;
 
 	/*! the outliner
 	*/
-    Outliner* _outliner = nullptr;
+	Outliner *_outliner = nullptr;
 
 	/*! id of textures flush task
 	*/
-    uint64 _taskFlushTextures = 0;
+	uint64 _taskFlushTextures = 0;
 
 	/*! the node that contains the editable part of the scene or workspace
 	*/
-    iNodePtr _workspace = nullptr;
+	iNodePtr _workspace = nullptr;
 
 	/*! material for orientation plane 
 	*/
-    uint64 _materialOrientationPlane;
+	uint64 _materialOrientationPlane;
 
 	/*! material for bounding box display 
 	*/
-    uint64 _materialBoundingBox;
+	uint64 _materialBoundingBox;
 
 	/*! cel shading material for selecting nodes in the scene
 	*/
-    uint64 _materialCelShading;
+	uint64 _materialCelShading;
 
 	/*! id of currently selected node 
 	*/
-    uint32 _selectedNodeID = iNode::INVALID_NODE_ID;
+	uint32 _selectedNodeID = iNode::INVALID_NODE_ID;
 
 	/*! visualizer for profiler data
 	*/
-    iProfilerVisualizer _profilerVisualizer;
+	iProfilerVisualizer _profilerVisualizer;
 
 	/*! manipulator
 	*/
-    Manipulator* _manipulator = nullptr;
+	Manipulator *_manipulator = nullptr;
 
 	/*! pointer to active 3d widget
 	*/
-	Widget3D* _widget3D = nullptr;
+	Widget3D *_widget3D = nullptr;
 
 	/*! clear resources
 	*/
@@ -193,14 +191,14 @@ private:
 
 	/*! reset manipulator mode to none
 	*/
-    void resetManipulatorMode();
+	void resetManipulatorMode();
 
 	/*! sets the manipulator mode on currently selected node 
 	but only if it is a transform node otherwise its set to none
 
 	\param modifierMode the modifier mode to set
 	*/
-    void setManipulatorMode(ManipulatorMode modifierMode);
+	void setManipulatorMode(ManipulatorMode modifierMode);
 
 	/*! \returns node at given screen position
 	\param x horizonral screen position
@@ -224,68 +222,67 @@ private:
 
 	\param nodeID the id of the selected node
 	*/
-    void onGraphViewSelectionChanged(uint64 nodeID);
+	void onGraphViewSelectionChanged(uint64 nodeID);
 
 	/*! handle for keyboard dow event
 	*/
-    void onKeyDown(iKeyCode key);
-    
+	void onKeyDown(iKeyCode key);
+
 	/*! handle for window closed event
 	*/
-    void onWindowClosed();
+	void onWindowClosed();
 
 	/*! handle for load file event
 	*/
-    void onLoadFile();
+	void onLoadFile();
 
 	/*! handle for import file to existing scene event
 	*/
-    void onImportFile();
+	void onImportFile();
 
 	/*! hande for import file by reference to existing scene event
 	*/
-    void onImportFileReference();
+	void onImportFileReference();
 
 	/*! handle for save file event
 	*/
-    void onSaveFile();
+	void onSaveFile();
 
 	/*! hanlde for exist mica event
 	*/
-    void onExitMica();
+	void onExitMica();
 
-    void onAddTransformation(uint64 atNodeID);
-    void onAddGroup(uint64 atNodeID);
-    void onAddEmitter(uint64 atNodeID);
-    void onAddParticleSystem(uint64 atNodeID);
-    void onAddSwitch(uint64 atNodeID);
+	void onAddTransformation(uint64 atNodeID);
+	void onAddGroup(uint64 atNodeID);
+	void onAddEmitter(uint64 atNodeID);
+	void onAddParticleSystem(uint64 atNodeID);
+	void onAddSwitch(uint64 atNodeID);
 
-    void onAddMaterial();
+	void onAddMaterial();
 
-    void onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window);
-    void onMouseWheel(int32 d);
-    void onMouseKeyDown(iKeyCode key);
-    void onMouseKeyUp(iKeyCode key);
+	void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window);
+	void onMouseWheel(int32 d);
+	void onMouseKeyDown(iKeyCode key);
+	void onMouseKeyUp(iKeyCode key);
 
-    void onWindowResize(int32 clientWidth, int32 clientHeight);
+	void onWindowResize(int32 clientWidth, int32 clientHeight);
 
-    void onFileLoadDialogClosed(iDialogPtr dialog);
-    void onImportFileDialogClosed(iDialogPtr dialog);
-    void onImportFileReferenceDialogClosed(iDialogPtr dialog);
-    void onFileSaveDialogClosed(iDialogPtr dialog);
+	void onFileLoadDialogClosed(iDialogPtr dialog);
+	void onImportFileDialogClosed(iDialogPtr dialog);
+	void onImportFileReferenceDialogClosed(iDialogPtr dialog);
+	void onFileSaveDialogClosed(iDialogPtr dialog);
 
-    void forceLoadingNow(iNodeModel* modelNode);
-    void initGUI();
-    void deinitGUI();
+	void forceLoadingNow(iNodeModel *modelNode);
+	void initGUI();
+	void deinitGUI();
 
-    void handle();
-    void renderNodeSelected(uint64 nodeID);
-    void render();
-    void renderOrtho();
-    void renderOrientationPlane();
+	void handle();
+	void renderNodeSelected(uint64 nodeID);
+	void render();
+	void renderOrtho();
+	void renderOrientationPlane();
 
-	iModelDataInputParameter* createDataInputParameter();
-
+	iModelDataInputParameter *createDataInputParameter();
 };
 
-#endif
+#endif // __MICA_H__

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __WIDGET3D__
-#define __WIDGET3D__
+#ifndef __WIDGET3D_H__
+#define __WIDGET3D_H__
 
 #include <igor/scene/nodes/iNode.h>
 using namespace igor;
@@ -39,6 +39,8 @@ namespace igor
 	class iView;
 } // namespace igor
 
+/*! 3d space widget base class for representing nodes
+*/
 class Widget3D
 {
 
@@ -56,13 +58,15 @@ public:
 	*/
 	virtual ~Widget3D() = default;
 
-	/*! renders the 3d widget
-	*/
-	void setNodeID(uint64 nodeID);
+	/*! specifies which node is to be manipulated or represented by this widget
 
-	/*! \returns node id
+	\param nodeID the nodes id
 	*/
-	uint64 getNodeID() const;
+	void setNodeID(iNodeID nodeID);
+
+	/*! \returns the node id
+	*/
+	iNodeID getNodeID() const;
 
 protected:
 	/*! renders the 3d widget
@@ -83,7 +87,7 @@ protected:
 
 	/*! id of node to represent
 	*/
-	uint64 _nodeID = iNode::INVALID_NODE_ID;
+	iNodeID _nodeID = iNode::INVALID_NODE_ID;
 };
 
-#endif
+#endif // __WIDGET3D_H__

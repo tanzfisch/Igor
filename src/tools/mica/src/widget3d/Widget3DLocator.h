@@ -26,12 +26,11 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __WIDGET3DEMITTER__
-#define __WIDGET3DEMITTER__
+#ifndef __WIDGET3D_LOCATOR_H__
+#define __WIDGET3D_LOCATOR_H__
 
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/material/iMaterial.h>
-#include <igor/scene/nodes/iNodeEmitter.h>
 using namespace igor;
 
 #include "Widget3D.h"
@@ -40,10 +39,11 @@ namespace igor
 {
 	class iTargetMaterial;
 	class iNodeTransform;
-	class iNodeMesh;
 } // namespace igor
 
-class Widget3DEmitter : public Widget3D
+/*! 3d widget locator
+*/
+class Widget3DLocator : public Widget3D
 {
 
 public:
@@ -54,66 +54,44 @@ public:
 	\param scene the scene to use for the 3d widget
 	\param nodeID id of the node to represent
 	*/
-	Widget3DEmitter(iWindow *window, iView *view, iScene *scene);
+	Widget3DLocator(iWindow *window, iView *view, iScene *scene);
 
 	/*! cleanup
 	*/
-	virtual ~Widget3DEmitter() override;
+	virtual ~Widget3DLocator() override;
 
 private:
-	/*! target materials
+	/*! material id
 	*/
-	iTargetMaterial *_targetMaterial = nullptr;
+	iMaterialID _materialID = iMaterial::INVALID_MATERIAL_ID;
+
+	/*! target material red
+	*/
+	iTargetMaterial *_red = nullptr;
+
+	/*! target material green
+	*/
+	iTargetMaterial *_green = nullptr;
+
+	/*! target material blue
+	*/
+	iTargetMaterial *_blue = nullptr;
 
 	/*! root transform node
 	*/
 	iNodeTransform *_rootTransform = nullptr;
 
-	/*! scale transform
-	*/
-	iNodeTransform *_scaleTransform = nullptr;
-
-	/*! mesh node
-	*/
-	iNodeMesh *_meshNode = nullptr;
-
-	/*! material
-	*/
-	uint64 _material = iMaterial::INVALID_MATERIAL_ID;
-
-	/*! material for volumes
-	*/
-	uint64 _materialVolume = iMaterial::INVALID_MATERIAL_ID;
-
-	iEmitterType _emitterType = iEmitterType::Point;
-
 	/*! renders the 3d widget
 	*/
 	void update() override;
 
-	/*! clears scene
+	/*! create a mesh the represents a locator
 	*/
-	void clearMeshNode();
+	iMeshPtr createLocatorMesh();
 
-	/*! creates a disc mesh
+	/*! create the locator
 	*/
-	iMeshPtr createDisc();
-
-	/*! creates a circle mesh
-	*/
-	iMeshPtr createCircle();
-
-	/*! creates a cube mesh
-	*/
-	iMeshPtr createCube();
-
-	/*! creates a cube mesh
-	*/
-	iMeshPtr createSquare();
-
-	/*! creates a sphere mesh
-	*/
-	iMeshPtr createSphere();
+	void createLocator();
 };
 
-#endif
+#endif // __WIDGET3D_LOCATOR_H__

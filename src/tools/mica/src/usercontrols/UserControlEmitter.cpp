@@ -18,7 +18,7 @@
 #include <igor/resources/material/iTargetMaterial.h>
 using namespace igor;
 
-#include "MicaDefines.h"
+#include "../MicaDefines.h"
 
 UserControlEmitter::UserControlEmitter()
 {
@@ -27,7 +27,7 @@ UserControlEmitter::UserControlEmitter()
 
 void UserControlEmitter::updateNode()
 {
-    iNodeEmitter* node = static_cast<iNodeEmitter*>(iNodeManager::getInstance().getNode(_nodeId));
+    iNodeEmitter *node = static_cast<iNodeEmitter *>(iNodeManager::getInstance().getNode(_nodeId));
 
     if (node != nullptr)
     {
@@ -40,7 +40,7 @@ void UserControlEmitter::updateNode()
 
 void UserControlEmitter::updateGUI()
 {
-    iNodeEmitter* node = static_cast<iNodeEmitter*>(iNodeManager::getInstance().getNode(_nodeId));
+    iNodeEmitter *node = static_cast<iNodeEmitter *>(iNodeManager::getInstance().getNode(_nodeId));
 
     if (node != nullptr)
     {
@@ -79,9 +79,9 @@ void UserControlEmitter::initGUI()
     _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
     _grid->setStrechColumn(1);
-	addWidget(_grid);
+    addWidget(_grid);
 
-    iWidgetLabel* labelType = new iWidgetLabel();
+    iWidgetLabel *labelType = new iWidgetLabel();
     labelType->setText("Type");
     labelType->setWidth(MICA_REGULARBUTTON_SIZE);
     labelType->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -97,7 +97,7 @@ void UserControlEmitter::initGUI()
     _selectType->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _selectType->registerOnChangeEvent(iChangeDelegate(this, &UserControlEmitter::onTypeChanged));
 
-    iWidgetLabel* labelSize = new iWidgetLabel();
+    iWidgetLabel *labelSize = new iWidgetLabel();
     labelSize->setText("Size");
     labelSize->setWidth(MICA_REGULARBUTTON_SIZE);
     labelSize->setHorizontalAlignment(iHorizontalAlignment::Left);

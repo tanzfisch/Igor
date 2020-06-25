@@ -42,8 +42,8 @@ Widget3DLocator::Widget3DLocator(iWindow *window, iView *view, iScene *scene)
 	_blue->setAmbient(iaColor3f(0.0f, 0.0f, 0.3f));
 	_blue->setAlpha(0.8);
 
-	_material = iMaterialResourceFactory::getInstance().createMaterial("Manipulator");
-	auto material = iMaterialResourceFactory::getInstance().getMaterial(_material);
+	_materialID = iMaterialResourceFactory::getInstance().createMaterial("Manipulator");
+	auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
 	material->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
 	material->addShaderSource("igor/default_directional_light.frag", iShaderObjectType::Fragment);
 	material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
@@ -104,19 +104,19 @@ void Widget3DLocator::createLocator()
 
 	iNodeMesh *xCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
 	xCylinder->setMesh(locatorMesh);
-	xCylinder->setMaterial(_material);
+	xCylinder->setMaterial(_materialID);
 	xCylinder->setTargetMaterial(_red);
 	xTransform->insertNode(xCylinder);
 
 	iNodeMesh *yCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
 	yCylinder->setMesh(locatorMesh);
-	yCylinder->setMaterial(_material);
+	yCylinder->setMaterial(_materialID);
 	yCylinder->setTargetMaterial(_green);
 	yTransform->insertNode(yCylinder);
 
 	iNodeMesh *zCylinder = iNodeManager::getInstance().createNode<iNodeMesh>();
 	zCylinder->setMesh(locatorMesh);
-	zCylinder->setMaterial(_material);
+	zCylinder->setMaterial(_materialID);
 	zCylinder->setTargetMaterial(_blue);
 	zTransform->insertNode(zCylinder);
 }

@@ -25,7 +25,7 @@
 #include <igor/scene/iScene.h>
 using namespace igor;
 
-#include "MicaDefines.h"
+#include "../MicaDefines.h"
 
 UserControlMesh::UserControlMesh()
 {
@@ -37,25 +37,25 @@ UserControlMesh::~UserControlMesh()
 	deinitGUI();
 }
 
-void UserControlMesh::onAmbientChange(const iaColor4f& color)
+void UserControlMesh::onAmbientChange(const iaColor4f &color)
 {
 	_ambient = color;
 	updateNode();
 }
 
-void UserControlMesh::onDiffuseChange(const iaColor4f& color)
+void UserControlMesh::onDiffuseChange(const iaColor4f &color)
 {
 	_diffuse = color;
 	updateNode();
 }
 
-void UserControlMesh::onSpecularChange(const iaColor4f& color)
+void UserControlMesh::onSpecularChange(const iaColor4f &color)
 {
 	_specular = color;
 	updateNode();
 }
 
-void UserControlMesh::onEmissiveChange(const iaColor4f& color)
+void UserControlMesh::onEmissiveChange(const iaColor4f &color)
 {
 	_emissive = color;
 	updateNode();
@@ -79,7 +79,7 @@ void UserControlMesh::updateNode()
 {
 	if (!_ignoreNodeUpdate)
 	{
-		iNodeMesh* node = static_cast<iNodeMesh*>(iNodeManager::getInstance().getNode(_nodeId));
+		iNodeMesh *node = static_cast<iNodeMesh *>(iNodeManager::getInstance().getNode(_nodeId));
 
 		if (node != nullptr)
 		{
@@ -101,7 +101,7 @@ void UserControlMesh::updateNode()
 
 			if (_selectMaterial->getSelectedUserData() != nullptr)
 			{
-				uint32 materialID = *(static_cast<uint32*>(_selectMaterial->getSelectedUserData()));
+				uint32 materialID = *(static_cast<uint32 *>(_selectMaterial->getSelectedUserData()));
 				node->setMaterial(materialID);
 			}
 		}
@@ -110,7 +110,7 @@ void UserControlMesh::updateNode()
 
 void UserControlMesh::updateGUI()
 {
-	iNodeMesh* node = static_cast<iNodeMesh*>(iNodeManager::getInstance().getNode(_nodeId));
+	iNodeMesh *node = static_cast<iNodeMesh *>(iNodeManager::getInstance().getNode(_nodeId));
 
 	if (node != nullptr)
 	{
@@ -204,7 +204,7 @@ void UserControlMesh::updateGUI()
 				uint32 materialID = material->getID();
 				iaString materialName = material->getName();
 
-				uint32* ptrmaterialID = new uint32(materialID);
+				uint32 *ptrmaterialID = new uint32(materialID);
 				_selectMaterial->addSelectionEntry(materialName, ptrmaterialID);
 				_userDataMaterialID.push_back(ptrmaterialID);
 
@@ -296,23 +296,23 @@ void UserControlMesh::initGUI()
 	_emissiveColorChooser->setText("Emissive");
 	_emissiveColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlMesh::onEmissiveChange));
 
-	iWidgetGrid* detailsGrid = new iWidgetGrid();
+	iWidgetGrid *detailsGrid = new iWidgetGrid();
 	detailsGrid->appendCollumns(1);
 	detailsGrid->appendRows(2);
 	detailsGrid->setStrechColumn(1);
 	detailsGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
 
-	iWidgetLabel* labelVertexes = new iWidgetLabel();
+	iWidgetLabel *labelVertexes = new iWidgetLabel();
 	labelVertexes->setText("Vertexes");
 	labelVertexes->setWidth(MICA_REGULARBUTTON_SIZE);
 	labelVertexes->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-	iWidgetLabel* labelTriangles = new iWidgetLabel();
+	iWidgetLabel *labelTriangles = new iWidgetLabel();
 	labelTriangles->setText("Triangles");
 	labelTriangles->setWidth(MICA_REGULARBUTTON_SIZE);
 	labelTriangles->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-	iWidgetLabel* labelIndexes = new iWidgetLabel();
+	iWidgetLabel *labelIndexes = new iWidgetLabel();
 	labelIndexes->setText("Indexes");
 	labelIndexes->setWidth(MICA_REGULARBUTTON_SIZE);
 	labelIndexes->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -335,16 +335,16 @@ void UserControlMesh::initGUI()
 	_textIndexes->setActive(false);
 	_textIndexes->setText("0");
 
-	iWidgetGrid* gridShininess = new iWidgetGrid();
+	iWidgetGrid *gridShininess = new iWidgetGrid();
 	gridShininess->appendCollumns(2);
 	gridShininess->appendRows(1);
 	gridShininess->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-	iWidgetLabel* labelShininess = new iWidgetLabel();
+	iWidgetLabel *labelShininess = new iWidgetLabel();
 	labelShininess->setText("Shininess");
 	labelShininess->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-	iWidgetLabel* labelShininessShort = new iWidgetLabel();
+	iWidgetLabel *labelShininessShort = new iWidgetLabel();
 	labelShininessShort->setText("S");
 	labelShininessShort->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -367,29 +367,29 @@ void UserControlMesh::initGUI()
 	_textShininess->setStepping(0.01f, 0.01f);
 	_textShininess->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onTextChangedShininess));
 
-	iWidgetGrid* gridTextures = new iWidgetGrid();
+	iWidgetGrid *gridTextures = new iWidgetGrid();
 	gridTextures->appendRows(3);
 	gridTextures->appendCollumns(1);
 	gridTextures->setStrechColumn(1);
 	gridTextures->setHorizontalAlignment(iHorizontalAlignment::Strech);
 	gridTextures->setVerticalAlignment(iVerticalAlignment::Top);
 
-	iWidgetLabel* labelTextureUnit0 = new iWidgetLabel();
+	iWidgetLabel *labelTextureUnit0 = new iWidgetLabel();
 	labelTextureUnit0->setText("Texture 0");
 	labelTextureUnit0->setWidth(MICA_REGULARBUTTON_SIZE);
 	labelTextureUnit0->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-	iWidgetLabel* labelTextureUnit1 = new iWidgetLabel();
+	iWidgetLabel *labelTextureUnit1 = new iWidgetLabel();
 	labelTextureUnit1->setText("Texture 1");
 	labelTextureUnit1->setWidth(MICA_REGULARBUTTON_SIZE);
 	labelTextureUnit1->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-	iWidgetLabel* labelTextureUnit2 = new iWidgetLabel();
+	iWidgetLabel *labelTextureUnit2 = new iWidgetLabel();
 	labelTextureUnit2->setText("Texture 2");
 	labelTextureUnit2->setWidth(MICA_REGULARBUTTON_SIZE);
 	labelTextureUnit2->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-	iWidgetLabel* labelTextureUnit3 = new iWidgetLabel();
+	iWidgetLabel *labelTextureUnit3 = new iWidgetLabel();
 	labelTextureUnit3->setText("Texture 3");
 	labelTextureUnit3->setWidth(MICA_REGULARBUTTON_SIZE);
 	labelTextureUnit3->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -410,16 +410,16 @@ void UserControlMesh::initGUI()
 	_textureChooser3->setPreselectedPath("..\\data\\textures");
 	_textureChooser3->registerOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
-	iWidgetGrid* gridMaterial = new iWidgetGrid();
+	iWidgetGrid *gridMaterial = new iWidgetGrid();
 	gridMaterial->appendCollumns(1);
 	gridMaterial->setHorizontalAlignment(iHorizontalAlignment::Left);
 	gridMaterial->setVerticalAlignment(iVerticalAlignment::Top);
 
-	iWidgetLabel* labelMaterial = new iWidgetLabel();
+	iWidgetLabel *labelMaterial = new iWidgetLabel();
 	labelMaterial->setText("Material");
 	labelMaterial->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-	iWidgetButton* bakeButton = new iWidgetButton();
+	iWidgetButton *bakeButton = new iWidgetButton();
 	bakeButton->registerOnClickEvent(iClickDelegate(this, &UserControlMesh::onBakeAction));
 	bakeButton->setText("Backe to world");
 	bakeButton->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -470,14 +470,14 @@ void UserControlMesh::onBakeAction(const iWidgetPtr source)
 {
 	// TODO this kind of action needs to be in an action menu
 
-	iNodeMesh* meshNode = static_cast<iNodeMesh*>(iNodeManager::getInstance().getNode(_nodeId));
+	iNodeMesh *meshNode = static_cast<iNodeMesh *>(iNodeManager::getInstance().getNode(_nodeId));
 
 	if (meshNode == nullptr)
 	{
 		return;
 	}
 
-	iScene* scene = meshNode->getScene();
+	iScene *scene = meshNode->getScene();
 
 	if (scene == nullptr)
 	{
@@ -492,7 +492,7 @@ void UserControlMesh::onBakeAction(const iWidgetPtr source)
 	iMeshPtr mesh = meshNode->getMesh();
 	iMeshBuilderUtils::addMesh(meshBuilder, mesh);
 
-	iNodeMesh* newMeshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
+	iNodeMesh *newMeshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
 	newMeshNode->setKeepMesh();
 	newMeshNode->setMesh(meshBuilder.createMesh());
 	newMeshNode->setMaterial(meshNode->getMaterial());

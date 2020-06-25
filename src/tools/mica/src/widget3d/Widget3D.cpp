@@ -11,7 +11,7 @@ Widget3D::Widget3D(iWindow *window, iView *view, iScene *scene)
 	_window = window;
 }
 
-void Widget3D::setNodeID(uint64 nodeID)
+void Widget3D::setNodeID(iNodeID nodeID)
 {
 	if (_nodeID == nodeID)
 	{
@@ -22,7 +22,7 @@ void Widget3D::setNodeID(uint64 nodeID)
 	update();
 }
 
-uint64 Widget3D::getNodeID() const
+iNodeID Widget3D::getNodeID() const
 {
 	return _nodeID;
 }

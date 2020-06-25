@@ -1,5 +1,8 @@
 #include "PropertiesDialog.h"
 
+#include "usercontrols/UserControlTransformation.h"
+#include "usercontrols/UserControlLight.h"
+
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/dialogs/iDialog.h>
 #include <igor/scene/nodes/iNode.h>
@@ -20,9 +23,6 @@ using namespace igor;
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
-#include "UserControlTransformation.h"
-#include "UserControlLight.h"
-
 PropertiesDialog::PropertiesDialog()
 {
     initGUI();
@@ -30,21 +30,21 @@ PropertiesDialog::PropertiesDialog()
 
 void PropertiesDialog::initGUI()
 {
-	setWidth(350);
+    setWidth(350);
     setHorizontalAlignment(iHorizontalAlignment::Right);
     setVerticalAlignment(iVerticalAlignment::Strech);
 
     iWidgetGridPtr grid = new iWidgetGrid(this);
     grid->setBorder(2);
     grid->setCellSpacing(8);
-	grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     grid->setVerticalAlignment(iVerticalAlignment::Strech);
-	grid->setStrechRow(0);
+    grid->setStrechRow(0);
     grid->setStrechColumn(0);
-    
+
     _userControlProperties = new UserControlProperties();
     _userControlProperties->registerStructureChangedDelegate(StructureChangedDelegate(this, &PropertiesDialog::onStructureChanged));
-	grid->addWidget(_userControlProperties, 0, 0);
+    grid->addWidget(_userControlProperties, 0, 0);
 }
 
 void PropertiesDialog::onStructureChanged()
@@ -59,7 +59,7 @@ void PropertiesDialog::onGraphViewSelectionChanged(uint64 nodeID)
 
 void PropertiesDialog::onMaterialSelectionChanged(uint64 materialID)
 {
-	_userControlProperties->setProperty(materialID, PropertyType::Material);
+    _userControlProperties->setProperty(materialID, PropertyType::Material);
 }
 
 void PropertiesDialog::registerPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate)

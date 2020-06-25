@@ -11,23 +11,23 @@
 //                                           (_(       \)
 // (c) Copyright 2014-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: igorgameengine@protonmail.com  
+//
+// contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLEMITTER__
-#define __USERCONTROLEMITTER__
+#ifndef __USERCONTROL_EMITTER_H__
+#define __USERCONTROL_EMITTER_H__
 
 #include <igor/scene/nodes/iNodeModel.h>
 #include <igor/ui/user_controls/iUserControl.h>
@@ -43,21 +43,20 @@ namespace igor
     class iWidgetSlider;
     class iWidgetNumberChooser;
     class iWidgetSelectBox;
-}
+} // namespace igor
 
 /*! user control to configure an emitter node
 */
 class UserControlEmitter : public iUserControl
 {
 public:
-
-	/*! ctor initializes gui
+    /*! ctor initializes gui
 	*/
-	UserControlEmitter();
+    UserControlEmitter();
 
-	/*! nothing todo
+    /*! nothing todo
 	*/
-	~UserControlEmitter() = default;
+    ~UserControlEmitter() = default;
 
     /*! set node id of emitter to configure
     */
@@ -68,18 +67,17 @@ public:
     uint32 getNode();
 
 private:
-
     /*! base grid and root widget
     */
-    iWidgetGrid* _grid = nullptr;
+    iWidgetGrid *_grid = nullptr;
 
     /*! select box for emitter type
     */
-    iWidgetSelectBox* _selectType = nullptr;
+    iWidgetSelectBox *_selectType = nullptr;
 
     /*! text box for emitter size
     */
-    iWidgetTextEdit* _textSize = nullptr;
+    iWidgetTextEdit *_textSize = nullptr;
 
     /*! current selected node
     */
@@ -108,7 +106,6 @@ private:
     /*! initialize gui elements
     */
     void initGUI();
-
 };
 
-#endif
+#endif // __USERCONTROL_EMITTER_H__

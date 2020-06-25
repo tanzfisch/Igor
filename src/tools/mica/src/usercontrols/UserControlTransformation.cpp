@@ -13,7 +13,7 @@
 #include <igor/scene/nodes/iNodeManager.h>
 using namespace igor;
 
-#include "MicaDefines.h"
+#include "../MicaDefines.h"
 
 UserControlTransformation::UserControlTransformation()
 {
@@ -22,7 +22,7 @@ UserControlTransformation::UserControlTransformation()
 
 UserControlTransformation::~UserControlTransformation()
 {
-	iNode* node = iNodeManager::getInstance().getNode(_nodeId);
+	iNode *node = iNodeManager::getInstance().getNode(_nodeId);
 	if (node != nullptr)
 	{
 		node->getTransformationChangeEvent().remove(iTransformationChangeDelegate(this, &UserControlTransformation::onTransformationChanged));
@@ -37,14 +37,14 @@ void UserControlTransformation::setNode(uint32 id)
 	}
 
 	// unregister from current node
-	iNode* oldNode = iNodeManager::getInstance().getNode(_nodeId);
+	iNode *oldNode = iNodeManager::getInstance().getNode(_nodeId);
 	if (oldNode != nullptr)
 	{
 		oldNode->getTransformationChangeEvent().remove(iTransformationChangeDelegate(this, &UserControlTransformation::onTransformationChanged));
 	}
 
 	// check if new id is a valid node
-	iNode* node = iNodeManager::getInstance().getNode(id);
+	iNode *node = iNodeManager::getInstance().getNode(id);
 	if (node == nullptr)
 	{
 		return;
@@ -59,10 +59,10 @@ void UserControlTransformation::setNode(uint32 id)
 	_nodeId = id;
 	node->getTransformationChangeEvent().append(iTransformationChangeDelegate(this, &UserControlTransformation::onTransformationChanged));
 
-	updateGUI(static_cast<iNodeTransform*>(node));
+	updateGUI(static_cast<iNodeTransform *>(node));
 }
 
-void UserControlTransformation::onTransformationChanged(iNode* node)
+void UserControlTransformation::onTransformationChanged(iNode *node)
 {
 	if (node->getID() != _nodeId)
 	{
@@ -70,7 +70,7 @@ void UserControlTransformation::onTransformationChanged(iNode* node)
 		return;
 	}
 
-	updateGUI(static_cast<iNodeTransform*>(node));
+	updateGUI(static_cast<iNodeTransform *>(node));
 }
 
 uint32 UserControlTransformation::getNode()
@@ -78,7 +78,7 @@ uint32 UserControlTransformation::getNode()
 	return _nodeId;
 }
 
-void UserControlTransformation::updateGUI(iNodeTransform* transformNode)
+void UserControlTransformation::updateGUI(iNodeTransform *transformNode)
 {
 	iaMatrixd matrix;
 	transformNode->getMatrix(matrix);
@@ -108,12 +108,11 @@ void UserControlTransformation::updateGUI(iNodeTransform* transformNode)
 	_shearText[0]->setText(iaString::toString(shear._x, 4));
 	_shearText[1]->setText(iaString::toString(shear._y, 4));
 	_shearText[2]->setText(iaString::toString(shear._z, 4));
-
 }
 
-iWidgetTextEdit* UserControlTransformation::createTextEdit()
+iWidgetTextEdit *UserControlTransformation::createTextEdit()
 {
-	iWidgetTextEdit* textEdit = new iWidgetTextEdit();
+	iWidgetTextEdit *textEdit = new iWidgetTextEdit();
 	textEdit->setText("");
 	textEdit->setWidth(MICA_REGULARBUTTON_SIZE);
 	textEdit->setMaxTextLength(11);
@@ -135,42 +134,42 @@ void UserControlTransformation::initGUI()
 
 	for (int i = 0; i < 3; ++i)
 	{
-		iWidgetTextEdit* textEdit = createTextEdit();
+		iWidgetTextEdit *textEdit = createTextEdit();
 		_translateText.push_back(textEdit);
 		_grid->addWidget(textEdit, i + 1, 0);
 	}
 
 	for (int i = 0; i < 3; ++i)
 	{
-		iWidgetTextEdit* textEdit = createTextEdit();
+		iWidgetTextEdit *textEdit = createTextEdit();
 		_scaleText.push_back(textEdit);
 		_grid->addWidget(textEdit, i + 1, 1);
 	}
 
 	for (int i = 0; i < 3; ++i)
 	{
-		iWidgetTextEdit* textEdit = createTextEdit();
+		iWidgetTextEdit *textEdit = createTextEdit();
 		_rotateText.push_back(textEdit);
 		_grid->addWidget(textEdit, i + 1, 2);
 	}
 
 	for (int i = 0; i < 3; ++i)
 	{
-		iWidgetTextEdit* textEdit = createTextEdit();
+		iWidgetTextEdit *textEdit = createTextEdit();
 		_shearText.push_back(textEdit);
 		_grid->addWidget(textEdit, i + 1, 3);
 	}
 
-	iWidgetLabel* translateLabel = new iWidgetLabel();
+	iWidgetLabel *translateLabel = new iWidgetLabel();
 	translateLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
 	translateLabel->setText("Translate");
-	iWidgetLabel* scaleLabel = new iWidgetLabel();
+	iWidgetLabel *scaleLabel = new iWidgetLabel();
 	scaleLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
 	scaleLabel->setText("Scale");
-	iWidgetLabel* rotateLabel = new iWidgetLabel();
+	iWidgetLabel *rotateLabel = new iWidgetLabel();
 	rotateLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
 	rotateLabel->setText("Rotate");
-	iWidgetLabel* shearLabel = new iWidgetLabel();
+	iWidgetLabel *shearLabel = new iWidgetLabel();
 	shearLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
 	shearLabel->setText("Shear");
 
@@ -182,7 +181,7 @@ void UserControlTransformation::initGUI()
 
 void UserControlTransformation::onChange(const iWidgetPtr source)
 {
-	iNodeTransform* node = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_nodeId));
+	iNodeTransform *node = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_nodeId));
 
 	if (node != nullptr)
 	{
@@ -190,8 +189,8 @@ void UserControlTransformation::onChange(const iWidgetPtr source)
 
 		// translate
 		matrix.translate(iaString::toFloat(_translateText[0]->getText()),
-			iaString::toFloat(_translateText[1]->getText()),
-			iaString::toFloat(_translateText[2]->getText()));
+						 iaString::toFloat(_translateText[1]->getText()),
+						 iaString::toFloat(_translateText[2]->getText()));
 
 		// rotate order zyx
 		matrix.rotate(iaString::toFloat(_rotateText[2]->getText()) / 180.0 * M_PI, iaAxis::Z);
@@ -200,13 +199,13 @@ void UserControlTransformation::onChange(const iWidgetPtr source)
 
 		// scale
 		matrix.scale(iaString::toFloat(_scaleText[0]->getText()),
-			iaString::toFloat(_scaleText[1]->getText()),
-			iaString::toFloat(_scaleText[2]->getText()));
+					 iaString::toFloat(_scaleText[1]->getText()),
+					 iaString::toFloat(_scaleText[2]->getText()));
 
 		// shear
 		matrix.shear(iaString::toFloat(_shearText[0]->getText()),
-			iaString::toFloat(_shearText[1]->getText()),
-			iaString::toFloat(_shearText[2]->getText()));
+					 iaString::toFloat(_shearText[1]->getText()),
+					 iaString::toFloat(_shearText[2]->getText()));
 
 		node->setMatrix(matrix);
 	}

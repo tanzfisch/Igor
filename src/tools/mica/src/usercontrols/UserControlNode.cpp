@@ -15,7 +15,7 @@
 #include <igor/scene/nodes/iNodeManager.h>
 using namespace igor;
 
-#include "MicaDefines.h"
+#include "../MicaDefines.h"
 
 UserControlNode::UserControlNode()
 {
@@ -35,7 +35,7 @@ uint32 UserControlNode::getNode()
 
 void UserControlNode::updateGUI()
 {
-    iNodeMesh* node = static_cast<iNodeMesh*>(iNodeManager::getInstance().getNode(_nodeId));
+    iNodeMesh *node = static_cast<iNodeMesh *>(iNodeManager::getInstance().getNode(_nodeId));
 
     if (node != nullptr)
     {
@@ -82,12 +82,12 @@ void UserControlNode::initGUI()
     _grid->addWidget(_labelActive, 0, 1);
     _grid->addWidget(_checkBoxActive, 1, 1);
 
-	addWidget(_grid);
+    addWidget(_grid);
 }
 
 void UserControlNode::updateNode()
 {
-    iNodeMesh* node = static_cast<iNodeMesh*>(iNodeManager::getInstance().getNode(_nodeId));
+    iNodeMesh *node = static_cast<iNodeMesh *>(iNodeManager::getInstance().getNode(_nodeId));
 
     if (node != nullptr)
     {

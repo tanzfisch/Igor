@@ -3,8 +3,20 @@
 // see copyright notice in corresponding header file
 
 #include "Mica.h"
-#include "Widget3DLocator.h"
-#include "Widget3DEmitter.h"
+#include "widget3d/Widget3DLocator.h"
+#include "widget3d/Widget3DEmitter.h"
+
+#include "usercontrols/UserControlMesh.h"
+#include "usercontrols/UserControlModel.h"
+#include "usercontrols/UserControlNode.h"
+#include "usercontrols/UserControlParticleSystem.h"
+#include "usercontrols/UserControlTransformation.h"
+#include "usercontrols/UserControlLight.h"
+#include "usercontrols/UserControlEmitter.h"
+#include "usercontrols/UserControlMaterial.h"
+#include "usercontrols/UserControlProperties.h"
+#include "usercontrols/UserControlMaterialView.h"
+#include "usercontrols/UserControlGraphView.h"
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/system/iaDirectory.h>
@@ -41,18 +53,6 @@ using namespace iaux;
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/graphics/iRenderEngine.h>
 using namespace igor;
-
-#include "UserControlMesh.h"
-#include "UserControlModel.h"
-#include "UserControlNode.h"
-#include "UserControlParticleSystem.h"
-#include "UserControlTransformation.h"
-#include "UserControlLight.h"
-#include "UserControlEmitter.h"
-#include "UserControlMaterial.h"
-#include "UserControlProperties.h"
-#include "UserControlMaterialView.h"
-#include "UserControlGraphView.h"
 
 /*! window title definition
 */
