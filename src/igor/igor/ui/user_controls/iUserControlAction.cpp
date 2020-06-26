@@ -58,7 +58,7 @@ namespace igor
             return;
         }
 
-        action->execute();
+        action->execute(nullptr);
     }
 
     void iUserControlAction::setFixedPictureSize(bool value)
@@ -75,7 +75,7 @@ namespace igor
 
     void iUserControlAction::update()
     {
-        iActionPtr action = iActionManager::getInstance().getAction(_actionID);
+        iActionPtr action = iActionManager::getInstance().getAction(_actionName);
 
         if (action == nullptr)
         {
@@ -86,7 +86,7 @@ namespace igor
         }
         else
         {
-            _textLabel->setText(action->getText());
+            _textLabel->setText(action->getDescription());
             _picture->setTexture(action->getPicturePath());
             if (_picture->hasTexture())
             {
@@ -110,14 +110,14 @@ namespace igor
             return;
         }
 
-        _actionID = action->getID();
+        _actionName = action->getName();
 
         update();
     }
 
     iActionPtr iUserControlAction::getAction() const
     {
-        return iActionManager::getInstance().getAction(_actionID);
+        return iActionManager::getInstance().getAction(_actionName);
     }
 
 } // namespace igor

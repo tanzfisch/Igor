@@ -71,7 +71,7 @@ namespace igor
         */
         void iterate();
 
-        /*! stopes the application
+        /*! stops the application
 
         quits the main application loop. works only in combination with iApplication::run
         */

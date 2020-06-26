@@ -250,13 +250,13 @@ void UserControlGraphView::OnContextMenu(iWidgetPtr widget)
         dialogMenuTexts.push_back("Add Particle System");
         dialogMenuPictures.push_back("icons/addParticleSystem.png");
 
-        _dialogMenu->open(iDialogCloseDelegate(this, &UserControlGraphView::OnContextMenuClose), dialogMenuTexts, dialogMenuPictures);
+        _graphContextMenu->open(iDialogCloseDelegate(this, &UserControlGraphView::OnContextMenuClose), dialogMenuTexts, dialogMenuPictures);
     }
 }
 
 void UserControlGraphView::OnContextMenuClose(iDialogPtr dialog)
 {
-    if (dialog != _dialogMenu)
+    /*    if (dialog != _graphContextMenu)
     {
         return;
     }
@@ -316,7 +316,7 @@ void UserControlGraphView::OnContextMenuClose(iDialogPtr dialog)
         break;
     }
 
-    delete _dialogMenu;
+    delete _dialogMenu;*/
 }
 
 void UserControlGraphView::setSelectedNode(uint64 nodeID)

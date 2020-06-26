@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iUSERCONTROLACTION__
-#define __iUSERCONTROLACTION__
+#ifndef __IGOR_USERCONTROLACTION_H__
+#define __IGOR_USERCONTROLACTION_H__
 
 #include <igor/ui/actions/iAction.h>
 #include <igor/ui/user_controls/iUserControl.h>
@@ -81,9 +81,9 @@ namespace igor
         bool getFixedPictureSize() const;
 
     private:
-        /*! only store the action id
+        /*! only store the action name
         */
-        int64 _actionID;
+        iaString _actionName;
 
         /*! handle to text label
         */
@@ -117,4 +117,5 @@ namespace igor
     typedef iUserControlAction *iUserControlActionPtr;
 
 } // namespace igor
-#endif
+
+#endif // __IGOR_USERCONTROLACTION_H__

@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2014-2020 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,75 +26,7 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ACTION_H__
-#define __IGOR_ACTION_H__
+#ifndef __ACTIONS_H__
+#define __ACTIONS_H__
 
-#include <igor/ui/actions/iActionContext.h>
-
-#include <iaux/data/iaString.h>
-using namespace iaux;
-
-namespace igor
-{
-
-	/*! action base class
-	*/
-	class Igor_API iAction
-	{
-
-	public:
-		/*! does nothing
-		*/
-		iAction() = default;
-
-		/*! does nothing
-		*/
-		virtual ~iAction() = default;
-
-		/*! executed when action gets triggered
-
-		\param context the context the action was called with
-		*/
-		virtual void execute(iActionContextPtr context) = 0;
-
-		/*! \returns the action identifier
-		*/
-		virtual iaString getName() const = 0;
-
-		/*! sets text of action
-
-		\param text the new text
-		*/
-		void setDescription(const iaString &description);
-
-		/*! \returns the action text
-		*/
-		const iaString &getDescription() const;
-
-		/*! sets path to a picture for the action
-
-		\param filename the new text
-		*/
-		void setPicturePath(const iaString &filename);
-
-		/*! \returns the action picture file path
-		*/
-		const iaString &getPicturePath() const;
-
-	private:
-		/*! text of the action
-		*/
-		iaString _description;
-
-		/*! path to picture of action
-		*/
-		iaString _picture;
-	};
-
-	/*! action pointer definition
-    */
-	typedef iAction *iActionPtr;
-
-} // namespace igor
-
-#endif // __IGOR_ACTION_H__
+#endif // __ACTIONS_H__

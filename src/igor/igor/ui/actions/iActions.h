@@ -26,74 +26,30 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ACTION_H__
-#define __IGOR_ACTION_H__
+#ifndef __IGOR_ACTIONS_H__
+#define __IGOR_ACTIONS_H__
 
-#include <igor/ui/actions/iActionContext.h>
-
-#include <iaux/data/iaString.h>
-using namespace iaux;
+#include <igor/ui/actions/iAction.h>
 
 namespace igor
 {
 
-	/*! action base class
+    /*! application stop action
 	*/
-	class Igor_API iAction
-	{
+    class Igor_API iActionApplicationStop : public iAction
+    {
 
-	public:
-		/*! does nothing
-		*/
-		iAction() = default;
-
-		/*! does nothing
-		*/
-		virtual ~iAction() = default;
-
-		/*! executed when action gets triggered
+    public:
+        /*! executed when action gets triggered
 
 		\param context the context the action was called with
 		*/
-		virtual void execute(iActionContextPtr context) = 0;
+        void execute(iActionContextPtr context) override;
 
-		/*! \returns the action identifier
+        /*! \returns the action identifier
 		*/
-		virtual iaString getName() const = 0;
-
-		/*! sets text of action
-
-		\param text the new text
-		*/
-		void setDescription(const iaString &description);
-
-		/*! \returns the action text
-		*/
-		const iaString &getDescription() const;
-
-		/*! sets path to a picture for the action
-
-		\param filename the new text
-		*/
-		void setPicturePath(const iaString &filename);
-
-		/*! \returns the action picture file path
-		*/
-		const iaString &getPicturePath() const;
-
-	private:
-		/*! text of the action
-		*/
-		iaString _description;
-
-		/*! path to picture of action
-		*/
-		iaString _picture;
-	};
-
-	/*! action pointer definition
-    */
-	typedef iAction *iActionPtr;
+        iaString getName() const override;
+    };
 
 } // namespace igor
 

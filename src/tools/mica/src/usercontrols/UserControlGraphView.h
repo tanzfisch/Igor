@@ -11,20 +11,20 @@
 //                                           (_(       \)
 // (c) Copyright 2014-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: igorgameengine@protonmail.com  
+//
+// contact: igorgameengine@protonmail.com
 
 #ifndef __USERCONTROLGRAPHVIEW__
 #define __USERCONTROLGRAPHVIEW__
@@ -37,6 +37,7 @@ using namespace iaux;
 #include <igor/scene/traversal/iNodeVisitor.h>
 #include <igor/iDefines.h>
 #include <igor/scene/nodes/iNode.h>
+#include <igor/ui/dialogs/iDialogMenu.h>
 using namespace igor;
 
 #include <sstream>
@@ -49,12 +50,8 @@ namespace igor
     class iWidget;
     class iWidgetScroll;
     class iWidgetGroupBox;
-	class iWidgetButton;
-    class iDialogIndexMenu;
-    typedef iDialogIndexMenu* iDialogIndexMenuPtr;
-    class iDialog;
-    typedef iDialog* iDialogPtr;
-}
+    class iWidgetButton;
+} // namespace igor
 
 iaEVENT(AddModel, AddModelDelegate, void, (uint64 nodeID), (nodeID));
 iaEVENT(AddTransformation, AddTransformationDelegate, void, (uint64 nodeID), (nodeID));
@@ -68,9 +65,8 @@ class UserControlGraphView : public iUserControl, public iNodeVisitor
 {
 
 public:
-
-	UserControlGraphView();
-	~UserControlGraphView();
+    UserControlGraphView();
+    ~UserControlGraphView();
 
     void setSelectedNode(uint64 nodeID);
     uint64 getSelectedNode() const;
@@ -81,45 +77,46 @@ public:
     void registerOnSelectionChange(GraphSelectionChangedDelegate selectionChangeDelegate);
     void unregisterOnSelectionChange(GraphSelectionChangedDelegate selectionChangeDelegate);
 
-	void registerOnAddTransformation(AddTransformationDelegate addTransformationDelegate);
-	void unregisterOnAddTransformation(AddTransformationDelegate addTransformationDelegate);
+    void registerOnAddTransformation(AddTransformationDelegate addTransformationDelegate);
+    void unregisterOnAddTransformation(AddTransformationDelegate addTransformationDelegate);
 
-	void registerOnAddGroup(AddGroupDelegate addGroupDelegate);
-	void unregisterOnAddGroup(AddGroupDelegate addGroupDelegate);
+    void registerOnAddGroup(AddGroupDelegate addGroupDelegate);
+    void unregisterOnAddGroup(AddGroupDelegate addGroupDelegate);
 
-	void registerOnAddEmitter(AddEmitterDelegate addEmitterDelegate);
-	void unregisterOnAddEmitter(AddEmitterDelegate addEmitterDelegate);
+    void registerOnAddEmitter(AddEmitterDelegate addEmitterDelegate);
+    void unregisterOnAddEmitter(AddEmitterDelegate addEmitterDelegate);
 
-	void registerOnAddParticleSystem(AddParticleSystemDelegate addParticleSystemDelegate);
-	void unregisterOnAddParticleSystem(AddParticleSystemDelegate addParticleSystemDelegate);
+    void registerOnAddParticleSystem(AddParticleSystemDelegate addParticleSystemDelegate);
+    void unregisterOnAddParticleSystem(AddParticleSystemDelegate addParticleSystemDelegate);
 
-	void registerOnAddSwitch(AddSwitchDelegate addSwitchDelegate);
-	void unregisterOnAddSwitch(AddSwitchDelegate addSwitchDelegate);
-    
-	void registerOnAddModel(AddModelDelegate addModelDelegate);
-	void unregisterOnAddModel(AddModelDelegate addModelDelegate);
+    void registerOnAddSwitch(AddSwitchDelegate addSwitchDelegate);
+    void unregisterOnAddSwitch(AddSwitchDelegate addSwitchDelegate);
+
+    void registerOnAddModel(AddModelDelegate addModelDelegate);
+    void unregisterOnAddModel(AddModelDelegate addModelDelegate);
 
 private:
-
-	AddModel _addModel;
-	AddTransformation _addTransformation;
-	AddGroup _addGroup;
-	AddEmitter _addEmitter;
-	AddParticleSystem _addParticleSystem;
-	AddSwitch _addSwitch;
-	GraphSelectionChanged _graphSelectionChanged;
+    AddModel _addModel;
+    AddTransformation _addTransformation;
+    AddGroup _addGroup;
+    AddEmitter _addEmitter;
+    AddParticleSystem _addParticleSystem;
+    AddSwitch _addSwitch;
+    GraphSelectionChanged _graphSelectionChanged;
 
     uint64 _root = iNode::INVALID_NODE_ID;
-	GraphSelectionChanged _selectionChange;
+    GraphSelectionChanged _selectionChange;
 
     int32 _indentation = 0;
     bool _firstNode = true;
 
     uint64 _selectedNode = iNode::INVALID_NODE_ID;
 
-    iWidgetGrid* _gridGraph = nullptr;
+    iWidgetGrid *_gridGraph = nullptr;
 
-    iDialogIndexMenuPtr _dialogMenu = nullptr;
+    /*! the scene graphs context menu
+    */
+    iDialogMenuPtr _graphContextMenu = nullptr;
 
     void clearGraph();
 
@@ -131,18 +128,17 @@ private:
     void OnContextMenu(iWidgetPtr widget);
     void OnContextMenuClose(iDialogPtr dialog);
 
-	void onAddModel(const iWidgetPtr source);
-	void onAddTransformation(const iWidgetPtr source);
-	void onAddSwitch(const iWidgetPtr source);
-	void onAddGroup(const iWidgetPtr source);
-	void onAddEmitter(const iWidgetPtr source);
-	void onAddParticleSystem(const iWidgetPtr source);
+    void onAddModel(const iWidgetPtr source);
+    void onAddTransformation(const iWidgetPtr source);
+    void onAddSwitch(const iWidgetPtr source);
+    void onAddGroup(const iWidgetPtr source);
+    void onAddEmitter(const iWidgetPtr source);
+    void onAddParticleSystem(const iWidgetPtr source);
 
     void preTraverse() override;
     bool preOrderVisit(iNodePtr node, iNodePtr nextSibling) override;
     void postOrderVisit(iNodePtr node) override;
     void postTraverse() override;
-
 };
 
 #endif

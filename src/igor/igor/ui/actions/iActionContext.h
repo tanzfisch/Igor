@@ -26,51 +26,35 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iACTION_SIMPLE_DELEGATE__
-#define __iACTION_SIMPLE_DELEGATE__
+#ifndef __IGOR_ACTIONCONTEXT_H__
+#define __IGOR_ACTIONCONTEXT_H__
 
-#include <igor/ui/actions/iAction.h>
+#include <igor/iDefines.h>
 
-#include <iaux/system/iaDelegate.h>
-using namespace iaux;
+#include <memory>
 
 namespace igor
 {
 
-	/*! simple delegate with no parameters
-    */
-	iaDELEGATE(iSimpleDelegate, void, (), ());
-
-	/*! action class providing a delegate interface
+    /*! action constext base class
 	*/
-	class Igor_API iActionSimpleDelegate : public iAction
-	{
+    class Igor_API iActionContext
+    {
 
-		friend class iActionManager;
-
-	public:
-		/*! init members
+    public:
+        /*! does nothing
 		*/
-		iActionSimpleDelegate(iSimpleDelegate actionDelegate);
+        iActionContext() = default;
 
-		/*! does nothing
+        /*! does nothing
 		*/
-		virtual ~iActionSimpleDelegate() = default;
+        virtual ~iActionContext() = default;
+    };
 
-		/*! executed when action gets triggered
-		*/
-		void execute() override;
-
-	private:
-		/*! the action delegate to trigger with this action
-        */
-		iSimpleDelegate _actionDelegate;
-	};
-
-	/*! action delegate pointer definition
+    /*! action context pointer definition (shared)
     */
-	typedef iActionSimpleDelegate *iActionDelegatePtr;
+    typedef std::shared_ptr<iActionContext> iActionContextPtr;
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_ACTIONCONTEXT_H__
