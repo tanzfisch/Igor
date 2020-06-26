@@ -220,33 +220,33 @@ namespace iaux
         {
         case iaLogLevel::Fatal:
             color = iaForegroundColor::Red;
-            tag = " FATAL ";
+            tag = "FATAL";
             break;
 
         case iaLogLevel::Error:
             color = iaForegroundColor::Red;
-            tag = " ERROR ";
+            tag = "ERROR";
             break;
 
         case iaLogLevel::Warning:
             color = iaForegroundColor::Yellow;
-            tag = "WARNING";
+            tag = "WARN ";
             break;
 
         case iaLogLevel::Info:
             color = iaForegroundColor::Cyan;
-            tag = " INFO  ";
+            tag = "INFO ";
             break;
 
         case iaLogLevel::DebugInfo:
         case iaLogLevel::Debug:
             color = iaForegroundColor::White;
-            tag = " DEBUG ";
+            tag = "DEBUG";
             break;
 
         case iaLogLevel::Trace:
             color = iaForegroundColor::Magenta;
-            tag = " TRACE ";
+            tag = "TRACE";
             break;
         }
 

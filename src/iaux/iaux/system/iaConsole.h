@@ -45,7 +45,7 @@ namespace iaux
 
 /*! logging tab definition including size of time and thread ID
     */
-#define __IGOR_LOGGING_TAB__ L"                               "
+#define __IGOR_LOGGING_TAB__ L"                             "
 
     /*!
     \todo forgot what this is good for
@@ -462,7 +462,8 @@ namespace iaux
     {                                                                          \
         iaConsole::getInstance() << LOCK;                                      \
         iaConsole::getInstance().printHead(iaLogLevel::DebugInfo);             \
-        iaConsole::getInstance() << iaForegroundColor::Gray << Message << endl << UNLOCK; \
+        iaConsole::getInstance() << iaForegroundColor::Gray << Message << endl \
+                                 << UNLOCK;                                    \
     }
 
     /*! prints an endline to the console
@@ -601,7 +602,7 @@ namespace iaux
 
     \param logLevel the log level to print
     */
-    iaConsole& operator<<(iaConsole& console, const iaLogLevel& logLevel);
+    iaConsole &operator<<(iaConsole &console, const iaLogLevel &logLevel);
 
 }; // namespace iaux
 
