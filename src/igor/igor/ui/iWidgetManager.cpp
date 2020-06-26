@@ -320,12 +320,20 @@ namespace igor
         std::vector<iDialogPtr> dialogs;
         getActiveDialogs(dialogs, false);
 
+        bool consumed = false;
+
         // let the dialogs handle the event
         for (auto dialog : dialogs)
         {
+            if (!dialog->getAcceptOutOfBoundsClicks() &&
+                consumed)
+            {
+                continue;
+            }
+
             if (dialog->handleMouseKeyUp(key))
             {
-                return;
+                consumed = true;
             }
         }
 

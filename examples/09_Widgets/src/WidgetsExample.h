@@ -11,20 +11,20 @@
 //                                           (_(       \)
 //    (c) Copyright 2014-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: martinloga@gmx.de  
+//
+// contact: martinloga@gmx.de
 
 #ifndef __WIDGETEXAMPLE__
 #define __WIDGETEXAMPLE__
@@ -48,11 +48,11 @@ using namespace iaux;
 namespace igor
 {
     class iTextureFont;
-	class iWidgetDefaultTheme;
+    class iWidgetDefaultTheme;
     class iWidgetLabel;
     class iWidgetColor;
     class iWidgetColorGradient;
-}
+} // namespace igor
 
 /*! this example shows how to use Igor Widgets
 */
@@ -60,7 +60,6 @@ class WidgetsExample
 {
 
 public:
-
     /*! ctor initializes widgets
     */
     WidgetsExample();
@@ -74,10 +73,9 @@ public:
     void run();
 
 private:
-
     /*! the window it self
     */
-	iWindow _window;
+    iWindow _window;
 
     /*! orthogonal view port
     */
@@ -89,7 +87,7 @@ private:
 
     /*! font handle
     */
-    iTextureFont* _font = nullptr;
+    iTextureFont *_font = nullptr;
 
     /*! material for drawing igor logo
     */
@@ -97,19 +95,19 @@ private:
 
     /*! using the default widget theme
     */
-	iWidgetDefaultTheme* _widgetDefaultTheme = nullptr;
+    iWidgetDefaultTheme *_widgetDefaultTheme = nullptr;
 
     /*! the main dialog
     */
-	iDialogPtr _dialog = nullptr;
+    iDialogPtr _dialog = nullptr;
 
     /*! mouse position label
     */
-	iWidgetLabel* _labelMousePos = nullptr;
+    iWidgetLabel *_labelMousePos = nullptr;
 
     /*! instance of a message box
     */
-    iDialogMessageBox* _messageBox = nullptr;
+    iDialogMessageBox *_messageBox = nullptr;
 
     /*! color chooser dialog
     */
@@ -121,12 +119,12 @@ private:
 
     /*! color view to display the color selected in color chooser
     */
-    iWidgetColor* _color = nullptr;
+    iWidgetColor *_color = nullptr;
 
     /*! color gradient
     */
-    iWidgetColorGradient* _colorGradient = nullptr;
-	
+    iWidgetColorGradient *_colorGradient = nullptr;
+
     /*! splash texture
     */
     iTexturePtr _igorLogo = nullptr;
@@ -147,7 +145,7 @@ private:
 
     \param dialog source of the event
     */
-    void WidgetsExample::onCloseDialog(iDialogPtr dialog);
+    void onCloseDialog(iDialogPtr dialog);
 
     /*! render function
     */
@@ -167,11 +165,11 @@ private:
     */
     void onExitClick(const iWidgetPtr source);
 
-	/*! triggered by closing the message box
+    /*! triggered by closing the message box
 
 	\param dialog the dialog that was closed
 	*/
-	void onCloseMessageBox(iDialogPtr dialog);
+    void onCloseMessageBox(iDialogPtr dialog);
 
     /*! triggered by message box button. will open message box
 
@@ -207,7 +205,7 @@ private:
 
     \param pos position of mouse cursor
     */
-	void onMouseMove(const iaVector2i& pos);
+    void onMouseMove(const iaVector2i &pos);
 
     /*! triggred if window was closed
     */
@@ -224,7 +222,6 @@ private:
     /*! deinitialize example
     */
     void deinit();
-
 };
 
 #endif

@@ -16,7 +16,12 @@ namespace igor
     iWidgetMenuBar::iWidgetMenuBar(const iWidgetPtr parent)
         : iWidget(parent)
     {
-        init();
+        setHorizontalAlignment(iHorizontalAlignment::Left);
+        setVerticalAlignment(iVerticalAlignment::Top);
+
+        _grid = new iWidgetGrid(this);
+        _grid->setSelectMode(iSelectionMode::NoSelection);
+        _grid->setHighlightMode(iSelectionMode::Collumn);
     }
 
     iWidgetType iWidgetMenuBar::getWidgetType() const
@@ -41,9 +46,6 @@ namespace igor
 
     void iWidgetMenuBar::init()
     {
-        _grid = new iWidgetGrid(this);
-        _grid->setSelectMode(iSelectionMode::NoSelection);
-        _grid->setHighlightMode(iSelectionMode::Collumn);
     }
 
     void iWidgetMenuBar::addAction(const iActionPtr action)
