@@ -408,7 +408,7 @@ namespace igor
 
             if (taskTodo != nullptr)
             {
-                taskTodo->setWorld(static_cast<iThread*>(thread)->getWorld());
+                taskTodo->setWorld(static_cast<iThread *>(thread)->getWorld());
                 taskTodo->run();
                 taskTodo->finishTask();
 

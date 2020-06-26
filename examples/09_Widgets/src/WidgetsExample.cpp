@@ -119,7 +119,7 @@ void WidgetsExample::initGUI()
     // it does not matter if we open it now or after adding all the child widgets
     _dialog->open(iDialogCloseDelegate(this, &WidgetsExample::onCloseDialog));
 
-    iWidgetGrid* grid1 = new iWidgetGrid(_dialog);
+    iWidgetGrid *grid1 = new iWidgetGrid(_dialog);
     // put all widgets in one list for easier later cleanup. this method might not always be suitable
     grid1->appendRows(2);
     grid1->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -131,8 +131,6 @@ void WidgetsExample::initGUI()
     grid1->setSelectMode(iSelectionMode::NoSelection);
 
     iWidgetMenuBarPtr menuBar = new iWidgetMenuBar();
-    menuBar->setHorizontalAlignment(iHorizontalAlignment::Left);
-    menuBar->setVerticalAlignment(iVerticalAlignment::Top);
     grid1->addWidget(menuBar, 0, 0);
 
     iActionPtr action1 = iActionManager::getInstance().createAction("action:camera", iSimpleDelegate(this, &WidgetsExample::onActionOne), "Create Camera", "icons\\camera.png");
@@ -169,20 +167,18 @@ void WidgetsExample::initGUI()
     menu2->addAction(action1);
     menuBar->addMenu(menu2);
 
-
-
-    iWidgetGroupBox* groupBox1 = new iWidgetGroupBox();
+    iWidgetGroupBox *groupBox1 = new iWidgetGroupBox();
     groupBox1->setText("Hello World. This is a group box!");
     groupBox1->setHorizontalAlignment(iHorizontalAlignment::Strech);
     groupBox1->setVerticalAlignment(iVerticalAlignment::Strech);
 
-    // a scroll widget can contain a child that is bigger than it self. if so the scroll widget 
+    // a scroll widget can contain a child that is bigger than it self. if so the scroll widget
     // shows vertical and or horizontal sliders and allows to scroll the child.
-    iWidgetScroll* widgetScoll = new iWidgetScroll();
+    iWidgetScroll *widgetScoll = new iWidgetScroll();
     widgetScoll->setHorizontalAlignment(iHorizontalAlignment::Strech);
     widgetScoll->setVerticalAlignment(iVerticalAlignment::Strech);
 
-    iWidgetGrid* grid3 = new iWidgetGrid();
+    iWidgetGrid *grid3 = new iWidgetGrid();
     grid3->appendCollumns(3);
     grid3->appendRows(4);
     grid3->setCellSpacing(10);
@@ -191,34 +187,34 @@ void WidgetsExample::initGUI()
     grid3->setVerticalAlignment(iVerticalAlignment::Top);
     grid3->setSelectMode(iSelectionMode::NoSelection);
 
-    iWidgetGrid* grid4 = new iWidgetGrid();
+    iWidgetGrid *grid4 = new iWidgetGrid();
     grid4->appendCollumns(5);
     grid4->setStrechColumn(4);
     grid4->setHorizontalAlignment(iHorizontalAlignment::Strech);
     grid4->setVerticalAlignment(iVerticalAlignment::Top);
     grid4->setSelectMode(iSelectionMode::NoSelection);
 
-    iWidgetLabel* label1 = new iWidgetLabel();
+    iWidgetLabel *label1 = new iWidgetLabel();
     label1->setText("This is a Label with just enough text.");
 
-    iWidgetLabel* label2 = new iWidgetLabel();
+    iWidgetLabel *label2 = new iWidgetLabel();
     label2->setText("This is an other Label with just enough text.");
 
-    iWidgetLabel* label3 = new iWidgetLabel();
+    iWidgetLabel *label3 = new iWidgetLabel();
     label3->setText("Top Right aligned Label");
     label3->setVerticalAlignment(iVerticalAlignment::Top);
     label3->setHorizontalAlignment(iHorizontalAlignment::Right);
 
-    iWidgetLabel* label4 = new iWidgetLabel();
+    iWidgetLabel *label4 = new iWidgetLabel();
     label4->setText("This is a Label with a super long text so you can see the line break feature in action.");
     label4->setMaxTextWidth(200);
 
-    iWidgetLabel* label5 = new iWidgetLabel();
+    iWidgetLabel *label5 = new iWidgetLabel();
     label5->setText("Bottom Left Aligned Label");
     label5->setVerticalAlignment(iVerticalAlignment::Bottom);
     label5->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetButton* button1 = new iWidgetButton();
+    iWidgetButton *button1 = new iWidgetButton();
     button1->setSize(70, 20);
     button1->setVerticalAlignment(iVerticalAlignment::Strech);
     button1->setHorizontalAlignment(iHorizontalAlignment::Center);
@@ -242,12 +238,12 @@ void WidgetsExample::initGUI()
     _colorGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _colorGradient->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenColorGradientEditor));
 
-    iWidgetSpacer* spacer = new iWidgetSpacer();
+    iWidgetSpacer *spacer = new iWidgetSpacer();
     spacer->setSize(2, 30);
 
     _labelMousePos = new iWidgetLabel();
 
-    iWidgetButton* exitButton = new iWidgetButton();
+    iWidgetButton *exitButton = new iWidgetButton();
     exitButton->setText("");
     exitButton->setTooltip("Exists the application.");
     exitButton->setTexture("icons\\exit.png");
@@ -257,37 +253,37 @@ void WidgetsExample::initGUI()
     exitButton->setSize(64, 64);
     exitButton->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onExitClick));
 
-    iWidgetSelectBox* selectBox = new iWidgetSelectBox();
+    iWidgetSelectBox *selectBox = new iWidgetSelectBox();
     selectBox->addSelectionEntry("bla");
     selectBox->addSelectionEntry("blub haha bla blub");
     selectBox->addSelectionEntry("haha");
     selectBox->setSelection(1);
     selectBox->setHorizontalAlignment(iHorizontalAlignment::Right);
 
-    iWidgetNumberChooser* numberChooser = new iWidgetNumberChooser();
+    iWidgetNumberChooser *numberChooser = new iWidgetNumberChooser();
     numberChooser->setPostFix("%");
     numberChooser->setValue(50);
     numberChooser->setHorizontalAlignment(iHorizontalAlignment::Right);
 
-    iWidgetTextEdit* textEditLeft = new iWidgetTextEdit();
+    iWidgetTextEdit *textEditLeft = new iWidgetTextEdit();
     textEditLeft->setWidth(150);
     textEditLeft->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     textEditLeft->setText("left aligned");
     textEditLeft->setMaxTextLength(300);
 
-    iWidgetTextEdit* textEditCenter = new iWidgetTextEdit();
+    iWidgetTextEdit *textEditCenter = new iWidgetTextEdit();
     textEditCenter->setWidth(150);
     textEditCenter->setHorizontalTextAlignment(iHorizontalAlignment::Center);
     textEditCenter->setText("center aligned");
     textEditCenter->setMaxTextLength(300);
 
-    iWidgetTextEdit* textEditRight = new iWidgetTextEdit();
+    iWidgetTextEdit *textEditRight = new iWidgetTextEdit();
     textEditRight->setWidth(150);
     textEditRight->setHorizontalTextAlignment(iHorizontalAlignment::Right);
     textEditRight->setText("right aligned");
     textEditRight->setMaxTextLength(300);
 
-    iWidgetPicture* picture1 = new iWidgetPicture();
+    iWidgetPicture *picture1 = new iWidgetPicture();
     picture1->setTexture("OpenGL-Logo.jpg");
     picture1->setMaxSize(200, 64);
     picture1->setVerticalAlignment(iVerticalAlignment::Top);
@@ -295,21 +291,21 @@ void WidgetsExample::initGUI()
 
     // if check boxes are supposed to be connected as radio buttons tell the widget manager by starting a radio button group
     iWidgetCheckBox::beginRadioButtonGroup();
-    iWidgetCheckBox* radio1 = new iWidgetCheckBox();
+    iWidgetCheckBox *radio1 = new iWidgetCheckBox();
     radio1->setHorizontalAlignment(iHorizontalAlignment::Left);
     radio1->setText("radio1");
 
-    iWidgetCheckBox* radio2 = new iWidgetCheckBox();
+    iWidgetCheckBox *radio2 = new iWidgetCheckBox();
     radio2->setText("radio2");
     radio2->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetCheckBox* radio3 = new iWidgetCheckBox();
+    iWidgetCheckBox *radio3 = new iWidgetCheckBox();
     radio3->setText("radio3");
     radio3->setHorizontalAlignment(iHorizontalAlignment::Left);
     // finish the radio button group
     iWidgetCheckBox::endRadioButtonGroup();
 
-    iWidgetGraph* graph = new iWidgetGraph();
+    iWidgetGraph *graph = new iWidgetGraph();
     graph->setSize(300, 50);
 
     std::vector<iaVector2f> points;
@@ -413,7 +409,6 @@ void WidgetsExample::deinit()
     _window.removeView(&_viewOrtho);
 }
 
-
 void WidgetsExample::onWindowResize(int32 clientWidth, int32 clientHeight)
 {
     // update the widget managers desktop dimensions
@@ -423,7 +418,7 @@ void WidgetsExample::onWindowResize(int32 clientWidth, int32 clientHeight)
     _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
 }
 
-void WidgetsExample::onMouseMove(const iaVector2i& pos)
+void WidgetsExample::onMouseMove(const iaVector2i &pos)
 {
     // updates a label with current mouse position
     if (_labelMousePos != nullptr)
@@ -504,7 +499,7 @@ void WidgetsExample::onOpenMessageBox(const iWidgetPtr source)
 void WidgetsExample::onCloseMessageBox(iDialogPtr dialog)
 {
     iaString returnString;
-    switch (static_cast<iDialogMessageBox*>(dialog)->getReturnState())
+    switch (static_cast<iDialogMessageBox *>(dialog)->getReturnState())
     {
     case iDialogReturnState::No:
         returnString = "No";
@@ -537,7 +532,7 @@ void WidgetsExample::onExitClick(const iWidgetPtr source)
 void WidgetsExample::onWindowClosed()
 {
     // shut down application
-    // closing the window alone will not shut down the application 
+    // closing the window alone will not shut down the application
     // because it's a console application and the windows come on top
     iApplication::getInstance().stop();
 }

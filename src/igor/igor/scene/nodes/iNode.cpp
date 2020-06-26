@@ -549,8 +549,6 @@ namespace igor
             "iNodeAudioSource",
             "Undefined"};
 
-        con_assert(static_cast<int>(nodeType) >= 0 && static_cast<int>(nodeType) < 17, "out of range");
-
         stream << text[static_cast<int>(nodeType)].getData();
         return stream;
     }
@@ -567,8 +565,6 @@ namespace igor
             "Transformation",
             "Audio",
             "Undefined"};
-
-        con_assert(static_cast<int>(nodeKind) >= 0 && static_cast<int>(nodeKind) < 8, "out of range");
 
         stream << text[static_cast<int>(nodeKind)].getData();
         return stream;

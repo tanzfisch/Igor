@@ -934,6 +934,14 @@ namespace igor
 
 #include <igor/ui/widgets/iWidget.inl>
 
+	/*! stream operator
+
+	\param stream the destination
+	\param widgetType the widget type to stream
+	\returns the resulting stream
+	*/
+	Igor_API std::wostream &operator<<(std::wostream &stream, const iWidgetType &widgetType);
+
 } // namespace igor
 
 #endif

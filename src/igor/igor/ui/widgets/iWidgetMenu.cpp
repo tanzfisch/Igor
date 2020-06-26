@@ -104,9 +104,9 @@ namespace igor
             return;
         }
 
-        bool parentIsMenuBar = parent->getWidgetType() == iWidgetType::iWidgetMenuBar;
+        con_endl(parent->getWidgetType());
 
-        if (parentIsMenuBar)
+        if (parent->getWidgetType() == iWidgetType::iWidgetMenuBar)
         {
             _menu->setX(getActualPosX());
             _menu->setY(getActualPosY() + getActualHeight() - 1);
@@ -117,23 +117,25 @@ namespace igor
             _menu->setY(getActualPosY() - 1);
         }
 
-        iWidgetPtr root = getRoot();
-        if (root != nullptr &&
-            root->getWidgetType() == iWidgetType::iDialog)
-        {
-            _menu->setZValue(root->getZValue() + 10);
-        }
-
+        _menu->setZValue(parent->getZValue() + 1);
         _menu->open(iDialogCloseDelegate(this, &iWidgetMenu::onDialogClose));
     }
 
     void iWidgetMenu::onDialogClose(iDialogPtr dialog)
     {
-        iWidgetMenuPtr menu = dynamic_cast<iWidgetMenuPtr>(iWidgetManager::getInstance().getWidget(_menuParent));
-
-        if (menu != nullptr)
+        if (dialog != _menu)
         {
-            menu->onSubMenuClosed(dialog->getReturnState());
+            return;
+        }
+
+        if (_menu->getReturnState() != iDialogReturnState::Cancel &&
+            _menu->getReturnState() != iDialogReturnState::Error)
+        {
+            iWidgetMenuPtr parent = dynamic_cast<iWidgetMenuPtr>(iWidgetManager::getInstance().getWidget(_menuParent));
+            if (parent != nullptr)
+            {
+                parent->onSubMenuClosed(_menu->getReturnState());
+            }
         }
     }
 
