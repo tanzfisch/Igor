@@ -88,8 +88,6 @@ void WidgetsExample::init()
     grid1->setSelectMode(iSelectionMode::NoSelection);
 
     iWidgetMenuBarPtr menuBar = new iWidgetMenuBar();
-    menuBar->setHorizontalAlignment(iHorizontalAlignment::Left);
-    menuBar->setVerticalAlignment(iVerticalAlignment::Top);
     grid1->addWidget(menuBar, 0, 0);
 
     iActionPtr action1 = iActionManager::getInstance().createAction("action:camera", iSimpleDelegate(this, &WidgetsExample::onActionOne), "Create Camera", "icons\\camera.png");

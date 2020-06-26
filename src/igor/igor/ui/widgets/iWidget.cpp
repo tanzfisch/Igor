@@ -458,13 +458,13 @@ namespace igor
             if (_isMouseOver)
             {
                 // get copy of children
-                std::vector<iWidgetPtr> widgets;
-                getChildren(widgets);
+                std::vector<iWidgetPtr> children;
+                getChildren(children);
                 bool result = false;
 
-                for (auto widget : widgets)
+                for (auto child : children)
                 {
-                    if (widget->handleMouseKeyUp(key))
+                    if (child->handleMouseKeyUp(key))
                     {
                         result = true;
                     }
@@ -912,6 +912,45 @@ namespace igor
 
         _minWidth = minWidth;
         _minHeight = minHeight;
+    }
+
+    std::wostream &operator<<(std::wostream &stream, const iWidgetType &widgetType)
+    {
+        const static iaString text[] = {
+            "iWidgetButton",
+            "iWidgetCheckBox",
+            "iWidgetColor",
+            "iWidgetColorGradient",
+            "iWidgetGraph",
+            "iWidgetGrid",
+            "iWidgetGroupBox",
+            "iWidgetLabel",
+            "iWidgetMenu",
+            "iWidgetMenuBar",
+            "iWidgetNumberChooser",
+            "iWidgetPicture",
+            "WidgetScroll",
+            "iWidgetSelectBox",
+            "iWidgetSlider",
+            "iWidgetSpacer",
+            "iWidgetTextEdit",
+            "iUserControl",
+            "iUserControlAction",
+            "iUserControlColorChooser",
+            "iUserControlFileChooser",
+            "iDialog",
+            "iDialogColorChooser",
+            "iDialogColorGradient",
+            "iDialogDecisionBox",
+            "iDialogFileSelect",
+            "iDialogGraph",
+            "iDialogIndexMenu",
+            "iDialogMenu",
+            "iDialogMessageBox",
+            "Undefined"};
+
+        stream << text[static_cast<int>(widgetType)].getData();
+        return stream;
     }
 
 } // namespace igor
