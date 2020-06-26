@@ -41,9 +41,7 @@ namespace igor
         grid->setStrechColumn(1);
         grid->setCellSpacing(4);
 
-        _spacer = new iWidgetSpacer();
-        _spacer->setSize(16, 16);
-        _spacer->setVisible(false);
+        _spacer = new iWidgetSpacer(16, 16);
         grid->addWidget(_spacer, 0, 0);
 
         _title = new iWidgetLabel();
@@ -53,7 +51,7 @@ namespace igor
         _picture = new iWidgetPicture();
         _picture->setMaxSize(8, 8);
         _picture->setKeepAspectRatio(false);
-        _picture->setTexture("icons\\right.png");
+        _picture->setTexture("icons/right.png");
 
         grid->addWidget(_picture, 2, 0);
 

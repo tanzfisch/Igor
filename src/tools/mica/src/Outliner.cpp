@@ -81,7 +81,7 @@ void Outliner::initGUI()
     loadButton->setWidth(30);
     loadButton->setHeight(30);
     loadButton->setTooltip("Load file");
-    loadButton->setTexture("icons\\load.png");
+    loadButton->setTexture("icons/load.png");
     loadButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onLoadFile));
 
     iWidgetButtonPtr saveButton = new iWidgetButton();
@@ -89,7 +89,7 @@ void Outliner::initGUI()
     saveButton->setWidth(30);
     saveButton->setHeight(30);
     saveButton->setTooltip("Save file");
-    saveButton->setTexture("icons\\save.png");
+    saveButton->setTexture("icons/save.png");
     saveButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onSaveFile));
 
     iWidgetButtonPtr exitButton = new iWidgetButton();
@@ -97,23 +97,15 @@ void Outliner::initGUI()
     exitButton->setWidth(30);
     exitButton->setHeight(30);
     exitButton->setTooltip("Exit Mica");
-    exitButton->setTexture("icons\\exit.png");
+    exitButton->setTexture("icons/exit.png");
     exitButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onExitMica));
-
-    iWidgetSpacerPtr spacer1 = new iWidgetSpacer();
-    spacer1->setWidth(2);
-    spacer1->setHeight(20);
-
-    iWidgetSpacerPtr spacer2 = new iWidgetSpacer();
-    spacer2->setWidth(2);
-    spacer2->setHeight(20);
 
     iWidgetButtonPtr cutButton = new iWidgetButton();
     cutButton->setText("");
     cutButton->setWidth(30);
     cutButton->setHeight(30);
     cutButton->setTooltip("Cut selection");
-    cutButton->setTexture("icons\\cut.png");
+    cutButton->setTexture("icons/cut.png");
     cutButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onCut));
 
     iWidgetButtonPtr copyButton = new iWidgetButton();
@@ -121,7 +113,7 @@ void Outliner::initGUI()
     copyButton->setWidth(30);
     copyButton->setHeight(30);
     copyButton->setTooltip("Copy selection");
-    copyButton->setTexture("icons\\copy.png");
+    copyButton->setTexture("icons/copy.png");
     copyButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onCopy));
 
     iWidgetButtonPtr pasteButton = new iWidgetButton();
@@ -129,7 +121,7 @@ void Outliner::initGUI()
     pasteButton->setWidth(30);
     pasteButton->setHeight(30);
     pasteButton->setTooltip("paste from clipboard");
-    pasteButton->setTexture("icons\\paste.png");
+    pasteButton->setTexture("icons/paste.png");
     pasteButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onPaste));
 
     iWidgetButtonPtr deleteButton = new iWidgetButton();
@@ -137,18 +129,18 @@ void Outliner::initGUI()
     deleteButton->setWidth(30);
     deleteButton->setHeight(30);
     deleteButton->setTooltip("delete selection");
-    deleteButton->setTexture("icons\\delete.png");
+    deleteButton->setTexture("icons/delete.png");
     deleteButton->registerOnClickEvent(iClickDelegate(this, &Outliner::onDelete));
 
     _grid->addWidget(gridButtons, 0, 0);
     gridButtons->addWidget(loadButton, 0, 0);
     gridButtons->addWidget(saveButton, 1, 0);
     gridButtons->addWidget(exitButton, 2, 0);
-    gridButtons->addWidget(spacer1, 3, 0);
+    gridButtons->addWidget(new iWidgetSpacer(2, 20), 3, 0);
     gridButtons->addWidget(cutButton, 4, 0);
     gridButtons->addWidget(copyButton, 5, 0);
     gridButtons->addWidget(pasteButton, 6, 0);
-    gridButtons->addWidget(spacer2, 7, 0);
+    gridButtons->addWidget(new iWidgetSpacer(2, 20), 7, 0);
     gridButtons->addWidget(deleteButton, 8, 0);
 
     _grid->addWidget(gridRadioButtons, 0, 1);

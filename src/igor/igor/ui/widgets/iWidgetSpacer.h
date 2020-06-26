@@ -47,7 +47,7 @@ namespace igor
 
 		\param parent optional parent
 		*/
-		iWidgetSpacer(const iWidgetPtr parent = nullptr);
+		iWidgetSpacer(int32 width, int32 height, bool visible = false, const iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/

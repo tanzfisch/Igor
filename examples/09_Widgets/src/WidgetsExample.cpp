@@ -90,10 +90,10 @@ void WidgetsExample::init()
     iWidgetMenuBarPtr menuBar = new iWidgetMenuBar();
     grid1->addWidget(menuBar, 0, 0);
 
-    iActionPtr action1 = iActionManager::getInstance().createAction("action:camera", iSimpleDelegate(this, &WidgetsExample::onActionOne), "Create Camera", "icons\\camera.png");
-    iActionPtr action2 = iActionManager::getInstance().createAction("action:delete", iSimpleDelegate(this, &WidgetsExample::onActionTwo), "Delete Something", "icons\\delete.png");
+    iActionPtr action1 = iActionManager::getInstance().createAction("action:camera", iSimpleDelegate(this, &WidgetsExample::onActionOne), "Create Camera", "icons/camera.png");
+    iActionPtr action2 = iActionManager::getInstance().createAction("action:delete", iSimpleDelegate(this, &WidgetsExample::onActionTwo), "Delete Something", "icons/delete.png");
     iActionPtr action3 = iActionManager::getInstance().createAction("action:action", iSimpleDelegate(this, &WidgetsExample::onActionThree), "Action");
-    iActionPtr action4 = iActionManager::getInstance().createAction("action:transform", iSimpleDelegate(this, &WidgetsExample::onActionThree), "Transform", "icons\\transformation.png");
+    iActionPtr action4 = iActionManager::getInstance().createAction("action:transform", iSimpleDelegate(this, &WidgetsExample::onActionThree), "Transform", "icons/transformation.png");
 
     iWidgetMenuPtr menu1 = new iWidgetMenu();
     menu1->setTitle("File");
@@ -195,15 +195,12 @@ void WidgetsExample::init()
     _colorGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _colorGradient->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenColorGradientEditor));
 
-    iWidgetSpacer *spacer = new iWidgetSpacer();
-    spacer->setSize(2, 30);
-
     _labelMousePos = new iWidgetLabel();
 
     iWidgetButton *exitButton = new iWidgetButton();
     exitButton->setText("");
     exitButton->setTooltip("Exists the application.");
-    exitButton->setTexture("icons\\exit.png");
+    exitButton->setTexture("icons/exit.png");
     exitButton->setVerticalTextAlignment(iVerticalAlignment::Bottom);
     exitButton->setVerticalAlignment(iVerticalAlignment::Center);
     exitButton->setHorizontalAlignment(iHorizontalAlignment::Center);
@@ -316,7 +313,7 @@ void WidgetsExample::init()
     grid1->addWidget(groupBox1, 0, 1);
     groupBox1->addWidget(grid4);
     grid4->addWidget(exitButton, 0, 0);
-    grid4->addWidget(spacer, 1, 0);
+    grid4->addWidget(new iWidgetSpacer(2, 30), 1, 0);
     grid4->addWidget(picture1, 2, 0);
     grid4->addWidget(_color, 3, 0);
     grid4->addWidget(_colorGradient, 4, 0);

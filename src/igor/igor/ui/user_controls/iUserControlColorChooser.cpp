@@ -155,7 +155,7 @@ namespace igor
         _titleLabel->setVerticalAlignment(iVerticalAlignment::Top);
 
         _expandButton = new iWidgetButton();
-        _expandButton->setTexture("icons\\plus.png");
+        _expandButton->setTexture("icons/plus.png");
         _expandButton->setText("");
         _expandButton->setWidth(12);
         _expandButton->setHeight(12);
@@ -211,7 +211,7 @@ namespace igor
             _expandedGrid->setActive(true);
             _expandedGrid->setVisible(true);
             _grid->addWidget(_expandedGrid, 0, 1);
-            _expandButton->setTexture("icons\\minus.png");
+            _expandButton->setTexture("icons/minus.png");
         }
         else
         {
@@ -219,7 +219,7 @@ namespace igor
             _collapsedGrid->setActive(true);
             _collapsedGrid->setVisible(true);
             _grid->addWidget(_collapsedGrid, 0, 1);
-            _expandButton->setTexture("icons\\plus.png");
+            _expandButton->setTexture("icons/plus.png");
         }
     }
 

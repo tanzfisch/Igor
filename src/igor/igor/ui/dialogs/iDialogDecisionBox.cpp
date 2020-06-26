@@ -60,16 +60,6 @@ namespace igor
 		messageLabel->setText(message);
 		messageLabel->setMaxTextWidth(280);
 
-		iWidgetSpacerPtr spacerLineTop = new iWidgetSpacer();
-		spacerLineTop->setWidth(280);
-		spacerLineTop->setHeight(1);
-		spacerLineTop->setVisible(true);
-
-		iWidgetSpacerPtr spacerLineBottom = new iWidgetSpacer();
-		spacerLineBottom->setWidth(280);
-		spacerLineBottom->setHeight(1);
-		spacerLineBottom->setVisible(true);
-
 		iWidgetGridPtr buttonGrid = new iWidgetGrid();
 		buttonGrid->appendCollumns(3);
 		buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
@@ -114,9 +104,9 @@ namespace igor
 		addWidget(grid);
 
 		grid->addWidget(messageLabel, 0, 0);
-		grid->addWidget(spacerLineTop, 0, 1);
+		grid->addWidget(new iWidgetSpacer(280, 1), 0, 1);
 		grid->addWidget(radioGrid, 0, 2);
-		grid->addWidget(spacerLineBottom, 0, 3);
+		grid->addWidget(new iWidgetSpacer(280, 1), 0, 3);
 		grid->addWidget(buttonGrid, 0, 4);
 
 		buttonGrid->addWidget(okButton, 0, 0);
