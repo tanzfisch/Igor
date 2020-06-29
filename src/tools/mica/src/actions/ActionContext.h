@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2014-2020 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,81 +26,46 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ACTION_H__
-#define __IGOR_ACTION_H__
+#ifndef __ACTIONCONTEXT_H__
+#define __ACTIONCONTEXT_H__
 
 #include <igor/ui/actions/iActionContext.h>
+#include <igor/scene/nodes/iNode.h>
+using namespace igor;
 
-#include <iaux/data/iaString.h>
-using namespace iaux;
-
-namespace igor
+/*! mica action context
+*/
+class Igor_API ActionContext : public iActionContext
 {
 
-	/*! action base class
-	*/
-	class Igor_API iAction
-	{
-
-	public:
-		/*! init members
-
-		\param name the unique name of this action
-		*/
-		iAction(const iaString &name);
-
-		/*! does nothing
-		*/
-		virtual ~iAction() = default;
-
-		/*! executed when action gets triggered
-
-		\param context the context the action was called with
-		*/
-		virtual void execute(const iActionContext &context) = 0;
-
-		/*! \returns the action identifier
-		*/
-		iaString getName() const;
-
-		/*! sets text of action
-
-		\param text the new text
-		*/
-		void setDescription(const iaString &description);
-
-		/*! \returns the action text
-		*/
-		const iaString &getDescription() const;
-
-		/*! sets path to a picture for the action
-
-		\param filename the new text
-		*/
-		void setPicturePath(const iaString &filename);
-
-		/*! \returns the action picture file path
-		*/
-		const iaString &getPicturePath() const;
-
-	private:
-		/*! name of the action
-		*/
-		iaString _name;
-
-		/*! description of the action
-		*/
-		iaString _description;
-
-		/*! path to picture of action
-		*/
-		iaString _picture;
-	};
-
-	/*! action pointer definition
+public:
+    /*! init members
     */
-	typedef iAction *iActionPtr;
+    ActionContext(const std::vector<iNodeID> &nodes, iNodeID rootNode)
+        : _nodes(nodes), _rootNode(rootNode)
+    {
+    }
 
-} // namespace igor
+    /*! \returns nodes of action context
+    */
+    __IGOR_INLINE__ const std::vector<iNodeID> &getNodes() const
+    {
+        return _nodes;
+    }
 
-#endif // __IGOR_ACTION_H__
+    __IGOR_INLINE__ iNodeID getRootNode() const
+    {
+        return _rootNode;
+    }
+
+private:
+    /*! the nodes to do an action with
+    */
+    std::vector<iNodeID> _nodes;
+
+    /*! the root node of the mica workspace
+    */
+    iNodeID _rootNode = iNode::INVALID_NODE_ID;
+};
+
+#endif // __ACTIONS_H__

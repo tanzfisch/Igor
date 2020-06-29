@@ -40,15 +40,15 @@ namespace igor
     {
 
     public:
+        /*! init members
+        */
+        iActionApplicationStop();
+
         /*! executed when action gets triggered
 
 		\param context the context the action was called with
 		*/
-        void execute(iActionContextPtr context) override;
-
-        /*! \returns the action identifier
-		*/
-        iaString getName() const override;
+        void execute(const iActionContext &context) override;
     };
 
 } // namespace igor

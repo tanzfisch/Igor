@@ -7,6 +7,16 @@
 namespace igor
 {
 
+	iAction::iAction(const iaString &name)
+		: _name(name)
+	{
+	}
+
+	iaString iAction::getName() const
+	{
+		return _name;
+	}
+
 	void iAction::setDescription(const iaString &description)
 	{
 		_description = description;

@@ -22,6 +22,7 @@
 #include <igor/scene/nodes/iNodeManager.h>
 #include <igor/scene/iSceneFactory.h>
 #include <igor/physics/iPhysics.h>
+#include <igor/system/iClipboard.h>
 
 #include <iaux/iaux.h>
 #include <iaux/system/iaConsole.h>
@@ -294,6 +295,11 @@ namespace igor
 		if (iActionManager::isInstantiated())
 		{
 			iActionManager::destroyInstance();
+		}
+
+		if (iClipboard::isInstantiated())
+		{
+			iClipboard::destroyInstance();
 		}
 
 		iaux::shutdown();

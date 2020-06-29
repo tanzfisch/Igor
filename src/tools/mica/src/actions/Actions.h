@@ -29,4 +29,64 @@
 #ifndef __ACTIONS_H__
 #define __ACTIONS_H__
 
+#include <igor/ui/actions/iAction.h>
+using namespace igor;
+
+#if 0
+/*! copy node action
+*/
+class Igor_API ActionCopyNode : public iAction
+{
+
+public:
+    /*! init members
+    */
+    ActionCopyNode();
+
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override;
+};
+
+/*! paste node action
+*/
+class Igor_API ActionPasteNode : public iAction
+{
+
+public:
+    /*! init members
+    */
+    ActionPasteNode();
+
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override;
+};
+#endif
+
+/*! delete node action
+*/
+class Igor_API ActionDeleteNode : public iAction
+{
+
+public:
+    /*! init members
+    */
+    ActionDeleteNode();
+
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override;
+};
+
+/*! registers mica actions to action manager
+*/
+void registerMicaActions();
+
 #endif // __ACTIONS_H__

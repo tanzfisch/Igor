@@ -26,81 +26,75 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_ACTION_H__
-#define __IGOR_ACTION_H__
+#ifndef __IGOR_CLIPBOARD_H__
+#define __IGOR_CLIPBOARD_H__
 
-#include <igor/ui/actions/iActionContext.h>
+#include <igor/iDefines.h>
 
-#include <iaux/data/iaString.h>
+#include <iaux/system/iaSingleton.h>
 using namespace iaux;
+
+#include <any>
 
 namespace igor
 {
 
-	/*! action base class
-	*/
-	class Igor_API iAction
-	{
-
-	public:
-		/*! init members
-
-		\param name the unique name of this action
-		*/
-		iAction(const iaString &name);
-
-		/*! does nothing
-		*/
-		virtual ~iAction() = default;
-
-		/*! executed when action gets triggered
-
-		\param context the context the action was called with
-		*/
-		virtual void execute(const iActionContext &context) = 0;
-
-		/*! \returns the action identifier
-		*/
-		iaString getName() const;
-
-		/*! sets text of action
-
-		\param text the new text
-		*/
-		void setDescription(const iaString &description);
-
-		/*! \returns the action text
-		*/
-		const iaString &getDescription() const;
-
-		/*! sets path to a picture for the action
-
-		\param filename the new text
-		*/
-		void setPicturePath(const iaString &filename);
-
-		/*! \returns the action picture file path
-		*/
-		const iaString &getPicturePath() const;
-
-	private:
-		/*! name of the action
-		*/
-		iaString _name;
-
-		/*! description of the action
-		*/
-		iaString _description;
-
-		/*! path to picture of action
-		*/
-		iaString _picture;
-	};
-
-	/*! action pointer definition
+    /*! supported clipboard formats
     */
-	typedef iAction *iActionPtr;
+    enum class iClipboardFormat
+    {
+        IgorNodes,
+        Empty
+    };
 
-} // namespace igor
+    /*! clipboard
 
-#endif // __IGOR_ACTION_H__
+    \todo make the clipboard work outside of igor
+	*/
+    class Igor_API iClipboard : public iaSingleton<iClipboard>
+    {
+
+        friend class iaSingleton<iClipboard>;
+
+    public:
+        /*! set data on clipboard
+        */
+        void setData(iClipboardFormat format, const std::any &data);
+
+        /*! \returns data on clipboard
+        */
+        const std::any &getData() const;
+
+        /*! \returns true if there is data in the clipboard
+        */
+        bool hasData() const;
+
+        /*! \returns the format of the data in the clipboard
+        */
+        iClipboardFormat getFormat() const;
+
+        /*! clears the content of the clipboard
+        */
+        void clear();
+
+    private:
+        /*! format of data held in the clipboard
+        */
+        iClipboardFormat _format = iClipboardFormat::Empty;
+
+        /*! the data on this clipboard
+        */
+        std::any _data;
+
+        /*! does nothing
+		*/
+        iClipboard() = default;
+
+        /*! does nothing
+		*/
+        virtual ~iClipboard() = default;
+    };
+
+}; // namespace igor
+
+#endif // __IGOR_CLIPBOARD_H__

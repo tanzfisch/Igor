@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iWIDGETBUTTON__
-#define __iWIDGETBUTTON__
+#ifndef __IGOR_WIDGETBUTTON_H__
+#define __IGOR_WIDGETBUTTON_H__
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/resources/texture/iTexture.h>
@@ -135,4 +135,4 @@ namespace igor
     typedef iWidgetButton *iWidgetButtonPtr;
 } // namespace igor
 
-#endif
+#endif // __IGOR_WIDGETBUTTON_H__

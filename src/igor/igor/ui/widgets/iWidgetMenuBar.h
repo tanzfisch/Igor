@@ -26,23 +26,19 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iWIDGETMENUBAR__
-#define __iWIDGETMENUBAR__
+#ifndef __IGOR_WIDGETMENUBAR_H__
+#define __IGOR_WIDGETMENUBAR_H__
 
 #include <igor/ui/widgets/iWidget.h>
+#include <igor/ui/actions/iAction.h>
+#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/widgets/iWidgetMenu.h>
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
 namespace igor
 {
-
-    class iAction;
-    typedef iAction *iActionPtr;
-    class iWidgetGrid;
-    typedef iWidgetGrid *iWidgetGridPtr;
-    class iWidgetMenu;
-    typedef iWidgetMenu *iWidgetMenuPtr;
 
     /*! menu bar widget
     */
@@ -69,7 +65,7 @@ namespace igor
 
         \param action the action to be added
         */
-        void addAction(const iActionPtr action);
+        void addAction(const iActionPtr action, const iActionContextPtr context);
 
         /*! same as add actions just by action name
 
@@ -77,7 +73,7 @@ namespace igor
 
         \param actionName name of the action to be added
         */
-        void addAction(const iaString &actionName);
+        void addAction(const iaString &actionName, const iActionContextPtr context);
 
         /*! adds a menu to the menu bar
 
@@ -102,6 +98,7 @@ namespace igor
     /*! menu widget pointer definition
 	*/
     typedef iWidgetMenuBar *iWidgetMenuBarPtr;
+
 } // namespace igor
 
-#endif
+#endif // __IGOR_WIDGETMENUBAR_H__

@@ -5,6 +5,7 @@
 #include "Mica.h"
 #include "widget3d/Widget3DLocator.h"
 #include "widget3d/Widget3DEmitter.h"
+#include "actions/Actions.h"
 
 #include "usercontrols/UserControlMesh.h"
 #include "usercontrols/UserControlModel.h"
@@ -83,6 +84,8 @@ iModelDataInputParameter *Mica::createDataInputParameter()
 void Mica::init(iaString fileName)
 {
 	con_endl(" -- Mica --");
+
+	registerMicaActions();
 
 	iWidgetManager::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &Mica::onKeyDown));
 	iWidgetManager::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Mica::onMouseMoved));

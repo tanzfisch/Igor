@@ -4,6 +4,8 @@
 
 #include "UserControlGraphView.h"
 
+#include "../actions/ActionContext.h"
+
 #include <igor/scene/nodes/iNode.h>
 #include <igor/ui/widgets/iWidgetGrid.h>
 #include <igor/ui/dialogs/iDialog.h>
@@ -17,6 +19,7 @@
 #include <igor/ui/widgets/iWidgetGroupBox.h>
 #include <igor/ui/dialogs/iDialogIndexMenu.h>
 #include <igor/system/iMouse.h>
+#include <igor/ui/actions/iActionManager.h>
 using namespace igor;
 
 #include <iaux/system/iaConsole.h>
@@ -29,10 +32,9 @@ UserControlGraphView::UserControlGraphView()
 
 UserControlGraphView::~UserControlGraphView()
 {
-    if (_dialogMenu != nullptr)
+    if (_graphContextMenu != nullptr)
     {
-        delete _dialogMenu;
-        _dialogMenu = nullptr;
+        delete _graphContextMenu;
     }
 }
 
@@ -54,7 +56,7 @@ void UserControlGraphView::refresh()
     }
 }
 
-uint64 UserControlGraphView::getRootNode()
+iNodeID UserControlGraphView::getRootNode()
 {
     return _root;
 }
@@ -207,55 +209,70 @@ void UserControlGraphView::OnSelectionChange(iWidgetPtr widget)
 
 void UserControlGraphView::OnContextMenu(iWidgetPtr widget)
 {
-    if (_dialogMenu == nullptr)
+    if (_graphContextMenu != nullptr)
     {
-        _dialogMenu = new iDialogIndexMenu();
-
-        _dialogMenu->setWidth(24);
-
-        iaVector2i pos = iMouse::getInstance().getPos();
-        _dialogMenu->setX(pos._x);
-        _dialogMenu->setY(pos._y);
-
-        std::vector<iaString> dialogMenuTexts;
-        std::vector<iaString> dialogMenuPictures;
-
-        dialogMenuTexts.push_back("Cut");
-        dialogMenuPictures.push_back("icons/cut.png");
-
-        dialogMenuTexts.push_back("Copy");
-        dialogMenuPictures.push_back("icons/copy.png");
-
-        dialogMenuTexts.push_back("Paste");
-        dialogMenuPictures.push_back("icons/paste.png");
-
-        dialogMenuTexts.push_back("Delete");
-        dialogMenuPictures.push_back("icons/delete.png");
-
-        dialogMenuTexts.push_back("Add Transformation");
-        dialogMenuPictures.push_back("icons/addTransformation.png");
-
-        dialogMenuTexts.push_back("Add Group");
-        dialogMenuPictures.push_back("icons/addGroup.png");
-
-        dialogMenuTexts.push_back("Add Switch");
-        dialogMenuPictures.push_back("icons/addSwitch.png");
-
-        dialogMenuTexts.push_back("Add Model");
-        dialogMenuPictures.push_back("icons/addModel.png");
-
-        dialogMenuTexts.push_back("Add Emitter");
-        dialogMenuPictures.push_back("icons/addEmitter.png");
-
-        dialogMenuTexts.push_back("Add Particle System");
-        dialogMenuPictures.push_back("icons/addParticleSystem.png");
-
-        _graphContextMenu->open(iDialogCloseDelegate(this, &UserControlGraphView::OnContextMenuClose), dialogMenuTexts, dialogMenuPictures);
+        delete _graphContextMenu;
+        _graphContextMenu = nullptr;
     }
+
+    std::vector<iNodeID> selectedNodes = {getSelectedNode()};
+    iActionContextPtr actionContext(new ActionContext(selectedNodes, getRootNode()));
+
+    _graphContextMenu = new iDialogMenu();
+    _graphContextMenu->setZValue(widget->getZValue() + 100);
+    _graphContextMenu->setWidth(24);
+
+    iaVector2i pos = iMouse::getInstance().getPos();
+    _graphContextMenu->setX(pos._x);
+    _graphContextMenu->setY(pos._y);
+
+    _graphContextMenu->addAction("mica:deleteNodes", actionContext);
+
+    /*    dialogMenuTexts.push_back("Cut");
+    dialogMenuPictures.push_back("icons/cut.png");
+
+    dialogMenuTexts.push_back("Copy");
+    dialogMenuPictures.push_back("icons/copy.png");
+
+    dialogMenuTexts.push_back("Paste");
+    dialogMenuPictures.push_back("icons/paste.png");
+
+    dialogMenuTexts.push_back("Delete");
+    dialogMenuPictures.push_back("icons/delete.png");
+
+    dialogMenuTexts.push_back("Add Transformation");
+    dialogMenuPictures.push_back("icons/addTransformation.png");
+
+    dialogMenuTexts.push_back("Add Group");
+    dialogMenuPictures.push_back("icons/addGroup.png");
+
+    dialogMenuTexts.push_back("Add Switch");
+    dialogMenuPictures.push_back("icons/addSwitch.png");
+
+    dialogMenuTexts.push_back("Add Model");
+    dialogMenuPictures.push_back("icons/addModel.png");
+
+    dialogMenuTexts.push_back("Add Emitter");
+    dialogMenuPictures.push_back("icons/addEmitter.png");
+
+    dialogMenuTexts.push_back("Add Particle System");
+    dialogMenuPictures.push_back("icons/addParticleSystem.png");*/
+
+    _graphContextMenu->open(iDialogCloseDelegate(this, &UserControlGraphView::OnContextMenuClose));
 }
 
 void UserControlGraphView::OnContextMenuClose(iDialogPtr dialog)
 {
+    if (_graphContextMenu != dialog)
+    {
+        return;
+    }
+
+    // TODO
+
+    delete _graphContextMenu;
+    _graphContextMenu = nullptr;
+
     /*    if (dialog != _graphContextMenu)
     {
         return;
@@ -273,7 +290,7 @@ void UserControlGraphView::OnContextMenuClose(iDialogPtr dialog)
     const int32 addEmitterID = 8;
     const int32 addParticleSystemID = 9;
 
-    switch (_dialogMenu->getSelectionIndex())
+    switch (_graphContextMenu->getSelectionIndex())
     {
     case cutID:
         // TODO
@@ -316,7 +333,7 @@ void UserControlGraphView::OnContextMenuClose(iDialogPtr dialog)
         break;
     }
 
-    delete _dialogMenu;*/
+    delete _graphContextMenu;*/
 }
 
 void UserControlGraphView::setSelectedNode(uint64 nodeID)
@@ -347,7 +364,7 @@ void UserControlGraphView::setSelectedNode(uint64 nodeID)
     _gridGraph->unselect();
 }
 
-uint64 UserControlGraphView::getSelectedNode() const
+iNodeID UserControlGraphView::getSelectedNode() const
 {
     return _selectedNode;
 }

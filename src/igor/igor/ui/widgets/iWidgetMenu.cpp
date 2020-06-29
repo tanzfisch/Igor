@@ -154,14 +154,14 @@ namespace igor
         _menu->addMenu(menu);
     }
 
-    void iWidgetMenu::addAction(const iActionPtr action)
+    void iWidgetMenu::addAction(const iActionPtr action, const iActionContextPtr context)
     {
-        _menu->addAction(action);
+        _menu->addAction(action, context);
     }
 
-    void iWidgetMenu::addAction(const iaString &actionName)
+    void iWidgetMenu::addAction(const iaString &actionName, const iActionContextPtr context)
     {
-        addAction(iActionManager::getInstance().getAction(actionName));
+        addAction(iActionManager::getInstance().getAction(actionName), context);
     }
 
     void iWidgetMenu::onSubMenuClosed(iDialogReturnState returnState)

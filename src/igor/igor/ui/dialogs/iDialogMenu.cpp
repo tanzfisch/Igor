@@ -8,8 +8,6 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetPicture.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
-#include <igor/ui/widgets/iWidgetMenu.h>
 #include <igor/ui/actions/iActionManager.h>
 #include <igor/ui/user_controls/iUserControlAction.h>
 
@@ -63,7 +61,7 @@ namespace igor
         _grid->appendRows(1);
     }
 
-    void iDialogMenu::addAction(const iActionPtr action)
+    void iDialogMenu::addAction(const iActionPtr action, const iActionContextPtr context)
     {
         if (!iActionManager::getInstance().isRegistered(action))
         {
@@ -73,7 +71,7 @@ namespace igor
 
         iUserControlActionPtr userControlAction = new iUserControlAction();
         userControlAction->setHorizontalAlignment(iHorizontalAlignment::Strech);
-        userControlAction->setAction(action);
+        userControlAction->setAction(action, context);
         userControlAction->setFixedPictureSize();
         userControlAction->registerOnClickEvent(iClickDelegate(this, &iDialogMenu::onActionClick));
 
@@ -81,9 +79,9 @@ namespace igor
         _grid->appendRows(1);
     }
 
-    void iDialogMenu::addAction(const iaString &actionName)
+    void iDialogMenu::addAction(const iaString &actionName, const iActionContextPtr context)
     {
-        addAction(iActionManager::getInstance().getAction(actionName));
+        addAction(iActionManager::getInstance().getAction(actionName), context);
     }
 
 } // namespace igor

@@ -64,11 +64,15 @@ namespace igor
 
         \param action the action to be set
         */
-        void setAction(const iActionPtr action);
+        void setAction(const iActionPtr action, const iActionContextPtr context);
 
         /*! \returns action that is associated with this widget
         */
         iActionPtr getAction() const;
+
+        /*! \returns action context
+        */
+        iActionContextPtr getActionContext() const;
 
         /*! sets if we reserve space for a picture even if none was defined
 
@@ -81,9 +85,13 @@ namespace igor
         bool getFixedPictureSize() const;
 
     private:
-        /*! only store the action name
+        /*! the action
         */
-        iaString _actionName;
+        iActionPtr _action;
+
+        /*! the action context
+        */
+        iActionContextPtr _actionContext;
 
         /*! handle to text label
         */

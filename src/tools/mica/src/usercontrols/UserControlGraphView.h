@@ -68,10 +68,28 @@ public:
     UserControlGraphView();
     ~UserControlGraphView();
 
-    void setSelectedNode(uint64 nodeID);
-    uint64 getSelectedNode() const;
-    void setRootNode(uint64 root);
-    uint64 getRootNode();
+    /*! sets the selected node
+
+    \param nodeID the node to select
+    */
+    void setSelectedNode(iNodeID nodeID);
+
+    /*! \returns selected node id
+    */
+    iNodeID getSelectedNode() const;
+
+    /*! sets root node for graph view
+
+    \param root the root node id
+    */
+    void setRootNode(iNodeID root);
+
+    /*! \returns root node id
+    */
+    iNodeID getRootNode();
+
+    /*! refresh the graph view
+    */
     void refresh();
 
     void registerOnSelectionChange(GraphSelectionChangedDelegate selectionChangeDelegate);

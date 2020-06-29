@@ -5,14 +5,14 @@
 namespace igor
 {
 
-    void iActionApplicationStop::execute(iActionContextPtr context)
+    iActionApplicationStop::iActionApplicationStop()
+        : iAction("app:stop")
     {
-        iApplication::getInstance().stop();
     }
 
-    iaString iActionApplicationStop::getName() const
+    void iActionApplicationStop::execute(const iActionContext &context)
     {
-        return "app:stop";
+        iApplication::getInstance().stop();
     }
 
 } // namespace igor
