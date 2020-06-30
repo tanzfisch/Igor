@@ -46,11 +46,11 @@ namespace igor
 
     /*! window close event
     */
-    iaEVENT(WindowCloseEvent, WindowCloseDelegate, void, (), ());
+    iaEVENT(WindowCloseEvent, WindowCloseDelegate, (), ());
 
     /*! window resize event
     */
-    iaEVENT(WindowResizeEvent, WindowResizeDelegate, void, (int32 clientWidth, int32 clientHeight), (clientWidth, clientHeight));
+    iaEVENT(WindowResizeEvent, WindowResizeDelegate, (int32 clientWidth, int32 clientHeight), (clientWidth, clientHeight));
 
     /*! render context pointer definition
     */

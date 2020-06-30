@@ -15,7 +15,7 @@ namespace igor
 {
 
 	iWidgetLabel::iWidgetLabel(const iWidgetPtr parent)
-		: iWidget(parent)
+		: iWidget(iWidgetType::iWidgetLabel, iWidgetKind::Widget, parent)
 	{
 		_configuredHeight = 0;
 		_configuredWidth = 0;
@@ -23,11 +23,6 @@ namespace igor
 
 		setHorizontalAlignment(iHorizontalAlignment::Center);
 		setVerticalAlignment(iVerticalAlignment::Center);
-	}
-
-	iWidgetType iWidgetLabel::getWidgetType() const
-	{
-		return iWidgetType::iWidgetLabel;
 	}
 
 	void iWidgetLabel::calcMinSize()

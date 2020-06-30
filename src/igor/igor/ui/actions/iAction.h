@@ -26,10 +26,10 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iACTION__
-#define __iACTION__
+#ifndef __IGOR_ACTION_H__
+#define __IGOR_ACTION_H__
 
-#include <igor/iDefines.h>
+#include <igor/ui/actions/iActionContext.h>
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
@@ -42,38 +42,36 @@ namespace igor
 	class Igor_API iAction
 	{
 
-		friend class iActionManager;
-
 	public:
-		/*! does nothing
+		/*! init members
+
+		\param name the unique name of this action
 		*/
-		iAction() = default;
+		iAction(const iaString &name);
 
 		/*! does nothing
 		*/
 		virtual ~iAction() = default;
 
 		/*! executed when action gets triggered
+
+		\param context the context the action was called with
 		*/
-		virtual void execute() = 0;
+		virtual void execute(const iActionContext &context) = 0;
 
 		/*! \returns the action identifier
 		*/
-		const iaString &getIDName() const;
-
-		/*! \returns hash value of action identifier
-        */
-		int64 getID() const;
+		iaString getName() const;
 
 		/*! sets text of action
 
 		\param text the new text
 		*/
-		void setText(const iaString &text);
+		void setDescription(const iaString &description);
 
 		/*! \returns the action text
 		*/
-		const iaString &getText() const;
+		const iaString &getDescription() const;
 
 		/*! sets path to a picture for the action
 
@@ -86,25 +84,17 @@ namespace igor
 		const iaString &getPicturePath() const;
 
 	private:
-		/*! text of the action
+		/*! name of the action
 		*/
-		iaString _text;
+		iaString _name;
+
+		/*! description of the action
+		*/
+		iaString _description;
 
 		/*! path to picture of action
 		*/
 		iaString _picture;
-
-		/*! unique name of the action
-		*/
-		iaString _name;
-
-		/*! sets action name (aka identifier)
-
-		the action's name must be gloably unique
-
-		\param name the name of the action
-		*/
-		void setIDName(const iaString &name);
 	};
 
 	/*! action pointer definition
@@ -113,4 +103,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_ACTION_H__

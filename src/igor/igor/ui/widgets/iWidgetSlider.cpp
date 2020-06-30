@@ -15,18 +15,13 @@ using namespace iaux;
 namespace igor
 {
 	iWidgetSlider::iWidgetSlider(const iWidgetPtr parent)
-		: iWidget(parent)
+		: iWidget(iWidgetType::iWidgetSlider, iWidgetKind::Widget, parent)
 	{
 	}
 
 	iWidgetSlider::~iWidgetSlider()
 	{
 		_texture = nullptr;
-	}
-
-	iWidgetType iWidgetSlider::getWidgetType() const
-	{
-		return iWidgetType::iWidgetSlider;
 	}
 
 	void iWidgetSlider::setSteppingWheel(float32 up, float32 down)

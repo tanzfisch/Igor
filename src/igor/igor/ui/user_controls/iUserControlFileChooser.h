@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iUSERCONTROLFILECHOOSER__
-#define __iUSERCONTROLFILECHOOSER__
+#ifndef __IGOR_USERCONTROLFILECHOOSER_H__
+#define __IGOR_USERCONTROLFILECHOOSER_H__
 
 #include <igor/ui/user_controls/iUserControl.h>
 #include <igor/ui/dialogs/iDialogFileSelect.h>
@@ -54,10 +54,6 @@ namespace igor
 		/*! clean up
 		*/
 		~iUserControlFileChooser();
-
-		/*! \returns the widgets type
-        */
-		virtual iWidgetType getWidgetType() const override;
 
 		/*! sets the filename
 
@@ -150,5 +146,7 @@ namespace igor
 		*/
 		void deinitGUI();
 	};
+
 } // namespace igor
-#endif
+
+#endif // __IGOR_USERCONTROLFILECHOOSER_H__

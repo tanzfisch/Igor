@@ -11,20 +11,20 @@
 //                                           (_(       \)
 // (c) Copyright 2014-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: igorgameengine@protonmail.com  
+//
+// contact: igorgameengine@protonmail.com
 
 #ifndef __USERCONTROLNODE__
 #define __USERCONTROLNODE__
@@ -43,17 +43,16 @@ namespace igor
     class iWidgetLabel;
     class iWidget;
     class iWidgetCheckBox;
-}
+} // namespace igor
 
-iaEVENT(NameChangedEvent, NameChangedDelegate, void, (), ());
+iaEVENT(NameChangedEvent, NameChangedDelegate, (), ());
 
 class UserControlNode : public iUserControl
 {
 public:
+    UserControlNode();
+    ~UserControlNode() = default;
 
-	UserControlNode();
-	~UserControlNode() = default;
-	
     void setNode(uint32 id);
     uint32 getNode();
 
@@ -61,14 +60,13 @@ public:
     void unregisterNameChangeDelegate(NameChangedDelegate nameChangedDelegate);
 
 private:
-
     NameChangedEvent _nameChangedEvent;
 
-    iWidgetGrid* _grid = nullptr;
-    iWidgetLabel* _labelName = nullptr;
-    iWidgetLabel* _labelActive = nullptr;
-    iWidgetCheckBox* _checkBoxActive = nullptr;
-    iWidgetTextEdit* _textName = nullptr;
+    iWidgetGrid *_grid = nullptr;
+    iWidgetLabel *_labelName = nullptr;
+    iWidgetLabel *_labelActive = nullptr;
+    iWidgetCheckBox *_checkBoxActive = nullptr;
+    iWidgetTextEdit *_textName = nullptr;
 
     uint32 _nodeId = 0;
 
@@ -78,9 +76,6 @@ private:
     void updateNode();
 
     void initGUI();
-
-
-
 };
 
 #endif

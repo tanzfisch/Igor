@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iWIDGETGRAPH__
-#define __iWIDGETGRAPH__
+#ifndef __IGOR_WIDGETGRAPH_H__
+#define __IGOR_WIDGETGRAPH_H__
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -86,10 +86,6 @@ namespace igor
         /*! does nothing
 		*/
         virtual ~iWidgetGraph() = default;
-
-        /*! \returns the widgets type
-        */
-        virtual iWidgetType getWidgetType() const override;
 
         /*! clears all point data
         */
@@ -319,4 +315,4 @@ namespace igor
     };
 } // namespace igor
 
-#endif
+#endif // __IGOR_WIDGETGRAPH_H__

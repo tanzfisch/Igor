@@ -50,7 +50,7 @@ namespace igor
 
     /*! event triggered when task was finished
     */
-    iaEVENT(iTaskFinishedEvent, iTaskFinishedDelegate, void, (uint64 taskID), (taskID));
+    iaEVENT(iTaskFinishedEvent, iTaskFinishedDelegate, (uint64 taskID), (taskID));
 
     /*! manages tasks to be done in parallel
 

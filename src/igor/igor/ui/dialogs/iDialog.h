@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iDIALOG__
-#define __iDIALOG__
+#ifndef __IGOR_DIALOG_H__
+#define __IGOR_DIALOG_H__
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -65,15 +65,11 @@ namespace igor
     public:
         /*! ctor initializes member variables and registers mouse events
 		*/
-        iDialog();
+        iDialog(iWidgetType type = iWidgetType::iDialog, const iWidgetPtr parent = nullptr);
 
         /*! dtor unregisters mouse events
 		*/
         virtual ~iDialog();
-
-        /*! \returns the widgets type
-        */
-        virtual iWidgetType getWidgetType() const override;
 
         /*! set horizontal position of dialog and horizontal alignment to absolute
 
@@ -153,4 +149,4 @@ namespace igor
     };
 } // namespace igor
 
-#endif
+#endif // __IGOR_DIALOG_H__

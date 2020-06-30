@@ -32,9 +32,77 @@ using namespace igor;
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
+// define some actions
+class Action1 : public iAction
+{
+
+public:
+    Action1()
+        : iAction("example:one")
+    {
+        setDescription("Action One");
+        setPicturePath("icons/camera.png");
+    }
+
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override
+    {
+        con_endl("action one");
+    }
+};
+
+// action with only description
+class Action2 : public iAction
+{
+
+public:
+    Action2()
+        : iAction("example:two")
+    {
+        setDescription("Action Two");
+    }
+
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override
+    {
+        con_endl("action two");
+    }
+};
+
+// action with only an icon
+class Action3 : public iAction
+{
+
+public:
+    Action3()
+        : iAction("example:three")
+    {
+        setPicturePath("icons/delete.png");
+    }
+
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override
+    {
+        con_endl("action three");
+    }
+};
+
 WidgetsExample::WidgetsExample()
     : ExampleBase("Widgets")
 {
+    // register the actions to make them globaly available
+    iActionManager::getInstance().registerAction(new Action1());
+    iActionManager::getInstance().registerAction(new Action2());
+    iActionManager::getInstance().registerAction(new Action3());
 }
 
 void WidgetsExample::onCloseDialog(iDialogPtr dialog)
@@ -46,21 +114,6 @@ void WidgetsExample::onCloseDialog(iDialogPtr dialog)
 
     delete _dialog;
     _dialog = nullptr;
-}
-
-void WidgetsExample::onActionOne()
-{
-    con_endl("action one");
-}
-
-void WidgetsExample::onActionTwo()
-{
-    con_endl("action two");
-}
-
-void WidgetsExample::onActionThree()
-{
-    con_endl("action three");
 }
 
 void WidgetsExample::init()
@@ -87,43 +140,47 @@ void WidgetsExample::init()
     grid1->setStrechColumn(0);
     grid1->setSelectMode(iSelectionMode::NoSelection);
 
+    // create a menu
     iWidgetMenuBarPtr menuBar = new iWidgetMenuBar();
     grid1->addWidget(menuBar, 0, 0);
 
-    iActionPtr action1 = iActionManager::getInstance().createAction("action:camera", iSimpleDelegate(this, &WidgetsExample::onActionOne), "Create Camera", "icons\\camera.png");
-    iActionPtr action2 = iActionManager::getInstance().createAction("action:delete", iSimpleDelegate(this, &WidgetsExample::onActionTwo), "Delete Something", "icons\\delete.png");
-    iActionPtr action3 = iActionManager::getInstance().createAction("action:action", iSimpleDelegate(this, &WidgetsExample::onActionThree), "Action");
-    iActionPtr action4 = iActionManager::getInstance().createAction("action:transform", iSimpleDelegate(this, &WidgetsExample::onActionThree), "Transform", "icons\\transformation.png");
+    // get some actions to add to the menu
+    iActionPtr action1 = iActionManager::getInstance().getAction("example:one");
+    iActionPtr action2 = iActionManager::getInstance().getAction("example:two");
+    iActionPtr action3 = iActionManager::getInstance().getAction("example:three");
 
+    // build up menu and submenus
     iWidgetMenuPtr menu1 = new iWidgetMenu();
-    menu1->setTitle("File");
-    menu1->addAction(action3);
+    menu1->setTitle("Bar");
     menu1->addAction(action1);
+    menu1->addAction(action2);
     menuBar->addMenu(menu1);
 
     iWidgetMenuPtr menu2 = new iWidgetMenu();
-    menu2->setTitle("Edit");
+    menu2->setTitle("Foo");
     menu2->addAction(action2);
+    menu2->addAction(action1);
     menu2->addAction(action3);
 
     iWidgetMenuPtr menu2b = new iWidgetMenu();
     menu2b->setTitle("Sub Menu");
+    menu2b->addAction(action1);
     menu2b->addAction(action2);
-    menu2b->addAction(action3);
     menu2b->addAction(action1);
     menu2->addMenu(menu2b);
 
     iWidgetMenuPtr menu2c = new iWidgetMenu();
     menu2c->setTitle("An Other Sub Menu");
     menu2c->addAction(action2);
-    menu2c->addAction(action4);
-    menu2c->addAction(action1);
+    menu2c->addAction(action3);
+    menu2c->addAction(action3);
     menu2c->addAction(action3);
     menu2->addMenu(menu2c);
 
     menu2->addAction(action1);
     menuBar->addMenu(menu2);
 
+    // adding a group box
     iWidgetGroupBox *groupBox1 = new iWidgetGroupBox();
     groupBox1->setText("Hello World. This is a group box!");
     groupBox1->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -195,15 +252,12 @@ void WidgetsExample::init()
     _colorGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _colorGradient->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenColorGradientEditor));
 
-    iWidgetSpacer *spacer = new iWidgetSpacer();
-    spacer->setSize(2, 30);
-
     _labelMousePos = new iWidgetLabel();
 
     iWidgetButton *exitButton = new iWidgetButton();
     exitButton->setText("");
     exitButton->setTooltip("Exists the application.");
-    exitButton->setTexture("icons\\exit.png");
+    exitButton->setTexture("icons/exit.png");
     exitButton->setVerticalTextAlignment(iVerticalAlignment::Bottom);
     exitButton->setVerticalAlignment(iVerticalAlignment::Center);
     exitButton->setHorizontalAlignment(iHorizontalAlignment::Center);
@@ -316,7 +370,7 @@ void WidgetsExample::init()
     grid1->addWidget(groupBox1, 0, 1);
     groupBox1->addWidget(grid4);
     grid4->addWidget(exitButton, 0, 0);
-    grid4->addWidget(spacer, 1, 0);
+    grid4->addWidget(new iWidgetSpacer(2, 30), 1, 0);
     grid4->addWidget(picture1, 2, 0);
     grid4->addWidget(_color, 3, 0);
     grid4->addWidget(_colorGradient, 4, 0);

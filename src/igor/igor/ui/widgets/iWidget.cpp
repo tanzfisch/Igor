@@ -17,7 +17,8 @@ namespace igor
     uint64 iWidget::_nextID = iWidget::INVALID_WIDGET_ID + 1;
     iWidgetPtr iWidget::_keyboardFocus = nullptr;
 
-    iWidget::iWidget(const iWidgetPtr parent)
+    iWidget::iWidget(iWidgetType type, iWidgetKind kind, const iWidgetPtr parent)
+        : _type(type), _kind(kind) // TODO _parent(parent) why not?
     {
         _id = _nextID++;
 
@@ -50,7 +51,12 @@ namespace igor
 
     iWidgetType iWidget::getWidgetType() const
     {
-        return iWidgetType::iUndefinedType;
+        return _type;
+    }
+
+    iWidgetKind iWidget::getWidgetKind() const
+    {
+        return _kind;
     }
 
     void iWidget::setBackground(const iaColor4f &color)

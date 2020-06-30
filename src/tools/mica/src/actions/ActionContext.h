@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2014-2020 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,57 +26,61 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_OSEVENTLISTENER_H__
-#define __IGOR_OSEVENTLISTENER_H__
+#ifndef __ACTIONCONTEXT_H__
+#define __ACTIONCONTEXT_H__
 
-namespace igor
+#include "../Outliner.h"
+
+#include <igor/ui/actions/iActionContext.h>
+#include <igor/scene/nodes/iNode.h>
+using namespace igor;
+
+/*! mica action context
+*/
+class Igor_API ActionContext : public iActionContext
 {
-	class iWindow;
 
-	/*! classes that need operating system messages to work with derive from this class
+public:
+    /*! init members
+    */
+    ActionContext(const std::vector<iNodeID> &nodes, iNodeID rootNode, Outliner *outliner)
+        : _nodes(nodes), _rootNode(rootNode), _outliner(outliner)
+    {
+    }
 
-	currently the window registers all known listeners when opened
-	*/
-	class iOSEventListener
-	{
+    /*! \returns nodes of action context
+    */
+    __IGOR_INLINE__ const std::vector<iNodeID> &getNodes() const
+    {
+        return _nodes;
+    }
 
-		friend class iWindowImplLinux;
-		friend class iWindowImplWindows;
+    /*! returns root node of mica graph view
+    */
+    __IGOR_INLINE__ iNodeID getRootNode() const
+    {
+        return _rootNode;
+    }
 
-	public:
-		/*! does nothing
-		*/
-		iOSEventListener() = default;
+    /*! returns the outliner
+    */
+    Outliner *getOutliner() const
+    {
+        return _outliner;
+    }
 
-		/*! does nothing
-		*/
-		virtual ~iOSEventListener() = default;
+private:
+    /*! the nodes to do an action with
+    */
+    std::vector<iNodeID> _nodes;
 
-		/*! \retruns pointer to corresponding window
-		if it returns nullptr the listener was not registred to a window yet
-		*/
-		virtual iWindow *getWindow() const = 0;
+    /*! the root node of the mica workspace
+    */
+    iNodeID _rootNode = iNode::INVALID_NODE_ID;
 
-	private:
-		/*! called by an os event like key down or close window
+    /*! reference to the outliner
+    */
+    Outliner *_outliner = nullptr;
+};
 
-		\param data contains the platformspecific data
-		\return false if your implementation didn't handle the event
-		*/
-		virtual bool onOSEvent(const void *data) = 0;
-
-		/*! does what ever necessairy to get the device running
-
-		\param window handle to the window
-		\param data os specific data (see iOSEventregisterData)
-		*/
-		virtual bool initDevice(const void *data) = 0;
-
-		/*! unregisters device from listening
-		*/
-		virtual void deinitDevice() = 0;
-	};
-
-}; // namespace igor
-
-#endif // __IGOR_OSEVENTLISTENER_H__
+#endif // __ACTIONS_H__

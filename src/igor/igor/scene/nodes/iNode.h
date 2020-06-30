@@ -102,7 +102,7 @@ namespace igor
 
     /*! transformation change event
 	*/
-    iaEVENT(iTransformationChangeEvent, iTransformationChangeDelegate, void, (iNodePtr source), (source));
+    iaEVENT(iTransformationChangeEvent, iTransformationChangeDelegate, (iNodePtr source), (source));
 
     /*! node id definition
     */

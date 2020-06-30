@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iDIALOGFILESELECT__
-#define __iDIALOGFILESELECT__
+#ifndef __IGOR_DIALOGFILESELECT_H__
+#define __IGOR_DIALOGFILESELECT_H__
 
 #include <igor/ui/dialogs/iDialog.h>
 
@@ -61,17 +61,15 @@ namespace igor
 	{
 
 	public:
-		/*! does nothing
+		/*! init members
+
+		\param parent the parent of this widget
 		*/
-		iDialogFileSelect() = default;
+		iDialogFileSelect(const iWidgetPtr parent = nullptr);
 
 		/*! deinitializes gui elements
 		*/
 		~iDialogFileSelect() = default;
-
-		/*! \returns the widgets type
-        */
-		virtual iWidgetType getWidgetType() const override;
 
 		/*! opens dialog in load mode
 
@@ -192,4 +190,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_DIALOGFILESELECT_H__

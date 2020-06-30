@@ -20,9 +20,9 @@ using namespace iaux;
 namespace igor
 {
 
-    iWidgetType iDialogColorChooser::getWidgetType() const
+    iDialogColorChooser::iDialogColorChooser(const iWidgetPtr parent)
+        : iDialog(iWidgetType::iDialogColorChooser, parent)
     {
-        return iWidgetType::iDialogColorChooser;
     }
 
     void iDialogColorChooser::open(iDialogCloseDelegate dialogCloseDelegate, const iaColor4f &color, bool useAlpha)

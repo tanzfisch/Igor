@@ -80,12 +80,12 @@ namespace igor
     /*! triggered when renderer is initialized.
     usually after a window was opened.
     */
-    iaEVENT(iRendererInitializedEvent, iRendererInitializedDelegate, void, (), ());
+    iaEVENT(iRendererInitializedEvent, iRendererInitializedDelegate, (), ());
 
     /*! triggered when renderer is going to be deinitialized.
     usually after a window was closed.
     */
-    iaEVENT(iRendererPreDeinitializeEvent, iRendererPreDeinitializeDelegate, void, (), ());
+    iaEVENT(iRendererPreDeinitializeEvent, iRendererPreDeinitializeDelegate, (), ());
 
     /*! abstraction class for the actuall renderer. curently only OpenGL
 

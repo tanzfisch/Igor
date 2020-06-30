@@ -15,14 +15,9 @@ namespace igor
 {
 
 	iWidgetTextEdit::iWidgetTextEdit(const iWidgetPtr parent)
-		: iWidget(parent)
+		: iWidget(iWidgetType::iWidgetTextEdit, iWidgetKind::Widget, parent)
 	{
 		_reactOnMouseWheel = false;
-	}
-
-	iWidgetType iWidgetTextEdit::getWidgetType() const
-	{
-		return iWidgetType::iWidgetTextEdit;
 	}
 
 	void iWidgetTextEdit::calcMinSize()

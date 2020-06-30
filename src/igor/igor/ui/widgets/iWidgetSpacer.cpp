@@ -13,17 +13,16 @@ using namespace iaux;
 
 namespace igor
 {
-	iWidgetSpacer::iWidgetSpacer(const iWidgetPtr parent)
-		: iWidget(parent)
+	iWidgetSpacer::iWidgetSpacer(int32 width, int32 height, bool visible, const iWidgetPtr parent)
+		: iWidget(iWidgetType::iWidgetSpacer, iWidgetKind::Widget, parent)
 	{
 		setHorizontalAlignment(iHorizontalAlignment::Center);
 		setVerticalAlignment(iVerticalAlignment::Center);
 		_reactOnMouseWheel = false;
-	}
 
-	iWidgetType iWidgetSpacer::getWidgetType() const
-	{
-		return iWidgetType::iWidgetSpacer;
+		setWidth(width);
+		setWidth(height);
+		setVisible(visible);
 	}
 
 	void iWidgetSpacer::calcMinSize()

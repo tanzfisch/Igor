@@ -21,9 +21,9 @@ using namespace iaux;
 namespace igor
 {
 
-    iWidgetType iDialogGraph::getWidgetType() const
+    iDialogGraph::iDialogGraph(const iWidgetPtr parent)
+        : iDialog(iWidgetType::iDialogGraph, parent)
     {
-        return iWidgetType::iDialogGraph;
     }
 
     void iDialogGraph::configureXAxis(float32 xMin, float32 xMax, float32 xStepping)

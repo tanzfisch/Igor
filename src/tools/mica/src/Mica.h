@@ -252,12 +252,6 @@ private:
 	*/
 	void onExitMica();
 
-	void onAddTransformation(uint64 atNodeID);
-	void onAddGroup(uint64 atNodeID);
-	void onAddEmitter(uint64 atNodeID);
-	void onAddParticleSystem(uint64 atNodeID);
-	void onAddSwitch(uint64 atNodeID);
-
 	void onAddMaterial();
 
 	void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window);

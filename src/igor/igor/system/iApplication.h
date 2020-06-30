@@ -44,11 +44,11 @@ namespace igor
 
     /*! This event is triggered once per frame right before the rendering
 	*/
-    iaEVENT(iPreDrawEvent, iPreDrawDelegate, void, (), ());
+    iaEVENT(iPreDrawEvent, iPreDrawDelegate, (), ());
 
     /*! This event is triggered once per frame right after the rendering
     */
-    iaEVENT(iPostDrawEvent, iPostDrawDelegate, void, (), ());
+    iaEVENT(iPostDrawEvent, iPostDrawDelegate, (), ());
 
     /*! Application (Singleton)
 	
@@ -71,7 +71,7 @@ namespace igor
         */
         void iterate();
 
-        /*! stopes the application
+        /*! stops the application
 
         quits the main application loop. works only in combination with iApplication::run
         */

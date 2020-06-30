@@ -15,13 +15,8 @@ namespace igor
 {
 
 	iWidgetNumberChooser::iWidgetNumberChooser(const iWidgetPtr parent)
-		: iWidget(parent)
+		: iWidget(iWidgetType::iWidgetNumberChooser, iWidgetKind::Widget, parent)
 	{
-	}
-
-	iWidgetType iWidgetNumberChooser::getWidgetType() const
-	{
-		return iWidgetType::iWidgetNumberChooser;
 	}
 
 	void iWidgetNumberChooser::calcMinSize()

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iWIDGETGRID__
-#define __iWIDGETGRID__
+#ifndef __IGOR_WIDGETGRID_H__
+#define __IGOR_WIDGETGRID_H__
 
 #include <igor/ui/widgets/iWidget.h>
 #include <vector>
@@ -111,10 +111,6 @@ namespace igor
         /*! does nothing
         */
         ~iWidgetGrid() = default;
-
-        /*! \returns the widgets type
-        */
-        virtual iWidgetType getWidgetType() const override;
 
         /*! appends rows at the bottom of the grid
 
@@ -395,4 +391,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_WIDGETGRID_H__

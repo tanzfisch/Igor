@@ -26,57 +26,31 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_OSEVENTLISTENER_H__
-#define __IGOR_OSEVENTLISTENER_H__
+#ifndef __IGOR_ACTIONS_H__
+#define __IGOR_ACTIONS_H__
+
+#include <igor/ui/actions/iAction.h>
 
 namespace igor
 {
-	class iWindow;
 
-	/*! classes that need operating system messages to work with derive from this class
-
-	currently the window registers all known listeners when opened
+    /*! application stop action
 	*/
-	class iOSEventListener
-	{
+    class Igor_API iActionApplicationStop : public iAction
+    {
 
-		friend class iWindowImplLinux;
-		friend class iWindowImplWindows;
+    public:
+        /*! init members
+        */
+        iActionApplicationStop();
 
-	public:
-		/*! does nothing
+        /*! executed when action gets triggered
+
+		\param context the context the action was called with
 		*/
-		iOSEventListener() = default;
+        void execute(const iActionContext &context) override;
+    };
 
-		/*! does nothing
-		*/
-		virtual ~iOSEventListener() = default;
+} // namespace igor
 
-		/*! \retruns pointer to corresponding window
-		if it returns nullptr the listener was not registred to a window yet
-		*/
-		virtual iWindow *getWindow() const = 0;
-
-	private:
-		/*! called by an os event like key down or close window
-
-		\param data contains the platformspecific data
-		\return false if your implementation didn't handle the event
-		*/
-		virtual bool onOSEvent(const void *data) = 0;
-
-		/*! does what ever necessairy to get the device running
-
-		\param window handle to the window
-		\param data os specific data (see iOSEventregisterData)
-		*/
-		virtual bool initDevice(const void *data) = 0;
-
-		/*! unregisters device from listening
-		*/
-		virtual void deinitDevice() = 0;
-	};
-
-}; // namespace igor
-
-#endif // __IGOR_OSEVENTLISTENER_H__
+#endif // __IGOR_ACTION_H__

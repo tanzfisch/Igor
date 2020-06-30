@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iWIDGETSCROLL__
-#define __iWIDGETSCROLL__
+#ifndef __IGOR_WIDGETSCROLL_H__
+#define __IGOR_WIDGETSCROLL_H__
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/resources/texture/iTexture.h>
@@ -59,10 +59,6 @@ namespace igor
 		/*! does nothing
 		*/
 		~iWidgetScroll() = default;
-
-		/*! \returns the widgets type
-        */
-		virtual iWidgetType getWidgetType() const override;
 
 		/*! sets the width or thikness of the scrollbars
 		*/
@@ -252,4 +248,4 @@ namespace igor
 	typedef iWidgetScroll *iWidgetScrollPtr;
 } // namespace igor
 
-#endif
+#endif // __IGOR_WIDGETSCROLL_H__

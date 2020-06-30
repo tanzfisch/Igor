@@ -5,6 +5,7 @@
 #include "Mica.h"
 #include "widget3d/Widget3DLocator.h"
 #include "widget3d/Widget3DEmitter.h"
+#include "actions/Actions.h"
 
 #include "usercontrols/UserControlMesh.h"
 #include "usercontrols/UserControlModel.h"
@@ -83,6 +84,8 @@ iModelDataInputParameter *Mica::createDataInputParameter()
 void Mica::init(iaString fileName)
 {
 	con_endl(" -- Mica --");
+
+	registerMicaActions();
 
 	iWidgetManager::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &Mica::onKeyDown));
 	iWidgetManager::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Mica::onMouseMoved));
@@ -304,90 +307,10 @@ void Mica::deinit()
 	}
 }
 
-void Mica::onAddTransformation(uint64 atNodeID)
-{
-	iNodePtr destination = iNodeManager::getInstance().getNode(atNodeID);
-
-	if (destination == nullptr)
-	{
-		destination = _workspace;
-	}
-
-	iNodeTransform *transform = iNodeManager::getInstance().createNode<iNodeTransform>();
-	transform->setName("Transformation");
-	destination->insertNode(transform);
-	_outliner->refreshView();
-	_outliner->setSelectedNode(transform);
-}
-
-void Mica::onAddGroup(uint64 atNodeID)
-{
-	iNodePtr destination = iNodeManager::getInstance().getNode(atNodeID);
-
-	if (destination == nullptr)
-	{
-		destination = _workspace;
-	}
-
-	iNodePtr group = iNodeManager::getInstance().createNode<iNode>();
-	group->setName("Group");
-	destination->insertNode(group);
-	_outliner->refreshView();
-	_outliner->setSelectedNode(group);
-}
-
-void Mica::onAddEmitter(uint64 atNodeID)
-{
-	iNodePtr destination = iNodeManager::getInstance().getNode(atNodeID);
-
-	if (destination == nullptr)
-	{
-		destination = _workspace;
-	}
-
-	iNodeEmitter *emitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
-	emitter->setName("Emitter");
-	destination->insertNode(emitter);
-	_outliner->refreshView();
-	_outliner->setSelectedNode(emitter);
-}
-
-void Mica::onAddParticleSystem(uint64 atNodeID)
-{
-	iNodePtr destination = iNodeManager::getInstance().getNode(atNodeID);
-
-	if (destination == nullptr)
-	{
-		destination = _workspace;
-	}
-
-	iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
-	particleSystem->setName("ParticleSystem");
-	destination->insertNode(particleSystem);
-	_outliner->refreshView();
-	_outliner->setSelectedNode(particleSystem);
-}
-
 void Mica::onAddMaterial()
 {
 	iMaterialResourceFactory::getInstance().createMaterial("new Material");
 	_outliner->refreshView();
-}
-
-void Mica::onAddSwitch(uint64 atNodeID)
-{
-	iNodePtr destination = iNodeManager::getInstance().getNode(atNodeID);
-
-	if (destination == nullptr)
-	{
-		destination = _workspace;
-	}
-
-	iNodeSwitch *switchNode = iNodeManager::getInstance().createNode<iNodeSwitch>();
-	switchNode->setName("Switch");
-	destination->insertNode(switchNode);
-	_outliner->refreshView();
-	_outliner->setSelectedNode(switchNode);
 }
 
 void Mica::forceLoadingNow(iNodeModel *modelNode)
@@ -733,11 +656,6 @@ void Mica::initGUI()
 	_outliner->registerOnImportFile(ImportFileDelegate(this, &Mica::onImportFile));
 	_outliner->registerOnImportFileReference(ImportFileReferenceDelegate(this, &Mica::onImportFileReference));
 	_outliner->registerOnSaveFile(SaveFileDelegate(this, &Mica::onSaveFile));
-	_outliner->registerOnAddTransformation(AddTransformationDelegate(this, &Mica::onAddTransformation));
-	_outliner->registerOnAddSwitch(AddSwitchDelegate(this, &Mica::onAddSwitch));
-	_outliner->registerOnAddGroup(AddGroupDelegate(this, &Mica::onAddGroup));
-	_outliner->registerOnAddEmitter(AddEmitterDelegate(this, &Mica::onAddEmitter));
-	_outliner->registerOnAddParticleSystem(AddParticleSystemDelegate(this, &Mica::onAddParticleSystem));
 	_outliner->registerOnAddMaterial(AddMaterialDelegate(this, &Mica::onAddMaterial));
 
 	_propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_outliner, &Outliner::refreshView));

@@ -14,9 +14,9 @@
 namespace igor
 {
 
-	iWidgetType iDialogDecisionBox::getWidgetType() const
+	iDialogDecisionBox::iDialogDecisionBox(const iWidgetPtr parent)
+		: iDialog(iWidgetType::iDialogDecisionBox, parent)
 	{
-		return iWidgetType::iDialogDecisionBox;
 	}
 
 	void iDialogDecisionBox::open(iDialogCloseDelegate dialogCloseDelegate, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
@@ -59,16 +59,6 @@ namespace igor
 		iWidgetLabelPtr messageLabel = new iWidgetLabel();
 		messageLabel->setText(message);
 		messageLabel->setMaxTextWidth(280);
-
-		iWidgetSpacerPtr spacerLineTop = new iWidgetSpacer();
-		spacerLineTop->setWidth(280);
-		spacerLineTop->setHeight(1);
-		spacerLineTop->setVisible(true);
-
-		iWidgetSpacerPtr spacerLineBottom = new iWidgetSpacer();
-		spacerLineBottom->setWidth(280);
-		spacerLineBottom->setHeight(1);
-		spacerLineBottom->setVisible(true);
 
 		iWidgetGridPtr buttonGrid = new iWidgetGrid();
 		buttonGrid->appendCollumns(3);
@@ -114,9 +104,9 @@ namespace igor
 		addWidget(grid);
 
 		grid->addWidget(messageLabel, 0, 0);
-		grid->addWidget(spacerLineTop, 0, 1);
+		grid->addWidget(new iWidgetSpacer(280, 1), 0, 1);
 		grid->addWidget(radioGrid, 0, 2);
-		grid->addWidget(spacerLineBottom, 0, 3);
+		grid->addWidget(new iWidgetSpacer(280, 1), 0, 3);
 		grid->addWidget(buttonGrid, 0, 4);
 
 		buttonGrid->addWidget(okButton, 0, 0);

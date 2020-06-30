@@ -48,14 +48,14 @@ namespace igor
     class iWidgetCheckBox;
 } // namespace igor
 
-iaEVENT(LoadFile, LoadFileDelegate, void, (), ());
-iaEVENT(ImportFile, ImportFileDelegate, void, (), ());
-iaEVENT(ImportFileReference, ImportFileReferenceDelegate, void, (), ());
-iaEVENT(SaveFile, SaveFileDelegate, void, (), ());
-iaEVENT(ExitMica, ExitMicaDelegate, void, (), ());
-iaEVENT(CopyNode, CopyNodeDelegate, void, (uint64 nodeID), (nodeID));
-iaEVENT(PasteNode, PasteNodeDelegate, void, (uint64 nodeID), (nodeID));
-iaEVENT(CutNode, CutNodeDelegate, void, (uint64 nodeID), (nodeID));
+iaEVENT(LoadFile, LoadFileDelegate, (), ());
+iaEVENT(ImportFile, ImportFileDelegate, (), ());
+iaEVENT(ImportFileReference, ImportFileReferenceDelegate, (), ());
+iaEVENT(SaveFile, SaveFileDelegate, (), ());
+iaEVENT(ExitMica, ExitMicaDelegate, (), ());
+iaEVENT(CopyNode, CopyNodeDelegate, (uint64 nodeID), (nodeID));
+iaEVENT(PasteNode, PasteNodeDelegate, (uint64 nodeID), (nodeID));
+iaEVENT(CutNode, CutNodeDelegate, (uint64 nodeID), (nodeID));
 
 enum class ViewType
 {
@@ -93,21 +93,6 @@ public:
     void registerOnExitMica(ExitMicaDelegate exitMicaDelegate);
     void unregisterOnExitMica(ExitMicaDelegate exitMicaDelegate);
 
-    void registerOnAddTransformation(AddTransformationDelegate addTransformationDelegate);
-    void unregisterOnAddTransformation(AddTransformationDelegate addTransformationDelegate);
-
-    void registerOnAddGroup(AddGroupDelegate addGroupDelegate);
-    void unregisterOnAddGroup(AddGroupDelegate addGroupDelegate);
-
-    void registerOnAddEmitter(AddEmitterDelegate addEmitterDelegate);
-    void unregisterOnAddEmitter(AddEmitterDelegate addEmitterDelegate);
-
-    void registerOnAddParticleSystem(AddParticleSystemDelegate addParticleSystemDelegate);
-    void unregisterOnAddParticleSystem(AddParticleSystemDelegate addParticleSystemDelegate);
-
-    void registerOnAddSwitch(AddSwitchDelegate addSwitchDelegate);
-    void unregisterOnAddSwitch(AddSwitchDelegate addSwitchDelegate);
-
     void registerOnCopyNode(CopyNodeDelegate copyNodeDelegate);
     void unregisterOnCopyNode(CopyNodeDelegate copyNodeDelegate);
 
@@ -135,6 +120,8 @@ public:
     void fileOpen();
     void fileSave();
 
+    void addModel();
+
 private:
     LoadFile _loadFile;
     ImportFile _importFile;
@@ -142,11 +129,6 @@ private:
     SaveFile _saveFile;
     ExitMica _exitMica;
 
-    AddTransformation _addTransformation;
-    AddGroup _addGroup;
-    AddEmitter _addEmitter;
-    AddParticleSystem _addParticleSystem;
-    AddSwitch _addSwitch;
     GraphSelectionChanged _graphSelectionChanged;
 
     AddMaterial _addMaterial;
@@ -188,7 +170,6 @@ private:
 
     void onDelete(const iWidgetPtr source);
 
-    void onAddModel(uint64 addAt);
     void onAddModelDecision(iDialogPtr dialog);
     void onAddTransformation(uint64 addAt);
     void onAddSwitch(uint64 addAt);

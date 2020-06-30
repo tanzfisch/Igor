@@ -14,7 +14,7 @@
 namespace igor
 {
     iWidgetMenuBar::iWidgetMenuBar(const iWidgetPtr parent)
-        : iWidget(parent)
+        : iWidget(iWidgetType::iWidgetMenuBar, iWidgetKind::Widget, parent)
     {
         setHorizontalAlignment(iHorizontalAlignment::Left);
         setVerticalAlignment(iVerticalAlignment::Top);
@@ -22,11 +22,6 @@ namespace igor
         _grid = new iWidgetGrid(this);
         _grid->setSelectMode(iSelectionMode::NoSelection);
         _grid->setHighlightMode(iSelectionMode::Collumn);
-    }
-
-    iWidgetType iWidgetMenuBar::getWidgetType() const
-    {
-        return iWidgetType::iWidgetMenuBar;
     }
 
     void iWidgetMenuBar::unselect()
@@ -48,7 +43,7 @@ namespace igor
     {
     }
 
-    void iWidgetMenuBar::addAction(const iActionPtr action)
+    void iWidgetMenuBar::addAction(const iActionPtr action, const iActionContextPtr context)
     {
         if (!iActionManager::getInstance().isRegistered(action))
         {
@@ -57,16 +52,16 @@ namespace igor
         }
 
         iUserControlActionPtr userControlAction = new iUserControlAction();
-        userControlAction->setAction(action);
+        userControlAction->setAction(action, context);
         _grid->addWidget(userControlAction, _grid->getColumnCount() - 1, 0);
 
         _grid->appendCollumns(1);
         _grid->setStrechColumn(_grid->getColumnCount() - 1);
     }
 
-    void iWidgetMenuBar::addAction(const iaString &actionName)
+    void iWidgetMenuBar::addAction(const iaString &actionName, const iActionContextPtr context)
     {
-        addAction(iActionManager::getInstance().getAction(actionName));
+        addAction(iActionManager::getInstance().getAction(actionName), context);
     }
 
 } // namespace igor

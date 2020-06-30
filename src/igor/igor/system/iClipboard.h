@@ -26,57 +26,75 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_OSEVENTLISTENER_H__
-#define __IGOR_OSEVENTLISTENER_H__
+#ifndef __IGOR_CLIPBOARD_H__
+#define __IGOR_CLIPBOARD_H__
+
+#include <igor/iDefines.h>
+
+#include <iaux/system/iaSingleton.h>
+using namespace iaux;
+
+#include <any>
 
 namespace igor
 {
-	class iWindow;
 
-	/*! classes that need operating system messages to work with derive from this class
+    /*! supported clipboard formats
+    */
+    enum class iClipboardFormat
+    {
+        IgorNodes,
+        Empty
+    };
 
-	currently the window registers all known listeners when opened
+    /*! clipboard
+
+    \todo make the clipboard work outside of igor
 	*/
-	class iOSEventListener
-	{
+    class Igor_API iClipboard : public iaSingleton<iClipboard>
+    {
 
-		friend class iWindowImplLinux;
-		friend class iWindowImplWindows;
+        friend class iaSingleton<iClipboard>;
 
-	public:
-		/*! does nothing
+    public:
+        /*! set data on clipboard
+        */
+        void setData(iClipboardFormat format, const std::any &data);
+
+        /*! \returns data on clipboard
+        */
+        const std::any &getData() const;
+
+        /*! \returns true if there is data in the clipboard
+        */
+        bool hasData() const;
+
+        /*! \returns the format of the data in the clipboard
+        */
+        iClipboardFormat getFormat() const;
+
+        /*! clears the content of the clipboard
+        */
+        void clear();
+
+    private:
+        /*! format of data held in the clipboard
+        */
+        iClipboardFormat _format = iClipboardFormat::Empty;
+
+        /*! the data on this clipboard
+        */
+        std::any _data;
+
+        /*! does nothing
 		*/
-		iOSEventListener() = default;
+        iClipboard() = default;
 
-		/*! does nothing
+        /*! does nothing
 		*/
-		virtual ~iOSEventListener() = default;
-
-		/*! \retruns pointer to corresponding window
-		if it returns nullptr the listener was not registred to a window yet
-		*/
-		virtual iWindow *getWindow() const = 0;
-
-	private:
-		/*! called by an os event like key down or close window
-
-		\param data contains the platformspecific data
-		\return false if your implementation didn't handle the event
-		*/
-		virtual bool onOSEvent(const void *data) = 0;
-
-		/*! does what ever necessairy to get the device running
-
-		\param window handle to the window
-		\param data os specific data (see iOSEventregisterData)
-		*/
-		virtual bool initDevice(const void *data) = 0;
-
-		/*! unregisters device from listening
-		*/
-		virtual void deinitDevice() = 0;
-	};
+        virtual ~iClipboard() = default;
+    };
 
 }; // namespace igor
 
-#endif // __IGOR_OSEVENTLISTENER_H__
+#endif // __IGOR_CLIPBOARD_H__

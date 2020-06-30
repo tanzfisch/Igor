@@ -16,9 +16,9 @@ using namespace iaux;
 namespace igor
 {
 
-	iWidgetType iDialogIndexMenu::getWidgetType() const
+	iDialogIndexMenu::iDialogIndexMenu(const iWidgetPtr parent)
+		: iDialog(iWidgetType::iDialogIndexMenu, parent)
 	{
-		return iWidgetType::iDialogIndexMenu;
 	}
 
 	void iDialogIndexMenu::open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString> &texts)

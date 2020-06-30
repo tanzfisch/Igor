@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iDIALOGGRAPH__
-#define __iDIALOGGRAPH__
+#ifndef __IGOR_DIALOGGRAPH_H__
+#define __IGOR_DIALOGGRAPH_H__
 
 #include <igor/ui/dialogs/iDialog.h>
 
@@ -46,17 +46,15 @@ namespace igor
     {
 
     public:
-        /*! does nothing
-        */
-        iDialogGraph() = default;
+        /*! init members
+
+		\param parent the parent of this widget
+		*/
+        iDialogGraph(const iWidgetPtr parent = nullptr);
 
         /*! does nothing
         */
         ~iDialogGraph() = default;
-
-        /*! \returns the widgets type
-        */
-        virtual iWidgetType getWidgetType() const override;
 
         /*! configures x axis
 
@@ -245,4 +243,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_DIALOGGRAPH_H__

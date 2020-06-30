@@ -16,10 +16,9 @@ using namespace iaux;
 
 namespace igor
 {
-
-	iWidgetType iDialogMessageBox::getWidgetType() const
+	iDialogMessageBox::iDialogMessageBox(const iWidgetPtr parent)
+		: iDialog(iWidgetType::iDialogMessageBox, parent)
 	{
-		return iWidgetType::iDialogMessageBox;
 	}
 
 	void iDialogMessageBox::open(iaString message, iMessageBoxButtons buttons)
@@ -42,11 +41,7 @@ namespace igor
 		messageLabel->setMaxTextWidth(280);
 		grid->addWidget(messageLabel, 0, 0);
 
-		iWidgetSpacerPtr spacerLine = new iWidgetSpacer();
-		spacerLine->setWidth(280);
-		spacerLine->setHeight(1);
-		spacerLine->setVisible(true);
-		grid->addWidget(spacerLine, 0, 1);
+		grid->addWidget(new iWidgetSpacer(280, 1, true), 0, 1);
 
 		iWidgetGridPtr buttonGrid = new iWidgetGrid();
 		buttonGrid->appendCollumns(3);
@@ -71,12 +66,7 @@ namespace igor
 			cancelButton->setText("Cancel");
 			cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onCancel));
 			buttonGrid->addWidget(cancelButton, i--, 0);
-
-			iWidgetSpacerPtr spacerLittle = new iWidgetSpacer();
-			spacerLittle->setWidth(4);
-			spacerLittle->setHeight(1);
-			spacerLittle->setVisible(false);
-			buttonGrid->addWidget(spacerLittle, i--, 0);
+			buttonGrid->addWidget(new iWidgetSpacer(4, 1), i--, 0);
 		}
 
 		if (buttons == iMessageBoxButtons::YesNoCancel || buttons == iMessageBoxButtons::YesNo)

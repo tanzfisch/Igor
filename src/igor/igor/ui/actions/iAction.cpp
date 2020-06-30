@@ -6,14 +6,25 @@
 
 namespace igor
 {
-	void iAction::setText(const iaString &text)
+
+	iAction::iAction(const iaString &name)
+		: _name(name)
 	{
-		_text = text;
 	}
 
-	const iaString &iAction::getText() const
+	iaString iAction::getName() const
 	{
-		return _text;
+		return _name;
+	}
+
+	void iAction::setDescription(const iaString &description)
+	{
+		_description = description;
+	}
+
+	const iaString &iAction::getDescription() const
+	{
+		return _description;
 	}
 
 	void iAction::setPicturePath(const iaString &filename)
@@ -26,18 +37,4 @@ namespace igor
 		return _picture;
 	}
 
-	int64 iAction::getID() const
-	{
-		return _name.getHashValue();
-	}
-
-	void iAction::setIDName(const iaString &name)
-	{
-		_name = name;
-	}
-
-	const iaString &iAction::getIDName() const
-	{
-		return _name;
-	}
 } // namespace igor
