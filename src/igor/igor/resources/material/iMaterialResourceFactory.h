@@ -49,13 +49,13 @@ namespace igor
 
     \param materialID id of material created
     */
-    iaEVENT(iMaterialCreatedEvent, iMaterialCreatedDelegate, void, (uint64 materialID), (materialID));
+    iaEVENT(iMaterialCreatedEvent, iMaterialCreatedDelegate, (uint64 materialID), (materialID));
 
     /*! event triggered by material destroyed
 
     \param materialID id of material destroyed
     */
-    iaEVENT(iMaterialDestroyedEvent, iMaterialDestroyedDelegate, void, (uint64 materialID), (materialID));
+    iaEVENT(iMaterialDestroyedEvent, iMaterialDestroyedDelegate, (uint64 materialID), (materialID));
 
     class iTargetMaterial;
 

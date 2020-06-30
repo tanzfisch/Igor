@@ -65,10 +65,6 @@ namespace igor
         */
         virtual ~iWidgetMenu();
 
-        /*! \returns the widgets type
-        */
-        virtual iWidgetType getWidgetType() const override;
-
         /*! sets the menu title
 
         \param title the menu title
@@ -86,7 +82,7 @@ namespace igor
 
         \param action the action to be added
         */
-        void addAction(const iActionPtr action, const iActionContextPtr context);
+        void addAction(const iActionPtr action, const iActionContextPtr context = nullptr);
 
         /*! same as add actions just by action name
 
@@ -94,7 +90,7 @@ namespace igor
 
         \param actionName name of the action to be added
         */
-        void addAction(const iaString &actionName, const iActionContextPtr context);
+        void addAction(const iaString &actionName, const iActionContextPtr context = nullptr);
 
         /*! adds a menu to the menu
 

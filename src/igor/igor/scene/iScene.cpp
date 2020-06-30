@@ -293,6 +293,12 @@ namespace igor
 
 		iProfiler::getInstance().endSection(_sceneHandleSectionID);
 #endif
+
+		if (_sceneChanged)
+		{
+			_sceneChangedEvent();
+			_sceneChanged = false;
+		}
 	}
 
 	void iScene::addToDataUpdateQueue(iNodePtr node)
@@ -351,32 +357,22 @@ namespace igor
 
 	void iScene::signalNodeAdded(uint64 nodeID)
 	{
-		_addedNode(nodeID);
+		_sceneChanged = true;
 	}
 
 	void iScene::signalNodeRemoved(uint64 nodeID)
 	{
-		_removedNode(nodeID);
+		_sceneChanged = true;
 	}
 
-	void iScene::registerAddedNodeDelegate(iAddedNodeDelegate addedNodeDelegate)
+	void iScene::registerSceneChangedDelegate(iSceneChangedDelegate delegate)
 	{
-		_addedNode.append(addedNodeDelegate);
+		_sceneChangedEvent.append(delegate);
 	}
 
-	void iScene::unregisterAddedNodeDelegate(iAddedNodeDelegate addedNodeDelegate)
+	void iScene::unregisterSceneChangedDelegate(iSceneChangedDelegate delegate)
 	{
-		_addedNode.remove(addedNodeDelegate);
-	}
-
-	void iScene::registerRemovedNodeDelegate(iRemovedNodeDelegate removedNodeDelegate)
-	{
-		_removedNode.append(removedNodeDelegate);
-	}
-
-	void iScene::unregisterRemovedNodeDelegate(iRemovedNodeDelegate removedNodeDelegate)
-	{
-		_removedNode.remove(removedNodeDelegate);
+		_sceneChangedEvent.remove(delegate);
 	}
 
 }; // namespace igor

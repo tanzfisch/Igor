@@ -38,59 +38,71 @@ class Action1 : public iAction
 
 public:
     Action1()
+        : iAction("example:one")
     {
         setDescription("Action One");
         setPicturePath("icons/camera.png");
     }
 
-    /*! prints "action one"
+    /*! executed when action gets triggered
 
-		\param context the context the action was called with
-		*/
-    void execute(iActionContextPtr context) override
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override
     {
         con_endl("action one");
     }
-
-    /*! \returns the action identifier
-		*/
-    iaString getName() const override
-    {
-        return "example:one";
-    }
 };
 
+// action with only description
 class Action2 : public iAction
 {
 
 public:
     Action2()
+        : iAction("example:two")
     {
         setDescription("Action Two");
     }
 
-    /*! prints "action two"
+    /*! executed when action gets triggered
 
-		\param context the context the action was called with
-		*/
-    void execute(iActionContextPtr context) override
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override
     {
         con_endl("action two");
     }
+};
 
-    /*! \returns the action identifier
-		*/
-    iaString getName() const override
+// action with only an icon
+class Action3 : public iAction
+{
+
+public:
+    Action3()
+        : iAction("example:three")
     {
-        return "example:two";
+        setPicturePath("icons/delete.png");
+    }
+
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override
+    {
+        con_endl("action three");
     }
 };
 
 WidgetsExample::WidgetsExample()
     : ExampleBase("Widgets")
 {
+    // register the actions to make them globaly available
     iActionManager::getInstance().registerAction(new Action1());
     iActionManager::getInstance().registerAction(new Action2());
+    iActionManager::getInstance().registerAction(new Action3());
 }
 
 void WidgetsExample::onCloseDialog(iDialogPtr dialog)
@@ -128,12 +140,16 @@ void WidgetsExample::init()
     grid1->setStrechColumn(0);
     grid1->setSelectMode(iSelectionMode::NoSelection);
 
+    // create a menu
     iWidgetMenuBarPtr menuBar = new iWidgetMenuBar();
     grid1->addWidget(menuBar, 0, 0);
 
+    // get some actions to add to the menu
     iActionPtr action1 = iActionManager::getInstance().getAction("example:one");
     iActionPtr action2 = iActionManager::getInstance().getAction("example:two");
+    iActionPtr action3 = iActionManager::getInstance().getAction("example:three");
 
+    // build up menu and submenus
     iWidgetMenuPtr menu1 = new iWidgetMenu();
     menu1->setTitle("Bar");
     menu1->addAction(action1);
@@ -144,6 +160,7 @@ void WidgetsExample::init()
     menu2->setTitle("Foo");
     menu2->addAction(action2);
     menu2->addAction(action1);
+    menu2->addAction(action3);
 
     iWidgetMenuPtr menu2b = new iWidgetMenu();
     menu2b->setTitle("Sub Menu");
@@ -155,14 +172,15 @@ void WidgetsExample::init()
     iWidgetMenuPtr menu2c = new iWidgetMenu();
     menu2c->setTitle("An Other Sub Menu");
     menu2c->addAction(action2);
-    menu2c->addAction(action1);
-    menu2c->addAction(action1);
-    menu2c->addAction(action1);
+    menu2c->addAction(action3);
+    menu2c->addAction(action3);
+    menu2c->addAction(action3);
     menu2->addMenu(menu2c);
 
     menu2->addAction(action1);
     menuBar->addMenu(menu2);
 
+    // adding a group box
     iWidgetGroupBox *groupBox1 = new iWidgetGroupBox();
     groupBox1->setText("Hello World. This is a group box!");
     groupBox1->setHorizontalAlignment(iHorizontalAlignment::Strech);

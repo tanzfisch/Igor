@@ -16,7 +16,7 @@ namespace igor
 {
 
 	iWidgetPicture::iWidgetPicture(const iWidgetPtr parent)
-		: iWidget(parent)
+		: iWidget(iWidgetType::iWidgetPicture, iWidgetKind::Widget, parent)
 	{
 		setHorizontalAlignment(iHorizontalAlignment::Center);
 		setVerticalAlignment(iVerticalAlignment::Center);
@@ -26,11 +26,6 @@ namespace igor
 	iWidgetPicture::~iWidgetPicture()
 	{
 		_texture = nullptr;
-	}
-
-	iWidgetType iWidgetPicture::getWidgetType() const
-	{
-		return iWidgetType::iWidgetPicture;
 	}
 
 	void iWidgetPicture::setMaxSize(int32 width, int32 height)

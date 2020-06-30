@@ -28,8 +28,8 @@
 //
 // Originally this code was written by Markus Schulz for nexusPIL
 
-#ifndef __IAUX_EVENT__
-#define __IAUX_EVENT__
+#ifndef __IAUX_EVENT_H__
+#define __IAUX_EVENT_H__
 
 #include <iaux/system/iaMutex.h>
 #include <iaux/system/iaDelegate.h>
@@ -42,86 +42,86 @@ namespace iaux
 
 	/*! event
     */
-#define iaEVENT(EventName, DelegateName, ReturnType, ParameterList, InnerParameterList) \
-	iaDELEGATE(DelegateName, ReturnType, ParameterList, InnerParameterList);            \
-                                                                                        \
-	class EventName                                                                     \
-	{                                                                                   \
-                                                                                        \
-	public:                                                                             \
-		void append(const DelegateName &fpDelegate)                                     \
-		{                                                                               \
-			_mutex.lock();                                                              \
-			std::vector<DelegateName>::iterator it;                                     \
-			it = std::find(_delegates.begin(), _delegates.end(), fpDelegate);           \
-			if (it == _delegates.end())                                                 \
-			{                                                                           \
-				_delegates.push_back(fpDelegate);                                       \
-			}                                                                           \
-			_mutex.unlock();                                                            \
-		}                                                                               \
-                                                                                        \
-		void remove(const DelegateName &fpDelegate)                                     \
-		{                                                                               \
-			_mutex.lock();                                                              \
-			std::vector<DelegateName>::iterator it;                                     \
-			it = std::find(_delegates.begin(), _delegates.end(), fpDelegate);           \
-			if (it != _delegates.end())                                                 \
-			{                                                                           \
-				_delegates.erase(it);                                                   \
-			}                                                                           \
-			_mutex.unlock();                                                            \
-		}                                                                               \
-                                                                                        \
-		void block(bool blockEvent = true)                                              \
-		{                                                                               \
-			_blocked = blockEvent;                                                      \
-		}                                                                               \
-                                                                                        \
-		void unblock()                                                                  \
-		{                                                                               \
-			_blocked = false;                                                           \
-		}                                                                               \
-                                                                                        \
-		bool isBlocked()                                                                \
-		{                                                                               \
-			return _blocked;                                                            \
-		}                                                                               \
-                                                                                        \
-		__inline ReturnType operator() ParameterList                                    \
-		{                                                                               \
-			if (_blocked)                                                               \
-			{                                                                           \
-				return ReturnType();                                                    \
-			}                                                                           \
-                                                                                        \
-			_mutex.lock();                                                              \
-			std::vector<DelegateName> delegates = _delegates;                           \
-			_mutex.unlock();                                                            \
-			for (auto dgate : delegates)                                                \
-			{                                                                           \
-				dgate InnerParameterList;                                               \
-			}                                                                           \
-		}                                                                               \
-                                                                                        \
-		void clear()                                                                    \
-		{                                                                               \
-			_mutex.lock();                                                              \
-			_delegates.clear();                                                         \
-			_mutex.unlock();                                                            \
-		}                                                                               \
-                                                                                        \
-		bool hasDelegates()                                                             \
-		{                                                                               \
-			return _delegates.size() ? true : false;                                    \
-		}                                                                               \
-                                                                                        \
-	protected:                                                                          \
-		iaMutex _mutex;                                                                 \
-		std::vector<DelegateName> _delegates;                                           \
-		bool _blocked = false;                                                          \
+#define iaEVENT(EventName, DelegateName, ParameterList, InnerParameterList)   \
+	iaDELEGATE(DelegateName, void, ParameterList, InnerParameterList);        \
+                                                                              \
+	class EventName                                                           \
+	{                                                                         \
+                                                                              \
+	public:                                                                   \
+		void append(const DelegateName &fpDelegate)                           \
+		{                                                                     \
+			_mutex.lock();                                                    \
+			std::vector<DelegateName>::iterator it;                           \
+			it = std::find(_delegates.begin(), _delegates.end(), fpDelegate); \
+			if (it == _delegates.end())                                       \
+			{                                                                 \
+				_delegates.push_back(fpDelegate);                             \
+			}                                                                 \
+			_mutex.unlock();                                                  \
+		}                                                                     \
+                                                                              \
+		void remove(const DelegateName &fpDelegate)                           \
+		{                                                                     \
+			_mutex.lock();                                                    \
+			std::vector<DelegateName>::iterator it;                           \
+			it = std::find(_delegates.begin(), _delegates.end(), fpDelegate); \
+			if (it != _delegates.end())                                       \
+			{                                                                 \
+				_delegates.erase(it);                                         \
+			}                                                                 \
+			_mutex.unlock();                                                  \
+		}                                                                     \
+                                                                              \
+		void block(bool blockEvent = true)                                    \
+		{                                                                     \
+			_blocked = blockEvent;                                            \
+		}                                                                     \
+                                                                              \
+		void unblock()                                                        \
+		{                                                                     \
+			_blocked = false;                                                 \
+		}                                                                     \
+                                                                              \
+		bool isBlocked()                                                      \
+		{                                                                     \
+			return _blocked;                                                  \
+		}                                                                     \
+                                                                              \
+		__inline void operator() ParameterList                                \
+		{                                                                     \
+			if (_blocked)                                                     \
+			{                                                                 \
+				return;                                                       \
+			}                                                                 \
+                                                                              \
+			_mutex.lock();                                                    \
+			std::vector<DelegateName> delegates = _delegates;                 \
+			_mutex.unlock();                                                  \
+			for (auto dgate : delegates)                                      \
+			{                                                                 \
+				dgate InnerParameterList;                                     \
+			}                                                                 \
+		}                                                                     \
+                                                                              \
+		void clear()                                                          \
+		{                                                                     \
+			_mutex.lock();                                                    \
+			_delegates.clear();                                               \
+			_mutex.unlock();                                                  \
+		}                                                                     \
+                                                                              \
+		bool hasDelegates()                                                   \
+		{                                                                     \
+			return _delegates.size() ? true : false;                          \
+		}                                                                     \
+                                                                              \
+	protected:                                                                \
+		iaMutex _mutex;                                                       \
+		std::vector<DelegateName> _delegates;                                 \
+		bool _blocked = false;                                                \
 	};
 
 }; // namespace iaux
 
-#endif
+#endif // __IAUX_EVENT_H__

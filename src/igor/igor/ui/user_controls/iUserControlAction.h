@@ -56,10 +56,6 @@ namespace igor
         */
         ~iUserControlAction() = default;
 
-        /*! \returns the widgets type
-        */
-        virtual iWidgetType getWidgetType() const override;
-
         /*! sets the action this widget is associated with
 
         \param action the action to be set

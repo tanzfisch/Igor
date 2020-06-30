@@ -25,7 +25,7 @@ namespace igor
 	static const int32 BORDER_WIDTH2 = 4;
 
 	iWidgetScroll::iWidgetScroll(const iWidgetPtr parent)
-		: iWidget(parent)
+		: iWidget(iWidgetType::iWidgetScroll, iWidgetKind::Widget, parent)
 	{
 		setGrowingByContent(false);
 
@@ -34,11 +34,6 @@ namespace igor
 		_downTexture = iTextureResourceFactory::getInstance().loadFile("icons/down.png");
 		_leftTexture = iTextureResourceFactory::getInstance().loadFile("icons/left.png");
 		_rightTexture = iTextureResourceFactory::getInstance().loadFile("icons/right.png");
-	}
-
-	iWidgetType iWidgetScroll::getWidgetType() const
-	{
-		return iWidgetType::iWidgetScroll;
 	}
 
 	bool iWidgetScroll::handleMouseKeyUp(iKeyCode key)

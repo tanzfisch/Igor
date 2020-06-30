@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iOSEVENTLISTENER__
-#define __iOSEVENTLISTENER__
+#ifndef __IGOR_OSEVENTLISTENER_H__
+#define __IGOR_OSEVENTLISTENER_H__
 
 namespace igor
 {
@@ -79,4 +79,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_OSEVENTLISTENER_H__

@@ -11,20 +11,20 @@
 //                                           (_(       \)
 // (c) Copyright 2014-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: igorgameengine@protonmail.com  
+//
+// contact: igorgameengine@protonmail.com
 
 #ifndef __USERCONTROLPROPERTIES__
 #define __USERCONTROLPROPERTIES__
@@ -36,7 +36,7 @@ namespace igor
     class iWidgetScroll;
     class iWidgetGroupBox;
     class iWidgetSpacer;
-}
+} // namespace igor
 
 #include <igor/scene/nodes/iNode.h>
 #include <igor/ui/user_controls/iUserControl.h>
@@ -54,27 +54,26 @@ class UserControlEmitter;
 class UserControlParticleSystem;
 class UserControlMaterial;
 
-iaEVENT(PropertiesChangedEvent, PropertiesChangedDelegate, void, (), ());
-iaEVENT(StructureChangedEvent, StructureChangedDelegate, void, (), ());
+iaEVENT(PropertiesChangedEvent, PropertiesChangedDelegate, (), ());
+iaEVENT(StructureChangedEvent, StructureChangedDelegate, (), ());
 
 enum class PropertyType
 {
-	Node,
-	Material,
-	Undefined
+    Node,
+    Material,
+    Undefined
 };
 
 class UserControlProperties : public iUserControl
 {
 public:
-
     /*! init ui
     */
-	UserControlProperties();
+    UserControlProperties();
 
     /*! does nothing
     */
-	~UserControlProperties() = default;
+    ~UserControlProperties() = default;
 
     void setProperty(uint64 id, PropertyType propertyType);
 
@@ -87,7 +86,6 @@ public:
     void unregisterStructureChangedDelegate(StructureChangedDelegate structureChangedDelegate);
 
 private:
-
     PropertiesChangedEvent _propertiesChangedEvent;
     StructureChangedEvent _structureChangedEvent;
 
@@ -119,21 +117,19 @@ private:
     void onNameChanged();
 
     uint64 _propertyID = 0;
-	PropertyType _propertyType = PropertyType::Undefined;
+    PropertyType _propertyType = PropertyType::Undefined;
 
     // iDialog* _dialog = nullptr;
-    iWidgetGrid* _grid = nullptr;
+    iWidgetGrid *_grid = nullptr;
 
-    UserControlTransformation* _userControlTransformation = nullptr;
-    UserControlLight* _userControlLight = nullptr;
-    UserControlMesh* _userControlMesh = nullptr;
-    UserControlModel* _userControlModel = nullptr;
-    UserControlEmitter* _userControlEmitter = nullptr;
-    UserControlParticleSystem* _userControlParticleSystem = nullptr;
-    UserControlNode* _userControlNode = nullptr;
-    UserControlMaterial* _userControlMaterial = nullptr;
-
+    UserControlTransformation *_userControlTransformation = nullptr;
+    UserControlLight *_userControlLight = nullptr;
+    UserControlMesh *_userControlMesh = nullptr;
+    UserControlModel *_userControlModel = nullptr;
+    UserControlEmitter *_userControlEmitter = nullptr;
+    UserControlParticleSystem *_userControlParticleSystem = nullptr;
+    UserControlNode *_userControlNode = nullptr;
+    UserControlMaterial *_userControlMaterial = nullptr;
 };
-
 
 #endif

@@ -56,10 +56,6 @@ namespace igor
 		*/
         virtual ~iWidgetButton();
 
-        /*! \returns the widgets type
-        */
-        virtual iWidgetType getWidgetType() const override;
-
         /*! sets text of the widget
 
         \param text new text to set

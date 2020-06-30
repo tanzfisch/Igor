@@ -29,6 +29,8 @@
 #ifndef __ACTIONCONTEXT_H__
 #define __ACTIONCONTEXT_H__
 
+#include "../Outliner.h"
+
 #include <igor/ui/actions/iActionContext.h>
 #include <igor/scene/nodes/iNode.h>
 using namespace igor;
@@ -41,8 +43,8 @@ class Igor_API ActionContext : public iActionContext
 public:
     /*! init members
     */
-    ActionContext(const std::vector<iNodeID> &nodes, iNodeID rootNode)
-        : _nodes(nodes), _rootNode(rootNode)
+    ActionContext(const std::vector<iNodeID> &nodes, iNodeID rootNode, Outliner *outliner)
+        : _nodes(nodes), _rootNode(rootNode), _outliner(outliner)
     {
     }
 
@@ -53,9 +55,18 @@ public:
         return _nodes;
     }
 
+    /*! returns root node of mica graph view
+    */
     __IGOR_INLINE__ iNodeID getRootNode() const
     {
         return _rootNode;
+    }
+
+    /*! returns the outliner
+    */
+    Outliner *getOutliner() const
+    {
+        return _outliner;
     }
 
 private:
@@ -66,6 +77,10 @@ private:
     /*! the root node of the mica workspace
     */
     iNodeID _rootNode = iNode::INVALID_NODE_ID;
+
+    /*! reference to the outliner
+    */
+    Outliner *_outliner = nullptr;
 };
 
 #endif // __ACTIONS_H__

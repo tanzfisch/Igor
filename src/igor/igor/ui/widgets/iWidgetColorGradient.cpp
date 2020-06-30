@@ -18,7 +18,7 @@ namespace igor
 {
 
     iWidgetColorGradient::iWidgetColorGradient(const iWidgetPtr parent)
-        : iWidget(parent)
+        : iWidget(iWidgetType::iWidgetColorGradient, iWidgetKind::Widget, parent)
     {
         _configuredWidth = 60;
         _configuredHeight = 20;
@@ -34,11 +34,6 @@ namespace igor
     iWidgetColorGradient::~iWidgetColorGradient()
     {
         _texture = nullptr;
-    }
-
-    iWidgetType iWidgetColorGradient::getWidgetType() const
-    {
-        return iWidgetType::iWidgetColorGradient;
     }
 
     void iWidgetColorGradient::block(bool blockEvents)

@@ -30,43 +30,8 @@
 #define __ACTIONS_H__
 
 #include <igor/ui/actions/iAction.h>
+#include <igor/ui/dialogs/iDialogDecisionBox.h>
 using namespace igor;
-
-#if 0
-/*! copy node action
-*/
-class Igor_API ActionCopyNode : public iAction
-{
-
-public:
-    /*! init members
-    */
-    ActionCopyNode();
-
-    /*! executed when action gets triggered
-
-    \param context the context the action was called with
-    */
-    void execute(const iActionContext &context) override;
-};
-
-/*! paste node action
-*/
-class Igor_API ActionPasteNode : public iAction
-{
-
-public:
-    /*! init members
-    */
-    ActionPasteNode();
-
-    /*! executed when action gets triggered
-
-    \param context the context the action was called with
-    */
-    void execute(const iActionContext &context) override;
-};
-#endif
 
 /*! delete node action
 */
@@ -77,6 +42,108 @@ public:
     /*! init members
     */
     ActionDeleteNode();
+
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override;
+};
+
+/*! add transformation action
+*/
+class Igor_API ActionAddTransform : public iAction
+{
+
+public:
+    /*! init members
+    */
+    ActionAddTransform();
+
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override;
+};
+
+/*! add group action
+*/
+class Igor_API ActionAddGroup : public iAction
+{
+
+public:
+    /*! init members
+    */
+    ActionAddGroup();
+
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override;
+};
+
+/*! add switch action
+*/
+class Igor_API ActionAddSwitch : public iAction
+{
+
+public:
+    /*! init members
+    */
+    ActionAddSwitch();
+
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override;
+};
+
+/*! add emitter action
+*/
+class Igor_API ActionAddEmitter : public iAction
+{
+
+public:
+    /*! init members
+    */
+    ActionAddEmitter();
+
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override;
+};
+
+/*! add particle system action
+*/
+class Igor_API ActionAddParticleSystem : public iAction
+{
+
+public:
+    /*! init members
+    */
+    ActionAddParticleSystem();
+
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override;
+};
+
+/*! add model action
+*/
+class Igor_API ActionAddModel : public iAction
+{
+
+public:
+    /*! init members
+    */
+    ActionAddModel();
 
     /*! executed when action gets triggered
 

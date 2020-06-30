@@ -19,7 +19,7 @@ namespace igor
 {
 
     iUserControlFileChooser::iUserControlFileChooser(const iWidgetPtr parent)
-        : iUserControl(parent)
+        : iUserControl(iWidgetType::iUserControlFileChooser, parent)
     {
         initGUI();
     }
@@ -27,11 +27,6 @@ namespace igor
     iUserControlFileChooser::~iUserControlFileChooser()
     {
         deinitGUI();
-    }
-
-    iWidgetType iUserControlFileChooser::getWidgetType() const
-    {
-        return iWidgetType::iUserControlFileChooser;
     }
 
     void iUserControlFileChooser::setOptimizePath(bool optimizePath)

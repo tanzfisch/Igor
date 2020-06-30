@@ -252,13 +252,6 @@ void Outliner::deinitGraphView()
     if (_userControlGraphView != nullptr)
     {
         _userControlGraphView->unregisterOnSelectionChange(GraphSelectionChangedDelegate(this, &Outliner::onGraphSelectionChanged));
-        _userControlGraphView->unregisterOnAddEmitter(AddEmitterDelegate(this, &Outliner::onAddEmitter));
-        _userControlGraphView->unregisterOnAddGroup(AddGroupDelegate(this, &Outliner::onAddGroup));
-        _userControlGraphView->unregisterOnAddModel(AddModelDelegate(this, &Outliner::onAddModel));
-        _userControlGraphView->unregisterOnAddParticleSystem(AddParticleSystemDelegate(this, &Outliner::onAddParticleSystem));
-        _userControlGraphView->unregisterOnAddSwitch(AddSwitchDelegate(this, &Outliner::onAddSwitch));
-        _userControlGraphView->unregisterOnAddTransformation(AddTransformationDelegate(this, &Outliner::onAddTransformation));
-
         _grid->removeWidget(_userControlGraphView);
     }
 }
@@ -267,16 +260,10 @@ void Outliner::initGraphView()
 {
     if (_userControlGraphView == nullptr)
     {
-        _userControlGraphView = new UserControlGraphView();
+        _userControlGraphView = new UserControlGraphView(this);
     }
 
     _userControlGraphView->registerOnSelectionChange(GraphSelectionChangedDelegate(this, &Outliner::onGraphSelectionChanged));
-    _userControlGraphView->registerOnAddEmitter(AddEmitterDelegate(this, &Outliner::onAddEmitter));
-    _userControlGraphView->registerOnAddGroup(AddGroupDelegate(this, &Outliner::onAddGroup));
-    _userControlGraphView->registerOnAddModel(AddModelDelegate(this, &Outliner::onAddModel));
-    _userControlGraphView->registerOnAddParticleSystem(AddParticleSystemDelegate(this, &Outliner::onAddParticleSystem));
-    _userControlGraphView->registerOnAddSwitch(AddSwitchDelegate(this, &Outliner::onAddSwitch));
-    _userControlGraphView->registerOnAddTransformation(AddTransformationDelegate(this, &Outliner::onAddTransformation));
 
     _grid->addWidget(_userControlGraphView, 0, 2);
     refreshView();
@@ -574,56 +561,6 @@ void Outliner::unregisterOnCutNode(CutNodeDelegate cutNodeDelegate)
     _cutNode.remove(cutNodeDelegate);
 }
 
-void Outliner::registerOnAddTransformation(AddTransformationDelegate addTransformationDelegate)
-{
-    _addTransformation.append(addTransformationDelegate);
-}
-
-void Outliner::unregisterOnAddTransformation(AddTransformationDelegate addTransformationDelegate)
-{
-    _addTransformation.remove(addTransformationDelegate);
-}
-
-void Outliner::registerOnAddGroup(AddGroupDelegate addGroupDelegate)
-{
-    _addGroup.append(addGroupDelegate);
-}
-
-void Outliner::unregisterOnAddGroup(AddGroupDelegate addGroupDelegate)
-{
-    _addGroup.remove(addGroupDelegate);
-}
-
-void Outliner::registerOnAddEmitter(AddEmitterDelegate addEmitterDelegate)
-{
-    _addEmitter.append(addEmitterDelegate);
-}
-
-void Outliner::unregisterOnAddEmitter(AddEmitterDelegate addEmitterDelegate)
-{
-    _addEmitter.remove(addEmitterDelegate);
-}
-
-void Outliner::registerOnAddParticleSystem(AddParticleSystemDelegate addParticleSystemDelegate)
-{
-    _addParticleSystem.append(addParticleSystemDelegate);
-}
-
-void Outliner::unregisterOnAddParticleSystem(AddParticleSystemDelegate addParticleSystemDelegate)
-{
-    _addParticleSystem.remove(addParticleSystemDelegate);
-}
-
-void Outliner::registerOnAddSwitch(AddSwitchDelegate addSwitchDelegate)
-{
-    _addSwitch.append(addSwitchDelegate);
-}
-
-void Outliner::unregisterOnAddSwitch(AddSwitchDelegate addSwitchDelegate)
-{
-    _addSwitch.remove(addSwitchDelegate);
-}
-
 void Outliner::registerOnImportFile(ImportFileDelegate importFileDelegate)
 {
     _importFile.append(importFileDelegate);
@@ -674,7 +611,7 @@ void Outliner::unregisterOnExitMica(ExitMicaDelegate exitMicaDelegate)
     _exitMica.remove(exitMicaDelegate);
 }
 
-void Outliner::onAddModel(uint64 addAt)
+void Outliner::addModel()
 {
     if (_decisionBoxModelRef == nullptr)
     {
@@ -709,31 +646,6 @@ void Outliner::onAddModelDecision(iDialogPtr dialog)
 
     delete _decisionBoxModelRef;
     _decisionBoxModelRef = nullptr;
-}
-
-void Outliner::onAddTransformation(uint64 addAt)
-{
-    _addTransformation(addAt);
-}
-
-void Outliner::onAddGroup(uint64 addAt)
-{
-    _addGroup(addAt);
-}
-
-void Outliner::onAddEmitter(uint64 addAt)
-{
-    _addEmitter(addAt);
-}
-
-void Outliner::onAddParticleSystem(uint64 addAt)
-{
-    _addParticleSystem(addAt);
-}
-
-void Outliner::onAddSwitch(uint64 addAt)
-{
-    _addSwitch(addAt);
 }
 
 void Outliner::registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate)

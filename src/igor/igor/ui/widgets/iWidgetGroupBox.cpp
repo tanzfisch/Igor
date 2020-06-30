@@ -15,15 +15,10 @@ namespace igor
 {
 
 	iWidgetGroupBox::iWidgetGroupBox(const iWidgetPtr parent)
-		: iWidget(parent)
+		: iWidget(iWidgetType::iWidgetGroupBox, iWidgetKind::Widget, parent)
 	{
 		_configuredWidth = 60;
 		_configuredHeight = 20;
-	}
-
-	iWidgetType iWidgetGroupBox::getWidgetType() const
-	{
-		return iWidgetType::iWidgetGroupBox;
 	}
 
 	void iWidgetGroupBox::setBorder(int32 border)

@@ -65,15 +65,11 @@ namespace igor
     public:
         /*! ctor initializes member variables and registers mouse events
 		*/
-        iDialog();
+        iDialog(iWidgetType type = iWidgetType::iDialog, const iWidgetPtr parent = nullptr);
 
         /*! dtor unregisters mouse events
 		*/
         virtual ~iDialog();
-
-        /*! \returns the widgets type
-        */
-        virtual iWidgetType getWidgetType() const override;
 
         /*! set horizontal position of dialog and horizontal alignment to absolute
 

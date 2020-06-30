@@ -14,7 +14,7 @@
 namespace igor
 {
     iWidgetMenuBar::iWidgetMenuBar(const iWidgetPtr parent)
-        : iWidget(parent)
+        : iWidget(iWidgetType::iWidgetMenuBar, iWidgetKind::Widget, parent)
     {
         setHorizontalAlignment(iHorizontalAlignment::Left);
         setVerticalAlignment(iVerticalAlignment::Top);
@@ -22,11 +22,6 @@ namespace igor
         _grid = new iWidgetGrid(this);
         _grid->setSelectMode(iSelectionMode::NoSelection);
         _grid->setHighlightMode(iSelectionMode::Collumn);
-    }
-
-    iWidgetType iWidgetMenuBar::getWidgetType() const
-    {
-        return iWidgetType::iWidgetMenuBar;
     }
 
     void iWidgetMenuBar::unselect()

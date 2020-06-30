@@ -42,7 +42,7 @@ namespace igor
 
     called once per interval
     */
-	iaEVENT(iTimerTickEvent, iTimerTickDelegate, void, (), ());
+	iaEVENT(iTimerTickEvent, iTimerTickDelegate, (), ());
 
 	/*! timer handle class
     */

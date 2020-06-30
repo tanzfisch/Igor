@@ -53,19 +53,15 @@ namespace igor
     class iWidgetButton;
 } // namespace igor
 
-iaEVENT(AddModel, AddModelDelegate, void, (uint64 nodeID), (nodeID));
-iaEVENT(AddTransformation, AddTransformationDelegate, void, (uint64 nodeID), (nodeID));
-iaEVENT(AddGroup, AddGroupDelegate, void, (uint64 nodeID), (nodeID));
-iaEVENT(AddSwitch, AddSwitchDelegate, void, (uint64 nodeID), (nodeID));
-iaEVENT(AddEmitter, AddEmitterDelegate, void, (uint64 nodeID), (nodeID));
-iaEVENT(AddParticleSystem, AddParticleSystemDelegate, void, (uint64 nodeID), (nodeID));
-iaEVENT(GraphSelectionChanged, GraphSelectionChangedDelegate, void, (uint64 nodeID), (nodeID));
+iaEVENT(GraphSelectionChanged, GraphSelectionChangedDelegate, (uint64 nodeID), (nodeID));
+
+class Outliner;
 
 class UserControlGraphView : public iUserControl, public iNodeVisitor
 {
 
 public:
-    UserControlGraphView();
+    UserControlGraphView(Outliner *outliner);
     ~UserControlGraphView();
 
     /*! sets the selected node
@@ -95,31 +91,9 @@ public:
     void registerOnSelectionChange(GraphSelectionChangedDelegate selectionChangeDelegate);
     void unregisterOnSelectionChange(GraphSelectionChangedDelegate selectionChangeDelegate);
 
-    void registerOnAddTransformation(AddTransformationDelegate addTransformationDelegate);
-    void unregisterOnAddTransformation(AddTransformationDelegate addTransformationDelegate);
-
-    void registerOnAddGroup(AddGroupDelegate addGroupDelegate);
-    void unregisterOnAddGroup(AddGroupDelegate addGroupDelegate);
-
-    void registerOnAddEmitter(AddEmitterDelegate addEmitterDelegate);
-    void unregisterOnAddEmitter(AddEmitterDelegate addEmitterDelegate);
-
-    void registerOnAddParticleSystem(AddParticleSystemDelegate addParticleSystemDelegate);
-    void unregisterOnAddParticleSystem(AddParticleSystemDelegate addParticleSystemDelegate);
-
-    void registerOnAddSwitch(AddSwitchDelegate addSwitchDelegate);
-    void unregisterOnAddSwitch(AddSwitchDelegate addSwitchDelegate);
-
-    void registerOnAddModel(AddModelDelegate addModelDelegate);
-    void unregisterOnAddModel(AddModelDelegate addModelDelegate);
-
 private:
-    AddModel _addModel;
-    AddTransformation _addTransformation;
-    AddGroup _addGroup;
-    AddEmitter _addEmitter;
-    AddParticleSystem _addParticleSystem;
-    AddSwitch _addSwitch;
+    Outliner *_outliner = nullptr;
+
     GraphSelectionChanged _graphSelectionChanged;
 
     uint64 _root = iNode::INVALID_NODE_ID;
@@ -136,11 +110,17 @@ private:
     */
     iDialogMenuPtr _graphContextMenu = nullptr;
 
+    /*! \returns a new action context
+    */
+    iActionContextPtr getContext();
+
     void clearGraph();
 
     iaString getIconTexture(iNodeType type);
 
     void initGUI();
+
+    void onSceneChanged();
 
     void OnSelectionChange(iWidgetPtr widget);
     void OnContextMenu(iWidgetPtr widget);

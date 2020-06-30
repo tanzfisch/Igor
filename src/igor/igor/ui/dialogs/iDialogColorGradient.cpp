@@ -20,14 +20,10 @@ using namespace iaux;
 namespace igor
 {
 
-	iDialogColorGradient::iDialogColorGradient()
+	iDialogColorGradient::iDialogColorGradient(const iWidgetPtr parent)
+		: iDialog(iWidgetType::iDialogColorGradient, parent)
 	{
 		initUI();
-	}
-
-	iWidgetType iDialogColorGradient::getWidgetType() const
-	{
-		return iWidgetType::iDialogColorGradient;
 	}
 
 	void iDialogColorGradient::open(iDialogCloseDelegate dialogCloseDelegate)

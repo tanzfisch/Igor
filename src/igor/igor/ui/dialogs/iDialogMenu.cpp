@@ -17,14 +17,10 @@ using namespace iaux;
 namespace igor
 {
 
-    iDialogMenu::iDialogMenu()
+    iDialogMenu::iDialogMenu(const iWidgetPtr parent)
+        : iDialog(iWidgetType::iDialogMenu, parent)
     {
         init();
-    }
-
-    iWidgetType iDialogMenu::getWidgetType() const
-    {
-        return iWidgetType::iDialogMenu;
     }
 
     void iDialogMenu::open(iDialogCloseDelegate dialogCloseDelegate)

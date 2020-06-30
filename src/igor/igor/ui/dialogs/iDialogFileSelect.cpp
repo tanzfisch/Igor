@@ -22,9 +22,9 @@ using namespace iaux;
 namespace igor
 {
 
-    iWidgetType iDialogFileSelect::getWidgetType() const
+    iDialogFileSelect::iDialogFileSelect(const iWidgetPtr parent)
+        : iDialog(iWidgetType::iDialogFileSelect, parent)
     {
-        return iWidgetType::iDialogFileSelect;
     }
 
     void iDialogFileSelect::open(iDialogCloseDelegate dialogCloseDelegate, iFileDialogPurpose purpose, const iaString &path)

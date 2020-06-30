@@ -54,10 +54,6 @@ namespace igor
         */
         virtual ~iWidgetMenuBar() = default;
 
-        /*! \returns the widgets type
-        */
-        virtual iWidgetType getWidgetType() const override;
-
         /*! adds action to menu
 
         only adds actions that are registered to the action manager
@@ -65,7 +61,7 @@ namespace igor
 
         \param action the action to be added
         */
-        void addAction(const iActionPtr action, const iActionContextPtr context);
+        void addAction(const iActionPtr action, const iActionContextPtr context = nullptr);
 
         /*! same as add actions just by action name
 
@@ -73,7 +69,7 @@ namespace igor
 
         \param actionName name of the action to be added
         */
-        void addAction(const iaString &actionName, const iActionContextPtr context);
+        void addAction(const iaString &actionName, const iActionContextPtr context = nullptr);
 
         /*! adds a menu to the menu bar
 

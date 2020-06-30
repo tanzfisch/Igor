@@ -20,12 +20,14 @@
 #include <igor/ui/dialogs/iDialogIndexMenu.h>
 #include <igor/system/iMouse.h>
 #include <igor/ui/actions/iActionManager.h>
+#include <igor/scene/iScene.h>
 using namespace igor;
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
-UserControlGraphView::UserControlGraphView()
+UserControlGraphView::UserControlGraphView(Outliner *outliner)
+    : _outliner(outliner)
 {
     initGUI();
 }
@@ -40,12 +42,34 @@ UserControlGraphView::~UserControlGraphView()
 
 void UserControlGraphView::setRootNode(uint64 root)
 {
+    iNodePtr node = iNodeManager::getInstance().getNode(_root);
+    if (node != nullptr)
+    {
+        iScenePtr scene = node->getScene();
+        if (scene != nullptr)
+        {
+            scene->unregisterSceneChangedDelegate(iSceneChangedDelegate(this, &UserControlGraphView::onSceneChanged));
+        }
+    }
+
     _root = root;
+
+    node = iNodeManager::getInstance().getNode(_root);
+    if (node != nullptr)
+    {
+        iScenePtr scene = node->getScene();
+        if (scene != nullptr)
+        {
+            scene->registerSceneChangedDelegate(iSceneChangedDelegate(this, &UserControlGraphView::onSceneChanged));
+        }
+    }
+
     refresh();
 }
 
 void UserControlGraphView::refresh()
 {
+
     if (_root != iNode::INVALID_NODE_ID)
     {
         traverseTree(iNodeManager::getInstance().getNode(_root));
@@ -207,6 +231,23 @@ void UserControlGraphView::OnSelectionChange(iWidgetPtr widget)
     _selectionChange(_selectedNode);
 }
 
+void UserControlGraphView::onSceneChanged()
+{
+    refresh();
+}
+
+iActionContextPtr UserControlGraphView::getContext()
+{
+    std::vector<iNodeID> selectedNodes;
+
+    if (getSelectedNode() != iNode::INVALID_NODE_ID)
+    {
+        selectedNodes.push_back(getSelectedNode());
+    }
+
+    return iActionContextPtr(new ActionContext(selectedNodes, getRootNode(), _outliner));
+}
+
 void UserControlGraphView::OnContextMenu(iWidgetPtr widget)
 {
     if (_graphContextMenu != nullptr)
@@ -215,48 +256,22 @@ void UserControlGraphView::OnContextMenu(iWidgetPtr widget)
         _graphContextMenu = nullptr;
     }
 
-    std::vector<iNodeID> selectedNodes = {getSelectedNode()};
-    iActionContextPtr actionContext(new ActionContext(selectedNodes, getRootNode()));
-
-    _graphContextMenu = new iDialogMenu();
-    _graphContextMenu->setZValue(widget->getZValue() + 100);
+    _graphContextMenu = new iDialogMenu(this);
     _graphContextMenu->setWidth(24);
 
     iaVector2i pos = iMouse::getInstance().getPos();
     _graphContextMenu->setX(pos._x);
     _graphContextMenu->setY(pos._y);
 
+    iActionContextPtr actionContext = getContext();
+
     _graphContextMenu->addAction("mica:deleteNodes", actionContext);
-
-    /*    dialogMenuTexts.push_back("Cut");
-    dialogMenuPictures.push_back("icons/cut.png");
-
-    dialogMenuTexts.push_back("Copy");
-    dialogMenuPictures.push_back("icons/copy.png");
-
-    dialogMenuTexts.push_back("Paste");
-    dialogMenuPictures.push_back("icons/paste.png");
-
-    dialogMenuTexts.push_back("Delete");
-    dialogMenuPictures.push_back("icons/delete.png");
-
-    dialogMenuTexts.push_back("Add Transformation");
-    dialogMenuPictures.push_back("icons/addTransformation.png");
-
-    dialogMenuTexts.push_back("Add Group");
-    dialogMenuPictures.push_back("icons/addGroup.png");
-
-    dialogMenuTexts.push_back("Add Switch");
-    dialogMenuPictures.push_back("icons/addSwitch.png");
-
-    dialogMenuTexts.push_back("Add Model");
-    dialogMenuPictures.push_back("icons/addModel.png");
-
-    dialogMenuTexts.push_back("Add Emitter");
-    dialogMenuPictures.push_back("icons/addEmitter.png");
-
-    dialogMenuTexts.push_back("Add Particle System");
-    dialogMenuPictures.push_back("icons/addParticleSystem.png");*/
+    _graphContextMenu->addAction("mica:addTransform", actionContext);
+    _graphContextMenu->addAction("mica:addGroup", actionContext);
+    _graphContextMenu->addAction("mica:addSwitch", actionContext);
+    _graphContextMenu->addAction("mica:addModel", actionContext);
+    _graphContextMenu->addAction("mica:addEmitter", actionContext);
+    _graphContextMenu->addAction("mica:addParticleSystem", actionContext);
 
     _graphContextMenu->open(iDialogCloseDelegate(this, &UserControlGraphView::OnContextMenuClose));
 }
@@ -458,92 +473,32 @@ void UserControlGraphView::postTraverse()
 {
 }
 
-void UserControlGraphView::registerOnAddTransformation(AddTransformationDelegate addTransformationDelegate)
-{
-    _addTransformation.append(addTransformationDelegate);
-}
-
-void UserControlGraphView::unregisterOnAddTransformation(AddTransformationDelegate addTransformationDelegate)
-{
-    _addTransformation.remove(addTransformationDelegate);
-}
-
-void UserControlGraphView::registerOnAddGroup(AddGroupDelegate addGroupDelegate)
-{
-    _addGroup.append(addGroupDelegate);
-}
-
-void UserControlGraphView::unregisterOnAddGroup(AddGroupDelegate addGroupDelegate)
-{
-    _addGroup.remove(addGroupDelegate);
-}
-
-void UserControlGraphView::registerOnAddEmitter(AddEmitterDelegate addEmitterDelegate)
-{
-    _addEmitter.append(addEmitterDelegate);
-}
-
-void UserControlGraphView::unregisterOnAddEmitter(AddEmitterDelegate addEmitterDelegate)
-{
-    _addEmitter.remove(addEmitterDelegate);
-}
-
-void UserControlGraphView::registerOnAddParticleSystem(AddParticleSystemDelegate addParticleSystemDelegate)
-{
-    _addParticleSystem.append(addParticleSystemDelegate);
-}
-
-void UserControlGraphView::unregisterOnAddParticleSystem(AddParticleSystemDelegate addParticleSystemDelegate)
-{
-    _addParticleSystem.remove(addParticleSystemDelegate);
-}
-
-void UserControlGraphView::registerOnAddSwitch(AddSwitchDelegate addSwitchDelegate)
-{
-    _addSwitch.append(addSwitchDelegate);
-}
-
-void UserControlGraphView::unregisterOnAddSwitch(AddSwitchDelegate addSwitchDelegate)
-{
-    _addSwitch.remove(addSwitchDelegate);
-}
-
-void UserControlGraphView::registerOnAddModel(AddModelDelegate addModelDelegate)
-{
-    _addModel.append(addModelDelegate);
-}
-
-void UserControlGraphView::unregisterOnAddModel(AddModelDelegate addModelDelegate)
-{
-    _addModel.remove(addModelDelegate);
-}
-
 void UserControlGraphView::onAddTransformation(const iWidgetPtr source)
 {
-    _addTransformation(_selectedNode);
+    iActionManager::getInstance().getAction("mica:addTransform")->execute(*getContext());
 }
 
 void UserControlGraphView::onAddGroup(const iWidgetPtr source)
 {
-    _addGroup(_selectedNode);
+    iActionManager::getInstance().getAction("mica:addGroup")->execute(*getContext());
 }
 
 void UserControlGraphView::onAddEmitter(const iWidgetPtr source)
 {
-    _addEmitter(_selectedNode);
+    iActionManager::getInstance().getAction("mica:addEmitter")->execute(*getContext());
 }
 
 void UserControlGraphView::onAddParticleSystem(const iWidgetPtr source)
 {
-    _addParticleSystem(_selectedNode);
+    iActionManager::getInstance().getAction("mica:addParticleSystem")->execute(*getContext());
 }
 
 void UserControlGraphView::onAddSwitch(const iWidgetPtr source)
 {
-    _addSwitch(_selectedNode);
+    iActionManager::getInstance().getAction("mica:addSwitch")->execute(*getContext());
 }
 
 void UserControlGraphView::onAddModel(const iWidgetPtr source)
 {
-    _addModel(_selectedNode);
+    iActionManager::getInstance().getAction("mica:addModel")->execute(*getContext());
 }

@@ -16,14 +16,9 @@ namespace igor
 {
 
     iUserControlAction::iUserControlAction(const iWidgetPtr parent)
-        : iUserControl(parent)
+        : iUserControl(iWidgetType::iUserControlAction, parent)
     {
         init();
-    }
-
-    iWidgetType iUserControlAction::getWidgetType() const
-    {
-        return iWidgetType::iUserControlAction;
     }
 
     void iUserControlAction::init()

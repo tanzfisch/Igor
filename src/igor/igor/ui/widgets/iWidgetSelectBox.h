@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iWIDGETSELECTBOX__
-#define __iWIDGETSELECTBOX__
+#ifndef __IGOR_WIDGETSELECTBOX_H__
+#define __IGOR_WIDGETSELECTBOX_H__
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -55,10 +55,6 @@ namespace igor
 		/*! clean up
 		*/
 		virtual ~iWidgetSelectBox();
-
-		/*! \returns the widgets type
-        */
-		virtual iWidgetType getWidgetType() const override;
 
 		/*! adds entry to select box
 
@@ -163,4 +159,4 @@ namespace igor
 	};
 } // namespace igor
 
-#endif
+#endif // __IGOR_WIDGETSELECTBOX_H__

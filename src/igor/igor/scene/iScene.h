@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iSCENE__
-#define __iSCENE__
+#ifndef __IGOR_SCENE_H__
+#define __IGOR_SCENE_H__
 
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaEvent.h>
@@ -56,17 +56,9 @@ namespace igor
 	class iEvaluator;
 	typedef iEvaluator *iEvaluatorPtr;
 
-	/*! event triggered when node was added to scene
-
-	\param nodeID node that was added to scene
+	/*! event triggered when scene changed
 	*/
-	iaEVENT(iAddedNodeEvent, iAddedNodeDelegate, void, (uint64 nodeID), (nodeID));
-
-	/*! event triggered when node was removed from scene
-
-	\param nodeID node that was removed from scene
-	*/
-	iaEVENT(iRemovedNodeEvent, iRemovedNodeDelegate, void, (uint64 nodeID), (nodeID));
+	iaEVENT(iSceneChangedEvent, iSceneChangedDelegate, (), ());
 
 	/*! the scene graph
 
@@ -115,29 +107,17 @@ namespace igor
 		*/
 		std::vector<iNodeRender *> &getRenderables();
 
-		/*! registers delegate to added node event
+		/*! registers delegate to scene changed event
 
 		\param addedNodeDelegate delegate to register
 		*/
-		void registerAddedNodeDelegate(iAddedNodeDelegate addedNodeDelegate);
+		void registerSceneChangedDelegate(iSceneChangedDelegate delegate);
 
-		/*! unregisters delegate from added node event
+		/*! unregisters delegate from scene changed delegate
 
 		\param addedNodeDelegate delegate to unregister
 		*/
-		void unregisterAddedNodeDelegate(iAddedNodeDelegate addedNodeDelegate);
-
-		/*! registers delegate to removed node event
-
-		\param removedNodeDelegate delegate to register
-		*/
-		void registerRemovedNodeDelegate(iRemovedNodeDelegate removedNodeDelegate);
-
-		/*! unregisters delegate from removed node event
-
-		\param removedNodeDelegate delegate to unregister
-		*/
-		void unregisterRemovedNodeDelegate(iRemovedNodeDelegate removedNodeDelegate);
+		void unregisterSceneChangedDelegate(iSceneChangedDelegate delegate);
 
 		/*! cyclic update of scene.
 
@@ -169,8 +149,8 @@ namespace igor
 		*/
 		uint32 _updateTransformSectionID = 0;
 
-		/*! sync with data load workers
-*/
+		/*! sync with data loading workers
+		*/
 		iaMutex _mutex;
 
 		/*! contains model nodes that just got inserted or changed
@@ -183,13 +163,13 @@ namespace igor
 		*/
 		std::set<uint64> _processingQueue;
 
-		/*! added node event
+		/*! scene changed event
 		*/
-		iAddedNodeEvent _addedNode;
+		iSceneChangedEvent _sceneChangedEvent;
 
-		/*! removed node event
+		/*! scene changed dirty flag
 		*/
-		iRemovedNodeEvent _removedNode;
+		bool _sceneChanged = false;
 
 		/*! name of scene
 		*/
@@ -346,7 +326,7 @@ namespace igor
 
 	/*! scene pointer definition
 	*/
-	typedef iScene* iScenePtr;
+	typedef iScene *iScenePtr;
 
 }; // namespace igor
 

@@ -16,10 +16,9 @@ using namespace iaux;
 
 namespace igor
 {
-
-	iWidgetType iDialogMessageBox::getWidgetType() const
+	iDialogMessageBox::iDialogMessageBox(const iWidgetPtr parent)
+		: iDialog(iWidgetType::iDialogMessageBox, parent)
 	{
-		return iWidgetType::iDialogMessageBox;
 	}
 
 	void iDialogMessageBox::open(iaString message, iMessageBoxButtons buttons)

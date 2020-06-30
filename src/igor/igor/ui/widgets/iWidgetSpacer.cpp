@@ -14,7 +14,7 @@ using namespace iaux;
 namespace igor
 {
 	iWidgetSpacer::iWidgetSpacer(int32 width, int32 height, bool visible, const iWidgetPtr parent)
-		: iWidget(parent)
+		: iWidget(iWidgetType::iWidgetSpacer, iWidgetKind::Widget, parent)
 	{
 		setHorizontalAlignment(iHorizontalAlignment::Center);
 		setVerticalAlignment(iVerticalAlignment::Center);
@@ -23,11 +23,6 @@ namespace igor
 		setWidth(width);
 		setWidth(height);
 		setVisible(visible);
-	}
-
-	iWidgetType iWidgetSpacer::getWidgetType() const
-	{
-		return iWidgetType::iWidgetSpacer;
 	}
 
 	void iWidgetSpacer::calcMinSize()

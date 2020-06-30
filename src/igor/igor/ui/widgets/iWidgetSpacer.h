@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iWIDGETSPACER__
-#define __iWIDGETSPACER__
+#ifndef __IGOR_WIDGETSPACER_H__
+#define __IGOR_WIDGETSPACER_H__
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -53,10 +53,6 @@ namespace igor
 		*/
 		virtual ~iWidgetSpacer() = default;
 
-		/*! \returns the widgets type
-        */
-		virtual iWidgetType getWidgetType() const override;
-
 	protected:
 		/*! updates size based on it's content
 		*/
@@ -72,4 +68,4 @@ namespace igor
 	typedef iWidgetSpacer *iWidgetSpacerPtr;
 } // namespace igor
 
-#endif
+#endif // __IGOR_WIDGETSPACER_H__

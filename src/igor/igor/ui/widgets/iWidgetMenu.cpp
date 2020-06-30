@@ -17,7 +17,7 @@
 namespace igor
 {
     iWidgetMenu::iWidgetMenu(const iWidgetPtr parent)
-        : iWidget(parent)
+        : iWidget(iWidgetType::iWidgetMenu, iWidgetKind::Widget, parent)
     {
         init();
     }
@@ -86,11 +86,6 @@ namespace igor
     void iWidgetMenu::onParentChanged()
     {
         update();
-    }
-
-    iWidgetType iWidgetMenu::getWidgetType() const
-    {
-        return iWidgetType::iWidgetMenu;
     }
 
     void iWidgetMenu::onClick(const iWidgetPtr source)

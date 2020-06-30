@@ -18,7 +18,7 @@ namespace igor
 {
 
     iUserControlColorChooser::iUserControlColorChooser(const iWidgetPtr parent)
-        : iUserControl(parent)
+        : iUserControl(iWidgetType::iUserControlColorChooser, parent)
     {
         initGUI();
     }
@@ -26,11 +26,6 @@ namespace igor
     iUserControlColorChooser::~iUserControlColorChooser()
     {
         deinitGUI();
-    }
-
-    iWidgetType iUserControlColorChooser::getWidgetType() const
-    {
-        return iWidgetType::iUserControlColorChooser;
     }
 
     void iUserControlColorChooser::block(bool blockEvents)

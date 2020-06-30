@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iUSERCONTROLCOLORCHOOSER__
-#define __iUSERCONTROLCOLORCHOOSER__
+#ifndef __IGOR_USERCONTROLCOLORCHOOSER_H__
+#define __IGOR_USERCONTROLCOLORCHOOSER_H__
 
 #include <igor/ui/user_controls/iUserControl.h>
 #include <igor/ui/widgets/iWidget.h>
@@ -51,7 +51,7 @@ namespace igor
 
 	/*! color has changed event
 	*/
-	iaEVENT(iColorChanged, iColorChangedDelegate, void, (const iaColor4f &color), (color));
+	iaEVENT(iColorChanged, iColorChangedDelegate, (const iaColor4f &color), (color));
 
 	/*! color chooser mode
 	*/
@@ -79,10 +79,6 @@ namespace igor
 		/*! clean up
 		*/
 		virtual ~iUserControlColorChooser();
-
-		/*! \returns the widgets type
-        */
-		virtual iWidgetType getWidgetType() const override;
 
 		/*! set wether events will be blocked or not
 
@@ -511,5 +507,7 @@ namespace igor
 	/*! user control color chooser pointer definition
     */
 	typedef iUserControlColorChooser *iUserControlColorChooserPtr;
+
 } // namespace igor
-#endif
+
+#endif // __IGOR_USERCONTROLCOLORCHOOSER_H__

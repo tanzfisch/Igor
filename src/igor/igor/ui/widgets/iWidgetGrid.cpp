@@ -14,17 +14,12 @@ using namespace iaux;
 namespace igor
 {
     iWidgetGrid::iWidgetGrid(const iWidgetPtr parent)
-        : iWidget(parent)
+        : iWidget(iWidgetType::iWidgetGrid, iWidgetKind::Widget, parent)
     {
         _configuredWidth = 0;
         _configuredHeight = 0;
         _ignoreChildEventHandling = true;
         initGrid();
-    }
-
-    iWidgetType iWidgetGrid::getWidgetType() const
-    {
-        return iWidgetType::iWidgetGrid;
     }
 
     void iWidgetGrid::clear()

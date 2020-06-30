@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iWIDGETCOLORGRADIENT__
-#define __iWIDGETCOLORGRADIENT__
+#ifndef __IGOR_WIDGETCOLORGRADIENT_H__
+#define __IGOR_WIDGETCOLORGRADIENT_H__
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/resources/texture/iTexture.h>
@@ -43,7 +43,7 @@ namespace igor
 
     /*! color created/added event
     */
-    iaEVENT(iColorGradientColorCreatedEvent, iColorGradientColorCreatedDelegate, void, (float32 at, const iaColor4f &color), (at, color));
+    iaEVENT(iColorGradientColorCreatedEvent, iColorGradientColorCreatedDelegate, (float32 at, const iaColor4f &color), (at, color));
 
     /*! color view widget
     */
@@ -60,10 +60,6 @@ namespace igor
         /*! release texture
 		*/
         virtual ~iWidgetColorGradient();
-
-        /*! \returns the widgets type
-        */
-        virtual iWidgetType getWidgetType() const override;
 
         /*! set wether events will be blocked or not
 
@@ -148,6 +144,7 @@ namespace igor
 		*/
         void draw();
     };
+
 } // namespace igor
 
-#endif
+#endif // __IGOR_WIDGETCOLORGRADIENT_H__

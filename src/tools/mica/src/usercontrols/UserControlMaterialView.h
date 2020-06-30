@@ -11,20 +11,20 @@
 //                                           (_(       \)
 // (c) Copyright 2014-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: igorgameengine@protonmail.com  
+//
+// contact: igorgameengine@protonmail.com
 
 #ifndef __USERCONTROLMATERIALVIEW__
 #define __USERCONTROLMATERIALVIEW__
@@ -47,36 +47,34 @@ namespace igor
     class iWidgetSlider;
     class iWidgetNumberChooser;
     class iWidgetSelectBox;
-}
+} // namespace igor
 
-iaEVENT(AddMaterial, AddMaterialDelegate, void, (), ());
-iaEVENT(MaterialSelectionChanged, MaterialSelectionChangedDelegate, void, (uint64 materialID), (materialID));
+iaEVENT(AddMaterial, AddMaterialDelegate, (), ());
+iaEVENT(MaterialSelectionChanged, MaterialSelectionChangedDelegate, (uint64 materialID), (materialID));
 
 class UserControlMaterialView : public iUserControl
 {
 public:
-
-	UserControlMaterialView();
-	~UserControlMaterialView() = default;
+    UserControlMaterialView();
+    ~UserControlMaterialView() = default;
 
     void refresh();
 
     void registerOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
     void unregisterOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
 
-	void registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
-	void unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
+    void registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
+    void unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
 
 private:
-
-	MaterialSelectionChanged _materialSelectionChanged;
+    MaterialSelectionChanged _materialSelectionChanged;
     AddMaterial _addMaterial;
 
-    iWidgetGrid* _gridGraph = nullptr;
+    iWidgetGrid *_gridGraph = nullptr;
 
     /*! id of current selected material
     */
-	uint64 _selectedMaterial = iMaterial::INVALID_MATERIAL_ID;
+    uint64 _selectedMaterial = iMaterial::INVALID_MATERIAL_ID;
 
     void initGUI();
 
@@ -85,7 +83,6 @@ private:
     void OnSelectionChange(iWidgetPtr widget);
 
     void onAddMaterial(const iWidgetPtr source);
-
 };
 
 #endif
