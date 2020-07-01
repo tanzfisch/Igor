@@ -26,10 +26,11 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iAPPLICATION__
-#define __iAPPLICATION__
+#ifndef __IGOR_APPLICATION_H__
+#define __IGOR_APPLICATION_H__
 
-#include <igor/iDefines.h>
+#include <igor/system/events/iEvent.h>
+#include <igor/layers/iLayerStack.h>
 
 #include <iaux/system/iaEvent.h>
 #include <iaux/system/iaSingleton.h>
@@ -67,10 +68,6 @@ namespace igor
         */
         void run();
 
-        /*! as alternative to run you can set up your own main loop and call iterate in it but run is recommended to use
-        */
-        void iterate();
-
         /*! stops the application
 
         quits the main application loop. works only in combination with iApplication::run
@@ -104,6 +101,26 @@ namespace igor
         \param handleDelegate delegate to unregister
         */
         void unregisterApplicationPostDrawHandleDelegate(iPostDrawDelegate handleDelegate);
+
+        /*! triggered on event
+        */
+        void onEvent(iEvent &event);
+
+        /*! adds layer to stack
+
+        adding a layer to the layer stack passes ownership to the layer stack
+
+        \param layer the layer to be added
+        */
+        void addLayer(iLayer *layer);
+
+        /*! removes layer from stack
+
+        removing a layer from the layer stack passes ownership back to the caller
+
+        \param layer the layer to be removed
+        */
+        void removeLayer(iLayer *layer);
 
     private:
         /*! frame performance section id
@@ -150,6 +167,10 @@ namespace igor
         */
         iPostDrawEvent _postDrawHandleEvent;
 
+        /*! layer stack
+        */
+        iLayerStack _layerStack;
+
         /*! init statistics sections
         */
         void deinitStatistics();
@@ -178,6 +199,10 @@ namespace igor
 		*/
         void removeWindow(iWindow *window);
 
+        /*! as alternative to run you can set up your own main loop and call iterate in it but run is recommended to use
+        */
+        void iterate();
+
         /*! ctor
 
 		initializes member variables
@@ -193,4 +218,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_APPLICATION_H__

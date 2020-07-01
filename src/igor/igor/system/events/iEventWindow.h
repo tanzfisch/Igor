@@ -26,93 +26,60 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_EVENTKEYBOARD_H__
-#define __IGOR_EVENTKEYBOARD_H__
+#ifndef __IGOR_EVENTWINDOW_H__
+#define __IGOR_EVENTWINDOW_H__
 
 #include <igor/system/events/iEvent.h>
 
 namespace igor
 {
 
-    /*! key down event
+    /*! window close event
     */
-    class Igor_API iKeyDownEvent_TMP : public iEvent
+    class Igor_API iWindowCloseEvent_TMP : public iEvent
     {
     public:
-        /*! init members
-
-        \param key the key code used in this event
-        */
-        iKeyDownEvent_TMP(const iKeyCode key);
-
         /*! \returns event kind mask
         */
         iEventKindMask getEventKindMask() const override;
 
-        /*! \returns the key code
-        */
-        iKeyCode getKey() const;
-
-        IGOR_EVENT_CLASS_TYPE(iKeyDownEvent_TMP)
-
-    private:
-        /*! the key code
-        */
-        iKeyCode _key;
+        IGOR_EVENT_CLASS_TYPE(iWindowCloseEvent_TMP)
     };
 
-    /*! key up event
+    /*! window resize event
     */
-    class Igor_API iKeyUpEvent_TMP : public iEvent
+    class Igor_API iWindowResizeEvent_TMP : public iEvent
     {
     public:
         /*! init members
 
-        \param key the key code used in this event
+        \param width width of the window
+        \param height height of the window
         */
-        iKeyUpEvent_TMP(const iKeyCode key);
+        iWindowResizeEvent_TMP(int32 width, int32 height);
 
         /*! \returns event kind mask
         */
         iEventKindMask getEventKindMask() const override;
 
-        /*! \returns the key code
+        /*! \returns width of the window
         */
-        iKeyCode getKey() const;
+        int32 getWidth() const;
 
-        IGOR_EVENT_CLASS_TYPE(iKeyUpEvent_TMP)
+        /*! \returns height of the window
+        */
+        int32 getHeight() const;
+
+        IGOR_EVENT_CLASS_TYPE(iWindowResizeEvent_TMP)
 
     private:
-        /*! the key code
+        /*! width of the window
         */
-        iKeyCode _key;
-    };
+        int32 _width;
 
-    /*! key ascii event
-    */
-    class Igor_API iKeyASCIIEvent_TMP : public iEvent
-    {
-    public:
-        /*! init members
-
-        \param key the key code used in this event
+        /*! height of the window
         */
-        iKeyASCIIEvent_TMP(const char character);
-
-        /*! \returns event kind mask
-        */
-        iEventKindMask getEventKindMask() const override;
-
-        /*! \returns the key code
-        */
-        char getChar() const;
-
-        IGOR_EVENT_CLASS_TYPE(iKeyASCIIEvent_TMP)
-
-    private:
-        /*! the ascii value
-        */
-        char _character;
+        int32 _height;
     };
 
 }; // namespace igor

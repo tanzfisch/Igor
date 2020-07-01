@@ -38,18 +38,14 @@ namespace igor
 
     /*! mouse key down event
     */
-    class Igor_API iMouseKeyDownEvent : public iEvent
+    class Igor_API iMouseKeyDownEvent_TMP : public iEvent
     {
     public:
         /*! init members
 
         \param key the key code used in this event
         */
-        iMouseKeyDownEvent(const iKeyCode key);
-
-        /*! \returns event type
-        */
-        iEventType getEventType() const override;
+        iMouseKeyDownEvent_TMP(const iKeyCode key);
 
         /*! \returns event kind mask
         */
@@ -58,6 +54,8 @@ namespace igor
         /*! \returns the key code
         */
         iKeyCode getKey() const;
+
+        IGOR_EVENT_CLASS_TYPE(iMouseKeyDownEvent_TMP)
 
     private:
         /*! the key code
@@ -67,18 +65,14 @@ namespace igor
 
     /*! mouse key up event
     */
-    class Igor_API iMouseKeyUpEvent : public iEvent
+    class Igor_API iMouseKeyUpEvent_TMP : public iEvent
     {
     public:
         /*! init members
 
         \param key the key code used in this event
         */
-        iMouseKeyUpEvent(const iKeyCode key);
-
-        /*! \returns event type
-        */
-        iEventType getEventType() const override;
+        iMouseKeyUpEvent_TMP(const iKeyCode key);
 
         /*! \returns event kind mask
         */
@@ -87,6 +81,8 @@ namespace igor
         /*! \returns the key code
         */
         iKeyCode getKey() const;
+
+        IGOR_EVENT_CLASS_TYPE(iMouseKeyUpEvent_TMP)
 
     private:
         /*! the key code
@@ -96,18 +92,14 @@ namespace igor
 
     /*! mouse key double click event
     */
-    class Igor_API iMouseKeyDoubleClickEvent : public iEvent
+    class Igor_API iMouseKeyDoubleClickEvent_TMP : public iEvent
     {
     public:
         /*! init members
 
         \param key the key code used in this event
         */
-        iMouseKeyDoubleClickEvent(const iKeyCode key);
-
-        /*! \returns event type
-        */
-        iEventType getEventType() const override;
+        iMouseKeyDoubleClickEvent_TMP(const iKeyCode key);
 
         /*! \returns event kind mask
         */
@@ -117,6 +109,8 @@ namespace igor
         */
         iKeyCode getKey() const;
 
+        IGOR_EVENT_CLASS_TYPE(iMouseKeyDoubleClickEvent_TMP)
+
     private:
         /*! the key code
         */
@@ -125,55 +119,59 @@ namespace igor
 
     /*! mouse wheel event
     */
-    class Igor_API iMouseWheelEvent : public iEvent
+    class Igor_API iMouseWheelEvent_TMP : public iEvent
     {
     public:
         /*! init members
 
-        \param key the key code used in this event
+        \param wheelDelta the wheel delta
         */
-        iMouseWheelEvent(const int32 wheelDelta);
-
-        /*! \returns event type
-        */
-        iEventType getEventType() const override;
+        iMouseWheelEvent_TMP(const int32 wheelDelta);
 
         /*! \returns event kind mask
         */
         iEventKindMask getEventKindMask() const override;
 
-        /*! \returns the key code
+        /*! \returns the wheel delta
         */
         int32 getWheelDelta() const;
 
+        IGOR_EVENT_CLASS_TYPE(iMouseWheelEvent_TMP)
+
     private:
-        /*! the key code
+        /*! the wheel delta
         */
         int32 _wheelDelta = 0;
     };
 
     /*! mouse move event
     */
-    class Igor_API iMouseMoveEvent : public iEvent
+    class Igor_API iMouseMoveEvent_TMP : public iEvent
     {
     public:
         /*! init members
 
         \param key the key code used in this event
         */
-        iMouseMoveEvent(const iaVector2i &from, const iaVector2i &to, iWindow *window);
-
-        /*! \returns event type
-        */
-        iEventType getEventType() const override;
+        iMouseMoveEvent_TMP(const iaVector2i &from, const iaVector2i &to, iWindow *window);
 
         /*! \returns event kind mask
         */
         iEventKindMask getEventKindMask() const override;
 
-        /*! \returns the key code
+        /*! \returns window handle
         */
-        int32 getWheelDelta() const;
+        iWindow *getWindow() const;
+
+        /*! \returns mouse position
+        */
+        const iaVector2i &getPosition() const;
+
+        /*! \returns last mouse position
+        */
+        const iaVector2i &getLastPosition() const;
+
+        IGOR_EVENT_CLASS_TYPE(iMouseMoveEvent_TMP)
 
     private:
         /*! last mouse position

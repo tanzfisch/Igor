@@ -20,26 +20,8 @@ int main(void)
     con_info("letting the engine control the main loop");
 
     // create and run first steps class
-    FirstSteps *firstSteps = new FirstSteps();
-    firstSteps->run();
-    delete firstSteps;
-
-    // call this after you are done with using Igor
-    igor::shutdown();
-
-    // as alternative you can also implement your main loop your self like folloed
-    // we recommend to use the variant above
-
-    // call this before you call anything else of Igor
-    igor::startup();
-
-    con_info("now the application controls the main loop");
-
-    for (int i = 0; i < 10; ++i)
-    {
-        iApplication::getInstance().iterate();
-        con_endl("iteration " << i + 1);
-    }
+    iApplication::getInstance().addLayer(new FirstSteps());
+    iApplication::getInstance().run();
 
     // call this after you are done with using Igor
     igor::shutdown();

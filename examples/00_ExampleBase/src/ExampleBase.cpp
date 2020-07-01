@@ -28,10 +28,6 @@ ExampleBase::ExampleBase(const iaString &name, bool createBaseSetup, bool create
 {
     con_info("starting example \"" << _name << "\"");
 
-    // registers our handle to the application handle event. it will be called every frame
-    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &ExampleBase::onPreDraw));
-    iApplication::getInstance().registerApplicationPostDrawHandleDelegate(iPostDrawDelegate(this, &ExampleBase::onPostDraw));
-
     if (createBaseSetup)
     {
         // init window parameters
@@ -171,11 +167,11 @@ ExampleBase::~ExampleBase()
         _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &ExampleBase::onWindowResized));
     }
 
-    // unregister our handle again for a clean shutdown
-    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &ExampleBase::onPreDraw));
-    iApplication::getInstance().unregisterApplicationPostDrawHandleDelegate(iPostDrawDelegate(this, &ExampleBase::onPostDraw));
-
     con_info("stopped example \"" << _name << "\"");
+}
+
+void ExampleBase::onEvent(iEvent &event)
+{
 }
 
 iTextureFontPtr ExampleBase::getFont() const
@@ -273,26 +269,14 @@ void ExampleBase::onWindowResized(int32 clientWidth, int32 clientHeight)
     _viewOrtho.setOrthogonal(0.0, static_cast<float32>(clientWidth), static_cast<float32>(clientHeight), 0.0);
 }
 
-void ExampleBase::init()
+void ExampleBase::onInit()
 {
     // nothing to do
 }
 
-void ExampleBase::deinit()
+void ExampleBase::onDeinit()
 {
     // nothing to do
-}
-
-void ExampleBase::run()
-{
-    // initialize example
-    init();
-
-    // starts the applications endless loop
-    iApplication::getInstance().run();
-
-    // deinitialize example
-    deinit();
 }
 
 const iaString &ExampleBase::getName() const

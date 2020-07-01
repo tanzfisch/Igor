@@ -26,14 +26,15 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iWINDOW__
-#define __iWINDOW__
+#ifndef __IGOR_WINDOW_H__
+#define __IGOR_WINDOW_H__
 
 #include <igor/iDefines.h>
 
 #include <iaux/system/iaEvent.h>
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaMutex.h>
+#include <iaux/system/iaDelegate.h>
 using namespace iaux;
 
 #include <vector>
@@ -332,4 +333,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_WINDOW_H__

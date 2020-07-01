@@ -12,14 +12,14 @@ namespace igor
         return getEventKindMask() & (iEventKindMask)kind;
     }
 
-    iaString iEvent::getInfo() const
-    {
-        return getName();
-    }
-
     bool iEvent::isConsumed() const
     {
         return _consumed;
+    }
+
+    void iEvent::consume()
+    {
+        _consumed = true;
     }
 
 } // namespace igor

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iKEYBOARD__
-#define __iKEYBOARD__
+#ifndef __IGOR_KEYBOARD_H__
+#define __IGOR_KEYBOARD_H__
 
 #include <igor/system/iWindow.h>
 #include <igor/system/iOSEventListener.h>
@@ -218,4 +218,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_KEYBOARD_H__

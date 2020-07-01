@@ -26,95 +26,63 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_EVENTKEYBOARD_H__
-#define __IGOR_EVENTKEYBOARD_H__
+#ifndef __IGOR_LAYER_H__
+#define __IGOR_LAYER_H__
 
 #include <igor/system/events/iEvent.h>
 
+#include <iaux/data/iaString.h>
+using namespace iaux;
+
 namespace igor
 {
-
-    /*! key down event
+    /*! layer base class
     */
-    class Igor_API iKeyDownEvent_TMP : public iEvent
+    class Igor_API iLayer
     {
     public:
         /*! init members
-
-        \param key the key code used in this event
         */
-        iKeyDownEvent_TMP(const iKeyCode key);
+        iLayer(const iaString &name = "Layer", int32 zIndex = 0);
 
-        /*! \returns event kind mask
+        /*! called when added to layer stack
         */
-        iEventKindMask getEventKindMask() const override;
+        virtual void onInit() = 0;
 
-        /*! \returns the key code
+        /*! called when removed from layer stack
         */
-        iKeyCode getKey() const;
+        virtual void onDeinit() = 0;
 
-        IGOR_EVENT_CLASS_TYPE(iKeyDownEvent_TMP)
+        /*! called on application pre draw event
+        */
+        virtual void onPreDraw() = 0;
+
+        /*! called on application post draw event
+        */
+        virtual void onPostDraw() = 0;
+
+        /*! called on any other event
+        */
+        virtual void onEvent(iEvent &event) = 0;
+
+        /*! \returns layer name
+        */
+        const iaString &getName() const;
+
+        /*! \returns z index
+        */
+        int32 getZIndex() const;
 
     private:
-        /*! the key code
+        /*! the layer name
         */
-        iKeyCode _key;
-    };
+        iaString _name;
 
-    /*! key up event
-    */
-    class Igor_API iKeyUpEvent_TMP : public iEvent
-    {
-    public:
-        /*! init members
-
-        \param key the key code used in this event
+        /*! the z index
         */
-        iKeyUpEvent_TMP(const iKeyCode key);
-
-        /*! \returns event kind mask
-        */
-        iEventKindMask getEventKindMask() const override;
-
-        /*! \returns the key code
-        */
-        iKeyCode getKey() const;
-
-        IGOR_EVENT_CLASS_TYPE(iKeyUpEvent_TMP)
-
-    private:
-        /*! the key code
-        */
-        iKeyCode _key;
-    };
-
-    /*! key ascii event
-    */
-    class Igor_API iKeyASCIIEvent_TMP : public iEvent
-    {
-    public:
-        /*! init members
-
-        \param key the key code used in this event
-        */
-        iKeyASCIIEvent_TMP(const char character);
-
-        /*! \returns event kind mask
-        */
-        iEventKindMask getEventKindMask() const override;
-
-        /*! \returns the key code
-        */
-        char getChar() const;
-
-        IGOR_EVENT_CLASS_TYPE(iKeyASCIIEvent_TMP)
-
-    private:
-        /*! the ascii value
-        */
-        char _character;
+        int32 _zIndex = 0;
     };
 
 }; // namespace igor
 
-#endif // __IGOR_EVENTKEYBOARD_H__
+#endif // __IGOR_LAYER_H__

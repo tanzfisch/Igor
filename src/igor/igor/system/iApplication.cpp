@@ -46,6 +46,34 @@ namespace igor
         }
     }
 
+    void iApplication::addLayer(iLayer *layer)
+    {
+        _layerStack.addLayer(layer);
+    }
+
+    void iApplication::removeLayer(iLayer *layer)
+    {
+        _layerStack.removeLayer(layer);
+    }
+
+    void iApplication::onEvent(iEvent &event)
+    {
+        // TODO maybe handle window events here
+
+        const auto layers = _layerStack.getStack();
+        auto riter = layers.rbegin();
+        while (riter != layers.rend())
+        {
+            (*riter)->onEvent(event);
+            if (event.isConsumed())
+            {
+                break;
+            }
+
+            riter++;
+        }
+    }
+
     void iApplication::stop()
     {
         _running = false;
@@ -63,7 +91,13 @@ namespace igor
 
         iProfiler::getInstance().beginSection(_userSectionID);
         windowHandle();
-        _preDrawHandleEvent();
+        _preDrawHandleEvent(); // TODO get rid of this
+
+        for (auto layer : _layerStack.getStack())
+        {
+            layer->onPreDraw();
+        }
+
         iProfiler::getInstance().endSection(_userSectionID);
 
         iProfiler::getInstance().beginSection(_evaluationSectionID);
@@ -79,7 +113,13 @@ namespace igor
         iProfiler::getInstance().endSection(_drawSectionID);
 
         iProfiler::getInstance().beginSection(_userSectionID);
-        _postDrawHandleEvent();
+        _postDrawHandleEvent(); // TODO get rid of this
+
+        for (auto layer : _layerStack.getStack())
+        {
+            layer->onPostDraw();
+        }
+
         iProfiler::getInstance().endSection(_userSectionID);
 
         iProfiler::getInstance().endSection(_frameSectionID);

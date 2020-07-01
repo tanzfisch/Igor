@@ -7,63 +7,48 @@
 namespace igor
 {
 
-    iKeyDownEvent::iKeyDownEvent(const iKeyCode key)
+    iKeyDownEvent_TMP::iKeyDownEvent_TMP(const iKeyCode key)
         : _key(key)
     {
     }
 
-    iEventType iKeyDownEvent::getEventType() const
-    {
-        return iEventType::iKeyDownEvent;
-    }
-
-    iEventKindMask iKeyDownEvent::getEventKindMask() const
+    iEventKindMask iKeyDownEvent_TMP::getEventKindMask() const
     {
         return (iEventKindMask)iEventKind::Input | (iEventKindMask)iEventKind::Keyboard;
     }
 
-    iKeyCode iKeyDownEvent::getKey() const
+    iKeyCode iKeyDownEvent_TMP::getKey() const
     {
         return _key;
     }
 
-    iKeyUpEvent::iKeyUpEvent(const iKeyCode key)
+    iKeyUpEvent_TMP::iKeyUpEvent_TMP(const iKeyCode key)
         : _key(key)
     {
     }
 
-    iEventType iKeyUpEvent::getEventType() const
-    {
-        return iEventType::iKeyUpEvent;
-    }
-
-    iEventKindMask iKeyUpEvent::getEventKindMask() const
+    iEventKindMask iKeyUpEvent_TMP::getEventKindMask() const
     {
         return (iEventKindMask)iEventKind::Input | (iEventKindMask)iEventKind::Keyboard;
     }
 
-    iKeyCode iKeyUpEvent::getKey() const
+    iKeyCode iKeyUpEvent_TMP::getKey() const
     {
         return _key;
     }
 
-    iKeyASCIIEvent::iKeyASCIIEvent(const char key)
-        : _key(key)
+    iKeyASCIIEvent_TMP::iKeyASCIIEvent_TMP(const char character)
+        : _character(character)
     {
     }
 
-    iEventType iKeyASCIIEvent::getEventType() const
-    {
-        return iEventType::iKeyASCIIEvent;
-    }
-
-    iEventKindMask iKeyASCIIEvent::getEventKindMask() const
+    iEventKindMask iKeyASCIIEvent_TMP::getEventKindMask() const
     {
         return (iEventKindMask)iEventKind::Input | (iEventKindMask)iEventKind::Keyboard;
     }
 
-    char iKeyASCIIEvent::getKey() const
+    char iKeyASCIIEvent_TMP::getChar() const
     {
-        return _key;
+        return _character;
     }
 } // namespace igor

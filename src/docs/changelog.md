@@ -1,6 +1,21 @@
 Changelog                           {#changelog}
 =========
 
+0.28.0
+------
+
+- fixed how menus behave
+- improved console output
+- made instancing and the instancing example work again
+- surpressing auto key repeat under Linux
+- created an example base class for quicker prototyping
+- iaBSpline is a template now
+- fixed problem with setting transformations dirty down the tree
+- mapping thread IDs to igor internal IDs for more usefull logging output
+- fixed left and right audio channel being swapped
+- ALSA required on Linux
+- added regex to iaString
+
 0.27.0
 ------
 
@@ -62,7 +77,7 @@ Changelog                           {#changelog}
 - Ownership of widgets transfers to the engine the moment they are children of a dialog
 - Sdded mesh to world bake functionality
 - Removed all using namesapce std;
-- Sdded some keyboard shortcuts to ModelViewer
+- Added some keyboard shortcuts to ModelViewer
   - Ctrl + N - clear scene
   - Del - deletes current selection
   - Ctrl + D - duplicates current selection

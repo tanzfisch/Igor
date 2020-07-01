@@ -36,6 +36,9 @@
 #include <igor/resources/texture/iTexture.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/scene/iScene.h>
+#include <igor/layers/iLayer.h>
+#include <igor/system/events/iEventKeyboard.h>
+#include <igor/system/events/iEventMouse.h>
 using namespace igor;
 
 #include <iaux/data/iaString.h>
@@ -43,7 +46,7 @@ using namespace iaux;
 
 /*! Examples base class
 */
-class ExampleBase
+class ExampleBase : public iLayer
 {
 
 public:
@@ -83,30 +86,30 @@ public:
     */
     iMaterialID getFontMaterial() const;
 
-    /*! run example
-    */
-    virtual void run();
-
 protected:
     /*! initialize example
     */
-    virtual void init();
+    virtual void onInit() override;
 
     /*! deinitialize example
     */
-    virtual void deinit();
+    virtual void onDeinit() override;
 
     /*! called every frame before draw
 
     override if you need to work with it
     */
-    virtual void onPreDraw();
+    virtual void onPreDraw() override;
 
     /*! called every frame after draw
 
     override if you need to work with it
     */
-    virtual void onPostDraw();
+    virtual void onPostDraw() override;
+
+    /*! called on any other event
+    */
+    virtual void onEvent(iEvent &event) override;
 
     /*! called by orthogonal view
     */

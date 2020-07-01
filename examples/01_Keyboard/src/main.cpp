@@ -4,6 +4,7 @@
 
 #include "KeyboardExample.h"
 
+#include <igor/system/iApplication.h>
 #include <igor/igor.h>
 using namespace igor;
 
@@ -14,9 +15,8 @@ int main(void)
     igor::startup();
 
     // create and run example class
-    KeyboardExample *example = new KeyboardExample();
-    example->run();
-    delete example;
+    iApplication::getInstance().addLayer(new KeyboardExample());
+    iApplication::getInstance().run();
 
     /*! call this after you are done with using Igor
     */

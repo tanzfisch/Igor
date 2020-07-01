@@ -31,28 +31,33 @@
 
 #include <igor/iDefines.h>
 
+#include <iaux/system/iaDelegate.h>
+using namespace iaux;
+
 namespace igor
 {
     /*! event type definitions
     */
     enum class iEventType
     {
-        iKeyDownEvent,
-        iKeyUpEvent,
-        iKeyASCIIEvent,
+        iKeyDownEvent_TMP,
+        iKeyUpEvent_TMP,
+        iKeyASCIIEvent_TMP,
 
-        iMouseKeyDownEvent,
-        iMouseKeyUpEvent,
-        iMouseKeyDoubleClickEvent,
-        iMouseMoveEvent,
-        iMouseWheelEvent
+        iMouseKeyDownEvent_TMP,
+        iMouseKeyUpEvent_TMP,
+        iMouseKeyDoubleClickEvent_TMP,
+        iMouseMoveEvent_TMP,
+        iMouseWheelEvent_TMP,
+
+        iWindowCloseEvent_TMP,
+        iWindowResizeEvent_TMP
     };
 
     /*! event kind definition
     */
     enum class iEventKind
     {
-        None = 0,
         Input = 1,
         Keyboard = 2,
         Mouse = 4,
@@ -82,10 +87,6 @@ namespace igor
         */
         bool isOfKind(const iEventKind kind);
 
-        /*! \return information string from this event
-        */
-        virtual iaString getInfo() const;
-
         /*! \returns event type
         */
         virtual iEventType getEventType() const = 0;
@@ -94,19 +95,49 @@ namespace igor
         */
         virtual iEventKindMask getEventKindMask() const = 0;
 
-        /*! \returns event type name
-        */
-        virtual const iaString &getName() const = 0;
-
         /*! \returns true if already consumed
         */
         bool isConsumed() const;
+
+        /*! consumes this event
+        */
+        void consume();
+
+        /*! dispatch event
+
+        only executes if event is of type T
+
+        \param func the given function to call with the event
+        \returns true if event was consumed by the given function
+        */
+        template <typename T, typename F>
+        bool dispatch(const F &func)
+        {
+            if (!isConsumed() &&
+                getEventType() == T::getStaticType())
+            {
+                if (func(static_cast<T &>(*this)))
+                {
+                    consume();
+                    return true;
+                }
+            }
+            return false;
+        }
 
     private:
         /*! if true event was already consumed
         */
         bool _consumed = false;
     };
+
+    /*! event delegate definition
+    */
+    iaDELEGATE(iEventDelegate, void, (iEvent & event), (event));
+
+#define IGOR_EVENT_CLASS_TYPE(type)                                \
+    static iEventType getStaticType() { return iEventType::type; } \
+    virtual iEventType getEventType() const override { return getStaticType(); }
 
 }; // namespace igor
 

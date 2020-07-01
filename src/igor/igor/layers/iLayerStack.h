@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/                     ) )     ((
+//                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2014-2020 by Martin Loga
+// (c) Copyright 2012-2020 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,60 +26,50 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __KEYBOARDEXAMPLE_H__
-#define __KEYBOARDEXAMPLE_H__
+#ifndef __IGOR_LAYERSTACK_H__
+#define __IGOR_LAYERSTACK_H__
 
-#include <ExampleBase.h>
-using namespace igor;
+#include <igor/layers/iLayer.h>
 
-/*! keyboard input example
-*/
-class KeyboardExample : public ExampleBase
+#include <vector>
+
+namespace igor
 {
-
-public:
-    /*! init example
+    /*! event base class
     */
-    KeyboardExample();
+    class iLayerStack
+    {
+    public:
+        /*! clean up
+        */
+        ~iLayerStack();
 
-    /*! does nothing
-    */
-    ~KeyboardExample() = default;
+        /*! adds layer to stack
 
-private:
-    /*! switches beween ascii output or single key output
-    */
-    bool _outputSwitch = true;
+        adding a layer to the layer stack passes ownership to the layer stack
 
-    /*! called when key was pressed
+        \param layer the layer to be added
+        */
+        void addLayer(iLayer *layer);
 
-    \param event the event to handle
-    */
-    bool onKeyDown(iKeyDownEvent_TMP &event);
+        /*! removes layer from stack
 
-    /*! called when key was released
+        removing a layer from the layer stack passes ownership back to the caller
 
-    \param event the event to handle
-    */
-    bool onKeyUp(iKeyUpEvent_TMP &event);
+        \param layer the layer to be removed
+        */
+        void removeLayer(iLayer *layer);
 
-    /*! called on ascii input
+        /*! \return the layer stack
+        */
+        const std::vector<iLayer *> &getStack() const;
 
-    \param event the event to handle
-    */
-    bool onKeyASCIIInput(iKeyASCIIEvent_TMP &event);
+    private:
+        /*! the layers
+        */
+        std::vector<iLayer *> _layers;
+    };
 
-    /*! initialize example
-    */
-    void onInit() override;
+}; // namespace igor
 
-    /*! deinitialize example
-    */
-    void onDeinit() override;
-
-    /*! called on any other event
-    */
-    void onEvent(iEvent &event) override;
-};
-
-#endif // __KEYBOARDEXAMPLE_H__
+#endif // __IGOR_LAYERSTACK_H__

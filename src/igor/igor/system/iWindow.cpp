@@ -13,6 +13,7 @@
 #include <igor/graphics/iRenderer.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/resources/profiler/iProfiler.h>
+#include <igor/system/events/iEventWindow.h>
 
 #include <algorithm>
 #include <sstream>
@@ -61,14 +62,25 @@ namespace igor
         virtual void unregisterOSListener(iOSEventListener *listener) = 0;
         virtual void getDesktopSize(int32 &width, int32 &height) = 0;
 
+        void setEventDelegate(iEventDelegate delegate)
+        {
+            _delegate = delegate;
+        }
+
         __IGOR_INLINE__ void closeEvent()
         {
-            _window->_windowCloseEvent();
+            iWindowCloseEvent_TMP event;
+            _delegate(event);
+
+            _window->_windowCloseEvent(); // TODO remove
         }
 
         __IGOR_INLINE__ void sizeChanged(int32 width, int32 height)
         {
-            _window->onSizeChanged(width, height);
+            iWindowResizeEvent_TMP event(width, height);
+            _delegate(event);
+
+            _window->onSizeChanged(width, height); // TODO remove
         }
 
         __IGOR_INLINE__ static iWindowImpl *getImpl(iWindow *window)
@@ -77,6 +89,8 @@ namespace igor
         }
 
     protected:
+        iEventDelegate _delegate;
+
         /*! list of registeres os event listeners
 
         currently all devices are singletons so all listeners will be added automatically
@@ -968,6 +982,8 @@ namespace igor
             registerOSListener(&iMouse::getInstance());
             registerOSListener(&iKeyboard::getInstance());
 
+            setEventDelegate(iEventDelegate(&iApplication::getInstance(), &iApplication::onEvent));
+
             return true;
         }
 
@@ -1515,4 +1531,5 @@ namespace igor
     {
         return _impl->_doubleClick;
     }
+
 }; // namespace igor

@@ -7,110 +7,87 @@
 namespace igor
 {
 
-    iMouseKeyDownEvent::iMouseKeyDownEvent(const iKeyCode key)
+    iMouseKeyDownEvent_TMP::iMouseKeyDownEvent_TMP(const iKeyCode key)
         : _key(key)
     {
     }
 
-    iEventType iMouseKeyDownEvent::getEventType() const
-    {
-        return iEventType::iMouseKeyDownEvent;
-    }
-
-    iEventKindMask iMouseKeyDownEvent::getEventKindMask() const
+    iEventKindMask iMouseKeyDownEvent_TMP::getEventKindMask() const
     {
         return (iEventKindMask)iEventKind::Input | (iEventKindMask)iEventKind::Mouse;
     }
 
-    iKeyCode iMouseKeyDownEvent::getKey() const
+    iKeyCode iMouseKeyDownEvent_TMP::getKey() const
     {
         return _key;
     }
 
-    iMouseKeyUpEvent::iMouseKeyUpEvent(const iKeyCode key)
+    iMouseKeyUpEvent_TMP::iMouseKeyUpEvent_TMP(const iKeyCode key)
         : _key(key)
     {
     }
 
-    iEventType iMouseKeyUpEvent::getEventType() const
-    {
-        return iEventType::iMouseKeyUpEvent;
-    }
-
-    iEventKindMask iMouseKeyUpEvent::getEventKindMask() const
+    iEventKindMask iMouseKeyUpEvent_TMP::getEventKindMask() const
     {
         return (iEventKindMask)iEventKind::Input | (iEventKindMask)iEventKind::Mouse;
     }
 
-    iKeyCode iMouseKeyUpEvent::getKey() const
+    iKeyCode iMouseKeyUpEvent_TMP::getKey() const
     {
         return _key;
     }
 
-    iMouseKeyDoubleClickEvent::iMouseKeyDoubleClickEvent(const iKeyCode key)
+    iMouseKeyDoubleClickEvent_TMP::iMouseKeyDoubleClickEvent_TMP(const iKeyCode key)
         : _key(key)
     {
     }
 
-    iEventType iMouseKeyDoubleClickEvent::getEventType() const
-    {
-        return iEventType::iMouseKeyUpEvent;
-    }
-
-    iEventKindMask iMouseKeyDoubleClickEvent::getEventKindMask() const
+    iEventKindMask iMouseKeyDoubleClickEvent_TMP::getEventKindMask() const
     {
         return (iEventKindMask)iEventKind::Input | (iEventKindMask)iEventKind::Mouse;
     }
 
-    iKeyCode iMouseKeyDoubleClickEvent::getKey() const
+    iKeyCode iMouseKeyDoubleClickEvent_TMP::getKey() const
     {
         return _key;
     }
 
-    iMouseWheelEvent::iMouseWheelEvent(const int32 wheelDelta)
+    iMouseWheelEvent_TMP::iMouseWheelEvent_TMP(const int32 wheelDelta)
         : _wheelDelta(wheelDelta)
     {
     }
 
-    iEventType iMouseWheelEvent::getEventType() const
-    {
-        return iEventType::iMouseWheelEvent;
-    }
-
-    iEventKindMask iMouseWheelEvent::getEventKindMask() const
+    iEventKindMask iMouseWheelEvent_TMP::getEventKindMask() const
     {
         return (iEventKindMask)iEventKind::Input | (iEventKindMask)iEventKind::Mouse;
     }
 
-    int32 iMouseWheelEvent::getWheelDelta() const
+    int32 iMouseWheelEvent_TMP::getWheelDelta() const
     {
         return _wheelDelta;
     }
 
-    iMouseMoveEvent::iMouseMoveEvent(const iaVector2i &from, const iaVector2i &to, iWindow *window)
+    iMouseMoveEvent_TMP::iMouseMoveEvent_TMP(const iaVector2i &from, const iaVector2i &to, iWindow *window)
         : _from(from), _to(to), _window(window)
     {
     }
 
-    iEventType iMouseMoveEvent::getEventType() const
-    {
-        return iEventType::iMouseMoveEvent;
-    }
-
-    iEventKindMask iMouseMoveEvent::getEventKindMask() const
+    iEventKindMask iMouseMoveEvent_TMP::getEventKindMask() const
     {
         return (iEventKindMask)iEventKind::Input | (iEventKindMask)iEventKind::Mouse;
     }
 
-    iWindow *iMouseMoveEvent::getWindow() const
+    iWindow *iMouseMoveEvent_TMP::getWindow() const
     {
         return _window;
     }
-    iaVector2i *iMouseMoveEvent::getPosition() const
+
+    const iaVector2i &iMouseMoveEvent_TMP::getPosition() const
     {
         return _to;
     }
-    iaVector2i *iMouseMoveEvent::getLastPosition() const
+
+    const iaVector2i &iMouseMoveEvent_TMP::getLastPosition() const
     {
         return _from;
     }
