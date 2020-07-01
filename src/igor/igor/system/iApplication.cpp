@@ -19,14 +19,13 @@ using namespace iaux;
 namespace igor
 {
 
-    iApplication::iApplication()
-    {
-        initStatistics();
-    }
-
     iApplication::~iApplication()
     {
-        deinitStatistics();
+        if (!_layerStack.getStack().empty())
+        {
+            con_warn("empty layer stack before shutdown");
+            clearLayerStack();
+        }
 
         if (!_windows.empty())
         {
@@ -44,6 +43,11 @@ namespace igor
             con_warn("not all delegates unregistered");
             _postDrawHandleEvent.clear();
         }
+    }
+
+    void iApplication::clearLayerStack()
+    {
+        _layerStack.clear();
     }
 
     void iApplication::addLayer(iLayer *layer)
@@ -128,14 +132,17 @@ namespace igor
     void iApplication::run()
     {
         _running = true;
+        initProfiling();
 
         do
         {
             iterate();
         } while (_running);
+
+        deinitProfiling();
     }
 
-    void iApplication::deinitStatistics()
+    void iApplication::deinitProfiling()
     {
         iProfiler::getInstance().unregisterSection(_frameSectionID);
         iProfiler::getInstance().unregisterSection(_handleSectionID);
@@ -145,7 +152,7 @@ namespace igor
         iProfiler::getInstance().unregisterSection(_userSectionID);
     }
 
-    void iApplication::initStatistics()
+    void iApplication::initProfiling()
     {
         _frameSectionID = iProfiler::getInstance().registerSection("app:frame", 0);
         _handleSectionID = iProfiler::getInstance().registerSection("app:handle", 0);

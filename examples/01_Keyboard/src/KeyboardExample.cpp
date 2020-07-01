@@ -11,8 +11,6 @@ using namespace igor;
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
-#include <functional>
-
 KeyboardExample::KeyboardExample()
 	: ExampleBase(L"Keyboard Input")
 {
@@ -32,18 +30,14 @@ void KeyboardExample::onDeinit()
 {
 }
 
-#define IGOR_BIND_EVENT_FUNCTION(fn) std::bind(&fn, this, std::placeholders::_1)
-
 void KeyboardExample::onEvent(iEvent &event)
 {
+	// first call example base
+	ExampleBase::onEvent(event);
+
 	event.dispatch<iKeyASCIIEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(KeyboardExample::onKeyASCIIInput));
 	event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(KeyboardExample::onKeyDown));
 	event.dispatch<iKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(KeyboardExample::onKeyUp));
-
-	if (!event.isConsumed())
-	{
-		ExampleBase::onEvent(event);
-	}
 }
 
 bool KeyboardExample::onKeyASCIIInput(iKeyASCIIEvent_TMP &event)

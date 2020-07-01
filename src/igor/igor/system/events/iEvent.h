@@ -34,6 +34,8 @@
 #include <iaux/system/iaDelegate.h>
 using namespace iaux;
 
+#include <functional>
+
 namespace igor
 {
     /*! event type definitions
@@ -132,12 +134,20 @@ namespace igor
     };
 
     /*! event delegate definition
+
+    // todo maybe we should get rid of delegates entirely
     */
     iaDELEGATE(iEventDelegate, void, (iEvent & event), (event));
 
+    /*! helper macro to define event type
+    */
 #define IGOR_EVENT_CLASS_TYPE(type)                                \
     static iEventType getStaticType() { return iEventType::type; } \
     virtual iEventType getEventType() const override { return getStaticType(); }
+
+    /*! helper macro for defining a member function
+    */
+#define IGOR_BIND_EVENT_FUNCTION(fn) std::bind(&fn, this, std::placeholders::_1)
 
 }; // namespace igor
 

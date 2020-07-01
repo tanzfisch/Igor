@@ -10,16 +10,17 @@ using namespace igor;
 
 int main(void)
 {
-    /*! call this before you call anything else of Igor
-    */
+    // call this before you call anything else of Igor
     igor::startup();
 
-    // create and run example class
+    // create example and add it as layer to the application
     iApplication::getInstance().addLayer(new KeyboardExample());
     iApplication::getInstance().run();
 
-    /*! call this after you are done with using Igor
-    */
+    // clear layer stack to clean up
+    iApplication::getInstance().clearLayerStack();
+
+    // call this after you are done with using Igor
     igor::shutdown();
 
     return 0;

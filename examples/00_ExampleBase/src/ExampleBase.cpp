@@ -106,16 +106,6 @@ ExampleBase::ExampleBase(const iaString &name, bool createBaseSetup, bool create
         material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
         material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
         material->setName("LogoMaterial");
-
-        // register some callbacks
-        iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &ExampleBase::onKeyUp));
-        iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &ExampleBase::onKeyDown));
-        iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ExampleBase::onMouseKeyDown));
-        iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ExampleBase::onMouseKeyUp));
-        iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ExampleBase::onMouseMovedFull));
-        iMouse::getInstance().registerMouseMoveDelegate(iMouseMoveDelegate(this, &ExampleBase::onMouseMoved));
-        iMouse::getInstance().registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate(this, &ExampleBase::onMouseDoubleClick));
-        iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &ExampleBase::onMouseWheel));
     }
 }
 
@@ -123,16 +113,6 @@ ExampleBase::~ExampleBase()
 {
     if (_window.isOpen())
     {
-        // unregister callbacks
-        iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &ExampleBase::onKeyUp));
-        iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &ExampleBase::onKeyDown));
-        iMouse::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ExampleBase::onMouseKeyDown));
-        iMouse::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ExampleBase::onMouseKeyUp));
-        iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ExampleBase::onMouseMovedFull));
-        iMouse::getInstance().unregisterMouseMoveDelegate(iMouseMoveDelegate(this, &ExampleBase::onMouseMoved));
-        iMouse::getInstance().unregisterMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate(this, &ExampleBase::onMouseDoubleClick));
-        iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &ExampleBase::onMouseWheel));
-
         // destroy materials
         if (_materialSkyBox != iMaterial::INVALID_MATERIAL_ID)
         {
@@ -172,6 +152,7 @@ ExampleBase::~ExampleBase()
 
 void ExampleBase::onEvent(iEvent &event)
 {
+    event.dispatch<iKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(ExampleBase::onKeyUp));
 }
 
 iTextureFontPtr ExampleBase::getFont() const
@@ -179,37 +160,9 @@ iTextureFontPtr ExampleBase::getFont() const
     return _font;
 }
 
-void ExampleBase::onMouseMoved(const iaVector2i &pos)
+bool ExampleBase::onKeyUp(iKeyUpEvent_TMP &event)
 {
-}
-
-void ExampleBase::onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window)
-{
-}
-
-void ExampleBase::onMouseDoubleClick(iKeyCode key)
-{
-}
-
-void ExampleBase::onMouseWheel(int32 d)
-{
-}
-
-void ExampleBase::onMouseKeyDown(iKeyCode key)
-{
-}
-
-void ExampleBase::onMouseKeyUp(iKeyCode key)
-{
-}
-
-void ExampleBase::onKeyUp(iKeyCode key)
-{
-}
-
-void ExampleBase::onKeyDown(iKeyCode key)
-{
-    switch (key)
+    switch (event.getKey())
     {
     case iKeyCode::ESC:
         iApplication::getInstance().stop();
@@ -241,6 +194,8 @@ void ExampleBase::onKeyDown(iKeyCode key)
         getView().setBoundingBoxVisible(!getView().isBoundingBoxVisible());
         break;
     }
+
+    return true;
 }
 
 iView &ExampleBase::getView()

@@ -64,6 +64,10 @@ namespace igor
         */
         const std::vector<iLayer *> &getStack() const;
 
+        /*! clears layer stack and destoys all layers in the process
+        */
+        void clear();
+
     private:
         /*! the layers
         */

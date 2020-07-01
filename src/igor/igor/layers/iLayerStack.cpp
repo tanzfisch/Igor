@@ -7,10 +7,16 @@ namespace igor
 
     iLayerStack::~iLayerStack()
     {
+        clear();
+    }
+
+    void iLayerStack::clear()
+    {
         for (auto layer : _layers)
         {
             delete layer;
         }
+        _layers.clear();
     }
 
     void iLayerStack::addLayer(iLayer *layer)

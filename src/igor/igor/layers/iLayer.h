@@ -45,6 +45,10 @@ namespace igor
         */
         iLayer(const iaString &name = "Layer", int32 zIndex = 0);
 
+        /*! does nothing
+        */
+        virtual ~iLayer() = default;
+
         /*! called when added to layer stack
         */
         virtual void onInit() = 0;

@@ -115,54 +115,17 @@ protected:
     */
     virtual void onRenderOrtho();
 
-    /*! called on key pressed event
+    /*! called when key was pressed
 
-    \param key the key code of the pressed key
+    \param event the event to handle
     */
-    virtual void onKeyDown(iKeyCode key);
+    bool onKeyDown(iKeyDownEvent_TMP &event);
 
     /*! called when key was released
 
-    \param key the keycode of the released key
+    \param event the event to handle
     */
-    virtual void onKeyUp(iKeyCode key);
-
-    /*! called when any mouse key was pressed
-
-    \pram key the key code of the key that was pressed
-    */
-    virtual void onMouseKeyDown(iKeyCode key);
-
-    /*! called when any mouse key was released
-
-    \param key the key code of the key that was pressed
-    */
-    virtual void onMouseKeyUp(iKeyCode key);
-
-    /*! called when mouse was moved
-    \param from last mouse position
-    \param to current mouse position
-    \param window the window the coordinates are related to
-    */
-    virtual void onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window);
-
-    /*! called when mouse has moved
-
-    \param pos the new mouse position
-    */
-    virtual void onMouseMoved(const iaVector2i &pos);
-
-    /*! called when mouse was double clicked
-
-    \param key the key that was double clicked
-    */
-    virtual void onMouseDoubleClick(iKeyCode key);
-
-    /*! called when mouse wheel was turned
-
-    \param d mouse wheel delta
-    */
-    virtual void onMouseWheel(int32 d);
+    bool onKeyUp(iKeyUpEvent_TMP &event);
 
     /*! called when window was resized
 

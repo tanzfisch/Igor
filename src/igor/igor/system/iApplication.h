@@ -122,6 +122,10 @@ namespace igor
         */
         void removeLayer(iLayer *layer);
 
+        /*! clears layer stack
+        */
+        void clearLayerStack();
+
     private:
         /*! frame performance section id
         */
@@ -171,13 +175,13 @@ namespace igor
         */
         iLayerStack _layerStack;
 
-        /*! init statistics sections
+        /*! init profiling sections
         */
-        void deinitStatistics();
+        void deinitProfiling();
 
-        /*! deinit statistics sections
+        /*! deinit profiling sections
         */
-        void initStatistics();
+        void initProfiling();
 
         /*! triggers ApplicationHandleEvent and updates windows
 		*/
@@ -203,11 +207,9 @@ namespace igor
         */
         void iterate();
 
-        /*! ctor
-
-		initializes member variables
+        /*! does nothing
 		*/
-        iApplication();
+        iApplication() = default;
 
         /*! dtor
 
