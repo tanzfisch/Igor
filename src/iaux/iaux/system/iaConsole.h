@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_CONSOLE__
-#define __IAUX_CONSOLE__
+#ifndef __IAUX_CONSOLE_H__
+#define __IAUX_CONSOLE_H__
 
 #include <iaux/system/iaSingleton.h>
 #include <iaux/system/iaClock.h>
@@ -606,4 +606,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif
+#endif // __IAUX_CONSOLE_H__

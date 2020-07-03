@@ -55,6 +55,14 @@ private:
     /*! called every frame
     */
     void onPreDraw() override;
+
+    /*! initialize example
+    */
+    virtual void onInit() override;
+
+    /*! deinitialize example
+    */
+    virtual void onDeinit() override;
 };
 
 #endif // __FIRSTSTEPS_H__

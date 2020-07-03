@@ -31,10 +31,6 @@
 
 #include <ExampleBase.h>
 
-#include <igor/resources/material/iMaterial.h>
-#include <igor/system/iTimerHandle.h>
-using namespace igor;
-
 /*! the particles example class
 */
 class Particles : public ExampleBase
@@ -114,33 +110,39 @@ private:
     */
     void onTimer();
 
-    /*! called when the mouse was moved
+    /*! called on any other event
 
-    \param from last mouse position
-    \param to current mouse position
-    \param window the window the coordinates are related to
+    \param event the event to handle
     */
-    void onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window) override;
+    void onEvent(iEvent &event) override;
 
-    /*! called when mouse wheel was turned
+    /*! called when key was pressed
 
-    \param d mouse wheel delta
+    \param event the event to handle
     */
-    void onMouseWheel(int32 d) override;
+    bool onKeyDown(iKeyDownEvent_TMP &event);
 
-    /*! called on key pressed event
+    /*! handles mouse move event
 
-    \param key the key code of the pressed key
+    \param event the mouse move event
+    \returns true if consumed
     */
-    void onKeyDown(iKeyCode key) override;
+    bool onMouseMoveEvent(iMouseMoveEvent_TMP &event);
 
-    /*! deinit example
+    /*! handles mouse wheel event
+
+    \param event the mouse wheel event
+    \returns true if consumed
     */
-    void deinit() override;
+    bool onMouseWheelEvent(iMouseWheelEvent_TMP &event);
 
     /*! init example
     */
-    void init() override;
+    void onInit() override;
+
+    /*! deinit example
+    */
+    void onDeinit() override;
 };
 
 #endif

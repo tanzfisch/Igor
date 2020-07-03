@@ -299,10 +299,10 @@ namespace igor
         void handlePressEvent(iKeyCode buttonKey)
         {
             const iaTime doubleClickDelay = iaTime::fromMilliseconds(200);
+            const int buttonIndex = (int)buttonKey - (int)iKeyCode::MouseLeft;
+            const iaTime time = iaTime::now();
 
-            int buttonIndex = (int)buttonKey - (int)iKeyCode::MouseLeft;
             bool doubleClick = false;
-            iaTime time = iaTime::now();
 
             if (!_buttonStates[buttonIndex]._pressed &&
                 time - _buttonStates[buttonIndex]._time < doubleClickDelay)
@@ -331,7 +331,8 @@ namespace igor
 
         void handleReleaseEvent(iKeyCode buttonKey)
         {
-            _buttonStates[(int)buttonKey]._pressed = false;
+            const int buttonIndex = (int)buttonKey - (int)iKeyCode::MouseLeft;
+            _buttonStates[buttonIndex]._pressed = false;
             _keyUpEvent(buttonKey);
 
             iMouseKeyUpEvent_TMP event(buttonKey);

@@ -30,7 +30,6 @@
 #define __KEYBOARDEXAMPLE_H__
 
 #include <ExampleBase.h>
-using namespace igor;
 
 /*! keyboard input example
 */
@@ -72,10 +71,6 @@ private:
     /*! initialize example
     */
     void onInit() override;
-
-    /*! deinitialize example
-    */
-    void onDeinit() override;
 
     /*! called on any other event
     */

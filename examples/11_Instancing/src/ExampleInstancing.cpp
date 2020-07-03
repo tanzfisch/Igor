@@ -23,7 +23,7 @@ ExampleInstancing::ExampleInstancing()
 {
 }
 
-void ExampleInstancing::init()
+void ExampleInstancing::onInit()
 {
     const float32 spacing = 2.0f;
     const int32 amountPerDimension = 20;
@@ -135,7 +135,7 @@ void ExampleInstancing::init()
     _animationTimingHandle->start();
 }
 
-void ExampleInstancing::deinit()
+void ExampleInstancing::onDeinit()
 {
     // stop light animation
     if (_animationTimingHandle)
@@ -148,38 +148,55 @@ void ExampleInstancing::deinit()
     _materialWithInstancing = iMaterial::INVALID_MATERIAL_ID;
 }
 
-void ExampleInstancing::onMouseWheel(int32 d)
+void ExampleInstancing::onEvent(iEvent &event)
+{
+    // first call example base
+    ExampleBase::onEvent(event);
+
+    event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(ExampleInstancing::onMouseMoveEvent));
+    event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(ExampleInstancing::onMouseWheelEvent));
+}
+
+bool ExampleInstancing::onMouseWheelEvent(iMouseWheelEvent_TMP &event)
 {
     iNodeTransform *camTranslation = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraTranslation));
     if (camTranslation != nullptr)
     {
-        if (d < 0)
+        if (event.getWheelDelta() < 0)
         {
-            camTranslation->translate(0, 0, 1);
+            camTranslation->translate(0, 0, 2);
         }
         else
         {
-            camTranslation->translate(0, 0, -1);
+            camTranslation->translate(0, 0, -2);
         }
     }
+
+    return true;
 }
 
-void ExampleInstancing::onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *_window)
+bool ExampleInstancing::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
 {
     if (iMouse::getInstance().getLeftButton())
     {
+        const auto from = event.getLastPosition();
+        const auto to = event.getPosition();
+
         iNodeTransform *cameraPitch = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraPitch));
         iNodeTransform *cameraHeading = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraHeading));
 
         if (cameraPitch != nullptr &&
             cameraHeading != nullptr)
         {
-            cameraPitch->rotate((to._y - from._y) * 0.00025f, iaAxis::X);
-            cameraHeading->rotate((from._x - to._x) * 0.00025f, iaAxis::Y);
-
+            cameraPitch->rotate((from._y - to._y) * 0.0005f, iaAxis::X);
+            cameraHeading->rotate((from._x - to._x) * 0.0005f, iaAxis::Y);
             iMouse::getInstance().setCenter();
         }
+
+        return true;
     }
+
+    return false;
 }
 
 void ExampleInstancing::onTimer()

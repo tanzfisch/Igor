@@ -4,31 +4,14 @@
 
 #include "Example2D.h"
 
-#include <iaux/system/iaConsole.h>
-#include <iaux/data/iaString.h>
-using namespace iaux;
-
-#include <igor/system/iMouse.h>
-#include <igor/system/iKeyboard.h>
-#include <igor/resources/texture/iAtlas.h>
-#include <igor/resources/texture/iTextureFont.h>
-#include <igor/system/iTimer.h>
-#include <igor/system/iApplication.h>
-#include <igor/graphics/iRenderer.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/profiler/iProfiler.h>
-using namespace igor;
-
 #include <sstream>
 
 Example2D::Example2D()
-	: ExampleBase(L"2D Interfaces")
+	: ExampleBase("2D Interfaces")
 {
 }
 
-void Example2D::init()
+void Example2D::onInit()
 {
 	// load the background tile texture
 	_backgroundTexture = iTextureResourceFactory::getInstance().loadFile("WidgetThemePattern.png");
@@ -76,10 +59,9 @@ void Example2D::init()
 	_rainbow.setValue(0.8f, iaColor4f(1.0f, 1.0f, 0.0f, 0.8f));
 	_rainbow.setValue(1.0f, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
 
-	// load a texture as a sprite
-	// sprites are basically textures that have some additional meta data that help you to place and orientate them
+	// load a texture as an atlas
 	_openGLLogo = new iAtlas(iTextureResourceFactory::getInstance().loadFile("OpenGL-Logo.jpg"));
-	// set up sprite frame
+	// set up frame
 	_openGLLogo->addFrame(iaVector2f(0.0, 0.0), iaVector2f(1.0, 1.0), iaVector2f(0.5, 0.5), false);
 
 	// initalize a spline loop
@@ -108,14 +90,11 @@ void Example2D::init()
 	_materialWithoutDepthTest = iMaterialResourceFactory::getInstance().createMaterial("NoDepthTest");
 	iMaterialResourceFactory::getInstance().getMaterial(_materialWithoutDepthTest)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
-	// load requested textures
-	iTextureResourceFactory::getInstance().flush();
-
 	// generate a random seed
 	_rand.setSeed(static_cast<uint32>(iaTime::now().getMicrosenconds()));
 }
 
-void Example2D::deinit()
+void Example2D::onDeinit()
 {
 	// release materials (optional)
 	iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
@@ -135,17 +114,21 @@ void Example2D::deinit()
 	_particleTexture = nullptr;
 	_backgroundTexture = nullptr;
 	_dummyTexture = nullptr;
-
-	// tell texture manager to flush and actually release textures
-	iTextureResourceFactory::getInstance().flush();
 }
 
-void Example2D::onMouseMoved(const iaVector2i &pos)
+void Example2D::onEvent(iEvent &event)
+{
+	// first call example base
+	ExampleBase::onEvent(event);
+
+	event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Example2D::onMouseMoveEvent));
+}
+
+bool Example2D::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
 {
 	// save mouse position for later
-	_lastMousePos.set(static_cast<float32>(pos._x), static_cast<float32>(pos._y));
-
-	ExampleBase::onMouseMoved(pos);
+	_lastMousePos.set(static_cast<float32>(event.getPosition()._x), static_cast<float32>(event.getPosition()._y));
+	return true;
 }
 
 void Example2D::onPreDraw()

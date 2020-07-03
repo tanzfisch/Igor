@@ -30,10 +30,6 @@
 #define __MOUSEEXAMPLE_H__
 
 #include <ExampleBase.h>
-using namespace igor;
-
-#include <iaux/math/iaVector2.h>
-using namespace iaux;
 
 class MouseExample : public ExampleBase
 {
@@ -48,36 +44,46 @@ public:
     ~MouseExample() = default;
 
 private:
-    /*! called when mouse was moved
-    \param from last mouse position
-    \param to current mouse position
-    \param window the window the coordinates are related to
+    /*! called on any other event
+
+    \param event the event to handle
     */
-    void onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window) override;
+    void onEvent(iEvent &event) override;
 
-    /*! called when any mouse key was pressed
+    /*! handles mouse key down event
 
-    \pram key the key code of the key that was pressed
+    \param event the mouse key down event
+    \returns true if consumed
     */
-    void onMouseKeyDown(iKeyCode key) override;
+    bool onMouseKeyDownEvent(iMouseKeyDownEvent_TMP &event);
 
-    /*! called when any mouse key was released
+    /*! handles mouse key up event
 
-    \param key the key code of the key that was pressed
+    \param event the mouse key up event
+    \returns true if consumed
     */
-    void onMouseKeyUp(iKeyCode key) override;
+    bool onMouseKeyUpEvent(iMouseKeyUpEvent_TMP &event);
 
-    /*! called when mouse was double clicked
+    /*! handles mouse key double click event
 
-    \param key the key that was double clicked
+    \param event the mouse key double click event
+    \returns true if consumed
     */
-    void onMouseDoubleClick(iKeyCode key) override;
+    bool onMouseKeyDoubleClickEvent(iMouseKeyDoubleClickEvent_TMP &event);
 
-    /*! called when mouse wheel was turned
+    /*! handles mouse move event
 
-    \param d mouse wheel delta
+    \param event the mouse move event
+    \returns true if consumed
     */
-    void onMouseWheel(int32 d) override;
+    bool onMouseMoveEvent(iMouseMoveEvent_TMP &event);
+
+    /*! handles mouse wheel event
+
+    \param event the mouse wheel event
+    \returns true if consumed
+    */
+    bool onMouseWheelEvent(iMouseWheelEvent_TMP &event);
 };
 
 #endif // __MOUSEEXAMPLE_H__

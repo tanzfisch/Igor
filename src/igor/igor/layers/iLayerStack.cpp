@@ -14,6 +14,7 @@ namespace igor
     {
         for (auto layer : _layers)
         {
+            layer->onDeinit();
             delete layer;
         }
         _layers.clear();

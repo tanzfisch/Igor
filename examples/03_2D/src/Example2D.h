@@ -31,20 +31,6 @@
 
 #include <ExampleBase.h>
 
-#include <igor/simulation/iParticleSystem2D.h>
-#include <iaux/data/iaGradient.h>
-#include <igor/generation/iPerlinNoise.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/resources/texture/iTexture.h>
-#include <igor/resources/texture/iAtlas.h>
-using namespace igor;
-
-#include <iaux/math/iaMatrix.h>
-#include <iaux/math/iaVector2.h>
-#include <iaux/math/iaBSpline.h>
-#include <iaux/math/iaRandomNumberGenerator.h>
-using namespace iaux;
-
 #include <memory>
 
 /*! rendering 2d example
@@ -129,14 +115,6 @@ private:
     */
     void updateParticles();
 
-    /*! mouse move event with minimum data
-
-    mouse coordinates have their origin in the upper left corner of the parenting window
-
-    \param pos last mouse position
-    */
-    void onMouseMoved(const iaVector2i &pos) override;
-
     /*! called by orthogonal view
     */
     void onRenderOrtho() override;
@@ -147,11 +125,24 @@ private:
 
     /*! initializes the example
     */
-    void init() override;
+    void onInit() override;
 
     /*! deinitializes the example
     */
-    void deinit() override;
+    void onDeinit() override;
+
+    /*! called on any other event
+
+    \param event the event to handle
+    */
+    void onEvent(iEvent &event) override;
+
+    /*! handles mouse move event
+
+    \param event the mouse move event
+    \returns true if consumed
+    */
+    bool onMouseMoveEvent(iMouseMoveEvent_TMP &event);
 };
 
 #endif // __EXAMPLE2D_H__

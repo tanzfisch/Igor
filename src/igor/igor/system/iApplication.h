@@ -29,7 +29,7 @@
 #ifndef __IGOR_APPLICATION_H__
 #define __IGOR_APPLICATION_H__
 
-#include <igor/system/events/iEvent.h>
+#include <igor/system/events/iEventWindow.h>
 #include <igor/layers/iLayerStack.h>
 
 #include <iaux/system/iaEvent.h>
@@ -174,6 +174,12 @@ namespace igor
         /*! layer stack
         */
         iLayerStack _layerStack;
+
+        /*! handles window close event
+
+        \param event the window close event
+        */
+        bool onWindowClose(iWindowCloseEvent_TMP &event);
 
         /*! init profiling sections
         */

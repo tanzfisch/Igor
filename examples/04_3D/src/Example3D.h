@@ -31,21 +31,6 @@
 
 #include <ExampleBase.h>
 
-#include <igor/system/iTimerHandle.h>
-using namespace igor;
-
-namespace igor
-{
-    class iNodeTransform;
-    class iNodeLight;
-    class iNodeSwitch;
-    class iTaskFlushModels;
-    class iTaskFlushTextures;
-    class iNodeLODTrigger;
-    class iNodeLODSwitch;
-    class iNodeModel;
-} // namespace igor
-
 class Example3D : public ExampleBase
 {
 
@@ -119,33 +104,40 @@ private:
     */
     void onTimer();
 
-    /*! called on key pressed event
-
-    \param key the key code of the pressed key
-    */
-    void onKeyDown(iKeyCode key) override;
-
-    /*! called when the mouse was moved
-
-    \param from last mouse position
-    \param to current mouse position
-    \param window the window the coordinates are related to
-    */
-    void onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window) override;
-
-    /*! called when mouse wheel was turned
-
-    \param d mouse wheel delta
-    */
-    void onMouseWheel(int32 d) override;
-
     /*! deinit example
     */
-    void deinit() override;
+    void onDeinit() override;
 
     /*! init example
     */
-    void init() override;
+    void onInit() override;
+
+    /*! called on any other event
+
+    \param event the event to handle
+    */
+    void onEvent(iEvent &event) override;
+
+    /*! handles mouse key down event
+
+    \param event the mouse key down event
+    \returns true if consumed
+    */
+    bool onMouseKeyDownEvent(iMouseKeyDownEvent_TMP &event);
+
+    /*! handles mouse move event
+
+    \param event the mouse move event
+    \returns true if consumed
+    */
+    bool onMouseMoveEvent(iMouseMoveEvent_TMP &event);
+
+    /*! handles mouse wheel event
+
+    \param event the mouse wheel event
+    \returns true if consumed
+    */
+    bool onMouseWheelEvent(iMouseWheelEvent_TMP &event);
 };
 
 #endif // __EXAMPLE3D_H__

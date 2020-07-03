@@ -4,13 +4,6 @@
 
 #include "KeyboardExample.h"
 
-#include <igor/system/iApplication.h>
-#include <igor/system/iKeyboard.h>
-using namespace igor;
-
-#include <iaux/system/iaConsole.h>
-using namespace iaux;
-
 KeyboardExample::KeyboardExample()
 	: ExampleBase(L"Keyboard Input")
 {
@@ -24,10 +17,6 @@ void KeyboardExample::onInit()
 
 	// some more helpfull text
 	con_info(" --- starting with single key message output mode ---");
-}
-
-void KeyboardExample::onDeinit()
-{
 }
 
 void KeyboardExample::onEvent(iEvent &event)

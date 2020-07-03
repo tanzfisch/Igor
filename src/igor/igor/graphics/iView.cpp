@@ -115,6 +115,11 @@ namespace igor
         _viewportConfig = rect;
     }
 
+    bool iView::isPerspective() const
+    {
+        return _perspective;
+    }
+
     void iView::setPerspective(float32 viewAngel)
     {
         if (viewAngel > 0.0f && viewAngel < 180.0f)

@@ -4,7 +4,6 @@
 
 #include "FirstSteps.h"
 
-#include <igor/system/iApplication.h>
 #include <igor/system/iTimer.h>
 using namespace igor;
 
@@ -14,6 +13,16 @@ using namespace iaux;
 FirstSteps::FirstSteps()
     : ExampleBase("First Steps", false)
 {
+}
+
+void FirstSteps::onInit()
+{
+    con_endl("initialize");
+}
+
+void FirstSteps::onDeinit()
+{
+    con_endl("deinitialize");
 }
 
 void FirstSteps::onPreDraw()

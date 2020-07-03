@@ -21,7 +21,7 @@ namespace igor
 		_reactOnMouseWheel = false;
 
 		setWidth(width);
-		setWidth(height);
+		setHeight(height);
 		setVisible(visible);
 	}
 

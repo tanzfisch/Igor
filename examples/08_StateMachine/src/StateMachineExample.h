@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __STATEMACHINEEXAMPLE__
-#define __STATEMACHINEEXAMPLE__
+#ifndef __STATEMACHINEEXAMPLE_H__
+#define __STATEMACHINEEXAMPLE_H__
 
 #include <igor/system/iWindow.h>
 #include <igor/graphics/iView.h>
@@ -129,4 +129,4 @@ public:
     void run();
 };
 
-#endif
+#endif // __STATEMACHINEEXAMPLE_H__

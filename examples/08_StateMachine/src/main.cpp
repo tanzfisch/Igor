@@ -4,17 +4,17 @@
 
 #include "StateMachineExample.h"
 
-#include <igor/igor.h>
-using namespace igor;
-
 int main(void)
 {
+	// first thing to do
 	igor::startup();
 
-	StateMachineExample *example = new StateMachineExample();
-	example->run();
-	delete example;
+	// create and run example
+	igor::iApplication::getInstance().addLayer(new StateMachineExample());
+	igor::iApplication::getInstance().run();
+	igor::iApplication::getInstance().clearLayerStack();
 
+	// last thing to do
 	igor::shutdown();
 
 	return 0;

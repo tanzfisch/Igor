@@ -26,19 +26,10 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __OPENGL3D_EXAMPLE_H__
-#define __OPENGL3D_EXAMPLE_H__
+#ifndef __PHYSICSEXAMPLE_H__
+#define __PHYSICSEXAMPLE_H__
 
 #include <ExampleBase.h>
-
-#include <igor/system/iTimerHandle.h>
-using namespace igor;
-
-namespace igor
-{
-    class iNodeTransform;
-    class iPhysicsBody;
-} // namespace igor
 
 /*! physics example
 */
@@ -82,37 +73,43 @@ private:
     */
     void onApplyForceAndTorque(iPhysicsBody *body, float32 timestep);
 
-    /*! handles mouse moved event
-
-    \param from last mouse position
-    \param to current mouse position
-    \param window the window the coordinates are related to
-    */
-    void onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window) override;
-
-    /*! handles mouse wheel event
-
-    \param d mouse wheel delta
-    */
-    void onMouseWheel(int32 d) override;
-
     /*! initialize scene
     */
-    void init() override;
+    void onInit() override;
 
     /*! clean up scene
     */
-    void deinit() override;
+    void onDeinit() override;
 
     /*! renders orthogonal stuff
     */
     void onRenderOrtho() override;
 
-    /*! handle keyboard events
+    /*! called on any other event
 
-    \param key the key pressed
+    \param event the event to handle
     */
-    void onKeyDown(iKeyCode key) override;
+    void onEvent(iEvent &event) override;
+
+    /*! called when key was pressed
+
+    \param event the event to handle
+    */
+    bool onKeyDown(iKeyDownEvent_TMP &event);
+
+    /*! handles mouse move event
+
+    \param event the mouse move event
+    \returns true if consumed
+    */
+    bool onMouseMoveEvent(iMouseMoveEvent_TMP &event);
+
+    /*! handles mouse wheel event
+
+    \param event the mouse wheel event
+    \returns true if consumed
+    */
+    bool onMouseWheelEvent(iMouseWheelEvent_TMP &event);
 };
 
-#endif // __OPENGL3D_EXAMPLE_H__
+#endif // __PHYSICSEXAMPLE_H__

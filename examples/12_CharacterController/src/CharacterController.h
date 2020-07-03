@@ -29,15 +29,7 @@
 #ifndef __CHARACTERCONTROLLER_H__
 #define __CHARACTERCONTROLLER_H__
 
-#include <igor/scene/nodes/iNode.h>
-#include <igor/physics/iPhysicsBody.h>
-using namespace igor;
-
-namespace igor
-{
-    class iPhysicsJoint;
-    class iPhysicsCollision;
-} // namespace igor
+#include <igor/igor.h>
 
 class CharacterController
 {

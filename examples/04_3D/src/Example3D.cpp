@@ -4,40 +4,12 @@
 
 #include "Example3D.h"
 
-#include <igor/resources/material/iMaterial.h>
-#include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/scene/nodes/iNodeModel.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/system/iApplication.h>
-#include <igor/scene/iScene.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/system/iMouse.h>
-#include <igor/system/iKeyboard.h>
-#include <igor/system/iTimer.h>
-#include <igor/scene/nodes/iNodeLight.h>
-#include <igor/resources/model/iModelResourceFactory.h>
-#include <iaux/data/iaString.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/profiler/iProfiler.h>
-#include <igor/scene/nodes/iNodeSwitch.h>
-#include <igor/scene/nodes/iNodeLODSwitch.h>
-#include <igor/scene/nodes/iNodeLODTrigger.h>
-#include <igor/scene/traversal/iNodeVisitorRenderColorID.h>
-#include <igor/evaluation/iEvaluationManager.h>
-#include <igor/evaluation/iEvaluationTransform.h>
-using namespace igor;
-
-#include <iaux/system/iaConsole.h>
-#include <iaux/data/iaString.h>
-#include <iaux/math/iaMatrix.h>
-using namespace iaux;
-
 Example3D::Example3D()
     : ExampleBase("3D Scene")
 {
 }
 
-void Example3D::init()
+void Example3D::onInit()
 {
     // setup camera
     // we want a camera which can be rotated arround the origin
@@ -202,7 +174,7 @@ void Example3D::init()
     _animationTimingHandle->start();
 }
 
-void Example3D::deinit()
+void Example3D::onDeinit()
 {
     // stop light animation
     if (_animationTimingHandle)
@@ -212,24 +184,58 @@ void Example3D::deinit()
     }
 }
 
-void Example3D::onMouseWheel(int32 d)
+void Example3D::onEvent(iEvent &event)
 {
-    iNodeTransform *camTranslation = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraTranslation));
-    if (camTranslation != nullptr)
-    {
-        if (d < 0)
-        {
-            camTranslation->translate(0, 0, 1);
-        }
-        else
-        {
-            camTranslation->translate(0, 0, -1);
-        }
-    }
+    // first call example base
+    ExampleBase::onEvent(event);
+
+    event.dispatch<iMouseKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Example3D::onMouseKeyDownEvent));
+    event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Example3D::onMouseMoveEvent));
+    event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Example3D::onMouseWheelEvent));
 }
 
-void Example3D::onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window)
+bool Example3D::onMouseKeyDownEvent(iMouseKeyDownEvent_TMP &event)
 {
+    switch (event.getKey())
+    {
+    case iKeyCode::Space:
+    {
+        _activeNode++;
+        if (_activeNode > 2)
+        {
+            _activeNode = 0;
+        }
+
+        iNodeSwitch *switchNode = static_cast<iNodeSwitch *>(iNodeManager::getInstance().getNode(_switchNode));
+        if (switchNode != nullptr)
+        {
+            switch (_activeNode)
+            {
+            case 0:
+                switchNode->setActiveChild("crate transform");
+                break;
+            case 1:
+                switchNode->setActiveChild("cat transform");
+                break;
+            case 2:
+                switchNode->setActiveChild("teapot transform");
+                break;
+            }
+        }
+
+        return true;
+    }
+    break;
+    }
+
+    return false;
+}
+
+bool Example3D::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
+{
+    const auto from = event.getLastPosition();
+    const auto to = event.getPosition();
+
     if (iMouse::getInstance().getRightButton())
     {
         iNodeTransform *allObjectsPitch = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_allObjectsPitch));
@@ -259,42 +265,25 @@ void Example3D::onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, i
         }
     }
 
-    ExampleBase::onMouseMovedFull(from, to, window);
+    return true;
 }
 
-void Example3D::onKeyDown(iKeyCode key)
+bool Example3D::onMouseWheelEvent(iMouseWheelEvent_TMP &event)
 {
-    switch (key)
+    iNodeTransform *camTranslation = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraTranslation));
+    if (camTranslation != nullptr)
     {
-    case iKeyCode::Space:
-    {
-        _activeNode++;
-        if (_activeNode > 2)
+        if (event.getWheelDelta() < 0)
         {
-            _activeNode = 0;
+            camTranslation->translate(0, 0, 1);
         }
-
-        iNodeSwitch *switchNode = static_cast<iNodeSwitch *>(iNodeManager::getInstance().getNode(_switchNode));
-        if (switchNode != nullptr)
+        else
         {
-            switch (_activeNode)
-            {
-            case 0:
-                switchNode->setActiveChild("crate transform");
-                break;
-            case 1:
-                switchNode->setActiveChild("cat transform");
-                break;
-            case 2:
-                switchNode->setActiveChild("teapot transform");
-                break;
-            }
+            camTranslation->translate(0, 0, -1);
         }
     }
-    break;
-    }
 
-    ExampleBase::onKeyDown(key);
+    return true;
 }
 
 void Example3D::onTimer()

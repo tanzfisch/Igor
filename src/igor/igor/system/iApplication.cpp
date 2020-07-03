@@ -10,6 +10,7 @@
 #include <igor/physics/iPhysics.h>
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/evaluation/iEvaluationManager.h>
+#include <igor/graphics/iView.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -62,7 +63,7 @@ namespace igor
 
     void iApplication::onEvent(iEvent &event)
     {
-        // TODO maybe handle window events here
+        event.dispatch<iWindowCloseEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iApplication::onWindowClose));
 
         const auto layers = _layerStack.getStack();
         auto riter = layers.rbegin();
@@ -76,6 +77,11 @@ namespace igor
 
             riter++;
         }
+    }
+
+    bool iApplication::onWindowClose(iWindowCloseEvent_TMP &event)
+    {
+        stop();
     }
 
     void iApplication::stop()

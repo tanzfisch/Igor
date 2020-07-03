@@ -4,17 +4,17 @@
 
 #include "PhysicsExample.h"
 
-#include <igor/igor.h>
-using namespace igor;
-
 int main()
 {
+	// first thing to do
 	igor::startup();
 
-	PhysicsExample *example = new PhysicsExample();
-	example->run();
-	delete example;
+	// create and run example
+	igor::iApplication::getInstance().addLayer(new PhysicsExample());
+	igor::iApplication::getInstance().run();
+	igor::iApplication::getInstance().clearLayerStack();
 
+	// last thing to do
 	igor::shutdown();
 
 	return 0;

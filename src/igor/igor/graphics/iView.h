@@ -251,6 +251,12 @@ namespace igor
         */
         int32 getZIndex() const;
 
+        /*! \returns true if configure with perspective projection
+
+        esle it must be a orthogonal projection
+        */
+        bool isPerspective() const;
+
         /*! init statistics counters
         */
         iView();

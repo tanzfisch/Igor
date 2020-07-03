@@ -45,7 +45,7 @@ namespace igor
 
     \todo DotEmitter, RingEmitter, SqareEmitter, ShapeEmitter
     */
-    enum class iEmitterType
+    enum class iEmitterType2D
     {
         PointEmitter
     };
@@ -317,7 +317,7 @@ namespace igor
 
         /*! emitter type
         */
-        iEmitterType _emitterType = iEmitterType::PointEmitter;
+        iEmitterType2D _emitterType = iEmitterType2D::PointEmitter;
 
         /*! list of particles
         */

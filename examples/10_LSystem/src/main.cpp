@@ -4,20 +4,17 @@
 
 #include "LSystems.h"
 
-#include <igor/igor.h>
-using namespace igor;
-
 int main()
 {
-    // first thing to do
+	// first thing to do
 	igor::startup();
 
-    // create and run example
-    LSystems* example = new LSystems();
-	example->run();
-	delete example;
-	
-    // last thing to do
+	// create and run example
+	igor::iApplication::getInstance().addLayer(new LSystems());
+	igor::iApplication::getInstance().run();
+	igor::iApplication::getInstance().clearLayerStack();
+
+	// last thing to do
 	igor::shutdown();
 
 	return 0;

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_SINGLETON__
-#define __IAUX_SINGLETON__
+#ifndef __IAUX_SINGLETON_H__
+#define __IAUX_SINGLETON_H__
 
 #include <iaux/system/iaMutex.h>
 
@@ -133,4 +133,4 @@ namespace iaux
 #pragma warning(default : 4100)
 }; // namespace iaux
 
-#endif
+#endif // __IAUX_SINGLETON_H__

@@ -26,17 +26,10 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __LSYSTEMS_EXAMPLE_H__
-#define __LSYSTEMS_EXAMPLE_H__
+#ifndef __LSYSTEMSEXAMPLE_H__
+#define __LSYSTEMSEXAMPLE_H__
 
 #include <ExampleBase.h>
-
-#include <igor/system/iTimerHandle.h>
-#include <igor/generation/iLSystem.h>
-using namespace igor;
-
-#include <iaux/math/iaMatrix.h>
-using namespace iaux;
 
 /*! the LSystems example class
 */
@@ -147,33 +140,39 @@ private:
     */
     uint64 generatePlant(const iaMatrixd &matrix, const iaString &axiom, uint32 iterations, uint64 seed);
 
-    /*! called when the mouse was moved
-
-    \param from last mouse position
-    \param to current mouse position
-    \param window the window the coordinates are related to
-    */
-    void onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window) override;
-
-    /*! called when mouse wheel was turned
-
-    \param d mouse wheel delta
-    */
-    void onMouseWheel(int32 d) override;
-
     /*! deinit example
     */
-    void deinit() override;
+    void onDeinit() override;
 
     /*! init example
     */
-    void init() override;
+    void onInit() override;
 
-    /*! called on key pressed event
+    /*! called on any other event
 
-    \param key the key code of the pressed key
+    \param event the event to handle
     */
-    void onKeyDown(iKeyCode key) override;
+    void onEvent(iEvent &event) override;
+
+    /*! handles mouse move event
+
+    \param event the mouse move event
+    \returns true if consumed
+    */
+    bool onMouseMoveEvent(iMouseMoveEvent_TMP &event);
+
+    /*! handles mouse wheel event
+
+    \param event the mouse wheel event
+    \returns true if consumed
+    */
+    bool onMouseWheelEvent(iMouseWheelEvent_TMP &event);
+
+    /*! called when key was pressed
+
+    \param event the event to handle
+    */
+    bool onKeyDown(iKeyDownEvent_TMP &event);
 };
 
-#endif // __LSYSTEMS_EXAMPLE_H__
+#endif // __LSYSTEMSEXAMPLE_H__

@@ -4,17 +4,15 @@
 
 #include "ExampleInstancing.h"
 
-#include <igor/igor.h>
-
 int main()
 {
 	// first thing to do
 	igor::startup();
 
 	// create and run example
-	ExampleInstancing *example = new ExampleInstancing();
-	example->run();
-	delete example;
+	igor::iApplication::getInstance().addLayer(new ExampleInstancing());
+	igor::iApplication::getInstance().run();
+	igor::iApplication::getInstance().clearLayerStack();
 
 	// last thing to do
 	igor::shutdown();

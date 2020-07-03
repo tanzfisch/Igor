@@ -68,7 +68,7 @@ void ExampleCharacterController::createBox(const iaVector3d &pos)
     getScene()->getRoot()->insertNode(transformNode);
 }
 
-void ExampleCharacterController::init()
+void ExampleCharacterController::onInit()
 {
     // setup some physics materials
     iPhysicsMaterial *materialTerrain = iPhysics::getInstance().createMaterial("terrain");
@@ -207,79 +207,6 @@ void ExampleCharacterController::makeCollisions(iNodePtr node)
     }
 }
 
-void ExampleCharacterController::onKeyDown(iKeyCode key)
-{
-    switch (key)
-    {
-    case iKeyCode::Alt:
-        _captureMouse = !_captureMouse;
-        iMouse::getInstance().showCursor(!_captureMouse);
-        break;
-
-    case iKeyCode::A:
-        _inputFlags._left = true;
-        break;
-
-    case iKeyCode::D:
-        _inputFlags._right = true;
-        break;
-
-    case iKeyCode::W:
-        _inputFlags._forward = true;
-        break;
-
-    case iKeyCode::S:
-        _inputFlags._backward = true;
-        break;
-
-    case iKeyCode::Space:
-        _inputFlags._jump = true;
-        _inputFlags._up = true;
-        break;
-
-    case iKeyCode::LControl:
-        _inputFlags._down = true;
-        _inputFlags._crouch = true;
-        break;
-    }
-
-    ExampleBase::onKeyDown(key);
-}
-
-void ExampleCharacterController::onKeyUp(iKeyCode key)
-{
-    switch (key)
-    {
-    case iKeyCode::A:
-        _inputFlags._left = false;
-        break;
-
-    case iKeyCode::D:
-        _inputFlags._right = false;
-        break;
-
-    case iKeyCode::W:
-        _inputFlags._forward = false;
-        break;
-
-    case iKeyCode::S:
-        _inputFlags._backward = false;
-        break;
-
-    case iKeyCode::Space:
-        _inputFlags._jump = false;
-        _inputFlags._up = false;
-        break;
-
-    case iKeyCode::LControl:
-        _inputFlags._down = false;
-        _inputFlags._crouch = false;
-        break;
-    }
-
-    ExampleBase::onKeyUp(key);
-}
-
 void ExampleCharacterController::onPreDraw()
 {
     float64 movingForceOnFloor = 10000;
@@ -380,7 +307,7 @@ void ExampleCharacterController::onApplyForceAndTorqueBox(iPhysicsBody *body, fl
     body->setForce(force);
 }
 
-void ExampleCharacterController::deinit()
+void ExampleCharacterController::onDeinit()
 {
     if (_characterController != nullptr)
     {
@@ -389,55 +316,6 @@ void ExampleCharacterController::deinit()
     }
 
     iMaterialResourceFactory::getInstance().destroyMaterial(_materialSkyBox);
-}
-
-void ExampleCharacterController::onMouseKeyUp(iKeyCode keyCode)
-{
-    switch (keyCode)
-    {
-    case iKeyCode::MouseLeft:
-        _inputFlags._shootPrimary = false;
-        break;
-    }
-
-    ExampleBase::onMouseKeyUp(keyCode);
-}
-
-void ExampleCharacterController::onMouseKeyDown(iKeyCode keyCode)
-{
-    switch (keyCode)
-    {
-    case iKeyCode::MouseLeft:
-        _inputFlags._shootPrimary = true;
-        break;
-    }
-
-    ExampleBase::onMouseKeyDown(keyCode);
-}
-
-void ExampleCharacterController::onMouseWheel(int32 d)
-{
-    ExampleBase::onMouseWheel(d);
-}
-
-void ExampleCharacterController::onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window)
-{
-    if (_captureMouse)
-    {
-        iNodeTransform *cameraPitch = _characterController->getPitchTransform();
-        iNodeTransform *cameraHeading = _characterController->getHeadingTransform();
-
-        if (cameraPitch != nullptr &&
-            cameraHeading != nullptr)
-        {
-            cameraPitch->rotate((from._y - to._y) * 0.00025f, iaAxis::X);
-            cameraHeading->rotate((from._x - to._x) * 0.00025f, iaAxis::Y);
-
-            iMouse::getInstance().setCenter();
-        }
-    }
-
-    ExampleBase::onMouseMovedFull(from, to, window);
 }
 
 void ExampleCharacterController::onRenderOrtho()
@@ -473,4 +351,138 @@ void ExampleCharacterController::onRenderOrtho()
     iRenderer::getInstance().drawString(10, static_cast<float32>(getWindow().getClientHeight() - 10), statusString, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
 
     ExampleBase::onRenderOrtho();
+}
+
+void ExampleCharacterController::onEvent(iEvent &event)
+{
+    // first call example base
+    ExampleBase::onEvent(event);
+
+    event.dispatch<iMouseKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(ExampleCharacterController::onMouseKeyDownEvent));
+    event.dispatch<iMouseKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(ExampleCharacterController::onMouseKeyUpEvent));
+    event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(ExampleCharacterController::onMouseMoveEvent));
+    event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(ExampleCharacterController::onKeyDown));
+    event.dispatch<iKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(ExampleCharacterController::onKeyUp));
+}
+
+bool ExampleCharacterController::onMouseKeyDownEvent(iMouseKeyDownEvent_TMP &event)
+{
+    switch (event.getKey())
+    {
+    case iKeyCode::MouseLeft:
+        _inputFlags._shootPrimary = true;
+        return true;
+    }
+
+    return false;
+}
+
+bool ExampleCharacterController::onMouseKeyUpEvent(iMouseKeyUpEvent_TMP &event)
+{
+    switch (event.getKey())
+    {
+    case iKeyCode::MouseLeft:
+        _inputFlags._shootPrimary = false;
+        return true;
+    }
+
+    return false;
+}
+
+bool ExampleCharacterController::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
+{
+    if (_captureMouse)
+    {
+        const auto from = event.getLastPosition();
+        const auto to = event.getPosition();
+
+        iNodeTransform *cameraPitch = _characterController->getPitchTransform();
+        iNodeTransform *cameraHeading = _characterController->getHeadingTransform();
+
+        if (cameraPitch != nullptr &&
+            cameraHeading != nullptr)
+        {
+            cameraPitch->rotate((from._y - to._y) * 0.00025f, iaAxis::X);
+            cameraHeading->rotate((from._x - to._x) * 0.00025f, iaAxis::Y);
+
+            iMouse::getInstance().setCenter();
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
+bool ExampleCharacterController::onKeyDown(iKeyDownEvent_TMP &event)
+{
+    switch (event.getKey())
+    {
+    case iKeyCode::Alt:
+        _captureMouse = !_captureMouse;
+        iMouse::getInstance().showCursor(!_captureMouse);
+        return true;
+
+    case iKeyCode::A:
+        _inputFlags._left = true;
+        return true;
+
+    case iKeyCode::D:
+        _inputFlags._right = true;
+        return true;
+
+    case iKeyCode::W:
+        _inputFlags._forward = true;
+        return true;
+
+    case iKeyCode::S:
+        _inputFlags._backward = true;
+        return true;
+
+    case iKeyCode::Space:
+        _inputFlags._jump = true;
+        _inputFlags._up = true;
+        return true;
+
+    case iKeyCode::LControl:
+        _inputFlags._down = true;
+        _inputFlags._crouch = true;
+        return true;
+    }
+
+    return false;
+}
+
+bool ExampleCharacterController::onKeyUp(iKeyUpEvent_TMP &event)
+{
+    switch (event.getKey())
+    {
+    case iKeyCode::A:
+        _inputFlags._left = false;
+        return true;
+
+    case iKeyCode::D:
+        _inputFlags._right = false;
+        return true;
+
+    case iKeyCode::W:
+        _inputFlags._forward = false;
+        return true;
+
+    case iKeyCode::S:
+        _inputFlags._backward = false;
+        return true;
+
+    case iKeyCode::Space:
+        _inputFlags._jump = false;
+        _inputFlags._up = false;
+        return true;
+
+    case iKeyCode::LControl:
+        _inputFlags._down = false;
+        _inputFlags._crouch = false;
+        return true;
+    }
+
+    return false;
 }

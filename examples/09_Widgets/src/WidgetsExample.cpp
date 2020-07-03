@@ -4,34 +4,6 @@
 
 #include "WidgetsExample.h"
 
-#include <igor/graphics/iRenderer.h>
-#include <igor/system/iApplication.h>
-#include <igor/ui/iWidgetManager.h>
-#include <igor/ui/actions/iAction.h>
-#include <igor/ui/actions/iActionManager.h>
-#include <igor/ui/dialogs/iDialog.h>
-#include <igor/ui/theme/iWidgetDefaultTheme.h>
-#include <igor/ui/widgets/iWidgetLabel.h>
-#include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetGroupBox.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
-#include <igor/ui/widgets/iWidgetCheckBox.h>
-#include <igor/ui/widgets/iWidgetNumberChooser.h>
-#include <igor/ui/widgets/iWidgetTextEdit.h>
-#include <igor/ui/widgets/iWidgetPicture.h>
-#include <igor/ui/widgets/iWidgetScroll.h>
-#include <igor/ui/widgets/iWidgetSelectBox.h>
-#include <igor/ui/widgets/iWidgetSpacer.h>
-#include <igor/ui/widgets/iWidgetGraph.h>
-#include <igor/ui/widgets/iWidgetColor.h>
-#include <igor/ui/widgets/iWidgetColorGradient.h>
-#include <igor/ui/widgets/iWidgetMenuBar.h>
-#include <igor/ui/widgets/iWidgetMenu.h>
-using namespace igor;
-
-#include <iaux/system/iaConsole.h>
-using namespace iaux;
-
 // define some actions
 class Action1 : public iAction
 {
@@ -116,7 +88,7 @@ void WidgetsExample::onCloseDialog(iDialogPtr dialog)
     _dialog = nullptr;
 }
 
-void WidgetsExample::init()
+void WidgetsExample::onInit()
 {
     // create a theme and set it up. in this case the build in default theme
     _widgetDefaultTheme = new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png");
@@ -370,7 +342,7 @@ void WidgetsExample::init()
     grid1->addWidget(groupBox1, 0, 1);
     groupBox1->addWidget(grid4);
     grid4->addWidget(exitButton, 0, 0);
-    grid4->addWidget(new iWidgetSpacer(2, 30), 1, 0);
+    grid4->addWidget(new iWidgetSpacer(30, 2), 1, 0);
     grid4->addWidget(picture1, 2, 0);
     grid4->addWidget(_color, 3, 0);
     grid4->addWidget(_colorGradient, 4, 0);
@@ -399,27 +371,36 @@ void WidgetsExample::init()
     iWidgetManager::getInstance().setDesktopDimensions(getWindow().getClientWidth(), getWindow().getClientHeight());
 }
 
-void WidgetsExample::deinit()
+void WidgetsExample::onDeinit()
 {
     iWidgetManager::getInstance().setTheme(nullptr);
     delete _widgetDefaultTheme;
     _widgetDefaultTheme = nullptr;
 }
 
-void WidgetsExample::onMouseMoved(const iaVector2i &pos)
+void WidgetsExample::onEvent(iEvent &event)
+{
+    // first call example base
+    ExampleBase::onEvent(event);
+
+    event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WidgetsExample::onMouseMoveEvent));
+    event.dispatch<iWindowResizeEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WidgetsExample::onWindowResize));
+}
+
+bool WidgetsExample::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
 {
     // updates a label with current mouse position
     if (_labelMousePos != nullptr)
     {
         iaString text;
-        text += iaString::toString(pos._x);
+        text += iaString::toString(event.getPosition()._x);
         text += ":";
-        text += iaString::toString(pos._y);
+        text += iaString::toString(event.getPosition()._y);
 
         _labelMousePos->setText(text);
     }
 
-    ExampleBase::onMouseMoved(pos);
+    return false;
 }
 
 void WidgetsExample::onOpenColorChooser(const iWidgetPtr source)
@@ -519,12 +500,12 @@ void WidgetsExample::onExitClick(const iWidgetPtr source)
     iApplication::getInstance().stop();
 }
 
-void WidgetsExample::onWindowResized(int32 clientWidth, int32 clientHeight)
+bool WidgetsExample::onWindowResize(iWindowResizeEvent_TMP &event)
 {
     // update the widget managers desktop dimensions
     iWidgetManager::getInstance().setDesktopDimensions(getWindow().getClientWidth(), getWindow().getClientHeight());
 
-    ExampleBase::onWindowResized(clientWidth, clientHeight);
+    return true;
 }
 
 void WidgetsExample::onRenderOrtho()

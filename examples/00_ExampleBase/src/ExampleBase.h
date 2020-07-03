@@ -29,19 +29,8 @@
 #ifndef __EXAMPLEBASE_H__
 #define __EXAMPLEBASE_H__
 
-#include <igor/system/iWindow.h>
-#include <igor/graphics/iView.h>
-#include <igor/threading/tasks/iTask.h>
-#include <igor/resources/profiler/iProfilerVisualizer.h>
-#include <igor/resources/texture/iTexture.h>
-#include <igor/resources/texture/iTextureFont.h>
-#include <igor/scene/iScene.h>
-#include <igor/layers/iLayer.h>
-#include <igor/system/events/iEventKeyboard.h>
-#include <igor/system/events/iEventMouse.h>
+#include <igor/igor.h>
 using namespace igor;
-
-#include <iaux/data/iaString.h>
 using namespace iaux;
 
 /*! Examples base class
@@ -127,13 +116,6 @@ protected:
     */
     bool onKeyUp(iKeyUpEvent_TMP &event);
 
-    /*! called when window was resized
-
-    \param clientWidth the client rectangle width
-    \param clientHeight the client rectangle height
-    */
-    virtual void onWindowResized(int32 clientWidth, int32 clientHeight);
-
 private:
     /*! the window that receives the input messages
     */
@@ -187,9 +169,12 @@ private:
     */
     void drawLogo();
 
-    /*! called when window got closed
+    /*! handle window resize event
+
+    \param event the window resize event
+    \returns true if consumed
     */
-    void onCloseWindow();
+    bool onWindowResize(iWindowResizeEvent_TMP &event);
 };
 
 #endif // __EXAMPLEBASE_H__

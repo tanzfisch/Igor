@@ -26,23 +26,10 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __WIDGET_EXAMPLE_H__
-#define __WIDGET_EXAMPLE_H__
+#ifndef __WIDGETEXAMPLE_H__
+#define __WIDGETEXAMPLE_H__
 
 #include <ExampleBase.h>
-
-#include <igor/ui/dialogs/iDialog.h>
-#include <igor/ui/dialogs/iDialogColorChooser.h>
-#include <igor/ui/dialogs/iDialogColorGradient.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/resources/profiler/iProfilerVisualizer.h>
-#include <igor/resources/texture/iTexture.h>
-#include <igor/ui/dialogs/iDialogMessageBox.h>
-using namespace igor;
-
-#include <iaux/data/iaGradient.h>
-#include <iaux/math/iaMatrix.h>
-using namespace iaux;
 
 namespace igor
 {
@@ -163,30 +150,37 @@ private:
     */
     void onCloseColorGradient(iDialogPtr dialog);
 
-    /*! triggered by mouse move event
-
-    \param pos position of mouse cursor
-    */
-    void onMouseMoved(const iaVector2i &pos) override;
-
     /*! initialize example
     */
-    void init() override;
+    void onInit() override;
 
     /*! deinitialize example
     */
-    void deinit() override;
+    void onDeinit() override;
 
     /*! called by orthogonal view
     */
     void onRenderOrtho() override;
 
-    /*! called when window was resized
+    /*! called on any other event
 
-    \param clientWidth the client rectangle width
-    \param clientHeight the client rectangle height
+    \param event the event to handle
     */
-    void onWindowResized(int32 clientWidth, int32 clientHeight) override;
+    void onEvent(iEvent &event) override;
+
+    /*! handles mouse move event
+
+    \param event the mouse move event
+    \returns true if consumed
+    */
+    bool onMouseMoveEvent(iMouseMoveEvent_TMP &event);
+
+    /*! handle window resize event
+
+    \param event the window resize event
+    \returns true if consumed
+    */
+    bool onWindowResize(iWindowResizeEvent_TMP &event);
 };
 
-#endif // __WIDGET_EXAMPLE_H__
+#endif // __WIDGETEXAMPLE_H__

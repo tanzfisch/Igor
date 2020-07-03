@@ -4,25 +4,6 @@
 
 #include "ExampleBase.h"
 
-#include <igor/system/iApplication.h>
-#include <igor/threading/iTaskManager.h>
-#include <igor/threading/tasks/iTaskFlushModels.h>
-#include <igor/threading/tasks/iTaskFlushTextures.h>
-#include <igor/graphics/iRenderer.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/scene/iSceneFactory.h>
-#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
-#include <igor/system/iKeyboard.h>
-#include <igor/system/iMouse.h>
-#include <igor/scene/nodes/iNodeSkyBox.h>
-#include <igor/scene/nodes/iNodeManager.h>
-using namespace igor;
-
-#include <iaux/system/iaConsole.h>
-#include <iaux/math/iaMatrix.h>
-using namespace iaux;
-
 ExampleBase::ExampleBase(const iaString &name, bool createBaseSetup, bool createSkyBox)
     : _name(name)
 {
@@ -35,10 +16,6 @@ ExampleBase::ExampleBase(const iaString &name, bool createBaseSetup, bool create
         _window.setClientSize(1024, 768);
         _window.setVSync(true);
 
-        // need to know when the window was closed so we can shut down the application
-        _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &ExampleBase::onCloseWindow));
-        // register to window resize event
-        _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &ExampleBase::onWindowResized));
         // center the window on screen
         _window.setCentered();
 
@@ -142,9 +119,6 @@ ExampleBase::~ExampleBase()
 
         // closes the window if it was not closed already
         _window.close();
-        // unregisters an other callback
-        _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &ExampleBase::onCloseWindow));
-        _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &ExampleBase::onWindowResized));
     }
 
     con_info("stopped example \"" << _name << "\"");
@@ -152,12 +126,17 @@ ExampleBase::~ExampleBase()
 
 void ExampleBase::onEvent(iEvent &event)
 {
+    event.dispatch<iWindowResizeEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(ExampleBase::onWindowResize));
     event.dispatch<iKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(ExampleBase::onKeyUp));
 }
 
-iTextureFontPtr ExampleBase::getFont() const
+bool ExampleBase::onWindowResize(iWindowResizeEvent_TMP &event)
 {
-    return _font;
+    // update the the view port projection matrix so the widget manager desktop will fit on screen
+    _viewOrtho.setOrthogonal(0.0, static_cast<float32>(event.getWidth()), static_cast<float32>(event.getHeight()), 0.0);
+
+    // do not consume this one
+    return false;
 }
 
 bool ExampleBase::onKeyUp(iKeyUpEvent_TMP &event)
@@ -166,11 +145,11 @@ bool ExampleBase::onKeyUp(iKeyUpEvent_TMP &event)
     {
     case iKeyCode::ESC:
         iApplication::getInstance().stop();
-        break;
+        return true;
 
     case iKeyCode::F8:
         _profilerVisualizer.cycleVerbosity();
-        break;
+        return true;
 
     case iKeyCode::F9:
     {
@@ -180,22 +159,27 @@ bool ExampleBase::onKeyUp(iKeyUpEvent_TMP &event)
             printTree.printToConsole(getScene()->getRoot());
         }
     }
-    break;
+        return true;
 
     case iKeyCode::F10:
         getView().setWireframeVisible(!getView().isWireframeVisible());
-        break;
+        return true;
 
     case iKeyCode::F11:
         getView().setOctreeVisible(!getView().isOctreeVisible());
-        break;
+        return true;
 
     case iKeyCode::F12:
         getView().setBoundingBoxVisible(!getView().isBoundingBoxVisible());
-        break;
+        return true;
     }
 
-    return true;
+    return false;
+}
+
+iTextureFontPtr ExampleBase::getFont() const
+{
+    return _font;
 }
 
 iView &ExampleBase::getView()
@@ -218,12 +202,6 @@ iMaterialID ExampleBase::getFontMaterial() const
     return _materialWithTextureAndBlending;
 }
 
-void ExampleBase::onWindowResized(int32 clientWidth, int32 clientHeight)
-{
-    // update the the view port projection matrix so the widget manager desktop will fit on screen
-    _viewOrtho.setOrthogonal(0.0, static_cast<float32>(clientWidth), static_cast<float32>(clientHeight), 0.0);
-}
-
 void ExampleBase::onInit()
 {
     // nothing to do
@@ -242,15 +220,6 @@ const iaString &ExampleBase::getName() const
 iWindow &ExampleBase::getWindow()
 {
     return _window;
-}
-
-void ExampleBase::onCloseWindow()
-{
-    con_info("windows was closed");
-
-    // stop the application of the window was closed.
-    // because once the window is closed we loose the keyboard input and we have to close the console manually (with e.g. Ctrl+C)
-    iApplication::getInstance().stop();
 }
 
 void ExampleBase::onPreDraw()
