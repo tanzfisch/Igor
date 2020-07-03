@@ -4,49 +4,12 @@
 
 #include "Evaluation.h"
 
-#include <iaux/system/iaConsole.h>
-#include <iaux/data/iaString.h>
-#include <iaux/math/iaBSpline.h>
-#include <iaux/data/iaConvert.h>
-using namespace iaux;
-
-#include <igor/resources/material/iMaterial.h>
-#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
-#include <igor/threading/iTaskManager.h>
-#include <igor/scene/nodes/iNodeSkyBox.h>
-#include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/scene/nodes/iNodeModel.h>
-#include <igor/graphics/iRenderer.h>
-#include <igor/system/iApplication.h>
-#include <igor/scene/iSceneFactory.h>
-#include <igor/scene/iScene.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/system/iMouse.h>
-#include <igor/system/iKeyboard.h>
-#include <igor/system/iTimer.h>
-#include <igor/resources/texture/iTextureFont.h>
-#include <igor/scene/nodes/iNodeLight.h>
-#include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/threading/tasks/iTaskFlushModels.h>
-#include <igor/threading/tasks/iTaskFlushTextures.h>
-#include <iaux/data/iaString.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/profiler/iProfiler.h>
-#include <igor/scene/nodes/iNodeSwitch.h>
-#include <igor/scene/nodes/iNodeLODSwitch.h>
-#include <igor/scene/nodes/iNodeLODTrigger.h>
-#include <igor/scene/traversal/iNodeVisitorRenderColorID.h>
-#include <igor/evaluation/iEvaluationManager.h>
-#include <igor/evaluation/iEvaluationTransform.h>
-#include <igor/evaluation/iEvaluationScript.h>
-using namespace igor;
-
 Evaluation::Evaluation()
     : ExampleBase("Evaluation")
 {
 }
 
-void Evaluation::init()
+void Evaluation::onInit()
 {
     // place some camera
     iNodeTransform *cameraTransform = iNodeManager::getInstance().createNode<iNodeTransform>();

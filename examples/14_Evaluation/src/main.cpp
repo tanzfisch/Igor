@@ -4,20 +4,17 @@
 
 #include "Evaluation.h"
 
-#include <igor/igor.h>
-using namespace igor;
-
 int main()
 {
-    // first thing to do
+	// first thing to do
 	igor::startup();
 
-    // create and run example
-	Evaluation* example = new Evaluation();
-	example->run();
-	delete example;
-	
-    // last thing to do
+	// create and run example
+	igor::iApplication::getInstance().addLayer(new Evaluation());
+	igor::iApplication::getInstance().run();
+	igor::iApplication::getInstance().clearLayerStack();
+
+	// last thing to do
 	igor::shutdown();
 
 	return 0;

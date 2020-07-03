@@ -2,42 +2,10 @@
 #define __ASCENT__
 
 #include <igor/igor.h>
-#include <igor/system/iWindow.h>
-#include <igor/graphics/iView.h>
-#include <igor/system/iTimerHandle.h>
-#include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/system/iKeyboard.h>
-#include <igor/resources/profiler/iProfilerVisualizer.h>
-#include <igor/data/iSphere.h>
-#include <igor/generation/iPerlinNoise.h>
-using namespace igor;
-
-#include <iaux/math/iaMatrix.h>
-#include <iaux/system/iaMutex.h>
-#include <iaux/math/iaRandomNumberGenerator.h>
-using namespace iaux;
-
-namespace igor
-{
-    class iScene;
-    class iNodeTransform;
-    class iNodeLight;
-    class iTextureFont;
-    class iVoxelData;
-    class iContouringCubes;
-    class iMeshBuilder;
-    class iMesh;
-    class iTargetMaterial;
-    class iNodeLODTrigger;
-    class iPhysicsBody;
-    class iVoxelTerrain;
-    class iVoxelBlockInfo;
-    class iVoxelBlockPropsInfo;
-} // namespace igor
 
 class Enemy;
 
-class Ascent
+class Ascent : public iLayer
 {
 
 public:
@@ -46,10 +14,8 @@ public:
     static uint64 _entityMaterialID;
     static uint64 _bulletMaterialID;
 
-    Ascent();
-    virtual ~Ascent();
-
-    void run();
+    Ascent() = default;
+    ~Ascent() = default;
 
 private:
     bool _captureMouse = true;
@@ -111,30 +77,11 @@ private:
     bool getTerrainIntersectionPoint(iaVector3I &intersection);
     void dig(iaVector3I position, uint64 toolSize, uint8 toolDensity);
 
-    void onKeyDown(iKeyCode key);
-    void onKeyUp(iKeyCode key);
-
-    void onWindowClosed();
-    void onWindowResized(int32 clientWidth, int32 clientHeight);
-
-    void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *_window);
-
-    void onMouseUp(iKeyCode key);
-    void onMouseDown(iKeyCode key);
-    void onMouseWheel(int d);
-
     void handleMouse();
     void handleHitList();
 
-    void deinit();
-    void init();
-
     void onRender();
-    void onHandle();
     void onRenderOrtho();
-
-    void registerHandles();
-    void unregisterHandles();
 
     void initViews();
     void initScene();
@@ -143,6 +90,62 @@ private:
     void initPhysics();
     void onContactTerrainBullet(iPhysicsBody *body0, iPhysicsBody *body1);
     void onContact(iPhysicsBody *body0, iPhysicsBody *body1);
+
+    /*! called when added to layer stack
+        */
+    void onInit() override;
+
+    /*! called when removed from layer stack
+        */
+    void onDeinit() override;
+
+    /*! called on application pre draw event
+        */
+    void onPreDraw() override;
+
+    /*! called on any other event
+        */
+    void onEvent(iEvent &event) override;
+
+    /*! handles mouse key down event
+
+    \param event the mouse key down event
+    \returns true if consumed
+    */
+    bool onMouseKeyDownEvent(iMouseKeyDownEvent_TMP &event);
+
+    /*! handles mouse move event
+
+    \param event the mouse move event
+    \returns true if consumed
+    */
+    bool onMouseMoveEvent(iMouseMoveEvent_TMP &event);
+
+    /*! handles mouse wheel event
+
+    \param event the mouse wheel event
+    \returns true if consumed
+    */
+    bool onMouseWheelEvent(iMouseWheelEvent_TMP &event);
+
+    /*! called when key was pressed
+
+    \param event the event to handle
+    */
+    bool onKeyDown(iKeyDownEvent_TMP &event);
+
+    /*! called when key was released
+
+    \param event the event to handle
+    */
+    bool onKeyUp(iKeyUpEvent_TMP &event);
+
+    /*! handle window resize event
+
+    \param event the window resize event
+    \returns true if consumed
+    */
+    bool onWindowResize(iWindowResizeEvent_TMP &event);
 };
 
 #endif

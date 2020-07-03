@@ -4,16 +4,13 @@
 
 #include "Ascent.h"
 
-#include <igor/igor.h>
-using namespace igor;
-
 int main()
 {
 	igor::startup();
 
-	Ascent *ascent = new Ascent();
-	ascent->run();
-	delete ascent;
+	igor::iApplication::getInstance().addLayer(new Ascent());
+	igor::iApplication::getInstance().run();
+	igor::iApplication::getInstance().clearLayerStack();
 
 	igor::shutdown();
 

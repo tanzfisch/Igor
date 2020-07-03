@@ -4,43 +4,17 @@
 
 #include "SpriteAnimation.h"
 
-#include <iaux/system/iaConsole.h>
-#include <iaux/data/iaString.h>
-using namespace iaux;
-
-#include <igor/system/iMouse.h>
-#include <igor/system/iKeyboard.h>
-#include <igor/resources/texture/iAtlas.h>
-#include <igor/resources/texture/iTextureFont.h>
-#include <igor/system/iTimer.h>
-#include <igor/system/iApplication.h>
-#include <igor/graphics/iRenderer.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/profiler/iProfiler.h>
-#include <igor/scene/iSceneFactory.h>
-#include <igor/scene/nodes/iNodeMesh.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/resources/material/iTargetMaterial.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/scene/iScene.h>
-#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
-#include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/scene/nodes/iNodeModel.h>
-using namespace igor;
+#include "TileMapGenerator.h"
 
 #include <sstream>
 #include <map>
-
-#include "TileMapGenerator.h"
 
 SpriteAnimation::SpriteAnimation()
 	: ExampleBase("Sprite Animation")
 {
 }
 
-void SpriteAnimation::init()
+void SpriteAnimation::onInit()
 {
 	getView().setClearColor(1.0, 1.0, 1.0, 1.0);
 	getViewOrtho().setScene(getScene());
@@ -104,7 +78,7 @@ void SpriteAnimation::init()
 	_animationTimer.start();
 }
 
-void SpriteAnimation::deinit()
+void SpriteAnimation::onDeinit()
 {
 	// release materials (optional)
 	iMaterialResourceFactory::getInstance().destroyMaterial(_materialTerrain);
@@ -124,65 +98,69 @@ void SpriteAnimation::deinit()
 	}
 }
 
-void SpriteAnimation::onMouseMoved(const iaVector2i &position)
+void SpriteAnimation::onEvent(iEvent &event)
 {
-	ExampleBase::onMouseMoved(position);
+	// first call example base
+	ExampleBase::onEvent(event);
+
+	event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(SpriteAnimation::onKeyDown));
+	event.dispatch<iKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(SpriteAnimation::onKeyUp));
 }
 
-void SpriteAnimation::onKeyDown(iKeyCode key)
+bool SpriteAnimation::onKeyDown(iKeyDownEvent_TMP &event)
 {
-	switch (key)
+	switch (event.getKey())
 	{
 	case iKeyCode::Left:
 		_flags[0] = true;
-		break;
+		return true;
 
 	case iKeyCode::Up:
 		_flags[1] = true;
-		break;
+		return true;
 
 	case iKeyCode::Right:
 		_flags[2] = true;
-		break;
+		return true;
 
 	case iKeyCode::Down:
 		_flags[3] = true;
-		break;
+		return true;
 
 	case iKeyCode::LShift:
 		_flags[4] = true;
-		break;
+		return true;
 	}
 
-	ExampleBase::onKeyDown(key);
+	return false;
 }
 
-void SpriteAnimation::onKeyUp(iKeyCode key)
+bool SpriteAnimation::onKeyUp(iKeyUpEvent_TMP &event)
 {
-	switch (key)
+	switch (event.getKey())
 	{
 	case iKeyCode::Left:
 		_flags[0] = false;
-		break;
+		return true;
 
 	case iKeyCode::Up:
 		_flags[1] = false;
-		break;
+		return true;
 
 	case iKeyCode::Right:
 		_flags[2] = false;
-		break;
+		return true;
 
 	case iKeyCode::Down:
 		_flags[3] = false;
-		break;
+		return true;
 
 	case iKeyCode::LShift:
 		_flags[4] = false;
-		break;
+		return true;
 	}
 
-	ExampleBase::onKeyUp(key);
+	return false;
 }
 
 iaString SpriteAnimation::getCharacterStateName(CharacterState state)

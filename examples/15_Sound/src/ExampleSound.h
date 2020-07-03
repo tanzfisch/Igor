@@ -31,11 +31,6 @@
 
 #include <ExampleBase.h>
 
-#include <igor/resources/iResource.h>
-#include <igor/audio/iAudio.h>
-#include <igor/system/iTimerHandle.h>
-using namespace igor;
-
 /*! example for playing back sound
 */
 class ExampleSound : public ExampleBase
@@ -50,7 +45,6 @@ public:
     ~ExampleSound() = default;
 
 private:
-
     /*! sound resource beep
     */
     iResourcePtr _soundBeep;
@@ -65,7 +59,7 @@ private:
 
     /*! timer handle to control the movement of the cat
     */
-    iTimerHandle* _timerHandle = nullptr;
+    iTimerHandle *_timerHandle = nullptr;
 
     /*! triggered by timer
     */
@@ -73,12 +67,11 @@ private:
 
     /*! initialize example
     */
-    void init() override;
+    void onInit() override;
 
     /*! deinitialize example
     */
-    void deinit() override;
-
+    void onDeinit() override;
 };
 
 #endif // __EXAMPLE_SOUND_H__

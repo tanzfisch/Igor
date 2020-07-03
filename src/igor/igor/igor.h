@@ -30,7 +30,22 @@
 #define __IGOR__
 
 // igor includes
+#include <igor/audio/iAudio.h>
+
+#include <igor/data/iAABox.h>
+#include <igor/data/iAACube.h>
+#include <igor/data/iBone.h>
+#include <igor/data/iFrustum.h>
+#include <igor/data/iIntersection.h>
+#include <igor/data/iJoint.h>
+#include <igor/data/iPlane.h>
+#include <igor/data/iRay.h>
+#include <igor/data/iRectangle.h>
+#include <igor/data/iSkeleton.h>
+#include <igor/data/iSphere.h>
+
 #include <igor/evaluation/iEvaluationManager.h>
+#include <igor/evaluation/iEvaluationScript.h>
 #include <igor/evaluation/iEvaluationTransform.h>
 
 #include <igor/generation/iContouringCubes.h>
@@ -44,18 +59,23 @@
 
 #include <igor/physics/iPhysics.h>
 
+#include <igor/resources/iResourceManager.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/material/iTargetMaterial.h>
+#include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/model/iModelResourceFactory.h>
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/resources/profiler/iProfilerVisualizer.h>
 #include <igor/resources/texture/iAtlas.h>
+#include <igor/resources/texture/iPixmap.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 
 #include <igor/scene/iScene.h>
 #include <igor/scene/iSceneFactory.h>
 #include <igor/scene/nodes/iNode.h>
+#include <igor/scene/nodes/iNodeAudioListener.h>
+#include <igor/scene/nodes/iNodeAudioSource.h>
 #include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/scene/nodes/iNodeEmitter.h>
 #include <igor/scene/nodes/iNodeLight.h>
@@ -84,8 +104,12 @@
 #include <igor/system/events/iEventMouse.h>
 #include <igor/system/events/iEventWindow.h>
 
+#include <igor/terrain/iVoxelTerrain.h>
+#include <igor/terrain/iVoxelTerrainMeshGenerator.h>
 #include <igor/terrain/data/iVoxelBlock.h>
 #include <igor/terrain/data/iVoxelData.h>
+#include <igor/terrain/tasks/iTaskGenerateVoxels.h>
+#include <igor/terrain/tasks/iTaskPropsOnVoxels.h>
 
 #include <igor/threading/iTaskManager.h>
 #include <igor/threading/tasks/iTask.h>
@@ -118,6 +142,7 @@
 #include <igor/ui/widgets/iWidgetTextEdit.h>
 
 // iaux includes
+#include <iaux/data/iaConvert.h>
 #include <iaux/data/iaGradient.h>
 #include <iaux/data/iaString.h>
 
@@ -125,6 +150,7 @@
 #include <iaux/math/iaMatrix.h>
 #include <iaux/math/iaRandomNumberGenerator.h>
 #include <iaux/math/iaVector2.h>
+#include <iaux/math/iaVector3.h>
 
 #include <iaux/system/iaConsole.h>
 

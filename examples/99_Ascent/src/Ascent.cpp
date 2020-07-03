@@ -31,9 +31,9 @@
 #include <igor/threading/tasks/iTaskFlushTextures.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/terrain/data/iVoxelData.h>
-#include <igor/resources/mesh/iMeshBuilder.h>
+
 #include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/resources/texture/iPixmap.h>
+
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/resources/material/iTargetMaterial.h>
 #include <igor/scene/nodes/iNodeLODTrigger.h>
@@ -43,59 +43,13 @@
 #include <igor/physics/iPhysicsBody.h>
 #include <igor/entities/iEntityManager.h>
 #include <igor/terrain/iVoxelTerrain.h>
-#include <igor/terrain/tasks/iTaskGenerateVoxels.h>
-#include <igor/terrain/tasks/iTaskPropsOnVoxels.h>
 using namespace igor;
 
-#include <iaux/system/iaConsole.h>
-#include <iaux/data/iaConvert.h>
-#include <iaux/math/iaVector3.h>
 using namespace iaux;
 
 uint64 Ascent::_terrainMaterialID = 0;
 uint64 Ascent::_entityMaterialID = 0;
 uint64 Ascent::_bulletMaterialID = 0;
-
-Ascent::Ascent()
-{
-    init();
-}
-
-Ascent::~Ascent()
-{
-    deinit();
-}
-
-void Ascent::registerHandles()
-{
-    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &Ascent::onKeyDown));
-    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &Ascent::onKeyUp));
-    iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &Ascent::onMouseDown));
-    iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &Ascent::onMouseUp));
-    iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &Ascent::onMouseWheel));
-    iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Ascent::onMouseMoved));
-
-    _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &Ascent::onWindowResized));
-    _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &Ascent::onWindowClosed));
-
-    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &Ascent::onHandle));
-}
-
-void Ascent::unregisterHandles()
-{
-    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &Ascent::onHandle));
-
-    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Ascent::onWindowResized));
-    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Ascent::onWindowClosed));
-
-    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Ascent::onMouseMoved));
-    iMouse::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &Ascent::onMouseDown));
-    iMouse::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &Ascent::onMouseUp));
-    iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &Ascent::onMouseWheel));
-
-    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &Ascent::onKeyUp));
-    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &Ascent::onKeyDown));
-}
 
 void Ascent::initViews()
 {
@@ -573,7 +527,7 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
     }
 }
 
-void Ascent::init()
+void Ascent::onInit()
 {
     con_endl(" -- OpenGL 3D Test --");
 
@@ -618,14 +572,10 @@ void Ascent::init()
     // launch resource handlers
     _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
-
-    registerHandles();
 }
 
-void Ascent::deinit()
+void Ascent::onDeinit()
 {
-    unregisterHandles();
-
     if (_font)
     {
         delete _font;
@@ -645,90 +595,6 @@ void Ascent::deinit()
     _window.close();
     _window.removeView(&_view);
     _window.removeView(&_viewOrtho);
-}
-
-void Ascent::onKeyDown(iKeyCode key)
-{
-    if (_activeControls)
-    {
-        Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
-
-        if (player != nullptr)
-        {
-            switch (key)
-            {
-            case iKeyCode::A:
-                player->startLeft();
-                break;
-
-            case iKeyCode::D:
-                player->startRight();
-                break;
-
-            case iKeyCode::W:
-                player->startForward();
-                break;
-
-            case iKeyCode::S:
-                player->startBackward();
-                break;
-
-            case iKeyCode::Q:
-                player->startUp();
-                break;
-
-            case iKeyCode::E:
-                player->startDown();
-                break;
-
-            case iKeyCode::LShift:
-                player->startFastTurn();
-                break;
-
-            case iKeyCode::One:
-                player->startRollLeft();
-                break;
-
-            case iKeyCode::Three:
-                player->startRollRight();
-                break;
-
-            case iKeyCode::Space:
-                iaVector3I intersection;
-                if (getTerrainIntersectionPoint(intersection))
-                {
-                    dig(intersection, _toolSize, _toolDensity);
-                }
-                break;
-            }
-        }
-    }
-
-    switch (key)
-    {
-    case iKeyCode::ESC:
-        iApplication::getInstance().stop();
-        break;
-
-    case iKeyCode::F3:
-    {
-        iProfilerVerbosity level = _profilerVisualizer.getVerbosity();
-
-        if (level == iProfilerVerbosity::All)
-        {
-            level = iProfilerVerbosity::None;
-        }
-        else
-        {
-            int value = static_cast<int>(level);
-            value++;
-            level = static_cast<iProfilerVerbosity>(value);
-        }
-
-        _profilerVisualizer.setVerbosity(level);
-    }
-    break;
-    }
 }
 
 bool Ascent::getTerrainIntersectionPoint(iaVector3I &intersection)
@@ -783,128 +649,6 @@ void Ascent::dig(iaVector3I position, uint64 toolSize, uint8 density)
     new DigEffect(_scene, effectMatrix);
 }
 
-void Ascent::onKeyUp(iKeyCode key)
-{
-    if (_activeControls)
-    {
-        Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
-        if (player != nullptr)
-        {
-            switch (key)
-            {
-            case iKeyCode::A:
-                player->stopLeft();
-                break;
-
-            case iKeyCode::D:
-                player->stopRight();
-                break;
-
-            case iKeyCode::W:
-                player->stopForward();
-                break;
-
-            case iKeyCode::S:
-                player->stopBackward();
-                break;
-
-            case iKeyCode::Q:
-                player->stopUp();
-                break;
-
-            case iKeyCode::E:
-                player->stopDown();
-                break;
-
-            case iKeyCode::LShift:
-                player->stopFastTurn();
-                break;
-
-            case iKeyCode::One:
-                player->stopRollLeft();
-                break;
-
-            case iKeyCode::Three:
-                player->stopRollRight();
-                break;
-            }
-        }
-    }
-}
-
-void Ascent::onMouseWheel(int d)
-{
-    if (_activeControls)
-    {
-        if (d > 0)
-        {
-            _toolSize += 1;
-            if (_toolSize > 20)
-            {
-                _toolSize = 20;
-            }
-        }
-        else
-        {
-            _toolSize -= 5;
-
-            if (_toolSize < 5)
-            {
-                _toolSize = 5;
-            }
-        }
-    }
-}
-
-void Ascent::onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *_window)
-{
-    if (_activeControls)
-    {
-        _mouseDelta.set(to._x - from._x, to._y - from._y);
-
-        if (!iKeyboard::getInstance().getKey(iKeyCode::Space))
-        {
-            iMouse::getInstance().setCenter();
-        }
-    }
-}
-
-void Ascent::onMouseDown(iKeyCode key)
-{
-    if (_activeControls)
-    {
-        Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
-        if (player != nullptr)
-        {
-            /* if (key == iKeyCode::MouseRight)
-             {
-                 iaVector3d updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
-                 player->shootSecondaryWeapon(_view, updown);
-             }*/
-
-            if (key == iKeyCode::MouseLeft)
-            {
-                iaVector3d updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
-                player->shootPrimaryWeapon(_view, updown);
-            }
-        }
-    }
-}
-
-void Ascent::onMouseUp(iKeyCode key)
-{
-}
-
-void Ascent::onWindowClosed()
-{
-    iApplication::getInstance().stop();
-}
-
-void Ascent::onWindowResized(int32 clientWidth, int32 clientHeight)
-{
-    _viewOrtho.setOrthogonal(0, static_cast<float32>(clientWidth), static_cast<float32>(clientHeight), 0);
-}
-
 void Ascent::handleMouse() // TODO
 {
     if (_activeControls)
@@ -925,7 +669,7 @@ void Ascent::handleMouse() // TODO
     }
 }
 
-void Ascent::onHandle()
+void Ascent::onPreDraw()
 {
     if (_loading)
     {
@@ -1051,7 +795,226 @@ void Ascent::onRenderOrtho()
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 }
 
-void Ascent::run()
+void Ascent::onEvent(iEvent &event)
 {
-    iApplication::getInstance().run();
+    event.dispatch<iWindowResizeEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Ascent::onWindowResize));
+    event.dispatch<iMouseKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Ascent::onMouseKeyDownEvent));
+    event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Ascent::onMouseMoveEvent));
+    event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Ascent::onMouseWheelEvent));
+    event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Ascent::onKeyDown));
+    event.dispatch<iKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Ascent::onKeyUp));
+}
+
+bool Ascent::onMouseKeyDownEvent(iMouseKeyDownEvent_TMP &event)
+{
+    if (_activeControls)
+    {
+        Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
+        if (player != nullptr)
+        {
+            /* if (key == iKeyCode::MouseRight)
+             {
+                 iaVector3d updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
+                 player->shootSecondaryWeapon(_view, updown);
+             }*/
+
+            if (event.getKey() == iKeyCode::MouseLeft)
+            {
+                iaVector3d updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
+                player->shootPrimaryWeapon(_view, updown);
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool Ascent::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
+{
+    if (_activeControls)
+    {
+        const auto from = event.getLastPosition();
+        const auto to = event.getPosition();
+
+        _mouseDelta.set(to._x - from._x, to._y - from._y);
+
+        if (!iKeyboard::getInstance().getKey(iKeyCode::Space))
+        {
+            iMouse::getInstance().setCenter();
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
+bool Ascent::onMouseWheelEvent(iMouseWheelEvent_TMP &event)
+{
+    if (_activeControls)
+    {
+        if (event.getWheelDelta() > 0)
+        {
+            _toolSize += 1;
+            if (_toolSize > 20)
+            {
+                _toolSize = 20;
+            }
+        }
+        else
+        {
+            _toolSize -= 5;
+
+            if (_toolSize < 5)
+            {
+                _toolSize = 5;
+            }
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
+bool Ascent::onKeyDown(iKeyDownEvent_TMP &event)
+{
+    if (_activeControls)
+    {
+        Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
+
+        if (player != nullptr)
+        {
+            switch (event.getKey())
+            {
+            case iKeyCode::A:
+                player->startLeft();
+                return true;
+
+            case iKeyCode::D:
+                player->startRight();
+                return true;
+
+            case iKeyCode::W:
+                player->startForward();
+                return true;
+
+            case iKeyCode::S:
+                player->startBackward();
+                return true;
+
+            case iKeyCode::Q:
+                player->startUp();
+                return true;
+
+            case iKeyCode::E:
+                player->startDown();
+                return true;
+
+            case iKeyCode::LShift:
+                player->startFastTurn();
+                return true;
+
+            case iKeyCode::One:
+                player->startRollLeft();
+                return true;
+
+            case iKeyCode::Three:
+                player->startRollRight();
+                return true;
+
+            case iKeyCode::Space:
+                iaVector3I intersection;
+                if (getTerrainIntersectionPoint(intersection))
+                {
+                    dig(intersection, _toolSize, _toolDensity);
+                }
+                return true;
+            }
+        }
+    }
+
+    switch (event.getKey())
+    {
+    case iKeyCode::ESC:
+        iApplication::getInstance().stop();
+        return true;
+
+    case iKeyCode::F3:
+    {
+        iProfilerVerbosity level = _profilerVisualizer.getVerbosity();
+
+        if (level == iProfilerVerbosity::All)
+        {
+            level = iProfilerVerbosity::None;
+        }
+        else
+        {
+            int value = static_cast<int>(level);
+            value++;
+            level = static_cast<iProfilerVerbosity>(value);
+        }
+
+        _profilerVisualizer.setVerbosity(level);
+    }
+        return true;
+    }
+
+    return false;
+}
+
+bool Ascent::onKeyUp(iKeyUpEvent_TMP &event)
+{
+    if (_activeControls)
+    {
+        Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
+        if (player != nullptr)
+        {
+            switch (event.getKey())
+            {
+            case iKeyCode::A:
+                player->stopLeft();
+                return true;
+
+            case iKeyCode::D:
+                player->stopRight();
+                return true;
+
+            case iKeyCode::W:
+                player->stopForward();
+                return true;
+
+            case iKeyCode::S:
+                player->stopBackward();
+                return true;
+
+            case iKeyCode::Q:
+                player->stopUp();
+                return true;
+
+            case iKeyCode::E:
+                player->stopDown();
+                return true;
+
+            case iKeyCode::LShift:
+                player->stopFastTurn();
+                return true;
+
+            case iKeyCode::One:
+                player->stopRollLeft();
+                return true;
+
+            case iKeyCode::Three:
+                player->stopRollRight();
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+bool Ascent::onWindowResize(iWindowResizeEvent_TMP &event)
+{
+    _viewOrtho.setOrthogonal(0, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0);
+    return true;
 }

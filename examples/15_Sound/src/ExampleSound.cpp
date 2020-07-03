@@ -4,28 +4,17 @@
 
 #include "ExampleSound.h"
 
-#include <igor/system/iApplication.h>
-#include <igor/system/iTimer.h>
-#include <igor/resources/iResourceManager.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/scene/nodes/iNodeAudioListener.h>
-#include <igor/scene/nodes/iNodeAudioSource.h>
-#include <igor/scene/nodes/iNodeModel.h>
-using namespace igor;
-
 ExampleSound::ExampleSound()
     : ExampleBase(L"Sound")
 {
 }
 
-void ExampleSound::init()
+void ExampleSound::onInit()
 {
     // load some sounds
     iResourceParameters parametersBeep = {"beep.wav"};
     _soundBeep = iResourceManager::getInstance().loadResource(parametersBeep);
-    iResourceParameters parametersLeftRight = { "left_right.wav" };
+    iResourceParameters parametersLeftRight = {"left_right.wav"};
     _soundLeftRight = iResourceManager::getInstance().loadResource(parametersLeftRight);
 
     // setup camera
@@ -69,7 +58,7 @@ void ExampleSound::init()
     audioSource->play();
 
     // add an extra stereo audio source
-    iNodeAudioSource* audioSourceStereo = iNodeManager::getInstance().createNode<iNodeAudioSource>();
+    iNodeAudioSource *audioSourceStereo = iNodeManager::getInstance().createNode<iNodeAudioSource>();
     audioSourceStereo->setName("audio source leftright");
     audioSourceStereo->setSound(_soundLeftRight);
     audioSourceStereo->setLoop(true);
@@ -96,7 +85,7 @@ void ExampleSound::onTimer()
     transform->rotate(0.03f, iaAxis::Y);
 }
 
-void ExampleSound::deinit()
+void ExampleSound::onDeinit()
 {
     // destroy timer handle
     if (_timerHandle)

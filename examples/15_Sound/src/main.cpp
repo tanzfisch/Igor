@@ -4,18 +4,15 @@
 
 #include "ExampleSound.h"
 
-#include <igor/igor.h>
-using namespace igor;
-
 int main()
 {
 	// first thing to do
 	igor::startup();
 
 	// create and run example
-	ExampleSound *example = new ExampleSound();
-	example->run();
-	delete example;
+	igor::iApplication::getInstance().addLayer(new ExampleSound());
+	igor::iApplication::getInstance().run();
+	igor::iApplication::getInstance().clearLayerStack();
 
 	// last thing to do
 	igor::shutdown();

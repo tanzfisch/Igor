@@ -51,23 +51,23 @@ namespace igor
 
         /*! called when added to layer stack
         */
-        virtual void onInit() = 0;
+        virtual void onInit(){};
 
         /*! called when removed from layer stack
         */
-        virtual void onDeinit() = 0;
+        virtual void onDeinit(){};
 
         /*! called on application pre draw event
         */
-        virtual void onPreDraw() = 0;
+        virtual void onPreDraw(){};
 
         /*! called on application post draw event
         */
-        virtual void onPostDraw() = 0;
+        virtual void onPostDraw(){};
 
         /*! called on any other event
         */
-        virtual void onEvent(iEvent &event) = 0;
+        virtual void onEvent(iEvent &event){};
 
         /*! \returns layer name
         */

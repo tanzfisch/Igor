@@ -1,21 +1,8 @@
 #ifndef __TILEMAPGENERATOR__
 #define __TILEMAPGENERATOR__
 
-#include <igor/resources/mesh/iMesh.h>
-#include <igor/resources/texture/iAtlas.h>
-#include <igor/resources/texture/iPixmap.h>
-#include <igor/scene/iScene.h>
-#include <igor/resources/material/iMaterial.h>
+#include <igor/igor.h>
 using namespace igor;
-
-#include <iaux/data/iaString.h>
-#include <iaux/math/iaRandomNumberGenerator.h>
-using namespace iaux;
-
-namespace igor
-{
-	class iMeshBuilder;
-}
 
 /*! The tile map generator it's generating a mesh based on tiles
 */

@@ -30,6 +30,7 @@
 #define __CHARACTERCONTROLLER_H__
 
 #include <igor/igor.h>
+using namespace igor;
 
 class CharacterController
 {
