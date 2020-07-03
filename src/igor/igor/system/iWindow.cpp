@@ -77,10 +77,10 @@ namespace igor
 
         __IGOR_INLINE__ void sizeChanged(int32 width, int32 height)
         {
+            _window->onSizeChanged(width, height);
+
             iWindowResizeEvent_TMP event(width, height);
             _delegate(event);
-
-            _window->onSizeChanged(width, height); // TODO remove
         }
 
         __IGOR_INLINE__ static iWindowImpl *getImpl(iWindow *window)
