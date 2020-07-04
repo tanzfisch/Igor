@@ -38,8 +38,10 @@ class Particles : public ExampleBase
 
 public:
     /*! init
+
+    \param window the given window
     */
-    Particles();
+    Particles(iWindow *window);
 
     /*! does nothing
     */

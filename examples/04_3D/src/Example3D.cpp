@@ -4,8 +4,8 @@
 
 #include "Example3D.h"
 
-Example3D::Example3D()
-    : ExampleBase("3D Scene")
+Example3D::Example3D(iWindow *window)
+    : ExampleBase(window, "3D Scene")
 {
 }
 
@@ -244,8 +244,8 @@ bool Example3D::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
         if (allObjectsPitch != nullptr &&
             allObjectsHeading != nullptr)
         {
-            allObjectsPitch->rotate((to._y - from._y) * 0.005f, iaAxis::X);
-            allObjectsHeading->rotate((to._x - from._x) * 0.005f, iaAxis::Y);
+            allObjectsPitch->rotate((to._y - from._y) * 0.0005f, iaAxis::X);
+            allObjectsHeading->rotate((to._x - from._x) * 0.0005f, iaAxis::Y);
 
             iMouse::getInstance().setCenter();
         }

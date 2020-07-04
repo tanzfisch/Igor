@@ -43,8 +43,8 @@ using namespace iaux;
 #include <igor/scene/nodes/iNodePhysics.h>
 using namespace igor;
 
-ExampleCharacterController::ExampleCharacterController()
-    : ExampleBase("Character Controller", true, false)
+ExampleCharacterController::ExampleCharacterController(iWindow *window)
+    : ExampleBase(window, "Character Controller", true, false)
 {
 }
 
@@ -348,7 +348,7 @@ void ExampleCharacterController::onRenderOrtho()
         break;
     }
 
-    iRenderer::getInstance().drawString(10, static_cast<float32>(getWindow().getClientHeight() - 10), statusString, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+    iRenderer::getInstance().drawString(10, static_cast<float32>(getWindow()->getClientHeight() - 10), statusString, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
 
     ExampleBase::onRenderOrtho();
 }

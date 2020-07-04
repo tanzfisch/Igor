@@ -41,19 +41,11 @@ class ExampleBase : public iLayer
 public:
     /*! init example
     */
-    ExampleBase(const iaString &name, bool createBaseSetup = true, bool createSkyBox = true);
+    ExampleBase(iWindow *window, const iaString &name, bool createBaseSetup = true, bool createSkyBox = true);
 
     /*! release resources
     */
     virtual ~ExampleBase();
-
-    /*! \returns name of example
-    */
-    const iaString &getName() const;
-
-    /*! \returns the example's window
-    */
-    iWindow &getWindow();
 
     /*! \retruns the example's view
     */
@@ -117,10 +109,6 @@ protected:
     bool onKeyUp(iKeyUpEvent_TMP &event);
 
 private:
-    /*! the window that receives the input messages
-    */
-    iWindow _window;
-
     /*! the view we render 2D to
     */
     iView _viewOrtho;
@@ -140,10 +128,6 @@ private:
     /*! async loading of textures
     */
     iTaskID _taskFlushTextures = iTask::INVALID_TASK_ID;
-
-    /*! example name
-    */
-    iaString _name;
 
     /*! displays profiler
     */

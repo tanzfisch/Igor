@@ -37,8 +37,10 @@ class ExampleSound : public ExampleBase
 {
 public:
     /*! init example
+
+    \param window the given window
     */
-    ExampleSound();
+    ExampleSound(iWindow *window);
 
     /*! nothing to do
     */

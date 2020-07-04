@@ -274,11 +274,11 @@ iaVector3d Player::getCurrentPos()
     return result;
 }
 
-void Player::drawReticle(const iWindow &window)
+void Player::drawReticle(iWindow *window)
 {
-    iaVector3f weaponPos(window.getClientWidth() * 0.5, window.getClientHeight() * 0.5, 0);
+    iaVector3f weaponPos(window->getClientWidth() * 0.5, window->getClientHeight() * 0.5, 0);
 
-    float32 scale = 0.001 * window.getClientWidth();
+    float32 scale = 0.001 * window->getClientWidth();
 
     iRenderer::getInstance().setMaterial(_materialSolid);
     iRenderer::getInstance().setLineWidth(1 * scale);

@@ -38,8 +38,10 @@ class ExampleCharacterController : public ExampleBase
 
 public:
     /*! init
+
+    \param window the given window
     */
-    ExampleCharacterController();
+    ExampleCharacterController(iWindow *window);
 
     /*! does nothing
     */

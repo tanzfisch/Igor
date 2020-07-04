@@ -36,8 +36,10 @@ class MouseExample : public ExampleBase
 
 public:
     /*! init example
+
+    \param window pass the window we work with
     */
-    MouseExample();
+    MouseExample(iWindow *window);
 
     /*! does nothing
     */

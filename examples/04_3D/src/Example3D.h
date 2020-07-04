@@ -35,9 +35,11 @@ class Example3D : public ExampleBase
 {
 
 public:
-    /*! ctor
+    /*! initializes the example
+
+    \param window the given window
     */
-    Example3D();
+    Example3D(iWindow *window);
 
     /*! nothing to do
     */

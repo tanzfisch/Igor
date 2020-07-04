@@ -14,7 +14,11 @@ public:
     static uint64 _entityMaterialID;
     static uint64 _bulletMaterialID;
 
-    Ascent() = default;
+    /*! init members
+
+    \param window the given window
+    */
+    Ascent(iWindow *window);
     ~Ascent() = default;
 
 private:
@@ -27,7 +31,6 @@ private:
     bool _loading = true;
     bool _activeControls = false;
 
-    iWindow _window;
     iView _view;
     iView _viewOrtho;
 

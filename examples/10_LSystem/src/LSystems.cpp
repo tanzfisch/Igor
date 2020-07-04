@@ -6,8 +6,8 @@
 
 #include "PlantMeshGenerator.h"
 
-LSystems::LSystems()
-	: ExampleBase("L-System")
+LSystems::LSystems(iWindow *window)
+	: ExampleBase(window, "L-System")
 {
 }
 

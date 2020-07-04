@@ -4,8 +4,8 @@
 
 #include "MouseExample.h"
 
-MouseExample::MouseExample()
-    : ExampleBase(L"Mouse Input")
+MouseExample::MouseExample(iWindow *window)
+    : ExampleBase(window, L"Mouse Input")
 {
 }
 

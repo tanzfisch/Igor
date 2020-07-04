@@ -51,6 +51,11 @@ uint64 Ascent::_terrainMaterialID = 0;
 uint64 Ascent::_entityMaterialID = 0;
 uint64 Ascent::_bulletMaterialID = 0;
 
+Ascent::Ascent(iWindow *window)
+    : iLayer(window)
+{
+}
+
 void Ascent::initViews()
 {
     _view.setClearColor(iaColor4f(0.0f, 0.0f, 0.0f, 1.0f));
@@ -65,21 +70,21 @@ void Ascent::initViews()
     _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &Ascent::onRenderOrtho));
     _viewOrtho.setName("ortho");
 
-    _window.setTitle("Ascent");
-    _window.addView(&_view);
-    _window.addView(&_viewOrtho);
+    getWindow()->setTitle("Ascent");
+    getWindow()->addView(&_view);
+    getWindow()->addView(&_viewOrtho);
 #if 1
-    _window.setClientSize(1024, 768);
-    _window.setCentered();
+    getWindow()->setClientSize(1024, 768);
+    getWindow()->setCentered();
 #else
-    _window.setSizeByDesktop();
-    _window.setFullscreen();
+    getWindow()->setSizeByDesktop();
+    getWindow()->setFullscreen();
 #endif
-    _window.open();
+    getWindow()->open();
 
     iMouse::getInstance().showCursor(false);
 
-    _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
+    _viewOrtho.setOrthogonal(0, getWindow()->getClientWidth(), getWindow()->getClientHeight(), 0);
 }
 
 void Ascent::initScene()
@@ -570,8 +575,8 @@ void Ascent::onInit()
     iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::BlendFuncDestination, iRenderStateValue::OneMinusSourceAlpha);
 
     // launch resource handlers
-    _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
-    _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
+    _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(getWindow()));
+    _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(getWindow()));
 }
 
 void Ascent::onDeinit()
@@ -592,9 +597,9 @@ void Ascent::onDeinit()
     _view.unregisterRenderDelegate(iDrawDelegate(this, &Ascent::onRender));
     _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &Ascent::onRenderOrtho));
 
-    _window.close();
-    _window.removeView(&_view);
-    _window.removeView(&_viewOrtho);
+    getWindow()->close();
+    getWindow()->removeView(&_view);
+    getWindow()->removeView(&_viewOrtho);
 }
 
 bool Ascent::getTerrainIntersectionPoint(iaVector3I &intersection)
@@ -657,10 +662,10 @@ void Ascent::handleMouse() // TODO
         if (player != nullptr)
         {
             // TODO WTF? if I use set() it does not work in release mode here
-            _weaponPos._x = static_cast<float32>(_window.getClientWidth()) * 0.5f;
-            _weaponPos._y = static_cast<float32>(_window.getClientHeight()) * 0.5f;
+            _weaponPos._x = static_cast<float32>(getWindow()->getClientWidth()) * 0.5f;
+            _weaponPos._y = static_cast<float32>(getWindow()->getClientHeight()) * 0.5f;
             _weaponPos._z = 0.0f;
-            //_weaponPos.set(static_cast<float32>(_window.getClientWidth()) * 0.5f, static_cast<float32>(_window.getClientHeight()) * 0.5f, 0);
+            //_weaponPos.set(static_cast<float32>(getWindow()->getClientWidth()) * 0.5f, static_cast<float32>(getWindow()->getClientHeight()) * 0.5f, 0);
 
             float32 headingDelta = _mouseDelta._x * 0.002;
             float32 pitchDelta = _mouseDelta._y * 0.002;
@@ -740,7 +745,7 @@ void Ascent::handleHitList()
 
 void Ascent::onRenderOrtho()
 {
-    _profilerVisualizer.draw(&_window, _font, iaColor4f(0, 0, 0.8, 1));
+    _profilerVisualizer.draw(getWindow(), _font, iaColor4f(0, 0, 0.8, 1));
 
     iaMatrixd matrix;
     iRenderer::getInstance().setViewMatrix(matrix);
@@ -752,11 +757,11 @@ void Ascent::onRenderOrtho()
     if (_loading)
     {
         iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
-        iRenderer::getInstance().drawRectangle(0, 0, _window.getClientWidth(), _window.getClientHeight());
+        iRenderer::getInstance().drawRectangle(0, 0, getWindow()->getClientWidth(), getWindow()->getClientHeight());
 
         iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
         iRenderer::getInstance().setFontSize(40.0f);
-        iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "generating level ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+        iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "generating level ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
     }
     else
     {
@@ -765,7 +770,7 @@ void Ascent::onRenderOrtho()
         {
             iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
             iRenderer::getInstance().setFontSize(40.0f);
-            iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "you win!", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+            iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "you win!", iHorizontalAlignment::Center, iVerticalAlignment::Center);
         }
 
         Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
@@ -776,18 +781,18 @@ void Ascent::onRenderOrtho()
 
             iRenderer::getInstance().setFontSize(15.0f);
             iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
-            iRenderer::getInstance().drawString(_window.getClientWidth() * 0.05, _window.getClientHeight() * 0.05, healthText);
+            iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.05, getWindow()->getClientHeight() * 0.05, healthText);
 
             iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
-            iRenderer::getInstance().drawString(_window.getClientWidth() * 0.10, _window.getClientHeight() * 0.05, shieldText);
+            iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.10, getWindow()->getClientHeight() * 0.05, shieldText);
 
-            player->drawReticle(_window);
+            player->drawReticle(getWindow());
         }
         else
         {
             iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
             iRenderer::getInstance().setFontSize(40.0f);
-            iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "you are dead :-P", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+            iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "you are dead :-P", iHorizontalAlignment::Center, iVerticalAlignment::Center);
             _activeControls = false;
         }
     }
@@ -1015,6 +1020,6 @@ bool Ascent::onKeyUp(iKeyUpEvent_TMP &event)
 
 bool Ascent::onWindowResize(iWindowResizeEvent_TMP &event)
 {
-    _viewOrtho.setOrthogonal(0, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0);
+    _viewOrtho.setOrthogonal(0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0);
     return true;
 }

@@ -11,7 +11,7 @@ using namespace igor;
 using namespace iaux;
 
 FirstSteps::FirstSteps()
-    : ExampleBase("First Steps", false)
+    : ExampleBase(nullptr, "First Steps", false)
 {
 }
 

@@ -40,8 +40,10 @@ class Example2D : public ExampleBase
 
 public:
     /*! initializes the example
+
+    \param window the given window
     */
-    Example2D();
+    Example2D(iWindow *window);
 
     /*! does nothing
     */

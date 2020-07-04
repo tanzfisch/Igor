@@ -9,8 +9,8 @@
 #include <sstream>
 #include <map>
 
-SpriteAnimation::SpriteAnimation()
-	: ExampleBase("Sprite Animation")
+SpriteAnimation::SpriteAnimation(iWindow *window)
+	: ExampleBase(window, "Sprite Animation")
 {
 }
 
@@ -347,7 +347,7 @@ void SpriteAnimation::onRenderOrtho()
 	iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
 	// draw walking character
-	iRenderer::getInstance().drawSprite(_walk, _animationOffset + _animationIndex, iaVector2f(getWindow().getClientWidth() * 0.5, getWindow().getClientHeight() * 0.5));
+	iRenderer::getInstance().drawSprite(_walk, _animationOffset + _animationIndex, iaVector2f(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5));
 
 	ExampleBase::onRenderOrtho();
 }

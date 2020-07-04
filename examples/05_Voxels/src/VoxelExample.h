@@ -38,8 +38,10 @@ class VoxelExample : public ExampleBase
 
 public:
     /*! init
+
+    \param window the given window
     */
-    VoxelExample();
+    VoxelExample(iWindow *window);
 
     /*! does nothing
     */

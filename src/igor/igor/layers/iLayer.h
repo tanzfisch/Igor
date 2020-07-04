@@ -30,6 +30,7 @@
 #define __IGOR_LAYER_H__
 
 #include <igor/system/events/iEvent.h>
+#include <igor/system/iWindow.h>
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
@@ -43,7 +44,7 @@ namespace igor
     public:
         /*! init members
         */
-        iLayer(const iaString &name = "Layer", int32 zIndex = 0);
+        iLayer(iWindow *window, const iaString &name = "Layer", int32 zIndex = 0);
 
         /*! does nothing
         */
@@ -77,6 +78,10 @@ namespace igor
         */
         int32 getZIndex() const;
 
+        /*! \returns window
+        */
+        iWindow *getWindow() const;
+
     private:
         /*! the layer name
         */
@@ -85,6 +90,10 @@ namespace igor
         /*! the z index
         */
         int32 _zIndex = 0;
+
+        /*! id of the window the laye is part of
+        */
+        iWindow *_window;
     };
 
 }; // namespace igor

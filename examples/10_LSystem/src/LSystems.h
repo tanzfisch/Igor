@@ -38,8 +38,10 @@ class LSystems : public ExampleBase
 
 public:
     /*! init
+
+    \param window the given window
     */
-    LSystems();
+    LSystems(iWindow *window);
 
     /*! does nothing
     */

@@ -18,8 +18,8 @@
 #include <igor/system/iMouse.h>
 using namespace igor;
 
-ExampleInstancing::ExampleInstancing()
-    : ExampleBase("Instacing")
+ExampleInstancing::ExampleInstancing(iWindow *window)
+    : ExampleBase(window, "Instacing")
 {
 }
 

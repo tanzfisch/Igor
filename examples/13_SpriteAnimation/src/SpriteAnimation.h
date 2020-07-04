@@ -63,8 +63,10 @@ class SpriteAnimation : public ExampleBase
 
 public:
 	/*! initializes the example
+
+	\param window the given window
     */
-	SpriteAnimation();
+	SpriteAnimation(iWindow* window);
 
 	/*! does nothing
     */

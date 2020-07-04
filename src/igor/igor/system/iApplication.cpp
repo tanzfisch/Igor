@@ -91,7 +91,7 @@ namespace igor
     {
         bool allClosed = true;
 
-        for (auto pair : _windows)
+        for (auto &pair : _windows)
         {
             if (pair.second._window->isOpen())
             {
@@ -127,7 +127,7 @@ namespace igor
         windowHandle();
         _preDrawHandleEvent(); // TODO get rid of this
 
-        for (auto pair : _windows)
+        for (auto &pair : _windows)
         {
             for (auto layer : pair.second._layerStack.getStack())
             {
@@ -157,7 +157,7 @@ namespace igor
         iProfiler::getInstance().beginSection(_userSectionID);
         _postDrawHandleEvent(); // TODO get rid of this
 
-        for (auto pair : _windows)
+        for (auto &pair : _windows)
         {
             for (auto layer : pair.second._layerStack.getStack())
             {
@@ -215,7 +215,7 @@ namespace igor
 
     void iApplication::draw()
     {
-        for (auto pair : _windows)
+        for (auto &pair : _windows)
         {
             if (pair.second._window->isOpen())
             {
@@ -226,7 +226,7 @@ namespace igor
 
     void iApplication::windowHandle()
     {
-        for (auto pair : _windows)
+        for (auto &pair : _windows)
         {
             if (pair.second._window->isOpen())
             {
@@ -235,75 +235,79 @@ namespace igor
         }
     }
 
-    void iApplication::clearLayerStack(iWindowID windowID)
+    void iApplication::clearLayerStack(iWindow *window)
     {
-        if (windowID == iWindow::INVALID_WINDOW_ID)
+        if (window == nullptr)
         {
             _layerStack.clear();
             return;
         }
 
-        auto iter = _windows.find(windowID);
+        auto iter = _windows.find(window->getID());
         if (iter != _windows.end())
         {
             iter->second._layerStack.clear();
         }
         else
         {
-            con_err("window with id " << windowID << " does not exist");
+            con_err("window with id " << window->getID() << " does not exist");
         }
     }
 
-    void iApplication::addLayer(iLayer *layer, iWindowID windowID)
+    void iApplication::addLayer(iLayer *layer)
     {
-        if (windowID == iWindow::INVALID_WINDOW_ID)
+        con_assert(layer != nullptr, "zero pointer");
+
+        if (layer->getWindow() == nullptr)
         {
             _layerStack.addLayer(layer);
             return;
         }
 
-        auto iter = _windows.find(windowID);
+        auto iter = _windows.find(layer->getWindow()->getID());
         if (iter != _windows.end())
         {
             iter->second._layerStack.addLayer(layer);
         }
-        else
-        {
-            con_err("window with id " << windowID << " does not exist");
-        }
     }
 
-    void iApplication::removeLayer(iLayer *layer, iWindowID windowID)
+    void iApplication::removeLayer(iLayer *layer)
     {
-        if (windowID == iWindow::INVALID_WINDOW_ID)
+        con_assert(layer != nullptr, "zero pointer");
+
+        if (layer->getWindow() == nullptr)
         {
             _layerStack.removeLayer(layer);
             return;
         }
 
-        auto iter = _windows.find(windowID);
+        auto iter = _windows.find(layer->getWindow()->getID());
         if (iter != _windows.end())
         {
             iter->second._layerStack.removeLayer(layer);
         }
-        else
-        {
-            con_err("window with id " << windowID << " does not exist");
-        }
     }
 
-    iWindowID iApplication::createWindow()
+    iWindow *iApplication::createWindow()
     {
         WindowData windowData;
         windowData._window = new iWindow();
         _windows[windowData._window->getID()] = windowData;
 
-        return windowData._window->getID();
+        return windowData._window;
     }
 
-    void iApplication::destroyWindow(iWindowID windowID)
+    void iApplication::destroyWindow(iWindow *window)
     {
-        auto iter = _windows.find(windowID);
+        clearLayerStack(window);
+
+        con_assert(window != nullptr, "zero pointer");
+        if (window == nullptr)
+        {
+            return;
+        }
+
+        auto iter = _windows.find(window->getID());
         if (iter != _windows.end())
         {
             delete iter->second._window;
@@ -311,7 +315,7 @@ namespace igor
         }
         else
         {
-            con_err("window with id " << windowID << " does not exist");
+            con_err("window with id " << window->getID() << " does not exist");
         }
     }
 

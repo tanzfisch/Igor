@@ -38,8 +38,10 @@ class PhysicsExample : public ExampleBase
 
 public:
     /*! init
+
+    \param window the given window
     */
-    PhysicsExample();
+    PhysicsExample(iWindow *window);
 
     /*! does nothing
     */

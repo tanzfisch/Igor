@@ -4,8 +4,8 @@
 
 #include "Evaluation.h"
 
-Evaluation::Evaluation()
-    : ExampleBase("Evaluation")
+Evaluation::Evaluation(iWindow *window)
+    : ExampleBase(window, "Evaluation")
 {
 }
 

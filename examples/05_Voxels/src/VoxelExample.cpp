@@ -6,8 +6,8 @@
 
 #include "VoxelTerrainMeshGenerator.h"
 
-VoxelExample::VoxelExample()
-    : ExampleBase("Voxel", true, false)
+VoxelExample::VoxelExample(iWindow *window)
+    : ExampleBase(window, "Voxel", true, false)
 {
 }
 
@@ -284,11 +284,11 @@ void VoxelExample::onRenderOrtho()
 
     if (_loading)
     {
-        iRenderer::getInstance().drawString(getWindow().getClientWidth() * 0.5, getWindow().getClientHeight() * 0.5, "loading ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+        iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "loading ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
     }
     else
     {
-        iRenderer::getInstance().drawString(getWindow().getClientWidth() * 0.5, getWindow().getClientHeight() * 0.1, "press [Space] to recreate", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+        iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.1, "press [Space] to recreate", iHorizontalAlignment::Center, iVerticalAlignment::Center);
     }
 
     ExampleBase::onRenderOrtho();

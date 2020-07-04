@@ -112,34 +112,32 @@ namespace igor
         adding a layer to the layer stack passes ownership to the layer stack
 
         \param layer the layer to be added
-        \param windowID the given window 
         */
-        void addLayer(iLayer *layer, iWindowID windowID = iWindow::INVALID_WINDOW_ID);
+        void addLayer(iLayer *layer);
 
         /*! removes layer from stack of given window
 
         removing a layer from the layer stack passes ownership back to the caller
 
         \param layer the layer to be removed
-        \param windowID the given window 
         */
-        void removeLayer(iLayer *layer, iWindowID windowID = iWindow::INVALID_WINDOW_ID);
+        void removeLayer(iLayer *layer);
 
         /*! clears layer stack for given window
 
-        \param windowID the given window 
+        \param window the given window 
         */
-        void clearLayerStack(iWindowID windowID = iWindow::INVALID_WINDOW_ID);
+        void clearLayerStack(iWindow *window = nullptr);
 
         /*! creates window
 
         \returns window id
 		*/
-        iWindowID createWindow();
+        iWindow *createWindow();
 
         /*! destroy window
 		*/
-        void destroyWindow(iWindowID windowID);
+        void destroyWindow(iWindow *window);
 
         /*! \returns window for given window id
 

@@ -36,8 +36,10 @@ class ExampleInstancing : public ExampleBase
 
 public:
     /*! init members
+
+    \param window the given window
     */
-    ExampleInstancing();
+    ExampleInstancing(iWindow *window);
 
     /*! does nothing
     */

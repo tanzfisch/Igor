@@ -78,18 +78,6 @@ namespace igor
         */
         static const iWindowID INVALID_WINDOW_ID = IGOR_INVALID_ID;
 
-        /*! ctor
-
-        initializes all member variables and registeres os event listeners
-        */
-        iWindow();
-
-        /*! dtor
-
-        unregisteres os event listeners
-        */
-        virtual ~iWindow();
-
         /*! \returns id of the window
         */
         iWindowID getID() const;
@@ -350,6 +338,18 @@ namespace igor
         /*! draws contend of view in to the window
         */
         void draw();
+
+        /*! ctor
+
+        initializes all member variables and registeres os event listeners
+        */
+        iWindow();
+
+        /*! dtor
+
+        unregisteres os event listeners
+        */
+        virtual ~iWindow();
     };
 
 }; // namespace igor

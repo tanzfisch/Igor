@@ -38,8 +38,10 @@ class KeyboardExample : public ExampleBase
 
 public:
     /*! init example
+
+    \param window the window this example is living in
     */
-    KeyboardExample();
+    KeyboardExample(iWindow *window);
 
     /*! does nothing
     */

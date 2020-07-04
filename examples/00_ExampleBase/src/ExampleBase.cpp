@@ -4,26 +4,27 @@
 
 #include "ExampleBase.h"
 
-ExampleBase::ExampleBase(const iaString &name, bool createBaseSetup, bool createSkyBox)
-    : _name(name)
+ExampleBase::ExampleBase(iWindow *window, const iaString &name, bool createBaseSetup, bool createSkyBox)
+    : iLayer(window, name)
 {
-    con_info("starting example \"" << _name << "\"");
+    con_info("starting example \"" << getName() << "\"");
 
-    if (createBaseSetup)
+    if (createBaseSetup &&
+        getWindow() != nullptr)
     {
         // init window parameters
-        _window.setTitle(_name);
-        _window.setClientSize(1024, 768);
-        _window.setVSync(true);
+        getWindow()->setTitle(getName());
+        getWindow()->setClientSize(1024, 768);
+        getWindow()->setVSync(true);
 
         // center the window on screen
-        _window.setCentered();
+        getWindow()->setCentered();
 
         // setup perspective view
         _view.setClearColor(iaColor4f(0.5f, 0, 0.5f, 1));
         _view.setPerspective(45);
         _view.setClipPlanes(0.1f, 10000.f);
-        _window.addView(&_view);
+        getWindow()->addView(&_view);
 
         // init scene
         _scene = iSceneFactory::getInstance().createScene();
@@ -33,16 +34,16 @@ ExampleBase::ExampleBase(const iaString &name, bool createBaseSetup, bool create
         // setup orthogonal view
         _viewOrtho.setClearColor(false);
         _viewOrtho.setClearDepth(false);
-        _viewOrtho.setOrthogonal(0.0, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0);
+        _viewOrtho.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
         _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));
-        _window.addView(&_viewOrtho);
+        getWindow()->addView(&_viewOrtho);
 
         // and open the window
-        _window.open();
+        getWindow()->open();
 
         // start resource tasks
-        _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
-        _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
+        _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(window));
+        _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(window));
 
         // setup profiler visualisation
         _profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
@@ -88,7 +89,8 @@ ExampleBase::ExampleBase(const iaString &name, bool createBaseSetup, bool create
 
 ExampleBase::~ExampleBase()
 {
-    if (_window.isOpen())
+    if (getWindow() != nullptr &&
+        getWindow()->isOpen())
     {
         // destroy materials
         if (_materialSkyBox != iMaterial::INVALID_MATERIAL_ID)
@@ -118,10 +120,10 @@ ExampleBase::~ExampleBase()
         _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));
 
         // closes the window if it was not closed already
-        _window.close();
+        getWindow()->close();
     }
 
-    con_info("stopped example \"" << _name << "\"");
+    con_info("stopped example \"" << getName() << "\"");
 }
 
 void ExampleBase::onEvent(iEvent &event)
@@ -212,16 +214,6 @@ void ExampleBase::onDeinit()
     // nothing to do
 }
 
-const iaString &ExampleBase::getName() const
-{
-    return _name;
-}
-
-iWindow &ExampleBase::getWindow()
-{
-    return _window;
-}
-
 void ExampleBase::onPreDraw()
 {
 }
@@ -242,7 +234,7 @@ void ExampleBase::onRenderOrtho()
     drawLogo();
 
     // draw frame rate in lower right corner
-    _profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
+    _profilerVisualizer.draw(getWindow(), _font, iaColor4f(0, 1, 0, 1));
 }
 
 void ExampleBase::drawLogo()
@@ -252,8 +244,8 @@ void ExampleBase::drawLogo()
 
     float32 width = static_cast<float32>(_igorLogo->getWidth());
     float32 height = static_cast<float32>(_igorLogo->getHeight());
-    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
-    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
+    float32 x = static_cast<float32>(getWindow()->getClientWidth()) - width;
+    float32 y = static_cast<float32>(getWindow()->getClientHeight()) - height;
 
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }

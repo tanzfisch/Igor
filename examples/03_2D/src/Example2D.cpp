@@ -6,8 +6,8 @@
 
 #include <sstream>
 
-Example2D::Example2D()
-	: ExampleBase("2D Interfaces")
+Example2D::Example2D(iWindow *window)
+	: ExampleBase(window, "2D Interfaces")
 {
 }
 
@@ -169,7 +169,7 @@ void Example2D::onRenderOrtho()
 	// set a textured material and draw the tiles texture as background
 	iRenderer::getInstance().setMaterial(_materialWithTexture);
 	iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-	iRenderer::getInstance().drawTextureTiled(0.0f, 0.0f, static_cast<float32>(getWindow().getClientWidth()), static_cast<float32>(getWindow().getClientHeight()), _backgroundTexture);
+	iRenderer::getInstance().drawTextureTiled(0.0f, 0.0f, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), _backgroundTexture);
 
 	// set non textured material and draw some primitves
 	iRenderer::getInstance().setMaterial(_materialWithoutDepthTest);
@@ -207,7 +207,7 @@ void Example2D::onRenderOrtho()
 	// draw the particles
 	iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 0.5));
 	iRenderer::getInstance().bindTexture(_particleTexture, 0);
-	iRenderer::getInstance().drawParticles(-10.0f, static_cast<float32>(getWindow().getClientHeight() - 150), 0.0f,
+	iRenderer::getInstance().drawParticles(-10.0f, static_cast<float32>(getWindow()->getClientHeight() - 150), 0.0f,
 										   _particleSystem.getParticles(), _particleSystem.getParticleCount(), &_rainbow);
 
 	// draw some text from wikipedia
@@ -231,7 +231,7 @@ void Example2D::onRenderOrtho()
 
 	// draw random graph in the upper right corner
 	iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
-	iRenderer::getInstance().drawRectangle(static_cast<float32>(getWindow().getClientWidth() - 260), 10.0f, 250.0f, 150.0f);
+	iRenderer::getInstance().drawRectangle(static_cast<float32>(getWindow()->getClientWidth() - 260), 10.0f, 250.0f, 150.0f);
 
 	static float32 offset = 0.0f;
 	iRenderer::getInstance().setLineWidth(1);
@@ -241,9 +241,9 @@ void Example2D::onRenderOrtho()
 	for (int x = 1; x < 250; ++x)
 	{
 		float64 value = _perlinNoise.getValue((offset + x) * 0.01, 6) * 150;
-		iRenderer::getInstance().drawLine(static_cast<float32>(getWindow().getClientWidth() - 260 + x - 1),
+		iRenderer::getInstance().drawLine(static_cast<float32>(getWindow()->getClientWidth() - 260 + x - 1),
 										  static_cast<float32>(10 + lastValue),
-										  static_cast<float32>(getWindow().getClientWidth() - 260 + x),
+										  static_cast<float32>(getWindow()->getClientWidth() - 260 + x),
 										  static_cast<float32>(10 + value));
 		lastValue = value;
 	}

@@ -36,8 +36,10 @@ class Evaluation : public ExampleBase
 
 public:
     /*! init memebers
+
+    \param window the given window
     */
-    Evaluation();
+    Evaluation(iWindow* window);
 
     /*! does nothing
     */

@@ -6,15 +6,20 @@
 
 int main()
 {
-	// the verry first thing to do before using Igor
+	// call this before you call anything else of Igor
 	igor::startup();
 
-	// create and run voxel example
-	igor::iApplication::getInstance().addLayer(new VoxelExample());
-	igor::iApplication::getInstance().run();
-	igor::iApplication::getInstance().clearLayerStack();
+	// create window an let the layer example code control it
+	iWindow *window = igor::iApplication::getInstance().createWindow();
 
-	// give Igor a chance to clean up you mess ;-)
+	// create example and add it as layer to the application
+	igor::iApplication::getInstance().addLayer(new VoxelExample(window));
+	igor::iApplication::getInstance().run();
+
+	// destroying a window also destroys all related layers
+	igor::iApplication::getInstance().destroyWindow(window);
+
+	// call this after you are done with using Igor
 	igor::shutdown();
 
 	return 0;

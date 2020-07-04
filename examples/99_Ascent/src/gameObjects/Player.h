@@ -56,7 +56,7 @@ public:
 
     void rotate(float32 heading, float32 pitch);
 
-    void drawReticle(const iWindow &window);
+    void drawReticle(iWindow *window);
 
     uint32 getLODTriggerID();
 
