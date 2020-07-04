@@ -32,4 +32,24 @@ namespace igor
         return _window;
     }
 
+    std::wostream &operator<<(std::wostream &stream, const iEventType &eventType)
+    {
+        const static iaString text[] = {
+            "iKeyDownEvent",
+            "iKeyUpEvent",
+            "iKeyASCIIEvent",
+
+            "iMouseKeyDownEvent",
+            "iMouseKeyUpEvent",
+            "iMouseKeyDoubleClickEvent",
+            "iMouseMoveEvent",
+            "iMouseWheelEvent",
+
+            "iWindowCloseEvent",
+            "iWindowResizeEvent"};
+
+        stream << text[static_cast<int>(eventType)].getData();
+        return stream;
+    }
+
 } // namespace igor

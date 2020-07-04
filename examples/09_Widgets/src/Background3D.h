@@ -29,11 +29,10 @@
 #ifndef __BACKGROUND3D_H__
 #define __BACKGROUND3D_H__
 
-#include <igor/igor.h>
-using namespace igor;
-using namespace iaux;
+#include <ExampleBase.h>
 
-class Background3D : public iLayer
+// basically just copied the 3d example here
+class Background3D : public ExampleBase
 {
 
 public:
@@ -103,18 +102,6 @@ private:
     /*! id to lod switch node
     */
     iNodeID _LODSwitch = iNode::INVALID_NODE_ID;
-
-    /*! material definition for the sky box
-    */
-    iMaterialID _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
-
-    /*! the scene
-    */
-    iScene *_scene;
-
-    /*! the view we render 3D to
-    */
-    iView _view;
 
     /*! called by timer
     */

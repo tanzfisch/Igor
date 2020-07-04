@@ -14,8 +14,8 @@ int main()
 	iWindow *window = igor::iApplication::getInstance().createWindow();
 
 	// create example and add it as layer to the application
-	igor::iApplication::getInstance().addLayer(new WidgetsExample(window));
 	igor::iApplication::getInstance().addLayer(new Background3D(window));
+	igor::iApplication::getInstance().addLayer(new WidgetsExample(window));
 	igor::iApplication::getInstance().run();
 
 	// destroying a window also destroys all related layers

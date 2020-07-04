@@ -5,21 +5,12 @@
 #include "Background3D.h"
 
 Background3D::Background3D(iWindow *window)
-    : iLayer(window, "3D Scene")
+    : ExampleBase(window, "3D Scene")
 {
 }
 
 void Background3D::onInit()
 {
-    // create a scene
-    _scene = iSceneFactory::getInstance().createScene();
-
-    // and add it to the view
-    _view.setScene(_scene);
-
-    // add view to window
-    getWindow()->addView(&_view, -1);
-
     // setup camera
     // we want a camera which can be rotated arround the origin
     // we will acchive that with 3 transform nodes
@@ -45,7 +36,7 @@ void Background3D::onInit()
     camera->setName("camera");
     // and build everything together
     // first we add the heading to the root node
-    _scene->getRoot()->insertNode(cameraHeading);
+    getScene()->getRoot()->insertNode(cameraHeading);
     // than the pitch to the heading node
     cameraHeading->insertNode(cameraPitch);
     // then the translation to the pitch node
@@ -54,7 +45,7 @@ void Background3D::onInit()
     cameraTranslation->insertNode(camera);
     // and finally we set the camera active. for this to work a camera must be part of a scene
     // wich we achived by adding all those nodes on to an other starting with the root node
-    _view.setCurrentCamera(camera->getID());
+    getView().setCurrentCamera(camera->getID());
 
     // create a single cat model
     iNodeTransform *justCatTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
@@ -65,7 +56,7 @@ void Background3D::onInit()
     // Node model names can be altered but they also are generated based on the file name
     justCatModel->setModel("cat.ompf");
     // building the created nodes together and insert them in the scene
-    _scene->getRoot()->insertNode(justCatTransform);
+    getScene()->getRoot()->insertNode(justCatTransform);
     justCatTransform->insertNode(justCatModel);
 
     // create a group of models that can be moved together due to being child to the same transform node
@@ -78,7 +69,7 @@ void Background3D::onInit()
     allObjectsPitch->setName("all objects pitch");
     _allObjectsPitch = allObjectsPitch->getID();
     // and add the nodes to the scene
-    _scene->getRoot()->insertNode(allObjectsHeading);
+    getScene()->getRoot()->insertNode(allObjectsHeading);
     allObjectsHeading->insertNode(allObjectsPitch);
 
     // next we create a couple of model nodes that will be connected to be alternative representations of each other controled by a switch node
@@ -174,31 +165,9 @@ void Background3D::onInit()
     lightNode->setDiffuse(iaColor4f(0.8f, 0.8f, 0.8f, 1.0f));
     lightNode->setSpecular(iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
     // insert light to scene
-    _scene->getRoot()->insertNode(directionalLightRotate);
+    getScene()->getRoot()->insertNode(directionalLightRotate);
     directionalLightRotate->insertNode(directionalLightTranslate);
     directionalLightTranslate->insertNode(lightNode);
-
-    // create a skybox
-    iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
-    // set it up with the default skybox texture
-    skyBoxNode->setTextures(
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/left.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/right.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
-    // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
-    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox);
-    material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    material->setOrder(iMaterial::RENDER_ORDER_MIN);
-    material->setName("SkyBox");
-    // set that material
-    skyBoxNode->setMaterial(_materialSkyBox);
-    // and add it to the scene
-    _scene->getRoot()->insertNode(skyBoxNode);
 
     // animation
     _animationTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &Background3D::onTimer), iaTime::fromMilliseconds(10));
@@ -207,8 +176,6 @@ void Background3D::onInit()
 
 void Background3D::onDeinit()
 {
-    iSceneFactory::getInstance().destroyScene(_scene);
-
     // stop light animation
     if (_animationTimingHandle)
     {
@@ -219,6 +186,8 @@ void Background3D::onDeinit()
 
 void Background3D::onEvent(iEvent &event)
 {
+    ExampleBase::onEvent(event);
+
     event.dispatch<iMouseKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Background3D::onMouseKeyDownEvent));
     event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Background3D::onMouseMoveEvent));
     event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Background3D::onMouseWheelEvent));
@@ -276,8 +245,6 @@ bool Background3D::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
         {
             allObjectsPitch->rotate((to._y - from._y) * 0.0005f, iaAxis::X);
             allObjectsHeading->rotate((to._x - from._x) * 0.0005f, iaAxis::Y);
-
-            iMouse::getInstance().setCenter();
         }
     }
     else if (iMouse::getInstance().getLeftButton())
@@ -290,8 +257,6 @@ bool Background3D::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
         {
             cameraPitch->rotate((to._y - from._y) * 0.005f, iaAxis::X);
             cameraHeading->rotate((to._x - from._x) * 0.005f, iaAxis::Y);
-
-            iMouse::getInstance().setCenter();
         }
     }
 

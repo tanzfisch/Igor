@@ -29,19 +29,13 @@
 #ifndef __WIDGETEXAMPLE_H__
 #define __WIDGETEXAMPLE_H__
 
-#include <ExampleBase.h>
-
-namespace igor
-{
-    class iWidgetDefaultTheme;
-    class iWidgetLabel;
-    class iWidgetColor;
-    class iWidgetColorGradient;
-} // namespace igor
+#include <igor/igor.h>
+using namespace igor;
+using namespace iaux;
 
 /*! this example shows how to use Igor Widgets
 */
-class WidgetsExample : public ExampleBase
+class WidgetsExample : public iLayer
 {
 
 public:
@@ -56,6 +50,10 @@ public:
     ~WidgetsExample() = default;
 
 private:
+    /*! the viewport
+    */
+    iView _view;
+
     /*! using the default widget theme
     */
     iWidgetDefaultTheme *_widgetDefaultTheme = nullptr;
@@ -160,9 +158,17 @@ private:
     */
     void onDeinit() override;
 
+    /*! called on application pre draw event
+        */
+    void onPreDraw() override;
+
+    /*! called on application post draw event
+        */
+    void onPostDraw() override;
+
     /*! called by orthogonal view
     */
-    void onRenderOrtho() override;
+    void onRenderOrtho();
 
     /*! called on any other event
 

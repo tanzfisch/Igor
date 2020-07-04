@@ -70,7 +70,7 @@ public:
 
 // set an increase z index of 1 to make sure the ui is rendered above the background
 WidgetsExample::WidgetsExample(iWindow *window)
-    : ExampleBase(window, "Widgets", 1)
+    : iLayer(window, "Widgets", 1)
 {
     // register the actions to make them globaly available
     iActionManager::getInstance().registerAction(new Action1());
@@ -91,8 +91,12 @@ void WidgetsExample::onCloseDialog(iDialogPtr dialog)
 
 void WidgetsExample::onInit()
 {
-    // disable clear color to make sure we can see the background
-    getView().setClearColor(false);
+    // set up the view
+    _view.setClearColor(false);
+    _view.setClearDepth(false);
+    _view.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
+    _view.registerRenderDelegate(iDrawDelegate(this, &WidgetsExample::onRenderOrtho));
+    getWindow()->addView(&_view, 10);
 
     // create a theme and set it up. in this case the build in default theme
     _widgetDefaultTheme = new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png");
@@ -375,6 +379,16 @@ void WidgetsExample::onInit()
     iWidgetManager::getInstance().setDesktopDimensions(getWindow()->getClientWidth(), getWindow()->getClientHeight());
 }
 
+void WidgetsExample::onPreDraw()
+{
+    iWidgetManager::getInstance().onPreDraw();
+}
+
+void WidgetsExample::onPostDraw()
+{
+    iWidgetManager::getInstance().onPostDraw();
+}
+
 void WidgetsExample::onDeinit()
 {
     iWidgetManager::getInstance().setTheme(nullptr);
@@ -384,11 +398,10 @@ void WidgetsExample::onDeinit()
 
 void WidgetsExample::onEvent(iEvent &event)
 {
-    // first call example base
-    ExampleBase::onEvent(event);
-
     event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WidgetsExample::onMouseMoveEvent));
     event.dispatch<iWindowResizeEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WidgetsExample::onWindowResize));
+
+    iWidgetManager::getInstance().onEvent(event);
 }
 
 bool WidgetsExample::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
@@ -506,10 +519,10 @@ void WidgetsExample::onExitClick(const iWidgetPtr source)
 
 bool WidgetsExample::onWindowResize(iWindowResizeEvent_TMP &event)
 {
-    // update the widget managers desktop dimensions
-    iWidgetManager::getInstance().setDesktopDimensions(getWindow()->getClientWidth(), getWindow()->getClientHeight());
+    _view.setOrthogonal(0.0, static_cast<float32>(event.getWindow()->getClientWidth()),
+                        static_cast<float32>(event.getWindow()->getClientHeight()), 0.0);
 
-    return true;
+    return false;
 }
 
 void WidgetsExample::onRenderOrtho()
@@ -526,6 +539,4 @@ void WidgetsExample::onRenderOrtho()
 
     // tell the widget manager to draw the widgets
     iWidgetManager::getInstance().draw();
-
-    ExampleBase::onRenderOrtho();
 }

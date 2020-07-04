@@ -194,7 +194,7 @@ namespace igor
         {
             if (!iRenderer::getInstance().isReady())
             {
-                con_warn("renderer not ready to load textures yet. queued you request.");
+                con_warn("renderer not ready to load textures yet. queued your request.");
                 requestFile(filename, cacheMode, buildMode, wrapMode);
             }
 

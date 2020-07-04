@@ -145,6 +145,14 @@ namespace igor
         iWindow *_window = nullptr;
     };
 
+    /*! stream operator
+
+	\param stream the destination
+	\param eventType the node type to stream
+	\returns the resulting stream
+	*/
+    Igor_API std::wostream &operator<<(std::wostream &stream, const iEventType &eventType);
+
     /*! event delegate definition
 
     // todo maybe we should get rid of delegates entirely

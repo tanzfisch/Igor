@@ -135,7 +135,8 @@ void ExampleBase::onEvent(iEvent &event)
 bool ExampleBase::onWindowResize(iWindowResizeEvent_TMP &event)
 {
     // update the the view port projection matrix so the widget manager desktop will fit on screen
-    _viewOrtho.setOrthogonal(0.0, static_cast<float32>(event.getWidth()), static_cast<float32>(event.getHeight()), 0.0);
+    _viewOrtho.setOrthogonal(0.0, static_cast<float32>(event.getWindow()->getClientWidth()),
+                             static_cast<float32>(event.getWindow()->getClientHeight()), 0.0);
 
     // do not consume this one
     return false;
