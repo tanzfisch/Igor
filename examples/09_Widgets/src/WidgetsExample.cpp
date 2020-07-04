@@ -70,7 +70,7 @@ public:
 
 // set an increase z index of 1 to make sure the ui is rendered above the background
 WidgetsExample::WidgetsExample(iWindow *window)
-    : iLayer(window, "Widgets", 1)
+    : iLayerWidgets(new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png"), window, "Widgets", 10)
 {
     // register the actions to make them globaly available
     iActionManager::getInstance().registerAction(new Action1());
@@ -91,16 +91,8 @@ void WidgetsExample::onCloseDialog(iDialogPtr dialog)
 
 void WidgetsExample::onInit()
 {
-    // set up the view
-    _view.setClearColor(false);
-    _view.setClearDepth(false);
-    _view.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
-    _view.registerRenderDelegate(iDrawDelegate(this, &WidgetsExample::onRenderOrtho));
-    getWindow()->addView(&_view, 10);
-
-    // create a theme and set it up. in this case the build in default theme
-    _widgetDefaultTheme = new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png");
-    iWidgetManager::getInstance().setTheme(_widgetDefaultTheme);
+    // call base class
+    iLayerWidgets::onInit();
 
     _dialog = new iDialog();
     _dialog->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -379,29 +371,22 @@ void WidgetsExample::onInit()
     iWidgetManager::getInstance().setDesktopDimensions(getWindow()->getClientWidth(), getWindow()->getClientHeight());
 }
 
-void WidgetsExample::onPreDraw()
-{
-    iWidgetManager::getInstance().onPreDraw();
-}
-
-void WidgetsExample::onPostDraw()
-{
-    iWidgetManager::getInstance().onPostDraw();
-}
-
 void WidgetsExample::onDeinit()
 {
-    iWidgetManager::getInstance().setTheme(nullptr);
-    delete _widgetDefaultTheme;
-    _widgetDefaultTheme = nullptr;
+    // if dialog is still open close it now
+    if (_dialog->isOpen())
+    {
+        _dialog->close();
+    }
+
+    iLayerWidgets::onDeinit();
 }
 
 void WidgetsExample::onEvent(iEvent &event)
 {
-    event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WidgetsExample::onMouseMoveEvent));
-    event.dispatch<iWindowResizeEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WidgetsExample::onWindowResize));
+    iLayerWidgets::onEvent(event);
 
-    iWidgetManager::getInstance().onEvent(event);
+    event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WidgetsExample::onMouseMoveEvent));
 }
 
 bool WidgetsExample::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
@@ -510,33 +495,9 @@ void WidgetsExample::onCloseMessageBox(iDialogPtr dialog)
 
 void WidgetsExample::onExitClick(const iWidgetPtr source)
 {
-    // close dialog
+    // close the dialog
     _dialog->close();
 
     // shut down application
     iApplication::getInstance().stop();
-}
-
-bool WidgetsExample::onWindowResize(iWindowResizeEvent_TMP &event)
-{
-    _view.setOrthogonal(0.0, static_cast<float32>(event.getWindow()->getClientWidth()),
-                        static_cast<float32>(event.getWindow()->getClientHeight()), 0.0);
-
-    return false;
-}
-
-void WidgetsExample::onRenderOrtho()
-{
-    // initialize view matrix with identity matrix
-    iaMatrixd identity;
-    iRenderer::getInstance().setViewMatrix(identity);
-
-    // move scene between near and far plane so be ca actually see what we render
-    // any value between near and far plane would do the trick
-    iaMatrixd modelMatrix;
-    modelMatrix.translate(0, 0, -30);
-    iRenderer::getInstance().setModelMatrix(modelMatrix);
-
-    // tell the widget manager to draw the widgets
-    iWidgetManager::getInstance().draw();
 }

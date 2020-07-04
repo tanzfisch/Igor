@@ -5,7 +5,7 @@
 #include <igor/ui/widgets/iWidgetSelectBox.h>
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/theme/iWidgetBaseTheme.h>
+#include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/ui/dialogs/iDialogIndexMenu.h>
 

@@ -35,7 +35,7 @@ using namespace iaux;
 
 /*! this example shows how to use Igor Widgets
 */
-class WidgetsExample : public iLayer
+class WidgetsExample : public iLayerWidgets
 {
 
 public:
@@ -50,14 +50,6 @@ public:
     ~WidgetsExample() = default;
 
 private:
-    /*! the viewport
-    */
-    iView _view;
-
-    /*! using the default widget theme
-    */
-    iWidgetDefaultTheme *_widgetDefaultTheme = nullptr;
-
     /*! the main dialog
     */
     iDialogPtr _dialog = nullptr;
@@ -158,18 +150,6 @@ private:
     */
     void onDeinit() override;
 
-    /*! called on application pre draw event
-        */
-    void onPreDraw() override;
-
-    /*! called on application post draw event
-        */
-    void onPostDraw() override;
-
-    /*! called by orthogonal view
-    */
-    void onRenderOrtho();
-
     /*! called on any other event
 
     \param event the event to handle
@@ -182,13 +162,6 @@ private:
     \returns true if consumed
     */
     bool onMouseMoveEvent(iMouseMoveEvent_TMP &event);
-
-    /*! handle window resize event
-
-    \param event the window resize event
-    \returns true if consumed
-    */
-    bool onWindowResize(iWindowResizeEvent_TMP &event);
 };
 
 #endif // __WIDGETEXAMPLE_H__

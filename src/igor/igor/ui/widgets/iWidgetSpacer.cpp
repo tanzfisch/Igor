@@ -5,7 +5,7 @@
 #include <igor/ui/widgets/iWidgetSpacer.h>
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/theme/iWidgetBaseTheme.h>
+#include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 
 #include <iaux/system/iaConsole.h>

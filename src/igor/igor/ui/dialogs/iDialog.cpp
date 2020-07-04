@@ -4,7 +4,7 @@
 
 #include <igor/ui/dialogs/iDialog.h>
 
-#include <igor/ui/theme/iWidgetBaseTheme.h>
+#include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/user_controls/iUserControl.h>
 
@@ -73,6 +73,8 @@ namespace igor
         _dialogCloseDelegate = dialogCloseDelegate;
         setActive();
         setVisible();
+
+        _isOpen = true;
     }
 
     void iDialog::close()
@@ -82,6 +84,13 @@ namespace igor
         iWidgetManager::getInstance().resetModal();
 
         iWidgetManager::getInstance().closeDialog(this);
+
+        _isOpen = false;
+    }
+
+    bool iDialog::isOpen() const
+    {
+        return _isOpen;
     }
 
     void iDialog::calcMinSize()

@@ -22,7 +22,7 @@
 #include <igor/system/iKeyboard.h>
 #include <igor/system/iApplication.h>
 #include <igor/ui/widgets/iWidgetGraph.h>
-#include <igor/ui/theme/iWidgetBaseTheme.h>
+#include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 
 #include <igor/ui/dialogs/iDialogColorChooser.h>
@@ -334,12 +334,12 @@ namespace igor
         return _desktopHeight;
     }
 
-    iWidgetBaseTheme *iWidgetManager::getTheme()
+    iWidgetTheme *iWidgetManager::getTheme()
     {
         return _currentTheme;
     }
 
-    void iWidgetManager::setTheme(iWidgetBaseTheme *theme)
+    void iWidgetManager::setTheme(iWidgetTheme *theme)
     {
         _currentTheme = theme;
     }

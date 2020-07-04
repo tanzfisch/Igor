@@ -45,7 +45,7 @@
 namespace igor
 {
 
-    class iWidgetBaseTheme;
+    class iWidgetTheme;
     class iDialog;
     typedef iDialog *iDialogPtr;
 
@@ -93,13 +93,13 @@ namespace igor
 
         /*! \returns the theme in use
         */
-        iWidgetBaseTheme *getTheme();
+        iWidgetTheme *getTheme();
 
         /*! sets the theme to use
 
         \param theme the theme to use
         */
-        void setTheme(iWidgetBaseTheme *theme);
+        void setTheme(iWidgetTheme *theme);
 
         /*! sets the desktop dimensions
 
@@ -191,7 +191,7 @@ namespace igor
 
         /*! pointer to current theme
         */
-        iWidgetBaseTheme *_currentTheme = nullptr;
+        iWidgetTheme *_currentTheme = nullptr;
 
         /*! list of all widgets
         */

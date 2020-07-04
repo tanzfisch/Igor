@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iWIDGETBASETHEME__
-#define __iWIDGETBASETHEME__
+#ifndef __IGOR_WIDGETTHEME_H__
+#define __IGOR_WIDGETTHEME_H__
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/resources/texture/iTexture.h>
@@ -48,7 +48,7 @@ namespace igor
 	\todo need to make a better concept for this interface
 	\todo replace const iRectanglei& rect with iRectanglei
 	*/
-	class Igor_API iWidgetBaseTheme
+	class Igor_API iWidgetTheme
 	{
 
 	public:
@@ -90,10 +90,10 @@ namespace igor
 		virtual float32 getFontSize() = 0;
 		virtual iTextureFont *getFont() = 0;
 
-		iWidgetBaseTheme() = default;
-		virtual ~iWidgetBaseTheme() = default;
+		iWidgetTheme() = default;
+		virtual ~iWidgetTheme() = default;
 	};
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_WIDGETTHEME_H__

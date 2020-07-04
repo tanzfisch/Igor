@@ -5,7 +5,7 @@
 #include <igor/ui/widgets/iWidgetGrid.h>
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/theme/iWidgetBaseTheme.h>
+#include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/ui/user_controls/iUserControl.h>
 
 #include <iaux/system/iaConsole.h>
