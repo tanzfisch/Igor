@@ -38,6 +38,8 @@ using namespace iaux;
 
 namespace igor
 {
+    class iWindow;
+
     /*! event type definitions
     */
     enum class iEventType
@@ -76,8 +78,10 @@ namespace igor
     {
     public:
         /*! init members
+
+        \param window the window that event came from (only in case it was an event created by a window)
         */
-        iEvent() = default;
+        iEvent(iWindow *window = nullptr);
 
         /*! does nothing
         */
@@ -96,6 +100,10 @@ namespace igor
         /*! \returns event kind mask
         */
         virtual iEventKindMask getEventKindMask() const = 0;
+
+        /*! \returns the window
+        */
+        iWindow *getWindow() const;
 
         /*! \returns true if already consumed
         */
@@ -131,6 +139,10 @@ namespace igor
         /*! if true event was already consumed
         */
         bool _consumed = false;
+
+        /*! the window
+        */
+        iWindow *_window = nullptr;
     };
 
     /*! event delegate definition

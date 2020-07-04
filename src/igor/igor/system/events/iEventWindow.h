@@ -34,11 +34,19 @@
 namespace igor
 {
 
+    class iWindow;
+
     /*! window close event
     */
     class Igor_API iWindowCloseEvent_TMP : public iEvent
     {
     public:
+        /*! init members
+
+        \param window the window that was closed
+        */
+        iWindowCloseEvent_TMP(iWindow *window);
+
         /*! \returns event kind mask
         */
         iEventKindMask getEventKindMask() const override;
@@ -53,10 +61,11 @@ namespace igor
     public:
         /*! init members
 
+        \param window the window that was resized
         \param width width of the window
         \param height height of the window
         */
-        iWindowResizeEvent_TMP(int32 width, int32 height);
+        iWindowResizeEvent_TMP(iWindow *window, int32 width, int32 height);
 
         /*! \returns event kind mask
         */

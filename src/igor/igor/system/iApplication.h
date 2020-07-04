@@ -31,6 +31,7 @@
 
 #include <igor/system/events/iEventWindow.h>
 #include <igor/layers/iLayerStack.h>
+#include <igor/system/iWindow.h>
 
 #include <iaux/system/iaEvent.h>
 #include <iaux/system/iaSingleton.h>
@@ -40,8 +41,6 @@ using namespace iaux;
 
 namespace igor
 {
-
-    class iWindow;
 
     /*! This event is triggered once per frame right before the rendering
 	*/
@@ -103,30 +102,65 @@ namespace igor
         void unregisterApplicationPostDrawHandleDelegate(iPostDrawDelegate handleDelegate);
 
         /*! triggered on event
+
+        \param event the triggered event
         */
         void onEvent(iEvent &event);
 
-        /*! adds layer to stack
+        /*! adds layer to stack for given window
 
         adding a layer to the layer stack passes ownership to the layer stack
 
         \param layer the layer to be added
+        \param windowID the given window 
         */
-        void addLayer(iLayer *layer);
+        void addLayer(iLayer *layer, iWindowID windowID = iWindow::INVALID_WINDOW_ID);
 
-        /*! removes layer from stack
+        /*! removes layer from stack of given window
 
         removing a layer from the layer stack passes ownership back to the caller
 
         \param layer the layer to be removed
+        \param windowID the given window 
         */
-        void removeLayer(iLayer *layer);
+        void removeLayer(iLayer *layer, iWindowID windowID = iWindow::INVALID_WINDOW_ID);
 
-        /*! clears layer stack
+        /*! clears layer stack for given window
+
+        \param windowID the given window 
         */
-        void clearLayerStack();
+        void clearLayerStack(iWindowID windowID = iWindow::INVALID_WINDOW_ID);
+
+        /*! creates window
+
+        \returns window id
+		*/
+        iWindowID createWindow();
+
+        /*! destroy window
+		*/
+        void destroyWindow(iWindowID windowID);
+
+        /*! \returns window for given window id
+
+        \param windowID the given window id
+        */
+        iWindow *getWindow(iWindowID windowID) const;
 
     private:
+        /*! internal window data structure
+        */
+        struct WindowData
+        {
+            /*! the window instance
+            */
+            iWindow *_window;
+
+            /*! layer stack
+            */
+            iLayerStack _layerStack;
+        };
+
         /*! frame performance section id
         */
         uint32 _frameSectionID = 0;
@@ -161,7 +195,11 @@ namespace igor
 
         /*! list of windows registered to the application
 		*/
-        std::vector<iWindow *> _windows;
+        std::map<iWindowID, WindowData> _windows;
+
+        /*! additional layer stack for windowless applications
+            */
+        iLayerStack _layerStack;
 
         /*! handle event called before rendering
 		*/
@@ -170,10 +208,6 @@ namespace igor
         /*! handle event called after rendering
         */
         iPostDrawEvent _postDrawHandleEvent;
-
-        /*! layer stack
-        */
-        iLayerStack _layerStack;
 
         /*! handles window close event
 
@@ -196,18 +230,6 @@ namespace igor
         /*! rendering
         */
         void draw();
-
-        /*! add window
-
-		\param window pointer to window
-		*/
-        void addWindow(iWindow *window);
-
-        /*! remove window
-
-		\param window pointer to window
-		*/
-        void removeWindow(iWindow *window);
 
         /*! as alternative to run you can set up your own main loop and call iterate in it but run is recommended to use
         */

@@ -317,14 +317,14 @@ namespace igor
             {
                 _doubleClickEvent(buttonKey);
 
-                iMouseKeyDoubleClickEvent_TMP event(buttonKey);
+                iMouseKeyDoubleClickEvent_TMP event(_window, buttonKey);
                 _delegate(event);
             }
             else
             {
                 _keyDownEvent(buttonKey);
 
-                iMouseKeyDownEvent_TMP event(buttonKey);
+                iMouseKeyDownEvent_TMP event(_window, buttonKey);
                 _delegate(event);
             }
         }
@@ -335,7 +335,7 @@ namespace igor
             _buttonStates[buttonIndex]._pressed = false;
             _keyUpEvent(buttonKey);
 
-            iMouseKeyUpEvent_TMP event(buttonKey);
+            iMouseKeyUpEvent_TMP event(_window, buttonKey);
             _delegate(event);
         }
 
@@ -364,7 +364,7 @@ namespace igor
                 case 4:
                     _wheelEvent(1);
                     {
-                        iMouseWheelEvent_TMP event(1);
+                        iMouseWheelEvent_TMP event(_window, 1);
                         _delegate(event);
                     }
 
@@ -373,7 +373,7 @@ namespace igor
                 case 5:
                     _wheelEvent(-1);
                     {
-                        iMouseWheelEvent_TMP event(-1);
+                        iMouseWheelEvent_TMP event(_window, -1);
                         _delegate(event);
                     }
                     break;
@@ -420,7 +420,7 @@ namespace igor
                     _moveFullEvent(_posLast, _pos, _window);
                     _moveEvent(_pos);
 
-                    iMouseMoveEvent_TMP event(_posLast, _pos, _window);
+                    iMouseMoveEvent_TMP event(_window, _posLast, _pos);
                     _delegate(event);
                 }
             }

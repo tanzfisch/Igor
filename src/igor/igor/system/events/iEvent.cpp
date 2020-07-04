@@ -7,6 +7,11 @@
 namespace igor
 {
 
+    iEvent::iEvent(iWindow *window)
+        : _window(window)
+    {
+    }
+
     bool iEvent::isOfKind(const iEventKind kind)
     {
         return getEventKindMask() & (iEventKindMask)kind;
@@ -20,6 +25,11 @@ namespace igor
     void iEvent::consume()
     {
         _consumed = true;
+    }
+
+    iWindow *iEvent::getWindow() const
+    {
+        return _window;
     }
 
 } // namespace igor

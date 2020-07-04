@@ -106,7 +106,7 @@ namespace igor
 
     /*! node id definition
     */
-    typedef uint64 iNodeID;
+    typedef iaID64 iNodeID;
 
     /*! base node implementation
 

@@ -7,8 +7,8 @@
 namespace igor
 {
 
-    iKeyDownEvent_TMP::iKeyDownEvent_TMP(const iKeyCode key)
-        : _key(key)
+    iKeyDownEvent_TMP::iKeyDownEvent_TMP(iWindow *window, const iKeyCode key)
+        : iEvent(window), _key(key)
     {
     }
 
@@ -22,8 +22,8 @@ namespace igor
         return _key;
     }
 
-    iKeyUpEvent_TMP::iKeyUpEvent_TMP(const iKeyCode key)
-        : _key(key)
+    iKeyUpEvent_TMP::iKeyUpEvent_TMP(iWindow *window, const iKeyCode key)
+        : iEvent(window), _key(key)
     {
     }
 
@@ -37,8 +37,8 @@ namespace igor
         return _key;
     }
 
-    iKeyASCIIEvent_TMP::iKeyASCIIEvent_TMP(const char character)
-        : _character(character)
+    iKeyASCIIEvent_TMP::iKeyASCIIEvent_TMP(iWindow *window, const char character)
+        : iEvent(window), _character(character)
     {
     }
 

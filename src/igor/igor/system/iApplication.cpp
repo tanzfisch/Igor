@@ -22,15 +22,9 @@ namespace igor
 
     iApplication::~iApplication()
     {
-        if (!_layerStack.getStack().empty())
-        {
-            con_warn("empty layer stack before shutdown");
-            clearLayerStack();
-        }
-
         if (!_windows.empty())
         {
-            con_warn("close windows before shutdown");
+            con_warn("close and destroy all windows before shutdown");
         }
 
         if (_preDrawHandleEvent.hasDelegates())
@@ -46,42 +40,72 @@ namespace igor
         }
     }
 
-    void iApplication::clearLayerStack()
-    {
-        _layerStack.clear();
-    }
-
-    void iApplication::addLayer(iLayer *layer)
-    {
-        _layerStack.addLayer(layer);
-    }
-
-    void iApplication::removeLayer(iLayer *layer)
-    {
-        _layerStack.removeLayer(layer);
-    }
-
     void iApplication::onEvent(iEvent &event)
     {
         event.dispatch<iWindowCloseEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iApplication::onWindowClose));
 
-        const auto layers = _layerStack.getStack();
-        auto riter = layers.rbegin();
-        while (riter != layers.rend())
+        iWindow *window = event.getWindow();
+        if (window != nullptr)
         {
-            (*riter)->onEvent(event);
-            if (event.isConsumed())
-            {
-                break;
-            }
+            iWindowID windowID = window->getID();
 
-            riter++;
+            auto iter = _windows.find(windowID);
+            if (iter != _windows.end())
+            {
+                const auto layers = iter->second._layerStack.getStack();
+                auto riter = layers.rbegin();
+                while (riter != layers.rend())
+                {
+                    (*riter)->onEvent(event);
+                    if (event.isConsumed())
+                    {
+                        break;
+                    }
+
+                    riter++;
+                }
+            }
+            else
+            {
+                con_err("window with id " << windowID << " does not exist");
+            }
+        }
+        else
+        {
+            const auto layers = _layerStack.getStack();
+            auto riter = layers.rbegin();
+            while (riter != layers.rend())
+            {
+                (*riter)->onEvent(event);
+                if (event.isConsumed())
+                {
+                    break;
+                }
+
+                riter++;
+            }
         }
     }
 
     bool iApplication::onWindowClose(iWindowCloseEvent_TMP &event)
     {
-        stop();
+        bool allClosed = true;
+
+        for (auto pair : _windows)
+        {
+            if (pair.second._window->isOpen())
+            {
+                allClosed = false;
+                break;
+            }
+        }
+
+        if (allClosed)
+        {
+            stop();
+        }
+
+        return true;
     }
 
     void iApplication::stop()
@@ -102,6 +126,14 @@ namespace igor
         iProfiler::getInstance().beginSection(_userSectionID);
         windowHandle();
         _preDrawHandleEvent(); // TODO get rid of this
+
+        for (auto pair : _windows)
+        {
+            for (auto layer : pair.second._layerStack.getStack())
+            {
+                layer->onPreDraw();
+            }
+        }
 
         for (auto layer : _layerStack.getStack())
         {
@@ -124,6 +156,14 @@ namespace igor
 
         iProfiler::getInstance().beginSection(_userSectionID);
         _postDrawHandleEvent(); // TODO get rid of this
+
+        for (auto pair : _windows)
+        {
+            for (auto layer : pair.second._layerStack.getStack())
+            {
+                layer->onPostDraw();
+            }
+        }
 
         for (auto layer : _layerStack.getStack())
         {
@@ -175,39 +215,116 @@ namespace igor
 
     void iApplication::draw()
     {
-        for (auto window : _windows)
+        for (auto pair : _windows)
         {
-            if (window->isOpen())
+            if (pair.second._window->isOpen())
             {
-                window->draw();
+                pair.second._window->draw();
             }
         }
     }
 
     void iApplication::windowHandle()
     {
-        for (auto window : _windows)
+        for (auto pair : _windows)
         {
-            if (window->isOpen())
+            if (pair.second._window->isOpen())
             {
-                window->handle();
+                pair.second._window->handle();
             }
         }
     }
 
-    void iApplication::addWindow(iWindow *window)
+    void iApplication::clearLayerStack(iWindowID windowID)
     {
-        _windows.push_back(window);
-    }
+        if (windowID == iWindow::INVALID_WINDOW_ID)
+        {
+            _layerStack.clear();
+            return;
+        }
 
-    void iApplication::removeWindow(iWindow *window)
-    {
-        auto iter = find(_windows.begin(), _windows.end(), window);
-
+        auto iter = _windows.find(windowID);
         if (iter != _windows.end())
         {
+            iter->second._layerStack.clear();
+        }
+        else
+        {
+            con_err("window with id " << windowID << " does not exist");
+        }
+    }
+
+    void iApplication::addLayer(iLayer *layer, iWindowID windowID)
+    {
+        if (windowID == iWindow::INVALID_WINDOW_ID)
+        {
+            _layerStack.addLayer(layer);
+            return;
+        }
+
+        auto iter = _windows.find(windowID);
+        if (iter != _windows.end())
+        {
+            iter->second._layerStack.addLayer(layer);
+        }
+        else
+        {
+            con_err("window with id " << windowID << " does not exist");
+        }
+    }
+
+    void iApplication::removeLayer(iLayer *layer, iWindowID windowID)
+    {
+        if (windowID == iWindow::INVALID_WINDOW_ID)
+        {
+            _layerStack.removeLayer(layer);
+            return;
+        }
+
+        auto iter = _windows.find(windowID);
+        if (iter != _windows.end())
+        {
+            iter->second._layerStack.removeLayer(layer);
+        }
+        else
+        {
+            con_err("window with id " << windowID << " does not exist");
+        }
+    }
+
+    iWindowID iApplication::createWindow()
+    {
+        WindowData windowData;
+        windowData._window = new iWindow();
+        _windows[windowData._window->getID()] = windowData;
+
+        return windowData._window->getID();
+    }
+
+    void iApplication::destroyWindow(iWindowID windowID)
+    {
+        auto iter = _windows.find(windowID);
+        if (iter != _windows.end())
+        {
+            delete iter->second._window;
             _windows.erase(iter);
         }
+        else
+        {
+            con_err("window with id " << windowID << " does not exist");
+        }
+    }
+
+    iWindow *iApplication::getWindow(iWindowID windowID) const
+    {
+        auto iter = _windows.find(windowID);
+        if (iter != _windows.end())
+        {
+            return iter->second._window;
+        }
+
+        con_err("window with id " << windowID << " does not exist");
+        return nullptr;
     }
 
     void iApplication::registerApplicationPreDrawHandleDelegate(iPreDrawDelegate handleDelegate)

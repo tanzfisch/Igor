@@ -828,7 +828,7 @@ namespace igor
                 {
                     _keyASCIIEvent(static_cast<char>(characterCode));
 
-                    iKeyASCIIEvent_TMP event(characterCode);
+                    iKeyASCIIEvent_TMP event(_window, characterCode);
                     _delegate(event);
                 }
 
@@ -839,7 +839,7 @@ namespace igor
                     _keyDownEvent[static_cast<unsigned int>(currentKey)]();
                     _keyDownEventExt(currentKey);
 
-                    iKeyDownEvent_TMP event(currentKey);
+                    iKeyDownEvent_TMP event(_window, currentKey);
                     _delegate(event);
                 }
                 return true;
@@ -865,7 +865,7 @@ namespace igor
                     _keyUpEvent[static_cast<unsigned int>(currentKey)]();
                     _keyUpEventExt(currentKey);
 
-                    iKeyUpEvent_TMP event(currentKey);
+                    iKeyUpEvent_TMP event(_window, currentKey);
                     _delegate(event);
                 }
                 return true;

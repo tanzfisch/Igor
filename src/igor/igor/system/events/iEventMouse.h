@@ -43,9 +43,10 @@ namespace igor
     public:
         /*! init members
 
+        \param window the window this event came from
         \param key the key code used in this event
         */
-        iMouseKeyDownEvent_TMP(const iKeyCode key);
+        iMouseKeyDownEvent_TMP(iWindow *window, const iKeyCode key);
 
         /*! \returns event kind mask
         */
@@ -70,9 +71,10 @@ namespace igor
     public:
         /*! init members
 
+        \param window the window this event came from
         \param key the key code used in this event
         */
-        iMouseKeyUpEvent_TMP(const iKeyCode key);
+        iMouseKeyUpEvent_TMP(iWindow *window, const iKeyCode key);
 
         /*! \returns event kind mask
         */
@@ -97,9 +99,10 @@ namespace igor
     public:
         /*! init members
 
+        \param window the window this event came from
         \param key the key code used in this event
         */
-        iMouseKeyDoubleClickEvent_TMP(const iKeyCode key);
+        iMouseKeyDoubleClickEvent_TMP(iWindow *window, const iKeyCode key);
 
         /*! \returns event kind mask
         */
@@ -124,9 +127,10 @@ namespace igor
     public:
         /*! init members
 
+        \param window the window this event came from
         \param wheelDelta the wheel delta
         */
-        iMouseWheelEvent_TMP(const int32 wheelDelta);
+        iMouseWheelEvent_TMP(iWindow *window, const int32 wheelDelta);
 
         /*! \returns event kind mask
         */
@@ -151,17 +155,15 @@ namespace igor
     public:
         /*! init members
 
-        \param key the key code used in this event
+        \param window the window this event came from
+        \param from the old mouse position
+        \param to the new mouse position
         */
-        iMouseMoveEvent_TMP(const iaVector2i &from, const iaVector2i &to, iWindow *window);
+        iMouseMoveEvent_TMP(iWindow *window, const iaVector2i &from, const iaVector2i &to);
 
         /*! \returns event kind mask
         */
         iEventKindMask getEventKindMask() const override;
-
-        /*! \returns window handle
-        */
-        iWindow *getWindow() const;
 
         /*! \returns mouse position
         */
@@ -181,10 +183,6 @@ namespace igor
         /*! current mouse position
         */
         iaVector2i _to;
-
-        /*! window handle
-        */
-        iWindow *_window;
     };
 
 }; // namespace igor
