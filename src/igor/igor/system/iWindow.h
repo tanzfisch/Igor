@@ -35,6 +35,7 @@
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaMutex.h>
 #include <iaux/system/iaDelegate.h>
+#include <iaux/data/iaIDGenerator.h>
 using namespace iaux;
 
 #include <vector>
@@ -57,6 +58,10 @@ namespace igor
     */
     typedef void *iRenderContextPtr;
 
+    /*! window id definition
+    */
+    typedef iaID64 iWindowID;
+
     /*! application window
 
     \todo currently Igor only fully supports one window
@@ -69,6 +74,10 @@ namespace igor
         friend class iWindowImpl;
 
     public:
+        /*! invalid node id definition
+        */
+        static const iWindowID INVALID_WINDOW_ID = IGOR_INVALID_ID;
+
         /*! ctor
 
         initializes all member variables and registeres os event listeners
@@ -80,6 +89,10 @@ namespace igor
         unregisteres os event listeners
         */
         virtual ~iWindow();
+
+        /*! \returns id of the window
+        */
+        iWindowID getID() const;
 
         /*! sets if the window understands double clicks
 
@@ -259,6 +272,14 @@ namespace igor
         /*! pimpl
         */
         iWindowImpl *_impl = nullptr;
+
+        /*! id of this node
+        */
+        iWindowID _windowID = iWindow::INVALID_WINDOW_ID;
+
+        /*! the next window id
+        */
+        static iaIDGenerator64 _idGenerator;
 
         /*! list of views
         */
