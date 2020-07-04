@@ -41,7 +41,7 @@ class ExampleBase : public iLayer
 public:
     /*! init example
     */
-    ExampleBase(iWindow *window, const iaString &name, bool createBaseSetup = true, bool createSkyBox = true);
+    ExampleBase(iWindow *window, const iaString &name, bool createBaseSetup = true, bool createSkyBox = true, int32 zIndex = 0);
 
     /*! release resources
     */

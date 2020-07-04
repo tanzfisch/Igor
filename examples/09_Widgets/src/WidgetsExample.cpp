@@ -68,8 +68,9 @@ public:
     }
 };
 
-WidgetsExample::WidgetsExample()
-    : ExampleBase("Widgets")
+// set an increase z index of 1 to make sure the ui is rendered above the background
+WidgetsExample::WidgetsExample(iWindow *window)
+    : ExampleBase(window, "Widgets", 1)
 {
     // register the actions to make them globaly available
     iActionManager::getInstance().registerAction(new Action1());
@@ -368,7 +369,7 @@ void WidgetsExample::onInit()
     grid3->addWidget(radio3, 2, 4);
 
     // update desktop size
-    iWidgetManager::getInstance().setDesktopDimensions(getWindow().getClientWidth(), getWindow().getClientHeight());
+    iWidgetManager::getInstance().setDesktopDimensions(getWindow()->getClientWidth(), getWindow()->getClientHeight());
 }
 
 void WidgetsExample::onDeinit()
@@ -503,7 +504,7 @@ void WidgetsExample::onExitClick(const iWidgetPtr source)
 bool WidgetsExample::onWindowResize(iWindowResizeEvent_TMP &event)
 {
     // update the widget managers desktop dimensions
-    iWidgetManager::getInstance().setDesktopDimensions(getWindow().getClientWidth(), getWindow().getClientHeight());
+    iWidgetManager::getInstance().setDesktopDimensions(getWindow()->getClientWidth(), getWindow()->getClientHeight());
 
     return true;
 }

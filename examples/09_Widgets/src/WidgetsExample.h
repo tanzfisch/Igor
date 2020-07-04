@@ -46,8 +46,10 @@ class WidgetsExample : public ExampleBase
 
 public:
     /*! ctor initializes widgets
+
+    \param window the given window
     */
-    WidgetsExample();
+    WidgetsExample(iWindow *window);
 
     /*! does nothing
     */
