@@ -91,6 +91,9 @@ void WidgetsExample::onCloseDialog(iDialogPtr dialog)
 
 void WidgetsExample::onInit()
 {
+    // disable clear color to make sure we can see the background
+    getView().setClearColor(false);
+
     // create a theme and set it up. in this case the build in default theme
     _widgetDefaultTheme = new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png");
     iWidgetManager::getInstance().setTheme(_widgetDefaultTheme);

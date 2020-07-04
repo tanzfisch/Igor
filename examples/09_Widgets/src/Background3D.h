@@ -104,6 +104,10 @@ private:
     */
     iNodeID _LODSwitch = iNode::INVALID_NODE_ID;
 
+    /*! material definition for the sky box
+    */
+    iMaterialID _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
+
     /*! the scene
     */
     iScene *_scene;

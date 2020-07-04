@@ -14,6 +14,12 @@ void Background3D::onInit()
     // create a scene
     _scene = iSceneFactory::getInstance().createScene();
 
+    // and add it to the view
+    _view.setScene(_scene);
+
+    // add view to window
+    getWindow()->addView(&_view, -1);
+
     // setup camera
     // we want a camera which can be rotated arround the origin
     // we will acchive that with 3 transform nodes
@@ -171,6 +177,28 @@ void Background3D::onInit()
     _scene->getRoot()->insertNode(directionalLightRotate);
     directionalLightRotate->insertNode(directionalLightTranslate);
     directionalLightTranslate->insertNode(lightNode);
+
+    // create a skybox
+    iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
+    // set it up with the default skybox texture
+    skyBoxNode->setTextures(
+        iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_default/left.png"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_default/right.png"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
+    // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
+    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
+    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox);
+    material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    material->setOrder(iMaterial::RENDER_ORDER_MIN);
+    material->setName("SkyBox");
+    // set that material
+    skyBoxNode->setMaterial(_materialSkyBox);
+    // and add it to the scene
+    _scene->getRoot()->insertNode(skyBoxNode);
 
     // animation
     _animationTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &Background3D::onTimer), iaTime::fromMilliseconds(10));
