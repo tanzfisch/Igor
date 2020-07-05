@@ -1274,12 +1274,6 @@ namespace igor
 
         con_info("open window \"" << _impl->_title << "\" (" << _impl->_clientWidth << "x" << _impl->_clientHeight << ")" << (_impl->_fullscreen ? " FULLSCREEN" : ""));
 
-        if (_views.empty())
-        {
-            // we do this warning here for quick response on a black screen because no view was added to the window
-            con_warn("opening window without views will result in a blank screen");
-        }
-
         bool result = _impl->open();
 
         if (result)

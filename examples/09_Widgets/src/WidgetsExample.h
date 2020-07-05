@@ -34,6 +34,8 @@ using namespace igor;
 using namespace iaux;
 
 /*! this example shows how to use Igor Widgets
+
+    we derive from iLayerWidgets so the handling of the widget manager is covered for us
 */
 class WidgetsExample : public iLayerWidgets
 {

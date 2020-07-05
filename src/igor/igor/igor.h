@@ -90,6 +90,7 @@
 #include <igor/scene/nodes/iNodeSkyBox.h>
 #include <igor/scene/nodes/iNodeSwitch.h>
 #include <igor/scene/nodes/iNodeTransform.h>
+#include <igor/scene/traversal/iNodeVisitorBoundings.h>
 #include <igor/scene/traversal/iNodeVisitorPrintTree.h>
 #include <igor/scene/traversal/iNodeVisitorRenderColorID.h>
 

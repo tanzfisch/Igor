@@ -26,32 +26,56 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __MICA_H__
-#define __MICA_H__
+#ifndef __WORKSPACE_H__
+#define __WORKSPACE_H__
 
 #include <igor/igor.h>
 using namespace igor;
 
-class Mica
+class Workspace
 {
 
 public:
-	/*! init mica
+    /*! nothing to do
 	*/
-	Mica();
+    Workspace();
 
-	/*! deinit mica
+    /*! deinit resources
 	*/
-	virtual ~Mica();
+    virtual ~Workspace();
 
-	/*! run mica
+    /*! \returns the workspace root
+    */
+    iNodePtr getRoot() const;
+
+    /*! \returns scene
+    */
+    iScenePtr getScene() const;
+
+    /*! empties the workspace
 	*/
-	void run(const iaString &fileName);
+    void clear();
+
+    /*! \returns list of selected nodes
+    */
+    const std::vector<iNodeID> &getSelection() const;
+
+    /*! sets the current selection
+    */
+    void setSelection(const std::vector<iNodeID> &selection);
+
+    /*! clear current selection
+    */
+    void clearSelection();
 
 private:
-	/*! main window of mica
+    /*! main scene
 	*/
-	iWindow *_window = nullptr;
+    iScenePtr _scene = nullptr;
+
+    /*! currently selected nodes
+	*/
+    std::vector<iNodeID> _selectedNodes;
 };
 
-#endif // __MICA_H__
+#endif // __WORKSPACE_H__
