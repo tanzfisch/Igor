@@ -4,7 +4,9 @@
 
 #include "Mica.h"
 
-#include "MicaSceneLayer.h"
+#include "Workspace.h"
+#include "WorkspaceLayer.h"
+#include "OverlayLayer.h"
 
 /*! window title definition
 */
@@ -19,7 +21,10 @@ Mica::Mica()
 	_window->setDoubleClick(true);
 	_window->open();
 
-	iApplication::getInstance().addLayer(new MicaSceneLayer(_window, 0));
+	WorkspacePtr workspace = WorkspacePtr(new Workspace());
+
+	iApplication::getInstance().addLayer(new WorkspaceLayer(_window, 0, workspace));
+	iApplication::getInstance().addLayer(new OverlayLayer(_window, 10, workspace));
 }
 
 Mica::~Mica()

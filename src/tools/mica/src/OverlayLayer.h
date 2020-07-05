@@ -1,3 +1,4 @@
+
 //
 //   ______                                |\___/|  /\___/\
 //  /\__  _\                               )     (  )     (
@@ -26,74 +27,70 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __WORKSPACE_H__
-#define __WORKSPACE_H__
+#ifndef __OVERLAYLAYER_H__
+#define __OVERLAYLAYER_H__
+
+#include "Workspace.h"
 
 #include <igor/igor.h>
 using namespace igor;
 
-#include <memory>
-
-class Workspace
+class OverlayLayer : public iLayer
 {
 
 public:
-    /*! nothing to do
+    /*! init members
 	*/
-    Workspace();
+    OverlayLayer(iWindow *window, int32 zIndex, WorkspacePtr workspace);
 
     /*! deinit resources
 	*/
-    virtual ~Workspace();
-
-    /*! \returns the user root
-    */
-    iNodePtr getRootUser() const;
-
-    /*! \returns the mica root
-    */
-    iNodePtr getRootMica() const;
-
-    /*! \returns scene
-    */
-    iScenePtr getScene() const;
-
-    /*! empties the workspace
-	*/
-    void clear();
-
-    /*! \returns list of selected nodes
-    */
-    const std::vector<iNodeID> &getSelection() const;
-
-    /*! sets the current selection
-    */
-    void setSelection(const std::vector<iNodeID> &selection);
-
-    /*! clear current selection
-    */
-    void clearSelection();
+    ~OverlayLayer();
 
 private:
-    /*! main scene
-	*/
-    iScenePtr _scene = nullptr;
-
-    /*! root node of user scene
+    /*! the view of this layer
     */
-    iNodePtr _rootUser = nullptr;
+    iView _view;
 
-    /*! root node of mica scene
+    /*! the scene of this layer
     */
-    iNodePtr _rootMica = nullptr;
+    iScenePtr _scene;
 
-    /*! currently selected nodes
+    /*! material for orientation plane 
 	*/
-    std::vector<iNodeID> _selectedNodes;
+    iMaterialID _materialOrientationPlane;
+
+    /*! cel shading material for selecting nodes in the scene
+	*/
+    iMaterialID _materialCelShading;
+
+    /*! material for bounding box display 
+	*/
+    uint64 _materialBoundingBox;
+
+    /*! the mica workspace
+    */
+    WorkspacePtr _workspace;
+
+    /*! render selection
+    */
+    void renderSelection();
+
+    /*! render orientation plane
+    */
+    void renderOrientationPlane();
+
+    /*! render overlay
+    */
+    void render();
+
+    /*! clear resources
+	*/
+    void onDeinit() override;
+
+    /*! init layer
+    */
+    void onInit() override;
 };
 
-/*! workspace pointer definition
-*/
-typedef std::shared_ptr<Workspace> WorkspacePtr;
-
-#endif // __WORKSPACE_H__
+#endif // __OverlayLayer_H__

@@ -93,12 +93,6 @@ void Mica::init(iaString fileName)
 
     iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &Mica::handle));
 
-    int32 width, height;
-    _window.setSize(1280, 720);
-    _window.setCentered();
-    _window.setTitle(WINDOW_TITLE_PREFIX);
-    _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &Mica::onWindowClosed));
-    _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &Mica::onWindowResize));
 
     _view.setName("MainSceneView");
     _view.setClearColor(iaColor4f(0.25f, 0.25f, 0.25f, 1.0f));
@@ -126,20 +120,7 @@ void Mica::init(iaString fileName)
     _workspace->setName("MicaRoot");
     _scene->getRoot()->insertNode(_workspace);
 
-    // init 3D user controls
-    _viewWidget3D.setName("3D_UI_View");
-    _viewWidget3D.setClearColor(false);
-    _viewWidget3D.setClearDepth(true);
-    _viewWidget3D.setPerspective(45.0f);
-    _viewWidget3D.setClipPlanes(1.0f, 100000.f);
 
-    _window.addView(&_viewWidget3D, 5);
-
-    _sceneWidget3D = iSceneFactory::getInstance().createScene();
-    _sceneWidget3D->setName("Modifier Scene");
-    _viewWidget3D.setScene(_sceneWidget3D);
-
-    _manipulator = new Manipulator(&_window, &_viewWidget3D, _sceneWidget3D);
 
     // cam
     _cameraCOI = iNodeManager::getInstance().createNode<iNodeTransform>();
@@ -162,23 +143,9 @@ void Mica::init(iaString fileName)
 
     _cameraTranslation->translate(0, 0, 80);
 
-    // create materials
-    _materialBoundingBox = iMaterialResourceFactory::getInstance().createMaterial("materialBoundingBox");
 
-    _materialCelShading = iMaterialResourceFactory::getInstance().createMaterial("celShadingMaterial");
-    auto celShadingMaterial = iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading);
-    celShadingMaterial->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
-    celShadingMaterial->addShaderSource("Mica/yellow.frag", iShaderObjectType::Fragment);
-    celShadingMaterial->compileShader();
-    celShadingMaterial->setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
-    celShadingMaterial->setRenderState(iRenderState::CullFace, iRenderStateValue::On);
-    celShadingMaterial->setRenderState(iRenderState::CullFaceFunc, iRenderStateValue::Front);
 
-    _materialOrientationPlane = iMaterialResourceFactory::getInstance().createMaterial("OrientationPlane");
-    auto oriPlaneMaterial = iMaterialResourceFactory::getInstance().getMaterial(_materialOrientationPlane);
-    oriPlaneMaterial->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    oriPlaneMaterial->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-    oriPlaneMaterial->setOrder(iMaterial::RENDER_ORDER_MAX);
+
 
     uint64 materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
     auto skyBoxMaterial = iMaterialResourceFactory::getInstance().getMaterial(materialSkyBox);
@@ -953,88 +920,6 @@ void Mica::handle()
     _scene->handle();
 }
 
-void Mica::renderNodeSelected(uint64 nodeID)
-{
-    if (nodeID == iNode::INVALID_NODE_ID)
-    {
-        return;
-    }
-
-    iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
-    if (node == nullptr)
-    {
-        return;
-    }
-
-    if (node->getKind() != iNodeKind::Renderable &&
-        node->getKind() != iNodeKind::Volume)
-    {
-        return;
-    }
-
-    iNodeRender *renderNode = static_cast<iNodeRender *>(node);
-    iaMatrixd matrix = renderNode->getWorldMatrix();
-    iRenderer::getInstance().setModelMatrix(matrix);
-
-    if (node->getType() == iNodeType::iNodeMesh)
-    {
-        iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading));
-
-        iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
-        std::shared_ptr<iMeshBuffers> buffers = meshNode->getMeshBuffers();
-        iRenderer::getInstance().setLineWidth(4);
-        iRenderer::getInstance().drawMesh(buffers);
-    }
-    else
-    {
-        if (node->getKind() == iNodeKind::Volume)
-        {
-            iNodeVolume *renderVolume = static_cast<iNodeVolume *>(node);
-            iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialBoundingBox));
-
-            iAABoxd box = renderVolume->getBoundingBox();
-
-            iRenderer::getInstance().setColor(1, 1, 0, 1);
-            iRenderer::getInstance().drawBBox(box);
-        }
-    }
-}
-
-void Mica::render()
-{
-    updateCamDistanceTransform();
-    renderNodeSelected(_selectedNodeID);
-    renderOrientationPlane();
-}
-
-void Mica::renderOrientationPlane()
-{
-    iaMatrixd identity;
-    iRenderer::getInstance().setModelMatrix(identity);
-
-    iRenderer::getInstance().setMaterial(_materialOrientationPlane);
-    iRenderer::getInstance().setLineWidth(1);
-
-    for (int i = -20; i < 21; ++i)
-    {
-        if (i % 2 == 0)
-        {
-            iRenderer::getInstance().setColor(1.0f, 1.0f, 1.0f, 0.5f);
-        }
-        else
-        {
-            iRenderer::getInstance().setColor(1.0f, 1.0f, 1.0f, 0.25f);
-        }
-
-        iRenderer::getInstance().drawLine(iaVector3f(-20.0f, 0.0f, i), iaVector3f(20.0f, 0.0f, i));
-        iRenderer::getInstance().drawLine(iaVector3f(i, 0.0f, 20.0f), iaVector3f(i, 0.0f, -20.0f));
-    }
-
-    iRenderer::getInstance().setColor(1.0f, 0.0f, 0.0f, 1.0f);
-    iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(20.0f, 0.0f, 0.0f));
-    iRenderer::getInstance().setColor(0.0f, 0.0f, 1.0f, 1.0f);
-    iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(0.0f, 0.0f, 20.0f));
-}
 
 void Mica::renderOrtho()
 {

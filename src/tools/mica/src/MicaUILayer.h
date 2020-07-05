@@ -125,17 +125,11 @@ private:
 	*/
     iNodePtr _workspace = nullptr;
 
-    /*! material for orientation plane 
-	*/
-    uint64 _materialOrientationPlane;
-
     /*! material for bounding box display 
 	*/
     uint64 _materialBoundingBox;
 
-    /*! cel shading material for selecting nodes in the scene
-	*/
-    uint64 _materialCelShading;
+
 
     /*! id of currently selected node 
 	*/
@@ -231,10 +225,9 @@ private:
     void deinitGUI();
 
     void handle();
-    void renderNodeSelected(uint64 nodeID);
     void render();
     void renderOrtho();
-    void renderOrientationPlane();
+    
 
     iModelDataInputParameter *createDataInputParameter();
 };

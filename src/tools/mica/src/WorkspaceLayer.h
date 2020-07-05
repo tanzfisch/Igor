@@ -27,22 +27,22 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __MICASCENELAYER_H__
-#define __MICASCENELAYER_H__
+#ifndef __WORKSPACELAYER_H__
+#define __WORKSPACELAYER_H__
 
 #include "Workspace.h"
 
-class MicaSceneLayer : public iLayer
+class WorkspaceLayer : public iLayer
 {
 
 public:
     /*! init members
 	*/
-    MicaSceneLayer(iWindow *window, int32 zIndex);
+    WorkspaceLayer(iWindow *window, int32 zIndex, WorkspacePtr workspace);
 
     /*! deinit resources
 	*/
-    ~MicaSceneLayer();
+    ~WorkspaceLayer();
 
     /*! \returns node at given screen position
 	\param x horizonral screen position
@@ -84,17 +84,9 @@ private:
 	*/
     iView _view;
 
-    /*! the workspace inclusing the scene
+    /*! the mice workspace
     */
-    Workspace _workspace;
-
-    // TODO need some classes handling different types of cameras
-    iNodeTransform *_cameraCOI = nullptr;
-    iNodeTransform *_cameraHeading = nullptr;
-    iNodeTransform *_cameraPitch = nullptr;
-    iNodeTransform *_cameraTranslation = nullptr;
-    iNodeCamera *_camera = nullptr;
-    float32 _camDistance = 0;
+    WorkspacePtr _workspace;
 
     // TODO need to handle light differently
     iNodeTransform *_directionalLightTranslate = nullptr;
@@ -118,4 +110,4 @@ private:
     void updateCamDistanceTransform();
 };
 
-#endif // __MICASCENELAYER_H__
+#endif // __WORKSPACELAYER_H__

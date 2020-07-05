@@ -2,7 +2,12 @@
 
 Workspace::Workspace()
 {
+    _rootMica = iNodeManager::getInstance().createNode<iNode>();
+    _rootUser = iNodeManager::getInstance().createNode<iNode>();
+
     _scene = iSceneFactory::getInstance().createScene();
+    _scene->getRoot()->insertNode(_rootMica);
+    _scene->getRoot()->insertNode(_rootUser);
 }
 
 Workspace::~Workspace()
@@ -10,23 +15,24 @@ Workspace::~Workspace()
     iSceneFactory::getInstance().destroyScene(_scene);
 }
 
-iNodePtr Workspace::getRoot() const
+iNodePtr Workspace::getRootMica() const
 {
-    return _scene->getRoot();
+    return _rootMica;
+}
+
+iNodePtr Workspace::getRootUser() const
+{
+    return _rootUser;
 }
 
 void Workspace::clear()
 {
     clearSelection();
 
-    iNodePtr root = _scene->getRoot();
-    if (root != nullptr)
+    auto children = _rootUser->getChildren();
+    for (auto child : children)
     {
-        auto children = root->getChildren();
-        for (auto child : children)
-        {
-            iNodeManager::getInstance().destroyNodeAsync(child);
-        }
+        iNodeManager::getInstance().destroyNodeAsync(child);
     }
 }
 
