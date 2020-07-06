@@ -50,6 +50,16 @@ void CameraArc::setHeading(float64 heading)
     camHeading->rotate(_heading, iaAxis::Y);
 }
 
+iNodeID CameraArc::getCameraDistanceNode() const
+{
+    return _cameraDistance;
+}
+
+iNodeID CameraArc::getCameraNode() const
+{
+    return _camera;
+}
+
 float64 CameraArc::getPitch() const
 {
     return _pitch;
@@ -100,7 +110,7 @@ void CameraArc::setCenterOfInterest(const iaVector3d &coi)
     camCOI->translate(coi);
 }
 
-iaVector3d CameraArc::setCenterOfInterest() const
+iaVector3d CameraArc::getCenterOfInterest() const
 {
     iaVector3d result;
 

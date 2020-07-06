@@ -4,7 +4,6 @@
 
 #include "Mica.h"
 
-#include "Workspace.h"
 #include "WorkspaceLayer.h"
 #include "OverlayLayer.h"
 
@@ -21,10 +20,13 @@ Mica::Mica()
 	_window->setDoubleClick(true);
 	_window->open();
 
-	WorkspacePtr workspace = WorkspacePtr(new Workspace());
+	_workspace = WorkspacePtr(new Workspace());
 
-	iApplication::getInstance().addLayer(new WorkspaceLayer(_window, 0, workspace));
-	iApplication::getInstance().addLayer(new OverlayLayer(_window, 10, workspace));
+	iApplication::getInstance().addLayer(new WorkspaceLayer(_window, 0, _workspace));
+	iApplication::getInstance().addLayer(new OverlayLayer(_window, 10, _workspace));
+
+	_taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(_window));
+	_taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(_window));
 }
 
 Mica::~Mica()
@@ -32,9 +34,12 @@ Mica::~Mica()
 	iApplication::getInstance().clearLayerStack(_window);
 }
 
-void Mica::run(const iaString &fileName)
+void Mica::run(const iaString &filename)
 {
-	// TODO
+	_workspace->loadFile(filename);
 
 	iApplication::getInstance().run();
+
+	iTaskManager::getInstance().abortTask(_taskFlushModels);
+	iTaskManager::getInstance().abortTask(_taskFlushTextures);
 }

@@ -60,14 +60,6 @@ private:
 	*/
     iMaterialID _materialOrientationPlane;
 
-    /*! cel shading material for selecting nodes in the scene
-	*/
-    iMaterialID _materialCelShading;
-
-    /*! material for bounding box display 
-	*/
-    uint64 _materialBoundingBox;
-
     /*! the mica workspace
     */
     WorkspacePtr _workspace;

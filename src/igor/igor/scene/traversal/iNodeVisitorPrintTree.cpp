@@ -19,6 +19,11 @@ namespace igor
 
 	void iNodeVisitorPrintTree::printToConsole(iNodePtr node)
 	{
+		if (node != nullptr)
+		{
+			return;
+		}
+
 		traverseTree(node);
 		con_endl(_stream.str() << "\ntotal nodes: " << _nodeCount << "\n"
 							   << "scene: " << node->getScene()->getName().getData());

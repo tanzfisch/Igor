@@ -1,5 +1,4 @@
 #if 0
-
 //
 //   ______                                |\___/|  /\___/\
 //  /\__  _\                               )     (  )     (
@@ -28,73 +27,36 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __MICA_H__
-#define __MICA_H__
+#ifndef __UILAYER_H__
+#define __UILAYER_H__
 
-#include "Manipulator.h"
 #include "Outliner.h"
 #include "PropertiesDialog.h"
-#include "widget3d/Widget3D.h"
 
-#include <igor/igor.h>
-using namespace igor;
-
-class Mica
+class UILayer : public iLayer
 {
 
 public:
     /*! nothing to do
 	*/
-    Mica() = default;
+    UILayer(iWindow *window, int32 zIndex, WorkspacePtr workspace);
 
     /*! deinit resources
 	*/
-    virtual ~Mica();
-
-    /*! run mica
-	*/
-    void run(iaString fileName);
+    ~Mica();
 
 private:
-    /*! main window of mica
-	*/
-    iWindow _window;
-
     /*! main scene view
 	*/
     iView _view;
-
-    /*! UI view
-	*/
-    iView _viewOrtho;
-
-    /*! 3d UI view
-	*/
-    iView _viewWidget3D;
 
     /*! font used for widget display
 	*/
     iTextureFont *_font = nullptr;
 
-    /*! main scene
-	*/
-    iScene *_scene = nullptr;
-
-    /*! 3d widget scene eg used for the manipulator
-	*/
-    iScene *_sceneWidget3D = nullptr;
-
     /*! file open/close dialog 
 	*/
     iDialogFileSelectPtr _fileDialog = nullptr;
-
-    // TODO need some classes handling different types of cameras
-    iNodeTransform *_cameraCOI = nullptr;
-    iNodeTransform *_cameraHeading = nullptr;
-    iNodeTransform *_cameraPitch = nullptr;
-    iNodeTransform *_cameraTranslation = nullptr;
-    iNodeCamera *_camera = nullptr;
-    float32 _camDistance = 0;
 
     /*! the default sky box
 	*/
@@ -117,9 +79,7 @@ private:
 	*/
     Outliner *_outliner = nullptr;
 
-    /*! id of textures flush task
-	*/
-    uint64 _taskFlushTextures = 0;
+
 
     /*! the node that contains the editable part of the scene or workspace
 	*/
@@ -128,8 +88,6 @@ private:
     /*! material for bounding box display 
 	*/
     uint64 _materialBoundingBox;
-
-
 
     /*! id of currently selected node 
 	*/
@@ -227,11 +185,9 @@ private:
     void handle();
     void render();
     void renderOrtho();
-    
 
     iModelDataInputParameter *createDataInputParameter();
 };
 
-#endif // __MICA_H__
-
+#endif // __UILAYER_H__
 #endif

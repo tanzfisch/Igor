@@ -253,9 +253,9 @@ namespace iaux
         bool isUsingColors() const;
 
     private:
-        /*! the log level. default is logging everything
+        /*! the log level. default is logging everything (trace)
         */
-        iaLogLevel _logLevel = iaLogLevel::DebugInfo;
+        iaLogLevel _logLevel = iaLogLevel::Trace;
 
         /*! file stream to log file
         */

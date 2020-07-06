@@ -29,8 +29,7 @@
 #ifndef __MICA_H__
 #define __MICA_H__
 
-#include <igor/igor.h>
-using namespace igor;
+#include "Workspace.h"
 
 class Mica
 {
@@ -45,13 +44,27 @@ public:
 	virtual ~Mica();
 
 	/*! run mica
+
+	\param filename name of file to start with
 	*/
-	void run(const iaString &fileName);
+	void run(const iaString &filename);
 
 private:
 	/*! main window of mica
 	*/
 	iWindow *_window = nullptr;
+
+	/*! the worspace we are working with
+	*/
+	WorkspacePtr _workspace;
+
+	/*! id of textures flush task
+	*/
+	iTaskID _taskFlushTextures = iTask::INVALID_TASK_ID;
+
+	/*! id of models flush task
+	*/
+	iTaskID _taskFlushModels = iTask::INVALID_TASK_ID;
 };
 
 #endif // __MICA_H__

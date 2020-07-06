@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iTASKFLUSHTEXTURES__
-#define __iTASKFLUSHTEXTURES__
+#ifndef __IGOR_TASKFLUSHTEXTURES_H__
+#define __IGOR_TASKFLUSHTEXTURES_H__
 
 #include <igor/threading/tasks/iTask.h>
 
@@ -66,4 +66,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_TASKFLUSHTEXTURES_H__

@@ -81,7 +81,15 @@ public:
 
     /*! \returns center of interest
     */
-    iaVector3d setCenterOfInterest() const;
+    iaVector3d getCenterOfInterest() const;
+
+    /*! \returns camera node id
+    */
+    iNodeID getCameraNode() const;
+
+    /*! \returns camera distance node id
+    */
+    iNodeID getCameraDistanceNode() const;
 
 private:
     /*! center of interest node
@@ -104,9 +112,17 @@ private:
     */
     iNodeID _camera = iNode::INVALID_NODE_ID;
 
+    /*! heading
+    */
     float64 _heading = 0.0;
+
+    /*! pitch
+    */
     float64 _pitch = 0.0;
-    float64 _distance = 80.0;
+
+    /*! distance to center of interest
+    */
+    float64 _distance = 10.0;
 };
 
 #endif // __CAMERAARC_H__

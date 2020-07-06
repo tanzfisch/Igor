@@ -31,6 +31,9 @@
 #define __WORKSPACELAYER_H__
 
 #include "Workspace.h"
+#include "CameraArc.h"
+
+#include <memory>
 
 class WorkspaceLayer : public iLayer
 {
@@ -54,31 +57,6 @@ public:
 	*/
     void frameOnSelection();
 
-    /*! returns camera transformation matrix
-
-    \param[out] matrix the returned matrix
-    */
-    void getCamTransformation(iaMatrixd &matrix) const;
-
-    /*! returns the camera center of interest
-
-    \param[out] matrix the returned matrix
-    */
-    void getCamCOI(iaMatrixd &matrix) const;
-
-    /*! rotates the camera by given values
-
-    \param heading the heading change in rad
-    \param pitch the pitch change in rad
-    */
-    void rotateCamera(float64 heading, float64 pitch);
-
-    /*! translate the center of interesst of the camera by given vector
-
-    \param translate the given vector
-    */
-    void translateCOI(const iaVector3d &translate);
-
 private:
     /*! main scene view
 	*/
@@ -88,10 +66,26 @@ private:
     */
     WorkspacePtr _workspace;
 
+    /*! the default camera
+    */
+    std::unique_ptr<CameraArc> _cameraArc;
+
     // TODO need to handle light differently
     iNodeTransform *_directionalLightTranslate = nullptr;
     iNodeTransform *_directionalLightRotate = nullptr;
     iNodeLight *_lightNode = nullptr;
+
+    /*! cel shading material for selecting nodes in the scene
+	*/
+    iMaterialID _materialCelShading;
+
+    /*! material for bounding box display 
+	*/
+    uint64 _materialBoundingBox;
+
+    /*! render selection
+    */
+    void renderSelection();
 
     /*! clear resources
 	*/
@@ -101,13 +95,49 @@ private:
     */
     void onInit() override;
 
-    /*! called on application pre draw event
+    /*! called on any other event
     */
-    void onPreDraw() override;
+    void onEvent(iEvent &event) override;
 
-    /*! updates camera transform based on configured distance
+    /*! handles mouse key down event
+
+    \param event the mouse key down event
+    \returns true if consumed
     */
-    void updateCamDistanceTransform();
+    bool onMouseKeyDownEvent(iMouseKeyDownEvent_TMP &event);
+
+    /*! handles mouse key up event
+
+    \param event the mouse key up event
+    \returns true if consumed
+    */
+    bool onMouseKeyUpEvent(iMouseKeyUpEvent_TMP &event);
+
+    /*! handles mouse move event
+
+    \param event the mouse move event
+    \returns true if consumed
+    */
+    bool onMouseMoveEvent(iMouseMoveEvent_TMP &event);
+
+    /*! handles mouse wheel event
+
+    \param event the mouse wheel event
+    \returns true if consumed
+    */
+    bool onMouseWheelEvent(iMouseWheelEvent_TMP &event);
+
+    /*! called when key was pressed
+
+    \param event the event to handle
+    */
+    bool onKeyDown(iKeyDownEvent_TMP &event);
+
+    /*! called when key was released
+
+    \param event the event to handle
+    */
+    bool onKeyUp(iKeyUpEvent_TMP &event);
 };
 
 #endif // __WORKSPACELAYER_H__

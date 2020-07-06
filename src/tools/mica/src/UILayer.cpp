@@ -66,32 +66,12 @@ Mica::~Mica()
     deinit();
 }
 
-iModelDataInputParameter *Mica::createDataInputParameter()
-{
-    iModelDataInputParameter *parameter = new iModelDataInputParameter();
-    parameter->_identifier = "";
-    parameter->_modelSourceType = iModelSourceType::File;
-    parameter->_needsRenderContext = true;
-    parameter->_loadPriority = iTask::DEFAULT_PRIORITY;
-    parameter->_joinVertexes = false;
-    parameter->_keepMesh = true;
-
-    return parameter;
-}
 
 void Mica::init(iaString fileName)
 {
     con_endl(" -- Mica --");
 
     registerMicaActions();
-
-    iWidgetManager::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &Mica::onKeyDown));
-    iWidgetManager::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Mica::onMouseMoved));
-    iWidgetManager::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &Mica::onMouseWheel));
-    iWidgetManager::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &Mica::onMouseKeyDown));
-    iWidgetManager::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &Mica::onMouseKeyUp));
-
-    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &Mica::handle));
 
 
     _view.setName("MainSceneView");
@@ -157,14 +137,7 @@ void Mica::init(iaString fileName)
 
     _font = new iTextureFont("StandardFont.png");
 
-    if (!fileName.isEmpty())
-    {
-        iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
-        iModelDataInputParameter *parameter = createDataInputParameter();
 
-        model->setModel(fileName, iResourceCacheMode::Free, parameter);
-        _workspace->insertNode(model);
-    }
 
     initGUI();
 
@@ -227,12 +200,7 @@ void Mica::deinit()
         delete _font;
     }
 
-    iWidgetManager::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &Mica::onMouseWheel));
-    iWidgetManager::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Mica::onMouseMoved));
-    iWidgetManager::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &Mica::onMouseKeyDown));
-    iWidgetManager::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &Mica::onMouseKeyUp));
-    iWidgetManager::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &Mica::onKeyDown));
-    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &Mica::handle));
+
 
     if (_manipulator != nullptr)
     {
@@ -703,87 +671,6 @@ void Mica::onMouseKeyDown(iKeyCode key)
     }
 }
 
-void Mica::onMouseKeyUp(iKeyCode key)
-{
-    switch (key)
-    {
-    case iKeyCode::MouseLeft:
-
-        if (!iKeyboard::getInstance().getKey(iKeyCode::Alt) &&
-            !_manipulator->isSelected())
-        {
-            _outliner->setSelectedNode(getNodeAt(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y));
-            resetManipulatorMode();
-        }
-
-        _manipulator->onMouseKeyUp(key);
-        break;
-    }
-}
-
-void Mica::onMouseWheel(int32 d)
-{
-    if (d < 0)
-    {
-        _camDistance *= 2.0f;
-    }
-    else
-    {
-        _camDistance *= 0.5f;
-    }
-}
-
-void Mica::onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window)
-{
-    const float64 rotateSensitivity = 0.0075;
-    const float64 translateSensitivity = 1.0;
-
-    if (iMouse::getInstance().getLeftButton())
-    {
-        if (iKeyboard::getInstance().getKey(iKeyCode::Alt))
-        {
-            _cameraPitch->rotate((from._y - to._y) * rotateSensitivity, iaAxis::X);
-            _cameraHeading->rotate((from._x - to._x) * rotateSensitivity, iaAxis::Y);
-
-            iaMatrixd matrix;
-            _cameraPitch->getMatrix(matrix);
-            _manipulator->setCamPitch(matrix);
-
-            _cameraHeading->getMatrix(matrix);
-            _manipulator->setCamHeading(matrix);
-        }
-        else
-        {
-            _manipulator->onMouseMoved(from, to, window);
-        }
-    }
-
-    if (iMouse::getInstance().getRightButton())
-    {
-        _directionalLightRotate->rotate((from._y - to._y) * rotateSensitivity, iaAxis::X);
-        _directionalLightRotate->rotate((from._x - to._x) * rotateSensitivity, iaAxis::Y);
-    }
-
-    if (iMouse::getInstance().getMiddleButton())
-    {
-        if (iKeyboard::getInstance().getKey(iKeyCode::Alt))
-        {
-            iaMatrixd camWorldMatrix;
-            _camera->calcWorldTransformation(camWorldMatrix);
-            iaVector3d fromWorld = camWorldMatrix * _view.unProject(iaVector3d(from._x, from._y, 0), camWorldMatrix);
-            iaVector3d toWorld = camWorldMatrix * _view.unProject(iaVector3d(to._x, to._y, 0), camWorldMatrix);
-
-            iaMatrixd camTranslateMatrix;
-            _cameraTranslation->getMatrix(camTranslateMatrix);
-            float64 translateFactor = camTranslateMatrix._pos.length() * translateSensitivity;
-
-            _cameraCOI->translate((fromWorld - toWorld) * translateFactor);
-            iaMatrixd coiMatrix;
-            _cameraCOI->getMatrix(coiMatrix);
-            _manipulator->setCamCOI(coiMatrix);
-        }
-    }
-}
 
 void Mica::onExitMica()
 {
@@ -799,37 +686,10 @@ void Mica::onKeyDown(iKeyCode key)
 {
     switch (key)
     {
-    case iKeyCode::F:
-    {
-        frameOnSelectedNode();
-    }
-    break;
-
     case iKeyCode::F8:
-        _profilerVisualizer.cycleVerbosity();
+        // _profilerVisualizer.cycleVerbosity();
         break;
 
-    case iKeyCode::F9:
-    {
-        iNodeVisitorPrintTree printTree;
-        if (_scene != nullptr)
-        {
-            printTree.printToConsole(_scene->getRoot());
-        }
-    }
-    break;
-
-    case iKeyCode::F10:
-        _view.setWireframeVisible(!_view.isWireframeVisible());
-        break;
-
-    case iKeyCode::F11:
-        _view.setOctreeVisible(!_view.isOctreeVisible());
-        break;
-
-    case iKeyCode::F12:
-        _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
-        break;
 
     case iKeyCode::Q:
         setManipulatorMode(ManipulatorMode::None);

@@ -38,7 +38,7 @@ class Workspace
 {
 
 public:
-    /*! nothing to do
+    /*! init members
 	*/
     Workspace();
 
@@ -61,6 +61,12 @@ public:
     /*! empties the workspace
 	*/
     void clear();
+
+    /*! clear workspace and loads a new one
+
+    \param filename the filename of the model/scene to load
+    */
+    void loadFile(const iaString &filename);
 
     /*! \returns list of selected nodes
     */
