@@ -42,10 +42,60 @@ void OverlayLayer::onInit()
     _font = new iTextureFont("StandardFont.png");
 
     // _manipulator = new Manipulator(&_window, &_view, _sceneWidget3D);
+    // resetManipulatorMode();
 }
+
+/*void Mica::resetManipulatorMode()
+{
+    setManipulatorMode(ManipulatorMode::None);
+}
+
+void UILayer::setManipulatorMode(ManipulatorMode manipulatorMode)
+{
+    iNodePtr node = iNodeManager::getInstance().getNode(_selectedNodeID);
+
+    if (node != nullptr &&
+        node->getKind() == iNodeKind::Transformation)
+    {
+        _manipulator->setVisible(true);
+        _manipulator->setManipulatorMode(manipulatorMode);
+    }
+    else
+    {
+        _manipulator->setVisible(false);
+        _manipulator->setManipulatorMode(ManipulatorMode::None);
+    }
+}
+void UILayer::onMouseKeyDown(iKeyCode key)
+{
+    switch (key)
+    {
+    case iKeyCode::MouseLeft:
+        if (!iKeyboard::getInstance().getKey(iKeyCode::Alt))
+        {
+            _manipulator->onMouseKeyDown(key);
+        }
+        break;
+    }
+}
+
+*/
 
 void OverlayLayer::onDeinit()
 {
+    /*
+    if (_manipulator != nullptr)
+    {
+        delete _manipulator;
+        _manipulator = nullptr;
+    }
+*/
+
+    if (_font)
+    {
+        delete _font;
+    }
+
     _view.unregisterRenderDelegate(iDrawDelegate(this, &OverlayLayer::render));
 }
 
@@ -108,6 +158,25 @@ bool OverlayLayer::onKeyDown(iKeyDownEvent_TMP &event)
     case iKeyCode::F8:
         _profilerVisualizer.cycleVerbosity();
         return true;
+
+        /*
+            case iKeyCode::Q:
+        setManipulatorMode(ManipulatorMode::None);
+        return true;
+
+    case iKeyCode::W:
+        setManipulatorMode(ManipulatorMode::Translate);
+        return true;
+
+    case iKeyCode::E:
+        setManipulatorMode(ManipulatorMode::Rotate);
+        return true;
+
+    case iKeyCode::R:
+        setManipulatorMode(ManipulatorMode::Scale);
+        return true;
+
+        */
     }
 
     return false;

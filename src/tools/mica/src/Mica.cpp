@@ -6,6 +6,7 @@
 
 #include "WorkspaceLayer.h"
 #include "OverlayLayer.h"
+#include "UILayer.h"
 
 /*! window title definition
 */
@@ -24,6 +25,7 @@ Mica::Mica()
 
 	iApplication::getInstance().addLayer(new WorkspaceLayer(_window, 0, _workspace));
 	iApplication::getInstance().addLayer(new OverlayLayer(_window, 10, _workspace));
+	iApplication::getInstance().addLayer(new UILayer(_window, 20, _workspace));
 
 	_taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(_window));
 	_taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(_window));

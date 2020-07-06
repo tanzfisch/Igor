@@ -1,4 +1,3 @@
-#if 0
 //
 //   ______                                |\___/|  /\___/\
 //  /\__  _\                               )     (  )     (
@@ -30,6 +29,7 @@
 #ifndef __UILAYER_H__
 #define __UILAYER_H__
 
+#include "Workspace.h"
 #include "Outliner.h"
 #include "PropertiesDialog.h"
 
@@ -46,72 +46,31 @@ public:
     ~UILayer();
 
 private:
-    /*! file open/close dialog 
+    /*! the mica workspace
 	*/
-    iDialogFileSelectPtr _fileDialog = nullptr;
-
-    /*! the properties dialog or editor
-	*/
-    PropertiesDialog *_propertiesDialog = nullptr;
+    WorkspacePtr _workspace;
 
     /*! the outliner
 	*/
     Outliner *_outliner = nullptr;
 
-    /*! the mica workspace
+    /*! the properties dialog or editor
 	*/
-    WorkspacePtr _workspace;
+    PropertiesDialog *_propertiesDialog = nullptr;
 
-    /*! material for bounding box display 
+    /*! file open/close dialog 
 	*/
-    uint64 _materialBoundingBox;
-
-    /*! manipulator
-	*/
-    Manipulator *_manipulator = nullptr;
-
-    /*! pointer to active 3d widget
-	*/
-    Widget3D *_widget3D = nullptr;
-
-    /*! clear resources
-	*/
-    void deinit();
-
-    /*! initializes mica
-
-	\param filename optional filename to open to start with
-	*/
-    void init(iaString filename);
+    iDialogFileSelectPtr _fileDialog = nullptr;
 
     /*! empties the workspace
 	*/
     void clearWorkspace();
-
-    /*! reset manipulator mode to none
-	*/
-    void resetManipulatorMode();
-
-    /*! sets the manipulator mode on currently selected node 
-	but only if it is a transform node otherwise its set to none
-
-	\param modifierMode the modifier mode to set
-	*/
-    void setManipulatorMode(ManipulatorMode modifierMode);
 
     /*! handle for graph view selection change event
 
 	\param nodeID the id of the selected node
 	*/
     void onGraphViewSelectionChanged(uint64 nodeID);
-
-    /*! handle for keyboard dow event
-	*/
-    void onKeyDown(iKeyCode key);
-
-    /*! handle for window closed event
-	*/
-    void onWindowClosed();
 
     /*! handle for load file event
 	*/
@@ -133,30 +92,34 @@ private:
 	*/
     void onExitMica();
 
+    /*!
+    */
     void onAddMaterial();
-
-    void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window);
-    void onMouseWheel(int32 d);
-    void onMouseKeyDown(iKeyCode key);
-    void onMouseKeyUp(iKeyCode key);
-
-    void onWindowResize(int32 clientWidth, int32 clientHeight);
 
     void onFileLoadDialogClosed(iDialogPtr dialog);
     void onImportFileDialogClosed(iDialogPtr dialog);
     void onImportFileReferenceDialogClosed(iDialogPtr dialog);
     void onFileSaveDialogClosed(iDialogPtr dialog);
 
-    void forceLoadingNow(iNodeModel *modelNode);
-    void initGUI();
-    void deinitGUI();
-
-    void handle();
-    void render();
-
     iModelDataInputParameter *createDataInputParameter();
+
+    /*! init ui
+	*/
+    void onInit() override;
+
+    /*! clear resources
+	*/
+    void onDeinit() override;
+
+    /*! called on any other event
+    */
+    void onEvent(iEvent &event) override;
+
+    /*! called when key was pressed
+
+    \param event the event to handle
+    */
+    bool onKeyDown(iKeyDownEvent_TMP &event);
 };
 
 #endif // __UILAYER_H__
-
-#endif

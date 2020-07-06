@@ -1,9 +1,9 @@
-#if 0
+
 // Igor game engine
 // (c) Copyright 2014-2020 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include "Mica.h"
+#include "UILayer.h"
 #include "widget3d/Widget3DLocator.h"
 #include "widget3d/Widget3DEmitter.h"
 #include "actions/Actions.h"
@@ -20,285 +20,118 @@
 #include "usercontrols/UserControlMaterialView.h"
 #include "usercontrols/UserControlGraphView.h"
 
-#include <iaux/system/iaConsole.h>
-#include <iaux/system/iaDirectory.h>
-using namespace iaux;
-
-#include <igor/resources/material/iMaterial.h>
-#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
-#include <igor/threading/iTaskManager.h>
-#include <igor/scene/nodes/iNodeSkyBox.h>
-#include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/scene/nodes/iNodeModel.h>
-#include <igor/scene/nodes/iNodeSwitch.h>
-#include <igor/scene/nodes/iNodeEmitter.h>
-#include <igor/scene/nodes/iNodeParticleSystem.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/graphics/iRenderer.h>
-#include <igor/system/iApplication.h>
-#include <igor/scene/iSceneFactory.h>
-#include <igor/scene/iScene.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/system/iTimer.h>
-#include <igor/resources/texture/iTextureFont.h>
-#include <igor/scene/nodes/iNodeLight.h>
-#include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/scene/traversal/iNodeVisitorBoundings.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/ui/theme/iWidgetDefaultTheme.h>
-#include <igor/ui/dialogs/iDialog.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
-#include <igor/ui/widgets/iWidgetScroll.h>
-#include <igor/resources/profiler/iProfiler.h>
-#include <igor/threading/tasks/iTaskFlushTextures.h>
-#include <igor/scene/nodes/iNodeMesh.h>
-#include <igor/resources/mesh/iMesh.h>
-#include <igor/graphics/iRenderEngine.h>
-using namespace igor;
-
-
 /*! default file open folder definition
 */
 static const wchar_t *DEFAULT_LOAD_SAVE_DIR = L"..\\data\\models";
 
-Mica::~Mica()
+UILayer::UILayer(iWindow *window, int32 zIndex, WorkspacePtr workspace)
+    : iLayerWidgets(new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png"), window, "Widgets", zIndex)
 {
-    deinit();
 }
 
-
-void Mica::init(iaString fileName)
+UILayer::~UILayer()
 {
-    con_endl(" -- Mica --");
+    // TODO ?
+}
+
+void UILayer::onInit()
+{
+    // call base class
+    iLayerWidgets::onInit();
 
     registerMicaActions();
 
+    _propertiesDialog = new PropertiesDialog();
+    _outliner = new Outliner();
 
-    _view.setName("MainSceneView");
-    _view.setClearColor(iaColor4f(0.25f, 0.25f, 0.25f, 1.0f));
-    _view.setPerspective(45.0f);
-    _view.setClipPlanes(1.0f, 100000.f);
-    _view.registerRenderDelegate(iDrawDelegate(this, &Mica::render));
-    _window.addView(&_view);
+    _outliner->registerOnExitMica(ExitMicaDelegate(this, &UILayer::onExitMica));
+    _outliner->registerOnLoadFile(LoadFileDelegate(this, &UILayer::onLoadFile));
+    _outliner->registerOnImportFile(ImportFileDelegate(this, &UILayer::onImportFile));
+    _outliner->registerOnImportFileReference(ImportFileReferenceDelegate(this, &UILayer::onImportFileReference));
+    _outliner->registerOnSaveFile(SaveFileDelegate(this, &UILayer::onSaveFile));
+    _outliner->registerOnAddMaterial(AddMaterialDelegate(this, &UILayer::onAddMaterial));
 
-    _viewOrtho.setName("2D_UI_View");
-    _viewOrtho.setClearColor(false);
-    _viewOrtho.setClearDepth(false);
-    _viewOrtho.setClipPlanes(-1.0f, 1.0f);
-    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
-    _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &Mica::renderOrtho));
-    _window.addView(&_viewOrtho, 10);
+    _propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_outliner, &Outliner::refreshView));
 
-    _window.setDoubleClick(true);
-    _window.open(); // open after adding views to prevent warning message
+    _outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
+    _outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(this, &UILayer::onGraphViewSelectionChanged));
+    _outliner->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onMaterialSelectionChanged));
 
-    _scene = iSceneFactory::getInstance().createScene();
-    _scene->setName("Model Scene");
-    _view.setScene(_scene);
-
-    _workspace = iNodeManager::getInstance().createNode<iNode>();
-    _workspace->setName("MicaRoot");
-    _scene->getRoot()->insertNode(_workspace);
-
-
-
-    // cam
-    _cameraCOI = iNodeManager::getInstance().createNode<iNodeTransform>();
-    _cameraCOI->setName("camera COI");
-    _cameraHeading = iNodeManager::getInstance().createNode<iNodeTransform>();
-    _cameraHeading->setName("camera heading");
-    _cameraPitch = iNodeManager::getInstance().createNode<iNodeTransform>();
-    _cameraPitch->setName("camera pitch");
-    _cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
-    _cameraTranslation->setName("camera translation");
-    _camera = iNodeManager::getInstance().createNode<iNodeCamera>();
-    _camera->setName("camera");
-
-    _scene->getRoot()->insertNode(_cameraCOI);
-    _cameraCOI->insertNode(_cameraHeading);
-    _cameraHeading->insertNode(_cameraPitch);
-    _cameraPitch->insertNode(_cameraTranslation);
-    _cameraTranslation->insertNode(_camera);
-    _view.setCurrentCamera(_camera->getID());
-
-    _cameraTranslation->translate(0, 0, 80);
-
-
-
-
-
-    uint64 materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
-    auto skyBoxMaterial = iMaterialResourceFactory::getInstance().getMaterial(materialSkyBox);
-    skyBoxMaterial->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    skyBoxMaterial->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    skyBoxMaterial->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    skyBoxMaterial->setOrder(iMaterial::RENDER_ORDER_MIN);
-    skyBoxMaterial->setName("SkyBox");
-
-    _font = new iTextureFont("StandardFont.png");
-
-
-
-    initGUI();
-
-    _outliner->setRootNode(_workspace);
-
-    if (fileName.isEmpty())
-    {
-        if (_fileDialog == nullptr)
-        {
-            _fileDialog = new iDialogFileSelect();
-        }
-        _fileDialog->open(iDialogCloseDelegate(this, &Mica::onFileLoadDialogClosed), iFileDialogPurpose::Load, DEFAULT_LOAD_SAVE_DIR);
-    }
-    else
-    {
-        _outliner->setActive();
-        _outliner->setVisible();
-
-        _propertiesDialog->setActive();
-        _propertiesDialog->setVisible();
-    }
-
+    _outliner->setActive();
+    _outliner->setVisible();
     _outliner->refreshView();
-    resetManipulatorMode();
 
-    _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
+    _propertiesDialog->setActive();
+    _propertiesDialog->setVisible();
 }
 
-void Mica::resetManipulatorMode()
+void UILayer::onDeinit()
 {
-    setManipulatorMode(ManipulatorMode::None);
-}
-
-void Mica::deinit()
-{
-    deinitGUI();
-
-    iSceneFactory::getInstance().destroyScene(_scene);
-    iSceneFactory::getInstance().destroyScene(_sceneWidget3D);
-
-    // abort flush task
-    iTaskManager::getInstance().abortTask(_taskFlushTextures);
-
-    // flush model resources
-    iModelResourceFactory::getInstance().flush(&_window);
-
-    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Mica::onWindowClosed));
-    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Mica::onWindowResize));
-
-    _window.close();
-    _window.removeView(&_view);
-    _window.removeView(&_viewOrtho);
-    _window.removeView(&_viewWidget3D);
-
-    _view.unregisterRenderDelegate(iDrawDelegate(this, &Mica::render));
-    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &Mica::renderOrtho));
-
-    if (_font)
+    if (_propertiesDialog != nullptr)
     {
-        delete _font;
+        delete _propertiesDialog;
+        _propertiesDialog = nullptr;
     }
 
-
-
-    if (_manipulator != nullptr)
+    if (_outliner != nullptr)
     {
-        delete _manipulator;
-        _manipulator = nullptr;
+        delete _outliner;
+        _outliner = nullptr;
     }
+
+    if (_fileDialog != nullptr)
+    {
+        delete _fileDialog;
+        _fileDialog = nullptr;
+    }
+
+    // call base class
+    iLayerWidgets::onDeinit();
 }
 
-void Mica::onAddMaterial()
+void UILayer::onAddMaterial()
 {
     iMaterialResourceFactory::getInstance().createMaterial("new Material");
     _outliner->refreshView();
 }
 
-void Mica::forceLoadingNow(iNodeModel *modelNode)
-{
-    if (modelNode != nullptr)
-    {
-        iScene *tempScene = iSceneFactory::getInstance().createScene();
-        tempScene->getRoot()->insertNode(modelNode);
-
-        // want everything to be loaded now!
-        con_endl("loading data synchronously ... ");
-
-        while (!modelNode->isLoaded())
-        {
-            tempScene->handle();
-            // iTextureResourceFactory::getInstance().flush();
-            iModelResourceFactory::getInstance().flush(&_window);
-        }
-
-        tempScene->getRoot()->removeNode(modelNode);
-        iSceneFactory::getInstance().destroyScene(tempScene);
-    }
-}
-
-void Mica::frameOnNode(iNodePtr node)
-{
-    if (node != nullptr)
-    {
-        iNodeVisitorBoundings visitorBoundings;
-        visitorBoundings.traverseTree(node);
-        iSphered sphere;
-        visitorBoundings.getSphere(sphere);
-
-        iaMatrixd coiMatrix;
-        coiMatrix._pos = sphere._center;
-        _cameraCOI->setMatrix(coiMatrix);
-        _manipulator->setCamCOI(coiMatrix);
-
-        if (sphere._radius > 0.0f)
-        {
-            _camDistance = sphere._radius * 4.0f;
-        }
-        else
-        {
-            _camDistance = 1.0f;
-        }
-    }
-}
-
-void Mica::onImportFile()
+void UILayer::onImportFile()
 {
     if (_fileDialog == nullptr)
     {
         _fileDialog = new iDialogFileSelect();
-        _fileDialog->open(iDialogCloseDelegate(this, &Mica::onImportFileDialogClosed), iFileDialogPurpose::Load, DEFAULT_LOAD_SAVE_DIR);
+        _fileDialog->open(iDialogCloseDelegate(this, &UILayer::onImportFileDialogClosed), iFileDialogPurpose::Load, DEFAULT_LOAD_SAVE_DIR);
     }
 }
 
-void Mica::onImportFileReference()
+void UILayer::onImportFileReference()
 {
     if (_fileDialog == nullptr)
     {
         _fileDialog = new iDialogFileSelect();
-        _fileDialog->open(iDialogCloseDelegate(this, &Mica::onImportFileReferenceDialogClosed), iFileDialogPurpose::Load, DEFAULT_LOAD_SAVE_DIR);
+        _fileDialog->open(iDialogCloseDelegate(this, &UILayer::onImportFileReferenceDialogClosed), iFileDialogPurpose::Load, DEFAULT_LOAD_SAVE_DIR);
     }
 }
 
-void Mica::onLoadFile()
+void UILayer::onLoadFile()
 {
     if (_fileDialog == nullptr)
     {
         _fileDialog = new iDialogFileSelect();
-        _fileDialog->open(iDialogCloseDelegate(this, &Mica::onFileLoadDialogClosed), iFileDialogPurpose::Load, DEFAULT_LOAD_SAVE_DIR);
+        _fileDialog->open(iDialogCloseDelegate(this, &UILayer::onFileLoadDialogClosed), iFileDialogPurpose::Load, DEFAULT_LOAD_SAVE_DIR);
     }
 }
 
-void Mica::onSaveFile()
+void UILayer::onSaveFile()
 {
     if (_fileDialog == nullptr)
     {
         _fileDialog = new iDialogFileSelect();
-        _fileDialog->open(iDialogCloseDelegate(this, &Mica::onFileSaveDialogClosed), iFileDialogPurpose::Save, DEFAULT_LOAD_SAVE_DIR);
+        _fileDialog->open(iDialogCloseDelegate(this, &UILayer::onFileSaveDialogClosed), iFileDialogPurpose::Save, DEFAULT_LOAD_SAVE_DIR);
     }
 }
 
-void Mica::onFileSaveDialogClosed(iDialogPtr dialog)
+void UILayer::onFileSaveDialogClosed(iDialogPtr dialog)
 {
     if (_fileDialog != dialog)
     {
@@ -309,8 +142,10 @@ void Mica::onFileSaveDialogClosed(iDialogPtr dialog)
     {
         iaString filename = _fileDialog->getFullPath();
 
-        std::vector<iNodePtr> children = _workspace->getChildren();
-        children.insert(children.end(), _workspace->getInactiveChildren().begin(), _workspace->getInactiveChildren().end());
+        auto rootNode = _workspace->getRootUser();
+
+        std::vector<iNodePtr> children = rootNode->getChildren();
+        children.insert(children.end(), rootNode->getInactiveChildren().begin(), rootNode->getInactiveChildren().end());
 
         if (children.empty())
         {
@@ -322,7 +157,7 @@ void Mica::onFileSaveDialogClosed(iDialogPtr dialog)
         }
         else
         {
-            iModelResourceFactory::getInstance().exportModelData(filename, _workspace);
+            iModelResourceFactory::getInstance().exportModelData(filename, rootNode);
         }
     }
 
@@ -330,9 +165,9 @@ void Mica::onFileSaveDialogClosed(iDialogPtr dialog)
     _fileDialog = nullptr;
 }
 
-void Mica::onImportFileDialogClosed(iDialogPtr dialog)
+void UILayer::onImportFileDialogClosed(iDialogPtr dialog)
 {
-    if (_fileDialog != dialog)
+    /*    if (_fileDialog != dialog)
     {
         return;
     }
@@ -347,7 +182,7 @@ void Mica::onImportFileDialogClosed(iDialogPtr dialog)
         iModelDataInputParameter *parameter = createDataInputParameter();
         model->setModel(filename, iResourceCacheMode::Free, parameter);
 
-        forceLoadingNow(model);
+        //         forceLoadingNow(model);
 
         if (model->isValid())
         {
@@ -361,28 +196,38 @@ void Mica::onImportFileDialogClosed(iDialogPtr dialog)
                 groupName += filename;
                 groupNode->setName(groupName);
 
-                iNodePtr cursorNode = iNodeManager::getInstance().getNode(_selectedNodeID);
+                iNodePtr cursorNode = nullptr;
+                if (!_workspace->getSelection().empty())
+                {
+                    iNodePtr cursorNode = iNodeManager::getInstance().getNode(_workspace->getSelection()[0]);
+                }
+
                 if (cursorNode != nullptr)
                 {
                     cursorNode->insertNode(groupNode);
                 }
                 else
                 {
-                    _workspace->insertNode(groupNode);
+                    _workspace->getRootUser()->insertNode(groupNode);
                 }
 
                 selectNode = groupNode;
             }
             else
             {
-                iNodePtr cursorNode = iNodeManager::getInstance().getNode(_selectedNodeID);
+                iNodePtr cursorNode = nullptr;
+                if (!_workspace->getSelection().empty())
+                {
+                    iNodePtr cursorNode = iNodeManager::getInstance().getNode(_workspace->getSelection()[0]);
+                }
+
                 if (cursorNode != nullptr)
                 {
                     groupNode = cursorNode;
                 }
                 else
                 {
-                    groupNode = _workspace;
+                    groupNode = _workspace->getRootUser();
                 }
 
                 if (!children.empty())
@@ -411,15 +256,15 @@ void Mica::onImportFileDialogClosed(iDialogPtr dialog)
     _propertiesDialog->setVisible();
 
     _outliner->setSelectedNode(selectNode);
-    frameOnSelectedNode();
+    // TODO frameOnSelectedNode();
 
     delete _fileDialog;
-    _fileDialog = nullptr;
+    _fileDialog = nullptr;*/
 }
 
-void Mica::onImportFileReferenceDialogClosed(iDialogPtr dialog)
+void UILayer::onImportFileReferenceDialogClosed(iDialogPtr dialog)
 {
-    if (_fileDialog != dialog)
+    /*    if (_fileDialog != dialog)
     {
         return;
     }
@@ -434,18 +279,23 @@ void Mica::onImportFileReferenceDialogClosed(iDialogPtr dialog)
         iModelDataInputParameter *parameter = createDataInputParameter();
 
         model->setModel(filename, iResourceCacheMode::Free, parameter);
-        forceLoadingNow(model);
+        // TODO forceLoadingNow(model);
 
         if (model->isValid())
         {
-            iNodePtr cursorNode = iNodeManager::getInstance().getNode(_selectedNodeID);
+            iNodePtr cursorNode = nullptr;
+            if (!_workspace->getSelection().empty())
+            {
+                iNodePtr cursorNode = iNodeManager::getInstance().getNode(_workspace->getSelection()[0]);
+            }
+
             if (cursorNode != nullptr)
             {
                 cursorNode->insertNode(model);
             }
             else
             {
-                _workspace->insertNode(model);
+                _workspace->getRootUser()->insertNode(model);
             }
 
             selectNode = model;
@@ -460,14 +310,15 @@ void Mica::onImportFileReferenceDialogClosed(iDialogPtr dialog)
     _propertiesDialog->setVisible();
 
     _outliner->setSelectedNode(selectNode);
-    frameOnSelectedNode();
+    // TODO frameOnSelectedNode();
 
     delete _fileDialog;
-    _fileDialog = nullptr;
+    _fileDialog = nullptr;*/
 }
 
-void Mica::onFileLoadDialogClosed(iDialogPtr dialog)
+void UILayer::onFileLoadDialogClosed(iDialogPtr dialog)
 {
+    /* TODO
     if (_fileDialog != dialog)
     {
         return;
@@ -541,35 +392,12 @@ void Mica::onFileLoadDialogClosed(iDialogPtr dialog)
     frameOnSelectedNode();
 
     delete _fileDialog;
-    _fileDialog = nullptr;
+    _fileDialog = nullptr; */
 }
 
-void Mica::initGUI()
+void UILayer::onGraphViewSelectionChanged(uint64 nodeID)
 {
-    _propertiesDialog = new PropertiesDialog();
-    _outliner = new Outliner();
-
-    _widgetTheme = new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png");
-    iWidgetManager::getInstance().setTheme(_widgetTheme);
-    iWidgetManager::getInstance().setDesktopDimensions(_window.getClientWidth(), _window.getClientHeight());
-
-    _outliner->registerOnExitMica(ExitMicaDelegate(this, &Mica::onExitMica));
-    _outliner->registerOnLoadFile(LoadFileDelegate(this, &Mica::onLoadFile));
-    _outliner->registerOnImportFile(ImportFileDelegate(this, &Mica::onImportFile));
-    _outliner->registerOnImportFileReference(ImportFileReferenceDelegate(this, &Mica::onImportFileReference));
-    _outliner->registerOnSaveFile(SaveFileDelegate(this, &Mica::onSaveFile));
-    _outliner->registerOnAddMaterial(AddMaterialDelegate(this, &Mica::onAddMaterial));
-
-    _propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_outliner, &Outliner::refreshView));
-
-    _outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
-    _outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(this, &Mica::onGraphViewSelectionChanged));
-    _outliner->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onMaterialSelectionChanged));
-}
-
-void Mica::onGraphViewSelectionChanged(uint64 nodeID)
-{
-    _selectedNodeID = nodeID;
+    /*    _selectedNodeID = nodeID;
     _manipulator->setNodeID(_selectedNodeID);
     resetManipulatorMode();
 
@@ -594,203 +422,85 @@ void Mica::onGraphViewSelectionChanged(uint64 nodeID)
     if (_widget3D != nullptr)
     {
         _widget3D->setNodeID(_selectedNodeID);
-    }
+    }*/
 }
 
-void Mica::setManipulatorMode(ManipulatorMode manipulatorMode)
-{
-    iNodePtr node = iNodeManager::getInstance().getNode(_selectedNodeID);
-
-    if (node != nullptr &&
-        node->getKind() == iNodeKind::Transformation)
-    {
-        _manipulator->setVisible(true);
-        _manipulator->setManipulatorMode(manipulatorMode);
-    }
-    else
-    {
-        _manipulator->setVisible(false);
-        _manipulator->setManipulatorMode(ManipulatorMode::None);
-    }
-}
-
-void Mica::deinitGUI()
-{
-    if (_propertiesDialog != nullptr)
-    {
-        delete _propertiesDialog;
-        _propertiesDialog = nullptr;
-    }
-
-    if (_outliner != nullptr)
-    {
-        delete _outliner;
-        _outliner = nullptr;
-    }
-
-    if (_fileDialog != nullptr)
-    {
-        delete _fileDialog;
-        _fileDialog = nullptr;
-    }
-
-    iWidgetManager::getInstance().setTheme(nullptr);
-    if (_widgetTheme != nullptr)
-    {
-        delete _widgetTheme;
-        _widgetTheme = nullptr;
-    }
-}
-
-void Mica::onWindowResize(int32 clientWidth, int32 clientHeight)
-{
-    iWidgetManager::getInstance().setDesktopDimensions(_window.getClientWidth(), _window.getClientHeight());
-    _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
-}
-
-void Mica::updateCamDistanceTransform()
-{
-    _cameraTranslation->identity();
-    _cameraTranslation->translate(0, 0, _camDistance);
-
-    iaMatrixd matrix;
-    matrix.translate(0, 0, _camDistance);
-    _manipulator->setCamTranslate(matrix);
-}
-
-void Mica::onMouseKeyDown(iKeyCode key)
-{
-    switch (key)
-    {
-    case iKeyCode::MouseLeft:
-        if (!iKeyboard::getInstance().getKey(iKeyCode::Alt))
-        {
-            _manipulator->onMouseKeyDown(key);
-        }
-        break;
-    }
-}
-
-
-void Mica::onExitMica()
+void UILayer::onExitMica()
 {
     iApplication::getInstance().stop();
 }
 
-void Mica::onWindowClosed()
+void UILayer::onEvent(iEvent &event)
 {
-    iApplication::getInstance().stop();
+    // call base class
+    iLayerWidgets::onEvent(event);
+
+    event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(UILayer::onKeyDown));
 }
 
-void Mica::onKeyDown(iKeyCode key)
+bool UILayer::onKeyDown(iKeyDownEvent_TMP &event)
 {
-    switch (key)
+    switch (event.getKey())
     {
-
-
-    case iKeyCode::Q:
-        setManipulatorMode(ManipulatorMode::None);
-        break;
-
-    case iKeyCode::W:
-        setManipulatorMode(ManipulatorMode::Translate);
-        break;
-
-    case iKeyCode::E:
-        setManipulatorMode(ManipulatorMode::Rotate);
-        break;
-
-    case iKeyCode::R:
-        setManipulatorMode(ManipulatorMode::Scale);
-        break;
-
     case iKeyCode::N:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
             clearWorkspace();
         }
-        break;
+        return true;
 
     case iKeyCode::D:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
             _outliner->duplicateSelected();
         }
-        break;
+        return true;
 
     case iKeyCode::X:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
             _outliner->cutSelected();
         }
-        break;
+        return true;
 
     case iKeyCode::C:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
             _outliner->copySelected();
         }
-        break;
+        return true;
 
     case iKeyCode::V:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
             _outliner->pasteSelected();
         }
-        break;
+        return true;
 
     case iKeyCode::O:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
             _outliner->fileOpen();
         }
-        break;
+        return true;
 
     case iKeyCode::S:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
             _outliner->fileSave();
         }
-        break;
+        return true;
 
     case iKeyCode::Delete:
         _outliner->deleteSelected();
-        break;
+        return true;
     }
+
+    return false;
 }
 
-void Mica::clearWorkspace()
+void UILayer::clearWorkspace()
 {
-    std::vector<iNodePtr> copyChildren(_workspace->getChildren());
-    for (auto child : copyChildren)
-    {
-        _workspace->removeNode(child);
-        iNodeManager::getInstance().destroyNodeAsync(child);
-    }
-
-    iModelResourceFactory::getInstance().flush(&_window);
+    _workspace->clear();
     _outliner->refreshView();
 }
-
-void Mica::handle()
-{
-    _scene->handle();
-}
-
-
-void Mica::renderOrtho()
-{
-    // reset matrices
-    iaMatrixd identity;
-    iRenderer::getInstance().setViewMatrix(identity);
-    iRenderer::getInstance().setModelMatrix(identity);
-
-    // render widgets
-    iWidgetManager::getInstance().draw();
-
-    // render profiler
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-    _profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
-}
-
-#endif

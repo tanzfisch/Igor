@@ -72,7 +72,28 @@ private:
 	*/
     iProfilerVisualizer _profilerVisualizer;
 
+    /*! font for profiler
+    */
     iTextureFontPtr _font;
+
+    /*! manipulator
+	*/
+    //    Manipulator *_manipulator = nullptr;
+
+    /*! pointer to active 3d widget
+	*/
+    // Widget3D *_widget3D = nullptr;
+
+    /*! reset manipulator mode to none
+	*/
+    // void resetManipulatorMode();
+
+    /*! sets the manipulator mode on currently selected node 
+	but only if it is a transform node otherwise its set to none
+
+	\param modifierMode the modifier mode to set
+	*/
+    // void setManipulatorMode(ManipulatorMode modifierMode);
 
     /*! render selection
     */
@@ -110,9 +131,9 @@ private:
 
     /*! handle window resize event
 
-        \param event the window resize event
-        \returns true if consumed
-        */
+    \param event the window resize event
+    \returns true if consumed
+    */
     bool onWindowResize(iWindowResizeEvent_TMP &event);
 };
 

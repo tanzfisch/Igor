@@ -352,6 +352,10 @@ namespace igor
         virtual ~iWindow();
     };
 
+    /*! the window pointer definition
+    */
+    typedef iWindow *iWindowPtr;
+
 }; // namespace igor
 
 #endif // __IGOR_WINDOW_H__
