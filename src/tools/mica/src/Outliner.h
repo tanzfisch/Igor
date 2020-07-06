@@ -29,24 +29,8 @@
 #ifndef __OUTLINER_H__
 #define __OUTLINER_H__
 
-#include <igor/ui/dialogs/iDialog.h>
-using namespace igor;
-
 #include "usercontrols/UserControlGraphView.h"
 #include "usercontrols/UserControlMaterialView.h"
-
-namespace igor
-{
-    class iNode;
-    class iWidgetGrid;
-    class iWidgetScroll;
-    class iWidgetButton;
-    class iWidgetGroupBox;
-    class iWidgetSpacer;
-    class iDialogMessageBox;
-    class iDialogDecisionBox;
-    class iWidgetCheckBox;
-} // namespace igor
 
 iaEVENT(LoadFile, LoadFileDelegate, (), ());
 iaEVENT(ImportFile, ImportFileDelegate, (), ());
@@ -57,6 +41,7 @@ iaEVENT(CopyNode, CopyNodeDelegate, (uint64 nodeID), (nodeID));
 iaEVENT(PasteNode, PasteNodeDelegate, (uint64 nodeID), (nodeID));
 iaEVENT(CutNode, CutNodeDelegate, (uint64 nodeID), (nodeID));
 
+// replace later with iWidgetTab once implemented
 enum class ViewType
 {
     GraphView,

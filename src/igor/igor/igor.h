@@ -121,10 +121,14 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/actions/iAction.h>
 #include <igor/ui/actions/iActionManager.h>
-#include <igor/ui/dialogs/iDialog.h>
 #include <igor/ui/dialogs/iDialogColorChooser.h>
 #include <igor/ui/dialogs/iDialogColorGradient.h>
+#include <igor/ui/dialogs/iDialogDecisionBox.h>
+#include <igor/ui/dialogs/iDialogFileSelect.h>
+#include <igor/ui/dialogs/iDialogGraph.h>
+#include <igor/ui/dialogs/iDialogIndexMenu.h>
 #include <igor/ui/dialogs/iDialogMessageBox.h>
+#include <igor/ui/dialogs/iDialogMenu.h>
 #include <igor/ui/theme/iWidgetDefaultTheme.h>
 #include <igor/ui/widgets/iWidgetButton.h>
 #include <igor/ui/widgets/iWidgetCheckBox.h>
@@ -142,6 +146,9 @@
 #include <igor/ui/widgets/iWidgetSelectBox.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
 #include <igor/ui/widgets/iWidgetTextEdit.h>
+#include <igor/ui/user_controls/iUserControlAction.h>
+#include <igor/ui/user_controls/iUserControlColorChooser.h>
+#include <igor/ui/user_controls/iUserControlFileChooser.h>
 
 // iaux includes
 #include <iaux/data/iaConvert.h>

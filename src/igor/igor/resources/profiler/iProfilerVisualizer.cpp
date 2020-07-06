@@ -132,7 +132,7 @@ namespace igor
         {
             iaMatrixd identity;
             iaMatrixd translation;
-            translation.translate(0, 0, -30);
+            translation.translate(0, 0, -0.1);
             iRenderer::getInstance().setViewMatrix(identity);
             iRenderer::getInstance().setModelMatrix(translation);
 

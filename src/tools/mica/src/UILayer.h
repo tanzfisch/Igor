@@ -33,7 +33,7 @@
 #include "Outliner.h"
 #include "PropertiesDialog.h"
 
-class UILayer : public iLayer
+class UILayer : public iLayerWidgets
 {
 
 public:
@@ -43,33 +43,12 @@ public:
 
     /*! deinit resources
 	*/
-    ~Mica();
+    ~UILayer();
 
 private:
-    /*! main scene view
-	*/
-    iView _view;
-
-    /*! font used for widget display
-	*/
-    iTextureFont *_font = nullptr;
-
     /*! file open/close dialog 
 	*/
     iDialogFileSelectPtr _fileDialog = nullptr;
-
-    /*! the default sky box
-	*/
-    iNodeSkyBox *_defaultSkyBox = nullptr;
-
-    // TODO need to handle light differently
-    iNodeTransform *_directionalLightTranslate = nullptr;
-    iNodeTransform *_directionalLightRotate = nullptr;
-    iNodeLight *_lightNode = nullptr;
-
-    /*! instance of the widget theme
-	*/
-    iWidgetDefaultTheme *_widgetTheme = nullptr;
 
     /*! the properties dialog or editor
 	*/
@@ -79,23 +58,13 @@ private:
 	*/
     Outliner *_outliner = nullptr;
 
-
-
-    /*! the node that contains the editable part of the scene or workspace
+    /*! the mica workspace
 	*/
-    iNodePtr _workspace = nullptr;
+    WorkspacePtr _workspace;
 
     /*! material for bounding box display 
 	*/
     uint64 _materialBoundingBox;
-
-    /*! id of currently selected node 
-	*/
-    uint32 _selectedNodeID = iNode::INVALID_NODE_ID;
-
-    /*! visualizer for profiler data
-	*/
-    iProfilerVisualizer _profilerVisualizer;
 
     /*! manipulator
 	*/
@@ -184,10 +153,10 @@ private:
 
     void handle();
     void render();
-    void renderOrtho();
 
     iModelDataInputParameter *createDataInputParameter();
 };
 
 #endif // __UILAYER_H__
+
 #endif

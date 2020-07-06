@@ -52,6 +52,10 @@ private:
     */
     iView _view;
 
+    /*! orthogonal projected view of this layer
+    */
+    iView _viewOrtho;
+
     /*! the scene of this layer
     */
     iScenePtr _scene;
@@ -63,6 +67,12 @@ private:
     /*! the mica workspace
     */
     WorkspacePtr _workspace;
+
+    /*! visualizer for profiler data
+	*/
+    iProfilerVisualizer _profilerVisualizer;
+
+    iTextureFontPtr _font;
 
     /*! render selection
     */
@@ -76,6 +86,10 @@ private:
     */
     void render();
 
+    /*! render othogonal overlay
+    */
+    void renderOrtho();
+
     /*! clear resources
 	*/
     void onDeinit() override;
@@ -83,6 +97,23 @@ private:
     /*! init layer
     */
     void onInit() override;
+
+    /*! called on any other event
+    */
+    void onEvent(iEvent &event) override;
+
+    /*! called when key was pressed
+
+    \param event the event to handle
+    */
+    bool onKeyDown(iKeyDownEvent_TMP &event);
+
+    /*! handle window resize event
+
+        \param event the window resize event
+        \returns true if consumed
+        */
+    bool onWindowResize(iWindowResizeEvent_TMP &event);
 };
 
 #endif // __OverlayLayer_H__

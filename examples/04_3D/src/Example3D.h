@@ -140,6 +140,12 @@ private:
     \returns true if consumed
     */
     bool onMouseWheelEvent(iMouseWheelEvent_TMP &event);
+
+    /*! called when key was pressed
+
+    \param event the event to handle
+    */
+    bool onKeyDown(iKeyDownEvent_TMP &event);
 };
 
 #endif // __EXAMPLE3D_H__

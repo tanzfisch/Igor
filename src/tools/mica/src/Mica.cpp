@@ -36,7 +36,10 @@ Mica::~Mica()
 
 void Mica::run(const iaString &filename)
 {
-	_workspace->loadFile(filename);
+	if (!filename.isEmpty())
+	{
+		_workspace->loadFile(filename);
+	}
 
 	iApplication::getInstance().run();
 

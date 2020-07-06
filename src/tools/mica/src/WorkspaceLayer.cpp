@@ -61,13 +61,10 @@ void WorkspaceLayer::onInit()
 
 iNodePtr WorkspaceLayer::getNodeAt(int32 x, int32 y)
 {
-    //bool wasVisible = _defaultSkyBox->isVisible();
-    //_defaultSkyBox->setVisible(false);
+    // TODO if there is a sky box it needs to be invisible now
 
     uint64 nodeID = _view.pickcolorID(x, y);
     iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
-
-    //_defaultSkyBox->setVisible(wasVisible);
 
     return node;
 }
@@ -168,20 +165,25 @@ bool WorkspaceLayer::onKeyDown(iKeyDownEvent_TMP &event)
     case iKeyCode::F9:
     {
         iNodeVisitorPrintTree printTree;
-        printTree.printToConsole(_workspace->getRootUser());
+        const auto &selection = _workspace->getSelection();
+        for (auto nodeID : selection)
+        {
+            iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
+            printTree.printToConsole(node);
+        }
     }
         return true;
 
     case iKeyCode::F10:
-        _view.setWireframeVisible(!_view.isWireframeVisible());
+        _view.setWireframeVisible(!_view.isWireframeVisible()); // TODO does not work in mica
         break;
 
     case iKeyCode::F11:
-        _view.setOctreeVisible(!_view.isOctreeVisible());
+        _view.setOctreeVisible(!_view.isOctreeVisible()); // TODO does not work in mica
         break;
 
     case iKeyCode::F12:
-        _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
+        _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible()); // TODO does not work in mica
         break;
     }
 }

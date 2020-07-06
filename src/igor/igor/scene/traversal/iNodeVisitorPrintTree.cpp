@@ -19,7 +19,7 @@ namespace igor
 
 	void iNodeVisitorPrintTree::printToConsole(iNodePtr node)
 	{
-		if (node != nullptr)
+		if (node == nullptr)
 		{
 			return;
 		}

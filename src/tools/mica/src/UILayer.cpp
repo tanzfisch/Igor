@@ -686,9 +686,6 @@ void Mica::onKeyDown(iKeyCode key)
 {
     switch (key)
     {
-    case iKeyCode::F8:
-        // _profilerVisualizer.cycleVerbosity();
-        break;
 
 
     case iKeyCode::Q:
@@ -794,12 +791,6 @@ void Mica::renderOrtho()
     // render profiler
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
     _profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
-}
-
-void Mica::run(iaString fileName)
-{
-    init(fileName);
-    iApplication::getInstance().run();
 }
 
 #endif
