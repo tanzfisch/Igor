@@ -88,6 +88,12 @@ private:
 	*/
     void onSaveFile();
 
+    /*! called when model was done loading
+
+    \param modelNodeID the node id of the model done loading
+    */
+    void onFileLoadModelReady(uint64 modelNodeID);
+
     /*! hanlde for exist mica event
 	*/
     void onExitMica();

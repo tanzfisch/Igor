@@ -25,7 +25,7 @@
 static const wchar_t *DEFAULT_LOAD_SAVE_DIR = L"..\\data\\models";
 
 UILayer::UILayer(iWindow *window, int32 zIndex, WorkspacePtr workspace)
-    : iLayerWidgets(new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png"), window, "Widgets", zIndex)
+    : iLayerWidgets(new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png"), window, "Widgets", zIndex), _workspace(workspace)
 {
 }
 
@@ -318,67 +318,14 @@ void UILayer::onImportFileReferenceDialogClosed(iDialogPtr dialog)
 
 void UILayer::onFileLoadDialogClosed(iDialogPtr dialog)
 {
-    /* TODO
     if (_fileDialog != dialog)
     {
         return;
     }
 
-    iNodePtr selectNode = nullptr;
-
     if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
     {
-        iaString filename = _fileDialog->getFullPath();
-
-        if (_workspace->getChildren().size() > 0)
-        {
-            auto children = _workspace->getChildren();
-            auto childIter = children.begin();
-            while (childIter != children.end())
-            {
-                _workspace->removeNode((*childIter));
-                iNodeManager::getInstance().destroyNodeAsync((*childIter));
-                childIter++;
-            }
-        }
-
-        iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
-        iModelDataInputParameter *parameter = createDataInputParameter();
-
-        model->setModel(filename, iResourceCacheMode::Free, parameter);
-        forceLoadingNow(model);
-
-        if (model->isValid())
-        {
-            iNodePtr insertAt = nullptr;
-
-            auto children = model->getChildren();
-            if (children.size() > 1)
-            {
-                insertAt = iNodeManager::getInstance().createNode<iNode>();
-                iaString groupName = "group:";
-                groupName += filename;
-                insertAt->setName(groupName);
-
-                _workspace->insertNode(insertAt);
-                selectNode = insertAt;
-            }
-            else
-            {
-                insertAt = _workspace;
-                selectNode = children.front();
-            }
-
-            auto child = children.begin();
-            while (child != children.end())
-            {
-                model->removeNode((*child));
-                insertAt->insertNode((*child));
-                child++;
-            }
-        }
-
-        iNodeManager::getInstance().destroyNodeAsync(model);
+        _workspace->loadFile(_fileDialog->getFullPath());
     }
 
     _outliner->setActive();
@@ -388,11 +335,10 @@ void UILayer::onFileLoadDialogClosed(iDialogPtr dialog)
     _propertiesDialog->setActive();
     _propertiesDialog->setVisible();
 
-    _outliner->setSelectedNode(selectNode);
-    frameOnSelectedNode();
+    _outliner->setSelectedNode(nullptr);
 
     delete _fileDialog;
-    _fileDialog = nullptr; */
+    _fileDialog = nullptr;
 }
 
 void UILayer::onGraphViewSelectionChanged(uint64 nodeID)

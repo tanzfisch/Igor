@@ -32,14 +32,44 @@ void Workspace::loadFile(const iaString &filename)
 {
     clear();
 
-    if (!filename.isEmpty())
+    if (filename.isEmpty())
     {
-        iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
-        iModelDataInputParameter *parameter = createDataInputParameter();
-
-        model->setModel(filename, iResourceCacheMode::Free, parameter);
-        _rootUser->insertNode(model);
+        return;
     }
+
+    iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
+    iModelDataInputParameter *parameter = createDataInputParameter();
+    model->setModel(filename, iResourceCacheMode::Free, parameter, true);
+
+    if (model->isValid())
+    {
+        iNodePtr insertAt = nullptr;
+
+        auto children = model->getChildren();
+        if (children.size() > 1)
+        {
+            insertAt = iNodeManager::getInstance().createNode<iNode>();
+            iaString groupName = "group:";
+            groupName += filename;
+            insertAt->setName(groupName);
+
+            getRootUser()->insertNode(insertAt);
+        }
+        else
+        {
+            insertAt = getRootUser();
+        }
+
+        auto child = children.begin();
+        while (child != children.end())
+        {
+            model->removeNode((*child));
+            insertAt->insertNode((*child));
+            child++;
+        }
+    }
+
+    iNodeManager::getInstance().destroyNodeAsync(model);
 }
 
 iNodePtr Workspace::getRootMica() const
