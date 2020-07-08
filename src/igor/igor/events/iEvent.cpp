@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2020 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/system/events/iEvent.h>
+#include <igor/events/iEvent.h>
 
 namespace igor
 {

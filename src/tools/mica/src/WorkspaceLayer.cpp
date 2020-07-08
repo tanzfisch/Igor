@@ -188,10 +188,6 @@ bool WorkspaceLayer::onKeyDown(iKeyDownEvent_TMP &event)
     }
 }
 
-bool WorkspaceLayer::onKeyUp(iKeyUpEvent_TMP &event)
-{
-}
-
 bool WorkspaceLayer::onMouseKeyDownEvent(iMouseKeyDownEvent_TMP &event)
 {
     return false;

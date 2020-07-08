@@ -62,6 +62,10 @@ private:
 	*/
     iDialogFileSelectPtr _fileDialog = nullptr;
 
+    /*! if true refresh ui next frame
+    */
+    bool _refresh = false;
+
     /*! empties the workspace
 	*/
     void clearWorkspace();
@@ -117,6 +121,10 @@ private:
 	*/
     void onDeinit() override;
 
+    /*! called on application pre draw event
+    */
+    void onPreDraw() override;
+
     /*! called on any other event
     */
     void onEvent(iEvent &event) override;
@@ -126,6 +134,18 @@ private:
     \param event the event to handle
     */
     bool onKeyDown(iKeyDownEvent_TMP &event);
+
+    /*! triggered when node was added to scene
+
+    \param event the event to handle
+    */
+    bool onNodeAddedToScene(iEventNodeAddedToScene &event);
+
+    /*! triggered when node was removed from scene
+
+    \param event the event to handle
+    */
+    bool onNodeRemovedFromScene(iEventNodeRemovedFromScene &event);
 };
 
 #endif // __UILAYER_H__

@@ -42,6 +42,10 @@ namespace igor
 
     void iApplication::onEvent(iEvent &event)
     {
+        /*_eventStackMutex.lock();
+        _eventStack.push_back(event);
+        _eventStackMutex.unlock();*/
+
         event.dispatch<iWindowCloseEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iApplication::onWindowClose));
 
         iWindow *window = event.getWindow();
@@ -87,6 +91,17 @@ namespace igor
         }
     }
 
+    void iApplication::dispatchEventStack()
+    {
+        /*       _eventStackMutex.lock();
+        std::vector<iEvent> eventStack = std::move(_eventStack);
+        _eventStackMutex.unlock();
+
+        for (auto &event : eventStack)
+        {
+        }*/
+    }
+
     bool iApplication::onWindowClose(iWindowCloseEvent_TMP &event)
     {
         bool allClosed = true;
@@ -118,8 +133,13 @@ namespace igor
         iProfiler::getInstance().nextFrame();
         iProfiler::getInstance().beginSection(_frameSectionID);
 
-        iProfiler::getInstance().beginSection(_handleSectionID);
         iTimer::getInstance().handle();
+
+        iProfiler::getInstance().beginSection(_dispatchSectionID);
+        dispatchEventStack();
+        iProfiler::getInstance().endSection(_dispatchSectionID);
+
+        iProfiler::getInstance().beginSection(_handleSectionID);
         iNodeManager::getInstance().handle();
         iProfiler::getInstance().endSection(_handleSectionID);
 
@@ -192,6 +212,7 @@ namespace igor
     {
         iProfiler::getInstance().unregisterSection(_frameSectionID);
         iProfiler::getInstance().unregisterSection(_handleSectionID);
+        iProfiler::getInstance().unregisterSection(_dispatchSectionID);
         iProfiler::getInstance().unregisterSection(_evaluationSectionID);
         iProfiler::getInstance().unregisterSection(_physicsSectionID);
         iProfiler::getInstance().unregisterSection(_drawSectionID);
@@ -202,6 +223,7 @@ namespace igor
     {
         _frameSectionID = iProfiler::getInstance().registerSection("app:frame", 0);
         _handleSectionID = iProfiler::getInstance().registerSection("app:handle", 0);
+        _dispatchSectionID = iProfiler::getInstance().registerSection("app:dispatch", 0);
         _evaluationSectionID = iProfiler::getInstance().registerSection("app:eval", 0);
         _physicsSectionID = iProfiler::getInstance().registerSection("app:physics", 0);
         _userSectionID = iProfiler::getInstance().registerSection("app:user", 0);
@@ -350,5 +372,4 @@ namespace igor
     {
         _postDrawHandleEvent.remove(handleDelegate);
     }
-
 }; // namespace igor

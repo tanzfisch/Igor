@@ -132,12 +132,6 @@ private:
     \param event the event to handle
     */
     bool onKeyDown(iKeyDownEvent_TMP &event);
-
-    /*! called when key was released
-
-    \param event the event to handle
-    */
-    bool onKeyUp(iKeyUpEvent_TMP &event);
 };
 
 #endif // __WORKSPACELAYER_H__

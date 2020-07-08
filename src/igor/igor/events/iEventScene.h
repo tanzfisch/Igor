@@ -26,71 +26,82 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_EVENTWINDOW_H__
-#define __IGOR_EVENTWINDOW_H__
+#ifndef __IGOR_EVENTSCENE_H__
+#define __IGOR_EVENTSCENE_H__
 
-#include <igor/system/events/iEvent.h>
+#include <igor/events/iEvent.h>
+
+#include <igor/scene/iScene.h>
+#include <igor/scene/nodes/iNode.h>
 
 namespace igor
 {
 
-    class iWindow;
-
-    /*! window close event
+    /*! node added to scene event
     */
-    class Igor_API iWindowCloseEvent_TMP : public iEvent
+    class Igor_API iEventNodeAddedToScene : public iEvent
     {
     public:
         /*! init members
 
-        \param window the window that was closed
+        \param scene the scene the node was added to
+        \param nodeID id of the node that was added to the scene
         */
-        iWindowCloseEvent_TMP(iWindow *window);
+        iEventNodeAddedToScene(iScenePtr scene, iNodeID nodeID);
 
-        /*! \returns event kind mask
+        /*! \returns the scene
         */
-        iEventKindMask getEventKindMask() const override;
+        iScenePtr getScene() const;
 
-        IGOR_EVENT_CLASS_TYPE(iWindowCloseEvent_TMP)
-    };
-
-    /*! window resize event
-    */
-    class Igor_API iWindowResizeEvent_TMP : public iEvent
-    {
-    public:
-        /*! init members
-
-        \param window the window that was resized
-        \param width width of the window
-        \param height height of the window
+        /*! \returns the node id
         */
-        iWindowResizeEvent_TMP(iWindow *window, int32 width, int32 height);
+        iNodeID getNodeID() const;
 
-        /*! \returns event kind mask
-        */
-        iEventKindMask getEventKindMask() const override;
-
-        /*! \returns width of the window
-        */
-        int32 getWidth() const;
-
-        /*! \returns height of the window
-        */
-        int32 getHeight() const;
-
-        IGOR_EVENT_CLASS_TYPE(iWindowResizeEvent_TMP)
+        IGOR_EVENT_KIND_MASK((iEventKindMask)iEventKind::Scene)
+        IGOR_EVENT_CLASS_TYPE(iEventNodeAddedToScene)
 
     private:
-        /*! width of the window
+        /*! the scene the node was added to
         */
-        int32 _width;
+        iScenePtr _scene;
 
-        /*! height of the window
+        /*! id of the node that was added to the scene
         */
-        int32 _height;
+        iNodeID _nodeID;
     };
 
+    /*! node removed from scene event
+    */
+    class Igor_API iEventNodeRemovedFromScene : public iEvent
+    {
+    public:
+        /*! init members
+
+        \param scene the scene the node was removed from
+        \param nodeID id of the node that was removed from the scene
+        */
+        iEventNodeRemovedFromScene(iScenePtr scene, iNodeID nodeID);
+
+        /*! \returns the scene
+        */
+        iScenePtr getScene() const;
+
+        /*! \returns the node id
+        */
+        iNodeID getNodeID() const;
+
+        IGOR_EVENT_KIND_MASK((iEventKindMask)iEventKind::Scene)
+        IGOR_EVENT_CLASS_TYPE(iEventNodeRemovedFromScene)
+
+    private:
+        /*! the scene the node was removed from
+        */
+        iScenePtr _scene;
+
+        /*! id of the node that was removed from the scene
+        */
+        iNodeID _nodeID;
+    };
 }; // namespace igor
 
 #endif // __IGOR_EVENTKEYBOARD_H__

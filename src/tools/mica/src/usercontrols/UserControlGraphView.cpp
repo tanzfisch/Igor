@@ -42,28 +42,7 @@ UserControlGraphView::~UserControlGraphView()
 
 void UserControlGraphView::setRootNode(uint64 root)
 {
-    iNodePtr node = iNodeManager::getInstance().getNode(_root);
-    if (node != nullptr)
-    {
-        iScenePtr scene = node->getScene();
-        if (scene != nullptr)
-        {
-            scene->unregisterSceneChangedDelegate(iSceneChangedDelegate(this, &UserControlGraphView::onSceneChanged));
-        }
-    }
-
     _root = root;
-
-    node = iNodeManager::getInstance().getNode(_root);
-    if (node != nullptr)
-    {
-        iScenePtr scene = node->getScene();
-        if (scene != nullptr)
-        {
-            scene->registerSceneChangedDelegate(iSceneChangedDelegate(this, &UserControlGraphView::onSceneChanged));
-        }
-    }
-
     refresh();
 }
 
@@ -229,11 +208,6 @@ void UserControlGraphView::OnSelectionChange(iWidgetPtr widget)
 
     _selectedNode = nodeID;
     _selectionChange(_selectedNode);
-}
-
-void UserControlGraphView::onSceneChanged()
-{
-    refresh();
 }
 
 iActionContextPtr UserControlGraphView::getContext()

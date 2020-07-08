@@ -56,10 +56,6 @@ namespace igor
 	class iEvaluator;
 	typedef iEvaluator *iEvaluatorPtr;
 
-	/*! event triggered when scene changed
-	*/
-	iaEVENT(iSceneChangedEvent, iSceneChangedDelegate, (), ());
-
 	/*! the scene graph
 
 	\todo we should use shared pointers to nodes or just use IDs
@@ -107,18 +103,6 @@ namespace igor
 		*/
 		std::vector<iNodeRender *> &getRenderables();
 
-		/*! registers delegate to scene changed event
-
-		\param addedNodeDelegate delegate to register
-		*/
-		void registerSceneChangedDelegate(iSceneChangedDelegate delegate);
-
-		/*! unregisters delegate from scene changed delegate
-
-		\param addedNodeDelegate delegate to unregister
-		*/
-		void unregisterSceneChangedDelegate(iSceneChangedDelegate delegate);
-
 		/*! cyclic update of scene.
 
 		handles transformation updates and resulting changes in octree.
@@ -162,14 +146,6 @@ namespace igor
 		need to store them seperately because they might not all be processed within one frame
 		*/
 		std::set<uint64> _processingQueue;
-
-		/*! scene changed event
-		*/
-		iSceneChangedEvent _sceneChangedEvent;
-
-		/*! scene changed dirty flag
-		*/
-		bool _sceneChanged = false;
 
 		/*! name of scene
 		*/
@@ -305,15 +281,15 @@ namespace igor
 
 		/*! signals the scene that a node was added
 
-		\param nodeID the node's id that was added
+		\param node the node that was added
 		*/
-		void signalNodeAdded(uint64 nodeID);
+		void signalNodeAdded(iNodePtr node);
 
 		/*! signals the scene that a node was removed
 
-		\param nodeID the node's id that was removed
+		\param node the node that was removed
 		*/
-		void signalNodeRemoved(uint64 nodeID);
+		void signalNodeRemoved(iNodePtr node);
 
 		/*! initializes scene and octree
 		*/

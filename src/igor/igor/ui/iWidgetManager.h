@@ -32,9 +32,9 @@
 #include <igor/iDefines.h>
 #include <igor/system/iKeyboard.h>
 #include <igor/ui/widgets/iWidget.h>
-#include <igor/system/events/iEventKeyboard.h>
-#include <igor/system/events/iEventMouse.h>
-#include <igor/system/events/iEventWindow.h>
+#include <igor/events/iEventKeyboard.h>
+#include <igor/events/iEventMouse.h>
+#include <igor/events/iEventWindow.h>
 
 #include <iaux/system/iaSingleton.h>
 

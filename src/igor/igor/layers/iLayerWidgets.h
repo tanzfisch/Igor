@@ -32,7 +32,7 @@
 #include <igor/layers/iLayer.h>
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/graphics/iView.h>
-#include <igor/system/events/iEventWindow.h>
+#include <igor/events/iEventWindow.h>
 
 namespace igor
 {

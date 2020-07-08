@@ -26,19 +26,19 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_EVENTKEYBOARD_H__
-#define __IGOR_EVENTKEYBOARD_H__
+#ifndef __IGOR_EVENTMOUSE_H__
+#define __IGOR_EVENTMOUSE_H__
 
-#include <igor/system/events/iEvent.h>
+#include <igor/events/iEvent.h>
 
 namespace igor
 {
 
     class iWindow;
 
-    /*! key down event
+    /*! mouse key down event
     */
-    class Igor_API iKeyDownEvent_TMP : public iEvent
+    class Igor_API iMouseKeyDownEvent_TMP : public iEvent
     {
     public:
         /*! init members
@@ -46,7 +46,7 @@ namespace igor
         \param window the window this event came from
         \param key the key code used in this event
         */
-        iKeyDownEvent_TMP(iWindow *window, const iKeyCode key);
+        iMouseKeyDownEvent_TMP(iWindow *window, const iKeyCode key);
 
         /*! \returns event kind mask
         */
@@ -56,7 +56,7 @@ namespace igor
         */
         iKeyCode getKey() const;
 
-        IGOR_EVENT_CLASS_TYPE(iKeyDownEvent_TMP)
+        IGOR_EVENT_CLASS_TYPE(iMouseKeyDownEvent_TMP)
 
     private:
         /*! the key code
@@ -64,9 +64,9 @@ namespace igor
         iKeyCode _key;
     };
 
-    /*! key up event
+    /*! mouse key up event
     */
-    class Igor_API iKeyUpEvent_TMP : public iEvent
+    class Igor_API iMouseKeyUpEvent_TMP : public iEvent
     {
     public:
         /*! init members
@@ -74,7 +74,7 @@ namespace igor
         \param window the window this event came from
         \param key the key code used in this event
         */
-        iKeyUpEvent_TMP(iWindow *window, const iKeyCode key);
+        iMouseKeyUpEvent_TMP(iWindow *window, const iKeyCode key);
 
         /*! \returns event kind mask
         */
@@ -84,7 +84,7 @@ namespace igor
         */
         iKeyCode getKey() const;
 
-        IGOR_EVENT_CLASS_TYPE(iKeyUpEvent_TMP)
+        IGOR_EVENT_CLASS_TYPE(iMouseKeyUpEvent_TMP)
 
     private:
         /*! the key code
@@ -92,9 +92,9 @@ namespace igor
         iKeyCode _key;
     };
 
-    /*! key ascii event
+    /*! mouse key double click event
     */
-    class Igor_API iKeyASCIIEvent_TMP : public iEvent
+    class Igor_API iMouseKeyDoubleClickEvent_TMP : public iEvent
     {
     public:
         /*! init members
@@ -102,7 +102,7 @@ namespace igor
         \param window the window this event came from
         \param key the key code used in this event
         */
-        iKeyASCIIEvent_TMP(iWindow *window, const char character);
+        iMouseKeyDoubleClickEvent_TMP(iWindow *window, const iKeyCode key);
 
         /*! \returns event kind mask
         */
@@ -110,16 +110,81 @@ namespace igor
 
         /*! \returns the key code
         */
-        char getChar() const;
+        iKeyCode getKey() const;
 
-        IGOR_EVENT_CLASS_TYPE(iKeyASCIIEvent_TMP)
+        IGOR_EVENT_CLASS_TYPE(iMouseKeyDoubleClickEvent_TMP)
 
     private:
-        /*! the ascii value
+        /*! the key code
         */
-        char _character;
+        iKeyCode _key;
+    };
+
+    /*! mouse wheel event
+    */
+    class Igor_API iMouseWheelEvent_TMP : public iEvent
+    {
+    public:
+        /*! init members
+
+        \param window the window this event came from
+        \param wheelDelta the wheel delta
+        */
+        iMouseWheelEvent_TMP(iWindow *window, const int32 wheelDelta);
+
+        /*! \returns event kind mask
+        */
+        iEventKindMask getEventKindMask() const override;
+
+        /*! \returns the wheel delta
+        */
+        int32 getWheelDelta() const;
+
+        IGOR_EVENT_CLASS_TYPE(iMouseWheelEvent_TMP)
+
+    private:
+        /*! the wheel delta
+        */
+        int32 _wheelDelta = 0;
+    };
+
+    /*! mouse move event
+    */
+    class Igor_API iMouseMoveEvent_TMP : public iEvent
+    {
+    public:
+        /*! init members
+
+        \param window the window this event came from
+        \param from the old mouse position
+        \param to the new mouse position
+        */
+        iMouseMoveEvent_TMP(iWindow *window, const iaVector2i &from, const iaVector2i &to);
+
+        /*! \returns event kind mask
+        */
+        iEventKindMask getEventKindMask() const override;
+
+        /*! \returns mouse position
+        */
+        const iaVector2i &getPosition() const;
+
+        /*! \returns last mouse position
+        */
+        const iaVector2i &getLastPosition() const;
+
+        IGOR_EVENT_CLASS_TYPE(iMouseMoveEvent_TMP)
+
+    private:
+        /*! last mouse position
+        */
+        iaVector2i _from;
+
+        /*! current mouse position
+        */
+        iaVector2i _to;
     };
 
 }; // namespace igor
 
-#endif // __IGOR_EVENTKEYBOARD_H__
+#endif // __IGOR_EVENTMOUSE_H__

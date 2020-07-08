@@ -80,6 +80,26 @@ public:
     */
     void clearSelection();
 
+    /*! duplicates selected nodes
+    */
+    void duplicateSelected();
+
+    /*! cut selected nodes
+    */
+    void cutSelected();
+
+    /*! copy selected nodes
+    */
+    void copySelected();
+
+    /*! copy selected nodes
+    */
+    void pasteSelected();
+
+    /*! delete selected nodes
+    */
+    void deleteSelected();
+
 private:
     /*! main scene
 	*/
@@ -96,6 +116,14 @@ private:
     /*! currently selected nodes
 	*/
     std::vector<iNodeID> _selectedNodes;
+
+    /*! nodes that have been marked to be cut so they can be pasted later
+    */
+    std::vector<iNodeID> _cutNodes;
+
+    /*! nodes that have been marked to be copied onces they are pasted later
+    */
+    std::vector<iNodeID> _copiedNodes;
 };
 
 /*! workspace pointer definition

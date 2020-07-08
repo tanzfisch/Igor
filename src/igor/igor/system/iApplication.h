@@ -29,7 +29,7 @@
 #ifndef __IGOR_APPLICATION_H__
 #define __IGOR_APPLICATION_H__
 
-#include <igor/system/events/iEventWindow.h>
+#include <igor/events/iEventWindow.h>
 #include <igor/layers/iLayerStack.h>
 #include <igor/system/iWindow.h>
 
@@ -159,31 +159,43 @@ namespace igor
             iLayerStack _layerStack;
         };
 
-        /*! frame performance section id
+        /*! stack of events
+        */
+        std::vector<iEvent> _eventStack;
+
+        /*! securing the event stack
+        */
+        iaMutex _eventStackMutex;
+
+        /*! frame profiler section id
         */
         uint32 _frameSectionID = 0;
 
-        /*! handle performance section id
+        /*! handle profiler section id
         */
         uint32 _handleSectionID = 0;
 
-        /*! evaluation performance section id
+        /*! dispatch profiler section id
+        */
+        uint32 _dispatchSectionID = 0;
+
+        /*! evaluation profiler section id
         */
         uint32 _evaluationSectionID = 0;
 
-        /*! physics performance section id
+        /*! physics profiler section id
         */
         uint32 _physicsSectionID = 0;
 
-        /*! draw performance section id
+        /*! draw profiler section id
         */
         uint32 _drawSectionID = 0;
 
-        /*! user performance section id
+        /*! user profiler section id
         */
         uint32 _userSectionID = 0;
 
-        /*! handle callbacks performance section ID
+        /*! handle callbacks profiler section ID
         */
         uint32 _handleCallbacksSectionID = 0;
 
@@ -206,6 +218,10 @@ namespace igor
         /*! handle event called after rendering
         */
         iPostDrawEvent _postDrawHandleEvent;
+
+        /*! handles events in the event queue
+        */
+        void dispatchEventStack();
 
         /*! handles window close event
 

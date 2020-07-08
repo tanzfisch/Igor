@@ -42,7 +42,7 @@ void UILayer::onInit()
     registerMicaActions();
 
     _propertiesDialog = new PropertiesDialog();
-    _outliner = new Outliner();
+    _outliner = new Outliner(_workspace);
 
     _outliner->registerOnExitMica(ExitMicaDelegate(this, &UILayer::onExitMica));
     _outliner->registerOnLoadFile(LoadFileDelegate(this, &UILayer::onLoadFile));
@@ -51,7 +51,7 @@ void UILayer::onInit()
     _outliner->registerOnSaveFile(SaveFileDelegate(this, &UILayer::onSaveFile));
     _outliner->registerOnAddMaterial(AddMaterialDelegate(this, &UILayer::onAddMaterial));
 
-    _propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_outliner, &Outliner::refreshView));
+    // _propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_outliner, &Outliner::refreshView));
 
     _outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
     _outliner->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(this, &UILayer::onGraphViewSelectionChanged));
@@ -59,7 +59,7 @@ void UILayer::onInit()
 
     _outliner->setActive();
     _outliner->setVisible();
-    _outliner->refreshView();
+    _outliner->refresh();
 
     _propertiesDialog->setActive();
     _propertiesDialog->setVisible();
@@ -92,7 +92,7 @@ void UILayer::onDeinit()
 void UILayer::onAddMaterial()
 {
     iMaterialResourceFactory::getInstance().createMaterial("new Material");
-    _outliner->refreshView();
+    _outliner->refresh();
 }
 
 void UILayer::onImportFile()
@@ -330,12 +330,12 @@ void UILayer::onFileLoadDialogClosed(iDialogPtr dialog)
 
     _outliner->setActive();
     _outliner->setVisible();
-    _outliner->refreshView();
+    _outliner->refresh();
 
     _propertiesDialog->setActive();
     _propertiesDialog->setVisible();
 
-    _outliner->setSelectedNode(nullptr);
+    // TODO_outliner->setSelectedNode(nullptr);
 
     delete _fileDialog;
     _fileDialog = nullptr;
@@ -376,12 +376,36 @@ void UILayer::onExitMica()
     iApplication::getInstance().stop();
 }
 
+void UILayer::onPreDraw()
+{
+    if (_refresh)
+    {
+        _outliner->refresh();
+        _refresh = false;
+    }
+
+    iLayerWidgets::onPreDraw();
+}
+
 void UILayer::onEvent(iEvent &event)
 {
-    // call base class
     iLayerWidgets::onEvent(event);
 
     event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(UILayer::onKeyDown));
+    event.dispatch<iEventNodeAddedToScene>(IGOR_BIND_EVENT_FUNCTION(UILayer::onNodeAddedToScene));
+    event.dispatch<iEventNodeRemovedFromScene>(IGOR_BIND_EVENT_FUNCTION(UILayer::onNodeRemovedFromScene));
+}
+
+bool UILayer::onNodeAddedToScene(iEventNodeAddedToScene &event)
+{
+    _refresh = true;
+    return false;
+}
+
+bool UILayer::onNodeRemovedFromScene(iEventNodeRemovedFromScene &event)
+{
+    _refresh = true;
+    return false;
 }
 
 bool UILayer::onKeyDown(iKeyDownEvent_TMP &event)
@@ -398,47 +422,75 @@ bool UILayer::onKeyDown(iKeyDownEvent_TMP &event)
     case iKeyCode::D:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
-            _outliner->duplicateSelected();
+            _workspace->duplicateSelected();
         }
         return true;
 
     case iKeyCode::X:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
-            _outliner->cutSelected();
+            _workspace->cutSelected();
         }
         return true;
 
     case iKeyCode::C:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
-            _outliner->copySelected();
+            _workspace->copySelected();
         }
         return true;
 
     case iKeyCode::V:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
-            _outliner->pasteSelected();
+            _workspace->pasteSelected();
         }
         return true;
 
     case iKeyCode::O:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
-            _outliner->fileOpen();
+            onLoadFile();
         }
         return true;
 
     case iKeyCode::S:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
-            _outliner->fileSave();
+            onSaveFile();
         }
         return true;
 
     case iKeyCode::Delete:
-        _outliner->deleteSelected();
+        _workspace->deleteSelected();
+        return true;
+
+    case iKeyCode::F:
+        if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
+        {
+            if (_outliner->isActive() && _outliner->isVisible())
+            {
+                _outliner->setActive(false);
+                _outliner->setVisible(false);
+            }
+            else
+            {
+                _outliner->setActive();
+                _outliner->setVisible();
+                _outliner->refresh();
+            }
+
+            if (_propertiesDialog->isActive() && _propertiesDialog->isVisible())
+            {
+                _propertiesDialog->setActive(false);
+                _propertiesDialog->setVisible(false);
+            }
+            else
+            {
+                _propertiesDialog->setActive();
+                _propertiesDialog->setVisible();
+            }
+        }
         return true;
     }
 
@@ -448,5 +500,4 @@ bool UILayer::onKeyDown(iKeyDownEvent_TMP &event)
 void UILayer::clearWorkspace()
 {
     _workspace->clear();
-    _outliner->refreshView();
 }

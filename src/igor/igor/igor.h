@@ -102,9 +102,10 @@
 #include <igor/system/iTimer.h>
 #include <igor/system/iTimerHandle.h>
 #include <igor/system/iWindow.h>
-#include <igor/system/events/iEventKeyboard.h>
-#include <igor/system/events/iEventMouse.h>
-#include <igor/system/events/iEventWindow.h>
+#include <igor/events/iEventKeyboard.h>
+#include <igor/events/iEventMouse.h>
+#include <igor/events/iEventWindow.h>
+#include <igor/events/iEventScene.h>
 
 #include <igor/terrain/iVoxelTerrain.h>
 #include <igor/terrain/iVoxelTerrainMeshGenerator.h>

@@ -55,7 +55,10 @@ namespace igor
         iMouseWheelEvent_TMP,
 
         iWindowCloseEvent_TMP,
-        iWindowResizeEvent_TMP
+        iWindowResizeEvent_TMP,
+
+        iEventNodeAddedToScene,
+        iEventNodeRemovedFromScene
     };
 
     /*! event kind definition
@@ -65,7 +68,8 @@ namespace igor
         Input = 1,
         Keyboard = 2,
         Mouse = 4,
-        Window = 8
+        Window = 8,
+        Scene = 16
     };
 
     /*! define event kind mask
@@ -153,17 +157,16 @@ namespace igor
 	*/
     Igor_API std::wostream &operator<<(std::wostream &stream, const iEventType &eventType);
 
-    /*! event delegate definition
-
-    // todo maybe we should get rid of delegates entirely
-    */
-    iaDELEGATE(iEventDelegate, void, (iEvent & event), (event));
-
     /*! helper macro to define event type
     */
 #define IGOR_EVENT_CLASS_TYPE(type)                                \
     static iEventType getStaticType() { return iEventType::type; } \
     virtual iEventType getEventType() const override { return getStaticType(); }
+
+    /*! helper to generate event kind mask
+    */
+#define IGOR_EVENT_KIND_MASK(mask) \
+    virtual iEventKindMask getEventKindMask() const override { return mask; }
 
     /*! helper macro for defining a member function
     */

@@ -10,7 +10,7 @@
 #include <igor/system/iWindow.h>
 #include <igor/system/iDefinesWindows.h>
 #include <igor/system/iDefinesLinux.h>
-#include <igor/system/events/iEventMouse.h>
+#include <igor/events/iEventMouse.h>
 
 #include <iaux/system/iaTime.h>
 #include <iaux/system/iaConsole.h>
@@ -33,7 +33,6 @@ namespace igor
         iMouseImpl(iMouse *mouse)
             : _mouse(mouse)
         {
-            setEventDelegate(iEventDelegate(&iApplication::getInstance(), &iApplication::onEvent));
         }
         virtual ~iMouseImpl() = default;
 
@@ -43,11 +42,6 @@ namespace igor
         virtual void setPosition(int32 x, int32 y) = 0;
         virtual void showCursor(bool show) = 0;
         virtual void setCenter() = 0;
-
-        void setEventDelegate(iEventDelegate delegate)
-        {
-            _delegate = delegate;
-        }
 
     protected:
         iButtonState _buttonStates[5];
@@ -61,8 +55,6 @@ namespace igor
         iaVector2i _posLast;
         iaVector2i _pos;
         iWindow *_window = nullptr;
-
-        iEventDelegate _delegate;
     };
 
 #ifdef __IGOR_WINDOWS__
@@ -318,14 +310,14 @@ namespace igor
                 _doubleClickEvent(buttonKey);
 
                 iMouseKeyDoubleClickEvent_TMP event(_window, buttonKey);
-                _delegate(event);
+                iApplication::getInstance().onEvent(event);
             }
             else
             {
                 _keyDownEvent(buttonKey);
 
                 iMouseKeyDownEvent_TMP event(_window, buttonKey);
-                _delegate(event);
+                iApplication::getInstance().onEvent(event);
             }
         }
 
@@ -336,7 +328,7 @@ namespace igor
             _keyUpEvent(buttonKey);
 
             iMouseKeyUpEvent_TMP event(_window, buttonKey);
-            _delegate(event);
+            iApplication::getInstance().onEvent(event);
         }
 
         bool onOSEvent(const void *data) override
@@ -365,7 +357,7 @@ namespace igor
                     _wheelEvent(1);
                     {
                         iMouseWheelEvent_TMP event(_window, 1);
-                        _delegate(event);
+                        iApplication::getInstance().onEvent(event);
                     }
 
                     break;
@@ -374,7 +366,7 @@ namespace igor
                     _wheelEvent(-1);
                     {
                         iMouseWheelEvent_TMP event(_window, -1);
-                        _delegate(event);
+                        iApplication::getInstance().onEvent(event);
                     }
                     break;
 
@@ -421,7 +413,7 @@ namespace igor
                     _moveEvent(_pos);
 
                     iMouseMoveEvent_TMP event(_window, _posLast, _pos);
-                    _delegate(event);
+                    iApplication::getInstance().onEvent(event);
                 }
             }
             break;

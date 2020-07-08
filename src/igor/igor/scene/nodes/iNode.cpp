@@ -478,7 +478,7 @@ namespace igor
 
             if (_scene != nullptr)
             {
-                _scene->signalNodeRemoved(getID());
+                _scene->signalNodeRemoved(this);
             }
 
             if (scene != nullptr &&
@@ -506,7 +506,7 @@ namespace igor
 
             if (_scene != nullptr)
             {
-                _scene->signalNodeAdded(getID());
+                _scene->signalNodeAdded(this);
             }
         }
     }

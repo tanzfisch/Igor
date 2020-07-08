@@ -28,6 +28,124 @@ static iModelDataInputParameter *createDataInputParameter()
     return parameter;
 }
 
+void Workspace::duplicateSelected()
+{
+    for (const auto nodeID : getSelection())
+    {
+        iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
+        if (node == nullptr)
+        {
+            continue;
+        }
+
+        auto parent = node->getParent();
+        if (parent == nullptr)
+        {
+            continue;
+        }
+
+        iNodePtr nodeCopy = iNodeManager::getInstance().createCopy(node);
+        parent->insertNodeAsync(nodeCopy);
+    }
+}
+
+void Workspace::cutSelected()
+{
+    _cutNodes = _selectedNodes;
+    _copiedNodes.clear();
+}
+
+void Workspace::copySelected()
+{
+    _copiedNodes = _selectedNodes;
+    _cutNodes.clear();
+}
+
+void Workspace::deleteSelected()
+{
+    for (auto nodeID : _selectedNodes)
+    {
+        iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
+        if (node == nullptr)
+        {
+            continue;
+        }
+
+        iNodeManager::getInstance().destroyNodeAsync(node);
+    }
+}
+
+void Workspace::pasteSelected()
+{
+    if (_selectedNodes.size() > 1)
+    {
+        return;
+    }
+
+    std::vector<iNodeID> newSelection;
+
+    if (!_copiedNodes.empty())
+    {
+        for (auto nodeID : _copiedNodes)
+        {
+            iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
+            if (node == nullptr)
+            {
+                continue;
+            }
+
+            iNodePtr newNode = iNodeManager::getInstance().createCopy(node);
+            newSelection.push_back(newNode->getID());
+
+            iNodePtr destination = nullptr;
+            if (!_selectedNodes.empty())
+            {
+                iNodePtr destination = iNodeManager::getInstance().getNode(_selectedNodes[0]);
+            }
+
+            if (destination == nullptr)
+            {
+                destination = _rootUser;
+            }
+
+            destination->insertNodeAsync(newNode);
+        }
+
+        _copiedNodes.clear();
+        _selectedNodes = newSelection;
+    }
+    else if (!_cutNodes.empty())
+    {
+        for (auto nodeID : _cutNodes)
+        {
+            iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
+
+            if (node == nullptr)
+            {
+                continue;
+            }
+
+            iNodePtr destination = nullptr;
+            if (!_selectedNodes.empty())
+            {
+                iNodePtr destination = iNodeManager::getInstance().getNode(_selectedNodes[0]);
+            }
+
+            if (destination == nullptr)
+            {
+                destination = _rootUser;
+            }
+
+            iNodePtr parent = node->getParent();
+            if (parent != nullptr)
+            {
+                parent->removeNodeAsync(node);
+                destination->insertNodeAsync(node);
+            }
+        }
+    }
+}
+
 void Workspace::loadFile(const iaString &filename)
 {
     clear();

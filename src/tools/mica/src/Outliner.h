@@ -29,6 +29,7 @@
 #ifndef __OUTLINER_H__
 #define __OUTLINER_H__
 
+#include "Workspace.h"
 #include "usercontrols/UserControlGraphView.h"
 #include "usercontrols/UserControlMaterialView.h"
 
@@ -56,12 +57,10 @@ class Outliner : public iDialog
     friend class iWidgetManager;
 
 public:
-    Outliner();
+    Outliner(WorkspacePtr workspace);
     ~Outliner();
 
-    void setRootNode(iNodePtr root);
-    void setSelectedNode(iNodePtr node);
-    void refreshView();
+    void refresh();
 
     void registerOnLoadFile(LoadFileDelegate loadFileDelegate);
     void unregisterOnLoadFile(LoadFileDelegate loadFileDelegate);
@@ -96,18 +95,13 @@ public:
     void registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
     void unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
 
-    void deleteSelected();
-    void duplicateSelected();
-    void copySelected();
-    void cutSelected();
-    void pasteSelected();
-
-    void fileOpen();
-    void fileSave();
-
     void addModel();
 
 private:
+    /*! the mica workspace
+    */
+    WorkspacePtr _workspace;
+
     LoadFile _loadFile;
     ImportFile _importFile;
     ImportFileReference _importFileReference;
@@ -135,8 +129,6 @@ private:
 
     uint32 _copiedNodeID = 0;
     uint32 _cutNodeID = 0;
-
-    uint32 _rootNodeID = 0;
 
     void setViewType(ViewType viewType);
 

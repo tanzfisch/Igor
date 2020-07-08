@@ -6,7 +6,7 @@
 
 #include <igor/system/iApplication.h>
 #include <igor/system/iWindow.h>
-#include <igor/system/events/iEventKeyboard.h>
+#include <igor/events/iEventKeyboard.h>
 #include <igor/system/iDefinesWindows.h>
 #include <igor/system/iDefinesLinux.h>
 
@@ -159,8 +159,6 @@ namespace igor
             {
                 _keys[i] = false;
             }
-
-            setEventDelegate(iEventDelegate(&iApplication::getInstance(), &iApplication::onEvent));
         }
 
         virtual ~iKeyboardImpl() = default;
@@ -168,11 +166,6 @@ namespace igor
         virtual bool initDevice(const void *data) = 0;
         virtual void deinitDevice() = 0;
         virtual bool onOSEvent(const void *data) = 0;
-
-        void setEventDelegate(iEventDelegate delegate)
-        {
-            _delegate = delegate;
-        }
 
     protected:
         bool _keys[static_cast<uint32>(iKeyCode::KeyCodeCount)];
@@ -182,8 +175,6 @@ namespace igor
         iKeyDownEvent _keyDownEventExt;
         iKeyUpEvent _keyUpEventExt;
         iWindow *_window = nullptr;
-
-        iEventDelegate _delegate;
     };
 
 #ifdef __IGOR_WINDOWS__
@@ -829,7 +820,7 @@ namespace igor
                     _keyASCIIEvent(static_cast<char>(characterCode));
 
                     iKeyASCIIEvent_TMP event(_window, characterCode);
-                    _delegate(event);
+                    iApplication::getInstance().onEvent(event);
                 }
 
                 currentKey = translate(xevent.xkey.keycode);
@@ -840,7 +831,7 @@ namespace igor
                     _keyDownEventExt(currentKey);
 
                     iKeyDownEvent_TMP event(_window, currentKey);
-                    _delegate(event);
+                    iApplication::getInstance().onEvent(event);
                 }
                 return true;
 
@@ -866,7 +857,7 @@ namespace igor
                     _keyUpEventExt(currentKey);
 
                     iKeyUpEvent_TMP event(_window, currentKey);
-                    _delegate(event);
+                    iApplication::getInstance().onEvent(event);
                 }
                 return true;
 

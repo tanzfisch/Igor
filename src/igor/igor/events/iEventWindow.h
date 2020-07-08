@@ -26,76 +26,71 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_LAYER_H__
-#define __IGOR_LAYER_H__
+#ifndef __IGOR_EVENTWINDOW_H__
+#define __IGOR_EVENTWINDOW_H__
 
 #include <igor/events/iEvent.h>
-#include <igor/system/iWindow.h>
-
-#include <iaux/data/iaString.h>
-using namespace iaux;
 
 namespace igor
 {
-    /*! layer base class
+
+    class iWindow;
+
+    /*! window close event
     */
-    class Igor_API iLayer
+    class Igor_API iWindowCloseEvent_TMP : public iEvent
     {
     public:
         /*! init members
-        */
-        iLayer(iWindow *window, const iaString &name = "Layer", int32 zIndex = 0);
 
-        /*! does nothing
+        \param window the window that was closed
         */
-        virtual ~iLayer() = default;
+        iWindowCloseEvent_TMP(iWindow *window);
 
-        /*! called when added to layer stack
+        /*! \returns event kind mask
         */
-        virtual void onInit(){};
+        iEventKindMask getEventKindMask() const override;
 
-        /*! called when removed from layer stack
-        */
-        virtual void onDeinit(){};
+        IGOR_EVENT_CLASS_TYPE(iWindowCloseEvent_TMP)
+    };
 
-        /*! called on application pre draw event
-        */
-        virtual void onPreDraw(){};
+    /*! window resize event
+    */
+    class Igor_API iWindowResizeEvent_TMP : public iEvent
+    {
+    public:
+        /*! init members
 
-        /*! called on application post draw event
+        \param window the window that was resized
+        \param width width of the window
+        \param height height of the window
         */
-        virtual void onPostDraw(){};
+        iWindowResizeEvent_TMP(iWindow *window, int32 width, int32 height);
 
-        /*! called on any other event
+        /*! \returns event kind mask
         */
-        virtual void onEvent(iEvent &event){};
+        iEventKindMask getEventKindMask() const override;
 
-        /*! \returns layer name
+        /*! \returns width of the window
         */
-        const iaString &getName() const;
+        int32 getWidth() const;
 
-        /*! \returns z index
+        /*! \returns height of the window
         */
-        int32 getZIndex() const;
+        int32 getHeight() const;
 
-        /*! \returns window
-        */
-        iWindow *getWindow() const;
+        IGOR_EVENT_CLASS_TYPE(iWindowResizeEvent_TMP)
 
     private:
-        /*! the layer name
+        /*! width of the window
         */
-        iaString _name;
+        int32 _width;
 
-        /*! the z index
+        /*! height of the window
         */
-        int32 _zIndex = 0;
-
-        /*! id of the window the laye is part of
-        */
-        iWindow *_window;
+        int32 _height;
     };
 
 }; // namespace igor
 
-#endif // __IGOR_LAYER_H__
+#endif // __IGOR_EVENTKEYBOARD_H__

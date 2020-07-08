@@ -13,6 +13,8 @@
 #include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/system/iTimer.h>
+#include <igor/events/iEventScene.h>
+#include <igor/system/iApplication.h>
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/system/iaTime.h>
@@ -293,12 +295,6 @@ namespace igor
 
 		iProfiler::getInstance().endSection(_sceneHandleSectionID);
 #endif
-
-		if (_sceneChanged)
-		{
-			_sceneChangedEvent();
-			_sceneChanged = false;
-		}
 	}
 
 	void iScene::addToDataUpdateQueue(iNodePtr node)
@@ -355,24 +351,16 @@ namespace igor
 		return _octree;
 	}
 
-	void iScene::signalNodeAdded(uint64 nodeID)
+	void iScene::signalNodeAdded(iNodePtr node)
 	{
-		_sceneChanged = true;
+		iEventNodeAddedToScene event(this, node->getID());
+		iApplication::getInstance().onEvent(event);
 	}
 
-	void iScene::signalNodeRemoved(uint64 nodeID)
+	void iScene::signalNodeRemoved(iNodePtr node)
 	{
-		_sceneChanged = true;
-	}
-
-	void iScene::registerSceneChangedDelegate(iSceneChangedDelegate delegate)
-	{
-		_sceneChangedEvent.append(delegate);
-	}
-
-	void iScene::unregisterSceneChangedDelegate(iSceneChangedDelegate delegate)
-	{
-		_sceneChangedEvent.remove(delegate);
+		iEventNodeAddedToScene event(this, node->getID());
+		iApplication::getInstance().onEvent(event);
 	}
 
 }; // namespace igor
