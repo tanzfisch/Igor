@@ -14,6 +14,7 @@ int main(void)
 
 	// create example and add it as layer to the application
 	igor::iApplication::getInstance().addLayer(new Example2D(window));
+	igor::iApplication::getInstance().addLayer(new iLayerProfiler(window));
 	igor::iApplication::getInstance().run();
 
 	// destroying a window also destroys all related layers

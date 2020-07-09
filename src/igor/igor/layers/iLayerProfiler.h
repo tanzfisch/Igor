@@ -26,66 +26,77 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_LAYERWIDGETS_H__
-#define __IGOR_LAYERWIDGETS_H__
+#ifndef __IGOR_LAYERPROFILER_H__
+#define __IGOR_LAYERPROFILER_H__
 
 #include <igor/layers/iLayer.h>
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/graphics/iView.h>
 #include <igor/events/iEventWindow.h>
+#include <igor/events/iEventKeyboard.h>
+#include <igor/resources/profiler/iProfilerVisualizer.h>
+#include <igor/resources/texture/iTextureFont.h>
 
 namespace igor
 {
-    /*! layer for witdget system
+    /*! layer that shows profiler and debug information
     */
-    class iLayerWidgets : public iLayer
+    class iLayerProfiler : public iLayer
     {
 
     public:
         /*! ctor initializes layer
 
         \param window the given window
-        \param theme the widget theme to use
         \param name the name of this layer
         \param zIndex the z index
         */
-        iLayerWidgets(iWidgetTheme *theme, iWindow *window, const iaString &name, int32 zIndex);
+        iLayerProfiler(iWindow *window, const iaString &name = "Profiler", int32 zIndex = 1000);
 
         /*! does nothing
         */
-        virtual ~iLayerWidgets() = default;
-
-    protected:
-        /*! initialize example
-        */
-        virtual void onInit() override;
-
-        /*! deinitialize example
-        */
-        virtual void onDeinit() override;
-
-        /*! called on application pre draw event
-        */
-        virtual void onPreDraw() override;
-
-        /*! called on application post draw event
-        */
-        virtual void onPostDraw() override;
-
-        /*! called on any other event
-
-        \param event the event to handle
-        */
-        virtual void onEvent(iEvent &event) override;
+        ~iLayerProfiler() = default;
 
     private:
         /*! the viewport
         */
         iView _view;
 
-        /*! the widget theme in use
+        /*! displays profiler
         */
-        iWidgetTheme *_theme;
+        iProfilerVisualizer _profilerVisualizer;
+
+        /*! texture font we use to display the profiler
+        */
+        iTextureFontPtr _font = nullptr;
+
+        /*! initialize example
+        */
+        void onInit() override;
+
+        /*! deinitialize example
+        */
+        void onDeinit() override;
+
+        /*! called on application pre draw event
+        */
+        void onPreDraw() override;
+
+        /*! called on application post draw event
+        */
+        void onPostDraw() override;
+
+        /*! called on any other event
+
+        \param event the event to handle
+        */
+        void onEvent(iEvent &event) override;
+
+        /*! called when key was released
+
+        \param event the event to handle
+        */
+        bool onKeyUp(iKeyUpEvent_TMP &event);
 
         /*! called by orthogonal view
         */
@@ -100,4 +111,5 @@ namespace igor
     };
 
 } // namespace igor
-#endif // __IGOR_LAYERWIDGETS_H__
+
+#endif // __IGOR_LAYERPROFILER_H__

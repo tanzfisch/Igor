@@ -104,7 +104,7 @@ private:
     \param event the mouse key down event
     \returns true if consumed
     */
-    bool onMouseKeyDownEvent(iMouseKeyDownEvent_TMP &event);
+    bool onMouseKeyDownEvent(iEventMouseKeyDown &event);
 
     /*! handles mouse key up event
 

@@ -129,10 +129,6 @@ private:
     */
     iTaskID _taskFlushTextures = iTask::INVALID_TASK_ID;
 
-    /*! displays profiler
-    */
-    iProfilerVisualizer _profilerVisualizer;
-
     /*! igor logo
     */
     iTexturePtr _igorLogo = nullptr;

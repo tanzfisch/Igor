@@ -48,7 +48,7 @@ namespace igor
         iKeyUpEvent_TMP,
         iKeyASCIIEvent_TMP,
 
-        iMouseKeyDownEvent_TMP,
+        iEventMouseKeyDown,
         iMouseKeyUpEvent_TMP,
         iMouseKeyDoubleClickEvent_TMP,
         iMouseMoveEvent_TMP,
@@ -105,6 +105,14 @@ namespace igor
         */
         virtual iEventKindMask getEventKindMask() const = 0;
 
+        /*! \returns name of event
+        */
+        virtual const iaString getName() const = 0;
+
+        /*! \returns information to event
+        */
+        virtual const iaString getInfo() const;
+
         /*! \returns the window
         */
         iWindow *getWindow() const;
@@ -156,16 +164,17 @@ namespace igor
     /*! stream operator
 
 	\param stream the destination
-	\param eventType the node type to stream
+	\param event the event
 	\returns the resulting stream
 	*/
-    Igor_API std::wostream &operator<<(std::wostream &stream, const iEventType &eventType);
+    Igor_API std::wostream &operator<<(std::wostream &stream, const iEvent &event);
 
     /*! helper macro to define event type
     */
-#define IGOR_EVENT_CLASS_TYPE(type)                                \
-    static iEventType getStaticType() { return iEventType::type; } \
-    virtual iEventType getEventType() const override { return getStaticType(); }
+#define IGOR_EVENT_CLASS_TYPE(type)                                              \
+    static iEventType getStaticType() { return iEventType::type; }               \
+    virtual iEventType getEventType() const override { return getStaticType(); } \
+    virtual const iaString getName() const override { return #type; }
 
     /*! helper to generate event kind mask
     */

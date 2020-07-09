@@ -49,6 +49,10 @@ namespace igor
         */
         iEventNodeAddedToScene(iScenePtr scene, iNodeID nodeID);
 
+        /*! \returns information to event
+        */
+        virtual const iaString getInfo() const override;
+
         /*! \returns the scene
         */
         iScenePtr getScene() const;
@@ -81,6 +85,10 @@ namespace igor
         \param nodeID id of the node that was removed from the scene
         */
         iEventNodeRemovedFromScene(iScenePtr scene, iNodeID nodeID);
+
+        /*! \returns information to event
+        */
+        virtual const iaString getInfo() const override;
 
         /*! \returns the scene
         */

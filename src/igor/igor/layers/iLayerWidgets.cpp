@@ -23,7 +23,7 @@ namespace igor
         _view.setClearColor(false);
         _view.setClearDepth(false);
         _view.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
-        _view.registerRenderDelegate(iDrawDelegate(this, &iLayerWidgets::onRenderOrtho));
+        _view.registerRenderDelegate(iDrawDelegate(this, &iLayerWidgets::onRender));
         getWindow()->addView(&_view, 10);
 
         // update desktop size
@@ -44,7 +44,7 @@ namespace igor
     {
         iWidgetManager::getInstance().onPostDraw();
 
-        _view.unregisterRenderDelegate(iDrawDelegate(this, &iLayerWidgets::onRenderOrtho));
+        _view.unregisterRenderDelegate(iDrawDelegate(this, &iLayerWidgets::onRender));
 
         iWidgetManager::getInstance().setTheme(nullptr);
 
@@ -70,7 +70,7 @@ namespace igor
         return false;
     }
 
-    void iLayerWidgets::onRenderOrtho()
+    void iLayerWidgets::onRender()
     {
         // initialize view matrix with identity matrix
         iaMatrixd identity;

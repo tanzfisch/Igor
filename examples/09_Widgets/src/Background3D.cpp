@@ -188,12 +188,12 @@ void Background3D::onEvent(iEvent &event)
 {
     ExampleBase::onEvent(event);
 
-    event.dispatch<iMouseKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Background3D::onMouseKeyDownEvent));
+    event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(Background3D::onMouseKeyDownEvent));
     event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Background3D::onMouseMoveEvent));
     event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Background3D::onMouseWheelEvent));
 }
 
-bool Background3D::onMouseKeyDownEvent(iMouseKeyDownEvent_TMP &event)
+bool Background3D::onMouseKeyDownEvent(iEventMouseKeyDown &event)
 {
     switch (event.getKey())
     {

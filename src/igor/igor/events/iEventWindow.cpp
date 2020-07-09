@@ -27,6 +27,15 @@ namespace igor
         return (iEventKindMask)iEventKind::Window;
     }
 
+    const iaString iWindowResizeEvent_TMP::getInfo() const
+    {
+        std::wstringstream stream;
+
+        stream << getName().getData() << "[" << _width << ", " << _height << "]";
+
+        return stream.str().c_str();
+    }
+
     int32 iWindowResizeEvent_TMP::getWidth() const
     {
         return _width;

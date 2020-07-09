@@ -3,6 +3,7 @@
 // see copyright notice in corresponding header file
 
 #include <igor/events/iEventScene.h>
+#include <igor/scene/nodes/iNodeManager.h>
 
 namespace igor
 {
@@ -10,6 +11,16 @@ namespace igor
     iEventNodeAddedToScene::iEventNodeAddedToScene(iScenePtr scene, iNodeID nodeID)
         : iEvent(nullptr), _scene(scene), _nodeID(nodeID)
     {
+    }
+
+    const iaString iEventNodeAddedToScene::getInfo() const
+    {
+        std::wstringstream stream;
+
+        iNodePtr node = iNodeManager::getInstance().getNode(_nodeID);
+        stream << getName().getData() << "[" << _scene->getName() << ", " << (node != nullptr ? node->getName() : iaString::toString(_nodeID)) << "]";
+
+        return stream.str().c_str();
     }
 
     iScenePtr iEventNodeAddedToScene::getScene() const
@@ -25,6 +36,16 @@ namespace igor
     iEventNodeRemovedFromScene::iEventNodeRemovedFromScene(iScenePtr scene, iNodeID nodeID)
         : iEvent(nullptr), _scene(scene), _nodeID(nodeID)
     {
+    }
+
+    const iaString iEventNodeRemovedFromScene::getInfo() const
+    {
+        std::wstringstream stream;
+
+        iNodePtr node = iNodeManager::getInstance().getNode(_nodeID);
+        stream << getName().getData() << "[" << _scene->getName() << ", " << (node != nullptr ? node->getName() : iaString::toString(_nodeID)) << "]";
+
+        return stream.str().c_str();
     }
 
     iScenePtr iEventNodeRemovedFromScene::getScene() const

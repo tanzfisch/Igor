@@ -14,14 +14,14 @@ void MouseExample::onEvent(iEvent &event)
     // first call example base
     ExampleBase::onEvent(event);
 
-    event.dispatch<iMouseKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseKeyDownEvent));
+    event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseKeyDownEvent));
     event.dispatch<iMouseKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseKeyUpEvent));
     event.dispatch<iMouseKeyDoubleClickEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseKeyDoubleClickEvent));
     event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseMoveEvent));
     event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseWheelEvent));
 }
 
-bool MouseExample::onMouseKeyDownEvent(iMouseKeyDownEvent_TMP &event)
+bool MouseExample::onMouseKeyDownEvent(iEventMouseKeyDown &event)
 {
     // prints if a key was pressed to the console
     con_endl("mouse key down " << event.getKey());

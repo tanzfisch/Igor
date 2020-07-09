@@ -803,14 +803,14 @@ void Ascent::onRenderOrtho()
 void Ascent::onEvent(iEvent &event)
 {
     event.dispatch<iWindowResizeEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Ascent::onWindowResize));
-    event.dispatch<iMouseKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Ascent::onMouseKeyDownEvent));
+    event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(Ascent::onMouseKeyDownEvent));
     event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Ascent::onMouseMoveEvent));
     event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Ascent::onMouseWheelEvent));
     event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Ascent::onKeyDown));
     event.dispatch<iKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Ascent::onKeyUp));
 }
 
-bool Ascent::onMouseKeyDownEvent(iMouseKeyDownEvent_TMP &event)
+bool Ascent::onMouseKeyDownEvent(iEventMouseKeyDown &event)
 {
     if (_activeControls)
     {

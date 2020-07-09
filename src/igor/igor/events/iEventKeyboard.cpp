@@ -3,6 +3,7 @@
 // see copyright notice in corresponding header file
 
 #include <igor/events/iEventKeyboard.h>
+#include <igor/system/iKeyboard.h>
 
 namespace igor
 {
@@ -15,6 +16,14 @@ namespace igor
     iEventKindMask iKeyDownEvent_TMP::getEventKindMask() const
     {
         return (iEventKindMask)iEventKind::Input | (iEventKindMask)iEventKind::Keyboard;
+    }
+
+    const iaString iKeyDownEvent_TMP::getInfo() const
+    {
+        std::wstringstream stream;
+        stream << getName().getData() << "[" << _key << "]";
+
+        return stream.str().c_str();
     }
 
     iKeyCode iKeyDownEvent_TMP::getKey() const
@@ -32,6 +41,14 @@ namespace igor
         return (iEventKindMask)iEventKind::Input | (iEventKindMask)iEventKind::Keyboard;
     }
 
+    const iaString iKeyUpEvent_TMP::getInfo() const
+    {
+        std::wstringstream stream;
+        stream << getName().getData() << "[" << _key << "]";
+
+        return stream.str().c_str();
+    }
+
     iKeyCode iKeyUpEvent_TMP::getKey() const
     {
         return _key;
@@ -45,6 +62,14 @@ namespace igor
     iEventKindMask iKeyASCIIEvent_TMP::getEventKindMask() const
     {
         return (iEventKindMask)iEventKind::Input | (iEventKindMask)iEventKind::Keyboard;
+    }
+
+    const iaString iKeyASCIIEvent_TMP::getInfo() const
+    {
+        std::wstringstream stream;
+        stream << getName().getData() << "[" << _character << "]";
+
+        return stream.str().c_str();
     }
 
     char iKeyASCIIEvent_TMP::getChar() const

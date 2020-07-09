@@ -147,7 +147,7 @@ void WorkspaceLayer::frameOnSelection()
 
 void WorkspaceLayer::onEvent(iEvent &event)
 {
-    event.dispatch<iMouseKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseKeyDownEvent));
+    event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseKeyDownEvent));
     event.dispatch<iMouseKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseKeyUpEvent));
     event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseMoveEvent));
     event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseWheelEvent));
@@ -188,7 +188,7 @@ bool WorkspaceLayer::onKeyDown(iKeyDownEvent_TMP &event)
     }
 }
 
-bool WorkspaceLayer::onMouseKeyDownEvent(iMouseKeyDownEvent_TMP &event)
+bool WorkspaceLayer::onMouseKeyDownEvent(iEventMouseKeyDown &event)
 {
     return false;
 }

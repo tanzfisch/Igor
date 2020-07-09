@@ -383,7 +383,7 @@ namespace igor
 
     void iWidgetManager::onEvent(iEvent &event)
     {
-        event.dispatch<iMouseKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseKeyDownEvent));
+        event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseKeyDownEvent));
         event.dispatch<iMouseKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseKeyUpEvent));
         event.dispatch<iMouseKeyDoubleClickEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseKeyDoubleClickEvent));
         event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseMoveEvent));
@@ -470,7 +470,7 @@ namespace igor
         return false;
     }
 
-    bool iWidgetManager::onMouseKeyDownEvent(iMouseKeyDownEvent_TMP &event)
+    bool iWidgetManager::onMouseKeyDownEvent(iEventMouseKeyDown &event)
     {
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)

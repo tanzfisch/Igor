@@ -21,10 +21,11 @@ ExampleBase::ExampleBase(iWindow *window, const iaString &name, bool createBaseS
         getWindow()->setCentered();
 
         // setup perspective view
+        _view.setName("Example Base View");
         _view.setClearColor(iaColor4f(0.5f, 0, 0.5f, 1));
         _view.setPerspective(45);
         _view.setClipPlanes(0.1f, 10000.f);
-        getWindow()->addView(&_view);
+        getWindow()->addView(&_view, getZIndex());
 
         // init scene
         _scene = iSceneFactory::getInstance().createScene();
@@ -32,11 +33,12 @@ ExampleBase::ExampleBase(iWindow *window, const iaString &name, bool createBaseS
         _view.setScene(_scene);
 
         // setup orthogonal view
+        _viewOrtho.setName("Logo View");
         _viewOrtho.setClearColor(false);
         _viewOrtho.setClearDepth(false);
         _viewOrtho.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
         _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &ExampleBase::onRenderOrtho));
-        getWindow()->addView(&_viewOrtho);
+        getWindow()->addView(&_viewOrtho, getZIndex() + 1);
 
         // and open the window
         getWindow()->open();
@@ -44,9 +46,6 @@ ExampleBase::ExampleBase(iWindow *window, const iaString &name, bool createBaseS
         // start resource tasks
         _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(window));
         _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(window));
-
-        // setup profiler visualisation
-        _profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
 
         if (createSkyBox)
         {
@@ -150,10 +149,6 @@ bool ExampleBase::onKeyUp(iKeyUpEvent_TMP &event)
         iApplication::getInstance().stop();
         return true;
 
-    case iKeyCode::F8:
-        _profilerVisualizer.cycleVerbosity();
-        return true;
-
     case iKeyCode::F9:
     {
         iNodeVisitorPrintTree printTree;
@@ -225,17 +220,12 @@ void ExampleBase::onPostDraw()
 
 void ExampleBase::onRenderOrtho()
 {
-    iaMatrixd viewMatrix;
-    iRenderer::getInstance().setViewMatrix(viewMatrix);
-
-    iaMatrixd modelMatrix;
-    modelMatrix.translate(0, 0, -30);
-    iRenderer::getInstance().setModelMatrix(modelMatrix);
+    iaMatrixd matrix;
+    iRenderer::getInstance().setViewMatrix(matrix);
+    matrix.translate(0, 0, -1);
+    iRenderer::getInstance().setModelMatrix(matrix);
 
     drawLogo();
-
-    // draw frame rate in lower right corner
-    _profilerVisualizer.draw(getWindow(), _font, iaColor4f(0, 1, 0, 1));
 }
 
 void ExampleBase::drawLogo()

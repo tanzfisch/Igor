@@ -315,7 +315,7 @@ namespace igor
             {
                 _keyDownEvent(buttonKey);
 
-                iApplication::getInstance().onEvent(iEventPtr(new iMouseKeyDownEvent_TMP(_window, buttonKey)));
+                iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyDown(_window, buttonKey)));
             }
         }
 

@@ -67,6 +67,10 @@ namespace igor
         */
         iWindowResizeEvent_TMP(iWindow *window, int32 width, int32 height);
 
+        /*! \returns information to event
+        */
+        virtual const iaString getInfo() const override;
+
         /*! \returns event kind mask
         */
         iEventKindMask getEventKindMask() const override;

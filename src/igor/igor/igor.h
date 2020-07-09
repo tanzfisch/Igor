@@ -57,6 +57,7 @@
 
 #include <igor/layers/iLayer.h>
 #include <igor/layers/iLayerWidgets.h>
+#include <igor/layers/iLayerProfiler.h>
 
 #include <igor/physics/iPhysics.h>
 

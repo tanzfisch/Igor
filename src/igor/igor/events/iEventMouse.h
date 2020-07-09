@@ -38,7 +38,7 @@ namespace igor
 
     /*! mouse key down event
     */
-    class Igor_API iMouseKeyDownEvent_TMP : public iEvent
+    class Igor_API iEventMouseKeyDown : public iEvent
     {
     public:
         /*! init members
@@ -46,17 +46,21 @@ namespace igor
         \param window the window this event came from
         \param key the key code used in this event
         */
-        iMouseKeyDownEvent_TMP(iWindow *window, const iKeyCode key);
+        iEventMouseKeyDown(iWindow *window, const iKeyCode key);
 
         /*! \returns event kind mask
         */
         iEventKindMask getEventKindMask() const override;
 
+        /*! \returns information to event
+        */
+        virtual const iaString getInfo() const override;
+
         /*! \returns the key code
         */
         iKeyCode getKey() const;
 
-        IGOR_EVENT_CLASS_TYPE(iMouseKeyDownEvent_TMP)
+        IGOR_EVENT_CLASS_TYPE(iEventMouseKeyDown)
 
     private:
         /*! the key code
@@ -79,6 +83,10 @@ namespace igor
         /*! \returns event kind mask
         */
         iEventKindMask getEventKindMask() const override;
+
+        /*! \returns information to event
+        */
+        virtual const iaString getInfo() const override;
 
         /*! \returns the key code
         */
@@ -108,6 +116,10 @@ namespace igor
         */
         iEventKindMask getEventKindMask() const override;
 
+        /*! \returns information to event
+        */
+        virtual const iaString getInfo() const override;
+
         /*! \returns the key code
         */
         iKeyCode getKey() const;
@@ -135,6 +147,10 @@ namespace igor
         /*! \returns event kind mask
         */
         iEventKindMask getEventKindMask() const override;
+
+        /*! \returns information to event
+        */
+        virtual const iaString getInfo() const override;
 
         /*! \returns the wheel delta
         */
@@ -164,6 +180,10 @@ namespace igor
         /*! \returns event kind mask
         */
         iEventKindMask getEventKindMask() const override;
+
+        /*! \returns information to event
+        */
+        virtual const iaString getInfo() const override;
 
         /*! \returns mouse position
         */

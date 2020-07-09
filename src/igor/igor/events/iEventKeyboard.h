@@ -52,6 +52,10 @@ namespace igor
         */
         iEventKindMask getEventKindMask() const override;
 
+        /*! \returns information to event
+        */
+        virtual const iaString getInfo() const override;
+
         /*! \returns the key code
         */
         iKeyCode getKey() const;
@@ -80,6 +84,10 @@ namespace igor
         */
         iEventKindMask getEventKindMask() const override;
 
+        /*! \returns information to event
+        */
+        virtual const iaString getInfo() const override;
+
         /*! \returns the key code
         */
         iKeyCode getKey() const;
@@ -107,6 +115,10 @@ namespace igor
         /*! \returns event kind mask
         */
         iEventKindMask getEventKindMask() const override;
+
+        /*! \returns information to event
+        */
+        virtual const iaString getInfo() const override;
 
         /*! \returns the key code
         */
