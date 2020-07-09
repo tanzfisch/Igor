@@ -40,23 +40,54 @@ namespace igor
         }
     }
 
-    void iApplication::onEvent(iEvent &event)
+    void iApplication::onEvent(iEventPtr event)
     {
-        /*_eventStackMutex.lock();
-        _eventStack.push_back(event);
-        _eventStackMutex.unlock();*/
+        _eventQueueMutex.lock();
+        _eventQueue.push_back(event);
+        _eventQueueMutex.unlock();
+    }
 
-        event.dispatch<iWindowCloseEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iApplication::onWindowClose));
+    void iApplication::dispatchEventStack()
+    {
+        _eventQueueMutex.lock();
+        auto eventQueue = std::move(_eventQueue);
+        _eventQueueMutex.unlock();
 
-        iWindow *window = event.getWindow();
-        if (window != nullptr)
+        for (auto eventPtr : eventQueue)
         {
-            iWindowID windowID = window->getID();
+            iEvent &event = *eventPtr;
 
-            auto iter = _windows.find(windowID);
-            if (iter != _windows.end())
+            event.dispatch<iWindowCloseEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iApplication::onWindowClose));
+
+            iWindow *window = event.getWindow();
+            if (window != nullptr)
             {
-                const auto layers = iter->second._layerStack.getStack();
+                iWindowID windowID = window->getID();
+
+                auto iter = _windows.find(windowID);
+                if (iter != _windows.end())
+                {
+                    const auto layers = iter->second._layerStack.getStack();
+                    auto riter = layers.rbegin();
+                    while (riter != layers.rend())
+                    {
+                        (*riter)->onEvent(event);
+                        if (event.isConsumed())
+                        {
+                            break;
+                        }
+
+                        riter++;
+                    }
+                }
+                else
+                {
+                    con_err("window with id " << windowID << " does not exist");
+                }
+            }
+            else
+            {
+                const auto layers = _layerStack.getStack();
                 auto riter = layers.rbegin();
                 while (riter != layers.rend())
                 {
@@ -69,37 +100,7 @@ namespace igor
                     riter++;
                 }
             }
-            else
-            {
-                con_err("window with id " << windowID << " does not exist");
-            }
         }
-        else
-        {
-            const auto layers = _layerStack.getStack();
-            auto riter = layers.rbegin();
-            while (riter != layers.rend())
-            {
-                (*riter)->onEvent(event);
-                if (event.isConsumed())
-                {
-                    break;
-                }
-
-                riter++;
-            }
-        }
-    }
-
-    void iApplication::dispatchEventStack()
-    {
-        /*       _eventStackMutex.lock();
-        std::vector<iEvent> eventStack = std::move(_eventStack);
-        _eventStackMutex.unlock();
-
-        for (auto &event : eventStack)
-        {
-        }*/
     }
 
     bool iApplication::onWindowClose(iWindowCloseEvent_TMP &event)
@@ -135,16 +136,18 @@ namespace igor
 
         iTimer::getInstance().handle();
 
-        iProfiler::getInstance().beginSection(_dispatchSectionID);
-        dispatchEventStack();
-        iProfiler::getInstance().endSection(_dispatchSectionID);
-
         iProfiler::getInstance().beginSection(_handleSectionID);
         iNodeManager::getInstance().handle();
         iProfiler::getInstance().endSection(_handleSectionID);
 
-        iProfiler::getInstance().beginSection(_userSectionID);
         windowHandle();
+
+        iProfiler::getInstance().beginSection(_userSectionID);
+
+        iProfiler::getInstance().beginSection(_dispatchSectionID);
+        dispatchEventStack();
+        iProfiler::getInstance().endSection(_dispatchSectionID);
+
         _preDrawHandleEvent(); // TODO get rid of this
 
         for (auto &pair : _windows)

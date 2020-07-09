@@ -149,6 +149,10 @@ namespace igor
         iWindow *_window = nullptr;
     };
 
+    /*! event pointer definition
+    */
+    typedef std::shared_ptr<iEvent> iEventPtr;
+
     /*! stream operator
 
 	\param stream the destination

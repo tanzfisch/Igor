@@ -66,8 +66,7 @@ namespace igor
 
         __IGOR_INLINE__ void closeEvent()
         {
-            iWindowCloseEvent_TMP event(_window);
-            iApplication::getInstance().onEvent(event);
+            iApplication::getInstance().onEvent(iEventPtr(new iWindowCloseEvent_TMP(_window)));
 
             _window->_windowCloseEvent(); // TODO remove
         }
@@ -76,8 +75,7 @@ namespace igor
         {
             _window->onSizeChanged(width, height);
 
-            iWindowResizeEvent_TMP event(_window, width, height);
-            iApplication::getInstance().onEvent(event);
+            iApplication::getInstance().onEvent(iEventPtr(new iWindowResizeEvent_TMP(_window, width, height)));
         }
 
         __IGOR_INLINE__ static iWindowImpl *getImpl(iWindow *window)

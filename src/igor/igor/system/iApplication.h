@@ -105,7 +105,7 @@ namespace igor
 
         \param event the triggered event
         */
-        void onEvent(iEvent &event);
+        void onEvent(iEventPtr event);
 
         /*! adds layer to stack for given window
 
@@ -159,13 +159,13 @@ namespace igor
             iLayerStack _layerStack;
         };
 
-        /*! stack of events
+        /*! queue of events
         */
-        std::vector<iEvent> _eventStack;
+        std::vector<iEventPtr> _eventQueue;
 
-        /*! securing the event stack
+        /*! securing the event queue
         */
-        iaMutex _eventStackMutex;
+        iaMutex _eventQueueMutex;
 
         /*! frame profiler section id
         */

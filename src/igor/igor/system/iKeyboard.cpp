@@ -818,9 +818,7 @@ namespace igor
                 if (characterCode != -1)
                 {
                     _keyASCIIEvent(static_cast<char>(characterCode));
-
-                    iKeyASCIIEvent_TMP event(_window, characterCode);
-                    iApplication::getInstance().onEvent(event);
+                    iApplication::getInstance().onEvent(iEventPtr(new iKeyASCIIEvent_TMP(_window, characterCode)));
                 }
 
                 currentKey = translate(xevent.xkey.keycode);
@@ -830,8 +828,7 @@ namespace igor
                     _keyDownEvent[static_cast<unsigned int>(currentKey)]();
                     _keyDownEventExt(currentKey);
 
-                    iKeyDownEvent_TMP event(_window, currentKey);
-                    iApplication::getInstance().onEvent(event);
+                    iApplication::getInstance().onEvent(iEventPtr(new iKeyDownEvent_TMP(_window, currentKey)));
                 }
                 return true;
 
@@ -856,8 +853,7 @@ namespace igor
                     _keyUpEvent[static_cast<unsigned int>(currentKey)]();
                     _keyUpEventExt(currentKey);
 
-                    iKeyUpEvent_TMP event(_window, currentKey);
-                    iApplication::getInstance().onEvent(event);
+                    iApplication::getInstance().onEvent(iEventPtr(new iKeyUpEvent_TMP(_window, currentKey)));
                 }
                 return true;
 

@@ -309,15 +309,13 @@ namespace igor
             {
                 _doubleClickEvent(buttonKey);
 
-                iMouseKeyDoubleClickEvent_TMP event(_window, buttonKey);
-                iApplication::getInstance().onEvent(event);
+                iApplication::getInstance().onEvent(iEventPtr(new iMouseKeyDoubleClickEvent_TMP(_window, buttonKey)));
             }
             else
             {
                 _keyDownEvent(buttonKey);
 
-                iMouseKeyDownEvent_TMP event(_window, buttonKey);
-                iApplication::getInstance().onEvent(event);
+                iApplication::getInstance().onEvent(iEventPtr(new iMouseKeyDownEvent_TMP(_window, buttonKey)));
             }
         }
 
@@ -327,8 +325,7 @@ namespace igor
             _buttonStates[buttonIndex]._pressed = false;
             _keyUpEvent(buttonKey);
 
-            iMouseKeyUpEvent_TMP event(_window, buttonKey);
-            iApplication::getInstance().onEvent(event);
+            iApplication::getInstance().onEvent(iEventPtr(new iMouseKeyUpEvent_TMP(_window, buttonKey)));
         }
 
         bool onOSEvent(const void *data) override
@@ -356,8 +353,7 @@ namespace igor
                 case 4:
                     _wheelEvent(1);
                     {
-                        iMouseWheelEvent_TMP event(_window, 1);
-                        iApplication::getInstance().onEvent(event);
+                        iApplication::getInstance().onEvent(iEventPtr(new iMouseWheelEvent_TMP(_window, 1)));
                     }
 
                     break;
@@ -365,8 +361,7 @@ namespace igor
                 case 5:
                     _wheelEvent(-1);
                     {
-                        iMouseWheelEvent_TMP event(_window, -1);
-                        iApplication::getInstance().onEvent(event);
+                        iApplication::getInstance().onEvent(iEventPtr(new iMouseWheelEvent_TMP(_window, -1)));
                     }
                     break;
 
@@ -412,8 +407,7 @@ namespace igor
                     _moveFullEvent(_posLast, _pos, _window);
                     _moveEvent(_pos);
 
-                    iMouseMoveEvent_TMP event(_window, _posLast, _pos);
-                    iApplication::getInstance().onEvent(event);
+                    iApplication::getInstance().onEvent(iEventPtr(new iMouseMoveEvent_TMP(_window, _posLast, _pos)));
                 }
             }
             break;
