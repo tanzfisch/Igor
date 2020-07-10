@@ -270,12 +270,52 @@ namespace igor
 
     void iWidgetManager::onPreDraw()
     {
+        flush();
+
         for (auto dialog : _dialogs)
         {
             if (dialog.second->isActive())
             {
                 traverseContentSize(dialog.second);
                 traverseAlignment(dialog.second, 0, 0, getDesktopWidth(), getDesktopHeight());
+            }
+        }
+    }
+
+    void iWidgetManager::flush()
+    {
+        auto queue = std::move(_modifierQueue);
+
+        for (auto modification : queue)
+        {
+            iWidgetPtr parent = getWidget(modification._parentID);
+            con_assert(parent != nullptr, "invalid parent " << modification._parentID);
+            iWidgetPtr child = getWidget(modification._childID);
+            con_assert(child != nullptr, "invalid parent " << modification._childID);
+
+            if (modification._add)
+            {
+                if (parent->getWidgetType() == iWidgetType::iWidgetGrid)
+                {
+                    iWidgetGridPtr grid = static_cast<iWidgetGridPtr>(parent);
+                    grid->addWidget_Internal(child, modification._col, modification._row, modification._userData);
+                }
+                else
+                {
+                    parent->addWidget_Internal(child);
+                }
+            }
+            else
+            {
+                if (parent->getWidgetType() == iWidgetType::iWidgetGrid)
+                {
+                    iWidgetGridPtr grid = static_cast<iWidgetGridPtr>(parent);
+                    grid->addWidget_Internal(child, modification._col, modification._row, modification._userData);
+                }
+                else
+                {
+                    parent->removeWidget_Internal(child);
+                }
             }
         }
     }
@@ -370,7 +410,7 @@ namespace igor
         }
     }
 
-    iDialogPtr iWidgetManager::getDialog(uint64 id)
+    iDialogPtr iWidgetManager::getDialog(iWidgetID id)
     {
         auto iter = _dialogs.find(id);
 
@@ -379,6 +419,16 @@ namespace igor
             return (*iter).second;
         }
         return nullptr;
+    }
+
+    void iWidgetManager::addWidget(iWidgetPtr parent, iWidgetPtr child, int32 col, int32 row, const std::any &userData)
+    {
+        _modifierQueue.push_back(iWidgetModification() = {true, parent->getID(), child->getID(), col, row, userData});
+    }
+
+    void iWidgetManager::removeWidget(iWidgetPtr parent, iWidgetPtr child)
+    {
+        _modifierQueue.push_back(iWidgetModification() = {false, parent->getID(), child->getID()});
     }
 
     void iWidgetManager::onEvent(iEvent &event)

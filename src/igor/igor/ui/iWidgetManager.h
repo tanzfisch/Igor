@@ -40,7 +40,7 @@
 
 #include <vector>
 #include <unordered_map>
-#include <deque>
+#include <any>
 
 namespace igor
 {
@@ -60,6 +60,7 @@ namespace igor
         */
         friend class iaSingleton<iWidgetManager>;
 
+        friend class iWidgetGrid;
         friend class iWidget;
         friend class iDialog;
 
@@ -83,13 +84,13 @@ namespace igor
 
         \param id id of widget
         */
-        iWidgetPtr getWidget(uint64 id) const;
+        iWidgetPtr getWidget(iWidgetID id) const;
 
         /*! \returns dialog by id
 
         \param id id of dialog
         */
-        iDialogPtr getDialog(uint64 id);
+        iDialogPtr getDialog(iWidgetID id);
 
         /*! \returns the theme in use
         */
@@ -195,11 +196,44 @@ namespace igor
 
         /*! list of all widgets
         */
-        std::unordered_map<uint64, iWidgetPtr> _widgets;
+        std::unordered_map<iWidgetID, iWidgetPtr> _widgets;
 
         /*! list of all dialogs
         */
-        std::unordered_map<uint64, iDialogPtr> _dialogs;
+        std::unordered_map<iWidgetID, iDialogPtr> _dialogs;
+
+        /*! modifier for widget structure
+		*/
+        struct iWidgetModification
+        {
+            /*! if true widget gets added if false widget gets removed
+            */
+            bool _add;
+
+            /*! parent widget id
+            */
+            iWidgetID _parentID;
+
+            /*! child widget id
+            */
+            iWidgetID _childID;
+
+            /*! in case parent is a iWidgetGrid this is the column index
+            */
+            int32 _col;
+
+            /*! in case parent is a iWidgetGrid this is the row index
+            */
+            int32 _row;
+
+            /*! user data associated with the child widget
+            */
+            std::any _userData;
+        };
+
+        /*! modification queue
+		*/
+        std::vector<iWidgetModification> _modifierQueue;
 
         /*! current desktop width
         */
@@ -219,7 +253,21 @@ namespace igor
 
         /*! list of dialogs to close
 		*/
-        std::set<uint64> _dialogsToClose;
+        std::set<iWidgetID> _dialogsToClose;
+
+        /*! adds add operation to modifier queue
+
+        \param parent the parent
+        \param child the child to add to the parent
+        */
+        void addWidget(iWidgetPtr parent, iWidgetPtr child, int32 col = 0, int32 row = 0, const std::any &userData = std::any());
+
+        /*! adds remove operation to modifier queue
+
+        \param parent the parent
+        \param child the child to remove from the parent
+        */
+        void removeWidget(iWidgetPtr parent, iWidgetPtr child);
 
         /*! closes the dialog and queues a close event in to be called after the update handle
 		*/
@@ -331,6 +379,10 @@ namespace igor
         \returns true if consumed
         */
         bool onWindowResize(iEventWindowResize &event);
+
+        /*! flushed modifier queue
+        */
+        void flush();
 
         /*! init
         */

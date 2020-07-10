@@ -18,7 +18,7 @@ namespace igor
 
     iNode::iNode()
     {
-        _nodeID = iNode::_idGenerator.createID();
+        _nodeID = _idGenerator.createID();
     }
 
     iNode::iNode(iNodePtr node)

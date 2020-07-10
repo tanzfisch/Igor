@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
-__IGOR_INLINE__ uint64 iWidget::getID() const
+__IGOR_INLINE__ iWidgetID iWidget::getID() const
 {
     return _id;
 }
@@ -12,7 +12,7 @@ __IGOR_INLINE__ bool iWidget::isBlocked() const
     return _blockedEvents;
 }
 
-__IGOR_INLINE__ uint64 iWidget::getParentID() const
+__IGOR_INLINE__ iWidgetID iWidget::getParentID() const
 {
     if (_parent != nullptr)
     {
@@ -54,12 +54,12 @@ __IGOR_INLINE__ bool iWidget::isVisible() const
 
 __IGOR_INLINE__ int32 iWidget::getConfiguredWidth() const
 {
-	return _configuredWidth;
+    return _configuredWidth;
 }
 
 __IGOR_INLINE__ int32 iWidget::getConfiguredHeight() const
 {
-	return _configuredHeight;
+    return _configuredHeight;
 }
 
 __IGOR_INLINE__ int32 iWidget::getActualWidth() const
@@ -84,17 +84,17 @@ __IGOR_INLINE__ int32 iWidget::getMinHeight() const
 
 __IGOR_INLINE__ iaVector2i iWidget::getActualPos() const
 {
-	return iaVector2i(_absoluteX, _absoluteY);
+    return iaVector2i(_absoluteX, _absoluteY);
 }
 
 __IGOR_INLINE__ int32 iWidget::getActualPosX() const
 {
-	return _absoluteX;
+    return _absoluteX;
 }
 
 __IGOR_INLINE__ int32 iWidget::getActualPosY() const
 {
-	return _absoluteY;
+    return _absoluteY;
 }
 
 __IGOR_INLINE__ iRectanglei iWidget::getActualRect() const
@@ -104,12 +104,12 @@ __IGOR_INLINE__ iRectanglei iWidget::getActualRect() const
 
 __IGOR_INLINE__ int32 iWidget::getRelativePosX() const
 {
-	return _relativeX;
+    return _relativeX;
 }
 
 __IGOR_INLINE__ int32 iWidget::getRelativePosY() const
 {
-	return _relativeY;
+    return _relativeY;
 }
 
 __IGOR_INLINE__ bool iWidget::isActive() const

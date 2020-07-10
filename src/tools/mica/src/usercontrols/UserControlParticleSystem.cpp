@@ -389,14 +389,14 @@ void UserControlParticleSystem::initGUI()
     addWidget(_grid);
 
     iWidgetGrid *gridProperties = new iWidgetGrid();
-    gridProperties->appendCollumns(0);
+    gridProperties->appendColumns(0);
     gridProperties->appendRows(2);
     gridProperties->setHorizontalAlignment(iHorizontalAlignment::Strech);
     gridProperties->setStrechColumn(0);
     gridProperties->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetGrid *detailsGrid = new iWidgetGrid();
-    detailsGrid->appendCollumns(1);
+    detailsGrid->appendColumns(1);
     detailsGrid->appendRows(2);
     detailsGrid->setStrechColumn(1);
     detailsGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -428,7 +428,7 @@ void UserControlParticleSystem::initGUI()
     _textFrequency->setText(frequency);
 
     iWidgetGrid *gridButtons = new iWidgetGrid();
-    gridButtons->appendCollumns(2);
+    gridButtons->appendColumns(2);
     gridButtons->setBorder(2);
     gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
@@ -459,7 +459,7 @@ void UserControlParticleSystem::initGUI()
     simulationGroupBox->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetGrid *gridSimulationProperties = new iWidgetGrid();
-    gridSimulationProperties->appendCollumns(1);
+    gridSimulationProperties->appendColumns(1);
     gridSimulationProperties->appendRows(7);
     gridSimulationProperties->setHorizontalAlignment(iHorizontalAlignment::Strech);
     gridSimulationProperties->setStrechColumn(1);
@@ -546,7 +546,7 @@ void UserControlParticleSystem::initGUI()
     vortexSimulationGroupBox->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetGrid *gridVortexSimulationProperties = new iWidgetGrid();
-    gridVortexSimulationProperties->appendCollumns(1);
+    gridVortexSimulationProperties->appendColumns(1);
     gridVortexSimulationProperties->appendRows(6);
     gridVortexSimulationProperties->setHorizontalAlignment(iHorizontalAlignment::Strech);
     gridVortexSimulationProperties->setStrechColumn(1);
@@ -702,7 +702,7 @@ void UserControlParticleSystem::initGUI()
     appearanceGroupBox->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetGrid *gridAppearanceProperties = new iWidgetGrid();
-    gridAppearanceProperties->appendCollumns(1);
+    gridAppearanceProperties->appendColumns(1);
     gridAppearanceProperties->appendRows(15);
     gridAppearanceProperties->setHorizontalAlignment(iHorizontalAlignment::Strech);
     gridAppearanceProperties->setStrechColumn(1);

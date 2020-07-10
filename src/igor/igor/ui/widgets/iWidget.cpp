@@ -14,13 +14,13 @@ using namespace iaux;
 namespace igor
 {
 
-    uint64 iWidget::_nextID = iWidget::INVALID_WIDGET_ID + 1;
+    iaIDGenerator64 iWidget::_idGenerator;
     iWidgetPtr iWidget::_keyboardFocus = nullptr;
 
     iWidget::iWidget(iWidgetType type, iWidgetKind kind, const iWidgetPtr parent)
         : _type(type), _kind(kind) // TODO _parent(parent) why not?
     {
-        _id = _nextID++;
+        _id = _idGenerator.createID();
 
         iWidgetManager::getInstance().registerWidget(this);
 
@@ -169,6 +169,16 @@ namespace igor
 
     void iWidget::addWidget(iWidgetPtr widget)
     {
+        iWidgetManager::getInstance().addWidget(this, widget);
+    }
+
+    void iWidget::removeWidget(iWidgetPtr widget)
+    {
+        iWidgetManager::getInstance().removeWidget(this, widget);
+    }
+
+    void iWidget::addWidget_Internal(iWidgetPtr widget)
+    {
         con_assert(widget != nullptr, "zero pointer");
         con_assert(widget != this, "widget can't be added to it self");
 
@@ -192,7 +202,7 @@ namespace igor
         widget->setParent(this);
     }
 
-    void iWidget::removeWidget(iWidgetPtr widget)
+    void iWidget::removeWidget_Internal(iWidgetPtr widget)
     {
         con_assert(widget != nullptr, "zero pointer");
 

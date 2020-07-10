@@ -441,7 +441,7 @@ namespace iaux
     /*! prints an info message to console and optionally to the log file
 
             \param Message message to be printed
-            \todo would be nice to have a fixed size of info type collumn
+            \todo would be nice to have a fixed size of info type column
             */
 #define con_info(Message)                                                          \
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Info)                \

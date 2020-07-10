@@ -35,6 +35,7 @@
 
 #include <iaux/math/iaVector4.h>
 #include <iaux/data/iaColor4.h>
+#include <iaux/data/iaIDGenerator.h>
 using namespace iaux;
 
 #include <set>
@@ -171,6 +172,10 @@ namespace igor
 		Dialog
 	};
 
+	/*! widget id defintion
+	*/
+	typedef uint64 iWidgetID;
+
 	/*! GUI widget base class
 
 	coordinatesystems origin within widgets is the upper left corner with x positive to the right and y positive down
@@ -248,7 +253,7 @@ namespace igor
 
 		/*! invalid widget ID
 		*/
-		static const uint64 INVALID_WIDGET_ID = 0;
+		static const iWidgetID INVALID_WIDGET_ID = 0;
 
 		/*! \returns true if widget has keyboard focus
 		*/
@@ -513,11 +518,11 @@ namespace igor
 
 		/*! \returns id of widget
 		*/
-		uint64 getID() const;
+		iWidgetID getID() const;
 
 		/*! \returns id of parenting widget
 		*/
-		uint64 getParentID() const;
+		iWidgetID getParentID() const;
 
 		/*! \returns true if mouse over widget
 		*/
@@ -866,7 +871,7 @@ namespace igor
 
 		/*! id of widget
 		*/
-		uint64 _id = 0;
+		iWidgetID _id = INVALID_WIDGET_ID;
 
 		/*! pointer to parent widget
 		*/
@@ -896,9 +901,9 @@ namespace igor
         */
 		bool _visible = true;
 
-		/*! here you get the next id from
+		/*! id generator
         */
-		static uint64 _nextID;
+		static iaIDGenerator64 _idGenerator;
 
 		/*! pointer to widget that owns the keyboard focus
 		*/
@@ -949,6 +954,18 @@ namespace igor
 		\param offsets vector to be filled with childrens offsets
 		*/
 		virtual void calcChildOffsets(std::vector<iRectanglei> &offsets);
+
+		/*! adds a child widget to this widget
+
+		\param widget the child widget to be added
+		*/
+		virtual void addWidget_Internal(iWidgetPtr widget);
+
+		/*! removes a child widget frmo this widget
+
+		\param widget the child widget to be removed
+		*/
+		virtual void removeWidget_Internal(iWidgetPtr widget);
 	};
 
 #include <igor/ui/widgets/iWidget.inl>

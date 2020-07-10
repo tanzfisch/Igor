@@ -39,7 +39,7 @@ void UserControlMaterialView::initGUI()
 
     iWidgetGrid *gridButtons = new iWidgetGrid();
     gridButtons->setBorder(0);
-    gridButtons->appendCollumns(10);
+    gridButtons->appendColumns(10);
     gridButtons->setCellSpacing(2);
     gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
