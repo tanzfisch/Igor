@@ -48,7 +48,7 @@ void UserControlNode::updateGUI()
 void UserControlNode::initGUI()
 {
     _grid = new iWidgetGrid();
-    _grid->appendCollumns(1);
+    _grid->appendColumns(1);
     _grid->appendRows(1);
     _grid->setCellSpacing(2);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);

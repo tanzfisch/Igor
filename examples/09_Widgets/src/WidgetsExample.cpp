@@ -165,7 +165,7 @@ void WidgetsExample::onInit()
     widgetScoll->setVerticalAlignment(iVerticalAlignment::Strech);
 
     iWidgetGrid *grid3 = new iWidgetGrid();
-    grid3->appendCollumns(3);
+    grid3->appendColumns(3);
     grid3->appendRows(4);
     grid3->setCellSpacing(10);
     // this grid has to be top left aligned because we want to use it as child of the scroll widget
@@ -174,7 +174,7 @@ void WidgetsExample::onInit()
     grid3->setSelectMode(iSelectionMode::NoSelection);
 
     iWidgetGrid *grid4 = new iWidgetGrid();
-    grid4->appendCollumns(5);
+    grid4->appendColumns(5);
     grid4->setStrechColumn(4);
     grid4->setHorizontalAlignment(iHorizontalAlignment::Strech);
     grid4->setVerticalAlignment(iVerticalAlignment::Top);

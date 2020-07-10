@@ -297,7 +297,7 @@ void UserControlMesh::initGUI()
 	_emissiveColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlMesh::onEmissiveChange));
 
 	iWidgetGrid *detailsGrid = new iWidgetGrid();
-	detailsGrid->appendCollumns(1);
+	detailsGrid->appendColumns(1);
 	detailsGrid->appendRows(2);
 	detailsGrid->setStrechColumn(1);
 	detailsGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -336,7 +336,7 @@ void UserControlMesh::initGUI()
 	_textIndexes->setText("0");
 
 	iWidgetGrid *gridShininess = new iWidgetGrid();
-	gridShininess->appendCollumns(2);
+	gridShininess->appendColumns(2);
 	gridShininess->appendRows(1);
 	gridShininess->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -369,7 +369,7 @@ void UserControlMesh::initGUI()
 
 	iWidgetGrid *gridTextures = new iWidgetGrid();
 	gridTextures->appendRows(3);
-	gridTextures->appendCollumns(1);
+	gridTextures->appendColumns(1);
 	gridTextures->setStrechColumn(1);
 	gridTextures->setHorizontalAlignment(iHorizontalAlignment::Strech);
 	gridTextures->setVerticalAlignment(iVerticalAlignment::Top);
@@ -411,7 +411,7 @@ void UserControlMesh::initGUI()
 	_textureChooser3->registerOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
 	iWidgetGrid *gridMaterial = new iWidgetGrid();
-	gridMaterial->appendCollumns(1);
+	gridMaterial->appendColumns(1);
 	gridMaterial->setHorizontalAlignment(iHorizontalAlignment::Left);
 	gridMaterial->setVerticalAlignment(iVerticalAlignment::Top);
 

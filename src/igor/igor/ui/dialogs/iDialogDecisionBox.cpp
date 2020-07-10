@@ -61,7 +61,7 @@ namespace igor
 		messageLabel->setMaxTextWidth(280);
 
 		iWidgetGridPtr buttonGrid = new iWidgetGrid();
-		buttonGrid->appendCollumns(3);
+		buttonGrid->appendColumns(3);
 		buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
 		buttonGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
 		buttonGrid->setCellSpacing(4);

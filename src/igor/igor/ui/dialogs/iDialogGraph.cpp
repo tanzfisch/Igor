@@ -102,7 +102,7 @@ namespace igor
 
         iWidgetGrid *axisGrid = new iWidgetGrid();
         axisGrid->appendRows(static_cast<uint32>(_graphs.size() + 2));
-        axisGrid->appendCollumns(1);
+        axisGrid->appendColumns(1);
         axisGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
         axisGrid->setVerticalAlignment(iVerticalAlignment::Strech);
         axisGrid->setStrechColumn(1);
@@ -190,7 +190,7 @@ namespace igor
         axisGrid->addWidget(delButton, 1, static_cast<uint32>(_graphs.size() + 1));
 
         iWidgetGrid *buttonGrid = new iWidgetGrid();
-        buttonGrid->appendCollumns(2);
+        buttonGrid->appendColumns(2);
         buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
 
         iWidgetButton *okButton = new iWidgetButton();

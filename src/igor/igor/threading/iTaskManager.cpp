@@ -13,6 +13,7 @@
 #include <iaux/system/iaConsole.h>
 
 #include <thread>
+#include <chrono>
 
 namespace igor
 {
@@ -371,7 +372,7 @@ namespace igor
             }
             else
             {
-                std::this_thread::yield();
+                std::this_thread::sleep_for(std::chrono::milliseconds(1));
             }
         }
     }
@@ -452,7 +453,7 @@ namespace igor
             }
             else
             {
-                std::this_thread::yield();
+                std::this_thread::sleep_for(std::chrono::milliseconds(1));
             }
         }
     }

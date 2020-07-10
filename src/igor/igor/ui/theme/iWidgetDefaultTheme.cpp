@@ -13,7 +13,7 @@
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
-#define DEBUG_OUTPUT 0
+#define DEBUG_OUTPUT 1
 
 #if DEBUG_OUTPUT == 1
 iaColor4f MOUSEOVER(1, 1, 1, 0.5f);
@@ -194,7 +194,7 @@ namespace igor
 		drawRectangleInt(rect);
 	}
 
-	void iWidgetDefaultTheme::drawGridField(const iRectanglei &rect, iWidgetState state)
+	void iWidgetDefaultTheme::drawGridCell(const iRectanglei &rect, iWidgetState state)
 	{
 		DRAW_DEBUG_OUTPUT(rect, state);
 	}
@@ -754,7 +754,7 @@ namespace igor
 			drawLineFloat(x + w, y, x + w, y + h);
 		}
 
-		drawText(iRectanglei(static_cast<int32>(rect._x + _fontSize * 1.5f), static_cast<int32>(rect._y - _fontSize * 0.5f)), text, 0);
+		drawText(iRectanglei(static_cast<int32>(rect._x + _fontSize * 1.5f), static_cast<int32>(rect._y + _fontSize * 0.1f)), text, 0);
 
 		DRAW_DEBUG_OUTPUT(rect, state);
 	}

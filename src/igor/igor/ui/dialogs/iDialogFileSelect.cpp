@@ -107,13 +107,13 @@ namespace igor
         _fileGrid = new iWidgetGrid(_scroll);
         _fileGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _fileGrid->setVerticalAlignment(iVerticalAlignment::Top);
-        _fileGrid->setSelectMode(iSelectionMode::Field);
+        _fileGrid->setSelectMode(iSelectionMode::Cell);
         _fileGrid->registerOnDoubleClickEvent(iDoubleClickDelegate(this, &iDialogFileSelect::onDoubleClick));
 
         iWidgetGridPtr filenameGrid = new iWidgetGrid();
         filenameGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
         filenameGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
-        filenameGrid->appendCollumns(1);
+        filenameGrid->appendColumns(1);
         filenameGrid->setCellSpacing(4);
         grid->addWidget(filenameGrid, 0, 3);
 
@@ -135,7 +135,7 @@ namespace igor
         iWidgetGridPtr buttonGrid = new iWidgetGrid();
         buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
         buttonGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
-        buttonGrid->appendCollumns(1);
+        buttonGrid->appendColumns(1);
         buttonGrid->setCellSpacing(4);
         grid->addWidget(buttonGrid, 0, 4);
 
@@ -272,12 +272,12 @@ namespace igor
     {
         if (col >= static_cast<int32>(_fileGrid->getColumnCount()))
         {
-            _fileGrid->appendCollumns(1);
+            _fileGrid->appendColumns(1);
         }
 
         iWidgetGrid *entry = new iWidgetGrid();
         entry->setHorizontalAlignment(iHorizontalAlignment::Left);
-        entry->appendCollumns(1);
+        entry->appendColumns(1);
 
         iWidgetPicture *icon = new iWidgetPicture();
         icon->setMaxSize(24, 24);

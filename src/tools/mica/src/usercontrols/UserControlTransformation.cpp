@@ -128,7 +128,7 @@ void UserControlTransformation::initGUI()
 	_grid = new iWidgetGrid();
 	_grid->setHorizontalAlignment(iHorizontalAlignment::Right);
 	_grid->setVerticalAlignment(iVerticalAlignment::Top);
-	_grid->appendCollumns(3);
+	_grid->appendColumns(3);
 	_grid->appendRows(3);
 	addWidget(_grid);
 

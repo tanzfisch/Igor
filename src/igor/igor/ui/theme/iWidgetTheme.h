@@ -61,7 +61,7 @@ namespace igor
 
 		virtual void drawTiledRectangle(const iRectanglei &rect, iTexturePtr texture) = 0;
 
-		virtual void drawGridField(const iRectanglei &rect, iWidgetState state) = 0;
+		virtual void drawGridCell(const iRectanglei &rect, iWidgetState state) = 0;
 		virtual void drawGridHighlight(const iRectanglei &rect) = 0;
 		virtual void drawGridSelection(const iRectanglei &rect) = 0;
 		virtual void drawBackgroundFrame(const iRectanglei &rect, iWidgetState state, bool active) = 0;
