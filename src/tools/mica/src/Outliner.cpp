@@ -58,14 +58,14 @@ void Outliner::initGUI()
     gridButtons->setCellSpacing(2);
     gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
-    gridButtons->appendColumns(8);
+    gridButtons->appendCollumns(8);
 
     iWidgetGridPtr gridRadioButtons = new iWidgetGrid();
     gridRadioButtons->setBorder(0);
     gridRadioButtons->setCellSpacing(2);
     gridRadioButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridRadioButtons->setVerticalAlignment(iVerticalAlignment::Top);
-    gridRadioButtons->appendColumns(1);
+    gridRadioButtons->appendCollumns(1);
 
     iWidgetCheckBox::beginRadioButtonGroup();
     iWidgetCheckBoxPtr checkBoxGraph = new iWidgetCheckBox();

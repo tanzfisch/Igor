@@ -74,7 +74,7 @@ uint32 UserControlEmitter::getNode()
 void UserControlEmitter::initGUI()
 {
     _grid = new iWidgetGrid();
-    _grid->appendColumns(1);
+    _grid->appendCollumns(1);
     _grid->appendRows(1);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);

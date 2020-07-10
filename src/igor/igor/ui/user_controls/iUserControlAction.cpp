@@ -27,7 +27,7 @@ namespace igor
 
         iWidgetGridPtr actionGrid = new iWidgetGrid(this);
         actionGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-        actionGrid->appendColumns(1);
+        actionGrid->appendCollumns(1);
         actionGrid->setStrechColumn(1);
 
         _picture = new iWidgetPicture();

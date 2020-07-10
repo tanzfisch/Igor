@@ -42,20 +42,9 @@ namespace igor
     */
     enum class iSelectionMode
     {
-        /*!  selecting one individual cell
-        */
-        Cell,
-
-        /*! selecting a whole row
-        */
+        Field,
         Row,
-
-        /*! selecting a whole column
-        */
-        Column,
-
-        /*! no selection
-        */
+        Collumn,
         NoSelection
     };
 
@@ -64,8 +53,6 @@ namespace igor
     */
     class Igor_API iWidgetGrid : public iWidget
     {
-
-        friend class iWidgetManager;
 
         /*! internal helper struct that represents a child widget and it's position
         */
@@ -105,13 +92,13 @@ namespace igor
             std::any _userData;
         };
 
-        /*! internal struct that represents a column of widgets
+        /*! internal struct that represents a collumn of widgets
         */
-        struct GridColumn
+        struct GridCollumn
         {
-            /*! list of widgets within one column
+            /*! list of widgets within one collumn
             */
-            std::vector<Field> _widgetColumn;
+            std::vector<Field> _widgetCollumn;
         };
 
     public:
@@ -131,11 +118,11 @@ namespace igor
         */
         void appendRows(uint32 count);
 
-        /*! appends columns on the right of the grid
+        /*! appends collumns on the right of the grid
 
-        \param count the amount of columns to be added
+        \param count the amount of collumns to be added
         */
-        void appendColumns(uint32 count);
+        void appendCollumns(uint32 count);
 
         /*! insert a single row before given position
 
@@ -143,11 +130,11 @@ namespace igor
         */
         void insertRow(uint32 at);
 
-        /*! insert a single column before given position
+        /*! insert a single collumn before given position
 
         \param at the given position
         */
-        void insertColumn(uint32 at);
+        void insertCollumn(uint32 at);
 
         /*! removes row at given position
 
@@ -155,11 +142,11 @@ namespace igor
         */
         void removeRow(uint32 at);
 
-        /*! removed column at given position
+        /*! removed collumn at given position
 
         \param at the given position
         */
-        void removeColumn(uint32 at);
+        void removeCollumn(uint32 at);
 
         /*! clears the whole grid
         */
@@ -169,7 +156,7 @@ namespace igor
         */
         uint32 getRowCount();
 
-        /*! \returns column count
+        /*! \returns collumn count
         */
         uint32 getColumnCount();
 
@@ -193,7 +180,7 @@ namespace igor
 
         \param widget the child widget to be added
         */
-        void addWidget(iWidgetPtr widget) override;
+        void addWidget(iWidgetPtr widget);
 
         /*! removes a child widget frmo this widget regardless of it's position
 
@@ -201,7 +188,7 @@ namespace igor
 
         \param widget the child widget to be removed
         */
-        void removeWidget(iWidgetPtr widget) override;
+        void removeWidget(iWidgetPtr widget);
 
         /*! add widget and set it at given position
 
@@ -232,7 +219,7 @@ namespace igor
         */
         iSelectionMode getHighlightMode() const;
 
-        void select(int32 column, int32 row);
+        void select(int32 collumn, int32 row);
 
         /*! unselects the grid
         */
@@ -248,11 +235,11 @@ namespace igor
         */
         int32 getSelectedRow() const;
 
-        /*! \returns selected column
+        /*! \returns selected collumn
 
         if not selected it will return -1
         */
-        int32 getSelectedColumn() const;
+        int32 getSelectedCollumn() const;
 
         /*! \returns pointer to user Data of selected field
         */
@@ -260,7 +247,7 @@ namespace igor
 
         /*! \returns pointer to user Data of specified field
 
-        \param col specfied column
+        \param col specfied collumn
         \param row specfied row
         */
         std::any getUserData(int32 col, int32 row);
@@ -289,9 +276,9 @@ namespace igor
         */
         int32 getMouseOverRow() const;
 
-        /*! \returns mouse over column
+        /*! \returns mouse over collumn
         */
-        int32 getMouseOverColumn() const;
+        int32 getMouseOverCollumn() const;
 
     private:
         /*! row number to be streched
@@ -304,7 +291,7 @@ namespace igor
 
         /*! the child widgets
         */
-        std::vector<GridColumn> _widgetRows;
+        std::vector<GridCollumn> _widgetRows;
 
         /*! cellspacing within the grid
         */
@@ -318,17 +305,17 @@ namespace igor
         */
         int32 _mouseOverRow = -1;
 
-        /*! saves over wich column the mouse last was
+        /*! saves over wich collumn the mouse last was
         */
-        int32 _mouseOverColumn = -1;
+        int32 _mouseOverCollumn = -1;
 
         /*! saves over wich row the mouse last was
         */
         int32 _selectedRow = -1;
 
-        /*! saves over wich column the mouse last was
+        /*! saves over wich collumn the mouse last was
         */
-        int32 _selectedColumn = -1;
+        int32 _selectedCollumn = -1;
 
         /*! mode of selection
         */
@@ -380,7 +367,7 @@ namespace igor
         */
         void draw();
 
-        /*! initializes an empty grid with default size of one row and column
+        /*! initializes an empty grid with default size of one row and collumn
         */
         void initGrid();
 
@@ -396,23 +383,6 @@ namespace igor
         \param offsets vector to be filled with childrens offsets
         */
         void calcChildOffsets(std::vector<iRectanglei> &offsets);
-
-        /*! removes a child widget frmo this widget regardless of it's position
-
-        the former position will be cleared
-
-        \param widget the child widget to be removed
-        */
-        void removeWidget_Internal(iWidgetPtr widget) override;
-
-        /*! add widget and set it at given position
-
-        \param widget the widget pointer
-        \param col column index
-        \param row row index
-        \param userData any kind of data
-        */
-        void addWidget_Internal(iWidgetPtr widget, int32 col, int32 row, const std::any &userData = std::any());
     };
 
     /*! widget grid pointer definition

@@ -78,7 +78,7 @@ void UserControlGraphView::initGUI()
 
     iWidgetGrid *gridButtons = new iWidgetGrid();
     gridButtons->setBorder(0);
-    gridButtons->appendColumns(10);
+    gridButtons->appendCollumns(10);
     gridButtons->setCellSpacing(2);
     gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
@@ -385,13 +385,13 @@ bool UserControlGraphView::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
         }
 
         uint32 currentRowIndex = _gridGraph->getRowCount() - 1;
-        uint32 currentColumnIndex = _indentation++;
+        uint32 currentCollumnIndex = _indentation++;
 
         iWidgetGrid *entry = new iWidgetGrid();
         entry->setSelectMode(iSelectionMode::NoSelection);
         entry->setBorder(0);
         entry->setCellSpacing(2);
-        entry->appendColumns(2);
+        entry->appendCollumns(2);
         entry->setHorizontalAlignment(iHorizontalAlignment::Left);
         entry->setWidth(330);
         _gridGraph->addWidget(entry, 0, currentRowIndex, node->getID());

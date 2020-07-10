@@ -28,7 +28,7 @@ UserControlMaterial::UserControlMaterial()
 
 UserControlMaterial::~UserControlMaterial()
 {
-    deinitGUI();
+	deinitGUI();
 }
 
 void UserControlMaterial::updateMaterial()
@@ -60,36 +60,16 @@ void UserControlMaterial::updateMaterial()
         {
             switch (_selectBoxBlendFuncSource->getSelectedIndex())
             {
-            case 0:
-                value = iRenderStateValue::Zero;
-                break;
-            case 1:
-                value = iRenderStateValue::One;
-                break;
-            case 2:
-                value = iRenderStateValue::SourceColor;
-                break;
-            case 3:
-                value = iRenderStateValue::OneMinusSourceColor;
-                break;
-            case 4:
-                value = iRenderStateValue::DestinationColor;
-                break;
-            case 5:
-                value = iRenderStateValue::OneMinusDestinationColor;
-                break;
-            case 6:
-                value = iRenderStateValue::SourceAlpha;
-                break;
-            case 7:
-                value = iRenderStateValue::OneMinusSourceAlpha;
-                break;
-            case 8:
-                value = iRenderStateValue::DestinationAlpha;
-                break;
-            case 9:
-                value = iRenderStateValue::OneMinusDestinationAlpha;
-                break;
+            case 0: value = iRenderStateValue::Zero; break;
+            case 1: value = iRenderStateValue::One; break;
+            case 2: value = iRenderStateValue::SourceColor; break;
+            case 3: value = iRenderStateValue::OneMinusSourceColor; break;
+            case 4: value = iRenderStateValue::DestinationColor; break;
+            case 5: value = iRenderStateValue::OneMinusDestinationColor; break;
+            case 6: value = iRenderStateValue::SourceAlpha; break;
+            case 7: value = iRenderStateValue::OneMinusSourceAlpha; break;
+            case 8: value = iRenderStateValue::DestinationAlpha; break;
+            case 9: value = iRenderStateValue::OneMinusDestinationAlpha; break;
             }
 
             material->setRenderState(iRenderState::BlendFuncSource, value);
@@ -99,36 +79,16 @@ void UserControlMaterial::updateMaterial()
         {
             switch (_selectBoxBlendFuncDestination->getSelectedIndex())
             {
-            case 0:
-                value = iRenderStateValue::Zero;
-                break;
-            case 1:
-                value = iRenderStateValue::One;
-                break;
-            case 2:
-                value = iRenderStateValue::SourceColor;
-                break;
-            case 3:
-                value = iRenderStateValue::OneMinusSourceColor;
-                break;
-            case 4:
-                value = iRenderStateValue::DestinationColor;
-                break;
-            case 5:
-                value = iRenderStateValue::OneMinusDestinationColor;
-                break;
-            case 6:
-                value = iRenderStateValue::SourceAlpha;
-                break;
-            case 7:
-                value = iRenderStateValue::OneMinusSourceAlpha;
-                break;
-            case 8:
-                value = iRenderStateValue::DestinationAlpha;
-                break;
-            case 9:
-                value = iRenderStateValue::OneMinusDestinationAlpha;
-                break;
+            case 0: value = iRenderStateValue::Zero; break;
+            case 1: value = iRenderStateValue::One; break;
+            case 2: value = iRenderStateValue::SourceColor; break;
+            case 3: value = iRenderStateValue::OneMinusSourceColor; break;
+            case 4: value = iRenderStateValue::DestinationColor; break;
+            case 5: value = iRenderStateValue::OneMinusDestinationColor; break;
+            case 6: value = iRenderStateValue::SourceAlpha; break;
+            case 7: value = iRenderStateValue::OneMinusSourceAlpha; break;
+            case 8: value = iRenderStateValue::DestinationAlpha; break;
+            case 9: value = iRenderStateValue::OneMinusDestinationAlpha; break;
             }
             material->setRenderState(iRenderState::BlendFuncDestination, value);
         }
@@ -187,72 +147,32 @@ void UserControlMaterial::updateGUI()
         int selection = 0;
         switch (material->getRenderState(iRenderState::BlendFuncSource))
         {
-        case iRenderStateValue::Zero:
-            selection = 0;
-            break;
-        case iRenderStateValue::One:
-            selection = 1;
-            break;
-        case iRenderStateValue::SourceColor:
-            selection = 2;
-            break;
-        case iRenderStateValue::OneMinusSourceColor:
-            selection = 3;
-            break;
-        case iRenderStateValue::DestinationColor:
-            selection = 4;
-            break;
-        case iRenderStateValue::OneMinusDestinationColor:
-            selection = 5;
-            break;
-        case iRenderStateValue::SourceAlpha:
-            selection = 6;
-            break;
-        case iRenderStateValue::OneMinusSourceAlpha:
-            selection = 7;
-            break;
-        case iRenderStateValue::DestinationAlpha:
-            selection = 8;
-            break;
-        case iRenderStateValue::OneMinusDestinationAlpha:
-            selection = 9;
-            break;
+        case iRenderStateValue::Zero: selection = 0; break;
+        case iRenderStateValue::One: selection = 1; break;
+        case iRenderStateValue::SourceColor: selection = 2; break;
+        case iRenderStateValue::OneMinusSourceColor: selection = 3; break;
+        case iRenderStateValue::DestinationColor: selection = 4; break;
+        case iRenderStateValue::OneMinusDestinationColor: selection = 5; break;
+        case iRenderStateValue::SourceAlpha: selection = 6; break;
+        case iRenderStateValue::OneMinusSourceAlpha: selection = 7; break;
+        case iRenderStateValue::DestinationAlpha: selection = 8; break;
+        case iRenderStateValue::OneMinusDestinationAlpha: selection = 9; break;
         }
 
         _selectBoxBlendFuncSource->setSelection(selection);
 
         switch (material->getRenderState(iRenderState::BlendFuncDestination))
         {
-        case iRenderStateValue::Zero:
-            selection = 0;
-            break;
-        case iRenderStateValue::One:
-            selection = 1;
-            break;
-        case iRenderStateValue::SourceColor:
-            selection = 2;
-            break;
-        case iRenderStateValue::OneMinusSourceColor:
-            selection = 3;
-            break;
-        case iRenderStateValue::DestinationColor:
-            selection = 4;
-            break;
-        case iRenderStateValue::OneMinusDestinationColor:
-            selection = 5;
-            break;
-        case iRenderStateValue::SourceAlpha:
-            selection = 6;
-            break;
-        case iRenderStateValue::OneMinusSourceAlpha:
-            selection = 7;
-            break;
-        case iRenderStateValue::DestinationAlpha:
-            selection = 8;
-            break;
-        case iRenderStateValue::OneMinusDestinationAlpha:
-            selection = 9;
-            break;
+        case iRenderStateValue::Zero: selection = 0; break;
+        case iRenderStateValue::One: selection = 1; break;
+        case iRenderStateValue::SourceColor: selection = 2; break;
+        case iRenderStateValue::OneMinusSourceColor: selection = 3; break;
+        case iRenderStateValue::DestinationColor: selection = 4; break;
+        case iRenderStateValue::OneMinusDestinationColor: selection = 5; break;
+        case iRenderStateValue::SourceAlpha: selection = 6; break;
+        case iRenderStateValue::OneMinusSourceAlpha: selection = 7; break;
+        case iRenderStateValue::DestinationAlpha: selection = 8; break;
+        case iRenderStateValue::OneMinusDestinationAlpha: selection = 9; break;
         }
 
         _selectBoxBlendFuncDestination->setSelection(selection);
@@ -260,16 +180,16 @@ void UserControlMaterial::updateGUI()
 
         auto shaderSources = material->getShaderSources();
 
-        if (!shaderSources.empty())
+        if(!shaderSources.empty())
         {
             for (auto shader : shaderSources)
             {
                 iaString filename = shader._filename;
                 // todo need contains or begins with function for iaString iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
                 //   if (!shortName.isEmpty())
-                //            {
-                //              filename = shortName;
-                //        }
+       //            {
+         //              filename = shortName;
+           //        }
 
                 switch (shader._type)
                 {
@@ -318,19 +238,19 @@ void UserControlMaterial::initGUI()
     grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     grid->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetGroupBox *paramGroupBox = new iWidgetGroupBox();
+    iWidgetGroupBox* paramGroupBox = new iWidgetGroupBox();
     paramGroupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
     paramGroupBox->setText("Render States");
     paramGroupBox->setHeaderOnly();
 
-    iWidgetGrid *gridParam = new iWidgetGrid();
+    iWidgetGrid* gridParam = new iWidgetGrid();
     gridParam->appendRows(14);
-    gridParam->appendColumns(1);
+    gridParam->appendCollumns(1);
     gridParam->setBorder(2);
     gridParam->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridParam->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetLabel *labelName = new iWidgetLabel();
+    iWidgetLabel* labelName = new iWidgetLabel();
     labelName->setText("Name");
     labelName->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -342,7 +262,7 @@ void UserControlMaterial::initGUI()
     _textName->setText("...");
     _textName->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onTextChangedName));
 
-    iWidgetLabel *labelDepthTest = new iWidgetLabel();
+    iWidgetLabel* labelDepthTest = new iWidgetLabel();
     labelDepthTest->setText("Depth Test");
     labelDepthTest->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -350,7 +270,7 @@ void UserControlMaterial::initGUI()
     _checkBoxDepthTest->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     _checkBoxDepthTest->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel *labelDepthFunction = new iWidgetLabel();
+    iWidgetLabel* labelDepthFunction = new iWidgetLabel();
     labelDepthFunction->setText("Depth Function");
     labelDepthFunction->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -366,7 +286,7 @@ void UserControlMaterial::initGUI()
     _selectBoxDepthFunc->setHorizontalAlignment(iHorizontalAlignment::Left);
     _selectBoxDepthFunc->setWidth(200);
 
-    iWidgetLabel *labelDepthMask = new iWidgetLabel();
+    iWidgetLabel* labelDepthMask = new iWidgetLabel();
     labelDepthMask->setText("Depth Mask");
     labelDepthMask->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -374,7 +294,7 @@ void UserControlMaterial::initGUI()
     _checkBoxDepthMask->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     _checkBoxDepthMask->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel *labelBlend = new iWidgetLabel();
+    iWidgetLabel* labelBlend = new iWidgetLabel();
     labelBlend->setText("Blending");
     labelBlend->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -382,7 +302,7 @@ void UserControlMaterial::initGUI()
     _checkBoxBlend->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     _checkBoxBlend->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel *labelBlendFuncSource = new iWidgetLabel();
+    iWidgetLabel* labelBlendFuncSource = new iWidgetLabel();
     labelBlendFuncSource->setText("Blend Source");
     labelBlendFuncSource->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -400,7 +320,7 @@ void UserControlMaterial::initGUI()
     _selectBoxBlendFuncSource->setHorizontalAlignment(iHorizontalAlignment::Left);
     _selectBoxBlendFuncSource->setWidth(200);
 
-    iWidgetLabel *labelBlendFuncDestination = new iWidgetLabel();
+    iWidgetLabel* labelBlendFuncDestination = new iWidgetLabel();
     labelBlendFuncDestination->setText("Blend Destination");
     labelBlendFuncDestination->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -418,7 +338,7 @@ void UserControlMaterial::initGUI()
     _selectBoxBlendFuncDestination->setHorizontalAlignment(iHorizontalAlignment::Left);
     _selectBoxBlendFuncDestination->setWidth(200);
 
-    iWidgetLabel *labelCullFace = new iWidgetLabel();
+    iWidgetLabel* labelCullFace = new iWidgetLabel();
     labelCullFace->setText("Cull Face");
     labelCullFace->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -426,7 +346,7 @@ void UserControlMaterial::initGUI()
     _checkBoxCullFace->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     _checkBoxCullFace->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel *labelCullFaceFunc = new iWidgetLabel();
+    iWidgetLabel* labelCullFaceFunc = new iWidgetLabel();
     labelCullFaceFunc->setText("Cull Face Function");
     labelCullFaceFunc->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -436,7 +356,7 @@ void UserControlMaterial::initGUI()
     _selectBoxCullFaceFunc->setHorizontalAlignment(iHorizontalAlignment::Left);
     _selectBoxCullFaceFunc->setWidth(200);
 
-    iWidgetLabel *labelTexture2D0 = new iWidgetLabel();
+    iWidgetLabel* labelTexture2D0 = new iWidgetLabel();
     labelTexture2D0->setText("Texture 0");
     labelTexture2D0->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -444,7 +364,7 @@ void UserControlMaterial::initGUI()
     _checkBoxTexture2D0->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     _checkBoxTexture2D0->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel *labelTexture2D1 = new iWidgetLabel();
+    iWidgetLabel* labelTexture2D1 = new iWidgetLabel();
     labelTexture2D1->setText("Texture 1");
     labelTexture2D1->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -452,7 +372,7 @@ void UserControlMaterial::initGUI()
     _checkBoxTexture2D1->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     _checkBoxTexture2D1->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel *labelTexture2D2 = new iWidgetLabel();
+    iWidgetLabel* labelTexture2D2 = new iWidgetLabel();
     labelTexture2D2->setText("Texture 2");
     labelTexture2D2->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -460,7 +380,7 @@ void UserControlMaterial::initGUI()
     _checkBoxTexture2D2->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     _checkBoxTexture2D2->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel *labelTexture2D3 = new iWidgetLabel();
+    iWidgetLabel* labelTexture2D3 = new iWidgetLabel();
     labelTexture2D3->setText("Texture 3");
     labelTexture2D3->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -468,7 +388,7 @@ void UserControlMaterial::initGUI()
     _checkBoxTexture2D3->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     _checkBoxTexture2D3->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel *labelWireframe = new iWidgetLabel();
+    iWidgetLabel* labelWireframe = new iWidgetLabel();
     labelWireframe->setText("Wireframe");
     labelWireframe->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -487,7 +407,7 @@ void UserControlMaterial::initGUI()
 
     iWidgetSelectBox* _selectBoxInstancedFunc = nullptr;*/
 
-    iWidgetLabel *labelRenderingOrder = new iWidgetLabel();
+    iWidgetLabel* labelRenderingOrder = new iWidgetLabel();
     labelRenderingOrder->setText("Rendering Order");
     labelRenderingOrder->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -501,34 +421,34 @@ void UserControlMaterial::initGUI()
     _renderingOrder->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     _renderingOrder->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetGroupBox *shaderGroupBox = new iWidgetGroupBox();
+    iWidgetGroupBox* shaderGroupBox = new iWidgetGroupBox();
     shaderGroupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
     shaderGroupBox->setText("Shader Settings");
     shaderGroupBox->setHeaderOnly();
 
-    iWidgetGrid *gridShadersGroup = new iWidgetGrid();
+    iWidgetGrid* gridShadersGroup = new iWidgetGrid();
     gridShadersGroup->appendRows(1);
     gridShadersGroup->setBorder(2);
     gridShadersGroup->setHorizontalAlignment(iHorizontalAlignment::Strech);
     gridShadersGroup->setVerticalAlignment(iVerticalAlignment::Top);
     gridShadersGroup->setStrechColumn(0);
 
-    iWidgetGrid *gridShaders = new iWidgetGrid();
+    iWidgetGrid* gridShaders = new iWidgetGrid();
     gridShaders->appendRows(2);
-    gridShaders->appendColumns(2);
+    gridShaders->appendCollumns(2);
     gridShaders->setBorder(2);
     gridShaders->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridShaders->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetLabel *labelShader0 = new iWidgetLabel();
+    iWidgetLabel* labelShader0 = new iWidgetLabel();
     labelShader0->setText("Geometry");
     labelShader0->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel *labelShader1 = new iWidgetLabel();
+    iWidgetLabel* labelShader1 = new iWidgetLabel();
     labelShader1->setText("Vertex");
     labelShader1->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel *labelShader2 = new iWidgetLabel();
+    iWidgetLabel* labelShader2 = new iWidgetLabel();
     labelShader2->setText("Fragment");
     labelShader2->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -560,28 +480,28 @@ void UserControlMaterial::initGUI()
     _shader0Button->setWidth(20);
     _shader0Button->setHeight(20);
     _shader0Button->setText("...");
-    _shader0Button->setTooltip("Browse for geometry shader");
+	_shader0Button->setTooltip("Browse for geometry shader");
     _shader0Button->registerOnClickEvent(iClickDelegate(this, &UserControlMaterial::onShader0Button));
 
     _shader1Button = new iWidgetButton();
     _shader1Button->setWidth(20);
     _shader1Button->setHeight(20);
     _shader1Button->setText("...");
-    _shader1Button->setTooltip("Browse for vertex shader");
+	_shader1Button->setTooltip("Browse for vertex shader");
     _shader1Button->registerOnClickEvent(iClickDelegate(this, &UserControlMaterial::onShader1Button));
 
     _shader2Button = new iWidgetButton();
     _shader2Button->setWidth(20);
     _shader2Button->setHeight(20);
     _shader2Button->setText("...");
-    _shader2Button->setTooltip("Browse for fragment shader");
+	_shader2Button->setTooltip("Browse for fragment shader");
     _shader2Button->registerOnClickEvent(iClickDelegate(this, &UserControlMaterial::onShader2Button));
 
     _shaderReload = new iWidgetButton();
     _shaderReload->setWidth(20);
     _shaderReload->setHeight(20);
     _shaderReload->setText("Reload");
-    _shaderReload->setTooltip("Reload shaders");
+	_shaderReload->setTooltip("Reload shaders");
     _shaderReload->setHorizontalAlignment(iHorizontalAlignment::Right);
     _shaderReload->registerOnClickEvent(iClickDelegate(this, &UserControlMaterial::onReloadShader));
 
@@ -751,3 +671,4 @@ void UserControlMaterial::onFileLoadDialogClosed(iDialogPtr dialog)
     delete _fileDialog;
     _fileDialog = nullptr;
 }
+

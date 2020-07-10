@@ -21,7 +21,7 @@ namespace igor
 
         _grid = new iWidgetGrid(this);
         _grid->setSelectMode(iSelectionMode::NoSelection);
-        _grid->setHighlightMode(iSelectionMode::Column);
+        _grid->setHighlightMode(iSelectionMode::Collumn);
     }
 
     void iWidgetMenuBar::unselect()
@@ -35,7 +35,7 @@ namespace igor
 
         _grid->addWidget(menu, _grid->getColumnCount() - 1, 0);
 
-        _grid->appendColumns(1);
+        _grid->appendCollumns(1);
         _grid->setStrechColumn(_grid->getColumnCount() - 1);
     }
 
@@ -55,7 +55,7 @@ namespace igor
         userControlAction->setAction(action, context);
         _grid->addWidget(userControlAction, _grid->getColumnCount() - 1, 0);
 
-        _grid->appendColumns(1);
+        _grid->appendCollumns(1);
         _grid->setStrechColumn(_grid->getColumnCount() - 1);
     }
 

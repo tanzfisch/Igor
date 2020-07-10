@@ -59,7 +59,7 @@ namespace igor
         _userControlColorChooser->setColor(color);
 
         iWidgetGrid *buttonGrid = new iWidgetGrid();
-        buttonGrid->appendColumns(2);
+        buttonGrid->appendCollumns(2);
         buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
 
         iWidgetButton *okButton = new iWidgetButton();

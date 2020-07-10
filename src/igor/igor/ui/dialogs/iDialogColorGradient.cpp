@@ -106,7 +106,7 @@ namespace igor
 		grid->addWidget(groupBoxGradient, 0, 1);
 
 		iWidgetGrid *buttonGrid = new iWidgetGrid();
-		buttonGrid->appendColumns(2);
+		buttonGrid->appendCollumns(2);
 		buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
 		grid->addWidget(buttonGrid, 0, 3);
 
@@ -138,7 +138,7 @@ namespace igor
 		controlGrid->addWidget(_colorChooser, 0, 0);
 
 		iWidgetGrid *positionGrid = new iWidgetGrid();
-		positionGrid->appendColumns(1);
+		positionGrid->appendCollumns(1);
 		positionGrid->setStrechColumn(1);
 		positionGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
 		controlGrid->addWidget(positionGrid, 0, 1);

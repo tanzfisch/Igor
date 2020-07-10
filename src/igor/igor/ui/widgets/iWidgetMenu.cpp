@@ -37,7 +37,7 @@ namespace igor
 
         iWidgetGridPtr grid = new iWidgetGrid(this);
         grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-        grid->appendColumns(2);
+        grid->appendCollumns(2);
         grid->setStrechColumn(1);
         grid->setCellSpacing(4);
 

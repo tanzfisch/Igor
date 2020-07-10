@@ -163,7 +163,7 @@ namespace igor
 
 		/*! add entry to file grid
 
-		\param col column in grid
+		\param col collumn in grid
 		\param row row in grid
 		\param path full path of entry
 		\param displayName representive name of entry

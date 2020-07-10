@@ -83,7 +83,7 @@ namespace igor
 		registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogIndexMenu::onMouseOffClick));
 
 		iWidgetGridPtr grid = new iWidgetGrid();
-		grid->appendColumns(1);
+		grid->appendCollumns(1);
 		grid->appendRows(static_cast<uint32>(texts.size()) - 1);
 		grid->setHorizontalAlignment(iHorizontalAlignment::Left);
 		grid->setVerticalAlignment(iVerticalAlignment::Top);

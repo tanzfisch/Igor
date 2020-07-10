@@ -44,7 +44,7 @@ namespace igor
 		grid->addWidget(new iWidgetSpacer(280, 1, true), 0, 1);
 
 		iWidgetGridPtr buttonGrid = new iWidgetGrid();
-		buttonGrid->appendColumns(3);
+		buttonGrid->appendCollumns(3);
 		buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
 		buttonGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
 		buttonGrid->setCellSpacing(4);

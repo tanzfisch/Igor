@@ -33,7 +33,7 @@ void UserControlModel::updateNode()
 
 void UserControlModel::updateGUI()
 {
-    iNodeModel *node = static_cast<iNodeModel *>(iNodeManager::getInstance().getNode(_nodeId));
+    iNodeModel* node = static_cast<iNodeModel*>(iNodeManager::getInstance().getNode(_nodeId));
 
     if (node != nullptr)
     {
@@ -55,7 +55,7 @@ uint32 UserControlModel::getNode()
 void UserControlModel::initGUI()
 {
     _grid = new iWidgetGrid();
-    _grid->appendColumns(1);
+    _grid->appendCollumns(1);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
     _grid->setStrechColumn(1);
@@ -73,5 +73,5 @@ void UserControlModel::initGUI()
     _grid->addWidget(_labelFilename, 0, 0);
     _grid->addWidget(_textFilename, 1, 0);
 
-    addWidget(_grid);
+	addWidget(_grid);
 }
