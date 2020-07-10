@@ -281,7 +281,7 @@ void LSystems::onEvent(iEvent &event)
 	ExampleBase::onEvent(event);
 
 	event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(LSystems::onKeyDown));
-	event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(LSystems::onMouseMoveEvent));
+	event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(LSystems::onMouseMoveEvent));
 	event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(LSystems::onMouseWheelEvent));
 }
 
@@ -303,7 +303,7 @@ bool LSystems::onMouseWheelEvent(iMouseWheelEvent_TMP &event)
 	return true;
 }
 
-bool LSystems::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
+bool LSystems::onMouseMoveEvent(iEventMouseMove &event)
 {
 	if (iMouse::getInstance().getLeftButton())
 	{

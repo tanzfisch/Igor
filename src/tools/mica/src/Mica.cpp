@@ -33,7 +33,8 @@ Mica::Mica()
 
 Mica::~Mica()
 {
-	iApplication::getInstance().clearLayerStack(_window);
+	iApplication::getInstance().clearLayerStack();
+	iApplication::getInstance().destroyWindow(_window);
 }
 
 void Mica::run(const iaString &filename)

@@ -153,7 +153,7 @@ void ExampleInstancing::onEvent(iEvent &event)
     // first call example base
     ExampleBase::onEvent(event);
 
-    event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(ExampleInstancing::onMouseMoveEvent));
+    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(ExampleInstancing::onMouseMoveEvent));
     event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(ExampleInstancing::onMouseWheelEvent));
 }
 
@@ -175,7 +175,7 @@ bool ExampleInstancing::onMouseWheelEvent(iMouseWheelEvent_TMP &event)
     return true;
 }
 
-bool ExampleInstancing::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
+bool ExampleInstancing::onMouseMoveEvent(iEventMouseMove &event)
 {
     if (iMouse::getInstance().getLeftButton())
     {

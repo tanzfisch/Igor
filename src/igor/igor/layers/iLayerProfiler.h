@@ -78,14 +78,6 @@ namespace igor
         */
         void onDeinit() override;
 
-        /*! called on application pre draw event
-        */
-        void onPreDraw() override;
-
-        /*! called on application post draw event
-        */
-        void onPostDraw() override;
-
         /*! called on any other event
 
         \param event the event to handle
@@ -107,7 +99,7 @@ namespace igor
         \param event the window resize event
         \returns true if consumed
         */
-        bool onWindowResize(iWindowResizeEvent_TMP &event);
+        bool onWindowResize(iEventWindowResize &event);
     };
 
 } // namespace igor

@@ -51,11 +51,12 @@ namespace igor
         iEventMouseKeyDown,
         iMouseKeyUpEvent_TMP,
         iMouseKeyDoubleClickEvent_TMP,
-        iMouseMoveEvent_TMP,
+        iEventMouseMove,
         iMouseWheelEvent_TMP,
 
-        iWindowCloseEvent_TMP,
-        iWindowResizeEvent_TMP,
+        iEventWindowClose,
+        iEventWindowOpen,
+        iEventWindowResize,
 
         iEventNodeAddedToScene,
         iEventNodeRemovedFromScene

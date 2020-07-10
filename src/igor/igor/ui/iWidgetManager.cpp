@@ -386,15 +386,15 @@ namespace igor
         event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseKeyDownEvent));
         event.dispatch<iMouseKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseKeyUpEvent));
         event.dispatch<iMouseKeyDoubleClickEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseKeyDoubleClickEvent));
-        event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseMoveEvent));
+        event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseMoveEvent));
         event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseWheelEvent));
         event.dispatch<iKeyASCIIEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onKeyASCIIInput));
         event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onKeyDown));
         event.dispatch<iKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onKeyUp));
-        event.dispatch<iWindowResizeEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onWindowResize));
+        event.dispatch<iEventWindowResize>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onWindowResize));
     }
 
-    bool iWidgetManager::onWindowResize(iWindowResizeEvent_TMP &event)
+    bool iWidgetManager::onWindowResize(iEventWindowResize &event)
     {
         // update the widget managers desktop dimensions
         setDesktopDimensions(event.getWindow()->getClientWidth(), event.getWindow()->getClientHeight());
@@ -550,7 +550,7 @@ namespace igor
         return false;
     }
 
-    bool iWidgetManager::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
+    bool iWidgetManager::onMouseMoveEvent(iEventMouseMove &event)
     {
         if (handleMouseMove(event.getPosition()))
         {

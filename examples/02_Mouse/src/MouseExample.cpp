@@ -17,7 +17,7 @@ void MouseExample::onEvent(iEvent &event)
     event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseKeyDownEvent));
     event.dispatch<iMouseKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseKeyUpEvent));
     event.dispatch<iMouseKeyDoubleClickEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseKeyDoubleClickEvent));
-    event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseMoveEvent));
+    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseMoveEvent));
     event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseWheelEvent));
 }
 
@@ -41,7 +41,7 @@ bool MouseExample::onMouseKeyDoubleClickEvent(iMouseKeyDoubleClickEvent_TMP &eve
     return true;
 }
 
-bool MouseExample::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
+bool MouseExample::onMouseMoveEvent(iEventMouseMove &event)
 {
     // prints old and new mouse position to the console
     con_endl("mouse moved from " << event.getLastPosition() << " to " << event.getPosition());

@@ -802,9 +802,9 @@ void Ascent::onRenderOrtho()
 
 void Ascent::onEvent(iEvent &event)
 {
-    event.dispatch<iWindowResizeEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Ascent::onWindowResize));
+    event.dispatch<iEventWindowResize>(IGOR_BIND_EVENT_FUNCTION(Ascent::onWindowResize));
     event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(Ascent::onMouseKeyDownEvent));
-    event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Ascent::onMouseMoveEvent));
+    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(Ascent::onMouseMoveEvent));
     event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Ascent::onMouseWheelEvent));
     event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Ascent::onKeyDown));
     event.dispatch<iKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Ascent::onKeyUp));
@@ -834,7 +834,7 @@ bool Ascent::onMouseKeyDownEvent(iEventMouseKeyDown &event)
     return false;
 }
 
-bool Ascent::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
+bool Ascent::onMouseMoveEvent(iEventMouseMove &event)
 {
     if (_activeControls)
     {
@@ -1018,7 +1018,7 @@ bool Ascent::onKeyUp(iKeyUpEvent_TMP &event)
     return false;
 }
 
-bool Ascent::onWindowResize(iWindowResizeEvent_TMP &event)
+bool Ascent::onWindowResize(iEventWindowResize &event)
 {
     _viewOrtho.setOrthogonal(0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0);
     return true;

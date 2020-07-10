@@ -52,7 +52,7 @@ public:
 private:
 	/*! main window of mica
 	*/
-	iWindow *_window = nullptr;
+	iWindowPtr _window = nullptr;
 
 	/*! the worspace we are working with
 	*/

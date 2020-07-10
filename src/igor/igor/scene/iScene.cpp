@@ -358,7 +358,7 @@ namespace igor
 
 	void iScene::signalNodeRemoved(iNodePtr node)
 	{
-		iApplication::getInstance().onEvent(iEventPtr(new iEventNodeAddedToScene(this, node->getID())));
+		iApplication::getInstance().onEvent(iEventPtr(new iEventNodeRemovedFromScene(this, node->getID())));
 	}
 
 }; // namespace igor

@@ -183,7 +183,7 @@ void PhysicsExample::onEvent(iEvent &event)
     ExampleBase::onEvent(event);
 
     event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(PhysicsExample::onKeyDown));
-    event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(PhysicsExample::onMouseMoveEvent));
+    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(PhysicsExample::onMouseMoveEvent));
     event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(PhysicsExample::onMouseWheelEvent));
 }
 
@@ -207,7 +207,7 @@ bool PhysicsExample::onKeyDown(iKeyDownEvent_TMP &event)
     return false;
 }
 
-bool PhysicsExample::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
+bool PhysicsExample::onMouseMoveEvent(iEventMouseMove &event)
 {
     if (iMouse::getInstance().getLeftButton())
     {

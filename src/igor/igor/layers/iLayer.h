@@ -37,7 +37,7 @@ using namespace iaux;
 
 namespace igor
 {
-    /*! layer base class
+    /*! layer base class    
     */
     class Igor_API iLayer
     {

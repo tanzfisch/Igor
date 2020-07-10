@@ -5,6 +5,7 @@
 #include <igor/layers/iLayerProfiler.h>
 
 #include <igor/graphics/iRenderer.h>
+#include <igor/resources/texture/iTextureResourceFactory.h>
 
 namespace igor
 {
@@ -21,7 +22,8 @@ namespace igor
         _view.setName("Profiler View");
         _view.setClearColor(false);
         _view.setClearDepth(false);
-        _view.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
+        _view.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()),
+                            static_cast<float32>(getWindow()->getClientHeight()), 0.0);
         _view.registerRenderDelegate(iDrawDelegate(this, &iLayerProfiler::onRender));
         getWindow()->addView(&_view, getZIndex());
 
@@ -30,14 +32,6 @@ namespace igor
 
         // init font for render profiler
         _font = new iTextureFont("StandardFont.png");
-    }
-
-    void iLayerProfiler::onPreDraw()
-    {
-    }
-
-    void iLayerProfiler::onPostDraw()
-    {
     }
 
     void iLayerProfiler::onDeinit()
@@ -54,8 +48,7 @@ namespace igor
 
     void iLayerProfiler::onEvent(iEvent &event)
     {
-
-        event.dispatch<iWindowResizeEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iLayerProfiler::onWindowResize));
+        event.dispatch<iEventWindowResize>(IGOR_BIND_EVENT_FUNCTION(iLayerProfiler::onWindowResize));
         event.dispatch<iKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iLayerProfiler::onKeyUp));
     }
 
@@ -71,7 +64,7 @@ namespace igor
         return false;
     }
 
-    bool iLayerProfiler::onWindowResize(iWindowResizeEvent_TMP &event)
+    bool iLayerProfiler::onWindowResize(iEventWindowResize &event)
     {
         _view.setOrthogonal(0.0, static_cast<float32>(event.getWindow()->getClientWidth()),
                             static_cast<float32>(event.getWindow()->getClientHeight()), 0.0);
@@ -81,12 +74,6 @@ namespace igor
 
     void iLayerProfiler::onRender()
     {
-        iaMatrixd matrix;
-        iRenderer::getInstance().setViewMatrix(matrix);
-        matrix.translate(0, 0, -1);
-        iRenderer::getInstance().setModelMatrix(matrix);
-
-        iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
         _profilerVisualizer.draw(getWindow(), _font, iaColor4f(0, 1, 0, 1));
     }
 

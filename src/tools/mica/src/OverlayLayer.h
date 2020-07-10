@@ -134,7 +134,7 @@ private:
     \param event the window resize event
     \returns true if consumed
     */
-    bool onWindowResize(iWindowResizeEvent_TMP &event);
+    bool onWindowResize(iEventWindowResize &event);
 };
 
 #endif // __OverlayLayer_H__

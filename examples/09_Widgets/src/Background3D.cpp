@@ -189,7 +189,7 @@ void Background3D::onEvent(iEvent &event)
     ExampleBase::onEvent(event);
 
     event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(Background3D::onMouseKeyDownEvent));
-    event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Background3D::onMouseMoveEvent));
+    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(Background3D::onMouseMoveEvent));
     event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Background3D::onMouseWheelEvent));
 }
 
@@ -230,7 +230,7 @@ bool Background3D::onMouseKeyDownEvent(iEventMouseKeyDown &event)
     return false;
 }
 
-bool Background3D::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
+bool Background3D::onMouseMoveEvent(iEventMouseMove &event)
 {
     const auto from = event.getLastPosition();
     const auto to = event.getPosition();

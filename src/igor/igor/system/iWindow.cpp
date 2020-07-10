@@ -66,7 +66,7 @@ namespace igor
 
         __IGOR_INLINE__ void closeEvent()
         {
-            iApplication::getInstance().onEvent(iEventPtr(new iWindowCloseEvent_TMP(_window)));
+            iApplication::getInstance().onEvent(iEventPtr(new iEventWindowClose(_window)));
 
             _window->_windowCloseEvent(); // TODO remove
         }
@@ -75,7 +75,7 @@ namespace igor
         {
             _window->onSizeChanged(width, height);
 
-            iApplication::getInstance().onEvent(iEventPtr(new iWindowResizeEvent_TMP(_window, width, height)));
+            iApplication::getInstance().onEvent(iEventPtr(new iEventWindowResize(_window, width, height)));
         }
 
         __IGOR_INLINE__ static iWindowImpl *getImpl(iWindow *window)
@@ -1270,6 +1270,8 @@ namespace igor
             iTaskManager::getInstance().createRenderContextThreads(this);
             iRenderer::getInstance().init();
             _impl->swapBuffers();
+
+            iApplication::getInstance().onEvent(iEventPtr(new iEventWindowOpen(this)));
         }
 
         return result;
@@ -1402,20 +1404,14 @@ namespace igor
 
     void iWindow::setTitle(const iaString &title)
     {
-        if (!_impl->_isOpen)
+        if (!title.isEmpty())
         {
-            if (!title.isEmpty())
-            {
-                _impl->_title = title;
-            }
-            else
-            {
-                con_err("title can not be empty");
-            }
+            _impl->_title = title;
+            // TODO update title when windows is open already
         }
         else
         {
-            con_err("title can only be changed when window is closed");
+            con_err("title can not be empty");
         }
     }
 

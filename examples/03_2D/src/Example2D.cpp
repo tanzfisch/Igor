@@ -14,7 +14,7 @@ Example2D::Example2D(iWindow *window)
 void Example2D::onInit()
 {
 	// load the background tile texture
-	_backgroundTexture = iTextureResourceFactory::getInstance().loadFile("WidgetThemePattern.png");
+	_backgroundTexture = iTextureResourceFactory::getInstance().loadFile("ice.png");
 
 	// let's see what happens if we want Igor to load a texture that does not exist
 	con_endl("!!! next statement will fail with an error message about a missing texture !!!");
@@ -121,10 +121,10 @@ void Example2D::onEvent(iEvent &event)
 	// first call example base
 	ExampleBase::onEvent(event);
 
-	event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Example2D::onMouseMoveEvent));
+	event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(Example2D::onMouseMoveEvent));
 }
 
-bool Example2D::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
+bool Example2D::onMouseMoveEvent(iEventMouseMove &event)
 {
 	// save mouse position for later
 	_lastMousePos.set(static_cast<float32>(event.getPosition()._x), static_cast<float32>(event.getPosition()._y));

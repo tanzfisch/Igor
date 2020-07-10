@@ -47,7 +47,25 @@ namespace igor
         _eventQueueMutex.unlock();
     }
 
-    void iApplication::dispatchEventStack()
+    bool iApplication::dispatchOnStack(iEvent &event, iLayerStack &layerStack)
+    {
+        const auto layers = layerStack.getStack();
+        auto riter = layers.rbegin();
+        while (riter != layers.rend())
+        {
+            (*riter)->onEvent(event);
+            if (event.isConsumed())
+            {
+                return true;
+            }
+
+            riter++;
+        }
+
+        return false;
+    }
+
+    void iApplication::dispatch()
     {
         _eventQueueMutex.lock();
         auto eventQueue = std::move(_eventQueue);
@@ -57,59 +75,24 @@ namespace igor
         {
             iEvent &event = *eventPtr;
 
-            event.dispatch<iWindowCloseEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iApplication::onWindowClose));
-
-            iWindow *window = event.getWindow();
-            if (window != nullptr)
+            if (event.getEventType() == iEventType::iEventNodeAddedToScene)
             {
-                iWindowID windowID = window->getID();
-
-                auto iter = _windows.find(windowID);
-                if (iter != _windows.end())
-                {
-                    const auto layers = iter->second._layerStack.getStack();
-                    auto riter = layers.rbegin();
-                    while (riter != layers.rend())
-                    {
-                        (*riter)->onEvent(event);
-                        if (event.isConsumed())
-                        {
-                            break;
-                        }
-
-                        riter++;
-                    }
-                }
-                else
-                {
-                    con_err("window with id " << windowID << " does not exist");
-                }
+                con_debug_endl(event);
             }
-            else
-            {
-                const auto layers = _layerStack.getStack();
-                auto riter = layers.rbegin();
-                while (riter != layers.rend())
-                {
-                    (*riter)->onEvent(event);
-                    if (event.isConsumed())
-                    {
-                        break;
-                    }
 
-                    riter++;
-                }
-            }
+            event.dispatch<iEventWindowClose>(IGOR_BIND_EVENT_FUNCTION(iApplication::onWindowClose));
+
+            dispatchOnStack(event, _layerStack);
         }
     }
 
-    bool iApplication::onWindowClose(iWindowCloseEvent_TMP &event)
+    bool iApplication::onWindowClose(iEventWindowClose &event)
     {
         bool allClosed = true;
 
-        for (auto &pair : _windows)
+        for (auto window : _windows)
         {
-            if (pair.second._window->isOpen())
+            if (window->isOpen())
             {
                 allClosed = false;
                 break;
@@ -121,7 +104,7 @@ namespace igor
             stop();
         }
 
-        return true;
+        return false;
     }
 
     void iApplication::stop()
@@ -145,18 +128,10 @@ namespace igor
         iProfiler::getInstance().beginSection(_userSectionID);
 
         iProfiler::getInstance().beginSection(_dispatchSectionID);
-        dispatchEventStack();
+        dispatch();
         iProfiler::getInstance().endSection(_dispatchSectionID);
 
         _preDrawHandleEvent(); // TODO get rid of this
-
-        for (auto &pair : _windows)
-        {
-            for (auto layer : pair.second._layerStack.getStack())
-            {
-                layer->onPreDraw();
-            }
-        }
 
         for (auto layer : _layerStack.getStack())
         {
@@ -179,14 +154,6 @@ namespace igor
 
         iProfiler::getInstance().beginSection(_userSectionID);
         _postDrawHandleEvent(); // TODO get rid of this
-
-        for (auto &pair : _windows)
-        {
-            for (auto layer : pair.second._layerStack.getStack())
-            {
-                layer->onPostDraw();
-            }
-        }
 
         for (auto layer : _layerStack.getStack())
         {
@@ -240,102 +207,60 @@ namespace igor
 
     void iApplication::draw()
     {
-        for (auto &pair : _windows)
+        for (auto window : _windows)
         {
-            if (pair.second._window->isOpen())
+            if (window->isOpen())
             {
-                pair.second._window->draw();
+                window->draw();
             }
         }
     }
 
     void iApplication::windowHandle()
     {
-        for (auto &pair : _windows)
+        for (auto window : _windows)
         {
-            if (pair.second._window->isOpen())
+            if (window->isOpen())
             {
-                pair.second._window->handle();
+                window->handle();
             }
         }
     }
 
-    void iApplication::clearLayerStack(iWindow *window)
+    void iApplication::clearLayerStack()
     {
-        if (window == nullptr)
-        {
-            _layerStack.clear();
-            return;
-        }
-
-        auto iter = _windows.find(window->getID());
-        if (iter != _windows.end())
-        {
-            iter->second._layerStack.clear();
-        }
-        else
-        {
-            con_err("window with id " << window->getID() << " does not exist");
-        }
+        _layerStack.clear();
     }
 
     void iApplication::addLayer(iLayer *layer)
     {
-        con_assert(layer != nullptr, "zero pointer");
-
-        if (layer->getWindow() == nullptr)
-        {
-            _layerStack.addLayer(layer);
-            return;
-        }
-
-        auto iter = _windows.find(layer->getWindow()->getID());
-        if (iter != _windows.end())
-        {
-            iter->second._layerStack.addLayer(layer);
-        }
+        _layerStack.addLayer(layer);
     }
 
     void iApplication::removeLayer(iLayer *layer)
     {
-        con_assert(layer != nullptr, "zero pointer");
-
-        if (layer->getWindow() == nullptr)
-        {
-            _layerStack.removeLayer(layer);
-            return;
-        }
-
-        auto iter = _windows.find(layer->getWindow()->getID());
-        if (iter != _windows.end())
-        {
-            iter->second._layerStack.removeLayer(layer);
-        }
+        _layerStack.removeLayer(layer);
     }
 
-    iWindow *iApplication::createWindow()
+    iWindowPtr iApplication::createWindow()
     {
-        WindowData windowData;
-        windowData._window = new iWindow();
-        _windows[windowData._window->getID()] = windowData;
-
-        return windowData._window;
+        iWindowPtr window = new iWindow();
+        _windows.push_back(window);
+        return window;
     }
 
     void iApplication::destroyWindow(iWindow *window)
     {
-        clearLayerStack(window);
-
         con_assert(window != nullptr, "zero pointer");
         if (window == nullptr)
         {
             return;
         }
 
-        auto iter = _windows.find(window->getID());
+        auto iter = std::find(_windows.begin(), _windows.end(), window);
         if (iter != _windows.end())
         {
-            delete iter->second._window;
+            delete window;
             _windows.erase(iter);
         }
         else
@@ -346,10 +271,13 @@ namespace igor
 
     iWindow *iApplication::getWindow(iWindowID windowID) const
     {
-        auto iter = _windows.find(windowID);
+        auto iter = std::find_if(_windows.begin(), _windows.end(), [windowID](iWindowPtr window) {
+            return window->getID() == windowID;
+        });
+
         if (iter != _windows.end())
         {
-            return iter->second._window;
+            return *iter;
         }
 
         con_err("window with id " << windowID << " does not exist");

@@ -360,7 +360,7 @@ void ExampleCharacterController::onEvent(iEvent &event)
 
     event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(ExampleCharacterController::onMouseKeyDownEvent));
     event.dispatch<iMouseKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(ExampleCharacterController::onMouseKeyUpEvent));
-    event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(ExampleCharacterController::onMouseMoveEvent));
+    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(ExampleCharacterController::onMouseMoveEvent));
     event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(ExampleCharacterController::onKeyDown));
     event.dispatch<iKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(ExampleCharacterController::onKeyUp));
 }
@@ -389,7 +389,7 @@ bool ExampleCharacterController::onMouseKeyUpEvent(iMouseKeyUpEvent_TMP &event)
     return false;
 }
 
-bool ExampleCharacterController::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
+bool ExampleCharacterController::onMouseMoveEvent(iEventMouseMove &event)
 {
     if (_captureMouse)
     {

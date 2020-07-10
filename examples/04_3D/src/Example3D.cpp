@@ -190,7 +190,7 @@ void Example3D::onEvent(iEvent &event)
     ExampleBase::onEvent(event);
 
     event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(Example3D::onMouseKeyDownEvent));
-    event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Example3D::onMouseMoveEvent));
+    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(Example3D::onMouseMoveEvent));
     event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Example3D::onMouseWheelEvent));
     event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Example3D::onKeyDown));
 }
@@ -267,7 +267,7 @@ bool Example3D::onMouseKeyDownEvent(iEventMouseKeyDown &event)
     return false;
 }
 
-bool Example3D::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
+bool Example3D::onMouseMoveEvent(iEventMouseMove &event)
 {
     const auto from = event.getLastPosition();
     const auto to = event.getPosition();

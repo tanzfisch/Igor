@@ -144,7 +144,7 @@ private:
     \param event the mouse move event
     \returns true if consumed
     */
-    bool onMouseMoveEvent(iMouseMoveEvent_TMP &event);
+    bool onMouseMoveEvent(iEventMouseMove &event);
 };
 
 #endif // __EXAMPLE2D_H__

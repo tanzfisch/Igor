@@ -147,8 +147,13 @@ void OverlayLayer::renderOrtho()
 
 void OverlayLayer::onEvent(iEvent &event)
 {
+    if (event.getEventType() == iEventType::iEventNodeAddedToScene)
+    {
+        con_debug_endl("WorkspaceLayer " << event);
+    }
+
     event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(OverlayLayer::onKeyDown));
-    event.dispatch<iWindowResizeEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(OverlayLayer::onWindowResize));
+    event.dispatch<iEventWindowResize>(IGOR_BIND_EVENT_FUNCTION(OverlayLayer::onWindowResize));
 }
 
 bool OverlayLayer::onKeyDown(iKeyDownEvent_TMP &event)
@@ -182,7 +187,7 @@ bool OverlayLayer::onKeyDown(iKeyDownEvent_TMP &event)
     return false;
 }
 
-bool OverlayLayer::onWindowResize(iWindowResizeEvent_TMP &event)
+bool OverlayLayer::onWindowResize(iEventWindowResize &event)
 {
     _viewOrtho.setOrthogonal(0.0, static_cast<float32>(event.getWindow()->getClientWidth()),
                              static_cast<float32>(event.getWindow()->getClientHeight()), 0.0);

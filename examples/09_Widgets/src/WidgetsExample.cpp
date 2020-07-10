@@ -374,7 +374,8 @@ void WidgetsExample::onInit()
 void WidgetsExample::onDeinit()
 {
     // if dialog is still open close it now
-    if (_dialog->isOpen())
+    if (_dialog != nullptr &&
+        _dialog->isOpen())
     {
         _dialog->close();
     }
@@ -386,10 +387,10 @@ void WidgetsExample::onEvent(iEvent &event)
 {
     iLayerWidgets::onEvent(event);
 
-    event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WidgetsExample::onMouseMoveEvent));
+    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(WidgetsExample::onMouseMoveEvent));
 }
 
-bool WidgetsExample::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
+bool WidgetsExample::onMouseMoveEvent(iEventMouseMove &event)
 {
     // updates a label with current mouse position
     if (_labelMousePos != nullptr)

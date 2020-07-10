@@ -68,10 +68,9 @@ namespace igor
 	*/
 	iaEVENT(iKeyASCIIEvent, iKeyASCIIDelegate, (char c), (c));
 
-	/*! Handles windows events and triggers Igor events.
+	/*! Handles keyboard specific os events and triggers Igor events.
 
-	\todo unstable and incomplete
-	\todo this is not yet working right. problems start the moment you press more than one button at a time
+	It also stores key states for later use
 	*/
 	class Igor_API iKeyboard : public iOSEventListener, public iaSingleton<iKeyboard>
 	{

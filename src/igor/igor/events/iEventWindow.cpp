@@ -7,27 +7,22 @@
 namespace igor
 {
 
-    iWindowCloseEvent_TMP::iWindowCloseEvent_TMP(iWindow *window)
+    iEventWindowClose::iEventWindowClose(iWindow *window)
         : iEvent(window)
     {
     }
 
-    iEventKindMask iWindowCloseEvent_TMP::getEventKindMask() const
+    iEventWindowOpen::iEventWindowOpen(iWindow *window)
+        : iEvent(window)
     {
-        return (iEventKindMask)iEventKind::Window;
     }
 
-    iWindowResizeEvent_TMP::iWindowResizeEvent_TMP(iWindow *window, int32 width, int32 height)
+    iEventWindowResize::iEventWindowResize(iWindow *window, int32 width, int32 height)
         : iEvent(window), _width(width), _height(height)
     {
     }
 
-    iEventKindMask iWindowResizeEvent_TMP::getEventKindMask() const
-    {
-        return (iEventKindMask)iEventKind::Window;
-    }
-
-    const iaString iWindowResizeEvent_TMP::getInfo() const
+    const iaString iEventWindowResize::getInfo() const
     {
         std::wstringstream stream;
 
@@ -36,12 +31,12 @@ namespace igor
         return stream.str().c_str();
     }
 
-    int32 iWindowResizeEvent_TMP::getWidth() const
+    int32 iEventWindowResize::getWidth() const
     {
         return _width;
     }
 
-    int32 iWindowResizeEvent_TMP::getHeight() const
+    int32 iEventWindowResize::getHeight() const
     {
         return _height;
     }

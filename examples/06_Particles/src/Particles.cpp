@@ -474,7 +474,7 @@ void Particles::onEvent(iEvent &event)
     ExampleBase::onEvent(event);
 
     event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Particles::onKeyDown));
-    event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Particles::onMouseMoveEvent));
+    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(Particles::onMouseMoveEvent));
     event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Particles::onMouseWheelEvent));
 }
 
@@ -515,7 +515,7 @@ bool Particles::onKeyDown(iKeyDownEvent_TMP &event)
     return false;
 }
 
-bool Particles::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
+bool Particles::onMouseMoveEvent(iEventMouseMove &event)
 {
     if (iMouse::getInstance().getLeftButton())
     {

@@ -157,7 +157,7 @@ private:
     \param event the mouse move event
     \returns true if consumed
     */
-    bool onMouseMoveEvent(iMouseMoveEvent_TMP &event);
+    bool onMouseMoveEvent(iEventMouseMove &event);
 
     /*! called when key was pressed
 

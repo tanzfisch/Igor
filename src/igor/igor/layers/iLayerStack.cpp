@@ -22,6 +22,12 @@ namespace igor
 
     void iLayerStack::addLayer(iLayer *layer)
     {
+        con_assert(layer != nullptr, "zero pointer");
+        if (layer == nullptr)
+        {
+            return;
+        }
+
         _layers.push_back(layer);
 
         std::sort(_layers.begin(), _layers.end(), [](const iLayer *a, const iLayer *b) -> bool {
@@ -33,6 +39,12 @@ namespace igor
 
     void iLayerStack::removeLayer(iLayer *layer)
     {
+        con_assert(layer != nullptr, "zero pointer");
+        if (layer == nullptr)
+        {
+            return;
+        }
+
         auto iter = std::find(_layers.begin(), _layers.end(), layer);
         _layers.erase(iter);
 

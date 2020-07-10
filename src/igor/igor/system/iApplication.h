@@ -111,6 +111,8 @@ namespace igor
 
         adding a layer to the layer stack passes ownership to the layer stack
 
+        most layers assume to be added after the window was already opened and the renderer being ready to receive calls but layers can be added and removed any time
+
         \param layer the layer to be added
         */
         void addLayer(iLayer *layer);
@@ -123,11 +125,9 @@ namespace igor
         */
         void removeLayer(iLayer *layer);
 
-        /*! clears layer stack for given window
-
-        \param window the given window 
+        /*! clears layer stack
         */
-        void clearLayerStack(iWindow *window = nullptr);
+        void clearLayerStack();
 
         /*! creates window
 
@@ -146,19 +146,6 @@ namespace igor
         iWindow *getWindow(iWindowID windowID) const;
 
     private:
-        /*! internal window data structure
-        */
-        struct WindowData
-        {
-            /*! the window instance
-            */
-            iWindow *_window;
-
-            /*! layer stack
-            */
-            iLayerStack _layerStack;
-        };
-
         /*! queue of events
         */
         std::vector<iEventPtr> _eventQueue;
@@ -205,7 +192,7 @@ namespace igor
 
         /*! list of windows registered to the application
 		*/
-        std::map<iWindowID, WindowData> _windows;
+        std::vector<iWindowPtr> _windows;
 
         /*! additional layer stack for windowless applications
             */
@@ -221,13 +208,21 @@ namespace igor
 
         /*! handles events in the event queue
         */
-        void dispatchEventStack();
+        void dispatch();
+
+        /*! dispatch event on given layer stack
+
+        \param event the event to despatch
+        \param layerStack the given layer stack 
+        \returns true if event was consumed
+        */
+        bool dispatchOnStack(iEvent &event, iLayerStack &layerStack);
 
         /*! handles window close event
 
         \param event the window close event
         */
-        bool onWindowClose(iWindowCloseEvent_TMP &event);
+        bool onWindowClose(iEventWindowClose &event);
 
         /*! init profiling sections
         */

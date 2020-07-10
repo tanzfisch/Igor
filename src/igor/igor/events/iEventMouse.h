@@ -166,7 +166,7 @@ namespace igor
 
     /*! mouse move event
     */
-    class Igor_API iMouseMoveEvent_TMP : public iEvent
+    class Igor_API iEventMouseMove : public iEvent
     {
     public:
         /*! init members
@@ -175,7 +175,7 @@ namespace igor
         \param from the old mouse position
         \param to the new mouse position
         */
-        iMouseMoveEvent_TMP(iWindow *window, const iaVector2i &from, const iaVector2i &to);
+        iEventMouseMove(iWindow *window, const iaVector2i &from, const iaVector2i &to);
 
         /*! \returns event kind mask
         */
@@ -193,7 +193,7 @@ namespace igor
         */
         const iaVector2i &getLastPosition() const;
 
-        IGOR_EVENT_CLASS_TYPE(iMouseMoveEvent_TMP)
+        IGOR_EVENT_CLASS_TYPE(iEventMouseMove)
 
     private:
         /*! last mouse position

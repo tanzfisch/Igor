@@ -147,9 +147,14 @@ void WorkspaceLayer::frameOnSelection()
 
 void WorkspaceLayer::onEvent(iEvent &event)
 {
+    if (event.getEventType() == iEventType::iEventNodeAddedToScene)
+    {
+        con_debug_endl("WorkspaceLayer " << event);
+    }
+
     event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseKeyDownEvent));
     event.dispatch<iMouseKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseKeyUpEvent));
-    event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseMoveEvent));
+    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseMoveEvent));
     event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseWheelEvent));
     event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onKeyDown));
 }
@@ -222,7 +227,7 @@ bool WorkspaceLayer::onMouseKeyUpEvent(iMouseKeyUpEvent_TMP &event)
     return false;
 }
 
-bool WorkspaceLayer::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
+bool WorkspaceLayer::onMouseMoveEvent(iEventMouseMove &event)
 {
     const float64 rotateSensitivity = 0.0075;
     const float64 translateSensitivity = 1.0;

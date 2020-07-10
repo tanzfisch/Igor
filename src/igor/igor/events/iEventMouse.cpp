@@ -100,12 +100,12 @@ namespace igor
         return _wheelDelta;
     }
 
-    iMouseMoveEvent_TMP::iMouseMoveEvent_TMP(iWindow *window, const iaVector2i &from, const iaVector2i &to)
+    iEventMouseMove::iEventMouseMove(iWindow *window, const iaVector2i &from, const iaVector2i &to)
         : iEvent(window), _from(from), _to(to)
     {
     }
 
-    const iaString iMouseMoveEvent_TMP::getInfo() const
+    const iaString iEventMouseMove::getInfo() const
     {
         std::wstringstream stream;
         stream << getName().getData() << "[" << _from << " -> " << _to << "]";
@@ -113,17 +113,17 @@ namespace igor
         return stream.str().c_str();
     }
 
-    iEventKindMask iMouseMoveEvent_TMP::getEventKindMask() const
+    iEventKindMask iEventMouseMove::getEventKindMask() const
     {
         return (iEventKindMask)iEventKind::Input | (iEventKindMask)iEventKind::Mouse;
     }
 
-    const iaVector2i &iMouseMoveEvent_TMP::getPosition() const
+    const iaVector2i &iEventMouseMove::getPosition() const
     {
         return _to;
     }
 
-    const iaVector2i &iMouseMoveEvent_TMP::getLastPosition() const
+    const iaVector2i &iEventMouseMove::getLastPosition() const
     {
         return _from;
     }

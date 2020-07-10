@@ -57,12 +57,12 @@ namespace igor
 
     void iLayerWidgets::onEvent(iEvent &event)
     {
-        event.dispatch<iWindowResizeEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iLayerWidgets::onWindowResize));
+        event.dispatch<iEventWindowResize>(IGOR_BIND_EVENT_FUNCTION(iLayerWidgets::onWindowResize));
 
         iWidgetManager::getInstance().onEvent(event);
     }
 
-    bool iLayerWidgets::onWindowResize(iWindowResizeEvent_TMP &event)
+    bool iLayerWidgets::onWindowResize(iEventWindowResize &event)
     {
         _view.setOrthogonal(0.0, static_cast<float32>(event.getWindow()->getClientWidth()),
                             static_cast<float32>(event.getWindow()->getClientHeight()), 0.0);

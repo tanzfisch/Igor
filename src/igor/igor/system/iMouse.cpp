@@ -407,7 +407,7 @@ namespace igor
                     _moveFullEvent(_posLast, _pos, _window);
                     _moveEvent(_pos);
 
-                    iApplication::getInstance().onEvent(iEventPtr(new iMouseMoveEvent_TMP(_window, _posLast, _pos)));
+                    iApplication::getInstance().onEvent(iEventPtr(new iEventMouseMove(_window, _posLast, _pos)));
                 }
             }
             break;

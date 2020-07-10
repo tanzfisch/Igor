@@ -9,15 +9,19 @@ int main(void)
 	// call this before you call anything else of Igor
 	igor::startup();
 
-	// create window an let the layer example code control it
+	// create window and open it
 	iWindow *window = igor::iApplication::getInstance().createWindow();
+	window->setClientSize(1024, 768);
+	window->setCentered();
+	window->open();
 
 	// create example and add it as layer to the application
 	igor::iApplication::getInstance().addLayer(new Example2D(window));
 	igor::iApplication::getInstance().addLayer(new iLayerProfiler(window));
 	igor::iApplication::getInstance().run();
+	iApplication::getInstance().clearLayerStack();
 
-	// destroying a window also destroys all related layers
+	// destroy window
 	igor::iApplication::getInstance().destroyWindow(window);
 
 	// call this after you are done with using Igor

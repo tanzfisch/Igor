@@ -319,7 +319,7 @@ void VoxelExample::onEvent(iEvent &event)
     ExampleBase::onEvent(event);
 
     event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(VoxelExample::onKeyDown));
-    event.dispatch<iMouseMoveEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(VoxelExample::onMouseMoveEvent));
+    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(VoxelExample::onMouseMoveEvent));
 }
 
 bool VoxelExample::onKeyDown(iKeyDownEvent_TMP &event)
@@ -338,7 +338,7 @@ bool VoxelExample::onKeyDown(iKeyDownEvent_TMP &event)
     return false;
 }
 
-bool VoxelExample::onMouseMoveEvent(iMouseMoveEvent_TMP &event)
+bool VoxelExample::onMouseMoveEvent(iEventMouseMove &event)
 {
     const auto from = event.getLastPosition();
     const auto to = event.getPosition();

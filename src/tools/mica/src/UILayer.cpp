@@ -389,21 +389,33 @@ void UILayer::onPreDraw()
 
 void UILayer::onEvent(iEvent &event)
 {
+    if (event.getEventType() == iEventType::iEventNodeAddedToScene)
+    {
+        con_debug_endl("WorkspaceLayer " << event);
+    }
+
     iLayerWidgets::onEvent(event);
 
     event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(UILayer::onKeyDown));
     event.dispatch<iEventNodeAddedToScene>(IGOR_BIND_EVENT_FUNCTION(UILayer::onNodeAddedToScene));
+
+    if (event.getEventType() == iEventType::iEventNodeAddedToScene)
+    {
+        con_debug_endl("WorkspaceLayer " << event << (event.isConsumed() ? "consumed" : ""));
+    }
     event.dispatch<iEventNodeRemovedFromScene>(IGOR_BIND_EVENT_FUNCTION(UILayer::onNodeRemovedFromScene));
 }
 
 bool UILayer::onNodeAddedToScene(iEventNodeAddedToScene &event)
 {
+    con_endl("onNodeAddedToScene");
     _refresh = true;
     return false;
 }
 
 bool UILayer::onNodeRemovedFromScene(iEventNodeRemovedFromScene &event)
 {
+    con_endl("onNodeRemovedFromScene");
     _refresh = true;
     return false;
 }

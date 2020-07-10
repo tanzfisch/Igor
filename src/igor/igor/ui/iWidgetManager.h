@@ -316,7 +316,7 @@ namespace igor
         \param event the mouse move event
         \returns true if consumed
         */
-        bool onMouseMoveEvent(iMouseMoveEvent_TMP &event);
+        bool onMouseMoveEvent(iEventMouseMove &event);
 
         /*! handles mouse wheel event
 
@@ -330,7 +330,7 @@ namespace igor
         \param event the window resize event
         \returns true if consumed
         */
-        bool onWindowResize(iWindowResizeEvent_TMP &event);
+        bool onWindowResize(iEventWindowResize &event);
 
         /*! init
         */

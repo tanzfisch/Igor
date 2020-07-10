@@ -37,26 +37,42 @@ namespace igor
     class iWindow;
 
     /*! window close event
+
+    called after window was closed
     */
-    class Igor_API iWindowCloseEvent_TMP : public iEvent
+    class Igor_API iEventWindowClose : public iEvent
     {
     public:
         /*! init members
 
         \param window the window that was closed
         */
-        iWindowCloseEvent_TMP(iWindow *window);
+        iEventWindowClose(iWindow *window);
 
-        /*! \returns event kind mask
+        IGOR_EVENT_CLASS_TYPE(iEventWindowClose)
+        IGOR_EVENT_KIND_MASK((iEventKindMask)iEventKind::Window)
+    };
+
+    /*! window open event
+
+    called after window was opened
+    */
+    class Igor_API iEventWindowOpen : public iEvent
+    {
+    public:
+        /*! init members
+
+        \param window the window that was opened
         */
-        iEventKindMask getEventKindMask() const override;
+        iEventWindowOpen(iWindow *window);
 
-        IGOR_EVENT_CLASS_TYPE(iWindowCloseEvent_TMP)
+        IGOR_EVENT_CLASS_TYPE(iEventWindowOpen)
+        IGOR_EVENT_KIND_MASK((iEventKindMask)iEventKind::Window)
     };
 
     /*! window resize event
     */
-    class Igor_API iWindowResizeEvent_TMP : public iEvent
+    class Igor_API iEventWindowResize : public iEvent
     {
     public:
         /*! init members
@@ -65,15 +81,11 @@ namespace igor
         \param width width of the window
         \param height height of the window
         */
-        iWindowResizeEvent_TMP(iWindow *window, int32 width, int32 height);
+        iEventWindowResize(iWindow *window, int32 width, int32 height);
 
         /*! \returns information to event
         */
         virtual const iaString getInfo() const override;
-
-        /*! \returns event kind mask
-        */
-        iEventKindMask getEventKindMask() const override;
 
         /*! \returns width of the window
         */
@@ -83,7 +95,8 @@ namespace igor
         */
         int32 getHeight() const;
 
-        IGOR_EVENT_CLASS_TYPE(iWindowResizeEvent_TMP)
+        IGOR_EVENT_CLASS_TYPE(iEventWindowResize)
+        IGOR_EVENT_KIND_MASK((iEventKindMask)iEventKind::Window)
 
     private:
         /*! width of the window
