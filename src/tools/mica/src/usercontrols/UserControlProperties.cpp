@@ -53,51 +53,45 @@ void UserControlProperties::initGUI()
 
 void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
 {
-	iNodeTransform* node = nullptr;
-
 	switch (_propertyType)
 	{
 	case PropertyType::Node:
-		node = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(static_cast<uint32>(_propertyID)));
-		if (node != nullptr)
+		switch (_currentNodeType)
 		{
-			switch (_currentNodeType)
-			{
-			case iNodeType::iNodeTransform:
-				deinitTransformNode();
-				break;
+		case iNodeType::iNodeTransform:
+			deinitTransformNode();
+			break;
 
-			case iNodeType::iNodeLight:
-				deinitLightNode();
-				break;
+		case iNodeType::iNodeLight:
+			deinitLightNode();
+			break;
 
-			case iNodeType::iNodeMesh:
-				deinitMeshNode();
-				break;
+		case iNodeType::iNodeMesh:
+			deinitMeshNode();
+			break;
 
-			case iNodeType::iNodeModel:
-				deinitModel();
-				break;
+		case iNodeType::iNodeModel:
+			deinitModel();
+			break;
 
-			case iNodeType::iNodeEmitter:
-				deinitEmitter();
-				break;
+		case iNodeType::iNodeEmitter:
+			deinitEmitter();
+			break;
 
-			case iNodeType::iNodeParticleSystem:
-				deinitParticleSystem();
-				break;
-			}
+		case iNodeType::iNodeParticleSystem:
+			deinitParticleSystem();
+			break;
+		}
 
-			_currentNodeType = iNodeType::Undefined;
+		_currentNodeType = iNodeType::Undefined;
 
-			if (_userControlNode != nullptr)
-			{
-				_grid->removeWidget(_userControlNode);
-				_userControlNode->unregisterNameChangeDelegate(NameChangedDelegate(this, &UserControlProperties::onNameChanged));
-				
-				delete _userControlNode;
-				_userControlNode = nullptr;
-			}
+		if (_userControlNode != nullptr)
+		{
+			_grid->removeWidget(_userControlNode);
+			_userControlNode->unregisterNameChangeDelegate(NameChangedDelegate(this, &UserControlProperties::onNameChanged));
+
+			delete _userControlNode;
+			_userControlNode = nullptr;
 		}
 		break;
 
@@ -119,7 +113,7 @@ void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
 	switch (_propertyType)
 	{
 	case PropertyType::Node:
-		node = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_propertyID));
+		iNodePtr node = iNodeManager::getInstance().getNode(_propertyID);
 		if (node != nullptr)
 		{
 			_currentNodeType = node->getType();
@@ -179,8 +173,6 @@ void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
 	default:
 		con_err("unknown type");
 	}
-
-
 }
 
 void UserControlProperties::onNameChanged()
