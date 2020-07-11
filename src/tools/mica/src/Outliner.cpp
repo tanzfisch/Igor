@@ -308,20 +308,6 @@ void Outliner::onAddMaterial()
     _addMaterial();
 }
 
-/*void Outliner::setRootNode(iNodePtr root)
-{
-    con_assert(root != nullptr, "zero pointer");
-
-    if (root != nullptr)
-    {
-        _rootNodeID = root->getID();
-        if (_userControlGraphView != nullptr)
-        {
-            _userControlGraphView->setRootNode(_rootNodeID);
-        }
-    }
-}*/
-
 void Outliner::refresh()
 {
     if (_userControlGraphView != nullptr)
