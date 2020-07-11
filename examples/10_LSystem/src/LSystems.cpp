@@ -280,7 +280,7 @@ void LSystems::onEvent(iEvent &event)
 	// first call example base
 	ExampleBase::onEvent(event);
 
-	event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(LSystems::onKeyDown));
+	event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(LSystems::onKeyDown));
 	event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(LSystems::onMouseMoveEvent));
 	event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(LSystems::onMouseWheelEvent));
 }
@@ -327,7 +327,7 @@ bool LSystems::onMouseMoveEvent(iEventMouseMove &event)
 	return false;
 }
 
-bool LSystems::onKeyDown(iKeyDownEvent_TMP &event)
+bool LSystems::onKeyDown(iEventKeyDown &event)
 {
 	switch (event.getKey())
 	{

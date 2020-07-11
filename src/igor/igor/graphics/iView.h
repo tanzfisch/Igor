@@ -70,11 +70,11 @@ namespace igor
 
         \param scene scene to be rendered
         */
-        void setScene(iScene *scene);
+        void setScene(iScenePtr scene);
 
         /*! \returns scene to be rendered with this view
         */
-        iScene *getScene();
+        iScenePtr getScene();
 
         /*! sets name of view
 
@@ -284,7 +284,7 @@ namespace igor
 
         /*! scene that is currently bound with this view
         */
-        iScene *_scene = nullptr;
+        iScenePtr _scene = nullptr;
 
         /*! size of parenting window in pixel
         */

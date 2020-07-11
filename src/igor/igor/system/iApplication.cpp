@@ -20,6 +20,14 @@ using namespace iaux;
 namespace igor
 {
 
+    iApplication::iApplication()
+    {
+        for (auto &value : _blockedEvents)
+        {
+            value = false;
+        }
+    }
+
     iApplication::~iApplication()
     {
         if (!_windows.empty())
@@ -40,8 +48,28 @@ namespace igor
         }
     }
 
+    bool iApplication::isBlockedEvent(iEventType eventType)
+    {
+        return _blockedEvents[(int)eventType];
+    }
+
+    void iApplication::unblockEvent(iEventType eventType)
+    {
+        _blockedEvents[(int)eventType] = false;
+    }
+
+    void iApplication::blockEvent(iEventType eventType)
+    {
+        _blockedEvents[(int)eventType] = true;
+    }
+
     void iApplication::onEvent(iEventPtr event)
     {
+        if (_blockedEvents[(int)event->getEventType()])
+        {
+            return;
+        }
+
         _eventQueueMutex.lock();
         _eventQueue.push_back(event);
         _eventQueueMutex.unlock();

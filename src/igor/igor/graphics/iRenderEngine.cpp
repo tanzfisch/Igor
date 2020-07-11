@@ -149,12 +149,12 @@ namespace igor
         return _showOctree;
     }
 
-    void iRenderEngine::setScene(iScene *scene)
+    void iRenderEngine::setScene(iScenePtr scene)
     {
         _scene = scene;
     }
 
-    iScene *iRenderEngine::getScene()
+    iScenePtr iRenderEngine::getScene()
     {
         return _scene;
     }

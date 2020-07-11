@@ -35,7 +35,7 @@ using namespace iaux;
 #include "MuzzleFlash.h"
 #include "../Ascent.h"
 
-Player::Player(iScene *scene, iView *view, const iaMatrixd &matrix)
+Player::Player(iScenePtr scene, iView *view, const iaMatrixd &matrix)
     : GameObject(Fraction::Blue, GameObjectType::Vehicle)
 {
     _scene = scene;

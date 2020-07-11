@@ -56,7 +56,7 @@ private:
 
     \param event the event to handle
     */
-    bool onKeyDown(iKeyDownEvent_TMP &event);
+    bool onKeyDown(iEventKeyDown &event);
 
     /*! called when key was released
 

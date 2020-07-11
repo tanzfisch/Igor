@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR__
-#define __IGOR__
+#ifndef __IGOR_H__
+#define __IGOR_H__
 
 // igor includes
 #include <igor/audio/iAudio.h>
@@ -191,4 +191,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_H__

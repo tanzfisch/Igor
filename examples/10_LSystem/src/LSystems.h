@@ -174,7 +174,7 @@ private:
 
     \param event the event to handle
     */
-    bool onKeyDown(iKeyDownEvent_TMP &event);
+    bool onKeyDown(iEventKeyDown &event);
 };
 
 #endif // __LSYSTEMSEXAMPLE_H__

@@ -58,4 +58,23 @@ namespace igor
         return _nodeID;
     }
 
+    iEventSceneSelectionChanged::iEventSceneSelectionChanged(iScenePtr scene)
+        : iEvent(nullptr), _scene(scene)
+    {
+    }
+
+    const iaString iEventSceneSelectionChanged::getInfo() const
+    {
+        std::wstringstream stream;
+
+        stream << getName().getData() << "[" << _scene->getName() << "]";
+
+        return stream.str().c_str();
+    }
+
+    iScenePtr iEventSceneSelectionChanged::getScene() const
+    {
+        return _scene;
+    }
+
 } // namespace igor

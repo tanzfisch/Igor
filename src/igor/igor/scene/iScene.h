@@ -116,6 +116,18 @@ namespace igor
 		*/
 		void addToDataUpdateQueue(iNodePtr node);
 
+		/*! \returns list of selected nodes
+		*/
+		const std::vector<iNodeID> &getSelection() const;
+
+		/*! sets the current selection
+		*/
+		void setSelection(const std::vector<iNodeID> &selection);
+
+		/*! clear current selection
+		*/
+		void clearSelection();
+
 	private:
 		/*! id for statistics counter handle
 		*/
@@ -192,6 +204,10 @@ namespace igor
 		/*! transformation update visitor
 		*/
 		iNodeVisitorUpdateTransform _updateTransformVisitor;
+
+		/*! currently selected nodes
+		*/
+		std::vector<iNodeID> _selectedNodes;
 
 		/*! handles dirty data ans tries to update it
 		*/
@@ -302,7 +318,7 @@ namespace igor
 
 	/*! scene pointer definition
 	*/
-	typedef iScene *iScenePtr;
+	typedef iScenePtr iScenePtr;
 
 }; // namespace igor
 

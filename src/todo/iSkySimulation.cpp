@@ -15,7 +15,7 @@
 namespace Igor
 {
 
-	iSkySimulation::iSkySimulation(iScene *scene)
+	iSkySimulation::iSkySimulation(iScenePtr scene)
 	{
 		this->scene = scene;
 

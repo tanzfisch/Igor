@@ -41,7 +41,7 @@ private:
 
     iTextureFont *_font = nullptr;
 
-    iScene *_scene = nullptr;
+    iScenePtr _scene = nullptr;
 
     uint64 _toolSize = 3;
     uint8 _toolDensity = 0;
@@ -135,7 +135,7 @@ private:
 
     \param event the event to handle
     */
-    bool onKeyDown(iKeyDownEvent_TMP &event);
+    bool onKeyDown(iEventKeyDown &event);
 
     /*! called when key was released
 

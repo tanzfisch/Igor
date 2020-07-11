@@ -473,12 +473,12 @@ void Particles::onEvent(iEvent &event)
     // first call example base
     ExampleBase::onEvent(event);
 
-    event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Particles::onKeyDown));
+    event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(Particles::onKeyDown));
     event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(Particles::onMouseMoveEvent));
     event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Particles::onMouseWheelEvent));
 }
 
-bool Particles::onKeyDown(iKeyDownEvent_TMP &event)
+bool Particles::onKeyDown(iEventKeyDown &event)
 {
     switch (event.getKey())
     {

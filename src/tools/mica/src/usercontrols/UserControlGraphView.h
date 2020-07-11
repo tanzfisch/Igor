@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLGRAPHVIEW__
-#define __USERCONTROLGRAPHVIEW__
+#ifndef __USERCONTROLGRAPHVIEW_H__
+#define __USERCONTROLGRAPHVIEW_H__
 
 #include <igor/igor.h>
 using namespace igor;
@@ -123,4 +123,4 @@ private:
     void postTraverse() override;
 };
 
-#endif
+#endif // __USERCONTROLGRAPHVIEW_H__

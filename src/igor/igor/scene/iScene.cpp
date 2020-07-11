@@ -361,4 +361,27 @@ namespace igor
 		iApplication::getInstance().onEvent(iEventPtr(new iEventNodeRemovedFromScene(this, node->getID())));
 	}
 
+	const std::vector<iNodeID> &iScene::getSelection() const
+	{
+		return _selectedNodes;
+	}
+
+	void iScene::setSelection(const std::vector<iNodeID> &selection)
+	{
+		if (_selectedNodes != selection)
+		{
+			_selectedNodes = selection;
+			iApplication::getInstance().onEvent(iEventPtr(new iEventSceneSelectionChanged(this)));
+		}
+	}
+
+	void iScene::clearSelection()
+	{
+		if (!_selectedNodes.empty())
+		{
+			_selectedNodes.clear();
+			iApplication::getInstance().onEvent(iEventPtr(new iEventSceneSelectionChanged(this)));
+		}
+	}
+
 }; // namespace igor

@@ -8,17 +8,17 @@
 namespace igor
 {
 
-    iKeyDownEvent_TMP::iKeyDownEvent_TMP(iWindow *window, const iKeyCode key)
+    iEventKeyDown::iEventKeyDown(iWindow *window, const iKeyCode key)
         : iEvent(window), _key(key)
     {
     }
 
-    iEventKindMask iKeyDownEvent_TMP::getEventKindMask() const
+    iEventKindMask iEventKeyDown::getEventKindMask() const
     {
         return (iEventKindMask)iEventKind::Input | (iEventKindMask)iEventKind::Keyboard;
     }
 
-    const iaString iKeyDownEvent_TMP::getInfo() const
+    const iaString iEventKeyDown::getInfo() const
     {
         std::wstringstream stream;
         stream << getName().getData() << "[" << _key << "]";
@@ -26,7 +26,7 @@ namespace igor
         return stream.str().c_str();
     }
 
-    iKeyCode iKeyDownEvent_TMP::getKey() const
+    iKeyCode iEventKeyDown::getKey() const
     {
         return _key;
     }

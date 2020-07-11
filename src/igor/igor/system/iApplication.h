@@ -38,6 +38,7 @@
 using namespace iaux;
 
 #include <vector>
+#include <array>
 
 namespace igor
 {
@@ -129,6 +130,24 @@ namespace igor
         */
         void clearLayerStack();
 
+        /*! \returns true if given event type is blocked
+
+        \param eventType the given event type
+        */
+        bool isBlockedEvent(iEventType eventType);
+
+        /*! unblocks the given event type
+
+        \param eventType the given event type
+        */
+        void unblockEvent(iEventType eventType);
+
+        /*! blocks the given event type
+
+        \param eventType the given event type
+        */
+        void blockEvent(iEventType eventType);
+
         /*! creates window
 
         \returns window id
@@ -149,6 +168,10 @@ namespace igor
         /*! queue of events
         */
         std::vector<iEventPtr> _eventQueue;
+
+        /*! blocked events list
+        */
+        std::array<bool, (int)iEventType::iEventTypeCount> _blockedEvents;
 
         /*! securing the event queue
         */
@@ -244,13 +267,11 @@ namespace igor
         */
         void iterate();
 
-        /*! does nothing
+        /*! init members
 		*/
-        iApplication() = default;
+        iApplication();
 
-        /*! dtor
-
-		does nothing
+        /*! clean up
 		*/
         virtual ~iApplication();
     };

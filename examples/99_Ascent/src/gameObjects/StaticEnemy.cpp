@@ -26,7 +26,7 @@ using namespace iaux;
 #include "EnemyDestroyed.h"
 #include "../Ascent.h"
 
-StaticEnemy::StaticEnemy(iScene *scene, iVoxelTerrain *voxelTerrain, const iaMatrixd &matrix, uint64 playerID)
+StaticEnemy::StaticEnemy(iScenePtr scene, iVoxelTerrain *voxelTerrain, const iaMatrixd &matrix, uint64 playerID)
     : GameObject(Fraction::Red, GameObjectType::Vehicle)
 {
     _playerID = playerID;

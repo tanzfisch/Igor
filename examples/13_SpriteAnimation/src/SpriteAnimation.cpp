@@ -103,11 +103,11 @@ void SpriteAnimation::onEvent(iEvent &event)
 	// first call example base
 	ExampleBase::onEvent(event);
 
-	event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(SpriteAnimation::onKeyDown));
+	event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(SpriteAnimation::onKeyDown));
 	event.dispatch<iKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(SpriteAnimation::onKeyUp));
 }
 
-bool SpriteAnimation::onKeyDown(iKeyDownEvent_TMP &event)
+bool SpriteAnimation::onKeyDown(iEventKeyDown &event)
 {
 	switch (event.getKey())
 	{

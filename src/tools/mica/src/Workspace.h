@@ -113,10 +113,6 @@ private:
     */
     iNodePtr _rootMica = nullptr;
 
-    /*! currently selected nodes
-	*/
-    std::vector<iNodeID> _selectedNodes;
-
     /*! nodes that have been marked to be cut so they can be pasted later
     */
     std::vector<iNodeID> _cutNodes;

@@ -44,7 +44,7 @@ namespace igor
     */
     enum class iEventType
     {
-        iKeyDownEvent_TMP,
+        iEventKeyDown,
         iKeyUpEvent_TMP,
         iKeyASCIIEvent_TMP,
 
@@ -59,7 +59,11 @@ namespace igor
         iEventWindowResize,
 
         iEventNodeAddedToScene,
-        iEventNodeRemovedFromScene
+        iEventNodeRemovedFromScene,
+        iEventSceneSelectionChanged,
+
+        // has be stay last
+        iEventTypeCount
     };
 
     /*! event kind definition

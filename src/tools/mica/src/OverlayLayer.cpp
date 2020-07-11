@@ -152,11 +152,11 @@ void OverlayLayer::onEvent(iEvent &event)
         con_debug_endl("WorkspaceLayer " << event);
     }
 
-    event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(OverlayLayer::onKeyDown));
+    event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(OverlayLayer::onKeyDown));
     event.dispatch<iEventWindowResize>(IGOR_BIND_EVENT_FUNCTION(OverlayLayer::onWindowResize));
 }
 
-bool OverlayLayer::onKeyDown(iKeyDownEvent_TMP &event)
+bool OverlayLayer::onKeyDown(iEventKeyDown &event)
 {
     switch (event.getKey())
     {

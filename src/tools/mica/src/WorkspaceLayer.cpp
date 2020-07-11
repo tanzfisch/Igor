@@ -156,10 +156,10 @@ void WorkspaceLayer::onEvent(iEvent &event)
     event.dispatch<iMouseKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseKeyUpEvent));
     event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseMoveEvent));
     event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseWheelEvent));
-    event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onKeyDown));
+    event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onKeyDown));
 }
 
-bool WorkspaceLayer::onKeyDown(iKeyDownEvent_TMP &event)
+bool WorkspaceLayer::onKeyDown(iEventKeyDown &event)
 {
     switch (event.getKey())
     {

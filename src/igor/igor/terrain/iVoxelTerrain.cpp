@@ -104,7 +104,7 @@ namespace igor
         _operationsQueueMutex.unlock();
     }
 
-    void iVoxelTerrain::setScene(iScene *scene)
+    void iVoxelTerrain::setScene(iScenePtr scene)
     {
         con_assert(scene != nullptr, "zero pointer");
         con_assert(_rootNode == nullptr, "already initialized");

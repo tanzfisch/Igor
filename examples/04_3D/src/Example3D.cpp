@@ -192,10 +192,10 @@ void Example3D::onEvent(iEvent &event)
     event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(Example3D::onMouseKeyDownEvent));
     event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(Example3D::onMouseMoveEvent));
     event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Example3D::onMouseWheelEvent));
-    event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Example3D::onKeyDown));
+    event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(Example3D::onKeyDown));
 }
 
-bool Example3D::onKeyDown(iKeyDownEvent_TMP &event)
+bool Example3D::onKeyDown(iEventKeyDown &event)
 {
     switch (event.getKey())
     {

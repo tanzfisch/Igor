@@ -38,7 +38,7 @@ namespace igor
 
     /*! key down event
     */
-    class Igor_API iKeyDownEvent_TMP : public iEvent
+    class Igor_API iEventKeyDown : public iEvent
     {
     public:
         /*! init members
@@ -46,7 +46,7 @@ namespace igor
         \param window the window this event came from
         \param key the key code used in this event
         */
-        iKeyDownEvent_TMP(iWindow *window, const iKeyCode key);
+        iEventKeyDown(iWindow *window, const iKeyCode key);
 
         /*! \returns event kind mask
         */
@@ -60,7 +60,7 @@ namespace igor
         */
         iKeyCode getKey() const;
 
-        IGOR_EVENT_CLASS_TYPE(iKeyDownEvent_TMP)
+        IGOR_EVENT_CLASS_TYPE(iEventKeyDown)
 
     private:
         /*! the key code

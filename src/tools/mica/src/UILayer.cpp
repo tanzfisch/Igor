@@ -335,26 +335,27 @@ void UILayer::onFileLoadDialogClosed(iDialogPtr dialog)
     _propertiesDialog->setActive();
     _propertiesDialog->setVisible();
 
-    // TODO_outliner->setSelectedNode(nullptr);
-
     delete _fileDialog;
     _fileDialog = nullptr;
 }
 
 void UILayer::onGraphViewSelectionChanged(uint64 nodeID)
 {
-    /*    _selectedNodeID = nodeID;
-    _manipulator->setNodeID(_selectedNodeID);
-    resetManipulatorMode();
+    iApplication::getInstance().blockEvent(iEventType::iEventSceneSelectionChanged);
+    _workspace->setSelection(std::vector<iNodeID>() = {nodeID});
+    iApplication::getInstance().unblockEvent(iEventType::iEventSceneSelectionChanged);
 
-    // todo caching?
+    //    _manipulator->setNodeID(_selectedNodeID);
+    //  resetManipulatorMode();
+
+    /*    // todo caching?
     if (_widget3D != nullptr)
     {
         delete _widget3D;
         _widget3D = nullptr;
-    }
+    }*/
 
-    iNode *node = iNodeManager::getInstance().getNode(_selectedNodeID);
+    /*    iNode *node = iNodeManager::getInstance().getNode(_selectedNodeID);
     if (node)
     {
         switch (node->getType())
@@ -389,38 +390,33 @@ void UILayer::onPreDraw()
 
 void UILayer::onEvent(iEvent &event)
 {
-    if (event.getEventType() == iEventType::iEventNodeAddedToScene)
-    {
-        con_debug_endl("WorkspaceLayer " << event);
-    }
-
     iLayerWidgets::onEvent(event);
 
-    event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(UILayer::onKeyDown));
+    event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(UILayer::onKeyDown));
     event.dispatch<iEventNodeAddedToScene>(IGOR_BIND_EVENT_FUNCTION(UILayer::onNodeAddedToScene));
-
-    if (event.getEventType() == iEventType::iEventNodeAddedToScene)
-    {
-        con_debug_endl("WorkspaceLayer " << event << (event.isConsumed() ? "consumed" : ""));
-    }
     event.dispatch<iEventNodeRemovedFromScene>(IGOR_BIND_EVENT_FUNCTION(UILayer::onNodeRemovedFromScene));
+    event.dispatch<iEventSceneSelectionChanged>(IGOR_BIND_EVENT_FUNCTION(UILayer::onSceneSelectionChanged));
 }
 
 bool UILayer::onNodeAddedToScene(iEventNodeAddedToScene &event)
 {
-    con_endl("onNodeAddedToScene");
     _refresh = true;
     return false;
 }
 
 bool UILayer::onNodeRemovedFromScene(iEventNodeRemovedFromScene &event)
 {
-    con_endl("onNodeRemovedFromScene");
     _refresh = true;
     return false;
 }
 
-bool UILayer::onKeyDown(iKeyDownEvent_TMP &event)
+bool UILayer::onSceneSelectionChanged(iEventSceneSelectionChanged &event)
+{
+    _refresh = true;
+    return false;
+}
+
+bool UILayer::onKeyDown(iEventKeyDown &event)
 {
     switch (event.getKey())
     {
@@ -477,7 +473,7 @@ bool UILayer::onKeyDown(iKeyDownEvent_TMP &event)
         _workspace->deleteSelected();
         return true;
 
-    case iKeyCode::F:
+    case iKeyCode::Space:
         if (iKeyboard::getInstance().getKey(iKeyCode::LControl))
         {
             if (_outliner->isActive() && _outliner->isVisible())

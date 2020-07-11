@@ -54,7 +54,7 @@ public:
 	\param scene the scene to use for the 3d widget
 	\param nodeID id of the node to represent
 	*/
-	Widget3DEmitter(iWindow *window, iView *view, iScene *scene);
+	Widget3DEmitter(iWindow *window, iView *view, iScenePtr scene);
 
 	/*! cleanup
 	*/

@@ -26,18 +26,16 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iSCENEFACTORY__
-#define __iSCENEFACTORY__
+#ifndef __IGOR_SCENEFACTORY_H__
+#define __IGOR_SCENEFACTORY_H__
 
-#include <igor/iDefines.h>
+#include <igor/scene/iScene.h>
 
 #include <iaux/system/iaSingleton.h>
 using namespace iaux;
 
 namespace igor
 {
-
-    class iScene;
 
     /*! class that creates and destroys instances of scenes 
     */
@@ -50,13 +48,13 @@ namespace igor
 
 		\returns pointer to new scene
 		*/
-        iScene *createScene();
+        iScenePtr createScene();
 
         /*! releases a scene
 
 		\param scene pointer to scene to be released
 		*/
-        void destroyScene(iScene *scene);
+        void destroyScene(iScenePtr scene);
 
     private:
         /*! keeps track on how many scenes where alocated
@@ -71,6 +69,7 @@ namespace igor
         */
         ~iSceneFactory();
     };
+
 } // namespace igor
 
-#endif
+#endif // __IGOR_SCENEFACTORY_H__

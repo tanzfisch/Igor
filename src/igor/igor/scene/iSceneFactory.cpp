@@ -20,14 +20,14 @@ namespace igor
         }
     }
 
-    iScene *iSceneFactory::createScene()
+    iScenePtr iSceneFactory::createScene()
     {
         sceneCount++;
 
         return new iScene();
     }
 
-    void iSceneFactory::destroyScene(iScene *scene)
+    void iSceneFactory::destroyScene(iScenePtr scene)
     {
         con_assert(scene != nullptr, "zero pointer");
 

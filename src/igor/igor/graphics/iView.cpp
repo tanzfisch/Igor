@@ -296,13 +296,13 @@ namespace igor
         _viewport.setHeight(_viewportConfig.getHeight() * static_cast<float32>(_windowRect.getHeight()) + 0.5f);
     }
 
-    void iView::setScene(iScene *scene)
+    void iView::setScene(iScenePtr scene)
     {
         _scene = scene;
         _renderEngine.setScene(_scene);
     }
 
-    iScene *iView::getScene()
+    iScenePtr iView::getScene()
     {
         return _scene;
     }

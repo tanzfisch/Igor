@@ -25,7 +25,7 @@ void KeyboardExample::onEvent(iEvent &event)
 	ExampleBase::onEvent(event);
 
 	event.dispatch<iKeyASCIIEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(KeyboardExample::onKeyASCIIInput));
-	event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(KeyboardExample::onKeyDown));
+	event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(KeyboardExample::onKeyDown));
 	event.dispatch<iKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(KeyboardExample::onKeyUp));
 }
 
@@ -40,7 +40,7 @@ bool KeyboardExample::onKeyASCIIInput(iKeyASCIIEvent_TMP &event)
 	return false;
 }
 
-bool KeyboardExample::onKeyDown(iKeyDownEvent_TMP &event)
+bool KeyboardExample::onKeyDown(iEventKeyDown &event)
 {
 	if (_outputSwitch)
 	{

@@ -51,19 +51,19 @@ void Workspace::duplicateSelected()
 
 void Workspace::cutSelected()
 {
-    _cutNodes = _selectedNodes;
+    _cutNodes = _scene->getSelection();
     _copiedNodes.clear();
 }
 
 void Workspace::copySelected()
 {
-    _copiedNodes = _selectedNodes;
+    _copiedNodes = _scene->getSelection();
     _cutNodes.clear();
 }
 
 void Workspace::deleteSelected()
 {
-    for (auto nodeID : _selectedNodes)
+    for (auto nodeID : _scene->getSelection())
     {
         iNodePtr node = iNodeManager::getInstance().getNode(nodeID);
         if (node == nullptr)
@@ -73,11 +73,13 @@ void Workspace::deleteSelected()
 
         iNodeManager::getInstance().destroyNodeAsync(node);
     }
+
+    clearSelection();
 }
 
 void Workspace::pasteSelected()
 {
-    if (_selectedNodes.size() > 1)
+    if (_scene->getSelection().size() > 1)
     {
         return;
     }
@@ -98,9 +100,9 @@ void Workspace::pasteSelected()
             newSelection.push_back(newNode->getID());
 
             iNodePtr destination = nullptr;
-            if (!_selectedNodes.empty())
+            if (!_scene->getSelection().empty())
             {
-                iNodePtr destination = iNodeManager::getInstance().getNode(_selectedNodes[0]);
+                iNodePtr destination = iNodeManager::getInstance().getNode(_scene->getSelection()[0]);
             }
 
             if (destination == nullptr)
@@ -112,7 +114,7 @@ void Workspace::pasteSelected()
         }
 
         _copiedNodes.clear();
-        _selectedNodes = newSelection;
+        _scene->setSelection(newSelection);
     }
     else if (!_cutNodes.empty())
     {
@@ -126,9 +128,9 @@ void Workspace::pasteSelected()
             }
 
             iNodePtr destination = nullptr;
-            if (!_selectedNodes.empty())
+            if (!_scene->getSelection().empty())
             {
-                iNodePtr destination = iNodeManager::getInstance().getNode(_selectedNodes[0]);
+                iNodePtr destination = iNodeManager::getInstance().getNode(_scene->getSelection()[0]);
             }
 
             if (destination == nullptr)
@@ -213,20 +215,20 @@ void Workspace::clear()
 
 const std::vector<iNodeID> &Workspace::getSelection() const
 {
-    return _selectedNodes;
+    return _scene->getSelection();
 }
 
 void Workspace::setSelection(const std::vector<iNodeID> &selection)
 {
-    _selectedNodes = selection;
+    _scene->setSelection(selection);
 }
 
 void Workspace::clearSelection()
 {
-    _selectedNodes.clear();
+    _scene->clearSelection();
 }
 
-iScene *Workspace::getScene() const
+iScenePtr Workspace::getScene() const
 {
     return _scene;
 }

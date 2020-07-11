@@ -182,12 +182,12 @@ void PhysicsExample::onEvent(iEvent &event)
     // first call example base
     ExampleBase::onEvent(event);
 
-    event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(PhysicsExample::onKeyDown));
+    event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(PhysicsExample::onKeyDown));
     event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(PhysicsExample::onMouseMoveEvent));
     event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(PhysicsExample::onMouseWheelEvent));
 }
 
-bool PhysicsExample::onKeyDown(iKeyDownEvent_TMP &event)
+bool PhysicsExample::onKeyDown(iEventKeyDown &event)
 {
     switch (event.getKey())
     {

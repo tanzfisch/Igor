@@ -828,7 +828,7 @@ namespace igor
                     _keyDownEvent[static_cast<unsigned int>(currentKey)]();
                     _keyDownEventExt(currentKey);
 
-                    iApplication::getInstance().onEvent(iEventPtr(new iKeyDownEvent_TMP(_window, currentKey)));
+                    iApplication::getInstance().onEvent(iEventPtr(new iEventKeyDown(_window, currentKey)));
                 }
                 return true;
 

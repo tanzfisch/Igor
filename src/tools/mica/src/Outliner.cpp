@@ -308,22 +308,7 @@ void Outliner::onAddMaterial()
     _addMaterial();
 }
 
-/*void Outliner::setSelectedNode(iNodePtr node)
-{
-    if (_userControlGraphView != nullptr)
-    {
-        if (node != nullptr)
-        {
-            _userControlGraphView->setSelectedNode(node->getID());
-        }
-        else
-        {
-            _userControlGraphView->setSelectedNode(iNode::INVALID_NODE_ID);
-        }
-    }
-}
-
-void Outliner::setRootNode(iNodePtr root)
+/*void Outliner::setRootNode(iNodePtr root)
 {
     con_assert(root != nullptr, "zero pointer");
 
@@ -342,6 +327,16 @@ void Outliner::refresh()
     if (_userControlGraphView != nullptr)
     {
         _userControlGraphView->setRootNode(_workspace->getRootUser()->getID());
+
+        const auto &selection = _workspace->getSelection();
+        if (!selection.empty())
+        {
+            _userControlGraphView->setSelectedNode(selection[0]);
+        }
+        else
+        {
+            _userControlGraphView->setSelectedNode(iNode::INVALID_NODE_ID);
+        }
     }
 
     if (_userControlMaterialView != nullptr)

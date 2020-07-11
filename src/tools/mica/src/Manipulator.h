@@ -69,7 +69,7 @@ public:
 
     \param window the window this manipulator is displayed with
     */
-    Manipulator(iWindow *window, iView *view, iScene *scene);
+    Manipulator(iWindow *window, iView *view, iScenePtr scene);
 
     /*! cleanup
     */
@@ -148,7 +148,7 @@ private:
 
     iWindow *_window = nullptr;
     iView *_view = nullptr;
-    iScene *_scene = nullptr;
+    iScenePtr _scene = nullptr;
 
     uint64 _selectedManipulatorNodeID = iNode::INVALID_NODE_ID;
     uint64 _selectedNodeID = iNode::INVALID_NODE_ID;

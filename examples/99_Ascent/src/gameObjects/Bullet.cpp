@@ -25,7 +25,7 @@ using namespace iaux;
 #include "BulletHit.h"
 #include "../Ascent.h"
 
-Bullet::Bullet(iScene *scene, const iaVector3d &addForce, const iaMatrixd &matrix, Fraction fraction)
+Bullet::Bullet(iScenePtr scene, const iaVector3d &addForce, const iaMatrixd &matrix, Fraction fraction)
 	: GameObject(fraction, GameObjectType::Weapon)
 {
 	_scene = scene;

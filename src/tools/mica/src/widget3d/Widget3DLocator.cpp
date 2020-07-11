@@ -16,7 +16,7 @@
 #include <igor/scene/iScene.h>
 using namespace igor;
 
-Widget3DLocator::Widget3DLocator(iWindow *window, iView *view, iScene *scene)
+Widget3DLocator::Widget3DLocator(iWindow *window, iView *view, iScenePtr scene)
 	: Widget3D(window, view, scene)
 {
 	_view->registerRenderDelegate(iDrawDelegate(this, &Widget3DLocator::update));

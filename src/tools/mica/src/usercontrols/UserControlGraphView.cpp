@@ -48,7 +48,6 @@ void UserControlGraphView::setRootNode(uint64 root)
 
 void UserControlGraphView::refresh()
 {
-
     if (_root != iNode::INVALID_NODE_ID)
     {
         traverseTree(iNodeManager::getInstance().getNode(_root));

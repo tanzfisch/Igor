@@ -133,7 +133,7 @@ private:
 
     \param event the event to handle
     */
-    bool onKeyDown(iKeyDownEvent_TMP &event);
+    bool onKeyDown(iEventKeyDown &event);
 
     /*! triggered when node was added to scene
 
@@ -146,6 +146,12 @@ private:
     \param event the event to handle
     */
     bool onNodeRemovedFromScene(iEventNodeRemovedFromScene &event);
+
+    /*! triggered when selection in scene changed
+
+    \param event the event handle
+    */
+    bool onSceneSelectionChanged(iEventSceneSelectionChanged &event);
 };
 
 #endif // __UILAYER_H__

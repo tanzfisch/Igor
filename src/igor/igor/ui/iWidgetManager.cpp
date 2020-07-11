@@ -389,7 +389,7 @@ namespace igor
         event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseMoveEvent));
         event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseWheelEvent));
         event.dispatch<iKeyASCIIEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onKeyASCIIInput));
-        event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onKeyDown));
+        event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onKeyDown));
         event.dispatch<iKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onKeyUp));
         event.dispatch<iEventWindowResize>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onWindowResize));
     }
@@ -401,7 +401,7 @@ namespace igor
         return false;
     }
 
-    bool iWidgetManager::onKeyDown(iKeyDownEvent_TMP &event)
+    bool iWidgetManager::onKeyDown(iEventKeyDown &event)
     {
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)

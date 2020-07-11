@@ -318,11 +318,11 @@ void VoxelExample::onEvent(iEvent &event)
     // first call example base
     ExampleBase::onEvent(event);
 
-    event.dispatch<iKeyDownEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(VoxelExample::onKeyDown));
+    event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(VoxelExample::onKeyDown));
     event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(VoxelExample::onMouseMoveEvent));
 }
 
-bool VoxelExample::onKeyDown(iKeyDownEvent_TMP &event)
+bool VoxelExample::onKeyDown(iEventKeyDown &event)
 {
     switch (event.getKey())
     {

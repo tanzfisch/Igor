@@ -110,6 +110,35 @@ namespace igor
         */
         iNodeID _nodeID;
     };
+
+    /*! scene selection change event
+    */
+    class Igor_API iEventSceneSelectionChanged : public iEvent
+    {
+    public:
+        /*! init members
+
+        \param scene the scene the node was added to
+        \param nodeID id of the node that was added to the scene
+        */
+        iEventSceneSelectionChanged(iScenePtr scene);
+
+        /*! \returns information to event
+        */
+        virtual const iaString getInfo() const override;
+
+        /*! \returns the scene
+        */
+        iScenePtr getScene() const;
+
+        IGOR_EVENT_KIND_MASK((iEventKindMask)iEventKind::Scene)
+        IGOR_EVENT_CLASS_TYPE(iEventSceneSelectionChanged)
+
+    private:
+        /*! the scene the node was added to
+        */
+        iScenePtr _scene;
+    };
 }; // namespace igor
 
 #endif // __IGOR_EVENTKEYBOARD_H__

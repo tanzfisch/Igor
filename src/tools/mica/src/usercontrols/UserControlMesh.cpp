@@ -477,7 +477,7 @@ void UserControlMesh::onBakeAction(const iWidgetPtr source)
 		return;
 	}
 
-	iScene *scene = meshNode->getScene();
+	iScenePtr scene = meshNode->getScene();
 
 	if (scene == nullptr)
 	{
