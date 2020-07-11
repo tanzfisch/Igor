@@ -26,6 +26,8 @@ void WorkspaceLayer::onInit()
 
     // cam
     _cameraArc = std::make_unique<CameraArc>(_workspace->getRootMica());
+    _cameraArc->setHeading(M_PI * 0.25);
+    _cameraArc->setPitch(-0.25);
     _view.setCurrentCamera(_cameraArc->getCameraNode());
 
     // light

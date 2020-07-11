@@ -130,7 +130,7 @@ void Workspace::pasteSelected()
             iNodePtr destination = nullptr;
             if (!_scene->getSelection().empty())
             {
-                iNodePtr destination = iNodeManager::getInstance().getNode(_scene->getSelection()[0]);
+                destination = iNodeManager::getInstance().getNode(_scene->getSelection()[0]);
             }
 
             if (destination == nullptr)
@@ -145,6 +145,101 @@ void Workspace::pasteSelected()
                 destination->insertNodeAsync(node);
             }
         }
+    }
+}
+
+void Workspace::importFile(const iaString &filename)
+{
+    if (filename.isEmpty())
+    {
+        return;
+    }
+
+    iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
+    iModelDataInputParameter *parameter = createDataInputParameter();
+    model->setModel(filename, iResourceCacheMode::Free, parameter, true);
+
+    if (model->isValid())
+    {
+        iNodePtr groupNode = nullptr;
+
+        auto children = model->getChildren();
+        if (children.size() > 1)
+        {
+            groupNode = iNodeManager::getInstance().createNode<iNode>();
+            iaString groupName = "group:";
+            groupName += filename;
+            groupNode->setName(groupName);
+
+            iNodePtr insertAt = nullptr;
+            if (!getSelection().empty())
+            {
+                insertAt = iNodeManager::getInstance().getNode(getSelection()[0]);
+            }
+
+            if (insertAt == nullptr)
+            {
+                insertAt = getRootUser();
+            }
+
+            insertAt->insertNode(groupNode);
+        }
+        else
+        {
+            iNodePtr insertAt = nullptr;
+            if (!getSelection().empty())
+            {
+                insertAt = iNodeManager::getInstance().getNode(getSelection()[0]);
+            }
+
+            if (insertAt != nullptr)
+            {
+                groupNode = insertAt;
+            }
+            else
+            {
+                groupNode = getRootUser();
+            }
+        }
+
+        auto child = children.begin();
+        while (child != children.end())
+        {
+            model->removeNode((*child));
+            groupNode->insertNode((*child));
+            child++;
+        }
+    }
+
+    iNodeManager::getInstance().destroyNodeAsync(model);
+}
+
+void Workspace::importFileReference(const iaString &filename)
+{
+    if (filename.isEmpty())
+    {
+        return;
+    }
+
+    iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
+    iModelDataInputParameter *parameter = createDataInputParameter();
+    model->setModel(filename, iResourceCacheMode::Free, parameter, true);
+
+    if (model->isValid())
+    {
+        iNodePtr insertAt = nullptr;
+
+        if (!getSelection().empty())
+        {
+            insertAt = iNodeManager::getInstance().getNode(getSelection()[0]);
+        }
+
+        if (insertAt == nullptr)
+        {
+            insertAt = getRootUser();
+        }
+
+        insertAt->insertNode(model);
     }
 }
 

@@ -167,153 +167,48 @@ void UILayer::onFileSaveDialogClosed(iDialogPtr dialog)
 
 void UILayer::onImportFileDialogClosed(iDialogPtr dialog)
 {
-    /*    if (_fileDialog != dialog)
+    if (_fileDialog != dialog)
     {
         return;
     }
 
-    iNodePtr selectNode = nullptr;
-
     if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
     {
-        iaString filename = _fileDialog->getFullPath();
-
-        iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
-        iModelDataInputParameter *parameter = createDataInputParameter();
-        model->setModel(filename, iResourceCacheMode::Free, parameter);
-
-        //         forceLoadingNow(model);
-
-        if (model->isValid())
-        {
-            iNodePtr groupNode = nullptr;
-
-            auto children = model->getChildren();
-            if (children.size() > 1)
-            {
-                groupNode = iNodeManager::getInstance().createNode<iNode>();
-                iaString groupName = "group:";
-                groupName += filename;
-                groupNode->setName(groupName);
-
-                iNodePtr cursorNode = nullptr;
-                if (!_workspace->getSelection().empty())
-                {
-                    iNodePtr cursorNode = iNodeManager::getInstance().getNode(_workspace->getSelection()[0]);
-                }
-
-                if (cursorNode != nullptr)
-                {
-                    cursorNode->insertNode(groupNode);
-                }
-                else
-                {
-                    _workspace->getRootUser()->insertNode(groupNode);
-                }
-
-                selectNode = groupNode;
-            }
-            else
-            {
-                iNodePtr cursorNode = nullptr;
-                if (!_workspace->getSelection().empty())
-                {
-                    iNodePtr cursorNode = iNodeManager::getInstance().getNode(_workspace->getSelection()[0]);
-                }
-
-                if (cursorNode != nullptr)
-                {
-                    groupNode = cursorNode;
-                }
-                else
-                {
-                    groupNode = _workspace->getRootUser();
-                }
-
-                if (!children.empty())
-                {
-                    selectNode = children.front();
-                }
-            }
-
-            auto child = children.begin();
-            while (child != children.end())
-            {
-                model->removeNode((*child));
-                groupNode->insertNode((*child));
-                child++;
-            }
-        }
-
-        iNodeManager::getInstance().destroyNodeAsync(model);
+        _workspace->importFile(_fileDialog->getFullPath());
     }
 
-    _outliner->setActive();
+    /*_outliner->setActive();
     _outliner->setVisible();
-    _outliner->refreshView();
+    _outliner->refresh();
 
     _propertiesDialog->setActive();
-    _propertiesDialog->setVisible();
-
-    _outliner->setSelectedNode(selectNode);
-    // TODO frameOnSelectedNode();
+    _propertiesDialog->setVisible();*/
 
     delete _fileDialog;
-    _fileDialog = nullptr;*/
+    _fileDialog = nullptr;
 }
 
 void UILayer::onImportFileReferenceDialogClosed(iDialogPtr dialog)
 {
-    /*    if (_fileDialog != dialog)
+    if (_fileDialog != dialog)
     {
         return;
     }
 
-    iNodePtr selectNode = nullptr;
-
     if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
     {
-        iaString filename = _fileDialog->getFullPath();
-
-        iNodeModel *model = iNodeManager::getInstance().createNode<iNodeModel>();
-        iModelDataInputParameter *parameter = createDataInputParameter();
-
-        model->setModel(filename, iResourceCacheMode::Free, parameter);
-        // TODO forceLoadingNow(model);
-
-        if (model->isValid())
-        {
-            iNodePtr cursorNode = nullptr;
-            if (!_workspace->getSelection().empty())
-            {
-                iNodePtr cursorNode = iNodeManager::getInstance().getNode(_workspace->getSelection()[0]);
-            }
-
-            if (cursorNode != nullptr)
-            {
-                cursorNode->insertNode(model);
-            }
-            else
-            {
-                _workspace->getRootUser()->insertNode(model);
-            }
-
-            selectNode = model;
-        }
+        _workspace->importFileReference(_fileDialog->getFullPath());
     }
 
-    _outliner->setActive();
+    /*    _outliner->setActive();
     _outliner->setVisible();
-    _outliner->refreshView();
+    _outliner->refresh();
 
     _propertiesDialog->setActive();
-    _propertiesDialog->setVisible();
-
-    _outliner->setSelectedNode(selectNode);
-    // TODO frameOnSelectedNode();
+    _propertiesDialog->setVisible();*/
 
     delete _fileDialog;
-    _fileDialog = nullptr;*/
+    _fileDialog = nullptr;
 }
 
 void UILayer::onFileLoadDialogClosed(iDialogPtr dialog)
@@ -328,12 +223,12 @@ void UILayer::onFileLoadDialogClosed(iDialogPtr dialog)
         _workspace->loadFile(_fileDialog->getFullPath());
     }
 
-    _outliner->setActive();
+    /*    _outliner->setActive();
     _outliner->setVisible();
     _outliner->refresh();
 
     _propertiesDialog->setActive();
-    _propertiesDialog->setVisible();
+    _propertiesDialog->setVisible();*/
 
     delete _fileDialog;
     _fileDialog = nullptr;

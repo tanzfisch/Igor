@@ -68,6 +68,18 @@ public:
     */
     void loadFile(const iaString &filename);
 
+    /*! imports a file by reference so it does not actually become part of the scene once saved
+
+    \param filename name of the file to be referenced
+    */
+    void importFileReference(const iaString &filename);
+
+    /*! imports a file and make it part of the scene
+
+    \param filename name of the file to be imported
+    */
+    void importFile(const iaString &filename);
+
     /*! \returns list of selected nodes
     */
     const std::vector<iNodeID> &getSelection() const;

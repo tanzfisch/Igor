@@ -657,7 +657,8 @@ namespace igor
                 }
                 else
                 {
-                    if (key == iKeyCode::MouseLeft)
+                    if (key == iKeyCode::MouseLeft ||
+                        key == iKeyCode::MouseRight)
                     {
                         _click(this);
 
@@ -681,12 +682,10 @@ namespace igor
                             }
                         }
 
-                        return true;
-                    }
-                    else if (key == iKeyCode::MouseRight)
-                    {
-                        _click(this);
-                        _contextMenu(this);
+                        if (key == iKeyCode::MouseRight)
+                        {
+                            _contextMenu(this);
+                        }
 
                         return true;
                     }
