@@ -102,14 +102,7 @@ namespace igor
         for (auto eventPtr : eventQueue)
         {
             iEvent &event = *eventPtr;
-
-            if (event.getEventType() == iEventType::iEventNodeAddedToScene)
-            {
-                con_debug_endl(event);
-            }
-
             event.dispatch<iEventWindowClose>(IGOR_BIND_EVENT_FUNCTION(iApplication::onWindowClose));
-
             dispatchOnStack(event, _layerStack);
         }
     }
