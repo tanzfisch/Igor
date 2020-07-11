@@ -280,7 +280,30 @@ namespace igor
         */
         int32 getMouseOverColumn() const;
 
+        /*! sets wether or not an empty cell is selectable
+
+        only active for iSelectionMode::Cell
+
+        \param emptyCellsSelecable if true empty cells are selectable (default is false)
+        */
+        void setEmptyCellsSelecable(bool emptyCellsSelecable = true);
+
+        /*! \returns true if empty cells are selectable
+        */
+        bool getEmptyCellsSelecable() const;
+
+        /*! \returns true if a cell is empty
+
+        \param col the column of the cell
+        \param row the row of the cell
+        */
+        bool isCellEmpty(int32 col, int32 row);
+
     private:
+        /*! if true empty cells are selectable
+        */
+        bool _emptyCellsSelecable = false;
+
         /*! row number to be streched
         */
         int32 _strechRow = 0;

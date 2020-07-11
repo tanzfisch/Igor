@@ -620,13 +620,23 @@ namespace igor
         return false;
     }
 
+    void iWidgetGrid::setEmptyCellsSelecable(bool emptyCellsSelecable)
+    {
+        _emptyCellsSelecable = emptyCellsSelecable;
+    }
+
+    bool iWidgetGrid::getEmptyCellsSelecable() const
+    {
+        return _emptyCellsSelecable;
+    }
+
     bool iWidgetGrid::handleMouseKeyUp(iKeyCode key)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
         if (isActive())
         {
-            if (_isMouseOver)
+            if (_isMouseOver || _acceptOutOfBoundsClicks)
             {
                 // get copy of children
                 std::vector<iWidgetPtr> widgets;
@@ -656,9 +666,18 @@ namespace igor
                             if (_selectedColumn != _mouseOverColumn ||
                                 _selectedRow != _mouseOverRow)
                             {
-                                _selectedColumn = _mouseOverColumn;
-                                _selectedRow = _mouseOverRow;
-                                _change(this);
+                                if (_selectMode == iSelectionMode::Cell &&
+                                    !_emptyCellsSelecable &&
+                                    isCellEmpty(_mouseOverColumn, _mouseOverRow))
+                                {
+                                    unselect();
+                                }
+                                else
+                                {
+                                    _selectedColumn = _mouseOverColumn;
+                                    _selectedRow = _mouseOverRow;
+                                    _change(this);
+                                }
                             }
                         }
 
@@ -906,6 +925,14 @@ namespace igor
     void iWidgetGrid::addWidget(iWidgetPtr widget)
     {
         addWidget(widget, 0, 0, nullptr);
+    }
+
+    bool iWidgetGrid::isCellEmpty(int32 col, int32 row)
+    {
+        con_assert(_widgetRows.size() > row && _widgetRows[row]._widgetColumn.size() > col, "out of range " << col << "," << row);
+
+        return (_widgetRows[row]._widgetColumn[col]._widgetID == iWidget::INVALID_WIDGET_ID) &&
+               (!_widgetRows[row]._widgetColumn[col]._userData.has_value());
     }
 
     void iWidgetGrid::removeWidget(iWidgetPtr widget)

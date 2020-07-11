@@ -141,6 +141,7 @@ void UserControlGraphView::initGUI()
     scroll->setHorizontalAlignment(iHorizontalAlignment::Strech);
 
     _gridGraph = new iWidgetGrid();
+    _gridGraph->setAcceptOutOfBoundsClicks();
     _gridGraph->setBorder(0);
     _gridGraph->setWidth(300);
     _gridGraph->setSelectMode(iSelectionMode::Row);
