@@ -26,29 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLMESH__
-#define __USERCONTROLMESH__
+#ifndef __USERCONTROLMESH_H__
+#define __USERCONTROLMESH_H__
 
-#include <iaux/data/iaColor4.h>
+#include <igor/igor.h>
 using namespace iaux;
-
-#include <igor/scene/nodes/iNodeMesh.h>
-#include <igor/ui/user_controls/iUserControl.h>
-#include <igor/ui/user_controls/iUserControlColorChooser.h>
 using namespace igor;
-
-namespace igor
-{
-    class iWidgetGrid;
-    class iWidgetTextEdit;
-    class iWidgetLabel;
-    class iWidgetButton;
-    class iUserControlColorChooser;
-    class iWidgetSlider;
-    class iWidgetNumberChooser;
-    class iWidgetSelectBox;
-    class iUserControlFileChooser;
-} // namespace igor
 
 class UserControlMesh : public iUserControl
 {
@@ -118,4 +101,4 @@ private:
     void deinitGUI();
 };
 
-#endif
+#endif // __USERCONTROLMESH_H__

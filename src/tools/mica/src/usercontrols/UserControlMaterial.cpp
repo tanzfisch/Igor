@@ -4,23 +4,6 @@
 
 #include "UserControlMaterial.h"
 
-#include <igor/ui/iWidgetManager.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
-#include <igor/ui/widgets/iWidgetTextEdit.h>
-#include <igor/ui/widgets/iWidgetLabel.h>
-#include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetSlider.h>
-#include <igor/ui/widgets/iWidgetNumberChooser.h>
-#include <igor/resources/material/iTargetMaterial.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/ui/widgets/iWidgetCheckBox.h>
-#include <igor/ui/widgets/iWidgetSelectBox.h>
-#include <igor/resources/iResourceManager.h>
-#include <igor/ui/widgets/iWidgetGroupBox.h>
-#include <igor/graphics/iRenderer.h>
-using namespace igor;
-
 UserControlMaterial::UserControlMaterial()
 {
     initGUI();

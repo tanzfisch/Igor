@@ -26,24 +26,11 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROL_EMITTER_H__
-#define __USERCONTROL_EMITTER_H__
+#ifndef __USERCONTROLEMITTER_H__
+#define __USERCONTROLEMITTER_H__
 
-#include <igor/scene/nodes/iNodeModel.h>
-#include <igor/ui/user_controls/iUserControl.h>
+#include <igor/igor.h>
 using namespace igor;
-
-namespace igor
-{
-    class iWidgetGrid;
-    class iWidgetTextEdit;
-    class iWidgetLabel;
-    class iWidgetButton;
-    class iUserControlColorChooser;
-    class iWidgetSlider;
-    class iWidgetNumberChooser;
-    class iWidgetSelectBox;
-} // namespace igor
 
 /*! user control to configure an emitter node
 */

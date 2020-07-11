@@ -4,20 +4,6 @@
 
 #include "UserControlEmitter.h"
 
-#include <igor/ui/iWidgetManager.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
-#include <igor/ui/widgets/iWidgetTextEdit.h>
-#include <igor/ui/widgets/iWidgetLabel.h>
-#include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetSlider.h>
-#include <igor/ui/widgets/iWidgetNumberChooser.h>
-#include <igor/scene/nodes/iNodeEmitter.h>
-#include <igor/ui/widgets/iWidgetSelectBox.h>
-#include <igor/resources/mesh/iMesh.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/resources/material/iTargetMaterial.h>
-using namespace igor;
-
 #include "../MicaDefines.h"
 
 UserControlEmitter::UserControlEmitter()

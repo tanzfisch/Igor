@@ -4,24 +4,6 @@
 
 #include "UserControlMaterialView.h"
 
-#include <igor/ui/iWidgetManager.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
-#include <igor/ui/widgets/iWidgetTextEdit.h>
-#include <igor/ui/widgets/iWidgetLabel.h>
-#include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetSlider.h>
-#include <igor/ui/widgets/iWidgetNumberChooser.h>
-#include <igor/scene/nodes/iNodeEmitter.h>
-#include <igor/ui/widgets/iWidgetSelectBox.h>
-#include <igor/ui/widgets/iWidgetGroupBox.h>
-#include <igor/ui/widgets/iWidgetScroll.h>
-#include <igor/resources/mesh/iMesh.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/resources/material/iTargetMaterial.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/material/iMaterial.h>
-using namespace igor;
-
 UserControlMaterialView::UserControlMaterialView()
 {
     initGUI();

@@ -4,27 +4,6 @@
 
 #include "UserControlMesh.h"
 
-#include <igor/ui/widgets/iWidgetSelectBox.h>
-#include <igor/ui/iWidgetManager.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
-#include <igor/ui/widgets/iWidgetTextEdit.h>
-#include <igor/ui/widgets/iWidgetLabel.h>
-#include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetSlider.h>
-#include <igor/ui/widgets/iWidgetNumberChooser.h>
-#include <igor/scene/nodes/iNodeMesh.h>
-#include <igor/resources/mesh/iMesh.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/resources/material/iTargetMaterial.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/resources/iResourceManager.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/ui/user_controls/iUserControlFileChooser.h>
-#include <igor/resources/mesh/iMeshBuilderUtils.h>
-#include <igor/scene/iScene.h>
-using namespace igor;
-
 #include "../MicaDefines.h"
 
 UserControlMesh::UserControlMesh()

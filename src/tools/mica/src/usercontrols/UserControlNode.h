@@ -26,24 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLNODE__
-#define __USERCONTROLNODE__
+#ifndef __USERCONTROLNODE_H__
+#define __USERCONTROLNODE_H__
 
-#include <iaux/system/iaEvent.h>
+#include <igor/igor.h>
 using namespace iaux;
-
-#include <igor/scene/nodes/iNode.h>
-#include <igor/ui/user_controls/iUserControl.h>
 using namespace igor;
-
-namespace igor
-{
-    class iWidgetGrid;
-    class iWidgetTextEdit;
-    class iWidgetLabel;
-    class iWidget;
-    class iWidgetCheckBox;
-} // namespace igor
 
 iaEVENT(NameChangedEvent, NameChangedDelegate, (), ());
 

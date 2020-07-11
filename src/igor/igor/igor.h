@@ -65,6 +65,7 @@
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/material/iTargetMaterial.h>
 #include <igor/resources/mesh/iMeshBuilder.h>
+#include <igor/resources/mesh/iMeshBuilderUtils.h>
 #include <igor/resources/model/iModelResourceFactory.h>
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/resources/profiler/iProfilerVisualizer.h>
@@ -146,6 +147,7 @@
 #include <igor/ui/widgets/iWidgetPicture.h>
 #include <igor/ui/widgets/iWidgetScroll.h>
 #include <igor/ui/widgets/iWidgetSelectBox.h>
+#include <igor/ui/widgets/iWidgetSlider.h>
 #include <igor/ui/widgets/iWidgetSpacer.h>
 #include <igor/ui/widgets/iWidgetTextEdit.h>
 #include <igor/ui/user_controls/iUserControlAction.h>
@@ -153,6 +155,8 @@
 #include <igor/ui/user_controls/iUserControlFileChooser.h>
 
 // iaux includes
+#include <iaux/data/iaColor3.h>
+#include <iaux/data/iaColor4.h>
 #include <iaux/data/iaConvert.h>
 #include <iaux/data/iaGradient.h>
 #include <iaux/data/iaString.h>

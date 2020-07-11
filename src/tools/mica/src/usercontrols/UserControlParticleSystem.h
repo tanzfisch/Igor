@@ -11,64 +11,39 @@
 //                                           (_(       \)
 // (c) Copyright 2014-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: igorgameengine@protonmail.com  
+//
+// contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLPARTICLESYSTEM__
-#define __USERCONTROLPARTICLESYSTEM__
+#ifndef __USERCONTROLPARTICLESYSTEM_H__
+#define __USERCONTROLPARTICLESYSTEM_H__
 
-#include <igor/scene/nodes/iNodeModel.h>
-#include <igor/ui/user_controls/iUserControl.h>
-#include <iaux/data/iaGradient.h>
+#include <igor/igor.h>
 using namespace igor;
-
-namespace igor
-{
-    class iWidgetGrid;
-    class iWidgetTextEdit;
-    class iWidgetLabel;
-    class iWidgetButton;
-    class iUserControlColorChooser;
-    class iWidgetSlider;
-    class iWidgetNumberChooser;
-    class iWidgetSelectBox;
-    class iUserControlFileChooser;
-    class iWidgetCheckBox;
-    class iWidgetColorGradient;
-    class iDialogColorGradient;
-    class iDialogGraph;
-    typedef iDialogGraph* iDialogGraphPtr;
-    class iDialog;
-    typedef iDialog* iDialogPtr;
-    class iWidgetGraph;
-    class iNodeParticleSystem;
-}
 
 /*! user control to manipulate a particle system
 */
 class UserControlParticleSystem : public iUserControl
 {
 public:
-
-	/*! init gui
+    /*! init gui
 	*/
-	UserControlParticleSystem();
+    UserControlParticleSystem();
 
-	/*! deinit gui
+    /*! deinit gui
 	*/
-	~UserControlParticleSystem();
+    ~UserControlParticleSystem();
 
     /*! sets the current scene node to work with
 
@@ -81,110 +56,109 @@ public:
     uint64 getNode();
 
 private:
-
     /*! root grid
     */
-    iWidgetGrid* _grid = nullptr;
+    iWidgetGrid *_grid = nullptr;
 
     /*! button to start or continue the particle system
     */
-    iWidgetButton* _buttonStart = nullptr;
+    iWidgetButton *_buttonStart = nullptr;
 
     /*! button to stop or pause the particle system
     */
-    iWidgetButton* _buttonStop = nullptr;
+    iWidgetButton *_buttonStop = nullptr;
 
     /*! button to restart the particle system
     */
-    iWidgetButton* _buttonReset = nullptr;
+    iWidgetButton *_buttonReset = nullptr;
 
     /*! texture chooser for primary texture
     */
-    iUserControlFileChooser* _textureChooser0 = nullptr;
+    iUserControlFileChooser *_textureChooser0 = nullptr;
 
     /*! texture chooser for first noise texture
     */
-    iUserControlFileChooser* _textureChooser1 = nullptr;
+    iUserControlFileChooser *_textureChooser1 = nullptr;
 
     /*! texture chooser for second noise texture
     */
-    iUserControlFileChooser* _textureChooser2 = nullptr;
+    iUserControlFileChooser *_textureChooser2 = nullptr;
 
     /*! \deprecated currently unused
     */
-    iUserControlFileChooser* _textureChooser3 = nullptr;
+    iUserControlFileChooser *_textureChooser3 = nullptr;
 
     /*! select box for selecting the emitter to connect the particle system to
     */
-    iWidgetSelectBox* _emitterSelection = nullptr;
+    iWidgetSelectBox *_emitterSelection = nullptr;
 
     /*! select box for selecting the material to use with the particle system
     */
-    iWidgetSelectBox* _materialSelection = nullptr;
+    iWidgetSelectBox *_materialSelection = nullptr;
 
     /*! check box to switch on/off the particle system loop
     */
-    iWidgetCheckBox* _loopCheckBox = nullptr;
+    iWidgetCheckBox *_loopCheckBox = nullptr;
 
     /*! check box to switch on/off the particle to velocity orientation
     */
-    iWidgetCheckBox* _velocityOrientedCheckBox = nullptr;
+    iWidgetCheckBox *_velocityOrientedCheckBox = nullptr;
 
     /*! number chooser for particle period time
     */
-    iWidgetNumberChooser* _periodChooser = nullptr;
+    iWidgetNumberChooser *_periodChooser = nullptr;
 
     /*! number chooser for air drag effect on particle system
     */
-    iWidgetNumberChooser* _airDragChooser = nullptr;
+    iWidgetNumberChooser *_airDragChooser = nullptr;
 
     /*! number chooser for vorticity confinement value
     */
-    iWidgetNumberChooser* _vorticityConfinementChooser = nullptr;
+    iWidgetNumberChooser *_vorticityConfinementChooser = nullptr;
 
     /*! number chooser for vortex to particle rate
     */
-    iWidgetNumberChooser* _vortexToParticleRateChooser = nullptr;
+    iWidgetNumberChooser *_vortexToParticleRateChooser = nullptr;
 
     /*! vortex minimum torque number chooser
     */
-    iWidgetNumberChooser* _vortexTorqueMinChooser = nullptr;
+    iWidgetNumberChooser *_vortexTorqueMinChooser = nullptr;
 
     /*! vortex maximum torque number chooser
     */
-    iWidgetNumberChooser* _vortexTorqueMaxChooser = nullptr;
+    iWidgetNumberChooser *_vortexTorqueMaxChooser = nullptr;
 
     /*! vortex minimum range number chooser
     */
-    iWidgetNumberChooser* _vortexRangeMinChooser = nullptr;
+    iWidgetNumberChooser *_vortexRangeMinChooser = nullptr;
 
     /*! vortex maximum range number chooser
     */
-    iWidgetNumberChooser* _vortexRangeMaxChooser = nullptr;
+    iWidgetNumberChooser *_vortexRangeMaxChooser = nullptr;
 
     /*! number chooser for vertical tiling of primary texture
     */
-    iWidgetNumberChooser* _tilingVerticalChooser = nullptr;
+    iWidgetNumberChooser *_tilingVerticalChooser = nullptr;
 
     /*! number chooser for horizontal tiling of primary texture
     */
-    iWidgetNumberChooser* _tilingHorizontalChooser = nullptr;
+    iWidgetNumberChooser *_tilingHorizontalChooser = nullptr;
 
     /*! number chooser for vortex check range
     */
-    iWidgetNumberChooser* _vortexCheckRange = nullptr;
+    iWidgetNumberChooser *_vortexCheckRange = nullptr;
 
     /*! number chooser for max particle count
     */
-    iWidgetNumberChooser* _maxParticleCount = nullptr;
+    iWidgetNumberChooser *_maxParticleCount = nullptr;
 
     /*! color gradient display
     */
-    iWidgetColorGradient* _colorGradient = nullptr;
+    iWidgetColorGradient *_colorGradient = nullptr;
 
     /*! color gradient dialog
     */
-    iDialogColorGradient* _colorGradientDialog = nullptr;
+    iDialogColorGradient *_colorGradientDialog = nullptr;
 
     /*! graph dialog. Reused for all the gradients we want to edit
     */
@@ -192,43 +166,43 @@ private:
 
     /*! start size graph
     */
-    iWidgetGraph* _startSizeGraph = nullptr;
+    iWidgetGraph *_startSizeGraph = nullptr;
 
     /*! scale over time size scale graph
     */
-    iWidgetGraph* _scaleSizeGraph = nullptr;
+    iWidgetGraph *_scaleSizeGraph = nullptr;
 
     /*! visibility graph
     */
-    iWidgetGraph* _visibilityGraph = nullptr;
+    iWidgetGraph *_visibilityGraph = nullptr;
 
     /*! orientation graph
     */
-    iWidgetGraph* _orientationGraph = nullptr;
+    iWidgetGraph *_orientationGraph = nullptr;
 
     /*! orientation rate graph
     */
-    iWidgetGraph* _orientationRateGraph = nullptr;
+    iWidgetGraph *_orientationRateGraph = nullptr;
 
     /*! velocity graph
     */
-    iWidgetGraph* _startVelocityGraph = nullptr;
+    iWidgetGraph *_startVelocityGraph = nullptr;
 
     /*! start lift / weight graph
     */
-    iWidgetGraph* _startLiftGraph = nullptr;
+    iWidgetGraph *_startLiftGraph = nullptr;
 
     /*! particle emission graph
     */
-    iWidgetGraph* _emissionGraph = nullptr;
+    iWidgetGraph *_emissionGraph = nullptr;
 
     /*! text field to show the current particle count
     */
-    iWidgetTextEdit* _textParticleCount = nullptr;
+    iWidgetTextEdit *_textParticleCount = nullptr;
 
     /*! text field to show the current particle simulation frequency
     */
-    iWidgetTextEdit* _textFrequency = nullptr;
+    iWidgetTextEdit *_textFrequency = nullptr;
 
     /*! list with all available emitters in all scenes
     */
@@ -236,7 +210,7 @@ private:
 
     /*! contains user data that has to be deleted after use in the widgets
     */
-    std::vector<uint32*> _userDataMaterialID;
+    std::vector<uint32 *> _userDataMaterialID;
 
     /*! current node
     */
@@ -363,12 +337,12 @@ private:
     \param dialog the source of the event
     */
     void onCloseEmissionGradientEditor(iDialogPtr dialog);
-    
+
     /*! converts particle system gradients to GUI graphs
 
     \param node the particle system node
     */
-    void convertGradientsToUI(iNodeParticleSystem* node);
+    void convertGradientsToUI(iNodeParticleSystem *node);
 
     /*! triggered when start button was clicked
 
@@ -381,7 +355,7 @@ private:
     \param source the source widget
     */
     void onStop(const iWidgetPtr source);
-    
+
     /*! triggered when reset button was clicked
 
     \param source the source widget
@@ -399,7 +373,6 @@ private:
     /*! initialize gui
     */
     void initGUI();
-
 };
 
-#endif
+#endif // __USERCONTROLPARTICLESYSTEM_H__

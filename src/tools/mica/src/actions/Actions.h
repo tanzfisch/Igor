@@ -29,9 +29,7 @@
 #ifndef __ACTIONS_H__
 #define __ACTIONS_H__
 
-#include <igor/ui/actions/iAction.h>
-#include <igor/ui/dialogs/iDialogDecisionBox.h>
-using namespace igor;
+#include "ActionContext.h"
 
 /*! delete node action
 */

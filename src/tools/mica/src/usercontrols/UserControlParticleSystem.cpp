@@ -4,33 +4,6 @@
 
 #include "UserControlParticleSystem.h"
 
-#include <igor/ui/iWidgetManager.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
-#include <igor/ui/widgets/iWidgetTextEdit.h>
-#include <igor/ui/widgets/iWidgetLabel.h>
-#include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetSlider.h>
-#include <igor/ui/widgets/iWidgetNumberChooser.h>
-#include <igor/scene/nodes/iNodeParticleSystem.h>
-#include <igor/resources/mesh/iMesh.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/resources/material/iTargetMaterial.h>
-#include <igor/ui/widgets/iWidgetSelectBox.h>
-#include <igor/ui/widgets/iWidgetCheckBox.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/ui/user_controls/iUserControlFileChooser.h>
-#include <igor/resources/iResourceManager.h>
-#include <igor/ui/widgets/iWidgetSpacer.h>
-#include <igor/ui/widgets/iWidgetGroupBox.h>
-#include <igor/ui/widgets/iWidgetColorGradient.h>
-#include <igor/ui/dialogs/iDialogColorGradient.h>
-#include <igor/ui/widgets/iWidgetGraph.h>
-#include <igor/ui/dialogs/iDialogGraph.h>
-#include <igor/system/iApplication.h>
-#include <igor/scene/nodes/iNodeEmitter.h>
-using namespace igor;
-
 #include "../MicaDefines.h"
 
 UserControlParticleSystem::UserControlParticleSystem()
