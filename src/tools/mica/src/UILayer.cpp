@@ -195,9 +195,14 @@ void UILayer::onFileLoadDialogClosed(iDialogPtr dialog)
 
 void UILayer::onGraphViewSelectionChanged(uint64 nodeID)
 {
-    iApplication::getInstance().blockEvent(iEventType::iEventSceneSelectionChanged);
-    _workspace->setSelection(std::vector<iNodeID>() = {nodeID});
-    iApplication::getInstance().unblockEvent(iEventType::iEventSceneSelectionChanged);
+    if (nodeID == iNode::INVALID_NODE_ID)
+    {
+        _workspace->clearSelection();
+    }
+    else
+    {
+        _workspace->setSelection(std::vector<iNodeID>() = {nodeID});
+    }
 }
 
 void UILayer::onExitMica()

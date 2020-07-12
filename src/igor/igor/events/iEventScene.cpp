@@ -67,7 +67,26 @@ namespace igor
     {
         std::wstringstream stream;
 
-        stream << getName().getData() << "[" << _scene->getName() << "]";
+        stream << getName().getData() << "[" << _scene->getName() << " | ";
+
+        if (_scene->getSelection().empty())
+        {
+            stream << "no selection]";
+        }
+        else
+        {
+            bool first = true;
+            for (auto nodeID : _scene->getSelection())
+            {
+                if (!first)
+                {
+                    stream << ", ";
+                }
+                stream << nodeID;
+                first = false;
+            }
+            stream << "]";
+        }
 
         return stream.str().c_str();
     }

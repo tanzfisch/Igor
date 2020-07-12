@@ -295,7 +295,9 @@ void UserControlGraphView::unregisterOnSelectionChange(GraphSelectionChangedDele
 
 void UserControlGraphView::clearGraph()
 {
+    _gridGraph->blockEvents();
     _gridGraph->clear();
+    _gridGraph->unblockEvents();
     _selectedNode = iNode::INVALID_NODE_ID;
 }
 
