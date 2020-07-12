@@ -32,6 +32,7 @@ bool MouseExample::onMouseKeyUpEvent(iEventMouseKeyUp &event)
 {
     // prints if a key was released to the console
     con_endl("mouse key up " << event.getKey());
+    return true;
 }
 
 bool MouseExample::onMouseKeyDoubleClickEvent(iEventMouseKeyDoubleClick &event)
@@ -52,4 +53,5 @@ bool MouseExample::onMouseWheelEvent(iEventMouseWheel &event)
 {
     // prints the mouse wheel delta to the console
     con_endl("mouse wheel delta " << event.getWheelDelta());
+    return true;
 }

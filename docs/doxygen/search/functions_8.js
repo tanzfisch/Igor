@@ -16,7 +16,7 @@ var searchData=
   ['handletimerhandles',['handleTimerHandles',['../classigor_1_1i_timer.html#a7c12b93f159b4a3ad5064885ae06573c',1,'igor::iTimer']]],
   ['haschildren',['hasChildren',['../classigor_1_1i_node.html#a38d4055346a6ef4f631188807245a396',1,'igor::iNode::hasChildren()'],['../class_o_m_p_f_1_1ompf_base_chunk.html#a8457c6d8528958bffac58add9319557f',1,'OMPF::ompfBaseChunk::hasChildren()']]],
   ['hascolors',['hasColors',['../classigor_1_1i_mesh.html#a9a152dad1ab03ea3a6639e52045446c4',1,'igor::iMesh::hasColors()'],['../classigor_1_1i_mesh_builder.html#a27ca5eca7a6fa31553ddfbd0eb2bc82b',1,'igor::iMeshBuilder::hasColors()']]],
-  ['hasdata',['hasData',['../classiaux_1_1ia_mem_block.html#a504ece1cb62a524e6cba1001f88ce9da',1,'iaux::iaMemBlock::hasData()'],['../classigor_1_1i_voxel_data.html#ace6452cbbe10a6dbd284d9447c6e7319',1,'igor::iVoxelData::hasData()']]],
+  ['hasdata',['hasData',['../classiaux_1_1ia_mem_block.html#a504ece1cb62a524e6cba1001f88ce9da',1,'iaux::iaMemBlock::hasData()'],['../classigor_1_1i_clipboard.html#a4299f851495b56f322c3b2ca4bc9d0b8',1,'igor::iClipboard::hasData()'],['../classigor_1_1i_voxel_data.html#ace6452cbbe10a6dbd284d9447c6e7319',1,'igor::iVoxelData::hasData()']]],
   ['hasindexdata',['hasIndexData',['../classigor_1_1i_mesh.html#a5712b8305819df6a68e3c47d0ca1809d',1,'igor::iMesh']]],
   ['haskeyboardfocus',['hasKeyboardFocus',['../classigor_1_1i_widget.html#af1d22497a01f4d01e0366fa02c2d969b',1,'igor::iWidget']]],
   ['hasnormals',['hasNormals',['../classigor_1_1i_mesh.html#a9f16488dc3ea9b16a18410940a76cf92',1,'igor::iMesh::hasNormals()'],['../classigor_1_1i_mesh_builder.html#ae7a151743a5ee860eebc4cf9f697b325',1,'igor::iMeshBuilder::hasNormals()']]],

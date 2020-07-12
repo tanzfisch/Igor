@@ -5,6 +5,8 @@
 #include <igor/events/iEventKeyboard.h>
 #include <igor/system/iKeyboard.h>
 
+#include <sstream>
+
 namespace igor
 {
 
@@ -21,7 +23,7 @@ namespace igor
     const iaString iEventKeyDown::getInfo() const
     {
         std::wstringstream stream;
-        stream << getName().getData() << "[" << _key << "]";
+        stream << getName() << "[" << _key << "]";
 
         return stream.str().c_str();
     }
@@ -31,48 +33,48 @@ namespace igor
         return _key;
     }
 
-    iKeyUpEvent_TMP::iKeyUpEvent_TMP(iWindow *window, const iKeyCode key)
+    iEventKeyUp::iEventKeyUp(iWindow *window, const iKeyCode key)
         : iEvent(window), _key(key)
     {
     }
 
-    iEventKindMask iKeyUpEvent_TMP::getEventKindMask() const
+    iEventKindMask iEventKeyUp::getEventKindMask() const
     {
         return (iEventKindMask)iEventKind::Input | (iEventKindMask)iEventKind::Keyboard;
     }
 
-    const iaString iKeyUpEvent_TMP::getInfo() const
+    const iaString iEventKeyUp::getInfo() const
     {
         std::wstringstream stream;
-        stream << getName().getData() << "[" << _key << "]";
+        stream << getName() << "[" << _key << "]";
 
         return stream.str().c_str();
     }
 
-    iKeyCode iKeyUpEvent_TMP::getKey() const
+    iKeyCode iEventKeyUp::getKey() const
     {
         return _key;
     }
 
-    iKeyASCIIEvent_TMP::iKeyASCIIEvent_TMP(iWindow *window, const char character)
+    iEventKeyASCII::iEventKeyASCII(iWindow *window, const char character)
         : iEvent(window), _character(character)
     {
     }
 
-    iEventKindMask iKeyASCIIEvent_TMP::getEventKindMask() const
+    iEventKindMask iEventKeyASCII::getEventKindMask() const
     {
         return (iEventKindMask)iEventKind::Input | (iEventKindMask)iEventKind::Keyboard;
     }
 
-    const iaString iKeyASCIIEvent_TMP::getInfo() const
+    const iaString iEventKeyASCII::getInfo() const
     {
         std::wstringstream stream;
-        stream << getName().getData() << "[" << _character << "]";
+        stream << getName() << "[" << _character << "]";
 
         return stream.str().c_str();
     }
 
-    char iKeyASCIIEvent_TMP::getChar() const
+    char iEventKeyASCII::getChar() const
     {
         return _character;
     }

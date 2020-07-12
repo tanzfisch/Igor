@@ -9,15 +9,16 @@ var hierarchy =
     [ "igor::iAACube< T >", "classigor_1_1i_a_a_cube.html", null ],
     [ "igor::iAACube< float64 >", "classigor_1_1i_a_a_cube.html", null ],
     [ "iaux::iaBits< T >", "classiaux_1_1ia_bits.html", null ],
-    [ "iaux::iaBSpline", "classiaux_1_1ia_b_spline.html", null ],
+    [ "iaux::iaBSpline< T >", "classiaux_1_1ia_b_spline.html", null ],
     [ "iaux::iaClock", "classiaux_1_1ia_clock.html", null ],
     [ "iaux::iaColor3< T >", "classiaux_1_1ia_color3.html", null ],
     [ "iaux::iaColor4< T >", "classiaux_1_1ia_color4.html", null ],
     [ "iaux::iaConvert", "classiaux_1_1ia_convert.html", null ],
     [ "igor::iNodeManager::iAction", "structigor_1_1i_node_manager_1_1i_action.html", null ],
     [ "igor::iAction", "classigor_1_1i_action.html", [
-      [ "igor::iActionSimpleDelegate", "classigor_1_1i_action_simple_delegate.html", null ]
+      [ "igor::iActionApplicationStop", "classigor_1_1i_action_application_stop.html", null ]
     ] ],
+    [ "igor::iActionContext", "classigor_1_1i_action_context.html", null ],
     [ "iaux::iaDirectory", "classiaux_1_1ia_directory.html", null ],
     [ "iaux::iaFile", "classiaux_1_1ia_file.html", null ],
     [ "iaux::iaGradient< T >", "classiaux_1_1ia_gradient.html", null ],
@@ -29,7 +30,6 @@ var hierarchy =
     [ "iaux::iaMutex", "classiaux_1_1ia_mutex.html", null ],
     [ "iaux::iaQuaternion< T >", "classiaux_1_1ia_quaternion.html", null ],
     [ "iaux::iaRandomNumberGenerator< T >", "classiaux_1_1ia_random_number_generator.html", null ],
-    [ "iaux::iaRingQueue< TValue >", "classiaux_1_1ia_ring_queue.html", null ],
     [ "iaux::iaRLE< TValue, TIndex >", "classiaux_1_1ia_r_l_e.html", null ],
     [ "iaux::iaRLE< uint8, uint8 >", "classiaux_1_1ia_r_l_e.html", null ],
     [ "iaux::iaRLEBlock< TValue, TIndex >", "structiaux_1_1ia_r_l_e_block.html", null ],
@@ -46,6 +46,9 @@ var hierarchy =
     ] ],
     [ "iaux::iaSingleton< iAudio >", "classiaux_1_1ia_singleton.html", [
       [ "igor::iAudio", "classigor_1_1i_audio.html", null ]
+    ] ],
+    [ "iaux::iaSingleton< iClipboard >", "classiaux_1_1ia_singleton.html", [
+      [ "igor::iClipboard", "classigor_1_1i_clipboard.html", null ]
     ] ],
     [ "iaux::iaSingleton< iEntityManager >", "classiaux_1_1ia_singleton.html", [
       [ "igor::iEntityManager", "classigor_1_1i_entity_manager.html", null ]
@@ -98,6 +101,11 @@ var hierarchy =
     [ "iaux::iaState", "classiaux_1_1ia_state.html", null ],
     [ "iaux::iaStateMachine", "classiaux_1_1ia_state_machine.html", null ],
     [ "iaux::iaString", "classiaux_1_1ia_string.html", null ],
+    [ "iaux::iaThread", "classiaux_1_1ia_thread.html", [
+      [ "igor::iThread", "classigor_1_1i_thread.html", [
+        [ "igor::iRenderContextThread", "classigor_1_1i_render_context_thread.html", null ]
+      ] ]
+    ] ],
     [ "iaux::iaTime", "classiaux_1_1ia_time.html", null ],
     [ "igor::iAtlas", "classigor_1_1i_atlas.html", null ],
     [ "iaux::iaTransform< T >", "classiaux_1_1ia_transform.html", null ],
@@ -124,6 +132,22 @@ var hierarchy =
       [ "igor::iEvaluationScript", "classigor_1_1i_evaluation_script.html", null ],
       [ "igor::iEvaluationTransform", "classigor_1_1i_evaluation_transform.html", null ]
     ] ],
+    [ "igor::iEvent", "classigor_1_1i_event.html", [
+      [ "igor::iEventKeyASCII", "classigor_1_1i_event_key_a_s_c_i_i.html", null ],
+      [ "igor::iEventKeyDown", "classigor_1_1i_event_key_down.html", null ],
+      [ "igor::iEventKeyUp", "classigor_1_1i_event_key_up.html", null ],
+      [ "igor::iEventMouseKeyDoubleClick", "classigor_1_1i_event_mouse_key_double_click.html", null ],
+      [ "igor::iEventMouseKeyDown", "classigor_1_1i_event_mouse_key_down.html", null ],
+      [ "igor::iEventMouseKeyUp", "classigor_1_1i_event_mouse_key_up.html", null ],
+      [ "igor::iEventMouseMove", "classigor_1_1i_event_mouse_move.html", null ],
+      [ "igor::iEventMouseWheel", "classigor_1_1i_event_mouse_wheel.html", null ],
+      [ "igor::iEventNodeAddedToScene", "classigor_1_1i_event_node_added_to_scene.html", null ],
+      [ "igor::iEventNodeRemovedFromScene", "classigor_1_1i_event_node_removed_from_scene.html", null ],
+      [ "igor::iEventSceneSelectionChanged", "classigor_1_1i_event_scene_selection_changed.html", null ],
+      [ "igor::iEventWindowClose", "classigor_1_1i_event_window_close.html", null ],
+      [ "igor::iEventWindowOpen", "classigor_1_1i_event_window_open.html", null ],
+      [ "igor::iEventWindowResize", "classigor_1_1i_event_window_resize.html", null ]
+    ] ],
     [ "igor::iFactory", "classigor_1_1i_factory.html", [
       [ "igor::iSoundFactory", "classigor_1_1i_sound_factory.html", null ]
     ] ],
@@ -134,6 +158,11 @@ var hierarchy =
     [ "igor::iIntersection", "classigor_1_1i_intersection.html", null ],
     [ "igor::iJoint", "classigor_1_1i_joint.html", null ],
     [ "igor::iKeyboardImpl", "classigor_1_1i_keyboard_impl.html", null ],
+    [ "igor::iLayer", "classigor_1_1i_layer.html", [
+      [ "igor::iLayerProfiler", "classigor_1_1i_layer_profiler.html", null ],
+      [ "igor::iLayerWidgets", "classigor_1_1i_layer_widgets.html", null ]
+    ] ],
+    [ "igor::iLayerStack", "classigor_1_1i_layer_stack.html", null ],
     [ "igor::iLSystem", "classigor_1_1i_l_system.html", null ],
     [ "igor::iMaterial", "classigor_1_1i_material.html", null ],
     [ "igor::iMaterialGroup", "classigor_1_1i_material_group.html", null ],
@@ -230,9 +259,6 @@ var hierarchy =
     ] ],
     [ "igor::iTexture", "classigor_1_1i_texture.html", null ],
     [ "igor::iTextureFont", "classigor_1_1i_texture_font.html", null ],
-    [ "igor::iThread", "classigor_1_1i_thread.html", [
-      [ "igor::iRenderContextThread", "classigor_1_1i_render_context_thread.html", null ]
-    ] ],
     [ "igor::iTimerHandle", "classigor_1_1i_timer_handle.html", null ],
     [ "igor::iView", "classigor_1_1i_view.html", null ],
     [ "igor::iVoxelBlock", "structigor_1_1i_voxel_block.html", null ],
@@ -281,7 +307,7 @@ var hierarchy =
       [ "igor::iWidgetSpacer", "classigor_1_1i_widget_spacer.html", null ],
       [ "igor::iWidgetTextEdit", "classigor_1_1i_widget_text_edit.html", null ]
     ] ],
-    [ "igor::iWidgetBaseTheme", "classigor_1_1i_widget_base_theme.html", [
+    [ "igor::iWidgetTheme", "classigor_1_1i_widget_theme.html", [
       [ "igor::iWidgetDefaultTheme", "classigor_1_1i_widget_default_theme.html", null ]
     ] ],
     [ "igor::iWindow", "classigor_1_1i_window.html", null ],

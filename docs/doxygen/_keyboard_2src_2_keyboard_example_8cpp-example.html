@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.27.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.28.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -132,140 +132,119 @@ $(document).ready(function(){initNavTree('_keyboard_2src_2_keyboard_example_8cpp
 <div class="line"><span class="comment">// You should have received a copy of the GNU General Public License</span></div>
 <div class="line"><span class="comment">// along with this program.If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
 <div class="line"><span class="comment">//</span></div>
-<div class="line"><span class="comment">// contact: martinloga@gmx.de</span></div>
+<div class="line"><span class="comment">// contact: igorgameengine@protonmail.com</span></div>
 <div class="line"></div>
-<div class="line"><span class="preprocessor">#ifndef __KEYBOARDEXAMPLE__</span></div>
-<div class="line"><span class="preprocessor">#define __KEYBOARDEXAMPLE__</span></div>
+<div class="line"><span class="preprocessor">#ifndef __KEYBOARDEXAMPLE_H__</span></div>
+<div class="line"><span class="preprocessor">#define __KEYBOARDEXAMPLE_H__</span></div>
 <div class="line"></div>
 <div class="line"><span class="preprocessor">#include &lt;ExampleBase.h&gt;</span></div>
-<div class="line"><span class="keyword">using namespace </span><a class="code" href="namespaceigor.html">igor</a>;</div>
 <div class="line"></div>
 <div class="line"><span class="keyword">class </span>KeyboardExample : <span class="keyword">public</span> ExampleBase</div>
 <div class="line">{</div>
 <div class="line"></div>
 <div class="line"><span class="keyword">public</span>:</div>
-<div class="line">    KeyboardExample();</div>
+<div class="line">    KeyboardExample(iWindow *window);</div>
 <div class="line"></div>
 <div class="line">    ~KeyboardExample() = <span class="keywordflow">default</span>;</div>
 <div class="line"></div>
-<div class="line"><span class="keyword">protected</span>:</div>
-<div class="line">    <span class="keywordtype">void</span> init() <span class="keyword">override</span>;</div>
-<div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> deinit() <span class="keyword">override</span>;</div>
-<div class="line"></div>
 <div class="line"><span class="keyword">private</span>:</div>
+<div class="line">    <span class="keywordtype">bool</span> _outputSwitch = <span class="keyword">true</span>;</div>
 <div class="line"></div>
-<div class="line">    <span class="keywordtype">bool</span> _outputSwitch;</div>
+<div class="line">    <span class="keywordtype">bool</span> onKeyDown(<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710da6d7fa54fe77642cce3a76caaa389f9f2">iEventKeyDown</a> &amp;event);</div>
 <div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> onKeyPressed(<a class="code" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bd">iKeyCode</a> key);</div>
+<div class="line">    <span class="keywordtype">bool</span> onKeyUp(<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710da3fd9f3142948a6a2a482035a334b384f">iEventKeyUp</a> &amp;event);</div>
 <div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> onKeyReleased(<a class="code" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bd">iKeyCode</a> key);</div>
+<div class="line">    <span class="keywordtype">bool</span> onKeyASCIIInput(<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710da8c97b0a090ddff590d080c84a4325be2">iEventKeyASCII</a> &amp;event);</div>
 <div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> onKeyASCIIInput(<span class="keywordtype">char</span> c);</div>
+<div class="line">    <span class="keywordtype">void</span> onInit() <span class="keyword">override</span>;</div>
 <div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> onKeyESCPressed();</div>
+<div class="line">    <span class="keywordtype">void</span> onEvent(iEvent &amp;event) <span class="keyword">override</span>;</div>
 <div class="line">};</div>
 <div class="line"></div>
-<div class="line"><span class="preprocessor">#endif</span></div>
-</div><!-- fragment --><div class="fragment"><div class="line"><span class="preprocessor">#include &quot;KeyboardExample.h&quot;</span></div>
+<div class="line"><span class="preprocessor">#endif // __KEYBOARDEXAMPLE_H__</span></div>
+</div><!-- fragment --><div class="fragment"><div class="line"><span class="comment">// Igor game engine</span></div>
+<div class="line"><span class="comment">// (c) Copyright 2012-2020 by Martin Loga</span></div>
+<div class="line"><span class="comment">// see copyright notice in corresponding header file</span></div>
 <div class="line"></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_application_8h.html">igor/system/iApplication.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_keyboard_8h.html">igor/system/iKeyboard.h</a>&gt;</span></div>
-<div class="line"><span class="keyword">using namespace </span><a class="code" href="namespaceigor.html">igor</a>;</div>
+<div class="line"><span class="preprocessor">#include &quot;KeyboardExample.h&quot;</span></div>
 <div class="line"></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="ia_console_8h.html">iaux/system/iaConsole.h</a>&gt;</span></div>
-<div class="line"><span class="keyword">using namespace </span><a class="code" href="namespaceiaux.html">iaux</a>;</div>
-<div class="line"></div>
-<div class="line">KeyboardExample::KeyboardExample()</div>
-<div class="line">    : ExampleBase(<a name="a0"></a><a class="code" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bdad20caec3b48a1eef164cb4ca81ba2587">L</a><span class="stringliteral">&quot;Keyboard Input&quot;</span>)</div>
-<div class="line">    , _outputSwitch(true)</div>
+<div class="line">KeyboardExample::KeyboardExample(iWindow *window)</div>
+<div class="line">    : ExampleBase(window, <a class="code" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bdad20caec3b48a1eef164cb4ca81ba2587">L</a><span class="stringliteral">&quot;Keyboard Input&quot;</span>)</div>
 <div class="line">{</div>
 <div class="line">}</div>
 <div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> KeyboardExample::init()</div>
+<div class="line"><span class="keywordtype">void</span> KeyboardExample::onInit()</div>
 <div class="line">{</div>
 <div class="line">    <span class="comment">// print some helpfull text</span></div>
-<div class="line">    <a name="a1"></a><a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;press ESC - to exit&quot;</span>);</div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;press F1  - to switch output method&quot;</span>);</div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;Keep keyboard focus on \&quot;Keyboard Example\&quot; _window.&quot;</span>);</div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;&quot;</span>);</div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;!!! One Warning about a missing view is supposed to pop up. !!!&quot;</span>);</div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;&quot;</span>);</div>
-<div class="line"></div>
-<div class="line">    <span class="comment">// registers a callback to the key pressed event. called when any key was pressed</span></div>
-<div class="line">    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(<span class="keyword">this</span>, &amp;KeyboardExample::onKeyPressed));</div>
-<div class="line">    <span class="comment">// registers a callback to the key release event. called when any key was released</span></div>
-<div class="line">    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(<span class="keyword">this</span>, &amp;KeyboardExample::onKeyReleased));</div>
-<div class="line">    <span class="comment">// registers a callback to the specific key pressed event. In this case the ESC key. called only when the esc key was pressed</span></div>
-<div class="line">    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownSpecificDelegate(<span class="keyword">this</span>, &amp;KeyboardExample::onKeyESCPressed), iKeyCode::ESC);</div>
-<div class="line">    <span class="comment">// registers a callback to the ASCII input event. called for every ascii input event</span></div>
-<div class="line">    iKeyboard::getInstance().registerKeyASCIIDelegate(iKeyASCIIDelegate(<span class="keyword">this</span>, &amp;KeyboardExample::onKeyASCIIInput));</div>
+<div class="line">    <a name="a0"></a><a class="code" href="ia_console_8h.html#a66b18edf45763200ee00363ad632d570">con_info</a>(<span class="stringliteral">&quot;press F1  - to switch output method&quot;</span>);</div>
+<div class="line">    <a class="code" href="ia_console_8h.html#a66b18edf45763200ee00363ad632d570">con_info</a>(<span class="stringliteral">&quot;Keep keyboard focus on \&quot;Keyboard Example\&quot; _window.&quot;</span>);</div>
 <div class="line"></div>
 <div class="line">    <span class="comment">// some more helpfull text</span></div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot; --- starting with single key message output mode ---&quot;</span>);</div>
+<div class="line">    <a class="code" href="ia_console_8h.html#a66b18edf45763200ee00363ad632d570">con_info</a>(<span class="stringliteral">&quot; --- starting with single key message output mode ---&quot;</span>);</div>
 <div class="line">}</div>
 <div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> KeyboardExample::deinit()</div>
+<div class="line"><span class="keywordtype">void</span> KeyboardExample::onEvent(iEvent &amp;event)</div>
 <div class="line">{</div>
-<div class="line">    <span class="comment">// unregisters all callbacks. in principle this is optional because we shut down here anyway but if you want a clean shutdown you should do that</span></div>
-<div class="line">    iKeyboard::getInstance().unregisterKeyASCIIDelegate(iKeyASCIIDelegate(<span class="keyword">this</span>, &amp;KeyboardExample::onKeyASCIIInput));</div>
-<div class="line">    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(<span class="keyword">this</span>, &amp;KeyboardExample::onKeyPressed));</div>
-<div class="line">    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(<span class="keyword">this</span>, &amp;KeyboardExample::onKeyReleased));</div>
-<div class="line">    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownSpecificDelegate(<span class="keyword">this</span>, &amp;KeyboardExample::onKeyESCPressed), iKeyCode::ESC);</div>
+<div class="line">    <span class="comment">// first call example base</span></div>
+<div class="line">    ExampleBase::onEvent(event);</div>
+<div class="line"></div>
+<div class="line">    <span class="keyword">event</span>.dispatch&lt;<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710da8c97b0a090ddff590d080c84a4325be2">iEventKeyASCII</a>&gt;(<a name="a1"></a><a class="code" href="i_event_8h.html#aba3d4ba34f4c5cc603450d336d9312c8">IGOR_BIND_EVENT_FUNCTION</a>(KeyboardExample::onKeyASCIIInput));</div>
+<div class="line">    <span class="keyword">event</span>.dispatch&lt;<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710da6d7fa54fe77642cce3a76caaa389f9f2">iEventKeyDown</a>&gt;(<a class="code" href="i_event_8h.html#aba3d4ba34f4c5cc603450d336d9312c8">IGOR_BIND_EVENT_FUNCTION</a>(KeyboardExample::onKeyDown));</div>
+<div class="line">    <span class="keyword">event</span>.dispatch&lt;<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710da3fd9f3142948a6a2a482035a334b384f">iEventKeyUp</a>&gt;(<a class="code" href="i_event_8h.html#aba3d4ba34f4c5cc603450d336d9312c8">IGOR_BIND_EVENT_FUNCTION</a>(KeyboardExample::onKeyUp));</div>
 <div class="line">}</div>
 <div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> KeyboardExample::onKeyASCIIInput(<span class="keyword">const</span> <span class="keywordtype">char</span> c)</div>
+<div class="line"><span class="keywordtype">bool</span> KeyboardExample::onKeyASCIIInput(iEventKeyASCII &amp;event)</div>
 <div class="line">{</div>
-<div class="line">    <span class="comment">// check in which output mode we are</span></div>
 <div class="line">    <span class="keywordflow">if</span> (!_outputSwitch)</div>
 <div class="line">    {</div>
-<div class="line">        <span class="comment">// print character to console</span></div>
-<div class="line">        <a name="a2"></a><a class="code" href="ia_console_8h.html#a013e663380036999ed38f9752c5481cc">con</a>(c);</div>
+<div class="line">        <span class="comment">// print single character to console bypassing all the standard interfaces</span></div>
+<div class="line">        iaConsole::getInstance() &lt;&lt; <a name="a2"></a><a class="code" href="namespaceiaux.html#ad115e13c89b22dd2f51dc8564b1670d7">LOCK</a> &lt;&lt; <span class="keyword">event</span>.getChar() &lt;&lt; <a name="a3"></a><a class="code" href="namespaceiaux.html#ab9745ecc445243c88b2a509b2c68ae09">flush</a> &lt;&lt; <a name="a4"></a><a class="code" href="namespaceiaux.html#a70d25d986c5fffd8bd895f55a6f20a16">UNLOCK</a>;</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">bool</span> KeyboardExample::onKeyDown(iEventKeyDown &amp;event)</div>
+<div class="line">{</div>
+<div class="line">    <span class="keywordflow">if</span> (_outputSwitch)</div>
+<div class="line">    {</div>
+<div class="line">        <span class="comment">// print to console name of the key that was pressed</span></div>
+<div class="line">        <a name="a5"></a><a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;pressed: &quot;</span> &lt;&lt; event.getKey());</div>
+<div class="line"></div>
+<div class="line">        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line">    }</div>
+<div class="line">    <span class="keywordflow">else</span></div>
+<div class="line">    {</div>
+<div class="line">        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line">    }</div>
 <div class="line">}</div>
 <div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> KeyboardExample::onKeyPressed(<a class="code" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bd">iKeyCode</a> key)</div>
+<div class="line"><span class="keywordtype">bool</span> KeyboardExample::onKeyUp(iEventKeyUp &amp;event)</div>
 <div class="line">{</div>
-<div class="line">    <span class="comment">// check in which output mode we are</span></div>
 <div class="line">    <span class="keywordflow">if</span> (_outputSwitch)</div>
 <div class="line">    {</div>
-<div class="line">        <span class="comment">// print to console name and value of the key that was pressed</span></div>
-<div class="line">        <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;pressed: &quot;</span> &lt;&lt; key &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; static_cast&lt;int&gt;(key) &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>);</div>
-<div class="line">    }</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> KeyboardExample::onKeyReleased(<a class="code" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bd">iKeyCode</a> key)</div>
-<div class="line">{</div>
-<div class="line">    <span class="comment">// check in which output mode we are</span></div>
-<div class="line">    <span class="keywordflow">if</span> (_outputSwitch)</div>
-<div class="line">    {</div>
-<div class="line">        <span class="comment">// print to console name and value of the key that was released</span></div>
-<div class="line">        <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;released: &quot;</span> &lt;&lt; key &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; static_cast&lt;int&gt;(key) &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>);</div>
+<div class="line">        <span class="comment">// print to console name of the key that was released</span></div>
+<div class="line">        <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;released: &quot;</span> &lt;&lt; event.getKey());</div>
 <div class="line">    }</div>
 <div class="line"></div>
 <div class="line">    <span class="comment">// switch output mode if key F1 was pressed</span></div>
-<div class="line">    <span class="keywordflow">if</span> (key == iKeyCode::F1)</div>
+<div class="line">    <span class="keywordflow">if</span> (event.getKey() == iKeyCode::F1)</div>
 <div class="line">    {</div>
 <div class="line">        <span class="keywordflow">if</span> (_outputSwitch)</div>
 <div class="line">        {</div>
 <div class="line">            _outputSwitch = <span class="keyword">false</span>;</div>
-<div class="line">            <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot; --- switched to ascii code output mode ---&quot;</span>);</div>
+<div class="line">            <a class="code" href="ia_console_8h.html#a66b18edf45763200ee00363ad632d570">con_info</a>(<span class="stringliteral">&quot; --- switched to ascii code output mode ---&quot;</span>);</div>
 <div class="line">        }</div>
 <div class="line">        <span class="keywordflow">else</span></div>
 <div class="line">        {</div>
 <div class="line">            _outputSwitch = <span class="keyword">true</span>;</div>
 <div class="line">            <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;&quot;</span>);</div>
-<div class="line">            <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot; --- switched to single key message output mode ---&quot;</span>);</div>
+<div class="line">            <a class="code" href="ia_console_8h.html#a66b18edf45763200ee00363ad632d570">con_info</a>(<span class="stringliteral">&quot; --- switched to single key message output mode ---&quot;</span>);</div>
 <div class="line">        }</div>
 <div class="line">    }</div>
-<div class="line">}</div>
 <div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> KeyboardExample::onKeyESCPressed()</div>
-<div class="line">{</div>
-<div class="line">    <span class="comment">// breaks the endless loop of our running application</span></div>
-<div class="line">    iApplication::getInstance().stop();</div>
+<div class="line">    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line">}</div>
-<div class="line"></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

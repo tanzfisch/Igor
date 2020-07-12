@@ -11,9 +11,7 @@ var dir_5f43df8be1b6320d873aa970835f6e01 =
       [ "iNodeAudioSource", "classigor_1_1i_node_audio_source.html", "classigor_1_1i_node_audio_source" ]
     ] ],
     [ "iNodeCamera.cpp", "i_node_camera_8cpp.html", null ],
-    [ "iNodeCamera.h", "i_node_camera_8h.html", [
-      [ "iNodeCamera", "classigor_1_1i_node_camera.html", "classigor_1_1i_node_camera" ]
-    ] ],
+    [ "iNodeCamera.h", "i_node_camera_8h.html", "i_node_camera_8h" ],
     [ "iNodeEmitter.cpp", "i_node_emitter_8cpp.html", null ],
     [ "iNodeEmitter.h", "i_node_emitter_8h.html", [
       [ "iNodeEmitter", "classigor_1_1i_node_emitter.html", "classigor_1_1i_node_emitter" ]

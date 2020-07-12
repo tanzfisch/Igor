@@ -1,8 +1,8 @@
 var searchData=
 [
   ['makecurrent',['makeCurrent',['../classigor_1_1i_window_impl.html#aff8ae2c531dc6cc919d4acbf113a57df',1,'igor::iWindowImpl']]],
-  ['match',['match',['../classiaux_1_1ia_string.html#a6d83f0b31392ea85a7fd9ea56699a82a',1,'iaux::iaString']]],
   ['matchingtype',['matchingType',['../classigor_1_1i_factory.html#a1dfcfcce279cc483a4a5b6556a00e371',1,'igor::iFactory']]],
+  ['matchregex',['matchRegex',['../classiaux_1_1ia_string.html#a4ac93adac1436bd26061da6a4373162c',1,'iaux::iaString']]],
   ['measureheight',['measureHeight',['../classigor_1_1i_texture_font.html#a2c05fee7f98d9062c1746227d6cec8cc',1,'igor::iTextureFont']]],
   ['measurewidth',['measureWidth',['../classigor_1_1i_texture_font.html#add52e7273f5f04c959c50e5675719765',1,'igor::iTextureFont']]],
   ['merge',['merge',['../classigor_1_1i_sphere.html#ab7d2f247a9c5cd86208a8d7b5d6e6b2d',1,'igor::iSphere']]],

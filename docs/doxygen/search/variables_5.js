@@ -12,7 +12,7 @@ var searchData=
   ['invalid_5fnode_5fid',['INVALID_NODE_ID',['../classigor_1_1i_node.html#a7e74334add4648293a6f4dfc738d0d98',1,'igor::iNode']]],
   ['invalid_5fphysicsbody_5fid',['INVALID_PHYSICSBODY_ID',['../classigor_1_1i_physics_body.html#a42f66e626101d7a626c7f27fdb73b0af',1,'igor::iPhysicsBody']]],
   ['invalid_5fphysicscollision_5fid',['INVALID_PHYSICSCOLLISION_ID',['../classigor_1_1i_physics_collision.html#ab23658e7bdb81b32b0c7c7d9508b0dd8',1,'igor::iPhysicsCollision']]],
-  ['invalid_5fphysicsmaterial_5fid',['INVALID_PHYSICSMATERIAL_ID',['../classigor_1_1i_physics_material.html#ae122b48bbdaa9213b9c9fb5b59b0596c',1,'igor::iPhysicsMaterial']]],
+  ['invalid_5fphysicsmaterial_5fid',['INVALID_PHYSICSMATERIAL_ID',['../classigor_1_1i_physics_material.html#ac17a3407378454ace431fe8fbe45713f',1,'igor::iPhysicsMaterial']]],
   ['invalid_5fposition',['INVALID_POSITION',['../classiaux_1_1ia_string.html#ab811cb303810c93017a9016b19702caf',1,'iaux::iaString']]],
   ['invalid_5fsection_5fid',['INVALID_SECTION_ID',['../classigor_1_1i_profiler_section.html#a05bf641100d49cb7b1aa03ea21074dd0',1,'igor::iProfilerSection']]],
   ['invalid_5fshader_5fid',['INVALID_SHADER_ID',['../classigor_1_1i_shader.html#af360a3b64ea6a7fa0c0f5ce26c5a55b5',1,'igor::iShader']]],
@@ -21,5 +21,6 @@ var searchData=
   ['invalid_5ftransition_5fid',['INVALID_TRANSITION_ID',['../classiaux_1_1ia_transition.html#a4cc596ff11faac0c3d8d4e095704eeca',1,'iaux::iaTransition']]],
   ['invalid_5fvoxelblockid',['INVALID_VOXELBLOCKID',['../structigor_1_1i_voxel_block.html#aab7dfa5c881479298501384327ea003e',1,'igor::iVoxelBlock']]],
   ['invalid_5fwidget_5fid',['INVALID_WIDGET_ID',['../classigor_1_1i_widget.html#adb95d8c7d3db51959d3753e4f072d1a1',1,'igor::iWidget']]],
+  ['invalid_5fwindow_5fid',['INVALID_WINDOW_ID',['../classigor_1_1i_window.html#aee82da87b5c581d3e7680e2bee0e5c61',1,'igor::iWindow']]],
   ['invalid_5fworld_5fid',['INVALID_WORLD_ID',['../classigor_1_1i_physics_world.html#a3c2ed2a0252ebb67033040015fd00da4',1,'igor::iPhysicsWorld']]]
 ];

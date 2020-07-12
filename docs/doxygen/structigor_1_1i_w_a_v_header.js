@@ -6,6 +6,7 @@ var structigor_1_1i_w_a_v_header =
     [ "_byteRate", "structigor_1_1i_w_a_v_header.html#a8bd788798028b073c8cefd64c12db028", null ],
     [ "_chunkID", "structigor_1_1i_w_a_v_header.html#a80ed17822183f6148fbdb52398a64de9", null ],
     [ "_chunkSize", "structigor_1_1i_w_a_v_header.html#af73a33948a202005af3c55f60f066cce", null ],
+    [ "_extraParamSize", "structigor_1_1i_w_a_v_header.html#adfb35a8bfdb906bc4e0cf4aa2d82fe2c", null ],
     [ "_format", "structigor_1_1i_w_a_v_header.html#a3c2c25611b7d1f334ae0c57d938c0a2b", null ],
     [ "_numChannels", "structigor_1_1i_w_a_v_header.html#a26601ba05d7f4f3e2518bda976100878", null ],
     [ "_sampleRate", "structigor_1_1i_w_a_v_header.html#a992e1a3faa2adb99f7c8e324a1162cba", null ],

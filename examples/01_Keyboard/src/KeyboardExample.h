@@ -62,13 +62,13 @@ private:
 
     \param event the event to handle
     */
-    bool onKeyUp(iKeyUpEvent_TMP &event);
+    bool onKeyUp(iEventKeyUp &event);
 
     /*! called on ascii input
 
     \param event the event to handle
     */
-    bool onKeyASCIIInput(iKeyASCIIEvent_TMP &event);
+    bool onKeyASCIIInput(iEventKeyASCII &event);
 
     /*! initialize example
     */

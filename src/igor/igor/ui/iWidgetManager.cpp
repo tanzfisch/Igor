@@ -388,9 +388,9 @@ namespace igor
         event.dispatch<iEventMouseKeyDoubleClick>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseKeyDoubleClickEvent));
         event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseMoveEvent));
         event.dispatch<iEventMouseWheel>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseWheelEvent));
-        event.dispatch<iKeyASCIIEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onKeyASCIIInput));
+        event.dispatch<iEventKeyASCII>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onKeyASCIIInput));
         event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onKeyDown));
-        event.dispatch<iKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onKeyUp));
+        event.dispatch<iEventKeyUp>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onKeyUp));
         event.dispatch<iEventWindowResize>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onWindowResize));
     }
 
@@ -424,7 +424,7 @@ namespace igor
         return false;
     }
 
-    bool iWidgetManager::onKeyUp(iKeyUpEvent_TMP &event)
+    bool iWidgetManager::onKeyUp(iEventKeyUp &event)
     {
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
@@ -447,7 +447,7 @@ namespace igor
         return false;
     }
 
-    bool iWidgetManager::onKeyASCIIInput(iKeyASCIIEvent_TMP &event)
+    bool iWidgetManager::onKeyASCIIInput(iEventKeyASCII &event)
     {
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)

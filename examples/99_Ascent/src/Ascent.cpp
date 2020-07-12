@@ -807,7 +807,7 @@ void Ascent::onEvent(iEvent &event)
     event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(Ascent::onMouseMoveEvent));
     event.dispatch<iEventMouseWheel>(IGOR_BIND_EVENT_FUNCTION(Ascent::onMouseWheelEvent));
     event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(Ascent::onKeyDown));
-    event.dispatch<iKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Ascent::onKeyUp));
+    event.dispatch<iEventKeyUp>(IGOR_BIND_EVENT_FUNCTION(Ascent::onKeyUp));
 }
 
 bool Ascent::onMouseKeyDownEvent(iEventMouseKeyDown &event)
@@ -968,7 +968,7 @@ bool Ascent::onKeyDown(iEventKeyDown &event)
     return false;
 }
 
-bool Ascent::onKeyUp(iKeyUpEvent_TMP &event)
+bool Ascent::onKeyUp(iEventKeyUp &event)
 {
     if (_activeControls)
     {

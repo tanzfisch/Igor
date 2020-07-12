@@ -15,9 +15,7 @@ var dir_2458373c9778a609dd41a1936264eb43 =
     [ "iPhysicsJoint.cpp", "i_physics_joint_8cpp.html", null ],
     [ "iPhysicsJoint.h", "i_physics_joint_8h.html", "i_physics_joint_8h" ],
     [ "iPhysicsMaterial.cpp", "i_physics_material_8cpp.html", null ],
-    [ "iPhysicsMaterial.h", "i_physics_material_8h.html", [
-      [ "iPhysicsMaterial", "classigor_1_1i_physics_material.html", "classigor_1_1i_physics_material" ]
-    ] ],
+    [ "iPhysicsMaterial.h", "i_physics_material_8h.html", "i_physics_material_8h" ],
     [ "iPhysicsMaterialCombo.cpp", "i_physics_material_combo_8cpp.html", null ],
     [ "iPhysicsMaterialCombo.h", "i_physics_material_combo_8h.html", "i_physics_material_combo_8h" ],
     [ "iPhysicsUserMeshCollisionHandler.cpp", "i_physics_user_mesh_collision_handler_8cpp.html", null ],

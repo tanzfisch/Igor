@@ -106,7 +106,7 @@ protected:
 
     \param event the event to handle
     */
-    bool onKeyUp(iKeyUpEvent_TMP &event);
+    bool onKeyUp(iEventKeyUp &event);
 
 private:
     /*! the view we render 2D to

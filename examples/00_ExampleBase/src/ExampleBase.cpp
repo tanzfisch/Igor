@@ -123,7 +123,7 @@ ExampleBase::~ExampleBase()
 void ExampleBase::onEvent(iEvent &event)
 {
     event.dispatch<iEventWindowResize>(IGOR_BIND_EVENT_FUNCTION(ExampleBase::onWindowResize));
-    event.dispatch<iKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(ExampleBase::onKeyUp));
+    event.dispatch<iEventKeyUp>(IGOR_BIND_EVENT_FUNCTION(ExampleBase::onKeyUp));
 }
 
 bool ExampleBase::onWindowResize(iEventWindowResize &event)
@@ -136,7 +136,7 @@ bool ExampleBase::onWindowResize(iEventWindowResize &event)
     return false;
 }
 
-bool ExampleBase::onKeyUp(iKeyUpEvent_TMP &event)
+bool ExampleBase::onKeyUp(iEventKeyUp &event)
 {
     switch (event.getKey())
     {

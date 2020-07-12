@@ -15,7 +15,6 @@ var classigor_1_1i_widget_graph =
     [ "getPointSize", "classigor_1_1i_widget_graph.html#abcfabfc9f4103eb0d0071a9b14d64fd1", null ],
     [ "getViewGrid", "classigor_1_1i_widget_graph.html#a8d25605830de5fb5affbda34968ece20", null ],
     [ "getViewLabels", "classigor_1_1i_widget_graph.html#ace55b2b04121b39f454e11565fca6e1b", null ],
-    [ "getWidgetType", "classigor_1_1i_widget_graph.html#a535fd6f196a9a13f7d3f34a43870ec85", null ],
     [ "isInteractive", "classigor_1_1i_widget_graph.html#a359e9b85fa0e692654abb2e5b54123f8", null ],
     [ "isUsingBoundings", "classigor_1_1i_widget_graph.html#ac47f6a1d479f2510d1e7679f005d5d23", null ],
     [ "setBoundings", "classigor_1_1i_widget_graph.html#aacf476b4e6bff6b5e568afc3cde9d174", null ],

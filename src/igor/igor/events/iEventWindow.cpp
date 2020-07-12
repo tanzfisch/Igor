@@ -4,6 +4,8 @@
 
 #include <igor/events/iEventWindow.h>
 
+#include <sstream>
+
 namespace igor
 {
 
@@ -26,7 +28,7 @@ namespace igor
     {
         std::wstringstream stream;
 
-        stream << getName().getData() << "[" << _width << ", " << _height << "]";
+        stream << getName() << "[" << _width << ", " << _height << "]";
 
         return stream.str().c_str();
     }
