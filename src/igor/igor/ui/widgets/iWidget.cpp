@@ -17,7 +17,8 @@ namespace igor
     uint64 iWidget::_nextID = iWidget::INVALID_WIDGET_ID + 1;
     iWidgetPtr iWidget::_keyboardFocus = nullptr;
 
-    iWidget::iWidget(const iWidgetPtr parent)
+    iWidget::iWidget(iWidgetType type, iWidgetKind kind, const iWidgetPtr parent)
+        : _type(type), _kind(kind) // TODO _parent(parent) why not?
     {
         _id = _nextID++;
 
@@ -50,7 +51,12 @@ namespace igor
 
     iWidgetType iWidget::getWidgetType() const
     {
-        return iWidgetType::iUndefinedType;
+        return _type;
+    }
+
+    iWidgetKind iWidget::getWidgetKind() const
+    {
+        return _kind;
     }
 
     void iWidget::setBackground(const iaColor4f &color)
@@ -73,9 +79,26 @@ namespace igor
         return _foreground;
     }
 
-    void iWidget::block(bool blockEvents)
+    void iWidget::unblockEvents()
     {
-        _blockedEvents = blockEvents;
+        _blockedEvents = false;
+
+        _click.block(_blockedEvents);
+        _mouseOffClick.block(_blockedEvents);
+        _contextMenu.block(_blockedEvents);
+        _doubleClick.block(_blockedEvents);
+        _mouseOver.block(_blockedEvents);
+        _mouseOff.block(_blockedEvents);
+        _change.block(_blockedEvents);
+        _focus.block(_blockedEvents);
+        _wheelUp.block(_blockedEvents);
+        _wheelDown.block(_blockedEvents);
+        _selectionChanged.block(_blockedEvents);
+    }
+
+    void iWidget::blockEvents()
+    {
+        _blockedEvents = true;
 
         _click.block(_blockedEvents);
         _mouseOffClick.block(_blockedEvents);

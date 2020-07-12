@@ -1,3 +1,7 @@
+// Igor game engine
+// (c) Copyright 2012-2020 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "Turret.h"
 
 #include <igor/scene/nodes/iNodeManager.h>
@@ -19,7 +23,7 @@ using namespace iaux;
 #include "Bullet.h"
 #include "Granade.h"
 
-Turret::Turret(iScene *scene, iNodeTransform *parent, iVoxelTerrain *voxelTerrain, Fraction fraction, uint64 playerID)
+Turret::Turret(iScenePtr scene, iNodeTransform *parent, iVoxelTerrain *voxelTerrain, Fraction fraction, uint64 playerID)
     : GameObject(fraction, GameObjectType::None)
 {
     _playerID = playerID;

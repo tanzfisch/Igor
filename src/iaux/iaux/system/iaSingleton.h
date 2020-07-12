@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_SINGLETON__
-#define __IAUX_SINGLETON__
+#ifndef __IAUX_SINGLETON_H__
+#define __IAUX_SINGLETON_H__
 
 #include <iaux/system/iaMutex.h>
 
@@ -133,4 +133,4 @@ namespace iaux
 #pragma warning(default : 4100)
 }; // namespace iaux
 
-#endif
+#endif // __IAUX_SINGLETON_H__

@@ -11,7 +11,7 @@
 namespace Igor
 {
 
-    iTaskUpdateLOD::iTaskUpdateLOD(iScene *scene)
+    iTaskUpdateLOD::iTaskUpdateLOD(iScenePtr scene)
         : iTask(nullptr)
     {
         _needsRenderContext = false;

@@ -10,7 +10,6 @@ var classigor_1_1i_mouse_impl =
     [ "showCursor", "classigor_1_1i_mouse_impl.html#a217878c086d74478d7f9e197b5779418", null ],
     [ "iMouse", "classigor_1_1i_mouse_impl.html#ac8542224cb08c7f412298af2343473b4", null ],
     [ "_buttonStates", "classigor_1_1i_mouse_impl.html#aa8c99a6fe25692154a3dc278e89f660d", null ],
-    [ "_clickEvent", "classigor_1_1i_mouse_impl.html#a2b8db559a5ca0ef005b7674a23c0d874", null ],
     [ "_doubleClickEvent", "classigor_1_1i_mouse_impl.html#ad3cf683c7dd86434dff97a8f6b6cd5d2", null ],
     [ "_keyDownEvent", "classigor_1_1i_mouse_impl.html#a7d9188f75009a09bf30dc1ae652f134e", null ],
     [ "_keyUpEvent", "classigor_1_1i_mouse_impl.html#abc641abf0bd140ca678035c7feae7228", null ],

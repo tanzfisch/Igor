@@ -84,7 +84,6 @@ namespace igor
 
 	void iTimerHandle::handle(iaTime time)
 	{
-		int maxIntervalls = 100;
 		while (time - _time >= _intervall)
 		{
 			_timerEvent();
@@ -95,17 +94,6 @@ namespace igor
 			}
 
 			_time += _intervall;
-
-			if (!--maxIntervalls)
-			{
-				_time = time;
-				if (_intervall < _configuredIntervall * 4)
-				{
-					_intervall *= 2;
-					con_warn("Dropping frames. Increasing intervall from " << _configuredIntervall << " to " << _intervall);
-				}
-				return;
-			}
 		}
 	}
 

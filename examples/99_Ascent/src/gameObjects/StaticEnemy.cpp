@@ -1,3 +1,7 @@
+// Igor game engine
+// (c) Copyright 2012-2020 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "StaticEnemy.h"
 
 #include <igor/scene/nodes/iNodeManager.h>
@@ -22,7 +26,7 @@ using namespace iaux;
 #include "EnemyDestroyed.h"
 #include "../Ascent.h"
 
-StaticEnemy::StaticEnemy(iScene *scene, iVoxelTerrain *voxelTerrain, const iaMatrixd &matrix, uint64 playerID)
+StaticEnemy::StaticEnemy(iScenePtr scene, iVoxelTerrain *voxelTerrain, const iaMatrixd &matrix, uint64 playerID)
     : GameObject(Fraction::Red, GameObjectType::Vehicle)
 {
     _playerID = playerID;

@@ -24,7 +24,7 @@
 // You should have received a copy of the GNU General Public License
 // auint32 with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
 #ifndef __iLOADEROBJ__
 #define __iLOADEROBJ__

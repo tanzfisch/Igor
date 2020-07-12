@@ -5,7 +5,7 @@
 #include <igor/ui/widgets/iWidgetColor.h>
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/theme/iWidgetBaseTheme.h>
+#include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 
@@ -16,7 +16,7 @@ namespace igor
 {
 
 	iWidgetColor::iWidgetColor(const iWidgetPtr parent)
-		: iWidget(parent)
+		: iWidget(iWidgetType::iWidgetColor, iWidgetKind::Widget, parent)
 	{
 		_configuredWidth = 60;
 		_configuredHeight = 20;
@@ -32,11 +32,6 @@ namespace igor
 	iWidgetColor::~iWidgetColor()
 	{
 		_texture = nullptr;
-	}
-
-	iWidgetType iWidgetColor::getWidgetType() const
-	{
-		return iWidgetType::iWidgetColor;
 	}
 
 	void iWidgetColor::setColor(const iaColor4f &color)

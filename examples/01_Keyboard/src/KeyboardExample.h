@@ -24,13 +24,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __KEYBOARDEXAMPLE__
-#define __KEYBOARDEXAMPLE__
+#ifndef __KEYBOARDEXAMPLE_H__
+#define __KEYBOARDEXAMPLE_H__
 
 #include <ExampleBase.h>
-using namespace igor;
 
 /*! keyboard input example
 */
@@ -39,49 +38,45 @@ class KeyboardExample : public ExampleBase
 
 public:
     /*! init example
+
+    \param window the window this example is living in
     */
-    KeyboardExample();
+    KeyboardExample(iWindow *window);
 
     /*! does nothing
     */
     ~KeyboardExample() = default;
 
-protected:
-    /*! initialize example
-    */
-    void init() override;
-
-    /*! deinitialize example
-    */
-    void deinit() override;
-
 private:
-
     /*! switches beween ascii output or single key output
     */
-    bool _outputSwitch;
+    bool _outputSwitch = true;
 
     /*! called when key was pressed
 
-    \param key the keycode of the pressed key
+    \param event the event to handle
     */
-    void onKeyPressed(iKeyCode key);
+    bool onKeyDown(iEventKeyDown &event);
 
     /*! called when key was released
 
-    \param key the keycode of the released key
+    \param event the event to handle
     */
-    void onKeyReleased(iKeyCode key);
+    bool onKeyUp(iEventKeyUp &event);
 
     /*! called on ascii input
 
-    \param c the ascii value
+    \param event the event to handle
     */
-    void onKeyASCIIInput(char c);
+    bool onKeyASCIIInput(iEventKeyASCII &event);
 
-    /*! called when ESC key 
+    /*! initialize example
     */
-    void onKeyESCPressed();
+    void onInit() override;
+
+    /*! called on any other event
+    */
+    void onEvent(iEvent &event) override;
 };
 
-#endif
+#endif // __KEYBOARDEXAMPLE_H__

@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iTASKFLUSHMODELS__
-#define __iTASKFLUSHMODELS__
+#ifndef __IGOR_TASKFLUSHMODELS_H__
+#define __IGOR_TASKFLUSHMODELS_H__
 
 #include <igor/threading/tasks/iTask.h>
 
@@ -66,4 +66,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_TASKFLUSHMODELS_H__

@@ -19,7 +19,7 @@ namespace igor
 {
 
     iUserControlFileChooser::iUserControlFileChooser(const iWidgetPtr parent)
-        : iUserControl(parent)
+        : iUserControl(iWidgetType::iUserControlFileChooser, parent)
     {
         initGUI();
     }
@@ -27,11 +27,6 @@ namespace igor
     iUserControlFileChooser::~iUserControlFileChooser()
     {
         deinitGUI();
-    }
-
-    iWidgetType iUserControlFileChooser::getWidgetType() const
-    {
-        return iWidgetType::iUserControlFileChooser;
     }
 
     void iUserControlFileChooser::setOptimizePath(bool optimizePath)
@@ -94,7 +89,7 @@ namespace igor
     void iUserControlFileChooser::initGUI()
     {
         iWidgetGridPtr grid = new iWidgetGrid(this);
-        grid->appendCollumns(1);
+        grid->appendColumns(1);
         grid->setStrechColumn(0);
         grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
         grid->setVerticalAlignment(iVerticalAlignment::Top);

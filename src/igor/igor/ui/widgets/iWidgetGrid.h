@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iWIDGETGRID__
-#define __iWIDGETGRID__
+#ifndef __IGOR_WIDGETGRID_H__
+#define __IGOR_WIDGETGRID_H__
 
 #include <igor/ui/widgets/iWidget.h>
 #include <vector>
@@ -42,9 +42,9 @@ namespace igor
     */
     enum class iSelectionMode
     {
-        Field,
+        Cell,
         Row,
-        Collumn,
+        Column,
         NoSelection
     };
 
@@ -56,7 +56,7 @@ namespace igor
 
         /*! internal helper struct that represents a child widget and it's position
         */
-        struct Field
+        struct Cell
         {
         public:
             /*! pointer to child widget
@@ -87,18 +87,18 @@ namespace igor
             */
             int32 _y = 0;
 
-            /*! user data that can be attached to a grid field
+            /*! user data that can be attached to a grid cell
             */
             std::any _userData;
         };
 
-        /*! internal struct that represents a collumn of widgets
+        /*! internal struct that represents a column of widgets
         */
-        struct GridCollumn
+        struct GridColumn
         {
-            /*! list of widgets within one collumn
+            /*! list of widgets within one column
             */
-            std::vector<Field> _widgetCollumn;
+            std::vector<Cell> _widgetColumn;
         };
 
     public:
@@ -112,21 +112,17 @@ namespace igor
         */
         ~iWidgetGrid() = default;
 
-        /*! \returns the widgets type
-        */
-        virtual iWidgetType getWidgetType() const override;
-
         /*! appends rows at the bottom of the grid
 
         \param count the amount of rows to be added
         */
         void appendRows(uint32 count);
 
-        /*! appends collumns on the right of the grid
+        /*! appends columns on the right of the grid
 
-        \param count the amount of collumns to be added
+        \param count the amount of columns to be added
         */
-        void appendCollumns(uint32 count);
+        void appendColumns(uint32 count);
 
         /*! insert a single row before given position
 
@@ -134,11 +130,11 @@ namespace igor
         */
         void insertRow(uint32 at);
 
-        /*! insert a single collumn before given position
+        /*! insert a single column before given position
 
         \param at the given position
         */
-        void insertCollumn(uint32 at);
+        void insertColumn(uint32 at);
 
         /*! removes row at given position
 
@@ -146,11 +142,11 @@ namespace igor
         */
         void removeRow(uint32 at);
 
-        /*! removed collumn at given position
+        /*! removed column at given position
 
         \param at the given position
         */
-        void removeCollumn(uint32 at);
+        void removeColumn(uint32 at);
 
         /*! clears the whole grid
         */
@@ -160,7 +156,7 @@ namespace igor
         */
         uint32 getRowCount();
 
-        /*! \returns collumn count
+        /*! \returns column count
         */
         uint32 getColumnCount();
 
@@ -223,7 +219,7 @@ namespace igor
         */
         iSelectionMode getHighlightMode() const;
 
-        void select(int32 collumn, int32 row);
+        void select(int32 column, int32 row);
 
         /*! unselects the grid
         */
@@ -239,11 +235,11 @@ namespace igor
         */
         int32 getSelectedRow() const;
 
-        /*! \returns selected collumn
+        /*! \returns selected column
 
         if not selected it will return -1
         */
-        int32 getSelectedCollumn() const;
+        int32 getSelectedColumn() const;
 
         /*! \returns pointer to user Data of selected field
         */
@@ -251,7 +247,7 @@ namespace igor
 
         /*! \returns pointer to user Data of specified field
 
-        \param col specfied collumn
+        \param col specfied column
         \param row specfied row
         */
         std::any getUserData(int32 col, int32 row);
@@ -280,11 +276,34 @@ namespace igor
         */
         int32 getMouseOverRow() const;
 
-        /*! \returns mouse over collumn
+        /*! \returns mouse over column
         */
-        int32 getMouseOverCollumn() const;
+        int32 getMouseOverColumn() const;
+
+        /*! sets wether or not an empty cell is selectable
+
+        only active for iSelectionMode::Cell
+
+        \param emptyCellsSelecable if true empty cells are selectable (default is false)
+        */
+        void setEmptyCellsSelecable(bool emptyCellsSelecable = true);
+
+        /*! \returns true if empty cells are selectable
+        */
+        bool getEmptyCellsSelecable() const;
+
+        /*! \returns true if a cell is empty
+
+        \param col the column of the cell
+        \param row the row of the cell
+        */
+        bool isCellEmpty(int32 col, int32 row);
 
     private:
+        /*! if true empty cells are selectable
+        */
+        bool _emptyCellsSelecable = false;
+
         /*! row number to be streched
         */
         int32 _strechRow = 0;
@@ -295,7 +314,7 @@ namespace igor
 
         /*! the child widgets
         */
-        std::vector<GridCollumn> _widgetRows;
+        std::vector<GridColumn> _widgetRows;
 
         /*! cellspacing within the grid
         */
@@ -309,17 +328,17 @@ namespace igor
         */
         int32 _mouseOverRow = -1;
 
-        /*! saves over wich collumn the mouse last was
+        /*! saves over wich column the mouse last was
         */
-        int32 _mouseOverCollumn = -1;
+        int32 _mouseOverColumn = -1;
 
         /*! saves over wich row the mouse last was
         */
         int32 _selectedRow = -1;
 
-        /*! saves over wich collumn the mouse last was
+        /*! saves over wich column the mouse last was
         */
-        int32 _selectedCollumn = -1;
+        int32 _selectedColumn = -1;
 
         /*! mode of selection
         */
@@ -371,7 +390,7 @@ namespace igor
         */
         void draw();
 
-        /*! initializes an empty grid with default size of one row and collumn
+        /*! initializes an empty grid with default size of one row and column
         */
         void initGrid();
 
@@ -395,4 +414,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_WIDGETGRID_H__

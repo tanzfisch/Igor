@@ -1,9 +1,9 @@
 var classigor_1_1i_widget =
 [
-    [ "iWidget", "classigor_1_1i_widget.html#abb32a61f3c94cee00fa1307a1d935554", null ],
+    [ "iWidget", "classigor_1_1i_widget.html#a5fc34576c603e1e64b18d2622f4dce0a", null ],
     [ "~iWidget", "classigor_1_1i_widget.html#a070aea5d79961ce2af6cb0215ba03bbe", null ],
     [ "addWidget", "classigor_1_1i_widget.html#a70afadfb2f83c8452df9fe7b8689fcad", null ],
-    [ "block", "classigor_1_1i_widget.html#a31b9da0d03d6934d9409c0eac78ac23c", null ],
+    [ "blockEvents", "classigor_1_1i_widget.html#ad2960fe112ced5f5c949aa98d20a186a", null ],
     [ "clearChildren", "classigor_1_1i_widget.html#aa4e46ed6a3a7709ca0ca4a367ddc1d24", null ],
     [ "draw", "classigor_1_1i_widget.html#aa6cc4f688ce6a86fad44bb11e828be3c", null ],
     [ "getAcceptOutOfBoundsClicks", "classigor_1_1i_widget.html#a15a011084a85093860a06d358c02b16a", null ],
@@ -32,6 +32,7 @@ var classigor_1_1i_widget =
     [ "getState", "classigor_1_1i_widget.html#a5c9a2321547d517a164b8357a5db0afa", null ],
     [ "getTooltip", "classigor_1_1i_widget.html#a301249592d9ca49c8ec421c47faae781", null ],
     [ "getVerticalAlignment", "classigor_1_1i_widget.html#af7d9fdfe6c7664de955ae2bad6d921d3", null ],
+    [ "getWidgetKind", "classigor_1_1i_widget.html#acefeee50e618210a16c4556ce7aa6176", null ],
     [ "getWidgetType", "classigor_1_1i_widget.html#a4e43401504fe016f32cfed3cf14c061b", null ],
     [ "getZValue", "classigor_1_1i_widget.html#ad515ac6f1042594400ffc163149c6ace", null ],
     [ "handleASCII", "classigor_1_1i_widget.html#aab1f1638c80a053aa84cc48a4fdec3bf", null ],
@@ -85,6 +86,7 @@ var classigor_1_1i_widget =
     [ "setVisible", "classigor_1_1i_widget.html#acb3da53df06358086650e805c8e109a9", null ],
     [ "setWidth", "classigor_1_1i_widget.html#a153d78b9fbd0d9dbd1b1a824097c90ba", null ],
     [ "setZValue", "classigor_1_1i_widget.html#a9e5c43497423742bc74cbb457a163688", null ],
+    [ "unblockEvents", "classigor_1_1i_widget.html#a4e96e517644e5f265c28da7929696644", null ],
     [ "unregisterOnChangeEvent", "classigor_1_1i_widget.html#a99deeef236c39098be2bad9b471ab42c", null ],
     [ "unregisterOnClickEvent", "classigor_1_1i_widget.html#ac9025ea062e48cc5d1eca29ebfae70b8", null ],
     [ "unregisterOnContextMenuEvent", "classigor_1_1i_widget.html#a91b7fd138dbeecb8968a19d847121c81", null ],

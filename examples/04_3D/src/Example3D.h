@@ -24,46 +24,28 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __EXAMPLE3D__
-#define __EXAMPLE3D__
+#ifndef __EXAMPLE3D_H__
+#define __EXAMPLE3D_H__
 
 #include <ExampleBase.h>
-
-#include <igor/igor.h>
-#include <igor/system/iWindow.h>
-#include <igor/system/iTimerHandle.h>
-#include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/resources/material/iMaterial.h>
-using namespace igor;
-
-namespace igor
-{
-    class iNodeTransform;
-    class iNodeLight;
-    class iNodeSwitch;    
-    class iTaskFlushModels;
-    class iTaskFlushTextures;
-    class iNodeLODTrigger;
-    class iNodeLODSwitch;
-    class iNodeModel;
-} // namespace igor
 
 class Example3D : public ExampleBase
 {
 
 public:
-    /*! ctor
+    /*! initializes the example
+
+    \param window the given window
     */
-    Example3D();
+    Example3D(iWindow *window);
 
     /*! nothing to do
     */
     ~Example3D() = default;
 
 private:
-
     /*! id to transform node used for manipulating the heading of all objects in scene
     */
     iNodeID _allObjectsHeading = iNode::INVALID_NODE_ID;
@@ -90,7 +72,7 @@ private:
 
     /*! timer handle to control the movement of the light source over time
     */
-    iTimerHandle *_animationTimingHandle = nullptr;
+    iTimerHandlePtr _animationTimingHandle = nullptr;
 
     /*! id to crate model node
     */
@@ -120,38 +102,50 @@ private:
     */
     iNodeID _LODSwitch = iNode::INVALID_NODE_ID;
 
-    /*! called on key pressed event
-
-    \param key the key code of the pressed key
-    */
-    void onKeyPressed(iKeyCode key);    
-
-    /*! called when the mouse was moved
-
-    \param from last mouse position
-    \param to current mouse position
-    \param window the window the coordinates are related to
-    */
-    void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window);
-
-    /*! called when mouse wheel was turned
-
-    \param d mouse wheel delta
-    */
-    void onMouseWheel(int32 d);
-
     /*! called by timer
     */
     void onTimer();
 
     /*! deinit example
     */
-    void deinit();
+    void onDeinit() override;
 
     /*! init example
     */
-    void init();
+    void onInit() override;
 
+    /*! called on any other event
+
+    \param event the event to handle
+    */
+    void onEvent(iEvent &event) override;
+
+    /*! handles mouse key down event
+
+    \param event the mouse key down event
+    \returns true if consumed
+    */
+    bool onMouseKeyDownEvent(iEventMouseKeyDown &event);
+
+    /*! handles mouse move event
+
+    \param event the mouse move event
+    \returns true if consumed
+    */
+    bool onMouseMoveEvent(iEventMouseMove &event);
+
+    /*! handles mouse wheel event
+
+    \param event the mouse wheel event
+    \returns true if consumed
+    */
+    bool onMouseWheelEvent(iEventMouseWheel &event);
+
+    /*! called when key was pressed
+
+    \param event the event to handle
+    */
+    bool onKeyDown(iEventKeyDown &event);
 };
 
-#endif
+#endif // __EXAMPLE3D_H__

@@ -13,6 +13,7 @@
 #include <iaux/system/iaConsole.h>
 
 #include <thread>
+#include <chrono>
 
 namespace igor
 {
@@ -22,13 +23,7 @@ namespace igor
     {
         iTaskManager::_running = true;
 
-        int32 numThreads = 4;
-
-#ifdef __IGOR_WNIDOWS__
-        SYSTEM_INFO sysinfo;
-        GetSystemInfo(&sysinfo);
-        numThreads = sysinfo.dwNumberOfProcessors;
-#endif
+        int32 numThreads = std::max(4u, std::thread::hardware_concurrency());
         for (int i = 0; i < numThreads; ++i)
         {
             createThread();
@@ -377,7 +372,7 @@ namespace igor
             }
             else
             {
-                std::this_thread::yield();
+                std::this_thread::sleep_for(std::chrono::milliseconds(1));
             }
         }
     }
@@ -458,7 +453,7 @@ namespace igor
             }
             else
             {
-                std::this_thread::yield();
+                std::this_thread::sleep_for(std::chrono::milliseconds(1));
             }
         }
     }

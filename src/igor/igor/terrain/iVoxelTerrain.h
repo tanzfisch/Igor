@@ -24,7 +24,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
 #ifndef __iVOXELTERRAINGENERATOR__
 #define __iVOXELTERRAINGENERATOR__
@@ -119,7 +119,7 @@ namespace igor
 
         \param scene the scene to put the terrain in
         */
-        void setScene(iScene *scene);
+        void setScene(iScenePtr scene);
 
         /*! sets lod trigger node to monitor
 

@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iUSERCONTROL__
-#define __iUSERCONTROL__
+#ifndef __IGOR_USERCONTROL_H__
+#define __IGOR_USERCONTROL_H__
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -37,6 +37,8 @@ namespace igor
 	/*! use control base class
 
 	mostly used as a container to combine some of the standard widgets to apear as one
+
+	this class is only a base class for other user controls and not supposed to be used directly
 	*/
 	class Igor_API iUserControl : public iWidget
 	{
@@ -46,15 +48,11 @@ namespace igor
 
         \param parent the optional parent
 		*/
-		iUserControl(const iWidgetPtr parent = nullptr);
+		iUserControl(iWidgetType type = iWidgetType::iUserControl, const iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/
 		virtual ~iUserControl() = default;
-
-		/*! \returns the widgets type
-        */
-		virtual iWidgetType getWidgetType() const override;
 
 	protected:
 		/*! updates size based on widgets content
@@ -66,4 +64,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_USERCONTROL_H__

@@ -4,64 +4,16 @@
 
 #include "VoxelExample.h"
 
-#include <iaux/system/iaConsole.h>
-#include <iaux/system/iaTime.h>
-using namespace iaux;
-
-#include <igor/data/iSphere.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/graphics/iRenderer.h>
-#include <igor/threading/iTaskManager.h>
-#include <igor/scene/nodes/iNodeSkyBox.h>
-#include <igor/scene/nodes/iNodeLight.h>
-#include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/scene/nodes/iNodeModel.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/system/iApplication.h>
-#include <igor/scene/iSceneFactory.h>
-#include <igor/scene/iScene.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/system/iMouse.h>
-#include <igor/system/iTimer.h>
-#include <igor/resources/texture/iTextureFont.h>
-#include <igor/threading/tasks/iTaskFlushModels.h>
-#include <igor/threading/tasks/iTaskFlushTextures.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/terrain/data/iVoxelBlock.h>
-#include <iaux/math/iaVector3.h>
-#include <igor/resources/profiler/iProfiler.h>
-#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
-using namespace igor;
-
 #include "VoxelTerrainMeshGenerator.h"
 
-VoxelExample::VoxelExample()
+VoxelExample::VoxelExample(iWindow *window)
+    : ExampleBase(window, "Voxel", true, false)
 {
-    init();
 }
 
-VoxelExample::~VoxelExample()
+void VoxelExample::onInit()
 {
-    deinit();
-}
-
-void VoxelExample::init()
-{
-    con_endl("--- Voxel Example ---");
-
-    initViews();
     initScene();
-
-    // load font for profiler
-    _font = new iTextureFont("StandardFont.png");
-    _profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
-
-    // launch resource handlers
-    _flushModelsTask = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
-    _flushTexturesTask = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
-
-    // register some keayboard and mouse handles
-    registerHandles();
 
     // register model data io
     iModelResourceFactory::getInstance().registerModelDataIO("example_vtg", &VoxelTerrainMeshGenerator::createInstance);
@@ -70,89 +22,17 @@ void VoxelExample::init()
     generateVoxelData();
 }
 
-void VoxelExample::deinit()
+void VoxelExample::onDeinit()
 {
     // unregister vertex mesh generator
     iModelResourceFactory::getInstance().unregisterModelDataIO("example_vtg");
 
-    // free some resoures
-    _igorLogo = nullptr;
-
-    // destroy scene
-    iSceneFactory::getInstance().destroyScene(_scene);
-
-    // abort resource tasks
-    iTaskManager::getInstance().abortTask(_flushModelsTask);
-    iTaskManager::getInstance().abortTask(_flushTexturesTask);
-
-    unregisterHandles();
-
-    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &VoxelExample::onRenderOrtho));
-
-    if (_font != nullptr)
-    {
-        delete _font;
-        _font = nullptr;
-    }
-
-    if (_window.isOpen())
-    {
-        _window.close();
-        _window.removeView(&_view);
-        _window.removeView(&_viewOrtho);
-    }
-}
-
-void VoxelExample::registerHandles()
-{
-    // register callbacks to all the events that are of interest to us
-    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &VoxelExample::onKeyDown));
-    iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &VoxelExample::onMouseMoved));
-    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &VoxelExample::onHandle));
-    _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &VoxelExample::onWindowResized));
-    _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &VoxelExample::onWindowClosed));
-}
-
-void VoxelExample::unregisterHandles()
-{
-    // unregister all the callbacks
-    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &VoxelExample::onWindowResized));
-    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &VoxelExample::onWindowClosed));
-    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &VoxelExample::onHandle));
-    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &VoxelExample::onMouseMoved));
-    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &VoxelExample::onKeyDown));
-}
-
-void VoxelExample::initViews()
-{
-    // init the view to render the scene
-    _view.setClearColor(iaColor4f(0.97f, 0.97f, 1.0f, 1.0f));
-    _view.setPerspective(60.0f);
-    _view.setClipPlanes(0.1f, 1000.f);
-
-    // init an other view to display the frame rate
-    _viewOrtho.setClearColor(false);
-    _viewOrtho.setClearDepth(false);
-    _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &VoxelExample::onRenderOrtho));
-
-    // add the views to the window and open it
-    _window.setTitle("Voxel Example");
-    _window.addView(&_view);
-    _window.addView(&_viewOrtho);
-    _window.setClientSize(600, 600);
-    _window.setCentered();
-    _window.open();
-
-    // update the orthogonal projection after we know the windows cient rectangle. the same we do after a resize
-    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
+    // destroy material
+    iMaterialResourceFactory::getInstance().destroyMaterial(_materialSkyBox);
 }
 
 void VoxelExample::initScene()
 {
-    // create scene and bind it to view
-    _scene = iSceneFactory::getInstance().createScene();
-    _view.setScene(_scene);
-
     // create camera
     // first heading transformation node
     iNodeTransform *cameraHeading = iNodeManager::getInstance().createNode<iNodeTransform>();
@@ -166,13 +46,13 @@ void VoxelExample::initScene()
     // anf of corse the camera
     iNodeCamera *camera = iNodeManager::getInstance().createNode<iNodeCamera>();
     // add it to the scene
-    _scene->getRoot()->insertNode(cameraHeading);
+    getScene()->getRoot()->insertNode(cameraHeading);
     cameraHeading->insertNode(cameraPitch);
     cameraPitch->insertNode(cameraTranslation);
     cameraTranslation->insertNode(camera);
     // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a
     // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
-    _view.setCurrentCamera(camera->getID());
+    getView().setCurrentCamera(camera->getID());
 
     // create a directional light
     // transform node
@@ -184,11 +64,12 @@ void VoxelExample::initScene()
     lightNode->setDiffuse(iaColor4f(0.9f, 0.7f, 0.6f, 1.0f));
     lightNode->setSpecular(iaColor4f(1.0f, 0.9f, 0.87f, 1.0f));
     // and add it to the scene
-    _scene->getRoot()->insertNode(lightTranslate);
+    getScene()->getRoot()->insertNode(lightTranslate);
     lightTranslate->insertNode(lightNode);
 
-    // reate a sky box and add it to scene
+    // create a skybox
     iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
+    // set it up with the default skybox texture
     skyBoxNode->setTextures(
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/front.jpg"),
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/back.jpg"),
@@ -196,32 +77,23 @@ void VoxelExample::initScene()
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/right.jpg"),
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/top.jpg"),
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/bottom.jpg"));
-    skyBoxNode->setTextureScale(1);
-    // create a sky box material
+    // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
     _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setOrder(10);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setName("SkyBox");
-    // and set the sky box material
+    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox);
+    material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    material->setOrder(iMaterial::RENDER_ORDER_MIN);
+    material->setName("SkyBox");
+    // set that material
     skyBoxNode->setMaterial(_materialSkyBox);
-    // insert sky box to scene
-    _scene->getRoot()->insertNode(skyBoxNode);
+    // and add it to the scene
+    getScene()->getRoot()->insertNode(skyBoxNode);
 
     // set up voxel mesh material
     _voxelMeshMaterialID = iMaterialResourceFactory::getInstance().createMaterial("voxel mesh material");
     iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("igor/terrain.vert", iShaderObjectType::Vertex);
     iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("igor/terrain_directional_light.frag", iShaderObjectType::Fragment);
     iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->compileShader();
-
-    // set up loading text material
-    _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-
-    // prepare igor logo
-    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
 }
 
 float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)
@@ -391,81 +263,7 @@ void VoxelExample::prepareMeshGeneration()
     voxelMeshTransform->translate(-_voxelData->getWidth() / 2, -_voxelData->getHeight() / 2, -_voxelData->getDepth() / 2);
     // and add to scene
     voxelMeshTransform->insertNode(voxelMeshModel);
-    _scene->getRoot()->insertNode(voxelMeshTransform);
-}
-
-void VoxelExample::onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *_window)
-{
-    if (iMouse::getInstance().getLeftButton())
-    {
-        float32 dx = static_cast<float32>(from._x - to._x) * 0.005f;
-        float32 dy = static_cast<float32>(from._y - to._y) * 0.005f;
-        iNodeTransform *cameraHeading = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraHeading));
-        iNodeTransform *cameraPitch = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraPitch));
-        if (cameraHeading != nullptr &&
-            cameraPitch != nullptr)
-        {
-            cameraHeading->rotate(dx, iaAxis::Y);
-            cameraPitch->rotate(dy, iaAxis::X);
-        }
-
-        iMouse::getInstance().setCenter();
-    }
-}
-
-void VoxelExample::onWindowClosed()
-{
-    iApplication::getInstance().stop();
-}
-
-void VoxelExample::onWindowResized(int32 clientWidth, int32 clientHeight)
-{
-    _viewOrtho.setOrthogonal(0, clientWidth, clientHeight, 0);
-}
-
-void VoxelExample::onKeyDown(iKeyCode key)
-{
-    switch (key)
-    {
-    case iKeyCode::Space:
-        generateVoxelData();
-        break;
-
-    case iKeyCode::ESC:
-        iApplication::getInstance().stop();
-        break;
-
-    case iKeyCode::F4:
-
-        iModelResourceFactory::getInstance().exportModelData("voxelExample.ompf", _scene->getRoot()->getChild("VoxelMeshTransform")->getChild("VoxelMeshModel"), "ompf", iSaveMode::EmbedExternals);
-        break;
-
-    case iKeyCode::F8:
-        _profilerVisualizer.cycleVerbosity();
-        break;
-
-    case iKeyCode::F9:
-    {
-        iNodeVisitorPrintTree printTree;
-        if (_scene != nullptr)
-        {
-            printTree.printToConsole(_scene->getRoot());
-        }
-    }
-    break;
-
-    case iKeyCode::F10:
-        _view.setWireframeVisible(!_view.isWireframeVisible());
-        break;
-
-    case iKeyCode::F11:
-        _view.setOctreeVisible(!_view.isOctreeVisible());
-        break;
-
-    case iKeyCode::F12:
-        _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
-        break;
-    }
+    getScene()->getRoot()->insertNode(voxelMeshTransform);
 }
 
 void VoxelExample::onRenderOrtho()
@@ -479,40 +277,24 @@ void VoxelExample::onRenderOrtho()
 
     iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
 
-    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(getFontMaterial());
 
-    iRenderer::getInstance().setFont(_font);
+    iRenderer::getInstance().setFont(getFont());
     iRenderer::getInstance().setFontSize(25.0f);
 
     if (_loading)
     {
-        iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "loading ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+        iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "loading ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
     }
     else
     {
-        iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.1, "press [Space] to recreate", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+        iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.1, "press [Space] to recreate", iHorizontalAlignment::Center, iVerticalAlignment::Center);
     }
 
-    drawLogo();
-
-    // draw frame rate in lower right corner
-    _profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
+    ExampleBase::onRenderOrtho();
 }
 
-void VoxelExample::drawLogo()
-{
-    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-
-    float32 width = static_cast<float32>(_igorLogo->getWidth());
-    float32 height = static_cast<float32>(_igorLogo->getHeight());
-    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
-    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
-
-    iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
-}
-
-void VoxelExample::onHandle()
+void VoxelExample::onPreDraw()
 {
     // detect if loading is done
     if (_voxelMeshModel != iNode::INVALID_NODE_ID)
@@ -531,7 +313,52 @@ void VoxelExample::onHandle()
     }
 }
 
-void VoxelExample::run()
+void VoxelExample::onEvent(iEvent &event)
 {
-    iApplication::getInstance().run();
+    // first call example base
+    ExampleBase::onEvent(event);
+
+    event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(VoxelExample::onKeyDown));
+    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(VoxelExample::onMouseMoveEvent));
+}
+
+bool VoxelExample::onKeyDown(iEventKeyDown &event)
+{
+    switch (event.getKey())
+    {
+    case iKeyCode::Space:
+        generateVoxelData();
+        return true;
+
+    case iKeyCode::F4:
+        iModelResourceFactory::getInstance().exportModelData("voxelExample.ompf", getScene()->getRoot()->getChild("VoxelMeshTransform")->getChild("VoxelMeshModel"), "ompf", iSaveMode::EmbedExternals);
+        return true;
+    }
+
+    return false;
+}
+
+bool VoxelExample::onMouseMoveEvent(iEventMouseMove &event)
+{
+    const auto from = event.getLastPosition();
+    const auto to = event.getPosition();
+
+    if (iMouse::getInstance().getLeftButton())
+    {
+        float32 dx = static_cast<float32>(from._x - to._x) * 0.005f;
+        float32 dy = static_cast<float32>(from._y - to._y) * 0.005f;
+        iNodeTransform *cameraHeading = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraHeading));
+        iNodeTransform *cameraPitch = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraPitch));
+        if (cameraHeading != nullptr &&
+            cameraPitch != nullptr)
+        {
+            cameraHeading->rotate(dx, iaAxis::Y);
+            cameraPitch->rotate(dy, iaAxis::X);
+        }
+
+        iMouse::getInstance().setCenter();
+        return true;
+    }
+
+    return false;
 }

@@ -1,83 +1,81 @@
+// Igor game engine
+// (c) Copyright 2012-2020 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "WidgetsExample.h"
 
-#include <igor/graphics/iRenderer.h>
-#include <igor/system/iApplication.h>
-#include <igor/system/iMouse.h>
-#include <igor/resources/texture/iTextureFont.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/ui/iWidgetManager.h>
-#include <igor/ui/dialogs/iDialog.h>
-#include <igor/ui/widgets/iWidgetLabel.h>
-#include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetGroupBox.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
-#include <igor/ui/widgets/iWidgetCheckBox.h>
-#include <igor/ui/widgets/iWidgetNumberChooser.h>
-#include <igor/ui/widgets/iWidgetTextEdit.h>
-#include <igor/ui/widgets/iWidgetPicture.h>
-#include <igor/ui/widgets/iWidgetScroll.h>
-#include <igor/ui/widgets/iWidgetSelectBox.h>
-#include <igor/ui/theme/iWidgetDefaultTheme.h>
-#include <igor/ui/widgets/iWidgetSpacer.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/resources/profiler/iProfiler.h>
-#include <igor/ui/widgets/iWidgetGraph.h>
-#include <igor/ui/widgets/iWidgetColor.h>
-#include <igor/ui/widgets/iWidgetColorGradient.h>
-#include <igor/ui/widgets/iWidgetMenuBar.h>
-#include <igor/ui/widgets/iWidgetMenu.h>
-#include <igor/ui/actions/iAction.h>
-#include <igor/ui/actions/iActionManager.h>
-using namespace igor;
-
-#include <iaux/system/iaConsole.h>
-using namespace iaux;
-
-WidgetsExample::WidgetsExample()
+// define some actions
+class Action1 : public iAction
 {
-    init();
-}
 
-WidgetsExample::~WidgetsExample()
+public:
+    Action1()
+        : iAction("example:one")
+    {
+        setDescription("Action One");
+        setPicturePath("icons/camera.png");
+    }
+
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override
+    {
+        con_endl("action one");
+    }
+};
+
+// action with only description
+class Action2 : public iAction
 {
-    deinit();
-}
 
-void WidgetsExample::init()
+public:
+    Action2()
+        : iAction("example:two")
+    {
+        setDescription("Action Two");
+    }
+
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override
+    {
+        con_endl("action two");
+    }
+};
+
+// action with only an icon
+class Action3 : public iAction
 {
-    con(" -- Widget Example --" << endl);
 
-    // register our render function to the view with the ortho projection
-    _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &WidgetsExample::onRender));
+public:
+    Action3()
+        : iAction("example:three")
+    {
+        setPicturePath("icons/delete.png");
+    }
 
-    // init window with the orthogonal projected view
-    _window.addView(&_viewOrtho);
-    // set window size
-    _window.setClientSize(1024, 768);
-    // place window centered on screen
-    _window.setCentered();
-    // register to window close event so we can shut down the application properly
-    _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &WidgetsExample::onWindowClosed));
-    // register to window resize event so we can notify the widget manager of that change
-    _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &WidgetsExample::onWindowResize));
-    // opens the window
-    _window.open();
+    /*! executed when action gets triggered
 
-    // set up font for FPS display
-    _font = new iTextureFont("StandardFont.png");
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override
+    {
+        con_endl("action three");
+    }
+};
 
-    // prepare igor logo
-    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
-    _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial("TextureAndBlending");
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-
-    // initialize the GUI
-    initGUI();
-
-    // register to mouse move event
-    iMouse::getInstance().registerMouseMoveDelegate(iMouseMoveDelegate(this, &WidgetsExample::onMouseMove));
+// set an increase z index of 1 to make sure the ui is rendered above the background
+WidgetsExample::WidgetsExample(iWindow *window)
+    : iLayerWidgets(new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png"), window, "Widgets", 10)
+{
+    // register the actions to make them globaly available
+    iActionManager::getInstance().registerAction(new Action1());
+    iActionManager::getInstance().registerAction(new Action2());
+    iActionManager::getInstance().registerAction(new Action3());
 }
 
 void WidgetsExample::onCloseDialog(iDialogPtr dialog)
@@ -91,26 +89,10 @@ void WidgetsExample::onCloseDialog(iDialogPtr dialog)
     _dialog = nullptr;
 }
 
-void WidgetsExample::onActionOne()
+void WidgetsExample::onInit()
 {
-    con_endl("action one");
-}
-
-void WidgetsExample::onActionTwo()
-{
-    con_endl("action two");
-}
-
-void WidgetsExample::onActionThree()
-{
-    con_endl("action three");
-}
-
-void WidgetsExample::initGUI()
-{
-    // create a theme and set it up. in this case the build in default theme
-    _widgetDefaultTheme = new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png");
-    iWidgetManager::getInstance().setTheme(_widgetDefaultTheme);
+    // call base class
+    iLayerWidgets::onInit();
 
     _dialog = new iDialog();
     _dialog->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -130,43 +112,47 @@ void WidgetsExample::initGUI()
     grid1->setStrechColumn(0);
     grid1->setSelectMode(iSelectionMode::NoSelection);
 
+    // create a menu
     iWidgetMenuBarPtr menuBar = new iWidgetMenuBar();
     grid1->addWidget(menuBar, 0, 0);
 
-    iActionPtr action1 = iActionManager::getInstance().createAction("action:camera", iSimpleDelegate(this, &WidgetsExample::onActionOne), "Create Camera", "icons\\camera.png");
-    iActionPtr action2 = iActionManager::getInstance().createAction("action:delete", iSimpleDelegate(this, &WidgetsExample::onActionTwo), "Delete Something", "icons\\delete.png");
-    iActionPtr action3 = iActionManager::getInstance().createAction("action:action", iSimpleDelegate(this, &WidgetsExample::onActionThree), "Action");
-    iActionPtr action4 = iActionManager::getInstance().createAction("action:transform", iSimpleDelegate(this, &WidgetsExample::onActionThree), "Transform", "icons\\transformation.png");
+    // get some actions to add to the menu
+    iActionPtr action1 = iActionManager::getInstance().getAction("example:one");
+    iActionPtr action2 = iActionManager::getInstance().getAction("example:two");
+    iActionPtr action3 = iActionManager::getInstance().getAction("example:three");
 
+    // build up menu and submenus
     iWidgetMenuPtr menu1 = new iWidgetMenu();
-    menu1->setTitle("File");
-    menu1->addAction(action3);
+    menu1->setTitle("Bar");
     menu1->addAction(action1);
+    menu1->addAction(action2);
     menuBar->addMenu(menu1);
 
     iWidgetMenuPtr menu2 = new iWidgetMenu();
-    menu2->setTitle("Edit");
+    menu2->setTitle("Foo");
     menu2->addAction(action2);
+    menu2->addAction(action1);
     menu2->addAction(action3);
 
     iWidgetMenuPtr menu2b = new iWidgetMenu();
     menu2b->setTitle("Sub Menu");
+    menu2b->addAction(action1);
     menu2b->addAction(action2);
-    menu2b->addAction(action3);
     menu2b->addAction(action1);
     menu2->addMenu(menu2b);
 
     iWidgetMenuPtr menu2c = new iWidgetMenu();
     menu2c->setTitle("An Other Sub Menu");
     menu2c->addAction(action2);
-    menu2c->addAction(action4);
-    menu2c->addAction(action1);
+    menu2c->addAction(action3);
+    menu2c->addAction(action3);
     menu2c->addAction(action3);
     menu2->addMenu(menu2c);
 
     menu2->addAction(action1);
     menuBar->addMenu(menu2);
 
+    // adding a group box
     iWidgetGroupBox *groupBox1 = new iWidgetGroupBox();
     groupBox1->setText("Hello World. This is a group box!");
     groupBox1->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -179,7 +165,7 @@ void WidgetsExample::initGUI()
     widgetScoll->setVerticalAlignment(iVerticalAlignment::Strech);
 
     iWidgetGrid *grid3 = new iWidgetGrid();
-    grid3->appendCollumns(3);
+    grid3->appendColumns(3);
     grid3->appendRows(4);
     grid3->setCellSpacing(10);
     // this grid has to be top left aligned because we want to use it as child of the scroll widget
@@ -188,7 +174,7 @@ void WidgetsExample::initGUI()
     grid3->setSelectMode(iSelectionMode::NoSelection);
 
     iWidgetGrid *grid4 = new iWidgetGrid();
-    grid4->appendCollumns(5);
+    grid4->appendColumns(5);
     grid4->setStrechColumn(4);
     grid4->setHorizontalAlignment(iHorizontalAlignment::Strech);
     grid4->setVerticalAlignment(iVerticalAlignment::Top);
@@ -238,15 +224,12 @@ void WidgetsExample::initGUI()
     _colorGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _colorGradient->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenColorGradientEditor));
 
-    iWidgetSpacer *spacer = new iWidgetSpacer();
-    spacer->setSize(2, 30);
-
     _labelMousePos = new iWidgetLabel();
 
     iWidgetButton *exitButton = new iWidgetButton();
     exitButton->setText("");
     exitButton->setTooltip("Exists the application.");
-    exitButton->setTexture("icons\\exit.png");
+    exitButton->setTexture("icons/exit.png");
     exitButton->setVerticalTextAlignment(iVerticalAlignment::Bottom);
     exitButton->setVerticalAlignment(iVerticalAlignment::Center);
     exitButton->setHorizontalAlignment(iHorizontalAlignment::Center);
@@ -359,7 +342,7 @@ void WidgetsExample::initGUI()
     grid1->addWidget(groupBox1, 0, 1);
     groupBox1->addWidget(grid4);
     grid4->addWidget(exitButton, 0, 0);
-    grid4->addWidget(spacer, 1, 0);
+    grid4->addWidget(new iWidgetSpacer(30, 2), 1, 0);
     grid4->addWidget(picture1, 2, 0);
     grid4->addWidget(_color, 3, 0);
     grid4->addWidget(_colorGradient, 4, 0);
@@ -383,53 +366,44 @@ void WidgetsExample::initGUI()
     grid3->addWidget(radio1, 0, 4);
     grid3->addWidget(radio2, 1, 4);
     grid3->addWidget(radio3, 2, 4);
+
+    // update desktop size
+    iWidgetManager::getInstance().setDesktopDimensions(getWindow()->getClientWidth(), getWindow()->getClientHeight());
 }
 
-void WidgetsExample::deinit()
+void WidgetsExample::onDeinit()
 {
-    _igorLogo = nullptr;
-
-    iMouse::getInstance().unregisterMouseMoveDelegate(iMouseMoveDelegate(this, &WidgetsExample::onMouseMove));
-
-    iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
-
-    if (_font)
+    // if dialog is still open close it now
+    if (_dialog != nullptr &&
+        _dialog->isOpen())
     {
-        delete _font;
-        _font = nullptr;
+        _dialog->close();
     }
 
-    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &WidgetsExample::onRender));
-
-    iWidgetManager::getInstance().setTheme(nullptr);
-    delete _widgetDefaultTheme;
-    _widgetDefaultTheme = nullptr;
-
-    _window.close();
-    _window.removeView(&_viewOrtho);
+    iLayerWidgets::onDeinit();
 }
 
-void WidgetsExample::onWindowResize(int32 clientWidth, int32 clientHeight)
+void WidgetsExample::onEvent(iEvent &event)
 {
-    // update the widget managers desktop dimensions
-    iWidgetManager::getInstance().setDesktopDimensions(_window.getClientWidth(), _window.getClientHeight());
+    iLayerWidgets::onEvent(event);
 
-    // update the the view port projection matrix so the widget manager desktop will fit on screen
-    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
+    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(WidgetsExample::onMouseMoveEvent));
 }
 
-void WidgetsExample::onMouseMove(const iaVector2i &pos)
+bool WidgetsExample::onMouseMoveEvent(iEventMouseMove &event)
 {
     // updates a label with current mouse position
     if (_labelMousePos != nullptr)
     {
         iaString text;
-        text += iaString::toString(pos._x);
+        text += iaString::toString(event.getPosition()._x);
         text += ":";
-        text += iaString::toString(pos._y);
+        text += iaString::toString(event.getPosition()._y);
 
         _labelMousePos->setText(text);
     }
+
+    return false;
 }
 
 void WidgetsExample::onOpenColorChooser(const iWidgetPtr source)
@@ -522,58 +496,9 @@ void WidgetsExample::onCloseMessageBox(iDialogPtr dialog)
 
 void WidgetsExample::onExitClick(const iWidgetPtr source)
 {
-    // close dialog
+    // close the dialog
     _dialog->close();
 
     // shut down application
     iApplication::getInstance().stop();
-}
-
-void WidgetsExample::onWindowClosed()
-{
-    // shut down application
-    // closing the window alone will not shut down the application
-    // because it's a console application and the windows come on top
-    iApplication::getInstance().stop();
-}
-
-void WidgetsExample::onRender()
-{
-    // initialize view matrix with identity matrix
-    iaMatrixd identity;
-    iRenderer::getInstance().setViewMatrix(identity);
-
-    // move scene between near and far plane so be ca actually see what we render
-    // any value between near and far plane would do the trick
-    iaMatrixd modelMatrix;
-    modelMatrix.translate(0, 0, -30);
-    iRenderer::getInstance().setModelMatrix(modelMatrix);
-
-    // tell the widget manager to draw the widgets
-    iWidgetManager::getInstance().draw();
-
-    // draw Igor Logo
-    drawLogo();
-
-    // draw some render statistics
-    _profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
-}
-
-void WidgetsExample::drawLogo()
-{
-    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-
-    float32 width = static_cast<float32>(_igorLogo->getWidth());
-    float32 height = static_cast<float32>(_igorLogo->getHeight());
-    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
-    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
-
-    iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
-}
-
-void WidgetsExample::run()
-{
-    // call application main loop. will not stop until application was shut down
-    iApplication::getInstance().run();
 }

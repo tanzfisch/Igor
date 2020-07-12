@@ -9,12 +9,12 @@
 namespace igor
 {
 
-    iPhysicsMaterial::iPhysicsMaterial(int64 id)
+    iPhysicsMaterial::iPhysicsMaterial(iPhysicsMaterialID id)
     {
         _id = id;
     }
 
-    int64 iPhysicsMaterial::getID()
+    iPhysicsMaterialID iPhysicsMaterial::getID()
     {
         return _id;
     }

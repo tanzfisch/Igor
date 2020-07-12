@@ -24,7 +24,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
 #ifndef __iPHYSICSMATERIALCOMBO__
 #define __iPHYSICSMATERIALCOMBO__
@@ -43,7 +43,7 @@ namespace igor
 
     /*! event triggered if there was a contact detected
     */
-    iaEVENT(iContactEvent, iContactDelegate, void, (iPhysicsBody * body0, iPhysicsBody *body1), (body0, body1));
+    iaEVENT(iContactEvent, iContactDelegate, (iPhysicsBody * body0, iPhysicsBody *body1), (body0, body1));
 
     /*! describes combination of two materials
     */

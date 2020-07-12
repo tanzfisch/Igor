@@ -1,3 +1,7 @@
+// Igor game engine
+// (c) Copyright 2012-2020 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "Granade.h"
 
 #include <igor/scene/nodes/iNodeManager.h>
@@ -17,7 +21,7 @@ using namespace iaux;
 
 #include "../Ascent.h"
 
-Granade::Granade(iScene *scene, const iaMatrixd &matrix, Fraction fraction)
+Granade::Granade(iScenePtr scene, const iaMatrixd &matrix, Fraction fraction)
     : GameObject(fraction, GameObjectType::Weapon)
 {
     _scene = scene;

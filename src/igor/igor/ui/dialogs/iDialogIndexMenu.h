@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iDIALOG_INDEX_MENU__
-#define __iDIALOG_INDEX_MENU__
+#ifndef __IGOR_DIALOGINDEXMENU_H__
+#define __IGOR_DIALOGINDEXMENU_H__
 
 #include <igor/ui/dialogs/iDialog.h>
 
@@ -38,25 +38,25 @@ using namespace iaux;
 namespace igor
 {
 
-	iaEVENT(iDialogIndexMenuCloseEvent, iDialogIndexMenuCloseDelegate, void, (int32 index), (index));
+	iaEVENT(iDialogIndexMenuCloseEvent, iDialogIndexMenuCloseDelegate, (int32 index), (index));
 
 	/*! pull down menu
+
+	\deprecated remove this
 	*/
 	class Igor_API iDialogIndexMenu : public iDialog
 	{
 
 	public:
-		/*! does nothing
+		/*! init members
+
+		\param parent the parent of this widget
 		*/
-		iDialogIndexMenu() = default;
+		iDialogIndexMenu(const iWidgetPtr parent = nullptr);
 
 		/*! deinitializes gui
 		*/
 		virtual ~iDialogIndexMenu() = default;
-
-		/*! \returns the widgets type
-        */
-		virtual iWidgetType getWidgetType() const override;
 
 		/*! opens dialog
 
@@ -126,4 +126,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_DIALOGINDEXMENU_H__

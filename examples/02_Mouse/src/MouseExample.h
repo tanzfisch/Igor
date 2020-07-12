@@ -24,90 +24,68 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __MOUSEEXAMPLE__
-#define __MOUSEEXAMPLE__
+#ifndef __MOUSEEXAMPLE_H__
+#define __MOUSEEXAMPLE_H__
 
-#include <iaux/math/iaVector2.h>
-using namespace iaux;
+#include <ExampleBase.h>
 
-#include <igor/system/iWindow.h>
-using namespace igor;
-
-class MouseExample
+class MouseExample : public ExampleBase
 {
 
 public:
-    /*! run the example
-    */
-    void run();
-
     /*! init example
-    */
-    MouseExample();
 
-    /*! deinit example
+    \param window pass the window we work with
     */
-    ~MouseExample();
+    MouseExample(iWindow *window);
+
+    /*! does nothing
+    */
+    ~MouseExample() = default;
 
 private:
-    /*! the window we need to receive io events
+    /*! called on any other event
+
+    \param event the event to handle
     */
-    iWindow _window;
+    void onEvent(iEvent &event) override;
 
-    /*! called when mouse was moved
-    \param from last mouse position
-    \param to current mouse position
-    \param window the window the coordinates are related to
+    /*! handles mouse key down event
+
+    \param event the mouse key down event
+    \returns true if consumed
     */
-    void onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window);
+    bool onMouseKeyDownEvent(iEventMouseKeyDown &event);
 
-    /*! called when any mouse key was pressed
+    /*! handles mouse key up event
 
-    \pram key the key code of the key that was pressed
+    \param event the mouse key up event
+    \returns true if consumed
     */
-    void onMouseKeyDown(iKeyCode key);
+    bool onMouseKeyUpEvent(iEventMouseKeyUp &event);
 
-    /*! called when any mouse key was released
+    /*! handles mouse key double click event
 
-    \param key the key code of the key that was pressed
+    \param event the mouse key double click event
+    \returns true if consumed
     */
-    void onMouseKeyUp(iKeyCode key);
+    bool onMouseKeyDoubleClickEvent(iEventMouseKeyDoubleClick &event);
 
-    /*! called when any mouse key was released after if was presed
+    /*! handles mouse move event
 
-    \param key the key code of the key that was clicked
+    \param event the mouse move event
+    \returns true if consumed
     */
-    void onMouseClick(iKeyCode key);
+    bool onMouseMoveEvent(iEventMouseMove &event);
 
-    /*! called when mouse was double clicked
+    /*! handles mouse wheel event
 
-    \param key the key that was double clicked
+    \param event the mouse wheel event
+    \returns true if consumed
     */
-    void onMouseDoubleClick(iKeyCode key);
-
-    /*! called when mouse wheel was turned
-
-    \param d mouse wheel delta
-    */
-    void onMouseWheel(int32 d);
-
-    /*! called when ESC key was pressed
-    */
-    void onKeyESCDown();
-
-    /*! called when window was closed
-    */
-    void onCloseWindow();
-
-    /*! init example
-    */
-    void init();
-
-    /*! deinit example
-    */
-    void deinit();
+    bool onMouseWheelEvent(iEventMouseWheel &event);
 };
 
-#endif
+#endif // __MOUSEEXAMPLE_H__

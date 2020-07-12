@@ -24,15 +24,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iTASK__
-#define __iTASK__
+#ifndef __IGOR_TASK_H__
+#define __IGOR_TASK_H__
 
 #include <igor/iDefines.h>
 #include <igor/physics/iPhysicsWorld.h>
 
-#include <iaux/system/iaDelegate.h>
 #include <iaux/system/iaMutex.h>
 using namespace iaux;
 
@@ -187,4 +186,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_TASK_H__

@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iUSERCONTROLACTION__
-#define __iUSERCONTROLACTION__
+#ifndef __IGOR_USERCONTROLACTION_H__
+#define __IGOR_USERCONTROLACTION_H__
 
 #include <igor/ui/actions/iAction.h>
 #include <igor/ui/user_controls/iUserControl.h>
@@ -56,19 +56,19 @@ namespace igor
         */
         ~iUserControlAction() = default;
 
-        /*! \returns the widgets type
-        */
-        virtual iWidgetType getWidgetType() const override;
-
         /*! sets the action this widget is associated with
 
         \param action the action to be set
         */
-        void setAction(const iActionPtr action);
+        void setAction(const iActionPtr action, const iActionContextPtr context);
 
         /*! \returns action that is associated with this widget
         */
         iActionPtr getAction() const;
+
+        /*! \returns action context
+        */
+        iActionContextPtr getActionContext() const;
 
         /*! sets if we reserve space for a picture even if none was defined
 
@@ -81,9 +81,13 @@ namespace igor
         bool getFixedPictureSize() const;
 
     private:
-        /*! only store the action id
+        /*! the action
         */
-        int64 _actionID;
+        iActionPtr _action;
+
+        /*! the action context
+        */
+        iActionContextPtr _actionContext;
 
         /*! handle to text label
         */
@@ -117,4 +121,5 @@ namespace igor
     typedef iUserControlAction *iUserControlActionPtr;
 
 } // namespace igor
-#endif
+
+#endif // __IGOR_USERCONTROLACTION_H__

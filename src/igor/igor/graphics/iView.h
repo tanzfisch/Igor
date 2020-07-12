@@ -24,7 +24,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
 #ifndef __iVIEW__
 #define __iVIEW__
@@ -52,7 +52,7 @@ namespace igor
 
     /*! render event triggered for every frame a view is rendered
     */
-    iaEVENT(iDrawEvent, iDrawDelegate, void, (), ());
+    iaEVENT(iDrawEvent, iDrawDelegate, (), ());
 
     /*! represents a view rectangle within a window and projection of the scene
 
@@ -70,11 +70,11 @@ namespace igor
 
         \param scene scene to be rendered
         */
-        void setScene(iScene *scene);
+        void setScene(iScenePtr scene);
 
         /*! \returns scene to be rendered with this view
         */
-        iScene *getScene();
+        iScenePtr getScene();
 
         /*! sets name of view
 
@@ -251,6 +251,12 @@ namespace igor
         */
         int32 getZIndex() const;
 
+        /*! \returns true if configure with perspective projection
+
+        esle it must be a orthogonal projection
+        */
+        bool isPerspective() const;
+
         /*! init statistics counters
         */
         iView();
@@ -278,7 +284,7 @@ namespace igor
 
         /*! scene that is currently bound with this view
         */
-        iScene *_scene = nullptr;
+        iScenePtr _scene = nullptr;
 
         /*! size of parenting window in pixel
         */
@@ -365,6 +371,10 @@ namespace igor
         */
         void updateWindowRect(const iRectanglei &windowRect);
     };
+
+    /*! view pointer definition
+    */
+    typedef iView *iViewPtr;
 
 }; // namespace igor
 

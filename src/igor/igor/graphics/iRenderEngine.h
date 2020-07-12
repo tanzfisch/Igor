@@ -24,12 +24,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __RENDERENGINE__
-#define __RENDERENGINE__
+#ifndef __IGOR_RENDERENGINE_H__
+#define __IGOR_RENDERENGINE_H__
 
 #include <igor/resources/material/iMaterialGroup.h>
+#include <igor/scene/iScene.h>
 
 #include <vector>
 #include <map>
@@ -37,7 +38,6 @@
 namespace igor
 {
 
-    class iScene;
     class iNodeCamera;
     class iNode;
 
@@ -91,11 +91,11 @@ namespace igor
 
         \param scene scene to render
         */
-        void setScene(iScene *scene);
+        void setScene(iScenePtr scene);
 
         /*! \returns pointer to scene
         */
-        iScene *getScene();
+        iScenePtr getScene();
 
         /*! sets current camera by id
 
@@ -162,7 +162,7 @@ namespace igor
 
         /*! handle to scene
         */
-        iScene *_scene = nullptr;
+        iScenePtr _scene = nullptr;
 
         /*! temporary list of nodes that where filtered by the culling process
         */
@@ -202,4 +202,4 @@ namespace igor
     };
 } // namespace igor
 
-#endif
+#endif // __IGOR_RENDERENGINE_H__

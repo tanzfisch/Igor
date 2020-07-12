@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iDIALOG__
-#define __iDIALOG__
+#ifndef __IGOR_DIALOG_H__
+#define __IGOR_DIALOG_H__
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -65,15 +65,11 @@ namespace igor
     public:
         /*! ctor initializes member variables and registers mouse events
 		*/
-        iDialog();
+        iDialog(iWidgetType type = iWidgetType::iDialog, const iWidgetPtr parent = nullptr);
 
         /*! dtor unregisters mouse events
 		*/
         virtual ~iDialog();
-
-        /*! \returns the widgets type
-        */
-        virtual iWidgetType getWidgetType() const override;
 
         /*! set horizontal position of dialog and horizontal alignment to absolute
 
@@ -107,6 +103,10 @@ namespace igor
 		*/
         virtual void close();
 
+        /*! \returns true if dialog is open
+        */
+        bool isOpen() const;
+
         /*! \returns the return state of this dialog
         */
         iDialogReturnState getReturnState() const;
@@ -116,6 +116,11 @@ namespace igor
         void setReturnState(iDialogReturnState returnState);
 
     private:
+
+        /*! if true dialog is open
+        */
+        bool _isOpen = false;
+
         /*! the return state of the this dialog
         */
         iDialogReturnState _returnState = iDialogReturnState::Ok;
@@ -153,4 +158,4 @@ namespace igor
     };
 } // namespace igor
 
-#endif
+#endif // __IGOR_DIALOG_H__

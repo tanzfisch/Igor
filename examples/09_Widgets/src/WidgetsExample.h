@@ -24,79 +24,34 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __WIDGETEXAMPLE__
-#define __WIDGETEXAMPLE__
+#ifndef __WIDGETEXAMPLE_H__
+#define __WIDGETEXAMPLE_H__
 
 #include <igor/igor.h>
-#include <igor/system/iWindow.h>
-#include <igor/graphics/iView.h>
-#include <igor/ui/dialogs/iDialog.h>
-#include <igor/ui/dialogs/iDialogColorChooser.h>
-#include <igor/ui/dialogs/iDialogColorGradient.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/resources/profiler/iProfilerVisualizer.h>
-#include <igor/resources/texture/iTexture.h>
-#include <igor/ui/dialogs/iDialogMessageBox.h>
 using namespace igor;
-
-#include <iaux/data/iaGradient.h>
-#include <iaux/math/iaMatrix.h>
 using namespace iaux;
 
-namespace igor
-{
-    class iTextureFont;
-    class iWidgetDefaultTheme;
-    class iWidgetLabel;
-    class iWidgetColor;
-    class iWidgetColorGradient;
-} // namespace igor
-
 /*! this example shows how to use Igor Widgets
+
+    we derive from iLayerWidgets so the handling of the widget manager is covered for us
 */
-class WidgetsExample
+class WidgetsExample : public iLayerWidgets
 {
 
 public:
     /*! ctor initializes widgets
-    */
-    WidgetsExample();
 
-    /*! dtor clean up
+    \param window the given window
     */
-    virtual ~WidgetsExample();
+    WidgetsExample(iWindow *window);
 
-    /*! runs main loop
+    /*! does nothing
     */
-    void run();
+    ~WidgetsExample() = default;
 
 private:
-    /*! the window it self
-    */
-    iWindow _window;
-
-    /*! orthogonal view port
-    */
-    iView _viewOrtho;
-
-    /*! visualize statistics
-    */
-    iProfilerVisualizer _profilerVisualizer;
-
-    /*! font handle
-    */
-    iTextureFont *_font = nullptr;
-
-    /*! material for drawing igor logo
-    */
-    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
-
-    /*! using the default widget theme
-    */
-    iWidgetDefaultTheme *_widgetDefaultTheme = nullptr;
-
     /*! the main dialog
     */
     iDialogPtr _dialog = nullptr;
@@ -125,10 +80,6 @@ private:
     */
     iWidgetColorGradient *_colorGradient = nullptr;
 
-    /*! splash texture
-    */
-    iTexturePtr _igorLogo = nullptr;
-
     /*! simple action that prints some text in the console
     */
     void onActionOne();
@@ -146,14 +97,6 @@ private:
     \param dialog source of the event
     */
     void onCloseDialog(iDialogPtr dialog);
-
-    /*! render function
-    */
-    void onRender();
-
-    /*! draw Igor logo
-    */
-    void drawLogo();
 
     /*! initializes GUI
     */
@@ -201,27 +144,26 @@ private:
     */
     void onCloseColorGradient(iDialogPtr dialog);
 
-    /*! triggered by mouse move event
-
-    \param pos position of mouse cursor
-    */
-    void onMouseMove(const iaVector2i &pos);
-
-    /*! triggred if window was closed
-    */
-    void onWindowClosed();
-
-    /*! triggered if window was resized
-    */
-    void onWindowResize(int32 clientWidth, int32 clientHeight);
-
     /*! initialize example
     */
-    void init();
+    void onInit() override;
 
     /*! deinitialize example
     */
-    void deinit();
+    void onDeinit() override;
+
+    /*! called on any other event
+
+    \param event the event to handle
+    */
+    void onEvent(iEvent &event) override;
+
+    /*! handles mouse move event
+
+    \param event the mouse move event
+    \returns true if consumed
+    */
+    bool onMouseMoveEvent(iEventMouseMove &event);
 };
 
-#endif
+#endif // __WIDGETEXAMPLE_H__

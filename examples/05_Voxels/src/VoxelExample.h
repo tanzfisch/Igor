@@ -24,84 +24,30 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __VOXELEXAMPLE__
-#define __VOXELEXAMPLE__
+#ifndef __VOXELEXAMPLE_H__
+#define __VOXELEXAMPLE_H__
 
-#include <igor/igor.h>
-#include <igor/system/iWindow.h>
-#include <igor/graphics/iView.h>
-#include <igor/system/iTimerHandle.h>
-#include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/system/iKeyboard.h>
-#include <igor/generation/iPerlinNoise.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/resources/profiler/iProfilerVisualizer.h>
-using namespace igor;
-
-#include <iaux/math/iaRandomNumberGenerator.h>
-#include <iaux/math/iaMatrix.h>
-using namespace iaux;
-
-namespace igor
-{
-    class iScene;
-    class iNodeTransform;
-    class iNodeLight;
-    class iTextureFont;
-    class iVoxelData;
-    class iContouringCubes;
-    class iMeshBuilder;
-    class iMesh;
-    class iTargetMaterial;
-    class iNodeTransformControl;
-    class iTexture;
-} // namespace igor
+#include <ExampleBase.h>
 
 /*! the voxel example
 */
-class VoxelExample
+class VoxelExample : public ExampleBase
 {
 
 public:
     /*! init
-    */
-    VoxelExample();
 
-    /*! deinit
+    \param window the given window
     */
-    virtual ~VoxelExample();
+    VoxelExample(iWindow *window);
 
-    /*! runs application loop
+    /*! does nothing
     */
-    void run();
+    ~VoxelExample() = default;
 
 private:
-    /*! window to render in
-    */
-    iWindow _window;
-
-    /*! profiler visualizer
-    */
-    iProfilerVisualizer _profilerVisualizer;
-
-    /*! view within the window
-    */
-    iView _view;
-
-    /*! an other view to render orthogonal projected stuff
-    */
-    iView _viewOrtho;
-
-    /*! font to display framerate
-    */
-    iTextureFont *_font = nullptr;
-
-    /*! the scene
-    */
-    iScene *_scene = nullptr;
-
     /*! heading of camera
     */
     uint64 _cameraHeading = iNode::INVALID_NODE_ID;
@@ -126,10 +72,6 @@ private:
     */
     iVoxelData *_voxelData = nullptr;
 
-    /*! material for the sky box
-    */
-    uint64 _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
-
     /*! perlin noise generator
     */
     iPerlinNoise _perlinNoise;
@@ -150,68 +92,9 @@ private:
     */
     uint32 _incarnation = 1;
 
-    /*! id of flush model task
+    /*! material definition for the sky box
     */
-    uint64 _flushModelsTask = iTask::INVALID_TASK_ID;
-
-    /*! id of flush textures task
-    */
-    uint64 _flushTexturesTask = iTask::INVALID_TASK_ID;
-
-    /*! igor logo
-    */
-    iTexturePtr _igorLogo = nullptr;
-
-    /*! igor logo materil
-    */
-    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
-
-    /*! called when ESC key was pressed
-    */
-    void onKeyDown(iKeyCode key);
-
-    /*! called when space key was released
-    */
-    void onKeySpacePressed();
-
-    /*! called when window was closed
-    */
-    void onWindowClosed();
-
-    /*! called before every frame
-    */
-    void onHandle();
-
-    /*! called when window was resized
-
-    \param clientWidth new client width of window
-    \param clientHeight new client height of window
-    */
-    void onWindowResized(int32 clientWidth, int32 clientHeight);
-
-    /*! called when mouse was moved
-    
-    \param from last mouse position
-    \param to current mouse position
-    \param window the window the coordinates are related to
-    */
-    void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window);
-
-    /*! called when orthogonal view was rendred
-    */
-    void onRenderOrtho();
-
-    /*! draw igor logo
-    */
-    void drawLogo();
-
-    /*! initialize everything
-    */
-    void init();
-
-    /*! initialize window and views
-    */
-    void initViews();
+    iMaterialID _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
 
     /*! initialize scene
     */
@@ -220,10 +103,6 @@ private:
     /*! register some callbacks
     */
     void registerHandles();
-
-    /*! deinitialize everything
-    */
-    void deinit();
 
     /*! unregister the callbacks
     */
@@ -236,6 +115,41 @@ private:
     /*! triggers mesh generation
     */
     void prepareMeshGeneration();
+
+    /*! called before every frame
+    */
+    void onPreDraw() override;
+
+    /*! initialize everything
+    */
+    void onInit() override;
+
+    /*! deinitialize everything
+    */
+    void onDeinit() override;
+
+    /*! called by orthogonal view
+    */
+    void onRenderOrtho() override;
+
+    /*! called on any other event
+
+    \param event the event to handle
+    */
+    void onEvent(iEvent &event) override;
+
+    /*! called when key was pressed
+
+    \param event the event to handle
+    */
+    bool onKeyDown(iEventKeyDown &event);
+
+    /*! handles mouse move event
+
+    \param event the mouse move event
+    \returns true if consumed
+    */
+    bool onMouseMoveEvent(iEventMouseMove &event);
 };
 
-#endif
+#endif // __VOXELEXAMPLE_H__

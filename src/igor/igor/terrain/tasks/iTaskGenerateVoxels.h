@@ -11,20 +11,20 @@
 //                                           (_(       \)
 // (c) Copyright 2012-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: martinloga@gmx.de  
+//
+// contact: igorgameengine@protonmail.com
 
 #ifndef __iTASKGENERATEVOXELS__
 #define __iTASKGENERATEVOXELS__
@@ -67,7 +67,7 @@ namespace igor
 
         /*! the destination voxel data structure
         */
-        iVoxelData* _voxelData = nullptr;
+        iVoxelData *_voxelData = nullptr;
 
         /*! true if the generated voxel data contains an air to solid transition
         */
@@ -78,7 +78,7 @@ namespace igor
 
     \param voxelBlockInfo contains all information to generate the voxels
     */
-    iaDELEGATE(iVoxelTerrainGenerateDelegate, void, (iVoxelBlockInfo* voxelBlockInfo), (voxelBlockInfo));
+    iaDELEGATE(iVoxelTerrainGenerateDelegate, void, (iVoxelBlockInfo * voxelBlockInfo), (voxelBlockInfo));
 
     // TODO add callback onAfterMeshGeneration ?
 
@@ -90,7 +90,6 @@ namespace igor
     {
 
     public:
-
         /*! initializes member variables
 
         \param voxelBlockInfo the voxel block to generate the data for
@@ -98,29 +97,26 @@ namespace igor
         \param generateVoxelsDelegate the delegate to do the actual work
         \param voxelDataGeneratedDelegate the delegate to be called after generating the voxels
         */
-        iTaskGenerateVoxels(iVoxelBlockInfo* voxelBlockInfo, uint32 priority, iVoxelTerrainGenerateDelegate generateVoxelsDelegate);
+        iTaskGenerateVoxels(iVoxelBlockInfo *voxelBlockInfo, uint32 priority, iVoxelTerrainGenerateDelegate generateVoxelsDelegate);
 
         /*! does nothing
         */
         virtual ~iTaskGenerateVoxels() = default;
 
     protected:
-
         /*! runs the task
         */
         void run();
 
     private:
-
         /*! delegate that generated the voxels
         */
         iVoxelTerrainGenerateDelegate _generateVoxelsDelegate;
 
         /*! the data to work with
         */
-        iVoxelBlockInfo* _voxelBlockInfo = nullptr;
-
+        iVoxelBlockInfo *_voxelBlockInfo = nullptr;
     };
-}
+} // namespace igor
 
 #endif

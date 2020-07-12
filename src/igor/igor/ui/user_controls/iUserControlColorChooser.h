@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iUSERCONTROLCOLORCHOOSER__
-#define __iUSERCONTROLCOLORCHOOSER__
+#ifndef __IGOR_USERCONTROLCOLORCHOOSER_H__
+#define __IGOR_USERCONTROLCOLORCHOOSER_H__
 
 #include <igor/ui/user_controls/iUserControl.h>
 #include <igor/ui/widgets/iWidget.h>
@@ -51,7 +51,7 @@ namespace igor
 
 	/*! color has changed event
 	*/
-	iaEVENT(iColorChanged, iColorChangedDelegate, void, (const iaColor4f &color), (color));
+	iaEVENT(iColorChanged, iColorChangedDelegate, (const iaColor4f &color), (color));
 
 	/*! color chooser mode
 	*/
@@ -80,17 +80,13 @@ namespace igor
 		*/
 		virtual ~iUserControlColorChooser();
 
-		/*! \returns the widgets type
+		/*! blocks all outgoing events
         */
-		virtual iWidgetType getWidgetType() const override;
+		virtual void blockEvents() override;
 
-		/*! set wether events will be blocked or not
-
-        implementation needs to be overriden by deriving classes to make sure all additional events are blocked too
-
-        \param blockEvents if true events from this widget will be blocked
+		/*! unblocks all outgoing events
         */
-		virtual void block(bool blockEvents) override;
+		virtual void unblockEvents() override;
 
 		/*! sets the headline text
 
@@ -511,5 +507,7 @@ namespace igor
 	/*! user control color chooser pointer definition
     */
 	typedef iUserControlColorChooser *iUserControlColorChooserPtr;
+
 } // namespace igor
-#endif
+
+#endif // __IGOR_USERCONTROLCOLORCHOOSER_H__

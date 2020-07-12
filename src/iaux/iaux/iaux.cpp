@@ -52,10 +52,10 @@ namespace iaux
 
 	void shutdown()
 	{
+		iaConsole::getInstance().setLogLevel(iaLogLevel::DebugInfo);
 		iaConsole::getInstance().printStats();
 		iaConsole::getInstance().closeLogfile();
 		iaConsole::getInstance().resetStats();
-		iaConsole::getInstance().setLogLevel(LogLevel::DebugInfo);
 		// do not destroy instance of iaConsole
 	}
 

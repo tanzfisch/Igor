@@ -3,32 +3,32 @@
 // see copyright notice in corresponding header file
 
 template <class T>
-__IGOR_INLINE__ std::wostream& operator<<(std::wostream& ostr, const iaMatrix<T>& m)
+__IGOR_INLINE__ iaConsole &operator<<(iaConsole &console, const iaMatrix<T> &m)
 {
-	ostr << "|" << std::fixed << std::right << std::setprecision(2) << std::setw(10) << m._right._x << " " << std::right << std::setprecision(2) << std::setw(10) << m._top._x << " " << std::right << std::setprecision(2) << std::setw(10) << m._depth._x << " " << std::right << std::setprecision(2) << std::setw(10) << m._pos._x << "|\n";
-	ostr << "|" << std::fixed << std::right << std::setprecision(2) << std::setw(10) << m._right._y << " " << std::right << std::setprecision(2) << std::setw(10) << m._top._y << " " << std::right << std::setprecision(2) << std::setw(10) << m._depth._y << " " << std::right << std::setprecision(2) << std::setw(10) << m._pos._y << "|\n";
-	ostr << "|" << std::fixed << std::right << std::setprecision(2) << std::setw(10) << m._right._z << " " << std::right << std::setprecision(2) << std::setw(10) << m._top._z << " " << std::right << std::setprecision(2) << std::setw(10) << m._depth._z << " " << std::right << std::setprecision(2) << std::setw(10) << m._pos._z << "|\n";
-	ostr << "|" << std::fixed << std::right << std::setprecision(2) << std::setw(10) << m._w0 << " " << std::right << std::setprecision(2) << std::setw(10) << m._w1 << " " << std::right << std::setprecision(2) << std::setw(10) << m._w2 << " " << std::right << std::setprecision(2) << std::setw(10) << m._w3 << "|\n";
-	return ostr;
+	console << "/" << std::setfill(L' ') << std::fixed << std::right << std::setprecision(2) << std::setw(10) << m._right._x << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._top._x << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._depth._x << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._pos._x << "\\" << iaux::endlTab;
+	console << "|" << std::setfill(L' ') << std::fixed << std::right << std::setprecision(2) << std::setw(10) << m._right._y << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._top._y << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._depth._y << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._pos._y << "|" << iaux::endlTab;
+	console << "|" << std::setfill(L' ') << std::fixed << std::right << std::setprecision(2) << std::setw(10) << m._right._z << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._top._z << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._depth._z << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._pos._z << "|" << iaux::endlTab;
+	console << "\\" << std::setfill(L' ') << std::fixed << std::right << std::setprecision(2) << std::setw(10) << m._w0 << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._w1 << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._w2 << " " << std::setfill(L' ') << std::right << std::setprecision(2) << std::setw(10) << m._w3 << "/" << iaux::endl;
+	return console;
 }
 
 template <class T>
-__IGOR_INLINE__ T& iaMatrix<T>::operator[] (int i)
+__IGOR_INLINE__ T &iaMatrix<T>::operator[](int i)
 {
-	return ((T*)this)[i];
+	return ((T *)this)[i];
 }
 
 template <class T>
-__IGOR_INLINE__ T iaMatrix<T>::operator[] (int i) const
+__IGOR_INLINE__ T iaMatrix<T>::operator[](int i) const
 {
-	return ((T*)this)[i];
+	return ((T *)this)[i];
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix<T>::operator+=(iaMatrix<T>& a)
+__IGOR_INLINE__ void iaMatrix<T>::operator+=(iaMatrix<T> &a)
 {
-	T* m = (T*)& _right;
-	T* n = (T*)& a;
+	T *m = (T *)&_right;
+	T *n = (T *)&a;
 
 	for (long x = 0; x < 16; x++)
 	{
@@ -37,10 +37,10 @@ __IGOR_INLINE__ void iaMatrix<T>::operator+=(iaMatrix<T>& a)
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix<T>::operator-=(iaMatrix<T>& a)
+__IGOR_INLINE__ void iaMatrix<T>::operator-=(iaMatrix<T> &a)
 {
-	T* m = (T*)& _right;
-	T* n = (T*)& a;
+	T *m = (T *)&_right;
+	T *n = (T *)&a;
 
 	for (long x = 0; x < 16; x++)
 	{
@@ -49,10 +49,10 @@ __IGOR_INLINE__ void iaMatrix<T>::operator-=(iaMatrix<T>& a)
 }
 
 template <class T>
-__IGOR_INLINE__ bool iaMatrix<T>::operator==(const iaMatrix<T>& a) const
+__IGOR_INLINE__ bool iaMatrix<T>::operator==(const iaMatrix<T> &a) const
 {
-	T* m = (T*)& _right;
-	T* n = (T*)& a;
+	T *m = (T *)&_right;
+	T *n = (T *)&a;
 
 	for (long x = 0; x < 16; x++)
 	{
@@ -66,10 +66,10 @@ __IGOR_INLINE__ bool iaMatrix<T>::operator==(const iaMatrix<T>& a) const
 }
 
 template <class T>
-__IGOR_INLINE__ bool iaMatrix<T>::operator!=(const iaMatrix<T>& a) const
+__IGOR_INLINE__ bool iaMatrix<T>::operator!=(const iaMatrix<T> &a) const
 {
-	T* m = (T*)& _right;
-	T* n = (T*)& a;
+	T *m = (T *)&_right;
+	T *n = (T *)&a;
 
 	for (long x = 0; x < 16; x++)
 	{
@@ -83,7 +83,7 @@ __IGOR_INLINE__ bool iaMatrix<T>::operator!=(const iaMatrix<T>& a) const
 }
 
 template <class T>
-__IGOR_INLINE__ iaVector3<T> iaMatrix<T>::operator*(iaVector3<T>& a) const
+__IGOR_INLINE__ iaVector3<T> iaMatrix<T>::operator*(iaVector3<T> &a) const
 {
 	iaVector3<T> result;
 	result = _right * a._x + _top * a._y + _depth * a._z + _pos;
@@ -92,7 +92,7 @@ __IGOR_INLINE__ iaVector3<T> iaMatrix<T>::operator*(iaVector3<T>& a) const
 }
 
 template <class T>
-__IGOR_INLINE__ iaVector3<T> iaMatrix<T>::operator*(const iaVector3<T>& a) const
+__IGOR_INLINE__ iaVector3<T> iaMatrix<T>::operator*(const iaVector3<T> &a) const
 {
 	iaVector3<T> result;
 	result = _right * a._x + _top * a._y + _depth * a._z + _pos;
@@ -101,7 +101,7 @@ __IGOR_INLINE__ iaVector3<T> iaMatrix<T>::operator*(const iaVector3<T>& a) const
 }
 
 template <class T>
-__IGOR_INLINE__ iaVector4<T> iaMatrix<T>::operator*(iaVector4<T>& a) const
+__IGOR_INLINE__ iaVector4<T> iaMatrix<T>::operator*(iaVector4<T> &a) const
 {
 	iaVector4<T> result;
 
@@ -114,7 +114,7 @@ __IGOR_INLINE__ iaVector4<T> iaMatrix<T>::operator*(iaVector4<T>& a) const
 }
 
 template <class T>
-__IGOR_INLINE__ iaVector4<T> iaMatrix<T>::operator*(const iaVector4<T>& a) const
+__IGOR_INLINE__ iaVector4<T> iaMatrix<T>::operator*(const iaVector4<T> &a) const
 {
 	iaVector4<T> result;
 
@@ -127,7 +127,7 @@ __IGOR_INLINE__ iaVector4<T> iaMatrix<T>::operator*(const iaVector4<T>& a) const
 }
 
 template <class T>
-__IGOR_INLINE__ iaMatrix<T> iaMatrix<T>::operator*(const iaMatrix<T>& m)
+__IGOR_INLINE__ iaMatrix<T> iaMatrix<T>::operator*(const iaMatrix<T> &m)
 {
 	iaMatrix<T> matrix;
 
@@ -155,7 +155,7 @@ __IGOR_INLINE__ iaMatrix<T> iaMatrix<T>::operator*(const iaMatrix<T>& m)
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix<T>::operator*=(const iaMatrix<T>& m)
+__IGOR_INLINE__ void iaMatrix<T>::operator*=(const iaMatrix<T> &m)
 {
 	iaMatrix<T> matrix;
 
@@ -194,7 +194,7 @@ iaMatrix<T>::iaMatrix()
 template <class T>
 iaMatrix<T>::iaMatrix(const T data[16])
 {
-	T* localData = getData();
+	T *localData = getData();
 
 	for (int i = 0; i < 16; i++)
 	{
@@ -208,7 +208,7 @@ iaMatrix<T>::~iaMatrix()
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix<T>::grammSchmidt(iaVector3<T>& depth)
+__IGOR_INLINE__ void iaMatrix<T>::grammSchmidt(iaVector3<T> &depth)
 {
 	_depth = depth;
 	_depth.normalize();
@@ -232,7 +232,7 @@ __IGOR_INLINE__ void iaMatrix<T>::grammSchmidt(iaVector3<T>& depth)
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix<T>::grammSchmidt(iaVector3<T>& depth, iaVector3<T>& top)
+__IGOR_INLINE__ void iaMatrix<T>::grammSchmidt(iaVector3<T> &depth, iaVector3<T> &top)
 {
 	_top = top;
 
@@ -268,7 +268,7 @@ __IGOR_INLINE__ void iaMatrix<T>::perspective(T fov, T aspect, T nearplain, T fa
 template <class T>
 __IGOR_INLINE__ void iaMatrix<T>::frustum(T left, T _right, T bottom, T _top, T nearplain, T farplain)
 {
-	T* m = getData();
+	T *m = getData();
 
 	m[0] = (static_cast<T>(2.0) * nearplain) / (_right - left);
 	m[1] = 0;
@@ -291,7 +291,7 @@ __IGOR_INLINE__ void iaMatrix<T>::frustum(T left, T _right, T bottom, T _top, T 
 template <class T>
 __IGOR_INLINE__ void iaMatrix<T>::ortho(T left, T _right, T bottom, T _top, T nearplain, T farplain)
 {
-	T* m = getData();
+	T *m = getData();
 
 	m[0] = static_cast<T>(2.0) / (_right - left);
 	m[1] = 0;
@@ -312,7 +312,7 @@ __IGOR_INLINE__ void iaMatrix<T>::ortho(T left, T _right, T bottom, T _top, T ne
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix<T>::lookAt(const iaVector3<T>& eye, const iaVector3<T>& coi, const iaVector3<T>& _top)
+__IGOR_INLINE__ void iaMatrix<T>::lookAt(const iaVector3<T> &eye, const iaVector3<T> &coi, const iaVector3<T> &_top)
 {
 	iaMatrix<T> lookat;
 	iaVector3<T> x, y, z;
@@ -327,7 +327,7 @@ __IGOR_INLINE__ void iaMatrix<T>::lookAt(const iaVector3<T>& eye, const iaVector
 	y = z % x;
 	y.normalize();
 
-	// Build resulting view matrix. 
+	// Build resulting view matrix.
 	lookat._right[0] = x[0];
 	lookat._top[0] = x[1];
 	lookat._depth[0] = x[2];
@@ -354,27 +354,43 @@ __IGOR_INLINE__ void iaMatrix<T>::lookAt(const iaVector3<T>& eye, const iaVector
 template <class T>
 __IGOR_INLINE__ void iaMatrix<T>::transpose()
 {
-	T* m = (T*)& _right;
+	T *m = (T *)&_right;
 	T temp;
 
-	temp = m[1]; m[1] = m[4]; m[4] = temp;
-	temp = m[2]; m[2] = m[8]; m[8] = temp;
-	temp = m[3]; m[3] = m[12]; m[12] = temp;
-	temp = m[6]; m[6] = m[9]; m[9] = temp;
-	temp = m[7]; m[7] = m[13]; m[13] = temp;
-	temp = m[11]; m[11] = m[14]; m[14] = temp;
+	temp = m[1];
+	m[1] = m[4];
+	m[4] = temp;
+	temp = m[2];
+	m[2] = m[8];
+	m[8] = temp;
+	temp = m[3];
+	m[3] = m[12];
+	m[12] = temp;
+	temp = m[6];
+	m[6] = m[9];
+	m[9] = temp;
+	temp = m[7];
+	m[7] = m[13];
+	m[13] = temp;
+	temp = m[11];
+	m[11] = m[14];
+	m[14] = temp;
 }
 
 // return the inverse of this matrix, that is,
 // the inverse of the rotation, the inverse of the scaling, and
 // the opposite of the translation vector.
-#define MATSWAP(a,b) {temp=(a);(a)=(b);(b)=temp;}
-
+#define MATSWAP(a, b) \
+	{                 \
+		temp = (a);   \
+		(a) = (b);    \
+		(b) = temp;   \
+	}
 
 template <class T>
 __IGOR_INLINE__ bool iaMatrix<T>::invert()
 {
-	T* mat = (T*)& _right;
+	T *mat = (T *)&_right;
 	T matr[4][4], ident[4][4];
 	int i, j, k, l, ll;
 	int icol = 0, irow = 0;
@@ -504,71 +520,82 @@ __IGOR_INLINE__ bool iaMatrix<T>::invert()
 template <class T>
 __IGOR_INLINE__ T iaMatrix<T>::determinant()
 {
-	return 	_right[0] * (_top[1] * _depth[2] * _w3 +
-		_top[2] * _w2 * _pos[1] +
-		_w1 * _depth[1] * _pos[2] -
-		_w1 * _depth[2] * _pos[1] -
-		_top[2] * _depth[1] * _w3 -
-		_w2 * _pos[2] * _top[1]) -
-		_right[1] * (_top[0] * _depth[2] * _w3 +
-			_top[2] * _w2 * _pos[0] +
-			_depth[0] * _pos[2] * _w1 -
-			_w1 * _depth[2] * _pos[0] -
-			_top[2] * _depth[0] * _w3 -
-			_w2 * _pos[2] * _top[0]) +
-		_right[2] * (_top[0] * _depth[1] * _w3 +
-			_top[1] * _w2 * _pos[0] +
-			_depth[0] * _pos[1] * _w1 -
-			_w1 * _depth[1] * _pos[0] -
-			_top[1] * _depth[0] * _w3 -
-			_w2 * _pos[1] * _top[0]) -
-		_w0 * (_top[0] * _depth[1] * _pos[2] +
-			_top[1] * _depth[2] * _pos[0] +
-			_depth[0] * _pos[1] * _top[2] -
-			_top[2] * _depth[1] * _pos[0] -
-			_top[1] * _depth[0] * _pos[2] -
-			_depth[2] * _pos[1] * _top[0]);
+	return _right[0] * (_top[1] * _depth[2] * _w3 +
+						_top[2] * _w2 * _pos[1] +
+						_w1 * _depth[1] * _pos[2] -
+						_w1 * _depth[2] * _pos[1] -
+						_top[2] * _depth[1] * _w3 -
+						_w2 * _pos[2] * _top[1]) -
+		   _right[1] * (_top[0] * _depth[2] * _w3 +
+						_top[2] * _w2 * _pos[0] +
+						_depth[0] * _pos[2] * _w1 -
+						_w1 * _depth[2] * _pos[0] -
+						_top[2] * _depth[0] * _w3 -
+						_w2 * _pos[2] * _top[0]) +
+		   _right[2] * (_top[0] * _depth[1] * _w3 +
+						_top[1] * _w2 * _pos[0] +
+						_depth[0] * _pos[1] * _w1 -
+						_w1 * _depth[1] * _pos[0] -
+						_top[1] * _depth[0] * _w3 -
+						_w2 * _pos[1] * _top[0]) -
+		   _w0 * (_top[0] * _depth[1] * _pos[2] +
+				  _top[1] * _depth[2] * _pos[0] +
+				  _depth[0] * _pos[1] * _top[2] -
+				  _top[2] * _depth[1] * _pos[0] -
+				  _top[1] * _depth[0] * _pos[2] -
+				  _depth[2] * _pos[1] * _top[0]);
 }
 
 template <class T>
 __IGOR_INLINE__ T iaMatrix<T>::determinant3x3()
 {
-	return   _right[0] * _top[1] * _depth[2] + _top[0] * _depth[1] * _right[2] + _right[1] * _top[2] * _depth[0]
-		- _right[2] * _top[1] * _depth[0] - _right[1] * _top[0] * _depth[2] - _top[2] * _depth[1] * _right[0];
+	return _right[0] * _top[1] * _depth[2] + _top[0] * _depth[1] * _right[2] + _right[1] * _top[2] * _depth[0] - _right[2] * _top[1] * _depth[0] - _right[1] * _top[0] * _depth[2] - _top[2] * _depth[1] * _right[0];
 }
 
 template <class T>
-__IGOR_INLINE__ const T* iaMatrix<T>::getData() const
+__IGOR_INLINE__ const T *iaMatrix<T>::getData() const
 {
-	return (T*)& _right;
+	return (T *)&_right;
 }
 
 template <class T>
-__IGOR_INLINE__ T* iaMatrix<T>::getData()
+__IGOR_INLINE__ T *iaMatrix<T>::getData()
 {
-	return (T*)& _right;
+	return (T *)&_right;
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix<T>::setData(const T* data)
+__IGOR_INLINE__ void iaMatrix<T>::setData(const T *data)
 {
 	for (int i = 0; i < 16; i++)
 	{
-		((T*)& _right)[i] = data[i];
+		((T *)&_right)[i] = data[i];
 	}
 }
 
 template <class T>
 __IGOR_INLINE__ void iaMatrix<T>::identity(void)
 {
-	_right._x = 1;   _top._x = 0;   _depth._x = 0;    _pos._x = 0;
-	_right._y = 0;   _top._y = 1;   _depth._y = 0;    _pos._y = 0;
-	_right._z = 0;   _top._z = 0;   _depth._z = 1;    _pos._z = 0;
-	_w0 = 0;         _w1 = 0;       _w2 = 0;          _w3 = 1;
+	_right._x = 1;
+	_top._x = 0;
+	_depth._x = 0;
+	_pos._x = 0;
+	_right._y = 0;
+	_top._y = 1;
+	_depth._y = 0;
+	_pos._y = 0;
+	_right._z = 0;
+	_top._z = 0;
+	_depth._z = 1;
+	_pos._z = 0;
+	_w0 = 0;
+	_w1 = 0;
+	_w2 = 0;
+	_w3 = 1;
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix<T>::scale(const iaVector3<T>& s)
+__IGOR_INLINE__ void iaMatrix<T>::scale(const iaVector3<T> &s)
 {
 	iaMatrix<T> scaleMatrix;
 
@@ -603,7 +630,7 @@ __IGOR_INLINE__ void iaMatrix<T>::translate(T x, T y, T z)
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix<T>::translate(const iaVector3<T>& a)
+__IGOR_INLINE__ void iaMatrix<T>::translate(const iaVector3<T> &a)
 {
 	iaMatrix<T> translation;
 	translation._pos = a;
@@ -631,7 +658,7 @@ __IGOR_INLINE__ void iaMatrix<T>::move(T distance, iaAxis axis)
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix<T>::shear(const iaVector3<T>& vec)
+__IGOR_INLINE__ void iaMatrix<T>::shear(const iaVector3<T> &vec)
 {
 	iaMatrix<T> matrix;
 
@@ -655,7 +682,7 @@ __IGOR_INLINE__ void iaMatrix<T>::shear(T xy, T xz, T yz)
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix<T>::rotate(const iaVector3<T>& vec)
+__IGOR_INLINE__ void iaMatrix<T>::rotate(const iaVector3<T> &vec)
 {
 	iaMatrix<T> rotation;
 
@@ -738,7 +765,7 @@ __IGOR_INLINE__ void iaMatrix<T>::rotate(T angle, iaAxis axis)
 }
 
 template <class T>
-void iaMatrix<T>::recompose(const iaVector3<T>& scale, const iaQuaternion<T>& orientation, const iaVector3<T>& translate, const iaVector3<T>& shear, const iaVector4<T>& perspective)
+void iaMatrix<T>::recompose(const iaVector3<T> &scale, const iaQuaternion<T> &orientation, const iaVector3<T> &translate, const iaVector3<T> &shear, const iaVector4<T> &perspective)
 {
 	identity();
 
@@ -763,10 +790,10 @@ void iaMatrix<T>::recompose(const iaVector3<T>& scale, const iaQuaternion<T>& or
 	T zw = orientation._z * orientation._w;
 
 	// Construct a composite rotation matrix from the quaternion values
-	const T values[16] = { 1 - 2 * (yy + zz), 2 * (xy - zw), 2 * (xz + yw), 0,
-		2 * (xy + zw), 1 - 2 * (xx + zz), 2 * (yz - xw), 0,
-		2 * (xz - yw), 2 * (yz + xw), 1 - 2 * (xx + yy), 0,
-		0, 0, 0, 1 };
+	const T values[16] = {1 - 2 * (yy + zz), 2 * (xy - zw), 2 * (xz + yw), 0,
+						  2 * (xy + zw), 1 - 2 * (xx + zz), 2 * (yz - xw), 0,
+						  2 * (xz - yw), 2 * (yz + xw), 1 - 2 * (xx + yy), 0,
+						  0, 0, 0, 1};
 
 	iaMatrix<T> rotationMatrix(values);
 	(*this) *= rotationMatrix;
@@ -792,10 +819,9 @@ void iaMatrix<T>::recompose(const iaVector3<T>& scale, const iaQuaternion<T>& or
 		(*this) *= shearMatrix;
 	}
 
-/*	iaMatrix<T> shearMatrix;
+	/*	iaMatrix<T> shearMatrix;
 	shearMatrix.shear(shear);
 	*this = shearMatrix * *this;*/
-
 
 	iaMatrix<T> scaleMatrix;
 	scaleMatrix.scale(scale);
@@ -803,7 +829,7 @@ void iaMatrix<T>::recompose(const iaVector3<T>& scale, const iaQuaternion<T>& or
 }
 
 template <class T>
-bool iaMatrix<T>::decompose(iaVector3<T>& scale, iaQuaternion<T>& orientation, iaVector3<T>& translate, iaVector3<T>& shear, iaVector4<T>& perspective) const
+bool iaMatrix<T>::decompose(iaVector3<T> &scale, iaQuaternion<T> &orientation, iaVector3<T> &translate, iaVector3<T> &shear, iaVector4<T> &perspective) const
 {
 	iaMatrix<T> localMatrix(*this);
 
@@ -920,28 +946,32 @@ bool iaMatrix<T>::decompose(iaVector3<T>& scale, iaQuaternion<T>& orientation, i
 
 	t = row[0][0] + row[1][1] + row[2][2] + 1.0;
 
-	if (t > 1e-4) {
+	if (t > 1e-4)
+	{
 		s = 0.5 / sqrt(t);
 		orientation._w = 0.25 / s;
 		orientation._x = (row[2][1] - row[1][2]) * s;
 		orientation._y = (row[0][2] - row[2][0]) * s;
 		orientation._z = (row[1][0] - row[0][1]) * s;
 	}
-	else if (row[0][0] > row[1][1] && row[0][0] > row[2][2]) {
-		s = sqrt(1.0 + row[0][0] - row[1][1] - row[2][2]) * 2.0; // S=4*qx 
+	else if (row[0][0] > row[1][1] && row[0][0] > row[2][2])
+	{
+		s = sqrt(1.0 + row[0][0] - row[1][1] - row[2][2]) * 2.0; // S=4*qx
 		orientation._x = 0.25 * s;
 		orientation._y = (row[0][1] + row[1][0]) / s;
 		orientation._z = (row[0][2] + row[2][0]) / s;
 		orientation._w = (row[2][1] - row[1][2]) / s;
 	}
-	else if (row[1][1] > row[2][2]) {
+	else if (row[1][1] > row[2][2])
+	{
 		s = sqrt(1.0 + row[1][1] - row[0][0] - row[2][2]) * 2.0; // S=4*qy
 		orientation._x = (row[0][1] + row[1][0]) / s;
 		orientation._y = 0.25 * s;
 		orientation._z = (row[1][2] + row[2][1]) / s;
 		orientation._w = (row[0][2] - row[2][0]) / s;
 	}
-	else {
+	else
+	{
 		s = sqrt(1.0 + row[2][2] - row[0][0] - row[1][1]) * 2.0; // S=4*qz
 		orientation._x = (row[0][2] + row[2][0]) / s;
 		orientation._y = (row[1][2] + row[2][1]) / s;

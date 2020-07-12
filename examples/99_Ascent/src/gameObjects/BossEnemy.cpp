@@ -1,3 +1,7 @@
+// Igor game engine
+// (c) Copyright 2012-2020 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "BossEnemy.h"
 
 #include <igor/scene/nodes/iNodeManager.h>
@@ -22,7 +26,7 @@ using namespace iaux;
 #include "BossDestroyed.h"
 #include "../Ascent.h"
 
-BossEnemy::BossEnemy(iScene *scene, iVoxelTerrain *voxelTerrain, const iaMatrixd &matrix, uint64 playerID)
+BossEnemy::BossEnemy(iScenePtr scene, iVoxelTerrain *voxelTerrain, const iaMatrixd &matrix, uint64 playerID)
     : GameObject(Fraction::Red, GameObjectType::Vehicle)
 {
     _playerID = playerID;

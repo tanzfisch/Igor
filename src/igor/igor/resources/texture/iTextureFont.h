@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iFONT__
-#define __iFONT__
+#ifndef __IGOR_FONT_H__
+#define __IGOR_FONT_H__
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
@@ -155,8 +155,8 @@ namespace igor
 
 	/*! texture font pointer definition
 	*/
-	typedef iTextureFont* iTextureFontPtr;
+	typedef iTextureFont *iTextureFontPtr;
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_FONT_H__

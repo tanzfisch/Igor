@@ -3464,7 +3464,7 @@ namespace igor
 
         uint32 LODs = 0;
 
-        // run through collumns
+        // run through columns
         for (int x = 0; x < marchingVolume._x; ++x)
         {
             if (x == 0)

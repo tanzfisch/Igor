@@ -1,39 +1,15 @@
+// Igor game engine
+// (c) Copyright 2012-2020 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "Example3D.h"
 
-#include <igor/resources/material/iMaterial.h>
-#include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/scene/nodes/iNodeModel.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/system/iApplication.h>
-#include <igor/scene/iScene.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/system/iMouse.h>
-#include <igor/system/iKeyboard.h>
-#include <igor/system/iTimer.h>
-#include <igor/scene/nodes/iNodeLight.h>
-#include <igor/resources/model/iModelResourceFactory.h>
-#include <iaux/data/iaString.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/profiler/iProfiler.h>
-#include <igor/scene/nodes/iNodeSwitch.h>
-#include <igor/scene/nodes/iNodeLODSwitch.h>
-#include <igor/scene/nodes/iNodeLODTrigger.h>
-#include <igor/scene/traversal/iNodeVisitorRenderColorID.h>
-#include <igor/evaluation/iEvaluationManager.h>
-#include <igor/evaluation/iEvaluationTransform.h>
-using namespace igor;
-
-#include <iaux/system/iaConsole.h>
-#include <iaux/data/iaString.h>
-#include <iaux/math/iaMatrix.h>
-using namespace iaux;
-
-Example3D::Example3D()
-    : ExampleBase("3D Scene")
+Example3D::Example3D(iWindow *window)
+    : ExampleBase(window, "3D Scene")
 {
 }
 
-void Example3D::init()
+void Example3D::onInit()
 {
     // setup camera
     // we want a camera which can be rotated arround the origin
@@ -196,18 +172,10 @@ void Example3D::init()
     // animation
     _animationTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &Example3D::onTimer), iaTime::fromMilliseconds(10));
     _animationTimingHandle->start();
-
-    // register some callbacks
-    iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Example3D::onMouseMoved));
-    iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &Example3D::onMouseWheel));
 }
 
-void Example3D::deinit()
+void Example3D::onDeinit()
 {
-    // unregister some callbacks
-    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Example3D::onMouseMoved));
-    iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &Example3D::onMouseWheel));
-
     // stop light animation
     if (_animationTimingHandle)
     {
@@ -216,59 +184,20 @@ void Example3D::deinit()
     }
 }
 
-void Example3D::onMouseWheel(int32 d)
+void Example3D::onEvent(iEvent &event)
 {
-    iNodeTransform *camTranslation = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraTranslation));
-    if (camTranslation != nullptr)
-    {
-        if (d < 0)
-        {
-            camTranslation->translate(0, 0, 1);
-        }
-        else
-        {
-            camTranslation->translate(0, 0, -1);
-        }
-    }
+    // first call example base
+    ExampleBase::onEvent(event);
+
+    event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(Example3D::onMouseKeyDownEvent));
+    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(Example3D::onMouseMoveEvent));
+    event.dispatch<iEventMouseWheel>(IGOR_BIND_EVENT_FUNCTION(Example3D::onMouseWheelEvent));
+    event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(Example3D::onKeyDown));
 }
 
-void Example3D::onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *_window)
+bool Example3D::onKeyDown(iEventKeyDown &event)
 {
-    if (iMouse::getInstance().getRightButton())
-    {
-        iNodeTransform *allObjectsPitch = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_allObjectsPitch));
-        iNodeTransform *allObjectsHeading = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_allObjectsHeading));
-
-        if (allObjectsPitch != nullptr &&
-            allObjectsHeading != nullptr)
-        {
-            allObjectsPitch->rotate((to._y - from._y) * 0.005f, iaAxis::X);
-            allObjectsHeading->rotate((to._x - from._x) * 0.005f, iaAxis::Y);
-
-            iMouse::getInstance().setCenter();
-        }
-    }
-    else if (iMouse::getInstance().getLeftButton())
-    {
-        iNodeTransform *cameraPitch = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraPitch));
-        iNodeTransform *cameraHeading = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraHeading));
-
-        if (cameraPitch != nullptr &&
-            cameraHeading != nullptr)
-        {
-            cameraPitch->rotate((to._y - from._y) * 0.005f, iaAxis::X);
-            cameraHeading->rotate((to._x - from._x) * 0.005f, iaAxis::Y);
-
-            iMouse::getInstance().setCenter();
-        }
-    }
-}
-
-void Example3D::onKeyPressed(iKeyCode key)
-{
-    ExampleBase::onKeyPressed(key);
-
-    switch (key)
+    switch (event.getKey())
     {
     case iKeyCode::Space:
     {
@@ -295,8 +224,102 @@ void Example3D::onKeyPressed(iKeyCode key)
             }
         }
     }
+        return true;
+    }
+
+    return false;
+}
+
+bool Example3D::onMouseKeyDownEvent(iEventMouseKeyDown &event)
+{
+    switch (event.getKey())
+    {
+    case iKeyCode::Space:
+    {
+        _activeNode++;
+        if (_activeNode > 2)
+        {
+            _activeNode = 0;
+        }
+
+        iNodeSwitch *switchNode = static_cast<iNodeSwitch *>(iNodeManager::getInstance().getNode(_switchNode));
+        if (switchNode != nullptr)
+        {
+            switch (_activeNode)
+            {
+            case 0:
+                switchNode->setActiveChild("crate transform");
+                break;
+            case 1:
+                switchNode->setActiveChild("cat transform");
+                break;
+            case 2:
+                switchNode->setActiveChild("teapot transform");
+                break;
+            }
+        }
+
+        return true;
+    }
     break;
     }
+
+    return false;
+}
+
+bool Example3D::onMouseMoveEvent(iEventMouseMove &event)
+{
+    const auto from = event.getLastPosition();
+    const auto to = event.getPosition();
+
+    if (iMouse::getInstance().getRightButton())
+    {
+        iNodeTransform *allObjectsPitch = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_allObjectsPitch));
+        iNodeTransform *allObjectsHeading = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_allObjectsHeading));
+
+        if (allObjectsPitch != nullptr &&
+            allObjectsHeading != nullptr)
+        {
+            allObjectsPitch->rotate((to._y - from._y) * 0.0005f, iaAxis::X);
+            allObjectsHeading->rotate((to._x - from._x) * 0.0005f, iaAxis::Y);
+
+            iMouse::getInstance().setCenter();
+        }
+    }
+    else if (iMouse::getInstance().getLeftButton())
+    {
+        iNodeTransform *cameraPitch = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraPitch));
+        iNodeTransform *cameraHeading = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraHeading));
+
+        if (cameraPitch != nullptr &&
+            cameraHeading != nullptr)
+        {
+            cameraPitch->rotate((to._y - from._y) * 0.005f, iaAxis::X);
+            cameraHeading->rotate((to._x - from._x) * 0.005f, iaAxis::Y);
+
+            iMouse::getInstance().setCenter();
+        }
+    }
+
+    return true;
+}
+
+bool Example3D::onMouseWheelEvent(iEventMouseWheel &event)
+{
+    iNodeTransform *camTranslation = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraTranslation));
+    if (camTranslation != nullptr)
+    {
+        if (event.getWheelDelta() < 0)
+        {
+            camTranslation->translate(0, 0, 1);
+        }
+        else
+        {
+            camTranslation->translate(0, 0, -1);
+        }
+    }
+
+    return true;
 }
 
 void Example3D::onTimer()

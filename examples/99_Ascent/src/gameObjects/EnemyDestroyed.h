@@ -14,7 +14,7 @@ class EnemyDestroyed : public GameObject
 {
 
 public:
-    EnemyDestroyed(iScene *scene, const iaMatrixd &matrix);
+    EnemyDestroyed(iScenePtr scene, const iaMatrixd &matrix);
     virtual ~EnemyDestroyed();
 
 private:

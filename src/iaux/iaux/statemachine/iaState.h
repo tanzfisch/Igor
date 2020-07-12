@@ -24,7 +24,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
 #ifndef __IAUX_STATE__
 #define __IAUX_STATE__
@@ -39,23 +39,23 @@ namespace iaux
 
     /*! enter state event
     */
-    iaEVENT(EnterStateEvent, EnterStateDelegate, void, (), ());
+    iaEVENT(EnterStateEvent, EnterStateDelegate, (), ());
 
     /*! re enter state event
     */
-    iaEVENT(ReEnterStateEvent, ReEnterStateDelegate, void, (), ());
+    iaEVENT(ReEnterStateEvent, ReEnterStateDelegate, (), ());
 
     /*! leave state event
     */
-    iaEVENT(LeaveStateEvent, LeaveStateDelegate, void, (), ());
+    iaEVENT(LeaveStateEvent, LeaveStateDelegate, (), ());
 
     /*! handle state event
     */
-    iaEVENT(HandleStateEvent, HandleStateDelegate, void, (), ());
+    iaEVENT(HandleStateEvent, HandleStateDelegate, (), ());
 
     /*! render state event
     */
-    iaEVENT(RenderStateEvent, RenderStateDelegate, void, (), ());
+    iaEVENT(RenderStateEvent, RenderStateDelegate, (), ());
 
     /*! state in state machine
     */

@@ -24,91 +24,91 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
 #ifndef __EXAMPLEBASE_H__
 #define __EXAMPLEBASE_H__
 
-#include <igor/system/iWindow.h>
-#include <igor/graphics/iView.h>
-#include <igor/threading/tasks/iTask.h>
-#include <igor/resources/profiler/iProfilerVisualizer.h>
-#include <igor/resources/texture/iTexture.h>
-#include <igor/resources/texture/iTextureFont.h>
-#include <igor/scene/iScene.h>
+#include <igor/igor.h>
 using namespace igor;
-
-#include <iaux/data/iaString.h>
 using namespace iaux;
 
 /*! Examples base class
 */
-class ExampleBase
+class ExampleBase : public iLayer
 {
 
 public:
     /*! init example
     */
-    ExampleBase(const iaString& name, bool createBaseSetup = true);
+    ExampleBase(iWindow *window, const iaString &name, bool createBaseSetup = true, bool createSkyBox = true, int32 zIndex = 0);
 
     /*! release resources
     */
     virtual ~ExampleBase();
 
-    /*! \returns name of example
-    */
-    const iaString& getName() const;
-
-    /*! \returns the example's window
-    */
-    iWindow& getWindow();
-
     /*! \retruns the example's view
     */
-    iView& getView();
+    iView &getView();
+
+    /*! \retruns the example's orthogonal view
+    */
+    iView &getViewOrtho();
 
     /*! \returns the examples scene
     */
     iScenePtr getScene();
 
-    /*! run example
+    /*! \returns font
     */
-    virtual void run();
+    iTextureFontPtr getFont() const;
+
+    /*! \returns font material
+    */
+    iMaterialID getFontMaterial() const;
 
 protected:
-
     /*! initialize example
     */
-    virtual void init();
+    virtual void onInit() override;
 
     /*! deinitialize example
     */
-    virtual void deinit();
+    virtual void onDeinit() override;
 
     /*! called every frame before draw
 
     override if you need to work with it
     */
-    virtual void onPreDraw();
+    virtual void onPreDraw() override;
 
     /*! called every frame after draw
 
     override if you need to work with it
     */
-    virtual void onPostDraw();
+    virtual void onPostDraw() override;
 
-    /*! called on key pressed event
-
-    \param key the key code of the pressed key
+    /*! called on any other event
     */
-    virtual void onKeyPressed(iKeyCode key);
+    virtual void onEvent(iEvent &event) override;
+
+    /*! called by orthogonal view
+    */
+    virtual void onRenderOrtho();
+
+    /*! called when key was pressed
+
+    \param event the event to handle
+    */
+    bool onKeyDown(iEventKeyDown &event);
+
+    /*! called when key was released
+
+    \param event the event to handle
+    */
+    bool onKeyUp(iEventKeyUp &event);
 
 private:
-
-    /*! the window that receives the input messages
-    */
-    iWindow _window;
-
     /*! the view we render 2D to
     */
     iView _viewOrtho;
@@ -129,14 +129,6 @@ private:
     */
     iTaskID _taskFlushTextures = iTask::INVALID_TASK_ID;
 
-    /*! example name
-    */
-    iaString _name;
-
-    /*! displays profiler
-    */
-    iProfilerVisualizer _profilerVisualizer;
-
     /*! igor logo
     */
     iTexturePtr _igorLogo = nullptr;
@@ -153,25 +145,16 @@ private:
     */
     iMaterialID _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
 
-    /*! called by orthogonal view
-    */
-    void onRenderOrtho();
-
     /*! draw igor logo
     */
     void drawLogo();
 
-    /*! called when window got closed
+    /*! handle window resize event
+
+    \param event the window resize event
+    \returns true if consumed
     */
-    void onCloseWindow();
-
-    /*! called when window was resized
-
-    \param clientWidth the client rectangle width
-    \param clientHeight the client rectangle height
-    */
-    void onWindowResized(int32 clientWidth, int32 clientHeight);
-
+    bool onWindowResize(iEventWindowResize &event);
 };
 
 #endif // __EXAMPLEBASE_H__

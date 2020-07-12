@@ -24,7 +24,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
 #ifndef __IAUX_DEFINES__
 #define __IAUX_DEFINES__
@@ -221,10 +221,6 @@ namespace iaux
 /*! igor tab definition
 */
 #define __IGOR_TAB__ L"    "
-
-/*! logging tab definition including size of time and thread ID
-*/
-#define __IGOR_LOGGING_TAB__ L"                    "
 
 //! helper macro to handle scrings in macros
 #define STR2(x) #x

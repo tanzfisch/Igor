@@ -24,7 +24,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
 #ifndef __IAUX_THREAD_H__
 #define __IAUX_THREAD_H__
@@ -42,7 +42,7 @@ namespace iaux
 
     /*! thread delegate calls the actuall function run by this thread
     */
-    iaDELEGATE(ThreadDelegate, void, (iaThread* thread), (thread));
+    iaDELEGATE(ThreadDelegate, void, (iaThread * thread), (thread));
 
     /*! the state a thread is currently in
     */
@@ -59,7 +59,7 @@ namespace iaux
     class IgorAux_API iaThread
     {
 
-        friend void* threadFunc(void* data);
+        friend void *threadFunc(void *data);
 
     public:
         /*! does nothing
@@ -98,7 +98,6 @@ namespace iaux
         virtual void deinit();
 
     private:
-
         /*! thread id
         */
         iaID32 _id = 0;
@@ -113,15 +112,13 @@ namespace iaux
 
         /*! thread handle
         */
-        std::thread* _thread = nullptr;
+        std::thread *_thread = nullptr;
 
         /*! the delegate to be called by the thread
         */
         ThreadDelegate _threadDelegate;
-
     };
 
-
-}; // namespace igor
+}; // namespace iaux
 
 #endif

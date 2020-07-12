@@ -1,6 +1,6 @@
 var i_application_8h =
 [
     [ "iApplication", "classigor_1_1i_application.html", "classigor_1_1i_application" ],
-    [ "iaEVENT", "i_application_8h.html#a2a18044ebc4be0d33d5f3ac1e7de963e", null ],
-    [ "iaEVENT", "i_application_8h.html#ab7e1845fb036e392bc7ac18379eb0f14", null ]
+    [ "iaEVENT", "i_application_8h.html#a443e10dc889fabb83a0e69a124195720", null ],
+    [ "iaEVENT", "i_application_8h.html#a6a1354f703dec571510ddc9d326273b6", null ]
 ];

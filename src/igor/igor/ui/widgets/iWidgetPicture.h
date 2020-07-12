@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iWIDGETPICTURE__
-#define __iWIDGETPICTURE__
+#ifndef __IGOR_WIDGETPICTURE_H__
+#define __IGOR_WIDGETPICTURE_H__
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/resources/texture/iTexture.h>
@@ -56,10 +56,6 @@ namespace igor
 		/*! release texture
 		*/
 		virtual ~iWidgetPicture();
-
-		/*! \returns the widgets type
-        */
-		virtual iWidgetType getWidgetType() const override;
 
 		/*! sets the texture to use for the picture
 
@@ -131,4 +127,4 @@ namespace igor
 	};
 } // namespace igor
 
-#endif
+#endif // __IGOR_WIDGETPICTURE_H__

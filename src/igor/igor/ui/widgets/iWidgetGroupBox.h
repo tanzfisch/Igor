@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iWIDGETGROUPBOX__
-#define __iWIDGETGROUPBOX__
+#ifndef __IGOR_WIDGETGROUPBOX_H__
+#define __IGOR_WIDGETGROUPBOX_H__
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -56,10 +56,6 @@ namespace igor
 		/*! does nothing
 		*/
 		~iWidgetGroupBox() = default;
-
-		/*! \returns the widgets type
-        */
-		virtual iWidgetType getWidgetType() const override;
 
 		/*! sets text of widget
 
@@ -118,4 +114,4 @@ namespace igor
 	typedef iWidgetGroupBox *iWidgetGroupBoxPtr;
 } // namespace igor
 
-#endif
+#endif // __IGOR_WIDGETGROUPBOX_H__

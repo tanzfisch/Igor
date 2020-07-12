@@ -1,3 +1,7 @@
+// Igor game engine
+// (c) Copyright 2012-2020 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "EnemyDestroyed.h"
 
 #include <igor/scene/nodes/iNodeManager.h>
@@ -18,7 +22,7 @@ using namespace igor;
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
-EnemyDestroyed::EnemyDestroyed(iScene *scene, const iaMatrixd &matrix)
+EnemyDestroyed::EnemyDestroyed(iScenePtr scene, const iaMatrixd &matrix)
     : GameObject(Fraction::None, GameObjectType::None)
 {
     setHealth(100.0);

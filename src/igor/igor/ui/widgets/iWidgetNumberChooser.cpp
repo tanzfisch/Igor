@@ -5,7 +5,7 @@
 #include <igor/ui/widgets/iWidgetNumberChooser.h>
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/theme/iWidgetBaseTheme.h>
+#include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 
 #include <iaux/system/iaConsole.h>
@@ -15,13 +15,8 @@ namespace igor
 {
 
 	iWidgetNumberChooser::iWidgetNumberChooser(const iWidgetPtr parent)
-		: iWidget(parent)
+		: iWidget(iWidgetType::iWidgetNumberChooser, iWidgetKind::Widget, parent)
 	{
-	}
-
-	iWidgetType iWidgetNumberChooser::getWidgetType() const
-	{
-		return iWidgetType::iWidgetNumberChooser;
 	}
 
 	void iWidgetNumberChooser::calcMinSize()

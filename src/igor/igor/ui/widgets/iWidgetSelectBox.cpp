@@ -5,7 +5,7 @@
 #include <igor/ui/widgets/iWidgetSelectBox.h>
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/theme/iWidgetBaseTheme.h>
+#include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/ui/dialogs/iDialogIndexMenu.h>
 
@@ -18,7 +18,7 @@ namespace igor
 {
 
     iWidgetSelectBox::iWidgetSelectBox(const iWidgetPtr parent)
-        : iWidget(parent)
+        : iWidget(iWidgetType::iWidgetSelectBox, iWidgetKind::Widget, parent)
     {
         _reactOnMouseWheel = false;
     }
@@ -30,11 +30,6 @@ namespace igor
             delete _selectBox;
             _selectBox = nullptr;
         }
-    }
-
-    iWidgetType iWidgetSelectBox::getWidgetType() const
-    {
-        return iWidgetType::iWidgetSelectBox;
     }
 
     void iWidgetSelectBox::calcMinSize()

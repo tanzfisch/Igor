@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iWIDGETSPACER__
-#define __iWIDGETSPACER__
+#ifndef __IGOR_WIDGETSPACER_H__
+#define __IGOR_WIDGETSPACER_H__
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -47,15 +47,11 @@ namespace igor
 
 		\param parent optional parent
 		*/
-		iWidgetSpacer(const iWidgetPtr parent = nullptr);
+		iWidgetSpacer(int32 width, int32 height, bool visible = false, const iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/
 		virtual ~iWidgetSpacer() = default;
-
-		/*! \returns the widgets type
-        */
-		virtual iWidgetType getWidgetType() const override;
 
 	protected:
 		/*! updates size based on it's content
@@ -72,4 +68,4 @@ namespace igor
 	typedef iWidgetSpacer *iWidgetSpacerPtr;
 } // namespace igor
 
-#endif
+#endif // __IGOR_WIDGETSPACER_H__

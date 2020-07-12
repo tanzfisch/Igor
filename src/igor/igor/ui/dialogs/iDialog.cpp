@@ -4,7 +4,7 @@
 
 #include <igor/ui/dialogs/iDialog.h>
 
-#include <igor/ui/theme/iWidgetBaseTheme.h>
+#include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/user_controls/iUserControl.h>
 
@@ -14,7 +14,8 @@ using namespace iaux;
 namespace igor
 {
 
-    iDialog::iDialog()
+    iDialog::iDialog(iWidgetType type, const iWidgetPtr parent)
+        : iWidget(type, iWidgetKind::Dialog, nullptr)
     {
         iWidgetManager::getInstance().registerDialog(this);
 
@@ -24,6 +25,27 @@ namespace igor
         setHeight(100);
         setHorizontalAlignment(iHorizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
+
+        if (parent != nullptr)
+        {
+            iWidgetPtr parentDialog = nullptr;
+            iWidgetPtr iterator = parent;
+
+            while (iterator->_parent != nullptr)
+            {
+                iterator = iterator->_parent;
+                if (iterator->getWidgetKind() == iWidgetKind::Dialog)
+                {
+                    parentDialog = iterator;
+                    break;
+                }
+            }
+
+            if (parentDialog != nullptr)
+            {
+                setZValue(parentDialog->getZValue() + 1);
+            }
+        }
     }
 
     iDialog::~iDialog()
@@ -34,11 +56,6 @@ namespace igor
         }
 
         iWidgetManager::getInstance().unregisterDialog(this);
-    }
-
-    iWidgetType iDialog::getWidgetType() const
-    {
-        return iWidgetType::iDialog;
     }
 
     void iDialog::setReturnState(iDialogReturnState returnState)
@@ -56,6 +73,8 @@ namespace igor
         _dialogCloseDelegate = dialogCloseDelegate;
         setActive();
         setVisible();
+
+        _isOpen = true;
     }
 
     void iDialog::close()
@@ -65,6 +84,13 @@ namespace igor
         iWidgetManager::getInstance().resetModal();
 
         iWidgetManager::getInstance().closeDialog(this);
+
+        _isOpen = false;
+    }
+
+    bool iDialog::isOpen() const
+    {
+        return _isOpen;
     }
 
     void iDialog::calcMinSize()

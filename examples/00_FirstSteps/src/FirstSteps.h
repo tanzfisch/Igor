@@ -24,7 +24,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
 #ifndef __FIRSTSTEPS_H__
 #define __FIRSTSTEPS_H__
@@ -55,6 +55,14 @@ private:
     /*! called every frame
     */
     void onPreDraw() override;
+
+    /*! initialize example
+    */
+    virtual void onInit() override;
+
+    /*! deinitialize example
+    */
+    virtual void onDeinit() override;
 };
 
 #endif // __FIRSTSTEPS_H__

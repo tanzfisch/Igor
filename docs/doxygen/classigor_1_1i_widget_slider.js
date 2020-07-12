@@ -11,7 +11,6 @@ var classigor_1_1i_widget_slider =
     [ "getMinValue", "classigor_1_1i_widget_slider.html#aaf36a40071f3842ac956b347377934b6", null ],
     [ "getTexture", "classigor_1_1i_widget_slider.html#a965eea4668eb036efef113738a53a4c1", null ],
     [ "getValue", "classigor_1_1i_widget_slider.html#ae7c050d145b58f2007f6c29508a272b7", null ],
-    [ "getWidgetType", "classigor_1_1i_widget_slider.html#a1217477097689f1cca8c58cef479dcd2", null ],
     [ "handleMouseInput", "classigor_1_1i_widget_slider.html#ad7c52026d5441642944a10c6c01a32bb", null ],
     [ "handleMouseKeyDown", "classigor_1_1i_widget_slider.html#a728ad6da371a6d2b95678ea711d4320b", null ],
     [ "handleMouseMove", "classigor_1_1i_widget_slider.html#acaccc200481e8f9e3dee178c41ba0d99", null ],

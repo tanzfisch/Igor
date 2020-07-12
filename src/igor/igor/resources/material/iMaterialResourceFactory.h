@@ -24,7 +24,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
 #ifndef __iMATERIALRESOURCEFACTORY__
 #define __iMATERIALRESOURCEFACTORY__
@@ -49,13 +49,13 @@ namespace igor
 
     \param materialID id of material created
     */
-    iaEVENT(iMaterialCreatedEvent, iMaterialCreatedDelegate, void, (uint64 materialID), (materialID));
+    iaEVENT(iMaterialCreatedEvent, iMaterialCreatedDelegate, (uint64 materialID), (materialID));
 
     /*! event triggered by material destroyed
 
     \param materialID id of material destroyed
     */
-    iaEVENT(iMaterialDestroyedEvent, iMaterialDestroyedDelegate, void, (uint64 materialID), (materialID));
+    iaEVENT(iMaterialDestroyedEvent, iMaterialDestroyedDelegate, (uint64 materialID), (materialID));
 
     class iTargetMaterial;
 

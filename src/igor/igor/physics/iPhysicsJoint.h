@@ -24,7 +24,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
 #ifndef __iPHYSICSJOINT__
 #define __iPHYSICSJOINT__
@@ -40,7 +40,7 @@ namespace igor
 
     class iPhysicsJoint;
 
-    iaEVENT(iSubmitConstraintsEvent, iSubmitConstraintsDelegate, void, (iPhysicsJoint * joint, float32 timestep), (joint, timestep));
+    iaEVENT(iSubmitConstraintsEvent, iSubmitConstraintsDelegate, (iPhysicsJoint * joint, float32 timestep), (joint, timestep));
 
     /*! wrapper for the NewtonJoint handle
     */

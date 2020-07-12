@@ -20,5 +20,5 @@ var searchData=
   ['right',['Right',['../namespaceigor.html#abc0ef2568c622a21f0b741c63b354563a92b09c7c48c520c3c55e497875da437c',1,'igor::Right()'],['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda92b09c7c48c520c3c55e497875da437c',1,'igor::Right()']]],
   ['row',['Row',['../namespaceigor.html#ae2ddd5b36b3c376f7ae18b12a15427f8aa70367aa7cb74e510f4f9413ccf059d3',1,'igor']]],
   ['rshift',['RShift',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda8e707c0a523c7ec2179a6b6821d6eba8',1,'igor']]],
-  ['running',['Running',['../namespaceigor.html#a596d29c57997309ac5c1eee5ea89d273a5bda814c4aedb126839228f1a3d92f09',1,'igor']]]
+  ['running',['Running',['../namespaceiaux.html#a4449138a0b8e42b10f7af2e2f5270b97a5bda814c4aedb126839228f1a3d92f09',1,'iaux']]]
 ];

@@ -5,7 +5,7 @@
 #include <igor/ui/widgets/iWidgetGraph.h>
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/theme/iWidgetBaseTheme.h>
+#include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/graphics/iRenderer.h>
@@ -19,7 +19,7 @@ namespace igor
 {
 
     iWidgetGraph::iWidgetGraph(const iWidgetPtr parent)
-        : iWidget(parent)
+        : iWidget(iWidgetType::iWidgetGraph, iWidgetKind::Widget, parent)
     {
         _configuredWidth = 100;
         _configuredHeight = 40;
@@ -27,11 +27,6 @@ namespace igor
 
         setHorizontalAlignment(iHorizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
-    }
-
-    iWidgetType iWidgetGraph::getWidgetType() const
-    {
-        return iWidgetType::iWidgetGraph;
     }
 
     void iWidgetGraph::setInteractive(bool interactive)

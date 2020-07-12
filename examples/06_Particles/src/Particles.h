@@ -24,81 +24,30 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __PARTICLES__
-#define __PARTICLES__
+#ifndef __PARTICLES_EXAMPLE_H__
+#define __PARTICLES_EXAMPLE_H__
 
-#include <igor/igor.h>
-#include <igor/system/iWindow.h>
-#include <igor/graphics/iView.h>
-#include <igor/system/iTimerHandle.h>
-#include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/resources/profiler/iProfilerVisualizer.h>
-using namespace igor;
-
-#include <iaux/math/iaMatrix.h>
-using namespace iaux;
-
-namespace igor
-{
-    class iScene;
-    class iNodeTransform;
-    class iNodeLight;
-    class iNodeSwitch;
-    class iTextureFont;
-    class iTaskFlushModels;
-    class iTaskFlushTextures;
-    class iNodeLODTrigger;
-    class iNodeLODSwitch;
-    class iNodeModel;
-    class iTexture;
-} // namespace igor
+#include <ExampleBase.h>
 
 /*! the particles example class
 */
-class Particles
+class Particles : public ExampleBase
 {
 
 public:
     /*! init
-    */
-    Particles();
 
-    /*! deinit
+    \param window the given window
     */
-    virtual ~Particles();
+    Particles(iWindow *window);
 
-    /*! run example
+    /*! does nothing
     */
-    void run();
+    ~Particles() = default;
 
 private:
-    /*! the window
-    */
-    iWindow _window;
-
-    /*! visualizes statistics
-    */
-    iProfilerVisualizer _profilerVisualizer;
-
-    /*! the view we render 3D to
-    */
-    iView _view;
-
-    /*! the view we render 2D to
-    */
-    iView _viewOrtho;
-
-    /*! the scene holding our 3d nodes
-    */
-    iScene *_scene = nullptr;
-
-    /*! texture fon we use to render statistics
-    */
-    iTextureFont *_font = nullptr;
-
     /*! id to transform node used for manipulating the heading of the camera
     */
     uint64 _cameraHeading = iNode::INVALID_NODE_ID;
@@ -117,11 +66,7 @@ private:
 
     /*! particles material
     */
-    uint64 _particlesMaterial = 0;
-
-    /*! id of task to load textures
-    */
-    uint64 _taskFlushTexturesID = iTask::INVALID_TASK_ID;
+    uint64 _particlesMaterial = iMaterial::INVALID_MATERIAL_ID;
 
     /*! ids of particle systems
     */
@@ -134,14 +79,6 @@ private:
     /*! id of wave emitter transform id
     */
     uint64 _waveEmitterTransformID = iNode::INVALID_NODE_ID;
-
-    /*! igor logo
-    */
-    iTexturePtr _igorLogo = nullptr;
-
-    /*! igor logo material
-    */
-    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
 
     /*! creates the dot shaped particle system
     */
@@ -167,56 +104,47 @@ private:
     */
     void createFireParticleSystem();
 
-    /*! called on key pressed event
-
-    \param key the key code of the pressed key
-    */
-    void onKeyPressed(iKeyCode key);
-
-    /*! called when window was closed
-    */
-    void onWindowClosed();
-
-    /*! called when window was resized
-
-    \param clientWidth the client rectangle width
-    \param clientHeight the client rectangle height
-    */
-    void onWindowResized(int32 clientWidth, int32 clientHeight);
-
-    /*! called when the mouse was moved
-
-    \param from last mouse position
-    \param to current mouse position
-    \param window the window the coordinates are related to
-    */
-    void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window);
-
-    /*! called when mouse wheel was turned
-
-    \param d mouse wheel delta
-    */
-    void onMouseWheel(int32 d);
-
     /*! called by orthogonal view
     */
     void onRenderOrtho();
-
-    /*! draws igor logo
-    */
-    void drawLogo();
 
     /*! called by timer
     */
     void onTimer();
 
-    /*! deinit example
+    /*! called on any other event
+
+    \param event the event to handle
     */
-    void deinit();
+    void onEvent(iEvent &event) override;
+
+    /*! called when key was pressed
+
+    \param event the event to handle
+    */
+    bool onKeyDown(iEventKeyDown &event);
+
+    /*! handles mouse move event
+
+    \param event the mouse move event
+    \returns true if consumed
+    */
+    bool onMouseMoveEvent(iEventMouseMove &event);
+
+    /*! handles mouse wheel event
+
+    \param event the mouse wheel event
+    \returns true if consumed
+    */
+    bool onMouseWheelEvent(iEventMouseWheel &event);
 
     /*! init example
     */
-    void init();
+    void onInit() override;
+
+    /*! deinit example
+    */
+    void onDeinit() override;
 };
 
 #endif

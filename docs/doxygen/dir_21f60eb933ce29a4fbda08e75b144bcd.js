@@ -1,6 +1,6 @@
 var dir_21f60eb933ce29a4fbda08e75b144bcd =
 [
-    [ "iWidget.cpp", "i_widget_8cpp.html", null ],
+    [ "iWidget.cpp", "i_widget_8cpp.html", "i_widget_8cpp" ],
     [ "iWidget.h", "i_widget_8h.html", "i_widget_8h" ],
     [ "iWidget.inl", "i_widget_8inl.html", null ],
     [ "iWidgetButton.cpp", "i_widget_button_8cpp.html", null ],

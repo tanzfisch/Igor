@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iSCENE__
-#define __iSCENE__
+#ifndef __IGOR_SCENE_H__
+#define __IGOR_SCENE_H__
 
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaEvent.h>
@@ -55,18 +55,6 @@ namespace igor
 	class iNodeLODSwitch;
 	class iEvaluator;
 	typedef iEvaluator *iEvaluatorPtr;
-
-	/*! event triggered when node was added to scene
-
-	\param nodeID node that was added to scene
-	*/
-	iaEVENT(iAddedNodeEvent, iAddedNodeDelegate, void, (uint64 nodeID), (nodeID));
-
-	/*! event triggered when node was removed from scene
-
-	\param nodeID node that was removed from scene
-	*/
-	iaEVENT(iRemovedNodeEvent, iRemovedNodeDelegate, void, (uint64 nodeID), (nodeID));
 
 	/*! the scene graph
 
@@ -115,30 +103,6 @@ namespace igor
 		*/
 		std::vector<iNodeRender *> &getRenderables();
 
-		/*! registers delegate to added node event
-
-		\param addedNodeDelegate delegate to register
-		*/
-		void registerAddedNodeDelegate(iAddedNodeDelegate addedNodeDelegate);
-
-		/*! unregisters delegate from added node event
-
-		\param addedNodeDelegate delegate to unregister
-		*/
-		void unregisterAddedNodeDelegate(iAddedNodeDelegate addedNodeDelegate);
-
-		/*! registers delegate to removed node event
-
-		\param removedNodeDelegate delegate to register
-		*/
-		void registerRemovedNodeDelegate(iRemovedNodeDelegate removedNodeDelegate);
-
-		/*! unregisters delegate from removed node event
-
-		\param removedNodeDelegate delegate to unregister
-		*/
-		void unregisterRemovedNodeDelegate(iRemovedNodeDelegate removedNodeDelegate);
-
 		/*! cyclic update of scene.
 
 		handles transformation updates and resulting changes in octree.
@@ -151,6 +115,18 @@ namespace igor
 		\param node the node to add
 		*/
 		void addToDataUpdateQueue(iNodePtr node);
+
+		/*! \returns list of selected nodes
+		*/
+		const std::vector<iNodeID> &getSelection() const;
+
+		/*! sets the current selection
+		*/
+		void setSelection(const std::vector<iNodeID> &selection);
+
+		/*! clear current selection
+		*/
+		void clearSelection();
 
 	private:
 		/*! id for statistics counter handle
@@ -169,8 +145,8 @@ namespace igor
 		*/
 		uint32 _updateTransformSectionID = 0;
 
-		/*! sync with data load workers
-*/
+		/*! sync with data loading workers
+		*/
 		iaMutex _mutex;
 
 		/*! contains model nodes that just got inserted or changed
@@ -182,14 +158,6 @@ namespace igor
 		need to store them seperately because they might not all be processed within one frame
 		*/
 		std::set<uint64> _processingQueue;
-
-		/*! added node event
-		*/
-		iAddedNodeEvent _addedNode;
-
-		/*! removed node event
-		*/
-		iRemovedNodeEvent _removedNode;
 
 		/*! name of scene
 		*/
@@ -236,6 +204,10 @@ namespace igor
 		/*! transformation update visitor
 		*/
 		iNodeVisitorUpdateTransform _updateTransformVisitor;
+
+		/*! currently selected nodes
+		*/
+		std::vector<iNodeID> _selectedNodes;
 
 		/*! handles dirty data ans tries to update it
 		*/
@@ -325,15 +297,15 @@ namespace igor
 
 		/*! signals the scene that a node was added
 
-		\param nodeID the node's id that was added
+		\param node the node that was added
 		*/
-		void signalNodeAdded(uint64 nodeID);
+		void signalNodeAdded(iNodePtr node);
 
 		/*! signals the scene that a node was removed
 
-		\param nodeID the node's id that was removed
+		\param node the node that was removed
 		*/
-		void signalNodeRemoved(uint64 nodeID);
+		void signalNodeRemoved(iNodePtr node);
 
 		/*! initializes scene and octree
 		*/
@@ -346,7 +318,7 @@ namespace igor
 
 	/*! scene pointer definition
 	*/
-	typedef iScene* iScenePtr;
+	typedef iScenePtr iScenePtr;
 
 }; // namespace igor
 

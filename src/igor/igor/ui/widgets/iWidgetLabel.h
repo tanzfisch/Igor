@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iWIDGETLABEL__
-#define __iWIDGETLABEL__
+#ifndef __IGOR_WIDGETLABEL_H__
+#define __IGOR_WIDGETLABEL_H__
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -52,10 +52,6 @@ namespace igor
 		/*! does nothing
 		*/
 		virtual ~iWidgetLabel() = default;
-
-		/*! \returns the widgets type
-        */
-		virtual iWidgetType getWidgetType() const override;
 
 		/*! sets maximum text width
 
@@ -103,4 +99,4 @@ namespace igor
 	typedef iWidgetLabel *iWidgetLabelPtr;
 } // namespace igor
 
-#endif
+#endif // __IGOR_WIDGETLABEL_H__

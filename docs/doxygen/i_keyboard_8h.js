@@ -1,10 +1,10 @@
 var i_keyboard_8h =
 [
     [ "iKeyboard", "classigor_1_1i_keyboard.html", "classigor_1_1i_keyboard" ],
-    [ "iaEVENT", "i_keyboard_8h.html#a484bb450070e3cbf1f9b291f8d1ecf3c", null ],
-    [ "iaEVENT", "i_keyboard_8h.html#add9117f342e34c5cd7236939e6ff2311", null ],
-    [ "iaEVENT", "i_keyboard_8h.html#ad0fb2ee4cad1492cf988582eb718f217", null ],
-    [ "iaEVENT", "i_keyboard_8h.html#ad9fb485c23f533413f0dea55dfb57138", null ],
-    [ "iaEVENT", "i_keyboard_8h.html#a3a6f08feb80ac6d81a104e7b14d079ea", null ],
+    [ "iaEVENT", "i_keyboard_8h.html#a0bd8826f6cad2f12caf0532afafe7513", null ],
+    [ "iaEVENT", "i_keyboard_8h.html#a95a7eecb00240be513466057b199d4c0", null ],
+    [ "iaEVENT", "i_keyboard_8h.html#a76194ab62151a80ad692b40950a334a2", null ],
+    [ "iaEVENT", "i_keyboard_8h.html#a268a617e929402b3612e3d471bdbb557", null ],
+    [ "iaEVENT", "i_keyboard_8h.html#aebff42dd6576752ba0c298b608766851", null ],
     [ "operator<<", "i_keyboard_8h.html#af83aac5505f66e6899386d3e2a87b89a", null ]
 ];

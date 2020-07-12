@@ -21,9 +21,9 @@ using namespace iaux;
 namespace igor
 {
 
-    iWidgetType iDialogGraph::getWidgetType() const
+    iDialogGraph::iDialogGraph(const iWidgetPtr parent)
+        : iDialog(iWidgetType::iDialogGraph, parent)
     {
-        return iWidgetType::iDialogGraph;
     }
 
     void iDialogGraph::configureXAxis(float32 xMin, float32 xMax, float32 xStepping)
@@ -102,7 +102,7 @@ namespace igor
 
         iWidgetGrid *axisGrid = new iWidgetGrid();
         axisGrid->appendRows(static_cast<uint32>(_graphs.size() + 2));
-        axisGrid->appendCollumns(1);
+        axisGrid->appendColumns(1);
         axisGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
         axisGrid->setVerticalAlignment(iVerticalAlignment::Strech);
         axisGrid->setStrechColumn(1);
@@ -190,7 +190,7 @@ namespace igor
         axisGrid->addWidget(delButton, 1, static_cast<uint32>(_graphs.size() + 1));
 
         iWidgetGrid *buttonGrid = new iWidgetGrid();
-        buttonGrid->appendCollumns(2);
+        buttonGrid->appendColumns(2);
         buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
 
         iWidgetButton *okButton = new iWidgetButton();

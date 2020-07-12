@@ -24,12 +24,12 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iACTIONMANAGER__
-#define __iACTIONMANAGER__
+#ifndef __IGOR_ACTIONMANAGER_H__
+#define __IGOR_ACTIONMANAGER_H__
 
-#include <igor/ui/actions/iActionSimpleDelegate.h>
+#include <igor/ui/actions/iAction.h>
 
 #include <iaux/system/iaSingleton.h>
 using namespace iaux;
@@ -47,15 +47,7 @@ namespace igor
 		friend class iaSingleton<iActionManager>;
 
 	public:
-		/*! creates and registers an action
-
-        \param name the identifier of thie action
-        \param text the display text of this action
-        \param picturePath the filename of an icon to show
-        */
-		iActionPtr createAction(const iaString &name, iSimpleDelegate delegateAction, const iaString &text = "", const iaString &picturePath = "");
-
-		/*! registers an aciton to the manager
+		/*! registers an action to the manager
 
 		if it's name is not unique it will not be added
 
@@ -63,20 +55,15 @@ namespace igor
 
 		\param action the action to be registered
 		*/
-		void registerAction(const iaString &name, iActionPtr action);
+		void registerAction(iActionPtr action);
 
 		/*! unregister action from manager by instance
+
+		unregistering passes ownership of action back to caller
 
 		\param action the action to unregister
 		*/
 		void unregisterAction(const iActionPtr action);
-
-		/*! unregister action by name
-
-		\param name the name of the action to unregister
-		\returns pointer to unregistered action bbecause ownership was passed to caller
-		*/
-		iActionPtr unregisterAction(const iaString &name);
 
 		/*! \returns true if an action was registered to the action manager
 
@@ -107,15 +94,19 @@ namespace igor
 		*/
 		std::unordered_map<int64, iActionPtr> _actions;
 
-		/*! does nothing
+		/*! registers actions
 		*/
-		iActionManager() = default;
+		iActionManager();
 
 		/*! clean up
 		*/
 		~iActionManager();
+
+		/*! registers all internal actions
+		*/
+		void registerDefaultActions();
 	};
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_ACTIONMANAGER_H__

@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.27.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.28.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -136,10 +136,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a0a34d91bd8317da989e43b9d849419d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5fd872457c452db1ed4a33d5fe434c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_mouse.html#ac5fd872457c452db1ed4a33d5fe434c8">unregisterMouseKeyUpDelegate</a> (iMouseKeyUpDelegate keyupDelegate)</td></tr>
 <tr class="separator:ac5fd872457c452db1ed4a33d5fe434c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab031efe3400fd26fcb8a9b1b486a9ac8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_mouse.html#ab031efe3400fd26fcb8a9b1b486a9ac8">registerMouseClickDelegate</a> (iMouseClickDelegate clickDelegate)</td></tr>
-<tr class="separator:ab031efe3400fd26fcb8a9b1b486a9ac8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1605c15e957ed54f32b93be4ae7b303a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_mouse.html#a1605c15e957ed54f32b93be4ae7b303a">unregisterMouseClickDelegate</a> (iMouseClickDelegate clickDelegate)</td></tr>
-<tr class="separator:a1605c15e957ed54f32b93be4ae7b303a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79629d3e4b71ed376237c2fab23ac2f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_mouse.html#a79629d3e4b71ed376237c2fab23ac2f3">registerMouseMoveFullDelegate</a> (iMouseMoveFullDelegate move_delegate)</td></tr>
 <tr class="separator:a79629d3e4b71ed376237c2fab23ac2f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1234cca738bddff40a31b81ff81c12a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_mouse.html#a1234cca738bddff40a31b81ff81c12a5">unregisterMouseMoveFullDelegate</a> (iMouseMoveFullDelegate move_delegate)</td></tr>
@@ -346,29 +342,6 @@ Additional Inherited Members</h2></td></tr>
 <p>pointer to corresponding window if it returns nullptr the listener was not registred to a window yet </p>
 
 <p>Implements <a class="el" href="classigor_1_1i_o_s_event_listener.html#aa2c33d188b8ed5dc83e15775691a35bb">igor::iOSEventListener</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab031efe3400fd26fcb8a9b1b486a9ac8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void igor::iMouse::registerMouseClickDelegate </td>
-          <td>(</td>
-          <td class="paramtype">iMouseClickDelegate&#160;</td>
-          <td class="paramname"><em>clickDelegate</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>register delegate to mouse key clicked event</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">clickDelegate</td><td>the delegate to register </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
@@ -616,29 +589,6 @@ Additional Inherited Members</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">show</td><td>true: cursor is visible; false: cursor is invisible </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a1605c15e957ed54f32b93be4ae7b303a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void igor::iMouse::unregisterMouseClickDelegate </td>
-          <td>(</td>
-          <td class="paramtype">iMouseClickDelegate&#160;</td>
-          <td class="paramname"><em>clickDelegate</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>unregister delegate from mouse key up event</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">clickDelegate</td><td>the delegate to unregister </td></tr>
   </table>
   </dd>
 </dl>

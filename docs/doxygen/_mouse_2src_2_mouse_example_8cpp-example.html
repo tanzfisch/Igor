@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.27.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.28.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -132,183 +132,92 @@ $(document).ready(function(){initNavTree('_mouse_2src_2_mouse_example_8cpp-examp
 <div class="line"><span class="comment">// You should have received a copy of the GNU General Public License</span></div>
 <div class="line"><span class="comment">// along with this program.If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
 <div class="line"><span class="comment">//</span></div>
-<div class="line"><span class="comment">// contact: martinloga@gmx.de</span></div>
+<div class="line"><span class="comment">// contact: igorgameengine@protonmail.com</span></div>
 <div class="line"></div>
-<div class="line"><span class="preprocessor">#ifndef __MOUSEEXAMPLE__</span></div>
-<div class="line"><span class="preprocessor">#define __MOUSEEXAMPLE__</span></div>
+<div class="line"><span class="preprocessor">#ifndef __MOUSEEXAMPLE_H__</span></div>
+<div class="line"><span class="preprocessor">#define __MOUSEEXAMPLE_H__</span></div>
 <div class="line"></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="ia_vector2_8h.html">iaux/math/iaVector2.h</a>&gt;</span></div>
-<div class="line"><span class="keyword">using namespace </span><a class="code" href="namespaceiaux.html">iaux</a>;</div>
+<div class="line"><span class="preprocessor">#include &lt;ExampleBase.h&gt;</span></div>
 <div class="line"></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_window_8h.html">igor/system/iWindow.h</a>&gt;</span></div>
-<div class="line"><span class="keyword">using namespace </span><a class="code" href="namespaceigor.html">igor</a>;</div>
-<div class="line"></div>
-<div class="line"><span class="keyword">class </span>MouseExample</div>
+<div class="line"><span class="keyword">class </span>MouseExample : <span class="keyword">public</span> ExampleBase</div>
 <div class="line">{</div>
 <div class="line"></div>
 <div class="line"><span class="keyword">public</span>:</div>
-<div class="line">    <span class="keywordtype">void</span> run();</div>
+<div class="line">    MouseExample(iWindow *window);</div>
 <div class="line"></div>
-<div class="line">    MouseExample();</div>
-<div class="line"></div>
-<div class="line">    ~MouseExample();</div>
+<div class="line">    ~MouseExample() = <span class="keywordflow">default</span>;</div>
 <div class="line"></div>
 <div class="line"><span class="keyword">private</span>:</div>
-<div class="line">    <a name="_a0"></a><a class="code" href="classigor_1_1i_window.html">iWindow</a> _window;</div>
+<div class="line">    <span class="keywordtype">void</span> onEvent(iEvent &amp;event) <span class="keyword">override</span>;</div>
 <div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> onMouseMovedFull(<span class="keyword">const</span> <a name="_a1"></a><a class="code" href="classiaux_1_1ia_vector2.html">iaVector2i</a> &amp;from, <span class="keyword">const</span> <a class="code" href="classiaux_1_1ia_vector2.html">iaVector2i</a> &amp;to, <a class="code" href="classigor_1_1i_window.html">iWindow</a> *window);</div>
+<div class="line">    <span class="keywordtype">bool</span> onMouseKeyDownEvent(<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710da56eabbdbc6c97f7386804e89b38679b5">iEventMouseKeyDown</a> &amp;event);</div>
 <div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> onMouseKeyDown(<a class="code" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bd">iKeyCode</a> key);</div>
+<div class="line">    <span class="keywordtype">bool</span> onMouseKeyUpEvent(<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710da155d7e52142f1ce689f569e448980a22">iEventMouseKeyUp</a> &amp;event);</div>
 <div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> onMouseKeyUp(<a class="code" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bd">iKeyCode</a> key);</div>
+<div class="line">    <span class="keywordtype">bool</span> onMouseKeyDoubleClickEvent(<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710da593ef4127c5eb3d2ca2c7d37dbdb4a44">iEventMouseKeyDoubleClick</a> &amp;event);</div>
 <div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> onMouseClick(<a class="code" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bd">iKeyCode</a> key);</div>
+<div class="line">    <span class="keywordtype">bool</span> onMouseMoveEvent(<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710dad91489ab3b2c02a62f753fe4193636e3">iEventMouseMove</a> &amp;event);</div>
 <div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> onMouseDoubleClick(<a class="code" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bd">iKeyCode</a> key);</div>
-<div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> onMouseWheel(<a class="code" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> d);</div>
-<div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> onKeyESCDown();</div>
-<div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> onCloseWindow();</div>
-<div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> init();</div>
-<div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> deinit();</div>
+<div class="line">    <span class="keywordtype">bool</span> onMouseWheelEvent(<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710dac2190c3ff76de09a1a5d8189f883b9d8">iEventMouseWheel</a> &amp;event);</div>
 <div class="line">};</div>
 <div class="line"></div>
-<div class="line"><span class="preprocessor">#endif</span></div>
-</div><!-- fragment --><div class="fragment"><div class="line"><span class="preprocessor">#include &quot;MouseExample.h&quot;</span></div>
+<div class="line"><span class="preprocessor">#endif // __MOUSEEXAMPLE_H__</span></div>
+</div><!-- fragment --><div class="fragment"><div class="line"><span class="comment">// Igor game engine</span></div>
+<div class="line"><span class="comment">// (c) Copyright 2012-2019 by Martin Loga</span></div>
+<div class="line"><span class="comment">// see copyright notice in corresponding header file</span></div>
 <div class="line"></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="ia_console_8h.html">iaux/system/iaConsole.h</a>&gt;</span></div>
-<div class="line"><span class="keyword">using namespace </span><a class="code" href="namespaceiaux.html">iaux</a>;</div>
+<div class="line"><span class="preprocessor">#include &quot;MouseExample.h&quot;</span></div>
 <div class="line"></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_mouse_8h.html">igor/system/iMouse.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_keyboard_8h.html">igor/system/iKeyboard.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_application_8h.html">igor/system/iApplication.h</a>&gt;</span></div>
-<div class="line"><span class="keyword">using namespace </span><a class="code" href="namespaceigor.html">igor</a>;</div>
-<div class="line"></div>
-<div class="line">MouseExample::MouseExample()</div>
+<div class="line">MouseExample::MouseExample(iWindow *window)</div>
+<div class="line">    : ExampleBase(window, <a class="code" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bdad20caec3b48a1eef164cb4ca81ba2587">L</a><span class="stringliteral">&quot;Mouse Input&quot;</span>)</div>
 <div class="line">{</div>
-<div class="line">    <span class="comment">// initialize example</span></div>
-<div class="line">    init();</div>
 <div class="line">}</div>
 <div class="line"></div>
-<div class="line">MouseExample::~MouseExample()</div>
+<div class="line"><span class="keywordtype">void</span> MouseExample::onEvent(iEvent &amp;event)</div>
 <div class="line">{</div>
-<div class="line">    <span class="comment">// deinitialize example</span></div>
-<div class="line">    deinit();</div>
+<div class="line">    <span class="comment">// first call example base</span></div>
+<div class="line">    ExampleBase::onEvent(event);</div>
+<div class="line"></div>
+<div class="line">    <span class="keyword">event</span>.dispatch&lt;<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710da56eabbdbc6c97f7386804e89b38679b5">iEventMouseKeyDown</a>&gt;(<a name="a0"></a><a class="code" href="i_event_8h.html#aba3d4ba34f4c5cc603450d336d9312c8">IGOR_BIND_EVENT_FUNCTION</a>(MouseExample::onMouseKeyDownEvent));</div>
+<div class="line">    <span class="keyword">event</span>.dispatch&lt;<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710da155d7e52142f1ce689f569e448980a22">iEventMouseKeyUp</a>&gt;(<a class="code" href="i_event_8h.html#aba3d4ba34f4c5cc603450d336d9312c8">IGOR_BIND_EVENT_FUNCTION</a>(MouseExample::onMouseKeyUpEvent));</div>
+<div class="line">    <span class="keyword">event</span>.dispatch&lt;<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710da593ef4127c5eb3d2ca2c7d37dbdb4a44">iEventMouseKeyDoubleClick</a>&gt;(<a class="code" href="i_event_8h.html#aba3d4ba34f4c5cc603450d336d9312c8">IGOR_BIND_EVENT_FUNCTION</a>(MouseExample::onMouseKeyDoubleClickEvent));</div>
+<div class="line">    <span class="keyword">event</span>.dispatch&lt;<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710dad91489ab3b2c02a62f753fe4193636e3">iEventMouseMove</a>&gt;(<a class="code" href="i_event_8h.html#aba3d4ba34f4c5cc603450d336d9312c8">IGOR_BIND_EVENT_FUNCTION</a>(MouseExample::onMouseMoveEvent));</div>
+<div class="line">    <span class="keyword">event</span>.dispatch&lt;<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710dac2190c3ff76de09a1a5d8189f883b9d8">iEventMouseWheel</a>&gt;(<a class="code" href="i_event_8h.html#aba3d4ba34f4c5cc603450d336d9312c8">IGOR_BIND_EVENT_FUNCTION</a>(MouseExample::onMouseWheelEvent));</div>
 <div class="line">}</div>
 <div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> MouseExample::init()</div>
-<div class="line">{</div>
-<div class="line">    <span class="comment">// print some informative text</span></div>
-<div class="line">    <a name="a2"></a><a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;--- Mouse Example ---&quot;</span>);</div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;press ESC - to exit&quot;</span>);</div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;Keep keyboard focus on window \&quot;Mouse Example\&quot;&quot;</span>);</div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;Move the mouse over that window, click or use mouse wheel.&quot;</span>);</div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;&quot;</span>);</div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;!!! One Warning about a missing view is supposed to pop up. !!!&quot;</span>);</div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;&quot;</span>);</div>
-<div class="line"></div>
-<div class="line">    <span class="comment">// set title of window and open it</span></div>
-<div class="line">    _window.setTitle(<span class="stringliteral">&quot;Igor - Mouse Example&quot;</span>);</div>
-<div class="line">    _window.setDoubleClick(<span class="keyword">true</span>);</div>
-<div class="line">    _window.setCentered();</div>
-<div class="line">    _window.open();</div>
-<div class="line"></div>
-<div class="line">    <span class="comment">// register to close window event so we can shutdown the application correctly</span></div>
-<div class="line">    _window.registerWindowCloseDelegate(WindowCloseDelegate(<span class="keyword">this</span>, &amp;MouseExample::onCloseWindow));</div>
-<div class="line"></div>
-<div class="line">    <span class="comment">// register callback to mouse move event. we use the &quot;full&quot; version here to show more information in the console</span></div>
-<div class="line">    <span class="comment">// usually you only need the iMouseMoveEvent respectively registerMouseMoveDelegate</span></div>
-<div class="line">    iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(<span class="keyword">this</span>, &amp;MouseExample::onMouseMovedFull));</div>
-<div class="line">    <span class="comment">// register callback to mouse key down event. called for any key on the mouse pressed</span></div>
-<div class="line">    iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(<span class="keyword">this</span>, &amp;MouseExample::onMouseKeyDown));</div>
-<div class="line">    <span class="comment">// register callback to mouse key up event. called for any key on the mouse released</span></div>
-<div class="line">    iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(<span class="keyword">this</span>, &amp;MouseExample::onMouseKeyUp));</div>
-<div class="line">    <span class="comment">// register callback to mouse double click event. called for any key on the mouse double clicked</span></div>
-<div class="line">    iMouse::getInstance().registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate(<span class="keyword">this</span>, &amp;MouseExample::onMouseDoubleClick));</div>
-<div class="line">    <span class="comment">// register callback to mouse click event</span></div>
-<div class="line">    iMouse::getInstance().registerMouseClickDelegate(iMouseClickDelegate(<span class="keyword">this</span>, &amp;MouseExample::onMouseClick));</div>
-<div class="line">    <span class="comment">// register callback to mosue wheel event. called when mouse wheel was turned</span></div>
-<div class="line">    iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(<span class="keyword">this</span>, &amp;MouseExample::onMouseWheel));</div>
-<div class="line"></div>
-<div class="line">    <span class="comment">// register callback to the ESC key on the keyboard pressed event</span></div>
-<div class="line">    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownSpecificDelegate(<span class="keyword">this</span>, &amp;MouseExample::onKeyESCDown), iKeyCode::ESC);</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> MouseExample::deinit()</div>
-<div class="line">{</div>
-<div class="line">    <span class="comment">// unregister from all io events</span></div>
-<div class="line">    iMouse::getInstance().unregisterMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate(<span class="keyword">this</span>, &amp;MouseExample::onMouseDoubleClick));</div>
-<div class="line">    iMouse::getInstance().unregisterMouseClickDelegate(iMouseClickDelegate(<span class="keyword">this</span>, &amp;MouseExample::onMouseClick));</div>
-<div class="line">    iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(<span class="keyword">this</span>, &amp;MouseExample::onMouseWheel));</div>
-<div class="line">    iMouse::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(<span class="keyword">this</span>, &amp;MouseExample::onMouseKeyUp));</div>
-<div class="line">    iMouse::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(<span class="keyword">this</span>, &amp;MouseExample::onMouseKeyDown));</div>
-<div class="line">    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(<span class="keyword">this</span>, &amp;MouseExample::onMouseMovedFull));</div>
-<div class="line">    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownSpecificDelegate(<span class="keyword">this</span>, &amp;MouseExample::onKeyESCDown), iKeyCode::ESC);</div>
-<div class="line"></div>
-<div class="line">    <span class="comment">// closes the window if it was not closed allready</span></div>
-<div class="line">    _window.close();</div>
-<div class="line"></div>
-<div class="line">    <span class="comment">// unregisters from close event</span></div>
-<div class="line">    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(<span class="keyword">this</span>, &amp;MouseExample::onCloseWindow));</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> MouseExample::run()</div>
-<div class="line">{</div>
-<div class="line">    <span class="comment">// run the engine main loop</span></div>
-<div class="line">    iApplication::getInstance().run();</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> MouseExample::onMouseClick(<a class="code" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bd">iKeyCode</a> key)</div>
-<div class="line">{</div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;clicked &quot;</span> &lt;&lt; key);</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> MouseExample::onMouseMovedFull(<span class="keyword">const</span> <a class="code" href="classiaux_1_1ia_vector2.html">iaVector2i</a> &amp;from, <span class="keyword">const</span> <a class="code" href="classiaux_1_1ia_vector2.html">iaVector2i</a> &amp;to, <a class="code" href="classigor_1_1i_window.html">iWindow</a> *window)</div>
-<div class="line">{</div>
-<div class="line">    <span class="comment">// prints old and new mouse position to the console</span></div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;mouse moved from &quot;</span> &lt;&lt; from &lt;&lt; <span class="stringliteral">&quot; to &quot;</span> &lt;&lt; to);</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> MouseExample::onMouseKeyDown(<a class="code" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bd">iKeyCode</a> key)</div>
+<div class="line"><span class="keywordtype">bool</span> MouseExample::onMouseKeyDownEvent(iEventMouseKeyDown &amp;event)</div>
 <div class="line">{</div>
 <div class="line">    <span class="comment">// prints if a key was pressed to the console</span></div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;pressed &quot;</span> &lt;&lt; key);</div>
+<div class="line">    <a name="a1"></a><a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;mouse key down &quot;</span> &lt;&lt; event.getKey());</div>
+<div class="line">    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line">}</div>
 <div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> MouseExample::onMouseDoubleClick(<a class="code" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bd">iKeyCode</a> key)</div>
-<div class="line">{</div>
-<div class="line">    <span class="comment">// prints if a double click was performed</span></div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;double clicked &quot;</span> &lt;&lt; key);</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> MouseExample::onMouseKeyUp(<a class="code" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bd">iKeyCode</a> key)</div>
+<div class="line"><span class="keywordtype">bool</span> MouseExample::onMouseKeyUpEvent(iEventMouseKeyUp &amp;event)</div>
 <div class="line">{</div>
 <div class="line">    <span class="comment">// prints if a key was released to the console</span></div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;released &quot;</span> &lt;&lt; key);</div>
+<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;mouse key up &quot;</span> &lt;&lt; event.getKey());</div>
+<div class="line">    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line">}</div>
 <div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> MouseExample::onMouseWheel(<a class="code" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> d)</div>
+<div class="line"><span class="keywordtype">bool</span> MouseExample::onMouseKeyDoubleClickEvent(iEventMouseKeyDoubleClick &amp;event)</div>
+<div class="line">{</div>
+<div class="line">    <span class="comment">// prints if a double click was performed</span></div>
+<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;mouse key double clicked &quot;</span> &lt;&lt; event.getKey());</div>
+<div class="line">    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">bool</span> MouseExample::onMouseMoveEvent(iEventMouseMove &amp;event)</div>
+<div class="line">{</div>
+<div class="line">    <span class="comment">// prints old and new mouse position to the console</span></div>
+<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;mouse moved from &quot;</span> &lt;&lt; event.getLastPosition() &lt;&lt; <span class="stringliteral">&quot; to &quot;</span> &lt;&lt; <span class="keyword">event</span>.getPosition());</div>
+<div class="line">    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line">}</div>
+<div class="line"></div>
+<div class="line"><span class="keywordtype">bool</span> MouseExample::onMouseWheelEvent(iEventMouseWheel &amp;event)</div>
 <div class="line">{</div>
 <div class="line">    <span class="comment">// prints the mouse wheel delta to the console</span></div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;wheel delta &quot;</span> &lt;&lt; d);</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> MouseExample::onKeyESCDown()</div>
-<div class="line">{</div>
-<div class="line">    <span class="comment">// stops application aka engine loop</span></div>
-<div class="line">    iApplication::getInstance().stop();</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> MouseExample::onCloseWindow()</div>
-<div class="line">{</div>
-<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;windows was closed&quot;</span>);</div>
-<div class="line"></div>
-<div class="line">    <span class="comment">// stops application aka engine loop after window was closed. otherwhise you will have to close the console manually</span></div>
-<div class="line">    iApplication::getInstance().stop();</div>
+<div class="line">    <a class="code" href="ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7">con_endl</a>(<span class="stringliteral">&quot;mouse wheel delta &quot;</span> &lt;&lt; event.getWheelDelta());</div>
+<div class="line">    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line">}</div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->

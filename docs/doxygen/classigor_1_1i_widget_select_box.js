@@ -8,6 +8,5 @@ var classigor_1_1i_widget_select_box =
     [ "getSelectedUserData", "classigor_1_1i_widget_select_box.html#ac4de17187d1c13506b64299e1ea5fd56", null ],
     [ "getSelectedValue", "classigor_1_1i_widget_select_box.html#a08e49ac9ea709378f5ac837ebc081e23", null ],
     [ "getSelectionEntryCount", "classigor_1_1i_widget_select_box.html#aad4a9c0aafb7f917d6dc7263ea6960b8", null ],
-    [ "getWidgetType", "classigor_1_1i_widget_select_box.html#a8739a1798281b0d3f395006bca5524c5", null ],
     [ "setSelection", "classigor_1_1i_widget_select_box.html#a3f0911c5a084e17a6f3f3bb30069fa68", null ]
 ];

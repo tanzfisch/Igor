@@ -24,7 +24,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
 #ifndef __iTASKMANAGER__
 #define __iTASKMANAGER__
@@ -50,7 +50,7 @@ namespace igor
 
     /*! event triggered when task was finished
     */
-    iaEVENT(iTaskFinishedEvent, iTaskFinishedDelegate, void, (uint64 taskID), (taskID));
+    iaEVENT(iTaskFinishedEvent, iTaskFinishedDelegate, (uint64 taskID), (taskID));
 
     /*! manages tasks to be done in parallel
 

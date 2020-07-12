@@ -149,12 +149,12 @@ namespace igor
         return _showOctree;
     }
 
-    void iRenderEngine::setScene(iScene *scene)
+    void iRenderEngine::setScene(iScenePtr scene)
     {
         _scene = scene;
     }
 
-    iScene *iRenderEngine::getScene()
+    iScenePtr iRenderEngine::getScene()
     {
         return _scene;
     }
@@ -176,8 +176,7 @@ namespace igor
 #endif
 
         if (_scene != nullptr &&
-            _currentCamera != nullptr &&
-            _currentCamera->getScene() == _scene)
+            _currentCamera != nullptr)
         {
 #ifdef USE_VERBOSE_STATISTICS
             iProfiler::getInstance().beginSection(_cullSectionID);
@@ -274,7 +273,7 @@ namespace igor
 
             if (iRenderStateValue::On == material->getRenderState(iRenderState::Instanced))
             {
-                // TODO later
+                // TODO no color id for now
             }
             else
             {
@@ -338,65 +337,49 @@ namespace igor
 
             if (instancing)
             {
-                /*   materialGroup.get
-                 if (!materialGroup->_instancedRenderNodes.empty())
-                 {
-                     iRenderer::getInstance().setMaterial(materialGroup->getMaterial(), _showWireframe);
+                // todo we should not do that every frame
+                auto instancedRenderNodes = materialGroup.getInstancedRenderNodes();
+                for (auto instancedRenderNode : instancedRenderNodes)
+                {
+                    const auto renderNodeIDs = instancedRenderNode.second._renderNodeIDs;
+                    auto instancer = instancedRenderNode.second._instancer;
+                    instancer->clearInstances();
 
-                     auto instanceIter = materialGroup->_instancedRenderNodes.begin();
-                     while (instanceIter != materialGroup->_instancedRenderNodes.end())
-                     {
-                         auto instanceList = (*instanceIter).second._renderNodeIDs;
-                         auto elementIter = instanceList.begin();
-                         uint32 index = 0;
-                         iInstancer* instancer = (*instanceIter).second._instancer;
+                    for (auto renderNodeID : renderNodeIDs)
+                    {
+                        iNodeRender *node = static_cast<iNodeRender *>(iNodeManager::getInstance().getNode(renderNodeID));
+                        if (node != nullptr)
+                        {
+                            if (node->wasReached() &&
+                                node->isVisible() &&
+                                node->getMaterial() == material->getID())
+                            {
+                                iaMatrixf matrix;
+                                const auto worldMatrix = node->getWorldMatrix();
+                                for (int i = 0; i < 16; ++i)
+                                {
+                                    matrix[i] = worldMatrix[i];
+                                }
 
-                         instancer->clearInstances();
+                                instancer->addInstance(matrix.getData());
+                                node->_reached = false;
+                            }
+                            else
+                            {
+                                materialGroup.removeRenderNode(renderNodeID, true);
+                            }
+                        }
+                        else
+                        {
+                            materialGroup.removeRenderNode(renderNodeID, true);
+                        }
+                    }
 
-                         while (instanceList.end() != elementIter)
-                         {
-                             iNodeRender* node = static_cast<iNodeRender*>(iNodeManager::getInstance().getNode((*elementIter)));
-                             if (node != nullptr)
-                             {
-                                 if (node->wasReached() &&
-                                     node->isVisible() &&
-                                     node->getMaterial() == materialGroup->getID())
-                                 {
-                                     iaMatrixf matrix;
-                                     iaConvert::convert(node->getWorldMatrix(), matrix);
-                                     instancer->addInstance(matrix.getData());
-
-                                     node->_reached = false;
-                                     ++elementIter;
-                                 }
-                                 else
-                                 {
-                                     elementIter = instanceList.erase(elementIter);
-                                 }
-                             }
-                             else
-                             {
-                                 elementIter = instanceList.erase(elementIter);
-                             }
-                         }
-
-                         iRenderer::getInstance().drawMesh((*instanceIter).first, instancer);
-
-                         if (instanceList.empty())
-                         {
-                             if ((*instanceIter).second._instancer != nullptr)
-                             {
-                                 delete (*instanceIter).second._instancer;
-                             }
-
-                             instanceIter = materialGroup->_instancedRenderNodes.erase(instanceIter);
-                         }
-                         else
-                         {
-                             ++instanceIter;
-                         }
-                     }
-                 }*/
+                    // renderNodeIDs should never be empty
+                    iNodeMesh *mesh = static_cast<iNodeMesh *>(iNodeManager::getInstance().getNode(renderNodeIDs[0]));
+                    iRenderer::getInstance().setTargetMaterial(mesh->getTargetMaterial());
+                    iRenderer::getInstance().drawMesh(instancedRenderNode.first, instancer);
+                }
             }
             else
             {

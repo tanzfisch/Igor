@@ -17,7 +17,7 @@
 namespace igor
 {
     iWidgetMenu::iWidgetMenu(const iWidgetPtr parent)
-        : iWidget(parent)
+        : iWidget(iWidgetType::iWidgetMenu, iWidgetKind::Widget, parent)
     {
         init();
     }
@@ -37,13 +37,11 @@ namespace igor
 
         iWidgetGridPtr grid = new iWidgetGrid(this);
         grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-        grid->appendCollumns(2);
+        grid->appendColumns(2);
         grid->setStrechColumn(1);
         grid->setCellSpacing(4);
 
-        _spacer = new iWidgetSpacer();
-        _spacer->setSize(16, 16);
-        _spacer->setVisible(false);
+        _spacer = new iWidgetSpacer(16, 16);
         grid->addWidget(_spacer, 0, 0);
 
         _title = new iWidgetLabel();
@@ -53,7 +51,7 @@ namespace igor
         _picture = new iWidgetPicture();
         _picture->setMaxSize(8, 8);
         _picture->setKeepAspectRatio(false);
-        _picture->setTexture("icons\\right.png");
+        _picture->setTexture("icons/right.png");
 
         grid->addWidget(_picture, 2, 0);
 
@@ -88,11 +86,6 @@ namespace igor
     void iWidgetMenu::onParentChanged()
     {
         update();
-    }
-
-    iWidgetType iWidgetMenu::getWidgetType() const
-    {
-        return iWidgetType::iWidgetMenu;
     }
 
     void iWidgetMenu::onClick(const iWidgetPtr source)
@@ -156,14 +149,14 @@ namespace igor
         _menu->addMenu(menu);
     }
 
-    void iWidgetMenu::addAction(const iActionPtr action)
+    void iWidgetMenu::addAction(const iActionPtr action, const iActionContextPtr context)
     {
-        _menu->addAction(action);
+        _menu->addAction(action, context);
     }
 
-    void iWidgetMenu::addAction(const iaString &actionName)
+    void iWidgetMenu::addAction(const iaString &actionName, const iActionContextPtr context)
     {
-        addAction(iActionManager::getInstance().getAction(actionName));
+        addAction(iActionManager::getInstance().getAction(actionName), context);
     }
 
     void iWidgetMenu::onSubMenuClosed(iDialogReturnState returnState)

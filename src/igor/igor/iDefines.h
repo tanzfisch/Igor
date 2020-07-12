@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iDEFINES__
-#define __iDEFINES__
+#ifndef __IGOR_DEFINES_H__
+#define __IGOR_DEFINES_H__
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
@@ -257,4 +257,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_DEFINES_H__

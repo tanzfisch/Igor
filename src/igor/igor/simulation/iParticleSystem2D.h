@@ -24,7 +24,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
 #ifndef __iPARTICLESYSTEM2D__
 #define __iPARTICLESYSTEM2D__
@@ -45,7 +45,7 @@ namespace igor
 
     \todo DotEmitter, RingEmitter, SqareEmitter, ShapeEmitter
     */
-    enum class iEmitterType
+    enum class iEmitterType2D
     {
         PointEmitter
     };
@@ -317,7 +317,7 @@ namespace igor
 
         /*! emitter type
         */
-        iEmitterType _emitterType = iEmitterType::PointEmitter;
+        iEmitterType2D _emitterType = iEmitterType2D::PointEmitter;
 
         /*! list of particles
         */

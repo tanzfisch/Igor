@@ -16,9 +16,9 @@ using namespace iaux;
 namespace igor
 {
 
-	iWidgetType iDialogIndexMenu::getWidgetType() const
+	iDialogIndexMenu::iDialogIndexMenu(const iWidgetPtr parent)
+		: iDialog(iWidgetType::iDialogIndexMenu, parent)
 	{
-		return iWidgetType::iDialogIndexMenu;
 	}
 
 	void iDialogIndexMenu::open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString> &texts)
@@ -83,7 +83,7 @@ namespace igor
 		registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogIndexMenu::onMouseOffClick));
 
 		iWidgetGridPtr grid = new iWidgetGrid();
-		grid->appendCollumns(1);
+		grid->appendColumns(1);
 		grid->appendRows(static_cast<uint32>(texts.size()) - 1);
 		grid->setHorizontalAlignment(iHorizontalAlignment::Left);
 		grid->setVerticalAlignment(iVerticalAlignment::Top);

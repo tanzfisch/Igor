@@ -8,7 +8,6 @@ var classigor_1_1i_widget_text_edit =
     [ "getMaxTextLength", "classigor_1_1i_widget_text_edit.html#a7932f06ef11eab354612353b52fc1b58", null ],
     [ "getText", "classigor_1_1i_widget_text_edit.html#a029c23428d159c5fce2a06bd147cc6e8", null ],
     [ "getVerticalTextAlignment", "classigor_1_1i_widget_text_edit.html#a6838ee14183e2952b900e9097d52c0e3", null ],
-    [ "getWidgetType", "classigor_1_1i_widget_text_edit.html#a90117f03f898273e08a94adf7d12636d", null ],
     [ "handleASCII", "classigor_1_1i_widget_text_edit.html#ab83efdd80053b770845541d77bfe5ade", null ],
     [ "handleChanges", "classigor_1_1i_widget_text_edit.html#a8024d5d69ebb9fbef84d3270d7477330", null ],
     [ "handleGainedKeyboardFocus", "classigor_1_1i_widget_text_edit.html#a032022bd82c2e103667c8d4e00e51b93", null ],

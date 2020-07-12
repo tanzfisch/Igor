@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.27.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.28.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -219,10 +219,12 @@ $(document).ready(function(){initNavTree('functions_func_c.html','');});
 : <a class="el" href="classigor_1_1i_mesh_builder.html#ac149249912b089e5bc7f4781c6e0c696">igor::iMeshBuilder</a>
 </li>
 <li>clear()
-: <a class="el" href="classiaux_1_1ia_b_spline.html#a84f1379548a57ff2a4a895018338e63f">iaux::iaBSpline</a>
+: <a class="el" href="classiaux_1_1ia_b_spline.html#aca0e662062cc71adc6552a49487b0019">iaux::iaBSpline&lt; T &gt;</a>
 , <a class="el" href="classiaux_1_1ia_gradient.html#ac6ee99ed39724107dbfda770acb8219d">iaux::iaGradient&lt; T &gt;</a>
 , <a class="el" href="classiaux_1_1ia_r_l_e.html#aa111d2396406eb871ee6c110cd85b08a">iaux::iaRLE&lt; TValue, TIndex &gt;</a>
 , <a class="el" href="classiaux_1_1ia_string.html#a86450b6e32ec24593165641f64402da7">iaux::iaString</a>
+, <a class="el" href="classigor_1_1i_clipboard.html#a0c72b4e7ae74bc7ac1a5f01a9381d531">igor::iClipboard</a>
+, <a class="el" href="classigor_1_1i_layer_stack.html#a77e82b41e90b1c74f9b1a686df252edb">igor::iLayerStack</a>
 , <a class="el" href="classigor_1_1i_l_system.html#a8c9f5c778c2fc0fe1265a71904d6464d">igor::iLSystem</a>
 , <a class="el" href="classigor_1_1i_mesh_builder.html#ab66ea9022896db46477faf46a1c4f5c2">igor::iMeshBuilder</a>
 , <a class="el" href="classigor_1_1i_skeleton.html#afc6a81243559b88fd06281e213370e9a">igor::iSkeleton</a>
@@ -248,6 +250,9 @@ $(document).ready(function(){initNavTree('functions_func_c.html','');});
 <li>clearInstances()
 : <a class="el" href="classigor_1_1i_instancer.html#a77701410a060adb27e2921dcc7d9c21f">igor::iInstancer</a>
 </li>
+<li>clearLayerStack()
+: <a class="el" href="classigor_1_1i_application.html#a1b74c34e3aebced98b162ccd0f945551">igor::iApplication</a>
+</li>
 <li>clearPoints()
 : <a class="el" href="classigor_1_1i_widget_graph.html#a4fbc08641a54f4677b689119086e29d7">igor::iWidgetGraph</a>
 </li>
@@ -256,6 +261,9 @@ $(document).ready(function(){initNavTree('functions_func_c.html','');});
 </li>
 <li>clearSearchPaths()
 : <a class="el" href="classigor_1_1i_resource_manager.html#a4c0d7904006c040c220e7a4a899efb39">igor::iResourceManager</a>
+</li>
+<li>clearSelection()
+: <a class="el" href="classigor_1_1i_scene.html#a354b07f553fdfe3db9ca5202a0385358">igor::iScene</a>
 </li>
 <li>clearShader()
 : <a class="el" href="classigor_1_1i_material.html#ae6722f9e7dbffb6eddc1c6479187f630">igor::iMaterial</a>
@@ -301,6 +309,9 @@ $(document).ready(function(){initNavTree('functions_func_c.html','');});
 <li>configureYAxis()
 : <a class="el" href="classigor_1_1i_dialog_graph.html#a2a2e972def1965a3c16c991a74105600">igor::iDialogGraph</a>
 </li>
+<li>consume()
+: <a class="el" href="classigor_1_1i_event.html#a7a33aa797dfb07549958516ebeeeeb1f">igor::iEvent</a>
+</li>
 <li>contact()
 : <a class="el" href="classigor_1_1i_physics_material_combo.html#a83a1bd4115e288ef883f056ecda5e327">igor::iPhysicsMaterialCombo</a>
 </li>
@@ -330,9 +341,6 @@ $(document).ready(function(){initNavTree('functions_func_c.html','');});
 <li>copyTriangles()
 : <a class="el" href="classigor_1_1i_mesh_builder.html#af50af392a8b089099e6cce1a0ed96b2c">igor::iMeshBuilder</a>
 </li>
-<li>createAction()
-: <a class="el" href="classigor_1_1i_action_manager.html#a3787082bbdad54fa7a5f44404eac7121">igor::iActionManager</a>
-</li>
 <li>createAudioBuffer()
 : <a class="el" href="classigor_1_1i_audio.html#a08da4746951e3827dc11e5ea99f8e6d1">igor::iAudio</a>
 , <a class="el" href="classigor_1_1i_audio_impl.html#a395fec23b52195926901c399dae5f41c">igor::iAudioImpl</a>
@@ -348,7 +356,7 @@ $(document).ready(function(){initNavTree('functions_func_c.html','');});
 : <a class="el" href="classigor_1_1i_physics.html#a05440be9e5fb36ce82a998462f3ece21">igor::iPhysics</a>
 </li>
 <li>createBuffers()
-: <a class="el" href="classigor_1_1i_renderer.html#aaaff30e82d32f7f32a077006fa92cc37">igor::iRenderer</a>
+: <a class="el" href="classigor_1_1i_renderer.html#ae17cfc007ec6d17e9ebe8e4647c11111">igor::iRenderer</a>
 </li>
 <li>createBuffersAsync()
 : <a class="el" href="classigor_1_1i_renderer.html#a97d9e17e2c3c35d7177fdc2c6d1b2943">igor::iRenderer</a>
@@ -387,7 +395,7 @@ $(document).ready(function(){initNavTree('functions_func_c.html','');});
 : <a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#a6901856f7e376c3ff059eac965a78b00">OMPF::OMPF</a>
 </li>
 <li>createID()
-: <a class="el" href="classiaux_1_1ia_i_d_generator.html#a114ec398fe9f56f32d0ff02e9a6a16c9">iaux::iaIDGenerator&lt; T &gt;</a>
+: <a class="el" href="classiaux_1_1ia_i_d_generator.html#adef544ade1a2c169b3e668315a096b03">iaux::iaIDGenerator&lt; T &gt;</a>
 </li>
 <li>createInstance()
 : <a class="el" href="classigor_1_1i_model_data_i_o_o_b_j.html#a64b6febb3143effa92b67307594b81f6">igor::iModelDataIOOBJ</a>
@@ -427,7 +435,7 @@ $(document).ready(function(){initNavTree('functions_func_c.html','');});
 : <a class="el" href="classigor_1_1i_factory.html#a23f360be3b103359293822a9f972c978">igor::iFactory</a>
 </li>
 <li>createScene()
-: <a class="el" href="classigor_1_1i_scene_factory.html#ac572eac4e1652c6422d1e0331dbd113b">igor::iSceneFactory</a>
+: <a class="el" href="classigor_1_1i_scene_factory.html#ae8464b79e6c6e5af20599c0645ca7380">igor::iSceneFactory</a>
 </li>
 <li>createShaderObject()
 : <a class="el" href="classigor_1_1i_renderer.html#acedea84f820c88a9e1a38bc5885160a5">igor::iRenderer</a>
@@ -449,6 +457,9 @@ $(document).ready(function(){initNavTree('functions_func_c.html','');});
 </li>
 <li>createTransition()
 : <a class="el" href="classiaux_1_1ia_state_machine.html#afce9f4c9e69ed2f684b1a5fb9298504a">iaux::iaStateMachine</a>
+</li>
+<li>createWindow()
+: <a class="el" href="classigor_1_1i_application.html#a98ea4c55e96c71c70c5ffb837399c1bf">igor::iApplication</a>
 </li>
 <li>createWorld()
 : <a class="el" href="classigor_1_1i_physics.html#a7ef05484a040bbd671c59b31d42f6a32">igor::iPhysics</a>

@@ -7,17 +7,12 @@ using namespace iaux;
 
 namespace igor
 {
-	iUserControl::iUserControl(const iWidgetPtr parent)
-        : iWidget(parent)
+	iUserControl::iUserControl(iWidgetType type, const iWidgetPtr parent)
+		: iWidget(type, iWidgetKind::UserControl, parent)
 	{
 		setHorizontalAlignment(iHorizontalAlignment::Strech);
 		setVerticalAlignment(iVerticalAlignment::Strech);
 	}
-
-    iWidgetType iUserControl::getWidgetType() const
-    {
-        return iWidgetType::iUserControl;
-    }
 
 	void iUserControl::calcMinSize()
 	{
@@ -36,4 +31,4 @@ namespace igor
 		setMinSize(minWidth, minHeight);
 	}
 
-}
+} // namespace igor

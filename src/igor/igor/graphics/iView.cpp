@@ -115,6 +115,11 @@ namespace igor
         _viewportConfig = rect;
     }
 
+    bool iView::isPerspective() const
+    {
+        return _perspective;
+    }
+
     void iView::setPerspective(float32 viewAngel)
     {
         if (viewAngel > 0.0f && viewAngel < 180.0f)
@@ -291,13 +296,13 @@ namespace igor
         _viewport.setHeight(_viewportConfig.getHeight() * static_cast<float32>(_windowRect.getHeight()) + 0.5f);
     }
 
-    void iView::setScene(iScene *scene)
+    void iView::setScene(iScenePtr scene)
     {
         _scene = scene;
         _renderEngine.setScene(_scene);
     }
 
-    iScene *iView::getScene()
+    iScenePtr iView::getScene()
     {
         return _scene;
     }

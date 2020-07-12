@@ -23,17 +23,13 @@ namespace iaux
 
         if (buffer != nullptr)
         {
-            con_assert(size != 0, "inconsistent input");
+            con_assert(size != 0, "invalid input value");
 
             if (size > 0)
             {
                 _data = new char[size];
                 _dataSize = size;
                 memcpy(_data, buffer, size);
-            }
-            else
-            {
-                con_err("invalid input data");
             }
         }
     }

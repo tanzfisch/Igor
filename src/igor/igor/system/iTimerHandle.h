@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iRUNTIMEMANAGER__
-#define __iRUNTIMEMANAGER__
+#ifndef __IGOR_TIMERHANDLE_H__
+#define __IGOR_TIMERHANDLE_H__
 
 #include <igor/iDefines.h>
 
@@ -42,7 +42,7 @@ namespace igor
 
     called once per interval
     */
-	iaEVENT(iTimerTickEvent, iTimerTickDelegate, void, (), ());
+	iaEVENT(iTimerTickEvent, iTimerTickDelegate, (), ());
 
 	/*! timer handle class
     */
@@ -135,6 +135,10 @@ namespace igor
 		bool _playing = false;
 	};
 
+	/*! timer handle pointer definition
+	*/
+	typedef iTimerHandle *iTimerHandlePtr;
+
 }; // namespace igor
 
-#endif
+#endif // __IGOR_TIMERHANDLE_H__

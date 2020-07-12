@@ -24,7 +24,7 @@ class Player : public GameObject
 {
 
 public:
-    Player(iScene *scene, iView *view, const iaMatrixd &matrix);
+    Player(iScenePtr scene, iView *view, const iaMatrixd &matrix);
     virtual ~Player();
 
     void startUp();
@@ -56,7 +56,7 @@ public:
 
     void rotate(float32 heading, float32 pitch);
 
-    void drawReticle(const iWindow &window);
+    void drawReticle(iWindow *window);
 
     uint32 getLODTriggerID();
 
@@ -85,7 +85,7 @@ private:
 
     uint32 _materialSolid = 0;
 
-    iScene *_scene = nullptr;
+    iScenePtr _scene = nullptr;
 
     iaVector3d _force;
     iaVector3d _torque;

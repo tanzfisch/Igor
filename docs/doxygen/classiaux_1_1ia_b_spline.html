@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=9"/>
 		<meta name="generator" content="Doxygen 1.8.8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-		<title>Igor: iaux::iaBSpline Class Reference</title>
+		<title>Igor: iaux::iaBSpline&lt; T &gt; Class Template Reference</title>
 		<link href="tabs.css" rel="stylesheet" type="text/css"/>
 		<script type="text/javascript" src="jquery.js"></script>
 		<script type="text/javascript" src="dynsections.js"></script>
@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.27.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.28.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -113,7 +113,7 @@ $(document).ready(function(){initNavTree('classiaux_1_1ia_b_spline.html','');});
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classiaux_1_1ia_b_spline-members.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">iaux::iaBSpline Class Reference</div>  </div>
+<div class="title">iaux::iaBSpline&lt; T &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -121,43 +121,47 @@ $(document).ready(function(){initNavTree('classiaux_1_1ia_b_spline.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a385673526d1e08b15d46afe4ca31bd3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#a385673526d1e08b15d46afe4ca31bd3e">addSupportPoint</a> (const <a class="el" href="namespaceiaux.html#ab1b780670d2c606b44e386b4bb6398b2">iaVector3f</a> &amp;point)</td></tr>
-<tr class="separator:a385673526d1e08b15d46afe4ca31bd3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84f1379548a57ff2a4a895018338e63f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#a84f1379548a57ff2a4a895018338e63f">clear</a> ()</td></tr>
-<tr class="separator:a84f1379548a57ff2a4a895018338e63f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac661798bc0fefe729c2fd9f586ea6a08"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#ac661798bc0fefe729c2fd9f586ea6a08">setRank</a> (const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> rank)</td></tr>
-<tr class="separator:ac661798bc0fefe729c2fd9f586ea6a08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23c148f530f54aec5ae2bb303f9734d3"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#a23c148f530f54aec5ae2bb303f9734d3">getRank</a> () const </td></tr>
-<tr class="separator:a23c148f530f54aec5ae2bb303f9734d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05d61bace93233b3a0d859412394e902"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceiaux.html#ab1b780670d2c606b44e386b4bb6398b2">iaVector3f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#a05d61bace93233b3a0d859412394e902">getPointOnSpline</a> (<a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> t)</td></tr>
-<tr class="separator:a05d61bace93233b3a0d859412394e902"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03f105c9060823bf11b9ab73644d54de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#a03f105c9060823bf11b9ab73644d54de">getPoints</a> (std::vector&lt; <a class="el" href="namespaceiaux.html#ab1b780670d2c606b44e386b4bb6398b2">iaVector3f</a> &gt; &amp;points, <a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> pointCount)</td></tr>
-<tr class="separator:a03f105c9060823bf11b9ab73644d54de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5070a881003ff25a59e746e2445324a9"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="namespaceiaux.html#ab1b780670d2c606b44e386b4bb6398b2">iaVector3f</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#a5070a881003ff25a59e746e2445324a9">getSupportPoints</a> () const </td></tr>
-<tr class="separator:a5070a881003ff25a59e746e2445324a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69f69d34397743518fcd780e6c03e0d9"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#a69f69d34397743518fcd780e6c03e0d9">getSupportPointsCount</a> () const </td></tr>
-<tr class="separator:a69f69d34397743518fcd780e6c03e0d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac64b67cd1bdea59de5e4ee3532e111a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#ac64b67cd1bdea59de5e4ee3532e111a8">setSupportPoint</a> (const <a class="el" href="namespaceiaux.html#ab1b780670d2c606b44e386b4bb6398b2">iaVector3f</a> &amp;point, <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> index)</td></tr>
-<tr class="separator:ac64b67cd1bdea59de5e4ee3532e111a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98117f6be718ca10c51cfcf2aa674fd1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceiaux.html#ab1b780670d2c606b44e386b4bb6398b2">iaVector3f</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#a98117f6be718ca10c51cfcf2aa674fd1">getSupportPoint</a> (<a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> index)</td></tr>
-<tr class="separator:a98117f6be718ca10c51cfcf2aa674fd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af419e9bf4aea1f20dad0294592dba8eb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#af419e9bf4aea1f20dad0294592dba8eb">iaBSpline</a> ()=default</td></tr>
-<tr class="separator:af419e9bf4aea1f20dad0294592dba8eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10d690d5b3cefaba15ae6848ae17c6ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#a10d690d5b3cefaba15ae6848ae17c6ae">~iaBSpline</a> ()=default</td></tr>
-<tr class="separator:a10d690d5b3cefaba15ae6848ae17c6ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84cd40c61f2fab67afde8a6943f9dbcd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#a84cd40c61f2fab67afde8a6943f9dbcd">addSupportPoint</a> (const <a class="el" href="classiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;point)</td></tr>
+<tr class="separator:a84cd40c61f2fab67afde8a6943f9dbcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca0e662062cc71adc6552a49487b0019"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#aca0e662062cc71adc6552a49487b0019">clear</a> ()</td></tr>
+<tr class="separator:aca0e662062cc71adc6552a49487b0019"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3c1fda14efae4bc2b1098e57d183de0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#ab3c1fda14efae4bc2b1098e57d183de0">setRank</a> (const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> rank)</td></tr>
+<tr class="separator:ab3c1fda14efae4bc2b1098e57d183de0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9627b6e54bdaf9891c31734eee8d46f9"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#a9627b6e54bdaf9891c31734eee8d46f9">getRank</a> () const </td></tr>
+<tr class="separator:a9627b6e54bdaf9891c31734eee8d46f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91ba520aad5aa486400b91817f8d35e0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#a91ba520aad5aa486400b91817f8d35e0">getPointOnSpline</a> (T t)</td></tr>
+<tr class="separator:a91ba520aad5aa486400b91817f8d35e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44e304c571ef55fe3facfd22563b67b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#a44e304c571ef55fe3facfd22563b67b1">getPoints</a> (std::vector&lt; <a class="el" href="classiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt;&gt; &amp;points, <a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> pointCount)</td></tr>
+<tr class="separator:a44e304c571ef55fe3facfd22563b67b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a200618699a9276db1f146f2ac02f4d0f"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="classiaux_1_1ia_vector3.html">iaVector3</a><br class="typebreak" />
+&lt; T &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#a200618699a9276db1f146f2ac02f4d0f">getSupportPoints</a> () const </td></tr>
+<tr class="separator:a200618699a9276db1f146f2ac02f4d0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a584e02e5acfebab94a14ce7ad83e84f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#a584e02e5acfebab94a14ce7ad83e84f7">setSupportPoint</a> (const <a class="el" href="classiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;point, <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> index)</td></tr>
+<tr class="separator:a584e02e5acfebab94a14ce7ad83e84f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a788603d68cb910906aa7b86410dad254"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#a788603d68cb910906aa7b86410dad254">getSupportPoint</a> (<a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> index) const </td></tr>
+<tr class="separator:a788603d68cb910906aa7b86410dad254"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c7cde74b82f74254e87ebcbc03f45d8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#a1c7cde74b82f74254e87ebcbc03f45d8">iaBSpline</a> ()=default</td></tr>
+<tr class="separator:a1c7cde74b82f74254e87ebcbc03f45d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aec8e0d5b6880d66841c9ac28b0624230"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_b_spline.html#aec8e0d5b6880d66841c9ac28b0624230">~iaBSpline</a> ()=default</td></tr>
+<tr class="separator:aec8e0d5b6880d66841c9ac28b0624230"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>BSpline implementation</p>
+<div class="textblock"><h3>template&lt;class T&gt;<br />
+class iaux::iaBSpline&lt; T &gt;</h3>
+
+<p>BSpline implementation</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="af419e9bf4aea1f20dad0294592dba8eb"></a>
+<a class="anchor" id="a1c7cde74b82f74254e87ebcbc03f45d8"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">iaux::iaBSpline::iaBSpline </td>
+          <td class="memname"><a class="el" href="classiaux_1_1ia_b_spline.html">iaux::iaBSpline</a>&lt; T &gt;::<a class="el" href="classiaux_1_1ia_b_spline.html">iaBSpline</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -173,15 +177,17 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a10d690d5b3cefaba15ae6848ae17c6ae"></a>
+<a class="anchor" id="aec8e0d5b6880d66841c9ac28b0624230"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">iaux::iaBSpline::~iaBSpline </td>
+          <td class="memname"><a class="el" href="classiaux_1_1ia_b_spline.html">iaux::iaBSpline</a>&lt; T &gt;::~<a class="el" href="classiaux_1_1ia_b_spline.html">iaBSpline</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -198,14 +204,16 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a385673526d1e08b15d46afe4ca31bd3e"></a>
+<a class="anchor" id="a84cd40c61f2fab67afde8a6943f9dbcd"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void iaux::iaBSpline::addSupportPoint </td>
+          <td class="memname">void iaBSpline::addSupportPoint </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceiaux.html#ab1b780670d2c606b44e386b4bb6398b2">iaVector3f</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>point</em></td><td>)</td>
           <td></td>
         </tr>
@@ -221,12 +229,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a84f1379548a57ff2a4a895018338e63f"></a>
+<a class="anchor" id="aca0e662062cc71adc6552a49487b0019"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void iaux::iaBSpline::clear </td>
+          <td class="memname">void iaBSpline::clear </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -237,14 +247,16 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a05d61bace93233b3a0d859412394e902"></a>
+<a class="anchor" id="a91ba520aad5aa486400b91817f8d35e0"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceiaux.html#ab1b780670d2c606b44e386b4bb6398b2">iaVector3f</a> iaux::iaBSpline::getPointOnSpline </td>
+          <td class="memname"><a class="el" href="classiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; iaBSpline::getPointOnSpline </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a>&#160;</td>
+          <td class="paramtype">T&#160;</td>
           <td class="paramname"><em>t</em></td><td>)</td>
           <td></td>
         </tr>
@@ -260,14 +272,16 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a03f105c9060823bf11b9ab73644d54de"></a>
+<a class="anchor" id="a44e304c571ef55fe3facfd22563b67b1"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void iaux::iaBSpline::getPoints </td>
+          <td class="memname">void iaBSpline::getPoints </td>
           <td>(</td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="namespaceiaux.html#ab1b780670d2c606b44e386b4bb6398b2">iaVector3f</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="classiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt;&gt; &amp;&#160;</td>
           <td class="paramname"><em>points</em>, </td>
         </tr>
         <tr>
@@ -294,12 +308,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a23c148f530f54aec5ae2bb303f9734d3"></a>
+<a class="anchor" id="a9627b6e54bdaf9891c31734eee8d46f9"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> iaux::iaBSpline::getRank </td>
+          <td class="memname">const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> iaBSpline::getRank </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -310,20 +326,22 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a98117f6be718ca10c51cfcf2aa674fd1"></a>
+<a class="anchor" id="a788603d68cb910906aa7b86410dad254"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceiaux.html#ab1b780670d2c606b44e386b4bb6398b2">iaVector3f</a> &amp; iaux::iaBSpline::getSupportPoint </td>
+          <td class="memname">__IGOR_INLINE__ const <a class="el" href="classiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp; iaBSpline::getSupportPoint </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td>
           <td class="paramname"><em>index</em></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>specified support point No range check!</p>
+<dl class="section return"><dt>Returns</dt><dd>specified support point No range check!</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">index</td><td>index of support point to return </td></tr>
@@ -333,12 +351,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a5070a881003ff25a59e746e2445324a9"></a>
+<a class="anchor" id="a200618699a9276db1f146f2ac02f4d0f"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">const std::vector&lt; <a class="el" href="namespaceiaux.html#ab1b780670d2c606b44e386b4bb6398b2">iaVector3f</a> &gt; &amp; iaux::iaBSpline::getSupportPoints </td>
+          <td class="memname">const std::vector&lt; <a class="el" href="classiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &gt; &amp; iaBSpline::getSupportPoints </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -349,28 +369,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a69f69d34397743518fcd780e6c03e0d9"></a>
+<a class="anchor" id="ab3c1fda14efae4bc2b1098e57d183de0"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> iaux::iaBSpline::getSupportPointsCount </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>amount of support points </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ac661798bc0fefe729c2fd9f586ea6a08"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void iaux::iaBSpline::setRank </td>
+          <td class="memname">void iaBSpline::setRank </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td>
           <td class="paramname"><em>rank</em></td><td>)</td>
@@ -388,14 +394,16 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ac64b67cd1bdea59de5e4ee3532e111a8"></a>
+<a class="anchor" id="a584e02e5acfebab94a14ce7ad83e84f7"></a>
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">void iaux::iaBSpline::setSupportPoint </td>
+          <td class="memname">void iaBSpline::setSupportPoint </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespaceiaux.html#ab1b780670d2c606b44e386b4bb6398b2">iaVector3f</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_vector3.html">iaVector3</a>&lt; T &gt; &amp;&#160;</td>
           <td class="paramname"><em>point</em>, </td>
         </tr>
         <tr>
@@ -424,7 +432,7 @@ Public Member Functions</h2></td></tr>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/dev/igor/src/iaux/iaux/math/<a class="el" href="ia_b_spline_8h.html">iaBSpline.h</a></li>
-<li>C:/dev/igor/src/iaux/iaux/math/<a class="el" href="ia_b_spline_8cpp.html">iaBSpline.cpp</a></li>
+<li>C:/dev/igor/src/iaux/iaux/math/<a class="el" href="ia_b_spline_8inl.html">iaBSpline.inl</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,3 +1,7 @@
+// Igor game engine
+// (c) Copyright 2012-2020 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "MuzzleFlash.h"
 
 #include <igor/scene/nodes/iNodeManager.h>
@@ -18,7 +22,7 @@ using namespace igor;
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
-MuzzleFlash::MuzzleFlash(iScene *scene, uint32 emitterID)
+MuzzleFlash::MuzzleFlash(iScenePtr scene, uint32 emitterID)
     : GameObject(Fraction::None, GameObjectType::None)
 {
     _emitterNodeID = emitterID;

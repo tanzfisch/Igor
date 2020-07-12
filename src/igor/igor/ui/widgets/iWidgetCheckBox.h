@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __CHECKBOXWIDGET__
-#define __CHECKBOXWIDGET__
+#ifndef __IGOR_CHECKBOXWIDGET_H__
+#define __IGOR_CHECKBOXWIDGET_H__
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -53,10 +53,6 @@ namespace igor
 		/*! does nothing
 		*/
 		virtual ~iWidgetCheckBox() = default;
-
-		/*! \returns the widgets type
-        */
-		virtual iWidgetType getWidgetType() const override;
 
 		/*! beginns a radio button group
 
@@ -128,4 +124,4 @@ namespace igor
 	typedef iWidgetCheckBox *iWidgetCheckBoxPtr;
 } // namespace igor
 
-#endif
+#endif // __IGOR_CHECKBOXWIDGET_H__

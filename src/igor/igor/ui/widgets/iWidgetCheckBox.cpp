@@ -5,7 +5,7 @@
 #include <igor/ui/widgets/iWidgetCheckBox.h>
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/theme/iWidgetBaseTheme.h>
+#include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 
 namespace igor
@@ -15,7 +15,7 @@ namespace igor
 	std::vector<iWidgetCheckBox *> iWidgetCheckBox::_currentRadioButtons;
 
 	iWidgetCheckBox::iWidgetCheckBox(const iWidgetPtr parent)
-		: iWidget(parent)
+		: iWidget(iWidgetType::iWidgetCheckBox, iWidgetKind::Widget, parent)
 	{
 		_configuredHeight = 20;
 		_configuredWidth = 60;
@@ -31,11 +31,6 @@ namespace igor
 
 			_currentRadioButtons.push_back(this);
 		}
-	}
-
-	iWidgetType iWidgetCheckBox::getWidgetType() const
-	{
-		return iWidgetType::iWidgetCheckBox;
 	}
 
 	void iWidgetCheckBox::beginRadioButtonGroup()

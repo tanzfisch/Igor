@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.27.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.28.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -120,6 +120,8 @@ $(document).ready(function(){initNavTree('i_window_8h.html','');});
 <code>#include &lt;<a class="el" href="ia_event_8h.html">iaux/system/iaEvent.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="ia_string_8h.html">iaux/data/iaString.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="ia_mutex_8h.html">iaux/system/iaMutex.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ia_delegate_8h.html">iaux/system/iaDelegate.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ia_i_d_generator_8h.html">iaux/data/iaIDGenerator.h</a>&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
@@ -136,13 +138,17 @@ Namespaces</h2></td></tr>
 Typedefs</h2></td></tr>
 <tr class="memitem:ae2644d9b73104baa2aed8f6649bbc3ca"><td class="memItemLeft" align="right" valign="top">typedef void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ae2644d9b73104baa2aed8f6649bbc3ca">igor::iRenderContextPtr</a></td></tr>
 <tr class="separator:ae2644d9b73104baa2aed8f6649bbc3ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac25fdc3f015adfdbc85c6d869b7d6072"><td class="memItemLeft" align="right" valign="top">typedef <a class="el" href="ia_defines_8h.html#ab7a6e59704ca0725a76e43e19f36e578">iaID64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ac25fdc3f015adfdbc85c6d869b7d6072">igor::iWindowID</a></td></tr>
+<tr class="separator:ac25fdc3f015adfdbc85c6d869b7d6072"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0976824126d76f6f80c0f471ec575529"><td class="memItemLeft" align="right" valign="top">typedef iWindow *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a0976824126d76f6f80c0f471ec575529">igor::iWindowPtr</a></td></tr>
+<tr class="separator:a0976824126d76f6f80c0f471ec575529"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a72021d031e62a2bbb5bad71574cee249"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a72021d031e62a2bbb5bad71574cee249">igor::iaEVENT</a> (WindowCloseEvent, WindowCloseDelegate, void,(),())</td></tr>
-<tr class="separator:a72021d031e62a2bbb5bad71574cee249"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24578c86898d8ebdfbdcb4115f9a42b9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a24578c86898d8ebdfbdcb4115f9a42b9">igor::iaEVENT</a> (WindowResizeEvent, WindowResizeDelegate, void,(<a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> clientWidth, <a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> clientHeight),(clientWidth, clientHeight))</td></tr>
-<tr class="separator:a24578c86898d8ebdfbdcb4115f9a42b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64fcbcb08a8df3c83b8404af6b698982"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a64fcbcb08a8df3c83b8404af6b698982">igor::iaEVENT</a> (WindowCloseEvent, WindowCloseDelegate,(),())</td></tr>
+<tr class="separator:a64fcbcb08a8df3c83b8404af6b698982"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae209bf0a9f37a2a36aaa96fadbd073f2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ae209bf0a9f37a2a36aaa96fadbd073f2">igor::iaEVENT</a> (WindowResizeEvent, WindowResizeDelegate,(<a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> clientWidth, <a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> clientHeight),(clientWidth, clientHeight))</td></tr>
+<tr class="separator:ae209bf0a9f37a2a36aaa96fadbd073f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

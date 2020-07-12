@@ -44,7 +44,7 @@ namespace igor
 
 	void iConfigReader::readLoggingConfig(TiXmlElement *logging)
 	{
-		TiXmlElement *logLevel = logging->FirstChildElement("LogLevel");
+		TiXmlElement *logLevel = logging->FirstChildElement("iaLogLevel");
 		if (logLevel != nullptr)
 		{
 			TiXmlNode *text = logLevel->FirstChild();
@@ -54,31 +54,31 @@ namespace igor
 
 				if (level == "Assert")
 				{
-					iaConsole::getInstance().setLogLevel(LogLevel::Fatal);
+					iaConsole::getInstance().setLogLevel(iaLogLevel::Fatal);
 				}
 				else if (level == "Error")
 				{
-					iaConsole::getInstance().setLogLevel(LogLevel::Error);
+					iaConsole::getInstance().setLogLevel(iaLogLevel::Error);
 				}
 				else if (level == "Warning")
 				{
-					iaConsole::getInstance().setLogLevel(LogLevel::Warning);
+					iaConsole::getInstance().setLogLevel(iaLogLevel::Warning);
 				}
 				else if (level == "Info")
 				{
-					iaConsole::getInstance().setLogLevel(LogLevel::Info);
+					iaConsole::getInstance().setLogLevel(iaLogLevel::Info);
 				}
 				else if (level == "DebugInfo")
 				{
-					iaConsole::getInstance().setLogLevel(LogLevel::DebugInfo);
+					iaConsole::getInstance().setLogLevel(iaLogLevel::DebugInfo);
 				}
 				else if (level == "Debug")
 				{
-					iaConsole::getInstance().setLogLevel(LogLevel::Debug);
+					iaConsole::getInstance().setLogLevel(iaLogLevel::Debug);
 				}
 				else if (level == "Trace")
 				{
-					iaConsole::getInstance().setLogLevel(LogLevel::Trace);
+					iaConsole::getInstance().setLogLevel(iaLogLevel::Trace);
 				}
 			}
 		}

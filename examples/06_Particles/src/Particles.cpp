@@ -1,80 +1,16 @@
+// Igor game engine
+// (c) Copyright 2012-2020 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "Particles.h"
 
-#include <igor/resources/material/iMaterial.h>
-#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
-#include <igor/threading/iTaskManager.h>
-#include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/scene/nodes/iNodeModel.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/graphics/iRenderer.h>
-#include <igor/system/iApplication.h>
-#include <igor/scene/iSceneFactory.h>
-#include <igor/scene/iScene.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/system/iMouse.h>
-#include <igor/system/iKeyboard.h>
-#include <igor/system/iTimer.h>
-#include <igor/resources/texture/iTextureFont.h>
-#include <igor/scene/nodes/iNodeLight.h>
-#include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/threading/tasks/iTaskFlushModels.h>
-#include <igor/threading/tasks/iTaskFlushTextures.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/profiler/iProfiler.h>
-#include <igor/scene/nodes/iNodeSwitch.h>
-#include <igor/scene/nodes/iNodeLODSwitch.h>
-#include <igor/scene/nodes/iNodeLODTrigger.h>
-#include <igor/scene/nodes/iNodeParticleSystem.h>
-#include <igor/scene/nodes/iNodeEmitter.h>
-#include <iaux/data/iaGradient.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
-using namespace igor;
-
-#include <iaux/system/iaConsole.h>
-#include <iaux/data/iaString.h>
-using namespace iaux;
-
-Particles::Particles()
+Particles::Particles(iWindow *window)
+    : ExampleBase(window, "Particles")
 {
-    init();
 }
 
-Particles::~Particles()
+void Particles::onInit()
 {
-    deinit();
-}
-
-void Particles::init()
-{
-    con(" -- 3D Example --" << endl);
-
-    // setup window
-    _window.setTitle("Igor - Particles");
-    _window.setClientSize(1024, 768);
-    _window.setCentered();
-    _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &Particles::onWindowClosed));
-    _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &Particles::onWindowResized));
-
-    // setup perspective view
-    _view.setClearColor(iaColor4f(0.25f, 0.25f, 0.25f, 1));
-    _view.setPerspective(45);
-    _view.setClipPlanes(0.1f, 10000.f);
-    _window.addView(&_view);
-
-    // setup orthogonal view
-    _viewOrtho.setClearColor(false);
-    _viewOrtho.setClearDepth(false);
-    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
-    _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &Particles::onRenderOrtho));
-    _window.addView(&_viewOrtho);
-
-    _window.open();
-
-    // init scene
-    _scene = iSceneFactory::getInstance().createScene();
-    // bind scene to perspective view
-    _view.setScene(_scene);
-
     // setup camera
     // we want a camera which can be rotated arround the origin
     // we will acchive that with 3 transform nodes
@@ -102,7 +38,7 @@ void Particles::init()
     camera->setName("camera");
     // and build everything together
     // first we add the heading to the root node
-    _scene->getRoot()->insertNode(cameraHeading);
+    getScene()->getRoot()->insertNode(cameraHeading);
     // than the pitch to the heading node
     cameraHeading->insertNode(cameraPitch);
     // then the translation to the pitch node
@@ -111,7 +47,7 @@ void Particles::init()
     cameraTranslation->insertNode(camera);
     // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a
     // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
-    _view.setCurrentCamera(camera->getID());
+    getView().setCurrentCamera(camera->getID());
 
     // set up a meterial for the particles
     _particlesMaterial = iMaterialResourceFactory::getInstance().createMaterial();
@@ -132,27 +68,9 @@ void Particles::init()
     createFontainParticleSystem();
     createFireParticleSystem();
 
-    // init render statistics
-    _font = new iTextureFont("StandardFont.png");
-    _profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
-
     // animation
     _animationTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &Particles::onTimer), iaTime::fromMilliseconds(100));
     _animationTimingHandle->start();
-
-    _taskFlushTexturesID = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
-
-    // init igor logo
-    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
-    _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-
-    // register some callbacks
-    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &Particles::onKeyPressed));
-    iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Particles::onMouseMoved));
-    iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &Particles::onMouseWheel));
 }
 
 void Particles::createWaveParticleSystem()
@@ -189,7 +107,7 @@ void Particles::createWaveParticleSystem()
     particleSystem->setStartVisibleTimeGradient(visibility);
     particleSystem->setStartSizeGradient(size);
     particleSystem->setEmissionGradient(emission);
-    _scene->getRoot()->insertNode(particleSystem);
+    getScene()->getRoot()->insertNode(particleSystem);
     particleSystem->start();
 
     // create an mesh emitter with the shape of a cos wave
@@ -225,7 +143,7 @@ void Particles::createWaveParticleSystem()
     _waveEmitterTransformID = emitterTransform->getID();
     emitterTransform->translate(-60, 15, -15);
     emitterTransform->insertNode(emitter);
-    _scene->getRoot()->insertNode(emitterTransform);
+    getScene()->getRoot()->insertNode(emitterTransform);
 }
 
 void Particles::createFireParticleSystem()
@@ -263,7 +181,7 @@ void Particles::createFireParticleSystem()
     particleSystem->setVorticityConfinement(0.05f);
     particleSystem->setVortexRange(10.0f, 15.0f);
     particleSystem->setVortexToParticleRate(0.05f);
-    _scene->getRoot()->insertNode(particleSystem);
+    getScene()->getRoot()->insertNode(particleSystem);
     particleSystem->start();
 
     iNodeEmitter *emitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
@@ -274,7 +192,7 @@ void Particles::createFireParticleSystem()
     iNodeTransform *transform = iNodeManager::getInstance().createNode<iNodeTransform>();
     transform->translate(-2, -4, 40);
     transform->insertNode(emitter);
-    _scene->getRoot()->insertNode(transform);
+    getScene()->getRoot()->insertNode(transform);
 }
 
 void Particles::createFontainParticleSystem()
@@ -317,7 +235,7 @@ void Particles::createFontainParticleSystem()
     particleSystem->setStartLiftGradient(lift);
     particleSystem->setAirDrag(0.985f);
     particleSystem->setPeriodTime(2.0f);
-    _scene->getRoot()->insertNode(particleSystem);
+    getScene()->getRoot()->insertNode(particleSystem);
     particleSystem->start();
 
     iNodeEmitter *emitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
@@ -329,7 +247,7 @@ void Particles::createFontainParticleSystem()
     transform->translate(-30, 12, 40);
     transform->rotate(-0.25 * M_PI, iaAxis::Z);
     transform->insertNode(emitter);
-    _scene->getRoot()->insertNode(transform);
+    getScene()->getRoot()->insertNode(transform);
 }
 
 void Particles::createRingParticleSystem()
@@ -367,7 +285,7 @@ void Particles::createRingParticleSystem()
     circleParticleSystem->setStartSizeGradient(startSize);
     circleParticleSystem->setStartOrientationRateGradient(startOrientationRate);
     circleParticleSystem->setPeriodTime(4.0f);
-    _scene->getRoot()->insertNode(circleParticleSystem);
+    getScene()->getRoot()->insertNode(circleParticleSystem);
     circleParticleSystem->start();
 
     iNodeEmitter *circleEmitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
@@ -380,7 +298,7 @@ void Particles::createRingParticleSystem()
     circleEmitterTransform->translate(-30, 0, 40);
     circleEmitterTransform->rotate(-0.5 * M_PI, iaAxis::Z);
     circleEmitterTransform->insertNode(circleEmitter);
-    _scene->getRoot()->insertNode(circleEmitterTransform);
+    getScene()->getRoot()->insertNode(circleEmitterTransform);
 }
 
 void Particles::createSmokeParticleSystem()
@@ -431,7 +349,7 @@ void Particles::createSmokeParticleSystem()
     particleSystem->setStartVisibleTimeGradient(smokeVisibility);
     particleSystem->setEmissionGradient(emission);
     particleSystem->setStartLiftGradient(lift);
-    _scene->getRoot()->insertNode(particleSystem);
+    getScene()->getRoot()->insertNode(particleSystem);
     particleSystem->start();
 
     iNodeEmitter *smokeEmitter = iNodeManager::getInstance().createNode<iNodeEmitter>();
@@ -442,7 +360,7 @@ void Particles::createSmokeParticleSystem()
     iNodeTransform *smokeEmitterTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     smokeEmitterTransform->translate(35, 0, 30);
     smokeEmitterTransform->insertNode(smokeEmitter);
-    _scene->getRoot()->insertNode(smokeEmitterTransform);
+    getScene()->getRoot()->insertNode(smokeEmitterTransform);
 }
 
 void Particles::createDotParticleSystem()
@@ -533,130 +451,37 @@ void Particles::createDotParticleSystem()
     iNodeTransform *dotEmitterTransform = iNodeManager::getInstance().createNode<iNodeTransform>();
     dotEmitterTransform->translate(20, 0, 20);
 
-    _scene->getRoot()->insertNode(particleSystem);
-    _scene->getRoot()->insertNode(particleSystem2);
+    getScene()->getRoot()->insertNode(particleSystem);
+    getScene()->getRoot()->insertNode(particleSystem2);
 
     dotEmitterTransform->insertNode(dotEmitter);
-    _scene->getRoot()->insertNode(dotEmitterTransform);
+    getScene()->getRoot()->insertNode(dotEmitterTransform);
 }
 
-void Particles::deinit()
+void Particles::onDeinit()
 {
-    // unregister some callbacks
-    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &Particles::onKeyPressed));
-    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Particles::onMouseMoved));
-    iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &Particles::onMouseWheel));
-    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Particles::onWindowClosed));
-    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Particles::onWindowResized));
-    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &Particles::onRenderOrtho));
-
-    // deinit statistics
-    if (_font != nullptr)
-    {
-        delete _font;
-        _font = nullptr;
-    }
-
-    _igorLogo = nullptr;
-
     // stop light animation
     if (_animationTimingHandle)
     {
         delete _animationTimingHandle;
         _animationTimingHandle = nullptr;
     }
-
-    iTaskManager::getInstance().getTask(_taskFlushTexturesID)->abort();
-
-    iSceneFactory::getInstance().destroyScene(_scene);
-    _scene = nullptr;
-
-    if (_window.isOpen())
-    {
-        _window.close();
-        _window.removeView(&_view);
-        _window.removeView(&_viewOrtho);
-    }
 }
 
-void Particles::onMouseWheel(int32 d)
+void Particles::onEvent(iEvent &event)
 {
-    iNodeTransform *camTranslation = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraTranslation));
-    if (camTranslation != nullptr)
-    {
-        if (d < 0)
-        {
-            camTranslation->translate(0, 0, 10);
-        }
-        else
-        {
-            camTranslation->translate(0, 0, -10);
-        }
-    }
+    // first call example base
+    ExampleBase::onEvent(event);
+
+    event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(Particles::onKeyDown));
+    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(Particles::onMouseMoveEvent));
+    event.dispatch<iEventMouseWheel>(IGOR_BIND_EVENT_FUNCTION(Particles::onMouseWheelEvent));
 }
 
-void Particles::onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *_window)
+bool Particles::onKeyDown(iEventKeyDown &event)
 {
-    if (iMouse::getInstance().getLeftButton())
+    switch (event.getKey())
     {
-        iNodeTransform *cameraPitch = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraPitch));
-        iNodeTransform *cameraHeading = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraHeading));
-
-        if (cameraPitch != nullptr &&
-            cameraHeading != nullptr)
-        {
-            cameraPitch->rotate((to._y - from._y) * 0.005f, iaAxis::X);
-            cameraHeading->rotate((from._x - to._x) * 0.005f, iaAxis::Y);
-
-            iMouse::getInstance().setCenter();
-        }
-    }
-}
-
-void Particles::onWindowClosed()
-{
-    iApplication::getInstance().stop();
-}
-
-void Particles::onWindowResized(int32 clientWidth, int32 clientHeight)
-{
-    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(clientWidth), static_cast<float32>(clientHeight), 0);
-}
-
-void Particles::onKeyPressed(iKeyCode key)
-{
-    switch (key)
-    {
-    case iKeyCode::ESC:
-        iApplication::getInstance().stop();
-        break;
-
-    case iKeyCode::F8:
-        _profilerVisualizer.cycleVerbosity();
-        break;
-
-    case iKeyCode::F9:
-    {
-        iNodeVisitorPrintTree printTree;
-        if (_scene != nullptr)
-        {
-            printTree.printToConsole(_scene->getRoot());
-        }
-    }
-    break;
-
-    case iKeyCode::F10:
-        _view.setWireframeVisible(!_view.isWireframeVisible());
-        break;
-
-    case iKeyCode::F11:
-        _view.setOctreeVisible(!_view.isOctreeVisible());
-        break;
-
-    case iKeyCode::F12:
-        _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
-        break;
-
     case iKeyCode::Space:
         for (auto particleSystemID : _particleSystemIDs)
         {
@@ -673,7 +498,7 @@ void Particles::onKeyPressed(iKeyCode key)
                 }
             }
         }
-        break;
+        return true;
 
     case iKeyCode::R:
         for (auto particleSystemID : _particleSystemIDs)
@@ -684,8 +509,53 @@ void Particles::onKeyPressed(iKeyCode key)
                 circleParticleSystem->reset();
             }
         }
-        break;
+        return true;
     }
+
+    return false;
+}
+
+bool Particles::onMouseMoveEvent(iEventMouseMove &event)
+{
+    if (iMouse::getInstance().getLeftButton())
+    {
+        const auto from = event.getLastPosition();
+        const auto to = event.getPosition();
+
+        iNodeTransform *cameraPitch = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraPitch));
+        iNodeTransform *cameraHeading = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraHeading));
+
+        if (cameraPitch != nullptr &&
+            cameraHeading != nullptr)
+        {
+            cameraPitch->rotate((to._y - from._y) * 0.005f, iaAxis::X);
+            cameraHeading->rotate((from._x - to._x) * 0.005f, iaAxis::Y);
+
+            iMouse::getInstance().setCenter();
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
+bool Particles::onMouseWheelEvent(iEventMouseWheel &event)
+{
+    iNodeTransform *camTranslation = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraTranslation));
+    if (camTranslation != nullptr)
+    {
+        if (event.getWheelDelta() < 0)
+        {
+            camTranslation->translate(0, 0, 10);
+        }
+        else
+        {
+            camTranslation->translate(0, 0, -10);
+        }
+    }
+
+    return true;
 }
 
 void Particles::onTimer()
@@ -708,26 +578,5 @@ void Particles::onRenderOrtho()
     modelMatrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
 
-    drawLogo();
-
-    // draw frame rate in lower right corner
-    _profilerVisualizer.draw(&_window, _font, iaColor4f(0, 1, 0, 1));
-}
-
-void Particles::drawLogo()
-{
-    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-
-    float32 width = static_cast<float32>(_igorLogo->getWidth());
-    float32 height = static_cast<float32>(_igorLogo->getHeight());
-    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
-    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
-
-    iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
-}
-
-void Particles::run()
-{
-    iApplication::getInstance().run();
+    ExampleBase::onRenderOrtho();
 }

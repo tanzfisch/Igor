@@ -24,7 +24,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
 #ifndef __iCAMERA__
 #define __iCAMERA__
@@ -96,6 +96,10 @@ namespace igor
 		*/
         virtual ~iNodeCamera();
     };
+
+    /*! camera node pointer definition
+    */
+    typedef iNodeCamera *iNodeCameraPtr;
 
 }; // namespace igor
 

@@ -24,16 +24,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iWINDOW__
-#define __iWINDOW__
+#ifndef __IGOR_WINDOW_H__
+#define __IGOR_WINDOW_H__
 
 #include <igor/iDefines.h>
 
 #include <iaux/system/iaEvent.h>
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaMutex.h>
+#include <iaux/system/iaDelegate.h>
+#include <iaux/data/iaIDGenerator.h>
 using namespace iaux;
 
 #include <vector>
@@ -46,15 +48,19 @@ namespace igor
 
     /*! window close event
     */
-    iaEVENT(WindowCloseEvent, WindowCloseDelegate, void, (), ());
+    iaEVENT(WindowCloseEvent, WindowCloseDelegate, (), ());
 
     /*! window resize event
     */
-    iaEVENT(WindowResizeEvent, WindowResizeDelegate, void, (int32 clientWidth, int32 clientHeight), (clientWidth, clientHeight));
+    iaEVENT(WindowResizeEvent, WindowResizeDelegate, (int32 clientWidth, int32 clientHeight), (clientWidth, clientHeight));
 
     /*! render context pointer definition
     */
     typedef void *iRenderContextPtr;
+
+    /*! window id definition
+    */
+    typedef iaID64 iWindowID;
 
     /*! application window
 
@@ -68,17 +74,13 @@ namespace igor
         friend class iWindowImpl;
 
     public:
-        /*! ctor
-
-        initializes all member variables and registeres os event listeners
+        /*! invalid node id definition
         */
-        iWindow();
+        static const iWindowID INVALID_WINDOW_ID = IGOR_INVALID_ID;
 
-        /*! dtor
-
-        unregisteres os event listeners
+        /*! \returns id of the window
         */
-        virtual ~iWindow();
+        iWindowID getID() const;
 
         /*! sets if the window understands double clicks
 
@@ -259,6 +261,14 @@ namespace igor
         */
         iWindowImpl *_impl = nullptr;
 
+        /*! id of this node
+        */
+        iWindowID _windowID = iWindow::INVALID_WINDOW_ID;
+
+        /*! the next window id
+        */
+        static iaIDGenerator64 _idGenerator;
+
         /*! list of views
         */
         std::vector<iView *> _views;
@@ -328,8 +338,24 @@ namespace igor
         /*! draws contend of view in to the window
         */
         void draw();
+
+        /*! ctor
+
+        initializes all member variables and registeres os event listeners
+        */
+        iWindow();
+
+        /*! dtor
+
+        unregisteres os event listeners
+        */
+        virtual ~iWindow();
     };
+
+    /*! the window pointer definition
+    */
+    typedef iWindow *iWindowPtr;
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_WINDOW_H__

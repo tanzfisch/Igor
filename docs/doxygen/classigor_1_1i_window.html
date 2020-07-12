@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.27.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.28.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -111,6 +111,7 @@ $(document).ready(function(){initNavTree('classigor_1_1i_window.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="classigor_1_1i_window-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -122,10 +123,8 @@ $(document).ready(function(){initNavTree('classigor_1_1i_window.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a19729b32b3c71f313ceca23a13d6be5a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_window.html#a19729b32b3c71f313ceca23a13d6be5a">iWindow</a> ()</td></tr>
-<tr class="separator:a19729b32b3c71f313ceca23a13d6be5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6c977406e35b79ded1033d45c354a38"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_window.html#ae6c977406e35b79ded1033d45c354a38">~iWindow</a> ()</td></tr>
-<tr class="separator:ae6c977406e35b79ded1033d45c354a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30661a02c5b3a26d6d912ff1d2a666a2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#ac25fdc3f015adfdbc85c6d869b7d6072">iWindowID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_window.html#a30661a02c5b3a26d6d912ff1d2a666a2">getID</a> () const </td></tr>
+<tr class="separator:a30661a02c5b3a26d6d912ff1d2a666a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:accb5701fab9164e0b5ebe75ffe2b0659"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_window.html#accb5701fab9164e0b5ebe75ffe2b0659">setDoubleClick</a> (bool doubleClick)</td></tr>
 <tr class="separator:accb5701fab9164e0b5ebe75ffe2b0659"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5acdfd7d1f4763c70e60d959b485018"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_window.html#af5acdfd7d1f4763c70e60d959b485018">getDoubleClick</a> () const </td></tr>
@@ -193,6 +192,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7c956c3826dbbce0af8e551593a44443"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_window.html#a7c956c3826dbbce0af8e551593a44443">unregisterWindowResizeDelegate</a> (WindowResizeDelegate windowResizeDelegate)</td></tr>
 <tr class="separator:a7c956c3826dbbce0af8e551593a44443"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:aee82da87b5c581d3e7680e2bee0e5c61"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceigor.html#ac25fdc3f015adfdbc85c6d869b7d6072">iWindowID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_window.html#aee82da87b5c581d3e7680e2bee0e5c61">INVALID_WINDOW_ID</a> = <a class="el" href="ia_defines_8h.html#a170c60feb8221523e337b3cc009848f5">IGOR_INVALID_ID</a></td></tr>
+<tr class="separator:aee82da87b5c581d3e7680e2bee0e5c61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:ac95e62eb30700f633cc8c60341f159f6"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_window.html#ac95e62eb30700f633cc8c60341f159f6">iApplication</a></td></tr>
@@ -204,51 +208,7 @@ Friends</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>application window</p>
-<dl><dt><b>Examples: </b></dt><dd><a class="el" href="_mouse_2src_2_mouse_example_8cpp-example.html#_a0">Mouse/src/MouseExample.cpp</a>, <a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#_a10">Physics/src/PhysicsExample.cpp</a>, and <a class="el" href="_state_machine_2src_2_state_machine_example_8cpp-example.html#_a0">StateMachine/src/StateMachineExample.cpp</a>.</dd>
-</dl></div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a19729b32b3c71f313ceca23a13d6be5a"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">igor::iWindow::iWindow </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>ctor</p>
-<p>initializes all member variables and registeres os event listeners </p>
-
-</div>
-</div>
-<a class="anchor" id="ae6c977406e35b79ded1033d45c354a38"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">igor::iWindow::~iWindow </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>dtor</p>
-<p>unregisteres os event listeners </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a class="anchor" id="a83ce855b123665aadc775e9e22e5179a"></a>
 <div class="memitem">
 <div class="memproto">
@@ -409,6 +369,22 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>height of window </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a30661a02c5b3a26d6d912ff1d2a666a2"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#ac25fdc3f015adfdbc85c6d869b7d6072">iWindowID</a> igor::iWindow::getID </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>id of the window </dd></dl>
 
 </div>
 </div>
@@ -1003,6 +979,28 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="aee82da87b5c581d3e7680e2bee0e5c61"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespaceigor.html#ac25fdc3f015adfdbc85c6d869b7d6072">iWindowID</a> igor::iWindow::INVALID_WINDOW_ID = <a class="el" href="ia_defines_8h.html#a170c60feb8221523e337b3cc009848f5">IGOR_INVALID_ID</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>invalid node id definition </p>
 
 </div>
 </div>

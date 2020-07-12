@@ -5,7 +5,7 @@
 #include <igor/ui/widgets/iWidgetButton.h>
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/theme/iWidgetBaseTheme.h>
+#include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 
@@ -15,7 +15,7 @@ using namespace iaux;
 namespace igor
 {
     iWidgetButton::iWidgetButton(const iWidgetPtr parent)
-        : iWidget(parent)
+        : iWidget(iWidgetType::iWidgetButton, iWidgetKind::Widget, parent)
     {
         _configuredHeight = 10;
         _configuredWidth = 20;
@@ -25,11 +25,6 @@ namespace igor
     iWidgetButton::~iWidgetButton()
     {
         _texture = nullptr;
-    }
-
-    iWidgetType iWidgetButton::getWidgetType() const
-    {
-        return iWidgetType::iWidgetButton;
     }
 
     void iWidgetButton::setText(const iaString &text)

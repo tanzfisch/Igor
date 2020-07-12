@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iDIALOGCOLORCHOOSER__
-#define __iDIALOGCOLORCHOOSER__
+#ifndef __IGOR_DIALOGCOLORCHOOSER_H__
+#define __IGOR_DIALOGCOLORCHOOSER_H__
 
 #include <igor/ui/dialogs/iDialog.h>
 
@@ -50,15 +50,11 @@ namespace igor
 	public:
 		/*! does nothing
 		*/
-		iDialogColorChooser() = default;
+		iDialogColorChooser(const iWidgetPtr parent = nullptr);
 
 		/*! does nothing
         */
 		~iDialogColorChooser() = default;
-
-		/*! \returns the widgets type
-        */
-		virtual iWidgetType getWidgetType() const override;
 
 		/*! show/open the decision box
 
@@ -121,4 +117,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_DIALOGCOLORCHOOSER_H__

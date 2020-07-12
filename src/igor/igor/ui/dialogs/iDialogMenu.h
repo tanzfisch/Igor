@@ -24,22 +24,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iDIALOG_MENU__
-#define __iDIALOG_MENU__
+#ifndef __IGOR_DIALOGMENU_H__
+#define __IGOR_DIALOGMENU_H__
 
 #include <igor/ui/dialogs/iDialog.h>
+#include <igor/ui/actions/iAction.h>
+#include <igor/ui/widgets/iWidgetGrid.h>
+#include <igor/ui/widgets/iWidgetMenu.h>
 
 namespace igor
 {
-
-    class iWidgetGrid;
-    typedef iWidgetGrid *iWidgetGridPtr;
-    class iWidgetMenu;
-    typedef iWidgetMenu *iWidgetMenuPtr;
-    class iAction;
-    typedef iAction *iActionPtr;
 
     /*! menu dialog
 
@@ -51,17 +47,15 @@ namespace igor
         friend class iWidgetMenu;
 
     public:
-        /*! does nothing
+        /*! init members
+
+		\param parent the parent of this widget
 		*/
-        iDialogMenu();
+        iDialogMenu(const iWidgetPtr parent = nullptr);
 
         /*! deinitializes gui
 		*/
         virtual ~iDialogMenu() = default;
-
-        /*! \returns the widgets type
-        */
-        virtual iWidgetType getWidgetType() const override;
 
         /*! adds action to menu
 
@@ -70,7 +64,7 @@ namespace igor
 
         \param action the action to be added
         */
-        void addAction(const iActionPtr action);
+        void addAction(const iActionPtr action, const iActionContextPtr context = nullptr);
 
         /*! same as add actions just by action name
 
@@ -78,7 +72,7 @@ namespace igor
 
         \param actionName name of the action to be added
         */
-        void addAction(const iaString &actionName);
+        void addAction(const iaString &actionName, const iActionContextPtr context = nullptr);
 
         /*! adds a menu to the menu
 
@@ -118,4 +112,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_DIALOGMENU_H__

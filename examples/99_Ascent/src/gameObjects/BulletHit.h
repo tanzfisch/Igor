@@ -15,7 +15,7 @@ class BulletHit : public GameObject
 {
 
 public:
-    BulletHit(iScene *scene, const iaMatrixd &matrix);
+    BulletHit(iScenePtr scene, const iaMatrixd &matrix);
     virtual ~BulletHit();
 
 private:

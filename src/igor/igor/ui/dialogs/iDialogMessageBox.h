@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iDIALOGMESSAGEBOX__
-#define __iDIALOGMESSAGEBOX__
+#ifndef __IGOR_DIALOGMESSAGEBOX_H__
+#define __IGOR_DIALOGMESSAGEBOX_H__
 
 #include <igor/ui/dialogs/iDialog.h>
 
@@ -54,17 +54,15 @@ namespace igor
 	{
 
 	public:
-		/*! does nothing
+		/*! init members
+
+		\param parent the parent of this widget
 		*/
-		iDialogMessageBox() = default;
+		iDialogMessageBox(const iWidgetPtr parent = nullptr);
 
 		/*! deinitializes gui
 		*/
 		~iDialogMessageBox() = default;
-
-		/*! \returns the widgets type
-        */
-		virtual iWidgetType getWidgetType() const override;
 
 		/*! initializes gui and opens the message box dialog
 
@@ -109,4 +107,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_DIALOGMESSAGEBOX_H__

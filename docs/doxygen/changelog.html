@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.27.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.28.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -105,7 +105,30 @@ $(document).ready(function(){initNavTree('changelog.html','');});
 <div class="title">Changelog </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h2>0.27.0 </h2>
+<div class="textblock"><h2>0.28.0 </h2>
+<p>This is probably less stable than previous versions but I really needed to get this out before it get's even bigger.</p>
+<ul>
+<li>fixed how menus behave</li>
+<li>improved console output</li>
+<li>made instancing and the instancing example work again <div class="image">
+<img src="Instancing.png" alt="Instancing.png"/>
+<div class="caption">
+instancing</div></div>
+</li>
+<li>surpressing auto key repeat under Linux</li>
+<li>created an example base class for quicker prototyping</li>
+<li>iaBSpline is a template now</li>
+<li>fixed problem with setting transformations dirty down the tree</li>
+<li>mapping thread IDs to igor internal IDs for more usefull logging output</li>
+<li>fixed left and right audio channel being swapped</li>
+<li>ALSA required on Linux</li>
+<li>added regex to iaString</li>
+<li>intruduced layer and layer-stack</li>
+<li>introduced new queueable events and replaced some of the old ones osing event/delegate</li>
+<li>killed the state machine example</li>
+<li>some improvements arround mouse handling in widgets</li>
+</ul>
+<h2>0.27.0 </h2>
 <ul>
 <li>sound support using OpenAL Soft (www.openal-soft.org/) including audio listener and audio source nodes (see usage in sound example)</li>
 <li>introduced ExampleBase class for prototyping</li>
@@ -170,7 +193,7 @@ sprite animation</div></div>
 <li>Ownership of widgets transfers to the engine the moment they are children of a dialog</li>
 <li>Sdded mesh to world bake functionality</li>
 <li>Removed all using namesapce std;</li>
-<li>Sdded some keyboard shortcuts to ModelViewer<ul>
+<li>Added some keyboard shortcuts to ModelViewer<ul>
 <li>Ctrl + N - clear scene</li>
 <li>Del - deletes current selection</li>
 <li>Ctrl + D - duplicates current selection</li>
@@ -249,7 +272,7 @@ Introduction of tooltips</div></div>
 </ul>
 <h2>0.16.0 </h2>
 <ul>
-<li>Adding <a class="el" href="tutorials.html">tutorials</a> to doxygen documentation</li>
+<li>Adding tutorials to doxygen documentation</li>
 <li>Changing doxygen style</li>
 <li>Generall update of docs</li>
 </ul>

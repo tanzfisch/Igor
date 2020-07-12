@@ -19,9 +19,6 @@ var dir_7f0d9348238f33d98ceb7d53da417968 =
     [ "iaMemBlockControl.h", "ia_mem_block_control_8h.html", [
       [ "iaMemBlockControl", "classiaux_1_1ia_mem_block_control.html", "classiaux_1_1ia_mem_block_control" ]
     ] ],
-    [ "iaRingQueue.h", "ia_ring_queue_8h.html", [
-      [ "iaRingQueue", "classiaux_1_1ia_ring_queue.html", "classiaux_1_1ia_ring_queue" ]
-    ] ],
     [ "iaRLE.h", "ia_r_l_e_8h.html", [
       [ "iaRLEBlock", "structiaux_1_1ia_r_l_e_block.html", "structiaux_1_1ia_r_l_e_block" ],
       [ "iaRLE", "classiaux_1_1ia_r_l_e.html", "classiaux_1_1ia_r_l_e" ]

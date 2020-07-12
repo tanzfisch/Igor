@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iWIDGETNUMBERCHOOSER__
-#define __iWIDGETNUMBERCHOOSER__
+#ifndef __IGOR_WIDGETNUMBERCHOOSER_H__
+#define __IGOR_WIDGETNUMBERCHOOSER_H__
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -52,10 +52,6 @@ namespace igor
 		/*! does nothing
 		*/
 		virtual ~iWidgetNumberChooser() = default;
-
-		/*! \returns the widgets type
-        */
-		virtual iWidgetType getWidgetType() const override;
 
 		/*! sets post fix that will be displayed right after the number
 
@@ -229,4 +225,4 @@ namespace igor
 	};
 } // namespace igor
 
-#endif
+#endif // __IGOR_WIDGETNUMBERCHOOSER_H__

@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iDIALOGDECISIONBOX__
-#define __iDIALOGDECISIONBOX__
+#ifndef __IGOR_DIALOGDECISIONBOX_H__
+#define __IGOR_DIALOGDECISIONBOX_H__
 
 #include <igor/ui/dialogs/iDialog.h>
 
@@ -47,15 +47,11 @@ namespace igor
 	public:
 		/*! does nothing
 		*/
-		iDialogDecisionBox() = default;
+		iDialogDecisionBox(const iWidgetPtr parent = nullptr);
 
 		/*! deinitializes gui
 		*/
 		~iDialogDecisionBox() = default;
-
-		/*! \returns the widgets type
-        */
-		virtual iWidgetType getWidgetType() const override;
 
 		/*! show/open the decision box
 
@@ -94,6 +90,10 @@ namespace igor
 		void initGUI(const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection);
 	};
 
+	/*! dialog decision box pointer definition
+	*/
+	typedef iDialogDecisionBox *iDialogDecisionBoxPtr;
+
 } // namespace igor
 
-#endif
+#endif // __IGOR_DIALOGDECISIONBOX_H__

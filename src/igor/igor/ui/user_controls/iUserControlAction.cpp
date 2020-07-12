@@ -16,14 +16,9 @@ namespace igor
 {
 
     iUserControlAction::iUserControlAction(const iWidgetPtr parent)
-        : iUserControl(parent)
+        : iUserControl(iWidgetType::iUserControlAction, parent)
     {
         init();
-    }
-
-    iWidgetType iUserControlAction::getWidgetType() const
-    {
-        return iWidgetType::iUserControlAction;
     }
 
     void iUserControlAction::init()
@@ -32,7 +27,7 @@ namespace igor
 
         iWidgetGridPtr actionGrid = new iWidgetGrid(this);
         actionGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-        actionGrid->appendCollumns(1);
+        actionGrid->appendColumns(1);
         actionGrid->setStrechColumn(1);
 
         _picture = new iWidgetPicture();
@@ -51,14 +46,12 @@ namespace igor
 
     void iUserControlAction::onClick(const iWidgetPtr source)
     {
-        iActionPtr action = getAction();
-
-        if (action == nullptr)
+        if (_action == nullptr)
         {
             return;
         }
 
-        action->execute();
+        _action->execute(*_actionContext);
     }
 
     void iUserControlAction::setFixedPictureSize(bool value)
@@ -75,9 +68,7 @@ namespace igor
 
     void iUserControlAction::update()
     {
-        iActionPtr action = iActionManager::getInstance().getAction(_actionID);
-
-        if (action == nullptr)
+        if (_action == nullptr)
         {
             _textLabel->setText("");
             _picture->setTexture("");
@@ -86,8 +77,8 @@ namespace igor
         }
         else
         {
-            _textLabel->setText(action->getText());
-            _picture->setTexture(action->getPicturePath());
+            _textLabel->setText(_action->getDescription());
+            _picture->setTexture(_action->getPicturePath());
             if (_picture->hasTexture())
             {
                 _picture->setSize(16, 16);
@@ -101,23 +92,28 @@ namespace igor
         }
     }
 
-    void iUserControlAction::setAction(const iActionPtr action)
+    void iUserControlAction::setAction(const iActionPtr action, const iActionContextPtr context)
     {
-        con_assert(action != nullptr, "zero pointer");
-
-        if (action == nullptr)
+        if (!iActionManager::getInstance().isRegistered(action))
         {
+            con_err("can't use unregistered action");
             return;
         }
 
-        _actionID = action->getID();
+        _action = action;
+        _actionContext = context;
 
         update();
     }
 
+    iActionContextPtr iUserControlAction::getActionContext() const
+    {
+        return _actionContext;
+    }
+
     iActionPtr iUserControlAction::getAction() const
     {
-        return iActionManager::getInstance().getAction(_actionID);
+        return _action;
     }
 
 } // namespace igor

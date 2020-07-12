@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iWIDGET__
-#define __iWIDGET__
+#ifndef __IGOR_WIDGET_H__
+#define __IGOR_WIDGET_H__
 
 #include <igor/iDefines.h>
 #include <igor/system/iMouse.h>
@@ -52,49 +52,49 @@ namespace igor
 
 	/*! widget click event
 	*/
-	iaEVENT(iClickEvent, iClickDelegate, void, (const iWidgetPtr source), (source));
+	iaEVENT(iClickEvent, iClickDelegate, (const iWidgetPtr source), (source));
 
 	/*! mouse off click event
 
 	so when there was a click outside the range of a widget
 	*/
-	iaEVENT(iMouseOffClickEvent, iMouseOffClickDelegate, void, (const iWidgetPtr source), (source));
+	iaEVENT(iMouseOffClickEvent, iMouseOffClickDelegate, (const iWidgetPtr source), (source));
 
 	/*! context menu event
 	*/
-	iaEVENT(iContextMenuEvent, iContextMenuDelegate, void, (const iWidgetPtr source), (source));
+	iaEVENT(iContextMenuEvent, iContextMenuDelegate, (const iWidgetPtr source), (source));
 
 	/*! wheel up event
 	*/
-	iaEVENT(iWheelUpEvent, iWheelUpDelegate, void, (const iWidgetPtr source), (source));
+	iaEVENT(iWheelUpEvent, iWheelUpDelegate, (const iWidgetPtr source), (source));
 
 	/*! wheel down event
 	*/
-	iaEVENT(iWheelDownEvent, iWheelDownDelegate, void, (const iWidgetPtr source), (source));
+	iaEVENT(iWheelDownEvent, iWheelDownDelegate, (const iWidgetPtr source), (source));
 
 	/*! double click event
 	*/
-	iaEVENT(iDoubleClickEvent, iDoubleClickDelegate, void, (const iWidgetPtr source), (source));
+	iaEVENT(iDoubleClickEvent, iDoubleClickDelegate, (const iWidgetPtr source), (source));
 
 	/*! mouse over event
 	*/
-	iaEVENT(iMouseOverEvent, iMouseOverDelegate, void, (const iWidgetPtr source), (source));
+	iaEVENT(iMouseOverEvent, iMouseOverDelegate, (const iWidgetPtr source), (source));
 
 	/*! mouse off event
 	*/
-	iaEVENT(iMouseOffEvent, iMouseOffDelegate, void, (const iWidgetPtr source), (source));
+	iaEVENT(iMouseOffEvent, iMouseOffDelegate, (const iWidgetPtr source), (source));
 
 	/*! change event
 	*/
-	iaEVENT(iChangeEvent, iChangeDelegate, void, (const iWidgetPtr source), (source));
+	iaEVENT(iChangeEvent, iChangeDelegate, (const iWidgetPtr source), (source));
 
 	/*! keyboard focus changed event
 	*/
-	iaEVENT(iFocusEvent, iFocusDelegate, void, (const iWidgetPtr source), (source));
+	iaEVENT(iFocusEvent, iFocusDelegate, (const iWidgetPtr source), (source));
 
 	/*! selection changed event
 	*/
-	iaEVENT(iSelectionChangedEvent, iSelectionChangedDelegate, void, (int32 index), (index));
+	iaEVENT(iSelectionChangedEvent, iSelectionChangedDelegate, (int32 index), (index));
 
 	/*! interaction state of widget
 	*/
@@ -162,6 +162,15 @@ namespace igor
 		iUndefinedType = 100
 	};
 
+	/*! defines the kind of widget
+	*/
+	enum class iWidgetKind
+	{
+		Widget,
+		UserControl,
+		Dialog
+	};
+
 	/*! GUI widget base class
 
 	coordinatesystems origin within widgets is the upper left corner with x positive to the right and y positive down
@@ -188,10 +197,12 @@ namespace igor
 
 	public:
 		/*! \returns the widgets type
-
-        if not implemented by widget it will return iUndefinedType
         */
-		virtual iWidgetType getWidgetType() const;
+		iWidgetType getWidgetType() const;
+
+		/*! \return the widgets kind
+		*/
+		iWidgetKind getWidgetKind() const;
 
 		/*! sets the z value which determines the render order of siglings
 
@@ -223,13 +234,13 @@ namespace igor
         */
 		iaColor4f getForeground() const;
 
-		/*! set wether events will be blocked or not
-
-        implementation needs to be overriden by deriving classes to make sure all additional events are blocked too
-
-        \param blockEvents if true events from this widget will be blocked
+		/*! blocks all outgoing events from this widget
         */
-		virtual void block(bool blockEvents);
+		virtual void blockEvents();
+
+		/*! unblocks all outgoing events from this widget
+        */
+		virtual void unblockEvents();
 
 		/*! @returns true if events on this widget are blocked
         */
@@ -691,7 +702,7 @@ namespace igor
 
         \param parent the optional parent
         */
-		iWidget(const iWidgetPtr parent = nullptr);
+		iWidget(iWidgetType type, iWidgetKind kind, const iWidgetPtr parent = nullptr);
 
 		/*! clean up
         */
@@ -789,6 +800,14 @@ namespace igor
 		iaVector2i getLastMousePos() const;
 
 	private:
+		/*! the widgets type
+		*/
+		iWidgetType _type;
+
+		/*! the widgets kind
+		*/
+		iWidgetKind _kind;
+
 		/*! tooltip timer
 		*/
 		iTimerHandle *_timerTooltip = nullptr;
@@ -944,4 +963,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_WIDGET_H__

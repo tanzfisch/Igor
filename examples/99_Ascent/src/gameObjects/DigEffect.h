@@ -14,7 +14,7 @@ class DigEffect : public GameObject
 {
 
 public:
-    DigEffect(iScene *scene, const iaMatrixd &matrix);
+    DigEffect(iScenePtr scene, const iaMatrixd &matrix);
     virtual ~DigEffect();
 
 private:

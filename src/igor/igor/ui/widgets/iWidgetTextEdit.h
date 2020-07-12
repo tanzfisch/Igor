@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iWIDGETTEXTEDIT__
-#define __iWIDGETTEXTEDIT__
+#ifndef __IGOR_WIDGETTEXTEDIT_H__
+#define __IGOR_WIDGETTEXTEDIT_H__
 
 #include <igor/ui/widgets/iWidget.h>
 
@@ -49,10 +49,6 @@ namespace igor
 		/*! deinitializes member variables
 		*/
 		virtual ~iWidgetTextEdit() = default;
-
-		/*! \returns the widgets type
-        */
-		virtual iWidgetType getWidgetType() const override;
 
 		/*! sets horrizotnal text aligment
 
@@ -219,4 +215,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_WIDGETTEXTEDIT_H__

@@ -68,7 +68,7 @@ namespace igor
         }
     }
 
-    iaMatrixd &iNodeRender::getWorldMatrix()
+    const iaMatrixd &iNodeRender::getWorldMatrix() const
     {
         return _worldMatrix;
     }

@@ -20,9 +20,9 @@ using namespace iaux;
 namespace igor
 {
 
-    iWidgetType iDialogColorChooser::getWidgetType() const
+    iDialogColorChooser::iDialogColorChooser(const iWidgetPtr parent)
+        : iDialog(iWidgetType::iDialogColorChooser, parent)
     {
-        return iWidgetType::iDialogColorChooser;
     }
 
     void iDialogColorChooser::open(iDialogCloseDelegate dialogCloseDelegate, const iaColor4f &color, bool useAlpha)
@@ -59,7 +59,7 @@ namespace igor
         _userControlColorChooser->setColor(color);
 
         iWidgetGrid *buttonGrid = new iWidgetGrid();
-        buttonGrid->appendCollumns(2);
+        buttonGrid->appendColumns(2);
         buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
 
         iWidgetButton *okButton = new iWidgetButton();

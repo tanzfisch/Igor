@@ -24,68 +24,32 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __EXAMPLE2D__
-#define __EXAMPLE2D__
+#ifndef __EXAMPLE2D_H__
+#define __EXAMPLE2D_H__
 
-#include <igor/system/iWindow.h>
-#include <igor/graphics/iView.h>
-#include <igor/simulation/iParticleSystem2D.h>
-#include <iaux/data/iaGradient.h>
-#include <igor/generation/iPerlinNoise.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/resources/profiler/iProfilerVisualizer.h>
-#include <igor/resources/texture/iTexture.h>
-using namespace igor;
-
-#include <iaux/math/iaMatrix.h>
-#include <iaux/math/iaVector2.h>
-#include <iaux/math/iaBSpline.h>
-#include <iaux/math/iaRandomNumberGenerator.h>
-using namespace iaux;
+#include <ExampleBase.h>
 
 #include <memory>
 
-namespace igor
-{
-    class iAtlas;
-    class iTextureFont;
-} // namespace igor
-
 /*! rendering 2d example
 */
-class Example2D
+class Example2D : public ExampleBase
 {
 
 public:
     /*! initializes the example
-    */
-    Example2D();
 
-    /*! deinitializes the example
+    \param window the given window
     */
-    virtual ~Example2D();
+    Example2D(iWindow *window);
 
-    /*! run the example
+    /*! does nothing
     */
-    void run();
+    ~Example2D() = default;
 
 private:
-    /*! the window
-    */
-    iWindow _window;
-
-    /*! visualizes profiler data
-    */
-    iProfilerVisualizer _profilerVisualizer;
-
-    /*! the view we want to render in
-
-    basically contains information about where inside the window to render and projection information
-    */
-    iView _view;
-
     /*! perlin noise generator 
     (default ctor initializes with 1337 as random seed)
     */
@@ -101,7 +65,7 @@ private:
 
     /*! texture used for the particles
     */
-    iTexturePtr _particleTexture = nullptr;
+    iTexturePtr _particleTexture;
 
     /*! just increases over time and feeds a sinus function to change the orientation of the particle stream
     */
@@ -113,19 +77,11 @@ private:
 
     /*! opengl logo
     */
-    iAtlas *_openGLLogo = nullptr;
-
-    /*! Igor logo
-    */
-    iTexturePtr _igorLogo = nullptr;
+    iAtlasPtr _openGLLogo = nullptr;
 
     /*! current position of renderer logo 
     */
     iaVector2f _logoPosition{200, 200};
-
-    /*! texture font
-    */
-    iTextureFont *_font = nullptr;
 
     /*! background tileable texture
     */
@@ -149,48 +105,11 @@ private:
 
     /*! a B-Spline
     */
-    iaBSpline _spline;
+    iaBSplinef _spline;
 
     /*! random number generator
     */
     iaRandomNumberGeneratoru _rand;
-
-    /*! mouse move event with minimum data
-
-    mouse coordinates have their origin in the upper left corner of the parenting window
-
-    \param position last mouse position
-    */
-    void onMouseMove(const iaVector2i &position);
-
-    /*! called when window was closed
-    */
-    void onWindowClosed();
-
-    /*! called on window resize
-
-    \param clientWidth width of client rectangle
-    \param clientHeight height of client rectangle
-    */
-    void onWindowResize(int32 clientWidth, int32 clientHeight);
-
-    /*! called when esc key was pressed
-    */
-    void onKeyESCPressed();
-
-    /*! called before every frame
-    */
-    void onHandle();
-
-    /*! called every frame 
-    
-    here we render everyting
-    */
-    void onRender();
-
-    /*! draw Igor Logo
-    */
-    void drawLogo();
 
     /*! call the particles system handle to update particle positions
 
@@ -198,13 +117,34 @@ private:
     */
     void updateParticles();
 
+    /*! called by orthogonal view
+    */
+    void onRenderOrtho() override;
+
+    /*! called before every frame
+    */
+    void onPreDraw() override;
+
     /*! initializes the example
     */
-    void init();
+    void onInit() override;
 
     /*! deinitializes the example
     */
-    void deinit();
+    void onDeinit() override;
+
+    /*! called on any other event
+
+    \param event the event to handle
+    */
+    void onEvent(iEvent &event) override;
+
+    /*! handles mouse move event
+
+    \param event the mouse move event
+    \returns true if consumed
+    */
+    bool onMouseMoveEvent(iEventMouseMove &event);
 };
 
-#endif
+#endif // __EXAMPLE2D_H__

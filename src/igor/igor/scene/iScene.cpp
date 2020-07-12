@@ -13,6 +13,8 @@
 #include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/system/iTimer.h>
+#include <igor/events/iEventScene.h>
+#include <igor/system/iApplication.h>
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/system/iaTime.h>
@@ -312,9 +314,9 @@ namespace igor
 		_processingQueue.insert(_loadingQueue.begin(), _loadingQueue.end());
 		_mutex.unlock();
 
-		// stop after 5ms
+		// stop after 50ms to keep the front end responsive
 		iaTime endTime = iaTime::now();
-		endTime += iaTime::fromMilliseconds(5);
+		endTime += iaTime::fromMilliseconds(50);
 
 		auto iterP = _processingQueue.begin();
 		while (iterP != _processingQueue.end())
@@ -349,34 +351,37 @@ namespace igor
 		return _octree;
 	}
 
-	void iScene::signalNodeAdded(uint64 nodeID)
+	void iScene::signalNodeAdded(iNodePtr node)
 	{
-		_addedNode(nodeID);
+		iApplication::getInstance().onEvent(iEventPtr(new iEventNodeAddedToScene(this, node->getID())));
 	}
 
-	void iScene::signalNodeRemoved(uint64 nodeID)
+	void iScene::signalNodeRemoved(iNodePtr node)
 	{
-		_removedNode(nodeID);
+		iApplication::getInstance().onEvent(iEventPtr(new iEventNodeRemovedFromScene(this, node->getID())));
 	}
 
-	void iScene::registerAddedNodeDelegate(iAddedNodeDelegate addedNodeDelegate)
+	const std::vector<iNodeID> &iScene::getSelection() const
 	{
-		_addedNode.append(addedNodeDelegate);
+		return _selectedNodes;
 	}
 
-	void iScene::unregisterAddedNodeDelegate(iAddedNodeDelegate addedNodeDelegate)
+	void iScene::setSelection(const std::vector<iNodeID> &selection)
 	{
-		_addedNode.remove(addedNodeDelegate);
+		if (_selectedNodes != selection)
+		{
+			_selectedNodes = selection;
+			iApplication::getInstance().onEvent(iEventPtr(new iEventSceneSelectionChanged(this)));
+		}
 	}
 
-	void iScene::registerRemovedNodeDelegate(iRemovedNodeDelegate removedNodeDelegate)
+	void iScene::clearSelection()
 	{
-		_removedNode.append(removedNodeDelegate);
-	}
-
-	void iScene::unregisterRemovedNodeDelegate(iRemovedNodeDelegate removedNodeDelegate)
-	{
-		_removedNode.remove(removedNodeDelegate);
+		if (!_selectedNodes.empty())
+		{
+			_selectedNodes.clear();
+			iApplication::getInstance().onEvent(iEventPtr(new iEventSceneSelectionChanged(this)));
+		}
 	}
 
 }; // namespace igor

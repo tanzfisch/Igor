@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iWIDGETCOLORGRADIENT__
-#define __iWIDGETCOLORGRADIENT__
+#ifndef __IGOR_WIDGETCOLORGRADIENT_H__
+#define __IGOR_WIDGETCOLORGRADIENT_H__
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/resources/texture/iTexture.h>
@@ -43,7 +43,7 @@ namespace igor
 
     /*! color created/added event
     */
-    iaEVENT(iColorGradientColorCreatedEvent, iColorGradientColorCreatedDelegate, void, (float32 at, const iaColor4f &color), (at, color));
+    iaEVENT(iColorGradientColorCreatedEvent, iColorGradientColorCreatedDelegate, (float32 at, const iaColor4f &color), (at, color));
 
     /*! color view widget
     */
@@ -61,17 +61,13 @@ namespace igor
 		*/
         virtual ~iWidgetColorGradient();
 
-        /*! \returns the widgets type
+        /*! blocks all outgoing events
         */
-        virtual iWidgetType getWidgetType() const override;
+        virtual void blockEvents() override;
 
-        /*! set wether events will be blocked or not
-
-        implementation needs to be overriden by deriving classes to make sure all additional events are blocked too
-
-        \param blockEvents if true events from this widget will be blocked
+        /*! unblocks all outgoing events
         */
-        virtual void block(bool blockEvents) override;
+        virtual void unblockEvents() override;
 
         /*! sets color gradient
 		\param color color value in rgba
@@ -148,6 +144,7 @@ namespace igor
 		*/
         void draw();
     };
+
 } // namespace igor
 
-#endif
+#endif // __IGOR_WIDGETCOLORGRADIENT_H__

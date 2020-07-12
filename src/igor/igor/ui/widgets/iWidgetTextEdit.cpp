@@ -5,7 +5,7 @@
 #include <igor/ui/widgets/iWidgetTextEdit.h>
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/theme/iWidgetBaseTheme.h>
+#include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/system/iKeyboard.h>
 #include <igor/resources/texture/iTextureFont.h>
 
@@ -15,14 +15,9 @@ namespace igor
 {
 
 	iWidgetTextEdit::iWidgetTextEdit(const iWidgetPtr parent)
-		: iWidget(parent)
+		: iWidget(iWidgetType::iWidgetTextEdit, iWidgetKind::Widget, parent)
 	{
 		_reactOnMouseWheel = false;
-	}
-
-	iWidgetType iWidgetTextEdit::getWidgetType() const
-	{
-		return iWidgetType::iWidgetTextEdit;
 	}
 
 	void iWidgetTextEdit::calcMinSize()

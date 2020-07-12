@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iNODE__
-#define __iNODE__
+#ifndef __IGOR_NODE_H__
+#define __IGOR_NODE_H__
 
 #include <igor/iDefines.h>
 
@@ -102,11 +102,11 @@ namespace igor
 
     /*! transformation change event
 	*/
-    iaEVENT(iTransformationChangeEvent, iTransformationChangeDelegate, void, (iNodePtr source), (source));
+    iaEVENT(iTransformationChangeEvent, iTransformationChangeDelegate, (iNodePtr source), (source));
 
     /*! node id definition
     */
-    typedef uint64 iNodeID;
+    typedef iaID64 iNodeID;
 
     /*! base node implementation
 
@@ -435,4 +435,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_NODE_H__

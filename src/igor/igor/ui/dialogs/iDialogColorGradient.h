@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iDIALOGCOLORGRADIENT__
-#define __iDIALOGCOLORGRADIENT__
+#ifndef __IGOR_DIALOGCOLORGRADIENT_H__
+#define __IGOR_DIALOGCOLORGRADIENT_H__
 
 #include <igor/ui/dialogs/iDialog.h>
 
@@ -49,15 +49,11 @@ namespace igor
 	public:
 		/*! does nothing
 		*/
-		iDialogColorGradient();
+		iDialogColorGradient(const iWidgetPtr parent = nullptr);
 
 		/*! does nothing
 		*/
 		~iDialogColorGradient() = default;
-
-		/*! \returns the widgets type
-        */
-		virtual iWidgetType getWidgetType() const override;
 
 		/*! show/open the decision box
 
@@ -67,10 +63,20 @@ namespace igor
 		*/
 		void open(iDialogCloseDelegate dialogCloseDelegate) override;
 
+		/*! sets color gradient
+
+		\param gradient the gradient to set
+		*/
 		void setColorGradient(const iaGradientColor4f &gradient);
 
+		/*! sets weather or not alpha channel is used
+
+		\param useAlpha if true alpha channel is used
+		*/
 		void setUseAlpha(bool useAlpha);
 
+		/*! \retruns true if alpha channel is used
+		*/
 		bool isUsingAlpha() const;
 
 		/*! \returns color gradient from dialog
@@ -172,4 +178,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_DIALOGCOLORGRADIENT_H__

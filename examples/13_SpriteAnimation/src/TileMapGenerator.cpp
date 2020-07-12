@@ -1,15 +1,8 @@
+// Igor game engine
+// (c) Copyright 2012-2020 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "TileMapGenerator.h"
-
-#include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/resources/mesh/iMeshBuilder.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/scene/nodes/iNodeMesh.h>
-#include <igor/resources/material/iTargetMaterial.h>
-using namespace igor;
-
-#include <iaux/system/iaConsole.h>
-using namespace iaux;
 
 #include <map>
 

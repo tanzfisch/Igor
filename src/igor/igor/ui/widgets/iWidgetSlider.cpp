@@ -5,7 +5,7 @@
 #include <igor/ui/widgets/iWidgetSlider.h>
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/theme/iWidgetBaseTheme.h>
+#include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 
@@ -15,18 +15,13 @@ using namespace iaux;
 namespace igor
 {
 	iWidgetSlider::iWidgetSlider(const iWidgetPtr parent)
-		: iWidget(parent)
+		: iWidget(iWidgetType::iWidgetSlider, iWidgetKind::Widget, parent)
 	{
 	}
 
 	iWidgetSlider::~iWidgetSlider()
 	{
 		_texture = nullptr;
-	}
-
-	iWidgetType iWidgetSlider::getWidgetType() const
-	{
-		return iWidgetType::iWidgetSlider;
 	}
 
 	void iWidgetSlider::setSteppingWheel(float32 up, float32 down)

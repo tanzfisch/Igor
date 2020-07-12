@@ -1,3 +1,7 @@
+// Igor game engine
+// (c) Copyright 2012-2020 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "BulletHit.h"
 
 #include <igor/scene/nodes/iNodeManager.h>
@@ -18,7 +22,7 @@ using namespace igor;
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
-BulletHit::BulletHit(iScene *scene, const iaMatrixd &matrix)
+BulletHit::BulletHit(iScenePtr scene, const iaMatrixd &matrix)
 	: GameObject(Fraction::None, GameObjectType::None)
 {
 	setHealth(100.0);

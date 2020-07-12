@@ -24,12 +24,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iWIDGETMENU__
-#define __iWIDGETMENU__
+#ifndef __IGOR_WIDGETMENU_H__
+#define __IGOR_WIDGETMENU_H__
 
 #include <igor/ui/dialogs/iDialog.h>
+#include <igor/ui/actions/iAction.h>
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
@@ -37,8 +38,6 @@ using namespace iaux;
 namespace igor
 {
 
-    class iAction;
-    typedef iAction *iActionPtr;
     class iWidgetLabel;
     typedef iWidgetLabel *iWidgetLabelPtr;
     class iDialogMenu;
@@ -66,10 +65,6 @@ namespace igor
         */
         virtual ~iWidgetMenu();
 
-        /*! \returns the widgets type
-        */
-        virtual iWidgetType getWidgetType() const override;
-
         /*! sets the menu title
 
         \param title the menu title
@@ -87,7 +82,7 @@ namespace igor
 
         \param action the action to be added
         */
-        void addAction(const iActionPtr action);
+        void addAction(const iActionPtr action, const iActionContextPtr context = nullptr);
 
         /*! same as add actions just by action name
 
@@ -95,7 +90,7 @@ namespace igor
 
         \param actionName name of the action to be added
         */
-        void addAction(const iaString &actionName);
+        void addAction(const iaString &actionName, const iActionContextPtr context = nullptr);
 
         /*! adds a menu to the menu
 
@@ -152,4 +147,4 @@ namespace igor
     typedef iWidgetMenu *iMenuPtr;
 } // namespace igor
 
-#endif
+#endif // __IGOR_WIDGETMENU_H__

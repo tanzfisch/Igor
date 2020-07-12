@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iOSEVENTLISTENER__
-#define __iOSEVENTLISTENER__
+#ifndef __IGOR_OSEVENTLISTENER_H__
+#define __IGOR_OSEVENTLISTENER_H__
 
 namespace igor
 {
@@ -79,4 +79,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_OSEVENTLISTENER_H__

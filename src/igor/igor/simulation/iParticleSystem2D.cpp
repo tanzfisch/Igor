@@ -31,7 +31,7 @@ namespace igor
 
     void iParticleSystem2D::resetParticle(iParticle2D &particle)
     {
-        if (_emitterType == iEmitterType::PointEmitter)
+        if (_emitterType == iEmitterType2D::PointEmitter)
         {
             particle._position = _emitterPos;
             particle._velocity = _initialVelocity;

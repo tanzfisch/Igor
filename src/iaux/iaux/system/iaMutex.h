@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_MUTEX__
-#define __IAUX_MUTEX__
+#ifndef __IAUX_MUTEX_H__
+#define __IAUX_MUTEX_H__
 
 #include <iaux/iaDefines.h>
 
@@ -40,7 +40,6 @@ namespace iaux
  	*/
 	class IgorAux_API iaMutex
 	{
-
 		/*! mutex handle definition
 		*/
 		typedef void *iaMutexHandle;
@@ -72,4 +71,4 @@ namespace iaux
 
 } // namespace iaux
 
-#endif
+#endif // __IAUX_MUTEX_H__

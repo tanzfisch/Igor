@@ -24,10 +24,10 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iWIDGETSLIDER__
-#define __iWIDGETSLIDER__
+#ifndef __IGOR_WIDGETSLIDER_H__
+#define __IGOR_WIDGETSLIDER_H__
 
 #include <igor/ui/widgets/iWidget.h>
 #include <igor/resources/texture/iTexture.h>
@@ -55,10 +55,6 @@ namespace igor
 		/*! release texture
 		*/
 		virtual ~iWidgetSlider();
-
-		/*! \returns the widgets type
-        */
-		virtual iWidgetType getWidgetType() const override;
 
 		/*! sets the texture to use for the button
 
@@ -204,4 +200,4 @@ namespace igor
 	};
 } // namespace igor
 
-#endif
+#endif // __IGOR_WIDGETSLIDER_H__

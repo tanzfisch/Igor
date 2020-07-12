@@ -12,7 +12,7 @@ var classigor_1_1i_voxel_terrain =
     [ "setLODTrigger", "classigor_1_1i_voxel_terrain.html#ae18d5287b83ec3d6f402315955c302e1", null ],
     [ "setMaterialID", "classigor_1_1i_voxel_terrain.html#a3a6ebc6431db79ad57075a64724f9cd2", null ],
     [ "setPhysicsMaterialID", "classigor_1_1i_voxel_terrain.html#a94a0c8b4d9fed269cafd2eedac898581", null ],
-    [ "setScene", "classigor_1_1i_voxel_terrain.html#ac388748cf94fbbf6348290e379bb4da4", null ],
+    [ "setScene", "classigor_1_1i_voxel_terrain.html#a2909cc8a3eba968067bf195d15c65145", null ],
     [ "iTaskVoxelTerrain", "classigor_1_1i_voxel_terrain.html#ae17dc81add685384ac7de70f51568df3", null ],
     [ "_voxelBlockOverlap", "classigor_1_1i_voxel_terrain.html#ab936a181a6d248fd6ffc6701ae637155", null ],
     [ "_voxelBlockSize", "classigor_1_1i_voxel_terrain.html#a19dafa182479cf5aed33c86afc5b39a7", null ]

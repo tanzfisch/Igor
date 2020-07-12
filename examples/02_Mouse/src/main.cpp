@@ -1,17 +1,30 @@
-#include "MouseExample.h"
+// Igor game engine
+// (c) Copyright 2012-2020 by Martin Loga
+// see copyright notice in corresponding header file
 
-#include <igor/igor.h>
+#include "MouseExample.h"
 
 int main(void)
 {
-    // first thing to call before any other igor functionality
+	// call this before you call anything else of Igor
 	igor::startup();
 
-	MouseExample* example = new MouseExample();
-	example->run();
-	delete example;
+	// create window and open it
+	iWindow *window = igor::iApplication::getInstance().createWindow();
+	window->setClientSize(1024, 768);
+	window->setCentered();
+	window->setDoubleClick(true);
+	window->open();
 
-    // last thing to call to shut down igor propperly
+	// create example and add it as layer to the application
+	igor::iApplication::getInstance().addLayer(new MouseExample(window));
+	igor::iApplication::getInstance().run();
+	iApplication::getInstance().clearLayerStack();
+
+	// destroy window
+	igor::iApplication::getInstance().destroyWindow(window);
+
+	// call this after you are done with using Igor
 	igor::shutdown();
 
 	return 0;

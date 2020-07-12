@@ -24,60 +24,32 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
-#ifndef __EXAMPLE3D__
-#define __EXAMPLE3D__
+#ifndef __EXAMPLECHARACTERCONTROLLER_H__
+#define __EXAMPLECHARACTERCONTROLLER_H__
 
-#include <igor/igor.h>
-#include <igor/system/iWindow.h>
-#include <igor/graphics/iView.h>
-#include <igor/system/iTimerHandle.h>
-#include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/resources/profiler/iProfilerVisualizer.h>
-using namespace igor;
-
-#include <iaux/math/iaMatrix.h>
-using namespace iaux;
-
-namespace igor
-{
-    class iScene;
-    class iNodeTransform;
-    class iNodeLight;
-    class iNodeSwitch;
-    class iTextureFont;
-    class iTaskFlushModels;
-    class iTaskFlushTextures;
-    class iNodeLODTrigger;
-    class iNodeLODSwitch;
-    class iNodeModel;
-    class iPhysicsBody;
-    class iPhysicsJoint;
-    class iTexture;
-} // namespace igor
+#include <ExampleBase.h>
 
 #include "CharacterController.h"
 
-class ExampleCharacterController
+class ExampleCharacterController : public ExampleBase
 {
 
 public:
     /*! init
-    */
-    ExampleCharacterController();
 
-    /*! deinit
+    \param window the given window
     */
-    virtual ~ExampleCharacterController();
+    ExampleCharacterController(iWindow *window);
 
-    /*! run example
+    /*! does nothing
     */
-    void run();
+    ~ExampleCharacterController() = default;
 
 private:
-
+    /*! character input flags
+    */
     struct InputFlags
     {
         bool _forward = false;
@@ -95,135 +67,109 @@ private:
 
     /*! flat to control weather or not the mouse stays trapped
     */
-    bool _captureMouse = true;
+    bool _captureMouse = false;
 
+    /*! character input flags
+    */
     InputFlags _inputFlags;
 
-    /*! the window
+    /*! material definition for the sky box
     */
-    iWindow _window;
+    iMaterialID _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
 
-    /*! visualizes statistics
+    /*! the character controller
     */
-    iProfilerVisualizer _profilerVisualizer;
+    CharacterController *_characterController = nullptr;
 
-    /*! the view we render 3D to
+    /*! physics material for terrain
     */
-    iView _view;
+    iPhysicsMaterialID _terrainMaterialID = 0;
 
-    /*! the view we render 2D to
+    /*! physics material for entity / character
     */
-    iView _viewOrtho;
+    iPhysicsMaterialID _entityMaterialID = 0;
 
-    /*! the scene holding our 3d nodes
+    /*! physics material for bullet
     */
-    iScene *_scene = nullptr;
+    iPhysicsMaterialID _bulletMaterialID = 0;
 
-    /*! async loading of models
+    /*! handles initializing the level after the models where loaded
     */
-    uint64 _taskFlushModels = iTask::INVALID_TASK_ID;
-
-    /*! async loading of textures
-    */
-    uint64 _taskFlushTextures = iTask::INVALID_TASK_ID;
-
-    /*! texture fon we use to render statistics
-    */
-    iTextureFont *_font = nullptr;
-
     void onModelReady(uint64 modelNodeID);
+
+    /*! recursively creates collisions for all meshes in giben sub scene
+
+    \param node the current node in sub scene
+    */
     void makeCollisions(iNodePtr node);
 
     /*! creates a physics box at given position
 
     \param pos the given position
     */
-    void createBox(const iaVector3d& pos);
+    void createBox(const iaVector3d &pos);
 
-    /*! material definition for the sky box
+    /*! applies force and torque to moveable boxes in scene
+
+    \param body the body affected
+    \param timestep the physics time
     */
-    uint64 _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
-
-    CharacterController *_characterController = nullptr;
-
-    /*! material for igor logo
-    */
-    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
-
-    /*! igor logo
-    */
-    iTexturePtr _igorLogo = nullptr;
-
-    int64 _terrainMaterialID = 0;
-    int64 _entityMaterialID = 0;
-    int64 _bulletMaterialID = 0;
-
-    /*! called on key pressed event
-
-    \param key the key code of the pressed key
-    */
-    void onKeyPressed(iKeyCode key);
-
-    /*! called on key released event
-
-    \param key the key that was released
-    */
-    void onKeyReleased(iKeyCode key);
+    void onApplyForceAndTorqueBox(iPhysicsBody *body, float32 timestep);
 
     /*! handle called once per frame
     */
-    void onHandle();
-
-    /*! called when window was closed
-    */
-    void onWindowClosed();
-
-    /*! called when window was resized
-
-    \param clientWidth the client rectangle width
-    \param clientHeight the client rectangle height
-    */
-    void onWindowResized(int32 clientWidth, int32 clientHeight);
-
-    /*! called when the mouse was moved
-
-    \param from last mouse position
-    \param to current mouse position
-    \param window the window the coordinates are related to
-    */
-    void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window);
-
-    /*! called when mouse wheel was turned
-
-    \param d mouse wheel delta
-    */
-    void onMouseWheel(int32 d);
-
-    /*! handles mouse key down events
-
-	\param keyCode the key code of the pressed button
-	*/
-    void onMouseKeyDown(iKeyCode keyCode);
-
-    void onMouseKeyUp(iKeyCode keyCode);
+    void onPreDraw() override;
 
     /*! called by orthogonal view
     */
-    void onRenderOrtho();
-
-    /*! draw igor logo
-    */
-    void drawLogo();
+    void onRenderOrtho() override;
 
     /*! deinit example
     */
-    void deinit();
+    void onDeinit() override;
 
     /*! init example
     */
-    void init();
+    void onInit() override;
 
-    void onApplyForceAndTorqueBox(iPhysicsBody *body, float32 timestep);
+    /*! called on any other event
+
+    \param event the event to handle
+    */
+    void onEvent(iEvent &event) override;
+
+    /*! handles mouse key down event
+
+    \param event the mouse key down event
+    \returns true if consumed
+    */
+    bool onMouseKeyDownEvent(iEventMouseKeyDown &event);
+
+    /*! handles mouse key up event
+
+    \param event the mouse key up event
+    \returns true if consumed
+    */
+    bool onMouseKeyUpEvent(iEventMouseKeyUp &event);
+
+    /*! handles mouse move event
+
+    \param event the mouse move event
+    \returns true if consumed
+    */
+    bool onMouseMoveEvent(iEventMouseMove &event);
+
+    /*! called when key was pressed
+
+    \param event the event to handle
+    */
+    bool onKeyDown(iEventKeyDown &event);
+
+    /*! called when key was released
+
+    \param event the event to handle
+    */
+    bool onKeyUp(iEventKeyUp &event);
 };
 
-#endif
+#endif // __EXAMPLECHARACTERCONTROLLER_H__

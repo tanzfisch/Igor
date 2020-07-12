@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.27.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.28.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -119,250 +119,132 @@ $(document).ready(function(){initNavTree('_physics_2src_2_physics_example_8cpp-e
 <div class="line"><span class="comment">//                                           (_(       \)</span></div>
 <div class="line"><span class="comment">//    (c) Copyright 2014-2020 by Martin Loga</span></div>
 <div class="line"><span class="comment">//</span></div>
-<div class="line"><span class="comment">// This library is free software; you can redistribute it and or modify it   </span></div>
-<div class="line"><span class="comment">// under the terms of the GNU Lesser General Public License as published by  </span></div>
-<div class="line"><span class="comment">// the Free Software Foundation; either version 3 of the License, or (at   </span></div>
-<div class="line"><span class="comment">// your option) any later version.                                           </span></div>
-<div class="line"><span class="comment">// </span></div>
-<div class="line"><span class="comment">// This library is distributed in the hope that it will be useful,           </span></div>
-<div class="line"><span class="comment">// but WITHOUT ANY WARRANTY; without even the implied warranty of            </span></div>
-<div class="line"><span class="comment">// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         </span></div>
-<div class="line"><span class="comment">// Lesser General Public License for more details.                           </span></div>
-<div class="line"><span class="comment">// </span></div>
+<div class="line"><span class="comment">// This library is free software; you can redistribute it and or modify it</span></div>
+<div class="line"><span class="comment">// under the terms of the GNU Lesser General Public License as published by</span></div>
+<div class="line"><span class="comment">// the Free Software Foundation; either version 3 of the License, or (at</span></div>
+<div class="line"><span class="comment">// your option) any later version.</span></div>
+<div class="line"><span class="comment">//</span></div>
+<div class="line"><span class="comment">// This library is distributed in the hope that it will be useful,</span></div>
+<div class="line"><span class="comment">// but WITHOUT ANY WARRANTY; without even the implied warranty of</span></div>
+<div class="line"><span class="comment">// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU</span></div>
+<div class="line"><span class="comment">// Lesser General Public License for more details.</span></div>
+<div class="line"><span class="comment">//</span></div>
 <div class="line"><span class="comment">// You should have received a copy of the GNU General Public License</span></div>
 <div class="line"><span class="comment">// along with this program.If not, see &lt;http://www.gnu.org/licenses/&gt;.</span></div>
-<div class="line"><span class="comment">// </span></div>
-<div class="line"><span class="comment">// contact: martinloga@gmx.de  </span></div>
+<div class="line"><span class="comment">//</span></div>
+<div class="line"><span class="comment">// contact: igorgameengine@protonmail.com</span></div>
 <div class="line"></div>
-<div class="line"><span class="preprocessor">#ifndef __OPENGL3DEXAMPLE__</span></div>
-<div class="line"><span class="preprocessor">#define __OPENGL3DEXAMPLE__</span></div>
+<div class="line"><span class="preprocessor">#ifndef __PHYSICSEXAMPLE_H__</span></div>
+<div class="line"><span class="preprocessor">#define __PHYSICSEXAMPLE_H__</span></div>
 <div class="line"></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="igor_8h.html">igor/igor.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_window_8h.html">igor/system/iWindow.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_view_8h.html">igor/graphics/iView.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_timer_handle_8h.html">igor/system/iTimerHandle.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_model_resource_factory_8h.html">igor/resources/model/iModelResourceFactory.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_keyboard_8h.html">igor/system/iKeyboard.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_material_8h.html">igor/resources/material/iMaterial.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_profiler_visualizer_8h.html">igor/resources/profiler/iProfilerVisualizer.h</a>&gt;</span></div>
-<div class="line"><span class="keyword">using namespace </span><a class="code" href="namespaceigor.html">igor</a>;</div>
+<div class="line"><span class="preprocessor">#include &lt;ExampleBase.h&gt;</span></div>
 <div class="line"></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="ia_matrix_8h.html">iaux/math/iaMatrix.h</a>&gt;</span></div>
-<div class="line"><span class="keyword">using namespace </span><a class="code" href="namespaceiaux.html">iaux</a>;</div>
-<div class="line"></div>
-<div class="line"><span class="keyword">namespace </span><a class="code" href="namespaceigor.html">igor</a></div>
-<div class="line">{</div>
-<div class="line">    <span class="keyword">class </span><a name="_a0"></a><a class="code" href="classigor_1_1i_scene.html">iScene</a>;</div>
-<div class="line">    <span class="keyword">class </span><a name="_a1"></a><a class="code" href="classigor_1_1i_node_transform.html">iNodeTransform</a>;</div>
-<div class="line">    <span class="keyword">class </span><a name="_a2"></a><a class="code" href="classigor_1_1i_node_light.html">iNodeLight</a>;</div>
-<div class="line">    <span class="keyword">class </span><a name="_a3"></a><a class="code" href="classigor_1_1i_texture_font.html">iTextureFont</a>;</div>
-<div class="line">    <span class="keyword">class </span><a name="_a4"></a><a class="code" href="classigor_1_1i_entity.html">iEntity</a>;</div>
-<div class="line">    <span class="keyword">class </span><a name="_a5"></a><a class="code" href="classigor_1_1i_task_flush_models.html">iTaskFlushModels</a>;</div>
-<div class="line">    <span class="keyword">class </span><a name="_a6"></a><a class="code" href="classigor_1_1i_task_flush_textures.html">iTaskFlushTextures</a>;</div>
-<div class="line">    <span class="keyword">class </span><a name="_a7"></a><a class="code" href="classigor_1_1i_physics_body.html">iPhysicsBody</a>;</div>
-<div class="line">    <span class="keyword">class </span><a name="_a8"></a><a class="code" href="classigor_1_1i_physics_joint.html">iPhysicsJoint</a>;</div>
-<div class="line">    <span class="keyword">class </span><a name="_a9"></a><a class="code" href="classigor_1_1i_texture.html">iTexture</a>;</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keyword">class </span>PhysicsExample</div>
+<div class="line"><span class="keyword">class </span>PhysicsExample : <span class="keyword">public</span> ExampleBase</div>
 <div class="line">{</div>
 <div class="line"></div>
 <div class="line"><span class="keyword">public</span>:</div>
+<div class="line">    PhysicsExample(iWindow *window);</div>
 <div class="line"></div>
-<div class="line">    PhysicsExample();</div>
-<div class="line"></div>
-<div class="line">    <span class="keyword">virtual</span> ~PhysicsExample();</div>
-<div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> run();</div>
+<div class="line">    ~PhysicsExample() = <span class="keywordflow">default</span>;</div>
 <div class="line"></div>
 <div class="line"><span class="keyword">private</span>:</div>
-<div class="line"></div>
-<div class="line">    <a name="_a10"></a><a class="code" href="classigor_1_1i_window.html">iWindow</a> _window;</div>
-<div class="line"></div>
-<div class="line">    <a name="_a11"></a><a class="code" href="classigor_1_1i_profiler_visualizer.html">iProfilerVisualizer</a> _profilerVisualizer;</div>
-<div class="line"></div>
-<div class="line">    <a name="_a12"></a><a class="code" href="classigor_1_1i_view.html">iView</a> _view;</div>
-<div class="line"></div>
-<div class="line">    <a class="code" href="classigor_1_1i_view.html">iView</a> _viewOrtho;</div>
-<div class="line"></div>
 <div class="line">    <span class="keywordtype">bool</span> _running = <span class="keyword">false</span>;</div>
 <div class="line"></div>
-<div class="line">    <a class="code" href="ia_defines_8h.html#abc0f5bc07737e498f287334775dff2b6">uint64</a> _flushModelsTask = <a name="a13"></a><a class="code" href="classigor_1_1i_task.html#a2155b4972b25b1cfffc2e46fd3189439">iTask::INVALID_TASK_ID</a>;</div>
+<div class="line">    <a class="code" href="namespaceigor.html#ae9db6c55577221606f29742f50448f2eaca07a98c88232f096e4a02dc8481f9c2">iNodeTransform</a> *_cameraHeading = <span class="keyword">nullptr</span>;</div>
 <div class="line"></div>
-<div class="line">    <a class="code" href="ia_defines_8h.html#abc0f5bc07737e498f287334775dff2b6">uint64</a> _flushTexturesTask = <a class="code" href="classigor_1_1i_task.html#a2155b4972b25b1cfffc2e46fd3189439">iTask::INVALID_TASK_ID</a>;</div>
+<div class="line">    <a class="code" href="namespaceigor.html#ae9db6c55577221606f29742f50448f2eaca07a98c88232f096e4a02dc8481f9c2">iNodeTransform</a> *_cameraPitch = <span class="keyword">nullptr</span>;</div>
 <div class="line"></div>
-<div class="line">    <a class="code" href="classigor_1_1i_texture_font.html">iTextureFont</a>* _font = <span class="keyword">nullptr</span>;</div>
-<div class="line"></div>
-<div class="line">    <a class="code" href="classigor_1_1i_scene.html">iScene</a>* _scene = <span class="keyword">nullptr</span>;</div>
-<div class="line"></div>
-<div class="line">    <a class="code" href="classigor_1_1i_node_transform.html">iNodeTransform</a>* _cameraHeading = <span class="keyword">nullptr</span>;</div>
-<div class="line"></div>
-<div class="line">    <a class="code" href="classigor_1_1i_node_transform.html">iNodeTransform</a>* _cameraPitch = <span class="keyword">nullptr</span>;</div>
-<div class="line"></div>
-<div class="line">    <a class="code" href="classigor_1_1i_node_transform.html">iNodeTransform</a>* _cameraTranslation = <span class="keyword">nullptr</span>;</div>
+<div class="line">    <a class="code" href="namespaceigor.html#ae9db6c55577221606f29742f50448f2eaca07a98c88232f096e4a02dc8481f9c2">iNodeTransform</a> *_cameraTranslation = <span class="keyword">nullptr</span>;</div>
 <div class="line"></div>
 <div class="line">    std::vector&lt;uint64&gt; _bodyIDs;</div>
 <div class="line"></div>
-<div class="line">    <a class="code" href="ia_defines_8h.html#abc0f5bc07737e498f287334775dff2b6">uint64</a> _materialSkyBox = 0;</div>
+<div class="line">    <span class="keywordtype">void</span> onApplyForceAndTorque(iPhysicsBody *body, <a class="code" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> timestep);</div>
 <div class="line"></div>
-<div class="line">    <a class="code" href="ia_defines_8h.html#abc0f5bc07737e498f287334775dff2b6">uint64</a> _materialWithTextureAndBlending = <a name="a14"></a><a class="code" href="classigor_1_1i_material.html#ae9325a7dc8ad2e2429aecca1ef7b376a">iMaterial::INVALID_MATERIAL_ID</a>;</div>
+<div class="line">    <span class="keywordtype">void</span> onInit() <span class="keyword">override</span>;</div>
 <div class="line"></div>
-<div class="line">    <a class="code" href="namespaceigor.html#a7664076d3c7d7e684bd9218e4ae2d4cd">iTexturePtr</a> _igorLogo = <span class="keyword">nullptr</span>;</div>
+<div class="line">    <span class="keywordtype">void</span> onDeinit() <span class="keyword">override</span>;</div>
 <div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> onApplyForceAndTorque(<a class="code" href="classigor_1_1i_physics_body.html">iPhysicsBody</a>* body, <a class="code" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> timestep);</div>
+<div class="line">    <span class="keywordtype">void</span> onRenderOrtho() <span class="keyword">override</span>;</div>
 <div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> onKeyPressed(<a class="code" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bd">iKeyCode</a> key);</div>
+<div class="line">    <span class="keywordtype">void</span> onEvent(iEvent &amp;event) <span class="keyword">override</span>;</div>
 <div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> onWindowClosed();</div>
+<div class="line">    <span class="keywordtype">bool</span> onKeyDown(<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710da6d7fa54fe77642cce3a76caaa389f9f2">iEventKeyDown</a> &amp;event);</div>
 <div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> onMouseMoved(<span class="keyword">const</span> <a name="_a15"></a><a class="code" href="classiaux_1_1ia_vector2.html">iaVector2i</a>&amp; from, <span class="keyword">const</span> <a class="code" href="classiaux_1_1ia_vector2.html">iaVector2i</a>&amp; to, <a class="code" href="classigor_1_1i_window.html">iWindow</a>* window);</div>
+<div class="line">    <span class="keywordtype">bool</span> onMouseMoveEvent(<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710dad91489ab3b2c02a62f753fe4193636e3">iEventMouseMove</a> &amp;event);</div>
 <div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> onMouseWheel(<a class="code" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> d);</div>
-<div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> init();</div>
-<div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> deinit();</div>
-<div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> onHandle();</div>
-<div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> onRenderOrtho();</div>
-<div class="line"></div>
-<div class="line">    <span class="keywordtype">void</span> drawLogo();</div>
-<div class="line"></div>
+<div class="line">    <span class="keywordtype">bool</span> onMouseWheelEvent(<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710dac2190c3ff76de09a1a5d8189f883b9d8">iEventMouseWheel</a> &amp;event);</div>
 <div class="line">};</div>
 <div class="line"></div>
-<div class="line"><span class="preprocessor">#endif</span></div>
-</div><!-- fragment --><div class="fragment"><div class="line"><span class="preprocessor">#include &quot;PhysicsExample.h&quot;</span></div>
+<div class="line"><span class="preprocessor">#endif // __PHYSICSEXAMPLE_H__</span></div>
+</div><!-- fragment --><div class="fragment"><div class="line"><span class="comment">// Igor game engine</span></div>
+<div class="line"><span class="comment">// (c) Copyright 2012-2020 by Martin Loga</span></div>
+<div class="line"><span class="comment">// see copyright notice in corresponding header file</span></div>
 <div class="line"></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="ia_console_8h.html">iaux/system/iaConsole.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="ia_random_number_generator_8h.html">iaux/math/iaRandomNumberGenerator.h</a>&gt;</span></div>
-<div class="line"><span class="keyword">using namespace </span><a class="code" href="namespaceiaux.html">iaux</a>;</div>
+<div class="line"><span class="preprocessor">#include &quot;PhysicsExample.h&quot;</span></div>
 <div class="line"></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_material_8h.html">igor/resources/material/iMaterial.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_node_visitor_print_tree_8h.html">igor/scene/traversal/iNodeVisitorPrintTree.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_task_manager_8h.html">igor/threading/iTaskManager.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_node_sky_box_8h.html">igor/scene/nodes/iNodeSkyBox.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_node_camera_8h.html">igor/scene/nodes/iNodeCamera.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_node_model_8h.html">igor/scene/nodes/iNodeModel.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_node_transform_8h.html">igor/scene/nodes/iNodeTransform.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_renderer_8h.html">igor/graphics/iRenderer.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_application_8h.html">igor/system/iApplication.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_scene_factory_8h.html">igor/scene/iSceneFactory.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_scene_8h.html">igor/scene/iScene.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_node_manager_8h.html">igor/scene/nodes/iNodeManager.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_mouse_8h.html">igor/system/iMouse.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_timer_8h.html">igor/system/iTimer.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_texture_font_8h.html">igor/resources/texture/iTextureFont.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_node_light_8h.html">igor/scene/nodes/iNodeLight.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_node_physics_8h.html">igor/scene/nodes/iNodePhysics.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_model_resource_factory_8h.html">igor/resources/model/iModelResourceFactory.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_physics_8h.html">igor/physics/iPhysics.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_physics_joint_8h.html">igor/physics/iPhysicsJoint.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_task_flush_models_8h.html">igor/threading/tasks/iTaskFlushModels.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_task_flush_textures_8h.html">igor/threading/tasks/iTaskFlushTextures.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_material_resource_factory_8h.html">igor/resources/material/iMaterialResourceFactory.h</a>&gt;</span></div>
-<div class="line"><span class="preprocessor">#include &lt;<a class="code" href="i_profiler_8h.html">igor/resources/profiler/iProfiler.h</a>&gt;</span></div>
-<div class="line"><span class="keyword">using namespace </span><a class="code" href="namespaceigor.html">igor</a>;</div>
-<div class="line"></div>
-<div class="line">PhysicsExample::PhysicsExample()</div>
+<div class="line">PhysicsExample::PhysicsExample(iWindow *window)</div>
+<div class="line">    : ExampleBase(window, <span class="stringliteral">&quot;Physics&quot;</span>)</div>
 <div class="line">{</div>
-<div class="line">    init();</div>
 <div class="line">}</div>
 <div class="line"></div>
-<div class="line">PhysicsExample::~PhysicsExample()</div>
+<div class="line"><span class="keywordtype">void</span> PhysicsExample::onInit()</div>
 <div class="line">{</div>
-<div class="line">    deinit();</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> PhysicsExample::init()</div>
-<div class="line">{</div>
-<div class="line">    <span class="comment">// register keyboard and mouse events</span></div>
-<div class="line">    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(<span class="keyword">this</span>, &amp;PhysicsExample::onKeyPressed));</div>
-<div class="line">    iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(<span class="keyword">this</span>, &amp;PhysicsExample::onMouseMoved));</div>
-<div class="line">    iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(<span class="keyword">this</span>, &amp;PhysicsExample::onMouseWheel));</div>
-<div class="line">    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(<span class="keyword">this</span>, &amp;PhysicsExample::onHandle));</div>
-<div class="line"></div>
-<div class="line">    <span class="comment">// setup view for scene</span></div>
-<div class="line">    _view.setClearColor(<a name="a16"></a><a class="code" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>(0.5f, 0, 0.5f, 1));</div>
-<div class="line">    _view.setPerspective(45);</div>
-<div class="line">    _view.setClipPlanes(0.1f, 10000.f);</div>
-<div class="line"></div>
-<div class="line">    <span class="comment">// setup view for statistics</span></div>
-<div class="line">    _viewOrtho.setClearColor(<span class="keyword">false</span>);</div>
-<div class="line">    _viewOrtho.setClearDepth(<span class="keyword">false</span>);</div>
-<div class="line">    _viewOrtho.setOrthogonal(0, 1024, 768, 0);</div>
-<div class="line">    _viewOrtho.registerRenderDelegate(iDrawDelegate(<span class="keyword">this</span>, &amp;PhysicsExample::onRenderOrtho));</div>
-<div class="line"></div>
-<div class="line">    <span class="comment">// init window</span></div>
-<div class="line">    _window.setTitle(<span class="stringliteral">&quot;Physics Example&quot;</span>);</div>
-<div class="line">    _window.addView(&amp;_view);</div>
-<div class="line">    _window.addView(&amp;_viewOrtho);</div>
-<div class="line">    _window.setClientSize(1024, 768);</div>
-<div class="line">    _window.setCentered();</div>
-<div class="line">    _window.open();</div>
-<div class="line">    _window.registerWindowCloseDelegate(WindowCloseDelegate(<span class="keyword">this</span>, &amp;PhysicsExample::onWindowClosed));</div>
-<div class="line"></div>
-<div class="line">    <span class="comment">// setting up the scene</span></div>
-<div class="line">    _scene = iSceneFactory::getInstance().createScene();</div>
-<div class="line">    _view.setScene(_scene);</div>
-<div class="line"></div>
 <div class="line">    <span class="comment">// set physics simulation rate to 60Hz</span></div>
 <div class="line">    iPhysics::getInstance().setSimulationRate(60);</div>
 <div class="line"></div>
 <div class="line">    <span class="comment">// create some collision boxes and combine them in one to represent the floor</span></div>
-<div class="line">    <a name="_a17"></a><a class="code" href="classiaux_1_1ia_matrix.html">iaMatrixd</a> offsetFloor;</div>
+<div class="line">    <a name="a0"></a><a class="code" href="namespaceiaux.html#a3b3ecae191d331ad79198b631e30db4d">iaMatrixd</a> offsetFloor;</div>
 <div class="line">    std::vector&lt;iPhysicsCollision *&gt; collisions;</div>
-<div class="line">    collisions.push_back(iPhysics::getInstance().createBox(10, 1, 50, offsetFloor.<a name="a18"></a><a class="code" href="classiaux_1_1ia_matrix.html#adbb7b1d19dfdace4fdff44ca292f0e28">getData</a>()));</div>
-<div class="line">    collisions.push_back(iPhysics::getInstance().createBox(50, 1, 10, offsetFloor.<a class="code" href="classiaux_1_1ia_matrix.html#adbb7b1d19dfdace4fdff44ca292f0e28">getData</a>()));</div>
-<div class="line">    offsetFloor.<a name="a19"></a><a class="code" href="classiaux_1_1ia_matrix.html#ac3391a41520f494b8aa83d41ae89719b">translate</a>(0, -5, 0);</div>
-<div class="line">    collisions.push_back(iPhysics::getInstance().createBox(50, 1, 50, offsetFloor.<a class="code" href="classiaux_1_1ia_matrix.html#adbb7b1d19dfdace4fdff44ca292f0e28">getData</a>()));</div>
-<div class="line">    <a name="_a20"></a><a class="code" href="classigor_1_1i_physics_collision.html">iPhysicsCollision</a> *floorCollision = iPhysics::getInstance().createCompound(collisions);</div>
+<div class="line">    collisions.push_back(iPhysics::getInstance().createBox(10, 1, 50, offsetFloor.getData()));</div>
+<div class="line">    collisions.push_back(iPhysics::getInstance().createBox(50, 1, 10, offsetFloor.getData()));</div>
+<div class="line">    offsetFloor.translate(0, -5, 0);</div>
+<div class="line">    collisions.push_back(iPhysics::getInstance().createBox(50, 1, 50, offsetFloor.getData()));</div>
+<div class="line">    iPhysicsCollision *floorCollision = iPhysics::getInstance().createCompound(collisions);</div>
 <div class="line">    <span class="comment">// make a body from the floor collision</span></div>
-<div class="line">    <a class="code" href="classigor_1_1i_physics_body.html">iPhysicsBody</a> *floorBody = iPhysics::getInstance().createBody(floorCollision);</div>
+<div class="line">    iPhysicsBody *floorBody = iPhysics::getInstance().createBody(floorCollision);</div>
 <div class="line">    <span class="comment">// zero mass turns the floor in to a static body</span></div>
-<div class="line">    floorBody-&gt;<a name="a21"></a><a class="code" href="classigor_1_1i_physics_body.html#ada48532694b2a3a3bff23a1cd62e826b">setMass</a>(0);</div>
+<div class="line">    floorBody-&gt;setMass(0);</div>
 <div class="line">    <span class="comment">// position the floor</span></div>
-<div class="line">    <a class="code" href="classiaux_1_1ia_matrix.html">iaMatrixd</a> floorMatrix;</div>
-<div class="line">    floorMatrix.<a class="code" href="classiaux_1_1ia_matrix.html#ac3391a41520f494b8aa83d41ae89719b">translate</a>(0, -1, 0);</div>
-<div class="line">    floorBody-&gt;<a name="a22"></a><a class="code" href="classigor_1_1i_physics_body.html#a4a6f6e6ee23a7e24f0352ddc69b9caa8">setMatrix</a>(floorMatrix);</div>
+<div class="line">    <a class="code" href="namespaceiaux.html#a3b3ecae191d331ad79198b631e30db4d">iaMatrixd</a> floorMatrix;</div>
+<div class="line">    floorMatrix.translate(0, -1, 0);</div>
+<div class="line">    floorBody-&gt;setMatrix(floorMatrix);</div>
 <div class="line">    <span class="comment">// and add the body id to the list of bodys for later cleanup</span></div>
-<div class="line">    _bodyIDs.push_back(floorBody-&gt;<a name="a23"></a><a class="code" href="classigor_1_1i_physics_body.html#a4ebd76af5f016f496f619adb8fdc00e7">getID</a>());</div>
+<div class="line">    _bodyIDs.push_back(floorBody-&gt;getID());</div>
 <div class="line"></div>
 <div class="line">    <span class="comment">// create a box collision used by all boxes we create</span></div>
-<div class="line">    <a class="code" href="classiaux_1_1ia_matrix.html">iaMatrixd</a> offsetBox;</div>
-<div class="line">    <a class="code" href="classigor_1_1i_physics_collision.html">iPhysicsCollision</a> *boxCollision = iPhysics::getInstance().createBox(1, 1, 1, offsetBox.<a class="code" href="classiaux_1_1ia_matrix.html#adbb7b1d19dfdace4fdff44ca292f0e28">getData</a>());</div>
+<div class="line">    <a class="code" href="namespaceiaux.html#a3b3ecae191d331ad79198b631e30db4d">iaMatrixd</a> offsetBox;</div>
+<div class="line">    iPhysicsCollision *boxCollision = iPhysics::getInstance().createBox(1, 1, 1, offsetBox.getData());</div>
 <div class="line"></div>
 <div class="line">    <span class="comment">// now create boxes in various patterns</span></div>
-<div class="line"></div>
 <div class="line">    <span class="comment">// some random positioned boxes</span></div>
 <div class="line">    <span class="comment">// for that we need a random number generator</span></div>
-<div class="line">    <a name="_a24"></a><a class="code" href="classiaux_1_1ia_random_number_generator.html">iaRandomNumberGeneratoru</a> rand;</div>
-<div class="line">    rand.<a name="a25"></a><a class="code" href="classiaux_1_1ia_random_number_generator.html#a5355cf5a34049999a41f6e80d6504d56">setSeed</a>(1337);</div>
+<div class="line">    <a name="a1"></a><a class="code" href="namespaceiaux.html#a9cabf4e82bec9f029851401a094a5306">iaRandomNumberGeneratoru</a> rand;</div>
+<div class="line">    rand.setSeed(1337);</div>
 <div class="line"></div>
 <div class="line">    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 30; ++i)</div>
 <div class="line">    {</div>
 <div class="line">        <span class="comment">// create the box body and giv him mass</span></div>
-<div class="line">        <a class="code" href="classigor_1_1i_physics_body.html">iPhysicsBody</a> *boxBody = iPhysics::getInstance().createBody(boxCollision);</div>
-<div class="line">        boxBody-&gt;<a class="code" href="classigor_1_1i_physics_body.html#ada48532694b2a3a3bff23a1cd62e826b">setMass</a>(1000);</div>
+<div class="line">        iPhysicsBody *boxBody = iPhysics::getInstance().createBody(boxCollision);</div>
+<div class="line">        boxBody-&gt;setMass(1000);</div>
 <div class="line">        <span class="comment">// register force ans torque callback</span></div>
-<div class="line">        boxBody-&gt;<a name="a26"></a><a class="code" href="classigor_1_1i_physics_body.html#a14f95e0bc55c8d32e12bf8cfbd4b2ff3">registerForceAndTorqueDelegate</a>(iApplyForceAndTorqueDelegate(<span class="keyword">this</span>, &amp;PhysicsExample::onApplyForceAndTorque));</div>
+<div class="line">        boxBody-&gt;registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(<span class="keyword">this</span>, &amp;PhysicsExample::onApplyForceAndTorque));</div>
 <div class="line">        <span class="comment">// store body id</span></div>
-<div class="line">        _bodyIDs.push_back(boxBody-&gt;<a class="code" href="classigor_1_1i_physics_body.html#a4ebd76af5f016f496f619adb8fdc00e7">getID</a>());</div>
+<div class="line">        _bodyIDs.push_back(boxBody-&gt;getID());</div>
 <div class="line"></div>
 <div class="line">        <span class="comment">// generate random position and orientation</span></div>
-<div class="line">        <a class="code" href="classigor_1_1i_node_transform.html">iNodeTransform</a> *transformNode = iNodeManager::getInstance().createNode&lt;<a class="code" href="classigor_1_1i_node_transform.html">iNodeTransform</a>&gt;();</div>
-<div class="line">        transformNode-&gt;<a name="a27"></a><a class="code" href="classigor_1_1i_node_transform.html#a6516861991e69b715806f1f5d8f9e016">translate</a>((rand.<a name="a28"></a><a class="code" href="classiaux_1_1ia_random_number_generator.html#abd2ad0c52e1a9ef765d3dffac0175734">getNext</a>() % 10) - 5.0f, (rand.<a class="code" href="classiaux_1_1ia_random_number_generator.html#abd2ad0c52e1a9ef765d3dffac0175734">getNext</a>() % 10) + 20.0f, (rand.<a class="code" href="classiaux_1_1ia_random_number_generator.html#abd2ad0c52e1a9ef765d3dffac0175734">getNext</a>() % 10) - 5.0f);</div>
-<div class="line">        transformNode-&gt;<a name="a29"></a><a class="code" href="classigor_1_1i_node_transform.html#a51bd1a02c495bdb9b7924f67996b62a0">rotate</a>(rand.<a class="code" href="classiaux_1_1ia_random_number_generator.html#abd2ad0c52e1a9ef765d3dffac0175734">getNext</a>(), <a name="a30"></a><a class="code" href="namespaceiaux.html#ad667fe7c1ad6757a475a5913e3789d2ba02129bb861061d1a052c592e2dc6b383">iaAxis::X</a>);</div>
-<div class="line">        transformNode-&gt;<a class="code" href="classigor_1_1i_node_transform.html#a51bd1a02c495bdb9b7924f67996b62a0">rotate</a>(rand.<a class="code" href="classiaux_1_1ia_random_number_generator.html#abd2ad0c52e1a9ef765d3dffac0175734">getNext</a>(), <a name="a31"></a><a class="code" href="namespaceiaux.html#ad667fe7c1ad6757a475a5913e3789d2ba57cec4137b614c87cb4e24a3d003a3e0">iaAxis::Y</a>);</div>
-<div class="line">        transformNode-&gt;<a class="code" href="classigor_1_1i_node_transform.html#a51bd1a02c495bdb9b7924f67996b62a0">rotate</a>(rand.<a class="code" href="classiaux_1_1ia_random_number_generator.html#abd2ad0c52e1a9ef765d3dffac0175734">getNext</a>(), <a name="a32"></a><a class="code" href="namespaceiaux.html#ad667fe7c1ad6757a475a5913e3789d2ba21c2e59531c8710156d34a3c30ac81d5">iaAxis::Z</a>);</div>
+<div class="line">        <a class="code" href="namespaceigor.html#ae9db6c55577221606f29742f50448f2eaca07a98c88232f096e4a02dc8481f9c2">iNodeTransform</a> *transformNode = iNodeManager::getInstance().createNode&lt;<a class="code" href="namespaceigor.html#ae9db6c55577221606f29742f50448f2eaca07a98c88232f096e4a02dc8481f9c2">iNodeTransform</a>&gt;();</div>
+<div class="line">        transformNode-&gt;translate((rand.getNext() % 10) - 5.0f, (rand.getNext() % 10) + 20.0f, (rand.getNext() % 10) - 5.0f);</div>
+<div class="line">        transformNode-&gt;rotate(rand.getNext(), iaAxis::X);</div>
+<div class="line">        transformNode-&gt;rotate(rand.getNext(), iaAxis::Y);</div>
+<div class="line">        transformNode-&gt;rotate(rand.getNext(), iaAxis::Z);</div>
 <div class="line">        <span class="comment">// load the crate model</span></div>
-<div class="line">        <a name="_a33"></a><a class="code" href="classigor_1_1i_node_model.html">iNodeModel</a> *crate = iNodeManager::getInstance().createNode&lt;<a class="code" href="classigor_1_1i_node_model.html">iNodeModel</a>&gt;();</div>
-<div class="line">        crate-&gt;<a name="a34"></a><a class="code" href="classigor_1_1i_node_model.html#a5e535405f55bd14b30c53939690ebb88">setModel</a>(<span class="stringliteral">&quot;crate.ompf&quot;</span>);</div>
-<div class="line">        transformNode-&gt;<a name="a35"></a><a class="code" href="classigor_1_1i_node.html#ab97d0817f6669e541567a09e50f66955">insertNode</a>(crate);</div>
+<div class="line">        <a name="a2"></a><a class="code" href="namespaceigor.html#a2949a54c2dc2d434d8a54e802d41476d">iNodeModel</a> *crate = iNodeManager::getInstance().createNode&lt;<a class="code" href="namespaceigor.html#a2949a54c2dc2d434d8a54e802d41476d">iNodeModel</a>&gt;();</div>
+<div class="line">        crate-&gt;setModel(<span class="stringliteral">&quot;crate.ompf&quot;</span>);</div>
+<div class="line">        transformNode-&gt;insertNode(crate);</div>
 <div class="line">        <span class="comment">// bind the scene model to the physics body</span></div>
 <div class="line">        iPhysics::getInstance().bindTransformNode(boxBody, transformNode);</div>
 <div class="line">        <span class="comment">// add the scene model to the scene</span></div>
-<div class="line">        _scene-&gt;getRoot()-&gt;insertNode(transformNode);</div>
+<div class="line">        getScene()-&gt;getRoot()-&gt;insertNode(transformNode);</div>
 <div class="line">    }</div>
 <div class="line"></div>
 <div class="line">    <span class="comment">// and some more boxes</span></div>
@@ -379,16 +261,16 @@ $(document).ready(function(){initNavTree('_physics_2src_2_physics_example_8cpp-e
 <div class="line">                nodePhysics-&gt;setMass(100);</div>
 <div class="line">                nodePhysics-&gt;setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(<span class="keyword">this</span>, &amp;PhysicsExample::onApplyForceAndTorque));</div>
 <div class="line"></div>
-<div class="line">                <a class="code" href="classigor_1_1i_node_transform.html">iNodeTransform</a> *transformNode = iNodeManager::getInstance().createNode&lt;<a class="code" href="classigor_1_1i_node_transform.html">iNodeTransform</a>&gt;();</div>
-<div class="line">                transformNode-&gt;<a class="code" href="classigor_1_1i_node_transform.html#a6516861991e69b715806f1f5d8f9e016">translate</a>(x, i, z);</div>
+<div class="line">                <a class="code" href="namespaceigor.html#ae9db6c55577221606f29742f50448f2eaca07a98c88232f096e4a02dc8481f9c2">iNodeTransform</a> *transformNode = iNodeManager::getInstance().createNode&lt;<a class="code" href="namespaceigor.html#ae9db6c55577221606f29742f50448f2eaca07a98c88232f096e4a02dc8481f9c2">iNodeTransform</a>&gt;();</div>
+<div class="line">                transformNode-&gt;translate(x, i, z);</div>
 <div class="line"></div>
-<div class="line">                <a class="code" href="classigor_1_1i_node_model.html">iNodeModel</a> *cube = iNodeManager::getInstance().createNode&lt;<a class="code" href="classigor_1_1i_node_model.html">iNodeModel</a>&gt;();</div>
-<div class="line">                cube-&gt;<a class="code" href="classigor_1_1i_node_model.html#a5e535405f55bd14b30c53939690ebb88">setModel</a>(<span class="stringliteral">&quot;crate.ompf&quot;</span>);</div>
+<div class="line">                <a class="code" href="namespaceigor.html#a2949a54c2dc2d434d8a54e802d41476d">iNodeModel</a> *cube = iNodeManager::getInstance().createNode&lt;<a class="code" href="namespaceigor.html#a2949a54c2dc2d434d8a54e802d41476d">iNodeModel</a>&gt;();</div>
+<div class="line">                cube-&gt;setModel(<span class="stringliteral">&quot;crate.ompf&quot;</span>);</div>
 <div class="line"></div>
 <div class="line">                <span class="comment">// binds physics node and transform node implicitly</span></div>
-<div class="line">                transformNode-&gt;<a class="code" href="classigor_1_1i_node.html#ab97d0817f6669e541567a09e50f66955">insertNode</a>(cube);</div>
-<div class="line">                transformNode-&gt;<a class="code" href="classigor_1_1i_node.html#ab97d0817f6669e541567a09e50f66955">insertNode</a>(nodePhysics);</div>
-<div class="line">                _scene-&gt;getRoot()-&gt;insertNode(transformNode);</div>
+<div class="line">                transformNode-&gt;insertNode(cube);</div>
+<div class="line">                transformNode-&gt;insertNode(nodePhysics);</div>
+<div class="line">                getScene()-&gt;getRoot()-&gt;insertNode(transformNode);</div>
 <div class="line">            }</div>
 <div class="line">        }</div>
 <div class="line">    }</div>
@@ -404,195 +286,89 @@ $(document).ready(function(){initNavTree('_physics_2src_2_physics_example_8cpp-e
 <div class="line">    }</div>
 <div class="line"></div>
 <div class="line">    <span class="comment">// initialize camamera</span></div>
-<div class="line">    _cameraHeading = iNodeManager::getInstance().createNode&lt;<a class="code" href="classigor_1_1i_node_transform.html">iNodeTransform</a>&gt;();</div>
-<div class="line">    _cameraHeading-&gt;<a name="a36"></a><a class="code" href="classigor_1_1i_node.html#ad2fb3effebc4ed61285c55358732348a">setName</a>(<span class="stringliteral">&quot;_cameraHeading&quot;</span>);</div>
-<div class="line">    _cameraHeading-&gt;rotate(0.4, <a class="code" href="namespaceiaux.html#ad667fe7c1ad6757a475a5913e3789d2ba57cec4137b614c87cb4e24a3d003a3e0">iaAxis::Y</a>);</div>
-<div class="line">    _cameraPitch = iNodeManager::getInstance().createNode&lt;<a class="code" href="classigor_1_1i_node_transform.html">iNodeTransform</a>&gt;();</div>
-<div class="line">    _cameraPitch-&gt;<a class="code" href="classigor_1_1i_node.html#ad2fb3effebc4ed61285c55358732348a">setName</a>(<span class="stringliteral">&quot;_cameraPitch&quot;</span>);</div>
-<div class="line">    _cameraPitch-&gt;rotate(-0.4, <a class="code" href="namespaceiaux.html#ad667fe7c1ad6757a475a5913e3789d2ba02129bb861061d1a052c592e2dc6b383">iaAxis::X</a>);</div>
-<div class="line">    _cameraTranslation = iNodeManager::getInstance().createNode&lt;<a class="code" href="classigor_1_1i_node_transform.html">iNodeTransform</a>&gt;();</div>
-<div class="line">    _cameraTranslation-&gt;<a class="code" href="classigor_1_1i_node.html#ad2fb3effebc4ed61285c55358732348a">setName</a>(<span class="stringliteral">&quot;_cameraTranslation&quot;</span>);</div>
+<div class="line">    _cameraHeading = iNodeManager::getInstance().createNode&lt;<a class="code" href="namespaceigor.html#ae9db6c55577221606f29742f50448f2eaca07a98c88232f096e4a02dc8481f9c2">iNodeTransform</a>&gt;();</div>
+<div class="line">    _cameraHeading-&gt;setName(<span class="stringliteral">&quot;cameraHeading&quot;</span>);</div>
+<div class="line">    _cameraHeading-&gt;rotate(0.4, iaAxis::Y);</div>
+<div class="line">    _cameraPitch = iNodeManager::getInstance().createNode&lt;<a class="code" href="namespaceigor.html#ae9db6c55577221606f29742f50448f2eaca07a98c88232f096e4a02dc8481f9c2">iNodeTransform</a>&gt;();</div>
+<div class="line">    _cameraPitch-&gt;setName(<span class="stringliteral">&quot;cameraPitch&quot;</span>);</div>
+<div class="line">    _cameraPitch-&gt;rotate(-0.4, iaAxis::X);</div>
+<div class="line">    _cameraTranslation = iNodeManager::getInstance().createNode&lt;<a class="code" href="namespaceigor.html#ae9db6c55577221606f29742f50448f2eaca07a98c88232f096e4a02dc8481f9c2">iNodeTransform</a>&gt;();</div>
+<div class="line">    _cameraTranslation-&gt;setName(<span class="stringliteral">&quot;cameraTranslation&quot;</span>);</div>
 <div class="line">    _cameraTranslation-&gt;translate(0, 0, 80);</div>
-<div class="line">    <a name="_a37"></a><a class="code" href="classigor_1_1i_node_camera.html">iNodeCamera</a> *camera = iNodeManager::getInstance().createNode&lt;<a class="code" href="classigor_1_1i_node_camera.html">iNodeCamera</a>&gt;();</div>
-<div class="line">    camera-&gt;<a class="code" href="classigor_1_1i_node.html#ad2fb3effebc4ed61285c55358732348a">setName</a>(<span class="stringliteral">&quot;camera&quot;</span>);</div>
+<div class="line">    <a class="code" href="namespaceigor.html#ae9db6c55577221606f29742f50448f2eafd6f6af46cabe3142958efcd928fe034">iNodeCamera</a> *camera = iNodeManager::getInstance().createNode&lt;<a class="code" href="namespaceigor.html#ae9db6c55577221606f29742f50448f2eafd6f6af46cabe3142958efcd928fe034">iNodeCamera</a>&gt;();</div>
+<div class="line">    camera-&gt;setName(<span class="stringliteral">&quot;camera&quot;</span>);</div>
 <div class="line"></div>
-<div class="line">    _scene-&gt;getRoot()-&gt;insertNode(_cameraHeading);</div>
+<div class="line">    getScene()-&gt;getRoot()-&gt;insertNode(_cameraHeading);</div>
 <div class="line">    _cameraHeading-&gt;insertNode(_cameraPitch);</div>
 <div class="line">    _cameraPitch-&gt;insertNode(_cameraTranslation);</div>
 <div class="line">    _cameraTranslation-&gt;insertNode(camera);</div>
 <div class="line"></div>
 <div class="line">    <span class="comment">// and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a</span></div>
 <div class="line">    <span class="comment">// scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node</span></div>
-<div class="line">    _view.setCurrentCamera(camera-&gt;<a name="a38"></a><a class="code" href="classigor_1_1i_node.html#a0876e3a91f45c9ca5bc436acf59e3a1c">getID</a>());</div>
-<div class="line"></div>
-<div class="line">    <span class="comment">// default sky box</span></div>
-<div class="line">    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();</div>
-<div class="line">    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)-&gt;setName(<span class="stringliteral">&quot;SkyBox&quot;</span>);</div>
-<div class="line">    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)-&gt;setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);</div>
-<div class="line">    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)-&gt;setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);</div>
-<div class="line">    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)-&gt;setOrder(10);</div>
-<div class="line"></div>
-<div class="line">    <a name="_a39"></a><a class="code" href="classigor_1_1i_node_sky_box.html">iNodeSkyBox</a> *skyBoxNode = iNodeManager::getInstance().createNode&lt;<a class="code" href="classigor_1_1i_node_sky_box.html">iNodeSkyBox</a>&gt;();</div>
-<div class="line">    skyBoxNode-&gt;<a name="a40"></a><a class="code" href="classigor_1_1i_node_sky_box.html#a97d8036178964b352da12b1580831fbc">setTextures</a>(</div>
-<div class="line">        iTextureResourceFactory::getInstance().requestFile(<span class="stringliteral">&quot;skybox_default/front.png&quot;</span>),</div>
-<div class="line">        iTextureResourceFactory::getInstance().requestFile(<span class="stringliteral">&quot;skybox_default/back.png&quot;</span>),</div>
-<div class="line">        iTextureResourceFactory::getInstance().requestFile(<span class="stringliteral">&quot;skybox_default/left.png&quot;</span>),</div>
-<div class="line">        iTextureResourceFactory::getInstance().requestFile(<span class="stringliteral">&quot;skybox_default/right.png&quot;</span>),</div>
-<div class="line">        iTextureResourceFactory::getInstance().requestFile(<span class="stringliteral">&quot;skybox_default/top.png&quot;</span>),</div>
-<div class="line">        iTextureResourceFactory::getInstance().requestFile(<span class="stringliteral">&quot;skybox_default/bottom.png&quot;</span>));</div>
-<div class="line">    skyBoxNode-&gt;<a name="a41"></a><a class="code" href="classigor_1_1i_node_render.html#a2072cb870a00fba7eb996eef0589d904">setMaterial</a>(_materialSkyBox);</div>
-<div class="line">    _scene-&gt;getRoot()-&gt;insertNode(skyBoxNode);</div>
-<div class="line"></div>
-<div class="line">    <span class="comment">// load font for statistics</span></div>
-<div class="line">    _font = <span class="keyword">new</span> <a class="code" href="classigor_1_1i_texture_font.html">iTextureFont</a>(<span class="stringliteral">&quot;StandardFont.png&quot;</span>);</div>
-<div class="line"></div>
-<div class="line">    <span class="comment">// prepare igor logo</span></div>
-<div class="line">    _igorLogo = iTextureResourceFactory::getInstance().loadFile(<span class="stringliteral">&quot;special/splash.png&quot;</span>, iResourceCacheMode::Free, <a name="a42"></a><a class="code" href="namespaceiaux.html#a26f41a1d7eef1fe9ea50aeffea8263cea960b44c579bc2f6818d2daaf9e4c16f0">iTextureBuildMode::Normal</a>);</div>
-<div class="line">    _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();</div>
-<div class="line">    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)-&gt;setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);</div>
-<div class="line">    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)-&gt;setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);</div>
-<div class="line">    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)-&gt;setRenderState(iRenderState::Blend, iRenderStateValue::On);</div>
+<div class="line">    getView().setCurrentCamera(camera-&gt;getID());</div>
 <div class="line"></div>
 <div class="line">    <span class="comment">// init light</span></div>
-<div class="line">    <a class="code" href="classigor_1_1i_node_transform.html">iNodeTransform</a> *directionalLightTransform = iNodeManager::getInstance().createNode&lt;<a class="code" href="classigor_1_1i_node_transform.html">iNodeTransform</a>&gt;();</div>
-<div class="line">    directionalLightTransform-&gt;<a class="code" href="classigor_1_1i_node_transform.html#a6516861991e69b715806f1f5d8f9e016">translate</a>(100, 100, 100);</div>
+<div class="line">    <a class="code" href="namespaceigor.html#ae9db6c55577221606f29742f50448f2eaca07a98c88232f096e4a02dc8481f9c2">iNodeTransform</a> *directionalLightTransform = iNodeManager::getInstance().createNode&lt;<a class="code" href="namespaceigor.html#ae9db6c55577221606f29742f50448f2eaca07a98c88232f096e4a02dc8481f9c2">iNodeTransform</a>&gt;();</div>
+<div class="line">    directionalLightTransform-&gt;translate(100, 100, 100);</div>
 <div class="line"></div>
-<div class="line">    <a class="code" href="classigor_1_1i_node_light.html">iNodeLight</a> *lightNode = iNodeManager::getInstance().createNode&lt;<a class="code" href="classigor_1_1i_node_light.html">iNodeLight</a>&gt;();</div>
-<div class="line">    lightNode-&gt;<a name="a43"></a><a class="code" href="classigor_1_1i_node_light.html#a56002b44df8474bdc22e363748bdd2e1">setAmbient</a>(<a class="code" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>(0.3f, 0.3f, 0.3f, 1.0f));</div>
-<div class="line">    lightNode-&gt;<a name="a44"></a><a class="code" href="classigor_1_1i_node_light.html#a7c136184552ef8a4706f7d02f55a097e">setDiffuse</a>(<a class="code" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>(0.8f, 0.8f, 0.8f, 1.0f));</div>
-<div class="line">    lightNode-&gt;<a name="a45"></a><a class="code" href="classigor_1_1i_node_light.html#aa45a7bab4acb0b137a06603bef4a5563">setSpecular</a>(<a class="code" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>(1.0f, 01.0f, 1.0f, 1.0f));</div>
-<div class="line">    directionalLightTransform-&gt;<a class="code" href="classigor_1_1i_node.html#ab97d0817f6669e541567a09e50f66955">insertNode</a>(lightNode);</div>
-<div class="line">    _scene-&gt;getRoot()-&gt;insertNode(directionalLightTransform);</div>
-<div class="line"></div>
-<div class="line">    <span class="comment">// launch resource handlers</span></div>
-<div class="line">    _flushModelsTask = iTaskManager::getInstance().addTask(<span class="keyword">new</span> <a class="code" href="classigor_1_1i_task_flush_models.html">iTaskFlushModels</a>(&amp;_window));</div>
-<div class="line">    _flushTexturesTask = iTaskManager::getInstance().addTask(<span class="keyword">new</span> <a class="code" href="classigor_1_1i_task_flush_textures.html">iTaskFlushTextures</a>(&amp;_window));</div>
-<div class="line"></div>
-<div class="line">    _profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);</div>
+<div class="line">    <a class="code" href="namespaceigor.html#ae9db6c55577221606f29742f50448f2eab127e97ef549a9a34d6a1370618e870e">iNodeLight</a> *lightNode = iNodeManager::getInstance().createNode&lt;<a class="code" href="namespaceigor.html#ae9db6c55577221606f29742f50448f2eab127e97ef549a9a34d6a1370618e870e">iNodeLight</a>&gt;();</div>
+<div class="line">    lightNode-&gt;setAmbient(<a name="a3"></a><a class="code" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>(0.3f, 0.3f, 0.3f, 1.0f));</div>
+<div class="line">    lightNode-&gt;setDiffuse(<a class="code" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>(0.8f, 0.8f, 0.8f, 1.0f));</div>
+<div class="line">    lightNode-&gt;setSpecular(<a class="code" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>(1.0f, 01.0f, 1.0f, 1.0f));</div>
+<div class="line">    directionalLightTransform-&gt;insertNode(lightNode);</div>
+<div class="line">    getScene()-&gt;getRoot()-&gt;insertNode(directionalLightTransform);</div>
 <div class="line">}</div>
 <div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> PhysicsExample::deinit()</div>
+<div class="line"><span class="keywordtype">void</span> PhysicsExample::onDeinit()</div>
 <div class="line">{</div>
-<div class="line">    iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(<span class="keyword">this</span>, &amp;PhysicsExample::onMouseWheel));</div>
-<div class="line">    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(<span class="keyword">this</span>, &amp;PhysicsExample::onMouseMoved));</div>
-<div class="line">    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(<span class="keyword">this</span>, &amp;PhysicsExample::onKeyPressed));</div>
-<div class="line">    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(<span class="keyword">this</span>, &amp;PhysicsExample::onRenderOrtho));</div>
-<div class="line">    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate(<span class="keyword">this</span>, &amp;PhysicsExample::onHandle));</div>
-<div class="line"></div>
-<div class="line">    <span class="comment">// free some resources</span></div>
-<div class="line">    _igorLogo = <span class="keyword">nullptr</span>;</div>
-<div class="line"></div>
-<div class="line">    <span class="keywordflow">if</span> (_font)</div>
-<div class="line">    {</div>
-<div class="line">        <span class="keyword">delete</span> _font;</div>
-<div class="line">        _font = <span class="keyword">nullptr</span>;</div>
-<div class="line">    }</div>
-<div class="line"></div>
-<div class="line">    iSceneFactory::getInstance().destroyScene(_scene);</div>
-<div class="line"></div>
 <div class="line">    <span class="keywordflow">for</span> (<span class="keyword">auto</span> bodyID : _bodyIDs)</div>
 <div class="line">    {</div>
 <div class="line">        iPhysics::getInstance().destroyBody(bodyID);</div>
 <div class="line">    }</div>
 <div class="line"></div>
 <div class="line">    _bodyIDs.clear();</div>
-<div class="line"></div>
-<div class="line">    iTaskManager::getInstance().abortTask(_flushModelsTask);</div>
-<div class="line">    iTaskManager::getInstance().abortTask(_flushTexturesTask);</div>
-<div class="line"></div>
-<div class="line">    <span class="keywordflow">if</span> (_window.isOpen())</div>
-<div class="line">    {</div>
-<div class="line">        _window.close();</div>
-<div class="line">        _window.removeView(&amp;_view);</div>
-<div class="line">        _window.removeView(&amp;_viewOrtho);</div>
-<div class="line">    }</div>
 <div class="line">}</div>
 <div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> PhysicsExample::onApplyForceAndTorque(<a class="code" href="classigor_1_1i_physics_body.html">iPhysicsBody</a> *body, <a class="code" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> timestep)</div>
+<div class="line"><span class="keywordtype">void</span> PhysicsExample::onApplyForceAndTorque(iPhysicsBody *body, <a class="code" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> timestep)</div>
 <div class="line">{</div>
 <div class="line">    <a class="code" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a> Ixx;</div>
 <div class="line">    <a class="code" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a> Iyy;</div>
 <div class="line">    <a class="code" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a> Izz;</div>
 <div class="line">    <a class="code" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a> mass;</div>
-<div class="line">    <a name="_a46"></a><a class="code" href="classiaux_1_1ia_vector3.html">iaVector3d</a> force;</div>
+<div class="line">    <a name="a4"></a><a class="code" href="namespaceiaux.html#a5b3f0308fd280c7f533d812b118f8fe3">iaVector3d</a> force;</div>
 <div class="line"></div>
 <div class="line">    <span class="comment">// apply gravity on this body</span></div>
-<div class="line">    iPhysics::getInstance().getMassMatrix(body-&gt;<a name="a47"></a><a class="code" href="classigor_1_1i_physics_body.html#a1fc91a68cc333465b04f75b58ea78628">getNewtonBody</a>(), mass, Ixx, Iyy, Izz);</div>
-<div class="line">    force.<a name="a48"></a><a class="code" href="classiaux_1_1ia_vector3.html#a9318308d20ed3bd29e16fd1b41b02eef">set</a>(0.0f, -mass * static_cast&lt;float32&gt;(<a name="a49"></a><a class="code" href="ia_defines_8h.html#a62836e238200be78731465d4aba1e4c3">__IGOR_GRAVITY__</a>), 0.0f);</div>
-<div class="line">    body-&gt;<a name="a50"></a><a class="code" href="classigor_1_1i_physics_body.html#ad3f4793f6b632ada93604883d5acf899">setForce</a>(force);</div>
+<div class="line">    iPhysics::getInstance().getMassMatrix(body-&gt;getNewtonBody(), mass, Ixx, Iyy, Izz);</div>
+<div class="line">    force.<a name="a5"></a><a class="code" href="classiaux_1_1ia_vector3.html#a9318308d20ed3bd29e16fd1b41b02eef">set</a>(0.0f, -mass * static_cast&lt;float32&gt;(<a name="a6"></a><a class="code" href="ia_defines_8h.html#a62836e238200be78731465d4aba1e4c3">__IGOR_GRAVITY__</a>), 0.0f);</div>
+<div class="line">    body-&gt;setForce(force);</div>
 <div class="line">}</div>
 <div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> PhysicsExample::onMouseWheel(<a class="code" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> d)</div>
+<div class="line"><span class="keywordtype">void</span> PhysicsExample::onRenderOrtho()</div>
 <div class="line">{</div>
-<div class="line">    <span class="keywordflow">if</span> (d &lt; 0)</div>
-<div class="line">    {</div>
-<div class="line">        _cameraTranslation-&gt;translate(0, 0, 10);</div>
-<div class="line">    }</div>
-<div class="line">    <span class="keywordflow">else</span></div>
-<div class="line">    {</div>
-<div class="line">        _cameraTranslation-&gt;translate(0, 0, -10);</div>
-<div class="line">    }</div>
+<div class="line">    <a class="code" href="namespaceiaux.html#a3b3ecae191d331ad79198b631e30db4d">iaMatrixd</a> viewMatrix;</div>
+<div class="line">    iRenderer::getInstance().setViewMatrix(viewMatrix);</div>
+<div class="line"></div>
+<div class="line">    <a class="code" href="namespaceiaux.html#a3b3ecae191d331ad79198b631e30db4d">iaMatrixd</a> modelMatrix;</div>
+<div class="line">    modelMatrix.translate(0, 0, -30);</div>
+<div class="line">    iRenderer::getInstance().setModelMatrix(modelMatrix);</div>
+<div class="line"></div>
+<div class="line">    ExampleBase::onRenderOrtho();</div>
 <div class="line">}</div>
 <div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> PhysicsExample::onMouseMoved(<span class="keyword">const</span> <a class="code" href="classiaux_1_1ia_vector2.html">iaVector2i</a> &amp;from, <span class="keyword">const</span> <a class="code" href="classiaux_1_1ia_vector2.html">iaVector2i</a> &amp;to, <a class="code" href="classigor_1_1i_window.html">iWindow</a> *window)</div>
+<div class="line"><span class="keywordtype">void</span> PhysicsExample::onEvent(iEvent &amp;event)</div>
 <div class="line">{</div>
-<div class="line">    <span class="keywordflow">if</span> (iMouse::getInstance().getLeftButton())</div>
-<div class="line">    {</div>
-<div class="line">        <a class="code" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> heading = <span class="keyword">static_cast&lt;</span><a class="code" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a><span class="keyword">&gt;</span>(from.<a name="a51"></a><a class="code" href="classiaux_1_1ia_vector2.html#a8f5182f1e84a421004143504cd6183d5">_x</a> - to.<a class="code" href="classiaux_1_1ia_vector2.html#a8f5182f1e84a421004143504cd6183d5">_x</a>) * 0.001f;</div>
-<div class="line">        <a class="code" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> pitch = <span class="keyword">static_cast&lt;</span><a class="code" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a><span class="keyword">&gt;</span>(from.<a name="a52"></a><a class="code" href="classiaux_1_1ia_vector2.html#a28d9fcdd165f304867016139641412a9">_y</a> - to.<a class="code" href="classiaux_1_1ia_vector2.html#a28d9fcdd165f304867016139641412a9">_y</a>) * 0.001f;</div>
+<div class="line">    <span class="comment">// first call example base</span></div>
+<div class="line">    ExampleBase::onEvent(event);</div>
 <div class="line"></div>
-<div class="line">        <a class="code" href="classiaux_1_1ia_matrix.html">iaMatrixd</a> matrix;</div>
-<div class="line">        _cameraPitch-&gt;getMatrix(matrix);</div>
-<div class="line">        matrix.<a name="a53"></a><a class="code" href="classiaux_1_1ia_matrix.html#ae9eba9dbfae8fc7cc139579370386efb">rotate</a>(pitch, <a class="code" href="namespaceiaux.html#ad667fe7c1ad6757a475a5913e3789d2ba02129bb861061d1a052c592e2dc6b383">iaAxis::X</a>);</div>
-<div class="line">        _cameraPitch-&gt;setMatrix(matrix);</div>
-<div class="line"></div>
-<div class="line">        _cameraHeading-&gt;getMatrix(matrix);</div>
-<div class="line">        matrix.<a class="code" href="classiaux_1_1ia_matrix.html#ae9eba9dbfae8fc7cc139579370386efb">rotate</a>(heading, <a class="code" href="namespaceiaux.html#ad667fe7c1ad6757a475a5913e3789d2ba57cec4137b614c87cb4e24a3d003a3e0">iaAxis::Y</a>);</div>
-<div class="line">        _cameraHeading-&gt;setMatrix(matrix);</div>
-<div class="line"></div>
-<div class="line">        iMouse::getInstance().setCenter();</div>
-<div class="line">    }</div>
+<div class="line">    <span class="keyword">event</span>.dispatch&lt;<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710da6d7fa54fe77642cce3a76caaa389f9f2">iEventKeyDown</a>&gt;(<a name="a7"></a><a class="code" href="i_event_8h.html#aba3d4ba34f4c5cc603450d336d9312c8">IGOR_BIND_EVENT_FUNCTION</a>(PhysicsExample::onKeyDown));</div>
+<div class="line">    <span class="keyword">event</span>.dispatch&lt;<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710dad91489ab3b2c02a62f753fe4193636e3">iEventMouseMove</a>&gt;(<a class="code" href="i_event_8h.html#aba3d4ba34f4c5cc603450d336d9312c8">IGOR_BIND_EVENT_FUNCTION</a>(PhysicsExample::onMouseMoveEvent));</div>
+<div class="line">    <span class="keyword">event</span>.dispatch&lt;<a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710dac2190c3ff76de09a1a5d8189f883b9d8">iEventMouseWheel</a>&gt;(<a class="code" href="i_event_8h.html#aba3d4ba34f4c5cc603450d336d9312c8">IGOR_BIND_EVENT_FUNCTION</a>(PhysicsExample::onMouseWheelEvent));</div>
 <div class="line">}</div>
 <div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> PhysicsExample::onWindowClosed()</div>
+<div class="line"><span class="keywordtype">bool</span> PhysicsExample::onKeyDown(iEventKeyDown &amp;event)</div>
 <div class="line">{</div>
-<div class="line">    iApplication::getInstance().stop();</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> PhysicsExample::onKeyPressed(<a class="code" href="namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bd">iKeyCode</a> key)</div>
-<div class="line">{</div>
-<div class="line">    <span class="keywordflow">switch</span> (key)</div>
+<div class="line">    <span class="keywordflow">switch</span> (event.getKey())</div>
 <div class="line">    {</div>
-<div class="line">    <span class="keywordflow">case</span> iKeyCode::ESC:</div>
-<div class="line">        iApplication::getInstance().stop();</div>
-<div class="line">        <span class="keywordflow">break</span>;</div>
-<div class="line"></div>
-<div class="line">    <span class="keywordflow">case</span> iKeyCode::F8:</div>
-<div class="line">        _profilerVisualizer.cycleVerbosity();</div>
-<div class="line">        <span class="keywordflow">break</span>;</div>
-<div class="line"></div>
-<div class="line">    <span class="keywordflow">case</span> iKeyCode::F9:</div>
-<div class="line">    {</div>
-<div class="line">        <a name="_a54"></a><a class="code" href="classigor_1_1i_node_visitor_print_tree.html">iNodeVisitorPrintTree</a> printTree;</div>
-<div class="line">        <span class="keywordflow">if</span> (_scene != <span class="keyword">nullptr</span>)</div>
-<div class="line">        {</div>
-<div class="line">            printTree.<a name="a55"></a><a class="code" href="classigor_1_1i_node_visitor_print_tree.html#a41caf452367193f509b1416fe56eaea6">printToConsole</a>(_scene-&gt;getRoot());</div>
-<div class="line">        }</div>
-<div class="line">    }</div>
-<div class="line">    <span class="keywordflow">break</span>;</div>
-<div class="line"></div>
-<div class="line">    <span class="keywordflow">case</span> iKeyCode::F10:</div>
-<div class="line">        _view.setWireframeVisible(!_view.isWireframeVisible());</div>
-<div class="line">        <span class="keywordflow">break</span>;</div>
-<div class="line"></div>
-<div class="line">    <span class="keywordflow">case</span> iKeyCode::F11:</div>
-<div class="line">        _view.setOctreeVisible(!_view.isOctreeVisible());</div>
-<div class="line">        <span class="keywordflow">break</span>;</div>
-<div class="line"></div>
-<div class="line">    <span class="keywordflow">case</span> iKeyCode::F12:</div>
-<div class="line">        _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());</div>
-<div class="line">        <span class="keywordflow">break</span>;</div>
-<div class="line"></div>
 <div class="line">    <span class="keywordflow">case</span> iKeyCode::Space:</div>
 <div class="line">        _running = !_running;</div>
 <div class="line">        <span class="keywordflow">if</span> (_running)</div>
@@ -603,46 +379,51 @@ $(document).ready(function(){initNavTree('_physics_2src_2_physics_example_8cpp-e
 <div class="line">        {</div>
 <div class="line">            iPhysics::getInstance().stop();</div>
 <div class="line">        }</div>
-<div class="line">        <span class="keywordflow">break</span>;</div>
+<div class="line">        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line">}</div>
 <div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> PhysicsExample::onHandle()</div>
+<div class="line"><span class="keywordtype">bool</span> PhysicsExample::onMouseMoveEvent(iEventMouseMove &amp;event)</div>
 <div class="line">{</div>
-<div class="line">    _scene-&gt;handle();</div>
+<div class="line">    <span class="keywordflow">if</span> (iMouse::getInstance().getLeftButton())</div>
+<div class="line">    {</div>
+<div class="line">        <span class="keyword">const</span> <span class="keyword">auto</span> from = <span class="keyword">event</span>.getLastPosition();</div>
+<div class="line">        <span class="keyword">const</span> <span class="keyword">auto</span> to = <span class="keyword">event</span>.getPosition();</div>
+<div class="line"></div>
+<div class="line">        <a class="code" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> heading = <span class="keyword">static_cast&lt;</span><a class="code" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a><span class="keyword">&gt;</span>(from._x - to._x) * 0.0005f;</div>
+<div class="line">        <a class="code" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> pitch = <span class="keyword">static_cast&lt;</span><a class="code" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a><span class="keyword">&gt;</span>(from._y - to._y) * 0.0005f;</div>
+<div class="line"></div>
+<div class="line">        <a class="code" href="namespaceiaux.html#a3b3ecae191d331ad79198b631e30db4d">iaMatrixd</a> matrix;</div>
+<div class="line">        _cameraPitch-&gt;getMatrix(matrix);</div>
+<div class="line">        matrix.rotate(pitch, iaAxis::X);</div>
+<div class="line">        _cameraPitch-&gt;setMatrix(matrix);</div>
+<div class="line"></div>
+<div class="line">        _cameraHeading-&gt;getMatrix(matrix);</div>
+<div class="line">        matrix.rotate(heading, iaAxis::Y);</div>
+<div class="line">        _cameraHeading-&gt;setMatrix(matrix);</div>
+<div class="line"></div>
+<div class="line">        iMouse::getInstance().setCenter();</div>
+<div class="line"></div>
+<div class="line">        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line">    }</div>
+<div class="line"></div>
+<div class="line">    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line">}</div>
 <div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> PhysicsExample::onRenderOrtho()</div>
+<div class="line"><span class="keywordtype">bool</span> PhysicsExample::onMouseWheelEvent(iEventMouseWheel &amp;event)</div>
 <div class="line">{</div>
-<div class="line">    <a class="code" href="classiaux_1_1ia_matrix.html">iaMatrixd</a> viewMatrix;</div>
-<div class="line">    iRenderer::getInstance().setViewMatrix(viewMatrix);</div>
+<div class="line">    <span class="keywordflow">if</span> (event.getWheelDelta() &lt; 0)</div>
+<div class="line">    {</div>
+<div class="line">        _cameraTranslation-&gt;translate(0, 0, 10);</div>
+<div class="line">    }</div>
+<div class="line">    <span class="keywordflow">else</span></div>
+<div class="line">    {</div>
+<div class="line">        _cameraTranslation-&gt;translate(0, 0, -10);</div>
+<div class="line">    }</div>
 <div class="line"></div>
-<div class="line">    <a class="code" href="classiaux_1_1ia_matrix.html">iaMatrixd</a> modelMatrix;</div>
-<div class="line">    modelMatrix.<a class="code" href="classiaux_1_1ia_matrix.html#ac3391a41520f494b8aa83d41ae89719b">translate</a>(0, 0, -30);</div>
-<div class="line">    iRenderer::getInstance().setModelMatrix(modelMatrix);</div>
-<div class="line"></div>
-<div class="line">    drawLogo();</div>
-<div class="line"></div>
-<div class="line">    <span class="comment">// draw frame rate in lower right corner</span></div>
-<div class="line">    _profilerVisualizer.draw(&amp;_window, _font, <a class="code" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>(0, 1, 0, 1));</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> PhysicsExample::drawLogo()</div>
-<div class="line">{</div>
-<div class="line">    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);</div>
-<div class="line">    iRenderer::getInstance().setColor(<a class="code" href="namespaceiaux.html#a5f9ca0e1634548e47e191e000815769b">iaColor4f</a>(1, 1, 1, 1));</div>
-<div class="line"></div>
-<div class="line">    <a class="code" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> width = <span class="keyword">static_cast&lt;</span><a class="code" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a><span class="keyword">&gt;</span>(_igorLogo-&gt;getWidth());</div>
-<div class="line">    <a class="code" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> height = <span class="keyword">static_cast&lt;</span><a class="code" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a><span class="keyword">&gt;</span>(_igorLogo-&gt;getHeight());</div>
-<div class="line">    <a class="code" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> x = <span class="keyword">static_cast&lt;</span><a class="code" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a><span class="keyword">&gt;</span>(_window.getClientWidth()) - width;</div>
-<div class="line">    <a class="code" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a> y = <span class="keyword">static_cast&lt;</span><a class="code" href="ia_defines_8h.html#aacdc525d6f7bddb3ae95d5c311bd06a1">float32</a><span class="keyword">&gt;</span>(_window.getClientHeight()) - height;</div>
-<div class="line"></div>
-<div class="line">    iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);</div>
-<div class="line">}</div>
-<div class="line"></div>
-<div class="line"><span class="keywordtype">void</span> PhysicsExample::run()</div>
-<div class="line">{</div>
-<div class="line">    iApplication::getInstance().run();</div>
+<div class="line">    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line">}</div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->

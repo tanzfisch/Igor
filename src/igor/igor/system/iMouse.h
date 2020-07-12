@@ -24,7 +24,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
 #ifndef __iMOUSE__
 #define __iMOUSE__
@@ -46,7 +46,7 @@ namespace igor
 
     \param key the key code of the key that was pressed    
 	*/
-    iaEVENT(iMouseKeyDownEvent, iMouseKeyDownDelegate, void, (iKeyCode key), (key));
+    iaEVENT(iMouseKeyDownEvent, iMouseKeyDownDelegate, (iKeyCode key), (key));
 
     /*! mouse key up event
 
@@ -55,13 +55,7 @@ namespace igor
 
     \pram key the key code of the key that was released
 	*/
-    iaEVENT(iMouseKeyUpEvent, iMouseKeyUpDelegate, void, (iKeyCode key), (key));
-
-    /*! mouse clicked event. triggered on moue up after there was a mouse down
-
-    \param key the key code of the key that was pressed
-    */
-    iaEVENT(iMouseClickEvent, iMouseClickDelegate, void, (iKeyCode key), (key));
+    iaEVENT(iMouseKeyUpEvent, iMouseKeyUpDelegate, (iKeyCode key), (key));
 
     /*! mouse double click event
 
@@ -69,7 +63,7 @@ namespace igor
 
     \pram key the key code of the key that was double clicked
     */
-    iaEVENT(iMouseKeyDoubleClickEvent, iMouseKeyDoubleClickDelegate, void, (iKeyCode key), (key));
+    iaEVENT(iMouseKeyDoubleClickEvent, iMouseKeyDoubleClickDelegate, (iKeyCode key), (key));
 
     /*! mouse move event with simple data
 
@@ -77,7 +71,7 @@ namespace igor
 
     \param pos current mouse position
     */
-    iaEVENT(iMouseMoveEvent, iMouseMoveDelegate, void, (const iaVector2i &pos), (pos));
+    iaEVENT(iMouseMoveEvent, iMouseMoveDelegate, (const iaVector2i &pos), (pos));
 
     /*! mouse move event with full data
 
@@ -87,13 +81,13 @@ namespace igor
     \param to current mouse position
     \param window the window the coordinates are related to
     */
-    iaEVENT(iMouseMoveFullEvent, iMouseMoveFullDelegate, void, (const iaVector2i &from, const iaVector2i &to, iWindow *window), (from, to, window));
+    iaEVENT(iMouseMoveFullEvent, iMouseMoveFullDelegate, (const iaVector2i &from, const iaVector2i &to, iWindow *window), (from, to, window));
 
     /*! mouse wheel event
 
     \param d mouse wheel delta
 	*/
-    iaEVENT(iMouseWheelEvent, iMouseWheelDelegate, void, (int32 d), (d));
+    iaEVENT(iMouseWheelEvent, iMouseWheelDelegate, (int32 d), (d));
 
     /*! Mouse (Singleton)
 
@@ -140,18 +134,6 @@ namespace igor
 		\param keyupDelegate the delegate to unregister
 		*/
         void unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate keyupDelegate);
-
-        /*! register delegate to mouse key clicked event
-
-        \param clickDelegate the delegate to register
-        */
-        void registerMouseClickDelegate(iMouseClickDelegate clickDelegate);
-
-        /*! unregister delegate from mouse key up event
-
-        \param clickDelegate the delegate to unregister
-        */
-        void unregisterMouseClickDelegate(iMouseClickDelegate clickDelegate);
 
         /*! register delegate to mouse move full data event
 

@@ -24,7 +24,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
 #ifndef __iNODEPARTICLESYSTEM__
 #define __iNODEPARTICLESYSTEM__
@@ -44,7 +44,7 @@ namespace igor
 
     /*! event triggered when particle system is finished
     */
-    iaEVENT(iParticleSystemFinishedEvent, iParticleSystemFinishedDelegate, void, (), ());
+    iaEVENT(iParticleSystemFinishedEvent, iParticleSystemFinishedDelegate, (), ());
 
     __IGOR_DISABLE_WARNING__(4275); // yes iNodeVolume is intentionally not a fully exported interface
 

@@ -24,7 +24,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 //
-// contact: martinloga@gmx.de
+// contact: igorgameengine@protonmail.com
 
 #ifndef __iRENDERER__
 #define __iRENDERER__
@@ -64,17 +64,6 @@ namespace igor
     class iTargetMaterial;
     class iMeshBuffers;
 
-    /*! shader object types
-    */
-    enum class iShaderObjectType : uint8
-    {
-        Vertex,
-        Fragment,
-        Geometry,
-        Effect,
-        Undefined
-    };
-
     enum class iRenderTargetType
     {
         ToTexture,
@@ -91,12 +80,12 @@ namespace igor
     /*! triggered when renderer is initialized.
     usually after a window was opened.
     */
-    iaEVENT(iRendererInitializedEvent, iRendererInitializedDelegate, void, (), ());
+    iaEVENT(iRendererInitializedEvent, iRendererInitializedDelegate, (), ());
 
     /*! triggered when renderer is going to be deinitialized.
     usually after a window was closed.
     */
-    iaEVENT(iRendererPreDeinitializeEvent, iRendererPreDeinitializeDelegate, void, (), ());
+    iaEVENT(iRendererPreDeinitializeEvent, iRendererPreDeinitializeDelegate, (), ());
 
     /*! abstraction class for the actuall renderer. curently only OpenGL
 
