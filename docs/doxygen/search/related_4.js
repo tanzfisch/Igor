@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['iactionmanager',['iActionManager',['../classigor_1_1i_action.html#a170d33c7d25f38eb4ed00c29187640da',1,'igor::iAction::iActionManager()'],['../classigor_1_1i_action_simple_delegate.html#a170d33c7d25f38eb4ed00c29187640da',1,'igor::iActionSimpleDelegate::iActionManager()']]],
   ['iafile',['iaFile',['../classiaux_1_1ia_directory.html#a86b456214cb093e5d06962a0e4fd5798',1,'iaux::iaDirectory']]],
   ['iapplication',['iApplication',['../classigor_1_1i_evaluation_manager.html#ac95e62eb30700f633cc8c60341f159f6',1,'igor::iEvaluationManager::iApplication()'],['../classigor_1_1i_physics.html#ac95e62eb30700f633cc8c60341f159f6',1,'igor::iPhysics::iApplication()'],['../classigor_1_1i_node_manager.html#ac95e62eb30700f633cc8c60341f159f6',1,'igor::iNodeManager::iApplication()'],['../classigor_1_1i_timer.html#ac95e62eb30700f633cc8c60341f159f6',1,'igor::iTimer::iApplication()'],['../classigor_1_1i_window.html#ac95e62eb30700f633cc8c60341f159f6',1,'igor::iWindow::iApplication()']]],
   ['iasingleton_3c_20iaconsole_20_3e',['iaSingleton&lt; iaConsole &gt;',['../classiaux_1_1ia_console.html#aa49f5c68d307cd04d594050c33a171ac',1,'iaux::iaConsole']]],
   ['iasingleton_3c_20iactionmanager_20_3e',['iaSingleton&lt; iActionManager &gt;',['../classigor_1_1i_action_manager.html#a7dc8689045eea85253f0760d46af2d84',1,'igor::iActionManager']]],
   ['iasingleton_3c_20iapplication_20_3e',['iaSingleton&lt; iApplication &gt;',['../classigor_1_1i_application.html#ae468ecca168a4a68be9c0daa3b5a3f83',1,'igor::iApplication']]],
   ['iasingleton_3c_20iaudio_20_3e',['iaSingleton&lt; iAudio &gt;',['../classigor_1_1i_audio.html#adbed475602d70d0ab93f438255a03034',1,'igor::iAudio']]],
+  ['iasingleton_3c_20iclipboard_20_3e',['iaSingleton&lt; iClipboard &gt;',['../classigor_1_1i_clipboard.html#a382c7daebfb40dbdebebf172826df357',1,'igor::iClipboard']]],
   ['iasingleton_3c_20ientitymanager_20_3e',['iaSingleton&lt; iEntityManager &gt;',['../classigor_1_1i_entity_manager.html#ab9e1f55c27100f2b273af131177e4800',1,'igor::iEntityManager']]],
   ['iasingleton_3c_20ievaluationmanager_20_3e',['iaSingleton&lt; iEvaluationManager &gt;',['../classigor_1_1i_evaluation_manager.html#a51df36f14091d429eede467775193108',1,'igor::iEvaluationManager']]],
   ['iasingleton_3c_20ikeyboard_20_3e',['iaSingleton&lt; iKeyboard &gt;',['../classigor_1_1i_keyboard.html#af84982e77484ff4a0ef880a66612dd84',1,'igor::iKeyboard']]],

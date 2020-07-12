@@ -49,10 +49,10 @@ namespace igor
     void iLayerProfiler::onEvent(iEvent &event)
     {
         event.dispatch<iEventWindowResize>(IGOR_BIND_EVENT_FUNCTION(iLayerProfiler::onWindowResize));
-        event.dispatch<iKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iLayerProfiler::onKeyUp));
+        event.dispatch<iEventKeyUp>(IGOR_BIND_EVENT_FUNCTION(iLayerProfiler::onKeyUp));
     }
 
-    bool iLayerProfiler::onKeyUp(iKeyUpEvent_TMP &event)
+    bool iLayerProfiler::onKeyUp(iEventKeyUp &event)
     {
         switch (event.getKey())
         {

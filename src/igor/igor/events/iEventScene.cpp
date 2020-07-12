@@ -5,6 +5,8 @@
 #include <igor/events/iEventScene.h>
 #include <igor/scene/nodes/iNodeManager.h>
 
+#include <sstream>
+
 namespace igor
 {
 
@@ -18,7 +20,7 @@ namespace igor
         std::wstringstream stream;
 
         iNodePtr node = iNodeManager::getInstance().getNode(_nodeID);
-        stream << getName().getData() << "[" << _scene->getName() << ", " << (node != nullptr ? node->getName() : iaString::toString(_nodeID)) << "]";
+        stream << getName() << "[" << _scene->getName() << ", " << (node != nullptr ? node->getName() : iaString::toString(_nodeID)) << "]";
 
         return stream.str().c_str();
     }
@@ -43,7 +45,7 @@ namespace igor
         std::wstringstream stream;
 
         iNodePtr node = iNodeManager::getInstance().getNode(_nodeID);
-        stream << getName().getData() << "[" << _scene->getName() << ", " << (node != nullptr ? node->getName() : iaString::toString(_nodeID)) << "]";
+        stream << getName() << "[" << _scene->getName() << ", " << (node != nullptr ? node->getName() : iaString::toString(_nodeID)) << "]";
 
         return stream.str().c_str();
     }
@@ -67,7 +69,7 @@ namespace igor
     {
         std::wstringstream stream;
 
-        stream << getName().getData() << "[" << _scene->getName() << " | ";
+        stream << getName() << "[" << _scene->getName() << " | ";
 
         if (_scene->getSelection().empty())
         {

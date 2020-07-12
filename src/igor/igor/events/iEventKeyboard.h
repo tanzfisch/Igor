@@ -70,7 +70,7 @@ namespace igor
 
     /*! key up event
     */
-    class Igor_API iKeyUpEvent_TMP : public iEvent
+    class Igor_API iEventKeyUp : public iEvent
     {
     public:
         /*! init members
@@ -78,7 +78,7 @@ namespace igor
         \param window the window this event came from
         \param key the key code used in this event
         */
-        iKeyUpEvent_TMP(iWindow *window, const iKeyCode key);
+        iEventKeyUp(iWindow *window, const iKeyCode key);
 
         /*! \returns event kind mask
         */
@@ -92,7 +92,7 @@ namespace igor
         */
         iKeyCode getKey() const;
 
-        IGOR_EVENT_CLASS_TYPE(iKeyUpEvent_TMP)
+        IGOR_EVENT_CLASS_TYPE(iEventKeyUp)
 
     private:
         /*! the key code
@@ -102,7 +102,7 @@ namespace igor
 
     /*! key ascii event
     */
-    class Igor_API iKeyASCIIEvent_TMP : public iEvent
+    class Igor_API iEventKeyASCII : public iEvent
     {
     public:
         /*! init members
@@ -110,7 +110,7 @@ namespace igor
         \param window the window this event came from
         \param key the key code used in this event
         */
-        iKeyASCIIEvent_TMP(iWindow *window, const char character);
+        iEventKeyASCII(iWindow *window, const char character);
 
         /*! \returns event kind mask
         */
@@ -124,7 +124,7 @@ namespace igor
         */
         char getChar() const;
 
-        IGOR_EVENT_CLASS_TYPE(iKeyASCIIEvent_TMP)
+        IGOR_EVENT_CLASS_TYPE(iEventKeyASCII)
 
     private:
         /*! the ascii value

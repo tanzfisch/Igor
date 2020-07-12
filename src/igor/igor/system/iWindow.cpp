@@ -67,8 +67,6 @@ namespace igor
         __IGOR_INLINE__ void closeEvent()
         {
             iApplication::getInstance().onEvent(iEventPtr(new iEventWindowClose(_window)));
-
-            // _window->_windowCloseEvent(); // TODO remove
         }
 
         __IGOR_INLINE__ void sizeChanged(int32 width, int32 height)

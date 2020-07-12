@@ -5,6 +5,8 @@
 #include <igor/events/iEventMouse.h>
 #include <igor/system/iKeyboard.h>
 
+#include <sstream>
+
 namespace igor
 {
 
@@ -21,7 +23,7 @@ namespace igor
     const iaString iEventMouseKeyDown::getInfo() const
     {
         std::wstringstream stream;
-        stream << getName().getData() << "[" << _key << "]";
+        stream << getName() << "[" << _key << "]";
 
         return stream.str().c_str();
     }
@@ -44,7 +46,7 @@ namespace igor
     const iaString iEventMouseKeyUp::getInfo() const
     {
         std::wstringstream stream;
-        stream << getName().getData() << "[" << _key << "]";
+        stream << getName() << "[" << _key << "]";
 
         return stream.str().c_str();
     }
@@ -67,7 +69,7 @@ namespace igor
     const iaString iEventMouseKeyDoubleClick::getInfo() const
     {
         std::wstringstream stream;
-        stream << getName().getData() << "[" << _key << "]";
+        stream << getName() << "[" << _key << "]";
 
         return stream.str().c_str();
     }
@@ -90,7 +92,7 @@ namespace igor
     const iaString iEventMouseWheel::getInfo() const
     {
         std::wstringstream stream;
-        stream << getName().getData() << "[" << _wheelDelta << "]";
+        stream << getName() << "[" << _wheelDelta << "]";
 
         return stream.str().c_str();
     }
@@ -108,7 +110,7 @@ namespace igor
     const iaString iEventMouseMove::getInfo() const
     {
         std::wstringstream stream;
-        stream << getName().getData() << "[" << _from << " -> " << _to << "]";
+        stream << getName() << "[" << _from << " -> " << _to << "]";
 
         return stream.str().c_str();
     }

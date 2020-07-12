@@ -38,7 +38,7 @@ namespace igor
 {
     /*! layer for witdget system
     */
-    class iLayerWidgets : public iLayer
+    class Igor_API iLayerWidgets : public iLayer
     {
 
     public:

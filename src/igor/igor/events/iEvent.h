@@ -45,8 +45,8 @@ namespace igor
     enum class iEventType
     {
         iEventKeyDown,
-        iKeyUpEvent_TMP,
-        iKeyASCIIEvent_TMP,
+        iEventKeyUp,
+        iEventKeyASCII,
 
         iEventMouseKeyDown,
         iEventMouseKeyUp,
@@ -83,7 +83,7 @@ namespace igor
 
     /*! event base class
     */
-    class iEvent
+    class Igor_API iEvent
     {
     public:
         /*! init members

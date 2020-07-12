@@ -8,7 +8,6 @@ var classigor_1_1i_widget_button =
     [ "getText", "classigor_1_1i_widget_button.html#a9b68fd4b626b4bbb750a9c2230d8454b", null ],
     [ "getTexture", "classigor_1_1i_widget_button.html#ae5ddd1d3625735e7ad9a3a58f5b3c858", null ],
     [ "getVerticalTextAlignment", "classigor_1_1i_widget_button.html#a29b681f19fb4fa54c9736426d217d5bf", null ],
-    [ "getWidgetType", "classigor_1_1i_widget_button.html#a0182687a48da0d8ef8f1077fb7c0b909", null ],
     [ "setHorizontalTextAlignment", "classigor_1_1i_widget_button.html#a55a59d536fdf76c1626051518182c241", null ],
     [ "setText", "classigor_1_1i_widget_button.html#a037c4b9c56ec769c02a527eac9c0719b", null ],
     [ "setTexture", "classigor_1_1i_widget_button.html#a51fa7677847dacce02546d51c57c1dcb", null ],

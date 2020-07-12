@@ -7,6 +7,8 @@ var dir_9e5bcfe1e740fe6cb0edf2e6ac59021f =
     ] ],
     [ "iTaskManager.cpp", "i_task_manager_8cpp.html", null ],
     [ "iTaskManager.h", "i_task_manager_8h.html", "i_task_manager_8h" ],
-    [ "iThread.cpp", "i_thread_8cpp.html", "i_thread_8cpp" ],
-    [ "iThread.h", "i_thread_8h.html", "i_thread_8h" ]
+    [ "iThread.cpp", "i_thread_8cpp.html", null ],
+    [ "iThread.h", "i_thread_8h.html", [
+      [ "iThread", "classigor_1_1i_thread.html", "classigor_1_1i_thread" ]
+    ] ]
 ];

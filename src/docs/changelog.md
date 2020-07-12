@@ -10,6 +10,7 @@ I really needed to get this out before it get's even bigger.
 - fixed how menus behave
 - improved console output
 - made instancing and the instancing example work again
+  ![instancing](/images/Instancing.png)
 - surpressing auto key repeat under Linux
 - created an example base class for quicker prototyping
 - iaBSpline is a template now

@@ -1,7 +1,5 @@
 var classigor_1_1i_window =
 [
-    [ "iWindow", "classigor_1_1i_window.html#a19729b32b3c71f313ceca23a13d6be5a", null ],
-    [ "~iWindow", "classigor_1_1i_window.html#ae6c977406e35b79ded1033d45c354a38", null ],
     [ "addView", "classigor_1_1i_window.html#a83ce855b123665aadc775e9e22e5179a", null ],
     [ "close", "classigor_1_1i_window.html#a7e7f6d527e5db064eefaa8398b30963b", null ],
     [ "getClientHeight", "classigor_1_1i_window.html#ae062dccdd61cbc4cd12f8e7df392378e", null ],
@@ -10,6 +8,7 @@ var classigor_1_1i_window =
     [ "getDesktopSize", "classigor_1_1i_window.html#acfc510940f8013ef9a0f9881031b8e00", null ],
     [ "getDoubleClick", "classigor_1_1i_window.html#af5acdfd7d1f4763c70e60d959b485018", null ],
     [ "getHeight", "classigor_1_1i_window.html#ab394cae1a37e60a53a61d9207b95adb3", null ],
+    [ "getID", "classigor_1_1i_window.html#a30661a02c5b3a26d6d912ff1d2a666a2", null ],
     [ "getTitle", "classigor_1_1i_window.html#a4fd45a03e9330a29a66791a1b5a47ee9", null ],
     [ "getVSync", "classigor_1_1i_window.html#a7f03670aa6b19f811659f9439c765227", null ],
     [ "getWidth", "classigor_1_1i_window.html#ac847da6ed2c4cbafe7a2c3ed38f1a398", null ],
@@ -37,5 +36,6 @@ var classigor_1_1i_window =
     [ "unregisterWindowResizeDelegate", "classigor_1_1i_window.html#a7c956c3826dbbce0af8e551593a44443", null ],
     [ "iApplication", "classigor_1_1i_window.html#ac95e62eb30700f633cc8c60341f159f6", null ],
     [ "iRenderContextThread", "classigor_1_1i_window.html#a7dc05dbae7199a0aa13f4fe48d5246b8", null ],
-    [ "iWindowImpl", "classigor_1_1i_window.html#aa5787cd2b515d258016edd21628ad3bf", null ]
+    [ "iWindowImpl", "classigor_1_1i_window.html#aa5787cd2b515d258016edd21628ad3bf", null ],
+    [ "INVALID_WINDOW_ID", "classigor_1_1i_window.html#aee82da87b5c581d3e7680e2bee0e5c61", null ]
 ];

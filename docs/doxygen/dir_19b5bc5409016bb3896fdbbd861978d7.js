@@ -1,9 +1,7 @@
 var dir_19b5bc5409016bb3896fdbbd861978d7 =
 [
-    [ "iaBSpline.cpp", "ia_b_spline_8cpp.html", null ],
-    [ "iaBSpline.h", "ia_b_spline_8h.html", [
-      [ "iaBSpline", "classiaux_1_1ia_b_spline.html", "classiaux_1_1ia_b_spline" ]
-    ] ],
+    [ "iaBSpline.h", "ia_b_spline_8h.html", "ia_b_spline_8h" ],
+    [ "iaBSpline.inl", "ia_b_spline_8inl.html", null ],
     [ "iaEasing.h", "ia_easing_8h.html", "ia_easing_8h" ],
     [ "iaMatrix.h", "ia_matrix_8h.html", "ia_matrix_8h" ],
     [ "iaMatrix.inl", "ia_matrix_8inl.html", "ia_matrix_8inl" ],

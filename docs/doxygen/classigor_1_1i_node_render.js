@@ -5,7 +5,7 @@ var classigor_1_1i_node_render =
     [ "~iNodeRender", "classigor_1_1i_node_render.html#a228514c739d26cb2ea41441e4a72c38c", null ],
     [ "draw", "classigor_1_1i_node_render.html#a708bb931859381531e90e1d92c5d899e", null ],
     [ "getMaterial", "classigor_1_1i_node_render.html#a5971968d008aaa8fc98bf97a3788f229", null ],
-    [ "getWorldMatrix", "classigor_1_1i_node_render.html#aad6c723199a7ab1f121aa5979f45e900", null ],
+    [ "getWorldMatrix", "classigor_1_1i_node_render.html#aee97ea617180b381e0de21e9e8c93fc4", null ],
     [ "isVisible", "classigor_1_1i_node_render.html#af1e304aad7fa5c3238f3d17c276e6870", null ],
     [ "onPostSetScene", "classigor_1_1i_node_render.html#a735406d2419ef54fa51e7c8aee125abc", null ],
     [ "onPreSetScene", "classigor_1_1i_node_render.html#a3640e4101c1195c95101b63b2601bb9a", null ],

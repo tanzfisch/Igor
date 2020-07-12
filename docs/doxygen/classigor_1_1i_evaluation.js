@@ -3,7 +3,7 @@ var classigor_1_1i_evaluation =
     [ "iEvaluation", "classigor_1_1i_evaluation.html#aff60ed544f2e368c30504c10f4b0e940", null ],
     [ "~iEvaluation", "classigor_1_1i_evaluation.html#a76b7d8019ff47dd7468db6e17b9d4fb9", null ],
     [ "getAmplitude", "classigor_1_1i_evaluation.html#a5ffc66927dd7824ba85a043a5a7174d7", null ],
-    [ "getDuration", "classigor_1_1i_evaluation.html#a3ed07d5c188705a5f1a4a31b8a93b8e5", null ],
+    [ "getDuration", "classigor_1_1i_evaluation.html#af4035e3c1f0404867f0e906646e5e2cb", null ],
     [ "getEasingFunction", "classigor_1_1i_evaluation.html#a0bdba0a11adeaf017b22deb5ece1cb34", null ],
     [ "getID", "classigor_1_1i_evaluation.html#aa0b1bf075e4844588cb0a38580432990", null ],
     [ "getOvershoot", "classigor_1_1i_evaluation.html#a8b757dc254b730672457907998bc16d3", null ],

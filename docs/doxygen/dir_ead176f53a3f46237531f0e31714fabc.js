@@ -10,9 +10,7 @@ var dir_ead176f53a3f46237531f0e31714fabc =
     [ "iMaterialResourceFactory.cpp", "i_material_resource_factory_8cpp.html", null ],
     [ "iMaterialResourceFactory.h", "i_material_resource_factory_8h.html", "i_material_resource_factory_8h" ],
     [ "iShader.cpp", "i_shader_8cpp.html", null ],
-    [ "iShader.h", "i_shader_8h.html", [
-      [ "iShader", "classigor_1_1i_shader.html", "classigor_1_1i_shader" ]
-    ] ],
+    [ "iShader.h", "i_shader_8h.html", "i_shader_8h" ],
     [ "iTargetMaterial.cpp", "i_target_material_8cpp.html", null ],
     [ "iTargetMaterial.h", "i_target_material_8h.html", [
       [ "iTargetMaterial", "classigor_1_1i_target_material.html", "classigor_1_1i_target_material" ]

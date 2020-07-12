@@ -13,6 +13,7 @@ int main(void)
 	iWindow *window = igor::iApplication::getInstance().createWindow();
 	window->setClientSize(1024, 768);
 	window->setCentered();
+	window->setDoubleClick(true);
 	window->open();
 
 	// create example and add it as layer to the application

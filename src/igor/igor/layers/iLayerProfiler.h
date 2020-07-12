@@ -41,7 +41,7 @@ namespace igor
 {
     /*! layer that shows profiler and debug information
     */
-    class iLayerProfiler : public iLayer
+    class Igor_API iLayerProfiler : public iLayer
     {
 
     public:
@@ -88,7 +88,7 @@ namespace igor
 
         \param event the event to handle
         */
-        bool onKeyUp(iKeyUpEvent_TMP &event);
+        bool onKeyUp(iEventKeyUp &event);
 
         /*! called by orthogonal view
         */

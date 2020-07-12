@@ -163,7 +163,7 @@ private:
 
     \param event the event to handle
     */
-	bool onKeyUp(iKeyUpEvent_TMP &event);
+	bool onKeyUp(iEventKeyUp &event);
 };
 
 #endif // __EXAMPLESPRITEANIMATION_H__

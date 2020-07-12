@@ -6,7 +6,6 @@ var classigor_1_1i_widget_picture =
     [ "getMaxHeight", "classigor_1_1i_widget_picture.html#ade0bd3e61f67c1af12e4ab288d776cca", null ],
     [ "getMaxWidth", "classigor_1_1i_widget_picture.html#a019ce5429b4ab9e9e267830f178d5969", null ],
     [ "getTexture", "classigor_1_1i_widget_picture.html#a86f025805eecd57e791c9150a6ffd982", null ],
-    [ "getWidgetType", "classigor_1_1i_widget_picture.html#a2a96a1bcf2998acccc7596acaf518d5e", null ],
     [ "hasTexture", "classigor_1_1i_widget_picture.html#ab63a6caa49a55e5a430db29219f6de00", null ],
     [ "setKeepAspectRatio", "classigor_1_1i_widget_picture.html#a275224717f3d55821a4e381d07b6635c", null ],
     [ "setMaxSize", "classigor_1_1i_widget_picture.html#abe722aaf9ce3cc9582f70f5aecb6ff16", null ],

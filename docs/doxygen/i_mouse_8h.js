@@ -1,11 +1,10 @@
 var i_mouse_8h =
 [
     [ "iMouse", "classigor_1_1i_mouse.html", "classigor_1_1i_mouse" ],
-    [ "iaEVENT", "i_mouse_8h.html#a1fdf9b53a4b2657c7184dcde4c017946", null ],
-    [ "iaEVENT", "i_mouse_8h.html#a53ef20faae9328e808223222917a8a8e", null ],
-    [ "iaEVENT", "i_mouse_8h.html#a35f92cfe114b24b2f097fa7413c97365", null ],
-    [ "iaEVENT", "i_mouse_8h.html#a7ab774ff00360cad60d824db35975acf", null ],
-    [ "iaEVENT", "i_mouse_8h.html#a74bf351b21823bb5e64d41f77ca0103e", null ],
-    [ "iaEVENT", "i_mouse_8h.html#a5dc9db21f719ca661f318867a65b7461", null ],
-    [ "iaEVENT", "i_mouse_8h.html#a3fade248f5eb5fd9824dd15e2ab5900e", null ]
+    [ "iaEVENT", "i_mouse_8h.html#ae75172fc5e6880ee1dffed8865bfe7e5", null ],
+    [ "iaEVENT", "i_mouse_8h.html#a4f5db39b77248ad2ac509dcec7a5f0be", null ],
+    [ "iaEVENT", "i_mouse_8h.html#a886aaeb0895c0302b2bee2a8dc27b723", null ],
+    [ "iaEVENT", "i_mouse_8h.html#aa0d43466de7571de02d4a73bef0fcac6", null ],
+    [ "iaEVENT", "i_mouse_8h.html#a11838b49f75c17b1a3e0dc0a758b9390", null ],
+    [ "iaEVENT", "i_mouse_8h.html#a94fe83f4d597f452ac19c041a07c5c34", null ]
 ];

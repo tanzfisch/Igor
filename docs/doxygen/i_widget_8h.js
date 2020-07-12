@@ -2,6 +2,11 @@ var i_widget_8h =
 [
     [ "iWidget", "classigor_1_1i_widget.html", "classigor_1_1i_widget" ],
     [ "iWidgetPtr", "i_widget_8h.html#a5e7f4b33adda456ed69993cc2eda4784", null ],
+    [ "iWidgetKind", "i_widget_8h.html#a884bc0e021cdad71883e36d0f800cb1f", [
+      [ "Widget", "i_widget_8h.html#a884bc0e021cdad71883e36d0f800cb1fa6ed562a0d4381eef12d92c87520f3208", null ],
+      [ "UserControl", "i_widget_8h.html#a884bc0e021cdad71883e36d0f800cb1fa7cb4adbe4e9ec47f2ef30443f3de8e98", null ],
+      [ "Dialog", "i_widget_8h.html#a884bc0e021cdad71883e36d0f800cb1fad2ab42830caa7a02b36d96a46dd44b8d", null ]
+    ] ],
     [ "iWidgetState", "i_widget_8h.html#a009030caae096a62dbe6aee7d8065fab", [
       [ "Highlighted", "i_widget_8h.html#a009030caae096a62dbe6aee7d8065faba128f36ec46f7ca11bafb48cd2022a54c", null ],
       [ "Pressed", "i_widget_8h.html#a009030caae096a62dbe6aee7d8065fabad78a68f6a85421ae121c2cb5b73a1040", null ],
@@ -43,15 +48,16 @@ var i_widget_8h =
       [ "iUserType", "i_widget_8h.html#af0faed1be6138ddb4a7333d713b7a618a1ebfbf482ab458929ddc36d6c2aa062d", null ],
       [ "iUndefinedType", "i_widget_8h.html#af0faed1be6138ddb4a7333d713b7a618adb5b1a3beea7eb8499d465c616d438d1", null ]
     ] ],
-    [ "iaEVENT", "i_widget_8h.html#a3d08443d1e3b9e4933f0070d5f0de4c6", null ],
-    [ "iaEVENT", "i_widget_8h.html#a70fcc60426c52a3a721f0fc43d1d8999", null ],
-    [ "iaEVENT", "i_widget_8h.html#a23ffc15458b4e0e3a7909ed481544da5", null ],
-    [ "iaEVENT", "i_widget_8h.html#ab9a8e22caa00f55fd53584785896d562", null ],
-    [ "iaEVENT", "i_widget_8h.html#a5f3157a3cd54b08cb24429bebd522315", null ],
-    [ "iaEVENT", "i_widget_8h.html#a660e65be3fcf98a35909eecaf13e7b8d", null ],
-    [ "iaEVENT", "i_widget_8h.html#a589bb5b802007ad4bef4c179cef8038a", null ],
-    [ "iaEVENT", "i_widget_8h.html#a105e80564286cf7cf8a9e4c9546f21df", null ],
-    [ "iaEVENT", "i_widget_8h.html#af14cb046c3b564a1bf9f9d54a8678065", null ],
-    [ "iaEVENT", "i_widget_8h.html#a0ac4d2929bc3dbba63b2e6fbea248099", null ],
-    [ "iaEVENT", "i_widget_8h.html#acc91b78547e787498c14cc4a71683387", null ]
+    [ "iaEVENT", "i_widget_8h.html#a8137edc98c09a02d04d3fdfdd7a8c820", null ],
+    [ "iaEVENT", "i_widget_8h.html#a1e00386e1904bf7d65bdceca3563c7df", null ],
+    [ "iaEVENT", "i_widget_8h.html#a5653eca63cd09352b7c4cb1325ff4da3", null ],
+    [ "iaEVENT", "i_widget_8h.html#a5661932204e46ce1e1859fd73567daba", null ],
+    [ "iaEVENT", "i_widget_8h.html#a87d5d704e41c5677a3ad680970d4aadb", null ],
+    [ "iaEVENT", "i_widget_8h.html#a79f37245aced01abed1d36fd0ff0a9c0", null ],
+    [ "iaEVENT", "i_widget_8h.html#a93ca030abefdf85c03858c667acc3cd8", null ],
+    [ "iaEVENT", "i_widget_8h.html#a2f490eb16c7ae6c82873e814a0e70f02", null ],
+    [ "iaEVENT", "i_widget_8h.html#a33c0cd9289b762c8b4ef6134a6de99d3", null ],
+    [ "iaEVENT", "i_widget_8h.html#a8785cf6d7deb55fb934ee2c802f4ddd3", null ],
+    [ "iaEVENT", "i_widget_8h.html#a456d0e78dc7166beb9ad75789ebf0b02", null ],
+    [ "operator<<", "i_widget_8h.html#aee3fe6176cd21ff7d0fe1fefa176dce8", null ]
 ];

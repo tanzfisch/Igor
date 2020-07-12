@@ -4,7 +4,7 @@ var dir_d4bf329ef8ddafe8186da6240e562cf4 =
     [ "iaClock.h", "ia_clock_8h.html", [
       [ "iaClock", "classiaux_1_1ia_clock.html", "classiaux_1_1ia_clock" ]
     ] ],
-    [ "iaConsole.cpp", "ia_console_8cpp.html", null ],
+    [ "iaConsole.cpp", "ia_console_8cpp.html", "ia_console_8cpp" ],
     [ "iaConsole.h", "ia_console_8h.html", "ia_console_8h" ],
     [ "iaDelegate.h", "ia_delegate_8h.html", "ia_delegate_8h" ],
     [ "iaDirectory.cpp", "ia_directory_8cpp.html", "ia_directory_8cpp" ],
@@ -25,6 +25,8 @@ var dir_d4bf329ef8ddafe8186da6240e562cf4 =
     ] ],
     [ "iaSystem.cpp", "ia_system_8cpp.html", "ia_system_8cpp" ],
     [ "iaSystem.h", "ia_system_8h.html", "ia_system_8h" ],
+    [ "iaThread.cpp", "ia_thread_8cpp.html", "ia_thread_8cpp" ],
+    [ "iaThread.h", "ia_thread_8h.html", "ia_thread_8h" ],
     [ "iaTime.cpp", "ia_time_8cpp.html", null ],
     [ "iaTime.h", "ia_time_8h.html", "ia_time_8h" ]
 ];

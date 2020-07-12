@@ -15,7 +15,7 @@ var classigor_1_1i_widget_default_theme =
     [ "drawGraphFrame", "classigor_1_1i_widget_default_theme.html#a0553a812792b5459a0c8580b19ee13e1", null ],
     [ "drawGraphGridlines", "classigor_1_1i_widget_default_theme.html#a6d2d5d74795c449c38bbc1ce677de5b0", null ],
     [ "drawGraphLabels", "classigor_1_1i_widget_default_theme.html#a4bb73978e91407539b7432f914fd4a3d", null ],
-    [ "drawGridField", "classigor_1_1i_widget_default_theme.html#a1142f1341da6ba9bb18dbe8f1c4f7383", null ],
+    [ "drawGridCell", "classigor_1_1i_widget_default_theme.html#a8a2513eb9ddaedc71fca39e2b2e4b563", null ],
     [ "drawGridHighlight", "classigor_1_1i_widget_default_theme.html#a9cdc67813c0d8854f2afb30a7fa0c1b9", null ],
     [ "drawGridSelection", "classigor_1_1i_widget_default_theme.html#ae2db3dfab563d1a488ebe2d951ba1c3f", null ],
     [ "drawGroupBox", "classigor_1_1i_widget_default_theme.html#a248c15f95eaa6c08a77adb2a54ad5942", null ],

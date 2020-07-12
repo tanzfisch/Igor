@@ -39,7 +39,7 @@ namespace igor
 
     std::wostream &operator<<(std::wostream &stream, const iEvent &event)
     {
-        stream << event.getInfo().getData();
+        stream << event.getInfo();
         return stream;
     }
 

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['join',['join',['../classigor_1_1i_thread.html#ae435f0ea72b240e1345adf9833bc517f',1,'igor::iThread']]]
+  ['join',['join',['../classiaux_1_1ia_thread.html#a1bb81a4a0d6794035317ad63a0897277',1,'iaux::iaThread']]]
 ];
