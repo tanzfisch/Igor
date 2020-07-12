@@ -133,11 +133,6 @@ void UILayer::onSaveFile()
 
 void UILayer::onFileSaveDialogClosed(iDialogPtr dialog)
 {
-    if (_fileDialog != dialog)
-    {
-        return;
-    }
-
     if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
     {
         iaString filename = _fileDialog->getFullPath();
@@ -167,22 +162,10 @@ void UILayer::onFileSaveDialogClosed(iDialogPtr dialog)
 
 void UILayer::onImportFileDialogClosed(iDialogPtr dialog)
 {
-    if (_fileDialog != dialog)
-    {
-        return;
-    }
-
     if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
     {
         _workspace->importFile(_fileDialog->getFullPath());
     }
-
-    /*_outliner->setActive();
-    _outliner->setVisible();
-    _outliner->refresh();
-
-    _propertiesDialog->setActive();
-    _propertiesDialog->setVisible();*/
 
     delete _fileDialog;
     _fileDialog = nullptr;
@@ -190,22 +173,10 @@ void UILayer::onImportFileDialogClosed(iDialogPtr dialog)
 
 void UILayer::onImportFileReferenceDialogClosed(iDialogPtr dialog)
 {
-    if (_fileDialog != dialog)
-    {
-        return;
-    }
-
     if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
     {
         _workspace->importFileReference(_fileDialog->getFullPath());
     }
-
-    /*    _outliner->setActive();
-    _outliner->setVisible();
-    _outliner->refresh();
-
-    _propertiesDialog->setActive();
-    _propertiesDialog->setVisible();*/
 
     delete _fileDialog;
     _fileDialog = nullptr;
@@ -213,22 +184,10 @@ void UILayer::onImportFileReferenceDialogClosed(iDialogPtr dialog)
 
 void UILayer::onFileLoadDialogClosed(iDialogPtr dialog)
 {
-    if (_fileDialog != dialog)
-    {
-        return;
-    }
-
     if (_fileDialog->getReturnState() == iDialogReturnState::Ok)
     {
         _workspace->loadFile(_fileDialog->getFullPath());
     }
-
-    /*    _outliner->setActive();
-    _outliner->setVisible();
-    _outliner->refresh();
-
-    _propertiesDialog->setActive();
-    _propertiesDialog->setVisible();*/
 
     delete _fileDialog;
     _fileDialog = nullptr;
@@ -239,32 +198,6 @@ void UILayer::onGraphViewSelectionChanged(uint64 nodeID)
     iApplication::getInstance().blockEvent(iEventType::iEventSceneSelectionChanged);
     _workspace->setSelection(std::vector<iNodeID>() = {nodeID});
     iApplication::getInstance().unblockEvent(iEventType::iEventSceneSelectionChanged);
-
-    //    _manipulator->setNodeID(_selectedNodeID);
-    //  resetManipulatorMode();
-
-    /*    // todo caching?
-    if (_widget3D != nullptr)
-    {
-        delete _widget3D;
-        _widget3D = nullptr;
-    }*/
-
-    /*    iNode *node = iNodeManager::getInstance().getNode(_selectedNodeID);
-    if (node)
-    {
-        switch (node->getType())
-        {
-        case iNodeType::iNodeEmitter:
-            _widget3D = new Widget3DEmitter(&_window, &_viewWidget3D, _sceneWidget3D);
-            break;
-        }
-    }
-
-    if (_widget3D != nullptr)
-    {
-        _widget3D->setNodeID(_selectedNodeID);
-    }*/
 }
 
 void UILayer::onExitMica()
@@ -307,6 +240,8 @@ bool UILayer::onNodeRemovedFromScene(iEventNodeRemovedFromScene &event)
 
 bool UILayer::onSceneSelectionChanged(iEventSceneSelectionChanged &event)
 {
+    con_endl("onSceneSelectionChanged");
+
     _refresh = true;
     return false;
 }

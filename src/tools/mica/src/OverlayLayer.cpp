@@ -19,11 +19,12 @@ void OverlayLayer::onInit()
     _view.setClipPlanes(1.0f, 10000.f);
     _view.registerRenderDelegate(iDrawDelegate(this, &OverlayLayer::render));
 
-    _scene = iSceneFactory::getInstance().createScene();
-    _scene->setName("Overlay");
-    _view.setScene(_scene);
+    _view.setScene(_workspace->getScene());
 
     getWindow()->addView(&_view, getZIndex());
+
+    // set default camera as current
+    _view.setCurrentCamera(_workspace->getCameraArc()->getCameraNode());
 
     _viewOrtho.setName("Overlay Ortho");
     _viewOrtho.setClearColor(false);
@@ -41,32 +42,34 @@ void OverlayLayer::onInit()
     // font for
     _font = new iTextureFont("StandardFont.png");
 
-    // _manipulator = new Manipulator(&_window, &_view, _sceneWidget3D);
-    // resetManipulatorMode();
+    _manipulator = new Manipulator(getWindow(), &_view, _workspace);
 }
 
-/*void Mica::resetManipulatorMode()
+void OverlayLayer::resetManipulatorMode()
 {
     setManipulatorMode(ManipulatorMode::None);
 }
 
-void UILayer::setManipulatorMode(ManipulatorMode manipulatorMode)
+void OverlayLayer::setManipulatorMode(ManipulatorMode manipulatorMode)
 {
-    iNodePtr node = iNodeManager::getInstance().getNode(_selectedNodeID);
+    if (!_workspace->getSelection().empty())
+    {
+        iNodePtr node = iNodeManager::getInstance().getNode(_workspace->getSelection()[0]);
+        if (node != nullptr &&
+            node->getKind() == iNodeKind::Transformation)
+        {
+            _manipulator->setVisible(true);
+            _manipulator->setManipulatorMode(manipulatorMode);
 
-    if (node != nullptr &&
-        node->getKind() == iNodeKind::Transformation)
-    {
-        _manipulator->setVisible(true);
-        _manipulator->setManipulatorMode(manipulatorMode);
+            return;
+        }
     }
-    else
-    {
-        _manipulator->setVisible(false);
-        _manipulator->setManipulatorMode(ManipulatorMode::None);
-    }
+
+    _manipulator->setVisible(false);
+    _manipulator->setManipulatorMode(ManipulatorMode::None);
 }
-void UILayer::onMouseKeyDown(iKeyCode key)
+
+/*void OverlayLayer::onMouseKeyDown(iKeyCode key)
 {
     switch (key)
     {
@@ -77,19 +80,16 @@ void UILayer::onMouseKeyDown(iKeyCode key)
         }
         break;
     }
-}
-
-*/
+}*/
 
 void OverlayLayer::onDeinit()
 {
-    /*
+
     if (_manipulator != nullptr)
     {
         delete _manipulator;
         _manipulator = nullptr;
     }
-*/
 
     if (_font)
     {
@@ -147,13 +147,43 @@ void OverlayLayer::renderOrtho()
 
 void OverlayLayer::onEvent(iEvent &event)
 {
-    if (event.getEventType() == iEventType::iEventNodeAddedToScene)
-    {
-        con_debug_endl("WorkspaceLayer " << event);
-    }
-
     event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(OverlayLayer::onKeyDown));
     event.dispatch<iEventWindowResize>(IGOR_BIND_EVENT_FUNCTION(OverlayLayer::onWindowResize));
+    event.dispatch<iEventSceneSelectionChanged>(IGOR_BIND_EVENT_FUNCTION(OverlayLayer::onSceneSelectionChanged));
+}
+
+bool OverlayLayer::onSceneSelectionChanged(iEventSceneSelectionChanged &event)
+{
+    if (!_workspace->getSelection().empty())
+    {
+        _manipulator->setNodeID(_workspace->getSelection()[0]);
+        resetManipulatorMode();
+    }
+
+    /*    // todo caching?
+    if (_widget3D != nullptr)
+    {
+        delete _widget3D;
+        _widget3D = nullptr;
+    }*/
+
+    /*    iNode *node = iNodeManager::getInstance().getNode(_selectedNodeID);
+    if (node)
+    {
+        switch (node->getType())
+        {
+        case iNodeType::iNodeEmitter:
+            _widget3D = new Widget3DEmitter(&_window, &_viewWidget3D, _sceneWidget3D);
+            break;
+        }
+    }
+
+    if (_widget3D != nullptr)
+    {
+        _widget3D->setNodeID(_selectedNodeID);
+    }*/
+
+    return false;
 }
 
 bool OverlayLayer::onKeyDown(iEventKeyDown &event)
@@ -164,8 +194,7 @@ bool OverlayLayer::onKeyDown(iEventKeyDown &event)
         _profilerVisualizer.cycleVerbosity();
         return true;
 
-        /*
-            case iKeyCode::Q:
+    case iKeyCode::Q:
         setManipulatorMode(ManipulatorMode::None);
         return true;
 
@@ -180,8 +209,6 @@ bool OverlayLayer::onKeyDown(iEventKeyDown &event)
     case iKeyCode::R:
         setManipulatorMode(ManipulatorMode::Scale);
         return true;
-
-        */
     }
 
     return false;

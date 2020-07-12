@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __WIDGET3D_EMITTER_H__
-#define __WIDGET3D_EMITTER_H__
+#ifndef __WIDGET3DEMITTER_H__
+#define __WIDGET3DEMITTER_H__
 
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/material/iMaterial.h>
@@ -116,4 +116,4 @@ private:
 	iMeshPtr createSphere();
 };
 
-#endif // __WIDGET3D_EMITTER_H__
+#endif // __WIDGET3DEMITTER_H__

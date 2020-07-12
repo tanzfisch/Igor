@@ -31,6 +31,7 @@
 #define __OVERLAYLAYER_H__
 
 #include "Workspace.h"
+#include "Manipulator.h"
 
 #include <igor/igor.h>
 using namespace igor;
@@ -78,7 +79,7 @@ private:
 
     /*! manipulator
 	*/
-    //    Manipulator *_manipulator = nullptr;
+    Manipulator *_manipulator = nullptr;
 
     /*! pointer to active 3d widget
 	*/
@@ -86,14 +87,14 @@ private:
 
     /*! reset manipulator mode to none
 	*/
-    // void resetManipulatorMode();
+    void resetManipulatorMode();
 
     /*! sets the manipulator mode on currently selected node 
 	but only if it is a transform node otherwise its set to none
 
 	\param modifierMode the modifier mode to set
 	*/
-    // void setManipulatorMode(ManipulatorMode modifierMode);
+    void setManipulatorMode(ManipulatorMode modifierMode);
 
     /*! render selection
     */
@@ -135,6 +136,12 @@ private:
     \returns true if consumed
     */
     bool onWindowResize(iEventWindowResize &event);
+
+    /*! triggered when selection in scene changed
+
+    \param event the event handle
+    */
+    bool onSceneSelectionChanged(iEventSceneSelectionChanged &event);
 };
 
 #endif // __OverlayLayer_H__

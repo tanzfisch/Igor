@@ -91,6 +91,12 @@ public:
     */
     iNodeID getCameraDistanceNode() const;
 
+    /*! returns world transformation of camera
+
+    \param[out] matrix the returing world matrix of the camera
+    */
+    void getWorldTransformation(iaMatrixd matrix) const;
+
 private:
     /*! center of interest node
     */
@@ -124,5 +130,9 @@ private:
     */
     float64 _distance = 10.0;
 };
+
+/*! camera arc pointer definition
+*/
+typedef CameraArc *CameraArcPtr;
 
 #endif // __CAMERAARC_H__

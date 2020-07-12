@@ -29,11 +29,12 @@
 #ifndef __WORKSPACE_H__
 #define __WORKSPACE_H__
 
-#include <igor/igor.h>
-using namespace igor;
+#include "CameraArc.h"
 
 #include <memory>
 
+/*! the mica workspace
+*/
 class Workspace
 {
 
@@ -112,7 +113,15 @@ public:
     */
     void deleteSelected();
 
+    /*! \returns the default camera
+    */
+    CameraArcPtr getCameraArc() const;
+
 private:
+    /*! the default camera
+    */
+    CameraArcPtr _cameraArc = nullptr;
+
     /*! main scene
 	*/
     iScenePtr _scene = nullptr;

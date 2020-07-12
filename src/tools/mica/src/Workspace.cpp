@@ -1,20 +1,5 @@
 #include "Workspace.h"
 
-Workspace::Workspace()
-{
-    _rootMica = iNodeManager::getInstance().createNode<iNode>();
-    _rootUser = iNodeManager::getInstance().createNode<iNode>();
-
-    _scene = iSceneFactory::getInstance().createScene();
-    _scene->getRoot()->insertNode(_rootMica);
-    _scene->getRoot()->insertNode(_rootUser);
-}
-
-Workspace::~Workspace()
-{
-    iSceneFactory::getInstance().destroyScene(_scene);
-}
-
 static iModelDataInputParameter *createDataInputParameter()
 {
     iModelDataInputParameter *parameter = new iModelDataInputParameter();
@@ -26,6 +11,31 @@ static iModelDataInputParameter *createDataInputParameter()
     parameter->_keepMesh = true;
 
     return parameter;
+}
+
+Workspace::Workspace()
+{
+    _rootMica = iNodeManager::getInstance().createNode<iNode>();
+    _rootUser = iNodeManager::getInstance().createNode<iNode>();
+
+    _scene = iSceneFactory::getInstance().createScene();
+    _scene->getRoot()->insertNode(_rootMica);
+    _scene->getRoot()->insertNode(_rootUser);
+
+    // cam
+    _cameraArc = new CameraArc(getRootMica());
+    _cameraArc->setHeading(M_PI * 0.25);
+    _cameraArc->setPitch(-0.25);
+}
+
+Workspace::~Workspace()
+{
+    iSceneFactory::getInstance().destroyScene(_scene);
+}
+
+CameraArcPtr Workspace::getCameraArc() const
+{
+    return _cameraArc;
 }
 
 void Workspace::duplicateSelected()

@@ -97,6 +97,7 @@ void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
 	switch (_propertyType)
 	{
 	case PropertyType::Node:
+	{
 		iNodePtr node = iNodeManager::getInstance().getNode(_propertyID);
 		if (node != nullptr)
 		{
@@ -144,7 +145,8 @@ void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
 				_grid->addWidget(_userControlNode, 0, 0);
 			}
 		}
-		break;
+	}
+	break;
 
 	case PropertyType::Material:
 		initMaterial();

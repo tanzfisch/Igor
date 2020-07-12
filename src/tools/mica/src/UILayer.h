@@ -102,7 +102,7 @@ private:
 	*/
     void onExitMica();
 
-    /*!
+    /*! 
     */
     void onAddMaterial();
 

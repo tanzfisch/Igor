@@ -29,25 +29,9 @@
 #ifndef __MANIPULATOR_H__
 #define __MANIPULATOR_H__
 
-#include <igor/system/iMouse.h>
-#include <igor/resources/mesh/iMeshBuffers.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/system/iWindow.h>
-#include <igor/scene/nodes/iNode.h>
-#include <igor/graphics/iView.h>
-#include <igor/scene/iScene.h>
-#include <igor/resources/mesh/iMesh.h>
-using namespace igor;
+#include "Workspace.h"
 
 #include <memory>
-
-namespace igor
-{
-    class iTargetMaterial;
-    class iNodeTransform;
-    class iNodeSwitch;
-    class iNodeCamera;
-} // namespace igor
 
 /*! manipulator modes
 */
@@ -69,7 +53,7 @@ public:
 
     \param window the window this manipulator is displayed with
     */
-    Manipulator(iWindow *window, iView *view, iScenePtr scene);
+    Manipulator(iWindow *window, iView *view, WorkspacePtr workspace);
 
     /*! cleanup
     */
@@ -138,17 +122,14 @@ public:
     void onMouseKeyUp(iKeyCode key);
 
 private:
-    iNodeTransform *_cameraCOIUI = nullptr;
-    iNodeTransform *_cameraHeadingUI = nullptr;
-    iNodeTransform *_cameraPitchUI = nullptr;
-    iNodeTransform *_cameraTranslationUI = nullptr;
-    iNodeCamera *_cameraUI = nullptr;
+    /*! mica workspace
+    */
+    WorkspacePtr _workspace;
 
     uint64 _materialCelShading;
 
     iWindow *_window = nullptr;
     iView *_view = nullptr;
-    iScenePtr _scene = nullptr;
 
     uint64 _selectedManipulatorNodeID = iNode::INVALID_NODE_ID;
     uint64 _selectedNodeID = iNode::INVALID_NODE_ID;

@@ -9,10 +9,6 @@ WorkspaceLayer::~WorkspaceLayer()
 {
 }
 
-void WorkspaceLayer::onDeinit()
-{
-}
-
 void WorkspaceLayer::onInit()
 {
     _view.setName("Workspace");
@@ -24,11 +20,8 @@ void WorkspaceLayer::onInit()
 
     getWindow()->addView(&_view, getZIndex());
 
-    // cam
-    _cameraArc = std::make_unique<CameraArc>(_workspace->getRootMica());
-    _cameraArc->setHeading(M_PI * 0.25);
-    _cameraArc->setPitch(-0.25);
-    _view.setCurrentCamera(_cameraArc->getCameraNode());
+    // set default camera as current
+    _view.setCurrentCamera(_workspace->getCameraArc()->getCameraNode());
 
     // light
     _directionalLightRotate = iNodeManager::getInstance().createNode<iNodeTransform>();
@@ -135,25 +128,20 @@ void WorkspaceLayer::frameOnSelection()
         }
     }
 
-    _cameraArc->setCenterOfInterest(sphere._center);
+    _workspace->getCameraArc()->setCenterOfInterest(sphere._center);
 
     if (sphere._radius > 0.0f)
     {
-        _cameraArc->setDistance(sphere._radius * 4.0f);
+        _workspace->getCameraArc()->setDistance(sphere._radius * 4.0f);
     }
     else
     {
-        _cameraArc->setDistance(10.0);
+        _workspace->getCameraArc()->setDistance(10.0);
     }
 }
 
 void WorkspaceLayer::onEvent(iEvent &event)
 {
-    if (event.getEventType() == iEventType::iEventNodeAddedToScene)
-    {
-        con_debug_endl("WorkspaceLayer " << event);
-    }
-
     event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseKeyDownEvent));
     event.dispatch<iMouseKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseKeyUpEvent));
     event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseMoveEvent));
@@ -207,7 +195,6 @@ bool WorkspaceLayer::onMouseKeyUpEvent(iMouseKeyUpEvent_TMP &event)
     case iKeyCode::MouseLeft:
 
         if (!iKeyboard::getInstance().getKey(iKeyCode::Alt))
-        // &&             !_manipulator->isSelected()) hmm
         {
             auto node = getNodeAt(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
             if (node != nullptr)
@@ -218,11 +205,7 @@ bool WorkspaceLayer::onMouseKeyUpEvent(iMouseKeyUpEvent_TMP &event)
             {
                 _workspace->clearSelection();
             }
-
-            // resetManipulatorMode();
         }
-
-        // _manipulator->onMouseKeyUp(key);
         return true;
     }
 
@@ -240,8 +223,8 @@ bool WorkspaceLayer::onMouseMoveEvent(iEventMouseMove &event)
     {
         if (iKeyboard::getInstance().getKey(iKeyCode::Alt))
         {
-            _cameraArc->setPitch(_cameraArc->getPitch() + (from._y - to._y) * rotateSensitivity);
-            _cameraArc->setHeading(_cameraArc->getHeading() + (from._x - to._x) * rotateSensitivity);
+            _workspace->getCameraArc()->setPitch(_workspace->getCameraArc()->getPitch() + (from._y - to._y) * rotateSensitivity);
+            _workspace->getCameraArc()->setHeading(_workspace->getCameraArc()->getHeading() + (from._x - to._x) * rotateSensitivity);
 
             return true;
         }
@@ -251,8 +234,8 @@ bool WorkspaceLayer::onMouseMoveEvent(iEventMouseMove &event)
     {
         if (iKeyboard::getInstance().getKey(iKeyCode::Alt))
         {
-            iNodeCameraPtr camera = static_cast<iNodeCameraPtr>(iNodeManager::getInstance().getNode(_cameraArc->getCameraNode()));
-            iNodeTransformPtr cameraDistance = static_cast<iNodeTransformPtr>(iNodeManager::getInstance().getNode(_cameraArc->getCameraDistanceNode()));
+            iNodeCameraPtr camera = static_cast<iNodeCameraPtr>(iNodeManager::getInstance().getNode(_workspace->getCameraArc()->getCameraNode()));
+            iNodeTransformPtr cameraDistance = static_cast<iNodeTransformPtr>(iNodeManager::getInstance().getNode(_workspace->getCameraArc()->getCameraDistanceNode()));
             if (camera != nullptr &&
                 cameraDistance != nullptr)
             {
@@ -265,9 +248,9 @@ bool WorkspaceLayer::onMouseMoveEvent(iEventMouseMove &event)
                 cameraDistance->getMatrix(camTranslateMatrix);
                 float64 translateFactor = camTranslateMatrix._pos.length() * translateSensitivity;
 
-                auto coi = _cameraArc->getCenterOfInterest();
+                auto coi = _workspace->getCameraArc()->getCenterOfInterest();
                 coi += (fromWorld - toWorld) * translateFactor;
-                _cameraArc->setCenterOfInterest(coi);
+                _workspace->getCameraArc()->setCenterOfInterest(coi);
             }
 
             return true;
@@ -283,11 +266,11 @@ bool WorkspaceLayer::onMouseWheelEvent(iMouseWheelEvent_TMP &event)
 
     if (event.getWheelDelta() < 0)
     {
-        _cameraArc->setDistance(_cameraArc->getDistance() * wheelSensitivity);
+        _workspace->getCameraArc()->setDistance(_workspace->getCameraArc()->getDistance() * wheelSensitivity);
     }
     else
     {
-        _cameraArc->setDistance(_cameraArc->getDistance() * (1.0 / wheelSensitivity));
+        _workspace->getCameraArc()->setDistance(_workspace->getCameraArc()->getDistance() * (1.0 / wheelSensitivity));
     }
 
     return true;

@@ -31,9 +31,6 @@
 #define __WORKSPACELAYER_H__
 
 #include "Workspace.h"
-#include "CameraArc.h"
-
-#include <memory>
 
 class WorkspaceLayer : public iLayer
 {
@@ -66,10 +63,6 @@ private:
     */
     WorkspacePtr _workspace;
 
-    /*! the default camera
-    */
-    std::unique_ptr<CameraArc> _cameraArc;
-
     // TODO need to handle light differently
     iNodeTransform *_directionalLightTranslate = nullptr;
     iNodeTransform *_directionalLightRotate = nullptr;
@@ -86,10 +79,6 @@ private:
     /*! render selection
     */
     void renderSelection();
-
-    /*! clear resources
-	*/
-    void onDeinit() override;
 
     /*! init layer
     */

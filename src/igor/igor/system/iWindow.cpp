@@ -68,7 +68,7 @@ namespace igor
         {
             iApplication::getInstance().onEvent(iEventPtr(new iEventWindowClose(_window)));
 
-            _window->_windowCloseEvent(); // TODO remove
+            // _window->_windowCloseEvent(); // TODO remove
         }
 
         __IGOR_INLINE__ void sizeChanged(int32 width, int32 height)
@@ -822,7 +822,7 @@ namespace igor
                     case ClientMessage:
                         _window->close();
                         closeEvent();
-                        break;
+                        return;
                     default:;
                     }
                 }
@@ -1002,6 +1002,7 @@ namespace igor
             unregisterOSListener(&iMouse::getInstance());
             unregisterOSListener(&iKeyboard::getInstance());
 
+            _display = nullptr;
             _isOpen = false;
         }
 
