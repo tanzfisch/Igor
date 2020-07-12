@@ -26,28 +26,22 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __EXAMPLE_CHARACTER_CONTROLLER_H__
-#define __EXAMPLE_CHARACTER_CONTROLLER_H__
+#ifndef __EXAMPLECHARACTERCONTROLLER_H__
+#define __EXAMPLECHARACTERCONTROLLER_H__
 
 #include <ExampleBase.h>
 
 #include "CharacterController.h"
-
-#include <igor/resources/material/iMaterial.h>
-using namespace igor;
-
-namespace igor
-{
-    class iPhysicsBody;
-} // namespace igor
 
 class ExampleCharacterController : public ExampleBase
 {
 
 public:
     /*! init
+
+    \param window the given window
     */
-    ExampleCharacterController();
+    ExampleCharacterController(iWindow *window);
 
     /*! does nothing
     */
@@ -122,47 +116,9 @@ private:
     */
     void onApplyForceAndTorqueBox(iPhysicsBody *body, float32 timestep);
 
-    /*! called on key pressed event
-
-    \param key the key code of the pressed key
-    */
-    void onKeyDown(iKeyCode key) override;
-
-    /*! called on key released event
-
-    \param key the key that was released
-    */
-    void onKeyUp(iKeyCode key) override;
-
     /*! handle called once per frame
     */
     void onPreDraw() override;
-
-    /*! called when the mouse was moved
-
-    \param from last mouse position
-    \param to current mouse position
-    \param window the window the coordinates are related to
-    */
-    void onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window) override;
-
-    /*! called when mouse wheel was turned
-
-    \param d mouse wheel delta
-    */
-    void onMouseWheel(int32 d) override;
-
-    /*! handles mouse key down events
-
-	\param keyCode the key code of the pressed button
-	*/
-    void onMouseKeyDown(iKeyCode keyCode) override;
-
-    /*! handles mouse key up events
-
-	\param keyCode the key code of the released button
-	*/
-    void onMouseKeyUp(iKeyCode keyCode) override;
 
     /*! called by orthogonal view
     */
@@ -170,11 +126,50 @@ private:
 
     /*! deinit example
     */
-    void deinit() override;
+    void onDeinit() override;
 
     /*! init example
     */
-    void init() override;
+    void onInit() override;
+
+    /*! called on any other event
+
+    \param event the event to handle
+    */
+    void onEvent(iEvent &event) override;
+
+    /*! handles mouse key down event
+
+    \param event the mouse key down event
+    \returns true if consumed
+    */
+    bool onMouseKeyDownEvent(iEventMouseKeyDown &event);
+
+    /*! handles mouse key up event
+
+    \param event the mouse key up event
+    \returns true if consumed
+    */
+    bool onMouseKeyUpEvent(iEventMouseKeyUp &event);
+
+    /*! handles mouse move event
+
+    \param event the mouse move event
+    \returns true if consumed
+    */
+    bool onMouseMoveEvent(iEventMouseMove &event);
+
+    /*! called when key was pressed
+
+    \param event the event to handle
+    */
+    bool onKeyDown(iEventKeyDown &event);
+
+    /*! called when key was released
+
+    \param event the event to handle
+    */
+    bool onKeyUp(iKeyUpEvent_TMP &event);
 };
 
-#endif // __EXAMPLE_CHARACTER_CONTROLLER_H__
+#endif // __EXAMPLECHARACTERCONTROLLER_H__

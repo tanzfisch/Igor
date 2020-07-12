@@ -5,7 +5,7 @@
 #include <igor/ui/widgets/iWidgetScroll.h>
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/theme/iWidgetBaseTheme.h>
+#include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/ui/user_controls/iUserControl.h>
 #include <igor/resources/material/iMaterial.h>

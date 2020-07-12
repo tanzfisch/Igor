@@ -29,25 +29,9 @@
 #ifndef __MANIPULATOR_H__
 #define __MANIPULATOR_H__
 
-#include <igor/system/iMouse.h>
-#include <igor/resources/mesh/iMeshBuffers.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/system/iWindow.h>
-#include <igor/scene/nodes/iNode.h>
-#include <igor/graphics/iView.h>
-#include <igor/scene/iScene.h>
-#include <igor/resources/mesh/iMesh.h>
-using namespace igor;
+#include "Workspace.h"
 
 #include <memory>
-
-namespace igor
-{
-    class iTargetMaterial;
-    class iNodeTransform;
-    class iNodeSwitch;
-    class iNodeCamera;
-} // namespace igor
 
 /*! manipulator modes
 */
@@ -67,9 +51,11 @@ class Manipulator
 public:
     /*! initialize manipulator
 
-    \param window the window this manipulator is displayed with
+    \param view the view to use
+    \param scene the scene to use
+    \param workspace the mica workspace
     */
-    Manipulator(iWindow *window, iView *view, iScene *scene);
+    Manipulator(iViewPtr view, iScenePtr scene, WorkspacePtr workspace);
 
     /*! cleanup
     */
@@ -132,23 +118,26 @@ public:
     ManipulatorMode getManipulatorMode() const;
 
     // ugly interfaces
-    void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window);
-    void onMouseWheel(int32 d);
-    void onMouseKeyDown(iKeyCode key);
-    void onMouseKeyUp(iKeyCode key);
+    void onMouseMoved(const iaVector2i &from, const iaVector2i &to);
+    void select();
+    void unselect();
 
 private:
-    iNodeTransform *_cameraCOIUI = nullptr;
-    iNodeTransform *_cameraHeadingUI = nullptr;
-    iNodeTransform *_cameraPitchUI = nullptr;
-    iNodeTransform *_cameraTranslationUI = nullptr;
-    iNodeCamera *_cameraUI = nullptr;
+    /*! mica workspace
+    */
+    WorkspacePtr _workspace;
 
-    uint64 _materialCelShading;
+    /*! the manipulator scene
+    */
+    iScenePtr _scene;
 
-    iWindow *_window = nullptr;
-    iView *_view = nullptr;
-    iScene *_scene = nullptr;
+    /*! the view
+    */
+    iViewPtr _view = nullptr;
+
+    /*! cel chader material for selection
+    */
+    iMaterialID _materialCelShading;
 
     uint64 _selectedManipulatorNodeID = iNode::INVALID_NODE_ID;
     uint64 _selectedNodeID = iNode::INVALID_NODE_ID;

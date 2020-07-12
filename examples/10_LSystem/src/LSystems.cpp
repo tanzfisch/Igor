@@ -4,45 +4,14 @@
 
 #include "LSystems.h"
 
-#include <igor/resources/material/iMaterial.h>
-#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
-#include <igor/threading/iTaskManager.h>
-#include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/scene/nodes/iNodeModel.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/graphics/iRenderer.h>
-#include <igor/system/iApplication.h>
-#include <igor/scene/iSceneFactory.h>
-#include <igor/scene/iScene.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/system/iMouse.h>
-#include <igor/system/iKeyboard.h>
-#include <igor/system/iTimer.h>
-#include <igor/resources/texture/iTextureFont.h>
-#include <igor/scene/nodes/iNodeLight.h>
-#include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/threading/tasks/iTaskFlushModels.h>
-#include <igor/threading/tasks/iTaskFlushTextures.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/profiler/iProfiler.h>
-#include <igor/scene/nodes/iNodeSwitch.h>
-#include <igor/scene/nodes/iNodeLODSwitch.h>
-#include <igor/scene/nodes/iNodeLODTrigger.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
-using namespace igor;
-
-#include <iaux/system/iaConsole.h>
-#include <iaux/data/iaString.h>
-using namespace iaux;
-
 #include "PlantMeshGenerator.h"
 
-LSystems::LSystems()
-	: ExampleBase("L-System")
+LSystems::LSystems(iWindow *window)
+	: ExampleBase(window, "L-System")
 {
 }
 
-void LSystems::init()
+void LSystems::onInit()
 {
 	// setup camera
 	// we want a camera which can be rotated arround the origin
@@ -102,7 +71,7 @@ void LSystems::init()
 	generateLSystems();
 }
 
-void LSystems::deinit()
+void LSystems::onDeinit()
 {
 	// unregister plant mesh generator
 	iModelResourceFactory::getInstance().unregisterModelDataIO("pg");
@@ -306,12 +275,22 @@ void LSystems::generateLSystems()
 	}
 }
 
-void LSystems::onMouseWheel(int32 d)
+void LSystems::onEvent(iEvent &event)
+{
+	// first call example base
+	ExampleBase::onEvent(event);
+
+	event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(LSystems::onKeyDown));
+	event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(LSystems::onMouseMoveEvent));
+	event.dispatch<iEventMouseWheel>(IGOR_BIND_EVENT_FUNCTION(LSystems::onMouseWheelEvent));
+}
+
+bool LSystems::onMouseWheelEvent(iEventMouseWheel &event)
 {
 	iNodeTransform *camTranslation = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraTranslation));
 	if (camTranslation != nullptr)
 	{
-		if (d < 0)
+		if (event.getWheelDelta() < 0)
 		{
 			camTranslation->translate(0, 0, 10);
 		}
@@ -320,35 +299,42 @@ void LSystems::onMouseWheel(int32 d)
 			camTranslation->translate(0, 0, -10);
 		}
 	}
+
+	return true;
 }
 
-void LSystems::onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window)
+bool LSystems::onMouseMoveEvent(iEventMouseMove &event)
 {
 	if (iMouse::getInstance().getLeftButton())
 	{
+		const auto from = event.getLastPosition();
+		const auto to = event.getPosition();
+
 		iNodeTransform *cameraPitch = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraPitch));
 		iNodeTransform *cameraHeading = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraHeading));
 
 		if (cameraPitch != nullptr &&
 			cameraHeading != nullptr)
 		{
-			cameraPitch->rotate((from._y - to._y) * 0.005f, iaAxis::X);
-			cameraHeading->rotate((from._x - to._x) * 0.005f, iaAxis::Y);
+			cameraPitch->rotate((from._y - to._y) * 0.0005f, iaAxis::X);
+			cameraHeading->rotate((from._x - to._x) * 0.0005f, iaAxis::Y);
 			iMouse::getInstance().setCenter();
 		}
+
+		return true;
 	}
 
-	ExampleBase::onMouseMovedFull(from, to, window);
+	return false;
 }
 
-void LSystems::onKeyDown(iKeyCode key)
+bool LSystems::onKeyDown(iEventKeyDown &event)
 {
-	switch (key)
+	switch (event.getKey())
 	{
 	case iKeyCode::Space:
 		generateLSystems();
-		break;
+		return true;
 	}
 
-	ExampleBase::onKeyDown(key);
+	return false;
 }

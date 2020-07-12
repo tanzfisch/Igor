@@ -97,6 +97,10 @@ namespace igor
         virtual ~iNodeCamera();
     };
 
+    /*! camera node pointer definition
+    */
+    typedef iNodeCamera *iNodeCameraPtr;
+
 }; // namespace igor
 
 #endif

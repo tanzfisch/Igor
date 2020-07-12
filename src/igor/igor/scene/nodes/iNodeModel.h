@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iMODELNODE__
-#define __iMODELNODE__
+#ifndef __IGOR_MODELNODE_H__
+#define __IGOR_MODELNODE_H__
 
 #include <igor/scene/nodes/iNode.h>
 #include <igor/resources/model/iModel.h>
@@ -59,15 +59,12 @@ namespace igor
     public:
         /*! sets model by filename and or generator parameters
 
-        \todo more docu here!
-
         \param modelName can be a filename or any unique identity name
+        \param cacheMode hint for how the resource manager is handling to cache this resource
         \param parameters optional loading parameters (must be allocated on heap and will be consumed by library)
-
-        \todo instancing is for now limited to 20k objects. we need this variable
-
+        \param loadSynchronously load model immediately ohtherwise model loads asynchonously
         */
-        void setModel(const iaString &modelName, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iModelDataInputParameter *parameters = nullptr);
+        void setModel(const iaString &modelName, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iModelDataInputParameter *parameters = nullptr, bool loadSynchronously = false);
 
         /*! \returns filename of model
         */
@@ -169,4 +166,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_MODELNODE_H__

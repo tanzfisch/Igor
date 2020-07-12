@@ -4,34 +4,26 @@
 
 #include "VoxelTerrainMeshGenerator.h"
 
-#include <igor/terrain/data/iVoxelBlock.h>
-#include <igor/generation/iContouringCubes.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/scene/nodes/iNodeMesh.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/resources/material/iTargetMaterial.h>
-using namespace igor;
-
 VoxelTerrainMeshGenerator::VoxelTerrainMeshGenerator()
 {
     _identifier = "vtg";
     _name = "Voxel Terrain Generator";
 }
 
-iModelDataIO* VoxelTerrainMeshGenerator::createInstance()
+iModelDataIO *VoxelTerrainMeshGenerator::createInstance()
 {
-    VoxelTerrainMeshGenerator* result = new VoxelTerrainMeshGenerator();
-    return static_cast<iModelDataIO*>(result);
+    VoxelTerrainMeshGenerator *result = new VoxelTerrainMeshGenerator();
+    return static_cast<iModelDataIO *>(result);
 }
 
-iNodePtr VoxelTerrainMeshGenerator::importData(const iaString& sectionName, iModelDataInputParameter* parameter)
+iNodePtr VoxelTerrainMeshGenerator::importData(const iaString &sectionName, iModelDataInputParameter *parameter)
 {
-    TileInformation* tileInformation = reinterpret_cast<TileInformation*>(parameter->_parameters.getDataPointer());
-    iVoxelData* voxelData = tileInformation->_voxelData;
+    TileInformation *tileInformation = reinterpret_cast<TileInformation *>(parameter->_parameters.getDataPointer());
+    iVoxelData *voxelData = tileInformation->_voxelData;
     int64 width = voxelData->getWidth() - 1;
     int64 depth = voxelData->getDepth() - 1;
     int64 height = voxelData->getHeight() - 1;
-    
+
     iNodePtr result = iNodeManager::getInstance().createNode<iNode>();
 
     iContouringCubes contouringCubes;
@@ -40,12 +32,12 @@ iNodePtr VoxelTerrainMeshGenerator::importData(const iaString& sectionName, iMod
 
     if (mesh.get() != nullptr)
     {
-        iNodeMesh* meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
-		meshNode->setKeepMesh(parameter->_keepMesh);
+        iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
+        meshNode->setKeepMesh(parameter->_keepMesh);
         meshNode->setMesh(mesh);
         meshNode->setMaterial(tileInformation->_materialID);
 
-        iTargetMaterial* targetMaterial = meshNode->getTargetMaterial();
+        iTargetMaterial *targetMaterial = meshNode->getTargetMaterial();
         targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("grass.png"), 0);
         targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("dirt.png"), 1);
         targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("rock.png"), 2);
@@ -60,4 +52,3 @@ iNodePtr VoxelTerrainMeshGenerator::importData(const iaString& sectionName, iMod
 
     return result;
 }
-

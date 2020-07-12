@@ -26,28 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLMATERIALVIEW__
-#define __USERCONTROLMATERIALVIEW__
+#ifndef __USERCONTROLMATERIALVIEW_H__
+#define __USERCONTROLMATERIALVIEW_H__
 
-#include <iaux/system/iaEvent.h>
+#include <igor/igor.h>
 using namespace iaux;
-
-#include <igor/resources/material/iMaterial.h>
-#include <igor/scene/nodes/iNodeModel.h>
-#include <igor/ui/user_controls/iUserControl.h>
 using namespace igor;
-
-namespace igor
-{
-    class iWidgetGrid;
-    class iWidgetTextEdit;
-    class iWidgetLabel;
-    class iWidgetButton;
-    class iUserControlColorChooser;
-    class iWidgetSlider;
-    class iWidgetNumberChooser;
-    class iWidgetSelectBox;
-} // namespace igor
 
 iaEVENT(AddMaterial, AddMaterialDelegate, (), ());
 iaEVENT(MaterialSelectionChanged, MaterialSelectionChangedDelegate, (uint64 materialID), (materialID));
@@ -85,4 +69,4 @@ private:
     void onAddMaterial(const iWidgetPtr source);
 };
 
-#endif
+#endif // __USERCONTROLMATERIALVIEW_H__

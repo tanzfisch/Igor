@@ -26,31 +26,15 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLMATERIAL__
-#define __USERCONTROLMATERIAL__
+#ifndef __USERCONTROLMATERIAL_H__
+#define __USERCONTROLMATERIAL_H__
 
-#include <igor/scene/nodes/iNodeMesh.h>
-#include <iaux/data/iaColor4.h>
+#include <igor/igor.h>
 using namespace iaux;
-
-#include <igor/ui/user_controls/iUserControl.h>
-#include <igor/ui/user_controls/iUserControlColorChooser.h>
-#include <igor/ui/dialogs/iDialogFileSelect.h>
 using namespace igor;
 
-namespace igor
-{
-	class iWidgetGrid;
-	class iWidgetTextEdit;
-	class iWidgetLabel;
-	class iWidgetButton;
-	class iUserControlColorChooser;
-	class iWidgetSlider;
-	class iWidgetNumberChooser;
-	class iWidgetCheckBox;
-	class iWidgetSelectBox;
-} // namespace igor
-
+/*! material name change event
+*/
 iaEVENT(MaterialNameChangedEvent, MaterialNameChangedDelegate, (), ());
 
 class UserControlMaterial : public iUserControl
@@ -124,4 +108,4 @@ private:
 	void deinitGUI();
 };
 
-#endif
+#endif // __USERCONTROLMATERIAL_H__

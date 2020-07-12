@@ -13,6 +13,8 @@
 #include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/system/iTimer.h>
+#include <igor/events/iEventScene.h>
+#include <igor/system/iApplication.h>
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/system/iaTime.h>
@@ -293,12 +295,6 @@ namespace igor
 
 		iProfiler::getInstance().endSection(_sceneHandleSectionID);
 #endif
-
-		if (_sceneChanged)
-		{
-			_sceneChangedEvent();
-			_sceneChanged = false;
-		}
 	}
 
 	void iScene::addToDataUpdateQueue(iNodePtr node)
@@ -355,24 +351,37 @@ namespace igor
 		return _octree;
 	}
 
-	void iScene::signalNodeAdded(uint64 nodeID)
+	void iScene::signalNodeAdded(iNodePtr node)
 	{
-		_sceneChanged = true;
+		iApplication::getInstance().onEvent(iEventPtr(new iEventNodeAddedToScene(this, node->getID())));
 	}
 
-	void iScene::signalNodeRemoved(uint64 nodeID)
+	void iScene::signalNodeRemoved(iNodePtr node)
 	{
-		_sceneChanged = true;
+		iApplication::getInstance().onEvent(iEventPtr(new iEventNodeRemovedFromScene(this, node->getID())));
 	}
 
-	void iScene::registerSceneChangedDelegate(iSceneChangedDelegate delegate)
+	const std::vector<iNodeID> &iScene::getSelection() const
 	{
-		_sceneChangedEvent.append(delegate);
+		return _selectedNodes;
 	}
 
-	void iScene::unregisterSceneChangedDelegate(iSceneChangedDelegate delegate)
+	void iScene::setSelection(const std::vector<iNodeID> &selection)
 	{
-		_sceneChangedEvent.remove(delegate);
+		if (_selectedNodes != selection)
+		{
+			_selectedNodes = selection;
+			iApplication::getInstance().onEvent(iEventPtr(new iEventSceneSelectionChanged(this)));
+		}
+	}
+
+	void iScene::clearSelection()
+	{
+		if (!_selectedNodes.empty())
+		{
+			_selectedNodes.clear();
+			iApplication::getInstance().onEvent(iEventPtr(new iEventSceneSelectionChanged(this)));
+		}
 	}
 
 }; // namespace igor

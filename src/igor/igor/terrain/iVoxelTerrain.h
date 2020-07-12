@@ -119,7 +119,7 @@ namespace igor
 
         \param scene the scene to put the terrain in
         */
-        void setScene(iScene *scene);
+        void setScene(iScenePtr scene);
 
         /*! sets lod trigger node to monitor
 

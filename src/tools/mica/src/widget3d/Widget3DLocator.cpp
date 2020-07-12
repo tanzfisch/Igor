@@ -16,7 +16,7 @@
 #include <igor/scene/iScene.h>
 using namespace igor;
 
-Widget3DLocator::Widget3DLocator(iWindow *window, iView *view, iScene *scene)
+Widget3DLocator::Widget3DLocator(iWindow *window, iView *view, iScenePtr scene)
 	: Widget3D(window, view, scene)
 {
 	_view->registerRenderDelegate(iDrawDelegate(this, &Widget3DLocator::update));
@@ -42,7 +42,7 @@ Widget3DLocator::Widget3DLocator(iWindow *window, iView *view, iScene *scene)
 	_blue->setAmbient(iaColor3f(0.0f, 0.0f, 0.3f));
 	_blue->setAlpha(0.8);
 
-	_materialID = iMaterialResourceFactory::getInstance().createMaterial("Manipulator");
+	_materialID = iMaterialResourceFactory::getInstance().createMaterial("Locator");
 	auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
 	material->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
 	material->addShaderSource("igor/default_directional_light.frag", iShaderObjectType::Fragment);

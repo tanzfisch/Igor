@@ -8,33 +8,33 @@ namespace Igor
 {
 
     iaVector3f corners[] = {
-        iaVector3f(0.0,0.0,0.0), // 0
-        iaVector3f(0.5,0.0,0.0), // 1
-        iaVector3f(1.0,0.0,0.0), // 2
-        iaVector3f(0.0,0.5,0.0), // 3
-        iaVector3f(0.5,0.5,0.0), // 4
-        iaVector3f(1.0,0.5,0.0), // 5
-        iaVector3f(0.0,1.0,0.0), // 6
-        iaVector3f(0.5,1.0,0.0), // 7
-        iaVector3f(1.0,1.0,0.0), // 8
-        iaVector3f(0.0,0.0,-0.5), // 9
-        iaVector3f(0.5,0.0,-0.5), // 10
-        iaVector3f(1.0,0.0,-0.5), // 11
-        iaVector3f(0.0,0.5,-0.5), // 12
-        iaVector3f(0.5,0.5,-0.5), // 13
-        iaVector3f(1.0,0.5,-0.5), // 14
-        iaVector3f(0.0,1.0,-0.5), // 15
-        iaVector3f(0.5,1.0,-0.5), // 16
-        iaVector3f(1.0,1.0,-0.5), // 17
-        iaVector3f(0.0,0.0,-1.0), // 18
-        iaVector3f(0.5,0.0,-1.0), // 19
-        iaVector3f(1.0,0.0,-1.0), // 20
-        iaVector3f(0.0,0.5,-1.0), // 21
-        iaVector3f(0.5,0.5,-1.0), // 22
-        iaVector3f(1.0,0.5,-1.0), // 23
-        iaVector3f(0.0,1.0,-1.0), // 24
-        iaVector3f(0.5,1.0,-1.0), // 25
-        iaVector3f(1.0,1.0,-1.0) };  // 26
+        iaVector3f(0.0, 0.0, 0.0),   // 0
+        iaVector3f(0.5, 0.0, 0.0),   // 1
+        iaVector3f(1.0, 0.0, 0.0),   // 2
+        iaVector3f(0.0, 0.5, 0.0),   // 3
+        iaVector3f(0.5, 0.5, 0.0),   // 4
+        iaVector3f(1.0, 0.5, 0.0),   // 5
+        iaVector3f(0.0, 1.0, 0.0),   // 6
+        iaVector3f(0.5, 1.0, 0.0),   // 7
+        iaVector3f(1.0, 1.0, 0.0),   // 8
+        iaVector3f(0.0, 0.0, -0.5),  // 9
+        iaVector3f(0.5, 0.0, -0.5),  // 10
+        iaVector3f(1.0, 0.0, -0.5),  // 11
+        iaVector3f(0.0, 0.5, -0.5),  // 12
+        iaVector3f(0.5, 0.5, -0.5),  // 13
+        iaVector3f(1.0, 0.5, -0.5),  // 14
+        iaVector3f(0.0, 1.0, -0.5),  // 15
+        iaVector3f(0.5, 1.0, -0.5),  // 16
+        iaVector3f(1.0, 1.0, -0.5),  // 17
+        iaVector3f(0.0, 0.0, -1.0),  // 18
+        iaVector3f(0.5, 0.0, -1.0),  // 19
+        iaVector3f(1.0, 0.0, -1.0),  // 20
+        iaVector3f(0.0, 0.5, -1.0),  // 21
+        iaVector3f(0.5, 0.5, -1.0),  // 22
+        iaVector3f(1.0, 0.5, -1.0),  // 23
+        iaVector3f(0.0, 1.0, -1.0),  // 24
+        iaVector3f(0.5, 1.0, -1.0),  // 25
+        iaVector3f(1.0, 1.0, -1.0)}; // 26
 
     iSimpleCubes::iSimpleCubes()
         : _voxelData(0)
@@ -83,7 +83,7 @@ namespace Igor
 
     */
 
-    void iSimpleCubes::generateGeometry(iMeshBuilder& meshBuilder, uint8 edges)
+    void iSimpleCubes::generateGeometry(iMeshBuilder &meshBuilder, uint8 edges)
     {
         // filter if completely inside or outside of volume
         if (edges == 0 || edges == 255)
@@ -108,7 +108,7 @@ namespace Igor
                 vc = transformed_cube_position;
                 vd = transformed_cube_position;
 
-                va += corners[2]; 
+                va += corners[2];
                 vb += corners[20];
                 vc += corners[26];
                 vd += corners[8];
@@ -371,7 +371,7 @@ namespace Igor
         _cubePosition = start_position;
 
         std::vector<iVoxelBlock> *a = _voxelData->getBlocks(_cubePosition._x, _cubePosition._y);
-        std::vector<iVoxelBlock> *b = _voxelData->getBlocks(_cubePosition._x + 1, _cubePosition._y);        
+        std::vector<iVoxelBlock> *b = _voxelData->getBlocks(_cubePosition._x + 1, _cubePosition._y);
         std::vector<iVoxelBlock> *c = _voxelData->getBlocks(_cubePosition._x + 1, _cubePosition._y + 1);
         std::vector<iVoxelBlock> *d = _voxelData->getBlocks(_cubePosition._x, _cubePosition._y + 1);
 
@@ -416,12 +416,12 @@ namespace Igor
         _ditPos -= (*_dit)._length;
     }
 
-    void iSimpleCubes::setVoxelData(iVoxelData* voxelData)
+    void iSimpleCubes::setVoxelData(iVoxelData *voxelData)
     {
         _voxelData = voxelData;
     }
 
-    void iSimpleCubes::compile(iMeshBuilder& meshBuilder, iaVector3I pos, iaVector3I volume)
+    void iSimpleCubes::compile(iMeshBuilder &meshBuilder, iaVector3I pos, iaVector3I volume)
     {
         if (pos._x < 0 ||
             pos._y < 0 ||
@@ -448,7 +448,7 @@ namespace Igor
         iaVector3I currentPosition;
         currentPosition._z = _cubeStartPosition._z;
 
-        // run through collumns
+        // run through columns
         for (int x = 0; x < _marchingVolume._x - 1; ++x)
         {
             currentPosition._x = _cubeStartPosition._x + x;
@@ -472,4 +472,4 @@ namespace Igor
             meshBuilder.calcNormals(false);
         }
     }
-}
+} // namespace Igor

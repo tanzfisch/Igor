@@ -149,12 +149,12 @@ namespace igor
         return _showOctree;
     }
 
-    void iRenderEngine::setScene(iScene *scene)
+    void iRenderEngine::setScene(iScenePtr scene)
     {
         _scene = scene;
     }
 
-    iScene *iRenderEngine::getScene()
+    iScenePtr iRenderEngine::getScene()
     {
         return _scene;
     }
@@ -176,8 +176,7 @@ namespace igor
 #endif
 
         if (_scene != nullptr &&
-            _currentCamera != nullptr &&
-            _currentCamera->getScene() == _scene)
+            _currentCamera != nullptr)
         {
 #ifdef USE_VERBOSE_STATISTICS
             iProfiler::getInstance().beginSection(_cullSectionID);

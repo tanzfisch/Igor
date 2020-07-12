@@ -30,7 +30,6 @@
 #define __KEYBOARDEXAMPLE_H__
 
 #include <ExampleBase.h>
-using namespace igor;
 
 /*! keyboard input example
 */
@@ -39,8 +38,10 @@ class KeyboardExample : public ExampleBase
 
 public:
     /*! init example
+
+    \param window the window this example is living in
     */
-    KeyboardExample();
+    KeyboardExample(iWindow *window);
 
     /*! does nothing
     */
@@ -49,33 +50,33 @@ public:
 private:
     /*! switches beween ascii output or single key output
     */
-    bool _outputSwitch;
+    bool _outputSwitch = true;
 
     /*! called when key was pressed
 
-    \param key the keycode of the pressed key
+    \param event the event to handle
     */
-    void onKeyDown(iKeyCode key) override;
+    bool onKeyDown(iEventKeyDown &event);
 
     /*! called when key was released
 
-    \param key the keycode of the released key
+    \param event the event to handle
     */
-    void onKeyUp(iKeyCode key) override;
+    bool onKeyUp(iKeyUpEvent_TMP &event);
 
     /*! called on ascii input
 
-    \param c the ascii value
+    \param event the event to handle
     */
-    void onKeyASCIIInput(char c);
+    bool onKeyASCIIInput(iKeyASCIIEvent_TMP &event);
 
     /*! initialize example
     */
-    void init() override;
+    void onInit() override;
 
-    /*! deinitialize example
+    /*! called on any other event
     */
-    void deinit() override;
+    void onEvent(iEvent &event) override;
 };
 
 #endif // __KEYBOARDEXAMPLE_H__

@@ -28,12 +28,20 @@ namespace igor
         deinitGUI();
     }
 
-    void iUserControlColorChooser::block(bool blockEvents)
+    void iUserControlColorChooser::blockEvents()
     {
-        iWidget::block(blockEvents);
+        iWidget::blockEvents();
 
         // update own events
-        _colorChanged.block(isBlocked());
+        _colorChanged.block(true);
+    }
+
+    void iUserControlColorChooser::unblockEvents()
+    {
+        iWidget::unblockEvents();
+
+        // update own events
+        _colorChanged.block(false);
     }
 
     void iUserControlColorChooser::setMode(iColorChooserMode mode)
@@ -139,7 +147,7 @@ namespace igor
         _grid->setVerticalAlignment(iVerticalAlignment::Top);
 
         _headlineGrid = new iWidgetGrid();
-        _headlineGrid->appendCollumns(2);
+        _headlineGrid->appendColumns(2);
         _headlineGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _headlineGrid->setVerticalAlignment(iVerticalAlignment::Top);
 
@@ -479,7 +487,7 @@ namespace igor
         _expandedGrid->appendRows(1);
 
         _expandedSliderGrid = new iWidgetGrid();
-        _expandedSliderGrid->appendCollumns(2);
+        _expandedSliderGrid->appendColumns(2);
         _expandedSliderGrid->appendRows(7);
         _expandedSliderGrid->setBorder(0);
         _expandedSliderGrid->setCellSpacing(4);
@@ -532,7 +540,7 @@ namespace igor
         _collapsedGrid = new iWidgetGrid();
         _collapsedGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _collapsedGrid->setVerticalAlignment(iVerticalAlignment::Top);
-        _collapsedGrid->appendCollumns(8);
+        _collapsedGrid->appendColumns(8);
         _collapsedGrid->setCellSpacing(4);
 
         _colorViewCollapsed = new iWidgetColor();

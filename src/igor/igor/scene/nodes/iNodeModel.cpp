@@ -93,12 +93,23 @@ namespace igor
 		}
 	}
 
-	void iNodeModel::setModel(const iaString &modelFileName, iResourceCacheMode cacheMode, iModelDataInputParameter *parameters)
+	void iNodeModel::setModel(const iaString &modelFileName, iResourceCacheMode cacheMode, iModelDataInputParameter *parameters, bool loadSynchronously)
 	{
 		_filename = modelFileName;
-		_parameters = parameters;
 		_cacheMode = cacheMode;
-		setDataDirty();
+		_parameters = parameters;
+
+		if (loadSynchronously)
+		{
+			_model = iModelResourceFactory::getInstance().loadModelData(_filename, _cacheMode, _parameters);
+			_parameters = nullptr; // passing ownership to iModel
+
+			onUpdateData();
+		}
+		else
+		{
+			setDataDirty();
+		}
 	}
 
 	void iNodeModel::onUpdateTransform(iaMatrixd &matrix)

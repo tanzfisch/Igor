@@ -1,17 +1,5 @@
 #include "Actions.h"
 
-#include "ActionContext.h"
-
-#include <igor/system/iClipboard.h>
-#include <igor/scene/nodes/iNode.h>
-#include <igor/ui/actions/iActionManager.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/scene/nodes/iNodeSwitch.h>
-#include <igor/scene/nodes/iNodeEmitter.h>
-#include <igor/scene/nodes/iNodeParticleSystem.h>
-using namespace igor;
-
 #include <vector>
 #include <any>
 

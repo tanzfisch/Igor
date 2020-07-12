@@ -22,7 +22,7 @@ using namespace igor;
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
-EnemyDestroyed::EnemyDestroyed(iScene *scene, const iaMatrixd &matrix)
+EnemyDestroyed::EnemyDestroyed(iScenePtr scene, const iaMatrixd &matrix)
     : GameObject(Fraction::None, GameObjectType::None)
 {
     setHealth(100.0);

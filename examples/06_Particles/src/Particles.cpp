@@ -4,46 +4,12 @@
 
 #include "Particles.h"
 
-#include <igor/resources/material/iMaterial.h>
-#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
-#include <igor/threading/iTaskManager.h>
-#include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/scene/nodes/iNodeModel.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/graphics/iRenderer.h>
-#include <igor/system/iApplication.h>
-#include <igor/scene/iSceneFactory.h>
-#include <igor/scene/iScene.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/system/iMouse.h>
-#include <igor/system/iKeyboard.h>
-#include <igor/system/iTimer.h>
-#include <igor/resources/texture/iTextureFont.h>
-#include <igor/scene/nodes/iNodeLight.h>
-#include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/threading/tasks/iTaskFlushModels.h>
-#include <igor/threading/tasks/iTaskFlushTextures.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/profiler/iProfiler.h>
-#include <igor/scene/nodes/iNodeSwitch.h>
-#include <igor/scene/nodes/iNodeLODSwitch.h>
-#include <igor/scene/nodes/iNodeLODTrigger.h>
-#include <igor/scene/nodes/iNodeParticleSystem.h>
-#include <igor/scene/nodes/iNodeEmitter.h>
-#include <iaux/data/iaGradient.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
-using namespace igor;
-
-#include <iaux/system/iaConsole.h>
-#include <iaux/data/iaString.h>
-using namespace iaux;
-
-Particles::Particles()
-    : ExampleBase("Particles")
+Particles::Particles(iWindow *window)
+    : ExampleBase(window, "Particles")
 {
 }
 
-void Particles::init()
+void Particles::onInit()
 {
     // setup camera
     // we want a camera which can be rotated arround the origin
@@ -492,7 +458,7 @@ void Particles::createDotParticleSystem()
     getScene()->getRoot()->insertNode(dotEmitterTransform);
 }
 
-void Particles::deinit()
+void Particles::onDeinit()
 {
     // stop light animation
     if (_animationTimingHandle)
@@ -502,47 +468,19 @@ void Particles::deinit()
     }
 }
 
-void Particles::onMouseWheel(int32 d)
+void Particles::onEvent(iEvent &event)
 {
-    iNodeTransform *camTranslation = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraTranslation));
-    if (camTranslation != nullptr)
-    {
-        if (d < 0)
-        {
-            camTranslation->translate(0, 0, 10);
-        }
-        else
-        {
-            camTranslation->translate(0, 0, -10);
-        }
-    }
+    // first call example base
+    ExampleBase::onEvent(event);
 
-    ExampleBase::onMouseWheel(d);
+    event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(Particles::onKeyDown));
+    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(Particles::onMouseMoveEvent));
+    event.dispatch<iEventMouseWheel>(IGOR_BIND_EVENT_FUNCTION(Particles::onMouseWheelEvent));
 }
 
-void Particles::onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window)
+bool Particles::onKeyDown(iEventKeyDown &event)
 {
-    if (iMouse::getInstance().getLeftButton())
-    {
-        iNodeTransform *cameraPitch = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraPitch));
-        iNodeTransform *cameraHeading = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraHeading));
-
-        if (cameraPitch != nullptr &&
-            cameraHeading != nullptr)
-        {
-            cameraPitch->rotate((to._y - from._y) * 0.005f, iaAxis::X);
-            cameraHeading->rotate((from._x - to._x) * 0.005f, iaAxis::Y);
-
-            iMouse::getInstance().setCenter();
-        }
-    }
-
-    ExampleBase::onMouseMovedFull(from, to, window);
-}
-
-void Particles::onKeyDown(iKeyCode key)
-{
-    switch (key)
+    switch (event.getKey())
     {
     case iKeyCode::Space:
         for (auto particleSystemID : _particleSystemIDs)
@@ -560,7 +498,7 @@ void Particles::onKeyDown(iKeyCode key)
                 }
             }
         }
-        break;
+        return true;
 
     case iKeyCode::R:
         for (auto particleSystemID : _particleSystemIDs)
@@ -571,10 +509,53 @@ void Particles::onKeyDown(iKeyCode key)
                 circleParticleSystem->reset();
             }
         }
-        break;
+        return true;
     }
 
-    ExampleBase::onKeyDown(key);
+    return false;
+}
+
+bool Particles::onMouseMoveEvent(iEventMouseMove &event)
+{
+    if (iMouse::getInstance().getLeftButton())
+    {
+        const auto from = event.getLastPosition();
+        const auto to = event.getPosition();
+
+        iNodeTransform *cameraPitch = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraPitch));
+        iNodeTransform *cameraHeading = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraHeading));
+
+        if (cameraPitch != nullptr &&
+            cameraHeading != nullptr)
+        {
+            cameraPitch->rotate((to._y - from._y) * 0.005f, iaAxis::X);
+            cameraHeading->rotate((from._x - to._x) * 0.005f, iaAxis::Y);
+
+            iMouse::getInstance().setCenter();
+        }
+
+        return true;
+    }
+
+    return false;
+}
+
+bool Particles::onMouseWheelEvent(iEventMouseWheel &event)
+{
+    iNodeTransform *camTranslation = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraTranslation));
+    if (camTranslation != nullptr)
+    {
+        if (event.getWheelDelta() < 0)
+        {
+            camTranslation->translate(0, 0, 10);
+        }
+        else
+        {
+            camTranslation->translate(0, 0, -10);
+        }
+    }
+
+    return true;
 }
 
 void Particles::onTimer()

@@ -11,58 +11,43 @@
 //                                           (_(       \)
 // (c) Copyright 2014-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: igorgameengine@protonmail.com  
+//
+// contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLLIGHT__
-#define __USERCONTROLLIGHT__
+#ifndef __USERCONTROLLIGHT_H__
+#define __USERCONTROLLIGHT_H__
 
-#include <igor/scene/nodes/iNodeLight.h>
-#include <iaux/data/iaColor4.h>
+#include <igor/igor.h>
 using namespace iaux;
-
-#include <igor/ui/user_controls/iUserControl.h>
-#include <igor/ui/user_controls/iUserControlColorChooser.h>
 using namespace igor;
-
-namespace igor
-{
-    class iWidgetGrid;
-    class iWidgetTextEdit;
-    class iWidgetLabel;
-    class iWidgetButton;
-    class iUserControlColorChooser;
-}
 
 class UserControlLight : public iUserControl
 {
 public:
-
-	UserControlLight();
-	~UserControlLight() = default;
+    UserControlLight();
+    ~UserControlLight() = default;
 
     void setNode(uint32 id);
     uint32 getNode();
 
 private:
+    iWidgetGrid *_grid = nullptr;
 
-    iWidgetGrid* _grid = nullptr;
-
-    iUserControlColorChooser* _ambientColorChooser = nullptr;
-    iUserControlColorChooser* _specularColorChooser = nullptr;
-    iUserControlColorChooser* _diffuseColorChooser = nullptr;
+    iUserControlColorChooser *_ambientColorChooser = nullptr;
+    iUserControlColorChooser *_specularColorChooser = nullptr;
+    iUserControlColorChooser *_diffuseColorChooser = nullptr;
 
     iaColor4f _ambient;
     iaColor4f _diffuse;
@@ -70,17 +55,14 @@ private:
 
     uint32 _lightNodeId = 0;
 
-    void onAmbientChange(const iaColor4f& color);
-    void onDiffuseChange(const iaColor4f& color);
-    void onSpecularChange(const iaColor4f& color);
+    void onAmbientChange(const iaColor4f &color);
+    void onDiffuseChange(const iaColor4f &color);
+    void onSpecularChange(const iaColor4f &color);
 
     void updateGUI();
     void updateNode();
 
     void initGUI();
-
-
-
 };
 
-#endif
+#endif // __USERCONTROLLIGHT_H__

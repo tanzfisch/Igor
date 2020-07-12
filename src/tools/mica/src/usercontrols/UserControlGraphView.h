@@ -26,32 +26,16 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLGRAPHVIEW__
-#define __USERCONTROLGRAPHVIEW__
+#ifndef __USERCONTROLGRAPHVIEW_H__
+#define __USERCONTROLGRAPHVIEW_H__
 
-#include <iaux/data/iaString.h>
-#include <iaux/system/iaEvent.h>
-using namespace iaux;
-
-#include <igor/ui/user_controls/iUserControl.h>
-#include <igor/scene/traversal/iNodeVisitor.h>
-#include <igor/iDefines.h>
-#include <igor/scene/nodes/iNode.h>
-#include <igor/ui/dialogs/iDialogMenu.h>
+#include <igor/igor.h>
 using namespace igor;
+using namespace iaux;
 
 #include <sstream>
 #include <vector>
 #include <map>
-
-namespace igor
-{
-    class iWidgetGrid;
-    class iWidget;
-    class iWidgetScroll;
-    class iWidgetGroupBox;
-    class iWidgetButton;
-} // namespace igor
 
 iaEVENT(GraphSelectionChanged, GraphSelectionChangedDelegate, (uint64 nodeID), (nodeID));
 
@@ -139,4 +123,4 @@ private:
     void postTraverse() override;
 };
 
-#endif
+#endif // __USERCONTROLGRAPHVIEW_H__

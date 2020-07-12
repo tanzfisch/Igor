@@ -4,71 +4,67 @@
 
 #include "KeyboardExample.h"
 
-#include <igor/system/iApplication.h>
-#include <igor/system/iKeyboard.h>
-using namespace igor;
-
-#include <iaux/system/iaConsole.h>
-using namespace iaux;
-
-KeyboardExample::KeyboardExample()
-	: ExampleBase(L"Keyboard Input"), _outputSwitch(true)
+KeyboardExample::KeyboardExample(iWindow *window)
+	: ExampleBase(window, L"Keyboard Input")
 {
 }
 
-void KeyboardExample::init()
+void KeyboardExample::onInit()
 {
 	// print some helpfull text
 	con_info("press F1  - to switch output method");
 	con_info("Keep keyboard focus on \"Keyboard Example\" _window.");
 
-	// registers a callback to the ASCII input event. called for every ascii input event
-	iKeyboard::getInstance().registerKeyASCIIDelegate(iKeyASCIIDelegate(this, &KeyboardExample::onKeyASCIIInput));
-
 	// some more helpfull text
 	con_info(" --- starting with single key message output mode ---");
 }
 
-void KeyboardExample::deinit()
+void KeyboardExample::onEvent(iEvent &event)
 {
-	// unregister callback
-	iKeyboard::getInstance().unregisterKeyASCIIDelegate(iKeyASCIIDelegate(this, &KeyboardExample::onKeyASCIIInput));
+	// first call example base
+	ExampleBase::onEvent(event);
+
+	event.dispatch<iKeyASCIIEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(KeyboardExample::onKeyASCIIInput));
+	event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(KeyboardExample::onKeyDown));
+	event.dispatch<iKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(KeyboardExample::onKeyUp));
 }
 
-void KeyboardExample::onKeyASCIIInput(const char c)
+bool KeyboardExample::onKeyASCIIInput(iKeyASCIIEvent_TMP &event)
 {
-	// check in which output mode we are
 	if (!_outputSwitch)
 	{
 		// print single character to console bypassing all the standard interfaces
-		iaConsole::getInstance() << LOCK << c << UNLOCK;
+		iaConsole::getInstance() << LOCK << event.getChar() << flush << UNLOCK;
+	}
+
+	return false;
+}
+
+bool KeyboardExample::onKeyDown(iEventKeyDown &event)
+{
+	if (_outputSwitch)
+	{
+		// print to console name of the key that was pressed
+		con_endl("pressed: " << event.getKey());
+
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }
 
-void KeyboardExample::onKeyDown(iKeyCode key)
+bool KeyboardExample::onKeyUp(iKeyUpEvent_TMP &event)
 {
-	// check in which output mode we are
 	if (_outputSwitch)
 	{
-		// print to console name and value of the key that was pressed
-		con_endl("pressed: " << key << " (" << static_cast<int>(key) << ")");
-	}
-
-	// call base class to inherit the default behaviour
-	ExampleBase::onKeyDown(key);
-}
-
-void KeyboardExample::onKeyUp(iKeyCode key)
-{
-	// check in which output mode we are
-	if (_outputSwitch)
-	{
-		// print to console name and value of the key that was released
-		con_endl("released: " << key << " (" << static_cast<int>(key) << ")");
+		// print to console name of the key that was released
+		con_endl("released: " << event.getKey());
 	}
 
 	// switch output mode if key F1 was pressed
-	if (key == iKeyCode::F1)
+	if (event.getKey() == iKeyCode::F1)
 	{
 		if (_outputSwitch)
 		{
@@ -83,6 +79,5 @@ void KeyboardExample::onKeyUp(iKeyCode key)
 		}
 	}
 
-	// call base class to inherit the default behaviour
-	ExampleBase::onKeyUp(key);
+	return true;
 }

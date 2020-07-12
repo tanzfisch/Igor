@@ -4,34 +4,6 @@
 
 #include "WidgetsExample.h"
 
-#include <igor/graphics/iRenderer.h>
-#include <igor/system/iApplication.h>
-#include <igor/ui/iWidgetManager.h>
-#include <igor/ui/actions/iAction.h>
-#include <igor/ui/actions/iActionManager.h>
-#include <igor/ui/dialogs/iDialog.h>
-#include <igor/ui/theme/iWidgetDefaultTheme.h>
-#include <igor/ui/widgets/iWidgetLabel.h>
-#include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetGroupBox.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
-#include <igor/ui/widgets/iWidgetCheckBox.h>
-#include <igor/ui/widgets/iWidgetNumberChooser.h>
-#include <igor/ui/widgets/iWidgetTextEdit.h>
-#include <igor/ui/widgets/iWidgetPicture.h>
-#include <igor/ui/widgets/iWidgetScroll.h>
-#include <igor/ui/widgets/iWidgetSelectBox.h>
-#include <igor/ui/widgets/iWidgetSpacer.h>
-#include <igor/ui/widgets/iWidgetGraph.h>
-#include <igor/ui/widgets/iWidgetColor.h>
-#include <igor/ui/widgets/iWidgetColorGradient.h>
-#include <igor/ui/widgets/iWidgetMenuBar.h>
-#include <igor/ui/widgets/iWidgetMenu.h>
-using namespace igor;
-
-#include <iaux/system/iaConsole.h>
-using namespace iaux;
-
 // define some actions
 class Action1 : public iAction
 {
@@ -96,8 +68,9 @@ public:
     }
 };
 
-WidgetsExample::WidgetsExample()
-    : ExampleBase("Widgets")
+// set an increase z index of 1 to make sure the ui is rendered above the background
+WidgetsExample::WidgetsExample(iWindow *window)
+    : iLayerWidgets(new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png"), window, "Widgets", 10)
 {
     // register the actions to make them globaly available
     iActionManager::getInstance().registerAction(new Action1());
@@ -116,11 +89,10 @@ void WidgetsExample::onCloseDialog(iDialogPtr dialog)
     _dialog = nullptr;
 }
 
-void WidgetsExample::init()
+void WidgetsExample::onInit()
 {
-    // create a theme and set it up. in this case the build in default theme
-    _widgetDefaultTheme = new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png");
-    iWidgetManager::getInstance().setTheme(_widgetDefaultTheme);
+    // call base class
+    iLayerWidgets::onInit();
 
     _dialog = new iDialog();
     _dialog->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -193,7 +165,7 @@ void WidgetsExample::init()
     widgetScoll->setVerticalAlignment(iVerticalAlignment::Strech);
 
     iWidgetGrid *grid3 = new iWidgetGrid();
-    grid3->appendCollumns(3);
+    grid3->appendColumns(3);
     grid3->appendRows(4);
     grid3->setCellSpacing(10);
     // this grid has to be top left aligned because we want to use it as child of the scroll widget
@@ -202,7 +174,7 @@ void WidgetsExample::init()
     grid3->setSelectMode(iSelectionMode::NoSelection);
 
     iWidgetGrid *grid4 = new iWidgetGrid();
-    grid4->appendCollumns(5);
+    grid4->appendColumns(5);
     grid4->setStrechColumn(4);
     grid4->setHorizontalAlignment(iHorizontalAlignment::Strech);
     grid4->setVerticalAlignment(iVerticalAlignment::Top);
@@ -370,7 +342,7 @@ void WidgetsExample::init()
     grid1->addWidget(groupBox1, 0, 1);
     groupBox1->addWidget(grid4);
     grid4->addWidget(exitButton, 0, 0);
-    grid4->addWidget(new iWidgetSpacer(2, 30), 1, 0);
+    grid4->addWidget(new iWidgetSpacer(30, 2), 1, 0);
     grid4->addWidget(picture1, 2, 0);
     grid4->addWidget(_color, 3, 0);
     grid4->addWidget(_colorGradient, 4, 0);
@@ -396,30 +368,42 @@ void WidgetsExample::init()
     grid3->addWidget(radio3, 2, 4);
 
     // update desktop size
-    iWidgetManager::getInstance().setDesktopDimensions(getWindow().getClientWidth(), getWindow().getClientHeight());
+    iWidgetManager::getInstance().setDesktopDimensions(getWindow()->getClientWidth(), getWindow()->getClientHeight());
 }
 
-void WidgetsExample::deinit()
+void WidgetsExample::onDeinit()
 {
-    iWidgetManager::getInstance().setTheme(nullptr);
-    delete _widgetDefaultTheme;
-    _widgetDefaultTheme = nullptr;
+    // if dialog is still open close it now
+    if (_dialog != nullptr &&
+        _dialog->isOpen())
+    {
+        _dialog->close();
+    }
+
+    iLayerWidgets::onDeinit();
 }
 
-void WidgetsExample::onMouseMoved(const iaVector2i &pos)
+void WidgetsExample::onEvent(iEvent &event)
+{
+    iLayerWidgets::onEvent(event);
+
+    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(WidgetsExample::onMouseMoveEvent));
+}
+
+bool WidgetsExample::onMouseMoveEvent(iEventMouseMove &event)
 {
     // updates a label with current mouse position
     if (_labelMousePos != nullptr)
     {
         iaString text;
-        text += iaString::toString(pos._x);
+        text += iaString::toString(event.getPosition()._x);
         text += ":";
-        text += iaString::toString(pos._y);
+        text += iaString::toString(event.getPosition()._y);
 
         _labelMousePos->setText(text);
     }
 
-    ExampleBase::onMouseMoved(pos);
+    return false;
 }
 
 void WidgetsExample::onOpenColorChooser(const iWidgetPtr source)
@@ -512,35 +496,9 @@ void WidgetsExample::onCloseMessageBox(iDialogPtr dialog)
 
 void WidgetsExample::onExitClick(const iWidgetPtr source)
 {
-    // close dialog
+    // close the dialog
     _dialog->close();
 
     // shut down application
     iApplication::getInstance().stop();
-}
-
-void WidgetsExample::onWindowResized(int32 clientWidth, int32 clientHeight)
-{
-    // update the widget managers desktop dimensions
-    iWidgetManager::getInstance().setDesktopDimensions(getWindow().getClientWidth(), getWindow().getClientHeight());
-
-    ExampleBase::onWindowResized(clientWidth, clientHeight);
-}
-
-void WidgetsExample::onRenderOrtho()
-{
-    // initialize view matrix with identity matrix
-    iaMatrixd identity;
-    iRenderer::getInstance().setViewMatrix(identity);
-
-    // move scene between near and far plane so be ca actually see what we render
-    // any value between near and far plane would do the trick
-    iaMatrixd modelMatrix;
-    modelMatrix.translate(0, 0, -30);
-    iRenderer::getInstance().setModelMatrix(modelMatrix);
-
-    // tell the widget manager to draw the widgets
-    iWidgetManager::getInstance().draw();
-
-    ExampleBase::onRenderOrtho();
 }

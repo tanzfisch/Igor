@@ -35,7 +35,7 @@ using namespace iaux;
 #include "MuzzleFlash.h"
 #include "../Ascent.h"
 
-Player::Player(iScene *scene, iView *view, const iaMatrixd &matrix)
+Player::Player(iScenePtr scene, iView *view, const iaMatrixd &matrix)
     : GameObject(Fraction::Blue, GameObjectType::Vehicle)
 {
     _scene = scene;
@@ -274,11 +274,11 @@ iaVector3d Player::getCurrentPos()
     return result;
 }
 
-void Player::drawReticle(const iWindow &window)
+void Player::drawReticle(iWindow *window)
 {
-    iaVector3f weaponPos(window.getClientWidth() * 0.5, window.getClientHeight() * 0.5, 0);
+    iaVector3f weaponPos(window->getClientWidth() * 0.5, window->getClientHeight() * 0.5, 0);
 
-    float32 scale = 0.001 * window.getClientWidth();
+    float32 scale = 0.001 * window->getClientWidth();
 
     iRenderer::getInstance().setMaterial(_materialSolid);
     iRenderer::getInstance().setLineWidth(1 * scale);

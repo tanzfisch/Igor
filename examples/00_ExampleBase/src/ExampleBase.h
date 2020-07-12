@@ -29,39 +29,23 @@
 #ifndef __EXAMPLEBASE_H__
 #define __EXAMPLEBASE_H__
 
-#include <igor/system/iWindow.h>
-#include <igor/graphics/iView.h>
-#include <igor/threading/tasks/iTask.h>
-#include <igor/resources/profiler/iProfilerVisualizer.h>
-#include <igor/resources/texture/iTexture.h>
-#include <igor/resources/texture/iTextureFont.h>
-#include <igor/scene/iScene.h>
+#include <igor/igor.h>
 using namespace igor;
-
-#include <iaux/data/iaString.h>
 using namespace iaux;
 
 /*! Examples base class
 */
-class ExampleBase
+class ExampleBase : public iLayer
 {
 
 public:
     /*! init example
     */
-    ExampleBase(const iaString &name, bool createBaseSetup = true, bool createSkyBox = true);
+    ExampleBase(iWindow *window, const iaString &name, bool createBaseSetup = true, bool createSkyBox = true, int32 zIndex = 0);
 
     /*! release resources
     */
     virtual ~ExampleBase();
-
-    /*! \returns name of example
-    */
-    const iaString &getName() const;
-
-    /*! \returns the example's window
-    */
-    iWindow &getWindow();
 
     /*! \retruns the example's view
     */
@@ -83,96 +67,48 @@ public:
     */
     iMaterialID getFontMaterial() const;
 
-    /*! run example
-    */
-    virtual void run();
-
 protected:
     /*! initialize example
     */
-    virtual void init();
+    virtual void onInit() override;
 
     /*! deinitialize example
     */
-    virtual void deinit();
+    virtual void onDeinit() override;
 
     /*! called every frame before draw
 
     override if you need to work with it
     */
-    virtual void onPreDraw();
+    virtual void onPreDraw() override;
 
     /*! called every frame after draw
 
     override if you need to work with it
     */
-    virtual void onPostDraw();
+    virtual void onPostDraw() override;
+
+    /*! called on any other event
+    */
+    virtual void onEvent(iEvent &event) override;
 
     /*! called by orthogonal view
     */
     virtual void onRenderOrtho();
 
-    /*! called on key pressed event
+    /*! called when key was pressed
 
-    \param key the key code of the pressed key
+    \param event the event to handle
     */
-    virtual void onKeyDown(iKeyCode key);
+    bool onKeyDown(iEventKeyDown &event);
 
     /*! called when key was released
 
-    \param key the keycode of the released key
+    \param event the event to handle
     */
-    virtual void onKeyUp(iKeyCode key);
-
-    /*! called when any mouse key was pressed
-
-    \pram key the key code of the key that was pressed
-    */
-    virtual void onMouseKeyDown(iKeyCode key);
-
-    /*! called when any mouse key was released
-
-    \param key the key code of the key that was pressed
-    */
-    virtual void onMouseKeyUp(iKeyCode key);
-
-    /*! called when mouse was moved
-    \param from last mouse position
-    \param to current mouse position
-    \param window the window the coordinates are related to
-    */
-    virtual void onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window);
-
-    /*! called when mouse has moved
-
-    \param pos the new mouse position
-    */
-    virtual void onMouseMoved(const iaVector2i &pos);
-
-    /*! called when mouse was double clicked
-
-    \param key the key that was double clicked
-    */
-    virtual void onMouseDoubleClick(iKeyCode key);
-
-    /*! called when mouse wheel was turned
-
-    \param d mouse wheel delta
-    */
-    virtual void onMouseWheel(int32 d);
-
-    /*! called when window was resized
-
-    \param clientWidth the client rectangle width
-    \param clientHeight the client rectangle height
-    */
-    virtual void onWindowResized(int32 clientWidth, int32 clientHeight);
+    bool onKeyUp(iKeyUpEvent_TMP &event);
 
 private:
-    /*! the window that receives the input messages
-    */
-    iWindow _window;
-
     /*! the view we render 2D to
     */
     iView _viewOrtho;
@@ -192,14 +128,6 @@ private:
     /*! async loading of textures
     */
     iTaskID _taskFlushTextures = iTask::INVALID_TASK_ID;
-
-    /*! example name
-    */
-    iaString _name;
-
-    /*! displays profiler
-    */
-    iProfilerVisualizer _profilerVisualizer;
 
     /*! igor logo
     */
@@ -221,9 +149,12 @@ private:
     */
     void drawLogo();
 
-    /*! called when window got closed
+    /*! handle window resize event
+
+    \param event the window resize event
+    \returns true if consumed
     */
-    void onCloseWindow();
+    bool onWindowResize(iEventWindowResize &event);
 };
 
 #endif // __EXAMPLEBASE_H__

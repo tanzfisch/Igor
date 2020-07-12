@@ -10,6 +10,7 @@
 #include <igor/physics/iPhysics.h>
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/evaluation/iEvaluationManager.h>
+#include <igor/graphics/iView.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -21,16 +22,17 @@ namespace igor
 
     iApplication::iApplication()
     {
-        initStatistics();
+        for (auto &value : _blockedEvents)
+        {
+            value = false;
+        }
     }
 
     iApplication::~iApplication()
     {
-        deinitStatistics();
-
         if (!_windows.empty())
         {
-            con_warn("close windows before shutdown");
+            con_warn("close and destroy all windows before shutdown");
         }
 
         if (_preDrawHandleEvent.hasDelegates())
@@ -46,6 +48,92 @@ namespace igor
         }
     }
 
+    bool iApplication::isBlockedEvent(iEventType eventType)
+    {
+        return _blockedEvents[(int)eventType];
+    }
+
+    void iApplication::unblockEvent(iEventType eventType)
+    {
+        _blockedEvents[(int)eventType] = false;
+    }
+
+    void iApplication::blockEvent(iEventType eventType)
+    {
+        _blockedEvents[(int)eventType] = true;
+    }
+
+    void iApplication::onEvent(iEventPtr event)
+    {
+        if (_blockedEvents[(int)event->getEventType()])
+        {
+            return;
+        }
+
+        _eventQueueMutex.lock();
+        _eventQueue.push_back(event);
+        _eventQueueMutex.unlock();
+    }
+
+    bool iApplication::dispatchOnStack(iEvent &event, iLayerStack &layerStack)
+    {
+        const auto layers = layerStack.getStack();
+        auto riter = layers.rbegin();
+        while (riter != layers.rend())
+        {
+            (*riter)->onEvent(event);
+            if (event.isConsumed())
+            {
+                return true;
+            }
+
+            riter++;
+        }
+
+        return false;
+    }
+
+    void iApplication::dispatch()
+    {
+        _eventQueueMutex.lock();
+        auto eventQueue = std::move(_eventQueue);
+        _eventQueueMutex.unlock();
+
+        for (auto eventPtr : eventQueue)
+        {
+            iEvent &event = *eventPtr;
+
+            if (event.getEventType() != iEventType::iEventMouseMove)
+            {
+                con_debug_endl("dispatch event: " << event);
+            }
+
+            event.dispatch<iEventWindowClose>(IGOR_BIND_EVENT_FUNCTION(iApplication::onWindowClose));
+            dispatchOnStack(event, _layerStack);
+        }
+    }
+
+    bool iApplication::onWindowClose(iEventWindowClose &event)
+    {
+        bool allClosed = true;
+
+        for (auto window : _windows)
+        {
+            if (window->isOpen())
+            {
+                allClosed = false;
+                break;
+            }
+        }
+
+        if (allClosed)
+        {
+            stop();
+        }
+
+        return false;
+    }
+
     void iApplication::stop()
     {
         _running = false;
@@ -56,14 +144,27 @@ namespace igor
         iProfiler::getInstance().nextFrame();
         iProfiler::getInstance().beginSection(_frameSectionID);
 
-        iProfiler::getInstance().beginSection(_handleSectionID);
         iTimer::getInstance().handle();
+
+        iProfiler::getInstance().beginSection(_handleSectionID);
         iNodeManager::getInstance().handle();
         iProfiler::getInstance().endSection(_handleSectionID);
 
-        iProfiler::getInstance().beginSection(_userSectionID);
         windowHandle();
-        _preDrawHandleEvent();
+
+        iProfiler::getInstance().beginSection(_userSectionID);
+
+        iProfiler::getInstance().beginSection(_dispatchSectionID);
+        dispatch();
+        iProfiler::getInstance().endSection(_dispatchSectionID);
+
+        _preDrawHandleEvent(); // TODO get rid of this
+
+        for (auto layer : _layerStack.getStack())
+        {
+            layer->onPreDraw();
+        }
+
         iProfiler::getInstance().endSection(_userSectionID);
 
         iProfiler::getInstance().beginSection(_evaluationSectionID);
@@ -79,7 +180,13 @@ namespace igor
         iProfiler::getInstance().endSection(_drawSectionID);
 
         iProfiler::getInstance().beginSection(_userSectionID);
-        _postDrawHandleEvent();
+        _postDrawHandleEvent(); // TODO get rid of this
+
+        for (auto layer : _layerStack.getStack())
+        {
+            layer->onPostDraw();
+        }
+
         iProfiler::getInstance().endSection(_userSectionID);
 
         iProfiler::getInstance().endSection(_frameSectionID);
@@ -88,27 +195,32 @@ namespace igor
     void iApplication::run()
     {
         _running = true;
+        initProfiling();
 
         do
         {
             iterate();
         } while (_running);
+
+        deinitProfiling();
     }
 
-    void iApplication::deinitStatistics()
+    void iApplication::deinitProfiling()
     {
         iProfiler::getInstance().unregisterSection(_frameSectionID);
         iProfiler::getInstance().unregisterSection(_handleSectionID);
+        iProfiler::getInstance().unregisterSection(_dispatchSectionID);
         iProfiler::getInstance().unregisterSection(_evaluationSectionID);
         iProfiler::getInstance().unregisterSection(_physicsSectionID);
         iProfiler::getInstance().unregisterSection(_drawSectionID);
         iProfiler::getInstance().unregisterSection(_userSectionID);
     }
 
-    void iApplication::initStatistics()
+    void iApplication::initProfiling()
     {
         _frameSectionID = iProfiler::getInstance().registerSection("app:frame", 0);
         _handleSectionID = iProfiler::getInstance().registerSection("app:handle", 0);
+        _dispatchSectionID = iProfiler::getInstance().registerSection("app:dispatch", 0);
         _evaluationSectionID = iProfiler::getInstance().registerSection("app:eval", 0);
         _physicsSectionID = iProfiler::getInstance().registerSection("app:physics", 0);
         _userSectionID = iProfiler::getInstance().registerSection("app:user", 0);
@@ -142,19 +254,61 @@ namespace igor
         }
     }
 
-    void iApplication::addWindow(iWindow *window)
+    void iApplication::clearLayerStack()
     {
-        _windows.push_back(window);
+        _layerStack.clear();
     }
 
-    void iApplication::removeWindow(iWindow *window)
+    void iApplication::addLayer(iLayer *layer)
     {
-        auto iter = find(_windows.begin(), _windows.end(), window);
+        _layerStack.addLayer(layer);
+    }
+
+    void iApplication::removeLayer(iLayer *layer)
+    {
+        _layerStack.removeLayer(layer);
+    }
+
+    iWindowPtr iApplication::createWindow()
+    {
+        iWindowPtr window = new iWindow();
+        _windows.push_back(window);
+        return window;
+    }
+
+    void iApplication::destroyWindow(iWindow *window)
+    {
+        con_assert(window != nullptr, "zero pointer");
+        if (window == nullptr)
+        {
+            return;
+        }
+
+        auto iter = std::find(_windows.begin(), _windows.end(), window);
+        if (iter != _windows.end())
+        {
+            delete window;
+            _windows.erase(iter);
+        }
+        else
+        {
+            con_err("window with id " << window->getID() << " does not exist");
+        }
+    }
+
+    iWindow *iApplication::getWindow(iWindowID windowID) const
+    {
+        auto iter = std::find_if(_windows.begin(), _windows.end(), [windowID](iWindowPtr window) {
+            return window->getID() == windowID;
+        });
 
         if (iter != _windows.end())
         {
-            _windows.erase(iter);
+            return *iter;
         }
+
+        con_err("window with id " << windowID << " does not exist");
+        return nullptr;
     }
 
     void iApplication::registerApplicationPreDrawHandleDelegate(iPreDrawDelegate handleDelegate)
@@ -176,5 +330,4 @@ namespace igor
     {
         _postDrawHandleEvent.remove(handleDelegate);
     }
-
 }; // namespace igor

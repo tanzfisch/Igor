@@ -26,7 +26,7 @@ using namespace iaux;
 #include "BossDestroyed.h"
 #include "../Ascent.h"
 
-BossEnemy::BossEnemy(iScene *scene, iVoxelTerrain *voxelTerrain, const iaMatrixd &matrix, uint64 playerID)
+BossEnemy::BossEnemy(iScenePtr scene, iVoxelTerrain *voxelTerrain, const iaMatrixd &matrix, uint64 playerID)
     : GameObject(Fraction::Red, GameObjectType::Vehicle)
 {
     _playerID = playerID;

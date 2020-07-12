@@ -234,13 +234,13 @@ namespace igor
         */
 		iaColor4f getForeground() const;
 
-		/*! set wether events will be blocked or not
-
-        implementation needs to be overriden by deriving classes to make sure all additional events are blocked too
-
-        \param blockEvents if true events from this widget will be blocked
+		/*! blocks all outgoing events from this widget
         */
-		virtual void block(bool blockEvents);
+		virtual void blockEvents();
+
+		/*! unblocks all outgoing events from this widget
+        */
+		virtual void unblockEvents();
 
 		/*! @returns true if events on this widget are blocked
         */

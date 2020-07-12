@@ -31,10 +31,6 @@
 
 #include "../Outliner.h"
 
-#include <igor/ui/actions/iActionContext.h>
-#include <igor/scene/nodes/iNode.h>
-using namespace igor;
-
 /*! mica action context
 */
 class Igor_API ActionContext : public iActionContext

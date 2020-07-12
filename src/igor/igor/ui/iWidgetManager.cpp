@@ -22,7 +22,7 @@
 #include <igor/system/iKeyboard.h>
 #include <igor/system/iApplication.h>
 #include <igor/ui/widgets/iWidgetGraph.h>
-#include <igor/ui/theme/iWidgetBaseTheme.h>
+#include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 
 #include <igor/ui/dialogs/iDialogColorChooser.h>
@@ -47,13 +47,10 @@ namespace igor
 
     iWidgetManager::iWidgetManager()
     {
-        registerHandles();
     }
 
     iWidgetManager::~iWidgetManager()
     {
-        unregisterHandles();
-
         if (!_widgets.empty())
         {
             con_err("possible mem leak! did not release all widgets. " << _widgets.size() << " left");
@@ -186,36 +183,6 @@ namespace igor
         }
     }
 
-    void iWidgetManager::registerHandles()
-    {
-        iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &iWidgetManager::onMouseKeyDown));
-        iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &iWidgetManager::onMouseKeyUp));
-        iMouse::getInstance().registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate(this, &iWidgetManager::onMouseDoubleClick));
-        iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &iWidgetManager::onMouseMove));
-        iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &iWidgetManager::onMouseWheel));
-        iKeyboard::getInstance().registerKeyASCIIDelegate(iKeyASCIIDelegate(this, &iWidgetManager::onASCII));
-        iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &iWidgetManager::onKeyDown));
-        iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &iWidgetManager::onKeyUp));
-
-        iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &iWidgetManager::onPreDraw));
-        iApplication::getInstance().registerApplicationPostDrawHandleDelegate(iPostDrawDelegate(this, &iWidgetManager::onPostDraw));
-    }
-
-    void iWidgetManager::unregisterHandles()
-    {
-        iMouse::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &iWidgetManager::onMouseKeyDown));
-        iMouse::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &iWidgetManager::onMouseKeyUp));
-        iMouse::getInstance().unregisterMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate(this, &iWidgetManager::onMouseDoubleClick));
-        iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &iWidgetManager::onMouseMove));
-        iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &iWidgetManager::onMouseWheel));
-        iKeyboard::getInstance().unregisterKeyASCIIDelegate(iKeyASCIIDelegate(this, &iWidgetManager::onASCII));
-        iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &iWidgetManager::onKeyDown));
-        iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &iWidgetManager::onKeyUp));
-
-        iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &iWidgetManager::onPreDraw));
-        iApplication::getInstance().unregisterApplicationPostDrawHandleDelegate(iPostDrawDelegate(this, &iWidgetManager::onPostDraw));
-    }
-
     void iWidgetManager::getActiveDialogs(std::vector<iDialogPtr> &dialogs, bool sortedAccending)
     {
         dialogs.clear();
@@ -238,143 +205,6 @@ namespace igor
         }
     }
 
-    void iWidgetManager::onKeyDown(iKeyCode key)
-    {
-        // if there is a modal dialog handle only that one
-        if (getModal() != nullptr)
-        {
-            getModal()->handleKeyDown(key);
-            return;
-        }
-
-        std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs, false);
-
-        for (auto dialog : dialogs)
-        {
-            if (dialog->handleKeyDown(key))
-            {
-                return;
-            }
-        }
-
-        _keyDownEvent(key);
-    }
-
-    void iWidgetManager::onKeyUp(iKeyCode key)
-    {
-        // if there is a modal dialog handle only that one
-        if (getModal() != nullptr)
-        {
-            getModal()->handleKeyUp(key);
-            return;
-        }
-
-        std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs, false);
-
-        for (auto dialog : dialogs)
-        {
-            if (dialog->handleKeyUp(key))
-            {
-                return;
-            }
-        }
-
-        _keyUpEvent(key);
-    }
-
-    void iWidgetManager::onMouseKeyDown(iKeyCode key)
-    {
-        // if there is a modal dialog handle only that one
-        if (getModal() != nullptr)
-        {
-            getModal()->handleMouseKeyDown(key);
-            return;
-        }
-
-        std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs, false);
-
-        // let the dialogs handle the event
-        for (auto dialog : dialogs)
-        {
-            if (dialog->handleMouseKeyDown(key))
-            {
-                return;
-            }
-        }
-
-        _mouseKeyDownEvent(key);
-    }
-
-    void iWidgetManager::onMouseKeyUp(iKeyCode key)
-    {
-        // if there is a modal dialog handle only that one
-        if (getModal() != nullptr)
-        {
-            getModal()->handleMouseKeyUp(key);
-            return;
-        }
-
-        std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs, false);
-
-        bool consumed = false;
-
-        // let the dialogs handle the event
-        for (auto dialog : dialogs)
-        {
-            if (!dialog->getAcceptOutOfBoundsClicks() &&
-                consumed)
-            {
-                continue;
-            }
-
-            if (dialog->handleMouseKeyUp(key))
-            {
-                consumed = true;
-            }
-        }
-
-        _mouseKeyUpEvent(key);
-    }
-
-    void iWidgetManager::onMouseDoubleClick(iKeyCode key)
-    {
-        // if there is a modal dialog handle only that one
-        if (getModal() != nullptr)
-        {
-            getModal()->handleMouseDoubleClick(key);
-            return;
-        }
-
-        std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs, false);
-
-        // let the dialogs handle the event
-        for (auto dialog : dialogs)
-        {
-            if (dialog->handleMouseDoubleClick(key))
-            {
-                return;
-            }
-        }
-
-        _doubleClickEvent(key);
-    }
-
-    void iWidgetManager::onMouseMove(const iaVector2i &from, const iaVector2i &to, iWindow *window)
-    {
-        if (handleMouseMove(to))
-        {
-            return;
-        }
-
-        _moveFullEvent(from, to, window);
-        _moveEvent(to);
-    }
-
     bool iWidgetManager::handleMouseMove(const iaux::iaVector2i &to)
     {
 
@@ -387,6 +217,8 @@ namespace igor
 
         std::vector<iDialogPtr> dialogs;
         getActiveDialogs(dialogs, false);
+
+        bool consumed = false;
 
         if (!dialogs.empty())
         {
@@ -401,51 +233,15 @@ namespace igor
                 }
 
                 dialog->handleMouseMove(to);
+
+                if (dialog->_isMouseOver)
+                {
+                    consumed = true;
+                }
             }
         }
 
-        return false;
-    }
-
-    void iWidgetManager::onMouseWheel(int32 d)
-    {
-        // if there is a modal dialog handle only that one
-        if (getModal() != nullptr)
-        {
-            getModal()->handleMouseWheel(d);
-            return;
-        }
-
-        std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs, false);
-
-        for (auto dialog : dialogs)
-        {
-            if (dialog->handleMouseWheel(d))
-            {
-                return;
-            }
-        }
-
-        _wheelEvent(d);
-    }
-
-    void iWidgetManager::onASCII(const char c)
-    {
-        // if there is a modal dialog handle only that one
-        if (getModal() != nullptr)
-        {
-            getModal()->handleASCII(c);
-            return;
-        }
-
-        std::vector<iDialogPtr> dialogs;
-        getActiveDialogs(dialogs, false);
-
-        for (auto dialog : dialogs)
-        {
-            dialog->handleASCII(c);
-        }
+        return consumed;
     }
 
     void iWidgetManager::onPostDraw()
@@ -538,12 +334,12 @@ namespace igor
         return _desktopHeight;
     }
 
-    iWidgetBaseTheme *iWidgetManager::getTheme()
+    iWidgetTheme *iWidgetManager::getTheme()
     {
         return _currentTheme;
     }
 
-    void iWidgetManager::setTheme(iWidgetBaseTheme *theme)
+    void iWidgetManager::setTheme(iWidgetTheme *theme)
     {
         _currentTheme = theme;
     }
@@ -585,84 +381,206 @@ namespace igor
         return nullptr;
     }
 
-    void iWidgetManager::registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate doubleClickDelegate)
+    void iWidgetManager::onEvent(iEvent &event)
     {
-        _doubleClickEvent.append(doubleClickDelegate);
+        event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseKeyDownEvent));
+        event.dispatch<iEventMouseKeyUp>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseKeyUpEvent));
+        event.dispatch<iEventMouseKeyDoubleClick>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseKeyDoubleClickEvent));
+        event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseMoveEvent));
+        event.dispatch<iEventMouseWheel>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseWheelEvent));
+        event.dispatch<iKeyASCIIEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onKeyASCIIInput));
+        event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onKeyDown));
+        event.dispatch<iKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onKeyUp));
+        event.dispatch<iEventWindowResize>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onWindowResize));
     }
 
-    void iWidgetManager::unregisterMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate doubleClickDelegate)
+    bool iWidgetManager::onWindowResize(iEventWindowResize &event)
     {
-        _doubleClickEvent.remove(doubleClickDelegate);
+        // update the widget managers desktop dimensions
+        setDesktopDimensions(event.getWindow()->getClientWidth(), event.getWindow()->getClientHeight());
+        return false;
     }
 
-    void iWidgetManager::registerMouseKeyDownDelegate(iMouseKeyDownDelegate keydown_delegate)
+    bool iWidgetManager::onKeyDown(iEventKeyDown &event)
     {
-        _mouseKeyDownEvent.append(keydown_delegate);
+        // if there is a modal dialog handle only that one
+        if (getModal() != nullptr)
+        {
+            getModal()->handleKeyDown(event.getKey());
+            return true;
+        }
+
+        std::vector<iDialogPtr> dialogs;
+        getActiveDialogs(dialogs, false);
+
+        for (auto dialog : dialogs)
+        {
+            if (dialog->handleKeyDown(event.getKey()))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    void iWidgetManager::registerMouseKeyUpDelegate(iMouseKeyUpDelegate keyup_delegate)
+    bool iWidgetManager::onKeyUp(iKeyUpEvent_TMP &event)
     {
-        _mouseKeyUpEvent.append(keyup_delegate);
+        // if there is a modal dialog handle only that one
+        if (getModal() != nullptr)
+        {
+            getModal()->handleKeyUp(event.getKey());
+            return true;
+        }
+
+        std::vector<iDialogPtr> dialogs;
+        getActiveDialogs(dialogs, false);
+
+        for (auto dialog : dialogs)
+        {
+            if (dialog->handleKeyUp(event.getKey()))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    void iWidgetManager::registerMouseMoveDelegate(iMouseMoveDelegate move_delegate)
+    bool iWidgetManager::onKeyASCIIInput(iKeyASCIIEvent_TMP &event)
     {
-        _moveEvent.append(move_delegate);
+        // if there is a modal dialog handle only that one
+        if (getModal() != nullptr)
+        {
+            getModal()->handleASCII(event.getChar());
+            return true;
+        }
+
+        std::vector<iDialogPtr> dialogs;
+        getActiveDialogs(dialogs, false);
+
+        for (auto dialog : dialogs)
+        {
+            if (dialog->handleASCII(event.getChar()))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    void iWidgetManager::unregisterMouseMoveDelegate(iMouseMoveDelegate move_delegate)
+    bool iWidgetManager::onMouseKeyDownEvent(iEventMouseKeyDown &event)
     {
-        _moveEvent.remove(move_delegate);
+        // if there is a modal dialog handle only that one
+        if (getModal() != nullptr)
+        {
+            getModal()->handleMouseKeyDown(event.getKey());
+            return true;
+        }
+
+        std::vector<iDialogPtr> dialogs;
+        getActiveDialogs(dialogs, false);
+
+        // let the dialogs handle the event
+        for (auto dialog : dialogs)
+        {
+            if (dialog->handleMouseKeyDown(event.getKey()))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    void iWidgetManager::registerMouseMoveFullDelegate(iMouseMoveFullDelegate move_delegate)
+    bool iWidgetManager::onMouseKeyUpEvent(iEventMouseKeyUp &event)
     {
-        _moveFullEvent.append(move_delegate);
+        // if there is a modal dialog handle only that one
+        if (getModal() != nullptr)
+        {
+            getModal()->handleMouseKeyUp(event.getKey());
+            return true;
+        }
+
+        std::vector<iDialogPtr> dialogs;
+        getActiveDialogs(dialogs, false);
+
+        bool consumed = false;
+
+        // let the dialogs handle the event
+        for (auto dialog : dialogs)
+        {
+            if (!dialog->getAcceptOutOfBoundsClicks() &&
+                consumed)
+            {
+                continue;
+            }
+
+            if (dialog->handleMouseKeyUp(event.getKey()))
+            {
+                consumed = true;
+            }
+        }
+
+        return consumed;
     }
 
-    void iWidgetManager::registerMouseWheelDelegate(iMouseWheelDelegate wheel_delegate)
+    bool iWidgetManager::onMouseKeyDoubleClickEvent(iEventMouseKeyDoubleClick &event)
     {
-        _wheelEvent.append(wheel_delegate);
+        // if there is a modal dialog handle only that one
+        if (getModal() != nullptr)
+        {
+            getModal()->handleMouseDoubleClick(event.getKey());
+            return true;
+        }
+
+        std::vector<iDialogPtr> dialogs;
+        getActiveDialogs(dialogs, false);
+
+        // let the dialogs handle the event
+        for (auto dialog : dialogs)
+        {
+            if (dialog->handleMouseDoubleClick(event.getKey()))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
-    void iWidgetManager::unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate keydown_delegate)
+    bool iWidgetManager::onMouseMoveEvent(iEventMouseMove &event)
     {
-        _mouseKeyDownEvent.remove(keydown_delegate);
+        if (handleMouseMove(event.getPosition()))
+        {
+            return true;
+        }
+
+        return false;
     }
 
-    void iWidgetManager::unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate keyup_delegate)
+    bool iWidgetManager::onMouseWheelEvent(iEventMouseWheel &event)
     {
-        _mouseKeyUpEvent.remove(keyup_delegate);
-    }
+        // if there is a modal dialog handle only that one
+        if (getModal() != nullptr)
+        {
+            getModal()->handleMouseWheel(event.getWheelDelta());
+            return true;
+        }
 
-    void iWidgetManager::unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate move_delegate)
-    {
-        _moveFullEvent.remove(move_delegate);
-    }
+        std::vector<iDialogPtr> dialogs;
+        getActiveDialogs(dialogs, false);
 
-    void iWidgetManager::unregisterMouseWheelDelegate(iMouseWheelDelegate wheel_delegate)
-    {
-        _wheelEvent.remove(wheel_delegate);
-    }
+        for (auto dialog : dialogs)
+        {
+            if (dialog->handleMouseWheel(event.getWheelDelta()))
+            {
+                return true;
+            }
+        }
 
-    void iWidgetManager::registerKeyDownDelegate(iKeyDownDelegate delegate)
-    {
-        _keyDownEvent.append(delegate);
-    }
-
-    void iWidgetManager::unregisterKeyDownDelegate(iKeyDownDelegate delegate)
-    {
-        _keyDownEvent.remove(delegate);
-    }
-
-    void iWidgetManager::registerKeyUpDelegate(iKeyUpDelegate delegate)
-    {
-        _keyUpEvent.append(delegate);
-    }
-
-    void iWidgetManager::unregisterKeyUpDelegate(iKeyUpDelegate delegate)
-    {
-        _keyUpEvent.remove(delegate);
+        return false;
     }
 
 } // namespace igor

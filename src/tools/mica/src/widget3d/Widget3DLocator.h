@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __WIDGET3D_LOCATOR_H__
-#define __WIDGET3D_LOCATOR_H__
+#ifndef __WIDGET3DLOCATOR_H__
+#define __WIDGET3DLOCATOR_H__
 
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/material/iMaterial.h>
@@ -54,7 +54,7 @@ public:
 	\param scene the scene to use for the 3d widget
 	\param nodeID id of the node to represent
 	*/
-	Widget3DLocator(iWindow *window, iView *view, iScene *scene);
+	Widget3DLocator(iWindow *window, iView *view, iScenePtr scene);
 
 	/*! cleanup
 	*/
@@ -94,4 +94,4 @@ private:
 	void createLocator();
 };
 
-#endif // __WIDGET3D_LOCATOR_H__
+#endif // __WIDGET3DLOCATOR_H__

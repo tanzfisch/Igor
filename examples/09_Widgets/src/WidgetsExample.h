@@ -26,51 +26,32 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __WIDGET_EXAMPLE_H__
-#define __WIDGET_EXAMPLE_H__
+#ifndef __WIDGETEXAMPLE_H__
+#define __WIDGETEXAMPLE_H__
 
-#include <ExampleBase.h>
-
-#include <igor/ui/dialogs/iDialog.h>
-#include <igor/ui/dialogs/iDialogColorChooser.h>
-#include <igor/ui/dialogs/iDialogColorGradient.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/resources/profiler/iProfilerVisualizer.h>
-#include <igor/resources/texture/iTexture.h>
-#include <igor/ui/dialogs/iDialogMessageBox.h>
+#include <igor/igor.h>
 using namespace igor;
-
-#include <iaux/data/iaGradient.h>
-#include <iaux/math/iaMatrix.h>
 using namespace iaux;
 
-namespace igor
-{
-    class iWidgetDefaultTheme;
-    class iWidgetLabel;
-    class iWidgetColor;
-    class iWidgetColorGradient;
-} // namespace igor
-
 /*! this example shows how to use Igor Widgets
+
+    we derive from iLayerWidgets so the handling of the widget manager is covered for us
 */
-class WidgetsExample : public ExampleBase
+class WidgetsExample : public iLayerWidgets
 {
 
 public:
     /*! ctor initializes widgets
+
+    \param window the given window
     */
-    WidgetsExample();
+    WidgetsExample(iWindow *window);
 
     /*! does nothing
     */
     ~WidgetsExample() = default;
 
 private:
-    /*! using the default widget theme
-    */
-    iWidgetDefaultTheme *_widgetDefaultTheme = nullptr;
-
     /*! the main dialog
     */
     iDialogPtr _dialog = nullptr;
@@ -163,30 +144,26 @@ private:
     */
     void onCloseColorGradient(iDialogPtr dialog);
 
-    /*! triggered by mouse move event
-
-    \param pos position of mouse cursor
-    */
-    void onMouseMoved(const iaVector2i &pos) override;
-
     /*! initialize example
     */
-    void init() override;
+    void onInit() override;
 
     /*! deinitialize example
     */
-    void deinit() override;
+    void onDeinit() override;
 
-    /*! called by orthogonal view
+    /*! called on any other event
+
+    \param event the event to handle
     */
-    void onRenderOrtho() override;
+    void onEvent(iEvent &event) override;
 
-    /*! called when window was resized
+    /*! handles mouse move event
 
-    \param clientWidth the client rectangle width
-    \param clientHeight the client rectangle height
+    \param event the mouse move event
+    \returns true if consumed
     */
-    void onWindowResized(int32 clientWidth, int32 clientHeight) override;
+    bool onMouseMoveEvent(iEventMouseMove &event);
 };
 
-#endif // __WIDGET_EXAMPLE_H__
+#endif // __WIDGETEXAMPLE_H__

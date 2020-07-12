@@ -22,7 +22,7 @@ using namespace igor;
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
-DigEffect::DigEffect(iScene *scene, const iaMatrixd &matrix)
+DigEffect::DigEffect(iScenePtr scene, const iaMatrixd &matrix)
     : GameObject(Fraction::None, GameObjectType::None)
 {
     setHealth(100.0);

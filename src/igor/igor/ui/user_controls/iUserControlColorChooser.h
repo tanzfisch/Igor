@@ -80,13 +80,13 @@ namespace igor
 		*/
 		virtual ~iUserControlColorChooser();
 
-		/*! set wether events will be blocked or not
-
-        implementation needs to be overriden by deriving classes to make sure all additional events are blocked too
-
-        \param blockEvents if true events from this widget will be blocked
+		/*! blocks all outgoing events
         */
-		virtual void block(bool blockEvents) override;
+		virtual void blockEvents() override;
+
+		/*! unblocks all outgoing events
+        */
+		virtual void unblockEvents() override;
 
 		/*! sets the headline text
 

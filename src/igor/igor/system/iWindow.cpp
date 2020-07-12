@@ -13,6 +13,7 @@
 #include <igor/graphics/iRenderer.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/resources/profiler/iProfiler.h>
+#include <igor/events/iEventWindow.h>
 
 #include <algorithm>
 #include <sstream>
@@ -27,6 +28,8 @@ namespace igor
     /*! default igor window title
     */
     static const iaString s_defaultWindowTitle = "Igor";
+
+    iaIDGenerator64 iWindow::_idGenerator;
 
     /*! base class for internal iWindow implementation
     */
@@ -63,12 +66,16 @@ namespace igor
 
         __IGOR_INLINE__ void closeEvent()
         {
-            _window->_windowCloseEvent();
+            iApplication::getInstance().onEvent(iEventPtr(new iEventWindowClose(_window)));
+
+            // _window->_windowCloseEvent(); // TODO remove
         }
 
         __IGOR_INLINE__ void sizeChanged(int32 width, int32 height)
         {
             _window->onSizeChanged(width, height);
+
+            iApplication::getInstance().onEvent(iEventPtr(new iEventWindowResize(_window, width, height)));
         }
 
         __IGOR_INLINE__ static iWindowImpl *getImpl(iWindow *window)
@@ -815,7 +822,7 @@ namespace igor
                     case ClientMessage:
                         _window->close();
                         closeEvent();
-                        break;
+                        return;
                     default:;
                     }
                 }
@@ -995,6 +1002,7 @@ namespace igor
             unregisterOSListener(&iMouse::getInstance());
             unregisterOSListener(&iKeyboard::getInstance());
 
+            _display = nullptr;
             _isOpen = false;
         }
 
@@ -1177,6 +1185,8 @@ namespace igor
 
     iWindow::iWindow()
     {
+        _windowID = iWindow::_idGenerator.createID();
+
 #ifdef __IGOR_WINDOWS__
         _impl = new iWindowImplWindows(this);
 #endif
@@ -1197,6 +1207,11 @@ namespace igor
         }
 
         delete _impl;
+    }
+
+    iWindowID iWindow::getID() const
+    {
+        return _windowID;
     }
 
     void iWindow::onSizeChanged(int32 width, int32 height)
@@ -1249,13 +1264,6 @@ namespace igor
 
         con_info("open window \"" << _impl->_title << "\" (" << _impl->_clientWidth << "x" << _impl->_clientHeight << ")" << (_impl->_fullscreen ? " FULLSCREEN" : ""));
 
-        if (_views.empty())
-        {
-            // we do this warning here for quick response on a black screen because no view was added to the window
-            con_warn("opening window without views will result in a blank screen");
-        }
-
-        iApplication::getInstance().addWindow(this);
         bool result = _impl->open();
 
         if (result)
@@ -1263,6 +1271,8 @@ namespace igor
             iTaskManager::getInstance().createRenderContextThreads(this);
             iRenderer::getInstance().init();
             _impl->swapBuffers();
+
+            iApplication::getInstance().onEvent(iEventPtr(new iEventWindowOpen(this)));
         }
 
         return result;
@@ -1283,8 +1293,6 @@ namespace igor
         iTaskManager::getInstance().killRenderContextThreads(this);
 
         _impl->close();
-
-        iApplication::getInstance().removeWindow(this);
 
         con_info("closed window \"" << _impl->_title << "\"");
     }
@@ -1397,20 +1405,14 @@ namespace igor
 
     void iWindow::setTitle(const iaString &title)
     {
-        if (!_impl->_isOpen)
+        if (!title.isEmpty())
         {
-            if (!title.isEmpty())
-            {
-                _impl->_title = title;
-            }
-            else
-            {
-                con_err("title can not be empty");
-            }
+            _impl->_title = title;
+            // TODO update title when windows is open already
         }
         else
         {
-            con_err("title can only be changed when window is closed");
+            con_err("title can not be empty");
         }
     }
 
@@ -1515,4 +1517,5 @@ namespace igor
     {
         return _impl->_doubleClick;
     }
+
 }; // namespace igor

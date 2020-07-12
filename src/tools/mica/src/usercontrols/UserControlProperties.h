@@ -26,23 +26,11 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __USERCONTROLPROPERTIES__
-#define __USERCONTROLPROPERTIES__
+#ifndef __USERCONTROLPROPERTIES_H__
+#define __USERCONTROLPROPERTIES_H__
 
-namespace igor
-{
-    class iDialog;
-    class iWidgetGrid;
-    class iWidgetScroll;
-    class iWidgetGroupBox;
-    class iWidgetSpacer;
-} // namespace igor
-
-#include <igor/scene/nodes/iNode.h>
-#include <igor/ui/user_controls/iUserControl.h>
+#include <igor/igor.h>
 using namespace igor;
-
-#include <iaux/system/iaEvent.h>
 using namespace iaux;
 
 class UserControlLight;
@@ -132,4 +120,4 @@ private:
     UserControlMaterial *_userControlMaterial = nullptr;
 };
 
-#endif
+#endif // __USERCONTROLPROPERTIES_H__

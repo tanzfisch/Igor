@@ -4,27 +4,6 @@
 
 #include "UserControlMesh.h"
 
-#include <igor/ui/widgets/iWidgetSelectBox.h>
-#include <igor/ui/iWidgetManager.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
-#include <igor/ui/widgets/iWidgetTextEdit.h>
-#include <igor/ui/widgets/iWidgetLabel.h>
-#include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetSlider.h>
-#include <igor/ui/widgets/iWidgetNumberChooser.h>
-#include <igor/scene/nodes/iNodeMesh.h>
-#include <igor/resources/mesh/iMesh.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/resources/material/iTargetMaterial.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/resources/iResourceManager.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/ui/user_controls/iUserControlFileChooser.h>
-#include <igor/resources/mesh/iMeshBuilderUtils.h>
-#include <igor/scene/iScene.h>
-using namespace igor;
-
 #include "../MicaDefines.h"
 
 UserControlMesh::UserControlMesh()
@@ -297,7 +276,7 @@ void UserControlMesh::initGUI()
 	_emissiveColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlMesh::onEmissiveChange));
 
 	iWidgetGrid *detailsGrid = new iWidgetGrid();
-	detailsGrid->appendCollumns(1);
+	detailsGrid->appendColumns(1);
 	detailsGrid->appendRows(2);
 	detailsGrid->setStrechColumn(1);
 	detailsGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -336,7 +315,7 @@ void UserControlMesh::initGUI()
 	_textIndexes->setText("0");
 
 	iWidgetGrid *gridShininess = new iWidgetGrid();
-	gridShininess->appendCollumns(2);
+	gridShininess->appendColumns(2);
 	gridShininess->appendRows(1);
 	gridShininess->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -369,7 +348,7 @@ void UserControlMesh::initGUI()
 
 	iWidgetGrid *gridTextures = new iWidgetGrid();
 	gridTextures->appendRows(3);
-	gridTextures->appendCollumns(1);
+	gridTextures->appendColumns(1);
 	gridTextures->setStrechColumn(1);
 	gridTextures->setHorizontalAlignment(iHorizontalAlignment::Strech);
 	gridTextures->setVerticalAlignment(iVerticalAlignment::Top);
@@ -411,7 +390,7 @@ void UserControlMesh::initGUI()
 	_textureChooser3->registerOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
 	iWidgetGrid *gridMaterial = new iWidgetGrid();
-	gridMaterial->appendCollumns(1);
+	gridMaterial->appendColumns(1);
 	gridMaterial->setHorizontalAlignment(iHorizontalAlignment::Left);
 	gridMaterial->setVerticalAlignment(iVerticalAlignment::Top);
 
@@ -477,7 +456,7 @@ void UserControlMesh::onBakeAction(const iWidgetPtr source)
 		return;
 	}
 
-	iScene *scene = meshNode->getScene();
+	iScenePtr scene = meshNode->getScene();
 
 	if (scene == nullptr)
 	{

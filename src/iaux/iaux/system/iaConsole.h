@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_CONSOLE__
-#define __IAUX_CONSOLE__
+#ifndef __IAUX_CONSOLE_H__
+#define __IAUX_CONSOLE_H__
 
 #include <iaux/system/iaSingleton.h>
 #include <iaux/system/iaClock.h>
@@ -253,9 +253,9 @@ namespace iaux
         bool isUsingColors() const;
 
     private:
-        /*! the log level. default is logging everything
+        /*! the log level. default is logging everything (trace)
         */
-        iaLogLevel _logLevel = iaLogLevel::DebugInfo;
+        iaLogLevel _logLevel = iaLogLevel::Trace;
 
         /*! file stream to log file
         */
@@ -441,7 +441,7 @@ namespace iaux
     /*! prints an info message to console and optionally to the log file
 
             \param Message message to be printed
-            \todo would be nice to have a fixed size of info type collumn
+            \todo would be nice to have a fixed size of info type column
             */
 #define con_info(Message)                                                          \
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Info)                \
@@ -606,4 +606,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif
+#endif // __IAUX_CONSOLE_H__

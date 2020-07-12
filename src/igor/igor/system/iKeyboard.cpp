@@ -3,11 +3,14 @@
 // see copyright notice in corresponding header file
 
 #include <igor/system/iKeyboard.h>
-#include <igor/system/iWindow.h>
-#include <iaux/system/iaConsole.h>
 
+#include <igor/system/iApplication.h>
+#include <igor/system/iWindow.h>
+#include <igor/events/iEventKeyboard.h>
 #include <igor/system/iDefinesWindows.h>
 #include <igor/system/iDefinesLinux.h>
+
+#include <iaux/system/iaConsole.h>
 
 namespace igor
 {
@@ -805,16 +808,17 @@ namespace igor
             const iOSEvent *osevent = static_cast<const iOSEvent *>(data);
             XEvent xevent = osevent->_event;
 
-            int tempchar;
+            int characterCode;
             iKeyCode currentKey;
 
             switch (osevent->_event.type)
             {
             case KeyPress:
-                tempchar = keycode2charcode(&xevent.xkey);
-                if (tempchar != -1)
+                characterCode = keycode2charcode(&xevent.xkey);
+                if (characterCode != -1)
                 {
-                    _keyASCIIEvent(static_cast<char>(tempchar));
+                    _keyASCIIEvent(static_cast<char>(characterCode));
+                    iApplication::getInstance().onEvent(iEventPtr(new iKeyASCIIEvent_TMP(_window, characterCode)));
                 }
 
                 currentKey = translate(xevent.xkey.keycode);
@@ -823,6 +827,8 @@ namespace igor
                     _keys[static_cast<unsigned int>(currentKey)] = true;
                     _keyDownEvent[static_cast<unsigned int>(currentKey)]();
                     _keyDownEventExt(currentKey);
+
+                    iApplication::getInstance().onEvent(iEventPtr(new iEventKeyDown(_window, currentKey)));
                 }
                 return true;
 
@@ -846,6 +852,8 @@ namespace igor
                     _keys[static_cast<unsigned int>(currentKey)] = false;
                     _keyUpEvent[static_cast<unsigned int>(currentKey)]();
                     _keyUpEventExt(currentKey);
+
+                    iApplication::getInstance().onEvent(iEventPtr(new iKeyUpEvent_TMP(_window, currentKey)));
                 }
                 return true;
 

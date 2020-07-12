@@ -26,21 +26,22 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iAPPLICATION__
-#define __iAPPLICATION__
+#ifndef __IGOR_APPLICATION_H__
+#define __IGOR_APPLICATION_H__
 
-#include <igor/iDefines.h>
+#include <igor/events/iEventWindow.h>
+#include <igor/layers/iLayerStack.h>
+#include <igor/system/iWindow.h>
 
 #include <iaux/system/iaEvent.h>
 #include <iaux/system/iaSingleton.h>
 using namespace iaux;
 
 #include <vector>
+#include <array>
 
 namespace igor
 {
-
-    class iWindow;
 
     /*! This event is triggered once per frame right before the rendering
 	*/
@@ -66,10 +67,6 @@ namespace igor
         starts the main loop of the application and continues until stop() is called
         */
         void run();
-
-        /*! as alternative to run you can set up your own main loop and call iterate in it but run is recommended to use
-        */
-        void iterate();
 
         /*! stops the application
 
@@ -105,32 +102,110 @@ namespace igor
         */
         void unregisterApplicationPostDrawHandleDelegate(iPostDrawDelegate handleDelegate);
 
+        /*! triggered on event
+
+        \param event the triggered event
+        */
+        void onEvent(iEventPtr event);
+
+        /*! adds layer to stack for given window
+
+        adding a layer to the layer stack passes ownership to the layer stack
+
+        most layers assume to be added after the window was already opened and the renderer being ready to receive calls but layers can be added and removed any time
+
+        \param layer the layer to be added
+        */
+        void addLayer(iLayer *layer);
+
+        /*! removes layer from stack of given window
+
+        removing a layer from the layer stack passes ownership back to the caller
+
+        \param layer the layer to be removed
+        */
+        void removeLayer(iLayer *layer);
+
+        /*! clears layer stack
+        */
+        void clearLayerStack();
+
+        /*! \returns true if given event type is blocked
+
+        \param eventType the given event type
+        */
+        bool isBlockedEvent(iEventType eventType);
+
+        /*! unblocks the given event type
+
+        \param eventType the given event type
+        */
+        void unblockEvent(iEventType eventType);
+
+        /*! blocks the given event type
+
+        \param eventType the given event type
+        */
+        void blockEvent(iEventType eventType);
+
+        /*! creates window
+
+        \returns window id
+		*/
+        iWindow *createWindow();
+
+        /*! destroy window
+		*/
+        void destroyWindow(iWindow *window);
+
+        /*! \returns window for given window id
+
+        \param windowID the given window id
+        */
+        iWindow *getWindow(iWindowID windowID) const;
+
     private:
-        /*! frame performance section id
+        /*! queue of events
+        */
+        std::vector<iEventPtr> _eventQueue;
+
+        /*! blocked events list
+        */
+        std::array<bool, (int)iEventType::iEventTypeCount> _blockedEvents;
+
+        /*! securing the event queue
+        */
+        iaMutex _eventQueueMutex;
+
+        /*! frame profiler section id
         */
         uint32 _frameSectionID = 0;
 
-        /*! handle performance section id
+        /*! handle profiler section id
         */
         uint32 _handleSectionID = 0;
 
-        /*! evaluation performance section id
+        /*! dispatch profiler section id
+        */
+        uint32 _dispatchSectionID = 0;
+
+        /*! evaluation profiler section id
         */
         uint32 _evaluationSectionID = 0;
 
-        /*! physics performance section id
+        /*! physics profiler section id
         */
         uint32 _physicsSectionID = 0;
 
-        /*! draw performance section id
+        /*! draw profiler section id
         */
         uint32 _drawSectionID = 0;
 
-        /*! user performance section id
+        /*! user profiler section id
         */
         uint32 _userSectionID = 0;
 
-        /*! handle callbacks performance section ID
+        /*! handle callbacks profiler section ID
         */
         uint32 _handleCallbacksSectionID = 0;
 
@@ -140,7 +215,11 @@ namespace igor
 
         /*! list of windows registered to the application
 		*/
-        std::vector<iWindow *> _windows;
+        std::vector<iWindowPtr> _windows;
+
+        /*! additional layer stack for windowless applications
+            */
+        iLayerStack _layerStack;
 
         /*! handle event called before rendering
 		*/
@@ -150,13 +229,31 @@ namespace igor
         */
         iPostDrawEvent _postDrawHandleEvent;
 
-        /*! init statistics sections
+        /*! handles events in the event queue
         */
-        void deinitStatistics();
+        void dispatch();
 
-        /*! deinit statistics sections
+        /*! dispatch event on given layer stack
+
+        \param event the event to despatch
+        \param layerStack the given layer stack 
+        \returns true if event was consumed
         */
-        void initStatistics();
+        bool dispatchOnStack(iEvent &event, iLayerStack &layerStack);
+
+        /*! handles window close event
+
+        \param event the window close event
+        */
+        bool onWindowClose(iEventWindowClose &event);
+
+        /*! init profiling sections
+        */
+        void deinitProfiling();
+
+        /*! deinit profiling sections
+        */
+        void initProfiling();
 
         /*! triggers ApplicationHandleEvent and updates windows
 		*/
@@ -166,31 +263,19 @@ namespace igor
         */
         void draw();
 
-        /*! add window
+        /*! as alternative to run you can set up your own main loop and call iterate in it but run is recommended to use
+        */
+        void iterate();
 
-		\param window pointer to window
-		*/
-        void addWindow(iWindow *window);
-
-        /*! remove window
-
-		\param window pointer to window
-		*/
-        void removeWindow(iWindow *window);
-
-        /*! ctor
-
-		initializes member variables
+        /*! init members
 		*/
         iApplication();
 
-        /*! dtor
-
-		does nothing
+        /*! clean up
 		*/
         virtual ~iApplication();
     };
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_APPLICATION_H__

@@ -4,31 +4,12 @@
 
 #include "PhysicsExample.h"
 
-#include <iaux/system/iaConsole.h>
-#include <iaux/math/iaRandomNumberGenerator.h>
-using namespace iaux;
-
-#include <igor/resources/material/iMaterial.h>
-#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
-#include <igor/threading/iTaskManager.h>
-#include <igor/scene/nodes/iNodeSkyBox.h>
-#include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/scene/nodes/iNodeModel.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/graphics/iRenderer.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/system/iMouse.h>
-#include <igor/scene/nodes/iNodeLight.h>
-#include <igor/scene/nodes/iNodePhysics.h>
-#include <igor/physics/iPhysics.h>
-using namespace igor;
-
-PhysicsExample::PhysicsExample()
-    : ExampleBase("Physics")
+PhysicsExample::PhysicsExample(iWindow *window)
+    : ExampleBase(window, "Physics")
 {
 }
 
-void PhysicsExample::init()
+void PhysicsExample::onInit()
 {
     // set physics simulation rate to 60Hz
     iPhysics::getInstance().setSimulationRate(60);
@@ -160,7 +141,7 @@ void PhysicsExample::init()
     getScene()->getRoot()->insertNode(directionalLightTransform);
 }
 
-void PhysicsExample::deinit()
+void PhysicsExample::onDeinit()
 {
     for (auto bodyID : _bodyIDs)
     {
@@ -184,45 +165,31 @@ void PhysicsExample::onApplyForceAndTorque(iPhysicsBody *body, float32 timestep)
     body->setForce(force);
 }
 
-void PhysicsExample::onMouseWheel(int32 d)
+void PhysicsExample::onRenderOrtho()
 {
-    if (d < 0)
-    {
-        _cameraTranslation->translate(0, 0, 10);
-    }
-    else
-    {
-        _cameraTranslation->translate(0, 0, -10);
-    }
+    iaMatrixd viewMatrix;
+    iRenderer::getInstance().setViewMatrix(viewMatrix);
 
-    ExampleBase::onMouseWheel(d);
+    iaMatrixd modelMatrix;
+    modelMatrix.translate(0, 0, -30);
+    iRenderer::getInstance().setModelMatrix(modelMatrix);
+
+    ExampleBase::onRenderOrtho();
 }
 
-void PhysicsExample::onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window)
+void PhysicsExample::onEvent(iEvent &event)
 {
-    if (iMouse::getInstance().getLeftButton())
-    {
-        float32 heading = static_cast<float32>(from._x - to._x) * 0.001f;
-        float32 pitch = static_cast<float32>(from._y - to._y) * 0.001f;
+    // first call example base
+    ExampleBase::onEvent(event);
 
-        iaMatrixd matrix;
-        _cameraPitch->getMatrix(matrix);
-        matrix.rotate(pitch, iaAxis::X);
-        _cameraPitch->setMatrix(matrix);
-
-        _cameraHeading->getMatrix(matrix);
-        matrix.rotate(heading, iaAxis::Y);
-        _cameraHeading->setMatrix(matrix);
-
-        iMouse::getInstance().setCenter();
-    }
-
-    ExampleBase::onMouseMovedFull(from, to, window);
+    event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(PhysicsExample::onKeyDown));
+    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(PhysicsExample::onMouseMoveEvent));
+    event.dispatch<iEventMouseWheel>(IGOR_BIND_EVENT_FUNCTION(PhysicsExample::onMouseWheelEvent));
 }
 
-void PhysicsExample::onKeyDown(iKeyCode key)
+bool PhysicsExample::onKeyDown(iEventKeyDown &event)
 {
-    switch (key)
+    switch (event.getKey())
     {
     case iKeyCode::Space:
         _running = !_running;
@@ -234,20 +201,49 @@ void PhysicsExample::onKeyDown(iKeyCode key)
         {
             iPhysics::getInstance().stop();
         }
-        break;
+        return true;
     }
 
-    ExampleBase::onKeyDown(key);
+    return false;
 }
 
-void PhysicsExample::onRenderOrtho()
+bool PhysicsExample::onMouseMoveEvent(iEventMouseMove &event)
 {
-    iaMatrixd viewMatrix;
-    iRenderer::getInstance().setViewMatrix(viewMatrix);
+    if (iMouse::getInstance().getLeftButton())
+    {
+        const auto from = event.getLastPosition();
+        const auto to = event.getPosition();
 
-    iaMatrixd modelMatrix;
-    modelMatrix.translate(0, 0, -30);
-    iRenderer::getInstance().setModelMatrix(modelMatrix);
+        float32 heading = static_cast<float32>(from._x - to._x) * 0.0005f;
+        float32 pitch = static_cast<float32>(from._y - to._y) * 0.0005f;
 
-    ExampleBase::onRenderOrtho();
+        iaMatrixd matrix;
+        _cameraPitch->getMatrix(matrix);
+        matrix.rotate(pitch, iaAxis::X);
+        _cameraPitch->setMatrix(matrix);
+
+        _cameraHeading->getMatrix(matrix);
+        matrix.rotate(heading, iaAxis::Y);
+        _cameraHeading->setMatrix(matrix);
+
+        iMouse::getInstance().setCenter();
+
+        return true;
+    }
+
+    return false;
+}
+
+bool PhysicsExample::onMouseWheelEvent(iEventMouseWheel &event)
+{
+    if (event.getWheelDelta() < 0)
+    {
+        _cameraTranslation->translate(0, 0, 10);
+    }
+    else
+    {
+        _cameraTranslation->translate(0, 0, -10);
+    }
+
+    return true;
 }

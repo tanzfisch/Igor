@@ -5,7 +5,7 @@
 #include <igor/ui/widgets/iWidgetColorGradient.h>
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/theme/iWidgetBaseTheme.h>
+#include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/graphics/iRenderer.h>
@@ -36,12 +36,20 @@ namespace igor
         _texture = nullptr;
     }
 
-    void iWidgetColorGradient::block(bool blockEvents)
+    void iWidgetColorGradient::blockEvents()
     {
-        iWidget::block(blockEvents);
+        iWidget::blockEvents();
 
         // update own events
-        _colorCreated.block(isBlocked());
+        _colorCreated.block(true);
+    }
+
+    void iWidgetColorGradient::unblockEvents()
+    {
+        iWidget::unblockEvents();
+
+        // update own events
+        _colorCreated.block(false);
     }
 
     bool iWidgetColorGradient::handleMouseKeyDown(iKeyCode key)

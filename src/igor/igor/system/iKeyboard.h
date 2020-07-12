@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iKEYBOARD__
-#define __iKEYBOARD__
+#ifndef __IGOR_KEYBOARD_H__
+#define __IGOR_KEYBOARD_H__
 
 #include <igor/system/iWindow.h>
 #include <igor/system/iOSEventListener.h>
@@ -68,10 +68,9 @@ namespace igor
 	*/
 	iaEVENT(iKeyASCIIEvent, iKeyASCIIDelegate, (char c), (c));
 
-	/*! Handles windows events and triggers Igor events.
+	/*! Handles keyboard specific os events and triggers Igor events.
 
-	\todo unstable and incomplete
-	\todo this is not yet working right. problems start the moment you press more than one button at a time
+	It also stores key states for later use
 	*/
 	class Igor_API iKeyboard : public iOSEventListener, public iaSingleton<iKeyboard>
 	{
@@ -218,4 +217,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_KEYBOARD_H__

@@ -4,44 +4,14 @@
 
 #include "VoxelExample.h"
 
-#include <iaux/system/iaConsole.h>
-#include <iaux/system/iaTime.h>
-using namespace iaux;
-
-#include <igor/data/iSphere.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/graphics/iRenderer.h>
-#include <igor/threading/iTaskManager.h>
-#include <igor/scene/nodes/iNodeSkyBox.h>
-#include <igor/scene/nodes/iNodeLight.h>
-#include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/scene/nodes/iNodeModel.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/system/iApplication.h>
-#include <igor/scene/iSceneFactory.h>
-#include <igor/scene/iScene.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/system/iMouse.h>
-#include <igor/system/iTimer.h>
-#include <igor/resources/texture/iTextureFont.h>
-#include <igor/threading/tasks/iTaskFlushModels.h>
-#include <igor/threading/tasks/iTaskFlushTextures.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/terrain/data/iVoxelBlock.h>
-#include <iaux/math/iaVector3.h>
-#include <igor/resources/profiler/iProfiler.h>
-#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
-#include <igor/resources/model/iModelResourceFactory.h>
-using namespace igor;
-
 #include "VoxelTerrainMeshGenerator.h"
 
-VoxelExample::VoxelExample()
-    : ExampleBase("Voxel", true, false)
+VoxelExample::VoxelExample(iWindow *window)
+    : ExampleBase(window, "Voxel", true, false)
 {
 }
 
-void VoxelExample::init()
+void VoxelExample::onInit()
 {
     initScene();
 
@@ -52,7 +22,7 @@ void VoxelExample::init()
     generateVoxelData();
 }
 
-void VoxelExample::deinit()
+void VoxelExample::onDeinit()
 {
     // unregister vertex mesh generator
     iModelResourceFactory::getInstance().unregisterModelDataIO("example_vtg");
@@ -296,43 +266,6 @@ void VoxelExample::prepareMeshGeneration()
     getScene()->getRoot()->insertNode(voxelMeshTransform);
 }
 
-void VoxelExample::onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window)
-{
-    if (iMouse::getInstance().getLeftButton())
-    {
-        float32 dx = static_cast<float32>(from._x - to._x) * 0.005f;
-        float32 dy = static_cast<float32>(from._y - to._y) * 0.005f;
-        iNodeTransform *cameraHeading = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraHeading));
-        iNodeTransform *cameraPitch = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraPitch));
-        if (cameraHeading != nullptr &&
-            cameraPitch != nullptr)
-        {
-            cameraHeading->rotate(dx, iaAxis::Y);
-            cameraPitch->rotate(dy, iaAxis::X);
-        }
-
-        iMouse::getInstance().setCenter();
-    }
-
-    ExampleBase::onMouseMovedFull(from, to, window);
-}
-
-void VoxelExample::onKeyDown(iKeyCode key)
-{
-    switch (key)
-    {
-    case iKeyCode::Space:
-        generateVoxelData();
-        break;
-
-    case iKeyCode::F4:
-        iModelResourceFactory::getInstance().exportModelData("voxelExample.ompf", getScene()->getRoot()->getChild("VoxelMeshTransform")->getChild("VoxelMeshModel"), "ompf", iSaveMode::EmbedExternals);
-        break;
-    }
-
-    ExampleBase::onKeyDown(key);
-}
-
 void VoxelExample::onRenderOrtho()
 {
     iaMatrixd viewMatrix;
@@ -351,11 +284,11 @@ void VoxelExample::onRenderOrtho()
 
     if (_loading)
     {
-        iRenderer::getInstance().drawString(getWindow().getClientWidth() * 0.5, getWindow().getClientHeight() * 0.5, "loading ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+        iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "loading ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
     }
     else
     {
-        iRenderer::getInstance().drawString(getWindow().getClientWidth() * 0.5, getWindow().getClientHeight() * 0.1, "press [Space] to recreate", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+        iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.1, "press [Space] to recreate", iHorizontalAlignment::Center, iVerticalAlignment::Center);
     }
 
     ExampleBase::onRenderOrtho();
@@ -378,4 +311,54 @@ void VoxelExample::onPreDraw()
             }
         }
     }
+}
+
+void VoxelExample::onEvent(iEvent &event)
+{
+    // first call example base
+    ExampleBase::onEvent(event);
+
+    event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(VoxelExample::onKeyDown));
+    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(VoxelExample::onMouseMoveEvent));
+}
+
+bool VoxelExample::onKeyDown(iEventKeyDown &event)
+{
+    switch (event.getKey())
+    {
+    case iKeyCode::Space:
+        generateVoxelData();
+        return true;
+
+    case iKeyCode::F4:
+        iModelResourceFactory::getInstance().exportModelData("voxelExample.ompf", getScene()->getRoot()->getChild("VoxelMeshTransform")->getChild("VoxelMeshModel"), "ompf", iSaveMode::EmbedExternals);
+        return true;
+    }
+
+    return false;
+}
+
+bool VoxelExample::onMouseMoveEvent(iEventMouseMove &event)
+{
+    const auto from = event.getLastPosition();
+    const auto to = event.getPosition();
+
+    if (iMouse::getInstance().getLeftButton())
+    {
+        float32 dx = static_cast<float32>(from._x - to._x) * 0.005f;
+        float32 dy = static_cast<float32>(from._y - to._y) * 0.005f;
+        iNodeTransform *cameraHeading = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraHeading));
+        iNodeTransform *cameraPitch = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraPitch));
+        if (cameraHeading != nullptr &&
+            cameraPitch != nullptr)
+        {
+            cameraHeading->rotate(dx, iaAxis::Y);
+            cameraPitch->rotate(dy, iaAxis::X);
+        }
+
+        iMouse::getInstance().setCenter();
+        return true;
+    }
+
+    return false;
 }

@@ -103,6 +103,10 @@ namespace igor
 		*/
         virtual void close();
 
+        /*! \returns true if dialog is open
+        */
+        bool isOpen() const;
+
         /*! \returns the return state of this dialog
         */
         iDialogReturnState getReturnState() const;
@@ -112,6 +116,11 @@ namespace igor
         void setReturnState(iDialogReturnState returnState);
 
     private:
+
+        /*! if true dialog is open
+        */
+        bool _isOpen = false;
+
         /*! the return state of the this dialog
         */
         iDialogReturnState _returnState = iDialogReturnState::Ok;

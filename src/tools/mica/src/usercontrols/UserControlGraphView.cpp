@@ -6,27 +6,7 @@
 
 #include "../actions/ActionContext.h"
 
-#include <igor/scene/nodes/iNode.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
-#include <igor/ui/dialogs/iDialog.h>
-#include <igor/ui/iWidgetManager.h>
-#include <igor/ui/widgets/iWidgetLabel.h>
-#include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/ui/widgets/iWidgetPicture.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/ui/widgets/iWidgetScroll.h>
-#include <igor/ui/dialogs/iDialog.h>
-#include <igor/ui/widgets/iWidgetGroupBox.h>
-#include <igor/ui/dialogs/iDialogIndexMenu.h>
-#include <igor/system/iMouse.h>
-#include <igor/ui/actions/iActionManager.h>
-#include <igor/scene/iScene.h>
-using namespace igor;
-
-#include <iaux/system/iaConsole.h>
-using namespace iaux;
-
-UserControlGraphView::UserControlGraphView(Outliner *outliner)
+UserControlGraphView::UserControlGraphView(Outliner *outliner) // TODO UserControlGraphView should not know the Outliner
     : _outliner(outliner)
 {
     initGUI();
@@ -42,34 +22,12 @@ UserControlGraphView::~UserControlGraphView()
 
 void UserControlGraphView::setRootNode(uint64 root)
 {
-    iNodePtr node = iNodeManager::getInstance().getNode(_root);
-    if (node != nullptr)
-    {
-        iScenePtr scene = node->getScene();
-        if (scene != nullptr)
-        {
-            scene->unregisterSceneChangedDelegate(iSceneChangedDelegate(this, &UserControlGraphView::onSceneChanged));
-        }
-    }
-
     _root = root;
-
-    node = iNodeManager::getInstance().getNode(_root);
-    if (node != nullptr)
-    {
-        iScenePtr scene = node->getScene();
-        if (scene != nullptr)
-        {
-            scene->registerSceneChangedDelegate(iSceneChangedDelegate(this, &UserControlGraphView::onSceneChanged));
-        }
-    }
-
     refresh();
 }
 
 void UserControlGraphView::refresh()
 {
-
     if (_root != iNode::INVALID_NODE_ID)
     {
         traverseTree(iNodeManager::getInstance().getNode(_root));
@@ -99,7 +57,7 @@ void UserControlGraphView::initGUI()
 
     iWidgetGrid *gridButtons = new iWidgetGrid();
     gridButtons->setBorder(0);
-    gridButtons->appendCollumns(10);
+    gridButtons->appendColumns(10);
     gridButtons->setCellSpacing(2);
     gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
@@ -162,6 +120,7 @@ void UserControlGraphView::initGUI()
     scroll->setHorizontalAlignment(iHorizontalAlignment::Strech);
 
     _gridGraph = new iWidgetGrid();
+    _gridGraph->setAcceptOutOfBoundsClicks();
     _gridGraph->setBorder(0);
     _gridGraph->setWidth(300);
     _gridGraph->setSelectMode(iSelectionMode::Row);
@@ -231,11 +190,6 @@ void UserControlGraphView::OnSelectionChange(iWidgetPtr widget)
     _selectionChange(_selectedNode);
 }
 
-void UserControlGraphView::onSceneChanged()
-{
-    refresh();
-}
-
 iActionContextPtr UserControlGraphView::getContext()
 {
     std::vector<iNodeID> selectedNodes;
@@ -278,84 +232,24 @@ void UserControlGraphView::OnContextMenu(iWidgetPtr widget)
 
 void UserControlGraphView::OnContextMenuClose(iDialogPtr dialog)
 {
-    if (_graphContextMenu != dialog)
-    {
-        return;
-    }
-
-    // TODO
-
     delete _graphContextMenu;
     _graphContextMenu = nullptr;
-
-    /*    if (dialog != _graphContextMenu)
-    {
-        return;
-    }
-
-    // TODO ??? yeah we need something like Qt QAction
-    const int32 cutID = 0;
-    const int32 copyID = 1;
-    const int32 pasteID = 2;
-    const int32 deleteID = 3;
-    const int32 addTransformID = 4;
-    const int32 addGroupID = 5;
-    const int32 addSwitchID = 6;
-    const int32 addModelID = 7;
-    const int32 addEmitterID = 8;
-    const int32 addParticleSystemID = 9;
-
-    switch (_graphContextMenu->getSelectionIndex())
-    {
-    case cutID:
-        // TODO
-        break;
-
-    case copyID:
-        // TODO
-        break;
-
-    case pasteID:
-        // TODO
-        break;
-
-    case deleteID:
-        // TODO
-        break;
-
-    case addTransformID:
-        _addTransformation(_selectedNode);
-        break;
-
-    case addGroupID:
-        _addGroup(_selectedNode);
-        break;
-
-    case addSwitchID:
-        _addSwitch(_selectedNode);
-        break;
-
-    case addModelID:
-        _addModel(_selectedNode);
-        break;
-
-    case addEmitterID:
-        _addEmitter(_selectedNode);
-        break;
-
-    case addParticleSystemID:
-        _addParticleSystem(_selectedNode);
-        break;
-    }
-
-    delete _graphContextMenu;*/
 }
 
 void UserControlGraphView::setSelectedNode(uint64 nodeID)
 {
-    if (nodeID == iNode::INVALID_NODE_ID)
+    if (nodeID == _selectedNode)
     {
+        return;
+    }
+
+    _selectedNode = nodeID;
+
+    if (_selectedNode == iNode::INVALID_NODE_ID)
+    {
+        _gridGraph->blockEvents();
         _gridGraph->unselect();
+        _gridGraph->unblockEvents();
         return;
     }
 
@@ -371,12 +265,17 @@ void UserControlGraphView::setSelectedNode(uint64 nodeID)
 
         if (nodeID == id)
         {
+            _gridGraph->blockEvents();
             _gridGraph->select(0, row);
+            _gridGraph->unblockEvents();
             return;
         }
     }
 
+    _gridGraph->blockEvents();
     _gridGraph->unselect();
+    _gridGraph->unblockEvents();
+    _selectedNode = iNode::INVALID_NODE_ID;
 }
 
 iNodeID UserControlGraphView::getSelectedNode() const
@@ -396,7 +295,9 @@ void UserControlGraphView::unregisterOnSelectionChange(GraphSelectionChangedDele
 
 void UserControlGraphView::clearGraph()
 {
+    _gridGraph->blockEvents();
     _gridGraph->clear();
+    _gridGraph->unblockEvents();
     _selectedNode = iNode::INVALID_NODE_ID;
 }
 
@@ -411,13 +312,13 @@ bool UserControlGraphView::preOrderVisit(iNodePtr node, iNodePtr nextSibling)
         }
 
         uint32 currentRowIndex = _gridGraph->getRowCount() - 1;
-        uint32 currentCollumnIndex = _indentation++;
+        uint32 currentColumnIndex = _indentation++;
 
         iWidgetGrid *entry = new iWidgetGrid();
         entry->setSelectMode(iSelectionMode::NoSelection);
         entry->setBorder(0);
         entry->setCellSpacing(2);
-        entry->appendCollumns(2);
+        entry->appendColumns(2);
         entry->setHorizontalAlignment(iHorizontalAlignment::Left);
         entry->setWidth(330);
         _gridGraph->addWidget(entry, 0, currentRowIndex, node->getID());

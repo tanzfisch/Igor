@@ -26,25 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __EXAMPLE_SPRITE_ANIMATION_H__
-#define __EXAMPLE_SPRITE_ANIMATION_H__
+#ifndef __EXAMPLESPRITEANIMATION_H__
+#define __EXAMPLESPRITEANIMATION_H__
 
 #include <ExampleBase.h>
 
-#include <igor/resources/material/iMaterial.h>
-#include <igor/system/iTimerHandle.h>
-using namespace igor;
-
-#include <iaux/math/iaVector2.h>
-using namespace iaux;
-
 #include <memory>
-
-namespace igor
-{
-	class iAtlas;
-	class iNodeTransform;
-} // namespace igor
 
 /*! sprite animation 2d example
 */
@@ -76,8 +63,10 @@ class SpriteAnimation : public ExampleBase
 
 public:
 	/*! initializes the example
+
+	\param window the given window
     */
-	SpriteAnimation();
+	SpriteAnimation(iWindow *window);
 
 	/*! does nothing
     */
@@ -128,6 +117,10 @@ private:
 	*/
 	iNodeTransform *_cameraTransform;
 
+	/*! switches beween ascii output or single key output
+    */
+	bool _outputSwitch = true;
+
 	/*! handles timer tick
 	*/
 	void onAnimationTimerTick();
@@ -137,22 +130,6 @@ private:
 	\param state the character state to convert to string
 	*/
 	iaString getCharacterStateName(CharacterState state);
-
-	/*! mouse move event with minimum data
-
-    mouse coordinates have their origin in the upper left corner of the parenting window
-
-    \param position last mouse position
-    */
-	void onMouseMoved(const iaVector2i &position) override;
-
-	/*! called when key was pressed
-    */
-	void onKeyDown(iKeyCode key) override;
-
-	/*! called when key was released
-	*/
-	void onKeyUp(iKeyCode key) override;
 
 	/*! called before every frame
     */
@@ -166,11 +143,27 @@ private:
 
 	/*! initializes the example
     */
-	void init() override;
+	void onInit() override;
 
 	/*! deinitializes the example
     */
-	void deinit() override;
+	void onDeinit() override;
+
+	/*! called on any other event
+    */
+	void onEvent(iEvent &event) override;
+
+	/*! called when key was pressed
+
+    \param event the event to handle
+    */
+	bool onKeyDown(iEventKeyDown &event);
+
+	/*! called when key was released
+
+    \param event the event to handle
+    */
+	bool onKeyUp(iKeyUpEvent_TMP &event);
 };
 
-#endif // __EXAMPLE_SPRITE_ANIMATION_H__
+#endif // __EXAMPLESPRITEANIMATION_H__

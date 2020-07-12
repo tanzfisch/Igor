@@ -29,24 +29,9 @@
 #ifndef __OUTLINER_H__
 #define __OUTLINER_H__
 
-#include <igor/ui/dialogs/iDialog.h>
-using namespace igor;
-
+#include "Workspace.h"
 #include "usercontrols/UserControlGraphView.h"
 #include "usercontrols/UserControlMaterialView.h"
-
-namespace igor
-{
-    class iNode;
-    class iWidgetGrid;
-    class iWidgetScroll;
-    class iWidgetButton;
-    class iWidgetGroupBox;
-    class iWidgetSpacer;
-    class iDialogMessageBox;
-    class iDialogDecisionBox;
-    class iWidgetCheckBox;
-} // namespace igor
 
 iaEVENT(LoadFile, LoadFileDelegate, (), ());
 iaEVENT(ImportFile, ImportFileDelegate, (), ());
@@ -57,6 +42,7 @@ iaEVENT(CopyNode, CopyNodeDelegate, (uint64 nodeID), (nodeID));
 iaEVENT(PasteNode, PasteNodeDelegate, (uint64 nodeID), (nodeID));
 iaEVENT(CutNode, CutNodeDelegate, (uint64 nodeID), (nodeID));
 
+// replace later with iWidgetTab once implemented
 enum class ViewType
 {
     GraphView,
@@ -71,12 +57,10 @@ class Outliner : public iDialog
     friend class iWidgetManager;
 
 public:
-    Outliner();
+    Outliner(WorkspacePtr workspace);
     ~Outliner();
 
-    void setRootNode(iNodePtr root);
-    void setSelectedNode(iNodePtr node);
-    void refreshView();
+    void refresh();
 
     void registerOnLoadFile(LoadFileDelegate loadFileDelegate);
     void unregisterOnLoadFile(LoadFileDelegate loadFileDelegate);
@@ -111,18 +95,13 @@ public:
     void registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
     void unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
 
-    void deleteSelected();
-    void duplicateSelected();
-    void copySelected();
-    void cutSelected();
-    void pasteSelected();
-
-    void fileOpen();
-    void fileSave();
-
     void addModel();
 
 private:
+    /*! the mica workspace
+    */
+    WorkspacePtr _workspace;
+
     LoadFile _loadFile;
     ImportFile _importFile;
     ImportFileReference _importFileReference;
@@ -150,8 +129,6 @@ private:
 
     uint32 _copiedNodeID = 0;
     uint32 _cutNodeID = 0;
-
-    uint32 _rootNodeID = 0;
 
     void setViewType(ViewType viewType);
 

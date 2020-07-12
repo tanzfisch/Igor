@@ -4,15 +4,6 @@
 
 #include "UserControlLight.h"
 
-#include <igor/ui/iWidgetManager.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
-#include <igor/ui/widgets/iWidgetTextEdit.h>
-#include <igor/ui/widgets/iWidgetLabel.h>
-#include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/scene/nodes/iNodeLight.h>
-#include <igor/scene/nodes/iNodeManager.h>
-using namespace igor;
-
 UserControlLight::UserControlLight()
 {
     initGUI();
@@ -20,7 +11,7 @@ UserControlLight::UserControlLight()
 
 void UserControlLight::updateGUI()
 {
-    iNodeLight* lightNode = static_cast<iNodeLight*>(iNodeManager::getInstance().getNode(_lightNodeId));
+    iNodeLight *lightNode = static_cast<iNodeLight *>(iNodeManager::getInstance().getNode(_lightNodeId));
 
     if (lightNode != nullptr)
     {
@@ -36,7 +27,7 @@ void UserControlLight::updateGUI()
 
 void UserControlLight::updateNode()
 {
-    iNodeLight* lightNode = static_cast<iNodeLight*>(iNodeManager::getInstance().getNode(_lightNodeId));
+    iNodeLight *lightNode = static_cast<iNodeLight *>(iNodeManager::getInstance().getNode(_lightNodeId));
 
     if (lightNode != nullptr)
     {
@@ -46,19 +37,19 @@ void UserControlLight::updateNode()
     }
 }
 
-void UserControlLight::onAmbientChange(const iaColor4f& color)
+void UserControlLight::onAmbientChange(const iaColor4f &color)
 {
     _ambient = color;
     updateNode();
 }
 
-void UserControlLight::onDiffuseChange(const iaColor4f& color)
+void UserControlLight::onDiffuseChange(const iaColor4f &color)
 {
     _diffuse = color;
     updateNode();
 }
 
-void UserControlLight::onSpecularChange(const iaColor4f& color)
+void UserControlLight::onSpecularChange(const iaColor4f &color)
 {
     _specular = color;
     updateNode();
@@ -82,19 +73,19 @@ void UserControlLight::initGUI()
     _grid->setBorder(2);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Right);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
-	addWidget(_grid);
+    addWidget(_grid);
 
     _ambientColorChooser = new iUserControlColorChooser();
     _ambientColorChooser->setMode(iColorChooserMode::RGB);
     _ambientColorChooser->setText("Ambient");
     _ambientColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlLight::onAmbientChange));
 
-    _diffuseColorChooser = new iUserControlColorChooser(); 
+    _diffuseColorChooser = new iUserControlColorChooser();
     _diffuseColorChooser->setMode(iColorChooserMode::RGB);
     _diffuseColorChooser->setText("Diffuse");
     _diffuseColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlLight::onDiffuseChange));
 
-    _specularColorChooser = new iUserControlColorChooser(); 
+    _specularColorChooser = new iUserControlColorChooser();
     _specularColorChooser->setMode(iColorChooserMode::RGB);
     _specularColorChooser->setText("Specular");
     _specularColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlLight::onSpecularChange));

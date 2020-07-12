@@ -31,29 +31,6 @@
 
 #include <ExampleBase.h>
 
-#include <igor/generation/iPerlinNoise.h>
-#include <igor/resources/material/iMaterial.h>
-using namespace igor;
-
-#include <iaux/math/iaRandomNumberGenerator.h>
-#include <iaux/math/iaMatrix.h>
-using namespace iaux;
-
-namespace igor
-{
-    class iScene;
-    class iNodeTransform;
-    class iNodeLight;
-    class iTextureFont;
-    class iVoxelData;
-    class iContouringCubes;
-    class iMeshBuilder;
-    class iMesh;
-    class iTargetMaterial;
-    class iNodeTransformControl;
-    class iTexture;
-} // namespace igor
-
 /*! the voxel example
 */
 class VoxelExample : public ExampleBase
@@ -61,8 +38,10 @@ class VoxelExample : public ExampleBase
 
 public:
     /*! init
+
+    \param window the given window
     */
-    VoxelExample();
+    VoxelExample(iWindow *window);
 
     /*! does nothing
     */
@@ -137,33 +116,40 @@ private:
     */
     void prepareMeshGeneration();
 
-    /*! called when ESC key was pressed
-    */
-    void onKeyDown(iKeyCode key) override;
-
     /*! called before every frame
     */
     void onPreDraw() override;
 
-    /*! called when mouse was moved
-    
-    \param from last mouse position
-    \param to current mouse position
-    \param window the window the coordinates are related to
-    */
-    void onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window) override;
-
     /*! initialize everything
     */
-    void init() override;
+    void onInit() override;
 
     /*! deinitialize everything
     */
-    void deinit() override;
+    void onDeinit() override;
 
     /*! called by orthogonal view
     */
     void onRenderOrtho() override;
+
+    /*! called on any other event
+
+    \param event the event to handle
+    */
+    void onEvent(iEvent &event) override;
+
+    /*! called when key was pressed
+
+    \param event the event to handle
+    */
+    bool onKeyDown(iEventKeyDown &event);
+
+    /*! handles mouse move event
+
+    \param event the mouse move event
+    \returns true if consumed
+    */
+    bool onMouseMoveEvent(iEventMouseMove &event);
 };
 
 #endif // __VOXELEXAMPLE_H__

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iNODE__
-#define __iNODE__
+#ifndef __IGOR_NODE_H__
+#define __IGOR_NODE_H__
 
 #include <igor/iDefines.h>
 
@@ -106,7 +106,7 @@ namespace igor
 
     /*! node id definition
     */
-    typedef uint64 iNodeID;
+    typedef iaID64 iNodeID;
 
     /*! base node implementation
 
@@ -435,4 +435,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_NODE_H__

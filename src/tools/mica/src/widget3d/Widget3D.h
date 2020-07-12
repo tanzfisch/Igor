@@ -52,7 +52,7 @@ public:
 	\param scene the scene to use for the 3d widget
 	\param nodeID id of the node to represent
 	*/
-	Widget3D(iWindow *window, iView *view, iScene *scene);
+	Widget3D(iWindow *window, iView *view, iScenePtr scene);
 
 	/*! default dtor
 	*/
@@ -75,7 +75,7 @@ protected:
 
 	/*! the scene to use for the 3d widget
 	*/
-	iScene *_scene = nullptr;
+	iScenePtr _scene = nullptr;
 
 	/*! the window this widget is visible at
 	*/

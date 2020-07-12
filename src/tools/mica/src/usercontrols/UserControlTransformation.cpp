@@ -4,15 +4,6 @@
 
 #include "UserControlTransformation.h"
 
-#include <igor/ui/iWidgetManager.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
-#include <igor/ui/widgets/iWidgetTextEdit.h>
-#include <igor/ui/widgets/iWidgetLabel.h>
-#include <igor/ui/widgets/iWidgetButton.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/scene/nodes/iNodeManager.h>
-using namespace igor;
-
 #include "../MicaDefines.h"
 
 UserControlTransformation::UserControlTransformation()
@@ -128,7 +119,7 @@ void UserControlTransformation::initGUI()
 	_grid = new iWidgetGrid();
 	_grid->setHorizontalAlignment(iHorizontalAlignment::Right);
 	_grid->setVerticalAlignment(iVerticalAlignment::Top);
-	_grid->appendCollumns(3);
+	_grid->appendColumns(3);
 	_grid->appendRows(3);
 	addWidget(_grid);
 

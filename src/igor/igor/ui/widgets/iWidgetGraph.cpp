@@ -5,7 +5,7 @@
 #include <igor/ui/widgets/iWidgetGraph.h>
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/ui/theme/iWidgetBaseTheme.h>
+#include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/graphics/iRenderer.h>

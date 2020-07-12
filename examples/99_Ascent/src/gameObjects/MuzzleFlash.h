@@ -13,7 +13,7 @@ class MuzzleFlash : public GameObject
 {
 
 public:
-    MuzzleFlash(iScene *scene, uint32 emitterID);
+    MuzzleFlash(iScenePtr scene, uint32 emitterID);
     virtual ~MuzzleFlash();
 
 private:

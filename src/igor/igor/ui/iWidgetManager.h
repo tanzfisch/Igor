@@ -26,12 +26,15 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iDIALOGMANAGER__
-#define __iDIALOGMANAGER__
+#ifndef __IGOR_WIDGETMANAGER_H__
+#define __IGOR_WIDGETMANAGER_H__
 
 #include <igor/iDefines.h>
 #include <igor/system/iKeyboard.h>
 #include <igor/ui/widgets/iWidget.h>
+#include <igor/events/iEventKeyboard.h>
+#include <igor/events/iEventMouse.h>
+#include <igor/events/iEventWindow.h>
 
 #include <iaux/system/iaSingleton.h>
 
@@ -42,11 +45,13 @@
 namespace igor
 {
 
-    class iWidgetBaseTheme;
+    class iWidgetTheme;
     class iDialog;
     typedef iDialog *iDialogPtr;
 
     /*! manages the widgets in use and is a singleton
+
+    \todo make it a non sigleton
     */
     class Igor_API iWidgetManager : public iaSingleton<iWidgetManager>
     {
@@ -59,6 +64,10 @@ namespace igor
         friend class iDialog;
 
     public:
+        /*! called on any other event
+        */
+        void onEvent(iEvent &event);
+
         /*! shows tooltip at given position
 
 		\param pos the position to show the tooltip
@@ -84,13 +93,13 @@ namespace igor
 
         /*! \returns the theme in use
         */
-        iWidgetBaseTheme *getTheme();
+        iWidgetTheme *getTheme();
 
         /*! sets the theme to use
 
         \param theme the theme to use
         */
-        void setTheme(iWidgetBaseTheme *theme);
+        void setTheme(iWidgetTheme *theme);
 
         /*! sets the desktop dimensions
 
@@ -135,101 +144,13 @@ namespace igor
         */
         void resetModal();
 
-        /*! register delegate to "redirected" mouse double click event
-
-        \param doubleClickDelegate the delegate to register
+        /*! updates recursively all widgets before rendering
         */
-        void registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate doubleClickDelegate);
+        void onPreDraw();
 
-        /*! unregister delegate from "redirected" mouse key down event
-
-        \param doubleClickDelegate the delegate to unregister
-        */
-        void unregisterMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate doubleClickDelegate);
-
-        /*! register delegate to "redirected" mouse key down event
-
-        \param keydown_delegate the delegate to register
-        */
-        void registerMouseKeyDownDelegate(iMouseKeyDownDelegate keydown_delegate);
-
-        /*! unregister delegate from "redirected" mouse key down event
-
-        \param keydown_delegate the delegate to unregister
-        */
-        void unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate keydown_delegate);
-
-        /*! register delegate to "redirected" mouse key up event
-
-        \param keyup_delegate the delegate to register
-        */
-        void registerMouseKeyUpDelegate(iMouseKeyUpDelegate keyup_delegate);
-
-        /*! unregister delegate from "redirected" mouse key up event
-
-        \param keyup_delegate the delegate to unregister
-        */
-        void unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate keyup_delegate);
-
-        /*! register delegate to "redirected" mouse move full data event
-
-        \param move_delegate the delegate to register
-        */
-        void registerMouseMoveFullDelegate(iMouseMoveFullDelegate move_delegate);
-
-        /*! unregister delegate from "redirected" mouse move full data event
-
-        \param move_delegate the delegate to unregister
-        */
-        void unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate move_delegate);
-
-        /*! register delegate to "redirected" mouse move event
-
-        \param move_delegate the delegate to register
-        */
-        void registerMouseMoveDelegate(iMouseMoveDelegate move_delegate);
-
-        /*! unregister delegate from "redirected" mouse move event
-
-        \param move_delegate the delegate to unregister
-        */
-        void unregisterMouseMoveDelegate(iMouseMoveDelegate move_delegate);
-
-        /*! register delegate to "redirected" mouse wheel event
-
-        \param wheel_delegate the delegate to register
-        */
-        void registerMouseWheelDelegate(iMouseWheelDelegate wheel_delegate);
-
-        /*! unregister delegate from "redirected" mouse wheel event
-
-        \param wheel_delegate the delegate to unregister
-        */
-        void unregisterMouseWheelDelegate(iMouseWheelDelegate wheel_delegate);
-
-        /*! register delegate to "redirected" key down event
-
-		\param delegate the delegate to register
+        /*! widget handling after the render frame is done
 		*/
-        void registerKeyDownDelegate(iKeyDownDelegate delegate);
-
-        /*! unregister delegate from "redirected" key down event
-
-		\param delegate the delegate to unregister
-		*/
-        void unregisterKeyDownDelegate(iKeyDownDelegate delegate);
-
-        /*! register delegate to "redirected" key up event
-
-		\param delegate the delegate to register
-		*/
-        void registerKeyUpDelegate(iKeyUpDelegate delegate);
-
-        /*! unregister delegate from "redirected" key up event
-
-		\param delegate the delegate to unregister
-		*/
-        void unregisterKeyUpDelegate(iKeyUpDelegate delegate);
+        void onPostDraw();
 
     private:
         /*! modal marker
@@ -270,7 +191,7 @@ namespace igor
 
         /*! pointer to current theme
         */
-        iWidgetBaseTheme *_currentTheme = nullptr;
+        iWidgetTheme *_currentTheme = nullptr;
 
         /*! list of all widgets
         */
@@ -338,20 +259,6 @@ namespace igor
         */
         void traverseAlignment(iWidgetPtr widget, int32 offsetX, int32 offsetY, int32 clientRectWidth, int32 clientRectHeight);
 
-        /*! updates recursively all widgets before rendering
-        */
-        void onPreDraw();
-
-        /*! widget handling after the render frame is done
-		*/
-        void onPostDraw();
-
-        /*! handle for mouse key down event
-
-        \param key mouse key pressed
-        */
-        void onMouseKeyDown(iKeyCode key);
-
         /*! returns the active dialogs
 
         \param[out] dialogs resulting list of active dialogs
@@ -359,61 +266,71 @@ namespace igor
         */
         void getActiveDialogs(std::vector<iDialogPtr> &dialogs, bool sortedAccending = true);
 
-        /*! handle for mouse key up event
-
-        \param key mouse key released
-        */
-        void onMouseKeyUp(iKeyCode key);
-
-        /*! handle for mouse double click
-
-        \param key contains which key was pressed
-        */
-        void onMouseDoubleClick(iKeyCode key);
-
-        /*! handle for mouse move event
-
-        \param x1 last horizontal mouse position
-        \param y1 last vertical mouse position
-        \param x2 current horizontal mouse position
-        \param y2 current vertical mouse position
-        \param window parent window of mouse event
-        */
-        void onMouseMove(const iaVector2i &from, const iaVector2i &to, iWindow *window);
-
         /*! actual implementation that handles a moved mouse
 
         \param to the mouse postion to use
         */
         bool handleMouseMove(const iaux::iaVector2i &to);
 
-        /*! handle for mouse wheel event
+        /*! called when key was pressed
 
-        \param d mouse wheel delta
+        \param event the event to handle
         */
-        void onMouseWheel(int32 d);
+        bool onKeyDown(iEventKeyDown &event);
 
-        /*! internal handler for incomming keyboard events
+        /*! called when key was released
 
-        \param c the ascii character
+        \param event the event to handle
         */
-        void onASCII(const char c);
+        bool onKeyUp(iKeyUpEvent_TMP &event);
 
-        /*! handles key down event
-        */
-        void onKeyDown(iKeyCode key);
+        /*! called on ascii input
 
-        /*! handles key up event
+        \param event the event to handle
         */
-        void onKeyUp(iKeyCode key);
+        bool onKeyASCIIInput(iKeyASCIIEvent_TMP &event);
 
-        /*! registers to mouse and keyboard evetns
-        */
-        void registerHandles();
+        /*! handles mouse key down event
 
-        /*! unregister from mouse and keyboard evetns
+        \param event the mouse key down event
+        \returns true if consumed
         */
-        void unregisterHandles();
+        bool onMouseKeyDownEvent(iEventMouseKeyDown &event);
+
+        /*! handles mouse key up event
+
+        \param event the mouse key up event
+        \returns true if consumed
+        */
+        bool onMouseKeyUpEvent(iEventMouseKeyUp &event);
+
+        /*! handles mouse key double click event
+
+        \param event the mouse key double click event
+        \returns true if consumed
+        */
+        bool onMouseKeyDoubleClickEvent(iEventMouseKeyDoubleClick &event);
+
+        /*! handles mouse move event
+
+        \param event the mouse move event
+        \returns true if consumed
+        */
+        bool onMouseMoveEvent(iEventMouseMove &event);
+
+        /*! handles mouse wheel event
+
+        \param event the mouse wheel event
+        \returns true if consumed
+        */
+        bool onMouseWheelEvent(iEventMouseWheel &event);
+
+        /*! handle window resize event
+
+        \param event the window resize event
+        \returns true if consumed
+        */
+        bool onWindowResize(iEventWindowResize &event);
 
         /*! init
         */
@@ -428,4 +345,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_WIDGETMANAGER_H__

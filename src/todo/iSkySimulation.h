@@ -44,7 +44,7 @@ namespace Igor
 	{
 
 	private:
-		iScene *scene;
+		iScenePtr scene;
 		shared_ptr<iNode> skySimRoot;
 		iSkyLightNode *skyLightNode;
 		iNodeSkyBox *skyBoxNode;
@@ -66,7 +66,7 @@ namespace Igor
 		void setTime(float32 time); ///! local time
 		void setDate(int32 day, int32 month, int32 year);
 
-		iSkySimulation(iScene *scene);
+		iSkySimulation(iScenePtr scene);
 		virtual ~iSkySimulation();
 	};
 

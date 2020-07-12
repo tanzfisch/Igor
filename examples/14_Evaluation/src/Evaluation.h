@@ -31,16 +31,15 @@
 
 #include <ExampleBase.h>
 
-#include <igor/scene/nodes/iNodeTransform.h>
-using namespace igor;
-
 class Evaluation : public ExampleBase
 {
 
 public:
     /*! init memebers
+
+    \param window the given window
     */
-    Evaluation();
+    Evaluation(iWindow* window);
 
     /*! does nothing
     */
@@ -56,7 +55,7 @@ private:
 
     /*! init example
     */
-    void init() override;
+    void onInit() override;
 };
 
 #endif // __EVALUATION_EXAMPLE_H__

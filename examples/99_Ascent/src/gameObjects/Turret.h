@@ -20,7 +20,7 @@ class Turret : public GameObject
 {
 
 public:
-    Turret(iScene *scene, iNodeTransform *ancor, iVoxelTerrain *voxelTerrain, Fraction fraction, uint64 playerID);
+    Turret(iScenePtr scene, iNodeTransform *ancor, iVoxelTerrain *voxelTerrain, Fraction fraction, uint64 playerID);
     virtual ~Turret();
 
 private:
@@ -33,7 +33,7 @@ private:
     uint32 _platformID = 0;
     uint32 _headingID = 0;
     uint32 _pitchID = 0;
-    iScene *_scene = nullptr;
+    iScenePtr _scene = nullptr;
     iVoxelTerrain *_voxelTerrain = nullptr;
 
     iaTime _time;

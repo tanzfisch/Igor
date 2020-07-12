@@ -14,7 +14,7 @@ class BossDestroyed : public GameObject
 {
 
 public:
-    BossDestroyed(iScene *scene, const iaMatrixd &matrix);
+    BossDestroyed(iScenePtr scene, const iaMatrixd &matrix);
     virtual ~BossDestroyed();
 
 private:

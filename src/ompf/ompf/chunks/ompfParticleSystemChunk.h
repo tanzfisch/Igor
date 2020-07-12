@@ -7,21 +7,21 @@
 //
 //  (c) Copyright by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 2.1 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
-// You should have received a copy of the GNU Lesser General Public          
-// License along with this library; if not, write to the Free Software       
-// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA 
-// 
-// contact: igorgameengine@protonmail.com  
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 2.1 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public
+// License along with this library; if not, write to the Free Software
+// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+//
+// contact: igorgameengine@protonmail.com
 
 #ifndef __PARTICLESYSTEMCHUNK__
 #define __PARTICLESYSTEMCHUNK__
@@ -33,18 +33,17 @@ namespace OMPF
 
     /*! ompf particle system chunk
     */
-	class OMPF_API ompfParticleSystemChunk : public ompfBaseChunk
-	{
+    class OMPF_API ompfParticleSystemChunk : public ompfBaseChunk
+    {
 
-	public:
-
+    public:
         /*! init base class
         */
         ompfParticleSystemChunk();
 
         /*! does nothing
         */
-		virtual ~ompfParticleSystemChunk() = default;
+        virtual ~ompfParticleSystemChunk() = default;
 
         /*! sets the maximum particle count
 
@@ -72,25 +71,25 @@ namespace OMPF
 
         \param rainbow the rainbow gradient
         */
-        void setColorGradient(const iaGradientColor4f& colorGradient);
+        void setColorGradient(const iaGradientColor4f &colorGradient);
 
         /*! returns the rainbow gradient
 
         \param[out] rainbow out value for the rainbow gradient
         */
-        void getColorGradient(iaGradientColor4f& colorGradient) const;
+        void getColorGradient(iaGradientColor4f &colorGradient) const;
 
         /*! sets emission gradient for particles per frame
 
         \param emissionGradient the emission gradient
         */
-        void setEmissionGradient(const iaGradientf& emissionGradient);
+        void setEmissionGradient(const iaGradientf &emissionGradient);
 
         /*! returns the emission gradient
 
         \param[out] emissionGradient out value for the emission gradient
         */
-        void getEmissionGradient(iaGradientf& emissionGradient) const;
+        void getEmissionGradient(iaGradientf &emissionGradient) const;
 
         /*! sets the range of vortex torque
 
@@ -156,7 +155,7 @@ namespace OMPF
 
         \param settings the settings the size calculation is based on
         */
-        virtual uint32 getSize(const ompfSettings& settings);
+        virtual uint32 getSize(const ompfSettings &settings);
 
         /*! sets the tiling resolution of the first texture layer
 
@@ -177,85 +176,85 @@ namespace OMPF
 
         \param visibleGradient the visible gradient
         */
-        void setStartVisibleTimeGradient(const iaGradientVector2f& visibleGradient);
+        void setStartVisibleTimeGradient(const iaGradientVector2f &visibleGradient);
 
         /*! returns the emission gradient
 
         \param[out] visibleGradient out value for the visible gradient
         */
-        void getStartVisibleTimeGradient(iaGradientVector2f& visibleGradient) const;
+        void getStartVisibleTimeGradient(iaGradientVector2f &visibleGradient) const;
 
         /*! sets size scale gradient for particles per frame
 
         \param sizeScaleGradient the size gradient
         */
-        void setSizeScaleGradient(const iaGradientf& sizeScaleGradient);
+        void setSizeScaleGradient(const iaGradientf &sizeScaleGradient);
 
         /*! returns the size scale gradient
 
         \param[out] sizeScaleGradient out value for the size gradient
         */
-        void getSizeScaleGradient(iaGradientf& sizeScaleGradient) const;
+        void getSizeScaleGradient(iaGradientf &sizeScaleGradient) const;
 
         /*! sets start size gradient for particles at birth
 
         \param sizeGradient the start size gradient with min and max values
         */
-        void setStartSizeGradient(const iaGradientVector2f& sizeGradient);
+        void setStartSizeGradient(const iaGradientVector2f &sizeGradient);
 
         /*! returns the start size gradient for particles at birth
 
         \param[out] sizeGradient out value for the start size gradient
         */
-        void getStartSizeGradient(iaGradientVector2f& sizeGradient) const;
+        void getStartSizeGradient(iaGradientVector2f &sizeGradient) const;
 
         /*! sets min max start velocity gradient for particles at birth
 
         \param velocityGradient the min max start velocity gradient
         */
-        void setStartVelocityGradient(const iaGradientVector2f& velocityGradient);
+        void setStartVelocityGradient(const iaGradientVector2f &velocityGradient);
 
         /*! returns the min max start velocity gradient for particles at birth
 
         \param[out] velocityGradient out value for the start velocity gradient
         */
-        void getStartVelocityGradient(iaGradientVector2f& velocityGradient) const;
+        void getStartVelocityGradient(iaGradientVector2f &velocityGradient) const;
 
         /*! sets min max start lift gradient for particles at birth
 
         \param liftGradient the min max start lift gradient
         */
-        void setStartLiftGradient(const iaGradientVector2f& liftGradient);
+        void setStartLiftGradient(const iaGradientVector2f &liftGradient);
 
         /*! returns the min max start lift gradient for particles at birth
 
         \param[out] liftGradient out value for the start lift gradient
         */
-        void getStartLiftGradient(iaGradientVector2f& liftGradient) const;
+        void getStartLiftGradient(iaGradientVector2f &liftGradient) const;
 
         /*! sets min max start orientation gradient for particles at birth
 
         \param orientationGradient the min max start orientation gradient
         */
-        void setStartOrientationGradient(const iaGradientVector2f& orientationGradient);
+        void setStartOrientationGradient(const iaGradientVector2f &orientationGradient);
 
         /*! returns the min max start lift gradient for particles at birth
 
         \param[out] orientationGradient out value for the start orientation gradient
         */
-        void getStartOrientationGradient(iaGradientVector2f& orientationGradient) const;
+        void getStartOrientationGradient(iaGradientVector2f &orientationGradient) const;
 
         /*! sets start min max orientation rate gradient for particles during visible time
 
         \param orientationRateGradient the min max orientation rate gradient
         */
-        void setStartOrientationRateGradient(const iaGradientVector2f& orientationRateGradient);
+        void setStartOrientationRateGradient(const iaGradientVector2f &orientationRateGradient);
 
         /*! returns the start min max orientation offset gradient for particles during visuble time
 
         \param[out] orientationRateGradient out value for the orientation rate gradient
         */
-        void getStartOrientationRateGradient(iaGradientVector2f& orientationRateGradient) const;
+        void getStartOrientationRateGradient(iaGradientVector2f &orientationRateGradient) const;
 
         /*! sets air drag 
         0.0-1.0
@@ -301,19 +300,19 @@ namespace OMPF
 
         \param filename file name of texture
         */
-        void setTextureA(const iaString& filename);
+        void setTextureA(const iaString &filename);
 
         /*! sets second texture
 
         \param filename file name of texture
         */
-        void setTextureB(const iaString& filename);
+        void setTextureB(const iaString &filename);
 
         /*! sets third texture
 
         \param filename file name of texture
         */
-        void setTextureC(const iaString& filename);
+        void setTextureC(const iaString &filename);
 
         /*! \returns file name of first texture
         */
@@ -347,7 +346,6 @@ namespace OMPF
         uint32 getEmitterChunkID() const;
 
     private:
-
         uint32 _emitterID = 0;
 
         bool _velocityOriented = false;
@@ -381,7 +379,7 @@ namespace OMPF
         */
         iaGradientVector2f _startVisibleTimeGradient;
 
-        /*! first texture tiling in collumns
+        /*! first texture tiling in columns
         */
         uint8 _firstTectureTilingColumns;
 
@@ -404,7 +402,7 @@ namespace OMPF
         /*! max vortex range
         */
         float32 _maxVortexRange = 0;
-        
+
         /*! vortex check range
         */
         uint8 _vortexCheckRange = 0;
@@ -430,17 +428,16 @@ namespace OMPF
         \param stream destination stream
         \param settings the settings how to write the chunk
         */
-        virtual bool write(std::ofstream& stream, const ompfSettings& settings);
+        virtual bool write(std::ofstream &stream, const ompfSettings &settings);
 
         /*! reads chunk from stream
 
         \param stream source stream
         \param settings the settings how to read the chunk
         */
-        virtual bool read(std::ifstream& stream, ompfSettings& settings);
+        virtual bool read(std::ifstream &stream, ompfSettings &settings);
+    };
 
-	};
+} // namespace OMPF
 
-}
-
-#endif 
+#endif

@@ -5,10 +5,12 @@
 #include <igor/system/iMouse.h>
 
 #include <igor/system/iKeyboard.h>
+#include <igor/system/iApplication.h>
 
 #include <igor/system/iWindow.h>
 #include <igor/system/iDefinesWindows.h>
 #include <igor/system/iDefinesLinux.h>
+#include <igor/events/iEventMouse.h>
 
 #include <iaux/system/iaTime.h>
 #include <iaux/system/iaConsole.h>
@@ -289,10 +291,10 @@ namespace igor
         void handlePressEvent(iKeyCode buttonKey)
         {
             const iaTime doubleClickDelay = iaTime::fromMilliseconds(200);
+            const int buttonIndex = (int)buttonKey - (int)iKeyCode::MouseLeft;
+            const iaTime time = iaTime::now();
 
-            int buttonIndex = (int)buttonKey - (int)iKeyCode::MouseLeft;
             bool doubleClick = false;
-            iaTime time = iaTime::now();
 
             if (!_buttonStates[buttonIndex]._pressed &&
                 time - _buttonStates[buttonIndex]._time < doubleClickDelay)
@@ -306,11 +308,24 @@ namespace igor
             if (doubleClick)
             {
                 _doubleClickEvent(buttonKey);
+
+                iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyDoubleClick(_window, buttonKey)));
             }
             else
             {
                 _keyDownEvent(buttonKey);
+
+                iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyDown(_window, buttonKey)));
             }
+        }
+
+        void handleReleaseEvent(iKeyCode buttonKey)
+        {
+            const int buttonIndex = (int)buttonKey - (int)iKeyCode::MouseLeft;
+            _buttonStates[buttonIndex]._pressed = false;
+            _keyUpEvent(buttonKey);
+
+            iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyUp(_window, buttonKey)));
         }
 
         bool onOSEvent(const void *data) override
@@ -337,10 +352,17 @@ namespace igor
 
                 case 4:
                     _wheelEvent(1);
+                    {
+                        iApplication::getInstance().onEvent(iEventPtr(new iEventMouseWheel(_window, 1)));
+                    }
+
                     break;
 
                 case 5:
                     _wheelEvent(-1);
+                    {
+                        iApplication::getInstance().onEvent(iEventPtr(new iEventMouseWheel(_window, -1)));
+                    }
                     break;
 
                 case 8:
@@ -357,24 +379,19 @@ namespace igor
                 switch (xevent.xbutton.button)
                 {
                 case 1:
-                    _buttonStates[0]._pressed = false;
-                    _keyUpEvent(iKeyCode::MouseLeft);
+                    handleReleaseEvent(iKeyCode::MouseLeft);
                     break;
                 case 2:
-                    _buttonStates[1]._pressed = false;
-                    _keyUpEvent(iKeyCode::MouseMiddle);
+                    handleReleaseEvent(iKeyCode::MouseMiddle);
                     break;
                 case 3:
-                    _buttonStates[2]._pressed = false;
-                    _keyUpEvent(iKeyCode::MouseRight);
+                    handleReleaseEvent(iKeyCode::MouseRight);
                     break;
                 case 8:
-                    _buttonStates[4]._pressed = false;
-                    _keyUpEvent(iKeyCode::MouseButton4);
+                    handleReleaseEvent(iKeyCode::MouseButton4);
                     break;
                 case 9:
-                    _buttonStates[5]._pressed = false;
-                    _keyUpEvent(iKeyCode::MouseButton5);
+                    handleReleaseEvent(iKeyCode::MouseButton5);
                     break;
                 };
                 break;
@@ -389,6 +406,8 @@ namespace igor
 
                     _moveFullEvent(_posLast, _pos, _window);
                     _moveEvent(_pos);
+
+                    iApplication::getInstance().onEvent(iEventPtr(new iEventMouseMove(_window, _posLast, _pos)));
                 }
             }
             break;

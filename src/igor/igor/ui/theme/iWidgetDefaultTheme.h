@@ -29,7 +29,7 @@
 #ifndef __iWIDGETDEFAULTTHEME__
 #define __iWIDGETDEFAULTTHEME__
 
-#include <igor/ui/theme/iWidgetBaseTheme.h>
+#include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTexture.h>
 
 #include <iaux/data/iaColor4.h>
@@ -42,7 +42,7 @@ namespace igor
 
 	/*! default widget theme
     */
-	class Igor_API iWidgetDefaultTheme : public iWidgetBaseTheme
+	class Igor_API iWidgetDefaultTheme : public iWidgetTheme
 	{
 
 	public:
@@ -55,7 +55,7 @@ namespace igor
 
 		void drawTiledRectangle(const iRectanglei &rect, iTexturePtr texture);
 
-		void drawGridField(const iRectanglei &rect, iWidgetState state);
+		void drawGridCell(const iRectanglei &rect, iWidgetState state);
 		void drawGridHighlight(const iRectanglei &rect);
 		void drawGridSelection(const iRectanglei &rect);
 		void drawFrame(const iRectanglei &rect, iWidgetState state, bool active);

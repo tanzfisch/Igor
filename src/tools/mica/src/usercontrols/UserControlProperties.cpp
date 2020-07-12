@@ -1,21 +1,5 @@
 #include "UserControlProperties.h"
 
-#include <igor/ui/iWidgetManager.h>
-#include <igor/ui/dialogs/iDialog.h>
-#include <igor/scene/nodes/iNode.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/scene/nodes/iNodeLight.h>
-#include <igor/scene/nodes/iNodeMesh.h>
-#include <igor/scene/nodes/iNodeManager.h>
-
-#include <igor/ui/widgets/iWidgetScroll.h>
-#include <igor/ui/widgets/iWidgetGrid.h>
-#include <igor/ui/widgets/iWidgetGroupBox.h>
-using namespace igor;
-
-#include <iaux/system/iaConsole.h>
-using namespace iaux;
-
 #include "UserControlTransformation.h"
 #include "UserControlLight.h"
 #include "UserControlMesh.h"
@@ -53,51 +37,45 @@ void UserControlProperties::initGUI()
 
 void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
 {
-	iNodeTransform* node = nullptr;
-
 	switch (_propertyType)
 	{
 	case PropertyType::Node:
-		node = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(static_cast<uint32>(_propertyID)));
-		if (node != nullptr)
+		switch (_currentNodeType)
 		{
-			switch (_currentNodeType)
-			{
-			case iNodeType::iNodeTransform:
-				deinitTransformNode();
-				break;
+		case iNodeType::iNodeTransform:
+			deinitTransformNode();
+			break;
 
-			case iNodeType::iNodeLight:
-				deinitLightNode();
-				break;
+		case iNodeType::iNodeLight:
+			deinitLightNode();
+			break;
 
-			case iNodeType::iNodeMesh:
-				deinitMeshNode();
-				break;
+		case iNodeType::iNodeMesh:
+			deinitMeshNode();
+			break;
 
-			case iNodeType::iNodeModel:
-				deinitModel();
-				break;
+		case iNodeType::iNodeModel:
+			deinitModel();
+			break;
 
-			case iNodeType::iNodeEmitter:
-				deinitEmitter();
-				break;
+		case iNodeType::iNodeEmitter:
+			deinitEmitter();
+			break;
 
-			case iNodeType::iNodeParticleSystem:
-				deinitParticleSystem();
-				break;
-			}
+		case iNodeType::iNodeParticleSystem:
+			deinitParticleSystem();
+			break;
+		}
 
-			_currentNodeType = iNodeType::Undefined;
+		_currentNodeType = iNodeType::Undefined;
 
-			if (_userControlNode != nullptr)
-			{
-				_grid->removeWidget(_userControlNode);
-				_userControlNode->unregisterNameChangeDelegate(NameChangedDelegate(this, &UserControlProperties::onNameChanged));
-				
-				delete _userControlNode;
-				_userControlNode = nullptr;
-			}
+		if (_userControlNode != nullptr)
+		{
+			_grid->removeWidget(_userControlNode);
+			_userControlNode->unregisterNameChangeDelegate(NameChangedDelegate(this, &UserControlProperties::onNameChanged));
+
+			delete _userControlNode;
+			_userControlNode = nullptr;
 		}
 		break;
 
@@ -119,7 +97,8 @@ void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
 	switch (_propertyType)
 	{
 	case PropertyType::Node:
-		node = static_cast<iNodeTransform*>(iNodeManager::getInstance().getNode(_propertyID));
+	{
+		iNodePtr node = iNodeManager::getInstance().getNode(_propertyID);
 		if (node != nullptr)
 		{
 			_currentNodeType = node->getType();
@@ -166,7 +145,8 @@ void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
 				_grid->addWidget(_userControlNode, 0, 0);
 			}
 		}
-		break;
+	}
+	break;
 
 	case PropertyType::Material:
 		initMaterial();
@@ -179,8 +159,6 @@ void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
 	default:
 		con_err("unknown type");
 	}
-
-
 }
 
 void UserControlProperties::onNameChanged()

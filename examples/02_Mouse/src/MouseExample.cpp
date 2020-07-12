@@ -4,55 +4,52 @@
 
 #include "MouseExample.h"
 
-#include <iaux/system/iaConsole.h>
-using namespace iaux;
-
-#include <igor/system/iMouse.h>
-#include <igor/system/iKeyboard.h>
-#include <igor/system/iApplication.h>
-using namespace igor;
-
-MouseExample::MouseExample()
-    : ExampleBase(L"Mouse Input")
+MouseExample::MouseExample(iWindow *window)
+    : ExampleBase(window, L"Mouse Input")
 {
 }
 
-void MouseExample::onMouseMovedFull(const iaVector2i &from, const iaVector2i &to, iWindow *window)
+void MouseExample::onEvent(iEvent &event)
 {
-    // prints old and new mouse position to the console
-    con_endl("mouse moved from " << from << " to " << to);
+    // first call example base
+    ExampleBase::onEvent(event);
 
-    ExampleBase::onMouseMovedFull(from, to, window);
+    event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseKeyDownEvent));
+    event.dispatch<iEventMouseKeyUp>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseKeyUpEvent));
+    event.dispatch<iEventMouseKeyDoubleClick>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseKeyDoubleClickEvent));
+    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseMoveEvent));
+    event.dispatch<iEventMouseWheel>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseWheelEvent));
 }
 
-void MouseExample::onMouseKeyDown(iKeyCode key)
+bool MouseExample::onMouseKeyDownEvent(iEventMouseKeyDown &event)
 {
     // prints if a key was pressed to the console
-    con_endl("pressed " << key);
-
-    ExampleBase::onMouseKeyDown(key);
+    con_endl("mouse key down " << event.getKey());
+    return true;
 }
 
-void MouseExample::onMouseDoubleClick(iKeyCode key)
-{
-    // prints if a double click was performed
-    con_endl("double clicked " << key);
-
-    ExampleBase::onMouseDoubleClick(key);
-}
-
-void MouseExample::onMouseKeyUp(iKeyCode key)
+bool MouseExample::onMouseKeyUpEvent(iEventMouseKeyUp &event)
 {
     // prints if a key was released to the console
-    con_endl("released " << key);
-
-    ExampleBase::onMouseKeyUp(key);
+    con_endl("mouse key up " << event.getKey());
 }
 
-void MouseExample::onMouseWheel(int32 d)
+bool MouseExample::onMouseKeyDoubleClickEvent(iEventMouseKeyDoubleClick &event)
+{
+    // prints if a double click was performed
+    con_endl("mouse key double clicked " << event.getKey());
+    return true;
+}
+
+bool MouseExample::onMouseMoveEvent(iEventMouseMove &event)
+{
+    // prints old and new mouse position to the console
+    con_endl("mouse moved from " << event.getLastPosition() << " to " << event.getPosition());
+    return true;
+}
+
+bool MouseExample::onMouseWheelEvent(iEventMouseWheel &event)
 {
     // prints the mouse wheel delta to the console
-    con_endl("wheel delta " << d);
-
-    ExampleBase::onMouseWheel(d);
+    con_endl("mouse wheel delta " << event.getWheelDelta());
 }
