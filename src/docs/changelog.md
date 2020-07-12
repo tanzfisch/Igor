@@ -4,6 +4,9 @@ Changelog                           {#changelog}
 0.28.0
 ------
 
+This is probably less stable than previous versions but 
+I really needed to get this out before it get's even bigger.
+
 - fixed how menus behave
 - improved console output
 - made instancing and the instancing example work again
@@ -15,6 +18,10 @@ Changelog                           {#changelog}
 - fixed left and right audio channel being swapped
 - ALSA required on Linux
 - added regex to iaString
+- intruduced layer and layer-stack
+- introduced new queueable events and replaced some of the old ones osing event/delegate
+- killed the state machine example
+- some improvements arround mouse handling in widgets
 
 0.27.0
 ------
