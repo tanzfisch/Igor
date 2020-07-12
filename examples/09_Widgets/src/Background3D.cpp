@@ -190,7 +190,7 @@ void Background3D::onEvent(iEvent &event)
 
     event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(Background3D::onMouseKeyDownEvent));
     event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(Background3D::onMouseMoveEvent));
-    event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Background3D::onMouseWheelEvent));
+    event.dispatch<iEventMouseWheel>(IGOR_BIND_EVENT_FUNCTION(Background3D::onMouseWheelEvent));
 }
 
 bool Background3D::onMouseKeyDownEvent(iEventMouseKeyDown &event)
@@ -263,7 +263,7 @@ bool Background3D::onMouseMoveEvent(iEventMouseMove &event)
     return true;
 }
 
-bool Background3D::onMouseWheelEvent(iMouseWheelEvent_TMP &event)
+bool Background3D::onMouseWheelEvent(iEventMouseWheel &event)
 {
     iNodeTransform *camTranslation = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraTranslation));
     if (camTranslation != nullptr)

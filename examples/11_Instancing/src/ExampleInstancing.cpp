@@ -154,10 +154,10 @@ void ExampleInstancing::onEvent(iEvent &event)
     ExampleBase::onEvent(event);
 
     event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(ExampleInstancing::onMouseMoveEvent));
-    event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(ExampleInstancing::onMouseWheelEvent));
+    event.dispatch<iEventMouseWheel>(IGOR_BIND_EVENT_FUNCTION(ExampleInstancing::onMouseWheelEvent));
 }
 
-bool ExampleInstancing::onMouseWheelEvent(iMouseWheelEvent_TMP &event)
+bool ExampleInstancing::onMouseWheelEvent(iEventMouseWheel &event)
 {
     iNodeTransform *camTranslation = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraTranslation));
     if (camTranslation != nullptr)

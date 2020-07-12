@@ -240,8 +240,6 @@ bool UILayer::onNodeRemovedFromScene(iEventNodeRemovedFromScene &event)
 
 bool UILayer::onSceneSelectionChanged(iEventSceneSelectionChanged &event)
 {
-    con_endl("onSceneSelectionChanged");
-
     _refresh = true;
     return false;
 }

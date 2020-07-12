@@ -282,10 +282,10 @@ void LSystems::onEvent(iEvent &event)
 
 	event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(LSystems::onKeyDown));
 	event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(LSystems::onMouseMoveEvent));
-	event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(LSystems::onMouseWheelEvent));
+	event.dispatch<iEventMouseWheel>(IGOR_BIND_EVENT_FUNCTION(LSystems::onMouseWheelEvent));
 }
 
-bool LSystems::onMouseWheelEvent(iMouseWheelEvent_TMP &event)
+bool LSystems::onMouseWheelEvent(iEventMouseWheel &event)
 {
 	iNodeTransform *camTranslation = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraTranslation));
 	if (camTranslation != nullptr)

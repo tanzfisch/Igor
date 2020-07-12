@@ -70,7 +70,7 @@ namespace igor
 
     /*! mouse key up event
     */
-    class Igor_API iMouseKeyUpEvent_TMP : public iEvent
+    class Igor_API iEventMouseKeyUp : public iEvent
     {
     public:
         /*! init members
@@ -78,7 +78,7 @@ namespace igor
         \param window the window this event came from
         \param key the key code used in this event
         */
-        iMouseKeyUpEvent_TMP(iWindow *window, const iKeyCode key);
+        iEventMouseKeyUp(iWindow *window, const iKeyCode key);
 
         /*! \returns event kind mask
         */
@@ -92,7 +92,7 @@ namespace igor
         */
         iKeyCode getKey() const;
 
-        IGOR_EVENT_CLASS_TYPE(iMouseKeyUpEvent_TMP)
+        IGOR_EVENT_CLASS_TYPE(iEventMouseKeyUp)
 
     private:
         /*! the key code
@@ -102,7 +102,7 @@ namespace igor
 
     /*! mouse key double click event
     */
-    class Igor_API iMouseKeyDoubleClickEvent_TMP : public iEvent
+    class Igor_API iEventMouseKeyDoubleClick : public iEvent
     {
     public:
         /*! init members
@@ -110,7 +110,7 @@ namespace igor
         \param window the window this event came from
         \param key the key code used in this event
         */
-        iMouseKeyDoubleClickEvent_TMP(iWindow *window, const iKeyCode key);
+        iEventMouseKeyDoubleClick(iWindow *window, const iKeyCode key);
 
         /*! \returns event kind mask
         */
@@ -124,7 +124,7 @@ namespace igor
         */
         iKeyCode getKey() const;
 
-        IGOR_EVENT_CLASS_TYPE(iMouseKeyDoubleClickEvent_TMP)
+        IGOR_EVENT_CLASS_TYPE(iEventMouseKeyDoubleClick)
 
     private:
         /*! the key code
@@ -134,7 +134,7 @@ namespace igor
 
     /*! mouse wheel event
     */
-    class Igor_API iMouseWheelEvent_TMP : public iEvent
+    class Igor_API iEventMouseWheel : public iEvent
     {
     public:
         /*! init members
@@ -142,7 +142,7 @@ namespace igor
         \param window the window this event came from
         \param wheelDelta the wheel delta
         */
-        iMouseWheelEvent_TMP(iWindow *window, const int32 wheelDelta);
+        iEventMouseWheel(iWindow *window, const int32 wheelDelta);
 
         /*! \returns event kind mask
         */
@@ -156,7 +156,7 @@ namespace igor
         */
         int32 getWheelDelta() const;
 
-        IGOR_EVENT_CLASS_TYPE(iMouseWheelEvent_TMP)
+        IGOR_EVENT_CLASS_TYPE(iEventMouseWheel)
 
     private:
         /*! the wheel delta

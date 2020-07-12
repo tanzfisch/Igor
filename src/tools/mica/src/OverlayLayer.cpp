@@ -19,7 +19,9 @@ void OverlayLayer::onInit()
     _view.setClipPlanes(1.0f, 10000.f);
     _view.registerRenderDelegate(iDrawDelegate(this, &OverlayLayer::render));
 
-    _view.setScene(_workspace->getScene());
+    _scene = iSceneFactory::getInstance().createScene();
+    _scene->setName("Overlay");
+    _view.setScene(_scene);
 
     getWindow()->addView(&_view, getZIndex());
 
@@ -42,7 +44,7 @@ void OverlayLayer::onInit()
     // font for
     _font = new iTextureFont("StandardFont.png");
 
-    _manipulator = new Manipulator(getWindow(), &_view, _workspace);
+    _manipulator = new Manipulator(&_view, _scene, _workspace);
 }
 
 void OverlayLayer::resetManipulatorMode()
@@ -68,19 +70,6 @@ void OverlayLayer::setManipulatorMode(ManipulatorMode manipulatorMode)
     _manipulator->setVisible(false);
     _manipulator->setManipulatorMode(ManipulatorMode::None);
 }
-
-/*void OverlayLayer::onMouseKeyDown(iKeyCode key)
-{
-    switch (key)
-    {
-    case iKeyCode::MouseLeft:
-        if (!iKeyboard::getInstance().getKey(iKeyCode::Alt))
-        {
-            _manipulator->onMouseKeyDown(key);
-        }
-        break;
-    }
-}*/
 
 void OverlayLayer::onDeinit()
 {
@@ -148,8 +137,57 @@ void OverlayLayer::renderOrtho()
 void OverlayLayer::onEvent(iEvent &event)
 {
     event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(OverlayLayer::onKeyDown));
+    event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(OverlayLayer::onMouseKeyDownEvent));
+    event.dispatch<iEventMouseKeyUp>(IGOR_BIND_EVENT_FUNCTION(OverlayLayer::onMouseKeyUpEvent));
+    event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(OverlayLayer::onMouseMoveEvent));
     event.dispatch<iEventWindowResize>(IGOR_BIND_EVENT_FUNCTION(OverlayLayer::onWindowResize));
     event.dispatch<iEventSceneSelectionChanged>(IGOR_BIND_EVENT_FUNCTION(OverlayLayer::onSceneSelectionChanged));
+}
+
+bool OverlayLayer::onMouseMoveEvent(iEventMouseMove &event)
+{
+    if (_manipulator->isSelected())
+    {
+        _manipulator->onMouseMoved(event.getLastPosition(), event.getPosition());
+        return true;
+    }
+
+    return false;
+}
+
+bool OverlayLayer::onMouseKeyUpEvent(iEventMouseKeyUp &event)
+{
+    switch (event.getKey())
+    {
+    case iKeyCode::MouseLeft:
+        if (_manipulator->isSelected())
+        {
+            _manipulator->unselect();
+            return true;
+        }
+        break;
+    }
+
+    return false;
+}
+
+bool OverlayLayer::onMouseKeyDownEvent(iEventMouseKeyDown &event)
+{
+    switch (event.getKey())
+    {
+    case iKeyCode::MouseLeft:
+        if (!iKeyboard::getInstance().getKey(iKeyCode::Alt))
+        {
+            _manipulator->select();
+            if (_manipulator->isSelected())
+            {
+                return true;
+            }
+        }
+        break;
+    }
+
+    return false;
 }
 
 bool OverlayLayer::onSceneSelectionChanged(iEventSceneSelectionChanged &event)

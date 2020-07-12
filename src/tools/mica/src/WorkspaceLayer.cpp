@@ -143,9 +143,9 @@ void WorkspaceLayer::frameOnSelection()
 void WorkspaceLayer::onEvent(iEvent &event)
 {
     event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseKeyDownEvent));
-    event.dispatch<iMouseKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseKeyUpEvent));
+    event.dispatch<iEventMouseKeyUp>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseKeyUpEvent));
     event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseMoveEvent));
-    event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseWheelEvent));
+    event.dispatch<iEventMouseWheel>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onMouseWheelEvent));
     event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(WorkspaceLayer::onKeyDown));
 }
 
@@ -188,12 +188,11 @@ bool WorkspaceLayer::onMouseKeyDownEvent(iEventMouseKeyDown &event)
     return false;
 }
 
-bool WorkspaceLayer::onMouseKeyUpEvent(iMouseKeyUpEvent_TMP &event)
+bool WorkspaceLayer::onMouseKeyUpEvent(iEventMouseKeyUp &event)
 {
     switch (event.getKey())
     {
     case iKeyCode::MouseLeft:
-
         if (!iKeyboard::getInstance().getKey(iKeyCode::Alt))
         {
             auto node = getNodeAt(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
@@ -260,7 +259,7 @@ bool WorkspaceLayer::onMouseMoveEvent(iEventMouseMove &event)
     return false;
 }
 
-bool WorkspaceLayer::onMouseWheelEvent(iMouseWheelEvent_TMP &event)
+bool WorkspaceLayer::onMouseWheelEvent(iEventMouseWheel &event)
 {
     const float64 wheelSensitivity = 1.2;
 

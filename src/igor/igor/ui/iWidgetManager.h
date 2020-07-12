@@ -302,14 +302,14 @@ namespace igor
         \param event the mouse key up event
         \returns true if consumed
         */
-        bool onMouseKeyUpEvent(iMouseKeyUpEvent_TMP &event);
+        bool onMouseKeyUpEvent(iEventMouseKeyUp &event);
 
         /*! handles mouse key double click event
 
         \param event the mouse key double click event
         \returns true if consumed
         */
-        bool onMouseKeyDoubleClickEvent(iMouseKeyDoubleClickEvent_TMP &event);
+        bool onMouseKeyDoubleClickEvent(iEventMouseKeyDoubleClick &event);
 
         /*! handles mouse move event
 
@@ -323,7 +323,7 @@ namespace igor
         \param event the mouse wheel event
         \returns true if consumed
         */
-        bool onMouseWheelEvent(iMouseWheelEvent_TMP &event);
+        bool onMouseWheelEvent(iEventMouseWheel &event);
 
         /*! handle window resize event
 

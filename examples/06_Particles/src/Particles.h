@@ -136,7 +136,7 @@ private:
     \param event the mouse wheel event
     \returns true if consumed
     */
-    bool onMouseWheelEvent(iMouseWheelEvent_TMP &event);
+    bool onMouseWheelEvent(iEventMouseWheel &event);
 
     /*! init example
     */

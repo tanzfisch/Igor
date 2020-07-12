@@ -4,6 +4,7 @@
 
 #include <igor/scene/nodes/iNode.h>
 
+#include <igor/system/iApplication.h>
 #include <igor/scene/iScene.h>
 #include <iaux/system/iaConsole.h>
 #include <igor/scene/nodes/iNodeManager.h>
@@ -425,7 +426,10 @@ namespace igor
                         if ((*iter) == this)
                         {
                             setTransformationDirty();
+
+                            iApplication::getInstance().blockEvent(iEventType::iEventNodeRemovedFromScene);
                             setScene(nullptr);
+                            iApplication::getInstance().unblockEvent(iEventType::iEventNodeRemovedFromScene);
 
                             _parent->_children.erase(iter);
                             _parent->_inactiveChildren.push_back(this);
@@ -451,7 +455,9 @@ namespace igor
                     {
                         if ((*iter) == this)
                         {
+                            iApplication::getInstance().blockEvent(iEventType::iEventNodeAddedToScene);
                             setScene(_parent->getScene());
+                            iApplication::getInstance().unblockEvent(iEventType::iEventNodeAddedToScene);
                             setTransformationDirty();
 
                             _parent->_inactiveChildren.erase(iter);

@@ -309,7 +309,7 @@ namespace igor
             {
                 _doubleClickEvent(buttonKey);
 
-                iApplication::getInstance().onEvent(iEventPtr(new iMouseKeyDoubleClickEvent_TMP(_window, buttonKey)));
+                iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyDoubleClick(_window, buttonKey)));
             }
             else
             {
@@ -325,7 +325,7 @@ namespace igor
             _buttonStates[buttonIndex]._pressed = false;
             _keyUpEvent(buttonKey);
 
-            iApplication::getInstance().onEvent(iEventPtr(new iMouseKeyUpEvent_TMP(_window, buttonKey)));
+            iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyUp(_window, buttonKey)));
         }
 
         bool onOSEvent(const void *data) override
@@ -353,7 +353,7 @@ namespace igor
                 case 4:
                     _wheelEvent(1);
                     {
-                        iApplication::getInstance().onEvent(iEventPtr(new iMouseWheelEvent_TMP(_window, 1)));
+                        iApplication::getInstance().onEvent(iEventPtr(new iEventMouseWheel(_window, 1)));
                     }
 
                     break;
@@ -361,7 +361,7 @@ namespace igor
                 case 5:
                     _wheelEvent(-1);
                     {
-                        iApplication::getInstance().onEvent(iEventPtr(new iMouseWheelEvent_TMP(_window, -1)));
+                        iApplication::getInstance().onEvent(iEventPtr(new iEventMouseWheel(_window, -1)));
                     }
                     break;
 

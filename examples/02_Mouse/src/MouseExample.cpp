@@ -15,10 +15,10 @@ void MouseExample::onEvent(iEvent &event)
     ExampleBase::onEvent(event);
 
     event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseKeyDownEvent));
-    event.dispatch<iMouseKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseKeyUpEvent));
-    event.dispatch<iMouseKeyDoubleClickEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseKeyDoubleClickEvent));
+    event.dispatch<iEventMouseKeyUp>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseKeyUpEvent));
+    event.dispatch<iEventMouseKeyDoubleClick>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseKeyDoubleClickEvent));
     event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseMoveEvent));
-    event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseWheelEvent));
+    event.dispatch<iEventMouseWheel>(IGOR_BIND_EVENT_FUNCTION(MouseExample::onMouseWheelEvent));
 }
 
 bool MouseExample::onMouseKeyDownEvent(iEventMouseKeyDown &event)
@@ -28,13 +28,13 @@ bool MouseExample::onMouseKeyDownEvent(iEventMouseKeyDown &event)
     return true;
 }
 
-bool MouseExample::onMouseKeyUpEvent(iMouseKeyUpEvent_TMP &event)
+bool MouseExample::onMouseKeyUpEvent(iEventMouseKeyUp &event)
 {
     // prints if a key was released to the console
     con_endl("mouse key up " << event.getKey());
 }
 
-bool MouseExample::onMouseKeyDoubleClickEvent(iMouseKeyDoubleClickEvent_TMP &event)
+bool MouseExample::onMouseKeyDoubleClickEvent(iEventMouseKeyDoubleClick &event)
 {
     // prints if a double click was performed
     con_endl("mouse key double clicked " << event.getKey());
@@ -48,7 +48,7 @@ bool MouseExample::onMouseMoveEvent(iEventMouseMove &event)
     return true;
 }
 
-bool MouseExample::onMouseWheelEvent(iMouseWheelEvent_TMP &event)
+bool MouseExample::onMouseWheelEvent(iEventMouseWheel &event)
 {
     // prints the mouse wheel delta to the console
     con_endl("mouse wheel delta " << event.getWheelDelta());

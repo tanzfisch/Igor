@@ -36,12 +36,20 @@ namespace igor
         _texture = nullptr;
     }
 
-    void iWidgetColorGradient::block(bool blockEvents)
+    void iWidgetColorGradient::blockEvents()
     {
-        iWidget::block(blockEvents);
+        iWidget::blockEvents();
 
         // update own events
-        _colorCreated.block(isBlocked());
+        _colorCreated.block(true);
+    }
+
+    void iWidgetColorGradient::unblockEvents()
+    {
+        iWidget::unblockEvents();
+
+        // update own events
+        _colorCreated.block(false);
     }
 
     bool iWidgetColorGradient::handleMouseKeyDown(iKeyCode key)

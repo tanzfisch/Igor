@@ -372,6 +372,10 @@ namespace igor
         void updateWindowRect(const iRectanglei &windowRect);
     };
 
+    /*! view pointer definition
+    */
+    typedef iView *iViewPtr;
+
 }; // namespace igor
 
 #endif

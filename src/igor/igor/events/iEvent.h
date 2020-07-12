@@ -49,10 +49,10 @@ namespace igor
         iKeyASCIIEvent_TMP,
 
         iEventMouseKeyDown,
-        iMouseKeyUpEvent_TMP,
-        iMouseKeyDoubleClickEvent_TMP,
+        iEventMouseKeyUp,
+        iEventMouseKeyDoubleClick,
         iEventMouseMove,
-        iMouseWheelEvent_TMP,
+        iEventMouseWheel,
 
         iEventWindowClose,
         iEventWindowOpen,

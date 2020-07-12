@@ -31,17 +31,17 @@ namespace igor
         return _key;
     }
 
-    iMouseKeyUpEvent_TMP::iMouseKeyUpEvent_TMP(iWindow *window, const iKeyCode key)
+    iEventMouseKeyUp::iEventMouseKeyUp(iWindow *window, const iKeyCode key)
         : iEvent(window), _key(key)
     {
     }
 
-    iEventKindMask iMouseKeyUpEvent_TMP::getEventKindMask() const
+    iEventKindMask iEventMouseKeyUp::getEventKindMask() const
     {
         return (iEventKindMask)iEventKind::Input | (iEventKindMask)iEventKind::Mouse;
     }
 
-    const iaString iMouseKeyUpEvent_TMP::getInfo() const
+    const iaString iEventMouseKeyUp::getInfo() const
     {
         std::wstringstream stream;
         stream << getName().getData() << "[" << _key << "]";
@@ -49,22 +49,22 @@ namespace igor
         return stream.str().c_str();
     }
 
-    iKeyCode iMouseKeyUpEvent_TMP::getKey() const
+    iKeyCode iEventMouseKeyUp::getKey() const
     {
         return _key;
     }
 
-    iMouseKeyDoubleClickEvent_TMP::iMouseKeyDoubleClickEvent_TMP(iWindow *window, const iKeyCode key)
+    iEventMouseKeyDoubleClick::iEventMouseKeyDoubleClick(iWindow *window, const iKeyCode key)
         : iEvent(window), _key(key)
     {
     }
 
-    iEventKindMask iMouseKeyDoubleClickEvent_TMP::getEventKindMask() const
+    iEventKindMask iEventMouseKeyDoubleClick::getEventKindMask() const
     {
         return (iEventKindMask)iEventKind::Input | (iEventKindMask)iEventKind::Mouse;
     }
 
-    const iaString iMouseKeyDoubleClickEvent_TMP::getInfo() const
+    const iaString iEventMouseKeyDoubleClick::getInfo() const
     {
         std::wstringstream stream;
         stream << getName().getData() << "[" << _key << "]";
@@ -72,22 +72,22 @@ namespace igor
         return stream.str().c_str();
     }
 
-    iKeyCode iMouseKeyDoubleClickEvent_TMP::getKey() const
+    iKeyCode iEventMouseKeyDoubleClick::getKey() const
     {
         return _key;
     }
 
-    iMouseWheelEvent_TMP::iMouseWheelEvent_TMP(iWindow *window, const int32 wheelDelta)
+    iEventMouseWheel::iEventMouseWheel(iWindow *window, const int32 wheelDelta)
         : iEvent(window), _wheelDelta(wheelDelta)
     {
     }
 
-    iEventKindMask iMouseWheelEvent_TMP::getEventKindMask() const
+    iEventKindMask iEventMouseWheel::getEventKindMask() const
     {
         return (iEventKindMask)iEventKind::Input | (iEventKindMask)iEventKind::Mouse;
     }
 
-    const iaString iMouseWheelEvent_TMP::getInfo() const
+    const iaString iEventMouseWheel::getInfo() const
     {
         std::wstringstream stream;
         stream << getName().getData() << "[" << _wheelDelta << "]";
@@ -95,7 +95,7 @@ namespace igor
         return stream.str().c_str();
     }
 
-    int32 iMouseWheelEvent_TMP::getWheelDelta() const
+    int32 iEventMouseWheel::getWheelDelta() const
     {
         return _wheelDelta;
     }

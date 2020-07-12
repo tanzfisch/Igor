@@ -384,10 +384,10 @@ namespace igor
     void iWidgetManager::onEvent(iEvent &event)
     {
         event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseKeyDownEvent));
-        event.dispatch<iMouseKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseKeyUpEvent));
-        event.dispatch<iMouseKeyDoubleClickEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseKeyDoubleClickEvent));
+        event.dispatch<iEventMouseKeyUp>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseKeyUpEvent));
+        event.dispatch<iEventMouseKeyDoubleClick>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseKeyDoubleClickEvent));
         event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseMoveEvent));
-        event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseWheelEvent));
+        event.dispatch<iEventMouseWheel>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onMouseWheelEvent));
         event.dispatch<iKeyASCIIEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onKeyASCIIInput));
         event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onKeyDown));
         event.dispatch<iKeyUpEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(iWidgetManager::onKeyUp));
@@ -494,7 +494,7 @@ namespace igor
         return false;
     }
 
-    bool iWidgetManager::onMouseKeyUpEvent(iMouseKeyUpEvent_TMP &event)
+    bool iWidgetManager::onMouseKeyUpEvent(iEventMouseKeyUp &event)
     {
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
@@ -526,7 +526,7 @@ namespace igor
         return consumed;
     }
 
-    bool iWidgetManager::onMouseKeyDoubleClickEvent(iMouseKeyDoubleClickEvent_TMP &event)
+    bool iWidgetManager::onMouseKeyDoubleClickEvent(iEventMouseKeyDoubleClick &event)
     {
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
@@ -560,7 +560,7 @@ namespace igor
         return false;
     }
 
-    bool iWidgetManager::onMouseWheelEvent(iMouseWheelEvent_TMP &event)
+    bool iWidgetManager::onMouseWheelEvent(iEventMouseWheel &event)
     {
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)

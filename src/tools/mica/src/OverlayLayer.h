@@ -124,6 +124,27 @@ private:
     */
     void onEvent(iEvent &event) override;
 
+    /*! handles mouse key down event
+
+    \param event the mouse key down event
+    \returns true if consumed
+    */
+    bool onMouseKeyDownEvent(iEventMouseKeyDown &event);
+
+    /*! handles mouse key up event
+
+    \param event the mouse key up event
+    \returns true if consumed
+    */
+    bool onMouseKeyUpEvent(iEventMouseKeyUp &event);
+
+    /*! handles mouse move event
+
+    \param event the mouse move event
+    \returns true if consumed
+    */
+    bool onMouseMoveEvent(iEventMouseMove &event);
+
     /*! called when key was pressed
 
     \param event the event to handle

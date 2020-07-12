@@ -4,8 +4,8 @@
 
 #include "Manipulator.h"
 
-Manipulator::Manipulator(iWindow *window, iView *view, WorkspacePtr workspace)
-	: _window(window), _view(view), _workspace(workspace)
+Manipulator::Manipulator(iViewPtr view, iScenePtr scene, WorkspacePtr workspace)
+	: _view(view), _workspace(workspace), _scene(scene)
 {
 	init();
 }
@@ -73,7 +73,7 @@ void Manipulator::init()
 	createRotateModifier(ringMesh, ringMesh2D, cylinder);
 	createTransformRepresentation(cylinder);
 
-	_workspace->getRootMica()->insertNode(_rootTransform);
+	_scene->getRoot()->insertNode(_rootTransform);
 
 	_materialCelShading = iMaterialResourceFactory::getInstance().createMaterial("ManipulatorCelShading");
 	iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
@@ -332,7 +332,7 @@ void Manipulator::update()
 	}
 	else
 	{
-		// setVisible(false);
+		setVisible(false);
 		return;
 	}
 
@@ -477,8 +477,6 @@ iMeshPtr Manipulator::createTranslateMesh()
 
 void Manipulator::setManipulatorMode(ManipulatorMode manipulatorMode)
 {
-	con_endl("setManipulatorMode " << (int)manipulatorMode);
-
 	_manipulatorMode = manipulatorMode;
 
 	switch (_manipulatorMode)
@@ -606,7 +604,7 @@ void Manipulator::rotate(const iaVector2d &from, const iaVector2d &to, iaMatrixd
 	}
 }
 
-void Manipulator::onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window)
+void Manipulator::onMouseMoved(const iaVector2i &from, const iaVector2i &to)
 {
 	if (_selectedManipulatorNodeID != iNode::INVALID_NODE_ID)
 	{
@@ -655,21 +653,17 @@ void Manipulator::onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWi
 	}
 }
 
-void Manipulator::onMouseWheel(int32 d)
-{
-}
-
 bool Manipulator::isSelected() const
 {
 	return (_selectedManipulatorNodeID != iNode::INVALID_NODE_ID) ? true : false;
 }
 
-void Manipulator::onMouseKeyDown(iKeyCode key)
+void Manipulator::select()
 {
 	_selectedManipulatorNodeID = _view->pickcolorID(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
 }
 
-void Manipulator::onMouseKeyUp(iKeyCode key)
+void Manipulator::unselect()
 {
 	_selectedManipulatorNodeID = iNode::INVALID_NODE_ID;
 }

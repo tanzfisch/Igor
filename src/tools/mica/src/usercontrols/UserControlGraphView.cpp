@@ -6,7 +6,7 @@
 
 #include "../actions/ActionContext.h"
 
-UserControlGraphView::UserControlGraphView(Outliner *outliner)
+UserControlGraphView::UserControlGraphView(Outliner *outliner) // TODO UserControlGraphView should not know the Outliner
     : _outliner(outliner)
 {
     initGUI();
@@ -232,84 +232,24 @@ void UserControlGraphView::OnContextMenu(iWidgetPtr widget)
 
 void UserControlGraphView::OnContextMenuClose(iDialogPtr dialog)
 {
-    if (_graphContextMenu != dialog)
-    {
-        return;
-    }
-
-    // TODO
-
     delete _graphContextMenu;
     _graphContextMenu = nullptr;
-
-    /*    if (dialog != _graphContextMenu)
-    {
-        return;
-    }
-
-    // TODO ??? yeah we need something like Qt QAction
-    const int32 cutID = 0;
-    const int32 copyID = 1;
-    const int32 pasteID = 2;
-    const int32 deleteID = 3;
-    const int32 addTransformID = 4;
-    const int32 addGroupID = 5;
-    const int32 addSwitchID = 6;
-    const int32 addModelID = 7;
-    const int32 addEmitterID = 8;
-    const int32 addParticleSystemID = 9;
-
-    switch (_graphContextMenu->getSelectionIndex())
-    {
-    case cutID:
-        // TODO
-        break;
-
-    case copyID:
-        // TODO
-        break;
-
-    case pasteID:
-        // TODO
-        break;
-
-    case deleteID:
-        // TODO
-        break;
-
-    case addTransformID:
-        _addTransformation(_selectedNode);
-        break;
-
-    case addGroupID:
-        _addGroup(_selectedNode);
-        break;
-
-    case addSwitchID:
-        _addSwitch(_selectedNode);
-        break;
-
-    case addModelID:
-        _addModel(_selectedNode);
-        break;
-
-    case addEmitterID:
-        _addEmitter(_selectedNode);
-        break;
-
-    case addParticleSystemID:
-        _addParticleSystem(_selectedNode);
-        break;
-    }
-
-    delete _graphContextMenu;*/
 }
 
 void UserControlGraphView::setSelectedNode(uint64 nodeID)
 {
-    if (nodeID == iNode::INVALID_NODE_ID)
+    if (nodeID == _selectedNode)
     {
+        return;
+    }
+
+    _selectedNode = nodeID;
+
+    if (_selectedNode == iNode::INVALID_NODE_ID)
+    {
+        _gridGraph->blockEvents();
         _gridGraph->unselect();
+        _gridGraph->unblockEvents();
         return;
     }
 
@@ -325,12 +265,17 @@ void UserControlGraphView::setSelectedNode(uint64 nodeID)
 
         if (nodeID == id)
         {
+            _gridGraph->blockEvents();
             _gridGraph->select(0, row);
+            _gridGraph->unblockEvents();
             return;
         }
     }
 
+    _gridGraph->blockEvents();
     _gridGraph->unselect();
+    _gridGraph->unblockEvents();
+    _selectedNode = iNode::INVALID_NODE_ID;
 }
 
 iNodeID UserControlGraphView::getSelectedNode() const

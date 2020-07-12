@@ -51,9 +51,11 @@ class Manipulator
 public:
     /*! initialize manipulator
 
-    \param window the window this manipulator is displayed with
+    \param view the view to use
+    \param scene the scene to use
+    \param workspace the mica workspace
     */
-    Manipulator(iWindow *window, iView *view, WorkspacePtr workspace);
+    Manipulator(iViewPtr view, iScenePtr scene, WorkspacePtr workspace);
 
     /*! cleanup
     */
@@ -116,20 +118,26 @@ public:
     ManipulatorMode getManipulatorMode() const;
 
     // ugly interfaces
-    void onMouseMoved(const iaVector2i &from, const iaVector2i &to, iWindow *window);
-    void onMouseWheel(int32 d);
-    void onMouseKeyDown(iKeyCode key);
-    void onMouseKeyUp(iKeyCode key);
+    void onMouseMoved(const iaVector2i &from, const iaVector2i &to);
+    void select();
+    void unselect();
 
 private:
     /*! mica workspace
     */
     WorkspacePtr _workspace;
 
-    uint64 _materialCelShading;
+    /*! the manipulator scene
+    */
+    iScenePtr _scene;
 
-    iWindow *_window = nullptr;
-    iView *_view = nullptr;
+    /*! the view
+    */
+    iViewPtr _view = nullptr;
+
+    /*! cel chader material for selection
+    */
+    iMaterialID _materialCelShading;
 
     uint64 _selectedManipulatorNodeID = iNode::INVALID_NODE_ID;
     uint64 _selectedNodeID = iNode::INVALID_NODE_ID;

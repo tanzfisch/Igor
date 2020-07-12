@@ -28,12 +28,20 @@ namespace igor
         deinitGUI();
     }
 
-    void iUserControlColorChooser::block(bool blockEvents)
+    void iUserControlColorChooser::blockEvents()
     {
-        iWidget::block(blockEvents);
+        iWidget::blockEvents();
 
         // update own events
-        _colorChanged.block(isBlocked());
+        _colorChanged.block(true);
+    }
+
+    void iUserControlColorChooser::unblockEvents()
+    {
+        iWidget::unblockEvents();
+
+        // update own events
+        _colorChanged.block(false);
     }
 
     void iUserControlColorChooser::setMode(iColorChooserMode mode)

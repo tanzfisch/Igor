@@ -191,7 +191,7 @@ void Example3D::onEvent(iEvent &event)
 
     event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(Example3D::onMouseKeyDownEvent));
     event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(Example3D::onMouseMoveEvent));
-    event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Example3D::onMouseWheelEvent));
+    event.dispatch<iEventMouseWheel>(IGOR_BIND_EVENT_FUNCTION(Example3D::onMouseWheelEvent));
     event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(Example3D::onKeyDown));
 }
 
@@ -304,7 +304,7 @@ bool Example3D::onMouseMoveEvent(iEventMouseMove &event)
     return true;
 }
 
-bool Example3D::onMouseWheelEvent(iMouseWheelEvent_TMP &event)
+bool Example3D::onMouseWheelEvent(iEventMouseWheel &event)
 {
     iNodeTransform *camTranslation = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraTranslation));
     if (camTranslation != nullptr)

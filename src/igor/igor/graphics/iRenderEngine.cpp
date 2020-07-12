@@ -176,8 +176,7 @@ namespace igor
 #endif
 
         if (_scene != nullptr &&
-            _currentCamera != nullptr &&
-            _currentCamera->getScene() == _scene)
+            _currentCamera != nullptr)
         {
 #ifdef USE_VERBOSE_STATISTICS
             iProfiler::getInstance().beginSection(_cullSectionID);

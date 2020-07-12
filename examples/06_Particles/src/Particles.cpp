@@ -475,7 +475,7 @@ void Particles::onEvent(iEvent &event)
 
     event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(Particles::onKeyDown));
     event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(Particles::onMouseMoveEvent));
-    event.dispatch<iMouseWheelEvent_TMP>(IGOR_BIND_EVENT_FUNCTION(Particles::onMouseWheelEvent));
+    event.dispatch<iEventMouseWheel>(IGOR_BIND_EVENT_FUNCTION(Particles::onMouseWheelEvent));
 }
 
 bool Particles::onKeyDown(iEventKeyDown &event)
@@ -540,7 +540,7 @@ bool Particles::onMouseMoveEvent(iEventMouseMove &event)
     return false;
 }
 
-bool Particles::onMouseWheelEvent(iMouseWheelEvent_TMP &event)
+bool Particles::onMouseWheelEvent(iEventMouseWheel &event)
 {
     iNodeTransform *camTranslation = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_cameraTranslation));
     if (camTranslation != nullptr)
