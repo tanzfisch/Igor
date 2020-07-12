@@ -128,20 +128,13 @@ namespace igor
     void iProfilerVisualizer::draw(iWindow *window, iTextureFont *font, const iaColor4f &color)
     {
         if (!iRenderer::getInstance().isReady() ||
-            _renderStatisticsMode > iProfilerVerbosity::None ||
+            _renderStatisticsMode == iProfilerVerbosity::None ||
             font == nullptr || !font->isValid())
         {
             return;
         }
 
-        iaMatrixd identity;
-        iaMatrixd translation;
-        translation.translate(0, 0, -0.1);
-        iRenderer::getInstance().setViewMatrix(identity);
-        iRenderer::getInstance().setModelMatrix(translation);
-
         iRenderer::getInstance().setColor(color);
-
         iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
 
         iRenderer::getInstance().setFont(font);

@@ -28,7 +28,7 @@ namespace igor
         getWindow()->addView(&_view, getZIndex());
 
         // setup profiler visualisation
-        _profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSAndMetrics);
+        _profilerVisualizer.setVerbosity(iProfilerVerbosity::FPSOnly);
 
         // init font for render profiler
         _font = new iTextureFont("StandardFont.png");
@@ -74,6 +74,16 @@ namespace igor
 
     void iLayerProfiler::onRender()
     {
+        // initialize view matrix with identity matrix
+        iaMatrixd identity;
+        iRenderer::getInstance().setViewMatrix(identity);
+
+        // move scene between near and far plane so be ca actually see what we render
+        // any value between near and far plane would do the trick
+        iaMatrixd modelMatrix;
+        modelMatrix.translate(0, 0, -30);
+        iRenderer::getInstance().setModelMatrix(modelMatrix);
+
         _profilerVisualizer.draw(getWindow(), _font, iaColor4f(0, 1, 0, 1));
     }
 
