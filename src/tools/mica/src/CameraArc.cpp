@@ -31,7 +31,7 @@ CameraArc::CameraArc(iNodePtr node)
     cameraDistance->insertNode(camera);
 }
 
-void CameraArc::getWorldTransformation(iaMatrixd matrix) const
+void CameraArc::getWorldTransformation(iaMatrixd &matrix) const
 {
     iNodeCameraPtr camera = static_cast<iNodeCameraPtr>(iNodeManager::getInstance().getNode(_camera));
     if (camera == nullptr)

@@ -323,18 +323,15 @@ void Manipulator::createScaleModifier(iMeshPtr &scaleMesh)
 
 void Manipulator::update()
 {
-	iaMatrixd matrix;
-
 	iNodePtr node = iNodeManager::getInstance().getNode(_selectedNodeID);
-	if (node != nullptr)
-	{
-		node->calcWorldTransformation(matrix);
-	}
-	else
+	if (node == nullptr)
 	{
 		setVisible(false);
 		return;
 	}
+
+	iaMatrixd matrix;
+	node->calcWorldTransformation(matrix);
 
 	iaMatrixd camMatrix;
 	_workspace->getCameraArc()->getWorldTransformation(camMatrix);

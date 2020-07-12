@@ -95,7 +95,7 @@ public:
 
     \param[out] matrix the returing world matrix of the camera
     */
-    void getWorldTransformation(iaMatrixd matrix) const;
+    void getWorldTransformation(iaMatrixd &matrix) const;
 
 private:
     /*! center of interest node
