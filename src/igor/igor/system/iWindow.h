@@ -46,14 +46,6 @@ namespace igor
     class iView;
     class iWindowImpl;
 
-    /*! window close event
-    */
-    iaEVENT(WindowCloseEvent, WindowCloseDelegate, (), ());
-
-    /*! window resize event
-    */
-    iaEVENT(WindowResizeEvent, WindowResizeDelegate, (int32 clientWidth, int32 clientHeight), (clientWidth, clientHeight));
-
     /*! render context pointer definition
     */
     typedef void *iRenderContextPtr;
@@ -232,30 +224,6 @@ namespace igor
         */
         void removeView(iView *view);
 
-        /*! regiters delegate to window close event
-
-        \param windowCloseDelegate the delegate to be registered
-        */
-        void registerWindowCloseDelegate(WindowCloseDelegate windowCloseDelegate);
-
-        /*! unregiters delegate from window close event
-
-        \param windowCloseDelegate the delegate to be unregistered
-        */
-        void unregisterWindowCloseDelegate(WindowCloseDelegate windowCloseDelegate);
-
-        /*! register callback to resize event
-
-        \param windowResizeDelegate the delegate to register
-        */
-        void registerWindowResizeDelegate(WindowResizeDelegate windowResizeDelegate);
-
-        /*! unregister callback from resize event
-
-        \param windowResizeDelegate the delegate to unregister
-        */
-        void unregisterWindowResizeDelegate(WindowResizeDelegate windowResizeDelegate);
-
     private:
         /*! pimpl
         */
@@ -276,14 +244,6 @@ namespace igor
         /*! swap buffer stats section id
         */
         int32 _swapBufferSectionID = 0;
-
-        /*! triggered by window closed OS message
-        */
-        WindowCloseEvent _windowCloseEvent;
-
-        /*! triggered by window resize OS message
-        */
-        WindowResizeEvent _windowResizeEvent;
 
         /*! called when window size has changed
         \param width new width

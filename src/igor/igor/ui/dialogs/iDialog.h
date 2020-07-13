@@ -116,7 +116,6 @@ namespace igor
         void setReturnState(iDialogReturnState returnState);
 
     private:
-
         /*! if true dialog is open
         */
         bool _isOpen = false;
@@ -143,7 +142,7 @@ namespace igor
 
         /*! updates size based on it's content
         */
-        void calcMinSize();
+        void calcMinSize() override;
 
         /*! updates dialog's alignment
 

@@ -9,16 +9,13 @@
 UserControlParticleSystem::UserControlParticleSystem()
 {
     initGUI();
-
-    iApplication::getInstance().registerApplicationPostDrawHandleDelegate(iPostDrawDelegate(this, &UserControlParticleSystem::onCyclickUpdate));
 }
 
 UserControlParticleSystem::~UserControlParticleSystem()
 {
-    iApplication::getInstance().unregisterApplicationPostDrawHandleDelegate(iPostDrawDelegate(this, &UserControlParticleSystem::onCyclickUpdate));
 }
 
-void UserControlParticleSystem::onCyclickUpdate()
+void UserControlParticleSystem::onHandle()
 {
     iNodeParticleSystem *node = static_cast<iNodeParticleSystem *>(iNodeManager::getInstance().getNode(_nodeId));
 

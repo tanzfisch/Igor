@@ -922,6 +922,10 @@ namespace igor
 		*/
 		virtual void calcMinSize();
 
+		/*! called once per frame so a widget can update it's content if needed
+		*/
+		virtual void onHandle();
+
 		/*! background color
         */
 		iaColor4f _background;

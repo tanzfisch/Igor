@@ -47,10 +47,6 @@ namespace igor
 	*/
     iaEVENT(iPreDrawEvent, iPreDrawDelegate, (), ());
 
-    /*! This event is triggered once per frame right after the rendering
-    */
-    iaEVENT(iPostDrawEvent, iPostDrawDelegate, (), ());
-
     /*! Application (Singleton)
 	
 	The main entry point to an Igor application (Singleton)
@@ -89,18 +85,6 @@ namespace igor
         \param handleDelegate delegate to unregister
         */
         void unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate handleDelegate);
-
-        /*! registers application post draw handle delegate
-
-        \param handleDelegate delegate to register
-        */
-        void registerApplicationPostDrawHandleDelegate(iPostDrawDelegate handleDelegate);
-
-        /*! unregisters application post draw handle delegate
-
-        \param handleDelegate delegate to unregister
-        */
-        void unregisterApplicationPostDrawHandleDelegate(iPostDrawDelegate handleDelegate);
 
         /*! triggered on event
 
@@ -224,10 +208,6 @@ namespace igor
         /*! handle event called before rendering
 		*/
         iPreDrawEvent _preDrawHandleEvent;
-
-        /*! handle event called after rendering
-        */
-        iPostDrawEvent _postDrawHandleEvent;
 
         /*! handles events in the event queue
         */

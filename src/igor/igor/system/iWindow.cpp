@@ -1219,8 +1219,6 @@ namespace igor
 
         _impl->calcClientSize();
 
-        _windowResizeEvent(_impl->_clientWidth, _impl->_clientHeight);
-
         // update views with new client size
         iRectanglei windowRect;
         windowRect.setWidth(_impl->_clientWidth);
@@ -1479,26 +1477,6 @@ namespace igor
         iProfiler::getInstance().beginSection(_swapBufferSectionID);
         swapBuffers();
         iProfiler::getInstance().endSection(_swapBufferSectionID);
-    }
-
-    void iWindow::registerWindowCloseDelegate(WindowCloseDelegate windowCloseDelegate)
-    {
-        _windowCloseEvent.append(windowCloseDelegate);
-    }
-
-    void iWindow::unregisterWindowCloseDelegate(WindowCloseDelegate windowCloseDelegate)
-    {
-        _windowCloseEvent.remove(windowCloseDelegate);
-    }
-
-    void iWindow::registerWindowResizeDelegate(WindowResizeDelegate windowResizeDelegate)
-    {
-        _windowResizeEvent.append(windowResizeDelegate);
-    }
-
-    void iWindow::unregisterWindowResizeDelegate(WindowResizeDelegate windowResizeDelegate)
-    {
-        _windowResizeEvent.remove(windowResizeDelegate);
     }
 
     void iWindow::setDoubleClick(bool doubleClick)

@@ -234,7 +234,7 @@ private:
 
     /*! triggered every frame
     */
-    void onCyclickUpdate();
+    void onHandle() override;
 
     /*! triggered when color gradient editor was closed
 

@@ -40,12 +40,6 @@ namespace igor
             con_warn("not all delegates unregistered");
             _preDrawHandleEvent.clear();
         }
-
-        if (_postDrawHandleEvent.hasDelegates())
-        {
-            con_warn("not all delegates unregistered");
-            _postDrawHandleEvent.clear();
-        }
     }
 
     bool iApplication::isBlockedEvent(iEventType eventType)
@@ -180,13 +174,10 @@ namespace igor
         iProfiler::getInstance().endSection(_drawSectionID);
 
         iProfiler::getInstance().beginSection(_userSectionID);
-        _postDrawHandleEvent(); // TODO get rid of this
-
         for (auto layer : _layerStack.getStack())
         {
             layer->onPostDraw();
         }
-
         iProfiler::getInstance().endSection(_userSectionID);
 
         iProfiler::getInstance().endSection(_frameSectionID);
@@ -321,13 +312,4 @@ namespace igor
         _preDrawHandleEvent.remove(handleDelegate);
     }
 
-    void iApplication::registerApplicationPostDrawHandleDelegate(iPostDrawDelegate handleDelegate)
-    {
-        _postDrawHandleEvent.append(handleDelegate);
-    }
-
-    void iApplication::unregisterApplicationPostDrawHandleDelegate(iPostDrawDelegate handleDelegate)
-    {
-        _postDrawHandleEvent.remove(handleDelegate);
-    }
 }; // namespace igor

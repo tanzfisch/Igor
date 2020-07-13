@@ -59,7 +59,7 @@ namespace igor
 
 		all widgets have to derive from this
 		*/
-		virtual void calcMinSize() override;
+		virtual void calcMinSize();
 	};
 
 } // namespace igor
