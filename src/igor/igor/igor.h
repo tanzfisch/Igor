@@ -68,7 +68,6 @@
 #include <igor/resources/mesh/iMeshBuilderUtils.h>
 #include <igor/resources/model/iModelResourceFactory.h>
 #include <igor/resources/profiler/iProfiler.h>
-#include <igor/resources/profiler/iProfilerVisualizer.h>
 #include <igor/resources/texture/iAtlas.h>
 #include <igor/resources/texture/iPixmap.h>
 #include <igor/resources/texture/iTextureFont.h>

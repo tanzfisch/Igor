@@ -84,6 +84,10 @@ private:
     */
     void onInit() override;
 
+    /*! deinit layer
+    */
+    void onDeinit() override;
+
     /*! called on any other event
     */
     void onEvent(iEvent &event) override;

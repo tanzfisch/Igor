@@ -169,11 +169,6 @@ namespace igor
 
     protected:
         bool _keys[static_cast<uint32>(iKeyCode::KeyCodeCount)];
-        iKeyDownSpecificEvent _keyDownEvent[static_cast<uint32>(iKeyCode::KeyCodeCount)];
-        iKeyUpSpecificEvent _keyUpEvent[static_cast<uint32>(iKeyCode::KeyCodeCount)];
-        iKeyASCIIEvent _keyASCIIEvent;
-        iKeyDownEvent _keyDownEventExt;
-        iKeyUpEvent _keyUpEventExt;
         iWindow *_window = nullptr;
     };
 
@@ -209,9 +204,6 @@ namespace igor
                 if (currentKey != iKeyCode::Undefined)
                 {
                     _keys[static_cast<unsigned int>(currentKey)] = true;
-                    _keyDownEvent[static_cast<unsigned int>(currentKey)]();
-                    _keyDownEventExt(currentKey);
-
                     iApplication::getInstance().onEvent(iEventPtr(new iEventKeyDown(_window, currentKey)));
                 }
                 return true;
@@ -221,9 +213,6 @@ namespace igor
                 if (currentKey != iKeyCode::Undefined)
                 {
                     _keys[static_cast<unsigned int>(currentKey)] = true;
-                    _keyDownEvent[static_cast<unsigned int>(currentKey)]();
-                    _keyDownEventExt(currentKey);
-
                     iApplication::getInstance().onEvent(iEventPtr(new iEventKeyDown(_window, currentKey)));
                 }
                 return true;
@@ -233,9 +222,6 @@ namespace igor
                 if (currentKey != iKeyCode::Undefined)
                 {
                     _keys[static_cast<unsigned int>(currentKey)] = false;
-                    _keyUpEvent[static_cast<unsigned int>(currentKey)]();
-                    _keyUpEventExt(currentKey);
-
                     iApplication::getInstance().onEvent(iEventPtr(new iEventKeyUp(_window, currentKey)));
                 }
                 return true;
@@ -245,9 +231,6 @@ namespace igor
                 if (currentKey != iKeyCode::Undefined)
                 {
                     _keys[static_cast<unsigned int>(currentKey)] = false;
-                    _keyUpEvent[static_cast<unsigned int>(currentKey)]();
-                    _keyUpEventExt(currentKey);
-
                     iApplication::getInstance().onEvent(iEventPtr(new iEventKeyUp(_window, currentKey)));
                 }
                 return true;
@@ -256,7 +239,6 @@ namespace igor
                 return true;
 
             case WM_CHAR:
-                _keyASCIIEvent((uint8)osevent->_wParam);
                 iApplication::getInstance().onEvent(iEventPtr(new iEventKeyASCII(_window, (char)osevent->_wParam)));
                 return true;
             }
@@ -826,7 +808,6 @@ namespace igor
                 characterCode = keycode2charcode(&xevent.xkey);
                 if (characterCode != -1)
                 {
-                    _keyASCIIEvent(static_cast<char>(characterCode));
                     iApplication::getInstance().onEvent(iEventPtr(new iEventKeyASCII(_window, characterCode)));
                 }
 
@@ -834,8 +815,6 @@ namespace igor
                 if (currentKey != iKeyCode::Undefined)
                 {
                     _keys[static_cast<unsigned int>(currentKey)] = true;
-                    _keyDownEvent[static_cast<unsigned int>(currentKey)]();
-                    _keyDownEventExt(currentKey);
 
                     iApplication::getInstance().onEvent(iEventPtr(new iEventKeyDown(_window, currentKey)));
                 }
@@ -859,9 +838,6 @@ namespace igor
                 if (currentKey != iKeyCode::Undefined)
                 {
                     _keys[static_cast<unsigned int>(currentKey)] = false;
-                    _keyUpEvent[static_cast<unsigned int>(currentKey)]();
-                    _keyUpEventExt(currentKey);
-
                     iApplication::getInstance().onEvent(iEventPtr(new iEventKeyUp(_window, currentKey)));
                 }
                 return true;
@@ -932,45 +908,7 @@ namespace igor
 
     iKeyboard::~iKeyboard()
     {
-        bool printWarn = false;
-
-        if (_impl->_keyDownEventExt.hasDelegates())
-        {
-            printWarn = true;
-            _impl->_keyDownEventExt.clear();
-        }
-
-        if (_impl->_keyUpEventExt.hasDelegates())
-        {
-            printWarn = true;
-            _impl->_keyUpEventExt.clear();
-        }
-
-        if (_impl->_keyASCIIEvent.hasDelegates())
-        {
-            printWarn = true;
-            _impl->_keyASCIIEvent.clear();
-        }
-
-        for (int32 i = 0; i < static_cast<int32>(iKeyCode::KeyCodeCount) - 1; ++i)
-        {
-            if (_impl->_keyDownEvent[i].hasDelegates())
-            {
-                printWarn = true;
-                _impl->_keyDownEvent[i].clear();
-            }
-
-            if (_impl->_keyUpEvent[i].hasDelegates())
-            {
-                printWarn = true;
-                _impl->_keyUpEvent[i].clear();
-            }
-        }
-
-        if (printWarn)
-        {
-            con_warn("not all delegates unregistered");
-        }
+        delete _impl;
     }
 
     bool iKeyboard::keyPressed()
@@ -989,56 +927,6 @@ namespace igor
     bool iKeyboard::getKey(iKeyCode keyCode)
     {
         return _impl->_keys[static_cast<unsigned int>(keyCode)];
-    }
-
-    void iKeyboard::registerKeyDownDelegate(iKeyDownDelegate keyDownDelegate)
-    {
-        _impl->_keyDownEventExt.append(keyDownDelegate);
-    }
-
-    void iKeyboard::registerKeyUpDelegate(iKeyUpDelegate keyUpDelegate)
-    {
-        _impl->_keyUpEventExt.append(keyUpDelegate);
-    }
-
-    void iKeyboard::registerKeyDownDelegate(iKeyDownSpecificDelegate keyDownDelegate, iKeyCode key)
-    {
-        _impl->_keyDownEvent[static_cast<unsigned int>(key)].append(keyDownDelegate);
-    }
-
-    void iKeyboard::registerKeyUpDelegate(iKeyUpSpecificDelegate keyUpDelegate, iKeyCode key)
-    {
-        _impl->_keyUpEvent[static_cast<unsigned int>(key)].append(keyUpDelegate);
-    }
-
-    void iKeyboard::registerKeyASCIIDelegate(iKeyASCIIDelegate keyASCIIDelegate)
-    {
-        _impl->_keyASCIIEvent.append(keyASCIIDelegate);
-    }
-
-    void iKeyboard::unregisterKeyDownDelegate(iKeyDownDelegate keyDownDelegate)
-    {
-        _impl->_keyDownEventExt.remove(keyDownDelegate);
-    }
-
-    void iKeyboard::unregisterKeyUpDelegate(iKeyUpDelegate keyUpDelegate)
-    {
-        _impl->_keyUpEventExt.remove(keyUpDelegate);
-    }
-
-    void iKeyboard::unregisterKeyDownDelegate(iKeyDownSpecificDelegate keyDownDelegate, iKeyCode key)
-    {
-        _impl->_keyDownEvent[static_cast<unsigned int>(key)].remove(keyDownDelegate);
-    }
-
-    void iKeyboard::unregisterKeyUpDelegate(iKeyUpSpecificDelegate keyUpDelegate, iKeyCode key)
-    {
-        _impl->_keyUpEvent[static_cast<unsigned int>(key)].remove(keyUpDelegate);
-    }
-
-    void iKeyboard::unregisterKeyASCIIDelegate(iKeyASCIIDelegate keyASCIIDelegate)
-    {
-        _impl->_keyASCIIEvent.remove(keyASCIIDelegate);
     }
 
     bool iKeyboard::initDevice(const void *data)

@@ -291,6 +291,7 @@ namespace igor
                 traverseContentSize(child);
             }
 
+            widget->onHandle();
             widget->calcMinSize();
         }
     }

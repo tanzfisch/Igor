@@ -33,7 +33,6 @@
 #include <igor/layers/iLayerStack.h>
 #include <igor/system/iWindow.h>
 
-#include <iaux/system/iaEvent.h>
 #include <iaux/system/iaSingleton.h>
 using namespace iaux;
 
@@ -42,14 +41,6 @@ using namespace iaux;
 
 namespace igor
 {
-
-    /*! This event is triggered once per frame right before the rendering
-	*/
-    iaEVENT(iPreDrawEvent, iPreDrawDelegate, (), ());
-
-    /*! This event is triggered once per frame right after the rendering
-    */
-    iaEVENT(iPostDrawEvent, iPostDrawDelegate, (), ());
 
     /*! Application (Singleton)
 	
@@ -77,30 +68,6 @@ namespace igor
         /*! returns true if application is still running
         */
         bool isRunning();
-
-        /*! registers application pre draw handle delegate
-
-        \param handleDelegate delegate to register
-        */
-        void registerApplicationPreDrawHandleDelegate(iPreDrawDelegate handleDelegate);
-
-        /*! unregisters application pre draw handle delegate
-
-        \param handleDelegate delegate to unregister
-        */
-        void unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate handleDelegate);
-
-        /*! registers application post draw handle delegate
-
-        \param handleDelegate delegate to register
-        */
-        void registerApplicationPostDrawHandleDelegate(iPostDrawDelegate handleDelegate);
-
-        /*! unregisters application post draw handle delegate
-
-        \param handleDelegate delegate to unregister
-        */
-        void unregisterApplicationPostDrawHandleDelegate(iPostDrawDelegate handleDelegate);
 
         /*! triggered on event
 
@@ -220,14 +187,6 @@ namespace igor
         /*! additional layer stack for windowless applications
             */
         iLayerStack _layerStack;
-
-        /*! handle event called before rendering
-		*/
-        iPreDrawEvent _preDrawHandleEvent;
-
-        /*! handle event called after rendering
-        */
-        iPostDrawEvent _postDrawHandleEvent;
 
         /*! handles events in the event queue
         */

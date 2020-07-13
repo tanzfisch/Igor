@@ -561,7 +561,6 @@ void Ascent::onInit()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    _profilerVisualizer.setVerbosity(iProfilerVerbosity::None);
 
     uint64 particlesMaterial = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setName("PMat");
@@ -745,8 +744,6 @@ void Ascent::handleHitList()
 
 void Ascent::onRenderOrtho()
 {
-    _profilerVisualizer.draw(getWindow(), _font, iaColor4f(0, 0, 0.8, 1));
-
     iaMatrixd matrix;
     iRenderer::getInstance().setViewMatrix(matrix);
     matrix.translate(0, 0, -30);
@@ -943,25 +940,6 @@ bool Ascent::onKeyDown(iEventKeyDown &event)
     {
     case iKeyCode::ESC:
         iApplication::getInstance().stop();
-        return true;
-
-    case iKeyCode::F3:
-    {
-        iProfilerVerbosity level = _profilerVisualizer.getVerbosity();
-
-        if (level == iProfilerVerbosity::All)
-        {
-            level = iProfilerVerbosity::None;
-        }
-        else
-        {
-            int value = static_cast<int>(level);
-            value++;
-            level = static_cast<iProfilerVerbosity>(value);
-        }
-
-        _profilerVisualizer.setVerbosity(level);
-    }
         return true;
     }
 

@@ -902,6 +902,10 @@ namespace igor
         }
     }
 
+    void iWidget::onHandle()
+    {
+    }
+
     void iWidget::calcMinSize()
     {
         int32 minWidth = 0;

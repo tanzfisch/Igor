@@ -77,7 +77,7 @@ namespace igor
 
 		/*! updates size based on it's content
         */
-		void calcMinSize();
+		void calcMinSize() override;
 
 		/*! draws the widget
 		*/

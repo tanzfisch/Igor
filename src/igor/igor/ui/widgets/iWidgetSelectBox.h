@@ -151,7 +151,7 @@ namespace igor
 
 		/*! updates size based on it's content
 		*/
-		void calcMinSize();
+		void calcMinSize() override;
 
 		/*! renders widget
 		*/

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iPROFILERVISUALIZER__
-#define __iPROFILERVISUALIZER__
+#ifndef __IGOR_PROFILERVISUALIZER_H__
+#define __IGOR_PROFILERVISUALIZER_H__
 
 #include <igor/resources/material/iMaterial.h>
 
@@ -59,7 +59,7 @@ namespace igor
 
     /*! render statistics
     */
-    class Igor_API iProfilerVisualizer
+    class iProfilerVisualizer
     {
 
     public:
@@ -167,4 +167,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_PROFILERVISUALIZER_H__

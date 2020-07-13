@@ -106,7 +106,7 @@ namespace igor
 
 		/*! updates size based on it's content
 		*/
-		void calcMinSize();
+		void calcMinSize() override;
 	};
 
 	/*! widget group box pointer definition

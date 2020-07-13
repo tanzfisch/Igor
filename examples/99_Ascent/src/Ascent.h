@@ -26,8 +26,6 @@ private:
 
     iaRandomNumberGeneratoru rand;
 
-    iProfilerVisualizer _profilerVisualizer;
-
     bool _loading = true;
     bool _activeControls = false;
 
