@@ -184,7 +184,7 @@ namespace igor
             _voxelBlocks.push_back(voxelBlocks);
         }
 
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
         _totalSection = iProfiler::getInstance().registerSection("VT:all", 3);
         _discoverBlocksSection = iProfiler::getInstance().registerSection("VT:discover", 3);
         _updateBlocksSection = iProfiler::getInstance().registerSection("VT:update", 3);
@@ -236,15 +236,15 @@ namespace igor
 
     void iVoxelTerrain::update()
     {
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
         iProfiler::getInstance().beginSection(_totalSection);
 #endif
 
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
         iProfiler::getInstance().beginSection(_deleteBlocksSection);
 #endif
         deleteBlocks();
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
         iProfiler::getInstance().endSection(_deleteBlocksSection);
 #endif
 
@@ -267,11 +267,11 @@ namespace igor
 
             iaVector3I observerPosition = pos.convert<int64>();
 
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
             iProfiler::getInstance().beginSection(_discoverBlocksSection);
 #endif
             discoverBlocks(observerPosition);
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
             iProfiler::getInstance().endSection(_discoverBlocksSection);
 #endif
 
@@ -280,17 +280,17 @@ namespace igor
 
         applyVoxelOperations();
 
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
         iProfiler::getInstance().beginSection(_applyActionsSection);
 #endif
         // apply all actions at once so they will be synced with next frame
         iNodeManager::getInstance().applyActionsAsync(_actionQueue);
         _actionQueue.clear();
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
         iProfiler::getInstance().endSection(_applyActionsSection);
 #endif
 
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
         iProfiler::getInstance().endSection(_totalSection);
 #endif
     }
@@ -386,7 +386,7 @@ namespace igor
     {
         auto &voxelBlocks = _voxelBlocks[_lowestLOD];
 
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
         iProfiler::getInstance().beginSection(_updateBlocksSection);
 #endif
         for (auto block : voxelBlocks)
@@ -394,18 +394,18 @@ namespace igor
             update(block.second, observerPosition);
         }
 
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
         iProfiler::getInstance().endSection(_updateBlocksSection);
 #endif
 
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
         iProfiler::getInstance().beginSection(_updateVisBlocksSection);
 #endif
         for (auto block : voxelBlocks)
         {
             updateVisibility(block.second);
         }
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
         iProfiler::getInstance().endSection(_updateVisBlocksSection);
 #endif
     }

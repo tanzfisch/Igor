@@ -30,7 +30,7 @@ namespace igor
 
     iRenderEngine::iRenderEngine()
     {
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
         _cullSectionID = iProfiler::getInstance().registerSection("renderer:cull", 1);
         _drawSectionID = iProfiler::getInstance().registerSection("renderer:draw", 1);
         _bufferCreationSectionID = iProfiler::getInstance().registerSection("renderer:createBuffers", 1);
@@ -52,7 +52,7 @@ namespace igor
         iMaterialResourceFactory::getInstance().unregisterMaterialCreatedDelegate(iMaterialCreatedDelegate(this, &iRenderEngine::onMaterialCreated));
         iMaterialResourceFactory::getInstance().unregisterMaterialDestroyedDelegate(iMaterialDestroyedDelegate(this, &iRenderEngine::onMaterialDestroyed));
 
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
         iProfiler::getInstance().unregisterSection(_cullSectionID);
         iProfiler::getInstance().unregisterSection(_drawSectionID);
         iProfiler::getInstance().unregisterSection(_bufferCreationSectionID);
@@ -166,23 +166,23 @@ namespace igor
 
     void iRenderEngine::render()
     {
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
         iProfiler::getInstance().beginSection(_bufferCreationSectionID);
 #endif
         createBuffers();
 
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
         iProfiler::getInstance().endSection(_bufferCreationSectionID);
 #endif
 
         if (_scene != nullptr &&
             _currentCamera != nullptr)
         {
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
             iProfiler::getInstance().beginSection(_cullSectionID);
 #endif
             cullScene(_currentCamera);
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
             iProfiler::getInstance().endSection(_cullSectionID);
 
             iProfiler::getInstance().beginSection(_drawSectionID);
@@ -195,7 +195,7 @@ namespace igor
             {
                 drawScene();
             }
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
             iProfiler::getInstance().endSection(_drawSectionID);
 #endif
         }

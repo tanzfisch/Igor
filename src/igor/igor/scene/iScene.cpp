@@ -34,7 +34,7 @@ namespace igor
 		_octree = new iOctree(iAACubed(iaVector3d(0, 0, 0), 10000000.0), 50.0, 8, 4);
 
 		//! \todo how do we handle this when we have more than one scene?
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
 		_sceneHandleSectionID = iProfiler::getInstance().registerSection("scene:handle", 2);
 		_updateLODSectionID = iProfiler::getInstance().registerSection("scene:LOD", 2);
 		_processUpdateDataSectionID = iProfiler::getInstance().registerSection("scene:updateData", 2);
@@ -271,26 +271,26 @@ namespace igor
 
 	void iScene::handle()
 	{
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
 		iProfiler::getInstance().beginSection(_sceneHandleSectionID);
 
 		iProfiler::getInstance().beginSection(_updateLODSectionID);
 #endif
 		// todo can not stay here. need to reduce update effort per frame. event based would be nice
 		updateLOD();
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
 		iProfiler::getInstance().endSection(_updateLODSectionID);
 
 		iProfiler::getInstance().beginSection(_processUpdateDataSectionID);
 #endif
 		updateData();
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
 		iProfiler::getInstance().endSection(_processUpdateDataSectionID);
 
 		iProfiler::getInstance().beginSection(_updateTransformSectionID);
 #endif
 		_updateTransformVisitor.traverseTree(_root);
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
 		iProfiler::getInstance().endSection(_updateTransformSectionID);
 
 		iProfiler::getInstance().endSection(_sceneHandleSectionID);
