@@ -18,7 +18,7 @@ using namespace iaux;
 
 #include <list>
 
-bool OBJ2OMPF::analyzeParam(int argc, char* argv[])
+bool OBJ2OMPF::analyzeParam(int argc, char *argv[])
 {
     if (argc >= 3)
     {
@@ -61,7 +61,7 @@ void OBJ2OMPF::setMaterialRecursive(iNodePtr node, uint64 materialID)
 {
     if (node->getType() == iNodeType::iNodeMesh)
     {
-        iNodeMesh* meshNode = static_cast<iNodeMesh*>(node);
+        iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
         meshNode->setMaterial(materialID);
     }
 
@@ -77,7 +77,7 @@ void OBJ2OMPF::setMaterialRecursive(iNodePtr node, uint64 materialID)
     }
 }
 
-void OBJ2OMPF::convert(int argc, char* argv[])
+void OBJ2OMPF::convert(int argc, char *argv[])
 {
     if (analyzeParam(argc, argv))
     {
@@ -87,20 +87,20 @@ void OBJ2OMPF::convert(int argc, char* argv[])
         iMaterialResourceFactory::getInstance().getMaterial(materialID)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
         iMaterialResourceFactory::getInstance().getMaterial(materialID)->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
 
-        iModelDataInputParameter* parameters = new iModelDataInputParameter();
+        iModelDataInputParameter *parameters = new iModelDataInputParameter();
         parameters->_joinVertexes = _joinVertexes;
         parameters->_identifier = "obj";
         parameters->_modelSourceType = iModelSourceType::File;
         parameters->_needsRenderContext = false;
         parameters->_keepMesh = true;
 
-        iNodeModel* modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
+        iNodeModel *modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
         modelNode->setModel(_src, iResourceCacheMode::Keep, parameters);
 
-        iScene* scene = iSceneFactory::getInstance().createScene();
+        iScenePtr scene = iSceneFactory::getInstance().createScene();
         scene->getRoot()->insertNode(modelNode);
 
-        while(modelNode->getChild("obj_root") == nullptr)
+        while (modelNode->getChild("obj_root") == nullptr)
         {
             iModelResourceFactory::getInstance().flush(nullptr);
             scene->handle();
@@ -110,7 +110,7 @@ void OBJ2OMPF::convert(int argc, char* argv[])
         setMaterialRecursive(modelNode, materialID);
 
         auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
-        for(auto material : materials)
+        for (auto material : materials)
         {
             con_endl("material " << material->getName() << " with id " << material->getID());
         }

@@ -73,7 +73,6 @@ void OverlayLayer::setManipulatorMode(ManipulatorMode manipulatorMode)
 
 void OverlayLayer::onDeinit()
 {
-
     if (_manipulator != nullptr)
     {
         delete _manipulator;
@@ -85,7 +84,10 @@ void OverlayLayer::onDeinit()
         delete _font;
     }
 
+    iSceneFactory::getInstance().destroyScene(_scene);
+
     _view.unregisterRenderDelegate(iDrawDelegate(this, &OverlayLayer::render));
+    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &OverlayLayer::renderOrtho));
 }
 
 void OverlayLayer::render()

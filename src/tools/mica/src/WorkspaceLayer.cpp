@@ -54,6 +54,11 @@ void WorkspaceLayer::onInit()
     _materialBoundingBox = iMaterialResourceFactory::getInstance().createMaterial("materialBoundingBox");
 }
 
+void WorkspaceLayer::onDeinit()
+{
+    _view.unregisterRenderDelegate(iDrawDelegate(this, &WorkspaceLayer::renderSelection));
+}
+
 iNodePtr WorkspaceLayer::getNodeAt(int32 x, int32 y)
 {
     // TODO if there is a sky box it needs to be invisible now
