@@ -28,14 +28,6 @@ void OverlayLayer::onInit()
     // set default camera as current
     _view.setCurrentCamera(_workspace->getCameraArc()->getCameraNode());
 
-    _viewOrtho.setName("Overlay Ortho");
-    _viewOrtho.setClearColor(false);
-    _viewOrtho.setClearDepth(false);
-    _viewOrtho.setClipPlanes(-1.0f, 1.0f);
-    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0f);
-    _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &OverlayLayer::renderOrtho));
-    getWindow()->addView(&_viewOrtho, getZIndex() + 1);
-
     _materialOrientationPlane = iMaterialResourceFactory::getInstance().createMaterial("OrientationPlane");
     auto oriPlaneMaterial = iMaterialResourceFactory::getInstance().getMaterial(_materialOrientationPlane);
     oriPlaneMaterial->setRenderState(iRenderState::Blend, iRenderStateValue::On);
@@ -44,6 +36,7 @@ void OverlayLayer::onInit()
     // font for
     _font = new iTextureFont("StandardFont.png");
 
+    // create the manipulator
     _manipulator = new Manipulator(&_view, _scene, _workspace);
 }
 
@@ -87,7 +80,6 @@ void OverlayLayer::onDeinit()
     iSceneFactory::getInstance().destroyScene(_scene);
 
     _view.unregisterRenderDelegate(iDrawDelegate(this, &OverlayLayer::render));
-    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &OverlayLayer::renderOrtho));
 }
 
 void OverlayLayer::render()
@@ -124,25 +116,12 @@ void OverlayLayer::renderOrientationPlane()
     iRenderer::getInstance().drawLine(iaVector3f(0.0f, 0.0f, 0.0f), iaVector3f(0.0f, 0.0f, 20.0f));
 }
 
-void OverlayLayer::renderOrtho()
-{
-    // reset matrices
-    iaMatrixd identity;
-    iRenderer::getInstance().setViewMatrix(identity);
-    iRenderer::getInstance().setModelMatrix(identity);
-
-    // render profiler
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-    _profilerVisualizer.draw(getWindow(), _font, iaColor4f(0, 0, 0, 1));
-}
-
 void OverlayLayer::onEvent(iEvent &event)
 {
     event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(OverlayLayer::onKeyDown));
     event.dispatch<iEventMouseKeyDown>(IGOR_BIND_EVENT_FUNCTION(OverlayLayer::onMouseKeyDownEvent));
     event.dispatch<iEventMouseKeyUp>(IGOR_BIND_EVENT_FUNCTION(OverlayLayer::onMouseKeyUpEvent));
     event.dispatch<iEventMouseMove>(IGOR_BIND_EVENT_FUNCTION(OverlayLayer::onMouseMoveEvent));
-    event.dispatch<iEventWindowResize>(IGOR_BIND_EVENT_FUNCTION(OverlayLayer::onWindowResize));
     event.dispatch<iEventSceneSelectionChanged>(IGOR_BIND_EVENT_FUNCTION(OverlayLayer::onSceneSelectionChanged));
 }
 
@@ -230,10 +209,6 @@ bool OverlayLayer::onKeyDown(iEventKeyDown &event)
 {
     switch (event.getKey())
     {
-    case iKeyCode::F8:
-        _profilerVisualizer.cycleVerbosity();
-        return true;
-
     case iKeyCode::Q:
         setManipulatorMode(ManipulatorMode::None);
         return true;
@@ -250,14 +225,6 @@ bool OverlayLayer::onKeyDown(iEventKeyDown &event)
         setManipulatorMode(ManipulatorMode::Scale);
         return true;
     }
-
-    return false;
-}
-
-bool OverlayLayer::onWindowResize(iEventWindowResize &event)
-{
-    _viewOrtho.setOrthogonal(0.0, static_cast<float32>(event.getWindow()->getClientWidth()),
-                             static_cast<float32>(event.getWindow()->getClientHeight()), 0.0);
 
     return false;
 }

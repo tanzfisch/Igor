@@ -50,8 +50,9 @@ namespace igor
         \param window the given window
         \param name the name of this layer
         \param zIndex the z index
+        \param verbosity the profiler verbosity
         */
-        iLayerProfiler(iWindow *window, const iaString &name = "Profiler", int32 zIndex = 1000);
+        iLayerProfiler(iWindow *window, const iaString &name = "Profiler", int32 zIndex = 1000, iProfilerVerbosity verbosity = iProfilerVerbosity::FPSOnly);
 
         /*! does nothing
         */

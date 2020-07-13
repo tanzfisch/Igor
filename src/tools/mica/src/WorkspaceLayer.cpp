@@ -176,16 +176,18 @@ bool WorkspaceLayer::onKeyDown(iEventKeyDown &event)
 
     case iKeyCode::F10:
         _view.setWireframeVisible(!_view.isWireframeVisible()); // TODO does not work in mica
-        break;
+        return true;
 
     case iKeyCode::F11:
         _view.setOctreeVisible(!_view.isOctreeVisible()); // TODO does not work in mica
-        break;
+        return true;
 
     case iKeyCode::F12:
         _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible()); // TODO does not work in mica
-        break;
+        return true;
     }
+
+    return false;
 }
 
 bool WorkspaceLayer::onMouseKeyDownEvent(iEventMouseKeyDown &event)
