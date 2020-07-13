@@ -29,10 +29,11 @@
 #ifndef __IGOR_MOUSE_H__
 #define __IGOR_MOUSE_H__
 
-#include <iaux/system/iaEvent.h>
 #include <igor/data/iRectangle.h>
-#include <iaux/math/iaVector2.h>
 #include <igor/system/iOSEventListener.h>
+
+#include <iaux/math/iaVector2.h>
+using namespace iaux;
 
 namespace igor
 {

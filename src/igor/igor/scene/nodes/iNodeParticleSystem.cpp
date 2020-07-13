@@ -21,8 +21,6 @@ namespace igor
         setName(L"iNodeParticleSystem");
         _nodeType = iNodeType::iNodeParticleSystem;
         _nodeKind = iNodeKind::Volume;
-
-        iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &iNodeParticleSystem::handle));
     }
 
     iNodeParticleSystem::iNodeParticleSystem(iNodeParticleSystem *node)
@@ -41,14 +39,11 @@ namespace igor
         setTextureC(node->getTextureC());
         setMaterial(node->getMaterial());
         setEmitter(node->getEmitter());
-
-        iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &iNodeParticleSystem::handle));
     }
 
     iNodeParticleSystem::~iNodeParticleSystem()
     {
         setScene(nullptr);
-        iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate(this, &iNodeParticleSystem::handle));
     }
 
     void iNodeParticleSystem::registerParticleSystemFinishedDelegate(iParticleSystemFinishedDelegate delegate)
@@ -109,6 +104,8 @@ namespace igor
 
     void iNodeParticleSystem::draw()
     {
+        handle();
+
         iRenderer::getInstance().bindTexture(_textureA, 0);
         iRenderer::getInstance().bindTexture(_textureB, 1);
         iRenderer::getInstance().bindTexture(_textureC, 2);

@@ -34,12 +34,6 @@ namespace igor
         {
             con_warn("close and destroy all windows before shutdown");
         }
-
-        if (_preDrawHandleEvent.hasDelegates())
-        {
-            con_warn("not all delegates unregistered");
-            _preDrawHandleEvent.clear();
-        }
     }
 
     bool iApplication::isBlockedEvent(iEventType eventType)
@@ -151,14 +145,10 @@ namespace igor
         iProfiler::getInstance().beginSection(_dispatchSectionID);
         dispatch();
         iProfiler::getInstance().endSection(_dispatchSectionID);
-
-        _preDrawHandleEvent(); // TODO get rid of this
-
         for (auto layer : _layerStack.getStack())
         {
             layer->onPreDraw();
         }
-
         iProfiler::getInstance().endSection(_userSectionID);
 
         iProfiler::getInstance().beginSection(_evaluationSectionID);
@@ -300,16 +290,6 @@ namespace igor
 
         con_err("window with id " << windowID << " does not exist");
         return nullptr;
-    }
-
-    void iApplication::registerApplicationPreDrawHandleDelegate(iPreDrawDelegate handleDelegate)
-    {
-        _preDrawHandleEvent.append(handleDelegate);
-    }
-
-    void iApplication::unregisterApplicationPreDrawHandleDelegate(iPreDrawDelegate handleDelegate)
-    {
-        _preDrawHandleEvent.remove(handleDelegate);
     }
 
 }; // namespace igor

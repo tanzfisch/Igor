@@ -32,8 +32,6 @@
 #include <igor/system/iWindow.h>
 #include <igor/system/iOSEventListener.h>
 
-#include <iaux/system/iaEvent.h>
-
 namespace igor
 {
 	class iKeyboardImpl;
