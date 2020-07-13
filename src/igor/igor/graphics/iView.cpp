@@ -22,14 +22,14 @@ namespace igor
 
     iView::iView()
     {
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
         _userDrawSectionID = iProfiler::getInstance().registerSection("view:user", 2);
 #endif
     }
 
     iView::~iView()
     {
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
         iProfiler::getInstance().unregisterSection(_userDrawSectionID);
 #endif
 
@@ -210,12 +210,12 @@ namespace igor
                 _renderEngine.render();
             }
 
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
             iProfiler::getInstance().beginSection(_userDrawSectionID);
 #endif
             _renderEvent();
 
-#ifdef USE_VERBOSE_STATISTICS
+#ifdef IGOR_USE_VERBOSE_PROFILING
             iProfiler::getInstance().endSection(_userDrawSectionID);
 #endif
         }

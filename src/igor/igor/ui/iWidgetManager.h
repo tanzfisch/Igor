@@ -157,38 +157,6 @@ namespace igor
         */
         iDialogPtr _modal = nullptr;
 
-        /*! mouse key down event
-        */
-        iMouseKeyDownEvent _mouseKeyDownEvent;
-
-        /*! mouse key up event
-        */
-        iMouseKeyUpEvent _mouseKeyUpEvent;
-
-        /*! keyboard down event
-		*/
-        iKeyDownEvent _keyDownEvent;
-
-        /*! keyboard up event
-		*/
-        iKeyUpEvent _keyUpEvent;
-
-        /*! mouse double click event
-        */
-        iMouseKeyDoubleClickEvent _doubleClickEvent;
-
-        /*! mouse move event
-        */
-        iMouseMoveFullEvent _moveFullEvent;
-
-        /*! mouse move event
-        */
-        iMouseMoveEvent _moveEvent;
-
-        /*! mouse wheel event
-        */
-        iMouseWheelEvent _wheelEvent;
-
         /*! pointer to current theme
         */
         iWidgetTheme *_currentTheme = nullptr;

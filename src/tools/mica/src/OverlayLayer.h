@@ -53,10 +53,6 @@ private:
     */
     iView _view;
 
-    /*! orthogonal projected view of this layer
-    */
-    iView _viewOrtho;
-
     /*! the scene of this layer
     */
     iScenePtr _scene;
@@ -68,10 +64,6 @@ private:
     /*! the mica workspace
     */
     WorkspacePtr _workspace;
-
-    /*! visualizer for profiler data
-	*/
-    iProfilerVisualizer _profilerVisualizer;
 
     /*! font for profiler
     */
@@ -150,13 +142,6 @@ private:
     \param event the event to handle
     */
     bool onKeyDown(iEventKeyDown &event);
-
-    /*! handle window resize event
-
-    \param event the window resize event
-    \returns true if consumed
-    */
-    bool onWindowResize(iEventWindowResize &event);
 
     /*! triggered when selection in scene changed
 

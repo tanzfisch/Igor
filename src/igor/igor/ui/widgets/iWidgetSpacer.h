@@ -56,7 +56,7 @@ namespace igor
 	protected:
 		/*! updates size based on it's content
 		*/
-		void calcMinSize();
+		void calcMinSize() override;
 
 		/*! draws the button
 		*/
