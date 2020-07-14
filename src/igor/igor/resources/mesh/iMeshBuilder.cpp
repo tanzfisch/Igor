@@ -352,79 +352,27 @@ namespace igor
     {
         con_assert(!_vertexes.empty(), "no vertexes");
 
-        iaVector3d minPos(_vertexes[0]._x, _vertexes[0]._y, _vertexes[0]._z);
-        iaVector3d maxPos = minPos;
+        iaVector3f minPos(_vertexes[0]._x, _vertexes[0]._y, _vertexes[0]._z);
+        iaVector3f maxPos = minPos;
 
         for (auto vertex : _vertexes)
         {
-            if (vertex._x < minPos._x)
-            {
-                minPos._x = vertex._x;
-            }
+            minPos._x = std::min(minPos._x, vertex._x);
+            minPos._y = std::min(minPos._y, vertex._y);
+            minPos._z = std::min(minPos._z, vertex._z);
 
-            if (vertex._y < minPos._y)
-            {
-                minPos._y = vertex._y;
-            }
-
-            if (vertex._z < minPos._z)
-            {
-                minPos._z = vertex._z;
-            }
-
-            if (vertex._x > maxPos._x)
-            {
-                maxPos._x = vertex._x;
-            }
-
-            if (vertex._y > maxPos._y)
-            {
-                maxPos._y = vertex._y;
-            }
-
-            if (vertex._z > maxPos._z)
-            {
-                maxPos._z = vertex._z;
-            }
+            maxPos._x = std::max(maxPos._x, vertex._x);
+            maxPos._y = std::max(maxPos._y, vertex._y);
+            maxPos._z = std::max(maxPos._z, vertex._z);
         }
 
-        bbox._center = minPos;
-        bbox._center += maxPos;
-        bbox._center *= 0.5;
+        bbox._center.set(minPos._x + maxPos._x * 0.5,
+                         minPos._y + maxPos._y * 0.5,
+                         minPos._z + maxPos._z * 0.5);
 
-        bbox._halfWidths = maxPos;
-        bbox._halfWidths -= minPos;
-        bbox._halfWidths *= 0.5;
-    }
-
-    void iMeshBuilder::calcBoundingSphere(iSphered &sphere) const
-    {
-        con_assert(_vertexes.size() > 0, "no vertexes");
-
-        iSpheref sphereF;
-        sphereF._radius = 0;
-
-        sphereF._center.set(0, 0, 0);
-
-        for (uint32 i = 0; i < _vertexes.size(); i++)
-        {
-            sphereF._center += _vertexes[i];
-        }
-
-        sphereF._center /= static_cast<float32>(_vertexes.size());
-
-        for (uint32 i = 0; i < _vertexes.size(); i++)
-        {
-            if ((sphereF._center - _vertexes[i]).length() > sphereF._radius)
-            {
-                sphereF._radius = (sphereF._center - _vertexes[i]).length();
-            }
-        }
-
-        sphere._center._x = sphereF._center._x;
-        sphere._center._y = sphereF._center._y;
-        sphere._center._z = sphereF._center._z;
-        sphere._radius = sphereF._radius;
+        bbox._halfWidths.set(maxPos._x - minPos._x * 0.5,
+                             maxPos._y - minPos._y * 0.5,
+                             maxPos._z - minPos._z * 0.5);
     }
 
     iMeshPtr iMeshBuilder::createMesh(std::vector<uint32> triangles)
@@ -432,10 +380,6 @@ namespace igor
         iMesh *mesh = new iMesh();
 
         compile(mesh, triangles);
-
-        iSphered boundingSphere;
-        calcBoundingSphere(boundingSphere);
-        mesh->setBoundingSphere(boundingSphere);
 
         iAABoxd bbox;
         calcBoundingBox(bbox);
@@ -490,9 +434,9 @@ namespace igor
 
             compile(mesh);
 
-            iSphered boundingSphere;
-            calcBoundingSphere(boundingSphere);
-            mesh->setBoundingSphere(boundingSphere);
+            iAABoxd bbox;
+            calcBoundingBox(bbox);
+            mesh->setBoundingBox(bbox);
         }
         return iMeshPtr(mesh);
     }

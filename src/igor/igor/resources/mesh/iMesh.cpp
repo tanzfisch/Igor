@@ -105,11 +105,6 @@ namespace igor
         _textureCoordinatesCount = texCoord;
     }
 
-    void iMesh::setBoundingSphere(const iSphered &sphere)
-    {
-        _sphere = sphere;
-    }
-
     void iMesh::setBoundingBox(const iAABoxd &bbox)
     {
         _bbox = bbox;

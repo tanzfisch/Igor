@@ -38,7 +38,7 @@ bool iIntersection::contains(const iSphere<T> &sphereA, const iSphere<T> &sphere
 template <typename T>
 bool iIntersection::inFrontOf(const iSphere<T> &sphere, const iPlane<T> &plane)
 {
-    T distancePlanePoint = (plane.normal * sphere._center) + plane.distance;
+    T distancePlanePoint = (plane._normal * sphere._center) + plane._distance;
     if (distancePlanePoint <= -sphere._radius)
     {
         return false;
@@ -52,27 +52,27 @@ bool iIntersection::inFrontOf(const iSphere<T> &sphere, const iPlane<T> &plane)
 template <typename T>
 bool iIntersection::intersects(const iSphere<T> &sphere, const iFrustum<T> &frustum)
 {
-    if (!inFrontOf(sphere, frustum.near_plane))
+    if (!inFrontOf(sphere, frustum._nearPlane))
     {
         return false;
     }
-    if (!inFrontOf(sphere, frustum.left_plane))
+    if (!inFrontOf(sphere, frustum._leftPlane))
     {
         return false;
     }
-    if (!inFrontOf(sphere, frustum.right_plane))
+    if (!inFrontOf(sphere, frustum._rightPlane))
     {
         return false;
     }
-    if (!inFrontOf(sphere, frustum.bottom_plane))
+    if (!inFrontOf(sphere, frustum._bottomPlane))
     {
         return false;
     }
-    if (!inFrontOf(sphere, frustum.top_plane))
+    if (!inFrontOf(sphere, frustum._topPlane))
     {
         return false;
     }
-    if (!inFrontOf(sphere, frustum.far_plane))
+    if (!inFrontOf(sphere, frustum._farPlane))
     {
         return false;
     }

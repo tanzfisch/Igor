@@ -92,7 +92,6 @@ namespace igor
         if (emitter != nullptr)
         {
             _particleSystem.calcNextFrame(emitter->getParticleEmitter());
-            setBoundingSphere(_particleSystem.getBoundingSphere());
             setBoundingBox(_particleSystem.getBoundingBox());
         }
 

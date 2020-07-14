@@ -26,11 +26,10 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iMESH__
-#define __iMESH__
+#ifndef __IGOR_MESH_H__
+#define __IGOR_MESH_H__
 
 #include <igor/iDefines.h>
-#include <igor/data/iSphere.h>
 #include <igor/data/iAABox.h>
 
 #include <iaux/data/iaColor3.h>
@@ -59,16 +58,6 @@ namespace igor
         /*! releases resources
         */
         ~iMesh();
-
-        /*! set bounding sphere
-
-        \param sphere the bounding sphere
-        */
-        void setBoundingSphere(const iSphered &sphere);
-
-        /*! \returns the bounding spehre
-        */
-        __IGOR_INLINE__ const iSphered &getBoundingSphere() const;
 
         /*! set bounding box
 
@@ -266,10 +255,6 @@ namespace igor
         */
         std::map<uint32, bool> _textures;
 
-        /*! bounding sphere
-        */
-        iSphered _sphere;
-
         /*! bounding box
         */
         iAABoxd _bbox;
@@ -283,4 +268,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_MESH_H__

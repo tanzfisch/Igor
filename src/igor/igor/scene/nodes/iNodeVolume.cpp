@@ -9,98 +9,99 @@
 namespace igor
 {
 
-	iNodeVolume::iNodeVolume()
-		: iNodeRender()
-	{
-		_nodeKind = iNodeKind::Volume;
-	}
+    iNodeVolume::iNodeVolume()
+        : iNodeRender()
+    {
+        _nodeKind = iNodeKind::Volume;
+    }
 
-	iNodeVolume::iNodeVolume(iNodeVolume *node)
-		: iNodeRender(node)
-	{
-		con_assert(node != nullptr, "zero pointer");
+    iNodeVolume::iNodeVolume(iNodeVolume *node)
+        : iNodeRender(node)
+    {
+        con_assert(node != nullptr, "zero pointer");
 
-		_sphere = node->_sphere;
-		_bbox = node->_bbox;
-	}
+        _bbox = node->_bbox;
+        calcActualBBox();
+    }
 
-	iNodeVolume::~iNodeVolume()
-	{
-		setScene(nullptr);
-	}
+    iNodeVolume::~iNodeVolume()
+    {
+        setScene(nullptr);
+    }
 
-	const iAABoxd &iNodeVolume::getBoundingBox() const
-	{
-		return _bbox;
-	}
+    const iAABoxd &iNodeVolume::getBoundingBox() const
+    {
+        return _bbox;
+    }
 
-	const iSphered &iNodeVolume::getBoundingSphere() const
-	{
-		return _sphere;
-	}
+    void iNodeVolume::setBoundingBox(const iAABoxd &bbox)
+    {
+        _bbox = bbox;
+        calcActualBBox();
+    }
 
-	void iNodeVolume::setBoundingBox(const iAABoxd &bbox)
-	{
-		_bbox = bbox;
-	}
+    const iSphered &iNodeVolume::getBoundingSphere() const
+    {
+        return _sphere;
+    }
 
-	void iNodeVolume::setBoundingSphere(const iSphered &sphere)
-	{
-		if (_sphere._center != sphere._center ||
-			_sphere._radius != sphere._radius)
-		{
-			_sphere._center = sphere._center;
-			_sphere._radius = sphere._radius;
+    void iNodeVolume::onPreSetScene()
+    {
+        iNodeRender::onPreSetScene();
 
-			updateTree();
-		}
-	}
+        if (getScene())
+        {
+            getScene()->unregisterVolume(this);
+        }
+    }
 
-	void iNodeVolume::onPreSetScene()
-	{
-		iNodeRender::onPreSetScene();
+    void iNodeVolume::onPostSetScene()
+    {
+        iNodeRender::onPostSetScene();
 
-		if (getScene())
-		{
-			getScene()->unregisterVolume(this);
-		}
-	}
+        if (getScene())
+        {
+            getScene()->registerVolume(this);
+        }
+    }
 
-	void iNodeVolume::onPostSetScene()
-	{
-		iNodeRender::onPostSetScene();
+    iaVector3d iNodeVolume::getCenter() const
+    {
+        return _worldMatrix._pos + _bbox._center;
+    }
 
-		if (getScene())
-		{
-			getScene()->registerVolume(this);
-		}
-	}
+    const iaVector3d &iNodeVolume::getRelativeCenter() const
+    {
+        return _bbox._center;
+    }
 
-	iaVector3d iNodeVolume::getCenter() const
-	{
-		return _worldMatrix._pos + _sphere._center;
-	}
+    void iNodeVolume::updateTree()
+    {
+        if (getScene())
+        {
+            getScene()->updateVolume(this);
+        }
+    }
 
-	iaVector3d iNodeVolume::getRelativeCenter() const
-	{
-		return _sphere._center;
-	}
+    void iNodeVolume::onUpdateTransform(iaMatrixd &matrix)
+    {
+        if (_worldMatrix != matrix)
+        {
+            _worldMatrix = matrix;
+            calcActualBBox();
+            updateTree();
+        }
+    }
 
-	void iNodeVolume::updateTree()
-	{
-		if (getScene())
-		{
-			getScene()->updateVolume(this);
-		}
-	}
+    void iNodeVolume::calcActualBBox()
+    {
+        _actualbbox._center = _bbox._center;
+        _actualbbox._halfWidths._x = _bbox._halfWidths._x * _worldMatrix._right.length();
+        _actualbbox._halfWidths._y = _bbox._halfWidths._y * _worldMatrix._top.length();
+        _actualbbox._halfWidths._z = _bbox._halfWidths._z * _worldMatrix._depth.length();
 
-	void iNodeVolume::onUpdateTransform(iaMatrixd &matrix)
-	{
-		if (_worldMatrix != matrix)
-		{
-			_worldMatrix = matrix;
-			updateTree();
-		}
-	}
+        _sphere._center = _actualbbox._center;
+        _sphere._radius = std::max(_actualbbox._halfWidths._x, std::max(_actualbbox._halfWidths._y, _actualbbox._halfWidths._z));
+    }
 
 } // namespace igor
