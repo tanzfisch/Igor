@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iNODEVOLUME__
-#define __iNODEVOLUME__
+#ifndef __IGOR_NODEVOLUME_H__
+#define __IGOR_NODEVOLUME_H__
 
 #include <igor/scene/nodes/iNodeRender.h>
 
@@ -38,8 +38,6 @@ namespace igor
 {
 
     /*! Node that is a renderable and has a volume therefore relevant for the octree structure
-
-    \todo bounding sphere needs to be updated if node was scaled ...
 	*/
     class iNodeVolume : public iNodeRender
     {
@@ -53,13 +51,7 @@ namespace igor
 
         /*! \returns center of sphere in local coordinates
         */
-        iaVector3d getRelativeCenter() const;
-
-        /*! sets bounding sphere
-
-        \param sphere the sphere to set
-        */
-        void setBoundingSphere(const iSphered &sphere);
+        const iaVector3d &getRelativeCenter() const;
 
         /*! \returns bounding sphere
         */
@@ -109,15 +101,23 @@ namespace igor
         virtual ~iNodeVolume();
 
     private:
-        /*! sphere of volume
+        /*! bbox of volume
+        */
+        iAABoxd _actualbbox;
+
+        /*! bounding sphere
         */
         iSphered _sphere;
 
-        /*! bbox of volume
+        /*! bbox of content
         */
         iAABoxd _bbox;
+
+        /*! calculates the bbox based on current scale
+        */
+        void calcActualBBox();
     };
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_NODEVOLUME_H__
