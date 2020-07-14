@@ -254,12 +254,19 @@ namespace igor
         */
         void merge(uint64 nodeID);
 
-        /*! text box against filter
+        /*! text sphere against filter
 
-        \param box the box to filter
+        \param sphere the sphere to filter
         \returns true if inside filter definition
         */
-        bool testFilter(iAACubed &box);
+        bool testFilter(const iSphered &sphere);
+
+        /*! text cube against filter
+
+        \param cube the cube to filter
+        \returns true if inside filter definition
+        */
+        bool testFilter(const iAACubed &cube);
 
         /*! creates a node and returns the new node id
 

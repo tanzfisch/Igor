@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iMESHBUILDER__
-#define __iMESHBUILDER__
+#ifndef __IGOR_MESHBUILDER_H__
+#define __IGOR_MESHBUILDER_H__
 
 #include <igor/data/iSphere.h>
 #include <igor/data/iAABox.h>
@@ -118,12 +118,6 @@ namespace igor
         \param[out] matrix returned matrix
         */
         void getMatrix(iaMatrixf &matrix);
-
-        /*! calculating the bounding sphere
-
-        \todo implement bouncing bubble algorithm
-        */
-        void calcBoundingSphere(iSphered &sphere) const;
 
         /*! calculating the bounding box
         */
@@ -365,4 +359,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_MESHBUILDER_H__

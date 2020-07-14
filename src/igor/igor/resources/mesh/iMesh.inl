@@ -14,7 +14,7 @@ bool iMesh::hasNormals() const
 
 uint32 iMesh::getTextureCoordinatesCount() const
 {
-	return _textureCoordinatesCount;
+    return _textureCoordinatesCount;
 }
 
 bool iMesh::hasTextures() const
@@ -57,17 +57,12 @@ uint32 iMesh::getTrianglesCount() const
     return _trianglesCount;
 }
 
-const iSphered& iMesh::getBoundingSphere() const
-{
-    return _sphere;
-}
-
-const iAABoxd& iMesh::getBoundingBox() const
+const iAABoxd &iMesh::getBoundingBox() const
 {
     return _bbox;
 }
 
-uint32* iMesh::getIndexData() const
+uint32 *iMesh::getIndexData() const
 {
     return _indexData;
 }
@@ -77,7 +72,7 @@ uint32 iMesh::getIndexDataSize() const
     return _indexDataSize;
 }
 
-float32* iMesh::getVertexData() const
+float32 *iMesh::getVertexData() const
 {
     return _vertexData;
 }

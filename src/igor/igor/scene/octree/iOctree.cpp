@@ -352,13 +352,9 @@ namespace igor
 
         if (testFilter(node->_box))
         {
-            iAACubed box;
             for (auto objectID : node->_objects)
             {
-                box._center = _objects[objectID]->_sphere._center;
-                box._halfEdgeLength = _objects[objectID]->_sphere._radius;
-
-                if (testFilter(box))
+                if (testFilter(_objects[objectID]->_sphere))
                 {
                     _queryResult.push_back(objectID);
                 }
@@ -374,11 +370,11 @@ namespace igor
         }
     }
 
-    bool iOctree::testFilter(iAACubed &box)
+    bool iOctree::testFilter(const iAACubed &cube)
     {
         for (auto plane : _planesFilter)
         {
-            if (!iIntersection::inFrontOf(box, plane))
+            if (!iIntersection::inFrontOf(cube, plane))
             {
                 return false;
             }
@@ -386,7 +382,7 @@ namespace igor
 
         for (auto frustum : _frustumFilter)
         {
-            if (!iIntersection::intersects(box, frustum))
+            if (!iIntersection::intersects(cube, frustum))
             {
                 return false;
             }
@@ -394,7 +390,36 @@ namespace igor
 
         for (auto sphere : _spheresFilter)
         {
-            if (!iIntersection::intersects(box, sphere))
+            if (!iIntersection::intersects(cube, sphere))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    bool iOctree::testFilter(const iSphered &sphere)
+    {
+        for (auto plane : _planesFilter)
+        {
+            if (!iIntersection::inFrontOf(sphere, plane))
+            {
+                return false;
+            }
+        }
+
+        for (auto frustum : _frustumFilter)
+        {
+            if (!iIntersection::intersects(sphere, frustum))
+            {
+                return false;
+            }
+        }
+
+        for (auto sphere : _spheresFilter)
+        {
+            if (!iIntersection::intersects(sphere, sphere))
             {
                 return false;
             }
