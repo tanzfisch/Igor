@@ -2,6 +2,7 @@
 
 #include <AL/al.h>
 #include <AL/alc.h>
+#include <AL/alext.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -82,16 +83,13 @@ namespace igor
             con_info("OpenAL Version : " << alGetString(AL_VERSION) << endlTab
                                          << "OpenAL Vendor  : " << alGetString(AL_VENDOR) << endlTab
                                          << "OpenAL Renderer: " << alGetString(AL_RENDERER));
-
-            _initialized = true;
         }
 
         ~iAudioImpl()
         {
             con_info("shutdown audio");
 
-            if (_initialized &&
-                _context != nullptr &&
+            if (_context != nullptr &&
                 _device != nullptr)
             {
                 alcMakeContextCurrent(nullptr);
@@ -103,13 +101,8 @@ namespace igor
             }
         }
 
-        bool createAudioBuffer(iAudioBuffer &audioBuffer, int16 numChannels, int16 bitsPerSample, int32 sampleRate, const char *buffer, int32 bufferSize)
+        bool createBuffer(iAudioBuffer &audioBuffer, int16 numChannels, int16 bitsPerSample, int32 sampleRate, const char *buffer, int32 bufferSize)
         {
-            if (!_initialized)
-            {
-                return false;
-            }
-
             ALenum format = 0;
 
             if (bitsPerSample == 8)
@@ -158,23 +151,13 @@ namespace igor
             return true;
         }
 
-        void destroyAudioBuffer(const iAudioBuffer &buffer)
+        void destroyBuffer(const iAudioBuffer &buffer)
         {
-            if (!_initialized)
-            {
-                return;
-            }
-
             alDeleteBuffers(1, (ALuint *)&buffer._id);
         }
 
         void updateListener(const iaMatrixd &matrix, const iaVector3d velocity)
         {
-            if (!_initialized)
-            {
-                return;
-            }
-
             const ALfloat listenerOri[] = {
                 (ALfloat)matrix._depth._x, (ALfloat)matrix._depth._y, (ALfloat)matrix._depth._z,
                 (ALfloat)matrix._top._x, (ALfloat)matrix._top._y, (ALfloat)matrix._top._z};
@@ -187,13 +170,8 @@ namespace igor
             AL_CHECK_ERROR();
         }
 
-        bool createAudioSource(iAudioSource &audioSource)
+        bool createSource(iAudioSource &audioSource)
         {
-            if (!_initialized)
-            {
-                return false;
-            }
-
             alGenSources((ALuint)1, (ALuint *)&audioSource._id);
             if (!alIsSource(audioSource._id))
             {
@@ -203,57 +181,38 @@ namespace igor
             return true;
         }
 
-        void destroyAudioSource(const iAudioSource &source)
+        void destroySource(const iAudioSource &source)
         {
-            if (!_initialized)
-            {
-                return;
-            }
-
             alDeleteSources(1, (ALuint *)&source._id);
             AL_CHECK_ERROR();
         }
 
-        void setAudioSourcePitch(const iAudioSource &source, float32 pitch)
+        void setSourcePitch(const iAudioSource &source, float32 pitch)
         {
-            if (!_initialized)
-            {
-                return;
-            }
-
             alSourcef(source._id, AL_PITCH, pitch);
             AL_CHECK_ERROR();
         }
 
-        void setAudioSourceGain(const iAudioSource &source, float32 gain)
+        void setSourceDirectChannel(const iAudioSource &source, bool on)
         {
-            if (!_initialized)
-            {
-                return;
-            }
+            alSourcei(source._id, AL_DIRECT_CHANNELS_SOFT, on ? AL_TRUE : AL_FALSE);
+            AL_CHECK_ERROR();
+        }
 
+        void setSourceGain(const iAudioSource &source, float32 gain)
+        {
             alSourcef(source._id, AL_GAIN, gain);
             AL_CHECK_ERROR();
         }
 
-        void setAudioSourceLoop(const iAudioSource &source, bool loop)
+        void setSourceLoop(const iAudioSource &source, bool loop)
         {
-            if (!_initialized)
-            {
-                return;
-            }
-
             alSourcei(source._id, AL_LOOPING, loop ? AL_TRUE : AL_FALSE);
             AL_CHECK_ERROR();
         }
 
         void updateSource(const iAudioSource &source, const iaVector3d &position, const iaVector3d velocity)
         {
-            if (!_initialized)
-            {
-                return;
-            }
-
             alSource3f(source._id, AL_POSITION, position._x, position._y, position._z);
             AL_CHECK_ERROR();
             alSource3f(source._id, AL_VELOCITY, velocity._x, velocity._y, velocity._z);
@@ -262,40 +221,29 @@ namespace igor
 
         void playSource(const iAudioSource &source)
         {
-            if (!_initialized)
-            {
-                return;
-            }
-
             alSourcePlay(source._id);
             AL_CHECK_ERROR();
         }
 
         void stopSource(const iAudioSource &source)
         {
-            if (!_initialized)
-            {
-                return;
-            }
-
             alSourceStop(source._id);
             AL_CHECK_ERROR();
         }
 
         void bindSource(const iAudioSource &source, iAudioBuffer &buffer)
         {
-            if (!_initialized)
-            {
-                return;
-            }
-
             alSourcei(source._id, AL_BUFFER, buffer._id);
             AL_CHECK_ERROR();
         }
 
     private:
-        bool _initialized = false;
+        /*! audio device
+        */
         ALCdevice *_device = nullptr;
+
+        /*! audio context
+        */
         ALCcontext *_context = nullptr;
     };
 
@@ -309,14 +257,14 @@ namespace igor
         delete _impl;
     }
 
-    void iAudio::destroyAudioBuffer(const iAudioBuffer &buffer)
+    void iAudio::destroyBuffer(const iAudioBuffer &buffer)
     {
-        _impl->destroyAudioBuffer(buffer);
+        _impl->destroyBuffer(buffer);
     }
 
-    bool iAudio::createAudioBuffer(iAudioBuffer &audioBuffer, int16 numChannels, int16 bitsPerSample, int32 sampleRate, const char *buffer, int32 bufferSize)
+    bool iAudio::createBuffer(iAudioBuffer &audioBuffer, int16 numChannels, int16 bitsPerSample, int32 sampleRate, const char *buffer, int32 bufferSize)
     {
-        return _impl->createAudioBuffer(audioBuffer, numChannels, bitsPerSample, sampleRate, buffer, bufferSize);
+        return _impl->createBuffer(audioBuffer, numChannels, bitsPerSample, sampleRate, buffer, bufferSize);
     }
 
     void iAudio::updateListener(const iaMatrixd &matrix, const iaVector3d velocity)
@@ -324,29 +272,29 @@ namespace igor
         _impl->updateListener(matrix, velocity);
     }
 
-    bool iAudio::createAudioSource(iAudioSource &source)
+    bool iAudio::createSource(iAudioSource &source)
     {
-        return _impl->createAudioSource(source);
+        return _impl->createSource(source);
     }
 
-    void iAudio::destroyAudioSource(const iAudioSource &source)
+    void iAudio::destroySource(const iAudioSource &source)
     {
-        _impl->destroyAudioSource(source);
+        _impl->destroySource(source);
     }
 
-    void iAudio::setAudioSourcePitch(const iAudioSource &source, float32 pitch)
+    void iAudio::setSourcePitch(const iAudioSource &source, float32 pitch)
     {
-        _impl->setAudioSourcePitch(source, pitch);
+        _impl->setSourcePitch(source, pitch);
     }
 
-    void iAudio::setAudioSourceGain(const iAudioSource &source, float32 gain)
+    void iAudio::setSourceGain(const iAudioSource &source, float32 gain)
     {
-        _impl->setAudioSourceGain(source, gain);
+        _impl->setSourceGain(source, gain);
     }
 
-    void iAudio::setAudioSourceLoop(const iAudioSource &source, bool loop)
+    void iAudio::setSourceLoop(const iAudioSource &source, bool loop)
     {
-        _impl->setAudioSourceLoop(source, loop);
+        _impl->setSourceLoop(source, loop);
     }
 
     void iAudio::updateSource(const iAudioSource &source, const iaVector3d &position, const iaVector3d velocity)
@@ -369,6 +317,7 @@ namespace igor
         auto sound = std::dynamic_pointer_cast<iSound>(resource);
         if (sound != nullptr)
         {
+            _impl->setSourceDirectChannel(source, sound->getNumberOfChannels() > 1);
             _impl->bindSource(source, sound->_buffer);
         }
     }
