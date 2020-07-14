@@ -50,7 +50,6 @@ namespace igor
         friend class iaSingleton<iAudio>;
 
     public:
-
         /*! creates an audio buffer based on given parameters
 
         \param[out] audioBuffer the returned audio buffer
@@ -61,56 +60,56 @@ namespace igor
         \param bufferSize size of audio data
         \returns true if successful
         */
-        bool createAudioBuffer(iAudioBuffer& audioBuffer, int16 numChannels, int16 bitsPerSample, int32 sampleRate, const char* buffer, int32 bufferSize);
+        bool createBuffer(iAudioBuffer &audioBuffer, int16 numChannels, int16 bitsPerSample, int32 sampleRate, const char *buffer, int32 bufferSize);
 
         /*! destroys given audio buffer
 
         \param buffer the audio buffer to destroy
         */
-        void destroyAudioBuffer(const iAudioBuffer& buffer);
+        void destroyBuffer(const iAudioBuffer &buffer);
 
         /*! creates an audio source
 
         \param[out] audioSource the created audio source
         \returns true if successful
         */
-        bool createAudioSource(iAudioSource& audioSource);
+        bool createSource(iAudioSource &audioSource);
 
         /*! destroys given audio source
 
         \param audioSource given audio source
         */
-        void destroyAudioSource(const iAudioSource& audioSource);
+        void destroySource(const iAudioSource &audioSource);
 
         /*! sets audio source pitch
 
         \param pitch the given pitch
         */
-        void setAudioSourcePitch(const iAudioSource& audioSource, float32 pitch);
+        void setSourcePitch(const iAudioSource &audioSource, float32 pitch);
 
         /*! sets audio source gain
 
         \param gain the given gain
         */
-        void setAudioSourceGain(const iAudioSource& audioSource, float32 gain);
+        void setSourceGain(const iAudioSource &audioSource, float32 gain);
 
         /*! sets audio source loop mode
 
         \param loop if true loop mode is on
         */
-        void setAudioSourceLoop(const iAudioSource& audioSource, bool loop);
+        void setSourceLoop(const iAudioSource &audioSource, bool loop);
 
         /*! starts playback of source
 
         \param audioSource given source
         */
-        void playSource(const iAudioSource& audioSource);
+        void playSource(const iAudioSource &audioSource);
 
         /*! stops playback of source
 
         \param audioSource given source
         */
-        void stopSource(const iAudioSource& audioSource);
+        void stopSource(const iAudioSource &audioSource);
 
         /*! updates position and velocoty of audio source
 
@@ -118,24 +117,23 @@ namespace igor
         \param position the given position
         \param velocity the given velocity
         */
-        void updateSource(const iAudioSource& audioSource, const iaVector3d& position, const iaVector3d velocity);
+        void updateSource(const iAudioSource &audioSource, const iaVector3d &position, const iaVector3d velocity);
 
         /*! binds source to sound
 
         \param source the given source
         \param resource the given sound resource
         */
-        void bindSource(const iAudioSource& source, iResourcePtr resource);
+        void bindSource(const iAudioSource &source, iResourcePtr resource);
 
         /*! updates the listeners position, orientation and velocity
 
         \param matrix the given matrix
         \param velocity the given velocity
         */
-        void updateListener(const iaMatrixd& matrix, const iaVector3d velocity);
+        void updateListener(const iaMatrixd &matrix, const iaVector3d velocity);
 
     private:
-
         /*! initializes the audio interface
         */
         iAudio();
@@ -146,8 +144,7 @@ namespace igor
 
         /*! pimpl
         */
-        iAudioImpl* _impl = nullptr;
-
+        iAudioImpl *_impl = nullptr;
     };
 
 }; // namespace igor

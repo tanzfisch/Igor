@@ -20,7 +20,7 @@ namespace igor
 		_nodeType = iNodeType::iNodeAudioSource;
 		_nodeKind = iNodeKind::Audio;
 
-		iAudio::getInstance().createAudioSource(_source);
+		iAudio::getInstance().createSource(_source);
 	}
 
 	iNodeAudioSource::iNodeAudioSource(iNodeAudioSource *node)
@@ -33,13 +33,13 @@ namespace igor
 
 		setName(node->getName());
 
-		iAudio::getInstance().createAudioSource(_source);
+		iAudio::getInstance().createSource(_source);
 	}
 
 	iNodeAudioSource::~iNodeAudioSource()
 	{
 		setScene(nullptr);
-		iAudio::getInstance().destroyAudioSource(_source);
+		iAudio::getInstance().destroySource(_source);
 	}
 
 	void iNodeAudioSource::setSound(iResourcePtr sound)
@@ -60,7 +60,7 @@ namespace igor
 	void iNodeAudioSource::onUpdateTransform(iaMatrixd &matrix)
 	{
 		_velocity = _position - matrix._pos;
-		_position= matrix._pos;
+		_position = matrix._pos;
 
 		iAudio::getInstance().updateSource(_source, _position, _velocity);
 	}
@@ -68,7 +68,7 @@ namespace igor
 	void iNodeAudioSource::setPitch(float32 pitch)
 	{
 		_pitch = pitch;
-		iAudio::getInstance().setAudioSourcePitch(_source, _pitch);
+		iAudio::getInstance().setSourcePitch(_source, _pitch);
 	}
 	float32 iNodeAudioSource::getPitch() const
 	{
@@ -77,7 +77,7 @@ namespace igor
 	void iNodeAudioSource::setGain(float32 gain)
 	{
 		_gain = gain;
-		iAudio::getInstance().setAudioSourceGain(_source, _gain);
+		iAudio::getInstance().setSourceGain(_source, _gain);
 	}
 	float32 iNodeAudioSource::getGain() const
 	{
@@ -86,7 +86,7 @@ namespace igor
 	void iNodeAudioSource::setLoop(bool loop)
 	{
 		_isLooped = loop;
-		iAudio::getInstance().setAudioSourceLoop(_source, _isLooped);
+		iAudio::getInstance().setSourceLoop(_source, _isLooped);
 	}
 	bool iNodeAudioSource::isLooped() const
 	{
