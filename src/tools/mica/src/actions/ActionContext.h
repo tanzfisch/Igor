@@ -39,23 +39,16 @@ class Igor_API ActionContext : public iActionContext
 public:
     /*! init members
     */
-    ActionContext(const std::vector<iNodeID> &nodes, iNodeID rootNode, Outliner *outliner)
-        : _nodes(nodes), _rootNode(rootNode), _outliner(outliner)
+    ActionContext(WorkspacePtr workspace, Outliner *outliner)
+        : _workspace(workspace), _outliner(outliner)
     {
     }
 
-    /*! \returns nodes of action context
+    /*! \returns the workspace
     */
-    __IGOR_INLINE__ const std::vector<iNodeID> &getNodes() const
+    __IGOR_INLINE__ WorkspacePtr getWorkspace() const
     {
-        return _nodes;
-    }
-
-    /*! returns root node of mica graph view
-    */
-    __IGOR_INLINE__ iNodeID getRootNode() const
-    {
-        return _rootNode;
+        return _workspace;
     }
 
     /*! returns the outliner
@@ -66,13 +59,9 @@ public:
     }
 
 private:
-    /*! the nodes to do an action with
+    /*! the mica workspace
     */
-    std::vector<iNodeID> _nodes;
-
-    /*! the root node of the mica workspace
-    */
-    iNodeID _rootNode = iNode::INVALID_NODE_ID;
+    WorkspacePtr _workspace;
 
     /*! reference to the outliner
     */

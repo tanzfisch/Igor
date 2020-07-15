@@ -12,80 +12,80 @@ using namespace iaux;
 namespace igor
 {
 
-	iActionManager::iActionManager()
-	{
-		registerDefaultActions();
-	}
+    iActionManager::iActionManager()
+    {
+        registerDefaultActions();
+    }
 
-	iActionManager::~iActionManager()
-	{
-		for (auto action : _actions)
-		{
-			delete action.second;
-		}
+    iActionManager::~iActionManager()
+    {
+        for (auto action : _actions)
+        {
+            delete action.second;
+        }
 
-		_actions.clear();
-	}
+        _actions.clear();
+    }
 
-	void iActionManager::registerDefaultActions()
-	{
-		registerAction(new iActionApplicationStop());
-	}
+    void iActionManager::registerDefaultActions()
+    {
+        registerAction(new iActionApplicationStop());
+    }
 
-	void iActionManager::registerAction(iActionPtr action)
-	{
-		con_assert(action != nullptr, "zero pointer");
+    void iActionManager::registerAction(iActionPtr action)
+    {
+        con_assert(action != nullptr, "zero pointer");
 
-		int64 hash = action->getName().getHashValue();
+        int64 hash = action->getName().getHashValue();
 
-		auto iter = _actions.find(hash);
-		if (iter != _actions.end())
-		{
-			con_warn("action with name \"" << action->getName() << "\" was already registered");
-			return;
-		}
+        auto iter = _actions.find(hash);
+        if (iter != _actions.end())
+        {
+            con_warn("action with name \"" << action->getName() << "\" was already registered");
+            return;
+        }
 
-		_actions[hash] = action;
-	}
+        _actions[hash] = action;
+    }
 
-	void iActionManager::unregisterAction(const iActionPtr action)
-	{
-		con_assert(action != nullptr, "zero pointer");
+    void iActionManager::unregisterAction(const iActionPtr action)
+    {
+        con_assert(action != nullptr, "zero pointer");
 
-		int64 hash = action->getName().getHashValue();
+        int64 hash = action->getName().getHashValue();
 
-		auto iter = _actions.find(hash);
-		if (iter == _actions.end())
-		{
-			con_warn("action with name \"" << action->getName() << "\" was not registered");
-			return;
-		}
+        auto iter = _actions.find(hash);
+        if (iter == _actions.end())
+        {
+            con_warn("action with name \"" << action->getName() << "\" was not registered");
+            return;
+        }
 
-		_actions.erase(iter);
-	}
+        _actions.erase(iter);
+    }
 
-	bool iActionManager::isRegistered(const iActionPtr action)
-	{
-		con_assert(action != nullptr, "zero pointer");
+    bool iActionManager::isRegistered(const iActionPtr action)
+    {
+        con_assert(action != nullptr, "zero pointer");
 
-		if (action == nullptr)
-		{
-			return false;
-		}
+        if (action == nullptr)
+        {
+            return false;
+        }
 
-		auto iter = _actions.find(action->getName().getHashValue());
-		return iter != _actions.end();
-	}
+        auto iter = _actions.find(action->getName().getHashValue());
+        return iter != _actions.end();
+    }
 
-	iActionPtr iActionManager::getAction(const iaString &name) const
-	{
-		int64 hash = name.getHashValue();
-		auto iter = _actions.find(hash);
-		if (iter != _actions.end())
-		{
-			return iter->second;
-		}
+    iActionPtr iActionManager::getAction(const iaString &name) const
+    {
+        int64 hash = name.getHashValue();
+        auto iter = _actions.find(hash);
+        if (iter != _actions.end())
+        {
+            return iter->second;
+        }
 
-		return nullptr;
-	}
+        return nullptr;
+    }
 } // namespace igor

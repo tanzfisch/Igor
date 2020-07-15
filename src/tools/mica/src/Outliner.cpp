@@ -264,7 +264,7 @@ void Outliner::initGraphView()
 {
     if (_userControlGraphView == nullptr)
     {
-        _userControlGraphView = new UserControlGraphView(this);
+        _userControlGraphView = new UserControlGraphView(_workspace, this);
     }
 
     _userControlGraphView->registerOnSelectionChange(GraphSelectionChangedDelegate(this, &Outliner::onGraphSelectionChanged));

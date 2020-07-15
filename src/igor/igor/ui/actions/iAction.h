@@ -37,69 +37,75 @@ using namespace iaux;
 namespace igor
 {
 
-	/*! action base class
+    /*! action base class
 	*/
-	class Igor_API iAction
-	{
+    class Igor_API iAction
+    {
 
-	public:
-		/*! init members
+    public:
+        /*! init members
 
 		\param name the unique name of this action
 		*/
-		iAction(const iaString &name);
+        iAction(const iaString &name);
 
-		/*! does nothing
+        /*! does nothing
 		*/
-		virtual ~iAction() = default;
+        virtual ~iAction() = default;
 
-		/*! executed when action gets triggered
+        /*! executed when action gets triggered
 
 		\param context the context the action was called with
 		*/
-		virtual void execute(const iActionContext &context) = 0;
+        virtual void execute(const iActionContext &context) = 0;
 
-		/*! \returns the action identifier
+        /*! \returns true if this action will execute with given context
+
+		\param context the context the action was called with
 		*/
-		iaString getName() const;
+        virtual bool isCompatible(const iActionContext &context) = 0;
 
-		/*! sets text of action
+        /*! \returns the action identifier
+		*/
+        iaString getName() const;
+
+        /*! sets text of action
 
 		\param text the new text
 		*/
-		void setDescription(const iaString &description);
+        void setDescription(const iaString &description);
 
-		/*! \returns the action text
+        /*! \returns the action text
 		*/
-		const iaString &getDescription() const;
+        const iaString &getDescription() const;
 
-		/*! sets path to a picture for the action
+        /*! sets path to a picture for the action
 
 		\param filename the new text
 		*/
-		void setPicturePath(const iaString &filename);
+        void setPicturePath(const iaString &filename);
 
-		/*! \returns the action picture file path
+        /*! \returns the action picture file path
 		*/
-		const iaString &getPicturePath() const;
+        const iaString &getPicturePath() const;
 
-	private:
-		/*! name of the action
+    private:
+        /*! name of the action
 		*/
-		iaString _name;
+        iaString _name;
 
-		/*! description of the action
+        /*! description of the action
 		*/
-		iaString _description;
+        iaString _description;
 
-		/*! path to picture of action
+        /*! path to picture of action
 		*/
-		iaString _picture;
-	};
+        iaString _picture;
+    };
 
-	/*! action pointer definition
+    /*! action pointer definition
     */
-	typedef iAction *iActionPtr;
+    typedef iAction *iActionPtr;
 
 } // namespace igor
 

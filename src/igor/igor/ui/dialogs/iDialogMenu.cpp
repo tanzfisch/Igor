@@ -8,6 +8,7 @@
 #include <igor/ui/iWidgetManager.h>
 #include <igor/ui/widgets/iWidgetLabel.h>
 #include <igor/ui/widgets/iWidgetPicture.h>
+#include <igor/ui/widgets/iWidgetSpacer.h>
 #include <igor/ui/actions/iActionManager.h>
 #include <igor/ui/user_controls/iUserControlAction.h>
 
@@ -51,6 +52,14 @@ namespace igor
         close();
     }
 
+    void iDialogMenu::addSpacer()
+    {
+        iWidgetSpacerPtr spacer = new iWidgetSpacer(10, 2, true);
+        spacer->setHorizontalAlignment(iHorizontalAlignment::Strech);
+        _grid->addWidget(spacer, 0, _grid->getRowCount() - 1);
+        _grid->appendRows(1);
+    }
+
     void iDialogMenu::addMenu(const iWidgetMenuPtr menu)
     {
         _grid->addWidget(menu, 0, _grid->getRowCount() - 1);
@@ -62,6 +71,11 @@ namespace igor
         if (!iActionManager::getInstance().isRegistered(action))
         {
             con_err("can't add unregistered actions");
+            return;
+        }
+
+        if (!action->isCompatible(*context))
+        {
             return;
         }
 
