@@ -24,6 +24,15 @@ public:
     {
         con_endl("action one");
     }
+
+    /*! \returns true if this action will execute with given context
+
+	\param context the context the action was called with
+    */
+    bool isCompatible(const iActionContext &context) override
+    {
+        return true;
+    }
 };
 
 // action with only description
@@ -44,6 +53,15 @@ public:
     void execute(const iActionContext &context) override
     {
         con_endl("action two");
+    }
+
+    /*! \returns true if this action will execute with given context
+
+	\param context the context the action was called with
+    */
+    bool isCompatible(const iActionContext &context) override
+    {
+        return true;
     }
 };
 
@@ -66,6 +84,45 @@ public:
     {
         con_endl("action three");
     }
+
+    /*! \returns true if this action will execute with given context
+
+	\param context the context the action was called with
+    */
+    bool isCompatible(const iActionContext &context) override
+    {
+        return true;
+    }
+};
+
+// action that is incompaticle and will not appear in any menu
+class Action4 : public iAction
+{
+
+public:
+    Action4()
+        : iAction("example:four")
+    {
+        setPicturePath("icons/delete.png");
+    }
+
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override
+    {
+        con_endl("action four");
+    }
+
+    /*! \returns true if this action will execute with given context
+
+	\param context the context the action was called with
+    */
+    bool isCompatible(const iActionContext &context) override
+    {
+        return false;
+    }
 };
 
 // set an increase z index of 1 to make sure the ui is rendered above the background
@@ -76,6 +133,7 @@ WidgetsExample::WidgetsExample(iWindow *window)
     iActionManager::getInstance().registerAction(new Action1());
     iActionManager::getInstance().registerAction(new Action2());
     iActionManager::getInstance().registerAction(new Action3());
+    iActionManager::getInstance().registerAction(new Action4());
 }
 
 void WidgetsExample::onCloseDialog(iDialogPtr dialog)
@@ -120,18 +178,21 @@ void WidgetsExample::onInit()
     iActionPtr action1 = iActionManager::getInstance().getAction("example:one");
     iActionPtr action2 = iActionManager::getInstance().getAction("example:two");
     iActionPtr action3 = iActionManager::getInstance().getAction("example:three");
+    iActionPtr action4 = iActionManager::getInstance().getAction("example:four");
 
     // build up menu and submenus
     iWidgetMenuPtr menu1 = new iWidgetMenu();
     menu1->setTitle("Bar");
     menu1->addAction(action1);
     menu1->addAction(action2);
+    menu1->addAction(action4);
     menuBar->addMenu(menu1);
 
     iWidgetMenuPtr menu2 = new iWidgetMenu();
     menu2->setTitle("Foo");
     menu2->addAction(action2);
     menu2->addAction(action1);
+    menu2->addAction(action4);
     menu2->addAction(action3);
 
     iWidgetMenuPtr menu2b = new iWidgetMenu();
@@ -141,11 +202,19 @@ void WidgetsExample::onInit()
     menu2b->addAction(action1);
     menu2->addMenu(menu2b);
 
+    iWidgetMenuPtr menu2ba = new iWidgetMenu();
+    menu2ba->setTitle("Sub Sub Menu");
+    menu2ba->addAction(action1);
+    menu2ba->addAction(action2);
+    menu2ba->addAction(action1);
+    menu2b->addMenu(menu2ba);
+
     iWidgetMenuPtr menu2c = new iWidgetMenu();
     menu2c->setTitle("An Other Sub Menu");
     menu2c->addAction(action2);
     menu2c->addAction(action3);
     menu2c->addAction(action3);
+    menu2c->addAction(action4);
     menu2c->addAction(action3);
     menu2->addMenu(menu2c);
 

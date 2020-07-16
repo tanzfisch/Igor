@@ -15,4 +15,9 @@ namespace igor
         iApplication::getInstance().stop();
     }
 
+    bool iActionApplicationStop::isCompatible(const iActionContext &context)
+    {
+        return true;
+    }
+
 } // namespace igor

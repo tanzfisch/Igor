@@ -29,9 +29,7 @@
 #ifndef __USERCONTROLGRAPHVIEW_H__
 #define __USERCONTROLGRAPHVIEW_H__
 
-#include <igor/igor.h>
-using namespace igor;
-using namespace iaux;
+#include "../Workspace.h"
 
 #include <sstream>
 #include <vector>
@@ -41,11 +39,13 @@ iaEVENT(GraphSelectionChanged, GraphSelectionChangedDelegate, (uint64 nodeID), (
 
 class Outliner;
 
+/*! the user control graph view
+*/
 class UserControlGraphView : public iUserControl, public iNodeVisitor
 {
 
 public:
-    UserControlGraphView(Outliner *outliner);
+    UserControlGraphView(WorkspacePtr workspace, Outliner *outliner);
     ~UserControlGraphView();
 
     /*! sets the selected node
@@ -76,6 +76,10 @@ public:
     void unregisterOnSelectionChange(GraphSelectionChangedDelegate selectionChangeDelegate);
 
 private:
+    /*! the mica workspace
+    */
+    WorkspacePtr _workspace;
+
     Outliner *_outliner = nullptr;
 
     GraphSelectionChanged _graphSelectionChanged;

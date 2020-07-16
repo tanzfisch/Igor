@@ -46,6 +46,81 @@ public:
     \param context the context the action was called with
     */
     void execute(const iActionContext &context) override;
+
+    /*! \returns true if this action will execute with given context
+
+	\param context the context the action was called with
+    */
+    bool isCompatible(const iActionContext &context) override;
+};
+
+/*! copy node action
+*/
+class Igor_API ActionCopyNode : public iAction
+{
+
+public:
+    /*! init members
+    */
+    ActionCopyNode();
+
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override;
+
+    /*! \returns true if this action will execute with given context
+
+	\param context the context the action was called with
+    */
+    bool isCompatible(const iActionContext &context) override;
+};
+
+/*! paste node action
+*/
+class Igor_API ActionPasteNode : public iAction
+{
+
+public:
+    /*! init members
+    */
+    ActionPasteNode();
+
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override;
+
+    /*! \returns true if this action will execute with given context
+
+	\param context the context the action was called with
+    */
+    bool isCompatible(const iActionContext &context) override;
+};
+
+/*! cut node action
+*/
+class Igor_API ActionCutNode : public iAction
+{
+
+public:
+    /*! init members
+    */
+    ActionCutNode();
+
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override;
+
+    /*! \returns true if this action will execute with given context
+
+	\param context the context the action was called with
+    */
+    bool isCompatible(const iActionContext &context) override;
 };
 
 /*! add transformation action
@@ -63,6 +138,12 @@ public:
     \param context the context the action was called with
     */
     void execute(const iActionContext &context) override;
+
+    /*! \returns true if this action will execute with given context
+
+	\param context the context the action was called with
+    */
+    bool isCompatible(const iActionContext &context) override;
 };
 
 /*! add group action
@@ -80,6 +161,12 @@ public:
     \param context the context the action was called with
     */
     void execute(const iActionContext &context) override;
+
+    /*! \returns true if this action will execute with given context
+
+	\param context the context the action was called with
+    */
+    bool isCompatible(const iActionContext &context) override;
 };
 
 /*! add switch action
@@ -97,6 +184,12 @@ public:
     \param context the context the action was called with
     */
     void execute(const iActionContext &context) override;
+
+    /*! \returns true if this action will execute with given context
+
+	\param context the context the action was called with
+    */
+    bool isCompatible(const iActionContext &context) override;
 };
 
 /*! add emitter action
@@ -114,6 +207,12 @@ public:
     \param context the context the action was called with
     */
     void execute(const iActionContext &context) override;
+
+    /*! \returns true if this action will execute with given context
+
+	\param context the context the action was called with
+    */
+    bool isCompatible(const iActionContext &context) override;
 };
 
 /*! add particle system action
@@ -131,6 +230,12 @@ public:
     \param context the context the action was called with
     */
     void execute(const iActionContext &context) override;
+
+    /*! \returns true if this action will execute with given context
+
+	\param context the context the action was called with
+    */
+    bool isCompatible(const iActionContext &context) override;
 };
 
 /*! add model action
@@ -148,6 +253,43 @@ public:
     \param context the context the action was called with
     */
     void execute(const iActionContext &context) override;
+
+    /*! \returns true if this action will execute with given context
+
+	\param context the context the action was called with
+    */
+    bool isCompatible(const iActionContext &context) override;
+};
+
+/*! bake mesh to world
+*/
+class Igor_API ActionBakeMeshToWorld : public iAction
+{
+
+public:
+    /*! init members
+    */
+    ActionBakeMeshToWorld();
+
+    /*! executed when action gets triggered
+
+    \param context the context the action was called with
+    */
+    void execute(const iActionContext &context) override;
+
+    /*! \returns true if this action will execute with given context
+
+	\param context the context the action was called with
+    */
+    bool isCompatible(const iActionContext &context) override;
+
+private:
+    /*! bakes a mesh node to world
+
+    \param meshNode the given mesh node
+    \param root the root of the mica scene
+    */
+    void bakeToWorld(iNodeMeshPtr meshNode, iNodePtr root);
 };
 
 /*! registers mica actions to action manager

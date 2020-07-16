@@ -80,6 +80,10 @@ namespace igor
         */
         void addMenu(const iWidgetMenuPtr menu);
 
+        /*! adds a spacer
+        */
+        void addSpacer();
+
         /*! shows the dialog on screen
 
         \param dialogCloseDelegate the delegate to call after the dialog was closed
