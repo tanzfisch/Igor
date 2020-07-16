@@ -1,6 +1,15 @@
 Changelog                           {#changelog}
 =========
 
+0.29.0
+------
+
+- removed most of old event handling
+- using AL_DIRECT_CHANNELS_SOFT for all multi channel tracks
+- Mica: fixed framing by fixing bounding boxes
+- Mica: fixed backe to world action
+- improved behaviour of menu and sub menus
+
 0.28.0
 ------
 
