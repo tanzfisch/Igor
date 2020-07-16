@@ -202,6 +202,13 @@ void WidgetsExample::onInit()
     menu2b->addAction(action1);
     menu2->addMenu(menu2b);
 
+    iWidgetMenuPtr menu2ba = new iWidgetMenu();
+    menu2ba->setTitle("Sub Sub Menu");
+    menu2ba->addAction(action1);
+    menu2ba->addAction(action2);
+    menu2ba->addAction(action1);
+    menu2b->addMenu(menu2ba);
+
     iWidgetMenuPtr menu2c = new iWidgetMenu();
     menu2c->setTitle("An Other Sub Menu");
     menu2c->addAction(action2);

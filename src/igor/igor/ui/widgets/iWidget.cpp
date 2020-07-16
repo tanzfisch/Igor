@@ -13,14 +13,13 @@ using namespace iaux;
 
 namespace igor
 {
-
-    uint64 iWidget::_nextID = iWidget::INVALID_WIDGET_ID + 1;
+    iaIDGenerator64 iWidget::_idGenerator;
     iWidgetPtr iWidget::_keyboardFocus = nullptr;
 
     iWidget::iWidget(iWidgetType type, iWidgetKind kind, const iWidgetPtr parent)
         : _type(type), _kind(kind) // TODO _parent(parent) why not?
     {
-        _id = _nextID++;
+        _id = _idGenerator.createID();
 
         iWidgetManager::getInstance().registerWidget(this);
 

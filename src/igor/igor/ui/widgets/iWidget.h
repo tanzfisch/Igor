@@ -35,6 +35,7 @@
 
 #include <iaux/math/iaVector4.h>
 #include <iaux/data/iaColor4.h>
+#include <iaux/data/iaIDGenerator.h>
 using namespace iaux;
 
 #include <set>
@@ -43,135 +44,139 @@ using namespace iaux;
 namespace igor
 {
 
-	class iWidgetManager;
-	class iWidget;
+    class iWidgetManager;
+    class iWidget;
 
-	/*! define pointer to widget
+    /*! define pointer to widget
 	*/
-	typedef iWidget *iWidgetPtr;
+    typedef iWidget *iWidgetPtr;
 
-	/*! widget click event
+    /*! widget id definition
+    */
+    typedef uint64 iWidgetID;
+
+    /*! widget click event
 	*/
-	iaEVENT(iClickEvent, iClickDelegate, (const iWidgetPtr source), (source));
+    iaEVENT(iClickEvent, iClickDelegate, (const iWidgetPtr source), (source));
 
-	/*! mouse off click event
+    /*! mouse off click event
 
 	so when there was a click outside the range of a widget
 	*/
-	iaEVENT(iMouseOffClickEvent, iMouseOffClickDelegate, (const iWidgetPtr source), (source));
+    iaEVENT(iMouseOffClickEvent, iMouseOffClickDelegate, (const iWidgetPtr source), (source));
 
-	/*! context menu event
+    /*! context menu event
 	*/
-	iaEVENT(iContextMenuEvent, iContextMenuDelegate, (const iWidgetPtr source), (source));
+    iaEVENT(iContextMenuEvent, iContextMenuDelegate, (const iWidgetPtr source), (source));
 
-	/*! wheel up event
+    /*! wheel up event
 	*/
-	iaEVENT(iWheelUpEvent, iWheelUpDelegate, (const iWidgetPtr source), (source));
+    iaEVENT(iWheelUpEvent, iWheelUpDelegate, (const iWidgetPtr source), (source));
 
-	/*! wheel down event
+    /*! wheel down event
 	*/
-	iaEVENT(iWheelDownEvent, iWheelDownDelegate, (const iWidgetPtr source), (source));
+    iaEVENT(iWheelDownEvent, iWheelDownDelegate, (const iWidgetPtr source), (source));
 
-	/*! double click event
+    /*! double click event
 	*/
-	iaEVENT(iDoubleClickEvent, iDoubleClickDelegate, (const iWidgetPtr source), (source));
+    iaEVENT(iDoubleClickEvent, iDoubleClickDelegate, (const iWidgetPtr source), (source));
 
-	/*! mouse over event
+    /*! mouse over event
 	*/
-	iaEVENT(iMouseOverEvent, iMouseOverDelegate, (const iWidgetPtr source), (source));
+    iaEVENT(iMouseOverEvent, iMouseOverDelegate, (const iWidgetPtr source), (source));
 
-	/*! mouse off event
+    /*! mouse off event
 	*/
-	iaEVENT(iMouseOffEvent, iMouseOffDelegate, (const iWidgetPtr source), (source));
+    iaEVENT(iMouseOffEvent, iMouseOffDelegate, (const iWidgetPtr source), (source));
 
-	/*! change event
+    /*! change event
 	*/
-	iaEVENT(iChangeEvent, iChangeDelegate, (const iWidgetPtr source), (source));
+    iaEVENT(iChangeEvent, iChangeDelegate, (const iWidgetPtr source), (source));
 
-	/*! keyboard focus changed event
+    /*! keyboard focus changed event
 	*/
-	iaEVENT(iFocusEvent, iFocusDelegate, (const iWidgetPtr source), (source));
+    iaEVENT(iFocusEvent, iFocusDelegate, (const iWidgetPtr source), (source));
 
-	/*! selection changed event
+    /*! selection changed event
 	*/
-	iaEVENT(iSelectionChangedEvent, iSelectionChangedDelegate, (int32 index), (index));
+    iaEVENT(iSelectionChangedEvent, iSelectionChangedDelegate, (int32 index), (index));
 
-	/*! interaction state of widget
+    /*! interaction state of widget
 	*/
-	enum class iWidgetState
-	{
-		/*! widget it highlighted
+    enum class iWidgetState
+    {
+        /*! widget it highlighted
 		*/
-		Highlighted,
+        Highlighted,
 
-		/*! widget if currently pressed and held down
+        /*! widget if currently pressed and held down
 		*/
-		Pressed,
+        Pressed,
 
-		/*! widget was just released from clicking it
+        /*! widget was just released from clicking it
 		*/
-		Clicked,
+        Clicked,
 
-		/*! widget was double clicked
+        /*! widget was double clicked
 		*/
-		DoubleClicked,
+        DoubleClicked,
 
-		/*! the widget does nothing except existing
+        /*! the widget does nothing except existing
 		*/
-		Standby
-	};
+        Standby
+    };
 
-	/*! types of igor widgets
+    /*! types of igor widgets
     */
-	enum class iWidgetType
-	{
-		iWidgetButton,
-		iWidgetCheckBox,
-		iWidgetColor,
-		iWidgetColorGradient,
-		iWidgetGraph,
-		iWidgetGrid,
-		iWidgetGroupBox,
-		iWidgetLabel,
-		iWidgetMenu,
-		iWidgetMenuBar,
-		iWidgetNumberChooser,
-		iWidgetPicture,
-		iWidgetScroll,
-		iWidgetSelectBox,
-		iWidgetSlider,
-		iWidgetSpacer,
-		iWidgetTextEdit,
+    enum class iWidgetType
+    {
+        iWidgetButton,
+        iWidgetCheckBox,
+        iWidgetColor,
+        iWidgetColorGradient,
+        iWidgetGraph,
+        iWidgetGrid,
+        iWidgetGroupBox,
+        iWidgetLabel,
+        iWidgetMenu,
+        iWidgetMenuBar,
+        iWidgetNumberChooser,
+        iWidgetPicture,
+        iWidgetScroll,
+        iWidgetSelectBox,
+        iWidgetSlider,
+        iWidgetSpacer,
+        iWidgetTextEdit,
 
-		iUserControl,
-		iUserControlAction,
-		iUserControlColorChooser,
-		iUserControlFileChooser,
+        iUserControl,
+        iUserControlAction,
+        iUserControlColorChooser,
+        iUserControlFileChooser,
 
-		iDialog,
-		iDialogColorChooser,
-		iDialogColorGradient,
-		iDialogDecisionBox,
-		iDialogFileSelect,
-		iDialogGraph,
-		iDialogIndexMenu,
-		iDialogMenu,
-		iDialogMessageBox,
+        iDialog,
+        iDialogColorChooser,
+        iDialogColorGradient,
+        iDialogDecisionBox,
+        iDialogFileSelect,
+        iDialogGraph,
+        iDialogIndexMenu,
+        iDialogMenu,
+        iDialogMessageBox,
 
-		iUserType = 100,
-		iUndefinedType = 100
-	};
+        iUserType = 100,
+        iUndefinedType = 100
+    };
 
-	/*! defines the kind of widget
+    /*! defines the kind of widget
 	*/
-	enum class iWidgetKind
-	{
-		Widget,
-		UserControl,
-		Dialog
-	};
+    enum class iWidgetKind
+    {
+        Widget,
+        UserControl,
+        Dialog
+    };
 
-	/*! GUI widget base class
+    /*! GUI widget base class
 
 	coordinatesystems origin within widgets is the upper left corner with x positive to the right and y positive down
 
@@ -180,790 +185,790 @@ namespace igor
 	\todo maybe we should have a widget base class on top so we can treat widgets usercontrols and dialogs more equaly
 	\todo replace relative and actual pos variables with two rectangles
 	*/
-	class Igor_API iWidget
-	{
+    class Igor_API iWidget
+    {
 
-		// iWidget has sooo many friends <3
-		friend class iWidgetManager;
-		friend class iDialog;
-		friend class iWidgetGrid;
-		friend class iWidgetScroll;
-		friend class iWidgetGroupBox;
-		friend class iWidgetCheckBox;
-		friend class iWidgetNumberChooser;
-		friend class iWidgetPicture;
-		friend class iWidgetTextEdit;
-		friend class iWidgetSlider;
+        // iWidget has sooo many friends <3
+        friend class iWidgetManager;
+        friend class iDialog;
+        friend class iWidgetGrid;
+        friend class iWidgetScroll;
+        friend class iWidgetGroupBox;
+        friend class iWidgetCheckBox;
+        friend class iWidgetNumberChooser;
+        friend class iWidgetPicture;
+        friend class iWidgetTextEdit;
+        friend class iWidgetSlider;
 
-	public:
-		/*! \returns the widgets type
+    public:
+        /*! \returns the widgets type
         */
-		iWidgetType getWidgetType() const;
+        iWidgetType getWidgetType() const;
 
-		/*! \return the widgets kind
+        /*! \return the widgets kind
 		*/
-		iWidgetKind getWidgetKind() const;
+        iWidgetKind getWidgetKind() const;
 
-		/*! sets the z value which determines the render order of siglings
+        /*! sets the z value which determines the render order of siglings
 
         \param zvalue the z value to set
         */
-		void setZValue(int32 zvalue);
+        void setZValue(int32 zvalue);
 
-		/*! \returns the z value of this widget
+        /*! \returns the z value of this widget
         */
-		int32 getZValue() const;
+        int32 getZValue() const;
 
-		/*! sets background color
+        /*! sets background color
 
         \param color the new background color
         */
-		void setBackground(const iaColor4f &color);
+        void setBackground(const iaColor4f &color);
 
-		/*! \returns the background color
+        /*! \returns the background color
         */
-		iaColor4f getBackground() const;
+        iaColor4f getBackground() const;
 
-		/*! sets foreground color
+        /*! sets foreground color
 
         \param color the new foreground color
         */
-		void setForeground(const iaColor4f &color);
+        void setForeground(const iaColor4f &color);
 
-		/*! \returns the foreground color
+        /*! \returns the foreground color
         */
-		iaColor4f getForeground() const;
+        iaColor4f getForeground() const;
 
-		/*! blocks all outgoing events from this widget
+        /*! blocks all outgoing events from this widget
         */
-		virtual void blockEvents();
+        virtual void blockEvents();
 
-		/*! unblocks all outgoing events from this widget
+        /*! unblocks all outgoing events from this widget
         */
-		virtual void unblockEvents();
+        virtual void unblockEvents();
 
-		/*! @returns true if events on this widget are blocked
+        /*! @returns true if events on this widget are blocked
         */
-		bool isBlocked() const;
+        bool isBlocked() const;
 
-		/*! invalid widget ID
+        /*! invalid widget ID
 		*/
-		static const uint64 INVALID_WIDGET_ID = 0;
+        static const iWidgetID INVALID_WIDGET_ID = 0;
 
-		/*! \returns true if widget has keyboard focus
+        /*! \returns true if widget has keyboard focus
 		*/
-		bool hasKeyboardFocus() const;
+        bool hasKeyboardFocus() const;
 
-		/*! \returns current interaction state of widget
+        /*! \returns current interaction state of widget
 		*/
-		iWidgetState getState() const;
+        iWidgetState getState() const;
 
-		/*! registers delegate to click event (click is left mouse button)
+        /*! registers delegate to click event (click is left mouse button)
 
 		\param clickDelegate the delegate to register
 		*/
-		void registerOnClickEvent(iClickDelegate clickDelegate);
+        void registerOnClickEvent(iClickDelegate clickDelegate);
 
-		/*! registers delegate to mouse out of bounds click events
+        /*! registers delegate to mouse out of bounds click events
 
 		\param clickDelegate the delegate to register
 		*/
-		void registerOnMouseOffClickEvent(iMouseOffClickDelegate clickDelegate);
+        void registerOnMouseOffClickEvent(iMouseOffClickDelegate clickDelegate);
 
-		/*! registers delegate to double click event
+        /*! registers delegate to double click event
 
 		\param doubleClickDelegate the delegate to register
 		*/
-		void registerOnDoubleClickEvent(iDoubleClickDelegate doubleClickDelegate);
+        void registerOnDoubleClickEvent(iDoubleClickDelegate doubleClickDelegate);
 
-		/*! registers delegate to mouse over event
+        /*! registers delegate to mouse over event
 
 		\param mouseOverDelegate the delegate to register
 		*/
-		void registerOnMouseOverEvent(iMouseOverDelegate mouseOverDelegate);
+        void registerOnMouseOverEvent(iMouseOverDelegate mouseOverDelegate);
 
-		/*! registers delegate to mouse off event (oposite of mouse over)
+        /*! registers delegate to mouse off event (oposite of mouse over)
 
 		\param mouseOffDelegate the delegate to register
 		*/
-		void registerOnMouseOffEvent(iMouseOffDelegate mouseOffDelegate);
+        void registerOnMouseOffEvent(iMouseOffDelegate mouseOffDelegate);
 
-		/*! registers delegate to content change event
+        /*! registers delegate to content change event
 
 		\param changeDelegate the delegate to register
 		*/
-		void registerOnChangeEvent(iChangeDelegate changeDelegate);
+        void registerOnChangeEvent(iChangeDelegate changeDelegate);
 
-		/*! registers delegate to keyboard focus event
+        /*! registers delegate to keyboard focus event
 
 		\param focusDelegate the delegate to register
 		*/
-		void registerOnFocusEvent(iFocusDelegate focusDelegate);
+        void registerOnFocusEvent(iFocusDelegate focusDelegate);
 
-		/*! registers delegate to wheel up event
+        /*! registers delegate to wheel up event
 
 		\param wheelUpDelegate the delegate to register
 		*/
-		void registerOnWheelUpEvent(iWheelUpDelegate wheelUpDelegate);
+        void registerOnWheelUpEvent(iWheelUpDelegate wheelUpDelegate);
 
-		/*! unregister delegate from wheel up event
+        /*! unregister delegate from wheel up event
 
 		\param wheelUpDelegate the delegate to unregister
 		*/
-		void unregisterOnWheelUpEvent(iWheelUpDelegate wheelUpDelegate);
+        void unregisterOnWheelUpEvent(iWheelUpDelegate wheelUpDelegate);
 
-		/*! registers delegate to wheel down event
+        /*! registers delegate to wheel down event
 
 		\param wheelDownDelegate the delegate to register
 		*/
-		void registerOnWheelDownEvent(iWheelDownDelegate wheelDownDelegate);
+        void registerOnWheelDownEvent(iWheelDownDelegate wheelDownDelegate);
 
-		/*! unregister delegate from wheel down event
+        /*! unregister delegate from wheel down event
 
 		\param wheelDownDelegate the delegate to unregister
 		*/
-		void unregisterOnWheelDownEvent(iWheelDownDelegate wheelDownDelegate);
+        void unregisterOnWheelDownEvent(iWheelDownDelegate wheelDownDelegate);
 
-		/*! unregisters delegate from click event (click is left mouse button)
-
-		\param clickDelegate the delegate to unregister
-		*/
-		void unregisterOnClickEvent(iClickDelegate clickDelegate);
-
-		/*! unregisters delegate from mouse off click event
+        /*! unregisters delegate from click event (click is left mouse button)
 
 		\param clickDelegate the delegate to unregister
 		*/
-		void unregisterOnMouseOffClickEvent(iMouseOffClickDelegate clickDelegate);
+        void unregisterOnClickEvent(iClickDelegate clickDelegate);
 
-		/*! unregisters delegate from double click event
+        /*! unregisters delegate from mouse off click event
+
+		\param clickDelegate the delegate to unregister
+		*/
+        void unregisterOnMouseOffClickEvent(iMouseOffClickDelegate clickDelegate);
+
+        /*! unregisters delegate from double click event
 
 		\param doubleClickDelegate the delegate to unregister
 		*/
-		void unregisterOnDoubleClickEvent(iDoubleClickDelegate doubleClickDelegate);
+        void unregisterOnDoubleClickEvent(iDoubleClickDelegate doubleClickDelegate);
 
-		/*! unregisters delegate mouse over event
+        /*! unregisters delegate mouse over event
 
 		\param mouseOverDelegate the delegate to unregister
 		*/
-		void unregisterOnMouseOverEvent(iMouseOverDelegate mouseOverDelegate);
+        void unregisterOnMouseOverEvent(iMouseOverDelegate mouseOverDelegate);
 
-		/*! unregisters delegate mouse off event
+        /*! unregisters delegate mouse off event
 
 		\param mouseOffDelegate the delegate to unregister
 		*/
-		void unregisterOnMouseOffEvent(iMouseOffDelegate mouseOffDelegate);
+        void unregisterOnMouseOffEvent(iMouseOffDelegate mouseOffDelegate);
 
-		/*! unregisters delegate content change event
+        /*! unregisters delegate content change event
 
 		\param changeDelegate the delegate to unregister
 		*/
-		void unregisterOnChangeEvent(iChangeDelegate changeDelegate);
+        void unregisterOnChangeEvent(iChangeDelegate changeDelegate);
 
-		/*! unregisters delegate keyboard focus event
+        /*! unregisters delegate keyboard focus event
 
 		\param focusDelegate the delegate to unregister
 		*/
-		void unregisterOnFocusEvent(iFocusDelegate focusDelegate);
+        void unregisterOnFocusEvent(iFocusDelegate focusDelegate);
 
-		/*! registers delegate to context menu event
+        /*! registers delegate to context menu event
 
 		\param contextMenuDelegate the delegate to register
 		*/
-		void registerOnContextMenuEvent(iContextMenuDelegate contextMenuDelegate);
+        void registerOnContextMenuEvent(iContextMenuDelegate contextMenuDelegate);
 
-		/*! unregister delegate from context menu event
+        /*! unregister delegate from context menu event
 
 		\param contextMenuDelegate the delegate to unregister
 		*/
-		void unregisterOnContextMenuEvent(iContextMenuDelegate contextMenuDelegate);
+        void unregisterOnContextMenuEvent(iContextMenuDelegate contextMenuDelegate);
 
-		/*! registers delegate to selection changed event
+        /*! registers delegate to selection changed event
 
 		\param delegate the delegate to register
 		*/
-		void registerOnSelectionChangedEvent(iSelectionChangedDelegate delegate);
+        void registerOnSelectionChangedEvent(iSelectionChangedDelegate delegate);
 
-		/*! unregisters delegate from seleciton changed event
+        /*! unregisters delegate from seleciton changed event
 
 		\param delegate the delegate to unregister
 		*/
-		void unregisterOnSelectionChangedEvent(iSelectionChangedDelegate delegate);
+        void unregisterOnSelectionChangedEvent(iSelectionChangedDelegate delegate);
 
-		/*! \returns actual absolute position
+        /*! \returns actual absolute position
 		*/
-		iaVector2i getActualPos() const;
+        iaVector2i getActualPos() const;
 
-		/*! \returns actual absolute horizontal position
+        /*! \returns actual absolute horizontal position
 		*/
-		int32 getActualPosX() const;
+        int32 getActualPosX() const;
 
-		/*! \returns actual absolute vertical position
+        /*! \returns actual absolute vertical position
 		*/
-		int32 getActualPosY() const;
+        int32 getActualPosY() const;
 
-		/*! \returns actual width
+        /*! \returns actual width
 		*/
-		int32 getActualWidth() const;
+        int32 getActualWidth() const;
 
-		/*! \returns actual height
+        /*! \returns actual height
 		*/
-		int32 getActualHeight() const;
+        int32 getActualHeight() const;
 
-		/*! \returns actual rectangle
+        /*! \returns actual rectangle
 		*/
-		iRectanglei getActualRect() const;
+        iRectanglei getActualRect() const;
 
-		/*! \returns actual relative horizontal position
+        /*! \returns actual relative horizontal position
 		*/
-		int32 getRelativePosX() const;
+        int32 getRelativePosX() const;
 
-		/*! \returns actual relative vertical position
+        /*! \returns actual relative vertical position
 		*/
-		int32 getRelativePosY() const;
+        int32 getRelativePosY() const;
 
-		/*! \returns minimum width
+        /*! \returns minimum width
 		*/
-		int32 getMinWidth() const;
+        int32 getMinWidth() const;
 
-		/*! \returns minimum height
+        /*! \returns minimum height
 		*/
-		int32 getMinHeight() const;
+        int32 getMinHeight() const;
 
-		/*! \returns actual width
+        /*! \returns actual width
 		*/
-		int32 getConfiguredWidth() const;
+        int32 getConfiguredWidth() const;
 
-		/*! \returns actual height
+        /*! \returns actual height
 		*/
-		int32 getConfiguredHeight() const;
+        int32 getConfiguredHeight() const;
 
-		/*! sets the configured width
+        /*! sets the configured width
 
 		\param width the width defined
 		*/
-		void setWidth(int32 width);
+        void setWidth(int32 width);
 
-		/*! sets the configured height
+        /*! sets the configured height
 
 		\param height the height defined
 		*/
-		void setHeight(int32 height);
+        void setHeight(int32 height);
 
-		/*! sets width and height of the widget
+        /*! sets width and height of the widget
 
 		\param width the width defined
 		\param height the height defined
 		*/
-		void setSize(int32 width, int32 height);
+        void setSize(int32 width, int32 height);
 
-		/*! sets if the widget accepts mouse clicks outside of the widget's area
+        /*! sets if the widget accepts mouse clicks outside of the widget's area
 
 		\param acceptOutOfBoundsClick if true mouse clicks outside will result in iMouseOffClickEvent
 		*/
-		void setAcceptOutOfBoundsClicks(bool acceptOutOfBoundsClick = true);
+        void setAcceptOutOfBoundsClicks(bool acceptOutOfBoundsClick = true);
 
-		/*! \returns true if out of bound mouse clicks will be handeled
+        /*! \returns true if out of bound mouse clicks will be handeled
 		*/
-		bool getAcceptOutOfBoundsClicks() const;
+        bool getAcceptOutOfBoundsClicks() const;
 
-		/*! draws the widget
+        /*! draws the widget
 		*/
-		virtual void draw();
+        virtual void draw();
 
-		/*! \returns horizontal alignment relative to parent widget
+        /*! \returns horizontal alignment relative to parent widget
 		*/
-		iHorizontalAlignment getHorizontalAlignment();
+        iHorizontalAlignment getHorizontalAlignment();
 
-		/*! \returns vertical alignment relative to parent widget
+        /*! \returns vertical alignment relative to parent widget
 		*/
-		iVerticalAlignment getVerticalAlignment();
+        iVerticalAlignment getVerticalAlignment();
 
-		/*! set horizontal alignment relative to parent widget
+        /*! set horizontal alignment relative to parent widget
 
 		\param horizontalAlignment the horizontal alignment
 		*/
-		void setHorizontalAlignment(iHorizontalAlignment horizontalAlignment);
+        void setHorizontalAlignment(iHorizontalAlignment horizontalAlignment);
 
-		/*! set vertical alignment relative to parent widget
+        /*! set vertical alignment relative to parent widget
 
 		\param verticalAlignment the horizontal vertical
 		*/
-		void setVerticalAlignment(iVerticalAlignment verticalAlignment);
+        void setVerticalAlignment(iVerticalAlignment verticalAlignment);
 
-		/*! \returns true if visible
+        /*! \returns true if visible
 		*/
-		bool isVisible() const;
+        bool isVisible() const;
 
-		/*! \returns true if active aka enabled
+        /*! \returns true if active aka enabled
 		*/
-		bool isActive() const;
+        bool isActive() const;
 
-		/*! set widget visible
+        /*! set widget visible
 
 		\parma visible boolean to set is visible or invisible
 		*/
-		void setVisible(bool visible = true);
+        void setVisible(bool visible = true);
 
-		/*! set widget active aka enabled
+        /*! set widget active aka enabled
 
 		\param active boolean to set is active or inactive
 		*/
-		void setActive(bool active = true);
+        void setActive(bool active = true);
 
-		/*! \returns id of widget
+        /*! \returns id of widget
 		*/
-		uint64 getID() const;
+        iWidgetID getID() const;
 
-		/*! \returns id of parenting widget
+        /*! \returns id of parenting widget
 		*/
-		uint64 getParentID() const;
+        iWidgetID getParentID() const;
 
-		/*! \returns true if mouse over widget
+        /*! \returns true if mouse over widget
 		*/
-		bool isMouseOver();
+        bool isMouseOver();
 
-		/*! sets the drop accept flag
+        /*! sets the drop accept flag
 
 		\param acceptDrop if true widget accepts drop from drag
 		*/
-		void setAcceptDrop(bool acceptDrop);
+        void setAcceptDrop(bool acceptDrop);
 
-		/*! \returns true: widget accepts drop from drag; false: it does not accept drop
+        /*! \returns true: widget accepts drop from drag; false: it does not accept drop
 		*/
-		bool isAcceptingDrop();
+        bool isAcceptingDrop();
 
-		/*! adds a child widget to this widget
+        /*! adds a child widget to this widget
 
 		\param widget the child widget to be added
 		*/
-		virtual void addWidget(iWidgetPtr widget);
+        virtual void addWidget(iWidgetPtr widget);
 
-		/*! removes a child widget frmo this widget
+        /*! removes a child widget frmo this widget
 
 		\param widget the child widget to be removed
 		*/
-		virtual void removeWidget(iWidgetPtr widget);
+        virtual void removeWidget(iWidgetPtr widget);
 
-		/*! \returns true if has parent
+        /*! \returns true if has parent
 		*/
-		bool hasParent() const;
+        bool hasParent() const;
 
-		/*! sets the grow by content flag
+        /*! sets the grow by content flag
 
 		\param grow if true the widget will grow if it's content is bigger than the configured size
 		*/
-		void setGrowingByContent(bool grow = true);
+        void setGrowingByContent(bool grow = true);
 
-		/*! \returns if the widget grows by content
+        /*! \returns if the widget grows by content
 		*/
-		bool isGrowingByContent() const;
+        bool isGrowingByContent() const;
 
-		/*! \returns an information string about this widget
+        /*! \returns an information string about this widget
 		*/
-		iaString getInfo() const;
+        iaString getInfo() const;
 
-		/*! \returns the widget that is currently in focus
+        /*! \returns the widget that is currently in focus
 		*/
-		static iWidgetPtr getKeyboardFocusWidget();
+        static iWidgetPtr getKeyboardFocusWidget();
 
-		/*! sets the tooltip text
+        /*! sets the tooltip text
 
 		\param text the tooltip text
 		*/
-		void setTooltip(const iaString &text);
+        void setTooltip(const iaString &text);
 
-		/*! \returns tooltip text
+        /*! \returns tooltip text
 		*/
-		iaString getTooltip() const;
+        iaString getTooltip() const;
 
-		/*! returns a list with children
+        /*! returns a list with children
 
 		\param children[out] list with children
 		*/
-		void getChildren(std::vector<iWidgetPtr> &children);
+        void getChildren(std::vector<iWidgetPtr> &children);
 
-		/*! removes and deletes all children
+        /*! removes and deletes all children
 
 		this will also cause all children deleting their children and so on
 		*/
-		void clearChildren();
+        void clearChildren();
 
-		/*! sets id this widget handles all events regardles whether or not its child already has handled the events
+        /*! sets id this widget handles all events regardles whether or not its child already has handled the events
 
         \param value if true this widget handles all events
         */
-		void setIgnoreChildEventHandling(bool value = true);
+        void setIgnoreChildEventHandling(bool value = true);
 
-		/*! \returns true if event handling is done an any case
+        /*! \returns true if event handling is done an any case
         */
-		bool isIgnoringChildEventHandling() const;
+        bool isIgnoringChildEventHandling() const;
 
-		/*! \returns the root widget which owns this widget
+        /*! \returns the root widget which owns this widget
 
         returns nullptr if there is no parent
         */
-		iWidgetPtr getRoot();
+        iWidgetPtr getRoot();
 
-	protected:
-		/*! list of children
+    protected:
+        /*! list of children
 		*/
-		std::vector<iWidgetPtr> _children;
+        std::vector<iWidgetPtr> _children;
 
-		/*! configured width of the widget
+        /*! configured width of the widget
 		*/
-		int32 _configuredWidth = 0;
+        int32 _configuredWidth = 0;
 
-		/*! configured height of the widget
+        /*! configured height of the widget
 		*/
-		int32 _configuredHeight = 20;
+        int32 _configuredHeight = 20;
 
-		/*! click event
+        /*! click event
 		*/
-		iClickEvent _click;
+        iClickEvent _click;
 
-		/*! mouse off click event
+        /*! mouse off click event
 		*/
-		iMouseOffClickEvent _mouseOffClick;
+        iMouseOffClickEvent _mouseOffClick;
 
-		/*! context menu event
+        /*! context menu event
 		*/
-		iContextMenuEvent _contextMenu;
+        iContextMenuEvent _contextMenu;
 
-		/*! double click event
+        /*! double click event
 		*/
-		iDoubleClickEvent _doubleClick;
+        iDoubleClickEvent _doubleClick;
 
-		/*! moouse over event
+        /*! moouse over event
 		*/
-		iMouseOverEvent _mouseOver;
+        iMouseOverEvent _mouseOver;
 
-		/*! mouse off event
+        /*! mouse off event
 		*/
-		iMouseOffEvent _mouseOff;
+        iMouseOffEvent _mouseOff;
 
-		/*! content changed event
+        /*! content changed event
 		*/
-		iChangeEvent _change;
+        iChangeEvent _change;
 
-		/*! got keyboard focus event
+        /*! got keyboard focus event
 		*/
-		iFocusEvent _focus;
+        iFocusEvent _focus;
 
-		/*! wheel up event
+        /*! wheel up event
 		*/
-		iWheelUpEvent _wheelUp;
+        iWheelUpEvent _wheelUp;
 
-		/*! wheel down event
+        /*! wheel down event
 		*/
-		iWheelDownEvent _wheelDown;
+        iWheelDownEvent _wheelDown;
 
-		/*! selection changed event
+        /*! selection changed event
 		*/
-		iSelectionChangedEvent _selectionChanged;
+        iSelectionChangedEvent _selectionChanged;
 
-		/*! tooltip text
+        /*! tooltip text
 		*/
-		iaString _tooltip;
+        iaString _tooltip;
 
-		/*! position for the tooltip to appear
+        /*! position for the tooltip to appear
 		*/
-		iaVector2i _tooltipPos;
+        iaVector2i _tooltipPos;
 
-		/*! z value of this widget
+        /*! z value of this widget
         */
-		int32 _zValue = 0;
+        int32 _zValue = 0;
 
-		/*! if true widget will react on mouse wheel
+        /*! if true widget will react on mouse wheel
         */
-		bool _reactOnMouseWheel = true;
+        bool _reactOnMouseWheel = true;
 
-		/*! if true events on this widget are blocked
+        /*! if true events on this widget are blocked
         */
-		bool _blockedEvents = false;
+        bool _blockedEvents = false;
 
-		/*! if true this widget will process mouse clicks outside of the widgets boundings
+        /*! if true this widget will process mouse clicks outside of the widgets boundings
         */
-		bool _acceptOutOfBoundsClicks = false;
+        bool _acceptOutOfBoundsClicks = false;
 
-		/*! flag if widget accepts drop
+        /*! flag if widget accepts drop
         */
-		bool _acceptDrop = false;
+        bool _acceptDrop = false;
 
-		/*! true: if currently mouse is over widget
+        /*! true: if currently mouse is over widget
         */
-		bool _isMouseOver = false;
+        bool _isMouseOver = false;
 
-		/*! if true this widget handles all events regardles whether or not its child already has handled the events
+        /*! if true this widget handles all events regardles whether or not its child already has handled the events
         */
-		bool _ignoreChildEventHandling = false;
+        bool _ignoreChildEventHandling = false;
 
-		/*! initializes members
+        /*! initializes members
 
         \param parent the optional parent
         */
-		iWidget(iWidgetType type, iWidgetKind kind, const iWidgetPtr parent = nullptr);
+        iWidget(iWidgetType type, iWidgetKind kind, const iWidgetPtr parent = nullptr);
 
-		/*! clean up
+        /*! clean up
         */
-		virtual ~iWidget();
+        virtual ~iWidget();
 
-		/*! handles incomming mouse wheel event
+        /*! handles incomming mouse wheel event
 
 		\param d mouse wheel delta
 		\returns true: if event was consumed and therefore ignored by the parent
 		*/
-		virtual bool handleMouseWheel(int32 d);
+        virtual bool handleMouseWheel(int32 d);
 
-		/*! handles incomming mouse key down events
-
-		\param key the key that was pressed
-		\returns true: if event was consumed and therefore ignored by the parent
-		*/
-		virtual bool handleMouseKeyDown(iKeyCode key);
-
-		/*! handles incomming double click
+        /*! handles incomming mouse key down events
 
 		\param key the key that was pressed
 		\returns true: if event was consumed and therefore ignored by the parent
 		*/
-		virtual bool handleMouseDoubleClick(iKeyCode key);
+        virtual bool handleMouseKeyDown(iKeyCode key);
 
-		/*! handles mouse key up events
+        /*! handles incomming double click
 
 		\param key the key that was pressed
 		\returns true: if event was consumed and therefore ignored by the parent
 		*/
-		virtual bool handleMouseKeyUp(iKeyCode key);
+        virtual bool handleMouseDoubleClick(iKeyCode key);
 
-		/*! handles incomming mouse move events
+        /*! handles mouse key up events
+
+		\param key the key that was pressed
+		\returns true: if event was consumed and therefore ignored by the parent
+		*/
+        virtual bool handleMouseKeyUp(iKeyCode key);
+
+        /*! handles incomming mouse move events
 
 		\param pos mouse position
 		*/
-		virtual void handleMouseMove(const iaVector2i &pos);
+        virtual void handleMouseMove(const iaVector2i &pos);
 
-		/*! handles incomming acsii codes from keyboard
+        /*! handles incomming acsii codes from keyboard
 
 		\param c the incomming character from keyboard
 		*/
-		virtual bool handleASCII(uint8 c);
+        virtual bool handleASCII(uint8 c);
 
-		/*! handles pressed key event
+        /*! handles pressed key event
 
 		\param key the pressed key
 		*/
-		virtual bool handleKeyDown(iKeyCode key);
+        virtual bool handleKeyDown(iKeyCode key);
 
-		/*! handles released key event
+        /*! handles released key event
 
 		\param key the released key
 		*/
-		virtual bool handleKeyUp(iKeyCode key);
+        virtual bool handleKeyUp(iKeyCode key);
 
-		/*! handles lost keayboard focus
+        /*! handles lost keayboard focus
 		*/
-		virtual void handleLostKeyboardFocus();
+        virtual void handleLostKeyboardFocus();
 
-		/*! handles gained keayboard focus
+        /*! handles gained keayboard focus
 		*/
-		virtual void handleGainedKeyboardFocus();
+        virtual void handleGainedKeyboardFocus();
 
-		/*! sets the widget's min size
+        /*! sets the widget's min size
 		*/
-		void setMinSize(int32 width, int32 height);
+        void setMinSize(int32 width, int32 height);
 
-		/*! set parent of widget
+        /*! set parent of widget
 
 		\parem parent pointer to parent
 		*/
-		void setParent(iWidgetPtr parent);
+        void setParent(iWidgetPtr parent);
 
-		/*! sets the keyboard focus to this widget
+        /*! sets the keyboard focus to this widget
 		*/
-		void setKeyboardFocus();
+        void setKeyboardFocus();
 
-		/*! resets the keyboard focus
+        /*! resets the keyboard focus
 		*/
-		void resetKeyboardFocus();
+        void resetKeyboardFocus();
 
-		/*! sets client area. it's something like a margin but the parent defines it
+        /*! sets client area. it's something like a margin but the parent defines it
 
 		\param left left client area border
 		\param right right client area border
 		\param top top client area border
 		\param bottom bottom client area border
 		*/
-		void setClientArea(int32 left, int32 right, int32 top, int32 bottom);
+        void setClientArea(int32 left, int32 right, int32 top, int32 bottom);
 
-		/*! \returns last mouse position
+        /*! \returns last mouse position
 		*/
-		iaVector2i getLastMousePos() const;
+        iaVector2i getLastMousePos() const;
 
-	private:
-		/*! the widgets type
+    private:
+        /*! the widgets type
 		*/
-		iWidgetType _type;
+        iWidgetType _type;
 
-		/*! the widgets kind
+        /*! the widgets kind
 		*/
-		iWidgetKind _kind;
+        iWidgetKind _kind;
 
-		/*! tooltip timer
+        /*! tooltip timer
 		*/
-		iTimerHandle *_timerTooltip = nullptr;
+        iTimerHandle *_timerTooltip = nullptr;
 
-		/*! horizontal position of the widget relative to parent
+        /*! horizontal position of the widget relative to parent
 		*/
-		int32 _relativeX = 0;
+        int32 _relativeX = 0;
 
-		/*! vertical position of the widget relative to parent
+        /*! vertical position of the widget relative to parent
 		*/
-		int32 _relativeY = 0;
+        int32 _relativeY = 0;
 
-		/*! min size to make also children fit in
+        /*! min size to make also children fit in
 		*/
-		int32 _minWidth = 0;
+        int32 _minWidth = 0;
 
-		/*! min size to make also children fit in
+        /*! min size to make also children fit in
 		*/
-		int32 _minHeight = 0;
+        int32 _minHeight = 0;
 
-		/*! absolute horizontal position of the widget
+        /*! absolute horizontal position of the widget
 		*/
-		int32 _absoluteX = 0;
+        int32 _absoluteX = 0;
 
-		/*! absolute vertical position of the widget
+        /*! absolute vertical position of the widget
 		*/
-		int32 _absoluteY = 0;
+        int32 _absoluteY = 0;
 
-		/*! actual (or rendered) width of the widget
+        /*! actual (or rendered) width of the widget
 		*/
-		int32 _actualWidth = 0;
+        int32 _actualWidth = 0;
 
-		/*! actual (or rendered) height of the widget
+        /*! actual (or rendered) height of the widget
 		*/
-		int32 _actualHeight = 0;
+        int32 _actualHeight = 0;
 
-		/*! margin left for internal user only
+        /*! margin left for internal user only
 		*/
-		int32 _clientAreaLeft = 0;
+        int32 _clientAreaLeft = 0;
 
-		/*! margin right for internal user only
+        /*! margin right for internal user only
 		*/
-		int32 _clientAreaRight = 0;
+        int32 _clientAreaRight = 0;
 
-		/*! margin top for internal user only
+        /*! margin top for internal user only
 		*/
-		int32 _clientAreaTop = 0;
+        int32 _clientAreaTop = 0;
 
-		/*! margin bottom for internal user only
+        /*! margin bottom for internal user only
 		*/
-		int32 _clientAreaBottom = 0;
+        int32 _clientAreaBottom = 0;
 
-		/*! last mouse position
+        /*! last mouse position
 		*/
-		iaVector2i _posLast;
+        iaVector2i _posLast;
 
-		/*! id of widget
+        /*! id of widget
 		*/
-		uint64 _id = 0;
+        iWidgetID _id = INVALID_WIDGET_ID;
 
-		/*! pointer to parent widget
+        /*! pointer to parent widget
 		*/
-		iWidgetPtr _parent = nullptr;
+        iWidgetPtr _parent = nullptr;
 
-		/*! horizontal alignment relative to parent
+        /*! horizontal alignment relative to parent
 		*/
-		iHorizontalAlignment _horizontalAlignment = iHorizontalAlignment::Center;
+        iHorizontalAlignment _horizontalAlignment = iHorizontalAlignment::Center;
 
-		/*! vertical alignment relative to parent
+        /*! vertical alignment relative to parent
 		*/
-		iVerticalAlignment _verticalAlignment = iVerticalAlignment::Center;
+        iVerticalAlignment _verticalAlignment = iVerticalAlignment::Center;
 
-		/*! current widget state
+        /*! current widget state
 		*/
-		iWidgetState _widgetState = iWidgetState::Standby;
+        iWidgetState _widgetState = iWidgetState::Standby;
 
-		/*! grow by content flag
+        /*! grow by content flag
         */
-		bool _growsByContent = true;
+        bool _growsByContent = true;
 
-		/*! flag if widget is active
+        /*! flag if widget is active
         */
-		bool _active = true;
+        bool _active = true;
 
-		/*! flag if widget id visible
+        /*! flag if widget id visible
         */
-		bool _visible = true;
+        bool _visible = true;
 
-		/*! here you get the next id from
+        /*! the next node id
         */
-		static uint64 _nextID;
+        static iaIDGenerator64 _idGenerator;
 
-		/*! pointer to widget that owns the keyboard focus
+        /*! pointer to widget that owns the keyboard focus
 		*/
-		static iWidgetPtr _keyboardFocus;
+        static iWidgetPtr _keyboardFocus;
 
-		/*! handles tooltip timer
+        /*! handles tooltip timer
 		*/
-		void onToolTipTimer();
+        void onToolTipTimer();
 
-		/*! called when parent of this widget changes
+        /*! called when parent of this widget changes
         */
-		virtual void onParentChanged();
+        virtual void onParentChanged();
 
-		/*! destroy tooltip timer
+        /*! destroy tooltip timer
 		*/
-		void destroyTooltipTimer();
+        void destroyTooltipTimer();
 
-		/*! updates size based on widgets content
+        /*! updates size based on widgets content
 
 		all widgets have to derive from this
 		*/
-		virtual void calcMinSize();
+        virtual void calcMinSize();
 
-		/*! called once per frame so a widget can update it's content if needed
+        /*! called once per frame so a widget can update it's content if needed
 		*/
-		virtual void onHandle();
+        virtual void onHandle();
 
-		/*! background color
+        /*! background color
         */
-		iaColor4f _background;
+        iaColor4f _background;
 
-		/*! foreground color
+        /*! foreground color
         */
-		iaColor4f _foreground;
+        iaColor4f _foreground;
 
-		/*! updates widget alignment
+        /*! updates widget alignment
 
 		\param clientWidth maximum width this widget can align to
 		\param clientHeight maximum height this widget can align to
 		*/
-		virtual void updateAlignment(int32 clientWidth, int32 clientHeight);
+        virtual void updateAlignment(int32 clientWidth, int32 clientHeight);
 
-		/*! updates the absolute position
+        /*! updates the absolute position
 
 		\param offsetX absolute horizontal offset based on parents positions
 		\param offsetY absolute vertical offset based on parents positions
 		*/
-		void updatePosition(int32 offsetX, int32 offsetY);
+        void updatePosition(int32 offsetX, int32 offsetY);
 
-		/*! calculates childrens ofsets relative to thair parent
+        /*! calculates childrens ofsets relative to thair parent
 
 		\param offsets vector to be filled with childrens offsets
 		*/
-		virtual void calcChildOffsets(std::vector<iRectanglei> &offsets);
-	};
+        virtual void calcChildOffsets(std::vector<iRectanglei> &offsets);
+    };
 
 #include <igor/ui/widgets/iWidget.inl>
 
-	/*! stream operator
+    /*! stream operator
 
 	\param stream the destination
 	\param widgetType the widget type to stream
 	\returns the resulting stream
 	*/
-	Igor_API std::wostream &operator<<(std::wostream &stream, const iWidgetType &widgetType);
+    Igor_API std::wostream &operator<<(std::wostream &stream, const iWidgetType &widgetType);
 
 } // namespace igor
 
