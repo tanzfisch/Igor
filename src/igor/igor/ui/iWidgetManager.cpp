@@ -207,7 +207,6 @@ namespace igor
 
     bool iWidgetManager::handleMouseMove(const iaux::iaVector2i &to)
     {
-
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {
@@ -222,16 +221,8 @@ namespace igor
 
         if (!dialogs.empty())
         {
-            int32 zValue = dialogs.front()->getZValue();
-            // only have the top level dialogs with the
-            // same z value get the mouse move event
             for (auto dialog : dialogs)
             {
-                if (dialog->getZValue() < zValue)
-                {
-                    return true;
-                }
-
                 dialog->handleMouseMove(to);
 
                 if (dialog->_isMouseOver)

@@ -6,8 +6,8 @@
 
 #include "../actions/ActionContext.h"
 
-UserControlGraphView::UserControlGraphView(Outliner *outliner) // TODO UserControlGraphView should not know the Outliner
-    : _outliner(outliner)
+UserControlGraphView::UserControlGraphView(WorkspacePtr workspace, Outliner *outliner) // TODO UserControlGraphView should not know the Outliner
+    : _outliner(outliner), _workspace(workspace)
 {
     initGUI();
 }
@@ -192,14 +192,7 @@ void UserControlGraphView::OnSelectionChange(iWidgetPtr widget)
 
 iActionContextPtr UserControlGraphView::getContext()
 {
-    std::vector<iNodeID> selectedNodes;
-
-    if (getSelectedNode() != iNode::INVALID_NODE_ID)
-    {
-        selectedNodes.push_back(getSelectedNode());
-    }
-
-    return iActionContextPtr(new ActionContext(selectedNodes, getRootNode(), _outliner));
+    return iActionContextPtr(new ActionContext(_workspace, _outliner));
 }
 
 void UserControlGraphView::OnContextMenu(iWidgetPtr widget)
@@ -211,21 +204,42 @@ void UserControlGraphView::OnContextMenu(iWidgetPtr widget)
     }
 
     _graphContextMenu = new iDialogMenu(this);
-    _graphContextMenu->setWidth(24);
+    _graphContextMenu->setWidth(100);
 
     iaVector2i pos = iMouse::getInstance().getPos();
     _graphContextMenu->setX(pos._x);
     _graphContextMenu->setY(pos._y);
 
-    iActionContextPtr actionContext = getContext();
+    ActionContext *actionContext = new ActionContext(_workspace, _outliner);
+    iActionContextPtr ac(actionContext);
 
-    _graphContextMenu->addAction("mica:deleteNodes", actionContext);
-    _graphContextMenu->addAction("mica:addTransform", actionContext);
-    _graphContextMenu->addAction("mica:addGroup", actionContext);
-    _graphContextMenu->addAction("mica:addSwitch", actionContext);
-    _graphContextMenu->addAction("mica:addModel", actionContext);
-    _graphContextMenu->addAction("mica:addEmitter", actionContext);
-    _graphContextMenu->addAction("mica:addParticleSystem", actionContext);
+    if (!actionContext->getWorkspace()->getSelection().empty())
+    {
+
+        iWidgetMenuPtr addMenu = new iWidgetMenu();
+        addMenu->setTitle("Add");
+        addMenu->addAction("mica:addTransform", ac);
+        addMenu->addAction("mica:addGroup", ac);
+        addMenu->addAction("mica:addSwitch", ac);
+        addMenu->addAction("mica:addModel", ac);
+        addMenu->addAction("mica:addEmitter", ac);
+        addMenu->addAction("mica:addParticleSystem", ac);
+        _graphContextMenu->addMenu(addMenu);
+    }
+
+    _graphContextMenu->addSpacer();
+
+    _graphContextMenu->addAction("mica:cutNodes", ac);
+    _graphContextMenu->addAction("mica:copyNodes", ac);
+    _graphContextMenu->addAction("mica:pasteNodes", ac);
+    _graphContextMenu->addAction("mica:deleteNodes", ac);
+
+    _graphContextMenu->addSpacer();
+
+    iWidgetMenuPtr actionsMenu = new iWidgetMenu();
+    actionsMenu->setTitle("Actions");
+    actionsMenu->addAction("mica:bakeMeshToWorld", ac);
+    _graphContextMenu->addMenu(actionsMenu);
 
     _graphContextMenu->open(iDialogCloseDelegate(this, &UserControlGraphView::OnContextMenuClose));
 }

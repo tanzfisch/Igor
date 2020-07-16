@@ -24,10 +24,10 @@ namespace igor
 
     iWidgetMenu::~iWidgetMenu()
     {
-        if (_menu != nullptr)
+        if (_dialogMenu != nullptr)
         {
-            delete _menu;
-            _menu = nullptr;
+            delete _dialogMenu;
+            _dialogMenu = nullptr;
         }
     }
 
@@ -57,7 +57,7 @@ namespace igor
 
         grid->registerOnClickEvent(iClickDelegate(this, &iWidgetMenu::onClick));
 
-        _menu = new iDialogMenu();
+        _dialogMenu = new iDialogMenu();
     }
 
     void iWidgetMenu::update()
@@ -69,9 +69,7 @@ namespace igor
             return;
         }
 
-        bool parentIsMenuBar = parent->getWidgetType() == iWidgetType::iWidgetMenuBar;
-
-        if (parentIsMenuBar)
+        if (parent->getWidgetType() == iWidgetType::iWidgetMenuBar)
         {
             _spacer->setSize(0, 16);
             _picture->setMaxSize(0, 8);
@@ -92,42 +90,46 @@ namespace igor
     {
         iWidgetPtr parent = iWidgetManager::getInstance().getWidget(_menuParent);
 
-        if (parent == nullptr)
+        if (parent != nullptr)
         {
-            return;
-        }
+            if (parent->getWidgetType() == iWidgetType::iWidgetMenuBar)
+            {
+                _dialogMenu->setX(getActualPosX());
+                _dialogMenu->setY(getActualPosY() + getActualHeight() - 1);
+            }
+            else
+            {
+                _dialogMenu->setX(getActualPosX() + getActualWidth());
+                _dialogMenu->setY(getActualPosY() - 1);
+            }
 
-        con_endl(parent->getWidgetType());
-
-        if (parent->getWidgetType() == iWidgetType::iWidgetMenuBar)
-        {
-            _menu->setX(getActualPosX());
-            _menu->setY(getActualPosY() + getActualHeight() - 1);
+            _dialogMenu->setZValue(parent->getZValue() + 1);
         }
         else
         {
-            _menu->setX(getActualPosX() + getActualWidth());
-            _menu->setY(getActualPosY() - 1);
+            _dialogMenu->setX(getActualPosX() + getActualWidth());
+            _dialogMenu->setY(getActualPosY() - 1);
+            // _dialogMenu->setZValue(getZValue() + 1);
+            _dialogMenu->setZValue(getRoot()->getZValue() + 1);
         }
 
-        _menu->setZValue(parent->getZValue() + 1);
-        _menu->open(iDialogCloseDelegate(this, &iWidgetMenu::onDialogClose));
+        _dialogMenu->open(iDialogCloseDelegate(this, &iWidgetMenu::onDialogClose));
+    }
+
+    void iWidgetMenu::setMenuParent(iWidgetPtr menuParent)
+    {
+        _menuParent = menuParent->getID();
     }
 
     void iWidgetMenu::onDialogClose(iDialogPtr dialog)
     {
-        if (dialog != _menu)
-        {
-            return;
-        }
-
-        if (_menu->getReturnState() != iDialogReturnState::Cancel &&
-            _menu->getReturnState() != iDialogReturnState::Error)
+        if (_dialogMenu->getReturnState() != iDialogReturnState::Cancel &&
+            _dialogMenu->getReturnState() != iDialogReturnState::Error)
         {
             iWidgetMenuPtr parent = dynamic_cast<iWidgetMenuPtr>(iWidgetManager::getInstance().getWidget(_menuParent));
             if (parent != nullptr)
             {
-                parent->onSubMenuClosed(_menu->getReturnState());
+                parent->onSubMenuClosed(_dialogMenu->getReturnState());
             }
         }
     }
@@ -144,14 +146,13 @@ namespace igor
 
     void iWidgetMenu::addMenu(const iWidgetMenuPtr menu)
     {
-        menu->_menuParent = getID(); // TODO little hack to track menu structures
-
-        _menu->addMenu(menu);
+        menu->setMenuParent(this);
+        _dialogMenu->addMenu(menu);
     }
 
     void iWidgetMenu::addAction(const iActionPtr action, const iActionContextPtr context)
     {
-        _menu->addAction(action, context);
+        _dialogMenu->addAction(action, context);
     }
 
     void iWidgetMenu::addAction(const iaString &actionName, const iActionContextPtr context)
@@ -161,7 +162,7 @@ namespace igor
 
     void iWidgetMenu::onSubMenuClosed(iDialogReturnState returnState)
     {
-        _menu->close();
+        _dialogMenu->close();
     }
 
 } // namespace igor

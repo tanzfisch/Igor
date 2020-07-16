@@ -170,6 +170,10 @@ namespace igor
         virtual ~iNodeMesh();
     };
 
+    /*! mesh node pointer definition
+    */
+    typedef iNodeMesh *iNodeMeshPtr;
+
     __IGOR_ENABLE_WARNING__(4275)
 
 } // namespace igor

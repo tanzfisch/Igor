@@ -55,6 +55,7 @@ namespace igor
     {
 
         friend class iWidgetMenuBar;
+        friend class iDialogMenu;
 
     public:
         /*! initializes gui elements
@@ -113,12 +114,22 @@ namespace igor
 
         /*! menu body
         */
-        iDialogMenuPtr _menu = nullptr;
+        iDialogMenuPtr _dialogMenu = nullptr;
 
         /*! ID of parent in menu hierarchy
         */
-        uint64 _menuParent = IGOR_INVALID_ID;
+        iWidgetID _menuParent = IGOR_INVALID_ID;
 
+        /*! defines the menu parent
+
+        \param menuParent the menu parent
+        */
+        void setMenuParent(iWidgetPtr menuParent);
+
+        /*! called when submenu closed
+
+        \param returnState the return state of the closed sub menu
+        */
         void onSubMenuClosed(iDialogReturnState returnState);
 
         /*! called when the parent of this widget changed

@@ -31,10 +31,8 @@ namespace igor
 
     void iWidgetMenuBar::addMenu(const iWidgetMenuPtr menu)
     {
-        menu->_menuParent = getID(); // TODO little hack to track menu structures
-
+        menu->setMenuParent(this);
         _grid->addWidget(menu, _grid->getColumnCount() - 1, 0);
-
         _grid->appendColumns(1);
         _grid->setStrechColumn(_grid->getColumnCount() - 1);
     }
