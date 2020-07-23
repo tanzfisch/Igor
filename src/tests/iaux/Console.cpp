@@ -1,38 +1,38 @@
-#include <gtest/gtest.h>
 #include <iaux/iaux.h>
+#include <iaux/test/iaTest.h>
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
-TEST(ConsoleTests, StartStop)
+IAUX_TEST(ConsoleTests, StartStop)
 {
     startup();
 
-    EXPECT_EQ(iaConsole::getInstance().getErrors(), 0);
-    EXPECT_EQ(iaConsole::getInstance().getWarnings(), 0);
-    EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::DebugInfo);
+    IAUX_EXPECT_EQ(iaConsole::getInstance().getErrors(), 0);
+    IAUX_EXPECT_EQ(iaConsole::getInstance().getWarnings(), 0);
+    IAUX_EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::Trace);
 
     shutdown();
 
-    EXPECT_EQ(iaConsole::getInstance().getErrors(), 0);
-    EXPECT_EQ(iaConsole::getInstance().getWarnings(), 0);
-    EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::DebugInfo);
+    IAUX_EXPECT_EQ(iaConsole::getInstance().getErrors(), 0);
+    IAUX_EXPECT_EQ(iaConsole::getInstance().getWarnings(), 0);
+    IAUX_EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::Trace);
 }
 
-TEST(ConsoleTests, ErrorAndWarnings)
+IAUX_TEST(ConsoleTests, ErrorAndWarnings)
 {
     startup();
 
     con_err("some error");
     con_warn("some warning");
 
-    EXPECT_EQ(iaConsole::getInstance().getErrors(), 1);
-    EXPECT_EQ(iaConsole::getInstance().getWarnings(), 1);
-    EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::DebugInfo);
+    IAUX_EXPECT_EQ(iaConsole::getInstance().getErrors(), 1);
+    IAUX_EXPECT_EQ(iaConsole::getInstance().getWarnings(), 1);
+    IAUX_EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::Trace);
 
     shutdown();
 }
 
-TEST(ConsoleTests, SupressWarning)
+IAUX_TEST(ConsoleTests, SupressWarning)
 {
     startup();
 
@@ -41,18 +41,18 @@ TEST(ConsoleTests, SupressWarning)
     con_err("some error");
     con_warn("some warning");
 
-    EXPECT_EQ(iaConsole::getInstance().getErrors(), 1);
-    EXPECT_EQ(iaConsole::getInstance().getWarnings(), 0);
-    EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::Error);
+    IAUX_EXPECT_EQ(iaConsole::getInstance().getErrors(), 1);
+    IAUX_EXPECT_EQ(iaConsole::getInstance().getWarnings(), 0);
+    IAUX_EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::Error);
 
     shutdown();
 
-    EXPECT_EQ(iaConsole::getInstance().getErrors(), 0);
-    EXPECT_EQ(iaConsole::getInstance().getWarnings(), 0);
-    EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::DebugInfo);
+    IAUX_EXPECT_EQ(iaConsole::getInstance().getErrors(), 0);
+    IAUX_EXPECT_EQ(iaConsole::getInstance().getWarnings(), 0);
+    IAUX_EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::Trace);
 }
 
-TEST(ConsoleTests, TestColors)
+IAUX_TEST(ConsoleTests, TestColors)
 {
     startup();
 
@@ -73,7 +73,7 @@ TEST(ConsoleTests, TestColors)
 
     shutdown();
 
-    EXPECT_EQ(iaConsole::getInstance().getErrors(), 0);
-    EXPECT_EQ(iaConsole::getInstance().getWarnings(), 0);
-    EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::DebugInfo);
+    IAUX_EXPECT_EQ(iaConsole::getInstance().getErrors(), 0);
+    IAUX_EXPECT_EQ(iaConsole::getInstance().getWarnings(), 0);
+    IAUX_EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::Trace);
 }

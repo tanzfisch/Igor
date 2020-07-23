@@ -1,4 +1,5 @@
-#include <gtest/gtest.h>
+#include <iaux/iaux.h>
+#include <iaux/test/iaTest.h>
 
 #include <iaux/math/iaMatrix2D.h>
 using namespace iaux;
@@ -6,15 +7,15 @@ using namespace iaux;
 #include <cstring>
 
 #define COMP_MATRIX(m1,m2) \
-	EXPECT_NEAR(m1._m[0], m2._m[0], 0.0000001); \
-	EXPECT_NEAR(m1._m[1], m2._m[1], 0.0000001); \
-	EXPECT_NEAR(m1._m[2], m2._m[2], 0.0000001); \
-	EXPECT_NEAR(m1._m[3], m2._m[3], 0.0000001); \
-	EXPECT_NEAR(m1._m[4], m2._m[4], 0.0000001); \
-	EXPECT_NEAR(m1._m[5], m2._m[5], 0.0000001); \
-	EXPECT_NEAR(m1._m[6], m2._m[6], 0.0000001); \
-	EXPECT_NEAR(m1._m[7], m2._m[7], 0.0000001); \
-	EXPECT_NEAR(m1._m[8], m2._m[8], 0.0000001)
+	IAUX_EXPECT_NEAR(m1._m[0], m2._m[0], 0.0000001); \
+	IAUX_EXPECT_NEAR(m1._m[1], m2._m[1], 0.0000001); \
+	IAUX_EXPECT_NEAR(m1._m[2], m2._m[2], 0.0000001); \
+	IAUX_EXPECT_NEAR(m1._m[3], m2._m[3], 0.0000001); \
+	IAUX_EXPECT_NEAR(m1._m[4], m2._m[4], 0.0000001); \
+	IAUX_EXPECT_NEAR(m1._m[5], m2._m[5], 0.0000001); \
+	IAUX_EXPECT_NEAR(m1._m[6], m2._m[6], 0.0000001); \
+	IAUX_EXPECT_NEAR(m1._m[7], m2._m[7], 0.0000001); \
+	IAUX_EXPECT_NEAR(m1._m[8], m2._m[8], 0.0000001)
 
 static const float64 identityMatrix[] =
 {
@@ -23,24 +24,24 @@ static const float64 identityMatrix[] =
 	0.0, 0.0, 1.0
 };
 
-TEST(Matrix3x3Tests, Initial)
+IAUX_TEST(Matrix3x3Tests, Initial)
 {
 	iaMatrix3x3d matrix;
 
-	EXPECT_EQ(matrix[0], identityMatrix[0]);
-	EXPECT_EQ(matrix[1], identityMatrix[1]);
-	EXPECT_EQ(matrix[2], identityMatrix[2]);
+	IAUX_EXPECT_EQ(matrix[0], identityMatrix[0]);
+	IAUX_EXPECT_EQ(matrix[1], identityMatrix[1]);
+	IAUX_EXPECT_EQ(matrix[2], identityMatrix[2]);
 
-	EXPECT_EQ(matrix[3], identityMatrix[3]);
-	EXPECT_EQ(matrix[4], identityMatrix[4]);
-	EXPECT_EQ(matrix[5], identityMatrix[5]);
+	IAUX_EXPECT_EQ(matrix[3], identityMatrix[3]);
+	IAUX_EXPECT_EQ(matrix[4], identityMatrix[4]);
+	IAUX_EXPECT_EQ(matrix[5], identityMatrix[5]);
 
-	EXPECT_EQ(matrix[6], identityMatrix[6]);
-	EXPECT_EQ(matrix[7], identityMatrix[7]);
-	EXPECT_EQ(matrix[8], identityMatrix[8]);
+	IAUX_EXPECT_EQ(matrix[6], identityMatrix[6]);
+	IAUX_EXPECT_EQ(matrix[7], identityMatrix[7]);
+	IAUX_EXPECT_EQ(matrix[8], identityMatrix[8]);
 }
 
-TEST(Matrix3x3Tests, Convert)
+IAUX_TEST(Matrix3x3Tests, Convert)
 {
 	iaMatrix3x3d matrix;
 	iaMatrix3x3f matrix2 = matrix.convert<float32>();
@@ -48,15 +49,15 @@ TEST(Matrix3x3Tests, Convert)
 	COMP_MATRIX(matrix, matrix2);
 }
 
-TEST(Matrix3x3Tests, Identity)
+IAUX_TEST(Matrix3x3Tests, Identity)
 {
 	iaMatrix3x3d matrix;
 	matrix.identity();
 
-	EXPECT_TRUE(0 == std::memcmp(matrix.getData(), identityMatrix, sizeof(matrix)));
+	IAUX_EXPECT_TRUE(0 == std::memcmp(matrix.getData(), identityMatrix, sizeof(matrix)));
 }
 
-TEST(Matrix3x3Tests, Translate)
+IAUX_TEST(Matrix3x3Tests, Translate)
 {
 	static const float64 translateMatrix[] =
 	{
@@ -68,10 +69,10 @@ TEST(Matrix3x3Tests, Translate)
 	iaMatrix3x3d matrix;
 	matrix.translate(1, 2);
 
-	EXPECT_TRUE(0 == std::memcmp(matrix.getData(), translateMatrix, sizeof(matrix)));
+	IAUX_EXPECT_TRUE(0 == std::memcmp(matrix.getData(), translateMatrix, sizeof(matrix)));
 }
 
-TEST(Matrix3x3Tests, TranslateNegative)
+IAUX_TEST(Matrix3x3Tests, TranslateNegative)
 {
 	static const float64 translateNegativeMatrix[] =
 	{
@@ -83,10 +84,10 @@ TEST(Matrix3x3Tests, TranslateNegative)
 	iaMatrix3x3d matrix;
 	matrix.translate(-1, -2);
 
-	EXPECT_TRUE(0 == std::memcmp(matrix.getData(), translateNegativeMatrix, sizeof(matrix)));
+	IAUX_EXPECT_TRUE(0 == std::memcmp(matrix.getData(), translateNegativeMatrix, sizeof(matrix)));
 }
 
-TEST(Matrix3x3Tests, Scale)
+IAUX_TEST(Matrix3x3Tests, Scale)
 {
 	static const float64 scaleMatrix[] =
 	{
@@ -99,10 +100,10 @@ TEST(Matrix3x3Tests, Scale)
 	iaMatrix3x3d matrix;
 	matrix.scale(10, 20);
 
-	EXPECT_TRUE(0 == std::memcmp(matrix.getData(), scaleMatrix, sizeof(matrix)));
+	IAUX_EXPECT_TRUE(0 == std::memcmp(matrix.getData(), scaleMatrix, sizeof(matrix)));
 }
 
-TEST(Matrix3x3Tests, ScaleNegative)
+IAUX_TEST(Matrix3x3Tests, ScaleNegative)
 {
 	static const float64 scaleNegativeMatrix[] =
 	{
@@ -114,9 +115,9 @@ TEST(Matrix3x3Tests, ScaleNegative)
 	iaMatrix3x3d matrix;
 	matrix.scale(-10, -20);
 
-	EXPECT_TRUE(0 == std::memcmp(matrix.getData(), scaleNegativeMatrix, sizeof(matrix)));
+	IAUX_EXPECT_TRUE(0 == std::memcmp(matrix.getData(), scaleNegativeMatrix, sizeof(matrix)));
 }
-TEST(Matrix3x3Tests, Transpose)
+IAUX_TEST(Matrix3x3Tests, Transpose)
 {
 	iaMatrix3x3d matrix;
 
@@ -135,47 +136,47 @@ TEST(Matrix3x3Tests, Transpose)
 		30, 0, 1
 	};
 
-	EXPECT_TRUE(0 == std::memcmp(matrix.getData(), cmpMatrix, sizeof(matrix)));
+	IAUX_EXPECT_TRUE(0 == std::memcmp(matrix.getData(), cmpMatrix, sizeof(matrix)));
 }
 
 // tocalc determinants https://matrix.reshish.com/detCalculation.php
-TEST(Matrix3x3Tests, DeterminantOfID)
+IAUX_TEST(Matrix3x3Tests, DeterminantOfID)
 {
 	iaMatrix3x3d matrix;
 
-	EXPECT_NEAR(matrix.determinant(), 1, 0.00000001);
+	IAUX_EXPECT_NEAR(matrix.determinant(), 1, 0.00000001);
 }
 
-TEST(Matrix3x3Tests, DeterminantOfTranslation)
+IAUX_TEST(Matrix3x3Tests, DeterminantOfTranslation)
 {
 	iaMatrix3x3d matrix;
 	matrix.translate(1, 2);
 
-	EXPECT_NEAR(matrix.determinant(), 1, 0.00000001);
+	IAUX_EXPECT_NEAR(matrix.determinant(), 1, 0.00000001);
 }
 
-TEST(Matrix3x3Tests, DeterminantOfScale)
+IAUX_TEST(Matrix3x3Tests, DeterminantOfScale)
 {
 	iaMatrix3x3d matrix;
 	matrix.scale(2, -3);
 
-	EXPECT_NEAR(matrix.determinant(), -30, 0.00000001);
+	IAUX_EXPECT_NEAR(matrix.determinant(), -30, 0.00000001);
 }
 
-TEST(Matrix3x3Tests, DeterminantOfRotate)
+IAUX_TEST(Matrix3x3Tests, DeterminantOfRotate)
 {
 	iaMatrix3x3d matrix;
 	matrix.rotate(0.1);
 
-	EXPECT_NEAR(matrix.determinant(), 1.0, 0.00000001);
+	IAUX_EXPECT_NEAR(matrix.determinant(), 1.0, 0.00000001);
 }
 
-TEST(Matrix3x3Tests, DeterminantOfMixedMatrix)
+IAUX_TEST(Matrix3x3Tests, DeterminantOfMixedMatrix)
 {
 	iaMatrix3x3d matrix;
 	matrix.translate(1, 2);
 	matrix.scale(2, -1);
 	matrix.rotate(0.1);
 
-	EXPECT_NEAR(matrix.determinant(), -30, 0.00000001);
+	IAUX_EXPECT_NEAR(matrix.determinant(), -30, 0.00000001);
 }

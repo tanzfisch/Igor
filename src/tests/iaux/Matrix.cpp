@@ -1,4 +1,5 @@
-#include <gtest/gtest.h>
+#include <iaux/iaux.h>
+#include <iaux/test/iaTest.h>
 
 #include <iaux/math/iaMatrix.h>
 #include <iaux/math/iaRandomNumberGenerator.h>
@@ -7,22 +8,22 @@ using namespace iaux;
 #include <cstring>
 
 #define COMP_MATRIX(m1,m2) \
-EXPECT_NEAR(m1._pos._x, m2._pos._x, 0.0000001); \
-EXPECT_NEAR(m1._pos._y, m2._pos._y, 0.0000001); \
-EXPECT_NEAR(m1._pos._z, m2._pos._z, 0.0000001); \
-EXPECT_NEAR(m1._w0, m2._w0, 0.0000001); \
-EXPECT_NEAR(m1._right._x, m2._right._x, 0.0000001); \
-EXPECT_NEAR(m1._right._y, m2._right._y, 0.0000001); \
-EXPECT_NEAR(m1._right._z, m2._right._z, 0.0000001); \
-EXPECT_NEAR(m1._w1, m2._w1, 0.0000001); \
-EXPECT_NEAR(m1._top._x, m2._top._x, 0.0000001); \
-EXPECT_NEAR(m1._top._y, m2._top._y, 0.0000001); \
-EXPECT_NEAR(m1._top._z, m2._top._z, 0.0000001); \
-EXPECT_NEAR(m1._w2, m2._w2, 0.0000001); \
-EXPECT_NEAR(m1._depth._x, m2._depth._x, 0.0000001); \
-EXPECT_NEAR(m1._depth._y, m2._depth._y, 0.0000001); \
-EXPECT_NEAR(m1._depth._z, m2._depth._z, 0.0000001); \
-EXPECT_NEAR(m1._w3, m2._w3, 0.0000001)
+IAUX_EXPECT_NEAR(m1._pos._x, m2._pos._x, 0.0000001); \
+IAUX_EXPECT_NEAR(m1._pos._y, m2._pos._y, 0.0000001); \
+IAUX_EXPECT_NEAR(m1._pos._z, m2._pos._z, 0.0000001); \
+IAUX_EXPECT_NEAR(m1._w0, m2._w0, 0.0000001); \
+IAUX_EXPECT_NEAR(m1._right._x, m2._right._x, 0.0000001); \
+IAUX_EXPECT_NEAR(m1._right._y, m2._right._y, 0.0000001); \
+IAUX_EXPECT_NEAR(m1._right._z, m2._right._z, 0.0000001); \
+IAUX_EXPECT_NEAR(m1._w1, m2._w1, 0.0000001); \
+IAUX_EXPECT_NEAR(m1._top._x, m2._top._x, 0.0000001); \
+IAUX_EXPECT_NEAR(m1._top._y, m2._top._y, 0.0000001); \
+IAUX_EXPECT_NEAR(m1._top._z, m2._top._z, 0.0000001); \
+IAUX_EXPECT_NEAR(m1._w2, m2._w2, 0.0000001); \
+IAUX_EXPECT_NEAR(m1._depth._x, m2._depth._x, 0.0000001); \
+IAUX_EXPECT_NEAR(m1._depth._y, m2._depth._y, 0.0000001); \
+IAUX_EXPECT_NEAR(m1._depth._z, m2._depth._z, 0.0000001); \
+IAUX_EXPECT_NEAR(m1._w3, m2._w3, 0.0000001)
 
 static const float64 identityMatrix[] =
 {
@@ -40,30 +41,30 @@ static const float32 identityMatrixFloat32[] =
 	0, 0, 0, 1
 };
 
-TEST(MatrixTests, Initial) 
+IAUX_TEST(MatrixTests, Initial) 
 {
 	iaMatrixd matrix;
 
-	EXPECT_TRUE(0 == std::memcmp(matrix.getData(), identityMatrix, sizeof(matrix)));
+	IAUX_EXPECT_TRUE(0 == std::memcmp(matrix.getData(), identityMatrix, sizeof(matrix)));
 }
 
-TEST(MatrixTests, Convert)
+IAUX_TEST(MatrixTests, Convert)
 {
 	iaMatrixd matrix;
 	iaMatrixf matrix2 = matrix.convert<float32>();
 	
-	EXPECT_TRUE(0 == std::memcmp(matrix2.getData(), identityMatrixFloat32, sizeof(matrix2)));
+	IAUX_EXPECT_TRUE(0 == std::memcmp(matrix2.getData(), identityMatrixFloat32, sizeof(matrix2)));
 }
 
-TEST(MatrixTests, Identity) 
+IAUX_TEST(MatrixTests, Identity) 
 {
 	iaMatrixd matrix;
 	matrix.identity();
 
-	EXPECT_TRUE(0 == std::memcmp(matrix.getData(), identityMatrix, sizeof(matrix)));
+	IAUX_EXPECT_TRUE(0 == std::memcmp(matrix.getData(), identityMatrix, sizeof(matrix)));
 }
 
-TEST(MatrixTests, Translate)
+IAUX_TEST(MatrixTests, Translate)
 {
 	static const float64 translateMatrix[] =
 	{
@@ -76,10 +77,10 @@ TEST(MatrixTests, Translate)
 	iaMatrixd matrix;
 	matrix.translate(1, 2, 3);
 
-	EXPECT_TRUE(0 == std::memcmp(matrix.getData(), translateMatrix, sizeof(matrix)));
+	IAUX_EXPECT_TRUE(0 == std::memcmp(matrix.getData(), translateMatrix, sizeof(matrix)));
 }
 
-TEST(MatrixTests, TranslateNegative)
+IAUX_TEST(MatrixTests, TranslateNegative)
 {
 	static const float64 translateNegativeMatrix[] =
 	{
@@ -92,10 +93,10 @@ TEST(MatrixTests, TranslateNegative)
 	iaMatrixd matrix;
 	matrix.translate(-1, -2, -3);
 
-	EXPECT_TRUE(0 == std::memcmp(matrix.getData(), translateNegativeMatrix, sizeof(matrix)));
+	IAUX_EXPECT_TRUE(0 == std::memcmp(matrix.getData(), translateNegativeMatrix, sizeof(matrix)));
 }
 
-TEST(MatrixTests, Scale)
+IAUX_TEST(MatrixTests, Scale)
 {
 	static const float64 scaleMatrix[] =
 	{
@@ -109,10 +110,10 @@ TEST(MatrixTests, Scale)
 	iaMatrixd matrix;
 	matrix.scale(10, 20, 30);
 
-	EXPECT_TRUE(0 == std::memcmp(matrix.getData(), scaleMatrix, sizeof(matrix)));
+	IAUX_EXPECT_TRUE(0 == std::memcmp(matrix.getData(), scaleMatrix, sizeof(matrix)));
 }
 
-TEST(MatrixTests, ScaleNegative)
+IAUX_TEST(MatrixTests, ScaleNegative)
 {
 	static const float64 scaleNegativeMatrix[] =
 	{
@@ -125,10 +126,10 @@ TEST(MatrixTests, ScaleNegative)
 	iaMatrixd matrix;
 	matrix.scale(-10, -20, -30);
 
-	EXPECT_TRUE(0 == std::memcmp(matrix.getData(), scaleNegativeMatrix, sizeof(matrix)));
+	IAUX_EXPECT_TRUE(0 == std::memcmp(matrix.getData(), scaleNegativeMatrix, sizeof(matrix)));
 }
 
-TEST(MatrixTests, DecomposeTranslate)
+IAUX_TEST(MatrixTests, DecomposeTranslate)
 {
 	iaMatrixd matrix;
 	matrix.translate(13, 12, 453);
@@ -141,12 +142,12 @@ TEST(MatrixTests, DecomposeTranslate)
 
 	matrix.decompose(scale, orientation, translate, shear, perspective);
 
-	EXPECT_EQ(translate._x, 13);
-	EXPECT_EQ(translate._y, 12);
-	EXPECT_EQ(translate._z, 453);
+	IAUX_EXPECT_EQ(translate._x, 13);
+	IAUX_EXPECT_EQ(translate._y, 12);
+	IAUX_EXPECT_EQ(translate._z, 453);
 }
 
-TEST(MatrixTests, DecomposeTranslateNegative)
+IAUX_TEST(MatrixTests, DecomposeTranslateNegative)
 {
 	iaMatrixd matrix;
 	matrix.translate(13, -12, -453);
@@ -159,12 +160,12 @@ TEST(MatrixTests, DecomposeTranslateNegative)
 
 	matrix.decompose(scale, orientation, translate, shear, perspective);
 
-	EXPECT_EQ(translate._x, 13);
-	EXPECT_EQ(translate._y, -12);
-	EXPECT_EQ(translate._z, -453);
+	IAUX_EXPECT_EQ(translate._x, 13);
+	IAUX_EXPECT_EQ(translate._y, -12);
+	IAUX_EXPECT_EQ(translate._z, -453);
 }
 
-TEST(MatrixTests, Transpose)
+IAUX_TEST(MatrixTests, Transpose)
 {
 	iaMatrixd matrix;
 
@@ -189,58 +190,58 @@ TEST(MatrixTests, Transpose)
 		30, 0, 0, 1
 	};
 	
-	EXPECT_TRUE(0 == std::memcmp(matrix.getData(), cmpMatrix, sizeof(matrix)));
+	IAUX_EXPECT_TRUE(0 == std::memcmp(matrix.getData(), cmpMatrix, sizeof(matrix)));
 }
 
 // tocalc determinants https://matrix.reshish.com/detCalculation.php
-TEST(MatrixTests, DeterminantOfID)
+IAUX_TEST(MatrixTests, DeterminantOfID)
 {
 	iaMatrixd matrix;
 
-	EXPECT_NEAR(matrix.determinant(), 1, 0.00000001);
+	IAUX_EXPECT_NEAR(matrix.determinant(), 1, 0.00000001);
 }
 
-TEST(MatrixTests, DeterminantOfTranslation)
+IAUX_TEST(MatrixTests, DeterminantOfTranslation)
 {
 	iaMatrixd matrix;
 	matrix.translate(1,2,-3);
 
-	EXPECT_NEAR(matrix.determinant(), 1, 0.00000001);
+	IAUX_EXPECT_NEAR(matrix.determinant(), 1, 0.00000001);
 }
 
-TEST(MatrixTests, DeterminantOfScale)
+IAUX_TEST(MatrixTests, DeterminantOfScale)
 {
 	iaMatrixd matrix;
 	matrix.scale(2, -3, 5);
 
-	EXPECT_NEAR(matrix.determinant(), -30, 0.00000001);
+	IAUX_EXPECT_NEAR(matrix.determinant(), -30, 0.00000001);
 }
 
-TEST(MatrixTests, DeterminantOfRotate)
+IAUX_TEST(MatrixTests, DeterminantOfRotate)
 {
 	iaMatrixd matrix;
 	matrix.rotate(0.1, -0.2, 0.6);
 
-	EXPECT_NEAR(matrix.determinant(), 1.0, 0.00000001);
+	IAUX_EXPECT_NEAR(matrix.determinant(), 1.0, 0.00000001);
 }
 
-TEST(MatrixTests, DeterminantOfShear)
+IAUX_TEST(MatrixTests, DeterminantOfShear)
 {
 	iaMatrixd matrix;
 	matrix.shear(0.1, -0.2, 0.6);
 
-	EXPECT_NEAR(matrix.determinant(), 1.0, 0.00000001);
+	IAUX_EXPECT_NEAR(matrix.determinant(), 1.0, 0.00000001);
 }
 
-TEST(MatrixTests, DeterminantOfPerspective)
+IAUX_TEST(MatrixTests, DeterminantOfPerspective)
 {
 	iaMatrixd matrix;
 	matrix.perspective(45, 0.25, 0.1, 1000);
 
-	EXPECT_NEAR(matrix.determinant(), -4.6632078945301687105, 0.00001);
+	IAUX_EXPECT_NEAR(matrix.determinant(), -4.6632078945301687105, 0.00001);
 }
 
-TEST(MatrixTests, DeterminantOfMixedMatrix)
+IAUX_TEST(MatrixTests, DeterminantOfMixedMatrix)
 {
 	iaMatrixd matrix;
 	matrix.translate(1, 2, -3);
@@ -248,10 +249,10 @@ TEST(MatrixTests, DeterminantOfMixedMatrix)
 	matrix.rotate(0.1, -0.2, 0.6);
 	matrix.shear(0.1, -0.2, 0.6);
 
-	EXPECT_NEAR(matrix.determinant(), -30, 0.00000001);
+	IAUX_EXPECT_NEAR(matrix.determinant(), -30, 0.00000001);
 }
 
-TEST(MatrixTests, DecomposeScale)
+IAUX_TEST(MatrixTests, DecomposeScale)
 {
 	iaMatrixd matrix;
 	matrix.scale(1, 2, 0.003);
@@ -264,12 +265,12 @@ TEST(MatrixTests, DecomposeScale)
 
 	matrix.decompose(scale, orientation, translate, shear, perspective);
 
-	EXPECT_EQ(scale._x, 1);
-	EXPECT_EQ(scale._y, 2);
-	EXPECT_EQ(scale._z, 0.003);
+	IAUX_EXPECT_EQ(scale._x, 1);
+	IAUX_EXPECT_EQ(scale._y, 2);
+	IAUX_EXPECT_EQ(scale._z, 0.003);
 }
 
-TEST(MatrixTests, DecomposeScaleNegative)
+IAUX_TEST(MatrixTests, DecomposeScaleNegative)
 {
 	iaMatrixd matrix;
 	matrix.scale(-1, 2, 0.003);
@@ -282,12 +283,12 @@ TEST(MatrixTests, DecomposeScaleNegative)
 
 	matrix.decompose(scale, orientation, translate, shear, perspective);
 
-	EXPECT_EQ(scale._x, -1);
-	EXPECT_EQ(scale._y, 2);
-	EXPECT_EQ(scale._z, 0.003);
+	IAUX_EXPECT_EQ(scale._x, -1);
+	IAUX_EXPECT_EQ(scale._y, 2);
+	IAUX_EXPECT_EQ(scale._z, 0.003);
 }
 
-TEST(MatrixTests, DecomposeShear)
+IAUX_TEST(MatrixTests, DecomposeShear)
 {
 	iaMatrixd matrix;
 	matrix.shear(5, 0.17,-12);
@@ -300,12 +301,12 @@ TEST(MatrixTests, DecomposeShear)
 
 	matrix.decompose(scale, orientation, translate, shear, perspective);
 
-	EXPECT_EQ(shear._x, 5);
-	EXPECT_EQ(shear._y, 0.17);
-	EXPECT_EQ(shear._z, -12);
+	IAUX_EXPECT_EQ(shear._x, 5);
+	IAUX_EXPECT_EQ(shear._y, 0.17);
+	IAUX_EXPECT_EQ(shear._z, -12);
 }
 
-TEST(MatrixTests, DecomposeRotateX)
+IAUX_TEST(MatrixTests, DecomposeRotateX)
 {
 	iaMatrixd matrix;
 	matrix.rotate(0.5, iaAxis::X);
@@ -321,12 +322,12 @@ TEST(MatrixTests, DecomposeRotateX)
 	iaVector3d rotate;
 	orientation.getEuler(rotate);
 
-	EXPECT_NEAR(rotate._x, 0.5, 0.0000001);
-	EXPECT_NEAR(rotate._y, 0, 0.0000001);
-	EXPECT_NEAR(rotate._z, 0, 0.0000001);
+	IAUX_EXPECT_NEAR(rotate._x, 0.5, 0.0000001);
+	IAUX_EXPECT_NEAR(rotate._y, 0, 0.0000001);
+	IAUX_EXPECT_NEAR(rotate._z, 0, 0.0000001);
 }
 
-TEST(MatrixTests, DecomposeRotateY)
+IAUX_TEST(MatrixTests, DecomposeRotateY)
 {
 	iaMatrixd matrix;
 	matrix.rotate(-0.25, iaAxis::Y);
@@ -342,12 +343,12 @@ TEST(MatrixTests, DecomposeRotateY)
 	iaVector3d rotate;
 	orientation.getEuler(rotate);
 
-	EXPECT_NEAR(rotate._x, 0, 0.0000001);
-	EXPECT_NEAR(rotate._y, -0.25, 0.0000001);
-	EXPECT_NEAR(rotate._z, 0, 0.0000001);
+	IAUX_EXPECT_NEAR(rotate._x, 0, 0.0000001);
+	IAUX_EXPECT_NEAR(rotate._y, -0.25, 0.0000001);
+	IAUX_EXPECT_NEAR(rotate._z, 0, 0.0000001);
 }
 
-TEST(MatrixTests, DecomposeRotateZ)
+IAUX_TEST(MatrixTests, DecomposeRotateZ)
 {
 	iaMatrixd matrix;
 	matrix.rotate(0.333, iaAxis::Z);
@@ -363,12 +364,12 @@ TEST(MatrixTests, DecomposeRotateZ)
 	iaVector3d rotate;
 	orientation.getEuler(rotate);
 
-	EXPECT_NEAR(rotate._x, 0, 0.0000001);
-	EXPECT_NEAR(rotate._y, 0, 0.0000001);
-	EXPECT_NEAR(rotate._z, 0.333, 0.0000001);
+	IAUX_EXPECT_NEAR(rotate._x, 0, 0.0000001);
+	IAUX_EXPECT_NEAR(rotate._y, 0, 0.0000001);
+	IAUX_EXPECT_NEAR(rotate._z, 0.333, 0.0000001);
 }
 
-TEST(MatrixTests, DecomposeRotate100)
+IAUX_TEST(MatrixTests, DecomposeRotate100)
 {
 	iaRandomNumberGeneratoru random(1337);
 
@@ -391,14 +392,14 @@ TEST(MatrixTests, DecomposeRotate100)
 		iaVector3d rotate;
 		orientation.getEuler(rotate);
 
-		EXPECT_NEAR(rotate._x, rotation._x, 0.0000001);
-		EXPECT_NEAR(rotate._y, rotation._y, 0.0000001);
-		EXPECT_NEAR(rotate._z, rotation._z, 0.0000001);
+		IAUX_EXPECT_NEAR(rotate._x, rotation._x, 0.0000001);
+		IAUX_EXPECT_NEAR(rotate._y, rotation._y, 0.0000001);
+		IAUX_EXPECT_NEAR(rotate._z, rotation._z, 0.0000001);
 
 	}
 }
 
-TEST(MatrixTests, DecomposeRecompose)
+IAUX_TEST(MatrixTests, DecomposeRecompose)
 {
 	iaMatrixd matrix;
 	matrix.rotate(0.5 * M_PI, 0, 0);
