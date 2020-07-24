@@ -41,7 +41,7 @@ namespace iaux
             std::cout << "BEGIN GROUP " << groupPair.first << std::endl;
             for (auto test : groupPair.second)
             {
-                std::cout << "RUNNING " << test->getGroupName() << "." << test->getName() << " @" << test->getLocation() << std::endl;
+                std::cout << "RUNNING " << test->getGroupName() << "." << test->getName() << " @ " << test->getLocation() << std::endl;
                 test->run();
                 if (!test->success())
                 {

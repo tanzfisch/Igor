@@ -6,7 +6,7 @@ using namespace iaux;
 
 #include <cstring>
 
-#define COMP_MATRIX(m1,m2) \
+#define COMP_MATRIX(m1, m2)                          \
 	IAUX_EXPECT_NEAR(m1._m[0], m2._m[0], 0.0000001); \
 	IAUX_EXPECT_NEAR(m1._m[1], m2._m[1], 0.0000001); \
 	IAUX_EXPECT_NEAR(m1._m[2], m2._m[2], 0.0000001); \
@@ -18,11 +18,10 @@ using namespace iaux;
 	IAUX_EXPECT_NEAR(m1._m[8], m2._m[8], 0.0000001)
 
 static const float64 identityMatrix[] =
-{
-	1.0, 0.0, 0.0,
-	0.0, 1.0, 0.0,
-	0.0, 0.0, 1.0
-};
+	{
+		1.0, 0.0, 0.0,
+		0.0, 1.0, 0.0,
+		0.0, 0.0, 1.0};
 
 IAUX_TEST(Matrix3x3Tests, Initial)
 {
@@ -60,11 +59,10 @@ IAUX_TEST(Matrix3x3Tests, Identity)
 IAUX_TEST(Matrix3x3Tests, Translate)
 {
 	static const float64 translateMatrix[] =
-	{
-		1, 0, 0,
-		0, 1, 0,
-		1, 2, 1
-	};
+		{
+			1, 0, 0,
+			0, 1, 0,
+			1, 2, 1};
 
 	iaMatrix3x3d matrix;
 	matrix.translate(1, 2);
@@ -75,11 +73,10 @@ IAUX_TEST(Matrix3x3Tests, Translate)
 IAUX_TEST(Matrix3x3Tests, TranslateNegative)
 {
 	static const float64 translateNegativeMatrix[] =
-	{
-		1, 0, 0,
-		0, 1, 0,
-		-1, -2, 1
-	};
+		{
+			1, 0, 0,
+			0, 1, 0,
+			-1, -2, 1};
 
 	iaMatrix3x3d matrix;
 	matrix.translate(-1, -2);
@@ -90,12 +87,10 @@ IAUX_TEST(Matrix3x3Tests, TranslateNegative)
 IAUX_TEST(Matrix3x3Tests, Scale)
 {
 	static const float64 scaleMatrix[] =
-	{
-		10, 0, 0,
-		0, 20, 0,
-		0, 0,  1
-	};
-
+		{
+			10, 0, 0,
+			0, 20, 0,
+			0, 0, 1};
 
 	iaMatrix3x3d matrix;
 	matrix.scale(10, 20);
@@ -106,11 +101,10 @@ IAUX_TEST(Matrix3x3Tests, Scale)
 IAUX_TEST(Matrix3x3Tests, ScaleNegative)
 {
 	static const float64 scaleNegativeMatrix[] =
-	{
-		-10, 0, 0,
-		0, -20, 0,
-		0, 0,  1
-	};
+		{
+			-10, 0, 0,
+			0, -20, 0,
+			0, 0, 1};
 
 	iaMatrix3x3d matrix;
 	matrix.scale(-10, -20);
@@ -130,11 +124,10 @@ IAUX_TEST(Matrix3x3Tests, Transpose)
 	matrix.transpose();
 
 	static const float64 cmpMatrix[] =
-	{
-		1, 40, 80,
-		10, 1, 0, 
-		30, 0, 1
-	};
+		{
+			1, 40, 80,
+			10, 1, 0,
+			30, 0, 1};
 
 	IAUX_EXPECT_TRUE(0 == std::memcmp(matrix.getData(), cmpMatrix, sizeof(matrix)));
 }
@@ -155,12 +148,31 @@ IAUX_TEST(Matrix3x3Tests, DeterminantOfTranslation)
 	IAUX_EXPECT_NEAR(matrix.determinant(), 1, 0.00000001);
 }
 
+IAUX_TEST(Matrix3x3Tests, DeterminantOfMatrix)
+{
+	iaMatrix3x3d matrix;
+
+	matrix._m[0] = 1;
+	matrix._m[1] = 3;
+	matrix._m[2] = 2;
+
+	matrix._m[3] = -3;
+	matrix._m[4] = -1;
+	matrix._m[5] = -3;
+
+	matrix._m[6] = 2;
+	matrix._m[7] = 3;
+	matrix._m[8] = 1;
+
+	IAUX_EXPECT_NEAR(matrix.determinant(), -15, 0.00000001);
+}
+
 IAUX_TEST(Matrix3x3Tests, DeterminantOfScale)
 {
 	iaMatrix3x3d matrix;
 	matrix.scale(2, -3);
 
-	IAUX_EXPECT_NEAR(matrix.determinant(), -30, 0.00000001);
+	IAUX_EXPECT_NEAR(matrix.determinant(), -6, 0.00000001);
 }
 
 IAUX_TEST(Matrix3x3Tests, DeterminantOfRotate)
@@ -178,5 +190,5 @@ IAUX_TEST(Matrix3x3Tests, DeterminantOfMixedMatrix)
 	matrix.scale(2, -1);
 	matrix.rotate(0.1);
 
-	IAUX_EXPECT_NEAR(matrix.determinant(), -30, 0.00000001);
+	IAUX_EXPECT_NEAR(matrix.determinant(), -2, 0.00000001);
 }
