@@ -90,8 +90,8 @@ IAUX_TEST(StringTests, SizeOperator)
     iaString string1(L"abc");
     iaString string2(L"def");
 
-    IAUX_EXPECT_EQ(string1 < string2, true);
-    IAUX_EXPECT_EQ(string1 > string2, false);
+    IAUX_EXPECT_TRUE(string1 < string2);
+    IAUX_EXPECT_FALSE(string1 > string2);
 }
 
 IAUX_TEST(StringTests, FooBar)
@@ -169,7 +169,7 @@ IAUX_TEST(StringTests, Replace)
 {
     iaString dst;
     iaString::replaceRegex("This is foobar.", "foobar", "great", dst);
-    IAUX_EXPECT_EQ(dst == "This is great.", true);
+    IAUX_EXPECT_EQ(dst, L"This is great.");
 }
 
 IAUX_TEST(StringTests, UTF8Trivial)

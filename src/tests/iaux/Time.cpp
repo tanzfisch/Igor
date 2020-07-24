@@ -68,8 +68,8 @@ IAUX_TEST(TimeTests, Quality)
     iaTime time1(100);
     iaTime time2(324);
 
-    IAUX_EXPECT_EQ(time1 != time2, true);
-    IAUX_EXPECT_EQ(time1 == time2, false);
+    IAUX_EXPECT_TRUE(time1 != time2);
+    IAUX_EXPECT_FALSE(time1 == time2);
 }
 
 IAUX_TEST(TimeTests, ComapareSize)
@@ -78,10 +78,10 @@ IAUX_TEST(TimeTests, ComapareSize)
     iaTime time2(324);
     iaTime time3(time2);
 
-    IAUX_EXPECT_EQ(time1 < time2, true);
-    IAUX_EXPECT_EQ(time1 > time2, false);
-    IAUX_EXPECT_EQ(time1 <= time2, true);
-    IAUX_EXPECT_EQ(time1 >= time2, false);
-    IAUX_EXPECT_EQ(time2 >= time3, true);
-    IAUX_EXPECT_EQ(time2 <= time3, true);
+    IAUX_EXPECT_TRUE(time1 < time2);
+    IAUX_EXPECT_FALSE(time1 > time2);
+    IAUX_EXPECT_TRUE(time1 <= time2);
+    IAUX_EXPECT_FALSE(time1 >= time2);
+    IAUX_EXPECT_TRUE(time2 >= time3);
+    IAUX_EXPECT_TRUE(time2 <= time3);
 }

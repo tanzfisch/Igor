@@ -29,6 +29,8 @@
 #ifndef __IAUX_TEST_H__
 #define __IAUX_TEST_H__
 
+#include <iaux/system/iaConsole.h>
+
 #include <string>
 #include <map>
 #include <vector>
@@ -36,23 +38,58 @@
 
 namespace iaux
 {
+    /*! igor aux testing
+    */
     class iaTest
     {
     public:
+        /*! run individual test
+        */
         virtual void run() = 0;
+
+        /*! \returns group name of test
+        */
         virtual const char *getGroupName() = 0;
+
+        /*! \returns name of test
+        */
         virtual const char *getName() = 0;
+
+        /*! \returns location of test in code
+        */
         virtual const char *getLocation() = 0;
 
-        static void runAllTests();
+        /*! initializes testing
+
+        \param argc cli argc
+        \param argv cli argv
+        */
+        static void initTests(int argc, char **argv);
+
+        /*! runs the tests according to initialisation parameters
+        */
+        static void runTests();
+
+        /*! \returns true if this individual test was successful
+        */
         bool success()
         {
             return _ok;
         }
 
     protected:
+        /*! registers individual test to testing list
+
+        \param test the test to add
+        */
         static void registerTest(iaTest *test);
+
+        /*! the list of registred tests
+        */
         static std::map<std::string, std::vector<iaTest *>> _tests;
+
+        /*! if true this test was successful
+        */
         bool _ok = true;
     };
 
@@ -78,34 +115,53 @@ namespace iaux
     testGroup##_##testName *testGroup##_##testName##_instance = new testGroup##_##testName(); \
     void testGroup##_##testName::run()
 
-#define IAUX_EXPECT_EQ(a, b) \
-    if (a != b)              \
-    {                        \
-        _ok = false;         \
+#define IAUX_EXPECT_EQ(a, b)                                                                 \
+    if ((a) != (b))                                                                              \
+    {                                                                                        \
+        iaConsole::getInstance() << "TEST FAILED " << a << " is not equal to " << b << endl; \
+        _ok = false;                                                                         \
     }
 
-#define IAUX_EXPECT_NE(a, b) \
-    if (a == b)              \
-    {                        \
-        _ok = false;         \
+#define IAUX_EXPECT_NE(a, b)                                                                        \
+    if ((a) == (b))                                                                                     \
+    {                                                                                               \
+        iaConsole::getInstance() << "TEST FAILED " << a << " should be not equal to " << b << endl; \
+        _ok = false;                                                                                \
     }
 
-#define IAUX_EXPECT_TRUE(value) \
-    if (!value)                 \
-    {                           \
-        _ok = false;            \
+#define IAUX_EXPECT_TRUE(value)                                                              \
+    if (!(value))                                                                            \
+    {                                                                                        \
+        iaConsole::getInstance() << "TEST FAILED value should be TRUE but is FALSE" << endl; \
+        _ok = false;                                                                         \
     }
 
-#define IAUX_EXPECT_FALSE(value) \
-    if (value)                   \
-    {                            \
-        _ok = false;             \
+#define IAUX_EXPECT_FALSE(value)                                                             \
+    if (value)                                                                               \
+    {                                                                                        \
+        iaConsole::getInstance() << "TEST FAILED value should be FALSE but is TRUE" << endl; \
+        _ok = false;                                                                         \
     }
 
-#define IAUX_EXPECT_NEAR(a, b, t) \
-    if (std::fabs(a - b) > t)     \
-    {                             \
-        _ok = false;              \
+#define IAUX_EXPECT_NEAR(a, b, t)                                                                                                                                \
+    if (std::fabs((a) - (b)) > t)                                                                                                                                    \
+    {                                                                                                                                                            \
+        iaConsole::getInstance() << "TEST FAILED diff of " << a << "-" << b << " is " << std::fabs(a - b) << " but should be smaller or equal to " << t << endl; \
+        _ok = false;                                                                                                                                             \
+    }
+
+#define IAUX_EXPECT_GREATER_THEN(a, b)                                                           \
+    if ((a) <= (b))                                                                                  \
+    {                                                                                            \
+        iaConsole::getInstance() << "TEST FAILED " << a << " is not greater then " << b << endl; \
+        _ok = false;                                                                             \
+    }
+
+#define IAUX_EXPECT_LESS_THEN(a, b)                                                           \
+    if ((a) >= (b))                                                                               \
+    {                                                                                         \
+        iaConsole::getInstance() << "TEST FAILED " << a << " is not less then " << b << endl; \
+        _ok = false;                                                                          \
     }
 
 } // namespace iaux
