@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_COLOR4__
-#define __IAUX_COLOR4__
+#ifndef __IAUX_COLOR4_H__
+#define __IAUX_COLOR4_H__
 
 #include <iaux/iaDefines.h>
 
@@ -155,7 +155,7 @@ namespace iaux
 
         \param factor the value to scale with
         */
-        void operator*=(T factor)
+        void operator*=(float32 factor)
         {
             _r *= factor;
             _g *= factor;
@@ -169,157 +169,22 @@ namespace iaux
         \param color2 second color
         \param w factor to interpolate with
         */
-        void lerp(iaColor4<T> &color1, iaColor4<T> &color2, float32 w)
+        void lerp(const iaColor4<T> &color1, const iaColor4<T> &color2, float32 w)
         {
             _r = color1._r * w + color2._r * (1.0f - w);
             _g = color1._g * w + color2._g * (1.0f - w);
             _b = color1._b * w + color2._b * (1.0f - w);
             _a = color1._a * w + color2._a * (1.0f - w);
         }
-
-        /*! converts RGB to HSV
-
-        \param rgb the rgb color
-        \returns hsv color
-        */
-        static iaColor4<T> convertRGBtoHSV(iaColor4<T> &rgb)
-        {
-            iaColor4<T> result;
-
-            bool maxR = false;
-            bool maxG = false;
-            bool maxB = false;
-            T max = 0;
-
-            if (rgb._r > rgb._g)
-            {
-                if (rgb._r > rgb._b)
-                {
-                    maxR = true;
-                    max = rgb._r;
-                }
-                else
-                {
-                    maxB = true;
-                    max = rgb._b;
-                }
-            }
-            else
-            {
-                if (rgb._g > rgb._b)
-                {
-                    maxG = true;
-                    max = rgb._g;
-                }
-                else
-                {
-                    maxB = true;
-                    max = rgb._b;
-                }
-            }
-
-            T min = std::min(std::min(rgb._r, rgb._g), rgb._b);
-            T delta = max - min;
-
-            if (delta == 0)
-            {
-                result._r = 0;
-            }
-            else if (maxR)
-            {
-                const float64 tmp = static_cast<float64>(((rgb._g - rgb._b) / delta));
-                result._r = static_cast<T>(60.0 * fabs(fmod(tmp, 6.0)));
-            }
-            else if (maxG)
-            {
-                result._r = static_cast<T>(60.0 * (((rgb._b - rgb._r) / delta) + 2.0));
-            }
-            else if (maxB)
-            {
-                result._r = static_cast<T>(60.0 * (((rgb._r - rgb._g) / delta) + 4.0));
-            }
-
-            result._r /= 360.0;
-
-            if (max == 0.0)
-            {
-                result._g = 0.0;
-            }
-            else
-            {
-                result._g = delta / max;
-            }
-
-            result._b = max;
-
-            result._a = rgb._a;
-
-            return result;
-        }
-
-        /*! converts HSV to RGB
-
-        \param hsv the hsv color
-        \returns rgb color
-        */
-        static iaColor4<T> convertHSVtoRGB(iaColor4<T> &hsv)
-        {
-            iaColor4<T> result;
-
-            T h = hsv._r * static_cast<T>(360.0);
-            T s = hsv._g;
-            T v = hsv._b;
-
-            T c = v * s;
-            T x = c * (1 - static_cast<T>(fabs(fmod((static_cast<double>(h) / 60.0), 2.0) - 1.0)));
-
-            T m = v - c;
-
-            if (h < 60)
-            {
-                result._r = c;
-                result._g = x;
-                result._b = 0;
-            }
-            else if (h < 120)
-            {
-                result._r = x;
-                result._g = c;
-                result._b = 0;
-            }
-            else if (h < 180)
-            {
-                result._r = 0;
-                result._g = c;
-                result._b = x;
-            }
-            else if (h < 240)
-            {
-                result._r = 0;
-                result._g = x;
-                result._b = c;
-            }
-            else if (h < 300)
-            {
-                result._r = x;
-                result._g = 0;
-                result._b = c;
-            }
-            else if (h <= 360)
-            {
-                result._r = c;
-                result._g = 0;
-                result._b = x;
-            }
-
-            result._r += m;
-            result._g += m;
-            result._b += m;
-            result._a = hsv._a;
-
-            return result;
-        }
     };
+
+    /*! float32 color
+    */
+    typedef iaColor4<float32> iaColor4f;
+
+    /*! uint8 color
+    */
+    typedef iaColor4<uint8> iaColor4c;
 
     /*! stream operator e.g. for cosole output
 
@@ -333,14 +198,6 @@ namespace iaux
         return ostr;
     }
 
-    /*! float32 color
-    */
-    typedef iaColor4<float32> iaColor4f;
-
-    /*! uint8 color
-    */
-    typedef iaColor4<uint8> iaColor4c;
-
 }; // namespace iaux
 
-#endif
+#endif // __IAUX_COLOR4_H__
