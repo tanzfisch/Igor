@@ -1,37 +1,85 @@
 #include <iaux/test/iaTest.h>
 
+#include <iaux/iaDefines.h>
+
 namespace iaux
 {
 
     std::map<std::string, std::vector<iaTest *>> iaTest::_tests;
+    static bool s_stopOnError = false;
+    static bool s_useFilter = false;
+    static std::string s_filter;
 
     void iaTest::registerTest(iaTest *test)
     {
         _tests[test->getGroupName()].push_back(test);
     }
 
-    void iaTest::runAllTests()
+    void iaTest::initTests(int argc, char **argv)
     {
-        std::cout << "runAllTests" << std::endl;
+        if (argc <= 1)
+        {
+            return;
+        }
+
+        for (uint32 i = 1; i < argc; ++i)
+        {
+            std::string value(argv[i]);
+
+            if (value == "--stop-on-error")
+            {
+                s_stopOnError = true;
+            }
+            else if (value == "--filter")
+            {
+                s_useFilter = true;
+            }
+            else if (s_useFilter && s_filter.empty())
+            {
+                s_filter = value;
+            }
+        }
+    }
+
+    void iaTest::runTests()
+    {
+        std::cout << "runTests" << std::endl;
         bool ok = true;
         for (auto groupPair : _tests)
         {
-            bool groupOK = true;
-            std::cout << "run test group: " << groupPair.first << std::endl;
             for (auto test : groupPair.second)
             {
+                std::stringstream testID;
+                testID << test->getGroupName() << "." << test->getName();
+
+                if (testID.str().find(s_filter) == std::string::npos)
+                {
+                    continue;
+                }
+
+                std::cout << "RUNNING " << testID.str() << " @ " << test->getLocation() << std::endl;
                 test->run();
                 if (!test->success())
                 {
-                    groupOK = ok = false;
+                    ok = false;
 
-                    std::cout << "FAILED " << test->getGroupName() << ":" << test->getName() << " @ " << test->getLocation() << std::endl;
+                    iaConsole::getInstance() << iaForegroundColor::Red << "TEST FAILED" << iaForegroundColor::Gray << endl
+                                             << endl;
+                }
+                else
+                {
+                    iaConsole::getInstance() << iaForegroundColor::Green << "TEST OK" << iaForegroundColor::Gray << endl
+                                             << endl;
+                }
+
+                if (s_stopOnError && !ok)
+                {
+                    return;
                 }
             }
-            std::cout << "end test group: " << groupPair.first << " " << (groupOK ? "OK" : "FAILED") << std::endl;
         }
 
-        std::cout << "over all result " << (ok ? "OK" : "FAILED") << std::endl;
+        iaConsole::getInstance() << "over all result " << (ok ? iaForegroundColor::Green : iaForegroundColor::Red) << (ok ? "OK" : "FAILED") << iaForegroundColor::Gray << endl;
     }
 
 } // namespace iaux

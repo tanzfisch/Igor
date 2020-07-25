@@ -37,6 +37,8 @@ namespace iaux
     /*! bit field
 
     bit 0 is the least significant bit    
+
+    \deprecated use std::bitset instead
     */
     template <class T>
     class IgorAux_API_Template iaBits

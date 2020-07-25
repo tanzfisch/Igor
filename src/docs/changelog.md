@@ -9,6 +9,7 @@ Changelog                           {#changelog}
 - Mica: fixed framing by fixing bounding boxes
 - Mica: fixed backe to world action
 - improved behaviour of menu and sub menus
+- replaced gtest with own simple implementation
 
 0.28.0
 ------

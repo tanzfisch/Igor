@@ -142,11 +142,11 @@ namespace iaux
 
         \param value the value to scale with
         */
-        void operator*=(T value)
+        void operator*=(float32 value)
         {
-            _r = static_cast<T>(static_cast<float32>(_r) * static_cast<float32>(value));
-            _g = static_cast<T>(static_cast<float32>(_g) * static_cast<float32>(value));
-            _b = static_cast<T>(static_cast<float32>(_b) * static_cast<float32>(value));
+            _r = static_cast<T>(static_cast<float32>(_r) * value);
+            _g = static_cast<T>(static_cast<float32>(_g) * value);
+            _b = static_cast<T>(static_cast<float32>(_b) * value);
         }
 
         /*! linear interpolation between two colors with a factor
