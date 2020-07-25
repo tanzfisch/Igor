@@ -6,7 +6,7 @@ namespace iaux
 {
 
     std::map<std::string, std::vector<iaTest *>> iaTest::_tests;
-    static bool s_stopOnError = true;
+    static bool s_stopOnError = false;
 
     void iaTest::registerTest(iaTest *test)
     {
@@ -37,33 +37,31 @@ namespace iaux
         bool ok = true;
         for (auto groupPair : _tests)
         {
-            bool groupOK = true;
-            std::cout << "BEGIN GROUP " << groupPair.first << std::endl;
             for (auto test : groupPair.second)
             {
                 std::cout << "RUNNING " << test->getGroupName() << "." << test->getName() << " @ " << test->getLocation() << std::endl;
                 test->run();
                 if (!test->success())
                 {
-                    groupOK = ok = false;
+                    ok = false;
 
-                    std::cout << "FAILED" << std::endl;
+                    iaConsole::getInstance() << iaForegroundColor::Red << "TEST FAILED" << iaForegroundColor::Gray << endl
+                                             << endl;
                 }
                 else
                 {
-                    std::cout << "OK" << std::endl;
+                    iaConsole::getInstance() << iaForegroundColor::Green << "TEST OK" << iaForegroundColor::Gray << endl
+                                             << endl;
                 }
 
-                if(s_stopOnError && !ok)
+                if (s_stopOnError && !ok)
                 {
                     return;
                 }
-                
             }
-            std::cout << "END GROUP " << groupPair.first << " " << (groupOK ? "OK" : "FAILED") << std::endl;
         }
 
-        std::cout << "over all result " << (ok ? "OK" : "FAILED") << std::endl;
+        iaConsole::getInstance() << "over all result " << (ok ? iaForegroundColor::Green : iaForegroundColor::Red) << (ok ? "OK" : "FAILED") << iaForegroundColor::Gray << endl;
     }
 
 } // namespace iaux

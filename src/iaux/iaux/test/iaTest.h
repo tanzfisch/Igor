@@ -115,61 +115,79 @@ namespace iaux
     testGroup##_##testName *testGroup##_##testName##_instance = new testGroup##_##testName(); \
     void testGroup##_##testName::run()
 
-#define IAUX_EXPECT_EQ(a, b)                                                                 \
-    if ((a) != (b))                                                                          \
-    {                                                                                        \
-        iaConsole::getInstance() << "TEST FAILED " << a << " is not equal to " << b << endl; \
-        iaConsole::getInstance() << "            " << __IGOR_FILE_LINE__ << endl;                      \
-        _ok = false;                                                                         \
+#define IAUX_EXPECT_EQ(a, b)                                               \
+    if ((a) != (b))                                                        \
+    {                                                                      \
+        iaConsole::getInstance() << a << " is not equal to " << b << endl; \
+        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl;            \
+        _ok = false;                                                       \
     }
 
-#define IAUX_EXPECT_NE(a, b)                                                                        \
-    if ((a) == (b))                                                                                 \
-    {                                                                                               \
-        iaConsole::getInstance() << "TEST FAILED " << a << " should be not equal to " << b << endl; \
-        iaConsole::getInstance() << "            " << __IGOR_FILE_LINE__ << endl;                             \
-        _ok = false;                                                                                \
+#define IAUX_EXPECT_NE(a, b)                                                      \
+    if ((a) == (b))                                                               \
+    {                                                                             \
+        iaConsole::getInstance() << a << " should be not equal to " << b << endl; \
+        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl;                   \
+        _ok = false;                                                              \
     }
 
-#define IAUX_EXPECT_TRUE(value)                                                              \
-    if (!(value))                                                                            \
-    {                                                                                        \
-        iaConsole::getInstance() << "TEST FAILED value should be TRUE but is FALSE" << endl; \
-        iaConsole::getInstance() << "            " << __IGOR_FILE_LINE__ << endl;                      \
-        _ok = false;                                                                         \
+#define IAUX_EXPECT_TRUE(value)                                                  \
+    if (!(value))                                                                \
+    {                                                                            \
+        iaConsole::getInstance() << "value should be TRUE but is FALSE" << endl; \
+        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl;                  \
+        _ok = false;                                                             \
     }
 
-#define IAUX_EXPECT_FALSE(value)                                                             \
-    if (value)                                                                               \
-    {                                                                                        \
-        iaConsole::getInstance() << "TEST FAILED value should be FALSE but is TRUE" << endl; \
-        iaConsole::getInstance() << "            " << __IGOR_FILE_LINE__ << endl;                      \
-        _ok = false;                                                                         \
+#define IAUX_EXPECT_FALSE(value)                                                 \
+    if (value)                                                                   \
+    {                                                                            \
+        iaConsole::getInstance() << "value should be FALSE but is TRUE" << endl; \
+        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl;                  \
+        _ok = false;                                                             \
     }
 
-#define IAUX_EXPECT_NEAR(a, b, t)                                                                                                                                \
-    if (std::fabs((a) - (b)) > t)                                                                                                                                \
-    {                                                                                                                                                            \
-        iaConsole::getInstance() << "TEST FAILED diff of " << a << " and " << b << " is " << std::fabs(a - b) << " but should be smaller or equal to " << t << endl; \
-        iaConsole::getInstance() << "            " << __IGOR_FILE_LINE__ << endl;                                                                                          \
-        _ok = false;                                                                                                                                             \
+#define IAUX_EXPECT_NEAR(a, b, t)                                                                                                                        \
+    if (std::fabs((a) - (b)) > t)                                                                                                                        \
+    {                                                                                                                                                    \
+        iaConsole::getInstance() << "diff of " << a << " and " << b << " is " << std::fabs(a - b) << " but should be smaller or equal to " << t << endl; \
+        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl;                                                                                          \
+        _ok = false;                                                                                                                                     \
     }
 
-#define IAUX_EXPECT_GREATER_THEN(a, b)                                                           \
-    if ((a) <= (b))                                                                              \
-    {                                                                                            \
-        iaConsole::getInstance() << "TEST FAILED " << a << " is not greater then " << b << endl; \
-        iaConsole::getInstance() << "            " << __IGOR_FILE_LINE__ << endl;                          \
-        _ok = false;                                                                             \
+#define IAUX_EXPECT_GREATER_THEN(a, b)                                         \
+    if ((a) <= (b))                                                            \
+    {                                                                          \
+        iaConsole::getInstance() << a << " is not greater then " << b << endl; \
+        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl;                \
+        _ok = false;                                                           \
     }
 
-#define IAUX_EXPECT_LESS_THEN(a, b)                                                           \
-    if ((a) >= (b))                                                                           \
-    {                                                                                         \
-        iaConsole::getInstance() << "TEST FAILED " << a << " is not less then " << b << endl; \
-        iaConsole::getInstance() << "            " << __IGOR_FILE_LINE__ << endl;                       \
-        _ok = false;                                                                          \
+#define IAUX_EXPECT_LESS_THEN(a, b)                                         \
+    if ((a) >= (b))                                                         \
+    {                                                                       \
+        iaConsole::getInstance() << a << " is not less then " << b << endl; \
+        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl;             \
+        _ok = false;                                                        \
     }
+
+#define IAUX_COMPARE_MATRIX(m1, m2)                          \
+    IAUX_EXPECT_NEAR(m1._pos._x, m2._pos._x, 0.0000001);     \
+    IAUX_EXPECT_NEAR(m1._pos._y, m2._pos._y, 0.0000001);     \
+    IAUX_EXPECT_NEAR(m1._pos._z, m2._pos._z, 0.0000001);     \
+    IAUX_EXPECT_NEAR(m1._w0, m2._w0, 0.0000001);             \
+    IAUX_EXPECT_NEAR(m1._right._x, m2._right._x, 0.0000001); \
+    IAUX_EXPECT_NEAR(m1._right._y, m2._right._y, 0.0000001); \
+    IAUX_EXPECT_NEAR(m1._right._z, m2._right._z, 0.0000001); \
+    IAUX_EXPECT_NEAR(m1._w1, m2._w1, 0.0000001);             \
+    IAUX_EXPECT_NEAR(m1._top._x, m2._top._x, 0.0000001);     \
+    IAUX_EXPECT_NEAR(m1._top._y, m2._top._y, 0.0000001);     \
+    IAUX_EXPECT_NEAR(m1._top._z, m2._top._z, 0.0000001);     \
+    IAUX_EXPECT_NEAR(m1._w2, m2._w2, 0.0000001);             \
+    IAUX_EXPECT_NEAR(m1._depth._x, m2._depth._x, 0.0000001); \
+    IAUX_EXPECT_NEAR(m1._depth._y, m2._depth._y, 0.0000001); \
+    IAUX_EXPECT_NEAR(m1._depth._z, m2._depth._z, 0.0000001); \
+    IAUX_EXPECT_NEAR(m1._w3, m2._w3, 0.0000001)
 
 } // namespace iaux
 
