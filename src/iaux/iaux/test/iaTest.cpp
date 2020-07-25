@@ -7,6 +7,8 @@ namespace iaux
 
     std::map<std::string, std::vector<iaTest *>> iaTest::_tests;
     static bool s_stopOnError = false;
+    static bool s_useFilter = false;
+    static std::string s_filter;
 
     void iaTest::registerTest(iaTest *test)
     {
@@ -28,6 +30,14 @@ namespace iaux
             {
                 s_stopOnError = true;
             }
+            else if (value == "--filter")
+            {
+                s_useFilter = true;
+            }
+            else if (s_useFilter && s_filter.empty())
+            {
+                s_filter = value;
+            }
         }
     }
 
@@ -39,7 +49,15 @@ namespace iaux
         {
             for (auto test : groupPair.second)
             {
-                std::cout << "RUNNING " << test->getGroupName() << "." << test->getName() << " @ " << test->getLocation() << std::endl;
+                std::stringstream testID;
+                testID << test->getGroupName() << "." << test->getName();
+
+                if (testID.str().find(s_filter) == std::string::npos)
+                {
+                    continue;
+                }
+
+                std::cout << "RUNNING " << testID.str() << " @ " << test->getLocation() << std::endl;
                 test->run();
                 if (!test->success())
                 {

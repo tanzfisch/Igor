@@ -115,20 +115,20 @@ namespace iaux
     testGroup##_##testName *testGroup##_##testName##_instance = new testGroup##_##testName(); \
     void testGroup##_##testName::run()
 
-#define IAUX_EXPECT_EQ(a, b)                                               \
-    if ((a) != (b))                                                        \
-    {                                                                      \
-        iaConsole::getInstance() << a << " is not equal to " << b << endl; \
-        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl;            \
-        _ok = false;                                                       \
+#define IAUX_EXPECT_EQ(a, b)                                                   \
+    if ((a) != (b))                                                            \
+    {                                                                          \
+        iaConsole::getInstance() << (a) << " is not equal to " << (b) << endl; \
+        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl;                \
+        _ok = false;                                                           \
     }
 
-#define IAUX_EXPECT_NE(a, b)                                                      \
-    if ((a) == (b))                                                               \
-    {                                                                             \
-        iaConsole::getInstance() << a << " should be not equal to " << b << endl; \
-        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl;                   \
-        _ok = false;                                                              \
+#define IAUX_EXPECT_NE(a, b)                                                          \
+    if ((a) == (b))                                                                   \
+    {                                                                                 \
+        iaConsole::getInstance() << (a) << " should be not equal to " << (b) << endl; \
+        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl;                       \
+        _ok = false;                                                                  \
     }
 
 #define IAUX_EXPECT_TRUE(value)                                                  \
@@ -148,9 +148,9 @@ namespace iaux
     }
 
 #define IAUX_EXPECT_NEAR(a, b, t)                                                                                                                        \
-    if (std::fabs((a) - (b)) > t)                                                                                                                        \
+    if (std::abs((a) - (b)) > t)                                                                                                                        \
     {                                                                                                                                                    \
-        iaConsole::getInstance() << "diff of " << a << " and " << b << " is " << std::fabs(a - b) << " but should be smaller or equal to " << t << endl; \
+        iaConsole::getInstance() << "diff of " << a << " and " << b << " is " << std::abs((a) - (b)) << " but should be smaller or equal to " << t << endl; \
         iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl;                                                                                          \
         _ok = false;                                                                                                                                     \
     }
