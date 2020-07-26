@@ -40,13 +40,36 @@ IAUX_TEST(ConvertTests, color4fto4c)
 	IAUX_EXPECT_NEAR(color1._a, 0.5, 0.005);
 }
 
-IAUX_TEST(ConvertTests, RGBtoHSV)
+IAUX_TEST(ConvertTests, RGBtoHSV1a)
+{
+	iaColor3f rgba(45 / 255.0, 128 / 255.0, 200 / 255.0);
+	iaColor3f hsva;
+	iaConvert::convertRGBtoHSV(rgba, hsva);
+
+	IAUX_EXPECT_NEAR(hsva._r, 0.579387187, 0.01);
+	IAUX_EXPECT_NEAR(hsva._g, 0.78, 0.01);
+	IAUX_EXPECT_NEAR(hsva._b, 0.78, 0.01);
+}
+
+IAUX_TEST(ConvertTests, RGBtoHSV1b)
+{
+	iaColor4f rgba(45 / 255.0, 128 / 255.0, 200 / 255.0, 0.2);
+	iaColor4f hsva;
+	iaConvert::convertRGBtoHSV(rgba, hsva);
+
+	IAUX_EXPECT_NEAR(hsva._r, 0.579387187, 0.005);
+	IAUX_EXPECT_NEAR(hsva._g, 0.78, 0.01);
+	IAUX_EXPECT_NEAR(hsva._b, 0.78, 0.01);
+	IAUX_EXPECT_NEAR(hsva._a, 0.2, 0.005);
+}
+
+IAUX_TEST(ConvertTests, RGBtoHSV2)
 {
 	iaColor4c rgba(45, 128, 200, 50);
 	iaColor4c hsva;
 	iaConvert::convertRGBtoHSV(rgba, hsva);
 
-	IAUX_EXPECT_EQ(hsva._r, 208);
+	IAUX_EXPECT_EQ(hsva._r, 147);
 	IAUX_EXPECT_EQ(hsva._g, 78);
 	IAUX_EXPECT_EQ(hsva._b, 78);
 	IAUX_EXPECT_EQ(hsva._a, 50);

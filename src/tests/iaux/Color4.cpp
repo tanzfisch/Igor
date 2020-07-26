@@ -198,6 +198,84 @@ IAUX_TEST(Color4Tests, RGBtoHSV2)
 
 }
 
+/*
+ static iaColor4<T> convertRGBtoHSV(iaColor4<T> &rgb)
+        {
+            iaColor4<T> result;
+
+            bool maxR = false;
+            bool maxG = false;
+            bool maxB = false;
+            T max = 0;
+
+            if (rgb._r > rgb._g)
+            {
+                if (rgb._r > rgb._b)
+                {
+                    maxR = true;
+                    max = rgb._r;
+                }
+                else
+                {
+                    maxB = true;
+                    max = rgb._b;
+                }
+            }
+            else
+            {
+                if (rgb._g > rgb._b)
+                {
+                    maxG = true;
+                    max = rgb._g;
+                }
+                else
+                {
+                    maxB = true;
+                    max = rgb._b;
+                }
+            }
+
+            T min = std::min(std::min(rgb._r, rgb._g), rgb._b);
+            T delta = max - min;
+
+            if (delta == 0)
+            {
+                result._r = 0;
+            }
+            else if (maxR)
+            {
+                const float64 tmp = static_cast<float64>(((rgb._g - rgb._b) / delta));
+                result._r = static_cast<T>(60.0 * fabs(fmod(tmp, 6.0)));
+            }
+            else if (maxG)
+            {
+                result._r = static_cast<T>(60.0 * (((rgb._b - rgb._r) / delta) + 2.0));
+            }
+            else if (maxB)
+            {
+                result._r = static_cast<T>(60.0 * (((rgb._r - rgb._g) / delta) + 4.0));
+            }
+
+            result._r /= 360.0;
+
+            if (max == 0.0)
+            {
+                result._g = 0.0;
+            }
+            else
+            {
+                result._g = delta / max;
+            }
+
+            result._b = max;
+
+            result._a = rgb._a;
+
+            return result;
+        }
+
+*/
+/*
 IAUX_TEST(Color4Tests, HSVtoRGB1)
 {
 	iaColor4f rgba( 208 / 255, 78 / 255, 78 / 255, 0.2);

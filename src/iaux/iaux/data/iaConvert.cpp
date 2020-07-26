@@ -49,71 +49,49 @@ namespace iaux
 
     void iaConvert::convertRGBtoHSV(const iaColor3f &rgb, iaColor3f &hsv)
     {
-        bool maxR = false;
-        bool maxG = false;
-        bool maxB = false;
-        float32 max = 0;
-
-        if (rgb._r > rgb._g)
-        {
-            if (rgb._r > rgb._b)
-            {
-                maxR = true;
-                max = rgb._r;
-            }
-            else
-            {
-                maxB = true;
-                max = rgb._b;
-            }
-        }
-        else
-        {
-            if (rgb._g > rgb._b)
-            {
-                maxG = true;
-                max = rgb._g;
-            }
-            else
-            {
-                maxB = true;
-                max = rgb._b;
-            }
-        }
-
         float32 min = std::min(std::min(rgb._r, rgb._g), rgb._b);
+        float32 max = std::max(std::max(rgb._r, rgb._g), rgb._b);
         float32 delta = max - min;
 
-        if (delta == 0)
+        hsv._b = max; // v
+
+        if (delta < 0.00001)
         {
-            hsv._r = 0;
-        }
-        else if (maxR)
-        {
-            const float64 tmp = static_cast<float64>(((rgb._g - rgb._b) / delta));
-            hsv._r = static_cast<float32>(60.0 * fabs(fmod(tmp, 6.0)));
-        }
-        else if (maxG)
-        {
-            hsv._r = static_cast<float32>(60.0 * (((rgb._b - rgb._r) / delta) + 2.0));
-        }
-        else if (maxB)
-        {
-            hsv._r = static_cast<float32>(60.0 * (((rgb._r - rgb._g) / delta) + 4.0));
+            hsv._g = 0.0; // s
+            hsv._r = 0.0; // h
+            return;
         }
 
-        hsv._r /= 360.0;
-
-        if (max == 0.0)
+        if (max > 0.0)
         {
-            hsv._g = 0.0;
+            hsv._g = delta / max; // s
         }
         else
         {
-            hsv._g = delta / max;
+            hsv._g = 0.0; // s
+            hsv._r = 0.0; // h
+            return;
         }
 
-        hsv._b = max;
+        if (rgb._r >= max)
+        {
+            hsv._r = (rgb._g - rgb._b) / delta; // h
+        }
+        else if (rgb._g >= max)
+        {
+            hsv._r = 2.0 + (rgb._b - rgb._r) / delta; // h
+        }
+        else
+        {
+            hsv._r = 4.0 + (rgb._r - rgb._g) / delta; // h
+        }
+
+        hsv._r /= 6.0; // normalize
+
+        if (hsv._r < 0.0)
+        {
+            hsv._r += 1.0;
+        }
     }
 
     void iaConvert::convertRGBtoHSV(const iaColor3c &rgb, iaColor3c &hsv)
