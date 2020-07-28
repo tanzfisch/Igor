@@ -383,6 +383,7 @@ endif()
 set_property(TARGET igor PROPERTY FOLDER ${ENGINE_FOLDER})
 
 # MICA
+message(STATUS "Mica")
 set(MICA_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/tools/mica/src/")
 set(MICA_HEADERS_DIR ${MICA_SRC_DIR})
 file(
@@ -476,7 +477,9 @@ endforeach()
 # ##############################################################################
 # Testing #
 # ##############################################################################
-set(IAUX_TEST_SRC_DIR "${CMAKE_SOURCE_DIR}/src/tests/iaux/")
+message(STATUS "iauxTest")
+
+set(IAUX_TEST_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/tests/iaux/")
 set(IAUX_TEST_HEADERS_DIR ${IAUX_TEST_SRC_DIR})
 file(
   GLOB_RECURSE IAUX_TEST_SOURCES
@@ -485,11 +488,11 @@ file(
 file(
   GLOB_RECURSE IAUX_TEST_HEADERS
   LIST_DIRECTORIES false
-  "${IAUX_TEST_SRC_DIR}*.h*")
+  "${IAUX_TEST_HEADERS_DIR}*.h*" "${IAUX_TEST_HEADERS_DIR}*.inl")
 list(APPEND IAUX_TEST_SOURCES ${IAUX_TEST_HEADERS})
 add_executable(iauxTest ${IAUX_TEST_SOURCES})
-target_include_directories(
-  iauxTest PRIVATE ${IAUX_TEST_HEADERS_DIR} ${IAUX_HEADERS_DIR})
+target_include_directories(iauxTest PRIVATE ${IAUX_TEST_HEADERS_DIR}
+                                            ${IAUX_HEADERS_DIR})
 
 if(${COMPILER} STREQUAL "GCC")
   target_link_libraries(iauxTest iaux pthread)
