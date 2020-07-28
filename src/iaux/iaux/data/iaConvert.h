@@ -38,7 +38,7 @@
 namespace iaux
 {
 
-    /*! contains some simple converters
+    /*! contains some simple converters    
     */
     class IgorAux_API iaConvert
     {
@@ -71,6 +71,62 @@ namespace iaux
         \param[out] dst destination color
         */
         static void convert(const iaColor4c &src, iaColor4f &dst);
+
+        /*! converts RGB to HSV        
+
+        \param rgb the rgb color
+        \param[out] hsv the hsv color
+        */
+        static void convertRGBtoHSV(const iaColor3f &rgb, iaColor3f &hsv);
+
+        /*! converts RGB to HSV
+
+        \param rgb the rgb color
+        \param[out] hsv the hsv color
+        */
+        static void convertRGBtoHSV(const iaColor4f &rgb, iaColor4f &hsv);
+
+        /*! converts RGB to HSV
+
+        \param rgb the rgb color
+        \param[out] hsv the hsv color
+        */
+        static void convertRGBtoHSV(const iaColor3c &rgb, iaColor3c &hsv);
+
+        /*! converts RGB to HSV
+
+        \param rgb the rgb color
+        \param[out] hsv the hsv color
+        */
+        static void convertRGBtoHSV(const iaColor4c &rgb, iaColor4c &hsv);
+
+        /*! converts HSV to RGB
+
+        \param hsv the hsv color
+        \param[out] rgb the rgb color
+        */
+        static void convertHSVtoRGB(const iaColor3f &hsv, iaColor3f &rgb);
+
+        /*! converts HSV to RGB
+
+        \param hsv the hsv color
+        \param[out] rgb the rgb color
+        */
+        static void convertHSVtoRGB(const iaColor4f &hsv, iaColor4f &rgb);
+
+        /*! converts HSV to RGB
+
+        \param hsv the hsv color
+        \param[out] rgb the rgb color
+        */
+        static void convertHSVtoRGB(const iaColor3c &hsv, iaColor3c &rgb);
+
+        /*! converts HSV to RGB
+
+        \param hsv the hsv color
+        \param[out] rgb the rgb color
+        */
+        static void convertHSVtoRGB(const iaColor4c &hsv, iaColor4c &rgb);
     };
 } // namespace iaux
 
