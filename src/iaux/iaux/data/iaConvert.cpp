@@ -126,50 +126,52 @@ namespace iaux
 
     void iaConvert::convertHSVtoRGB(const iaColor3f &hsv, iaColor3f &rgb)
     {
-        float32 h = hsv._r * 360.0;
+        float32 h = hsv._r * 6.0;
         float32 s = hsv._g;
         float32 v = hsv._b;
 
         float32 c = v * s;
-        float32 x = c * (1 - static_cast<float32>(fabs(fmod((static_cast<double>(h) / 60.0), 2.0) - 1.0)));
+        float32 x = c * (1 - static_cast<float32>(fabs(fmod((static_cast<double>(h)), 2.0) - 1.0)));
 
         float32 m = v - c;
 
-        if (h < 60)
+        switch ((int32)h)
         {
+        case 0:
             rgb._r = c;
             rgb._g = x;
             rgb._b = 0;
-        }
-        else if (h < 120)
-        {
+            break;
+
+        case 1:
             rgb._r = x;
             rgb._g = c;
             rgb._b = 0;
-        }
-        else if (h < 180)
-        {
+            break;
+
+        case 2:
             rgb._r = 0;
             rgb._g = c;
             rgb._b = x;
-        }
-        else if (h < 240)
-        {
+            break;
+
+        case 3:
             rgb._r = 0;
             rgb._g = x;
             rgb._b = c;
-        }
-        else if (h < 300)
-        {
+            break;
+
+        case 4:
             rgb._r = x;
             rgb._g = 0;
             rgb._b = c;
-        }
-        else if (h <= 360)
-        {
+            break;
+
+        case 5:
             rgb._r = c;
             rgb._g = 0;
             rgb._b = x;
+            break;
         }
 
         rgb._r += m;

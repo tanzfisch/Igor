@@ -38,7 +38,7 @@
 namespace iaux
 {
 
-    /*! contains some simple converters
+    /*! contains some simple converters    
     */
     class IgorAux_API iaConvert
     {
@@ -72,7 +72,7 @@ namespace iaux
         */
         static void convert(const iaColor4c &src, iaColor4f &dst);
 
-        /*! converts RGB to HSV
+        /*! converts RGB to HSV        
 
         \param rgb the rgb color
         \param[out] hsv the hsv color
