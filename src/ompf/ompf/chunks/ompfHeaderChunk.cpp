@@ -18,7 +18,7 @@ namespace OMPF
     {
     }
 
-    bool ompfHeaderChunk::write(std::ofstream& stream, const ompfSettings& settings)
+    bool ompfHeaderChunk::write(std::ofstream &stream, const ompfSettings &settings)
     {
         if (!iaSerializable::write(stream, "OMPF", 4))
         {
@@ -70,20 +70,20 @@ namespace OMPF
             return false;
         }
 
-        con_debug_endl("write OMPF with following configuration" << endl
-            << "MajorVersion:" << settings.getMajorVersion() << endl
-            << "MinorVersion:" << settings.getMinorVersion() << endl
-            << "PatchVersion:" << settings.getPatchVersion() << endl
-            << "TypeIDSize:" << settings.getTypeIDSize() << endl
-            << "ChunkIDSize:" << settings.getChunkIDSize() << endl
-            << "ChunkSizeSize:" << settings.getChunkSizeSize() << endl
-            << "CustomDataSizeSize:" << settings.getCustomDataSizeSize() << endl
-            << "StringSizeSize:" << settings.getStringSizeSize());
+        con_debug("write OMPF with following configuration" << endl
+                                                            << "MajorVersion:" << settings.getMajorVersion() << endl
+                                                            << "MinorVersion:" << settings.getMinorVersion() << endl
+                                                            << "PatchVersion:" << settings.getPatchVersion() << endl
+                                                            << "TypeIDSize:" << settings.getTypeIDSize() << endl
+                                                            << "ChunkIDSize:" << settings.getChunkIDSize() << endl
+                                                            << "ChunkSizeSize:" << settings.getChunkSizeSize() << endl
+                                                            << "CustomDataSizeSize:" << settings.getCustomDataSizeSize() << endl
+                                                            << "StringSizeSize:" << settings.getStringSizeSize());
 
         return ompfBaseChunk::write(stream, settings);
     }
 
-    bool ompfHeaderChunk::read(std::ifstream& stream, ompfSettings& settings)
+    bool ompfHeaderChunk::read(std::ifstream &stream, ompfSettings &settings)
     {
         char magicNumber[5];
 #ifdef __IGOR_DEBUG__
@@ -155,15 +155,15 @@ namespace OMPF
 
         settings.setStringSizeSize(stringSizeSize);
 
-        con_debug_endl("read OMPF with following configuration");
-        con_debug_endl("MajorVersion: " << settings.getMajorVersion());
-        con_debug_endl("MinorVersion: " << settings.getMinorVersion());
-        con_debug_endl("PatchVersion: " << settings.getPatchVersion());
-        con_debug_endl("TypeIDSize: " << settings.getTypeIDSize());
-        con_debug_endl("ChunkIDSize: " << settings.getChunkIDSize());
-        con_debug_endl("ChunkSizeSize: " << settings.getChunkSizeSize());
-        con_debug_endl("CustomDataSizeSize: " << settings.getCustomDataSizeSize());
-        con_debug_endl("StringSizeSize: " << settings.getStringSizeSize());
+        con_debug("read OMPF with following configuration");
+        con_debug("MajorVersion: " << settings.getMajorVersion());
+        con_debug("MinorVersion: " << settings.getMinorVersion());
+        con_debug("PatchVersion: " << settings.getPatchVersion());
+        con_debug("TypeIDSize: " << settings.getTypeIDSize());
+        con_debug("ChunkIDSize: " << settings.getChunkIDSize());
+        con_debug("ChunkSizeSize: " << settings.getChunkSizeSize());
+        con_debug("CustomDataSizeSize: " << settings.getCustomDataSizeSize());
+        con_debug("StringSizeSize: " << settings.getStringSizeSize());
 
         char buffer[6];
         iaSerializable::read(stream, buffer, 6);
@@ -171,7 +171,7 @@ namespace OMPF
         return ompfBaseChunk::read(stream, settings);
     }
 
-    uint32 ompfHeaderChunk::getSize(const ompfSettings& settings)
+    uint32 ompfHeaderChunk::getSize(const ompfSettings &settings)
     {
         return 16 + ompfBaseChunk::getSize(settings);
     }

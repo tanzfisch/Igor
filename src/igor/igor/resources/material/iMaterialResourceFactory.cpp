@@ -37,7 +37,7 @@ namespace igor
 
         if (!_materials.empty())
         {
-            con_debug_endl(static_cast<int>(_materials.size()) << " materials left. will clean up for you");
+            con_debug(static_cast<int>(_materials.size()) << " materials left. will clean up for you");
         }
 
         _materials.clear();

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iRENDERER__
-#define __iRENDERER__
+#ifndef __IGOR_RENDERER_H__
+#define __IGOR_RENDERER_H__
 
 #include <igor/data/iRectangle.h>
 #include <igor/resources/texture/iTexture.h>
@@ -64,6 +64,12 @@ namespace igor
     class iTargetMaterial;
     class iMeshBuffers;
 
+    /*! render target id definition
+    */
+    typedef uint32 iRenderTargetID;
+
+    /*! definition of render target types
+    */
     enum class iRenderTargetType
     {
         ToTexture,
@@ -153,7 +159,7 @@ namespace igor
 
         /*! the default render target ID
         */
-        static const uint32 DEFAULT_RENDER_TARGET = 0;
+        static const iRenderTargetID DEFAULT_RENDER_TARGET = 0;
 
         /*! register delegate to renderer initialized event
 
@@ -697,10 +703,32 @@ namespace igor
         */
         bool compileShaderObject(uint32 id, const char *source);
 
-        uint32 createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer);
-        void destroyRenderTarget(uint32 id);
-        void setRenderTarget(uint32 id = DEFAULT_RENDER_TARGET);
-        uint32 getRenderTarget() const;
+        /*! creates a render target
+
+        \param width the width of the render target in pixel/texel 
+        \param height the height of the render target in pixel/texel 
+        \param format the color format of the render target
+        \param renderTargetType the render target type
+        \param useDepthBuffer if true render target is having a depth buffer 
+        \returns id of render target
+        */
+        iRenderTargetID createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer);
+
+        /*! destroyes render target by id
+
+        \param id the given render target id
+        */
+        void destroyRenderTarget(iRenderTargetID id);
+
+        /*! sets the current render target by id
+
+        \param id the render target id to be set current
+        */
+        void setRenderTarget(iRenderTargetID id = DEFAULT_RENDER_TARGET);
+
+        /*! \returns id of current active render target
+        */
+        iRenderTargetID getRenderTarget() const;
 
         // infos
         /*! \returns render hardware vendor
@@ -918,4 +946,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_RENDERER_H__

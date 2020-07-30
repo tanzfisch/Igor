@@ -91,9 +91,11 @@ namespace igor
         {
             iEvent &event = *eventPtr;
 
-            if (event.getEventType() != iEventType::iEventMouseMove)
+            if (event.getEventType() != iEventType::iEventMouseMove &&
+                event.getEventType() != iEventType::iEventNodeAddedToScene &&
+                event.getEventType() != iEventType::iEventNodeRemovedFromScene)
             {
-                con_debug_endl("dispatch event: " << event);
+                con_trace("dispatch event: " << event);
             }
 
             event.dispatch<iEventWindowClose>(IGOR_BIND_EVENT_FUNCTION(iApplication::onWindowClose));

@@ -300,8 +300,8 @@ namespace igor
             _extensionsOGL = (const char *)glGetString(GL_EXTENSIONS);
 
             con_info("OpenGL Version : " << _versionOGL << endlTab
-                << "OpenGL Vendor  : " << _vendorOGL << endlTab
-                << "OpenGL Renderer: " << _rendererOGL);
+                                         << "OpenGL Vendor  : " << _vendorOGL << endlTab
+                                         << "OpenGL Renderer: " << _rendererOGL);
 
             setClearColor(iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
             setClearDepth(1.0f);
@@ -1328,9 +1328,9 @@ namespace igor
         GL_CHECK_ERROR();
     }
 
-    uint32 iRenderer::createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer)
+    iRenderTargetID iRenderer::createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer)
     {
-        uint32 result = iRenderer::DEFAULT_RENDER_TARGET;
+        iRenderTargetID result = iRenderer::DEFAULT_RENDER_TARGET;
         GLenum glformat = convertGLColorFormat(format);
         con_assert(glformat != iRenderer::INVALID_ID, "invalid color format");
 
@@ -1403,7 +1403,7 @@ namespace igor
         return result;
     }
 
-    void iRenderer::destroyRenderTarget(uint32 id)
+    void iRenderer::destroyRenderTarget(iRenderTargetID id)
     {
         auto iter = _renderTargets.find(id);
         if (iter != _renderTargets.end())
@@ -1433,7 +1433,7 @@ namespace igor
         }
     }
 
-    void iRenderer::setRenderTarget(uint32 id)
+    void iRenderer::setRenderTarget(iRenderTargetID id)
     {
         // the ID is also the frame buffer object ID
         glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, id);
@@ -1441,7 +1441,7 @@ namespace igor
         _currentRenderTarget = id;
     }
 
-    uint32 iRenderer::getRenderTarget() const
+    iRenderTargetID iRenderer::getRenderTarget() const
     {
         return _currentRenderTarget;
     }

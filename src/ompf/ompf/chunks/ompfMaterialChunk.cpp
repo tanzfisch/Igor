@@ -121,14 +121,14 @@ namespace OMPF
 
     void ompfMaterialChunk::printInfo()
     {
-        con_debug_endl("---------------------------------------------------" << endlTab
-                                                                             << "ompfMaterialChunk: " << getName() << endlTab
-                                                                             << "materialName: " << _materialName << endlTab
-                                                                             << "shader count: " << _shaders.size());
+        con_debug("---------------------------------------------------" << endlTab
+                                                                        << "ompfMaterialChunk: " << getName() << endlTab
+                                                                        << "materialName: " << _materialName << endlTab
+                                                                        << "shader count: " << _shaders.size());
 
         for (auto shader : _shaders)
         {
-            con_debug_endl("shader: " << shader._filename);
+            con_debug("shader: " << shader._filename);
         }
     }
 

@@ -109,13 +109,13 @@ namespace iaux
 
         /*! debug output
 
-        con_debug, con_debug_endl
+        con_debug
         */
         Debug,
 
         /*! trace everything that there is
 
-        con_trace
+        con_trace, con_trace_call
         */
         Trace
     };
@@ -255,7 +255,7 @@ namespace iaux
     private:
         /*! the log level. default is logging everything (trace)
         */
-        iaLogLevel _logLevel = iaLogLevel::Trace;
+        iaLogLevel _logLevel = iaLogLevel::DebugInfo;
 
         /*! file stream to log file
         */
@@ -356,7 +356,7 @@ namespace iaux
 
     \param Message message output
     */
-#define con_debug_endl(Message)                                      \
+#define con_debug(Message)                                           \
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Debug) \
     {                                                                \
         iaConsole::getInstance() << LOCK;                            \
@@ -367,11 +367,26 @@ namespace iaux
 
     /*! only called in debug mode
 
+    including line feed
+
+    \param Message message output
+    */
+#define con_trace(Message)                                                            \
+    if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Trace)                  \
+    {                                                                                 \
+        iaConsole::getInstance() << LOCK;                                             \
+        iaConsole::getInstance().printHead(iaLogLevel::Trace);                        \
+        iaConsole::getInstance() << iaForegroundColor::DarkMagenta << Message << endl \
+                                 << UNLOCK;                                           \
+    }
+
+    /*! only called in debug mode
+
         including line feed
 
         \param Message message output
         */
-#define con_trace()                                                                                                          \
+#define con_trace_call()                                                                                                     \
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Trace)                                                         \
     {                                                                                                                        \
         iaConsole::getInstance() << LOCK;                                                                                    \
@@ -399,8 +414,9 @@ namespace iaux
         iaConsole::getInstance().exit();                                                                                  \
     }
 
-#define con_debug_endl(Message)
-#define con_trace()
+#define con_debug(Message)
+#define con_trace_call()
+#define con_trace(Message)
 
 #endif // __IGOR_DEBUG__
 

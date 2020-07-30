@@ -34,14 +34,14 @@ namespace OMPF
             return false;
         }
 
-        con_debug_endl("---------------------------------------------------");
-        con_debug_endl("write ompfExternalReferenceChunk " << this->getName());
+        con_debug("---------------------------------------------------");
+        con_debug("write ompfExternalReferenceChunk " << this->getName());
 
         if (!iaSerializable::writeUTF8(stream, _filename))
         {
             return false;
         }
-        con_debug_endl("filename " << _filename);
+        con_debug("filename " << _filename);
 
         return true;
     }
@@ -53,14 +53,14 @@ namespace OMPF
             return false;
         }
 
-        con_debug_endl("---------------------------------------------------");
-        con_debug_endl("read ompfExternalReferenceChunk " << this->getName());
+        con_debug("---------------------------------------------------");
+        con_debug("read ompfExternalReferenceChunk " << this->getName());
 
         if (!iaSerializable::readUTF8(stream, _filename))
         {
             return false;
         }
-        con_debug_endl("filename " << _filename);
+        con_debug("filename " << _filename);
 
         return true;
     }

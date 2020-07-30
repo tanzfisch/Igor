@@ -324,184 +324,184 @@ namespace OMPF
             return false;
         }
 
-        con_debug_endl("---------------------------------------------------");
-        con_debug_endl("write ompfParticleSystemChunk " << this->getName());
+        con_debug("---------------------------------------------------");
+        con_debug("write ompfParticleSystemChunk " << this->getName());
 
         if (!iaSerializable::writeUInt16(stream, _maxParticleCount))
         {
             return false;
         }
-        con_debug_endl("max particle count " << _maxParticleCount);
+        con_debug("max particle count " << _maxParticleCount);
 
         if (!iaSerializable::writeUInt8(stream, static_cast<uint8>(_loop ? 1 : 0)))
         {
             return false;
         }
-        con_debug_endl("loop " << (_loop ? "true" : "false"));
+        con_debug("loop " << (_loop ? "true" : "false"));
 
         if (!iaSerializable::write(stream, _colorGradient))
         {
             return false;
         }
-        con_debug_endl("color gradient entries=" << _colorGradient.getValues().size());
+        con_debug("color gradient entries=" << _colorGradient.getValues().size());
 
         if (!iaSerializable::write(stream, _emissionGradient))
         {
             return false;
         }
-        con_debug_endl("emission gradient entries=" << _emissionGradient.getValues().size());
+        con_debug("emission gradient entries=" << _emissionGradient.getValues().size());
 
         if (!iaSerializable::write(stream, _sizeScaleGradient))
         {
             return false;
         }
-        con_debug_endl("size scale gradient entries=" << _sizeScaleGradient.getValues().size());
+        con_debug("size scale gradient entries=" << _sizeScaleGradient.getValues().size());
 
         if (!iaSerializable::write(stream, _orientationGradient))
         {
             return false;
         }
-        con_debug_endl("orientation gradient entries=" << _orientationGradient.getValues().size());
+        con_debug("orientation gradient entries=" << _orientationGradient.getValues().size());
 
         if (!iaSerializable::write(stream, _orientationRateGradient))
         {
             return false;
         }
-        con_debug_endl("orientation rate gradient entries=" << _orientationRateGradient.getValues().size());
+        con_debug("orientation rate gradient entries=" << _orientationRateGradient.getValues().size());
 
         if (!iaSerializable::write(stream, _liftGradient))
         {
             return false;
         }
-        con_debug_endl("lift gradient entries=" << _liftGradient.getValues().size());
+        con_debug("lift gradient entries=" << _liftGradient.getValues().size());
 
         if (!iaSerializable::write(stream, _velocityGradient))
         {
             return false;
         }
-        con_debug_endl("velocity gradient entries=" << _velocityGradient.getValues().size());
+        con_debug("velocity gradient entries=" << _velocityGradient.getValues().size());
 
         if (!iaSerializable::write(stream, _sizeGradient))
         {
             return false;
         }
-        con_debug_endl("size gradient entries=" << _sizeGradient.getValues().size());
+        con_debug("size gradient entries=" << _sizeGradient.getValues().size());
 
         if (!iaSerializable::write(stream, _startVisibleTimeGradient))
         {
             return false;
         }
-        con_debug_endl("start visibile gradient entries=" << _startVisibleTimeGradient.getValues().size());
+        con_debug("start visibile gradient entries=" << _startVisibleTimeGradient.getValues().size());
 
         if (!iaSerializable::writeFloat32(stream, _minVortexTorque))
         {
             return false;
         }
-        con_debug_endl("min vortex torque " << _minVortexTorque);
+        con_debug("min vortex torque " << _minVortexTorque);
 
         if (!iaSerializable::writeFloat32(stream, _maxVortexTorque))
         {
             return false;
         }
-        con_debug_endl("max vortex torque " << _maxVortexTorque);
+        con_debug("max vortex torque " << _maxVortexTorque);
 
         if (!iaSerializable::writeFloat32(stream, _minVortexRange))
         {
             return false;
         }
-        con_debug_endl("min vortex range " << _minVortexRange);
+        con_debug("min vortex range " << _minVortexRange);
 
         if (!iaSerializable::writeFloat32(stream, _maxVortexRange))
         {
             return false;
         }
-        con_debug_endl("max vortex range " << _maxVortexRange);
+        con_debug("max vortex range " << _maxVortexRange);
 
         if (!iaSerializable::writeUInt8(stream, _vortexCheckRange))
         {
             return false;
         }
-        con_debug_endl("vortex check range " << _vortexCheckRange);
+        con_debug("vortex check range " << _vortexCheckRange);
 
         if (!iaSerializable::writeFloat32(stream, _vortexToParticleRate))
         {
             return false;
         }
-        con_debug_endl("vortex to particle rate " << _vortexToParticleRate);
+        con_debug("vortex to particle rate " << _vortexToParticleRate);
 
         if (!iaSerializable::writeFloat32(stream, _vorticityConfinement))
         {
             return false;
         }
-        con_debug_endl("vorticity confinement " << _vorticityConfinement);
+        con_debug("vorticity confinement " << _vorticityConfinement);
 
         if (!iaSerializable::writeUInt8(stream, _firstTectureTilingColumns))
         {
             return false;
         }
-        con_debug_endl("first texture tiling columns " << _firstTectureTilingColumns);
+        con_debug("first texture tiling columns " << _firstTectureTilingColumns);
 
         if (!iaSerializable::writeUInt8(stream, _firstTectureTilingRows))
         {
             return false;
         }
-        con_debug_endl("first texture tiling rows " << _firstTectureTilingRows);
+        con_debug("first texture tiling rows " << _firstTectureTilingRows);
 
         if (!iaSerializable::writeFloat32(stream, _airDrag))
         {
             return false;
         }
-        con_debug_endl("air drag " << _airDrag);
+        con_debug("air drag " << _airDrag);
 
         if (!iaSerializable::writeFloat32(stream, _periodTime))
         {
             return false;
         }
-        con_debug_endl("period " << _periodTime);
+        con_debug("period " << _periodTime);
 
         if (!iaSerializable::writeUInt8(stream, static_cast<uint8>(_velocityOriented ? 1 : 0)))
         {
             return false;
         }
-        con_debug_endl("velocity oriented " << (_velocityOriented ? "true" : "false"));
+        con_debug("velocity oriented " << (_velocityOriented ? "true" : "false"));
 
         if (!iaSerializable::writeUTF8(stream, _textureA))
         {
             return false;
         }
-        con_debug_endl("texture A " << _textureA);
+        con_debug("texture A " << _textureA);
 
         if (!iaSerializable::writeUTF8(stream, _textureB))
         {
             return false;
         }
-        con_debug_endl("texture B " << _textureB);
+        con_debug("texture B " << _textureB);
 
         if (!iaSerializable::writeUTF8(stream, _textureC))
         {
             return false;
         }
-        con_debug_endl("texture C " << _textureC);
+        con_debug("texture C " << _textureC);
 
         if (!iaSerializable::writeUInt32(stream, _materialChunkID))
         {
             return false;
         }
-        con_debug_endl("material chunk id " << _materialChunkID);
+        con_debug("material chunk id " << _materialChunkID);
 
         if (!iaSerializable::writeUInt32(stream, _emitterID))
         {
             return false;
         }
-        con_debug_endl("emitter chunk id " << _emitterID);
+        con_debug("emitter chunk id " << _emitterID);
 
         return true;
     }
 
     bool ompfParticleSystemChunk::read(std::ifstream &stream, ompfSettings &settings)
     {
-        con_debug_endl("---------------------------------------------------");
-        con_debug_endl("read ompfParticleSystemChunk " << this->getName());
+        con_debug("---------------------------------------------------");
+        con_debug("read ompfParticleSystemChunk " << this->getName());
 
         if (!ompfBaseChunk::read(stream, settings))
         {
@@ -512,7 +512,7 @@ namespace OMPF
         {
             return false;
         }
-        con_debug_endl("max particle count " << _maxParticleCount);
+        con_debug("max particle count " << _maxParticleCount);
 
         uint8 typeValue;
         if (!iaSerializable::readUInt8(stream, typeValue))
@@ -520,127 +520,127 @@ namespace OMPF
             return false;
         }
         _loop = typeValue == 0 ? false : true;
-        con_debug_endl("loop " << (_loop ? "true" : "false"));
+        con_debug("loop " << (_loop ? "true" : "false"));
 
         if (!iaSerializable::read(stream, _colorGradient))
         {
             return false;
         }
-        con_debug_endl("color gradient entries=" << _colorGradient.getValues().size());
+        con_debug("color gradient entries=" << _colorGradient.getValues().size());
 
         if (!iaSerializable::read(stream, _emissionGradient))
         {
             return false;
         }
-        con_debug_endl("emission gradient entries=" << _emissionGradient.getValues().size());
+        con_debug("emission gradient entries=" << _emissionGradient.getValues().size());
 
         if (!iaSerializable::read(stream, _sizeScaleGradient))
         {
             return false;
         }
-        con_debug_endl("size scale gradient entries=" << _sizeScaleGradient.getValues().size());
+        con_debug("size scale gradient entries=" << _sizeScaleGradient.getValues().size());
 
         if (!iaSerializable::read(stream, _orientationGradient))
         {
             return false;
         }
-        con_debug_endl("orientation gradient entries=" << _orientationGradient.getValues().size());
+        con_debug("orientation gradient entries=" << _orientationGradient.getValues().size());
 
         if (!iaSerializable::read(stream, _orientationRateGradient))
         {
             return false;
         }
-        con_debug_endl("orientation rate gradient entries=" << _orientationRateGradient.getValues().size());
+        con_debug("orientation rate gradient entries=" << _orientationRateGradient.getValues().size());
 
         if (!iaSerializable::read(stream, _liftGradient))
         {
             return false;
         }
-        con_debug_endl("lift gradient entries=" << _liftGradient.getValues().size());
+        con_debug("lift gradient entries=" << _liftGradient.getValues().size());
 
         if (!iaSerializable::read(stream, _velocityGradient))
         {
             return false;
         }
-        con_debug_endl("velocity gradient entries=" << _velocityGradient.getValues().size());
+        con_debug("velocity gradient entries=" << _velocityGradient.getValues().size());
 
         if (!iaSerializable::read(stream, _sizeGradient))
         {
             return false;
         }
-        con_debug_endl("size gradient entries=" << _sizeGradient.getValues().size());
+        con_debug("size gradient entries=" << _sizeGradient.getValues().size());
 
         if (!iaSerializable::read(stream, _startVisibleTimeGradient))
         {
             return false;
         }
-        con_debug_endl("start visibile gradient entries=" << _startVisibleTimeGradient.getValues().size());
+        con_debug("start visibile gradient entries=" << _startVisibleTimeGradient.getValues().size());
 
         if (!iaSerializable::readFloat32(stream, _minVortexTorque))
         {
             return false;
         }
-        con_debug_endl("min vortex torque " << _minVortexTorque);
+        con_debug("min vortex torque " << _minVortexTorque);
 
         if (!iaSerializable::readFloat32(stream, _maxVortexTorque))
         {
             return false;
         }
-        con_debug_endl("max vortex torque " << _maxVortexTorque);
+        con_debug("max vortex torque " << _maxVortexTorque);
 
         if (!iaSerializable::readFloat32(stream, _minVortexRange))
         {
             return false;
         }
-        con_debug_endl("min vortex range " << _minVortexRange);
+        con_debug("min vortex range " << _minVortexRange);
 
         if (!iaSerializable::readFloat32(stream, _maxVortexRange))
         {
             return false;
         }
-        con_debug_endl("max vortex range " << _maxVortexRange);
+        con_debug("max vortex range " << _maxVortexRange);
 
         if (!iaSerializable::readUInt8(stream, _vortexCheckRange))
         {
             return false;
         }
-        con_debug_endl("vortex check range " << _vortexCheckRange);
+        con_debug("vortex check range " << _vortexCheckRange);
 
         if (!iaSerializable::readFloat32(stream, _vortexToParticleRate))
         {
             return false;
         }
-        con_debug_endl("vortex to particle rate " << _vortexToParticleRate);
+        con_debug("vortex to particle rate " << _vortexToParticleRate);
 
         if (!iaSerializable::readFloat32(stream, _vorticityConfinement))
         {
             return false;
         }
-        con_debug_endl("vorticity confinement " << _vorticityConfinement);
+        con_debug("vorticity confinement " << _vorticityConfinement);
 
         if (!iaSerializable::readUInt8(stream, _firstTectureTilingColumns))
         {
             return false;
         }
-        con_debug_endl("first texture tiling columns " << _firstTectureTilingColumns);
+        con_debug("first texture tiling columns " << _firstTectureTilingColumns);
 
         if (!iaSerializable::readUInt8(stream, _firstTectureTilingRows))
         {
             return false;
         }
-        con_debug_endl("first texture tiling rows " << _firstTectureTilingRows);
+        con_debug("first texture tiling rows " << _firstTectureTilingRows);
 
         if (!iaSerializable::readFloat32(stream, _airDrag))
         {
             return false;
         }
-        con_debug_endl("air drag " << _airDrag);
+        con_debug("air drag " << _airDrag);
 
         if (!iaSerializable::readFloat32(stream, _periodTime))
         {
             return false;
         }
-        con_debug_endl("period " << _periodTime);
+        con_debug("period " << _periodTime);
 
         uint8 velocityOriented;
         if (!iaSerializable::readUInt8(stream, velocityOriented))
@@ -648,37 +648,37 @@ namespace OMPF
             return false;
         }
         _velocityOriented = velocityOriented == 0 ? false : true;
-        con_debug_endl("velocity oriented " << (_velocityOriented ? "true" : "false"));
+        con_debug("velocity oriented " << (_velocityOriented ? "true" : "false"));
 
         if (!iaSerializable::readUTF8(stream, _textureA))
         {
             return false;
         }
-        con_debug_endl("texture A " << _textureA);
+        con_debug("texture A " << _textureA);
 
         if (!iaSerializable::readUTF8(stream, _textureB))
         {
             return false;
         }
-        con_debug_endl("texture B " << _textureB);
+        con_debug("texture B " << _textureB);
 
         if (!iaSerializable::readUTF8(stream, _textureC))
         {
             return false;
         }
-        con_debug_endl("texture C " << _textureC);
+        con_debug("texture C " << _textureC);
 
         if (!iaSerializable::readUInt32(stream, _materialChunkID))
         {
             return false;
         }
-        con_debug_endl("materialChunkID " << _materialChunkID);
+        con_debug("materialChunkID " << _materialChunkID);
 
         if (!iaSerializable::readUInt32(stream, _emitterID))
         {
             return false;
         }
-        con_debug_endl("emitter chunk id " << _emitterID);
+        con_debug("emitter chunk id " << _emitterID);
 
         return true;
     }

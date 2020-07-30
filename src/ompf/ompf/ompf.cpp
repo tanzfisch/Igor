@@ -305,7 +305,7 @@ namespace OMPF
 
         file.open(cfilename, std::ios_base::in | std::ios_base::binary);
 
-        con_debug_endl("reading OMPF file: " << filename);
+        con_debug("reading OMPF file: " << filename);
 
         if (!file.fail())
         {
