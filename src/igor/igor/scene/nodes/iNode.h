@@ -221,7 +221,7 @@ namespace igor
 
         /*! \returns list of children
         */
-        std::vector<iNodePtr> &getChildren();
+        const std::vector<iNodePtr> &getChildren() const;
 
         /*! returns child by name
 
@@ -241,7 +241,7 @@ namespace igor
 
         /*! \returns list of inactive children
         */
-        std::vector<iNodePtr> &getInactiveChildren();
+        const std::vector<iNodePtr> &getInactiveChildren() const;
 
         /*! \returns pointer to parent node
         */

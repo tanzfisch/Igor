@@ -12,7 +12,6 @@
 #include <igor/system/iKeyboard.h>
 #include <igor/graphics/iRenderer.h>
 #include <igor/threading/iTaskManager.h>
-#include <igor/resources/profiler/iProfiler.h>
 #include <igor/events/iEventWindow.h>
 
 #include <algorithm>
@@ -1194,7 +1193,7 @@ namespace igor
 
         _impl->calcClientSize();
 
-        _swapBufferSectionID = iProfiler::getInstance().registerSection("window:swap", 0);
+        _swapBufferSectionID = iProfiler::getInstance().createSection("swap"); // TODO how do we handle this with multiple windows?
     }
 
     iWindow::~iWindow()

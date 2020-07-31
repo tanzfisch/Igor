@@ -229,30 +229,6 @@ namespace igor
         */
         iaMutex _mutexActionQueue;
 
-        /*! performance section discover blocks
-        */
-        uint32 _discoverBlocksSection = 0;
-
-        /*! performance section delete blocks
-        */
-        uint32 _deleteBlocksSection = 0;
-
-        /*! performance section apply actions
-        */
-        uint32 _applyActionsSection = 0;
-
-        /*! performance section update blocks
-        */
-        uint32 _updateBlocksSection = 0;
-
-        /*! performance section update visibility blocks
-        */
-        uint32 _updateVisBlocksSection = 0;
-
-        /*! performance section total handle
-        */
-        uint32 _totalSection = 0;
-
         /*! the voxel data
         */
         std::vector<std::unordered_map<iaVector3I, iVoxelBlock *, iVectorHasher, iVectorEqualFn>> _voxelBlocks;

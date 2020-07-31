@@ -41,6 +41,10 @@ using namespace iaux;
 namespace igor
 {
 
+    /*! evaluation id definition
+    */
+    typedef uint64 iEvaluationID;
+
     /*! evaluation base class
     */
     class Igor_API iEvaluation
@@ -51,7 +55,7 @@ namespace igor
     public:
         /*! invalid node id definition
         */
-        static const uint64 INVALID_EVALUATOR_ID = IGOR_INVALID_ID;
+        static const iEvaluationID INVALID_EVALUATOR_ID = IGOR_INVALID_ID;
 
         /*! sets start time of evaluation
 
@@ -131,9 +135,13 @@ namespace igor
         */
         float64 getOvershoot() const;
 
-        /*! \returns id of the evaluation
+        /*! \returns id of the evaluation id
         */
-        uint64 getID() const;
+        iEvaluationID getID() const;
+
+        /*! \returns id of node that is controlled by this evaluation
+        */
+        iNodeID getNodeID() const;
 
         /*! sets if this evaluation runs in an endless loop
         */
@@ -150,7 +158,7 @@ namespace igor
     protected:
         /*! id of node to control
         */
-        uint64 _nodeID = iNode::INVALID_NODE_ID;
+        iNodeID _nodeID = iNode::INVALID_NODE_ID;
 
         /*! interpolation function
         */
@@ -184,20 +192,20 @@ namespace igor
 
         \param nodeID id of node to take control of
         */
-        iEvaluation(uint64 nodeID);
+        iEvaluation(iNodeID nodeID);
 
         /*! does nothing
         */
         virtual ~iEvaluation() = default;
 
     private:
-        /*! the next node id
+        /*! the next evaluation id
         */
         static iaIDGenerator64 _idGenerator;
 
         /*! id of this evaluation
         */
-        uint64 _evaluatorID = iEvaluation::INVALID_EVALUATOR_ID;
+        iEvaluationID _evaluatorID = iEvaluation::INVALID_EVALUATOR_ID;
 
         /*! evaluates something
 

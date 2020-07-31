@@ -64,7 +64,7 @@ namespace igor
 
         /*! called on application post draw event
         */
-        virtual void onPostDraw(){};
+        virtual void onPostDraw(){}; // TODO get rid of post draw
 
         /*! called on any other event
         */

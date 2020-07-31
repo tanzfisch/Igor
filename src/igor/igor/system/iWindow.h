@@ -29,7 +29,7 @@
 #ifndef __IGOR_WINDOW_H__
 #define __IGOR_WINDOW_H__
 
-#include <igor/iDefines.h>
+#include <igor/resources/profiler/iProfiler.h>
 
 #include <iaux/system/iaEvent.h>
 #include <iaux/data/iaString.h>
@@ -243,7 +243,7 @@ namespace igor
 
         /*! swap buffer stats section id
         */
-        int32 _swapBufferSectionID = 0;
+        iProfilerSectionID _swapBufferSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
 
         /*! called when window size has changed
         \param width new width

@@ -103,6 +103,14 @@ namespace igor
         }
     }
 
+    void iApplication::preDraw()
+    {
+        for (auto layer : _layerStack.getStack())
+        {
+            layer->onPreDraw();
+        }
+    }
+
     bool iApplication::onWindowClose(iEventWindowClose &event)
     {
         bool allClosed = true;
@@ -132,26 +140,16 @@ namespace igor
     void iApplication::iterate()
     {
         iProfiler::getInstance().nextFrame();
-        iProfiler::getInstance().beginSection(_frameSectionID);
 
-        iTimer::getInstance().handle();
-
-        iProfiler::getInstance().beginSection(_handleSectionID);
-        iNodeManager::getInstance().handle();
-        iProfiler::getInstance().endSection(_handleSectionID);
-
-        windowHandle();
-
-        iProfiler::getInstance().beginSection(_userSectionID);
-
-        iProfiler::getInstance().beginSection(_dispatchSectionID);
-        dispatch();
-        iProfiler::getInstance().endSection(_dispatchSectionID);
-        for (auto layer : _layerStack.getStack())
+        iProfiler::getInstance().beginSection(_applicationSectionID);
         {
-            layer->onPreDraw();
+            iTimer::getInstance().handle();
+            iNodeManager::getInstance().handle();
+            windowHandle();
+            dispatch();
+            preDraw();
         }
-        iProfiler::getInstance().endSection(_userSectionID);
+        iProfiler::getInstance().endSection(_applicationSectionID);
 
         iProfiler::getInstance().beginSection(_evaluationSectionID);
         iEvaluationManager::getInstance().handle();
@@ -161,18 +159,8 @@ namespace igor
         iPhysics::getInstance().handle();
         iProfiler::getInstance().endSection(_physicsSectionID);
 
-        iProfiler::getInstance().beginSection(_drawSectionID);
+        // profiler sections are within render engine
         draw();
-        iProfiler::getInstance().endSection(_drawSectionID);
-
-        iProfiler::getInstance().beginSection(_userSectionID);
-        for (auto layer : _layerStack.getStack())
-        {
-            layer->onPostDraw();
-        }
-        iProfiler::getInstance().endSection(_userSectionID);
-
-        iProfiler::getInstance().endSection(_frameSectionID);
     }
 
     void iApplication::run()
@@ -184,30 +172,13 @@ namespace igor
         {
             iterate();
         } while (_running);
-
-        deinitProfiling();
-    }
-
-    void iApplication::deinitProfiling()
-    {
-        iProfiler::getInstance().unregisterSection(_frameSectionID);
-        iProfiler::getInstance().unregisterSection(_handleSectionID);
-        iProfiler::getInstance().unregisterSection(_dispatchSectionID);
-        iProfiler::getInstance().unregisterSection(_evaluationSectionID);
-        iProfiler::getInstance().unregisterSection(_physicsSectionID);
-        iProfiler::getInstance().unregisterSection(_drawSectionID);
-        iProfiler::getInstance().unregisterSection(_userSectionID);
     }
 
     void iApplication::initProfiling()
     {
-        _frameSectionID = iProfiler::getInstance().registerSection("app:frame", 0);
-        _handleSectionID = iProfiler::getInstance().registerSection("app:handle", 0);
-        _dispatchSectionID = iProfiler::getInstance().registerSection("app:dispatch", 0);
-        _evaluationSectionID = iProfiler::getInstance().registerSection("app:eval", 0);
-        _physicsSectionID = iProfiler::getInstance().registerSection("app:physics", 0);
-        _userSectionID = iProfiler::getInstance().registerSection("app:user", 0);
-        _drawSectionID = iProfiler::getInstance().registerSection("app:draw", 0);
+        _applicationSectionID = iProfiler::getInstance().createSection("app");
+        _evaluationSectionID = iProfiler::getInstance().createSection("eval");
+        _physicsSectionID = iProfiler::getInstance().createSection("physics");
     }
 
     bool iApplication::isRunning()

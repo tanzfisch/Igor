@@ -20,19 +20,18 @@ using namespace iaux;
 namespace igor
 {
 
-    iView::iView()
+    iView::iView(bool useProfiling)
+        : _renderEngine(iRenderEngine(useProfiling))
     {
-#ifdef IGOR_USE_VERBOSE_PROFILING
-        _userDrawSectionID = iProfiler::getInstance().registerSection("view:user", 2);
-#endif
+        if (useProfiling)
+        {
+            _userDrawSectionID = iProfiler::getInstance().createSection("udraw");
+            _sceneSectionID = iProfiler::getInstance().createSection("scene");
+        }
     }
 
     iView::~iView()
     {
-#ifdef IGOR_USE_VERBOSE_PROFILING
-        iProfiler::getInstance().unregisterSection(_userDrawSectionID);
-#endif
-
         if (_renderEvent.hasDelegates())
         {
             con_warn("not all delegates unregistered from " << getName());
@@ -177,7 +176,9 @@ namespace igor
     {
         if (_scene != nullptr)
         {
+            iProfiler::getInstance().beginSection(_sceneSectionID);
             _scene->handle();
+            iProfiler::getInstance().endSection(_sceneSectionID);
         }
 
         if (_visible)
@@ -210,14 +211,9 @@ namespace igor
                 _renderEngine.render();
             }
 
-#ifdef IGOR_USE_VERBOSE_PROFILING
             iProfiler::getInstance().beginSection(_userDrawSectionID);
-#endif
             _renderEvent();
-
-#ifdef IGOR_USE_VERBOSE_PROFILING
             iProfiler::getInstance().endSection(_userDrawSectionID);
-#endif
         }
     }
 

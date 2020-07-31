@@ -393,12 +393,12 @@ namespace igor
         return _children.size() ? true : false;
     }
 
-    std::vector<iNodePtr> &iNode::getInactiveChildren()
+    const std::vector<iNodePtr> &iNode::getInactiveChildren() const
     {
         return _inactiveChildren;
     }
 
-    std::vector<iNodePtr> &iNode::getChildren()
+    const std::vector<iNodePtr> &iNode::getChildren() const
     {
         return _children;
     }

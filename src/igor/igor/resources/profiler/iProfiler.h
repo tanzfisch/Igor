@@ -26,16 +26,17 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iPROFILER__
-#define __iPROFILER__
+#ifndef __IGOR_PROFILER_H__
+#define __IGOR_PROFILER_H__
 
 #include <igor/iDefines.h>
-#include <igor/resources/profiler/iProfilerSection.h>
 
 #include <iaux/system/iaSingleton.h>
 #include <iaux/data/iaColor4.h>
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaConsole.h>
+#include <iaux/data/iaIDGenerator.h>
+#include <iaux/system/iaTime.h>
 using namespace iaux;
 
 #include <map>
@@ -43,8 +44,9 @@ using namespace iaux;
 namespace igor
 {
 
-    class iTextureFont;
-    class iWindow;
+    /*! profiler section id definition
+    */
+    typedef iaID64 iProfilerSectionID;
 
     /*! render statistics
     */
@@ -54,31 +56,47 @@ namespace igor
         friend class iaSingleton<iProfiler>;
 
     public:
-        /*! registers a measurement section
+        /*! size of buffer aka amount of frames that are logged
+        */
+        static const uint64 MAX_FRAMES_COUNT = 500;
+
+        /*! invalid profiler section id definition
+        */
+        static const iProfilerSectionID INVALID_PROFILER_SECTION_ID = 0;
+
+        struct iProfilerSection
+        {
+            /*! name of section
+            */
+            iaString _name;
+
+            /*! time used per frame
+            */
+            std::array<iaTime, MAX_FRAMES_COUNT> _values;
+
+            /*! time at beginning of section
+            */
+            iaTime _beginTime;
+        };
+
+        /*! creates a measurement section
 
         \param sectionName the section's name
-        \param color color to render the graph with
         \param groupIndex index of group this section belongs to
         */
-        uint32 registerSection(const iaString &sectionName, uint64 groupIndex = 0);
-
-        /*! unregister section by id
-
-        \param sectionID the section's id to be removed
-        */
-        void unregisterSection(uint32 sectionID);
+        iProfilerSectionID createSection(const iaString &sectionName);
 
         /*! begins measuring section
 
         \param sectionID the section ID
         */
-        void beginSection(uint32 sectionID);
+        void beginSection(iProfilerSectionID sectionID);
 
         /*! ends measuring section
 
         \param sectionID the section ID
         */
-        void endSection(uint32 sectionID);
+        void endSection(iProfilerSectionID sectionID);
 
         /*! steps to next frame
         */
@@ -88,28 +106,20 @@ namespace igor
 
         be carefull to not change that list
         */
-        std::map<uint32, iProfilerSection> &getSections();
+        const std::vector<iProfilerSection> &getSections() const;
 
         /*! \returns current frame index
         */
-        uint64 getCurrentFrameIndex() const;
+        int32 getCurrentFrameIndex() const;
 
     private:
         /*! current frame
         */
-        uint64 _frame = 0;
+        int32 _frame = 0;
 
         /*! list of sections
         */
-        std::map<uint32, iProfilerSection> _sections;
-
-        /*! next section id
-        */
-        uint32 _nextSectionID = iProfilerSection::INVALID_SECTION_ID + 1;
-
-        /*! measures time so we can update statistics in certain intervals
-        */
-        float64 _seconds = 0;
+        std::vector<iProfilerSection> _sections;
 
         /*! nothing todo
         */
@@ -122,4 +132,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_PROFILER_H__
