@@ -15,6 +15,8 @@ Changelog                           {#changelog}
 - renamed con_debug_endl to con_debug
 - con_trace now has a message parameter
 - renamed original con_trace to con_trace_call
+- improved profiling visualisation
+- fixed performance issue in iScene
 
 0.28.0 (unstable)
 -----------------
