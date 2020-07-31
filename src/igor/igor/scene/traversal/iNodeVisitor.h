@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iNODEVISITOR__
-#define __iNODEVISITOR__
+#ifndef __IGOR_NODEVISITOR_H__
+#define __IGOR_NODEVISITOR_H__
 
 #include <igor/iDefines.h>
 #include <igor/scene/nodes/iNode.h>
@@ -57,6 +57,12 @@ namespace igor
         */
         void setTraverseInactiveChildren(bool traverseInactive = true);
 
+        /*! sets wether or not traversal will check for next sibling
+
+        \param traverseSiblings if true traversal will call preOrderVisit with next sibling if available
+        */
+        void setTraverseSiblings(bool traverseSiblings = true);
+
         /*! traverses tree from given node on
 
         \param node node to start from
@@ -68,11 +74,16 @@ namespace igor
         */
         bool _traverseInactiveChildren = false;
 
-        /*! internal recursive traverse method
+        /*! if true traversal will call preOrderVisit with next sibling if available
+        */
+        bool _traverseSiblings = false;
 
-        \param node current node
+        /*! internal recursive traverse methods
         */
         void traverseTreeInternal(iNodePtr node, iNodePtr nextSibling);
+        void traverseTreeInternalWithInactive(iNodePtr node, iNodePtr nextSibling);
+        void traverseTreeInternal(iNodePtr node);
+        void traverseTreeInternalWithInactive(iNodePtr node);
 
     protected:
         /*! is called before traversal
@@ -102,4 +113,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_NODEVISITOR_H__

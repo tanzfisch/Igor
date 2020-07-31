@@ -98,6 +98,22 @@ namespace igor
         */
         const T getHeight() const;
 
+        /*! \returns horrizonal position
+        */
+        const T getLeft() const;
+
+        /*! \returns horizontal position of right edge
+        */
+        const T getRight() const;
+
+        /*! \returns vertical position
+        */
+        const T getTop() const;
+
+        /*! \returns vertical position of bottom edge
+        */
+        const T getBottom() const;
+
         /*! sets horrizontal position
 
         \param x horrizontal position

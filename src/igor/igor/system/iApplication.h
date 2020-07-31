@@ -144,33 +144,17 @@ namespace igor
         */
         iaMutex _eventQueueMutex;
 
-        /*! frame profiler section id
+        /*! application profiler section id
         */
-        uint32 _frameSectionID = 0;
-
-        /*! handle profiler section id
-        */
-        uint32 _handleSectionID = 0;
-
-        /*! dispatch profiler section id
-        */
-        uint32 _dispatchSectionID = 0;
+        uint32 _applicationSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
 
         /*! evaluation profiler section id
         */
-        uint32 _evaluationSectionID = 0;
+        uint32 _evaluationSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
 
         /*! physics profiler section id
         */
-        uint32 _physicsSectionID = 0;
-
-        /*! draw profiler section id
-        */
-        uint32 _drawSectionID = 0;
-
-        /*! user profiler section id
-        */
-        uint32 _userSectionID = 0;
+        uint32 _physicsSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
 
         /*! handle callbacks profiler section ID
         */
@@ -192,6 +176,10 @@ namespace igor
         */
         void dispatch();
 
+        /*! triggers pre draw event on all layers
+        */
+        void preDraw();
+
         /*! dispatch event on given layer stack
 
         \param event the event to despatch
@@ -207,10 +195,6 @@ namespace igor
         bool onWindowClose(iEventWindowClose &event);
 
         /*! init profiling sections
-        */
-        void deinitProfiling();
-
-        /*! deinit profiling sections
         */
         void initProfiling();
 

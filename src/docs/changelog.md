@@ -9,10 +9,15 @@ Changelog                           {#changelog}
 - Mica: fixed framing by fixing bounding boxes
 - Mica: fixed backe to world action
 - improved behaviour of menu and sub menus
-- replaced gtest with own simple implementation
+- replaced gtest with own simple implementation and adding more tests
+- fixed issue in cmake file for building igor as submodule
+- DebugInfo is the default log level again
+- renamed con_debug_endl to con_debug
+- con_trace now has a message parameter
+- renamed original con_trace to con_trace_call
 
-0.28.0
-------
+0.28.0 (unstable)
+-----------------
 
 This is probably less stable than previous versions but 
 I really needed to get this out before it get's even bigger.

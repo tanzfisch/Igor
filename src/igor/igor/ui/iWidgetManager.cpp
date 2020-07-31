@@ -237,6 +237,10 @@ namespace igor
 
     void iWidgetManager::onPostDraw()
     {
+    }
+
+    void iWidgetManager::onPreDraw()
+    {
         bool refreshMousePos = false;
 
         for (auto id : _dialogsToClose)
@@ -257,10 +261,7 @@ namespace igor
             auto pos = iMouse::getInstance().getPos();
             handleMouseMove(pos);
         }
-    }
 
-    void iWidgetManager::onPreDraw()
-    {
         for (auto dialog : _dialogs)
         {
             if (dialog.second->isActive())

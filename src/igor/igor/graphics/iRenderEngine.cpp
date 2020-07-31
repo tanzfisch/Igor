@@ -17,7 +17,6 @@
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/scene/nodes/iNodeManager.h>
-#include <igor/resources/profiler/iProfiler.h>
 #include <igor/system/iTimer.h>
 #include <igor/scene/traversal/iNodeVisitorRenderBoundings.h>
 
@@ -28,13 +27,14 @@ using namespace iaux;
 namespace igor
 {
 
-    iRenderEngine::iRenderEngine()
+    iRenderEngine::iRenderEngine(bool useProfiling)
     {
-#ifdef IGOR_USE_VERBOSE_PROFILING
-        _cullSectionID = iProfiler::getInstance().registerSection("renderer:cull", 1);
-        _drawSectionID = iProfiler::getInstance().registerSection("renderer:draw", 1);
-        _bufferCreationSectionID = iProfiler::getInstance().registerSection("renderer:createBuffers", 1);
-#endif
+        if (useProfiling)
+        {
+            _cullSectionID = iProfiler::getInstance().createSection("cull");
+            _drawSectionID = iProfiler::getInstance().createSection("draw");
+            _bufferCreationSectionID = iProfiler::getInstance().createSection("buff");
+        }
 
         iMaterialResourceFactory::getInstance().registerMaterialCreatedDelegate(iMaterialCreatedDelegate(this, &iRenderEngine::onMaterialCreated));
         iMaterialResourceFactory::getInstance().registerMaterialDestroyedDelegate(iMaterialDestroyedDelegate(this, &iRenderEngine::onMaterialDestroyed));
@@ -51,12 +51,6 @@ namespace igor
     {
         iMaterialResourceFactory::getInstance().unregisterMaterialCreatedDelegate(iMaterialCreatedDelegate(this, &iRenderEngine::onMaterialCreated));
         iMaterialResourceFactory::getInstance().unregisterMaterialDestroyedDelegate(iMaterialDestroyedDelegate(this, &iRenderEngine::onMaterialDestroyed));
-
-#ifdef IGOR_USE_VERBOSE_PROFILING
-        iProfiler::getInstance().unregisterSection(_cullSectionID);
-        iProfiler::getInstance().unregisterSection(_drawSectionID);
-        iProfiler::getInstance().unregisterSection(_bufferCreationSectionID);
-#endif
     }
 
     void iRenderEngine::onMaterialCreated(uint64 materialID)
@@ -166,27 +160,18 @@ namespace igor
 
     void iRenderEngine::render()
     {
-#ifdef IGOR_USE_VERBOSE_PROFILING
         iProfiler::getInstance().beginSection(_bufferCreationSectionID);
-#endif
         createBuffers();
-
-#ifdef IGOR_USE_VERBOSE_PROFILING
         iProfiler::getInstance().endSection(_bufferCreationSectionID);
-#endif
 
         if (_scene != nullptr &&
             _currentCamera != nullptr)
         {
-#ifdef IGOR_USE_VERBOSE_PROFILING
             iProfiler::getInstance().beginSection(_cullSectionID);
-#endif
             cullScene(_currentCamera);
-#ifdef IGOR_USE_VERBOSE_PROFILING
             iProfiler::getInstance().endSection(_cullSectionID);
 
             iProfiler::getInstance().beginSection(_drawSectionID);
-#endif
             if (_renderColorID)
             {
                 drawColorIDs();
@@ -195,9 +180,7 @@ namespace igor
             {
                 drawScene();
             }
-#ifdef IGOR_USE_VERBOSE_PROFILING
             iProfiler::getInstance().endSection(_drawSectionID);
-#endif
         }
     }
 

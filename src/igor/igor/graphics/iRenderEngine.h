@@ -31,6 +31,7 @@
 
 #include <igor/resources/material/iMaterialGroup.h>
 #include <igor/scene/iScene.h>
+#include <igor/resources/profiler/iProfiler.h>
 
 #include <vector>
 #include <map>
@@ -112,8 +113,10 @@ namespace igor
         void render();
 
         /*! init
+
+        \param useProfiling if true this render engine will be profiled
         */
-        iRenderEngine();
+        iRenderEngine(bool useProfiling = false);
 
         /*! deinit
         */
@@ -140,17 +143,17 @@ namespace igor
         */
         bool _renderColorID = false;
 
-        /*! cull section id for statistics
+        /*! cull section id for profiling
         */
-        uint32 _cullSectionID = 0;
+        iProfilerSectionID _cullSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
 
-        /*! buffer creation section id for statistics
+        /*! buffer creation section id for profiling
         */
-        uint32 _bufferCreationSectionID = 0;
+        iProfilerSectionID _bufferCreationSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
 
-        /*! draw section id for statistics
+        /*! draw section id for profiling
         */
-        uint32 _drawSectionID = 0;
+        iProfilerSectionID _drawSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
 
         /*! material groups
         */

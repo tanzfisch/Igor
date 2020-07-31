@@ -5,7 +5,7 @@
 #include "ExampleBase.h"
 
 ExampleBase::ExampleBase(iWindow *window, const iaString &name, bool createBaseSetup, bool createSkyBox, int32 zIndex)
-    : iLayer(window, name, zIndex)
+    : iLayer(window, name, zIndex), _viewOrtho(iView(false))
 {
     con_info("starting example \"" << getName() << "\"");
 

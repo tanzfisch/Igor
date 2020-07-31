@@ -34,7 +34,6 @@
 
 #include <igor/resources/texture/iTextureResourceFactory.h>
 
-#include <igor/resources/profiler/iProfiler.h>
 #include <igor/resources/material/iTargetMaterial.h>
 #include <igor/scene/nodes/iNodeLODTrigger.h>
 #include <igor/scene/nodes/iNodeLODSwitch.h>
@@ -52,7 +51,7 @@ uint64 Ascent::_entityMaterialID = 0;
 uint64 Ascent::_bulletMaterialID = 0;
 
 Ascent::Ascent(iWindow *window)
-    : iLayer(window)
+    : iLayer(window), _viewOrtho(iView(false))
 {
 }
 
