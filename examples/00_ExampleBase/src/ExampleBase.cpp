@@ -54,12 +54,11 @@ ExampleBase::ExampleBase(iWindow *window, const iaString &name, bool createBaseS
                     iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
                     iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
                 // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-                _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
+                _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial("Sky Box");
                 auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox);
                 material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
                 material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
                 material->setOrder(iMaterial::RENDER_ORDER_MIN);
-                material->setName("SkyBox");
                 // set that material
                 skyBoxNode->setMaterial(_materialSkyBox);
                 // and add it to the scene
@@ -71,12 +70,11 @@ ExampleBase::ExampleBase(iWindow *window, const iaString &name, bool createBaseS
 
             // prepare igor logo
             _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
-            _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
+            _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial("LogoMaterial");
             auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
             material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
             material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
             material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-            material->setName("LogoMaterial");
         }
     }
 }
@@ -144,7 +142,11 @@ bool ExampleBase::onKeyUp(iEventKeyUp &event)
         iApplication::getInstance().stop();
         return true;
 
-    case iKeyCode::F9:
+    case iKeyCode::F5:
+        iApplication::getInstance().verboseLoggingNextFrame();
+        return true;
+
+    case iKeyCode::F6:
     {
         iNodeVisitorPrintTree printTree;
         if (getScene() != nullptr)

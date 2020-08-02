@@ -50,7 +50,7 @@ void Particles::onInit()
     getView().setCurrentCamera(camera->getID());
 
     // set up a meterial for the particles
-    _particlesMaterial = iMaterialResourceFactory::getInstance().createMaterial();
+    _particlesMaterial = iMaterialResourceFactory::getInstance().createMaterial("Particles Material");
     iMaterialResourceFactory::getInstance().getMaterial(_particlesMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_particlesMaterial)->setRenderState(iRenderState::CullFace, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_particlesMaterial)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);

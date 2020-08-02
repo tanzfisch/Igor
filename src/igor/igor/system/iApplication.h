@@ -131,7 +131,15 @@ namespace igor
         */
         iWindow *getWindow(iWindowID windowID) const;
 
+        /*! call this to get more verbose logging next frame
+        */
+        void verboseLoggingNextFrame();
+
     private:
+        /*! if true more verbose logging is active for next frame
+        */
+        bool _verboseLogging = false;
+
         /*! queue of events
         */
         std::vector<iEventPtr> _eventQueue;

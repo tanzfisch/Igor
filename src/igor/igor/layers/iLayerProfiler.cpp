@@ -82,7 +82,7 @@ namespace igor
         modelMatrix.translate(0, 0, -30);
         iRenderer::getInstance().setModelMatrix(modelMatrix);
 
-        _profilerVisualizer.draw(getWindow(), _font, iaColor4f(0, 1, 0, 1));
+        _profilerVisualizer.draw(getWindow(), _font);
     }
 
 } // namespace igor

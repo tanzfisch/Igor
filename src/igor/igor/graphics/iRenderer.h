@@ -747,10 +747,21 @@ namespace igor
         */
         iaString getExtensions();
 
-        void resetCounters();
+        /*! triggerd at beginning of frame 
+
+        \param logActive if true this frame will be logging to console
+        */
+        void onStartFrame(bool logActive);
+
+        /*! triggered at end of frame
+        */
+        void onStopFrame();
+
         void getCounters(uint32 &vertices, uint32 &triangles, uint32 &indices);
 
     private:
+        bool _loggingActive = false;
+
         uint32 _currentRenderTarget = DEFAULT_RENDER_TARGET;
 
         iaMutex _requestedBuffersMutex;

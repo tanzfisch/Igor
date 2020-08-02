@@ -9,6 +9,7 @@
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/system/iTimer.h>
 #include <igor/threading/iTaskManager.h>
+#include <igor/graphics/iRenderer.h>
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
@@ -49,9 +50,13 @@ namespace igor
         _sections[SECTOINDEX(sectionID)]._values[_frame] += iaTime::now() - _sections[SECTOINDEX(sectionID)]._beginTime;
     }
 
-    void iProfiler::nextFrame()
+    void iProfiler::nextFrame(bool loggingFrame)
     {
+        iRenderer::getInstance().onStopFrame();
+
         _frame = (_frame + 1) % MAX_FRAMES_COUNT;
+
+        iRenderer::getInstance().onStartFrame(loggingFrame);
     }
 
     const std::vector<iProfiler::iProfilerSection> &iProfiler::getSections() const

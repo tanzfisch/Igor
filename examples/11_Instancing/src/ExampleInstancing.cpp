@@ -66,7 +66,7 @@ void ExampleInstancing::onInit()
 
     // first we have to override the material which is stored within the model
     // to do that we create a new material using instancing
-    _materialWithInstancing = iMaterialResourceFactory::getInstance().createMaterial();
+    _materialWithInstancing = iMaterialResourceFactory::getInstance().createMaterial("Instancing");
     auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing);
     material->setRenderState(iRenderState::Instanced, iRenderStateValue::On);
     material->setRenderState(iRenderState::InstancedFunc, iRenderStateValue::PositionOrientation);
