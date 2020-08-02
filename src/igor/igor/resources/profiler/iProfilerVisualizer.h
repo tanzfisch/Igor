@@ -82,7 +82,7 @@ namespace igor
 
         only works correctly called within a orthogonal view's render call
         */
-        void draw(iWindow *window, iTextureFont *font, const iaColor4f &color);
+        void draw(iWindow *window, iTextureFont *font);
 
         /*! init
         */

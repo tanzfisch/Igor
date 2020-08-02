@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iMATERIAL__
-#define __iMATERIAL__
+#ifndef __IGOR_MATERIAL_H__
+#define __IGOR_MATERIAL_H__
 
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaIDGenerator.h>
@@ -329,4 +329,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_MATERIAL_H__

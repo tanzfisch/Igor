@@ -124,7 +124,7 @@ Player::Player(iScenePtr scene, iView *view, const iaMatrixd &matrix)
 
     view->setCurrentCamera(_cameraNodeID);
 
-    _materialSolid = iMaterialResourceFactory::getInstance().createMaterial();
+    _materialSolid = iMaterialResourceFactory::getInstance().createMaterial("Solid");
     iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
 

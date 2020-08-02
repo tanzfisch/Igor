@@ -131,8 +131,14 @@ namespace igor
         }
     }
 
-    void iRenderer::resetCounters()
+    void iRenderer::onStopFrame()
     {
+    }
+
+    void iRenderer::onStartFrame(bool logActive)
+    {
+        _loggingActive = logActive;
+
         _renderedVertices = 0;
         _renderedTriangles = 0;
         _renderedIndexes = 0;
@@ -1124,6 +1130,11 @@ namespace igor
 
         if (_currentMaterial != nullptr)
         {
+            if (_loggingActive)
+            {
+                con_endl("setMaterial " << _currentMaterial->getName());
+            }
+
             _currentMaterial->activateShader();
 
             iRenderStateSet &stateset = _currentMaterial->getRenderStateSet();

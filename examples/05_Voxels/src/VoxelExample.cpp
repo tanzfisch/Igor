@@ -78,12 +78,11 @@ void VoxelExample::initScene()
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/top.jpg"),
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/bottom.jpg"));
     // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
+    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial("Sky Box");
     auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox);
     material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     material->setOrder(iMaterial::RENDER_ORDER_MIN);
-    material->setName("SkyBox");
     // set that material
     skyBoxNode->setMaterial(_materialSkyBox);
     // and add it to the scene

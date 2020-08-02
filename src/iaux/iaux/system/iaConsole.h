@@ -103,7 +103,7 @@ namespace iaux
         /*! it's stuff somewhere between info and what the engine would log when actually compiled for debug.
         It's the equivalent of a plain cout or printf.
 
-        con, con_endl
+        con_endl
         */
         DebugInfo, // TODO need better name for this... or we can put it together with Info
 

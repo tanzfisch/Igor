@@ -314,7 +314,6 @@ namespace igor
         auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
         for (auto material : materials)
         {
-            iRenderer::getInstance().setMaterial(material, _showWireframe);
             bool instancing = (material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On);
             iMaterialGroup &materialGroup = _materialGroups[material->getID()];
 
@@ -322,6 +321,12 @@ namespace igor
             {
                 // todo we should not do that every frame
                 auto instancedRenderNodes = materialGroup.getInstancedRenderNodes();
+
+                if (!instancedRenderNodes.empty())
+                {
+                    iRenderer::getInstance().setMaterial(material, _showWireframe);
+                }
+
                 for (auto instancedRenderNode : instancedRenderNodes)
                 {
                     const auto renderNodeIDs = instancedRenderNode.second._renderNodeIDs;
@@ -367,6 +372,12 @@ namespace igor
             else
             {
                 auto renderNodeIDs = materialGroup.getRenderNodes();
+
+                if (!renderNodeIDs.empty())
+                {
+                    iRenderer::getInstance().setMaterial(material, _showWireframe);
+                }
+
                 for (auto renderNodeID : renderNodeIDs)
                 {
                     iNodeRender *node = static_cast<iNodeRender *>(iNodeManager::getInstance().getNode(renderNodeID));
