@@ -17,6 +17,8 @@ Changelog                           {#changelog}
 - renamed original con_trace to con_trace_call
 - improved profiling visualisation
 - fixed performance issue in iScene
+- reduced setMaterial calls
+- introduced one frame verbose output
 
 0.28.0 (unstable)
 -----------------
