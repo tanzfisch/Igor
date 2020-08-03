@@ -393,6 +393,12 @@ namespace igor
         return _children.size() ? true : false;
     }
 
+    void iNode::getAllChildren(std::vector<iNodePtr> &children) const
+    {
+        children = _children;
+        children.insert(children.end(), _inactiveChildren.begin(), _inactiveChildren.end());
+    }
+
     const std::vector<iNodePtr> &iNode::getInactiveChildren() const
     {
         return _inactiveChildren;

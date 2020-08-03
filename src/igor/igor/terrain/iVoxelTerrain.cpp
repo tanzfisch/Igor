@@ -59,20 +59,17 @@ namespace igor
                                  iVoxelTerrainPlacePropsDelegate placePropsDelegate,
                                  uint32 lodCount,
                                  uint32 voxelBlockSetupDistance,
-                                 const iaVector3I *maxDiscoveryBoundaries)
+                                 const iaVector3I &maxDiscoveryBoundaries)
     {
         con_assert_sticky(lodCount >= 2, "lod count out of range");
         con_assert_sticky(lodCount <= 11, "lod count out of range");
         con_assert_sticky(voxelBlockSetupDistance >= 2, "voxel block setup distance out of range");
 
-        if (maxDiscoveryBoundaries != nullptr)
-        {
-            con_assert_sticky(maxDiscoveryBoundaries->_x > 0, "discovery boundaries out of range");
-            con_assert_sticky(maxDiscoveryBoundaries->_y > 0, "discovery boundaries out of range");
-            con_assert_sticky(maxDiscoveryBoundaries->_z > 0, "discovery boundaries out of range");
-            _maxDiscoveryBoundaries = *maxDiscoveryBoundaries;
-        }
+        con_assert_sticky(maxDiscoveryBoundaries._x > 0, "discovery boundaries out of range");
+        con_assert_sticky(maxDiscoveryBoundaries._y > 0, "discovery boundaries out of range");
+        con_assert_sticky(maxDiscoveryBoundaries._z > 0, "discovery boundaries out of range");
 
+        _maxDiscoveryBoundaries = maxDiscoveryBoundaries;
         _placePropsDelegate = placePropsDelegate;
         _generateVoxelsDelegate = generateVoxelsDelegate;
         _lowestLOD = lodCount - 1;

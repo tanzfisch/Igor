@@ -219,9 +219,15 @@ namespace igor
         */
         bool hasChildren();
 
-        /*! \returns list of children
+        /*! \returns list of active children
         */
         const std::vector<iNodePtr> &getChildren() const;
+
+        /*! returns list of all children
+
+        \param[out] children returned list with all children active and inactive
+        */
+        void getAllChildren(std::vector<iNodePtr> &children) const;
 
         /*! returns child by name
 

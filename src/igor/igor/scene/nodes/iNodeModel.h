@@ -31,6 +31,7 @@
 
 #include <igor/scene/nodes/iNode.h>
 #include <igor/resources/model/iModel.h>
+#include <igor/resources/material/iMaterial.h>
 
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaEvent.h>
@@ -39,12 +40,11 @@ using namespace iaux;
 namespace igor
 {
 
-    class iModelData;
     struct iModelDataInputParameter;
 
     /*! event triggered when model was loaded
     */
-    iaEVENT(iModelReadyEvent, iModelReadyDelegate, (uint64 modelNodeID), (modelNodeID));
+    iaEVENT(iModelReadyEvent, iModelReadyDelegate, (iNodeID modelNodeID), (modelNodeID));
 
     /*! represents a model within the scene
 
@@ -90,6 +90,12 @@ namespace igor
         */
         void unregisterModelReadyDelegate(iModelReadyDelegate delegate);
 
+        /*! sets material of all mesh nodes under this model
+
+        \param materialID the material id to set
+        */
+        void setMaterial(iMaterialID materialID);
+
     private:
         /*! event triggered when model was loaded and ready for rendering
         */
@@ -103,11 +109,11 @@ namespace igor
 
         can't delete them they belong (usually) to application
         */
-        iModelDataInputParameter *_parameters = nullptr;
+        iModelDataInputParameter *_parameters;
 
         /*! cache mode for model to load
         */
-        iResourceCacheMode _cacheMode = iResourceCacheMode::Free;
+        iResourceCacheMode _cacheMode;
 
         /*! shared poitner to requested model
         */
@@ -151,6 +157,13 @@ namespace igor
         */
         void onUpdateTransform(iaMatrixd &matrix);
 
+        /*! recursively setting material on all mesh nodes
+
+        \param node the current node
+        \param materialID the material to set
+        */
+        void setMaterial(iNodePtr node, iMaterialID materialID);
+
         /*! initializes memeber variables
         */
         iNodeModel();
@@ -163,6 +176,10 @@ namespace igor
         */
         virtual ~iNodeModel();
     };
+
+    /*! model node pointer definition
+    */
+    typedef iNodeModel *iNodeModelPtr;
 
 } // namespace igor
 

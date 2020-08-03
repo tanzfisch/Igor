@@ -119,6 +119,27 @@ namespace igor
         return _renderStatisticsMode;
     }
 
+    static iaString units(int64 value)
+    {
+        iaString text = "v:";
+        if (value < 1000)
+        {
+            text += iaString::toString(value);
+        }
+        else if (value < 1000000)
+        {
+            text += iaString::toString(value / 1000);
+            text += "k";
+        }
+        else
+        {
+            text += iaString::toString(value / 1000000);
+            text += "mio";
+        }
+
+        return text;
+    }
+
     void iProfilerVisualizer::draw(iWindow *window, iTextureFont *font)
     {
         if (!iRenderer::getInstance().isReady() ||
@@ -151,73 +172,37 @@ namespace igor
 
         if (_renderStatisticsMode >= iProfilerVerbosity::FPSAndMetrics)
         {
-            voffset = 20;
+            voffset = 40;
         }
 
         iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
 
         iRenderer::getInstance().setFont(font);
         iRenderer::getInstance().setFontSize(15.0f);
+        iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
         const iaString fpsText = iaString::toString(_lastFPS, 2);
         iRenderer::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 10 - voffset), fpsText, iHorizontalAlignment::Right, iVerticalAlignment::Bottom);
 
         if (_renderStatisticsMode >= iProfilerVerbosity::FPSAndMetrics)
         {
-            uint32 vertices;
-            uint32 triangles;
-            uint32 indicies;
-            iRenderer::getInstance().getCounters(vertices, triangles, indicies);
+            const auto &stats = iRenderer::getInstance().getStats();
 
-            iaString dataText = "v:";
-            if (vertices < 1000)
-            {
-                dataText += iaString::toString(vertices);
-            }
-            else if (vertices < 1000000)
-            {
-                dataText += iaString::toString(vertices / 1000);
-                dataText += "k";
-            }
-            else
-            {
-                dataText += iaString::toString(vertices / 1000000);
-                dataText += "mio";
-            }
+            iaString unique = "unique v:";
+            unique += units(stats._vertices);
+            unique += " t:";
+            unique += units(stats._triangles);
+            unique += " i:";
+            unique += units(stats._indices);
+            iRenderer::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 10), unique, iHorizontalAlignment::Right, iVerticalAlignment::Bottom);
 
-            dataText += " t:";
-            if (triangles < 1000)
-            {
-                dataText += iaString::toString(triangles);
-            }
-            else if (triangles < 1000000)
-            {
-                dataText += iaString::toString(triangles / 1000);
-                dataText += "k";
-            }
-            else
-            {
-                dataText += iaString::toString(triangles / 1000000);
-                dataText += "mio";
-            }
-
-            dataText += " i:";
-            if (indicies < 1000)
-            {
-                dataText += iaString::toString(indicies);
-            }
-            else if (indicies < 1000000)
-            {
-                dataText += iaString::toString(indicies / 1000);
-                dataText += "k";
-            }
-            else
-            {
-                dataText += iaString::toString(indicies / 1000000);
-                dataText += "mio";
-            }
-
-            iRenderer::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 10), dataText, iHorizontalAlignment::Right, iVerticalAlignment::Bottom);
+            iaString instanced = "instanced v:";
+            instanced += units(stats._verticesInstanced);
+            instanced += " t:";
+            instanced += units(stats._trianglesInstanced);
+            instanced += " i:";
+            instanced += units(stats._indicesInstanced);
+            iRenderer::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 30), instanced, iHorizontalAlignment::Right, iVerticalAlignment::Bottom);
         }
 
         if (_renderStatisticsMode >= iProfilerVerbosity::FPSMetricsAndTasks)

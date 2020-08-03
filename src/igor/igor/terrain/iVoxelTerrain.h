@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iVOXELTERRAINGENERATOR__
-#define __iVOXELTERRAINGENERATOR__
+#ifndef __IGOR_VOXELTERRAINGENERATOR_H__
+#define __IGOR_VOXELTERRAINGENERATOR_H__
 
 #include <igor/scene/nodes/iNode.h>
 #include <igor/scene/nodes/iNodeManager.h>
@@ -109,7 +109,7 @@ namespace igor
                       iVoxelTerrainPlacePropsDelegate placePropsDelegate,
                       uint32 lodCount = 11,
                       uint32 voxelBlockSetupDistance = 4,
-                      const iaVector3I *maxDiscoveryBoundaries = nullptr);
+                      const iaVector3I &maxDiscoveryBoundaries = iaVector3I(100000, 100000, 100000));
 
         /*! deinit
         */
@@ -183,7 +183,7 @@ namespace igor
     private:
         /*! the discovery boundaries
         */
-        iaVector3I _maxDiscoveryBoundaries{100000, 100000, 100000};
+        iaVector3I _maxDiscoveryBoundaries;
 
         /*! lowest allowed lod
         */
@@ -332,4 +332,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_VOXELTERRAINGENERATOR_H__

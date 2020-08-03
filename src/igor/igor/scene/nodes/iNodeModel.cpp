@@ -9,6 +9,7 @@
 #include <igor/graphics/iRenderer.h>
 #include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/scene/nodes/iNodeMesh.h>
+#include <igor/scene/nodes/iNodeRender.h>
 #include <igor/scene/nodes/iNodeManager.h>
 #include <igor/scene/iScene.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
@@ -22,161 +23,188 @@ using namespace iaux;
 namespace igor
 {
 
-	iNodeModel::iNodeModel()
-		: iNode()
-	{
-		setName(L"iNodeModel");
-		_nodeType = iNodeType::iNodeModel;
-	}
+    iNodeModel::iNodeModel()
+        : iNode()
+    {
+        setName(L"iNodeModel");
+        _nodeType = iNodeType::iNodeModel;
+    }
 
-	iNodeModel::iNodeModel(iNodeModel *node)
-		: iNode()
-	{
-		con_assert(node != nullptr, "zero pointer");
+    iNodeModel::iNodeModel(iNodeModel *node)
+        : iNode()
+    {
+        con_assert(node != nullptr, "zero pointer");
 
-		_nodeType = node->_nodeType;
-		_nodeKind = node->_nodeKind;
+        _nodeType = node->_nodeType;
+        _nodeKind = node->_nodeKind;
 
-		setModel(node->getModelName(), node->_cacheMode);
-	}
+        setModel(node->getModelName(), node->_cacheMode);
+    }
 
-	iNodeModel::~iNodeModel()
-	{
-		setScene(nullptr);
+    iNodeModel::~iNodeModel()
+    {
+        setScene(nullptr);
 
-		if (_parameters != nullptr)
-		{
-			// if arrived here it was never given to iModel so we need to delete it now
-			delete _parameters;
-			_parameters = nullptr;
-		}
+        if (_parameters != nullptr)
+        {
+            // if arrived here it was never given to iModel so we need to delete it now
+            delete _parameters;
+            _parameters = nullptr;
+        }
 
-		_model = nullptr;
-	}
+        _model = nullptr;
+    }
 
-	void iNodeModel::registerModelReadyDelegate(iModelReadyDelegate delegate)
-	{
-		_modelReadyEvent.append(delegate);
-	}
+    void iNodeModel::registerModelReadyDelegate(iModelReadyDelegate delegate)
+    {
+        _modelReadyEvent.append(delegate);
+    }
 
-	void iNodeModel::unregisterModelReadyDelegate(iModelReadyDelegate delegate)
-	{
-		_modelReadyEvent.remove(delegate);
-	}
+    void iNodeModel::unregisterModelReadyDelegate(iModelReadyDelegate delegate)
+    {
+        _modelReadyEvent.remove(delegate);
+    }
 
-	bool iNodeModel::isValid()
-	{
-		return _ready;
-	}
+    bool iNodeModel::isValid()
+    {
+        return _ready;
+    }
 
-	bool iNodeModel::isLoaded()
-	{
-		return _loaded;
-	}
+    bool iNodeModel::isLoaded()
+    {
+        return _loaded;
+    }
 
-	iaString iNodeModel::getModelName() const
-	{
-		return _filename;
-	}
+    iaString iNodeModel::getModelName() const
+    {
+        return _filename;
+    }
 
-	void iNodeModel::onPreSetScene()
-	{
-		// nothing to do
-	}
+    void iNodeModel::onPreSetScene()
+    {
+        // nothing to do
+    }
 
-	void iNodeModel::onPostSetScene()
-	{
-		if (getScene() &&
-			isDataDirty())
-		{
-			getScene()->addToDataUpdateQueue(this);
-		}
-	}
+    void iNodeModel::onPostSetScene()
+    {
+        if (getScene() &&
+            isDataDirty())
+        {
+            getScene()->addToDataUpdateQueue(this);
+        }
+    }
 
-	void iNodeModel::setModel(const iaString &modelFileName, iResourceCacheMode cacheMode, iModelDataInputParameter *parameters, bool loadSynchronously)
-	{
-		_filename = modelFileName;
-		_cacheMode = cacheMode;
-		_parameters = parameters;
+    void iNodeModel::setMaterial(iMaterialID materialID)
+    {
+        if (!isLoaded())
+        {
+            con_err("can't set material on unloaded model");
+            return;
+        }
 
-		if (loadSynchronously)
-		{
-			_model = iModelResourceFactory::getInstance().loadModelData(_filename, _cacheMode, _parameters);
-			_parameters = nullptr; // passing ownership to iModel
+        setMaterial(this, materialID);
+    }
 
-			onUpdateData();
-		}
-		else
-		{
-			setDataDirty();
-		}
-	}
+    void iNodeModel::setMaterial(iNodePtr node, iMaterialID materialID)
+    {
+        if (node->getType() == iNodeType::iNodeMesh)
+        {
+            iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(node);
+            meshNode->setMaterial(materialID);
+        }
 
-	void iNodeModel::onUpdateTransform(iaMatrixd &matrix)
-	{
-		if (!_loaded &&
-			_model == nullptr)
-		{
-			_model = iModelResourceFactory::getInstance().requestModelData(_filename, _cacheMode, _parameters);
-			_parameters = nullptr; // passing ownership to iModel
-		}
-	}
+        std::vector<iNodePtr> children;
+        node->getAllChildren(children);
+        for (auto &child : children)
+        {
+            setMaterial(child, materialID);
+        }
+    }
 
-	bool iNodeModel::checkForBuffers(iNodePtr node)
-	{
-		if (node->getType() == iNodeType::iNodeMesh)
-		{
-			iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
-			if (meshNode->getMeshBuffers() == nullptr ||
-				!meshNode->getMeshBuffers()->isReady())
-			{
-				return false;
-			}
-		}
+    void iNodeModel::setModel(const iaString &modelFileName, iResourceCacheMode cacheMode, iModelDataInputParameter *parameters, bool loadSynchronously)
+    {
+        _filename = modelFileName;
+        _cacheMode = cacheMode;
+        _parameters = parameters;
 
-		for (auto child : node->getChildren())
-		{
-			if (!checkForBuffers(child))
-			{
-				return false;
-			}
-		}
+        if (loadSynchronously)
+        {
+            _model = iModelResourceFactory::getInstance().loadModelData(_filename, _cacheMode, _parameters);
+            _parameters = nullptr; // passing ownership to iModel
 
-		return true;
-	}
+            onUpdateData();
+        }
+        else
+        {
+            setDataDirty();
+        }
+    }
 
-	bool iNodeModel::checkForBuffers()
-	{
-		for (auto child : _children)
-		{
-			if (!checkForBuffers(child))
-			{
-				return false;
-			}
-		}
+    void iNodeModel::onUpdateTransform(iaMatrixd &matrix)
+    {
+        if (!_loaded &&
+            _model == nullptr)
+        {
+            _model = iModelResourceFactory::getInstance().requestModelData(_filename, _cacheMode, _parameters);
+            _parameters = nullptr; // passing ownership to iModel
+        }
+    }
 
-		return true;
-	}
+    bool iNodeModel::checkForBuffers(iNodePtr node)
+    {
+        if (node->getType() == iNodeType::iNodeMesh)
+        {
+            iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
+            if (meshNode->getMeshBuffers() == nullptr ||
+                !meshNode->getMeshBuffers()->isReady())
+            {
+                return false;
+            }
+        }
 
-	bool iNodeModel::onUpdateData()
-	{
-		if (!_loaded &&
-			_model != nullptr)
-		{
-			if (_model->getState() == iModelState::Loaded)
-			{
-				insertNode(_model->getNodeCopy());
-				_loaded = true;
-				_ready = true;
-				_modelReadyEvent(getID());
-			}
-			else if (_model->getState() == iModelState::LoadFailed)
-			{
-				_loaded = true;
-				_ready = false;
-			}
-		}
+        for (auto child : node->getChildren())
+        {
+            if (!checkForBuffers(child))
+            {
+                return false;
+            }
+        }
 
-		return _loaded;
-	}
+        return true;
+    }
+
+    bool iNodeModel::checkForBuffers()
+    {
+        for (auto child : _children)
+        {
+            if (!checkForBuffers(child))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    bool iNodeModel::onUpdateData()
+    {
+        if (!_loaded &&
+            _model != nullptr)
+        {
+            if (_model->getState() == iModelState::Loaded)
+            {
+                insertNode(_model->getNodeCopy());
+                _loaded = true;
+                _ready = true;
+                _modelReadyEvent(getID());
+            }
+            else if (_model->getState() == iModelState::LoadFailed)
+            {
+                _loaded = true;
+                _ready = false;
+            }
+        }
+
+        return _loaded;
+    }
 } // namespace igor

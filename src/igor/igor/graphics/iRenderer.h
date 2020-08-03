@@ -93,6 +93,19 @@ namespace igor
     */
     iaEVENT(iRendererPreDeinitializeEvent, iRendererPreDeinitializeDelegate, (), ());
 
+    /*! renderer statistics
+    */
+    struct iRendererStats
+    {
+        uint32 _vertices;
+        uint32 _triangles;
+        uint32 _indices;
+
+        uint32 _verticesInstanced;
+        uint32 _trianglesInstanced;
+        uint32 _indicesInstanced;
+    };
+
     /*! abstraction class for the actuall renderer. curently only OpenGL
 
     \todo light handling is not done at all
@@ -757,7 +770,9 @@ namespace igor
         */
         void onStopFrame();
 
-        void getCounters(uint32 &vertices, uint32 &triangles, uint32 &indices);
+        /*! \returns stats of renderer
+        */
+        const iRendererStats &getStats() const;
 
     private:
         bool _loggingActive = false;
@@ -867,17 +882,9 @@ namespace igor
         */
         iaString _extensionsOGL;
 
-        /*! statistic counter for vertices
+        /*! statistic counters
         */
-        uint32 _renderedVertices = 0;
-
-        /*! statistic counter for triangles
-        */
-        uint32 _renderedTriangles = 0;
-
-        /*! statistic counter for indicies
-        */
-        uint32 _renderedIndexes = 0;
+        iRendererStats _stats;
 
         /*! current material in use
         */
