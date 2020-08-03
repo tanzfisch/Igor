@@ -1119,12 +1119,13 @@ namespace igor
 
         void setVSync(bool vsync) override
         {
-            // glXSwapIntervalMESA(vsync ? 1 : 0);
+            _vsync = vsync;
+            glXSwapIntervalEXT(_display, _xwindow, _vsync ? 1 : 0);
         }
 
         bool getVSync() const override
         {
-            return false; // glXGetSwapIntervalMESA() > 0 ? true : false;
+            return _vsync;
         }
 
         void getDesktopSize(int32 &width, int32 &height) override
@@ -1176,6 +1177,10 @@ namespace igor
         /*! desktop mode
         */
         XF86VidModeModeInfo _desktopmode;
+
+        /*! stores the last vsync setting
+        */
+        bool _vsync = true;
     };
 
 #endif // __IGOR_LINUX__

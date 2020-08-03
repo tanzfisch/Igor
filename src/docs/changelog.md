@@ -18,7 +18,9 @@ Changelog                           {#changelog}
 - improved profiling visualisation
 - fixed performance issue in iScene
 - reduced setMaterial calls
-- introduced one frame verbose output
+- introduced one frame verbose output and render stats
+- fixed problem with showing zero instances
+- added vsync on linux side
 
 0.28.0 (unstable)
 -----------------

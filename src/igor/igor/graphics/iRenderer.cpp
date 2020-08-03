@@ -1629,6 +1629,11 @@ namespace igor
 
     void iRenderer::drawMesh(std::shared_ptr<iMeshBuffers> meshBuffers, iInstancer *instancer)
     {
+        if (_loggingActive)
+        {
+            con_endl("drawMesh instances:" << instancer->getInstanceCount());
+        }
+
         iaMatrixd idMatrix;
         setModelMatrix(idMatrix);
 
@@ -1672,7 +1677,6 @@ namespace igor
         glBindVertexArray(0);
         GL_CHECK_ERROR();
 
-        // todo maybe we should count this during cull process
         _stats._indicesInstanced += meshBuffers->getIndexesCount() * instancer->getInstanceCount();
         _stats._trianglesInstanced += meshBuffers->getTrianglesCount() * instancer->getInstanceCount();
         _stats._verticesInstanced += meshBuffers->getVertexCount() * instancer->getInstanceCount();

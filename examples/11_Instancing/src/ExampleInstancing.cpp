@@ -207,14 +207,10 @@ void ExampleInstancing::onTimer()
 
 void ExampleInstancing::onModelReady(uint64 modelNodeID)
 {
-    iNodeModel *modelNode = static_cast<iNodeModel *>(iNodeManager::getInstance().getNode(modelNodeID));
+    iNodeModelPtr modelNode = dynamic_cast<iNodeModel *>(iNodeManager::getInstance().getNode(modelNodeID));
     if (modelNode != nullptr &&
         modelNode->isValid())
     {
-        iNodeMesh *meshNode = static_cast<iNodeMesh *>(modelNode->getChild("cat"));
-        if (meshNode != nullptr)
-        {
-            meshNode->setMaterial(_materialWithInstancing);
-        }
+        modelNode->setMaterial(_materialWithInstancing);
     }
 }

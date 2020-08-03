@@ -121,23 +121,23 @@ namespace igor
 
     static iaString units(int64 value)
     {
-        iaString text = "v:";
+        iaString result;
         if (value < 1000)
         {
-            text += iaString::toString(value);
+            result += iaString::toString(value);
         }
         else if (value < 1000000)
         {
-            text += iaString::toString(value / 1000);
-            text += "k";
+            result += iaString::toString(value / 1000);
+            result += "k";
         }
         else
         {
-            text += iaString::toString(value / 1000000);
-            text += "mio";
+            result += iaString::toString(value / 1000000);
+            result += "mio";
         }
 
-        return text;
+        return result;
     }
 
     void iProfilerVisualizer::draw(iWindow *window, iTextureFont *font)

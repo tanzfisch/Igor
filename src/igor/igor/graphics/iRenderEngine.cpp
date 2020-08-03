@@ -321,15 +321,16 @@ namespace igor
             {
                 // todo we should not do that every frame
                 auto instancedRenderNodes = materialGroup.getInstancedRenderNodes();
-
-                if (!instancedRenderNodes.empty())
-                {
-                    iRenderer::getInstance().setMaterial(material, _showWireframe);
-                }
+                iRenderer::getInstance().setMaterial(material, _showWireframe);
 
                 for (auto instancedRenderNode : instancedRenderNodes)
                 {
                     const auto renderNodeIDs = instancedRenderNode.second._renderNodeIDs;
+                    if (renderNodeIDs.empty())
+                    {
+                        continue;
+                    }
+
                     auto instancer = instancedRenderNode.second._instancer;
                     instancer->clearInstances();
 
@@ -363,10 +364,11 @@ namespace igor
                         }
                     }
 
-                    // renderNodeIDs should never be empty
                     iNodeMesh *mesh = static_cast<iNodeMesh *>(iNodeManager::getInstance().getNode(renderNodeIDs[0]));
                     iRenderer::getInstance().setTargetMaterial(mesh->getTargetMaterial());
                     iRenderer::getInstance().drawMesh(instancedRenderNode.first, instancer);
+
+                    break;
                 }
             }
             else

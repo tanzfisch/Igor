@@ -111,19 +111,23 @@ private:
     */
     iaRandomNumberGeneratoru _rand;
 
+    /*! update timer
+    */
+    iTimerHandlePtr _updateTimingHandle;
+
     /*! call the particles system handle to update particle positions
 
     also changes initiali velocity of particles for waving particle stream effect
     */
     void updateParticles();
 
+    /*! called by timer
+    */
+    void onUpdate();
+
     /*! called by orthogonal view
     */
     void onRenderOrtho() override;
-
-    /*! called before every frame
-    */
-    void onPreDraw() override;
 
     /*! initializes the example
     */
