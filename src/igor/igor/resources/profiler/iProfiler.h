@@ -40,6 +40,7 @@
 using namespace iaux;
 
 #include <map>
+#include <array>
 
 namespace igor
 {

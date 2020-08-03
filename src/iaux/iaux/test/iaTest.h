@@ -40,7 +40,7 @@ namespace iaux
 {
     /*! igor aux testing
     */
-    class iaTest
+    class IgorAux_API iaTest
     {
     public:
         /*! run individual test

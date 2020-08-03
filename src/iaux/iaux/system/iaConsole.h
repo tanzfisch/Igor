@@ -616,9 +616,11 @@ namespace iaux
 
     /*! prints the log level in the console
 
+    \param stream the stream to log to
     \param logLevel the log level to print
-    */
-    iaConsole &operator<<(iaConsole &console, const iaLogLevel &logLevel);
+    \returns the stream
+    */    
+    IgorAux_API std::wostream& operator<<(std::wostream& stream, const iaLogLevel& logLevel);
 
 }; // namespace iaux
 

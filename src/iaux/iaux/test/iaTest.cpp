@@ -2,6 +2,8 @@
 
 #include <iaux/iaDefines.h>
 
+#include <sstream>
+
 namespace iaux
 {
 
@@ -38,7 +40,7 @@ namespace iaux
             {
                 s_filter = value;
             }
-        }
+        }   
     }
 
     void iaTest::runTests()
