@@ -5,22 +5,22 @@ Changelog                           {#changelog}
 ------
 
 - removed most of old event handling
-- using AL_DIRECT_CHANNELS_SOFT for all multi channel tracks
+- using AL_DIRECT_CHANNELS_SOFT for all multi channel sounds
 - Mica: fixed framing by fixing bounding boxes
 - Mica: fixed backe to world action
 - improved behaviour of menu and sub menus
 - replaced gtest with own simple implementation and adding more tests
-- fixed issue in cmake file for building igor as submodule
+- fixed issue in cmake file rgarding building igor as submodule
 - DebugInfo is the default log level again
 - renamed con_debug_endl to con_debug
 - con_trace now has a message parameter
 - renamed original con_trace to con_trace_call
 - improved profiling visualisation
-- fixed performance issue in iScene
+- fixed performance issue in iScene where a queue was not cleared
 - reduced setMaterial calls
-- introduced one frame verbose output and render stats
+- introduced one frame verbose output and render stats (F5 in examples)
 - fixed problem with showing zero instances
-- added vsync on linux side
+- added vsync control on linux side
 
 0.28.0 (unstable)
 -----------------
