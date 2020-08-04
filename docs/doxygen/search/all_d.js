@@ -23,6 +23,7 @@ var searchData=
   ['matchregex',['matchRegex',['../classiaux_1_1ia_string.html#a4ac93adac1436bd26061da6a4373162c',1,'iaux::iaString']]],
   ['material',['Material',['../namespace_o_m_p_f.html#ad54e6abd4c23b31d402494f56a0e11b3ad92a8333dd3ccb895cc65f7455b71206',1,'OMPF']]],
   ['matswap',['MATSWAP',['../ia_matrix_8inl.html#afae867f65efaeeb6dc9f87b17b3208cf',1,'iaMatrix.inl']]],
+  ['max_5fframes_5fcount',['MAX_FRAMES_COUNT',['../classigor_1_1i_profiler.html#a59377cc32e3435efc04e66e4afd8ec23',1,'igor::iProfiler']]],
   ['max_5ftexture_5funits',['MAX_TEXTURE_UNITS',['../classigor_1_1i_material.html#afea8c0d5afe1257f9491aac8f0a12981',1,'igor::iMaterial']]],
   ['measureheight',['measureHeight',['../classigor_1_1i_texture_font.html#a2c05fee7f98d9062c1746227d6cec8cc',1,'igor::iTextureFont']]],
   ['measurewidth',['measureWidth',['../classigor_1_1i_texture_font.html#add52e7273f5f04c959c50e5675719765',1,'igor::iTextureFont']]],

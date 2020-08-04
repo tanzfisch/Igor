@@ -101,6 +101,7 @@ var hierarchy =
     [ "iaux::iaState", "classiaux_1_1ia_state.html", null ],
     [ "iaux::iaStateMachine", "classiaux_1_1ia_state_machine.html", null ],
     [ "iaux::iaString", "classiaux_1_1ia_string.html", null ],
+    [ "iaux::iaTest", "classiaux_1_1ia_test.html", null ],
     [ "iaux::iaThread", "classiaux_1_1ia_thread.html", [
       [ "igor::iThread", "classigor_1_1i_thread.html", [
         [ "igor::iRenderContextThread", "classigor_1_1i_render_context_thread.html", null ]
@@ -226,13 +227,14 @@ var hierarchy =
     [ "igor::iPhysicsWorld", "classigor_1_1i_physics_world.html", null ],
     [ "igor::iPixmap", "classigor_1_1i_pixmap.html", null ],
     [ "igor::iPlane< T >", "classigor_1_1i_plane.html", null ],
-    [ "igor::iProfilerSection", "classigor_1_1i_profiler_section.html", null ],
+    [ "igor::iProfiler::iProfilerSection", "structigor_1_1i_profiler_1_1i_profiler_section.html", null ],
     [ "igor::iProfilerVisualizer", "classigor_1_1i_profiler_visualizer.html", null ],
     [ "igor::iRay< T >", "classigor_1_1i_ray.html", null ],
     [ "igor::iRectangle< T >", "classigor_1_1i_rectangle.html", null ],
     [ "igor::iRectangle< float32 >", "classigor_1_1i_rectangle.html", null ],
     [ "igor::iRectangle< int32 >", "classigor_1_1i_rectangle.html", null ],
     [ "igor::iRenderEngine", "classigor_1_1i_render_engine.html", null ],
+    [ "igor::iRendererStats", "structigor_1_1i_renderer_stats.html", null ],
     [ "igor::iRendererTexture", "structigor_1_1i_renderer_texture.html", null ],
     [ "igor::iRenderStateSet", "classigor_1_1i_render_state_set.html", null ],
     [ "igor::iResource", "classigor_1_1i_resource.html", [

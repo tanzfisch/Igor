@@ -3,7 +3,7 @@ var searchData=
   ['n',['N',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda8d9c307cb7f3c4a32822a51922d1ceaa',1,'igor']]],
   ['negate',['negate',['../classiaux_1_1ia_quaternion.html#a7279e6ee4b61bf3592509e0005e69719',1,'iaux::iaQuaternion::negate()'],['../classiaux_1_1ia_vector2.html#a82b85defbdfecea227bbcbbe024023b5',1,'iaux::iaVector2::negate()'],['../classiaux_1_1ia_vector3.html#a92ab9cd556c6c0385f0cb24c9c174693',1,'iaux::iaVector3::negate()']]],
   ['never',['Never',['../namespaceigor.html#a7367729bc285c208adcf486163a76f64a6e7b34fa59e1bd229b207892956dc41c',1,'igor::Never()'],['../namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72a6e7b34fa59e1bd229b207892956dc41c',1,'OMPF::Never()']]],
-  ['nextframe',['nextFrame',['../classigor_1_1i_profiler.html#a89a416c6ad307b7413c3893d76fa7b47',1,'igor::iProfiler']]],
+  ['nextframe',['nextFrame',['../classigor_1_1i_profiler.html#a6daa4ce69a92e7e0be501fe7f384614a',1,'igor::iProfiler']]],
   ['nine',['Nine',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bda24db11216549ee55172c33cf3def2f3f',1,'igor']]],
   ['no',['No',['../namespaceigor.html#a122478c90d48716251aee24739420db4abafd7322c6e97d25b6299b5d6fe8920b',1,'igor']]],
   ['node',['Node',['../namespaceigor.html#a2bf7c6414a6bc8549c4402ca0e1236e8a6c3a6944a808a7c0bbb6788dbec54a9f',1,'igor']]],

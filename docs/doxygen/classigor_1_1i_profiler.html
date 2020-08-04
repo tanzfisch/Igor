@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.28.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.29.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -110,7 +110,9 @@ $(document).ready(function(){initNavTree('classigor_1_1i_profiler.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="classigor_1_1i_profiler-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -122,23 +124,33 @@ $(document).ready(function(){initNavTree('classigor_1_1i_profiler.html','');});
 
 <p>Inherits <a class="el" href="classiaux_1_1ia_singleton.html">iaux::iaSingleton&lt; iProfiler &gt;</a>.</p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structigor_1_1i_profiler_1_1i_profiler_section.html">iProfilerSection</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a4c33da32be5d761891c2540cbc1e1b16"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_profiler.html#a4c33da32be5d761891c2540cbc1e1b16">registerSection</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;sectionName, <a class="el" href="ia_defines_8h.html#abc0f5bc07737e498f287334775dff2b6">uint64</a> groupIndex=0)</td></tr>
-<tr class="separator:a4c33da32be5d761891c2540cbc1e1b16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68b5b22d6692250683cd9a6f3aa7cafc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_profiler.html#a68b5b22d6692250683cd9a6f3aa7cafc">unregisterSection</a> (<a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> sectionID)</td></tr>
-<tr class="separator:a68b5b22d6692250683cd9a6f3aa7cafc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9fbe4c96d80f4d740ce81d54e239aa0e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_profiler.html#a9fbe4c96d80f4d740ce81d54e239aa0e">beginSection</a> (<a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> sectionID)</td></tr>
-<tr class="separator:a9fbe4c96d80f4d740ce81d54e239aa0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a880ca57eabfd2edc4b664ae17e5e1e5f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_profiler.html#a880ca57eabfd2edc4b664ae17e5e1e5f">endSection</a> (<a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> sectionID)</td></tr>
-<tr class="separator:a880ca57eabfd2edc4b664ae17e5e1e5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a89a416c6ad307b7413c3893d76fa7b47"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_profiler.html#a89a416c6ad307b7413c3893d76fa7b47">nextFrame</a> ()</td></tr>
-<tr class="separator:a89a416c6ad307b7413c3893d76fa7b47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ccdfa88e157cf607af2ce6b621029a6"><td class="memItemLeft" align="right" valign="top">std::map&lt; <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>, <br class="typebreak" />
-<a class="el" href="classigor_1_1i_profiler_section.html">iProfilerSection</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_profiler.html#a7ccdfa88e157cf607af2ce6b621029a6">getSections</a> ()</td></tr>
-<tr class="separator:a7ccdfa88e157cf607af2ce6b621029a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4e52f941aa0744b2a2c3d8a033078f9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ia_defines_8h.html#abc0f5bc07737e498f287334775dff2b6">uint64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_profiler.html#ae4e52f941aa0744b2a2c3d8a033078f9">getCurrentFrameIndex</a> () const </td></tr>
-<tr class="separator:ae4e52f941aa0744b2a2c3d8a033078f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b21b4fe056d993532e3265509d6ce04"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceigor.html#a2dc91fe794243298b37f0700a35c9fc0">iProfilerSectionID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_profiler.html#a1b21b4fe056d993532e3265509d6ce04">createSection</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;sectionName)</td></tr>
+<tr class="separator:a1b21b4fe056d993532e3265509d6ce04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52b91cc618692a8e008d26325f7bc48e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_profiler.html#a52b91cc618692a8e008d26325f7bc48e">beginSection</a> (<a class="el" href="namespaceigor.html#a2dc91fe794243298b37f0700a35c9fc0">iProfilerSectionID</a> sectionID)</td></tr>
+<tr class="separator:a52b91cc618692a8e008d26325f7bc48e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf440425b205c8df21895b09667b3925"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_profiler.html#acf440425b205c8df21895b09667b3925">endSection</a> (<a class="el" href="namespaceigor.html#a2dc91fe794243298b37f0700a35c9fc0">iProfilerSectionID</a> sectionID)</td></tr>
+<tr class="separator:acf440425b205c8df21895b09667b3925"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6daa4ce69a92e7e0be501fe7f384614a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_profiler.html#a6daa4ce69a92e7e0be501fe7f384614a">nextFrame</a> (bool loggingFrame)</td></tr>
+<tr class="separator:a6daa4ce69a92e7e0be501fe7f384614a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57ba4042dd2d07fab6d8594229971f88"><td class="memItemLeft" align="right" valign="top">const std::vector<br class="typebreak" />
+&lt; <a class="el" href="structigor_1_1i_profiler_1_1i_profiler_section.html">iProfilerSection</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_profiler.html#a57ba4042dd2d07fab6d8594229971f88">getSections</a> () const </td></tr>
+<tr class="separator:a57ba4042dd2d07fab6d8594229971f88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0bffe384b0a6f5c7aff7bea1e9e2e3fb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_profiler.html#a0bffe384b0a6f5c7aff7bea1e9e2e3fb">getCurrentFrameIndex</a> () const </td></tr>
+<tr class="separator:a0bffe384b0a6f5c7aff7bea1e9e2e3fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a59377cc32e3435efc04e66e4afd8ec23"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="ia_defines_8h.html#abc0f5bc07737e498f287334775dff2b6">uint64</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_profiler.html#a59377cc32e3435efc04e66e4afd8ec23">MAX_FRAMES_COUNT</a> = 500</td></tr>
+<tr class="separator:a59377cc32e3435efc04e66e4afd8ec23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f680e0997bc8d1b6520c00620deefc8"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="namespaceigor.html#a2dc91fe794243298b37f0700a35c9fc0">iProfilerSectionID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_profiler.html#a8f680e0997bc8d1b6520c00620deefc8">INVALID_PROFILER_SECTION_ID</a> = 0</td></tr>
+<tr class="separator:a8f680e0997bc8d1b6520c00620deefc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -168,14 +180,14 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>render statistics </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="a9fbe4c96d80f4d740ce81d54e239aa0e"></a>
+<a class="anchor" id="a52b91cc618692a8e008d26325f7bc48e"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void igor::iProfiler::beginSection </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a2dc91fe794243298b37f0700a35c9fc0">iProfilerSectionID</a>&#160;</td>
           <td class="paramname"><em>sectionID</em></td><td>)</td>
           <td></td>
         </tr>
@@ -191,14 +203,38 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a880ca57eabfd2edc4b664ae17e5e1e5f"></a>
+<a class="anchor" id="a1b21b4fe056d993532e3265509d6ce04"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceigor.html#a2dc91fe794243298b37f0700a35c9fc0">iProfilerSectionID</a> igor::iProfiler::createSection </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
+          <td class="paramname"><em>sectionName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>creates a measurement section</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sectionName</td><td>the section's name </td></tr>
+    <tr><td class="paramname">groupIndex</td><td>index of group this section belongs to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="acf440425b205c8df21895b09667b3925"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void igor::iProfiler::endSection </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceigor.html#a2dc91fe794243298b37f0700a35c9fc0">iProfilerSectionID</a>&#160;</td>
           <td class="paramname"><em>sectionID</em></td><td>)</td>
           <td></td>
         </tr>
@@ -214,12 +250,12 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ae4e52f941aa0744b2a2c3d8a033078f9"></a>
+<a class="anchor" id="a0bffe384b0a6f5c7aff7bea1e9e2e3fb"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="ia_defines_8h.html#abc0f5bc07737e498f287334775dff2b6">uint64</a> igor::iProfiler::getCurrentFrameIndex </td>
+          <td class="memname"><a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a> igor::iProfiler::getCurrentFrameIndex </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -230,15 +266,15 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a7ccdfa88e157cf607af2ce6b621029a6"></a>
+<a class="anchor" id="a57ba4042dd2d07fab6d8594229971f88"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::map&lt; <a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>, <a class="el" href="classigor_1_1i_profiler_section.html">iProfilerSection</a> &gt; &amp; igor::iProfiler::getSections </td>
+          <td class="memname">const std::vector&lt; <a class="el" href="structigor_1_1i_profiler_1_1i_profiler_section.html">iProfiler::iProfilerSection</a> &gt; &amp; igor::iProfiler::getSections </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -247,74 +283,23 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a89a416c6ad307b7413c3893d76fa7b47"></a>
+<a class="anchor" id="a6daa4ce69a92e7e0be501fe7f384614a"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void igor::iProfiler::nextFrame </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>loggingFrame</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>steps to next frame </p>
-
-</div>
-</div>
-<a class="anchor" id="a4c33da32be5d761891c2540cbc1e1b16"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a> igor::iProfiler::registerSection </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
-          <td class="paramname"><em>sectionName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="ia_defines_8h.html#abc0f5bc07737e498f287334775dff2b6">uint64</a>&#160;</td>
-          <td class="paramname"><em>groupIndex</em> = <code>0</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>registers a measurement section</p>
+<p>steps to next frame</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">sectionName</td><td>the section's name </td></tr>
-    <tr><td class="paramname">color</td><td>color to render the graph with </td></tr>
-    <tr><td class="paramname">groupIndex</td><td>index of group this section belongs to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a68b5b22d6692250683cd9a6f3aa7cafc"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void igor::iProfiler::unregisterSection </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="ia_defines_8h.html#acbd4acd0d29e2d6c43104827f77d9cd2">uint32</a>&#160;</td>
-          <td class="paramname"><em>sectionID</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>unregister section by id</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">sectionID</td><td>the section's id to be removed </td></tr>
+    <tr><td class="paramname">loggingFrame</td><td>if true next frame will be logges more verbosively </td></tr>
   </table>
   </dd>
 </dl>
@@ -339,6 +324,49 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a8f680e0997bc8d1b6520c00620deefc8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="namespaceigor.html#a2dc91fe794243298b37f0700a35c9fc0">iProfilerSectionID</a> igor::iProfiler::INVALID_PROFILER_SECTION_ID = 0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>invalid profiler section id definition </p>
+
+</div>
+</div>
+<a class="anchor" id="a59377cc32e3435efc04e66e4afd8ec23"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="ia_defines_8h.html#abc0f5bc07737e498f287334775dff2b6">uint64</a> igor::iProfiler::MAX_FRAMES_COUNT = 500</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>size of buffer aka amount of frames that are logged </p>
 
 </div>
 </div>

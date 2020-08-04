@@ -7,5 +7,6 @@ var classigor_1_1i_node_visitor =
     [ "preOrderVisit", "classigor_1_1i_node_visitor.html#aefdb1e64044db15b447b3c7f48926486", null ],
     [ "preTraverse", "classigor_1_1i_node_visitor.html#a568583cb492960c284abec1e9c27a6ba", null ],
     [ "setTraverseInactiveChildren", "classigor_1_1i_node_visitor.html#abe7c44e166aebebb531eda2d4bfab1ee", null ],
+    [ "setTraverseSiblings", "classigor_1_1i_node_visitor.html#a73f6674de2f7b9931155c2c14aa80d83", null ],
     [ "traverseTree", "classigor_1_1i_node_visitor.html#aff5aeb5bac0b359de4e5962340d579fc", null ]
 ];

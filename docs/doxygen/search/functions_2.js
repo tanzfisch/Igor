@@ -1,7 +1,7 @@
 var searchData=
 [
   ['beginradiobuttongroup',['beginRadioButtonGroup',['../classigor_1_1i_widget_check_box.html#a10b63197b3a04aeebf3a7a0abe735a5e',1,'igor::iWidgetCheckBox']]],
-  ['beginsection',['beginSection',['../classigor_1_1i_profiler.html#a9fbe4c96d80f4d740ce81d54e239aa0e',1,'igor::iProfiler::beginSection()'],['../classigor_1_1i_profiler_section.html#a3ae3417a5f23cdb0f3e582ee1c8db2ec',1,'igor::iProfilerSection::beginSection()']]],
+  ['beginsection',['beginSection',['../classigor_1_1i_profiler.html#a52b91cc618692a8e008d26325f7bc48e',1,'igor::iProfiler']]],
   ['bindsource',['bindSource',['../classigor_1_1i_audio_impl.html#aa36d50a0b46bc97887eb9c97b0d04b9c',1,'igor::iAudioImpl::bindSource()'],['../classigor_1_1i_audio.html#ad68473a040fb72d00d621ec9fe36718d',1,'igor::iAudio::bindSource()']]],
   ['bindtexture',['bindTexture',['../classigor_1_1i_renderer.html#aeab592d7b5b722c870dddaa02d009c7c',1,'igor::iRenderer']]],
   ['bindtransformnode',['bindTransformNode',['../classigor_1_1i_physics.html#a5a0135b08e5c92540f56c53d00f05c55',1,'igor::iPhysics']]],

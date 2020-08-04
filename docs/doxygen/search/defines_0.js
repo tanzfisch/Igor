@@ -45,7 +45,6 @@ var searchData=
   ['_5f_5figor_5fgravity_5f_5f',['__IGOR_GRAVITY__',['../ia_defines_8h.html#a62836e238200be78731465d4aba1e4c3',1,'iaDefines.h']]],
   ['_5f_5figor_5fkilo_5f_5f',['__IGOR_KILO__',['../ia_defines_8h.html#ab095b53816c8eb73c33b8de2e14234cc',1,'iaDefines.h']]],
   ['_5f_5figor_5fkilometer_5f_5f',['__IGOR_KILOMETER__',['../ia_defines_8h.html#a16ab9362a5e14008ca8a761a72aa748c',1,'iaDefines.h']]],
-  ['_5f_5figor_5fline_5f_5f',['__IGOR_LINE__',['../ia_defines_8h.html#af4764c6d8b2d6ab8f06210f85fd99669',1,'iaDefines.h']]],
   ['_5f_5figor_5flogging_5ftab_5f_5f',['__IGOR_LOGGING_TAB__',['../ia_console_8h.html#a9b487d736f1ff95216577b03f57f1b2d',1,'iaConsole.h']]],
   ['_5f_5figor_5fmeter_5f_5f',['__IGOR_METER__',['../ia_defines_8h.html#a9eff74efe47cd54ccf678a3e9f931c86',1,'iaDefines.h']]],
   ['_5f_5figor_5fmilimeter_5f_5f',['__IGOR_MILIMETER__',['../ia_defines_8h.html#a34f1b798e107548ba507ce783f5aea1a',1,'iaDefines.h']]],

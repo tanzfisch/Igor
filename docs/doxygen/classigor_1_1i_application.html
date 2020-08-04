@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.28.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.29.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -130,14 +130,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad3fe5ab8e17f607066e31991209b765d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae894b9c357cddfd1440238b796c43912"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_application.html#ae894b9c357cddfd1440238b796c43912">isRunning</a> ()</td></tr>
 <tr class="separator:ae894b9c357cddfd1440238b796c43912"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4ea663e47d42dbae03c9fb6f2a2d3db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_application.html#aa4ea663e47d42dbae03c9fb6f2a2d3db">registerApplicationPreDrawHandleDelegate</a> (iPreDrawDelegate handleDelegate)</td></tr>
-<tr class="separator:aa4ea663e47d42dbae03c9fb6f2a2d3db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aade7d00af7e098f58dcb64f55ac92645"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_application.html#aade7d00af7e098f58dcb64f55ac92645">unregisterApplicationPreDrawHandleDelegate</a> (iPreDrawDelegate handleDelegate)</td></tr>
-<tr class="separator:aade7d00af7e098f58dcb64f55ac92645"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a74d7a332e240b17b474f0fed2ce198b7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_application.html#a74d7a332e240b17b474f0fed2ce198b7">registerApplicationPostDrawHandleDelegate</a> (iPostDrawDelegate handleDelegate)</td></tr>
-<tr class="separator:a74d7a332e240b17b474f0fed2ce198b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac747c426c6a8046ef92a7aeca8a36dde"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_application.html#ac747c426c6a8046ef92a7aeca8a36dde">unregisterApplicationPostDrawHandleDelegate</a> (iPostDrawDelegate handleDelegate)</td></tr>
-<tr class="separator:ac747c426c6a8046ef92a7aeca8a36dde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0dd666b41f6f18f9ab77613eb8f4973"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_application.html#ab0dd666b41f6f18f9ab77613eb8f4973">onEvent</a> (<a class="el" href="namespaceigor.html#a70c7d0deaa6ca886246d59b1b652ddb4">iEventPtr</a> event)</td></tr>
 <tr class="separator:ab0dd666b41f6f18f9ab77613eb8f4973"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa84775678e8352dbe1dd9424f489a832"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_application.html#aa84775678e8352dbe1dd9424f489a832">addLayer</a> (<a class="el" href="classigor_1_1i_layer.html">iLayer</a> *layer)</td></tr>
@@ -158,6 +150,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab1743ba614843bb1e1b606f4c08f7238"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab70e3023e8028a2a7ba06529dac9b702"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classigor_1_1i_window.html">iWindow</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_application.html#ab70e3023e8028a2a7ba06529dac9b702">getWindow</a> (<a class="el" href="namespaceigor.html#ac25fdc3f015adfdbc85c6d869b7d6072">iWindowID</a> windowID) const </td></tr>
 <tr class="separator:ab70e3023e8028a2a7ba06529dac9b702"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa80bf46839af020a1f85e61e34d36284"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_application.html#aa80bf46839af020a1f85e61e34d36284">verboseLoggingNextFrame</a> ()</td></tr>
+<tr class="separator:aa80bf46839af020a1f85e61e34d36284"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
@@ -373,52 +367,6 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a74d7a332e240b17b474f0fed2ce198b7"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void igor::iApplication::registerApplicationPostDrawHandleDelegate </td>
-          <td>(</td>
-          <td class="paramtype">iPostDrawDelegate&#160;</td>
-          <td class="paramname"><em>handleDelegate</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>registers application post draw handle delegate</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">handleDelegate</td><td>delegate to register </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="aa4ea663e47d42dbae03c9fb6f2a2d3db"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void igor::iApplication::registerApplicationPreDrawHandleDelegate </td>
-          <td>(</td>
-          <td class="paramtype">iPreDrawDelegate&#160;</td>
-          <td class="paramname"><em>handleDelegate</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>registers application pre draw handle delegate</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">handleDelegate</td><td>delegate to register </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a class="anchor" id="af24efc8f240d7d36eab2f9eefad5eb73"></a>
 <div class="memitem">
 <div class="memproto">
@@ -500,49 +448,19 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ac747c426c6a8046ef92a7aeca8a36dde"></a>
+<a class="anchor" id="aa80bf46839af020a1f85e61e34d36284"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void igor::iApplication::unregisterApplicationPostDrawHandleDelegate </td>
+          <td class="memname">void igor::iApplication::verboseLoggingNextFrame </td>
           <td>(</td>
-          <td class="paramtype">iPostDrawDelegate&#160;</td>
-          <td class="paramname"><em>handleDelegate</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>unregisters application post draw handle delegate</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">handleDelegate</td><td>delegate to unregister </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="aade7d00af7e098f58dcb64f55ac92645"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void igor::iApplication::unregisterApplicationPreDrawHandleDelegate </td>
-          <td>(</td>
-          <td class="paramtype">iPreDrawDelegate&#160;</td>
-          <td class="paramname"><em>handleDelegate</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>unregisters application pre draw handle delegate</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">handleDelegate</td><td>delegate to unregister </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>call this to get more verbose logging next frame </p>
 
 </div>
 </div>

@@ -10,14 +10,8 @@ var classigor_1_1i_mouse_impl =
     [ "showCursor", "classigor_1_1i_mouse_impl.html#a217878c086d74478d7f9e197b5779418", null ],
     [ "iMouse", "classigor_1_1i_mouse_impl.html#ac8542224cb08c7f412298af2343473b4", null ],
     [ "_buttonStates", "classigor_1_1i_mouse_impl.html#aa8c99a6fe25692154a3dc278e89f660d", null ],
-    [ "_doubleClickEvent", "classigor_1_1i_mouse_impl.html#ad3cf683c7dd86434dff97a8f6b6cd5d2", null ],
-    [ "_keyDownEvent", "classigor_1_1i_mouse_impl.html#a7d9188f75009a09bf30dc1ae652f134e", null ],
-    [ "_keyUpEvent", "classigor_1_1i_mouse_impl.html#abc641abf0bd140ca678035c7feae7228", null ],
     [ "_mouse", "classigor_1_1i_mouse_impl.html#af3bc85ad733f934c5c663debff9e8504", null ],
-    [ "_moveEvent", "classigor_1_1i_mouse_impl.html#a1e9e4049b2fd8f58bbfc0d5ab71ca5c7", null ],
-    [ "_moveFullEvent", "classigor_1_1i_mouse_impl.html#a860391f4e9ce380b47c78abec380631a", null ],
     [ "_pos", "classigor_1_1i_mouse_impl.html#a32796cbc0d1805e654353b07ad817ec6", null ],
     [ "_posLast", "classigor_1_1i_mouse_impl.html#afeb2c5c6050b8ffce909aa26fc175407", null ],
-    [ "_wheelEvent", "classigor_1_1i_mouse_impl.html#a0cb4702a0870ba6c42cb6979e0ad5800", null ],
     [ "_window", "classigor_1_1i_mouse_impl.html#affaef8847ee7a0a6d454d1d129f57899", null ]
 ];
