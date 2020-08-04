@@ -14,6 +14,9 @@
 #include <igor/ui/widgets/iWidgetSlider.h>
 #include <igor/ui/widgets/iWidgetNumberChooser.h>
 
+#include <iaux/data/iaConvert.h>
+using namespace iaux;
+
 namespace igor
 {
 
@@ -407,6 +410,8 @@ namespace igor
         _colorRGBA._g = _valueChooserG->getValue() / 255.0f;
         _colorRGBA._b = _valueChooserB->getValue() / 255.0f;
 
+        iaConvert::convertRGBtoHSV(_colorRGBA, _colorHSV);
+
         if (_mode == iColorChooserMode::RGBA)
         {
             _colorRGBA._a = _valueChooserA->getValue() / 255.0f;
@@ -415,8 +420,6 @@ namespace igor
         {
             _colorRGBA._a = 1.0f;
         }
-
-        _colorHSV = iaColor4f::convertRGBtoHSV(_colorRGBA);
     }
 
     void iUserControlColorChooser::updateColorRGB()
@@ -426,6 +429,8 @@ namespace igor
         _colorHSV._b = _valueChooserV->getValue() / 255.0f;
         _colorHSV._a = 1.0f;
 
+        iaConvert::convertHSVtoRGB(_colorHSV, _colorRGBA);
+
         if (_mode == iColorChooserMode::RGBA)
         {
             _colorHSV._a = _valueChooserA->getValue() / 255.0f;
@@ -434,8 +439,6 @@ namespace igor
         {
             _colorRGBA._a = 1.0f;
         }
-
-        _colorRGBA = iaColor4f::convertHSVtoRGB(_colorHSV);
     }
 
     void iUserControlColorChooser::updateColorViews()
@@ -642,7 +645,7 @@ namespace igor
     void iUserControlColorChooser::setColor(const iaColor4f &color)
     {
         _colorRGBA = color;
-        _colorHSV = iaColor4f::convertRGBtoHSV(_colorRGBA);
+        iaConvert::convertRGBtoHSV(_colorRGBA, _colorHSV);
         updateWidgets();
     }
 

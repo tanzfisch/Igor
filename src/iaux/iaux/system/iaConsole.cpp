@@ -151,19 +151,19 @@ namespace iaux
         }
     }
 
-    iaConsole &operator<<(iaConsole &console, const iaLogLevel &logLevel)
+    std::wostream& operator<<(std::wostream& stream, const iaLogLevel &logLevel)
     {
-        const static iaString text[] = {
-            "Fatal",
-            "Error",
-            "Warning",
-            "Info",
-            "DebugInfo",
-            "Debug",
-            "Trace"};
+        const static std::wstring text[] = {
+            L"Fatal",
+            L"Error",
+            L"Warning",
+            L"Info",
+            L"DebugInfo",
+            L"Debug",
+            L"Trace"};
 
-        console << text[static_cast<int>(logLevel)].getData();
-        return console;
+        stream << text[static_cast<int>(logLevel)];
+        return stream;
     }
 
     iaLogLevel iaConsole::getLogLevel() const

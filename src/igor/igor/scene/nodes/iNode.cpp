@@ -393,12 +393,18 @@ namespace igor
         return _children.size() ? true : false;
     }
 
-    std::vector<iNodePtr> &iNode::getInactiveChildren()
+    void iNode::getAllChildren(std::vector<iNodePtr> &children) const
+    {
+        children = _children;
+        children.insert(children.end(), _inactiveChildren.begin(), _inactiveChildren.end());
+    }
+
+    const std::vector<iNodePtr> &iNode::getInactiveChildren() const
     {
         return _inactiveChildren;
     }
 
-    std::vector<iNodePtr> &iNode::getChildren()
+    const std::vector<iNodePtr> &iNode::getChildren() const
     {
         return _children;
     }
@@ -534,45 +540,45 @@ namespace igor
 
     std::wostream &operator<<(std::wostream &stream, const iNodeType &nodeType)
     {
-        const static iaString text[] = {
-            "iNode",
-            "iNodeCamera",
-            "iCelestialNode",
-            "iNodeLight",
-            "iNodeMesh",
-            "iNodeModel",
-            "iNodeRender",
-            "iNodeSkyBox",
-            "iSkyLightNode",
-            "iNodeTransform",
-            "iNodeSwitch",
-            "iNodeLODSwitch",
-            "iNodeLODTrigger",
-            "iNodePhysics",
-            "iNodeParticleSystem",
-            "iNodeEmitter",
-            "iNodeAudioListener",
-            "iNodeAudioSource",
-            "Undefined"};
+        const static std::wstring text[] = {
+            L"iNode",
+            L"iNodeCamera",
+            L"iCelestialNode",
+            L"iNodeLight",
+            L"iNodeMesh",
+            L"iNodeModel",
+            L"iNodeRender",
+            L"iNodeSkyBox",
+            L"iSkyLightNode",
+            L"iNodeTransform",
+            L"iNodeSwitch",
+            L"iNodeLODSwitch",
+            L"iNodeLODTrigger",
+            L"iNodePhysics",
+            L"iNodeParticleSystem",
+            L"iNodeEmitter",
+            L"iNodeAudioListener",
+            L"iNodeAudioSource",
+            L"Undefined"};
 
-        stream << text[static_cast<int>(nodeType)].getData();
+        stream << text[static_cast<int>(nodeType)];
         return stream;
     }
 
     std::wostream &operator<<(std::wostream &stream, const iNodeKind &nodeKind)
     {
-        const static iaString text[] = {
-            "Node",
-            "Renderable",
-            "Volume",
-            "Physics",
-            "Light",
-            "Camera",
-            "Transformation",
-            "Audio",
-            "Undefined"};
+        const static std::wstring text[] = {
+            L"Node",
+            L"Renderable",
+            L"Volume",
+            L"Physics",
+            L"Light",
+            L"Camera",
+            L"Transformation",
+            L"Audio",
+            L"Undefined"};
 
-        stream << text[static_cast<int>(nodeKind)].getData();
+        stream << text[static_cast<int>(nodeKind)];
         return stream;
     }
 

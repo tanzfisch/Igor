@@ -33,14 +33,14 @@
 
 /*! delete node action
 */
-class Igor_API ActionDeleteNode : public iAction
+class ActionDeleteNode : public iAction
 {
 
 public:
     /*! init members
     */
     ActionDeleteNode();
-
+    
     /*! executed when action gets triggered
 
     \param context the context the action was called with
@@ -56,7 +56,7 @@ public:
 
 /*! copy node action
 */
-class Igor_API ActionCopyNode : public iAction
+class ActionCopyNode : public iAction
 {
 
 public:
@@ -79,7 +79,7 @@ public:
 
 /*! paste node action
 */
-class Igor_API ActionPasteNode : public iAction
+class ActionPasteNode : public iAction
 {
 
 public:
@@ -102,7 +102,7 @@ public:
 
 /*! cut node action
 */
-class Igor_API ActionCutNode : public iAction
+class ActionCutNode : public iAction
 {
 
 public:
@@ -125,7 +125,7 @@ public:
 
 /*! add transformation action
 */
-class Igor_API ActionAddTransform : public iAction
+class ActionAddTransform : public iAction
 {
 
 public:
@@ -148,7 +148,7 @@ public:
 
 /*! add group action
 */
-class Igor_API ActionAddGroup : public iAction
+class ActionAddGroup : public iAction
 {
 
 public:
@@ -171,7 +171,7 @@ public:
 
 /*! add switch action
 */
-class Igor_API ActionAddSwitch : public iAction
+class ActionAddSwitch : public iAction
 {
 
 public:
@@ -194,7 +194,7 @@ public:
 
 /*! add emitter action
 */
-class Igor_API ActionAddEmitter : public iAction
+class ActionAddEmitter : public iAction
 {
 
 public:
@@ -217,7 +217,7 @@ public:
 
 /*! add particle system action
 */
-class Igor_API ActionAddParticleSystem : public iAction
+class ActionAddParticleSystem : public iAction
 {
 
 public:
@@ -240,7 +240,7 @@ public:
 
 /*! add model action
 */
-class Igor_API ActionAddModel : public iAction
+class ActionAddModel : public iAction
 {
 
 public:
@@ -263,7 +263,7 @@ public:
 
 /*! bake mesh to world
 */
-class Igor_API ActionBakeMeshToWorld : public iAction
+class ActionBakeMeshToWorld : public iAction
 {
 
 public:

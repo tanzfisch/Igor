@@ -66,7 +66,7 @@ void ExampleInstancing::onInit()
 
     // first we have to override the material which is stored within the model
     // to do that we create a new material using instancing
-    _materialWithInstancing = iMaterialResourceFactory::getInstance().createMaterial();
+    _materialWithInstancing = iMaterialResourceFactory::getInstance().createMaterial("Instancing");
     auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing);
     material->setRenderState(iRenderState::Instanced, iRenderStateValue::On);
     material->setRenderState(iRenderState::InstancedFunc, iRenderStateValue::PositionOrientation);
@@ -207,14 +207,10 @@ void ExampleInstancing::onTimer()
 
 void ExampleInstancing::onModelReady(uint64 modelNodeID)
 {
-    iNodeModel *modelNode = static_cast<iNodeModel *>(iNodeManager::getInstance().getNode(modelNodeID));
+    iNodeModelPtr modelNode = dynamic_cast<iNodeModel *>(iNodeManager::getInstance().getNode(modelNodeID));
     if (modelNode != nullptr &&
         modelNode->isValid())
     {
-        iNodeMesh *meshNode = static_cast<iNodeMesh *>(modelNode->getChild("cat"));
-        if (meshNode != nullptr)
-        {
-            meshNode->setMaterial(_materialWithInstancing);
-        }
+        modelNode->setMaterial(_materialWithInstancing);
     }
 }

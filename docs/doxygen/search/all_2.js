@@ -5,7 +5,7 @@ var searchData=
   ['backspace',['Backspace',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bdacd7d13ceea728b08555f7c818cfb13ef',1,'igor']]],
   ['base',['Base',['../namespaceigor.html#a1206e0556906267e4f5caa22e0602eaaa095a1b43effec73955e31e790438de49',1,'igor']]],
   ['beginradiobuttongroup',['beginRadioButtonGroup',['../classigor_1_1i_widget_check_box.html#a10b63197b3a04aeebf3a7a0abe735a5e',1,'igor::iWidgetCheckBox']]],
-  ['beginsection',['beginSection',['../classigor_1_1i_profiler.html#a9fbe4c96d80f4d740ce81d54e239aa0e',1,'igor::iProfiler::beginSection()'],['../classigor_1_1i_profiler_section.html#a3ae3417a5f23cdb0f3e582ee1c8db2ec',1,'igor::iProfilerSection::beginSection()']]],
+  ['beginsection',['beginSection',['../classigor_1_1i_profiler.html#a52b91cc618692a8e008d26325f7bc48e',1,'igor::iProfiler']]],
   ['bgr',['BGR',['../namespaceigor.html#a09233c080a182bbad53c9d2881358650a2ad5640ebdec72fc79531d1778c6c2dc',1,'igor']]],
   ['bgra',['BGRA',['../namespaceigor.html#a09233c080a182bbad53c9d2881358650a5a1fe3c61c9e2fd6dbbc823589f6e697',1,'igor']]],
   ['bindsource',['bindSource',['../classigor_1_1i_audio_impl.html#aa36d50a0b46bc97887eb9c97b0d04b9c',1,'igor::iAudioImpl::bindSource()'],['../classigor_1_1i_audio.html#ad68473a040fb72d00d621ec9fe36718d',1,'igor::iAudio::bindSource()']]],
@@ -21,6 +21,5 @@ var searchData=
   ['border_5fwidth2',['BORDER_WIDTH2',['../namespaceigor.html#aea4e11912b1354b980207d6f28af7174',1,'igor']]],
   ['bottom',['Bottom',['../namespaceigor.html#aaad3f3a7c1829b5eab5873bac6948aa2a2ad9d63b69c4a10a5cc9cad923133bc4',1,'igor']]],
   ['break',['Break',['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bdae4c38d6d45baf080943d323dd51a2ce8',1,'igor']]],
-  ['buffer_5foffset',['BUFFER_OFFSET',['../i_renderer_8cpp.html#a063a3af905ecefe83d76ca3f0fe0653e',1,'iRenderer.cpp']]],
-  ['buffer_5fsize',['BUFFER_SIZE',['../classigor_1_1i_profiler_section.html#a860d725393f6b69dc5f52ae3fbe22ab2',1,'igor::iProfilerSection']]]
+  ['buffer_5foffset',['BUFFER_OFFSET',['../i_renderer_8cpp.html#a063a3af905ecefe83d76ca3f0fe0653e',1,'iRenderer.cpp']]]
 ];

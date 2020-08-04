@@ -131,5 +131,5 @@ var classigor_1_1i_widget =
     [ "_wheelDown", "classigor_1_1i_widget.html#af4baee4687878e136c2f9c9144e2b977", null ],
     [ "_wheelUp", "classigor_1_1i_widget.html#ac64ac25465af97652ea295a728c0f009", null ],
     [ "_zValue", "classigor_1_1i_widget.html#a768d9f473cecd33228f08c5e737ab3d7", null ],
-    [ "INVALID_WIDGET_ID", "classigor_1_1i_widget.html#adb95d8c7d3db51959d3753e4f072d1a1", null ]
+    [ "INVALID_WIDGET_ID", "classigor_1_1i_widget.html#ada5fc747d70923e401bac4c9a7ee25e9", null ]
 ];

@@ -59,14 +59,14 @@ namespace igor
             for (auto pair : _widgets)
             {
                 auto widget = pair.second;
-                con_debug_endl(widget->getInfo());
+                con_debug(widget->getInfo());
 
                 // to get a better idea which widget this is we also print it's children
                 std::vector<iWidgetPtr> children;
                 widget->getChildren(children);
                 for (auto child : children)
                 {
-                    con_debug_endl(" +-- " << widget->getInfo());
+                    con_debug(" +-- " << widget->getInfo());
                 }
             }
 #endif
@@ -237,6 +237,10 @@ namespace igor
 
     void iWidgetManager::onPostDraw()
     {
+    }
+
+    void iWidgetManager::onPreDraw()
+    {
         bool refreshMousePos = false;
 
         for (auto id : _dialogsToClose)
@@ -257,10 +261,7 @@ namespace igor
             auto pos = iMouse::getInstance().getPos();
             handleMouseMove(pos);
         }
-    }
 
-    void iWidgetManager::onPreDraw()
-    {
         for (auto dialog : _dialogs)
         {
             if (dialog.second->isActive())

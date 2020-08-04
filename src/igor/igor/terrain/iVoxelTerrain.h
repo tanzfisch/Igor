@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iVOXELTERRAINGENERATOR__
-#define __iVOXELTERRAINGENERATOR__
+#ifndef __IGOR_VOXELTERRAINGENERATOR_H__
+#define __IGOR_VOXELTERRAINGENERATOR_H__
 
 #include <igor/scene/nodes/iNode.h>
 #include <igor/scene/nodes/iNodeManager.h>
@@ -109,7 +109,7 @@ namespace igor
                       iVoxelTerrainPlacePropsDelegate placePropsDelegate,
                       uint32 lodCount = 11,
                       uint32 voxelBlockSetupDistance = 4,
-                      const iaVector3I *maxDiscoveryBoundaries = nullptr);
+                      const iaVector3I &maxDiscoveryBoundaries = iaVector3I(100000, 100000, 100000));
 
         /*! deinit
         */
@@ -183,7 +183,7 @@ namespace igor
     private:
         /*! the discovery boundaries
         */
-        iaVector3I _maxDiscoveryBoundaries{100000, 100000, 100000};
+        iaVector3I _maxDiscoveryBoundaries;
 
         /*! lowest allowed lod
         */
@@ -228,30 +228,6 @@ namespace igor
         /*! mutex to protect action queue
         */
         iaMutex _mutexActionQueue;
-
-        /*! performance section discover blocks
-        */
-        uint32 _discoverBlocksSection = 0;
-
-        /*! performance section delete blocks
-        */
-        uint32 _deleteBlocksSection = 0;
-
-        /*! performance section apply actions
-        */
-        uint32 _applyActionsSection = 0;
-
-        /*! performance section update blocks
-        */
-        uint32 _updateBlocksSection = 0;
-
-        /*! performance section update visibility blocks
-        */
-        uint32 _updateVisBlocksSection = 0;
-
-        /*! performance section total handle
-        */
-        uint32 _totalSection = 0;
 
         /*! the voxel data
         */
@@ -356,4 +332,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_VOXELTERRAINGENERATOR_H__

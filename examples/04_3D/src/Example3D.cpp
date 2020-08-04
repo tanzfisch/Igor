@@ -177,7 +177,7 @@ void Example3D::onInit()
 void Example3D::onDeinit()
 {
     // stop light animation
-    if (_animationTimingHandle)
+    if (_animationTimingHandle != nullptr)
     {
         delete _animationTimingHandle;
         _animationTimingHandle = nullptr;

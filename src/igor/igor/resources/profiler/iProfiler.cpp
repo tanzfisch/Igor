@@ -9,6 +9,7 @@
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/system/iTimer.h>
 #include <igor/threading/iTaskManager.h>
+#include <igor/graphics/iRenderer.h>
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
@@ -16,68 +17,54 @@ using namespace iaux;
 namespace igor
 {
 
-    uint32 iProfiler::registerSection(const iaString &sectionName, uint64 groupIndex)
-    {
-        con_assert_sticky(groupIndex <= 5, "out of bounds");
+#define SECTOINDEX(sec) (sec - 1)
 
-        uint32 result = _nextSectionID++;
+    iProfilerSectionID iProfiler::createSection(const iaString &sectionName)
+    {
         iProfilerSection statisticsSection;
-        statisticsSection.setName(sectionName);
-        statisticsSection.setGroup(groupIndex);
+        statisticsSection._name = sectionName;
+        memset(&statisticsSection._values, 0, sizeof(iaTime) * MAX_FRAMES_COUNT);
 
-        _sections[result] = statisticsSection;
-
-        return result;
+        _sections.push_back(statisticsSection);
+        return _sections.size();
     }
 
-    void iProfiler::unregisterSection(uint32 sectionID)
+    void iProfiler::beginSection(iProfilerSectionID sectionID)
     {
-        auto section = _sections.find(sectionID);
-
-        con_assert(section != _sections.end(), "out of range");
-
-        if (section != _sections.end())
+        if (SECTOINDEX(sectionID) >= _sections.size())
         {
-            _sections.erase(section);
-        }
-    }
-
-    void iProfiler::beginSection(uint32 sectionID)
-    {
-        con_assert(_sections.find(sectionID) != _sections.end(), "out of range");
-
-        if (_sections.find(sectionID) != _sections.end())
-        {
-            _sections[sectionID].beginSection();
-        }
-    }
-
-    void iProfiler::endSection(uint32 sectionID)
-    {
-        con_assert(_sections.find(sectionID) != _sections.end(), "out of range");
-
-        if (_sections.find(sectionID) != _sections.end())
-        {
-            _sections[sectionID].endSection();
-        }
-    }
-
-    void iProfiler::nextFrame()
-    {
-        for (auto &section : _sections)
-        {
-            section.second.setCurrentFrame(_frame);
+            return;
         }
 
-        _frame++;
+        _sections[SECTOINDEX(sectionID)]._values[_frame] = 0;
+        _sections[SECTOINDEX(sectionID)]._beginTime = iaTime::now();
     }
 
-    std::map<uint32, iProfilerSection> &iProfiler::getSections()
+    void iProfiler::endSection(iProfilerSectionID sectionID)
+    {
+        if (SECTOINDEX(sectionID) >= _sections.size())
+        {
+            return;
+        }
+
+        _sections[SECTOINDEX(sectionID)]._values[_frame] += iaTime::now() - _sections[SECTOINDEX(sectionID)]._beginTime;
+    }
+
+    void iProfiler::nextFrame(bool loggingFrame)
+    {
+        iRenderer::getInstance().onStopFrame();
+
+        _frame = (_frame + 1) % MAX_FRAMES_COUNT;
+
+        iRenderer::getInstance().onStartFrame(loggingFrame);
+    }
+
+    const std::vector<iProfiler::iProfilerSection> &iProfiler::getSections() const
     {
         return _sections;
     }
 
-    uint64 iProfiler::getCurrentFrameIndex() const
+    int32 iProfiler::getCurrentFrameIndex() const
     {
         return _frame;
     }

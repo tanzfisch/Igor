@@ -131,18 +131,25 @@ namespace igor
         }
     }
 
-    void iRenderer::resetCounters()
+    void iRenderer::onStopFrame()
     {
-        _renderedVertices = 0;
-        _renderedTriangles = 0;
-        _renderedIndexes = 0;
     }
 
-    void iRenderer::getCounters(uint32 &vertices, uint32 &triangles, uint32 &indices)
+    void iRenderer::onStartFrame(bool logActive)
     {
-        vertices = _renderedVertices;
-        triangles = _renderedTriangles;
-        indices = _renderedIndexes;
+        _loggingActive = logActive;
+
+        _stats._vertices = 0;
+        _stats._triangles = 0;
+        _stats._indices = 0;
+        _stats._verticesInstanced = 0;
+        _stats._trianglesInstanced = 0;
+        _stats._indicesInstanced = 0;
+    }
+
+    const iRendererStats &iRenderer::getStats() const
+    {
+        return _stats;
     }
 
     bool iRenderer::compileShaderObject(uint32 id, const char *source)
@@ -300,8 +307,8 @@ namespace igor
             _extensionsOGL = (const char *)glGetString(GL_EXTENSIONS);
 
             con_info("OpenGL Version : " << _versionOGL << endlTab
-                << "OpenGL Vendor  : " << _vendorOGL << endlTab
-                << "OpenGL Renderer: " << _rendererOGL);
+                                         << "OpenGL Vendor  : " << _vendorOGL << endlTab
+                                         << "OpenGL Renderer: " << _rendererOGL);
 
             setClearColor(iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
             setClearDepth(1.0f);
@@ -1124,6 +1131,11 @@ namespace igor
 
         if (_currentMaterial != nullptr)
         {
+            if (_loggingActive)
+            {
+                con_endl("setMaterial " << _currentMaterial->getName());
+            }
+
             _currentMaterial->activateShader();
 
             iRenderStateSet &stateset = _currentMaterial->getRenderStateSet();
@@ -1328,9 +1340,9 @@ namespace igor
         GL_CHECK_ERROR();
     }
 
-    uint32 iRenderer::createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer)
+    iRenderTargetID iRenderer::createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer)
     {
-        uint32 result = iRenderer::DEFAULT_RENDER_TARGET;
+        iRenderTargetID result = iRenderer::DEFAULT_RENDER_TARGET;
         GLenum glformat = convertGLColorFormat(format);
         con_assert(glformat != iRenderer::INVALID_ID, "invalid color format");
 
@@ -1403,7 +1415,7 @@ namespace igor
         return result;
     }
 
-    void iRenderer::destroyRenderTarget(uint32 id)
+    void iRenderer::destroyRenderTarget(iRenderTargetID id)
     {
         auto iter = _renderTargets.find(id);
         if (iter != _renderTargets.end())
@@ -1433,7 +1445,7 @@ namespace igor
         }
     }
 
-    void iRenderer::setRenderTarget(uint32 id)
+    void iRenderer::setRenderTarget(iRenderTargetID id)
     {
         // the ID is also the frame buffer object ID
         glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, id);
@@ -1441,7 +1453,7 @@ namespace igor
         _currentRenderTarget = id;
     }
 
-    uint32 iRenderer::getRenderTarget() const
+    iRenderTargetID iRenderer::getRenderTarget() const
     {
         return _currentRenderTarget;
     }
@@ -1617,6 +1629,11 @@ namespace igor
 
     void iRenderer::drawMesh(std::shared_ptr<iMeshBuffers> meshBuffers, iInstancer *instancer)
     {
+        if (_loggingActive)
+        {
+            con_endl("drawMesh instances:" << instancer->getInstanceCount());
+        }
+
         iaMatrixd idMatrix;
         setModelMatrix(idMatrix);
 
@@ -1660,10 +1677,9 @@ namespace igor
         glBindVertexArray(0);
         GL_CHECK_ERROR();
 
-        // todo maybe we should count this during cull process
-        _renderedVertices += meshBuffers->getVertexCount() * instancer->getInstanceCount();
-        _renderedIndexes += meshBuffers->getIndexesCount() * instancer->getInstanceCount();
-        _renderedTriangles += meshBuffers->getTrianglesCount() * instancer->getInstanceCount();
+        _stats._indicesInstanced += meshBuffers->getIndexesCount() * instancer->getInstanceCount();
+        _stats._trianglesInstanced += meshBuffers->getTrianglesCount() * instancer->getInstanceCount();
+        _stats._verticesInstanced += meshBuffers->getVertexCount() * instancer->getInstanceCount();
     }
 
     int32 iRenderer::getShaderPropertyID(uint32 programID, const char *name)
@@ -1734,9 +1750,9 @@ namespace igor
         glBindVertexArray(0);
         GL_CHECK_ERROR();
 
-        _renderedVertices += meshBuffers->getVertexCount();
-        _renderedIndexes += meshBuffers->getIndexesCount();
-        _renderedTriangles += meshBuffers->getTrianglesCount();
+        _stats._vertices += meshBuffers->getVertexCount();
+        _stats._indices += meshBuffers->getIndexesCount();
+        _stats._triangles += meshBuffers->getTrianglesCount();
     }
 
     void iRenderer::drawPoint(float32 x, float32 y)
@@ -2040,9 +2056,9 @@ namespace igor
         GL_CHECK_ERROR();
 
         // todo maybe we should count this during cull process
-        _renderedVertices += particleCount * 4;
-        _renderedIndexes += particleCount * 4;
-        _renderedTriangles += particleCount * 2;
+        _stats._vertices += particleCount * 4;
+        _stats._indices += particleCount * 4;
+        _stats._triangles += particleCount * 2;
     }
 
     void iRenderer::drawParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow)
@@ -2127,9 +2143,9 @@ namespace igor
         GL_CHECK_ERROR();
 
         // todo maybe we should count this during cull process
-        _renderedVertices += static_cast<uint32>(particles.size()) * 4;
-        _renderedIndexes += static_cast<uint32>(particles.size()) * 4;
-        _renderedTriangles += static_cast<uint32>(particles.size()) * 2;
+        _stats._vertices += static_cast<uint32>(particles.size()) * 4;
+        _stats._indices += static_cast<uint32>(particles.size()) * 4;
+        _stats._triangles += static_cast<uint32>(particles.size()) * 2;
     }
 
     void iRenderer::drawVelocityOrientedParticles(const std::deque<iParticle> &particles, const iaGradientColor4f &rainbow)
@@ -2207,9 +2223,9 @@ namespace igor
         GL_CHECK_ERROR();
 
         // todo maybe we should count this during cull process
-        _renderedVertices += static_cast<uint32>(particles.size()) * 4;
-        _renderedIndexes += static_cast<uint32>(particles.size()) * 4;
-        _renderedTriangles += static_cast<uint32>(particles.size()) * 2;
+        _stats._vertices += static_cast<uint32>(particles.size()) * 4;
+        _stats._indices += static_cast<uint32>(particles.size()) * 4;
+        _stats._triangles += static_cast<uint32>(particles.size()) * 2;
     }
 
     iaVector3d iRenderer::project(const iaVector3d &objectSpacePos, const iaMatrixd &modelview, const iaMatrixd &projection, const iRectanglei &viewport)

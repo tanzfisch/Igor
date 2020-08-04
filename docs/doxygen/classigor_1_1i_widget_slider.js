@@ -2,7 +2,7 @@ var classigor_1_1i_widget_slider =
 [
     [ "iWidgetSlider", "classigor_1_1i_widget_slider.html#ad638b52873df7d7887f301118822b372", null ],
     [ "~iWidgetSlider", "classigor_1_1i_widget_slider.html#ad12db051dc3acc35384afb8bc5f380c7", null ],
-    [ "calcMinSize", "classigor_1_1i_widget_slider.html#a7c985d585516c86c63e7ab7753246de1", null ],
+    [ "calcMinSize", "classigor_1_1i_widget_slider.html#af7cf7eb50441f951c1ae2fdb61b3d330", null ],
     [ "cullBoundings", "classigor_1_1i_widget_slider.html#ace47d5bd81fac747fe9da682dc14244d", null ],
     [ "decreaseNumber", "classigor_1_1i_widget_slider.html#a082a63ed23d3ee301af3d9412155d163", null ],
     [ "draw", "classigor_1_1i_widget_slider.html#a24043166868d5d6b805e2f026c125b94", null ],

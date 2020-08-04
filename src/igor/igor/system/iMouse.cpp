@@ -136,14 +136,12 @@ namespace igor
                     if (raw->data.mouse.usButtonFlags & RI_MOUSE_BUTTON_4_UP)
                     {
                         _buttonStates[3]._pressed = false;
-                        _keyUpEvent(iKeyCode::MouseButton4);
                         iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyUp(_window, iKeyCode::MouseButton4)));
                     }
 
                     if (raw->data.mouse.usButtonFlags & RI_MOUSE_BUTTON_5_UP)
                     {
                         _buttonStates[4]._pressed = false;
-                        _keyUpEvent(iKeyCode::MouseButton5);
                         iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyUp(_window, iKeyCode::MouseButton5)));
                     }
                 }
@@ -164,12 +162,10 @@ namespace igor
 
             case WM_RBUTTONUP:
                 _buttonStates[2]._pressed = false;
-                _keyUpEvent(iKeyCode::MouseRight);
                 iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyUp(_window, iKeyCode::MouseRight)));
                 break;
 
             case WM_RBUTTONDBLCLK:
-                _doubleClickEvent(iKeyCode::MouseRight);
                 iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyDoubleClick(_window, iKeyCode::MouseRight)));
                 break;
 
@@ -181,12 +177,10 @@ namespace igor
 
             case WM_LBUTTONUP:
                 _buttonStates[0]._pressed = false;
-                _keyUpEvent(iKeyCode::MouseLeft);
                 iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyUp(_window, iKeyCode::MouseLeft)));
                 break;
 
             case WM_LBUTTONDBLCLK:
-                _doubleClickEvent(iKeyCode::MouseLeft);
                 iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyDoubleClick(_window, iKeyCode::MouseLeft)));
                 break;
 
@@ -198,12 +192,10 @@ namespace igor
 
             case WM_MBUTTONUP:
                 _buttonStates[1]._pressed = false;
-                _keyUpEvent(iKeyCode::MouseMiddle);
                 iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyUp(_window, iKeyCode::MouseMiddle)));
                 break;
 
             case WM_MBUTTONDBLCLK:
-                _doubleClickEvent(iKeyCode::MouseMiddle);
                 iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyDoubleClick(_window, iKeyCode::MouseMiddle)));
                 break;
 

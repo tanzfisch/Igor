@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.28.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.29.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -105,7 +105,27 @@ $(document).ready(function(){initNavTree('changelog.html','');});
 <div class="title">Changelog </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><h2>0.28.0 </h2>
+<div class="textblock"><h2>0.29.0 </h2>
+<ul>
+<li>removed most of old event handling</li>
+<li>using AL_DIRECT_CHANNELS_SOFT for all multi channel sounds</li>
+<li>Mica: fixed framing by fixing bounding boxes</li>
+<li>Mica: fixed backe to world action</li>
+<li>improved behaviour of menu and sub menus</li>
+<li>replaced gtest with own simple implementation and adding more tests</li>
+<li>fixed issue in cmake file rgarding building igor as submodule</li>
+<li>DebugInfo is the default log level again</li>
+<li>renamed con_debug_endl to con_debug</li>
+<li>con_trace now has a message parameter</li>
+<li>renamed original con_trace to con_trace_call</li>
+<li>improved profiling visualisation</li>
+<li>fixed performance issue in iScene where a queue was not cleared</li>
+<li>reduced setMaterial calls</li>
+<li>introduced one frame verbose output and render stats (F5 in examples)</li>
+<li>fixed problem with showing zero instances</li>
+<li>added vsync control on linux side</li>
+</ul>
+<h2>0.28.0 (unstable) </h2>
 <p>This is probably less stable than previous versions but I really needed to get this out before it get's even bigger.</p>
 <ul>
 <li>fixed how menus behave</li>

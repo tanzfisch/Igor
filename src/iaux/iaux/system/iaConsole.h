@@ -103,19 +103,19 @@ namespace iaux
         /*! it's stuff somewhere between info and what the engine would log when actually compiled for debug.
         It's the equivalent of a plain cout or printf.
 
-        con, con_endl
+        con_endl
         */
         DebugInfo, // TODO need better name for this... or we can put it together with Info
 
         /*! debug output
 
-        con_debug, con_debug_endl
+        con_debug
         */
         Debug,
 
         /*! trace everything that there is
 
-        con_trace
+        con_trace, con_trace_call
         */
         Trace
     };
@@ -255,7 +255,7 @@ namespace iaux
     private:
         /*! the log level. default is logging everything (trace)
         */
-        iaLogLevel _logLevel = iaLogLevel::Trace;
+        iaLogLevel _logLevel = iaLogLevel::DebugInfo;
 
         /*! file stream to log file
         */
@@ -356,7 +356,7 @@ namespace iaux
 
     \param Message message output
     */
-#define con_debug_endl(Message)                                      \
+#define con_debug(Message)                                           \
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Debug) \
     {                                                                \
         iaConsole::getInstance() << LOCK;                            \
@@ -367,11 +367,26 @@ namespace iaux
 
     /*! only called in debug mode
 
+    including line feed
+
+    \param Message message output
+    */
+#define con_trace(Message)                                                            \
+    if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Trace)                  \
+    {                                                                                 \
+        iaConsole::getInstance() << LOCK;                                             \
+        iaConsole::getInstance().printHead(iaLogLevel::Trace);                        \
+        iaConsole::getInstance() << iaForegroundColor::DarkMagenta << Message << endl \
+                                 << UNLOCK;                                           \
+    }
+
+    /*! only called in debug mode
+
         including line feed
 
         \param Message message output
         */
-#define con_trace()                                                                                                          \
+#define con_trace_call()                                                                                                     \
     if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Trace)                                                         \
     {                                                                                                                        \
         iaConsole::getInstance() << LOCK;                                                                                    \
@@ -399,8 +414,9 @@ namespace iaux
         iaConsole::getInstance().exit();                                                                                  \
     }
 
-#define con_debug_endl(Message)
-#define con_trace()
+#define con_debug(Message)
+#define con_trace_call()
+#define con_trace(Message)
 
 #endif // __IGOR_DEBUG__
 
@@ -600,9 +616,11 @@ namespace iaux
 
     /*! prints the log level in the console
 
+    \param stream the stream to log to
     \param logLevel the log level to print
-    */
-    iaConsole &operator<<(iaConsole &console, const iaLogLevel &logLevel);
+    \returns the stream
+    */    
+    IgorAux_API std::wostream& operator<<(std::wostream& stream, const iaLogLevel& logLevel);
 
 }; // namespace iaux
 

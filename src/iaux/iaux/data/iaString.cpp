@@ -40,7 +40,7 @@ namespace iaux
         CHECK_CONSISTENCY();
     }
 
-    bool iaString::matchRegex(const iaString& text, const iaString& regex)
+    bool iaString::matchRegex(const iaString &text, const iaString &regex)
     {
         std::basic_string<wchar_t> searchString(text.getData());
         std::basic_regex<wchar_t> exp;
@@ -57,7 +57,7 @@ namespace iaux
         return std::regex_match(searchString, exp);
     }
 
-    void iaString::replaceRegex(const iaString& src, const iaString& regex, const iaString& replaceWith, iaString& dst)
+    void iaString::replaceRegex(const iaString &src, const iaString &regex, const iaString &replaceWith, iaString &dst)
     {
         dst = "";
 
@@ -70,7 +70,7 @@ namespace iaux
         }
         catch (...)
         {
-            con_err("invalid regular expression \"" << regex << "\"");            
+            con_err("invalid regular expression \"" << regex << "\"");
             return;
         }
 
@@ -78,7 +78,7 @@ namespace iaux
         dst = iaString(std::regex_replace(searchString, exp, r).data());
     }
 
-    bool iaString::searchRegex(const iaString& src, const iaString& regex, std::vector<iaString>& matches)
+    bool iaString::searchRegex(const iaString &src, const iaString &regex, std::vector<iaString> &matches)
     {
         matches.clear();
 
@@ -96,8 +96,8 @@ namespace iaux
         }
 
         std::wsmatch sm;
-        
-        while(std::regex_search(searchString, sm, exp))
+
+        while (std::regex_search(searchString, sm, exp))
         {
             matches.push_back(sm.str().data());
             searchString = sm.suffix();
@@ -113,7 +113,7 @@ namespace iaux
         return static_cast<int64>(hashFunc(keyValue));
     }
 
-    iaString::iaString(const char* text, const int64 lenght)
+    iaString::iaString(const char *text, const int64 lenght)
     {
         if (lenght != INVALID_POSITION)
         {
@@ -124,7 +124,7 @@ namespace iaux
         CHECK_CONSISTENCY();
     }
 
-    iaString::iaString(const wchar_t* text, const int64 lenght)
+    iaString::iaString(const wchar_t *text, const int64 lenght)
     {
         if (lenght != INVALID_POSITION)
         {

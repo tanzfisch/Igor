@@ -91,13 +91,23 @@ namespace igor
         {
             iEvent &event = *eventPtr;
 
-            if (event.getEventType() != iEventType::iEventMouseMove)
+            if (event.getEventType() != iEventType::iEventMouseMove &&
+                event.getEventType() != iEventType::iEventNodeAddedToScene &&
+                event.getEventType() != iEventType::iEventNodeRemovedFromScene)
             {
-                con_debug_endl("dispatch event: " << event);
+                con_trace("dispatch event: " << event);
             }
 
             event.dispatch<iEventWindowClose>(IGOR_BIND_EVENT_FUNCTION(iApplication::onWindowClose));
             dispatchOnStack(event, _layerStack);
+        }
+    }
+
+    void iApplication::preDraw()
+    {
+        for (auto layer : _layerStack.getStack())
+        {
+            layer->onPreDraw();
         }
     }
 
@@ -127,29 +137,33 @@ namespace igor
         _running = false;
     }
 
+    void iApplication::verboseLoggingNextFrame()
+    {
+        _verboseLogging = true;
+    }
+
     void iApplication::iterate()
     {
-        iProfiler::getInstance().nextFrame();
-        iProfiler::getInstance().beginSection(_frameSectionID);
-
-        iTimer::getInstance().handle();
-
-        iProfiler::getInstance().beginSection(_handleSectionID);
-        iNodeManager::getInstance().handle();
-        iProfiler::getInstance().endSection(_handleSectionID);
-
-        windowHandle();
-
-        iProfiler::getInstance().beginSection(_userSectionID);
-
-        iProfiler::getInstance().beginSection(_dispatchSectionID);
-        dispatch();
-        iProfiler::getInstance().endSection(_dispatchSectionID);
-        for (auto layer : _layerStack.getStack())
+        bool verboseLogging = _verboseLogging;
+        iaLogLevel logLevel;
+        if (verboseLogging)
         {
-            layer->onPreDraw();
+            logLevel = iaConsole::getInstance().getLogLevel();
+            iaConsole::getInstance().setLogLevel(iaLogLevel::Trace);
+            con_info("START FRAME VERBOSE LOGGING");
         }
-        iProfiler::getInstance().endSection(_userSectionID);
+
+        iProfiler::getInstance().nextFrame(verboseLogging);
+
+        iProfiler::getInstance().beginSection(_applicationSectionID);
+        {
+            iTimer::getInstance().handle();
+            iNodeManager::getInstance().handle();
+            windowHandle();
+            dispatch();
+            preDraw();
+        }
+        iProfiler::getInstance().endSection(_applicationSectionID);
 
         iProfiler::getInstance().beginSection(_evaluationSectionID);
         iEvaluationManager::getInstance().handle();
@@ -159,18 +173,15 @@ namespace igor
         iPhysics::getInstance().handle();
         iProfiler::getInstance().endSection(_physicsSectionID);
 
-        iProfiler::getInstance().beginSection(_drawSectionID);
+        // profiler sections are within render engine
         draw();
-        iProfiler::getInstance().endSection(_drawSectionID);
 
-        iProfiler::getInstance().beginSection(_userSectionID);
-        for (auto layer : _layerStack.getStack())
+        if (verboseLogging)
         {
-            layer->onPostDraw();
+            con_info("END FRAME VERBOSE LOGGING");
+            iaConsole::getInstance().setLogLevel(logLevel);
+            _verboseLogging = false;
         }
-        iProfiler::getInstance().endSection(_userSectionID);
-
-        iProfiler::getInstance().endSection(_frameSectionID);
     }
 
     void iApplication::run()
@@ -182,30 +193,13 @@ namespace igor
         {
             iterate();
         } while (_running);
-
-        deinitProfiling();
-    }
-
-    void iApplication::deinitProfiling()
-    {
-        iProfiler::getInstance().unregisterSection(_frameSectionID);
-        iProfiler::getInstance().unregisterSection(_handleSectionID);
-        iProfiler::getInstance().unregisterSection(_dispatchSectionID);
-        iProfiler::getInstance().unregisterSection(_evaluationSectionID);
-        iProfiler::getInstance().unregisterSection(_physicsSectionID);
-        iProfiler::getInstance().unregisterSection(_drawSectionID);
-        iProfiler::getInstance().unregisterSection(_userSectionID);
     }
 
     void iApplication::initProfiling()
     {
-        _frameSectionID = iProfiler::getInstance().registerSection("app:frame", 0);
-        _handleSectionID = iProfiler::getInstance().registerSection("app:handle", 0);
-        _dispatchSectionID = iProfiler::getInstance().registerSection("app:dispatch", 0);
-        _evaluationSectionID = iProfiler::getInstance().registerSection("app:eval", 0);
-        _physicsSectionID = iProfiler::getInstance().registerSection("app:physics", 0);
-        _userSectionID = iProfiler::getInstance().registerSection("app:user", 0);
-        _drawSectionID = iProfiler::getInstance().registerSection("app:draw", 0);
+        _applicationSectionID = iProfiler::getInstance().createSection("app");
+        _evaluationSectionID = iProfiler::getInstance().createSection("eval");
+        _physicsSectionID = iProfiler::getInstance().createSection("physics");
     }
 
     bool iApplication::isRunning()

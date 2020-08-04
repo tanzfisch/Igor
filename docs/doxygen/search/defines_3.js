@@ -7,10 +7,11 @@ var searchData=
   ['check_5fconsistency',['CHECK_CONSISTENCY',['../ia_string_8cpp.html#a47dc6b354618bca7f8c71f242e72411d',1,'iaString.cpp']]],
   ['con_5fassert',['con_assert',['../ia_console_8h.html#a6eebaa67b0bd67ba43d04abc729897c1',1,'iaConsole.h']]],
   ['con_5fassert_5fsticky',['con_assert_sticky',['../ia_console_8h.html#a4fc2be5c01a5e9bcacda006dadc2cc35',1,'iaConsole.h']]],
-  ['con_5fdebug_5fendl',['con_debug_endl',['../ia_console_8h.html#af7a4141dfae7dcf8005d54e8ac52489f',1,'iaConsole.h']]],
+  ['con_5fdebug',['con_debug',['../ia_console_8h.html#a2fe059dd74a3e01c2082a11490b6f04f',1,'iaConsole.h']]],
   ['con_5fendl',['con_endl',['../ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7',1,'iaConsole.h']]],
   ['con_5ferr',['con_err',['../ia_console_8h.html#a78f0115042eb1a14efffca278878e5b6',1,'iaConsole.h']]],
   ['con_5finfo',['con_info',['../ia_console_8h.html#a66b18edf45763200ee00363ad632d570',1,'iaConsole.h']]],
-  ['con_5ftrace',['con_trace',['../ia_console_8h.html#a5cc877e2d0727b76008f45d3f7dee72b',1,'iaConsole.h']]],
+  ['con_5ftrace',['con_trace',['../ia_console_8h.html#a90d60dcb3bc27aec98dc063e95fbafa6',1,'iaConsole.h']]],
+  ['con_5ftrace_5fcall',['con_trace_call',['../ia_console_8h.html#a3b63fdb93c5e60b84935ff89dcd4bedc',1,'iaConsole.h']]],
   ['con_5fwarn',['con_warn',['../ia_console_8h.html#ac961fd7ad9bdd11be6aaca8c678ccae4',1,'iaConsole.h']]]
 ];

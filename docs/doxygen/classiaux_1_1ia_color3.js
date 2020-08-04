@@ -4,7 +4,7 @@ var classiaux_1_1ia_color3 =
     [ "iaColor3", "classiaux_1_1ia_color3.html#aa8747340b3392768418b63c7ad0cafb2", null ],
     [ "getData", "classiaux_1_1ia_color3.html#aae3082cf704ce53672530878220e942e", null ],
     [ "lerp", "classiaux_1_1ia_color3.html#a4ebf412fa9bf5747b3c61854cb0f6fde", null ],
-    [ "operator*=", "classiaux_1_1ia_color3.html#ad8e612f779fca5b358449ad6e871044d", null ],
+    [ "operator*=", "classiaux_1_1ia_color3.html#a384d16f487ed0a90c03b49a3c67b7d6c", null ],
     [ "operator+=", "classiaux_1_1ia_color3.html#ac89b299c113e57fe4fe6ecdff51862dc", null ],
     [ "operator-=", "classiaux_1_1ia_color3.html#a94b0fa0751d8afe6653981d3dbc2851e", null ],
     [ "operator=", "classiaux_1_1ia_color3.html#a517527f44f4409e80140b7b0d6510aed", null ],

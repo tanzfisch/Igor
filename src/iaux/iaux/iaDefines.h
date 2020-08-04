@@ -55,8 +55,9 @@
 #define __IGOR_PATHSEPARATOR__ '/'
 #endif
 
-#define __IGOR_LINE__ __LINE__
-#define __IGOR_FILE_LINE__ __FILE__ << ":" << __IGOR_LINE__
+#define S1(x) #x
+#define S2(x) S1(x)
+#define __IGOR_FILE_LINE__ __FILE__ ":" S2(__LINE__)
 
 #define __IGOR_STDCALL__ stdcall
 #define __IGOR_CDECL__ cdecl

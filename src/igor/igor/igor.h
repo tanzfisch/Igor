@@ -91,6 +91,7 @@
 #include <igor/scene/nodes/iNodeSkyBox.h>
 #include <igor/scene/nodes/iNodeSwitch.h>
 #include <igor/scene/nodes/iNodeTransform.h>
+#include <igor/scene/nodes/iNodeWater.h>
 #include <igor/scene/traversal/iNodeVisitorBoundings.h>
 #include <igor/scene/traversal/iNodeVisitorPrintTree.h>
 #include <igor/scene/traversal/iNodeVisitorRenderColorID.h>
@@ -172,25 +173,25 @@
 */
 namespace igor
 {
-	/*! should be called before any other interface of Igor is used	
+    /*! should be called before any other interface of Igor is used	
 
 	\param argc command line parameter count
 	\param argv command line parameters
 	*/
-	void Igor_API startup(int argc, wchar_t **argv);
+    void Igor_API startup(int argc, wchar_t **argv);
 
-	/*! alternative startup
+    /*! alternative startup
 	*/
-	void Igor_API startup();
+    void Igor_API startup();
 
-	/*! should be called last in your application. do not use any Igor interface after that
+    /*! should be called last in your application. do not use any Igor interface after that
 	
 	Shuts down all the singleton instances.
 	Not thread save. make shure only one thread is left when calling this.
 
     \todo it would be nice to have the order of shutting down singletons implicitly or configurable
 	*/
-	void Igor_API shutdown();
+    void Igor_API shutdown();
 
 } // namespace igor
 

@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.28.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.29.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -126,9 +126,11 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:af4764c6d8b2d6ab8f06210f85fd99669"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_defines_8h.html#af4764c6d8b2d6ab8f06210f85fd99669">__IGOR_LINE__</a>&#160;&#160;&#160;__LINE__</td></tr>
-<tr class="separator:af4764c6d8b2d6ab8f06210f85fd99669"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a697e3f8d08a488719c8168bad998393f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_defines_8h.html#a697e3f8d08a488719c8168bad998393f">__IGOR_FILE_LINE__</a>&#160;&#160;&#160;__FILE__ &lt;&lt; &quot;:&quot; &lt;&lt; <a class="el" href="ia_defines_8h.html#af4764c6d8b2d6ab8f06210f85fd99669">__IGOR_LINE__</a></td></tr>
+<tr class="memitem:a59c41bcd16cbf3247d426429c3bf8e08"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_defines_8h.html#a59c41bcd16cbf3247d426429c3bf8e08">S1</a>(x)&#160;&#160;&#160;#x</td></tr>
+<tr class="separator:a59c41bcd16cbf3247d426429c3bf8e08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53a4af5a86745d27a1c31559b65eaa5c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_defines_8h.html#a53a4af5a86745d27a1c31559b65eaa5c">S2</a>(x)&#160;&#160;&#160;<a class="el" href="ia_defines_8h.html#a59c41bcd16cbf3247d426429c3bf8e08">S1</a>(x)</td></tr>
+<tr class="separator:a53a4af5a86745d27a1c31559b65eaa5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a697e3f8d08a488719c8168bad998393f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_defines_8h.html#a697e3f8d08a488719c8168bad998393f">__IGOR_FILE_LINE__</a>&#160;&#160;&#160;__FILE__ &quot;:&quot; <a class="el" href="ia_defines_8h.html#a53a4af5a86745d27a1c31559b65eaa5c">S2</a>(__LINE__)</td></tr>
 <tr class="separator:a697e3f8d08a488719c8168bad998393f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a123d326c50822a7f5fdbff8f0dec986f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ia_defines_8h.html#a123d326c50822a7f5fdbff8f0dec986f">__IGOR_STDCALL__</a>&#160;&#160;&#160;stdcall</td></tr>
 <tr class="separator:a123d326c50822a7f5fdbff8f0dec986f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -799,7 +801,7 @@ Enumerations</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define __IGOR_FILE_LINE__&#160;&#160;&#160;__FILE__ &lt;&lt; &quot;:&quot; &lt;&lt; <a class="el" href="ia_defines_8h.html#af4764c6d8b2d6ab8f06210f85fd99669">__IGOR_LINE__</a></td>
+          <td class="memname">#define __IGOR_FILE_LINE__&#160;&#160;&#160;__FILE__ &quot;:&quot; <a class="el" href="ia_defines_8h.html#a53a4af5a86745d27a1c31559b65eaa5c">S2</a>(__LINE__)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -856,18 +858,6 @@ Enumerations</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>definition of kilometer </p>
-
-</div>
-</div>
-<a class="anchor" id="af4764c6d8b2d6ab8f06210f85fd99669"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __IGOR_LINE__&#160;&#160;&#160;__LINE__</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -1136,6 +1126,38 @@ Enumerations</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define M_SQRT2&#160;&#160;&#160;1.41421356237309504880</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a59c41bcd16cbf3247d426429c3bf8e08"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define S1</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x</td><td>)</td>
+          <td>&#160;&#160;&#160;#x</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a53a4af5a86745d27a1c31559b65eaa5c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define S2</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">x</td><td>)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="ia_defines_8h.html#a59c41bcd16cbf3247d426429c3bf8e08">S1</a>(x)</td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -17,22 +17,22 @@ gets called for events like loading, unloading
 #pragma warning(disable : 4100)
 bool WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
-	switch (fdwReason)
-	{
-	case DLL_PROCESS_ATTACH: //!< when loaded
-		break;
-	case DLL_THREAD_ATTACH:
-		break;
-	case DLL_THREAD_DETACH:
-		break;
-	case DLL_PROCESS_DETACH: //!< when unloaded
-		break;
+    switch (fdwReason)
+    {
+    case DLL_PROCESS_ATTACH: //!< when loaded
+        break;
+    case DLL_THREAD_ATTACH:
+        break;
+    case DLL_THREAD_DETACH:
+        break;
+    case DLL_PROCESS_DETACH: //!< when unloaded
+        break;
 
-	default:
-		break;
-	}
+    default:
+        break;
+    }
 
-	return true;
+    return true;
 }
 #pragma warning(default : 4100)
 #endif // __IGOR_WINDOWS__
@@ -40,23 +40,23 @@ bool WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 namespace iaux
 {
 
-	void startup()
-	{
-		iaClock::resetClock();
-		iaConsole::getInstance().openLogfile();
-		con_assert_sticky(1 == sizeof(int8), "sizeof(int8) != 1");
-		con_assert_sticky(2 == sizeof(int16), "sizeof(int16) != 2");
-		con_assert_sticky(4 == sizeof(int32), "sizeof(int32) != 4");
-		con_assert_sticky(8 == sizeof(int64), "sizeof(int64) != 8");
-	}
+    void startup()
+    {
+        iaClock::resetClock();
+        iaConsole::getInstance().openLogfile();
+        con_assert_sticky(1 == sizeof(int8), "sizeof(int8) != 1");
+        con_assert_sticky(2 == sizeof(int16), "sizeof(int16) != 2");
+        con_assert_sticky(4 == sizeof(int32), "sizeof(int32) != 4");
+        con_assert_sticky(8 == sizeof(int64), "sizeof(int64) != 8");
+    }
 
-	void shutdown()
-	{
-		iaConsole::getInstance().setLogLevel(iaLogLevel::DebugInfo);
-		iaConsole::getInstance().printStats();
-		iaConsole::getInstance().closeLogfile();
-		iaConsole::getInstance().resetStats();
-		// do not destroy instance of iaConsole
-	}
+    void shutdown()
+    {
+        iaConsole::getInstance().setLogLevel(iaLogLevel::DebugInfo);
+        iaConsole::getInstance().printStats();
+        iaConsole::getInstance().closeLogfile();
+        iaConsole::getInstance().resetStats();
+        // do not destroy instance of iaConsole
+    }
 
 } // namespace iaux

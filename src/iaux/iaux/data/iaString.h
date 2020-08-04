@@ -41,598 +41,598 @@
 namespace iaux
 {
 
-	/*! string slpit mode
+    /*! string slpit mode
     */
-	enum class iaStringSplitMode
-	{
-		Normal,
-		RetriveAllEmpties
-	};
+    enum class iaStringSplitMode
+    {
+        Normal,
+        RetriveAllEmpties
+    };
 
-	/*! wide char (unicode) character string with trailing zero and length
+    /*! wide char (unicode) character string with trailing zero and length
 
 	\todo should eventually store data UTF-8 encoded internally
 	*/
-	class IgorAux_API iaString
-	{
+    class IgorAux_API iaString
+    {
 
-	public:
-		/*! this defines a position that is out of range
+    public:
+        /*! this defines a position that is out of range
 		*/
-		static const int64 INVALID_POSITION = -1;
+        static const int64 INVALID_POSITION = -1;
 
-		/*! default ctor does nothing
+        /*! default ctor does nothing
 		*/
-		iaString() = default;
+        iaString() = default;
 
-		/*! ctor with byte string
+        /*! ctor with byte string
 
 		\param text byte string
 		\param length if input string is not zero terminated or a custom length is needed
 		*/
-		iaString(const char *text, const int64 length = INVALID_POSITION);
+        iaString(const char *text, const int64 length = INVALID_POSITION);
 
-		/*! copies unicode string
+        /*! copies unicode string
 
 		\param text unicode string
 		\param length if input string is not zero terminated or a custom length is needed
 		*/
-		iaString(const wchar_t *text, const int64 length = INVALID_POSITION);
+        iaString(const wchar_t *text, const int64 length = INVALID_POSITION);
 
-		/*! creates a string with only one character
+        /*! creates a string with only one character
 
         \param character the wide character to create the string with
         */
-		iaString(const wchar_t character);
+        iaString(const wchar_t character);
 
-		/*! creates a string with only one character
+        /*! creates a string with only one character
 
         \param character the character to create the string with
         */
-		iaString(const char character);
+        iaString(const char character);
 
-		/*! copy ctor
+        /*! copy ctor
 
 		\param text the string to copy from
 		*/
-		iaString(const iaString &text);
+        iaString(const iaString &text);
 
-		/*! dtor releases allocated memory
+        /*! dtor releases allocated memory
 		*/
-		~iaString();
+        ~iaString();
 
-		/*! \returns character count of the string without trailing zero
+        /*! \returns character count of the string without trailing zero
 		*/
-		int64 getLength() const;
+        int64 getLength() const;
 
-		/*! \returns hash value for current text
+        /*! \returns hash value for current text
         */
-		int64 getHashValue() const;
+        int64 getHashValue() const;
 
-		/*! change string to lower case letters
+        /*! change string to lower case letters
         */
-		void toLower();
+        void toLower();
 
-		/*! change string to upper case letters
+        /*! change string to upper case letters
         */
-		void toUpper();
+        void toUpper();
 
-		/*! + operator concatanates two strings
+        /*! + operator concatanates two strings
 
 		\param text the string to add
 		\returns resulting concatanated string
 		*/
-		iaString operator+(const iaString &text) const;
+        iaString operator+(const iaString &text) const;
 
-		/*! += operator concatanates strings
+        /*! += operator concatanates strings
 
 		\param text the string to add to the current string
 		*/
-		void operator+=(const iaString &text);
+        void operator+=(const iaString &text);
 
-		/*! + operator to add a single character
-
-		\param character character to add
-		*/
-		iaString operator+(const wchar_t &character) const;
-
-		/*! += operator to add a single character
+        /*! + operator to add a single character
 
 		\param character character to add
 		*/
-		void operator+=(const wchar_t &character);
+        iaString operator+(const wchar_t &character) const;
 
-		/*! == operator to compare to strings
+        /*! += operator to add a single character
+
+		\param character character to add
+		*/
+        void operator+=(const wchar_t &character);
+
+        /*! == operator to compare to strings
 
 		\param text the string to compare with
 		\returns true: if equal; false if not equal
 		*/
-		bool operator==(const iaString &text) const;
+        bool operator==(const iaString &text) const;
 
-		/*! == operator to compare to strings
-
-        \param text the string to compare with
-        \returns true: if equal; false if not equal
-        */
-		bool operator==(const wchar_t *text) const;
-
-		/*! == operator to compare to strings
+        /*! == operator to compare to strings
 
         \param text the string to compare with
         \returns true: if equal; false if not equal
         */
-		bool operator==(const char *text) const;
+        bool operator==(const wchar_t *text) const;
 
-		/*! ++ operator to compare to strings
+        /*! == operator to compare to strings
+
+        \param text the string to compare with
+        \returns true: if equal; false if not equal
+        */
+        bool operator==(const char *text) const;
+
+        /*! ++ operator to compare to strings
 
 		\param text the strin to compare with
 		\returns true: if not equal; false if equal
 		*/
-		bool operator!=(const iaString &text) const;
+        bool operator!=(const iaString &text) const;
 
-		/*! = operator overwrites current string with new string
+        /*! = operator overwrites current string with new string
 
 		\param text the new string
 		\returns the new string
 		*/
-		iaString operator=(const iaString &text);
+        iaString operator=(const iaString &text);
 
-		/*! = operator overwrites current string with new string
-
-        \param text the new string
-        \returns the new string
-        */
-		iaString operator=(const wchar_t *text);
-
-		/*! = operator overwrites current string with new string
+        /*! = operator overwrites current string with new string
 
         \param text the new string
         \returns the new string
         */
-		iaString operator=(const char *text);
+        iaString operator=(const wchar_t *text);
 
-		/*! = operator overwrites current string with one character
+        /*! = operator overwrites current string with new string
+
+        \param text the new string
+        \returns the new string
+        */
+        iaString operator=(const char *text);
+
+        /*! = operator overwrites current string with one character
 
         \param character the character
         \returns the new string
         */
-		iaString operator=(const wchar_t character);
+        iaString operator=(const wchar_t character);
 
-		/*! = operator overwrites current string with one character
+        /*! = operator overwrites current string with one character
 
         \param character the character
         \returns the new string
         */
-		iaString operator=(const char character);
+        iaString operator=(const char character);
 
-		/*! compares two strings and returns true if the left hand side string is considered smaller
-
-		\param text the right hand side string
-		*/
-		bool operator<(const iaString &text) const;
-
-		/*! compares two strings and returns true if the left hand side string is considered bigger
+        /*! compares two strings and returns true if the left hand side string is considered smaller
 
 		\param text the right hand side string
 		*/
-		bool operator>(const iaString &text) const;
+        bool operator<(const iaString &text) const;
 
-		/*! \returns charachter at given position for manipulation
+        /*! compares two strings and returns true if the left hand side string is considered bigger
+
+		\param text the right hand side string
+		*/
+        bool operator>(const iaString &text) const;
+
+        /*! \returns charachter at given position for manipulation
 		\param index the position to get the character from
 		*/
-		wchar_t &operator[](const int64 index);
+        wchar_t &operator[](const int64 index);
 
-		/*! \returns charachter at given position
+        /*! \returns charachter at given position
 		\param index the position to get the character from
 		*/
-		const wchar_t &operator[](const int64 index) const;
+        const wchar_t &operator[](const int64 index) const;
 
-		/*! \returns specified substring
+        /*! \returns specified substring
 
 		\param pos substring from
 		\param len substring length
 		*/
-		iaString getSubString(const int64 pos, const int64 len = INVALID_POSITION) const;
+        iaString getSubString(const int64 pos, const int64 len = INVALID_POSITION) const;
 
-		/*! plsits a string based on delimiter in to tokens (or substrings)
+        /*! plsits a string based on delimiter in to tokens (or substrings)
 
         \param delimiters string with delimiter characters
         \param tokens the resulting tokens
         */
-		void split(const iaString &delimiters, std::vector<iaString> &tokens, iaStringSplitMode splitMode = iaStringSplitMode::Normal) const;
+        void split(const iaString &delimiters, std::vector<iaString> &tokens, iaStringSplitMode splitMode = iaStringSplitMode::Normal) const;
 
-		/*! same as split with delimiter string but only for one delimiter character
-
-        \param delimiter single delimiter character
-        \param tokens the resulting tokens
-        */
-		void split(const wchar_t delimiter, std::vector<iaString> &tokens, iaStringSplitMode splitMode = iaStringSplitMode::Normal) const;
-
-		/*! same as split with delimiter string but only for one delimiter character
+        /*! same as split with delimiter string but only for one delimiter character
 
         \param delimiter single delimiter character
         \param tokens the resulting tokens
         */
-		void split(const char delimiter, std::vector<iaString> &tokens, iaStringSplitMode splitMode = iaStringSplitMode::Normal) const;
+        void split(const wchar_t delimiter, std::vector<iaString> &tokens, iaStringSplitMode splitMode = iaStringSplitMode::Normal) const;
 
-		/*! \returns position of first occurence of specified characters
+        /*! same as split with delimiter string but only for one delimiter character
+
+        \param delimiter single delimiter character
+        \param tokens the resulting tokens
+        */
+        void split(const char delimiter, std::vector<iaString> &tokens, iaStringSplitMode splitMode = iaStringSplitMode::Normal) const;
+
+        /*! \returns position of first occurence of specified characters
 
 		if not found iaString::INVALID_POSITION will be returned
 
 		\param characters the characters to search for
 		\param from optional parameter to define start index to search from
 		*/
-		int64 findFirstOf(const wchar_t *characters, const int64 from = INVALID_POSITION) const;
+        int64 findFirstOf(const wchar_t *characters, const int64 from = INVALID_POSITION) const;
 
-		/*! \returns position of first occurence of specified character
+        /*! \returns position of first occurence of specified character
 
         if not found INVALID_POSITION will be returned
 
         \param character the character to search for
         \param from optional parameter to define start index to search from
         */
-		int64 findFirstOf(const wchar_t character, const int64 from = INVALID_POSITION) const;
+        int64 findFirstOf(const wchar_t character, const int64 from = INVALID_POSITION) const;
 
-		/*! \returns position of first occurence NOT of specified characters
+        /*! \returns position of first occurence NOT of specified characters
 
 		if not found INVALID_POSITION will be returned
 
 		\param characters the characters to NOT search for
 		\param from optional parameter to define start index to search from
 		*/
-		int64 findFirstNotOf(const wchar_t *characters, const int64 from = INVALID_POSITION) const;
+        int64 findFirstNotOf(const wchar_t *characters, const int64 from = INVALID_POSITION) const;
 
-		/*! \returns position of first occurence NOT of specified character
+        /*! \returns position of first occurence NOT of specified character
 
         if not found INVALID_POSITION will be returned
 
         \param character the character to NOT search for
         \param from optional parameter to define start index to search from
         */
-		int64 findFirstNotOf(const wchar_t character, const int64 from = INVALID_POSITION) const;
+        int64 findFirstNotOf(const wchar_t character, const int64 from = INVALID_POSITION) const;
 
-		/*! \returns position of last occurence of specified character
+        /*! \returns position of last occurence of specified character
 
 		if not found INVALID_POSITION will be returned
 
 		\param character the character to search for
 		*/
-		int64 findLastOf(const wchar_t character) const;
+        int64 findLastOf(const wchar_t character) const;
 
-		/*! \returns position of last occurence of specified characters
+        /*! \returns position of last occurence of specified characters
 
         if not found INVALID_POSITION will be returned
 
         \param characters the characters to search for
         */
-		int64 findLastOf(const wchar_t *characters) const;
+        int64 findLastOf(const wchar_t *characters) const;
 
-		/*! \returns position of last occurence NOT of specified character
+        /*! \returns position of last occurence NOT of specified character
 
 		if not found INVALID_POSITION will be returned
 
 		\param character the character to search for
 		*/
-		int64 findLastNotOf(const wchar_t character) const;
+        int64 findLastNotOf(const wchar_t character) const;
 
-		/*! \returns position of last occurence NOT of specified characters
+        /*! \returns position of last occurence NOT of specified characters
 
 		if not found INVALID_POSITION will be returned
 
 		\param characters the characters to search for
 		*/
-		int64 findLastNotOf(const wchar_t *characters) const;
+        int64 findLastNotOf(const wchar_t *characters) const;
 
-		/*! empties the string
+        /*! empties the string
 		*/
-		void clear();
+        void clear();
 
-		/*! \returns true: if string is empty; false if not
+        /*! \returns true: if string is empty; false if not
 		*/
-		bool isEmpty() const;
+        bool isEmpty() const;
 
-		/*! \returns pointer to raw data
+        /*! \returns pointer to raw data
 		*/
-		const wchar_t *getData() const;
+        const wchar_t *getData() const;
 
-		/*! returns null terminated byte string
+        /*! returns null terminated byte string
 
 		\param buffer pre allocated buffer to write the string to
 		\param size size of preallocated buffer
 		\returns actual size of written data including ending zero
 		*/
-		int64 getData(char *buffer, const int64 size) const;
+        int64 getData(char *buffer, const int64 size) const;
 
-		/*! returns utf8 encoded string
+        /*! returns utf8 encoded string
 
         \param buffer the detination buffer for the utf8 string
         \param size the size of the destination buffer
         \returns bytes written to destination buffer
         */
-		int64 getUTF8(char *buffer, const int64 size) const;
+        int64 getUTF8(char *buffer, const int64 size) const;
 
-		/*! calclates the size in bytes of the string encoded in utf8
+        /*! calclates the size in bytes of the string encoded in utf8
 
         \returns size in bytes
         */
-		int64 getUTF8Size() const;
+        int64 getUTF8Size() const;
 
-		/*! set string with utf8 encoded string
+        /*! set string with utf8 encoded string
 
         \param buffer source buffer with utf8 string
         \param size the size of the source buffer
         */
-		void setUTF8(const char *buffer, const int64 size);
+        void setUTF8(const char *buffer, const int64 size);
 
-		/*! reverses the string
+        /*! reverses the string
         */
-		void reverse();
+        void reverse();
 
-		/*! transforms an integer to a iaString
+        /*! transforms an integer to a iaString
         
         \param value the integer value
 		\param base the number base 
         \returns isString
         */
-		static iaString toString(uint64 value, int base = 10);
+        static iaString toString(uint64 value, int base = 10);
 
-		/*! transforms an integer to a iaString
-
-		\param value the integer value
-		\param base the number base 
-		\returns isString
-		*/
-		static iaString toString(int64 value, int base = 10);
-
-		/*! transforms an integer to a iaString
+        /*! transforms an integer to a iaString
 
 		\param value the integer value
 		\param base the number base 
 		\returns isString
 		*/
-		static iaString toString(int32 value, int base = 10);
+        static iaString toString(int64 value, int base = 10);
 
-		/*! transforms an integer to a iaString
+        /*! transforms an integer to a iaString
 
 		\param value the integer value
 		\param base the number base 
 		\returns isString
 		*/
-		static iaString toString(uint32 value, int base = 10);
+        static iaString toString(int32 value, int base = 10);
 
-		/*! transforms a float to a iaString
+        /*! transforms an integer to a iaString
+
+		\param value the integer value
+		\param base the number base 
+		\returns isString
+		*/
+        static iaString toString(uint32 value, int base = 10);
+
+        /*! transforms a float to a iaString
 
         \param value the float value
         \param afterPoint defines how many digits after the point
         \returns isString
         */
-		static iaString toString(float64 value, int afterPoint = 4);
+        static iaString toString(float64 value, int afterPoint = 4);
 
-		/*! transforms a float to a iaString
+        /*! transforms a float to a iaString
 
 		\param value the float value
 		\param afterPoint defines how many digits after the point
 		\returns isString
 		*/
-		static iaString toString(float32 value, int afterPoint = 4);
+        static iaString toString(float32 value, int afterPoint = 4);
 
-		/*! transforms a iaString to a float
-
-        \param text the string
-        \returns value
-        */
-		static float64 toFloat(const iaString &text);
-
-		/*! transforms a iaString to a int64
+        /*! transforms a iaString to a float
 
         \param text the string
         \returns value
         */
-		static int64 toInt(const iaString &text);
+        static float64 toFloat(const iaString &text);
 
-		/*! converts string in to bool value
+        /*! transforms a iaString to a int64
+
+        \param text the string
+        \returns value
+        */
+        static int64 toInt(const iaString &text);
+
+        /*! converts string in to bool value
 
 		on error it falls back to false
 
 		\param text the text to convert
 		\returns true of false depending on the text
 		*/
-		static bool toBool(const iaString &text);
+        static bool toBool(const iaString &text);
 
-		/*! converts a string to a 2d vector
-
-		expect two comma separated values
-
-		\param text the text to parse
-		\param[out] vector the resulting vector
-		*/
-		template <class T>
-		static void toVector(const iaString &text, iaVector2<T> &vector);
-
-		/*! converts a string to a 3d vector
+        /*! converts a string to a 2d vector
 
 		expect two comma separated values
 
 		\param text the text to parse
 		\param[out] vector the resulting vector
 		*/
-		template <class T>
-		static void toVector(const iaString &text, iaVector3<T> &vector);
+        template <class T>
+        static void toVector(const iaString &text, iaVector2<T> &vector);
 
-		/*! converts a string to a 4d vector
+        /*! converts a string to a 3d vector
 
 		expect two comma separated values
 
 		\param text the text to parse
 		\param[out] vector the resulting vector
 		*/
-		template <class T>
-		static void toVector(const iaString &text, iaVector4<T> &vector);
+        template <class T>
+        static void toVector(const iaString &text, iaVector3<T> &vector);
 
-		/*! insert text at given position
+        /*! converts a string to a 4d vector
+
+		expect two comma separated values
+
+		\param text the text to parse
+		\param[out] vector the resulting vector
+		*/
+        template <class T>
+        static void toVector(const iaString &text, iaVector4<T> &vector);
+
+        /*! insert text at given position
 
 		\param text the text to insert
 		\param pos the position where to insert the text
 		*/
-		void insert(const iaString &text, int64 pos);
+        void insert(const iaString &text, int64 pos);
 
-		/*! removed charcters from string
+        /*! removed charcters from string
 
 		\param pos index of first character to remove
 		\param length amount of characters to remove
 		*/
-		void remove(int64 pos, int64 length);
+        void remove(int64 pos, int64 length);
 
-		/*! trims white spaces on the left hand side
-
-		\param text the source text
-		\returns the trimmed text
-		*/
-		static iaString trimLeft(const iaString &text);
-
-		/*! trims white spaces on the right hand side
+        /*! trims white spaces on the left hand side
 
 		\param text the source text
 		\returns the trimmed text
 		*/
-		static iaString trimRight(const iaString &text);
+        static iaString trimLeft(const iaString &text);
 
-		/*! trims white spaces on both ends of the string
+        /*! trims white spaces on the right hand side
 
 		\param text the source text
 		\returns the trimmed text
 		*/
-		static iaString trim(const iaString &text);
+        static iaString trimRight(const iaString &text);
 
-		/*! \returns true if the text matches the regular expression
+        /*! trims white spaces on both ends of the string
+
+		\param text the source text
+		\returns the trimmed text
+		*/
+        static iaString trim(const iaString &text);
+
+        /*! \returns true if the text matches the regular expression
 
 		\param text the given text
 		\param regex the given regular expression
 		*/
-		static bool matchRegex(const iaString &text, const iaString &regex);
+        static bool matchRegex(const iaString &text, const iaString &regex);
 
-		/*! replace sections in source text and return destination text
+        /*! replace sections in source text and return destination text
 
 		\param[out] dst the destination text
 		\param src the source text
 		\param regex the regular expression to find the patterns to replace
 		\param replaceWith the text to replace the patterns with
 		*/
-		static void replaceRegex(const iaString& src, const iaString& regex, const iaString& replaceWith, iaString& dst);
+        static void replaceRegex(const iaString &src, const iaString &regex, const iaString &replaceWith, iaString &dst);
 
-		/*! searches for matches in string with given regular expression
+        /*! searches for matches in string with given regular expression
 
 		\param src the source string to search
 		\param regex the regular expression
 		\param[out] the found matches
 		*/
-		static bool searchRegex(const iaString& src, const iaString& regex, std::vector<iaString>& matches);
+        static bool searchRegex(const iaString &src, const iaString &regex, std::vector<iaString> &matches);
 
-	private:
-		/*! string length without ending zero
+    private:
+        /*! string length without ending zero
         */
-		int64 _charCount = 0;
+        int64 _charCount = 0;
 
-		/*! pointer to actual data
+        /*! pointer to actual data
         */
-		wchar_t *_data = nullptr;
+        wchar_t *_data = nullptr;
 
-		/*! \returns size of data in bytes
+        /*! \returns size of data in bytes
 		*/
-		int64 getSize() const;
+        int64 getSize() const;
 
-		/*! internal set data
+        /*! internal set data
 
 		\param text the data to set
         \param size the size of the buffer
 		*/
-		void setData(const wchar_t *text, const int64 size = INVALID_POSITION);
+        void setData(const wchar_t *text, const int64 size = INVALID_POSITION);
 
-		/*! converts byte string to unicode string
+        /*! converts byte string to unicode string
 
 		\param text the data to set
 		\param size the size of the buffer
 		*/
-		void setData(const char *text, const int64 size = INVALID_POSITION);
+        void setData(const char *text, const int64 size = INVALID_POSITION);
 
-		/*! internal implementation of toString
+        /*! internal implementation of toString
 
 		\param x the number to turn in to a string
 		\param d number of digits in output if d is bigger than digits in x 0s will be added
 		\returns string with number
 		*/
-		static iaString intToStrInternal(uint64 x, int d, int base = 10);
-	};
+        static iaString intToStrInternal(uint64 x, int d, int base = 10);
+    };
 
-	/*! stream operator
+    /*! stream operator
 
     \param stream the destination
     \param text the string to stream
     \returns the resulting stream
     */
-	IgorAux_API std::wostream &operator<<(std::wostream &stream, const iaString &text);
+    IgorAux_API std::wostream &operator<<(std::wostream &stream, const iaString &text);
 
-	/*! stream operator
+    /*! stream operator
 
     \param stream the destination
     \param texts a list of string to stream
     \returns the resulting stream
     */
-	IgorAux_API std::wostream &operator<<(std::wostream &stream, const std::vector<iaString> &texts);
+    IgorAux_API std::wostream &operator<<(std::wostream &stream, const std::vector<iaString> &texts);
 
-	template <class T>
-	void iaString::toVector(const iaString &text, iaVector2<T> &vector)
-	{
-		std::vector<iaString> tokens;
-		text.split(',', tokens);
-		con_assert(tokens.size() == 2, "invalid format");
+    template <class T>
+    void iaString::toVector(const iaString &text, iaVector2<T> &vector)
+    {
+        std::vector<iaString> tokens;
+        text.split(',', tokens);
+        con_assert(tokens.size() == 2, "invalid format");
 
-		float64 x = iaString::toFloat(iaString::trim(tokens[0]));
-		float64 y = iaString::toFloat(iaString::trim(tokens[1]));
+        float64 x = iaString::toFloat(iaString::trim(tokens[0]));
+        float64 y = iaString::toFloat(iaString::trim(tokens[1]));
 
-		vector.set(static_cast<T>(x), static_cast<T>(y));
-	}
+        vector.set(static_cast<T>(x), static_cast<T>(y));
+    }
 
-	template <class T>
-	void iaString::toVector(const iaString &text, iaVector3<T> &vector)
-	{
-		std::vector<iaString> tokens;
-		text.split(',', tokens);
-		con_assert(tokens.size() == 3, "invalid format");
+    template <class T>
+    void iaString::toVector(const iaString &text, iaVector3<T> &vector)
+    {
+        std::vector<iaString> tokens;
+        text.split(',', tokens);
+        con_assert(tokens.size() == 3, "invalid format");
 
-		float64 x = iaString::toFloat(iaString::trim(tokens[0]));
-		float64 y = iaString::toFloat(iaString::trim(tokens[1]));
-		float64 z = iaString::toFloat(iaString::trim(tokens[2]));
+        float64 x = iaString::toFloat(iaString::trim(tokens[0]));
+        float64 y = iaString::toFloat(iaString::trim(tokens[1]));
+        float64 z = iaString::toFloat(iaString::trim(tokens[2]));
 
-		vector.set(static_cast<T>(x), static_cast<T>(y), static_cast<T>(z));
-	}
+        vector.set(static_cast<T>(x), static_cast<T>(y), static_cast<T>(z));
+    }
 
-	template <class T>
-	void iaString::toVector(const iaString &text, iaVector4<T> &vector)
-	{
-		std::vector<iaString> tokens;
-		text.split(',', tokens);
-		con_assert(tokens.size() == 4, "invalid format");
+    template <class T>
+    void iaString::toVector(const iaString &text, iaVector4<T> &vector)
+    {
+        std::vector<iaString> tokens;
+        text.split(',', tokens);
+        con_assert(tokens.size() == 4, "invalid format");
 
-		float64 x = iaString::toFloat(iaString::trim(tokens[0]));
-		float64 y = iaString::toFloat(iaString::trim(tokens[1]));
-		float64 z = iaString::toFloat(iaString::trim(tokens[2]));
-		float64 w = iaString::toFloat(iaString::trim(tokens[4]));
+        float64 x = iaString::toFloat(iaString::trim(tokens[0]));
+        float64 y = iaString::toFloat(iaString::trim(tokens[1]));
+        float64 z = iaString::toFloat(iaString::trim(tokens[2]));
+        float64 w = iaString::toFloat(iaString::trim(tokens[4]));
 
-		vector.set(static_cast<T>(x), static_cast<T>(y), static_cast<T>(z), static_cast<T>(w));
-	}
+        vector.set(static_cast<T>(x), static_cast<T>(y), static_cast<T>(z), static_cast<T>(w));
+    }
 } // namespace iaux
 
 namespace std
 {
-	template <>
-	struct less<iaux::iaString>
-	{
-		bool operator()(const iaux::iaString &lhs, const iaux::iaString &rhs) const
-		{
-			return lhs < rhs;
-		}
-	};
+    template <>
+    struct less<iaux::iaString>
+    {
+        bool operator()(const iaux::iaString &lhs, const iaux::iaString &rhs) const
+        {
+            return lhs < rhs;
+        }
+    };
 } // namespace std
 
 #endif // __IAUX_STRING_H__

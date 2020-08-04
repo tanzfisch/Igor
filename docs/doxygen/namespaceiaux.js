@@ -25,6 +25,7 @@ var namespaceiaux =
     [ "iaState", "classiaux_1_1ia_state.html", "classiaux_1_1ia_state" ],
     [ "iaStateMachine", "classiaux_1_1ia_state_machine.html", "classiaux_1_1ia_state_machine" ],
     [ "iaString", "classiaux_1_1ia_string.html", "classiaux_1_1ia_string" ],
+    [ "iaTest", "classiaux_1_1ia_test.html", "classiaux_1_1ia_test" ],
     [ "iaThread", "classiaux_1_1ia_thread.html", "classiaux_1_1ia_thread" ],
     [ "iaTime", "classiaux_1_1ia_time.html", "classiaux_1_1ia_time" ],
     [ "iaTransform", "classiaux_1_1ia_transform.html", "classiaux_1_1ia_transform" ],

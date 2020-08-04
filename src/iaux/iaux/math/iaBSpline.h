@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iBSPLINE__
-#define __iBSPLINE__
+#ifndef __IAUX_BSPLINE_H__
+#define __IAUX_BSPLINE_H__
 
 #include <iaux/iaDefines.h>
 #include <iaux/math/iaVector3.h>
@@ -144,4 +144,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif
+#endif // __IAUX_BSPLINE_H__

@@ -3,7 +3,7 @@ var classigor_1_1i_widget_check_box =
     [ "iWidgetCheckBox", "classigor_1_1i_widget_check_box.html#a7ecd8bb38eaf9cd3c9fc07672fbec1ab", null ],
     [ "~iWidgetCheckBox", "classigor_1_1i_widget_check_box.html#acfb7e4149ba12606757d129f0c216da8", null ],
     [ "beginRadioButtonGroup", "classigor_1_1i_widget_check_box.html#a10b63197b3a04aeebf3a7a0abe735a5e", null ],
-    [ "calcMinSize", "classigor_1_1i_widget_check_box.html#aa8c9097773a91f24b3b7eda0f9e5591b", null ],
+    [ "calcMinSize", "classigor_1_1i_widget_check_box.html#aff8eb39f653456e810332bd40fb3fa10", null ],
     [ "draw", "classigor_1_1i_widget_check_box.html#ab1cbb15092234140e93754f20008474b", null ],
     [ "endRadioButtonGroup", "classigor_1_1i_widget_check_box.html#a136796a81650f948bbe3ed9b9bc9b076", null ],
     [ "getText", "classigor_1_1i_widget_check_box.html#a271c35a3217f535400b4262d38caea4d", null ],

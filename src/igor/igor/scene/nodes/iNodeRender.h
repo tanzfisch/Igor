@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iRENDERNODE__
-#define __iRENDERNODE__
+#ifndef __IGOR_RENDERNODE_H__
+#define __IGOR_RENDERNODE_H__
 
 #include <igor/scene/nodes/iNode.h>
 #include <iaux/math/iaMatrix.h>
@@ -126,6 +126,10 @@ namespace igor
         uint64 _materialID = iMaterial::INVALID_MATERIAL_ID;
     };
 
+    /*! render node pointer definition
+    */
+    typedef iNodeRender *iNodeRenderPtr;
+
 }; // namespace igor
 
-#endif
+#endif // __IGOR_RENDERNODE_H__

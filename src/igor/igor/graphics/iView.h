@@ -257,9 +257,11 @@ namespace igor
         */
         bool isPerspective() const;
 
-        /*! init statistics counters
+        /*! init members
+
+        \param useProfiling if true this view will make do profiling
         */
-        iView();
+        iView(bool useProfiling = true);
 
         /*! checks consistency
         */
@@ -270,9 +272,13 @@ namespace igor
         */
         int32 _zIndex = 0;
 
-        /*! id for statistics counter section user draw calls
+        /*! id for profiler section user draw calls
         */
-        uint32 _userDrawSectionID = 0;
+        iProfilerSectionID _userDrawSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
+
+        /*! id for profiler section scene handling
+        */
+        iProfilerSectionID _sceneSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
 
         /*! visible flag
         */

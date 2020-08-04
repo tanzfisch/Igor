@@ -12,7 +12,6 @@
 #include <igor/system/iKeyboard.h>
 #include <igor/graphics/iRenderer.h>
 #include <igor/threading/iTaskManager.h>
-#include <igor/resources/profiler/iProfiler.h>
 #include <igor/events/iEventWindow.h>
 
 #include <algorithm>
@@ -1120,12 +1119,13 @@ namespace igor
 
         void setVSync(bool vsync) override
         {
-            // glXSwapIntervalMESA(vsync ? 1 : 0);
+            _vsync = vsync;
+            glXSwapIntervalEXT(_display, _xwindow, _vsync ? 1 : 0);
         }
 
         bool getVSync() const override
         {
-            return false; // glXGetSwapIntervalMESA() > 0 ? true : false;
+            return _vsync;
         }
 
         void getDesktopSize(int32 &width, int32 &height) override
@@ -1177,6 +1177,10 @@ namespace igor
         /*! desktop mode
         */
         XF86VidModeModeInfo _desktopmode;
+
+        /*! stores the last vsync setting
+        */
+        bool _vsync = true;
     };
 
 #endif // __IGOR_LINUX__
@@ -1194,7 +1198,7 @@ namespace igor
 
         _impl->calcClientSize();
 
-        _swapBufferSectionID = iProfiler::getInstance().registerSection("window:swap", 0);
+        _swapBufferSectionID = iProfiler::getInstance().createSection("swap"); // TODO how do we handle this with multiple windows?
     }
 
     iWindow::~iWindow()

@@ -438,7 +438,7 @@ namespace igor
         iaMatrixd matrix;
         iRenderer::getInstance().setModelMatrix(matrix);
 
-        uint64 material = iMaterialResourceFactory::getInstance().createMaterial();
+        uint64 material = iMaterialResourceFactory::getInstance().createMaterial("igor.octree");
         iMaterialResourceFactory::getInstance().getMaterial(material)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
         iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(material));
 

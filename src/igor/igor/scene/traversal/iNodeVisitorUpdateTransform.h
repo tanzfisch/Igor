@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iNODEVISITORUPDATETRANSFORM__
-#define __iNODEVISITORUPDATETRANSFORM__
+#ifndef __IGOR_NODEVISITORUPDATETRANSFORM_H__
+#define __IGOR_NODEVISITORUPDATETRANSFORM_H__
 
 #include <igor/scene/traversal/iNodeVisitor.h>
 
@@ -82,4 +82,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_NODEVISITORUPDATETRANSFORM_H__

@@ -50,20 +50,20 @@ namespace OMPF
             return false;
         }
 
-        con_debug_endl("---------------------------------------------------");
-        con_debug_endl("write ompfEmitterChunk " << this->getName());
+        con_debug("---------------------------------------------------");
+        con_debug("write ompfEmitterChunk " << this->getName());
 
         if (!iaSerializable::writeFloat32(file, _size))
         {
             return false;
         }
-        con_debug_endl("size " << _size);
+        con_debug("size " << _size);
 
         if (!iaSerializable::writeUInt8(file, static_cast<uint8>(_type)))
         {
             return false;
         }
-        con_debug_endl("type " << static_cast<uint8>(_type));
+        con_debug("type " << static_cast<uint8>(_type));
 
         return true;
     }
@@ -75,14 +75,14 @@ namespace OMPF
             return false;
         }
 
-        con_debug_endl("---------------------------------------------------");
-        con_debug_endl("read ompfEmitterChunk " << this->getName());
+        con_debug("---------------------------------------------------");
+        con_debug("read ompfEmitterChunk " << this->getName());
 
         if (!iaSerializable::readFloat32(file, _size))
         {
             return false;
         }
-        con_debug_endl("size " << _size);
+        con_debug("size " << _size);
 
         uint8 typeValue;
         if (!iaSerializable::readUInt8(file, typeValue))
@@ -90,7 +90,7 @@ namespace OMPF
             return false;
         }
         _type = static_cast<OMPFEmitterType>(typeValue);
-        con_debug_endl("type " << static_cast<uint8>(_type));
+        con_debug("type " << static_cast<uint8>(_type));
 
         return true;
     }

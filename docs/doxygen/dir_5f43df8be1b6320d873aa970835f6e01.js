@@ -38,9 +38,7 @@ var dir_5f43df8be1b6320d873aa970835f6e01 =
     [ "iNodePhysics.cpp", "i_node_physics_8cpp.html", null ],
     [ "iNodePhysics.h", "i_node_physics_8h.html", "i_node_physics_8h" ],
     [ "iNodeRender.cpp", "i_node_render_8cpp.html", null ],
-    [ "iNodeRender.h", "i_node_render_8h.html", [
-      [ "iNodeRender", "classigor_1_1i_node_render.html", "classigor_1_1i_node_render" ]
-    ] ],
+    [ "iNodeRender.h", "i_node_render_8h.html", "i_node_render_8h" ],
     [ "iNodeSkyBox.cpp", "i_node_sky_box_8cpp.html", null ],
     [ "iNodeSkyBox.h", "i_node_sky_box_8h.html", [
       [ "iNodeSkyBox", "classigor_1_1i_node_sky_box.html", "classigor_1_1i_node_sky_box" ]

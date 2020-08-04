@@ -20,7 +20,6 @@
 #include <igor/physics/iPhysics.h>
 #include <igor/physics/iPhysicsBody.h>
 #include <igor/resources/mesh/iMesh.h>
-#include <igor/resources/profiler/iProfiler.h>
 #include <igor/generation/iContouringCubes.h>
 #include <igor/generation/iPerlinNoise.h>
 #include <igor/data/iIntersection.h>
@@ -60,20 +59,17 @@ namespace igor
                                  iVoxelTerrainPlacePropsDelegate placePropsDelegate,
                                  uint32 lodCount,
                                  uint32 voxelBlockSetupDistance,
-                                 const iaVector3I *maxDiscoveryBoundaries)
+                                 const iaVector3I &maxDiscoveryBoundaries)
     {
         con_assert_sticky(lodCount >= 2, "lod count out of range");
         con_assert_sticky(lodCount <= 11, "lod count out of range");
         con_assert_sticky(voxelBlockSetupDistance >= 2, "voxel block setup distance out of range");
 
-        if (maxDiscoveryBoundaries != nullptr)
-        {
-            con_assert_sticky(maxDiscoveryBoundaries->_x > 0, "discovery boundaries out of range");
-            con_assert_sticky(maxDiscoveryBoundaries->_y > 0, "discovery boundaries out of range");
-            con_assert_sticky(maxDiscoveryBoundaries->_z > 0, "discovery boundaries out of range");
-            _maxDiscoveryBoundaries = *maxDiscoveryBoundaries;
-        }
+        con_assert_sticky(maxDiscoveryBoundaries._x > 0, "discovery boundaries out of range");
+        con_assert_sticky(maxDiscoveryBoundaries._y > 0, "discovery boundaries out of range");
+        con_assert_sticky(maxDiscoveryBoundaries._z > 0, "discovery boundaries out of range");
 
+        _maxDiscoveryBoundaries = maxDiscoveryBoundaries;
         _placePropsDelegate = placePropsDelegate;
         _generateVoxelsDelegate = generateVoxelsDelegate;
         _lowestLOD = lodCount - 1;
@@ -184,15 +180,6 @@ namespace igor
             _voxelBlocks.push_back(voxelBlocks);
         }
 
-#ifdef IGOR_USE_VERBOSE_PROFILING
-        _totalSection = iProfiler::getInstance().registerSection("VT:all", 3);
-        _discoverBlocksSection = iProfiler::getInstance().registerSection("VT:discover", 3);
-        _updateBlocksSection = iProfiler::getInstance().registerSection("VT:update", 3);
-        _deleteBlocksSection = iProfiler::getInstance().registerSection("VT:delete", 3);
-        _applyActionsSection = iProfiler::getInstance().registerSection("VT:applyActions", 3);
-        _updateVisBlocksSection = iProfiler::getInstance().registerSection("VT:vis", 3);
-#endif
-
         // set up terrain material
         _terrainMaterialID = iMaterialResourceFactory::getInstance().getDefaultMaterialID();
 
@@ -236,17 +223,7 @@ namespace igor
 
     void iVoxelTerrain::update()
     {
-#ifdef IGOR_USE_VERBOSE_PROFILING
-        iProfiler::getInstance().beginSection(_totalSection);
-#endif
-
-#ifdef IGOR_USE_VERBOSE_PROFILING
-        iProfiler::getInstance().beginSection(_deleteBlocksSection);
-#endif
         deleteBlocks();
-#ifdef IGOR_USE_VERBOSE_PROFILING
-        iProfiler::getInstance().endSection(_deleteBlocksSection);
-#endif
 
         iNodeLODTrigger *lodTrigger = static_cast<iNodeLODTrigger *>(iNodeManager::getInstance().getNode(_lodTrigger));
         if (lodTrigger != nullptr)
@@ -264,35 +241,17 @@ namespace igor
 #ifdef DEBUG_VOXEL_TERRAIN_FIX_HEIGHT
             pos._y = DEBUG_VOXEL_TERRAIN_FIX_HEIGHT;
 #endif
-
             iaVector3I observerPosition = pos.convert<int64>();
 
-#ifdef IGOR_USE_VERBOSE_PROFILING
-            iProfiler::getInstance().beginSection(_discoverBlocksSection);
-#endif
             discoverBlocks(observerPosition);
-#ifdef IGOR_USE_VERBOSE_PROFILING
-            iProfiler::getInstance().endSection(_discoverBlocksSection);
-#endif
-
             updateBlocks(observerPosition);
         }
 
         applyVoxelOperations();
 
-#ifdef IGOR_USE_VERBOSE_PROFILING
-        iProfiler::getInstance().beginSection(_applyActionsSection);
-#endif
         // apply all actions at once so they will be synced with next frame
         iNodeManager::getInstance().applyActionsAsync(_actionQueue);
         _actionQueue.clear();
-#ifdef IGOR_USE_VERBOSE_PROFILING
-        iProfiler::getInstance().endSection(_applyActionsSection);
-#endif
-
-#ifdef IGOR_USE_VERBOSE_PROFILING
-        iProfiler::getInstance().endSection(_totalSection);
-#endif
     }
 
     void iVoxelTerrain::applyVoxelOperations()
@@ -386,28 +345,15 @@ namespace igor
     {
         auto &voxelBlocks = _voxelBlocks[_lowestLOD];
 
-#ifdef IGOR_USE_VERBOSE_PROFILING
-        iProfiler::getInstance().beginSection(_updateBlocksSection);
-#endif
         for (auto block : voxelBlocks)
         {
             update(block.second, observerPosition);
         }
 
-#ifdef IGOR_USE_VERBOSE_PROFILING
-        iProfiler::getInstance().endSection(_updateBlocksSection);
-#endif
-
-#ifdef IGOR_USE_VERBOSE_PROFILING
-        iProfiler::getInstance().beginSection(_updateVisBlocksSection);
-#endif
         for (auto block : voxelBlocks)
         {
             updateVisibility(block.second);
         }
-#ifdef IGOR_USE_VERBOSE_PROFILING
-        iProfiler::getInstance().endSection(_updateVisBlocksSection);
-#endif
     }
 
     void iVoxelTerrain::deleteBlocks()

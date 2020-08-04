@@ -5,7 +5,7 @@ var searchData=
   ['endl',['endl',['../namespaceiaux.html#a030e2c3dafd95fc262c66a561e77f913',1,'iaux']]],
   ['endltab',['endlTab',['../namespaceiaux.html#a4414cbd32a75151a1f9128ae4e6ff407',1,'iaux']]],
   ['endradiobuttongroup',['endRadioButtonGroup',['../classigor_1_1i_widget_check_box.html#a136796a81650f948bbe3ed9b9bc9b076',1,'igor::iWidgetCheckBox']]],
-  ['endsection',['endSection',['../classigor_1_1i_profiler.html#a880ca57eabfd2edc4b664ae17e5e1e5f',1,'igor::iProfiler::endSection()'],['../classigor_1_1i_profiler_section.html#a25001136febfe09b61498f0fd0adb6c2',1,'igor::iProfilerSection::endSection()']]],
+  ['endsection',['endSection',['../classigor_1_1i_profiler.html#acf440425b205c8df21895b09667b3925',1,'igor::iProfiler']]],
   ['enter',['enter',['../classiaux_1_1ia_state.html#a6ed2e371276b04344ea5fcb72a80b179',1,'iaux::iaState']]],
   ['eof',['eof',['../classiaux_1_1ia_mem_block_control.html#a73c9468402de1998fda8a991bb3d8995',1,'iaux::iaMemBlockControl']]],
   ['execute',['execute',['../classigor_1_1i_action.html#a24ffc8ca25de364762fdab8784a0a96e',1,'igor::iAction::execute()'],['../classigor_1_1i_action_application_stop.html#a509312e430eb57c86e03b0bfd97aece4',1,'igor::iActionApplicationStop::execute()']]],

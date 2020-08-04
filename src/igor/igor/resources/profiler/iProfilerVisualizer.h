@@ -30,6 +30,7 @@
 #define __IGOR_PROFILERVISUALIZER_H__
 
 #include <igor/resources/material/iMaterial.h>
+#include <igor/resources/profiler/iProfiler.h>
 
 #include <iaux/data/iaColor4.h>
 #include <iaux/data/iaString.h>
@@ -81,7 +82,7 @@ namespace igor
 
         only works correctly called within a orthogonal view's render call
         */
-        void draw(iWindow *window, iTextureFont *font, const iaColor4f &color);
+        void draw(iWindow *window, iTextureFont *font);
 
         /*! init
         */
@@ -94,11 +95,15 @@ namespace igor
     private:
         /*! number of predefined colors
         */
-        static const uint32 _colorCount = 29;
+        static const uint32 _colorCount = 25;
 
         /*! array of predefined colors
         */
         static const iaColor4f _colors[_colorCount];
+
+        /*! accumulation buffer
+        */
+        std::array<float32, iProfiler::MAX_FRAMES_COUNT> _accumulationBuffer;
 
         /*! the mode to rende the statistics with
         */
@@ -147,6 +152,10 @@ namespace igor
         /*! simple solid material
         */
         uint64 _materialSolid = iMaterial::INVALID_MATERIAL_ID;
+
+        /*! simple solid material with depth test
+        */
+        uint64 _materialGraph = iMaterial::INVALID_MATERIAL_ID;
 
         /*! alpha blending material
         */

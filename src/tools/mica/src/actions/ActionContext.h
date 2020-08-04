@@ -33,7 +33,7 @@
 
 /*! mica action context
 */
-class Igor_API ActionContext : public iActionContext
+class ActionContext : public iActionContext
 {
 
 public:

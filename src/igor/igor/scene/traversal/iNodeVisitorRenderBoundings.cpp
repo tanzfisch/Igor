@@ -17,7 +17,7 @@ namespace igor
 
     iNodeVisitorRenderBoundings::iNodeVisitorRenderBoundings()
     {
-        _material = iMaterialResourceFactory::getInstance().createMaterial();
+        _material = iMaterialResourceFactory::getInstance().createMaterial("igor.boundings");
         iMaterialResourceFactory::getInstance().getMaterial(_material)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
     }
 

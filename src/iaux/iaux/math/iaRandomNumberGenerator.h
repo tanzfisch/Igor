@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iaRANDOMNUMBERGENERATOR__
-#define __iaRANDOMNUMBERGENERATOR__
+#ifndef __IAUX_RANDOMNUMBERGENERATOR_H__
+#define __IAUX_RANDOMNUMBERGENERATOR_H__
 
 #include <iaux/iaDefines.h>
 
@@ -75,4 +75,4 @@ namespace iaux
 
 } // namespace iaux
 
-#endif
+#endif // __IAUX_RANDOMNUMBERGENERATOR_H__

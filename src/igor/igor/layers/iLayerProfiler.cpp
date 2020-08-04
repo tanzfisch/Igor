@@ -12,7 +12,7 @@ namespace igor
 
     // set an increase z index of 1 to make sure the ui is rendered above the background
     iLayerProfiler::iLayerProfiler(iWindow *window, const iaString &name, int32 zIndex, iProfilerVerbosity verbosity)
-        : iLayer(window, name, zIndex)
+        : iLayer(window, name, zIndex), _view(iView(false))
     {
         _profilerVisualizer.setVerbosity(verbosity);
     }
@@ -82,7 +82,7 @@ namespace igor
         modelMatrix.translate(0, 0, -30);
         iRenderer::getInstance().setModelMatrix(modelMatrix);
 
-        _profilerVisualizer.draw(getWindow(), _font, iaColor4f(0, 1, 0, 1));
+        _profilerVisualizer.draw(getWindow(), _font);
     }
 
 } // namespace igor

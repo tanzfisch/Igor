@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_GRADIENT__
-#define __IAUX_GRADIENT__
+#ifndef __IAUX_GRADIENT_H__
+#define __IAUX_GRADIENT_H__
 
 #include <iaux/iaDefines.h>
 
@@ -56,14 +56,14 @@ namespace iaux
         \param value the value
         \param at the given position
         */
-        void setValue(float at, const T &value);
+        void setValue(float32 at, const T &value);
 
         /*! returns value at given position
 
         \param[in,out] value the value at given position
         \param at the given position
         */
-        void getValue(float at, T &value) const;
+        void getValue(float32 at, T &value) const;
 
         /*! sets value at specified index
 
@@ -78,7 +78,7 @@ namespace iaux
         \param[out] at location at index
         \param[out] value value at index
         */
-        void getValueAtIndex(int32 index, float &at, T &value);
+        void getValueAtIndex(int32 index, float32 &at, T &value);
 
         /*! removes specified index
 
@@ -92,7 +92,7 @@ namespace iaux
 
         /*! \returns reference to values
         */
-        const std::vector<std::pair<float, T>> &getValues() const;
+        const std::vector<std::pair<float32, T>> &getValues() const;
 
         /*! \returns true if color gradient is empty
         */
@@ -109,7 +109,7 @@ namespace iaux
     private:
         /*! the colors
         */
-        std::vector<std::pair<float, T>> _values;
+        std::vector<std::pair<float32, T>> _values;
     };
 
 #include <iaux/data/iaGradient.inl>
@@ -136,4 +136,4 @@ namespace iaux
 
 }; // namespace iaux
 
-#endif
+#endif // __IAUX_GRADIENT_H__

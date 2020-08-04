@@ -383,6 +383,7 @@ endif()
 set_property(TARGET igor PROPERTY FOLDER ${ENGINE_FOLDER})
 
 # MICA
+message(STATUS "Mica")
 set(MICA_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/tools/mica/src/")
 set(MICA_HEADERS_DIR ${MICA_SRC_DIR})
 file(
@@ -476,65 +477,28 @@ endforeach()
 # ##############################################################################
 # Testing #
 # ##############################################################################
-# source of cmake gtest script https://crascit.com/2015/07/25/cmake-gtest/
-# Download and unpack googletest at configure time
-configure_file(src/cmake/googletest.inl.cmake
-               googletest-download/CMakeLists.txt)
-execute_process(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
-                WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download")
-execute_process(COMMAND "${CMAKE_COMMAND}" --build .
-                WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download")
+message(STATUS "iauxTest")
 
-if(IS_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-src")
-  # Prevent GoogleTest from overriding our compiler/linker options when building
-  # with Visual Studio
-  set(gtest_force_shared_crt
-      ON
-      CACHE BOOL "" FORCE)
+set(IAUX_TEST_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/tests/iaux/")
+set(IAUX_TEST_HEADERS_DIR ${IAUX_TEST_SRC_DIR})
+file(
+  GLOB_RECURSE IAUX_TEST_SOURCES
+  LIST_DIRECTORIES false
+  "${IAUX_TEST_SRC_DIR}*.c*")
+file(
+  GLOB_RECURSE IAUX_TEST_HEADERS
+  LIST_DIRECTORIES false
+  "${IAUX_TEST_HEADERS_DIR}*.h*" "${IAUX_TEST_HEADERS_DIR}*.inl")
+list(APPEND IAUX_TEST_SOURCES ${IAUX_TEST_HEADERS})
+add_executable(iauxTest ${IAUX_TEST_SOURCES})
+target_include_directories(iauxTest PRIVATE ${IAUX_TEST_HEADERS_DIR}
+                                            ${IAUX_HEADERS_DIR})
 
-  # Add googletest directly to our build. This adds the following targets:
-  # gtest, gtest_main, gmock and gmock_main
-  add_subdirectory("${CMAKE_BINARY_DIR}/googletest-src"
-                   "${CMAKE_BINARY_DIR}/googletest-build")
-
-  # The gtest/gmock targets carry header search path dependencies automatically
-  # when using CMake 2.8.11 or later. Otherwise we have to add them here
-  # ourselves.
-  if(CMAKE_VERSION VERSION_LESS 2.8.11)
-    include_directories("${gtest_SOURCE_DIR}/include"
-                        "${gmock_SOURCE_DIR}/include")
-  endif()
-
-  message(STATUS "Testing Enabled")
-  enable_testing()
-  set(IAUX_TEST_SRC_DIR "${CMAKE_SOURCE_DIR}/src/tests/iaux/")
-  set(IAUX_TEST_HEADERS_DIR ${IAUX_TEST_SRC_DIR})
-  file(
-    GLOB_RECURSE IAUX_TEST_SOURCES
-    LIST_DIRECTORIES false
-    "${IAUX_TEST_SRC_DIR}*.c*")
-  file(
-    GLOB_RECURSE IAUX_TEST_HEADERS
-    LIST_DIRECTORIES false
-    "${IAUX_TEST_SRC_DIR}*.h*")
-  list(APPEND IAUX_TEST_SOURCES ${IAUX_TEST_HEADERS})
-  add_executable(iauxTest ${IAUX_TEST_SOURCES})
-  target_include_directories(
-    iauxTest PRIVATE ${IAUX_TEST_HEADERS_DIR} ${IAUX_HEADERS_DIR}
-                     ${GTEST_INCLUDE_DIRS})
-
-  # Now simply link your own targets against gtest, gmock, etc. as appropriate
-  if(${COMPILER} STREQUAL "GCC")
-    target_link_libraries(iauxTest iaux gtest pthread)
-  elseif(${COMPILER} STREQUAL "MSVCXX")
-    target_link_libraries(iauxTest iaux gtest)
-  endif()
-
-  add_test(AllTestsInIgorAux iauxTest)
-
-  set_property(TARGET iauxTest PROPERTY FOLDER ${TESTING_FOLDER})
-  set_property(TARGET gmock gmock_main gtest gtest_main
-               PROPERTY FOLDER ${VENDOR_FOLDER})
-else()
-  message(WARNING "Testing Disabled")
+if(${COMPILER} STREQUAL "GCC")
+  target_link_libraries(iauxTest iaux pthread)
+elseif(${COMPILER} STREQUAL "MSVCXX")
+  target_link_libraries(iauxTest iaux)
 endif()
+
+add_test(AllTestsInIgorAux iauxTest)
+set_property(TARGET iauxTest PROPERTY FOLDER ${TESTING_FOLDER})

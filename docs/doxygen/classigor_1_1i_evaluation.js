@@ -1,11 +1,12 @@
 var classigor_1_1i_evaluation =
 [
-    [ "iEvaluation", "classigor_1_1i_evaluation.html#aff60ed544f2e368c30504c10f4b0e940", null ],
+    [ "iEvaluation", "classigor_1_1i_evaluation.html#a465aabff15a652daa2e832aed2cd453e", null ],
     [ "~iEvaluation", "classigor_1_1i_evaluation.html#a76b7d8019ff47dd7468db6e17b9d4fb9", null ],
     [ "getAmplitude", "classigor_1_1i_evaluation.html#a5ffc66927dd7824ba85a043a5a7174d7", null ],
     [ "getDuration", "classigor_1_1i_evaluation.html#af4035e3c1f0404867f0e906646e5e2cb", null ],
     [ "getEasingFunction", "classigor_1_1i_evaluation.html#a0bdba0a11adeaf017b22deb5ece1cb34", null ],
     [ "getID", "classigor_1_1i_evaluation.html#aa0b1bf075e4844588cb0a38580432990", null ],
+    [ "getNodeID", "classigor_1_1i_evaluation.html#ac958051bae1909f8d7ffcade205d056e", null ],
     [ "getOvershoot", "classigor_1_1i_evaluation.html#a8b757dc254b730672457907998bc16d3", null ],
     [ "getPeriod", "classigor_1_1i_evaluation.html#aa14108440354de04b57427ef39000edc", null ],
     [ "getStart", "classigor_1_1i_evaluation.html#a8e71ac6c785e8747ef778af175a7cb67", null ],
@@ -24,10 +25,10 @@ var classigor_1_1i_evaluation =
     [ "_amplitude", "classigor_1_1i_evaluation.html#ac3eddcaa29e06afc2202f29a91b5d89e", null ],
     [ "_easingFunction", "classigor_1_1i_evaluation.html#a518ba14d72e002411cb4546239c2c490", null ],
     [ "_looped", "classigor_1_1i_evaluation.html#a67637c4730cc70de612106f1c9c1fa30", null ],
-    [ "_nodeID", "classigor_1_1i_evaluation.html#a8f68adbe3678f6cd71e023b7fc6dc9e4", null ],
+    [ "_nodeID", "classigor_1_1i_evaluation.html#a91ff5c8d00f8228097701d5282c76494", null ],
     [ "_overshoot", "classigor_1_1i_evaluation.html#a91c4ac051554e3569abbc917b4b0e96a", null ],
     [ "_period", "classigor_1_1i_evaluation.html#a7f5467962cb1ffb9e4fd74406656b249", null ],
     [ "_start", "classigor_1_1i_evaluation.html#ae278faa9650a524d473d771e07c23494", null ],
     [ "_stop", "classigor_1_1i_evaluation.html#af1a631330b6eec5b4ee84a73f61adc8d", null ],
-    [ "INVALID_EVALUATOR_ID", "classigor_1_1i_evaluation.html#a7039622590d118cffd629b00cdccd2d7", null ]
+    [ "INVALID_EVALUATOR_ID", "classigor_1_1i_evaluation.html#aabda9e8bd5d4774fd5cb7af11fb9618d", null ]
 ];

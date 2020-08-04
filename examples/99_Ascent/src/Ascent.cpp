@@ -34,7 +34,6 @@
 
 #include <igor/resources/texture/iTextureResourceFactory.h>
 
-#include <igor/resources/profiler/iProfiler.h>
 #include <igor/resources/material/iTargetMaterial.h>
 #include <igor/scene/nodes/iNodeLODTrigger.h>
 #include <igor/scene/nodes/iNodeLODSwitch.h>
@@ -52,7 +51,7 @@ uint64 Ascent::_entityMaterialID = 0;
 uint64 Ascent::_bulletMaterialID = 0;
 
 Ascent::Ascent(iWindow *window)
-    : iLayer(window)
+    : iLayer(window), _viewOrtho(iView(false))
 {
 }
 
@@ -116,11 +115,10 @@ void Ascent::initScene()
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/bottom.jpg"));
     skyBoxNode->setTextureScale(1);
     // create a sky box material
-    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
+    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial("Sky Box");
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setOrder(10);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setName("SkyBox");
     // and set the sky box material
     skyBoxNode->setMaterial(_materialSkyBox);
     // insert sky box to scene
@@ -562,8 +560,7 @@ void Ascent::onInit()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
-    uint64 particlesMaterial = iMaterialResourceFactory::getInstance().createMaterial();
-    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setName("PMat");
+    uint64 particlesMaterial = iMaterialResourceFactory::getInstance().createMaterial("Particles");
     iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::CullFace, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);

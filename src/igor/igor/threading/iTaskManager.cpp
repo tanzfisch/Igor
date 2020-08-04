@@ -57,7 +57,7 @@ namespace igor
         _mutexRegularTasks.unlock();
 
         // than finish all task that are already running
-        con_debug_endl("waiting for " << _renderContextTasksRunning.size() << " render context tasks to finish");
+        con_debug("waiting for " << _renderContextTasksRunning.size() << " render context tasks to finish");
 
         // first the render context tasks
         _mutexRenderContextTasks.lock();
@@ -75,7 +75,7 @@ namespace igor
         _renderContextTasksRunning.clear();
         _mutexRenderContextTasks.unlock();
 
-        con_debug_endl("waiting for " << _regularTasksRunning.size() << " regular tasks to finish");
+        con_debug("waiting for " << _regularTasksRunning.size() << " regular tasks to finish");
 
         // than the regular tasks
         _mutexRegularTasks.lock();
@@ -94,7 +94,7 @@ namespace igor
         _mutexRegularTasks.unlock();
 
         // now stop and kill all threads
-        con_debug_endl("waiting for " << _renderContextThreads.size() << " render context threads to join");
+        con_debug("waiting for " << _renderContextThreads.size() << " render context threads to join");
 
         // render context threads
         _mutexRenderContextThreads.lock();
@@ -109,7 +109,7 @@ namespace igor
         _renderContextThreads.clear();
         _mutexRenderContextThreads.unlock();
 
-        con_debug_endl("waiting for " << _regularThreads.size() << " regular threads to join");
+        con_debug("waiting for " << _regularThreads.size() << " regular threads to join");
 
         // and regular threads
         _mutexRegularThreads.lock();
@@ -121,7 +121,7 @@ namespace igor
         _regularThreads.clear();
         _mutexRegularThreads.unlock();
 
-        con_debug_endl("threading done");
+        con_debug("threading done");
     }
 
     void iTaskManager::abortTask(uint64 taskID)

@@ -14,7 +14,7 @@
 #include <igor/scene/nodes/iNodePhysics.h>
 
 // uncomment next line for voxel terrain debug coloring
-// #define DEBUG_VOXEL_TERRAIN_COLORING
+#define DEBUG_VOXEL_TERRAIN_COLORING
 
 // uncomment next line for voxel terrain debug using no physics
 // #define DEBUG_VOXEL_TERRAIN_NO_PHYSICS
@@ -28,19 +28,19 @@ namespace igor
         _name = "Voxel Terrain Mesh Generator";
     }
 
-    iModelDataIO* iVoxelTerrainMeshGenerator::createInstance()
+    iModelDataIO *iVoxelTerrainMeshGenerator::createInstance()
     {
-        iVoxelTerrainMeshGenerator* result = new iVoxelTerrainMeshGenerator();
-        return static_cast<iModelDataIO*>(result);
+        iVoxelTerrainMeshGenerator *result = new iVoxelTerrainMeshGenerator();
+        return static_cast<iModelDataIO *>(result);
     }
 
     __IGOR_DISABLE_WARNING__(4100)
-        iNodePtr iVoxelTerrainMeshGenerator::importData(const iaString& sectionName, iModelDataInputParameter* parameter)
+    iNodePtr iVoxelTerrainMeshGenerator::importData(const iaString &sectionName, iModelDataInputParameter *parameter)
     {
-        iVoxelTerrainTileInformation* tileInformation = reinterpret_cast<iVoxelTerrainTileInformation*>(parameter->_parameters.getDataPointer());
+        iVoxelTerrainTileInformation *tileInformation = reinterpret_cast<iVoxelTerrainTileInformation *>(parameter->_parameters.getDataPointer());
 
-        iVoxelData* voxelData = tileInformation->_voxelData;
-        iVoxelData* voxelDataNextLOD = tileInformation->_voxelDataNextLOD;
+        iVoxelData *voxelData = tileInformation->_voxelData;
+        iVoxelData *voxelDataNextLOD = tileInformation->_voxelDataNextLOD;
 
         int64 width = voxelData->getWidth();
         int64 height = voxelData->getHeight();
@@ -58,7 +58,7 @@ namespace igor
 
         if (mesh.get() != nullptr)
         {
-            iNodeMesh* meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
+            iNodeMesh *meshNode = iNodeManager::getInstance().createNode<iNodeMesh>();
             meshNode->setMesh(mesh);
             meshNode->setMaterial(tileInformation->_materialID);
             meshNode->setName("mesh");
@@ -70,7 +70,7 @@ namespace igor
             float32 r = ((rand.getNext() % 30) + 35.0f) / 100.0f;
             float32 g = ((rand.getNext() % 30) + 35.0f) / 100.0f;
             float32 b = ((rand.getNext() % 30) + 35.0f) / 100.0f;
-            tileInformation->_targetMaterial->setAmbient(iaColor3f(r * 0.8f, g* 0.8f, b* 0.8f));
+            tileInformation->_targetMaterial->setAmbient(iaColor3f(r * 0.8f, g * 0.8f, b * 0.8f));
 
             switch (tileInformation->_lod)
             {
@@ -113,7 +113,7 @@ namespace igor
 #ifndef DEBUG_VOXEL_TERRAIN_NO_PHYSICS
             if (tileInformation->_lod == 0)
             {
-                iNodePhysics* physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();
+                iNodePhysics *physicsNode = iNodeManager::getInstance().createNode<iNodePhysics>();
                 iaMatrixd offset;
                 physicsNode->addMesh(mesh, 1, offset);
                 physicsNode->finalizeCollision(true);
@@ -131,4 +131,4 @@ namespace igor
     }
     __IGOR_ENABLE_WARNING__(4100)
 
-}
+} // namespace igor

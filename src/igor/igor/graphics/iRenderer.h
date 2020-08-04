@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iRENDERER__
-#define __iRENDERER__
+#ifndef __IGOR_RENDERER_H__
+#define __IGOR_RENDERER_H__
 
 #include <igor/data/iRectangle.h>
 #include <igor/resources/texture/iTexture.h>
@@ -64,6 +64,12 @@ namespace igor
     class iTargetMaterial;
     class iMeshBuffers;
 
+    /*! render target id definition
+    */
+    typedef uint32 iRenderTargetID;
+
+    /*! definition of render target types
+    */
     enum class iRenderTargetType
     {
         ToTexture,
@@ -86,6 +92,19 @@ namespace igor
     usually after a window was closed.
     */
     iaEVENT(iRendererPreDeinitializeEvent, iRendererPreDeinitializeDelegate, (), ());
+
+    /*! renderer statistics
+    */
+    struct iRendererStats
+    {
+        uint32 _vertices;
+        uint32 _triangles;
+        uint32 _indices;
+
+        uint32 _verticesInstanced;
+        uint32 _trianglesInstanced;
+        uint32 _indicesInstanced;
+    };
 
     /*! abstraction class for the actuall renderer. curently only OpenGL
 
@@ -153,7 +172,7 @@ namespace igor
 
         /*! the default render target ID
         */
-        static const uint32 DEFAULT_RENDER_TARGET = 0;
+        static const iRenderTargetID DEFAULT_RENDER_TARGET = 0;
 
         /*! register delegate to renderer initialized event
 
@@ -697,10 +716,32 @@ namespace igor
         */
         bool compileShaderObject(uint32 id, const char *source);
 
-        uint32 createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer);
-        void destroyRenderTarget(uint32 id);
-        void setRenderTarget(uint32 id = DEFAULT_RENDER_TARGET);
-        uint32 getRenderTarget() const;
+        /*! creates a render target
+
+        \param width the width of the render target in pixel/texel 
+        \param height the height of the render target in pixel/texel 
+        \param format the color format of the render target
+        \param renderTargetType the render target type
+        \param useDepthBuffer if true render target is having a depth buffer 
+        \returns id of render target
+        */
+        iRenderTargetID createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer);
+
+        /*! destroyes render target by id
+
+        \param id the given render target id
+        */
+        void destroyRenderTarget(iRenderTargetID id);
+
+        /*! sets the current render target by id
+
+        \param id the render target id to be set current
+        */
+        void setRenderTarget(iRenderTargetID id = DEFAULT_RENDER_TARGET);
+
+        /*! \returns id of current active render target
+        */
+        iRenderTargetID getRenderTarget() const;
 
         // infos
         /*! \returns render hardware vendor
@@ -719,10 +760,23 @@ namespace igor
         */
         iaString getExtensions();
 
-        void resetCounters();
-        void getCounters(uint32 &vertices, uint32 &triangles, uint32 &indices);
+        /*! triggerd at beginning of frame 
+
+        \param logActive if true this frame will be logging to console
+        */
+        void onStartFrame(bool logActive);
+
+        /*! triggered at end of frame
+        */
+        void onStopFrame();
+
+        /*! \returns stats of renderer
+        */
+        const iRendererStats &getStats() const;
 
     private:
+        bool _loggingActive = false;
+
         uint32 _currentRenderTarget = DEFAULT_RENDER_TARGET;
 
         iaMutex _requestedBuffersMutex;
@@ -828,17 +882,9 @@ namespace igor
         */
         iaString _extensionsOGL;
 
-        /*! statistic counter for vertices
+        /*! statistic counters
         */
-        uint32 _renderedVertices = 0;
-
-        /*! statistic counter for triangles
-        */
-        uint32 _renderedTriangles = 0;
-
-        /*! statistic counter for indicies
-        */
-        uint32 _renderedIndexes = 0;
+        iRendererStats _stats;
 
         /*! current material in use
         */
@@ -918,4 +964,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_RENDERER_H__

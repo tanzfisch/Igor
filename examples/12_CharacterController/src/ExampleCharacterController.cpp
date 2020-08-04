@@ -30,7 +30,6 @@ using namespace iaux;
 #include <igor/threading/tasks/iTaskFlushModels.h>
 #include <igor/threading/tasks/iTaskFlushTextures.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/profiler/iProfiler.h>
 #include <igor/scene/nodes/iNodeSwitch.h>
 #include <igor/scene/nodes/iNodeLODSwitch.h>
 #include <igor/scene/nodes/iNodeLODTrigger.h>
@@ -153,11 +152,10 @@ void ExampleCharacterController::onInit()
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/top.jpg"),
         iTextureResourceFactory::getInstance().requestFile("skybox_stars/bottom.jpg"));
     // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
+    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial("Sky Box");
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setOrder(iMaterial::RENDER_ORDER_MIN);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setName("SkyBox");
     // set that material
     skyBoxNode->setMaterial(_materialSkyBox);
     // and add it to the scene

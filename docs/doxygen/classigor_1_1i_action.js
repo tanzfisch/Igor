@@ -6,6 +6,7 @@ var classigor_1_1i_action =
     [ "getDescription", "classigor_1_1i_action.html#a70b02ae4a0462a757fce83816dcd3638", null ],
     [ "getName", "classigor_1_1i_action.html#a653dd71e0be10804b25143734376e351", null ],
     [ "getPicturePath", "classigor_1_1i_action.html#a03fe3090870aa4b2e4cd713c0b712f40", null ],
+    [ "isCompatible", "classigor_1_1i_action.html#a5c322a494a97f46e88b8b6abcd3c2642", null ],
     [ "setDescription", "classigor_1_1i_action.html#aef33aff751560e00e018d10cd1ffe961", null ],
     [ "setPicturePath", "classigor_1_1i_action.html#a76330f16e9fd7ba8194465fd3ec961d9", null ]
 ];

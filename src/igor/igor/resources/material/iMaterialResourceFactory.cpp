@@ -37,7 +37,7 @@ namespace igor
 
         if (!_materials.empty())
         {
-            con_debug_endl(static_cast<int>(_materials.size()) << " materials left. will clean up for you");
+            con_debug(static_cast<int>(_materials.size()) << " materials left. will clean up for you");
         }
 
         _materials.clear();
@@ -122,9 +122,8 @@ namespace igor
     void iMaterialResourceFactory::initDefaultMaterials()
     {
         // create the default material
-        _defaultMaterial = createMaterial();
+        _defaultMaterial = createMaterial("igor.default");
         auto material = getMaterial(_defaultMaterial);
-        material->setName("IgorDefault");
         material->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
         material->addShaderSource("igor/default_directional_light.frag", iShaderObjectType::Fragment);
         material->compileShader();
@@ -134,18 +133,16 @@ namespace igor
         setMaterial(_defaultMaterial);
 
         // create the color ID material
-        _colorIDMaterial = createMaterial();
+        _colorIDMaterial = createMaterial("igor.colorid");
         material = getMaterial(_colorIDMaterial);
-        material->setName("IgorColorID");
         material->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
         material->addShaderSource("igor/solidColor.frag", iShaderObjectType::Fragment);
         material->compileShader();
         material->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
 
         // creating this one as option because it is used far more often then the actual default one
-        uint64 defaultTextureMaterial = createMaterial();
+        uint64 defaultTextureMaterial = createMaterial("igor.texture");
         material = getMaterial(defaultTextureMaterial);
-        material->setName("IgorTexture");
         material->addShaderSource("igor/textured.vert", iShaderObjectType::Vertex);
         material->addShaderSource("igor/textured_directional_light.frag", iShaderObjectType::Fragment);
         material->compileShader();
