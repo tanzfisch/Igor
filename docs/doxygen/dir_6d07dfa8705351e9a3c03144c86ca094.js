@@ -1,7 +1,9 @@
 var dir_6d07dfa8705351e9a3c03144c86ca094 =
 [
     [ "iApplication.cpp", "i_application_8cpp.html", null ],
-    [ "iApplication.h", "i_application_8h.html", "i_application_8h" ],
+    [ "iApplication.h", "i_application_8h.html", [
+      [ "iApplication", "classigor_1_1i_application.html", "classigor_1_1i_application" ]
+    ] ],
     [ "iClipboard.cpp", "i_clipboard_8cpp.html", null ],
     [ "iClipboard.h", "i_clipboard_8h.html", "i_clipboard_8h" ],
     [ "iDefinesLinux.h", "i_defines_linux_8h.html", null ],
@@ -12,7 +14,9 @@ var dir_6d07dfa8705351e9a3c03144c86ca094 =
       [ "iButtonState", "structigor_1_1i_button_state.html", "structigor_1_1i_button_state" ],
       [ "iMouseImpl", "classigor_1_1i_mouse_impl.html", "classigor_1_1i_mouse_impl" ]
     ] ],
-    [ "iMouse.h", "i_mouse_8h.html", "i_mouse_8h" ],
+    [ "iMouse.h", "i_mouse_8h.html", [
+      [ "iMouse", "classigor_1_1i_mouse.html", "classigor_1_1i_mouse" ]
+    ] ],
     [ "iOSEventListener.h", "i_o_s_event_listener_8h.html", [
       [ "iOSEventListener", "classigor_1_1i_o_s_event_listener.html", "classigor_1_1i_o_s_event_listener" ]
     ] ],

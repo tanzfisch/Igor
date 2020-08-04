@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.28.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.29.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -239,6 +239,12 @@ $(document).ready(function(){initNavTree('functions_o.html','');});
 , <a class="el" href="classigor_1_1i_node_render.html#a3640e4101c1195c95101b63b2601bb9a">igor::iNodeRender</a>
 , <a class="el" href="classigor_1_1i_node_volume.html#a69d27451c61636df80a30f3efea8af4e">igor::iNodeVolume</a>
 </li>
+<li>onStartFrame()
+: <a class="el" href="classigor_1_1i_renderer.html#a5dde2c39a910444dec714f5abf4cd02e">igor::iRenderer</a>
+</li>
+<li>onStopFrame()
+: <a class="el" href="classigor_1_1i_renderer.html#a2f6d63fcfa53b59c5313c5a2cf3bf490">igor::iRenderer</a>
+</li>
 <li>onUpdateData()
 : <a class="el" href="classigor_1_1i_node.html#aaee4c87af81d26e6a0903e06ae1ed45e">igor::iNode</a>
 </li>
@@ -295,11 +301,11 @@ $(document).ready(function(){initNavTree('functions_o.html','');});
 , <a class="el" href="classiaux_1_1ia_quaternion.html#a2e86d45e6ed86c490098d411b9018f50">iaux::iaQuaternion&lt; T &gt;</a>
 , <a class="el" href="classiaux_1_1ia_time.html#ac3f959cae728f495a9a00d302a901266">iaux::iaTime</a>
 , <a class="el" href="classiaux_1_1ia_vector2.html#ae63d9c66394179e875e97d20eef02295">iaux::iaVector2&lt; T &gt;</a>
-, <a class="el" href="classiaux_1_1ia_vector3.html#adf38dba3db2877177689ebba35ce8c9f">iaux::iaVector3&lt; T &gt;</a>
+, <a class="el" href="classiaux_1_1ia_vector3.html#a4f8d3455d7f2cc8246e8aac24b557b8c">iaux::iaVector3&lt; T &gt;</a>
 </li>
 <li>operator*=()
-: <a class="el" href="classiaux_1_1ia_color3.html#ad8e612f779fca5b358449ad6e871044d">iaux::iaColor3&lt; T &gt;</a>
-, <a class="el" href="classiaux_1_1ia_color4.html#a380eb2b4708ea383966d1376b34d4543">iaux::iaColor4&lt; T &gt;</a>
+: <a class="el" href="classiaux_1_1ia_color3.html#a384d16f487ed0a90c03b49a3c67b7d6c">iaux::iaColor3&lt; T &gt;</a>
+, <a class="el" href="classiaux_1_1ia_color4.html#a4823e21cb71f91edc09a5036245be113">iaux::iaColor4&lt; T &gt;</a>
 , <a class="el" href="classiaux_1_1ia_matrix2_d.html#a657261b4f7ed5f3ef7222565f4eabdc9">iaux::iaMatrix2D&lt; T &gt;</a>
 , <a class="el" href="classiaux_1_1ia_matrix.html#a50ed3c76e524f297cc5df7f4d6e47c32">iaux::iaMatrix&lt; T &gt;</a>
 , <a class="el" href="classiaux_1_1ia_quaternion.html#adc3d43676cc0d62cf2ad91464a3abaa7">iaux::iaQuaternion&lt; T &gt;</a>
@@ -363,7 +369,7 @@ $(document).ready(function(){initNavTree('functions_o.html','');});
 : <a class="el" href="classiaux_1_1ia_color3.html#a517527f44f4409e80140b7b0d6510aed">iaux::iaColor3&lt; T &gt;</a>
 , <a class="el" href="classiaux_1_1ia_color4.html#a0a70545b2c997300be39922035edbdf9">iaux::iaColor4&lt; T &gt;</a>
 , <a class="el" href="classiaux_1_1ia_directory.html#a0bee0a04a2428514ab4dfb4f9d6c27eb">iaux::iaDirectory</a>
-, <a class="el" href="classiaux_1_1ia_string.html#a57d71d7a91d3c006e9c904f2cf4800b7">iaux::iaString</a>
+, <a class="el" href="classiaux_1_1ia_string.html#add391ad2de8de78cbaebe5a6be03c0cb">iaux::iaString</a>
 , <a class="el" href="classiaux_1_1ia_vector2.html#a65739af9511a9b96e4eb49c4c5cd2352">iaux::iaVector2&lt; T &gt;</a>
 , <a class="el" href="classiaux_1_1ia_vector3.html#a747d54c18046f825aa009cdf9c8a9e8e">iaux::iaVector3&lt; T &gt;</a>
 , <a class="el" href="classiaux_1_1ia_vector4.html#a11a4e709b2013bf4f747d7a077691daf">iaux::iaVector4&lt; T &gt;</a>
@@ -390,10 +396,10 @@ $(document).ready(function(){initNavTree('functions_o.html','');});
 <li>operator[]()
 : <a class="el" href="classiaux_1_1ia_matrix2_d.html#a23258a4883fd50e75c731a97aa1dd473">iaux::iaMatrix2D&lt; T &gt;</a>
 , <a class="el" href="classiaux_1_1ia_matrix.html#a21494841cfd38c3532627e95b6fb21c0">iaux::iaMatrix&lt; T &gt;</a>
-, <a class="el" href="classiaux_1_1ia_string.html#a78c697a892d4292e3837b646c60c4f22">iaux::iaString</a>
+, <a class="el" href="classiaux_1_1ia_string.html#a3afa5072e6302c4ae04ff2115f8baed7">iaux::iaString</a>
 , <a class="el" href="classiaux_1_1ia_vector2.html#a7b02f80e6580a0b6d20b58c801cffa88">iaux::iaVector2&lt; T &gt;</a>
-, <a class="el" href="classiaux_1_1ia_vector3.html#ae772098b8b0d80ddaf1790d697ac91a7">iaux::iaVector3&lt; T &gt;</a>
-, <a class="el" href="classiaux_1_1ia_vector4.html#af20bae3cbeb1d802327f763c61917ce6">iaux::iaVector4&lt; T &gt;</a>
+, <a class="el" href="classiaux_1_1ia_vector3.html#a10e1996adbd69ddd9ac750fcc4632006">iaux::iaVector3&lt; T &gt;</a>
+, <a class="el" href="classiaux_1_1ia_vector4.html#aeaa2209c044e7f18d4f6f867e919ec32">iaux::iaVector4&lt; T &gt;</a>
 </li>
 <li>ortho()
 : <a class="el" href="classiaux_1_1ia_matrix.html#a53c2067c87628e22c4a04e50c3c97bef">iaux::iaMatrix&lt; T &gt;</a>

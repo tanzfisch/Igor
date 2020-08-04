@@ -2,7 +2,7 @@ var classigor_1_1i_widget_button =
 [
     [ "iWidgetButton", "classigor_1_1i_widget_button.html#a75c677abcd5a7da6fb31f42c0a9f9a4e", null ],
     [ "~iWidgetButton", "classigor_1_1i_widget_button.html#a1b5990e732d2e0c03ea8b747158bd5bd", null ],
-    [ "calcMinSize", "classigor_1_1i_widget_button.html#acaa08f38160824141e7a21b5aefa6b24", null ],
+    [ "calcMinSize", "classigor_1_1i_widget_button.html#aeea2ddc6f7136702cd65845ce6c754c1", null ],
     [ "draw", "classigor_1_1i_widget_button.html#ad0dd85a4f5d107f560e558816c7bb690", null ],
     [ "getHorizontalTextAlignment", "classigor_1_1i_widget_button.html#a5f7f58d537c3c38c8b25b30e8faf91ee", null ],
     [ "getText", "classigor_1_1i_widget_button.html#a9b68fd4b626b4bbb750a9c2230d8454b", null ],

@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.28.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.29.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -183,14 +183,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a83ce855b123665aadc775e9e22e5179a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2d3328a8b7776f2cde2ece4e0b93303f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_window.html#a2d3328a8b7776f2cde2ece4e0b93303f">removeView</a> (<a class="el" href="classigor_1_1i_view.html">iView</a> *view)</td></tr>
 <tr class="separator:a2d3328a8b7776f2cde2ece4e0b93303f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43d9c7c8aff7efe86116f861ac3e6b5d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_window.html#a43d9c7c8aff7efe86116f861ac3e6b5d">registerWindowCloseDelegate</a> (WindowCloseDelegate windowCloseDelegate)</td></tr>
-<tr class="separator:a43d9c7c8aff7efe86116f861ac3e6b5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7eb0f7cfe22b55bcf31a7ae28bbb747f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_window.html#a7eb0f7cfe22b55bcf31a7ae28bbb747f">unregisterWindowCloseDelegate</a> (WindowCloseDelegate windowCloseDelegate)</td></tr>
-<tr class="separator:a7eb0f7cfe22b55bcf31a7ae28bbb747f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb7488441a6d7bbc06a9a2d5a3378fbf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_window.html#abb7488441a6d7bbc06a9a2d5a3378fbf">registerWindowResizeDelegate</a> (WindowResizeDelegate windowResizeDelegate)</td></tr>
-<tr class="separator:abb7488441a6d7bbc06a9a2d5a3378fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c956c3826dbbce0af8e551593a44443"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_window.html#a7c956c3826dbbce0af8e551593a44443">unregisterWindowResizeDelegate</a> (WindowResizeDelegate windowResizeDelegate)</td></tr>
-<tr class="separator:a7c956c3826dbbce0af8e551593a44443"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -534,52 +526,6 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a43d9c7c8aff7efe86116f861ac3e6b5d"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void igor::iWindow::registerWindowCloseDelegate </td>
-          <td>(</td>
-          <td class="paramtype">WindowCloseDelegate&#160;</td>
-          <td class="paramname"><em>windowCloseDelegate</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>regiters delegate to window close event</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">windowCloseDelegate</td><td>the delegate to be registered </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="abb7488441a6d7bbc06a9a2d5a3378fbf"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void igor::iWindow::registerWindowResizeDelegate </td>
-          <td>(</td>
-          <td class="paramtype">WindowResizeDelegate&#160;</td>
-          <td class="paramname"><em>windowResizeDelegate</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>register callback to resize event</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">windowResizeDelegate</td><td>the delegate to register </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a class="anchor" id="a2d3328a8b7776f2cde2ece4e0b93303f"></a>
 <div class="memitem">
 <div class="memproto">
@@ -869,52 +815,6 @@ Friends</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">zdepth</td><td>the depth buffer depth in bits </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a7eb0f7cfe22b55bcf31a7ae28bbb747f"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void igor::iWindow::unregisterWindowCloseDelegate </td>
-          <td>(</td>
-          <td class="paramtype">WindowCloseDelegate&#160;</td>
-          <td class="paramname"><em>windowCloseDelegate</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>unregiters delegate from window close event</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">windowCloseDelegate</td><td>the delegate to be unregistered </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a7c956c3826dbbce0af8e551593a44443"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void igor::iWindow::unregisterWindowResizeDelegate </td>
-          <td>(</td>
-          <td class="paramtype">WindowResizeDelegate&#160;</td>
-          <td class="paramname"><em>windowResizeDelegate</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>unregister callback from resize event</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">windowResizeDelegate</td><td>the delegate to unregister </td></tr>
   </table>
   </dd>
 </dl>

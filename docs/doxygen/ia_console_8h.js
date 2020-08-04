@@ -4,11 +4,12 @@ var ia_console_8h =
     [ "__IGOR_LOGGING_TAB__", "ia_console_8h.html#a9b487d736f1ff95216577b03f57f1b2d", null ],
     [ "con_assert", "ia_console_8h.html#a6eebaa67b0bd67ba43d04abc729897c1", null ],
     [ "con_assert_sticky", "ia_console_8h.html#a4fc2be5c01a5e9bcacda006dadc2cc35", null ],
-    [ "con_debug_endl", "ia_console_8h.html#af7a4141dfae7dcf8005d54e8ac52489f", null ],
+    [ "con_debug", "ia_console_8h.html#a2fe059dd74a3e01c2082a11490b6f04f", null ],
     [ "con_endl", "ia_console_8h.html#a69fc580cdd73de577a6029db6c9975f7", null ],
     [ "con_err", "ia_console_8h.html#a78f0115042eb1a14efffca278878e5b6", null ],
     [ "con_info", "ia_console_8h.html#a66b18edf45763200ee00363ad632d570", null ],
-    [ "con_trace", "ia_console_8h.html#a5cc877e2d0727b76008f45d3f7dee72b", null ],
+    [ "con_trace", "ia_console_8h.html#a90d60dcb3bc27aec98dc063e95fbafa6", null ],
+    [ "con_trace_call", "ia_console_8h.html#a3b63fdb93c5e60b84935ff89dcd4bedc", null ],
     [ "con_warn", "ia_console_8h.html#ac961fd7ad9bdd11be6aaca8c678ccae4", null ],
     [ "iaForegroundColor", "ia_console_8h.html#a7a980d16835582248027a8d24139690a", [
       [ "White", "ia_console_8h.html#a7a980d16835582248027a8d24139690aa25a81701fbfa4a1efdf660a950c1d006", null ],
@@ -43,7 +44,7 @@ var ia_console_8h =
     [ "incerr", "ia_console_8h.html#aec4dd53feec0242dbe6f11a22abdc1a5", null ],
     [ "incwarn", "ia_console_8h.html#a8c450300a2e4d0f17bbafc775bbf97ad", null ],
     [ "LOCK", "ia_console_8h.html#ad115e13c89b22dd2f51dc8564b1670d7", null ],
-    [ "operator<<", "ia_console_8h.html#a87b1db7ee53f5a4d7862c01e71d53c10", null ],
+    [ "operator<<", "ia_console_8h.html#a27c709adbd89e6bf024b520ccd4999fc", null ],
     [ "printThreadID", "ia_console_8h.html#a067a2ca9379c5a9def30c8e2ff861cb1", null ],
     [ "UNLOCK", "ia_console_8h.html#a70d25d986c5fffd8bd895f55a6f20a16", null ],
     [ "iaConsole", "ia_console_8h.html#ad4c739569f25a703a70211057fedc6e9", null ]

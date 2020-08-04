@@ -33,7 +33,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.28.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.29.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -175,6 +175,8 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_state_machine.html">iaStateMachine</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_string.html">iaString</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_test.html">iaTest</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_thread.html">iaThread</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -374,8 +376,8 @@ Functions</h2></td></tr>
 <tr class="separator:af20669412aaf5b9668f5b978d7f626be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8be0f90b9f1f9381d6a5e80086d26f47"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a8be0f90b9f1f9381d6a5e80086d26f47">iaEVENT</a> (RenderStateEvent, RenderStateDelegate,(),())</td></tr>
 <tr class="separator:a8be0f90b9f1f9381d6a5e80086d26f47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87b1db7ee53f5a4d7862c01e71d53c10"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classiaux_1_1ia_console.html">iaConsole</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a87b1db7ee53f5a4d7862c01e71d53c10">operator&lt;&lt;</a> (<a class="el" href="classiaux_1_1ia_console.html">iaConsole</a> &amp;console, const <a class="el" href="namespaceiaux.html#afd3b2f5259d1874dee17bd422cea56fc">iaLogLevel</a> &amp;logLevel)</td></tr>
-<tr class="separator:a87b1db7ee53f5a4d7862c01e71d53c10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27c709adbd89e6bf024b520ccd4999fc"><td class="memItemLeft" align="right" valign="top">std::wostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a27c709adbd89e6bf024b520ccd4999fc">operator&lt;&lt;</a> (std::wostream &amp;stream, const <a class="el" href="namespaceiaux.html#afd3b2f5259d1874dee17bd422cea56fc">iaLogLevel</a> &amp;logLevel)</td></tr>
+<tr class="separator:a27c709adbd89e6bf024b520ccd4999fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55a26e98464c6d7f578da8304412d13c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a55a26e98464c6d7f578da8304412d13c">__IGOR_FUNCTION_POINTER__</a> (superspecialfuncptrtype, <a class="el" href="classiaux_1_1ia_console.html">iaConsole</a> &amp;,(<a class="el" href="classiaux_1_1ia_console.html">iaConsole</a> &amp;))</td></tr>
 <tr class="separator:a55a26e98464c6d7f578da8304412d13c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a030e2c3dafd95fc262c66a561e77f913"><td class="memItemLeft" align="right" valign="top">__IGOR_INLINE__ <a class="el" href="classiaux_1_1ia_console.html">iaConsole</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a030e2c3dafd95fc262c66a561e77f913">endl</a> (<a class="el" href="classiaux_1_1ia_console.html">iaConsole</a> &amp;console)</td></tr>
@@ -415,9 +417,17 @@ Variables</h2></td></tr>
 <tr class="separator:a4c6eca84650e9863ba70aa97a9159f3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4c739569f25a703a70211057fedc6e9"><td class="memItemLeft" align="right" valign="top">class IgorAux_API&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#ad4c739569f25a703a70211057fedc6e9">iaConsole</a></td></tr>
 <tr class="separator:ad4c739569f25a703a70211057fedc6e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1467b3afaf855371302f32815b491da"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#ab1467b3afaf855371302f32815b491da">s_stopOnError</a> = false</td></tr>
+<tr class="separator:ab1467b3afaf855371302f32815b491da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98e983aa1ca55ab9f082db1db4fb743f"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#a98e983aa1ca55ab9f082db1db4fb743f">s_useFilter</a> = false</td></tr>
+<tr class="separator:a98e983aa1ca55ab9f082db1db4fb743f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade53d5223838ffe1dcf6d7f8a3f82424"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceiaux.html#ade53d5223838ffe1dcf6d7f8a3f82424">s_filter</a></td></tr>
+<tr class="separator:ade53d5223838ffe1dcf6d7f8a3f82424"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>IgorAux namespace that contains all basic functionality of the Igor game engine </p>
+<div class="textblock"><p>IgorAux namespace that contains all basic functionality of the Igor game engine</p>
+<p>This is a port from robertpenner.com/easing/</p>
+<p>Disclaimer for Robert Penner's <a class="el" href="namespaceiaux_1_1_easing.html">Easing</a> Equations license: TERMS OF USE - EASING EQUATIONS Open source under the BSD License. Copyright © 2001 Robert Penner All rights reserved. Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met : Redistributions of source code must retain the above copyright notice, this list of conditionsand the following disclaimer. Redistributions in binary form must reproduce the above copyright notice, this list of conditionsand the following disclaimer in the documentation and /or other materials provided with the distribution. Neither the name of the author nor the names of contributors may be used to endorse or promote products derived from this software without specific prior written permission. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. </p>
 </div><h2 class="groupheader">Typedef Documentation</h2>
 <a class="anchor" id="aae4d494106f2dbada25651f13d4b9e37"></a>
 <div class="memitem">
@@ -1047,12 +1057,12 @@ Variables</h2></td></tr>
 <p>informational output about what the engine does </p><pre class="fragment">con_info</pre> </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="afd3b2f5259d1874dee17bd422cea56fcaf6f6931771db95a6bffec131b856bd50"></a>DebugInfo&#160;</td><td class="fielddoc">
 <p>it's stuff somewhere between info and what the engine would log when actually compiled for debug. It's the equivalent of a plain cout or printf.</p>
-<p>con, con_endl </p>
+<p>con_endl </p>
 </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="afd3b2f5259d1874dee17bd422cea56fcaa603905470e2a5b8c13e96b579ef0dba"></a>Debug&#160;</td><td class="fielddoc">
-<p>debug output </p><pre class="fragment">con_debug, con_debug_endl</pre> </td></tr>
+<p>debug output </p><pre class="fragment">con_debug</pre> </td></tr>
 <tr><td class="fieldname"><a class="anchor" id="afd3b2f5259d1874dee17bd422cea56fcadd4ec0ac4e58f7c32a01244ae91150b1"></a>Trace&#160;</td><td class="fielddoc">
-<p>trace everything that there is </p><pre class="fragment">con_trace</pre> </td></tr>
+<p>trace everything that there is </p><pre class="fragment">con_trace, con_trace_call</pre> </td></tr>
 </table>
 
 </div>
@@ -1840,15 +1850,15 @@ template&lt;class T &gt; </div>
 </dl>
 </div>
 </div>
-<a class="anchor" id="a87b1db7ee53f5a4d7862c01e71d53c10"></a>
+<a class="anchor" id="a27c709adbd89e6bf024b520ccd4999fc"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classiaux_1_1ia_console.html">iaConsole</a> &amp; iaux::operator&lt;&lt; </td>
+          <td class="memname">IgorAux_API std::wostream &amp; iaux::operator&lt;&lt; </td>
           <td>(</td>
-          <td class="paramtype">iaConsole &amp;&#160;</td>
-          <td class="paramname"><em>console</em>, </td>
+          <td class="paramtype">std::wostream &amp;&#160;</td>
+          <td class="paramname"><em>stream</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -1866,10 +1876,12 @@ template&lt;class T &gt; </div>
 <p>prints the log level in the console</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">stream</td><td>the stream to log to </td></tr>
     <tr><td class="paramname">logLevel</td><td>the log level to print </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>the stream </dd></dl>
 
 </div>
 </div>
@@ -1923,6 +1935,42 @@ template&lt;class T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const iaColor3&lt; <a class="el" href="igor_8cpp.html#a0acb682b8260ab1c60b918599864e2e5">T</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>color</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>stream operator e.g. for cosole output</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ostr</td><td>the out stream handle </td></tr>
+    <tr><td class="paramname">color</td><td>the color to print in stream </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="ab47c9a353c7a281587eaa0a739d6ea05"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">__IGOR_INLINE__ std::wostream&amp; iaux::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::wostream &amp;&#160;</td>
+          <td class="paramname"><em>ostr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const iaColor4&lt; <a class="el" href="igor_8cpp.html#a0acb682b8260ab1c60b918599864e2e5">T</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>color</em>&#160;</td>
         </tr>
         <tr>
@@ -2010,42 +2058,6 @@ template&lt;class T &gt; </div>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>the resulting stream </dd></dl>
-
-</div>
-</div>
-<a class="anchor" id="ab47c9a353c7a281587eaa0a739d6ea05"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">__IGOR_INLINE__ std::wostream&amp; iaux::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::wostream &amp;&#160;</td>
-          <td class="paramname"><em>ostr</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const iaColor4&lt; <a class="el" href="igor_8cpp.html#a0acb682b8260ab1c60b918599864e2e5">T</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>color</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>stream operator e.g. for cosole output</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ostr</td><td>the out stream handle </td></tr>
-    <tr><td class="paramname">color</td><td>the color to print in stream </td></tr>
-  </table>
-  </dd>
-</dl>
 
 </div>
 </div>
@@ -2234,6 +2246,26 @@ template&lt;class T &gt; </div>
 
 </div>
 </div>
+<a class="anchor" id="ade53d5223838ffe1dcf6d7f8a3f82424"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string iaux::s_filter</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a4c6eca84650e9863ba70aa97a9159f3d"></a>
 <div class="memitem">
 <div class="memproto">
@@ -2243,6 +2275,46 @@ template&lt;class T &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> iaux::s_numbers = &quot;0123456789abcdef&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab1467b3afaf855371302f32815b491da"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool iaux::s_stopOnError = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a98e983aa1ca55ab9f082db1db4fb743f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool iaux::s_useFilter = false</td>
         </tr>
       </table>
   </td>

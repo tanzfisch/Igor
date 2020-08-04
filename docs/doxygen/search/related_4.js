@@ -27,6 +27,7 @@ var searchData=
   ['iaudio',['iAudio',['../classigor_1_1i_sound.html#aa764aeeb1cdd9b63782fef24db1423cb',1,'igor::iSound']]],
   ['idataupdatequeue',['iDataUpdateQueue',['../classigor_1_1i_node.html#ad76feae0f2eae8d85174c7dd5665457b',1,'igor::iNode']]],
   ['idialog',['iDialog',['../classigor_1_1i_widget_manager.html#af7f6f50efeae1e3310a0ba88374672f2',1,'igor::iWidgetManager::iDialog()'],['../classigor_1_1i_widget.html#af7f6f50efeae1e3310a0ba88374672f2',1,'igor::iWidget::iDialog()']]],
+  ['idialogmenu',['iDialogMenu',['../classigor_1_1i_widget_menu.html#a9b956fbc2b0cd715759c57adc12aceb2',1,'igor::iWidgetMenu']]],
   ['ientity',['iEntity',['../classigor_1_1i_entity_manager.html#a021b8fb3624ee7fa31246cd91dfac21c',1,'igor::iEntityManager']]],
   ['ientitylocatable',['iEntityLocatable',['../classigor_1_1i_entity_manager.html#a250afcc639ef32aea5066001fef25ab5',1,'igor::iEntityManager']]],
   ['ientitymanager',['iEntityManager',['../classigor_1_1i_entity.html#a4d75f11b7e88aff423c3f080f635b1f7',1,'igor::iEntity::iEntityManager()'],['../classigor_1_1i_entity_locatable.html#a4d75f11b7e88aff423c3f080f635b1f7',1,'igor::iEntityLocatable::iEntityManager()']]],

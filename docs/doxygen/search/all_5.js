@@ -13,7 +13,7 @@ var searchData=
   ['endl',['endl',['../classiaux_1_1ia_console.html#a9eb46d159959ba928c7cb960b5723ab8',1,'iaux::iaConsole::endl()'],['../namespaceiaux.html#a030e2c3dafd95fc262c66a561e77f913',1,'iaux::endl()']]],
   ['endltab',['endlTab',['../classiaux_1_1ia_console.html#a5e799c0a5ab63f42d48bd45128c87ebb',1,'iaux::iaConsole::endlTab()'],['../namespaceiaux.html#a4414cbd32a75151a1f9128ae4e6ff407',1,'iaux::endlTab()']]],
   ['endradiobuttongroup',['endRadioButtonGroup',['../classigor_1_1i_widget_check_box.html#a136796a81650f948bbe3ed9b9bc9b076',1,'igor::iWidgetCheckBox']]],
-  ['endsection',['endSection',['../classigor_1_1i_profiler.html#a880ca57eabfd2edc4b664ae17e5e1e5f',1,'igor::iProfiler::endSection()'],['../classigor_1_1i_profiler_section.html#a25001136febfe09b61498f0fd0adb6c2',1,'igor::iProfilerSection::endSection()']]],
+  ['endsection',['endSection',['../classigor_1_1i_profiler.html#acf440425b205c8df21895b09667b3925',1,'igor::iProfiler']]],
   ['enter',['enter',['../classiaux_1_1ia_state.html#a6ed2e371276b04344ea5fcb72a80b179',1,'iaux::iaState::enter()'],['../namespaceigor.html#a80a6b547ebec2fad44cd23cbceeba9bdaf1851d5600eae616ee802a31ac74701b',1,'igor::Enter()']]],
   ['eof',['eof',['../classiaux_1_1ia_mem_block_control.html#a73c9468402de1998fda8a991bb3d8995',1,'iaux::iaMemBlockControl']]],
   ['equal',['Equal',['../namespaceigor.html#a19f6a5933e8801a314ed880e56666b8daf5f286e73bda105e538310b3190f75c5',1,'igor::Equal()'],['../namespaceigor.html#a7367729bc285c208adcf486163a76f64af5f286e73bda105e538310b3190f75c5',1,'igor::Equal()'],['../namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72af5f286e73bda105e538310b3190f75c5',1,'OMPF::Equal()']]],

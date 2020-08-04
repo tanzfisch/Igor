@@ -7,7 +7,6 @@ var classigor_1_1i_mesh_builder =
     [ "addVertex", "classigor_1_1i_mesh_builder.html#aa7045af3c6b79c9dfc7998a5c06e4e73", null ],
     [ "addVertex", "classigor_1_1i_mesh_builder.html#a0622de0af01077fa0803c312f61835a5", null ],
     [ "calcBoundingBox", "classigor_1_1i_mesh_builder.html#aca3258449e4f8b2315a56cb5f4dad031", null ],
-    [ "calcBoundingSphere", "classigor_1_1i_mesh_builder.html#aac02318c4036d22248b06e8d25cb6294", null ],
     [ "calcNormals", "classigor_1_1i_mesh_builder.html#a00d3eb5b00b8d2c3ffddb381dec4b8ba", null ],
     [ "calcPlanarTextureCoordinates", "classigor_1_1i_mesh_builder.html#ac1e254cb329da59e8e1835d2acd85d14", null ],
     [ "calcSphericalTexcoordsByNormals", "classigor_1_1i_mesh_builder.html#a0962175f026e5dae2e74a714bc1070dd", null ],

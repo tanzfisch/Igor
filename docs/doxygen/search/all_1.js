@@ -31,6 +31,7 @@ var searchData=
   ['addselectionentry',['addSelectionEntry',['../classigor_1_1i_widget_select_box.html#af86b543b43eb4a6a23a1e17ad5017ee8',1,'igor::iWidgetSelectBox']]],
   ['addshader',['addShader',['../class_o_m_p_f_1_1ompf_material_chunk.html#a40f723ab37126c4aa56e74851ac26081',1,'OMPF::ompfMaterialChunk']]],
   ['addshadersource',['addShaderSource',['../classigor_1_1i_material.html#a60abf5332b73883014c8de10b74015bc',1,'igor::iMaterial']]],
+  ['addspacer',['addSpacer',['../classigor_1_1i_dialog_menu.html#a0d7e6edb9d0817e45880bf02dafd5732',1,'igor::iDialogMenu']]],
   ['addsphere',['addSphere',['../classigor_1_1i_physics_collision_config.html#a7719400e96a459ef906d622c6a6d3a95',1,'igor::iPhysicsCollisionConfig::addSphere()'],['../namespaceigor_1_1i_mesh_builder_utils.html#ace316a592c79187197ec71c1c6df6c43',1,'igor::iMeshBuilderUtils::addSphere()'],['../namespaceigor.html#abc0147d6e676edf760d2af1d2092b1e3',1,'igor::addSphere()']]],
   ['addsupportpoint',['addSupportPoint',['../classiaux_1_1ia_b_spline.html#a84cd40c61f2fab67afde8a6943f9dbcd',1,'iaux::iaBSpline']]],
   ['addtask',['addTask',['../classigor_1_1i_task_manager.html#a2a8db11f5f977db0a3c77affa6833781',1,'igor::iTaskManager']]],
