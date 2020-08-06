@@ -35,8 +35,7 @@
 #include <igor/events/iEventKeyboard.h>
 #include <igor/events/iEventMouse.h>
 #include <igor/events/iEventWindow.h>
-
-#include <iaux/system/iaSingleton.h>
+#include <igor/resources/module/iModule.h>
 
 #include <vector>
 #include <unordered_map>
@@ -53,12 +52,12 @@ namespace igor
 
     \todo make it a non sigleton
     */
-    class Igor_API iWidgetManager : public iaSingleton<iWidgetManager>
+    class Igor_API iWidgetManager : public iModule<iWidgetManager>
     {
 
         /*! needs to be friends with singleton base class in order to be a singleton
         */
-        friend class iaSingleton<iWidgetManager>;
+        friend class iModule<iWidgetManager>;
 
         friend class iWidget;
         friend class iDialog;

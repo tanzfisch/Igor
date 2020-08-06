@@ -26,12 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iNODEFACTORY__
-#define __iNODEFACTORY__
+#ifndef __IGOR_NODEFACTORY_H__
+#define __IGOR_NODEFACTORY_H__
 
 #include <igor/scene/nodes/iNode.h>
+#include <igor/resources/module/iModule.h>
 
-#include <iaux/system/iaSingleton.h>
 #include <iaux/system/iaMutex.h>
 using namespace iaux;
 
@@ -40,193 +40,189 @@ using namespace iaux;
 namespace igor
 {
 
-	/*! creates and destroys nodes
+    /*! creates and destroys nodes
 	*/
-	class Igor_API iNodeManager : public iaSingleton<iNodeManager>
-	{
-		friend class iaSingleton<iNodeManager>;
-		friend class iApplication;
-		friend class iScene;
-		friend class iNode;
+    class Igor_API iNodeManager : public iModule<iNodeManager>
+    {
+        friend class iModule<iNodeManager>;
+        friend class iApplication;
+        friend class iScene;
+        friend class iNode;
 
-	public:
-		/*! type of action to queue
+    public:
+        /*! type of action to queue
 		*/
-		enum class Igor_API iActionType
-		{
-			Undefined,
-			Insert,
-			Remove,
-			Destroy,
-			Activate,
-			Deactivate
-		};
+        enum class Igor_API iActionType
+        {
+            Undefined,
+            Insert,
+            Remove,
+            Destroy,
+            Activate,
+            Deactivate
+        };
 
-		/*! struct used for queueing actions
+        /*! struct used for queueing actions
 		*/
-		struct Igor_API iAction
-		{
-			/*! node A to do an action with
+        struct Igor_API iAction
+        {
+            /*! node A to do an action with
 			*/
-			uint64 _nodeA = iNode::INVALID_NODE_ID;
+            uint64 _nodeA = iNode::INVALID_NODE_ID;
 
-			/*! node B to do an action with
+            /*! node B to do an action with
 			*/
-			uint64 _nodeB = iNode::INVALID_NODE_ID;
+            uint64 _nodeB = iNode::INVALID_NODE_ID;
 
-			/*! the action to do with node A, B or both
+            /*! the action to do with node A, B or both
 			*/
-			iActionType _action = iActionType::Undefined;
-		};
+            iActionType _action = iActionType::Undefined;
+        };
 
-		/*! get node by id
+        /*! get node by id
 
 		\param id id of ndoe
 		\returns pointer to node
 		*/
-		iNodePtr getNode(uint64 id) const;
+        iNodePtr getNode(uint64 id) const;
 
-		/*! \returns list of all node IDs of a certain node type
+        /*! \returns list of all node IDs of a certain node type
 
 		\param nodeType type of nodes
 		*/
-		std::vector<uint64> getNodes(iNodeType nodeType);
+        std::vector<uint64> getNodes(iNodeType nodeType);
 
-		/*! \returns true if node ID exists
+        /*! \returns true if node ID exists
 
 		\param id the nodes ID
 		*/
-		bool isNode(uint64 id) const;
+        bool isNode(uint64 id) const;
 
-		/*! create copy of node
+        /*! create copy of node
 
 		\param node the node to copy
 		*/
-		iNodePtr createCopy(iNodePtr node);
+        iNodePtr createCopy(iNodePtr node);
 
-		/*! destroys node and all its children  (asynchronously)
+        /*! destroys node and all its children  (asynchronously)
 
 		node get's destroyed in main thread in next frame
 
 		\param node pointer to node to be destroyed
 		*/
-		void destroyNodeAsync(iNodePtr node);
+        void destroyNodeAsync(iNodePtr node);
 
-		/*! destroys node and all its children
+        /*! destroys node and all its children
 
 		node get's destroyed in main thread in next frame
 
 		\param nodeID id of node (asynchronously)
 		*/
-		void destroyNodeAsync(uint64 nodeID);
+        void destroyNodeAsync(uint64 nodeID);
 
-		/*! applys asynchrounous actions to nodes
+        /*! applys asynchrounous actions to nodes
 
 		\param actionQueue list of actions to be executed
 		*/
-		void applyActionsAsync(const std::vector<iAction> &actionQueue);
+        void applyActionsAsync(const std::vector<iAction> &actionQueue);
 
-		/*! creates a node
+        /*! creates a node
 		\returns pointer to new node
 		*/
-		template <class T>
-		T *createNode();
+        template <class T>
+        T *createNode();
 
-		/*! inserts one node as child to an other (asynchronously)
+        /*! inserts one node as child to an other (asynchronously)
 
 		the actual insertion happens in the main thread
 
 		\param parent the future parent node
 		\param child the child to be inserted
 		*/
-		void insertNodeAsync(iNodePtr parent, iNodePtr child);
+        void insertNodeAsync(iNodePtr parent, iNodePtr child);
 
-		/*! removes one node from an other (asynchronously)
+        /*! removes one node from an other (asynchronously)
 
 		the actual removal happens in the main thread
 
 		\param parent parent node
 		\param child the child to be removed
 		*/
-		void removeNodeAsync(iNodePtr parent, iNodePtr child);
+        void removeNodeAsync(iNodePtr parent, iNodePtr child);
 
-		/*! sets node active/inactive (asynchronously)
+        /*! sets node active/inactive (asynchronously)
 
 		\param node pointer to node
 		\param active the active/inactive flag
 		*/
-		void setActiveAsync(iNodePtr node, bool active);
+        void setActiveAsync(iNodePtr node, bool active);
 
-		/*! flushing queues and updating scenes
+        /*! flushing queues and updating scenes
 
 		\todo should be private
 		*/
-		void flush();
+        void flush();
 
-	private:
-		/*! mapping ids to nodes
+    private:
+        /*! mapping ids to nodes
 		*/
-		std::unordered_map<uint64, iNodePtr> _nodes;
+        std::unordered_map<uint64, iNodePtr> _nodes;
 
-		/*! mutex to protect node list
+        /*! mutex to protect node list
 		*/
-		static iaMutex _mutexNodes;
+        static iaMutex _mutexNodes;
 
-		/*! queue with actions
+        /*! queue with actions
 		*/
-		std::vector<iAction> _actionQueue;
+        std::vector<iAction> _actionQueue;
 
-		/*! mutex to protect activities
+        /*! mutex to protect activities
 		*/
-		iaMutex _mutexQueue;
+        iaMutex _mutexQueue;
 
-		/*! last chance for the instance to clean up before shut down
-		*/
-		virtual void onPreDestroyInstance();
-
-		/*! internal copy function for nodes
+        /*! internal copy function for nodes
 
 		\param node the source node
 		\returns a copy of the source node
 		*/
-		iNodePtr createNodeCopy(iNodePtr node);
+        iNodePtr createNodeCopy(iNodePtr node);
 
-		/*! create copy of node
+        /*! create copy of node
 
 		\param node the node to copy
 		\param recursiveDepth recursive depth
 		*/
-		iNodePtr createCopyInternal(iNodePtr node, std::map<uint64, uint64> &nodeIDMap, uint32 recursiveDepth);
+        iNodePtr createCopyInternal(iNodePtr node, std::map<uint64, uint64> &nodeIDMap, uint32 recursiveDepth);
 
-		/*! destroys node and all its children
+        /*! destroys node and all its children
 
 		\param node pointer to node to be destroyed
 		*/
-		void destroyNode(iNodePtr node);
+        void destroyNode(iNodePtr node);
 
-		/*! destroys node and all its children
+        /*! destroys node and all its children
 
 		if Id does not exist it does nothing
 
 		\param nodeID id of node
 		*/
-		void destroyNode(uint64 nodeID);
+        void destroyNode(uint64 nodeID);
 
-		/*! called once per frame by application
+        /*! called once per frame by application
 		*/
-		void handle();
+        void handle();
 
-		/*! does nothing
+        /*! does nothing
 		*/
-		iNodeManager() = default;
+        iNodeManager() = default;
 
-		/*! checks if all nodes where released
+        /*! checks if all nodes where released
 		*/
-		~iNodeManager();
-	};
+        ~iNodeManager();
+    };
 
 #include <igor/scene/nodes/iNodeManager.inl>
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_NODEFACTORY_H__

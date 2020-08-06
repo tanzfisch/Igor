@@ -29,8 +29,8 @@
 #ifndef __IAUX_CONSOLE_H__
 #define __IAUX_CONSOLE_H__
 
-#include <iaux/system/iaSingleton.h>
 #include <iaux/system/iaClock.h>
+#include <iaux/system/iaMutex.h>
 
 #include <fstream>
 #include <iostream>
@@ -122,9 +122,8 @@ namespace iaux
 
     /*! console and logging interface
     */
-    class IgorAux_API iaConsole : public iaSingleton<iaConsole>
+    class IgorAux_API iaConsole
     {
-        friend class iaSingleton<iaConsole>;
         friend void *threadFunc(void *data);
 
         friend iaConsole &endl(iaConsole &console);
@@ -138,6 +137,12 @@ namespace iaux
         friend iaConsole &applicationTime(iaConsole &console);
 
     public:
+        static iaConsole &getInstance()
+        {
+            static iaConsole _instance;
+            return _instance;
+        }
+
         /*! lock console for exclusive access
         */
         void lock();
@@ -619,8 +624,8 @@ namespace iaux
     \param stream the stream to log to
     \param logLevel the log level to print
     \returns the stream
-    */    
-    IgorAux_API std::wostream& operator<<(std::wostream& stream, const iaLogLevel& logLevel);
+    */
+    IgorAux_API std::wostream &operator<<(std::wostream &stream, const iaLogLevel &logLevel);
 
 }; // namespace iaux
 

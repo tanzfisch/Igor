@@ -31,6 +31,7 @@
 
 #include <igor/data/iRectangle.h>
 #include <igor/system/iOSEventListener.h>
+#include <igor/resources/module/iModule.h>
 
 #include <iaux/math/iaVector2.h>
 using namespace iaux;
@@ -44,10 +45,10 @@ namespace igor
 
     \todo use ClipCursor to kleep the cursor inside the window
 	*/
-    class Igor_API iMouse : public iOSEventListener, public iaSingleton<iMouse>
+    class Igor_API iMouse : public iOSEventListener, public iModule<iMouse>
     {
 
-        friend class iaSingleton<iMouse>;
+        friend class iModule<iMouse>;
 
     public:
         /*! set mouse to center of currently focused window

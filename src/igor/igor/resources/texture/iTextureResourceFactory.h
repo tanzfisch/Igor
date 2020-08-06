@@ -26,13 +26,13 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iTEXTURERESOURCEFACTORY__
-#define __iTEXTURERESOURCEFACTORY__
+#ifndef __IGOR_TEXTURERESOURCEFACTORY_H__
+#define __IGOR_TEXTURERESOURCEFACTORY_H__
 
 #include <igor/resources/texture/iTexture.h>
 #include <igor/resources/texture/iPixmap.h>
+#include <igor/resources/module/iModule.h>
 
-#include <iaux/system/iaSingleton.h>
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaMutex.h>
 using namespace iaux;
@@ -50,9 +50,9 @@ namespace igor
 
     \bug not all textures released when used by iNodeModel and iNodeMesh
     */
-    class Igor_API iTextureResourceFactory : public iaSingleton<iTextureResourceFactory>
+    class Igor_API iTextureResourceFactory : public iModule<iTextureResourceFactory>
     {
-        friend class iaSingleton<iTextureResourceFactory>;
+        friend class iModule<iTextureResourceFactory>;
 
     public:
         /*! \returns shared pointer to genereated dummy texture
@@ -160,4 +160,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_TEXTURERESOURCEFACTORY_H__

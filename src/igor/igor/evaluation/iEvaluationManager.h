@@ -26,14 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iEVALUATION_MANAGER__
-#define __iEVALUATION_MANAGER__
+#ifndef __IGOR_EVALUATION_MANAGER_H__
+#define __IGOR_EVALUATION_MANAGER_H__
 
 #include <igor/evaluation/iEvaluation.h>
 #include <igor/scene/nodes/iNodeManager.h>
-
-#include <iaux/system/iaSingleton.h>
-using namespace iaux;
+#include <igor/resources/module/iModule.h>
 
 #include <unordered_map>
 
@@ -42,10 +40,10 @@ namespace igor
 
     /*! evaluation manager
     */
-    class Igor_API iEvaluationManager : public iaSingleton<iEvaluationManager>
+    class Igor_API iEvaluationManager : public iModule<iEvaluationManager>
     {
 
-        friend class iaSingleton<iEvaluationManager>;
+        friend class iModule<iEvaluationManager>;
         friend class iApplication;
         friend class iEvaluation;
 
@@ -116,4 +114,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_EVALUATION_MANAGER_H__

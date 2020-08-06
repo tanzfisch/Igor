@@ -26,13 +26,11 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iENTITYMANAGER__
-#define __iENTITYMANAGER__
+#ifndef __IGOR_ENTITYMANAGER_H__
+#define __IGOR_ENTITYMANAGER_H__
 
 #include <igor/scene/octree/iOctree.h>
-
-#include <iaux/system/iaSingleton.h>
-using namespace iaux;
+#include <igor/resources/module/iModule.h>
 
 #include <map>
 
@@ -48,10 +46,10 @@ namespace igor
     classical approach using inherritance to define entities even if this provokes potencially ugly code within the 
     application layer. I don't care. I want to keep the engine clean. ML
     */
-    class Igor_API iEntityManager : public iaSingleton<iEntityManager>
+    class Igor_API iEntityManager : public iModule<iEntityManager>
     {
 
-        friend class iaSingleton<iEntityManager>;
+        friend class iModule<iEntityManager>;
         friend class iEntity;
         friend class iEntityLocatable;
 
@@ -125,4 +123,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_ENTITYMANAGER_H__

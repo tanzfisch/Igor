@@ -44,11 +44,6 @@ namespace igor
         }
     }
 
-    void iNodeManager::onPreDestroyInstance()
-    {
-        flush();
-    }
-
     void iNodeManager::applyActionsAsync(const std::vector<iAction> &actionQueue)
     {
         _mutexQueue.lock();
