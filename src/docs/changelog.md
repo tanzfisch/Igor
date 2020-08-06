@@ -5,6 +5,7 @@ Changelog                           {#changelog}
 ------
 
 - introduced iModule and switched most singletons to modules
+- removed iaSingleton class
 
 0.29.0
 ------
