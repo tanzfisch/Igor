@@ -32,8 +32,8 @@
 #include <igor/events/iEventWindow.h>
 #include <igor/layers/iLayerStack.h>
 #include <igor/system/iWindow.h>
+#include <igor/resources/module/iModule.h>
 
-#include <iaux/system/iaSingleton.h>
 using namespace iaux;
 
 #include <vector>
@@ -46,11 +46,11 @@ namespace igor
 	
 	The main entry point to an Igor application (Singleton)
 	*/
-    class Igor_API iApplication : public iaSingleton<iApplication>
+    class Igor_API iApplication : public iModule<iApplication>
     {
 
         friend class iWindow;
-        friend class iaSingleton<iApplication>;
+        friend class iModule<iApplication>;
 
     public:
         /*! starts the application

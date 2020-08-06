@@ -36,13 +36,13 @@
 #include <igor/graphics/iRenderStateSet.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/mesh/iMesh.h>
+#include <igor/resources/module/iModule.h>
 
 #include <iaux/data/iaGradient.h>
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaColor4.h>
 #include <iaux/data/iaColor3.h>
 #include <iaux/math/iaMatrix.h>
-#include <iaux/system/iaSingleton.h>
 #include <iaux/system/iaEvent.h>
 #include <iaux/system/iaMutex.h>
 using namespace iaux;
@@ -110,10 +110,10 @@ namespace igor
 
     \todo light handling is not done at all
     */
-    class Igor_API iRenderer : public iaSingleton<iRenderer>
+    class Igor_API iRenderer : public iModule<iRenderer>
     {
 
-        friend class iaSingleton<iRenderer>;
+        friend class iModule<iRenderer>;
         friend class iTextureResourceFactory;
         friend class iRenderEngine;
         friend class iWindow;

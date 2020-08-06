@@ -29,10 +29,7 @@
 #ifndef __IGOR_CLIPBOARD_H__
 #define __IGOR_CLIPBOARD_H__
 
-#include <igor/iDefines.h>
-
-#include <iaux/system/iaSingleton.h>
-using namespace iaux;
+#include <igor/resources/module/iModule.h>
 
 #include <any>
 
@@ -51,10 +48,10 @@ namespace igor
 
     \todo make the clipboard work outside of igor
 	*/
-    class Igor_API iClipboard : public iaSingleton<iClipboard>
+    class Igor_API iClipboard : public iModule<iClipboard>
     {
 
-        friend class iaSingleton<iClipboard>;
+        friend class iModule<iClipboard>;
 
     public:
         /*! set data on clipboard
@@ -92,7 +89,7 @@ namespace igor
 
         /*! does nothing
 		*/
-        virtual ~iClipboard() = default;
+        ~iClipboard() = default;
     };
 
 }; // namespace igor

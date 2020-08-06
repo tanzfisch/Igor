@@ -26,12 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __RESOURCEMANAGER__
-#define __RESOURCEMANAGER__
+#ifndef __IGOR_RESOURCEMANAGER_H__
+#define __IGOR_RESOURCEMANAGER_H__
 
 #include <igor/resources/iFactory.h>
+#include <igor/resources/module/iModule.h>
 
-#include <iaux/system/iaSingleton.h>
 #include <iaux/system/iaDirectory.h>
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaMutex.h>
@@ -46,10 +46,10 @@ namespace igor
 
     /*! manages resoruces and their factories
     */
-    class Igor_API iResourceManager : public iaSingleton<iResourceManager>
+    class Igor_API iResourceManager : public iModule<iResourceManager>
     {
 
-        friend class iaSingleton<iResourceManager>;
+        friend class iModule<iResourceManager>;
 
     public:
         /*! adds search path to list
@@ -66,7 +66,7 @@ namespace igor
 
         /*! \returns list of search paths
         */
-        const std::vector<iaString>& getSearchPaths() const;
+        const std::vector<iaString> &getSearchPaths() const;
 
         /*! clears search path list
         */
@@ -89,14 +89,14 @@ namespace igor
         \param param parameters for loading resource
         \returns shared pointer to resource
         */
-        iResourcePtr requestResource(const iResourceParameters& parameters);
+        iResourcePtr requestResource(const iResourceParameters &parameters);
 
         /*! loads a resource synchronously.
 
         \param param parameters for loading resource
         \returns shared pointer to resource
         */
-        iResourcePtr loadResource(const iResourceParameters& parameters);
+        iResourcePtr loadResource(const iResourceParameters &parameters);
 
         /*! works like a garbage collector.
 
@@ -150,20 +150,20 @@ namespace igor
         \param parameters the resource parameters
         \param factory the factory used to create the resource if not found
         */
-        iResourcePtr getResource(const iResourceParameters& parameters, iFactoryPtr factory);
+        iResourcePtr getResource(const iResourceParameters &parameters, iFactoryPtr factory);
 
         /*! \returns factory for given resource parameters
 
         \param parameters given resource parameters
         */
-        iFactoryPtr getFactory(const igor::iResourceParameters& parameters);
+        iFactoryPtr getFactory(const igor::iResourceParameters &parameters);
 
         /*! calculates hash value based on resource parameters
 
         \param parameters the resource parameters
         \param factory the factory that will be used to load this resource
         */
-        int64 calcHashValue(const iResourceParameters& parameters, iFactoryPtr factory);
+        int64 calcHashValue(const iResourceParameters &parameters, iFactoryPtr factory);
 
         /*! does nothing
         */
@@ -176,4 +176,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_RESOURCEMANAGER_H__

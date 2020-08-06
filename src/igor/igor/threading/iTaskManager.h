@@ -31,8 +31,8 @@
 
 #include <igor/iDefines.h>
 #include <igor/threading/iThread.h>
+#include <igor/resources/module/iModule.h>
 
-#include <iaux/system/iaSingleton.h>
 #include <iaux/system/iaEvent.h>
 using namespace iaux;
 
@@ -56,10 +56,10 @@ namespace igor
 
     \todo there should be IDs for tasks so we can sefely kill tasks later by ID
     */
-    class Igor_API iTaskManager : public iaSingleton<iTaskManager>
+    class Igor_API iTaskManager : public iModule<iTaskManager>
     {
 
-        friend class iaSingleton<iTaskManager>;
+        friend class iModule<iTaskManager>;
         friend class iWindow;
 
         /*! some extra data we give the render context threads with

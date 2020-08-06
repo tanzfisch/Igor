@@ -34,86 +34,86 @@
 
 namespace igor
 {
-	class iKeyboardImpl;
+    class iKeyboardImpl;
 
-	/*! Handles keyboard specific os events and triggers Igor events.
+    /*! Handles keyboard specific os events and triggers Igor events.
 
 	It also stores key states for later use
 	*/
-	class Igor_API iKeyboard : public iOSEventListener, public iaSingleton<iKeyboard>
-	{
+    class Igor_API iKeyboard : public iOSEventListener, public iModule<iKeyboard>
+    {
 
-		friend class iaSingleton<iKeyboard>;
+        friend class iModule<iKeyboard>;
 
-	public:
-		/*! \returns true: if a specified key is pressed; false if the specified key is not pressed
+    public:
+        /*! \returns true: if a specified key is pressed; false if the specified key is not pressed
 
         you should not use that. better style is to use events
 
         \param keyCode the specified key
         */
-		bool getKey(iKeyCode keyCode);
+        bool getKey(iKeyCode keyCode);
 
-		/*! \returns true: if any key is pressed; false: if no key is pressed
+        /*! \returns true: if any key is pressed; false: if no key is pressed
 
         you should not use that. better style is to use events
         */
-		bool keyPressed();
+        bool keyPressed();
 
-		/*! returns key code
+        /*! returns key code
 
 		\param keycode key name
 		\return key code
 		*/
-		static iKeyCode getKeyCode(const iaString &keyname);
+        static iKeyCode getKeyCode(const iaString &keyname);
 
-		/*! \retruns pointer to corresponding window
+        /*! \retruns pointer to corresponding window
 		if it returns nullptr the listener was not registred to a window yet
 		*/
-		iWindow *getWindow() const override;
+        iWindow *getWindow() const override;
 
-	private:
-		/*! pimpl
+    private:
+        /*! pimpl
 		*/
-		iKeyboardImpl *_impl;
+        iKeyboardImpl *_impl;
 
-		/*! called by a window if an os event occours
+        /*! called by a window if an os event occours
 		*/
-		bool onOSEvent(const void *data) override;
+        bool onOSEvent(const void *data) override;
 
-		/*! does what ever necessairy to get the device running
+        /*! does what ever necessairy to get the device running
 
 		\param window handle to the window
 		\param data os specific data (see iOSEventregisterData)
 		*/
-		bool initDevice(const void *data) override;
+        bool initDevice(const void *data) override;
 
-		/*! unregisters device from listening
+        /*! unregisters device from listening
 		*/
-		void deinitDevice() override;
+        void deinitDevice() override;
 
-		/*! initializes member variables
+        /*! initializes member variables
 		*/
-		iKeyboard();
+        iKeyboard();
 
-		/*! releases all delegates if not done by application
+        /*! releases all delegates if not done by application
 		*/
-		virtual ~iKeyboard();
-	};
+        virtual ~iKeyboard();
+    };
 
-	/*! \example Keyboard/src/KeyboardExample.cpp
+    /*! \example Keyboard/src/KeyboardExample.cpp
     Keyboard usage example.
 
     \include Keyboard/src/KeyboardExample.h
     */
 
-	/*! stream operator
+    /*! stream operator
 
 	\param stream the destination
 	\param keyCode the key code to print
 	\returns the resulting stream
 	*/
-	Igor_API std::wostream &operator<<(std::wostream &stream, const iKeyCode &keyCode);
+    Igor_API std::wostream &operator<<(std::wostream &stream, const iKeyCode &keyCode);
 
 }; // namespace igor
 

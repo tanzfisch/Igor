@@ -30,18 +30,16 @@
 #define __IGOR_SCENEFACTORY_H__
 
 #include <igor/scene/iScene.h>
-
-#include <iaux/system/iaSingleton.h>
-using namespace iaux;
+#include <igor/resources/module/iModule.h>
 
 namespace igor
 {
 
     /*! class that creates and destroys instances of scenes 
     */
-    class Igor_API iSceneFactory : public iaSingleton<iSceneFactory>
+    class Igor_API iSceneFactory : public iModule<iSceneFactory>
     {
-        friend class iaSingleton<iSceneFactory>;
+        friend class iModule<iSceneFactory>;
 
     public:
         /*! creates a scene

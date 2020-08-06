@@ -38,7 +38,8 @@ namespace iaux
 
     /*! singleton base class
 
-    \todo put here some serious explanation how this works
+    Strictly speaking not really a singletone because once can destroy the instance 
+    and then recreate it again. But there is always only one instance available.
     */
     template <typename T>
     class IgorAux_API_Template iaSingleton
@@ -78,12 +79,11 @@ namespace iaux
             _mutex.unlock();
         }
 
-        /*! returns true if the instance of this currently instantiated
+        /*! returns true if the instance of this is currently instantiated
         */
         static bool isInstantiated()
         {
-            bool result = iaSingleton<T>::_instance ? true : false;
-            return result;
+            return iaSingleton<T>::_instance ? true : false;
         }
 
     protected:
