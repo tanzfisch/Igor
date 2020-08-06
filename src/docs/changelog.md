@@ -1,6 +1,11 @@
 Changelog                           {#changelog}
 =========
 
+0.30.0
+------
+
+- introduced iModule and switched most singletons to modules
+
 0.29.0
 ------
 
