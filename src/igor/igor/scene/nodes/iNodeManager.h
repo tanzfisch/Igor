@@ -42,7 +42,7 @@ namespace igor
 
     /*! creates and destroys nodes
 	*/
-    class Igor_API iNodeManager : public iModule<iNodeManager>
+    class IGOR_API iNodeManager : public iModule<iNodeManager>
     {
         friend class iModule<iNodeManager>;
         friend class iApplication;
@@ -52,7 +52,7 @@ namespace igor
     public:
         /*! type of action to queue
 		*/
-        enum class Igor_API iActionType
+        enum class IGOR_API iActionType
         {
             Undefined,
             Insert,
@@ -64,7 +64,7 @@ namespace igor
 
         /*! struct used for queueing actions
 		*/
-        struct Igor_API iAction
+        struct IGOR_API iAction
         {
             /*! node A to do an action with
 			*/

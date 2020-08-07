@@ -36,6 +36,7 @@
 #include <iaux/system/iaConsole.h>
 #include <iaux/data/iaIDGenerator.h>
 #include <iaux/system/iaTime.h>
+#include <iaux/system/iaMutex.h>
 using namespace iaux;
 
 #include <map>
@@ -44,13 +45,96 @@ using namespace iaux;
 namespace igor
 {
 
+#ifdef IGOR_DEEP_PROFILING
+
+    class iProfilerFunction
+    {
+    public:
+        iProfilerFunction(const iaString &name, const iaString &file, uint32 line)
+        {
+            _name = name;
+            _file = file;
+            _line = line;
+            iaString hashValue = _name;
+            hashValue += file;
+            hashValue += iaString::toString(line);
+            _hash = hashValue.getHashValue();
+            _data[_hash] = this;
+        }
+
+        iaString _name;
+        iaString _file;
+        uint32 _line;
+        uint64 _hash;
+        uint64 _callCount = 0;
+        iaTime _duration = iaTime::zero();
+        static std::map<uint64, iProfilerFunction *> _data;
+        static iaMutex _mutex;
+    };
+
+    class iProfilerMeasure
+    {
+    public:
+        iProfilerMeasure(iProfilerFunction *profilerFunction)
+            : _profilerFunction(profilerFunction)
+        {
+            _profilerFunction->_callCount++;
+
+            _time = iaTime::now();
+        }
+
+        ~iProfilerMeasure()
+        {
+            _profilerFunction->_duration += iaTime::now() - _time;
+        }
+
+    private:
+        iaTime _time;
+        iProfilerFunction *_profilerFunction;
+    };
+
+#define IGOR_PROFILER_CLASS(ClassName, FuncName, File, Line)               \
+    class ClassName : public iProfilerFunction                             \
+    {                                                                      \
+    public:                                                                \
+        ClassName(const iaString &name, const iaString &file, uint32 line) \
+            : iProfilerFunction(name, file, line)                          \
+        {                                                                  \
+        }                                                                  \
+                                                                           \
+        static ClassName *getInstance()                                    \
+        {                                                                  \
+            static ClassName *_instance = nullptr;                         \
+            _mutex.lock();                                                 \
+            if (_instance == nullptr)                                      \
+            {                                                              \
+                _instance = new ClassName(FuncName, File, Line);           \
+            }                                                              \
+            _mutex.unlock();                                               \
+            return _instance;                                              \
+        }                                                                  \
+    };                                                                     \
+    iProfilerMeasure profilerMeasure(ClassName::getInstance())
+
+#define CONCATENATE_DETAIL(x, y) x##y
+#define CONCATENATE(x, y) CONCATENATE_DETAIL(x, y)
+
+#define IGOR_PROFILER() \
+    IGOR_PROFILER_CLASS(CONCATENATE(iProfilerFunction, __COUNTER__), __IGOR_FUNCTION__, __FILE__, __LINE__)
+
+#else
+
+#define IGOR_PROFILER()
+
+#endif
+
     /*! profiler section id definition
     */
     typedef iaID64 iProfilerSectionID;
 
     /*! render statistics
     */
-    class Igor_API iProfiler : public iModule<iProfiler>
+    class IGOR_API iProfiler : public iModule<iProfiler>
     {
 
         friend class iModule<iProfiler>;

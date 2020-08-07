@@ -41,90 +41,90 @@ using namespace iaux;
 namespace igor
 {
 
-	/*! picture widget
+    /*! picture widget
 	*/
-	class Igor_API iWidgetPicture : public iWidget
-	{
+    class IGOR_API iWidgetPicture : public iWidget
+    {
 
-	public:
-		/*! ctor initializes member variables
+    public:
+        /*! ctor initializes member variables
 
 		\param parent optional parnt
 		*/
-		iWidgetPicture(const iWidgetPtr parent = nullptr);
+        iWidgetPicture(const iWidgetPtr parent = nullptr);
 
-		/*! release texture
+        /*! release texture
 		*/
-		virtual ~iWidgetPicture();
+        virtual ~iWidgetPicture();
 
-		/*! sets the texture to use for the picture
+        /*! sets the texture to use for the picture
 
 		\param texturePath path to texture
 		*/
-		void setTexture(const iaString &texturePath);
+        void setTexture(const iaString &texturePath);
 
-		/*! \returns texture path
+        /*! \returns texture path
 		*/
-		const iaString &getTexture() const;
+        const iaString &getTexture() const;
 
-		/*! \returns true if picture has a valid and loaded texture
+        /*! \returns true if picture has a valid and loaded texture
         */
-		bool hasTexture() const;
+        bool hasTexture() const;
 
-		/*! sets maximum display size of picture
+        /*! sets maximum display size of picture
 
 		\param width max width
 		\param height max height
 		*/
-		void setMaxSize(int32 width, int32 height);
+        void setMaxSize(int32 width, int32 height);
 
-		/*! \returns maximum width
+        /*! \returns maximum width
 		*/
-		int32 getMaxWidth();
+        int32 getMaxWidth();
 
-		/*! \returns maximum height
+        /*! \returns maximum height
 		*/
-		int32 getMaxHeight();
+        int32 getMaxHeight();
 
-		/*! sets if the aspect ratio of the picture must be kept
+        /*! sets if the aspect ratio of the picture must be kept
 
 		\paran keep if true the aspect ratio must be kept
 		*/
-		void setKeepAspectRatio(bool keep = true);
+        void setKeepAspectRatio(bool keep = true);
 
-		/*! \returns true if aspect ratio will be kept
+        /*! \returns true if aspect ratio will be kept
 		*/
-		bool getKeepAspectRatio() const;
+        bool getKeepAspectRatio() const;
 
-	private:
-		/*! texture path
+    private:
+        /*! texture path
 		*/
-		iaString _texturePath;
+        iaString _texturePath;
 
-		/*! flag if the aspect ratio must be kept when resized
+        /*! flag if the aspect ratio must be kept when resized
 		*/
-		bool _keepAspectRatio = true;
+        bool _keepAspectRatio = true;
 
-		/*! shared pointer to texture
+        /*! shared pointer to texture
 		*/
-		iTexturePtr _texture;
+        iTexturePtr _texture;
 
-		/*! maximum dispaly width
+        /*! maximum dispaly width
 		*/
-		int32 _maxWidth = std::numeric_limits<int32>::max();
+        int32 _maxWidth = std::numeric_limits<int32>::max();
 
-		/*! maximum dispaly height
+        /*! maximum dispaly height
 		*/
-		int32 _maxHeight = std::numeric_limits<int32>::max();
+        int32 _maxHeight = std::numeric_limits<int32>::max();
 
-		/*! updates size based on it's content
+        /*! updates size based on it's content
 		*/
-		void calcMinSize() override;
+        void calcMinSize() override;
 
-		/*! draws the widget
+        /*! draws the widget
 		*/
-		void draw();
-	};
+        void draw();
+    };
 } // namespace igor
 
 #endif // __IGOR_WIDGETPICTURE_H__

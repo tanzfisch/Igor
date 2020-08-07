@@ -39,7 +39,7 @@ namespace igor
 
     /*! node added to scene event
     */
-    class Igor_API iEventNodeAddedToScene : public iEvent
+    class IGOR_API iEventNodeAddedToScene : public iEvent
     {
     public:
         /*! init members
@@ -76,7 +76,7 @@ namespace igor
 
     /*! node removed from scene event
     */
-    class Igor_API iEventNodeRemovedFromScene : public iEvent
+    class IGOR_API iEventNodeRemovedFromScene : public iEvent
     {
     public:
         /*! init members
@@ -113,7 +113,7 @@ namespace igor
 
     /*! scene selection change event
     */
-    class Igor_API iEventSceneSelectionChanged : public iEvent
+    class IGOR_API iEventSceneSelectionChanged : public iEvent
     {
     public:
         /*! init members

@@ -46,7 +46,7 @@ namespace igor
 
     /*! manages resoruces and their factories
     */
-    class Igor_API iResourceManager : public iModule<iResourceManager>
+    class IGOR_API iResourceManager : public iModule<iResourceManager>
     {
 
         friend class iModule<iResourceManager>;

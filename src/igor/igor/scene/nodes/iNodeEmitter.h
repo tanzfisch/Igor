@@ -40,7 +40,7 @@ namespace igor
 
     /*! node to control an emitter for a particle system
     */
-    class Igor_API iNodeEmitter : public iNode
+    class IGOR_API iNodeEmitter : public iNode
     {
 
         friend class iNodeManager;

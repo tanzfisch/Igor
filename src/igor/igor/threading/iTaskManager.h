@@ -56,7 +56,7 @@ namespace igor
 
     \todo there should be IDs for tasks so we can sefely kill tasks later by ID
     */
-    class Igor_API iTaskManager : public iModule<iTaskManager>
+    class IGOR_API iTaskManager : public iModule<iTaskManager>
     {
 
         friend class iModule<iTaskManager>;

@@ -37,7 +37,7 @@ namespace igor
 
     /*! class that creates and destroys instances of scenes 
     */
-    class Igor_API iSceneFactory : public iModule<iSceneFactory>
+    class IGOR_API iSceneFactory : public iModule<iSceneFactory>
     {
         friend class iModule<iSceneFactory>;
 

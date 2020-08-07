@@ -45,7 +45,7 @@ namespace igor
 
     /*! camera node
     */
-    class Igor_API iNodeCamera : public iNode
+    class IGOR_API iNodeCamera : public iNode
     {
 
         friend class iNodeVisitorUpdateTransform;

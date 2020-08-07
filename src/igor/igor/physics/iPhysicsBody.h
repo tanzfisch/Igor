@@ -58,7 +58,7 @@ namespace igor
 
     /*! wrapper for the NewtonBody handle
     */
-    class Igor_API iPhysicsBody
+    class IGOR_API iPhysicsBody
     {
 
         friend class iPhysics;

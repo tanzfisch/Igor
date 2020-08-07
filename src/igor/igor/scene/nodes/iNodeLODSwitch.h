@@ -48,7 +48,7 @@ namespace igor
 
     child goes active when _min <= child distance < _max
     */
-    class Igor_API iNodeLODSwitch : public iNode
+    class IGOR_API iNodeLODSwitch : public iNode
     {
 
         friend class iNodeManager;

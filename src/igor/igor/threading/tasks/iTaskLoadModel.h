@@ -37,7 +37,7 @@
 namespace igor
 {
 
-    class Igor_API iTaskLoadModel : public iTask
+    class IGOR_API iTaskLoadModel : public iTask
     {
 
     public:

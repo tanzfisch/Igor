@@ -185,7 +185,7 @@ namespace igor
 	\todo maybe we should have a widget base class on top so we can treat widgets usercontrols and dialogs more equaly
 	\todo replace relative and actual pos variables with two rectangles
 	*/
-    class Igor_API iWidget
+    class IGOR_API iWidget
     {
 
         // iWidget has sooo many friends <3
@@ -968,7 +968,7 @@ namespace igor
 	\param widgetType the widget type to stream
 	\returns the resulting stream
 	*/
-    Igor_API std::wostream &operator<<(std::wostream &stream, const iWidgetType &widgetType);
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iWidgetType &widgetType);
 
 } // namespace igor
 

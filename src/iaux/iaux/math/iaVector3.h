@@ -40,7 +40,7 @@ namespace iaux
     /*! 3d vector class
     */
     template <class T>
-    class IgorAux_API_Template iaVector3
+    class IAUX_API_TEMPLATE iaVector3
     {
 
     public:

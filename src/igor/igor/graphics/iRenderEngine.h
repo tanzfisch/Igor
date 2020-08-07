@@ -44,7 +44,7 @@ namespace igor
 
     /*! does control the render loop
     */
-    class Igor_API iRenderEngine
+    class IGOR_API iRenderEngine
     {
 
     public:

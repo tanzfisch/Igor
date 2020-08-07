@@ -47,7 +47,7 @@ namespace igor
 
     \todo remove as many friends as possible
     */
-    class Igor_API iNodeMesh : public iNodeVolume
+    class IGOR_API iNodeMesh : public iNodeVolume
     {
 
         friend class iNodeManager;

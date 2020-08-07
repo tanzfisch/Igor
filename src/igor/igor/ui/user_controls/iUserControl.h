@@ -34,33 +34,33 @@
 namespace igor
 {
 
-	/*! use control base class
+    /*! use control base class
 
 	mostly used as a container to combine some of the standard widgets to apear as one
 
 	this class is only a base class for other user controls and not supposed to be used directly
 	*/
-	class Igor_API iUserControl : public iWidget
-	{
+    class IGOR_API iUserControl : public iWidget
+    {
 
-	public:
-		/*! does nothing
+    public:
+        /*! does nothing
 
         \param parent the optional parent
 		*/
-		iUserControl(iWidgetType type = iWidgetType::iUserControl, const iWidgetPtr parent = nullptr);
+        iUserControl(iWidgetType type = iWidgetType::iUserControl, const iWidgetPtr parent = nullptr);
 
-		/*! does nothing
+        /*! does nothing
 		*/
-		virtual ~iUserControl() = default;
+        virtual ~iUserControl() = default;
 
-	protected:
-		/*! updates size based on widgets content
+    protected:
+        /*! updates size based on widgets content
 
 		all widgets have to derive from this
 		*/
-		virtual void calcMinSize();
-	};
+        virtual void calcMinSize();
+    };
 
 } // namespace igor
 

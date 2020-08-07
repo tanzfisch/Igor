@@ -41,7 +41,7 @@ namespace iaux
 
     /*! handles directories and containing files
     */
-    class IgorAux_API iaDirectory
+    class IAUX_API iaDirectory
     {
 
         friend class iaFile;

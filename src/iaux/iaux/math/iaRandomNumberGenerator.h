@@ -34,44 +34,44 @@
 namespace iaux
 {
 
-	/*! pseudo random number generator
+    /*! pseudo random number generator
 
     the only reason to use this one is to keep seperate instances of seeds so multithreaded tasks don't interfear with each other using rand()
     */
-	template <class T>
-	class IgorAux_API_Template iaRandomNumberGenerator
-	{
+    template <class T>
+    class IAUX_API_TEMPLATE iaRandomNumberGenerator
+    {
 
-	public:
-		/*! init seed
+    public:
+        /*! init seed
         */
-		iaRandomNumberGenerator(T seed = 0);
+        iaRandomNumberGenerator(T seed = 0);
 
-		/*! does nothing
+        /*! does nothing
         */
-		~iaRandomNumberGenerator();
+        ~iaRandomNumberGenerator();
 
-		/*! sets the seed
+        /*! sets the seed
 
         \param seed the seed
         */
-		void setSeed(T seed);
+        void setSeed(T seed);
 
-		/*! \returns next random number
+        /*! \returns next random number
         */
-		T getNext();
+        T getNext();
 
-	private:
-		/*! the seed
+    private:
+        /*! the seed
         */
-		T _seed;
-	};
+        T _seed;
+    };
 
 #include <iaux/math/iaRandomNumberGenerator.inl>
 
-	/*! uint32 random number generator
+    /*! uint32 random number generator
 	*/
-	typedef iaRandomNumberGenerator<uint32> iaRandomNumberGeneratoru;
+    typedef iaRandomNumberGenerator<uint32> iaRandomNumberGeneratoru;
 
 } // namespace iaux
 

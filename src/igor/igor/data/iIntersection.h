@@ -47,7 +47,7 @@ namespace igor
 
     \todo read http://noonat.github.io/intersect/
     */
-    class Igor_API iIntersection
+    class IGOR_API iIntersection
     {
 
     public:

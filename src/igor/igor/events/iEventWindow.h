@@ -40,7 +40,7 @@ namespace igor
 
     called after window was closed
     */
-    class Igor_API iEventWindowClose : public iEvent
+    class IGOR_API iEventWindowClose : public iEvent
     {
     public:
         /*! init members
@@ -57,7 +57,7 @@ namespace igor
 
     called after window was opened
     */
-    class Igor_API iEventWindowOpen : public iEvent
+    class IGOR_API iEventWindowOpen : public iEvent
     {
     public:
         /*! init members
@@ -72,7 +72,7 @@ namespace igor
 
     /*! window resize event
     */
-    class Igor_API iEventWindowResize : public iEvent
+    class IGOR_API iEventWindowResize : public iEvent
     {
     public:
         /*! init members

@@ -43,7 +43,7 @@ namespace igor
 
     /*! represents a texture resource
     */
-    class Igor_API iTexture
+    class IGOR_API iTexture
     {
 
         friend class iTextureResourceFactory;

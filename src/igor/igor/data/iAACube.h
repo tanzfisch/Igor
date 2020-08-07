@@ -40,7 +40,7 @@ namespace igor
     /*! Axis aligned cube
 	*/
     template <class T>
-    class Igor_API_Template iAACube
+    class IGOR_API_TEMPLATE iAACube
     {
 
     public:

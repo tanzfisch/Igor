@@ -37,144 +37,144 @@ using namespace iaux;
 namespace igor
 {
 
-	class iWidgetColorGradient;
-	class iUserControlColorChooser;
-	class iWidgetNumberChooser;
+    class iWidgetColorGradient;
+    class iUserControlColorChooser;
+    class iWidgetNumberChooser;
 
-	/*! the color chooser dialog
+    /*! the color chooser dialog
 	*/
-	class Igor_API iDialogColorGradient : public iDialog
-	{
+    class IGOR_API iDialogColorGradient : public iDialog
+    {
 
-	public:
-		/*! does nothing
+    public:
+        /*! does nothing
 		*/
-		iDialogColorGradient(const iWidgetPtr parent = nullptr);
+        iDialogColorGradient(const iWidgetPtr parent = nullptr);
 
-		/*! does nothing
+        /*! does nothing
 		*/
-		~iDialogColorGradient() = default;
+        ~iDialogColorGradient() = default;
 
-		/*! show/open the decision box
+        /*! show/open the decision box
 
 		\param dialogCloseDelegate closing delegate
 		\param gradient to start with
 		\param useAlpha if true use alpha channel too
 		*/
-		void open(iDialogCloseDelegate dialogCloseDelegate) override;
+        void open(iDialogCloseDelegate dialogCloseDelegate) override;
 
-		/*! sets color gradient
+        /*! sets color gradient
 
 		\param gradient the gradient to set
 		*/
-		void setColorGradient(const iaGradientColor4f &gradient);
+        void setColorGradient(const iaGradientColor4f &gradient);
 
-		/*! sets weather or not alpha channel is used
+        /*! sets weather or not alpha channel is used
 
 		\param useAlpha if true alpha channel is used
 		*/
-		void setUseAlpha(bool useAlpha);
+        void setUseAlpha(bool useAlpha);
 
-		/*! \retruns true if alpha channel is used
+        /*! \retruns true if alpha channel is used
 		*/
-		bool isUsingAlpha() const;
+        bool isUsingAlpha() const;
 
-		/*! \returns color gradient from dialog
+        /*! \returns color gradient from dialog
         */
-		const iaGradientColor4f &getColorGradient() const;
+        const iaGradientColor4f &getColorGradient() const;
 
-		/*! \returns previsou color gradient
+        /*! \returns previsou color gradient
         */
-		const iaGradientColor4f &getResetColorGradient() const;
+        const iaGradientColor4f &getResetColorGradient() const;
 
-	private:
-		/*! the old gradient
+    private:
+        /*! the old gradient
 		*/
-		iaGradientColor4f _oldGradient;
+        iaGradientColor4f _oldGradient;
 
-		/*! the current gradient
+        /*! the current gradient
 		*/
-		iaGradientColor4f _gradient;
+        iaGradientColor4f _gradient;
 
-		/*! current selected color index
+        /*! current selected color index
 		*/
-		int32 _selectedColor = 0;
+        int32 _selectedColor = 0;
 
-		/*! color chooser
+        /*! color chooser
 		*/
-		iUserControlColorChooser *_colorChooser = nullptr;
+        iUserControlColorChooser *_colorChooser = nullptr;
 
-		/*! position number chooser
+        /*! position number chooser
 		*/
-		iWidgetNumberChooser *_position = nullptr;
+        iWidgetNumberChooser *_position = nullptr;
 
-		/*! the widget to visualize the gradient
+        /*! the widget to visualize the gradient
 		*/
-		iWidgetColorGradient *_gradientWidget = nullptr;
+        iWidgetColorGradient *_gradientWidget = nullptr;
 
-		/*! flag if alpha will be available for edit or not 
+        /*! flag if alpha will be available for edit or not 
         */
-		bool _useAlpha = true;
+        bool _useAlpha = true;
 
-		/*! updates gui part if selection changed
+        /*! updates gui part if selection changed
 		*/
-		void updateSelection();
+        void updateSelection();
 
-		/*! triggered by selection changed event
+        /*! triggered by selection changed event
 		*/
-		void onSelectionChanged(int32 index);
+        void onSelectionChanged(int32 index);
 
-		/*! triggred when position number chooser was changed
+        /*! triggred when position number chooser was changed
 
 		\param source source widget
 		*/
-		void onPositionChanged(const iWidgetPtr source);
+        void onPositionChanged(const iWidgetPtr source);
 
-		/*! triggered when color chooser was manipulated
+        /*! triggered when color chooser was manipulated
 		*/
-		void onColorChanged(const iaColor4f &color);
+        void onColorChanged(const iaColor4f &color);
 
-		/*! triggered when color in gradient was created
+        /*! triggered when color in gradient was created
 
 		\param at position of color
 		\param color the value of the color
 		*/
-		void onColorCreated(float32 at, const iaColor4f &color);
+        void onColorCreated(float32 at, const iaColor4f &color);
 
-		/*! triggered by clicking delete button
+        /*! triggered by clicking delete button
 		*/
-		void onDelete(const iWidgetPtr source);
+        void onDelete(const iWidgetPtr source);
 
-		/*! handles ok button clicked event
+        /*! handles ok button clicked event
 
 		\param source the ok button it self
 		*/
-		void onOK(const iWidgetPtr source);
+        void onOK(const iWidgetPtr source);
 
-		/*! handles cancel button clicked event
+        /*! handles cancel button clicked event
 
 		\param source the cancel button it self
 		*/
-		void onCancel(const iWidgetPtr source);
+        void onCancel(const iWidgetPtr source);
 
-		/*! handles reset button click event
+        /*! handles reset button click event
 
 		\param source the reset button it self
 		*/
-		void onReset(const iWidgetPtr source);
+        void onReset(const iWidgetPtr source);
 
-		/*! initializes gui elements
+        /*! initializes gui elements
 		*/
-		void initUI();
+        void initUI();
 
-		/*! update UI with current settings
+        /*! update UI with current settings
         */
-		void update();
-	};
+        void update();
+    };
 
-	/*! dialog color gradient pointer definition
+    /*! dialog color gradient pointer definition
     */
-	typedef iDialogColorGradient *iDialogColorGradientPtr;
+    typedef iDialogColorGradient *iDialogColorGradientPtr;
 
 } // namespace igor
 

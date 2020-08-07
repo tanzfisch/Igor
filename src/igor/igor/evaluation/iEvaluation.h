@@ -47,7 +47,7 @@ namespace igor
 
     /*! evaluation base class
     */
-    class Igor_API iEvaluation
+    class IGOR_API iEvaluation
     {
 
         friend class iEvaluationManager;

@@ -41,7 +41,7 @@
 
 namespace iaux
 {
-    class IgorAux_API iaConsole;
+    class IAUX_API iaConsole;
 
 /*! logging tab definition including size of time and thread ID
     */
@@ -122,7 +122,7 @@ namespace iaux
 
     /*! console and logging interface
     */
-    class IgorAux_API iaConsole
+    class IAUX_API iaConsole
     {
         friend void *threadFunc(void *data);
 
@@ -625,7 +625,7 @@ namespace iaux
     \param logLevel the log level to print
     \returns the stream
     */
-    IgorAux_API std::wostream &operator<<(std::wostream &stream, const iaLogLevel &logLevel);
+    IAUX_API std::wostream &operator<<(std::wostream &stream, const iaLogLevel &logLevel);
 
 }; // namespace iaux
 

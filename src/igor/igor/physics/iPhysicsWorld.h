@@ -37,7 +37,7 @@ using namespace iaux;
 namespace igor
 {
 
-    class Igor_API iPhysicsWorld
+    class IGOR_API iPhysicsWorld
     {
 
         friend class iPhysics;

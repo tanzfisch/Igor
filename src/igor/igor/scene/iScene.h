@@ -60,7 +60,7 @@ namespace igor
 
 	\todo we should use shared pointers to nodes or just use IDs
 	*/
-    class Igor_API iScene
+    class IGOR_API iScene
     {
 
         friend class iNode;

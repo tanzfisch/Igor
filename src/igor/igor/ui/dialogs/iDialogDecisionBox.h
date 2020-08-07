@@ -37,62 +37,62 @@ using namespace iaux;
 namespace igor
 {
 
-	class iWidgetCheckBox;
+    class iWidgetCheckBox;
 
-	/*! the decision box dialog
+    /*! the decision box dialog
 	*/
-	class Igor_API iDialogDecisionBox : public iDialog
-	{
+    class IGOR_API iDialogDecisionBox : public iDialog
+    {
 
-	public:
-		/*! does nothing
+    public:
+        /*! does nothing
 		*/
-		iDialogDecisionBox(const iWidgetPtr parent = nullptr);
+        iDialogDecisionBox(const iWidgetPtr parent = nullptr);
 
-		/*! deinitializes gui
+        /*! deinitializes gui
 		*/
-		~iDialogDecisionBox() = default;
+        ~iDialogDecisionBox() = default;
 
-		/*! show/open the decision box
+        /*! show/open the decision box
 
         \param dialogCloseDelegate delegate to handle the close desicion box event
 		\param message the message
 		\param radioButtonTexts besides the message you can add a selection of radio buttons
 		\param preSelection optional preselection of radio buttons
 		*/
-		void open(iDialogCloseDelegate dialogCloseDelegate, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection = -1);
+        void open(iDialogCloseDelegate dialogCloseDelegate, const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection = -1);
 
-		/*! \returns selection index
+        /*! \returns selection index
 
         -1 for no selection
         */
-		int32 getSelection() const;
+        int32 getSelection() const;
 
-	private:
-		/*! radio buttons
+    private:
+        /*! radio buttons
 		*/
-		std::vector<iWidgetCheckBox *> _radioButtons;
+        std::vector<iWidgetCheckBox *> _radioButtons;
 
-		/*! handles ok button clicked event
+        /*! handles ok button clicked event
 
 		\param source the ok button it self
 		*/
-		void onOK(const iWidgetPtr source);
+        void onOK(const iWidgetPtr source);
 
-		/*! handles cancel button clicked event
+        /*! handles cancel button clicked event
 
 		\param source the cancel button it self
 		*/
-		void onCancel(const iWidgetPtr source);
+        void onCancel(const iWidgetPtr source);
 
-		/*! initializes the gui elements
+        /*! initializes the gui elements
 		*/
-		void initGUI(const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection);
-	};
+        void initGUI(const iaString &message, std::initializer_list<iaString> radioButtonTexts, int32 preSelection);
+    };
 
-	/*! dialog decision box pointer definition
+    /*! dialog decision box pointer definition
 	*/
-	typedef iDialogDecisionBox *iDialogDecisionBoxPtr;
+    typedef iDialogDecisionBox *iDialogDecisionBoxPtr;
 
 } // namespace igor
 

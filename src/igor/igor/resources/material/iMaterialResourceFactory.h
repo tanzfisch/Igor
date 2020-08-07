@@ -61,7 +61,7 @@ namespace igor
 
     /*! material resource factory
     */
-    class Igor_API iMaterialResourceFactory : public iModule<iMaterialResourceFactory>
+    class IGOR_API iMaterialResourceFactory : public iModule<iMaterialResourceFactory>
     {
         friend class iModule<iMaterialResourceFactory>;
 

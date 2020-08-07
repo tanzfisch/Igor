@@ -41,48 +41,48 @@ using namespace iaux;
 namespace igor
 {
 
-	/*! color view widget
+    /*! color view widget
     */
-	class Igor_API iWidgetColor : public iWidget
-	{
+    class IGOR_API iWidgetColor : public iWidget
+    {
 
-	public:
-		/*! ctor initializes member variables
+    public:
+        /*! ctor initializes member variables
 
 		\param parent optional parent
 		*/
-		iWidgetColor(const iWidgetPtr parent = nullptr);
+        iWidgetColor(const iWidgetPtr parent = nullptr);
 
-		/*! release texture
+        /*! release texture
 		*/
-		virtual ~iWidgetColor();
+        virtual ~iWidgetColor();
 
-		/*! sets color
+        /*! sets color
 		\param color color value in rgba
 		*/
-		void setColor(const iaColor4f &color);
+        void setColor(const iaColor4f &color);
 
-		/*! \returns current color value
+        /*! \returns current color value
 		*/
-		const iaColor4f &getColor() const;
+        const iaColor4f &getColor() const;
 
-	private:
-		/*! the color to present
+    private:
+        /*! the color to present
         */
-		iaColor4f _color;
+        iaColor4f _color;
 
-		/*! shared pointer to background texture
+        /*! shared pointer to background texture
         */
-		iTexturePtr _texture;
+        iTexturePtr _texture;
 
-		/*! updates size based on it's content
+        /*! updates size based on it's content
         */
-		void calcMinSize() override;
+        void calcMinSize() override;
 
-		/*! draws the widget
+        /*! draws the widget
 		*/
-		void draw();
-	};
+        void draw();
+    };
 } // namespace igor
 
 #endif // __IGOR_WIDGETCOLOR_H__

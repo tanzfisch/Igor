@@ -78,7 +78,7 @@ namespace igor
 
     /*! texture placeholder class
     */
-    struct Igor_API iRendererTexture
+    struct IGOR_API iRendererTexture
     {
         uint32 _id;
     };
@@ -110,7 +110,7 @@ namespace igor
 
     \todo light handling is not done at all
     */
-    class Igor_API iRenderer : public iModule<iRenderer>
+    class IGOR_API iRenderer : public iModule<iRenderer>
     {
 
         friend class iModule<iRenderer>;

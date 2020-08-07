@@ -42,7 +42,7 @@ namespace igor
 
     /*! resource parameters that define how to load given resource
     */
-    struct Igor_API iResourceParameters
+    struct IGOR_API iResourceParameters
     {
         /*! name of the resource 
         
@@ -68,7 +68,7 @@ namespace igor
 
     /*! represents a resource
     */
-    class Igor_API iResource
+    class IGOR_API iResource
     {
         friend class iResourceManager;
 
@@ -110,14 +110,14 @@ namespace igor
 
         /*! \returns resource parameters
         */
-        __IGOR_INLINE__ const iResourceParameters& getParameters() const
+        __IGOR_INLINE__ const iResourceParameters &getParameters() const
         {
             return _parameters;
         }
 
         /*! \returns the resource type
         */
-        __IGOR_INLINE__ const iaString& getType() const
+        __IGOR_INLINE__ const iaString &getType() const
         {
             return _parameters._type;
         }

@@ -40,7 +40,7 @@ namespace iaux
 {
     /*! igor aux testing
     */
-    class IgorAux_API iaTest
+    class IAUX_API iaTest
     {
     public:
         /*! run individual test
@@ -147,12 +147,12 @@ namespace iaux
         _ok = false;                                                             \
     }
 
-#define IAUX_EXPECT_NEAR(a, b, t)                                                                                                                        \
-    if (std::abs((a) - (b)) > t)                                                                                                                        \
-    {                                                                                                                                                    \
+#define IAUX_EXPECT_NEAR(a, b, t)                                                                                                                           \
+    if (std::abs((a) - (b)) > t)                                                                                                                            \
+    {                                                                                                                                                       \
         iaConsole::getInstance() << "diff of " << a << " and " << b << " is " << std::abs((a) - (b)) << " but should be smaller or equal to " << t << endl; \
-        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl;                                                                                          \
-        _ok = false;                                                                                                                                     \
+        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl;                                                                                             \
+        _ok = false;                                                                                                                                        \
     }
 
 #define IAUX_EXPECT_GREATER_THEN(a, b)                                         \

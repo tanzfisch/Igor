@@ -41,7 +41,7 @@
 namespace iaux
 {
 
-	/*! right handed 4x4 Matrix 
+    /*! right handed 4x4 Matrix 
 
 	data by name
 
@@ -107,98 +107,98 @@ namespace iaux
 	0       | 0       | 0 | 1
 
 	*/
-	template <class T>
-	class IgorAux_API_Template iaMatrix
-	{
-	public:
-		/*! internal data
+    template <class T>
+    class IAUX_API_TEMPLATE iaMatrix
+    {
+    public:
+        /*! internal data
 
 		\todo replace with T _m[16];
 		*/
-		iaVector3<T> _right;
-		T _w0 = static_cast<T>(0);
-		iaVector3<T> _top;
-		T _w1 = static_cast<T>(0);
-		iaVector3<T> _depth;
-		T _w2 = static_cast<T>(0);
-		iaVector3<T> _pos;
-		T _w3 = static_cast<T>(0);
+        iaVector3<T> _right;
+        T _w0 = static_cast<T>(0);
+        iaVector3<T> _top;
+        T _w1 = static_cast<T>(0);
+        iaVector3<T> _depth;
+        T _w2 = static_cast<T>(0);
+        iaVector3<T> _pos;
+        T _w3 = static_cast<T>(0);
 
-		/*! addition
+        /*! addition
 		*/
-		void operator+=(iaMatrix &a);
+        void operator+=(iaMatrix &a);
 
-		/*! subtraction
+        /*! subtraction
 		*/
-		void operator-=(iaMatrix &a);
+        void operator-=(iaMatrix &a);
 
-		/*! comparison of two matrices
+        /*! comparison of two matrices
 
 		\param a the second matrix to compare this matrix with
 		\returns true if matrices are equal
 		*/
-		bool operator==(const iaMatrix<T> &a) const;
+        bool operator==(const iaMatrix<T> &a) const;
 
-		/*! negated comparison of two matrices
+        /*! negated comparison of two matrices
 
 		\param a the second matrix to compare this matrix with
 		\returns true if matrices are not equal
 		*/
-		bool operator!=(const iaMatrix<T> &a) const;
+        bool operator!=(const iaMatrix<T> &a) const;
 
-		/*! matrix vector3 multiplication
+        /*! matrix vector3 multiplication
 		*/
-		iaVector3<T> operator*(iaVector3<T> &a) const;
+        iaVector3<T> operator*(iaVector3<T> &a) const;
 
-		/*! matrix vector3 multiplication
+        /*! matrix vector3 multiplication
 		*/
-		iaVector3<T> operator*(const iaVector3<T> &a) const;
+        iaVector3<T> operator*(const iaVector3<T> &a) const;
 
-		/*! matrix vector4 multiplication
+        /*! matrix vector4 multiplication
 		*/
-		iaVector4<T> operator*(iaVector4<T> &a) const;
+        iaVector4<T> operator*(iaVector4<T> &a) const;
 
-		/*! matrix vector4 multiplication
+        /*! matrix vector4 multiplication
 		*/
-		iaVector4<T> operator*(const iaVector4<T> &a) const;
+        iaVector4<T> operator*(const iaVector4<T> &a) const;
 
-		/*! matrix multiplication
+        /*! matrix multiplication
 		*/
-		iaMatrix operator*(const iaMatrix &m);
+        iaMatrix operator*(const iaMatrix &m);
 
-		/*! matrix multiplication
+        /*! matrix multiplication
 		*/
-		void operator*=(const iaMatrix &m);
+        void operator*=(const iaMatrix &m);
 
-		/*! matrix component by index
+        /*! matrix component by index
 
 		\param i only indexes from 0 to 15 are allowed
 		*/
-		T &operator[](int i);
+        T &operator[](int i);
 
-		T operator[](int i) const;
+        T operator[](int i) const;
 
-		/*! initializes matrix with id matrix
+        /*! initializes matrix with id matrix
 		*/
-		void identity(void);
+        void identity(void);
 
-		/*! returns the determinant of the matrix
+        /*! returns the determinant of the matrix
 		*/
-		T determinant();
+        T determinant();
 
-		/*! returns the determinant of the 3x3 part of the matrix
+        /*! returns the determinant of the 3x3 part of the matrix
 		*/
-		T determinant3x3();
+        T determinant3x3();
 
-		/*! calculates the inverse of the matrix and overwrites the original value
+        /*! calculates the inverse of the matrix and overwrites the original value
 		*/
-		bool invert();
+        bool invert();
 
-		/*! transposes the matrix
+        /*! transposes the matrix
 		*/
-		void transpose();
+        void transpose();
 
-		/*! decompose the matrix in its components
+        /*! decompose the matrix in its components
 
 		\param scale the scale component
 		\param orientation the orientation component as quaternion
@@ -209,9 +209,9 @@ namespace iaux
 		thanks to https://glm.g-truc.net
 		and thanks to http://www.opensource.apple.com/source/WebCore/WebCore-514/platform/graphics/transforms/TransformationMatrix.cpp
 		*/
-		bool decompose(iaVector3<T> &scale, iaQuaternion<T> &orientation, iaVector3<T> &translate, iaVector3<T> &shear, iaVector4<T> &perspective) const;
+        bool decompose(iaVector3<T> &scale, iaQuaternion<T> &orientation, iaVector3<T> &translate, iaVector3<T> &shear, iaVector4<T> &perspective) const;
 
-		/*! recompose the matrix from it's components
+        /*! recompose the matrix from it's components
 
 		\param scale scale component
 		\param orientation the orientation
@@ -219,17 +219,17 @@ namespace iaux
 		\param shear the shear component
 		\param perspective the perspective component
 		*/
-		void recompose(const iaVector3<T> &scale, const iaQuaternion<T> &orientation, const iaVector3<T> &translate, const iaVector3<T> &shear, const iaVector4<T> &perspective);
+        void recompose(const iaVector3<T> &scale, const iaQuaternion<T> &orientation, const iaVector3<T> &translate, const iaVector3<T> &shear, const iaVector4<T> &perspective);
 
-		/*! calculates a view matrix
+        /*! calculates a view matrix
 
 		\param eye eye point of the camera
 		\param coi center of interesst
 		\param top the ipvector of the camera
 		*/
-		void lookAt(const iaVector3<T> &eye, const iaVector3<T> &coi, const iaVector3<T> &top);
+        void lookAt(const iaVector3<T> &eye, const iaVector3<T> &coi, const iaVector3<T> &top);
 
-		/*! calculates a frustum matrix
+        /*! calculates a frustum matrix
 
 		\param left the left value
 		\param right the right value
@@ -238,18 +238,18 @@ namespace iaux
 		\param nearplain the near plain distance
 		\param farplain the far plain distance
 		*/
-		void frustum(T left, T right, T bottom, T top, T nearplain, T farplain);
+        void frustum(T left, T right, T bottom, T top, T nearplain, T farplain);
 
-		/*! calculates a perspective projection matrix
+        /*! calculates a perspective projection matrix
 
 		\param fov field of view in degrees
 		\param aspect aspect ratio
 		\param nearplain near clipping plane distance
 		\param farplain far clipping plane distance
 		*/
-		void perspective(T fov, T aspect, T nearplain, T farplain);
+        void perspective(T fov, T aspect, T nearplain, T farplain);
 
-		/*! calculates a othogonal projection matrix
+        /*! calculates a othogonal projection matrix
 
 		\param left the left value
 		\param right the right value
@@ -258,18 +258,18 @@ namespace iaux
 		\param nearplain the near plain distance
 		\param farplain the far plain distance
 		*/
-		void ortho(T left, T right, T bottom, T top, T nearplain, T farplain);
+        void ortho(T left, T right, T bottom, T top, T nearplain, T farplain);
 
-		/*! calculates a orthogonal matrix based on one direction
+        /*! calculates a orthogonal matrix based on one direction
 
 		does only change the orientation of this matrix
 		the vector does not have top be normalized
 
 		\param depth the direction the matrix bases on
 		*/
-		void grammSchmidt(iaVector3<T> &depth);
+        void grammSchmidt(iaVector3<T> &depth);
 
-		/*! calculates a orthogonal matrix based on a plane with primary direction depth
+        /*! calculates a orthogonal matrix based on a plane with primary direction depth
 
 		does only change the orientation of this matrix
 		the vectors do not have to be perpendicular
@@ -278,130 +278,130 @@ namespace iaux
 		\param depth the direction the matrix bases on
 		\param top the second vector to define the plane
 		*/
-		void grammSchmidt(iaVector3<T> &depth, iaVector3<T> &top);
+        void grammSchmidt(iaVector3<T> &depth, iaVector3<T> &top);
 
-		/*! translate the matrix by vector 3d
+        /*! translate the matrix by vector 3d
 
 		\param a translation vector
 		*/
-		void translate(const iaVector3<T> &a);
+        void translate(const iaVector3<T> &a);
 
-		/*! translate the matrix by vector 3d
+        /*! translate the matrix by vector 3d
 
 		\param x x component
 		\param y y component
 		\param z z component
 		*/
-		void translate(T x, T y, T z);
+        void translate(T x, T y, T z);
 
-		/*! scale matrix by vector
+        /*! scale matrix by vector
 
 		\param s scale vector
 		*/
-		void scale(const iaVector3<T> &s);
+        void scale(const iaVector3<T> &s);
 
-		/*! scales the matrix
+        /*! scales the matrix
 
 		\param x scale in x axis
 		\param y scale in y axis
 		\param z scale in z axis
 		*/
-		void scale(T x, T y, T z);
+        void scale(T x, T y, T z);
 
-		/*! translate the matrix along it's own orientation vectors
+        /*! translate the matrix along it's own orientation vectors
 
 		\param distance distance to translate the matrix
 		\param axis axis to translate along
 		*/
-		void move(T distance, iaAxis axis);
+        void move(T distance, iaAxis axis);
 
-		/*! rotates the matrix around a specified orientation vector of the matrix
+        /*! rotates the matrix around a specified orientation vector of the matrix
 
 		\param angle angle to rotate in radians
 		\param axis axis to rotate around
 		*/
-		void rotate(T angle, iaAxis axis);
+        void rotate(T angle, iaAxis axis);
 
-		/*! rotates matrix in three axis
+        /*! rotates matrix in three axis
 
 		\param vec the rotation vector
 		*/
-		void rotate(const iaVector3<T> &vec);
+        void rotate(const iaVector3<T> &vec);
 
-		/*! rotates matrix in three axis
+        /*! rotates matrix in three axis
 
 		\param x x axis
 		\param y y axis
 		\param z z axis
 		*/
-		void rotate(T x, T y, T z);
+        void rotate(T x, T y, T z);
 
-		/*! shears matrix in three axis
+        /*! shears matrix in three axis
 
 		\param vec the shear vector
 		*/
-		void shear(const iaVector3<T> &vec);
+        void shear(const iaVector3<T> &vec);
 
-		/*! shears matrix in three axis
+        /*! shears matrix in three axis
 
 		\param xy shear in xy plane
 		\param xz shear in yz plane
 		\param yz shear in yz plane
 		*/
-		void shear(T xy, T xz, T yz);
+        void shear(T xy, T xz, T yz);
 
-		/*! \returns pointer to the data
+        /*! \returns pointer to the data
 		*/
-		const T *getData() const;
+        const T *getData() const;
 
-		/*! \returns pointer to the data
+        /*! \returns pointer to the data
 		*/
-		T *getData();
+        T *getData();
 
-		/*! set data
+        /*! set data
 		*/
-		void setData(const T *data);
+        void setData(const T *data);
 
-		/*! converts the vector in to given type of vector
+        /*! converts the vector in to given type of vector
 
 		\returns matrix for given type
 		*/
-		template <class T2>
-		iaMatrix<T2> convert();
+        template <class T2>
+        iaMatrix<T2> convert();
 
-		/*! initializes the matrix with the id matrix
+        /*! initializes the matrix with the id matrix
 		*/
-		iaMatrix();
+        iaMatrix();
 
-		/*! initializes matrix with a data set
+        /*! initializes matrix with a data set
 
 		\param data matrix
 		*/
-		iaMatrix(const T data[16]);
+        iaMatrix(const T data[16]);
 
-		/*! does nothing
+        /*! does nothing
 		*/
-		~iaMatrix();
-	};
+        ~iaMatrix();
+    };
 
-	/*! stream operator
+    /*! stream operator
 
     \param stream the destination
     \param m the matrix to stream
     \returns the resulting stream
     */
-	template <class T>
-	IgorAux_API iaConsole &operator<<(iaConsole &console, const iaMatrix<T> &m);
+    template <class T>
+    IAUX_API iaConsole &operator<<(iaConsole &console, const iaMatrix<T> &m);
 
 #include <iaux/math/iaMatrix.inl>
 
-	/*! float32 4x4 matrix
+    /*! float32 4x4 matrix
 	*/
-	typedef iaMatrix<float32> iaMatrixf;
+    typedef iaMatrix<float32> iaMatrixf;
 
-	/*! float64 4x4 matrix
+    /*! float64 4x4 matrix
 	*/
-	typedef iaMatrix<float64> iaMatrixd;
+    typedef iaMatrix<float64> iaMatrixd;
 
 }; // namespace iaux
 

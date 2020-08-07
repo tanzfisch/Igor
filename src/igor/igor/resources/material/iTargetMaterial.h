@@ -43,7 +43,7 @@ namespace igor
 
     /*! contains all material information that belong to the surface of an object
     */
-    class Igor_API iTargetMaterial
+    class IGOR_API iTargetMaterial
     {
 
         friend class iMaterialResourceFactory;

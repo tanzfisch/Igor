@@ -47,7 +47,7 @@ namespace igor
 
     /*! color view widget
     */
-    class Igor_API iWidgetColorGradient : public iWidget
+    class IGOR_API iWidgetColorGradient : public iWidget
     {
 
     public:

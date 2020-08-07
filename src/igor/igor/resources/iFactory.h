@@ -38,7 +38,7 @@ namespace igor
 
     /*! represents a factory that can process resources
     */
-    class Igor_API iFactory
+    class IGOR_API iFactory
     {
         friend class iResourceManager;
 
@@ -52,29 +52,28 @@ namespace igor
         virtual ~iFactory() = default;
 
     protected:
-
         /*! \returns the fatory type
 
         this type is used to register with the resource manager
         */
-        virtual const iaString& getType() const = 0;
+        virtual const iaString &getType() const = 0;
 
         /*! \returns true if resource parameters are supported by this factory
 
         \param parameters the given resource parameters
         */
-        virtual bool matchingType(const iResourceParameters& parameters) const = 0;
+        virtual bool matchingType(const iResourceParameters &parameters) const = 0;
 
         /*! \returns resource type specific hash data
         */
-        virtual iaString getHashData(const iResourceParameters& parameters) const = 0;
+        virtual iaString getHashData(const iResourceParameters &parameters) const = 0;
 
         /*! creates a resource object
 
         \param parameters the resource parameters
         \returns loaded or created new resource
         */
-        virtual iResourcePtr createResource(const iResourceParameters& parameters) const = 0;
+        virtual iResourcePtr createResource(const iResourceParameters &parameters) const = 0;
 
         /*! loads the resource
 
@@ -88,7 +87,6 @@ namespace igor
         \param resource the resource to unload
         */
         virtual void unloadResource(iResourcePtr resource) const = 0;
-
     };
 
     /*! definition of texture shared pointer

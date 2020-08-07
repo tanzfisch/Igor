@@ -42,7 +42,7 @@ namespace igor
 
     /*! the graph edit dialog
     */
-    class Igor_API iDialogGraph : public iDialog
+    class IGOR_API iDialogGraph : public iDialog
     {
 
     public:

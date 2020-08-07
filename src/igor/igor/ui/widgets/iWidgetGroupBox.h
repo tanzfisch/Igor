@@ -37,81 +37,81 @@ using namespace iaux;
 namespace igor
 {
 
-	class iUserControl;
+    class iUserControl;
 
-	/*! group box widget
+    /*! group box widget
 
 	\todo collapsable group box would be nice/interessting
 	*/
-	class Igor_API iWidgetGroupBox : public iWidget
-	{
+    class IGOR_API iWidgetGroupBox : public iWidget
+    {
 
-	public:
-		/*! ctor initializes member variables
+    public:
+        /*! ctor initializes member variables
 
 		\param parent optional parent
 		*/
-		iWidgetGroupBox(const iWidgetPtr parent = nullptr);
+        iWidgetGroupBox(const iWidgetPtr parent = nullptr);
 
-		/*! does nothing
+        /*! does nothing
 		*/
-		~iWidgetGroupBox() = default;
+        ~iWidgetGroupBox() = default;
 
-		/*! sets text of widget
+        /*! sets text of widget
 
 		\param text new text
 		*/
-		void setText(const iaString &text);
+        void setText(const iaString &text);
 
-		/*! \returns text of widget
+        /*! \returns text of widget
 		*/
-		const iaString &getText() const;
+        const iaString &getText() const;
 
-		/*! sets boder size (something like a margin)
+        /*! sets boder size (something like a margin)
 
 		\param border size of border
 		*/
-		void setBorder(int32 border);
+        void setBorder(int32 border);
 
-		/*! \returns border size of widget
+        /*! \returns border size of widget
 		*/
-		int32 getBorder();
+        int32 getBorder();
 
-		/*! setter for header only mode
+        /*! setter for header only mode
 
 		\param headerOnly if true there will only the header be visible
 		*/
-		void setHeaderOnly(bool headerOnly = true);
+        void setHeaderOnly(bool headerOnly = true);
 
-		/*! \returns if true: header only mode is on
+        /*! \returns if true: header only mode is on
 		*/
-		bool getHeaderOnly() const;
+        bool getHeaderOnly() const;
 
-	private:
-		/*! if true only the header of the group box will be drawn
+    private:
+        /*! if true only the header of the group box will be drawn
 		*/
-		bool _headerOnly = false;
+        bool _headerOnly = false;
 
-		/*! border size
+        /*! border size
 		*/
-		int32 _border = 5;
+        int32 _border = 5;
 
-		/*! group box text
+        /*! group box text
 		*/
-		iaString _text;
+        iaString _text;
 
-		/*! draws the widget
+        /*! draws the widget
 		*/
-		void draw();
+        void draw();
 
-		/*! updates size based on it's content
+        /*! updates size based on it's content
 		*/
-		void calcMinSize() override;
-	};
+        void calcMinSize() override;
+    };
 
-	/*! widget group box pointer definition
+    /*! widget group box pointer definition
 	*/
-	typedef iWidgetGroupBox *iWidgetGroupBoxPtr;
+    typedef iWidgetGroupBox *iWidgetGroupBoxPtr;
 } // namespace igor
 
 #endif // __IGOR_WIDGETGROUPBOX_H__

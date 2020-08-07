@@ -75,6 +75,11 @@ if(${COMPILER} STREQUAL "GCC")
 
   add_compile_options(-fpermissive -std=c++17)
   add_definitions(-D_NEWTON_USE_DOUBLE -D_cplusplus=201703L)
+
+  if(DEEP_PROFILING)
+    message(STATUS "Using Igor deep profiling")
+    add_definitions(-DDEEP_PROFILING)
+  endif()
 endif()
 
 if(${COMPILER} STREQUAL "MSVCXX")

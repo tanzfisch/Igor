@@ -40,7 +40,7 @@ namespace igor
 
     \see iModelResourceFactory
     */
-    class Igor_API iTaskFlushModels : public iTask
+    class IGOR_API iTaskFlushModels : public iTask
     {
 
     public:

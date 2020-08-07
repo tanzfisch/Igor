@@ -41,121 +41,121 @@ using namespace iaux;
 namespace igor
 {
 
-	class iPixmap;
+    class iPixmap;
 
-	/*! defines how the spacing is between letters and digits
+    /*! defines how the spacing is between letters and digits
     */
-	enum class iFontType
-	{
-		Standard,
-		FixedWidth,
-		FixedDigitWidth
-	};
+    enum class iFontType
+    {
+        Standard,
+        FixedWidth,
+        FixedDigitWidth
+    };
 
-	/*! masks specific channel to determine the background within the texture font
+    /*! masks specific channel to determine the background within the texture font
     */
-	enum class iColorMask
-	{
-		Red,
-		Green,
-		Blue,
-		Alpha
-	};
+    enum class iColorMask
+    {
+        Red,
+        Green,
+        Blue,
+        Alpha
+    };
 
-	/*! dimensions of a character in the texture
+    /*! dimensions of a character in the texture
 	*/
-	class iCharacterDimensions
-	{
+    class iCharacterDimensions
+    {
 
-	public:
-		iRectanglef rect;
-		float32 relRenderWidth;
-	};
+    public:
+        iRectanglef rect;
+        float32 relRenderWidth;
+    };
 
-	/*! texture font
+    /*! texture font
 	*/
-	class Igor_API iTextureFont
-	{
+    class IGOR_API iTextureFont
+    {
 
-	private:
-		/*! true if the font is a valid font
+    private:
+        /*! true if the font is a valid font
 		*/
-		bool valid;
+        bool valid;
 
-		/*! 
+        /*! 
 		*/
-		void makeFixedWidth();
+        void makeFixedWidth();
 
-		/*! 
+        /*! 
 		*/
-		void makeFixedDigitWidth();
+        void makeFixedDigitWidth();
 
-		/*! 
+        /*! 
 		*/
-		void modifyWidth(iCharacterDimensions &character, float32 newWidth, float32 newRelRenderWidth);
+        void modifyWidth(iCharacterDimensions &character, float32 newWidth, float32 newRelRenderWidth);
 
-		/*! texture
+        /*! texture
 		*/
-		iTexturePtr _texture;
+        iTexturePtr _texture;
 
-		/*! pixmap of the the texture
+        /*! pixmap of the the texture
 		*/
-		iPixmap *_pixmap;
+        iPixmap *_pixmap;
 
-		/*! character set of the font
+        /*! character set of the font
 		*/
-		std::vector<iCharacterDimensions> _characters;
+        std::vector<iCharacterDimensions> _characters;
 
-	public:
-		/*! calculates the width of the given iaString using this font
+    public:
+        /*! calculates the width of the given iaString using this font
 
 		\param text the text to calculate the width
 		\param size size of the font
 		*/
-		float32 measureWidth(iaString text, float32 size);
+        float32 measureWidth(iaString text, float32 size);
 
-		/*! calculates the height of a iaString with line breaks
+        /*! calculates the height of a iaString with line breaks
 
 		\param text the text to calculate with
 		\param size font size
 		\param max_width with to make line break
 		\param line_height factor for the line height (default value is 1.15)
 		*/
-		float32 measureHeight(iaString text, float32 size, float32 max_width, float32 line_height = 1.15f);
+        float32 measureHeight(iaString text, float32 size, float32 max_width, float32 line_height = 1.15f);
 
-		/*! returns true if the font was loading correctly
+        /*! returns true if the font was loading correctly
 		*/
-		bool isValid();
+        bool isValid();
 
-		/*! returns pointer to the font texture
+        /*! returns pointer to the font texture
 
 		\return pointer to font texture
 		*/
-		iTexturePtr getTexture();
+        iTexturePtr getTexture();
 
-		/*! returns character set
+        /*! returns character set
 
 		\return vector of characters
 		*/
-		std::vector<iCharacterDimensions> &getCharacters();
+        std::vector<iCharacterDimensions> &getCharacters();
 
-		/*! ctor
+        /*! ctor
 
 		\param font_file filename of font texture
 		\param font_type font type
 		\param mask_channel use this color channel to detect the size of characters
 		\param mask_threashold this threashold dertermines what texel belongs to the character and wich not
 		*/
-		iTextureFont(iaString font_file, iFontType font_type = iFontType::FixedDigitWidth, iColorMask mask_channel = iColorMask::Alpha, float32 mask_threashold = 0);
+        iTextureFont(iaString font_file, iFontType font_type = iFontType::FixedDigitWidth, iColorMask mask_channel = iColorMask::Alpha, float32 mask_threashold = 0);
 
-		/*! cleans up
+        /*! cleans up
 		*/
-		~iTextureFont();
-	};
+        ~iTextureFont();
+    };
 
-	/*! texture font pointer definition
+    /*! texture font pointer definition
 	*/
-	typedef iTextureFont *iTextureFontPtr;
+    typedef iTextureFont *iTextureFontPtr;
 
 }; // namespace igor
 

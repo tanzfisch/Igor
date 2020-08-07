@@ -38,7 +38,7 @@ namespace igor
 
     /*! action constext base class
 	*/
-    class Igor_API iActionContext
+    class IGOR_API iActionContext
     {
 
     public:

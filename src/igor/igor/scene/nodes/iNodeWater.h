@@ -37,7 +37,7 @@ namespace igor
 
     /*! renders a enless water plane relative to current camera
     */
-    class Igor_API iNodeWater : public iNodeRender
+    class IGOR_API iNodeWater : public iNodeRender
     {
 
         friend class iNodeManager;

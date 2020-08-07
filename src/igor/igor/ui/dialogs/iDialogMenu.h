@@ -41,7 +41,7 @@ namespace igor
 
     technically a dialog it is used as menu, sub menu or context menu
 	*/
-    class Igor_API iDialogMenu : public iDialog
+    class IGOR_API iDialogMenu : public iDialog
     {
 
         friend class iWidgetMenu;

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iOCTREE__
-#define __iOCTREE__
+#ifndef __IGOR_OCTREE_H__
+#define __IGOR_OCTREE_H__
 
 #include <igor/data/iAACube.h>
 #include <igor/data/iSphere.h>
@@ -51,7 +51,7 @@ namespace igor
     \todo does not merge efficiently
     \todo implement move functionality
     */
-    class Igor_API iOctree
+    class IGOR_API iOctree
     {
 
     public:
@@ -303,4 +303,4 @@ namespace igor
     };
 } // namespace igor
 
-#endif
+#endif // __IGOR_OCTREE_H__

@@ -39,81 +39,81 @@ using namespace iaux;
 namespace igor
 {
 
-	class iUserControlColorChooser;
-	typedef iUserControlColorChooser *iUserControlColorChooserPtr;
+    class iUserControlColorChooser;
+    typedef iUserControlColorChooser *iUserControlColorChooserPtr;
 
-	/*! the color chooser dialog
+    /*! the color chooser dialog
 	*/
-	class Igor_API iDialogColorChooser : public iDialog
-	{
+    class IGOR_API iDialogColorChooser : public iDialog
+    {
 
-	public:
-		/*! does nothing
+    public:
+        /*! does nothing
 		*/
-		iDialogColorChooser(const iWidgetPtr parent = nullptr);
+        iDialogColorChooser(const iWidgetPtr parent = nullptr);
 
-		/*! does nothing
+        /*! does nothing
         */
-		~iDialogColorChooser() = default;
+        ~iDialogColorChooser() = default;
 
-		/*! show/open the decision box
+        /*! show/open the decision box
 
 		\param dialogCloseDelegate the closing delegate
 		\param color the color to start with
 		\param useAlpha if true also use the alpha channel
 		*/
-		void open(iDialogCloseDelegate dialogCloseDelegate, const iaColor4f &color, bool useAlpha = true);
+        void open(iDialogCloseDelegate dialogCloseDelegate, const iaColor4f &color, bool useAlpha = true);
 
-		/*! \returns color from color chooser
+        /*! \returns color from color chooser
         */
-		const iaColor4f &getColor() const;
+        const iaColor4f &getColor() const;
 
-		/*! \returns color that was set previously
+        /*! \returns color that was set previously
         */
-		const iaColor4f &getResetColor() const;
+        const iaColor4f &getResetColor() const;
 
-	private:
-		/*! old color
+    private:
+        /*! old color
 		*/
-		iaColor4f _oldColor;
+        iaColor4f _oldColor;
 
-		/*! actual color chooser
+        /*! actual color chooser
 		*/
-		iUserControlColorChooserPtr _userControlColorChooser = nullptr;
+        iUserControlColorChooserPtr _userControlColorChooser = nullptr;
 
-		/*! all widgets
+        /*! all widgets
 		*/
-		std::vector<iWidgetPtr> _allWidgets;
+        std::vector<iWidgetPtr> _allWidgets;
 
-		/*! handles ok button clicked event
+        /*! handles ok button clicked event
 
 		\param source the ok button it self
 		*/
-		void onOK(const iWidgetPtr source);
+        void onOK(const iWidgetPtr source);
 
-		/*! handles cancel button clicked event
+        /*! handles cancel button clicked event
 
 		\param source the cancel button it self
 		*/
-		void onCancel(const iWidgetPtr source);
+        void onCancel(const iWidgetPtr source);
 
-		/*! handles reset button click event
+        /*! handles reset button click event
 
 		\param source the reset button it self
 		*/
-		void onReset(const iWidgetPtr source);
+        void onReset(const iWidgetPtr source);
 
-		/*! initializes gui elements
+        /*! initializes gui elements
 
 		\param color the color to init with
 		\param useAlpha if true alpha value will be edited too
 		*/
-		void initGUI(const iaColor4f &color, bool useAlpha);
-	};
+        void initGUI(const iaColor4f &color, bool useAlpha);
+    };
 
-	/*! dialog color chooser pointer definition
+    /*! dialog color chooser pointer definition
     */
-	typedef iDialogColorChooser *iDialogColorChooserPtr;
+    typedef iDialogColorChooser *iDialogColorChooserPtr;
 
 } // namespace igor
 

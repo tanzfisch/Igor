@@ -45,7 +45,7 @@ namespace igor
 
     /*! collision configuration is to be finalized by iPhysics or iTaskPrepareCollision
     */
-    class Igor_API iPhysicsCollisionConfig
+    class IGOR_API iPhysicsCollisionConfig
     {
 
         friend class iTaskPrepareCollision;

@@ -19,6 +19,7 @@
 #include <igor/scene/nodes/iNodeManager.h>
 #include <igor/system/iTimer.h>
 #include <igor/scene/traversal/iNodeVisitorRenderBoundings.h>
+#include <igor/resources/profiler/iProfiler.h>
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/data/iaConvert.h>
@@ -186,6 +187,8 @@ namespace igor
 
     void iRenderEngine::cullScene(iNodeCamera *camera)
     {
+        IGOR_PROFILER();
+
         iaMatrixd view;
         iaMatrixd camMatrix;
         camera->getViewMatrix(view);

@@ -45,7 +45,7 @@ namespace igor
 	Meshures time of application cycles based on render frames.
 	Can also just meashure current time see getTime()
 	*/
-    class Igor_API iTimer : public iModule<iTimer>
+    class IGOR_API iTimer : public iModule<iTimer>
     {
         friend class iTimerHandle;
         friend class iApplication;

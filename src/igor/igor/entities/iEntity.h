@@ -48,7 +48,7 @@ namespace igor
 
     /*! entity base class
     */
-    class Igor_API iEntity
+    class IGOR_API iEntity
     {
 
         /*! so we can call the handle

@@ -47,7 +47,7 @@ namespace igor
 
     /*! describes combination of two materials
     */
-    class Igor_API iPhysicsMaterialCombo
+    class IGOR_API iPhysicsMaterialCombo
     {
 
         friend class iPhysics;

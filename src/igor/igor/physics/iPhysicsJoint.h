@@ -44,7 +44,7 @@ namespace igor
 
     /*! wrapper for the NewtonJoint handle
     */
-    class Igor_API iPhysicsJoint
+    class IGOR_API iPhysicsJoint
     {
 
         friend class iPhysics;

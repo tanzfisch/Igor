@@ -37,7 +37,7 @@ namespace igor
 
     /*! renders a sky box
     */
-    class Igor_API iNodeSkyBox : public iNodeRender
+    class IGOR_API iNodeSkyBox : public iNodeRender
     {
 
         friend class iNodeManager;

@@ -40,7 +40,7 @@ namespace igor
     \todo mode to IgorAux
     */
     template <class T>
-    class Igor_API_Template iSphere
+    class IGOR_API_TEMPLATE iSphere
     {
 
     public:

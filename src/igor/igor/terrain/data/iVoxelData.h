@@ -52,7 +52,7 @@ namespace igor
      But a value of 1 actually means a density of zero too only that it will generate a body with zero volume.
      This way we can generate slopes down to a volume of zero or walls with a thickness of zero.
     */
-    class Igor_API iVoxelData
+    class IGOR_API iVoxelData
     {
 
     public:

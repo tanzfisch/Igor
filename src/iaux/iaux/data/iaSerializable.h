@@ -45,7 +45,7 @@ namespace iaux
 
     /*! helper class for serializing / deserializing any data from and to a stream
     */
-    class IgorAux_API iaSerializable
+    class IAUX_API iaSerializable
     {
 
     public:

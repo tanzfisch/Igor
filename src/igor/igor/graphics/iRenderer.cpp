@@ -1630,15 +1630,6 @@ namespace igor
         if (_loggingActive)
         {
             con_endl("drawMesh instances:" << instancer->getInstanceCount() << " triangles " << meshBuffers->getTrianglesCount());
-
-            for (int i = 0; i < instancer->getInstanceCount(); ++i)
-            {
-                iaMatrixf matrix;
-                auto ptr = instancer->getInstanceDataBuffer();
-                matrix.setData(&static_cast<const float32 *>(ptr)[i * 16]);
-
-                con_endl("" << matrix._pos);
-            }
         }
 
         iaMatrixd idMatrix;

@@ -42,7 +42,7 @@ namespace igor
     igor::startup() and destroyed during igor::shutdown()
     */
     template <typename T>
-    class Igor_API_Template iModule
+    class IGOR_API_TEMPLATE iModule
     {
         friend void destroyModules();
         friend void startup(int argc, wchar_t **argv);

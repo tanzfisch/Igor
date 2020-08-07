@@ -38,7 +38,7 @@ namespace iaux
 
     /*! stores time
     */
-    class IgorAux_API iaTime
+    class IAUX_API iaTime
     {
 
     public:

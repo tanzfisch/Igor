@@ -40,7 +40,7 @@ namespace igor
 
     /*! abstract class for nodes that can render
     */
-    class Igor_API iNodeRender : public iNode
+    class IGOR_API iNodeRender : public iNode
     {
 
         friend class iNodeVisitorUpdateTransform;
