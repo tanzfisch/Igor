@@ -26,12 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iTimer__
-#define __iTimer__
+#ifndef __IGOR_TIMER_H__
+#define __IGOR_TIMER_H__
 
 #include <igor/system/iTimerHandle.h>
+#include <igor/resources/module/iModule.h>
 
-#include <iaux/system/iaSingleton.h>
 #include <iaux/system/iaTime.h>
 using namespace iaux;
 
@@ -40,95 +40,95 @@ using namespace iaux;
 namespace igor
 {
 
-	/*! Handles Application time and intervals.
+    /*! Handles Application time and intervals.
 
 	Meshures time of application cycles based on render frames.
 	Can also just meashure current time see getTime()
 	*/
-	class Igor_API iTimer : public iaSingleton<iTimer>
-	{
-		friend class iTimerHandle;
-		friend class iApplication;
-		friend class iaSingleton<iTimer>;
+    class Igor_API iTimer : public iModule<iTimer>
+    {
+        friend class iTimerHandle;
+        friend class iApplication;
+        friend class iModule<iTimer>;
 
-	public:
-		/*! \returns time since application start
+    public:
+        /*! \returns time since application start
         */
-		iaTime getApplicationTime() const;
+        iaTime getApplicationTime() const;
 
-		/*! \returns time at beginning of current frame
+        /*! \returns time at beginning of current frame
         */
-		iaTime getFrameTime() const;
+        iaTime getFrameTime() const;
 
-		/*! \returns delta time since last frame
+        /*! \returns delta time since last frame
         */
-		iaTime getFrameTimeDelta() const;
+        iaTime getFrameTimeDelta() const;
 
-		/*! \returns frame rate based only on one frame's time delta
+        /*! \returns frame rate based only on one frame's time delta
         */
-		float64 getFPS() const;
+        float64 getFPS() const;
 
-		/*! \returns todays day
+        /*! \returns todays day
 		*/
-		uint32 getDay() const;
+        uint32 getDay() const;
 
-		/*! \returns current month
+        /*! \returns current month
 		*/
-		uint32 getMonth() const;
+        uint32 getMonth() const;
 
-		/*! \returns current year
+        /*! \returns current year
 		*/
-		uint32 getYear() const;
+        uint32 getYear() const;
 
-	protected:
-		/*! call timer handles events
+    protected:
+        /*! call timer handles events
         */
-		void handleTimerHandles();
+        void handleTimerHandles();
 
-	private:
-		/*! time delta between last and current frame (in miliseconds)
+    private:
+        /*! time delta between last and current frame (in miliseconds)
 		*/
-		iaTime _timeDelta;
+        iaTime _timeDelta;
 
-		/*! time since timer was initialized (in miliseconds)
+        /*! time since timer was initialized (in miliseconds)
 		*/
-		iaTime _startTime;
+        iaTime _startTime;
 
-		/*! time meshured current frame (in miliseconds)
+        /*! time meshured current frame (in miliseconds)
 		*/
-		iaTime _currentTime;
+        iaTime _currentTime;
 
-		/*! time meshured last frame (in miliseconds)
+        /*! time meshured last frame (in miliseconds)
 		*/
-		iaTime _lastTime;
+        iaTime _lastTime;
 
-		/*! registered timer handles
+        /*! registered timer handles
 
 		\todo why is this pointers?
 		*/
-		std::vector<iTimerHandle *> _timerHandles;
+        std::vector<iTimerHandle *> _timerHandles;
 
-		/*! registers timer handle to timer
+        /*! registers timer handle to timer
 		*/
-		void insertTimerHandle(const iTimerHandle *timer_handle);
+        void insertTimerHandle(const iTimerHandle *timer_handle);
 
-		/*! unregisters timer handle from timer
+        /*! unregisters timer handle from timer
 		*/
-		void removeTimerHandle(const iTimerHandle *timer_handle);
+        void removeTimerHandle(const iTimerHandle *timer_handle);
 
-		/*! called by iApplication to handle timer handle events
+        /*! called by iApplication to handle timer handle events
 		*/
-		void handle();
+        void handle();
 
-		/*! Registers to iApplication and initializes performance counter
+        /*! Registers to iApplication and initializes performance counter
 		*/
-		iTimer();
+        iTimer();
 
-		/*! Unregisters from iApplication
+        /*! Unregisters from iApplication
 		*/
-		virtual ~iTimer();
-	};
+        virtual ~iTimer();
+    };
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_TIMER_H__

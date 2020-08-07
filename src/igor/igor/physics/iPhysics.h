@@ -32,8 +32,8 @@
 #include <igor/physics/iPhysicsBody.h>
 #include <igor/physics/iPhysicsWorld.h>
 #include <igor/resources/mesh/iMesh.h>
+#include <igor/resources/module/iModule.h>
 
-#include <iaux/system/iaSingleton.h>
 #include <iaux/math/iaMatrix.h>
 #include <iaux/system/iaTime.h>
 using namespace iaux;
@@ -69,12 +69,12 @@ namespace igor
     \todo way to many friends
     \todo update Omega of bodys ???
     */
-    class Igor_API iPhysics : public iaSingleton<iPhysics>
+    class Igor_API iPhysics : public iModule<iPhysics>
     {
         friend void PhysicsNodeDestructor(const void *body);
         friend void PhysicsNodeSetTransform(const void *body, const float64 *matrix, int threadIndex);
         friend void GenericContactProcessCompatible(const void *const newtonContactJoint, float64 timestep, int threadIndex);
-        friend class iaSingleton<iPhysics>;
+        friend class iModule<iPhysics>;
         friend class iPhysicsCollision;
         friend class iTaskPhysics;
         friend class iPhysicsBody; // needed so newton can call dtor on bodys by it self

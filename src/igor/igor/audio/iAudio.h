@@ -26,12 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __AUDIO_H__
-#define __AUDIO_H__
+#ifndef __IGOR_AUDIO_H__
+#define __IGOR_AUDIO_H__
 
 #include <igor/resources/sound/iSound.h>
+#include <igor/resources/module/iModule.h>
 
-#include <iaux/system/iaSingleton.h>
 #include <iaux/math/iaMatrix.h>
 using namespace iaux;
 
@@ -44,10 +44,10 @@ namespace igor
 
     in this case wrapping OpenAL
     */
-    class Igor_API iAudio : public iaSingleton<iAudio>
+    class Igor_API iAudio : public iModule<iAudio>
     {
 
-        friend class iaSingleton<iAudio>;
+        friend class iModule<iAudio>;
 
     public:
         /*! creates an audio buffer based on given parameters
@@ -149,4 +149,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __AUDIO_H__
+#endif // __IGOR_AUDIO_H__

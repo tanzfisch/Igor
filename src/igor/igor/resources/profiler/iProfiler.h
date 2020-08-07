@@ -29,9 +29,8 @@
 #ifndef __IGOR_PROFILER_H__
 #define __IGOR_PROFILER_H__
 
-#include <igor/iDefines.h>
+#include <igor/resources/module/iModule.h>
 
-#include <iaux/system/iaSingleton.h>
 #include <iaux/data/iaColor4.h>
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaConsole.h>
@@ -51,10 +50,10 @@ namespace igor
 
     /*! render statistics
     */
-    class Igor_API iProfiler : public iaSingleton<iProfiler>
+    class Igor_API iProfiler : public iModule<iProfiler>
     {
 
-        friend class iaSingleton<iProfiler>;
+        friend class iModule<iProfiler>;
 
     public:
         /*! size of buffer aka amount of frames that are logged

@@ -26,14 +26,14 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iMATERIALRESOURCEFACTORY__
-#define __iMATERIALRESOURCEFACTORY__
+#ifndef __IGOR_MATERIALRESOURCEFACTORY_H__
+#define __IGOR_MATERIALRESOURCEFACTORY_H__
 
 #include <igor/iDefines.h>
 #include <igor/resources/material/iMaterial.h>
+#include <igor/resources/module/iModule.h>
 
 #include <iaux/data/iaString.h>
-#include <iaux/system/iaSingleton.h>
 #include <iaux/system/iaMutex.h>
 #include <iaux/system/iaEvent.h>
 using namespace iaux;
@@ -61,9 +61,9 @@ namespace igor
 
     /*! material resource factory
     */
-    class Igor_API iMaterialResourceFactory : public iaSingleton<iMaterialResourceFactory>
+    class Igor_API iMaterialResourceFactory : public iModule<iMaterialResourceFactory>
     {
-        friend class iaSingleton<iMaterialResourceFactory>;
+        friend class iModule<iMaterialResourceFactory>;
 
     public:
         /*! creates material
@@ -223,4 +223,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_MATERIALRESOURCEFACTORY_H__

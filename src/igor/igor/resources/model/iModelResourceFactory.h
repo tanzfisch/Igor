@@ -26,14 +26,14 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iMODELRESOURCEFACTORY__
-#define __iMODELRESOURCEFACTORY__
+#ifndef __IGOR_MODELRESOURCEFACTORY_H__
+#define __IGOR_MODELRESOURCEFACTORY_H__
 
 #include <igor/resources/model/iModel.h>
 #include <igor/resources/model/loader/iModelDataIOOMPF.h>
 #include <igor/resources/model/loader/iModelDataIOOBJ.h>
+#include <igor/resources/module/iModule.h>
 
-#include <iaux/system/iaSingleton.h>
 #include <iaux/system/iaMutex.h>
 using namespace iaux;
 
@@ -50,10 +50,10 @@ namespace igor
 
     /*! model resource factory
     */
-    class Igor_API iModelResourceFactory : public iaSingleton<iModelResourceFactory>
+    class Igor_API iModelResourceFactory : public iModule<iModelResourceFactory>
     {
 
-        friend class iaSingleton<iModelResourceFactory>;
+        friend class iModule<iModelResourceFactory>;
         friend class iTaskLoadModel;
 
     public:
@@ -197,4 +197,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_MODELRESOURCEFACTORY_H__
