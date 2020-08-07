@@ -12,7 +12,7 @@ __IGOR_INLINE__ uint32 iInstancer::getInstanceCount() const
     return _instanceCount;
 }
 
-__IGOR_INLINE__ char *iInstancer::getInstanceDataBuffer() const
+__IGOR_INLINE__ const void *iInstancer::getInstanceDataBuffer() const
 {
     return _instanceDataBuffer;
 }

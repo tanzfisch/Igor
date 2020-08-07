@@ -85,7 +85,7 @@ namespace igor
 
         /*! \returns instances data buffer
         */
-        char *getInstanceDataBuffer() const;
+        const void *getInstanceDataBuffer() const;
 
         /*! \returns instances buffer size
         */

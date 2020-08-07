@@ -1598,8 +1598,6 @@ namespace igor
         meshBuffers->setReady();
     }
 
-    /*! http://in2gpu.com/2014/09/07/instanced-drawing-opengl/
-    */
     std::shared_ptr<iMeshBuffers> iRenderer::createBuffers(iMeshPtr mesh)
     {
         iMeshBuffers *meshBuffer = new iMeshBuffers();
@@ -1631,20 +1629,32 @@ namespace igor
     {
         if (_loggingActive)
         {
-            con_endl("drawMesh instances:" << instancer->getInstanceCount());
+            con_endl("drawMesh instances:" << instancer->getInstanceCount() << " triangles " << meshBuffers->getTrianglesCount());
+
+            for (int i = 0; i < instancer->getInstanceCount(); ++i)
+            {
+                iaMatrixf matrix;
+                auto ptr = instancer->getInstanceDataBuffer();
+                matrix.setData(&static_cast<const float32 *>(ptr)[i * 16]);
+
+                con_endl("" << matrix._pos);
+            }
         }
 
         iaMatrixd idMatrix;
         setModelMatrix(idMatrix);
 
-        createBuffers(instancer);
+        createBuffers(instancer); // TODO that's not a good place to initialize the buffer
 
         writeShaderParameters();
+
+        glBindVertexArray(meshBuffers->getVertexArrayObject());
+        GL_CHECK_ERROR();
 
         glBindBuffer(GL_ARRAY_BUFFER, instancer->getInstanceArrayObject());
         GL_CHECK_ERROR();
 
-        glBufferSubData(GL_ARRAY_BUFFER, 0, instancer->getInstanceSize() * instancer->getInstanceCount(), instancer->getInstanceDataBuffer());
+        glNamedBufferSubData(instancer->getInstanceArrayObject(), 0, instancer->getInstanceSize() * instancer->getInstanceCount(), instancer->getInstanceDataBuffer());
         GL_CHECK_ERROR();
 
         glEnableVertexAttribArray(3);
@@ -1663,13 +1673,11 @@ namespace igor
         GL_CHECK_ERROR();
         glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(12 * sizeof(float32)));
         GL_CHECK_ERROR();
+
         glVertexAttribDivisor(3, 1);
         glVertexAttribDivisor(4, 1);
         glVertexAttribDivisor(5, 1);
         glVertexAttribDivisor(6, 1);
-
-        glBindVertexArray(meshBuffers->getVertexArrayObject());
-        GL_CHECK_ERROR();
 
         glDrawElementsInstancedARB(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, 0, instancer->getInstanceCount());
         GL_CHECK_ERROR();
