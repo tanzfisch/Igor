@@ -25,8 +25,11 @@ ExampleInstancing::ExampleInstancing(iWindow *window)
 
 void ExampleInstancing::onInit()
 {
-    const float32 spacing = 2.0f;
-    const int32 amountPerDimension = 20;
+    const float32 spacing = 5.0f;
+    const int32 amountPerDimension = 21;
+
+    // switching of vsync for maximum output
+    getWindow()->setVSync(false);
 
     // setup camera
     // we want a camera which can be rotated arround the origin
@@ -45,7 +48,7 @@ void ExampleInstancing::onInit()
     iNodeTransform *cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
     cameraTranslation->setName("camera translation");
     // translate away from origin
-    cameraTranslation->translate(0, 0, spacing * amountPerDimension * 0.5);
+    cameraTranslation->translate(0, 0, spacing * amountPerDimension);
     _cameraTranslation = cameraTranslation->getID();
     // from all nodes that we want to control later we save the node ID
     // and last but not least we create a camera node
@@ -66,13 +69,22 @@ void ExampleInstancing::onInit()
 
     // first we have to override the material which is stored within the model
     // to do that we create a new material using instancing
-    _materialWithInstancing = iMaterialResourceFactory::getInstance().createMaterial("Instancing");
-    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing);
+    _materialWithInstancingA = iMaterialResourceFactory::getInstance().createMaterial("Instancing Textured");
+    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancingA);
     material->setRenderState(iRenderState::Instanced, iRenderStateValue::On);
     material->setRenderState(iRenderState::InstancedFunc, iRenderStateValue::PositionOrientation);
     material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     material->addShaderSource("igor/textured_ipo.vert", iShaderObjectType::Vertex);
     material->addShaderSource("igor/textured_ipo_directional_light.frag", iShaderObjectType::Fragment);
+    material->compileShader();
+
+    _materialWithInstancingB = iMaterialResourceFactory::getInstance().createMaterial("Instancing No Texture");
+    material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancingB);
+    material->setRenderState(iRenderState::Instanced, iRenderStateValue::On);
+    material->setRenderState(iRenderState::InstancedFunc, iRenderStateValue::PositionOrientation);
+    material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    material->addShaderSource("igor/default_ipo.vert", iShaderObjectType::Vertex);
+    material->addShaderSource("igor/default_ipo_directional_light.frag", iShaderObjectType::Fragment);
     material->compileShader();
 
     // now we can just put copies of that model in the scene
@@ -98,8 +110,29 @@ void ExampleInstancing::onInit()
                 iNodeModel *modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
                 // it is important to use the exact same parameters here as before when we direclty loaded the model
                 // because here it will not load it again but get it from the cache where we is still the version with manipulated material
-                modelNode->setModel("cat.ompf", iResourceCacheMode::Keep);
-                modelNode->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleInstancing::onModelReady));
+
+                switch (count % 4)
+                {
+                case 0:
+                    modelNode->setModel("cat.ompf", iResourceCacheMode::Keep);
+                    modelNode->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleInstancing::onModelReadyA));
+                    break;
+
+                case 1:
+                    modelNode->setModel("crate.ompf", iResourceCacheMode::Keep);
+                    modelNode->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleInstancing::onModelReadyA));
+                    break;
+
+                case 2:
+                    modelNode->setModel("tree.ompf", iResourceCacheMode::Keep);
+                    modelNode->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleInstancing::onModelReadyB));
+                    break;
+
+                case 3:
+                    modelNode->setModel("teapot.ompf", iResourceCacheMode::Keep);
+                    modelNode->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleInstancing::onModelReadyB));
+                    break;
+                }
 
                 // building the created nodes together and insert them in the scene
                 transformGroup->insertNode(transform);
@@ -144,8 +177,10 @@ void ExampleInstancing::onDeinit()
         _animationTimingHandle = nullptr;
     }
 
-    iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithInstancing);
-    _materialWithInstancing = iMaterial::INVALID_MATERIAL_ID;
+    iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithInstancingA);
+    _materialWithInstancingA = iMaterial::INVALID_MATERIAL_ID;
+    iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithInstancingB);
+    _materialWithInstancingB = iMaterial::INVALID_MATERIAL_ID;
 }
 
 void ExampleInstancing::onEvent(iEvent &event)
@@ -205,12 +240,22 @@ void ExampleInstancing::onTimer()
     directionalLightRotate->rotate(0.005f, iaAxis::Y);
 }
 
-void ExampleInstancing::onModelReady(uint64 modelNodeID)
+void ExampleInstancing::onModelReadyA(uint64 modelNodeID)
 {
     iNodeModelPtr modelNode = dynamic_cast<iNodeModel *>(iNodeManager::getInstance().getNode(modelNodeID));
     if (modelNode != nullptr &&
         modelNode->isValid())
     {
-        modelNode->setMaterial(_materialWithInstancing);
+        modelNode->setMaterial(_materialWithInstancingA);
+    }
+}
+
+void ExampleInstancing::onModelReadyB(uint64 modelNodeID)
+{
+    iNodeModelPtr modelNode = dynamic_cast<iNodeModel *>(iNodeManager::getInstance().getNode(modelNodeID));
+    if (modelNode != nullptr &&
+        modelNode->isValid())
+    {
+        modelNode->setMaterial(_materialWithInstancingB);
     }
 }

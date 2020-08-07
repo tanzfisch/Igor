@@ -367,8 +367,6 @@ namespace igor
                     iNodeMesh *mesh = static_cast<iNodeMesh *>(iNodeManager::getInstance().getNode(renderNodeIDs[0]));
                     iRenderer::getInstance().setTargetMaterial(mesh->getTargetMaterial());
                     iRenderer::getInstance().drawMesh(instancedRenderNode.first, instancer);
-
-                    break;
                 }
             }
             else

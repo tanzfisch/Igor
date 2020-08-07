@@ -72,13 +72,15 @@ private:
 
     /*! instancing material
     */
-    uint64 _materialWithInstancing = iMaterial::INVALID_MATERIAL_ID;
+    uint64 _materialWithInstancingA = iMaterial::INVALID_MATERIAL_ID;
+    uint64 _materialWithInstancingB = iMaterial::INVALID_MATERIAL_ID;
 
     /*! called when model was loaded
 
     \param modelNodeID the node id of the loaded model
     */
-    void onModelReady(uint64 modelNodeID);
+    void onModelReadyA(uint64 modelNodeID);
+    void onModelReadyB(uint64 modelNodeID);
 
     /*! called by timer
     */
