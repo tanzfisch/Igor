@@ -26,11 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iMESHNODE__
-#define __iMESHNODE__
+#ifndef __IGOR_MESHNODE_H__
+#define __IGOR_MESHNODE_H__
 
 #include <igor/scene/nodes/iNodeVolume.h>
 #include <igor/resources/mesh/iMesh.h>
+#include <igor/resources/mesh/iMeshBuffers.h>
 
 #include <iaux/data/iaColor3.h>
 using namespace iaux;
@@ -38,7 +39,6 @@ using namespace iaux;
 namespace igor
 {
 
-    class iMeshBuffers;
     class iTargetMaterial;
 
     __IGOR_DISABLE_WARNING__(4275) // the interface of iNodeVolume is not fully public on purpose
@@ -57,7 +57,7 @@ namespace igor
     public:
         /*! \returns shared pointer to mesh buffers
         */
-        std::shared_ptr<iMeshBuffers> getMeshBuffers();
+        iMeshBuffersPtr getMeshBuffers();
 
         /*! \returns shared pointer to mesh
         */
@@ -141,7 +141,7 @@ namespace igor
 
         /*! shared pointer to mesh buffers
         */
-        std::shared_ptr<iMeshBuffers> _meshBuffers = nullptr;
+        iMeshBuffersPtr _meshBuffers = nullptr;
 
         /*! shared pointer to mesh
         */
@@ -151,7 +151,7 @@ namespace igor
 
         \param meshBuffers shared pointer to mesh buffers
         */
-        void setMeshBuffers(std::shared_ptr<iMeshBuffers> meshBuffers);
+        void setMeshBuffers(iMeshBuffersPtr meshBuffers);
 
         /*! draw mesh
         */
@@ -178,4 +178,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_MESHNODE_H__

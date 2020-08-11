@@ -39,7 +39,7 @@
 using namespace iaux;
 
 #include <list>
-#include <map>
+#include <unordered_map>
 #include <vector>
 
 namespace igor
@@ -168,7 +168,7 @@ namespace igor
 
         /*! lookup table for materials
         */
-        std::map<uint64, iMaterialPtr> _materials;
+        std::unordered_map<uint64, iMaterialPtr> _materials;
 
         /*! mutex to protect the target material list
         */

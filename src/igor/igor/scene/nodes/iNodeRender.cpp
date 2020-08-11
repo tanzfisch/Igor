@@ -45,11 +45,6 @@ namespace igor
         return _visible;
     }
 
-    bool iNodeRender::wasReached()
-    {
-        return _reached;
-    }
-
     void iNodeRender::onPreSetScene()
     {
         if (_nodeKind == iNodeKind::Renderable &&

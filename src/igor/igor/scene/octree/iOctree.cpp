@@ -463,28 +463,38 @@ namespace igor
         iaMatrixd matrix;
         iRenderer::getInstance().setModelMatrix(matrix);
 
-        uint64 material = iMaterialResourceFactory::getInstance().createMaterial("igor.octree");
-        iMaterialResourceFactory::getInstance().getMaterial(material)->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-        iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(material));
+        if (_materialID == iMaterial::INVALID_MATERIAL_ID)
+        {
+            _materialID = iMaterialResourceFactory::getInstance().createMaterial("igor.octree");
+            iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
+            material->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+            material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+        }
 
-        iRenderer::getInstance().setColor(0, 0, 1, 1);
+        iRenderer::getInstance().setMaterial(_materialID);
 
         draw(_rootNode);
     }
 
-    void iOctree::draw(uint64 nodeID)
+    float32 iOctree::draw(uint64 nodeID)
     {
         OctreeNode *node = _nodes[nodeID];
-
-        iRenderer::getInstance().drawBBox(node->_box);
+        float32 alpha = 0.4;
 
         if (nullptr != node->_children)
         {
             for (int i = 0; i < 8; ++i)
             {
-                draw(node->_children[i]);
+                alpha = std::min(alpha, draw(node->_children[i]));
             }
+
+            iRenderer::getInstance().setColor(0, 0, 1, alpha);
+            iRenderer::getInstance().drawBBox(node->_box);
         }
+
+        alpha *= 0.7;
+
+        return alpha;
     }
 
 } // namespace igor

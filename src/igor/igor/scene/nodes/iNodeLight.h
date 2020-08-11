@@ -161,6 +161,10 @@ namespace igor
         virtual ~iNodeLight();
     };
 
+    /*! light node pointer definition
+    */
+    typedef iNodeLight *iNodeLightPtr;
+
 }; // namespace igor
 
 #endif

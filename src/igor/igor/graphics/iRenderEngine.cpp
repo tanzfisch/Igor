@@ -27,14 +27,14 @@ using namespace iaux;
 
 namespace igor
 {
-
     iRenderEngine::iRenderEngine(bool useProfiling)
     {
         if (useProfiling)
         {
-            _cullSectionID = iProfiler::getInstance().createSection("cull");
-            _drawSectionID = iProfiler::getInstance().createSection("draw");
             _bufferCreationSectionID = iProfiler::getInstance().createSection("buff");
+            _cullSectionID = iProfiler::getInstance().createSection("cull");
+            _updateGroupsID = iProfiler::getInstance().createSection("groups");
+            _drawSectionID = iProfiler::getInstance().createSection("draw");
         }
 
         iMaterialResourceFactory::getInstance().registerMaterialCreatedDelegate(iMaterialCreatedDelegate(this, &iRenderEngine::onMaterialCreated));
@@ -44,6 +44,7 @@ namespace igor
         for (auto material : materials)
         {
             iMaterialGroup materialGroup;
+            materialGroup.setMaterial(material);
             _materialGroups[material->getID()] = materialGroup;
         }
     }
@@ -54,14 +55,15 @@ namespace igor
         iMaterialResourceFactory::getInstance().unregisterMaterialDestroyedDelegate(iMaterialDestroyedDelegate(this, &iRenderEngine::onMaterialDestroyed));
     }
 
-    void iRenderEngine::onMaterialCreated(uint64 materialID)
+    void iRenderEngine::onMaterialCreated(iMaterialID materialID)
     {
+        iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
         iMaterialGroup materialGroup;
+        materialGroup.setMaterial(material);
         _materialGroups[materialID] = materialGroup;
-        _dirtyGroups = true;
     }
 
-    void iRenderEngine::onMaterialDestroyed(uint64 materialID)
+    void iRenderEngine::onMaterialDestroyed(iMaterialID materialID)
     {
         auto iter = _materialGroups.find(materialID);
 
@@ -71,7 +73,7 @@ namespace igor
         }
     }
 
-    void iRenderEngine::setCurrentCamera(uint64 cameraID)
+    void iRenderEngine::setCurrentCamera(iNodeID cameraID)
     {
         if (cameraID == iNode::INVALID_NODE_ID)
         {
@@ -92,16 +94,14 @@ namespace igor
         }
     }
 
-    uint64 iRenderEngine::getCurrentCamera() const
+    iNodeID iRenderEngine::getCurrentCamera() const
     {
-        uint64 result = iNode::INVALID_NODE_ID;
-
         if (_currentCamera != nullptr)
         {
-            result = _currentCamera->getID();
+            return _currentCamera->getID();
         }
 
-        return result;
+        return iNode::INVALID_NODE_ID;
     }
 
     void iRenderEngine::setColorIDRendering(bool enabled)
@@ -149,7 +149,7 @@ namespace igor
         _scene = scene;
     }
 
-    iScenePtr iRenderEngine::getScene()
+    iScenePtr iRenderEngine::getScene() const
     {
         return _scene;
     }
@@ -171,6 +171,10 @@ namespace igor
             iProfiler::getInstance().beginSection(_cullSectionID);
             cullScene(_currentCamera);
             iProfiler::getInstance().endSection(_cullSectionID);
+
+            iProfiler::getInstance().beginSection(_updateGroupsID);
+            updateMaterialGroups();
+            iProfiler::getInstance().endSection(_updateGroupsID);
 
             iProfiler::getInstance().beginSection(_drawSectionID);
             if (_renderColorID)
@@ -206,49 +210,42 @@ namespace igor
         _scene->getOctree()->addFilter(frustum);
         _scene->getOctree()->filter();
         _scene->getOctree()->getResult(_cullResult);
+    }
+
+    void iRenderEngine::updateMaterialGroups()
+    {
+        IGOR_PROFILER();
+
+        for (auto &group : _materialGroups)
+        {
+            group.second.clear();
+        }
 
         for (auto nodeID : _cullResult)
         {
-            iNodeRender *renderNode = static_cast<iNodeRender *>(iNodeManager::getInstance().getNode(nodeID));
+            iNodeRenderPtr renderNode = static_cast<iNodeRenderPtr>(iNodeManager::getInstance().getNode(nodeID));
 
-            if (renderNode != nullptr)
+            if (renderNode != nullptr &&
+                renderNode->isVisible())
             {
-                renderNode->_reached = true;
-
-                iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(renderNode->getMaterial());
-                if (material != nullptr)
-                {
-                    if (renderNode->isVisible())
-                    {
-                        bool instancing = (material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On);
-                        _materialGroups[material->getID()].addRenderNode(renderNode->getID(), instancing);
-                    }
-                }
+                _materialGroups[renderNode->getMaterial()].addRenderNode(renderNode);
             }
         }
 
-        auto renderables = _scene->getRenderables();
-        auto iterRenderables = renderables.begin();
-        while (iterRenderables != renderables.end())
+        const auto &renderables = _scene->getRenderables();
+        for (const auto renderNode : renderables)
         {
-            iNodeRender *renderNode = (*iterRenderables);
-            iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(renderNode->getMaterial());
-
-            if (material != nullptr)
+            if (renderNode->isVisible())
             {
-                if (renderNode->isVisible())
-                {
-                    bool instancing = (material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On);
-                    _materialGroups[material->getID()].addRenderNode(renderNode->getID(), instancing);
-                }
+                _materialGroups[renderNode->getMaterial()].addRenderNode(renderNode);
             }
-
-            iterRenderables++;
         }
     }
 
     void iRenderEngine::drawColorIDs()
     {
+        IGOR_PROFILER();
+
         iMaterialPtr colorIDMaterial = iMaterialResourceFactory::getInstance().getMaterial(iMaterialResourceFactory::getInstance().getColorIDMaterialID());
         iRenderer::getInstance().setMaterial(colorIDMaterial);
 
@@ -263,28 +260,11 @@ namespace igor
             }
             else
             {
-                auto renderNodeIDs = materialGroup.getRenderNodes();
-                for (auto renderNodeID : renderNodeIDs)
+                auto renderNodes = materialGroup.getRenderNodes();
+                for (auto renderNode : renderNodes)
                 {
-                    iNodeRender *node = static_cast<iNodeRender *>(iNodeManager::getInstance().getNode(renderNodeID));
-                    if (node != nullptr)
-                    {
-                        if (node->wasReached() &&
-                            node->isVisible())
-                        {
-                            iRenderer::getInstance().setColorID(node->getID());
-                            node->draw();
-                            node->_reached = false;
-                        }
-                        else
-                        {
-                            materialGroup.removeRenderNode(renderNodeID, false);
-                        }
-                    }
-                    else
-                    {
-                        materialGroup.removeRenderNode(renderNodeID, false);
-                    }
+                    iRenderer::getInstance().setColorID(renderNode->getID());
+                    renderNode->draw();
                 }
             }
         }
@@ -292,6 +272,8 @@ namespace igor
 
     void iRenderEngine::drawScene()
     {
+        IGOR_PROFILER();
+
         //! \todo not sure yet how to handle multiple lights. right now it will work only for one light
         auto lights = _scene->getLights();
 
@@ -323,85 +305,33 @@ namespace igor
             if (instancing)
             {
                 // todo we should not do that every frame
-                auto instancedRenderNodes = materialGroup.getInstancedRenderNodes();
+                const auto &instancedRenderNodes = materialGroup.getInstancedRenderNodes();
                 iRenderer::getInstance().setMaterial(material, _showWireframe);
 
-                for (auto instancedRenderNode : instancedRenderNodes)
+                for (const auto &pair : instancedRenderNodes)
                 {
-                    const auto renderNodeIDs = instancedRenderNode.second._renderNodeIDs;
-                    if (renderNodeIDs.empty())
+                    auto instancer = pair.second._instancer;
+                    if (instancer->getInstanceCount() == 0)
                     {
                         continue;
                     }
 
-                    auto instancer = instancedRenderNode.second._instancer;
-                    instancer->clearInstances();
-
-                    for (auto renderNodeID : renderNodeIDs)
-                    {
-                        iNodeRender *node = static_cast<iNodeRender *>(iNodeManager::getInstance().getNode(renderNodeID));
-                        if (node != nullptr)
-                        {
-                            if (node->wasReached() &&
-                                node->isVisible() &&
-                                node->getMaterial() == material->getID())
-                            {
-                                iaMatrixf matrix;
-                                const auto worldMatrix = node->getWorldMatrix();
-                                for (int i = 0; i < 16; ++i)
-                                {
-                                    matrix[i] = worldMatrix[i];
-                                }
-
-                                instancer->addInstance(matrix.getData());
-                                node->_reached = false;
-                            }
-                            else
-                            {
-                                materialGroup.removeRenderNode(renderNodeID, true);
-                            }
-                        }
-                        else
-                        {
-                            materialGroup.removeRenderNode(renderNodeID, true);
-                        }
-                    }
-
-                    iNodeMesh *mesh = static_cast<iNodeMesh *>(iNodeManager::getInstance().getNode(renderNodeIDs[0]));
-                    iRenderer::getInstance().setTargetMaterial(mesh->getTargetMaterial());
-                    iRenderer::getInstance().drawMesh(instancedRenderNode.first, instancer);
+                    iRenderer::getInstance().setTargetMaterial(pair.second._targetMaterial);
+                    iRenderer::getInstance().drawMesh(pair.first, instancer);
                 }
             }
             else
             {
-                auto renderNodeIDs = materialGroup.getRenderNodes();
+                const auto &renderNodes = materialGroup.getRenderNodes();
 
-                if (!renderNodeIDs.empty())
+                if (!renderNodes.empty())
                 {
                     iRenderer::getInstance().setMaterial(material, _showWireframe);
                 }
 
-                for (auto renderNodeID : renderNodeIDs)
+                for (auto renderNode : renderNodes)
                 {
-                    iNodeRender *node = static_cast<iNodeRender *>(iNodeManager::getInstance().getNode(renderNodeID));
-                    if (node != nullptr)
-                    {
-                        if (node->wasReached() &&
-                            node->isVisible() &&
-                            node->getMaterial() == material->getID())
-                        {
-                            node->draw();
-                            node->_reached = false;
-                        }
-                        else
-                        {
-                            materialGroup.removeRenderNode(renderNodeID, false);
-                        }
-                    }
-                    else
-                    {
-                        materialGroup.removeRenderNode(renderNodeID, false);
-                    }
+                    renderNode->draw();
                 }
             }
         }

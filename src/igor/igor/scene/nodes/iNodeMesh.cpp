@@ -101,7 +101,7 @@ namespace igor
         return _targetMaterial;
     }
 
-    std::shared_ptr<iMeshBuffers> iNodeMesh::getMeshBuffers()
+    iMeshBuffersPtr iNodeMesh::getMeshBuffers()
     {
         return _meshBuffers;
     }
@@ -132,7 +132,7 @@ namespace igor
         }
     }
 
-    void iNodeMesh::setMeshBuffers(std::shared_ptr<iMeshBuffers> meshBuffers)
+    void iNodeMesh::setMeshBuffers(iMeshBuffersPtr meshBuffers)
     {
         _meshBuffers = meshBuffers;
 

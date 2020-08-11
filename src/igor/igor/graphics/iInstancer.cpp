@@ -38,11 +38,7 @@ namespace igor
 
     void iInstancer::addInstance(void *buffer)
     {
-        if (_instanceCount >= _maxInstanceCount)
-        {
-            con_err("instancer ran out of memory. max count is " << _maxInstanceCount);
-            return;
-        }
+        con_assert(_instanceCount < _maxInstanceCount, "instancer ran out of memory. max count is " << _maxInstanceCount);
 
         memcpy(_currentBufferPosition, buffer, _instanceSize);
         _currentBufferPosition += _instanceSize;

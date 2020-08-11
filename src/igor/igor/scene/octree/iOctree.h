@@ -33,10 +33,11 @@
 #include <igor/data/iSphere.h>
 #include <igor/data/iFrustum.h>
 #include <igor/scene/nodes/iNode.h>
+#include <igor/resources/material/iMaterial.h>
 
 #include <memory>
 #include <list>
-#include <map>
+#include <unordered_map>
 #include <vector>
 
 namespace igor
@@ -194,7 +195,7 @@ namespace igor
 
         /*! lookup table for all objects within the octree
         */
-        std::map<uint64, OctreeObject *> _objects;
+        std::unordered_map<uint64, OctreeObject *> _objects;
 
         /*! lookup table for all nodes within the octree
         */
@@ -219,6 +220,10 @@ namespace igor
         /*! frustum filter list
         */
         std::vector<iFrustumd> _frustumFilter;
+
+        /*! material for debug rendering the octree
+        */
+        iMaterialID _materialID = iMaterial::INVALID_MATERIAL_ID;
 
         /*! recursive function to insert a scene node to the octree
 
@@ -299,8 +304,13 @@ namespace igor
 
         \param nodeID id of the current octree node
         */
-        void draw(uint64 nodeID);
+        float32 draw(uint64 nodeID);
     };
+
+    /*! octree pointer definition
+    */
+    typedef iOctree *iOctreePtr;
+
 } // namespace igor
 
 #endif // __IGOR_OCTREE_H__

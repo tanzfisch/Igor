@@ -49,10 +49,6 @@ namespace igor
         friend class iNodeManager;
 
     public:
-        /*! \returns true if node was reached by the culling process and not filtered out
-        */
-        virtual bool wasReached();
-
         /*! \returns world matrix of node
         */
         const iaMatrixd &getWorldMatrix() const;
@@ -61,11 +57,11 @@ namespace igor
 
         \param materialID material id
         */
-        void setMaterial(uint64 materialID);
+        void setMaterial(iMaterialID materialID);
 
         /*! \retruns material id
         */
-        uint64 getMaterial();
+        iMaterialID getMaterial();
 
         /*! sets visibility of this node
 
@@ -85,10 +81,6 @@ namespace igor
         /*! world matrix
         */
         iaMatrixd _worldMatrix;
-
-        /*! true if if was not filtered by culling process
-        */
-        bool _reached = false;
 
         /*! if node will be rendered
         */
@@ -123,7 +115,7 @@ namespace igor
     private:
         /*! material id to render with
         */
-        uint64 _materialID = iMaterial::INVALID_MATERIAL_ID;
+        iMaterialID _materialID = iMaterial::INVALID_MATERIAL_ID;
     };
 
     /*! render node pointer definition

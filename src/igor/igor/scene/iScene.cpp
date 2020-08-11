@@ -28,9 +28,7 @@ namespace igor
         _root->setName(L"RootNode");
         _root->setScene(this);
 
-        //! \todo octree needs to be of variable size
-        // maybe multiple octrees?
-        _octree = new iOctree(iAACubed(iaVector3d(0, 0, 0), 10000000.0), 50.0, 8, 4);
+        _octree = new iOctree(iAACubed(iaVector3d(0, 0, 0), 10000000.0), 1.0, 8, 2);
     }
 
     iScene::~iScene()
@@ -106,17 +104,17 @@ namespace igor
         }
     }
 
-    std::vector<iNodeRender *> &iScene::getRenderables()
+    const std::vector<iNodeRenderPtr> &iScene::getRenderables() const
     {
         return _renderables;
     }
 
-    std::vector<iNodeLight *> &iScene::getLights()
+    const std::vector<iNodeLightPtr> &iScene::getLights() const
     {
         return _lights;
     }
 
-    iaString iScene::getName() const
+    const iaString &iScene::getName() const
     {
         return _name;
     }
@@ -126,7 +124,7 @@ namespace igor
         _name = name;
     }
 
-    iNodePtr iScene::getRoot()
+    iNodePtr iScene::getRoot() const
     {
         return _root;
     }
@@ -318,7 +316,7 @@ namespace igor
         }
     }
 
-    iOctree *iScene::getOctree()
+    iOctreePtr iScene::getOctree() const
     {
         return _octree;
     }

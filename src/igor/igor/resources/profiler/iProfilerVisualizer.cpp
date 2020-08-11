@@ -233,10 +233,11 @@ namespace igor
         if (_renderStatisticsMode >= iProfilerVerbosity::Sections)
         {
             const iRectanglef rect(window->getClientWidth() * 0.1, window->getClientHeight() * 0.15, window->getClientWidth() * 0.8, window->getClientHeight() * 0.55);
-            const float32 verticalScale = rect._height / 100;
+            const float32 verticalScale = rect._height / 50; // 50ms
             const float32 horizontalScale = rect._width / iProfiler::MAX_FRAMES_COUNT;
-            const float32 thirtyHz = 66.6666 * verticalScale;
-            const float32 sixtyHz = 33.3333 * verticalScale;
+            const float32 Hz24 = 41.6666 * verticalScale;
+            const float32 Hz60 = 16.6666 * verticalScale;
+            const float32 Hz100 = 10 * verticalScale;
 
             float32 textOffsetX = 0.0f;
 
@@ -253,12 +254,14 @@ namespace igor
             iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom(), rect.getRight(), rect.getBottom());
 
             iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-            iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom() - sixtyHz, rect.getRight(), rect.getBottom() - sixtyHz);
-            iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom() - thirtyHz, rect.getRight(), rect.getBottom() - thirtyHz);
+            iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom() - Hz24, rect.getRight(), rect.getBottom() - Hz24);
+            iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom() - Hz60, rect.getRight(), rect.getBottom() - Hz60);
+            iRenderer::getInstance().drawLine(rect.getLeft(), rect.getBottom() - Hz100, rect.getRight(), rect.getBottom() - Hz100);
 
             iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-            iRenderer::getInstance().drawString(rect._x, rect.getBottom() - sixtyHz, "33ms", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
-            iRenderer::getInstance().drawString(rect._x, rect.getBottom() - thirtyHz, "66ms", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+            iRenderer::getInstance().drawString(rect._x, rect.getBottom() - Hz24, "24Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+            iRenderer::getInstance().drawString(rect._x, rect.getBottom() - Hz60, "60Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+            iRenderer::getInstance().drawString(rect._x, rect.getBottom() - Hz100, "100Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
 
             int sectionIndex = 0;
             auto sections = iProfiler::getInstance().getSections();

@@ -26,7 +26,7 @@ ExampleInstancing::ExampleInstancing(iWindow *window)
 void ExampleInstancing::onInit()
 {
     const float32 spacing = 5.0f;
-    const int32 amountPerDimension = 21;
+    const int32 amountPerDimension = 50;
 
     // switching of vsync for maximum output
     getWindow()->setVSync(false);
@@ -93,6 +93,7 @@ void ExampleInstancing::onInit()
     getScene()->getRoot()->insertNode(transformGroup);
 
     int count = 0;
+    _perlinNoise.generateBase(42);
 
     // create a bunch of models
     for (int z = 0; z < amountPerDimension; ++z)
@@ -101,6 +102,12 @@ void ExampleInstancing::onInit()
         {
             for (int x = 0; x < amountPerDimension; ++x)
             {
+                float32 noise = _perlinNoise.getValue(iaVector3d(x * 0.1, y * 0.1, z * 0.1), 3);
+                if (noise < 0.62)
+                {
+                    continue;
+                }
+
                 iNodeTransform *transform = iNodeManager::getInstance().createNode<iNodeTransform>();
                 transform->translate(x * spacing, y * spacing, z * spacing);
                 transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::X);

@@ -32,15 +32,14 @@
 #include <igor/resources/material/iMaterialGroup.h>
 #include <igor/scene/iScene.h>
 #include <igor/resources/profiler/iProfiler.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/scene/nodes/iNodeCamera.h>
 
 #include <vector>
-#include <map>
+#include <unordered_map>
 
 namespace igor
 {
-
-    class iNodeCamera;
-    class iNode;
 
     /*! does control the render loop
     */
@@ -96,17 +95,17 @@ namespace igor
 
         /*! \returns pointer to scene
         */
-        iScenePtr getScene();
+        iScenePtr getScene() const;
 
         /*! sets current camera by id
 
         \param cameraID the camery id
         */
-        void setCurrentCamera(uint64 cameraID);
+        void setCurrentCamera(iNodeID cameraID);
 
         /*! \returns current camera id
         */
-        uint64 getCurrentCamera() const;
+        iNodeID getCurrentCamera() const;
 
         /*! culls and renders
         */
@@ -147,6 +146,10 @@ namespace igor
         */
         iProfilerSectionID _cullSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
 
+        /*! update groups section id
+        */
+        iProfilerSectionID _updateGroupsID = iProfiler::INVALID_PROFILER_SECTION_ID;
+
         /*! buffer creation section id for profiling
         */
         iProfilerSectionID _bufferCreationSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
@@ -157,11 +160,7 @@ namespace igor
 
         /*! material groups
         */
-        std::map<uint64, iMaterialGroup> _materialGroups;
-
-        /*! dirty flag forcing to sort material groups
-        */
-        bool _dirtyGroups = true;
+        std::unordered_map<iMaterialID, iMaterialGroup> _materialGroups;
 
         /*! handle to scene
         */
@@ -169,25 +168,29 @@ namespace igor
 
         /*! temporary list of nodes that where filtered by the culling process
         */
-        std::vector<uint64> _cullResult;
+        std::vector<iNodeID> _cullResult;
 
         /*! called on material created event
 
         \param materialID the material's id that got created
         */
-        void onMaterialCreated(uint64 materialID);
+        void onMaterialCreated(iMaterialID materialID);
 
         /*! called on material destroyed event
 
         \param materialID the material's id that got destroyed
         */
-        void onMaterialDestroyed(uint64 materialID);
+        void onMaterialDestroyed(iMaterialID materialID);
 
         /*! cull scene relative to specified camera
 
         \param camera the specified camera
         */
-        void cullScene(iNodeCamera *camera);
+        void cullScene(iNodeCameraPtr camera);
+
+        /*! updates material groups
+        */
+        void updateMaterialGroups();
 
         /*! draw scene relative to specified camera
 

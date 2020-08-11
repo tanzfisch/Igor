@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iCAMERA__
-#define __iCAMERA__
+#ifndef __IGOR_CAMERA_H__
+#define __IGOR_CAMERA_H__
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
@@ -103,4 +103,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_CAMERA_H__

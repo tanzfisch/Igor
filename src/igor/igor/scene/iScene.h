@@ -47,10 +47,13 @@ namespace igor
     class iNode;
     class iNodeCamera;
     class iNodeLight;
+    typedef iNodeLight *iNodeLightPtr;
     class iNodeVolume;
     class iNodeVisitorUpdateData;
     class iOctree;
+    typedef iOctree *iOctreePtr;
     class iNodeRender;
+    typedef iNodeRender *iNodeRenderPtr;
     class iNodeLODTrigger;
     class iNodeLODSwitch;
     class iEvaluator;
@@ -77,7 +80,7 @@ namespace igor
     public:
         /*! \returns scene name
 		*/
-        iaString getName() const;
+        const iaString &getName() const;
 
         /*! stes name of scene
 
@@ -87,21 +90,21 @@ namespace igor
 
         /*! \returns root node
 		*/
-        iNodePtr getRoot();
+        iNodePtr getRoot() const;
 
         /*! \returns octree
 		*/
-        iOctree *getOctree();
+        iOctreePtr getOctree() const;
 
         /*! \returns list of registerred lights
 		*/
-        std::vector<iNodeLight *> &getLights();
+        const std::vector<iNodeLightPtr> &getLights() const;
 
         /*! \returns list of renderables
 
 		does only contain renderables that are not volumes
 		*/
-        std::vector<iNodeRender *> &getRenderables();
+        const std::vector<iNodeRenderPtr> &getRenderables() const;
 
         /*! cyclic update of scene.
 
