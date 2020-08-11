@@ -31,6 +31,7 @@
 
 #include <igor/scene/nodes/iNode.h>
 #include <igor/resources/module/iModule.h>
+#include <igor/resources/profiler/iProfiler.h>
 
 #include <iaux/system/iaMutex.h>
 using namespace iaux;

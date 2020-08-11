@@ -41,6 +41,8 @@ namespace igor
 
     void iMaterialGroup::clear()
     {
+        IGOR_PROFILER();
+
         for (auto &pair : _instancedRenderNodes)
         {
             pair.second._instancer->clearInstances();
@@ -51,6 +53,8 @@ namespace igor
 
     void iMaterialGroup::addRenderNode(iNodeRenderPtr renderNode)
     {
+        IGOR_PROFILER();
+
         const bool instancing = _material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On;
 
         if (instancing &&

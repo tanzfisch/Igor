@@ -26,7 +26,7 @@ ExampleInstancing::ExampleInstancing(iWindow *window)
 void ExampleInstancing::onInit()
 {
     const float32 spacing = 5.0f;
-    const int32 amountPerDimension = 50;
+    const int32 amountPerDimension = 47;
 
     // switching of vsync for maximum output
     getWindow()->setVSync(false);
@@ -115,9 +115,6 @@ void ExampleInstancing::onInit()
                 transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::Z);
 
                 iNodeModel *modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
-                // it is important to use the exact same parameters here as before when we direclty loaded the model
-                // because here it will not load it again but get it from the cache where we is still the version with manipulated material
-
                 switch (count % 4)
                 {
                 case 0:

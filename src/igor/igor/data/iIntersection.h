@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __INTERSECTION__
-#define __INTERSECTION__
+#ifndef __IGOR_INTERSECTION_H__
+#define __IGOR_INTERSECTION_H__
 
 #include <igor/data/iRectangle.h>
 #include <igor/data/iAABox.h>
@@ -174,4 +174,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_INTERSECTION_H__
