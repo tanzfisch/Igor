@@ -1,6 +1,12 @@
 Changelog                           {#changelog}
 =========
 
+0.31.0
+------
+
+- improved rendering performance (still a long way to go though)
+- introduced igorTest
+
 0.30.0
 ------
 
