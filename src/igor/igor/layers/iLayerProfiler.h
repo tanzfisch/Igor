@@ -41,7 +41,7 @@ namespace igor
 {
     /*! layer that shows profiler and debug information
     */
-    class Igor_API iLayerProfiler : public iLayer
+    class IGOR_API iLayerProfiler : public iLayer
     {
 
     public:

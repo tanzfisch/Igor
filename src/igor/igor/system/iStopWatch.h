@@ -37,45 +37,45 @@ using namespace iaux;
 namespace igor
 {
 
-	/*! use this for meshuring time
+    /*! use this for meshuring time
 
 	measurement does not exclue the meashure overhead
 	*/
-	class Igor_API iStopWatch
-	{
+    class IGOR_API iStopWatch
+    {
 
-	public:
-		/*! saves current time as start time in ms
+    public:
+        /*! saves current time as start time in ms
 		*/
-		void start();
+        void start();
 
-		/*! saves current time as stop time in ms
+        /*! saves current time as stop time in ms
 		*/
-		void stop();
+        void stop();
 
-		/*! \returns true: if currently running
+        /*! \returns true: if currently running
         */
-		bool isRunning() const;
+        bool isRunning() const;
 
-		/*! \returns the difference between start and stop time in ms
+        /*! \returns the difference between start and stop time in ms
 
 		if it is still running it returns the difference between start and current time
 		*/
-		iaTime getTime() const;
+        iaTime getTime() const;
 
-	private:
-		/*! start time in ms
+    private:
+        /*! start time in ms
 		*/
-		iaTime _startTime;
+        iaTime _startTime;
 
-		/*! stop time in ms
+        /*! stop time in ms
 		*/
-		iaTime _stopTime;
+        iaTime _stopTime;
 
-		/*! true if currently running
+        /*! true if currently running
         */
-		bool _running = false;
-	};
+        bool _running = false;
+    };
 
 } // namespace igor
 

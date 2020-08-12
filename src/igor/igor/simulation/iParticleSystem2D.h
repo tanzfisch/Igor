@@ -52,7 +52,7 @@ namespace igor
 
     /*! single particle and all it's attributes
     */
-    class Igor_API iParticle2D
+    class IGOR_API iParticle2D
     {
     public:
         /*! current position of particle
@@ -86,7 +86,7 @@ namespace igor
 
     /*! 2d particle system
     */
-    class Igor_API iParticleSystem2D
+    class IGOR_API iParticleSystem2D
     {
 
     public:

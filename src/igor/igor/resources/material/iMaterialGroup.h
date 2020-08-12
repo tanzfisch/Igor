@@ -26,33 +26,29 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iMATERIALGROUP__
-#define __iMATERIALGROUP__
+#ifndef __IGOR_MATERIALGROUP_H__
+#define __IGOR_MATERIALGROUP_H__
 
 #include <igor/iDefines.h>
 #include <iaux/math/iaMatrix.h>
 #include <igor/graphics/iInstancer.h>
+#include <igor/resources/material/iMaterial.h>
+#include <igor/scene/nodes/iNode.h>
+#include <igor/scene/nodes/iNodeRender.h>
+#include <igor/resources/mesh/iMeshBuffers.h>
+#include <igor/resources/material/iTargetMaterial.h>
 
-#include <map>
+#include <unordered_map>
 #include <vector>
 #include <memory>
 
 namespace igor
 {
 
-    class iMeshBuffers;
-
-    /*! structure for handling instanced rendered nodes
-    */
-    struct iInstancedNodes
+    struct iInstancingData
     {
-        /*! render node ids
-        */
-        std::vector<uint64> _renderNodeIDs;
-
-        /*! instance of corresponding instancer
-        */
         iInstancer *_instancer = nullptr;
+        iTargetMaterial *_targetMaterial = nullptr;
     };
 
     /*! material group describes a group of render nodes that use the same material
@@ -65,41 +61,44 @@ namespace igor
         */
         iMaterialGroup() = default;
 
+        void setMaterial(iMaterialPtr material);
+
         /*! clean up
         */
         virtual ~iMaterialGroup();
 
+        /*! clear node list
+        */
+        void clear();
+
         /*! adds node to material group
 
         \param renderNode node to be added
-        \param instancing if true instancing is used by the material associated with this group
         */
-        void addRenderNode(uint64 renderNodeID, bool instancing);
-
-        /*! removes render node from material group
-
-        \param renderNode node to be removed
-        */
-        void removeRenderNode(uint64 renderNodeID, bool instancing);
+        void addRenderNode(iNodeRenderPtr renderNode);
 
         /*! \returns copy of render nodes in this group
         */
-        const std::vector<uint64> getRenderNodes() const;
+        const std::vector<iNodeRenderPtr> &getRenderNodes() const;
 
         /*! \returns copy of instanced render node meshs in this group
         */
-        const std::map<std::shared_ptr<iMeshBuffers>, iInstancedNodes> getInstancedRenderNodes() const;
+        const std::unordered_map<iMeshBuffersPtr, iInstancingData> &getInstancedRenderNodes() const;
 
     private:
+        /*! corresponding material
+        */
+        iMaterialPtr _material;
+
         /*! render node IDs registred to this material
         */
-        std::vector<uint64> _renderNodeIDs;
+        std::vector<iNodeRenderPtr> _renderNodes;
 
         /*! render nodes registred to this material that are also using instancing
         */
-        std::map<std::shared_ptr<iMeshBuffers>, iInstancedNodes> _instancedRenderNodes;
+        std::unordered_map<iMeshBuffersPtr, iInstancingData> _instancedRenderNodes;
     };
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_MATERIALGROUP_H__

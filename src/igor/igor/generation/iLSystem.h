@@ -55,7 +55,7 @@ namespace igor
 
     /*! string based L-System implementation
     */
-    class Igor_API iLSystem
+    class IGOR_API iLSystem
     {
 
         /*! l-system rule

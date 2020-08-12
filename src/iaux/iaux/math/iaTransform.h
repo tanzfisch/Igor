@@ -35,88 +35,88 @@
 namespace iaux
 {
 
-	/*! Transform based on the components translate, rotate, scale, shear and perspective
+    /*! Transform based on the components translate, rotate, scale, shear and perspective
 	*/
-	template <class T>
-	class IgorAux_API_Template iaTransform
-	{
+    template <class T>
+    class IAUX_API_TEMPLATE iaTransform
+    {
 
-	public:
-		/*! translate component
+    public:
+        /*! translate component
 		*/
-		iaVector3<T> _translate;
+        iaVector3<T> _translate;
 
-		/*! orientation component as quaternion
+        /*! orientation component as quaternion
         */
-		iaQuaternion<T> _orientation;
+        iaQuaternion<T> _orientation;
 
-		/*! scale component
+        /*! scale component
 		*/
-		iaVector3<T> _scale;
+        iaVector3<T> _scale;
 
-		/*! shear component
+        /*! shear component
 		*/
-		iaVector3<T> _shear;
+        iaVector3<T> _shear;
 
-		/*! perspective
+        /*! perspective
 		*/
-		iaVector4<T> _perspective;
+        iaVector4<T> _perspective;
 
-		/*! \returns true if transform has shear differnt from 0,0,0
+        /*! \returns true if transform has shear differnt from 0,0,0
 		*/
-		bool hasShear() const;
+        bool hasShear() const;
 
-		/*! \returns true if transform has scale different from 1,1,1
+        /*! \returns true if transform has scale different from 1,1,1
 		*/
-		bool hasScale() const;
+        bool hasScale() const;
 
-		/*! \returns true if transform has translation different from 0,0,0
+        /*! \returns true if transform has translation different from 0,0,0
 		*/
-		bool hasTranslation() const;
+        bool hasTranslation() const;
 
-		/*! \returns true if transform has rotation different from 0,0,0
+        /*! \returns true if transform has rotation different from 0,0,0
 		*/
-		bool hasRotation() const;
+        bool hasRotation() const;
 
-		/*! returns the transforms matrix based on it's components
+        /*! returns the transforms matrix based on it's components
 		\param[out] matrix the resulting matrix
 		*/
-		void getMatrix(iaMatrix<T> &matrix) const;
+        void getMatrix(iaMatrix<T> &matrix) const;
 
-		/*! decompose matrix and set transform
-
-		\param matrix the matrix to decompose
-		*/
-		void setMatrix(const iaMatrix<T> &matrix);
-
-		/*! initializes the matrix with the id matrix
-		*/
-		iaTransform();
-
-		/*! ctor set wit matrix to decompose
+        /*! decompose matrix and set transform
 
 		\param matrix the matrix to decompose
 		*/
-		iaTransform(const iaMatrix<T> &matrix);
+        void setMatrix(const iaMatrix<T> &matrix);
 
-		/*! initializes the matrix with given components
+        /*! initializes the matrix with the id matrix
+		*/
+        iaTransform();
+
+        /*! ctor set wit matrix to decompose
+
+		\param matrix the matrix to decompose
+		*/
+        iaTransform(const iaMatrix<T> &matrix);
+
+        /*! initializes the matrix with given components
 
 		\param translate translation component
 		\param orientation the orientation component
 		\param scale the scale component
 		*/
-		iaTransform(const iaVector3<T> &translate, const iaQuaternion<T> orientation, const iaVector3<T> &scale);
+        iaTransform(const iaVector3<T> &translate, const iaQuaternion<T> orientation, const iaVector3<T> &scale);
 
-		/*! initializes the matrix with given components
+        /*! initializes the matrix with given components
 
 		\param translate translation component
 		\param orientation the orientation component
 		\param scale the scale component
 		\param shear the shear component
 		*/
-		iaTransform(const iaVector3<T> &translate, const iaQuaternion<T> orientation, const iaVector3<T> &scale, const iaVector3<T> &_shear);
+        iaTransform(const iaVector3<T> &translate, const iaQuaternion<T> orientation, const iaVector3<T> &scale, const iaVector3<T> &_shear);
 
-		/*! initializes the matrix with given components
+        /*! initializes the matrix with given components
 
 		\param translate translation component
 		\param orientation the orientation component
@@ -124,25 +124,25 @@ namespace iaux
 		\param shear the shear component
 		\param perspective the perspective component
 		*/
-		iaTransform(const iaVector3<T> &translate, const iaQuaternion<T> orientation, const iaVector3<T> &scale, const iaVector3<T> &_shear, const iaVector4<T> &_perspective);
+        iaTransform(const iaVector3<T> &translate, const iaQuaternion<T> orientation, const iaVector3<T> &scale, const iaVector3<T> &_shear, const iaVector4<T> &_perspective);
 
-		/*! does nothing
+        /*! does nothing
 		*/
-		~iaTransform();
-	};
+        ~iaTransform();
+    };
 
-	template <class T>
-	iaTransform<T> lerp(const iaTransform<T> &a, const iaTransform<T> &b, T t);
+    template <class T>
+    iaTransform<T> lerp(const iaTransform<T> &a, const iaTransform<T> &b, T t);
 
 #include <iaux/math/iaTransform.inl>
 
-	/*! float32 transform
+    /*! float32 transform
     */
-	typedef iaTransform<float64> iaTransformf;
+    typedef iaTransform<float64> iaTransformf;
 
-	/*! float64 transform
+    /*! float64 transform
 	*/
-	typedef iaTransform<float64> iaTransformd;
+    typedef iaTransform<float64> iaTransformd;
 
 }; // namespace iaux
 

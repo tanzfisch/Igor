@@ -45,7 +45,7 @@ namespace iaux
     \todo nice to have getAccessTime
     \todo nice to have getDriveLetter
     */
-    class IgorAux_API iaFile
+    class IAUX_API iaFile
     {
 
     public:

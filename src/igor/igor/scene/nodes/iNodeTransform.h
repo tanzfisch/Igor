@@ -37,7 +37,7 @@ namespace igor
 
     /*! the transform node
     */
-    class Igor_API iNodeTransform : public iNode
+    class IGOR_API iNodeTransform : public iNode
     {
 
         friend class iNodeManager;

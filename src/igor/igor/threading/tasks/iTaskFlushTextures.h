@@ -40,7 +40,7 @@ namespace igor
 
     \see iTextureResourceFactory
     */
-    class Igor_API iTaskFlushTextures : public iTask
+    class IGOR_API iTaskFlushTextures : public iTask
     {
 
     public:

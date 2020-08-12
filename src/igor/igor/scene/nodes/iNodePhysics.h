@@ -52,7 +52,7 @@ namespace igor
 
     \todo also need to remove things after adding them. maybe using IDs for that
     */
-    class Igor_API iNodePhysics : public iNodeVolume
+    class IGOR_API iNodePhysics : public iNodeVolume
     {
 
         friend class iNodeVisitorUpdateTransform;

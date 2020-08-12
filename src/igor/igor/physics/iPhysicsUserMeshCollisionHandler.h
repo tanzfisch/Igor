@@ -36,7 +36,7 @@
 namespace igor
 {
 
-    class Igor_API iPhysicsUserMeshCollisionHandler
+    class IGOR_API iPhysicsUserMeshCollisionHandler
     {
 
     public:

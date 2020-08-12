@@ -46,7 +46,7 @@ namespace igor
 	
 	The main entry point to an Igor application (Singleton)
 	*/
-    class Igor_API iApplication : public iModule<iApplication>
+    class IGOR_API iApplication : public iModule<iApplication>
     {
 
         friend class iWindow;

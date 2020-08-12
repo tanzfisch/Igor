@@ -40,16 +40,6 @@ namespace igor
         _visible = visible;
     }
 
-    bool iNodeRender::isVisible() const
-    {
-        return _visible;
-    }
-
-    bool iNodeRender::wasReached()
-    {
-        return _reached;
-    }
-
     void iNodeRender::onPreSetScene()
     {
         if (_nodeKind == iNodeKind::Renderable &&
@@ -68,11 +58,6 @@ namespace igor
         }
     }
 
-    const iaMatrixd &iNodeRender::getWorldMatrix() const
-    {
-        return _worldMatrix;
-    }
-
     void iNodeRender::onUpdateTransform(iaMatrixd &matrix)
     {
         _worldMatrix = matrix;
@@ -84,11 +69,6 @@ namespace igor
         {
             _materialID = materialID;
         }
-    }
-
-    uint64 iNodeRender::getMaterial()
-    {
-        return _materialID;
     }
 
 }; // namespace igor

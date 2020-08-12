@@ -39,7 +39,7 @@ namespace igor
 {
     /*! layer base class    
     */
-    class Igor_API iLayer
+    class IGOR_API iLayer
     {
     public:
         /*! init members

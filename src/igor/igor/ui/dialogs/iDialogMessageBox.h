@@ -38,72 +38,72 @@ using namespace iaux;
 namespace igor
 {
 
-	/*! message box button configuration
+    /*! message box button configuration
 	*/
-	enum class iMessageBoxButtons
-	{
-		Ok,
-		CancelOk,
-		YesNo,
-		YesNoCancel
-	};
+    enum class iMessageBoxButtons
+    {
+        Ok,
+        CancelOk,
+        YesNo,
+        YesNoCancel
+    };
 
-	/*! the message box
+    /*! the message box
 	*/
-	class Igor_API iDialogMessageBox : public iDialog
-	{
+    class IGOR_API iDialogMessageBox : public iDialog
+    {
 
-	public:
-		/*! init members
+    public:
+        /*! init members
 
 		\param parent the parent of this widget
 		*/
-		iDialogMessageBox(const iWidgetPtr parent = nullptr);
+        iDialogMessageBox(const iWidgetPtr parent = nullptr);
 
-		/*! deinitializes gui
+        /*! deinitializes gui
 		*/
-		~iDialogMessageBox() = default;
+        ~iDialogMessageBox() = default;
 
-		/*! initializes gui and opens the message box dialog
+        /*! initializes gui and opens the message box dialog
 
 		\param dialogCloseDelegate the close delegate
 		\param message the message to display
 		\param buttons the button configuration to use
 		*/
-		void open(iDialogCloseDelegate dialogCloseDelegate, iaString message, iMessageBoxButtons buttons = iMessageBoxButtons::Ok);
+        void open(iDialogCloseDelegate dialogCloseDelegate, iaString message, iMessageBoxButtons buttons = iMessageBoxButtons::Ok);
 
-		/*! initializes gui and opens the message box dialog
+        /*! initializes gui and opens the message box dialog
 
 		\param message the message to display
 		\param buttons the button configuration to use
 		*/
-		void open(iaString message, iMessageBoxButtons buttons = iMessageBoxButtons::Ok);
+        void open(iaString message, iMessageBoxButtons buttons = iMessageBoxButtons::Ok);
 
-	private:
-		/*! handles ok button clicked event
+    private:
+        /*! handles ok button clicked event
 
 		\param source the ok button it self
 		*/
-		void onOK(const iWidgetPtr source);
+        void onOK(const iWidgetPtr source);
 
-		/*! handles cancel button clicked event
+        /*! handles cancel button clicked event
 
 		\param source the cancel button it self
 		*/
-		void onCancel(const iWidgetPtr source);
+        void onCancel(const iWidgetPtr source);
 
-		/*! handles yes button clicked event
+        /*! handles yes button clicked event
 
 		\param source the yes button it self
 		*/
-		void onYes(const iWidgetPtr source);
+        void onYes(const iWidgetPtr source);
 
-		/*! handles no button clicked event
+        /*! handles no button clicked event
 
 		\param source the no button it self
 		*/
-		void onNo(const iWidgetPtr source);
-	};
+        void onNo(const iWidgetPtr source);
+    };
 
 } // namespace igor
 

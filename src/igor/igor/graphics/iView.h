@@ -61,7 +61,7 @@ namespace igor
     \todo would be nice to have that again -> iPixmap* makeScreenshot(bool alphachannel=false);
     \todo pre and post render event
     */
-    class Igor_API iView
+    class IGOR_API iView
     {
         friend class iWindow;
 

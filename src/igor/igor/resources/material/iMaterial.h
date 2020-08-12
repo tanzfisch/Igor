@@ -66,7 +66,7 @@ namespace igor
 
     \todo need a unique material ID. maybe a hash code
     */
-    class Igor_API iMaterial
+    class IGOR_API iMaterial
     {
 
         friend class iRenderer;
@@ -322,6 +322,8 @@ namespace igor
         */
         iShader *getShader();
     };
+
+#include <igor/resources/material/iMaterial.inl>
 
     /*! definition of material pointer
     */

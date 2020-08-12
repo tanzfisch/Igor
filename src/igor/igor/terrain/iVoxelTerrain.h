@@ -58,7 +58,7 @@ namespace igor
 
     /*! voxel terrain class
     */
-    class Igor_API iVoxelTerrain
+    class IGOR_API iVoxelTerrain
     {
 
         friend class iTaskVoxelTerrain;

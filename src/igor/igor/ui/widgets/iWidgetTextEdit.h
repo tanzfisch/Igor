@@ -34,184 +34,184 @@
 namespace igor
 {
 
-	/*! text edit widget
+    /*! text edit widget
 	*/
-	class Igor_API iWidgetTextEdit : public iWidget
-	{
+    class IGOR_API iWidgetTextEdit : public iWidget
+    {
 
-	public:
-		/*! initializes member variables
+    public:
+        /*! initializes member variables
 
 		\param parent optional parent
 		*/
-		iWidgetTextEdit(const iWidgetPtr parent = nullptr);
+        iWidgetTextEdit(const iWidgetPtr parent = nullptr);
 
-		/*! deinitializes member variables
+        /*! deinitializes member variables
 		*/
-		virtual ~iWidgetTextEdit() = default;
+        virtual ~iWidgetTextEdit() = default;
 
-		/*! sets horrizotnal text aligment
+        /*! sets horrizotnal text aligment
 
 		\param align the horizontal allignment of the text
 		*/
-		void setHorizontalTextAlignment(iHorizontalAlignment align);
+        void setHorizontalTextAlignment(iHorizontalAlignment align);
 
-		/*! \returns horizontal text alignment
+        /*! \returns horizontal text alignment
 		*/
-		iHorizontalAlignment getHorizontalTextAlignment() const;
+        iHorizontalAlignment getHorizontalTextAlignment() const;
 
-		/*! sets vertical text aligment
+        /*! sets vertical text aligment
 
 		\param valign the vertical allignment of the text
 		*/
-		void setVerticalTextAlignment(iVerticalAlignment valign);
+        void setVerticalTextAlignment(iVerticalAlignment valign);
 
-		/*! \returns vertical text alignment
+        /*! \returns vertical text alignment
 		*/
-		iVerticalAlignment getVerticalTextAlignment() const;
+        iVerticalAlignment getVerticalTextAlignment() const;
 
-		/*! sets the text max length in characters
+        /*! sets the text max length in characters
 
 		\param chars number of characters
 		*/
-		void setMaxTextLength(int32 chars);
+        void setMaxTextLength(int32 chars);
 
-		/*! \returns the max length of text in characters
+        /*! \returns the max length of text in characters
 		*/
-		int32 getMaxTextLength();
+        int32 getMaxTextLength();
 
-		/*! sets text edit write protected
+        /*! sets text edit write protected
 
 		\param writeProtected true: text edit will be write protected
 		*/
-		void setWriteProtected(bool writeProtected);
+        void setWriteProtected(bool writeProtected);
 
-		/*! \retruns if text edit is write protected
+        /*! \retruns if text edit is write protected
 		*/
-		bool isWriteProtected();
+        bool isWriteProtected();
 
-		/*! set up that the change event will only triggered if you press enter
+        /*! set up that the change event will only triggered if you press enter
 		*/
-		void setChangeEventAtOnce();
+        void setChangeEventAtOnce();
 
-		/*! set up that the change event will be triggered for every change in the text field
+        /*! set up that the change event will be triggered for every change in the text field
 		*/
-		void setChangeEventOnEnterAndLostFocus();
+        void setChangeEventOnEnterAndLostFocus();
 
-		/*! sets the text
+        /*! sets the text
 
 		\param text the text to be set
 		*/
-		void setText(const iaString &text);
+        void setText(const iaString &text);
 
-		/*! \returns the text
+        /*! \returns the text
 		*/
-		const iaString &getText() const;
+        const iaString &getText() const;
 
-		/*! sets cursor pos
+        /*! sets cursor pos
 
 		cursor pos will be clamped by current text size
 
 		\param cursorPos the new cursor pos
 		*/
-		void setCursorPos(uint64 cursorPos);
+        void setCursorPos(uint64 cursorPos);
 
-		/* \returns current cursor pos
+        /* \returns current cursor pos
 		*/
-		uint64 getCursorPos() const;
+        uint64 getCursorPos() const;
 
-		/*! increase cursor pos by one
+        /*! increase cursor pos by one
 		*/
-		void incCursorPos();
+        void incCursorPos();
 
-		/*! decrease cursor pos by one
+        /*! decrease cursor pos by one
 		*/
-		void decCursorPos();
+        void decCursorPos();
 
-	protected:
-		/*! the horizontal alignment
+    protected:
+        /*! the horizontal alignment
 		*/
-		iHorizontalAlignment _horizontalTextAlignment = iHorizontalAlignment::Left;
+        iHorizontalAlignment _horizontalTextAlignment = iHorizontalAlignment::Left;
 
-		/*! the vertical alignment
+        /*! the vertical alignment
 		*/
-		iVerticalAlignment _verticalTextAlignment = iVerticalAlignment::Center;
+        iVerticalAlignment _verticalTextAlignment = iVerticalAlignment::Center;
 
-		/*! flat to handle change event trigger behaviour
+        /*! flat to handle change event trigger behaviour
 		*/
-		bool _triggerChangeAtOnce = false;
+        bool _triggerChangeAtOnce = false;
 
-		/*! the text
+        /*! the text
 		*/
-		iaString _text;
+        iaString _text;
 
-		/*! backup text
+        /*! backup text
 		*/
-		iaString _textBackup;
+        iaString _textBackup;
 
-		/*! handles incomming acsii codes from keyboard
+        /*! handles incomming acsii codes from keyboard
 
 		\param c the incomming character from keyboard
 		*/
-		virtual bool handleASCII(uint8 c) override;
+        virtual bool handleASCII(uint8 c) override;
 
-		/*! handles incomming released key events
-
-		\param key the released key
-		*/
-		virtual bool handleKeyDown(iKeyCode key) override;
-
-		/*! handles incomming released key events
+        /*! handles incomming released key events
 
 		\param key the released key
 		*/
-		virtual bool handleKeyUp(iKeyCode key) override;
+        virtual bool handleKeyDown(iKeyCode key) override;
 
-		/*! handles gained kayboard focus
-		*/
-		virtual void handleGainedKeyboardFocus() override;
+        /*! handles incomming released key events
 
-		/*! handles lost keyboard focus
+		\param key the released key
 		*/
-		virtual void handleLostKeyboardFocus() override;
+        virtual bool handleKeyUp(iKeyCode key) override;
 
-		/*! triggers a change event if the content has changed
+        /*! handles gained kayboard focus
 		*/
-		void handleChanges();
+        virtual void handleGainedKeyboardFocus() override;
 
-	private:
-		/*! position of cursor within the text in characters
+        /*! handles lost keyboard focus
 		*/
-		uint64 _cursorPos = 0;
+        virtual void handleLostKeyboardFocus() override;
 
-		/*! cursor position in pixel
+        /*! triggers a change event if the content has changed
 		*/
-		int64 _cursorPosPix = 0;
+        void handleChanges();
 
-		/*! scroll offset of text display in pixel
+    private:
+        /*! position of cursor within the text in characters
 		*/
-		int64 _scrollOffset = 0;
+        uint64 _cursorPos = 0;
 
-		/*! max text lenght in characters
+        /*! cursor position in pixel
 		*/
-		int32 _maxTextLenght = 20;
+        int64 _cursorPosPix = 0;
 
-		/*! if true text field is write protected
+        /*! scroll offset of text display in pixel
 		*/
-		bool _writeProtected = false;
+        int64 _scrollOffset = 0;
 
-		/*! updates size based on it's content
+        /*! max text lenght in characters
 		*/
-		void calcMinSize() override;
+        int32 _maxTextLenght = 20;
 
-		/*! draws the text edit widget
+        /*! if true text field is write protected
 		*/
-		void draw();
+        bool _writeProtected = false;
 
-		/*! updates the cursor position and scroll offset
+        /*! updates size based on it's content
 		*/
-		void updateMetrics();
-	};
+        void calcMinSize() override;
+
+        /*! draws the text edit widget
+		*/
+        void draw();
+
+        /*! updates the cursor position and scroll offset
+		*/
+        void updateMetrics();
+    };
 
 } // namespace igor
 

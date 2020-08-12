@@ -46,7 +46,7 @@ namespace igor
 
     \see iSkeleton
     */
-    class Igor_API iBone
+    class IGOR_API iBone
     {
 
         friend class iSkeleton;

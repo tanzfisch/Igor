@@ -37,6 +37,7 @@
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/module/iModule.h>
+#include <igor/resources/mesh/iMeshBuffers.h>
 
 #include <iaux/data/iaGradient.h>
 #include <iaux/data/iaString.h>
@@ -62,7 +63,6 @@ namespace igor
     class iAtlas;
     class iInstancer;
     class iTargetMaterial;
-    class iMeshBuffers;
 
     /*! render target id definition
     */
@@ -78,7 +78,7 @@ namespace igor
 
     /*! texture placeholder class
     */
-    struct Igor_API iRendererTexture
+    struct IGOR_API iRendererTexture
     {
         uint32 _id;
     };
@@ -110,7 +110,7 @@ namespace igor
 
     \todo light handling is not done at all
     */
-    class Igor_API iRenderer : public iModule<iRenderer>
+    class IGOR_API iRenderer : public iModule<iRenderer>
     {
 
         friend class iModule<iRenderer>;
@@ -223,17 +223,17 @@ namespace igor
         \param mesh the mesh specified
         \todo this is weired stuff we should do that differently
         */
-        std::shared_ptr<iMeshBuffers> createBuffers(iMeshPtr mesh);
+        iMeshBuffersPtr createBuffers(iMeshPtr mesh);
 
         /*!
         \todo this is weired stuff we should do that differently
         */
-        void initBuffers(iMeshPtr mesh, std::shared_ptr<iMeshBuffers> meshBuffers);
+        void initBuffers(iMeshPtr mesh, iMeshBuffersPtr meshBuffers);
 
         /*!
         \todo this is weired stuff we should do that differently
         */
-        std::shared_ptr<iMeshBuffers> createBuffersAsync(iMeshPtr mesh);
+        iMeshBuffersPtr createBuffersAsync(iMeshPtr mesh);
 
         /*!
         \todo this is weired stuff we should do that differently
@@ -609,14 +609,14 @@ namespace igor
 
         \param mesh the mesh to be drawn
         */
-        void drawMesh(std::shared_ptr<iMeshBuffers> mesh);
+        void drawMesh(iMeshBuffersPtr mesh);
 
         /*! draws a mesh instanced
 
         \param mesh the mesh to be drawn
         \param instanceCount count of instances to be drawn
         */
-        void drawMesh(std::shared_ptr<iMeshBuffers> mesh, iInstancer *instancer);
+        void drawMesh(iMeshBuffersPtr mesh, iInstancer *instancer);
 
         /*! set current color
 
@@ -780,7 +780,7 @@ namespace igor
         uint32 _currentRenderTarget = DEFAULT_RENDER_TARGET;
 
         iaMutex _requestedBuffersMutex;
-        std::deque<std::pair<iMeshPtr, std::shared_ptr<iMeshBuffers>>> _requestedBuffers;
+        std::deque<std::pair<iMeshPtr, iMeshBuffersPtr>> _requestedBuffers;
 
         /*! world grid resolution
         */

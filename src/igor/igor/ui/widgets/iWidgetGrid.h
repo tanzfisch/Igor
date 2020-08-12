@@ -51,7 +51,7 @@ namespace igor
     /*!
     \todo cols und rows dynamisch anpassen
     */
-    class Igor_API iWidgetGrid : public iWidget
+    class IGOR_API iWidgetGrid : public iWidget
     {
 
         /*! internal helper struct that represents a child widget and it's position

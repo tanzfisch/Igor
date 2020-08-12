@@ -41,7 +41,7 @@ namespace igor
 
     /*! the switch node. Has multiple children like every node but only one can be active at a time
     */
-    class Igor_API iNodeSwitch : public iNode
+    class IGOR_API iNodeSwitch : public iNode
     {
 
         friend class iNodeManager;

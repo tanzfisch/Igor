@@ -54,7 +54,7 @@ namespace igor
 
     /*! need a task to be done in parallel? than derive from this base class
     */
-    class Igor_API iTask
+    class IGOR_API iTask
     {
 
         friend class iTaskManager;

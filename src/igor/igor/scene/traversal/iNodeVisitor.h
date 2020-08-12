@@ -39,7 +39,7 @@ namespace igor
 
     /*! base class for traversing a node tree
     */
-    class Igor_API iNodeVisitor
+    class IGOR_API iNodeVisitor
     {
 
     public:

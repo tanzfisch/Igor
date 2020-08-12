@@ -40,7 +40,7 @@ namespace igor
     /*! a plane
     */
     template <class T>
-    class Igor_API_Template iPlane
+    class IGOR_API_TEMPLATE iPlane
     {
 
     public:
@@ -58,7 +58,7 @@ namespace igor
         */
         __IGOR_INLINE__ void normalize();
 
-        /*! constructor that basically sets member valirables
+        /*! sets member variables
 
         \param normal the normal
         \param distance the distance

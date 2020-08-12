@@ -60,7 +60,7 @@ namespace igor
 
     /*! optional parameters hwo to load or generate data
     */
-    struct Igor_API iModelDataInputParameter
+    struct IGOR_API iModelDataInputParameter
     {
         /*! loader or generator identifier
         */
@@ -97,7 +97,7 @@ namespace igor
 
     \todo maybe we should replace pointers to nodes with IDs here
     */
-    class Igor_API iModel
+    class IGOR_API iModel
     {
 
         friend class iModelResourceFactory;

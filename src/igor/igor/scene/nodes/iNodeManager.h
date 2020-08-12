@@ -31,6 +31,7 @@
 
 #include <igor/scene/nodes/iNode.h>
 #include <igor/resources/module/iModule.h>
+#include <igor/resources/profiler/iProfiler.h>
 
 #include <iaux/system/iaMutex.h>
 using namespace iaux;
@@ -42,7 +43,7 @@ namespace igor
 
     /*! creates and destroys nodes
 	*/
-    class Igor_API iNodeManager : public iModule<iNodeManager>
+    class IGOR_API iNodeManager : public iModule<iNodeManager>
     {
         friend class iModule<iNodeManager>;
         friend class iApplication;
@@ -52,7 +53,7 @@ namespace igor
     public:
         /*! type of action to queue
 		*/
-        enum class Igor_API iActionType
+        enum class IGOR_API iActionType
         {
             Undefined,
             Insert,
@@ -64,15 +65,15 @@ namespace igor
 
         /*! struct used for queueing actions
 		*/
-        struct Igor_API iAction
+        struct IGOR_API iAction
         {
             /*! node A to do an action with
 			*/
-            uint64 _nodeA = iNode::INVALID_NODE_ID;
+            iNodeID _nodeA = iNode::INVALID_NODE_ID;
 
             /*! node B to do an action with
 			*/
-            uint64 _nodeB = iNode::INVALID_NODE_ID;
+            iNodeID _nodeB = iNode::INVALID_NODE_ID;
 
             /*! the action to do with node A, B or both
 			*/
@@ -84,19 +85,26 @@ namespace igor
 		\param id id of ndoe
 		\returns pointer to node
 		*/
-        iNodePtr getNode(uint64 id) const;
+        iNodePtr getNode(iNodeID id) const;
 
-        /*! \returns list of all node IDs of a certain node type
+        /*! returns list of all nodes with given node type
 
-		\param nodeType type of nodes
+        \param[out] nodes returned by this function
+		\param nodeType the given node type
 		*/
-        std::vector<uint64> getNodes(iNodeType nodeType);
+        void getNodes(std::vector<iNodeID> &nodes, iNodeType nodeType);
+
+        /*! returns list of all nodes
+
+        \param[out] all nodes
+		*/
+        void getNodes(std::vector<iNodeID> &nodes);
 
         /*! \returns true if node ID exists
 
 		\param id the nodes ID
 		*/
-        bool isNode(uint64 id) const;
+        bool isNode(iNodeID id) const;
 
         /*! create copy of node
 
@@ -118,7 +126,7 @@ namespace igor
 
 		\param nodeID id of node (asynchronously)
 		*/
-        void destroyNodeAsync(uint64 nodeID);
+        void destroyNodeAsync(iNodeID nodeID);
 
         /*! applys asynchrounous actions to nodes
 
@@ -166,7 +174,7 @@ namespace igor
     private:
         /*! mapping ids to nodes
 		*/
-        std::unordered_map<uint64, iNodePtr> _nodes;
+        std::unordered_map<iNodeID, iNodePtr> _nodes;
 
         /*! mutex to protect node list
 		*/
@@ -192,7 +200,7 @@ namespace igor
 		\param node the node to copy
 		\param recursiveDepth recursive depth
 		*/
-        iNodePtr createCopyInternal(iNodePtr node, std::map<uint64, uint64> &nodeIDMap, uint32 recursiveDepth);
+        iNodePtr createCopyInternal(iNodePtr node, std::map<iNodeID, iNodeID> &nodeIDMap, uint32 recursiveDepth);
 
         /*! destroys node and all its children
 
@@ -206,7 +214,7 @@ namespace igor
 
 		\param nodeID id of node
 		*/
-        void destroyNode(uint64 nodeID);
+        void destroyNode(iNodeID nodeID);
 
         /*! called once per frame by application
 		*/

@@ -36,21 +36,21 @@ namespace igor
 
     /*! audio buffer
     */
-    struct Igor_API iAudioBuffer
+    struct IGOR_API iAudioBuffer
     {
         uint32 _id = 0;
     };
 
     /*! audio source
     */
-    struct Igor_API iAudioSource
+    struct IGOR_API iAudioSource
     {
         uint32 _id = 0;
     };
 
     /*! represents a sound resource
     */
-    class Igor_API iSound : public iResource
+    class IGOR_API iSound : public iResource
     {
 
         friend class iSoundFactory;
@@ -90,7 +90,6 @@ namespace igor
         }
 
     private:
-
         /*! sound buffer
         */
         iAudioBuffer _buffer;
@@ -123,7 +122,7 @@ namespace igor
 
         \param parameters the parameters which define the resource
         */
-        iSound(const iResourceParameters& parameters);
+        iSound(const iResourceParameters &parameters);
     };
 
     /*! definition of sound pointer

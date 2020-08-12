@@ -55,7 +55,7 @@ namespace igor
 
     iaDELEGATE(iRayPreFilterDelegate, unsigned, (iPhysicsBody * body, iPhysicsCollision *collision, const void *userData), (body, collision, userData));
 
-    struct Igor_API ConvexCastReturnInfo
+    struct IGOR_API ConvexCastReturnInfo
     {
         iaVector4d _point;
         iaVector4d _normal;
@@ -69,7 +69,7 @@ namespace igor
     \todo way to many friends
     \todo update Omega of bodys ???
     */
-    class Igor_API iPhysics : public iModule<iPhysics>
+    class IGOR_API iPhysics : public iModule<iPhysics>
     {
         friend void PhysicsNodeDestructor(const void *body);
         friend void PhysicsNodeSetTransform(const void *body, const float64 *matrix, int threadIndex);

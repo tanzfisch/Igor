@@ -40,7 +40,7 @@ namespace iaux
 
     \todo write buffer functionality
     */
-    class IgorAux_API iaMemBlockControl
+    class IAUX_API iaMemBlockControl
     {
 
     public:

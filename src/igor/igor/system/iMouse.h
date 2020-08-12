@@ -45,7 +45,7 @@ namespace igor
 
     \todo use ClipCursor to kleep the cursor inside the window
 	*/
-    class Igor_API iMouse : public iOSEventListener, public iModule<iMouse>
+    class IGOR_API iMouse : public iOSEventListener, public iModule<iMouse>
     {
 
         friend class iModule<iMouse>;

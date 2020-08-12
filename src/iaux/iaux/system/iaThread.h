@@ -56,7 +56,7 @@ namespace iaux
 
     /*! basic thread
     */
-    class IgorAux_API iaThread
+    class IAUX_API iaThread
     {
 
         friend void *threadFunc(void *data);

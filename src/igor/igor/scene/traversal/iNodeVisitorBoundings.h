@@ -38,7 +38,7 @@ namespace igor
 
     /*! calculates the combined boundings of a subtree of nodes
     */
-    class Igor_API iNodeVisitorBoundings : public iNodeVisitor
+    class IGOR_API iNodeVisitorBoundings : public iNodeVisitor
     {
 
     public:

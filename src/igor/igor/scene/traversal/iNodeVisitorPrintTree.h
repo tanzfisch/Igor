@@ -39,59 +39,59 @@ using namespace iaux;
 namespace igor
 {
 
-	/*! traveses node tree and prints basic information in to console
+    /*! traveses node tree and prints basic information in to console
 	*/
-	class Igor_API iNodeVisitorPrintTree : public iNodeVisitor
-	{
+    class IGOR_API iNodeVisitorPrintTree : public iNodeVisitor
+    {
 
-	public:
-		/*! initializes traversal config
+    public:
+        /*! initializes traversal config
 		*/
-		iNodeVisitorPrintTree();
+        iNodeVisitorPrintTree();
 
-		/*! does nothing
+        /*! does nothing
 		*/
-		virtual ~iNodeVisitorPrintTree() = default;
+        virtual ~iNodeVisitorPrintTree() = default;
 
-		/*! traverses the tree and prints the output in console
+        /*! traverses the tree and prints the output in console
 		*/
-		void printToConsole(iNodePtr node);
+        void printToConsole(iNodePtr node);
 
-	protected:
-		/*! initialisation
+    protected:
+        /*! initialisation
 		*/
-		void preTraverse() override;
+        void preTraverse() override;
 
-		/*! generates information string on every node passed by
+        /*! generates information string on every node passed by
 		handles output indentation
 
 		\param node current node
 		*/
-		bool preOrderVisit(iNodePtr node, iNodePtr nextSibling) override;
+        bool preOrderVisit(iNodePtr node, iNodePtr nextSibling) override;
 
-		void preLine();
+        void preLine();
 
-		/*! handles output indentation
+        /*! handles output indentation
 		*/
-		void postOrderVisit(iNodePtr node) override;
+        void postOrderVisit(iNodePtr node) override;
 
-		/*! some more output
+        /*! some more output
 		*/
-		void postTraverse() override;
+        void postTraverse() override;
 
-	private:
-		/*! counter for all nodes passed by
+    private:
+        /*! counter for all nodes passed by
 		*/
-		uint64 _nodeCount = 0;
+        uint64 _nodeCount = 0;
 
-		/*! current indentation string
+        /*! current indentation string
 		*/
-		iaString _indenttation = "";
+        iaString _indenttation = "";
 
-		/*! all the output ends up in this string
+        /*! all the output ends up in this string
 		*/
-		std::wstringstream _stream;
-	};
+        std::wstringstream _stream;
+    };
 
 }; // namespace igor
 

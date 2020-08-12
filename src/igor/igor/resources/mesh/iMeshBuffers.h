@@ -31,6 +31,8 @@
 
 #include <igor/iDefines.h>
 
+#include <memory>
+
 namespace igor
 {
 
@@ -151,6 +153,10 @@ namespace igor
     };
 
 #include <igor/resources/mesh/iMeshBuffers.inl>
+
+    /*! mesh buffers pointer definition
+    */
+    typedef std::shared_ptr<iMeshBuffers> iMeshBuffersPtr;
 
 } // namespace igor
 

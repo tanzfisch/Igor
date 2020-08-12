@@ -37,107 +37,109 @@ using namespace iaux;
 namespace igor
 {
 
-	/*! render states
+    /*! render states
 	*/
-	enum class iRenderState
-	{
-		DepthTest,
-		DepthMask,
-		Blend,
-		CullFace,
-		Texture2D0,
-		Texture2D1,
-		Texture2D2,
-		Texture2D3,
-		Texture2D4,
-		Texture2D5,
-		Texture2D6,
-		Texture2D7,
-		Wireframe,
-		DepthFunc,
-		CullFaceFunc,
-		BlendFuncSource,
-		BlendFuncDestination,
-		Instanced,
-		InstancedFunc,
-		RenderStateCount
-	};
+    enum class iRenderState
+    {
+        DepthTest,
+        DepthMask,
+        Blend,
+        CullFace,
+        Texture2D0,
+        Texture2D1,
+        Texture2D2,
+        Texture2D3,
+        Texture2D4,
+        Texture2D5,
+        Texture2D6,
+        Texture2D7,
+        Wireframe,
+        DepthFunc,
+        CullFaceFunc,
+        BlendFuncSource,
+        BlendFuncDestination,
+        Instanced,
+        InstancedFunc,
+        RenderStateCount
+    };
 
-	/*! possible values for render states
+    /*! possible values for render states
 	*/
-	enum class iRenderStateValue
-	{
-		Off = 0,
-		On = 1,
-		One,
-		Zero,
-		DestinationColor,
-		OneMinusDestinationColor,
-		SourceAlpha,
-		OneMinusSourceAlpha,
-		DestinationAlpha,
-		OneMinusDestinationAlpha,
-		SourceColor,
-		OneMinusSourceColor,
-		Never,
-		Less,
-		Equal,
-		LessOrEqual,
-		Greater,
-		NotEqual,
-		GreaterOrEqual,
-		Always,
-		Front,
-		Back,
-		Keep,
-		Replace,
-		Increment,
-		IncrementWrap,
-		Decrement,
-		DecrementWrap,
-		Invert,
-		Invalid,
-		PositionOrientation, // this one does not map to ogl
-		Position			 //! \todo not implemented
-	};
+    enum class iRenderStateValue
+    {
+        Off = 0,
+        On = 1,
+        One,
+        Zero,
+        DestinationColor,
+        OneMinusDestinationColor,
+        SourceAlpha,
+        OneMinusSourceAlpha,
+        DestinationAlpha,
+        OneMinusDestinationAlpha,
+        SourceColor,
+        OneMinusSourceColor,
+        Never,
+        Less,
+        Equal,
+        LessOrEqual,
+        Greater,
+        NotEqual,
+        GreaterOrEqual,
+        Always,
+        Front,
+        Back,
+        Keep,
+        Replace,
+        Increment,
+        IncrementWrap,
+        Decrement,
+        DecrementWrap,
+        Invert,
+        Invalid,
+        PositionOrientation, // this one does not map to ogl
+        Position             //! \todo not implemented
+    };
 
-	/*! render state set holds a list of all render states the renderer can process
+    /*! render state set holds a list of all render states the renderer can process
 
 	\todo alpha test besides blending would be nice to have
 	*/
-	class iRenderStateSet
-	{
+    class iRenderStateSet
+    {
 
-		friend class iRenderer;
+        friend class iRenderer;
 
-	public:
-		/*! initializes default values for the state set
+    public:
+        /*! initializes default values for the state set
 		*/
-		iRenderStateSet();
+        iRenderStateSet();
 
-		/*! does nothing
+        /*! does nothing
 		*/
-		virtual ~iRenderStateSet() = default;
+        virtual ~iRenderStateSet() = default;
 
-		/*! defines the value of a specific render state
+        /*! defines the value of a specific render state
 
 		\param state render state
 		\param value render state value
 		*/
-		void setRenderState(const iRenderState state, const iRenderStateValue value);
+        void setRenderState(const iRenderState state, const iRenderStateValue value);
 
-		/*! returns the value of a specific render state
+        /*! returns the value of a specific render state
 
 		\param state render state
 		\return render state value
 		*/
-		iRenderStateValue getRenderState(const iRenderState state) const;
+        iRenderStateValue getRenderState(const iRenderState state) const;
 
-	private:
-		/*! array with all supported render states
+    private:
+        /*! array with all supported render states
 		*/
-		iRenderStateValue _renderStates[static_cast<unsigned int>(iRenderState::RenderStateCount)];
-	};
+        iRenderStateValue _renderStates[static_cast<unsigned int>(iRenderState::RenderStateCount)];
+    };
+
+#include <igor/graphics/iRenderStateSet.inl>
 
 }; // namespace igor
 

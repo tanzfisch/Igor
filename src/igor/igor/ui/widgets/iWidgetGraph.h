@@ -48,7 +48,7 @@ namespace igor
 
     \todo highlight selection
     */
-    class Igor_API iWidgetGraph : public iWidget
+    class IGOR_API iWidgetGraph : public iWidget
     {
 
         /*! graph data

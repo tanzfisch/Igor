@@ -51,7 +51,7 @@ namespace igor
     \bug orientation of light in world and model space is diffrent or wrong
     \todo does it realy need to be color4f?
 	*/
-    class Igor_API iNodeLight : public iNode
+    class IGOR_API iNodeLight : public iNode
     {
 
         friend class iNodeVisitorUpdateTransform;
@@ -160,6 +160,10 @@ namespace igor
         */
         virtual ~iNodeLight();
     };
+
+    /*! light node pointer definition
+    */
+    typedef iNodeLight *iNodeLightPtr;
 
 }; // namespace igor
 

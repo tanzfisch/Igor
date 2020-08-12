@@ -38,106 +38,106 @@ using namespace iaux;
 namespace igor
 {
 
-	/*! timer tick event
+    /*! timer tick event
 
     called once per interval
     */
-	iaEVENT(iTimerTickEvent, iTimerTickDelegate, (), ());
+    iaEVENT(iTimerTickEvent, iTimerTickDelegate, (), ());
 
-	/*! timer handle class
+    /*! timer handle class
     */
-	class Igor_API iTimerHandle
-	{
+    class IGOR_API iTimerHandle
+    {
 
-		friend class iTimer;
+        friend class iTimer;
 
-	public:
-		/*! does nothing
+    public:
+        /*! does nothing
 		*/
-		iTimerHandle() = default;
+        iTimerHandle() = default;
 
-		/*! creates timer handle and registers it to the iTimer running with given interval
+        /*! creates timer handle and registers it to the iTimer running with given interval
 
 		\param timer_delegate timer delegate to register
 		\param intervall the lenght of the intervall
 		\param oneShot if true the timed even only occurs once
 		*/
-		iTimerHandle(iTimerTickDelegate timerDelegate, const iaTime &interval, bool oneShot = false);
+        iTimerHandle(iTimerTickDelegate timerDelegate, const iaTime &interval, bool oneShot = false);
 
-		/*! unregisters from iTimer
+        /*! unregisters from iTimer
 		*/
-		virtual ~iTimerHandle();
+        virtual ~iTimerHandle();
 
-		/*! register timer delegate to timer event
+        /*! register timer delegate to timer event
 
 		\param timer_delegate timer delegate to register
 		*/
-		void registerTimerDelegate(iTimerTickDelegate timerDelegate);
+        void registerTimerDelegate(iTimerTickDelegate timerDelegate);
 
-		/*! unregister timer delegate from timer event
+        /*! unregister timer delegate from timer event
 
 		\param timer_delegate timer delegate to unregister
 		*/
-		void unregisterTimerDelegate(iTimerTickDelegate timerDelegate);
+        void unregisterTimerDelegate(iTimerTickDelegate timerDelegate);
 
-		/*! changes timer interval
+        /*! changes timer interval
 
 		\param interval the lenght of the intervall
 
 		triggers restart()
 		*/
-		void setIntervall(iaTime interval);
+        void setIntervall(iaTime interval);
 
-		/*! returns current intervall time
+        /*! returns current intervall time
 		*/
-		iaTime getIntervall() const;
+        iaTime getIntervall() const;
 
-		/*! restarts timer by resetting to current time
+        /*! restarts timer by resetting to current time
 		*/
-		void restart();
+        void restart();
 
-		/*! start timer handle
+        /*! start timer handle
 		*/
-		void start();
+        void start();
 
-		/*! stop timer handle
+        /*! stop timer handle
 		*/
-		void stop();
+        void stop();
 
-	protected:
-		/*! calls timer event according to how much time passed by
+    protected:
+        /*! calls timer event according to how much time passed by
 		*/
-		virtual void handle(iaTime time);
+        virtual void handle(iaTime time);
 
-	private:
-		/*! the timer event to trigger
+    private:
+        /*! the timer event to trigger
 		*/
-		iTimerTickEvent _timerEvent;
+        iTimerTickEvent _timerEvent;
 
-		/*! the intervall in ms in use
+        /*! the intervall in ms in use
 		*/
-		iaTime _intervall = iaTime::fromMilliseconds(20);
+        iaTime _intervall = iaTime::fromMilliseconds(20);
 
-		/*! the configured intervall in ms
+        /*! the configured intervall in ms
 		*/
-		iaTime _configuredIntervall = iaTime::fromMilliseconds(20);
+        iaTime _configuredIntervall = iaTime::fromMilliseconds(20);
 
-		/*! time the handle was triggered last time
+        /*! time the handle was triggered last time
 		*/
-		iaTime _time = 0;
+        iaTime _time = 0;
 
-		/*! if true timer triggers event only one time
+        /*! if true timer triggers event only one time
 		*/
-		bool _oneShot = false;
+        bool _oneShot = false;
 
-		/*! if true this timer handle is currently running
+        /*! if true this timer handle is currently running
 		*/
-		bool _playing = false;
-	};
+        bool _playing = false;
+    };
 
-	/*! timer handle pointer definition
+    /*! timer handle pointer definition
 	*/
-	typedef iTimerHandle *iTimerHandlePtr;
+    typedef iTimerHandle *iTimerHandlePtr;
 
 }; // namespace igor
 

@@ -34,129 +34,129 @@
 namespace igor
 {
 
-	class iDialog;
-	typedef iDialog *iDialogPtr;
-	class iTextureFont;
-	class iWidgetManager;
-	class iDialogIndexMenu;
+    class iDialog;
+    typedef iDialog *iDialogPtr;
+    class iTextureFont;
+    class iWidgetManager;
+    class iDialogIndexMenu;
 
-	/*! select box widget
+    /*! select box widget
 	*/
-	class Igor_API iWidgetSelectBox : public iWidget
-	{
+    class IGOR_API iWidgetSelectBox : public iWidget
+    {
 
-	public:
-		/*! ctro initializes member variables
+    public:
+        /*! ctro initializes member variables
 
 		\param parent optional parent
 		*/
-		iWidgetSelectBox(const iWidgetPtr parent = nullptr);
+        iWidgetSelectBox(const iWidgetPtr parent = nullptr);
 
-		/*! clean up
+        /*! clean up
 		*/
-		virtual ~iWidgetSelectBox();
+        virtual ~iWidgetSelectBox();
 
-		/*! adds entry to select box
+        /*! adds entry to select box
 
 		\param entryText the entry text
 		\param userData optional pointer to user data
 		*/
-		void addSelectionEntry(const iaString &entryText, void *userData = nullptr);
+        void addSelectionEntry(const iaString &entryText, void *userData = nullptr);
 
-		/*! clears all entries
+        /*! clears all entries
 
 		Attention! if you used user data you have to delete it your self
 		*/
-		void clear();
+        void clear();
 
-		/*! sets selection by index
+        /*! sets selection by index
 		*/
-		void setSelection(uint32 index);
+        void setSelection(uint32 index);
 
-		/*! \returns ammount of select box entries
+        /*! \returns ammount of select box entries
 		*/
-		uint32 getSelectionEntryCount() const;
+        uint32 getSelectionEntryCount() const;
 
-		/*! \returns index of selected entry
+        /*! \returns index of selected entry
 		*/
-		uint32 getSelectedIndex() const;
+        uint32 getSelectedIndex() const;
 
-		/*! \returns text of selected entry
+        /*! \returns text of selected entry
 		*/
-		iaString getSelectedValue() const;
+        iaString getSelectedValue() const;
 
-		/*! \returns user data pointer of selected entry
+        /*! \returns user data pointer of selected entry
 		*/
-		void *getSelectedUserData() const;
+        void *getSelectedUserData() const;
 
-	private:
-		/*! list of selct box entries
+    private:
+        /*! list of selct box entries
 		*/
-		std::vector<std::pair<iaString, void *>> _entries;
+        std::vector<std::pair<iaString, void *>> _entries;
 
-		/*! current selected index
+        /*! current selected index
 
 		-1 stand for no selection
 		*/
-		int32 _currentSelection = -1;
+        int32 _currentSelection = -1;
 
-		/*! true: if the mouse cursor is over the button
+        /*! true: if the mouse cursor is over the button
 		*/
-		bool _mouseOver = false;
+        bool _mouseOver = false;
 
-		/*! true: if the select box is unfoldet
+        /*! true: if the select box is unfoldet
 		*/
-		bool _openSelectBox = false;
+        bool _openSelectBox = false;
 
-		/*! select box dialog used for the unfold effect
+        /*! select box dialog used for the unfold effect
 		*/
-		iDialogIndexMenu *_selectBox = nullptr;
+        iDialogIndexMenu *_selectBox = nullptr;
 
-		/*! appearance state of the button
+        /*! appearance state of the button
 		*/
-		iWidgetState _buttonAppearanceState = iWidgetState::Standby;
+        iWidgetState _buttonAppearanceState = iWidgetState::Standby;
 
-		/*! triggered when selection box closed
+        /*! triggered when selection box closed
 
         \param dialog source of this event
 		*/
-		void onSelectBoxClosed(iDialogPtr dialog);
+        void onSelectBoxClosed(iDialogPtr dialog);
 
-		/*! handles incomming mouse wheel event
+        /*! handles incomming mouse wheel event
 
 		\param d mouse wheel delta
 		\returns true: if event was consumed and therefore ignored by the parent
 		*/
-		bool handleMouseWheel(int32 d);
+        bool handleMouseWheel(int32 d);
 
-		/*! handles incomming mouse key down events
-
-		\param key the key that was pressed
-		\returns true: if event was consumed and therefore will be ignored by the parent
-		*/
-		bool handleMouseKeyDown(iKeyCode key);
-
-		/*! handles mouse key up events
+        /*! handles incomming mouse key down events
 
 		\param key the key that was pressed
 		\returns true: if event was consumed and therefore will be ignored by the parent
 		*/
-		bool handleMouseKeyUp(iKeyCode key);
+        bool handleMouseKeyDown(iKeyCode key);
 
-		/*! handles incomming mouse move events
+        /*! handles mouse key up events
+
+		\param key the key that was pressed
+		\returns true: if event was consumed and therefore will be ignored by the parent
+		*/
+        bool handleMouseKeyUp(iKeyCode key);
+
+        /*! handles incomming mouse move events
 
 		\param pos mouse position
 		*/
-		void handleMouseMove(const iaVector2i &pos);
+        void handleMouseMove(const iaVector2i &pos);
 
-		/*! updates size based on it's content
+        /*! updates size based on it's content
 		*/
-		void calcMinSize() override;
+        void calcMinSize() override;
 
-		/*! renders widget
+        /*! renders widget
 		*/
-		void draw();
-	};
+        void draw();
+    };
 } // namespace igor
 
 #endif // __IGOR_WIDGETSELECTBOX_H__

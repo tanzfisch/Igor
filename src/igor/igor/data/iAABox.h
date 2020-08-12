@@ -39,7 +39,7 @@ namespace igor
     /*! Axis aligned box
 	*/
     template <class T>
-    class Igor_API_Template iAABox
+    class IGOR_API_TEMPLATE iAABox
     {
 
     public:

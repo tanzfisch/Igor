@@ -50,7 +50,7 @@ namespace igor
 
     \todo would be nice to have a callback if a model was asynchronously loaded
     */
-    class Igor_API iNodeModel : public iNode
+    class IGOR_API iNodeModel : public iNode
     {
 
         friend class iNodeManager;

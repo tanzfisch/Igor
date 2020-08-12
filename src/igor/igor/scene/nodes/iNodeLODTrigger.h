@@ -45,7 +45,7 @@ namespace igor
     every LOD switch node needs a LOD trigger node in order to switch
     It can be only one for the whole scene or it can be multiple ones for individual LOD switch nodes.
     */
-    class Igor_API iNodeLODTrigger : public iNode
+    class IGOR_API iNodeLODTrigger : public iNode
     {
 
         friend class iNodeManager;

@@ -1480,10 +1480,10 @@ namespace igor
     {
         iaTime endTime = iaTime::now();
         endTime += iaTime::fromMilliseconds(timeLimit);
-        std::deque<std::pair<iMeshPtr, std::shared_ptr<iMeshBuffers>>>::iterator entryIter;
+        std::deque<std::pair<iMeshPtr, iMeshBuffersPtr>>::iterator entryIter;
 
         iMeshPtr mesh;
-        std::shared_ptr<iMeshBuffers> meshBuffers;
+        iMeshBuffersPtr meshBuffers;
         bool proceed = false;
 
         while (true)
@@ -1516,20 +1516,20 @@ namespace igor
         }
     }
 
-    std::shared_ptr<iMeshBuffers> iRenderer::createBuffersAsync(iMeshPtr mesh)
+    iMeshBuffersPtr iRenderer::createBuffersAsync(iMeshPtr mesh)
     {
         iMeshBuffers *meshBuffer = new iMeshBuffers();
 
-        std::shared_ptr<iMeshBuffers> result = std::shared_ptr<iMeshBuffers>(meshBuffer);
+        iMeshBuffersPtr result = iMeshBuffersPtr(meshBuffer);
 
         _requestedBuffersMutex.lock();
-        _requestedBuffers.push_back(std::pair<iMeshPtr, std::shared_ptr<iMeshBuffers>>(mesh, result));
+        _requestedBuffers.push_back(std::pair<iMeshPtr, iMeshBuffersPtr>(mesh, result));
         _requestedBuffersMutex.unlock();
 
         return result;
     }
 
-    void iRenderer::initBuffers(iMeshPtr mesh, std::shared_ptr<iMeshBuffers> meshBuffers)
+    void iRenderer::initBuffers(iMeshPtr mesh, iMeshBuffersPtr meshBuffers)
     {
         uint32 vao = 0;
         uint32 ibo = 0;
@@ -1598,10 +1598,10 @@ namespace igor
         meshBuffers->setReady();
     }
 
-    std::shared_ptr<iMeshBuffers> iRenderer::createBuffers(iMeshPtr mesh)
+    iMeshBuffersPtr iRenderer::createBuffers(iMeshPtr mesh)
     {
         iMeshBuffers *meshBuffer = new iMeshBuffers();
-        std::shared_ptr<iMeshBuffers> result = std::shared_ptr<iMeshBuffers>(meshBuffer);
+        iMeshBuffersPtr result = iMeshBuffersPtr(meshBuffer);
 
         initBuffers(mesh, result);
 
@@ -1625,20 +1625,11 @@ namespace igor
         }
     }
 
-    void iRenderer::drawMesh(std::shared_ptr<iMeshBuffers> meshBuffers, iInstancer *instancer)
+    void iRenderer::drawMesh(iMeshBuffersPtr meshBuffers, iInstancer *instancer)
     {
         if (_loggingActive)
         {
             con_endl("drawMesh instances:" << instancer->getInstanceCount() << " triangles " << meshBuffers->getTrianglesCount());
-
-            for (int i = 0; i < instancer->getInstanceCount(); ++i)
-            {
-                iaMatrixf matrix;
-                auto ptr = instancer->getInstanceDataBuffer();
-                matrix.setData(&static_cast<const float32 *>(ptr)[i * 16]);
-
-                con_endl("" << matrix._pos);
-            }
         }
 
         iaMatrixd idMatrix;
@@ -1745,7 +1736,7 @@ namespace igor
         }
     }
 
-    void iRenderer::drawMesh(std::shared_ptr<iMeshBuffers> meshBuffers)
+    void iRenderer::drawMesh(iMeshBuffersPtr meshBuffers)
     {
         writeShaderParameters();
 

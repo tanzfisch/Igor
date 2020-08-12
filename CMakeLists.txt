@@ -75,6 +75,11 @@ if(${COMPILER} STREQUAL "GCC")
 
   add_compile_options(-fpermissive -std=c++17)
   add_definitions(-D_NEWTON_USE_DOUBLE -D_cplusplus=201703L)
+
+  if(DEEP_PROFILING)
+    message(STATUS "Using Igor deep profiling")
+    add_definitions(-DDEEP_PROFILING)
+  endif()
 endif()
 
 if(${COMPILER} STREQUAL "MSVCXX")
@@ -478,7 +483,6 @@ endforeach()
 # Testing #
 # ##############################################################################
 message(STATUS "iauxTest")
-
 set(IAUX_TEST_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/tests/iaux/")
 set(IAUX_TEST_HEADERS_DIR ${IAUX_TEST_SRC_DIR})
 file(
@@ -499,6 +503,27 @@ if(${COMPILER} STREQUAL "GCC")
 elseif(${COMPILER} STREQUAL "MSVCXX")
   target_link_libraries(iauxTest iaux)
 endif()
-
-add_test(AllTestsInIgorAux iauxTest)
 set_property(TARGET iauxTest PROPERTY FOLDER ${TESTING_FOLDER})
+
+message(STATUS "igorTest")
+set(IGOR_TEST_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/tests/igor/")
+set(IGOR_TEST_HEADERS_DIR ${IGOR_TEST_SRC_DIR})
+file(
+  GLOB_RECURSE IGOR_TEST_SOURCES
+  LIST_DIRECTORIES false
+  "${IGOR_TEST_SRC_DIR}*.c*")
+file(
+  GLOB_RECURSE IGOR_TEST_HEADERS
+  LIST_DIRECTORIES false
+  "${IGOR_TEST_HEADERS_DIR}*.h*" "${IGOR_TEST_HEADERS_DIR}*.inl")
+list(APPEND IGOR_TEST_SOURCES ${IGOR_TEST_HEADERS})
+add_executable(igorTest ${IGOR_TEST_SOURCES})
+target_include_directories(igorTest PRIVATE ${IGOR_TEST_HEADERS_DIR}
+                                            ${IGOR_HEADERS_DIR})
+
+if(${COMPILER} STREQUAL "GCC")
+  target_link_libraries(igorTest igor pthread)
+elseif(${COMPILER} STREQUAL "MSVCXX")
+  target_link_libraries(igorTest igor)
+endif()
+set_property(TARGET igorTest PROPERTY FOLDER ${TESTING_FOLDER})

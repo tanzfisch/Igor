@@ -42,7 +42,7 @@ namespace igor
 
     /*! user control which represents an action in eg a menu
     */
-    class Igor_API iUserControlAction : public iUserControl
+    class IGOR_API iUserControlAction : public iUserControl
     {
 
     public:

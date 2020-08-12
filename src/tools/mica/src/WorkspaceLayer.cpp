@@ -94,7 +94,7 @@ void WorkspaceLayer::renderSelection()
             iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading));
 
             iNodeMesh *meshNode = static_cast<iNodeMesh *>(node);
-            std::shared_ptr<iMeshBuffers> buffers = meshNode->getMeshBuffers();
+            iMeshBuffersPtr buffers = meshNode->getMeshBuffers();
             iRenderer::getInstance().setLineWidth(4);
             iRenderer::getInstance().drawMesh(buffers);
         }

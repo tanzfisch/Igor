@@ -46,7 +46,7 @@ namespace iaux
     \todo move code in to inline file
     */
     template <class T>
-    class IgorAux_API_Template iaColor4
+    class IAUX_API_TEMPLATE iaColor4
     {
     public:
         /*! red color channel

@@ -50,7 +50,7 @@ namespace igor
 
     /*! triangle defined by three indexes to vertexes
     */
-    struct Igor_API iIndexedTriangle
+    struct IGOR_API iIndexedTriangle
     {
         /*! index a
         */
@@ -69,7 +69,7 @@ namespace igor
 
     \todo how about applying transformations directly on the data before generating buffers from �t? like baking transformations to the data. or setting a transformation and all vertices set will be transformed first by it?
     */
-    class Igor_API iMeshBuilder
+    class IGOR_API iMeshBuilder
     {
 
         /*! hash function to quickly find corresponding vertex positions

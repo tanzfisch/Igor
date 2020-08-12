@@ -45,7 +45,7 @@ namespace igor
 
     /*! skeleton that contains joints and bones
     */
-    class Igor_API iSkeleton
+    class IGOR_API iSkeleton
     {
 
     public:

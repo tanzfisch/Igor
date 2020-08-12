@@ -50,7 +50,7 @@ namespace igor
 
     \bug not all textures released when used by iNodeModel and iNodeMesh
     */
-    class Igor_API iTextureResourceFactory : public iModule<iTextureResourceFactory>
+    class IGOR_API iTextureResourceFactory : public iModule<iTextureResourceFactory>
     {
         friend class iModule<iTextureResourceFactory>;
 

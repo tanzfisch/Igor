@@ -38,7 +38,7 @@ namespace igor
 
     /*! mouse key down event
     */
-    class Igor_API iEventMouseKeyDown : public iEvent
+    class IGOR_API iEventMouseKeyDown : public iEvent
     {
     public:
         /*! init members
@@ -70,7 +70,7 @@ namespace igor
 
     /*! mouse key up event
     */
-    class Igor_API iEventMouseKeyUp : public iEvent
+    class IGOR_API iEventMouseKeyUp : public iEvent
     {
     public:
         /*! init members
@@ -102,7 +102,7 @@ namespace igor
 
     /*! mouse key double click event
     */
-    class Igor_API iEventMouseKeyDoubleClick : public iEvent
+    class IGOR_API iEventMouseKeyDoubleClick : public iEvent
     {
     public:
         /*! init members
@@ -134,7 +134,7 @@ namespace igor
 
     /*! mouse wheel event
     */
-    class Igor_API iEventMouseWheel : public iEvent
+    class IGOR_API iEventMouseWheel : public iEvent
     {
     public:
         /*! init members
@@ -166,7 +166,7 @@ namespace igor
 
     /*! mouse move event
     */
-    class Igor_API iEventMouseMove : public iEvent
+    class IGOR_API iEventMouseMove : public iEvent
     {
     public:
         /*! init members

@@ -36,21 +36,23 @@ using namespace iaux;
 
 #ifdef __IGOR_MSCOMPILER__
 #ifdef __IGOR_BUILDING_DLL__
-#define Igor_API __declspec(dllexport)
-#define Igor_API_Template __declspec(dllexport)
+#define IGOR_API __declspec(dllexport)
+#define IGOR_API_TEMPLATE __declspec(dllexport)
 #else // __IGOR_BUILDING_DLL__
-#define Igor_API __declspec(dllimport)
-#define Igor_API_Template
+#define IGOR_API __declspec(dllimport)
+#define IGOR_API_TEMPLATE
 #endif // __IGOR_BUILDING_DLL__
 #endif // __IGOR_BUILDING_DLL__
 #endif // __IGOR_MSCOMPILER__
 
 #ifdef __IGOR_LINUX__
-
-#define Igor_API
-#define Igor_API_Template
-
+#define IGOR_API
+#define IGOR_API_TEMPLATE
 #endif // __IGOR_LINUX__
+
+#ifdef DEEP_PROFILING
+#define IGOR_DEEP_PROFILING
+#endif
 
 //! Igor configuration short
 extern const iaString __IGOR_CONFIGURATION__;

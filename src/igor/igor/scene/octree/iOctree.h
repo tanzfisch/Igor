@@ -26,17 +26,18 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iOCTREE__
-#define __iOCTREE__
+#ifndef __IGOR_OCTREE_H__
+#define __IGOR_OCTREE_H__
 
 #include <igor/data/iAACube.h>
 #include <igor/data/iSphere.h>
 #include <igor/data/iFrustum.h>
 #include <igor/scene/nodes/iNode.h>
+#include <igor/resources/material/iMaterial.h>
 
 #include <memory>
 #include <list>
-#include <map>
+#include <unordered_map>
 #include <vector>
 
 namespace igor
@@ -51,29 +52,29 @@ namespace igor
     \todo does not merge efficiently
     \todo implement move functionality
     */
-    class Igor_API iOctree
+    class IGOR_API iOctree
     {
 
     public:
-        /*! insert scene node to octree
+        /*! insert user data to octree
 
-        \param userDataID id of the scene node
+        \param userData pointer to user data
         */
-        void insert(uint64 userDataID, const iSphered &sphere);
+        void insert(void *userData, const iSphered &sphere);
 
-        /*! remove scene node from octree
+        /*! remove user data from octree
 
-        \param userDataID id of the scene node
+        \param userData pointer to user data
         */
-        void remove(uint64 userDataID);
+        void remove(void *userData);
 
-        /*! update scene node in octree
+        /*! update user data in octree
 
-        this is called usually if the scene node changed it's position
+        this is called usually if the user data changed it's position
 
-        \param userDataID id of the scene node
+        \param userData pointer to user data
         */
-        void update(uint64 userDataID, const iSphered &sphere);
+        void update(void *userData, const iSphered &sphere);
 
         /*! adds frustum to filter set
 
@@ -87,10 +88,9 @@ namespace igor
         */
         void addFilter(const iPlaned &plane);
 
-        /*! recursive method to filter the octree with a sphere
+        /*! adds sphere to filter set
 
-        \param frustum the frustum
-        \param nodeID current octree node to check for filtering
+        \param sphere the sphere to filter with
         */
         void addFilter(const iSphered &sphere);
 
@@ -98,21 +98,25 @@ namespace igor
         */
         void clearFilter();
 
-        /*! recursive method to filter the octree with a set of filters starting with specified node id
+        /*! filters the octree using the current filter set
 
-        \param nodeID current octree node to check for filtering
-        */
-        void filter(uint64 nodeID);
-
-        /*! recursive method to filter the octree with a set of filters starting at root node
+        use getResult to get the result
         */
         void filter();
 
+        /*! filters the octree with given frustum
+
+        use getResult to get the result
+
+        \param frustum the given frustum
+        */
+        void filter(const iFrustumd &frustum);
+
         /*! returns the result of filtering
 
-        \param data in out parameter for the resulting data
+        \returns the filtered user data
         */
-        void getResult(std::vector<uint64> &data);
+        const std::vector<void *> &getResult() const;
 
         /*! creates the octree including the root node
 
@@ -122,7 +126,7 @@ namespace igor
         \param objectCountMinThreashold minimum amount of objects in the child nodes of a node before merging them together
         \todo it would be nice to have a octree with dynamic volume
         */
-        iOctree(const iAACubed &box, float64 halfMinResolution = 1.0, uint64 objectCountMaxThreashold = 5, uint64 objectCountMinThreashold = 2);
+        iOctree(const iAACubed &box, float64 halfMinResolution = 1.0, uint64 objectCountMaxThreashold = 8, uint64 objectCountMinThreashold = 2);
 
         /*! dtor
         \bug not implemented
@@ -167,10 +171,23 @@ namespace igor
             */
             uint64 _parent = 0;
 
-            /*! list of objects within the volume of this octree node
+            /*! list of user data
             */
-            std::vector<uint64> _objects;
+            std::vector<void *> _objects;
         };
+
+        /*! recursive method to filter the octree with a set of filters starting with specified node id
+
+        \param nodeID current octree node to check for filtering
+        */
+        void filter(uint64 nodeID);
+
+        /*! specialized version of filter function only filtering for given frustum
+
+        \param nodeID current octree node to check for filtering
+        \param frustum the given frustum
+        */
+        void filter(uint64 nodeID, const iFrustumd &frustum);
 
         /*! lookup table for faster split of octree node volumes
         */
@@ -194,11 +211,11 @@ namespace igor
 
         /*! lookup table for all objects within the octree
         */
-        std::map<uint64, OctreeObject *> _objects;
+        std::unordered_map<void *, OctreeObject *> _objects;
 
         /*! lookup table for all nodes within the octree
         */
-        std::map<uint64, OctreeNode *> _nodes;
+        std::unordered_map<uint64, OctreeNode *> _nodes;
 
         /*! id of the root node
         */
@@ -206,7 +223,7 @@ namespace igor
 
         /*! internal list for filtering
         */
-        std::vector<uint64> _queryResult;
+        std::vector<void *> _queryResult;
 
         /*! spheres filter list
         */
@@ -220,15 +237,19 @@ namespace igor
         */
         std::vector<iFrustumd> _frustumFilter;
 
+        /*! material for debug rendering the octree
+        */
+        iMaterialID _materialID = iMaterial::INVALID_MATERIAL_ID;
+
         /*! recursive function to insert a scene node to the octree
 
         if the right place is fount a octree object will be created the represents the scene node
 
         \param nodeID the current octree node in rucursion
-        \param userDataID the id of the scene node to bind to the octree object
+        \param userData the id of the scene node to bind to the octree object
         \param position position of scene node volume
         */
-        void insert(uint64 nodeID, uint64 userDataID, const iSphered &sphere);
+        void insert(uint64 nodeID, void *userData, const iSphered &sphere);
 
         /*! check if node has to be split and than split
 
@@ -282,16 +303,16 @@ namespace igor
 
         /*! creates an octree object
 
-        \param userDataID scene node to associate the octree object with
+        \param userData scene node to associate the octree object with
         \returns pointer to new octree object
         */
-        OctreeObject *createObject(uint64 userDataID, const iSphered &sphere);
+        OctreeObject *createObject(void *userData, const iSphered &sphere);
 
         /*! deletes an octree object by scene node id
 
-        \param userDataID id of the corresponding scene node
+        \param userData id of the corresponding scene node
         */
-        void deleteObject(uint64 userDataID);
+        void deleteObject(void *userData);
 
         /*! recursive method the draw the octree structure
 
@@ -299,8 +320,13 @@ namespace igor
 
         \param nodeID id of the current octree node
         */
-        void draw(uint64 nodeID);
+        float32 draw(uint64 nodeID);
     };
+
+    /*! octree pointer definition
+    */
+    typedef iOctree *iOctreePtr;
+
 } // namespace igor
 
-#endif
+#endif // __IGOR_OCTREE_H__

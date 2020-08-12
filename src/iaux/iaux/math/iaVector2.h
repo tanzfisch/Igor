@@ -37,223 +37,222 @@
 namespace iaux
 {
 
-	/*! 2 dimensional vector
+    /*! 2 dimensional vector
 	*/
-	template <class T>
-	class IgorAux_API_Template iaVector2
-	{
-	public:
-		/*! x component
+    template <class T>
+    class IAUX_API_TEMPLATE iaVector2
+    {
+    public:
+        /*! x component
 		*/
-		T _x = static_cast<T>(0);
+        T _x = static_cast<T>(0);
 
-		/*! y component
+        /*! y component
 		*/
-		T _y = static_cast<T>(0);
+        T _y = static_cast<T>(0);
 
-		/*! vector addition
+        /*! vector addition
 
 		\param vec vector to be added to this vector
 		\returns resulting vector
 		*/
-		iaVector2<T> operator+(const iaVector2<T> &vec) const;
+        iaVector2<T> operator+(const iaVector2<T> &vec) const;
 
-		/*! vector addition and assignment
+        /*! vector addition and assignment
 
 		\param vec vector to be added to this vector
 		*/
-		void operator+=(const iaVector2<T> &vec);
+        void operator+=(const iaVector2<T> &vec);
 
-		/*! vector subtraction
+        /*! vector subtraction
 
 		\param vec vector to be subtracted from this vector
 		\returns resulting vector
 		*/
-		iaVector2<T> operator-(const iaVector2<T> &vec) const;
+        iaVector2<T> operator-(const iaVector2<T> &vec) const;
 
-		/*! vector subtraction and assignment
+        /*! vector subtraction and assignment
 
 		\param vec vector to be subtracted from this vector
 		*/
-		void operator-=(const iaVector2<T> &vec);
+        void operator-=(const iaVector2<T> &vec);
 
-		/*! vector assignment
+        /*! vector assignment
 
 		\param vec vector to be assigned to this vector
 		*/
-		iaVector2<T> operator=(const iaVector2<T> &vec);
+        iaVector2<T> operator=(const iaVector2<T> &vec);
 
-		/*! multiplication of vector with scalar
+        /*! multiplication of vector with scalar
 
 		\param scalar value to multiply with this vector
 		\returns resulting vector
 		*/
-		iaVector2<T> operator*(T scalar) const;
+        iaVector2<T> operator*(T scalar) const;
 
-		/*! multiplication of vector with scalar and assignment
+        /*! multiplication of vector with scalar and assignment
 
 		\param scalar value to multiply with this vector
 		*/
-		void operator*=(T scalar);
+        void operator*=(T scalar);
 
-		/*! division of vector with scalar
+        /*! division of vector with scalar
 
 		\param scalar value to devide this vector by
 		\returns resulting vector
 		*/
-		iaVector2<T> operator/(T scalar) const;
+        iaVector2<T> operator/(T scalar) const;
 
-		/*! division of vector with scalar and assignment
+        /*! division of vector with scalar and assignment
 
 		\param scalar value to devide this vector by
 		*/
-		void operator/=(T scalar);
+        void operator/=(T scalar);
 
-		/*! comparison of two vectors
+        /*! comparison of two vectors
 
 		no deviation accepted
 
 		\returns true: if excactly equal; false: if not equal
 		*/
-		bool operator==(const iaVector2<T> &vec) const;
+        bool operator==(const iaVector2<T> &vec) const;
 
-		/*! comparison of two vectors
+        /*! comparison of two vectors
 
 		no deviation accepted
 
 		\returns true: if not equal; false: if excactly equal
 		*/
-		bool operator!=(const iaVector2<T> &vec) const;
+        bool operator!=(const iaVector2<T> &vec) const;
 
-		/*! dot product between two vectors
+        /*! dot product between two vectors
 
 		\param vec vector to multiply this vector with
 		\returns dot product of both vectors
 		*/
-		T operator*(const iaVector2<T> &vec) const;
+        T operator*(const iaVector2<T> &vec) const;
 
-		/*! \returns value by index (const version)
-
-		\param index the index of the value to be returned
-		*/
-		const T &operator[](int index) const;
-
-		/*! \returns value by index
+        /*! \returns value by index (const version)
 
 		\param index the index of the value to be returned
 		*/
-		T &operator[](int index);
+        const T &operator[](int index) const;
 
-		/*! \returns pointer to data
+        /*! \returns value by index
+
+		\param index the index of the value to be returned
 		*/
-		T *getData();
+        T &operator[](int index);
 
-		/*! \returns pointer to data (const version)
+        /*! \returns pointer to data
 		*/
-		const T *getData() const;
+        T *getData();
 
-		/*! set values
+        /*! \returns pointer to data (const version)
+		*/
+        const T *getData() const;
+
+        /*! set values
 
 		\param x x value to set
 		\param y y value to set
 		*/
-		void set(T x, T y);
+        void set(T x, T y);
 
-		/*! \returns length of vector
+        /*! \returns length of vector
 		*/
-		T length(void) const;
+        T length(void) const;
 
-		/*! \returns quadratic length of vector
+        /*! \returns quadratic length of vector
 		*/
-		T length2(void) const;
+        T length2(void) const;
 
-		/*! \returns distance between positions
+        /*! \returns distance between positions
 
 		\param vec the second position to calculate the distance to
 		*/
-		T distance(iaVector2<T> &vec) const;
+        T distance(iaVector2<T> &vec) const;
 
-		/*! \returns quadratic distance between positions
+        /*! \returns quadratic distance between positions
 
 		\param vec the second position to calculate the distance to
 		*/
-		T distance2(iaVector2<T> &vec) const;
+        T distance2(iaVector2<T> &vec) const;
 
-		/*! \returns angle in rad relative to X-Axis
+        /*! \returns angle in rad relative to X-Axis
 		*/
-		T angle() const;
+        T angle() const;
 
-		/*! \returns angle in rad between two vectors
+        /*! \returns angle in rad between two vectors
 
 		\param vec second vector to calculate the angle with
 		*/
-		T angle(iaVector2<T> &vec) const;
+        T angle(iaVector2<T> &vec) const;
 
-		/*! rotates a vector in XY plane
+        /*! rotates a vector in XY plane
 
 		\param angle the angle in rad to rotate the vector with
 		*/
-		void rotateXY(T angle);
+        void rotateXY(T angle);
 
-		/*! normalizes the vector
+        /*! normalizes the vector
 		*/
-		void normalize(void);
+        void normalize(void);
 
-		/*! conjugates (or negates) the vector
+        /*! conjugates (or negates) the vector
 		*/
-		void negate(void);
+        void negate(void);
 
-		/*! converts the vector in to given type of vector
+        /*! converts the vector in to given type of vector
 
 		\returns vector for given type
 		*/
-		template <class T2>
-		iaVector2<T2> convert() const;
+        template <class T2>
+        iaVector2<T2> convert() const;
 
-		/*! does nothing
+        /*! does nothing
 		*/
-		iaVector2() = default;
+        iaVector2() = default;
 
-		/*! initializes the vector with x y components
+        /*! initializes the vector with x y components
 
 		\param x x component
 		\param y y component
 		*/
-		iaVector2(T x, T y);
+        iaVector2(T x, T y);
 
-		/*! does nothing
+        /*! does nothing
 		*/
-		virtual ~iaVector2() = default;
-	};
+        virtual ~iaVector2() = default;
+    };
 
-	/*! linear interpolation of two vectors
+    /*! linear interpolation of two vectors
 
     \param a vector a
     \param b vector b
     \param t interpolation weight
     */
-	template <class T>
-	iaVector2<T> lerp(const iaVector2<T> &a, const iaVector2<T> &b, T t);
+    template <class T>
+    iaVector2<T> lerp(const iaVector2<T> &a, const iaVector2<T> &b, T t);
 
 #include <iaux/math/iaVector2.inl>
 
-	/*! float32 2d vector
+    /*! float32 2d vector
 	*/
-	typedef iaVector2<float32> iaVector2f;
+    typedef iaVector2<float32> iaVector2f;
 
-	/*! float64 2d vector
+    /*! float64 2d vector
 	*/
-	typedef iaVector2<float64> iaVector2d;
+    typedef iaVector2<float64> iaVector2d;
 
-	/*! int32 2d vector
+    /*! int32 2d vector
 	*/
-	typedef iaVector2<int32> iaVector2i;
+    typedef iaVector2<int32> iaVector2i;
 
-	/*! int64 2d vector
+    /*! int64 2d vector
 	*/
-	typedef iaVector2<int64> iaVector2I;
+    typedef iaVector2<int64> iaVector2I;
 
 }; // namespace iaux
 
 #endif // __IAUX_VECTOR2_H__
-

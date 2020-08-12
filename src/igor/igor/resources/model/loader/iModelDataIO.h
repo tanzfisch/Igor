@@ -58,7 +58,7 @@ namespace igor
 
     /*! pure abstract interface for node tree loaders
 	*/
-    class Igor_API iModelDataIO
+    class IGOR_API iModelDataIO
     {
 
     public:
