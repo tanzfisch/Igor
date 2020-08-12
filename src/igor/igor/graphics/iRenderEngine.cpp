@@ -205,8 +205,7 @@ namespace igor
         iFrustumd frustum(frustumMatrix);
 
         _scene->getOctree()->filter(frustum);
-        _scene->getOctree()->getResult(_cullResult);
-    }
+        }
 
     void iRenderEngine::updateMaterialGroups()
     {
@@ -217,7 +216,7 @@ namespace igor
             group.second.clear();
         }
 
-        for (auto nodeID : _cullResult)
+        for (auto nodeID : _scene->getOctree()->getResult())
         {
             iNodeRenderPtr renderNode = static_cast<iNodeRenderPtr>(iNodeManager::getInstance().getNode(nodeID));
 

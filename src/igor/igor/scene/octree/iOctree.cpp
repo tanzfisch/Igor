@@ -484,10 +484,10 @@ namespace igor
         return true;
     }
 
-    void iOctree::getResult(std::vector<uint64> &data)
+    const std::vector<uint64> &iOctree::getResult() const
     {
         IGOR_PROFILER();
-        data = _queryResult;
+        return _queryResult;
     }
 
     void iOctree::draw()

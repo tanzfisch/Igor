@@ -111,9 +111,9 @@ namespace igor
 
         /*! returns the result of filtering
 
-        \param data in out parameter for the resulting data
+        \returns the filtered object ids (in most applications this is equal to node IDs)
         */
-        void getResult(std::vector<uint64> &data);
+        const std::vector<uint64> &getResult() const;
 
         /*! creates the octree including the root node
 
