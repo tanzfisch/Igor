@@ -60,24 +60,25 @@ namespace igor
         if (instancing &&
             iNodeType::iNodeMesh == renderNode->getType())
         {
-            const auto meshBuffers = static_cast<iNodeMesh *>(renderNode)->getMeshBuffers();
+            const auto meshBuffers = static_cast<iNodeMeshPtr>(renderNode)->getMeshBuffers();
+            auto &instanceData = _instancedRenderNodes[meshBuffers];
 
-            if (_instancedRenderNodes[meshBuffers]._instancer == nullptr)
+            if (instanceData._instancer == nullptr)
             {
-                _instancedRenderNodes[meshBuffers]._instancer = new iInstancer(64, 100000); // TODO ... later
+                instanceData._instancer = new iInstancer(64, 100000); // TODO ... later
 
                 iNodeMeshPtr meshNode = static_cast<iNodeMeshPtr>(renderNode);
-                _instancedRenderNodes[meshBuffers]._targetMaterial = meshNode->getTargetMaterial();
+                instanceData._targetMaterial = meshNode->getTargetMaterial();
             }
 
-            static iaMatrixf matrix;
+            iaMatrixf matrix;
             const auto &worldMatrix = renderNode->getWorldMatrix();
             for (int i = 0; i < 16; ++i)
             {
                 matrix[i] = worldMatrix[i];
             }
 
-            _instancedRenderNodes[meshBuffers]._instancer->addInstance(matrix.getData());
+            instanceData._instancer->addInstance(&matrix);
         }
         else
         {

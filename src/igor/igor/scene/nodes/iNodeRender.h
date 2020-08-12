@@ -61,7 +61,7 @@ namespace igor
 
         /*! \retruns material id
         */
-        iMaterialID getMaterial();
+        iMaterialID getMaterial() const;
 
         /*! sets visibility of this node
 
@@ -117,6 +117,8 @@ namespace igor
         */
         iMaterialID _materialID = iMaterial::INVALID_MATERIAL_ID;
     };
+
+#include <igor/scene/nodes/iNodeRender.inl>
 
     /*! render node pointer definition
     */
