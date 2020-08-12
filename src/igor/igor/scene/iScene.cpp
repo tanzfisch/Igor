@@ -28,9 +28,7 @@ namespace igor
         _root->setName(L"RootNode");
         _root->setScene(this);
 
-        //! \todo octree needs to be of variable size
-        // maybe multiple octrees?
-        _octree = new iOctree(iAACubed(iaVector3d(0, 0, 0), 10000000.0), 50.0, 8, 4);
+        _octree = new iOctree(iAACubed(iaVector3d(0, 0, 0), 10000000.0), 10.0, 8, 2);
     }
 
     iScene::~iScene()
@@ -106,17 +104,17 @@ namespace igor
         }
     }
 
-    std::vector<iNodeRender *> &iScene::getRenderables()
+    const std::vector<iNodeRenderPtr> &iScene::getRenderables() const
     {
         return _renderables;
     }
 
-    std::vector<iNodeLight *> &iScene::getLights()
+    const std::vector<iNodeLightPtr> &iScene::getLights() const
     {
         return _lights;
     }
 
-    iaString iScene::getName() const
+    const iaString &iScene::getName() const
     {
         return _name;
     }
@@ -126,7 +124,7 @@ namespace igor
         _name = name;
     }
 
-    iNodePtr iScene::getRoot()
+    iNodePtr iScene::getRoot() const
     {
         return _root;
     }
@@ -197,7 +195,7 @@ namespace igor
             sphere._center._y = volume->getCenter()._y;
             sphere._center._z = volume->getCenter()._z;
             sphere._radius = volume->getBoundingSphere()._radius;
-            _octree->insert(volume->getID(), sphere);
+            _octree->insert(volume, sphere);
         }
     }
 
@@ -206,7 +204,7 @@ namespace igor
         auto iter = find(_volumes.begin(), _volumes.end(), volume);
         if (iter != _volumes.end())
         {
-            _octree->remove(volume->getID());
+            _octree->remove(volume);
             _volumes.erase(iter);
             return;
         }
@@ -222,7 +220,7 @@ namespace igor
         sphere._center._z = volume->getCenter()._z;
         sphere._radius = volume->getBoundingSphere()._radius;
 
-        _octree->update(volume->getID(), sphere);
+        _octree->update(volume, sphere);
     }
 
     void iScene::registerCamera(iNodeCamera *camera)
@@ -318,7 +316,7 @@ namespace igor
         }
     }
 
-    iOctree *iScene::getOctree()
+    iOctreePtr iScene::getOctree() const
     {
         return _octree;
     }

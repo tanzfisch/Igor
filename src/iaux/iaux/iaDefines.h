@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_DEFINES__
-#define __IAUX_DEFINES__
+#ifndef __IAUX_DEFINES_H__
+#define __IAUX_DEFINES_H__
 
 #include <string.h>
 #include <stdint.h>
@@ -68,7 +68,7 @@
 
 // Some Information arround __func__ __FUNCSIG__ and __FUNCTION__
 // http://stackoverflow.com/questions/4384765/whats-the-difference-between-pretty-function-function-func
-#define __IGOR_FUNCTION__ __FUNCTION__ "(...)"
+#define __IGOR_FUNCTION__ __FUNCTION__
 
 #ifdef _DEBUG
 #define __IGOR_DEBUG__
@@ -85,11 +85,11 @@
 #define __IGOR_MSCOMPILER__
 
 #ifdef __IAUX_BUILDING_DLL__
-#define IgorAux_API __declspec(dllexport)
-#define IgorAux_API_Template __declspec(dllexport)
+#define IAUX_API __declspec(dllexport)
+#define IAUX_API_TEMPLATE __declspec(dllexport)
 #else
-#define IgorAux_API __declspec(dllimport)
-#define IgorAux_API_Template
+#define IAUX_API __declspec(dllimport)
+#define IAUX_API_TEMPLATE
 #endif
 
 #define __IGOR_FUNCTION_POINTER__(name, returntype, parameters) typedef returntype(__CLRCALL_OR_CDECL *name) parameters
@@ -113,8 +113,8 @@
 #define __IGOR_DISABLE_WARNING__(num) // TODO
 #define __IGOR_ENABLE_WARNING__(num)  // TODO
 
-#define IgorAux_API
-#define IgorAux_API_Template
+#define IAUX_API
+#define IAUX_API_TEMPLATE
 
 #define __IGOR_FUNCTION_POINTER__(name, returntype, parameters) typedef returntype(*name) parameters
 #define __IGOR_MEMBERFUNCTION_POINTER__(classname, name, returntype, parameters) typedef returntype(classname::*name) parameters
@@ -332,4 +332,4 @@ typedef uint32 iaID32;
 typedef uint16 iaID16;
 typedef uint8 iaID8;
 
-#endif
+#endif // __IAUX_DEFINES_H__

@@ -58,7 +58,7 @@ namespace igor
 
     \todo currently Igor only fully supports one window
     */
-    class Igor_API iWindow
+    class IGOR_API iWindow
     {
 
         friend class iApplication;

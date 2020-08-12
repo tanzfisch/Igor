@@ -46,7 +46,7 @@ namespace igor
         \param segments the segment count of the cylinder
         \param hasCaps if true the cylinder will have caps on top and bottom
         */
-        void Igor_API addCylinder(iMeshBuilder &meshBuilder, float32 radius, float32 height, uint32 segments = 16, bool hasCaps = true);
+        void IGOR_API addCylinder(iMeshBuilder &meshBuilder, float32 radius, float32 height, uint32 segments = 16, bool hasCaps = true);
 
         /*! adds a sphere to the given mesh builder instance
 
@@ -54,7 +54,7 @@ namespace igor
 		\param radius the radius of the cylinder
 		\param segments the segment count of the cylinder
 		*/
-        void Igor_API addSphere(iMeshBuilder &meshBuilder, float32 radius, uint32 segments = 16);
+        void IGOR_API addSphere(iMeshBuilder &meshBuilder, float32 radius, uint32 segments = 16);
 
         /*! adds a box to the given mesh builder instance
 
@@ -63,7 +63,7 @@ namespace igor
         \param height height of the box
         \param depth depth of the box
         */
-        void Igor_API addBox(iMeshBuilder &meshBuilder, float32 width, float32 height, float32 depth);
+        void IGOR_API addBox(iMeshBuilder &meshBuilder, float32 width, float32 height, float32 depth);
 
         /*! adds a cone to the given mesh builder instance
 
@@ -72,7 +72,7 @@ namespace igor
         \param height the height of the cone
         \param segments the segment count of the cone
         */
-        void Igor_API addCone(iMeshBuilder &meshBuilder, float32 radius, float32 height, uint32 segments = 16);
+        void IGOR_API addCone(iMeshBuilder &meshBuilder, float32 radius, float32 height, uint32 segments = 16);
 
         /*! adds a circle to the given mesh builder instance
 
@@ -80,7 +80,7 @@ namespace igor
         \param radius the radius of the circle
         \param segments the segment count of the circle
         */
-        void Igor_API addCircle(iMeshBuilder &meshBuilder, float32 radius, uint32 segments = 16);
+        void IGOR_API addCircle(iMeshBuilder &meshBuilder, float32 radius, uint32 segments = 16);
 
         /*! adds a ring to the given mesh builder instance
 
@@ -89,7 +89,7 @@ namespace igor
         \param outerRadius the outer radius of the ring
         \param segments the segment count of the ring
         */
-        void Igor_API addRing(iMeshBuilder &meshBuilder, float32 innerRadius, float32 outerRadius, uint32 segments = 16);
+        void IGOR_API addRing(iMeshBuilder &meshBuilder, float32 innerRadius, float32 outerRadius, uint32 segments = 16);
 
         /*! adds a rectangle in XZ plane
 
@@ -99,14 +99,14 @@ namespace igor
         \param sizeX size in x axis
         \param sizeZ size in z axis
         */
-        void Igor_API addRectangle(iMeshBuilder &meshBuilder, float32 x, float32 z, float32 sizeX, float32 sizeZ);
+        void IGOR_API addRectangle(iMeshBuilder &meshBuilder, float32 x, float32 z, float32 sizeX, float32 sizeZ);
 
         /*! adds a mesh to the mesh builder
 
 		\param meshBuilder the given mesh builder instance
 		\param mesh the mesh to be added
 		*/
-        void Igor_API addMesh(iMeshBuilder &meshBuilder, const iMeshPtr mesh);
+        void IGOR_API addMesh(iMeshBuilder &meshBuilder, const iMeshPtr mesh);
 
     } // namespace iMeshBuilderUtils
 

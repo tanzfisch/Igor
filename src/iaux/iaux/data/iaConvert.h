@@ -40,7 +40,7 @@ namespace iaux
 
     /*! contains some simple converters    
     */
-    class IgorAux_API iaConvert
+    class IAUX_API iaConvert
     {
 
     public:

@@ -42,7 +42,7 @@ namespace igor
 
     /*! evaluation that menipulates transform nodes using key frames
     */
-    class Igor_API iEvaluationTransform : public iEvaluation
+    class IGOR_API iEvaluationTransform : public iEvaluation
     {
 
         friend class iEvaluationManager;

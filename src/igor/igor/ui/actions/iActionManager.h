@@ -39,7 +39,7 @@ namespace igor
 
     /*! action manager class
     */
-    class Igor_API iActionManager : public iModule<iActionManager>
+    class IGOR_API iActionManager : public iModule<iActionManager>
     {
 
         friend class iModule<iActionManager>;

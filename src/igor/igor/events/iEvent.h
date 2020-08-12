@@ -83,7 +83,7 @@ namespace igor
 
     /*! event base class
     */
-    class Igor_API iEvent
+    class IGOR_API iEvent
     {
     public:
         /*! init members
@@ -172,7 +172,7 @@ namespace igor
 	\param event the event
 	\returns the resulting stream
 	*/
-    Igor_API std::wostream &operator<<(std::wostream &stream, const iEvent &event);
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iEvent &event);
 
     /*! helper macro to define event type
     */

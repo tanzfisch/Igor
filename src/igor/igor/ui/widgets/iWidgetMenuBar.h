@@ -42,7 +42,7 @@ namespace igor
 
     /*! menu bar widget
     */
-    class Igor_API iWidgetMenuBar : public iWidget
+    class IGOR_API iWidgetMenuBar : public iWidget
     {
 
     public:

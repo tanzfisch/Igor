@@ -86,7 +86,7 @@ namespace igor
         _mutexQueue.unlock();
     }
 
-    void iNodeManager::destroyNodeAsync(uint64 nodeID)
+    void iNodeManager::destroyNodeAsync(iNodeID nodeID)
     {
         con_assert(nodeID != iNode::INVALID_NODE_ID, "invalid node id");
 
@@ -178,22 +178,30 @@ namespace igor
         }
     }
 
-    std::vector<uint64> iNodeManager::getNodes(iNodeType nodeType)
+    void iNodeManager::getNodes(std::vector<iNodeID> &nodes)
     {
-        std::vector<uint64> result;
+        nodes.clear();
+
+        for (auto node : _nodes)
+        {
+            nodes.push_back(node.first);
+        }
+    }
+
+    void iNodeManager::getNodes(std::vector<iNodeID> &nodes, iNodeType nodeType)
+    {
+        nodes.clear();
 
         for (auto node : _nodes)
         {
             if (node.second->getType() == nodeType)
             {
-                result.push_back(node.first);
+                nodes.push_back(node.first);
             }
         }
-
-        return result;
     }
 
-    void iNodeManager::destroyNode(uint64 nodeID)
+    void iNodeManager::destroyNode(iNodeID nodeID)
     {
         iNodePtr node = nullptr;
 
@@ -229,7 +237,7 @@ namespace igor
     iNodePtr iNodeManager::createCopy(iNodePtr node)
     {
         iNodePtr result = nullptr;
-        std::map<uint64, uint64> nodeIDMap;
+        std::map<iNodeID, iNodeID> nodeIDMap;
 
         result = createCopyInternal(node, nodeIDMap, UINT32_MAX);
 
@@ -245,7 +253,7 @@ namespace igor
         return result;
     }
 
-    iNodePtr iNodeManager::createCopyInternal(iNodePtr node, std::map<uint64, uint64> &nodeIDMap, uint32 recursiveDepth)
+    iNodePtr iNodeManager::createCopyInternal(iNodePtr node, std::map<iNodeID, iNodeID> &nodeIDMap, uint32 recursiveDepth)
     {
         iNodePtr result = nullptr;
         result = createNodeCopy(node);

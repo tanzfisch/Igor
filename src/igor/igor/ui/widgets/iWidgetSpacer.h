@@ -37,35 +37,35 @@ using namespace iaux;
 namespace igor
 {
 
-	/*! spacer widget
+    /*! spacer widget
 	*/
-	class Igor_API iWidgetSpacer : public iWidget
-	{
+    class IGOR_API iWidgetSpacer : public iWidget
+    {
 
-	public:
-		/*! ctor initializes member variables
+    public:
+        /*! ctor initializes member variables
 
 		\param parent optional parent
 		*/
-		iWidgetSpacer(int32 width, int32 height, bool visible = false, const iWidgetPtr parent = nullptr);
+        iWidgetSpacer(int32 width, int32 height, bool visible = false, const iWidgetPtr parent = nullptr);
 
-		/*! does nothing
+        /*! does nothing
 		*/
-		virtual ~iWidgetSpacer() = default;
+        virtual ~iWidgetSpacer() = default;
 
-	protected:
-		/*! updates size based on it's content
+    protected:
+        /*! updates size based on it's content
 		*/
-		void calcMinSize() override;
+        void calcMinSize() override;
 
-		/*! draws the button
+        /*! draws the button
 		*/
-		void draw();
-	};
+        void draw();
+    };
 
-	/*! widget spacer pointer definition
+    /*! widget spacer pointer definition
 	*/
-	typedef iWidgetSpacer *iWidgetSpacerPtr;
+    typedef iWidgetSpacer *iWidgetSpacerPtr;
 } // namespace igor
 
 #endif // __IGOR_WIDGETSPACER_H__

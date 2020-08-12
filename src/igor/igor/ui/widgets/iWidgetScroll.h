@@ -38,214 +38,214 @@ using namespace iaux;
 namespace igor
 {
 
-	class iUserControl;
+    class iUserControl;
 
-	/*! scroll widget
+    /*! scroll widget
 
 	basically allows to have a child that is bigger an ads some srcoll bars then
 
 	\todo need to use actual buttons for the scroll bars, or a scroll bar widget
 	*/
-	class Igor_API iWidgetScroll : public iWidget
-	{
+    class IGOR_API iWidgetScroll : public iWidget
+    {
 
-	public:
-		/*! ctor initializes membervariables
+    public:
+        /*! ctor initializes membervariables
 
 		\param parent optional parent
 		*/
-		iWidgetScroll(const iWidgetPtr parent = nullptr);
+        iWidgetScroll(const iWidgetPtr parent = nullptr);
 
-		/*! does nothing
+        /*! does nothing
 		*/
-		~iWidgetScroll() = default;
+        ~iWidgetScroll() = default;
 
-		/*! sets the width or thikness of the scrollbars
+        /*! sets the width or thikness of the scrollbars
 		*/
-		void setScollbarWidth(int32 width);
+        void setScollbarWidth(int32 width);
 
-		/*! \returns scrollbar width
+        /*! \returns scrollbar width
 		*/
-		int32 getScollbarWidth();
+        int32 getScollbarWidth();
 
-		/*! sets horizontal scroll value
+        /*! sets horizontal scroll value
 
 		\param value new value for horizontal scroll
 		*/
-		void setHorizontalScroll(float32 value);
+        void setHorizontalScroll(float32 value);
 
-		/*! sets vertical scroll value
+        /*! sets vertical scroll value
 
 		\param value new value for vertical scroll
 		*/
-		void setVerticalScroll(float32 value);
+        void setVerticalScroll(float32 value);
 
-	private:
-		struct ScrollButton
-		{
-			/*! rectangle of button
+    private:
+        struct ScrollButton
+        {
+            /*! rectangle of button
 			*/
-			iRectanglei _rectangle;
+            iRectanglei _rectangle;
 
-			/*! button apearance state
+            /*! button apearance state
 			*/
-			iWidgetState _appearanceState = iWidgetState::Standby;
+            iWidgetState _appearanceState = iWidgetState::Standby;
 
-			/*! button mouse over state
+            /*! button mouse over state
 			*/
-			bool _mouseOver = false;
+            bool _mouseOver = false;
 
-			/*! if true the button is kept pressed
+            /*! if true the button is kept pressed
 			*/
-			bool _mouseDown = false;
-		};
+            bool _mouseDown = false;
+        };
 
-		/*! scroll bar width
+        /*! scroll bar width
 		*/
-		int32 _scrollbarWidth = 15;
+        int32 _scrollbarWidth = 15;
 
-		/*! vertical scroll factor 0.0 - 1.0
+        /*! vertical scroll factor 0.0 - 1.0
 		*/
-		float32 _vscroll = 0;
+        float32 _vscroll = 0;
 
-		/*! horizontal scroll factor 0.0 - 1.0
+        /*! horizontal scroll factor 0.0 - 1.0
 		*/
-		float32 _hscroll = 0;
+        float32 _hscroll = 0;
 
-		/*! vertical scrollbar active aka visible
+        /*! vertical scrollbar active aka visible
 		*/
-		bool _vscrollActive = false;
+        bool _vscrollActive = false;
 
-		/*! horizontal scrollbar active aka visible
+        /*! horizontal scrollbar active aka visible
 		*/
-		bool _hscrollActive = false;
+        bool _hscrollActive = false;
 
-		/*! horizontal scroll button
+        /*! horizontal scroll button
 		*/
-		ScrollButton _hscrollButton;
+        ScrollButton _hscrollButton;
 
-		/*! vertical scroll button
+        /*! vertical scroll button
 		*/
-		ScrollButton _vscrollButton;
+        ScrollButton _vscrollButton;
 
-		/*! up button
+        /*! up button
 		*/
-		ScrollButton _upButton;
+        ScrollButton _upButton;
 
-		/*! down button
+        /*! down button
 		*/
-		ScrollButton _downButton;
+        ScrollButton _downButton;
 
-		/*! left button
+        /*! left button
 		*/
-		ScrollButton _leftButton;
+        ScrollButton _leftButton;
 
-		/*! right button
+        /*! right button
 		*/
-		ScrollButton _rightButton;
+        ScrollButton _rightButton;
 
-		/*! rectangle of child frame
+        /*! rectangle of child frame
 		*/
-		iRectanglei _childFrame;
+        iRectanglei _childFrame;
 
-		/*! texture for button up 
+        /*! texture for button up 
 		*/
-		iTexturePtr _upTexture;
+        iTexturePtr _upTexture;
 
-		/*! texture for button down
+        /*! texture for button down
 		*/
-		iTexturePtr _downTexture;
+        iTexturePtr _downTexture;
 
-		/*! texture for button left
+        /*! texture for button left
 		*/
-		iTexturePtr _leftTexture;
+        iTexturePtr _leftTexture;
 
-		/*! texture for button uright
+        /*! texture for button uright
 		*/
-		iTexturePtr _rightTexture;
+        iTexturePtr _rightTexture;
 
-		/*! handles incomming mouse wheel event
+        /*! handles incomming mouse wheel event
 
 		\param d mouse wheel delta
 		\returns true: if event was consumed and therefore ignored by the parent
 		*/
-		bool handleMouseWheel(int32 d) override;
+        bool handleMouseWheel(int32 d) override;
 
-		/*! handles incomming mouse move events
+        /*! handles incomming mouse move events
 
 		\param pos mouse position
 		*/
-		void handleMouseMove(const iaVector2i &pos) override;
+        void handleMouseMove(const iaVector2i &pos) override;
 
-		/*! handles incomming mouse key down events
+        /*! handles incomming mouse key down events
 
 		\param key the key that was pressed
 		\returns true: if event was consumed and therefore ignored by the parent
 		*/
-		bool handleMouseKeyDown(iKeyCode key) override;
+        bool handleMouseKeyDown(iKeyCode key) override;
 
-		/*! handles internal button clicks
+        /*! handles internal button clicks
 		\return true if click was consumed
 		*/
-		bool handleButtonClicks();
+        bool handleButtonClicks();
 
-		/*! handles mouse key up events
-
-		\param key the key that was pressed
-		\returns true: if event was consumed and therefore ignored by the parent
-		*/
-		bool handleMouseKeyUp(iKeyCode key) override;
-
-		/*! handles incomming double click
+        /*! handles mouse key up events
 
 		\param key the key that was pressed
 		\returns true: if event was consumed and therefore ignored by the parent
 		*/
-		bool handleMouseDoubleClick(iKeyCode key) override;
+        bool handleMouseKeyUp(iKeyCode key) override;
 
-		/*! updates size based on it's content
+        /*! handles incomming double click
+
+		\param key the key that was pressed
+		\returns true: if event was consumed and therefore ignored by the parent
 		*/
-		void calcMinSize() override;
+        bool handleMouseDoubleClick(iKeyCode key) override;
 
-		/*! draws the button
+        /*! updates size based on it's content
 		*/
-		void draw();
+        void calcMinSize() override;
 
-		/*! calculate position and size of scroll buttons
+        /*! draws the button
 		*/
-		void calcButtons();
+        void draw();
 
-		/*! \returns the space in which the vertical slider button can be moved
+        /*! calculate position and size of scroll buttons
 		*/
-		int32 calcVerticalScrollSpace() const;
+        void calcButtons();
 
-		/*! \returns the space in which the horizontal slider button can be moved
+        /*! \returns the space in which the vertical slider button can be moved
 		*/
-		int32 calcHorizontalScrollSpace() const;
+        int32 calcVerticalScrollSpace() const;
 
-		/*! calc child frame
+        /*! \returns the space in which the horizontal slider button can be moved
+		*/
+        int32 calcHorizontalScrollSpace() const;
+
+        /*! calc child frame
 
 		it's similar to the client area but it can vary if scroll bars are visible
 		*/
-		void calcChildFrame();
+        void calcChildFrame();
 
-		/*! updates widget alignment
+        /*! updates widget alignment
 
 		\param clientWidth maximum width this widget can align to
 		\param clientHeight maximum height this widget can align to
 		*/
-		void updateAlignment(int32 clientWidth, int32 clientHeight);
+        void updateAlignment(int32 clientWidth, int32 clientHeight);
 
-		/*! calculates childrens ofsets relative to thair parent
+        /*! calculates childrens ofsets relative to thair parent
 
 		\param offsets vector to be filled with childrens offsets
 		*/
-		void calcChildOffsets(std::vector<iRectanglei> &offsets);
-	};
+        void calcChildOffsets(std::vector<iRectanglei> &offsets);
+    };
 
-	/*! widget scroll pointer definition
+    /*! widget scroll pointer definition
 	*/
-	typedef iWidgetScroll *iWidgetScrollPtr;
+    typedef iWidgetScroll *iWidgetScrollPtr;
 } // namespace igor
 
 #endif // __IGOR_WIDGETSCROLL_H__

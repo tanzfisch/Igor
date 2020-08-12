@@ -40,147 +40,147 @@
 namespace iaux
 {
 
-	/*! 3x3 Matrix
+    /*! 3x3 Matrix
 	*/
-	template <class T>
-	class IgorAux_API_Template iaMatrix2D
-	{
-	public:
-		/*! internal data
+    template <class T>
+    class IAUX_API_TEMPLATE iaMatrix2D
+    {
+    public:
+        /*! internal data
 		*/
-		T _m[9];
+        T _m[9];
 
-		/*! addition
+        /*! addition
 		*/
-		void operator+=(iaMatrix2D &a);
+        void operator+=(iaMatrix2D &a);
 
-		/*! subtraction
+        /*! subtraction
 		*/
-		void operator-=(iaMatrix2D &a);
+        void operator-=(iaMatrix2D &a);
 
-		/*! comparison of two matrices
+        /*! comparison of two matrices
 
 		\param a the second matrix to compare this matrix with
 		\returns true if matrices are equal
 		*/
-		bool operator==(const iaMatrix2D<T> &a) const;
+        bool operator==(const iaMatrix2D<T> &a) const;
 
-		/*! negated comparison of two matrices
+        /*! negated comparison of two matrices
 
 		\param a the second matrix to compare this matrix with
 		\returns true if matrices are not equal
 		*/
-		bool operator!=(const iaMatrix2D<T> &a) const;
+        bool operator!=(const iaMatrix2D<T> &a) const;
 
-		/*! matrix vector2 multiplication
+        /*! matrix vector2 multiplication
 		*/
-		iaVector2<T> operator*(iaVector2<T> &a);
+        iaVector2<T> operator*(iaVector2<T> &a);
 
-		/*! matrix vector3 multiplication
+        /*! matrix vector3 multiplication
 		*/
-		iaVector3<T> operator*(iaVector3<T> &a);
+        iaVector3<T> operator*(iaVector3<T> &a);
 
-		/*! matrix multiplication
+        /*! matrix multiplication
 		*/
-		iaMatrix2D operator*(iaMatrix2D &m);
+        iaMatrix2D operator*(iaMatrix2D &m);
 
-		/*! matrix multiplication
+        /*! matrix multiplication
 		*/
-		void operator*=(iaMatrix2D &m);
+        void operator*=(iaMatrix2D &m);
 
-		/*! matrix component by index
+        /*! matrix component by index
 
 		\param i only indexes from 0 to 8 are allowed
 		*/
-		T &operator[](const int i);
+        T &operator[](const int i);
 
-		/*! initializes matrix with id matrix
+        /*! initializes matrix with id matrix
 		*/
-		void identity();
+        void identity();
 
-		/*! returns the determinant of the 3x3 part of the matrix
+        /*! returns the determinant of the 3x3 part of the matrix
 		*/
-		T determinant();
+        T determinant();
 
-		/*! calculates the inverse of the matrix and overwrites the original value
+        /*! calculates the inverse of the matrix and overwrites the original value
 		*/
-		void transpose();
+        void transpose();
 
-		/*! translate the matrix by vector dd
+        /*! translate the matrix by vector dd
 
 		\param a translation vector
 		*/
-		void translate(const iaVector2<T> &a);
+        void translate(const iaVector2<T> &a);
 
-		/*! translate the matrix by vector 2d
+        /*! translate the matrix by vector 2d
 
 		\param x x component
 		\param y y component
 		*/
-		void translate(T x, T y);
+        void translate(T x, T y);
 
-		/*! scale matrix by vector
+        /*! scale matrix by vector
 
 		\param s scale vector
 		*/
-		void scale(iaVector2<T> &s);
+        void scale(iaVector2<T> &s);
 
-		/*! scale matrix by vector
+        /*! scale matrix by vector
 
 		\param x x component of vector
 		\param y y component of vector
 		*/
-		void scale(T x, T y);
+        void scale(T x, T y);
 
-		/*! rotates the matrix
+        /*! rotates the matrix
 
 		\param angle angle to rotate in radians
 		*/
-		void rotate(T angle);
+        void rotate(T angle);
 
-		/*! returns pointer to the data
+        /*! returns pointer to the data
 		*/
-		const T *getData() const;
+        const T *getData() const;
 
-		/*! returns pointer to the data
+        /*! returns pointer to the data
 		*/
-		T *getData();
+        T *getData();
 
-		/*! set data
+        /*! set data
 		*/
-		void setData(T *data);
+        void setData(T *data);
 
-		/*! converts the vector in to given type of vector
+        /*! converts the vector in to given type of vector
 
 		\returns matrix for given type
 		*/
-		template <class T2>
-		iaMatrix2D<T2> convert();
+        template <class T2>
+        iaMatrix2D<T2> convert();
 
-		/*! initializes the matrix with the id matrix
+        /*! initializes the matrix with the id matrix
 		*/
-		iaMatrix2D();
+        iaMatrix2D();
 
-		/*! initializes matrix with a data set
+        /*! initializes matrix with a data set
 
 		\param data matrix
 		*/
-		iaMatrix2D(const T data[9]);
+        iaMatrix2D(const T data[9]);
 
-		/*! does nothing
+        /*! does nothing
 		*/
-		~iaMatrix2D();
-	};
+        ~iaMatrix2D();
+    };
 
 #include <iaux/math/iaMatrix2D.inl>
 
-	/*! float32 3x3 matrix
+    /*! float32 3x3 matrix
 	*/
-	typedef iaMatrix2D<float32> iaMatrix3x3f;
+    typedef iaMatrix2D<float32> iaMatrix3x3f;
 
-	/*! float64 3x3 matrix
+    /*! float64 3x3 matrix
 	*/
-	typedef iaMatrix2D<float64> iaMatrix3x3d;
+    typedef iaMatrix2D<float64> iaMatrix3x3d;
 
 }; // namespace iaux
 

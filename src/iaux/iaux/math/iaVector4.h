@@ -39,7 +39,7 @@ namespace iaux
     \todo implement more operators
     */
     template <class T>
-    class IgorAux_API_Template iaVector4
+    class IAUX_API_TEMPLATE iaVector4
     {
     public:
         /*! x component

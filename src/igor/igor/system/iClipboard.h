@@ -48,7 +48,7 @@ namespace igor
 
     \todo make the clipboard work outside of igor
 	*/
-    class Igor_API iClipboard : public iModule<iClipboard>
+    class IGOR_API iClipboard : public iModule<iClipboard>
     {
 
         friend class iModule<iClipboard>;

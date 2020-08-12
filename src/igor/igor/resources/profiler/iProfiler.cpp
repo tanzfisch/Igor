@@ -17,6 +17,11 @@ using namespace iaux;
 namespace igor
 {
 
+#ifdef IGOR_DEEP_PROFILING
+    std::map<uint64, iProfilerFunction *> iProfilerFunction::_data;
+    static iaMutex iProfilerFunction::_mutex;
+#endif
+
 #define SECTOINDEX(sec) (sec - 1)
 
     iProfilerSectionID iProfiler::createSection(const iaString &sectionName)
@@ -55,6 +60,31 @@ namespace igor
         iRenderer::getInstance().onStopFrame();
 
         _frame = (_frame + 1) % MAX_FRAMES_COUNT;
+
+#ifdef IGOR_DEEP_PROFILING
+        if (loggingFrame)
+        {
+            iProfilerFunction::_mutex.lock();
+            std::map<uint64, iProfilerFunction *> data = iProfilerFunction::_data;
+            iProfilerFunction::_mutex.unlock();
+
+            std::vector<iProfilerFunction *> functions;
+            for (const auto pair : data)
+            {
+                functions.push_back(pair.second);
+            }
+
+            std::sort(functions.begin(), functions.end(), [](const iProfilerFunction *a, const iProfilerFunction *b) {
+                return (a->_duration.getMilliseconds() / a->_callCount) > (b->_duration.getMilliseconds() / b->_callCount);
+            });
+
+            for (const auto func : functions)
+            {
+                con_endl(func->_name << " " << func->_file << ":" << func->_line);
+                con_endl("calls:" << func->_callCount << " avg:" << (func->_duration.getMilliseconds() / func->_callCount) << "ms total:" << func->_duration.getMilliseconds() << "ms");
+            }
+        }
+#endif
 
         iRenderer::getInstance().onStartFrame(loggingFrame);
     }

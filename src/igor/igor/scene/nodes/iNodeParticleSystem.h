@@ -50,7 +50,7 @@ namespace igor
 
     /*! node to control a 3d particle system
     */
-    class Igor_API iNodeParticleSystem : public iNodeVolume
+    class IGOR_API iNodeParticleSystem : public iNodeVolume
     {
 
         friend class iNodeManager;

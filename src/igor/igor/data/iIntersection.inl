@@ -5,48 +5,24 @@
 template <typename T>
 bool iIntersection::intersects(const iSphere<T> &sphereA, const iSphere<T> &sphereB)
 {
-    iaVector3<T> diff = sphereB._center - sphereA._center;
-    T distance = diff.length();
+    T distance = sphereB._center.distance(sphereA._center);
     distance -= sphereA._radius;
     distance -= sphereB._radius;
-    if (distance <= 0)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return distance <= 0;
 }
 
 template <typename T>
 bool iIntersection::contains(const iSphere<T> &sphereA, const iSphere<T> &sphereB)
 {
-    iaVector3<T> diff = sphereB._center - sphereA._center;
-    T distance = diff.length();
-
-    if (distance + sphereB._radius <= sphereA._radius)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    const T distance = sphereB._center.distance(sphereA._center) + sphereB._radius;
+    return distance <= sphereA._radius;
 }
 
 template <typename T>
 bool iIntersection::inFrontOf(const iSphere<T> &sphere, const iPlane<T> &plane)
 {
-    T distancePlanePoint = (plane._normal * sphere._center) + plane._distance;
-    if (distancePlanePoint <= -sphere._radius)
-    {
-        return false;
-    }
-    else
-    {
-        return true;
-    }
+    const T distancePlanePoint = (plane._normal * sphere._center) - plane._distance;
+    return distancePlanePoint > -sphere._radius;
 }
 
 template <typename T>
@@ -82,18 +58,9 @@ bool iIntersection::intersects(const iSphere<T> &sphere, const iFrustum<T> &frus
 template <typename T>
 bool iIntersection::inFrontOf(const iAACube<T> &cube, const iPlane<T> &plane)
 {
-    //! \todo calculation is not precise
-#define SQRT2 3 // 1.414213562373095
-
-    T distancePlanePoint = (plane._normal * cube._center) + plane._distance;
-    if (distancePlanePoint <= -cube._halfEdgeLength * SQRT2)
-    {
-        return false;
-    }
-    else
-    {
-        return true;
-    }
+    //! \todo this calculations are crap. basically pretending the cube is a sphere
+    const T distancePlanePoint = (plane._normal * cube._center) - plane._distance;
+    return distancePlanePoint > (-cube._halfEdgeLength * 3);
 }
 
 template <typename T>

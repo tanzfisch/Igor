@@ -36,7 +36,7 @@ namespace igor
 
     /*! application stop action
 	*/
-    class Igor_API iActionApplicationStop : public iAction
+    class IGOR_API iActionApplicationStop : public iAction
     {
 
     public:

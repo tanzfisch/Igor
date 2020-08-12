@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX___
-#define __IAUX___
+#ifndef __IAUX_H__
+#define __IAUX_H__
 
 #include <iaux/iaDefines.h>
 
@@ -36,17 +36,17 @@
 namespace iaux
 {
 
-	/*! should be called before any other interface of IgorAux is used	
+    /*! should be called before any other interface of IgorAux is used	
 	*/
-	IgorAux_API void startup();
+    IAUX_API void startup();
 
-	/*! should be called last in your application. do not use any Igor interface after that
+    /*! should be called last in your application. do not use any Igor interface after that
 	
 	Shuts down all the singleton instances.
 	Not thread save. make shure only one thread is left when calling this.
 	*/
-	IgorAux_API void shutdown();
+    IAUX_API void shutdown();
 
 } // namespace iaux
 
-#endif
+#endif // __IAUX_H__

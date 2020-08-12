@@ -37,29 +37,29 @@
 namespace igor
 {
 
-  class Igor_API iTaskPrepareCollision : public iTask
-  {
+    class IGOR_API iTaskPrepareCollision : public iTask
+    {
 
-  public:
-    /*! initializes member variables
+    public:
+        /*! initializes member variables
 
         \param model the model to load
         */
-    iTaskPrepareCollision(uint64 collisionConfigID, uint32 priority = 0);
+        iTaskPrepareCollision(uint64 collisionConfigID, uint32 priority = 0);
 
-    /*! does nothing
+        /*! does nothing
         */
-    virtual ~iTaskPrepareCollision() = default;
+        virtual ~iTaskPrepareCollision() = default;
 
-  private:
-    /*! the collision to configure
+    private:
+        /*! the collision to configure
         */
-    uint64 _collisionConfigID = iPhysicsCollisionConfig::INVALID_COLLISIONCONFIG_ID;
+        uint64 _collisionConfigID = iPhysicsCollisionConfig::INVALID_COLLISIONCONFIG_ID;
 
-    /*! runs the task
+        /*! runs the task
         */
-    void run();
-  };
+        void run();
+    };
 
 }; // namespace igor
 

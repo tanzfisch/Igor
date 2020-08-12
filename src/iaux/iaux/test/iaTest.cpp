@@ -40,12 +40,11 @@ namespace iaux
             {
                 s_filter = value;
             }
-        }   
+        }
     }
 
     void iaTest::runTests()
     {
-        std::cout << "runTests" << std::endl;
         bool ok = true;
         for (auto groupPair : _tests)
         {
@@ -59,7 +58,7 @@ namespace iaux
                     continue;
                 }
 
-                std::cout << "RUNNING " << testID.str() << " @ " << test->getLocation() << std::endl;
+                iaConsole::getInstance() << iaForegroundColor::Gray << "RUNNING " << testID.str().c_str() << " @ " << test->getLocation() << endl;
                 test->run();
                 if (!test->success())
                 {

@@ -37,66 +37,66 @@ using namespace iaux;
 namespace igor
 {
 
-	/*! label widget
+    /*! label widget
 	*/
-	class Igor_API iWidgetLabel : public iWidget
-	{
+    class IGOR_API iWidgetLabel : public iWidget
+    {
 
-	public:
-		/*! ctor initializes member variables
+    public:
+        /*! ctor initializes member variables
 
 		\param parent optional parent
 		*/
-		iWidgetLabel(const iWidgetPtr parent = nullptr);
+        iWidgetLabel(const iWidgetPtr parent = nullptr);
 
-		/*! does nothing
+        /*! does nothing
 		*/
-		virtual ~iWidgetLabel() = default;
+        virtual ~iWidgetLabel() = default;
 
-		/*! sets maximum text width
+        /*! sets maximum text width
 
 		text that needs more space will automatically turn in to multi line text
 
 		\param width max width
 		*/
-		void setMaxTextWidth(int32 width);
+        void setMaxTextWidth(int32 width);
 
-		/*! \returns max text width
+        /*! \returns max text width
 		*/
-		int32 getMaxTextWidth();
+        int32 getMaxTextWidth();
 
-		/*! sets text
+        /*! sets text
 
 		\param text the label text
 		*/
-		void setText(const iaString &text);
+        void setText(const iaString &text);
 
-		/*! \returns label text
+        /*! \returns label text
 		*/
-		const iaString &getText() const;
+        const iaString &getText() const;
 
-	protected:
-		/*! label text
+    protected:
+        /*! label text
 		*/
-		iaString _text;
+        iaString _text;
 
-		/*! max label width
+        /*! max label width
 		*/
-		int32 _maxTextWidth = 0;
+        int32 _maxTextWidth = 0;
 
-	private:
-		/*! updates size based on it's content
+    private:
+        /*! updates size based on it's content
 		*/
-		void calcMinSize() override;
+        void calcMinSize() override;
 
-		/*! draws the widget
+        /*! draws the widget
 		*/
-		void draw();
-	};
+        void draw();
+    };
 
-	/*! widget label pointer definition
+    /*! widget label pointer definition
 	*/
-	typedef iWidgetLabel *iWidgetLabelPtr;
+    typedef iWidgetLabel *iWidgetLabelPtr;
 } // namespace igor
 
 #endif // __IGOR_WIDGETLABEL_H__

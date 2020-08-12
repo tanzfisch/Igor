@@ -34,41 +34,41 @@
 namespace Igor
 {
 
-	class iScene;
-	class iNode;
-	class iSkyLightNode;
-	class iNodeSkyBox;
-	class iDirectionalLightNode;
+    class iScene;
+    class iNode;
+    class iSkyLightNode;
+    class iNodeSkyBox;
+    class iDirectionalLightNode;
 
-	class Igor_API iSkySimulation
-	{
+    class IGOR_API iSkySimulation
+    {
 
-	private:
-		iScenePtr scene;
-		shared_ptr<iNode> skySimRoot;
-		iSkyLightNode *skyLightNode;
-		iNodeSkyBox *skyBoxNode;
-		iDirectionalLightNode *directionalLightNode;
+    private:
+        iScenePtr scene;
+        shared_ptr<iNode> skySimRoot;
+        iSkyLightNode *skyLightNode;
+        iNodeSkyBox *skyBoxNode;
+        iDirectionalLightNode *directionalLightNode;
 
-		float32 latitude;
-		float32 longitude;
+        float32 latitude;
+        float32 longitude;
 
-		float32 time;
-		int32 day;
-		int32 month;
-		int32 year;
+        float32 time;
+        int32 day;
+        int32 month;
+        int32 year;
 
-		void update();
-		void init();
+        void update();
+        void init();
 
-	public:
-		void setGeoPos(float32 latitude, float32 longitude);
-		void setTime(float32 time); ///! local time
-		void setDate(int32 day, int32 month, int32 year);
+    public:
+        void setGeoPos(float32 latitude, float32 longitude);
+        void setTime(float32 time); ///! local time
+        void setDate(int32 day, int32 month, int32 year);
 
-		iSkySimulation(iScenePtr scene);
-		virtual ~iSkySimulation();
-	};
+        iSkySimulation(iScenePtr scene);
+        virtual ~iSkySimulation();
+    };
 
 } // namespace Igor
 

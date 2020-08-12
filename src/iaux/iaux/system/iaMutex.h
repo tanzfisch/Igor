@@ -34,40 +34,40 @@
 namespace iaux
 {
 
-	/*! mutex
+    /*! mutex
 
 	wraps std::mutex
  	*/
-	class IgorAux_API iaMutex
-	{
-		/*! mutex handle definition
+    class IAUX_API iaMutex
+    {
+        /*! mutex handle definition
 		*/
-		typedef void *iaMutexHandle;
+        typedef void *iaMutexHandle;
 
-	public:
-		/*! creates a mutex
+    public:
+        /*! creates a mutex
 		*/
-		iaMutex();
+        iaMutex();
 
-		/*! destroys a mutex
+        /*! destroys a mutex
 		*/
-		~iaMutex();
+        ~iaMutex();
 
-		/*! locks a mutex
+        /*! locks a mutex
 		*/
-		void lock();
+        void lock();
 
-		/*! unlocks a mutex
+        /*! unlocks a mutex
 		*/
-		void unlock();
+        void unlock();
 
-	private:
-		/*! handle to mutex
+    private:
+        /*! handle to mutex
 
 		initialized in ctor
 		*/
-		iaMutexHandle m_handle;
-	};
+        iaMutexHandle m_handle;
+    };
 
 } // namespace iaux
 

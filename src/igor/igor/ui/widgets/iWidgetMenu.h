@@ -51,7 +51,7 @@ namespace igor
 
     /*! menu widget
     */
-    class Igor_API iWidgetMenu : public iWidget
+    class IGOR_API iWidgetMenu : public iWidget
     {
 
         friend class iWidgetMenuBar;

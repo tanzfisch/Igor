@@ -46,7 +46,7 @@ namespace igor
     classical approach using inherritance to define entities even if this provokes potencially ugly code within the 
     application layer. I don't care. I want to keep the engine clean. ML
     */
-    class Igor_API iEntityManager : public iModule<iEntityManager>
+    class IGOR_API iEntityManager : public iModule<iEntityManager>
     {
 
         friend class iModule<iEntityManager>;

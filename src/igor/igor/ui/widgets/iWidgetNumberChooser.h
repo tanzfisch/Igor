@@ -34,195 +34,195 @@
 namespace igor
 {
 
-	class iTextureFont;
-	class iWidgetManager;
+    class iTextureFont;
+    class iWidgetManager;
 
-	/*! number chooser widget
+    /*! number chooser widget
 	*/
-	class Igor_API iWidgetNumberChooser : public iWidget
-	{
+    class IGOR_API iWidgetNumberChooser : public iWidget
+    {
 
-	public:
-		/*! ctro initializes member variables
+    public:
+        /*! ctro initializes member variables
 
 		\param parent optional parent
 		*/
-		iWidgetNumberChooser(const iWidgetPtr parent = nullptr);
+        iWidgetNumberChooser(const iWidgetPtr parent = nullptr);
 
-		/*! does nothing
+        /*! does nothing
 		*/
-		virtual ~iWidgetNumberChooser() = default;
+        virtual ~iWidgetNumberChooser() = default;
 
-		/*! sets post fix that will be displayed right after the number
+        /*! sets post fix that will be displayed right after the number
 
 		\param text the post fix
 		*/
-		void setPostFix(const iaString &text);
+        void setPostFix(const iaString &text);
 
-		/*! \returns the post fix text
+        /*! \returns the post fix text
 		*/
-		const iaString &getPostFix() const;
+        const iaString &getPostFix() const;
 
-		/*! \returns the number
+        /*! \returns the number
 		*/
-		float32 getValue();
+        float32 getValue();
 
-		/*! sets the value
+        /*! sets the value
 
 		\param value the value to set
 		*/
-		void setValue(float32 value);
+        void setValue(float32 value);
 
-		/*! defines how many after points will be displayed
+        /*! defines how many after points will be displayed
 
 		\param afterPoint amount of digits after point
 		*/
-		void setAfterPoint(int32 afterPoint);
+        void setAfterPoint(int32 afterPoint);
 
-		/*! \returns amount of after point
+        /*! \returns amount of after point
 		*/
-		int32 getAfterPoint() const;
+        int32 getAfterPoint() const;
 
-		/*! sets min max boundings for number
+        /*! sets min max boundings for number
 
 		\param min minimum bounding for number
 		\param max maximum bounding for number
 		*/
-		void setMinMaxNumber(float32 min, float32 max);
+        void setMinMaxNumber(float32 min, float32 max);
 
-		/*! sets the stepping for mouse wheel
+        /*! sets the stepping for mouse wheel
 
 		\param up the increase value when mouse wheel get's up
 		\param down the decrese value when mouse wheel get's down
 		*/
-		void setSteppingWheel(float32 up, float32 down);
+        void setSteppingWheel(float32 up, float32 down);
 
-		/*! sets the stepping for up and down button
+        /*! sets the stepping for up and down button
 
 		\param up the increase value when up button get's clicked
 		\param down the decrese value when down button get's clicked
 		*/
-		void setStepping(float32 up, float32 down);
+        void setStepping(float32 up, float32 down);
 
-	private:
-		/*! defines how many digits are displayed after the point
+    private:
+        /*! defines how many digits are displayed after the point
 		*/
-		int32 _afterPoint = 0;
+        int32 _afterPoint = 0;
 
-		/*! post fix that will be displayed right nixet to the number
+        /*! post fix that will be displayed right nixet to the number
 		*/
-		iaString _postFix;
+        iaString _postFix;
 
-		/*! the NUMBER de dee deeee ;-)
+        /*! the NUMBER de dee deeee ;-)
 		*/
-		float32 _value = 0;
+        float32 _value = 0;
 
-		/*! min bounding for number
+        /*! min bounding for number
 		*/
-		float32 _min = 0;
+        float32 _min = 0;
 
-		/*! max bounding for number
+        /*! max bounding for number
 		*/
-		float32 _max = 100;
+        float32 _max = 100;
 
-		/*! button up stepping
+        /*! button up stepping
 		*/
-		float32 _stepUp = 1;
+        float32 _stepUp = 1;
 
-		/*! button down stepping
+        /*! button down stepping
 		*/
-		float32 _stepDown = 1;
+        float32 _stepDown = 1;
 
-		/*! mouse wheel up stepping
+        /*! mouse wheel up stepping
 		*/
-		float32 _stepUpWheel = 5;
+        float32 _stepUpWheel = 5;
 
-		/*! mouse wheel down stepping
+        /*! mouse wheel down stepping
 		*/
-		float32 _stepDownWheel = 5;
+        float32 _stepDownWheel = 5;
 
-		/*! flag is true if mouse is over the button down
+        /*! flag is true if mouse is over the button down
 		*/
-		bool _mouseOverButtonDown = false;
+        bool _mouseOverButtonDown = false;
 
-		/*! flag is true if mouse is over the button down
+        /*! flag is true if mouse is over the button down
 		*/
-		bool _mouseOverButtonUp = false;
+        bool _mouseOverButtonUp = false;
 
-		/*! appearance state of button up
+        /*! appearance state of button up
 		*/
-		iWidgetState _buttonUpAppearanceState = iWidgetState::Standby;
+        iWidgetState _buttonUpAppearanceState = iWidgetState::Standby;
 
-		/*! appearance state of button down
+        /*! appearance state of button down
 		*/
-		iWidgetState _buttonDownAppearanceState = iWidgetState::Standby;
+        iWidgetState _buttonDownAppearanceState = iWidgetState::Standby;
 
-		/*! button up rectangle
+        /*! button up rectangle
 		*/
-		iRectanglei _buttonUpRectangle;
+        iRectanglei _buttonUpRectangle;
 
-		/*! button down rectangle
+        /*! button down rectangle
 		*/
-		iRectanglei _buttonDownRectangle;
+        iRectanglei _buttonDownRectangle;
 
-		/*! culls number agains min max boundings
+        /*! culls number agains min max boundings
 		*/
-		void cullBoundings();
+        void cullBoundings();
 
-		/*! handles incomming mouse wheel event
+        /*! handles incomming mouse wheel event
 
 		\param d mouse wheel delta
 		\returns true: if event was consumed and therefore ignored by the parent
 		*/
-		bool handleMouseWheel(int32 d);
+        bool handleMouseWheel(int32 d);
 
-		/*! handles incomming mouse key down events
-
-		\param key the key that was pressed
-		\returns true: if event was consumed and therefore ignored by the parent
-		*/
-		bool handleMouseKeyDown(iKeyCode key);
-
-		/*! handles mouse key up events
+        /*! handles incomming mouse key down events
 
 		\param key the key that was pressed
 		\returns true: if event was consumed and therefore ignored by the parent
 		*/
-		bool handleMouseKeyUp(iKeyCode key);
+        bool handleMouseKeyDown(iKeyCode key);
 
-		/*! handles incomming mouse move events
+        /*! handles mouse key up events
+
+		\param key the key that was pressed
+		\returns true: if event was consumed and therefore ignored by the parent
+		*/
+        bool handleMouseKeyUp(iKeyCode key);
+
+        /*! handles incomming mouse move events
 
 		\param pos mouse position
 		*/
-		void handleMouseMove(const iaVector2i &pos);
+        void handleMouseMove(const iaVector2i &pos);
 
-		/*! increase number by value
+        /*! increase number by value
 
 		\param value the value to increase by
 		*/
-		void increaseNumber(float32 value);
+        void increaseNumber(float32 value);
 
-		/*! decrease number by value
+        /*! decrease number by value
 
 		\param value the value to decrease by
 		*/
-		void decreaseNumber(float32 value);
+        void decreaseNumber(float32 value);
 
-		/*! updates size based on it's content
+        /*! updates size based on it's content
 		*/
-		void calcMinSize() override;
+        void calcMinSize() override;
 
-		/*! updates widget alignment
+        /*! updates widget alignment
 
 		\param clientWidth maximum width this widget can align to
 		\param clientHeight maximum height this widget can align to
 		*/
-		void updateAlignment(int32 clientWidth, int32 clientHeight);
+        void updateAlignment(int32 clientWidth, int32 clientHeight);
 
-		/*! draws the button
+        /*! draws the button
 		*/
-		void draw();
-	};
+        void draw();
+    };
 } // namespace igor
 
 #endif // __IGOR_WIDGETNUMBERCHOOSER_H__

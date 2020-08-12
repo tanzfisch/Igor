@@ -43,7 +43,7 @@ namespace iaux
 
     both states are alowed to be the same. than reEnter() will be triggered
     */
-    class IgorAux_API iaTransition
+    class IAUX_API iaTransition
     {
 
         friend class iaStateMachine;

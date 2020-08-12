@@ -40,164 +40,164 @@ using namespace iaux;
 namespace igor
 {
 
-	/*! button widget
+    /*! button widget
 	*/
-	class Igor_API iWidgetSlider : public iWidget
-	{
+    class IGOR_API iWidgetSlider : public iWidget
+    {
 
-	public:
-		/*! ctor initializes member variables
+    public:
+        /*! ctor initializes member variables
 
 		\param parent optional parent
 		*/
-		iWidgetSlider(const iWidgetPtr parent = nullptr);
+        iWidgetSlider(const iWidgetPtr parent = nullptr);
 
-		/*! release texture
+        /*! release texture
 		*/
-		virtual ~iWidgetSlider();
+        virtual ~iWidgetSlider();
 
-		/*! sets the texture to use for the button
+        /*! sets the texture to use for the button
 
 		\param texturePath path to texture
 		*/
-		void setTexture(const iaString &texturePath);
+        void setTexture(const iaString &texturePath);
 
-		/*! \returns texture path
+        /*! \returns texture path
 		*/
-		const iaString &getTexture() const;
+        const iaString &getTexture() const;
 
-		/*! sets the texture to use for the button
+        /*! sets the texture to use for the button
 
 		\param texturePath path to texture
 		*/
-		void setBackgroundTexture(const iaString &texturePath);
+        void setBackgroundTexture(const iaString &texturePath);
 
-		/*! \returns texture path
+        /*! \returns texture path
 		*/
-		const iaString &getBackgroundTexture() const;
+        const iaString &getBackgroundTexture() const;
 
-		/*! sets value
+        /*! sets value
 
 		\param value new value
 		*/
-		void setValue(float32 value);
+        void setValue(float32 value);
 
-		/*! \returns current value
+        /*! \returns current value
 		*/
-		float32 getValue();
+        float32 getValue();
 
-		/*! sets minimum value of slider
+        /*! sets minimum value of slider
 
 		\param min minimum value
 		*/
-		void setMinValue(float32 min);
+        void setMinValue(float32 min);
 
-		/*! sets maximum value of slider
+        /*! sets maximum value of slider
 
 		\param max maximum value
 		*/
-		void setMaxValue(float32 max);
+        void setMaxValue(float32 max);
 
-		/*! \returns minimum value
+        /*! \returns minimum value
 		*/
-		float32 getMinValue();
+        float32 getMinValue();
 
-		/*! \returns maximum value
+        /*! \returns maximum value
 		*/
-		float32 getMaxValue();
+        float32 getMaxValue();
 
-		/*! sets the stepping for mouse wheel
+        /*! sets the stepping for mouse wheel
 
 		\param up the increase value when mouse wheel get's up
 		\param down the decrese value when mouse wheel get's down
 		*/
-		void setSteppingWheel(float32 up, float32 down);
+        void setSteppingWheel(float32 up, float32 down);
 
-	protected:
-		/*! minimum value
+    protected:
+        /*! minimum value
 		*/
-		float32 _min = 0.0f;
+        float32 _min = 0.0f;
 
-		/*! maximum value
+        /*! maximum value
 		*/
-		float32 _max = 1.0f;
+        float32 _max = 1.0f;
 
-		/*! current value
+        /*! current value
 		*/
-		float32 _value = 0.5f;
+        float32 _value = 0.5f;
 
-		/*! mouse wheel up value change stepping
+        /*! mouse wheel up value change stepping
 		*/
-		float32 _wheelStepUp = 0.1f;
+        float32 _wheelStepUp = 0.1f;
 
-		/*! mouse wheel down value change stepping
+        /*! mouse wheel down value change stepping
 		*/
-		float32 _wheelStepDown = 0.1f;
+        float32 _wheelStepDown = 0.1f;
 
-		/*! the texture
+        /*! the texture
 		*/
-		iTexturePtr _texture = nullptr;
+        iTexturePtr _texture = nullptr;
 
-		/*! optional background texture
+        /*! optional background texture
 		*/
-		iTexturePtr _backgroundTexture = nullptr;
+        iTexturePtr _backgroundTexture = nullptr;
 
-		/*! texture path
+        /*! texture path
 		*/
-		iaString _texturePath;
+        iaString _texturePath;
 
-		/*! background texture path
+        /*! background texture path
 		*/
-		iaString _backgroundTexturePath;
+        iaString _backgroundTexturePath;
 
-		/*! increase number by value
+        /*! increase number by value
 
 		\param value the value to increase by
 		*/
-		void increaseNumber(float32 value);
+        void increaseNumber(float32 value);
 
-		/*! decrease number by value
+        /*! decrease number by value
 
 		\param value the value to decrease by
 		*/
-		void decreaseNumber(float32 value);
+        void decreaseNumber(float32 value);
 
-		/*! handles incomming mouse wheel event
+        /*! handles incomming mouse wheel event
 
 		\param d mouse wheel delta
 		\returns true: if event was consumed and therefore ignored by the parent
 		*/
-		bool handleMouseWheel(int32 d);
+        bool handleMouseWheel(int32 d);
 
-		/*! handles incomming mouse key down events
+        /*! handles incomming mouse key down events
 
 		\param key the key that was pressed
 		\returns true: if event was consumed and therefore ignored by the parent
 		*/
-		bool handleMouseKeyDown(iKeyCode key);
+        bool handleMouseKeyDown(iKeyCode key);
 
-		/*! handles incomming mouse move events
+        /*! handles incomming mouse move events
 
 		\param pos mouse position
 		*/
-		void handleMouseMove(const iaVector2i &pos);
+        void handleMouseMove(const iaVector2i &pos);
 
-		/*! translates the horizontal mouse position in the a value
+        /*! translates the horizontal mouse position in the a value
 		*/
-		void handleMouseInput(int32 mouseX);
+        void handleMouseInput(int32 mouseX);
 
-		/*! cull value with boundings
+        /*! cull value with boundings
 		*/
-		void cullBoundings();
+        void cullBoundings();
 
-		/*! updates size based on it's content
+        /*! updates size based on it's content
 		*/
-		void calcMinSize() override;
+        void calcMinSize() override;
 
-		/*! draws the widget
+        /*! draws the widget
 		*/
-		void draw();
-	};
+        void draw();
+    };
 } // namespace igor
 
 #endif // __IGOR_WIDGETSLIDER_H__

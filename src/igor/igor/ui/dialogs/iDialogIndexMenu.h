@@ -38,36 +38,36 @@ using namespace iaux;
 namespace igor
 {
 
-	iaEVENT(iDialogIndexMenuCloseEvent, iDialogIndexMenuCloseDelegate, (int32 index), (index));
+    iaEVENT(iDialogIndexMenuCloseEvent, iDialogIndexMenuCloseDelegate, (int32 index), (index));
 
-	/*! pull down menu
+    /*! pull down menu
 
 	\deprecated remove this
 	*/
-	class Igor_API iDialogIndexMenu : public iDialog
-	{
+    class IGOR_API iDialogIndexMenu : public iDialog
+    {
 
-	public:
-		/*! init members
+    public:
+        /*! init members
 
 		\param parent the parent of this widget
 		*/
-		iDialogIndexMenu(const iWidgetPtr parent = nullptr);
+        iDialogIndexMenu(const iWidgetPtr parent = nullptr);
 
-		/*! deinitializes gui
+        /*! deinitializes gui
 		*/
-		virtual ~iDialogIndexMenu() = default;
+        virtual ~iDialogIndexMenu() = default;
 
-		/*! opens dialog
+        /*! opens dialog
 
 		leave the pictures list empty if you don't want pictures or call the alternative implementation of show
 
 		\param dialogCloseDelegate delegate for closing event
 		\param texts the texts to put in the selection list
 		*/
-		void open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString> &texts);
+        void open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString> &texts);
 
-		/*! opens dialog
+        /*! opens dialog
 
 		leave the pictures list empty if you don't want pictures or call the alternative implementation of show
 
@@ -75,54 +75,54 @@ namespace igor
 		\param texts the texts to put in the selection list
 		\param pictures paths to textures used as icons next to the text
 		*/
-		void open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString> &texts, std::vector<iaString> &pictures);
+        void open(iDialogCloseDelegate dialogCloseDelegate, std::vector<iaString> &texts, std::vector<iaString> &pictures);
 
-		/*! \returns selected menu entry index
+        /*! \returns selected menu entry index
 
         returns -1 if nothing was selected
         */
-		int32 getSelectionIndex() const;
+        int32 getSelectionIndex() const;
 
-	private:
-		/*! the close event
+    private:
+        /*! the close event
 		*/
-		iDialogIndexMenuCloseEvent _selectBoxCloseEvent;
+        iDialogIndexMenuCloseEvent _selectBoxCloseEvent;
 
-		/*! the return value of the selection box
+        /*! the return value of the selection box
 
 		-1 stands for cancel
 		*/
-		int32 _returnValue = -1;
+        int32 _returnValue = -1;
 
-		/*! handles change event
+        /*! handles change event
 
 		\param source the source of the event (should be the grid)
 		*/
-		void onChange(const iWidgetPtr source);
+        void onChange(const iWidgetPtr source);
 
-		/*! handle mouse off click event
+        /*! handle mouse off click event
 
 		\param source the source of that event
 		*/
-		void onMouseOffClick(const iWidgetPtr source);
+        void onMouseOffClick(const iWidgetPtr source);
 
-		/*! initializes the gui
+        /*! initializes the gui
 
 		\param texts the texts for the menu
 		*/
-		void initGUI(std::vector<iaString> &texts);
+        void initGUI(std::vector<iaString> &texts);
 
-		/*! initializes the gui
+        /*! initializes the gui
 
 		\param texts the texts for the menu
 		\param pictures the pictures for the menu
 		*/
-		void initGUI(std::vector<iaString> &texts, std::vector<iaString> &pictures);
-	};
+        void initGUI(std::vector<iaString> &texts, std::vector<iaString> &pictures);
+    };
 
-	/*! dialog menu pointer definition
+    /*! dialog menu pointer definition
     */
-	typedef iDialogIndexMenu *iDialogIndexMenuPtr;
+    typedef iDialogIndexMenu *iDialogIndexMenuPtr;
 
 } // namespace igor
 

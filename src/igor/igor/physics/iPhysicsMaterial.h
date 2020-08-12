@@ -43,7 +43,7 @@ namespace igor
 
     /*! physics material
     */
-    class Igor_API iPhysicsMaterial
+    class IGOR_API iPhysicsMaterial
     {
 
         friend class iPhysics;

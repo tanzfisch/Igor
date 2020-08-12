@@ -44,7 +44,7 @@ namespace igor
 
     in this case wrapping OpenAL
     */
-    class Igor_API iAudio : public iModule<iAudio>
+    class IGOR_API iAudio : public iModule<iAudio>
     {
 
         friend class iModule<iAudio>;

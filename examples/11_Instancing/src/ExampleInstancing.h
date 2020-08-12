@@ -75,6 +75,10 @@ private:
     uint64 _materialWithInstancingA = iMaterial::INVALID_MATERIAL_ID;
     uint64 _materialWithInstancingB = iMaterial::INVALID_MATERIAL_ID;
 
+    /*! perlin noise generator
+    */
+    iPerlinNoise _perlinNoise;
+
     /*! called when model was loaded
 
     \param modelNodeID the node id of the loaded model

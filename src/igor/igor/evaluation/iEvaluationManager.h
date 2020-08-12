@@ -40,7 +40,7 @@ namespace igor
 
     /*! evaluation manager
     */
-    class Igor_API iEvaluationManager : public iModule<iEvaluationManager>
+    class IGOR_API iEvaluationManager : public iModule<iEvaluationManager>
     {
 
         friend class iModule<iEvaluationManager>;

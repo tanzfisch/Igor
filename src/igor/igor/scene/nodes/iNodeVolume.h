@@ -55,7 +55,7 @@ namespace igor
 
         /*! \returns bounding sphere
         */
-        const Igor_API iSphered &getBoundingSphere() const;
+        const IGOR_API iSphered &getBoundingSphere() const;
 
         /*! sets bounding box
 
@@ -67,22 +67,22 @@ namespace igor
 
         \todo save actual bbox in volume node
         */
-        const Igor_API iAABoxd &getBoundingBox() const;
+        const IGOR_API iAABoxd &getBoundingBox() const;
 
     protected:
         /*! called by node visitor update transform
 
         \param[in, out] matrix current transformation matrix
         */
-        virtual Igor_API void onUpdateTransform(iaMatrixd &matrix) override;
+        virtual IGOR_API void onUpdateTransform(iaMatrixd &matrix) override;
 
         /*! unregisters from scene
         */
-        virtual Igor_API void onPreSetScene() override;
+        virtual IGOR_API void onPreSetScene() override;
 
         /*! registers to scene
         */
-        virtual Igor_API void onPostSetScene() override;
+        virtual IGOR_API void onPostSetScene() override;
 
         /*! updates octree if node is within a scene
         */

@@ -52,7 +52,7 @@ namespace igor
 
     \todo make it a non sigleton
     */
-    class Igor_API iWidgetManager : public iModule<iWidgetManager>
+    class IGOR_API iWidgetManager : public iModule<iWidgetManager>
     {
 
         /*! needs to be friends with singleton base class in order to be a singleton

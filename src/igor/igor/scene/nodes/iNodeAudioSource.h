@@ -37,13 +37,12 @@ namespace igor
 
     /*! audio source node
     */
-    class Igor_API iNodeAudioSource : public iNode
+    class IGOR_API iNodeAudioSource : public iNode
     {
 
         friend class iNodeManager;
 
     public:
-
         /*! sets sound that will be played by this source
         */
         void setSound(iResourcePtr sound);
@@ -85,10 +84,8 @@ namespace igor
         /*! \retruns true if audio source is in loop mode
         */
         bool isLooped() const;
-        
 
     protected:
-
         /*! last position of source
         */
         iaVector3d _position;
@@ -104,7 +101,6 @@ namespace igor
         void onUpdateTransform(iaMatrixd &matrix);
 
     private:
-
         /*! handle to internal source
         */
         iAudioSource _source;
@@ -127,7 +123,7 @@ namespace igor
 
         /*! copy ctor
         */
-        iNodeAudioSource(iNodeAudioSource*node);
+        iNodeAudioSource(iNodeAudioSource *node);
 
         /*! dtor
 		*/

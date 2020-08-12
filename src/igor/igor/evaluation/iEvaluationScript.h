@@ -48,7 +48,7 @@ namespace igor
 
     /*! evaluation that menipulates transform nodes via given callback function
     */
-    class Igor_API iEvaluationScript : public iEvaluation
+    class IGOR_API iEvaluationScript : public iEvaluation
     {
 
         friend class iEvaluationManager;

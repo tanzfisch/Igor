@@ -36,11 +36,11 @@
 namespace iaux
 {
 
-	/*! returns current callstack
+    /*! returns current callstack
 
 	\param[out] callStack vector filled with the current callstack
 	*/
-	IgorAux_API void getCallStack(std::vector<iaString> &callStack);
+    IAUX_API void getCallStack(std::vector<iaString> &callStack);
 
 } // namespace iaux
 

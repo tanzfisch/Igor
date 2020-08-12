@@ -42,7 +42,7 @@ namespace igor
     \todo ther is something wrong with the planes
     */
     template <class T>
-    class Igor_API_Template iFrustum
+    class IGOR_API_TEMPLATE iFrustum
     {
 
     public:
@@ -70,17 +70,37 @@ namespace igor
         */
         iPlane<T> _farPlane;
 
+        /*! comparison of two frustums
+
+		\param frustum the second frustum to compare
+		\returns true if frustums are equal
+		*/
+        bool operator==(const iFrustum<T> &frustum) const;
+
+        /*! negated comparison of two frustums
+
+		\param frustum the second frustum
+		\returns true if frustums are not equal
+		*/
+        bool operator!=(const iFrustum<T> &frustum) const;
+
+        /*! default ctor
+        */
+        iFrustum() = default;
+
+        /*! init with projection matrix
+
+        \param matrix projection matrix
+        */
+        iFrustum(const iaMatrix<T> &matrix);
+
         /*! uses projection matrix to calculate all planes of the frustum
 
         http://www.racer.nl/reference/vfc.htm
 
-        \param viewProjection projection matrix
+        \param matrix projection matrix
         */
-        void set(iaMatrix<T> &viewProjection);
-
-        /*! does nothing
-        */
-        iFrustum() = default;
+        void set(const iaMatrix<T> &matrix);
 
         /*! does nothing
         */

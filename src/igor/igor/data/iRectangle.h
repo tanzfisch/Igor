@@ -37,7 +37,7 @@ namespace igor
     /*! 2d rectangle
     */
     template <class T>
-    class Igor_API_Template iRectangle
+    class IGOR_API_TEMPLATE iRectangle
     {
 
     public:

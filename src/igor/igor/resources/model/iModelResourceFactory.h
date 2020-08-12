@@ -50,7 +50,7 @@ namespace igor
 
     /*! model resource factory
     */
-    class Igor_API iModelResourceFactory : public iModule<iModelResourceFactory>
+    class IGOR_API iModelResourceFactory : public iModule<iModelResourceFactory>
     {
 
         friend class iModule<iModelResourceFactory>;

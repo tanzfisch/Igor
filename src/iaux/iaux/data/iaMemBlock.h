@@ -36,7 +36,7 @@ namespace iaux
 
     /*! just a block of memory
     */
-    class IgorAux_API iaMemBlock
+    class IAUX_API iaMemBlock
     {
     public:
         /*! does nothing

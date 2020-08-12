@@ -42,7 +42,7 @@ namespace igor
 
     /*! type of emitter
     */
-    enum class Igor_API iEmitterType
+    enum class IGOR_API iEmitterType
     {
         Mesh,
         Point,
@@ -55,7 +55,7 @@ namespace igor
 
     /*! a triangle of an emitter mesh
     */
-    class Igor_API iEmitterTriangle
+    class IGOR_API iEmitterTriangle
     {
     public:
         /*! 3 times vertex position
@@ -71,7 +71,7 @@ namespace igor
 
     mainly used for particles
     */
-    class Igor_API iParticleEmitter
+    class IGOR_API iParticleEmitter
     {
 
     public:

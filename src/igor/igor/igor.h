@@ -178,11 +178,11 @@ namespace igor
 	\param argc command line parameter count
 	\param argv command line parameters
 	*/
-    void Igor_API startup(int argc, wchar_t **argv);
+    void IGOR_API startup(int argc, wchar_t **argv);
 
     /*! alternative startup
 	*/
-    void Igor_API startup();
+    void IGOR_API startup();
 
     /*! should be called last in your application. do not use any Igor interface after that
 	
@@ -191,7 +191,7 @@ namespace igor
 
     \todo it would be nice to have the order of shutting down singletons implicitly or configurable
 	*/
-    void Igor_API shutdown();
+    void IGOR_API shutdown();
 
 } // namespace igor
 

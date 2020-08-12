@@ -38,7 +38,7 @@ namespace igor
 
     /*! key down event
     */
-    class Igor_API iEventKeyDown : public iEvent
+    class IGOR_API iEventKeyDown : public iEvent
     {
     public:
         /*! init members
@@ -70,7 +70,7 @@ namespace igor
 
     /*! key up event
     */
-    class Igor_API iEventKeyUp : public iEvent
+    class IGOR_API iEventKeyUp : public iEvent
     {
     public:
         /*! init members
@@ -102,7 +102,7 @@ namespace igor
 
     /*! key ascii event
     */
-    class Igor_API iEventKeyASCII : public iEvent
+    class IGOR_API iEventKeyASCII : public iEvent
     {
     public:
         /*! init members

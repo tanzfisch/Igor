@@ -11,23 +11,23 @@
 //                                           (_(       \)
 // (c) Copyright 2012-2020 by Martin Loga
 //
-// This library is free software; you can redistribute it and or modify it   
-// under the terms of the GNU Lesser General Public License as published by  
-// the Free Software Foundation; either version 3 of the License, or (at   
-// your option) any later version.                                           
-// 
-// This library is distributed in the hope that it will be useful,           
-// but WITHOUT ANY WARRANTY; without even the implied warranty of            
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU         
-// Lesser General Public License for more details.                           
-// 
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
-// 
-// contact: igorgameengine@protonmail.com  
+//
+// contact: igorgameengine@protonmail.com
 
-#ifndef __iPERLINNOISE3D__
-#define __iPERLINNOISE3D__
+#ifndef __IGOR_PERLINNOISE_H__
+#define __IGOR_PERLINNOISE_H__
 
 #include <igor/iDefines.h>
 
@@ -47,11 +47,10 @@ namespace igor
 
     \todo this should go in to IgorAux
     */
-    class Igor_API iPerlinNoise
+    class IGOR_API iPerlinNoise
     {
 
     public:
-
         /*! makes pseudo infinite access possible
         */
         static const int64 RANDOM_NUMBERS_COUNT = 256;
@@ -68,7 +67,7 @@ namespace igor
 
         \param pos specified position
         */
-        float64 getValue(const iaVector3d& pos);
+        float64 getValue(const iaVector3d &pos);
 
         /*! \returns noise value at specified position
 
@@ -84,7 +83,7 @@ namespace igor
         \param octaves octaves count
         \param persistence multiplicator of amplitude between each octave (default 0.5)
         */
-        float64 getValue(const iaVector3d& pos, int64 octaves, float64 persistence = 0.5);
+        float64 getValue(const iaVector3d &pos, int64 octaves, float64 persistence = 0.5);
 
         /*! \returns noise value of multiple octaves at specified position in a range of 0.0-1.0
 
@@ -103,7 +102,6 @@ namespace igor
         ~iPerlinNoise() = default;
 
     private:
-
         /*! buffer with random numbers
 
         double the size for simpler access code
@@ -145,12 +143,10 @@ namespace igor
         \returns gradient
         */
         __IGOR_INLINE__ float64 grad(int64 hash, float64 x, float64 y, float64 z);
-
     };
 
 #include <igor/generation/iPerlinNoise.inl>
-    
-}
 
+} // namespace igor
 
-#endif
+#endif // __IGOR_PERLINNOISE3D_H__

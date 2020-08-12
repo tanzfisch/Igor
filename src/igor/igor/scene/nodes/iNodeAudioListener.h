@@ -36,13 +36,12 @@ namespace igor
 
     /*! audio listener node
     */
-    class Igor_API iNodeAudioListener : public iNode
+    class IGOR_API iNodeAudioListener : public iNode
     {
 
         friend class iNodeManager;
 
     public:
-
         /*! returns world matrix of audio listener
 
         \param[out] matrix returns the world matrix
@@ -58,7 +57,6 @@ namespace igor
         bool isActiveListener() const;
 
     protected:
-
         /*! matrix including position an orientation of this audio listeners in world coordinates
         */
         iaMatrixd _worldMatrix;
@@ -70,7 +68,6 @@ namespace igor
         void onUpdateTransform(iaMatrixd &matrix);
 
     private:
-
         /*! stores which audio listener is the active one
         */
         static uint64 _activeListener;

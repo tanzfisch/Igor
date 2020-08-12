@@ -116,7 +116,7 @@ namespace igor
 
     \todo we should not use pointers but IDs of nodes to reference them! all the time?
     */
-    class Igor_API iNode
+    class IGOR_API iNode
     {
 
         friend class iNodeManager;
@@ -429,7 +429,7 @@ namespace igor
 	\param nodeType the node type to stream
 	\returns the resulting stream
 	*/
-    Igor_API std::wostream &operator<<(std::wostream &stream, const iNodeType &nodeType);
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iNodeType &nodeType);
 
     /*! stream operator
 
@@ -437,7 +437,7 @@ namespace igor
 	\param nodeKind the node kind to stream
 	\returns the resulting stream
 	*/
-    Igor_API std::wostream &operator<<(std::wostream &stream, const iNodeKind &nodeKind);
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iNodeKind &nodeKind);
 
 }; // namespace igor
 

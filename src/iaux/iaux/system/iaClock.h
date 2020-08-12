@@ -34,7 +34,7 @@
 namespace iaux
 {
 
-    class IgorAux_API iaClock
+    class IAUX_API iaClock
     {
     public:
         /*! \returns time in microseconds

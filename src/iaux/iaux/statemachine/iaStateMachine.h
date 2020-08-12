@@ -43,7 +43,7 @@ namespace iaux
 
     /*! generall state machine with only one specialisation "render()"
     */
-    class IgorAux_API iaStateMachine
+    class IAUX_API iaStateMachine
     {
 
     public:

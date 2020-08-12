@@ -57,7 +57,7 @@ namespace igor
 
     /*! dialog widget
     */
-    class Igor_API iDialog : public iWidget
+    class IGOR_API iDialog : public iWidget
     {
 
         friend class iWidgetManager;

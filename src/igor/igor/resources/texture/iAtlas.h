@@ -43,34 +43,34 @@ class TiXmlElement;
 namespace igor
 {
 
-	class iTexture;
+    class iTexture;
 
-	/*! used to have 2d sprites
+    /*! used to have 2d sprites
     */
-	class Igor_API iAtlas
-	{
+    class IGOR_API iAtlas
+    {
 
-	public:
-		/*! a frame defines an area within the texture that later can be rendered
+    public:
+        /*! a frame defines an area within the texture that later can be rendered
 		*/
-		struct Frame
-		{
-			/*! position of frame in texture coordinates
+        struct Frame
+        {
+            /*! position of frame in texture coordinates
 			*/
-			iaVector2f _pos;
+            iaVector2f _pos;
 
-			/*! size of frame in texture coordinates
+            /*! size of frame in texture coordinates
 			*/
-			iaVector2f _size;
+            iaVector2f _size;
 
-			/*! origin of frame in "texel" coordinates
+            /*! origin of frame in "texel" coordinates
 
 			can be used to position on screen
 			*/
-			iaVector2f _origin;
-		};
+            iaVector2f _origin;
+        };
 
-		/*! adds a frame to the sprite
+        /*! adds a frame to the sprite
 
 		\returns index of the added frame
 		\param pos position of frame
@@ -78,66 +78,66 @@ namespace igor
 		\param origin the origin of the frame
 		\param pixel if true values are in pixel coordinates if false than 0.0-1.0
 		*/
-		uint32 addFrame(const iaVector2f &pos, const iaVector2f &size, const iaVector2f &origin, bool pixel = true);
+        uint32 addFrame(const iaVector2f &pos, const iaVector2f &size, const iaVector2f &origin, bool pixel = true);
 
-		/*! \returns texture
+        /*! \returns texture
         */
-		iTexturePtr getTexture() const;
+        iTexturePtr getTexture() const;
 
-		/*! sets txture used by this sprite
+        /*! sets txture used by this sprite
 
 		\param texture the texture to use
 		*/
-		void setTexture(iTexturePtr texture);
+        void setTexture(iTexturePtr texture);
 
-		/*! \returns the amount of frames
+        /*! \returns the amount of frames
 		*/
-		uint32 getFrameCount() const;
+        uint32 getFrameCount() const;
 
-		/*! returns frame for given index
+        /*! returns frame for given index
 
 		no range check!
 
 		\param index the frame index to return
 		\returns the specified frame
 		*/
-		const Frame &getFrame(uint32 index) const;
+        const Frame &getFrame(uint32 index) const;
 
-		/*! loads frames from file
+        /*! loads frames from file
 
 		\param filepath filepath to load from
 		*/
-		void loadFrames(const iaString &filepath);
+        void loadFrames(const iaString &filepath);
 
-		/*! ctor initializes member variables
+        /*! ctor initializes member variables
 
         \param texture texture used for this sprite
         */
-		iAtlas(iTexturePtr texture);
+        iAtlas(iTexturePtr texture);
 
-		/*! does nothing
+        /*! does nothing
         */
-		~iAtlas() = default;
+        ~iAtlas() = default;
 
-	private:
-		/*! the sprite sets
+    private:
+        /*! the sprite sets
 		*/
-		std::vector<Frame> _frames;
+        std::vector<Frame> _frames;
 
-		/*! texture in use
+        /*! texture in use
         */
-		iTexturePtr _texture;
+        iTexturePtr _texture;
 
-		/*! read and atlas from xml file
+        /*! read and atlas from xml file
 		*/
-		void readAtlas(TiXmlElement *atlas);
-	};
+        void readAtlas(TiXmlElement *atlas);
+    };
 
 #include <igor/resources/texture/iAtlas.inl>
 
-	/*! atlas pointer definition
+    /*! atlas pointer definition
 	*/
-	typedef iAtlas *iAtlasPtr;
+    typedef iAtlas *iAtlasPtr;
 
 }; // namespace igor
 

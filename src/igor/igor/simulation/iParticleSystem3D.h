@@ -53,7 +53,7 @@ namespace igor
 
     \todo phase is broken ... or better we need to define what it actually should do
     */
-    class Igor_API iParticle
+    class IGOR_API iParticle
     {
     public:
         /*! current position of particle
@@ -139,7 +139,7 @@ namespace igor
     \todo maybe we put all particles together in one global particles pool. than we can sort them and we can have global effects like shadowing etc. on each other
     \todo would be nice to be able to show tiles sequencially and not just random aka animated texture
     */
-    class Igor_API iParticleSystem3D
+    class IGOR_API iParticleSystem3D
     {
 
     public:

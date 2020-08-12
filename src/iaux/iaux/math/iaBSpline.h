@@ -37,110 +37,110 @@
 namespace iaux
 {
 
-	/*! BSpline implementation
+    /*! BSpline implementation
 
 	\todo make it a template
 	*/
-	template <class T>
-	class IgorAux_API_Template iaBSpline // non uniform B-Spline
-	{
+    template <class T>
+    class IAUX_API_TEMPLATE iaBSpline // non uniform B-Spline
+    {
 
-	public:
-		/*! add support point to spline
+    public:
+        /*! add support point to spline
 
 		\param point new point to add
 		*/
-		void addSupportPoint(const iaVector3<T> &point);
+        void addSupportPoint(const iaVector3<T> &point);
 
-		/*! clears list of support points
+        /*! clears list of support points
 		*/
-		void clear();
+        void clear();
 
-		/*! configure the rank of the spline
+        /*! configure the rank of the spline
 
 		\param rank the rank of the spline (default = 3)
 		*/
-		void setRank(const uint32 rank);
+        void setRank(const uint32 rank);
 
-		/*! \returns rank of this spline
+        /*! \returns rank of this spline
 		*/
-		const uint32 getRank() const;
+        const uint32 getRank() const;
 
-		/*! \returns vertex position on specified position on spline
+        /*! \returns vertex position on specified position on spline
 
 		\param t position on spline 0.0-1.0
 		*/
-		iaVector3<T> getPointOnSpline(T t);
+        iaVector3<T> getPointOnSpline(T t);
 
-		/*! retruns points on the spline
+        /*! retruns points on the spline
 
 		\param[out] points the resulting points 
 		\param pointCount the amount of points to generate on the spline (min 2)
 		*/
-		void getPoints(std::vector<iaVector3<T>> &points, int32 pointCount);
+        void getPoints(std::vector<iaVector3<T>> &points, int32 pointCount);
 
-		/*! \returns list of support points
+        /*! \returns list of support points
 		*/
-		const std::vector<iaVector3<T>> &getSupportPoints() const;
+        const std::vector<iaVector3<T>> &getSupportPoints() const;
 
-		/*! overwrites value od specified support point.
+        /*! overwrites value od specified support point.
 		No range check!
 
 		\param point new position of support point
 		\param index index of support point to change
 		*/
-		void setSupportPoint(const iaVector3<T> &point, uint32 index);
+        void setSupportPoint(const iaVector3<T> &point, uint32 index);
 
-		/*! \returns specified support point
+        /*! \returns specified support point
 		No range check!
 
 		\param index index of support point to return
 		*/
-		const iaVector3<T> &getSupportPoint(uint32 index) const;
+        const iaVector3<T> &getSupportPoint(uint32 index) const;
 
-		/*! does nothing
+        /*! does nothing
 		*/
-		iaBSpline() = default;
+        iaBSpline() = default;
 
-		/*! does nothing
+        /*! does nothing
 		*/
-		~iaBSpline() = default;
+        ~iaBSpline() = default;
 
-	private:
-		/*! dirty flag if true recalculate lookup table
+    private:
+        /*! dirty flag if true recalculate lookup table
 		*/
-		bool _recalc = true;
+        bool _recalc = true;
 
-		/*! rank configuration
+        /*! rank configuration
 		*/
-		uint32 _rank = 3;
+        uint32 _rank = 3;
 
-		/*! lookup table
+        /*! lookup table
 		*/
-		std::vector<int32> _U;
+        std::vector<int32> _U;
 
-		/*! list of support points
+        /*! list of support points
 		*/
-		std::vector<iaVector3<T>> _supportpoints;
+        std::vector<iaVector3<T>> _supportpoints;
 
-		/*! calculates the actual point on the spline
+        /*! calculates the actual point on the spline
 		*/
-		T calc(int32 k, T t, int32 i);
+        T calc(int32 k, T t, int32 i);
 
-		/*! internal calculation of look up table
+        /*! internal calculation of look up table
 		*/
-		void prepareU();
-	};
+        void prepareU();
+    };
 
 #include <iaux/math/iaBSpline.inl>
 
-	/*! float32 BSpline
+    /*! float32 BSpline
 	*/
-	typedef iaBSpline<float32> iaBSplinef;
+    typedef iaBSpline<float32> iaBSplinef;
 
-	/*! float64 BSpline
+    /*! float64 BSpline
 	*/
-	typedef iaBSpline<float64> iaBSplined;
+    typedef iaBSpline<float64> iaBSplined;
 
 }; // namespace iaux
 

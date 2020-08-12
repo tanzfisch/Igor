@@ -44,7 +44,7 @@ namespace igor
 
     /*! traveses node tree and renders bounding boxes
     */
-    class Igor_API iNodeVisitorRenderColorID : public iNodeVisitor
+    class IGOR_API iNodeVisitorRenderColorID : public iNodeVisitor
     {
 
     public:

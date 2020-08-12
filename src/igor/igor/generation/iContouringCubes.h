@@ -43,7 +43,7 @@ namespace igor
 
     /*! an algorythm inspired by dual contouring and marching cubes
     */
-    class Igor_API iContouringCubes
+    class IGOR_API iContouringCubes
     {
 
         /*! pole (as in vertically arranged voxels) iterator

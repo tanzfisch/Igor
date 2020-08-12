@@ -40,7 +40,7 @@ namespace igor
 
 	It also stores key states for later use
 	*/
-    class Igor_API iKeyboard : public iOSEventListener, public iModule<iKeyboard>
+    class IGOR_API iKeyboard : public iOSEventListener, public iModule<iKeyboard>
     {
 
         friend class iModule<iKeyboard>;
@@ -113,7 +113,7 @@ namespace igor
 	\param keyCode the key code to print
 	\returns the resulting stream
 	*/
-    Igor_API std::wostream &operator<<(std::wostream &stream, const iKeyCode &keyCode);
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iKeyCode &keyCode);
 
 }; // namespace igor
 

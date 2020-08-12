@@ -47,7 +47,7 @@ namespace iaux
     \todo move to IgorAux
     */
     template <class T>
-    class IgorAux_API_Template iaGradient
+    class IAUX_API_TEMPLATE iaGradient
     {
 
     public:

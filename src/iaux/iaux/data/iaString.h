@@ -53,7 +53,7 @@ namespace iaux
 
 	\todo should eventually store data UTF-8 encoded internally
 	*/
-    class IgorAux_API iaString
+    class IAUX_API iaString
     {
 
     public:
@@ -570,7 +570,7 @@ namespace iaux
     \param text the string to stream
     \returns the resulting stream
     */
-    IgorAux_API std::wostream &operator<<(std::wostream &stream, const iaString &text);
+    IAUX_API std::wostream &operator<<(std::wostream &stream, const iaString &text);
 
     /*! stream operator
 
@@ -578,7 +578,7 @@ namespace iaux
     \param texts a list of string to stream
     \returns the resulting stream
     */
-    IgorAux_API std::wostream &operator<<(std::wostream &stream, const std::vector<iaString> &texts);
+    IAUX_API std::wostream &operator<<(std::wostream &stream, const std::vector<iaString> &texts);
 
     template <class T>
     void iaString::toVector(const iaString &text, iaVector2<T> &vector)

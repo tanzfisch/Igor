@@ -137,7 +137,7 @@ void UserControlParticleSystem::updateGUI()
     _ignoreNodeUpdate = true;
 
     _emitterSelection->clear();
-    _emitters = iNodeManager::getInstance().getNodes(iNodeType::iNodeEmitter);
+    iNodeManager::getInstance().getNodes(_emitters, iNodeType::iNodeEmitter);
     for (auto emitterID : _emitters)
     {
         iNodeEmitter *emitter = static_cast<iNodeEmitter *>(iNodeManager::getInstance().getNode(emitterID));

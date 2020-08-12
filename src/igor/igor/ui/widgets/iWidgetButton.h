@@ -42,7 +42,7 @@ namespace igor
 
     /*! button widget
     */
-    class Igor_API iWidgetButton : public iWidget
+    class IGOR_API iWidgetButton : public iWidget
     {
 
     public:

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __INTERSECTION__
-#define __INTERSECTION__
+#ifndef __IGOR_INTERSECTION_H__
+#define __IGOR_INTERSECTION_H__
 
 #include <igor/data/iRectangle.h>
 #include <igor/data/iAABox.h>
@@ -47,7 +47,7 @@ namespace igor
 
     \todo read http://noonat.github.io/intersect/
     */
-    class Igor_API iIntersection
+    class IGOR_API iIntersection
     {
 
     public:
@@ -70,7 +70,7 @@ namespace igor
         static bool contains(const iSphere<T> &sphereA, const iSphere<T> &sphereB);
 
         /*! tests if sphere is in front of plane
-
+        
         \param sphere the sphere to test
         \param plane the plane to test
         \returns true if sphere is partially or fully in front of plane
@@ -174,4 +174,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_INTERSECTION_H__

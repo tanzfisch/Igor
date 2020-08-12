@@ -44,7 +44,7 @@ namespace igor
 
     /*! joining bones togehter
     */
-    class Igor_API iJoint
+    class IGOR_API iJoint
     {
 
         friend class iSkeleton;

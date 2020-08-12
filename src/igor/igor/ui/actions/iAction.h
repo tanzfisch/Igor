@@ -39,7 +39,7 @@ namespace igor
 
     /*! action base class
 	*/
-    class Igor_API iAction
+    class IGOR_API iAction
     {
 
     public:

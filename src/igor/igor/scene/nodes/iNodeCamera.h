@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iCAMERA__
-#define __iCAMERA__
+#ifndef __IGOR_CAMERA_H__
+#define __IGOR_CAMERA_H__
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
@@ -45,7 +45,7 @@ namespace igor
 
     /*! camera node
     */
-    class Igor_API iNodeCamera : public iNode
+    class IGOR_API iNodeCamera : public iNode
     {
 
         friend class iNodeVisitorUpdateTransform;
@@ -103,4 +103,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_CAMERA_H__

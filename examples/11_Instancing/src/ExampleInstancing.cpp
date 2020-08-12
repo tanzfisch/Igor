@@ -26,7 +26,7 @@ ExampleInstancing::ExampleInstancing(iWindow *window)
 void ExampleInstancing::onInit()
 {
     const float32 spacing = 5.0f;
-    const int32 amountPerDimension = 21;
+    const int32 amountPerDimension = 60;
 
     // switching of vsync for maximum output
     getWindow()->setVSync(false);
@@ -48,7 +48,7 @@ void ExampleInstancing::onInit()
     iNodeTransform *cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
     cameraTranslation->setName("camera translation");
     // translate away from origin
-    cameraTranslation->translate(0, 0, spacing * amountPerDimension);
+    cameraTranslation->translate(0, 0, spacing * amountPerDimension * 0.5);
     _cameraTranslation = cameraTranslation->getID();
     // from all nodes that we want to control later we save the node ID
     // and last but not least we create a camera node
@@ -93,6 +93,7 @@ void ExampleInstancing::onInit()
     getScene()->getRoot()->insertNode(transformGroup);
 
     int count = 0;
+    _perlinNoise.generateBase(42);
 
     // create a bunch of models
     for (int z = 0; z < amountPerDimension; ++z)
@@ -101,6 +102,12 @@ void ExampleInstancing::onInit()
         {
             for (int x = 0; x < amountPerDimension; ++x)
             {
+                float32 noise = _perlinNoise.getValue(iaVector3d(x * 0.1, y * 0.1, z * 0.1), 3);
+                if (noise < 0.62)
+                {
+                    continue;
+                }
+
                 iNodeTransform *transform = iNodeManager::getInstance().createNode<iNodeTransform>();
                 transform->translate(x * spacing, y * spacing, z * spacing);
                 transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::X);
@@ -108,9 +115,6 @@ void ExampleInstancing::onInit()
                 transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::Z);
 
                 iNodeModel *modelNode = iNodeManager::getInstance().createNode<iNodeModel>();
-                // it is important to use the exact same parameters here as before when we direclty loaded the model
-                // because here it will not load it again but get it from the cache where we is still the version with manipulated material
-
                 switch (count % 4)
                 {
                 case 0:
