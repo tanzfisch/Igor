@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
-__IGOR_INLINE__ iNodePtr iNodeManager::getNode(uint64 id) const
+__IGOR_INLINE__ iNodePtr iNodeManager::getNode(iNodeID id) const
 {
     IGOR_PROFILER();
 
@@ -19,7 +19,7 @@ __IGOR_INLINE__ iNodePtr iNodeManager::getNode(uint64 id) const
     return result;
 }
 
-__IGOR_INLINE__ bool iNodeManager::isNode(uint64 id) const
+__IGOR_INLINE__ bool iNodeManager::isNode(iNodeID id) const
 {
     bool result = false;
 

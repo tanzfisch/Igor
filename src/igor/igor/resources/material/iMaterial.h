@@ -323,6 +323,8 @@ namespace igor
         iShader *getShader();
     };
 
+#include <igor/resources/material/iMaterial.inl>
+
     /*! definition of material pointer
     */
     typedef std::shared_ptr<iMaterial> iMaterialPtr;

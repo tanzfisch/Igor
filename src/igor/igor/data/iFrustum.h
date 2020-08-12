@@ -70,6 +70,20 @@ namespace igor
         */
         iPlane<T> _farPlane;
 
+        /*! comparison of two frustums
+
+		\param frustum the second frustum to compare
+		\returns true if frustums are equal
+		*/
+        bool operator==(const iFrustum<T> &frustum) const;
+
+        /*! negated comparison of two frustums
+
+		\param frustum the second frustum
+		\returns true if frustums are not equal
+		*/
+        bool operator!=(const iFrustum<T> &frustum) const;
+
         /*! default ctor
         */
         iFrustum() = default;

@@ -47,3 +47,35 @@ void iFrustum<T>::set(const iaMatrix<T> &matrix)
     _nearPlane._distance = -(matrix._w3 + matrix._pos._z);
     _nearPlane.normalize();
 }
+
+template <class T>
+__IGOR_INLINE__ bool iFrustum<T>::operator==(const iFrustum<T> &frustum) const
+{
+    if (_rightPlane._normal != frustum._rightPlane._normal || _rightPlane._distance != frustum._rightPlane._distance ||
+        _leftPlane._normal != frustum._leftPlane._normal || _leftPlane._distance != frustum._leftPlane._distance ||
+        _nearPlane._normal != frustum._nearPlane._normal || _nearPlane._distance != frustum._nearPlane._distance ||
+        _farPlane._normal != frustum._farPlane._normal || _farPlane._distance != frustum._farPlane._distance ||
+        _topPlane._normal != frustum._topPlane._normal || _topPlane._distance != frustum._topPlane._distance ||
+        _bottomPlane._normal != frustum._bottomPlane._normal || _bottomPlane._distance != frustum._bottomPlane._distance)
+    {
+        return false;
+    }
+
+    return true;
+}
+
+template <class T>
+__IGOR_INLINE__ bool iFrustum<T>::operator!=(const iFrustum<T> &frustum) const
+{
+    if (_rightPlane._normal == frustum._rightPlane._normal && _rightPlane._distance == frustum._rightPlane._distance &&
+        _leftPlane._normal == frustum._leftPlane._normal && _leftPlane._distance == frustum._leftPlane._distance &&
+        _nearPlane._normal == frustum._nearPlane._normal && _nearPlane._distance == frustum._nearPlane._distance &&
+        _farPlane._normal == frustum._farPlane._normal && _farPlane._distance == frustum._farPlane._distance &&
+        _topPlane._normal == frustum._topPlane._normal && _topPlane._distance == frustum._topPlane._distance &&
+        _bottomPlane._normal == frustum._bottomPlane._normal && _bottomPlane._distance == frustum._bottomPlane._distance)
+    {
+        return false;
+    }
+
+    return true;
+}

@@ -7,7 +7,6 @@
 #include <igor/scene/iScene.h>
 #include <igor/scene/octree/iOctree.h>
 #include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/data/iFrustum.h>
 #include <igor/resources/material/iMaterialGroup.h>
 #include <igor/scene/nodes/iNodeRender.h>
 #include <igor/scene/nodes/iNodeVolume.h>
@@ -20,6 +19,7 @@
 #include <igor/system/iTimer.h>
 #include <igor/scene/traversal/iNodeVisitorRenderBoundings.h>
 #include <igor/resources/profiler/iProfiler.h>
+#include <igor/data/iFrustum.h>
 
 #include <iaux/system/iaConsole.h>
 #include <iaux/data/iaConvert.h>
@@ -194,18 +194,17 @@ namespace igor
         IGOR_PROFILER();
 
         iaMatrixd view;
-        iaMatrixd camMatrix;
         camera->getViewMatrix(view);
+        iaMatrixd camMatrix;
         camera->getWorldMatrix(camMatrix);
         iRenderer::getInstance().setViewMatrix(view, camMatrix);
 
-        iaMatrixd frustumMatrix;
-        iRenderer::getInstance().getProjectionMatrix(frustumMatrix);
-        frustumMatrix *= view;
-        iFrustumd frustum(frustumMatrix);
-
+        iaMatrixd projectionMatrix;
+        iRenderer::getInstance().getProjectionMatrix(projectionMatrix);
+        projectionMatrix *= view;
+        const iFrustumd frustum(projectionMatrix);
         _scene->getOctree()->filter(frustum);
-        }
+    }
 
     void iRenderEngine::updateMaterialGroups()
     {
@@ -227,8 +226,7 @@ namespace igor
             }
         }
 
-        const auto &renderables = _scene->getRenderables();
-        for (const auto renderNode : renderables)
+        for (const auto renderNode : _scene->getRenderables())
         {
             if (renderNode->isVisible())
             {
