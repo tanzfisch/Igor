@@ -99,15 +99,15 @@ namespace igor
         */
         void clearFilter();
 
-        /*! recursive method to filter the octree with a set of filters starting with specified node id
-
-        \param nodeID current octree node to check for filtering
-        */
-        void filter(uint64 nodeID);
-
         /*! recursive method to filter the octree with a set of filters starting at root node
         */
         void filter();
+
+        /*! filters the octree with given frustum
+
+        \param frustum the given frustum
+        */
+        void filter(const iFrustumd &frustum);
 
         /*! returns the result of filtering
 
@@ -172,6 +172,19 @@ namespace igor
             */
             std::vector<uint64> _objects;
         };
+
+        /*! recursive method to filter the octree with a set of filters starting with specified node id
+
+        \param nodeID current octree node to check for filtering
+        */
+        void filter(uint64 nodeID);
+
+        /*! specialized version of filter function only filtering for given frustum
+
+        \param nodeID current octree node to check for filtering
+        \param frustum the given frustum
+        */
+        void filter(uint64 nodeID, const iFrustumd &frustum);
 
         /*! lookup table for faster split of octree node volumes
         */

@@ -25,7 +25,9 @@ __IGOR_INLINE__ iaVector3<T> iaVector3<T>::operator+(const iaVector3<T> &a) cons
 template <class T>
 std::wostream &operator<<(std::wostream &ostr, const iaVector3<T> &v)
 {
-    ostr << "(" << v._x << ", " << v._y << ", " << v._z << ")";
+    ostr << "(" << std::setfill(L' ') << std::fixed << std::right << std::setprecision(2) << std::setw(10) << v._x << ", ";
+    ostr << std::setfill(L' ') << std::fixed << std::right << std::setprecision(2) << std::setw(10) << v._y << ", ";
+    ostr << std::setfill(L' ') << std::fixed << std::right << std::setprecision(2) << std::setw(10) << v._z << ")";
     return ostr;
 }
 

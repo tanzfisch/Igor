@@ -3,30 +3,47 @@
 // see copyright notice in corresponding header file
 
 template <class T>
-void iFrustum<T>::set(iaMatrix<T>& viewProjection)
+__IGOR_INLINE__ std::wostream &operator<<(std::wostream &ostr, const iFrustum<T> &frustum)
 {
-    _rightPlane._normal.set(viewProjection._w0 - viewProjection._right._x, viewProjection._w1 - viewProjection._top._x, viewProjection._w2 - viewProjection._depth._x);
-    _rightPlane._distance = viewProjection._w3 - viewProjection._pos._x;
-    _rightPlane.normalize();
-    
-    _leftPlane._normal.set(viewProjection._w0 + viewProjection._right._x, viewProjection._w1 + viewProjection._top._x, viewProjection._w2 + viewProjection._depth._x);
-	_leftPlane._distance = viewProjection._w3 + viewProjection._pos._x;
-	_leftPlane.normalize();
-
-	_topPlane._normal.set(viewProjection._w0 - viewProjection._right._y, viewProjection._w1 - viewProjection._top._y, viewProjection._w2 - viewProjection._depth._y);
-	_topPlane._distance = viewProjection._w3 - viewProjection._pos._y;
-	_topPlane.normalize();
-
-	_bottomPlane._normal.set(viewProjection._w0 + viewProjection._right._y, viewProjection._w1 + viewProjection._top._y, viewProjection._w2 + viewProjection._depth._y);
-	_bottomPlane._distance = viewProjection._w3 + viewProjection._pos._y;
-	_bottomPlane.normalize();
-
-    _farPlane._normal.set(viewProjection._w0 - viewProjection._right._z, viewProjection._w1 - viewProjection._top._z, viewProjection._w2 - viewProjection._depth._z);
-    _farPlane._distance = viewProjection._w3 - viewProjection._pos._z;
-    _farPlane.normalize();
-
-	_nearPlane._normal.set(viewProjection._w0 + viewProjection._right._z, viewProjection._w1 + viewProjection._top._z, viewProjection._w2 + viewProjection._depth._z);
-	_nearPlane._distance = viewProjection._w3 + viewProjection._pos._z;
-	_nearPlane.normalize();
+    ostr << "near  :" << frustum._nearPlane._normal << " - " << frustum._nearPlane._distance << "\n";
+    ostr << "far   :" << frustum._farPlane._normal << " - " << frustum._farPlane._distance << "\n";
+    ostr << "left  :" << frustum._leftPlane._normal << " - " << frustum._leftPlane._distance << "\n";
+    ostr << "right :" << frustum._rightPlane._normal << " - " << frustum._rightPlane._distance << "\n";
+    ostr << "top   :" << frustum._topPlane._normal << " - " << frustum._topPlane._distance << "\n";
+    ostr << "bottom:" << frustum._bottomPlane._normal << " - " << frustum._bottomPlane._distance << "\n";
+    return ostr;
 }
 
+template <class T>
+iFrustum<T>::iFrustum(const iaMatrix<T> &matrix)
+{
+    set(matrix);
+}
+
+template <class T>
+void iFrustum<T>::set(const iaMatrix<T> &matrix)
+{
+    _rightPlane._normal.set(matrix._w0 - matrix._right._x, matrix._w1 - matrix._top._x, matrix._w2 - matrix._depth._x);
+    _rightPlane._distance = -(matrix._w3 - matrix._pos._x);
+    _rightPlane.normalize();
+
+    _leftPlane._normal.set(matrix._w0 + matrix._right._x, matrix._w1 + matrix._top._x, matrix._w2 + matrix._depth._x);
+    _leftPlane._distance = -(matrix._w3 + matrix._pos._x);
+    _leftPlane.normalize();
+
+    _topPlane._normal.set(matrix._w0 - matrix._right._y, matrix._w1 - matrix._top._y, matrix._w2 - matrix._depth._y);
+    _topPlane._distance = -(matrix._w3 - matrix._pos._y);
+    _topPlane.normalize();
+
+    _bottomPlane._normal.set(matrix._w0 + matrix._right._y, matrix._w1 + matrix._top._y, matrix._w2 + matrix._depth._y);
+    _bottomPlane._distance = -(matrix._w3 + matrix._pos._y);
+    _bottomPlane.normalize();
+
+    _farPlane._normal.set(matrix._w0 - matrix._right._z, matrix._w1 - matrix._top._z, matrix._w2 - matrix._depth._z);
+    _farPlane._distance = -(matrix._w3 - matrix._pos._z);
+    _farPlane.normalize();
+
+    _nearPlane._normal.set(matrix._w0 + matrix._right._z, matrix._w1 + matrix._top._z, matrix._w2 + matrix._depth._z);
+    _nearPlane._distance = -(matrix._w3 + matrix._pos._z);
+    _nearPlane.normalize();
+}

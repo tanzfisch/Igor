@@ -70,7 +70,7 @@ namespace igor
         static bool contains(const iSphere<T> &sphereA, const iSphere<T> &sphereB);
 
         /*! tests if sphere is in front of plane
-
+        
         \param sphere the sphere to test
         \param plane the plane to test
         \returns true if sphere is partially or fully in front of plane

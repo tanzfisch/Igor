@@ -58,7 +58,7 @@ namespace igor
         */
         __IGOR_INLINE__ void normalize();
 
-        /*! constructor that basically sets member valirables
+        /*! sets member variables
 
         \param normal the normal
         \param distance the distance

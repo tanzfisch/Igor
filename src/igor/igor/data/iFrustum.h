@@ -70,17 +70,23 @@ namespace igor
         */
         iPlane<T> _farPlane;
 
+        /*! default ctor
+        */
+        iFrustum() = default;
+
+        /*! init with projection matrix
+
+        \param matrix projection matrix
+        */
+        iFrustum(const iaMatrix<T> &matrix);
+
         /*! uses projection matrix to calculate all planes of the frustum
 
         http://www.racer.nl/reference/vfc.htm
 
-        \param viewProjection projection matrix
+        \param matrix projection matrix
         */
-        void set(iaMatrix<T> &viewProjection);
-
-        /*! does nothing
-        */
-        iFrustum() = default;
+        void set(const iaMatrix<T> &matrix);
 
         /*! does nothing
         */

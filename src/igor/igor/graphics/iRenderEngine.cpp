@@ -202,13 +202,9 @@ namespace igor
         iaMatrixd frustumMatrix;
         iRenderer::getInstance().getProjectionMatrix(frustumMatrix);
         frustumMatrix *= view;
+        iFrustumd frustum(frustumMatrix);
 
-        iFrustumd frustum;
-        frustum.set(frustumMatrix);
-
-        _scene->getOctree()->clearFilter();
-        _scene->getOctree()->addFilter(frustum);
-        _scene->getOctree()->filter();
+        _scene->getOctree()->filter(frustum);
         _scene->getOctree()->getResult(_cullResult);
     }
 

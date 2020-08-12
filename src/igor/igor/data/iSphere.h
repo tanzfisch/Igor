@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iSPHERE__
-#define __iSPHERE__
+#ifndef __IGOR_SPHERE_H__
+#define __IGOR_SPHERE_H__
 
 #include <igor/data/iFrustum.h>
 #include <iaux/system/iaConsole.h>
@@ -106,4 +106,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_SPHERE_H__

@@ -55,7 +55,6 @@ namespace igor
         _spheresFilter.clear();
         _planesFilter.clear();
         _frustumFilter.clear();
-        _queryResult.clear();
     }
 
     void iOctree::addFilter(const iFrustumd &frustum)
@@ -361,9 +360,42 @@ namespace igor
         }
     }
 
+    void iOctree::filter(const iFrustumd &frustum)
+    {
+        IGOR_PROFILER();
+        _queryResult.clear();
+        filter(_rootNode, frustum);
+    }
+
+    void iOctree::filter(uint64 nodeID, const iFrustumd &frustum)
+    {
+        IGOR_PROFILER();
+        OctreeNode *node = _nodes[nodeID];
+
+        if (iIntersection::intersects(node->_box, frustum))
+        {
+            for (auto objectID : node->_objects)
+            {
+                if (iIntersection::intersects(_objects[objectID]->_sphere, frustum))
+                {
+                    _queryResult.push_back(objectID);
+                }
+            }
+
+            if (nullptr != node->_children)
+            {
+                for (uint64 i = 0; i < 8; ++i)
+                {
+                    filter(node->_children[i], frustum);
+                }
+            }
+        }
+    }
+
     void iOctree::filter()
     {
         IGOR_PROFILER();
+        _queryResult.clear();
         filter(_rootNode);
     }
 

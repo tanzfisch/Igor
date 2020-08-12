@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iAACUBE__
-#define __iAACUBE__
+#ifndef __IGOR_AACUBE_H__
+#define __IGOR_AACUBE_H__
 
 #include <igor/iDefines.h>
 
@@ -76,4 +76,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_AACUBE_H__

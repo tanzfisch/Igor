@@ -33,6 +33,7 @@
 
 #include <cmath>
 #include <ostream>
+#include <iomanip>
 
 namespace iaux
 {
