@@ -51,29 +51,28 @@ namespace igor
     \bug it does not work for bigger objects
     \todo does not merge efficiently
     \todo implement move functionality
-    \todo update interface docs
     */
     class IGOR_API iOctree
     {
 
     public:
-        /*! insert scene node to octree
+        /*! insert user data to octree
 
-        \param userData id of the scene node
+        \param userData pointer to user data
         */
         void insert(void *userData, const iSphered &sphere);
 
-        /*! remove scene node from octree
+        /*! remove user data from octree
 
-        \param userData id of the scene node
+        \param userData pointer to user data
         */
         void remove(void *userData);
 
-        /*! update scene node in octree
+        /*! update user data in octree
 
-        this is called usually if the scene node changed it's position
+        this is called usually if the user data changed it's position
 
-        \param userData id of the scene node
+        \param userData pointer to user data
         */
         void update(void *userData, const iSphered &sphere);
 
@@ -89,10 +88,9 @@ namespace igor
         */
         void addFilter(const iPlaned &plane);
 
-        /*! recursive method to filter the octree with a sphere
+        /*! adds sphere to filter set
 
-        \param frustum the frustum
-        \param nodeID current octree node to check for filtering
+        \param sphere the sphere to filter with
         */
         void addFilter(const iSphered &sphere);
 
@@ -100,11 +98,15 @@ namespace igor
         */
         void clearFilter();
 
-        /*! recursive method to filter the octree with a set of filters starting at root node
+        /*! filters the octree using the current filter set
+
+        use getResult to get the result
         */
         void filter();
 
         /*! filters the octree with given frustum
+
+        use getResult to get the result
 
         \param frustum the given frustum
         */
@@ -112,7 +114,7 @@ namespace igor
 
         /*! returns the result of filtering
 
-        \returns the filtered object ids (in most applications this is equal to node IDs)
+        \returns the filtered user data
         */
         const std::vector<void *> &getResult() const;
 
@@ -124,7 +126,7 @@ namespace igor
         \param objectCountMinThreashold minimum amount of objects in the child nodes of a node before merging them together
         \todo it would be nice to have a octree with dynamic volume
         */
-        iOctree(const iAACubed &box, float64 halfMinResolution = 1.0, uint64 objectCountMaxThreashold = 5, uint64 objectCountMinThreashold = 2);
+        iOctree(const iAACubed &box, float64 halfMinResolution = 1.0, uint64 objectCountMaxThreashold = 8, uint64 objectCountMinThreashold = 2);
 
         /*! dtor
         \bug not implemented
@@ -169,7 +171,7 @@ namespace igor
             */
             uint64 _parent = 0;
 
-            /*! list of objects within the volume of this octree node
+            /*! list of user data
             */
             std::vector<void *> _objects;
         };
