@@ -215,9 +215,9 @@ namespace igor
             group.second.clear();
         }
 
-        for (auto nodeID : _scene->getOctree()->getResult())
+        for (void *ptr : _scene->getOctree()->getResult())
         {
-            iNodeRenderPtr renderNode = static_cast<iNodeRenderPtr>(iNodeManager::getInstance().getNode(nodeID));
+            iNodeRenderPtr renderNode = static_cast<iNodeRenderPtr>(ptr);
 
             if (renderNode != nullptr &&
                 renderNode->isVisible())

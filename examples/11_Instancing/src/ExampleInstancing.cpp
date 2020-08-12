@@ -26,7 +26,7 @@ ExampleInstancing::ExampleInstancing(iWindow *window)
 void ExampleInstancing::onInit()
 {
     const float32 spacing = 5.0f;
-    const int32 amountPerDimension = 47;
+    const int32 amountPerDimension = 60;
 
     // switching of vsync for maximum output
     getWindow()->setVSync(false);
@@ -48,7 +48,7 @@ void ExampleInstancing::onInit()
     iNodeTransform *cameraTranslation = iNodeManager::getInstance().createNode<iNodeTransform>();
     cameraTranslation->setName("camera translation");
     // translate away from origin
-    cameraTranslation->translate(0, 0, spacing * amountPerDimension);
+    cameraTranslation->translate(0, 0, spacing * amountPerDimension * 0.5);
     _cameraTranslation = cameraTranslation->getID();
     // from all nodes that we want to control later we save the node ID
     // and last but not least we create a camera node

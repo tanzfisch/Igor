@@ -28,7 +28,7 @@ namespace igor
         _root->setName(L"RootNode");
         _root->setScene(this);
 
-        _octree = new iOctree(iAACubed(iaVector3d(0, 0, 0), 10000000.0), 1.0, 8, 2);
+        _octree = new iOctree(iAACubed(iaVector3d(0, 0, 0), 10000000.0), 10.0, 8, 2);
     }
 
     iScene::~iScene()
@@ -195,7 +195,7 @@ namespace igor
             sphere._center._y = volume->getCenter()._y;
             sphere._center._z = volume->getCenter()._z;
             sphere._radius = volume->getBoundingSphere()._radius;
-            _octree->insert(volume->getID(), sphere);
+            _octree->insert(volume, sphere);
         }
     }
 
@@ -204,7 +204,7 @@ namespace igor
         auto iter = find(_volumes.begin(), _volumes.end(), volume);
         if (iter != _volumes.end())
         {
-            _octree->remove(volume->getID());
+            _octree->remove(volume);
             _volumes.erase(iter);
             return;
         }
@@ -220,7 +220,7 @@ namespace igor
         sphere._center._z = volume->getCenter()._z;
         sphere._radius = volume->getBoundingSphere()._radius;
 
-        _octree->update(volume->getID(), sphere);
+        _octree->update(volume, sphere);
     }
 
     void iScene::registerCamera(iNodeCamera *camera)

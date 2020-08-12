@@ -51,6 +51,7 @@ namespace igor
     \bug it does not work for bigger objects
     \todo does not merge efficiently
     \todo implement move functionality
+    \todo update interface docs
     */
     class IGOR_API iOctree
     {
@@ -58,23 +59,23 @@ namespace igor
     public:
         /*! insert scene node to octree
 
-        \param userDataID id of the scene node
+        \param userData id of the scene node
         */
-        void insert(uint64 userDataID, const iSphered &sphere);
+        void insert(void *userData, const iSphered &sphere);
 
         /*! remove scene node from octree
 
-        \param userDataID id of the scene node
+        \param userData id of the scene node
         */
-        void remove(uint64 userDataID);
+        void remove(void *userData);
 
         /*! update scene node in octree
 
         this is called usually if the scene node changed it's position
 
-        \param userDataID id of the scene node
+        \param userData id of the scene node
         */
-        void update(uint64 userDataID, const iSphered &sphere);
+        void update(void *userData, const iSphered &sphere);
 
         /*! adds frustum to filter set
 
@@ -113,7 +114,7 @@ namespace igor
 
         \returns the filtered object ids (in most applications this is equal to node IDs)
         */
-        const std::vector<uint64> &getResult() const;
+        const std::vector<void *> &getResult() const;
 
         /*! creates the octree including the root node
 
@@ -170,7 +171,7 @@ namespace igor
 
             /*! list of objects within the volume of this octree node
             */
-            std::vector<uint64> _objects;
+            std::vector<void *> _objects;
         };
 
         /*! recursive method to filter the octree with a set of filters starting with specified node id
@@ -208,11 +209,11 @@ namespace igor
 
         /*! lookup table for all objects within the octree
         */
-        std::unordered_map<uint64, OctreeObject *> _objects;
+        std::unordered_map<void *, OctreeObject *> _objects;
 
         /*! lookup table for all nodes within the octree
         */
-        std::map<uint64, OctreeNode *> _nodes;
+        std::unordered_map<uint64, OctreeNode *> _nodes;
 
         /*! id of the root node
         */
@@ -220,7 +221,7 @@ namespace igor
 
         /*! internal list for filtering
         */
-        std::vector<uint64> _queryResult;
+        std::vector<void *> _queryResult;
 
         /*! spheres filter list
         */
@@ -243,10 +244,10 @@ namespace igor
         if the right place is fount a octree object will be created the represents the scene node
 
         \param nodeID the current octree node in rucursion
-        \param userDataID the id of the scene node to bind to the octree object
+        \param userData the id of the scene node to bind to the octree object
         \param position position of scene node volume
         */
-        void insert(uint64 nodeID, uint64 userDataID, const iSphered &sphere);
+        void insert(uint64 nodeID, void *userData, const iSphered &sphere);
 
         /*! check if node has to be split and than split
 
@@ -300,16 +301,16 @@ namespace igor
 
         /*! creates an octree object
 
-        \param userDataID scene node to associate the octree object with
+        \param userData scene node to associate the octree object with
         \returns pointer to new octree object
         */
-        OctreeObject *createObject(uint64 userDataID, const iSphered &sphere);
+        OctreeObject *createObject(void *userData, const iSphered &sphere);
 
         /*! deletes an octree object by scene node id
 
-        \param userDataID id of the corresponding scene node
+        \param userData id of the corresponding scene node
         */
-        void deleteObject(uint64 userDataID);
+        void deleteObject(void *userData);
 
         /*! recursive method the draw the octree structure
 

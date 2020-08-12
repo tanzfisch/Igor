@@ -14,7 +14,7 @@
 #include <igor/scene/nodes/iNodePhysics.h>
 
 // uncomment next line for voxel terrain debug coloring
-#define DEBUG_VOXEL_TERRAIN_COLORING
+// #define DEBUG_VOXEL_TERRAIN_COLORING
 
 // uncomment next line for voxel terrain debug using no physics
 // #define DEBUG_VOXEL_TERRAIN_NO_PHYSICS
