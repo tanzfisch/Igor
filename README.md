@@ -10,12 +10,6 @@
                      \_/__/  game engine        ) )     ((
                                                (_(       \)
  
- Get Igor
- --------
- 
- You can get Igor at github with following link
- https://github.com/tanzfisch/Igor.git
- 
  Doxygen docs
  ------------
  
