@@ -106,16 +106,16 @@ namespace igor
         iaConsole::getInstance() << G << "                                        " << C1 << "   (_(    " << C2 << "   \\)" << endl;
 
         iaConsole::getInstance() << T << "    (c) Copyright 2012-2020 by Martin Loga" << endl
-                                 << endl;
+            << endl;
         iaConsole::getInstance() << T << "    version " << __IGOR_VERSION__ << " (" << __IGOR_CONFIGURATION__ << ") LGPL v3.0" << endl
-                                 << endl;
+            << endl;
         iaConsole::getInstance() << T << "    thanks to M. Rochel, M. Schulz, T. Drevensek, I. Yozova" << endl
-                                 << endl;
+            << endl;
         iaConsole::getInstance() << T << "    powered by NewtonDynamics, OpenGL, OpenAL-Soft, GLee, stb_image, TinyXML" << endl
-                                 << endl;
+            << endl;
         iaConsole::getInstance() << T << "    get sources from https://github.com/tanzfisch/Igor.git" << endl;
         iaConsole::getInstance() << W << "  ____________________________________________________________________________" << endl
-                                 << endl;
+            << endl;
         iaConsole::getInstance() << UNLOCK;
 
 #undef G
@@ -138,7 +138,32 @@ namespace igor
 
     void startup()
     {
-        startup(0, nullptr);
+        startupArgs(0, nullptr);
+    }
+
+    static void createModules()
+    {
+        iTimer::create();
+        printInfo();
+        iApplication::create();
+        iEvaluationManager::create();
+        iEntityManager::create();
+        iAudio::create();
+        iClipboard::create();
+        iActionManager::create();
+        iProfiler::create();
+        iMouse::create();
+        iKeyboard::create();
+        iPhysics::create();
+        iRenderer::create();
+        iTextureResourceFactory::create();
+        iMaterialResourceFactory::create();
+        iResourceManager::create();
+        iWidgetManager::create();
+        iSceneFactory::create();
+        iNodeManager::create();
+        iTaskManager::create();
+        iModelResourceFactory::create();
     }
 
     static void destroyModules()
@@ -245,30 +270,11 @@ namespace igor
         }
     }
 
-    void startup(int argc, wchar_t **argv)
+    void startupArgs(int argc, wchar_t** argv)
     {
         iaux::startup();
-        iTimer::create();
-        printInfo();
-        iApplication::create();
-        iEvaluationManager::create();
-        iEntityManager::create();
-        iAudio::create();
-        iClipboard::create();
-        iActionManager::create();
-        iProfiler::create();
-        iMouse::create();
-        iKeyboard::create();
-        iPhysics::create();
-        iRenderer::create();
-        iTextureResourceFactory::create();
-        iMaterialResourceFactory::create();
-        iResourceManager::create();
-        iWidgetManager::create();
-        iSceneFactory::create();
-        iNodeManager::create();
-        iTaskManager::create();
-        iModelResourceFactory::create();
+
+        createModules();
 
         iConfigReader configReader;
         iaString configurationFilepath;
@@ -313,7 +319,7 @@ namespace igor
 #ifdef __IGOR_LINUX__
             const static iaString configLocations[] = {
                 L"/etc/igor/igor.xml",
-                L"../config/igor.xml"};
+                L"../config/igor.xml" };
 
             for (int i = 0; i < 2; ++i)
             {

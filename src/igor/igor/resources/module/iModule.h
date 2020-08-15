@@ -45,8 +45,8 @@ namespace igor
     class IGOR_API_TEMPLATE iModule
     {
         friend void destroyModules();
-        friend void startup(int argc, wchar_t **argv);
-
+        friend void createModules();
+        
     public:
         /*! \returns the instance of this module
         */
