@@ -44,7 +44,7 @@ namespace igor
         {
             iEntityLocatable *locatable = static_cast<iEntityLocatable *>(entity);
             locatable->_sphere._center = locatable->getCurrentPos();
-            _octree->insert(entity->getID(), locatable->_sphere);
+            _octree->insert((void*)entity->getID(), locatable->_sphere);
         }
 
         _entities[entity->getID()] = entity;
@@ -54,7 +54,7 @@ namespace igor
     {
         if (entity->_type == iEntityType::Locatable)
         {
-            _octree->remove(entity->getID());
+            _octree->remove((void*)entity->getID());
         }
 
         auto iter = _entities.find(entity->getID());
@@ -97,7 +97,7 @@ namespace igor
             {
                 locatable = static_cast<iEntityLocatable *>(entity.second);
                 locatable->_sphere._center = locatable->getCurrentPos();
-                _octree->update(locatable->_id, locatable->_sphere);
+                _octree->update((void*)locatable->_id, locatable->_sphere);
             }
         }
 

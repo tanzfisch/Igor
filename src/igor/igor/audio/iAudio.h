@@ -134,6 +134,10 @@ namespace igor
         void updateListener(const iaMatrixd &matrix, const iaVector3d velocity);
 
     private:
+        /*! pimpl
+        */
+        iAudioImpl* _impl = nullptr;
+
         /*! initializes the audio interface
         */
         iAudio();
@@ -141,10 +145,6 @@ namespace igor
         /*! shuts doen the audio interface
         */
         ~iAudio();
-
-        /*! pimpl
-        */
-        iAudioImpl *_impl = nullptr;
     };
 
 }; // namespace igor
