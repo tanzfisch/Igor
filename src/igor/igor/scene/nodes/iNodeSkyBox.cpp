@@ -54,12 +54,6 @@ namespace igor
         return _textureScale;
     }
 
-    bool iNodeSkyBox::wasReached()
-    {
-        // sky box is always reached
-        return true;
-    }
-
     void iNodeSkyBox::setTextures(iTexturePtr front, iTexturePtr back, iTexturePtr left, iTexturePtr right, iTexturePtr top, iTexturePtr bottom)
     {
         _front = front;

@@ -43,12 +43,6 @@ namespace igor
         friend class iNodeManager;
 
     public:
-        /*! \returns true if this node was reached by culling
-
-        the sky box node is always reached!
-        */
-        virtual bool wasReached();
-
         /*! draw the sky box
         */
         virtual void draw();

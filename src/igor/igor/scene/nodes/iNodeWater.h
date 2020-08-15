@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iNODEWATER__
-#define __iNODEWATER__
+#ifndef __IGOR_NODEWATER_H__
+#define __IGOR_NODEWATER_H__
 
 #include <igor/scene/nodes/iNodeRender.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
@@ -43,13 +43,7 @@ namespace igor
         friend class iNodeManager;
 
     public:
-        /*! \returns true if this node was reached by culling
-
-        the sky box node is always reached!
-        */
-        virtual bool wasReached();
-
-        /*! draw the sky box
+        /*! draw the water
         */
         virtual void draw();
 
@@ -97,4 +91,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_NODEWATER_H__

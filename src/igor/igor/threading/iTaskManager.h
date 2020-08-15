@@ -26,12 +26,13 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iTASKMANAGER__
-#define __iTASKMANAGER__
+#ifndef __IGOR_TASKMANAGER_H__
+#define __IGOR_TASKMANAGER_H__
 
 #include <igor/iDefines.h>
 #include <igor/threading/iThread.h>
 #include <igor/resources/module/iModule.h>
+#include <igor/threading/tasks/iTask.h>
 
 #include <iaux/system/iaEvent.h>
 using namespace iaux;
@@ -43,14 +44,13 @@ using namespace iaux;
 namespace igor
 {
 
-    class iTask;
     class iRenderContextThread;
     class iThread;
     class iWindow;
 
     /*! event triggered when task was finished
     */
-    iaEVENT(iTaskFinishedEvent, iTaskFinishedDelegate, (uint64 taskID), (taskID));
+    iaEVENT(iTaskFinishedEvent, iTaskFinishedDelegate, (iTaskID taskID), (taskID));
 
     /*! manages tasks to be done in parallel
 
@@ -86,19 +86,19 @@ namespace igor
         \param task the task to be added
         \returns the task's id
         */
-        uint64 addTask(iTask *task);
+        iTaskID addTask(iTask *task);
 
         /*! \returns task by id
 
         \param taskID the task ID to search for
         */
-        iTask *getTask(uint64 taskID);
+        iTask *getTask(iTaskID taskID);
 
         /*! aborts a task by id
 
         \param taskID the task id to abort
         */
-        void abortTask(uint64 taskID);
+        void abortTask(iTaskID taskID);
 
         /*! \returns regular thread count
         */
@@ -167,7 +167,7 @@ namespace igor
 
         /*! list of all tasks
         */
-        std::map<uint64, iTask *> _allTasks;
+        std::map<iTaskID, iTask *> _allTasks;
 
         /*! mutex for all tasks list
         */
@@ -265,4 +265,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif
+#endif // __IGOR_TASKMANAGER_H__
