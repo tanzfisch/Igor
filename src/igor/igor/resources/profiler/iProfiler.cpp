@@ -4,6 +4,8 @@
 
 #include <igor/resources/profiler/iProfiler.h>
 
+#include <igor/graphics/iRenderer.h>
+
 namespace igor
 {
 
