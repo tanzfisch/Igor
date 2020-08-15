@@ -30,11 +30,7 @@
 #define __IGOR_PROFILER_H__
 
 #include <igor/resources/module/iModule.h>
-
-#include <iaux/data/iaColor4.h>
 #include <iaux/data/iaString.h>
-#include <iaux/system/iaConsole.h>
-#include <iaux/data/iaIDGenerator.h>
 #include <iaux/system/iaTime.h>
 #include <iaux/system/iaMutex.h>
 using namespace iaux;

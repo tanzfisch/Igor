@@ -3,16 +3,6 @@
 // see copyright notice in corresponding header file
 
 #include <igor/resources/profiler/iProfiler.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/system/iWindow.h>
-#include <igor/resources/texture/iTextureFont.h>
-#include <igor/system/iTimer.h>
-#include <igor/threading/iTaskManager.h>
-#include <igor/graphics/iRenderer.h>
-
-#include <iaux/data/iaString.h>
-using namespace iaux;
 
 namespace igor
 {
