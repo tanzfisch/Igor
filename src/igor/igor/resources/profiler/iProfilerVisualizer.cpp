@@ -172,7 +172,7 @@ namespace igor
 
         if (_renderStatisticsMode >= iProfilerVerbosity::FPSAndMetrics)
         {
-            voffset = 40;
+            voffset = 60;
         }
 
         iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
@@ -182,6 +182,7 @@ namespace igor
         iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
         const iaString fpsText = iaString::toString(_lastFPS, 2);
+        fpsText += " fps";
         iRenderer::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 10 - voffset), fpsText, iHorizontalAlignment::Right, iVerticalAlignment::Bottom);
 
         if (_renderStatisticsMode >= iProfilerVerbosity::FPSAndMetrics)
@@ -203,6 +204,14 @@ namespace igor
             instanced += " i:";
             instanced += units(stats._indicesInstanced);
             iRenderer::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 30), instanced, iHorizontalAlignment::Right, iVerticalAlignment::Bottom);
+
+            iaString total = "total v:";
+            total += units(stats._verticesInstanced + stats._vertices);
+            total += " t:";
+            total += units(stats._trianglesInstanced + stats._triangles);
+            total += " i:";
+            total += units(stats._indicesInstanced + stats._indices);
+            iRenderer::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 50), total, iHorizontalAlignment::Right, iVerticalAlignment::Bottom);
         }
 
         if (_renderStatisticsMode >= iProfilerVerbosity::FPSMetricsAndTasks)
@@ -241,8 +250,8 @@ namespace igor
 
             float32 textOffsetX = 0.0f;
 
-            iRenderer::getInstance().setMaterial(_materialSolid);
-            iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
+            iRenderer::getInstance().setMaterial(_materialBlend);
+            iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 0.6));
             iRenderer::getInstance().drawRectangle(rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight() + 60.0f);
 
             iRenderer::getInstance().setMaterial(_materialSolid);
