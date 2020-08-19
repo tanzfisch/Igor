@@ -29,3 +29,9 @@ __IGOR_INLINE__ T iaRandomNumberGenerator<T>::getNext()
     _seed = (static_cast<uint64>(_seed) * _a + _c) % _m;
     return _seed;
 }
+
+template <class T>
+__IGOR_INLINE__ float64 iaRandomNumberGenerator<T>::getNextFloat()
+{
+    return getNext() % 1000000 / 1000000.0;
+}

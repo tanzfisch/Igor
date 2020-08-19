@@ -61,6 +61,10 @@ namespace iaux
         */
         T getNext();
 
+        /*! \returns next random number as float 0.0-1.0
+        */
+        float64 getNextFloat();
+
     private:
         /*! the seed
         */
