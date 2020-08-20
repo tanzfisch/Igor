@@ -1645,7 +1645,7 @@ namespace igor
         glBindBuffer(GL_ARRAY_BUFFER, instancer->getInstanceArrayObject());
         GL_CHECK_ERROR();
 
-        glNamedBufferSubData(instancer->getInstanceArrayObject(), 0, instancer->getInstanceSize() * instancer->getInstanceCount(), instancer->getInstanceDataBuffer());
+        glBufferSubData(GL_ARRAY_BUFFER, 0, instancer->getInstanceSize() * instancer->getInstanceCount(), instancer->getInstanceDataBuffer());
         GL_CHECK_ERROR();
 
         glEnableVertexAttribArray(3);

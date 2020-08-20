@@ -4,7 +4,6 @@
 
 #include <igor/threading/iTaskManager.h>
 
-#include <igor/threading/tasks/iTask.h>
 #include <igor/system/iApplication.h>
 #include <igor/threading/iRenderContextThread.h>
 #include <igor/threading/tasks/iTask.h>
@@ -124,7 +123,7 @@ namespace igor
         con_debug("threading done");
     }
 
-    void iTaskManager::abortTask(uint64 taskID)
+    void iTaskManager::abortTask(iTaskID taskID)
     {
         iTask *task = getTask(taskID);
         if (task != nullptr)
@@ -225,7 +224,7 @@ namespace igor
         }
         _renderContextTasksQueued.clear();
 
-        std::vector<uint64> removeFromAllTasks;
+        std::vector<iTaskID> removeFromAllTasks;
 
         // stop running render context tasks
         auto taskIter = _renderContextTasksRunning.begin();
@@ -330,7 +329,7 @@ namespace igor
                 taskTodo->run();
                 taskTodo->finishTask();
 
-                uint64 idToDelete = iTask::INVALID_TASK_ID;
+                iTaskID idToDelete = iTask::INVALID_TASK_ID;
 
                 _mutexRenderContextTasks.lock();
                 std::list<iTask *>::iterator findIter = find(_renderContextTasksRunning.begin(), _renderContextTasksRunning.end(), taskTodo);
@@ -407,7 +406,7 @@ namespace igor
                 taskTodo->run();
                 taskTodo->finishTask();
 
-                uint64 idToDelete = iTask::INVALID_TASK_ID;
+                iTaskID idToDelete = iTask::INVALID_TASK_ID;
 
                 _mutexRegularTasks.lock();
                 std::list<iTask *>::iterator findIter = find(_regularTasksRunning.begin(), _regularTasksRunning.end(), taskTodo);
@@ -492,7 +491,7 @@ namespace igor
         _mutexRenderContextTasks.unlock();
     }
 
-    iTask *iTaskManager::getTask(uint64 taskID)
+    iTask *iTaskManager::getTask(iTaskID taskID)
     {
         iTask *result = nullptr;
 
@@ -507,9 +506,9 @@ namespace igor
         return result;
     }
 
-    uint64 iTaskManager::addTask(iTask *task)
+    iTaskID iTaskManager::addTask(iTask *task)
     {
-        uint64 result = iTask::INVALID_TASK_ID;
+        iTaskID result = iTask::INVALID_TASK_ID;
         con_assert(task != nullptr, "zero pointer");
 
         if (task != nullptr)

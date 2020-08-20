@@ -137,6 +137,8 @@ namespace iaux
         friend iaConsole &applicationTime(iaConsole &console);
 
     public:
+        /*! returns single instance of the console
+        */
         static iaConsole &getInstance()
         {
             static iaConsole _instance;

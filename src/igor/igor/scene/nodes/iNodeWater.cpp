@@ -41,12 +41,6 @@ namespace igor
     {
     }
 
-    bool iNodeWater::wasReached()
-    {
-        // TODO
-        return true;
-    }
-
     void iNodeWater::setWaterPosition(float32 yPos)
     {
         _yPos = yPos;

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iCONFIGREADER__
-#define __iCONFIGREADER__
+#ifndef __IGOR_CONFIGREADER_H__
+#define __IGOR_CONFIGREADER_H__
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
@@ -77,4 +77,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_CONFIGREADER_H__

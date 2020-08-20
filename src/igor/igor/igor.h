@@ -178,7 +178,7 @@ namespace igor
 	\param argc command line parameter count
 	\param argv command line parameters
 	*/
-    void IGOR_API startup(int argc, wchar_t **argv);
+    void IGOR_API startupArgs(int argc, wchar_t **argv);
 
     /*! alternative startup
 	*/
