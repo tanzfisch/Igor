@@ -26,13 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IAUX_RLE__
-#define __IAUX_RLE__
+#ifndef __IAUX_RLE_H__
+#define __IAUX_RLE_H__
 
-#include <iaux/iaDefines.h>
 #include <iaux/system/iaConsole.h>
 
-#include <list>
+#include <vector>
 
 namespace iaux
 {
@@ -53,15 +52,26 @@ namespace iaux
     {
 
     public:
-        /*! clean up
+        /*! init members
+
+        \param size the size of this buffer
         */
-        virtual ~iaRLE();
+        iaRLE(TIndex size);
+
+        /*! init members
+        */
+        iaRLE() = default;
 
         /*! sets size of rle buffer
 
-        \param size in amount of storable values not bytes
+        \param size the size of this buffer
+        \param clearValue optional clear value
         */
         void setSize(TIndex size, TValue clearValue = 0);
+
+        /*! \returns size of RLE buffer
+        */
+        TIndex getSize() const;
 
         /*! resets the memory to 0
         */
@@ -69,41 +79,32 @@ namespace iaux
 
         /*! sets value at given index
 
-        no range check
-
         \param index index position in buffer
         \param value the value to set
         */
-        __IGOR_INLINE__ void setValue(TIndex index, TValue value);
+        void setValue(TIndex index, TValue value);
 
         /*! sets value in a range of indexes
 
-        \param indexFrom index to start from
-        \param indexTo index to end with
-        \param value tehe value to set
-        \todo not implemented
+        \param index index to start from
+        \param length amount of values to set
+        \param value the value to set
         */
-        __IGOR_INLINE__ void setValue(TIndex index, TIndex length, TValue value);
+        void setValue(TIndex index, TIndex length, TValue value);
 
         /*! \returns value at given index
 
-        no range check
-
         \param index index position of value to return
         */
-        __IGOR_INLINE__ TValue getValue(TIndex index) const;
+        TValue getValue(TIndex index) const;
 
         /*! makes copy of RLE data
-
-        \param dst destination to copy the RLE data to
+        \param data the source data
+        \returns the destination data
         */
-        __IGOR_INLINE__ void getCopy(iaRLE<TValue, TIndex> &dst) const;
+        iaRLE<TValue, TIndex> operator=(const iaRLE<TValue, TIndex> &data);
 
     private:
-        /*! dirty flag if data was changed
-        */
-        bool _dirty = false;
-
         /*! size of buffer
         */
         TIndex _size = 0;
@@ -117,4 +118,4 @@ namespace iaux
 
 } // namespace iaux
 
-#endif
+#endif // __IAUX_RLE_H__

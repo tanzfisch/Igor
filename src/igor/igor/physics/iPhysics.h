@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iPHYSICS__
-#define __iPHYSICS__
+#ifndef __IGOR_PHYSICS_H__
+#define __IGOR_PHYSICS_H__
 
 #include <igor/physics/iPhysicsBody.h>
 #include <igor/physics/iPhysicsWorld.h>

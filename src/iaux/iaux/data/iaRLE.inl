@@ -3,16 +3,23 @@
 // see copyright notice in corresponding header file
 
 template <typename TValue, typename TIndex>
-iaRLE<TValue, TIndex>::~iaRLE()
+iaRLE<TValue, TIndex>::iaRLE(TIndex size)
 {
-    // nothing to do
+    setSize(size);
 }
 
 template <typename TValue, typename TIndex>
 void iaRLE<TValue, TIndex>::setSize(TIndex size, TValue clearValue)
 {
+    con_assert(size > 0, "invalid size " << size);
     _size = size;
     clear(clearValue);
+}
+
+template <typename TValue, typename TIndex>
+__IGOR_INLINE__ TIndex iaRLE<TValue, TIndex>::getSize() const
+{
+    return _size;
 }
 
 template <typename TValue, typename TIndex>
@@ -23,15 +30,16 @@ void iaRLE<TValue, TIndex>::clear(TValue clearValue)
     block._length = _size;
     block._value = clearValue;
     _blocks.push_back(block);
-    _dirty = true;
 }
 
 template <typename TValue, typename TIndex>
-__IGOR_INLINE__ void iaRLE<TValue, TIndex>::getCopy(iaRLE<TValue, TIndex>& dst) const
+__IGOR_INLINE__ iaRLE<TValue, TIndex> iaRLE<TValue, TIndex>::operator=(const iaRLE<TValue, TIndex> &data)
 {
-    dst._dirty = true;
-    dst._size = _size;
-    dst._blocks = _blocks;
+    iaRLE<TValue, TIndex> result;
+    result._blocks = _blocks = data._blocks;
+    result._size = _size = data._size;
+
+    return result;
 }
 
 template <typename TValue, typename TIndex>
@@ -70,6 +78,13 @@ __IGOR_INLINE__ void iaRLE<TValue, TIndex>::setValue(TIndex index, TIndex length
 {
     con_assert(index < _size, "out of bounds");
     con_assert(index + length <= _size, "out of bounds");
+
+    if (index >= _size ||
+        index + length > _size)
+    {
+        con_err("out of bounds size:" << _size << " index:" << index << " length:" << length);
+        return;
+    }
 
     if (length == 1)
     {
@@ -150,19 +165,6 @@ __IGOR_INLINE__ void iaRLE<TValue, TIndex>::setValue(TIndex index, TIndex length
             blockIter++;
         }
     }
-
-#ifdef __IGOR_DEBUG__
-    TIndex totalLength = static_cast<TIndex>(0);
-    for (auto block : _blocks)
-    {
-        totalLength += block._length;
-        con_assert(block._length != 0, "invalid size");
-    }
-
-    con_assert(totalLength == _size, "invalid data");
-#endif
-
-    _dirty = true;
 }
 
 template <typename TValue, typename TIndex>
@@ -219,7 +221,7 @@ __IGOR_INLINE__ void iaRLE<TValue, TIndex>::setValue(TIndex index, TValue value)
 
                 break;
             }
-            else if (index == currentBlockPos)  // beginning of block
+            else if (index == currentBlockPos) // beginning of block
             {
                 if (lastBlockIter != _blocks.end() &&
                     (*lastBlockIter)._value == value)
@@ -280,7 +282,4 @@ __IGOR_INLINE__ void iaRLE<TValue, TIndex>::setValue(TIndex index, TValue value)
 
     con_assert(totalLength == _size, "invalid data");
 #endif
-
-    _dirty = true;
 }
-
