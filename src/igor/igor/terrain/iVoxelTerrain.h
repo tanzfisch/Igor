@@ -52,7 +52,6 @@ namespace igor
 {
 
     class iNodeLODTrigger;
-    class iVoxelData;
     class iScene;
     class iTargetMaterial;
 

@@ -1311,13 +1311,13 @@ namespace igor
     {
         uint8 result = 0;
 
-        iaVector3I voxelBlock(pos);
-        voxelBlock /= _voxelBlockSize;
+        iaVector3I voxelBlockPos(pos);
+        voxelBlockPos /= _voxelBlockSize;
 
         iVoxelBlock *block = nullptr;
-        auto voxelBlocks = _voxelBlocks[0];
-        auto blockIter = voxelBlocks.find(voxelBlock);
-        if (blockIter != voxelBlocks.end())
+        const auto &voxelBlocksLOD0 = _voxelBlocks[0];
+        auto blockIter = voxelBlocksLOD0.find(voxelBlockPos);
+        if (blockIter != voxelBlocksLOD0.end())
         {
             auto block = (*blockIter).second;
             if (block->_voxelData != nullptr &&
