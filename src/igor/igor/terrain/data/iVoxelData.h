@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iVOXELDATACHUNK__
-#define __iVOXELDATACHUNK__
+#ifndef __IGOR_VOXELDATACHUNK_H__
+#define __IGOR_VOXELDATACHUNK_H__
 
 #include <igor/iDefines.h>
 
@@ -163,4 +163,4 @@ namespace igor
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_VOXELDATACHUNK_H__

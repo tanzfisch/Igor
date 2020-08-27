@@ -50,7 +50,7 @@ DigEffect::DigEffect(iScenePtr scene, const iaMatrixd &matrix)
 
     iNodeParticleSystem *particleSystem = iNodeManager::getInstance().createNode<iNodeParticleSystem>();
     _particleSystemNodeID = particleSystem->getID();
-    particleSystem->setMaterial(iMaterialResourceFactory::getInstance().getMaterialID("PMat"));
+    particleSystem->setMaterial(iMaterialResourceFactory::getInstance().getMaterialID("Particles"));
     particleSystem->setTextureA("particleSmoke.png");
     particleSystem->setTextureB("octave1.png");
     particleSystem->setTextureC("octave2.png");

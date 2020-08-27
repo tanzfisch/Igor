@@ -5,7 +5,8 @@ Changelog                           {#changelog}
 ------
 
 - improved rendering performance (still a long way to go though)
-- introduced igorTest
+- replaced gtest with igorTest including writing more unit tests
+- fixed material initialisation problem in Ascent
 
 0.30.0
 ------

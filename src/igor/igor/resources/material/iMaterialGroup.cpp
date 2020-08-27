@@ -55,6 +55,8 @@ namespace igor
     {
         IGOR_PROFILER();
 
+        con_assert(_material != nullptr, "invalid material");
+
         const bool instancing = _material->getRenderState(iRenderState::Instanced) == iRenderStateValue::On;
 
         if (instancing &&

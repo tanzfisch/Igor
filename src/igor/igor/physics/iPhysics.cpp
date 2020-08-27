@@ -28,29 +28,6 @@
 namespace igor
 {
 
-    /*! callback to allocate memory for newton
-
-    \param sizeInBytes size of data in bytes
-    \returns pointer to new allocated data
-    */
-    void *AllocMemory(int sizeInBytes)
-    {
-        con_assert(sizeInBytes != 0, "can not alloc nothing");
-        return malloc(sizeInBytes);
-    }
-
-    /*! this is the callback for freeing Newton Memory
-
-    \param ptr pointer to data
-    \param sizeInBytes size if data in bytes
-    */
-    void FreeMemory(void *ptr, int sizeInBytes)
-    {
-        con_assert(ptr != nullptr, "can not free null pointer");
-        con_assert(sizeInBytes != 0, "lenght can not be zero");
-        free(ptr);
-    }
-
     /*! callback for physics body destruction
 
     \param body pointer to body that got destroyed
@@ -106,9 +83,9 @@ namespace igor
 
     /*!
 
-    \param joint ???
+    \param joint the newtonw joint to submit the constraints to
     \param timestep time delta
-    \param threadIndex ???
+    \param threadIndex thread index
     */
     void SubmitConstraints(const void *const joint, float64 timestep, int threadIndex)
     {
@@ -121,9 +98,9 @@ namespace igor
 
     /*! generic handle to handle contacts beween two bodies
 
-    \param newtonContactJoint ???
+    \param newtonContactJoint the contact joint
     \param timestep time delta
-    \param threadIndex ???
+    \param threadIndex thread index
     */
     void GenericContactProcessCompatible(const void *const newtonContactJoint, float64 timestep, int threadIndex)
     {
@@ -163,7 +140,6 @@ namespace igor
 
     iPhysics::iPhysics()
     {
-        NewtonSetMemorySystem(AllocMemory, FreeMemory);
         createDefaultWorld();
         createDefaultMaterial();
     }
@@ -177,7 +153,7 @@ namespace igor
             con_err("possible mem leak! " << iaString::toString(_bodies.size()) << " physics bodys left");
             auto bodies = _bodies;
 
-            for(auto pair : bodies)
+            for (auto pair : bodies)
             {
                 destroyBody(pair.second);
             }
@@ -188,7 +164,7 @@ namespace igor
             con_err("possible mem leak! " << iaString::toString(_collisions.size()) << " physics collisions left");
             auto collisions = _collisions;
 
-            for(auto pair : collisions)
+            for (auto pair : collisions)
             {
                 destroyCollision(pair.second);
             }
