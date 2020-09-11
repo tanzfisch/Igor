@@ -113,7 +113,26 @@ namespace igor
 		*/
         void setSteppingWheel(float32 up, float32 down);
 
-    protected:
+    private:
+        struct SliderButton
+        {
+            /*! rectangle of button
+			*/
+            iRectanglei _rectangle;
+
+            /*! button apearance state
+			*/
+            iWidgetState _appearanceState = iWidgetState::Standby;
+
+            /*! button mouse over state
+			*/
+            bool _mouseOver = false;
+
+            /*! if true the button is kept pressed
+			*/
+            bool _mouseDown = false;
+        };
+
         /*! minimum value
 		*/
         float32 _min = 0.0f;
@@ -150,6 +169,10 @@ namespace igor
 		*/
         iaString _backgroundTexturePath;
 
+        /*! the button of this slider
+        */
+        SliderButton _sliderButton;
+
         /*! increase number by value
 
 		\param value the value to increase by
@@ -176,6 +199,13 @@ namespace igor
 		*/
         bool handleMouseKeyDown(iKeyCode key);
 
+        /*! handles mouse key up events
+
+		\param key the key that was pressed
+		\returns true: if event was consumed and therefore ignored by the parent
+		*/
+        bool handleMouseKeyUp(iKeyCode key) override;
+
         /*! handles incomming mouse move events
 
 		\param pos mouse position
@@ -185,10 +215,6 @@ namespace igor
         /*! translates the horizontal mouse position in the a value
 		*/
         void handleMouseInput(int32 mouseX);
-
-        /*! cull value with boundings
-		*/
-        void cullBoundings();
 
         /*! updates size based on it's content
 		*/
