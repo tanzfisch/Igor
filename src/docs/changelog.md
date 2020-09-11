@@ -1,6 +1,11 @@
 Changelog                           {#changelog}
 =========
 
+0.32.0
+------
+
+TODO
+
 0.31.0
 ------
 
@@ -8,11 +13,15 @@ Changelog                           {#changelog}
 - replaced gtest with igorTest including writing more unit tests
 - fixed material initialisation problem in Ascent
 
+!This release does not build with MSVC!
+
 0.30.0
 ------
 
 - introduced iModule and switched most singletons to modules
 - removed iaSingleton class
+
+!This release does not build with MSVC!
 
 0.29.0
 ------
