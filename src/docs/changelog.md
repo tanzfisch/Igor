@@ -4,7 +4,7 @@ Changelog                           {#changelog}
 0.32.0
 ------
 
-TODO
+- improved slider widget behaviour
 
 0.31.0
 ------
