@@ -24,7 +24,14 @@ and
 Build
 -----
 
-Igor is using cmake. The build is configured to work with Debian/g++ and Windows/MSVC. Other platforms might work too.
+Igor is using cmake. It is configured to work with Debian/g++ (Windows/MSVC is currently not supported).
+
+To build go to your working directory and run:
+
+`mkdir build`
+`cd build`
+`cmake ..`
+`make`
 
 Build Debug
 ^^^^^^^^^^^
