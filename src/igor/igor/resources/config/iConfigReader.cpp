@@ -44,7 +44,7 @@ namespace igor
 
 	void iConfigReader::readLoggingConfig(TiXmlElement *logging)
 	{
-		TiXmlElement *logLevel = logging->FirstChildElement("iaLogLevel");
+		TiXmlElement *logLevel = logging->FirstChildElement("LogLevel");
 		if (logLevel != nullptr)
 		{
 			TiXmlNode *text = logLevel->FirstChild();
@@ -68,9 +68,9 @@ namespace igor
 				{
 					iaConsole::getInstance().setLogLevel(iaLogLevel::Info);
 				}
-				else if (level == "DebugInfo")
+				else if (level == "User")
 				{
-					iaConsole::getInstance().setLogLevel(iaLogLevel::DebugInfo);
+					iaConsole::getInstance().setLogLevel(iaLogLevel::User);
 				}
 				else if (level == "Debug")
 				{

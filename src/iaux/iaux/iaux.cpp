@@ -52,7 +52,7 @@ namespace iaux
 
     void shutdown()
     {
-        iaConsole::getInstance().setLogLevel(iaLogLevel::DebugInfo);
+        iaConsole::getInstance().setLogLevel(iaLogLevel::User);
         iaConsole::getInstance().printStats();
         iaConsole::getInstance().closeLogfile();
         iaConsole::getInstance().resetStats();
