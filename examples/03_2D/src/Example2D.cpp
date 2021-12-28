@@ -22,9 +22,6 @@ void Example2D::onInit()
     // by default Igor generates a dummy texture that will be returned instead
     // it is a checker texture with some gradients in color and alpha channels
 
-    // let's reset the error counter
-    iaConsole::getInstance().resetStats();
-
     // set up particle system
     // load a texture for our particle system
     _particleTexture = iTextureResourceFactory::getInstance().requestFile("particleDot.png");
