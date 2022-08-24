@@ -36,7 +36,9 @@
 #include <GLee.h>
 #include <X11/X.h>
 #include <X11/Xlib.h>
+#ifdef XF86VMODE_FOUND
 #include <X11/extensions/xf86vmode.h>
+#endif
 
 namespace igor
 {
