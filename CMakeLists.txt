@@ -87,6 +87,10 @@ if(${COMPILER} STREQUAL "MSVCXX")
   add_definitions(-D_UNICODE -DUNICODE -DNOMINMAX -D_NEWTON_USE_DOUBLE)
 endif()
 
+# threading
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+
 # X11
 find_package(X11 REQUIRED)
 if(X11_xf86vmode_FOUND)
@@ -310,9 +314,9 @@ target_compile_definitions(iaux PRIVATE -D__IAUX_BUILDING_DLL__)
 target_include_directories(iaux PUBLIC ${IAUX_HEADERS_DIR})
 
 if(${COMPILER} STREQUAL "GCC")
-  target_link_libraries(iaux PRIVATE stdc++fs)
+  target_link_libraries(iaux PRIVATE stdc++fs Threads::Threads)
 elseif(${COMPILER} STREQUAL "MSVCXX")
-  target_link_libraries(iaux PRIVATE DbgHelp)
+  target_link_libraries(iaux PRIVATE DbgHelp Threads::Threads)
 endif()
 
 set_property(TARGET iaux PROPERTY FOLDER ${ENGINE_FOLDER})
@@ -507,11 +511,7 @@ add_executable(iauxTest ${IAUX_TEST_SOURCES})
 target_include_directories(iauxTest PRIVATE ${IAUX_TEST_HEADERS_DIR}
                                             ${IAUX_HEADERS_DIR})
 
-if(${COMPILER} STREQUAL "GCC")
-  target_link_libraries(iauxTest iaux pthread)
-elseif(${COMPILER} STREQUAL "MSVCXX")
-  target_link_libraries(iauxTest iaux)
-endif()
+target_link_libraries(iauxTest iaux)
 set_property(TARGET iauxTest PROPERTY FOLDER ${TESTING_FOLDER})
 
 message(STATUS "igorTest")
@@ -530,9 +530,5 @@ add_executable(igorTest ${IGOR_TEST_SOURCES})
 target_include_directories(igorTest PRIVATE ${IGOR_TEST_HEADERS_DIR}
                                             ${IGOR_HEADERS_DIR})
 
-if(${COMPILER} STREQUAL "GCC")
-  target_link_libraries(igorTest igor pthread)
-elseif(${COMPILER} STREQUAL "MSVCXX")
-  target_link_libraries(igorTest igor)
-endif()
+target_link_libraries(igorTest igor)
 set_property(TARGET igorTest PROPERTY FOLDER ${TESTING_FOLDER})
