@@ -26,9 +26,19 @@ Build
 
 Igor is using cmake. The build is configured to work with Debian/g++ and Windows/MSVC. Other platforms might work too.
 
-Under Linux you might need to install some additional dependencies
+Build Debug
+^^^^^^^^^^^
+`cmake -S . -B build/debug -DCMAKE_BUILD_TYPE=DEBUG`
+`cmake --build build/debug`
 
-`sudo apt-get install libx11-dev libgl1-mesa-dev libglu1-mesa-dev libglfw3-dev libalsa-ocaml-dev`
+Build Release
+^^^^^^^^^^^^^
+`cmake -S . -B build/release -DCMAKE_BUILD_TYPE=RELEASE`
+`cmake --build build/release`
+
+Note! Under Linux you might need to install some additional dependencies
+
+`sudo apt-get install libx11-dev libgl1-mesa-dev libglu1-mesa-dev libglfw3-dev libalsa-ocaml-dev libxxf86vm-dev`
 
 Git Flow
 --------

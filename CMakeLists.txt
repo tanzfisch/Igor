@@ -87,6 +87,15 @@ if(${COMPILER} STREQUAL "MSVCXX")
   add_definitions(-D_UNICODE -DUNICODE -DNOMINMAX -D_NEWTON_USE_DOUBLE)
 endif()
 
+# X11
+find_package(X11 REQUIRED)
+if(X11_xf86vmode_FOUND)
+  add_definitions(-DXF86VMODE_FOUND)
+  set(X11_EXT_LIBRARIES "Xxf86vm")
+else()
+  message(WARNING "xf86vmode not available")  
+endif()
+
 # OpenGL
 set(OpenGL_GL_PREFERENCE GLVND)
 find_package(OpenGL REQUIRED)
@@ -375,7 +384,7 @@ if(${COMPILER} STREQUAL "GCC")
   target_link_libraries(
     igor
     PUBLIC iaux
-    PRIVATE ompf newton ${OPENGL_LIBRARIES} Xxf86vm OpenAL)
+    PRIVATE ompf newton ${OPENGL_LIBRARIES} ${X11_EXT_LIBRARIES} OpenAL)
   target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__)
 elseif(${COMPILER} STREQUAL "MSVCXX")
   target_link_libraries(
