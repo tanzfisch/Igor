@@ -26,6 +26,7 @@
 //
 // contact: igorgameengine@protonmail.com
 
+// https://wiki.lspace.org/Igor ;-)
 #ifndef __IGOR_H__
 #define __IGOR_H__
 
