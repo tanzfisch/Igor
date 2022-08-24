@@ -25,13 +25,13 @@ namespace igor
 {
 
     /*! default igor window title
-    */
+     */
     static const iaString s_defaultWindowTitle = "Igor";
 
     iaIDGenerator64 iWindow::_idGenerator;
 
     /*! base class for internal iWindow implementation
-    */
+     */
     class iWindowImpl
     {
 
@@ -88,11 +88,11 @@ namespace igor
         std::vector<iOSEventListener *> _oseventlisteners;
 
         /*! width of the render area in pixel
-        */
+         */
         int32 _width = 640;
 
         /*! height of the render area in pixel
-        */
+         */
         int32 _height = 480;
 
         /*! the actuall width of the rendering area.
@@ -108,46 +108,46 @@ namespace igor
         int32 _clientHeight = 0;
 
         /*! x position of the window in pixel
-        */
+         */
         int32 _x = 0;
 
         /*! y position of the window in pixel
-        */
+         */
         int32 _y = 0;
 
         /*! color depth of the render area in bit per pixel
-        */
+         */
         uint8 _colordepth = 32;
 
         /*! depth buffer depth in bits
-        */
+         */
         uint8 _zdepth = 16;
 
         /*! true for fullscreen mode
-        */
+         */
         bool _fullscreen = false;
 
         /*! the window title
-        */
+         */
         iaString _title = s_defaultWindowTitle;
 
         /*! true if the window is opened
-        */
+         */
         bool _isOpen = false;
 
         /*! flag if the window gets double click events from windows
-        */
+         */
         bool _doubleClick = false;
 
         /*! window handle
-        */
+         */
         iWindow *_window = nullptr;
     };
 
 #ifdef __IGOR_WINDOWS__
 
     /*! windows implementation of a window
-    */
+     */
     class iWindowImplWindows : public iWindowImpl
     {
 
@@ -524,39 +524,39 @@ namespace igor
 
     private:
         /*! window extended style
-        */
+         */
         DWORD _dwExStyle = 0;
 
         /*! window style
-        */
+         */
         DWORD _dwStyle = 0;
 
         /*! screen/display settings
-        */
+         */
         DEVMODE _dmScreenSettings;
 
         /*! module handle
-        */
+         */
         HINSTANCE _moduleHandle = nullptr;
 
         /*! window handle
-        */
+         */
         HWND _hWnd = nullptr;
 
         /*! device context
-        */
+         */
         HDC _hDC = nullptr;
 
         /*! primary render context
-        */
+         */
         iRenderContextPtr _renderContext = nullptr;
 
         /*! secures wgl interfaces used within window
-        */
+         */
         iaMutex _wglMutex;
 
         /*! window class
-        */
+         */
         WNDCLASS _windowClass;
 
         iRenderContextPtr createRenderContext(iRenderContextPtr renderContext) override
@@ -764,7 +764,7 @@ namespace igor
 
         void setDoubleClick(bool doubleClick) override
         {
-            //TODO
+            // TODO
         }
 
         void swapBuffers() override
@@ -893,6 +893,7 @@ namespace igor
 
             if (_fullscreen)
             {
+#ifdef XF86VMODE_FOUND
                 XF86VidModeModeInfo **modes;
                 int modenum;
                 int choosenmode = -1;
@@ -930,6 +931,7 @@ namespace igor
                 XMapRaised(_display, _xwindow);
                 XGrabKeyboard(_display, _xwindow, True, GrabModeAsync, GrabModeAsync, CurrentTime);
                 XGrabPointer(_display, _xwindow, True, ButtonPressMask, GrabModeAsync, GrabModeAsync, _xwindow, None, CurrentTime);
+#endif
             }
             else
             {
@@ -991,8 +993,10 @@ namespace igor
             /* switch back to original desktop resolution if we were in fs */
             if (_fullscreen)
             {
+#ifdef XF86VMODE_FOUND
                 XF86VidModeSwitchToMode(_display, DefaultScreen(_display), &_desktopmode);
                 XF86VidModeSetViewPort(_display, DefaultScreen(_display), 0, 0);
+#endif
             }
             XCloseDisplay(_display);
 
@@ -1147,39 +1151,41 @@ namespace igor
 
     private:
         /*! display instance
-        */
+         */
         Display *_display = nullptr;
 
         /*! window instance
-        */
+         */
         Window _xwindow;
 
         /*! visual information
-        */
+         */
         XVisualInfo *_visual = nullptr;
 
         /*! color map
-        */
+         */
         Colormap _colorMap;
 
         /*! window attributes
-        */
+         */
         XSetWindowAttributes _windowAttributes;
 
         /*! secures glx interfaces used within window
-        */
+         */
         iaMutex _glxMutex;
 
         /*! primary render context
-        */
+         */
         iRenderContextPtr _renderContext = nullptr;
 
         /*! desktop mode
-        */
+         */
+#ifdef XF86VMODE_FOUND
         XF86VidModeModeInfo _desktopmode;
+#endif
 
         /*! stores the last vsync setting
-        */
+         */
         bool _vsync = true;
     };
 
@@ -1380,9 +1386,8 @@ namespace igor
         view->updateWindowRect(windowRect);
         view->setZIndex(zIndex);
 
-        std::sort(_views.begin(), _views.end(), [](const iView *a, const iView *b) -> bool {
-            return a->getZIndex() < b->getZIndex();
-        });
+        std::sort(_views.begin(), _views.end(), [](const iView *a, const iView *b) -> bool
+                  { return a->getZIndex() < b->getZIndex(); });
     }
 
     void iWindow::removeView(iView *view)
