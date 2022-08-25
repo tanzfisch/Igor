@@ -43,7 +43,7 @@ namespace igor
     struct iModelDataInputParameter;
 
     /*! event triggered when model was loaded
-    */
+     */
     iaEVENT(iModelReadyEvent, iModelReadyDelegate, (iNodeID modelNodeID), (modelNodeID));
 
     /*! represents a model within the scene
@@ -67,15 +67,15 @@ namespace igor
         void setModel(const iaString &modelName, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iModelDataInputParameter *parameters = nullptr, bool loadSynchronously = false);
 
         /*! \returns filename of model
-        */
+         */
         iaString getModelName() const;
 
         /*! \returns true if model data is ready to render
-        */
+         */
         bool isValid();
 
         /*! \returns true if model was loaded or attempted to be loaded
-		*/
+         */
         bool isLoaded();
 
         /*! register delegate to model loaded event
@@ -96,13 +96,19 @@ namespace igor
         */
         void setMaterial(iMaterialID materialID);
 
+        /*! returns multiple lines of information about this node
+
+        \param[out] info the returned information
+        */
+        void getInfo(std::vector<iaString> &info) const override;
+
     private:
         /*! event triggered when model was loaded and ready for rendering
-        */
+         */
         iModelReadyEvent _modelReadyEvent;
 
         /*! filename of model
-        */
+         */
         iaString _filename;
 
         /*! loading parameters
@@ -112,27 +118,27 @@ namespace igor
         iModelDataInputParameter *_parameters;
 
         /*! cache mode for model to load
-        */
+         */
         iResourceCacheMode _cacheMode;
 
         /*! shared poitner to requested model
-        */
+         */
         iModelPtr _model;
 
         /*! true if requested model was actually loaded and subtree created
-        */
+         */
         bool _loaded = false;
 
         /*! true if loaded and buffers are generated
-        */
+         */
         bool _ready = false;
 
         /*! this is called just before setScene and gives the class the chance to unregister from the current scene if set.
-        */
+         */
         virtual void onPreSetScene();
 
         /*! this is called just after setScene and gives the class the chance to register it self to the new scene.
-        */
+         */
         virtual void onPostSetScene();
 
         /*! checks if model data was loaded and creates corresponding subtree
@@ -165,20 +171,20 @@ namespace igor
         void setMaterial(iNodePtr node, iMaterialID materialID);
 
         /*! initializes memeber variables
-        */
+         */
         iNodeModel();
 
         /*! copy ctor
-        */
+         */
         iNodeModel(iNodeModel *node);
 
         /*! release model data
-        */
+         */
         virtual ~iNodeModel();
     };
 
     /*! model node pointer definition
-    */
+     */
     typedef iNodeModel *iNodeModelPtr;
 
 } // namespace igor

@@ -207,4 +207,40 @@ namespace igor
 
         return _loaded;
     }
+
+    void iNodeModel::getInfo(std::vector<iaString> &info) const
+    {
+        iNode::getInfo(info);
+        iaString customInfo(L"model:");
+
+        if (_model != nullptr)
+        {
+            customInfo += _filename;
+            customInfo += L" loaded:";
+            if (_loaded)
+            {
+                customInfo += L"true ready:";
+                if (_ready)
+                {
+                    customInfo += L"true";
+                    customInfo += L" nodeID:";
+                    customInfo += iaString::toString(_model->getNode()->getID());
+                }
+                else
+                {
+                    customInfo += L"false";
+                }
+            }
+            else
+            {
+                customInfo += L"false";
+            }
+        }
+        else
+        {
+            customInfo += L"none";
+        }
+
+        info.push_back(customInfo);
+    }
 } // namespace igor
