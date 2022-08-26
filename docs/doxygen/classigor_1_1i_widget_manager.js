@@ -1,12 +1,12 @@
 var classigor_1_1i_widget_manager =
 [
     [ "draw", "classigor_1_1i_widget_manager.html#a1664f7a3c9adf3a4168680ed6242ad65", null ],
-    [ "getDesktopHeight", "classigor_1_1i_widget_manager.html#acb8263ecbd516bedb18622764268bffa", null ],
-    [ "getDesktopWidth", "classigor_1_1i_widget_manager.html#a95e338434d650a2d10b566b51579ec29", null ],
+    [ "getDesktopHeight", "classigor_1_1i_widget_manager.html#a5024d9efdf1f91962d32d948ad91cc05", null ],
+    [ "getDesktopWidth", "classigor_1_1i_widget_manager.html#a25992c047bfbb6b2341e215582cbe2b0", null ],
     [ "getDialog", "classigor_1_1i_widget_manager.html#a1232a0489af55abf25caf704b965d71b", null ],
-    [ "getModal", "classigor_1_1i_widget_manager.html#a5c755b592e1f1872b114aa4e658d8481", null ],
+    [ "getModal", "classigor_1_1i_widget_manager.html#a6b1a768c90b6dce868f790d9e7fbca8d", null ],
     [ "getTheme", "classigor_1_1i_widget_manager.html#ab69dce3a239e7af22dc1d0525c16cd2c", null ],
-    [ "getWidget", "classigor_1_1i_widget_manager.html#a4a35cd00a934f77f733f4ce6e668e334", null ],
+    [ "getWidget", "classigor_1_1i_widget_manager.html#afa9f38c7a5918ab44f332640cc57cd49", null ],
     [ "hideTooltip", "classigor_1_1i_widget_manager.html#a8d66843c675aeeb51444d5328321808d", null ],
     [ "isModal", "classigor_1_1i_widget_manager.html#acac42873428e62d0687d2da0abe085bf", null ],
     [ "onEvent", "classigor_1_1i_widget_manager.html#ae463cc926d321cd5506cbf58522ce3c3", null ],
@@ -17,7 +17,7 @@ var classigor_1_1i_widget_manager =
     [ "setModal", "classigor_1_1i_widget_manager.html#a68f255c3258c02d7e59bf534d52c3a7b", null ],
     [ "setTheme", "classigor_1_1i_widget_manager.html#ab4993e9d5fad202d874e25634a8ef2a1", null ],
     [ "showTooltip", "classigor_1_1i_widget_manager.html#ac941d84b68487c454cdfeed14629645b", null ],
-    [ "iaSingleton< iWidgetManager >", "classigor_1_1i_widget_manager.html#aadcb96bd478615f7a2a6891822cc4798", null ],
     [ "iDialog", "classigor_1_1i_widget_manager.html#af7f6f50efeae1e3310a0ba88374672f2", null ],
+    [ "iModule< iWidgetManager >", "classigor_1_1i_widget_manager.html#a33f293f0ad1af9e47ad082e39cba4c85", null ],
     [ "iWidget", "classigor_1_1i_widget_manager.html#ae2aa33c5f391ceae8d0c3476619fb5cc", null ]
 ];

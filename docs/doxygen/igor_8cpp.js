@@ -7,9 +7,11 @@ var igor_8cpp =
     [ "R", "igor_8cpp.html#a5c71a5e59a53413cd6c270266d63b031", null ],
     [ "T", "igor_8cpp.html#a0acb682b8260ab1c60b918599864e2e5", null ],
     [ "W", "igor_8cpp.html#a649b8f01fd6c0f47ff3cbddaeba63bfb", null ],
+    [ "createModules", "igor_8cpp.html#a9f6af7bc0db79898dde7d9fd270fd006", null ],
+    [ "destroyModules", "igor_8cpp.html#a7d5af6c9299291833ae22a699acf8579", null ],
     [ "printInfo", "igor_8cpp.html#af68f95c2759782213759d6aadf327ad7", null ],
     [ "shutdown", "igor_8cpp.html#a10b2ddc4c372b6753c6e09e7a3299abf", null ],
     [ "startup", "igor_8cpp.html#aac0acbe5b467c273c0b8a66c9d3ff788", null ],
-    [ "startup", "igor_8cpp.html#a00e6a0b58bb1ec452ac82bc3f56543df", null ],
+    [ "startupArgs", "igor_8cpp.html#a417c88d864a4291547b22fbfae279bb5", null ],
     [ "__IGOR_CONFIGURATION__", "igor_8cpp.html#a62512b4a7f0d4a97d7c4a7ccd8388c3f", null ]
 ];

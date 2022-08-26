@@ -13,6 +13,7 @@ var dir_539bf18a9c2498899a69d8797789d2c3 =
     [ "iRenderer.h", "i_renderer_8h.html", "i_renderer_8h" ],
     [ "iRenderStateSet.cpp", "i_render_state_set_8cpp.html", null ],
     [ "iRenderStateSet.h", "i_render_state_set_8h.html", "i_render_state_set_8h" ],
+    [ "iRenderStateSet.inl", "i_render_state_set_8inl.html", null ],
     [ "iView.cpp", "i_view_8cpp.html", null ],
     [ "iView.h", "i_view_8h.html", "i_view_8h" ]
 ];

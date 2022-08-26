@@ -7,6 +7,11 @@ Changelog                           {#changelog}
 !Decided to drop MSVC support until I feel like it again!
 
 - improved slider widget behaviour
+- log level DebugInfo is now called User
+- default log level is now User
+- improved error handling in iAudio
+- textures are loaded cached by default now and do not get release immediately after nothing is referencing them anymore
+- improved some debug output
 
 0.31.0
 ------

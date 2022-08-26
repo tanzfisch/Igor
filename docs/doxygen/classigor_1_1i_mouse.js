@@ -9,8 +9,8 @@ var classigor_1_1i_mouse =
     [ "getRightButton", "classigor_1_1i_mouse.html#abcfef33066b41914789b614beda92925", null ],
     [ "getWindow", "classigor_1_1i_mouse.html#aa447d1498f632bf0bdc57acd6a9c3370", null ],
     [ "setCenter", "classigor_1_1i_mouse.html#a452c87eaf9aa7f2ac4afbfa13a9583a8", null ],
-    [ "setPosition", "classigor_1_1i_mouse.html#a03d42871f1d5f7b26a8c4c56913b283e", null ],
     [ "setPosition", "classigor_1_1i_mouse.html#a535d3d36df9c68273b8531aca4c3feb1", null ],
+    [ "setPosition", "classigor_1_1i_mouse.html#a03d42871f1d5f7b26a8c4c56913b283e", null ],
     [ "showCursor", "classigor_1_1i_mouse.html#a8a0f10bf5aa5db10399b42655d78fdc0", null ],
-    [ "iaSingleton< iMouse >", "classigor_1_1i_mouse.html#a5c6b83e49c1e228c8b81ef3bef4bcaf6", null ]
+    [ "iModule< iMouse >", "classigor_1_1i_mouse.html#a0dc3799277e451a7050dcbf5d504fd50", null ]
 ];

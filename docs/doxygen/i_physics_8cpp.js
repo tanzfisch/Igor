@@ -2,11 +2,9 @@ var i_physics_8cpp =
 [
     [ "PreFilterUserData", "structigor_1_1_pre_filter_user_data.html", "structigor_1_1_pre_filter_user_data" ],
     [ "AABBOverlapTest", "i_physics_8cpp.html#ac01cd7e628ea9406cff0df45aabd902d", null ],
-    [ "AllocMemory", "i_physics_8cpp.html#ad662036ad1a1453159ac6fab457b3e4c", null ],
     [ "CollideCallback", "i_physics_8cpp.html#abd4db97a0f9cfdf60172d5695ff7cc5b", null ],
     [ "CommonRayPrefilterCallback", "i_physics_8cpp.html#a48768cd182c4b74fd3a238b31ca8f626", null ],
     [ "DestroyCallback", "i_physics_8cpp.html#a86fbd9c1313c013547e187fa56181672", null ],
-    [ "FreeMemory", "i_physics_8cpp.html#a71857ef25cd6cc5d54c9495f8a29194e", null ],
     [ "GenericContactProcess", "i_physics_8cpp.html#ae2d34f7b0e8789f82dd3274a6aec61a8", null ],
     [ "GenericContactProcessCompatible", "i_physics_8cpp.html#a1fb34f9daadd9596dd6bece1826ded7b", null ],
     [ "GetCollisionInfo", "i_physics_8cpp.html#a58cdcc77a989674c944f4d0a104acb30", null ],

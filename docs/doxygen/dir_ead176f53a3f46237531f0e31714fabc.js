@@ -2,9 +2,10 @@ var dir_ead176f53a3f46237531f0e31714fabc =
 [
     [ "iMaterial.cpp", "i_material_8cpp.html", null ],
     [ "iMaterial.h", "i_material_8h.html", "i_material_8h" ],
+    [ "iMaterial.inl", "i_material_8inl.html", null ],
     [ "iMaterialGroup.cpp", "i_material_group_8cpp.html", null ],
     [ "iMaterialGroup.h", "i_material_group_8h.html", [
-      [ "iInstancedNodes", "structigor_1_1i_instanced_nodes.html", "structigor_1_1i_instanced_nodes" ],
+      [ "iInstancingData", "structigor_1_1i_instancing_data.html", "structigor_1_1i_instancing_data" ],
       [ "iMaterialGroup", "classigor_1_1i_material_group.html", "classigor_1_1i_material_group" ]
     ] ],
     [ "iMaterialResourceFactory.cpp", "i_material_resource_factory_8cpp.html", null ],

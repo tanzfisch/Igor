@@ -1,14 +1,14 @@
 var classigor_1_1i_timer =
 [
-    [ "getApplicationTime", "classigor_1_1i_timer.html#afabf26059abfb4b4c602d966bd0df93c", null ],
-    [ "getDay", "classigor_1_1i_timer.html#a8a49254bb4ff47bc0669f41782ba0dad", null ],
-    [ "getFPS", "classigor_1_1i_timer.html#a78b84e4472757a8103a6afb34ef9f533", null ],
-    [ "getFrameTime", "classigor_1_1i_timer.html#a1adac5be192815de9b2e655c63e76f4c", null ],
-    [ "getFrameTimeDelta", "classigor_1_1i_timer.html#ac093b35e549337f3201ea53eafbfc42b", null ],
-    [ "getMonth", "classigor_1_1i_timer.html#ae3a624323b74072407096b39ed318d5b", null ],
-    [ "getYear", "classigor_1_1i_timer.html#a697cb082bbfd2f5cddd6ea602884e98d", null ],
+    [ "getApplicationTime", "classigor_1_1i_timer.html#a6afc94d0002646f762ff0de2f2f10d6f", null ],
+    [ "getDay", "classigor_1_1i_timer.html#a7e33400b1c61968c297a6e0c9fed5780", null ],
+    [ "getFPS", "classigor_1_1i_timer.html#a901da7cb9a554b53ee79659ec464be01", null ],
+    [ "getFrameTime", "classigor_1_1i_timer.html#a545588a60eb2599080726df784845337", null ],
+    [ "getFrameTimeDelta", "classigor_1_1i_timer.html#a1b5bd77fefa36532063dd082113ea315", null ],
+    [ "getMonth", "classigor_1_1i_timer.html#adc8dea67c84ef7a6799aeab2f19fc8b1", null ],
+    [ "getYear", "classigor_1_1i_timer.html#afdce07faf63b74eff5a3a365c41a8e3c", null ],
     [ "handleTimerHandles", "classigor_1_1i_timer.html#a7c12b93f159b4a3ad5064885ae06573c", null ],
     [ "iApplication", "classigor_1_1i_timer.html#ac95e62eb30700f633cc8c60341f159f6", null ],
-    [ "iaSingleton< iTimer >", "classigor_1_1i_timer.html#a67c09416ab4c47890bdfaf3b5b21c09e", null ],
+    [ "iModule< iTimer >", "classigor_1_1i_timer.html#a940fcf7706e8574c51ec1cdce32802e0", null ],
     [ "iTimerHandle", "classigor_1_1i_timer.html#a41b5e2f600ba08086835bd23f0fc514e", null ]
 ];

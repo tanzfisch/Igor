@@ -13,11 +13,12 @@ var hierarchy =
     [ "iaux::iaClock", "classiaux_1_1ia_clock.html", null ],
     [ "iaux::iaColor3< T >", "classiaux_1_1ia_color3.html", null ],
     [ "iaux::iaColor4< T >", "classiaux_1_1ia_color4.html", null ],
+    [ "iaux::iaConsole", "classiaux_1_1ia_console.html", null ],
     [ "iaux::iaConvert", "classiaux_1_1ia_convert.html", null ],
-    [ "igor::iNodeManager::iAction", "structigor_1_1i_node_manager_1_1i_action.html", null ],
     [ "igor::iAction", "classigor_1_1i_action.html", [
       [ "igor::iActionApplicationStop", "classigor_1_1i_action_application_stop.html", null ]
     ] ],
+    [ "igor::iNodeManager::iAction", "structigor_1_1i_node_manager_1_1i_action.html", null ],
     [ "igor::iActionContext", "classigor_1_1i_action_context.html", null ],
     [ "iaux::iaDirectory", "classiaux_1_1ia_directory.html", null ],
     [ "iaux::iaFile", "classiaux_1_1ia_file.html", null ],
@@ -34,70 +35,6 @@ var hierarchy =
     [ "iaux::iaRLE< uint8, uint8 >", "classiaux_1_1ia_r_l_e.html", null ],
     [ "iaux::iaRLEBlock< TValue, TIndex >", "structiaux_1_1ia_r_l_e_block.html", null ],
     [ "iaux::iaSerializable", "classiaux_1_1ia_serializable.html", null ],
-    [ "iaux::iaSingleton< T >", "classiaux_1_1ia_singleton.html", null ],
-    [ "iaux::iaSingleton< iaConsole >", "classiaux_1_1ia_singleton.html", [
-      [ "iaux::iaConsole", "classiaux_1_1ia_console.html", null ]
-    ] ],
-    [ "iaux::iaSingleton< iActionManager >", "classiaux_1_1ia_singleton.html", [
-      [ "igor::iActionManager", "classigor_1_1i_action_manager.html", null ]
-    ] ],
-    [ "iaux::iaSingleton< iApplication >", "classiaux_1_1ia_singleton.html", [
-      [ "igor::iApplication", "classigor_1_1i_application.html", null ]
-    ] ],
-    [ "iaux::iaSingleton< iAudio >", "classiaux_1_1ia_singleton.html", [
-      [ "igor::iAudio", "classigor_1_1i_audio.html", null ]
-    ] ],
-    [ "iaux::iaSingleton< iClipboard >", "classiaux_1_1ia_singleton.html", [
-      [ "igor::iClipboard", "classigor_1_1i_clipboard.html", null ]
-    ] ],
-    [ "iaux::iaSingleton< iEntityManager >", "classiaux_1_1ia_singleton.html", [
-      [ "igor::iEntityManager", "classigor_1_1i_entity_manager.html", null ]
-    ] ],
-    [ "iaux::iaSingleton< iEvaluationManager >", "classiaux_1_1ia_singleton.html", [
-      [ "igor::iEvaluationManager", "classigor_1_1i_evaluation_manager.html", null ]
-    ] ],
-    [ "iaux::iaSingleton< iKeyboard >", "classiaux_1_1ia_singleton.html", [
-      [ "igor::iKeyboard", "classigor_1_1i_keyboard.html", null ]
-    ] ],
-    [ "iaux::iaSingleton< iMaterialResourceFactory >", "classiaux_1_1ia_singleton.html", [
-      [ "igor::iMaterialResourceFactory", "classigor_1_1i_material_resource_factory.html", null ]
-    ] ],
-    [ "iaux::iaSingleton< iModelResourceFactory >", "classiaux_1_1ia_singleton.html", [
-      [ "igor::iModelResourceFactory", "classigor_1_1i_model_resource_factory.html", null ]
-    ] ],
-    [ "iaux::iaSingleton< iMouse >", "classiaux_1_1ia_singleton.html", [
-      [ "igor::iMouse", "classigor_1_1i_mouse.html", null ]
-    ] ],
-    [ "iaux::iaSingleton< iNodeManager >", "classiaux_1_1ia_singleton.html", [
-      [ "igor::iNodeManager", "classigor_1_1i_node_manager.html", null ]
-    ] ],
-    [ "iaux::iaSingleton< iPhysics >", "classiaux_1_1ia_singleton.html", [
-      [ "igor::iPhysics", "classigor_1_1i_physics.html", null ]
-    ] ],
-    [ "iaux::iaSingleton< iProfiler >", "classiaux_1_1ia_singleton.html", [
-      [ "igor::iProfiler", "classigor_1_1i_profiler.html", null ]
-    ] ],
-    [ "iaux::iaSingleton< iRenderer >", "classiaux_1_1ia_singleton.html", [
-      [ "igor::iRenderer", "classigor_1_1i_renderer.html", null ]
-    ] ],
-    [ "iaux::iaSingleton< iResourceManager >", "classiaux_1_1ia_singleton.html", [
-      [ "igor::iResourceManager", "classigor_1_1i_resource_manager.html", null ]
-    ] ],
-    [ "iaux::iaSingleton< iSceneFactory >", "classiaux_1_1ia_singleton.html", [
-      [ "igor::iSceneFactory", "classigor_1_1i_scene_factory.html", null ]
-    ] ],
-    [ "iaux::iaSingleton< iTaskManager >", "classiaux_1_1ia_singleton.html", [
-      [ "igor::iTaskManager", "classigor_1_1i_task_manager.html", null ]
-    ] ],
-    [ "iaux::iaSingleton< iTextureResourceFactory >", "classiaux_1_1ia_singleton.html", [
-      [ "igor::iTextureResourceFactory", "classigor_1_1i_texture_resource_factory.html", null ]
-    ] ],
-    [ "iaux::iaSingleton< iTimer >", "classiaux_1_1ia_singleton.html", [
-      [ "igor::iTimer", "classigor_1_1i_timer.html", null ]
-    ] ],
-    [ "iaux::iaSingleton< iWidgetManager >", "classiaux_1_1ia_singleton.html", [
-      [ "igor::iWidgetManager", "classigor_1_1i_widget_manager.html", null ]
-    ] ],
     [ "iaux::iaState", "classiaux_1_1ia_state.html", null ],
     [ "iaux::iaStateMachine", "classiaux_1_1ia_state_machine.html", null ],
     [ "iaux::iaString", "classiaux_1_1ia_string.html", null ],
@@ -116,9 +53,6 @@ var hierarchy =
     [ "igor::iAudioSource", "structigor_1_1i_audio_source.html", null ],
     [ "iaux::iaVector2< T >", "classiaux_1_1ia_vector2.html", null ],
     [ "iaux::iaVector3< T >", "classiaux_1_1ia_vector3.html", null ],
-    [ "iaux::iaVector3< float32 >", "classiaux_1_1ia_vector3.html", null ],
-    [ "iaux::iaVector3< float64 >", "classiaux_1_1ia_vector3.html", null ],
-    [ "iaux::iaVector3< int64 >", "classiaux_1_1ia_vector3.html", null ],
     [ "iaux::iaVector4< T >", "classiaux_1_1ia_vector4.html", null ],
     [ "igor::iBone", "classigor_1_1i_bone.html", null ],
     [ "igor::iButtonState", "structigor_1_1i_button_state.html", null ],
@@ -154,8 +88,8 @@ var hierarchy =
     ] ],
     [ "igor::iFrustum< T >", "classigor_1_1i_frustum.html", null ],
     [ "igor::iIndexedTriangle", "structigor_1_1i_indexed_triangle.html", null ],
-    [ "igor::iInstancedNodes", "structigor_1_1i_instanced_nodes.html", null ],
     [ "igor::iInstancer", "classigor_1_1i_instancer.html", null ],
+    [ "igor::iInstancingData", "structigor_1_1i_instancing_data.html", null ],
     [ "igor::iIntersection", "classigor_1_1i_intersection.html", null ],
     [ "igor::iJoint", "classigor_1_1i_joint.html", null ],
     [ "igor::iKeyboardImpl", "classigor_1_1i_keyboard_impl.html", null ],
@@ -177,15 +111,76 @@ var hierarchy =
       [ "igor::iModelDataIOOMPF", "classigor_1_1i_model_data_i_o_o_m_p_f.html", null ],
       [ "igor::iVoxelTerrainMeshGenerator", "classigor_1_1i_voxel_terrain_mesh_generator.html", null ]
     ] ],
+    [ "igor::iModule< T >", "classigor_1_1i_module.html", null ],
+    [ "igor::iModule< iActionManager >", "classigor_1_1i_module.html", [
+      [ "igor::iActionManager", "classigor_1_1i_action_manager.html", null ]
+    ] ],
+    [ "igor::iModule< iApplication >", "classigor_1_1i_module.html", [
+      [ "igor::iApplication", "classigor_1_1i_application.html", null ]
+    ] ],
+    [ "igor::iModule< iAudio >", "classigor_1_1i_module.html", [
+      [ "igor::iAudio", "classigor_1_1i_audio.html", null ]
+    ] ],
+    [ "igor::iModule< iClipboard >", "classigor_1_1i_module.html", [
+      [ "igor::iClipboard", "classigor_1_1i_clipboard.html", null ]
+    ] ],
+    [ "igor::iModule< iEntityManager >", "classigor_1_1i_module.html", [
+      [ "igor::iEntityManager", "classigor_1_1i_entity_manager.html", null ]
+    ] ],
+    [ "igor::iModule< iEvaluationManager >", "classigor_1_1i_module.html", [
+      [ "igor::iEvaluationManager", "classigor_1_1i_evaluation_manager.html", null ]
+    ] ],
+    [ "igor::iModule< iKeyboard >", "classigor_1_1i_module.html", [
+      [ "igor::iKeyboard", "classigor_1_1i_keyboard.html", null ]
+    ] ],
+    [ "igor::iModule< iMaterialResourceFactory >", "classigor_1_1i_module.html", [
+      [ "igor::iMaterialResourceFactory", "classigor_1_1i_material_resource_factory.html", null ]
+    ] ],
+    [ "igor::iModule< iModelResourceFactory >", "classigor_1_1i_module.html", [
+      [ "igor::iModelResourceFactory", "classigor_1_1i_model_resource_factory.html", null ]
+    ] ],
+    [ "igor::iModule< iMouse >", "classigor_1_1i_module.html", [
+      [ "igor::iMouse", "classigor_1_1i_mouse.html", null ]
+    ] ],
+    [ "igor::iModule< iNodeManager >", "classigor_1_1i_module.html", [
+      [ "igor::iNodeManager", "classigor_1_1i_node_manager.html", null ]
+    ] ],
+    [ "igor::iModule< iPhysics >", "classigor_1_1i_module.html", [
+      [ "igor::iPhysics", "classigor_1_1i_physics.html", null ]
+    ] ],
+    [ "igor::iModule< iProfiler >", "classigor_1_1i_module.html", [
+      [ "igor::iProfiler", "classigor_1_1i_profiler.html", null ]
+    ] ],
+    [ "igor::iModule< iRenderer >", "classigor_1_1i_module.html", [
+      [ "igor::iRenderer", "classigor_1_1i_renderer.html", null ]
+    ] ],
+    [ "igor::iModule< iResourceManager >", "classigor_1_1i_module.html", [
+      [ "igor::iResourceManager", "classigor_1_1i_resource_manager.html", null ]
+    ] ],
+    [ "igor::iModule< iSceneFactory >", "classigor_1_1i_module.html", [
+      [ "igor::iSceneFactory", "classigor_1_1i_scene_factory.html", null ]
+    ] ],
+    [ "igor::iModule< iTaskManager >", "classigor_1_1i_module.html", [
+      [ "igor::iTaskManager", "classigor_1_1i_task_manager.html", null ]
+    ] ],
+    [ "igor::iModule< iTextureResourceFactory >", "classigor_1_1i_module.html", [
+      [ "igor::iTextureResourceFactory", "classigor_1_1i_texture_resource_factory.html", null ]
+    ] ],
+    [ "igor::iModule< iTimer >", "classigor_1_1i_module.html", [
+      [ "igor::iTimer", "classigor_1_1i_timer.html", null ]
+    ] ],
+    [ "igor::iModule< iWidgetManager >", "classigor_1_1i_module.html", [
+      [ "igor::iWidgetManager", "classigor_1_1i_widget_manager.html", null ]
+    ] ],
     [ "igor::iMouseImpl", "classigor_1_1i_mouse_impl.html", null ],
     [ "igor::iNode", "classigor_1_1i_node.html", [
       [ "igor::iNodeAudioListener", "classigor_1_1i_node_audio_listener.html", null ],
       [ "igor::iNodeAudioSource", "classigor_1_1i_node_audio_source.html", null ],
       [ "igor::iNodeCamera", "classigor_1_1i_node_camera.html", null ],
       [ "igor::iNodeEmitter", "classigor_1_1i_node_emitter.html", null ],
-      [ "igor::iNodeLight", "classigor_1_1i_node_light.html", null ],
       [ "igor::iNodeLODSwitch", "classigor_1_1i_node_l_o_d_switch.html", null ],
       [ "igor::iNodeLODTrigger", "classigor_1_1i_node_l_o_d_trigger.html", null ],
+      [ "igor::iNodeLight", "classigor_1_1i_node_light.html", null ],
       [ "igor::iNodeModel", "classigor_1_1i_node_model.html", null ],
       [ "igor::iNodeRender", "classigor_1_1i_node_render.html", [
         [ "igor::iNodeSkyBox", "classigor_1_1i_node_sky_box.html", null ],

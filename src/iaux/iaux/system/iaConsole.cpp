@@ -239,6 +239,10 @@ namespace iaux
             break;
 
         case iaLogLevel::User:
+            color = iaForegroundColor::Gray;
+            tag = "USER ";
+            break;
+
         case iaLogLevel::Debug:
             color = iaForegroundColor::White;
             tag = "DEBUG";

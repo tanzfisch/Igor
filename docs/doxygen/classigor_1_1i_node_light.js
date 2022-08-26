@@ -2,7 +2,7 @@ var classigor_1_1i_node_light =
 [
     [ "getAmbient", "classigor_1_1i_node_light.html#adb9c9fb4fc7ae48581fe7da2cf75a6df", null ],
     [ "getDiffuse", "classigor_1_1i_node_light.html#a21fe89aa135d92207e9b81524033cd09", null ],
-    [ "getDirection", "classigor_1_1i_node_light.html#a53c7a561ae70b6ce87d00fab2df354ed", null ],
+    [ "getDirection", "classigor_1_1i_node_light.html#a934f8a55915ef0fc5683e46772d8be08", null ],
     [ "getPosition", "classigor_1_1i_node_light.html#ac63ca5069cef366f23aab59c612ea9f9", null ],
     [ "getSpecular", "classigor_1_1i_node_light.html#ad11a7713c1d9649f91356a2c8e962d9e", null ],
     [ "getType", "classigor_1_1i_node_light.html#a200f7d257ee41fd3e779284daa9a77e3", null ],

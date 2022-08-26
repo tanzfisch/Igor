@@ -1,6 +1,6 @@
 var classigor_1_1i_node_l_o_d_trigger =
 [
-    [ "getWorldPosition", "classigor_1_1i_node_l_o_d_trigger.html#a7a213193941a256b25e8c9202e19da26", null ],
+    [ "getWorldPosition", "classigor_1_1i_node_l_o_d_trigger.html#acece2a10c1feb4d85b4f21b3bfaaf894", null ],
     [ "onPostSetScene", "classigor_1_1i_node_l_o_d_trigger.html#a4ffc1142f6cae1d4bd2c59e1ecf3c0e9", null ],
     [ "onPreSetScene", "classigor_1_1i_node_l_o_d_trigger.html#a60b0dd179bed728780f74a167554d63d", null ],
     [ "onUpdateTransform", "classigor_1_1i_node_l_o_d_trigger.html#ae2149728aa4280bdaefe240b0f97a0cd", null ],
