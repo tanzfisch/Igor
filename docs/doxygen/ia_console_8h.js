@@ -32,7 +32,7 @@ var ia_console_8h =
       [ "Error", "ia_console_8h.html#afd3b2f5259d1874dee17bd422cea56fca902b0d55fddef6f8d651fe1035b7d4bd", null ],
       [ "Warning", "ia_console_8h.html#afd3b2f5259d1874dee17bd422cea56fca0eaadb4fcb48a0a0ed7bc9868be9fbaa", null ],
       [ "Info", "ia_console_8h.html#afd3b2f5259d1874dee17bd422cea56fca4059b0251f66a18cb56f544728796875", null ],
-      [ "DebugInfo", "ia_console_8h.html#afd3b2f5259d1874dee17bd422cea56fcaf6f6931771db95a6bffec131b856bd50", null ],
+      [ "User", "ia_console_8h.html#afd3b2f5259d1874dee17bd422cea56fca8f9bfe9d1345237cb3b2b205864da075", null ],
       [ "Debug", "ia_console_8h.html#afd3b2f5259d1874dee17bd422cea56fcaa603905470e2a5b8c13e96b579ef0dba", null ],
       [ "Trace", "ia_console_8h.html#afd3b2f5259d1874dee17bd422cea56fcadd4ec0ac4e58f7c32a01244ae91150b1", null ]
     ] ],
@@ -44,8 +44,8 @@ var ia_console_8h =
     [ "incerr", "ia_console_8h.html#aec4dd53feec0242dbe6f11a22abdc1a5", null ],
     [ "incwarn", "ia_console_8h.html#a8c450300a2e4d0f17bbafc775bbf97ad", null ],
     [ "LOCK", "ia_console_8h.html#ad115e13c89b22dd2f51dc8564b1670d7", null ],
-    [ "operator<<", "ia_console_8h.html#a27c709adbd89e6bf024b520ccd4999fc", null ],
+    [ "operator<<", "ia_console_8h.html#a8c286b903f78dd850081bf730ef493cd", null ],
     [ "printThreadID", "ia_console_8h.html#a067a2ca9379c5a9def30c8e2ff861cb1", null ],
     [ "UNLOCK", "ia_console_8h.html#a70d25d986c5fffd8bd895f55a6f20a16", null ],
-    [ "iaConsole", "ia_console_8h.html#ad4c739569f25a703a70211057fedc6e9", null ]
+    [ "iaConsole", "ia_console_8h.html#abc82355706630fc42170f31da49c8a6c", null ]
 ];

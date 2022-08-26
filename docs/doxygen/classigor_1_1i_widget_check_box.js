@@ -6,7 +6,7 @@ var classigor_1_1i_widget_check_box =
     [ "calcMinSize", "classigor_1_1i_widget_check_box.html#aff8eb39f653456e810332bd40fb3fa10", null ],
     [ "draw", "classigor_1_1i_widget_check_box.html#ab1cbb15092234140e93754f20008474b", null ],
     [ "endRadioButtonGroup", "classigor_1_1i_widget_check_box.html#a136796a81650f948bbe3ed9b9bc9b076", null ],
-    [ "getText", "classigor_1_1i_widget_check_box.html#a271c35a3217f535400b4262d38caea4d", null ],
+    [ "getText", "classigor_1_1i_widget_check_box.html#aff22fd45129f117d5718b71be203cc51", null ],
     [ "handleMouseKeyUp", "classigor_1_1i_widget_check_box.html#a2fd56873278f97270ecb657b5da23170", null ],
     [ "isChecked", "classigor_1_1i_widget_check_box.html#a4a09ee8a81323a87cafae949d35a7b7e", null ],
     [ "setChecked", "classigor_1_1i_widget_check_box.html#acab2d811d433ac00081182afac124cba", null ],

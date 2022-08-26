@@ -9,11 +9,11 @@ var dir_b9bc800c5eeb123b0cfb1fef5c168ecc =
       [ "iBone", "classigor_1_1i_bone.html", "classigor_1_1i_bone" ]
     ] ],
     [ "iFrustum.h", "i_frustum_8h.html", "i_frustum_8h" ],
-    [ "iFrustum.inl", "i_frustum_8inl.html", null ],
+    [ "iFrustum.inl", "i_frustum_8inl.html", "i_frustum_8inl" ],
     [ "iIntersection.h", "i_intersection_8h.html", [
       [ "iIntersection", "classigor_1_1i_intersection.html", "classigor_1_1i_intersection" ]
     ] ],
-    [ "iIntersection.inl", "i_intersection_8inl.html", "i_intersection_8inl" ],
+    [ "iIntersection.inl", "i_intersection_8inl.html", null ],
     [ "iJoint.cpp", "i_joint_8cpp.html", null ],
     [ "iJoint.h", "i_joint_8h.html", [
       [ "iJoint", "classigor_1_1i_joint.html", "classigor_1_1i_joint" ]
