@@ -469,6 +469,7 @@ foreach(
   13_SpriteAnimation
   14_Evaluation
   15_Sound
+  98_Supremacy
   99_Ascent)
 
   message(STATUS "${EXAMPLE}")

@@ -66,6 +66,17 @@ namespace igor
         friend class iWindow;
 
     public:
+    
+        /*! init members
+
+        \param useProfiling if true this view will make do profiling
+        */
+        iView(bool useProfiling = true);
+
+        /*! checks consistency
+        */
+        virtual ~iView();
+
         /*! sets the scene to be rendered with this view
 
         \param scene scene to be rendered
@@ -256,16 +267,6 @@ namespace igor
         esle it must be a orthogonal projection
         */
         bool isPerspective() const;
-
-        /*! init members
-
-        \param useProfiling if true this view will make do profiling
-        */
-        iView(bool useProfiling = true);
-
-        /*! checks consistency
-        */
-        virtual ~iView();
 
     private:
         /*! z index
