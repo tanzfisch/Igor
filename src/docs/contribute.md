@@ -24,16 +24,21 @@ and
 Build
 -----
 
-Igor is using cmake. The build is configured to work with Debian/g++ and Windows/MSVC. Other platforms might work too.
+Igor is using cmake to build. It is configured to work with Debian/g++ (Windows/MSVC is currently not supported).
 
 Build Debug
 ^^^^^^^^^^^
-`cmake -S . -B build/debug -DCMAKE_BUILD_TYPE=DEBUG`
+`cmake -S . -B build/debug -DCMAKE_BUILD_TYPE=Debug`
 `cmake --build build/debug`
+
+Build Release with Debug
+^^^^^^^^^^^^^^^^^^^^^^^^
+`cmake -S . -B build/release -DCMAKE_BUILD_TYPE=RelWithDebInfo`
+`cmake --build build/reldeb`
 
 Build Release
 ^^^^^^^^^^^^^
-`cmake -S . -B build/release -DCMAKE_BUILD_TYPE=RELEASE`
+`cmake -S . -B build/release -DCMAKE_BUILD_TYPE=Release`
 `cmake --build build/release`
 
 Note! Under Linux you might need to install some additional dependencies

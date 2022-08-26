@@ -105,7 +105,7 @@ namespace iaux
 
         con_endl
         */
-        DebugInfo, // TODO need better name for this... or we can put it together with Info
+        User, // TODO need better name for this... or we can put it together with Info
 
         /*! debug output
 
@@ -260,9 +260,9 @@ namespace iaux
         bool isUsingColors() const;
 
     private:
-        /*! the log level. default is logging everything (trace)
+        /*! the log level
         */
-        iaLogLevel _logLevel = iaLogLevel::DebugInfo;
+        iaLogLevel _logLevel = iaLogLevel::User;
 
         /*! file stream to log file
         */
@@ -481,10 +481,10 @@ namespace iaux
             \param Message message to be printed
             */
 #define con_endl(Message)                                                      \
-    if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::DebugInfo)       \
+    if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::User)       \
     {                                                                          \
         iaConsole::getInstance() << LOCK;                                      \
-        iaConsole::getInstance().printHead(iaLogLevel::DebugInfo);             \
+        iaConsole::getInstance().printHead(iaLogLevel::User);             \
         iaConsole::getInstance() << iaForegroundColor::Gray << Message << endl \
                                  << UNLOCK;                                    \
     }

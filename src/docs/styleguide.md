@@ -15,11 +15,13 @@ Examples:
 
 Member Variables
 ----------------
-All member variables and static definitions start with an underscore "_"
+All member variables and static definitions begin with the prefix "_"
 
 Examples:
 - _matrix
 - _fooBar
+
+Yes this might be a bad idea but the autor realized that years of work too late.
 
 Functions and Methods
 ---------------------

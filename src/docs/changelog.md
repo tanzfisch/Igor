@@ -4,24 +4,26 @@ Changelog                           {#changelog}
 0.32.0
 ------
 
+!Decided to drop MSVC support until I feel like it again!
+
 - improved slider widget behaviour
 
 0.31.0
 ------
 
+!This release does not build with MSVC!
+
 - improved rendering performance (still a long way to go though)
 - replaced gtest with igorTest including writing more unit tests
 - fixed material initialisation problem in Ascent
 
-!This release does not build with MSVC!
-
 0.30.0
 ------
 
+!This release does not build with MSVC!
+
 - introduced iModule and switched most singletons to modules
 - removed iaSingleton class
-
-!This release does not build with MSVC!
 
 0.29.0
 ------

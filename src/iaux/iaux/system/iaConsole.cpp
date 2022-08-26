@@ -158,7 +158,7 @@ namespace iaux
             L"Error",
             L"Warning",
             L"Info",
-            L"DebugInfo",
+            L"User",
             L"Debug",
             L"Trace"};
 
@@ -238,7 +238,7 @@ namespace iaux
             tag = "INFO ";
             break;
 
-        case iaLogLevel::DebugInfo:
+        case iaLogLevel::User:
         case iaLogLevel::Debug:
             color = iaForegroundColor::White;
             tag = "DEBUG";

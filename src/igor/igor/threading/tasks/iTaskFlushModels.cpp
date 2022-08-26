@@ -24,8 +24,6 @@ namespace igor
 
     void iTaskFlushModels::abort()
     {
-        iModelResourceFactory::getInstance().interruptFlush();
-
         while (isRunning())
         {
             std::this_thread::yield();
