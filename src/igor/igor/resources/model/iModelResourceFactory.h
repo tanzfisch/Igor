@@ -89,10 +89,6 @@ namespace igor
         */
         bool flush(iWindow *window, iResourceCacheMode cacheModeLevel = iResourceCacheMode::Free);
 
-        /*! if a flush in a different thread is currently running. this will stop him asap
-        */
-        void interruptFlush();
-
         /*! exports model in specified format
 
         \param formatIdentifier identifier of which exporter to use
@@ -139,10 +135,6 @@ namespace igor
         /*! mutex to save the running tasks list
         */
         iaMutex _mutexRunningTasks;
-
-        /*! flag to interrupt flush cross threads
-        */
-        bool _interrupFlush = false;
 
         /*! map of model data IOs
 

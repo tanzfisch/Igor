@@ -20,9 +20,6 @@ var dir_d4bf329ef8ddafe8186da6240e562cf4 =
     [ "iaMutex.h", "ia_mutex_8h.html", [
       [ "iaMutex", "classiaux_1_1ia_mutex.html", "classiaux_1_1ia_mutex" ]
     ] ],
-    [ "iaSingleton.h", "ia_singleton_8h.html", [
-      [ "iaSingleton", "classiaux_1_1ia_singleton.html", "classiaux_1_1ia_singleton" ]
-    ] ],
     [ "iaSystem.cpp", "ia_system_8cpp.html", "ia_system_8cpp" ],
     [ "iaSystem.h", "ia_system_8h.html", "ia_system_8h" ],
     [ "iaThread.cpp", "ia_thread_8cpp.html", "ia_thread_8cpp" ],

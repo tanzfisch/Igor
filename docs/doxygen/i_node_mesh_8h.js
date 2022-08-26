@@ -1,29 +1,4 @@
 var i_node_mesh_8h =
 [
-    [ "iNodeMeshPtr", "i_node_mesh_8h.html#ac83f14c901f063c685bba4202d5a227f", null ],
-    [ "draw", "i_node_mesh_8h.html#afb49bafbe51d959fe2104d4c36f9b842", null ],
-    [ "getAmbient", "i_node_mesh_8h.html#a841edebc1fe31af62f5a68a0987a724e", null ],
-    [ "getDiffuse", "i_node_mesh_8h.html#a49422b25f7258f6b0d8dd67fdd77088b", null ],
-    [ "getEmissive", "i_node_mesh_8h.html#a7f0b6242857fa626822a62852a775dd8", null ],
-    [ "getIndexesCount", "i_node_mesh_8h.html#ada4d367b18fca8f6a4bf9c48127abb9c", null ],
-    [ "getInfo", "i_node_mesh_8h.html#af07ff7dbc460bf12233f0614c90ee1e6", null ],
-    [ "getKeepMesh", "i_node_mesh_8h.html#a0a59162b83b62e2ade75abd181aa3d34", null ],
-    [ "getMesh", "i_node_mesh_8h.html#aa132fef6316d3bc97e2f737a6ece153a", null ],
-    [ "getMeshBuffers", "i_node_mesh_8h.html#a11b8a7e32b602152cd86d61a23909994", null ],
-    [ "getShininess", "i_node_mesh_8h.html#a098fd5c041fd0b1d76cdbf42cf305aad", null ],
-    [ "getSpecular", "i_node_mesh_8h.html#afc7e2a5328b922dba29c976ff3891d2c", null ],
-    [ "getTargetMaterial", "i_node_mesh_8h.html#a32b46ba61d984fe9b19adc8190f9e42a", null ],
-    [ "getTrianglesCount", "i_node_mesh_8h.html#a0272d4e8f2990db098f76ea9938f9f8e", null ],
-    [ "getVertexCount", "i_node_mesh_8h.html#a93145a3743079f05251c86991460cb29", null ],
-    [ "iNodeMesh", "i_node_mesh_8h.html#a1a3257976e2dacefced7178707dfba4c", null ],
-    [ "iNodeMesh", "i_node_mesh_8h.html#aa2409e31c1d9bce97b464bf3bb42fe72", null ],
-    [ "setKeepMesh", "i_node_mesh_8h.html#a8d8b89932715c3e7cd8a87c874823034", null ],
-    [ "setMesh", "i_node_mesh_8h.html#a4780819c9d7689f7553d7a0e9b661448", null ],
-    [ "setMeshBuffers", "i_node_mesh_8h.html#a92ce4dc308ed8182417a5f72d1d8b2aa", null ],
-    [ "setTargetMaterial", "i_node_mesh_8h.html#ae59c10855cfd9414ff8dbf090fed0dc8", null ],
-    [ "~iNodeMesh", "i_node_mesh_8h.html#a003984e01cb49e8fb7e3faafb062198f", null ],
-    [ "_keepMesh", "i_node_mesh_8h.html#a33bcb4069b92575a0d6f1ae60ee0dcbf", null ],
-    [ "_mesh", "i_node_mesh_8h.html#ac23ab885e01dc1f4e958b0e48b504026", null ],
-    [ "_meshBuffers", "i_node_mesh_8h.html#a90ca24a4f3ea61f37c60cad5fee342e0", null ],
-    [ "_targetMaterial", "i_node_mesh_8h.html#a789ec0036ff85c3c24abc6154bf1915e", null ]
+    [ "iNodeMeshPtr", "i_node_mesh_8h.html#aee9883182c335f798294f76f0886fd94", null ]
 ];

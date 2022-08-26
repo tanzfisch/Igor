@@ -12,5 +12,5 @@ var classigor_1_1i_audio =
     [ "stopSource", "classigor_1_1i_audio.html#ad412f59c9d427b9b2a9b54bcc047d4a8", null ],
     [ "updateListener", "classigor_1_1i_audio.html#a453640e4c8985226485e4476f1bae778", null ],
     [ "updateSource", "classigor_1_1i_audio.html#a161ef1a0fb7445c13a694add35ef5b54", null ],
-    [ "iaSingleton< iAudio >", "classigor_1_1i_audio.html#adbed475602d70d0ab93f438255a03034", null ]
+    [ "iModule< iAudio >", "classigor_1_1i_audio.html#ac3391c868ed3fffacea7fb0e31808368", null ]
 ];

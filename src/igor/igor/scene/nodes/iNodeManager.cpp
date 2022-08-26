@@ -33,13 +33,22 @@ namespace igor
 
     iNodeManager::~iNodeManager()
     {
+        flush();
+
         if (_nodes.size())
         {
             con_err("possible mem leak. nodes left: " << static_cast<int>(_nodes.size()));
 
             for (auto pair : _nodes)
             {
-                con_debug(pair.second->getName() << " id:" << pair.second->getID());
+                std::vector<iaString> info;
+                pair.second->getInfo(info);
+                bool first = true;
+                for (const auto &entry : info)
+                {
+                    con_debug((first ? "+-- " : "    ") << entry);
+                    first = false;
+                }
             }
         }
     }
@@ -180,18 +189,17 @@ namespace igor
 
     void iNodeManager::getNodes(std::vector<iNodeID> &nodes)
     {
-        nodes.clear();
-
+        _mutexNodes.lock();
         for (auto node : _nodes)
         {
             nodes.push_back(node.first);
         }
+        _mutexNodes.unlock();
     }
 
     void iNodeManager::getNodes(std::vector<iNodeID> &nodes, iNodeType nodeType)
     {
-        nodes.clear();
-
+        _mutexNodes.lock();
         for (auto node : _nodes)
         {
             if (node.second->getType() == nodeType)
@@ -199,6 +207,7 @@ namespace igor
                 nodes.push_back(node.first);
             }
         }
+        _mutexNodes.unlock();
     }
 
     void iNodeManager::destroyNode(iNodeID nodeID)
@@ -315,7 +324,7 @@ namespace igor
 
             case iNodeType::iSkyLightNode:
                 con_err("deprecated");
-                //result = new iSkyLightNode(static_cast<iSkyLightNode*>(node));
+                // result = new iSkyLightNode(static_cast<iSkyLightNode*>(node));
                 break;
 
             case iNodeType::iNodeTransform:

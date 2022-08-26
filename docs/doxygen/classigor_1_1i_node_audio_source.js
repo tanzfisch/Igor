@@ -1,8 +1,8 @@
 var classigor_1_1i_node_audio_source =
 [
-    [ "getGain", "classigor_1_1i_node_audio_source.html#a68dce817167a2118c5e0cefb60d9dc59", null ],
-    [ "getPitch", "classigor_1_1i_node_audio_source.html#ae1f6a7ff37c6cdd730ea80bf2175ee7e", null ],
-    [ "isLooped", "classigor_1_1i_node_audio_source.html#a29cf6f1cdadf7ec41ed73bf748fe7e43", null ],
+    [ "getGain", "classigor_1_1i_node_audio_source.html#aa4db594556f0ea603fb33f0ee6eebe4f", null ],
+    [ "getPitch", "classigor_1_1i_node_audio_source.html#aba0ae1c8615f03ceee3d6cb89eb9ae76", null ],
+    [ "isLooped", "classigor_1_1i_node_audio_source.html#a20ee55cd301e85f2f3383da240750051", null ],
     [ "onUpdateTransform", "classigor_1_1i_node_audio_source.html#a0fcc6cd9fa4cc84a69dad859fa1a3186", null ],
     [ "play", "classigor_1_1i_node_audio_source.html#a190686a5382f2a145fde8aa8c8acf56d", null ],
     [ "setGain", "classigor_1_1i_node_audio_source.html#ad44c8ba504144792db8b7575594df162", null ],

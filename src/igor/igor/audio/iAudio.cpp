@@ -43,9 +43,44 @@ namespace igor
         else                                          \
             break;                                    \
     } while (0)
+
+#define ALC_CHECK_ERROR(device)                       \
+    do                                                \
+    {                                                 \
+        ALCenum error = alcGetError(device);          \
+        iaString errorString;                         \
+        if (error != ALC_NO_ERROR)                    \
+        {                                             \
+            switch (error)                            \
+            {                                         \
+            case ALC_INVALID_DEVICE:                  \
+                errorString = "ALC_INVALID_DEVICE";   \
+                break;                                \
+            case ALC_INVALID_CONTEXT:                 \
+                errorString = "ALC_INVALID_CONTEXT";  \
+                break;                                \
+            case ALC_INVALID_ENUM:                    \
+                errorString = "ALC_INVALID_ENUM";     \
+                break;                                \
+            case ALC_INVALID_VALUE:                   \
+                errorString = "ALC_INVALID_VALUE";    \
+                break;                                \
+            case ALC_OUT_OF_MEMORY:                   \
+                errorString = "ALC_OUT_OF_MEMORY";    \
+                break;                                \
+            default:                                  \
+                errorString = "UNKNOWN";              \
+            };                                        \
+            con_err("OpenAL error: " << errorString); \
+        }                                             \
+        else                                          \
+            break;                                    \
+    } while (0)    
 #else
-#define AL_CHECK_ERROR() 1
+#define AL_CHECK_ERROR()
+#define ALC_CHECK_ERROR(device)
 #endif
+
 
     class iAudioImpl
     {
@@ -74,6 +109,7 @@ namespace igor
             {
                 con_err("can't make context current");
                 alcDestroyContext(_context);
+                ALC_CHECK_ERROR(_device);
                 alcCloseDevice(_device);
                 _context = nullptr;
                 _device = nullptr;
@@ -93,11 +129,10 @@ namespace igor
                 _device != nullptr)
             {
                 alcMakeContextCurrent(nullptr);
-                AL_CHECK_ERROR();
+                ALC_CHECK_ERROR(_device);
                 alcDestroyContext(_context);
-                AL_CHECK_ERROR();
+                ALC_CHECK_ERROR(_device);
                 alcCloseDevice(_device);
-                AL_CHECK_ERROR();
             }
         }
 

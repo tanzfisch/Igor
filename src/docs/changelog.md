@@ -4,24 +4,31 @@ Changelog                           {#changelog}
 0.32.0
 ------
 
-TODO
+!Decided to drop MSVC support until I feel like it again!
+
+- improved slider widget behaviour
+- log level DebugInfo is now called User
+- default log level is now User
+- improved error handling in iAudio
+- textures are loaded cached by default now and do not get release immediately after nothing is referencing them anymore
+- improved some debug output
 
 0.31.0
 ------
+
+!This release does not build with MSVC!
 
 - improved rendering performance (still a long way to go though)
 - replaced gtest with igorTest including writing more unit tests
 - fixed material initialisation problem in Ascent
 
-!This release does not build with MSVC!
-
 0.30.0
 ------
 
+!This release does not build with MSVC!
+
 - introduced iModule and switched most singletons to modules
 - removed iaSingleton class
-
-!This release does not build with MSVC!
 
 0.29.0
 ------

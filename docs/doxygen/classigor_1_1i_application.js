@@ -5,7 +5,7 @@ var classigor_1_1i_application =
     [ "clearLayerStack", "classigor_1_1i_application.html#a1b74c34e3aebced98b162ccd0f945551", null ],
     [ "createWindow", "classigor_1_1i_application.html#a98ea4c55e96c71c70c5ffb837399c1bf", null ],
     [ "destroyWindow", "classigor_1_1i_application.html#ab1743ba614843bb1e1b606f4c08f7238", null ],
-    [ "getWindow", "classigor_1_1i_application.html#ab70e3023e8028a2a7ba06529dac9b702", null ],
+    [ "getWindow", "classigor_1_1i_application.html#a9bf2d43f8df5b6bc5ffe28e901aa7178", null ],
     [ "isBlockedEvent", "classigor_1_1i_application.html#a34899410d6b19b879519ad61661e624a", null ],
     [ "isRunning", "classigor_1_1i_application.html#ae894b9c357cddfd1440238b796c43912", null ],
     [ "onEvent", "classigor_1_1i_application.html#ab0dd666b41f6f18f9ab77613eb8f4973", null ],
@@ -14,6 +14,6 @@ var classigor_1_1i_application =
     [ "stop", "classigor_1_1i_application.html#ad3fe5ab8e17f607066e31991209b765d", null ],
     [ "unblockEvent", "classigor_1_1i_application.html#a4b28d280c8ec68e3e8c52467e4d86006", null ],
     [ "verboseLoggingNextFrame", "classigor_1_1i_application.html#aa80bf46839af020a1f85e61e34d36284", null ],
-    [ "iaSingleton< iApplication >", "classigor_1_1i_application.html#ae468ecca168a4a68be9c0daa3b5a3f83", null ],
+    [ "iModule< iApplication >", "classigor_1_1i_application.html#ace92dec78f967ce8935c825bb5b3a05d", null ],
     [ "iWindow", "classigor_1_1i_application.html#a62b10979f57015cc1e2e958bbd9308bc", null ]
 ];

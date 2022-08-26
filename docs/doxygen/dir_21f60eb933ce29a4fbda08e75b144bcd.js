@@ -43,7 +43,7 @@ var dir_21f60eb933ce29a4fbda08e75b144bcd =
     [ "iWidgetSelectBox.h", "i_widget_select_box_8h.html", [
       [ "iWidgetSelectBox", "classigor_1_1i_widget_select_box.html", "classigor_1_1i_widget_select_box" ]
     ] ],
-    [ "iWidgetSlider.cpp", "i_widget_slider_8cpp.html", null ],
+    [ "iWidgetSlider.cpp", "i_widget_slider_8cpp.html", "i_widget_slider_8cpp" ],
     [ "iWidgetSlider.h", "i_widget_slider_8h.html", [
       [ "iWidgetSlider", "classigor_1_1i_widget_slider.html", "classigor_1_1i_widget_slider" ]
     ] ],

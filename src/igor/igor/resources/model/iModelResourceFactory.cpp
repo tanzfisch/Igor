@@ -157,11 +157,6 @@ namespace igor
         return result;
     }
 
-    void iModelResourceFactory::interruptFlush()
-    {
-        _interrupFlush = true;
-    }
-
     void iModelResourceFactory::registerModelDataIO(const iaString &identifier, iCreateModelDataIOInstance functionPointer)
     {
         int64 hashValue = calcModelDataIOHashValue(identifier);
@@ -364,34 +359,29 @@ namespace igor
         }
         _mutexModels.unlock();
 
-        if (!_interrupFlush)
+        std::vector<iModelPtr> modelsToProcess;
+
+        _mutexModelQueue.lock();
+        modelsToProcess = std::move(_loadingQueue);
+        _mutexModelQueue.unlock();
+
+        for (auto model : modelsToProcess)
         {
-            std::vector<iModelPtr> modelsToProcess;
-
-            _mutexModelQueue.lock();
-            modelsToProcess = std::move(_loadingQueue);
-            _mutexModelQueue.unlock();
-
-            for (auto model : modelsToProcess)
+            iTaskContext taskContext = iTaskContext::RenderContext;
+            uint32 priority = iTask::DEFAULT_PRIORITY;
+            if (model->getParameters() != nullptr)
             {
-                iTaskContext taskContext = iTaskContext::RenderContext;
-                uint32 priority = iTask::DEFAULT_PRIORITY;
-                if (model->getParameters() != nullptr)
-                {
-                    taskContext = model->getParameters()->_needsRenderContext ? iTaskContext::RenderContext : iTaskContext::Default;
-                    priority = model->getParameters()->_loadPriority;
-                }
-
-                iTaskLoadModel *task = new iTaskLoadModel(window, model, taskContext, priority);
-                iTaskManager::getInstance().addTask(task);
-
-                _mutexRunningTasks.lock();
-                _runningTasks.push_back(task->getID());
-                _mutexRunningTasks.unlock();
+                taskContext = model->getParameters()->_needsRenderContext ? iTaskContext::RenderContext : iTaskContext::Default;
+                priority = model->getParameters()->_loadPriority;
             }
-        }
 
-        _interrupFlush = false;
+            iTaskLoadModel *task = new iTaskLoadModel(window, model, taskContext, priority);
+            iTaskManager::getInstance().addTask(task);
+
+            _mutexRunningTasks.lock();
+            _runningTasks.push_back(task->getID());
+            _mutexRunningTasks.unlock();
+        }
 
         _mutexRunningTasks.lock();
         if (_runningTasks.empty())

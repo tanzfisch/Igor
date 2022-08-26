@@ -5,7 +5,7 @@ var classigor_1_1i_entity_manager =
     [ "getEntities", "classigor_1_1i_entity_manager.html#a8780936eca93fcbcbda9134d2262ce16", null ],
     [ "getEntity", "classigor_1_1i_entity_manager.html#a40dcdff55308513b51599e875ff5b3a6", null ],
     [ "handle", "classigor_1_1i_entity_manager.html#abcdc73fe386aa6c080a8ef848a77a654", null ],
-    [ "iaSingleton< iEntityManager >", "classigor_1_1i_entity_manager.html#ab9e1f55c27100f2b273af131177e4800", null ],
     [ "iEntity", "classigor_1_1i_entity_manager.html#a021b8fb3624ee7fa31246cd91dfac21c", null ],
-    [ "iEntityLocatable", "classigor_1_1i_entity_manager.html#a250afcc639ef32aea5066001fef25ab5", null ]
+    [ "iEntityLocatable", "classigor_1_1i_entity_manager.html#a250afcc639ef32aea5066001fef25ab5", null ],
+    [ "iModule< iEntityManager >", "classigor_1_1i_entity_manager.html#a02d89fba3acac468cff6cb0c076dfe58", null ]
 ];

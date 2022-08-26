@@ -147,13 +147,13 @@ bool ExampleBase::onKeyUp(iEventKeyUp &event)
         return true;
 
     case iKeyCode::F6:
-    {
-        iNodeVisitorPrintTree printTree;
-        if (getScene() != nullptr)
         {
-            printTree.printToConsole(getScene()->getRoot());
+            iNodeVisitorPrintTree printTree;
+            if (getScene() != nullptr)
+            {
+                printTree.printToConsole(getScene()->getRoot());
+            }
         }
-    }
         return true;
 
     case iKeyCode::F10:
