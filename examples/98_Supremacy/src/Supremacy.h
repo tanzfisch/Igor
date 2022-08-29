@@ -43,6 +43,12 @@ public:
 	~Supremacy();
 
 private:
+
+	struct Entity
+	{
+		iaVector2d _pos;
+	};
+
     /*! the view we render 2D to
     */
     iView _viewOrtho;
@@ -59,15 +65,25 @@ private:
 	 */
 	void onPreDraw() override;
 
-	/*! called on application post draw event
-	 */
-	void onPostDraw() override;
-
 	/*! called on any other event
 	 */
 	void onEvent(iEvent &event) override;
 
+	/*! called when render ortho viewport
+	*/ 
 	void onRenderOrtho();
+
+    /*! called when key was pressed
+
+    \param event the event to handle
+    */
+    bool onKeyDown(iEventKeyDown &event);
+
+    /*! called when key was released
+
+    \param event the event to handle
+    */
+    bool onKeyUp(iEventKeyUp &event);	
 };
 
 #endif // __SUPREMACY__

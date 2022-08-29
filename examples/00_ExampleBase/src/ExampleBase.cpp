@@ -211,10 +211,6 @@ void ExampleBase::onPreDraw()
 {
 }
 
-void ExampleBase::onPostDraw()
-{
-}
-
 void ExampleBase::onRenderOrtho()
 {
     iaMatrixd matrix;

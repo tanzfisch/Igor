@@ -80,12 +80,6 @@ protected:
     */
     virtual void onPreDraw() override;
 
-    /*! called every frame after draw
-
-    override if you need to work with it
-    */
-    virtual void onPostDraw() override;
-
     /*! called on any other event
     */
     virtual void onEvent(iEvent &event) override;

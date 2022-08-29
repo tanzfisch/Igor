@@ -147,10 +147,6 @@ namespace igor
         */
         void onPreDraw();
 
-        /*! widget handling after the render frame is done
-		*/
-        void onPostDraw();
-
     private:
         /*! modal marker
         */

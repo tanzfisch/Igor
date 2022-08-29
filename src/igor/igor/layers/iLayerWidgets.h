@@ -68,10 +68,6 @@ namespace igor
         */
         virtual void onPreDraw() override;
 
-        /*! called on application post draw event
-        */
-        virtual void onPostDraw() override;
-
         /*! called on any other event
 
         \param event the event to handle

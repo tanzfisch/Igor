@@ -26,19 +26,19 @@ void Supremacy::onInit()
 }
 
 void Supremacy::onDeinit()
-{
+{    
+    getWindow()->removeView(&_viewOrtho);
+    _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &Supremacy::onRenderOrtho));
 }
 
 void Supremacy::onPreDraw()
 {
 }
 
-void Supremacy::onPostDraw()
-{
-}
-
 void Supremacy::onEvent(iEvent &event)
 {
+    event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(Supremacy::onKeyDown));
+    event.dispatch<iEventKeyUp>(IGOR_BIND_EVENT_FUNCTION(Supremacy::onKeyUp));
 }
 
 void Supremacy::onRenderOrtho()
@@ -49,4 +49,72 @@ void Supremacy::onRenderOrtho()
     iRenderer::getInstance().setModelMatrix(matrix);
 
     // TODO draw shit
+}
+
+bool Supremacy::onKeyDown(iEventKeyDown &event)
+{
+    switch (event.getKey())
+    {
+    case iKeyCode::W:
+        return true;
+
+    case iKeyCode::A:
+        return true;
+
+    case iKeyCode::S:
+        return true;
+
+    case iKeyCode::D:
+        return true;
+
+    case iKeyCode::I:
+        return true;
+
+    case iKeyCode::J:
+        return true;
+
+    case iKeyCode::K:
+        return true;
+
+    case iKeyCode::L:
+        return true;        
+
+    case iKeyCode::ESC:
+        iApplication::getInstance().stop();
+        return true;
+    }
+
+    return false;
+}
+
+bool Supremacy::onKeyUp(iEventKeyUp &event)
+{
+    switch (event.getKey())
+    {
+    case iKeyCode::W:
+        return true;
+
+    case iKeyCode::A:
+        return true;
+
+    case iKeyCode::S:
+        return true;
+
+    case iKeyCode::D:
+        return true;
+
+    case iKeyCode::I:
+        return true;
+
+    case iKeyCode::J:
+        return true;
+
+    case iKeyCode::K:
+        return true;
+
+    case iKeyCode::L:
+        return true;        
+    }
+
+    return false;
 }
