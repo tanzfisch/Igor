@@ -10,6 +10,7 @@ using namespace iaux;
 
 #include <list>
 #include <sstream>
+#include <cstring>
 
 namespace igor
 {

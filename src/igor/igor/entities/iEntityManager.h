@@ -45,6 +45,8 @@ namespace igor
     effort as long as there is not an army of artists and content creators that would work for me. So I stick with the 
     classical approach using inherritance to define entities even if this provokes potencially ugly code within the 
     application layer. I don't care. I want to keep the engine clean. ML
+
+    \deprecated will work out an ECS
     */
     class IGOR_API iEntityManager : public iModule<iEntityManager>
     {

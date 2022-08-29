@@ -9,6 +9,8 @@
 #include <iaux/math/iaMatrix2D.h>
 using namespace iaux;
 
+#include <cstring>
+
 #define HIGHER_NEIGHBOR_LOD_XPOSITIVE 0x20
 #define HIGHER_NEIGHBOR_LOD_XNEGATIVE 0x10
 #define HIGHER_NEIGHBOR_LOD_YPOSITIVE 0x08

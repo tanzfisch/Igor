@@ -8,6 +8,8 @@
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
+#include <cstring>
+
 namespace igor
 {
     iPixmap::iPixmap(uint32 width, uint32 height, iColorFormat colorFormat)

@@ -6,6 +6,8 @@
 
 #include <iaux/system/iaConsole.h>
 
+#include <cstring>
+
 namespace iaux
 {
     iaMemBlock::iaMemBlock()

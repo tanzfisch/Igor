@@ -5,6 +5,8 @@
 #include <iaux/data/iaMemBlockControl.h>
 #include <iaux/system/iaConsole.h>
 
+#include <cstring>
+
 namespace iaux
 {
 

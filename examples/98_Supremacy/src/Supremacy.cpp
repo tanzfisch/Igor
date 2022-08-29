@@ -48,7 +48,8 @@ void Supremacy::onRenderOrtho()
     matrix.translate(0, 0, -1);
     iRenderer::getInstance().setModelMatrix(matrix);
 
-    // TODO draw shit
+    // draw entities
+    
 }
 
 bool Supremacy::onKeyDown(iEventKeyDown &event)

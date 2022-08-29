@@ -47,6 +47,7 @@ namespace igor
     };
 
     /*! entity base class
+    \deprecated will work out an ECS
     */
     class IGOR_API iEntity
     {

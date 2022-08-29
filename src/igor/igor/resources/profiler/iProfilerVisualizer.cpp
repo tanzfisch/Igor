@@ -14,6 +14,8 @@
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
+#include <cstring>
+
 namespace igor
 {
 

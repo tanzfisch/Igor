@@ -6,6 +6,8 @@
 
 #include <igor/graphics/iRenderer.h>
 
+#include <cstring>
+
 namespace igor
 {
 

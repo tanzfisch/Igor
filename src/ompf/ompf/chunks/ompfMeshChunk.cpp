@@ -8,6 +8,7 @@
 using namespace iaux;
 
 #include <iomanip>
+#include <cstring>
 
 namespace OMPF
 {

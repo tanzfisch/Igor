@@ -26,56 +26,16 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iENTITYLOCATABLE__
-#define __iENTITYLOCATABLE__
+#ifndef __iECS__
+#define __iECS__
 
-#include <igor/entities/iEntity.h>
-#include <igor/data/iSphere.h>
-
-#include <iaux/math/iaVector3.h>
-using namespace iaux;
+#include <igor/iDefines.h>
 
 namespace igor
 {
 
-    /*! enetity that can be located by it's position
-    \deprecated will work out an ECS
-    */
-    class IGOR_API iEntityLocatable : public iEntity
-    {
 
-        /*! so we can manipulate the sphere
-        */
-        friend class iEntityManager;
-
-    public:
-        /*! \returns current position sphere of entity
-        */
-        iSphered getSphere() const;
-
-        /*! init type
-        */
-        iEntityLocatable();
-
-        /*! does nothing
-        */
-        virtual ~iEntityLocatable() = default;
-
-    protected:
-        /*! entity's handle
-        */
-        virtual void handle() = 0;
-
-        /*! \returns current position
-        */
-        virtual iaVector3d getCurrentPos() = 0;
-
-    private:
-        /*! position sphere
-        */
-        iSphered _sphere;
-    };
 
 } // namespace igor
 
-#endif
+#endif // __iECS__

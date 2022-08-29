@@ -29,7 +29,6 @@
 #ifndef __IAUX_DEFINES_H__
 #define __IAUX_DEFINES_H__
 
-#include <string.h>
 #include <stdint.h>
 
 // detect environment
