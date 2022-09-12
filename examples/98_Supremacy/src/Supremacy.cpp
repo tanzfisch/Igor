@@ -23,10 +23,50 @@ void Supremacy::onInit()
     _viewOrtho.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
     _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &Supremacy::onRenderOrtho));
     getWindow()->addView(&_viewOrtho, getZIndex() + 1);
+
+    _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &Supremacy::onUpdate), iaTime::fromMilliseconds(10));
+    _updateTimerHandle->start();
+
+    _rand.setSeed(1337);
+
+    _logicSystems.addSystem(_pawnSystem);
+
+    _renderSystems.addSystem(_displayEntittiesSystem);
+
+    PositionComponent position;
+    VelocityComponent velocity;
+    HealthComponent health;
+    PartyComponent party;
+
+    for (int i = 0; i < 100; ++i)
+    {
+        position._position.set(_rand.getNextFloat() * 1000.0, _rand.getNextFloat() * 1000.0);
+        velocity._direction.set(0.0, 1.0);
+        velocity._direction.rotateXY(_rand.getNextFloat() * M_PI * 2.0);
+        velocity._speed = _rand.getNextFloat() * 0.1 + 0.1;
+        health._health = 100;
+        party._partyID = 10;
+
+        _ecs.makeEntity(position, velocity, health, party);
+    }
+
+    // init player
+    MovementControlComponent movementControl;
+    position._position.set(500.0, 500.0);
+    velocity._speed = 1.0;
+    health._health = 100;
+    party._partyID = 20;
+
+    _playerHandle = _ecs.makeEntity(position, velocity, health, party, movementControl);
+}
+
+void Supremacy::onUpdate()
+{
+    _ecs.updateSystems(_logicSystems);
 }
 
 void Supremacy::onDeinit()
-{    
+{
     getWindow()->removeView(&_viewOrtho);
     _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &Supremacy::onRenderOrtho));
 }
@@ -49,23 +89,34 @@ void Supremacy::onRenderOrtho()
     iRenderer::getInstance().setModelMatrix(matrix);
 
     // draw entities
-    
+    _ecs.updateSystems(_renderSystems);
 }
 
 bool Supremacy::onKeyDown(iEventKeyDown &event)
 {
+
+    MovementControlComponent *movementControl = _ecs.getComponent<MovementControlComponent>(_playerHandle);
+    if (movementControl == nullptr)
+    {
+        return false;
+    }
+
     switch (event.getKey())
     {
     case iKeyCode::W:
+        movementControl->_up = true;
         return true;
 
     case iKeyCode::A:
+        movementControl->_left = true;
         return true;
 
     case iKeyCode::S:
+        movementControl->_down = true;
         return true;
 
     case iKeyCode::D:
+        movementControl->_right = true;
         return true;
 
     case iKeyCode::I:
@@ -78,7 +129,7 @@ bool Supremacy::onKeyDown(iEventKeyDown &event)
         return true;
 
     case iKeyCode::L:
-        return true;        
+        return true;
 
     case iKeyCode::ESC:
         iApplication::getInstance().stop();
@@ -90,18 +141,28 @@ bool Supremacy::onKeyDown(iEventKeyDown &event)
 
 bool Supremacy::onKeyUp(iEventKeyUp &event)
 {
+    MovementControlComponent *movementControl = _ecs.getComponent<MovementControlComponent>(_playerHandle);
+    if (movementControl == nullptr)
+    {
+        return false;
+    }
+
     switch (event.getKey())
     {
     case iKeyCode::W:
+        movementControl->_up = false;
         return true;
 
     case iKeyCode::A:
+        movementControl->_left = false;
         return true;
 
     case iKeyCode::S:
+        movementControl->_down = false;
         return true;
 
     case iKeyCode::D:
+        movementControl->_right = false;
         return true;
 
     case iKeyCode::I:
@@ -114,7 +175,7 @@ bool Supremacy::onKeyUp(iEventKeyUp &event)
         return true;
 
     case iKeyCode::L:
-        return true;        
+        return true;
     }
 
     return false;

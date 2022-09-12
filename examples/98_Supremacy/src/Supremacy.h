@@ -29,7 +29,7 @@
 #ifndef __SUPREMACY__
 #define __SUPREMACY__
 
-#include <igor/igor.h>
+#include "Systems.h"
 
 /*! Supremacy
  */
@@ -37,36 +37,68 @@ class Supremacy : public iLayer
 {
 
 public:
+    Supremacy(iWindow *window);
 
-	Supremacy(iWindow *window);
-
-	~Supremacy();
+    ~Supremacy();
 
 private:
-
     /*! the view we render 2D to
-    */
+     */
     iView _viewOrtho;
 
-	/*! called when added to layer stack
-	 */
-	void onInit() override;
+    /*! entity component system
+     */
+    iEntityComponentSystem _ecs;
 
-	/*! called when removed from layer stack
-	 */
-	void onDeinit() override;
+    /*! entity component system
+     */
+    iEntitySystemList _logicSystems;
 
-	/*! called on application pre draw event
-	 */
-	void onPreDraw() override;
+    iEntityHandle _playerHandle;
 
-	/*! called on any other event
-	 */
-	void onEvent(iEvent &event) override;
+    /*! enemies system
+     */
+    PawnSystem _pawnSystem;
 
-	/*! called when render ortho viewport
-	*/ 
-	void onRenderOrtho();
+    /*! entity component system
+     */
+    iEntitySystemList _renderSystems;
+
+    /*! display entities system
+    */
+    DisplayEntittiesSystem _displayEntittiesSystem;
+
+    /*! random numbers
+     */
+    iaRandomNumberGeneratoru _rand;
+
+    /*! update timer
+    */
+    iTimerHandlePtr _updateTimerHandle;
+
+    /*! called when added to layer stack
+     */
+    void onInit() override;
+
+    /*! called when removed from layer stack
+     */
+    void onDeinit() override;
+
+    /*! called on application pre draw event
+     */
+    void onPreDraw() override;
+
+    /*! called on any other event
+     */
+    void onEvent(iEvent &event) override;
+
+    /*! called when render ortho viewport
+     */
+    void onRenderOrtho();
+
+    /*! game logic intervall
+    */
+    void onUpdate();
 
     /*! called when key was pressed
 
@@ -78,7 +110,7 @@ private:
 
     \param event the event to handle
     */
-    bool onKeyUp(iEventKeyUp &event);	
+    bool onKeyUp(iEventKeyUp &event);
 };
 
 #endif // __SUPREMACY__

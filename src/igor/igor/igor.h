@@ -45,6 +45,8 @@
 #include <igor/data/iSkeleton.h>
 #include <igor/data/iSphere.h>
 
+#include <igor/entities/iEntityComponentSystem.h>
+
 #include <igor/evaluation/iEvaluationManager.h>
 #include <igor/evaluation/iEvaluationScript.h>
 #include <igor/evaluation/iEvaluationTransform.h>

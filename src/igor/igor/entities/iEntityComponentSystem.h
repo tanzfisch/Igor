@@ -1,0 +1,191 @@
+//
+//   ______                                |\___/|  /\___/\
+//  /\__  _\                               )     (  )     (
+//  \/_/\ \/       __      ___    _ __    =\     /==\     /=
+//     \ \ \     /'_ `\   / __`\ /\`'__\    )   (    )   (
+//      \_\ \__ /\ \L\ \ /\ \L\ \\ \ \/    /     \   /   \
+//      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
+//  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
+//                 /\____/                   ( (       ))
+//                 \_/__/  game engine        ) )     ((
+//                                           (_(       \)
+// (c) Copyright 2012-2020 by Martin Loga
+//
+// This library is free software; you can redistribute it and or modify it
+// under the terms of the GNU Lesser General Public License as published by
+// the Free Software Foundation; either version 3 of the License, or (at
+// your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.If not, see <http://www.gnu.org/licenses/>.
+//
+// contact: igorgameengine@protonmail.com
+
+#ifndef __iECS__
+#define __iECS__
+
+#include <igor/entities/iEntityComponent.h>
+#include <igor/entities/iEntitySystem.h>
+
+namespace igor
+{
+
+	/*! entity component system
+
+	based on https://github.com/BennyQBD/3DGameProgrammingTutorial/
+	Copyright (c) 2018 Benny Bobaganoosh <3
+	*/
+
+	class iEntityComponentSystem
+	{
+
+	public:
+		/*! does nothing
+		 */
+		iEntityComponentSystem() = default;
+		~iEntityComponentSystem();
+
+		// Entity methods
+		iEntityHandle makeEntity(BaseComponent **components, const iEntityComponentID *componentIDs, size_t numComponents);
+		void removeEntity(iEntityHandle handle);
+
+		template <class A>
+		iEntityHandle makeEntity(A &c1)
+		{
+			BaseComponent *components[] = {&c1};
+			iEntityComponentID componentIDs[] = {A::ID};
+			return makeEntity(components, componentIDs, 1);
+		}
+
+		template <class A, class B>
+		iEntityHandle makeEntity(A &c1, B &c2)
+		{
+			BaseComponent *components[] = {&c1, &c2};
+			iEntityComponentID componentIDs[] = {A::ID, B::ID};
+			return makeEntity(components, componentIDs, 2);
+		}
+
+		template <class A, class B, class C>
+		iEntityHandle makeEntity(A &c1, B &c2, C &c3)
+		{
+			BaseComponent *components[] = {&c1, &c2, &c3};
+			iEntityComponentID componentIDs[] = {A::ID, B::ID, C::ID};
+			return makeEntity(components, componentIDs, 3);
+		}
+
+		template <class A, class B, class C, class D>
+		iEntityHandle makeEntity(A &c1, B &c2, C &c3, D &c4)
+		{
+			BaseComponent *components[] = {&c1, &c2, &c3, &c4};
+			iEntityComponentID componentIDs[] = {A::ID, B::ID, C::ID, D::ID};
+			return makeEntity(components, componentIDs, 4);
+		}
+
+		template <class A, class B, class C, class D, class E>
+		iEntityHandle makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5)
+		{
+			BaseComponent *components[] = {&c1, &c2, &c3, &c4, &c5};
+			iEntityComponentID componentIDs[] = {A::ID, B::ID, C::ID, D::ID, E::ID};
+			return makeEntity(components, componentIDs, 5);
+		}
+
+		template <class A, class B, class C, class D, class E, class F>
+		iEntityHandle makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6)
+		{
+			BaseComponent *components[] = {&c1, &c2, &c3, &c4, &c5, &c6};
+			iEntityComponentID componentIDs[] = {A::ID, B::ID, C::ID, D::ID, E::ID, F::ID};
+			return makeEntity(components, componentIDs, 6);
+		}
+
+		template <class A, class B, class C, class D, class E, class F, class G>
+		iEntityHandle makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6, G &c7)
+		{
+			BaseComponent *components[] = {&c1, &c2, &c3, &c4, &c5, &c6, &c7};
+			iEntityComponentID componentIDs[] = {A::ID, B::ID, C::ID, D::ID, E::ID, F::ID, G::ID};
+			return makeEntity(components, componentIDs, 7);
+		}
+
+		template <class A, class B, class C, class D, class E, class F, class G, class H>
+		iEntityHandle makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6, G &c7, H &c8)
+		{
+			BaseComponent *components[] = {&c1, &c2, &c3, &c4, &c5, &c6, &c7, &c8};
+			iEntityComponentID componentIDs[] = {A::ID, B::ID, C::ID, D::ID, E::ID, F::ID, G::ID, H::ID};
+			return makeEntity(components, componentIDs, 8);
+		}
+
+		template <class A, class B, class C, class D, class E, class F, class G, class H, class I>
+		iEntityHandle makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6, G &c7, H &c8, I &c9)
+		{
+			BaseComponent *components[] = {&c1, &c2, &c3, &c4, &c5, &c6, &c7, &c8, &c9};
+			iEntityComponentID componentIDs[] = {A::ID, B::ID, C::ID, D::ID, E::ID, F::ID, G::ID, H::ID, I::ID};
+			return makeEntity(components, componentIDs, 9);
+		}
+
+		template <class A, class B, class C, class D, class E, class F, class G, class H, class I, class J>
+		iEntityHandle makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6, G &c7, H &c8, I &c9, J &c10)
+		{
+			BaseComponent *components[] = {&c1, &c2, &c3, &c4, &c5, &c6, &c7, &c8, &c9, &c10};
+			iEntityComponentID componentIDs[] = {A::ID, B::ID, C::ID, D::ID, E::ID, F::ID, G::ID, H::ID, I::ID, J::ID};
+			return makeEntity(components, componentIDs, 10);
+		}
+
+		// Component methods
+		template <class Component>
+		inline void addComponent(iEntityHandle entity, Component *component)
+		{
+			addComponentInternal(entity, handleToEntity(entity), Component::ID, component);
+		}
+
+		template <class Component>
+		bool removeComponent(iEntityHandle entity)
+		{
+			return removeComponentInternal(entity, Component::ID);
+		}
+
+		template <class Component>
+		Component *getComponent(iEntityHandle entity)
+		{
+			return (Component *)getComponentInternal(handleToEntity(entity), _components[Component::ID], Component::ID);
+		}
+
+		// System methods
+		void updateSystems(iEntitySystemList &systems);
+
+	private:
+		std::vector<iEntitySystem *> _systems;
+		std::map<uint32, std::vector<uint8>> _components; // map?
+		std::vector<std::pair<uint32, std::vector<std::pair<uint32, uint32>>> *> _entities;
+
+		inline std::pair<uint32, std::vector<std::pair<uint32, uint32>>> *handleToRawType(iEntityHandle handle)
+		{
+			return (std::pair<uint32, std::vector<std::pair<uint32, uint32>>> *)handle;
+		}
+
+		inline uint32 handleToEntityIndex(iEntityHandle handle)
+		{
+			return handleToRawType(handle)->first;
+		}
+
+		inline std::vector<std::pair<uint32, uint32>> &handleToEntity(iEntityHandle handle)
+		{
+			return handleToRawType(handle)->second;
+		}
+
+		void deleteComponent(uint32 componentID, uint32 index);
+		bool removeComponentInternal(iEntityHandle handle, uint32 componentID);
+		void addComponentInternal(iEntityHandle handle, std::vector<std::pair<uint32, uint32>> &entity, uint32 componentID, BaseComponent *component);
+		BaseComponent *getComponentInternal(std::vector<std::pair<uint32, uint32>> &entityComponents, std::vector<uint8> &array, uint32 componentID);
+
+		void updateSystemWithMultipleComponents(uint32 index, iEntitySystemList &systems, const std::vector<uint32> &componentTypes,
+												std::vector<BaseComponent *> &componentParam, std::vector<std::vector<uint8> *> &componentArrays);
+		uint32 findLeastCommonComponent(const std::vector<uint32> &componentTypes, const std::vector<uint32> &componentFlags);
+	};
+
+} // namespace igor
+
+#endif // __iECS__
