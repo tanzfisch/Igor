@@ -35,6 +35,7 @@
 using namespace iaux;
 
 #include <functional>
+#include <memory>
 
 namespace igor
 {

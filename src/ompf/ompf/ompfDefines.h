@@ -28,21 +28,19 @@
 #include <iaux/iaDefines.h>
 using namespace iaux;
 
-#ifdef __IGOR_WINDOWS__
-#ifdef __OMPF_BUILDING_DLL__
-#define OMPF_API __declspec(dllexport)
-#define OMPF_API_Template __declspec(dllexport)
-#else
-#define OMPF_API __declspec(dllimport)
-#define OMPF_API_Template
+#ifdef __IGOR_MSCOMPILER__
+	#ifdef __OMPF_BUILDING_DLL__
+		#define OMPF_API __declspec(dllexport)
+		#define OMPF_API_Template __declspec(dllexport)
+	#else
+		#define OMPF_API __declspec(dllimport)
+		#define OMPF_API_Template
+	#endif
 #endif
-#endif
 
-#ifdef __IGOR_LINUX__
-
-#define OMPF_API
-#define OMPF_API_Template
-
+#ifdef __IGOR_GCC__
+	#define OMPF_API
+	#define OMPF_API_Template
 #endif
 
 namespace OMPF
