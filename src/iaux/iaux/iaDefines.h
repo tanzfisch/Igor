@@ -33,25 +33,33 @@
 
 // detect environment
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__)
-#ifdef _WIN64
-#define __IGOR_WINDOWS__
-#ifndef _UNICODE
-#error Igor needs unicode!
-#endif
-#else
-#error Igor currently does not support win32
-#endif
+    #ifdef _WIN64
+        #define __IGOR_WINDOWS__
+
+        #ifndef _UNICODE
+            #error Igor needs unicode!
+        #endif
+    #else
+        #error Igor currently does not support win32
+    #endif
+
 #elif __linux__
-#define __IGOR_LINUX__
+    #define __IGOR_LINUX__
 #else
-#error unsupported environment
+    #error unsupported environment
 #endif
 
+#define __IGOR_PATHSEPARATOR_WINDOWS__ '\\'
+#define __IGOR_PATHSEPARATOR_LINUX__ '/'
+
 #ifdef __IGOR_WINDOWS__
-#define __IGOR_PATHSEPARATOR__ '\\'
-#endif
-#ifdef __IGOR_LINUX__
-#define __IGOR_PATHSEPARATOR__ '/'
+    #define __IGOR_PATHSEPARATOR__ __IGOR_PATHSEPARATOR_WINDOWS__
+    #define __IGOR_NOT_PATHSEPARATOR__ __IGOR_PATHSEPARATOR_LINUX__
+#elif defined(__IGOR_LINUX__)
+    #define __IGOR_PATHSEPARATOR__ __IGOR_PATHSEPARATOR_LINUX__
+    #define __IGOR_NOT_PATHSEPARATOR__ __IGOR_PATHSEPARATOR_WINDOWS__
+#else
+    #error unsupported environment
 #endif
 
 #define S1(x) #x
@@ -63,62 +71,61 @@
 #define __IGOR_DEFAULTCALL__ __IGOR_CDECL__
 
 // configure windows environment
-#ifdef __IGOR_WINDOWS__
+#ifdef _MSC_VER
 
-// Some Information arround __func__ __FUNCSIG__ and __FUNCTION__
-// http://stackoverflow.com/questions/4384765/whats-the-difference-between-pretty-function-function-func
-#define __IGOR_FUNCTION__ __FUNCTION__
+    #define __IGOR_MSCOMPILER__
 
-#ifdef _DEBUG
-#define __IGOR_DEBUG__
-#define __IGOR_INLINE__ __inline
-#else
-#define __IGOR_INLINE__ __forceinline
-#endif
+    // Some Information arround __func__ __FUNCSIG__ and __FUNCTION__
+    // http://stackoverflow.com/questions/4384765/whats-the-difference-between-pretty-function-function-func
+    #define __IGOR_FUNCTION__ __FUNCTION__
 
-#define __IGOR_DISABLE_WARNING__(num) __pragma(warning(disable \
-                                                       : num))
-#define __IGOR_ENABLE_WARNING__(num) __pragma(warning(default \
-                                                      : num))
-#ifdef _MSC_VER // msvc
-#define __IGOR_MSCOMPILER__
+    #ifdef _DEBUG
+        #define __IGOR_DEBUG__
+        #define __IGOR_INLINE__ __inline
+    #else
+        #define __IGOR_INLINE__ __forceinline
+    #endif
 
-#ifdef __IAUX_BUILDING_DLL__
-#define IAUX_API __declspec(dllexport)
-#define IAUX_API_TEMPLATE __declspec(dllexport)
-#else
-#define IAUX_API __declspec(dllimport)
-#define IAUX_API_TEMPLATE
-#endif
+    #define __IGOR_DISABLE_WARNING__(num) __pragma(warning(disable \
+                                                        : num))
+    #define __IGOR_ENABLE_WARNING__(num) __pragma(warning(default \
+                                                        : num))
 
-#define __IGOR_FUNCTION_POINTER__(name, returntype, parameters) typedef returntype(__CLRCALL_OR_CDECL *name) parameters
-#define __IGOR_MEMBERFUNCTION_POINTER__(classname, name, returntype, parameters) typedef returntype(classname::*name) parameters
-#endif
+    #ifdef __IAUX_BUILDING_DLL__
+        #define IAUX_API __declspec(dllexport)
+        #define IAUX_API_TEMPLATE __declspec(dllexport)
+    #else
+        #define IAUX_API __declspec(dllimport)
+        #define IAUX_API_TEMPLATE
+    #endif
+
+    #define __IGOR_FUNCTION_POINTER__(name, returntype, parameters) typedef returntype(__CLRCALL_OR_CDECL *name) parameters
+    #define __IGOR_MEMBERFUNCTION_POINTER__(classname, name, returntype, parameters) typedef returntype(classname::*name) parameters
 
 #endif // __IGOR_WINDOWS__
 
 // configure linux environment
-#ifdef __IGOR_LINUX__
+#ifdef __GNUG__
 
-#define __IGOR_FUNCTION__ __PRETTY_FUNCTION__
+    #define __IGOR_GCC__
 
-#if defined(DEBUG) || defined(_DEBUG)
-#define __IGOR_DEBUG__
-#define __IGOR_INLINE__ inline
-#else
-#define __IGOR_INLINE__ inline
-#endif
+    #define __IGOR_FUNCTION__ __PRETTY_FUNCTION__
 
-#define __IGOR_DISABLE_WARNING__(num) // TODO
-#define __IGOR_ENABLE_WARNING__(num)  // TODO
+    #if defined(DEBUG) || defined(_DEBUG)
+        #define __IGOR_DEBUG__
+        #define __IGOR_INLINE__ inline
+    #else
+        #define __IGOR_INLINE__ inline
+    #endif
 
-#define IAUX_API
-#define IAUX_API_TEMPLATE
+    #define __IGOR_DISABLE_WARNING__(num) // TODO
+    #define __IGOR_ENABLE_WARNING__(num)  // TODO
 
-#define __IGOR_FUNCTION_POINTER__(name, returntype, parameters) typedef returntype(*name) parameters
-#define __IGOR_MEMBERFUNCTION_POINTER__(classname, name, returntype, parameters) typedef returntype(classname::*name) parameters
+    #define IAUX_API
+    #define IAUX_API_TEMPLATE
 
-#define __IGOR_SEPARATOR__ '/'
+    #define __IGOR_FUNCTION_POINTER__(name, returntype, parameters) typedef returntype(*name) parameters
+    #define __IGOR_MEMBERFUNCTION_POINTER__(classname, name, returntype, parameters) typedef returntype(classname::*name) parameters
 
 #endif // __IGOR_LINUX__
 

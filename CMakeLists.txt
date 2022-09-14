@@ -14,13 +14,13 @@ include(GetGitRevisionDescription)
 # get git version tag
 git_describe(VERSION --tags)
 git_describe(VERSION_SHORT --abbrev=0 --tags)
-message(STATUS "building version: ${VERSION}")
+message(STATUS "building version: ${VERSION_SHORT}")
 
 # set up project
 project(
   igor
   VERSION ${VERSION_SHORT}
-  DESCRIPTION "Igor game engine. Made with joy just for fun.")
+  DESCRIPTION "Igor game engine. Made with joy and just for fun.")
 
 # definitions
 set(ENGINE_FOLDER "01 engine")
@@ -31,36 +31,25 @@ set(VENDOR_FOLDER "04 vendor")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(default_build_type "RelWithDebInfo")
 
-# global compiler/linker settings
+# compiler
 if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   message(STATUS "using GCC")
   set(COMPILER "GCC")
-elseif(MSVC_VERSION GREATER_EQUAL "1920") # which ever version supports c++17
-                                          # filesystem
+elseif(MSVC_VERSION GREATER_EQUAL "1920")
   message(STATUS "using Visual Studio C++")
   set(COMPILER "MSVCXX")
 elseif()
-  message(FATAL_ERROR "unsupported environment")
+  message(FATAL_ERROR "unsupported compiler")
 endif()
 
 if(${COMPILER} STREQUAL "GCC")
-  # Set a default build type if none was specified
-  set(default_build_type "Release")
-  if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.git")
-    set(default_build_type "RelWithDebInfo")
-  endif()
-
   if(NOT CMAKE_BUILD_TYPE)
-    message(
-      STATUS
-        "Setting build type to '${default_build_type}' as none was specified.")
-    set(CMAKE_BUILD_TYPE
-        "${default_build_type}"
-        CACHE STRING "Choose the type of build." FORCE)
+    message(STATUS "Setting build type to '${default_build_type}' as none was specified.")
+    set(CMAKE_BUILD_TYPE "${default_build_type}" CACHE STRING "Choose the type of build." FORCE)
     # Set the possible values of build type for cmake-gui
-    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release"
-                                                 "RelWithDebInfo")
+    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "RelWithDebInfo")
   endif()
 
   if(${CMAKE_BUILD_TYPE} STREQUAL "RelWithDebInfo")
@@ -77,14 +66,18 @@ if(${COMPILER} STREQUAL "GCC")
   add_definitions(-D_NEWTON_USE_DOUBLE -D_cplusplus=201703L)
 
   if(DEEP_PROFILING)
-    message(STATUS "Using Igor deep profiling")
+    message(STATUS "Using Igor deep profiling") # what is that again?
     add_definitions(-DDEEP_PROFILING)
   endif()
 endif()
 
 if(${COMPILER} STREQUAL "MSVCXX")
   add_compile_options("/std:c++17" "/MP" "/W2")
-  add_definitions(-D_UNICODE -DUNICODE -DNOMINMAX -D_NEWTON_USE_DOUBLE)
+  add_definitions(-DNOMINMAX -D_NEWTON_USE_DOUBLE)
+endif()
+
+if(WIN32)
+  add_definitions(-D_UNICODE -DUNICODE)
 endif()
 
 # threading
@@ -92,20 +85,22 @@ set(THREADS_PREFER_PTHREAD_FLAG ON)
 find_package(Threads REQUIRED)
 
 # X11
-find_package(X11 REQUIRED)
-if(X11_xf86vmode_FOUND)
-  add_definitions(-DXF86VMODE_FOUND)
-  set(X11_EXT_LIBRARIES "Xxf86vm")
-else()
-  message(WARNING "xf86vmode not available")  
-endif()
+if(LINUX)
+  find_package(X11 REQUIRED)
+  if(X11_xf86vmode_FOUND)
+    add_definitions(-DXF86VMODE_FOUND)
+    set(X11_EXT_LIBRARIES "Xxf86vm")
+  else()
+    message(WARNING "xf86vmode not available")  
+  endif()
+endif() # LINUX
 
 # OpenGL
 set(OpenGL_GL_PREFERENCE GLVND)
 find_package(OpenGL REQUIRED)
 
 # OpenAL Soft
-if(${COMPILER} STREQUAL "GCC")
+if(LINUX)
   find_package(ALSA REQUIRED)
 endif()
 add_subdirectory(vendor/openal-soft)

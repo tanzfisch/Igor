@@ -319,10 +319,11 @@ namespace igor
 
 #ifdef __IGOR_LINUX__
             const static iaString configLocations[] = {
+                L"~/.Igor/igor.xml",
                 L"/etc/igor/igor.xml",
                 L"../config/igor.xml"};
 
-            for (int i = 0; i < 2; ++i)
+            for (int i = 0; i < 3; ++i)
             {
                 iaFile file(configLocations[i]);
 
