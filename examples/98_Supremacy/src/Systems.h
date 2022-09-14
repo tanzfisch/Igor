@@ -52,6 +52,11 @@ struct PartyComponent : public iComponent<PartyComponent>
     uint32 _partyID = 0;
 };
 
+struct VisualComponent : public iComponent<VisualComponent>
+{
+    iTexturePtr _character;
+};
+
 struct MovementControlComponent : public iComponent<MovementControlComponent>
 {
     bool _up = false;
@@ -84,6 +89,12 @@ public:
     \param components the components to update
     */
     void updateComponents(iBaseComponent **components) override;
+
+private:
+
+    /*! floor shadow
+    */
+    iTexturePtr _shadow;
 };
 
 #endif // __SUPREMACY_SYSTEMS__

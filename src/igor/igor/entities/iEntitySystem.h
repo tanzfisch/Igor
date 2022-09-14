@@ -92,17 +92,17 @@ namespace igor
 	class iEntitySystemList
 	{
 	public:
-		inline void addSystem(iEntitySystem &system)
+		__IGOR_INLINE__ void addSystem(iEntitySystem &system)
 		{
 			_systems.push_back(&system);
 		}
 
-		inline size_t size()
+		__IGOR_INLINE__ size_t size()
 		{
 			return _systems.size();
 		}
 
-		inline iEntitySystem *operator[](uint32 index)
+		__IGOR_INLINE__ iEntitySystem *operator[](uint32 index)
 		{
 			return _systems[index];
 		}

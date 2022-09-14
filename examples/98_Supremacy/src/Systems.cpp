@@ -39,6 +39,10 @@ void PawnSystem::updateComponents(iBaseComponent **components)
             vel->_direction._y += 1.0;
         }
     }
+    else
+    {
+        // TODO how to find other party?
+    }
 
     if (health->_health > 0.0)
     {
@@ -52,6 +56,9 @@ DisplayEntittiesSystem::DisplayEntittiesSystem()
     addComponentType(PositionComponent::ID);
     addComponentType(VelocityComponent::ID);
     addComponentType(HealthComponent::ID);
+    addComponentType(VisualComponent::ID);
+
+    _shadow = iTextureResourceFactory::getInstance().requestFile("shadow.png");
 }
 
 void DisplayEntittiesSystem::updateComponents(iBaseComponent **components)
@@ -59,9 +66,15 @@ void DisplayEntittiesSystem::updateComponents(iBaseComponent **components)
     PositionComponent *pos = static_cast<PositionComponent *>(components[0]);
     VelocityComponent *vel = static_cast<VelocityComponent *>(components[1]);
     HealthComponent *health = static_cast<HealthComponent *>(components[2]);
+    VisualComponent *visual = static_cast<VisualComponent *>(components[3]);
 
     if (health->_health > 0.0)
     {
-        iRenderer::getInstance().drawRectangle(pos->_position._x, pos->_position._y, 2, 2);
+        iRenderer::getInstance().setColor(0.0, 0.0, 0.0, 0.6);
+        iRenderer::getInstance().drawTexture(pos->_position._x - 20, pos->_position._y - 10, 40.0, 20.0, _shadow);
+
+        iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
+        iRenderer::getInstance().drawTexture(pos->_position._x - 20, pos->_position._y - 40, 40.0, 40.0, visual->_character);
+
     }
 }

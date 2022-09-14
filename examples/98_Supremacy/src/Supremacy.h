@@ -48,7 +48,7 @@ private:
 
     /*! material id of a non textured material
     */
-    uint64 _materialWithoutDepthTest = iMaterial::INVALID_MATERIAL_ID;
+    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
 
     /*! entity component system
      */
@@ -79,6 +79,10 @@ private:
     /*! update timer
     */
     iTimerHandlePtr _updateTimerHandle;
+
+    /*! async loading of textures
+    */
+    iTaskID _taskFlushTextures = iTask::INVALID_TASK_ID;    
 
     /*! called when added to layer stack
      */

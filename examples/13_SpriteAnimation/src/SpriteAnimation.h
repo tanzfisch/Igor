@@ -75,11 +75,11 @@ public:
 private:
 	/*! walk animation atlas
     */
-	iAtlas *_walk = nullptr;
+	iAtlasPtr _walk = nullptr;
 
 	/*! tiles atlas
 	*/
-	iAtlas *_tiles = nullptr;
+	iAtlasPtr _tiles = nullptr;
 
 	/*! flags to determine what the character is doing
 	*/
@@ -115,7 +115,7 @@ private:
 
 	/*! transform of camera
 	*/
-	iNodeTransform *_cameraTransform;
+	iNodeTransformPtr _cameraTransform;
 
 	/*! switches beween ascii output or single key output
     */

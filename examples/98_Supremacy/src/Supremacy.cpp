@@ -16,7 +16,6 @@ Supremacy::~Supremacy()
 void Supremacy::onInit()
 {
     _viewOrtho.setClearColor(0.55, 0.0, 0.0, 1.0);
-
     _viewOrtho.setName("view ortho");
     _viewOrtho.setClearColor(true);
     _viewOrtho.setClearDepth(true);
@@ -24,9 +23,13 @@ void Supremacy::onInit()
     _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &Supremacy::onRenderOrtho));
     getWindow()->addView(&_viewOrtho, getZIndex() + 1);
 
-    // render materials
-    _materialWithoutDepthTest = iMaterialResourceFactory::getInstance().createMaterial("NoDepthTest");
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithoutDepthTest)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial("TextureAndBlending");
+    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
+    material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+
+    _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(getWindow()));
 
     // game logic timer
     _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &Supremacy::onUpdate), iaTime::fromMilliseconds(10));
@@ -34,15 +37,17 @@ void Supremacy::onInit()
 
     _rand.setSeed(1337);
 
+    // setup ECS
     _logicSystems.addSystem(_pawnSystem);
-
     _renderSystems.addSystem(_displayEntittiesSystem);
 
     PositionComponent position;
     VelocityComponent velocity;
     HealthComponent health;
     PartyComponent party;
+    VisualComponent visual;
 
+    // create some enemies
     for (int i = 0; i < 100; ++i)
     {
         position._position.set(_rand.getNextFloat() * 1000.0, _rand.getNextFloat() * 1000.0);
@@ -51,8 +56,9 @@ void Supremacy::onInit()
         velocity._speed = _rand.getNextFloat() * 0.1 + 0.1;
         health._health = 100;
         party._partyID = 10;
+        visual._character = iTextureResourceFactory::getInstance().requestFile("particleGem.png");
 
-        _ecs.makeEntity(position, velocity, health, party);
+        _ecs.makeEntity(position, velocity, health, party, visual);
     }
 
     // init player
@@ -61,8 +67,9 @@ void Supremacy::onInit()
     velocity._speed = 1.0;
     health._health = 100;
     party._partyID = 20;
+    visual._character = iTextureResourceFactory::getInstance().requestFile("particleStar.png");
 
-    _player = _ecs.makeEntity(position, velocity, health, party, movementControl);
+    _player = _ecs.makeEntity(position, velocity, health, party, visual, movementControl);
 }
 
 void Supremacy::onUpdate()
@@ -101,13 +108,9 @@ void Supremacy::onRenderOrtho()
     matrix.translate(0, 0, -1);
     iRenderer::getInstance().setModelMatrix(matrix);
 
-    iRenderer::getInstance().setMaterial(_materialWithoutDepthTest);
-
     // draw entities
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     _ecs.updateSystems(_renderSystems);
-
-    iRenderer::getInstance().setColor(1, 1, 1, 1);
-    iRenderer::getInstance().drawRectangle(10, 10, 100, 100);
 }
 
 bool Supremacy::onKeyDown(iEventKeyDown &event)

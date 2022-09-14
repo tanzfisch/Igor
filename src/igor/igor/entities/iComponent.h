@@ -66,22 +66,22 @@ public:
 	static iComponentID registerComponentType(iComponentCreateFunction createfn, iComponentFreeFunction freefn, size_t size);
 	iEntityPtr _entity = nullptr;
 
-	inline static iComponentCreateFunction getTypeCreateFunction(uint32 id)
+	__IGOR_INLINE__ static iComponentCreateFunction getTypeCreateFunction(uint32 id)
 	{
 		return (*_componentTypes)[id]._createFunction;
 	}
 
-	inline static iComponentFreeFunction getTypeFreeFunction(uint32 id)
+	__IGOR_INLINE__ static iComponentFreeFunction getTypeFreeFunction(uint32 id)
 	{
 		return (*_componentTypes)[id]._freeFunction;
 	}
 
-	inline static size_t getTypeSize(uint32 id)
+	__IGOR_INLINE__ static size_t getTypeSize(uint32 id)
 	{
 		return (*_componentTypes)[id]._size;
 	}
 
-	inline static bool isTypeValid(uint32 id)
+	__IGOR_INLINE__ static bool isTypeValid(uint32 id)
 	{
 		return id < _componentTypes->size();
 	}
