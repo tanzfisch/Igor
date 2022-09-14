@@ -10,6 +10,12 @@
 #include <sstream>
 #include <filesystem>
 
+#ifdef __IGOR_LINUX__
+#include <unistd.h>
+#include <sys/types.h>
+#include <pwd.h>
+#endif
+
 namespace iaux
 {
 
@@ -195,24 +201,39 @@ namespace iaux
         }
 
         iaString temp = directoryName;
-        const wchar_t dirSeperator = __IGOR_PATHSEPARATOR__;
-        const wchar_t notDirSeperator = (dirSeperator == '\\') ? '/' : '\\';
+        const wchar_t pathSeperator = __IGOR_PATHSEPARATOR__;
+        const wchar_t notPathSeperator = __IGOR_NOT_PATHSEPARATOR__;
 
+        // converts to OS specific path seperator
+        for (int i = 0; i < temp.getLength(); ++i)
+        {
+            if (temp[i] == notPathSeperator)
+            {
+                temp[i] = pathSeperator;
+            }
+        }
+
+        // if this is a folder get rid of the last path seperator
         if (iaFile::exist(temp) && !file)
         {
-            temp = temp.getSubString(0, temp.findLastOf(dirSeperator));
+            temp = temp.getSubString(0, temp.findLastOf(pathSeperator));
         }
 
-        // converts / to the other one not allowed in sourcecode (back-slash), vise versa at linux ;)
-        for (uint64 pos = temp.findFirstOf(notDirSeperator); pos != iaString::INVALID_POSITION; pos = temp.findFirstOf(notDirSeperator, pos))
+#ifdef __IGOR_LINUX__
+        // check if this is the user home folder
+        if(temp[0] == '~')
         {
-            temp[pos] = dirSeperator;
+            passwd *pw = getpwuid(getuid());
+            const iaString homeDirectory(pw->pw_dir);
+
+            temp = homeDirectory + temp.getSubString(1, temp.getLength() - 1);
         }
+#endif
 
         // does some relative to absolue path thinngys
         if (!directoryIsAbsolute(temp))
         {
-            temp = iaDirectory::getCurrentDirectory() + dirSeperator + temp;
+            temp = iaDirectory::getCurrentDirectory() + pathSeperator + temp;
         }
 
         std::filesystem::path path(temp.getData());

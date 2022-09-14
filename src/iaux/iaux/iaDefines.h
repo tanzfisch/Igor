@@ -50,10 +50,15 @@
     #error unsupported environment
 #endif
 
+#define __IGOR_PATHSEPARATOR_WINDOWS__ '\\'
+#define __IGOR_PATHSEPARATOR_LINUX__ '/'
+
 #ifdef __IGOR_WINDOWS__
-    #define __IGOR_PATHSEPARATOR__ '\\'
-#elif __IGOR_LINUX__
-    #define __IGOR_PATHSEPARATOR__ '/'
+    #define __IGOR_PATHSEPARATOR__ __IGOR_PATHSEPARATOR_WINDOWS__
+    #define __IGOR_NOT_PATHSEPARATOR__ __IGOR_PATHSEPARATOR_LINUX__
+#elif defined(__IGOR_LINUX__)
+    #define __IGOR_PATHSEPARATOR__ __IGOR_PATHSEPARATOR_LINUX__
+    #define __IGOR_NOT_PATHSEPARATOR__ __IGOR_PATHSEPARATOR_WINDOWS__
 #else
     #error unsupported environment
 #endif

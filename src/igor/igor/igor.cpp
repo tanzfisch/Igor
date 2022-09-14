@@ -106,16 +106,16 @@ namespace igor
         iaConsole::getInstance() << G << "                                        " << C1 << "   (_(    " << C2 << "   \\)" << endl;
 
         iaConsole::getInstance() << T << "    (c) Copyright 2012-2020 by Martin Loga" << endl
-            << endl;
+                                 << endl;
         iaConsole::getInstance() << T << "    version " << __IGOR_VERSION__ << " (" << __IGOR_CONFIGURATION__ << ") LGPL v3.0" << endl
-            << endl;
+                                 << endl;
         iaConsole::getInstance() << T << "    thanks to M. Rochel, M. Schulz, T. Drevensek, I. Yozova" << endl
-            << endl;
+                                 << endl;
         iaConsole::getInstance() << T << "    powered by NewtonDynamics, OpenGL, OpenAL-Soft, GLee, stb_image, TinyXML" << endl
-            << endl;
+                                 << endl;
         iaConsole::getInstance() << T << "    get sources from https://github.com/tanzfisch/Igor.git" << endl;
         iaConsole::getInstance() << W << "  ____________________________________________________________________________" << endl
-            << endl;
+                                 << endl;
         iaConsole::getInstance() << UNLOCK;
 
 #undef G
@@ -270,7 +270,7 @@ namespace igor
         }
     }
 
-    void startupArgs(int argc, wchar_t** argv)
+    void startupArgs(int argc, wchar_t **argv)
     {
         iaux::startup();
 
@@ -318,10 +318,11 @@ namespace igor
 
 #ifdef __IGOR_LINUX__
             const static iaString configLocations[] = {
+                L"~/.Igor/igor.xml",
                 L"/etc/igor/igor.xml",
-                L"../config/igor.xml" };
+                L"../config/igor.xml"};
 
-            for (int i = 0; i < 2; ++i)
+            for (int i = 0; i < 3; ++i)
             {
                 iaFile file(configLocations[i]);
 
