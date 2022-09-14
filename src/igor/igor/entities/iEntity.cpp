@@ -9,11 +9,11 @@
 namespace igor
 {
 
-    const uint64 iEntity::INVALID_ENTITY_ID = 0;
-    uint64 iEntity::_nextID = iEntity::INVALID_ENTITY_ID + 1;
-    iaMutex iEntity::_mutexID;
+    const uint64 iEntity_Old::INVALID_ENTITY_ID = 0;
+    uint64 iEntity_Old::_nextID = iEntity_Old::INVALID_ENTITY_ID + 1;
+    iaMutex iEntity_Old::_mutexID;
 
-    iEntity::iEntity()
+    iEntity_Old::iEntity_Old()
     {
         _mutexID.lock();
         _id = _nextID++;
@@ -24,17 +24,17 @@ namespace igor
         _type = iEntityType::Base;
     }
 
-    iEntity::~iEntity()
+    iEntity_Old::~iEntity_Old()
     {
         iEntityManager::getInstance().unregisterEntity(this);
     }
 
-    uint64 iEntity::getID() const
+    uint64 iEntity_Old::getID() const
     {
         return _id;
     }
 
-    iEntityType iEntity::getType() const
+    iEntityType iEntity_Old::getType() const
     {
         return _type;
     }

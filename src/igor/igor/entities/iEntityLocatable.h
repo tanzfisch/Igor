@@ -41,7 +41,7 @@ namespace igor
     /*! enetity that can be located by it's position
     \deprecated will work out an ECS
     */
-    class IGOR_API iEntityLocatable : public iEntity
+    class IGOR_API iEntityLocatable : public iEntity_Old
     {
 
         /*! so we can manipulate the sphere

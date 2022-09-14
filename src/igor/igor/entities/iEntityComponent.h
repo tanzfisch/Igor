@@ -36,39 +36,39 @@
 namespace igor
 {
 
-struct BaseComponent;
+struct iBaseComponent;
 typedef void* iEntityHandle;
-typedef uint32 (*ComponentCreateFunction)(std::vector<uint8>& memory, iEntityHandle entity, BaseComponent* comp);
-typedef void (*ComponentFreeFunction)(BaseComponent* comp);
+typedef uint32 (*iComponentCreateFunction)(std::vector<uint8>& memory, iEntityHandle entity, iBaseComponent* comp);
+typedef void (*iComponentFreeFunction)(iBaseComponent* comp);
 typedef size_t iEntityComponentID;
 
-struct ComponentMetrics
+struct iComponentMetrics
 {
 	/*! component create function
 	*/
-	ComponentCreateFunction _createFunction;
+	iComponentCreateFunction _createFunction;
 
 	/*! component free function
 	*/
-	ComponentFreeFunction _freeFunction;
+	iComponentFreeFunction _freeFunction;
 
 	/*! component size in bytes
 	*/
 	size_t _size;
 };
 
-struct BaseComponent
+struct iBaseComponent
 {
 public:
-	static iEntityComponentID registerComponentType(ComponentCreateFunction createfn, ComponentFreeFunction freefn, size_t size);
+	static iEntityComponentID registerComponentType(iComponentCreateFunction createfn, iComponentFreeFunction freefn, size_t size);
 	iEntityHandle _entity = nullptr;
 
-	inline static ComponentCreateFunction getTypeCreateFunction(uint32 id)
+	inline static iComponentCreateFunction getTypeCreateFunction(uint32 id)
 	{
 		return (*_componentTypes)[id]._createFunction;
 	}
 
-	inline static ComponentFreeFunction getTypeFreeFunction(uint32 id)
+	inline static iComponentFreeFunction getTypeFreeFunction(uint32 id)
 	{
 		return (*_componentTypes)[id]._freeFunction;
 	}
@@ -84,20 +84,20 @@ public:
 	}
 private:
 
-	static std::vector<ComponentMetrics>* _componentTypes;
+	static std::vector<iComponentMetrics>* _componentTypes;
 };
 
 template<typename T>
-struct iEntityComponent : public BaseComponent
+struct iEntityComponent : public iBaseComponent
 {
-	static const ComponentCreateFunction CREATE_FUNCTION;
-	static const ComponentFreeFunction FREE_FUNCTION;
+	static const iComponentCreateFunction CREATE_FUNCTION;
+	static const iComponentFreeFunction FREE_FUNCTION;
 	static const iEntityComponentID ID;
 	static const size_t SIZE; 
 };
 
 template<typename Component>
-uint32 ComponentCreate(std::vector<uint8>& memory, iEntityHandle entity, BaseComponent* comp)
+uint32 ComponentCreate(std::vector<uint8>& memory, iEntityHandle entity, iBaseComponent* comp)
 {
 	iEntityComponentID index = memory.size();
 	memory.resize(index+Component::SIZE);
@@ -107,23 +107,23 @@ uint32 ComponentCreate(std::vector<uint8>& memory, iEntityHandle entity, BaseCom
 }
 
 template<typename Component>
-void ComponentFree(BaseComponent* comp)
+void ComponentFree(iBaseComponent* comp)
 {
 	Component* component = (Component*)comp;
 	component->~Component();
 }
 
 template<typename T>
-const iEntityComponentID iEntityComponent<T>::ID(BaseComponent::registerComponentType(ComponentCreate<T>, ComponentFree<T>, sizeof(T)));
+const iEntityComponentID iEntityComponent<T>::ID(iBaseComponent::registerComponentType(ComponentCreate<T>, ComponentFree<T>, sizeof(T)));
 
 template<typename T>
 const size_t iEntityComponent<T>::SIZE(sizeof(T));
 
 template<typename T>
-const ComponentCreateFunction iEntityComponent<T>::CREATE_FUNCTION(ComponentCreate<T>);
+const iComponentCreateFunction iEntityComponent<T>::CREATE_FUNCTION(ComponentCreate<T>);
 
 template<typename T>
-const ComponentFreeFunction iEntityComponent<T>::FREE_FUNCTION(ComponentFree<T>);
+const iComponentFreeFunction iEntityComponent<T>::FREE_FUNCTION(ComponentFree<T>);
 
 } // namespace igor
 

@@ -49,7 +49,7 @@ namespace igor
     /*! entity base class
     \deprecated will work out an ECS
     */
-    class IGOR_API iEntity
+    class IGOR_API iEntity_Old
     {
 
         /*! so we can call the handle
@@ -71,11 +71,11 @@ namespace igor
 
         /*! init id and register entity
         */
-        iEntity();
+        iEntity_Old();
 
         /*! unregister
         */
-        virtual ~iEntity();
+        virtual ~iEntity_Old();
 
     protected:
         /*! called every simulation frame

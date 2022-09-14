@@ -9,11 +9,11 @@ namespace igor
 	{
 		for (std::map<uint32, std::vector<uint8>>::iterator it = _components.begin(); it != _components.end(); ++it)
 		{
-			size_t typeSize = BaseComponent::getTypeSize(it->first);
-			ComponentFreeFunction freefn = BaseComponent::getTypeFreeFunction(it->first);
+			size_t typeSize = iBaseComponent::getTypeSize(it->first);
+			iComponentFreeFunction freefn = iBaseComponent::getTypeFreeFunction(it->first);
 			for (uint32 i = 0; i < it->second.size(); i += typeSize)
 			{
-				freefn((BaseComponent *)&it->second[i]);
+				freefn((iBaseComponent *)&it->second[i]);
 			}
 		}
 
@@ -23,13 +23,13 @@ namespace igor
 		}
 	}
 
-	iEntityHandle iEntityComponentSystem::makeEntity(BaseComponent **entityComponents, const iEntityComponentID *componentIDs, size_t numComponents)
+	iEntityHandle iEntityComponentSystem::makeEntity(iBaseComponent **entityComponents, const iEntityComponentID *componentIDs, size_t numComponents)
 	{
-		std::pair<uint32, std::vector<std::pair<uint32, uint32>>> *newEntity = new std::pair<uint32, std::vector<std::pair<uint32, uint32>>>();
-		iEntityHandle handle = (iEntityHandle)newEntity;
+		iEntity *newEntity = new iEntity();
+		iEntityHandle handle = static_cast<iEntityHandle>(newEntity);
 		for (uint32 i = 0; i < numComponents; i++)
 		{
-			if (!BaseComponent::isTypeValid(componentIDs[i]))
+			if (!iBaseComponent::isTypeValid(componentIDs[i]))
 			{
 				con_err(componentIDs[i] << " is not a valid component type.");
 				delete newEntity;
@@ -46,7 +46,7 @@ namespace igor
 
 	void iEntityComponentSystem::removeEntity(iEntityHandle handle)
 	{
-		std::vector<std::pair<uint32, uint32>> &entity = handleToEntity(handle);
+		iEntityData &entity = handleToEntity(handle);
 		for (uint32 i = 0; i < entity.size(); i++)
 		{
 			deleteComponent(entity[i].first, entity[i].second);
@@ -59,9 +59,9 @@ namespace igor
 		_entities.pop_back();
 	}
 
-	void iEntityComponentSystem::addComponentInternal(iEntityHandle handle, std::vector<std::pair<uint32, uint32>> &entity, uint32 componentID, BaseComponent *component)
+	void iEntityComponentSystem::addComponentInternal(iEntityHandle handle, iEntityData &entity, uint32 componentID, iBaseComponent *component)
 	{
-		ComponentCreateFunction createfn = BaseComponent::getTypeCreateFunction(componentID);
+		iComponentCreateFunction createfn = iBaseComponent::getTypeCreateFunction(componentID);
 		std::pair<uint32, uint32> newPair;
 		newPair.first = componentID;
 		newPair.second = createfn(_components[componentID], handle, component);
@@ -71,12 +71,12 @@ namespace igor
 	void iEntityComponentSystem::deleteComponent(uint32 componentID, uint32 index)
 	{
 		std::vector<uint8> &array = _components[componentID];
-		ComponentFreeFunction freefn = BaseComponent::getTypeFreeFunction(componentID);
-		size_t typeSize = BaseComponent::getTypeSize(componentID);
+		iComponentFreeFunction freefn = iBaseComponent::getTypeFreeFunction(componentID);
+		size_t typeSize = iBaseComponent::getTypeSize(componentID);
 		uint32 srcIndex = array.size() - typeSize;
 
-		BaseComponent *destComponent = (BaseComponent *)&array[index];
-		BaseComponent *srcComponent = (BaseComponent *)&array[srcIndex];
+		iBaseComponent *destComponent = (iBaseComponent *)&array[index];
+		iBaseComponent *srcComponent = (iBaseComponent *)&array[srcIndex];
 		freefn(destComponent);
 
 		if (index == srcIndex)
@@ -87,7 +87,7 @@ namespace igor
 
 		memcpy(destComponent, srcComponent, typeSize);
 
-		std::vector<std::pair<uint32, uint32>> &srcComponents = handleToEntity(srcComponent->_entity);
+		iEntityData &srcComponents = handleToEntity(srcComponent->_entity);
 		for (uint32 i = 0; i < srcComponents.size(); i++)
 		{
 			if (componentID == srcComponents[i].first && srcIndex == srcComponents[i].second)
@@ -102,7 +102,7 @@ namespace igor
 
 	bool iEntityComponentSystem::removeComponentInternal(iEntityHandle handle, uint32 componentID)
 	{
-		std::vector<std::pair<uint32, uint32>> &entityComponents = handleToEntity(handle);
+		iEntityData &entityComponents = handleToEntity(handle);
 		for (uint32 i = 0; i < entityComponents.size(); i++)
 		{
 			if (componentID == entityComponents[i].first)
@@ -118,13 +118,13 @@ namespace igor
 		return false;
 	}
 
-	BaseComponent *iEntityComponentSystem::getComponentInternal(std::vector<std::pair<uint32, uint32>> &entityComponents, std::vector<uint8> &array, uint32 componentID)
+	iBaseComponent *iEntityComponentSystem::getComponentInternal(iEntityData &entityComponents, std::vector<uint8> &array, uint32 componentID)
 	{
 		for (uint32 i = 0; i < entityComponents.size(); i++)
 		{
 			if (componentID == entityComponents[i].first)
 			{
-				return (BaseComponent *)&array[entityComponents[i].second];
+				return (iBaseComponent *)&array[entityComponents[i].second];
 			}
 		}
 		return nullptr;
@@ -132,18 +132,18 @@ namespace igor
 
 	void iEntityComponentSystem::updateSystems(iEntitySystemList &systems)
 	{
-		std::vector<BaseComponent *> componentParam;
+		std::vector<iBaseComponent *> componentParam;
 		std::vector<std::vector<uint8> *> componentArrays;
 		for (uint32 i = 0; i < systems.size(); i++)
 		{
 			const std::vector<uint32> &componentTypes = systems[i]->getComponentTypes();
 			if (componentTypes.size() == 1)
 			{
-				size_t typeSize = BaseComponent::getTypeSize(componentTypes[0]);
+				size_t typeSize = iBaseComponent::getTypeSize(componentTypes[0]);
 				std::vector<uint8> &array = _components[componentTypes[0]];
 				for (uint32 j = 0; j < array.size(); j += typeSize)
 				{
-					BaseComponent *component = (BaseComponent *)&array[j];
+					iBaseComponent *component = (iBaseComponent *)&array[j];
 					systems[i]->updateComponents(&component);
 				}
 			}
@@ -164,7 +164,7 @@ namespace igor
 			{
 				continue;
 			}
-			size_t typeSize = BaseComponent::getTypeSize(componentTypes[i]);
+			size_t typeSize = iBaseComponent::getTypeSize(componentTypes[i]);
 			uint32 size = _components[componentTypes[i]].size() / typeSize;
 			if (size <= minSize)
 			{
@@ -176,7 +176,7 @@ namespace igor
 		return minIndex;
 	}
 
-	void iEntityComponentSystem::updateSystemWithMultipleComponents(uint32 index, iEntitySystemList &systems, const std::vector<uint32> &componentTypes, std::vector<BaseComponent *> &componentParam, std::vector<std::vector<uint8> *> &componentArrays)
+	void iEntityComponentSystem::updateSystemWithMultipleComponents(uint32 index, iEntitySystemList &systems, const std::vector<uint32> &componentTypes, std::vector<iBaseComponent *> &componentParam, std::vector<std::vector<uint8> *> &componentArrays)
 	{
 		const std::vector<uint32> &componentFlags = systems[index]->getComponentFlags();
 
@@ -188,12 +188,12 @@ namespace igor
 		}
 		uint32 minSizeIndex = findLeastCommonComponent(componentTypes, componentFlags);
 
-		size_t typeSize = BaseComponent::getTypeSize(componentTypes[minSizeIndex]);
+		size_t typeSize = iBaseComponent::getTypeSize(componentTypes[minSizeIndex]);
 		std::vector<uint8> &array = *componentArrays[minSizeIndex];
 		for (uint32 i = 0; i < array.size(); i += typeSize)
 		{
-			componentParam[minSizeIndex] = (BaseComponent *)&array[i];
-			std::vector<std::pair<uint32, uint32>> &entityComponents =
+			componentParam[minSizeIndex] = (iBaseComponent *)&array[i];
+			iEntityData &entityComponents =
 				handleToEntity(componentParam[minSizeIndex]->_entity);
 
 			bool isValid = true;

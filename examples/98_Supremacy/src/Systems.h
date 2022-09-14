@@ -70,20 +70,7 @@ public:
     /*! updates components
     \param components the components to update
     */
-    void updateComponents(BaseComponent **components) override;
-};
-
-class EnemiesSystem : public iEntitySystem
-{
-public:
-    /*! init system
-     */
-    EnemiesSystem();
-
-    /*! updates components
-    \param components the components to update
-    */
-    void updateComponents(BaseComponent **components) override;
+    void updateComponents(iBaseComponent **components) override;
 };
 
 class DisplayEntittiesSystem : public iEntitySystem
@@ -96,7 +83,7 @@ public:
     /*! updates components
     \param components the components to update
     */
-    void updateComponents(BaseComponent **components) override;
+    void updateComponents(iBaseComponent **components) override;
 };
 
 #endif // __SUPREMACY_SYSTEMS__

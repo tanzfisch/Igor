@@ -1,7 +1,7 @@
 #include "Systems.h"
 
 PawnSystem::PawnSystem()
-    : iEntitySystem()
+    : iEntitySystem("Pawn")
 {
     addComponentType(PositionComponent::ID);
     addComponentType(VelocityComponent::ID);
@@ -10,7 +10,7 @@ PawnSystem::PawnSystem()
     addComponentType(MovementControlComponent::ID, static_cast<uint32>(iComponentFlag::Optional));
 }
 
-void PawnSystem::updateComponents(BaseComponent **components)
+void PawnSystem::updateComponents(iBaseComponent **components)
 {
     PositionComponent *pos = static_cast<PositionComponent *>(components[0]);
     VelocityComponent *vel = static_cast<VelocityComponent *>(components[1]);
@@ -47,14 +47,14 @@ void PawnSystem::updateComponents(BaseComponent **components)
 }
 
 DisplayEntittiesSystem::DisplayEntittiesSystem()
-    : iEntitySystem()
+    : iEntitySystem("DisplayEntitties")
 {
     addComponentType(PositionComponent::ID);
     addComponentType(VelocityComponent::ID);
     addComponentType(HealthComponent::ID);
 }
 
-void DisplayEntittiesSystem::updateComponents(BaseComponent **components)
+void DisplayEntittiesSystem::updateComponents(iBaseComponent **components)
 {
     PositionComponent *pos = static_cast<PositionComponent *>(components[0]);
     VelocityComponent *vel = static_cast<VelocityComponent *>(components[1]);

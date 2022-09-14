@@ -38,7 +38,7 @@ void Supremacy::onInit()
     HealthComponent health;
     PartyComponent party;
 
-    for (int i = 0; i < 100; ++i)
+    for (int i = 0; i < 1; ++i)
     {
         position._position.set(_rand.getNextFloat() * 1000.0, _rand.getNextFloat() * 1000.0);
         velocity._direction.set(0.0, 1.0);

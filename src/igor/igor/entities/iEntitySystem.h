@@ -36,6 +36,7 @@ namespace igor
 
 	enum class iComponentFlag : uint32
 	{
+		None = 0,
 		Optional = 1,
 	};
 
@@ -44,14 +45,14 @@ namespace igor
 	class iEntitySystem
 	{
 	public:
-		/*! does nothing
+		/*! init system
 		 */
-		iEntitySystem() = default;
+		iEntitySystem(const iaString &name);
 
 		/*! updates components
 		\param components the components to update
 		*/
-		virtual void updateComponents(BaseComponent **components) {}
+		virtual void updateComponents(iBaseComponent **components) {}
 
 		/*! \returns component types
 		 */
@@ -61,16 +62,20 @@ namespace igor
 		 */
 		const std::vector<uint32> &getComponentFlags() const;
 
-		/*! \returns true if valid
+		/*! \returns name of this system
 		 */
-		bool isValid();
+		const iaString &getName() const;
 
 	protected:
+		/*! name of this system
+		 */
+		iaString _name;
+
 		/*! add component type to system
 		\param componentType the component type to add
 		\param componentFlag the component flag to add
 		*/
-		void addComponentType(uint32 componentType, uint32 componentFlag = 0);
+		void addComponentType(uint32 componentType, uint32 componentFlags = static_cast<uint32>(iComponentFlag::None));
 
 	private:
 		/*! component types
@@ -87,15 +92,9 @@ namespace igor
 	class iEntitySystemList
 	{
 	public:
-		inline bool addSystem(iEntitySystem &system)
+		inline void addSystem(iEntitySystem &system)
 		{
-			if (!system.isValid())
-			{
-				con_err("invalid system");
-				return false;
-			}
 			_systems.push_back(&system);
-			return true;
 		}
 
 		inline size_t size()

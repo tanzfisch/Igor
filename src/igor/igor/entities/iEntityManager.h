@@ -37,7 +37,7 @@
 namespace igor
 {
 
-    class iEntity;
+    class iEntity_Old;
 
     /*! entities manager (singleton)
 
@@ -52,7 +52,7 @@ namespace igor
     {
 
         friend class iModule<iEntityManager>;
-        friend class iEntity;
+        friend class iEntity_Old;
         friend class iEntityLocatable;
 
     public:
@@ -60,7 +60,7 @@ namespace igor
 
         \param entityID the entity id
         */
-        iEntity *getEntity(uint64 entityID);
+        iEntity_Old *getEntity(uint64 entityID);
 
         /*! destroys entity with given entity id
 
@@ -88,7 +88,7 @@ namespace igor
     private:
         /*! list of all the entities
         */
-        std::map<uint64, iEntity *> _entities;
+        std::map<uint64, iEntity_Old *> _entities;
 
         /*! list of all entitties which are marked for deletion
         */
@@ -104,7 +104,7 @@ namespace igor
 
         \param entity entity to register
         */
-        void registerEntity(iEntity *entity);
+        void registerEntity(iEntity_Old *entity);
 
         /*! unregister entity
 
@@ -112,7 +112,7 @@ namespace igor
 
         \param entity entity to unregister
         */
-        void unregisterEntity(iEntity *entity);
+        void unregisterEntity(iEntity_Old *entity);
 
         /*! create octree
         */

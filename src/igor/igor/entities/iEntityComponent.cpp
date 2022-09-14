@@ -2,17 +2,17 @@
 
 namespace igor
 {
-	std::vector<ComponentMetrics> *BaseComponent::_componentTypes;
+	std::vector<iComponentMetrics> *iBaseComponent::_componentTypes;
 
-	iEntityComponentID BaseComponent::registerComponentType(ComponentCreateFunction createfn, ComponentFreeFunction freefn, size_t size)
+	iEntityComponentID iBaseComponent::registerComponentType(iComponentCreateFunction createfn, iComponentFreeFunction freefn, size_t size)
 	{
 		if (_componentTypes == nullptr)
 		{
-			_componentTypes = new std::vector<ComponentMetrics>();
+			_componentTypes = new std::vector<iComponentMetrics>();
 		}
 
 		iEntityComponentID componentID = _componentTypes->size();
-		ComponentMetrics componentMetrics = {createfn, freefn, size};
+		iComponentMetrics componentMetrics = {createfn, freefn, size};
 		_componentTypes->push_back(componentMetrics);
 		return componentID;
 	}

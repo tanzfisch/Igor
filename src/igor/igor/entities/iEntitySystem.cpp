@@ -2,6 +2,11 @@
 
 namespace igor
 {
+    iEntitySystem::iEntitySystem(const iaString &name)
+        : _name(name)
+    {
+    }
+
     const std::vector<uint32> &iEntitySystem::getComponentTypes() const
     {
         return _componentTypes;
@@ -12,30 +17,29 @@ namespace igor
         return _componentFlags;
     }
 
-    void iEntitySystem::addComponentType(uint32 componentType, uint32 componentFlag)
+    void iEntitySystem::addComponentType(uint32 componentType, uint32 componentFlags)
     {
         _componentTypes.push_back(componentType);
-        _componentFlags.push_back(componentFlag);
+        _componentFlags.push_back(componentFlags);
     }
 
-    bool iEntitySystem::isValid()
+    const iaString &iEntitySystem::getName() const
     {
-        for(uint32 i = 0;  i < _componentFlags.size(); i++) {
-            if((_componentFlags[i] & static_cast<uint32>(iComponentFlag::Optional)) == 0) {
-                return true;
-            }
-        }
-        return false;
+        return _name;
     }
 
-    bool iEntitySystemList::removeSystem(iEntitySystem& system)
+    bool iEntitySystemList::removeSystem(iEntitySystem &system)
     {
-        for(uint32 i = 0; i < _systems.size(); i++) {
-            if(&system == _systems[i]) {
+        for (uint32 i = 0; i < _systems.size(); i++)
+        {
+            if (&system == _systems[i])
+            {
                 _systems.erase(_systems.begin() + i);
                 return true;
             }
         }
+
+        con_err("system coudn't be removed " << system.getName());
         return false;
     }
 }
