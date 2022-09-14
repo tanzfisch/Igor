@@ -57,7 +57,7 @@ void Supremacy::onInit()
     health._health = 100;
     party._partyID = 20;
 
-    _playerHandle = _ecs.makeEntity(position, velocity, health, party, movementControl);
+    _player = _ecs.makeEntity(position, velocity, health, party, movementControl);
 }
 
 void Supremacy::onUpdate()
@@ -95,7 +95,7 @@ void Supremacy::onRenderOrtho()
 bool Supremacy::onKeyDown(iEventKeyDown &event)
 {
 
-    MovementControlComponent *movementControl = _ecs.getComponent<MovementControlComponent>(_playerHandle);
+    MovementControlComponent *movementControl = _ecs.getComponent<MovementControlComponent>(_player);
     if (movementControl == nullptr)
     {
         return false;
@@ -141,7 +141,7 @@ bool Supremacy::onKeyDown(iEventKeyDown &event)
 
 bool Supremacy::onKeyUp(iEventKeyUp &event)
 {
-    MovementControlComponent *movementControl = _ecs.getComponent<MovementControlComponent>(_playerHandle);
+    MovementControlComponent *movementControl = _ecs.getComponent<MovementControlComponent>(_player);
     if (movementControl == nullptr)
     {
         return false;

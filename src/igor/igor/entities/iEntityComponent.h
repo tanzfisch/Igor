@@ -36,9 +36,12 @@
 namespace igor
 {
 
+typedef std::vector<std::pair<uint32, uint32>> iEntityData;
+typedef std::pair<uint32, iEntityData> iEntity;
+typedef iEntity* iEntityPtr;
+
 struct iBaseComponent;
-typedef void* iEntityHandle;
-typedef uint32 (*iComponentCreateFunction)(std::vector<uint8>& memory, iEntityHandle entity, iBaseComponent* comp);
+typedef uint32 (*iComponentCreateFunction)(std::vector<uint8>& memory, iEntityPtr entity, iBaseComponent* comp);
 typedef void (*iComponentFreeFunction)(iBaseComponent* comp);
 typedef size_t iEntityComponentID;
 
@@ -61,7 +64,7 @@ struct iBaseComponent
 {
 public:
 	static iEntityComponentID registerComponentType(iComponentCreateFunction createfn, iComponentFreeFunction freefn, size_t size);
-	iEntityHandle _entity = nullptr;
+	iEntityPtr _entity = nullptr;
 
 	inline static iComponentCreateFunction getTypeCreateFunction(uint32 id)
 	{
@@ -97,7 +100,7 @@ struct iEntityComponent : public iBaseComponent
 };
 
 template<typename Component>
-uint32 ComponentCreate(std::vector<uint8>& memory, iEntityHandle entity, iBaseComponent* comp)
+uint32 ComponentCreate(std::vector<uint8>& memory, iEntityPtr entity, iBaseComponent* comp)
 {
 	iEntityComponentID index = memory.size();
 	memory.resize(index+Component::SIZE);

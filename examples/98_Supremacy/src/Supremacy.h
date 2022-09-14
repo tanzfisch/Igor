@@ -54,7 +54,7 @@ private:
      */
     iEntitySystemList _logicSystems;
 
-    iEntityHandle _playerHandle;
+    iEntityPtr _player;
 
     /*! enemies system
      */

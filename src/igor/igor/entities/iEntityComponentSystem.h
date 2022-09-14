@@ -34,11 +34,6 @@
 
 namespace igor
 {
-
-	typedef std::vector<std::pair<uint32, uint32>> iEntityData;
-	typedef std::pair<uint32, iEntityData> iEntity;
-	typedef iEntity* iEntityPtr;
-
 	/*! entity component system
 
 	based on https://github.com/BennyQBD/3DGameProgrammingTutorial/
@@ -54,11 +49,11 @@ namespace igor
 		~iEntityComponentSystem();
 
 		// Entity methods
-		iEntityHandle makeEntity(iBaseComponent **components, const iEntityComponentID *componentIDs, size_t numComponents);
-		void removeEntity(iEntityHandle handle);
+		iEntityPtr makeEntity(iBaseComponent **components, const iEntityComponentID *componentIDs, size_t numComponents);
+		void removeEntity(iEntityPtr entity);
 
 		template <class A>
-		iEntityHandle makeEntity(A &c1)
+		iEntityPtr makeEntity(A &c1)
 		{
 			iBaseComponent *components[] = {&c1};
 			iEntityComponentID componentIDs[] = {A::ID};
@@ -66,7 +61,7 @@ namespace igor
 		}
 
 		template <class A, class B>
-		iEntityHandle makeEntity(A &c1, B &c2)
+		iEntityPtr makeEntity(A &c1, B &c2)
 		{
 			iBaseComponent *components[] = {&c1, &c2};
 			iEntityComponentID componentIDs[] = {A::ID, B::ID};
@@ -74,7 +69,7 @@ namespace igor
 		}
 
 		template <class A, class B, class C>
-		iEntityHandle makeEntity(A &c1, B &c2, C &c3)
+		iEntityPtr makeEntity(A &c1, B &c2, C &c3)
 		{
 			iBaseComponent *components[] = {&c1, &c2, &c3};
 			iEntityComponentID componentIDs[] = {A::ID, B::ID, C::ID};
@@ -82,7 +77,7 @@ namespace igor
 		}
 
 		template <class A, class B, class C, class D>
-		iEntityHandle makeEntity(A &c1, B &c2, C &c3, D &c4)
+		iEntityPtr makeEntity(A &c1, B &c2, C &c3, D &c4)
 		{
 			iBaseComponent *components[] = {&c1, &c2, &c3, &c4};
 			iEntityComponentID componentIDs[] = {A::ID, B::ID, C::ID, D::ID};
@@ -90,7 +85,7 @@ namespace igor
 		}
 
 		template <class A, class B, class C, class D, class E>
-		iEntityHandle makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5)
+		iEntityPtr makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5)
 		{
 			iBaseComponent *components[] = {&c1, &c2, &c3, &c4, &c5};
 			iEntityComponentID componentIDs[] = {A::ID, B::ID, C::ID, D::ID, E::ID};
@@ -98,7 +93,7 @@ namespace igor
 		}
 
 		template <class A, class B, class C, class D, class E, class F>
-		iEntityHandle makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6)
+		iEntityPtr makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6)
 		{
 			iBaseComponent *components[] = {&c1, &c2, &c3, &c4, &c5, &c6};
 			iEntityComponentID componentIDs[] = {A::ID, B::ID, C::ID, D::ID, E::ID, F::ID};
@@ -106,7 +101,7 @@ namespace igor
 		}
 
 		template <class A, class B, class C, class D, class E, class F, class G>
-		iEntityHandle makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6, G &c7)
+		iEntityPtr makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6, G &c7)
 		{
 			iBaseComponent *components[] = {&c1, &c2, &c3, &c4, &c5, &c6, &c7};
 			iEntityComponentID componentIDs[] = {A::ID, B::ID, C::ID, D::ID, E::ID, F::ID, G::ID};
@@ -114,7 +109,7 @@ namespace igor
 		}
 
 		template <class A, class B, class C, class D, class E, class F, class G, class H>
-		iEntityHandle makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6, G &c7, H &c8)
+		iEntityPtr makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6, G &c7, H &c8)
 		{
 			iBaseComponent *components[] = {&c1, &c2, &c3, &c4, &c5, &c6, &c7, &c8};
 			iEntityComponentID componentIDs[] = {A::ID, B::ID, C::ID, D::ID, E::ID, F::ID, G::ID, H::ID};
@@ -122,7 +117,7 @@ namespace igor
 		}
 
 		template <class A, class B, class C, class D, class E, class F, class G, class H, class I>
-		iEntityHandle makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6, G &c7, H &c8, I &c9)
+		iEntityPtr makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6, G &c7, H &c8, I &c9)
 		{
 			iBaseComponent *components[] = {&c1, &c2, &c3, &c4, &c5, &c6, &c7, &c8, &c9};
 			iEntityComponentID componentIDs[] = {A::ID, B::ID, C::ID, D::ID, E::ID, F::ID, G::ID, H::ID, I::ID};
@@ -130,7 +125,7 @@ namespace igor
 		}
 
 		template <class A, class B, class C, class D, class E, class F, class G, class H, class I, class J>
-		iEntityHandle makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6, G &c7, H &c8, I &c9, J &c10)
+		iEntityPtr makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6, G &c7, H &c8, I &c9, J &c10)
 		{
 			iBaseComponent *components[] = {&c1, &c2, &c3, &c4, &c5, &c6, &c7, &c8, &c9, &c10};
 			iEntityComponentID componentIDs[] = {A::ID, B::ID, C::ID, D::ID, E::ID, F::ID, G::ID, H::ID, I::ID, J::ID};
@@ -139,19 +134,19 @@ namespace igor
 
 		// Component methods
 		template <class Component>
-		inline void addComponent(iEntityHandle entity, Component *component)
+		inline void addComponent(iEntityPtr entity, Component *component)
 		{
 			addComponentInternal(entity, handleToEntity(entity), Component::ID, component);
 		}
 
 		template <class Component>
-		bool removeComponent(iEntityHandle entity)
+		bool removeComponent(iEntityPtr entity)
 		{
 			return removeComponentInternal(entity, Component::ID);
 		}
 
 		template <class Component>
-		Component *getComponent(iEntityHandle entity)
+		Component *getComponent(iEntityPtr entity)
 		{
 			return (Component *)getComponentInternal(handleToEntity(entity), _components[Component::ID], Component::ID);
 		}
@@ -164,24 +159,19 @@ namespace igor
 		std::map<uint32, std::vector<uint8>> _components; // map?
 		std::vector<iEntityPtr> _entities;
 
-		inline iEntityPtr handleToRawType(iEntityHandle handle)
+		inline uint32 handleToEntityIndex(iEntityPtr entity)
 		{
-			return static_cast<iEntityPtr>(handle);
+			return entity->first;
 		}
 
-		inline uint32 handleToEntityIndex(iEntityHandle handle)
+		inline iEntityData &handleToEntity(iEntityPtr entity)
 		{
-			return handleToRawType(handle)->first;
-		}
-
-		inline iEntityData &handleToEntity(iEntityHandle handle)
-		{
-			return handleToRawType(handle)->second;
+			return entity->second;
 		}
 
 		void deleteComponent(uint32 componentID, uint32 index);
-		bool removeComponentInternal(iEntityHandle handle, uint32 componentID);
-		void addComponentInternal(iEntityHandle handle, iEntityData &entity, uint32 componentID, iBaseComponent *component);
+		bool removeComponentInternal(iEntityPtr entity, uint32 componentID);
+		void addComponentInternal(iEntityPtr entity, iEntityData &entityData, uint32 componentID, iBaseComponent *component);
 		iBaseComponent *getComponentInternal(iEntityData &entityComponents, std::vector<uint8> &array, uint32 componentID);
 
 		void updateSystemWithMultipleComponents(uint32 index, iEntitySystemList &systems, const std::vector<uint32> &componentTypes,

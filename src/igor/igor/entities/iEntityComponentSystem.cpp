@@ -23,49 +23,48 @@ namespace igor
 		}
 	}
 
-	iEntityHandle iEntityComponentSystem::makeEntity(iBaseComponent **entityComponents, const iEntityComponentID *componentIDs, size_t numComponents)
+	iEntityPtr iEntityComponentSystem::makeEntity(iBaseComponent **entityComponents, const iEntityComponentID *componentIDs, size_t numComponents)
 	{
-		iEntity *newEntity = new iEntity();
-		iEntityHandle handle = static_cast<iEntityHandle>(newEntity);
+		iEntityPtr entity = new iEntity();
 		for (uint32 i = 0; i < numComponents; i++)
 		{
 			if (!iBaseComponent::isTypeValid(componentIDs[i]))
 			{
 				con_err(componentIDs[i] << " is not a valid component type.");
-				delete newEntity;
+				delete entity;
 				return nullptr;
 			}
 
-			addComponentInternal(handle, newEntity->second, componentIDs[i], entityComponents[i]);
+			addComponentInternal(entity, entity->second, componentIDs[i], entityComponents[i]);
 		}
 
-		newEntity->first = _entities.size();
-		_entities.push_back(newEntity);
-		return handle;
+		entity->first = _entities.size();
+		_entities.push_back(entity);
+		return entity;
 	}
 
-	void iEntityComponentSystem::removeEntity(iEntityHandle handle)
+	void iEntityComponentSystem::removeEntity(iEntityPtr entity)
 	{
-		iEntityData &entity = handleToEntity(handle);
-		for (uint32 i = 0; i < entity.size(); i++)
+		iEntityData &entityData = handleToEntity(entity);
+		for (uint32 i = 0; i < entityData.size(); i++)
 		{
-			deleteComponent(entity[i].first, entity[i].second);
+			deleteComponent(entity[i].first, entityData[i].second);
 		}
 
-		uint32 destIndex = handleToEntityIndex(handle);
+		uint32 destIndex = handleToEntityIndex(entity);
 		uint32 srcIndex = _entities.size() - 1;
 		delete _entities[destIndex];
 		_entities[destIndex] = _entities[srcIndex];
 		_entities.pop_back();
 	}
 
-	void iEntityComponentSystem::addComponentInternal(iEntityHandle handle, iEntityData &entity, uint32 componentID, iBaseComponent *component)
+	void iEntityComponentSystem::addComponentInternal(iEntityPtr entity, iEntityData &entityData, uint32 componentID, iBaseComponent *component)
 	{
 		iComponentCreateFunction createfn = iBaseComponent::getTypeCreateFunction(componentID);
 		std::pair<uint32, uint32> newPair;
 		newPair.first = componentID;
-		newPair.second = createfn(_components[componentID], handle, component);
-		entity.push_back(newPair);
+		newPair.second = createfn(_components[componentID], entity, component);
+		entityData.push_back(newPair);
 	}
 
 	void iEntityComponentSystem::deleteComponent(uint32 componentID, uint32 index)
@@ -100,9 +99,9 @@ namespace igor
 		array.resize(srcIndex);
 	}
 
-	bool iEntityComponentSystem::removeComponentInternal(iEntityHandle handle, uint32 componentID)
+	bool iEntityComponentSystem::removeComponentInternal(iEntityPtr entity, uint32 componentID)
 	{
-		iEntityData &entityComponents = handleToEntity(handle);
+		iEntityData &entityComponents = handleToEntity(entity);
 		for (uint32 i = 0; i < entityComponents.size(); i++)
 		{
 			if (componentID == entityComponents[i].first)
