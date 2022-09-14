@@ -23,7 +23,7 @@ namespace igor
 		}
 	}
 
-	iEntityPtr iEntityComponentSystem::makeEntity(iBaseComponent **entityComponents, const iEntityComponentID *componentIDs, size_t numComponents)
+	iEntityPtr iEntityComponentSystem::makeEntity(iBaseComponent **components, const iComponentID *componentIDs, size_t numComponents)
 	{
 		iEntityPtr entity = new iEntity();
 		for (uint32 i = 0; i < numComponents; i++)
@@ -35,7 +35,7 @@ namespace igor
 				return nullptr;
 			}
 
-			addComponentInternal(entity, entity->second, componentIDs[i], entityComponents[i]);
+			addComponentInternal(entity, components[i], componentIDs[i]);
 		}
 
 		entity->first = _entities.size();
@@ -45,26 +45,24 @@ namespace igor
 
 	void iEntityComponentSystem::removeEntity(iEntityPtr entity)
 	{
-		iEntityData &entityData = handleToEntity(entity);
-		for (uint32 i = 0; i < entityData.size(); i++)
+		iComponentData &componentData = getComponentData(entity);
+		for (uint32 i = 0; i < componentData.size(); i++)
 		{
-			deleteComponent(entity[i].first, entityData[i].second);
+			deleteComponent(entity[i].first, componentData[i].second);
 		}
 
-		uint32 destIndex = handleToEntityIndex(entity);
+		uint32 destIndex = getEntityIndex(entity);
 		uint32 srcIndex = _entities.size() - 1;
 		delete _entities[destIndex];
 		_entities[destIndex] = _entities[srcIndex];
 		_entities.pop_back();
 	}
 
-	void iEntityComponentSystem::addComponentInternal(iEntityPtr entity, iEntityData &entityData, uint32 componentID, iBaseComponent *component)
+	void iEntityComponentSystem::addComponentInternal(iEntityPtr entity, iBaseComponent *component, uint32 componentID)
 	{
 		iComponentCreateFunction createfn = iBaseComponent::getTypeCreateFunction(componentID);
-		std::pair<uint32, uint32> newPair;
-		newPair.first = componentID;
-		newPair.second = createfn(_components[componentID], entity, component);
-		entityData.push_back(newPair);
+		std::pair<uint32, uint32> newPair = {componentID, createfn(_components[componentID], entity, component)};
+		getComponentData(entity).emplace_back(newPair);
 	}
 
 	void iEntityComponentSystem::deleteComponent(uint32 componentID, uint32 index)
@@ -86,12 +84,12 @@ namespace igor
 
 		memcpy(destComponent, srcComponent, typeSize);
 
-		iEntityData &srcComponents = handleToEntity(srcComponent->_entity);
-		for (uint32 i = 0; i < srcComponents.size(); i++)
+		iComponentData &componentData = getComponentData(srcComponent->_entity);
+		for (uint32 i = 0; i < componentData.size(); i++)
 		{
-			if (componentID == srcComponents[i].first && srcIndex == srcComponents[i].second)
+			if (componentID == componentData[i].first && srcIndex == componentData[i].second)
 			{
-				srcComponents[i].second = index;
+				componentData[i].second = index;
 				break;
 			}
 		}
@@ -101,29 +99,29 @@ namespace igor
 
 	bool iEntityComponentSystem::removeComponentInternal(iEntityPtr entity, uint32 componentID)
 	{
-		iEntityData &entityComponents = handleToEntity(entity);
-		for (uint32 i = 0; i < entityComponents.size(); i++)
+		iComponentData &componentData = getComponentData(entity);
+		for (uint32 i = 0; i < componentData.size(); i++)
 		{
-			if (componentID == entityComponents[i].first)
+			if (componentID == componentData[i].first)
 			{
-				deleteComponent(entityComponents[i].first, entityComponents[i].second);
-				uint32 srcIndex = entityComponents.size() - 1;
+				deleteComponent(componentData[i].first, componentData[i].second);
+				uint32 srcIndex = componentData.size() - 1;
 				uint32 destIndex = i;
-				entityComponents[destIndex] = entityComponents[srcIndex];
-				entityComponents.pop_back();
+				componentData[destIndex] = componentData[srcIndex];
+				componentData.pop_back();
 				return true;
 			}
 		}
 		return false;
 	}
 
-	iBaseComponent *iEntityComponentSystem::getComponentInternal(iEntityData &entityComponents, std::vector<uint8> &array, uint32 componentID)
+	iBaseComponent *iEntityComponentSystem::getComponentInternal(iComponentData &componentData, std::vector<uint8> &componentRawData, uint32 componentID)
 	{
-		for (uint32 i = 0; i < entityComponents.size(); i++)
+		for (uint32 i = 0; i < componentData.size(); i++)
 		{
-			if (componentID == entityComponents[i].first)
+			if (componentID == componentData[i].first)
 			{
-				return (iBaseComponent *)&array[entityComponents[i].second];
+				return (iBaseComponent *)&componentRawData[componentData[i].second];
 			}
 		}
 		return nullptr;
@@ -139,10 +137,10 @@ namespace igor
 			if (componentTypes.size() == 1)
 			{
 				size_t typeSize = iBaseComponent::getTypeSize(componentTypes[0]);
-				std::vector<uint8> &array = _components[componentTypes[0]];
-				for (uint32 j = 0; j < array.size(); j += typeSize)
+				std::vector<uint8> &componentRawData = _components[componentTypes[0]];
+				for (uint32 j = 0; j < componentRawData.size(); j += typeSize)
 				{
-					iBaseComponent *component = (iBaseComponent *)&array[j];
+					iBaseComponent *component = (iBaseComponent *)&componentRawData[j];
 					systems[i]->updateComponents(&component);
 				}
 			}
@@ -192,8 +190,7 @@ namespace igor
 		for (uint32 i = 0; i < array.size(); i += typeSize)
 		{
 			componentParam[minSizeIndex] = (iBaseComponent *)&array[i];
-			iEntityData &entityComponents =
-				handleToEntity(componentParam[minSizeIndex]->_entity);
+			iComponentData &componentData = getComponentData(componentParam[minSizeIndex]->_entity);
 
 			bool isValid = true;
 			for (uint32 j = 0; j < componentTypes.size(); j++)
@@ -203,8 +200,7 @@ namespace igor
 					continue;
 				}
 
-				componentParam[j] = getComponentInternal(entityComponents,
-														 *componentArrays[j], componentTypes[j]);
+				componentParam[j] = getComponentInternal(componentData, *componentArrays[j], componentTypes[j]);
 				if (componentParam[j] == nullptr && (componentFlags[j] & static_cast<uint32>(iComponentFlag::Optional)) == 0)
 				{
 					isValid = false;

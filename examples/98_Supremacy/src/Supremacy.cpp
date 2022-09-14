@@ -38,7 +38,7 @@ void Supremacy::onInit()
     HealthComponent health;
     PartyComponent party;
 
-    for (int i = 0; i < 1; ++i)
+    for (int i = 0; i < 100; ++i)
     {
         position._position.set(_rand.getNextFloat() * 1000.0, _rand.getNextFloat() * 1000.0);
         velocity._direction.set(0.0, 1.0);
@@ -67,6 +67,14 @@ void Supremacy::onUpdate()
 
 void Supremacy::onDeinit()
 {
+    // stop timer
+    if (_updateTimerHandle != nullptr)
+    {
+        delete _updateTimerHandle;
+        _updateTimerHandle = nullptr;
+    }
+
+    // clean up window
     getWindow()->removeView(&_viewOrtho);
     _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &Supremacy::onRenderOrtho));
 }
@@ -90,11 +98,13 @@ void Supremacy::onRenderOrtho()
 
     // draw entities
     _ecs.updateSystems(_renderSystems);
+
+    iRenderer::getInstance().setColor(1, 1, 1, 1);
+    iRenderer::getInstance().drawRectangle(10, 10, 100, 100);
 }
 
 bool Supremacy::onKeyDown(iEventKeyDown &event)
 {
-
     MovementControlComponent *movementControl = _ecs.getComponent<MovementControlComponent>(_player);
     if (movementControl == nullptr)
     {

@@ -31,28 +31,28 @@
 
 #include <igor/igor.h>
 
-struct PositionComponent : public iEntityComponent<PositionComponent>
+struct PositionComponent : public iComponent<PositionComponent>
 {
     iaVector2f _position;
 };
 
-struct VelocityComponent : public iEntityComponent<VelocityComponent>
+struct VelocityComponent : public iComponent<VelocityComponent>
 {
     iaVector2f _direction;
     float32 _speed;
 };
 
-struct HealthComponent : public iEntityComponent<HealthComponent>
+struct HealthComponent : public iComponent<HealthComponent>
 {
     float32 _health = 0;
 };
 
-struct PartyComponent : public iEntityComponent<PartyComponent>
+struct PartyComponent : public iComponent<PartyComponent>
 {
     uint32 _partyID = 0;
 };
 
-struct MovementControlComponent : public iEntityComponent<PartyComponent>
+struct MovementControlComponent : public iComponent<PartyComponent>
 {
     bool _up = false;
     bool _down = false;

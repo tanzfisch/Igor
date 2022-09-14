@@ -29,7 +29,7 @@
 #ifndef __iENTITYSYSTEM__
 #define __iENTITYSYSTEM__
 
-#include <igor/entities/iEntityComponent.h>
+#include <igor/entities/iComponent.h>
 
 namespace igor
 {
