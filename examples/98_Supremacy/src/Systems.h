@@ -52,7 +52,7 @@ struct PartyComponent : public iComponent<PartyComponent>
     uint32 _partyID = 0;
 };
 
-struct MovementControlComponent : public iComponent<PartyComponent>
+struct MovementControlComponent : public iComponent<MovementControlComponent>
 {
     bool _up = false;
     bool _down = false;
