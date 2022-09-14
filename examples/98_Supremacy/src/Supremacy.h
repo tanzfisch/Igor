@@ -46,6 +46,10 @@ private:
      */
     iView _viewOrtho;
 
+    /*! material id of a non textured material
+    */
+    uint64 _materialWithoutDepthTest = iMaterial::INVALID_MATERIAL_ID;
+
     /*! entity component system
      */
     iEntityComponentSystem _ecs;

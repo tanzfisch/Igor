@@ -24,6 +24,11 @@ void Supremacy::onInit()
     _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &Supremacy::onRenderOrtho));
     getWindow()->addView(&_viewOrtho, getZIndex() + 1);
 
+    // render materials
+    _materialWithoutDepthTest = iMaterialResourceFactory::getInstance().createMaterial("NoDepthTest");
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithoutDepthTest)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+
+    // game logic timer
     _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &Supremacy::onUpdate), iaTime::fromMilliseconds(10));
     _updateTimerHandle->start();
 
@@ -95,6 +100,8 @@ void Supremacy::onRenderOrtho()
     iRenderer::getInstance().setViewMatrix(matrix);
     matrix.translate(0, 0, -1);
     iRenderer::getInstance().setModelMatrix(matrix);
+
+    iRenderer::getInstance().setMaterial(_materialWithoutDepthTest);
 
     // draw entities
     _ecs.updateSystems(_renderSystems);
