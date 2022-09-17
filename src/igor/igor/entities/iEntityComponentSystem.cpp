@@ -23,7 +23,7 @@ namespace igor
 		}
 	}
 
-	iEntityPtr iEntityComponentSystem::makeEntity(iBaseComponent **components, const iComponentID *componentIDs, size_t numComponents)
+	iEntityPtr iEntityComponentSystem::createEntity(iBaseComponent **components, const iComponentID *componentIDs, size_t numComponents)
 	{
 		iEntityPtr entity = new iEntity();
 		for (uint32 i = 0; i < numComponents; i++)
@@ -43,7 +43,7 @@ namespace igor
 		return entity;
 	}
 
-	void iEntityComponentSystem::removeEntity(iEntityPtr entity)
+	void iEntityComponentSystem::destroyEntity(iEntityPtr entity)
 	{
 		iComponentData &componentData = getComponentData(entity);
 		for (uint32 i = 0; i < componentData.size(); i++)

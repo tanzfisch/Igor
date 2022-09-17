@@ -58,7 +58,7 @@ void Supremacy::onInit()
         party._partyID = 10;
         visual._character = iTextureResourceFactory::getInstance().requestFile("particleGem.png");
 
-        _ecs.makeEntity(position, velocity, health, party, visual);
+        _ecs.createEntity(position, velocity, health, party, visual);
     }
 
     // init player
@@ -69,7 +69,7 @@ void Supremacy::onInit()
     party._partyID = 20;
     visual._character = iTextureResourceFactory::getInstance().requestFile("particleStar.png");
 
-    _player = _ecs.makeEntity(position, velocity, health, party, visual, movementControl);
+    _player = _ecs.createEntity(position, velocity, health, party, visual, movementControl);
 }
 
 void Supremacy::onUpdate()

@@ -6,7 +6,6 @@
 
 #include <igor/data/iAACube.h>
 #include <igor/graphics/iRenderer.h>
-#include <igor/scene/nodes/iNodeManager.h>
 #include <igor/data/iIntersection.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/profiler/iProfiler.h>

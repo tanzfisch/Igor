@@ -49,87 +49,87 @@ namespace igor
 		~iEntityComponentSystem();
 
 		// Entity methods
-		iEntityPtr makeEntity(iBaseComponent **components, const iComponentID *componentIDs, size_t numComponents);
-		void removeEntity(iEntityPtr entity);
+		iEntityPtr createEntity(iBaseComponent **components, const iComponentID *componentIDs, size_t numComponents);
+		void destroyEntity(iEntityPtr entity);
 
 		template <class A>
-		iEntityPtr makeEntity(A &c1)
+		iEntityPtr createEntity(A &c1)
 		{
 			iBaseComponent *components[] = {&c1};
 			iComponentID componentIDs[] = {A::ID};
-			return makeEntity(components, componentIDs, 1);
+			return createEntity(components, componentIDs, 1);
 		}
 
 		template <class A, class B>
-		iEntityPtr makeEntity(A &c1, B &c2)
+		iEntityPtr createEntity(A &c1, B &c2)
 		{
 			iBaseComponent *components[] = {&c1, &c2};
 			iComponentID componentIDs[] = {A::ID, B::ID};
-			return makeEntity(components, componentIDs, 2);
+			return createEntity(components, componentIDs, 2);
 		}
 
 		template <class A, class B, class C>
-		iEntityPtr makeEntity(A &c1, B &c2, C &c3)
+		iEntityPtr createEntity(A &c1, B &c2, C &c3)
 		{
 			iBaseComponent *components[] = {&c1, &c2, &c3};
 			iComponentID componentIDs[] = {A::ID, B::ID, C::ID};
-			return makeEntity(components, componentIDs, 3);
+			return createEntity(components, componentIDs, 3);
 		}
 
 		template <class A, class B, class C, class D>
-		iEntityPtr makeEntity(A &c1, B &c2, C &c3, D &c4)
+		iEntityPtr createEntity(A &c1, B &c2, C &c3, D &c4)
 		{
 			iBaseComponent *components[] = {&c1, &c2, &c3, &c4};
 			iComponentID componentIDs[] = {A::ID, B::ID, C::ID, D::ID};
-			return makeEntity(components, componentIDs, 4);
+			return createEntity(components, componentIDs, 4);
 		}
 
 		template <class A, class B, class C, class D, class E>
-		iEntityPtr makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5)
+		iEntityPtr createEntity(A &c1, B &c2, C &c3, D &c4, E &c5)
 		{
 			iBaseComponent *components[] = {&c1, &c2, &c3, &c4, &c5};
 			iComponentID componentIDs[] = {A::ID, B::ID, C::ID, D::ID, E::ID};
-			return makeEntity(components, componentIDs, 5);
+			return createEntity(components, componentIDs, 5);
 		}
 
 		template <class A, class B, class C, class D, class E, class F>
-		iEntityPtr makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6)
+		iEntityPtr createEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6)
 		{
 			iBaseComponent *components[] = {&c1, &c2, &c3, &c4, &c5, &c6};
 			iComponentID componentIDs[] = {A::ID, B::ID, C::ID, D::ID, E::ID, F::ID};
-			return makeEntity(components, componentIDs, 6);
+			return createEntity(components, componentIDs, 6);
 		}
 
 		template <class A, class B, class C, class D, class E, class F, class G>
-		iEntityPtr makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6, G &c7)
+		iEntityPtr createEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6, G &c7)
 		{
 			iBaseComponent *components[] = {&c1, &c2, &c3, &c4, &c5, &c6, &c7};
 			iComponentID componentIDs[] = {A::ID, B::ID, C::ID, D::ID, E::ID, F::ID, G::ID};
-			return makeEntity(components, componentIDs, 7);
+			return createEntity(components, componentIDs, 7);
 		}
 
 		template <class A, class B, class C, class D, class E, class F, class G, class H>
-		iEntityPtr makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6, G &c7, H &c8)
+		iEntityPtr createEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6, G &c7, H &c8)
 		{
 			iBaseComponent *components[] = {&c1, &c2, &c3, &c4, &c5, &c6, &c7, &c8};
 			iComponentID componentIDs[] = {A::ID, B::ID, C::ID, D::ID, E::ID, F::ID, G::ID, H::ID};
-			return makeEntity(components, componentIDs, 8);
+			return createEntity(components, componentIDs, 8);
 		}
 
 		template <class A, class B, class C, class D, class E, class F, class G, class H, class I>
-		iEntityPtr makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6, G &c7, H &c8, I &c9)
+		iEntityPtr createEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6, G &c7, H &c8, I &c9)
 		{
 			iBaseComponent *components[] = {&c1, &c2, &c3, &c4, &c5, &c6, &c7, &c8, &c9};
 			iComponentID componentIDs[] = {A::ID, B::ID, C::ID, D::ID, E::ID, F::ID, G::ID, H::ID, I::ID};
-			return makeEntity(components, componentIDs, 9);
+			return createEntity(components, componentIDs, 9);
 		}
 
 		template <class A, class B, class C, class D, class E, class F, class G, class H, class I, class J>
-		iEntityPtr makeEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6, G &c7, H &c8, I &c9, J &c10)
+		iEntityPtr createEntity(A &c1, B &c2, C &c3, D &c4, E &c5, F &c6, G &c7, H &c8, I &c9, J &c10)
 		{
 			iBaseComponent *components[] = {&c1, &c2, &c3, &c4, &c5, &c6, &c7, &c8, &c9, &c10};
 			iComponentID componentIDs[] = {A::ID, B::ID, C::ID, D::ID, E::ID, F::ID, G::ID, H::ID, I::ID, J::ID};
-			return makeEntity(components, componentIDs, 10);
+			return createEntity(components, componentIDs, 10);
 		}
 
 		// Component methods
@@ -167,14 +167,14 @@ namespace igor
 
 		/*! \returns index for given entity
 		*/
-		inline uint32 getEntityIndex(iEntityPtr entity)
+		__IGOR_INLINE__ uint32 getEntityIndex(iEntityPtr entity)
 		{
 			return entity->first;
 		}
 
 		/*! \returns component data for given entity
 		*/
-		inline iComponentData &getComponentData(iEntityPtr entity)
+		__IGOR_INLINE__ iComponentData &getComponentData(iEntityPtr entity)
 		{
 			return entity->second;
 		}

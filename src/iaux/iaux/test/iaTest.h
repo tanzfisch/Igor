@@ -171,23 +171,27 @@ namespace iaux
         _ok = false;                                                        \
     }
 
-#define IAUX_COMPARE_MATRIX(m1, m2)                          \
-    IAUX_EXPECT_NEAR(m1._pos._x, m2._pos._x, 0.0000001);     \
-    IAUX_EXPECT_NEAR(m1._pos._y, m2._pos._y, 0.0000001);     \
-    IAUX_EXPECT_NEAR(m1._pos._z, m2._pos._z, 0.0000001);     \
-    IAUX_EXPECT_NEAR(m1._w0, m2._w0, 0.0000001);             \
-    IAUX_EXPECT_NEAR(m1._right._x, m2._right._x, 0.0000001); \
-    IAUX_EXPECT_NEAR(m1._right._y, m2._right._y, 0.0000001); \
-    IAUX_EXPECT_NEAR(m1._right._z, m2._right._z, 0.0000001); \
-    IAUX_EXPECT_NEAR(m1._w1, m2._w1, 0.0000001);             \
-    IAUX_EXPECT_NEAR(m1._top._x, m2._top._x, 0.0000001);     \
-    IAUX_EXPECT_NEAR(m1._top._y, m2._top._y, 0.0000001);     \
-    IAUX_EXPECT_NEAR(m1._top._z, m2._top._z, 0.0000001);     \
-    IAUX_EXPECT_NEAR(m1._w2, m2._w2, 0.0000001);             \
-    IAUX_EXPECT_NEAR(m1._depth._x, m2._depth._x, 0.0000001); \
-    IAUX_EXPECT_NEAR(m1._depth._y, m2._depth._y, 0.0000001); \
-    IAUX_EXPECT_NEAR(m1._depth._z, m2._depth._z, 0.0000001); \
-    IAUX_EXPECT_NEAR(m1._w3, m2._w3, 0.0000001)
+#define IAUX_COMPARE_MATRIX(m1, m2) \
+    { \
+        bool failed = false; \
+        for(int i=0;i<16;++i) \
+        { \
+            if (std::abs((m1[i]) - (m2[i])) > 0.0000001) \
+            { \
+                failed = true; \
+                break; \
+            } \
+        } \
+        if(failed) \
+        { \
+            iaConsole::getInstance() << "matrices are not equal" << endl; \
+            iaConsole::getInstance() << "m1                           " << m1; \
+            iaConsole::getInstance() << "---------------------------------------------------------------------------" << endl; \
+            iaConsole::getInstance() << "m2                           " << m2 << endl; \
+            iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl; \
+            _ok = false; \
+        } \
+    }
 
 } // namespace iaux
 

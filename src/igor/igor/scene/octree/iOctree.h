@@ -32,7 +32,6 @@
 #include <igor/data/iAACube.h>
 #include <igor/data/iSphere.h>
 #include <igor/data/iFrustum.h>
-#include <igor/scene/nodes/iNode.h>
 #include <igor/resources/material/iMaterial.h>
 
 #include <memory>
@@ -42,9 +41,6 @@
 
 namespace igor
 {
-
-    class iNode;
-    class iNodeVolume;
 
     /*! octree implementation
 
