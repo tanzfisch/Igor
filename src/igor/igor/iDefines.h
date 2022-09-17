@@ -254,6 +254,10 @@ namespace igor
         KeyCodeCount
     };
 
+    /*! user data type
+    */
+    typedef void* iUserData;
+
 }; // namespace igor
 
 #endif // __IGOR_DEFINES_H__

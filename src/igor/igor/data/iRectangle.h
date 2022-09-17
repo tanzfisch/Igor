@@ -114,6 +114,10 @@ namespace igor
          */
         const T getBottom() const;
 
+        /*! \returns center of rectangle
+        */
+        const iaVector2<T> getCenter() const;
+
         /*! sets horrizontal position
 
         \param x horrizontal position

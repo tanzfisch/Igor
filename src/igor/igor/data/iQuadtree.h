@@ -29,12 +29,100 @@
 #ifndef __IGOR_QUADTREE__
 #define __IGOR_QUADTREE__
 
-#include <igor/iDefines.h>
+#include <igor/data/iRectangle.h>
+#include <iaux/math/iaVector2.h>
+
+#include <memory>
 
 namespace igor
 {
 
+    /*! quadtree implementation
+     */
+    class IGOR_API iQuadtree
+    {
 
-} // igor
+    public:
+        /*! creates the quadtree including the root node
+
+        \param box volume of the whole quadtree
+        */
+        iQuadtree(const iRectangled &box);
+
+        /*! dtor
+         */
+        virtual ~iQuadtree();
+
+        /*! insert user data at given position
+
+        \param userData the user data
+        \param pos the given position
+        */
+        void insert(iUserData userData, const iaVector2d &pos);
+
+        /*! remove user data
+
+        \param userData the user data
+        */
+        void remove(iUserData userData);
+
+        /*! update user data position
+
+        \param userData pointer to user data
+        \param pos the new position
+        */
+        // void update(iUserData userData, const iaVector2d &pos);
+
+    private:
+        struct UserDataSet
+        {
+            UserDataSet(const iaVector2d &pos, iUserData userData)
+                : _pos(pos), _userData(userData) {}
+
+            iaVector2d _pos;
+            iUserData _userData;
+        };
+
+        /*! node defintion
+         */
+        struct Node
+        {
+            /*! node box
+             */
+            iRectangled _box;
+
+            /*! children of node
+             */
+            std::unique_ptr<Node> _children[4];
+
+            /*! user data
+             */
+            std::vector<UserDataSet> _userData;
+        };
+
+        /*! root node
+         */
+        std::unique_ptr<Node> _root;
+
+        /*! recursive insert new data implementation
+
+        \param node the current node
+        \param userData the user data
+        \param pos the given position
+        */
+        void insertInternal(const std::unique_ptr<Node> &node, iUserData userData, const iaVector2d &pos);
+
+        /*! split given node
+
+        \param node the node to split
+        */
+        void split(const std::unique_ptr<Node> &node);
+    };
+
+    /*! Quadtree pointer definition
+     */
+    typedef iQuadtree *iQuadtreePtr;
+
+} // namespace igor
 
 #endif // __IGOR_QUADTREE__

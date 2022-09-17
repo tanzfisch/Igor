@@ -51,6 +51,17 @@ __IGOR_INLINE__ const T iRectangle<T>::getHeight() const
 }
 
 template <class T>
+const iaVector2<T> iRectangle<T>::getCenter() const
+{
+    iaVector2<T> result;
+
+    result._x = _x + _width * 0.5;
+    result._y = _y + _height * 0.5;
+
+    return result;
+}
+
+template <class T>
 void iRectangle<T>::setX(const T x)
 {
     _x = x;
