@@ -26,53 +26,15 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_AACUBE_H__
-#define __IGOR_AACUBE_H__
+#ifndef __IGOR_QUADTREE__
+#define __IGOR_QUADTREE__
 
 #include <igor/iDefines.h>
-
-#include <iaux/math/iaVector3.h>
-using namespace iaux;
 
 namespace igor
 {
 
-    /*! Axis aligned cube
-	*/
-    template <class T>
-    class IGOR_API_TEMPLATE iAACube
-    {
-    public:
-        /*! does nothing
-        */
-        iAACube() = default;
 
-        /*! init members constructor
+} // igor
 
-        \param center center position of cube
-        \param halfEdgeLenght half of the edge lenght of the cube
-        */
-        iAACube(const iaVector3<T> &center, T halfEdgeLenght);
-
-        /*! center position of cube
-        */
-        iaVector3<T> _center;
-
-        /*! half of the edge lenght
-        */
-        T _halfEdgeLength = static_cast<T>(0);
-    };
-
-#include <igor/data/iAACube.inl>
-
-    /*! float32 specialization of iAACube
-    */
-    typedef iAACube<float32> iAACubef;
-
-    /*! float32 specialization of iAACube
-    */
-    typedef iAACube<float64> iAACubed;
-
-} // namespace igor
-
-#endif // __IGOR_AACUBE_H__
+#endif // __IGOR_QUADTREE__

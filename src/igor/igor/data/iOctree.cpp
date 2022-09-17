@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2020 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/data/octree/iOctree.h>
+#include <igor/data/iOctree.h>
 
 #include <igor/data/iAACube.h>
 #include <igor/graphics/iRenderer.h>
@@ -16,16 +16,14 @@ using namespace iaux;
 namespace igor
 {
 
-    const iaVector3d iOctree::_splitTable[8] =
-        {
-            iaVector3d(-1.0, -1.0, -1.0),
-            iaVector3d(1.0, -1.0, -1.0),
-            iaVector3d(-1.0, 1.0, -1.0),
-            iaVector3d(1.0, 1.0, -1.0),
-            iaVector3d(-1.0, -1.0, 1.0),
-            iaVector3d(1.0, -1.0, 1.0),
-            iaVector3d(-1.0, 1.0, 1.0),
-            iaVector3d(1.0, 1.0, 1.0)};
+    const iaVector3d iOctree::_splitTable[8] = {iaVector3d(-1.0, -1.0, -1.0),
+                                                iaVector3d(1.0, -1.0, -1.0),
+                                                iaVector3d(-1.0, 1.0, -1.0),
+                                                iaVector3d(1.0, 1.0, -1.0),
+                                                iaVector3d(-1.0, -1.0, 1.0),
+                                                iaVector3d(1.0, -1.0, 1.0),
+                                                iaVector3d(-1.0, 1.0, 1.0),
+                                                iaVector3d(1.0, 1.0, 1.0)};
 
     iOctree::iOctree(const iAACubed &box, float64 halfMinResolution, uint64 objectCountMaxThreashold, uint64 objectCountMinThreashold)
         : _halfMinResolution(halfMinResolution), _objectCountMaxThreashold(objectCountMaxThreashold), _objectCountMinThreashold(objectCountMinThreashold)

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iRECTANGLE__
-#define __iRECTANGLE__
+#ifndef __IGOR_RECTANGLE__
+#define __IGOR_RECTANGLE__
 
 #include <igor/iDefines.h>
 
@@ -35,14 +35,14 @@ namespace igor
 {
 
     /*! 2d rectangle
-    */
+     */
     template <class T>
     class IGOR_API_TEMPLATE iRectangle
     {
 
     public:
         /*! does nothing
-        */
+         */
         iRectangle() = default;
 
         /*! ctor with parameters
@@ -74,44 +74,44 @@ namespace igor
 
         /*! adjust the size of the rectangle
 
-		\param x the horizontal position adjustment
-		\param y the vertical position adjustment
-		\param width the horizontal size adjustment
-		\param height the vertical size adjustment
+        \param x the horizontal position adjustment
+        \param y the vertical position adjustment
+        \param width the horizontal size adjustment
+        \param height the vertical size adjustment
 
-		*/
+        */
         void adjust(T x, T y, T width, T height);
 
         /*! \returns horrizonal position
-        */
+         */
         const T getX() const;
 
         /*! \returns vertical position
-        */
+         */
         const T getY() const;
 
         /*! \returns rectangle width
-        */
+         */
         const T getWidth() const;
 
         /*! \returns rectangle height
-        */
+         */
         const T getHeight() const;
 
         /*! \returns horrizonal position
-        */
+         */
         const T getLeft() const;
 
         /*! \returns horizontal position of right edge
-        */
+         */
         const T getRight() const;
 
         /*! \returns vertical position
-        */
+         */
         const T getTop() const;
 
         /*! \returns vertical position of bottom edge
-        */
+         */
         const T getBottom() const;
 
         /*! sets horrizontal position
@@ -147,11 +147,11 @@ namespace igor
 
         /*! sets all values at once
 
-		\param x the horizontal position
-		\param y the vertical position
-		\param width the horizontal size
-		\param height the vertical size
-		*/
+        \param x the horizontal position
+        \param y the vertical position
+        \param width the horizontal size
+        \param height the vertical size
+        */
         void set(T x, T y, T width, T height);
 
         /*! assignment operator
@@ -162,39 +162,39 @@ namespace igor
         iRectangle<T> operator=(const iRectangle<T> &rectangle);
 
         /*! horrizontal position
-        */
+         */
         T _x = (T)0;
 
         /*! vertical position
-        */
+         */
         T _y = (T)0;
 
         /*! height of rectangle
-        */
+         */
         T _width = (T)0;
 
         /*! height of rectangle
-        */
+         */
         T _height = (T)0;
     };
 
 #include <igor/data/iRectangle.inl>
 
     /*! float32 precision of rectangle
-    */
+     */
     typedef iRectangle<float32> iRectanglef;
 
     /*! float64 precision of rectangle
-    */
+     */
     typedef iRectangle<float64> iRectangled;
 
     /*! int32 precision of rectangle
-    */
+     */
     typedef iRectangle<int32> iRectanglei;
 
     /*! int64 precision of rectangle
-    */
+     */
     typedef iRectangle<int64> iRectangleI;
 }; // namespace igor
 
-#endif
+#endif // __IGOR_RECTANGLE__
