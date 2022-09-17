@@ -29,7 +29,7 @@
 #ifndef __IGOR_ENTITYMANAGER_H__
 #define __IGOR_ENTITYMANAGER_H__
 
-#include <igor/scene/octree/iOctree.h>
+#include <igor/data/octree/iOctree.h>
 #include <igor/resources/module/iModule.h>
 
 #include <map>

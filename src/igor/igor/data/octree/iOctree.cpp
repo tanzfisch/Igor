@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2020 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/scene/octree/iOctree.h>
+#include <igor/data/octree/iOctree.h>
 
 #include <igor/data/iAACube.h>
 #include <igor/graphics/iRenderer.h>

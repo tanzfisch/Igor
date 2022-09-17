@@ -5,7 +5,7 @@
 #include <igor/graphics/iRenderEngine.h>
 
 #include <igor/scene/iScene.h>
-#include <igor/scene/octree/iOctree.h>
+#include <igor/data/octree/iOctree.h>
 #include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/resources/material/iMaterialGroup.h>
 #include <igor/scene/nodes/iNodeRender.h>

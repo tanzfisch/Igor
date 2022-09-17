@@ -7,7 +7,7 @@
 #include <igor/scene/nodes/iNode.h>
 #include <igor/scene/nodes/iNodeModel.h>
 #include <igor/scene/nodes/iNodeManager.h>
-#include <igor/scene/octree/iOctree.h>
+#include <igor/data/octree/iOctree.h>
 #include <igor/scene/nodes/iNodeVolume.h>
 #include <igor/scene/nodes/iNodeLODSwitch.h>
 #include <igor/scene/nodes/iNodeCamera.h>

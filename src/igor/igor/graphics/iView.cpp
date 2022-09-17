@@ -8,7 +8,6 @@
 #include <igor/graphics/iRenderer.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/scene/iScene.h>
-#include <igor/scene/octree/iOctree.h>
 #include <igor/resources/profiler/iProfiler.h>
 
 #include <iaux/math/iaRandomNumberGenerator.h>
