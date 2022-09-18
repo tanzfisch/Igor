@@ -29,11 +29,11 @@
 #ifndef __IGOR_FONT_H__
 #define __IGOR_FONT_H__
 
+#include <igor/resources/texture/iTexture.h>
+
+#include <iaux/data/iaRectangle.h>
 #include <iaux/data/iaString.h>
 using namespace iaux;
-
-#include <igor/data/iRectangle.h>
-#include <igor/resources/texture/iTexture.h>
 
 #include <vector>
 #include <memory>

@@ -29,7 +29,6 @@
 #ifndef __IGOR_RENDERER_H__
 #define __IGOR_RENDERER_H__
 
-#include <igor/data/iRectangle.h>
 #include <igor/resources/texture/iTexture.h>
 #include <igor/data/iAABox.h>
 #include <igor/data/iAACube.h>
@@ -39,6 +38,7 @@
 #include <igor/resources/module/iModule.h>
 #include <igor/resources/mesh/iMeshBuffers.h>
 
+#include <iaux/data/iaRectangle.h>
 #include <iaux/data/iaGradient.h>
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaColor4.h>

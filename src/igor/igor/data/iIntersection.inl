@@ -171,7 +171,7 @@ bool iIntersection::intersects(const iAABox<T> &boxA, const iAABox<T> &boxB)
 }
 
 template <typename T>
-bool iIntersection::intersects(iaVector2<T> point, iRectangle<T> rectangle)
+bool iIntersection::intersects(iaVector2<T> point, iaRectangle<T> rectangle)
 {
     if (point._x < rectangle._x)
     {

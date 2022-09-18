@@ -3,55 +3,55 @@
 // see copyright notice in corresponding header file
 
 template <class T>
-__IGOR_INLINE__ const T iRectangle<T>::getX() const
+__IGOR_INLINE__ const T iaRectangle<T>::getX() const
 {
     return _x;
 }
 
 template <class T>
-__IGOR_INLINE__ const T iRectangle<T>::getY() const
+__IGOR_INLINE__ const T iaRectangle<T>::getY() const
 {
     return _y;
 }
 
 template <class T>
-__IGOR_INLINE__ const T iRectangle<T>::getLeft() const
+__IGOR_INLINE__ const T iaRectangle<T>::getLeft() const
 {
     return _x;
 }
 
 template <class T>
-__IGOR_INLINE__ const T iRectangle<T>::getRight() const
+__IGOR_INLINE__ const T iaRectangle<T>::getRight() const
 {
     return _x + _width;
 }
 
 template <class T>
-__IGOR_INLINE__ const T iRectangle<T>::getTop() const
+__IGOR_INLINE__ const T iaRectangle<T>::getTop() const
 {
     return _y;
 }
 
 template <class T>
-__IGOR_INLINE__ const T iRectangle<T>::getBottom() const
+__IGOR_INLINE__ const T iaRectangle<T>::getBottom() const
 {
     return _y + _height;
 }
 
 template <class T>
-__IGOR_INLINE__ const T iRectangle<T>::getWidth() const
+__IGOR_INLINE__ const T iaRectangle<T>::getWidth() const
 {
     return _width;
 }
 
 template <class T>
-__IGOR_INLINE__ const T iRectangle<T>::getHeight() const
+__IGOR_INLINE__ const T iaRectangle<T>::getHeight() const
 {
     return _height;
 }
 
 template <class T>
-const iaVector2<T> iRectangle<T>::getCenter() const
+const iaVector2<T> iaRectangle<T>::getCenter() const
 {
     iaVector2<T> result;
 
@@ -62,38 +62,38 @@ const iaVector2<T> iRectangle<T>::getCenter() const
 }
 
 template <class T>
-void iRectangle<T>::setX(const T x)
+void iaRectangle<T>::setX(const T x)
 {
     _x = x;
 }
 
 template <class T>
-void iRectangle<T>::setY(const T y)
+void iaRectangle<T>::setY(const T y)
 {
     _y = y;
 }
 
 template <class T>
-void iRectangle<T>::setWidth(const T width)
+void iaRectangle<T>::setWidth(const T width)
 {
     _width = width;
 }
 
 template <class T>
-void iRectangle<T>::setHeight(const T height)
+void iaRectangle<T>::setHeight(const T height)
 {
     _height = height;
 }
 
 template <class T>
-void iRectangle<T>::setSize(T width, T height)
+void iaRectangle<T>::setSize(T width, T height)
 {
     _width = width;
     _height = height;
 }
 
 template <class T>
-void iRectangle<T>::adjust(T x, T y, T width, T height)
+void iaRectangle<T>::adjust(T x, T y, T width, T height)
 {
     _x += x;
     _y += y;
@@ -102,7 +102,7 @@ void iRectangle<T>::adjust(T x, T y, T width, T height)
 }
 
 template <class T>
-void iRectangle<T>::set(T x, T y, T width, T height)
+void iaRectangle<T>::set(T x, T y, T width, T height)
 {
     _x = x;
     _y = y;
@@ -111,9 +111,9 @@ void iRectangle<T>::set(T x, T y, T width, T height)
 }
 
 template <class T>
-iRectangle<T> iRectangle<T>::operator=(const iRectangle<T> &rectangle)
+iaRectangle<T> iaRectangle<T>::operator=(const iaRectangle<T> &rectangle)
 {
-    iRectangle<T> result;
+    iaRectangle<T> result;
     result._x = _x = rectangle._x;
     result._y = _y = rectangle._y;
     result._width = _width = rectangle._width;

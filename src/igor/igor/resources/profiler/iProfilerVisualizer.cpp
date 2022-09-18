@@ -9,8 +9,8 @@
 #include <igor/system/iTimer.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/graphics/iRenderer.h>
-#include <igor/data/iRectangle.h>
 
+#include <iaux/data/iaRectangle.h>
 #include <iaux/data/iaString.h>
 using namespace iaux;
 

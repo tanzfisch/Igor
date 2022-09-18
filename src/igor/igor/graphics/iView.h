@@ -30,9 +30,9 @@
 #define __iVIEW__
 
 #include <igor/iDefines.h>
-#include <igor/data/iRectangle.h>
 #include <igor/graphics/iRenderEngine.h>
 
+#include <iaux/data/iaRectangle.h>
 #include <iaux/data/iaColor4.h>
 #include <iaux/system/iaEvent.h>
 #include <iaux/data/iaString.h>

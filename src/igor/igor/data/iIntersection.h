@@ -29,12 +29,12 @@
 #ifndef __IGOR_INTERSECTION_H__
 #define __IGOR_INTERSECTION_H__
 
-#include <igor/data/iRectangle.h>
 #include <igor/data/iAABox.h>
 #include <igor/data/iFrustum.h>
 #include <igor/data/iAACube.h>
 #include <igor/data/iRay.h>
 
+#include <iaux/data/iaRectangle.h>
 #include <iaux/data/iaSphere.h>
 #include <iaux/math/iaVector2.h>
 #include <iaux/math/iaVector3.h>
@@ -157,7 +157,7 @@ namespace igor
         \returns true if intersecting
         */
         template <typename T>
-        static bool intersects(iaVector2<T> point, iRectangle<T> rectangle);
+        static bool intersects(iaVector2<T> point, iaRectangle<T> rectangle);
 
         /*! intersection test between plane and ray
 

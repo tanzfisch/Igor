@@ -26,24 +26,24 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_RECTANGLE__
-#define __IGOR_RECTANGLE__
+#ifndef __IAUX_RECTANGLE__
+#define __IAUX_RECTANGLE__
 
-#include <igor/iDefines.h>
+#include <iaux/math/iaVector2.h>
 
-namespace igor
+namespace iaux
 {
 
     /*! 2d rectangle
      */
     template <class T>
-    class IGOR_API_TEMPLATE iRectangle
+    class IAUX_API_TEMPLATE iaRectangle
     {
 
     public:
         /*! does nothing
          */
-        iRectangle() = default;
+        iaRectangle() = default;
 
         /*! ctor with parameters
 
@@ -52,7 +52,7 @@ namespace igor
         \param width width
         \param height height
         */
-        iRectangle(T x, T y, T width = 0, T height = 0)
+        iaRectangle(T x, T y, T width = 0, T height = 0)
         {
             _x = x;
             _y = y;
@@ -64,7 +64,7 @@ namespace igor
 
         \param rect the rectangle to copy
         */
-        iRectangle(const iRectangle<T> &rect)
+        iaRectangle(const iaRectangle<T> &rect)
         {
             _x = rect._x;
             _y = rect._y;
@@ -163,7 +163,7 @@ namespace igor
         \param rectangle the rectangle to assign
         \returns resulting rectangle
         */
-        iRectangle<T> operator=(const iRectangle<T> &rectangle);
+        iaRectangle<T> operator=(const iaRectangle<T> &rectangle);
 
         /*! horrizontal position
          */
@@ -182,23 +182,23 @@ namespace igor
         T _height = (T)0;
     };
 
-#include <igor/data/iRectangle.inl>
+#include <iaux/data/iaRectangle.inl>
 
     /*! float32 precision of rectangle
      */
-    typedef iRectangle<float32> iRectanglef;
+    typedef iaRectangle<float32> iRectanglef;
 
     /*! float64 precision of rectangle
      */
-    typedef iRectangle<float64> iRectangled;
+    typedef iaRectangle<float64> iRectangled;
 
     /*! int32 precision of rectangle
      */
-    typedef iRectangle<int32> iRectanglei;
+    typedef iaRectangle<int32> iRectanglei;
 
     /*! int64 precision of rectangle
      */
-    typedef iRectangle<int64> iRectangleI;
+    typedef iaRectangle<int64> iRectangleI;
 }; // namespace igor
 
-#endif // __IGOR_RECTANGLE__
+#endif // __IAUX_RECTANGLE__

@@ -29,8 +29,9 @@
 #ifndef __IGOR_QUADTREE__
 #define __IGOR_QUADTREE__
 
-#include <igor/data/iRectangle.h>
-#include <iaux/math/iaVector2.h>
+#include <igor/iDefines.h>
+
+#include <iaux/data/iaRectangle.h>
 
 #include <memory>
 

@@ -41,7 +41,6 @@
 #include <igor/data/iJoint.h>
 #include <igor/data/iPlane.h>
 #include <igor/data/iRay.h>
-#include <igor/data/iRectangle.h>
 #include <igor/data/iSkeleton.h>
 
 #include <igor/entities/iEntityComponentSystem.h>
@@ -163,6 +162,7 @@
 #include <iaux/data/iaGradient.h>
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaSphere.h>
+#include <iaux/data/iaRectangle.h>
 
 #include <iaux/math/iaBSpline.h>
 #include <iaux/math/iaMatrix.h>
