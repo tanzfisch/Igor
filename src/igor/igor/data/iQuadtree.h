@@ -38,6 +38,32 @@
 namespace igor
 {
 
+    struct iQuadtreeUserDataSet
+    {
+        iQuadtreeUserDataSet(const iaVector2d &pos, iUserData userData)
+            : _pos(pos), _userData(userData) {}
+
+        iaVector2d _pos;
+        iUserData _userData;
+    };
+
+    /*! node defintion
+     */
+    struct iQuadtreeNode
+    {
+        /*! node box
+         */
+        iRectangled _box;
+
+        /*! children of node
+         */
+        std::unique_ptr<iQuadtreeNode> _children[4];
+
+        /*! user data
+         */
+        std::vector<iQuadtreeUserDataSet> _userData;
+    };
+
     /*! quadtree implementation
      */
     class IGOR_API iQuadtree
@@ -75,35 +101,9 @@ namespace igor
         // void update(iUserData userData, const iaVector2d &pos);
 
     private:
-        struct UserDataSet
-        {
-            UserDataSet(const iaVector2d &pos, iUserData userData)
-                : _pos(pos), _userData(userData) {}
-
-            iaVector2d _pos;
-            iUserData _userData;
-        };
-
-        /*! node defintion
-         */
-        struct Node
-        {
-            /*! node box
-             */
-            iRectangled _box;
-
-            /*! children of node
-             */
-            std::unique_ptr<Node> _children[4];
-
-            /*! user data
-             */
-            std::vector<UserDataSet> _userData;
-        };
-
         /*! root node
          */
-        std::unique_ptr<Node> _root;
+        std::unique_ptr<iQuadtreeNode> _root;
 
         /*! recursive insert new data implementation
 
@@ -111,13 +111,13 @@ namespace igor
         \param userData the user data
         \param pos the given position
         */
-        void insertInternal(const std::unique_ptr<Node> &node, iUserData userData, const iaVector2d &pos);
+        void insertInternal(const std::unique_ptr<iQuadtreeNode> &node, iUserData userData, const iaVector2d &pos);
 
         /*! split given node
 
         \param node the node to split
         */
-        void split(const std::unique_ptr<Node> &node);
+        void split(const std::unique_ptr<iQuadtreeNode> &node);
     };
 
     /*! Quadtree pointer definition
