@@ -3,14 +3,14 @@
 // see copyright notice in corresponding header file
 
 template <class T>
-iSphere<T>::iSphere(iaVector3<T> pos, T radius)
+iaSphere<T>::iaSphere(iaVector3<T> pos, T radius)
 {
 	_center = pos;
 	_radius = radius;
 }
 
 template <class T>
-bool iSphere<T>::contains(const iSphere<T>& sphere)
+bool iaSphere<T>::contains(const iaSphere<T>& sphere)
 {
     iaVector3<T> diff = sphere._center - _center;
     T distance = diff.length();
@@ -26,19 +26,19 @@ bool iSphere<T>::contains(const iSphere<T>& sphere)
 }
 
 template <class T>
-bool iSphere<T>::operator == (const iSphere<T> &sphere) const
+bool iaSphere<T>::operator == (const iaSphere<T> &sphere) const
 {
     return ((_center == sphere._center) && (_radius == sphere._radius)) ? true : false;
 }
 
 template <class T>
-bool iSphere<T>::operator != (const iSphere<T> &sphere) const
+bool iaSphere<T>::operator != (const iaSphere<T> &sphere) const
 {
     return ((_center != sphere._center) || (_radius != sphere._radius)) ? true : false;
 }
 
 template <class T>
-void iSphere<T>::merge(iSphere<T> &sphere)
+void iaSphere<T>::merge(iaSphere<T> &sphere)
 {
     if (contains(sphere))
     {

@@ -30,8 +30,8 @@
 #define __iENTITYLOCATABLE__
 
 #include <igor/entities/iEntity.h>
-#include <igor/data/iSphere.h>
 
+#include <iaux/data/iaSphere.h>
 #include <iaux/math/iaVector3.h>
 using namespace iaux;
 

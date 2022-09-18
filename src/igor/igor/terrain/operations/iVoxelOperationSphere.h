@@ -30,7 +30,8 @@
 #define __iVOXELOPERATIONSPHERE__
 
 #include <igor/terrain/operations/iVoxelOperation.h>
-#include <igor/data/iSphere.h>
+
+#include <iaux/data/iaSphere.h>
 
 namespace igor
 {

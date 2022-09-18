@@ -31,7 +31,8 @@
 
 #include <igor/scene/traversal/iNodeVisitor.h>
 #include <igor/iDefines.h>
-#include <igor/data/iSphere.h>
+
+#include <iaux/data/iaSphere.h>
 
 namespace igor
 {

@@ -31,11 +31,11 @@
 
 #include <igor/data/iRectangle.h>
 #include <igor/data/iAABox.h>
-#include <igor/data/iSphere.h>
 #include <igor/data/iFrustum.h>
 #include <igor/data/iAACube.h>
 #include <igor/data/iRay.h>
 
+#include <iaux/data/iaSphere.h>
 #include <iaux/math/iaVector2.h>
 #include <iaux/math/iaVector3.h>
 using namespace iaux;
@@ -58,7 +58,7 @@ namespace igor
         \returns true if spheres collide
         */
         template <typename T>
-        static bool intersects(const iSphere<T> &sphereA, const iSphere<T> &sphereB);
+        static bool intersects(const iaSphere<T> &sphereA, const iaSphere<T> &sphereB);
 
         /*! containment test sphere in spehre
 
@@ -67,7 +67,7 @@ namespace igor
         \returns true if ?
         */
         template <typename T>
-        static bool contains(const iSphere<T> &sphereA, const iSphere<T> &sphereB);
+        static bool contains(const iaSphere<T> &sphereA, const iaSphere<T> &sphereB);
 
         /*! tests if sphere is in front of plane
         
@@ -76,7 +76,7 @@ namespace igor
         \returns true if sphere is partially or fully in front of plane
         */
         template <typename T>
-        static bool inFrontOf(const iSphere<T> &sphere, const iPlane<T> &plane);
+        static bool inFrontOf(const iaSphere<T> &sphere, const iPlane<T> &plane);
 
         /*! tests if sphere intersects with frustum
 
@@ -85,7 +85,7 @@ namespace igor
         \returns true if sphere intersects with frustum
         */
         template <typename T>
-        static bool intersects(const iSphere<T> &sphere, const iFrustum<T> &frustum);
+        static bool intersects(const iaSphere<T> &sphere, const iFrustum<T> &frustum);
 
         /*! tests if cube is in front of a plane
 
@@ -103,7 +103,7 @@ namespace igor
         \returns true if cube and sphere intersecting
         */
         template <typename T>
-        static bool intersects(const iAACube<T> &cube, const iSphere<T> &sphere);
+        static bool intersects(const iAACube<T> &cube, const iaSphere<T> &sphere);
 
         /*! tests if a cube intersects with a frustum
 

@@ -3,7 +3,7 @@
 // see copyright notice in corresponding header file
 
 template <typename T>
-bool iIntersection::intersects(const iSphere<T> &sphereA, const iSphere<T> &sphereB)
+bool iIntersection::intersects(const iaSphere<T> &sphereA, const iaSphere<T> &sphereB)
 {
     T distance = sphereB._center.distance(sphereA._center);
     distance -= sphereA._radius;
@@ -12,21 +12,21 @@ bool iIntersection::intersects(const iSphere<T> &sphereA, const iSphere<T> &sphe
 }
 
 template <typename T>
-bool iIntersection::contains(const iSphere<T> &sphereA, const iSphere<T> &sphereB)
+bool iIntersection::contains(const iaSphere<T> &sphereA, const iaSphere<T> &sphereB)
 {
     const T distance = sphereB._center.distance(sphereA._center) + sphereB._radius;
     return distance <= sphereA._radius;
 }
 
 template <typename T>
-bool iIntersection::inFrontOf(const iSphere<T> &sphere, const iPlane<T> &plane)
+bool iIntersection::inFrontOf(const iaSphere<T> &sphere, const iPlane<T> &plane)
 {
     const T distancePlanePoint = (plane._normal * sphere._center) - plane._distance;
     return distancePlanePoint > -sphere._radius;
 }
 
 template <typename T>
-bool iIntersection::intersects(const iSphere<T> &sphere, const iFrustum<T> &frustum)
+bool iIntersection::intersects(const iaSphere<T> &sphere, const iFrustum<T> &frustum)
 {
     if (!inFrontOf(sphere, frustum._nearPlane))
     {
@@ -64,7 +64,7 @@ bool iIntersection::inFrontOf(const iAACube<T> &cube, const iPlane<T> &plane)
 }
 
 template <typename T>
-bool iIntersection::intersects(const iAACube<T> &cube, const iSphere<T> &sphere)
+bool iIntersection::intersects(const iAACube<T> &cube, const iaSphere<T> &sphere)
 {
     T maxDistance = cube._halfEdgeLength + sphere._radius;
 

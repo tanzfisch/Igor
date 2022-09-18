@@ -30,9 +30,10 @@
 #define __IGOR_OCTREE_H__
 
 #include <igor/data/iAACube.h>
-#include <igor/data/iSphere.h>
 #include <igor/data/iFrustum.h>
 #include <igor/resources/material/iMaterial.h>
+
+#include <iaux/data/iaSphere.h>
 
 #include <memory>
 #include <list>
