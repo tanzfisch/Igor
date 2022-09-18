@@ -42,6 +42,7 @@
 #include <igor/data/iPlane.h>
 #include <igor/data/iRay.h>
 #include <igor/data/iSkeleton.h>
+#include <igor/data/iQuadtree.h>
 
 #include <igor/entities/iEntityComponentSystem.h>
 

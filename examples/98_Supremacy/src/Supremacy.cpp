@@ -5,7 +5,7 @@
 #include "Supremacy.h"
 
 Supremacy::Supremacy(iWindow *window)
-    : iLayer(window, L"Supremacy"), _viewOrtho(iView(false))
+    : iLayer(window, L"Supremacy"), _viewOrtho(iView(false)), _quadtree(iRectangled(0, 0, 1000, 1000))
 {
 }
 
@@ -101,6 +101,31 @@ void Supremacy::onEvent(iEvent &event)
     event.dispatch<iEventKeyUp>(IGOR_BIND_EVENT_FUNCTION(Supremacy::onKeyUp));
 }
 
+static void renderTree(const std::unique_ptr<iQuadtreeNode> &node)
+{
+    if (node == nullptr)
+    {
+        return;
+    }
+
+    iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
+    iRenderer::getInstance().drawLine(node->_box._x, node->_box._y, node->_box._x + node->_box._width, node->_box._y);
+    iRenderer::getInstance().drawLine(node->_box._x, node->_box._y + node->_box._height, node->_box._x + node->_box._width, node->_box._y + node->_box._height);
+    iRenderer::getInstance().drawLine(node->_box._x, node->_box._y, node->_box._x, node->_box._y + node->_box._height);
+    iRenderer::getInstance().drawLine(node->_box._x + node->_box._width, node->_box._y, node->_box._x + node->_box._width, node->_box._y + node->_box._height);
+
+    for (const auto &data : node->_userData)
+    {
+        iRenderer::getInstance().setColor(1.0, 1.0, 0.0, 1.0);
+        iRenderer::getInstance().drawRectangle(data._pos._x - 5.0, data._pos._y- 5.0, 10, 10);
+    }
+
+    for (const auto &node : node->_children)
+    {
+        renderTree(node);
+    }
+}
+
 void Supremacy::onRenderOrtho()
 {
     iaMatrixd matrix;
@@ -109,8 +134,11 @@ void Supremacy::onRenderOrtho()
     iRenderer::getInstance().setModelMatrix(matrix);
 
     // draw entities
-    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-    _ecs.updateSystems(_renderSystems);
+ //   iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
+   // _ecs.updateSystems(_renderSystems);
+
+    iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getDefaultMaterial());
+    renderTree(_quadtree.getRoot());
 }
 
 bool Supremacy::onKeyDown(iEventKeyDown &event)
@@ -140,6 +168,7 @@ bool Supremacy::onKeyDown(iEventKeyDown &event)
         return true;
 
     case iKeyCode::I:
+        _quadtree.insert(nullptr, iaVector2d(_rand.getNextFloat() * 1000.0, _rand.getNextFloat() * 1000.0));
         return true;
 
     case iKeyCode::J:

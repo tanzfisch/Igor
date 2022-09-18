@@ -84,6 +84,8 @@ private:
     */
     iTaskID _taskFlushTextures = iTask::INVALID_TASK_ID;    
 
+    iQuadtree _quadtree;
+
     /*! called when added to layer stack
      */
     void onInit() override;

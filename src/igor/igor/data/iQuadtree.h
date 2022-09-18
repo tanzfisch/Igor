@@ -93,12 +93,9 @@ namespace igor
         */
         void remove(iUserData userData);
 
-        /*! update user data position
-
-        \param userData pointer to user data
-        \param pos the new position
+        /*! \returns root of tree
         */
-        // void update(iUserData userData, const iaVector2d &pos);
+        const std::unique_ptr<iQuadtreeNode>& getRoot() const;
 
     private:
         /*! root node

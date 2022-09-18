@@ -11,7 +11,7 @@ int main(void)
 
 	// create window and open it
 	iWindow *window = igor::iApplication::getInstance().createWindow();
-	window->setClientSize(1024, 768);
+	window->setClientSize(1000, 1000);
 	window->setCentered();
 	window->open();
 

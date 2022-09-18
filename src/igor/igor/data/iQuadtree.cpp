@@ -101,8 +101,9 @@ namespace igor
         insertInternal(node, userData, pos);
     }
 
-    void iQuadtree::remove(iUserData userData)
+    const std::unique_ptr<iQuadtreeNode>& iQuadtree::getRoot() const
     {
+        return _root;
     }
 
 } // namespace igor
