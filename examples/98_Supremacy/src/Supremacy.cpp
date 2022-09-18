@@ -117,7 +117,7 @@ static void renderTree(const std::unique_ptr<iQuadtreeNode> &node)
     for (const auto &data : node->_userData)
     {
         iRenderer::getInstance().setColor(1.0, 1.0, 0.0, 1.0);
-        iRenderer::getInstance().drawRectangle(data._pos._x - 5.0, data._pos._y- 5.0, 10, 10);
+        iRenderer::getInstance().drawRectangle(data._pos._x - 5.0, data._pos._y - 5.0, 10, 10);
     }
 
     for (const auto &node : node->_children)
@@ -134,8 +134,8 @@ void Supremacy::onRenderOrtho()
     iRenderer::getInstance().setModelMatrix(matrix);
 
     // draw entities
- //   iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-   // _ecs.updateSystems(_renderSystems);
+    //   iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
+    // _ecs.updateSystems(_renderSystems);
 
     iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getDefaultMaterial());
     renderTree(_quadtree.getRoot());
@@ -168,7 +168,12 @@ bool Supremacy::onKeyDown(iEventKeyDown &event)
         return true;
 
     case iKeyCode::I:
-        _quadtree.insert(nullptr, iaVector2d(_rand.getNextFloat() * 1000.0, _rand.getNextFloat() * 1000.0));
+        iaVector2d pos(_rand.getNextFloat() - 0.5, _rand.getNextFloat() - 0.5);
+        pos.normalize();
+        pos *= 400.0 * _rand.getNextFloat();
+        pos._x += 500.0;
+        pos._y += 500.0;
+        _quadtree.insert(nullptr, pos);
         return true;
 
     case iKeyCode::J:

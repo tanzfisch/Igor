@@ -87,6 +87,7 @@ namespace igor
             }
 
             insertInternal(node->_children[childIndex], userData, pos);
+            return;
         }
 
         // we reached a leaf node. insert data
