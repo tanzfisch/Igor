@@ -1248,6 +1248,18 @@ namespace igor
 
     void iRenderer::drawRectangle(float32 x, float32 y, float32 width, float32 height)
     {
+        glBegin(GL_LINE_STRIP);
+        glVertex2f(x,y);
+        glVertex2f(x,y + height);
+        glVertex2f(x + width,y + height);
+        glVertex2f(x + width,y);
+        glVertex2f(x,y);
+        glEnd();
+        GL_CHECK_ERROR();
+    }    
+
+    void iRenderer::drawFilledRectangle(float32 x, float32 y, float32 width, float32 height)
+    {
         glBegin(GL_QUADS);
         glVertex2f(x, y);
         glVertex2f(x, y + height);
@@ -1255,8 +1267,6 @@ namespace igor
         glVertex2f(x + width, y);
         glEnd();
         GL_CHECK_ERROR();
-
-        glFlush();
     }
 
     void iRenderer::drawTextureTiled(float32 x, float32 y, float32 width, float32 height, iTexturePtr texture)

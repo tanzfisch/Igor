@@ -149,7 +149,7 @@ namespace igor
 
     void iWidgetDefaultTheme::drawRectangleInt(const iRectanglei &rect)
     {
-        iRenderer::getInstance().drawRectangle(static_cast<float32>(rect._x), static_cast<float32>(rect._y),
+        iRenderer::getInstance().drawFilledRectangle(static_cast<float32>(rect._x), static_cast<float32>(rect._y),
                                                static_cast<float32>(rect._width), static_cast<float32>(rect._height));
     }
 
@@ -399,7 +399,7 @@ namespace igor
             relativeTextPosX += scrollOffset;
 
             iRenderer::getInstance().setColor(COLOR_TEXT_DARK);
-            iRenderer::getInstance().drawRectangle(rect._x + relativeTextPosX + cursorPos, rect._y + relatoveTextPosY, 2, _fontSize);
+            iRenderer::getInstance().drawFilledRectangle(rect._x + relativeTextPosX + cursorPos, rect._y + relatoveTextPosY, 2, _fontSize);
         }
 
         // render text

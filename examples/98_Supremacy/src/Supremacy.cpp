@@ -29,6 +29,8 @@ void Supremacy::onInit()
     material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
     material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
+    _plainMaterial = iMaterialResourceFactory::getInstance().createMaterial("PlainMaterial");
+
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(getWindow()));
 
     // game logic timer
@@ -109,15 +111,12 @@ static void renderTree(const std::unique_ptr<iQuadtreeNode> &node)
     }
 
     iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
-    iRenderer::getInstance().drawLine(node->_box._x, node->_box._y, node->_box._x + node->_box._width, node->_box._y);
-    iRenderer::getInstance().drawLine(node->_box._x, node->_box._y + node->_box._height, node->_box._x + node->_box._width, node->_box._y + node->_box._height);
-    iRenderer::getInstance().drawLine(node->_box._x, node->_box._y, node->_box._x, node->_box._y + node->_box._height);
-    iRenderer::getInstance().drawLine(node->_box._x + node->_box._width, node->_box._y, node->_box._x + node->_box._width, node->_box._y + node->_box._height);
+    iRenderer::getInstance().drawRectangle(node->_box._x, node->_box._y, node->_box._width, node->_box._height);
 
     for (const auto &data : node->_userData)
     {
         iRenderer::getInstance().setColor(1.0, 1.0, 0.0, 1.0);
-        iRenderer::getInstance().drawRectangle(data._pos._x - 5.0, data._pos._y - 5.0, 10, 10);
+        iRenderer::getInstance().drawFilledRectangle(data._pos._x - 5.0, data._pos._y - 5.0, 10, 10);
     }
 
     for (const auto &node : node->_children)
@@ -134,10 +133,10 @@ void Supremacy::onRenderOrtho()
     iRenderer::getInstance().setModelMatrix(matrix);
 
     // draw entities
-    //   iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-    // _ecs.updateSystems(_renderSystems);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
+    _ecs.updateSystems(_renderSystems);
 
-    iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getDefaultMaterial());
+    iRenderer::getInstance().setMaterial(_plainMaterial);
     renderTree(_quadtree.getRoot());
 }
 
@@ -168,6 +167,7 @@ bool Supremacy::onKeyDown(iEventKeyDown &event)
         return true;
 
     case iKeyCode::I:
+    {
         iaVector2d pos(_rand.getNextFloat() - 0.5, _rand.getNextFloat() - 0.5);
         pos.normalize();
         pos *= 400.0 * _rand.getNextFloat();
@@ -175,7 +175,7 @@ bool Supremacy::onKeyDown(iEventKeyDown &event)
         pos._y += 500.0;
         _quadtree.insert(nullptr, pos);
         return true;
-
+    }
     case iKeyCode::J:
         return true;
 

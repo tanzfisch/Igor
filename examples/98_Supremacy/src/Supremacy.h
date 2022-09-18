@@ -50,6 +50,10 @@ private:
     */
     uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
 
+    /*! plain material for rendering primitives
+    */
+    uint64 _plainMaterial = iMaterial::INVALID_MATERIAL_ID;
+
     /*! entity component system
      */
     iEntityComponentSystem _ecs;

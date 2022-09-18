@@ -254,11 +254,11 @@ namespace igor
 
             iRenderer::getInstance().setMaterial(_materialBlend);
             iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 0.6));
-            iRenderer::getInstance().drawRectangle(rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight() + 60.0f);
+            iRenderer::getInstance().drawFilledRectangle(rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight() + 60.0f);
 
             iRenderer::getInstance().setMaterial(_materialSolid);
             iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-            iRenderer::getInstance().drawRectangle(rect.getLeft(), rect.getBottom() + 30, rect.getWidth(), 30.0f);
+            iRenderer::getInstance().drawFilledRectangle(rect.getLeft(), rect.getBottom() + 30, rect.getWidth(), 30.0f);
 
             iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
             iRenderer::getInstance().setLineWidth(1);
@@ -318,7 +318,7 @@ namespace igor
                 }
 
                 iRenderer::getInstance().setMaterial(_materialSolid);
-                iRenderer::getInstance().drawRectangle(rect.getLeft() + leftValue, rect.getBottom() + 30, rightValue - leftValue, 30.0f);
+                iRenderer::getInstance().drawFilledRectangle(rect.getLeft() + leftValue, rect.getBottom() + 30, rightValue - leftValue, 30.0f);
 
                 leftValue = rightValue;
 

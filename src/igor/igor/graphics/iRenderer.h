@@ -495,7 +495,7 @@ namespace igor
         */
         void drawLine(float32 x1, float32 y1, float32 x2, float32 y2);
 
-        /*! draw a filled rectangle.
+        /*! draw a rectangle.
 
         \param x horizontal position
         \param y vertical position
@@ -503,6 +503,15 @@ namespace igor
         \param height height of the rectangle
         */
         void drawRectangle(float32 x, float32 y, float32 width, float32 height);
+
+        /*! draw a filled rectangle.
+
+        \param x horizontal position
+        \param y vertical position
+        \param width width of the rectangle
+        \param height height of the rectangle
+        */
+        void drawFilledRectangle(float32 x, float32 y, float32 width, float32 height);
 
         /*! draw a filled rectangle with texture.
 
