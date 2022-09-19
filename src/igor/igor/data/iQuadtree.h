@@ -39,6 +39,9 @@
 namespace igor
 {
 
+    struct iQuadtreeNode;
+    typedef std::shared_ptr<iQuadtreeNode> iQuadtreeNodePtr;
+
     /*! user data base class
     */
     struct iQuadtreeUserData
@@ -55,6 +58,10 @@ namespace igor
         }
 
         iaCircled _circle;
+
+        /*! parent node
+        */
+        iQuadtreeNodePtr _parent;
     };
 
     /*! user data pointer definition
@@ -65,13 +72,17 @@ namespace igor
      */
     struct iQuadtreeNode
     {
-        /*! node box
-         */
-        iaRectangled _box;
+        /*! parent node
+        */
+        iQuadtreeNodePtr _parent;
 
         /*! children of node
          */
-        std::shared_ptr<iQuadtreeNode> _children[4];
+        iQuadtreeNodePtr _children[4];
+
+        /*! node box
+         */
+        iaRectangled _box;
 
         /*! user data
          */
@@ -114,7 +125,7 @@ namespace igor
 
         /*! \returns root of tree
          */
-        const std::shared_ptr<iQuadtreeNode> &getRoot() const;
+        const iQuadtreeNodePtr &getRoot() const;
 
         /*! clears the tree
         */
@@ -123,41 +134,39 @@ namespace igor
     private:
         /*! root node
          */
-        std::shared_ptr<iQuadtreeNode> _root;
+        iQuadtreeNodePtr _root;
 
         /*! recursive insert new data implementation
 
         \param node the current node
         \param userData the user data
         */
-        void insertInternal(const std::shared_ptr<iQuadtreeNode> &node, const iQuadtreeUserDataPtr userData);
+        void insertInternal(const iQuadtreeNodePtr &node, const iQuadtreeUserDataPtr userData);
 
         /*! removes user data
 
         \param node the current node
         \param userData the user data to remove
         */
-        bool removeInternal(const std::shared_ptr<iQuadtreeNode> &node, const iQuadtreeUserDataPtr userData);
+        bool removeInternal(const iQuadtreeNodePtr &node, const iQuadtreeUserDataPtr userData);
 
         /*! split given node
 
         \param node the node to split
         */
-        void split(const std::shared_ptr<iQuadtreeNode> &node);
+        void split(const iQuadtreeNodePtr &node);
 
         /*! try to merge given node
 
         \param node the given node
         */
-        bool tryMerge(const std::shared_ptr<iQuadtreeNode> &node);
+        bool tryMerge(const iQuadtreeNodePtr &node);
 
         /*! \returns true if node has no children
 
         \param node the node to test
         */
-        bool isLeaf(const std::shared_ptr<iQuadtreeNode> &node) const;
-
-        void getNodePath(std::vector<std::shared_ptr<iQuadtreeNode>> &path, const iaVector2d &pos);
+        bool isLeaf(const iQuadtreeNodePtr &node) const;
     };
 
     /*! Quadtree pointer definition

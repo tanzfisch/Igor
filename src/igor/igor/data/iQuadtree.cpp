@@ -15,7 +15,7 @@ namespace igor
 
     iQuadtree::iQuadtree(const iaRectangled &box)
     {
-        _root = std::shared_ptr<iQuadtreeNode>(new iQuadtreeNode());
+        _root = iQuadtreeNodePtr(new iQuadtreeNode());
         _root->_box = box;
     }
 
@@ -25,49 +25,25 @@ namespace igor
 
     void iQuadtree::update(const iQuadtreeUserDataPtr userData, const iaVector2d &newPosition)
     {
-        std::vector<std::shared_ptr<iQuadtreeNode>> srcPath;
-        srcPath.push_back(_root);
-        getNodePath(srcPath, userData->_circle.getCenter());
-
-        if (iIntersection::intersects(newPosition, srcPath.back()->_box))
+        if (iIntersection::intersects(newPosition, userData->_parent->_box))
         {
             userData->_circle._center = newPosition;
         }
         else
         {
-            removeInternal(_root, userData);
+            remove(userData);
             userData->_circle._center = newPosition;
             insertInternal(_root, userData);
         }
     }
 
-    void iQuadtree::getNodePath(std::vector<std::shared_ptr<iQuadtreeNode>> &path, const iaVector2d &pos)
-    {
-        const std::shared_ptr<iQuadtreeNode> &node = path.back();
-
-        if (!isLeaf(node))
-        {
-            uint32 childIndex = 0;
-            const iaRectangled &nodeBox = node->_box;
-            const iaVector2d center = nodeBox.getCenter();
-
-            if (pos._x > center._x)
-            {
-                childIndex |= 1;
-            }
-
-            if (pos._y > center._y)
-            {
-                childIndex |= 2;
-            }
-
-            path.push_back(node->_children[childIndex]);
-            getNodePath(path, pos);
-        }
-    }
-
     void iQuadtree::insert(const iQuadtreeUserDataPtr userData)
     {
+        if (userData->_parent != nullptr)
+        {
+            return;
+        }
+
         if (!iIntersection::intersects(userData->getCircle().getCenter(), _root->_box))
         {
             con_err("position out of bounds ");
@@ -77,22 +53,26 @@ namespace igor
         insertInternal(_root, userData);
     }
 
-    void iQuadtree::split(const std::shared_ptr<iQuadtreeNode> &node)
+    void iQuadtree::split(const iQuadtreeNodePtr &node)
     {
         const iaRectangled &nodeBox = node->_box;
         const iaVector2d center = nodeBox.getCenter();
 
-        node->_children[0] = std::shared_ptr<iQuadtreeNode>(new iQuadtreeNode());
+        node->_children[0] = iQuadtreeNodePtr(new iQuadtreeNode());
         node->_children[0]->_box = iaRectangled(nodeBox._x, nodeBox._y, nodeBox._width * 0.5, nodeBox._height * 0.5);
+        node->_children[0]->_parent = node;
 
-        node->_children[1] = std::shared_ptr<iQuadtreeNode>(new iQuadtreeNode());
+        node->_children[1] = iQuadtreeNodePtr(new iQuadtreeNode());
         node->_children[1]->_box = iaRectangled(nodeBox._x + nodeBox._width * 0.5, nodeBox._y, nodeBox._width * 0.5, nodeBox._height * 0.5);
+        node->_children[1]->_parent = node;
 
-        node->_children[2] = std::shared_ptr<iQuadtreeNode>(new iQuadtreeNode());
+        node->_children[2] = iQuadtreeNodePtr(new iQuadtreeNode());
         node->_children[2]->_box = iaRectangled(nodeBox._x, nodeBox._y + nodeBox._height * 0.5, nodeBox._width * 0.5, nodeBox._height * 0.5);
+        node->_children[2]->_parent = node;
 
-        node->_children[3] = std::shared_ptr<iQuadtreeNode>(new iQuadtreeNode());
+        node->_children[3] = iQuadtreeNodePtr(new iQuadtreeNode());
         node->_children[3]->_box = iaRectangled(nodeBox._x + nodeBox._width * 0.5, nodeBox._y + nodeBox._height * 0.5, nodeBox._width * 0.5, nodeBox._height * 0.5);
+        node->_children[3]->_parent = node;
 
         for (const iQuadtreeUserDataPtr userData : node->_userData)
         {
@@ -109,12 +89,13 @@ namespace igor
             }
 
             node->_children[childIndex]->_userData.push_back(userData);
+            userData->_parent = node->_children[childIndex];
         }
 
         node->_userData.clear();
     }
 
-    void iQuadtree::insertInternal(const std::shared_ptr<iQuadtreeNode> &node, const iQuadtreeUserDataPtr userData)
+    void iQuadtree::insertInternal(const iQuadtreeNodePtr &node, const iQuadtreeUserDataPtr userData)
     {
         // check if node has children and follow that branch
         if (!isLeaf(node))
@@ -143,6 +124,7 @@ namespace igor
         if (node->_userData.size() < maxUserDataPerNode)
         {
             node->_userData.push_back(userData);
+            userData->_parent = std::move(node);
             return;
         }
 
@@ -151,60 +133,42 @@ namespace igor
         insertInternal(node, userData);
     }
 
-    const std::shared_ptr<iQuadtreeNode> &iQuadtree::getRoot() const
+    const iQuadtreeNodePtr &iQuadtree::getRoot() const
     {
         return _root;
     }
 
     void iQuadtree::remove(const iQuadtreeUserDataPtr userData)
     {
-        removeInternal(_root, userData);
+        iQuadtreeNodePtr parent = userData->_parent;
+
+        auto iter = std::find(parent->_userData.begin(), parent->_userData.end(), userData);
+        if (iter != parent->_userData.end())
+        {
+            (*iter)->_parent = nullptr;
+            parent->_userData.erase(iter);
+        }
+
+        bool merged = true;
+        while(merged && parent)
+        {
+            merged = tryMerge(parent);
+            parent = parent->_parent;
+        }
     }
 
-    bool iQuadtree::isLeaf(const std::shared_ptr<iQuadtreeNode> &node) const
+    bool iQuadtree::isLeaf(const iQuadtreeNodePtr &node) const
     {
         return node->_children[0] == nullptr;
     }
 
-    bool iQuadtree::removeInternal(const std::shared_ptr<iQuadtreeNode> &node, const iQuadtreeUserDataPtr userData)
+    bool iQuadtree::tryMerge(const iQuadtreeNodePtr &node)
     {
-        if (isLeaf(node))
+        if(isLeaf(node))
         {
-            auto iter = std::find(node->_userData.begin(), node->_userData.end(), userData);
-            if (iter != node->_userData.end())
-            {
-                node->_userData.erase(iter);
-            }
-            return true;
+            return;
         }
-        else
-        {
-            uint32 childIndex = 0;
-            const iaRectangled &nodeBox = node->_box;
-            const iaVector2d center = nodeBox.getCenter();
-            const iaVector2d &pos = userData->getCircle().getCenter();
 
-            if (pos._x > center._x)
-            {
-                childIndex |= 1;
-            }
-
-            if (pos._y > center._y)
-            {
-                childIndex |= 2;
-            }
-
-            if (removeInternal(node->_children[childIndex], userData))
-            {
-                return tryMerge(node);
-            }
-
-            return false;
-        }
-    }
-
-    bool iQuadtree::tryMerge(const std::shared_ptr<iQuadtreeNode> &node)
-    {
         for (int i = 0; i < 4; ++i)
         {
             if (!isLeaf(node->_children[i]))
@@ -220,6 +184,7 @@ namespace igor
 
         for (int i = 0; i < 4; ++i)
         {
+            node->_children[i]->_parent = nullptr;
             node->_children[i] = nullptr;
         }
 
@@ -229,7 +194,7 @@ namespace igor
     void iQuadtree::clear()
     {
         const iaRectangled box = _root->_box;
-        _root = std::shared_ptr<iQuadtreeNode>(new iQuadtreeNode());
+        _root = iQuadtreeNodePtr(new iQuadtreeNode());
         _root->_box = box;
     }
 

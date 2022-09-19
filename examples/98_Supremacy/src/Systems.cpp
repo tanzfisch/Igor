@@ -39,10 +39,8 @@ void PawnSystem::updateComponents(iBaseComponent **components)
             vel->_direction._y += 1.0;
         }
     }
-    else
-    {
-        // TODO how to find other party?
-    }
+    
+    // TODO how to find other party?
 
     if (health->_health > 0.0)
     {

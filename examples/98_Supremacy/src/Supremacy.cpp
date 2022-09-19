@@ -38,10 +38,6 @@ void Supremacy::onInit()
 
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(getWindow()));
 
-    // game logic timer
-    _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &Supremacy::onUpdate), iaTime::fromMilliseconds(10));
-    _updateTimerHandle->start();
-
     _rand.setSeed(1337);
 
     // setup ECS
@@ -55,16 +51,17 @@ void Supremacy::onInit()
     VisualComponent visual;
 
     // create some enemies
-    for (int i = 0; i < 1000; ++i)
+    for (int i = 0; i < 10000; ++i)
     {
         iaVector2d pos(_rand.getNextFloat() - 0.5, _rand.getNextFloat() - 0.5);
         pos.normalize();
-        pos *= 100.0 * _rand.getNextFloat();
+        pos *= 400.0 * _rand.getNextFloat();
         pos._x += 500.0;
         pos._y += 500.0;
 
-        iaCircled circle(pos, 5);
+        iaCircled circle(pos, 3);
         position._quadtreeUserData = std::shared_ptr<iQuadtreeUserData>(new QuadtreeData(circle));
+        _quadtree.insert(position._quadtreeUserData);
         velocity._direction.set(0.9, 1.0);
         // velocity._direction.rotateXY(_rand.getNextFloat() * M_PI * 2.0);
         velocity._speed = _rand.getNextFloat() * 0.5 + 1.5;
@@ -79,12 +76,17 @@ void Supremacy::onInit()
     MovementControlComponent movementControl;
     iaCircled circle(iaVector2d(500.0, 500.0), 10);
     position._quadtreeUserData = std::shared_ptr<iQuadtreeUserData>(new QuadtreeData(circle));
+    _quadtree.insert(position._quadtreeUserData);
     velocity._speed = 1.0;
     health._health = 100;
     party._partyID = 20;
     visual._character = iTextureResourceFactory::getInstance().requestFile("particleStar.png");
 
     _player = _ecs.createEntity(position, velocity, health, party, visual, movementControl);
+
+    // game logic timer
+    _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &Supremacy::onUpdate), iaTime::fromMilliseconds(16));
+    _updateTimerHandle->start();
 }
 
 void Supremacy::onUpdate()
