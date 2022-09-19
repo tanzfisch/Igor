@@ -118,7 +118,7 @@ namespace igor
         {
             /*! rectangle of button
 			*/
-            iRectanglei _rectangle;
+            iaRectanglei _rectangle;
 
             /*! button apearance state
 			*/

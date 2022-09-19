@@ -108,7 +108,7 @@ namespace igor
         _clearDepth = depth;
     }
 
-    void iView::setViewport(iRectanglef rect)
+    void iView::setViewport(iaRectanglef rect)
     {
         _viewportConfig = rect;
     }
@@ -220,13 +220,13 @@ namespace igor
     {
         std::vector<uint64> colorIDs;
 
-        pickcolorID(iRectanglei(posx, posy, 1, 1), colorIDs);
+        pickcolorID(iaRectanglei(posx, posy, 1, 1), colorIDs);
 
         return colorIDs.front();
     }
 
     // TODO use alpha channel for color ID as well
-    void iView::pickcolorID(const iRectanglei &rectangle, std::vector<uint64> &colorIDs)
+    void iView::pickcolorID(const iaRectanglei &rectangle, std::vector<uint64> &colorIDs)
     {
         // TODO check ranges
 
@@ -281,7 +281,7 @@ namespace igor
         }
     }
 
-    void iView::updateWindowRect(const iRectanglei &windowRect)
+    void iView::updateWindowRect(const iaRectanglei &windowRect)
     {
         _windowRect = windowRect;
 

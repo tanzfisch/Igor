@@ -32,20 +32,34 @@
 #include <igor/iDefines.h>
 
 #include <iaux/data/iaRectangle.h>
+#include <iaux/data/iaCircle.h>
 
 #include <memory>
 
 namespace igor
 {
 
-    struct iQuadtreeUserDataSet
+    /*! user data base class
+    */
+    struct iQuadtreeUserData
     {
-        iQuadtreeUserDataSet(const iaVector2d &pos, iUserData userData)
-            : _pos(pos), _userData(userData) {}
+        iQuadtreeUserData(const iaCircled& circle)
+        : _circle(circle)
+        {}
 
-        iaVector2d _pos;
-        iUserData _userData;
+        virtual ~iQuadtreeUserData() = default;
+
+        const iaCircled& getCircle() const
+        {
+            return _circle;
+        }
+
+        iaCircled _circle;
     };
+
+    /*! user data pointer definition
+    */
+    typedef std::shared_ptr<iQuadtreeUserData> iQuadtreeUserDataPtr;
 
     /*! node defintion
      */
@@ -53,15 +67,15 @@ namespace igor
     {
         /*! node box
          */
-        iRectangled _box;
+        iaRectangled _box;
 
         /*! children of node
          */
-        std::unique_ptr<iQuadtreeNode> _children[4];
+        std::shared_ptr<iQuadtreeNode> _children[4];
 
         /*! user data
          */
-        std::vector<iQuadtreeUserDataSet> _userData;
+        std::vector<iQuadtreeUserDataPtr> _userData;
     };
 
     /*! quadtree implementation
@@ -74,7 +88,7 @@ namespace igor
 
         \param box volume of the whole quadtree
         */
-        iQuadtree(const iRectangled &box);
+        iQuadtree(const iaRectangled &box);
 
         /*! dtor
          */
@@ -83,38 +97,67 @@ namespace igor
         /*! insert user data at given position
 
         \param userData the user data
-        \param pos the given position
         */
-        void insert(iUserData userData, const iaVector2d &pos);
+        void insert(const iQuadtreeUserDataPtr userData);
 
         /*! remove user data
 
         \param userData the user data
         */
-        void remove(iUserData userData);
+        void remove(const iQuadtreeUserDataPtr userData);
+
+        /*! updates the user data
+
+        \param userData the user data to update
+        */
+        void update(const iQuadtreeUserDataPtr userData, const iaVector2d &newPosition);
 
         /*! \returns root of tree
+         */
+        const std::shared_ptr<iQuadtreeNode> &getRoot() const;
+
+        /*! clears the tree
         */
-        const std::unique_ptr<iQuadtreeNode>& getRoot() const;
+        void clear();
 
     private:
         /*! root node
          */
-        std::unique_ptr<iQuadtreeNode> _root;
+        std::shared_ptr<iQuadtreeNode> _root;
 
         /*! recursive insert new data implementation
 
         \param node the current node
         \param userData the user data
-        \param pos the given position
         */
-        void insertInternal(const std::unique_ptr<iQuadtreeNode> &node, iUserData userData, const iaVector2d &pos);
+        void insertInternal(const std::shared_ptr<iQuadtreeNode> &node, const iQuadtreeUserDataPtr userData);
+
+        /*! removes user data
+
+        \param node the current node
+        \param userData the user data to remove
+        */
+        bool removeInternal(const std::shared_ptr<iQuadtreeNode> &node, const iQuadtreeUserDataPtr userData);
 
         /*! split given node
 
         \param node the node to split
         */
-        void split(const std::unique_ptr<iQuadtreeNode> &node);
+        void split(const std::shared_ptr<iQuadtreeNode> &node);
+
+        /*! try to merge given node
+
+        \param node the given node
+        */
+        bool tryMerge(const std::shared_ptr<iQuadtreeNode> &node);
+
+        /*! \returns true if node has no children
+
+        \param node the node to test
+        */
+        bool isLeaf(const std::shared_ptr<iQuadtreeNode> &node) const;
+
+        void getNodePath(std::vector<std::shared_ptr<iQuadtreeNode>> &path, const iaVector2d &pos);
     };
 
     /*! Quadtree pointer definition

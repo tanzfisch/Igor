@@ -291,7 +291,7 @@ namespace igor
             widget->updateAlignment(clientRectWidth, clientRectHeight);
             widget->updatePosition(offsetX, offsetY);
 
-            std::vector<iRectanglei> offsets;
+            std::vector<iaRectanglei> offsets;
             widget->calcChildOffsets(offsets);
 
             con_assert(offsets.size() == widget->_children.size(), "inconsistant data");

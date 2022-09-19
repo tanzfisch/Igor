@@ -42,6 +42,7 @@ public:
     ~Supremacy();
 
 private:
+
     /*! the view we render 2D to
      */
     iView _viewOrtho;
@@ -66,7 +67,7 @@ private:
 
     /*! enemies system
      */
-    PawnSystem _pawnSystem;
+    PawnSystem *_pawnSystem;
 
     /*! entity component system
      */
@@ -88,6 +89,8 @@ private:
     */
     iTaskID _taskFlushTextures = iTask::INVALID_TASK_ID;    
 
+    /*! quadtree
+    */
     iQuadtree _quadtree;
 
     /*! called when added to layer stack

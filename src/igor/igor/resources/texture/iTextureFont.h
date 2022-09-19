@@ -68,7 +68,7 @@ namespace igor
     {
 
     public:
-        iRectanglef rect;
+        iaRectanglef rect;
         float32 relRenderWidth;
     };
 

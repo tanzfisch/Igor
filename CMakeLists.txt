@@ -44,6 +44,9 @@ elseif()
   message(FATAL_ERROR "unsupported compiler")
 endif()
 
+#message(STATUS "CMAKE_BUILD_TYPE '${CMAKE_BUILD_TYPE}'")
+#set(CMAKE_BUILD_TYPE "Release")
+
 if(${COMPILER} STREQUAL "GCC")
   if(NOT CMAKE_BUILD_TYPE)
     message(STATUS "Setting build type to '${default_build_type}' as none was specified.")

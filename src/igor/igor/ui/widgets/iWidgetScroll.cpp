@@ -520,7 +520,7 @@ namespace igor
 		}
 	}
 
-	void iWidgetScroll::calcChildOffsets(std::vector<iRectanglei> &offsets)
+	void iWidgetScroll::calcChildOffsets(std::vector<iaRectanglei> &offsets)
 	{
 		offsets.clear();
 		offsets.resize(_children.size());
@@ -536,7 +536,7 @@ namespace igor
 			return;
 		}
 
-		iRectanglei clientRect;
+		iaRectanglei clientRect;
 
 		float32 offsetX = 0;
 		float32 offsetY = 0;
@@ -699,10 +699,10 @@ namespace igor
 		}
 
 		//render child
-		iRectanglei absoluteFramePos(getActualPosX() + _childFrame.getX(), getActualPosY() + _childFrame.getY(), _childFrame.getWidth(), _childFrame.getHeight());
+		iaRectanglei absoluteFramePos(getActualPosX() + _childFrame.getX(), getActualPosY() + _childFrame.getY(), _childFrame.getWidth(), _childFrame.getHeight());
 
 		// do some clipping using the viewport
-		iRectanglei viewport;
+		iaRectanglei viewport;
 		iaMatrixd projectionMatrix;
 		iaMatrixd modelMatrix;
 

@@ -5,12 +5,17 @@
 #include "Supremacy.h"
 
 Supremacy::Supremacy(iWindow *window)
-    : iLayer(window, L"Supremacy"), _viewOrtho(iView(false)), _quadtree(iRectangled(0, 0, 1000, 1000))
+    : iLayer(window, L"Supremacy"), _viewOrtho(iView(false)), _quadtree(iaRectangled(0, 0, 1000, 1000))
 {
+    _pawnSystem = new PawnSystem(&_quadtree);
 }
 
 Supremacy::~Supremacy()
 {
+    if (_pawnSystem != nullptr)
+    {
+        delete _pawnSystem;
+    }
 }
 
 void Supremacy::onInit()
@@ -40,7 +45,7 @@ void Supremacy::onInit()
     _rand.setSeed(1337);
 
     // setup ECS
-    _logicSystems.addSystem(_pawnSystem);
+    _logicSystems.addSystem(*_pawnSystem);
     _renderSystems.addSystem(_displayEntittiesSystem);
 
     PositionComponent position;
@@ -50,12 +55,19 @@ void Supremacy::onInit()
     VisualComponent visual;
 
     // create some enemies
-    for (int i = 0; i < 100; ++i)
+    for (int i = 0; i < 1000; ++i)
     {
-        position._position.set(_rand.getNextFloat() * 1000.0, _rand.getNextFloat() * 1000.0);
-        velocity._direction.set(0.0, 1.0);
-        velocity._direction.rotateXY(_rand.getNextFloat() * M_PI * 2.0);
-        velocity._speed = _rand.getNextFloat() * 0.1 + 0.1;
+        iaVector2d pos(_rand.getNextFloat() - 0.5, _rand.getNextFloat() - 0.5);
+        pos.normalize();
+        pos *= 100.0 * _rand.getNextFloat();
+        pos._x += 500.0;
+        pos._y += 500.0;
+
+        iaCircled circle(pos, 5);
+        position._quadtreeUserData = std::shared_ptr<iQuadtreeUserData>(new QuadtreeData(circle));
+        velocity._direction.set(0.9, 1.0);
+        // velocity._direction.rotateXY(_rand.getNextFloat() * M_PI * 2.0);
+        velocity._speed = _rand.getNextFloat() * 0.5 + 1.5;
         health._health = 100;
         party._partyID = 10;
         visual._character = iTextureResourceFactory::getInstance().requestFile("particleGem.png");
@@ -65,7 +77,8 @@ void Supremacy::onInit()
 
     // init player
     MovementControlComponent movementControl;
-    position._position.set(500.0, 500.0);
+    iaCircled circle(iaVector2d(500.0, 500.0), 10);
+    position._quadtreeUserData = std::shared_ptr<iQuadtreeUserData>(new QuadtreeData(circle));
     velocity._speed = 1.0;
     health._health = 100;
     party._partyID = 20;
@@ -103,7 +116,7 @@ void Supremacy::onEvent(iEvent &event)
     event.dispatch<iEventKeyUp>(IGOR_BIND_EVENT_FUNCTION(Supremacy::onKeyUp));
 }
 
-static void renderTree(const std::unique_ptr<iQuadtreeNode> &node)
+static void renderTree(const std::shared_ptr<iQuadtreeNode> &node)
 {
     if (node == nullptr)
     {
@@ -113,10 +126,10 @@ static void renderTree(const std::unique_ptr<iQuadtreeNode> &node)
     iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
     iRenderer::getInstance().drawRectangle(node->_box._x, node->_box._y, node->_box._width, node->_box._height);
 
-    for (const auto &data : node->_userData)
+    for (const auto userData : node->_userData)
     {
         iRenderer::getInstance().setColor(1.0, 1.0, 0.0, 1.0);
-        iRenderer::getInstance().drawFilledRectangle(data._pos._x - 5.0, data._pos._y - 5.0, 10, 10);
+        iRenderer::getInstance().drawCircle(userData->getCircle().getX(), userData->getCircle().getY(), userData->getCircle().getRadius());
     }
 
     for (const auto &node : node->_children)
@@ -133,12 +146,14 @@ void Supremacy::onRenderOrtho()
     iRenderer::getInstance().setModelMatrix(matrix);
 
     // draw entities
-    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-    _ecs.updateSystems(_renderSystems);
+    // iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
+    //_ecs.updateSystems(_renderSystems);
 
     iRenderer::getInstance().setMaterial(_plainMaterial);
     renderTree(_quadtree.getRoot());
 }
+
+static std::vector<iQuadtreeUserDataPtr> mydata;
 
 bool Supremacy::onKeyDown(iEventKeyDown &event)
 {
@@ -173,10 +188,15 @@ bool Supremacy::onKeyDown(iEventKeyDown &event)
         pos *= 400.0 * _rand.getNextFloat();
         pos._x += 500.0;
         pos._y += 500.0;
-        _quadtree.insert(nullptr, pos);
+        iaCircled circle(pos, 10);
+        iQuadtreeUserDataPtr userData = std::shared_ptr<iQuadtreeUserData>(new QuadtreeData(circle));
+        _quadtree.insert(userData);
+        mydata.push_back(userData);
         return true;
     }
     case iKeyCode::J:
+        _quadtree.remove(mydata.back());
+        mydata.pop_back();
         return true;
 
     case iKeyCode::K:

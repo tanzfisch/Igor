@@ -270,19 +270,19 @@ namespace igor
         {
             if (_backgroundTexture != nullptr)
             {
-                iWidgetManager::getInstance().getTheme()->drawTiledRectangle(iRectanglei(getActualPosX(), getActualPosY() + getActualHeight() / 4, getActualWidth(), getActualHeight() / 2), _backgroundTexture);
+                iWidgetManager::getInstance().getTheme()->drawTiledRectangle(iaRectanglei(getActualPosX(), getActualPosY() + getActualHeight() / 4, getActualWidth(), getActualHeight() / 2), _backgroundTexture);
             }
 
             if (_texture != nullptr)
             {
-                iWidgetManager::getInstance().getTheme()->drawPicture(iRectanglei(getActualPosX(), getActualPosY() + getActualHeight() / 4, getActualWidth(), getActualHeight() / 2), _texture, getState(), isActive());
+                iWidgetManager::getInstance().getTheme()->drawPicture(iaRectanglei(getActualPosX(), getActualPosY() + getActualHeight() / 4, getActualWidth(), getActualHeight() / 2), _texture, getState(), isActive());
             }
 
             if (_backgroundTexture == nullptr &&
                 _texture == nullptr)
             {
-                iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iRectanglei(getActualPosX(), getActualPosY() + getActualHeight() / 2 - 2, getActualWidth(), 4));
-                iWidgetManager::getInstance().getTheme()->drawRectangle(iRectanglei(getActualPosX(), getActualPosY() + getActualHeight() / 2 - 2, getActualWidth(), 4));
+                iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iaRectanglei(getActualPosX(), getActualPosY() + getActualHeight() / 2 - 2, getActualWidth(), 4));
+                iWidgetManager::getInstance().getTheme()->drawRectangle(iaRectanglei(getActualPosX(), getActualPosY() + getActualHeight() / 2 - 2, getActualWidth(), 4));
             }
 
             const float32 factor = _value / (_max - _min);

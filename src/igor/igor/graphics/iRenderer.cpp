@@ -764,7 +764,7 @@ namespace igor
         _dirtyModelViewProjectionMatrix = true;
     }
 
-    void iRenderer::getViewport(iRectanglei &rect)
+    void iRenderer::getViewport(iaRectanglei &rect)
     {
         rect = _viewport;
     }
@@ -1246,17 +1246,51 @@ namespace igor
         }
     }
 
-    void iRenderer::drawRectangle(float32 x, float32 y, float32 width, float32 height)
+    void iRenderer::drawCircle(float32 x, float32 y, float32 radius, int segments)
     {
-        glBegin(GL_LINE_STRIP);
-        glVertex2f(x,y);
-        glVertex2f(x,y + height);
-        glVertex2f(x + width,y + height);
-        glVertex2f(x + width,y);
-        glVertex2f(x,y);
+        const float32 step = 2 * M_PI / static_cast<float32>(segments);
+        float32 angle = 0;
+
+        glBegin(GL_LINE_LOOP);
+        for (int i = 0; i < segments; ++i)
+        {
+            glVertex2f(x + radius * cosf(angle), y + radius * sinf(angle));
+            angle += step;
+        }
         glEnd();
         GL_CHECK_ERROR();
-    }    
+    }
+
+    void iRenderer::drawFilledCircle(float32 x, float32 y, float32 radius, int segments)
+    {
+        const float32 step = 2 * M_PI / static_cast<float32>(segments);
+        float32 angle = 0;
+
+        glBegin(GL_TRIANGLE_FAN);
+
+        glVertex2f(x, y);
+
+        for (int i = 0; i < segments; ++i)
+        {
+            glVertex2f(x + radius * cosf(angle), y + radius * sinf(angle));
+            angle -= step;
+        }
+        glVertex2f(x + radius, y);
+
+        glEnd();
+        GL_CHECK_ERROR();
+    }
+
+    void iRenderer::drawRectangle(float32 x, float32 y, float32 width, float32 height)
+    {
+        glBegin(GL_LINE_LOOP);
+        glVertex2f(x, y);
+        glVertex2f(x, y + height);
+        glVertex2f(x + width, y + height);
+        glVertex2f(x + width, y);
+        glEnd();
+        GL_CHECK_ERROR();
+    }
 
     void iRenderer::drawFilledRectangle(float32 x, float32 y, float32 width, float32 height)
     {
@@ -2237,7 +2271,7 @@ namespace igor
         _stats._triangles += static_cast<uint32>(particles.size()) * 2;
     }
 
-    iaVector3d iRenderer::project(const iaVector3d &objectSpacePos, const iaMatrixd &modelview, const iaMatrixd &projection, const iRectanglei &viewport)
+    iaVector3d iRenderer::project(const iaVector3d &objectSpacePos, const iaMatrixd &modelview, const iaMatrixd &projection, const iaRectanglei &viewport)
     {
         iaVector4d in(objectSpacePos._x, objectSpacePos._y, objectSpacePos._z, 1);
         iaVector4d out;
@@ -2257,7 +2291,7 @@ namespace igor
         return result;
     }
 
-    iaVector3d iRenderer::unProject(const iaVector3d &screenpos, const iaMatrixd &modelview, const iaMatrixd &projection, const iRectanglei &viewport)
+    iaVector3d iRenderer::unProject(const iaVector3d &screenpos, const iaMatrixd &modelview, const iaMatrixd &projection, const iaRectanglei &viewport)
     {
         iaVector4d in;
         iaVector4d out;

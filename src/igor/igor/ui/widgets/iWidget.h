@@ -417,7 +417,7 @@ namespace igor
 
         /*! \returns actual rectangle
 		*/
-        iRectanglei getActualRect() const;
+        iaRectanglei getActualRect() const;
 
         /*! \returns actual relative horizontal position
 		*/
@@ -957,7 +957,7 @@ namespace igor
 
 		\param offsets vector to be filled with childrens offsets
 		*/
-        virtual void calcChildOffsets(std::vector<iRectanglei> &offsets);
+        virtual void calcChildOffsets(std::vector<iaRectanglei> &offsets);
     };
 
 #include <igor/ui/widgets/iWidget.inl>

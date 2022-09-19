@@ -407,12 +407,12 @@ namespace igor
         setMinSize(minWidth, minHeight);
     }
 
-    void iWidgetGrid::calcChildOffsets(std::vector<iRectanglei> &offsets)
+    void iWidgetGrid::calcChildOffsets(std::vector<iaRectanglei> &offsets)
     {
         offsets.clear();
         offsets.resize(_children.size());
 
-        iRectanglei clientRect;
+        iaRectanglei clientRect;
 
         for (auto row : _widgetRows)
         {
@@ -834,7 +834,7 @@ namespace igor
                     int32 colPosX = col._x + getActualPosX();
                     int32 colPosY = col._y + getActualPosY();
 
-                    iWidgetManager::getInstance().getTheme()->drawGridCell(iRectanglei(colPosX, colPosY, col._actualWidth, col._actualHeight), getState());
+                    iWidgetManager::getInstance().getTheme()->drawGridCell(iaRectanglei(colPosX, colPosY, col._actualWidth, col._actualHeight), getState());
 
                     bool drawSelected = false;
                     bool drawHighlight = false;
@@ -861,7 +861,7 @@ namespace igor
                     if (drawSelected)
                     {
                         iWidgetManager::getInstance().getTheme()->drawGridSelection(
-                            iRectanglei(colPosX, colPosY, col._actualWidth, col._actualHeight));
+                            iaRectanglei(colPosX, colPosY, col._actualWidth, col._actualHeight));
                     }
                     else
                     {
@@ -887,7 +887,7 @@ namespace igor
                         if (drawHighlight)
                         {
                             iWidgetManager::getInstance().getTheme()->drawGridHighlight(
-                                iRectanglei(colPosX, colPosY, col._actualWidth, col._actualHeight));
+                                iaRectanglei(colPosX, colPosY, col._actualWidth, col._actualHeight));
                         }
                     }
 

@@ -31,14 +31,24 @@
 
 #include <igor/igor.h>
 
+struct QuadtreeData : public iQuadtreeUserData
+{
+    QuadtreeData(const iaCircled &circle)
+        : iQuadtreeUserData(circle)
+    {
+    }
+
+    // TODO user data
+};
+
 struct PositionComponent : public iComponent<PositionComponent>
 {
-    iaVector2f _position;
+    iQuadtreeUserDataPtr _quadtreeUserData;
 };
 
 struct VelocityComponent : public iComponent<VelocityComponent>
 {
-    iaVector2f _direction;
+    iaVector2d _direction;
     float32 _speed;
 };
 
@@ -70,12 +80,16 @@ class PawnSystem : public iEntitySystem
 public:
     /*! init system
      */
-    PawnSystem();
+    PawnSystem(iQuadtree *quadtree);
 
     /*! updates components
     \param components the components to update
     */
     void updateComponents(iBaseComponent **components) override;
+
+private:
+
+    iQuadtree *_quadtree;
 };
 
 class DisplayEntittiesSystem : public iEntitySystem
@@ -91,9 +105,8 @@ public:
     void updateComponents(iBaseComponent **components) override;
 
 private:
-
     /*! floor shadow
-    */
+     */
     iTexturePtr _shadow;
 };
 

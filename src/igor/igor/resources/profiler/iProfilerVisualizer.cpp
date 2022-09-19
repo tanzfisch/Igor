@@ -243,7 +243,7 @@ namespace igor
 
         if (_renderStatisticsMode >= iProfilerVerbosity::Sections)
         {
-            const iRectanglef rect(window->getClientWidth() * 0.1, window->getClientHeight() * 0.15, window->getClientWidth() * 0.8, window->getClientHeight() * 0.55);
+            const iaRectanglef rect(window->getClientWidth() * 0.1, window->getClientHeight() * 0.15, window->getClientWidth() * 0.8, window->getClientHeight() * 0.55);
             const float32 verticalScale = rect._height / 50; // 50ms
             const float32 horizontalScale = rect._width / iProfiler::MAX_FRAMES_COUNT;
             const float32 Hz24 = 41.6666 * verticalScale;
