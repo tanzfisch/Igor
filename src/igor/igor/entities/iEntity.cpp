@@ -4,11 +4,26 @@
 
 #include <igor/entities/iEntity.h>
 
-#include <igor/entities/iEntityManager.h>
+#include <igor/entities/iComponents.h>
+
+#include <igor/entities/iEntityManager.h> // deprecated
 
 namespace igor
 {
 
+    iEntity::iEntity(const entt::entity entity, iEntityScene *scene)
+        : _entity(entity), _scene(scene)
+    {
+    }
+
+    const iaString& iEntity::getName() const
+    { 
+        // return GetComponent<NameComponent>()._name;
+        static iaString foo("not implemented");
+        return foo;
+    } 
+
+    ////////////// old deprecated stuff
     const uint64 iEntity_Old::INVALID_ENTITY_ID = 0;
     uint64 iEntity_Old::_nextID = iEntity_Old::INVALID_ENTITY_ID + 1;
     iaMutex iEntity_Old::_mutexID;

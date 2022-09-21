@@ -156,7 +156,7 @@ __IGOR_INLINE__ T iaVector2<T>::length2(void) const
 }
 
 template <class T>
-__IGOR_INLINE__ T iaVector2<T>::distance(iaVector2<T> &vec) const
+__IGOR_INLINE__ T iaVector2<T>::distance(const iaVector2<T> &vec) const
 {
     T dx = _x - vec._x;
     T dy = _y - vec._y;
@@ -164,7 +164,7 @@ __IGOR_INLINE__ T iaVector2<T>::distance(iaVector2<T> &vec) const
 }
 
 template <class T>
-__IGOR_INLINE__ T iaVector2<T>::distance2(iaVector2<T> &vec) const
+__IGOR_INLINE__ T iaVector2<T>::distance2(const iaVector2<T> &vec) const
 {
     T dx = _x - vec._x;
     T dy = _y - vec._y;

@@ -1,97 +1,83 @@
 #include "Systems.h"
 
 PawnSystem::PawnSystem(iQuadtree *quadtree)
-    : iEntitySystem("Pawn"), _quadtree(quadtree)
+    : _quadtree(quadtree)
 {
-    addComponentType(PositionComponent::ID);
-    addComponentType(VelocityComponent::ID);
-    addComponentType(HealthComponent::ID);
-    addComponentType(PartyComponent::ID);
-    addComponentType(MovementControlComponent::ID, static_cast<uint32>(iComponentFlag::Optional));
 }
 
-void PawnSystem::updateComponents(iBaseComponent **components)
+void PawnSystem::update(iEntityScenePtr scene)
 {
-    PositionComponent *pos = static_cast<PositionComponent *>(components[0]);
-    VelocityComponent *vel = static_cast<VelocityComponent *>(components[1]);
-    HealthComponent *health = static_cast<HealthComponent *>(components[2]);
-    PartyComponent *party = static_cast<PartyComponent *>(components[3]);
-    MovementControlComponent *movementControl = static_cast<MovementControlComponent *>(components[4]);
+    auto view = scene->getEntities<PositionComponent, VelocityComponent>();
 
-    if (movementControl != nullptr)
+    for (auto entity : view)
     {
-        vel->_direction.set(0, 0);
+        auto [pos, vel] = view.get<PositionComponent, VelocityComponent>(entity);
 
-        if (movementControl->_left)
-        {
-            vel->_direction._x -= 1.0;
-        }
-        if (movementControl->_right)
-        {
-            vel->_direction._x += 1.0;
-        }
-        if (movementControl->_up)
-        {
-            vel->_direction._y -= 1.0;
-        }
-        if (movementControl->_down)
-        {
-            vel->_direction._y += 1.0;
-        }
-    }
-    
-    // TODO how to find other party?
+        /*    if (movementControl != nullptr)
+            {
+                vel->_direction.set(0, 0);
 
-    if (health->_health > 0.0)
-    {
-        const iaVector2d position = pos->_quadtreeUserData->_circle._center;
-        const iaVector2d projection = position + vel->_direction * vel->_speed;
+                if (movementControl->_left)
+                {
+                    vel->_direction._x -= 1.0;
+                }
+                if (movementControl->_right)
+                {
+                    vel->_direction._x += 1.0;
+                }
+                if (movementControl->_up)
+                {
+                    vel->_direction._y -= 1.0;
+                }
+                if (movementControl->_down)
+                {
+                    vel->_direction._y += 1.0;
+                }
+            }*/
+
+        iaVector2f &position = pos._position;
+        iaVector2f &direction = vel._direction;
+        const float32 speed = vel._speed;
+        const iaVector2f projection = position + direction * speed;
 
         if (projection._x > 1000.0 ||
             projection._x < 0.0)
         {
-            vel->_direction._x = -vel->_direction._x;
+            direction._x = -direction._x;
         }
 
         if (projection._y > 1000.0 ||
             projection._y < 0.0)
         {
-            vel->_direction._y = -vel->_direction._y;
+            direction._y = -direction._y;
         }
 
-        const iaVector2d newPosition = position + vel->_direction * vel->_speed;
-
-        _quadtree->update(pos->_quadtreeUserData, newPosition);
+        position = position + direction * speed;
     }
 }
 
 DisplayEntittiesSystem::DisplayEntittiesSystem()
-    : iEntitySystem("DisplayEntitties")
 {
-    addComponentType(PositionComponent::ID);
-    addComponentType(VelocityComponent::ID);
-    addComponentType(HealthComponent::ID);
-    addComponentType(VisualComponent::ID);
-
     _shadow = iTextureResourceFactory::getInstance().requestFile("shadow.png");
 }
 
-void DisplayEntittiesSystem::updateComponents(iBaseComponent **components)
+void DisplayEntittiesSystem::update(iEntityScenePtr scene)
 {
-    PositionComponent *position = static_cast<PositionComponent *>(components[0]);
-    VelocityComponent *vel = static_cast<VelocityComponent *>(components[1]);
-    HealthComponent *health = static_cast<HealthComponent *>(components[2]);
-    VisualComponent *visual = static_cast<VisualComponent *>(components[3]);
+    auto view = scene->getEntities<PositionComponent, SizeComponent>();
 
-    if (health->_health > 0.0)
+    for (auto entity : view)
     {
-        const iaCircled &circle = position->_quadtreeUserData->getCircle();
-        const float64 width = circle.getRadius() * 2.0;
+        auto [pos, size] = view.get<PositionComponent, SizeComponent>(entity);
+
+        const iaVector2f &position = pos._position;
+        const float32 width = size._size;
 
         iRenderer::getInstance().setColor(0.0, 0.0, 0.0, 0.6);
-        iRenderer::getInstance().drawTexture(circle._center._x - 20, circle._center._y - 10, width, width * 0.5, _shadow);
+        iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width * 0.25, width, width * 0.5, _shadow);
 
         iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
-        iRenderer::getInstance().drawTexture(circle._center._x - 20, circle._center._y - 40, width, width, visual->_character);
+        // iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width, width, width, visual->_character);
     }
+
 }
+

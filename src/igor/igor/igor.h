@@ -44,8 +44,6 @@
 #include <igor/data/iSkeleton.h>
 #include <igor/data/iQuadtree.h>
 
-#include <igor/entities/iEntityComponentSystem.h>
-
 #include <igor/evaluation/iEvaluationManager.h>
 #include <igor/evaluation/iEvaluationScript.h>
 #include <igor/evaluation/iEvaluationTransform.h>
@@ -106,10 +104,15 @@
 #include <igor/system/iTimer.h>
 #include <igor/system/iTimerHandle.h>
 #include <igor/system/iWindow.h>
+
+#include <igor/events/iEventECS.h>
 #include <igor/events/iEventKeyboard.h>
 #include <igor/events/iEventMouse.h>
 #include <igor/events/iEventWindow.h>
 #include <igor/events/iEventScene.h>
+
+#include <igor/entities/iEntityManager.h>
+#include <igor/entities/iEntity.h>
 
 #include <igor/terrain/iVoxelTerrain.h>
 #include <igor/terrain/iVoxelTerrainMeshGenerator.h>
@@ -156,6 +159,9 @@
 #include <igor/ui/user_controls/iUserControlColorChooser.h>
 #include <igor/ui/user_controls/iUserControlFileChooser.h>
 
+// version
+#include <igor/iVersion.h>
+
 // iaux includes
 #include <iaux/data/iaColor3.h>
 #include <iaux/data/iaColor4.h>
@@ -171,6 +177,7 @@
 #include <iaux/math/iaVector2.h>
 #include <iaux/math/iaVector3.h>
 
+#include <iaux/system/iaFile.h>
 #include <iaux/system/iaConsole.h>
 
 /*! Igor namespace that contains all high level functionality of Igor

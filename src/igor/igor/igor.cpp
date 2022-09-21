@@ -4,35 +4,9 @@
 
 #include <igor/igor.h>
 
-#include <igor/audio/iAudio.h>
-#include <igor/entities/iEntityManager.h>
-#include <igor/entities/iEntityComponentSystem.h>
-#include <igor/system/iApplication.h>
-#include <igor/system/iKeyboard.h>
-#include <igor/system/iMouse.h>
-#include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/resources/iResourceManager.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/ui/iWidgetManager.h>
-#include <igor/resources/profiler/iProfiler.h>
-#include <igor/ui/actions/iActionManager.h>
-#include <igor/system/iTimer.h>
-#include <igor/graphics/iRenderer.h>
-#include <igor/threading/iTaskManager.h>
 #include <igor/resources/config/iConfigReader.h>
-#include <igor/iVersion.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/scene/iSceneFactory.h>
-#include <igor/physics/iPhysics.h>
-#include <igor/system/iClipboard.h>
-#include <igor/evaluation/iEvaluationManager.h>
 
 #include <iaux/iaux.h>
-#include <iaux/system/iaConsole.h>
-#include <iaux/system/iaFile.h>
-#include <iaux/system/iaDirectory.h>
-#include <iaux/data/iaString.h>
 using namespace iaux;
 
 #ifdef __IGOR_DEBUG__
@@ -150,7 +124,7 @@ namespace igor
         iEvaluationManager::create();
         iEntityManager::create();
         iAudio::create();
-        iClipboard::create();
+        // iClipboard::create();
         iActionManager::create();
         iProfiler::create();
         iMouse::create();
@@ -250,10 +224,10 @@ namespace igor
             iActionManager::destroy();
         }
 
-        if (iClipboard::isInstantiated())
+        /*if (iClipboard::isInstantiated())
         {
             iClipboard::destroy();
-        }
+        }*/
 
         if (iAudio::isInstantiated())
         {

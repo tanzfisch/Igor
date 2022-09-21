@@ -21,6 +21,38 @@ namespace igor
 
     iQuadtree::~iQuadtree()
     {
+        clear();
+    }
+
+    void iQuadtree::query(iaCircled circle, std::vector<iQuadtreeUserDataPtr> &userData)
+    {
+        queryInternal(_root, circle, userData);
+    }
+
+    void iQuadtree::queryInternal(const iQuadtreeNodePtr &node, iaCircled circle, std::vector<iQuadtreeUserDataPtr> &userData)
+    {
+        if (!iIntersection::intersects(circle, node->_box))
+        {
+            return;
+        }
+
+        if (isLeaf(node))
+        {
+            for(auto ud : node->_userData)
+            {
+                if(iIntersection::intersects(ud->_circle, circle))
+                {
+                    userData.push_back(ud);
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < 4; ++i)
+            {
+                queryInternal(node->_children[i], circle, userData);
+            }
+        }
     }
 
     void iQuadtree::update(const iQuadtreeUserDataPtr userData, const iaVector2d &newPosition)
@@ -150,7 +182,7 @@ namespace igor
         }
 
         bool merged = true;
-        while(merged && parent)
+        while (merged && parent)
         {
             merged = tryMerge(parent);
             parent = parent->_parent;
@@ -164,9 +196,9 @@ namespace igor
 
     bool iQuadtree::tryMerge(const iQuadtreeNodePtr &node)
     {
-        if(isLeaf(node))
+        if (isLeaf(node))
         {
-            return;
+            return false;
         }
 
         for (int i = 0; i < 4; ++i)

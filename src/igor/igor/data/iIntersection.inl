@@ -171,7 +171,7 @@ bool iIntersection::intersects(const iAABox<T> &boxA, const iAABox<T> &boxB)
 }
 
 template <typename T>
-bool iIntersection::intersects(iaVector2<T> point, iaRectangle<T> rectangle)
+bool iIntersection::intersects(const iaVector2<T> &point, const iaRectangle<T> &rectangle)
 {
     if (point._x < rectangle._x)
     {
@@ -183,17 +183,37 @@ bool iIntersection::intersects(iaVector2<T> point, iaRectangle<T> rectangle)
         return false;
     }
 
-    if (point._x > rectangle._x + rectangle._width - 1)
+    if (point._x > rectangle._x + rectangle._width)
     {
         return false;
     }
 
-    if (point._y > rectangle._y + rectangle._height - 1)
+    if (point._y > rectangle._y + rectangle._height)
     {
         return false;
     }
 
     return true;
+}
+
+template <typename T>
+bool iIntersection::intersects(const iaCircle<T> &circle, const iaRectangle<T> &rectangle)
+{
+    const T right = rectangle._x + rectangle._width;
+    const T bottom = rectangle._y + rectangle._height;
+    const T closestX = (circle._center._x < rectangle._x ? rectangle._x : (circle._center._x > right ? right : circle._center._x));
+    const T closestY = (circle._center._y < rectangle._y ? rectangle._y : (circle._center._y > bottom ? bottom : circle._center._y));
+    const T dx = closestX - circle._center._x;
+    const T dy = closestY - circle._center._y;
+
+    return (dx * dx + dy * dy) <= circle._radius * circle._radius;
+}
+
+template <typename T>
+bool iIntersection::intersects(const iaCircle<T> &circleA, const iaCircle<T> &circleB)
+{
+    const T diffSq = circleA._center.distance2(circleB._center);
+    return diffSq <= circleA._radius * circleA._radius + circleB._radius * circleB._radius;
 }
 
 template <typename T>
@@ -213,7 +233,7 @@ bool iIntersection::intersects(const iaVector3<T> &vec, const iAABox<T> &box)
 }
 
 template <typename T>
-bool iIntersection::intersects(iPlane<T> plane, iRay<T> ray, iaVector3<T> &intersection)
+bool iIntersection::intersects(const iPlane<T> &plane, const iRay<T> &ray, iaVector3<T> &intersection)
 {
     T denom = plane._normal * ray.m_dir;
     if (std::abs(denom) < 0.00001)

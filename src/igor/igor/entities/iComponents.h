@@ -26,73 +26,18 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_CLIPBOARD_H__
-#define __IGOR_CLIPBOARD_H__
+#ifndef __IGOR_COMPONENTS__
+#define __IGOR_COMPONENTS__
 
-#include <igor/resources/module/iModule.h>
-
-#include <any>
+#include <iaux/data/iaString.h>
+using namespace iaux;
 
 namespace igor
 {
-
-    /*! supported clipboard formats
-    */
-    enum class iClipboardFormat
+    struct NameComponent
     {
-        IgorNodes,
-        Empty
+        iaString _name;
     };
+}
 
-    /*! clipboard
-
-    \todo make the clipboard work outside of igor
-    Are we even using this?
-	*/
-    class IGOR_API iClipboard : public iModule<iClipboard>
-    {
-
-        friend class iModule<iClipboard>;
-
-    public:
-        /*! set data on clipboard
-        */
-        void setData(iClipboardFormat format, const std::any &data);
-
-        /*! \returns data on clipboard
-        */
-        const std::any &getData() const;
-
-        /*! \returns true if there is data in the clipboard
-        */
-        bool hasData() const;
-
-        /*! \returns the format of the data in the clipboard
-        */
-        iClipboardFormat getFormat() const;
-
-        /*! clears the content of the clipboard
-        */
-        void clear();
-
-    private:
-        /*! format of data held in the clipboard
-        */
-        iClipboardFormat _format = iClipboardFormat::Empty;
-
-        /*! the data on this clipboard
-        */
-        std::any _data;
-
-        /*! does nothing
-		*/
-        iClipboard() = default;
-
-        /*! does nothing
-		*/
-        ~iClipboard() = default;
-    };
-
-}; // namespace igor
-
-#endif // __IGOR_CLIPBOARD_H__
+#endif //  __IGOR_COMPONENTS__

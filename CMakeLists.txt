@@ -138,6 +138,14 @@ list(APPEND STB_IMAGE_SOURCES ${STB_IMAGE_HEADERS})
 source_group_special("${STB_IMAGE_SOURCES}" ${STB_IMAGE_SRC_DIR}
                      "\\vendor\\stb_image\\")
 
+# EnTT
+message(STATUS "EnTT")
+set(ENTT_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/entt/")
+set(ENTT_HEADERS_DIR ${ENTT_SRC_DIR})
+set(ENTT_HEADERS "${ENTT_HEADERS_DIR}entt.h")
+list(APPEND ENTT_SOURCES ${ENTT_HEADERS})
+source_group_special("${ENTT_SOURCES}" ${ENTT_SRC_DIR} "\\vendor\\EnTT\\")
+
 # GLee
 message(STATUS "GLee")
 set(GLEE_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/GLee")
@@ -367,7 +375,7 @@ file(
 list(APPEND IGOR_SOURCES ${IGOR_HEADERS})
 
 add_library(igor SHARED ${IGOR_SOURCES} ${GLEE_SOURCES} ${TINYXML_SOURCES}
-                        ${STB_IMAGE_SOURCES} ${IGOR_VERSION_FILE})
+                        ${STB_IMAGE_SOURCES} ${IGOR_VERSION_FILE} ${ENTT_SOURCES})
 
 source_group_special("${IGOR_SOURCES}" ${IGOR_SRC_DIR})
 
@@ -376,6 +384,7 @@ target_include_directories(
   PRIVATE ${GLEE_HEADERS_DIR}
           ${TINYXML_HEADERS_DIR}
           ${STB_IMAGE_HEADERS_DIR}
+          ${ENTT_HEADERS_DIR}
           ${NEWTON_PHYSICS_HEADERS_DIR}
           ${NEWTON_CORE_HEADERS_DIR}
           ${NEWTON_HEADERS_DIR}
@@ -480,10 +489,10 @@ foreach(
     GLOB_RECURSE EXAMPLE_HEADERS
     RELATIVE ${CMAKE_CURRENT_SOURCE_DIR}
     "examples/${EXAMPLE}/src/*.h*")
-  add_executable(${EXAMPLE} ${EXAMPLE_SOURCES} ${EXAMPLE_HEADERS}
+  add_executable(${EXAMPLE} ${EXAMPLE_SOURCES} ${EXAMPLE_HEADERS} ${ENTT_SOURCES}
                             ${EXAMPLE_BASE_SOURCES} ${EXAMPLE_BASE_HEADERS})
   target_include_directories(
-    ${EXAMPLE} PRIVATE ${IGOR_HEADERS_DIR} ${IAUX_HEADERS_DIR}
+    ${EXAMPLE} PRIVATE ${IGOR_HEADERS_DIR} ${IAUX_HEADERS_DIR} ${ENTT_HEADERS_DIR}
                        ${OMPF_HEADERS_DIR} ${EXAMPLE_BASE_HEADERS_DIR})
   target_link_libraries(${EXAMPLE} igor)
 

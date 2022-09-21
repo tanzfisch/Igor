@@ -31,6 +31,25 @@
 
 #include "Systems.h"
 
+#if 0
+/*! quadtree user data
+*/
+struct QuadtreeData : public iQuadtreeUserData
+{
+    /*! ctor init
+    */
+    QuadtreeData(const iaCircled &circle, iEntityPtr entity)
+        : iQuadtreeUserData(circle)
+        , _entity(entity)
+    {
+    }
+
+    /*! pointer to corresponding entity
+    */
+    iEntityPtr _entity;
+};
+#endif
+
 /*! Supremacy
  */
 class Supremacy : public iLayer
@@ -55,27 +74,13 @@ private:
     */
     uint64 _plainMaterial = iMaterial::INVALID_MATERIAL_ID;
 
-    /*! entity component system
+    /*! entity scene
      */
-    iEntityComponentSystem _ecs;
+    iEntityScene _entityScene;
 
-    /*! entity component system
-     */
-    iEntitySystemList _logicSystems;
-
-    iEntityPtr _player;
-
-    /*! enemies system
-     */
-    PawnSystem *_pawnSystem;
-
-    /*! entity component system
-     */
-    iEntitySystemList _renderSystems;
-
-    /*! display entities system
+    /*! handle to player entity
     */
-    DisplayEntittiesSystem _displayEntittiesSystem;
+//     iEntityPtr _player;
 
     /*! random numbers
      */
@@ -128,6 +133,9 @@ private:
     \param event the event to handle
     */
     bool onKeyUp(iEventKeyUp &event);
+
+    //bool onEntityCreated(iEventEntityCreated &event);
+    //bool onEntityDestroyed(iEventEntityDestroyed &event);
 };
 
 #endif // __SUPREMACY__

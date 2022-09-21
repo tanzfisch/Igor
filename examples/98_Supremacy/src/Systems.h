@@ -31,43 +31,38 @@
 
 #include <igor/igor.h>
 
-struct QuadtreeData : public iQuadtreeUserData
+struct PositionComponent
 {
-    QuadtreeData(const iaCircled &circle)
-        : iQuadtreeUserData(circle)
-    {
-    }
-
-    // TODO user data
+    iaVector2f _position;
 };
 
-struct PositionComponent : public iComponent<PositionComponent>
+struct SizeComponent
 {
-    iQuadtreeUserDataPtr _quadtreeUserData;
+    float32 _size;
 };
 
-struct VelocityComponent : public iComponent<VelocityComponent>
+struct VelocityComponent
 {
-    iaVector2d _direction;
+    iaVector2f _direction;
     float32 _speed;
 };
 
-struct HealthComponent : public iComponent<HealthComponent>
+struct HealthComponent
 {
     float32 _health = 0;
 };
 
-struct PartyComponent : public iComponent<PartyComponent>
+struct PartyComponent
 {
     uint32 _partyID = 0;
 };
 
-struct VisualComponent : public iComponent<VisualComponent>
+struct VisualComponent
 {
     iTexturePtr _character;
 };
 
-struct MovementControlComponent : public iComponent<MovementControlComponent>
+struct MovementControlComponent
 {
     bool _up = false;
     bool _down = false;
@@ -80,16 +75,15 @@ class PawnSystem : public iEntitySystem
 public:
     /*! init system
      */
-    PawnSystem(iQuadtree *quadtree);
+    PawnSystem(iQuadtreePtr quadtree);
 
-    /*! updates components
-    \param components the components to update
+    /*! update the system
+    \param scene the scene context
     */
-    void updateComponents(iBaseComponent **components) override;
+    void update(iEntityScenePtr scene) override;
 
 private:
-
-    iQuadtree *_quadtree;
+    iQuadtreePtr _quadtree;
 };
 
 class DisplayEntittiesSystem : public iEntitySystem
@@ -98,11 +92,11 @@ public:
     /*! init system
      */
     DisplayEntittiesSystem();
-
-    /*! updates components
-    \param components the components to update
+    
+    /*! update the system
+    \param scene the scene context
     */
-    void updateComponents(iBaseComponent **components) override;
+    void update(iEntityScenePtr scene) override;
 
 private:
     /*! floor shadow

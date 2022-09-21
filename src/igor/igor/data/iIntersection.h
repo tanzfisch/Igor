@@ -35,6 +35,7 @@
 #include <igor/data/iRay.h>
 
 #include <iaux/data/iaRectangle.h>
+#include <iaux/data/iaCircle.h>
 #include <iaux/data/iaSphere.h>
 #include <iaux/math/iaVector2.h>
 #include <iaux/math/iaVector3.h>
@@ -157,7 +158,25 @@ namespace igor
         \returns true if intersecting
         */
         template <typename T>
-        static bool intersects(iaVector2<T> point, iaRectangle<T> rectangle);
+        static bool intersects(const iaVector2<T> &point, const iaRectangle<T> &rectangle);
+
+        /*! intersection test between rectangle and circle
+        
+        \param circle the circle to test
+        \param rectangle the rectangle to test
+        \returns true if intersecting
+        */
+        template <typename T>
+        static bool intersects(const iaCircle<T> &circle, const iaRectangle<T> &rectangle);
+
+        /*! intersection test between two circles
+        
+        \param circleA the circle A to test
+        \param circleB the circle B to test
+        \returns true if intersecting
+        */
+        template <typename T>
+        static bool intersects(const iaCircle<T> &circleA, const iaCircle<T> &circleB);
 
         /*! intersection test between plane and ray
 
@@ -167,7 +186,7 @@ namespace igor
         \returns true if intersecting
         */
         template <typename T>
-        static bool intersects(iPlane<T> plane, iRay<T> ray, iaVector3<T> &intersection);
+        static bool intersects(const iPlane<T> &plane, const iRay<T> &ray, iaVector3<T> &intersection);
     };
 
 #include <igor/data/iIntersection.inl>

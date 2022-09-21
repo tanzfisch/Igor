@@ -7,15 +7,10 @@
 Supremacy::Supremacy(iWindow *window)
     : iLayer(window, L"Supremacy"), _viewOrtho(iView(false)), _quadtree(iaRectangled(0, 0, 1000, 1000))
 {
-    _pawnSystem = new PawnSystem(&_quadtree);
 }
 
 Supremacy::~Supremacy()
 {
-    if (_pawnSystem != nullptr)
-    {
-        delete _pawnSystem;
-    }
 }
 
 void Supremacy::onInit()
@@ -41,48 +36,34 @@ void Supremacy::onInit()
     _rand.setSeed(1337);
 
     // setup ECS
-    _logicSystems.addSystem(*_pawnSystem);
-    _renderSystems.addSystem(_displayEntittiesSystem);
-
-    PositionComponent position;
-    VelocityComponent velocity;
-    HealthComponent health;
-    PartyComponent party;
-    VisualComponent visual;
+    _entityScene.registerSystem(iEntitySystemPtr(new PawnSystem(&_quadtree)));
+    _entityScene.registerSystem(iEntitySystemPtr(new DisplayEntittiesSystem()));
 
     // create some enemies
-    for (int i = 0; i < 10000; ++i)
+    for (int i = 0; i < 1000; ++i)
     {
-        iaVector2d pos(_rand.getNextFloat() - 0.5, _rand.getNextFloat() - 0.5);
-        pos.normalize();
-        pos *= 400.0 * _rand.getNextFloat();
-        pos._x += 500.0;
-        pos._y += 500.0;
+//         visual._character = iTextureResourceFactory::getInstance().requestFile("particleGem.png");
 
-        iaCircled circle(pos, 3);
-        position._quadtreeUserData = std::shared_ptr<iQuadtreeUserData>(new QuadtreeData(circle));
-        _quadtree.insert(position._quadtreeUserData);
-        velocity._direction.set(0.9, 1.0);
-        // velocity._direction.rotateXY(_rand.getNextFloat() * M_PI * 2.0);
-        velocity._speed = _rand.getNextFloat() * 0.5 + 1.5;
-        health._health = 100;
-        party._partyID = 10;
-        visual._character = iTextureResourceFactory::getInstance().requestFile("particleGem.png");
+        iEntity entity = _entityScene.createEntity();
+        entity.addComponent<PositionComponent>(iaVector2f(_rand.getNextFloat() * 500.0 + 250.0, _rand.getNextFloat() * 500.0 + 250.0));
+        // entity.addComponent<SizeComponent>(5.0f);
 
-        _ecs.createEntity(position, velocity, health, party, visual);
+        iaVector2f direction(0.0, 1.0);
+        direction.rotateXY(_rand.getNextFloat() * M_PI * 2.0);
+
+        // entity.addComponent<VelocityComponent>(direction, _rand.getNextFloat() * 0.1 + 0.1);
     }
 
     // init player
-    MovementControlComponent movementControl;
-    iaCircled circle(iaVector2d(500.0, 500.0), 10);
-    position._quadtreeUserData = std::shared_ptr<iQuadtreeUserData>(new QuadtreeData(circle));
-    _quadtree.insert(position._quadtreeUserData);
+  /*  MovementControlComponent movementControl;
+    position._position.set(500.0, 500.0);
+    size._size = 10.0;
     velocity._speed = 1.0;
     health._health = 100;
     party._partyID = 20;
-    visual._character = iTextureResourceFactory::getInstance().requestFile("particleStar.png");
+    visual._character = iTextureResourceFactory::getInstance().requestFile("particleStar.png");*/
 
-    _player = _ecs.createEntity(position, velocity, health, party, visual, movementControl);
+    // _player = _ecs.createEntity(position, size, velocity, health, party, visual, movementControl);
 
     // game logic timer
     _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &Supremacy::onUpdate), iaTime::fromMilliseconds(16));
@@ -91,7 +72,11 @@ void Supremacy::onInit()
 
 void Supremacy::onUpdate()
 {
-    _ecs.updateSystems(_logicSystems);
+    /*for(auto entity : _entities)
+    {
+        PositionComponent *pos = _ecs.getComponent<PositionComponent>(entity.first);
+        _quadtree.update(entity.second, iaVector2d(pos->_position._x, pos->_position._y));
+    }*/
 }
 
 void Supremacy::onDeinit()
@@ -116,6 +101,8 @@ void Supremacy::onEvent(iEvent &event)
 {
     event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(Supremacy::onKeyDown));
     event.dispatch<iEventKeyUp>(IGOR_BIND_EVENT_FUNCTION(Supremacy::onKeyUp));
+    // event.dispatch<iEventEntityCreated>(IGOR_BIND_EVENT_FUNCTION(Supremacy::onEntityCreated));
+    // event.dispatch<iEventEntityDestroyed>(IGOR_BIND_EVENT_FUNCTION(Supremacy::onEntityDestroyed));
 }
 
 static void renderTree(const std::shared_ptr<iQuadtreeNode> &node)
@@ -148,57 +135,74 @@ void Supremacy::onRenderOrtho()
     iRenderer::getInstance().setModelMatrix(matrix);
 
     // draw entities
-    // iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-    //_ecs.updateSystems(_renderSystems);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
+    _entityScene.updateSystems();
 
-    iRenderer::getInstance().setMaterial(_plainMaterial);
-    renderTree(_quadtree.getRoot());
+    // iRenderer::getInstance().setMaterial(_plainMaterial);
+    // renderTree(_quadtree.getRoot());
 }
 
-static std::vector<iQuadtreeUserDataPtr> mydata;
+/*bool Supremacy::onEntityCreated(iEventEntityCreated &event)
+{
+    iEntityPtr entity = event.getEntity();
+    PositionComponent *pos = _ecs.getComponent<PositionComponent>(entity);
+    SizeComponent *size = _ecs.getComponent<SizeComponent>(entity);
+
+    if (pos == nullptr || size == nullptr)
+    {
+        return true;
+    }
+
+    const iaCircled circle(pos->_position._x, pos->_position._y, size->_size * 0.5);
+    iQuadtreeUserDataPtr data = static_cast<iQuadtreeUserDataPtr>(new QuadtreeData(circle, event.getEntity()));
+    _quadtree.insert(data);
+
+    _entities[entity] = data;
+
+    return true;
+}
+
+bool Supremacy::onEntityDestroyed(iEventEntityDestroyed &event)
+{
+    auto iter = _entities.find(event.getEntity());
+    if (iter != _entities.end())
+    {
+        _entities.erase(iter);
+    }
+
+    return true;
+}*/
 
 bool Supremacy::onKeyDown(iEventKeyDown &event)
 {
-    MovementControlComponent *movementControl = _ecs.getComponent<MovementControlComponent>(_player);
-    if (movementControl == nullptr)
+    // MovementControlComponent *movementControl = _ecs.getComponent<MovementControlComponent>(_player);
+    /*if (movementControl == nullptr)
     {
         return false;
-    }
+    }*/
 
     switch (event.getKey())
     {
     case iKeyCode::W:
-        movementControl->_up = true;
+        // movementControl->_up = true;
         return true;
 
     case iKeyCode::A:
-        movementControl->_left = true;
+        // movementControl->_left = true;
         return true;
 
     case iKeyCode::S:
-        movementControl->_down = true;
+        // movementControl->_down = true;
         return true;
 
     case iKeyCode::D:
-        movementControl->_right = true;
+        // movementControl->_right = true;
         return true;
 
     case iKeyCode::I:
-    {
-        iaVector2d pos(_rand.getNextFloat() - 0.5, _rand.getNextFloat() - 0.5);
-        pos.normalize();
-        pos *= 400.0 * _rand.getNextFloat();
-        pos._x += 500.0;
-        pos._y += 500.0;
-        iaCircled circle(pos, 10);
-        iQuadtreeUserDataPtr userData = std::shared_ptr<iQuadtreeUserData>(new QuadtreeData(circle));
-        _quadtree.insert(userData);
-        mydata.push_back(userData);
         return true;
-    }
+
     case iKeyCode::J:
-        _quadtree.remove(mydata.back());
-        mydata.pop_back();
         return true;
 
     case iKeyCode::K:
@@ -217,28 +221,28 @@ bool Supremacy::onKeyDown(iEventKeyDown &event)
 
 bool Supremacy::onKeyUp(iEventKeyUp &event)
 {
-    MovementControlComponent *movementControl = _ecs.getComponent<MovementControlComponent>(_player);
-    if (movementControl == nullptr)
-    {
-        return false;
-    }
+    /*    MovementControlComponent *movementControl = _ecs.getComponent<MovementControlComponent>(_player);
+        if (movementControl == nullptr)
+        {
+            return false;
+        }*/
 
     switch (event.getKey())
     {
     case iKeyCode::W:
-        movementControl->_up = false;
+        // movementControl->_up = false;
         return true;
 
     case iKeyCode::A:
-        movementControl->_left = false;
+        //        movementControl->_left = false;
         return true;
 
     case iKeyCode::S:
-        movementControl->_down = false;
+        //      movementControl->_down = false;
         return true;
 
     case iKeyCode::D:
-        movementControl->_right = false;
+        //    movementControl->_right = false;
         return true;
 
     case iKeyCode::I:

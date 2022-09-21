@@ -171,13 +171,13 @@ namespace iaux
 
 		\param vec the second position to calculate the distance to
 		*/
-        T distance(iaVector2<T> &vec) const;
+        T distance(const iaVector2<T> &vec) const;
 
         /*! \returns quadratic distance between positions
 
 		\param vec the second position to calculate the distance to
 		*/
-        T distance2(iaVector2<T> &vec) const;
+        T distance2(const iaVector2<T> &vec) const;
 
         /*! \returns angle in rad relative to X-Axis
 		*/

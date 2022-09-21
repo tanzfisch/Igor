@@ -26,73 +26,87 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_CLIPBOARD_H__
-#define __IGOR_CLIPBOARD_H__
+#ifndef __IGOR_ENTITY_SECENE__
+#define __IGOR_ENTITY_SECENE__
 
-#include <igor/resources/module/iModule.h>
+#include <igor/iDefines.h>
+#include <igor/entities/iComponents.h>
 
-#include <any>
+#include <entt.h>
 
 namespace igor
 {
+	class iEntityScene;
+	typedef iEntityScene* iEntityScenePtr;
 
-    /*! supported clipboard formats
-    */
-    enum class iClipboardFormat
+    class iEntitySystem
     {
-        IgorNodes,
-        Empty
-    };
-
-    /*! clipboard
-
-    \todo make the clipboard work outside of igor
-    Are we even using this?
-	*/
-    class IGOR_API iClipboard : public iModule<iClipboard>
-    {
-
-        friend class iModule<iClipboard>;
-
     public:
-        /*! set data on clipboard
+        /*! does nothing
         */
-        void setData(iClipboardFormat format, const std::any &data);
-
-        /*! \returns data on clipboard
-        */
-        const std::any &getData() const;
-
-        /*! \returns true if there is data in the clipboard
-        */
-        bool hasData() const;
-
-        /*! \returns the format of the data in the clipboard
-        */
-        iClipboardFormat getFormat() const;
-
-        /*! clears the content of the clipboard
-        */
-        void clear();
-
-    private:
-        /*! format of data held in the clipboard
-        */
-        iClipboardFormat _format = iClipboardFormat::Empty;
-
-        /*! the data on this clipboard
-        */
-        std::any _data;
+        iEntitySystem() = default;
 
         /*! does nothing
+        */
+        virtual ~iEntitySystem() = default;
+
+        /*! updates system
+        */
+        virtual void update(iEntityScenePtr scene) {};
+    };	
+
+	typedef std::unique_ptr<iEntitySystem> iEntitySystemPtr;
+
+	class iEntity;
+
+	/*! wrapper for entt registry
+	*/
+	class IGOR_API iEntityScene
+	{
+		friend class iEntity;
+
+	public:
+		/*! creates an entity
+		 */
+		iEntity createEntity(const iaString &name = "");
+
+		/*! destroyes an entity
 		*/
-        iClipboard() = default;
+		void destroyEntity(iEntity entity);
 
-        /*! does nothing
+		/*! registers a system to the scene
+
+		\param system the system to register
 		*/
-        ~iClipboard() = default;
-    };
+		void registerSystem(iEntitySystemPtr system);
 
-}; // namespace igor
+		/*! updates all systems in the order hey have been added to the scene
+		*/
+		void updateSystems();
 
-#endif // __IGOR_CLIPBOARD_H__
+		/*! clears the scene and the systems
+		*/
+		void clear();
+
+		/*! \returns all entities with given components
+		*/
+		template<typename... Components>
+		auto getEntities()
+		{
+			return _registry.view<Components...>();
+		}		
+
+	private:
+
+		/*! the entt registry
+		*/
+		entt::registry _registry;
+
+		/*! currently registered systems
+		*/
+		std::vector<iEntitySystemPtr> _systems;
+	};
+
+} // igor
+
+#endif // __IGOR_ENTITY_SECENE__

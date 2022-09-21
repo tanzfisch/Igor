@@ -26,19 +26,58 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iENTITY__
-#define __iENTITY__
+#ifndef __IGOR_ENTITY__
+#define __IGOR_ENTITY__
 
-#include <igor/iDefines.h>
+#include <igor/entities/iEntityScene.h>
 
-#include <iaux/system/iaMutex.h>
-using namespace iaux;
+#include <iaux/system/iaMutex.h> // deprecated
 
 namespace igor
 {
+    /*! entt wrapper
+    */
+    class IGOR_API iEntity
+    {
+    public:
+        iEntity() = default;
+        iEntity(const iEntity &other) = default;
+        iEntity(entt::entity entity, iEntityScene *scene);
+
+        operator entt::entity() const
+        {
+            return _entity;
+        }
+
+        template <typename T, typename... Args>
+        T &addComponent(Args &&...args)
+        {
+            return _scene->_registry.emplace_or_replace<T>(_entity, std::forward<Args>(args)...);
+        }
+
+        template <typename T>
+        T &getComponent() const
+        {
+            return _scene->_registry.get<T>(_entity);
+        }
+
+        template <typename T>
+        void removeComponent()
+        {
+            _scene->_registry.remove<T>(_entity);
+        }
+
+        const iaString &getName() const;
+
+    private:
+        entt::entity _entity;
+        iEntityScene *_scene;
+    };
+
+    /*///////////////////7 deprecated*/
 
     /*! engine internal entity base types
-    */
+     */
     enum class iEntityType
     {
         Undefined,
@@ -53,53 +92,53 @@ namespace igor
     {
 
         /*! so we can call the handle
-        */
+         */
         friend class iEntityManager;
 
     public:
         /*! invalid entity id definition
-        */
+         */
         static const uint64 INVALID_ENTITY_ID;
 
         /*! \returns entity id
-        */
+         */
         uint64 getID() const;
 
         /*! \returns entity type
-        */
+         */
         iEntityType getType() const;
 
         /*! init id and register entity
-        */
+         */
         iEntity_Old();
 
         /*! unregister
-        */
+         */
         virtual ~iEntity_Old();
 
     protected:
         /*! called every simulation frame
-        */
+         */
         virtual void handle() = 0;
 
         /*! entity type
-        */
+         */
         iEntityType _type = iEntityType::Undefined;
 
     private:
         /*! entity id
-        */
+         */
         uint64 _id = 0;
 
         /*! next entity id
-        */
+         */
         static uint64 _nextID;
 
         /*! mutex to protec id generation
-        */
+         */
         static iaMutex _mutexID;
     };
 
 } // namespace igor
 
-#endif
+#endif // __IGOR_ENTITY__
