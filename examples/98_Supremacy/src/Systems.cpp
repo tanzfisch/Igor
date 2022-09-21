@@ -63,11 +63,11 @@ DisplayEntittiesSystem::DisplayEntittiesSystem()
 
 void DisplayEntittiesSystem::update(iEntityScenePtr scene)
 {
-    auto view = scene->getEntities<PositionComponent, SizeComponent>();
+    auto view = scene->getEntities<PositionComponent, SizeComponent, VisualComponent>();
 
     for (auto entity : view)
     {
-        auto [pos, size] = view.get<PositionComponent, SizeComponent>(entity);
+        auto [pos, size, visual] = view.get<PositionComponent, SizeComponent, VisualComponent>(entity);
 
         const iaVector2f &position = pos._position;
         const float32 width = size._size;
@@ -76,7 +76,7 @@ void DisplayEntittiesSystem::update(iEntityScenePtr scene)
         iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width * 0.25, width, width * 0.5, _shadow);
 
         iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
-        // iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width, width, width, visual->_character);
+        iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width, width, width, visual._character);
     }
 
 }

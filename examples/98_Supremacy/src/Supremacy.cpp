@@ -42,16 +42,15 @@ void Supremacy::onInit()
     // create some enemies
     for (int i = 0; i < 1000; ++i)
     {
-//         visual._character = iTextureResourceFactory::getInstance().requestFile("particleGem.png");
-
         iEntity entity = _entityScene.createEntity();
         entity.addComponent<PositionComponent>(iaVector2f(_rand.getNextFloat() * 500.0 + 250.0, _rand.getNextFloat() * 500.0 + 250.0));
-        // entity.addComponent<SizeComponent>(5.0f);
+        entity.addComponent<SizeComponent>(20.0f);
 
         iaVector2f direction(0.0, 1.0);
         direction.rotateXY(_rand.getNextFloat() * M_PI * 2.0);
 
-        // entity.addComponent<VelocityComponent>(direction, _rand.getNextFloat() * 0.1 + 0.1);
+        entity.addComponent<VelocityComponent>(direction, float32(_rand.getNextFloat() * 0.1 + 0.1));
+        entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleGem.png"));
     }
 
     // init player
