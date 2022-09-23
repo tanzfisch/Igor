@@ -56,8 +56,11 @@ namespace igor
     };	
 
 	typedef std::unique_ptr<iEntitySystem> iEntitySystemPtr;
-
 	class iEntity;
+
+    /*! entity id definition
+    */
+    typedef entt::entity iEntityID;	
 
 	/*! wrapper for entt registry
 	*/
@@ -71,8 +74,16 @@ namespace igor
 		iEntity createEntity(const iaString &name = "");
 
 		/*! destroyes an entity
+
+		\param entity the entity to destroy
 		*/
 		void destroyEntity(iEntity entity);
+
+		/*! destroyes an entity by id
+
+		\param entityID the entity ID
+		*/
+		void destroyEntity(iEntityID entityID);
 
 		/*! registers a system to the scene
 

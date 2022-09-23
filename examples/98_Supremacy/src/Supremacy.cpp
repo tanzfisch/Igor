@@ -47,12 +47,12 @@ void Supremacy::onInit()
     _player.addComponent<MovementControlComponent>();
     auto &object = _player.addComponent<QuadtreeObjectComponent>();
     object._object = iQuadtreeObjectPtr(new iQuadtreeObject());
-    object._object->_userData = reinterpret_cast<void *>(_player.operator igor::iEntityID());
+    object._object->_userData = reinterpret_cast<iUserData>(_player.operator igor::iEntityID());
     object._object->_circle.set(position._position._x, position._position._y, size._size);
     _quadtree.insert(object._object);
 
     // create some enemies
-    for (int i = 0; i < 300; ++i)
+    for (int i = 0; i < 1000; ++i)
     {
         iEntity entity = _entityScene.createEntity();
         auto position = entity.addComponent<PositionComponent>(iaVector2f(_rand.getNextFloat() * 1000.0, _rand.getNextFloat() * 1000.0));
@@ -65,7 +65,7 @@ void Supremacy::onInit()
         entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleGem.png"));
         auto &object = entity.addComponent<QuadtreeObjectComponent>();
         object._object = iQuadtreeObjectPtr(new iQuadtreeObject());
-        object._object->_userData = reinterpret_cast<void *>(entity.operator igor::iEntityID());
+        object._object->_userData = reinterpret_cast<iUserData>(entity.operator igor::iEntityID());
         object._object->_circle.set(position._position._x, position._position._y, size._size);
         _quadtree.insert(object._object);
 
@@ -131,7 +131,7 @@ void Supremacy::onUpdate()
         iQuadtreeObjects objects;
         _quadtree.query(circle, objects);
 
-        const void *userData = reinterpret_cast<void *>(target._targetID);
+        const iUserData userData = reinterpret_cast<iUserData>(target._targetID);
 
         auto iter = std::find_if(objects.begin(), objects.end(),
                                  [&](const iQuadtreeObjectPtr &x)
@@ -139,7 +139,7 @@ void Supremacy::onUpdate()
 
         if (iter == objects.end())
         {
-            if(target._inRange)
+            if (target._inRange)
             {
                 vel._direction.set(0.0, 1.0);
                 vel._direction.rotateXY(_rand.getNextFloat() * M_PI * 2.0);
@@ -153,6 +153,57 @@ void Supremacy::onUpdate()
             vel._direction.normalize();
             target._inRange = true;
         }
+    }
+
+    static int countdown = 100; // LOL
+
+    // aquire target for player
+    if (countdown > 0)
+    {
+        const iUserData playerUserData = reinterpret_cast<iUserData>(_player.operator igor::iEntityID());
+        auto &position = _player.getComponent<PositionComponent>();
+        auto &size = _player.getComponent<SizeComponent>();
+        iaCircled circle(position._position._x, position._position._y, 50.0);
+        iQuadtreeObjects objects;
+        _quadtree.query(circle, objects);
+
+        float32 minDistance = 999999999;
+        iQuadtreeObjectPtr foundObject;
+
+        for (const auto &object : objects)
+        {
+            if (object->_userData == playerUserData)
+            {
+                continue;
+            }
+
+            float32 dist = object->_circle._center.distance2(circle._center);
+            if (dist < minDistance)
+            {
+                minDistance = dist;
+                foundObject = object;
+            }
+        }
+
+        if (foundObject != nullptr)
+        {
+            auto bullet = _entityScene.createEntity();
+            bullet.addComponent<PositionComponent>(iaVector2f(circle._center._x, circle._center._y));
+
+            iaVector2d direction = foundObject->_circle._center - circle._center;
+            direction.normalize();
+            bullet.addComponent<VelocityComponent>(iaVector2f(direction._x, direction._y), 10.0f);
+            bullet.addComponent<SizeComponent>(10.0f);
+            bullet.addComponent<OriginComponent>(iaVector2f(circle._center._x, circle._center._y));
+
+            bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleTrail.png"));
+
+            countdown = 100;
+        }
+    }
+    else
+    {
+        countdown--;
     }
 
     auto positionUpdateView = _entityScene.getEntities<PositionComponent, VelocityComponent>();
@@ -179,6 +230,18 @@ void Supremacy::onUpdate()
         }
 
         position = position + direction * speed;
+    }
+
+    auto originUpdateView = _entityScene.getEntities<PositionComponent, OriginComponent>();
+
+    for (auto entity : originUpdateView)
+    {
+        auto [pos, ori] = originUpdateView.get<PositionComponent, OriginComponent>(entity);    
+
+        if(pos._position.distance2(ori._origin) > 300.0 * 300.0)
+        {
+            _entityScene.destroyEntity(entity);
+        }
     }
 }
 

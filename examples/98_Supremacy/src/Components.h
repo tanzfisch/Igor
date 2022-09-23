@@ -67,6 +67,11 @@ struct VisualComponent
     iTexturePtr _character;
 };
 
+struct OriginComponent
+{
+    iaVector2f _origin;
+};
+
 struct TargetComponent
 {
     iEntityID _targetID;

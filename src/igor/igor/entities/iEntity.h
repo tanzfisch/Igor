@@ -35,10 +35,6 @@
 
 namespace igor
 {
-    /*! entity id definition
-    */
-    typedef entt::entity iEntityID;
-
     /*! entt wrapper
     */
     class IGOR_API iEntity

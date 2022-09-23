@@ -18,6 +18,11 @@ namespace igor
         _registry.destroy(entity);
     }
 
+    void iEntityScene::destroyEntity(iEntityID entityID)
+    {
+        _registry.destroy(entityID);
+    }
+
     void iEntityScene::registerSystem(iEntitySystemPtr system)
     {
         _systems.push_back(std::move(system));
@@ -31,11 +36,10 @@ namespace igor
 
     void iEntityScene::updateSystems()
     {
-        for(iEntitySystemPtr &system : _systems)
+        for (iEntitySystemPtr &system : _systems)
         {
             system->update(this);
         }
-
     }
 
 } // igor
