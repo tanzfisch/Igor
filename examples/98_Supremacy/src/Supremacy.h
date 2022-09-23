@@ -29,26 +29,7 @@
 #ifndef __SUPREMACY__
 #define __SUPREMACY__
 
-#include "Systems.h"
-
-#if 0
-/*! quadtree user data
-*/
-struct QuadtreeData : public iQuadtreeUserData
-{
-    /*! ctor init
-    */
-    QuadtreeData(const iaCircled &circle, iEntityPtr entity)
-        : iQuadtreeUserData(circle)
-        , _entity(entity)
-    {
-    }
-
-    /*! pointer to corresponding entity
-    */
-    iEntityPtr _entity;
-};
-#endif
+#include "Components.h"
 
 /*! Supremacy
  */
@@ -80,7 +61,7 @@ private:
 
     /*! handle to player entity
     */
-//     iEntityPtr _player;
+    iEntity _player;
 
     /*! random numbers
      */
@@ -97,6 +78,10 @@ private:
     /*! quadtree
     */
     iQuadtree _quadtree;
+
+    /*! floor shadow
+     */
+    iTexturePtr _shadow;
 
     /*! called when added to layer stack
      */

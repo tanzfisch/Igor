@@ -35,16 +35,35 @@
 
 namespace igor
 {
+    /*! entity id definition
+    */
+    typedef entt::entity iEntityID;
+
     /*! entt wrapper
     */
     class IGOR_API iEntity
     {
     public:
+        /*! does nothing
+        */
         iEntity() = default;
-        iEntity(const iEntity &other) = default;
-        iEntity(entt::entity entity, iEntityScene *scene);
 
-        operator entt::entity() const
+        /*! copy ctor
+
+        \param other the entity to make a copy from
+        */
+        iEntity(const iEntity &other) = default;
+
+        /*! param ctor
+
+        \param entity the entity handle
+        \param scene the scene this entity belongs to
+
+        \todo maybe scene could be a module and globaly accessible
+        */
+        iEntity(iEntityID entity, iEntityScene *scene);
+
+        operator iEntityID() const
         {
             return _entity;
         }
@@ -67,12 +86,20 @@ namespace igor
             _scene->_registry.remove<T>(_entity);
         }
 
-        const iaString &getName() const;
+        /*! \returns entity name
+        */
+        const iaString getName() const;
+
+
 
     private:
-        entt::entity _entity;
+        iEntityID _entity;
         iEntityScene *_scene;
     };
+
+    /*! pointer to entity
+    */
+    typedef iEntity* iEntityPtr;
 
     /*///////////////////7 deprecated*/
 

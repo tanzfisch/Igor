@@ -99,6 +99,8 @@ namespace igor
 	private:
 
 		/*! the entt registry
+
+		\todo we need a much more mighty registry wrapper in order to get rid of the header include
 		*/
 		entt::registry _registry;
 

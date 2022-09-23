@@ -11,9 +11,8 @@
 namespace igor
 {
 
-    static const uint32 maxUserDataPerNode = 4;
-
-    iQuadtree::iQuadtree(const iaRectangled &box)
+    iQuadtree::iQuadtree(const iaRectangled &box, const uint32 splitThreshold, const uint32 maxDepth)
+        : _splitThreshold(splitThreshold), _maxDepth(maxDepth)
     {
         _root = iQuadtreeNodePtr(new iQuadtreeNode());
         _root->_box = box;
@@ -24,12 +23,12 @@ namespace igor
         clear();
     }
 
-    void iQuadtree::query(iaCircled circle, std::vector<iQuadtreeUserDataPtr> &userData)
+    void iQuadtree::query(iaCircled circle, iQuadtreeObjects &objects)
     {
-        queryInternal(_root, circle, userData);
+        queryInternal(_root, circle, objects);
     }
 
-    void iQuadtree::queryInternal(const iQuadtreeNodePtr &node, iaCircled circle, std::vector<iQuadtreeUserDataPtr> &userData)
+    void iQuadtree::queryInternal(const iQuadtreeNodePtr &node, iaCircled circle, iQuadtreeObjects &objects)
     {
         if (!iIntersection::intersects(circle, node->_box))
         {
@@ -38,11 +37,11 @@ namespace igor
 
         if (isLeaf(node))
         {
-            for(auto ud : node->_userData)
+            for (auto ud : node->_objects)
             {
-                if(iIntersection::intersects(ud->_circle, circle))
+                if (iIntersection::intersects(ud->_circle, circle))
                 {
-                    userData.push_back(ud);
+                    objects.push_back(ud);
                 }
             }
         }
@@ -50,39 +49,41 @@ namespace igor
         {
             for (int i = 0; i < 4; ++i)
             {
-                queryInternal(node->_children[i], circle, userData);
+                queryInternal(node->_children[i], circle, objects);
             }
         }
     }
 
-    void iQuadtree::update(const iQuadtreeUserDataPtr userData, const iaVector2d &newPosition)
+    void iQuadtree::update(const iQuadtreeObjectPtr object, const iaVector2d &newPosition)
     {
-        if (iIntersection::intersects(newPosition, userData->_parent->_box))
+        if (iIntersection::intersects(newPosition, object->_parent->_box))
         {
-            userData->_circle._center = newPosition;
+            object->_circle._center = newPosition;
         }
         else
         {
-            remove(userData);
-            userData->_circle._center = newPosition;
-            insertInternal(_root, userData);
+            remove(object);
+            object->_circle._center = newPosition;
+            uint32 depth = 0;
+            insertInternal(_root, object, depth);
         }
     }
 
-    void iQuadtree::insert(const iQuadtreeUserDataPtr userData)
+    void iQuadtree::insert(const iQuadtreeObjectPtr object)
     {
-        if (userData->_parent != nullptr)
+        if (object->_parent != nullptr)
         {
             return;
         }
 
-        if (!iIntersection::intersects(userData->getCircle().getCenter(), _root->_box))
+        if (!iIntersection::intersects(object->_circle._center, _root->_box))
         {
             con_err("position out of bounds ");
             return;
         }
 
-        insertInternal(_root, userData);
+        uint32 depth = 0;
+        insertInternal(_root, object, depth);
     }
 
     void iQuadtree::split(const iQuadtreeNodePtr &node)
@@ -106,28 +107,28 @@ namespace igor
         node->_children[3]->_box = iaRectangled(nodeBox._x + nodeBox._width * 0.5, nodeBox._y + nodeBox._height * 0.5, nodeBox._width * 0.5, nodeBox._height * 0.5);
         node->_children[3]->_parent = node;
 
-        for (const iQuadtreeUserDataPtr userData : node->_userData)
+        for (const iQuadtreeObjectPtr object : node->_objects)
         {
             uint32 childIndex = 0;
 
-            if (userData->getCircle().getX() > center._x)
+            if (object->_circle.getX() > center._x)
             {
                 childIndex |= 1;
             }
 
-            if (userData->getCircle().getY() > center._y)
+            if (object->_circle.getY() > center._y)
             {
                 childIndex |= 2;
             }
 
-            node->_children[childIndex]->_userData.push_back(userData);
-            userData->_parent = node->_children[childIndex];
+            node->_children[childIndex]->_objects.push_back(object);
+            object->_parent = node->_children[childIndex];
         }
 
-        node->_userData.clear();
+        node->_objects.clear();
     }
 
-    void iQuadtree::insertInternal(const iQuadtreeNodePtr &node, const iQuadtreeUserDataPtr userData)
+    void iQuadtree::insertInternal(const iQuadtreeNodePtr &node, const iQuadtreeObjectPtr object, uint32 &depth)
     {
         // check if node has children and follow that branch
         if (!isLeaf(node))
@@ -136,7 +137,7 @@ namespace igor
             const iaVector2d center = nodeBox.getCenter();
             uint32 childIndex = 0;
 
-            const iaVector2d &pos = userData->getCircle().getCenter();
+            const iaVector2d &pos = object->_circle._center;
 
             if (pos._x > center._x)
             {
@@ -148,21 +149,21 @@ namespace igor
                 childIndex |= 2;
             }
 
-            insertInternal(node->_children[childIndex], userData);
+            insertInternal(node->_children[childIndex], object, ++depth);
             return;
         }
 
-        // we reached a leaf node. insert data
-        if (node->_userData.size() < maxUserDataPerNode)
+        // we reached a leaf node. insert data if not full yet
+        if (depth >= _maxDepth || node->_objects.size() < _splitThreshold)
         {
-            node->_userData.push_back(userData);
-            userData->_parent = std::move(node);
+            node->_objects.push_back(object);
+            object->_parent = std::move(node);
             return;
         }
 
         // leaf node was too full. Split node and try again
         split(node);
-        insertInternal(node, userData);
+        insertInternal(node, object, ++depth);
     }
 
     const iQuadtreeNodePtr &iQuadtree::getRoot() const
@@ -170,22 +171,22 @@ namespace igor
         return _root;
     }
 
-    void iQuadtree::remove(const iQuadtreeUserDataPtr userData)
+    void iQuadtree::remove(const iQuadtreeObjectPtr object)
     {
-        iQuadtreeNodePtr parent = userData->_parent;
+        iQuadtreeNodePtr parent = object->_parent;
 
-        auto iter = std::find(parent->_userData.begin(), parent->_userData.end(), userData);
-        if (iter != parent->_userData.end())
+        auto iter = std::find(parent->_objects.begin(), parent->_objects.end(), object);
+        if (iter != parent->_objects.end())
         {
             (*iter)->_parent = nullptr;
-            parent->_userData.erase(iter);
+            parent->_objects.erase(iter);
         }
 
         bool merged = true;
         while (merged && parent)
         {
-            merged = tryMerge(parent);
             parent = parent->_parent;
+            merged = tryMerge(parent);
         }
     }
 
@@ -208,7 +209,7 @@ namespace igor
                 return false;
             }
 
-            if (!node->_children[i]->_userData.empty())
+            if (!node->_children[i]->_objects.empty())
             {
                 return false;
             }

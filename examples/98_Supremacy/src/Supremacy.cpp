@@ -35,47 +35,108 @@ void Supremacy::onInit()
 
     _rand.setSeed(1337);
 
-    // setup ECS
-    _entityScene.registerSystem(iEntitySystemPtr(new PawnSystem(&_quadtree)));
-    _entityScene.registerSystem(iEntitySystemPtr(new DisplayEntittiesSystem()));
-
     // create some enemies
     for (int i = 0; i < 1000; ++i)
     {
         iEntity entity = _entityScene.createEntity();
-        entity.addComponent<PositionComponent>(iaVector2f(_rand.getNextFloat() * 500.0 + 250.0, _rand.getNextFloat() * 500.0 + 250.0));
-        entity.addComponent<SizeComponent>(20.0f);
+        auto position = entity.addComponent<PositionComponent>(iaVector2f(_rand.getNextFloat() * 200.0 + 250.0, _rand.getNextFloat() * 200.0 + 250.0));
+        auto size = entity.addComponent<SizeComponent>(10.0f);
 
-        iaVector2f direction(0.0, 1.0);
-        direction.rotateXY(_rand.getNextFloat() * M_PI * 2.0);
+        iaVector2f direction(1.0, 1.0);
+        // direction.rotateXY(_rand.getNextFloat() * M_PI * 2.0);
 
-        entity.addComponent<VelocityComponent>(direction, float32(_rand.getNextFloat() * 0.1 + 0.1));
+        entity.addComponent<VelocityComponent>(direction, float32(_rand.getNextFloat() * 0.5 + 1.5));
         entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleGem.png"));
+        auto &object = entity.addComponent<QuadtreeObjectComponent>();
+        object._object = iQuadtreeObjectPtr(new iQuadtreeObject());
+        object._object->_circle.set(position._position._x, position._position._y, size._size);
+        _quadtree.insert(object._object);
     }
 
     // init player
-  /*  MovementControlComponent movementControl;
-    position._position.set(500.0, 500.0);
-    size._size = 10.0;
-    velocity._speed = 1.0;
-    health._health = 100;
-    party._partyID = 20;
-    visual._character = iTextureResourceFactory::getInstance().requestFile("particleStar.png");*/
+    _player = _entityScene.createEntity();
 
-    // _player = _ecs.createEntity(position, size, velocity, health, party, visual, movementControl);
+    auto position = _player.addComponent<PositionComponent>(iaVector2f(400.0, 300.0));
+    auto size = _player.addComponent<SizeComponent>(10.0f);
+
+    _player.addComponent<VelocityComponent>(iaVector2f(1.0, 0.0), 1.0f);
+    _player.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleStar.png"));
+
+    _player.addComponent<MovementControlComponent>();
+    auto &object = _player.addComponent<QuadtreeObjectComponent>();
+    object._object = iQuadtreeObjectPtr(new iQuadtreeObject());
+    object._object->_circle.set(position._position._x, position._position._y, size._size);
+    _quadtree.insert(object._object);
 
     // game logic timer
     _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &Supremacy::onUpdate), iaTime::fromMilliseconds(16));
     _updateTimerHandle->start();
+
+    _shadow = iTextureResourceFactory::getInstance().requestFile("shadow.png");
 }
 
 void Supremacy::onUpdate()
 {
-    /*for(auto entity : _entities)
+    auto quadtreeView = _entityScene.getEntities<PositionComponent, SizeComponent, QuadtreeObjectComponent>();
+    for (auto entity : quadtreeView)
     {
-        PositionComponent *pos = _ecs.getComponent<PositionComponent>(entity.first);
-        _quadtree.update(entity.second, iaVector2d(pos->_position._x, pos->_position._y));
-    }*/
+        auto [pos, size, object] = quadtreeView.get<PositionComponent, SizeComponent, QuadtreeObjectComponent>(entity);
+
+        const iaVector2d newPosition(pos._position._x, pos._position._y);
+        _quadtree.update(object._object, newPosition);
+    }
+
+    auto movementControlView = _entityScene.getEntities<MovementControlComponent, VelocityComponent>();
+
+    for (auto entity : movementControlView)
+    {
+        auto [movementControl, vel] = movementControlView.get<MovementControlComponent, VelocityComponent>(entity);
+
+        vel._direction.set(0, 0);
+
+        if (movementControl._left)
+        {
+            vel._direction._x -= 1.0;
+        }
+        if (movementControl._right)
+        {
+            vel._direction._x += 1.0;
+        }
+        if (movementControl._up)
+        {
+            vel._direction._y -= 1.0;
+        }
+        if (movementControl._down)
+        {
+            vel._direction._y += 1.0;
+        }
+    }
+
+    auto positionUpdateView = _entityScene.getEntities<PositionComponent, VelocityComponent>();
+
+    for (auto entity : positionUpdateView)
+    {
+        auto [pos, vel] = positionUpdateView.get<PositionComponent, VelocityComponent>(entity);
+
+        iaVector2f &position = pos._position;
+        iaVector2f &direction = vel._direction;
+        const float32 speed = vel._speed;
+        const iaVector2f projection = position + direction * speed;
+
+        if (projection._x > 1000.0 ||
+            projection._x < 0.0)
+        {
+            direction._x = -direction._x;
+        }
+
+        if (projection._y > 1000.0 ||
+            projection._y < 0.0)
+        {
+            direction._y = -direction._y;
+        }
+
+        position = position + direction * speed;
+    }
 }
 
 void Supremacy::onDeinit()
@@ -100,8 +161,6 @@ void Supremacy::onEvent(iEvent &event)
 {
     event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(Supremacy::onKeyDown));
     event.dispatch<iEventKeyUp>(IGOR_BIND_EVENT_FUNCTION(Supremacy::onKeyUp));
-    // event.dispatch<iEventEntityCreated>(IGOR_BIND_EVENT_FUNCTION(Supremacy::onEntityCreated));
-    // event.dispatch<iEventEntityDestroyed>(IGOR_BIND_EVENT_FUNCTION(Supremacy::onEntityDestroyed));
 }
 
 static void renderTree(const std::shared_ptr<iQuadtreeNode> &node)
@@ -114,10 +173,10 @@ static void renderTree(const std::shared_ptr<iQuadtreeNode> &node)
     iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
     iRenderer::getInstance().drawRectangle(node->_box._x, node->_box._y, node->_box._width, node->_box._height);
 
-    for (const auto userData : node->_userData)
+    iRenderer::getInstance().setColor(1.0, 1.0, 0.0, 1.0);
+    for (const auto object : node->_objects)
     {
-        iRenderer::getInstance().setColor(1.0, 1.0, 0.0, 1.0);
-        iRenderer::getInstance().drawCircle(userData->getCircle().getX(), userData->getCircle().getY(), userData->getCircle().getRadius());
+        iRenderer::getInstance().drawCircle(object->_circle.getX(), object->_circle.getY(), object->_circle.getRadius());
     }
 
     for (const auto &node : node->_children)
@@ -135,79 +194,46 @@ void Supremacy::onRenderOrtho()
 
     // draw entities
     iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-    _entityScene.updateSystems();
+    auto view = _entityScene.getEntities<PositionComponent, SizeComponent, VisualComponent>();
 
-    // iRenderer::getInstance().setMaterial(_plainMaterial);
-    // renderTree(_quadtree.getRoot());
-}
-
-/*bool Supremacy::onEntityCreated(iEventEntityCreated &event)
-{
-    iEntityPtr entity = event.getEntity();
-    PositionComponent *pos = _ecs.getComponent<PositionComponent>(entity);
-    SizeComponent *size = _ecs.getComponent<SizeComponent>(entity);
-
-    if (pos == nullptr || size == nullptr)
+    for (auto entity : view)
     {
-        return true;
+        auto [pos, size, visual] = view.get<PositionComponent, SizeComponent, VisualComponent>(entity);
+
+        const iaVector2f &position = pos._position;
+        const float32 width = size._size;
+
+        iRenderer::getInstance().setColor(0.0, 0.0, 0.0, 0.6);
+        iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width * 0.25, width, width * 0.5, _shadow);
+
+        iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
+        iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width, width, width, visual._character);
     }
 
-    const iaCircled circle(pos->_position._x, pos->_position._y, size->_size * 0.5);
-    iQuadtreeUserDataPtr data = static_cast<iQuadtreeUserDataPtr>(new QuadtreeData(circle, event.getEntity()));
-    _quadtree.insert(data);
-
-    _entities[entity] = data;
-
-    return true;
+    //iRenderer::getInstance().setMaterial(_plainMaterial);
+    //renderTree(_quadtree.getRoot());
 }
-
-bool Supremacy::onEntityDestroyed(iEventEntityDestroyed &event)
-{
-    auto iter = _entities.find(event.getEntity());
-    if (iter != _entities.end())
-    {
-        _entities.erase(iter);
-    }
-
-    return true;
-}*/
 
 bool Supremacy::onKeyDown(iEventKeyDown &event)
 {
-    // MovementControlComponent *movementControl = _ecs.getComponent<MovementControlComponent>(_player);
-    /*if (movementControl == nullptr)
-    {
-        return false;
-    }*/
+    MovementControlComponent &movementControl = _player.getComponent<MovementControlComponent>();
 
     switch (event.getKey())
     {
     case iKeyCode::W:
-        // movementControl->_up = true;
+        movementControl._up = true;
         return true;
 
     case iKeyCode::A:
-        // movementControl->_left = true;
+        movementControl._left = true;
         return true;
 
     case iKeyCode::S:
-        // movementControl->_down = true;
+        movementControl._down = true;
         return true;
 
     case iKeyCode::D:
-        // movementControl->_right = true;
-        return true;
-
-    case iKeyCode::I:
-        return true;
-
-    case iKeyCode::J:
-        return true;
-
-    case iKeyCode::K:
-        return true;
-
-    case iKeyCode::L:
+        movementControl._right = true;
         return true;
 
     case iKeyCode::ESC:
@@ -220,40 +246,24 @@ bool Supremacy::onKeyDown(iEventKeyDown &event)
 
 bool Supremacy::onKeyUp(iEventKeyUp &event)
 {
-    /*    MovementControlComponent *movementControl = _ecs.getComponent<MovementControlComponent>(_player);
-        if (movementControl == nullptr)
-        {
-            return false;
-        }*/
+    MovementControlComponent &movementControl = _player.getComponent<MovementControlComponent>();
 
     switch (event.getKey())
     {
     case iKeyCode::W:
-        // movementControl->_up = false;
+        movementControl._up = false;
         return true;
 
     case iKeyCode::A:
-        //        movementControl->_left = false;
+        movementControl._left = false;
         return true;
 
     case iKeyCode::S:
-        //      movementControl->_down = false;
+        movementControl._down = false;
         return true;
 
     case iKeyCode::D:
-        //    movementControl->_right = false;
-        return true;
-
-    case iKeyCode::I:
-        return true;
-
-    case iKeyCode::J:
-        return true;
-
-    case iKeyCode::K:
-        return true;
-
-    case iKeyCode::L:
+        movementControl._right = false;
         return true;
     }
 

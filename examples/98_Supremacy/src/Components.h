@@ -41,6 +41,11 @@ struct SizeComponent
     float32 _size;
 };
 
+struct QuadtreeObjectComponent
+{
+    iQuadtreeObjectPtr _object;
+};
+
 struct VelocityComponent
 {
     iaVector2f _direction;
@@ -68,40 +73,6 @@ struct MovementControlComponent
     bool _down = false;
     bool _left = false;
     bool _right = false;
-};
-
-class PawnSystem : public iEntitySystem
-{
-public:
-    /*! init system
-     */
-    PawnSystem(iQuadtreePtr quadtree);
-
-    /*! update the system
-    \param scene the scene context
-    */
-    void update(iEntityScenePtr scene) override;
-
-private:
-    iQuadtreePtr _quadtree;
-};
-
-class DisplayEntittiesSystem : public iEntitySystem
-{
-public:
-    /*! init system
-     */
-    DisplayEntittiesSystem();
-    
-    /*! update the system
-    \param scene the scene context
-    */
-    void update(iEntityScenePtr scene) override;
-
-private:
-    /*! floor shadow
-     */
-    iTexturePtr _shadow;
 };
 
 #endif // __SUPREMACY_SYSTEMS__

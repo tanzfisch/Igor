@@ -16,11 +16,17 @@ namespace igor
     {
     }
 
-    const iaString& iEntity::getName() const
+    const iaString iEntity::getName() const
     { 
-        // return GetComponent<NameComponent>()._name;
-        static iaString foo("not implemented");
-        return foo;
+        NameComponent *component = _scene->_registry.try_get<NameComponent>(_entity);
+        if(component != nullptr)
+        {
+            return component->_name;
+        }
+        else
+        {
+            return "";
+        }
     } 
 
     ////////////// old deprecated stuff

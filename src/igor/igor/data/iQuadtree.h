@@ -42,30 +42,12 @@ namespace igor
     struct iQuadtreeNode;
     typedef std::shared_ptr<iQuadtreeNode> iQuadtreeNodePtr;
 
-    /*! user data base class
+    /*! quadtree object
+
+    \todo make it a template
      */
-    struct iQuadtreeUserData
+    struct iQuadtreeObject
     {
-        /*! ctor init
-
-        \param circle the circle represenation
-        */
-        iQuadtreeUserData(const iaCircled &circle)
-            : _circle(circle)
-        {
-        }
-
-        /*! does nothing
-         */
-        virtual ~iQuadtreeUserData() = default;
-
-        /*! \returns the circle
-         */
-        const iaCircled &getCircle() const
-        {
-            return _circle;
-        }
-
         /*! the circle representing this object
          */
         iaCircled _circle;
@@ -73,13 +55,23 @@ namespace igor
         /*! parent node
          */
         iQuadtreeNodePtr _parent;
+
+        /*! pointer to user specific data
+         */
+        iUserData _userData;
     };
 
-    /*! user data pointer definition
+    /*! quadtree object pointer definition
      */
-    typedef std::shared_ptr<iQuadtreeUserData> iQuadtreeUserDataPtr;
+    typedef std::shared_ptr<iQuadtreeObject> iQuadtreeObjectPtr;
+
+    /*! quadtree object list definition
+     */
+    typedef std::vector<iQuadtreeObjectPtr> iQuadtreeObjects;
 
     /*! node defintion
+
+    \todo make it a template
      */
     struct iQuadtreeNode
     {
@@ -95,14 +87,14 @@ namespace igor
          */
         iaRectangled _box;
 
-        /*! user data
+        /*! quadtree objects
          */
-        std::vector<iQuadtreeUserDataPtr> _userData;
+        std::vector<iQuadtreeObjectPtr> _objects;
     };
 
     /*! quadtree implementation
 
-    \todo it does not respect the size of the user data circle
+    \todo make it a template
      */
     class IGOR_API iQuadtree
     {
@@ -112,7 +104,7 @@ namespace igor
 
         \param box volume of the whole quadtree
         */
-        iQuadtree(const iaRectangled &box);
+        iQuadtree(const iaRectangled &box, const uint32 splitThreshold = 4, const uint32 maxDepth = 16);
 
         /*! dtor
          */
@@ -122,19 +114,19 @@ namespace igor
 
         \param userData the user data
         */
-        void insert(const iQuadtreeUserDataPtr userData);
+        void insert(const iQuadtreeObjectPtr object);
 
         /*! remove user data
 
         \param userData the user data
         */
-        void remove(const iQuadtreeUserDataPtr userData);
+        void remove(const iQuadtreeObjectPtr object);
 
         /*! updates the user data
 
         \param userData the user data to update
         */
-        void update(const iQuadtreeUserDataPtr userData, const iaVector2d &newPosition);
+        void update(const iQuadtreeObjectPtr object, const iaVector2d &newPosition);
 
         /*! \returns root of tree
          */
@@ -145,7 +137,7 @@ namespace igor
         \param circle the given circle
         \param userData the resulting found user data
         */
-        void query(iaCircled circle, std::vector<iQuadtreeUserDataPtr> &userData);
+        void query(iaCircled circle, iQuadtreeObjects &objects);
 
         /*! clears the tree
          */
@@ -156,19 +148,28 @@ namespace igor
          */
         iQuadtreeNodePtr _root;
 
+        /*! max number of objects before splitting node
+         */
+        const uint32 _splitThreshold;
+
+        /*! max depth of tree
+         */
+        const uint32 _maxDepth;
+
         /*! recursive insert new data implementation
 
         \param node the current node
         \param userData the user data
+        \param depth variable to measure depth
         */
-        void insertInternal(const iQuadtreeNodePtr &node, const iQuadtreeUserDataPtr userData);
+        void insertInternal(const iQuadtreeNodePtr &node, const iQuadtreeObjectPtr userData, uint32 &depth);
 
         /*! removes user data
 
         \param node the current node
         \param userData the user data to remove
         */
-        bool removeInternal(const iQuadtreeNodePtr &node, const iQuadtreeUserDataPtr userData);
+        bool removeInternal(const iQuadtreeNodePtr &node, const iQuadtreeObjectPtr userData);
 
         /*! queries for user data within given circle
 
@@ -176,7 +177,7 @@ namespace igor
         \param circle the given circle
         \param userData the resulting found user data
         */
-        void queryInternal(const iQuadtreeNodePtr &node, iaCircled circle, std::vector<iQuadtreeUserDataPtr> &userData);
+        void queryInternal(const iQuadtreeNodePtr &node, iaCircled circle, iQuadtreeObjects &userData);
 
         /*! split given node
 
