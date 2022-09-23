@@ -196,7 +196,7 @@ void Supremacy::onUpdate()
             bullet.addComponent<SizeComponent>(10.0f);
             bullet.addComponent<OriginComponent>(iaVector2f(circle._center._x, circle._center._y));
 
-            bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleTrail.png"));
+            bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleTrail.png"), true);
 
             countdown = 100;
         }
@@ -236,9 +236,9 @@ void Supremacy::onUpdate()
 
     for (auto entity : originUpdateView)
     {
-        auto [pos, ori] = originUpdateView.get<PositionComponent, OriginComponent>(entity);    
+        auto [pos, ori] = originUpdateView.get<PositionComponent, OriginComponent>(entity);
 
-        if(pos._position.distance2(ori._origin) > 300.0 * 300.0)
+        if (pos._position.distance2(ori._origin) > 300.0 * 300.0)
         {
             _entityScene.destroyEntity(entity);
         }
@@ -299,21 +299,34 @@ void Supremacy::onRenderOrtho()
     iRenderer::getInstance().setModelMatrix(matrix);
 
     // draw entities
-    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-    auto view = _entityScene.getEntities<PositionComponent, SizeComponent, VisualComponent>();
+    
+    auto view = _entityScene.getEntities<PositionComponent, VelocityComponent, SizeComponent, VisualComponent>();
 
     for (auto entity : view)
     {
-        auto [pos, size, visual] = view.get<PositionComponent, SizeComponent, VisualComponent>(entity);
+        auto [pos, vel, size, visual] = view.get<PositionComponent, VelocityComponent, SizeComponent, VisualComponent>(entity);
 
-        const iaVector2f &position = pos._position;
+        const iaVector2f &position = pos._position;        
         const float32 width = size._size;
 
-        iRenderer::getInstance().setColor(0.0, 0.0, 0.0, 0.6);
-        iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width * 0.25, width, width * 0.5, _shadow);
+        if (visual._useDirectory)
+        {
+            const iaVector2f &dir = vel._direction;
+            iRenderer::getInstance().setMaterial(_plainMaterial); // TODO SOOOO BAD
 
-        iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
-        iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width, width, width, visual._character);
+            iRenderer::getInstance().setLineWidth(2.0);
+            iRenderer::getInstance().setColor(0.0, 0.0, 0.0, 1.0);
+            iRenderer::getInstance().drawLine(position._x, position._y, position._x + dir._x, position._y + dir._y);
+        }
+        else
+        {
+            iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
+            iRenderer::getInstance().setColor(0.0, 0.0, 0.0, 0.6);
+            iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width * 0.25, width, width * 0.5, _shadow);
+
+            iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
+            iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width, width, width, visual._character);
+        }
     }
 
     // iRenderer::getInstance().setMaterial(_plainMaterial);
