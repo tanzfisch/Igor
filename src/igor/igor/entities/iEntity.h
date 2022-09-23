@@ -90,8 +90,6 @@ namespace igor
         */
         const iaString getName() const;
 
-
-
     private:
         iEntityID _entity;
         iEntityScene *_scene;

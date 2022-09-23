@@ -132,12 +132,12 @@ namespace igor
          */
         const iQuadtreeNodePtr &getRoot() const;
 
-        /*! queries for user data within given circle
+        /*! queries for objects within given circle
 
         \param circle the given circle
-        \param userData the resulting found user data
+        \param objects the resulting found objects
         */
-        void query(iaCircled circle, iQuadtreeObjects &objects);
+        void query(const iaCircled &circle, iQuadtreeObjects &objects);
 
         /*! clears the tree
          */
@@ -175,9 +175,9 @@ namespace igor
 
         \param node the current node
         \param circle the given circle
-        \param userData the resulting found user data
+        \param objects the resulting found user data
         */
-        void queryInternal(const iQuadtreeNodePtr &node, iaCircled circle, iQuadtreeObjects &userData);
+        void queryInternal(const iQuadtreeNodePtr &node, const iaCircled &circle, iQuadtreeObjects &objects);
 
         /*! split given node
 

@@ -67,6 +67,12 @@ struct VisualComponent
     iTexturePtr _character;
 };
 
+struct TargetComponent
+{
+    iEntityID _targetID;
+    bool _inRange = false;
+};
+
 struct MovementControlComponent
 {
     bool _up = false;

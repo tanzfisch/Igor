@@ -23,18 +23,18 @@ namespace igor
         clear();
     }
 
-    void iQuadtree::query(iaCircled circle, iQuadtreeObjects &objects)
+    void iQuadtree::query(const iaCircled &circle, iQuadtreeObjects &objects)
     {
-        queryInternal(_root, circle, objects);
-    }
-
-    void iQuadtree::queryInternal(const iQuadtreeNodePtr &node, iaCircled circle, iQuadtreeObjects &objects)
-    {
-        if (!iIntersection::intersects(circle, node->_box))
+        if (!iIntersection::intersects(circle, _root->_box))
         {
             return;
         }
 
+        queryInternal(_root, circle, objects);
+    }
+
+    void iQuadtree::queryInternal(const iQuadtreeNodePtr &node, const iaCircled &circle, iQuadtreeObjects &objects)
+    {
         if (isLeaf(node))
         {
             for (auto ud : node->_objects)
@@ -49,7 +49,11 @@ namespace igor
         {
             for (int i = 0; i < 4; ++i)
             {
-                queryInternal(node->_children[i], circle, objects);
+                const iQuadtreeNodePtr &child = node->_children[i];
+                if (iIntersection::intersects(circle, child->_box))
+                {
+                    queryInternal(child, circle, objects);
+                }
             }
         }
     }

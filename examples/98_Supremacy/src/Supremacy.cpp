@@ -35,29 +35,11 @@ void Supremacy::onInit()
 
     _rand.setSeed(1337);
 
-    // create some enemies
-    for (int i = 0; i < 1000; ++i)
-    {
-        iEntity entity = _entityScene.createEntity();
-        auto position = entity.addComponent<PositionComponent>(iaVector2f(_rand.getNextFloat() * 200.0 + 250.0, _rand.getNextFloat() * 200.0 + 250.0));
-        auto size = entity.addComponent<SizeComponent>(10.0f);
-
-        iaVector2f direction(1.0, 1.0);
-        // direction.rotateXY(_rand.getNextFloat() * M_PI * 2.0);
-
-        entity.addComponent<VelocityComponent>(direction, float32(_rand.getNextFloat() * 0.5 + 1.5));
-        entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleGem.png"));
-        auto &object = entity.addComponent<QuadtreeObjectComponent>();
-        object._object = iQuadtreeObjectPtr(new iQuadtreeObject());
-        object._object->_circle.set(position._position._x, position._position._y, size._size);
-        _quadtree.insert(object._object);
-    }
-
     // init player
     _player = _entityScene.createEntity();
 
-    auto position = _player.addComponent<PositionComponent>(iaVector2f(400.0, 300.0));
-    auto size = _player.addComponent<SizeComponent>(10.0f);
+    auto position = _player.addComponent<PositionComponent>(iaVector2f(800.0, 100.0));
+    auto size = _player.addComponent<SizeComponent>(20.0f);
 
     _player.addComponent<VelocityComponent>(iaVector2f(1.0, 0.0), 1.0f);
     _player.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleStar.png"));
@@ -65,8 +47,30 @@ void Supremacy::onInit()
     _player.addComponent<MovementControlComponent>();
     auto &object = _player.addComponent<QuadtreeObjectComponent>();
     object._object = iQuadtreeObjectPtr(new iQuadtreeObject());
+    object._object->_userData = reinterpret_cast<void *>(_player.operator igor::iEntityID());
     object._object->_circle.set(position._position._x, position._position._y, size._size);
     _quadtree.insert(object._object);
+
+    // create some enemies
+    for (int i = 0; i < 300; ++i)
+    {
+        iEntity entity = _entityScene.createEntity();
+        auto position = entity.addComponent<PositionComponent>(iaVector2f(_rand.getNextFloat() * 1000.0, _rand.getNextFloat() * 1000.0));
+        auto size = entity.addComponent<SizeComponent>(10.0f);
+
+        iaVector2f direction(0.0, 1.0);
+        direction.rotateXY(_rand.getNextFloat() * M_PI * 2.0);
+
+        entity.addComponent<VelocityComponent>(direction, 0.3f);
+        entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleGem.png"));
+        auto &object = entity.addComponent<QuadtreeObjectComponent>();
+        object._object = iQuadtreeObjectPtr(new iQuadtreeObject());
+        object._object->_userData = reinterpret_cast<void *>(entity.operator igor::iEntityID());
+        object._object->_circle.set(position._position._x, position._position._y, size._size);
+        _quadtree.insert(object._object);
+
+        entity.addComponent<TargetComponent>(_player.operator igor::iEntityID());
+    }
 
     // game logic timer
     _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &Supremacy::onUpdate), iaTime::fromMilliseconds(16));
@@ -109,6 +113,45 @@ void Supremacy::onUpdate()
         if (movementControl._down)
         {
             vel._direction._y += 1.0;
+        }
+    }
+
+    auto targetView = _entityScene.getEntities<PositionComponent, VelocityComponent, TargetComponent>();
+
+    iaCircled circle;
+    circle.setRadius(50);
+
+    for (auto entity : targetView)
+    {
+        auto [pos, vel, target] = targetView.get<PositionComponent, VelocityComponent, TargetComponent>(entity);
+
+        circle.setX(pos._position._x);
+        circle.setY(pos._position._y);
+
+        iQuadtreeObjects objects;
+        _quadtree.query(circle, objects);
+
+        const void *userData = reinterpret_cast<void *>(target._targetID);
+
+        auto iter = std::find_if(objects.begin(), objects.end(),
+                                 [&](const iQuadtreeObjectPtr &x)
+                                 { return x->_userData == userData; });
+
+        if (iter == objects.end())
+        {
+            if(target._inRange)
+            {
+                vel._direction.set(0.0, 1.0);
+                vel._direction.rotateXY(_rand.getNextFloat() * M_PI * 2.0);
+                target._inRange = false;
+            }
+        }
+        else
+        {
+            vel._direction._x = (*iter)->_circle._center._x - pos._position._x;
+            vel._direction._y = (*iter)->_circle._center._y - pos._position._y;
+            vel._direction.normalize();
+            target._inRange = true;
         }
     }
 
@@ -210,8 +253,8 @@ void Supremacy::onRenderOrtho()
         iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width, width, width, visual._character);
     }
 
-    //iRenderer::getInstance().setMaterial(_plainMaterial);
-    //renderTree(_quadtree.getRoot());
+    // iRenderer::getInstance().setMaterial(_plainMaterial);
+    // renderTree(_quadtree.getRoot());
 }
 
 bool Supremacy::onKeyDown(iEventKeyDown &event)
