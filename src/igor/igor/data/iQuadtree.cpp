@@ -60,7 +60,7 @@ namespace igor
 
     void iQuadtree::update(const iQuadtreeObjectPtr object, const iaVector2d &newPosition)
     {
-        if (iIntersection::intersects(newPosition, object->_parent->_box))
+        if (iIntersection::intersects(newPosition, object->_parent.lock()->_box))
         {
             object->_position = newPosition;
         }
@@ -75,7 +75,7 @@ namespace igor
 
     void iQuadtree::insert(const iQuadtreeObjectPtr object)
     {
-        if (object->_parent != nullptr)
+        if (object->_parent.lock() != nullptr)
         {
             return;
         }
@@ -177,19 +177,19 @@ namespace igor
 
     void iQuadtree::remove(const iQuadtreeObjectPtr object)
     {
-        iQuadtreeNodePtr parent = object->_parent;
+        iQuadtreeNodePtr parent = object->_parent.lock();
 
         auto iter = std::find(parent->_objects.begin(), parent->_objects.end(), object);
         if (iter != parent->_objects.end())
         {
-            (*iter)->_parent = nullptr;
+            (*iter)->_parent.lock() = nullptr;
             parent->_objects.erase(iter);
         }
 
         bool merged = true;
         while (merged && parent)
         {
-            parent = parent->_parent;
+            parent = parent->_parent.lock();
             merged = tryMerge(parent);
         }
     }
@@ -221,7 +221,7 @@ namespace igor
 
         for (int i = 0; i < 4; ++i)
         {
-            node->_children[i]->_parent = nullptr;
+            node->_children[i]->_parent.reset();
             node->_children[i] = nullptr;
         }
 

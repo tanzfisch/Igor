@@ -41,6 +41,7 @@ namespace igor
 
     struct iQuadtreeNode;
     typedef std::shared_ptr<iQuadtreeNode> iQuadtreeNodePtr;
+    typedef std::weak_ptr<iQuadtreeNode> iQuadtreeNodeWPtr;
 
     /*! quadtree object
 
@@ -54,7 +55,7 @@ namespace igor
 
         /*! parent node
          */
-        iQuadtreeNodePtr _parent;
+        iQuadtreeNodeWPtr _parent;
 
         /*! pointer to user specific data
          */
@@ -77,7 +78,7 @@ namespace igor
     {
         /*! parent node
          */
-        iQuadtreeNodePtr _parent;
+        iQuadtreeNodeWPtr _parent;
 
         /*! children of node
          */
