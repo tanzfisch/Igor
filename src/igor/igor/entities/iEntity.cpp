@@ -14,6 +14,7 @@ namespace igor
     iEntity::iEntity(const entt::entity entity, iEntityScene &scene)
         : _entity(entity), _scene(&scene)
     {
+        con_assert(_scene->_registry.valid(entity), "invalid entity");
     }
 
     const iaString iEntity::getName() const

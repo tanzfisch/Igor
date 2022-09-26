@@ -7,7 +7,7 @@ namespace igor
 
     iEntity iEntityScene::createEntity(const iaString &name)
     {
-        iEntity entity = {_registry.create(), *this};
+        iEntity entity(_registry.create(), *this);
         auto &component = entity.addComponent<NameComponent>();
         component._name = name.isEmpty() ? L"Entity" : name.getData();
         return entity;
@@ -15,12 +15,12 @@ namespace igor
 
     void iEntityScene::destroyEntity(iEntity entity)
     {
-        _registry.destroy(entity);
+        _registry.destroy(entity.operator iEntityID());
     }
 
     void iEntityScene::destroyEntity(iEntityID entityID)
     {        
-        _registry.destroy(entityID);
+         _registry.destroy(entityID);
     }
 
     void iEntityScene::registerSystem(iEntitySystemPtr system)

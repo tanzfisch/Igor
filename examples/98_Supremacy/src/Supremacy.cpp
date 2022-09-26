@@ -189,7 +189,7 @@ void Supremacy::onUpdate()
 
         if (foundObject != nullptr)
         {
-            auto bullet = _entityScene.createEntity();
+            auto bullet = _entityScene.createEntity("bullet");
             bullet.addComponent<PositionComponent>(circle._center);
 
             iaVector2d direction = foundObject->_position - circle._center;
@@ -276,31 +276,31 @@ void Supremacy::onUpdate()
         }
     }
 
-    auto originUpdateView = _entityScene.getEntities<PositionComponent, OriginComponent>();
+    auto originUpdateView = _entityScene.getEntities<PositionComponent, OriginComponent, HealthComponent>();
 
     for (auto entity : originUpdateView)
     {
-        auto [pos, ori] = originUpdateView.get<PositionComponent, OriginComponent>(entity);
+        auto [pos, ori, health] = originUpdateView.get<PositionComponent, OriginComponent, HealthComponent>(entity);
 
         if (pos._position.distance2(ori._origin) > 300.0 * 300.0)
         {
-            _entityScene.destroyEntity(entity);
+            health._health = 0.0;
         }
     }
 
     // clean up the dead
-  /*  auto healthView = _entityScene.getEntities<HealthComponent, NameComponent>();
+    auto healthView = _entityScene.getEntities<HealthComponent, QuadtreeObjectComponent>();
 
     for (auto entity : healthView)
     {
-        auto [health, name] = healthView.get<HealthComponent, NameComponent>(entity);   
+        auto [health, object] = healthView.get<HealthComponent, QuadtreeObjectComponent>(entity);   
 
         if(health._health <= 0.0)
-        {            
-            con_endl("destroy " << name._name);
+        {               
+            _quadtree.remove(object._object);
             _entityScene.destroyEntity(entity);
         }
-    }*/
+    }
 }
 
 void Supremacy::onDeinit()
