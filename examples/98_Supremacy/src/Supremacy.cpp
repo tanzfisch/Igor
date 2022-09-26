@@ -43,13 +43,14 @@ void Supremacy::onInit()
 
     _player.addComponent<VelocityComponent>(iaVector2d(1.0, 0.0), 1.0, true);
     _player.addComponent<PartyComponent>(10u);
+    _player.addComponent<DamageComponent>(0.0);
     _player.addComponent<HealthComponent>(100.0);
     _player.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleStar.png"));
 
     _player.addComponent<MovementControlComponent>();
     auto &object = _player.addComponent<QuadtreeObjectComponent>();
-    object._object = iQuadtreeObjectPtr(new iQuadtreeObject());
-    object._object->_userData = reinterpret_cast<iUserData>(_player.operator igor::iEntityID());
+    object._object = std::shared_ptr<iQuadtreeObject<float64, iEntityID>>(new iQuadtreeObject<float64, iEntityID>());
+    object._object->_userData = _player.operator iEntityID();
     object._object->_position.set(position._position._x, position._position._y);
     _quadtree.insert(object._object);
 
@@ -63,14 +64,14 @@ void Supremacy::onInit()
         iaVector2d direction(0.0, 1.0);
         direction.rotateXY(_rand.getNextFloat() * M_PI * 2.0);
 
-        entity.addComponent<VelocityComponent>(direction, 0.3);
+        entity.addComponent<VelocityComponent>(direction, 0.3, false);
         entity.addComponent<PartyComponent>(20u);
         entity.addComponent<DamageComponent>(100.0);
         entity.addComponent<HealthComponent>(10.0);
         entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleGem.png"));
         auto &object = entity.addComponent<QuadtreeObjectComponent>();
-        object._object = iQuadtreeObjectPtr(new iQuadtreeObject());
-        object._object->_userData = reinterpret_cast<iUserData>(entity.operator igor::iEntityID());
+        object._object = std::shared_ptr<iQuadtreeObject<float64, iEntityID>>(new iQuadtreeObject<float64, iEntityID>());
+        object._object->_userData = entity.operator iEntityID();
         object._object->_position.set(position._position._x, position._position._y);
         _quadtree.insert(object._object);
 
@@ -119,7 +120,7 @@ void Supremacy::onUpdate()
         if (movementControl._down)
         {
             vel._direction._y += 1.0;
-        }
+        }        
     }
 
     // follow given target
@@ -162,19 +163,18 @@ void Supremacy::onUpdate()
     static int countdown = 100; // LOL timer?
     if (countdown > 0)
     {
-        const iUserData playerUserData = reinterpret_cast<iUserData>(_player.operator igor::iEntityID());
         auto &position = _player.getComponent<PositionComponent>();
         auto &size = _player.getComponent<SizeComponent>();
         iaCircled circle(position._position, 50.0);
-        iQuadtreeObjects objects;
+        std::vector<std::shared_ptr<iQuadtreeObject<float64, iEntityID>>> objects;
         _quadtree.query(circle, objects);
 
         float32 minDistance = 999999999;
-        iQuadtreeObjectPtr foundObject;
+        std::shared_ptr<iQuadtreeObject<float64, iEntityID>> foundObject;
 
         for (const auto &object : objects)
         {
-            if (object->_userData == playerUserData)
+            if (object->_userData == _player.operator iEntityID())
             {
                 continue;
             }
@@ -237,7 +237,7 @@ void Supremacy::onUpdate()
         }
 
         iaCircled circle(projection, radius);
-        iQuadtreeObjects objects;
+        std::vector<std::shared_ptr<iQuadtreeObject<float64, iEntityID>>> objects;
         _quadtree.query(circle, objects);
 
         for(const auto &object : objects)
@@ -248,8 +248,7 @@ void Supremacy::onUpdate()
 
 
         // only move if nothing is in the way
-        if (objects.size() <= 1 ||
-            vel._nonBlockable)
+        if (objects.size() <= 1 || vel._nonBlockable)
         {
             position = position + direction * speed;
         }
@@ -292,7 +291,7 @@ void Supremacy::onEvent(iEvent &event)
     event.dispatch<iEventKeyUp>(IGOR_BIND_EVENT_FUNCTION(Supremacy::onKeyUp));
 }
 
-static void renderTree(const std::shared_ptr<iQuadtreeNode> &node)
+static void renderTree(const std::shared_ptr<iQuadtreeNode<float64, iEntityID>> &node)
 {
     if (node == nullptr)
     {
@@ -352,8 +351,8 @@ void Supremacy::onRenderOrtho()
         }
     }
 
-    // iRenderer::getInstance().setMaterial(_plainMaterial);
-    // renderTree(_quadtree.getRoot());
+    iRenderer::getInstance().setMaterial(_plainMaterial);
+    renderTree(_quadtree.getRoot());
 }
 
 bool Supremacy::onKeyDown(iEventKeyDown &event)

@@ -77,7 +77,7 @@ private:
 
     /*! quadtree
     */
-    iQuadtree _quadtree;
+    iQuadtree<float64, iEntityID> _quadtree;
 
     /*! floor shadow
      */

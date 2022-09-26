@@ -30,74 +30,64 @@
 #define __IGOR_QUADTREE__
 
 #include <igor/iDefines.h>
+#include <igor/data/iIntersection.h>
 
 #include <iaux/data/iaRectangle.h>
 #include <iaux/data/iaCircle.h>
 
+#include <algorithm>
 #include <memory>
 
 namespace igor
 {
 
+    template <typename F, typename T>
     struct iQuadtreeNode;
-    typedef std::shared_ptr<iQuadtreeNode> iQuadtreeNodePtr;
-    typedef std::weak_ptr<iQuadtreeNode> iQuadtreeNodeWPtr;
 
     /*! quadtree object
-
-    \todo make it a template
      */
+    template <typename F, typename T>
     struct iQuadtreeObject
     {
         /*! the position of this object
          */
-        iaVector2d _position;
+        iaVector2<F> _position;
 
         /*! parent node
          */
-        iQuadtreeNodeWPtr _parent;
+        std::weak_ptr<iQuadtreeNode<F, T>> _parent;
 
-        /*! pointer to user specific data
+        /*! user data
          */
-        iUserData _userData;
+        T _userData;
     };
 
-    /*! quadtree object pointer definition
-     */
-    typedef std::shared_ptr<iQuadtreeObject> iQuadtreeObjectPtr;
-
-    /*! quadtree object list definition
-     */
-    typedef std::vector<iQuadtreeObjectPtr> iQuadtreeObjects;
-
     /*! node defintion
-
-    \todo make it a template
      */
+    template <typename F, typename T>
     struct iQuadtreeNode
     {
         /*! parent node
          */
-        iQuadtreeNodeWPtr _parent;
+        std::weak_ptr<iQuadtreeNode<F, T>> _parent;
 
         /*! children of node
          */
-        iQuadtreeNodePtr _children[4];
+        std::shared_ptr<iQuadtreeNode<F, T>> _children[4];
 
         /*! node box
          */
-        iaRectangled _box;
+        iaRectangle<F> _box;
 
         /*! quadtree objects
          */
-        std::vector<iQuadtreeObjectPtr> _objects;
+        std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> _objects;
     };
 
     /*! quadtree implementation
-
-    \todo make it a template
      */
-    class IGOR_API iQuadtree
+    template <typename F, typename T>
+    class IGOR_API_TEMPLATE iQuadtree
     {
 
     public:
@@ -105,40 +95,40 @@ namespace igor
 
         \param box volume of the whole quadtree
         */
-        iQuadtree(const iaRectangled &box, const uint32 splitThreshold = 4, const uint32 maxDepth = 16);
+        iQuadtree(const iaRectangle<F> &box, const uint32 splitThreshold = 4, const uint32 maxDepth = 16);
 
         /*! dtor
          */
-        virtual ~iQuadtree();
+        virtual ~iQuadtree() = default;
 
         /*! insert user data at given position
 
         \param userData the user data
         */
-        void insert(const iQuadtreeObjectPtr object);
+        void insert(const std::shared_ptr<iQuadtreeObject<F, T>> object);
 
         /*! remove user data
 
         \param userData the user data
         */
-        void remove(const iQuadtreeObjectPtr object);
+        void remove(const std::shared_ptr<iQuadtreeObject<F, T>> object);
 
         /*! updates the user data
 
         \param userData the user data to update
         */
-        void update(const iQuadtreeObjectPtr object, const iaVector2d &newPosition);
+        void update(const std::shared_ptr<iQuadtreeObject<F, T>> object, const iaVector2d &newPosition);
 
         /*! \returns root of tree
          */
-        const iQuadtreeNodePtr &getRoot() const;
+        const std::shared_ptr<iQuadtreeNode<F, T>> &getRoot() const;
 
         /*! queries for objects within given circle
 
         \param circle the given circle
         \param objects the resulting found objects
         */
-        void query(const iaCircled &circle, iQuadtreeObjects &objects);
+        void query(const iaCircled &circle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects);
 
         /*! clears the tree
          */
@@ -147,7 +137,7 @@ namespace igor
     private:
         /*! root node
          */
-        iQuadtreeNodePtr _root;
+        std::shared_ptr<iQuadtreeNode<F, T>> _root;
 
         /*! max number of objects before splitting node
          */
@@ -163,14 +153,14 @@ namespace igor
         \param userData the user data
         \param depth variable to measure depth
         */
-        void insertInternal(const iQuadtreeNodePtr &node, const iQuadtreeObjectPtr userData, uint32 &depth);
+        void insertInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &node, const std::shared_ptr<iQuadtreeObject<F, T>> object, uint32 &depth);
 
         /*! removes user data
 
         \param node the current node
         \param userData the user data to remove
         */
-        bool removeInternal(const iQuadtreeNodePtr &node, const iQuadtreeObjectPtr userData);
+        bool removeInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &node, const std::shared_ptr<iQuadtreeObject<F, T>> object);
 
         /*! queries for user data within given circle
 
@@ -178,30 +168,28 @@ namespace igor
         \param circle the given circle
         \param objects the resulting found user data
         */
-        void queryInternal(const iQuadtreeNodePtr &node, const iaCircled &circle, iQuadtreeObjects &objects);
+        void queryInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &node, const iaCircled &circle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects);
 
         /*! split given node
 
         \param node the node to split
         */
-        void split(const iQuadtreeNodePtr &node);
+        void split(const std::shared_ptr<iQuadtreeNode<F, T>> &node);
 
         /*! try to merge given node
 
         \param node the given node
         */
-        bool tryMerge(const iQuadtreeNodePtr &node);
+        bool tryMerge(const std::shared_ptr<iQuadtreeNode<F, T>> &node);
 
         /*! \returns true if node has no children
 
         \param node the node to test
         */
-        bool isLeaf(const iQuadtreeNodePtr &node) const;
+        bool isLeaf(const std::shared_ptr<iQuadtreeNode<F, T>> &node) const;
     };
 
-    /*! Quadtree pointer definition
-     */
-    typedef iQuadtree *iQuadtreePtr;
+#include <igor/data/iQuadtree.inl>
 
 } // namespace igor
 

@@ -43,7 +43,7 @@ struct SizeComponent
 
 struct QuadtreeObjectComponent
 {
-    iQuadtreeObjectPtr _object;
+    std::shared_ptr<iQuadtreeObject<float64, iEntityID>> _object;
 };
 
 struct VelocityComponent
