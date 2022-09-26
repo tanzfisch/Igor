@@ -120,8 +120,6 @@ namespace iaux
             con_assert(strlen(text) >= lenght, "inconsistent data");
         }
         setData(text, lenght);
-
-        CHECK_CONSISTENCY();
     }
 
     iaString::iaString(const wchar_t *text, const int64 lenght)
@@ -131,8 +129,6 @@ namespace iaux
             con_assert(wcslen(text) >= lenght, "inconsistent data");
         }
         setData(text, lenght);
-
-        CHECK_CONSISTENCY();
     }
 
     iaString::iaString(const wchar_t character)
@@ -148,8 +144,6 @@ namespace iaux
     iaString::iaString(const iaString &data)
     {
         setData(data.getData());
-
-        CHECK_CONSISTENCY();
     }
 
     void iaString::toLower()

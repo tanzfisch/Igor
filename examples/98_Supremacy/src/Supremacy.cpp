@@ -41,7 +41,9 @@ void Supremacy::onInit()
     auto position = _player.addComponent<PositionComponent>(iaVector2d(800.0, 100.0));
     auto size = _player.addComponent<SizeComponent>(20.0);
 
-    _player.addComponent<VelocityComponent>(iaVector2d(1.0, 0.0), 1.0);
+    _player.addComponent<VelocityComponent>(iaVector2d(1.0, 0.0), 1.0, true);
+    _player.addComponent<PartyComponent>(10u);
+    _player.addComponent<HealthComponent>(100.0);
     _player.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleStar.png"));
 
     _player.addComponent<MovementControlComponent>();
@@ -52,7 +54,7 @@ void Supremacy::onInit()
     _quadtree.insert(object._object);
 
     // create some enemies
-    for (int i = 0; i < 100; ++i)
+    for (int i = 0; i < 1000; ++i)
     {
         iEntity entity = _entityScene.createEntity();
         auto position = entity.addComponent<PositionComponent>(iaVector2d(_rand.getNextFloat() * 1000.0, _rand.getNextFloat() * 1000.0));
@@ -62,6 +64,9 @@ void Supremacy::onInit()
         direction.rotateXY(_rand.getNextFloat() * M_PI * 2.0);
 
         entity.addComponent<VelocityComponent>(direction, 0.3);
+        entity.addComponent<PartyComponent>(20u);
+        entity.addComponent<DamageComponent>(100.0);
+        entity.addComponent<HealthComponent>(10.0);
         entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleGem.png"));
         auto &object = entity.addComponent<QuadtreeObjectComponent>();
         object._object = iQuadtreeObjectPtr(new iQuadtreeObject());
@@ -117,6 +122,7 @@ void Supremacy::onUpdate()
         }
     }
 
+    // follow given target
     auto targetView = _entityScene.getEntities<PositionComponent, VelocityComponent, TargetComponent>();
 
     for (auto entity : targetView)
@@ -152,9 +158,8 @@ void Supremacy::onUpdate()
         }
     }
 
-    static int countdown = 100; // LOL
-
     // aquire target for player
+    static int countdown = 100; // LOL timer?
     if (countdown > 0)
     {
         const iUserData playerUserData = reinterpret_cast<iUserData>(_player.operator igor::iEntityID());
@@ -189,7 +194,10 @@ void Supremacy::onUpdate()
 
             iaVector2d direction = foundObject->_position - circle._center;
             direction.normalize();
-            bullet.addComponent<VelocityComponent>(direction, 10.0f);
+            bullet.addComponent<VelocityComponent>(direction, 10.0f, true);
+            bullet.addComponent<PartyComponent>(10u);
+            bullet.addComponent<DamageComponent>(1.0);
+            bullet.addComponent<HealthComponent>(0.0);
             bullet.addComponent<SizeComponent>(10.0f);
             bullet.addComponent<OriginComponent>(circle._center);
 
@@ -203,14 +211,16 @@ void Supremacy::onUpdate()
         countdown--;
     }
 
-    auto positionUpdateView = _entityScene.getEntities<PositionComponent, VelocityComponent>();
+    // move entity
+    auto positionUpdateView = _entityScene.getEntities<PositionComponent, SizeComponent, VelocityComponent, PartyComponent, DamageComponent, HealthComponent>();
 
     for (auto entity : positionUpdateView)
     {
-        auto [pos, vel] = positionUpdateView.get<PositionComponent, VelocityComponent>(entity);
+        auto [pos, size, vel, party, damage, health] = positionUpdateView.get<PositionComponent, SizeComponent, VelocityComponent, PartyComponent, DamageComponent, HealthComponent>(entity);
 
         iaVector2d &position = pos._position;
         iaVector2d &direction = vel._direction;
+        const float64 radius = size._size * 0.5;
         const float64 speed = vel._speed;
         const iaVector2d projection = position + direction * speed;
 
@@ -226,7 +236,23 @@ void Supremacy::onUpdate()
             direction._y = -direction._y;
         }
 
-        position = position + direction * speed;
+        iaCircled circle(projection, radius);
+        iQuadtreeObjects objects;
+        _quadtree.query(circle, objects);
+
+        for(const auto &object : objects)
+        {
+            // iEntityID entityID = reinterpret_cast<uint32>(object->_userData);
+            
+        }
+
+
+        // only move if nothing is in the way
+        if (objects.size() <= 1 ||
+            vel._nonBlockable)
+        {
+            position = position + direction * speed;
+        }
     }
 
     auto originUpdateView = _entityScene.getEntities<PositionComponent, OriginComponent>();
