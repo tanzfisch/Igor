@@ -28,7 +28,7 @@ void iQuadtree<F, T>::queryInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &
     {
         for (auto ud : node->_objects)
         {
-            if (iIntersection::intersects(ud->_position, circle))
+            if (iIntersection::intersects(ud->_circle, circle))
             {
                 objects.push_back(ud);
             }
@@ -52,12 +52,12 @@ void iQuadtree<F, T>::update(const std::shared_ptr<iQuadtreeObject<F, T>> object
 {
     if (iIntersection::intersects(newPosition, object->_parent.lock()->_box))
     {
-        object->_position = newPosition;
+        object->_circle._center = newPosition;
     }
     else
     {
         remove(object);
-        object->_position = newPosition;
+        object->_circle._center = newPosition;
         uint32 depth = 0;
         insertInternal(_root, object, depth);
     }
@@ -71,7 +71,7 @@ void iQuadtree<F, T>::insert(const std::shared_ptr<iQuadtreeObject<F, T>> object
         return;
     }
 
-    if (!iIntersection::intersects(object->_position, _root->_box))
+    if (!iIntersection::intersects(object->_circle._center, _root->_box))
     {
         con_err("position out of bounds ");
         return;
@@ -107,12 +107,12 @@ void iQuadtree<F, T>::split(const std::shared_ptr<iQuadtreeNode<F, T>> &node)
     {
         uint32 childIndex = 0;
 
-        if (object->_position._x > center._x)
+        if (object->_circle._center._x > center._x)
         {
             childIndex |= 1;
         }
 
-        if (object->_position._y > center._y)
+        if (object->_circle._center._y > center._y)
         {
             childIndex |= 2;
         }
@@ -134,7 +134,7 @@ void iQuadtree<F, T>::insertInternal(const std::shared_ptr<iQuadtreeNode<F, T>> 
         const iaVector2d center = nodeBox.getCenter();
         uint32 childIndex = 0;
 
-        const iaVector2d &pos = object->_position;
+        const iaVector2d &pos = object->_circle._center;
 
         if (pos._x > center._x)
         {
@@ -182,10 +182,11 @@ void iQuadtree<F, T>::remove(const std::shared_ptr<iQuadtreeObject<F, T>> object
     }
 
     bool merged = true;
+    parent = parent->_parent.lock();
     while (merged && parent)
     {
-        parent = parent->_parent.lock();
         merged = tryMerge(parent);
+        parent = parent->_parent.lock();
     }
 }
 

@@ -43,6 +43,22 @@ namespace iaux
     class IAUX_API_TEMPLATE iaVector2
     {
     public:
+
+        /*! does nothing
+		*/
+        iaVector2() = default;
+
+        /*! initializes the vector with x y components
+
+		\param x x component
+		\param y y component
+		*/
+        iaVector2(T x, T y);
+
+        /*! does nothing
+		*/
+        virtual ~iaVector2() = default;
+
         /*! x component
 		*/
         T _x = static_cast<T>(0);
@@ -209,21 +225,6 @@ namespace iaux
 		*/
         template <class T2>
         iaVector2<T2> convert() const;
-
-        /*! does nothing
-		*/
-        iaVector2() = default;
-
-        /*! initializes the vector with x y components
-
-		\param x x component
-		\param y y component
-		*/
-        iaVector2(T x, T y);
-
-        /*! does nothing
-		*/
-        virtual ~iaVector2() = default;
     };
 
     /*! linear interpolation of two vectors

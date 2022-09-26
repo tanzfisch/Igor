@@ -15,7 +15,7 @@ Supremacy::~Supremacy()
 
 void Supremacy::onInit()
 {
-    _viewOrtho.setClearColor(0.55, 0.0, 0.0, 1.0);
+    _viewOrtho.setClearColor(0.5, 0.5, 0.5, 1.0);
     _viewOrtho.setName("view ortho");
     _viewOrtho.setClearColor(true);
     _viewOrtho.setClearDepth(true);
@@ -30,6 +30,8 @@ void Supremacy::onInit()
     material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
     _plainMaterial = iMaterialResourceFactory::getInstance().createMaterial("PlainMaterial");
+    material = iMaterialResourceFactory::getInstance().getMaterial(_plainMaterial);
+    material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
 
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(getWindow()));
 
@@ -39,7 +41,7 @@ void Supremacy::onInit()
     _player = _entityScene.createEntity("player");
 
     auto position = _player.addComponent<PositionComponent>(iaVector2d(800.0, 100.0));
-    auto size = _player.addComponent<SizeComponent>(20.0);
+    auto size = _player.addComponent<SizeComponent>(40.0);
 
     _player.addComponent<VelocityComponent>(iaVector2d(1.0, 0.0), 1.0, true);
     _player.addComponent<PartyComponent>(10u);
@@ -51,15 +53,15 @@ void Supremacy::onInit()
     auto &object = _player.addComponent<QuadtreeObjectComponent>();
     object._object = std::shared_ptr<iQuadtreeObject<float64, iEntityID>>(new iQuadtreeObject<float64, iEntityID>());
     object._object->_userData = _player.operator iEntityID();
-    object._object->_position.set(position._position._x, position._position._y);
+    object._object->_circle.set(position._position._x, position._position._y, size._size);
     _quadtree.insert(object._object);
 
     // create some enemies
-    for (int i = 0; i < 1000; ++i)
+    for (int i = 0; i < 100; ++i)
     {
         iEntity entity = _entityScene.createEntity(iaString("enemy") + iaString::toString(i));
         auto position = entity.addComponent<PositionComponent>(iaVector2d(_rand.getNextFloat() * 1000.0, _rand.getNextFloat() * 1000.0));
-        auto size = entity.addComponent<SizeComponent>(10.0);
+        auto size = entity.addComponent<SizeComponent>(40.0);
 
         iaVector2d direction(0.0, 1.0);
         direction.rotateXY(_rand.getNextFloat() * M_PI * 2.0);
@@ -72,7 +74,7 @@ void Supremacy::onInit()
         auto &object = entity.addComponent<QuadtreeObjectComponent>();
         object._object = std::shared_ptr<iQuadtreeObject<float64, iEntityID>>(new iQuadtreeObject<float64, iEntityID>());
         object._object->_userData = entity.operator iEntityID();
-        object._object->_position.set(position._position._x, position._position._y);
+        object._object->_circle.set(position._position._x, position._position._y, size._size);
         _quadtree.insert(object._object);
 
         entity.addComponent<TargetComponent>(_player.operator igor::iEntityID());
@@ -160,12 +162,13 @@ void Supremacy::onUpdate()
     }
 
     // aquire target for player
-    static int countdown = 100; // LOL timer?
+    static int countdown = 1000; // LOL timer?
     if (countdown > 0)
     {
         auto &position = _player.getComponent<PositionComponent>();
         auto &size = _player.getComponent<SizeComponent>();
-        iaCircled circle(position._position, 50.0);
+        auto &party = _player.getComponent<PartyComponent>();
+        iaCircled circle(position._position, 200.0);
         std::vector<std::shared_ptr<iQuadtreeObject<float64, iEntityID>>> objects;
         _quadtree.query(circle, objects);
 
@@ -179,7 +182,16 @@ void Supremacy::onUpdate()
                 continue;
             }
 
-            float32 dist = object->_position.distance2(circle._center);
+            iEntity entity(object->_userData, _entityScene);
+
+            auto *entParty = entity.tryGetComponent<PartyComponent>();
+            if (entParty == nullptr ||
+                entParty->_partyID == party._partyID)
+            {
+                continue;
+            }
+
+            float32 dist = object->_circle._center.distance2(circle._center);
             if (dist < minDistance)
             {
                 minDistance = dist;
@@ -189,21 +201,29 @@ void Supremacy::onUpdate()
 
         if (foundObject != nullptr)
         {
-            auto bullet = _entityScene.createEntity("bullet");
-            bullet.addComponent<PositionComponent>(circle._center);
+            const iaVector2d firePos(position._position._x, position._position._y - size._size * 0.5);
 
-            iaVector2d direction = foundObject->_position - circle._center;
+            auto bullet = _entityScene.createEntity("bullet");
+            auto &position = bullet.addComponent<PositionComponent>(firePos);
+
+            iaVector2d direction = foundObject->_circle._center - firePos;
             direction.normalize();
             bullet.addComponent<VelocityComponent>(direction, 10.0f, true);
             bullet.addComponent<PartyComponent>(10u);
-            bullet.addComponent<DamageComponent>(100.0);
+            bullet.addComponent<DamageComponent>(10.0);
             bullet.addComponent<HealthComponent>(100.0, true);
-            bullet.addComponent<SizeComponent>(10.0f);
-            bullet.addComponent<OriginComponent>(circle._center);
+            auto &size = bullet.addComponent<SizeComponent>(10.0f);
+            bullet.addComponent<OriginComponent>(firePos);
 
-            bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleTrail.png"), true);
+            auto &object = bullet.addComponent<QuadtreeObjectComponent>();
+            object._object = std::shared_ptr<iQuadtreeObject<float64, iEntityID>>(new iQuadtreeObject<float64, iEntityID>());
+            object._object->_userData = bullet.operator iEntityID();
+            object._object->_circle.set(position._position._x, position._position._y, size._size);
+            _quadtree.insert(object._object);
 
-            countdown = 100;
+            bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleFlame.png"), true);
+
+            countdown = 1000;
         }
     }
     else
@@ -244,23 +264,29 @@ void Supremacy::onUpdate()
         {
             for (const auto &object : objects)
             {
-                if(object->_userData == entity)
+                if (object->_userData == entity)
                 {
                     continue;
                 }
 
                 iEntity ent(object->_userData, _entityScene);
 
-                auto &entParty = ent.getComponent<PartyComponent>();
-                if(entParty._partyID == party._partyID)
+                auto *entParty = ent.tryGetComponent<PartyComponent>();
+                if (entParty == nullptr ||
+                    entParty->_partyID == party._partyID)
                 {
                     continue;
                 }
 
-                auto &entHealth = ent.getComponent<HealthComponent>();                
-                entHealth._health -= damage._damage;
+                auto *entHealth = ent.tryGetComponent<HealthComponent>();
+                if (entHealth == nullptr)
+                {
+                    continue;
+                }
 
-                if(health._destroyOnImpact)
+                entHealth->_health -= damage._damage;
+
+                if (health._destroyOnImpact)
                 {
                     health._health = 0.0;
                 }
@@ -293,10 +319,10 @@ void Supremacy::onUpdate()
 
     for (auto entity : healthView)
     {
-        auto [health, object] = healthView.get<HealthComponent, QuadtreeObjectComponent>(entity);   
+        auto [health, object] = healthView.get<HealthComponent, QuadtreeObjectComponent>(entity);
 
-        if(health._health <= 0.0)
-        {               
+        if (health._health <= 0.0)
+        {
             _quadtree.remove(object._object);
             _entityScene.destroyEntity(entity);
         }
@@ -334,14 +360,14 @@ static void renderTree(const std::shared_ptr<iQuadtreeNode<float64, iEntityID>> 
         return;
     }
 
-    iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
+    iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 0.5);
     iRenderer::getInstance().drawRectangle(node->_box._x, node->_box._y, node->_box._width, node->_box._height);
 
-    iRenderer::getInstance().setColor(1.0, 1.0, 0.0, 1.0);
-    for (const auto object : node->_objects)
-    {
-        iRenderer::getInstance().drawCircle(object->_position._x, object->_position._y, 5.0f);
-    }
+    /*  iRenderer::getInstance().setColor(1.0, 1.0, 0.0, 1.0);
+      for (const auto object : node->_objects)
+      {
+          iRenderer::getInstance().drawCircle(object->_circle._center._x, object->_circle._center._y, 5.0f);
+      }*/
 
     for (const auto &node : node->_children)
     {
@@ -364,7 +390,7 @@ void Supremacy::onRenderOrtho()
     {
         auto [pos, vel, size, visual, health] = view.get<PositionComponent, VelocityComponent, SizeComponent, VisualComponent, HealthComponent>(entity);
 
-        if(health._health < 0)
+        if (health._health < 0)
         {
             continue;
         }
@@ -372,14 +398,10 @@ void Supremacy::onRenderOrtho()
         const iaVector2d &position = pos._position;
         const float64 width = size._size;
 
-        if (visual._useDirectory)
+        if (visual._useDirection)
         {
-            const iaVector2d &dir = vel._direction;
-            iRenderer::getInstance().setMaterial(_plainMaterial); // TODO SOOOO BAD
-
-            iRenderer::getInstance().setLineWidth(2.0);
-            iRenderer::getInstance().setColor(0.0, 0.0, 0.0, 1.0);
-            iRenderer::getInstance().drawLine(position._x, position._y, position._x + dir._x, position._y + dir._y);
+            iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
+            iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width * 0.5, width, width, visual._character);
         }
         else
         {
@@ -392,8 +414,9 @@ void Supremacy::onRenderOrtho()
         }
     }
 
-    // iRenderer::getInstance().setMaterial(_plainMaterial);
-    // renderTree(_quadtree.getRoot());
+    iRenderer::getInstance().setLineWidth(1.0);
+    iRenderer::getInstance().setMaterial(_plainMaterial);
+    renderTree(_quadtree.getRoot());
 }
 
 bool Supremacy::onKeyDown(iEventKeyDown &event)

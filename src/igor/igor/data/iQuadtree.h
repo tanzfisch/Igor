@@ -49,9 +49,9 @@ namespace igor
     template <typename F, typename T>
     struct iQuadtreeObject
     {
-        /*! the position of this object
+        /*! the circle of this object
          */
-        iaVector2<F> _position;
+        iaCircle<F> _circle;
 
         /*! parent node
          */

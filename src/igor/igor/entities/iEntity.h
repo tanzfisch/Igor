@@ -82,6 +82,14 @@ namespace igor
             return _scene->_registry.get<T>(_entity);
         }
 
+        /*! \returns component of entity of given type
+        */
+        template <typename T>
+        T* tryGetComponent() const
+        {
+            return _scene->_registry.try_get<T>(_entity);
+        }        
+
         /*! \returns true if entity has component of given type
         */
         template <typename T>

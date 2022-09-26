@@ -72,7 +72,7 @@ struct PartyComponent
 struct VisualComponent
 {
     iTexturePtr _character;
-    bool _useDirectory = false;
+    bool _useDirection = false;
 };
 
 struct OriginComponent
