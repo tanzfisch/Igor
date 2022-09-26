@@ -11,8 +11,8 @@
 namespace igor
 {
 
-    iEntity::iEntity(const entt::entity entity, iEntityScene *scene)
-        : _entity(entity), _scene(scene)
+    iEntity::iEntity(const entt::entity entity, iEntityScene &scene)
+        : _entity(entity), _scene(&scene)
     {
     }
 
@@ -21,7 +21,7 @@ namespace igor
         NameComponent *component = _scene->_registry.try_get<NameComponent>(_entity);
         if(component != nullptr)
         {
-            return component->_name;
+            return iaString(component->_name.c_str());
         }
         else
         {

@@ -57,7 +57,7 @@ namespace igor
 
         \todo maybe scene could be a module and globaly accessible
         */
-        iEntity(iEntityID entity, iEntityScene *scene);
+        iEntity(iEntityID entity, iEntityScene &scene);
 
         /*! \returns entity id
         */

@@ -36,7 +36,7 @@ void Supremacy::onInit()
     _rand.setSeed(1337);
 
     // init player
-    _player = _entityScene.createEntity();
+    _player = _entityScene.createEntity("player");
 
     auto position = _player.addComponent<PositionComponent>(iaVector2d(800.0, 100.0));
     auto size = _player.addComponent<SizeComponent>(20.0);
@@ -57,7 +57,7 @@ void Supremacy::onInit()
     // create some enemies
     for (int i = 0; i < 1000; ++i)
     {
-        iEntity entity = _entityScene.createEntity();
+        iEntity entity = _entityScene.createEntity(iaString("enemy") + iaString::toString(i));
         auto position = entity.addComponent<PositionComponent>(iaVector2d(_rand.getNextFloat() * 1000.0, _rand.getNextFloat() * 1000.0));
         auto size = entity.addComponent<SizeComponent>(10.0);
 
@@ -66,8 +66,8 @@ void Supremacy::onInit()
 
         entity.addComponent<VelocityComponent>(direction, 0.3, false);
         entity.addComponent<PartyComponent>(20u);
-        entity.addComponent<DamageComponent>(100.0);
-        entity.addComponent<HealthComponent>(10.0);
+        entity.addComponent<DamageComponent>(0.0);
+        entity.addComponent<HealthComponent>(100.0);
         entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleGem.png"));
         auto &object = entity.addComponent<QuadtreeObjectComponent>();
         object._object = std::shared_ptr<iQuadtreeObject<float64, iEntityID>>(new iQuadtreeObject<float64, iEntityID>());
@@ -120,7 +120,7 @@ void Supremacy::onUpdate()
         if (movementControl._down)
         {
             vel._direction._y += 1.0;
-        }        
+        }
     }
 
     // follow given target
@@ -130,7 +130,7 @@ void Supremacy::onUpdate()
     {
         auto &target = targetView.get<TargetComponent>(entity);
 
-        iEntity targetEntity(target._targetID, &_entityScene);
+        iEntity targetEntity(target._targetID, _entityScene);
         if (!targetEntity.hasComponent<PositionComponent>())
         {
             continue;
@@ -196,8 +196,8 @@ void Supremacy::onUpdate()
             direction.normalize();
             bullet.addComponent<VelocityComponent>(direction, 10.0f, true);
             bullet.addComponent<PartyComponent>(10u);
-            bullet.addComponent<DamageComponent>(1.0);
-            bullet.addComponent<HealthComponent>(0.0);
+            bullet.addComponent<DamageComponent>(100.0);
+            bullet.addComponent<HealthComponent>(100.0, true);
             bullet.addComponent<SizeComponent>(10.0f);
             bullet.addComponent<OriginComponent>(circle._center);
 
@@ -240,12 +240,34 @@ void Supremacy::onUpdate()
         std::vector<std::shared_ptr<iQuadtreeObject<float64, iEntityID>>> objects;
         _quadtree.query(circle, objects);
 
-        for(const auto &object : objects)
+        if (damage._damage > 0.0)
         {
-            // iEntityID entityID = reinterpret_cast<uint32>(object->_userData);
-            
-        }
+            for (const auto &object : objects)
+            {
+                if(object->_userData == entity)
+                {
+                    continue;
+                }
 
+                iEntity ent(object->_userData, _entityScene);
+
+                auto &entParty = ent.getComponent<PartyComponent>();
+                if(entParty._partyID == party._partyID)
+                {
+                    continue;
+                }
+
+                auto &entHealth = ent.getComponent<HealthComponent>();                
+                entHealth._health -= damage._damage;
+
+                if(health._destroyOnImpact)
+                {
+                    health._health = 0.0;
+                }
+
+                break;
+            }
+        }
 
         // only move if nothing is in the way
         if (objects.size() <= 1 || vel._nonBlockable)
@@ -265,6 +287,20 @@ void Supremacy::onUpdate()
             _entityScene.destroyEntity(entity);
         }
     }
+
+    // clean up the dead
+  /*  auto healthView = _entityScene.getEntities<HealthComponent, NameComponent>();
+
+    for (auto entity : healthView)
+    {
+        auto [health, name] = healthView.get<HealthComponent, NameComponent>(entity);   
+
+        if(health._health <= 0.0)
+        {            
+            con_endl("destroy " << name._name);
+            _entityScene.destroyEntity(entity);
+        }
+    }*/
 }
 
 void Supremacy::onDeinit()
@@ -322,11 +358,16 @@ void Supremacy::onRenderOrtho()
 
     // draw entities
 
-    auto view = _entityScene.getEntities<PositionComponent, VelocityComponent, SizeComponent, VisualComponent>();
+    auto view = _entityScene.getEntities<PositionComponent, VelocityComponent, SizeComponent, VisualComponent, HealthComponent>();
 
     for (auto entity : view)
     {
-        auto [pos, vel, size, visual] = view.get<PositionComponent, VelocityComponent, SizeComponent, VisualComponent>(entity);
+        auto [pos, vel, size, visual, health] = view.get<PositionComponent, VelocityComponent, SizeComponent, VisualComponent, HealthComponent>(entity);
+
+        if(health._health < 0)
+        {
+            continue;
+        }
 
         const iaVector2d &position = pos._position;
         const float64 width = size._size;
@@ -351,8 +392,8 @@ void Supremacy::onRenderOrtho()
         }
     }
 
-    iRenderer::getInstance().setMaterial(_plainMaterial);
-    renderTree(_quadtree.getRoot());
+    // iRenderer::getInstance().setMaterial(_plainMaterial);
+    // renderTree(_quadtree.getRoot());
 }
 
 bool Supremacy::onKeyDown(iEventKeyDown &event)

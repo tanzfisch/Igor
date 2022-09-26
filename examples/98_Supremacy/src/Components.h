@@ -50,12 +50,13 @@ struct VelocityComponent
 {
     iaVector2d _direction;
     float64 _speed;
-    bool _nonBlockable = false;
+    bool _nonBlockable = false;    
 };
 
 struct HealthComponent
 {
     float64 _health = 0;
+    bool _destroyOnImpact = false;
 };
 
 struct DamageComponent
