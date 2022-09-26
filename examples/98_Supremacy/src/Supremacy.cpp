@@ -38,10 +38,10 @@ void Supremacy::onInit()
     // init player
     _player = _entityScene.createEntity();
 
-    auto position = _player.addComponent<PositionComponent>(iaVector2f(800.0, 100.0));
-    auto size = _player.addComponent<SizeComponent>(20.0f);
+    auto position = _player.addComponent<PositionComponent>(iaVector2d(800.0, 100.0));
+    auto size = _player.addComponent<SizeComponent>(20.0);
 
-    _player.addComponent<VelocityComponent>(iaVector2f(1.0, 0.0), 1.0f);
+    _player.addComponent<VelocityComponent>(iaVector2d(1.0, 0.0), 1.0);
     _player.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleStar.png"));
 
     _player.addComponent<MovementControlComponent>();
@@ -52,16 +52,16 @@ void Supremacy::onInit()
     _quadtree.insert(object._object);
 
     // create some enemies
-    for (int i = 0; i < 1000; ++i)
+    for (int i = 0; i < 100; ++i)
     {
         iEntity entity = _entityScene.createEntity();
-        auto position = entity.addComponent<PositionComponent>(iaVector2f(_rand.getNextFloat() * 1000.0, _rand.getNextFloat() * 1000.0));
-        auto size = entity.addComponent<SizeComponent>(10.0f);
+        auto position = entity.addComponent<PositionComponent>(iaVector2d(_rand.getNextFloat() * 1000.0, _rand.getNextFloat() * 1000.0));
+        auto size = entity.addComponent<SizeComponent>(10.0);
 
-        iaVector2f direction(0.0, 1.0);
+        iaVector2d direction(0.0, 1.0);
         direction.rotateXY(_rand.getNextFloat() * M_PI * 2.0);
 
-        entity.addComponent<VelocityComponent>(direction, 0.3f);
+        entity.addComponent<VelocityComponent>(direction, 0.3);
         entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleGem.png"));
         auto &object = entity.addComponent<QuadtreeObjectComponent>();
         object._object = iQuadtreeObjectPtr(new iQuadtreeObject());
@@ -81,6 +81,7 @@ void Supremacy::onInit()
 
 void Supremacy::onUpdate()
 {
+    // update quadtree data
     auto quadtreeView = _entityScene.getEntities<PositionComponent, SizeComponent, QuadtreeObjectComponent>();
     for (auto entity : quadtreeView)
     {
@@ -131,8 +132,8 @@ void Supremacy::onUpdate()
         auto [pos, vel] = targetView.get<PositionComponent, VelocityComponent>(entity);
 
         auto targetPosition = targetEntity.getComponent<PositionComponent>();
-        const iaVector2f &targetPos = targetPosition._position;
-        const iaVector2f &position = pos._position;
+        const iaVector2d &targetPos = targetPosition._position;
+        const iaVector2d &position = pos._position;
 
         if (position.distance2(targetPos) > 200.0 * 200.0)
         {
@@ -159,7 +160,7 @@ void Supremacy::onUpdate()
         const iUserData playerUserData = reinterpret_cast<iUserData>(_player.operator igor::iEntityID());
         auto &position = _player.getComponent<PositionComponent>();
         auto &size = _player.getComponent<SizeComponent>();
-        iaCircled circle(position._position._x, position._position._y, 50.0);
+        iaCircled circle(position._position, 50.0);
         iQuadtreeObjects objects;
         _quadtree.query(circle, objects);
 
@@ -184,13 +185,13 @@ void Supremacy::onUpdate()
         if (foundObject != nullptr)
         {
             auto bullet = _entityScene.createEntity();
-            bullet.addComponent<PositionComponent>(iaVector2f(circle._center._x, circle._center._y));
+            bullet.addComponent<PositionComponent>(circle._center);
 
             iaVector2d direction = foundObject->_position - circle._center;
             direction.normalize();
-            bullet.addComponent<VelocityComponent>(iaVector2f(direction._x, direction._y), 10.0f);
+            bullet.addComponent<VelocityComponent>(direction, 10.0f);
             bullet.addComponent<SizeComponent>(10.0f);
-            bullet.addComponent<OriginComponent>(iaVector2f(circle._center._x, circle._center._y));
+            bullet.addComponent<OriginComponent>(circle._center);
 
             bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleTrail.png"), true);
 
@@ -208,10 +209,10 @@ void Supremacy::onUpdate()
     {
         auto [pos, vel] = positionUpdateView.get<PositionComponent, VelocityComponent>(entity);
 
-        iaVector2f &position = pos._position;
-        iaVector2f &direction = vel._direction;
-        const float32 speed = vel._speed;
-        const iaVector2f projection = position + direction * speed;
+        iaVector2d &position = pos._position;
+        iaVector2d &direction = vel._direction;
+        const float64 speed = vel._speed;
+        const iaVector2d projection = position + direction * speed;
 
         if (projection._x > 1000.0 ||
             projection._x < 0.0)
@@ -302,12 +303,12 @@ void Supremacy::onRenderOrtho()
     {
         auto [pos, vel, size, visual] = view.get<PositionComponent, VelocityComponent, SizeComponent, VisualComponent>(entity);
 
-        const iaVector2f &position = pos._position;
-        const float32 width = size._size;
+        const iaVector2d &position = pos._position;
+        const float64 width = size._size;
 
         if (visual._useDirectory)
         {
-            const iaVector2f &dir = vel._direction;
+            const iaVector2d &dir = vel._direction;
             iRenderer::getInstance().setMaterial(_plainMaterial); // TODO SOOOO BAD
 
             iRenderer::getInstance().setLineWidth(2.0);

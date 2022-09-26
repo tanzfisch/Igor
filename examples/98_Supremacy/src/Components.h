@@ -33,12 +33,12 @@
 
 struct PositionComponent
 {
-    iaVector2f _position;
+    iaVector2d _position;
 };
 
 struct SizeComponent
 {
-    float32 _size;
+    float64 _size;
 };
 
 struct QuadtreeObjectComponent
@@ -48,13 +48,13 @@ struct QuadtreeObjectComponent
 
 struct VelocityComponent
 {
-    iaVector2f _direction;
-    float32 _speed;
+    iaVector2d _direction;
+    float64 _speed;
 };
 
 struct HealthComponent
 {
-    float32 _health = 0;
+    float64 _health = 0;
 };
 
 struct PartyComponent
@@ -70,7 +70,7 @@ struct VisualComponent
 
 struct OriginComponent
 {
-    iaVector2f _origin;
+    iaVector2d _origin;
 };
 
 struct TargetComponent
