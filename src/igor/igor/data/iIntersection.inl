@@ -217,6 +217,13 @@ bool iIntersection::intersects(const iaCircle<T> &circleA, const iaCircle<T> &ci
 }
 
 template <typename T>
+bool iIntersection::intersects(const iaVector2<T> &point, const iaCircle<T> &circle)
+{
+    const T diffSq = point.distance2(circle._center);
+    return diffSq <= circle._radius * circle._radius;
+}
+
+template <typename T>
 bool iIntersection::intersects(const iaVector3<T> &vec, const iAABox<T> &box)
 {
     if (abs(box._center._x - vec._x) < box._halfWidths._x)

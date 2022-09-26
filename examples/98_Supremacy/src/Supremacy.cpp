@@ -48,7 +48,7 @@ void Supremacy::onInit()
     auto &object = _player.addComponent<QuadtreeObjectComponent>();
     object._object = iQuadtreeObjectPtr(new iQuadtreeObject());
     object._object->_userData = reinterpret_cast<iUserData>(_player.operator igor::iEntityID());
-    object._object->_circle.set(position._position._x, position._position._y, size._size);
+    object._object->_position.set(position._position._x, position._position._y);
     _quadtree.insert(object._object);
 
     // create some enemies
@@ -66,7 +66,7 @@ void Supremacy::onInit()
         auto &object = entity.addComponent<QuadtreeObjectComponent>();
         object._object = iQuadtreeObjectPtr(new iQuadtreeObject());
         object._object->_userData = reinterpret_cast<iUserData>(entity.operator igor::iEntityID());
-        object._object->_circle.set(position._position._x, position._position._y, size._size);
+        object._object->_position.set(position._position._x, position._position._y);
         _quadtree.insert(object._object);
 
         entity.addComponent<TargetComponent>(_player.operator igor::iEntityID());
@@ -173,7 +173,7 @@ void Supremacy::onUpdate()
                 continue;
             }
 
-            float32 dist = object->_circle._center.distance2(circle._center);
+            float32 dist = object->_position.distance2(circle._center);
             if (dist < minDistance)
             {
                 minDistance = dist;
@@ -186,7 +186,7 @@ void Supremacy::onUpdate()
             auto bullet = _entityScene.createEntity();
             bullet.addComponent<PositionComponent>(iaVector2f(circle._center._x, circle._center._y));
 
-            iaVector2d direction = foundObject->_circle._center - circle._center;
+            iaVector2d direction = foundObject->_position - circle._center;
             direction.normalize();
             bullet.addComponent<VelocityComponent>(iaVector2f(direction._x, direction._y), 10.0f);
             bullet.addComponent<SizeComponent>(10.0f);
@@ -278,7 +278,7 @@ static void renderTree(const std::shared_ptr<iQuadtreeNode> &node)
     iRenderer::getInstance().setColor(1.0, 1.0, 0.0, 1.0);
     for (const auto object : node->_objects)
     {
-        iRenderer::getInstance().drawCircle(object->_circle.getX(), object->_circle.getY(), object->_circle.getRadius());
+        iRenderer::getInstance().drawCircle(object->_position._x, object->_position._y, 5.0f);
     }
 
     for (const auto &node : node->_children)

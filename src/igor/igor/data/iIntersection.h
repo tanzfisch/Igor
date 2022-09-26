@@ -178,6 +178,15 @@ namespace igor
         template <typename T>
         static bool intersects(const iaCircle<T> &circleA, const iaCircle<T> &circleB);
 
+        /*! intersection test between two circles
+        
+        \param point the point to test
+        \param circle the circle to test
+        \returns true if intersecting
+        */
+        template <typename T>
+        static bool intersects(const iaVector2<T> &point, const iaCircle<T> &circle);
+
         /*! intersection test between plane and ray
 
         \param plane the plane to test with

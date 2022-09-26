@@ -39,7 +39,7 @@ namespace igor
         {
             for (auto ud : node->_objects)
             {
-                if (iIntersection::intersects(ud->_circle, circle))
+                if (iIntersection::intersects(ud->_position, circle))
                 {
                     objects.push_back(ud);
                 }
@@ -62,12 +62,12 @@ namespace igor
     {
         if (iIntersection::intersects(newPosition, object->_parent->_box))
         {
-            object->_circle._center = newPosition;
+            object->_position = newPosition;
         }
         else
         {
             remove(object);
-            object->_circle._center = newPosition;
+            object->_position = newPosition;
             uint32 depth = 0;
             insertInternal(_root, object, depth);
         }
@@ -80,7 +80,7 @@ namespace igor
             return;
         }
 
-        if (!iIntersection::intersects(object->_circle._center, _root->_box))
+        if (!iIntersection::intersects(object->_position, _root->_box))
         {
             con_err("position out of bounds ");
             return;
@@ -115,12 +115,12 @@ namespace igor
         {
             uint32 childIndex = 0;
 
-            if (object->_circle.getX() > center._x)
+            if (object->_position._x > center._x)
             {
                 childIndex |= 1;
             }
 
-            if (object->_circle.getY() > center._y)
+            if (object->_position._y > center._y)
             {
                 childIndex |= 2;
             }
@@ -141,7 +141,7 @@ namespace igor
             const iaVector2d center = nodeBox.getCenter();
             uint32 childIndex = 0;
 
-            const iaVector2d &pos = object->_circle._center;
+            const iaVector2d &pos = object->_position;
 
             if (pos._x > center._x)
             {

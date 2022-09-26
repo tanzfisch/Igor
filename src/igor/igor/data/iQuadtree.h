@@ -48,9 +48,9 @@ namespace igor
      */
     struct iQuadtreeObject
     {
-        /*! the circle representing this object
+        /*! the position of this object
          */
-        iaCircled _circle;
+        iaVector2d _position;
 
         /*! parent node
          */
