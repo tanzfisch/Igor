@@ -118,26 +118,23 @@ void Supremacy::onUpdate()
 
     auto targetView = _entityScene.getEntities<PositionComponent, VelocityComponent, TargetComponent>();
 
-    iaCircled circle;
-    circle.setRadius(50);
-
     for (auto entity : targetView)
     {
-        auto [pos, vel, target] = targetView.get<PositionComponent, VelocityComponent, TargetComponent>(entity);
+        auto &target = targetView.get<TargetComponent>(entity);
 
-        circle.setX(pos._position._x);
-        circle.setY(pos._position._y);
+        iEntity targetEntity(target._targetID, &_entityScene);
+        if (!targetEntity.hasComponent<PositionComponent>())
+        {
+            continue;
+        }
 
-        iQuadtreeObjects objects;
-        _quadtree.query(circle, objects);
+        auto [pos, vel] = targetView.get<PositionComponent, VelocityComponent>(entity);
 
-        const iUserData userData = reinterpret_cast<iUserData>(target._targetID);
+        auto targetPosition = targetEntity.getComponent<PositionComponent>();
+        const iaVector2f &targetPos = targetPosition._position;
+        const iaVector2f &position = pos._position;
 
-        auto iter = std::find_if(objects.begin(), objects.end(),
-                                 [&](const iQuadtreeObjectPtr &x)
-                                 { return x->_userData == userData; });
-
-        if (iter == objects.end())
+        if (position.distance2(targetPos) > 200.0 * 200.0)
         {
             if (target._inRange)
             {
@@ -148,8 +145,7 @@ void Supremacy::onUpdate()
         }
         else
         {
-            vel._direction._x = (*iter)->_circle._center._x - pos._position._x;
-            vel._direction._y = (*iter)->_circle._center._y - pos._position._y;
+            vel._direction = targetPos - position;
             vel._direction.normalize();
             target._inRange = true;
         }
@@ -299,14 +295,14 @@ void Supremacy::onRenderOrtho()
     iRenderer::getInstance().setModelMatrix(matrix);
 
     // draw entities
-    
+
     auto view = _entityScene.getEntities<PositionComponent, VelocityComponent, SizeComponent, VisualComponent>();
 
     for (auto entity : view)
     {
         auto [pos, vel, size, visual] = view.get<PositionComponent, VelocityComponent, SizeComponent, VisualComponent>(entity);
 
-        const iaVector2f &position = pos._position;        
+        const iaVector2f &position = pos._position;
         const float32 width = size._size;
 
         if (visual._useDirectory)

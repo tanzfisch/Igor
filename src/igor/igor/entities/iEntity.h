@@ -59,23 +59,39 @@ namespace igor
         */
         iEntity(iEntityID entity, iEntityScene *scene);
 
+        /*! \returns entity id
+        */
         operator iEntityID() const
         {
             return _entity;
         }
 
+        /*! adds component to entity of given type
+        */
         template <typename T, typename... Args>
         T &addComponent(Args &&...args)
         {
             return _scene->_registry.emplace_or_replace<T>(_entity, std::forward<Args>(args)...);
         }
 
+        /*! \returns component of entity of given type
+        */
         template <typename T>
         T &getComponent() const
         {
             return _scene->_registry.get<T>(_entity);
         }
 
+        /*! \returns true if entity has component of given type
+        */
+        template <typename T>
+        bool hasComponent() const
+        {
+            return _scene->_registry.try_get<T>(_entity) != nullptr;
+        }        
+
+        /*! removes component of given type
+        */
         template <typename T>
         void removeComponent()
         {

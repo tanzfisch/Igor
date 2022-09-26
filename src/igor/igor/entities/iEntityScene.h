@@ -60,7 +60,7 @@ namespace igor
 
     /*! entity id definition
     */
-    typedef entt::entity iEntityID;	
+    typedef entt::entity iEntityID;
 
 	/*! wrapper for entt registry
 	*/
