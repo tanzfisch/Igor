@@ -72,7 +72,7 @@ namespace iaux
             _height = rect._height;
         }
 
-        /*! adjust the size of the rectangle
+        /*! adjust the dimensions of the rectangle
 
         \param x the horizontal position adjustment
         \param y the vertical position adjustment
@@ -147,7 +147,7 @@ namespace iaux
         \param height height of rectangle
         \param width width of rectangle
         */
-        void setSize(T width, T height);
+        void setSize(T width, T height);      
 
         /*! sets all values at once
 

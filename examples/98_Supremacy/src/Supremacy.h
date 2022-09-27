@@ -82,6 +82,8 @@ private:
      */
     iTexturePtr _shadow;
 
+    iaRectangled _viewRectangle;
+
     /*! called when added to layer stack
      */
     void onInit() override;
@@ -141,6 +143,8 @@ private:
     void aquireTargetFor(iEntity &entity);
 
     void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party);
+
+    void updateViewRectangle();
 };
 
 #endif // __SUPREMACY__
