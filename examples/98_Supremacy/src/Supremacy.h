@@ -42,17 +42,16 @@ public:
     ~Supremacy();
 
 private:
-
     /*! the view we render 2D to
      */
     iView _viewOrtho;
 
     /*! material id of a non textured material
-    */
+     */
     uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
 
     /*! plain material for rendering primitives
-    */
+     */
     uint64 _plainMaterial = iMaterial::INVALID_MATERIAL_ID;
 
     /*! entity scene
@@ -60,7 +59,7 @@ private:
     iEntityScene _entityScene;
 
     /*! handle to player entity
-    */
+     */
     iEntity _player;
 
     /*! random numbers
@@ -68,15 +67,15 @@ private:
     iaRandomNumberGeneratoru _rand;
 
     /*! update timer
-    */
+     */
     iTimerHandlePtr _updateTimerHandle;
 
     /*! async loading of textures
-    */
-    iTaskID _taskFlushTextures = iTask::INVALID_TASK_ID;    
+     */
+    iTaskID _taskFlushTextures = iTask::INVALID_TASK_ID;
 
     /*! quadtree
-    */
+     */
     iQuadtree<float64, iEntityID> _quadtree;
 
     /*! floor shadow
@@ -104,7 +103,7 @@ private:
     void onRenderOrtho();
 
     /*! game logic intervall
-    */
+     */
     void onUpdate();
 
     /*! called when key was pressed
@@ -119,8 +118,27 @@ private:
     */
     bool onKeyUp(iEventKeyUp &event);
 
-    //bool onEntityCreated(iEventEntityCreated &event);
-    //bool onEntityDestroyed(iEventEntityDestroyed &event);
+    /*! \returns random direction
+     */
+    iaVector2d getRandomDir() const;
+
+    iEntity createPlayer();
+
+    void createEnemy();
+
+    void onUpdateQuadtreeSystem();
+
+    void onUpdateMovementControlSystem();
+
+    void onUpdateFollowTargetSystem();
+
+    void onUpdatePositionSystem();
+
+    void onUpdateDistanceToOriginSystem();
+
+    void onUpdateCleanUpTheDeadSystem();
+
+    void aquireTargetFor(iEntity &entity);
 };
 
 #endif // __SUPREMACY__
