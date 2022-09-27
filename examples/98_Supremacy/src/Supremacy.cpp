@@ -4,6 +4,9 @@
 
 #include "Supremacy.h"
 
+static const uint32 FRIEND = 10u;
+static const uint32 FOE = 20u;
+
 Supremacy::Supremacy(iWindow *window)
     : iLayer(window, L"Supremacy"), _viewOrtho(iView(false)), _quadtree(iaRectangled(0, 0, 1000, 1000))
 {
@@ -13,7 +16,7 @@ Supremacy::~Supremacy()
 {
 }
 
-iaVector2d Supremacy::getRandomDir() const
+iaVector2d Supremacy::getRandomDir()
 {
     iaVector2d direction(0.0, 1.0);
     direction.rotateXY(_rand.getNextFloat() * M_PI * 2.0);
@@ -29,7 +32,7 @@ iEntity Supremacy::createPlayer()
     auto size = player.addComponent<SizeComponent>(20.0);
 
     player.addComponent<VelocityComponent>(iaVector2d(1.0, 0.0), 1.0, true);
-    player.addComponent<PartyComponent>(10u);
+    player.addComponent<PartyComponent>(FRIEND);
     player.addComponent<DamageComponent>(0.0);
     player.addComponent<HealthComponent>(100.0);
     player.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleStar.png"));
@@ -44,22 +47,24 @@ iEntity Supremacy::createPlayer()
     return player;
 }
 
-void Supremacy::createEnemy()
+void Supremacy::createUnit(const iaVector2d &pos, uint32 party, iEntityID target)
 {
     iEntity entity = _entityScene.createEntity("enemy");
-    auto position = entity.addComponent<PositionComponent>(iaVector2d(_rand.getNextFloat() * 1000.0, _rand.getNextFloat() * 1000.0));
-    auto size = entity.addComponent<SizeComponent>(20.0);
+    entity.addComponent<PositionComponent>(pos);
     entity.addComponent<VelocityComponent>(getRandomDir(), 0.3, false);
-    entity.addComponent<PartyComponent>(20u);
+
+    auto size = entity.addComponent<SizeComponent>(20.0);
+    entity.addComponent<PartyComponent>(party);
     entity.addComponent<DamageComponent>(0.0);
     entity.addComponent<HealthComponent>(100.0);
     entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleGem.png"));
-    entity.addComponent<TargetComponent>(_player.operator iEntityID());
+
+    entity.addComponent<TargetComponent>(target); // I don't like this but it's quick
 
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
     object._object = std::shared_ptr<iQuadtreeObject<float64, iEntityID>>(new iQuadtreeObject<float64, iEntityID>());
     object._object->_userData = entity.operator iEntityID();
-    object._object->_circle.set(position._position._x, position._position._y, size._size);
+    object._object->_circle.set(pos, size._size);
     _quadtree.insert(object._object);
 }
 
@@ -90,9 +95,10 @@ void Supremacy::onInit()
     _player = createPlayer();
 
     // create some enemies
-    for (int i = 0; i < 1000; ++i)
+    for (int i = 0; i < 10; ++i)
     {
-        createEnemy();
+        iaVector2d pos(_rand.getNextFloat() * 1000.0, _rand.getNextFloat() * 1000.0);
+        createUnit(pos, FOE, _player.operator iEntityID());
     }
 
     // game logic timer
@@ -284,6 +290,26 @@ void Supremacy::onUpdatePositionSystem()
     }
 }
 
+void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party)
+{
+    auto bullet = _entityScene.createEntity("bullet");
+    bullet.addComponent<PositionComponent>(from);
+    bullet.addComponent<OriginComponent>(from);
+   
+    bullet.addComponent<VelocityComponent>(dir, 10.0f, true);
+    bullet.addComponent<PartyComponent>(party);
+    bullet.addComponent<DamageComponent>(50.0);
+    bullet.addComponent<HealthComponent>(100.0, true);
+    auto &size = bullet.addComponent<SizeComponent>(10.0f);
+    bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleFlame.png"), true);
+
+    auto &object = bullet.addComponent<QuadtreeObjectComponent>();
+    object._object = std::shared_ptr<iQuadtreeObject<float64, iEntityID>>(new iQuadtreeObject<float64, iEntityID>());
+    object._object->_userData = bullet.operator iEntityID();
+    object._object->_circle.set(from, size._size);
+    _quadtree.insert(object._object);    
+}
+
 void Supremacy::aquireTargetFor(iEntity &entity)
 {
     // aquire target for player
@@ -329,27 +355,10 @@ void Supremacy::aquireTargetFor(iEntity &entity)
         if (foundObject != nullptr)
         {
             const iaVector2d firePos(position._position._x, position._position._y - size._size * 0.5);
-
-            auto bullet = _entityScene.createEntity("bullet");
-            auto &position = bullet.addComponent<PositionComponent>(firePos);
-
             iaVector2d direction = foundObject->_circle._center - firePos;
             direction.normalize();
-            bullet.addComponent<VelocityComponent>(direction, 10.0f, true);
-            bullet.addComponent<PartyComponent>(10u);
-            bullet.addComponent<DamageComponent>(50.0);
-            bullet.addComponent<HealthComponent>(100.0, true);
-            auto &size = bullet.addComponent<SizeComponent>(10.0f);
-            bullet.addComponent<OriginComponent>(firePos);
 
-            auto &object = bullet.addComponent<QuadtreeObjectComponent>();
-            object._object = std::shared_ptr<iQuadtreeObject<float64, iEntityID>>(new iQuadtreeObject<float64, iEntityID>());
-            object._object->_userData = bullet.operator iEntityID();
-            object._object->_circle.set(position._position._x, position._position._y, size._size);
-            _quadtree.insert(object._object);
-
-            bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleFlame.png"), true);
-
+            fire(firePos, direction, FRIEND);
             countdown = 3;
         }
     }

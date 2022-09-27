@@ -120,11 +120,11 @@ private:
 
     /*! \returns random direction
      */
-    iaVector2d getRandomDir() const;
+    iaVector2d getRandomDir();
 
     iEntity createPlayer();
 
-    void createEnemy();
+    void createUnit(const iaVector2d &pos, uint32 party, iEntityID target);
 
     void onUpdateQuadtreeSystem();
 
@@ -139,6 +139,8 @@ private:
     void onUpdateCleanUpTheDeadSystem();
 
     void aquireTargetFor(iEntity &entity);
+
+    void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party);
 };
 
 #endif // __SUPREMACY__
