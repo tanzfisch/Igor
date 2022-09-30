@@ -6,7 +6,7 @@ template <typename F, typename T>
 iQuadtree<F, T>::iQuadtree(const iaRectangle<F> &box, const uint32 splitThreshold, const uint32 maxDepth)
     : _splitThreshold(splitThreshold), _maxDepth(maxDepth)
 {
-    _root = std::shared_ptr<iQuadtreeNode<F, T>>(new iQuadtreeNode<F, T>());
+    _root = std::make_shared<iQuadtreeNode<F, T>>();
     _root->_box = box;
 }
 
@@ -87,19 +87,19 @@ void iQuadtree<F, T>::split(const std::shared_ptr<iQuadtreeNode<F, T>> &node)
     const iaRectangle<F> &nodeBox = node->_box;
     const iaVector2d center = nodeBox.getCenter();
 
-    node->_children[0] = std::shared_ptr<iQuadtreeNode<F, T>>(new iQuadtreeNode<F, T>());
+    node->_children[0] = std::make_shared<iQuadtreeNode<F, T>>();
     node->_children[0]->_box = iaRectangle<F>(nodeBox._x, nodeBox._y, nodeBox._width * 0.5, nodeBox._height * 0.5);
     node->_children[0]->_parent = node;
 
-    node->_children[1] = std::shared_ptr<iQuadtreeNode<F, T>>(new iQuadtreeNode<F, T>());
+    node->_children[1] = std::make_shared<iQuadtreeNode<F, T>>();
     node->_children[1]->_box = iaRectangle<F>(nodeBox._x + nodeBox._width * 0.5, nodeBox._y, nodeBox._width * 0.5, nodeBox._height * 0.5);
     node->_children[1]->_parent = node;
 
-    node->_children[2] = std::shared_ptr<iQuadtreeNode<F, T>>(new iQuadtreeNode<F, T>());
+    node->_children[2] = std::make_shared<iQuadtreeNode<F, T>>();
     node->_children[2]->_box = iaRectangle<F>(nodeBox._x, nodeBox._y + nodeBox._height * 0.5, nodeBox._width * 0.5, nodeBox._height * 0.5);
     node->_children[2]->_parent = node;
 
-    node->_children[3] = std::shared_ptr<iQuadtreeNode<F, T>>(new iQuadtreeNode<F, T>());
+    node->_children[3] = std::make_shared<iQuadtreeNode<F, T>>();
     node->_children[3]->_box = iaRectangle<F>(nodeBox._x + nodeBox._width * 0.5, nodeBox._y + nodeBox._height * 0.5, nodeBox._width * 0.5, nodeBox._height * 0.5);
     node->_children[3]->_parent = node;
 
@@ -230,6 +230,6 @@ template <typename F, typename T>
 void iQuadtree<F, T>::clear()
 {
     const iaRectangle<F> box = _root->_box;
-    _root = std::shared_ptr<iQuadtreeNode<F, T>>(new iQuadtreeNode<F, T>());
+    _root = std::make_shared<iQuadtreeNode<F, T>>();
     _root->_box = box;
 }
