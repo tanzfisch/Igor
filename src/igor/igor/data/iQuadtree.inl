@@ -154,7 +154,7 @@ void iQuadtree<F, T>::insertInternal(const std::shared_ptr<iQuadtreeNode<F, T>> 
     if (depth >= _maxDepth || node->_objects.size() < _splitThreshold)
     {
         node->_objects.push_back(object);
-        object->_parent = std::move(node);
+        object->_parent = node;
         return;
     }
 

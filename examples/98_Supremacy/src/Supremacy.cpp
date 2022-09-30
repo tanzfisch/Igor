@@ -147,12 +147,13 @@ void Supremacy::onInit()
 void Supremacy::onUpdateQuadtreeSystem()
 {
     // update quadtree data
-    auto quadtreeView = _entityScene.getEntities<PositionComponent, SizeComponent, QuadtreeObjectComponent>();
+    auto quadtreeView = _entityScene.getEntities<PositionComponent, QuadtreeObjectComponent>();
     for (auto entity : quadtreeView)
     {
-        auto [pos, size, object] = quadtreeView.get<PositionComponent, SizeComponent, QuadtreeObjectComponent>(entity);
+        auto [pos, object] = quadtreeView.get<PositionComponent, QuadtreeObjectComponent>(entity);
 
-        const iaVector2d newPosition(pos._position._x, pos._position._y);
+        iaVector2d newPosition(pos._position._x, pos._position._y);
+
         _quadtree.update(object._object, newPosition);
     }
 }
@@ -311,7 +312,7 @@ void Supremacy::onUpdatePositionSystem()
 
         position += direction * speed;
 
-        // keep within boundaries
+        // jump to other side
         if (position._x > PLAYFIELD_WIDTH)
         {
             position._x -= PLAYFIELD_WIDTH;
@@ -329,6 +330,10 @@ void Supremacy::onUpdatePositionSystem()
         {
             position._y += PLAYFIELD_HEIGHT;
         }
+
+        // clamp
+        position._x = std::min(std::max(position._x, 0.0), PLAYFIELD_WIDTH);
+        position._y = std::min(std::max(position._y, 0.0), PLAYFIELD_WIDTH);
     }
 }
 
@@ -482,10 +487,14 @@ void Supremacy::onRenderOrtho()
     iaMatrixd matrix;
     iRenderer::getInstance().setViewMatrix(matrix);
     matrix.translate(0, 0, -1);
-    matrix.scale((1.0 / PLAYFIELD_SCALE) * (static_cast<float64>(getWindow()->getClientWidth()) / PLAYFIELD_WIDTH),
-                 (1.0 / PLAYFIELD_SCALE) * (static_cast<float64>(getWindow()->getClientHeight()) / PLAYFIELD_HEIGHT), 1.0);
-    matrix.translate(-_viewRectangle._x, -_viewRectangle._y, 0);
+//    matrix.scale((1.0 / PLAYFIELD_SCALE) * (static_cast<float64>(getWindow()->getClientWidth()) / PLAYFIELD_WIDTH),
+                 // (1.0 / PLAYFIELD_SCALE) * (static_cast<float64>(getWindow()->getClientHeight()) / PLAYFIELD_HEIGHT), 1.0);
+  //  matrix.translate(-_viewRectangle._x, -_viewRectangle._y, 0);
     iRenderer::getInstance().setModelMatrix(matrix);
+
+    iaRectangled intersetRectangle = _viewRectangle;
+    float64 scale = _viewRectangle._width * 0.1;
+    intersetRectangle.adjust(-scale, -scale, scale * 2.0, scale * 2.0);
 
     // draw entities
     auto view = _entityScene.getEntities<PositionComponent, SizeComponent, VisualComponent>();
@@ -496,10 +505,10 @@ void Supremacy::onRenderOrtho()
 
         const iaVector2d &position = pos._position;
 
-        if(!iIntersection::intersects(position, _viewRectangle))
+      /*  if (!iIntersection::intersects(position, intersetRectangle))
         {
             continue;
-        }
+        }*/
 
         const float64 width = size._size;
 
