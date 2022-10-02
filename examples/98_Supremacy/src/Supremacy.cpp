@@ -36,7 +36,7 @@ iEntity Supremacy::createPlayer()
     auto position = entity.addComponent<PositionComponent>(iaVector2d(PLAYFIELD_WIDTH * 0.5, PLAYFIELD_HEIGHT * 0.5));
     auto size = entity.addComponent<SizeComponent>(10.0);
 
-    entity.addComponent<VelocityComponent>(iaVector2d(1.0, 0.0), 4.0, true);
+    entity.addComponent<VelocityComponent>(iaVector2d(1.0, 0.0), 1.0, true);
     entity.addComponent<PartyComponent>(FRIEND);
     entity.addComponent<DamageComponent>(0.0);
     entity.addComponent<HealthComponent>(100.0);
@@ -147,7 +147,7 @@ void Supremacy::onInit()
     _viewport = createViewport(_player.getID());
 
     // create some enemies
-    for (int i = 0; i < 10; ++i)
+    for (int i = 0; i < 100; ++i)
     {
         iaVector2d pos(_rand.getNextFloat() * PLAYFIELD_WIDTH, _rand.getNextFloat() * PLAYFIELD_HEIGHT);
         createUnit(pos, FOE, _player.getID());
@@ -363,7 +363,7 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
 
     bullet.addComponent<VelocityComponent>(dir, 10.0f, true);
     bullet.addComponent<PartyComponent>(party);
-    bullet.addComponent<DamageComponent>(1.0);
+    bullet.addComponent<DamageComponent>(50.0);
     bullet.addComponent<HealthComponent>(100.0, true);
     auto &size = bullet.addComponent<SizeComponent>(10.0f);
     bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleFlame.png"), true);
@@ -424,7 +424,7 @@ void Supremacy::aquireTargetFor(iEntity &entity)
             direction.normalize();
 
             fire(firePos, direction, FRIEND);
-            countdown = 3;
+            countdown = 20;
         }
     }
     countdown--;
@@ -511,9 +511,9 @@ void Supremacy::onRenderOrtho()
     iaMatrixd matrix;
     iRenderer::getInstance().setViewMatrix(matrix);
     matrix.translate(0, 0, -1);
-    /*matrix.scale((1.0 / PLAYFIELD_SCALE) * (static_cast<float64>(getWindow()->getClientWidth()) / PLAYFIELD_WIDTH),
+    matrix.scale((1.0 / PLAYFIELD_SCALE) * (static_cast<float64>(getWindow()->getClientWidth()) / PLAYFIELD_WIDTH),
                  (1.0 / PLAYFIELD_SCALE) * (static_cast<float64>(getWindow()->getClientHeight()) / PLAYFIELD_HEIGHT), 1.0);
-    matrix.translate(-viewRectangle._x, -viewRectangle._y, 0);*/
+    matrix.translate(-viewRectangle._x, -viewRectangle._y, 0);
     iRenderer::getInstance().setModelMatrix(matrix);
 
     // draw entities
@@ -525,10 +525,10 @@ void Supremacy::onRenderOrtho()
 
         const iaVector2d &position = pos._position;
 
-        /*if (!iIntersection::intersects(position, intersetRectangle))
+        if (!iIntersection::intersects(position, intersetRectangle))
         {
             continue;
-        }*/
+        }
 
         const float64 width = size._size;
 
