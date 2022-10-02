@@ -210,6 +210,34 @@ bool iIntersection::intersects(const iaCircle<T> &circle, const iaRectangle<T> &
 }
 
 template <typename T>
+bool iIntersection::contains(const iaCircle<T> &circle, const iaRectangle<T> &rectangle)
+{
+    if(circle._x - circle._radius < rectangle._x)
+    {
+        false;
+    }
+
+    if(circle._y - circle._radius < rectangle._y)
+    {
+        false;
+    }
+
+    const T right = rectangle._x + rectangle._width;
+    if(circle._x + circle._radius > right)
+    {
+        false;
+    }
+
+    const T bottom = rectangle._y + rectangle._height;
+    if(circle._y + circle._radius > bottom)
+    {
+        false;
+    }
+
+    return true;
+}
+
+template <typename T>
 bool iIntersection::intersects(const iaCircle<T> &circleA, const iaCircle<T> &circleB)
 {
     const T diffSq = circleA._center.distance2(circleB._center);

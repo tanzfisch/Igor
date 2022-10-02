@@ -3,6 +3,13 @@
 // see copyright notice in corresponding header file
 
 template <class T>
+__IGOR_INLINE__ std::wostream &operator<<(std::wostream &ostr, const iaCircle<T> &circle)
+{
+    ostr << "(" << circle._center._x << ", " << circle._center._y << ", r:" << circle._radius << ")";
+    return ostr;
+}
+
+template <class T>
 __IGOR_INLINE__ const T iaCircle<T>::getX() const
 {
     return _center._x;

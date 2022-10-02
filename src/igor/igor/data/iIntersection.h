@@ -70,6 +70,15 @@ namespace igor
         template <typename T>
         static bool contains(const iaSphere<T> &sphereA, const iaSphere<T> &sphereB);
 
+        /*! intersection test between rectangle and circle
+        
+        \param circle the circle to test
+        \param rectangle the rectangle to test
+        \returns true if circle is within rectangle boundaries
+        */
+        template <typename T>
+        static bool contains(const iaCircle<T> &circle, const iaRectangle<T> &rectangle);        
+
         /*! tests if sphere is in front of plane
         
         \param sphere the sphere to test

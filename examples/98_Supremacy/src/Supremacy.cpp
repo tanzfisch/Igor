@@ -147,7 +147,7 @@ void Supremacy::onInit()
     _viewport = createViewport(_player.getID());
 
     // create some enemies
-    for (int i = 0; i < 1000; ++i)
+    for (int i = 0; i < 10; ++i)
     {
         iaVector2d pos(_rand.getNextFloat() * PLAYFIELD_WIDTH, _rand.getNextFloat() * PLAYFIELD_HEIGHT);
         createUnit(pos, FOE, _player.getID());
@@ -363,7 +363,7 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
 
     bullet.addComponent<VelocityComponent>(dir, 10.0f, true);
     bullet.addComponent<PartyComponent>(party);
-    bullet.addComponent<DamageComponent>(50.0);
+    bullet.addComponent<DamageComponent>(1.0);
     bullet.addComponent<HealthComponent>(100.0, true);
     auto &size = bullet.addComponent<SizeComponent>(10.0f);
     bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleFlame.png"), true);
@@ -516,7 +516,7 @@ void Supremacy::onRenderOrtho()
     matrix.translate(-viewRectangle._x, -viewRectangle._y, 0);*/
     iRenderer::getInstance().setModelMatrix(matrix);
 
-        // draw entities
+    // draw entities
     auto view = _entityScene.getEntities<PositionComponent, SizeComponent, VisualComponent>();
 
     for (auto entity : view)
@@ -525,10 +525,10 @@ void Supremacy::onRenderOrtho()
 
         const iaVector2d &position = pos._position;
 
-        if (!iIntersection::intersects(position, intersetRectangle))
+        /*if (!iIntersection::intersects(position, intersetRectangle))
         {
             continue;
-        }
+        }*/
 
         const float64 width = size._size;
 

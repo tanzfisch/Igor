@@ -11,7 +11,7 @@ iQuadtree<F, T>::iQuadtree(const iaRectangle<F> &box, const uint32 splitThreshol
 }
 
 template <typename F, typename T>
-void iQuadtree<F, T>::query(const iaCircled &circle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects)
+void iQuadtree<F, T>::query(const iaCircle<F> &circle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects)
 {
     if (!iIntersection::intersects(circle, _root->_box))
     {
@@ -22,7 +22,13 @@ void iQuadtree<F, T>::query(const iaCircled &circle, std::vector<std::shared_ptr
 }
 
 template <typename F, typename T>
-void iQuadtree<F, T>::queryInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &node, const iaCircled &circle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects)
+void iQuadtree<F, T>::query(const iaRectangle<F> &rectangle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects)
+{
+    // TODO
+}
+
+template <typename F, typename T>
+void iQuadtree<F, T>::queryInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &node, const iaCircle<F> &circle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects)
 {
     if (isLeaf(node))
     {
@@ -235,7 +241,7 @@ void iQuadtree<F, T>::clear()
 }
 
 template <typename F, typename T>
-const iaRectangle<F> & iQuadtree<F, T>::getRootBox() const
+const iaRectangle<F> &iQuadtree<F, T>::getRootBox() const
 {
     return _root->_box;
 }

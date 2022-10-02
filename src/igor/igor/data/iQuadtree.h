@@ -128,7 +128,14 @@ namespace igor
         \param circle the given circle
         \param objects the resulting found objects
         */
-        void query(const iaCircled &circle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects);
+        void query(const iaCircle<F> &circle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects);
+
+        /*! queries for objects within given rectangle
+
+        \param rectangle the given rectangle
+        \param objects the resulting found objects
+        */
+        void query(const iaRectangle<F> &rectangle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects);
 
         /*! clears the tree
          */
@@ -172,7 +179,7 @@ namespace igor
         \param circle the given circle
         \param objects the resulting found user data
         */
-        void queryInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &node, const iaCircled &circle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects);
+        void queryInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &node, const iaCircle<F> &circle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects);
 
         /*! split given node
 
