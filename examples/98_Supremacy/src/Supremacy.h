@@ -62,6 +62,10 @@ private:
      */
     iEntity _player;
 
+    /*! viewport entity which follows the player
+    */
+    iEntity _viewport;
+
     /*! random numbers
      */
     iaRandomNumberGeneratoru _rand;
@@ -81,8 +85,6 @@ private:
     /*! floor shadow
      */
     iTexturePtr _shadow;
-
-    iaRectangled _viewRectangle;
 
     /*! called when added to layer stack
      */
@@ -126,6 +128,8 @@ private:
 
     iEntity createPlayer();
 
+    iEntity createViewport(iEntityID targetID);
+
     void createUnit(const iaVector2d &pos, uint32 party, iEntityID target);
 
     void onUpdateQuadtreeSystem();
@@ -144,7 +148,7 @@ private:
 
     void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party);
 
-    void updateViewRectangle();
+    void updateViewRectangleSystem();
 };
 
 #endif // __SUPREMACY__

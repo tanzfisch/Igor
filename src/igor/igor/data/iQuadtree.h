@@ -134,6 +134,10 @@ namespace igor
          */
         void clear();
 
+        /*! \returns dimensions of quadtree
+        */
+        const iaRectangle<F> & getRootBox() const;
+
     private:
         /*! root node
          */

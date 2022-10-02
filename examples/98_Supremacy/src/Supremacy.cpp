@@ -10,7 +10,7 @@ static const uint32 FOE = 20u;
 static const float64 PLAYFIELD_WIDTH = 1600;
 static const float64 PLAYFIELD_HEIGHT = 900.0;
 static const float64 PLAYFIELD_SCALE = 0.2;
-static const float64 PLAYFIELD_ADJUST = 40;
+static const float64 VIEWPORT_ADJUST = 40;
 
 Supremacy::Supremacy(iWindow *window)
     : iLayer(window, L"Supremacy"), _viewOrtho(iView(false)), _quadtree(iaRectangled(0, 0, PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT))
@@ -31,25 +31,41 @@ iaVector2d Supremacy::getRandomDir()
 iEntity Supremacy::createPlayer()
 {
     // init player
-    iEntity player = _entityScene.createEntity("player");
+    iEntity entity = _entityScene.createEntity("player");
 
-    auto position = player.addComponent<PositionComponent>(iaVector2d(PLAYFIELD_WIDTH * 0.5, PLAYFIELD_HEIGHT * 0.5));
-    auto size = player.addComponent<SizeComponent>(10.0);
+    auto position = entity.addComponent<PositionComponent>(iaVector2d(PLAYFIELD_WIDTH * 0.5, PLAYFIELD_HEIGHT * 0.5));
+    auto size = entity.addComponent<SizeComponent>(10.0);
 
-    player.addComponent<VelocityComponent>(iaVector2d(1.0, 0.0), 1.0, true);
-    player.addComponent<PartyComponent>(FRIEND);
-    player.addComponent<DamageComponent>(0.0);
-    player.addComponent<HealthComponent>(100.0);
-    player.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleStar.png"));
+    entity.addComponent<VelocityComponent>(iaVector2d(1.0, 0.0), 4.0, true);
+    entity.addComponent<PartyComponent>(FRIEND);
+    entity.addComponent<DamageComponent>(0.0);
+    entity.addComponent<HealthComponent>(100.0);
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleStar.png"));
 
-    player.addComponent<MovementControlComponent>();
-    auto &object = player.addComponent<QuadtreeObjectComponent>();
+    entity.addComponent<MovementControlComponent>();
+    auto &object = entity.addComponent<QuadtreeObjectComponent>();
     object._object = std::shared_ptr<iQuadtreeObject<float64, iEntityID>>(new iQuadtreeObject<float64, iEntityID>());
-    object._object->_userData = player.operator iEntityID();
+    object._object->_userData = entity.getID();
     object._object->_circle.set(position._position._x, position._position._y, size._size);
     _quadtree.insert(object._object);
 
-    return player;
+    return entity;
+}
+
+iEntity Supremacy::createViewport(iEntityID targetID)
+{
+    iEntity target(targetID, _entityScene);
+    const iaVector2d targetPosition = target.getComponent<PositionComponent>()._position;
+
+    iEntity entity = _entityScene.createEntity("viewport");
+
+    auto &viewportComp = entity.addComponent<ViewportComponent>();
+    viewportComp._targetOffset.set(0.0, 0.0);
+    viewportComp._targetID = targetID;
+    viewportComp._viewport.setSize(PLAYFIELD_WIDTH * PLAYFIELD_SCALE, PLAYFIELD_HEIGHT * PLAYFIELD_SCALE);
+    viewportComp._viewport.setCenter(targetPosition);
+
+    return entity;
 }
 
 void Supremacy::createUnit(const iaVector2d &pos, uint32 party, iEntityID target)
@@ -68,37 +84,39 @@ void Supremacy::createUnit(const iaVector2d &pos, uint32 party, iEntityID target
 
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
     object._object = std::shared_ptr<iQuadtreeObject<float64, iEntityID>>(new iQuadtreeObject<float64, iEntityID>());
-    object._object->_userData = entity.operator iEntityID();
+    object._object->_userData = entity.getID();
     object._object->_circle.set(pos, size._size);
     _quadtree.insert(object._object);
 }
 
-void Supremacy::updateViewRectangle()
+void Supremacy::updateViewRectangleSystem()
 {
-    const iaVector2d position = _player.getComponent<PositionComponent>()._position;
+    auto &viewportComp = _viewport.getComponent<ViewportComponent>();
+    auto &targetOffset = viewportComp._targetOffset;
+    const iaVector2d &playerPosition = _player.getComponent<PositionComponent>()._position;
+    const iaVector2d lastPlayerPosition = viewportComp._viewport.getCenter() + targetOffset;
+    const iaVector2d diff = playerPosition - lastPlayerPosition;
 
-    iaRectangled temp = _viewRectangle;
-    temp.adjust(PLAYFIELD_ADJUST, PLAYFIELD_ADJUST, -PLAYFIELD_ADJUST * 2, -PLAYFIELD_ADJUST * 2);
+    const auto width = viewportComp._viewport.getWidth() * 0.5 - VIEWPORT_ADJUST;
+    const auto height = viewportComp._viewport.getHeight() * 0.5 - VIEWPORT_ADJUST;
 
-    if (position._x < temp._x)
+    bool skipStep = false;
+
+    if (std::abs(diff._x) > width ||
+        std::abs(diff._y) > height)
     {
-        _viewRectangle._x -= temp._x - position._x;
+        skipStep = true;
     }
 
-    if (position._x > temp.getRight())
+    if (!skipStep)
     {
-        _viewRectangle._x += position._x - temp.getRight();
+        targetOffset += diff;
     }
 
-    if (position._y < temp._y)
-    {
-        _viewRectangle._y -= temp._y - position._y;
-    }
+    targetOffset._x = std::clamp(targetOffset._x, -width, width);
+    targetOffset._y = std::clamp(targetOffset._y, -height, height);
 
-    if (position._y > temp.getBottom())
-    {
-        _viewRectangle._y += position._y - temp.getBottom();
-    }
+    viewportComp._viewport.setCenter(playerPosition - targetOffset);
 }
 
 void Supremacy::onInit()
@@ -126,15 +144,13 @@ void Supremacy::onInit()
     _rand.setSeed(1337);
 
     _player = createPlayer();
-
-    const iaVector2d position = _player.getComponent<PositionComponent>()._position;
-    _viewRectangle.set(position._x - PLAYFIELD_WIDTH * PLAYFIELD_SCALE * 0.5, position._y - PLAYFIELD_HEIGHT * PLAYFIELD_SCALE * 0.5, PLAYFIELD_WIDTH * PLAYFIELD_SCALE, PLAYFIELD_HEIGHT * PLAYFIELD_SCALE);
+    _viewport = createViewport(_player.getID());
 
     // create some enemies
     for (int i = 0; i < 1000; ++i)
     {
         iaVector2d pos(_rand.getNextFloat() * PLAYFIELD_WIDTH, _rand.getNextFloat() * PLAYFIELD_HEIGHT);
-        createUnit(pos, FOE, _player.operator iEntityID());
+        createUnit(pos, FOE, _player.getID());
     }
 
     // game logic timer
@@ -330,15 +346,17 @@ void Supremacy::onUpdatePositionSystem()
         {
             position._y += PLAYFIELD_HEIGHT;
         }
-
-        // clamp
-        position._x = std::min(std::max(position._x, 0.0), PLAYFIELD_WIDTH);
-        position._y = std::min(std::max(position._y, 0.0), PLAYFIELD_WIDTH);
     }
 }
 
 void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party)
 {
+    // skip if out of range
+    if (!iIntersection::intersects(from, _quadtree.getRootBox()))
+    {
+        return;
+    }
+
     auto bullet = _entityScene.createEntity("bullet");
     bullet.addComponent<PositionComponent>(from);
     bullet.addComponent<OriginComponent>(from);
@@ -352,7 +370,7 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
 
     auto &object = bullet.addComponent<QuadtreeObjectComponent>();
     object._object = std::shared_ptr<iQuadtreeObject<float64, iEntityID>>(new iQuadtreeObject<float64, iEntityID>());
-    object._object->_userData = bullet.operator iEntityID();
+    object._object->_userData = bullet.getID();
     object._object->_circle.set(from, size._size);
     _quadtree.insert(object._object);
 }
@@ -377,7 +395,7 @@ void Supremacy::aquireTargetFor(iEntity &entity)
 
         for (const auto &object : objects)
         {
-            if (object->_userData == entity.operator iEntityID())
+            if (object->_userData == entity.getID())
             {
                 continue;
             }
@@ -455,7 +473,7 @@ void Supremacy::onUpdate()
     onUpdateDistanceToOriginSystem();
     onUpdateCleanUpTheDeadSystem();
 
-    updateViewRectangle();
+    updateViewRectangleSystem();
 }
 
 void Supremacy::onDeinit()
@@ -484,19 +502,21 @@ void Supremacy::onEvent(iEvent &event)
 
 void Supremacy::onRenderOrtho()
 {
+    auto &viewportComp = _viewport.getComponent<ViewportComponent>();
+    const iaRectangled &viewRectangle = viewportComp._viewport;
+    iaRectangled intersetRectangle = viewRectangle;
+    float64 scale = viewRectangle._width * 0.1;
+    intersetRectangle.adjust(-scale, -scale, scale * 2.0, scale * 2.0);
+
     iaMatrixd matrix;
     iRenderer::getInstance().setViewMatrix(matrix);
     matrix.translate(0, 0, -1);
-//    matrix.scale((1.0 / PLAYFIELD_SCALE) * (static_cast<float64>(getWindow()->getClientWidth()) / PLAYFIELD_WIDTH),
-                 // (1.0 / PLAYFIELD_SCALE) * (static_cast<float64>(getWindow()->getClientHeight()) / PLAYFIELD_HEIGHT), 1.0);
-  //  matrix.translate(-_viewRectangle._x, -_viewRectangle._y, 0);
+    /*matrix.scale((1.0 / PLAYFIELD_SCALE) * (static_cast<float64>(getWindow()->getClientWidth()) / PLAYFIELD_WIDTH),
+                 (1.0 / PLAYFIELD_SCALE) * (static_cast<float64>(getWindow()->getClientHeight()) / PLAYFIELD_HEIGHT), 1.0);
+    matrix.translate(-viewRectangle._x, -viewRectangle._y, 0);*/
     iRenderer::getInstance().setModelMatrix(matrix);
 
-    iaRectangled intersetRectangle = _viewRectangle;
-    float64 scale = _viewRectangle._width * 0.1;
-    intersetRectangle.adjust(-scale, -scale, scale * 2.0, scale * 2.0);
-
-    // draw entities
+        // draw entities
     auto view = _entityScene.getEntities<PositionComponent, SizeComponent, VisualComponent>();
 
     for (auto entity : view)
@@ -505,10 +525,10 @@ void Supremacy::onRenderOrtho()
 
         const iaVector2d &position = pos._position;
 
-      /*  if (!iIntersection::intersects(position, intersetRectangle))
+        if (!iIntersection::intersects(position, intersetRectangle))
         {
             continue;
-        }*/
+        }
 
         const float64 width = size._size;
 
@@ -530,10 +550,10 @@ void Supremacy::onRenderOrtho()
 
     iRenderer::getInstance().setMaterial(_plainMaterial);
     iRenderer::getInstance().setColor(0.0, 0.0, 1.0, 1.0);
-    iRenderer::getInstance().drawRectangle(_viewRectangle._x, _viewRectangle._y, _viewRectangle._width, _viewRectangle._height);
+    iRenderer::getInstance().drawRectangle(viewRectangle._x, viewRectangle._y, viewRectangle._width, viewRectangle._height);
 
-    iaRectangled temp = _viewRectangle;
-    temp.adjust(PLAYFIELD_ADJUST, PLAYFIELD_ADJUST, -PLAYFIELD_ADJUST * 2, -PLAYFIELD_ADJUST * 2);
+    iaRectangled temp = viewRectangle;
+    temp.adjust(VIEWPORT_ADJUST, VIEWPORT_ADJUST, -VIEWPORT_ADJUST * 2, -VIEWPORT_ADJUST * 2);
 
     iRenderer::getInstance().setColor(0.0, 1.0, 0.0, 1.0);
     iRenderer::getInstance().drawRectangle(temp._x, temp._y, temp._width, temp._height);

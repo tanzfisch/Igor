@@ -121,3 +121,17 @@ iaRectangle<T> iaRectangle<T>::operator=(const iaRectangle<T> &rectangle)
 
     return result;
 }
+
+template <class T>
+void iaRectangle<T>::setCenter(const iaVector2<T> &center)
+{
+    _x = center._x - _width * 0.5;
+    _y = center._y - _height * 0.5;
+}
+
+template <class T>
+void iaRectangle<T>::setCenter(T x, T y)
+{
+    _x = x - _width * 0.5;
+    _y = y - _height * 0.5;
+}

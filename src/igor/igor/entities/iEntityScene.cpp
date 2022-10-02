@@ -15,7 +15,7 @@ namespace igor
 
     void iEntityScene::destroyEntity(iEntity entity)
     {
-        _registry.destroy(entity.operator iEntityID());
+        _registry.destroy(entity.getID());
     }
 
     void iEntityScene::destroyEntity(iEntityID entityID)

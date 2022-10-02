@@ -118,6 +118,19 @@ namespace iaux
         */
         const iaVector2<T> getCenter() const;
 
+        /*! sets center of rectangle without changing it's size
+
+        \param center the center to se
+        */
+        void setCenter(const iaVector2<T> &center);
+
+        /*! sets center of rectangle without changing it's size
+
+        \param x x component of the new center
+        \param y y component of the new center
+        */
+        void setCenter(T x, T y);
+
         /*! sets horrizontal position
 
         \param x horrizontal position

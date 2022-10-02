@@ -30,6 +30,11 @@ namespace igor
         }
     } 
 
+    iEntityID iEntity::getID() const
+    {
+        return _entity;
+    }
+
     ////////////// old deprecated stuff
     const uint64 iEntity_Old::INVALID_ENTITY_ID = 0;
     uint64 iEntity_Old::_nextID = iEntity_Old::INVALID_ENTITY_ID + 1;

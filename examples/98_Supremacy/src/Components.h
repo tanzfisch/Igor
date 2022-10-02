@@ -94,4 +94,11 @@ struct MovementControlComponent
     bool _right = false;
 };
 
+struct ViewportComponent
+{
+    iaRectangled _viewport;
+    iaVector2d _targetOffset;
+    iEntityID _targetID;
+};
+
 #endif // __SUPREMACY_SYSTEMS__

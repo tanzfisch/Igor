@@ -233,3 +233,9 @@ void iQuadtree<F, T>::clear()
     _root = std::make_shared<iQuadtreeNode<F, T>>();
     _root->_box = box;
 }
+
+template <typename F, typename T>
+const iaRectangle<F> & iQuadtree<F, T>::getRootBox() const
+{
+    return _root->_box;
+}

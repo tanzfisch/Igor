@@ -61,10 +61,7 @@ namespace igor
 
         /*! \returns entity id
         */
-        operator iEntityID() const
-        {
-            return _entity;
-        }
+        iEntityID getID() const;
 
         /*! adds component to entity of given type
         */
