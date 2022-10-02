@@ -9,6 +9,7 @@
 			<SearchPath>..\data\models</SearchPath>
 			<SearchPath>..\data\sounds</SearchPath>
 			<SearchPath>..\data\effects</SearchPath>
+			<SearchPath>..\data</SearchPath>
 		</SearchPaths>
 	</ResourceManager>
     <Logging>

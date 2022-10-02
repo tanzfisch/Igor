@@ -30,10 +30,10 @@ void SpriteAnimation::onInit()
 
     // load atlantes
     _walk = new iAtlas(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationWalk.png", iResourceCacheMode::Free, iTextureBuildMode::Normal));
-    _walk->loadFrames("../data/atlantes/SpriteAnimationWalk.xml");
+    _walk->loadFrames("atlantes/SpriteAnimationWalk.xml");
 
     _tiles = new iAtlas(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationTiles.png", iResourceCacheMode::Free, iTextureBuildMode::Normal));
-    _tiles->loadFrames("../data/atlantes/SpriteAnimationTiles.xml");
+    _tiles->loadFrames("atlantes/SpriteAnimationTiles.xml");
 
     // generate ground map
     TileMapGenerator tileMapGenerator;
@@ -112,18 +112,22 @@ bool SpriteAnimation::onKeyDown(iEventKeyDown &event)
     switch (event.getKey())
     {
     case iKeyCode::Left:
+    case iKeyCode::A:
         _flags[0] = true;
         return true;
 
     case iKeyCode::Up:
+    case iKeyCode::W:
         _flags[1] = true;
         return true;
 
     case iKeyCode::Right:
+    case iKeyCode::D:
         _flags[2] = true;
         return true;
 
     case iKeyCode::Down:
+    case iKeyCode::S:
         _flags[3] = true;
         return true;
 
@@ -140,18 +144,22 @@ bool SpriteAnimation::onKeyUp(iEventKeyUp &event)
     switch (event.getKey())
     {
     case iKeyCode::Left:
+    case iKeyCode::A:
         _flags[0] = false;
         return true;
 
     case iKeyCode::Up:
+    case iKeyCode::W:
         _flags[1] = false;
         return true;
 
     case iKeyCode::Right:
+    case iKeyCode::D:
         _flags[2] = false;
         return true;
 
     case iKeyCode::Down:
+    case iKeyCode::S:
         _flags[3] = false;
         return true;
 
