@@ -9,6 +9,10 @@
 #include <sstream>
 #include <map>
 
+// notes
+// https://www.youtube.com/watch?v=tFsETEP01k8
+// https://www.youtube.com/watch?v=B0enS9BJne4
+
 SpriteAnimation::SpriteAnimation(iWindow *window)
     : ExampleBase(window, "Sprite Animation")
 {
