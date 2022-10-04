@@ -44,7 +44,7 @@ iEntity Supremacy::createPlayer()
 
     entity.addComponent<MovementControlComponent>();
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
-    object._object = std::shared_ptr<iQuadtreeObject<float64, iEntityID>>(new iQuadtreeObject<float64, iEntityID>());
+    object._object = std::make_shared<QuadtreeObject>();
     object._object->_userData = entity.getID();
     object._object->_circle.set(position._position._x, position._position._y, size._size);
     _quadtree.insert(object._object);
@@ -83,7 +83,7 @@ void Supremacy::createUnit(const iaVector2d &pos, uint32 party, iEntityID target
     entity.addComponent<TargetComponent>(target); // I don't like this but it's quick
 
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
-    object._object = std::shared_ptr<iQuadtreeObject<float64, iEntityID>>(new iQuadtreeObject<float64, iEntityID>());
+    object._object = std::make_shared<QuadtreeObject>();
     object._object->_userData = entity.getID();
     object._object->_circle.set(pos, size._size);
     _quadtree.insert(object._object);
@@ -253,7 +253,7 @@ void Supremacy::onUpdatePositionSystem()
         float64 speed = vel._speed;
 
         iaCircled circle(position, radius * 1.1);
-        std::vector<std::shared_ptr<iQuadtreeObject<float64, iEntityID>>> objects;
+        QuadtreeObjects objects;
         _quadtree.query(circle, objects);
 
         iaVector2d diversion;
@@ -369,7 +369,7 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
     bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleFlame.png"), true);
 
     auto &object = bullet.addComponent<QuadtreeObjectComponent>();
-    object._object = std::shared_ptr<iQuadtreeObject<float64, iEntityID>>(new iQuadtreeObject<float64, iEntityID>());
+    object._object = std::make_shared<QuadtreeObject>();
     object._object->_userData = bullet.getID();
     object._object->_circle.set(from, size._size);
     _quadtree.insert(object._object);
@@ -387,11 +387,11 @@ void Supremacy::aquireTargetFor(iEntity &entity)
         auto &size = entity.getComponent<SizeComponent>();
         auto &party = entity.getComponent<PartyComponent>();
         iaCircled circle(position._position, 150.0);
-        std::vector<std::shared_ptr<iQuadtreeObject<float64, iEntityID>>> objects;
+        QuadtreeObjects objects;
         _quadtree.query(circle, objects);
 
         float32 minDistance = 999999999;
-        std::shared_ptr<iQuadtreeObject<float64, iEntityID>> foundObject;
+        QuadtreeObjectPtr foundObject;
 
         for (const auto &object : objects)
         {

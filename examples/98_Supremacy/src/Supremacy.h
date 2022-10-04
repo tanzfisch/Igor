@@ -42,6 +42,11 @@ public:
     ~Supremacy();
 
 private:
+    using Quadtree = iQuadtree<float64, iEntityID>;
+    using QuadtreeObject = iQuadtreeObject<float64, iEntityID>;
+    using QuadtreeObjectPtr = std::shared_ptr<iQuadtreeObject<float64, iEntityID>>;
+    using QuadtreeObjects = std::vector<std::shared_ptr<iQuadtreeObject<float64, iEntityID>>>;
+
     /*! the view we render 2D to
      */
     iView _viewOrtho;
@@ -63,7 +68,7 @@ private:
     iEntity _player;
 
     /*! viewport entity which follows the player
-    */
+     */
     iEntity _viewport;
 
     /*! random numbers
@@ -80,7 +85,7 @@ private:
 
     /*! quadtree
      */
-    iQuadtree<float64, iEntityID> _quadtree;
+    Quadtree _quadtree;
 
     /*! floor shadow
      */
