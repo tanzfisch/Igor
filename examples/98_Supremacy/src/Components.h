@@ -75,9 +75,9 @@ struct VisualComponent
     bool _useDirection = false;
 };
 
-struct OriginComponent
+struct CountdownComponent
 {
-    iaVector2d _origin;
+    float64 _countdown;
 };
 
 struct TargetComponent

@@ -359,7 +359,7 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
 
     auto bullet = _entityScene.createEntity("bullet");
     bullet.addComponent<PositionComponent>(from);
-    bullet.addComponent<OriginComponent>(from);
+    bullet.addComponent<CountdownComponent>(1000);
 
     bullet.addComponent<VelocityComponent>(dir, 10.0f, true);
     bullet.addComponent<PartyComponent>(party);
@@ -380,9 +380,77 @@ void Supremacy::doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEn
     QuadtreeObjects objects;
     _quadtree.query(circle, objects);
 
-    for(const auto &object : objects)
-    {   
+    for (const auto &object : objects)
+    {
         hits.emplace_back(std::pair<iEntityID, iaVector2d>(object->_userData, object->_circle._center - circle._center));
+    }
+
+    const bool right = circle._center._x - circle._radius < 0.0;
+    const bool left = circle._center._x + circle._radius > _quadtree.getRootBox()._width;
+
+    const bool bottom = circle._center._y - circle._radius < 0.0;
+    const bool top = circle._center._y + circle._radius > _quadtree.getRootBox()._height;
+
+    std::vector<iaCircled> additionalQueries;
+
+    if (right || left)
+    {
+        iaCircled queryCircle = circle;
+        if (right)
+        {
+            queryCircle._center._x += _quadtree.getRootBox()._width;
+        }
+        if (left)
+        {
+            queryCircle._center._x -= _quadtree.getRootBox()._width;
+        }
+        additionalQueries.push_back(queryCircle);
+    }
+
+    if (bottom || top)
+    {
+        iaCircled queryCircle = circle;
+        if (bottom)
+        {
+            queryCircle._center._y += _quadtree.getRootBox()._height;
+        }
+        if (left)
+        {
+            queryCircle._center._y -= _quadtree.getRootBox()._height;
+        }
+        additionalQueries.push_back(queryCircle);
+    }
+
+    if (right || left && bottom || top)
+    {
+        iaCircled queryCircle = circle;
+        if (right)
+        {
+            queryCircle._center._x += _quadtree.getRootBox()._width;
+        }
+        if (left)
+        {
+            queryCircle._center._x -= _quadtree.getRootBox()._width;
+        }
+        if (bottom)
+        {
+            queryCircle._center._y += _quadtree.getRootBox()._height;
+        }
+        if (left)
+        {
+            queryCircle._center._y -= _quadtree.getRootBox()._height;
+        }
+        additionalQueries.push_back(queryCircle);
+    }
+
+    for (const auto &queryCircle : additionalQueries)
+    {
+        _quadtree.query(queryCircle, objects);
+
+        for (const auto &object : objects)
+        {
+            hits.emplace_back(std::pair<iEntityID, iaVector2d>(object->_userData, object->_circle._center - queryCircle._center));
+        }
     }
 }
 
@@ -444,12 +512,14 @@ void Supremacy::aquireTargetFor(iEntity &entity)
 
 void Supremacy::onUpdateDistanceToOriginSystem()
 {
-    auto originUpdateView = _entityScene.getEntities<PositionComponent, OriginComponent, HealthComponent>();
+    auto originUpdateView = _entityScene.getEntities<CountdownComponent, HealthComponent>();
     for (auto entity : originUpdateView)
     {
-        auto [pos, ori, health] = originUpdateView.get<PositionComponent, OriginComponent, HealthComponent>(entity);
+        auto [countDown, health] = originUpdateView.get<CountdownComponent, HealthComponent>(entity);
 
-        if (pos._position.distance2(ori._origin) > 300.0 * 300.0)
+        countDown._countdown -= 1.0;
+
+        if (countDown._countdown < 0.0)
         {
             health._health = 0.0;
         }
