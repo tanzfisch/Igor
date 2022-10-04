@@ -375,6 +375,17 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
     _quadtree.insert(object._object);
 }
 
+void Supremacy::doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEntityID, iaVector2d>> &hits)
+{
+    QuadtreeObjects objects;
+    _quadtree.query(circle, objects);
+
+    for(const auto &object : objects)
+    {   
+        hits.emplace_back(std::pair<iEntityID, iaVector2d>(object->_userData, object->_circle._center - circle._center));
+    }
+}
+
 void Supremacy::aquireTargetFor(iEntity &entity)
 {
     // aquire target for player
@@ -387,20 +398,21 @@ void Supremacy::aquireTargetFor(iEntity &entity)
         auto &size = entity.getComponent<SizeComponent>();
         auto &party = entity.getComponent<PartyComponent>();
         iaCircled circle(position._position, 150.0);
-        QuadtreeObjects objects;
-        _quadtree.query(circle, objects);
+
+        std::vector<std::pair<iEntityID, iaVector2d>> hits;
+        doughnutQuery(circle, hits);
 
         float32 minDistance = 999999999;
-        QuadtreeObjectPtr foundObject;
+        iaVector2d foundTarget;
 
-        for (const auto &object : objects)
+        for (const auto &hit : hits)
         {
-            if (object->_userData == entity.getID())
+            if (hit.first == entity.getID())
             {
                 continue;
             }
 
-            iEntity entity(object->_userData, _entityScene);
+            iEntity entity(hit.first, _entityScene);
 
             auto *entParty = entity.tryGetComponent<PartyComponent>();
             if (entParty == nullptr ||
@@ -409,18 +421,18 @@ void Supremacy::aquireTargetFor(iEntity &entity)
                 continue;
             }
 
-            float32 dist = object->_circle._center.distance2(circle._center);
+            const float32 dist = hit.second.length2();
             if (dist < minDistance)
             {
                 minDistance = dist;
-                foundObject = object;
+                foundTarget = hit.second;
             }
         }
 
-        if (foundObject != nullptr)
+        if (minDistance != 999999999)
         {
             const iaVector2d firePos(position._position._x, position._position._y - size._size * 0.5);
-            iaVector2d direction = foundObject->_circle._center - firePos;
+            iaVector2d direction = foundTarget;
             direction.normalize();
 
             fire(firePos, direction, FRIEND);

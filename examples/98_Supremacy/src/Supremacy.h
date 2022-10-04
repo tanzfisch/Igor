@@ -154,6 +154,13 @@ private:
     void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party);
 
     void updateViewRectangleSystem();
+
+    /*! query a circle on the quardtree while wrapping arround at the edges like a doughnut
+
+    \param circle the query circle
+    \param hits the resulting list of entitties and relatice to the circle center positions
+    */
+    void doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEntityID, iaVector2d>> &hits);
 };
 
 #endif // __SUPREMACY__
