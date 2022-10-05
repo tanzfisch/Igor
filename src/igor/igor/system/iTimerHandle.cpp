@@ -57,7 +57,7 @@ namespace igor
 
 	void iTimerHandle::setIntervall(iaTime interval)
 	{
-		if (interval <= iaTime::zero())
+		if (interval <= iaTime(0))
 		{
 			con_err("invalid value for _intervall");
 			return;

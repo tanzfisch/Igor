@@ -9,13 +9,13 @@ namespace igor
 {
         void iStopWatch::start()
         {
-                _stopTime = _startTime = iaTime::now();
+                _stopTime = _startTime = iaTime::getNow();
                 _running = true;
         }
 
         void iStopWatch::stop()
         {
-                _stopTime = iaTime::now();
+                _stopTime = iaTime::getNow();
                 _running = false;
         }
 
@@ -23,7 +23,7 @@ namespace igor
         {
                 if (_running)
                 {
-                        return iaTime::now() - _startTime;
+                        return iaTime::getNow() - _startTime;
                 }
                 else
                 {

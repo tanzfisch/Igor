@@ -42,9 +42,9 @@ using namespace iaux;
 namespace igor
 {
 
-    /*! Application (Singleton)
+    /*! Application
 	
-	The main entry point to an Igor application (Singleton)
+	The main entry point to an Igor application
 	*/
     class IGOR_API iApplication : public iModule<iApplication>
     {

@@ -39,7 +39,6 @@ using namespace iaux;
 
 namespace igor
 {
-
     /*! Handles Application time and intervals.
 
 	Meshures time of application cycles based on render frames.
@@ -68,20 +67,10 @@ namespace igor
         */
         float64 getFPS() const;
 
-        /*! \returns todays day
-		*/
-        uint32 getDay() const;
-
-        /*! \returns current month
-		*/
-        uint32 getMonth() const;
-
-        /*! \returns current year
-		*/
-        uint32 getYear() const;
+        // TODO add something like pauseGame, play etc and then also add getGameFrameTime
 
     protected:
-        /*! call timer handles events
+        /*! call timer handle events
         */
         void handleTimerHandles();
 
@@ -97,10 +86,6 @@ namespace igor
         /*! time meshured current frame (in miliseconds)
 		*/
         iaTime _currentTime;
-
-        /*! time meshured last frame (in miliseconds)
-		*/
-        iaTime _lastTime;
 
         /*! registered timer handles
 

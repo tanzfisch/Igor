@@ -197,7 +197,7 @@ namespace igor
 
     /*! should be called last in your application. do not use any Igor interface after that
 	
-	Shuts down all the singleton instances.
+	Shuts down all the modules.
 	Not thread save. make shure only one thread is left when calling this.
 
     \todo it would be nice to have the order of shutting down singletons implicitly or configurable

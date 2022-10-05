@@ -118,6 +118,10 @@ namespace iaux
         */
         const iaVector2<T> getCenter() const;
 
+        /*! \returns top left corner of rectangle
+        */
+        const iaVector2<T> getTopLeft() const;
+
         /*! sets center of rectangle without changing it's size
 
         \param center the center to se

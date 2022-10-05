@@ -22,7 +22,7 @@ namespace igor
 
     iParticleSystem3D::iParticleSystem3D()
     {
-        _rand.setSeed(static_cast<uint32>(iaTime::now().getMicrosenconds()));
+        _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicrosenconds()));
         initDefaultGradients();
     }
 

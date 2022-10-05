@@ -1522,7 +1522,7 @@ namespace igor
 
     void iRenderer::createBuffers(float64 timeLimit)
     {
-        iaTime endTime = iaTime::now();
+        iaTime endTime = iaTime::getNow();
         endTime += iaTime::fromMilliseconds(timeLimit);
         std::deque<std::pair<iMeshPtr, iMeshBuffersPtr>>::iterator entryIter;
 
@@ -1553,7 +1553,7 @@ namespace igor
                 break;
             }
 
-            if (iaTime::now() > endTime)
+            if (iaTime::getNow() > endTime)
             {
                 break;
             }

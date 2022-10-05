@@ -63,7 +63,7 @@ namespace igor
         uint32 _line;
         uint64 _hash;
         uint64 _callCount = 0;
-        iaTime _duration = iaTime::zero();
+        iaTime _duration = iaTime(0);
         static std::map<uint64, iProfilerFunction *> _data;
         static iaMutex _mutex;
     };
@@ -76,12 +76,12 @@ namespace igor
         {
             _profilerFunction->_callCount++;
 
-            _time = iaTime::now();
+            _time = iaTime::getNow();
         }
 
         ~iProfilerMeasure()
         {
-            _profilerFunction->_duration += iaTime::now() - _time;
+            _profilerFunction->_duration += iaTime::getNow() - _time;
         }
 
     private:

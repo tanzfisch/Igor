@@ -161,6 +161,9 @@ private:
     \param hits the resulting list of entitties and relatice to the circle center positions
     */
     void doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEntityID, iaVector2d>> &hits);
+
+    bool intersectDoughnut(const iaVector2d &position, const iaRectangled &rectangle, iaVector2d &offset);
+    bool intersectDoughnut(const iaVector2d &position, const iaCircled &circle, iaVector2d &offset);
 };
 
 #endif // __SUPREMACY__

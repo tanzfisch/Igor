@@ -101,4 +101,18 @@ struct ViewportComponent
     iEntityID _targetID;
 };
 
+enum class WeaponType
+{
+    RollingPin,
+    Knife
+};
+
+struct WaponComponent
+{
+    WeaponType _weaponType;
+    float64 _damage;
+    iaTime _interval;
+    iaTime _time;
+};
+
 #endif // __SUPREMACY_SYSTEMS__

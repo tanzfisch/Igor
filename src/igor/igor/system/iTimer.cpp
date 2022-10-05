@@ -10,14 +10,12 @@
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
-#include <ctime>
-
 namespace igor
 {
 
 	iTimer::iTimer()
 	{
-		_startTime = _currentTime = _lastTime = iaTime::now();
+		_startTime = _currentTime = iaTime::getNow();
 		_timeDelta = 0;
 	}
 
@@ -27,48 +25,18 @@ namespace igor
 		{
 			con_err("unregister all timer handles first");
 		}
-	}
-
-	uint32 iTimer::getDay() const
-	{
-		time_t t = time(nullptr);
-		gmtime(&t);
-		struct tm *now = localtime(&t);
-		return now->tm_mday;
-	}
-
-	uint32 iTimer::getMonth() const
-	{
-		time_t t = time(nullptr);
-		gmtime(&t);
-		struct tm *now = localtime(&t);
-		return now->tm_mon;
-	}
-
-	uint32 iTimer::getYear() const
-	{
-		time_t t = time(nullptr);
-		gmtime(&t);
-		struct tm *now = localtime(&t);
-		return now->tm_year;
-	}
+	}	
 
 	iaTime iTimer::getApplicationTime() const
 	{
-		return iaTime::now();
+		return iaTime::getNow();
 	}
 
 	void iTimer::handle()
 	{
-		_currentTime = iaTime::now();
-		_timeDelta = _currentTime - _lastTime;
-
-		if (_currentTime < _lastTime)
-		{
-			con_warn("iTimer Overflow!");
-		}
-
-		_lastTime = _currentTime;
+		iaTime now = iaTime::getNow();
+		_timeDelta = now - _currentTime;
+		_currentTime = now;
 
 		handleTimerHandles();
 	}

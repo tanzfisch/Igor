@@ -285,7 +285,7 @@ namespace igor
         _mutex.unlock();
 
         // stop after 50ms to keep the front end responsive
-        iaTime endTime = iaTime::now();
+        iaTime endTime = iaTime::getNow();
         endTime += iaTime::fromMilliseconds(50);
 
         auto iterP = _processingQueue.begin();
@@ -309,7 +309,7 @@ namespace igor
                 iterP = _processingQueue.erase(iterP);
             }
 
-            if (iaTime::now() > endTime)
+            if (iaTime::getNow() > endTime)
             {
                 break;
             }

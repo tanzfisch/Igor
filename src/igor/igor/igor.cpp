@@ -7,6 +7,7 @@
 #include <igor/resources/config/iConfigReader.h>
 
 #include <iaux/iaux.h>
+#include <iaux/system/iaDate.h>
 using namespace iaux;
 
 #ifdef __IGOR_DEBUG__
@@ -102,8 +103,9 @@ namespace igor
 
         // Igor's last reincarnation was 29 September 2012.
         // Before that this game engine was called EasyGL (ca 2003) and OpenDC (ca 2005).
-        if (iTimer::getInstance().getMonth() == 8 &&
-            iTimer::getInstance().getDay() == 28)
+        iaDate date = iaDate::getToday();
+        if (date.getMonth() == 8 &&
+            date.getDay() == 29)
         {
             iaConsole::getInstance().printCake();
         }

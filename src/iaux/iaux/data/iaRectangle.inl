@@ -3,6 +3,14 @@
 // see copyright notice in corresponding header file
 
 template <class T>
+std::wostream &operator<<(std::wostream &ostr, const iaRectangle<T> &rectangle)
+{
+    ostr << "(" << rectangle._x << ", " << rectangle._y << ", " << rectangle._width << ", " << rectangle._height << ")";
+    return ostr;
+}
+
+
+template <class T>
 __IGOR_INLINE__ const T iaRectangle<T>::getX() const
 {
     return _x;
@@ -57,6 +65,17 @@ const iaVector2<T> iaRectangle<T>::getCenter() const
 
     result._x = _x + _width * 0.5;
     result._y = _y + _height * 0.5;
+
+    return result;
+}
+
+template <class T>
+const iaVector2<T> iaRectangle<T>::getTopLeft() const
+{
+    iaVector2<T> result;
+
+    result._x = _x;
+    result._y = _y;
 
     return result;
 }

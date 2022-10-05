@@ -42,6 +42,8 @@ iEntity Supremacy::createPlayer()
     entity.addComponent<HealthComponent>(100.0);
     entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleStar.png"));
 
+    entity.addComponent<WaponComponent>(WeaponType::RollingPin, 100.0, iaTime::fromMilliseconds(1000.0), iaTime::getNow());
+    
     entity.addComponent<MovementControlComponent>();
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
     object._object = std::make_shared<QuadtreeObject>();
@@ -147,7 +149,7 @@ void Supremacy::onInit()
     _viewport = createViewport(_player.getID());
 
     // create some enemies
-    for (int i = 0; i < 100; ++i)
+    for (int i = 0; i < 500; ++i)
     {
         iaVector2d pos(_rand.getNextFloat() * PLAYFIELD_WIDTH, _rand.getNextFloat() * PLAYFIELD_HEIGHT);
         createUnit(pos, FOE, _player.getID());
@@ -202,6 +204,239 @@ void Supremacy::onUpdateMovementControlSystem()
     }
 }
 
+void Supremacy::doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEntityID, iaVector2d>> &hits)
+{
+    QuadtreeObjects objects;
+    _quadtree.query(circle, objects);
+
+    for (const auto &object : objects)
+    {
+        hits.emplace_back(std::pair<iEntityID, iaVector2d>(object->_userData, object->_circle._center - circle._center));
+    }
+
+    const bool right = circle._center._x - circle._radius < 0.0;
+    const bool left = circle._center._x + circle._radius > _quadtree.getRootBox()._width;
+
+    const bool bottom = circle._center._y - circle._radius < 0.0;
+    const bool top = circle._center._y + circle._radius > _quadtree.getRootBox()._height;
+
+    std::vector<iaCircled> additionalQueries;
+
+    if (right || left)
+    {
+        iaCircled queryCircle = circle;
+        if (right)
+        {
+            queryCircle._center._x += _quadtree.getRootBox()._width;
+        }
+        if (left)
+        {
+            queryCircle._center._x -= _quadtree.getRootBox()._width;
+        }
+        additionalQueries.push_back(queryCircle);
+    }
+
+    if (bottom || top)
+    {
+        iaCircled queryCircle = circle;
+        if (bottom)
+        {
+            queryCircle._center._y += _quadtree.getRootBox()._height;
+        }
+        if (top)
+        {
+            queryCircle._center._y -= _quadtree.getRootBox()._height;
+        }
+        additionalQueries.push_back(queryCircle);
+    }
+
+    if (right || left && bottom || top)
+    {
+        iaCircled queryCircle = circle;
+        if (right)
+        {
+            queryCircle._center._x += _quadtree.getRootBox()._width;
+        }
+        if (left)
+        {
+            queryCircle._center._x -= _quadtree.getRootBox()._width;
+        }
+        if (bottom)
+        {
+            queryCircle._center._y += _quadtree.getRootBox()._height;
+        }
+        if (top)
+        {
+            queryCircle._center._y -= _quadtree.getRootBox()._height;
+        }
+        additionalQueries.push_back(queryCircle);
+    }
+
+    for (const auto &queryCircle : additionalQueries)
+    {
+        _quadtree.query(queryCircle, objects);
+
+        for (const auto &object : objects)
+        {
+            hits.emplace_back(std::pair<iEntityID, iaVector2d>(object->_userData, object->_circle._center - queryCircle._center));
+        }
+    }
+}
+
+bool Supremacy::intersectDoughnut(const iaVector2d &position, const iaRectangled &rectangle, iaVector2d &offset)
+{
+    if (iIntersection::intersects(position, rectangle))
+    {
+        return true;
+    }
+
+    const bool right = rectangle._x < 0.0;
+    const bool left = rectangle.getRight() > _quadtree.getRootBox()._width;
+
+    const bool bottom = rectangle._y < 0.0;
+    const bool top = rectangle.getBottom() > _quadtree.getRootBox()._height;
+
+    std::vector<iaRectangled> additionalQueries;
+
+    if (right || left)
+    {
+        iaRectangled queryRectangle = rectangle;
+        if (right)
+        {
+            queryRectangle._x += _quadtree.getRootBox()._width;
+        }
+        if (left)
+        {
+            queryRectangle._x -= _quadtree.getRootBox()._width;
+        }
+        additionalQueries.push_back(queryRectangle);
+    }
+
+    if (bottom || top)
+    {
+        iaRectangled queryRectangle = rectangle;
+        if (bottom)
+        {
+            queryRectangle._y += _quadtree.getRootBox()._height;
+        }
+        if (top)
+        {
+            queryRectangle._y -= _quadtree.getRootBox()._height;
+        }
+        additionalQueries.push_back(queryRectangle);
+    }
+
+    if (right || left && bottom || top)
+    {
+        iaRectangled queryRectangle = rectangle;
+        if (right)
+        {
+            queryRectangle._x += _quadtree.getRootBox()._width;
+        }
+        if (left)
+        {
+            queryRectangle._x -= _quadtree.getRootBox()._width;
+        }
+        if (bottom)
+        {
+            queryRectangle._y += _quadtree.getRootBox()._height;
+        }
+        if (top)
+        {
+            queryRectangle._y -= _quadtree.getRootBox()._height;
+        }
+        additionalQueries.push_back(queryRectangle);
+    }
+
+    for (const auto &queryRectangle : additionalQueries)
+    {
+        if (iIntersection::intersects(position, queryRectangle))
+        {
+            offset = rectangle.getTopLeft() - queryRectangle.getTopLeft();
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool Supremacy::intersectDoughnut(const iaVector2d &position, const iaCircled &circle, iaVector2d &offset)
+{
+    if (iIntersection::intersects(position, circle))
+    {
+        return true;
+    }
+
+    const bool right = circle._center._x - circle._radius < 0.0;
+    const bool left = circle._center._x + circle._radius > _quadtree.getRootBox()._width;
+
+    const bool bottom = circle._center._y - circle._radius < 0.0;
+    const bool top = circle._center._y + circle._radius > _quadtree.getRootBox()._height;
+
+    std::vector<iaCircled> additionalQueries;
+
+    if (right || left)
+    {
+        iaCircled queryCircle = circle;
+        if (right)
+        {
+            queryCircle._center._x += _quadtree.getRootBox()._width;
+        }
+        if (left)
+        {
+            queryCircle._center._x -= _quadtree.getRootBox()._width;
+        }
+        additionalQueries.push_back(queryCircle);
+    }
+
+    if (bottom || top)
+    {
+        iaCircled queryCircle = circle;
+        if (bottom)
+        {
+            queryCircle._center._y += _quadtree.getRootBox()._height;
+        }
+        if (top)
+        {
+            queryCircle._center._y -= _quadtree.getRootBox()._height;
+        }
+        additionalQueries.push_back(queryCircle);
+    }
+
+    if (right || left && bottom || top)
+    {
+        iaCircled queryCircle = circle;
+        if (right)
+        {
+            queryCircle._center._x += _quadtree.getRootBox()._width;
+        }
+        if (left)
+        {
+            queryCircle._center._x -= _quadtree.getRootBox()._width;
+        }
+        if (bottom)
+        {
+            queryCircle._center._y += _quadtree.getRootBox()._height;
+        }
+        if (top)
+        {
+            queryCircle._center._y -= _quadtree.getRootBox()._height;
+        }
+        additionalQueries.push_back(queryCircle);
+    }
+
+    for (const auto &queryCircle : additionalQueries)
+    {
+        if (iIntersection::intersects(position, queryCircle))
+        {
+            offset = circle._center - queryCircle._center;
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void Supremacy::onUpdateFollowTargetSystem()
 {
     // follow given target
@@ -221,8 +456,10 @@ void Supremacy::onUpdateFollowTargetSystem()
         auto targetPosition = targetEntity.getComponent<PositionComponent>();
         const iaVector2d &targetPos = targetPosition._position;
         const iaVector2d &position = pos._position;
+        iaVector2d offset;
+        iaCircled circle(position, 300.0);
 
-        if (position.distance2(targetPos) > 300.0 * 300.0)
+        if(!intersectDoughnut(targetPos, circle, offset))
         {
             if (target._inRange)
             {
@@ -232,7 +469,7 @@ void Supremacy::onUpdateFollowTargetSystem()
         }
         else
         {
-            vel._direction = targetPos - position;
+            vel._direction = targetPos - position + offset;
             vel._direction.normalize();
             target._inRange = true;
         }
@@ -359,7 +596,7 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
 
     auto bullet = _entityScene.createEntity("bullet");
     bullet.addComponent<PositionComponent>(from);
-    bullet.addComponent<CountdownComponent>(1000);
+    bullet.addComponent<CountdownComponent>(1000.0);
 
     bullet.addComponent<VelocityComponent>(dir, 10.0f, true);
     bullet.addComponent<PartyComponent>(party);
@@ -373,85 +610,6 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
     object._object->_userData = bullet.getID();
     object._object->_circle.set(from, size._size);
     _quadtree.insert(object._object);
-}
-
-void Supremacy::doughnutQuery(const iaCircled &circle, std::vector<std::pair<iEntityID, iaVector2d>> &hits)
-{
-    QuadtreeObjects objects;
-    _quadtree.query(circle, objects);
-
-    for (const auto &object : objects)
-    {
-        hits.emplace_back(std::pair<iEntityID, iaVector2d>(object->_userData, object->_circle._center - circle._center));
-    }
-
-    const bool right = circle._center._x - circle._radius < 0.0;
-    const bool left = circle._center._x + circle._radius > _quadtree.getRootBox()._width;
-
-    const bool bottom = circle._center._y - circle._radius < 0.0;
-    const bool top = circle._center._y + circle._radius > _quadtree.getRootBox()._height;
-
-    std::vector<iaCircled> additionalQueries;
-
-    if (right || left)
-    {
-        iaCircled queryCircle = circle;
-        if (right)
-        {
-            queryCircle._center._x += _quadtree.getRootBox()._width;
-        }
-        if (left)
-        {
-            queryCircle._center._x -= _quadtree.getRootBox()._width;
-        }
-        additionalQueries.push_back(queryCircle);
-    }
-
-    if (bottom || top)
-    {
-        iaCircled queryCircle = circle;
-        if (bottom)
-        {
-            queryCircle._center._y += _quadtree.getRootBox()._height;
-        }
-        if (left)
-        {
-            queryCircle._center._y -= _quadtree.getRootBox()._height;
-        }
-        additionalQueries.push_back(queryCircle);
-    }
-
-    if (right || left && bottom || top)
-    {
-        iaCircled queryCircle = circle;
-        if (right)
-        {
-            queryCircle._center._x += _quadtree.getRootBox()._width;
-        }
-        if (left)
-        {
-            queryCircle._center._x -= _quadtree.getRootBox()._width;
-        }
-        if (bottom)
-        {
-            queryCircle._center._y += _quadtree.getRootBox()._height;
-        }
-        if (left)
-        {
-            queryCircle._center._y -= _quadtree.getRootBox()._height;
-        }
-        additionalQueries.push_back(queryCircle);
-    }
-
-    for (const auto &queryCircle : additionalQueries)
-    {
-        _quadtree.query(queryCircle, objects);
-
-        for (const auto &object : objects)
-        {
-            hits.emplace_back(std::pair<iEntityID, iaVector2d>(object->_userData, object->_circle._center - queryCircle._center));
-        }
-    }
 }
 
 void Supremacy::aquireTargetFor(iEntity &entity)
@@ -605,12 +763,14 @@ void Supremacy::onRenderOrtho()
     {
         auto [pos, size, visual] = view.get<PositionComponent, SizeComponent, VisualComponent>(entity);
 
-        const iaVector2d &position = pos._position;
+        iaVector2d position;
 
-        if (!iIntersection::intersects(position, intersetRectangle))
+        if (!intersectDoughnut(pos._position, intersetRectangle, position))
         {
             continue;
         }
+
+        position = pos._position + position;
 
         const float64 width = size._size;
 
@@ -621,6 +781,7 @@ void Supremacy::onRenderOrtho()
         }
         else
         {
+
             iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
             iRenderer::getInstance().setColor(0.0, 0.0, 0.0, 0.6);
             iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width * 0.25, width, width * 0.5, _shadow);
@@ -639,6 +800,9 @@ void Supremacy::onRenderOrtho()
 
     iRenderer::getInstance().setColor(0.0, 1.0, 0.0, 1.0);
     iRenderer::getInstance().drawRectangle(temp._x, temp._y, temp._width, temp._height);
+
+    iRenderer::getInstance().setColor(0.0, 0.0, 1.0, 1.0);
+    iRenderer::getInstance().drawRectangle(intersetRectangle._x, intersetRectangle._y, intersetRectangle._width, intersetRectangle._height);
 }
 
 bool Supremacy::onKeyDown(iEventKeyDown &event)

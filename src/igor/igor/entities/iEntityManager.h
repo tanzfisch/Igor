@@ -39,7 +39,7 @@ namespace igor
 
     class iEntity_Old;
 
-    /*! entities manager (singleton)
+    /*! entities manager
 
     After experimenting with some ECS (entity component systems) ideas I decided that it is in my case not worth the 
     effort as long as there is not an army of artists and content creators that would work for me. So I stick with the 
