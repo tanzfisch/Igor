@@ -7,10 +7,12 @@
 static const uint32 FRIEND = 10u;
 static const uint32 FOE = 20u;
 
-static const float64 PLAYFIELD_WIDTH = 1600;
-static const float64 PLAYFIELD_HEIGHT = 900.0;
-static const float64 PLAYFIELD_SCALE = 0.2;
-static const float64 VIEWPORT_ADJUST = 40;
+static const float64 PLAYFIELD_WIDTH = 1000.0;
+static const float64 PLAYFIELD_HEIGHT = 1000.0;
+static const float64 PLAYFIELD_VIEWPORT_WIDTH = 560.0;
+static const float64 PLAYFIELD_VIEWPORT_HEIGHT = 315.0;
+static const float64 PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH = PLAYFIELD_VIEWPORT_WIDTH * 0.7;
+static const float64 PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT = PLAYFIELD_VIEWPORT_HEIGHT * 0.7;
 
 Supremacy::Supremacy(iWindow *window)
     : iLayer(window, L"Supremacy"), _viewOrtho(iView(false)), _quadtree(iaRectangled(0, 0, PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT))
@@ -64,7 +66,7 @@ iEntity Supremacy::createViewport(iEntityID targetID)
     auto &viewportComp = entity.addComponent<ViewportComponent>();
     viewportComp._targetOffset.set(0.0, 0.0);
     viewportComp._targetID = targetID;
-    viewportComp._viewport.setSize(PLAYFIELD_WIDTH * PLAYFIELD_SCALE, PLAYFIELD_HEIGHT * PLAYFIELD_SCALE);
+    viewportComp._viewport.setSize(PLAYFIELD_VIEWPORT_WIDTH, PLAYFIELD_VIEWPORT_HEIGHT);
     viewportComp._viewport.setCenter(targetPosition);
 
     return entity;
@@ -99,8 +101,8 @@ void Supremacy::updateViewRectangleSystem()
     const iaVector2d lastPlayerPosition = viewportComp._viewport.getCenter() + targetOffset;
     const iaVector2d diff = playerPosition - lastPlayerPosition;
 
-    const auto width = viewportComp._viewport.getWidth() * 0.5 - VIEWPORT_ADJUST;
-    const auto height = viewportComp._viewport.getHeight() * 0.5 - VIEWPORT_ADJUST;
+    const auto width = viewportComp._viewport.getWidth() * 0.5 * 0.6;
+    const auto height = viewportComp._viewport.getHeight() * 0.5 * 0.6;
 
     bool skipStep = false;
 
@@ -751,8 +753,8 @@ void Supremacy::onRenderOrtho()
     iaMatrixd matrix;
     iRenderer::getInstance().setViewMatrix(matrix);
     matrix.translate(0, 0, -1);
-    matrix.scale((1.0 / PLAYFIELD_SCALE) * (static_cast<float64>(getWindow()->getClientWidth()) / PLAYFIELD_WIDTH),
-                 (1.0 / PLAYFIELD_SCALE) * (static_cast<float64>(getWindow()->getClientHeight()) / PLAYFIELD_HEIGHT), 1.0);
+    matrix.scale(static_cast<float64>(getWindow()->getClientWidth() / PLAYFIELD_VIEWPORT_WIDTH),
+                 (static_cast<float64>(getWindow()->getClientHeight()) / PLAYFIELD_VIEWPORT_HEIGHT), 1.0);
     matrix.translate(-viewRectangle._x, -viewRectangle._y, 0);
     iRenderer::getInstance().setModelMatrix(matrix);
 
@@ -781,7 +783,6 @@ void Supremacy::onRenderOrtho()
         }
         else
         {
-
             iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
             iRenderer::getInstance().setColor(0.0, 0.0, 0.0, 0.6);
             iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width * 0.25, width, width * 0.5, _shadow);
@@ -790,19 +791,6 @@ void Supremacy::onRenderOrtho()
             iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width, width, width, visual._character);
         }
     }
-
-    iRenderer::getInstance().setMaterial(_plainMaterial);
-    iRenderer::getInstance().setColor(0.0, 0.0, 1.0, 1.0);
-    iRenderer::getInstance().drawRectangle(viewRectangle._x, viewRectangle._y, viewRectangle._width, viewRectangle._height);
-
-    iaRectangled temp = viewRectangle;
-    temp.adjust(VIEWPORT_ADJUST, VIEWPORT_ADJUST, -VIEWPORT_ADJUST * 2, -VIEWPORT_ADJUST * 2);
-
-    iRenderer::getInstance().setColor(0.0, 1.0, 0.0, 1.0);
-    iRenderer::getInstance().drawRectangle(temp._x, temp._y, temp._width, temp._height);
-
-    iRenderer::getInstance().setColor(0.0, 0.0, 1.0, 1.0);
-    iRenderer::getInstance().drawRectangle(intersetRectangle._x, intersetRectangle._y, intersetRectangle._width, intersetRectangle._height);
 }
 
 bool Supremacy::onKeyDown(iEventKeyDown &event)
