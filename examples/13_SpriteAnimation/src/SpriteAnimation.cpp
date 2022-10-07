@@ -78,7 +78,7 @@ void SpriteAnimation::onInit()
 
     // initialize animation timer
     _animationTimer.setIntervall(iaTime::fromMilliseconds(200));
-    _animationTimer.registerTimerDelegate(iTimerTickDelegate(this, &SpriteAnimation::onAnimationTimerTick));
+    _animationTimer.registerTimerDelegate(iTimerTickDelegate(this, &SpriteAnimation::onUpdate));
     _animationTimer.start();
 }
 
@@ -319,7 +319,7 @@ void SpriteAnimation::onPreDraw()
     // con_endl(getCharacterStateName(_characterState));
 }
 
-void SpriteAnimation::onAnimationTimerTick()
+void SpriteAnimation::onUpdate(const iaTime &time)
 {
     if (_characterVelocity.length() < 0.0001)
     {

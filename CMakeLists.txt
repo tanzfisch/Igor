@@ -395,13 +395,13 @@ if(${COMPILER} STREQUAL "GCC")
     igor
     PUBLIC iaux
     PRIVATE ompf newton ${OPENGL_LIBRARIES} ${X11_EXT_LIBRARIES} OpenAL)
-  target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__)
+  target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__ -DENTT_USE_ATOMIC)
 elseif(${COMPILER} STREQUAL "MSVCXX")
   target_link_libraries(
     igor
     PUBLIC iaux
     PRIVATE ompf OpenGL32 glu32 newton OpenAL)
-  target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__)
+  target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__ -DENTT_USE_ATOMIC)
 endif()
 
 set_property(TARGET igor PROPERTY FOLDER ${ENGINE_FOLDER})

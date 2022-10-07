@@ -62,7 +62,7 @@ namespace igor
 
     void iEvaluationManager::handle()
     {
-        iaTime time = iTimer::getInstance().getFrameTime();
+        iaTime time = iTimer::getInstance().getTime();
 
         if (!_dirtyEvaluations.empty())
         {

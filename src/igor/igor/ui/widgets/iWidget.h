@@ -910,8 +910,10 @@ namespace igor
         static iWidgetPtr _keyboardFocus;
 
         /*! handles tooltip timer
+
+        \param time the time
 		*/
-        void onToolTipTimer();
+        void onToolTipTimer(const iaTime &time);
 
         /*! called when parent of this widget changes
         */

@@ -51,23 +51,17 @@ namespace igor
         friend class iModule<iTimer>;
 
     public:
-        /*! \returns time since application start
-        */
-        iaTime getApplicationTime() const;
-
         /*! \returns time at beginning of current frame
         */
-        iaTime getFrameTime() const;
+        iaTime getTime() const;
 
         /*! \returns delta time since last frame
         */
-        iaTime getFrameTimeDelta() const;
+        iaTime getTimeDelta() const;
 
         /*! \returns frame rate based only on one frame's time delta
         */
-        float64 getFPS() const;
-
-        // TODO add something like pauseGame, play etc and then also add getGameFrameTime
+        float64 getFPS() const;        
 
     protected:
         /*! call timer handle events

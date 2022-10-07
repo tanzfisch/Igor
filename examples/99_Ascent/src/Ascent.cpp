@@ -674,7 +674,7 @@ void Ascent::onPreDraw()
 {
     if (_loading)
     {
-        if (iTimer::getInstance().getApplicationTime() > 5000 &&
+        if (iTimer::getInstance().getGameTime() > 5000 &&
             iTaskManager::getInstance().getQueuedRegularTaskCount() < 4 &&
             iTaskManager::getInstance().getQueuedRenderContextTaskCount() < 4)
         {

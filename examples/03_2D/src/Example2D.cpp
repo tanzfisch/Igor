@@ -138,7 +138,7 @@ bool Example2D::onMouseMoveEvent(iEventMouseMove &event)
     return true;
 }
 
-void Example2D::onUpdate()
+void Example2D::onUpdate(const iaTime &time)
 {
     // moves the logo towards the mouse position
     _logoPosition += (_lastMousePos - _logoPosition) * 0.01f;

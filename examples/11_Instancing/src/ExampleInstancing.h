@@ -87,8 +87,10 @@ private:
     void onModelReadyB(uint64 modelNodeID);
 
     /*! called by timer
+
+    \param time the time
     */
-    void onTimer();
+    void onUpdate(const iaTime &time);
 
     /*! deinit example
     */

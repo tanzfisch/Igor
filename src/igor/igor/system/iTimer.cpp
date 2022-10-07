@@ -27,11 +27,6 @@ namespace igor
 		}
 	}	
 
-	iaTime iTimer::getApplicationTime() const
-	{
-		return iaTime::getNow();
-	}
-
 	void iTimer::handle()
 	{
 		iaTime now = iaTime::getNow();
@@ -41,12 +36,12 @@ namespace igor
 		handleTimerHandles();
 	}
 
-	iaTime iTimer::getFrameTime() const
+	iaTime iTimer::getTime() const
 	{
 		return _currentTime;
 	}
 
-	iaTime iTimer::getFrameTimeDelta() const
+	iaTime iTimer::getTimeDelta() const
 	{
 		return _timeDelta;
 	}

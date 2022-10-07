@@ -725,7 +725,7 @@ namespace igor
         _posLast = pos;
     }
 
-    void iWidget::onToolTipTimer()
+    void iWidget::onToolTipTimer(const iaTime &time)
     {
         iWidgetManager::getInstance().showTooltip(_tooltipPos, _tooltip);
 

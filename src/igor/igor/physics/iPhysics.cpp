@@ -426,7 +426,7 @@ namespace igor
     {
         if (!_running)
         {
-            _lastTime = iTimer::getInstance().getFrameTime();
+            _lastTime = iTimer::getInstance().getTime();
             _running = true;
         }
     }
@@ -514,7 +514,7 @@ namespace igor
             const iaTime timeDelta = iaTime::fromSeconds(1.0 / _simulationRate);
 
             uint32 updateCount = 0;
-            iaTime currentTime = iTimer::getInstance().getFrameTime();
+            iaTime currentTime = iTimer::getInstance().getTime();
 
             while ((_lastTime + timeDelta < currentTime) &&
                    (updateCount < maxUpdateCount))

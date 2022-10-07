@@ -70,7 +70,7 @@ namespace igor
     void iProfilerVisualizer::init()
     {
         initMaterials();
-        _time = iTimer::getInstance().getFrameTime();
+        _time = iTimer::getInstance().getTime();
     }
 
     void iProfilerVisualizer::deinit()
@@ -151,9 +151,9 @@ namespace igor
             return;
         }
 
-        if (iTimer::getInstance().getFrameTime() > _time + iaTime::fromSeconds(0.25))
+        if (iTimer::getInstance().getTime() > _time + iaTime::fromSeconds(0.25))
         {
-            _time = iTimer::getInstance().getFrameTime();
+            _time = iTimer::getInstance().getTime();
             _lastFPS = iTimer::getInstance().getFPS();
 
             if (_renderStatisticsMode >= iProfilerVerbosity::FPSMetricsAndTasks)
@@ -282,7 +282,7 @@ namespace igor
 
             float32 rightValue = 0;
             float32 leftValue = 0;
-            float32 lrScalec = rect._width / std::max(0.01, iTimer::getInstance().getFrameTimeDelta().getMilliseconds());
+            float32 lrScalec = rect._width / std::max(0.01, iTimer::getInstance().getTimeDelta().getMilliseconds());
 
             for (auto section : sections)
             {

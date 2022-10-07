@@ -44,7 +44,7 @@ iEntity Supremacy::createPlayer()
     entity.addComponent<HealthComponent>(100.0);
     entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleStar.png"));
 
-    entity.addComponent<WaponComponent>(WeaponType::RollingPin, 100.0, iaTime::fromMilliseconds(1000.0), iaTime::getNow());
+    entity.addComponent<WeaponComponent>(WeaponType::RollingPin, 100.0, iaTime::fromMilliseconds(1000.0), iTimer::getInstance().getTime());
     
     entity.addComponent<MovementControlComponent>();
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
@@ -158,7 +158,7 @@ void Supremacy::onInit()
     }
 
     // game logic timer
-    _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &Supremacy::onUpdate), iaTime::fromMilliseconds(16));
+    _updateTimerHandle = new iTimerHandle(iTimerTickDelegate(this, &Supremacy::onUpdate), iaTime::fromMilliseconds(10));
     _updateTimerHandle->start();
 
     _shadow = iTextureResourceFactory::getInstance().requestFile("shadow.png");
@@ -703,7 +703,7 @@ void Supremacy::onUpdateCleanUpTheDeadSystem()
     }
 }
 
-void Supremacy::onUpdate()
+void Supremacy::onUpdate(const iaTime &time)
 {
     onUpdateQuadtreeSystem();
     onUpdateMovementControlSystem();

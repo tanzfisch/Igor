@@ -40,7 +40,7 @@ namespace igor
 		_intervall = _configuredIntervall;
 
 		iTimer::getInstance().insertTimerHandle(this);
-		_time = iTimer::getInstance().getFrameTime();
+		_time = iTimer::getInstance().getTime();
 		_playing = true;
 	}
 
@@ -86,7 +86,7 @@ namespace igor
 	{
 		while (time - _time >= _intervall)
 		{
-			_timerEvent();
+			_timerEvent(time);
 			if (_oneShot)
 			{
 				stop();

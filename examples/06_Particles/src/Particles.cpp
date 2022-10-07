@@ -69,7 +69,7 @@ void Particles::onInit()
     createFireParticleSystem();
 
     // animation
-    _animationTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &Particles::onTimer), iaTime::fromMilliseconds(100));
+    _animationTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &Particles::onUpdate), iaTime::fromMilliseconds(100));
     _animationTimingHandle->start();
 }
 
@@ -558,7 +558,7 @@ bool Particles::onMouseWheelEvent(iEventMouseWheel &event)
     return true;
 }
 
-void Particles::onTimer()
+void Particles::onUpdate(const iaTime &time)
 {
     iNodeTransform *transform = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_circleEmitterTransformID));
     if (transform != nullptr)

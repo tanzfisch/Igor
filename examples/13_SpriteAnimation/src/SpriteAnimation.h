@@ -122,8 +122,10 @@ private:
 	bool _outputSwitch = true;
 
 	/*! handles timer tick
+
+	\param time the time
 	*/
-	void onAnimationTimerTick();
+	void onUpdate(const iaTime &time);
 
 	/*! \returns the characters state as string for debugging
 

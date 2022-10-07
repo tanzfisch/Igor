@@ -112,8 +112,10 @@ private:
     void onRenderOrtho();
 
     /*! game logic intervall
+
+    \param time the time
      */
-    void onUpdate();
+    void onUpdate(const iaTime &time);
 
     /*! called when key was pressed
 

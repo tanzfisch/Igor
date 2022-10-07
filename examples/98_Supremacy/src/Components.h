@@ -101,18 +101,32 @@ struct ViewportComponent
     iEntityID _targetID;
 };
 
+/*! weapon types
+*/
 enum class WeaponType
 {
     RollingPin,
     Knife
 };
 
-struct WaponComponent
+struct WeaponComponent
 {
+    /*! weapon type used
+    */
     WeaponType _weaponType;
+
+    /*! base damage of this weapon
+    */
     float64 _damage;
-    iaTime _interval;
+
+    /*! attack speed in attacks per second
+    */
+    iaTime _attackSpeed;
+
+    /*! keeps track of cool down
+    */
     iaTime _time;
 };
+
 
 #endif // __SUPREMACY_SYSTEMS__

@@ -53,7 +53,7 @@ namespace iaux
         */
         iaTime(int64 microSeconds);
 
-        /*! \returns current time
+        /*! \returns current time since application was started
          */
         static iaTime getNow();
 
