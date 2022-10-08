@@ -14,7 +14,6 @@ namespace igor
     iEntity::iEntity(const entt::entity entity, iEntityScene &scene)
         : _entity(entity), _scene(&scene)
     {
-        con_assert(_scene->_registry.valid(entity), "invalid entity");
     }
 
     const iaString iEntity::getName() const
@@ -33,6 +32,11 @@ namespace igor
     iEntityID iEntity::getID() const
     {
         return _entity;
+    }
+    
+    bool iEntity::isValid() const
+    {
+        return _scene->_registry.valid(_entity);
     }
 
     ////////////// old deprecated stuff

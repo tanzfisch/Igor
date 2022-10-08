@@ -37,9 +37,14 @@ class Supremacy : public iLayer
 {
 
 public:
+
+    /*! ctor
+    */
     Supremacy(iWindow *window);
 
-    ~Supremacy();
+    /*! does nothing
+    */
+    ~Supremacy() = default;
 
 private:
     using Quadtree = iQuadtree<float64, iEntityID>;
@@ -91,6 +96,10 @@ private:
      */
     iTexturePtr _shadow;
 
+    /*! texture font we use to display texts
+     */
+    iTextureFontPtr _font = nullptr;
+
     /*! called when added to layer stack
      */
     void onInit() override;
@@ -110,6 +119,10 @@ private:
     /*! called when render ortho viewport
      */
     void onRenderOrtho();
+
+    /*! renders HUD
+    */
+    void onRenderHUD();
 
     /*! game logic intervall
 

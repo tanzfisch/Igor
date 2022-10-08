@@ -50,6 +50,10 @@ namespace igor
         */
         iEntity(const iEntity &other) = default;
 
+        /*! \returns true if entity is valid
+        */
+        bool isValid() const;
+
         /*! param ctor
 
         \param entity the entity handle

@@ -9,10 +9,6 @@ Supremacy::Supremacy(iWindow *window)
 {
 }
 
-Supremacy::~Supremacy()
-{
-}
-
 iaVector2d Supremacy::getRandomDir()
 {
     iaVector2d direction(0.0, 1.0);
@@ -73,7 +69,7 @@ void Supremacy::createUnit(const iaVector2d &pos, uint32 party, iEntityID target
 
     auto size = entity.addComponent<SizeComponent>(STANDARD_UNIT_SIZE);
     entity.addComponent<PartyComponent>(party);
-    entity.addComponent<DamageComponent>(0.0);
+    entity.addComponent<DamageComponent>(10.0);
     entity.addComponent<HealthComponent>(30.0);
     entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("broccoli.png"));
 
@@ -88,6 +84,11 @@ void Supremacy::createUnit(const iaVector2d &pos, uint32 party, iEntityID target
 
 void Supremacy::updateViewRectangleSystem()
 {
+    if (!_player.isValid())
+    {
+        return;
+    }
+
     auto &viewportComp = _viewport.getComponent<ViewportComponent>();
     auto &targetOffset = viewportComp._targetOffset;
     const iaVector2d &playerPosition = _player.getComponent<PositionComponent>()._position;
@@ -155,6 +156,9 @@ void Supremacy::onInit()
     _updateTimerHandle->start();
 
     _shadow = iTextureResourceFactory::getInstance().requestFile("shadow.png");
+
+    // init font for render profiler
+    _font = new iTextureFont("StandardFont.png");
 }
 
 void Supremacy::onUpdateQuadtreeSystem()
@@ -440,12 +444,20 @@ void Supremacy::onUpdateFollowTargetSystem()
     {
         auto &target = targetView.get<TargetComponent>(entity);
 
+        // skip if entity is not following targets
         if (!target._followTarget)
         {
             continue;
         }
 
+        // skip if there is no valid target
         iEntity targetEntity(target._targetID, _entityScene);
+        if (!targetEntity.isValid())
+        {
+            continue;
+        }
+
+        // skip if farget has no position
         if (!targetEntity.hasComponent<PositionComponent>())
         {
             continue;
@@ -495,73 +507,59 @@ void Supremacy::onUpdatePositionSystem()
         iaVector2d diversion;
         uint32 totalHits = 0;
 
-        if (!vel._nonBlockable)
+        for (const auto &object : objects)
         {
-            for (const auto &object : objects)
+            // skip self
+            if (object->_userData == entity)
             {
-                if (object->_userData == entity)
-                {
-                    continue;
-                }
-
-                iEntity ent(object->_userData, _entityScene);
-
-                auto *entVel = ent.tryGetComponent<VelocityComponent>();
-                if (entVel == nullptr)
-                {
-                    continue;
-                }
-
-                if (entVel->_nonBlockable)
-                {
-                    continue;
-                }
-
-                diversion += position - object->_circle._center;
-                totalHits++;
+                continue;
             }
 
-            if (totalHits)
+            // get other entity
+            iEntity otherEntity(object->_userData, _entityScene);
+
+            // check if we do damage to other entity
+            auto *otherEntityParty = otherEntity.tryGetComponent<PartyComponent>();
+            if (otherEntityParty != nullptr &&
+                otherEntityParty->_partyID != party._partyID)
             {
-                diversion.normalize();
-                diversion *= speed;
-                pos._distanceTraveled += diversion.length();
-                position += diversion;
-            }
-        }
-        else
-        {
-            for (const auto &object : objects)
-            {
-                if (object->_userData == entity)
+                auto *otherEntityHealth = otherEntity.tryGetComponent<HealthComponent>();
+                if (otherEntityHealth != nullptr)
                 {
-                    continue;
+                    otherEntityHealth->_health -= damage._damage;
                 }
 
-                iEntity ent(object->_userData, _entityScene);
-
-                auto *entParty = ent.tryGetComponent<PartyComponent>();
-                if (entParty == nullptr ||
-                    entParty->_partyID == party._partyID)
-                {
-                    continue;
-                }
-
-                auto *entHealth = ent.tryGetComponent<HealthComponent>();
-                if (entHealth == nullptr)
-                {
-                    continue;
-                }
-
-                entHealth->_health -= damage._damage;
-
+                // destroy your self on impact (no friendly fire)
                 if (health._destroyOnImpact)
                 {
                     health._health = 0.0;
                 }
-
-                break;
             }
+
+            // don't calculate diversion if non blockable
+            if (vel._nonBlockable)
+            {
+                continue;
+            }
+
+            // ignore other entity for diversion if non blockable
+            auto *otherEntityVel = otherEntity.tryGetComponent<VelocityComponent>();
+            if (otherEntityVel == nullptr || otherEntityVel->_nonBlockable)
+            {
+                continue;
+            }
+
+            // calc diversion
+            diversion += position - object->_circle._center;
+            totalHits++;
+        }
+
+        if (totalHits)
+        {
+            diversion.normalize();
+            diversion *= speed;
+            pos._distanceTraveled += diversion.length();
+            position += diversion;
         }
 
         iaVector2d direction = vel._direction;
@@ -592,8 +590,6 @@ void Supremacy::onUpdatePositionSystem()
 
 void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, float64 damage, float64 speed, float64 range, WeaponType waponType)
 {
-    con_endl("fire");
-
     // skip if out of range
     if (!iIntersection::intersects(from, _quadtree.getRootBox()))
     {
@@ -633,6 +629,11 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
 
 void Supremacy::aquireTargetFor(iEntity &entity)
 {
+    if (!entity.isValid())
+    {
+        return;
+    }
+
     // aquire target for player
     auto &position = entity.getComponent<PositionComponent>();
     auto &party = entity.getComponent<PartyComponent>();
@@ -703,7 +704,7 @@ void Supremacy::onUpdateWeaponSystem()
         auto &targetPosition = targetEntity.getComponent<PositionComponent>();
 
         const iaVector2d firePos = position._position + weapon._offset;
-        iaVector2d direction = targetPosition._position - firePos;        
+        iaVector2d direction = targetPosition._position - firePos;
         direction.normalize();
 
         fire(firePos, direction, FRIEND, weapon._damage, weapon._speed, weapon._range, WeaponType::RollingPin);
@@ -760,6 +761,13 @@ void Supremacy::onUpdate(const iaTime &time)
 
 void Supremacy::onDeinit()
 {
+    // release resources
+    if (_font != nullptr)
+    {
+        delete _font;
+        _font = nullptr;
+    }
+
     // stop timer
     if (_updateTimerHandle != nullptr)
     {
@@ -780,6 +788,28 @@ void Supremacy::onEvent(iEvent &event)
 {
     event.dispatch<iEventKeyDown>(IGOR_BIND_EVENT_FUNCTION(Supremacy::onKeyDown));
     event.dispatch<iEventKeyUp>(IGOR_BIND_EVENT_FUNCTION(Supremacy::onKeyUp));
+}
+
+void Supremacy::onRenderHUD()
+{
+    float64 health = 0.0;
+
+    if (_player.isValid())
+    {
+        auto &healthComp = _player.getComponent<HealthComponent>();
+        health = healthComp._health;
+    }
+
+    iaMatrixd matrix;
+    matrix.translate(0.0, 0.0, -1.0);
+    iRenderer::getInstance().setModelMatrix(matrix);
+
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
+
+    iRenderer::getInstance().setFont(_font);
+    iRenderer::getInstance().setFontSize(15.0f);
+    iRenderer::getInstance().drawString(10, 10, iaString::toString(health, 0));
 }
 
 void Supremacy::onRenderOrtho()
@@ -832,11 +862,23 @@ void Supremacy::onRenderOrtho()
         }
     }
 
-    // draw ui
+    onRenderHUD();
 }
 
 bool Supremacy::onKeyDown(iEventKeyDown &event)
 {
+    switch (event.getKey())
+    {
+    case iKeyCode::ESC:
+        iApplication::getInstance().stop();
+        return true;
+    }
+
+    if (!_player.isValid())
+    {
+        return false;
+    }
+
     MovementControlComponent &movementControl = _player.getComponent<MovementControlComponent>();
 
     switch (event.getKey())
@@ -856,10 +898,6 @@ bool Supremacy::onKeyDown(iEventKeyDown &event)
     case iKeyCode::D:
         movementControl._right = true;
         return true;
-
-    case iKeyCode::ESC:
-        iApplication::getInstance().stop();
-        return true;
     }
 
     return false;
@@ -867,6 +905,11 @@ bool Supremacy::onKeyDown(iEventKeyDown &event)
 
 bool Supremacy::onKeyUp(iEventKeyUp &event)
 {
+    if (!_player.isValid())
+    {
+        return false;
+    }
+
     MovementControlComponent &movementControl = _player.getComponent<MovementControlComponent>();
 
     switch (event.getKey())
