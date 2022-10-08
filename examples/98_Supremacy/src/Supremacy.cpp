@@ -36,13 +36,13 @@ iEntity Supremacy::createPlayer()
     iEntity entity = _entityScene.createEntity("player");
 
     auto position = entity.addComponent<PositionComponent>(iaVector2d(PLAYFIELD_WIDTH * 0.5, PLAYFIELD_HEIGHT * 0.5));
-    auto size = entity.addComponent<SizeComponent>(10.0);
+    auto size = entity.addComponent<SizeComponent>(50.0);
 
     entity.addComponent<VelocityComponent>(iaVector2d(1.0, 0.0), 1.0, true);
     entity.addComponent<PartyComponent>(FRIEND);
     entity.addComponent<DamageComponent>(0.0);
     entity.addComponent<HealthComponent>(100.0);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleStar.png"));
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"));
 
     entity.addComponent<WeaponComponent>(WeaponType::RollingPin, 100.0, iaTime::fromMilliseconds(1000.0), iTimer::getInstance().getTime());
     
@@ -78,11 +78,11 @@ void Supremacy::createUnit(const iaVector2d &pos, uint32 party, iEntityID target
     entity.addComponent<PositionComponent>(pos);
     entity.addComponent<VelocityComponent>(getRandomDir(), 0.3, false);
 
-    auto size = entity.addComponent<SizeComponent>(10.0);
+    auto size = entity.addComponent<SizeComponent>(50.0);
     entity.addComponent<PartyComponent>(party);
     entity.addComponent<DamageComponent>(0.0);
     entity.addComponent<HealthComponent>(100.0);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleGem.png"));
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("broccoli.png"));
 
     entity.addComponent<TargetComponent>(target); // I don't like this but it's quick
 
@@ -151,7 +151,7 @@ void Supremacy::onInit()
     _viewport = createViewport(_player.getID());
 
     // create some enemies
-    for (int i = 0; i < 500; ++i)
+    for (int i = 0; i < 50; ++i)
     {
         iaVector2d pos(_rand.getNextFloat() * PLAYFIELD_WIDTH, _rand.getNextFloat() * PLAYFIELD_HEIGHT);
         createUnit(pos, FOE, _player.getID());
@@ -758,7 +758,7 @@ void Supremacy::onRenderOrtho()
     matrix.translate(-viewRectangle._x, -viewRectangle._y, 0);
     iRenderer::getInstance().setModelMatrix(matrix);
 
-    // draw entities
+    // draw entities TODO
     auto view = _entityScene.getEntities<PositionComponent, SizeComponent, VisualComponent>();
 
     for (auto entity : view)
@@ -791,6 +791,9 @@ void Supremacy::onRenderOrtho()
             iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width, width, width, visual._character);
         }
     }
+
+    // draw ui
+
 }
 
 bool Supremacy::onKeyDown(iEventKeyDown &event)
