@@ -26,14 +26,27 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __SUPREMACY_SYSTEMS__
-#define __SUPREMACY_SYSTEMS__
+#ifndef __SUPREMACY_COMPONENTS__
+#define __SUPREMACY_COMPONENTS__
 
 #include <igor/igor.h>
 
 struct PositionComponent
 {
+    /*! current position
+     */
     iaVector2d _position;
+
+    /*! distance traveled
+     */
+    float64 _distanceTraveled = 0.0;
+};
+
+struct RangeComponent
+{
+    /*! max range
+     */
+    float64 _maxRange;
 };
 
 struct SizeComponent
@@ -75,15 +88,11 @@ struct VisualComponent
     bool _useDirection = false;
 };
 
-struct CountdownComponent
-{
-    float64 _countdown;
-};
-
 struct TargetComponent
 {
     iEntityID _targetID;
     bool _inRange = false;
+    bool _followTarget = true;
 };
 
 struct MovementControlComponent
@@ -102,7 +111,7 @@ struct ViewportComponent
 };
 
 /*! weapon types
-*/
+ */
 enum class WeaponType
 {
     RollingPin,
@@ -112,21 +121,36 @@ enum class WeaponType
 struct WeaponComponent
 {
     /*! weapon type used
-    */
+     */
     WeaponType _weaponType;
 
     /*! base damage of this weapon
-    */
+     */
     float64 _damage;
 
-    /*! attack speed in attacks per second
+    /*! base speed of this weapon
     */
-    iaTime _attackSpeed;
+    float64 _speed;
+
+    /*! base speed of this weapon
+    */
+    float64 _range;
+
+    /*! attack speed interval
+     */
+    iaTime _attackInterval;
+
+    /*! if true unit must stand still so it can fire
+     */
+    bool _standStillToFire;
+
+    /*! offeset to unit position to fire from
+     */
+    iaVector2d _offset;
 
     /*! keeps track of cool down
-    */
+     */
     iaTime _time;
 };
 
-
-#endif // __SUPREMACY_SYSTEMS__
+#endif // __SUPREMACY_COMPONENTS__

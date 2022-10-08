@@ -29,7 +29,7 @@
 #ifndef __SUPREMACY__
 #define __SUPREMACY__
 
-#include "Components.h"
+#include "Defines.h"
 
 /*! Supremacy
  */
@@ -147,13 +147,15 @@ private:
 
     void onUpdatePositionSystem();
 
-    void onUpdateDistanceToOriginSystem();
+    void onUpdateRangeSystem();
 
     void onUpdateCleanUpTheDeadSystem();
 
+    void onUpdateWeaponSystem();
+
     void aquireTargetFor(iEntity &entity);
 
-    void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party);
+    void fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, float64 damage, float64 speed, float64 range, WeaponType waponType);
 
     void updateViewRectangleSystem();
 

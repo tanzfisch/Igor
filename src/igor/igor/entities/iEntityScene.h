@@ -62,6 +62,10 @@ namespace igor
     */
     typedef entt::entity iEntityID;
 
+	/*! iunvalid entity id definition
+	*/
+	const entt::entity iInvalidEntityID = entt::null;
+
 	/*! wrapper for entt registry
 	*/
 	class IGOR_API iEntityScene

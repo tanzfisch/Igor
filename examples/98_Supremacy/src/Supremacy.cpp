@@ -4,16 +4,6 @@
 
 #include "Supremacy.h"
 
-static const uint32 FRIEND = 10u;
-static const uint32 FOE = 20u;
-
-static const float64 PLAYFIELD_WIDTH = 1000.0;
-static const float64 PLAYFIELD_HEIGHT = 1000.0;
-static const float64 PLAYFIELD_VIEWPORT_WIDTH = 560.0;
-static const float64 PLAYFIELD_VIEWPORT_HEIGHT = 315.0;
-static const float64 PLAYFIELD_VIEWPORT_MOVE_EDGE_WIDTH = PLAYFIELD_VIEWPORT_WIDTH * 0.7;
-static const float64 PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT = PLAYFIELD_VIEWPORT_HEIGHT * 0.7;
-
 Supremacy::Supremacy(iWindow *window)
     : iLayer(window, L"Supremacy"), _viewOrtho(iView(false)), _quadtree(iaRectangled(0, 0, PLAYFIELD_WIDTH, PLAYFIELD_HEIGHT))
 {
@@ -36,16 +26,19 @@ iEntity Supremacy::createPlayer()
     iEntity entity = _entityScene.createEntity("player");
 
     auto position = entity.addComponent<PositionComponent>(iaVector2d(PLAYFIELD_WIDTH * 0.5, PLAYFIELD_HEIGHT * 0.5));
-    auto size = entity.addComponent<SizeComponent>(50.0);
+    auto size = entity.addComponent<SizeComponent>(STANDARD_UNIT_SIZE);
 
     entity.addComponent<VelocityComponent>(iaVector2d(1.0, 0.0), 1.0, true);
     entity.addComponent<PartyComponent>(FRIEND);
     entity.addComponent<DamageComponent>(0.0);
     entity.addComponent<HealthComponent>(100.0);
     entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"));
+    auto &weapon = entity.addComponent<WeaponComponent>(WEAPON_ROLLINGPIN);
+    weapon._time = iTimer::getInstance().getTime();
+    weapon._offset = iaVector2d(0.0, -STANDARD_UNIT_SIZE * 0.5);
 
-    entity.addComponent<WeaponComponent>(WeaponType::RollingPin, 100.0, iaTime::fromMilliseconds(1000.0), iTimer::getInstance().getTime());
-    
+    entity.addComponent<TargetComponent>(iInvalidEntityID, false, false);
+
     entity.addComponent<MovementControlComponent>();
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
     object._object = std::make_shared<QuadtreeObject>();
@@ -78,10 +71,10 @@ void Supremacy::createUnit(const iaVector2d &pos, uint32 party, iEntityID target
     entity.addComponent<PositionComponent>(pos);
     entity.addComponent<VelocityComponent>(getRandomDir(), 0.3, false);
 
-    auto size = entity.addComponent<SizeComponent>(50.0);
+    auto size = entity.addComponent<SizeComponent>(STANDARD_UNIT_SIZE);
     entity.addComponent<PartyComponent>(party);
     entity.addComponent<DamageComponent>(0.0);
-    entity.addComponent<HealthComponent>(100.0);
+    entity.addComponent<HealthComponent>(30.0);
     entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("broccoli.png"));
 
     entity.addComponent<TargetComponent>(target); // I don't like this but it's quick
@@ -447,6 +440,11 @@ void Supremacy::onUpdateFollowTargetSystem()
     {
         auto &target = targetView.get<TargetComponent>(entity);
 
+        if (!target._followTarget)
+        {
+            continue;
+        }
+
         iEntity targetEntity(target._targetID, _entityScene);
         if (!targetEntity.hasComponent<PositionComponent>())
         {
@@ -461,7 +459,7 @@ void Supremacy::onUpdateFollowTargetSystem()
         iaVector2d offset;
         iaCircled circle(position, 300.0);
 
-        if(!intersectDoughnut(targetPos, circle, offset))
+        if (!intersectDoughnut(targetPos, circle, offset))
         {
             if (target._inRange)
             {
@@ -487,7 +485,6 @@ void Supremacy::onUpdatePositionSystem()
         auto [pos, size, vel, party, damage, health] = positionUpdateView.get<PositionComponent, SizeComponent, VelocityComponent, PartyComponent, DamageComponent, HealthComponent>(entity);
 
         iaVector2d &position = pos._position;
-        iaVector2d &direction = vel._direction;
         const float64 radius = size._size * 0.5;
         float64 speed = vel._speed;
 
@@ -527,7 +524,9 @@ void Supremacy::onUpdatePositionSystem()
             if (totalHits)
             {
                 diversion.normalize();
-                position += diversion * speed;
+                diversion *= speed;
+                pos._distanceTraveled += diversion.length();
+                position += diversion;
             }
         }
         else
@@ -565,7 +564,10 @@ void Supremacy::onUpdatePositionSystem()
             }
         }
 
-        position += direction * speed;
+        iaVector2d direction = vel._direction;
+        direction *= speed;
+        pos._distanceTraveled += direction.length();
+        position += direction;
 
         // jump to other side
         if (position._x > PLAYFIELD_WIDTH)
@@ -588,8 +590,10 @@ void Supremacy::onUpdatePositionSystem()
     }
 }
 
-void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party)
+void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, float64 damage, float64 speed, float64 range, WeaponType waponType)
 {
+    con_endl("fire");
+
     // skip if out of range
     if (!iIntersection::intersects(from, _quadtree.getRootBox()))
     {
@@ -598,88 +602,122 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
 
     auto bullet = _entityScene.createEntity("bullet");
     bullet.addComponent<PositionComponent>(from);
-    bullet.addComponent<CountdownComponent>(1000.0);
+    bullet.addComponent<RangeComponent>(range);
 
-    bullet.addComponent<VelocityComponent>(dir, 10.0f, true);
+    float64 size = 10.0;
+
+    switch (waponType)
+    {
+    case WeaponType::RollingPin:
+        size = 10.0;
+        break;
+
+    case WeaponType::Knife:
+        size = 7.0;
+        break;
+    }
+
+    bullet.addComponent<VelocityComponent>(dir, speed, true);
     bullet.addComponent<PartyComponent>(party);
-    bullet.addComponent<DamageComponent>(50.0);
+    bullet.addComponent<DamageComponent>(damage);
     bullet.addComponent<HealthComponent>(100.0, true);
-    auto &size = bullet.addComponent<SizeComponent>(10.0f);
+    bullet.addComponent<SizeComponent>(size);
     bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleFlame.png"), true);
 
     auto &object = bullet.addComponent<QuadtreeObjectComponent>();
     object._object = std::make_shared<QuadtreeObject>();
     object._object->_userData = bullet.getID();
-    object._object->_circle.set(from, size._size);
+    object._object->_circle.set(from, size * 0.5);
     _quadtree.insert(object._object);
 }
 
 void Supremacy::aquireTargetFor(iEntity &entity)
 {
     // aquire target for player
-    static int countdown = 10; // LOL timer?
-    VelocityComponent &playerVelocity = entity.getComponent<VelocityComponent>();
-    float64 trueSpeed = playerVelocity._direction.length() * playerVelocity._speed;
-    if (countdown < 0 && trueSpeed <= 0.0)
+    auto &position = entity.getComponent<PositionComponent>();
+    auto &party = entity.getComponent<PartyComponent>();
+    auto &target = entity.getComponent<TargetComponent>();
+
+    iaCircled circle(position._position, 100.0);
+    std::vector<std::pair<iEntityID, iaVector2d>> hits;
+    doughnutQuery(circle, hits);
+
+    float32 minDistance = std::numeric_limits<float32>::max();
+    target._targetID = iInvalidEntityID;
+
+    for (const auto &hit : hits)
     {
-        auto &position = entity.getComponent<PositionComponent>();
-        auto &size = entity.getComponent<SizeComponent>();
-        auto &party = entity.getComponent<PartyComponent>();
-        iaCircled circle(position._position, 150.0);
-
-        std::vector<std::pair<iEntityID, iaVector2d>> hits;
-        doughnutQuery(circle, hits);
-
-        float32 minDistance = 999999999;
-        iaVector2d foundTarget;
-
-        for (const auto &hit : hits)
+        if (hit.first == entity.getID())
         {
-            if (hit.first == entity.getID())
-            {
-                continue;
-            }
-
-            iEntity entity(hit.first, _entityScene);
-
-            auto *entParty = entity.tryGetComponent<PartyComponent>();
-            if (entParty == nullptr ||
-                entParty->_partyID == party._partyID)
-            {
-                continue;
-            }
-
-            const float32 dist = hit.second.length2();
-            if (dist < minDistance)
-            {
-                minDistance = dist;
-                foundTarget = hit.second;
-            }
+            continue;
         }
 
-        if (minDistance != 999999999)
-        {
-            const iaVector2d firePos(position._position._x, position._position._y - size._size * 0.5);
-            iaVector2d direction = foundTarget;
-            direction.normalize();
+        iEntity entity(hit.first, _entityScene);
 
-            fire(firePos, direction, FRIEND);
-            countdown = 20;
+        auto *entParty = entity.tryGetComponent<PartyComponent>();
+        if (entParty == nullptr ||
+            entParty->_partyID == party._partyID)
+        {
+            continue;
+        }
+
+        const float32 dist = hit.second.length2();
+        if (dist < minDistance)
+        {
+            minDistance = dist;
+            target._targetID = hit.first;
         }
     }
-    countdown--;
 }
 
-void Supremacy::onUpdateDistanceToOriginSystem()
+void Supremacy::onUpdateWeaponSystem()
 {
-    auto originUpdateView = _entityScene.getEntities<CountdownComponent, HealthComponent>();
-    for (auto entity : originUpdateView)
+    iaTime now = iTimer::getInstance().getTime();
+
+    auto view = _entityScene.getEntities<WeaponComponent, TargetComponent, PositionComponent, VelocityComponent>();
+    for (auto entity : view)
     {
-        auto [countDown, health] = originUpdateView.get<CountdownComponent, HealthComponent>(entity);
+        auto [weapon, target, position, velocity] = view.get<WeaponComponent, TargetComponent, PositionComponent, VelocityComponent>(entity);
 
-        countDown._countdown -= 1.0;
+        // skip if there is no target
+        if (target._targetID == iInvalidEntityID)
+        {
+            continue;
+        }
 
-        if (countDown._countdown < 0.0)
+        // check if unit needs to stand still
+        if (weapon._standStillToFire && velocity._direction.length() * velocity._speed > 0.0)
+        {
+            continue;
+        }
+
+        // check if it is time to fire again
+        if (now - weapon._time < weapon._attackInterval)
+        {
+            continue;
+        }
+        weapon._time = now;
+
+        // get target position
+        iEntity targetEntity(target._targetID, _entityScene);
+        auto &targetPosition = targetEntity.getComponent<PositionComponent>();
+
+        const iaVector2d firePos = position._position + weapon._offset;
+        iaVector2d direction = targetPosition._position - firePos;        
+        direction.normalize();
+
+        fire(firePos, direction, FRIEND, weapon._damage, weapon._speed, weapon._range, WeaponType::RollingPin);
+    }
+}
+
+void Supremacy::onUpdateRangeSystem()
+{
+    auto view = _entityScene.getEntities<PositionComponent, RangeComponent, HealthComponent>();
+    for (auto entity : view)
+    {
+        auto [positiom, range, health] = view.get<PositionComponent, RangeComponent, HealthComponent>(entity);
+
+        if (positiom._distanceTraveled > range._maxRange)
         {
             health._health = 0.0;
         }
@@ -712,7 +750,9 @@ void Supremacy::onUpdate(const iaTime &time)
 
     aquireTargetFor(_player);
 
-    onUpdateDistanceToOriginSystem();
+    onUpdateWeaponSystem();
+
+    onUpdateRangeSystem();
     onUpdateCleanUpTheDeadSystem();
 
     updateViewRectangleSystem();
@@ -793,7 +833,6 @@ void Supremacy::onRenderOrtho()
     }
 
     // draw ui
-
 }
 
 bool Supremacy::onKeyDown(iEventKeyDown &event)
