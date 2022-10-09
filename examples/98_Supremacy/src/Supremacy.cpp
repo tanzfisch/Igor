@@ -29,7 +29,7 @@ iEntity Supremacy::createPlayer()
     entity.addComponent<DamageComponent>(0.0);
     entity.addComponent<HealthComponent>(100.0);
     entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"));
-    auto &weapon = entity.addComponent<WeaponComponent>(WEAPON_SHOTGUN);
+    auto &weapon = entity.addComponent<WeaponComponent>(WEAPON_KNIFE);
     weapon._time = iTimer::getInstance().getTime();
     weapon._offset = iaVector2d(0.0, -STANDARD_UNIT_SIZE * 0.5);
 
