@@ -28,7 +28,7 @@ iEntity Supremacy::createPlayer()
     entity.addComponent<PartyComponent>(FRIEND);
     entity.addComponent<DamageComponent>(0.0);
     entity.addComponent<HealthComponent>(100.0);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"));
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"), false, iaTime::fromSeconds(_rand.getNextFloat()));
     auto &weapon = entity.addComponent<WeaponComponent>(WEAPON_KNIFE);
     weapon._time = iTimer::getInstance().getTime();
     weapon._offset = iaVector2d(0.0, -STANDARD_UNIT_SIZE * 0.5);
@@ -71,7 +71,7 @@ void Supremacy::createUnit(const iaVector2d &pos, uint32 party, iEntityID target
     entity.addComponent<PartyComponent>(party);
     entity.addComponent<DamageComponent>(10.0);
     entity.addComponent<HealthComponent>(30.0);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("broccoli.png"));
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("broccoli.png"), false, iaTime::fromSeconds(_rand.getNextFloat()));
 
     entity.addComponent<TargetComponent>(target); // I don't like this but it's quick
 
@@ -840,6 +840,8 @@ void Supremacy::onRenderHUD()
 
 void Supremacy::onRenderOrtho()
 {
+    const iaTime now = iTimer::getInstance().getTime();
+
     auto &viewportComp = _viewport.getComponent<ViewportComponent>();
     const iaRectangled &viewRectangle = viewportComp._viewport;
     iaRectangled intersetRectangle = viewRectangle;
@@ -870,21 +872,36 @@ void Supremacy::onRenderOrtho()
 
         position = pos._position + position;
 
-        const float64 width = size._size;
-
         if (visual._useDirection)
         {
+            const float64 width = size._size;
             iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
             iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width * 0.5, width, width, visual._texture);
         }
         else
         {
+            float64 width = size._size;
+            float64 height = size._size;
+
+            iaTime time = now + visual._timerOffset;
+            float64 timing = std::fmod(time.getMilliseconds(), 1000.0) / 1000.0 * M_PI * 2;
+
+            float64 value = sin(timing) * 0.5;
+            con_endl(timing << " " << value);
+            if(value > 0.0 )
+            {
+                value *= 0.5;
+            }
+
+            width += value * 5.0;
+            height += (1.0 - value) * 10.0;
+
             iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
             iRenderer::getInstance().setColor(0.0, 0.0, 0.0, 0.6);
-            iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width * 0.25, width, width * 0.5, _shadow);
+            iRenderer::getInstance().drawTexture(position._x - size._size * 0.5, position._y + value * 2.0, size._size, size._size * 0.5, _shadow);
 
             iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
-            iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width, width, width, visual._texture);
+            iRenderer::getInstance().drawTexture(position._x - size._size * 0.5, position._y - size._size + value * 15.0, width, height, visual._texture);
         }
     }
 

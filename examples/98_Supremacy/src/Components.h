@@ -86,6 +86,7 @@ struct VisualComponent
 {
     iTexturePtr _texture;
     bool _useDirection = false;
+    iaTime _timerOffset;
 };
 
 struct TargetComponent
@@ -131,11 +132,11 @@ struct WeaponComponent
     float64 _damage;
 
     /*! base speed of this weapon
-    */
+     */
     float64 _speed;
 
     /*! base speed of this weapon
-    */
+     */
     float64 _range;
 
     /*! attack speed interval
