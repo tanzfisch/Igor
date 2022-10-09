@@ -84,7 +84,7 @@ struct PartyComponent
 
 struct VisualComponent
 {
-    iTexturePtr _character;
+    iTexturePtr _texture;
     bool _useDirection = false;
 };
 
@@ -114,8 +114,10 @@ struct ViewportComponent
  */
 enum class WeaponType
 {
-    RollingPin,
-    Knife
+    Knife,
+    Shotgun,
+    Minigun,
+    RocketLauncher
 };
 
 struct WeaponComponent

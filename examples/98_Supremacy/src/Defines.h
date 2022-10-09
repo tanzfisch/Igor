@@ -43,23 +43,40 @@ const float64 PLAYFIELD_VIEWPORT_MOVE_EDGE_HEIGHT = PLAYFIELD_VIEWPORT_HEIGHT * 
 const float64 STANDARD_UNIT_SIZE = 30.0;
 
 // weapon definitions
+const WeaponComponent WEAPON_KNIFE{
+    WeaponType::Knife,               // weapon type
+    10.0,                            // damage
+    10.0,                            // speed
+    70.0,                            // range
+    iaTime::fromMilliseconds(600.0), // attack interval
+    true,                            // need to stand still
+};
 
-const WeaponComponent WEAPON_ROLLINGPIN{
-    WeaponType::RollingPin,           // weapon type
-    20.0,                             // damage
-    5.0,                              // speed
-    70.0,                             // range
+const WeaponComponent WEAPON_SHOTGUN{
+    WeaponType::Shotgun,              // weapon type
+    100.0,                            // damage
+    20.0,                             // speed
+    100.0,                            // range
     iaTime::fromMilliseconds(1000.0), // attack interval
     true,                             // need to stand still
 };
 
-const WeaponComponent WEAPON_KNIFE{
-    WeaponType::Knife,               // weapon type
-    50.0,                            // damage
-    10.0,                            // speed
-    100.0,                           // range
-    iaTime::fromMilliseconds(800.0), // attack interval
-    true,                            // need to stand still
+const WeaponComponent WEAPON_MINIGUN{
+    WeaponType::Minigun,            // weapon type
+    30.0,                           // damage
+    25.0,                           // speed
+    150.0,                          // range
+    iaTime::fromMilliseconds(20.0), // attack interval
+    true,                           // need to stand still
+};
+
+const WeaponComponent WEAPON_ROCKETLAUNCHER{
+    WeaponType::RocketLauncher,       // weapon type
+    2000.0,                           // damage
+    5.0,                              // speed
+    150.0,                            // range
+    iaTime::fromMilliseconds(2000.0), // attack interval
+    true,                             // need to stand still
 };
 
 #endif // __SUPREMACY_DEFINES__

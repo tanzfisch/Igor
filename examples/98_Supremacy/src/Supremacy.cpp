@@ -29,7 +29,7 @@ iEntity Supremacy::createPlayer()
     entity.addComponent<DamageComponent>(0.0);
     entity.addComponent<HealthComponent>(100.0);
     entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"));
-    auto &weapon = entity.addComponent<WeaponComponent>(WEAPON_ROLLINGPIN);
+    auto &weapon = entity.addComponent<WeaponComponent>(WEAPON_SHOTGUN);
     weapon._time = iTimer::getInstance().getTime();
     weapon._offset = iaVector2d(0.0, -STANDARD_UNIT_SIZE * 0.5);
 
@@ -119,7 +119,7 @@ void Supremacy::updateViewRectangleSystem()
 
 void Supremacy::onInit()
 {
-    _viewOrtho.setClearColor(0.5, 0.5, 0.5, 1.0);
+    _viewOrtho.setClearColor(0.3, 0.9, 0.5, 1.0);
     _viewOrtho.setName("view ortho");
     _viewOrtho.setClearColor(true);
     _viewOrtho.setClearDepth(true);
@@ -596,35 +596,61 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         return;
     }
 
-    auto bullet = _entityScene.createEntity("bullet");
-    bullet.addComponent<PositionComponent>(from);
-    bullet.addComponent<RangeComponent>(range);
-
     float64 size = 10.0;
+
+    iaString texture;
+
+    int32 count = 1;
+    float64 variation = 0.0;
 
     switch (waponType)
     {
-    case WeaponType::RollingPin:
+    case WeaponType::Knife:
+        texture = "knife.png";
+        size = 20.0;
+        break;
+
+    case WeaponType::Shotgun:
+        texture = "pellets.png";
+        size = 20.0;
+        count = 3;
+        variation = 1.0;
+        break;
+
+    case WeaponType::Minigun:
+        texture = "bullet.png";
         size = 10.0;
         break;
 
-    case WeaponType::Knife:
-        size = 7.0;
+    case WeaponType::RocketLauncher:
+        texture = "rocket.png";
+        size = 20.0;
         break;
     }
 
-    bullet.addComponent<VelocityComponent>(dir, speed, true);
-    bullet.addComponent<PartyComponent>(party);
-    bullet.addComponent<DamageComponent>(damage);
-    bullet.addComponent<HealthComponent>(100.0, true);
-    bullet.addComponent<SizeComponent>(size);
-    bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("particleFlame.png"), true);
+    for (int i = 0; i < count; ++i)
+    {
+        auto bullet = _entityScene.createEntity(texture);
+        bullet.addComponent<PositionComponent>(from);
+        bullet.addComponent<RangeComponent>(range);
 
-    auto &object = bullet.addComponent<QuadtreeObjectComponent>();
-    object._object = std::make_shared<QuadtreeObject>();
-    object._object->_userData = bullet.getID();
-    object._object->_circle.set(from, size * 0.5);
-    _quadtree.insert(object._object);
+        iaVector2d d = dir;
+        d.rotateXY((_rand.getNextFloat() - 0.5) * variation * 0.5);
+        float64 s = speed + variation * (_rand.getNextFloat() - 0.5) * 5.0;
+        bullet.addComponent<VelocityComponent>(d, s, true);
+
+        bullet.addComponent<PartyComponent>(party);
+        bullet.addComponent<DamageComponent>(damage);
+        bullet.addComponent<HealthComponent>(100.0, true);
+        bullet.addComponent<SizeComponent>(size);
+        bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile(texture), true);
+
+        auto &object = bullet.addComponent<QuadtreeObjectComponent>();
+        object._object = std::make_shared<QuadtreeObject>();
+        object._object->_userData = bullet.getID();
+        object._object->_circle.set(from, size * 0.5);
+        _quadtree.insert(object._object);
+    }
 }
 
 void Supremacy::aquireTargetFor(iEntity &entity)
@@ -707,7 +733,7 @@ void Supremacy::onUpdateWeaponSystem()
         iaVector2d direction = targetPosition._position - firePos;
         direction.normalize();
 
-        fire(firePos, direction, FRIEND, weapon._damage, weapon._speed, weapon._range, WeaponType::RollingPin);
+        fire(firePos, direction, FRIEND, weapon._damage, weapon._speed, weapon._range, weapon._weaponType);
     }
 }
 
@@ -849,7 +875,7 @@ void Supremacy::onRenderOrtho()
         if (visual._useDirection)
         {
             iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
-            iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width * 0.5, width, width, visual._character);
+            iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width * 0.5, width, width, visual._texture);
         }
         else
         {
@@ -858,7 +884,7 @@ void Supremacy::onRenderOrtho()
             iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width * 0.25, width, width * 0.5, _shadow);
 
             iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
-            iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width, width, width, visual._character);
+            iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width, width, width, visual._texture);
         }
     }
 
