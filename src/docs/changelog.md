@@ -1,6 +1,11 @@
 Changelog                           {#changelog}
 =========
 
+0.33.0
+------
+
+- brushed up examples base
+
 0.32.0
 ------
 
