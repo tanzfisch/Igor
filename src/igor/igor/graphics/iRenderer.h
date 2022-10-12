@@ -166,6 +166,15 @@ namespace igor
         };
 
     public:
+
+        /*! init
+        */
+        iRenderer();
+
+        /*! deinit 
+        */
+        ~iRenderer();
+
         /*! renderer definition of an invalid id
         */
         static const uint32 INVALID_ID = 0xffffffff;
@@ -969,13 +978,6 @@ namespace igor
         */
         void updateModelViewProjectionMatrix();
 
-        /*! does nothing
-        */
-        iRenderer() = default;
-
-        /*! does nothing
-        */
-        ~iRenderer();
     };
 
     /*! \example OpenGL3D/src/OpenGL3DExample.cpp
