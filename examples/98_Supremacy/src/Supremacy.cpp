@@ -145,7 +145,7 @@ void Supremacy::onInit()
     _viewport = createViewport(_player.getID());
 
     // create some enemies
-    for (int i = 0; i < 50; ++i)
+    for (int i = 0; i < 30; ++i)
     {
         iaVector2d pos(_rand.getNextFloat() * PLAYFIELD_WIDTH, _rand.getNextFloat() * PLAYFIELD_HEIGHT);
         createUnit(pos, FOE, _player.getID());
@@ -887,7 +887,6 @@ void Supremacy::onRenderOrtho()
             float64 timing = std::fmod(time.getMilliseconds(), 1000.0) / 1000.0 * M_PI * 2;
 
             float64 value = sin(timing) * 0.5;
-            con_endl(timing << " " << value);
             if(value > 0.0 )
             {
                 value *= 0.5;

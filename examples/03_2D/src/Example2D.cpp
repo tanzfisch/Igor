@@ -91,7 +91,7 @@ void Example2D::onInit()
     _updateTimingHandle->start();
 
     // generate a random seed
-    _rand.setSeed(static_cast<uint32>(iaTime::now().getMicrosenconds()));
+    _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicrosenconds()));
 }
 
 void Example2D::onDeinit()

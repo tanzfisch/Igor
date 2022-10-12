@@ -259,7 +259,7 @@ void LSystems::generateLSystems()
 	}
 
 	// using the same seed for all instances of plants so we see the different stages of growth of the same plant
-	uint64 seed = static_cast<uint64>(iaTime::now().getMicrosenconds());
+	uint64 seed = static_cast<uint64>(iaTime::getNow().getMicrosenconds());
 
 	iNodePtr groupNode = iNodeManager::getInstance().createNode<iNode>();
 	_groupNodeID = groupNode->getID();
