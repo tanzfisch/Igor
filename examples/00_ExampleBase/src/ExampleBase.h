@@ -129,6 +129,10 @@ private:
     */
     iTextureFontPtr _font = nullptr;
 
+    /*! if true we display a help screen
+    */
+    bool m_displayHelpScreen;
+
     /*! material definition for the sky box
     */
     iMaterialID _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
@@ -140,6 +144,10 @@ private:
     /*! draw igor logo
     */
     void drawLogo();
+
+    /*! draw help screen
+    */
+    void drawHelpScreen();    
 
     /*! handle window resize event
 

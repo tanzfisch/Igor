@@ -1954,7 +1954,13 @@ namespace igor
 
                 donotdraw = false;
 
-                if (maxWidth != 0)
+                if (ascii_code == '\n')
+                {
+                    renderPos._x = 0;
+                    renderPos._y += _fontSize * _fontLineHeight;
+                    donotdraw = true;
+                }
+                else if (maxWidth != 0)
                 {
                     if (ascii_code == ' ')
                     {

@@ -54,7 +54,7 @@ namespace igor
     {
         switch (event.getKey())
         {
-        case iKeyCode::F8:
+        case iKeyCode::F3:
             _profilerVisualizer.cycleVerbosity();
             return true;
         }

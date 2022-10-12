@@ -70,6 +70,12 @@ namespace igor
         */
         const iaString &getName() const;
 
+        /*! sets layer name
+
+        \param name the name to set
+        */
+        void setName(const iaString &name);
+
         /*! \returns z index
         */
         int32 getZIndex() const;
