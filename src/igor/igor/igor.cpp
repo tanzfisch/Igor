@@ -141,7 +141,7 @@ namespace igor
         startupArgs(0, nullptr);
     }
 
-    static void createModules()
+    void createModules()
     {
         iTimer::create();
         printInfo();
@@ -166,7 +166,7 @@ namespace igor
         iModelResourceFactory::create();
     }
 
-    static void destroyModules()
+    void destroyModules()
     {
         // don't change the order if you don't know what you are doing
         if (iModelResourceFactory::isInstantiated())
