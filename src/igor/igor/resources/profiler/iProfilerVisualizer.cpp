@@ -181,8 +181,7 @@ namespace igor
         iRenderer::getInstance().setFontSize(15.0f);
         iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
-        const iaString fpsText = iaString::toString(_lastFPS, 2);
-        fpsText += " fps";
+        const iaString fpsText = iaString::toString(_lastFPS, 2) + L" fps";
         iRenderer::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 10 - voffset), fpsText, iHorizontalAlignment::Right, iVerticalAlignment::Bottom);
 
         if (_renderStatisticsMode >= iProfilerVerbosity::FPSAndMetrics)
