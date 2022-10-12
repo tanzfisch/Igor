@@ -5,7 +5,7 @@
 #include "ExampleBase.h"
 
 ExampleBase::ExampleBase(iWindow *window, const iaString &name, bool createBaseSetup, bool createSkyBox, int32 zIndex)
-    : iLayer(window, name, zIndex), _viewOrtho(iView(false))
+    : iLayer(window, name, zIndex), _viewOrtho(iView(false)), m_displayHelpScreen(false)
 {
     con_info("starting example \"" << getName() << "\"");
 
@@ -65,7 +65,7 @@ ExampleBase::ExampleBase(iWindow *window, const iaString &name, bool createBaseS
                 getScene()->getRoot()->insertNode(skyBoxNode);
             }
 
-            // init font for render profiler
+            // init font
             _font = new iTextureFont("StandardFont.png");
 
             // prepare igor logo
@@ -142,18 +142,22 @@ bool ExampleBase::onKeyUp(iEventKeyUp &event)
         iApplication::getInstance().stop();
         return true;
 
+    case iKeyCode::F1:
+        m_displayHelpScreen = !m_displayHelpScreen;
+        return true;
+        
     case iKeyCode::F5:
         iApplication::getInstance().verboseLoggingNextFrame();
         return true;
 
     case iKeyCode::F6:
+    {
+        iNodeVisitorPrintTree printTree;
+        if (getScene() != nullptr)
         {
-            iNodeVisitorPrintTree printTree;
-            if (getScene() != nullptr)
-            {
-                printTree.printToConsole(getScene()->getRoot());
-            }
+            printTree.printToConsole(getScene()->getRoot());
         }
+    }
         return true;
 
     case iKeyCode::F10:
@@ -223,6 +227,11 @@ void ExampleBase::onRenderOrtho()
     iRenderer::getInstance().setModelMatrix(matrix);
 
     drawLogo();
+
+    if (m_displayHelpScreen)
+    {
+        drawHelpScreen();
+    }
 }
 
 void ExampleBase::drawLogo()
@@ -236,4 +245,34 @@ void ExampleBase::drawLogo()
     float32 y = static_cast<float32>(getWindow()->getClientHeight()) - height;
 
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
+}
+
+void ExampleBase::drawHelpScreen()
+{
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+
+    // draw some text from wikipedia
+    iaString help = "Help Screen\n"
+                    "----------\n\n"
+                    "[ESC] Exit\n"
+                    "[F1]  Display this screen\n"
+                    "[F3]  Cycle profiler verbosity\n"
+                    "[F6]  Print scene graph to console\n"
+                    "[F10] Toggle wireframe\n"
+                    "[F11] Toggle octree debug display\n"
+                    "[F12] Toggle bounding box display\n";
+
+    iRenderer::getInstance().setFont(getFont());
+    iRenderer::getInstance().setFontSize(30.0f);
+
+    // fake an outline lol
+    iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
+    iRenderer::getInstance().drawString(100 - 2, 100 - 2, help, 0);
+    iRenderer::getInstance().drawString(100 - 2, 100 + 2, help, 0);
+    iRenderer::getInstance().drawString(100 + 2, 100 - 2, help, 0);
+    iRenderer::getInstance().drawString(100 + 2, 100 + 2, help, 0);
+
+    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+    iRenderer::getInstance().drawString(100, 100, help, 0);
 }
