@@ -191,8 +191,6 @@ namespace igor
 
     void iRenderEngine::cullScene(iNodeCamera *camera)
     {
-        IGOR_PROFILER();
-
         iaMatrixd view;
         camera->getViewMatrix(view);
         iaMatrixd camMatrix;
@@ -208,8 +206,6 @@ namespace igor
 
     void iRenderEngine::updateMaterialGroups()
     {
-        IGOR_PROFILER();
-
         for (auto &group : _materialGroups)
         {
             group.second.clear();
@@ -237,8 +233,6 @@ namespace igor
 
     void iRenderEngine::drawColorIDs()
     {
-        IGOR_PROFILER();
-
         iMaterialPtr colorIDMaterial = iMaterialResourceFactory::getInstance().getMaterial(iMaterialResourceFactory::getInstance().getColorIDMaterialID());
         iRenderer::getInstance().setMaterial(colorIDMaterial);
 
@@ -265,8 +259,6 @@ namespace igor
 
     void iRenderEngine::drawScene()
     {
-        IGOR_PROFILER();
-
         //! \todo not sure yet how to handle multiple lights. right now it will work only for one light
         auto lights = _scene->getLights();
 
