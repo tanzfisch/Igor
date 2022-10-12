@@ -31,8 +31,9 @@
 
 #include <igor/scene/nodes/iNodeRender.h>
 
-#include <igor/data/iSphere.h>
 #include <igor/data/iAABox.h>
+
+#include <iaux/data/iaSphere.h>
 
 namespace igor
 {

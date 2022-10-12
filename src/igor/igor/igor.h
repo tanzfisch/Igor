@@ -41,9 +41,8 @@
 #include <igor/data/iJoint.h>
 #include <igor/data/iPlane.h>
 #include <igor/data/iRay.h>
-#include <igor/data/iRectangle.h>
 #include <igor/data/iSkeleton.h>
-#include <igor/data/iSphere.h>
+#include <igor/data/iQuadtree.h>
 
 #include <igor/evaluation/iEvaluationManager.h>
 #include <igor/evaluation/iEvaluationScript.h>
@@ -105,10 +104,15 @@
 #include <igor/system/iTimer.h>
 #include <igor/system/iTimerHandle.h>
 #include <igor/system/iWindow.h>
+
+#include <igor/events/iEventECS.h>
 #include <igor/events/iEventKeyboard.h>
 #include <igor/events/iEventMouse.h>
 #include <igor/events/iEventWindow.h>
 #include <igor/events/iEventScene.h>
+
+#include <igor/entities/iEntityManager.h>
+#include <igor/entities/iEntity.h>
 
 #include <igor/terrain/iVoxelTerrain.h>
 #include <igor/terrain/iVoxelTerrainMeshGenerator.h>
@@ -155,12 +159,17 @@
 #include <igor/ui/user_controls/iUserControlColorChooser.h>
 #include <igor/ui/user_controls/iUserControlFileChooser.h>
 
+// version
+#include <igor/iVersion.h>
+
 // iaux includes
 #include <iaux/data/iaColor3.h>
 #include <iaux/data/iaColor4.h>
 #include <iaux/data/iaConvert.h>
 #include <iaux/data/iaGradient.h>
 #include <iaux/data/iaString.h>
+#include <iaux/data/iaSphere.h>
+#include <iaux/data/iaRectangle.h>
 
 #include <iaux/math/iaBSpline.h>
 #include <iaux/math/iaMatrix.h>
@@ -168,6 +177,7 @@
 #include <iaux/math/iaVector2.h>
 #include <iaux/math/iaVector3.h>
 
+#include <iaux/system/iaFile.h>
 #include <iaux/system/iaConsole.h>
 
 /*! Igor namespace that contains all high level functionality of Igor
@@ -187,7 +197,7 @@ namespace igor
 
     /*! should be called last in your application. do not use any Igor interface after that
 	
-	Shuts down all the singleton instances.
+	Shuts down all the modules.
 	Not thread save. make shure only one thread is left when calling this.
 
     \todo it would be nice to have the order of shutting down singletons implicitly or configurable

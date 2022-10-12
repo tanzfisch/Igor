@@ -47,6 +47,7 @@ namespace igor
     /*! clipboard
 
     \todo make the clipboard work outside of igor
+    Are we even using this?
 	*/
     class IGOR_API iClipboard : public iModule<iClipboard>
     {

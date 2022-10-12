@@ -15,7 +15,7 @@ namespace igor
 
     iParticleSystem2D::iParticleSystem2D()
     {
-        _rand.setSeed(static_cast<uint32>(iaTime::now().getMicrosenconds()));
+        _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicrosenconds()));
 
         setMaxParticleCount(100);
     }

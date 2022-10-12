@@ -403,7 +403,7 @@ void WidgetsExample::onInit()
     graph->setLineWidth(2, 2.0f);
 
     graph->setExtrapolateData();
-    graph->setBoundings(iRectanglef(0.0f, 0.0f, 1.0f, 1.0f));
+    graph->setBoundings(iaRectanglef(0.0f, 0.0f, 1.0f, 1.0f));
     graph->setUseBoundings();
     graph->setViewGrid();
 

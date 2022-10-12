@@ -168,7 +168,7 @@ void ExampleInstancing::onInit()
     directionalLightTranslate->insertNode(lightNode);
 
     // animation
-    _animationTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &ExampleInstancing::onTimer), iaTime::fromMilliseconds(10));
+    _animationTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &ExampleInstancing::onUpdate), iaTime::fromMilliseconds(10));
     _animationTimingHandle->start();
 }
 
@@ -238,7 +238,7 @@ bool ExampleInstancing::onMouseMoveEvent(iEventMouseMove &event)
     return false;
 }
 
-void ExampleInstancing::onTimer()
+void ExampleInstancing::onUpdate(const iaTime &time)
 {
     iNodeTransform *directionalLightRotate = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_directionalLightRotate));
     directionalLightRotate->rotate(0.005f, iaAxis::Y);

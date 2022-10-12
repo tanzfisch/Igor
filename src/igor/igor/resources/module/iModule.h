@@ -58,7 +58,7 @@ namespace igor
 
         /*! returns true if the instance of this is currently instantiated
         */
-        static bool isInstantiated()
+        __IGOR_INLINE__ static bool isInstantiated()
         {
             return iModule<T>::_instance ? true : false;
         }

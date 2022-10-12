@@ -48,17 +48,12 @@ namespace igor
     class iDialog;
     typedef iDialog *iDialogPtr;
 
-    /*! manages the widgets in use and is a singleton
-
-    \todo make it a non sigleton
+    /*! manages the widgets
     */
     class IGOR_API iWidgetManager : public iModule<iWidgetManager>
     {
 
-        /*! needs to be friends with singleton base class in order to be a singleton
-        */
         friend class iModule<iWidgetManager>;
-
         friend class iWidget;
         friend class iDialog;
 
@@ -146,10 +141,6 @@ namespace igor
         /*! updates recursively all widgets before rendering
         */
         void onPreDraw();
-
-        /*! widget handling after the render frame is done
-		*/
-        void onPostDraw();
 
     private:
         /*! modal marker

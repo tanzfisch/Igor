@@ -85,7 +85,7 @@ namespace igor
         {
             /*! rectangle of button
 			*/
-            iRectanglei _rectangle;
+            iaRectanglei _rectangle;
 
             /*! button apearance state
 			*/
@@ -146,7 +146,7 @@ namespace igor
 
         /*! rectangle of child frame
 		*/
-        iRectanglei _childFrame;
+        iaRectanglei _childFrame;
 
         /*! texture for button up 
 		*/
@@ -240,7 +240,7 @@ namespace igor
 
 		\param offsets vector to be filled with childrens offsets
 		*/
-        void calcChildOffsets(std::vector<iRectanglei> &offsets);
+        void calcChildOffsets(std::vector<iaRectanglei> &offsets);
     };
 
     /*! widget scroll pointer definition

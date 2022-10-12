@@ -9,6 +9,10 @@
 #include <sstream>
 #include <map>
 
+// notes
+// https://www.youtube.com/watch?v=tFsETEP01k8
+// https://www.youtube.com/watch?v=B0enS9BJne4
+
 SpriteAnimation::SpriteAnimation(iWindow *window)
     : ExampleBase(window, "Sprite Animation")
 {
@@ -30,10 +34,10 @@ void SpriteAnimation::onInit()
 
     // load atlantes
     _walk = new iAtlas(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationWalk.png", iResourceCacheMode::Free, iTextureBuildMode::Normal));
-    _walk->loadFrames("../data/atlantes/SpriteAnimationWalk.xml");
+    _walk->loadFrames("atlantes/SpriteAnimationWalk.xml");
 
     _tiles = new iAtlas(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationTiles.png", iResourceCacheMode::Free, iTextureBuildMode::Normal));
-    _tiles->loadFrames("../data/atlantes/SpriteAnimationTiles.xml");
+    _tiles->loadFrames("atlantes/SpriteAnimationTiles.xml");
 
     // generate ground map
     TileMapGenerator tileMapGenerator;
@@ -74,7 +78,7 @@ void SpriteAnimation::onInit()
 
     // initialize animation timer
     _animationTimer.setIntervall(iaTime::fromMilliseconds(200));
-    _animationTimer.registerTimerDelegate(iTimerTickDelegate(this, &SpriteAnimation::onAnimationTimerTick));
+    _animationTimer.registerTimerDelegate(iTimerTickDelegate(this, &SpriteAnimation::onUpdate));
     _animationTimer.start();
 }
 
@@ -112,18 +116,22 @@ bool SpriteAnimation::onKeyDown(iEventKeyDown &event)
     switch (event.getKey())
     {
     case iKeyCode::Left:
+    case iKeyCode::A:
         _flags[0] = true;
         return true;
 
     case iKeyCode::Up:
+    case iKeyCode::W:
         _flags[1] = true;
         return true;
 
     case iKeyCode::Right:
+    case iKeyCode::D:
         _flags[2] = true;
         return true;
 
     case iKeyCode::Down:
+    case iKeyCode::S:
         _flags[3] = true;
         return true;
 
@@ -140,18 +148,22 @@ bool SpriteAnimation::onKeyUp(iEventKeyUp &event)
     switch (event.getKey())
     {
     case iKeyCode::Left:
+    case iKeyCode::A:
         _flags[0] = false;
         return true;
 
     case iKeyCode::Up:
+    case iKeyCode::W:
         _flags[1] = false;
         return true;
 
     case iKeyCode::Right:
+    case iKeyCode::D:
         _flags[2] = false;
         return true;
 
     case iKeyCode::Down:
+    case iKeyCode::S:
         _flags[3] = false;
         return true;
 
@@ -307,7 +319,7 @@ void SpriteAnimation::onPreDraw()
     // con_endl(getCharacterStateName(_characterState));
 }
 
-void SpriteAnimation::onAnimationTimerTick()
+void SpriteAnimation::onUpdate(const iaTime &time)
 {
     if (_characterVelocity.length() < 0.0001)
     {

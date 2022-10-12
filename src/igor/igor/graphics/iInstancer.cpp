@@ -9,6 +9,8 @@
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
+#include <cstring>
+
 namespace igor
 {
 

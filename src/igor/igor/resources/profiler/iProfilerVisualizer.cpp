@@ -9,10 +9,12 @@
 #include <igor/system/iTimer.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/graphics/iRenderer.h>
-#include <igor/data/iRectangle.h>
 
+#include <iaux/data/iaRectangle.h>
 #include <iaux/data/iaString.h>
 using namespace iaux;
+
+#include <cstring>
 
 namespace igor
 {
@@ -68,7 +70,7 @@ namespace igor
     void iProfilerVisualizer::init()
     {
         initMaterials();
-        _time = iTimer::getInstance().getFrameTime();
+        _time = iTimer::getInstance().getTime();
     }
 
     void iProfilerVisualizer::deinit()
@@ -149,9 +151,9 @@ namespace igor
             return;
         }
 
-        if (iTimer::getInstance().getFrameTime() > _time + iaTime::fromSeconds(0.25))
+        if (iTimer::getInstance().getTime() > _time + iaTime::fromSeconds(0.25))
         {
-            _time = iTimer::getInstance().getFrameTime();
+            _time = iTimer::getInstance().getTime();
             _lastFPS = iTimer::getInstance().getFPS();
 
             if (_renderStatisticsMode >= iProfilerVerbosity::FPSMetricsAndTasks)
@@ -240,7 +242,7 @@ namespace igor
 
         if (_renderStatisticsMode >= iProfilerVerbosity::Sections)
         {
-            const iRectanglef rect(window->getClientWidth() * 0.1, window->getClientHeight() * 0.15, window->getClientWidth() * 0.8, window->getClientHeight() * 0.55);
+            const iaRectanglef rect(window->getClientWidth() * 0.1, window->getClientHeight() * 0.15, window->getClientWidth() * 0.8, window->getClientHeight() * 0.55);
             const float32 verticalScale = rect._height / 50; // 50ms
             const float32 horizontalScale = rect._width / iProfiler::MAX_FRAMES_COUNT;
             const float32 Hz24 = 41.6666 * verticalScale;
@@ -251,11 +253,11 @@ namespace igor
 
             iRenderer::getInstance().setMaterial(_materialBlend);
             iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 0.6));
-            iRenderer::getInstance().drawRectangle(rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight() + 60.0f);
+            iRenderer::getInstance().drawFilledRectangle(rect.getLeft(), rect.getTop(), rect.getWidth(), rect.getHeight() + 60.0f);
 
             iRenderer::getInstance().setMaterial(_materialSolid);
             iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-            iRenderer::getInstance().drawRectangle(rect.getLeft(), rect.getBottom() + 30, rect.getWidth(), 30.0f);
+            iRenderer::getInstance().drawFilledRectangle(rect.getLeft(), rect.getBottom() + 30, rect.getWidth(), 30.0f);
 
             iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
             iRenderer::getInstance().setLineWidth(1);
@@ -279,7 +281,7 @@ namespace igor
 
             float32 rightValue = 0;
             float32 leftValue = 0;
-            float32 lrScalec = rect._width / std::max(0.01, iTimer::getInstance().getFrameTimeDelta().getMilliseconds());
+            float32 lrScalec = rect._width / std::max(0.01, iTimer::getInstance().getTimeDelta().getMilliseconds());
 
             for (auto section : sections)
             {
@@ -315,7 +317,7 @@ namespace igor
                 }
 
                 iRenderer::getInstance().setMaterial(_materialSolid);
-                iRenderer::getInstance().drawRectangle(rect.getLeft() + leftValue, rect.getBottom() + 30, rightValue - leftValue, 30.0f);
+                iRenderer::getInstance().drawFilledRectangle(rect.getLeft() + leftValue, rect.getBottom() + 30, rightValue - leftValue, 30.0f);
 
                 leftValue = rightValue;
 

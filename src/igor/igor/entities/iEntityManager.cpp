@@ -25,9 +25,9 @@ namespace igor
         delete _octree;
     }
 
-    iEntity *iEntityManager::getEntity(uint64 entityID)
+    iEntity_Old *iEntityManager::getEntity(uint64 entityID)
     {
-        iEntity *result = nullptr;
+        iEntity_Old *result = nullptr;
 
         auto iter = _entities.find(entityID);
         if (iter != _entities.end())
@@ -38,7 +38,7 @@ namespace igor
         return result;
     }
 
-    void iEntityManager::registerEntity(iEntity *entity)
+    void iEntityManager::registerEntity(iEntity_Old *entity)
     {
         if (entity->_type == iEntityType::Locatable)
         {
@@ -50,7 +50,7 @@ namespace igor
         _entities[entity->getID()] = entity;
     }
 
-    void iEntityManager::unregisterEntity(iEntity *entity)
+    void iEntityManager::unregisterEntity(iEntity_Old *entity)
     {
         if (entity->_type == iEntityType::Locatable)
         {

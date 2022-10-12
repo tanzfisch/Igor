@@ -20,9 +20,9 @@
 namespace iaux
 {
 
-    iaFile::iaFile(const iaString &fileName)
+    iaFile::iaFile(const iaString &filename)
     {
-        _filename = iaDirectory::fixPath(fileName, true);
+        _filename = iaDirectory::fixPath(filename, true);
     }
 
     iaFile::~iaFile()

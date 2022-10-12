@@ -14,14 +14,9 @@ namespace iaux
         _microSeconds = microSeconds;
     }
 
-    iaTime iaTime::now()
+    iaTime iaTime::getNow()
     {
         return iaTime(iaClock::getTimeMicroseconds());
-    }
-
-    iaTime iaTime::zero()
-    {
-        return iaTime(0);
     }
 
     iaTime iaTime::fromSeconds(float64 time)

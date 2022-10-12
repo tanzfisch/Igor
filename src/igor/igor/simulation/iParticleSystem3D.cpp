@@ -22,7 +22,7 @@ namespace igor
 
     iParticleSystem3D::iParticleSystem3D()
     {
-        _rand.setSeed(static_cast<uint32>(iaTime::now().getMicrosenconds()));
+        _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicrosenconds()));
         initDefaultGradients();
     }
 
@@ -183,7 +183,7 @@ namespace igor
 
     void iParticleSystem3D::start()
     {
-        _startTime = iTimer::getInstance().getFrameTime();
+        _startTime = iTimer::getInstance().getTime();
         _playbackTime = _startTime;
         _running = true;
     }
@@ -429,7 +429,7 @@ namespace igor
             uint32 startIndex;
             uint32 endIndex;
 
-            iaTime frameTime = iTimer::getInstance().getFrameTime();
+            iaTime frameTime = iTimer::getInstance().getTime();
 
             // ignore hickups
             if (frameTime - _playbackTime > iaTime::fromMilliseconds(100))

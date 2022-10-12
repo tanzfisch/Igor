@@ -32,26 +32,23 @@
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
-#ifdef __IGOR_WINDOWS__
-
 #ifdef __IGOR_MSCOMPILER__
-#ifdef __IGOR_BUILDING_DLL__
-#define IGOR_API __declspec(dllexport)
-#define IGOR_API_TEMPLATE __declspec(dllexport)
-#else // __IGOR_BUILDING_DLL__
-#define IGOR_API __declspec(dllimport)
-#define IGOR_API_TEMPLATE
-#endif // __IGOR_BUILDING_DLL__
-#endif // __IGOR_BUILDING_DLL__
-#endif // __IGOR_MSCOMPILER__
+    #ifdef __IGOR_BUILDING_DLL__
+        #define IGOR_API __declspec(dllexport)
+        #define IGOR_API_TEMPLATE __declspec(dllexport)
+    #else
+        #define IGOR_API __declspec(dllimport)
+        #define IGOR_API_TEMPLATE
+    #endif
+#endif
 
-#ifdef __IGOR_LINUX__
-#define IGOR_API
-#define IGOR_API_TEMPLATE
-#endif // __IGOR_LINUX__
+#ifdef __IGOR_GCC__
+    #define IGOR_API
+    #define IGOR_API_TEMPLATE
+#endif
 
 #ifdef DEEP_PROFILING
-#define IGOR_DEEP_PROFILING
+    #define IGOR_DEEP_PROFILING
 #endif
 
 //! Igor configuration short
@@ -256,6 +253,10 @@ namespace igor
         MouseWheelDown,
         KeyCodeCount
     };
+
+    /*! user data type
+    */
+    typedef void* iUserData;
 
 }; // namespace igor
 

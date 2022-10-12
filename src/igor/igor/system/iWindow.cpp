@@ -1230,7 +1230,7 @@ namespace igor
         _impl->calcClientSize();
 
         // update views with new client size
-        iRectanglei windowRect;
+        iaRectanglei windowRect;
         windowRect.setWidth(_impl->_clientWidth);
         windowRect.setHeight(_impl->_clientHeight);
 
@@ -1380,7 +1380,7 @@ namespace igor
         con_assert_sticky(view != nullptr, "zero pointer");
 
         _views.push_back(view);
-        iRectanglei windowRect;
+        iaRectanglei windowRect;
         windowRect.setWidth(_impl->_clientWidth);
         windowRect.setHeight(_impl->_clientHeight);
         view->updateWindowRect(windowRect);

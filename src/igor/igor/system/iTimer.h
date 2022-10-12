@@ -39,7 +39,6 @@ using namespace iaux;
 
 namespace igor
 {
-
     /*! Handles Application time and intervals.
 
 	Meshures time of application cycles based on render frames.
@@ -52,36 +51,20 @@ namespace igor
         friend class iModule<iTimer>;
 
     public:
-        /*! \returns time since application start
-        */
-        iaTime getApplicationTime() const;
-
         /*! \returns time at beginning of current frame
         */
-        iaTime getFrameTime() const;
+        iaTime getTime() const;
 
         /*! \returns delta time since last frame
         */
-        iaTime getFrameTimeDelta() const;
+        iaTime getTimeDelta() const;
 
         /*! \returns frame rate based only on one frame's time delta
         */
-        float64 getFPS() const;
-
-        /*! \returns todays day
-		*/
-        uint32 getDay() const;
-
-        /*! \returns current month
-		*/
-        uint32 getMonth() const;
-
-        /*! \returns current year
-		*/
-        uint32 getYear() const;
+        float64 getFPS() const;        
 
     protected:
-        /*! call timer handles events
+        /*! call timer handle events
         */
         void handleTimerHandles();
 
@@ -97,10 +80,6 @@ namespace igor
         /*! time meshured current frame (in miliseconds)
 		*/
         iaTime _currentTime;
-
-        /*! time meshured last frame (in miliseconds)
-		*/
-        iaTime _lastTime;
 
         /*! registered timer handles
 

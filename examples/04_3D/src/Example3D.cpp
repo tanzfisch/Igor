@@ -170,7 +170,7 @@ void Example3D::onInit()
     directionalLightTranslate->insertNode(lightNode);
 
     // animation
-    _animationTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &Example3D::onTimer), iaTime::fromMilliseconds(10));
+    _animationTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &Example3D::onUpdate), iaTime::fromMilliseconds(10));
     _animationTimingHandle->start();
 }
 
@@ -322,7 +322,7 @@ bool Example3D::onMouseWheelEvent(iEventMouseWheel &event)
     return true;
 }
 
-void Example3D::onTimer()
+void Example3D::onUpdate(const iaTime &time)
 {
     iNodeTransform *directionalLightRotate = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_directionalLightRotate));
     directionalLightRotate->rotate(0.005f, iaAxis::Y);

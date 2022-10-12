@@ -377,7 +377,6 @@ IAUX_TEST(MatrixTests, DecomposeRotate100)
 		IAUX_EXPECT_NEAR(rotate._x, rotation._x, 0.0000001);
 		IAUX_EXPECT_NEAR(rotate._y, rotation._y, 0.0000001);
 		IAUX_EXPECT_NEAR(rotate._z, rotation._z, 0.0000001);
-
 	}
 }
 
@@ -395,9 +394,6 @@ IAUX_TEST(MatrixTests, DecomposeRecompose)
 	iaVector4d perspective;
 
 	matrix.decompose(scale, orientation, translate, shear, perspective);
-
-	iaVector3d rotate;
-	orientation.getEuler(rotate);
 
 	iaMatrixd matrix2;
 	matrix2.recompose(scale, orientation, translate, shear, perspective);

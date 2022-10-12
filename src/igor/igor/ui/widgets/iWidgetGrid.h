@@ -405,7 +405,7 @@ namespace igor
 
         \param offsets vector to be filled with childrens offsets
         */
-        void calcChildOffsets(std::vector<iRectanglei> &offsets);
+        void calcChildOffsets(std::vector<iaRectanglei> &offsets);
     };
 
     /*! widget grid pointer definition

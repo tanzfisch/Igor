@@ -30,9 +30,9 @@
 #define __iVIEW__
 
 #include <igor/iDefines.h>
-#include <igor/data/iRectangle.h>
 #include <igor/graphics/iRenderEngine.h>
 
+#include <iaux/data/iaRectangle.h>
 #include <iaux/data/iaColor4.h>
 #include <iaux/system/iaEvent.h>
 #include <iaux/data/iaString.h>
@@ -66,6 +66,17 @@ namespace igor
         friend class iWindow;
 
     public:
+    
+        /*! init members
+
+        \param useProfiling if true this view will make do profiling
+        */
+        iView(bool useProfiling = true);
+
+        /*! checks consistency
+        */
+        virtual ~iView();
+
         /*! sets the scene to be rendered with this view
 
         \param scene scene to be rendered
@@ -108,7 +119,7 @@ namespace igor
 
         \param rect rectangle with view port boundings usnig relative values 0.0 - 1.0
         */
-        void setViewport(iRectanglef rect);
+        void setViewport(iaRectanglef rect);
 
         /*! activates perspective mode and sets the view_angle
 
@@ -245,7 +256,7 @@ namespace igor
 
         /*! renders view in offscreen buffer using the colorID material and returns the color IDs from given rectangle
         */
-        void pickcolorID(const iRectanglei &rectangle, std::vector<uint64> &colorIDs);
+        void pickcolorID(const iaRectanglei &rectangle, std::vector<uint64> &colorIDs);
 
         /*! \returns the z index of this view
         */
@@ -256,16 +267,6 @@ namespace igor
         esle it must be a orthogonal projection
         */
         bool isPerspective() const;
-
-        /*! init members
-
-        \param useProfiling if true this view will make do profiling
-        */
-        iView(bool useProfiling = true);
-
-        /*! checks consistency
-        */
-        virtual ~iView();
 
     private:
         /*! z index
@@ -294,15 +295,15 @@ namespace igor
 
         /*! size of parenting window in pixel
         */
-        iRectanglei _windowRect;
+        iaRectanglei _windowRect;
 
         /*! the viewingport with values from 0.0-1.0 so it is independent form screen resolution
         */
-        iRectanglef _viewportConfig = {0.0f, 0.0f, 1.0f, 1.0f};
+        iaRectanglef _viewportConfig = {0.0f, 0.0f, 1.0f, 1.0f};
 
         /*! viewport in pixel
         */
-        iRectanglei _viewport;
+        iaRectanglei _viewport;
 
         /*! if true the color buffer will be cleared with _clearColor before every frame
         */
@@ -375,7 +376,7 @@ namespace igor
 
         \param windowRect the new window rectangle
         */
-        void updateWindowRect(const iRectanglei &windowRect);
+        void updateWindowRect(const iaRectanglei &windowRect);
     };
 
     /*! view pointer definition

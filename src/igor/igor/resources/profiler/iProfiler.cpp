@@ -6,6 +6,8 @@
 
 #include <igor/graphics/iRenderer.h>
 
+#include <cstring>
+
 namespace igor
 {
 
@@ -34,7 +36,7 @@ namespace igor
         }
 
         _sections[SECTOINDEX(sectionID)]._values[_frame] = 0;
-        _sections[SECTOINDEX(sectionID)]._beginTime = iaTime::now();
+        _sections[SECTOINDEX(sectionID)]._beginTime = iaTime::getNow();
     }
 
     void iProfiler::endSection(iProfilerSectionID sectionID)
@@ -44,7 +46,7 @@ namespace igor
             return;
         }
 
-        _sections[SECTOINDEX(sectionID)]._values[_frame] += iaTime::now() - _sections[SECTOINDEX(sectionID)]._beginTime;
+        _sections[SECTOINDEX(sectionID)]._values[_frame] += iaTime::getNow() - _sections[SECTOINDEX(sectionID)]._beginTime;
     }
 
     void iProfiler::nextFrame(bool loggingFrame)

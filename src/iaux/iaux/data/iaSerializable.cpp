@@ -7,6 +7,8 @@
 #include <iaux/system/iaConsole.h>
 #include <iaux/data/iaString.h>
 
+#include <cstring>
+
 namespace iaux
 {
 

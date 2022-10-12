@@ -26,6 +26,7 @@ using namespace iaux;
 #include <ompf/ompf.h>
 
 #include <algorithm>
+#include <cstring>
 
 namespace igor
 {

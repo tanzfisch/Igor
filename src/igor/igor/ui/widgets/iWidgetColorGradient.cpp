@@ -58,14 +58,14 @@ namespace igor
 
         if (_interactive)
         {
-            iRectanglei gradientRect(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight());
+            iaRectanglei gradientRect(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight());
             gradientRect._x += 5;
             gradientRect._width -= 10;
             gradientRect._height /= 2;
 
             const std::vector<std::pair<float, iaColor4f>> gradient = _gradient.getValues();
 
-            iRectanglei buttonRect(0, 0, 0, 0);
+            iaRectanglei buttonRect(0, 0, 0, 0);
             buttonRect._height = getActualHeight() - gradientRect._height - 1;
             buttonRect._width = 9;
             buttonRect._y = gradientRect._height + gradientRect._y + 1;
@@ -148,7 +148,7 @@ namespace igor
 
         if (isVisible())
         {
-            iRectanglei gradientRect(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight());
+            iaRectanglei gradientRect(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight());
 
             if (_interactive)
             {
@@ -165,7 +165,7 @@ namespace igor
             {
                 const std::vector<std::pair<float, iaColor4f>> gradient = _gradient.getValues();
 
-                iRectanglei buttonRect(0, 0, 0, 0);
+                iaRectanglei buttonRect(0, 0, 0, 0);
                 buttonRect._height = buttonHeight;
                 buttonRect._width = 9;
                 buttonRect._y = gradientRect._height + gradientRect._y + 1;

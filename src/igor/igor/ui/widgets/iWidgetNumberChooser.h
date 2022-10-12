@@ -159,11 +159,11 @@ namespace igor
 
         /*! button up rectangle
 		*/
-        iRectanglei _buttonUpRectangle;
+        iaRectanglei _buttonUpRectangle;
 
         /*! button down rectangle
 		*/
-        iRectanglei _buttonDownRectangle;
+        iaRectanglei _buttonDownRectangle;
 
         /*! culls number agains min max boundings
 		*/

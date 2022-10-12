@@ -61,11 +61,7 @@ namespace igor
         /*! called on application pre draw event
         */
         virtual void onPreDraw(){};
-
-        /*! called on application post draw event
-        */
-        virtual void onPostDraw(){}; // TODO get rid of post draw
-
+        
         /*! called on any other event
         */
         virtual void onEvent(iEvent &event){};

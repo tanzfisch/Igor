@@ -40,7 +40,7 @@ namespace igor
 		_intervall = _configuredIntervall;
 
 		iTimer::getInstance().insertTimerHandle(this);
-		_time = iTimer::getInstance().getFrameTime();
+		_time = iTimer::getInstance().getTime();
 		_playing = true;
 	}
 
@@ -57,7 +57,7 @@ namespace igor
 
 	void iTimerHandle::setIntervall(iaTime interval)
 	{
-		if (interval <= iaTime::zero())
+		if (interval <= iaTime(0))
 		{
 			con_err("invalid value for _intervall");
 			return;
@@ -86,7 +86,7 @@ namespace igor
 	{
 		while (time - _time >= _intervall)
 		{
-			_timerEvent();
+			_timerEvent(time);
 			if (_oneShot)
 			{
 				stop();

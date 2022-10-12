@@ -30,9 +30,9 @@
 #define __iPARTICLESYSTEM3D__
 
 #include <iaux/data/iaGradient.h>
-#include <igor/data/iSphere.h>
 #include <igor/data/iAABox.h>
 
+#include <iaux/data/iaSphere.h>
 #include <iaux/math/iaVector3.h>
 #include <iaux/math/iaVector2.h>
 #include <iaux/data/iaColor4.h>

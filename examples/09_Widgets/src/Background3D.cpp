@@ -169,8 +169,8 @@ void Background3D::onInit()
     directionalLightRotate->insertNode(directionalLightTranslate);
     directionalLightTranslate->insertNode(lightNode);
 
-    // animation
-    _animationTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &Background3D::onTimer), iaTime::fromMilliseconds(10));
+    // animationö
+    _animationTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &Background3D::onUpdate), iaTime::fromMilliseconds(10));
     _animationTimingHandle->start();
 }
 
@@ -281,7 +281,7 @@ bool Background3D::onMouseWheelEvent(iEventMouseWheel &event)
     return true;
 }
 
-void Background3D::onTimer()
+void Background3D::onUpdate(const iaTime &time)
 {
     iNodeTransform *directionalLightRotate = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_directionalLightRotate));
     directionalLightRotate->rotate(0.005f, iaAxis::Y);

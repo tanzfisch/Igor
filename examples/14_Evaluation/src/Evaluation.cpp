@@ -76,13 +76,13 @@ void Evaluation::onInit()
     // set duration aka period to 4 seconds
     transformEvaluation->setDuration(iaTime::fromSeconds(4.0));
     // start now
-    transformEvaluation->setStart(iTimer::getInstance().getFrameTime());
+    transformEvaluation->setStart(iTimer::getInstance().getTime());
 
     // add a script evaluation on top
     iEvaluationScript *scriptEvaluation = iEvaluationManager::getInstance().createEvaluation<iEvaluationScript>(catTransform->getID());
     scriptEvaluation->setLooped();
     scriptEvaluation->setDuration(iaTime::fromSeconds(4.0));
-    scriptEvaluation->setStart(iTimer::getInstance().getFrameTime());
+    scriptEvaluation->setStart(iTimer::getInstance().getTime());
     scriptEvaluation->setScript(iEvaluationScriptDelegate(this, &Evaluation::evalScript));
     scriptEvaluation->setEasingFunction(Easing::EasingFunction::OutElastic);
 }

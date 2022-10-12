@@ -109,8 +109,10 @@ private:
     void onRenderOrtho();
 
     /*! called by timer
+
+    \param time the time
     */
-    void onTimer();
+    void onUpdate(const iaTime &time);
 
     /*! called on any other event
 

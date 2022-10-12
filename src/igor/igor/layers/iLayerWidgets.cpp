@@ -35,15 +35,8 @@ namespace igor
         iWidgetManager::getInstance().onPreDraw();
     }
 
-    void iLayerWidgets::onPostDraw()
-    {
-        iWidgetManager::getInstance().onPostDraw();
-    }
-
     void iLayerWidgets::onDeinit()
     {
-        iWidgetManager::getInstance().onPostDraw();
-
         _view.unregisterRenderDelegate(iDrawDelegate(this, &iLayerWidgets::onRender));
 
         iWidgetManager::getInstance().setTheme(nullptr);

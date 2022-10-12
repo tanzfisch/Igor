@@ -64,8 +64,10 @@ private:
     iTimerHandle *_timerHandle = nullptr;
 
     /*! triggered by timer
+
+    \param time the time
     */
-    void onTimer();
+    void onUpdate(const iaTime &time);
 
     /*! initialize example
     */

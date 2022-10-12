@@ -4,7 +4,7 @@
 
 #include <iPhysicsPlayer.h>
 #include <igor/physics/iPhysics.h>
-#include <iEntity.h>
+#include <iEntity_Old.h>
 
 namespace Igor
 {

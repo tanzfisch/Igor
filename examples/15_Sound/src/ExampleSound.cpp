@@ -75,11 +75,11 @@ void ExampleSound::onInit()
     getScene()->getRoot()->insertNode(audioSourceStereo);
 
     // animation
-    _timerHandle = new iTimerHandle(iTimerTickDelegate(this, &ExampleSound::onTimer), iaTime::fromMilliseconds(10));
+    _timerHandle = new iTimerHandle(iTimerTickDelegate(this, &ExampleSound::onUpdate), iaTime::fromMilliseconds(10));
     _timerHandle->start();
 }
 
-void ExampleSound::onTimer()
+void ExampleSound::onUpdate(const iaTime &time)
 {
     iNodeTransform *transform = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_rotate));
     transform->rotate(0.03f, iaAxis::Y);

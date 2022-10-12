@@ -37,7 +37,7 @@ namespace iaux
 {
 
     /*! stores time
-    */
+     */
     class IAUX_API iaTime
     {
 
@@ -53,13 +53,9 @@ namespace iaux
         */
         iaTime(int64 microSeconds);
 
-        /*! \returns current time
-        */
-        static iaTime now();
-
-        /*! \returns zero time
-        */
-        static iaTime zero();
+        /*! \returns current time since application was started
+         */
+        static iaTime getNow();
 
         /*! \returns time object based on given seconds
 
@@ -99,7 +95,7 @@ namespace iaux
         */
         iaTime operator-(const iaTime &time) const;
 
-        /*! multiplies this time with scalar 
+        /*! multiplies this time with scalar
 
         \param scalar the value to multiply the time with
         */
@@ -113,11 +109,11 @@ namespace iaux
         iaTime operator*(float64 scalar) const;
 
         /*! \returns true if both times are equal
-        */
+         */
         bool operator==(const iaTime &time) const;
 
         /*! \returns true if both times are not equal
-        */
+         */
         bool operator!=(const iaTime &time) const;
 
         /*! \returns true if this time is smaller then given time
@@ -145,15 +141,15 @@ namespace iaux
         bool operator>=(const iaTime &time) const;
 
         /*! \returns time in micro seconds
-        */
+         */
         int64 getMicrosenconds() const;
 
         /*! \returns time in seconds
-        */
+         */
         float64 getSeconds() const;
 
         /*! \returns time in milliseconds
-        */
+         */
         float64 getMilliseconds() const;
 
     private:

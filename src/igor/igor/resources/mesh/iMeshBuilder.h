@@ -29,11 +29,11 @@
 #ifndef __IGOR_MESHBUILDER_H__
 #define __IGOR_MESHBUILDER_H__
 
-#include <igor/data/iSphere.h>
 #include <igor/data/iAABox.h>
 #include <igor/resources/texture/iTexture.h>
 #include <igor/resources/mesh/iMesh.h>
 
+#include <iaux/data/iaSphere.h>
 #include <iaux/math/iaVector2.h>
 #include <iaux/math/iaMatrix.h>
 #include <iaux/data/iaColor3.h>

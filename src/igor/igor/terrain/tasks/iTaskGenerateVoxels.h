@@ -30,9 +30,9 @@
 #define __iTASKGENERATEVOXELS__
 
 #include <igor/threading/tasks/iTask.h>
-#include <igor/data/iSphere.h>
 using namespace igor;
 
+#include <iaux/data/iaSphere.h>
 #include <iaux/math/iaVector3.h>
 #include <iaux/system/iaDelegate.h>
 using namespace iaux;
