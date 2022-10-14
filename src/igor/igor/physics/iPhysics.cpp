@@ -506,6 +506,8 @@ namespace igor
 
     void iPhysics::handle()
     {
+        IGOR_PROFILER(phy);
+        
         if (_running)
         {
             handleQueues();

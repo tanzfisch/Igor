@@ -147,15 +147,15 @@ namespace igor
 
         /*! application profiler section id
         */
-        uint32 _applicationSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
+        uint32 _applicationSectionID;
 
         /*! evaluation profiler section id
         */
-        uint32 _evaluationSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
+        uint32 _evaluationSectionID;
 
         /*! physics profiler section id
         */
-        uint32 _physicsSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
+        uint32 _physicsSectionID;
 
         /*! handle callbacks profiler section ID
         */
@@ -194,10 +194,6 @@ namespace igor
         \param event the window close event
         */
         bool onWindowClose(iEventWindowClose &event);
-
-        /*! init profiling sections
-        */
-        void initProfiling();
 
         /*! triggers ApplicationHandleEvent and updates windows
 		*/

@@ -140,25 +140,19 @@ namespace igor
     void iApplication::iterate()
     {
         iaLogLevel logLevel;
-        iProfiler::getInstance().nextFrame();
+        iProfiler::nextFrame();
 
-        iProfiler::getInstance().beginSection(_applicationSectionID);
         {
+            IGOR_PROFILER(app);
             iTimer::getInstance().handle();
             iNodeManager::getInstance().handle();
             windowHandle();
             dispatch();
             preDraw();
         }
-        iProfiler::getInstance().endSection(_applicationSectionID);
 
-        iProfiler::getInstance().beginSection(_evaluationSectionID);
         iEvaluationManager::getInstance().handle();
-        iProfiler::getInstance().endSection(_evaluationSectionID);
-
-        iProfiler::getInstance().beginSection(_physicsSectionID);
         iPhysics::getInstance().handle();
-        iProfiler::getInstance().endSection(_physicsSectionID);
 
         draw();
     }
@@ -166,19 +160,11 @@ namespace igor
     void iApplication::run()
     {
         _running = true;
-        initProfiling();
 
         do
         {
             iterate();
         } while (_running);
-    }
-
-    void iApplication::initProfiling()
-    {
-        _applicationSectionID = iProfiler::getInstance().createSection("app");
-        _evaluationSectionID = iProfiler::getInstance().createSection("eval");
-        _physicsSectionID = iProfiler::getInstance().createSection("physics");
     }
 
     bool iApplication::isRunning()
@@ -252,9 +238,8 @@ namespace igor
 
     iWindow *iApplication::getWindow(iWindowID windowID) const
     {
-        auto iter = std::find_if(_windows.begin(), _windows.end(), [windowID](iWindowPtr window) {
-            return window->getID() == windowID;
-        });
+        auto iter = std::find_if(_windows.begin(), _windows.end(), [windowID](iWindowPtr window)
+                                 { return window->getID() == windowID; });
 
         if (iter != _windows.end())
         {

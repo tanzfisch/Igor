@@ -22,11 +22,6 @@ namespace igor
     iView::iView(bool useProfiling)
         : _renderEngine(iRenderEngine(useProfiling))
     {
-        if (useProfiling)
-        {
-            _userDrawSectionID = iProfiler::getInstance().createSection("udraw");
-            _sceneSectionID = iProfiler::getInstance().createSection("scene");
-        }
     }
 
     iView::~iView()
@@ -175,9 +170,8 @@ namespace igor
     {
         if (_scene != nullptr)
         {
-            iProfiler::getInstance().beginSection(_sceneSectionID);
+            IGOR_PROFILER(scene);
             _scene->handle();
-            iProfiler::getInstance().endSection(_sceneSectionID);
         }
 
         if (_visible)
@@ -210,9 +204,10 @@ namespace igor
                 _renderEngine.render();
             }
 
-            iProfiler::getInstance().beginSection(_userDrawSectionID);
-            _renderEvent();
-            iProfiler::getInstance().endSection(_userDrawSectionID);
+            {
+                IGOR_PROFILER(udraw);
+                _renderEvent();
+            }
         }
     }
 

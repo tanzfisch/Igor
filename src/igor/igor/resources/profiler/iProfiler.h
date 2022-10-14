@@ -35,96 +35,75 @@
 #include <iaux/system/iaMutex.h>
 using namespace iaux;
 
-#include <map>
+#include <unordered_map>
 #include <array>
 
 namespace igor
 {
-    /*! profiler section id definition
-    */
-    typedef iaID64 iProfilerSectionID;
+    struct iProfilerSection
+    {
+        /*! name of section
+         */
+        iaString _name;
+
+        /*! time used per frame
+         */
+        std::array<iaTime, 500> _values;
+
+        /*! time at beginning of section
+         */
+        iaTime _beginTime;
+    };
 
     /*! render statistics
-    */
-    class IGOR_API iProfiler : public iModule<iProfiler>
+     */
+    class IGOR_API iProfiler
     {
 
-        friend class iModule<iProfiler>;
-
     public:
-        /*! size of buffer aka amount of frames that are logged
-        */
-        static const uint64 MAX_FRAMES_COUNT = 500;
-
-        /*! invalid profiler section id definition
-        */
-        static const iProfilerSectionID INVALID_PROFILER_SECTION_ID = 0;
-
-        struct iProfilerSection
-        {
-            /*! name of section
-            */
-            iaString _name;
-
-            /*! time used per frame
-            */
-            std::array<iaTime, MAX_FRAMES_COUNT> _values;
-
-            /*! time at beginning of section
-            */
-            iaTime _beginTime;
-        };
-
-        /*! creates a measurement section
-
-        \param sectionName the section's name
-        \param groupIndex index of group this section belongs to
-        */
-        iProfilerSectionID createSection(const iaString &sectionName);
-
         /*! begins measuring section
 
-        \param sectionID the section ID
-        */
-        void beginSection(iProfilerSectionID sectionID);
+        \param sectionName name of section
+         */
+        iProfiler(const iaString &sectionName);
 
-        /*! ends measuring section
+        /*! stops measuring section
+         */
+        ~iProfiler();
 
-        \param sectionID the section ID
-        */
-        void endSection(iProfilerSectionID sectionID);
+        /*! size of buffer aka amount of frames that are logged
+         */
+        static const uint64 MAX_FRAMES_COUNT = 500;
 
         /*! steps to next frame
-        */
-        void nextFrame();
+         */
+        static void nextFrame();
 
         /*! \returns reference to list of sections
 
         be carefull to not change that list
         */
-        const std::vector<iProfilerSection> &getSections() const;
+        static const std::unordered_map<int64, iProfilerSection> &getSections();
 
         /*! \returns current frame index
-        */
-        int32 getCurrentFrameIndex() const;
+         */
+        static int32 getCurrentFrameIndex();
 
     private:
+        /*! section in use
+         */
+        iProfilerSection *_section;
+
         /*! current frame
-        */
-        int32 _frame = 0;
+         */
+        static int32 _frame;
 
         /*! list of sections
-        */
-        std::vector<iProfilerSection> _sections;
-
-        /*! nothing todo
-        */
-        iProfiler() = default;
-
-        /*! nothing todo
-        */
-        virtual ~iProfiler() = default;
+         */
+        static std::unordered_map<int64, iProfilerSection> _sections;
     };
+
+#define IGOR_PROFILER(sectionName) iProfiler sectionName(#sectionName)
 
 } // namespace igor
 

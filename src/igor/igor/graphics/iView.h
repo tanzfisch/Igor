@@ -273,14 +273,6 @@ namespace igor
         */
         int32 _zIndex = 0;
 
-        /*! id for profiler section user draw calls
-        */
-        iProfilerSectionID _userDrawSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
-
-        /*! id for profiler section scene handling
-        */
-        iProfilerSectionID _sceneSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
-
         /*! visible flag
         */
         bool _visible = true;

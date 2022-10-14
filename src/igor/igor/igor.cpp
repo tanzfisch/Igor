@@ -128,7 +128,6 @@ namespace igor
         iAudio::create();
         // iClipboard::create();
         iActionManager::create();
-        iProfiler::create();
         iMouse::create();
         iKeyboard::create();
         iPhysics::create();
@@ -214,11 +213,6 @@ namespace igor
         if (iApplication::isInstantiated())
         {
             iApplication::destroy();
-        }
-
-        if (iProfiler::isInstantiated())
-        {
-            iProfiler::destroy();
         }
 
         if (iActionManager::isInstantiated())

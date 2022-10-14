@@ -10,81 +10,49 @@
 
 namespace igor
 {
+    std::unordered_map<int64, iProfilerSection> iProfiler::_sections;
 
-#ifdef IGOR_DEEP_PROFILING
-    std::map<uint64, iProfilerFunction *> iProfilerFunction::_data;
-    static iaMutex iProfilerFunction::_mutex;
-#endif
+    int32 iProfiler::_frame = 0;
 
-#define SECTOINDEX(sec) (sec - 1)
-
-    iProfilerSectionID iProfiler::createSection(const iaString &sectionName)
+    iProfiler::iProfiler(const iaString &sectionName)
     {
-        iProfilerSection statisticsSection;
-        statisticsSection._name = sectionName;
-        memset(&statisticsSection._values, 0, sizeof(iaTime) * MAX_FRAMES_COUNT);
+        int64 hash = sectionName.getHashValue();
 
-        _sections.push_back(statisticsSection);
-        return _sections.size();
-    }
+        auto iter = _sections.find(hash);
 
-    void iProfiler::beginSection(iProfilerSectionID sectionID)
-    {
-        if (SECTOINDEX(sectionID) >= _sections.size())
+        if (iter == _sections.end())
         {
-            return;
+            auto &section = _sections[hash] = iProfilerSection();
+            section._name = sectionName;
+            memset(&section._values, 0, sizeof(iaTime) * MAX_FRAMES_COUNT);
+
+            _section = &section;
+        }
+        else
+        {
+            _section = &(iter->second);
         }
 
-        _sections[SECTOINDEX(sectionID)]._values[_frame] = 0;
-        _sections[SECTOINDEX(sectionID)]._beginTime = iaTime::getNow();
+        _section->_values[_frame] = 0;
+        _section->_beginTime = iaTime::getNow();
     }
 
-    void iProfiler::endSection(iProfilerSectionID sectionID)
+    iProfiler::~iProfiler()
     {
-        if (SECTOINDEX(sectionID) >= _sections.size())
-        {
-            return;
-        }
-
-        _sections[SECTOINDEX(sectionID)]._values[_frame] += iaTime::getNow() - _sections[SECTOINDEX(sectionID)]._beginTime;
+        _section->_values[_frame] += iaTime::getNow() - _section->_beginTime;
     }
 
     void iProfiler::nextFrame()
     {
         _frame = (_frame + 1) % MAX_FRAMES_COUNT;
-
-#ifdef IGOR_DEEP_PROFILING
-        if (loggingFrame)
-        {
-            iProfilerFunction::_mutex.lock();
-            std::map<uint64, iProfilerFunction *> data = iProfilerFunction::_data;
-            iProfilerFunction::_mutex.unlock();
-
-            std::vector<iProfilerFunction *> functions;
-            for (const auto pair : data)
-            {
-                functions.push_back(pair.second);
-            }
-
-            std::sort(functions.begin(), functions.end(), [](const iProfilerFunction *a, const iProfilerFunction *b) {
-                return (a->_duration.getMilliseconds() / a->_callCount) > (b->_duration.getMilliseconds() / b->_callCount);
-            });
-
-            for (const auto func : functions)
-            {
-                con_endl(func->_name << " " << func->_file << ":" << func->_line);
-                con_endl("calls:" << func->_callCount << " avg:" << (func->_duration.getMilliseconds() / func->_callCount) << "ms total:" << func->_duration.getMilliseconds() << "ms");
-            }
-        }
-#endif
     }
 
-    const std::vector<iProfiler::iProfilerSection> &iProfiler::getSections() const
+    const std::unordered_map<int64, iProfilerSection> &iProfiler::getSections()
     {
         return _sections;
     }
 
-    int32 iProfiler::getCurrentFrameIndex() const
+    int32 iProfiler::getCurrentFrameIndex()
     {
         return _frame;
     }

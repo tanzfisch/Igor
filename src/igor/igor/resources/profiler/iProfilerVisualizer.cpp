@@ -274,8 +274,7 @@ namespace igor
             iRenderer::getInstance().drawString(rect._x, rect.getBottom() - Hz100, "100Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
 
             int sectionIndex = 0;
-            auto sections = iProfiler::getInstance().getSections();
-            const uint32 currentFrame = (iProfiler::getInstance().getCurrentFrameIndex() - 1) % iProfiler::MAX_FRAMES_COUNT;
+            const uint32 currentFrame = (iProfiler::getCurrentFrameIndex() - 1) % iProfiler::MAX_FRAMES_COUNT;
 
             memset(&_accumulationBuffer, 0, sizeof(float32) * iProfiler::MAX_FRAMES_COUNT);
 
@@ -283,9 +282,10 @@ namespace igor
             float32 leftValue = 0;
             float32 lrScalec = rect._width / std::max(0.01, iTimer::getInstance().getTimeDelta().getMilliseconds());
 
-            for (auto section : sections)
+            for (const auto &pair : iProfiler::getSections())
             {
                 uint32 currentIndex = 0;
+                const auto &section = pair.second;
                 const auto &values = section._values;
 
                 iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
