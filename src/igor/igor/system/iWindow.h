@@ -241,10 +241,6 @@ namespace igor
         */
         std::vector<iView *> _views;
 
-        /*! swap buffer stats section id
-        */
-        iProfilerSectionID _swapBufferSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
-
         /*! called when window size has changed
         \param width new width
         \param height new height

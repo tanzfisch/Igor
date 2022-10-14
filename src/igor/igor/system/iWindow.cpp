@@ -246,6 +246,7 @@ namespace igor
 
         void swapBuffers() override
         {
+            IGOR_PROFILER(swap);
             SwapBuffers(_hDC);
         }
 
@@ -769,6 +770,7 @@ namespace igor
 
         void swapBuffers() override
         {
+            IGOR_PROFILER(swap);
             _glxMutex.lock();
             glXSwapBuffers(_display, glXGetCurrentDrawable());
             _glxMutex.unlock();
@@ -1203,8 +1205,6 @@ namespace igor
 #endif
 
         _impl->calcClientSize();
-
-        _swapBufferSectionID = iProfiler::getInstance().createSection("swap"); // TODO how do we handle this with multiple windows?
     }
 
     iWindow::~iWindow()
@@ -1483,9 +1483,7 @@ namespace igor
             view->draw();
         }
 
-        iProfiler::getInstance().beginSection(_swapBufferSectionID);
         swapBuffers();
-        iProfiler::getInstance().endSection(_swapBufferSectionID);
     }
 
     void iWindow::setDoubleClick(bool doubleClick)

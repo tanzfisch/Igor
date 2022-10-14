@@ -32,11 +32,11 @@ namespace igor
             _dirtyEvaluations.push_back(id);
         }
 
-        std::sort(_dirtyEvaluations.begin(), _dirtyEvaluations.end(), [](const uint64 a, const uint64 b) {
+        std::sort(_dirtyEvaluations.begin(), _dirtyEvaluations.end(), [](const uint64 a, const uint64 b)
+                  {
             auto evaluationA = iEvaluationManager::getInstance().getEvaluation(a);
             auto evaluationB = iEvaluationManager::getInstance().getEvaluation(b);
-            return evaluationA->getStart() < evaluationB->getStart();
-        });
+            return evaluationA->getStart() < evaluationB->getStart(); });
     }
 
     void iEvaluationManager::destroyEvaluation(uint64 id)
@@ -62,6 +62,8 @@ namespace igor
 
     void iEvaluationManager::handle()
     {
+        IGOR_PROFILER(eval);
+        
         iaTime time = iTimer::getInstance().getTime();
 
         if (!_dirtyEvaluations.empty())

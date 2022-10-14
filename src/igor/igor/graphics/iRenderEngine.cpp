@@ -29,14 +29,6 @@ namespace igor
 {
     iRenderEngine::iRenderEngine(bool useProfiling)
     {
-        if (useProfiling)
-        {
-            _bufferCreationSectionID = iProfiler::getInstance().createSection("buff");
-            _cullSectionID = iProfiler::getInstance().createSection("cull");
-            _updateGroupsID = iProfiler::getInstance().createSection("groups");
-            _drawSectionID = iProfiler::getInstance().createSection("draw");
-        }
-
         iMaterialResourceFactory::getInstance().registerMaterialCreatedDelegate(iMaterialCreatedDelegate(this, &iRenderEngine::onMaterialCreated));
         iMaterialResourceFactory::getInstance().registerMaterialDestroyedDelegate(iMaterialDestroyedDelegate(this, &iRenderEngine::onMaterialDestroyed));
 
@@ -156,27 +148,18 @@ namespace igor
 
     void iRenderEngine::createBuffers()
     {
+        IGOR_PROFILER(b_cre);
         iRenderer::getInstance().createBuffers(10);
     }
 
     void iRenderEngine::render()
     {
-        iProfiler::getInstance().beginSection(_bufferCreationSectionID);
-        createBuffers();
-        iProfiler::getInstance().endSection(_bufferCreationSectionID);
-
         if (_scene != nullptr &&
             _currentCamera != nullptr)
         {
-            iProfiler::getInstance().beginSection(_cullSectionID);
             cullScene(_currentCamera);
-            iProfiler::getInstance().endSection(_cullSectionID);
-
-            iProfiler::getInstance().beginSection(_updateGroupsID);
             updateMaterialGroups();
-            iProfiler::getInstance().endSection(_updateGroupsID);
 
-            iProfiler::getInstance().beginSection(_drawSectionID);
             if (_renderColorID)
             {
                 drawColorIDs();
@@ -185,12 +168,13 @@ namespace igor
             {
                 drawScene();
             }
-            iProfiler::getInstance().endSection(_drawSectionID);
         }
     }
 
     void iRenderEngine::cullScene(iNodeCamera *camera)
     {
+        IGOR_PROFILER(cull);
+
         iaMatrixd view;
         camera->getViewMatrix(view);
         iaMatrixd camMatrix;
@@ -206,6 +190,8 @@ namespace igor
 
     void iRenderEngine::updateMaterialGroups()
     {
+        IGOR_PROFILER(mat);
+
         for (auto &group : _materialGroups)
         {
             group.second.clear();
@@ -233,6 +219,8 @@ namespace igor
 
     void iRenderEngine::drawColorIDs()
     {
+        IGOR_PROFILER(col_id);
+
         iMaterialPtr colorIDMaterial = iMaterialResourceFactory::getInstance().getMaterial(iMaterialResourceFactory::getInstance().getColorIDMaterialID());
         iRenderer::getInstance().setMaterial(colorIDMaterial);
 
@@ -259,6 +247,8 @@ namespace igor
 
     void iRenderEngine::drawScene()
     {
+        IGOR_PROFILER(draw);
+
         //! \todo not sure yet how to handle multiple lights. right now it will work only for one light
         auto lights = _scene->getLights();
 
