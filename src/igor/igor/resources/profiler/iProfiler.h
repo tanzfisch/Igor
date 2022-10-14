@@ -95,10 +95,8 @@ namespace igor
         void endSection(iProfilerSectionID sectionID);
 
         /*! steps to next frame
-
-        \param loggingFrame if true next frame will be logges more verbosively
         */
-        void nextFrame(bool loggingFrame);
+        void nextFrame();
 
         /*! \returns reference to list of sections
 

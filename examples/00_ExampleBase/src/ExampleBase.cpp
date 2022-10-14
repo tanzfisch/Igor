@@ -145,10 +145,6 @@ bool ExampleBase::onKeyUp(iEventKeyUp &event)
     case iKeyCode::F1:
         m_displayHelpScreen = !m_displayHelpScreen;
         return true;
-        
-    case iKeyCode::F5:
-        iApplication::getInstance().verboseLoggingNextFrame();
-        return true;
 
     case iKeyCode::F6:
     {

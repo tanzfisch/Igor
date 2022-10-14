@@ -130,10 +130,8 @@ namespace igor
     {
     }
 
-    void iRenderer::onStartFrame(bool logActive)
+    void iRenderer::onStartFrame()
     {
-        _loggingActive = logActive;
-
         _stats._vertices = 0;
         _stats._triangles = 0;
         _stats._indices = 0;
@@ -1076,11 +1074,6 @@ namespace igor
 
         if (_currentMaterial != nullptr)
         {
-            if (_loggingActive)
-            {
-                con_endl("setMaterial " << _currentMaterial->getName());
-            }
-
             _currentMaterial->activateShader();
 
             iRenderStateSet &stateset = _currentMaterial->getRenderStateSet();
@@ -1592,11 +1585,6 @@ namespace igor
 
     void iRenderer::drawMesh(iMeshBuffersPtr meshBuffers, iInstancer *instancer)
     {
-        if (_loggingActive)
-        {
-            con_endl("drawMesh instances:" << instancer->getInstanceCount() << " triangles " << meshBuffers->getTrianglesCount());
-        }
-
         iaMatrixd idMatrix;
         setModelMatrix(idMatrix);
 

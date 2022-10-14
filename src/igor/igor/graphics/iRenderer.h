@@ -798,10 +798,8 @@ namespace igor
         iaString getExtensions();
 
         /*! triggerd at beginning of frame 
-
-        \param logActive if true this frame will be logging to console
         */
-        void onStartFrame(bool logActive);
+        void onStartFrame();
 
         /*! triggered at end of frame
         */
@@ -812,8 +810,9 @@ namespace igor
         const iRendererStats &getStats() const;
 
     private:
-        bool _loggingActive = false;
 
+        /*! current render target
+        */
         uint32 _currentRenderTarget = DEFAULT_RENDER_TARGET;
 
         iaMutex _requestedBuffersMutex;
@@ -934,7 +933,7 @@ namespace igor
         /*! creates a Texture
 
         \param width width of the texture
-        \parma height height of the texture
+        \param height height of the texture
         \param bytepp bytes per pixel
         \param format color format of texture
         \param data pointer to the actual data used for the texture
