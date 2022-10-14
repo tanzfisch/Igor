@@ -49,10 +49,8 @@ namespace igor
         _sections[SECTOINDEX(sectionID)]._values[_frame] += iaTime::getNow() - _sections[SECTOINDEX(sectionID)]._beginTime;
     }
 
-    void iProfiler::nextFrame(bool loggingFrame)
+    void iProfiler::nextFrame()
     {
-        iRenderer::getInstance().onStopFrame();
-
         _frame = (_frame + 1) % MAX_FRAMES_COUNT;
 
 #ifdef IGOR_DEEP_PROFILING
@@ -79,8 +77,6 @@ namespace igor
             }
         }
 #endif
-
-        iRenderer::getInstance().onStartFrame(loggingFrame);
     }
 
     const std::vector<iProfiler::iProfilerSection> &iProfiler::getSections() const

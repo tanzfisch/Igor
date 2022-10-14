@@ -137,23 +137,10 @@ namespace igor
         _running = false;
     }
 
-    void iApplication::verboseLoggingNextFrame()
-    {
-        _verboseLogging = true;
-    }
-
     void iApplication::iterate()
     {
-        bool verboseLogging = _verboseLogging;
         iaLogLevel logLevel;
-        if (verboseLogging)
-        {
-            logLevel = iaConsole::getInstance().getLogLevel();
-            iaConsole::getInstance().setLogLevel(iaLogLevel::Trace);
-            con_info("START FRAME VERBOSE LOGGING");
-        }
-
-        iProfiler::getInstance().nextFrame(verboseLogging);
+        iProfiler::getInstance().nextFrame();
 
         iProfiler::getInstance().beginSection(_applicationSectionID);
         {
@@ -173,15 +160,7 @@ namespace igor
         iPhysics::getInstance().handle();
         iProfiler::getInstance().endSection(_physicsSectionID);
 
-        // profiler sections are within render engine
         draw();
-
-        if (verboseLogging)
-        {
-            con_info("END FRAME VERBOSE LOGGING");
-            iaConsole::getInstance().setLogLevel(logLevel);
-            _verboseLogging = false;
-        }
     }
 
     void iApplication::run()

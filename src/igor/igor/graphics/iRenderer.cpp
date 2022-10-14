@@ -37,52 +37,36 @@ using namespace iaux;
 
 namespace igor
 {
+    // print out openGL debug messages
+    static void onOGLDebugOutput(
+        GLenum source,
+        GLenum type,
+        GLuint id,
+        GLenum severity,
+        GLsizei length,
+        const GLchar *message,
+        const void *userParam)
+    {
+        switch (severity)
+        {
+        case GL_DEBUG_SEVERITY_HIGH:
+            con_crit(message);
+            return;
+        case GL_DEBUG_SEVERITY_MEDIUM:
+            con_err(message);
+            return;
+        case GL_DEBUG_SEVERITY_LOW:
+            con_warn(message);
+            return;
+        case GL_DEBUG_SEVERITY_NOTIFICATION:
+            con_debug(message);
+            return;
+        }
 
-    // needs to be a mecro so we can retrive the line number of the actual problem
-#ifdef __IGOR_DEBUG__
-#define GL_CHECK_ERROR()                                                 \
-    do                                                                   \
-    {                                                                    \
-        GLenum error = glGetError();                                     \
-        if (error != GL_NO_ERROR)                                        \
-        {                                                                \
-            iaString errorCode;                                          \
-            switch (error)                                               \
-            {                                                            \
-            case GL_INVALID_ENUM:                                        \
-                errorCode = "GL_INVALID_ENUM";                           \
-                break;                                                   \
-            case GL_INVALID_VALUE:                                       \
-                errorCode = "GL_INVALID_VALUE";                          \
-                break;                                                   \
-            case GL_INVALID_OPERATION:                                   \
-                errorCode = "GL_INVALID_OPERATION";                      \
-                break;                                                   \
-            case GL_STACK_OVERFLOW:                                      \
-                errorCode = "GL_STACK_OVERFLOW";                         \
-                break;                                                   \
-            case GL_STACK_UNDERFLOW:                                     \
-                errorCode = "GL_STACK_UNDERFLOW";                        \
-                break;                                                   \
-            case GL_OUT_OF_MEMORY:                                       \
-                errorCode = "GL_OUT_OF_MEMORY";                          \
-                break;                                                   \
-            default:                                                     \
-                errorCode = "UNKNOWN ERROR";                             \
-                break;                                                   \
-            };                                                           \
-            con_assert(error != GL_NO_ERROR, "GL_ERROR: " << errorCode); \
-        }                                                                \
-        else                                                             \
-        {                                                                \
-            break;                                                       \
-        }                                                                \
-    } while (0)
-#else
-#define GL_CHECK_ERROR() 1
-#endif
+        con_crit("Unknown Error");
+    }
 
-    GLenum convertGLColorFormat(iColorFormat format)
+    static GLenum convertGLColorFormat(iColorFormat format)
     {
         GLenum glformat = iRenderer::INVALID_ID;
 
@@ -123,6 +107,17 @@ namespace igor
         return glformat;
     }
 
+    iRenderer::iRenderer()
+    {
+#ifdef __IGOR_DEBUG__
+        glEnable(GL_DEBUG_OUTPUT);
+        glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+        glDebugMessageCallback(onOGLDebugOutput, nullptr);
+
+        glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
+#endif
+    }
+
     iRenderer::~iRenderer()
     {
         if (_initialized)
@@ -135,10 +130,8 @@ namespace igor
     {
     }
 
-    void iRenderer::onStartFrame(bool logActive)
+    void iRenderer::onStartFrame()
     {
-        _loggingActive = logActive;
-
         _stats._vertices = 0;
         _stats._triangles = 0;
         _stats._indices = 0;
@@ -156,19 +149,15 @@ namespace igor
     {
         GLsizei result = 0;
         glShaderSource(id, 1, &source, nullptr);
-        GL_CHECK_ERROR();
         glCompileShader(id);
-        GL_CHECK_ERROR();
 
         int len;
         glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len);
-        GL_CHECK_ERROR();
 
         if (len != 0)
         {
             char *buffer = new char[len];
             glGetInfoLogARB(id, len, &result, buffer);
-            GL_CHECK_ERROR();
 
             if (0 != result)
             {
@@ -191,17 +180,14 @@ namespace igor
         {
         case iShaderObjectType::Fragment:
             shaderObject = glCreateShaderObjectARB(GL_FRAGMENT_SHADER_ARB);
-            GL_CHECK_ERROR();
             break;
 
         case iShaderObjectType::Vertex:
             shaderObject = glCreateShaderObjectARB(GL_VERTEX_SHADER_ARB);
-            GL_CHECK_ERROR();
             break;
 
         case iShaderObjectType::Geometry:
             shaderObject = glCreateShaderObjectARB(GL_GEOMETRY_SHADER_ARB);
-            GL_CHECK_ERROR();
             break;
 
         case iShaderObjectType::Effect:
@@ -217,7 +203,6 @@ namespace igor
     {
         con_assert(-1 != id, "invalid id");
         glDeleteObjectARB(id);
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::linkShaderProgram(uint32 id, std::vector<uint32> objects)
@@ -226,18 +211,16 @@ namespace igor
         while (objects.end() != object)
         {
             glAttachObjectARB(id, (*object));
-            GL_CHECK_ERROR();
             object++;
         }
 
         glLinkProgramARB(id);
-        GL_CHECK_ERROR();
     }
 
     uint32 iRenderer::createShaderProgram()
     {
         uint32 result = glCreateProgramObjectARB();
-        GL_CHECK_ERROR();
+
         return result;
     }
 
@@ -245,7 +228,6 @@ namespace igor
     {
         con_assert(INVALID_ID != id, "invalid id");
         glDeleteProgram(id);
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::useShaderProgram(uint32 id)
@@ -278,24 +260,22 @@ namespace igor
         if (!_initialized)
         {
             glEnable(GL_LINE_SMOOTH);
-            GL_CHECK_ERROR();
+
             glEnable(GL_POINT_SMOOTH);
-            GL_CHECK_ERROR();
+
             glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-            GL_CHECK_ERROR();
+
             glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
-            GL_CHECK_ERROR();
+
             glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-            GL_CHECK_ERROR();
+
             glHint(GL_POLYGON_SMOOTH_HINT, GL_DONT_CARE);
-            GL_CHECK_ERROR();
 
             glDepthFunc(GL_LESS);
-            GL_CHECK_ERROR();
+
             glEnable(GL_DEPTH_TEST);
-            GL_CHECK_ERROR();
+
             glDepthMask(true);
-            GL_CHECK_ERROR();
 
             _vendorOGL = (const char *)glGetString(GL_VENDOR);
             _rendererOGL = (const char *)glGetString(GL_RENDERER);
@@ -375,11 +355,10 @@ namespace igor
         _projectionMatrix.perspective(fov, aspect, nearplain, farplain);
 
         glMatrixMode(GL_PROJECTION);
-        GL_CHECK_ERROR();
+
         glLoadMatrixd(_projectionMatrix.getData());
-        GL_CHECK_ERROR();
+
         glMatrixMode(GL_MODELVIEW);
-        GL_CHECK_ERROR();
 
         _dirtyModelViewProjectionMatrix = true;
     }
@@ -389,7 +368,6 @@ namespace igor
         glBegin(GL_POINTS);
         glVertex3f(a._x, a._y, a._z);
         glEnd();
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::drawBBox(const iAACubed &bbox)
@@ -441,7 +419,6 @@ namespace igor
         glVertex3f(b._x, b._y, b._z);
 
         glEnd();
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::drawBBox(const iAABoxd &bbox)
@@ -489,7 +466,6 @@ namespace igor
         glVertex3f(b._x, b._y, b._z);
 
         glEnd();
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::drawFilledBox(const iaVector3f &a, const iaVector3f &b)
@@ -537,7 +513,6 @@ namespace igor
         glVertex3f(b._x, b._y, b._z);
         glVertex3f(b._x, b._y, a._z);
         glEnd();
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::drawLineStrip(const std::vector<iaVector3f> &line)
@@ -550,7 +525,6 @@ namespace igor
         }
 
         glEnd();
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::drawLine(const iaVector3f &a, const iaVector3f &b)
@@ -559,7 +533,6 @@ namespace igor
         glVertex3f(a._x, a._y, a._z);
         glVertex3f(b._x, b._y, b._z);
         glEnd();
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::drawBillboard(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture, float32 texScaleU, float32 texScaleV)
@@ -579,7 +552,6 @@ namespace igor
         glTexCoord2f(0, 0);
         glVertex3fv((o + v - u).getData());
         glEnd();
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::drawBillboard(const iaVector3f &o, const iaVector3f &u, const iaVector3f &v, iTexturePtr texture)
@@ -599,7 +571,6 @@ namespace igor
         glTexCoord2f(0, 0);
         glVertex3fv((o + v - u).getData());
         glEnd();
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::setOrtho(float32 left, float32 right, float32 bottom, float32 top, float32 nearplain, float32 farplain)
@@ -607,13 +578,12 @@ namespace igor
         _projectionMatrix.ortho(left, right, bottom, top, nearplain, farplain);
 
         glMatrixMode(GL_PROJECTION);
-        GL_CHECK_ERROR();
+
         glLoadIdentity();
-        GL_CHECK_ERROR();
+
         glMultMatrixd(_projectionMatrix.getData());
-        GL_CHECK_ERROR();
+
         glMatrixMode(GL_MODELVIEW);
-        GL_CHECK_ERROR();
 
         _dirtyModelViewProjectionMatrix = true;
     }
@@ -621,13 +591,11 @@ namespace igor
     void iRenderer::setClearColor(const iaColor4f &color)
     {
         glClearColor(color._r, color._g, color._b, color._a);
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::setClearDepth(float32 depth)
     {
         glClearDepth(depth);
-        GL_CHECK_ERROR();
     }
 
     GLenum getOGLEnum(iRenderStateValue value)
@@ -697,13 +665,11 @@ namespace igor
     void iRenderer::setStencilFunction(iRenderStateValue function, int32 ref, uint32 mask)
     {
         glStencilFunc(getOGLEnum(function), ref, mask);
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::setStencilOperation(iRenderStateValue fail, iRenderStateValue zfail, iRenderStateValue zpass)
     {
         glStencilOp(getOGLEnum(fail), getOGLEnum(zfail), getOGLEnum(zpass));
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::enableStencilTest(bool enable)
@@ -711,12 +677,10 @@ namespace igor
         if (enable)
         {
             glEnable(GL_STENCIL_TEST);
-            GL_CHECK_ERROR();
         }
         else
         {
             glDisable(GL_STENCIL_TEST);
-            GL_CHECK_ERROR();
         }
     }
 
@@ -728,19 +692,16 @@ namespace igor
     void iRenderer::clearColorBuffer()
     {
         glClear(GL_COLOR_BUFFER_BIT);
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::clearDepthBuffer()
     {
         glClear(GL_DEPTH_BUFFER_BIT);
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::clearStencilBuffer()
     {
         glClear(GL_STENCIL_BUFFER_BIT);
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::getProjectionMatrix(iaMatrixd &matrix)
@@ -753,13 +714,12 @@ namespace igor
         _projectionMatrix = matrix;
 
         glMatrixMode(GL_PROJECTION);
-        GL_CHECK_ERROR();
+
         glLoadIdentity();
-        GL_CHECK_ERROR();
+
         glMultMatrixd(_projectionMatrix.getData());
-        GL_CHECK_ERROR();
+
         glMatrixMode(GL_MODELVIEW);
-        GL_CHECK_ERROR();
 
         _dirtyModelViewProjectionMatrix = true;
     }
@@ -777,7 +737,6 @@ namespace igor
         _viewport.setHeight(height);
 
         glViewport(x, y, width, height);
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::readPixels(int32 x, int32 y, int32 width, int32 height, iColorFormat format, uint8 *data)
@@ -794,7 +753,6 @@ namespace igor
             glReadBuffer(GL_COLOR_ATTACHMENT0);
         }
         glReadPixels(x, y, width, height, glformat, GL_UNSIGNED_BYTE, data);
-        GL_CHECK_ERROR();
     }
 
     iRendererTexture *iRenderer::createTexture(int32 width, int32 height, int32 bytepp, iColorFormat format, unsigned char *data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
@@ -809,53 +767,48 @@ namespace igor
 
         result = new iRendererTexture();
         glGenTextures(1, (GLuint *)&(result->_id));
-        GL_CHECK_ERROR();
+
         glBindTexture(GL_TEXTURE_2D, result->_id);
-        GL_CHECK_ERROR();
 
         switch (wrapMode)
         {
         case iTextureWrapMode::Repeat:
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-            GL_CHECK_ERROR();
+
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-            GL_CHECK_ERROR();
+
             break;
 
         case iTextureWrapMode::Clamp:
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-            GL_CHECK_ERROR();
+
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-            GL_CHECK_ERROR();
+
             break;
 
         case iTextureWrapMode::MirrorRepeat:
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
-            GL_CHECK_ERROR();
+
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
-            GL_CHECK_ERROR();
+
             break;
         }
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        GL_CHECK_ERROR();
 
         if (buildMode == iTextureBuildMode::Normal)
         {
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-            GL_CHECK_ERROR();
+
             glTexImage2D(GL_TEXTURE_2D, 0, bytepp, width, height, 0, glformat, GL_UNSIGNED_BYTE, data);
-            GL_CHECK_ERROR();
         }
         else
         {
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-            GL_CHECK_ERROR();
+
             gluBuild2DMipmaps(GL_TEXTURE_2D, bytepp, width, height, glformat, GL_UNSIGNED_BYTE, data);
-            GL_CHECK_ERROR();
         }
         glFinish();
-        GL_CHECK_ERROR();
 
         return result;
     }
@@ -881,7 +834,6 @@ namespace igor
             if (glIsTexture(texId))
             {
                 glDeleteTextures(1, &texId);
-                GL_CHECK_ERROR();
             }
 
             delete texture;
@@ -891,25 +843,21 @@ namespace igor
     void iRenderer::bindTexture(iTexturePtr texture, uint32 textureunit)
     {
         glActiveTexture(GL_TEXTURE0 + textureunit);
-        GL_CHECK_ERROR();
 
         if (texture != nullptr)
         {
             if (!texture->isDummy())
             {
                 glBindTexture(GL_TEXTURE_2D, (texture->_rendererTexture)->_id);
-                GL_CHECK_ERROR();
             }
             else
             {
                 glBindTexture(GL_TEXTURE_2D, _dummyTextureID);
-                GL_CHECK_ERROR();
             }
         }
         else
         {
             glBindTexture(GL_TEXTURE_2D, 0);
-            GL_CHECK_ERROR();
         }
     }
 
@@ -934,7 +882,6 @@ namespace igor
         _modelViewMatrix *= _modelMatrix;
 
         glLoadMatrixd(_modelViewMatrix.getData());
-        GL_CHECK_ERROR();
 
         _dirtyModelViewProjectionMatrix = true;
     }
@@ -950,7 +897,6 @@ namespace igor
         _modelViewMatrix *= _modelMatrix;
 
         glLoadMatrixd(_modelViewMatrix.getData());
-        GL_CHECK_ERROR();
 
         _dirtyModelViewProjectionMatrix = true;
     }
@@ -991,7 +937,6 @@ namespace igor
         _modelViewMatrix *= _modelMatrix;
 
         glLoadMatrixd(_modelViewMatrix.getData());
-        GL_CHECK_ERROR();
 
         _dirtyModelViewProjectionMatrix = true;
     }
@@ -1029,7 +974,6 @@ namespace igor
             color[3] = 1.0f;
 
             glUniform4fv(_currentMaterial->_matSolidColor, 1, static_cast<GLfloat *>(color));
-            GL_CHECK_ERROR();
         }
     }
 
@@ -1040,17 +984,16 @@ namespace igor
             if (_currentMaterial->_hasTargetMaterial)
             {
                 glUniform3fv(_currentMaterial->_matAmbient, 1, static_cast<GLfloat *>(targetMaterial->getAmbient().getData()));
-                GL_CHECK_ERROR();
+
                 glUniform3fv(_currentMaterial->_matDiffuse, 1, static_cast<GLfloat *>(targetMaterial->getDiffuse().getData()));
-                GL_CHECK_ERROR();
+
                 glUniform3fv(_currentMaterial->_matSpecular, 1, static_cast<GLfloat *>(targetMaterial->getSpecular().getData()));
-                GL_CHECK_ERROR();
+
                 glUniform3fv(_currentMaterial->_matSpecular, 1, static_cast<GLfloat *>(targetMaterial->getEmissive().getData()));
-                GL_CHECK_ERROR();
+
                 glUniform1f(_currentMaterial->_matShininess, targetMaterial->getShininess());
-                GL_CHECK_ERROR();
+
                 glUniform1f(_currentMaterial->_matAlpha, targetMaterial->getAlpha());
-                GL_CHECK_ERROR();
             }
 
             if (targetMaterial->hasTextureUnit(0) &&
@@ -1131,88 +1074,81 @@ namespace igor
 
         if (_currentMaterial != nullptr)
         {
-            if (_loggingActive)
-            {
-                con_endl("setMaterial " << _currentMaterial->getName());
-            }
-
             _currentMaterial->activateShader();
 
             iRenderStateSet &stateset = _currentMaterial->getRenderStateSet();
             (stateset._renderStates[static_cast<unsigned int>(iRenderState::DepthTest)] == iRenderStateValue::On) ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
-            GL_CHECK_ERROR();
+
             (stateset._renderStates[static_cast<unsigned int>(iRenderState::DepthMask)] == iRenderStateValue::On) ? glDepthMask(GL_TRUE) : glDepthMask(GL_FALSE);
-            GL_CHECK_ERROR();
+
             (stateset._renderStates[static_cast<unsigned int>(iRenderState::Blend)] == iRenderStateValue::On) ? glEnable(GL_BLEND) : glDisable(GL_BLEND);
-            GL_CHECK_ERROR();
+
             (stateset._renderStates[static_cast<unsigned int>(iRenderState::CullFace)] == iRenderStateValue::On) ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
-            GL_CHECK_ERROR();
 
             glActiveTexture(GL_TEXTURE0);
             (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D0)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-            GL_CHECK_ERROR();
+
             glActiveTexture(GL_TEXTURE1);
             (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D1)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-            GL_CHECK_ERROR();
+
             glActiveTexture(GL_TEXTURE2);
             (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D2)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-            GL_CHECK_ERROR();
+
             glActiveTexture(GL_TEXTURE3);
             (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D3)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-            GL_CHECK_ERROR();
+
             glActiveTexture(GL_TEXTURE4);
             (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D4)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-            GL_CHECK_ERROR();
+
             glActiveTexture(GL_TEXTURE5);
             (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D5)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-            GL_CHECK_ERROR();
+
             glActiveTexture(GL_TEXTURE6);
             (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D6)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-            GL_CHECK_ERROR();
+
             glActiveTexture(GL_TEXTURE7);
             (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D7)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);
-            GL_CHECK_ERROR();
 
             switch (stateset._renderStates[static_cast<unsigned int>(iRenderState::DepthFunc)])
             {
             case iRenderStateValue::Less:
                 glDepthFunc(GL_LESS);
-                GL_CHECK_ERROR();
+
                 break;
 
             case iRenderStateValue::LessOrEqual:
                 glDepthFunc(GL_LEQUAL);
-                GL_CHECK_ERROR();
+
                 break;
 
             case iRenderStateValue::Never:
                 glDepthFunc(GL_NEVER);
-                GL_CHECK_ERROR();
+
                 break;
 
             case iRenderStateValue::Equal:
                 glDepthFunc(GL_EQUAL);
-                GL_CHECK_ERROR();
+
                 break;
 
             case iRenderStateValue::Greater:
                 glDepthFunc(GL_GREATER);
-                GL_CHECK_ERROR();
+
                 break;
 
             case iRenderStateValue::NotEqual:
                 glDepthFunc(GL_NOTEQUAL);
-                GL_CHECK_ERROR();
+
                 break;
 
             case iRenderStateValue::GreaterOrEqual:
                 glDepthFunc(GL_GEQUAL);
-                GL_CHECK_ERROR();
+
                 break;
 
             case iRenderStateValue::Always:
                 glDepthFunc(GL_ALWAYS);
-                GL_CHECK_ERROR();
+
                 break;
             }
 
@@ -1220,28 +1156,25 @@ namespace igor
             {
             case iRenderStateValue::Front:
                 glCullFace(GL_FRONT);
-                GL_CHECK_ERROR();
+
                 break;
 
             case iRenderStateValue::Back:
                 glCullFace(GL_BACK);
-                GL_CHECK_ERROR();
+
                 break;
             }
 
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-            GL_CHECK_ERROR();
 
             if (stateset._renderStates[static_cast<unsigned int>(iRenderState::Wireframe)] == iRenderStateValue::On ||
                 forceWireframe)
             {
                 glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-                GL_CHECK_ERROR();
             }
             else
             {
                 glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-                GL_CHECK_ERROR();
             }
         }
     }
@@ -1258,7 +1191,6 @@ namespace igor
             angle += step;
         }
         glEnd();
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::drawFilledCircle(float32 x, float32 y, float32 radius, int segments)
@@ -1267,7 +1199,6 @@ namespace igor
         float32 angle = 0;
 
         glBegin(GL_TRIANGLE_FAN);
-
         glVertex2f(x, y);
 
         for (int i = 0; i < segments; ++i)
@@ -1278,7 +1209,6 @@ namespace igor
         glVertex2f(x + radius, y);
 
         glEnd();
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::drawRectangle(float32 x, float32 y, float32 width, float32 height)
@@ -1289,7 +1219,6 @@ namespace igor
         glVertex2f(x + width, y + height);
         glVertex2f(x + width, y);
         glEnd();
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::drawFilledRectangle(float32 x, float32 y, float32 width, float32 height)
@@ -1300,7 +1229,6 @@ namespace igor
         glVertex2f(x + width, y + height);
         glVertex2f(x + width, y);
         glEnd();
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::drawTextureTiled(float32 x, float32 y, float32 width, float32 height, iTexturePtr texture)
@@ -1320,7 +1248,6 @@ namespace igor
         glTexCoord2f(1.0f * scaleX, 0.0f);
         glVertex2f(x + width, y);
         glEnd();
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::drawTexture(float32 x, float32 y, float32 width, float32 height, iTexturePtr texture)
@@ -1337,7 +1264,6 @@ namespace igor
         glTexCoord2f(1.0f, 0.0f);
         glVertex2f(x + width, y);
         glEnd();
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::drawTexture(float32 x, float32 y, iTexturePtr texture)
@@ -1354,7 +1280,6 @@ namespace igor
         glTexCoord2f(0.0f, 0.0f);
         glVertex2f(x, y + texture->getHeight());
         glEnd();
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::drawSprite(const iAtlas *sprite, uint32 frameIndex, const iaVector2f &pos)
@@ -1381,7 +1306,6 @@ namespace igor
         glTexCoord2f(frame._pos._x, frame._pos._y);
         glVertex2f(position._x, position._y);
         glEnd();
-        GL_CHECK_ERROR();
     }
 
     iRenderTargetID iRenderer::createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer)
@@ -1396,14 +1320,13 @@ namespace igor
             GLuint colorRenderBuffer;
             GLuint depthRenderBuffer;
             glGenFramebuffersEXT(1, &fbo);
-            GL_CHECK_ERROR();
+
             glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fbo);
-            GL_CHECK_ERROR();
 
             glGenRenderbuffersEXT(1, &colorRenderBuffer);
-            GL_CHECK_ERROR();
+
             glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, colorRenderBuffer);
-            GL_CHECK_ERROR();
+
             glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_RGBA8, width, height);
             glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_RENDERBUFFER_EXT, colorRenderBuffer);
 
@@ -1421,11 +1344,10 @@ namespace igor
 
                 // clean up again
                 glDeleteRenderbuffersEXT(1, &colorRenderBuffer);
-                GL_CHECK_ERROR();
+
                 if (useDepthBuffer)
                 {
                     glDeleteRenderbuffersEXT(1, &depthRenderBuffer);
-                    GL_CHECK_ERROR();
                 }
                 glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
                 glDeleteFramebuffersEXT(1, &fbo);
@@ -1467,16 +1389,14 @@ namespace igor
             iRendererTarget renderTarget = (*iter).second;
 
             glDeleteRenderbuffersEXT(1, (GLuint *)&renderTarget._colorBuffer);
-            GL_CHECK_ERROR();
+
             if (renderTarget._hasDepth)
             {
                 glDeleteRenderbuffersEXT(1, (GLuint *)&renderTarget._depthBuffer);
-                GL_CHECK_ERROR();
             }
 
             glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
             glDeleteFramebuffersEXT(1, (GLuint *)&renderTarget._frameBufferObject);
-            GL_CHECK_ERROR();
 
             // restore current render target
             glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _currentRenderTarget);
@@ -1493,7 +1413,7 @@ namespace igor
     {
         // the ID is also the frame buffer object ID
         glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, id);
-        GL_CHECK_ERROR();
+
         _currentRenderTarget = id;
     }
 
@@ -1507,7 +1427,6 @@ namespace igor
         if (glIsBuffer(bufferID))
         {
             glDeleteBuffers(1, (GLuint *)&bufferID);
-            GL_CHECK_ERROR();
         }
     }
 
@@ -1516,7 +1435,6 @@ namespace igor
         if (glIsBuffer(bufferID))
         {
             glDeleteVertexArrays(1, (GLuint *)&bufferID);
-            GL_CHECK_ERROR();
         }
     }
 
@@ -1580,46 +1498,43 @@ namespace igor
         uint32 vbo = 0;
 
         glGenVertexArrays(1, (GLuint *)&vao);
-        GL_CHECK_ERROR();
+
         meshBuffers->setVertexArrayObject(vao);
         glBindVertexArray(meshBuffers->getVertexArrayObject());
-        GL_CHECK_ERROR();
 
         if (mesh->getIndexData() != nullptr)
         {
             glGenBuffers(1, (GLuint *)&ibo);
-            GL_CHECK_ERROR();
+
             meshBuffers->setIndexBufferObject(ibo);
 
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshBuffers->getIndexBufferObject());
-            GL_CHECK_ERROR();
+
             glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh->getIndexDataSize(), mesh->getIndexData(), GL_STATIC_DRAW);
-            GL_CHECK_ERROR();
         }
 
         glGenBuffers(1, (GLuint *)&vbo);
-        GL_CHECK_ERROR();
+
         meshBuffers->setVertexBufferObject(vbo);
         glBindBuffer(GL_ARRAY_BUFFER, meshBuffers->getVertexBufferObject());
-        GL_CHECK_ERROR();
+
         glBufferData(GL_ARRAY_BUFFER, mesh->getVertexDataSize(), mesh->getVertexData(), GL_STATIC_DRAW);
-        GL_CHECK_ERROR();
 
         uint32 location = 0;
         uint32 offset = 0;
 
         glEnableVertexAttribArray(0);
-        GL_CHECK_ERROR();
+
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, mesh->getVertexSize(), BUFFER_OFFSET(offset));
-        GL_CHECK_ERROR();
+
         offset += 3 * sizeof(float32);
 
         if (mesh->hasNormals())
         {
             glEnableVertexAttribArray(1);
-            GL_CHECK_ERROR();
+
             glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, mesh->getVertexSize(), BUFFER_OFFSET(offset));
-            GL_CHECK_ERROR();
+
             offset += 3 * sizeof(float32);
         }
 
@@ -1628,9 +1543,9 @@ namespace igor
             if (mesh->hasTextureUnit(i))
             {
                 glEnableVertexAttribArray(2 + i);
-                GL_CHECK_ERROR();
+
                 glVertexAttribPointer(2 + i, 2, GL_FLOAT, GL_FALSE, mesh->getVertexSize(), BUFFER_OFFSET(offset));
-                GL_CHECK_ERROR();
+
                 offset += 2 * sizeof(float32);
             }
         }
@@ -1659,11 +1574,10 @@ namespace igor
             uint32 instanceArrayObject = 0;
 
             glGenBuffers(1, (GLuint *)&instanceArrayObject);
-            GL_CHECK_ERROR();
+
             glBindBuffer(GL_ARRAY_BUFFER, instanceArrayObject);
-            GL_CHECK_ERROR();
+
             glBufferData(GL_ARRAY_BUFFER, instancer->getInstanceDataBufferSize(), nullptr, GL_DYNAMIC_DRAW);
-            GL_CHECK_ERROR();
 
             instancer->setInstanceArrayObject(instanceArrayObject);
         }
@@ -1671,11 +1585,6 @@ namespace igor
 
     void iRenderer::drawMesh(iMeshBuffersPtr meshBuffers, iInstancer *instancer)
     {
-        if (_loggingActive)
-        {
-            con_endl("drawMesh instances:" << instancer->getInstanceCount() << " triangles " << meshBuffers->getTrianglesCount());
-        }
-
         iaMatrixd idMatrix;
         setModelMatrix(idMatrix);
 
@@ -1684,30 +1593,26 @@ namespace igor
         writeShaderParameters();
 
         glBindVertexArray(meshBuffers->getVertexArrayObject());
-        GL_CHECK_ERROR();
 
         glBindBuffer(GL_ARRAY_BUFFER, instancer->getInstanceArrayObject());
-        GL_CHECK_ERROR();
 
         glBufferSubData(GL_ARRAY_BUFFER, 0, instancer->getInstanceSize() * instancer->getInstanceCount(), instancer->getInstanceDataBuffer());
-        GL_CHECK_ERROR();
 
         glEnableVertexAttribArray(3);
-        GL_CHECK_ERROR();
+
         glEnableVertexAttribArray(4);
-        GL_CHECK_ERROR();
+
         glEnableVertexAttribArray(5);
-        GL_CHECK_ERROR();
+
         glEnableVertexAttribArray(6);
-        GL_CHECK_ERROR();
+
         glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(0 * sizeof(float32)));
-        GL_CHECK_ERROR();
+
         glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(4 * sizeof(float32)));
-        GL_CHECK_ERROR();
+
         glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(8 * sizeof(float32)));
-        GL_CHECK_ERROR();
+
         glVertexAttribPointer(6, 4, GL_FLOAT, GL_FALSE, instancer->getInstanceSize(), (void *)(12 * sizeof(float32)));
-        GL_CHECK_ERROR();
 
         glVertexAttribDivisor(3, 1);
         glVertexAttribDivisor(4, 1);
@@ -1715,10 +1620,8 @@ namespace igor
         glVertexAttribDivisor(6, 1);
 
         glDrawElementsInstancedARB(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, 0, instancer->getInstanceCount());
-        GL_CHECK_ERROR();
 
         glBindVertexArray(0);
-        GL_CHECK_ERROR();
 
         _stats._indicesInstanced += meshBuffers->getIndexesCount() * instancer->getInstanceCount();
         _stats._trianglesInstanced += meshBuffers->getTrianglesCount() * instancer->getInstanceCount();
@@ -1728,7 +1631,7 @@ namespace igor
     int32 iRenderer::getShaderPropertyID(uint32 programID, const char *name)
     {
         int32 result = glGetUniformLocation(programID, name);
-        GL_CHECK_ERROR();
+
         return result;
     }
 
@@ -1739,20 +1642,15 @@ namespace igor
             if (_currentMaterial->_hasDirectionalLight)
             {
                 glUniform3fv(_currentMaterial->_lightOrientation, 1, static_cast<GLfloat *>(_lights[0]._position.getData()));
-                GL_CHECK_ERROR();
                 glUniform3fv(_currentMaterial->_lightAmbient, 1, static_cast<GLfloat *>(_lights[0]._ambient.getData()));
-                GL_CHECK_ERROR();
                 glUniform3fv(_currentMaterial->_lightDiffuse, 1, static_cast<GLfloat *>(_lights[0]._diffuse.getData()));
-                GL_CHECK_ERROR();
                 glUniform3fv(_currentMaterial->_lightSpecular, 1, static_cast<GLfloat *>(_lights[0]._specular.getData()));
-                GL_CHECK_ERROR();
             }
 
             if (_currentMaterial->_hasEyePosition)
             {
                 iaVector3f eyePosition(_camWorldMatrix._pos._x, _camWorldMatrix._pos._y, _camWorldMatrix._pos._z);
                 glUniform3fv(_currentMaterial->_eyePosition, 1, static_cast<GLfloat *>(eyePosition.getData()));
-                GL_CHECK_ERROR();
             }
 
             if (_currentMaterial->_hasModelViewProjectionMatrix)
@@ -1764,7 +1662,6 @@ namespace igor
                     modelViewProjection[i] = _modelViewProjectionMatrix[i];
                 }
                 glUniformMatrix4fv(_currentMaterial->_mvp_matrix, 1, false, modelViewProjection.getData());
-                GL_CHECK_ERROR();
             }
 
             if (_currentMaterial->_hasModelMatrix)
@@ -1775,7 +1672,6 @@ namespace igor
                     model[i] = _modelMatrix[i];
                 }
                 glUniformMatrix4fv(_currentMaterial->_model_matrix, 1, false, model.getData());
-                GL_CHECK_ERROR();
             }
         }
     }
@@ -1785,13 +1681,8 @@ namespace igor
         writeShaderParameters();
 
         glBindVertexArray(meshBuffers->getVertexArrayObject());
-        GL_CHECK_ERROR();
-
         glDrawElements(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, 0);
-        GL_CHECK_ERROR();
-
         glBindVertexArray(0);
-        GL_CHECK_ERROR();
 
         _stats._vertices += meshBuffers->getVertexCount();
         _stats._indices += meshBuffers->getIndexesCount();
@@ -1803,7 +1694,6 @@ namespace igor
         glBegin(GL_POINTS);
         glVertex2f(x, y);
         glEnd();
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::drawLine(float32 x1, float32 y1, float32 x2, float32 y2)
@@ -1812,7 +1702,6 @@ namespace igor
         glVertex2f(x1, y1);
         glVertex2f(x2, y2);
         glEnd();
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::setColorExt(iaColor4f color)
@@ -1823,7 +1712,6 @@ namespace igor
             {
                 uint32 program = _currentMaterial->getShader()->getProgram();
                 glUniform4fv(_currentMaterial->_matSolidColor, 1, static_cast<GLfloat *>(color.getData()));
-                GL_CHECK_ERROR();
             }
         }
     }
@@ -1832,7 +1720,6 @@ namespace igor
     {
         _color = color;
         glColor4f(_color._r, _color._g, _color._b, _color._a);
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::setColor(float32 r, float32 g, float32 b, float32 a)
@@ -1842,7 +1729,6 @@ namespace igor
         _color._b = b;
         _color._a = a;
         glColor4f(_color._r, _color._g, _color._b, _color._a);
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::setFont(iTextureFont *font)
@@ -1932,9 +1818,9 @@ namespace igor
             bindTexture(_font->getTexture(), 0);
 
             glPushMatrix();
-            GL_CHECK_ERROR();
+
             glTranslatef(x, y, 0);
-            GL_CHECK_ERROR();
+
             glRotatef(-angle, 0, 0, 1);
 
             glBegin(GL_QUADS);
@@ -2000,9 +1886,8 @@ namespace igor
             }
 
             glEnd();
-            GL_CHECK_ERROR();
+
             glPopMatrix();
-            GL_CHECK_ERROR();
         }
     }
 
@@ -2011,28 +1896,24 @@ namespace igor
         // TODO fix with world offset
         _lights[lightnum]._position.set(pos._x, pos._y, pos._z, pos._w);
         glLightfv(GL_LIGHT0 + lightnum, GL_POSITION, _lights[lightnum]._position.getData());
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::setLightAmbient(int32 lightnum, iaColor4f &ambient)
     {
         _lights[lightnum]._ambient = ambient;
         glLightfv(GL_LIGHT0 + lightnum, GL_AMBIENT, (GLfloat *)ambient.getData());
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::setLightDiffuse(int32 lightnum, iaColor4f &diffuse)
     {
         _lights[lightnum]._diffuse = diffuse;
         glLightfv(GL_LIGHT0 + lightnum, GL_DIFFUSE, (GLfloat *)diffuse.getData());
-        GL_CHECK_ERROR();
     }
 
     void iRenderer::setLightSpecular(int32 lightnum, iaColor4f &specular)
     {
         _lights[lightnum]._specular = specular;
         glLightfv(GL_LIGHT0 + lightnum, GL_SPECULAR, (GLfloat *)specular.getData());
-        GL_CHECK_ERROR();
     }
 
     /*!
@@ -2044,9 +1925,9 @@ namespace igor
         iaColor4f color;
 
         glPushMatrix();
-        GL_CHECK_ERROR();
+
         glTranslatef(x, y, 0);
-        GL_CHECK_ERROR();
+
         glRotatef(-angle, 0, 0, 1);
 
         glBegin(GL_QUADS);
@@ -2100,9 +1981,8 @@ namespace igor
         }
 
         glEnd();
-        GL_CHECK_ERROR();
+
         glPopMatrix();
-        GL_CHECK_ERROR();
 
         // todo maybe we should count this during cull process
         _stats._vertices += particleCount * 4;
@@ -2189,7 +2069,6 @@ namespace igor
         }
 
         glEnd();
-        GL_CHECK_ERROR();
 
         // todo maybe we should count this during cull process
         _stats._vertices += static_cast<uint32>(particles.size()) * 4;
@@ -2269,7 +2148,6 @@ namespace igor
         }
 
         glEnd();
-        GL_CHECK_ERROR();
 
         // todo maybe we should count this during cull process
         _stats._vertices += static_cast<uint32>(particles.size()) * 4;

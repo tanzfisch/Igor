@@ -47,10 +47,6 @@ using namespace iaux;
     #define IGOR_API_TEMPLATE
 #endif
 
-#ifdef DEEP_PROFILING
-    #define IGOR_DEEP_PROFILING
-#endif
-
 //! Igor configuration short
 extern const iaString __IGOR_CONFIGURATION__;
 
