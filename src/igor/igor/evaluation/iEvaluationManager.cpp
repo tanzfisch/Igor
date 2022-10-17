@@ -62,7 +62,7 @@ namespace igor
 
     void iEvaluationManager::handle()
     {
-        IGOR_PROFILER(eval);
+        IGOR_PROFILER_SCOPED(eval);
         
         iaTime time = iTimer::getInstance().getTime();
 

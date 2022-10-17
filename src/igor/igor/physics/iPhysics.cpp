@@ -506,7 +506,7 @@ namespace igor
 
     void iPhysics::handle()
     {
-        IGOR_PROFILER(phy);
+        IGOR_PROFILER_SCOPED(phy);
         
         if (_running)
         {

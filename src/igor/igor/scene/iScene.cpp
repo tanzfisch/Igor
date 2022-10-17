@@ -260,6 +260,8 @@ namespace igor
 
     void iScene::handle()
     {
+        IGOR_PROFILER_SCOPED(scene);
+
         // todo can not stay here. need to reduce update effort per frame. event based would be nice
         updateLOD();
         updateData();

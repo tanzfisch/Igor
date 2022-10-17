@@ -246,7 +246,7 @@ namespace igor
 
         void swapBuffers() override
         {
-            IGOR_PROFILER(swap);
+            IGOR_PROFILER_SCOPED(swap);
             SwapBuffers(_hDC);
         }
 
@@ -770,7 +770,7 @@ namespace igor
 
         void swapBuffers() override
         {
-            IGOR_PROFILER(swap);
+            IGOR_PROFILER_SCOPED(swap);
             _glxMutex.lock();
             glXSwapBuffers(_display, glXGetCurrentDrawable());
             _glxMutex.unlock();

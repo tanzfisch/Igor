@@ -10,44 +10,15 @@
 
 namespace igor
 {
-    std::unordered_map<int64, iProfilerSection> iProfiler::_sections;
-
+    std::unordered_map<int64, iProfilerSectionData> iProfiler::_sections;
     int32 iProfiler::_frame = 0;
-
-    iProfiler::iProfiler(const iaString &sectionName)
-    {
-        int64 hash = sectionName.getHashValue();
-
-        auto iter = _sections.find(hash);
-
-        if (iter == _sections.end())
-        {
-            auto &section = _sections[hash] = iProfilerSection();
-            section._name = sectionName;
-            memset(&section._values, 0, sizeof(iaTime) * MAX_FRAMES_COUNT);
-
-            _section = &section;
-        }
-        else
-        {
-            _section = &(iter->second);
-        }
-
-        _section->_values[_frame] = 0;
-        _section->_beginTime = iaTime::getNow();
-    }
-
-    iProfiler::~iProfiler()
-    {
-        _section->_values[_frame] += iaTime::getNow() - _section->_beginTime;
-    }
 
     void iProfiler::nextFrame()
     {
         _frame = (_frame + 1) % MAX_FRAMES_COUNT;
     }
 
-    const std::unordered_map<int64, iProfilerSection> &iProfiler::getSections()
+    const std::unordered_map<int64, iProfilerSectionData> &iProfiler::getSections()
     {
         return _sections;
     }
@@ -55,6 +26,55 @@ namespace igor
     int32 iProfiler::getCurrentFrameIndex()
     {
         return _frame;
+    }
+
+    iProfilerSectionData *iProfiler::getSectionData(const iaString &sectionName)
+    {
+        iProfilerSectionData *sectionData;
+        int64 hash = sectionName.getHashValue();
+        auto iter = iProfiler::_sections.find(hash);
+        if (iter == iProfiler::_sections.end())
+        {
+            auto &section = iProfiler::_sections[hash] = iProfilerSectionData();
+            section._name = sectionName;
+            memset(&section._values, 0, sizeof(iaTime) * iProfiler::MAX_FRAMES_COUNT);
+
+            sectionData = &section;
+        }
+        else
+        {
+            sectionData = &(iter->second);
+        }
+
+        return sectionData;
+    }
+
+    void iProfiler::beginSection(const iaString &sectionName)
+    {
+        iProfilerSectionData *sectionData = getSectionData(sectionName);
+
+        sectionData->_values[iProfiler::_frame] = 0;
+        sectionData->_beginTime = iaTime::getNow();
+    }
+
+    void iProfiler::endSection(const iaString &sectionName)
+    {
+        iaTime now = iaTime::getNow();
+
+        iProfilerSectionData *sectionData = getSectionData(sectionName);
+
+        sectionData->_values[iProfiler::_frame] += now - sectionData->_beginTime;
+    }
+
+    iProfilerSectionScoped::iProfilerSectionScoped(const iaString &sectionName)
+    : _sectionName(sectionName)
+    {
+        iProfiler::beginSection(_sectionName);
+    }
+
+    iProfilerSectionScoped::~iProfilerSectionScoped()
+    {
+        iProfiler::endSection(_sectionName);
     }
 
 } // namespace igor

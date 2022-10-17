@@ -142,14 +142,13 @@ namespace igor
         iaLogLevel logLevel;
         iProfiler::nextFrame();
 
-        {
-            IGOR_PROFILER(app);
-            iTimer::getInstance().handle();
-            iNodeManager::getInstance().handle();
-            windowHandle();
-            dispatch();
-            preDraw();
-        }
+        IGOR_PROFILER_BEGIN(app);
+        iTimer::getInstance().handle();
+        iNodeManager::getInstance().handle();
+        windowHandle();
+        dispatch();
+        preDraw();
+        IGOR_PROFILER_END(app);
 
         iEvaluationManager::getInstance().handle();
         iPhysics::getInstance().handle();

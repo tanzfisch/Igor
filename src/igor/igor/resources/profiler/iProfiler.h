@@ -40,7 +40,7 @@ using namespace iaux;
 
 namespace igor
 {
-    struct iProfilerSection
+    struct IGOR_API iProfilerSectionData
     {
         /*! name of section
          */
@@ -55,22 +55,32 @@ namespace igor
         iaTime _beginTime;
     };
 
+    struct IGOR_API iProfilerSectionScoped
+    {
+        /*! begins measuring section
+
+        \param sectionName name of section
+         */
+        iProfilerSectionScoped(const iaString &sectionName);
+
+        /*! stops measuring section
+         */
+        ~iProfilerSectionScoped();
+
+    private:
+        /*! the section name
+         */
+        iaString _sectionName;
+    };
+
     /*! render statistics
      */
     class IGOR_API iProfiler
     {
 
+        friend class iProfilerSectionScoped;
+
     public:
-        /*! begins measuring section
-
-        \param sectionName name of section
-         */
-        iProfiler(const iaString &sectionName);
-
-        /*! stops measuring section
-         */
-        ~iProfiler();
-
         /*! size of buffer aka amount of frames that are logged
          */
         static const uint64 MAX_FRAMES_COUNT = 500;
@@ -83,27 +93,44 @@ namespace igor
 
         be carefull to not change that list
         */
-        static const std::unordered_map<int64, iProfilerSection> &getSections();
+        static const std::unordered_map<int64, iProfilerSectionData> &getSections();
 
         /*! \returns current frame index
          */
         static int32 getCurrentFrameIndex();
 
-    private:
-        /*! section in use
-         */
-        iProfilerSection *_section;
+        /*! \returns section data for given section name
 
+        \param sectionName the given section name
+        */
+        static iProfilerSectionData *getSectionData(const iaString &sectionName);
+
+        /*! begins section with given name
+
+        \param sectionName the given name
+        \returns pointer to given section data
+        */
+        static void beginSection(const iaString &sectionName);
+
+        /*! ends section with given name
+
+        \param sectionName the given name
+        */
+        static void endSection(const iaString &sectionName);
+
+    private:
         /*! current frame
          */
         static int32 _frame;
 
         /*! list of sections
          */
-        static std::unordered_map<int64, iProfilerSection> _sections;
+        static std::unordered_map<int64, iProfilerSectionData> _sections;
     };
 
-#define IGOR_PROFILER(sectionName) iProfiler sectionName(#sectionName)
+#define IGOR_PROFILER_SCOPED(sectionName) iProfilerSectionScoped sectionName(#sectionName)
+#define IGOR_PROFILER_BEGIN(sectionName) iProfiler::beginSection(#sectionName)
+#define IGOR_PROFILER_END(sectionName) iProfiler::endSection(#sectionName)
 
 } // namespace igor
 

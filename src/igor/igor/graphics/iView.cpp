@@ -169,8 +169,7 @@ namespace igor
     void iView::draw()
     {
         if (_scene != nullptr)
-        {
-            IGOR_PROFILER(scene);
+        {            
             _scene->handle();
         }
 
@@ -205,7 +204,7 @@ namespace igor
             }
 
             {
-                IGOR_PROFILER(udraw);
+                IGOR_PROFILER_SCOPED(udraw);
                 _renderEvent();
             }
         }
