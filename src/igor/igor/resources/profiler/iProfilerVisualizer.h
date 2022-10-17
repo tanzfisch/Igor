@@ -93,13 +93,6 @@ namespace igor
         virtual ~iProfilerVisualizer();
 
     private:
-        /*! number of predefined colors
-        */
-        static const uint32 _colorCount = 25;
-
-        /*! array of predefined colors
-        */
-        static const iaColor4f _colors[_colorCount];
 
         /*! accumulation buffer
         */

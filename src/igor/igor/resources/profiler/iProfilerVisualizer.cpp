@@ -19,7 +19,7 @@ using namespace iaux;
 namespace igor
 {
 
-    const iaColor4f iProfilerVisualizer::_colors[] =
+    static const iaColor4f COLORS[] =
         {
             iaColor4f(1, 0, 0, 1),
             iaColor4f(0, 1, 0, 1),
@@ -29,12 +29,12 @@ namespace igor
             iaColor4f(1, 0, 1, 1),
             iaColor4f(0.9, 0.9, 0.9, 1),
 
-            iaColor4f(0.75, 0, 0, 1),
-            iaColor4f(0, 0.75, 0, 1),
-            iaColor4f(0, 0, 0.75, 1),
-            iaColor4f(0.75, 0.75, 0, 1),
-            iaColor4f(0, 0.75, 0.75, 1),
-            iaColor4f(0.75, 0, 0.75, 1),
+            iaColor4f(0.75, 0.25, 0, 1),
+            iaColor4f(0, 0.75, 0.25, 1),
+            iaColor4f(0.25, 0, 0.75, 1),
+            iaColor4f(0.75, 0.75, 0.25, 1),
+            iaColor4f(0.25, 0.75, 0.75, 1),
+            iaColor4f(0.75, 0.25, 0.75, 1),
 
             iaColor4f(0.5, 0, 0, 1),
             iaColor4f(0, 0.5, 0, 1),
@@ -48,7 +48,11 @@ namespace igor
             iaColor4f(0, 0, 0.25, 1),
             iaColor4f(0.25, 0.25, 0, 1),
             iaColor4f(0, 0.25, 0.25, 1),
-            iaColor4f(0.25, 0, 0.25, 1)};
+            iaColor4f(0.25, 0, 0.25, 1)
+
+    };
+
+    static const int32 COLOR_COUNT = 25;
 
     iProfilerVisualizer::iProfilerVisualizer()
     {
@@ -273,7 +277,7 @@ namespace igor
             iRenderer::getInstance().drawString(rect._x, rect.getBottom() - Hz60, "60Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
             iRenderer::getInstance().drawString(rect._x, rect.getBottom() - Hz100, "100Hz", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
 
-            int sectionIndex = 0;
+            uint32 sectionIndex = 0;
             const uint32 currentFrame = (iProfiler::getCurrentFrameIndex() - 1) % iProfiler::MAX_FRAMES_COUNT;
 
             memset(&_accumulationBuffer, 0, sizeof(float32) * iProfiler::MAX_FRAMES_COUNT);
@@ -288,18 +292,14 @@ namespace igor
                 const auto &section = pair.second;
                 const auto &values = section._values;
 
-                iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-                iRenderer::getInstance().setColor(_colors[(sectionIndex) % _colorCount]);
-                iRenderer::getInstance().drawString(rect._x + textOffsetX, rect.getBottom() + 20.0f, section._name, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
-                textOffsetX += 80;
-
                 iRenderer::getInstance().setMaterial(_materialGraph);
-
                 currentIndex = static_cast<uint32>(currentFrame);
                 _accumulationBuffer[currentIndex] += values[currentIndex].getMilliseconds() * verticalScale;
                 rightValue += values[currentIndex].getMilliseconds() * lrScalec;
                 float32 lastValue = _accumulationBuffer[currentIndex];
                 float32 value;
+
+                iRenderer::getInstance().setColor(COLORS[sectionIndex % COLOR_COUNT]);
 
                 for (int i = 1; i < iProfiler::MAX_FRAMES_COUNT - 1; ++i)
                 {
@@ -315,6 +315,10 @@ namespace igor
                         rect.getBottom() - value);
                     lastValue = value;
                 }
+
+                iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
+                iRenderer::getInstance().drawString(rect._x + textOffsetX, rect.getBottom() + 20.0f, section._name, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+                textOffsetX += 80;
 
                 iRenderer::getInstance().setMaterial(_materialSolid);
                 iRenderer::getInstance().drawFilledRectangle(rect.getLeft() + leftValue, rect.getBottom() + 30, rightValue - leftValue, 30.0f);
