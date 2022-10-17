@@ -5,8 +5,8 @@ Changelog                           {#changelog}
 ------
 
 - brushed up examples base
-- implemented simply top down 2d shooter example
-- using EnTT for the entity component system now
+- implemented simple top down 2d shooter example
+- using EnTT for the entity component system
 - improved profiler interfaces
 
 0.32.0
