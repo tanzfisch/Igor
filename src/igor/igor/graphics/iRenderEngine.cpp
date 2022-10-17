@@ -154,6 +154,8 @@ namespace igor
 
     void iRenderEngine::render()
     {
+        createBuffers();
+
         if (_scene != nullptr &&
             _currentCamera != nullptr)
         {
