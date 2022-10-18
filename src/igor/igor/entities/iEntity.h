@@ -31,8 +31,6 @@
 
 #include <igor/entities/iEntityScene.h>
 
-#include <iaux/system/iaMutex.h> // deprecated
-
 namespace igor
 {
     /*! entt wrapper
@@ -119,71 +117,6 @@ namespace igor
     /*! pointer to entity
     */
     typedef iEntity* iEntityPtr;
-
-    /*///////////////////7 deprecated*/
-
-    /*! engine internal entity base types
-     */
-    enum class iEntityType
-    {
-        Undefined,
-        Base,
-        Locatable
-    };
-
-    /*! entity base class
-    \deprecated will work out an ECS
-    */
-    class IGOR_API iEntity_Old
-    {
-
-        /*! so we can call the handle
-         */
-        friend class iEntityManager;
-
-    public:
-        /*! invalid entity id definition
-         */
-        static const uint64 INVALID_ENTITY_ID;
-
-        /*! \returns entity id
-         */
-        uint64 getID() const;
-
-        /*! \returns entity type
-         */
-        iEntityType getType() const;
-
-        /*! init id and register entity
-         */
-        iEntity_Old();
-
-        /*! unregister
-         */
-        virtual ~iEntity_Old();
-
-    protected:
-        /*! called every simulation frame
-         */
-        virtual void handle() = 0;
-
-        /*! entity type
-         */
-        iEntityType _type = iEntityType::Undefined;
-
-    private:
-        /*! entity id
-         */
-        uint64 _id = 0;
-
-        /*! next entity id
-         */
-        static uint64 _nextID;
-
-        /*! mutex to protec id generation
-         */
-        static iaMutex _mutexID;
-    };
 
 } // namespace igor
 

@@ -4,52 +4,6 @@
 
 #include "Ascent.h"
 
-#include "gameObjects/Player.h"
-#include "gameObjects/Enemy.h"
-#include "gameObjects/Bullet.h"
-#include "gameObjects/BossEnemy.h"
-#include "gameObjects/StaticEnemy.h"
-#include "gameObjects/DigEffect.h"
-
-#include <igor/resources/material/iMaterial.h>
-#include <igor/scene/traversal/iNodeVisitorPrintTree.h>
-#include <igor/threading/iTaskManager.h>
-#include <igor/scene/nodes/iNodeSkyBox.h>
-#include <igor/scene/nodes/iNodeLight.h>
-#include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/scene/nodes/iNodeModel.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/graphics/iRenderer.h>
-#include <igor/system/iApplication.h>
-#include <igor/scene/iSceneFactory.h>
-#include <igor/scene/iScene.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/system/iMouse.h>
-#include <igor/system/iTimer.h>
-#include <igor/resources/texture/iTextureFont.h>
-#include <igor/threading/tasks/iTaskFlushModels.h>
-#include <igor/threading/tasks/iTaskFlushTextures.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/terrain/data/iVoxelData.h>
-
-#include <igor/resources/texture/iTextureResourceFactory.h>
-
-#include <igor/resources/material/iTargetMaterial.h>
-#include <igor/scene/nodes/iNodeLODTrigger.h>
-#include <igor/scene/nodes/iNodeLODSwitch.h>
-#include <igor/physics/iPhysics.h>
-#include <igor/physics/iPhysicsMaterialCombo.h>
-#include <igor/physics/iPhysicsBody.h>
-#include <igor/entities/iEntityManager.h>
-#include <igor/terrain/iVoxelTerrain.h>
-using namespace igor;
-
-using namespace iaux;
-
-uint64 Ascent::_terrainMaterialID = 0;
-uint64 Ascent::_entityMaterialID = 0;
-uint64 Ascent::_bulletMaterialID = 0;
-
 Ascent::Ascent(iWindow *window)
     : iLayer(window), _viewOrtho(iView(false))
 {
@@ -60,7 +14,6 @@ void Ascent::initViews()
     _view.setClearColor(iaColor4f(0.0f, 0.0f, 0.0f, 1.0f));
     _view.setPerspective(60);
     _view.setClipPlanes(0.1f, 50000.f);
-    _view.registerRenderDelegate(iDrawDelegate(this, &Ascent::onRender));
     _view.setName("3d");
 
     _viewOrtho.setClearColor(false);
@@ -83,6 +36,7 @@ void Ascent::initViews()
 
     iMouse::getInstance().showCursor(false);
 
+    // update after knowing the real size of the window
     _viewOrtho.setOrthogonal(0, getWindow()->getClientWidth(), getWindow()->getClientHeight(), 0);
 }
 
@@ -92,17 +46,17 @@ void Ascent::initScene()
     _view.setScene(_scene);
 
     // light
-    _lightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
-    _lightTranslate->translate(100, 100, 100);
-    _lightRotate = iNodeManager::getInstance().createNode<iNodeTransform>();
-    _lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
-    _lightNode->setAmbient(iaColor4f(0.7f, 0.7f, 0.7f, 1.0f));
-    _lightNode->setDiffuse(iaColor4f(1.0f, 0.9f, 0.8f, 1.0f));
-    _lightNode->setSpecular(iaColor4f(1.0f, 0.9f, 0.87f, 1.0f));
+    iNodeTransform *lightTranslate = iNodeManager::getInstance().createNode<iNodeTransform>();
+    lightTranslate->translate(100, 100, 100);
+    iNodeTransform *lightRotate = iNodeManager::getInstance().createNode<iNodeTransform>();
+    iNodeLight *lightNode = iNodeManager::getInstance().createNode<iNodeLight>();
+    lightNode->setAmbient(iaColor4f(0.7f, 0.7f, 0.7f, 1.0f));
+    lightNode->setDiffuse(iaColor4f(1.0f, 0.9f, 0.8f, 1.0f));
+    lightNode->setSpecular(iaColor4f(1.0f, 0.9f, 0.87f, 1.0f));
 
-    _lightRotate->insertNode(_lightTranslate);
-    _lightTranslate->insertNode(_lightNode);
-    _scene->getRoot()->insertNode(_lightRotate);
+    lightRotate->insertNode(lightTranslate);
+    lightTranslate->insertNode(lightNode);
+    _scene->getRoot()->insertNode(lightRotate);
 
     // reate a sky box and add it to scene
     iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
@@ -127,14 +81,14 @@ void Ascent::initScene()
 
 void Ascent::initPlayer()
 {
-    iaMatrixd matrix;
+    /*iaMatrixd matrix;
     matrix.translate(10000, 10000, 10000);
     Player *player = new Player(_scene, &_view, matrix);
     _playerID = player->getID();
 
-    matrix.translate(static_cast<int32>(rand.getNext() % 200) - 100, static_cast<int32>(rand.getNext() % 200) - 100, -200);
+    matrix.translate(static_cast<int32>(_rand.getNext() % 200) - 100, static_cast<int32>(_rand.getNext() % 200) - 100, -200);
     BossEnemy *boss = new BossEnemy(_scene, _voxelTerrain, matrix, _playerID);
-    _bossID = boss->getID();
+    _bossID = boss->getID();*/
 }
 
 void Ascent::initPhysics()
@@ -184,7 +138,7 @@ void Ascent::deinitVoxelData()
 
 void Ascent::initVoxelData()
 {
-    oulineLevelStructure();
+    outlineLevelStructure();
 
     iTargetMaterial *targetMaterial = _voxelTerrain->getTargetMaterial();
     targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 0);
@@ -197,7 +151,7 @@ void Ascent::initVoxelData()
     targetMaterial->setEmissive(iaColor3f(0.0f, 0.0f, 0.0f));
     targetMaterial->setShininess(1000.0f);
 
-    uint64 materialID = iMaterialResourceFactory::getInstance().createMaterial("TerrainMaterial");
+    const uint64 materialID = iMaterialResourceFactory::getInstance().createMaterial("TerrainMaterial");
     auto material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
     material->addShaderSource("ascent/terrain.vert", iShaderObjectType::Vertex);
     material->addShaderSource("ascent/terrain_directional_light.frag", iShaderObjectType::Fragment);
@@ -205,43 +159,39 @@ void Ascent::initVoxelData()
 
     _voxelTerrain->setMaterialID(materialID);
     _voxelTerrain->setPhysicsMaterialID(_terrainMaterialID);
-
     _voxelTerrain->setScene(_scene);
-    Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
-    if (player != nullptr)
-    {
-        _voxelTerrain->setLODTrigger(player->getLODTriggerID());
-    }
+
+    /*    Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
+        if (player != nullptr)
+        {
+            _voxelTerrain->setLODTrigger(player->getLODTriggerID());
+        }*/
 }
 
-void Ascent::oulineLevelStructure()
+void Ascent::outlineLevelStructure()
 {
-    BossEnemy *boss = static_cast<BossEnemy *>(iEntityManager::getInstance().getEntity(_bossID));
-    if (boss != nullptr)
+    iaVector3d bossPosition(0.0, 0.0, 0.0); // TODO boss pos
+
+    // covering the boss
+    _metaballs.push_back(iSphered(iaVector3d(bossPosition._x + 20, bossPosition._y, bossPosition._z), 1.7));
+    _metaballs.push_back(iSphered(iaVector3d(bossPosition._x - 20, bossPosition._y, bossPosition._z), 1.7));
+    _metaballs.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y + 20, bossPosition._z), 1.7));
+    _metaballs.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y - 20, bossPosition._z), 1.7));
+    _metaballs.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z + 20), 1.7));
+    _metaballs.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z - 20), 1.7));
+
+    // hole where the boss sits
+    _holes.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z), 1.7));
+
+    // body
+    for (int i = 0; i < 15; ++i)
     {
-        iaVector3d bossPosition = boss->getCurrentPos();
+        iaVector3d pos(static_cast<int32>(_rand.getNext() % 50) - 25, static_cast<int32>(_rand.getNext() % 50) - 25, static_cast<int32>(_rand.getNext() % 50) - 25);
+        pos.normalize();
+        pos *= 20 + (_rand.getNext() % 40);
+        pos += bossPosition;
 
-        // covering the boss
-        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x + 20, bossPosition._y, bossPosition._z), 1.7));
-        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x - 20, bossPosition._y, bossPosition._z), 1.7));
-        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y + 20, bossPosition._z), 1.7));
-        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y - 20, bossPosition._z), 1.7));
-        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z + 20), 1.7));
-        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z - 20), 1.7));
-
-        // hole where the boss sits
-        _holes.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z), 1.7));
-
-        // body
-        for (int i = 0; i < 15; ++i)
-        {
-            iaVector3d pos(static_cast<int32>(rand.getNext() % 50) - 25, static_cast<int32>(rand.getNext() % 50) - 25, static_cast<int32>(rand.getNext() % 50) - 25);
-            pos.normalize();
-            pos *= 20 + (rand.getNext() % 40);
-            pos += bossPosition;
-
-            _metaballs.push_back(iSphered(pos, ((rand.getNext() % 50 + 50) / 100.0) * 4.0));
-        }
+        _metaballs.push_back(iSphered(pos, ((_rand.getNext() % 50 + 50) / 100.0) * 4.0));
     }
 }
 
@@ -421,11 +371,11 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
     iaVector3d pos;
     int count = 0;
 
-    rand.setSeed(offset._x + offset._y + offset._z);
+    _rand.setSeed(offset._x + offset._y + offset._z);
 
-    for (int i = 0; i < rand.getNext() % 10; ++i)
+    for (int i = 0; i < _rand.getNext() % 10; ++i)
     {
-        pos.set(rand.getNext() % diff._x, rand.getNext() % diff._y, rand.getNext() % diff._z);
+        pos.set(_rand.getNext() % diff._x, _rand.getNext() % diff._y, _rand.getNext() % diff._z);
 
         bool addEnemy = true;
 
@@ -444,7 +394,7 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
             }
         }
 
-        if (addEnemy)
+        /*if (addEnemy)
         {
             iaVector3d creationPos = pos + offset;
 
@@ -458,26 +408,26 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
                 new Enemy(_scene, _voxelTerrain, matrix, _playerID); // TODO this is ugly
                 count++;
             }
-        }
+        }*/
 
-        if (count >= 2)
-        {
-            break;
-        }
+        /*if (count >= 2)
+        {*/
+        break;
+        //}
     }
 
     count = 0;
 
     for (int i = 0; i < 100; ++i)
     {
-        pos.set(rand.getNext() % diff._x, rand.getNext() % diff._y, rand.getNext() % diff._z);
+        pos.set(_rand.getNext() % diff._x, _rand.getNext() % diff._y, _rand.getNext() % diff._z);
 
         if (_voxelTerrain->getVoxelDensity(iaVector3I(pos._x, pos._y, pos._z)) == 0)
         {
             iaVector3d from(pos._x, pos._y, pos._z);
 
             // orientation of enemy
-            int orientation = rand.getNext() % 6;
+            int orientation = _rand.getNext() % 6;
             iaMatrixd matrix;
             switch (orientation)
             {
@@ -512,17 +462,17 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
             if (_voxelTerrain->castRay(iaVector3I(from._x, from._y, from._z), iaVector3I(to._x, to._y, to._z), outside, inside))
             {
                 iSphered sphere(iaVector3d(outside._x, outside._y, outside._z), 5);
-                std::vector<uint64> result;
+                /*std::vector<uint64> result;
                 iEntityManager::getInstance().getEntities(sphere, result);
                 if (result.empty())
                 {
                     matrix._pos.set(outside._x, outside._y, outside._z);
                     StaticEnemy *enemy = new StaticEnemy(_scene, _voxelTerrain, matrix, _playerID);
                     count++;
-                }
+                }*/
             }
 
-            if (count >= 3)
+            // if (count >= 3)
             {
                 break;
             }
@@ -590,7 +540,6 @@ void Ascent::onDeinit()
     iTaskManager::getInstance().abortTask(_taskFlushModels);
     iTaskManager::getInstance().abortTask(_taskFlushTextures);
 
-    _view.unregisterRenderDelegate(iDrawDelegate(this, &Ascent::onRender));
     _viewOrtho.unregisterRenderDelegate(iDrawDelegate(this, &Ascent::onRenderOrtho));
 
     getWindow()->close();
@@ -647,34 +596,14 @@ void Ascent::dig(iaVector3I position, uint64 toolSize, uint8 density)
 
     iaMatrixd effectMatrix;
     effectMatrix.translate(position._x, position._y, position._z);
-    new DigEffect(_scene, effectMatrix);
-}
-
-void Ascent::handleMouse() // TODO
-{
-    if (_activeControls)
-    {
-        Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
-        if (player != nullptr)
-        {
-            // TODO WTF? if I use set() it does not work in release mode here
-            _weaponPos._x = static_cast<float32>(getWindow()->getClientWidth()) * 0.5f;
-            _weaponPos._y = static_cast<float32>(getWindow()->getClientHeight()) * 0.5f;
-            _weaponPos._z = 0.0f;
-            //_weaponPos.set(static_cast<float32>(getWindow()->getClientWidth()) * 0.5f, static_cast<float32>(getWindow()->getClientHeight()) * 0.5f, 0);
-
-            float32 headingDelta = _mouseDelta._x * 0.002;
-            float32 pitchDelta = _mouseDelta._y * 0.002;
-            player->rotate(-headingDelta, -pitchDelta);
-        }
-    }
+    // new DigEffect(_scene, effectMatrix);
 }
 
 void Ascent::onPreDraw()
 {
     if (_loading)
     {
-        if (iTimer::getInstance().getGameTime() > 5000 &&
+        if (iTimer::getInstance().getTime() > 5000 &&
             iTaskManager::getInstance().getQueuedRegularTaskCount() < 4 &&
             iTaskManager::getInstance().getQueuedRenderContextTaskCount() < 4)
         {
@@ -685,7 +614,7 @@ void Ascent::onPreDraw()
     }
     else
     {
-        BossEnemy *boss = static_cast<BossEnemy *>(iEntityManager::getInstance().getEntity(_bossID));
+        /*BossEnemy *boss = static_cast<BossEnemy *>(iEntityManager::getInstance().getEntity(_bossID));
         if (boss == nullptr)
         {
             std::vector<uint64> ids;
@@ -703,39 +632,7 @@ void Ascent::onPreDraw()
                     }
                 }
             }
-        }
-
-        handleHitList();
-
-        iEntityManager::getInstance().handle();
-    }
-
-    handleMouse();
-}
-
-void Ascent::onRender()
-{
-    // nothing to do
-}
-
-void Ascent::handleHitList()
-{
-    _hitListMutex.lock();
-    auto hitList = std::move(_hitList);
-    _hitListMutex.unlock();
-
-    for (auto hit : hitList)
-    {
-        GameObject *go1 = static_cast<GameObject *>(iEntityManager::getInstance().getEntity(hit.first));
-        if (go1 != nullptr)
-        {
-            go1->hitBy(hit.second);
-        }
-        GameObject *go2 = static_cast<GameObject *>(iEntityManager::getInstance().getEntity(hit.second));
-        if (go2 != nullptr)
-        {
-            go2->hitBy(hit.first);
-        }
+        }*/
     }
 }
 
@@ -759,15 +656,15 @@ void Ascent::onRenderOrtho()
     }
     else
     {
-        BossEnemy *boss = static_cast<BossEnemy *>(iEntityManager::getInstance().getEntity(_bossID));
+        /*BossEnemy *boss = static_cast<BossEnemy *>(iEntityManager::getInstance().getEntity(_bossID));
         if (boss == nullptr)
         {
             iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
             iRenderer::getInstance().setFontSize(40.0f);
             iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "you win!", iHorizontalAlignment::Center, iVerticalAlignment::Center);
-        }
+        }*/
 
-        Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
+        /*Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
             iaString healthText = iaString::toString(player->getHealth(), 0);
@@ -788,7 +685,7 @@ void Ascent::onRenderOrtho()
             iRenderer::getInstance().setFontSize(40.0f);
             iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "you are dead :-P", iHorizontalAlignment::Center, iVerticalAlignment::Center);
             _activeControls = false;
-        }
+        }*/
     }
 
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
@@ -806,25 +703,25 @@ void Ascent::onEvent(iEvent &event)
 
 bool Ascent::onMouseKeyDownEvent(iEventMouseKeyDown &event)
 {
-    if (_activeControls)
-    {
-        Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
-        if (player != nullptr)
+    /*    if (_activeControls)
         {
-            /* if (key == iKeyCode::MouseRight)
-             {
-                 iaVector3d updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
-                 player->shootSecondaryWeapon(_view, updown);
-             }*/
-
-            if (event.getKey() == iKeyCode::MouseLeft)
+            Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
+            if (player != nullptr)
             {
-                iaVector3d updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
-                player->shootPrimaryWeapon(_view, updown);
-                return true;
+                 if (key == iKeyCode::MouseRight)
+                 {
+                     iaVector3d updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
+                     player->shootSecondaryWeapon(_view, updown);
+                 }
+
+                if (event.getKey() == iKeyCode::MouseLeft)
+                {
+                    iaVector3d updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
+                    player->shootPrimaryWeapon(_view, updown);
+                    return true;
+                }
             }
-        }
-    }
+        }*/
     return false;
 }
 
@@ -880,7 +777,7 @@ bool Ascent::onKeyDown(iEventKeyDown &event)
 {
     if (_activeControls)
     {
-        Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
+/*        Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
 
         if (player != nullptr)
         {
@@ -930,7 +827,7 @@ bool Ascent::onKeyDown(iEventKeyDown &event)
                 }
                 return true;
             }
-        }
+        }*/
     }
 
     switch (event.getKey())
@@ -947,7 +844,7 @@ bool Ascent::onKeyUp(iEventKeyUp &event)
 {
     if (_activeControls)
     {
-        Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
+        /*Player *player = static_cast<Player *>(iEntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
             switch (event.getKey())
@@ -988,7 +885,7 @@ bool Ascent::onKeyUp(iEventKeyUp &event)
                 player->stopRollRight();
                 return true;
             }
-        }
+        }*/
     }
     return false;
 }

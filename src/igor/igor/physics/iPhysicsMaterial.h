@@ -38,21 +38,23 @@ namespace igor
 {
 
     /*! physics material id defintiion
-    */
+     */
     typedef int64 iPhysicsMaterialID;
 
     /*! physics material
-    */
+     */
     class IGOR_API iPhysicsMaterial
     {
 
         friend class iPhysics;
 
     public:
+        /*! invalid physics material id
+         */
         static const iPhysicsMaterialID INVALID_PHYSICSMATERIAL_ID = 0;
 
         /*! \returns material ID
-        */
+         */
         iPhysicsMaterialID getID();
 
         /*! sets name of material
@@ -62,16 +64,16 @@ namespace igor
         void setName(const iaString &name);
 
         /*! \returns material name
-        */
+         */
         const iaString &getName() const;
 
     private:
         /*! material name
-        */
+         */
         iaString _name;
 
         /*! id of physics material
-        */
+         */
         iPhysicsMaterialID _id = INVALID_PHYSICSMATERIAL_ID;
 
         /*! initializes members
@@ -81,9 +83,13 @@ namespace igor
         iPhysicsMaterial(iPhysicsMaterialID id);
 
         /*! does nothing
-        */
+         */
         virtual ~iPhysicsMaterial() = default;
     };
+
+    /*! physics material pointer definition
+    */
+    typedef iPhysicsMaterial* iPhysicsMaterialPtr;
 
 } // namespace igor
 

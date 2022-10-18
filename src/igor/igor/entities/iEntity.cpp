@@ -6,8 +6,6 @@
 
 #include <igor/entities/iComponents.h>
 
-#include <igor/entities/iEntityManager.h> // deprecated
-
 namespace igor
 {
 
@@ -37,37 +35,6 @@ namespace igor
     bool iEntity::isValid() const
     {
         return _scene->_registry.valid(_entity);
-    }
-
-    ////////////// old deprecated stuff
-    const uint64 iEntity_Old::INVALID_ENTITY_ID = 0;
-    uint64 iEntity_Old::_nextID = iEntity_Old::INVALID_ENTITY_ID + 1;
-    iaMutex iEntity_Old::_mutexID;
-
-    iEntity_Old::iEntity_Old()
-    {
-        _mutexID.lock();
-        _id = _nextID++;
-        _mutexID.unlock();
-
-        iEntityManager::getInstance().registerEntity(this);
-
-        _type = iEntityType::Base;
-    }
-
-    iEntity_Old::~iEntity_Old()
-    {
-        iEntityManager::getInstance().unregisterEntity(this);
-    }
-
-    uint64 iEntity_Old::getID() const
-    {
-        return _id;
-    }
-
-    iEntityType iEntity_Old::getType() const
-    {
-        return _type;
     }
 
 }

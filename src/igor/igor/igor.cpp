@@ -124,9 +124,7 @@ namespace igor
         printInfo();
         iApplication::create();
         iEvaluationManager::create();
-        iEntityManager::create();
         iAudio::create();
-        // iClipboard::create();
         iActionManager::create();
         iMouse::create();
         iKeyboard::create();
@@ -220,19 +218,9 @@ namespace igor
             iActionManager::destroy();
         }
 
-        /*if (iClipboard::isInstantiated())
-        {
-            iClipboard::destroy();
-        }*/
-
         if (iAudio::isInstantiated())
         {
             iAudio::destroy();
-        }
-
-        if (iEntityManager::isInstantiated())
-        {
-            iEntityManager::destroy();
         }
 
         if (iEvaluationManager::isInstantiated())

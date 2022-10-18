@@ -29,12 +29,14 @@
 #ifndef __IGOR_COMPONENTS__
 #define __IGOR_COMPONENTS__
 
+#include <igor/iDefines.h>
+
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
 namespace igor
 {
-    struct NameComponent
+    struct IGOR_API NameComponent
     {
         iaString _name;
     };

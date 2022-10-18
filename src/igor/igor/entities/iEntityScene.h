@@ -29,7 +29,6 @@
 #ifndef __IGOR_ENTITY_SECENE__
 #define __IGOR_ENTITY_SECENE__
 
-#include <igor/iDefines.h>
 #include <igor/entities/iComponents.h>
 
 #include <entt.h>

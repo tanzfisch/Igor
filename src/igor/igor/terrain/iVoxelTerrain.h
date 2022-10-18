@@ -329,6 +329,8 @@ namespace igor
         void deinit();
     };
 
+    typedef iVoxelTerrain* iVoxelTerrainPtr;
+
 } // namespace igor
 
 #endif // __IGOR_VOXELTERRAINGENERATOR_H__
