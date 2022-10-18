@@ -1,4 +1,6 @@
 # used for creating MSVC filters that resample folter structures
+# @param _SORUCES list of source files
+# @param _SRC_DIR source directory
 function(source_group_special _SOURCES _SRC_DIR)
     foreach(_source IN ITEMS ${_SOURCES})
         get_filename_component(_source_path "${_source}" PATH)
