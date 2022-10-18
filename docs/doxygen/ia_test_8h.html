@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.32.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -155,23 +155,28 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <a class="code" href="ia_test_8h.html#a0c5bb8759622ba1ce949fc0705a56e70">IAUX_EXPECT_NEAR</a>(m1._pos._x, m2._pos._x, 0.0000001);     \</div>
-<div class="line">    IAUX_EXPECT_NEAR(m1._pos._y, m2._pos._y, 0.0000001);     \</div>
-<div class="line">    IAUX_EXPECT_NEAR(m1._pos._z, m2._pos._z, 0.0000001);     \</div>
-<div class="line">    IAUX_EXPECT_NEAR(m1._w0, m2._w0, 0.0000001);             \</div>
-<div class="line">    IAUX_EXPECT_NEAR(m1._right._x, m2._right._x, 0.0000001); \</div>
-<div class="line">    IAUX_EXPECT_NEAR(m1._right._y, m2._right._y, 0.0000001); \</div>
-<div class="line">    IAUX_EXPECT_NEAR(m1._right._z, m2._right._z, 0.0000001); \</div>
-<div class="line">    IAUX_EXPECT_NEAR(m1._w1, m2._w1, 0.0000001);             \</div>
-<div class="line">    IAUX_EXPECT_NEAR(m1._top._x, m2._top._x, 0.0000001);     \</div>
-<div class="line">    IAUX_EXPECT_NEAR(m1._top._y, m2._top._y, 0.0000001);     \</div>
-<div class="line">    IAUX_EXPECT_NEAR(m1._top._z, m2._top._z, 0.0000001);     \</div>
-<div class="line">    IAUX_EXPECT_NEAR(m1._w2, m2._w2, 0.0000001);             \</div>
-<div class="line">    IAUX_EXPECT_NEAR(m1._depth._x, m2._depth._x, 0.0000001); \</div>
-<div class="line">    IAUX_EXPECT_NEAR(m1._depth._y, m2._depth._y, 0.0000001); \</div>
-<div class="line">    IAUX_EXPECT_NEAR(m1._depth._z, m2._depth._z, 0.0000001); \</div>
-<div class="line">    IAUX_EXPECT_NEAR(m1._w3, m2._w3, 0.0000001)</div>
-<div class="ttc" id="aia_test_8h_html_a0c5bb8759622ba1ce949fc0705a56e70"><div class="ttname"><a href="ia_test_8h.html#a0c5bb8759622ba1ce949fc0705a56e70">IAUX_EXPECT_NEAR</a></div><div class="ttdeci">#define IAUX_EXPECT_NEAR(a, b, t)</div><div class="ttdef"><b>Definition:</b> iaTest.h:150</div></div>
+<b>Value:</b><div class="fragment"><div class="line">    { \</div>
+<div class="line">        bool failed = <span class="keyword">false</span>; \</div>
+<div class="line">        for(<span class="keywordtype">int</span> i=0;i&lt;16;++i) \</div>
+<div class="line">        { \</div>
+<div class="line">            if (std::abs((m1[i]) - (m2[i])) &gt; 0.0000001) \</div>
+<div class="line">            { \</div>
+<div class="line">                failed = <span class="keyword">true</span>; \</div>
+<div class="line">                break; \</div>
+<div class="line">            } \</div>
+<div class="line">        } \</div>
+<div class="line">        if(failed) \</div>
+<div class="line">        { \</div>
+<div class="line">            iaConsole::getInstance() &lt;&lt; <span class="stringliteral">&quot;matrices are not equal&quot;</span> &lt;&lt; <a class="code" href="namespaceiaux.html#a030e2c3dafd95fc262c66a561e77f913">endl</a>; \</div>
+<div class="line">            iaConsole::getInstance() &lt;&lt; <span class="stringliteral">&quot;m1                           &quot;</span> &lt;&lt; m1; \</div>
+<div class="line">            iaConsole::getInstance() &lt;&lt; <span class="stringliteral">&quot;---------------------------------------------------------------------------&quot;</span> &lt;&lt; <a class="code" href="namespaceiaux.html#a030e2c3dafd95fc262c66a561e77f913">endl</a>; \</div>
+<div class="line">            iaConsole::getInstance() &lt;&lt; <span class="stringliteral">&quot;m2                           &quot;</span> &lt;&lt; m2 &lt;&lt; <a class="code" href="namespaceiaux.html#a030e2c3dafd95fc262c66a561e77f913">endl</a>; \</div>
+<div class="line">            iaConsole::getInstance() &lt;&lt; <a class="code" href="ia_defines_8h.html#a697e3f8d08a488719c8168bad998393f">__IGOR_FILE_LINE__</a> &lt;&lt; <a class="code" href="namespaceiaux.html#a030e2c3dafd95fc262c66a561e77f913">endl</a>; \</div>
+<div class="line">            _ok = <span class="keyword">false</span>; \</div>
+<div class="line">        } \</div>
+<div class="line">    }</div>
+<div class="ttc" id="aia_defines_8h_html_a697e3f8d08a488719c8168bad998393f"><div class="ttname"><a href="ia_defines_8h.html#a697e3f8d08a488719c8168bad998393f">__IGOR_FILE_LINE__</a></div><div class="ttdeci">#define __IGOR_FILE_LINE__</div><div class="ttdef"><b>Definition:</b> iaDefines.h:67</div></div>
+<div class="ttc" id="anamespaceiaux_html_a030e2c3dafd95fc262c66a561e77f913"><div class="ttname"><a href="namespaceiaux.html#a030e2c3dafd95fc262c66a561e77f913">iaux::endl</a></div><div class="ttdeci">__IGOR_INLINE__ iaConsole &amp; endl(iaConsole &amp;console)</div><div class="ttdef"><b>Definition:</b> iaConsole.h:510</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -206,8 +211,6 @@ Macros</h2></td></tr>
 <div class="line">        iaConsole::getInstance() &lt;&lt; <a class="code" href="ia_defines_8h.html#a697e3f8d08a488719c8168bad998393f">__IGOR_FILE_LINE__</a> &lt;&lt; <a class="code" href="namespaceiaux.html#a030e2c3dafd95fc262c66a561e77f913">endl</a>;                \</div>
 <div class="line">        _ok = <span class="keyword">false</span>;                                                           \</div>
 <div class="line">    }</div>
-<div class="ttc" id="aia_defines_8h_html_a697e3f8d08a488719c8168bad998393f"><div class="ttname"><a href="ia_defines_8h.html#a697e3f8d08a488719c8168bad998393f">__IGOR_FILE_LINE__</a></div><div class="ttdeci">#define __IGOR_FILE_LINE__</div><div class="ttdef"><b>Definition:</b> iaDefines.h:60</div></div>
-<div class="ttc" id="anamespaceiaux_html_a030e2c3dafd95fc262c66a561e77f913"><div class="ttname"><a href="namespaceiaux.html#a030e2c3dafd95fc262c66a561e77f913">iaux::endl</a></div><div class="ttdeci">__IGOR_INLINE__ iaConsole &amp; endl(iaConsole &amp;console)</div><div class="ttdef"><b>Definition:</b> iaConsole.h:497</div></div>
 </div><!-- fragment -->
 </div>
 </div>

@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.32.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -98,6 +98,7 @@ $(document).ready(function(){initNavTree('i_event_8h.html',''); initResizable();
 <div class="textblock"><code>#include &lt;<a class="el" href="i_defines_8h.html">igor/iDefines.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="ia_delegate_8h.html">iaux/system/iaDelegate.h</a>&gt;</code><br />
 <code>#include &lt;functional&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -145,7 +146,10 @@ Enumerations</h2></td></tr>
 , <br />
 &#160;&#160;<a class="el" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710da5976aad38033aec01e24f31c50c81c78">igor::iEventNodeRemovedFromScene</a>
 , <a class="el" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710da85f66bbf5f80f249311e5bc94e628379">igor::iEventSceneSelectionChanged</a>
-, <a class="el" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710da25072be457dd91435087912a9a097e3e">igor::iEventTypeCount</a>
+, <a class="el" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710dadc61102df45aed9f3daddd020eb8f4ee">igor::iEventEntityCreated</a>
+, <a class="el" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710da05bb248889a315a4c4608583053d9049">igor::iEventEntityDestroyed</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710da25072be457dd91435087912a9a097e3e">igor::iEventTypeCount</a>
 <br />
  }</td></tr>
 <tr class="separator:a504f0931de9d9729518c78c53d39710d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -156,6 +160,7 @@ Enumerations</h2></td></tr>
 , <a class="el" href="namespaceigor.html#a9697e69323a1af894851b0201dbcbdecac89686a387d2b12b3c729ce35a0bcb5b">igor::Window</a> = 8
 , <br />
 &#160;&#160;<a class="el" href="namespaceigor.html#a9697e69323a1af894851b0201dbcbdeca9ead0d38e06ec253ca0ecbf6ea56e59b">igor::Scene</a> = 16
+, <a class="el" href="namespaceigor.html#a9697e69323a1af894851b0201dbcbdecac8f63ecaff5e983a2441126a241c4cfa">igor::ECS</a> = 32
 <br />
  }</td></tr>
 <tr class="separator:a9697e69323a1af894851b0201dbcbdec"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -206,7 +211,7 @@ Functions</h2></td></tr>
 <div class="line">    virtual <a class="code" href="namespaceigor.html#a504f0931de9d9729518c78c53d39710d">iEventType</a> getEventType()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> getStaticType(); } \</div>
 <div class="line">    virtual <span class="keyword">const</span> <a class="code" href="classiaux_1_1ia_string.html">iaString</a> getName()<span class="keyword"> const override </span>{ <span class="keywordflow">return</span> #type; }</div>
 <div class="ttc" id="aclassiaux_1_1ia_string_html"><div class="ttname"><a href="classiaux_1_1ia_string.html">iaux::iaString</a></div><div class="ttdef"><b>Definition:</b> iaString.h:57</div></div>
-<div class="ttc" id="anamespaceigor_html_a504f0931de9d9729518c78c53d39710d"><div class="ttname"><a href="namespaceigor.html#a504f0931de9d9729518c78c53d39710d">igor::iEventType</a></div><div class="ttdeci">iEventType</div><div class="ttdef"><b>Definition:</b> iEvent.h:46</div></div>
+<div class="ttc" id="anamespaceigor_html_a504f0931de9d9729518c78c53d39710d"><div class="ttname"><a href="namespaceigor.html#a504f0931de9d9729518c78c53d39710d">igor::iEventType</a></div><div class="ttdeci">iEventType</div><div class="ttdef"><b>Definition:</b> iEvent.h:47</div></div>
 </div><!-- fragment --><p>helper macro to define event type </p>
 
 </div>

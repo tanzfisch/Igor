@@ -10,6 +10,8 @@ var hierarchy =
     [ "igor::iAACube< float64 >", "classigor_1_1i_a_a_cube.html", null ],
     [ "iaux::iaBits< T >", "classiaux_1_1ia_bits.html", null ],
     [ "iaux::iaBSpline< T >", "classiaux_1_1ia_b_spline.html", null ],
+    [ "iaux::iaCircle< T >", "classiaux_1_1ia_circle.html", null ],
+    [ "iaux::iaCircle< F >", "classiaux_1_1ia_circle.html", null ],
     [ "iaux::iaClock", "classiaux_1_1ia_clock.html", null ],
     [ "iaux::iaColor3< T >", "classiaux_1_1ia_color3.html", null ],
     [ "iaux::iaColor4< T >", "classiaux_1_1ia_color4.html", null ],
@@ -20,6 +22,7 @@ var hierarchy =
     ] ],
     [ "igor::iNodeManager::iAction", "structigor_1_1i_node_manager_1_1i_action.html", null ],
     [ "igor::iActionContext", "classigor_1_1i_action_context.html", null ],
+    [ "iaux::iaDate", "classiaux_1_1ia_date.html", null ],
     [ "iaux::iaDirectory", "classiaux_1_1ia_directory.html", null ],
     [ "iaux::iaFile", "classiaux_1_1ia_file.html", null ],
     [ "iaux::iaGradient< T >", "classiaux_1_1ia_gradient.html", null ],
@@ -31,10 +34,15 @@ var hierarchy =
     [ "iaux::iaMutex", "classiaux_1_1ia_mutex.html", null ],
     [ "iaux::iaQuaternion< T >", "classiaux_1_1ia_quaternion.html", null ],
     [ "iaux::iaRandomNumberGenerator< T >", "classiaux_1_1ia_random_number_generator.html", null ],
+    [ "iaux::iaRectangle< T >", "classiaux_1_1ia_rectangle.html", null ],
+    [ "iaux::iaRectangle< F >", "classiaux_1_1ia_rectangle.html", null ],
     [ "iaux::iaRLE< TValue, TIndex >", "classiaux_1_1ia_r_l_e.html", null ],
     [ "iaux::iaRLE< uint8, uint8 >", "classiaux_1_1ia_r_l_e.html", null ],
     [ "iaux::iaRLEBlock< TValue, TIndex >", "structiaux_1_1ia_r_l_e_block.html", null ],
     [ "iaux::iaSerializable", "classiaux_1_1ia_serializable.html", null ],
+    [ "igor::iaSphere< T >", "classigor_1_1ia_sphere.html", null ],
+    [ "igor::iaSphere< float64 >", "classigor_1_1ia_sphere.html", null ],
+    [ "igor::iaSphere< int64 >", "classigor_1_1ia_sphere.html", null ],
     [ "iaux::iaState", "classiaux_1_1ia_state.html", null ],
     [ "iaux::iaStateMachine", "classiaux_1_1ia_state_machine.html", null ],
     [ "iaux::iaString", "classiaux_1_1ia_string.html", null ],
@@ -60,9 +68,12 @@ var hierarchy =
     [ "igor::iConfigReader", "classigor_1_1i_config_reader.html", null ],
     [ "igor::iContouringCubes", "classigor_1_1i_contouring_cubes.html", null ],
     [ "igor::iEmitterTriangle", "classigor_1_1i_emitter_triangle.html", null ],
-    [ "igor::iEntity", "classigor_1_1i_entity.html", [
+    [ "igor::iEntity", "classigor_1_1i_entity.html", null ],
+    [ "igor::iEntity_Old", "classigor_1_1i_entity___old.html", [
       [ "igor::iEntityLocatable", "classigor_1_1i_entity_locatable.html", null ]
     ] ],
+    [ "igor::iEntityScene", "classigor_1_1i_entity_scene.html", null ],
+    [ "igor::iEntitySystem", "classigor_1_1i_entity_system.html", null ],
     [ "igor::iEvaluation", "classigor_1_1i_evaluation.html", [
       [ "igor::iEvaluationScript", "classigor_1_1i_evaluation_script.html", null ],
       [ "igor::iEvaluationTransform", "classigor_1_1i_evaluation_transform.html", null ]
@@ -148,9 +159,6 @@ var hierarchy =
     [ "igor::iModule< iPhysics >", "classigor_1_1i_module.html", [
       [ "igor::iPhysics", "classigor_1_1i_physics.html", null ]
     ] ],
-    [ "igor::iModule< iProfiler >", "classigor_1_1i_module.html", [
-      [ "igor::iProfiler", "classigor_1_1i_profiler.html", null ]
-    ] ],
     [ "igor::iModule< iRenderer >", "classigor_1_1i_module.html", [
       [ "igor::iRenderer", "classigor_1_1i_renderer.html", null ]
     ] ],
@@ -222,8 +230,13 @@ var hierarchy =
     [ "igor::iPhysicsWorld", "classigor_1_1i_physics_world.html", null ],
     [ "igor::iPixmap", "classigor_1_1i_pixmap.html", null ],
     [ "igor::iPlane< T >", "classigor_1_1i_plane.html", null ],
-    [ "igor::iProfiler::iProfilerSection", "structigor_1_1i_profiler_1_1i_profiler_section.html", null ],
+    [ "igor::iProfiler", "classigor_1_1i_profiler.html", null ],
+    [ "igor::iProfilerSectionData", "structigor_1_1i_profiler_section_data.html", null ],
+    [ "igor::iProfilerSectionScoped", "structigor_1_1i_profiler_section_scoped.html", null ],
     [ "igor::iProfilerVisualizer", "classigor_1_1i_profiler_visualizer.html", null ],
+    [ "igor::iQuadtree< F, T >", "classigor_1_1i_quadtree.html", null ],
+    [ "igor::iQuadtreeNode< F, T >", "structigor_1_1i_quadtree_node.html", null ],
+    [ "igor::iQuadtreeObject< F, T >", "structigor_1_1i_quadtree_object.html", null ],
     [ "igor::iRay< T >", "classigor_1_1i_ray.html", null ],
     [ "igor::iRectangle< T >", "classigor_1_1i_rectangle.html", null ],
     [ "igor::iRectangle< float32 >", "classigor_1_1i_rectangle.html", null ],
@@ -240,9 +253,6 @@ var hierarchy =
     [ "igor::iShader", "classigor_1_1i_shader.html", null ],
     [ "igor::iShaderSource", "structigor_1_1i_shader_source.html", null ],
     [ "igor::iSkeleton", "classigor_1_1i_skeleton.html", null ],
-    [ "igor::iSphere< T >", "classigor_1_1i_sphere.html", null ],
-    [ "igor::iSphere< float64 >", "classigor_1_1i_sphere.html", null ],
-    [ "igor::iSphere< int64 >", "classigor_1_1i_sphere.html", null ],
     [ "igor::iStopWatch", "classigor_1_1i_stop_watch.html", null ],
     [ "igor::iTargetMaterial", "classigor_1_1i_target_material.html", null ],
     [ "igor::iTask", "classigor_1_1i_task.html", [
@@ -310,6 +320,7 @@ var hierarchy =
     [ "igor::iWindow", "classigor_1_1i_window.html", null ],
     [ "igor::iWindowImpl", "classigor_1_1i_window_impl.html", null ],
     [ "std::less< iaux::iaString >", "structstd_1_1less_3_01iaux_1_1ia_string_01_4.html", null ],
+    [ "igor::NameComponent", "structigor_1_1_name_component.html", null ],
     [ "OMPF::OMPF", "class_o_m_p_f_1_1_o_m_p_f.html", null ],
     [ "OMPF::ompfBaseChunk", "class_o_m_p_f_1_1ompf_base_chunk.html", [
       [ "OMPF::ompfEmitterChunk", "class_o_m_p_f_1_1ompf_emitter_chunk.html", null ],

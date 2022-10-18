@@ -2,6 +2,8 @@ var dir_e3ff8d3316cd45317aa6b2881de781dc =
 [
     [ "iEvent.cpp", "i_event_8cpp.html", "i_event_8cpp" ],
     [ "iEvent.h", "i_event_8h.html", "i_event_8h" ],
+    [ "iEventECS.cpp", "i_event_e_c_s_8cpp.html", null ],
+    [ "iEventECS.h", "i_event_e_c_s_8h.html", null ],
     [ "iEventKeyboard.cpp", "i_event_keyboard_8cpp.html", null ],
     [ "iEventKeyboard.h", "i_event_keyboard_8h.html", [
       [ "iEventKeyDown", "classigor_1_1i_event_key_down.html", "classigor_1_1i_event_key_down" ],

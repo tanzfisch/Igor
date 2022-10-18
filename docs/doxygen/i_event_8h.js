@@ -11,7 +11,8 @@ var i_event_8h =
       [ "Keyboard", "i_event_8h.html#a9697e69323a1af894851b0201dbcbdeca6ce4d85a628a88bbdb3ac24a8e5a9c2e", null ],
       [ "Mouse", "i_event_8h.html#a9697e69323a1af894851b0201dbcbdecaf2a47c6809d88e175dade0ef7b16aa13", null ],
       [ "Window", "i_event_8h.html#a9697e69323a1af894851b0201dbcbdecac89686a387d2b12b3c729ce35a0bcb5b", null ],
-      [ "Scene", "i_event_8h.html#a9697e69323a1af894851b0201dbcbdeca9ead0d38e06ec253ca0ecbf6ea56e59b", null ]
+      [ "Scene", "i_event_8h.html#a9697e69323a1af894851b0201dbcbdeca9ead0d38e06ec253ca0ecbf6ea56e59b", null ],
+      [ "ECS", "i_event_8h.html#a9697e69323a1af894851b0201dbcbdecac8f63ecaff5e983a2441126a241c4cfa", null ]
     ] ],
     [ "iEventType", "i_event_8h.html#a504f0931de9d9729518c78c53d39710d", [
       [ "iEventKeyDown", "i_event_8h.html#a504f0931de9d9729518c78c53d39710da6d7fa54fe77642cce3a76caaa389f9f2", null ],
@@ -28,6 +29,8 @@ var i_event_8h =
       [ "iEventNodeAddedToScene", "i_event_8h.html#a504f0931de9d9729518c78c53d39710da6b71bd861e8fcfff5edd3fa111d9ae04", null ],
       [ "iEventNodeRemovedFromScene", "i_event_8h.html#a504f0931de9d9729518c78c53d39710da5976aad38033aec01e24f31c50c81c78", null ],
       [ "iEventSceneSelectionChanged", "i_event_8h.html#a504f0931de9d9729518c78c53d39710da85f66bbf5f80f249311e5bc94e628379", null ],
+      [ "iEventEntityCreated", "i_event_8h.html#a504f0931de9d9729518c78c53d39710dadc61102df45aed9f3daddd020eb8f4ee", null ],
+      [ "iEventEntityDestroyed", "i_event_8h.html#a504f0931de9d9729518c78c53d39710da05bb248889a315a4c4608583053d9049", null ],
       [ "iEventTypeCount", "i_event_8h.html#a504f0931de9d9729518c78c53d39710da25072be457dd91435087912a9a097e3e", null ]
     ] ],
     [ "operator<<", "i_event_8h.html#ae99bfb18ac90051ddff47ed6cbedec22", null ]

@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.32.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -136,10 +136,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:abc5ef878087f9e3935bd3856f1c59545"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classiaux_1_1ia_time.html">iaTime</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_time.html#abc5ef878087f9e3935bd3856f1c59545">now</a> ()</td></tr>
-<tr class="separator:abc5ef878087f9e3935bd3856f1c59545"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a070266c0f1bfc334a86deaa01676cffd"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classiaux_1_1ia_time.html">iaTime</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_time.html#a070266c0f1bfc334a86deaa01676cffd">zero</a> ()</td></tr>
-<tr class="separator:a070266c0f1bfc334a86deaa01676cffd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e6fb3c320906300576a8093a64a6c0d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classiaux_1_1ia_time.html">iaTime</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_time.html#a0e6fb3c320906300576a8093a64a6c0d">getNow</a> ()</td></tr>
+<tr class="separator:a0e6fb3c320906300576a8093a64a6c0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7701a2dfa645f177de3f6b6baf009cf1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classiaux_1_1ia_time.html">iaTime</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_time.html#a7701a2dfa645f177de3f6b6baf009cf1">fromSeconds</a> (<a class="el" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a> time)</td></tr>
 <tr class="separator:a7701a2dfa645f177de3f6b6baf009cf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62333c3d85273c956be2db3fc59ea954"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classiaux_1_1ia_time.html">iaTime</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classiaux_1_1ia_time.html#a62333c3d85273c956be2db3fc59ea954">fromMilliseconds</a> (<a class="el" href="ia_defines_8h.html#a232fad1b0d6dcc7c16aabde98b2e2a80">float64</a> time)</td></tr>
@@ -318,6 +316,32 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a0e6fb3c320906300576a8093a64a6c0d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e6fb3c320906300576a8093a64a6c0d">&#9670;&nbsp;</a></span>getNow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classiaux_1_1ia_time.html">iaTime</a> iaux::iaTime::getNow </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>current time since application was started </dd></dl>
+
+</div>
+</div>
 <a id="aa0e0a35194c6ac5f7090abcb69260e4a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa0e0a35194c6ac5f7090abcb69260e4a">&#9670;&nbsp;</a></span>getSeconds()</h2>
 
@@ -333,32 +357,6 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>time in seconds </dd></dl>
-
-</div>
-</div>
-<a id="abc5ef878087f9e3935bd3856f1c59545"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc5ef878087f9e3935bd3856f1c59545">&#9670;&nbsp;</a></span>now()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classiaux_1_1ia_time.html">iaTime</a> iaux::iaTime::now </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>current time </dd></dl>
 
 </div>
 </div>
@@ -650,32 +648,6 @@ Static Public Member Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="a070266c0f1bfc334a86deaa01676cffd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a070266c0f1bfc334a86deaa01676cffd">&#9670;&nbsp;</a></span>zero()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classiaux_1_1ia_time.html">iaTime</a> iaux::iaTime::zero </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>zero time </dd></dl>
 
 </div>
 </div>

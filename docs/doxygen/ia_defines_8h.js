@@ -49,6 +49,8 @@ var ia_defines_8h =
     [ "__IGOR_MILIMETER__", "ia_defines_8h.html#a34f1b798e107548ba507ce783f5aea1a", null ],
     [ "__IGOR_MILLISECOND__", "ia_defines_8h.html#a98bf4723876b84677be155cce5e5226f", null ],
     [ "__IGOR_MINUTE__", "ia_defines_8h.html#aaaed87c66d4c369b13636752b4b0f1ef", null ],
+    [ "__IGOR_PATHSEPARATOR_LINUX__", "ia_defines_8h.html#a5b0f8492df43798be2d9d26de36e1e44", null ],
+    [ "__IGOR_PATHSEPARATOR_WINDOWS__", "ia_defines_8h.html#a8bbd96b88a5707f47c1f286da18c43b5", null ],
     [ "__IGOR_SECOND__", "ia_defines_8h.html#ab002cf07de858bb4fdd4cc014c057bb9", null ],
     [ "__IGOR_STDCALL__", "ia_defines_8h.html#a123d326c50822a7f5fdbff8f0dec986f", null ],
     [ "__IGOR_TAB__", "ia_defines_8h.html#a952845fc924ffb57aed31aec66298bf5", null ],
