@@ -7,8 +7,8 @@ var classiaux_1_1ia_time =
     [ "fromSeconds", "classiaux_1_1ia_time.html#a7701a2dfa645f177de3f6b6baf009cf1", null ],
     [ "getMicrosenconds", "classiaux_1_1ia_time.html#a1d36f237d01f1ac23d4a2205f7a6b190", null ],
     [ "getMilliseconds", "classiaux_1_1ia_time.html#afd27d10cca8240447e91a10b0a363d64", null ],
+    [ "getNow", "classiaux_1_1ia_time.html#a0e6fb3c320906300576a8093a64a6c0d", null ],
     [ "getSeconds", "classiaux_1_1ia_time.html#aa0e0a35194c6ac5f7090abcb69260e4a", null ],
-    [ "now", "classiaux_1_1ia_time.html#abc5ef878087f9e3935bd3856f1c59545", null ],
     [ "operator!=", "classiaux_1_1ia_time.html#afbdb010125baeaf193fe566b8d91baf6", null ],
     [ "operator*", "classiaux_1_1ia_time.html#a69844383e2f09670737a8ff0fdb42162", null ],
     [ "operator*=", "classiaux_1_1ia_time.html#aed7da505792bbccc1c44d28d7bdfd747", null ],
@@ -20,6 +20,5 @@ var classiaux_1_1ia_time =
     [ "operator<=", "classiaux_1_1ia_time.html#a99a5fd7caffcd568cd099262068ff60c", null ],
     [ "operator==", "classiaux_1_1ia_time.html#ad080421d2ed1a5ed46b7593e13b6d1ae", null ],
     [ "operator>", "classiaux_1_1ia_time.html#a508bc4d4d18ea595d2531d52bde38412", null ],
-    [ "operator>=", "classiaux_1_1ia_time.html#a464a84a505154f870aee476882724ef7", null ],
-    [ "zero", "classiaux_1_1ia_time.html#a070266c0f1bfc334a86deaa01676cffd", null ]
+    [ "operator>=", "classiaux_1_1ia_time.html#a464a84a505154f870aee476882724ef7", null ]
 ];

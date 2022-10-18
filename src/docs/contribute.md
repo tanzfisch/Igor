@@ -14,12 +14,16 @@ Igor currently links to the following libraries as sub modules.
 - newton-dynamics
  
 dont forget to
- 
-> git submodule init
+
+``` 
+git submodule init
+```
 
 and
 
-> git submodule update
+```
+git submodule update
+```
 
 Build
 -----
@@ -28,22 +32,30 @@ Igor is using cmake to build. It is configured to work with Debian/g++ (Windows/
 
 **Build Debug**
 
-> cmake -S . -B build/debug -DCMAKE_BUILD_TYPE=Debug
-> cmake --build build/debug
+```
+cmake -S . -B build/debug -DCMAKE_BUILD_TYPE=Debug
+cmake --build build/debug
+```
 
 **Build Release with Debug**
 
-> cmake -S . -B build/release -DCMAKE_BUILD_TYPE=RelWithDebInfo
-> cmake --build build/reldeb
+```
+cmake -S . -B build/release -DCMAKE_BUILD_TYPE=RelWithDebInfo
+cmake --build build/reldeb
+```
 
 **Build Release**
 
-> cmake -S . -B build/release -DCMAKE_BUILD_TYPE=Release
-> cmake --build build/release
+```
+cmake -S . -B build/release -DCMAKE_BUILD_TYPE=Release
+cmake --build build/release
+```
 
 **Note!** Under Linux you might need to install some additional dependencies like the following ...
 
-> sudo apt-get install libx11-dev libgl1-mesa-dev libglu1-mesa-dev libglfw3-dev libalsa-ocaml-dev libxxf86vm-dev
+```
+sudo apt-get install libx11-dev libgl1-mesa-dev libglu1-mesa-dev libglfw3-dev libalsa-ocaml-dev libxxf86vm-dev
+```
 
 Git Flow
 --------

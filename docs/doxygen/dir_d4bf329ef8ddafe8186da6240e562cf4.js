@@ -6,6 +6,10 @@ var dir_d4bf329ef8ddafe8186da6240e562cf4 =
     ] ],
     [ "iaConsole.cpp", "ia_console_8cpp.html", "ia_console_8cpp" ],
     [ "iaConsole.h", "ia_console_8h.html", "ia_console_8h" ],
+    [ "iaDate.cpp", "ia_date_8cpp.html", null ],
+    [ "iaDate.h", "ia_date_8h.html", [
+      [ "iaDate", "classiaux_1_1ia_date.html", "classiaux_1_1ia_date" ]
+    ] ],
     [ "iaDelegate.h", "ia_delegate_8h.html", "ia_delegate_8h" ],
     [ "iaDirectory.cpp", "ia_directory_8cpp.html", "ia_directory_8cpp" ],
     [ "iaDirectory.h", "ia_directory_8h.html", [
