@@ -88,6 +88,22 @@ namespace iaux
         */
         static std::map<std::string, std::vector<iaTest *>> _tests;
 
+        /*! if true stop testing on first error
+        */
+        static bool _stopOnError;
+
+        /*! if true use filter to search for tests
+        */
+        static bool _useFilter;
+
+        /*! filter to use
+        */
+        static std::string _filter;
+
+        /*! if true output is more verbose
+        */
+        static bool _verbose;
+
         /*! if true this test was successful
         */
         bool _ok = true;
@@ -118,56 +134,56 @@ namespace iaux
 #define IAUX_EXPECT_EQ(a, b)                                                   \
     if ((a) != (b))                                                            \
     {                                                                          \
+        iaConsole::getInstance() << __IGOR_FILE_LINE__ << " - ";                \
         iaConsole::getInstance() << (a) << " is not equal to " << (b) << endl; \
-        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl;                \
         _ok = false;                                                           \
     }
 
 #define IAUX_EXPECT_NE(a, b)                                                          \
     if ((a) == (b))                                                                   \
     {                                                                                 \
+        iaConsole::getInstance() << __IGOR_FILE_LINE__ << " - ";                       \
         iaConsole::getInstance() << (a) << " should be not equal to " << (b) << endl; \
-        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl;                       \
         _ok = false;                                                                  \
     }
 
 #define IAUX_EXPECT_TRUE(value)                                                  \
     if (!(value))                                                                \
     {                                                                            \
+        iaConsole::getInstance() << __IGOR_FILE_LINE__ << " - ";                  \
         iaConsole::getInstance() << "value should be TRUE but is FALSE" << endl; \
-        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl;                  \
         _ok = false;                                                             \
     }
 
 #define IAUX_EXPECT_FALSE(value)                                                 \
     if (value)                                                                   \
     {                                                                            \
+        iaConsole::getInstance() << __IGOR_FILE_LINE__ << " - ";                  \
         iaConsole::getInstance() << "value should be FALSE but is TRUE" << endl; \
-        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl;                  \
         _ok = false;                                                             \
     }
 
 #define IAUX_EXPECT_NEAR(a, b, t)                                                                                                                           \
     if (std::abs((a) - (b)) > t)                                                                                                                            \
     {                                                                                                                                                       \
+        iaConsole::getInstance() << __IGOR_FILE_LINE__ << " - ";                                                                                             \
         iaConsole::getInstance() << "diff of " << a << " and " << b << " is " << std::abs((a) - (b)) << " but should be smaller or equal to " << t << endl; \
-        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl;                                                                                             \
         _ok = false;                                                                                                                                        \
     }
 
 #define IAUX_EXPECT_GREATER_THEN(a, b)                                         \
     if ((a) <= (b))                                                            \
     {                                                                          \
+        iaConsole::getInstance() << __IGOR_FILE_LINE__ << " - ";                \
         iaConsole::getInstance() << a << " is not greater then " << b << endl; \
-        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl;                \
         _ok = false;                                                           \
     }
 
 #define IAUX_EXPECT_LESS_THEN(a, b)                                         \
     if ((a) >= (b))                                                         \
     {                                                                       \
+        iaConsole::getInstance() << __IGOR_FILE_LINE__ << " - ";             \
         iaConsole::getInstance() << a << " is not less then " << b << endl; \
-        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl;             \
         _ok = false;                                                        \
     }
 
@@ -184,11 +200,11 @@ namespace iaux
         } \
         if(failed) \
         { \
+            iaConsole::getInstance() << __IGOR_FILE_LINE__ << " - "; \
             iaConsole::getInstance() << "matrices are not equal" << endl; \
-            iaConsole::getInstance() << "m1                           " << m1; \
+            iaConsole::getInstance() << m1; \
             iaConsole::getInstance() << "---------------------------------------------------------------------------" << endl; \
-            iaConsole::getInstance() << "m2                           " << m2 << endl; \
-            iaConsole::getInstance() << __IGOR_FILE_LINE__ << endl; \
+            iaConsole::getInstance() << m2 << endl; \
             _ok = false; \
         } \
     }
