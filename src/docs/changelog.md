@@ -1,6 +1,16 @@
 Changelog                           {#changelog}
 =========
 
+0.34.0
+------
+
+
+0.33.1
+------
+
+- fixed build under windows
+
+
 0.33.0
 ------
 
