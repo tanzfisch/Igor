@@ -31,8 +31,6 @@
 
 #include <igor/iDefines.h>
 
-#include <vector>
-
 namespace igor
 {
 
@@ -42,7 +40,7 @@ namespace igor
     igor::startup() and destroyed during igor::shutdown()
     */
     template <typename T>
-    class IGOR_API_TEMPLATE iModule
+    class iModule
     {
         friend void destroyModules();
         friend void createModules();

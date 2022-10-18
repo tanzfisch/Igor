@@ -37,6 +37,7 @@ using namespace iaux;
 
 namespace igor
 {
+#if defined(__IGOR_DEBUG__) && defined(GL_DEBUG_SEVERITY_HIGH)
     // print out openGL debug messages
     static void onOGLDebugOutput(
         GLenum source,
@@ -65,7 +66,8 @@ namespace igor
 
         con_crit("Unknown Error");
     }
-
+#endif
+    
     static GLenum convertGLColorFormat(iColorFormat format)
     {
         GLenum glformat = iRenderer::INVALID_ID;
@@ -109,7 +111,7 @@ namespace igor
 
     iRenderer::iRenderer()
     {
-#ifdef __IGOR_DEBUG__
+#if defined(__IGOR_DEBUG__) && defined(GL_DEBUG_SEVERITY_HIGH)
         glEnable(GL_DEBUG_OUTPUT);
         glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
         glDebugMessageCallback(onOGLDebugOutput, nullptr);
