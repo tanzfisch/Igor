@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/graphics/iInstancer.h>
@@ -8,6 +8,8 @@
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
+
+#include <cstring>
 
 namespace igor
 {

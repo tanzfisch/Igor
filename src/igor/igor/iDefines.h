@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -32,26 +32,19 @@
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
-#ifdef __IGOR_WINDOWS__
-
 #ifdef __IGOR_MSCOMPILER__
-#ifdef __IGOR_BUILDING_DLL__
-#define IGOR_API __declspec(dllexport)
-#define IGOR_API_TEMPLATE __declspec(dllexport)
-#else // __IGOR_BUILDING_DLL__
-#define IGOR_API __declspec(dllimport)
-#define IGOR_API_TEMPLATE
-#endif // __IGOR_BUILDING_DLL__
-#endif // __IGOR_BUILDING_DLL__
-#endif // __IGOR_MSCOMPILER__
+    #ifdef __IGOR_BUILDING_DLL__
+        #define IGOR_API __declspec(dllexport)
+        #define IGOR_API_TEMPLATE __declspec(dllexport)
+    #else
+        #define IGOR_API __declspec(dllimport)
+        #define IGOR_API_TEMPLATE
+    #endif
+#endif
 
-#ifdef __IGOR_LINUX__
-#define IGOR_API
-#define IGOR_API_TEMPLATE
-#endif // __IGOR_LINUX__
-
-#ifdef DEEP_PROFILING
-#define IGOR_DEEP_PROFILING
+#ifdef __IGOR_GCC__
+    #define IGOR_API
+    #define IGOR_API_TEMPLATE
 #endif
 
 //! Igor configuration short
@@ -256,6 +249,10 @@ namespace igor
         MouseWheelDown,
         KeyCodeCount
     };
+
+    /*! user data type
+    */
+    typedef void* iUserData;
 
 }; // namespace igor
 

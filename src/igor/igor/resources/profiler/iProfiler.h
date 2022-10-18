@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -35,182 +35,102 @@
 #include <iaux/system/iaMutex.h>
 using namespace iaux;
 
-#include <map>
+#include <unordered_map>
 #include <array>
 
 namespace igor
 {
-
-#ifdef IGOR_DEEP_PROFILING
-
-    class iProfilerFunction
+    struct IGOR_API iProfilerSectionData
     {
-    public:
-        iProfilerFunction(const iaString &name, const iaString &file, uint32 line)
-        {
-            _name = name;
-            _file = file;
-            _line = line;
-            iaString hashValue = _name;
-            hashValue += file;
-            hashValue += iaString::toString(line);
-            _hash = hashValue.getHashValue();
-            _data[_hash] = this;
-        }
-
+        /*! name of section
+         */
         iaString _name;
-        iaString _file;
-        uint32 _line;
-        uint64 _hash;
-        uint64 _callCount = 0;
-        iaTime _duration = iaTime::zero();
-        static std::map<uint64, iProfilerFunction *> _data;
-        static iaMutex _mutex;
+
+        /*! time used per frame
+         */
+        std::array<iaTime, 500> _values;
+
+        /*! time at beginning of section
+         */
+        iaTime _beginTime;
     };
 
-    class iProfilerMeasure
+    struct IGOR_API iProfilerSectionScoped
     {
-    public:
-        iProfilerMeasure(iProfilerFunction *profilerFunction)
-            : _profilerFunction(profilerFunction)
-        {
-            _profilerFunction->_callCount++;
+        /*! begins measuring section
 
-            _time = iaTime::now();
-        }
+        \param sectionName name of section
+         */
+        iProfilerSectionScoped(const iaString &sectionName);
 
-        ~iProfilerMeasure()
-        {
-            _profilerFunction->_duration += iaTime::now() - _time;
-        }
+        /*! stops measuring section
+         */
+        ~iProfilerSectionScoped();
 
     private:
-        iaTime _time;
-        iProfilerFunction *_profilerFunction;
+        /*! the section name
+         */
+        iaString _sectionName;
     };
 
-#define IGOR_PROFILER_CLASS(ClassName, FuncName, File, Line)               \
-    class ClassName : public iProfilerFunction                             \
-    {                                                                      \
-    public:                                                                \
-        ClassName(const iaString &name, const iaString &file, uint32 line) \
-            : iProfilerFunction(name, file, line)                          \
-        {                                                                  \
-        }                                                                  \
-                                                                           \
-        static ClassName *getInstance()                                    \
-        {                                                                  \
-            static ClassName *_instance = nullptr;                         \
-            _mutex.lock();                                                 \
-            if (_instance == nullptr)                                      \
-            {                                                              \
-                _instance = new ClassName(FuncName, File, Line);           \
-            }                                                              \
-            _mutex.unlock();                                               \
-            return _instance;                                              \
-        }                                                                  \
-    };                                                                     \
-    iProfilerMeasure profilerMeasure(ClassName::getInstance())
-
-#define CONCATENATE_DETAIL(x, y) x##y
-#define CONCATENATE(x, y) CONCATENATE_DETAIL(x, y)
-
-#define IGOR_PROFILER() \
-    IGOR_PROFILER_CLASS(CONCATENATE(iProfilerFunction, __COUNTER__), __IGOR_FUNCTION__, __FILE__, __LINE__)
-
-#else
-
-#define IGOR_PROFILER()
-
-#endif
-
-    /*! profiler section id definition
-    */
-    typedef iaID64 iProfilerSectionID;
-
     /*! render statistics
-    */
-    class IGOR_API iProfiler : public iModule<iProfiler>
+     */
+    class IGOR_API iProfiler
     {
 
-        friend class iModule<iProfiler>;
+        friend class iProfilerSectionScoped;
 
     public:
         /*! size of buffer aka amount of frames that are logged
-        */
+         */
         static const uint64 MAX_FRAMES_COUNT = 500;
 
-        /*! invalid profiler section id definition
-        */
-        static const iProfilerSectionID INVALID_PROFILER_SECTION_ID = 0;
-
-        struct iProfilerSection
-        {
-            /*! name of section
-            */
-            iaString _name;
-
-            /*! time used per frame
-            */
-            std::array<iaTime, MAX_FRAMES_COUNT> _values;
-
-            /*! time at beginning of section
-            */
-            iaTime _beginTime;
-        };
-
-        /*! creates a measurement section
-
-        \param sectionName the section's name
-        \param groupIndex index of group this section belongs to
-        */
-        iProfilerSectionID createSection(const iaString &sectionName);
-
-        /*! begins measuring section
-
-        \param sectionID the section ID
-        */
-        void beginSection(iProfilerSectionID sectionID);
-
-        /*! ends measuring section
-
-        \param sectionID the section ID
-        */
-        void endSection(iProfilerSectionID sectionID);
-
         /*! steps to next frame
-
-        \param loggingFrame if true next frame will be logges more verbosively
-        */
-        void nextFrame(bool loggingFrame);
+         */
+        static void nextFrame();
 
         /*! \returns reference to list of sections
 
         be carefull to not change that list
         */
-        const std::vector<iProfilerSection> &getSections() const;
+        static const std::unordered_map<int64, iProfilerSectionData> &getSections();
 
         /*! \returns current frame index
+         */
+        static int32 getCurrentFrameIndex();
+
+        /*! \returns section data for given section name
+
+        \param sectionName the given section name
         */
-        int32 getCurrentFrameIndex() const;
+        static iProfilerSectionData *getSectionData(const iaString &sectionName);
+
+        /*! begins section with given name
+
+        \param sectionName the given name
+        \returns pointer to given section data
+        */
+        static void beginSection(const iaString &sectionName);
+
+        /*! ends section with given name
+
+        \param sectionName the given name
+        */
+        static void endSection(const iaString &sectionName);
 
     private:
         /*! current frame
-        */
-        int32 _frame = 0;
+         */
+        static int32 _frame;
 
         /*! list of sections
-        */
-        std::vector<iProfilerSection> _sections;
-
-        /*! nothing todo
-        */
-        iProfiler() = default;
-
-        /*! nothing todo
-        */
-        virtual ~iProfiler() = default;
+         */
+        static std::unordered_map<int64, iProfilerSectionData> _sections;
     };
+
+#define IGOR_PROFILER_SCOPED(sectionName) iProfilerSectionScoped sectionName(#sectionName)
+#define IGOR_PROFILER_BEGIN(sectionName) iProfiler::beginSection(#sectionName)
+#define IGOR_PROFILER_END(sectionName) iProfiler::endSection(#sectionName)
 
 } // namespace igor
 

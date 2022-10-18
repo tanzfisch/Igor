@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -30,7 +30,8 @@
 #define __iVOXELOPERATIONSPHERE__
 
 #include <igor/terrain/operations/iVoxelOperation.h>
-#include <igor/data/iSphere.h>
+
+#include <iaux/data/iaSphere.h>
 
 namespace igor
 {

@@ -1,10 +1,11 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/texture/iAtlas.h>
 
 #include <igor/resources/texture/iTextureResourceFactory.h>
+#include <igor/resources/iResourceManager.h>
 
 #include <tinyxml.h>
 
@@ -70,17 +71,25 @@ namespace igor
 
 	void iAtlas::loadFrames(const iaString &filename)
 	{
+		con_assert_sticky(!filename.isEmpty(), "empty filename");
+
+		iaString path = iResourceManager::getInstance().getPath(filename);
+		
 		char temp[2048];
-		filename.getData(temp, 2048);
+		path.getData(temp, 2048);
 
 		TiXmlDocument document(temp);
-		document.LoadFile();
+		if (!document.LoadFile())
+		{
+			con_err("can't read \"" << filename << "\"");
+			return;
+		}
 
 		TiXmlElement *root = document.FirstChildElement("Igor");
-		if (root)
+		if (root != nullptr)
 		{
 			TiXmlElement *atlas = root->FirstChildElement("Atlas");
-			if (atlas)
+			if (atlas != nullptr)
 			{
 				readAtlas(atlas);
 			}

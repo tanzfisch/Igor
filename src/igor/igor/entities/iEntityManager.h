@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -29,7 +29,7 @@
 #ifndef __IGOR_ENTITYMANAGER_H__
 #define __IGOR_ENTITYMANAGER_H__
 
-#include <igor/scene/octree/iOctree.h>
+#include <igor/data/iOctree.h>
 #include <igor/resources/module/iModule.h>
 
 #include <map>
@@ -37,20 +37,22 @@
 namespace igor
 {
 
-    class iEntity;
+    class iEntity_Old;
 
-    /*! entities manager (singleton)
+    /*! entities manager
 
     After experimenting with some ECS (entity component systems) ideas I decided that it is in my case not worth the 
     effort as long as there is not an army of artists and content creators that would work for me. So I stick with the 
     classical approach using inherritance to define entities even if this provokes potencially ugly code within the 
     application layer. I don't care. I want to keep the engine clean. ML
+
+    \deprecated will work out an ECS
     */
     class IGOR_API iEntityManager : public iModule<iEntityManager>
     {
 
         friend class iModule<iEntityManager>;
-        friend class iEntity;
+        friend class iEntity_Old;
         friend class iEntityLocatable;
 
     public:
@@ -58,7 +60,7 @@ namespace igor
 
         \param entityID the entity id
         */
-        iEntity *getEntity(uint64 entityID);
+        iEntity_Old *getEntity(uint64 entityID);
 
         /*! destroys entity with given entity id
 
@@ -86,7 +88,7 @@ namespace igor
     private:
         /*! list of all the entities
         */
-        std::map<uint64, iEntity *> _entities;
+        std::map<uint64, iEntity_Old *> _entities;
 
         /*! list of all entitties which are marked for deletion
         */
@@ -102,7 +104,7 @@ namespace igor
 
         \param entity entity to register
         */
-        void registerEntity(iEntity *entity);
+        void registerEntity(iEntity_Old *entity);
 
         /*! unregister entity
 
@@ -110,7 +112,7 @@ namespace igor
 
         \param entity entity to unregister
         */
-        void unregisterEntity(iEntity *entity);
+        void unregisterEntity(iEntity_Old *entity);
 
         /*! create octree
         */

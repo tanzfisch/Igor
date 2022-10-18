@@ -182,7 +182,8 @@ IAUX_TEST(QuaternionTests, Identity)
 	IAUX_EXPECT_EQ(quat._w, 1);
 }
 
-IAUX_TEST(QuaternionTests, GetAxisAngle)
+// TODO #234
+/*IAUX_TEST(QuaternionTests, GetAxisAngle)
 {
 	iaQuaterniond quat(iaVector3d(0.0, 1.0, 0.0), 0.5 * M_PI);
 
@@ -194,7 +195,7 @@ IAUX_TEST(QuaternionTests, GetAxisAngle)
 	IAUX_EXPECT_NEAR(axis._y, 1.0, 0.000001);
 	IAUX_EXPECT_NEAR(axis._z, 0.0, 0.000001);
 	IAUX_EXPECT_NEAR(angle, 0.5 * M_PI, 0.000001);
-}
+}*/
 
 IAUX_TEST(QuaternionTests, Euqal)
 {

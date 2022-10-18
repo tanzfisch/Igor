@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include "iParticleSystem2D.h"
@@ -15,7 +15,7 @@ namespace igor
 
     iParticleSystem2D::iParticleSystem2D()
     {
-        _rand.setSeed(static_cast<uint32>(iaTime::now().getMicrosenconds()));
+        _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicrosenconds()));
 
         setMaxParticleCount(100);
     }

@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,11 +26,10 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_SPHERE_H__
-#define __IGOR_SPHERE_H__
+#ifndef __IAUX_SPHERE_H__
+#define __IAUX_SPHERE_H__
 
-#include <igor/data/iFrustum.h>
-#include <iaux/system/iaConsole.h>
+#include <iaux/math/iaVector3.h>
 
 namespace igor
 {
@@ -40,7 +39,7 @@ namespace igor
     \todo mode to IgorAux
     */
     template <class T>
-    class IGOR_API_TEMPLATE iSphere
+    class IGOR_API_TEMPLATE iaSphere
     {
 
     public:
@@ -57,29 +56,29 @@ namespace igor
         \param center center position of sphere
         \param radius radius of sphere
         */
-        iSphere(iaVector3<T> center, T radius);
+        iaSphere(iaVector3<T> center, T radius);
 
         /*! does nothing
         */
-        iSphere() = default;
+        iaSphere() = default;
 
         /*! does nothing
         */
-        virtual ~iSphere() = default;
+        virtual ~iaSphere() = default;
 
         /*! merges on spehre in to an other
 
         \param sphere the sphere to merge with
         */
-        __IGOR_INLINE__ void merge(iSphere<T> &sphere);
+        __IGOR_INLINE__ void merge(iaSphere<T> &sphere);
 
         /*! compares of two spheres are equal
         */
-        __IGOR_INLINE__ bool operator==(const iSphere<T> &sphere) const;
+        __IGOR_INLINE__ bool operator==(const iaSphere<T> &sphere) const;
 
         /*! compares of two spheres are not equal
         */
-        __IGOR_INLINE__ bool operator!=(const iSphere<T> &sphere) const;
+        __IGOR_INLINE__ bool operator!=(const iaSphere<T> &sphere) const;
 
     private:
         /*! containment test with an other sphere
@@ -87,23 +86,23 @@ namespace igor
         \param sphere the other sphere to test with
         \returns true: if sphere is completely inside sphere; false: if not
         */
-        __IGOR_INLINE__ bool contains(const iSphere<T> &sphere);
+        __IGOR_INLINE__ bool contains(const iaSphere<T> &sphere);
     };
 
-#include <igor/data/iSphere.inl>
+#include <iaux/data/iaSphere.inl>
 
     /*! float32 precision of sphere
     */
-    typedef iSphere<float32> iSpheref;
+    typedef iaSphere<float32> iSpheref;
 
     /*! float64 precision of sphere
     */
-    typedef iSphere<float64> iSphered;
+    typedef iaSphere<float64> iSphered;
 
     /*! uint64 precision of sphere
     */
-    typedef iSphere<int64> iSphereI;
+    typedef iaSphere<int64> iSphereI;
 
 } // namespace igor
 
-#endif // __IGOR_SPHERE_H__
+#endif // __IAUX_SPHERE_H__

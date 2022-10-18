@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/generation/iContouringCubes.h>
@@ -8,6 +8,8 @@
 
 #include <iaux/math/iaMatrix2D.h>
 using namespace iaux;
+
+#include <cstring>
 
 #define HIGHER_NEIGHBOR_LOD_XPOSITIVE 0x20
 #define HIGHER_NEIGHBOR_LOD_XNEGATIVE 0x10

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/model/iModelResourceFactory.h>
@@ -9,8 +9,8 @@
 #include <igor/threading/tasks/iTaskLoadModel.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/resources/mesh/iMesh.h>
-#include <igor/data/iSphere.h>
 
+#include <iaux/data/iaSphere.h>
 #include <iaux/system/iaFile.h>
 #include <iaux/data/iaString.h>
 #include <iaux/system/iaConsole.h>

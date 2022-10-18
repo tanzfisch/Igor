@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -85,7 +85,7 @@ namespace igor
         {
             /*! rectangle of button
 			*/
-            iRectanglei _rectangle;
+            iaRectanglei _rectangle;
 
             /*! button apearance state
 			*/
@@ -146,7 +146,7 @@ namespace igor
 
         /*! rectangle of child frame
 		*/
-        iRectanglei _childFrame;
+        iaRectanglei _childFrame;
 
         /*! texture for button up 
 		*/
@@ -240,7 +240,7 @@ namespace igor
 
 		\param offsets vector to be filled with childrens offsets
 		*/
-        void calcChildOffsets(std::vector<iRectanglei> &offsets);
+        void calcChildOffsets(std::vector<iaRectanglei> &offsets);
     };
 
     /*! widget scroll pointer definition

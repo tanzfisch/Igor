@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidgetGraph.h>
@@ -174,10 +174,10 @@ namespace igor
         {
             prepareDraw();
 
-            iRectanglef boundings;
+            iaRectanglef boundings;
             calcBoundings(boundings);
 
-            iRectanglef graphRenderArea;
+            iaRectanglef graphRenderArea;
             calcRenderArea(graphRenderArea);
 
             iWidgetManager::getInstance().getTheme()->drawGraphFrame(getActualRect(), getState(), isActive());
@@ -202,13 +202,13 @@ namespace igor
                     horizontalLines.push_back(iaVector2f(static_cast<float32>(i) * stepY, (boundings._y + boundings._height) - static_cast<float32>(i) * stepYData));
                 }
 
-                iWidgetManager::getInstance().getTheme()->drawGraphGridlines(iRectanglei(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y),
+                iWidgetManager::getInstance().getTheme()->drawGraphGridlines(iaRectanglei(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y),
                                                                                          static_cast<int32>(graphRenderArea._width), static_cast<int32>(graphRenderArea._height)),
                                                                              1.0, verticalLines, horizontalLines, isActive());
 
                 if (_viewLabels)
                 {
-                    iWidgetManager::getInstance().getTheme()->drawGraphLabels(iRectanglei(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y),
+                    iWidgetManager::getInstance().getTheme()->drawGraphLabels(iaRectanglei(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y),
                                                                                           static_cast<int32>(graphRenderArea._width), static_cast<int32>(graphRenderArea._height)),
                                                                               verticalLines, horizontalLines, isActive());
                 }
@@ -251,7 +251,7 @@ namespace igor
                         points.push_back(currentPoint);
                     }
 
-                    iWidgetManager::getInstance().getTheme()->drawGraph(iRectanglei(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y)),
+                    iWidgetManager::getInstance().getTheme()->drawGraph(iaRectanglei(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y)),
                                                                         graph.second._lineColor, graph.second._pointColor, graph.second._lineWidth, graph.second._pointSize, points);
                 }
             }
@@ -260,7 +260,7 @@ namespace igor
             {
                 std::vector<iaVector2f> points = _graphs[0]._points;
 
-                iRectanglei buttonRect;
+                iaRectanglei buttonRect;
                 buttonRect._height = _buttonHeight;
                 buttonRect._width = 9;
                 buttonRect._y = static_cast<int32>(graphRenderArea._height + graphRenderArea._y + 1.0f);
@@ -274,7 +274,7 @@ namespace igor
         }
     }
 
-    void iWidgetGraph::calcBoundings(iRectanglef &boundings)
+    void iWidgetGraph::calcBoundings(iaRectanglef &boundings)
     {
         if (_useUserBoudings)
         {
@@ -296,7 +296,7 @@ namespace igor
         }
     }
 
-    void iWidgetGraph::calcRenderArea(iRectanglef &graphRenderArea)
+    void iWidgetGraph::calcRenderArea(iaRectanglef &graphRenderArea)
     {
         graphRenderArea._x = static_cast<float32>(getActualPosX());
         graphRenderArea._y = static_cast<float32>(getActualPosY());
@@ -322,15 +322,15 @@ namespace igor
 
         if (_interactive)
         {
-            iRectanglef graphRenderArea;
+            iaRectanglef graphRenderArea;
             calcRenderArea(graphRenderArea);
 
-            iRectanglef boundings;
+            iaRectanglef boundings;
             calcBoundings(boundings);
 
             std::vector<iaVector2f> points = _graphs[0]._points;
 
-            iRectanglef buttonRect;
+            iaRectanglef buttonRect;
             buttonRect._height = static_cast<float32>(_buttonHeight);
             buttonRect._width = 9;
             buttonRect._y = graphRenderArea._height + graphRenderArea._y + 1;
@@ -430,12 +430,12 @@ namespace igor
         return _viewGrid;
     }
 
-    void iWidgetGraph::setBoundings(const iRectanglef &boundings)
+    void iWidgetGraph::setBoundings(const iaRectanglef &boundings)
     {
         _boundings = boundings;
     }
 
-    iRectanglef iWidgetGraph::getBoundings()
+    iaRectanglef iWidgetGraph::getBoundings()
     {
         return _boundings;
     }

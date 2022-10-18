@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/resources/texture/iTextureResourceFactory.h>
@@ -190,37 +190,36 @@ namespace igor
     {
         iTexturePtr result;
 
-        if (!filename.isEmpty())
+        con_assert_sticky(!filename.isEmpty(), "empty filename");
+
+        if (!iRenderer::getInstance().isReady())
         {
-            if (!iRenderer::getInstance().isReady())
-            {
-                con_warn("renderer not ready to load textures yet. queued your request.");
-                requestFile(filename, cacheMode, buildMode, wrapMode);
-            }
-
-            iaString keyPath = iResourceManager::getInstance().getPath(filename);
-            if (keyPath.isEmpty())
-            {
-                keyPath = filename;
-            }
-
-            int64 hashValue = calcHashValue(filename, cacheMode, buildMode, wrapMode);
-
-            _mutex.lock();
-            auto textureIter = _textures.find(hashValue);
-            if (textureIter != _textures.end())
-            {
-                result = (*textureIter).second;
-            }
-
-            if (nullptr == result.get())
-            {
-                result = iTexturePtr(new iTexture(keyPath, cacheMode, buildMode, wrapMode));
-                loadTexture(result);
-                _textures[hashValue] = result;
-            }
-            _mutex.unlock();
+            con_warn("renderer not ready to load textures yet. queued your request.");
+            requestFile(filename, cacheMode, buildMode, wrapMode);
         }
+
+        iaString keyPath = iResourceManager::getInstance().getPath(filename);
+        if (keyPath.isEmpty())
+        {
+            keyPath = filename;
+        }
+
+        int64 hashValue = calcHashValue(filename, cacheMode, buildMode, wrapMode);
+
+        _mutex.lock();
+        auto textureIter = _textures.find(hashValue);
+        if (textureIter != _textures.end())
+        {
+            result = (*textureIter).second;
+        }
+
+        if (nullptr == result.get())
+        {
+            result = iTexturePtr(new iTexture(keyPath, cacheMode, buildMode, wrapMode));
+            loadTexture(result);
+            _textures[hashValue] = result;
+        }
+        _mutex.unlock();
 
         return result;
     }

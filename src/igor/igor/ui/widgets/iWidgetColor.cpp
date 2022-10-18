@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidgetColor.h>
@@ -57,10 +57,10 @@ namespace igor
 
 			int32 halfWidth = static_cast<int32>((static_cast<float64>(getActualWidth()) / 2.0) + 0.5);
 
-			iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iRectanglei(getActualPosX(), getActualPosY(), halfWidth, getActualHeight()), _color);
+			iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iaRectanglei(getActualPosX(), getActualPosY(), halfWidth, getActualHeight()), _color);
 			iaColor4f colorNoAlpha = _color;
 			colorNoAlpha._a = 1.0f;
-			iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iRectanglei(getActualPosX() + halfWidth, getActualPosY(), halfWidth, getActualHeight()), colorNoAlpha);
+			iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iaRectanglei(getActualPosX() + halfWidth, getActualPosY(), halfWidth, getActualHeight()), colorNoAlpha);
 
 			iWidgetManager::getInstance().getTheme()->drawRectangle(getActualRect());
 		}

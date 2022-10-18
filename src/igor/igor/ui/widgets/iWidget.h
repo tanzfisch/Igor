@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -417,7 +417,7 @@ namespace igor
 
         /*! \returns actual rectangle
 		*/
-        iRectanglei getActualRect() const;
+        iaRectanglei getActualRect() const;
 
         /*! \returns actual relative horizontal position
 		*/
@@ -910,8 +910,10 @@ namespace igor
         static iWidgetPtr _keyboardFocus;
 
         /*! handles tooltip timer
+
+        \param time the time
 		*/
-        void onToolTipTimer();
+        void onToolTipTimer(const iaTime &time);
 
         /*! called when parent of this widget changes
         */
@@ -957,7 +959,7 @@ namespace igor
 
 		\param offsets vector to be filled with childrens offsets
 		*/
-        virtual void calcChildOffsets(std::vector<iRectanglei> &offsets);
+        virtual void calcChildOffsets(std::vector<iaRectanglei> &offsets);
     };
 
 #include <igor/ui/widgets/iWidget.inl>

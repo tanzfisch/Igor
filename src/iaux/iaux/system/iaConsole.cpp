@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iaux/system/iaConsole.h>
@@ -113,12 +113,18 @@ namespace iaux
         if (!_file.is_open())
         {
 #ifdef __IGOR_WINDOWS__
+#ifdef __IGOR_MSCOMPILER__
             wchar_t result[MAX_PATH];
             GetModuleFileName(NULL, result, MAX_PATH);
             std::wstring path = result;
             path = path.substr(0, path.find_last_of(__IGOR_PATHSEPARATOR__) + 1);
             path.append(L"\\igor.log");
             _file.open(path, std::fstream::out);
+#endif
+
+#ifdef __IGOR_GCC__
+            _file.open("igor.log", std::fstream::out);
+#endif
 #endif
 
 #ifdef __IGOR_LINUX__

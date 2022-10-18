@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.32.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -94,33 +94,9 @@ $(document).ready(function(){initNavTree('igor_8cpp.html',''); initResizable(); 
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="igor_8h.html">igor/igor.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_audio_8h.html">igor/audio/iAudio.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_entity_manager_8h.html">igor/entities/iEntityManager.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_application_8h.html">igor/system/iApplication.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_keyboard_8h.html">igor/system/iKeyboard.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_mouse_8h.html">igor/system/iMouse.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_model_resource_factory_8h.html">igor/resources/model/iModelResourceFactory.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_resource_manager_8h.html">igor/resources/iResourceManager.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_texture_resource_factory_8h.html">igor/resources/texture/iTextureResourceFactory.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_material_resource_factory_8h.html">igor/resources/material/iMaterialResourceFactory.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_widget_manager_8h.html">igor/ui/iWidgetManager.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_profiler_8h.html">igor/resources/profiler/iProfiler.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_action_manager_8h.html">igor/ui/actions/iActionManager.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_timer_8h.html">igor/system/iTimer.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_renderer_8h.html">igor/graphics/iRenderer.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_task_manager_8h.html">igor/threading/iTaskManager.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="i_config_reader_8h.html">igor/resources/config/iConfigReader.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_version_8h.html">igor/iVersion.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_node_manager_8h.html">igor/scene/nodes/iNodeManager.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_scene_factory_8h.html">igor/scene/iSceneFactory.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_physics_8h.html">igor/physics/iPhysics.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_clipboard_8h.html">igor/system/iClipboard.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="i_evaluation_manager_8h.html">igor/evaluation/iEvaluationManager.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="iaux_8h.html">iaux/iaux.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_console_8h.html">iaux/system/iaConsole.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_file_8h.html">iaux/system/iaFile.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_directory_8h.html">iaux/system/iaDirectory.h</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="ia_string_8h.html">iaux/data/iaString.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="ia_date_8h.html">iaux/system/iaDate.h</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -150,10 +126,10 @@ Functions</h2></td></tr>
 <tr class="separator:af68f95c2759782213759d6aadf327ad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac0acbe5b467c273c0b8a66c9d3ff788"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#aac0acbe5b467c273c0b8a66c9d3ff788">igor::startup</a> ()</td></tr>
 <tr class="separator:aac0acbe5b467c273c0b8a66c9d3ff788"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f6af7bc0db79898dde7d9fd270fd006"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a9f6af7bc0db79898dde7d9fd270fd006">igor::createModules</a> ()</td></tr>
-<tr class="separator:a9f6af7bc0db79898dde7d9fd270fd006"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d5af6c9299291833ae22a699acf8579"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a7d5af6c9299291833ae22a699acf8579">igor::destroyModules</a> ()</td></tr>
-<tr class="separator:a7d5af6c9299291833ae22a699acf8579"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7324f710167c958912815ba719e75d0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#ad7324f710167c958912815ba719e75d0">igor::createModules</a> ()</td></tr>
+<tr class="separator:ad7324f710167c958912815ba719e75d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca58709fd86d64631d1d3a11abbc3cf3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#aca58709fd86d64631d1d3a11abbc3cf3">igor::destroyModules</a> ()</td></tr>
+<tr class="separator:aca58709fd86d64631d1d3a11abbc3cf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a417c88d864a4291547b22fbfae279bb5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a417c88d864a4291547b22fbfae279bb5">igor::startupArgs</a> (int argc, wchar_t **argv)</td></tr>
 <tr class="separator:a417c88d864a4291547b22fbfae279bb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10b2ddc4c372b6753c6e09e7a3299abf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceigor.html#a10b2ddc4c372b6753c6e09e7a3299abf">igor::shutdown</a> ()</td></tr>

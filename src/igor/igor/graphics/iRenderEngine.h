@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -141,22 +141,6 @@ namespace igor
         /*! flag if true color ids get rendered
         */
         bool _renderColorID = false;
-
-        /*! cull section id for profiling
-        */
-        iProfilerSectionID _cullSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
-
-        /*! update groups section id
-        */
-        iProfilerSectionID _updateGroupsID = iProfiler::INVALID_PROFILER_SECTION_ID;
-
-        /*! buffer creation section id for profiling
-        */
-        iProfilerSectionID _bufferCreationSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
-
-        /*! draw section id for profiling
-        */
-        iProfilerSectionID _drawSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
 
         /*! material groups
         */

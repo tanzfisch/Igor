@@ -489,7 +489,7 @@ void UserControlParticleSystem::initGUI()
     _emissionGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenEmissionGradientEditor));
     _emissionGraph->setExtrapolateData();
     _emissionGraph->setViewGrid();
-    _emissionGraph->setBoundings(iRectanglef(0, 0, 1, 1));
+    _emissionGraph->setBoundings(iaRectanglef(0, 0, 1, 1));
     _emissionGraph->setLineColor(0, iaColor4f(0.0f, 0.0f, 1.0f, 1.0f));
 
     iWidgetLabel *labelAirDrag = new iWidgetLabel();
@@ -753,7 +753,7 @@ void UserControlParticleSystem::initGUI()
     _scaleSizeGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenScaleSizeGradientEditor));
     _scaleSizeGraph->setExtrapolateData();
     _scaleSizeGraph->setViewGrid();
-    _scaleSizeGraph->setBoundings(iRectanglef(0, 0, 1, 1));
+    _scaleSizeGraph->setBoundings(iaRectanglef(0, 0, 1, 1));
     _scaleSizeGraph->setLineColor(0, iaColor4f(0.0f, 0.0f, 1.0f, 1.0f));
 
     iWidgetLabel *labelVisibilityGradient = new iWidgetLabel();

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/system/iMouse.h>
@@ -122,14 +122,14 @@ namespace igor
                     if (raw->data.mouse.usButtonFlags & RI_MOUSE_BUTTON_4_DOWN)
                     {
                         _buttonStates[3]._pressed = true;
-                        _buttonStates[3]._time = iaTime::now();
+                        _buttonStates[3]._time = iaTime::getNow();
                         iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyDown(_window, iKeyCode::MouseButton4)));
                     }
 
                     if (raw->data.mouse.usButtonFlags & RI_MOUSE_BUTTON_5_DOWN)
                     {
                         _buttonStates[4]._pressed = true;
-                        _buttonStates[4]._time = iaTime::now();
+                        _buttonStates[4]._time = iaTime::getNow();
                         iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyDown(_window, iKeyCode::MouseButton5)));
                     }
 
@@ -156,7 +156,7 @@ namespace igor
 
             case WM_RBUTTONDOWN:
                 _buttonStates[2]._pressed = true;
-                _buttonStates[2]._time = iaTime::now();
+                _buttonStates[2]._time = iaTime::getNow();
                 iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyDown(_window, iKeyCode::MouseRight)));
                 break;
 
@@ -171,7 +171,7 @@ namespace igor
 
             case WM_LBUTTONDOWN:
                 _buttonStates[0]._pressed = true;
-                _buttonStates[0]._time = iaTime::now();
+                _buttonStates[0]._time = iaTime::getNow();
                 iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyDown(_window, iKeyCode::MouseLeft)));
                 break;
 
@@ -186,7 +186,7 @@ namespace igor
 
             case WM_MBUTTONDOWN:
                 _buttonStates[1]._pressed = true;
-                _buttonStates[1]._time = iaTime::now();
+                _buttonStates[1]._time = iaTime::getNow();
                 iApplication::getInstance().onEvent(iEventPtr(new iEventMouseKeyDown(_window, iKeyCode::MouseMiddle)));
                 break;
 
@@ -285,7 +285,7 @@ namespace igor
         {
             const iaTime doubleClickDelay = iaTime::fromMilliseconds(200);
             const int buttonIndex = (int)buttonKey - (int)iKeyCode::MouseLeft;
-            const iaTime time = iaTime::now();
+            const iaTime time = iaTime::getNow();
 
             bool doubleClick = false;
 

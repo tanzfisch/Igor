@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.32.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -108,12 +108,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a5c42e78286d9133b187d17e8d36aa3be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43618358328f9d80f6bad50ad072cd3f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_layer.html#a43618358328f9d80f6bad50ad072cd3f">onPreDraw</a> ()</td></tr>
 <tr class="separator:a43618358328f9d80f6bad50ad072cd3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe69f0622fe378edc072cb2a94e8748e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_layer.html#abe69f0622fe378edc072cb2a94e8748e">onPostDraw</a> ()</td></tr>
-<tr class="separator:abe69f0622fe378edc072cb2a94e8748e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24b4cb0e038a86e6e1b197b8f66662ff"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_layer.html#a24b4cb0e038a86e6e1b197b8f66662ff">onEvent</a> (<a class="el" href="classigor_1_1i_event.html">iEvent</a> &amp;event)</td></tr>
 <tr class="separator:a24b4cb0e038a86e6e1b197b8f66662ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a565c0c6955292f939fc6909f2b6142c0"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_layer.html#a565c0c6955292f939fc6909f2b6142c0">getName</a> () const</td></tr>
 <tr class="separator:a565c0c6955292f939fc6909f2b6142c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac1787f9214d461becdb80d0e5ababe2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_layer.html#aac1787f9214d461becdb80d0e5ababe2">setName</a> (const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;name)</td></tr>
+<tr class="separator:aac1787f9214d461becdb80d0e5ababe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d88f5d078fdc3d3cd98744f7ebc8b15"><td class="memItemLeft" align="right" valign="top"><a class="el" href="ia_defines_8h.html#ab7903878916593daecbeb95b98115ab0">int32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_layer.html#a4d88f5d078fdc3d3cd98744f7ebc8b15">getZIndex</a> () const</td></tr>
 <tr class="separator:a4d88f5d078fdc3d3cd98744f7ebc8b15"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88989b52b355aa2e6cd5bd0f58fe7ac2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classigor_1_1i_window.html">iWindow</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classigor_1_1i_layer.html#a88989b52b355aa2e6cd5bd0f58fe7ac2">getWindow</a> () const</td></tr>
@@ -324,34 +324,6 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="abe69f0622fe378edc072cb2a94e8748e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe69f0622fe378edc072cb2a94e8748e">&#9670;&nbsp;</a></span>onPostDraw()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void igor::iLayer::onPostDraw </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>called on application post draw event </p>
-
-<p>Reimplemented in <a class="el" href="classigor_1_1i_layer_widgets.html#a0c15dad5ca105c6a725a6215595a9d30">igor::iLayerWidgets</a>.</p>
-
-</div>
-</div>
 <a id="a43618358328f9d80f6bad50ad072cd3f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a43618358328f9d80f6bad50ad072cd3f">&#9670;&nbsp;</a></span>onPreDraw()</h2>
 
@@ -377,6 +349,31 @@ Public Member Functions</h2></td></tr>
 <p>called on application pre draw event </p>
 
 <p>Reimplemented in <a class="el" href="classigor_1_1i_layer_widgets.html#aaebaac171f3b3f17f17cd9f691e79870">igor::iLayerWidgets</a>.</p>
+
+</div>
+</div>
+<a id="aac1787f9214d461becdb80d0e5ababe2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac1787f9214d461becdb80d0e5ababe2">&#9670;&nbsp;</a></span>setName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void igor::iLayer::setName </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classiaux_1_1ia_string.html">iaString</a> &amp;&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>sets layer name</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>the name to set </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

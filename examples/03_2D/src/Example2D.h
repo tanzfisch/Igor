@@ -122,8 +122,10 @@ private:
     void updateParticles();
 
     /*! called by timer
+
+    \param time the time
     */
-    void onUpdate();
+    void onUpdate(const iaTime &time);
 
     /*! called by orthogonal view
     */

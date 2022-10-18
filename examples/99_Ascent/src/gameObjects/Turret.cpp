@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include "Turret.h"
@@ -43,7 +43,7 @@ Turret::Turret(iScenePtr scene, iNodeTransform *parent, iVoxelTerrain *voxelTerr
     _parentNodeID = parent->getID();
     parent->insertNode(turret);
 
-    _time = iTimer::getInstance().getFrameTime();
+    _time = iTimer::getInstance().getTime();
 }
 
 void Turret::onModelReady(uint64 modelNodeID)
@@ -164,7 +164,7 @@ void Turret::handle()
 
                     if (canFire &&
                         distance < fireDistance &&
-                        _time + iaTime::fromSeconds(1) < iTimer::getInstance().getFrameTime())
+                        _time + iaTime::fromSeconds(1) < iTimer::getInstance().getTime())
                     {
                         // check line of sight
                         iaVector3I outside, inside;
@@ -188,7 +188,7 @@ void Turret::handle()
                             matrixOrientation._pos -= matrixOrientation._depth * 2.0;
 
                             Bullet *bullet = new Bullet(_scene, iaVector3d(), matrixOrientation, getFraction());
-                            _time = iTimer::getInstance().getApplicationTime();
+                            _time = iTimer::getInstance().getGameTime();
 
                             fired = true;
                         }

@@ -28,7 +28,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.32.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.33.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -95,11 +95,11 @@ $(document).ready(function(){initNavTree('classiaux_1_1ia_time.html',''); initRe
   <tr><td class="entry"><a class="el" href="classiaux_1_1ia_time.html#a7701a2dfa645f177de3f6b6baf009cf1">fromSeconds</a>(float64 time)</td><td class="entry"><a class="el" href="classiaux_1_1ia_time.html">iaux::iaTime</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classiaux_1_1ia_time.html#a1d36f237d01f1ac23d4a2205f7a6b190">getMicrosenconds</a>() const</td><td class="entry"><a class="el" href="classiaux_1_1ia_time.html">iaux::iaTime</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classiaux_1_1ia_time.html#afd27d10cca8240447e91a10b0a363d64">getMilliseconds</a>() const</td><td class="entry"><a class="el" href="classiaux_1_1ia_time.html">iaux::iaTime</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classiaux_1_1ia_time.html#aa0e0a35194c6ac5f7090abcb69260e4a">getSeconds</a>() const</td><td class="entry"><a class="el" href="classiaux_1_1ia_time.html">iaux::iaTime</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classiaux_1_1ia_time.html#ae9444122fb5e3d3c15c73fa615b61f0a">iaTime</a>()=default</td><td class="entry"><a class="el" href="classiaux_1_1ia_time.html">iaux::iaTime</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classiaux_1_1ia_time.html#a1a61d92c7d766b2ae0c6a32ef1fb1cba">iaTime</a>(const iaTime &amp;other)</td><td class="entry"><a class="el" href="classiaux_1_1ia_time.html">iaux::iaTime</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classiaux_1_1ia_time.html#adc0fe640dfa4645ad0781613d608d1a4">iaTime</a>(int64 microSeconds)</td><td class="entry"><a class="el" href="classiaux_1_1ia_time.html">iaux::iaTime</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classiaux_1_1ia_time.html#abc5ef878087f9e3935bd3856f1c59545">now</a>()</td><td class="entry"><a class="el" href="classiaux_1_1ia_time.html">iaux::iaTime</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classiaux_1_1ia_time.html#a0e6fb3c320906300576a8093a64a6c0d">getNow</a>()</td><td class="entry"><a class="el" href="classiaux_1_1ia_time.html">iaux::iaTime</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classiaux_1_1ia_time.html#aa0e0a35194c6ac5f7090abcb69260e4a">getSeconds</a>() const</td><td class="entry"><a class="el" href="classiaux_1_1ia_time.html">iaux::iaTime</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classiaux_1_1ia_time.html#ae9444122fb5e3d3c15c73fa615b61f0a">iaTime</a>()=default</td><td class="entry"><a class="el" href="classiaux_1_1ia_time.html">iaux::iaTime</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classiaux_1_1ia_time.html#a1a61d92c7d766b2ae0c6a32ef1fb1cba">iaTime</a>(const iaTime &amp;other)</td><td class="entry"><a class="el" href="classiaux_1_1ia_time.html">iaux::iaTime</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classiaux_1_1ia_time.html#adc0fe640dfa4645ad0781613d608d1a4">iaTime</a>(int64 microSeconds)</td><td class="entry"><a class="el" href="classiaux_1_1ia_time.html">iaux::iaTime</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classiaux_1_1ia_time.html#afbdb010125baeaf193fe566b8d91baf6">operator!=</a>(const iaTime &amp;time) const</td><td class="entry"><a class="el" href="classiaux_1_1ia_time.html">iaux::iaTime</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classiaux_1_1ia_time.html#a69844383e2f09670737a8ff0fdb42162">operator*</a>(float64 scalar) const</td><td class="entry"><a class="el" href="classiaux_1_1ia_time.html">iaux::iaTime</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classiaux_1_1ia_time.html#aed7da505792bbccc1c44d28d7bdfd747">operator*=</a>(float64 scalar)</td><td class="entry"><a class="el" href="classiaux_1_1ia_time.html">iaux::iaTime</a></td><td class="entry"></td></tr>
@@ -112,7 +112,6 @@ $(document).ready(function(){initNavTree('classiaux_1_1ia_time.html',''); initRe
   <tr class="even"><td class="entry"><a class="el" href="classiaux_1_1ia_time.html#ad080421d2ed1a5ed46b7593e13b6d1ae">operator==</a>(const iaTime &amp;time) const</td><td class="entry"><a class="el" href="classiaux_1_1ia_time.html">iaux::iaTime</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classiaux_1_1ia_time.html#a508bc4d4d18ea595d2531d52bde38412">operator&gt;</a>(const iaTime &amp;time) const</td><td class="entry"><a class="el" href="classiaux_1_1ia_time.html">iaux::iaTime</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classiaux_1_1ia_time.html#a464a84a505154f870aee476882724ef7">operator&gt;=</a>(const iaTime &amp;time) const</td><td class="entry"><a class="el" href="classiaux_1_1ia_time.html">iaux::iaTime</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classiaux_1_1ia_time.html#a070266c0f1bfc334a86deaa01676cffd">zero</a>()</td><td class="entry"><a class="el" href="classiaux_1_1ia_time.html">iaux::iaTime</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

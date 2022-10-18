@@ -12,6 +12,11 @@ namespace igor
         return _name;
     }
 
+    void iLayer::setName(const iaString &name)
+    {
+        _name = name;
+    }
+
     int32 iLayer::getZIndex() const
     {
         return _zIndex;

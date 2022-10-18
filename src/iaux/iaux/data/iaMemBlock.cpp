@@ -1,10 +1,12 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iaux/data/iaMemBlock.h>
 
 #include <iaux/system/iaConsole.h>
+
+#include <cstring>
 
 namespace iaux
 {

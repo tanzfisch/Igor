@@ -97,9 +97,9 @@ __IGOR_INLINE__ int32 iWidget::getActualPosY() const
 	return _absoluteY;
 }
 
-__IGOR_INLINE__ iRectanglei iWidget::getActualRect() const
+__IGOR_INLINE__ iaRectanglei iWidget::getActualRect() const
 {
-    return iRectanglei(_absoluteX, _absoluteY, _actualWidth, _actualHeight);
+    return iaRectanglei(_absoluteX, _absoluteY, _actualWidth, _actualHeight);
 }
 
 __IGOR_INLINE__ int32 iWidget::getRelativePosX() const

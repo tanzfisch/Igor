@@ -1,5 +1,5 @@
 // OMPF 3d model file format
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <ompf/chunks/ompfHeaderChunk.h>
@@ -9,6 +9,8 @@
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
+
+#include <cstring>
 
 namespace OMPF
 {

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/physics/iPhysics.h>
@@ -426,7 +426,7 @@ namespace igor
     {
         if (!_running)
         {
-            _lastTime = iTimer::getInstance().getFrameTime();
+            _lastTime = iTimer::getInstance().getTime();
             _running = true;
         }
     }
@@ -506,6 +506,8 @@ namespace igor
 
     void iPhysics::handle()
     {
+        IGOR_PROFILER_SCOPED(phy);
+        
         if (_running)
         {
             handleQueues();
@@ -514,7 +516,7 @@ namespace igor
             const iaTime timeDelta = iaTime::fromSeconds(1.0 / _simulationRate);
 
             uint32 updateCount = 0;
-            iaTime currentTime = iTimer::getInstance().getFrameTime();
+            iaTime currentTime = iTimer::getInstance().getTime();
 
             while ((_lastTime + timeDelta < currentTime) &&
                    (updateCount < maxUpdateCount))

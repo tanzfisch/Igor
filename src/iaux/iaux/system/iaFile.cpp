@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iaux/system/iaFile.h>
@@ -20,9 +20,9 @@
 namespace iaux
 {
 
-    iaFile::iaFile(const iaString &fileName)
+    iaFile::iaFile(const iaString &filename)
     {
-        _filename = iaDirectory::fixPath(fileName, true);
+        _filename = iaDirectory::fixPath(filename, true);
     }
 
     iaFile::~iaFile()

@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -44,7 +44,7 @@ namespace iaux
     class IAUX_API iaConsole;
 
 /*! logging tab definition including size of time and thread ID
-    */
+ */
 #define __IGOR_LOGGING_TAB__ L"                             "
 
     /*!
@@ -53,7 +53,7 @@ namespace iaux
     __IGOR_FUNCTION_POINTER__(superspecialfuncptrtype, iaConsole &, (iaConsole &));
 
     /*! used as foreground colors for console output
-    */
+     */
     enum class iaForegroundColor
     {
         White,
@@ -73,12 +73,12 @@ namespace iaux
     };
 
     /*! logging level definitions
-    */
+     */
     enum class iaLogLevel
     {
         /*! this would make the application stop
 
-        con_assert, con_assert_sticky
+        con_assert, con_assert_sticky, con_crit
         */
         Fatal,
 
@@ -121,7 +121,7 @@ namespace iaux
     };
 
     /*! console and logging interface
-    */
+     */
     class IAUX_API iaConsole
     {
         friend void *threadFunc(void *data);
@@ -138,7 +138,7 @@ namespace iaux
 
     public:
         /*! returns single instance of the console
-        */
+         */
         static iaConsole &getInstance()
         {
             static iaConsole _instance;
@@ -146,11 +146,11 @@ namespace iaux
         }
 
         /*! lock console for exclusive access
-        */
+         */
         void lock();
 
         /*! unlock console
-        */
+         */
         void unlock();
 
         /*! sets the log level
@@ -160,7 +160,7 @@ namespace iaux
         void setLogLevel(iaLogLevel logLevel);
 
         /*! \returns the current log level
-        */
+         */
         iaLogLevel getLogLevel() const;
 
         /*! prints call stack
@@ -182,43 +182,43 @@ namespace iaux
         void activateLogfile(bool activate);
 
         /*! prints warning and error counter
-        */
+         */
         void printStats();
 
         /*! prints a tombstone in the log
-        */
+         */
         void printTombstone();
 
         /*! exits application or calls debug break
-        */
+         */
         void exit();
 
         /*! prints a birthday cake in the log
-        */
+         */
         void printCake();
 
         /*! reset error and warning counter
-        */
+         */
         void resetStats();
 
         /*! \returns error counter
-        */
+         */
         uint32 getErrors();
 
         /*! \returns warning counter
-        */
+         */
         uint32 getWarnings();
 
         /*! manually initializing the log file
-        */
+         */
         void openLogfile();
 
         /*! closes logging to log file
-        */
+         */
         void closeLogfile();
 
         /*! pipes anything in to console and log
-        */
+         */
         template <typename T>
         iaConsole &operator<<(const T &v)
         {
@@ -256,16 +256,16 @@ namespace iaux
         void setUseColors(bool useColors = true);
 
         /*! \returns true if using colors for console output
-        */
+         */
         bool isUsingColors() const;
 
     private:
         /*! the log level
-        */
+         */
         iaLogLevel _logLevel = iaLogLevel::User;
 
         /*! file stream to log file
-        */
+         */
         std::wfstream _file;
 
         /*! true: log to file is active; false: log to file will be scipped
@@ -275,27 +275,27 @@ namespace iaux
         bool _streamToLogfile = true;
 
         /*! warning counter
-        */
+         */
         uint32 _warnings = 0;
 
         /*! error counter
-        */
+         */
         uint32 _errors = 0;
 
         /*! mutex for multithreded access
-        */
+         */
         iaMutex _mutex;
 
         /*! if true use colors
-        */
+         */
         bool _useColors = true;
 
         /*! if true use of colors is supported
-        */
+         */
         bool _useColorsSupported = false;
 
         /*! maps thread IDs to thread names
-        */
+         */
         std::map<size_t, iaID32> _threadIDs;
 
         /*! changes foreground color of the console text
@@ -312,7 +312,7 @@ namespace iaux
         iaConsole();
 
         /*! nothing to do. the console is not meant to be destructed
-        */
+         */
         virtual ~iaConsole() = default;
     };
 
@@ -349,6 +349,19 @@ namespace iaux
         iaConsole::getInstance() << LOCK;                                                                                 \
         iaConsole::getInstance().printHead(iaLogLevel::Fatal);                                                            \
         iaConsole::getInstance() << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endlTab;              \
+        iaConsole::getInstance() << __IGOR_FILE_LINE__ << endlTab;                                                        \
+        iaConsole::getInstance() << __IGOR_FUNCTION__ << endlTab;                                                         \
+        iaConsole::getInstance() << "-----------------------------------------------------------------------" << endlTab; \
+        iaConsole::getInstance().printCallStack(10);                                                                      \
+        iaConsole::getInstance() << UNLOCK;                                                                               \
+        iaConsole::getInstance().exit();                                                                                  \
+    }
+
+#define con_crit(Message)                                                                                                 \
+    if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::Fatal)                                                      \
+    {                                                                                                                     \
+        iaConsole::getInstance() << LOCK;                                                                                 \
+        iaConsole::getInstance().printHead(iaLogLevel::Fatal);                                                            \
         iaConsole::getInstance() << __IGOR_FILE_LINE__ << endlTab;                                                        \
         iaConsole::getInstance() << __IGOR_FUNCTION__ << endlTab;                                                         \
         iaConsole::getInstance() << "-----------------------------------------------------------------------" << endlTab; \
@@ -481,10 +494,10 @@ namespace iaux
             \param Message message to be printed
             */
 #define con_endl(Message)                                                      \
-    if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::User)       \
+    if (iaConsole::getInstance().getLogLevel() >= iaLogLevel::User)            \
     {                                                                          \
         iaConsole::getInstance() << LOCK;                                      \
-        iaConsole::getInstance().printHead(iaLogLevel::User);             \
+        iaConsole::getInstance().printHead(iaLogLevel::User);                  \
         iaConsole::getInstance() << iaForegroundColor::Gray << Message << endl \
                                  << UNLOCK;                                    \
     }

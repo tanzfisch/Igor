@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/system/iApplication.h>
@@ -137,69 +137,33 @@ namespace igor
         _running = false;
     }
 
-    void iApplication::verboseLoggingNextFrame()
-    {
-        _verboseLogging = true;
-    }
-
     void iApplication::iterate()
     {
-        bool verboseLogging = _verboseLogging;
         iaLogLevel logLevel;
-        if (verboseLogging)
-        {
-            logLevel = iaConsole::getInstance().getLogLevel();
-            iaConsole::getInstance().setLogLevel(iaLogLevel::Trace);
-            con_info("START FRAME VERBOSE LOGGING");
-        }
+        iProfiler::nextFrame();
 
-        iProfiler::getInstance().nextFrame(verboseLogging);
+        IGOR_PROFILER_BEGIN(app);
+        iTimer::getInstance().handle();
+        iNodeManager::getInstance().handle();
+        windowHandle();
+        dispatch();
+        preDraw();
+        IGOR_PROFILER_END(app);
 
-        iProfiler::getInstance().beginSection(_applicationSectionID);
-        {
-            iTimer::getInstance().handle();
-            iNodeManager::getInstance().handle();
-            windowHandle();
-            dispatch();
-            preDraw();
-        }
-        iProfiler::getInstance().endSection(_applicationSectionID);
-
-        iProfiler::getInstance().beginSection(_evaluationSectionID);
         iEvaluationManager::getInstance().handle();
-        iProfiler::getInstance().endSection(_evaluationSectionID);
-
-        iProfiler::getInstance().beginSection(_physicsSectionID);
         iPhysics::getInstance().handle();
-        iProfiler::getInstance().endSection(_physicsSectionID);
 
-        // profiler sections are within render engine
         draw();
-
-        if (verboseLogging)
-        {
-            con_info("END FRAME VERBOSE LOGGING");
-            iaConsole::getInstance().setLogLevel(logLevel);
-            _verboseLogging = false;
-        }
     }
 
     void iApplication::run()
     {
         _running = true;
-        initProfiling();
 
         do
         {
             iterate();
         } while (_running);
-    }
-
-    void iApplication::initProfiling()
-    {
-        _applicationSectionID = iProfiler::getInstance().createSection("app");
-        _evaluationSectionID = iProfiler::getInstance().createSection("eval");
-        _physicsSectionID = iProfiler::getInstance().createSection("physics");
     }
 
     bool iApplication::isRunning()
@@ -273,9 +237,8 @@ namespace igor
 
     iWindow *iApplication::getWindow(iWindowID windowID) const
     {
-        auto iter = std::find_if(_windows.begin(), _windows.end(), [windowID](iWindowPtr window) {
-            return window->getID() == windowID;
-        });
+        auto iter = std::find_if(_windows.begin(), _windows.end(), [windowID](iWindowPtr window)
+                                 { return window->getID() == windowID; });
 
         if (iter != _windows.end())
         {

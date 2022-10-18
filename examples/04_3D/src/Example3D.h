@@ -103,8 +103,10 @@ private:
     iNodeID _LODSwitch = iNode::INVALID_NODE_ID;
 
     /*! called by timer
+
+    \param time the time
     */
-    void onTimer();
+    void onUpdate(const iaTime &time);
 
     /*! deinit example
     */

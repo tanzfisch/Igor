@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/system/iWindow.h>
@@ -246,6 +246,7 @@ namespace igor
 
         void swapBuffers() override
         {
+            IGOR_PROFILER_SCOPED(swap);
             SwapBuffers(_hDC);
         }
 
@@ -769,6 +770,7 @@ namespace igor
 
         void swapBuffers() override
         {
+            IGOR_PROFILER_SCOPED(swap);
             _glxMutex.lock();
             glXSwapBuffers(_display, glXGetCurrentDrawable());
             _glxMutex.unlock();
@@ -1203,8 +1205,6 @@ namespace igor
 #endif
 
         _impl->calcClientSize();
-
-        _swapBufferSectionID = iProfiler::getInstance().createSection("swap"); // TODO how do we handle this with multiple windows?
     }
 
     iWindow::~iWindow()
@@ -1230,7 +1230,7 @@ namespace igor
         _impl->calcClientSize();
 
         // update views with new client size
-        iRectanglei windowRect;
+        iaRectanglei windowRect;
         windowRect.setWidth(_impl->_clientWidth);
         windowRect.setHeight(_impl->_clientHeight);
 
@@ -1380,7 +1380,7 @@ namespace igor
         con_assert_sticky(view != nullptr, "zero pointer");
 
         _views.push_back(view);
-        iRectanglei windowRect;
+        iaRectanglei windowRect;
         windowRect.setWidth(_impl->_clientWidth);
         windowRect.setHeight(_impl->_clientHeight);
         view->updateWindowRect(windowRect);
@@ -1483,9 +1483,7 @@ namespace igor
             view->draw();
         }
 
-        iProfiler::getInstance().beginSection(_swapBufferSectionID);
         swapBuffers();
-        iProfiler::getInstance().endSection(_swapBufferSectionID);
     }
 
     void iWindow::setDoubleClick(bool doubleClick)

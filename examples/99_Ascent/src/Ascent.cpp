@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include "Ascent.h"
@@ -674,7 +674,7 @@ void Ascent::onPreDraw()
 {
     if (_loading)
     {
-        if (iTimer::getInstance().getApplicationTime() > 5000 &&
+        if (iTimer::getInstance().getGameTime() > 5000 &&
             iTaskManager::getInstance().getQueuedRegularTaskCount() < 4 &&
             iTaskManager::getInstance().getQueuedRenderContextTaskCount() < 4)
         {
@@ -751,7 +751,7 @@ void Ascent::onRenderOrtho()
     if (_loading)
     {
         iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
-        iRenderer::getInstance().drawRectangle(0, 0, getWindow()->getClientWidth(), getWindow()->getClientHeight());
+        iRenderer::getInstance().drawFilledRectangle(0, 0, getWindow()->getClientWidth(), getWindow()->getClientHeight());
 
         iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
         iRenderer::getInstance().setFontSize(40.0f);

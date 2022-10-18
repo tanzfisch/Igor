@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -30,9 +30,9 @@
 #define __iTASKGENERATEVOXELS__
 
 #include <igor/threading/tasks/iTask.h>
-#include <igor/data/iSphere.h>
 using namespace igor;
 
+#include <iaux/data/iaSphere.h>
 #include <iaux/math/iaVector3.h>
 #include <iaux/system/iaDelegate.h>
 using namespace iaux;

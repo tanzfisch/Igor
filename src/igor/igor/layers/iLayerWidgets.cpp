@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include "iLayerWidgets.h"
@@ -35,15 +35,8 @@ namespace igor
         iWidgetManager::getInstance().onPreDraw();
     }
 
-    void iLayerWidgets::onPostDraw()
-    {
-        iWidgetManager::getInstance().onPostDraw();
-    }
-
     void iLayerWidgets::onDeinit()
     {
-        iWidgetManager::getInstance().onPostDraw();
-
         _view.unregisterRenderDelegate(iDrawDelegate(this, &iLayerWidgets::onRender));
 
         iWidgetManager::getInstance().setTheme(nullptr);

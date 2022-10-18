@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -42,9 +42,9 @@ using namespace iaux;
 namespace igor
 {
 
-    /*! Application (Singleton)
+    /*! Application
 	
-	The main entry point to an Igor application (Singleton)
+	The main entry point to an Igor application
 	*/
     class IGOR_API iApplication : public iModule<iApplication>
     {
@@ -131,14 +131,7 @@ namespace igor
         */
         iWindow *getWindow(iWindowID windowID) const;
 
-        /*! call this to get more verbose logging next frame
-        */
-        void verboseLoggingNextFrame();
-
     private:
-        /*! if true more verbose logging is active for next frame
-        */
-        bool _verboseLogging = false;
 
         /*! queue of events
         */
@@ -154,15 +147,15 @@ namespace igor
 
         /*! application profiler section id
         */
-        uint32 _applicationSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
+        uint32 _applicationSectionID;
 
         /*! evaluation profiler section id
         */
-        uint32 _evaluationSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
+        uint32 _evaluationSectionID;
 
         /*! physics profiler section id
         */
-        uint32 _physicsSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
+        uint32 _physicsSectionID;
 
         /*! handle callbacks profiler section ID
         */
@@ -201,10 +194,6 @@ namespace igor
         \param event the window close event
         */
         bool onWindowClose(iEventWindowClose &event);
-
-        /*! init profiling sections
-        */
-        void initProfiling();
 
         /*! triggers ApplicationHandleEvent and updates windows
 		*/

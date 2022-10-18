@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include "WidgetsExample.h"
@@ -403,7 +403,7 @@ void WidgetsExample::onInit()
     graph->setLineWidth(2, 2.0f);
 
     graph->setExtrapolateData();
-    graph->setBoundings(iRectanglef(0.0f, 0.0f, 1.0f, 1.0f));
+    graph->setBoundings(iaRectanglef(0.0f, 0.0f, 1.0f, 1.0f));
     graph->setUseBoundings();
     graph->setViewGrid();
 

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/scene/iScene.h>
@@ -7,7 +7,7 @@
 #include <igor/scene/nodes/iNode.h>
 #include <igor/scene/nodes/iNodeModel.h>
 #include <igor/scene/nodes/iNodeManager.h>
-#include <igor/scene/octree/iOctree.h>
+#include <igor/data/iOctree.h>
 #include <igor/scene/nodes/iNodeVolume.h>
 #include <igor/scene/nodes/iNodeLODSwitch.h>
 #include <igor/scene/nodes/iNodeCamera.h>
@@ -260,6 +260,8 @@ namespace igor
 
     void iScene::handle()
     {
+        IGOR_PROFILER_SCOPED(scene);
+
         // todo can not stay here. need to reduce update effort per frame. event based would be nice
         updateLOD();
         updateData();
@@ -285,7 +287,7 @@ namespace igor
         _mutex.unlock();
 
         // stop after 50ms to keep the front end responsive
-        iaTime endTime = iaTime::now();
+        iaTime endTime = iaTime::getNow();
         endTime += iaTime::fromMilliseconds(50);
 
         auto iterP = _processingQueue.begin();
@@ -309,7 +311,7 @@ namespace igor
                 iterP = _processingQueue.erase(iterP);
             }
 
-            if (iaTime::now() > endTime)
+            if (iaTime::getNow() > endTime)
             {
                 break;
             }

@@ -4,8 +4,6 @@
 
 __IGOR_INLINE__ iNodePtr iNodeManager::getNode(iNodeID id) const
 {
-    IGOR_PROFILER();
-
     iNodePtr result = nullptr;
 
     _mutexNodes.lock();

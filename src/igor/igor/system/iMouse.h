@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -29,10 +29,10 @@
 #ifndef __IGOR_MOUSE_H__
 #define __IGOR_MOUSE_H__
 
-#include <igor/data/iRectangle.h>
 #include <igor/system/iOSEventListener.h>
 #include <igor/resources/module/iModule.h>
 
+#include <iaux/data/iaRectangle.h>
 #include <iaux/math/iaVector2.h>
 using namespace iaux;
 

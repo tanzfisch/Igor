@@ -1,37 +1,13 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/igor.h>
 
-#include <igor/audio/iAudio.h>
-#include <igor/entities/iEntityManager.h>
-#include <igor/system/iApplication.h>
-#include <igor/system/iKeyboard.h>
-#include <igor/system/iMouse.h>
-#include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/resources/iResourceManager.h>
-#include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/ui/iWidgetManager.h>
-#include <igor/resources/profiler/iProfiler.h>
-#include <igor/ui/actions/iActionManager.h>
-#include <igor/system/iTimer.h>
-#include <igor/graphics/iRenderer.h>
-#include <igor/threading/iTaskManager.h>
 #include <igor/resources/config/iConfigReader.h>
-#include <igor/iVersion.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/scene/iSceneFactory.h>
-#include <igor/physics/iPhysics.h>
-#include <igor/system/iClipboard.h>
-#include <igor/evaluation/iEvaluationManager.h>
 
 #include <iaux/iaux.h>
-#include <iaux/system/iaConsole.h>
-#include <iaux/system/iaFile.h>
-#include <iaux/system/iaDirectory.h>
-#include <iaux/data/iaString.h>
+#include <iaux/system/iaDate.h>
 using namespace iaux;
 
 #ifdef __IGOR_DEBUG__
@@ -105,17 +81,17 @@ namespace igor
         iaConsole::getInstance() << G << "                 \\_/__/  game engine     " << C1 << "   ) )  " << C2 << "   ((" << endl;
         iaConsole::getInstance() << G << "                                        " << C1 << "   (_(    " << C2 << "   \\)" << endl;
 
-        iaConsole::getInstance() << T << "    (c) Copyright 2012-2020 by Martin Loga" << endl
-            << endl;
+        iaConsole::getInstance() << T << "    (c) Copyright 2012-2022 by Martin Loga" << endl
+                                 << endl;
         iaConsole::getInstance() << T << "    version " << __IGOR_VERSION__ << " (" << __IGOR_CONFIGURATION__ << ") LGPL v3.0" << endl
-            << endl;
-        iaConsole::getInstance() << T << "    thanks to M. Rochel, M. Schulz, T. Drevensek, I. Yozova" << endl
-            << endl;
-        iaConsole::getInstance() << T << "    powered by NewtonDynamics, OpenGL, OpenAL-Soft, GLee, stb_image, TinyXML" << endl
-            << endl;
+                                 << endl;
+        iaConsole::getInstance() << T << "    thanks to M. Rochel, M. Schulz, T. Drevensek" << endl
+                                 << endl;
+        iaConsole::getInstance() << T << "    powered by NewtonDynamics, OpenGL, OpenAL-Soft, GLee, stb_image, TinyXML, EnTT" << endl
+                                 << endl;
         iaConsole::getInstance() << T << "    get sources from https://github.com/tanzfisch/Igor.git" << endl;
         iaConsole::getInstance() << W << "  ____________________________________________________________________________" << endl
-            << endl;
+                                 << endl;
         iaConsole::getInstance() << UNLOCK;
 
 #undef G
@@ -127,8 +103,9 @@ namespace igor
 
         // Igor's last reincarnation was 29 September 2012.
         // Before that this game engine was called EasyGL (ca 2003) and OpenDC (ca 2005).
-        if (iTimer::getInstance().getMonth() == 8 &&
-            iTimer::getInstance().getDay() == 28)
+        iaDate date = iaDate::getToday();
+        if (date.getMonth() == 8 &&
+            date.getDay() == 29)
         {
             iaConsole::getInstance().printCake();
         }
@@ -141,7 +118,7 @@ namespace igor
         startupArgs(0, nullptr);
     }
 
-    static void createModules()
+    void createModules()
     {
         iTimer::create();
         printInfo();
@@ -149,9 +126,8 @@ namespace igor
         iEvaluationManager::create();
         iEntityManager::create();
         iAudio::create();
-        iClipboard::create();
+        // iClipboard::create();
         iActionManager::create();
-        iProfiler::create();
         iMouse::create();
         iKeyboard::create();
         iPhysics::create();
@@ -166,7 +142,7 @@ namespace igor
         iModelResourceFactory::create();
     }
 
-    static void destroyModules()
+    void destroyModules()
     {
         // don't change the order if you don't know what you are doing
         if (iModelResourceFactory::isInstantiated())
@@ -239,20 +215,15 @@ namespace igor
             iApplication::destroy();
         }
 
-        if (iProfiler::isInstantiated())
-        {
-            iProfiler::destroy();
-        }
-
         if (iActionManager::isInstantiated())
         {
             iActionManager::destroy();
         }
 
-        if (iClipboard::isInstantiated())
+        /*if (iClipboard::isInstantiated())
         {
             iClipboard::destroy();
-        }
+        }*/
 
         if (iAudio::isInstantiated())
         {
@@ -270,7 +241,7 @@ namespace igor
         }
     }
 
-    void startupArgs(int argc, wchar_t** argv)
+    void startupArgs(int argc, wchar_t **argv)
     {
         iaux::startup();
 
@@ -318,10 +289,11 @@ namespace igor
 
 #ifdef __IGOR_LINUX__
             const static iaString configLocations[] = {
+                L"~/.Igor/igor.xml",
                 L"/etc/igor/igor.xml",
-                L"../config/igor.xml" };
+                L"../config/igor.xml"};
 
-            for (int i = 0; i < 2; ++i)
+            for (int i = 0; i < 3; ++i)
             {
                 iaFile file(configLocations[i]);
 

@@ -13,7 +13,6 @@ var classigor_1_1i_application =
     [ "run", "classigor_1_1i_application.html#af2c6d461c8c7272c931f1d84a0f2dd58", null ],
     [ "stop", "classigor_1_1i_application.html#ad3fe5ab8e17f607066e31991209b765d", null ],
     [ "unblockEvent", "classigor_1_1i_application.html#a4b28d280c8ec68e3e8c52467e4d86006", null ],
-    [ "verboseLoggingNextFrame", "classigor_1_1i_application.html#aa80bf46839af020a1f85e61e34d36284", null ],
     [ "iModule< iApplication >", "classigor_1_1i_application.html#ace92dec78f967ce8935c825bb5b3a05d", null ],
     [ "iWindow", "classigor_1_1i_application.html#a62b10979f57015cc1e2e958bbd9308bc", null ]
 ];

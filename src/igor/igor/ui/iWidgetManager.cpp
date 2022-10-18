@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/iWidgetManager.h>
@@ -235,10 +235,6 @@ namespace igor
         return consumed;
     }
 
-    void iWidgetManager::onPostDraw()
-    {
-    }
-
     void iWidgetManager::onPreDraw()
     {
         bool refreshMousePos = false;
@@ -295,7 +291,7 @@ namespace igor
             widget->updateAlignment(clientRectWidth, clientRectHeight);
             widget->updatePosition(offsetX, offsetY);
 
-            std::vector<iRectanglei> offsets;
+            std::vector<iaRectanglei> offsets;
             widget->calcChildOffsets(offsets);
 
             con_assert(offsets.size() == widget->_children.size(), "inconsistant data");

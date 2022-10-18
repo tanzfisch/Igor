@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/layers/iLayerProfiler.h>
@@ -54,7 +54,7 @@ namespace igor
     {
         switch (event.getKey())
         {
-        case iKeyCode::F8:
+        case iKeyCode::F3:
             _profilerVisualizer.cycleVerbosity();
             return true;
         }

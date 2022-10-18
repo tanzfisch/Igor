@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -29,7 +29,6 @@
 #ifndef __IGOR_RENDERER_H__
 #define __IGOR_RENDERER_H__
 
-#include <igor/data/iRectangle.h>
 #include <igor/resources/texture/iTexture.h>
 #include <igor/data/iAABox.h>
 #include <igor/data/iAACube.h>
@@ -39,6 +38,7 @@
 #include <igor/resources/module/iModule.h>
 #include <igor/resources/mesh/iMeshBuffers.h>
 
+#include <iaux/data/iaRectangle.h>
 #include <iaux/data/iaGradient.h>
 #include <iaux/data/iaString.h>
 #include <iaux/data/iaColor4.h>
@@ -166,6 +166,15 @@ namespace igor
         };
 
     public:
+
+        /*! init
+        */
+        iRenderer();
+
+        /*! deinit 
+        */
+        ~iRenderer();
+
         /*! renderer definition of an invalid id
         */
         static const uint32 INVALID_ID = 0xffffffff;
@@ -206,7 +215,7 @@ namespace igor
         \param viewport the viewport
         \returns world position of projection screen position
         */
-        iaVector3d unProject(const iaVector3d &screenpos, const iaMatrixd &modelview, const iaMatrixd &projection, const iRectanglei &viewport);
+        iaVector3d unProject(const iaVector3d &screenpos, const iaMatrixd &modelview, const iaMatrixd &projection, const iaRectanglei &viewport);
 
         /*! projects a object space position in to screen space
 
@@ -216,7 +225,7 @@ namespace igor
         \param viewport the viewport
         \returns the screen position
         */
-        iaVector3d project(const iaVector3d &objectSpacePos, const iaMatrixd &modelview, const iaMatrixd &projection, const iRectanglei &viewport);
+        iaVector3d project(const iaVector3d &objectSpacePos, const iaMatrixd &modelview, const iaMatrixd &projection, const iaRectanglei &viewport);
 
         /*! creates vertex buffer objects for specified mesh
 
@@ -291,7 +300,7 @@ namespace igor
 
         /*! \returns viewport rectangle (sizes in pixel)
         */
-        void getViewport(iRectanglei &rect);
+        void getViewport(iaRectanglei &rect);
 
         /*! returns projection matrix
 
@@ -495,7 +504,7 @@ namespace igor
         */
         void drawLine(float32 x1, float32 y1, float32 x2, float32 y2);
 
-        /*! draw a filled rectangle.
+        /*! draw a rectangle.
 
         \param x horizontal position
         \param y vertical position
@@ -503,6 +512,34 @@ namespace igor
         \param height height of the rectangle
         */
         void drawRectangle(float32 x, float32 y, float32 width, float32 height);
+
+        /*! draw a filled rectangle.
+
+        \param x horizontal position
+        \param y vertical position
+        \param width width of the rectangle
+        \param height height of the rectangle
+        */
+        void drawFilledRectangle(float32 x, float32 y, float32 width, float32 height);
+
+        /*! draw a circle.
+
+        \param x horizontal center position
+        \param y vertical center position
+        \param radius radius of the circle
+        \param segments segments count
+        */
+        void drawCircle(float32 x, float32 y, float32 radius, int segments = 16);
+
+        /*! draw a filled circle.
+
+        \param x horizontal center position
+        \param y vertical center position
+        \param radius radius of the circle
+        \param segments segments count
+        */
+        void drawFilledCircle(float32 x, float32 y, float32 radius, int segments = 16);
+
 
         /*! draw a filled rectangle with texture.
 
@@ -761,10 +798,8 @@ namespace igor
         iaString getExtensions();
 
         /*! triggerd at beginning of frame 
-
-        \param logActive if true this frame will be logging to console
         */
-        void onStartFrame(bool logActive);
+        void onStartFrame();
 
         /*! triggered at end of frame
         */
@@ -775,8 +810,9 @@ namespace igor
         const iRendererStats &getStats() const;
 
     private:
-        bool _loggingActive = false;
 
+        /*! current render target
+        */
         uint32 _currentRenderTarget = DEFAULT_RENDER_TARGET;
 
         iaMutex _requestedBuffersMutex;
@@ -854,7 +890,7 @@ namespace igor
 
         /*! just to save the last set viewport values
         */
-        iRectanglei _viewport;
+        iaRectanglei _viewport;
 
         /*! current render color.
 
@@ -897,7 +933,7 @@ namespace igor
         /*! creates a Texture
 
         \param width width of the texture
-        \parma height height of the texture
+        \param height height of the texture
         \param bytepp bytes per pixel
         \param format color format of texture
         \param data pointer to the actual data used for the texture
@@ -941,13 +977,6 @@ namespace igor
         */
         void updateModelViewProjectionMatrix();
 
-        /*! does nothing
-        */
-        iRenderer() = default;
-
-        /*! does nothing
-        */
-        ~iRenderer();
     };
 
     /*! \example OpenGL3D/src/OpenGL3DExample.cpp

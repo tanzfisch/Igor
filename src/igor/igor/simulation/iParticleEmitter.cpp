@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/simulation/iParticleEmitter.h>
@@ -12,7 +12,7 @@ namespace igor
 {
     iParticleEmitter::iParticleEmitter()
     {
-        _rand.setSeed(static_cast<uint32>(iaTime::now().getMicrosenconds()));
+        _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicrosenconds()));
     }
 
     void iParticleEmitter::setWorldMatrix(const iaMatrixd &matrix)

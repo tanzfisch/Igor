@@ -91,7 +91,7 @@ void Example2D::onInit()
     _updateTimingHandle->start();
 
     // generate a random seed
-    _rand.setSeed(static_cast<uint32>(iaTime::now().getMicrosenconds()));
+    _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicrosenconds()));
 }
 
 void Example2D::onDeinit()
@@ -138,7 +138,7 @@ bool Example2D::onMouseMoveEvent(iEventMouseMove &event)
     return true;
 }
 
-void Example2D::onUpdate()
+void Example2D::onUpdate(const iaTime &time)
 {
     // moves the logo towards the mouse position
     _logoPosition += (_lastMousePos - _logoPosition) * 0.01f;
@@ -182,8 +182,8 @@ void Example2D::onRenderOrtho()
     iRenderer::getInstance().setMaterial(_materialWithoutDepthTest);
     iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
 
-    iRenderer::getInstance().drawRectangle(10, 10, 200, 150);
-    iRenderer::getInstance().drawRectangle(220, 10, 200, 150);
+    iRenderer::getInstance().drawFilledRectangle(10, 10, 200, 150);
+    iRenderer::getInstance().drawFilledRectangle(220, 10, 200, 150);
 
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 0, 1));
     iRenderer::getInstance().setLineWidth(3);
@@ -238,7 +238,7 @@ void Example2D::onRenderOrtho()
 
     // draw random graph in the upper right corner
     iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
-    iRenderer::getInstance().drawRectangle(static_cast<float32>(getWindow()->getClientWidth() - 260), 10.0f, 250.0f, 150.0f);
+    iRenderer::getInstance().drawFilledRectangle(static_cast<float32>(getWindow()->getClientWidth() - 260), 10.0f, 250.0f, 150.0f);
 
     static float32 offset = 0.0f;
     iRenderer::getInstance().setLineWidth(1);

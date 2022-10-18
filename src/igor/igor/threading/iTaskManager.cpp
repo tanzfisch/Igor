@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/threading/iTaskManager.h>
@@ -28,7 +28,7 @@ namespace igor
             createThread();
         }
 
-        con_info("created " << numThreads << " regular threads");
+        con_info("created " << numThreads << " regular thread" << (numThreads > 1 ? "s" : ""));
     }
 
     iTaskManager::~iTaskManager()
@@ -180,7 +180,7 @@ namespace igor
             createRenderContextThread(window);
         }
 
-        con_info("created " << numThreads << " render context threads");
+        con_info("created " << numThreads << " render context thread" << (numThreads > 1 ? "s" : ""));
     }
 
     bool iTaskManager::createRenderContextThread(iWindow *window)
@@ -483,11 +483,13 @@ namespace igor
         }
 
         _mutexRegularTasks.lock();
-        _regularTasksQueued.sort([](const iTask *a, const iTask *b) { return a->_priority < b->_priority; });
+        _regularTasksQueued.sort([](const iTask *a, const iTask *b)
+                                 { return a->_priority < b->_priority; });
         _mutexRegularTasks.unlock();
 
         _mutexRenderContextTasks.lock();
-        _renderContextTasksQueued.sort([](const iTask *a, const iTask *b) { return a->_priority < b->_priority; });
+        _renderContextTasksQueued.sort([](const iTask *a, const iTask *b)
+                                       { return a->_priority < b->_priority; });
         _mutexRenderContextTasks.unlock();
     }
 

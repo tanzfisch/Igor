@@ -109,26 +109,10 @@ IAUX_TEST(StringTests, ToFloat)
     IAUX_EXPECT_EQ(iaString::toFloat(iaString(L"-11.234")), -11.234);
 }
 
-IAUX_TEST(StringTests, ToFloatFail)
-{
-    startup(); // since we are producing error messages we need to init the console
-    IAUX_EXPECT_EQ(iaString::toFloat(iaString(L"-1.1.234")), 0.0);
-    IAUX_EXPECT_EQ(iaString::toFloat(iaString(L"abc")), 0.0);
-    shutdown();
-}
-
 IAUX_TEST(StringTests, ToInt)
 {
     IAUX_EXPECT_EQ(iaString::toInt(iaString(L"100")), 100);
     IAUX_EXPECT_EQ(iaString::toInt(iaString(L"-344")), -344);
-}
-
-IAUX_TEST(StringTests, ToIntFail)
-{
-    startup(); // since we are producing error messages we need to init the console
-    IAUX_EXPECT_EQ(iaString::toInt(iaString(L"-3a44")), 0);
-    IAUX_EXPECT_EQ(iaString::toInt(iaString(L"-3.44")), 0);
-    shutdown();
 }
 
 IAUX_TEST(StringTests, ToString)

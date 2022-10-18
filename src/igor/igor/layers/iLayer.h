@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -61,11 +61,7 @@ namespace igor
         /*! called on application pre draw event
         */
         virtual void onPreDraw(){};
-
-        /*! called on application post draw event
-        */
-        virtual void onPostDraw(){}; // TODO get rid of post draw
-
+        
         /*! called on any other event
         */
         virtual void onEvent(iEvent &event){};
@@ -73,6 +69,12 @@ namespace igor
         /*! \returns layer name
         */
         const iaString &getName() const;
+
+        /*! sets layer name
+
+        \param name the name to set
+        */
+        void setName(const iaString &name);
 
         /*! \returns z index
         */

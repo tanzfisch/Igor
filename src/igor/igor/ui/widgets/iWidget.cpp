@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/ui/widgets/iWidget.h>
@@ -725,7 +725,7 @@ namespace igor
         _posLast = pos;
     }
 
-    void iWidget::onToolTipTimer()
+    void iWidget::onToolTipTimer(const iaTime &time)
     {
         iWidgetManager::getInstance().showTooltip(_tooltipPos, _tooltip);
 
@@ -888,7 +888,7 @@ namespace igor
         _absoluteY = _relativeY + offsetY;
     }
 
-    void iWidget::calcChildOffsets(std::vector<iRectanglei> &offsets)
+    void iWidget::calcChildOffsets(std::vector<iaRectanglei> &offsets)
     {
         offsets.clear();
 
@@ -897,7 +897,7 @@ namespace igor
             int32 clientWidth = _actualWidth - _clientAreaLeft - _clientAreaRight;
             int32 clientHeight = _actualHeight - _clientAreaTop - _clientAreaBottom;
 
-            offsets.push_back(iRectanglei(_clientAreaLeft, _clientAreaTop, clientWidth, clientHeight));
+            offsets.push_back(iaRectanglei(_clientAreaLeft, _clientAreaTop, clientWidth, clientHeight));
         }
     }
 

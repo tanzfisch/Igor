@@ -1,19 +1,50 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/entities/iEntity.h>
 
-#include <igor/entities/iEntityManager.h>
+#include <igor/entities/iComponents.h>
+
+#include <igor/entities/iEntityManager.h> // deprecated
 
 namespace igor
 {
 
-    const uint64 iEntity::INVALID_ENTITY_ID = 0;
-    uint64 iEntity::_nextID = iEntity::INVALID_ENTITY_ID + 1;
-    iaMutex iEntity::_mutexID;
+    iEntity::iEntity(const entt::entity entity, iEntityScene &scene)
+        : _entity(entity), _scene(&scene)
+    {
+    }
 
-    iEntity::iEntity()
+    const iaString iEntity::getName() const
+    { 
+        NameComponent *component = _scene->_registry.try_get<NameComponent>(_entity);
+        if(component != nullptr)
+        {
+            return iaString(component->_name.c_str());
+        }
+        else
+        {
+            return "";
+        }
+    } 
+
+    iEntityID iEntity::getID() const
+    {
+        return _entity;
+    }
+    
+    bool iEntity::isValid() const
+    {
+        return _scene->_registry.valid(_entity);
+    }
+
+    ////////////// old deprecated stuff
+    const uint64 iEntity_Old::INVALID_ENTITY_ID = 0;
+    uint64 iEntity_Old::_nextID = iEntity_Old::INVALID_ENTITY_ID + 1;
+    iaMutex iEntity_Old::_mutexID;
+
+    iEntity_Old::iEntity_Old()
     {
         _mutexID.lock();
         _id = _nextID++;
@@ -24,17 +55,17 @@ namespace igor
         _type = iEntityType::Base;
     }
 
-    iEntity::~iEntity()
+    iEntity_Old::~iEntity_Old()
     {
         iEntityManager::getInstance().unregisterEntity(this);
     }
 
-    uint64 iEntity::getID() const
+    uint64 iEntity_Old::getID() const
     {
         return _id;
     }
 
-    iEntityType iEntity::getType() const
+    iEntityType iEntity_Old::getType() const
     {
         return _type;
     }

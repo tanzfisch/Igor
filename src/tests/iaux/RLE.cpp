@@ -26,20 +26,6 @@ IAUX_TEST(RLETests, SetSize)
     IAUX_EXPECT_EQ(data.getSize(), 10);
 }
 
-IAUX_TEST(RLETests, SetValueOutOfBounds)
-{
-    iaRLE88 data(5);
-
-    data.setValue(10, 42);
-
-    IAUX_EXPECT_EQ(data.getSize(), 5);
-    IAUX_EXPECT_EQ(data.getValue(0), 0);
-    IAUX_EXPECT_EQ(data.getValue(1), 0);
-    IAUX_EXPECT_EQ(data.getValue(2), 0);
-    IAUX_EXPECT_EQ(data.getValue(3), 0);
-    IAUX_EXPECT_EQ(data.getValue(4), 0);
-}
-
 IAUX_TEST(RLETests, SetValue)
 {
     iaRLE88 data(5);
@@ -160,56 +146,4 @@ IAUX_TEST(RLETests, SetValues)
     IAUX_EXPECT_EQ(data.getValue(2), 56);
     IAUX_EXPECT_EQ(data.getValue(3), 56);
     IAUX_EXPECT_EQ(data.getValue(4), 56);
-}
-
-IAUX_TEST(RLETests, SetValuesOutOfBounds)
-{
-    iaRLE88 data(5);
-
-    data.setValue(0, 5, 42);
-
-    IAUX_EXPECT_EQ(data.getSize(), 5);
-    IAUX_EXPECT_EQ(data.getValue(0), 42);
-    IAUX_EXPECT_EQ(data.getValue(1), 42);
-    IAUX_EXPECT_EQ(data.getValue(2), 42);
-    IAUX_EXPECT_EQ(data.getValue(3), 42);
-    IAUX_EXPECT_EQ(data.getValue(4), 42);
-
-    data.setValue(3, 12, 12);
-
-    IAUX_EXPECT_EQ(data.getSize(), 5);
-    IAUX_EXPECT_EQ(data.getValue(0), 42);
-    IAUX_EXPECT_EQ(data.getValue(1), 42);
-    IAUX_EXPECT_EQ(data.getValue(2), 42);
-    IAUX_EXPECT_EQ(data.getValue(3), 42);
-    IAUX_EXPECT_EQ(data.getValue(4), 42);
-
-    data.setValue(13, 3, 12);
-
-    IAUX_EXPECT_EQ(data.getSize(), 5);
-    IAUX_EXPECT_EQ(data.getValue(0), 42);
-    IAUX_EXPECT_EQ(data.getValue(1), 42);
-    IAUX_EXPECT_EQ(data.getValue(2), 42);
-    IAUX_EXPECT_EQ(data.getValue(3), 42);
-    IAUX_EXPECT_EQ(data.getValue(4), 42);
-}
-
-IAUX_TEST(RLETests, GetValueOutOfRange)
-{
-    iaRLE88 data(5);
-
-    data.setValue(2, 3);
-    data.setValue(4, 5);
-    data.setValue(1, 2);
-    data.setValue(3, 4);
-    data.setValue(0, 1);
-
-    IAUX_EXPECT_EQ(data.getSize(), 5);
-    IAUX_EXPECT_EQ(data.getValue(0), 1);
-    IAUX_EXPECT_EQ(data.getValue(1), 2);
-    IAUX_EXPECT_EQ(data.getValue(2), 3);
-    IAUX_EXPECT_EQ(data.getValue(3), 4);
-    IAUX_EXPECT_EQ(data.getValue(4), 5);
-
-    IAUX_EXPECT_EQ(data.getValue(10), 0);
 }

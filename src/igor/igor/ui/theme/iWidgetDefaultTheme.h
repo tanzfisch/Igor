@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -46,37 +46,37 @@ namespace igor
     {
 
     public:
-        void drawRectangle(const iRectanglei &rect, const iaColor4f &color);
-        void drawFilledRectangle(const iRectanglei &rect, const iaColor4f &color);
+        void drawRectangle(const iaRectanglei &rect, const iaColor4f &color);
+        void drawFilledRectangle(const iaRectanglei &rect, const iaColor4f &color);
 
-        void drawRectangle(const iRectanglei &rect);
-        void drawFilledRectangle(const iRectanglei &rect);
-        void drawGradient(const iRectanglei &rect, const iaGradientColor4f &gradient);
+        void drawRectangle(const iaRectanglei &rect);
+        void drawFilledRectangle(const iaRectanglei &rect);
+        void drawGradient(const iaRectanglei &rect, const iaGradientColor4f &gradient);
 
-        void drawTiledRectangle(const iRectanglei &rect, iTexturePtr texture);
+        void drawTiledRectangle(const iaRectanglei &rect, iTexturePtr texture);
 
-        void drawGridCell(const iRectanglei &rect, iWidgetState state);
-        void drawGridHighlight(const iRectanglei &rect);
-        void drawGridSelection(const iRectanglei &rect);
-        void drawFrame(const iRectanglei &rect, iWidgetState state, bool active);
-        void drawBackgroundFrame(const iRectanglei &rect, iWidgetState state, bool active);
-        void drawPicture(const iRectanglei &rect, iTexturePtr texture, iWidgetState state, bool active);
-        void drawDialog(const iRectanglei &rect, iWidgetState state, bool active);
-        void drawSpacer(const iRectanglei &rect, iWidgetState state, bool active);
-        void drawButton(const iRectanglei &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iWidgetState state, bool active);
-        void drawButton(const iRectanglei &rect, const iaColor4f &color, iWidgetState state, bool active);
-        void drawGroupBox(const iRectanglei &rect, bool headerOnly, const iaString &text, iWidgetState state, bool active);
-        void drawCheckBox(const iRectanglei &rect, const iaString &text, bool checked, iWidgetState state, bool active);
-        void drawLabel(const iRectanglei &rect, const iaString &text, int32 textWidth, iWidgetState state, bool active);
-        void drawNumberChooser(const iRectanglei &rect, const iaString &text, iWidgetState button_up_state, iWidgetState button_down_state, bool active);
-        void drawSelectBox(const iRectanglei &rect, const iaString &text, iWidgetState buttonAppearance, bool active);
-        void drawSelectBoxDropDown(const iRectanglei &rect, std::vector<iaString> &text, int highlightIndex, bool active);
-        void drawTextEdit(const iRectanglei &rect, const iaString &text, const float32 cursorPos, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetState state, bool active);
-        void drawText(const iRectanglei &rect, const iaString &text, int32 textwidth);
-        void drawGraph(const iRectanglei &rect, const iaColor4f &lineColor, const iaColor4f &pointColor, float32 lineWidth, float32 pointSize, const std::vector<iaVector2f> &points);
-        void drawGraphGridlines(const iRectanglei &rect, float32 lineWidth, const std::vector<iaVector2f> &verticalLines, const std::vector<iaVector2f> &horizontalLines, bool active);
-        void drawGraphLabels(const iRectanglei &rect, const std::vector<iaVector2f> &verticalLines, const std::vector<iaVector2f> &horizontalLines, bool active);
-        void drawGraphFrame(const iRectanglei &rect, iWidgetState state, bool active);
+        void drawGridCell(const iaRectanglei &rect, iWidgetState state);
+        void drawGridHighlight(const iaRectanglei &rect);
+        void drawGridSelection(const iaRectanglei &rect);
+        void drawFrame(const iaRectanglei &rect, iWidgetState state, bool active);
+        void drawBackgroundFrame(const iaRectanglei &rect, iWidgetState state, bool active);
+        void drawPicture(const iaRectanglei &rect, iTexturePtr texture, iWidgetState state, bool active);
+        void drawDialog(const iaRectanglei &rect, iWidgetState state, bool active);
+        void drawSpacer(const iaRectanglei &rect, iWidgetState state, bool active);
+        void drawButton(const iaRectanglei &rect, const iaString &text, iHorizontalAlignment align, iVerticalAlignment valign, iTexturePtr texture, iWidgetState state, bool active);
+        void drawButton(const iaRectanglei &rect, const iaColor4f &color, iWidgetState state, bool active);
+        void drawGroupBox(const iaRectanglei &rect, bool headerOnly, const iaString &text, iWidgetState state, bool active);
+        void drawCheckBox(const iaRectanglei &rect, const iaString &text, bool checked, iWidgetState state, bool active);
+        void drawLabel(const iaRectanglei &rect, const iaString &text, int32 textWidth, iWidgetState state, bool active);
+        void drawNumberChooser(const iaRectanglei &rect, const iaString &text, iWidgetState button_up_state, iWidgetState button_down_state, bool active);
+        void drawSelectBox(const iaRectanglei &rect, const iaString &text, iWidgetState buttonAppearance, bool active);
+        void drawSelectBoxDropDown(const iaRectanglei &rect, std::vector<iaString> &text, int highlightIndex, bool active);
+        void drawTextEdit(const iaRectanglei &rect, const iaString &text, const float32 cursorPos, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetState state, bool active);
+        void drawText(const iaRectanglei &rect, const iaString &text, int32 textwidth);
+        void drawGraph(const iaRectanglei &rect, const iaColor4f &lineColor, const iaColor4f &pointColor, float32 lineWidth, float32 pointSize, const std::vector<iaVector2f> &points);
+        void drawGraphGridlines(const iaRectanglei &rect, float32 lineWidth, const std::vector<iaVector2f> &verticalLines, const std::vector<iaVector2f> &horizontalLines, bool active);
+        void drawGraphLabels(const iaRectanglei &rect, const std::vector<iaVector2f> &verticalLines, const std::vector<iaVector2f> &horizontalLines, bool active);
+        void drawGraphFrame(const iaRectanglei &rect, iWidgetState state, bool active);
 
         void drawTooltip(const iaVector2i &pos, const iaString &text) override;
 
@@ -136,7 +136,7 @@ namespace igor
 		\param width width of rectangle
 		\param height height of rectangle
 		*/
-        void drawRectangleInt(const iRectanglei &rect);
+        void drawRectangleInt(const iaRectanglei &rect);
 
         /*! draws a text
 
@@ -144,13 +144,13 @@ namespace igor
 		*/
         void drawStringInt(int32 x, int32 y, iaString text, float32 angle = 0.0f, int32 maxWidth = 0);
 
-        void drawButtonFrame(const iRectanglei &rect, iWidgetState state, bool active);
-        void drawButtonFrame(const iRectanglei &rect, const iaColor4f &color, iWidgetState state, bool active);
-        void drawButtonText(const iRectanglei &rect, const iaString &text);
-        void drawCheckBoxFrame(const iRectanglei &rect, iWidgetState state, bool active);
-        void drawCheckBox(const iRectanglei &rect, iWidgetState state, bool active, bool checked);
-        void drawNumberChooserFrame(const iRectanglei &rect, iWidgetState state_button_up, iWidgetState state_button_down, bool active);
-        void drawSelectBoxFrame(const iRectanglei &rect, iWidgetState buttonState, bool active);
+        void drawButtonFrame(const iaRectanglei &rect, iWidgetState state, bool active);
+        void drawButtonFrame(const iaRectanglei &rect, const iaColor4f &color, iWidgetState state, bool active);
+        void drawButtonText(const iaRectanglei &rect, const iaString &text);
+        void drawCheckBoxFrame(const iaRectanglei &rect, iWidgetState state, bool active);
+        void drawCheckBox(const iaRectanglei &rect, iWidgetState state, bool active, bool checked);
+        void drawNumberChooserFrame(const iaRectanglei &rect, iWidgetState state_button_up, iWidgetState state_button_down, bool active);
+        void drawSelectBoxFrame(const iaRectanglei &rect, iWidgetState buttonState, bool active);
     };
 } // namespace igor
 

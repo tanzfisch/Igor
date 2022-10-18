@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -160,11 +160,11 @@ namespace igor
 
         \param boundings the boundings
         */
-        void setBoundings(const iRectanglef &boundings);
+        void setBoundings(const iaRectanglef &boundings);
 
         /*! \returns user specified boudings / range of graph
         */
-        iRectanglef getBoundings();
+        iaRectanglef getBoundings();
 
         /*! activated user defined boundings / range of graph
 
@@ -252,11 +252,11 @@ namespace igor
 
         /*! calculated data boudings
         */
-        iRectanglef _dataBoundings;
+        iaRectanglef _dataBoundings;
 
         /*! user defined boudings
         */
-        iRectanglef _boundings = {0, 0, 1, 1};
+        iaRectanglef _boundings = {0, 0, 1, 1};
 
         /*! if true user specified boundings will be used
         */
@@ -298,13 +298,13 @@ namespace igor
 
         \param[out] graphRenderArea the render area
         */
-        void calcRenderArea(iRectanglef &graphRenderArea);
+        void calcRenderArea(iaRectanglef &graphRenderArea);
 
         /*! calculates data boundings
 
         \param[out] boundings the calculates data boundings
         */
-        void calcBoundings(iRectanglef &boundings);
+        void calcBoundings(iaRectanglef &boundings);
 
         /*! handles incomming mouse key down events
 

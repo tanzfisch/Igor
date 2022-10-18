@@ -11,7 +11,7 @@ var classigor_1_1i_widget =
     [ "getActualPos", "classigor_1_1i_widget.html#a47af854234a51b760d1f48cebbd6c675", null ],
     [ "getActualPosX", "classigor_1_1i_widget.html#a48ef2216a8498f9007d127ca29b08520", null ],
     [ "getActualPosY", "classigor_1_1i_widget.html#a5785b243584be6cde6c2f64bc8ebb3e8", null ],
-    [ "getActualRect", "classigor_1_1i_widget.html#a1f1e785fcc82d39ab3d059dd3dadd838", null ],
+    [ "getActualRect", "classigor_1_1i_widget.html#a0e91708fd03f090726d604fca80314e0", null ],
     [ "getActualWidth", "classigor_1_1i_widget.html#a4b6e5a33a86f8394619e2a70c6de02ca", null ],
     [ "getBackground", "classigor_1_1i_widget.html#ab6869116258e0c88bcb443427bc50d38", null ],
     [ "getChildren", "classigor_1_1i_widget.html#a7903157b7f31d1edde586f3a60f5e8fa", null ],

@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -35,6 +35,7 @@
 using namespace iaux;
 
 #include <functional>
+#include <memory>
 
 namespace igor
 {
@@ -62,6 +63,9 @@ namespace igor
         iEventNodeRemovedFromScene,
         iEventSceneSelectionChanged,
 
+        iEventEntityCreated,
+        iEventEntityDestroyed,
+
         // has be stay last
         iEventTypeCount
     };
@@ -74,7 +78,8 @@ namespace igor
         Keyboard = 2,
         Mouse = 4,
         Window = 8,
-        Scene = 16
+        Scene = 16,
+        ECS = 32,
     };
 
     /*! define event kind mask

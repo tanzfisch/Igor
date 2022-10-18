@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -31,8 +31,9 @@
 
 #include <igor/scene/nodes/iNodeRender.h>
 
-#include <igor/data/iSphere.h>
 #include <igor/data/iAABox.h>
+
+#include <iaux/data/iaSphere.h>
 
 namespace igor
 {

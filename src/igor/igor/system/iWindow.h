@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -240,10 +240,6 @@ namespace igor
         /*! list of views
         */
         std::vector<iView *> _views;
-
-        /*! swap buffer stats section id
-        */
-        iProfilerSectionID _swapBufferSectionID = iProfiler::INVALID_PROFILER_SECTION_ID;
 
         /*! called when window size has changed
         \param width new width

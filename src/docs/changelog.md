@@ -1,6 +1,14 @@
 Changelog                           {#changelog}
 =========
 
+0.33.0
+------
+
+- brushed up examples base
+- implemented simple top down 2d shooter example
+- using EnTT for the entity component system
+- improved profiler interfaces
+
 0.32.0
 ------
 

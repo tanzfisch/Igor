@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include "Player.h"
@@ -128,7 +128,7 @@ Player::Player(iScenePtr scene, iView *view, const iaMatrixd &matrix)
     iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->setRenderState(iRenderState::Blend, iRenderStateValue::On);
 
-    _primaryWeaponTime = iTimer::getInstance().getFrameTime();
+    _primaryWeaponTime = iTimer::getInstance().getTime();
 }
 
 Player::~Player()
@@ -193,7 +193,7 @@ void Player::shootSecondaryWeapon(iView &view, const iaVector3d &screenCoordinat
 
 void Player::shootPrimaryWeapon(iView &view, const iaVector3d &screenCoordinates)
 {
-    iaTime currentTime = iTimer::getInstance().getFrameTime();
+    iaTime currentTime = iTimer::getInstance().getTime();
     if (currentTime > _primaryWeaponTime + iaTime::fromMilliseconds(100))
     {
         iNodeTransform *transformNode = static_cast<iNodeTransform *>(iNodeManager::getInstance().getNode(_transformNodeID));

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <igor/graphics/iView.h>
@@ -8,7 +8,6 @@
 #include <igor/graphics/iRenderer.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/scene/iScene.h>
-#include <igor/scene/octree/iOctree.h>
 #include <igor/resources/profiler/iProfiler.h>
 
 #include <iaux/math/iaRandomNumberGenerator.h>
@@ -23,11 +22,6 @@ namespace igor
     iView::iView(bool useProfiling)
         : _renderEngine(iRenderEngine(useProfiling))
     {
-        if (useProfiling)
-        {
-            _userDrawSectionID = iProfiler::getInstance().createSection("udraw");
-            _sceneSectionID = iProfiler::getInstance().createSection("scene");
-        }
     }
 
     iView::~iView()
@@ -109,7 +103,7 @@ namespace igor
         _clearDepth = depth;
     }
 
-    void iView::setViewport(iRectanglef rect)
+    void iView::setViewport(iaRectanglef rect)
     {
         _viewportConfig = rect;
     }
@@ -175,10 +169,8 @@ namespace igor
     void iView::draw()
     {
         if (_scene != nullptr)
-        {
-            iProfiler::getInstance().beginSection(_sceneSectionID);
+        {            
             _scene->handle();
-            iProfiler::getInstance().endSection(_sceneSectionID);
         }
 
         if (_visible)
@@ -211,9 +203,10 @@ namespace igor
                 _renderEngine.render();
             }
 
-            iProfiler::getInstance().beginSection(_userDrawSectionID);
-            _renderEvent();
-            iProfiler::getInstance().endSection(_userDrawSectionID);
+            {
+                IGOR_PROFILER_SCOPED(udraw);
+                _renderEvent();
+            }
         }
     }
 
@@ -221,13 +214,13 @@ namespace igor
     {
         std::vector<uint64> colorIDs;
 
-        pickcolorID(iRectanglei(posx, posy, 1, 1), colorIDs);
+        pickcolorID(iaRectanglei(posx, posy, 1, 1), colorIDs);
 
         return colorIDs.front();
     }
 
     // TODO use alpha channel for color ID as well
-    void iView::pickcolorID(const iRectanglei &rectangle, std::vector<uint64> &colorIDs)
+    void iView::pickcolorID(const iaRectanglei &rectangle, std::vector<uint64> &colorIDs)
     {
         // TODO check ranges
 
@@ -282,7 +275,7 @@ namespace igor
         }
     }
 
-    void iView::updateWindowRect(const iRectanglei &windowRect)
+    void iView::updateWindowRect(const iaRectanglei &windowRect)
     {
         _windowRect = windowRect;
 

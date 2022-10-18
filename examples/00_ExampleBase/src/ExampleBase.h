@@ -80,12 +80,6 @@ protected:
     */
     virtual void onPreDraw() override;
 
-    /*! called every frame after draw
-
-    override if you need to work with it
-    */
-    virtual void onPostDraw() override;
-
     /*! called on any other event
     */
     virtual void onEvent(iEvent &event) override;
@@ -135,6 +129,10 @@ private:
     */
     iTextureFontPtr _font = nullptr;
 
+    /*! if true we display a help screen
+    */
+    bool m_displayHelpScreen;
+
     /*! material definition for the sky box
     */
     iMaterialID _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
@@ -146,6 +144,10 @@ private:
     /*! draw igor logo
     */
     void drawLogo();
+
+    /*! draw help screen
+    */
+    void drawHelpScreen();    
 
     /*! handle window resize event
 

@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -42,16 +42,7 @@ namespace igor
     template <class T>
     class IGOR_API_TEMPLATE iAACube
     {
-
     public:
-        /*! center position of cube
-        */
-        iaVector3<T> _center;
-
-        /*! half of the edge lenght
-        */
-        T _halfEdgeLength = static_cast<T>(0);
-
         /*! does nothing
         */
         iAACube() = default;
@@ -62,6 +53,14 @@ namespace igor
         \param halfEdgeLenght half of the edge lenght of the cube
         */
         iAACube(const iaVector3<T> &center, T halfEdgeLenght);
+
+        /*! center position of cube
+        */
+        iaVector3<T> _center;
+
+        /*! half of the edge lenght
+        */
+        T _halfEdgeLength = static_cast<T>(0);
     };
 
 #include <igor/data/iAACube.inl>
