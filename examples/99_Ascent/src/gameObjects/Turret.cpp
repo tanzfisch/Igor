@@ -188,7 +188,7 @@ void Turret::handle()
                             matrixOrientation._pos -= matrixOrientation._depth * 2.0;
 
                             Bullet *bullet = new Bullet(_scene, iaVector3d(), matrixOrientation, getFraction());
-                            _time = iTimer::getInstance().getGameTime();
+                            _time = iTimer::getInstance().getTime();
 
                             fired = true;
                         }

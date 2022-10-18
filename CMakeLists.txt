@@ -105,6 +105,7 @@ find_package(OpenGL REQUIRED)
 if(LINUX)
   find_package(ALSA REQUIRED)
 endif()
+
 add_subdirectory(vendor/openal-soft)
 set_property(TARGET alrecord PROPERTY FOLDER ${VENDOR_FOLDER})
 set_property(TARGET altonegen PROPERTY FOLDER ${VENDOR_FOLDER})
@@ -125,8 +126,7 @@ set(TINYXML_SOURCES
 set(TINYXML_HEADERS "${TINYXML_HEADERS_DIR}/tinystr.h"
                     "${TINYXML_HEADERS_DIR}/tinyxml.h")
 list(APPEND TINYXML_SOURCES ${TINYXML_HEADERS})
-source_group_special("${TINYXML_SOURCES}" ${TINYXML_SRC_DIR}
-                     "\\vendor\\TinyXML\\")
+source_group_special("${TINYXML_SOURCES}" ${TINYXML_SRC_DIR} "\\vendor\\TinyXML\\")               
 
 # stb_image
 message(STATUS "stb_image")
@@ -134,8 +134,7 @@ set(STB_IMAGE_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/stb_image/")
 set(STB_IMAGE_HEADERS_DIR ${STB_IMAGE_SRC_DIR})
 set(STB_IMAGE_HEADERS "${STB_IMAGE_HEADERS_DIR}stb_image.h")
 list(APPEND STB_IMAGE_SOURCES ${STB_IMAGE_HEADERS})
-source_group_special("${STB_IMAGE_SOURCES}" ${STB_IMAGE_SRC_DIR}
-                     "\\vendor\\stb_image\\")
+source_group_special("${STB_IMAGE_SOURCES}" ${STB_IMAGE_SRC_DIR} "\\vendor\\stb_image\\")
 
 # EnTT
 message(STATUS "EnTT")
@@ -159,6 +158,21 @@ file(
   "${GLEE_SRC_DIR}*.h*")
 list(APPEND GLEE_SOURCES ${GLEE_HEADERS})
 source_group_special("${GLEE_SOURCES}" ${GLEE_SRC_DIR} "\\vendor\\GLee\\")
+
+# glad TODO later
+#message(STATUS "glad")
+#set(GLAD_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/glad")
+#set(GLAD_HEADERS_DIR "${GLAD_SRC_DIR}/include")
+#file(
+#  GLOB_RECURSE GLAD_SOURCES
+#  LIST_DIRECTORIES false
+#  "${GLAD_SRC_DIR}*.c*")
+#file(
+#  GLOB_RECURSE GLAD_HEADERS
+#  LIST_DIRECTORIES false
+#  "${GLAD_SRC_DIR}*.h*")
+#list(APPEND GLAD_SOURCES ${GLAD_HEADERS})
+#source_group_special("${GLAD_SOURCES}" ${GLAD_SRC_DIR} "\\vendor\\glad\\")
 
 # setup newton build
 message(STATUS "newton")
@@ -410,19 +424,12 @@ set_property(TARGET igor PROPERTY FOLDER ${ENGINE_FOLDER})
 message(STATUS "Mica")
 set(MICA_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/tools/mica/src/")
 set(MICA_HEADERS_DIR ${MICA_SRC_DIR})
-file(
-  GLOB_RECURSE MICA_SOURCES
-  LIST_DIRECTORIES false
-  "${MICA_SRC_DIR}*.c*")
-file(
-  GLOB_RECURSE MICA_HEADERS
-  LIST_DIRECTORIES false
-  "${MICA_HEADERS_DIR}*.h*" "${MICA_HEADERS_DIR}*.inl")
+file(GLOB_RECURSE MICA_SOURCES LIST_DIRECTORIES false "${MICA_SRC_DIR}*.c*")
+file(GLOB_RECURSE MICA_HEADERS LIST_DIRECTORIES false "${MICA_HEADERS_DIR}*.h*" "${MICA_HEADERS_DIR}*.inl")
 list(APPEND MICA_SOURCES ${MICA_HEADERS})
 add_executable(mica ${MICA_SOURCES})
 source_group_special("${MICA_SOURCES}" ${MICA_SRC_DIR})
-target_include_directories(mica PRIVATE ${IGOR_HEADERS_DIR} ${IAUX_HEADERS_DIR}
-                                        ${OMPF_HEADERS_DIR})
+target_include_directories(mica PRIVATE ${IGOR_HEADERS_DIR} ${IAUX_HEADERS_DIR} ${OMPF_HEADERS_DIR} ${ENTT_HEADERS_DIR})
 target_link_libraries(mica igor)
 set_property(TARGET mica PROPERTY FOLDER ${TOOLS_FOLDER})
 
@@ -441,7 +448,7 @@ list(APPEND OBJ2OMPF_SOURCES ${OBJ2OMPF_HEADERS})
 add_executable(obj2ompf ${OBJ2OMPF_SOURCES})
 source_group_special("${OBJ2OMPF_SOURCES}" ${OBJ2OMPF_SRC_DIR})
 target_include_directories(
-  obj2ompf PRIVATE ${IGOR_HEADERS_DIR} ${IAUX_HEADERS_DIR} ${OMPF_HEADERS_DIR})
+  obj2ompf PRIVATE ${IGOR_HEADERS_DIR} ${IAUX_HEADERS_DIR} ${OMPF_HEADERS_DIR} ${ENTT_HEADERS_DIR})
 target_link_libraries(obj2ompf igor)
 set_property(TARGET obj2ompf PROPERTY FOLDER ${TOOLS_FOLDER})
 
@@ -475,7 +482,9 @@ foreach(
   14_Evaluation
   15_Sound
   98_Supremacy
-  99_Ascent)
+  #99_Ascent
+  )
+  
 
   message(STATUS "${EXAMPLE}")
   set(EXAMPLE_HEADERS_DIR

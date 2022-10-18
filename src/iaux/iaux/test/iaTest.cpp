@@ -8,9 +8,10 @@ namespace iaux
 {
 
     std::map<std::string, std::vector<iaTest *>> iaTest::_tests;
-    static bool s_stopOnError = false;
-    static bool s_useFilter = false;
-    static std::string s_filter;
+    bool iaTest::_stopOnError = false;
+    bool iaTest::_useFilter = false;
+    std::string iaTest::_filter;
+    bool iaTest::_verbose = false;
 
     void iaTest::registerTest(iaTest *test)
     {
@@ -28,17 +29,21 @@ namespace iaux
         {
             std::string value(argv[i]);
 
+            if (value == "--verbose")
+            {
+                _verbose = true;
+            }
             if (value == "--stop-on-error")
             {
-                s_stopOnError = true;
+                _stopOnError = true;
             }
             else if (value == "--filter")
             {
-                s_useFilter = true;
+                _useFilter = true;
             }
-            else if (s_useFilter && s_filter.empty())
+            else if (_useFilter && _filter.empty())
             {
-                s_filter = value;
+                _filter = value;
             }
         }
     }
@@ -53,27 +58,32 @@ namespace iaux
                 std::stringstream testID;
                 testID << test->getGroupName() << "." << test->getName();
 
-                if (testID.str().find(s_filter) == std::string::npos)
+                if (testID.str().find(_filter) == std::string::npos)
                 {
                     continue;
                 }
 
-                iaConsole::getInstance() << iaForegroundColor::Gray << "RUNNING " << testID.str().c_str() << " @ " << test->getLocation() << endl;
+                if (_verbose)
+                {
+                    iaConsole::getInstance() << iaForegroundColor::Gray << "RUNNING " << testID.str().c_str() << " @ " << test->getLocation() << endl;
+                }
+
                 test->run();
+
                 if (!test->success())
                 {
                     ok = false;
-
-                    iaConsole::getInstance() << iaForegroundColor::Red << "TEST FAILED" << iaForegroundColor::Gray << endl
-                                             << endl;
+                    iaConsole::getInstance() << iaForegroundColor::Red << "TEST FAILED " << iaForegroundColor::Gray << testID.str().c_str() << " @ " << test->getLocation() << endl << endl;
                 }
                 else
                 {
-                    iaConsole::getInstance() << iaForegroundColor::Green << "TEST OK" << iaForegroundColor::Gray << endl
-                                             << endl;
+                    if (_verbose)
+                    {
+                        iaConsole::getInstance() << iaForegroundColor::Green << "TEST OK" << iaForegroundColor::Gray << endl << endl;
+                    }
                 }
 
-                if (s_stopOnError && !ok)
+                if (_stopOnError && !ok)
                 {
                     return;
                 }

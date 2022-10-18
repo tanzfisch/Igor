@@ -83,7 +83,7 @@
         #define __IGOR_DEBUG__
         #define __IGOR_INLINE__ __inline
     #else
-        #define __IGOR_INLINE__ __forceinline
+        #define __IGOR_INLINE__ __inline
     #endif
 
     #define __IGOR_DISABLE_WARNING__(num) __pragma(warning(disable \
