@@ -14,6 +14,10 @@
  ------------
  
  http://igor.logasoft.co.nz/doxygen/index.html
+
+ how to build: 
+
+ http://igor.logasoft.co.nz/doxygen/contribute.html
  
   
  
