@@ -13,33 +13,19 @@ namespace igor
         return entity;
     }
 
-    void iEntityScene::destroyEntity(iEntity entity)
+    void iEntityScene::destroyEntity(const iEntity &entity)
     {
         _registry.destroy(entity.getID());
     }
 
-    void iEntityScene::destroyEntity(iEntityID entityID)
+    void iEntityScene::destroyEntity(const iEntityID entityID)
     {        
          _registry.destroy(entityID);
     }
 
-    void iEntityScene::registerSystem(iEntitySystemPtr system)
-    {
-        _systems.push_back(std::move(system));
-    }
-
     void iEntityScene::clear()
     {
-        _systems.clear();
         _registry.clear();
-    }
-
-    void iEntityScene::updateSystems()
-    {
-        for (iEntitySystemPtr &system : _systems)
-        {
-            system->update(this);
-        }
     }
 
 } // igor

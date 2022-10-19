@@ -35,27 +35,7 @@
 
 namespace igor
 {
-	class iEntityScene;
-	typedef iEntityScene* iEntityScenePtr;
-
-    class iEntitySystem
-    {
-    public:
-        /*! does nothing
-        */
-        iEntitySystem() = default;
-
-        /*! does nothing
-        */
-        virtual ~iEntitySystem() = default;
-
-        /*! updates system
-        */
-        virtual void update(iEntityScenePtr scene) {};
-    };	
-
-	typedef std::unique_ptr<iEntitySystem> iEntitySystemPtr;
-	class iEntity;
+	// class iEntity;
 
     /*! entity id definition
     */
@@ -72,6 +52,7 @@ namespace igor
 		friend class iEntity;
 
 	public:
+
 		/*! creates an entity
 		 */
 		iEntity createEntity(const iaString &name = "");
@@ -80,23 +61,13 @@ namespace igor
 
 		\param entity the entity to destroy
 		*/
-		void destroyEntity(iEntity entity);
+		void destroyEntity(const iEntity &entity);
 
 		/*! destroyes an entity by id
 
 		\param entityID the entity ID
 		*/
-		void destroyEntity(iEntityID entityID);
-
-		/*! registers a system to the scene
-
-		\param system the system to register
-		*/
-		void registerSystem(iEntitySystemPtr system);
-
-		/*! updates all systems in the order hey have been added to the scene
-		*/
-		void updateSystems();
+		void destroyEntity(const iEntityID entityID);
 
 		/*! clears the scene and the systems
 		*/
@@ -118,9 +89,6 @@ namespace igor
 		*/
 		entt::registry _registry;
 
-		/*! currently registered systems
-		*/
-		std::vector<iEntitySystemPtr> _systems;
 	};
 
 } // igor

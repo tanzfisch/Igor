@@ -38,32 +38,28 @@ namespace igor
     class IGOR_API iEntity
     {
     public:
-        /*! does nothing
+        /*! nothing to do
         */
         iEntity() = default;
-
-        /*! copy ctor
-
-        \param other the entity to make a copy from
-        */
-        iEntity(const iEntity &other) = default;
-
-        /*! \returns true if entity is valid
-        */
-        bool isValid() const;
 
         /*! param ctor
 
         \param entity the entity handle
         \param scene the scene this entity belongs to
-
-        \todo maybe scene could be a module and globaly accessible
         */
-        iEntity(iEntityID entity, iEntityScene &scene);
+        iEntity(iEntityID entity, iEntityScene& scene);
 
         /*! \returns entity id
         */
         iEntityID getID() const;
+
+        /*! \returns entity name
+        */
+        const iaString getName() const;
+
+        /*! \returns true if entity is valid
+        */
+        bool isValid() const;
 
         /*! adds component to entity of given type
         */
@@ -105,12 +101,14 @@ namespace igor
             _scene->_registry.remove<T>(_entity);
         }
 
-        /*! \returns entity name
-        */
-        const iaString getName() const;
-
     private:
+
+        /*! the entity id
+        */
         iEntityID _entity;
+
+        /*! the entity scene
+        */
         iEntityScene *_scene;
     };
 
