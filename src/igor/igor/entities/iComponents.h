@@ -36,8 +36,7 @@ namespace igor
 {
     struct NameComponent
     {
-        // iaString _name;
-        std::wstring _name;
+        iaString _name;
     };
 }
 

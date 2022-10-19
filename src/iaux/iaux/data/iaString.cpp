@@ -109,8 +109,7 @@ namespace iaux
     int64 iaString::getHashValue() const
     {
         std::hash<std::wstring> hashFunc;
-        std::wstring keyValue = getData();
-        return static_cast<int64>(hashFunc(keyValue));
+        return static_cast<int64>(hashFunc(_data));
     }
 
     iaString::iaString(const char *text, const int64 lenght)

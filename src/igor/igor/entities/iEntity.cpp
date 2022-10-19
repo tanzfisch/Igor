@@ -21,7 +21,7 @@ namespace igor
         NameComponent *component = _scene->_registry.try_get<NameComponent>(_entity);
         if(component != nullptr)
         {
-            return iaString(component->_name.c_str());
+            return component->_name;
         }
         else
         {
