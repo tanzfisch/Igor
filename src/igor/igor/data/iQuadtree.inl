@@ -24,7 +24,38 @@ void iQuadtree<F, T>::query(const iaCircle<F> &circle, std::vector<std::shared_p
 template <typename F, typename T>
 void iQuadtree<F, T>::query(const iaRectangle<F> &rectangle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects)
 {
-    // TODO
+    if (!iIntersection::intersects(rectangle, _root->_box))
+    {
+        return;
+    }
+
+    queryInternal(_root, rectangle, objects);
+}
+
+template <typename F, typename T>
+void iQuadtree<F, T>::queryInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &node, const iaRectangle<F> &rectangle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects)
+{
+    if (isLeaf(node))
+    {
+        for (auto ud : node->_objects)
+        {
+            if (iIntersection::intersects(ud->_circle, rectangle))
+            {
+                objects.push_back(ud);
+            }
+        }
+    }
+    else
+    {
+        for (int i = 0; i < 4; ++i)
+        {
+            const std::shared_ptr<iQuadtreeNode<F, T>> &child = node->_children[i];
+            if (iIntersection::intersects(rectangle, child->_box))
+            {
+                queryInternal(child, rectangle, objects);
+            }
+        }
+    }
 }
 
 template <typename F, typename T>

@@ -5,6 +5,8 @@
 #include <iaux/data/iaString.h>
 using namespace iaux;
 
+#include <unordered_map>
+
 IAUX_TEST(StringTests, Initial)
 {
     iaString string;
@@ -123,7 +125,7 @@ IAUX_TEST(StringTests, ToString)
     IAUX_EXPECT_EQUAL(iaString::toString(100, 16), L"64");
     IAUX_EXPECT_EQUAL(iaString::toString(-100), L"-100");
     IAUX_EXPECT_EQUAL(iaString::toString(-10.23), L"-10.2300");
-    IAUX_EXPECT_EQUAL(iaString::toString(-10.234567,3), L"-10.234");
+    IAUX_EXPECT_EQUAL(iaString::toString(-10.234567, 3), L"-10.234");
 }
 
 IAUX_TEST(StringTests, Match)
@@ -154,6 +156,41 @@ IAUX_TEST(StringTests, Replace)
     iaString dst;
     iaString::replaceRegex("This is foobar.", "foobar", "great", dst);
     IAUX_EXPECT_EQUAL(dst, L"This is great.");
+}
+
+IAUX_TEST(StringTests, Hash)
+{
+    iaString string1("FooBar");
+    iaString string2("FooBor");
+    IAUX_EXPECT_EQUAL(string1.getHashValue(), 0x75C6BF268B671C20);
+    IAUX_EXPECT_NOT_EQUAL(string1.getHashValue(), string2.getHashValue());
+}
+
+IAUX_TEST(StringTests, STDContainer)
+{
+    std::map<iaString, iaString> map;
+
+    map["foo1"] = "bar1";
+    map["foo2"] = "bar2";
+    map["foo3"] = "bar3";
+    map["foo4"] = "bar4";
+
+    IAUX_EXPECT_EQUAL(map["foo1"], "bar1");
+    IAUX_EXPECT_EQUAL(map["foo2"], "bar2");
+    IAUX_EXPECT_EQUAL(map["foo3"], "bar3");
+    IAUX_EXPECT_EQUAL(map["foo4"], "bar4");
+
+    std::unordered_map<iaString, iaString> unorderedMap;
+
+    unorderedMap["foo1"] = "bar1";
+    unorderedMap["foo2"] = "bar2";
+    unorderedMap["foo3"] = "bar3";
+    unorderedMap["foo4"] = "bar4";
+
+    IAUX_EXPECT_EQUAL(unorderedMap["foo1"], "bar1");
+    IAUX_EXPECT_EQUAL(unorderedMap["foo2"], "bar2");
+    IAUX_EXPECT_EQUAL(unorderedMap["foo3"], "bar3");
+    IAUX_EXPECT_EQUAL(unorderedMap["foo4"], "bar4");
 }
 
 IAUX_TEST(StringTests, UTF8Trivial)

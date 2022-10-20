@@ -188,6 +188,14 @@ namespace igor
         */
         void queryInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &node, const iaCircle<F> &circle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects);
 
+        /*! queries for user data within given rectangle
+
+        \param node the current node
+        \param circle the given rectangle
+        \param objects the resulting found user data
+        */
+        void queryInternal(const std::shared_ptr<iQuadtreeNode<F, T>> &node, const iaRectangle<F> &rectangle, std::vector<std::shared_ptr<iQuadtreeObject<F, T>>> &objects);
+
         /*! split given node
 
         \param node the node to split

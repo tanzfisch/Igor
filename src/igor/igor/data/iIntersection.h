@@ -63,21 +63,21 @@ namespace igor
 
         /*! containment test sphere in spehre
 
-        \param sphereA ?
-        \param sphereB ?
-        \returns true if ?
+        \param sphereA the sphere A
+        \param sphereB the sphere B
+        \returns true if sphere A contains sphere B
         */
         template <typename T>
         static bool contains(const iaSphere<T> &sphereA, const iaSphere<T> &sphereB);
 
-        /*! intersection test between rectangle and circle
+        /*! containment test circle in rectangle
         
         \param circle the circle to test
         \param rectangle the rectangle to test
         \returns true if circle is within rectangle boundaries
         */
         template <typename T>
-        static bool contains(const iaCircle<T> &circle, const iaRectangle<T> &rectangle);        
+        static bool contains(const iaRectangle<T> &rectangle, const iaCircle<T> &circle);
 
         /*! tests if sphere is in front of plane
         
@@ -177,6 +177,15 @@ namespace igor
         */
         template <typename T>
         static bool intersects(const iaCircle<T> &circle, const iaRectangle<T> &rectangle);
+
+        /*! intersection test between rectangle and rectangle
+        
+        \param rectangleA the rectangle A to test
+        \param rectangleB the rectangle B to test
+        \returns true if intersecting
+        */
+        template <typename T>
+        static bool intersects(const iaRectangle<T> &rectangleA, const iaRectangle<T> &rectangleB);
 
         /*! intersection test between two circles
         

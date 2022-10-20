@@ -139,7 +139,7 @@ namespace iaux
         _ok = false;                                                           \
     }
 
-#define IAUX_EXPECT_NE(a, b)                                                          \
+#define IAUX_EXPECT_NOT_EQUAL(a, b)                                                          \
     if ((a) == (b))                                                                   \
     {                                                                                 \
         iaConsole::getInstance() << __IGOR_FILE_LINE__ << " - ";                       \

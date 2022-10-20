@@ -197,6 +197,32 @@ bool iIntersection::intersects(const iaVector2<T> &point, const iaRectangle<T> &
 }
 
 template <typename T>
+bool iIntersection::intersects(const iaRectangle<T> &rectangleA, const iaRectangle<T> &rectangleB)
+{
+    if(rectangleA.getRight() < rectangleB.getLeft())
+    {
+        return false;
+    }
+
+    if(rectangleA.getLeft() > rectangleB.getRight())
+    {
+        return false;
+    }
+
+    if(rectangleA.getBottom() < rectangleB.getTop())
+    {
+        return false;
+    }
+
+    if(rectangleA.getTop() > rectangleB.getBottom())
+    {
+        return false;
+    }
+
+    return true;
+}
+
+template <typename T>
 bool iIntersection::intersects(const iaCircle<T> &circle, const iaRectangle<T> &rectangle)
 {
     const T right = rectangle._x + rectangle._width;
@@ -210,28 +236,26 @@ bool iIntersection::intersects(const iaCircle<T> &circle, const iaRectangle<T> &
 }
 
 template <typename T>
-bool iIntersection::contains(const iaCircle<T> &circle, const iaRectangle<T> &rectangle)
+bool iIntersection::contains(const iaRectangle<T> &rectangle, const iaCircle<T> &circle)
 {
-    if(circle._x - circle._radius < rectangle._x)
+    if(circle._center._x - circle._radius < rectangle._x)
     {
-        false;
+        return false;
     }
 
-    if(circle._y - circle._radius < rectangle._y)
+    if(circle._center._y - circle._radius < rectangle._y)
     {
-        false;
+        return false;
     }
 
-    const T right = rectangle._x + rectangle._width;
-    if(circle._x + circle._radius > right)
+    if(circle._center._x + circle._radius > rectangle.getRight())
     {
-        false;
+        return false;
     }
 
-    const T bottom = rectangle._y + rectangle._height;
-    if(circle._y + circle._radius > bottom)
+    if(circle._center._y + circle._radius > rectangle.getBottom())
     {
-        false;
+        return false;
     }
 
     return true;

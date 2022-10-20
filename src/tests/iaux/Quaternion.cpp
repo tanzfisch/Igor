@@ -210,5 +210,5 @@ IAUX_TEST(QuaternionTests, NotEuqal)
 	iaQuaterniond a(iaVector3d(0.0, 1.0, 0.0), 0.5 * M_PI);
 	iaQuaterniond b(iaVector3d(1.0, 0.0, 0.0), 0.5 * M_PI);
 
-	IAUX_EXPECT_NE(a, b);
+	IAUX_EXPECT_NOT_EQUAL(a, b);
 }

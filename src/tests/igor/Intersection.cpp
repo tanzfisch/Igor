@@ -26,6 +26,23 @@ IAUX_TEST(IntersectionTests, SphereSphereContains)
     IAUX_EXPECT_TRUE(iIntersection::contains(sphere3, sphere2));
 }
 
+IAUX_TEST(IntersectionTests, CircleRectangleContains)
+{
+    iaRectangled rectangle(-10, 30, 100, 100);
+
+    iaCircled circle1(10, 10, 5);
+    iaCircled circle2(-20, 10, 5);
+    iaCircled circle3( 90, 50, 5);
+    iaCircled circle4( 20, 130, 16);
+    iaCircled circle5( 20, 50, 16);
+
+    IAUX_EXPECT_FALSE(iIntersection::contains(rectangle, circle1));
+    IAUX_EXPECT_FALSE(iIntersection::contains(rectangle, circle2));
+    IAUX_EXPECT_FALSE(iIntersection::contains(rectangle, circle3));
+    IAUX_EXPECT_FALSE(iIntersection::contains(rectangle, circle4));
+    IAUX_EXPECT_TRUE(iIntersection::contains(rectangle, circle5));
+}
+
 IAUX_TEST(IntersectionTests, SphereInFrontOfPlane)
 {
     iSphered sphere1(iaVector3d(-20, 0, 0), 1);
