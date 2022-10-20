@@ -42,7 +42,7 @@ namespace iaux
 {
 
     /*! string slpit mode
-    */
+     */
     enum class iaStringSplitMode
     {
         Normal,
@@ -51,32 +51,32 @@ namespace iaux
 
     /*! wide char (unicode) character string with trailing zero and length
 
-	\todo should eventually store data UTF-8 encoded internally
-	*/
+    \todo should eventually store data UTF-8 encoded internally
+    */
     class IAUX_API iaString
     {
 
     public:
         /*! this defines a position that is out of range
-		*/
+         */
         static const int64 INVALID_POSITION = -1;
 
         /*! default ctor does nothing
-		*/
+         */
         iaString() = default;
 
         /*! ctor with byte string
 
-		\param text byte string
-		\param length if input string is not zero terminated or a custom length is needed
-		*/
+        \param text byte string
+        \param length if input string is not zero terminated or a custom length is needed
+        */
         iaString(const char *text, const int64 length = INVALID_POSITION);
 
         /*! copies unicode string
 
-		\param text unicode string
-		\param length if input string is not zero terminated or a custom length is needed
-		*/
+        \param text unicode string
+        \param length if input string is not zero terminated or a custom length is needed
+        */
         iaString(const wchar_t *text, const int64 length = INVALID_POSITION);
 
         /*! creates a string with only one character
@@ -93,60 +93,60 @@ namespace iaux
 
         /*! copy ctor
 
-		\param text the string to copy from
-		*/
+        \param text the string to copy from
+        */
         iaString(const iaString &text);
 
         /*! dtor releases allocated memory
-		*/
+         */
         ~iaString();
 
         /*! \returns character count of the string without trailing zero
-		*/
+         */
         int64 getLength() const;
 
         /*! \returns hash value for current text
-        */
+         */
         int64 getHashValue() const;
 
         /*! change string to lower case letters
-        */
+         */
         void toLower();
 
         /*! change string to upper case letters
-        */
+         */
         void toUpper();
 
         /*! + operator concatanates two strings
 
-		\param text the string to add
-		\returns resulting concatanated string
-		*/
+        \param text the string to add
+        \returns resulting concatanated string
+        */
         iaString operator+(const iaString &text) const;
 
         /*! += operator concatanates strings
 
-		\param text the string to add to the current string
-		*/
+        \param text the string to add to the current string
+        */
         void operator+=(const iaString &text);
 
         /*! + operator to add a single character
 
-		\param character character to add
-		*/
+        \param character character to add
+        */
         iaString operator+(const wchar_t &character) const;
 
         /*! += operator to add a single character
 
-		\param character character to add
-		*/
+        \param character character to add
+        */
         void operator+=(const wchar_t &character);
 
         /*! == operator to compare to strings
 
-		\param text the string to compare with
-		\returns true: if equal; false if not equal
-		*/
+        \param text the string to compare with
+        \returns true: if equal; false if not equal
+        */
         bool operator==(const iaString &text) const;
 
         /*! == operator to compare to strings
@@ -165,16 +165,16 @@ namespace iaux
 
         /*! ++ operator to compare to strings
 
-		\param text the strin to compare with
-		\returns true: if not equal; false if equal
-		*/
+        \param text the strin to compare with
+        \returns true: if not equal; false if equal
+        */
         bool operator!=(const iaString &text) const;
 
         /*! = operator overwrites current string with new string
 
-		\param text the new string
-		\returns the new string
-		*/
+        \param text the new string
+        \returns the new string
+        */
         iaString operator=(const iaString &text);
 
         /*! = operator overwrites current string with new string
@@ -207,31 +207,31 @@ namespace iaux
 
         /*! compares two strings and returns true if the left hand side string is considered smaller
 
-		\param text the right hand side string
-		*/
+        \param text the right hand side string
+        */
         bool operator<(const iaString &text) const;
 
         /*! compares two strings and returns true if the left hand side string is considered bigger
 
-		\param text the right hand side string
-		*/
+        \param text the right hand side string
+        */
         bool operator>(const iaString &text) const;
 
         /*! \returns charachter at given position for manipulation
-		\param index the position to get the character from
-		*/
+        \param index the position to get the character from
+        */
         wchar_t &operator[](const int64 index);
 
         /*! \returns charachter at given position
-		\param index the position to get the character from
-		*/
+        \param index the position to get the character from
+        */
         const wchar_t &operator[](const int64 index) const;
 
         /*! \returns specified substring
 
-		\param pos substring from
-		\param len substring length
-		*/
+        \param pos substring from
+        \param len substring length
+        */
         iaString getSubString(const int64 pos, const int64 len = INVALID_POSITION) const;
 
         /*! plsits a string based on delimiter in to tokens (or substrings)
@@ -257,11 +257,11 @@ namespace iaux
 
         /*! \returns position of first occurence of specified characters
 
-		if not found iaString::INVALID_POSITION will be returned
+        if not found iaString::INVALID_POSITION will be returned
 
-		\param characters the characters to search for
-		\param from optional parameter to define start index to search from
-		*/
+        \param characters the characters to search for
+        \param from optional parameter to define start index to search from
+        */
         int64 findFirstOf(const wchar_t *characters, const int64 from = INVALID_POSITION) const;
 
         /*! \returns position of first occurence of specified character
@@ -275,11 +275,11 @@ namespace iaux
 
         /*! \returns position of first occurence NOT of specified characters
 
-		if not found INVALID_POSITION will be returned
+        if not found INVALID_POSITION will be returned
 
-		\param characters the characters to NOT search for
-		\param from optional parameter to define start index to search from
-		*/
+        \param characters the characters to NOT search for
+        \param from optional parameter to define start index to search from
+        */
         int64 findFirstNotOf(const wchar_t *characters, const int64 from = INVALID_POSITION) const;
 
         /*! \returns position of first occurence NOT of specified character
@@ -293,10 +293,10 @@ namespace iaux
 
         /*! \returns position of last occurence of specified character
 
-		if not found INVALID_POSITION will be returned
+        if not found INVALID_POSITION will be returned
 
-		\param character the character to search for
-		*/
+        \param character the character to search for
+        */
         int64 findLastOf(const wchar_t character) const;
 
         /*! \returns position of last occurence of specified characters
@@ -309,38 +309,38 @@ namespace iaux
 
         /*! \returns position of last occurence NOT of specified character
 
-		if not found INVALID_POSITION will be returned
+        if not found INVALID_POSITION will be returned
 
-		\param character the character to search for
-		*/
+        \param character the character to search for
+        */
         int64 findLastNotOf(const wchar_t character) const;
 
         /*! \returns position of last occurence NOT of specified characters
 
-		if not found INVALID_POSITION will be returned
+        if not found INVALID_POSITION will be returned
 
-		\param characters the characters to search for
-		*/
+        \param characters the characters to search for
+        */
         int64 findLastNotOf(const wchar_t *characters) const;
 
         /*! empties the string
-		*/
+         */
         void clear();
 
         /*! \returns true: if string is empty; false if not
-		*/
+         */
         bool isEmpty() const;
 
         /*! \returns pointer to raw data
-		*/
+         */
         const wchar_t *getData() const;
 
         /*! returns null terminated byte string
 
-		\param buffer pre allocated buffer to write the string to
-		\param size size of preallocated buffer
-		\returns actual size of written data including ending zero
-		*/
+        \param buffer pre allocated buffer to write the string to
+        \param size size of preallocated buffer
+        \returns actual size of written data including ending zero
+        */
         int64 getData(char *buffer, const int64 size) const;
 
         /*! returns utf8 encoded string
@@ -365,39 +365,39 @@ namespace iaux
         void setUTF8(const char *buffer, const int64 size);
 
         /*! reverses the string
-        */
+         */
         void reverse();
 
         /*! transforms an integer to a iaString
-        
+
         \param value the integer value
-		\param base the number base 
+        \param base the number base
         \returns isString
         */
         static iaString toString(uint64 value, int base = 10);
 
         /*! transforms an integer to a iaString
 
-		\param value the integer value
-		\param base the number base 
-		\returns isString
-		*/
+        \param value the integer value
+        \param base the number base
+        \returns isString
+        */
         static iaString toString(int64 value, int base = 10);
 
         /*! transforms an integer to a iaString
 
-		\param value the integer value
-		\param base the number base 
-		\returns isString
-		*/
+        \param value the integer value
+        \param base the number base
+        \returns isString
+        */
         static iaString toString(int32 value, int base = 10);
 
         /*! transforms an integer to a iaString
 
-		\param value the integer value
-		\param base the number base 
-		\returns isString
-		*/
+        \param value the integer value
+        \param base the number base
+        \returns isString
+        */
         static iaString toString(uint32 value, int base = 10);
 
         /*! transforms a float to a iaString
@@ -410,10 +410,10 @@ namespace iaux
 
         /*! transforms a float to a iaString
 
-		\param value the float value
-		\param afterPoint defines how many digits after the point
-		\returns isString
-		*/
+        \param value the float value
+        \param afterPoint defines how many digits after the point
+        \returns isString
+        */
         static iaString toString(float32 value, int afterPoint = 4);
 
         /*! transforms a iaString to a float
@@ -432,135 +432,135 @@ namespace iaux
 
         /*! converts string in to bool value
 
-		on error it falls back to false
+        on error it falls back to false
 
-		\param text the text to convert
-		\returns true of false depending on the text
-		*/
+        \param text the text to convert
+        \returns true of false depending on the text
+        */
         static bool toBool(const iaString &text);
 
         /*! converts a string to a 2d vector
 
-		expect two comma separated values
+        expect two comma separated values
 
-		\param text the text to parse
-		\param[out] vector the resulting vector
-		*/
+        \param text the text to parse
+        \param[out] vector the resulting vector
+        */
         template <class T>
         static void toVector(const iaString &text, iaVector2<T> &vector);
 
         /*! converts a string to a 3d vector
 
-		expect two comma separated values
+        expect two comma separated values
 
-		\param text the text to parse
-		\param[out] vector the resulting vector
-		*/
+        \param text the text to parse
+        \param[out] vector the resulting vector
+        */
         template <class T>
         static void toVector(const iaString &text, iaVector3<T> &vector);
 
         /*! converts a string to a 4d vector
 
-		expect two comma separated values
+        expect two comma separated values
 
-		\param text the text to parse
-		\param[out] vector the resulting vector
-		*/
+        \param text the text to parse
+        \param[out] vector the resulting vector
+        */
         template <class T>
         static void toVector(const iaString &text, iaVector4<T> &vector);
 
         /*! insert text at given position
 
-		\param text the text to insert
-		\param pos the position where to insert the text
-		*/
+        \param text the text to insert
+        \param pos the position where to insert the text
+        */
         void insert(const iaString &text, int64 pos);
 
         /*! removed charcters from string
 
-		\param pos index of first character to remove
-		\param length amount of characters to remove
-		*/
+        \param pos index of first character to remove
+        \param length amount of characters to remove
+        */
         void remove(int64 pos, int64 length);
 
         /*! trims white spaces on the left hand side
 
-		\param text the source text
-		\returns the trimmed text
-		*/
+        \param text the source text
+        \returns the trimmed text
+        */
         static iaString trimLeft(const iaString &text);
 
         /*! trims white spaces on the right hand side
 
-		\param text the source text
-		\returns the trimmed text
-		*/
+        \param text the source text
+        \returns the trimmed text
+        */
         static iaString trimRight(const iaString &text);
 
         /*! trims white spaces on both ends of the string
 
-		\param text the source text
-		\returns the trimmed text
-		*/
+        \param text the source text
+        \returns the trimmed text
+        */
         static iaString trim(const iaString &text);
 
         /*! \returns true if the text matches the regular expression
 
-		\param text the given text
-		\param regex the given regular expression
-		*/
+        \param text the given text
+        \param regex the given regular expression
+        */
         static bool matchRegex(const iaString &text, const iaString &regex);
 
         /*! replace sections in source text and return destination text
 
-		\param[out] dst the destination text
-		\param src the source text
-		\param regex the regular expression to find the patterns to replace
-		\param replaceWith the text to replace the patterns with
-		*/
+        \param[out] dst the destination text
+        \param src the source text
+        \param regex the regular expression to find the patterns to replace
+        \param replaceWith the text to replace the patterns with
+        */
         static void replaceRegex(const iaString &src, const iaString &regex, const iaString &replaceWith, iaString &dst);
 
         /*! searches for matches in string with given regular expression
 
-		\param src the source string to search
-		\param regex the regular expression
-		\param[out] the found matches
-		*/
+        \param src the source string to search
+        \param regex the regular expression
+        \param[out] the found matches
+        */
         static bool searchRegex(const iaString &src, const iaString &regex, std::vector<iaString> &matches);
 
     private:
         /*! string length without ending zero
-        */
+         */
         int64 _charCount = 0;
 
         /*! pointer to actual data
-        */
+         */
         wchar_t *_data = nullptr;
 
         /*! \returns size of data in bytes
-		*/
+         */
         int64 getSize() const;
 
         /*! internal set data
 
-		\param text the data to set
+        \param text the data to set
         \param size the size of the buffer
-		*/
+        */
         void setData(const wchar_t *text, const int64 size = INVALID_POSITION);
 
         /*! converts byte string to unicode string
 
-		\param text the data to set
-		\param size the size of the buffer
-		*/
+        \param text the data to set
+        \param size the size of the buffer
+        */
         void setData(const char *text, const int64 size = INVALID_POSITION);
 
         /*! internal implementation of toString
 
-		\param x the number to turn in to a string
-		\param d number of digits in output if d is bigger than digits in x 0s will be added
-		\returns string with number
-		*/
+        \param x the number to turn in to a string
+        \param d number of digits in output if d is bigger than digits in x 0s will be added
+        \returns string with number
+        */
         static iaString intToStrInternal(uint64 x, int d, int base = 10);
     };
 
@@ -621,9 +621,10 @@ namespace iaux
 
         vector.set(static_cast<T>(x), static_cast<T>(y), static_cast<T>(z), static_cast<T>(w));
     }
+
 } // namespace iaux
 
-namespace std
+/*namespace std
 {
     template <>
     struct less<iaux::iaString>
@@ -633,6 +634,16 @@ namespace std
             return lhs < rhs;
         }
     };
-} // namespace std
+}*/
+// namespace std
+
+template <>
+struct std::hash<iaux::iaString>
+{
+    std::size_t operator()(const iaux::iaString &f) const
+    {
+        return static_cast<std::size_t>(f.getHashValue());
+    }
+};
 
 #endif // __IAUX_STRING_H__
