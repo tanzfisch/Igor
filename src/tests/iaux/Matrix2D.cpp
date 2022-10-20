@@ -27,17 +27,17 @@ IAUX_TEST(Matrix3x3Tests, Initial)
 {
 	iaMatrix3x3d matrix;
 
-	IAUX_EXPECT_EQ(matrix[0], identityMatrix[0]);
-	IAUX_EXPECT_EQ(matrix[1], identityMatrix[1]);
-	IAUX_EXPECT_EQ(matrix[2], identityMatrix[2]);
+	IAUX_EXPECT_EQUAL(matrix[0], identityMatrix[0]);
+	IAUX_EXPECT_EQUAL(matrix[1], identityMatrix[1]);
+	IAUX_EXPECT_EQUAL(matrix[2], identityMatrix[2]);
 
-	IAUX_EXPECT_EQ(matrix[3], identityMatrix[3]);
-	IAUX_EXPECT_EQ(matrix[4], identityMatrix[4]);
-	IAUX_EXPECT_EQ(matrix[5], identityMatrix[5]);
+	IAUX_EXPECT_EQUAL(matrix[3], identityMatrix[3]);
+	IAUX_EXPECT_EQUAL(matrix[4], identityMatrix[4]);
+	IAUX_EXPECT_EQUAL(matrix[5], identityMatrix[5]);
 
-	IAUX_EXPECT_EQ(matrix[6], identityMatrix[6]);
-	IAUX_EXPECT_EQ(matrix[7], identityMatrix[7]);
-	IAUX_EXPECT_EQ(matrix[8], identityMatrix[8]);
+	IAUX_EXPECT_EQUAL(matrix[6], identityMatrix[6]);
+	IAUX_EXPECT_EQUAL(matrix[7], identityMatrix[7]);
+	IAUX_EXPECT_EQUAL(matrix[8], identityMatrix[8]);
 }
 
 IAUX_TEST(Matrix3x3Tests, Convert)

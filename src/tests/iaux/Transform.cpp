@@ -8,7 +8,7 @@ IAUX_TEST(TransformTests, Initial)
 {
 	iaTransformd trans;
 
-	IAUX_EXPECT_EQ(trans._translate, iaVector3d());
-	IAUX_EXPECT_EQ(trans._scale, iaVector3d(1,1,1));
-	IAUX_EXPECT_EQ(trans._orientation, iaQuaterniond(0,0,0,1));
+	IAUX_EXPECT_EQUAL(trans._translate, iaVector3d());
+	IAUX_EXPECT_EQUAL(trans._scale, iaVector3d(1,1,1));
+	IAUX_EXPECT_EQUAL(trans._orientation, iaQuaterniond(0,0,0,1));
 }

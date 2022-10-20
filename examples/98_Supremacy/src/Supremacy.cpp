@@ -34,12 +34,10 @@ iEntity Supremacy::createPlayer()
     weapon._offset = iaVector2d(0.0, -STANDARD_UNIT_SIZE * 0.5);
 
     entity.addComponent<TargetComponent>(iInvalidEntityID, false, false);
-
     entity.addComponent<MovementControlComponent>();
+    
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
-    object._object = std::make_shared<QuadtreeObject>();
-    object._object->_userData = entity.getID();
-    object._object->_circle.set(position._position._x, position._position._y, size._size);
+    object._object = std::make_shared<QuadtreeObject>(iaCircled(position._position._x, position._position._y, size._size), entity.getID());
     _quadtree.insert(object._object);
 
     return entity;
@@ -646,6 +644,9 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile(texture), true);
 
         auto &object = bullet.addComponent<QuadtreeObjectComponent>();
+
+        object._object = std::make_shared<QuadtreeObject>(iaCircled(from, size * 0.5), bullet.getID());        
+
         object._object = std::make_shared<QuadtreeObject>();
         object._object->_userData = bullet.getID();
         object._object->_circle.set(from, size * 0.5);

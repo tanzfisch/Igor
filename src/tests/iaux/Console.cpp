@@ -7,15 +7,15 @@ IAUX_TEST(ConsoleTests, StartStop)
 {
     startup();
 
-    IAUX_EXPECT_EQ(iaConsole::getInstance().getErrors(), 0);
-    IAUX_EXPECT_EQ(iaConsole::getInstance().getWarnings(), 0);
-    IAUX_EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::User);
+    IAUX_EXPECT_EQUAL(iaConsole::getInstance().getErrors(), 0);
+    IAUX_EXPECT_EQUAL(iaConsole::getInstance().getWarnings(), 0);
+    IAUX_EXPECT_EQUAL(iaConsole::getInstance().getLogLevel(), iaLogLevel::User);
 
     shutdown();
 
-    IAUX_EXPECT_EQ(iaConsole::getInstance().getErrors(), 0);
-    IAUX_EXPECT_EQ(iaConsole::getInstance().getWarnings(), 0);
-    IAUX_EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::User);
+    IAUX_EXPECT_EQUAL(iaConsole::getInstance().getErrors(), 0);
+    IAUX_EXPECT_EQUAL(iaConsole::getInstance().getWarnings(), 0);
+    IAUX_EXPECT_EQUAL(iaConsole::getInstance().getLogLevel(), iaLogLevel::User);
 }
 
 IAUX_TEST(ConsoleTests, ErrorAndWarnings)
@@ -25,9 +25,9 @@ IAUX_TEST(ConsoleTests, ErrorAndWarnings)
     con_err("some error");
     con_warn("some warning");
 
-    IAUX_EXPECT_EQ(iaConsole::getInstance().getErrors(), 1);
-    IAUX_EXPECT_EQ(iaConsole::getInstance().getWarnings(), 1);
-    IAUX_EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::User);
+    IAUX_EXPECT_EQUAL(iaConsole::getInstance().getErrors(), 1);
+    IAUX_EXPECT_EQUAL(iaConsole::getInstance().getWarnings(), 1);
+    IAUX_EXPECT_EQUAL(iaConsole::getInstance().getLogLevel(), iaLogLevel::User);
 
     shutdown();
 }
@@ -41,15 +41,15 @@ IAUX_TEST(ConsoleTests, SupressWarning)
     con_err("some error");
     con_warn("some warning");
 
-    IAUX_EXPECT_EQ(iaConsole::getInstance().getErrors(), 1);
-    IAUX_EXPECT_EQ(iaConsole::getInstance().getWarnings(), 0);
-    IAUX_EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::Error);
+    IAUX_EXPECT_EQUAL(iaConsole::getInstance().getErrors(), 1);
+    IAUX_EXPECT_EQUAL(iaConsole::getInstance().getWarnings(), 0);
+    IAUX_EXPECT_EQUAL(iaConsole::getInstance().getLogLevel(), iaLogLevel::Error);
 
     shutdown();
 
-    IAUX_EXPECT_EQ(iaConsole::getInstance().getErrors(), 0);
-    IAUX_EXPECT_EQ(iaConsole::getInstance().getWarnings(), 0);
-    IAUX_EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::User);
+    IAUX_EXPECT_EQUAL(iaConsole::getInstance().getErrors(), 0);
+    IAUX_EXPECT_EQUAL(iaConsole::getInstance().getWarnings(), 0);
+    IAUX_EXPECT_EQUAL(iaConsole::getInstance().getLogLevel(), iaLogLevel::User);
 }
 
 IAUX_TEST(ConsoleTests, TestColors)
@@ -73,7 +73,7 @@ IAUX_TEST(ConsoleTests, TestColors)
 
     shutdown();
 
-    IAUX_EXPECT_EQ(iaConsole::getInstance().getErrors(), 0);
-    IAUX_EXPECT_EQ(iaConsole::getInstance().getWarnings(), 0);
-    IAUX_EXPECT_EQ(iaConsole::getInstance().getLogLevel(), iaLogLevel::User);
+    IAUX_EXPECT_EQUAL(iaConsole::getInstance().getErrors(), 0);
+    IAUX_EXPECT_EQUAL(iaConsole::getInstance().getWarnings(), 0);
+    IAUX_EXPECT_EQUAL(iaConsole::getInstance().getLogLevel(), iaLogLevel::User);
 }
