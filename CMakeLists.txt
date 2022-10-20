@@ -80,7 +80,6 @@ if(LINUX)
   find_package(ALSA REQUIRED)
 endif()
 
-
 add_subdirectory(vendor/openal-soft)
 set_property(TARGET alrecord PROPERTY FOLDER ${VENDOR_FOLDER})
 set_property(TARGET altonegen PROPERTY FOLDER ${VENDOR_FOLDER})
@@ -134,14 +133,10 @@ file(
 list(APPEND GLEE_SOURCES ${GLEE_HEADERS})
 source_group_special("${GLEE_SOURCES}" ${GLEE_SRC_DIR} "\\vendor\\GLee\\")
 
-# setup newton build
-message(STATUS "newton")
+# newton core
+message(STATUS "newton core")
 set(TIME_TRACKER_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/newton-dynamics/packages/thirdParty/timeTracker/")
 set(NEWTON_CORE_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/newton-dynamics/coreLibrary_300/source/core/")
-set(NEWTON_PHYSICS_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/newton-dynamics/coreLibrary_300/source/physics/")
-set(NEWTON_MESH_UTIL_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/newton-dynamics/coreLibrary_300/source/meshUtil/")
-set(NEWTON_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/newton-dynamics/coreLibrary_300/source/")
-
 file(GLOB NEWTON_CORE_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "vendor/newton-dynamics/coreLibrary_300/source/core/*.c*") #TODO
 file(GLOB NEWTON_CORE_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "vendor/newton-dynamics/coreLibrary_300/source/core/*.h*") #TODO
 add_library(core STATIC ${NEWTON_CORE_SOURCES} ${NEWTON_CORE_HEADERS})
@@ -166,6 +161,10 @@ endif()
 target_include_directories(core PRIVATE ${NEWTON_CORE_HEADERS_DIR} ${TIME_TRACKER_HEADERS_DIR})
 set_property(TARGET core PROPERTY FOLDER ${VENDOR_FOLDER})
 
+# newton physics
+message(STATUS "newton physics")
+set(NEWTON_PHYSICS_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/newton-dynamics/coreLibrary_300/source/physics/")
+set(NEWTON_MESH_UTIL_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/newton-dynamics/coreLibrary_300/source/meshUtil/")
 file(GLOB NEWTON_PHYSICS_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "vendor/newton-dynamics/coreLibrary_300/source/physics/*.c*") #TODO
 file(GLOB NEWTON_PHYSICS_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "vendor/newton-dynamics/coreLibrary_300/source/physics/*.h*") #TODO
 add_library(physics STATIC ${NEWTON_PHYSICS_SOURCES} ${NEWTON_PHYSICS_HEADERS})
@@ -190,6 +189,8 @@ endif()
 target_include_directories(physics PRIVATE ${NEWTON_PHYSICS_HEADERS_DIR} ${NEWTON_CORE_HEADERS_DIR} ${TIME_TRACKER_HEADERS_DIR} ${NEWTON_MESH_UTIL_HEADERS_DIR})
 set_property(TARGET physics PROPERTY FOLDER ${VENDOR_FOLDER})
 
+# newton meshUtil
+message(STATUS "newton meshUtil")
 file(GLOB NEWTON_MESH_UTIL_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "vendor/newton-dynamics/coreLibrary_300/source/meshUtil/*.c*") #TODO
 file(GLOB NEWTON_MESH_UTIL_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "vendor/newton-dynamics/coreLibrary_300/source/meshUtil/*.h*") #TODO
 add_library(meshUtil STATIC ${NEWTON_MESH_UTIL_SOURCES} ${NEWTON_MESH_UTIL_HEADERS})
@@ -214,6 +215,9 @@ endif()
 target_include_directories(meshUtil PRIVATE ${NEWTON_MESH_UTIL_HEADERS_DIR} ${NEWTON_CORE_HEADERS_DIR} ${TIME_TRACKER_HEADERS_DIR} ${NEWTON_PHYSICS_HEADERS_DIR})
 set_property(TARGET meshUtil PROPERTY FOLDER ${VENDOR_FOLDER})
 
+# newton
+message(STATUS "newton")
+set(NEWTON_HEADERS_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/newton-dynamics/coreLibrary_300/source/")
 file(GLOB NEWTON_SOURCES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "vendor/newton-dynamics/coreLibrary_300/source/newton/*.c*") #TODO
 file(GLOB NEWTON_HEADERS RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "vendor/newton-dynamics/coreLibrary_300/source/newton/*.h*") #TODO
 add_library(newton SHARED ${NEWTON_SOURCES} ${NEWTON_HEADERS})
@@ -236,10 +240,12 @@ elseif(IS_MSVC)
 endif()
 
 target_include_directories(newton PRIVATE ${NEWTON_HEADERS_DIR} ${NEWTON_MESH_UTIL_HEADERS_DIR} ${NEWTON_CORE_HEADERS_DIR} ${TIME_TRACKER_HEADERS_DIR} ${NEWTON_PHYSICS_HEADERS_DIR})
-target_link_libraries(newton PRIVATE core physics meshUtil)
+target_link_libraries(newton PUBLIC core physics meshUtil)
 set_property(TARGET newton PROPERTY FOLDER ${VENDOR_FOLDER})
 
+#####################
 # iaux
+#####################
 message(STATUS "iaux")
 set(IAUX_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/iaux/")
 set(IAUX_HEADERS_DIR ${IAUX_SRC_DIR})
@@ -262,7 +268,9 @@ target_include_directories(iaux PUBLIC ${IAUX_HEADERS_DIR})
 set_property(TARGET iaux PROPERTY FOLDER ${ENGINE_FOLDER})
 source_group_special("${IAUX_SOURCES}" ${IAUX_SRC_DIR})
 
+#####################
 # OMPF
+#####################
 message(STATUS "ompf")
 
 set(OMPF_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/ompf/")
@@ -281,12 +289,14 @@ elseif(IS_MSVC)
 endif()
 
 target_include_directories(ompf PUBLIC ${OMPF_HEADERS_DIR})
-target_link_libraries(ompf iaux)
+target_link_libraries(ompf PRIVATE iaux)
 
 set_property(TARGET ompf PROPERTY FOLDER ${ENGINE_FOLDER})
 source_group_special("${OMPF_SOURCES}" ${OMPF_SRC_DIR})
 
+#####################
 # Igor
+#####################
 message(STATUS "igor")
 
 # create igor version file
