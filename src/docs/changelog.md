@@ -4,12 +4,8 @@ Changelog                           {#changelog}
 0.34.0
 ------
 
-
-0.33.1
-------
-
-- fixed build under windows
-
+- improved testing framework and added some more tests
+- added some missing implementations in iQuadtree and iIntersection
 
 0.33.0
 ------
