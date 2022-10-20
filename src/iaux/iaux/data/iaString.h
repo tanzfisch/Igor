@@ -624,19 +624,6 @@ namespace iaux
 
 } // namespace iaux
 
-/*namespace std
-{
-    template <>
-    struct less<iaux::iaString>
-    {
-        bool operator()(const iaux::iaString &lhs, const iaux::iaString &rhs) const
-        {
-            return lhs < rhs;
-        }
-    };
-}*/
-// namespace std
-
 template <>
 struct std::hash<iaux::iaString>
 {
