@@ -50,7 +50,11 @@ namespace iaux
 
     void iaTest::runTests()
     {
-        bool ok = true;
+        uint32 testRun = 0;
+        uint32 testFails = 0;
+
+        iaConsole::getInstance() << "running tests ..." << endl;
+
         for (auto groupPair : _tests)
         {
             for (auto test : groupPair.second)
@@ -69,28 +73,38 @@ namespace iaux
                 }
 
                 test->run();
+                testRun++;
 
                 if (!test->success())
                 {
-                    ok = false;
-                    iaConsole::getInstance() << iaForegroundColor::Red << "TEST FAILED " << iaForegroundColor::Gray << testID.str().c_str() << " @ " << test->getLocation() << endl << endl;
+                    testFails++;
+                    iaConsole::getInstance() << iaForegroundColor::Red << "TEST FAILED " << iaForegroundColor::Gray << testID.str().c_str() << " @ " << test->getLocation() << endl
+                                             << endl;
                 }
                 else
                 {
                     if (_verbose)
                     {
-                        iaConsole::getInstance() << iaForegroundColor::Green << "TEST OK" << iaForegroundColor::Gray << endl << endl;
+                        iaConsole::getInstance() << iaForegroundColor::Green << "TEST OK" << iaForegroundColor::Gray << endl
+                                                 << endl;
                     }
                 }
 
-                if (_stopOnError && !ok)
+                if (_stopOnError && testFails == 0)
                 {
                     return;
                 }
             }
         }
 
-        iaConsole::getInstance() << "over all result " << (ok ? iaForegroundColor::Green : iaForegroundColor::Red) << (ok ? "OK" : "FAILED") << iaForegroundColor::Gray << endl;
+        iaConsole::getInstance() << "over all result " << (testFails ? iaForegroundColor::Red : iaForegroundColor::Green) << (testFails ? "FAILED" : "OK") << iaForegroundColor::Gray << endl;
+        
+        iaConsole::getInstance() << "ran " << testRun << " tests";
+        if (testFails)
+        {
+            iaConsole::getInstance() << " of which " << testFails << " failed";
+        }
+        iaConsole::getInstance() << endl;
     }
 
 } // namespace iaux

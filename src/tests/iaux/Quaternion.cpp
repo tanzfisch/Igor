@@ -8,20 +8,20 @@ IAUX_TEST(QuaternionTests, Initial)
 {
 	iaQuaterniond quat;
 
-	IAUX_EXPECT_EQ(quat._x, 0);
-	IAUX_EXPECT_EQ(quat._y, 0);
-	IAUX_EXPECT_EQ(quat._z, 0);
-	IAUX_EXPECT_EQ(quat._w, 1);
+	IAUX_EXPECT_EQUAL(quat._x, 0);
+	IAUX_EXPECT_EQUAL(quat._y, 0);
+	IAUX_EXPECT_EQUAL(quat._z, 0);
+	IAUX_EXPECT_EQUAL(quat._w, 1);
 }
 
 IAUX_TEST(QuaternionTests, Initial2)
 {
 	iaQuaterniond quat(0, 0, 0, 1);
 
-	IAUX_EXPECT_EQ(quat._x, 0);
-	IAUX_EXPECT_EQ(quat._y, 0);
-	IAUX_EXPECT_EQ(quat._z, 0);
-	IAUX_EXPECT_EQ(quat._w, 1);
+	IAUX_EXPECT_EQUAL(quat._x, 0);
+	IAUX_EXPECT_EQUAL(quat._y, 0);
+	IAUX_EXPECT_EQUAL(quat._z, 0);
+	IAUX_EXPECT_EQUAL(quat._w, 1);
 }
 
 IAUX_TEST(QuaternionTests, InitialEuler)
@@ -52,10 +52,10 @@ IAUX_TEST(QuaternionTests, InitialByAxisAngle1)
 {
 	iaQuaterniond quat(iaVector3d(1.0, 0.0, 0.0), 0.0);
 
-	IAUX_EXPECT_EQ(quat._x, 0);
-	IAUX_EXPECT_EQ(quat._y, 0);
-	IAUX_EXPECT_EQ(quat._z, 0);
-	IAUX_EXPECT_EQ(quat._w, 1);
+	IAUX_EXPECT_EQUAL(quat._x, 0);
+	IAUX_EXPECT_EQUAL(quat._y, 0);
+	IAUX_EXPECT_EQUAL(quat._z, 0);
+	IAUX_EXPECT_EQUAL(quat._w, 1);
 }
 
 IAUX_TEST(QuaternionTests, InitialByAxisAngle2)
@@ -93,10 +93,10 @@ IAUX_TEST(QuaternionTests, SetAxisAngle)
 	iaQuaterniond quat;
 	quat.setAxisAngle(iaVector3d(1.0, 0.0, 0.0), 0.0);
 
-	IAUX_EXPECT_EQ(quat._x, 0);
-	IAUX_EXPECT_EQ(quat._y, 0);
-	IAUX_EXPECT_EQ(quat._z, 0);
-	IAUX_EXPECT_EQ(quat._w, 1);
+	IAUX_EXPECT_EQUAL(quat._x, 0);
+	IAUX_EXPECT_EQUAL(quat._y, 0);
+	IAUX_EXPECT_EQUAL(quat._z, 0);
+	IAUX_EXPECT_EQUAL(quat._w, 1);
 }
 
 IAUX_TEST(QuaternionTests, SetEuler)
@@ -154,10 +154,10 @@ IAUX_TEST(QuaternionTests, SetDirect)
 	iaQuaterniond quat;
 	quat.set(0,0,0,1);
 
-	IAUX_EXPECT_EQ(quat._x, 0);
-	IAUX_EXPECT_EQ(quat._y, 0);
-	IAUX_EXPECT_EQ(quat._z, 0);
-	IAUX_EXPECT_EQ(quat._w, 1);
+	IAUX_EXPECT_EQUAL(quat._x, 0);
+	IAUX_EXPECT_EQUAL(quat._y, 0);
+	IAUX_EXPECT_EQUAL(quat._z, 0);
+	IAUX_EXPECT_EQUAL(quat._w, 1);
 }
 
 IAUX_TEST(QuaternionTests, Negate)
@@ -176,10 +176,10 @@ IAUX_TEST(QuaternionTests, Identity)
 	iaQuaterniond quat;
 	quat.identity();
 
-	IAUX_EXPECT_EQ(quat._x, 0);
-	IAUX_EXPECT_EQ(quat._y, 0);
-	IAUX_EXPECT_EQ(quat._z, 0);
-	IAUX_EXPECT_EQ(quat._w, 1);
+	IAUX_EXPECT_EQUAL(quat._x, 0);
+	IAUX_EXPECT_EQUAL(quat._y, 0);
+	IAUX_EXPECT_EQUAL(quat._z, 0);
+	IAUX_EXPECT_EQUAL(quat._w, 1);
 }
 
 // TODO #234
@@ -202,7 +202,7 @@ IAUX_TEST(QuaternionTests, Euqal)
 	iaQuaterniond a(iaVector3d(0.0, 1.0, 0.0), 0.5 * M_PI);
 	iaQuaterniond b(iaVector3d(0.0, 1.0, 0.0), 0.5 * M_PI);
 
-	IAUX_EXPECT_EQ(a, b);
+	IAUX_EXPECT_EQUAL(a, b);
 }
 
 IAUX_TEST(QuaternionTests, NotEuqal)

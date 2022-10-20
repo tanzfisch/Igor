@@ -49,6 +49,13 @@ namespace igor
     template <typename F, typename T>
     struct iQuadtreeObject
     {
+        iQuadtreeObject() = default;
+
+        iQuadtreeObject(const iaCircle<F> &circle, const T &userData)
+            : _circle(circle), _userData(userData)
+        {
+        }
+
         /*! the circle of this object
          */
         iaCircle<F> _circle;
@@ -117,7 +124,7 @@ namespace igor
 
         \param userData the user data to update
         */
-        void update(const std::shared_ptr<iQuadtreeObject<F, T>> object, const iaVector2d &newPosition);
+        void update(const std::shared_ptr<iQuadtreeObject<F, T>> object, const iaVector2<F> &newPosition);
 
         /*! \returns root of tree
          */

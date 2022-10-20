@@ -124,9 +124,9 @@ IAUX_TEST(MatrixTests, DecomposeTranslate)
 
 	matrix.decompose(scale, orientation, translate, shear, perspective);
 
-	IAUX_EXPECT_EQ(translate._x, 13);
-	IAUX_EXPECT_EQ(translate._y, 12);
-	IAUX_EXPECT_EQ(translate._z, 453);
+	IAUX_EXPECT_EQUAL(translate._x, 13);
+	IAUX_EXPECT_EQUAL(translate._y, 12);
+	IAUX_EXPECT_EQUAL(translate._z, 453);
 }
 
 IAUX_TEST(MatrixTests, DecomposeTranslateNegative)
@@ -142,9 +142,9 @@ IAUX_TEST(MatrixTests, DecomposeTranslateNegative)
 
 	matrix.decompose(scale, orientation, translate, shear, perspective);
 
-	IAUX_EXPECT_EQ(translate._x, 13);
-	IAUX_EXPECT_EQ(translate._y, -12);
-	IAUX_EXPECT_EQ(translate._z, -453);
+	IAUX_EXPECT_EQUAL(translate._x, 13);
+	IAUX_EXPECT_EQUAL(translate._y, -12);
+	IAUX_EXPECT_EQUAL(translate._z, -453);
 }
 
 IAUX_TEST(MatrixTests, Transpose)
@@ -247,9 +247,9 @@ IAUX_TEST(MatrixTests, DecomposeScale)
 
 	matrix.decompose(scale, orientation, translate, shear, perspective);
 
-	IAUX_EXPECT_EQ(scale._x, 1);
-	IAUX_EXPECT_EQ(scale._y, 2);
-	IAUX_EXPECT_EQ(scale._z, 0.003);
+	IAUX_EXPECT_EQUAL(scale._x, 1);
+	IAUX_EXPECT_EQUAL(scale._y, 2);
+	IAUX_EXPECT_EQUAL(scale._z, 0.003);
 }
 
 IAUX_TEST(MatrixTests, DecomposeScaleNegative)
@@ -265,9 +265,9 @@ IAUX_TEST(MatrixTests, DecomposeScaleNegative)
 
 	matrix.decompose(scale, orientation, translate, shear, perspective);
 
-	IAUX_EXPECT_EQ(scale._x, -1);
-	IAUX_EXPECT_EQ(scale._y, 2);
-	IAUX_EXPECT_EQ(scale._z, 0.003);
+	IAUX_EXPECT_EQUAL(scale._x, -1);
+	IAUX_EXPECT_EQUAL(scale._y, 2);
+	IAUX_EXPECT_EQUAL(scale._z, 0.003);
 }
 
 IAUX_TEST(MatrixTests, DecomposeShear)
@@ -283,9 +283,9 @@ IAUX_TEST(MatrixTests, DecomposeShear)
 
 	matrix.decompose(scale, orientation, translate, shear, perspective);
 
-	IAUX_EXPECT_EQ(shear._x, 5);
-	IAUX_EXPECT_EQ(shear._y, 0.17);
-	IAUX_EXPECT_EQ(shear._z, -12);
+	IAUX_EXPECT_EQUAL(shear._x, 5);
+	IAUX_EXPECT_EQUAL(shear._y, 0.17);
+	IAUX_EXPECT_EQUAL(shear._z, -12);
 }
 
 IAUX_TEST(MatrixTests, DecomposeRotateX)

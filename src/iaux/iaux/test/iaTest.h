@@ -131,7 +131,7 @@ namespace iaux
     testGroup##_##testName *testGroup##_##testName##_instance = new testGroup##_##testName(); \
     void testGroup##_##testName::run()
 
-#define IAUX_EXPECT_EQ(a, b)                                                   \
+#define IAUX_EXPECT_EQUAL(a, b)                                                   \
     if ((a) != (b))                                                            \
     {                                                                          \
         iaConsole::getInstance() << __IGOR_FILE_LINE__ << " - ";                \
