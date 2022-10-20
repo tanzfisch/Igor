@@ -380,6 +380,7 @@ IAUX_TEST(MatrixTests, DecomposeRotate100)
 	}
 }
 
+// todo #235
 IAUX_TEST(MatrixTests, DecomposeRecompose)
 {
 	iaMatrixd matrix;
@@ -398,5 +399,5 @@ IAUX_TEST(MatrixTests, DecomposeRecompose)
 	iaMatrixd matrix2;
 	matrix2.recompose(scale, orientation, translate, shear, perspective);
 
-	IAUX_COMPARE_MATRIX(matrix, matrix2);
+	IAUX_EXPECT_NEAR_MATRIX(matrix, matrix2, 0.00001);
 }
