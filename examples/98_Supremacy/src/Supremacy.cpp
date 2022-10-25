@@ -23,7 +23,7 @@ iEntity Supremacy::createPlayer()
 
     auto position = entity.addComponent<PositionComponent>(iaVector2d(PLAYFIELD_WIDTH * 0.5, PLAYFIELD_HEIGHT * 0.5));
     auto size = entity.addComponent<SizeComponent>(STANDARD_UNIT_SIZE);
-
+    entity.addComponent<OrientationComponent>(0.0);
     entity.addComponent<VelocityComponent>(iaVector2d(1.0, 0.0), 1.0, true);
     entity.addComponent<PartyComponent>(FRIEND);
     entity.addComponent<DamageComponent>(0.0);
@@ -35,7 +35,7 @@ iEntity Supremacy::createPlayer()
 
     entity.addComponent<TargetComponent>(iInvalidEntityID, false, false);
     entity.addComponent<MovementControlComponent>();
-    
+
     auto &object = entity.addComponent<QuadtreeObjectComponent>();
     object._object = std::make_shared<QuadtreeObject>(iaCircled(position._position._x, position._position._y, size._size), entity.getID());
     _quadtree.insert(object._object);
@@ -63,6 +63,7 @@ void Supremacy::createUnit(const iaVector2d &pos, uint32 party, iEntityID target
 {
     iEntity entity = _entityScene.createEntity("enemy");
     entity.addComponent<PositionComponent>(pos);
+    entity.addComponent<OrientationComponent>(0.0);
     entity.addComponent<VelocityComponent>(getRandomDir(), 0.3, false);
 
     auto size = entity.addComponent<SizeComponent>(STANDARD_UNIT_SIZE);
@@ -490,9 +491,9 @@ void Supremacy::onUpdatePositionSystem()
 {
     // move entity
     auto positionUpdateView = _entityScene.getEntities<PositionComponent, SizeComponent, VelocityComponent, PartyComponent, DamageComponent, HealthComponent>();
-    for (auto entity : positionUpdateView)
+    for (auto entityID : positionUpdateView)
     {
-        auto [pos, size, vel, party, damage, health] = positionUpdateView.get<PositionComponent, SizeComponent, VelocityComponent, PartyComponent, DamageComponent, HealthComponent>(entity);
+        auto [pos, size, vel, party, damage, health] = positionUpdateView.get<PositionComponent, SizeComponent, VelocityComponent, PartyComponent, DamageComponent, HealthComponent>(entityID);
 
         iaVector2d &position = pos._position;
         const float64 radius = size._size * 0.5;
@@ -508,7 +509,7 @@ void Supremacy::onUpdatePositionSystem()
         for (const auto &object : objects)
         {
             // skip self
-            if (object->_userData == entity)
+            if (object->_userData == entityID)
             {
                 continue;
             }
@@ -552,17 +553,26 @@ void Supremacy::onUpdatePositionSystem()
             totalHits++;
         }
 
+        iEntity entity(entityID, _entityScene);
+        auto *range = entity.tryGetComponent<RangeComponent>();
+
         if (totalHits)
         {
             diversion.normalize();
             diversion *= speed;
-            pos._distanceTraveled += diversion.length();
+            if (range != nullptr)
+            {
+                range->_distanceTraveled += diversion.length();
+            }
             position += diversion;
         }
 
         iaVector2d direction = vel._direction;
         direction *= speed;
-        pos._distanceTraveled += direction.length();
+        if (range != nullptr)
+        {
+            range->_distanceTraveled += direction.length();
+        }
         position += direction;
 
         // jump to other side
@@ -630,6 +640,7 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
     {
         auto bullet = _entityScene.createEntity(texture);
         bullet.addComponent<PositionComponent>(from);
+        bullet.addComponent<OrientationComponent>(0.0);
         bullet.addComponent<RangeComponent>(range);
 
         iaVector2d d = dir;
@@ -645,7 +656,7 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
 
         auto &object = bullet.addComponent<QuadtreeObjectComponent>();
 
-        object._object = std::make_shared<QuadtreeObject>(iaCircled(from, size * 0.5), bullet.getID());        
+        object._object = std::make_shared<QuadtreeObject>(iaCircled(from, size * 0.5), bullet.getID());
 
         object._object = std::make_shared<QuadtreeObject>();
         object._object->_userData = bullet.getID();
@@ -745,7 +756,7 @@ void Supremacy::onUpdateRangeSystem()
     {
         auto [positiom, range, health] = view.get<PositionComponent, RangeComponent, HealthComponent>(entity);
 
-        if (positiom._distanceTraveled > range._maxRange)
+        if (range._distanceTraveled > range._maxRange)
         {
             health._health = 0.0;
         }
@@ -888,7 +899,7 @@ void Supremacy::onRenderOrtho()
             float64 timing = std::fmod(time.getMilliseconds(), 1000.0) / 1000.0 * M_PI * 2;
 
             float64 value = sin(timing) * 0.5;
-            if(value > 0.0 )
+            if (value > 0.0)
             {
                 value *= 0.5;
             }

@@ -144,6 +144,11 @@ namespace iaux
 #ifdef __IGOR_WINDOWS__
         __debugbreak();
 #endif
+
+#ifdef __IGOR_LINUX__
+        __builtin_trap();
+#endif
+
         std::exit(EXIT_FAILURE);
     }
 
@@ -157,7 +162,7 @@ namespace iaux
         }
     }
 
-    std::wostream& operator<<(std::wostream& stream, const iaLogLevel &logLevel)
+    std::wostream &operator<<(std::wostream &stream, const iaLogLevel &logLevel)
     {
         const static std::wstring text[] = {
             L"Fatal",

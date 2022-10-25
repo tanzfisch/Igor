@@ -36,10 +36,6 @@ struct PositionComponent
     /*! current position
      */
     iaVector2d _position;
-
-    /*! distance traveled
-     */
-    float64 _distanceTraveled = 0.0;
 };
 
 struct RangeComponent
@@ -47,6 +43,24 @@ struct RangeComponent
     /*! max range
      */
     float64 _maxRange;
+
+    /*! distance traveled
+     */
+    float64 _distanceTraveled = 0.0;
+};
+
+struct OrientationComponent
+{
+    /*! angle in rad
+    */
+    float64 _angle;
+};
+
+struct AngularVelocityComponent
+{
+    /*! angular velocity in rad per frame
+    */
+    float64 _velocity;
 };
 
 struct SizeComponent
@@ -61,8 +75,15 @@ struct QuadtreeObjectComponent
 
 struct VelocityComponent
 {
+    /*! normalized vector to discribe the direction
+    */
     iaVector2d _direction;
+
+    /*! speed in units per frame
+    */
     float64 _speed;
+
+    // TODO does this need to be in here?
     bool _nonBlockable = false;
 };
 
