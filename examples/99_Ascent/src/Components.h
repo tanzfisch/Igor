@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \_/__/                     ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2022 by Martin Loga
+//    (c) Copyright 2014-2020 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,24 +26,12 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_COMPONENTS__
-#define __IGOR_COMPONENTS__
+#ifndef __ASCENT_COMPONENTS__
+#define __ASCENT_COMPONENTS__
 
-#include <igor/iDefines.h>
+#include <igor/igor.h>
 
-#include <iaux/data/iaString.h>
-using namespace iaux;
+// TODO
 
-namespace igor
-{
-    /*! name component used to give every entity a name for debugging puposes
-    */
-    struct IGOR_API iNameComponent
-    {
-        /*! name of an entity
-        */
-        iaString _name;
-    };
-}
 
-#endif //  __IGOR_COMPONENTS__
+#endif // __ASCENT_COMPONENTS__

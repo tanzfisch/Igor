@@ -16,7 +16,7 @@ namespace igor
 
     const iaString iEntity::getName() const
     { 
-        NameComponent *component = _scene->_registry.try_get<NameComponent>(_entity);
+        iNameComponent *component = _scene->_registry.try_get<iNameComponent>(_entity);
         if(component != nullptr)
         {
             return component->_name;

@@ -35,7 +35,7 @@
 
 namespace igor
 {
-	// class iEntity;
+	class iEntity;
 
     /*! entity id definition
     */
