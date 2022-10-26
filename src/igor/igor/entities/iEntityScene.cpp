@@ -8,8 +8,8 @@ namespace igor
     iEntity iEntityScene::createEntity(const iaString &name)
     {
         iEntity entity(_registry.create(), *this);
-        //auto &component = entity.addComponent<NameComponent>();
-        //component._name = name.isEmpty() ? L"Entity" : name.getData();
+        auto &component = entity.addComponent<NameComponent>();
+        component._name = name.isEmpty() ? L"Entity" : name.getData();
         return entity;
     }
 

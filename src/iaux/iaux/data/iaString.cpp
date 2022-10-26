@@ -626,7 +626,11 @@ namespace iaux
 
     iaString iaString::operator=(const iaString &text)
     {
-        setData(text.getData());
+        // skip if this is the same exact data
+        if(getData() != text.getData())
+        {
+            setData(text.getData());
+        }
         return *this;
     }
 
