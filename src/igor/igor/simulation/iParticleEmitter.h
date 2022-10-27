@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iPARTICLEEMITTER__
-#define __iPARTICLEEMITTER__
+#ifndef __IGOR_PARTICLEEMITTER__
+#define __IGOR_PARTICLEEMITTER__
 
 #include <igor/iDefines.h>
 

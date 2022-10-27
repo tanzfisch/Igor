@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iLSYSTEM__
-#define __iLSYSTEM__
+#ifndef __IGOR_LSYSTEM__
+#define __IGOR_LSYSTEM__
 
 #include <igor/iDefines.h>
 

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iRENDERCONTEXTTHREAD__
-#define __iRENDERCONTEXTTHREAD__
+#ifndef __IGOR_RENDERCONTEXTTHREAD__
+#define __IGOR_RENDERCONTEXTTHREAD__
 
 #include <igor/threading/iThread.h>
 #include <igor/system/iWindow.h>

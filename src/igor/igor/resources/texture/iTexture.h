@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iTEXTURE__
-#define __iTEXTURE__
+#ifndef __IGOR_TEXTURE__
+#define __IGOR_TEXTURE__
 
 #include <iaux/data/iaString.h>
 using namespace iaux;

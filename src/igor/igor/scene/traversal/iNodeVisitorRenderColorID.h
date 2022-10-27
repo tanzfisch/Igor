@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iNODEVISITORRENDERCOLORID__
-#define __iNODEVISITORRENDERCOLORID__
+#ifndef __IGOR_NODEVISITORRENDERCOLORID__
+#define __IGOR_NODEVISITORRENDERCOLORID__
 
 #include <igor/scene/traversal/iNodeVisitor.h>
 #include <igor/iDefines.h>

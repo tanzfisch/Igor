@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iAABOX__
-#define __iAABOX__
+#ifndef __IGOR_AABOX__
+#define __IGOR_AABOX__
 
 #include <igor/iDefines.h>
 #include <iaux/math/iaVector3.h>

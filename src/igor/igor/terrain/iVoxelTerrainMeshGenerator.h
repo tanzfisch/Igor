@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iGENERATORTERRAIN__
-#define __iGENERATORTERRAIN__
+#ifndef __IGOR_GENERATORTERRAIN__
+#define __IGOR_GENERATORTERRAIN__
 
 #include <igor/resources/model/loader/iModelDataIO.h>
 

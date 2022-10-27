@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iPLANE__
-#define __iPLANE__
+#ifndef __IGOR_PLANE__
+#define __IGOR_PLANE__
 
 #include <igor/iDefines.h>
 

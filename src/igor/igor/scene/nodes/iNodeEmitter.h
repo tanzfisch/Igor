@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iNODEEMITTER__
-#define __iNODEEMITTER__
+#ifndef __IGOR_NODEEMITTER__
+#define __IGOR_NODEEMITTER__
 
 #include <igor/scene/nodes/iNode.h>
 #include <igor/simulation/iParticleEmitter.h>

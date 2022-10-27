@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iJOINT__
-#define __iJOINT__
+#ifndef __IGOR_JOINT__
+#define __IGOR_JOINT__
 
 #include <igor/iDefines.h>
 

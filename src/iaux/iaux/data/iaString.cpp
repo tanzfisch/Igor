@@ -18,6 +18,7 @@
 namespace iaux
 {
 
+// this was already very helpful let's keep this!
 #ifdef __IGOR_DEBUG__
 #define CHECK_CONSISTENCY()                                               \
     {                                                                     \

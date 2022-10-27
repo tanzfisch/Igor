@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iTARGETMATERIAL__
-#define __iTARGETMATERIAL__
+#ifndef __IGOR_TARGETMATERIAL__
+#define __IGOR_TARGETMATERIAL__
 
 #include <igor/iDefines.h>
 #include <igor/resources/texture/iTexture.h>

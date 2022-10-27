@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iRENDERERSTATE__
-#define __iRENDERERSTATE__
+#ifndef __IGOR_RENDERERSTATE__
+#define __IGOR_RENDERERSTATE__
 
 #include <igor/iDefines.h>
 

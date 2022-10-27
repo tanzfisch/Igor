@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iTASKLOADMODEL__
-#define __iTASKLOADMODEL__
+#ifndef __IGOR_TASKLOADMODEL__
+#define __IGOR_TASKLOADMODEL__
 
 #include <igor/threading/tasks/iTask.h>
 #include <igor/resources/model/iModel.h>

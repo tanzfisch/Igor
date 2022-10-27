@@ -4,7 +4,6 @@
 
 #include <igor/graphics/iRenderer.h>
 
-// #include <igor/system/iWindow.h>
 #include <igor/system/iTimer.h>
 #include <igor/simulation/iParticleSystem2D.h>
 #include <igor/graphics/iInstancer.h>

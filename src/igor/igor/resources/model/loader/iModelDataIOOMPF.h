@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iLOADERIGOR__
-#define __iLOADERIGOR__
+#ifndef __IGOR_LOADERIGOR__
+#define __IGOR_LOADERIGOR__
 
 #include <iaux/data/iaString.h>
 using namespace iaux;

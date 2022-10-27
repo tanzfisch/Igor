@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iRAY__
-#define __iRAY__
+#ifndef __IGOR_RAY__
+#define __IGOR_RAY__
 
 #include <igor/iDefines.h>
 

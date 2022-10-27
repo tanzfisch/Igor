@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iVIEW__
-#define __iVIEW__
+#ifndef __IGOR_VIEW__
+#define __IGOR_VIEW__
 
 #include <igor/iDefines.h>
 #include <igor/graphics/iRenderEngine.h>

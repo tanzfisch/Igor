@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iWIDGETDEFAULTTHEME__
-#define __iWIDGETDEFAULTTHEME__
+#ifndef __IGOR_WIDGETDEFAULTTHEME__
+#define __IGOR_WIDGETDEFAULTTHEME__
 
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTexture.h>

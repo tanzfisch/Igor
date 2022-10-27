@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iTASKVOXELTERRAIN__
-#define __iTASKVOXELTERRAIN__
+#ifndef __IGOR_TASKVOXELTERRAIN__
+#define __IGOR_TASKVOXELTERRAIN__
 
 #include <igor/threading/tasks/iTask.h>
 

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iDEFINES_WINDOWS__
-#define __iDEFINES_WINDOWS__
+#ifndef __IGOR_DEFINES_WINDOWS__
+#define __IGOR_DEFINES_WINDOWS__
 
 #ifdef __IGOR_WINDOWS__
 
@@ -76,4 +76,4 @@ namespace igor
 
 #endif // __IGOR_WINDOWS__
 
-#endif // __iDEFINES_WINDOWS__
+#endif // __IGOR_DEFINES_WINDOWS__

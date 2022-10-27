@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iDEFINES_LINUX__
-#define __iDEFINES_LINUX__
+#ifndef __IGOR_DEFINES_LINUX__
+#define __IGOR_DEFINES_LINUX__
 
 #ifdef __IGOR_LINUX__
 
@@ -82,4 +82,4 @@ namespace igor
 
 #endif // __IGOR_LINUX__
 
-#endif // __iDEFINES_LINUX__
+#endif // __IGOR_DEFINES_LINUX__

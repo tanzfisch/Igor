@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iMESHBUILDERUTILS__
-#define __iMESHBUILDERUTILS__
+#ifndef __IGOR_MESHBUILDERUTILS__
+#define __IGOR_MESHBUILDERUTILS__
 
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/mesh/iMesh.h>

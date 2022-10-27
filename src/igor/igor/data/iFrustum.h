@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iFRUSTUM__
-#define __iFRUSTUM__
+#ifndef __IGOR_FRUSTUM__
+#define __IGOR_FRUSTUM__
 
 #include <igor/data/iPlane.h>
 

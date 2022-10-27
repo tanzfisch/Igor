@@ -26,73 +26,33 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_NODEVISITORPRINTTREE__
-#define __IGOR_NODEVISITORPRINTTREE__
+#ifndef __IGOR_RENDERER_2D__
+#define __IGOR_RENDERER_2D__
 
-#include <iaux/data/iaString.h>
-using namespace iaux;
+#include <igor/resources/module/iModule.h>
 
-#include <igor/scene/traversal/iNodeVisitor.h>
-#include <igor/iDefines.h>
-#include <sstream>
+#include <iaux/math/iaVector2.h>
+#include <iaux/data/iaColor4.h>
 
 namespace igor
 {
 
-    /*! traveses node tree and prints basic information in to console
-	*/
-    class IGOR_API iNodeVisitorPrintTree : public iNodeVisitor
+    class iRenderer2D : public iModule<iRenderer2D>
     {
 
+        friend class iModule<iRenderer2D>;
+
     public:
-        /*! initializes traversal config
-		*/
-        iNodeVisitorPrintTree();
 
-        /*! does nothing
-		*/
-        virtual ~iNodeVisitorPrintTree() = default;
+        void drawLine(const iaVector2f &p1, const iaVector2f &p2, const iaColor4f &color);
 
-        /*! traverses the tree and prints the output in console
-		*/
-        void printToConsole(iNodePtr node);
-
-    protected:
-        /*! initialisation
-		*/
-        void preTraverse() override;
-
-        /*! generates information string on every node passed by
-		handles output indentation
-
-		\param node current node
-		*/
-        bool preOrderVisit(iNodePtr node, iNodePtr nextSibling) override;
-
-        void preLine();
-
-        /*! handles output indentation
-		*/
-        void postOrderVisit(iNodePtr node) override;
-
-        /*! some more output
-		*/
-        void postTraverse() override;
+        void flush();
 
     private:
-        /*! counter for all nodes passed by
-		*/
-        uint64 _nodeCount = 0;
-
-        /*! current indentation string
-		*/
-        iaString _indenttation = "";
-
-        /*! all the output ends up in this string
-		*/
-        std::wstringstream _stream;
+        iRenderer2D() = default;
+        virtual ~iRenderer2D() = default;
     };
 
-}; // namespace igor
+}
 
-#endif
+#endif // __IGOR_RENDERER_2D__

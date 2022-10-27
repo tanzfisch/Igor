@@ -49,7 +49,7 @@ const WeaponComponent WEAPON_KNIFE{
     10.0,                            // speed
     70.0,                            // range
     iaTime::fromMilliseconds(600.0), // attack interval
-    true,                            // need to stand still
+    false,                           // need to stand still
 };
 
 const WeaponComponent WEAPON_SHOTGUN{

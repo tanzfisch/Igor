@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iLIGHTNODE__
-#define __iLIGHTNODE__
+#ifndef __IGOR_LIGHTNODE__
+#define __IGOR_LIGHTNODE__
 
 #include <igor/scene/nodes/iNode.h>
 #include <iaux/math/iaMatrix.h>

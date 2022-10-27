@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iPARTICLESYSTEM2D__
-#define __iPARTICLESYSTEM2D__
+#ifndef __IGOR_PARTICLESYSTEM2D__
+#define __IGOR_PARTICLESYSTEM2D__
 
 #include <igor/system/iTimerHandle.h>
 #include <iaux/math/iaVector2.h>

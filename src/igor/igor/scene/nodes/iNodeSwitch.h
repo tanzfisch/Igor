@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iNODESWITCH__
-#define __iNODESWITCH__
+#ifndef __IGOR_NODESWITCH__
+#define __IGOR_NODESWITCH__
 
 #include <igor/scene/nodes/iNode.h>
 

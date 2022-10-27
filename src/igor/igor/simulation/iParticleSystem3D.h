@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iPARTICLESYSTEM3D__
-#define __iPARTICLESYSTEM3D__
+#ifndef __IGOR_PARTICLESYSTEM3D__
+#define __IGOR_PARTICLESYSTEM3D__
 
 #include <iaux/data/iaGradient.h>
 #include <igor/data/iAABox.h>

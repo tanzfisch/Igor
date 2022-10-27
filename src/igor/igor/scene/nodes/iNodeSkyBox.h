@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iSKYBOXNODE__
-#define __iSKYBOXNODE__
+#ifndef __IGOR_SKYBOXNODE__
+#define __IGOR_SKYBOXNODE__
 
 #include <igor/scene/nodes/iNodeRender.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>

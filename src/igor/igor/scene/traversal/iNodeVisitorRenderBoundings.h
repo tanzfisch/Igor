@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iNODEVISITORRENDERBOUNDINGS__
-#define __iNODEVISITORRENDERBOUNDINGS__
+#ifndef __IGOR_NODEVISITORRENDERBOUNDINGS__
+#define __IGOR_NODEVISITORRENDERBOUNDINGS__
 
 #include <igor/scene/traversal/iNodeVisitor.h>
 #include <igor/iDefines.h>

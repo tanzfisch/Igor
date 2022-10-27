@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __iINSTANCER__
-#define __iINSTANCER__
+#ifndef __IGOR_INSTANCER__
+#define __IGOR_INSTANCER__
 
 #include <igor/iDefines.h>
 
