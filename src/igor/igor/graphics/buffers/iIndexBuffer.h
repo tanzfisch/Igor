@@ -26,33 +26,45 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_RENDERER_2D__
-#define __IGOR_RENDERER_2D__
+#ifndef __IGOR_INDEX_BUFFER__
+#define __IGOR_INDEX_BUFFER__
 
-#include <igor/resources/module/iModule.h>
+#include <igor/iDefines.h>
 
-#include <iaux/math/iaVector2.h>
-#include <iaux/data/iaColor4.h>
+#include <memory>
 
 namespace igor
 {
 
-    class iRenderer2D : public iModule<iRenderer2D>
+    /*! index buffer aka index buffer object
+    */
+    class iIndexBuffer
     {
-
-        friend class iModule<iRenderer2D>;
-
     public:
+        iIndexBuffer(uint32 count, const uint32 *indices);
+        virtual ~iIndexBuffer();
 
-        void drawLine(const iaVector2f &p1, const iaVector2f &p2, const iaColor4f &color);
+        void bind() const;
+        
+        static void unbind();
 
-        void flush();
+        uint32 getIndexCount() const;
 
     private:
-        iRenderer2D() = default;
-        virtual ~iRenderer2D() = default;
+        
+        /*! handle to internal buffer object
+        */
+        uint32 _indexBufferObject;
+
+        /*! index count
+        */
+        uint32 _indexCount;
     };
+
+    /*! vertex buffer pointer definition
+    */
+    typedef std::shared_ptr<iIndexBuffer> iIndexBufferPtr;
 
 }
 
-#endif // __IGOR_RENDERER_2D__
+#endif // __IGOR_INDEX_BUFFER__

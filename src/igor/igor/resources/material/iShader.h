@@ -45,13 +45,10 @@ namespace igor
 
     /*! shader object types
     */
-    enum class iShaderObjectType : uint8
+    enum class iShaderObjectType
     {
         Vertex,
-        Fragment,
-        Geometry,
-        Effect,
-        Undefined
+        Fragment
     };
 
     /*! handles glsl shader programs and objects

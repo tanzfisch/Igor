@@ -92,6 +92,8 @@ void Example2D::onInit()
 
     // generate a random seed
     _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicrosenconds()));
+
+    iRenderer2::init();
 }
 
 void Example2D::onDeinit()
@@ -256,6 +258,9 @@ void Example2D::onRenderOrtho()
     }
 
     offset += 1.0f;
+
+    iRenderer2::drawLine(10.0f, 10.0f, 500.0f, 500.0f, iaColor4f(1, 0, 0, 1));
+    iRenderer2::flush();
 
     ExampleBase::onRenderOrtho();
 }

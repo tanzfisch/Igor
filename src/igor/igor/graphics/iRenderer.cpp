@@ -29,8 +29,10 @@
 #include <iaux/system/iaTime.h>
 using namespace iaux;
 
+#ifdef __IGOR_LINUX__
 // comes from X.h. don't know how this get's included here
 #undef Always
+#endif
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
@@ -66,7 +68,7 @@ namespace igor
         con_crit("Unknown Error");
     }
 #endif
-    
+
     static GLenum convertGLColorFormat(iColorFormat format)
     {
         GLenum glformat = iRenderer::INVALID_ID;
@@ -187,12 +189,6 @@ namespace igor
             shaderObject = glCreateShaderObjectARB(GL_VERTEX_SHADER_ARB);
             break;
 
-        case iShaderObjectType::Geometry:
-            shaderObject = glCreateShaderObjectARB(GL_GEOMETRY_SHADER_ARB);
-            break;
-
-        case iShaderObjectType::Effect:
-        case iShaderObjectType::Undefined:
         default:
             con_err("unsupported shader type");
         };

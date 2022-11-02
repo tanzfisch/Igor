@@ -54,11 +54,9 @@ namespace igor
             {
                 iRenderer::getInstance().linkShaderProgram(_shaderProgram, _shaderObjects);
 
-                auto object = _shaderObjects.begin();
-                while (_shaderObjects.end() != object)
+                for (auto object : _shaderObjects)
                 {
-                    iRenderer::getInstance().destroyShaderObject((*object));
-                    object++;
+                    iRenderer::getInstance().destroyShaderObject(object);
                 }
 
                 _shaderObjects.clear();

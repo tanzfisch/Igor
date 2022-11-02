@@ -53,6 +53,7 @@
 #include <igor/generation/iPerlinNoise.h>
 
 #include <igor/graphics/iRenderer.h>
+#include <igor/graphics/iRenderer2.h>
 #include <igor/graphics/iView.h>
 
 #include <igor/layers/iLayer.h>

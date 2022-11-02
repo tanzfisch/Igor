@@ -250,6 +250,22 @@ namespace igor
         KeyCodeCount
     };
 
+	enum class iShaderDataType
+	{
+		None = 0, 
+        Float, 
+        Float2, 
+        Float3, 
+        Float4, 
+        Matrix3x3, 
+        Matrix4x4, 
+        Int, 
+        Int2, 
+        Int3, 
+        Int4, 
+        Boolean
+	};
+
     /*! user data type
     */
     typedef void* iUserData;
