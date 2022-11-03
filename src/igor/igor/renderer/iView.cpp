@@ -2,10 +2,10 @@
 // (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/graphics/iView.h>
+#include <igor/renderer/iView.h>
 
 #include <igor/system/iWindow.h>
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/scene/iScene.h>
 #include <igor/resources/profiler/iProfiler.h>

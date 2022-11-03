@@ -7,10 +7,10 @@
 #include <igor/system/iApplication.h>
 #include <iaux/system/iaConsole.h>
 #include <igor/system/iOSEventListener.h>
-#include <igor/graphics/iView.h>
+#include <igor/renderer/iView.h>
 #include <igor/system/iMouse.h>
 #include <igor/system/iKeyboard.h>
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/events/iEventWindow.h>
 

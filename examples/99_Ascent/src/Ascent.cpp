@@ -19,7 +19,7 @@
 #include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/scene/nodes/iNodeModel.h>
 #include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/system/iApplication.h>
 #include <igor/scene/iSceneFactory.h>
 #include <igor/scene/iScene.h>

@@ -3,7 +3,7 @@
 // see copyright notice in corresponding header file
 
 #include <igor/resources/material/iShader.h>
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 
 #include <iaux/system/iaConsole.h>
 #include <igor/resources/iResourceManager.h>

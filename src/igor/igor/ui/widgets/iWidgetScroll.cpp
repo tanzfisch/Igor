@@ -9,7 +9,7 @@
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/ui/user_controls/iUserControl.h>
 #include <igor/resources/material/iMaterial.h>
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/data/iIntersection.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 

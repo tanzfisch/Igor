@@ -4,7 +4,7 @@
 
 #include <igor/resources/material/iMaterial.h>
 
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/scene/nodes/iNodeLight.h>
 #include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/resources/material/iShader.h>

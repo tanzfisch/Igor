@@ -5,7 +5,7 @@
 #include "iLayerWidgets.h"
 
 #include <igor/ui/iWidgetManager.h>
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 
 namespace igor
 {

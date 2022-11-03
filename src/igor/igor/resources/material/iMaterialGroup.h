@@ -31,7 +31,7 @@
 
 #include <igor/iDefines.h>
 #include <iaux/math/iaMatrix.h>
-#include <igor/graphics/iInstancer.h>
+#include <igor/renderer/iInstancer.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/scene/nodes/iNode.h>
 #include <igor/scene/nodes/iNodeRender.h>

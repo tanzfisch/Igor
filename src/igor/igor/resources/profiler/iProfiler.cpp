@@ -4,7 +4,7 @@
 
 #include <igor/resources/profiler/iProfiler.h>
 
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 
 #include <cstring>
 

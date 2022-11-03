@@ -125,7 +125,7 @@ namespace igor
         char *_currentBufferPosition = nullptr;
     };
 
-#include <igor/graphics/iInstancer.inl>
+#include <igor/renderer/iInstancer.inl>
 
 } // namespace igor
 

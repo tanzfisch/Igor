@@ -6,7 +6,7 @@
 
 #include <igor/scene/nodes/iNode.h>
 #include <igor/resources/model/iModelResourceFactory.h>
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/scene/nodes/iNodeTransform.h>
 #include <igor/scene/nodes/iNodeMesh.h>
 #include <igor/scene/nodes/iNodeRender.h>

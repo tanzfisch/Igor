@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2020 by Martin Loga
+// (c) Copyright 2012-2022 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it
 // under the terms of the GNU Lesser General Public License as published by
@@ -26,68 +26,36 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __WIDGET3DLOCATOR_H__
-#define __WIDGET3DLOCATOR_H__
+#ifndef __IGOR_RENDERER_2D__
+#define __IGOR_RENDERER_2D__
 
-#include "Widget3D.h"
+#include <igor/resources/material/iMaterial.h>
+#include <igor/renderer/buffers/iVertexArray.h>
+
+#include <iaux/math/iaVector2.h>
+#include <iaux/math/iaVector3.h>
+#include <iaux/data/iaColor4.h>
 
 namespace igor
 {
-	class iTargetMaterial;
-	class iNodeTransform;
-} // namespace igor
 
-/*! 3d widget locator
-*/
-class Widget3DLocator : public Widget3D
-{
+    /*! this will eventually replace iRenderer
+    */
+    class iRenderer2
+    {
+    public:
 
-public:
-	/*! init 3d widget for loactors
+        static void init();
+        static void deinit();
 
-	\param window the window this widget is visible at
-	\param view the view this widget it visible at
-	\param scene the scene to use for the 3d widget
-	\param nodeID id of the node to represent
-	*/
-	Widget3DLocator(iWindow *window, iView *view, iScenePtr scene);
+        static void flush();
+        
+        static void drawLine(float32 x1, float32 y1, float32 x2, float32 y2, const iaColor4f &color);
+        static void drawLine(const iaVector2f &p1, const iaVector2f &p2, const iaColor4f &color);
+        static void drawLine(const iaVector3f &p1, const iaVector3f &p2, const iaColor4f &color);
 
-	/*! cleanup
-	*/
-	virtual ~Widget3DLocator() override;
+    };
 
-private:
-	/*! material id
-	*/
-	iMaterialID _materialID = iMaterial::INVALID_MATERIAL_ID;
+}
 
-	/*! target material red
-	*/
-	iTargetMaterial *_red = nullptr;
-
-	/*! target material green
-	*/
-	iTargetMaterial *_green = nullptr;
-
-	/*! target material blue
-	*/
-	iTargetMaterial *_blue = nullptr;
-
-	/*! root transform node
-	*/
-	iNodeTransform *_rootTransform = nullptr;
-
-	/*! renders the 3d widget
-	*/
-	void update() override;
-
-	/*! create a mesh the represents a locator
-	*/
-	iMeshPtr createLocatorMesh();
-
-	/*! create the locator
-	*/
-	void createLocator();
-};
-
-#endif // __WIDGET3DLOCATOR_H__
+#endif // __IGOR_RENDERER_2D__

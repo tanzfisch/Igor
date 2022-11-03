@@ -139,7 +139,7 @@ namespace igor
         iRenderStateValue _renderStates[static_cast<unsigned int>(iRenderState::RenderStateCount)];
     };
 
-#include <igor/graphics/iRenderStateSet.inl>
+#include <igor/renderer/iRenderStateSet.inl>
 
 }; // namespace igor
 

@@ -10,7 +10,7 @@
 #include <igor/physics/iPhysics.h>
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/evaluation/iEvaluationManager.h>
-#include <igor/graphics/iView.h>
+#include <igor/renderer/iView.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;

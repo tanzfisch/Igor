@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/graphics/iRenderStateSet.h>
+#include <igor/renderer/iRenderStateSet.h>
 
 namespace igor
 {

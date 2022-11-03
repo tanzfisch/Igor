@@ -5,7 +5,7 @@
 #include <igor/data/iOctree.h>
 
 #include <igor/data/iAACube.h>
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/data/iIntersection.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/profiler/iProfiler.h>

@@ -2,14 +2,12 @@
 // (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/graphics/buffers/iVertexBuffer.h>
+#include <igor/renderer/buffers/iVertexBuffer.h>
 
-#define GL_GLEXT_PROTOTYPES
-#include <GLee.h>
+#include <igor/renderer/utils/iRendererUtils.h>
 
 namespace igor
 {
-
     /*! definition of invalid buffer id
      */
     static const uint32 INVALID_BUFFER_ID = 0;
@@ -17,21 +15,25 @@ namespace igor
     iVertexBuffer::iVertexBuffer(uint32 size, const void *vertexData)
     {
         glCreateBuffers(1, &_vertexBufferObject);
+        GL_CHECK_ERROR();
         bind();
 
         if (vertexData != nullptr)
         {
             glBufferData(GL_ARRAY_BUFFER, size, vertexData, GL_STATIC_DRAW);
+            GL_CHECK_ERROR();
         }
         else
         {
             glBufferData(GL_ARRAY_BUFFER, size, nullptr, GL_DYNAMIC_DRAW);
+            GL_CHECK_ERROR();
         }
     }
 
     iVertexBuffer::~iVertexBuffer()
     {
         glDeleteBuffers(1, &_vertexBufferObject);
+        GL_CHECK_ERROR();
     }
 
     iVertexBufferPtr iVertexBuffer::create(uint32 size, const void *vertexData)
@@ -42,27 +44,31 @@ namespace igor
     void iVertexBuffer::bind() const
     {
         glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferObject);
+        GL_CHECK_ERROR();
     }
 
     void iVertexBuffer::unbind()
     {
         glBindBuffer(GL_ARRAY_BUFFER, INVALID_BUFFER_ID);
+        GL_CHECK_ERROR();
     }
 
     void iVertexBuffer::setData(uint32 size, const void *vertexData)
     {
         glBindBuffer(GL_ARRAY_BUFFER, _vertexBufferObject);
+        GL_CHECK_ERROR();
         glBufferSubData(GL_ARRAY_BUFFER, 0, size, vertexData);
+        GL_CHECK_ERROR();
     }
 
-    void iVertexBuffer::setInfo(const iComponentInfo &info)
+    void iVertexBuffer::setLayout(const iBufferLayout &layout)
     {
-        _info = info;
+        _layout = layout;
     }
 
-    const iComponentInfo &iVertexBuffer::getInfo() const
+    const iBufferLayout &iVertexBuffer::getLayout() const
     {
-        return _info;
+        return _layout;
     }
 
 }

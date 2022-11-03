@@ -33,7 +33,7 @@
 #include <iaux/data/iaIDGenerator.h>
 using namespace iaux;
 
-#include <igor/graphics/iRenderStateSet.h>
+#include <igor/renderer/iRenderStateSet.h>
 #include <igor/resources/material/iShader.h>
 
 #include <vector>

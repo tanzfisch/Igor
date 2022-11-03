@@ -16,8 +16,8 @@
 #include <igor/physics/iPhysicsCollision.h>
 #include <igor/scene/nodes/iNodeCamera.h>
 #include <igor/scene/nodes/iNodeLODTrigger.h>
-#include <igor/graphics/iRenderer.h>
-#include <igor/graphics/iView.h>
+#include <igor/renderer/iRenderer.h>
+#include <igor/renderer/iView.h>
 #include <igor/system/iWindow.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/scene/nodes/iNodeEmitter.h>

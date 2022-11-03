@@ -48,7 +48,8 @@ namespace igor
     enum class iShaderObjectType
     {
         Vertex,
-        Fragment
+        Fragment,
+        Geometry,
     };
 
     /*! handles glsl shader programs and objects

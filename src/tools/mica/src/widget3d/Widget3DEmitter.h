@@ -29,10 +29,7 @@
 #ifndef __WIDGET3DEMITTER_H__
 #define __WIDGET3DEMITTER_H__
 
-#include <igor/resources/mesh/iMesh.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/scene/nodes/iNodeEmitter.h>
-using namespace igor;
+#include <igor/igor.h>
 
 #include "Widget3D.h"
 

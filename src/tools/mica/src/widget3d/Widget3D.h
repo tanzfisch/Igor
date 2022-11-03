@@ -29,8 +29,7 @@
 #ifndef __WIDGET3D_H__
 #define __WIDGET3D_H__
 
-#include <igor/scene/nodes/iNode.h>
-using namespace igor;
+#include <igor/igor.h>
 
 namespace igor
 {

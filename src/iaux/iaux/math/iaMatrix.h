@@ -207,7 +207,7 @@ namespace iaux
 		\param perspective the perspective component
 
 		thanks to https://glm.g-truc.net
-		and thanks to http://www.opensource.apple.com/source/WebCore/WebCore-514/platform/graphics/transforms/TransformationMatrix.cpp
+		and thanks to http://www.opensource.apple.com/source/WebCore/WebCore-514/platform/renderer/transforms/TransformationMatrix.cpp
 		*/
         bool decompose(iaVector3<T> &scale, iaQuaternion<T> &orientation, iaVector3<T> &translate, iaVector3<T> &shear, iaVector4<T> &perspective) const;
 

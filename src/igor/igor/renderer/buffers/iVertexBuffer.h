@@ -26,40 +26,45 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_VERTEX_ARRAY__
-#define __IGOR_VERTEX_ARRAY__
+#ifndef __IGOR_VERTEX_BUFFER__
+#define __IGOR_VERTEX_BUFFER__
 
-#include <igor/graphics/buffers/iVertexBuffer.h>
-#include <igor/graphics/buffers/iIndexBuffer.h>
+#include <igor/renderer/buffers/iBufferLayout.h>
 
-#include <vector>
+#include <memory>
 
 namespace igor
 {
 
-    class iVertexArray;
+    class iVertexBuffer;
 
-    /*! vertex array pointer definition
+    /*! vertex buffer pointer definition
      */
-    typedef std::shared_ptr<iVertexArray> iVertexArrayPtr;
+    typedef std::shared_ptr<iVertexBuffer> iVertexBufferPtr;
 
-    /*! vertex array aka vertex array object
+    /*! vertex buffer aka vertex buffer object
      */
-    class iVertexArray
+    class iVertexBuffer
     {
     public:
 
-        /*! \returns a newly created vertex array
-        */
-        static iVertexArrayPtr create(); 
-        
-        /*! initializes vertex array
-         */
-        iVertexArray();
+        /*! \returns a newly created vertex buffer
 
-        /*! releases vertex array
+        \param size buffer size in bytes
+        \param vertexData the vertex data
+        */
+        static iVertexBufferPtr create(uint32 size, const void *vertexData = nullptr);
+
+        /*! init vertex buffer
+
+        \param size buffer size in bytes
+        \param vertexData the vertex data
+        */
+        iVertexBuffer(uint32 size, const void *vertexData = nullptr);
+
+        /*! release buffer
          */
-        virtual ~iVertexArray();
+        virtual ~iVertexBuffer();
 
         /*! bind this buffer
          */
@@ -69,45 +74,33 @@ namespace igor
          */
         static void unbind();
 
-        /*! adds a vertex buffer to the vertex array
+        /*! sets data on buffer
 
-        \param vertexBuffer the vertex buffer to be added
+        \param size data size in bytes
+        \param vertexData the vertex data
         */
-        void addVertexBuffer(const iVertexBufferPtr &vertexBuffer);
+        void setData(uint32 size, const void *vertexData);
 
-        /*! sets the index buffer
+        /*! sets buffer layout
 
-        \param indexBuffer the index buffer to be set
+        \param layout the layout to set
         */
-        void setIndexBuffer(const iIndexBufferPtr &indexBuffer);
+        void setLayout(const iBufferLayout &layout);
 
-        /*! \returns list of all vertex buffers
-        */
-        const std::vector<iVertexBufferPtr> &getVertexBuffers() const;
-
-        /*! \returns index buffer
-        */
-        const iIndexBufferPtr &getIndexBuffer() const;
+        /*! \returns buffer layout
+         */
+        const iBufferLayout &getLayout() const;
 
     private:
+        /*! internal buffer id
+         */
+        uint32 _vertexBufferObject;
 
-        /*! internal handle for the vertex array object
-        */
-        uint32 _vertexArrayObject;
-
-        /*! components counter
-        */
-        uint32 _totalComponentCount = 0;
-
-        /*! list of vertex buffers
-        */
-        std::vector<iVertexBufferPtr> _vertexBuffers;
-
-        /*! the index buffer
-        */
-        iIndexBufferPtr _indexBuffer;
+        /*! the buffer layout
+         */
+        iBufferLayout _layout;
     };
 
 }
 
-#endif // __IGOR_VERTEX_ARRAY__
+#endif // __IGOR_VERTEX_BUFFER__

@@ -30,7 +30,7 @@
 #define __IGOR_VIEW__
 
 #include <igor/iDefines.h>
-#include <igor/graphics/iRenderEngine.h>
+#include <igor/renderer/iRenderEngine.h>
 
 #include <iaux/data/iaRectangle.h>
 #include <iaux/data/iaColor4.h>

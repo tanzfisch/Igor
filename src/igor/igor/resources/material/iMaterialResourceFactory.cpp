@@ -6,7 +6,7 @@
 
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/material/iShader.h>
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/resources/material/iTargetMaterial.h>
 
 #include <iaux/system/iaConsole.h>

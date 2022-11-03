@@ -2,16 +2,14 @@
 // (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/graphics/iRenderer2.h>
+#include <igor/renderer/iRenderer2.h>
 
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/resources/material/iMaterial.h>
-#include <igor/graphics/iRenderStateSet.h>
+#include <igor/renderer/iRenderStateSet.h>
 
-#include <igor/graphics/iRenderer.h>
-
-#define GL_GLEXT_PROTOTYPES
-#include <GLee.h>
+#include <igor/renderer/iRenderer.h> // TODO remove
+#include <igor/renderer/utils/iRendererUtils.h>
 
 namespace igor
 {
@@ -67,6 +65,8 @@ namespace igor
 
             s_data._lineVertexArray->bind();
             glDrawArrays(GL_LINES, 0, s_data._lineVertexCount);
+            GL_CHECK_ERROR();
+            s_data._lineVertexArray->unbind();
 
             s_data._lineVertexCount = 0;
             s_data._lineVertexDataPtr = s_data._lineVertexData;
@@ -84,18 +84,15 @@ namespace igor
         material->addShaderSource("igor/line_shader.frag", iShaderObjectType::Fragment);
         material->compileShader();
 
-        s_data._lineVertexArray = iVertexArray::create();
-
         s_data._lineVertexBuffer = iVertexBuffer::create(MAX_VERTICES * sizeof(iLineVertex));
-        s_data._lineVertexBuffer->setInfo(std::vector<iComponentEntry>{
-            {iShaderDataType::Float3, "a_Position"},
-            {iShaderDataType::Float4, "a_Color"}});
+        s_data._lineVertexBuffer->setLayout(std::vector<iBufferLayoutEntry>{{iShaderDataType::Float3}, {iShaderDataType::Float4}});
 
+        s_data._lineVertexArray = iVertexArray::create();
         s_data._lineVertexArray->addVertexBuffer(s_data._lineVertexBuffer);
-        s_data._lineVertexData = new iLineVertex[MAX_VERTICES];
 
-        s_data._lineVertexCount = 0;
+        s_data._lineVertexData = new iLineVertex[MAX_VERTICES];
         s_data._lineVertexDataPtr = s_data._lineVertexData;
+        s_data._lineVertexCount = 0;
     }
 
     void iRenderer2::deinit()

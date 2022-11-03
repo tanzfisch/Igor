@@ -12,7 +12,7 @@
 #include <igor/resources/mesh/iMeshBuilder.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/graphics/iRenderStateSet.h>
+#include <igor/renderer/iRenderStateSet.h>
 #include <igor/resources/material/iShader.h>
 #include <igor/resources/material/iTargetMaterial.h>
 #include <igor/scene/nodes/iNodeManager.h>

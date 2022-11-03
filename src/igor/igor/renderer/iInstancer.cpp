@@ -2,9 +2,9 @@
 // (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/graphics/iInstancer.h>
+#include <igor/renderer/iInstancer.h>
 
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 
 #include <iaux/system/iaConsole.h>
 using namespace iaux;

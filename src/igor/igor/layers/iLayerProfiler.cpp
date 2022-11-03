@@ -4,7 +4,7 @@
 
 #include <igor/layers/iLayerProfiler.h>
 
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 
 namespace igor

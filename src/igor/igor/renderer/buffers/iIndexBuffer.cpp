@@ -2,14 +2,12 @@
 // (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/graphics/buffers/iIndexBuffer.h>
+#include <igor/renderer/buffers/iIndexBuffer.h>
 
-#define GL_GLEXT_PROTOTYPES
-#include <GLee.h>
+#include <igor/renderer/utils/iRendererUtils.h>
 
 namespace igor
 {
-
     /*! definition of invalid buffer id
      */
     static const uint32 INVALID_BUFFER_ID = 0;
@@ -18,23 +16,29 @@ namespace igor
         : _indexCount(count)
     {
         glCreateBuffers(1, &_indexBufferObject);
+        GL_CHECK_ERROR();
         glBindBuffer(GL_ARRAY_BUFFER, _indexBufferObject);
+        GL_CHECK_ERROR();
         glBufferData(GL_ARRAY_BUFFER, count * sizeof(uint32), indices, GL_STATIC_DRAW);
+        GL_CHECK_ERROR();
     }
 
     iIndexBuffer::~iIndexBuffer()
     {
         glDeleteBuffers(1, &_indexBufferObject);
+        GL_CHECK_ERROR();
     }
 
     void iIndexBuffer::bind() const
     {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _indexBufferObject);
+        GL_CHECK_ERROR();
     }
 
     void iIndexBuffer::unbind()
     {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, INVALID_BUFFER_ID);
+        GL_CHECK_ERROR();
     }
 
     uint32 iIndexBuffer::getIndexCount() const

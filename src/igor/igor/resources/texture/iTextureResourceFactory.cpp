@@ -3,7 +3,7 @@
 // see copyright notice in corresponding header file
 
 #include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/resources/iResourceManager.h>
 
 #include <iaux/system/iaConsole.h>

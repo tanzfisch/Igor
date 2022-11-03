@@ -4,18 +4,6 @@
 
 #include "Widget3DLocator.h"
 
-#include <igor/resources/mesh/iMeshBuilder.h>
-#include <igor/resources/mesh/iMeshBuilderUtils.h>
-#include <igor/scene/nodes/iNodeManager.h>
-#include <igor/scene/nodes/iNodeTransform.h>
-#include <igor/scene/nodes/iNodeMesh.h>
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/graphics/iRenderer.h>
-#include <igor/graphics/iView.h>
-#include <igor/resources/material/iTargetMaterial.h>
-#include <igor/scene/iScene.h>
-using namespace igor;
-
 Widget3DLocator::Widget3DLocator(iWindow *window, iView *view, iScenePtr scene)
 	: Widget3D(window, view, scene)
 {

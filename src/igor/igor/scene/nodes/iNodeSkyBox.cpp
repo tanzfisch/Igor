@@ -5,7 +5,7 @@
 #include <igor/scene/nodes/iNodeSkyBox.h>
 
 #include <iaux/system/iaConsole.h>
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/resources/material/iMaterial.h>
 #include <igor/scene/iScene.h>
 #include <igor/scene/nodes/iNodeCamera.h>

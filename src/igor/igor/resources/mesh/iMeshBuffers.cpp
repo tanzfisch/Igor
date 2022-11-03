@@ -3,7 +3,7 @@
 // see copyright notice in corresponding header file
 
 #include <igor/resources/mesh/iMeshBuffers.h>
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 
 namespace igor
 {

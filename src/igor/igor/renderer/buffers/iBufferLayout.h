@@ -1,3 +1,4 @@
+
 //
 //   ______                                |\___/|  /\___/\
 //  /\__  _\                               )     (  )     (
@@ -26,36 +27,58 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_RENDERER_2D__
-#define __IGOR_RENDERER_2D__
+#ifndef __IGOR_COMPONENT_INFO__
+#define __IGOR_COMPONENT_INFO__
 
-#include <igor/resources/material/iMaterial.h>
-#include <igor/graphics/buffers/iVertexArray.h>
+#include <igor/iDefines.h>
 
-#include <iaux/math/iaVector2.h>
-#include <iaux/math/iaVector3.h>
-#include <iaux/data/iaColor4.h>
+#include <iaux/data/iaString.h>
+
+#include <vector>
 
 namespace igor
 {
 
-    /*! this will eventually replace iRenderer
-    */
-    class iRenderer2
+    struct iBufferLayoutEntry
+    {
+        iBufferLayoutEntry() = default;
+        iBufferLayoutEntry(iShaderDataType type, bool normalized = false);
+
+        /*! \returns the amout of components within this layout entry
+         */
+        uint32_t getComponentCount() const;
+
+        /*! shader data type of this entry
+         */
+        iShaderDataType _type;
+
+        uint32 _size;
+        uint32 _offset;
+        bool _normalized;
+    };
+
+    /*! the information on how to interpret the data in a given buffer
+
+    This is based on a great idea from https://github.com/TheCherno/Hazel
+     */
+    class iBufferLayout
     {
     public:
+        iBufferLayout() = default;
 
-        static void init();
-        static void deinit();
+        iBufferLayout(std::vector<iBufferLayoutEntry> elements);
 
-        static void flush();
-        
-        static void drawLine(float32 x1, float32 y1, float32 x2, float32 y2, const iaColor4f &color);
-        static void drawLine(const iaVector2f &p1, const iaVector2f &p2, const iaColor4f &color);
-        static void drawLine(const iaVector3f &p1, const iaVector3f &p2, const iaColor4f &color);
+        uint32 getStride() const;
+        const std::vector<iBufferLayoutEntry> &getElements() const;
 
+    private:
+        void calcOffsetsAndStride();
+
+    private:
+        std::vector<iBufferLayoutEntry> _elements;
+        uint32 _stride = 0;
     };
 
 }
 
-#endif // __IGOR_RENDERER_2D__
+#endif // __IGOR_COMPONENT_INFO__

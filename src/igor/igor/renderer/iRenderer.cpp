@@ -2,11 +2,11 @@
 // (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 
 #include <igor/system/iTimer.h>
 #include <igor/simulation/iParticleSystem2D.h>
-#include <igor/graphics/iInstancer.h>
+#include <igor/renderer/iInstancer.h>
 #include <igor/simulation/iParticleSystem3D.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iAtlas.h>

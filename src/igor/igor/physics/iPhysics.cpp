@@ -7,7 +7,7 @@
 #include <iaux/system/iaConsole.h>
 #include <igor/physics/iPhysicsWorld.h>
 #include <igor/system/iTimer.h>
-#include <igor/graphics/iRenderer.h>
+#include <igor/renderer/iRenderer.h>
 #include <igor/system/iApplication.h>
 #include <iaux/math/iaVector3.h>
 #include <igor/threading/iTaskManager.h>

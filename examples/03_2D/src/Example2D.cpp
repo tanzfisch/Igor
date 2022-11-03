@@ -259,7 +259,11 @@ void Example2D::onRenderOrtho()
 
     offset += 1.0f;
 
-    iRenderer2::drawLine(10.0f, 10.0f, 500.0f, 500.0f, iaColor4f(1, 0, 0, 1));
+    for (int i = 0; i < 30; ++i)
+    {
+        iRenderer2::drawLine(_rand.getNext() % 500, _rand.getNext() % 500, _rand.getNext() % 500, _rand.getNext() % 500, iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
+    }
+
     iRenderer2::flush();
 
     ExampleBase::onRenderOrtho();
