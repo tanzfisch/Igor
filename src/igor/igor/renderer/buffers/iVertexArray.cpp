@@ -8,10 +8,6 @@
 
 namespace igor
 {
-    /*! definition of invalid buffer id
-     */
-    static const uint32 INVALID_BUFFER_ID = 0;
-
     static GLenum shaderDataTypeToOpenGLBaseType(iShaderDataType type)
     {
         switch (type)

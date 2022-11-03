@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/resources/material/iShader.h>
+#include <igor/resources/material/iShader_Old.h>
 #include <igor/renderer/iRenderer.h>
 
 #include <iaux/system/iaConsole.h>
@@ -13,7 +13,7 @@ using namespace iaux;
 namespace igor
 {
 
-    iShader::iShader()
+    iShader_Old::iShader_Old()
     {
         if (iRenderer::getInstance().isReady())
         {
@@ -25,9 +25,9 @@ namespace igor
         }
     }
 
-    iShader::~iShader()
+    iShader_Old::~iShader_Old()
     {
-        if (iShader::INVALID_SHADER_ID != _shaderProgram)
+        if (iShader_Old::INVALID_SHADER_ID != _shaderProgram)
         {
             if (iRenderer::getInstance().isReady())
             {
@@ -36,21 +36,21 @@ namespace igor
         }
     }
 
-    uint32 iShader::getProgram() const
+    uint32 iShader_Old::getProgram() const
     {
         return _shaderProgram;
     }
 
-    bool iShader::isReady()
+    bool iShader_Old::isReady()
     {
         return _ready;
     }
 
-    void iShader::compile()
+    void iShader_Old::compile()
     {
         if (iRenderer::getInstance().isReady())
         {
-            if (iShader::INVALID_SHADER_ID != _shaderProgram)
+            if (iShader_Old::INVALID_SHADER_ID != _shaderProgram)
             {
                 iRenderer::getInstance().linkShaderProgram(_shaderProgram, _shaderObjects);
 
@@ -70,7 +70,7 @@ namespace igor
         }
     }
 
-    bool iShader::loadSource(const char *source, iShaderObjectType type)
+    bool iShader_Old::loadSource(const char *source, iShaderObjectType type)
     {
         if (iRenderer::getInstance().isReady())
         {
@@ -98,7 +98,7 @@ namespace igor
         return true;
     }
 
-    void iShader::loadFile(iaString filename, iShaderObjectType type)
+    void iShader_Old::loadFile(iaString filename, iShaderObjectType type)
     {
         iaFile file(iResourceManager::getInstance().getPath(filename));
         if (file.open(false))
@@ -127,11 +127,11 @@ namespace igor
         }
     }
 
-    void iShader::enable()
+    void iShader_Old::enable()
     {
         if (iRenderer::getInstance().isReady())
         {
-            if (iShader::INVALID_SHADER_ID != _shaderProgram)
+            if (iShader_Old::INVALID_SHADER_ID != _shaderProgram)
             {
                 iRenderer::getInstance().useShaderProgram(_shaderProgram);
             }
@@ -142,7 +142,7 @@ namespace igor
         }
     }
 
-    void iShader::disable()
+    void iShader_Old::disable()
     {
         if (iRenderer::getInstance().isReady())
         {

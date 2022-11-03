@@ -48,11 +48,10 @@ namespace igor
     class iVertexArray
     {
     public:
-
         /*! \returns a newly created vertex array
-        */
-        static iVertexArrayPtr create(); 
-        
+         */
+        static iVertexArrayPtr create();
+
         /*! initializes vertex array
          */
         iVertexArray();
@@ -82,29 +81,28 @@ namespace igor
         void setIndexBuffer(const iIndexBufferPtr &indexBuffer);
 
         /*! \returns list of all vertex buffers
-        */
+         */
         const std::vector<iVertexBufferPtr> &getVertexBuffers() const;
 
         /*! \returns index buffer
-        */
+         */
         const iIndexBufferPtr &getIndexBuffer() const;
 
     private:
-
         /*! internal handle for the vertex array object
-        */
+         */
         uint32 _vertexArrayObject;
 
         /*! components counter
-        */
+         */
         uint32 _totalComponentCount = 0;
 
         /*! list of vertex buffers
-        */
+         */
         std::vector<iVertexBufferPtr> _vertexBuffers;
 
         /*! the index buffer
-        */
+         */
         iIndexBufferPtr _indexBuffer;
     };
 

@@ -40,14 +40,11 @@ namespace igor
          */
         iVertexArrayPtr _lineVertexArray;
 
-        /*! material id
-         */
-        iMaterialID _lineRenderMaterialID;
-
         uint32 _lineVertexCount = 0;
         iLineVertex *_lineVertexData = nullptr;
         iLineVertex *_lineVertexDataPtr = nullptr;
         float32 _lineWidth = 1.0f;
+
     };
 
     static iRendererData s_data;
@@ -61,11 +58,13 @@ namespace igor
             s_data._lineVertexBuffer->setData(dataSize, s_data._lineVertexData);
 
             // TODO set material or shader
-            iRenderer::getInstance().setMaterial(s_data._lineRenderMaterialID);
+            // iRenderer::getInstance().setMaterial(s_data._lineRenderMaterialID);
 
             s_data._lineVertexArray->bind();
+
             glDrawArrays(GL_LINES, 0, s_data._lineVertexCount);
             GL_CHECK_ERROR();
+
             s_data._lineVertexArray->unbind();
 
             s_data._lineVertexCount = 0;
@@ -76,18 +75,18 @@ namespace igor
     void iRenderer2::init()
     {
         /////////// LINES //////////////
-        s_data._lineRenderMaterialID = iMaterialResourceFactory::getInstance().createMaterial("LineRenderMaterial");
+        /*s_data._lineRenderMaterialID = iMaterialResourceFactory::getInstance().createMaterial("LineRenderMaterial");
         auto material = iMaterialResourceFactory::getInstance().getMaterial(s_data._lineRenderMaterialID);
         material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
         material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
         material->addShaderSource("igor/line_shader.vert", iShaderObjectType::Vertex);
         material->addShaderSource("igor/line_shader.frag", iShaderObjectType::Fragment);
-        material->compileShader();
+        material->compileShader();*/     
+
+        s_data._lineVertexArray = iVertexArray::create();
 
         s_data._lineVertexBuffer = iVertexBuffer::create(MAX_VERTICES * sizeof(iLineVertex));
         s_data._lineVertexBuffer->setLayout(std::vector<iBufferLayoutEntry>{{iShaderDataType::Float3}, {iShaderDataType::Float4}});
-
-        s_data._lineVertexArray = iVertexArray::create();
         s_data._lineVertexArray->addVertexBuffer(s_data._lineVertexBuffer);
 
         s_data._lineVertexData = new iLineVertex[MAX_VERTICES];

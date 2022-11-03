@@ -8,9 +8,10 @@
 
 namespace igor
 {
-    /*! definition of invalid buffer id
-     */
-    static const uint32 INVALID_BUFFER_ID = 0;
+    iVertexBufferPtr iVertexBuffer::create(uint32 size, const void *vertexData)
+    {
+        return std::make_shared<iVertexBuffer>(iVertexBuffer(size, vertexData));
+    }
 
     iVertexBuffer::iVertexBuffer(uint32 size, const void *vertexData)
     {
@@ -34,11 +35,6 @@ namespace igor
     {
         glDeleteBuffers(1, &_vertexBufferObject);
         GL_CHECK_ERROR();
-    }
-
-    iVertexBufferPtr iVertexBuffer::create(uint32 size, const void *vertexData)
-    {
-        return std::make_shared<iVertexBuffer>(iVertexBuffer(size, vertexData));
     }
 
     void iVertexBuffer::bind() const

@@ -34,7 +34,7 @@
 using namespace iaux;
 
 #include <igor/renderer/iRenderStateSet.h>
-#include <igor/resources/material/iShader.h>
+#include <igor/resources/material/iShader_Old.h>
 
 #include <vector>
 #include <memory>
@@ -296,7 +296,7 @@ namespace igor
 
         /*! pointer to shader (optional)
         */
-        iShader *_shader = nullptr;
+        iShader_Old *_shader = nullptr;
 
         /*! shader sources
         */
@@ -320,7 +320,7 @@ namespace igor
 
         /*! \returns shader in use
         */
-        iShader *getShader();
+        iShader_Old *getShader();
     };
 
 #include <igor/resources/material/iMaterial.inl>

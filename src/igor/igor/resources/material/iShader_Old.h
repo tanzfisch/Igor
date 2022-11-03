@@ -56,9 +56,9 @@ namespace igor
     
     nice tutorial http://wiki.delphigl.com/index.php/Tutorial_glsl
 
-    \todo cleanup
+    \deprecated need a new shader class that is independent of the old iRenderer
     */
-    class iShader
+    class iShader_Old
     {
 
     public:
@@ -100,11 +100,11 @@ namespace igor
 
         /*! creates shader program
         */
-        iShader();
+        iShader_Old();
 
         /*! destroyes shader program
         */
-        virtual ~iShader();
+        virtual ~iShader_Old();
 
     private:
         /*! list of shader objects
@@ -113,7 +113,7 @@ namespace igor
 
         /*! id of glsl shader program
         */
-        uint32 _shaderProgram = iShader::INVALID_SHADER_ID;
+        uint32 _shaderProgram = iShader_Old::INVALID_SHADER_ID;
 
         /*! true: if ready to use
         */

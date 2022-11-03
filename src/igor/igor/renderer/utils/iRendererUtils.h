@@ -34,6 +34,8 @@
 #define GL_GLEXT_PROTOTYPES
 #include <GLee.h>
 
+#include <ostream>
+
 namespace igor
 {
 
@@ -83,6 +85,27 @@ namespace igor
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
+/*! definition of invalid buffer id
+ */
+#define INVALID_BUFFER_ID 0
+
+    /*! shader object types
+     */
+    enum class iShaderObjectType_New
+    {
+        Vertex,
+        Fragment,
+        Geometry
+    };
+
+    /*! prints the shader object type in the console
+
+    \param stream the stream to log to
+    \param type the shader object type
+    \returns the stream
+    */
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iShaderObjectType_New &type);  
+
     class iRendererUtils
     {
     public:
@@ -97,6 +120,12 @@ namespace igor
         \param type the given shader data type
         */
         static uint32 getComponentCount(iShaderDataType type);
+
+        /*! \returns openGL shader object type for given igor type
+
+        \param type the igor shader object type
+        */
+        static uint32 getOGLShaderType(iShaderObjectType_New type);
     };
 
 }

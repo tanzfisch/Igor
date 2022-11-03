@@ -7,7 +7,7 @@
 #include <igor/renderer/iRenderer.h>
 #include <igor/scene/nodes/iNodeLight.h>
 #include <igor/scene/nodes/iNodeCamera.h>
-#include <igor/resources/material/iShader.h>
+#include <igor/resources/material/iShader_Old.h>
 
 #include <sstream>
 
@@ -47,7 +47,7 @@ namespace igor
             deactivateShader();
             clearShader();
 
-            _shader = new iShader();
+            _shader = new iShader_Old();
 
             for (auto source : _shaderSources)
             {
@@ -154,7 +154,7 @@ namespace igor
         return _shaderSources;
     }
 
-    iShader *iMaterial::getShader()
+    iShader_Old *iMaterial::getShader()
     {
         return _shader;
     }

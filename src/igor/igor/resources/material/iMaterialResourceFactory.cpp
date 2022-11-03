@@ -5,7 +5,7 @@
 #include <igor/resources/material/iMaterialResourceFactory.h>
 
 #include <igor/resources/material/iMaterial.h>
-#include <igor/resources/material/iShader.h>
+#include <igor/resources/material/iShader_Old.h>
 #include <igor/renderer/iRenderer.h>
 #include <igor/resources/material/iTargetMaterial.h>
 

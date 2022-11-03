@@ -12,7 +12,7 @@
 #include <igor/resources/texture/iAtlas.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/resources/material/iShader.h>
+#include <igor/resources/material/iShader_Old.h>
 #include <igor/resources/material/iTargetMaterial.h>
 #include <igor/resources/mesh/iMeshBuffers.h>
 #include <igor/resources/material/iMaterial.h>

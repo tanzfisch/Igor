@@ -176,7 +176,7 @@ void Example2D::onRenderOrtho()
     iRenderer::getInstance().setModelMatrix(matrix);
 
     // set a textured material and draw the tiles texture as background
-    iRenderer::getInstance().setMaterial(_materialWithTexture);
+    /*iRenderer::getInstance().setMaterial(_materialWithTexture);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
     iRenderer::getInstance().drawTextureTiled(0.0f, 0.0f, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), _backgroundTexture);
 
@@ -257,9 +257,9 @@ void Example2D::onRenderOrtho()
         lastValue = value;
     }
 
-    offset += 1.0f;
+    offset += 1.0f;*/
 
-    for (int i = 0; i < 30; ++i)
+    for (int i = 0; i < 100; ++i)
     {
         iRenderer2::drawLine(_rand.getNext() % 500, _rand.getNext() % 500, _rand.getNext() % 500, _rand.getNext() % 500, iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
     }

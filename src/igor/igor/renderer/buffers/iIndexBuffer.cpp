@@ -8,10 +8,6 @@
 
 namespace igor
 {
-    /*! definition of invalid buffer id
-     */
-    static const uint32 INVALID_BUFFER_ID = 0;
-
     iIndexBuffer::iIndexBuffer(uint32 count, const uint32 *indices)
         : _indexCount(count)
     {

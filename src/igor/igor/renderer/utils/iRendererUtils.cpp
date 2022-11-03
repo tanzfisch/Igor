@@ -71,5 +71,36 @@ namespace igor
         return 0;
     }
 
+    uint32 iRendererUtils::getOGLShaderType(iShaderObjectType_New type)
+    {
+        switch (type)
+        {
+        case iShaderObjectType_New::Vertex:
+            return GL_VERTEX_SHADER;
+
+        case iShaderObjectType_New::Fragment:
+            return GL_FRAGMENT_SHADER;
+
+        case iShaderObjectType_New::Geometry:
+            return GL_GEOMETRY_SHADER;
+
+        default:
+            con_crit("unsupported shader type");
+        }
+
+        return 0;
+    }
+
+    std::wostream &operator<<(std::wostream &stream, const iShaderObjectType_New &type)
+    {
+        const static std::wstring text[] = {
+            L"vertex",
+            L"fragment",
+            L"geometry"};
+
+        stream << text[static_cast<int>(type)];
+
+        return stream;
+    }
 
 }
