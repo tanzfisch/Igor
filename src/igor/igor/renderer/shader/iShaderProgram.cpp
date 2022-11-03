@@ -2,7 +2,7 @@
 // (c) Copyright 2012-2022 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <igor/renderer/shader/iShader.h>
+#include <igor/renderer/shader/iShaderProgram.h>
 
 #include <igor/resources/iResourceManager.h>
 
@@ -12,17 +12,17 @@ using namespace iaux;
 namespace igor
 {
 
-    iShader::iShader()
+    iShaderProgram::iShaderProgram()
     {
         _shaderProgram = glCreateProgram();
     }
 
-    iShader::~iShader()
+    iShaderProgram::~iShaderProgram()
     {
         glDeleteProgram(_shaderProgram);
     }
 
-    void iShader::addShader(iaString filename, iShaderObjectType_New type)
+    void iShaderProgram::addShader(iaString filename, iShaderObjectType_New type)
     {
         iaFile file(iResourceManager::getInstance().getPath(filename));
         if (file.open(false))
@@ -50,7 +50,7 @@ namespace igor
         }
     }
 
-    bool iShader::addShader(const char *source, iShaderObjectType_New type)
+    bool iShaderProgram::addShader(const char *source, iShaderObjectType_New type)
     {
         int32 shaderObject = glCreateShader(iRendererUtils::getOGLShaderType(type));
 
@@ -83,7 +83,7 @@ namespace igor
         return true;
     }
 
-    void iShader::compile()
+    void iShaderProgram::compile()
     {
         for(auto object : _shaderObjects)
         {
@@ -97,17 +97,17 @@ namespace igor
         _ready = true;
     }
 
-    void iShader::bind()
+    void iShaderProgram::bind()
     {
         glUseProgram(_shaderProgram);
     }
 
-    void iShader::unbind()
+    void iShaderProgram::unbind()
     {
         glUseProgram(0);
     }
 
-    bool iShader::isReady()
+    bool iShaderProgram::isReady()
     {
         return _ready;
     }

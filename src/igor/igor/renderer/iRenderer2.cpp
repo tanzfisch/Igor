@@ -4,11 +4,8 @@
 
 #include <igor/renderer/iRenderer2.h>
 
-#include <igor/resources/material/iMaterialResourceFactory.h>
-#include <igor/resources/material/iMaterial.h>
-#include <igor/renderer/iRenderStateSet.h>
+#include <igor/renderer/shader/iShaderProgram.h>
 
-#include <igor/renderer/iRenderer.h> // TODO remove
 #include <igor/renderer/utils/iRendererUtils.h>
 
 namespace igor
@@ -44,6 +41,8 @@ namespace igor
         iLineVertex *_lineVertexData = nullptr;
         iLineVertex *_lineVertexDataPtr = nullptr;
         float32 _lineWidth = 1.0f;
+
+        iShaderProgram _lineShader;
 
     };
 
@@ -81,7 +80,11 @@ namespace igor
         material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
         material->addShaderSource("igor/line_shader.vert", iShaderObjectType::Vertex);
         material->addShaderSource("igor/line_shader.frag", iShaderObjectType::Fragment);
-        material->compileShader();*/     
+        material->compileShader();*/  
+
+        s_data._lineShader.addShader("igor/line_shader.vert", iShaderObjectType::Vertex);
+        s_data._lineShader.addShader("igor/line_shader.frag", iShaderObjectType::Fragment);
+        s_data._lineShader.compile();
 
         s_data._lineVertexArray = iVertexArray::create();
 

@@ -26,8 +26,8 @@
 //
 // contact: igorgameengine@protonmail.com
 
-#ifndef __IGOR_SHADER__
-#define __IGOR_SHADER__
+#ifndef __IGOR_SHADER_PROGRAM__
+#define __IGOR_SHADER_PROGRAM__
 
 #include <iaux/data/iaString.h>
 using namespace iaux;
@@ -40,18 +40,18 @@ namespace igor
 {
     /*! glsl shader wrapper
     */
-    class iShader
+    class iShaderProgram
     {
 
     public:        
 
         /*! initializes shader program
         */
-        iShader();
+        iShaderProgram();
 
         /*! destroyes shader program
         */
-        virtual ~iShader();        
+        virtual ~iShaderProgram();        
 
         /*! add shader object from file
 
@@ -100,4 +100,4 @@ namespace igor
 
 }; // namespace igor
 
-#endif // __IGOR_SHADER__
+#endif // __IGOR_SHADER_PROGRAM__
