@@ -32,28 +32,35 @@
 #include <igor/resources/material/iMaterial.h>
 #include <igor/renderer/buffers/iVertexArray.h>
 
+#include <iaux/data/iaColor4.h>
+#include <iaux/data/iaRectangle.h>
 #include <iaux/math/iaVector2.h>
 #include <iaux/math/iaVector3.h>
-#include <iaux/data/iaColor4.h>
 
 namespace igor
 {
 
     /*! this will eventually replace iRenderer
-    */
+     */
     class iRenderer2
     {
     public:
-
         static void init();
         static void deinit();
 
         static void flush();
-        
-        static void drawLine(float32 x1, float32 y1, float32 x2, float32 y2, const iaColor4f &color);
-        static void drawLine(const iaVector2f &p1, const iaVector2f &p2, const iaColor4f &color);
-        static void drawLine(const iaVector3f &p1, const iaVector3f &p2, const iaColor4f &color);
 
+        static void drawLine(float32 x1, float32 y1, float32 x2, float32 y2, const iaColor4f &color);
+        static void drawLine(const iaVector2f &v1, const iaVector2f &v2, const iaColor4f &color);
+        static void drawLine(const iaVector3f &v1, const iaVector3f &v2, const iaColor4f &color);
+
+        static void drawRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color);
+        static void drawRectangle(const iaRectanglef &rect, const iaColor4f &color);
+
+        static void drawRectangleOnCenter(const iaVector2f &center, const iaVector2f &size, const iaColor4f &color);
+
+    private:
+        static void flushLines();
     };
 
 }

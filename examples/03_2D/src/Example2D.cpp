@@ -259,9 +259,11 @@ void Example2D::onRenderOrtho()
 
     offset += 1.0f;*/
 
-    for (int i = 0; i < 300; ++i)
+    for (int i = 0; i < 3000; ++i)
     {
         iRenderer2::drawLine(_rand.getNext() % 500, _rand.getNext() % 500, _rand.getNext() % 500, _rand.getNext() % 500, iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
+        iRenderer2::drawRectangle((_rand.getNext() % 500) - 250, (_rand.getNext() % 500) - 250, _rand.getNext() % 500, _rand.getNext() % 500, iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
+        iRenderer2::drawRectangleOnCenter(iaVector2f(_rand.getNext() % 500, _rand.getNext() % 500), iaVector2f(30.0f, 30.0f), iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
     }
 
     iRenderer2::flush();
