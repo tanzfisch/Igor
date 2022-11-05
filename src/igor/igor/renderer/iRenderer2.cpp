@@ -21,7 +21,7 @@ namespace igor
     static const uint32 MAX_QUAD_VERTICES = MAX_QUADS * 4;
     static const uint32 MAX_QUAD_INDICES = MAX_QUADS * 6;
 
-    static const iaVector2f QUAD_TEXTURE_COORDS[] = {{0.0f, 0.0f}, {1.0f, 0.0f}, {1.0f, 1.0f}, {0.0f, 1.0f}};
+    static const iaVector2f QUAD_TEXTURE_COORDS[] = {{0.0f, 0.0f}, {0.0f, 1.0f}, {1.0f, 1.0f}, {1.0f, 0.0f}};
 
     // flat vertex definition
     struct iFlatVertex
@@ -178,11 +178,11 @@ namespace igor
 
         /*! quad index data
          */
-        uint32 *_quadIndexData = nullptr;
+        uint32 *_sharedQuadIndexData = nullptr;
 
         /*! quad index buffer
          */
-        iIndexBufferPtr _quadIndexBuffer;        
+        iIndexBufferPtr _sharedQuadIndexBuffer;
 
         ////// DEBUG ////
         uint32 _drawCalls;
@@ -219,20 +219,20 @@ namespace igor
         points._vertexCount = 0;
 
         //////// QUADS comon data ///////////
-        s_data._quadIndexData = new uint32[MAX_QUAD_INDICES];
+        s_data._sharedQuadIndexData = new uint32[MAX_QUAD_INDICES];
 
         for (uint32 i = 0; i < MAX_QUADS; ++i)
         {
-            s_data._quadIndexData[i * 6 + 0] = i * 4 + 0;
-            s_data._quadIndexData[i * 6 + 1] = i * 4 + 1;
-            s_data._quadIndexData[i * 6 + 2] = i * 4 + 3;
+            s_data._sharedQuadIndexData[i * 6 + 0] = i * 4 + 0;
+            s_data._sharedQuadIndexData[i * 6 + 1] = i * 4 + 1;
+            s_data._sharedQuadIndexData[i * 6 + 2] = i * 4 + 3;
 
-            s_data._quadIndexData[i * 6 + 3] = i * 4 + 1;
-            s_data._quadIndexData[i * 6 + 4] = i * 4 + 2;
-            s_data._quadIndexData[i * 6 + 5] = i * 4 + 3;
+            s_data._sharedQuadIndexData[i * 6 + 3] = i * 4 + 1;
+            s_data._sharedQuadIndexData[i * 6 + 4] = i * 4 + 2;
+            s_data._sharedQuadIndexData[i * 6 + 5] = i * 4 + 3;
         }
 
-        s_data._quadIndexBuffer = iIndexBuffer::create(MAX_QUAD_INDICES, s_data._quadIndexData);
+        s_data._sharedQuadIndexBuffer = iIndexBuffer::create(MAX_QUAD_INDICES, s_data._sharedQuadIndexData);
 
         //////////// FLAT QUADS /////////////
         auto &quads = s_data._quads;
@@ -241,7 +241,7 @@ namespace igor
         quads._vertexBuffer = iVertexBuffer::create(MAX_QUAD_VERTICES * sizeof(iFlatVertex));
         quads._vertexBuffer->setLayout(std::vector<iBufferLayoutEntry>{{iShaderDataType::Float3}, {iShaderDataType::Float4}});
         quads._vertexArray->addVertexBuffer(quads._vertexBuffer);
-        quads._vertexArray->setIndexBuffer(s_data._quadIndexBuffer);
+        quads._vertexArray->setIndexBuffer(s_data._sharedQuadIndexBuffer);
 
         quads._vertexData = new iFlatVertex[MAX_QUAD_VERTICES];
         quads._vertexDataPtr = quads._vertexData;
@@ -255,7 +255,7 @@ namespace igor
         texQuads._vertexBuffer = iVertexBuffer::create(MAX_QUAD_VERTICES * sizeof(iTexturedVertex));
         texQuads._vertexBuffer->setLayout(std::vector<iBufferLayoutEntry>{{iShaderDataType::Float3}, {iShaderDataType::Float4}, {iShaderDataType::Float2}, {iShaderDataType::Int}});
         texQuads._vertexArray->addVertexBuffer(texQuads._vertexBuffer);
-        texQuads._vertexArray->setIndexBuffer(s_data._quadIndexBuffer);
+        texQuads._vertexArray->setIndexBuffer(s_data._sharedQuadIndexBuffer);
 
         texQuads._vertexData = new iTexturedVertex[MAX_QUAD_VERTICES];
         texQuads._vertexDataPtr = texQuads._vertexData;
@@ -302,9 +302,9 @@ namespace igor
         delete[] texQuads._vertexData;
         texQuads._vertexDataPtr = texQuads._vertexData = nullptr;
 
-        s_data._quadIndexBuffer = nullptr;
-        delete[] s_data._quadIndexData;
-        s_data._quadIndexData = nullptr;        
+        s_data._sharedQuadIndexBuffer = nullptr;
+        delete[] s_data._sharedQuadIndexData;
+        s_data._sharedQuadIndexData = nullptr;
     }
 
     void iRenderer2::drawTexture(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaColor4f &color)
@@ -330,11 +330,9 @@ namespace igor
         {
             if (texQuads._nextTextureIndex > MAX_TEXTURE_UNITS)
             {
-                con_endl("flushTexQuads");
                 flushTexQuads();
             }
 
-            con_endl("use next texture " << texQuads._nextTextureIndex);
             textureIndex = texQuads._nextTextureIndex;
             texQuads._textures[texQuads._nextTextureIndex] = texture;
             texQuads._nextTextureIndex++;
@@ -526,10 +524,17 @@ namespace igor
     void iRenderer2::flushTexQuads()
     {
         auto &texQuads = s_data._texQuads;
-        
+
         if (texQuads._vertexCount == 0)
         {
             return;
+        }
+
+        glEnable(GL_TEXTURE_2D);
+
+        for (int32 i = 0; i < texQuads._nextTextureIndex - 1; ++i)
+        {
+            iRenderer::getInstance().bindTexture(texQuads._textures[i], i);
         }
 
         s_data._textureShader->bind();
@@ -662,7 +667,7 @@ namespace igor
         flushLines();
         flushPoints();
 
-        con_endl("s_data._drawCalls " << s_data._drawCalls);
+        // con_endl("s_data._drawCalls " << s_data._drawCalls);
 
         s_data._drawCalls = 0;
     }

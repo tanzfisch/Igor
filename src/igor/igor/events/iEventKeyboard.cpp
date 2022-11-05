@@ -66,10 +66,20 @@ namespace igor
         return (iEventKindMask)iEventKind::Input | (iEventKindMask)iEventKind::Keyboard;
     }
 
+    static char filterChar(char character)
+    {
+        if(character == 0x1B)
+        {
+            return ' ';
+        }
+
+        return character;
+    }
+
     const iaString iEventKeyASCII::getInfo() const
     {
         std::wstringstream stream;
-        stream << getName() << "[" << _character << "]";
+        stream << getName() << "[" << filterChar(_character) << "]";
 
         return stream.str().c_str();
     }
