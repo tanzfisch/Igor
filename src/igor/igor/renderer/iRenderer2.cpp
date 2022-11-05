@@ -4,6 +4,8 @@
 
 #include <igor/renderer/iRenderer2.h>
 
+#include <igor/renderer/iRenderer.h>
+
 #include <igor/renderer/shader/iShaderProgram.h>
 
 #include <igor/renderer/utils/iRendererUtils.h>
@@ -42,8 +44,7 @@ namespace igor
         iLineVertex *_lineVertexDataPtr = nullptr;
         float32 _lineWidth = 1.0f;
 
-        iShaderProgram _lineShader;
-
+        iShaderProgramPtr _lineShader;
     };
 
     static iRendererData s_data;
@@ -56,15 +57,23 @@ namespace igor
             uint32 dataSize = (uint32)((uint8 *)s_data._lineVertexDataPtr - (uint8 *)s_data._lineVertexData);
             s_data._lineVertexBuffer->setData(dataSize, s_data._lineVertexData);
 
-            // TODO set material or shader
-            // iRenderer::getInstance().setMaterial(s_data._lineRenderMaterialID);
+            s_data._lineShader->bind();
+
+            iaMatrixf dst;
+            iaMatrixd mvp = iRenderer::getInstance().getModelViewProjectionMatrix();
+            for(int i=0;i<16;++i)
+            {
+                dst[i] = mvp[i];
+            }
+
+            s_data._lineShader->setMatrix("igor_modelViewProjection", dst);
 
             s_data._lineVertexArray->bind();
-
-            glDrawArrays(GL_LINES, 0, s_data._lineVertexCount);
+            glDrawArrays(GL_TRIANGLES, 0, s_data._lineVertexCount);
             GL_CHECK_ERROR();
-
             s_data._lineVertexArray->unbind();
+
+            s_data._lineShader->unbind();
 
             s_data._lineVertexCount = 0;
             s_data._lineVertexDataPtr = s_data._lineVertexData;
@@ -74,17 +83,10 @@ namespace igor
     void iRenderer2::init()
     {
         /////////// LINES //////////////
-        /*s_data._lineRenderMaterialID = iMaterialResourceFactory::getInstance().createMaterial("LineRenderMaterial");
-        auto material = iMaterialResourceFactory::getInstance().getMaterial(s_data._lineRenderMaterialID);
-        material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-        material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-        material->addShaderSource("igor/line_shader.vert", iShaderObjectType::Vertex);
-        material->addShaderSource("igor/line_shader.frag", iShaderObjectType::Fragment);
-        material->compileShader();*/  
-
-        s_data._lineShader.addShader("igor/line_shader.vert", iShaderObjectType::Vertex);
-        s_data._lineShader.addShader("igor/line_shader.frag", iShaderObjectType::Fragment);
-        s_data._lineShader.compile();
+        s_data._lineShader = iShaderProgram::create();
+        s_data._lineShader->addShader("igor/line_shader.vert", iShaderObjectType_New::Vertex);
+        s_data._lineShader->addShader("igor/line_shader.frag", iShaderObjectType_New::Fragment);
+        s_data._lineShader->compile();
 
         s_data._lineVertexArray = iVertexArray::create();
 

@@ -39,60 +39,88 @@
 namespace igor
 {
 
-// needs to be a mecro so we can retrive the line number of the actual problem
+/*! checks for openGL errors and prints them in the console
+ */
 #ifdef __IGOR_DEBUG__
-#define GL_CHECK_ERROR()                                                 \
-    do                                                                   \
-    {                                                                    \
-        GLenum error = glGetError();                                     \
-        if (error != GL_NO_ERROR)                                        \
-        {                                                                \
-            iaString errorCode;                                          \
-            switch (error)                                               \
-            {                                                            \
-            case GL_INVALID_ENUM:                                        \
-                errorCode = "GL_INVALID_ENUM";                           \
-                break;                                                   \
-            case GL_INVALID_VALUE:                                       \
-                errorCode = "GL_INVALID_VALUE";                          \
-                break;                                                   \
-            case GL_INVALID_OPERATION:                                   \
-                errorCode = "GL_INVALID_OPERATION";                      \
-                break;                                                   \
-            case GL_STACK_OVERFLOW:                                      \
-                errorCode = "GL_STACK_OVERFLOW";                         \
-                break;                                                   \
-            case GL_STACK_UNDERFLOW:                                     \
-                errorCode = "GL_STACK_UNDERFLOW";                        \
-                break;                                                   \
-            case GL_OUT_OF_MEMORY:                                       \
-                errorCode = "GL_OUT_OF_MEMORY";                          \
-                break;                                                   \
-            default:                                                     \
-                errorCode = "UNKNOWN ERROR";                             \
-                break;                                                   \
-            };                                                           \
-            con_assert(error != GL_NO_ERROR, "GL_ERROR: " << errorCode); \
-        }                                                                \
-        else                                                             \
-        {                                                                \
-            break;                                                       \
-        }                                                                \
+#define GL_CHECK_ERROR()                            \
+    do                                              \
+    {                                               \
+        GLenum error = glGetError();                \
+        if (error != GL_NO_ERROR)                   \
+        {                                           \
+            iaString errorCode;                     \
+            switch (error)                          \
+            {                                       \
+            case GL_INVALID_ENUM:                   \
+                errorCode = "GL_INVALID_ENUM";      \
+                break;                              \
+            case GL_INVALID_VALUE:                  \
+                errorCode = "GL_INVALID_VALUE";     \
+                break;                              \
+            case GL_INVALID_OPERATION:              \
+                errorCode = "GL_INVALID_OPERATION"; \
+                break;                              \
+            case GL_STACK_OVERFLOW:                 \
+                errorCode = "GL_STACK_OVERFLOW";    \
+                break;                              \
+            case GL_STACK_UNDERFLOW:                \
+                errorCode = "GL_STACK_UNDERFLOW";   \
+                break;                              \
+            case GL_OUT_OF_MEMORY:                  \
+                errorCode = "GL_OUT_OF_MEMORY";     \
+                break;                              \
+            default:                                \
+                errorCode = "UNKNOWN ERROR";        \
+                break;                              \
+            };                                      \
+            con_crit("GL_ERROR: " << errorCode);    \
+        }                                           \
+        else                                        \
+        {                                           \
+            break;                                  \
+        }                                           \
     } while (0)
+
 #else
-#define GL_CHECK_ERROR() 1
+#define GL_CHECK_ERROR()
 #endif
 
+/*! turns an index in to a pointer
+ */
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
-/*! definition of invalid buffer id
- */
-#define INVALID_BUFFER_ID 0
+    /*! definition of invalid buffer id
+     */
+    static constexpr const uint32 INVALID_BUFFER_ID = 0;
+
+    /*! maximum texture units supported
+     */
+    static constexpr const int32 MAX_TEXTURE_UNITS = 8;
+
+    static constexpr const char *UNIFORM_SOLIDCOLOR = "igor_solidColor";
+
+    static constexpr const char *UNIFORM_LIGHT_ORIENTATION = "igor_lightOrientation";
+    static constexpr const char *UNIFORM_LIGHT_AMBIENT = "igor_lightAmbient";
+    static constexpr const char *UNIFORM_LIGHT_DIFFUSE = "igor_lightDiffuse";
+    static constexpr const char *UNIFORM_LIGHT_SPECULAR = "igor_lightSpecular";
+    static constexpr const char *UNIFORM_EYE_POSITION = "igor_eyePosition";
+    static constexpr const char *UNIFORM_MODEL_VIEW_PROJECTION = "igor_modelViewProjection";
+    static constexpr const char *UNIFORM_MODEL = "igor_model";
+
+    static constexpr const char *UNIFORM_MATERIAL_AMBIENT = "igor_matAmbient";
+    static constexpr const char *UNIFORM_MATERIAL_DIFFUSE = "igor_matDiffuse";
+    static constexpr const char *UNIFORM_MATERIAL_SPECULAR = "igor_matSpecular";
+    static constexpr const char *UNIFORM_MATERIAL_SHININESS = "igor_matShininess";
+    static constexpr const char *UNIFORM_MATERIAL_EMISSIVE = "igor_matEmissive";
+    static constexpr const char *UNIFORM_MATERIAL_ALPHA = "igor_matAlpha";
+
+    static constexpr const char *SAMPLER_TEXTURE = "igor_matTexture";
 
     /*! shader object types
      */
     enum class iShaderObjectType_New
     {
+        Undefined,
         Vertex,
         Fragment,
         Geometry
@@ -104,9 +132,9 @@ namespace igor
     \param type the shader object type
     \returns the stream
     */
-    IGOR_API std::wostream &operator<<(std::wostream &stream, const iShaderObjectType_New &type);  
+    IGOR_API std::wostream &operator<<(std::wostream &stream, const iShaderObjectType_New &type);
 
-    class iRendererUtils
+    class IGOR_API iRendererUtils
     {
     public:
         /*! \returns size of given shader data type in bytes

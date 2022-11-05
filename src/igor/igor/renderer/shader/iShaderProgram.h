@@ -29,36 +29,49 @@
 #ifndef __IGOR_SHADER_PROGRAM__
 #define __IGOR_SHADER_PROGRAM__
 
+#include <igor/renderer/utils/iRendererUtils.h>
+
+#include <iaux/math/iaMatrix.h>
 #include <iaux/data/iaString.h>
 using namespace iaux;
-
-#include <igor/renderer/utils/iRendererUtils.h>
 
 #include <vector>
 
 namespace igor
 {
-    /*! glsl shader wrapper
-    */
-    class iShaderProgram
-    {
 
-    public:        
+    class iShaderProgram;
+
+    /*! pointer definition of shader program
+    */
+    typedef std::shared_ptr<iShaderProgram> iShaderProgramPtr;
+
+    /*! glsl shader program wrapper
+     */
+    class IGOR_API iShaderProgram
+    {
+    public:
+        
+        /*! \returns a newly created shader program
+         */
+        static iShaderProgramPtr create();
 
         /*! initializes shader program
-        */
+         */
         iShaderProgram();
 
         /*! destroyes shader program
-        */
+         */
         virtual ~iShaderProgram();        
 
         /*! add shader object from file
 
         \param filename file name to shader definition
-        \param type the type of shader object
+        \param type the type of shader object.
+
+        If type is undefined we use the file ending to determine the type
         */
-        void addShader(iaString filename, iShaderObjectType_New type);
+        void addShader(iaString filename, iShaderObjectType_New type = iShaderObjectType_New::Undefined);
 
         /*! add shader from buffer
 
@@ -66,36 +79,58 @@ namespace igor
         \param type the type of shader object
         \returns true if sucessful
         */
-        bool addShader(const char *source, iShaderObjectType_New type);
+        bool addSource(const char *source, iShaderObjectType_New type);
 
         /*! compiles shader programm with shader objects
-        */
+         */
         void compile();
 
         /*! \returns true: if ready to use
-        */
-        bool isReady();
+         */
+        bool isValid();
 
         /*! activates shader program
-        */
+         */
         void bind();
 
         /*! deactivates shader program
-        */
+         */
         void unbind();
+
+        /*! sets integer on given uniform
+
+        \param uniform the uniform name
+        \param value the value to set
+        */
+        void setInt(const iaString &uniform, int value);
+
+        /*! sets float on given uniform
+
+        \param uniform the uniform name
+        \param value the value to set
+        */
+        void setFloat(const iaString &uniform, float32 value);
+
+        void setFloat2(const iaString &uniform, const iaVector2f &value);
+
+        void setFloat3(const iaString &uniform, const iaVector3f &value);
+
+        void setFloat4(const iaString &uniform, const iaVector4f &value);
+
+        void setMatrix(const iaString &uniform, const iaMatrixf &matrix);
 
     private:
         /*! list of shader objects
-        */
+         */
         std::vector<uint32> _shaderObjects;
 
         /*! id of glsl shader program
-        */
+         */
         uint32 _shaderProgram;
 
         /*! true: if ready to use
-        */
-        bool _ready = false;
+         */
+        bool _isValid = false;     
     };
 
 }; // namespace igor

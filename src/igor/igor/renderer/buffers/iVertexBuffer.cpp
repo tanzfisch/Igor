@@ -10,7 +10,7 @@ namespace igor
 {
     iVertexBufferPtr iVertexBuffer::create(uint32 size, const void *vertexData)
     {
-        return std::make_shared<iVertexBuffer>(iVertexBuffer(size, vertexData));
+        return std::make_shared<iVertexBuffer>(size, vertexData);
     }
 
     iVertexBuffer::iVertexBuffer(uint32 size, const void *vertexData)

@@ -94,6 +94,7 @@ namespace igor
     std::wostream &operator<<(std::wostream &stream, const iShaderObjectType_New &type)
     {
         const static std::wstring text[] = {
+            L"undefined",
             L"vertex",
             L"fragment",
             L"geometry"};

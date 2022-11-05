@@ -51,7 +51,7 @@ namespace iaux
 
     /*! wide char (unicode) character string with trailing zero and length
 
-    \todo should eventually store data UTF-8 encoded internally
+    \todo should eventually store data UTF-8 encoded internally instead of wstring
     */
     class IAUX_API iaString
     {

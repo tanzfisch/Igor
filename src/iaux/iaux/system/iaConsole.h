@@ -362,6 +362,7 @@ namespace iaux
     {                                                                                                                     \
         iaConsole::getInstance() << LOCK;                                                                                 \
         iaConsole::getInstance().printHead(iaLogLevel::Fatal);                                                            \
+        iaConsole::getInstance() << iaForegroundColor::DarkRed << Message << endlTab;                                     \
         iaConsole::getInstance() << __IGOR_FILE_LINE__ << endlTab;                                                        \
         iaConsole::getInstance() << __IGOR_FUNCTION__ << endlTab;                                                         \
         iaConsole::getInstance() << "-----------------------------------------------------------------------" << endlTab; \

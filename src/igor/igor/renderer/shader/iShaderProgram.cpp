@@ -7,25 +7,33 @@
 #include <igor/resources/iResourceManager.h>
 
 #include <iaux/system/iaFile.h>
-using namespace iaux;
 
 namespace igor
 {
 
+    iShaderProgramPtr iShaderProgram::create()
+    {
+        return std::make_shared<iShaderProgram>();
+    }
+
     iShaderProgram::iShaderProgram()
     {
         _shaderProgram = glCreateProgram();
+        GL_CHECK_ERROR();
+        con_assert_sticky(_shaderProgram != 0, "can't create shader program");
     }
 
     iShaderProgram::~iShaderProgram()
     {
         glDeleteProgram(_shaderProgram);
+        GL_CHECK_ERROR();
     }
 
     void iShaderProgram::addShader(iaString filename, iShaderObjectType_New type)
     {
         iaFile file(iResourceManager::getInstance().getPath(filename));
-        if (file.open(false))
+
+        if (file.open())
         {
             auto fileSize = file.getSize();
             char *buffer = new char[fileSize + 1];
@@ -33,7 +41,7 @@ namespace igor
             file.read(fileSize, buffer);
             file.close();
 
-            if (addShader(buffer, type))
+            if (addSource(buffer, type))
             {
                 con_info("loaded " << type << " shader \"" << file.getFullFileName() << "\"");
             }
@@ -50,21 +58,26 @@ namespace igor
         }
     }
 
-    bool iShaderProgram::addShader(const char *source, iShaderObjectType_New type)
+    bool iShaderProgram::addSource(const char *source, iShaderObjectType_New type)
     {
         int32 shaderObject = glCreateShader(iRendererUtils::getOGLShaderType(type));
+        GL_CHECK_ERROR();
 
         glShaderSource(shaderObject, 1, &source, nullptr);
+        GL_CHECK_ERROR();
         glCompileShader(shaderObject);
+        GL_CHECK_ERROR();
 
         GLint compiled;
         glGetShaderiv(shaderObject, GL_INFO_LOG_LENGTH, &compiled);
+        GL_CHECK_ERROR();
 
-        if (compiled != GL_TRUE)
+        if (compiled != 0)
         {
             GLsizei messageLength = 0;
             GLchar message[1024];
             glGetShaderInfoLog(shaderObject, 1024, &messageLength, message);
+            GL_CHECK_ERROR();
 
             if (messageLength > 0)
             {
@@ -75,6 +88,7 @@ namespace igor
             }
 
             glDeleteShader(shaderObject);
+            GL_CHECK_ERROR();
             return false;
         }
 
@@ -85,31 +99,88 @@ namespace igor
 
     void iShaderProgram::compile()
     {
-        for(auto object : _shaderObjects)
+        for (auto object : _shaderObjects)
         {
             glAttachShader(_shaderProgram, object);
+            GL_CHECK_ERROR();
         }
 
         glLinkProgram(_shaderProgram);
+        GL_CHECK_ERROR();
 
         _shaderObjects.clear();
-
-        _ready = true;
+        _isValid = true;
     }
 
     void iShaderProgram::bind()
     {
         glUseProgram(_shaderProgram);
+        GL_CHECK_ERROR();
     }
 
     void iShaderProgram::unbind()
     {
         glUseProgram(0);
+        GL_CHECK_ERROR();
     }
 
-    bool iShaderProgram::isReady()
+    bool iShaderProgram::isValid()
     {
-        return _ready;
+        return _isValid;
+    }
+
+    void iShaderProgram::setInt(const iaString &uniform, int value)
+    {
+        char temp[128];
+        uniform.getData(temp, 128);
+        GLint location = glGetUniformLocation(_shaderProgram, temp);
+        glUniform1i(location, value);
+        GL_CHECK_ERROR();
+    }
+
+    void iShaderProgram::setFloat(const iaString &uniform, float32 value)
+    {
+        char temp[128];
+        uniform.getData(temp, 128);
+        GLint location = glGetUniformLocation(_shaderProgram, temp);
+        glUniform1f(location, value);
+        GL_CHECK_ERROR();
+    }
+
+    void iShaderProgram::setFloat2(const iaString &uniform, const iaVector2f &value)
+    {
+        char temp[128];
+        uniform.getData(temp, 128);
+        GLint location = glGetUniformLocation(_shaderProgram, temp);
+        glUniform2f(location, value._x, value._y);
+        GL_CHECK_ERROR();
+    }
+
+    void iShaderProgram::setFloat3(const iaString &uniform, const iaVector3f &value)
+    {
+        char temp[128];
+        uniform.getData(temp, 128);
+        GLint location = glGetUniformLocation(_shaderProgram, temp);
+        glUniform3f(location, value._x, value._y, value._z);
+        GL_CHECK_ERROR();
+    }
+
+    void iShaderProgram::setFloat4(const iaString &uniform, const iaVector4f &value)
+    {
+        char temp[128];
+        uniform.getData(temp, 128);
+        GLint location = glGetUniformLocation(_shaderProgram, temp);
+        glUniform4f(location, value._x, value._y, value._z, value._w);
+        GL_CHECK_ERROR();
+    }
+
+    void iShaderProgram::setMatrix(const iaString &uniform, const iaMatrixf &matrix)
+    {
+        char temp[128];
+        uniform.getData(temp, 128);
+        GLint location = glGetUniformLocation(_shaderProgram, temp);
+        glUniformMatrix4fv(location, 1, GL_FALSE, matrix.getData());
+        GL_CHECK_ERROR();
     }
 
 } // namespace igor

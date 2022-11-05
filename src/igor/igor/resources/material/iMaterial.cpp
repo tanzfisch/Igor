@@ -84,7 +84,7 @@ namespace igor
             }
 
             _model_matrix = iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_MODEL);
-            if (_mvp_matrix != -1)
+            if (_model_matrix != -1)
             {
                 _hasModelMatrix = true;
             }

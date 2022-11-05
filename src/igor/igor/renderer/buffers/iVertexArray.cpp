@@ -42,7 +42,7 @@ namespace igor
 
     iVertexArrayPtr iVertexArray::create()
     {
-        return std::make_shared<iVertexArray>(iVertexArray());
+        return std::make_shared<iVertexArray>();
     }
 
     iVertexArray::iVertexArray()
@@ -71,7 +71,7 @@ namespace igor
 
     void iVertexArray::addVertexBuffer(const iVertexBufferPtr &vertexBuffer)
     {
-        con_assert(vertexBuffer->getLayout().getElements().size(), "Vertex Buffer has no component info!");
+        con_assert(vertexBuffer->getLayout().getElements().size(), "Vertex buffer has no layout");
 
         glBindVertexArray(_vertexArrayObject);
         GL_CHECK_ERROR();
@@ -89,9 +89,6 @@ namespace igor
             {
                 glEnableVertexAttribArray(_totalComponentCount);
                 GL_CHECK_ERROR();
-
-                con_debug("glVertexAttribPointer(" << _totalComponentCount << ", " << component.getComponentCount() << ", " << (int)shaderDataTypeToOpenGLBaseType(component._type) << ", "
-                                                   << (component._normalized ? "GL_TRUE" : "GL_FALSE") << ", " << info.getStride() << ", " << component._offset << ")");
 
                 glVertexAttribPointer(_totalComponentCount,
                                       component.getComponentCount(),
@@ -112,9 +109,6 @@ namespace igor
                 glEnableVertexAttribArray(_totalComponentCount);
                 GL_CHECK_ERROR();
 
-                con_debug("glVertexAttribIPointer(" << _totalComponentCount << ", " << component.getComponentCount() << ", " << (int)shaderDataTypeToOpenGLBaseType(component._type) << ", "
-                                                    << (component._normalized ? "GL_TRUE" : "GL_FALSE") << ", " << info.getStride() << ", " << component._offset << ")");
-
                 glVertexAttribIPointer(_totalComponentCount,
                                        component.getComponentCount(),
                                        shaderDataTypeToOpenGLBaseType(component._type),
@@ -132,9 +126,6 @@ namespace igor
                 {
                     glEnableVertexAttribArray(_totalComponentCount);
                     GL_CHECK_ERROR();
-
-                    con_debug("glVertexAttribPointer(" << _totalComponentCount << ", " << count << ", " << (int)shaderDataTypeToOpenGLBaseType(component._type) << ", "
-                                                       << (component._normalized ? "GL_TRUE" : "GL_FALSE") << ", " << info.getStride() << ", " << component._offset + sizeof(float) * count * i << ")");
 
                     glVertexAttribPointer(_totalComponentCount,
                                           count,

@@ -48,7 +48,22 @@ namespace iaux
         return size;
     }
 
-    bool iaFile::open(bool writeableMode)
+    static const char *getOpenFlags(const iFileOpenMode &mode)
+    {
+        const static std::string text[] = {
+            "rb",
+            "wb",
+            "rwb"};
+
+        return text[static_cast<int>(mode)].c_str();
+    }
+
+    static bool isWriteable(const iFileOpenMode &mode)
+    {
+        return mode == iFileOpenMode::WriteBinary || mode == iFileOpenMode::ReadWriteBinary;
+    }
+
+    bool iaFile::open(const iFileOpenMode &mode)
     {
         if (_fileHandle != nullptr)
         {
@@ -56,18 +71,17 @@ namespace iaux
             return false;
         }
 
-        _isWriteable = writeableMode;
+        _mode = mode;
 
         // if it does not exist and we don't want to write it abort
-        if (!exist() && !_isWriteable)
+        if (!exist() && !isWriteable(_mode))
         {
             return false;
         }
 
         char temp[1024];
         _filename.getData(temp, 1024);
-        _fileHandle = fopen(temp, _isWriteable ? "rwb" : "rb");
-
+        _fileHandle = fopen(temp, getOpenFlags(_mode));
         _size = getFileSize(_fileHandle);
 
         setFilePointer(0);
@@ -201,9 +215,16 @@ namespace iaux
         }
     }
 
-    bool iaFile::isOpen()
+    bool iaFile::isOpen() const
     {
         return (nullptr != _fileHandle) ? true : false;
+    }
+
+    const iFileOpenMode &iaFile::getFileOpenMode() const
+    {
+        con_assert_sticky(isOpen(), "file is not open");
+
+        return _mode;
     }
 
     bool iaFile::setFilePointer(int64 position)
@@ -265,7 +286,7 @@ namespace iaux
             }
         }
 
-        if (!_isWriteable && _fileHandle != nullptr)
+        if (!isWriteable(_mode) && _fileHandle != nullptr)
         {
             con_err("file openend readonly!");
             return false;
@@ -283,7 +304,7 @@ namespace iaux
         return true;
     }
 
-    int64 iaFile::getSize()
+    int64 iaFile::getSize() const
     {
         return _size;
     }
@@ -308,4 +329,17 @@ namespace iaux
 
         return true;
     }
+
+    std::wostream &operator<<(std::wostream &stream, const iFileOpenMode &mode)
+    {
+        const static std::wstring text[] = {
+            L"read",
+            L"write",
+            L"read&write"};
+
+        stream << text[static_cast<int>(mode)];
+
+        return stream;
+    }
+
 } // namespace iaux

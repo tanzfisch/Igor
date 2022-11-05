@@ -346,6 +346,11 @@ namespace igor
         */
         void getModelMatrix(iaMatrixd &matrix) const;
 
+        const iaMatrixd &getModelViewProjectionMatrix() const
+        {
+            return _modelViewProjectionMatrix;
+        }
+
         /*! sets the view matrix and camera world matrix
 
         \param viewMatrix matrix to set the view matrix

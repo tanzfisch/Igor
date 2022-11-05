@@ -101,7 +101,7 @@ namespace igor
     void iShader_Old::loadFile(iaString filename, iShaderObjectType type)
     {
         iaFile file(iResourceManager::getInstance().getPath(filename));
-        if (file.open(false))
+        if (file.open())
         {
 
             auto fileSize = file.getSize();
