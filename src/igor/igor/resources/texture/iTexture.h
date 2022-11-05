@@ -50,14 +50,22 @@ namespace igor
         friend class iRenderer;
 
     public:
+
+        /*! ctor
+
+		initializes member variables
+		*/
+        iTexture(iaString name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);    
+
+        /*! does nothing
+        */
+        virtual ~iTexture();
+
         /*! true if there is actually a texture present
         */
         bool isValid();
 
         /*! true if the texture was processed
-
-        processed does not mean that it was loaded correctly 
-        it means that we are done trying loading it
         */
         bool isProcessed();
 
@@ -95,11 +103,17 @@ namespace igor
 
         /*! returns the filename
         */
-        iaString getFilename();
+        const iaString &getFilename() const;
 
-        /*! does nothing
+        /*! binds and activates texture to given texture unit
+
+        \param textureUnit the given texture unit
         */
-        virtual ~iTexture();
+        void bind(uint32 textureUnit);
+
+        /*! \returns texture id
+        */
+        uint32 getTextureID() const;
 
     private:
         /*! true if there was actually a texture loaded
@@ -148,13 +162,8 @@ namespace igor
 
         /*! renderer specific texture handle
 		*/
-        iRendererTexture *_rendererTexture = nullptr;
+        uint32 _textureID;
 
-        /*! ctor
-
-		initializes member variables
-		*/
-        iTexture(iaString name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);
     };
 
     /*! definition of texture shared pointer

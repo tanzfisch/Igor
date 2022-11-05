@@ -132,8 +132,8 @@ namespace igor
         _dummyTexture->_valid = true;
         _dummyTexture->_processed = true;
 
-        _dummyTexture->_rendererTexture = iRenderer::getInstance().createTexture(width, height, 4, iColorFormat::RGBA, data, _dummyTexture->_buildMode, _dummyTexture->_wrapMode);
-        iRenderer::getInstance().setDummyTextureID(_dummyTexture->_rendererTexture->_id);
+        _dummyTexture->_textureID = iRenderer::getInstance().createTexture(width, height, 4, iColorFormat::RGBA, data, _dummyTexture->_buildMode, _dummyTexture->_wrapMode);
+        iRenderer::getInstance().setDummyTextureID(_dummyTexture->_textureID);
 
         int64 hashValue = calcHashValue(_dummyTexture->getFilename(), _dummyTexture->_cacheMode, _dummyTexture->_buildMode, _dummyTexture->_wrapMode);
         _textures[hashValue] = _dummyTexture;
@@ -278,7 +278,7 @@ namespace igor
                     texture->second.use_count() == 1 &&
                     texture->second->_cacheMode <= cacheModeLevel)
                 {
-                    iRenderer::getInstance().destroyTexture((*texture).second->_rendererTexture);
+                    iRenderer::getInstance().destroyTexture(texture->second->_textureID);
                     con_info("released texture \"" << (*texture).second->getFilename() << "\"");
                     texture = _textures.erase(texture);
                     continue;
@@ -350,7 +350,7 @@ namespace igor
                 con_assert(false, "unsupported color format");
             };
 
-            texture->_rendererTexture = iRenderer::getInstance().createTexture(width, height, bpp, colorFormat, textureData, texture->_buildMode, texture->_wrapMode);
+            texture->_textureID = iRenderer::getInstance().createTexture(width, height, bpp, colorFormat, textureData, texture->_buildMode, texture->_wrapMode);
             texture->_width = width;
             texture->_height = height;
             texture->_dummy = false;
@@ -428,7 +428,7 @@ namespace igor
             };
 
             result = iTexturePtr(new iTexture(pixmapname, cacheMode, buildMode, wrapMode));
-            result->_rendererTexture = iRenderer::getInstance().createTexture(width, height, bpp, colorformat, data, buildMode, wrapMode);
+            result->_textureID = iRenderer::getInstance().createTexture(width, height, bpp, colorformat, data, buildMode, wrapMode);
 
             _mutex.lock();
             _textures[hashValue] = result;

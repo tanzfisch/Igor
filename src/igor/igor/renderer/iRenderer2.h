@@ -29,8 +29,8 @@
 #ifndef __IGOR_RENDERER_2D__
 #define __IGOR_RENDERER_2D__
 
-#include <igor/resources/material/iMaterial.h>
 #include <igor/renderer/buffers/iVertexArray.h>
+#include <igor/resources/texture/iTexture.h>
 
 #include <iaux/data/iaColor4.h>
 #include <iaux/data/iaRectangle.h>
@@ -66,7 +66,12 @@ namespace igor
         static void drawFilledRectangle(const iaRectanglef &rect, const iaColor4f &color);
         static void drawFilledRectangleOnCenter(const iaVector2f &center, const iaVector2f &size, const iaColor4f &color);
 
+        static void drawTexture(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0));
+        static void drawTexture(const iaRectanglef &rect, const iTexturePtr &texture, const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0));
+        static void drawTextureOnCenter(const iaVector2f &center, const iaVector2f &size, const iTexturePtr &texture, const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0));
+
     private:
+        static void flushTexQuads();
         static void flushQuads();
         static void flushLines();
         static void flushPoints();

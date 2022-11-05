@@ -752,20 +752,19 @@ namespace igor
         glReadPixels(x, y, width, height, glformat, GL_UNSIGNED_BYTE, data);
     }
 
-    iRendererTexture *iRenderer::createTexture(int32 width, int32 height, int32 bytepp, iColorFormat format, unsigned char *data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
+    uint32 iRenderer::createTexture(int32 width, int32 height, int32 bytepp, iColorFormat format, unsigned char *data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
     {
         int32 glformat = convertGLColorFormat(format);
         if (glformat == iRenderer::INVALID_ID)
         {
-            return nullptr;
+            return 0;
         }
 
-        iRendererTexture *result = nullptr;
+        uint32 result = 0;
 
-        result = new iRendererTexture();
-        glGenTextures(1, (GLuint *)&(result->_id));
+        glGenTextures(1, &result);
 
-        glBindTexture(GL_TEXTURE_2D, result->_id);
+        glBindTexture(GL_TEXTURE_2D, result);
 
         switch (wrapMode)
         {
@@ -820,20 +819,11 @@ namespace igor
         return _dummyTextureID;
     }
 
-    void iRenderer::destroyTexture(iRendererTexture *texture)
+    void iRenderer::destroyTexture(uint32 textureID)
     {
-        con_assert(texture != nullptr, "zero pointer");
-
-        if (texture != nullptr)
+        if (glIsTexture(textureID))
         {
-            GLuint texId = (GLuint)((texture)->_id);
-
-            if (glIsTexture(texId))
-            {
-                glDeleteTextures(1, &texId);
-            }
-
-            delete texture;
+            glDeleteTextures(1, &textureID);
         }
     }
 
@@ -845,7 +835,7 @@ namespace igor
         {
             if (!texture->isDummy())
             {
-                glBindTexture(GL_TEXTURE_2D, (texture->_rendererTexture)->_id);
+                glBindTexture(GL_TEXTURE_2D, texture->_textureID);
             }
             else
             {

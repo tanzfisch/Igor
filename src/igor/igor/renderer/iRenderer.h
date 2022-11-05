@@ -76,13 +76,6 @@ namespace igor
         ToRenderBuffer
     };
 
-    /*! texture placeholder class
-    */
-    struct IGOR_API iRendererTexture
-    {
-        uint32 _id;
-    };
-
     /*! triggered when renderer is initialized.
     usually after a window was opened.
     */
@@ -944,15 +937,15 @@ namespace igor
         \param data pointer to the actual data used for the texture
         \param buildMode generation mode of texture like mimapping or not
         \param wrapMode wrap mode of texture
-        \returns pointer to renderer texture
+        \returns render texture id
         */
-        iRendererTexture *createTexture(int32 width, int32 height, int32 bytepp, iColorFormat format, uint8 *data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);
+        uint32 createTexture(int32 width, int32 height, int32 bytepp, iColorFormat format, uint8 *data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);
 
         /*! releases texture
 
-        \param texture pointer to texture to be released
+        \param textureID texture ID to destroy
         */
-        void destroyTexture(iRendererTexture *texture);
+        void destroyTexture(uint32 textureID);
 
         /*! creates an instancing buffer for this instancer
 

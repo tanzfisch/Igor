@@ -4,6 +4,8 @@
 
 #include <igor/resources/texture/iTexture.h>
 
+#include <igor/renderer/utils/iRendererUtils.h>
+
 namespace igor
 {
 
@@ -14,6 +16,19 @@ namespace igor
 
 	iTexture::~iTexture()
 	{
+	}
+
+	void iTexture::bind(uint32 textureUnit)
+	{
+		glActiveTexture(GL_TEXTURE0 + textureUnit);
+		GL_CHECK_ERROR();
+		glBindTexture(GL_TEXTURE_2D, _textureID);
+		GL_CHECK_ERROR();
+	}
+
+	uint32 iTexture::getTextureID() const
+	{
+		return _textureID;
 	}
 
 	bool iTexture::isProcessed()
@@ -66,7 +81,7 @@ namespace igor
 		return _buildMode;
 	}
 
-	iaString iTexture::getFilename()
+	const iaString &iTexture::getFilename() const
 	{
 		return _filename;
 	}

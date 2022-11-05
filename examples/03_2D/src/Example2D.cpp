@@ -263,7 +263,8 @@ void Example2D::onRenderOrtho()
     {
 //        iRenderer2::drawLine(_rand.getNext() % 500, _rand.getNext() % 500, _rand.getNext() % 500, _rand.getNext() % 500, iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
         //iRenderer2::drawFilledRectangle((_rand.getNext() % 500) - 250, (_rand.getNext() % 500) - 250, _rand.getNext() % 500, _rand.getNext() % 500, iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
-        iRenderer2::drawFilledRectangleOnCenter(iaVector2f(_rand.getNext() % 500, _rand.getNext() % 500), iaVector2f(30.0f, 30.0f), iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
+        iRenderer2::drawTexture((_rand.getNext() % 500) - 250, (_rand.getNext() % 500) - 250, _rand.getNext() % 500, _rand.getNext() % 500, _particleTexture, iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
+        //iRenderer2::drawFilledRectangleOnCenter(iaVector2f(_rand.getNext() % 500, _rand.getNext() % 500), iaVector2f(30.0f, 30.0f), iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
     //    iRenderer2::drawPoint(_rand.getNextFloat() * 50.0 + 100.0, _rand.getNextFloat() * 50.0 + 100.0, iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
     }
 
