@@ -8,6 +8,11 @@
 
 namespace igor
 {
+    iIndexBufferPtr iIndexBuffer::create(uint32 count, const uint32 *indices)
+    {
+        return std::make_shared<iIndexBuffer>(count, indices);
+    }
+
     iIndexBuffer::iIndexBuffer(uint32 count, const uint32 *indices)
         : _indexCount(count)
     {

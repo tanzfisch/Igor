@@ -50,17 +50,26 @@ namespace igor
 
         static void flush();
 
+        static void drawPoint(float32 x, float32 y, const iaColor4f &color);
+        static void drawPoint(const iaVector2f &v, const iaColor4f &color);
+        static void drawPoint(const iaVector3f &v, const iaColor4f &color);
+
         static void drawLine(float32 x1, float32 y1, float32 x2, float32 y2, const iaColor4f &color);
         static void drawLine(const iaVector2f &v1, const iaVector2f &v2, const iaColor4f &color);
         static void drawLine(const iaVector3f &v1, const iaVector3f &v2, const iaColor4f &color);
 
         static void drawRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color);
         static void drawRectangle(const iaRectanglef &rect, const iaColor4f &color);
-
         static void drawRectangleOnCenter(const iaVector2f &center, const iaVector2f &size, const iaColor4f &color);
 
+        static void drawFilledRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color);
+        static void drawFilledRectangle(const iaRectanglef &rect, const iaColor4f &color);
+        static void drawFilledRectangleOnCenter(const iaVector2f &center, const iaVector2f &size, const iaColor4f &color);
+
     private:
+        static void flushQuads();
         static void flushLines();
+        static void flushPoints();
     };
 
 }

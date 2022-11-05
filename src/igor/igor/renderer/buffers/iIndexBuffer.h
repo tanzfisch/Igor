@@ -36,34 +36,44 @@
 namespace igor
 {
 
+    class iIndexBuffer;
+
+    /*! vertex buffer pointer definition
+     */
+    typedef std::shared_ptr<iIndexBuffer> iIndexBufferPtr;
+
     /*! index buffer aka index buffer object
-    */
+     */
     class iIndexBuffer
     {
     public:
+        /*! \returns a newly created index buffer
+
+        \param cound index count
+        \param indices the index data
+        */
+        static iIndexBufferPtr create(uint32 count, const uint32 *indices);
+
+        /*!
+         */
         iIndexBuffer(uint32 count, const uint32 *indices);
         virtual ~iIndexBuffer();
 
         void bind() const;
-        
+
         static void unbind();
 
         uint32 getIndexCount() const;
 
     private:
-        
         /*! handle to internal buffer object
-        */
+         */
         uint32 _indexBufferObject;
 
         /*! index count
-        */
+         */
         uint32 _indexCount;
     };
-
-    /*! vertex buffer pointer definition
-    */
-    typedef std::shared_ptr<iIndexBuffer> iIndexBufferPtr;
 
 }
 
