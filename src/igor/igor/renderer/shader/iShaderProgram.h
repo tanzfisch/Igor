@@ -111,12 +111,32 @@ namespace igor
         */
         void setFloat(const iaString &uniform, float32 value);
 
+        /*! sets 2 dimensional vector on given uniform
+
+        \param uniform the uniform name
+        \param value the value to set
+        */
         void setFloat2(const iaString &uniform, const iaVector2f &value);
 
+        /*! sets 3 dimensional vector on given uniform
+
+        \param uniform the uniform name
+        \param value the value to set
+        */
         void setFloat3(const iaString &uniform, const iaVector3f &value);
 
+        /*! sets 4 dimensional vector on given uniform
+
+        \param uniform the uniform name
+        \param value the value to set
+        */
         void setFloat4(const iaString &uniform, const iaVector4f &value);
 
+        /*! sets 4x4 matrix on given uniform
+
+        \param uniform the uniform name
+        \param value the value to set
+        */
         void setMatrix(const iaString &uniform, const iaMatrixf &matrix);
 
     private:

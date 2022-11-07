@@ -200,6 +200,13 @@ namespace igor
          */
         iRenderDataSet _lastRenderDataSetUsed;
 
+        /////////// MATRICES /////////////
+        iaMatrixd _modelMatrix;
+        iaMatrixd _viewMatrix;
+        iaMatrixd _projectionMatrix;
+        iaMatrixd _modelViewMatrix;
+        iaMatrixd _modelViewProjectionMatrix;
+
         /////////// SETTINGS //////
         /*! if true render order will be kept by the cost of more draw calls beeing used
          */
@@ -210,7 +217,7 @@ namespace igor
         float32 _lineWidth = 1.0f;
 
         /*! point size
-        */
+         */
         float32 _pointSize = 1.0;
 
         ////// DEBUG ////
@@ -229,6 +236,8 @@ namespace igor
 
     void iRenderer2::init()
     {
+        con_info("iRenderer2::init()");
+
         /////////// LINES //////////////
         auto &lines = _data->_lines;
         lines._vertexArray = iVertexArray::create();
@@ -517,7 +526,6 @@ namespace igor
         glEnd();
     }*/
 
-
     void iRenderer2::drawPoint(float32 x, float32 y, const iaColor4f &color)
     {
         drawPoint(iaVector3f(x, y, 0.0), color);
@@ -700,6 +708,15 @@ namespace igor
         }
 
         _data->_textureShader->bind();
+
+    /*
+            iaMatrixd m = getModelViewProjectionMatrix();
+        iaMatrixf mvp;
+        for (int i = 0; i < 16; ++i)
+        {
+            mvp[i] = m[i];
+        }
+    */
 
         // TODO
         iaMatrixf mvp;
@@ -887,7 +904,7 @@ namespace igor
 
     void iRenderer2::setPointSize(float32 pointSize)
     {
-        if(_data->_pointSize == pointSize)
+        if (_data->_pointSize == pointSize)
         {
             return;
         }
@@ -904,4 +921,52 @@ namespace igor
         return _data->_pointSize;
     }
 
+    void iRenderer2::updateMatrices()
+    {
+        _data->_modelViewMatrix = _data->_modelMatrix * _data->_viewMatrix;
+        _data->_modelViewProjectionMatrix = _data->_modelViewMatrix * _data->_projectionMatrix;
+    }
+
+    void iRenderer2::setOrtho(float32 left, float32 right, float32 bottom, float32 top, float32 nearplain, float32 farplain)
+    {
+        _data->_projectionMatrix.ortho(left, right, bottom, top, nearplain, farplain);
+        updateMatrices();
+    }
+
+    void iRenderer2::setPerspective(float32 fov, float32 aspect, float32 nearplain, float32 farplain)
+    {
+        _data->_projectionMatrix.perspective(fov, aspect, nearplain, farplain);
+        updateMatrices();
+    }
+
+    void iRenderer2::setModelMatrix(const iaMatrixd &matrix)
+    {
+        _data->_modelMatrix = matrix;
+        updateMatrices();
+    }
+
+    const iaMatrixd &iRenderer2::getModelMatrix() const
+    {
+        return _data->_modelMatrix;
+    }
+
+    const iaMatrixd &iRenderer2::getViewMatrix() const
+    {
+        return _data->_viewMatrix;
+    }
+
+    const iaMatrixd &iRenderer2::getProjectionMatrix() const
+    {
+        return _data->_projectionMatrix;
+    }
+
+    const iaMatrixd &iRenderer2::getModelViewMatrix() const
+    {
+        return _data->_modelViewMatrix;
+    }
+
+    const iaMatrixd &iRenderer2::getModelViewProjectionMatrix() const
+    {
+        return _data->_modelViewProjectionMatrix;
+    }
 }

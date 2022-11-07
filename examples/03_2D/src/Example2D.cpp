@@ -170,8 +170,11 @@ void Example2D::onRenderOrtho()
     // and the near clipping plane of our frustum can't be zero we have to push the scene a bit away from zero (e.g. -30 just a random number with no meaning)
     iaMatrixd matrix;
     iRenderer::getInstance().setViewMatrix(matrix);
-    matrix.translate(0, 0, -30);
+    matrix.translate(0, 0, -1);
     iRenderer::getInstance().setModelMatrix(matrix);
+
+    iRenderer2::getInstance().setOrtho(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0, 0.1f, 10000.f);
+    iRenderer2::getInstance().setModelMatrix(matrix);
 
     // set a textured material and draw the tiles texture as background
     // iRenderer::getInstance().setMaterial(_materialWithTexture);

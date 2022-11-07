@@ -53,7 +53,6 @@ namespace igor
         friend class iModule<iRenderer2>;
 
     public:
-
         /*! initializes renderer
          */
         void init();
@@ -66,15 +65,51 @@ namespace igor
          */
         void flush();
 
-        /*! 
+        /*! set projection matrix with perspective projection
 
-        \param ignoreRenderOrder if true render order will be ignored
+        \param fov field of view in degrees
+        \param aspect aspect ratio of screen
+        \param nearplane near plane distance
+        \param farplane far plane distance
         */
-        void setIgnoreRenderOrder(bool ignoreRenderOrder = true);
+        void setPerspective(float32 fov, float32 aspect, float32 nearplane, float32 farplane);
 
-        /*! \returns true if render order is kept
+        /*! set projection matrix with orthogonal projection
+
+        \param left left bounding
+        \param right right bounding
+        \param bottom bottom bounding
+        \param top top bounding
+        \param nearplane near plane distance
+        \param farplane far plane distance
+        */
+        void setOrtho(float32 left, float32 right, float32 bottom, float32 top, float32 nearplane, float32 farplane);
+
+        /*! sets the model matrix
+
+        \param matrix matrix to set the model matrix
+        */
+        void setModelMatrix(const iaMatrixd &matrix);
+
+        /*! \returns current model matrix
          */
-        bool isIgnoringRenderOrder();
+        const iaMatrixd &getModelMatrix() const;
+
+        /*! \returns current view matrix
+         */
+        const iaMatrixd &getViewMatrix() const;
+
+        /*! \returns current projection matrix
+         */
+        const iaMatrixd &getProjectionMatrix() const;
+
+        /*! \returns current model view matrix
+         */
+        const iaMatrixd &getModelViewMatrix() const;
+
+        /*! \returns current model view projection matrix
+         */
+        const iaMatrixd &getModelViewProjectionMatrix() const;
 
         void drawPoint(float32 x, float32 y, const iaColor4f &color);
         void drawPoint(const iaVector2f &v, const iaColor4f &color);
@@ -98,32 +133,72 @@ namespace igor
 
         // void drawSprite(const iaMatrixf &matrix, const iAtlasPtr sprite, uint32 frameIndex, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0));
 
+        /*! sets line render width
+
+        \param lineWidth line render width
+        */
         void setLineWidth(float32 lineWidth);
+
+        /*! \returns line width
+         */
         float32 getLineWidth() const;
 
+        /*! sets point size
+
+        \param pointSize point size
+        */
         void setPointSize(float32 pointSize);
+
+        /*! \returns point size
+         */
         float32 getPointSize() const;
 
-    private:        
+        /*! sets ignore render order flag
 
-        /*! internal render data
+        If render order is ignored performance might increase. This might make sense if you know what you are doing.
+
+        \param ignoreRenderOrder if true render order will be ignored
         */
+        void setIgnoreRenderOrder(bool ignoreRenderOrder = true);
+
+        /*! \returns true if render order is kept
+         */
+        bool isIgnoringRenderOrder();
+
+    private:
+        /*! internal render data
+         */
         std::unique_ptr<iRendererData> _data;
 
         /*! init
-        */
+         */
         iRenderer2();
 
-        /*! deinit 
-        */
-        ~iRenderer2();    
+        /*! deinit
+         */
+        ~iRenderer2();
 
+        /*! flushes textured quads queue
+         */
         void flushTexQuads();
+
+        /*! flushes quads queue
+         */
         void flushQuads();
+
+        /*! flushes lines queue
+         */
         void flushLines();
+
+        /*! flushes points queue
+         */
         void flushPoints();
 
+        /*! flushes last used queue
+         */
         void flushLastUsed();
+
+        void updateMatrices();
     };
 
 }
