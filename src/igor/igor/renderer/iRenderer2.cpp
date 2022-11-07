@@ -708,21 +708,7 @@ namespace igor
         }
 
         _data->_textureShader->bind();
-
-    /*
-            iaMatrixd m = getModelViewProjectionMatrix();
-        iaMatrixf mvp;
-        for (int i = 0; i < 16; ++i)
-        {
-            mvp[i] = m[i];
-        }
-    */
-
-        // TODO
-        iaMatrixf mvp;
-        mvp.ortho(0, 1024, 768, 0, 0.0, 100);
-        mvp.translate(0, 0, -1);
-        _data->_textureShader->setMatrix("igor_modelViewProjection", mvp);
+        _data->_textureShader->setMatrix("igor_modelViewProjection", getMVP());
 
         glDrawElements(GL_TRIANGLES, texQuads._indexCount, GL_UNSIGNED_INT, nullptr);
         _data->_drawCalls++;
@@ -748,12 +734,7 @@ namespace igor
         }
 
         _data->_flatShader->bind();
-
-        // TODO
-        iaMatrixf mvp;
-        mvp.ortho(0, 1024, 768, 0, 0.0, 100);
-        mvp.translate(0, 0, -1);
-        _data->_flatShader->setMatrix("igor_modelViewProjection", mvp);
+        _data->_textureShader->setMatrix("igor_modelViewProjection", getMVP());
 
         uint32 dataSize = (uint32)((uint8 *)quads._vertexDataPtr - (uint8 *)quads._vertexData);
         quads._vertexBuffer->setData(dataSize, quads._vertexData);
@@ -781,12 +762,7 @@ namespace igor
         }
 
         _data->_flatShader->bind();
-
-        // TODO
-        iaMatrixf mvp;
-        mvp.ortho(0, 1024, 768, 0, 0.0, 100);
-        mvp.translate(0, 0, -1);
-        _data->_flatShader->setMatrix("igor_modelViewProjection", mvp);
+        _data->_textureShader->setMatrix("igor_modelViewProjection", getMVP());
 
         uint32 dataSize = (uint32)((uint8 *)lines._vertexDataPtr - (uint8 *)lines._vertexData);
         lines._vertexBuffer->setData(dataSize, lines._vertexData);
@@ -813,12 +789,7 @@ namespace igor
         }
 
         _data->_flatShader->bind();
-
-        // TODO
-        iaMatrixf mvp;
-        mvp.ortho(0, 1024, 768, 0, 0.0, 100);
-        mvp.translate(0, 0, -1);
-        _data->_flatShader->setMatrix("igor_modelViewProjection", mvp);
+        _data->_textureShader->setMatrix("igor_modelViewProjection", getMVP());
 
         uint32 dataSize = (uint32)((uint8 *)points._vertexDataPtr - (uint8 *)points._vertexData);
         points._vertexBuffer->setData(dataSize, points._vertexData);
@@ -923,8 +894,8 @@ namespace igor
 
     void iRenderer2::updateMatrices()
     {
-        _data->_modelViewMatrix = _data->_modelMatrix * _data->_viewMatrix;
-        _data->_modelViewProjectionMatrix = _data->_modelViewMatrix * _data->_projectionMatrix;
+        _data->_modelViewMatrix = _data->_viewMatrix * _data->_modelMatrix;
+        _data->_modelViewProjectionMatrix = _data->_projectionMatrix * _data->_modelViewMatrix;
     }
 
     void iRenderer2::setOrtho(float32 left, float32 right, float32 bottom, float32 top, float32 nearplain, float32 farplain)
@@ -968,5 +939,16 @@ namespace igor
     const iaMatrixd &iRenderer2::getModelViewProjectionMatrix() const
     {
         return _data->_modelViewProjectionMatrix;
+    }
+
+    const iaMatrixf iRenderer2::getMVP() const
+    {
+        iaMatrixf matrix;
+        for(int i=0;i<16;++i)
+        {
+            matrix[i] = _data->_modelViewProjectionMatrix[i];
+        }
+
+        return matrix;
     }
 }

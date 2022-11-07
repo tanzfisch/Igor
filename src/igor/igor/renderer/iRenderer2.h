@@ -198,7 +198,13 @@ namespace igor
          */
         void flushLastUsed();
 
+        /*! updats internal matrices
+         */
         void updateMatrices();
+
+        /*! \returns current model view projection matrix with single precision
+         */
+        const iaMatrixf getMVP() const;
     };
 
 }
