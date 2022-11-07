@@ -42,43 +42,46 @@ namespace igor
 /*! checks for openGL errors and prints them in the console
  */
 #ifdef __IGOR_DEBUG__
-#define GL_CHECK_ERROR()                            \
-    do                                              \
-    {                                               \
-        GLenum error = glGetError();                \
-        if (error != GL_NO_ERROR)                   \
-        {                                           \
-            iaString errorCode;                     \
-            switch (error)                          \
-            {                                       \
-            case GL_INVALID_ENUM:                   \
-                errorCode = "GL_INVALID_ENUM";      \
-                break;                              \
-            case GL_INVALID_VALUE:                  \
-                errorCode = "GL_INVALID_VALUE";     \
-                break;                              \
-            case GL_INVALID_OPERATION:              \
-                errorCode = "GL_INVALID_OPERATION"; \
-                break;                              \
-            case GL_STACK_OVERFLOW:                 \
-                errorCode = "GL_STACK_OVERFLOW";    \
-                break;                              \
-            case GL_STACK_UNDERFLOW:                \
-                errorCode = "GL_STACK_UNDERFLOW";   \
-                break;                              \
-            case GL_OUT_OF_MEMORY:                  \
-                errorCode = "GL_OUT_OF_MEMORY";     \
-                break;                              \
-            default:                                \
-                errorCode = "UNKNOWN ERROR";        \
-                break;                              \
-            };                                      \
-            con_crit("GL_ERROR: " << errorCode);    \
-        }                                           \
-        else                                        \
-        {                                           \
-            break;                                  \
-        }                                           \
+#define GL_CHECK_ERROR()                                        \
+    do                                                          \
+    {                                                           \
+        GLenum error = glGetError();                            \
+        if (error != GL_NO_ERROR)                               \
+        {                                                       \
+            iaString errorCode;                                 \
+            switch (error)                                      \
+            {                                                   \
+            case GL_INVALID_ENUM:                               \
+                errorCode = "GL_INVALID_ENUM";                  \
+                break;                                          \
+            case GL_INVALID_VALUE:                              \
+                errorCode = "GL_INVALID_VALUE";                 \
+                break;                                          \
+            case GL_INVALID_OPERATION:                          \
+                errorCode = "GL_INVALID_OPERATION";             \
+                break;                                          \
+            case GL_INVALID_FRAMEBUFFER_OPERATION:              \
+                errorCode = "GL_INVALID_FRAMEBUFFER_OPERATION"; \
+                break;                                          \
+            case GL_STACK_OVERFLOW:                             \
+                errorCode = "GL_STACK_OVERFLOW";                \
+                break;                                          \
+            case GL_STACK_UNDERFLOW:                            \
+                errorCode = "GL_STACK_UNDERFLOW";               \
+                break;                                          \
+            case GL_OUT_OF_MEMORY:                              \
+                errorCode = "GL_OUT_OF_MEMORY";                 \
+                break;                                          \
+            default:                                            \
+                errorCode = "UNKNOWN ERROR";                    \
+                break;                                          \
+            };                                                  \
+            con_crit("GL_ERROR: " << errorCode);                \
+        }                                                       \
+        else                                                    \
+        {                                                       \
+            break;                                              \
+        }                                                       \
     } while (0)
 
 #else

@@ -29,7 +29,7 @@ iEntity Supremacy::createPlayer()
     entity.addComponent<DamageComponent>(0.0);
     entity.addComponent<HealthComponent>(100.0);
     entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"), false, iaTime::fromSeconds(_rand.getNextFloat()));
-    auto &weapon = entity.addComponent<WeaponComponent>(WEAPON_KNIFE);
+    auto &weapon = entity.addComponent<WeaponComponent>(WEAPON_ROCKETLAUNCHER);
     weapon._time = iTimer::getInstance().getTime();
     weapon._offset = iaVector2d(0.0, -STANDARD_UNIT_SIZE * 0.5);
 
@@ -888,7 +888,7 @@ void Supremacy::onRenderOrtho()
         {
             const float64 width = size._size;
             iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
-            iRenderer::getInstance().drawTexture(position._x - width * 0.5, position._y - width * 0.5, width, width, visual._texture);
+            iRenderer::getInstance().drawTexturedRectangle(position._x - width * 0.5, position._y - width * 0.5, width, width, visual._texture);
         }
         else
         {
@@ -909,10 +909,10 @@ void Supremacy::onRenderOrtho()
 
             iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
             iRenderer::getInstance().setColor(0.0, 0.0, 0.0, 0.6);
-            iRenderer::getInstance().drawTexture(position._x - size._size * 0.5, position._y + value * 2.0, size._size, size._size * 0.5, _shadow);
+            iRenderer::getInstance().drawTexturedRectangle(position._x - size._size * 0.5, position._y + value * 2.0, size._size, size._size * 0.5, _shadow);
 
             iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
-            iRenderer::getInstance().drawTexture(position._x - size._size * 0.5, position._y - size._size + value * 15.0, width, height, visual._texture);
+            iRenderer::getInstance().drawTexturedRectangle(position._x - size._size * 0.5, position._y - size._size + value * 15.0, width, height, visual._texture);
         }
     }
 

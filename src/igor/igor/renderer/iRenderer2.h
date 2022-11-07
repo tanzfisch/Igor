@@ -30,51 +30,100 @@
 #define __IGOR_RENDERER_2D__
 
 #include <igor/renderer/buffers/iVertexArray.h>
+#include <igor/resources/module/iModule.h>
 #include <igor/resources/texture/iTexture.h>
+#include <igor/resources/texture/iAtlas.h>
 
 #include <iaux/data/iaColor4.h>
 #include <iaux/data/iaRectangle.h>
+#include <iaux/math/iaMatrix.h>
 #include <iaux/math/iaVector2.h>
 #include <iaux/math/iaVector3.h>
 
 namespace igor
 {
 
+    class iRendererData;
+
     /*! this will eventually replace iRenderer
      */
-    class iRenderer2
+    class iRenderer2 : public iModule<iRenderer2>
     {
+
+        friend class iModule<iRenderer2>;
+
     public:
-        static void init();
-        static void deinit();
 
-        static void flush();
+        /*! initializes renderer
+         */
+        void init();
 
-        static void drawPoint(float32 x, float32 y, const iaColor4f &color);
-        static void drawPoint(const iaVector2f &v, const iaColor4f &color);
-        static void drawPoint(const iaVector3f &v, const iaColor4f &color);
+        /*! cleanup renderer
+         */
+        void deinit();
 
-        static void drawLine(float32 x1, float32 y1, float32 x2, float32 y2, const iaColor4f &color);
-        static void drawLine(const iaVector2f &v1, const iaVector2f &v2, const iaColor4f &color);
-        static void drawLine(const iaVector3f &v1, const iaVector3f &v2, const iaColor4f &color);
+        /*! draws everything that is still in the queue
+         */
+        void flush();
 
-        static void drawRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color);
-        static void drawRectangle(const iaRectanglef &rect, const iaColor4f &color);
-        static void drawRectangleOnCenter(const iaVector2f &center, const iaVector2f &size, const iaColor4f &color);
+        /*! 
 
-        static void drawFilledRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color);
-        static void drawFilledRectangle(const iaRectanglef &rect, const iaColor4f &color);
-        static void drawFilledRectangleOnCenter(const iaVector2f &center, const iaVector2f &size, const iaColor4f &color);
+        \param ignoreRenderOrder if true render order will be ignored
+        */
+        void setIgnoreRenderOrder(bool ignoreRenderOrder = true);
 
-        static void drawTexture(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0));
-        static void drawTexture(const iaRectanglef &rect, const iTexturePtr &texture, const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0));
-        static void drawTextureOnCenter(const iaVector2f &center, const iaVector2f &size, const iTexturePtr &texture, const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0));
+        /*! \returns true if render order is kept
+         */
+        bool isIgnoringRenderOrder();
 
-    private:
-        static void flushTexQuads();
-        static void flushQuads();
-        static void flushLines();
-        static void flushPoints();
+        void drawPoint(float32 x, float32 y, const iaColor4f &color);
+        void drawPoint(const iaVector2f &v, const iaColor4f &color);
+        void drawPoint(const iaVector3f &v, const iaColor4f &color);
+
+        void drawLine(float32 x1, float32 y1, float32 x2, float32 y2, const iaColor4f &color);
+        void drawLine(const iaVector2f &v1, const iaVector2f &v2, const iaColor4f &color);
+        void drawLine(const iaVector3f &v1, const iaVector3f &v2, const iaColor4f &color);
+
+        void drawRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color);
+        void drawRectangle(const iaRectanglef &rect, const iaColor4f &color);
+
+        void drawFilledRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color);
+        void drawFilledRectangle(const iaRectanglef &rect, const iaColor4f &color);
+
+        void drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0));
+        void drawTexturedRectangle(const iaRectanglef &rect, const iTexturePtr &texture, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0));
+
+        void drawQuad(const iaMatrixf &matrix, const iaColor4f &color);
+        void drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0));
+
+        // void drawSprite(const iaMatrixf &matrix, const iAtlasPtr sprite, uint32 frameIndex, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0));
+
+        void setLineWidth(float32 lineWidth);
+        float32 getLineWidth() const;
+
+        void setPointSize(float32 pointSize);
+        float32 getPointSize() const;
+
+    private:        
+
+        /*! internal render data
+        */
+        std::unique_ptr<iRendererData> _data;
+
+        /*! init
+        */
+        iRenderer2();
+
+        /*! deinit 
+        */
+        ~iRenderer2();    
+
+        void flushTexQuads();
+        void flushQuads();
+        void flushLines();
+        void flushPoints();
+
+        void flushLastUsed();
     };
 
 }

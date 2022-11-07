@@ -25,7 +25,7 @@ namespace igor
 
 	uint32 iAtlas::addFrame(const iaVector2f &pos, const iaVector2f &size, const iaVector2f &origin, bool pixel)
 	{
-		Frame frame;
+		iFrame frame;
 
 		if (pixel)
 		{

@@ -38,10 +38,22 @@ namespace iaux
 
     \todo implement more operators
     */
-    template <class T>
-    class IAUX_API_TEMPLATE iaVector4
+    template <typename T>
+    struct IAUX_API_TEMPLATE iaVector4
     {
-    public:
+        /*! does nothing
+        */
+        iaVector4() = default;
+
+        /*! param ctor
+
+        \pram x x component
+        \pram y y component
+        \pram z z component
+        \pram w w component
+        */
+        iaVector4(T x, T y, T z, T w);
+
         /*! x component
 		*/
         T _x = static_cast<T>(0);
@@ -127,25 +139,6 @@ namespace iaux
 		*/
         template <class T2>
         __IGOR_INLINE__ iaVector4<T2> convert() const;
-
-        /*! default ctor
-
-        initializes components with zero
-        */
-        iaVector4();
-
-        /*! param ctor
-
-        \pram x x component
-        \pram y y component
-        \pram z z component
-        \pram w w component
-        */
-        iaVector4(T x, T y, T z, T w);
-
-        /*! does nothing
-        */
-        ~iaVector4() = default;
     };
 
     /*! linear interpolation of two vectors

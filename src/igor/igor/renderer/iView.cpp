@@ -6,6 +6,7 @@
 
 #include <igor/system/iWindow.h>
 #include <igor/renderer/iRenderer.h>
+#include <igor/renderer/iRenderer2.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/scene/iScene.h>
 #include <igor/resources/profiler/iProfiler.h>
@@ -208,6 +209,8 @@ namespace igor
                 _renderEvent();
             }
         }
+
+        iRenderer2::getInstance().flush();
     }
 
     uint64 iView::pickcolorID(uint32 posx, uint32 posy)

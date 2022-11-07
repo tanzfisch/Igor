@@ -40,11 +40,22 @@ namespace iaux
 
     /*! 3d vector class
     */
-    template <class T>
-    class IAUX_API_TEMPLATE iaVector3
+    template <typename T>
+    struct IAUX_API_TEMPLATE iaVector3
     {
+        /*! does nothing
+        */
+        iaVector3() = default;
 
-    public:
+        /*! initializes member variables
+
+        \param x x component
+        \param y y component
+        \param z z component
+        */
+        iaVector3(T x, T y, T z);
+
+
         /*! x component
         */
         T _x = static_cast<T>(0);
@@ -228,22 +239,6 @@ namespace iaux
 		*/
         template <class T2>
         __IGOR_INLINE__ iaVector3<T2> convert() const;
-
-        /*! does nothing
-        */
-        iaVector3() = default;
-
-        /*! initializes member variables
-
-        \param x x component
-        \param y y component
-        \param z z component
-        */
-        iaVector3(T x, T y, T z);
-
-        /*! does nothing
-        */
-        ~iaVector3() = default;
     };
 
     /*! linear interpolation of two vectors

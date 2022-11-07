@@ -37,6 +37,7 @@
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/module/iModule.h>
 #include <igor/resources/mesh/iMeshBuffers.h>
+#include <igor/resources/texture/iAtlas.h>
 
 #include <iaux/data/iaRectangle.h>
 #include <iaux/data/iaGradient.h>
@@ -60,7 +61,6 @@ namespace igor
     class iTextureFont;
     class iParticle;
     class iParticle2D;
-    class iAtlas;
     class iInstancer;
     class iTargetMaterial;
 
@@ -549,11 +549,11 @@ namespace igor
         \param height height of the rectangle
         \param texture the texture to render the rectangle with
         */
-        void drawTexture(float32 x, float32 y, float32 width, float32 height, iTexturePtr texture);
+        void drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, iTexturePtr texture);
 
         /*! draw a tiled texture
 
-        as drawTexture but with repeating UV coordinates based on texture resolution
+        as drawTexturedRectangle but with repeating UV coordinates based on texture resolution
 
         \param x horizontal position
         \param y vertical position
@@ -572,7 +572,7 @@ namespace igor
         \param y vertical position
         \param texture the texture to render the rectangle with
         */
-        void drawTexture(float32 x, float32 y, iTexturePtr texture);
+        void drawTexturedRectangle(float32 x, float32 y, iTexturePtr texture);
 
         /*! draws a sprite at given position, orientation and scale
 
@@ -580,7 +580,7 @@ namespace igor
         \param frameIndex the index of the frame to render
         \param pos position on screen
         */
-        void drawSprite(const iAtlas *sprite, uint32 frameIndex, const iaVector2f &pos);
+        void drawSprite(const iAtlasPtr sprite, uint32 frameIndex, const iaVector2f &pos);
 
         /*! draws a point
 

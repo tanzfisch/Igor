@@ -9,7 +9,6 @@
 #include <igor/renderer/iInstancer.h>
 #include <igor/simulation/iParticleSystem3D.h>
 #include <igor/resources/texture/iTextureFont.h>
-#include <igor/resources/texture/iAtlas.h>
 #include <igor/resources/mesh/iMesh.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
 #include <igor/resources/material/iShader_Old.h>
@@ -1237,7 +1236,7 @@ namespace igor
         glEnd();
     }
 
-    void iRenderer::drawTexture(float32 x, float32 y, float32 width, float32 height, iTexturePtr texture)
+    void iRenderer::drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, iTexturePtr texture)
     {
         bindTexture(texture, 0);
 
@@ -1253,7 +1252,7 @@ namespace igor
         glEnd();
     }
 
-    void iRenderer::drawTexture(float32 x, float32 y, iTexturePtr texture)
+    void iRenderer::drawTexturedRectangle(float32 x, float32 y, iTexturePtr texture)
     {
         bindTexture(texture, 0);
 
@@ -1269,10 +1268,10 @@ namespace igor
         glEnd();
     }
 
-    void iRenderer::drawSprite(const iAtlas *sprite, uint32 frameIndex, const iaVector2f &pos)
+    void iRenderer::drawSprite(const iAtlasPtr sprite, uint32 frameIndex, const iaVector2f &pos)
     {
         iTexturePtr texture = sprite->getTexture();
-        const iAtlas::Frame &frame = sprite->getFrame(frameIndex);
+        const iAtlas::iFrame &frame = sprite->getFrame(frameIndex);
 
         iaVector2f position = pos;
         position -= frame._origin;

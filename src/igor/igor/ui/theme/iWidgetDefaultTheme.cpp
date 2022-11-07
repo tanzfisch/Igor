@@ -777,7 +777,7 @@ namespace igor
             iRenderer::getInstance().setColor(COLOR_AMBIENT);
         }
 
-        iRenderer::getInstance().drawTexture(static_cast<float32>(rect._x), static_cast<float32>(rect._y), static_cast<float32>(rect._width), static_cast<float32>(rect._height), texture);
+        iRenderer::getInstance().drawTexturedRectangle(static_cast<float32>(rect._x), static_cast<float32>(rect._y), static_cast<float32>(rect._width), static_cast<float32>(rect._height), texture);
 
         DRAW_DEBUG_OUTPUT(rect, state);
     }

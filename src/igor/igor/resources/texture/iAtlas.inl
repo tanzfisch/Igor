@@ -12,7 +12,7 @@ __IGOR_INLINE__  uint32 iAtlas::getFrameCount() const
 	return static_cast<uint32>(_frames.size());
 }
 
-__IGOR_INLINE__ const iAtlas::Frame& iAtlas::getFrame(uint32 index) const
+__IGOR_INLINE__ const iAtlas::iFrame& iAtlas::getFrame(uint32 index) const
 {
 	con_assert(index < _frames.size(),"out of range");
 

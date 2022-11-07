@@ -236,7 +236,7 @@ void ExampleBase::drawLogo()
     float32 x = static_cast<float32>(getWindow()->getClientWidth()) - width;
     float32 y = static_cast<float32>(getWindow()->getClientHeight()) - height;
 
-    iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
+    iRenderer::getInstance().drawTexturedRectangle(x, y, width, height, _igorLogo);
 }
 
 void ExampleBase::drawHelpScreen()

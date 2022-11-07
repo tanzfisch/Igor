@@ -39,11 +39,9 @@ namespace iaux
 
     /*! 2 dimensional vector
 	*/
-    template <class T>
-    class IAUX_API_TEMPLATE iaVector2
+    template <typename T>
+    struct IAUX_API_TEMPLATE iaVector2
     {
-    public:
-
         /*! does nothing
 		*/
         iaVector2() = default;
@@ -54,10 +52,6 @@ namespace iaux
 		\param y y component
 		*/
         iaVector2(T x, T y);
-
-        /*! does nothing
-		*/
-        virtual ~iaVector2() = default;
 
         /*! x component
 		*/

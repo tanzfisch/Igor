@@ -92,8 +92,6 @@ void Example2D::onInit()
 
     // generate a random seed
     _rand.setSeed(static_cast<uint32>(iaTime::getNow().getMicrosenconds()));
-
-    iRenderer2::init();
 }
 
 void Example2D::onDeinit()
@@ -176,42 +174,53 @@ void Example2D::onRenderOrtho()
     iRenderer::getInstance().setModelMatrix(matrix);
 
     // set a textured material and draw the tiles texture as background
-    /*iRenderer::getInstance().setMaterial(_materialWithTexture);
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-    iRenderer::getInstance().drawTextureTiled(0.0f, 0.0f, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), _backgroundTexture);
+    // iRenderer::getInstance().setMaterial(_materialWithTexture);
+    // iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+    // iRenderer::getInstance().drawTextureTiled(0.0f, 0.0f, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), _backgroundTexture);*/
+
+    const float32 width = getWindow()->getClientWidth();
+    const float32 height = getWindow()->getClientHeight();
+    iaVector2f tiling(width / _backgroundTexture->getWidth(),
+                      height / _backgroundTexture->getHeight());
+    iRenderer2::getInstance().drawTexturedRectangle(0.0f, 0.0f, width, height, _backgroundTexture, tiling);
 
     // set non textured material and draw some primitves
-    iRenderer::getInstance().setMaterial(_materialWithoutDepthTest);
-    iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
+    // iRenderer::getInstance().setMaterial(_materialWithoutDepthTest);
+    // iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
+    // iRenderer::getInstance().drawFilledRectangle(10, 10, 200, 150);
+    // iRenderer::getInstance().drawFilledRectangle(220, 10, 200, 150);
 
-    iRenderer::getInstance().drawFilledRectangle(10, 10, 200, 150);
-    iRenderer::getInstance().drawFilledRectangle(220, 10, 200, 150);
+    iRenderer2::getInstance().drawFilledRectangle(10, 10, 200, 150, iaColor4f(0, 0, 0, 1));
+    iRenderer2::getInstance().drawFilledRectangle(220, 10, 200, 150, iaColor4f(0, 0, 0, 1));
 
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 0, 1));
-    iRenderer::getInstance().setLineWidth(3);
+    // iRenderer::getInstance().setColor(iaColor4f(1, 1, 0, 1));
+    // iRenderer::getInstance().setLineWidth(3);
 
-    iRenderer::getInstance().drawLine(20, 20, 200, 150);
-    iRenderer::getInstance().drawLine(20, 150, 200, 20);
-    iRenderer::getInstance().drawLine(110, 20, 110, 150);
-    iRenderer::getInstance().drawLine(20, 85, 200, 85);
+    iRenderer2::getInstance().setLineWidth(3);
+
+    iRenderer2::getInstance().drawLine(20, 20, 200, 150, iaColor4f(1, 1, 0, 1));
+    iRenderer2::getInstance().drawLine(20, 150, 200, 20, iaColor4f(1, 1, 0, 1));
+    iRenderer2::getInstance().drawLine(110, 20, 110, 150, iaColor4f(1, 1, 0, 1));
+    iRenderer2::getInstance().drawLine(20, 85, 200, 85, iaColor4f(1, 1, 0, 1));
 
     for (int x = 0; x < 19; ++x)
     {
         for (int y = 0; y < 14; ++y)
         {
-            iRenderer::getInstance().setPointSize(static_cast<float32>(_rand.getNext() % 5 + 1));
-            iRenderer::getInstance().drawPoint(static_cast<float32>(230 + x * 10), static_cast<float32>(20 + y * 10));
+            iRenderer2::getInstance().setPointSize(static_cast<float32>(_rand.getNext() % 5 + 1));
+            iRenderer2::getInstance().drawPoint(static_cast<float32>(230 + x * 10), static_cast<float32>(20 + y * 10), iaColor4f(1, 1, 0, 1));
         }
     }
 
     // change material again to textured an draw the logo
-    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
+    /*iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+    iRenderer::getInstance().drawSprite(_openGLLogo, 0, _logoPosition);
     iRenderer::getInstance().drawSprite(_openGLLogo, 0, _logoPosition);
 
     // draw the texture that we could not load at startup
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-    iRenderer::getInstance().drawTexture(10, 170, 410, 150, _dummyTexture);
+    iRenderer::getInstance().drawTexturedRectangle(10, 170, 410, 150, _dummyTexture);
 
     // draw the particles
     iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 0.5));
@@ -259,18 +268,31 @@ void Example2D::onRenderOrtho()
 
     offset += 1.0f;*/
 
-    for (int i = 0; i < 300; ++i)
-    {
-        //iRenderer2::drawLine(_rand.getNext() % 500, _rand.getNext() % 500, _rand.getNext() % 500, _rand.getNext() % 500, iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
-        // iRenderer2::drawFilledRectangle((_rand.getNext() % 500) - 250, (_rand.getNext() % 500) - 250, _rand.getNext() % 500, _rand.getNext() % 500, iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
-        // iRenderer2::drawTexture((_rand.getNext() % 500) - 250, (_rand.getNext() % 500) - 250, _rand.getNext() % 500, _rand.getNext() % 500, _particleTexture, iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
-        //iRenderer2::drawFilledRectangleOnCenter(iaVector2f(_rand.getNext() % 500, _rand.getNext() % 500), iaVector2f(30.0f, 30.0f), iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
-//         iRenderer2::drawPoint(_rand.getNextFloat() * 50.0 + 100.0, _rand.getNextFloat() * 50.0 + 100.0, iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
-    }
+    // _rand.setSeed(123);
+    /*    for (int i = 0; i < 300; ++i)
+        {
+            iRenderer2::getInstance().drawLine(_rand.getNext() % 500, _rand.getNext() % 500, _rand.getNext() % 500, _rand.getNext() % 500, iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
+            iRenderer2::getInstance().drawFilledRectangle((_rand.getNext() % 500) - 250, (_rand.getNext() % 500) - 250, _rand.getNext() % 500, _rand.getNext() % 500, iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
+            iRenderer2::getInstance().drawTexturedRectangle((_rand.getNext() % 500) - 250, (_rand.getNext() % 500) - 250, _rand.getNext() % 500, _rand.getNext() % 500, _particleTexture);
+            iRenderer2::getInstance().drawPoint(_rand.getNextFloat() * 50.0 + 100.0, _rand.getNextFloat() * 50.0 + 100.0, iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
+        }*/
 
-    iRenderer2::drawTexture(100, 100, 200, 200, _particleTexture, iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
+    /*        iRenderer2::getInstance().drawTexturedRectangle(0, 0, 200, 200, _particleTexture);
 
-    iRenderer2::flush();
+        iRenderer2::getInstance().drawTexturedRectangle(200, 100, 200, 200, _backgroundTexture);
+        iRenderer2::getInstance().drawTexturedRectangle(100, 200, 200, 200, _dummyTexture);
+
+        iaMatrixf moo;
+        moo.translate(100, 100, 0);
+        moo.rotate(0.1, iaAxis::Z);
+        moo.scale(100, 100, 1.0);
+        iRenderer2::getInstance().drawQuad(moo, iaColor4f(1, 1, 1, 1));
+
+        moo.identity();
+        moo.translate(300, 100, 0);
+        moo.rotate(0.1, iaAxis::Z);
+        moo.scale(100, 100, 1.0);
+        iRenderer2::getInstance().drawTexturedQuad(moo, _backgroundTexture);*/
 
     ExampleBase::onRenderOrtho();
 }

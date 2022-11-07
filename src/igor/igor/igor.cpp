@@ -132,6 +132,7 @@ namespace igor
         iKeyboard::create();
         iPhysics::create();
         iRenderer::create();
+        iRenderer2::create();
         iTextureResourceFactory::create();
         iMaterialResourceFactory::create();
         iResourceManager::create();
