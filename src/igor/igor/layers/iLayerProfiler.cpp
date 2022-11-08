@@ -29,17 +29,13 @@ namespace igor
         getWindow()->addView(&_view, getZIndex());
 
         // init font for render profiler
-        _font = new iTextureFont("StandardFont.png");
+        _font = std::make_shared<iTextureFont>("StandardFont.png");
     }
 
     void iLayerProfiler::onDeinit()
     {
         // release resources
-        if (_font != nullptr)
-        {
-            delete _font;
-            _font = nullptr;
-        }
+        _font = nullptr;
 
         _view.unregisterRenderDelegate(iDrawDelegate(this, &iLayerProfiler::onRender));
     }

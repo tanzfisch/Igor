@@ -220,6 +220,18 @@ namespace igor
          */
         float32 _pointSize = 1.0;
 
+        /*! font used
+         */
+        iTextureFontPtr _font;
+
+        /*! font size
+         */
+        float32 _fontSize = 10.0f;
+
+        /*! font line height
+         */
+        float32 _fontLineHeight = 1.15f;
+
         ////// DEBUG ////
         uint32 _drawCalls;
     };
@@ -433,6 +445,15 @@ namespace igor
 
     void iRenderer2::drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaVector2f &tiling, const iaColor4f &color)
     {
+        drawTexturedQuad(matrix * QUAD_VERTEX_POSITIONS[0],
+                         matrix * QUAD_VERTEX_POSITIONS[1],
+                         matrix * QUAD_VERTEX_POSITIONS[2],
+                         matrix * QUAD_VERTEX_POSITIONS[3],
+                         texture, tiling, color);
+    }
+
+    void iRenderer2::drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaVector2f &tiling, const iaColor4f &color)
+    {
         auto &texQuads = _data->_texQuads;
 
         if (_data->_keepRenderOrder && _data->_lastRenderDataSetUsed != iRenderDataSet::TexturedQuads)
@@ -467,27 +488,27 @@ namespace igor
             texQuads._nextTextureIndex++;
         }
 
-        texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[0];
+        texQuads._vertexDataPtr->_pos = v1;
         texQuads._vertexDataPtr->_color = color;
         texQuads._vertexDataPtr->_texCoord = QUAD_TEXTURE_COORDS[0];
         texQuads._vertexDataPtr->_texIndex = textureIndex;
         texQuads._vertexDataPtr++;
 
-        texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[1];
+        texQuads._vertexDataPtr->_pos = v2;
         texQuads._vertexDataPtr->_color = color;
         texQuads._vertexDataPtr->_texCoord._x = QUAD_TEXTURE_COORDS[1]._x;
         texQuads._vertexDataPtr->_texCoord._y = QUAD_TEXTURE_COORDS[1]._y * tiling._y;
         texQuads._vertexDataPtr->_texIndex = textureIndex;
         texQuads._vertexDataPtr++;
 
-        texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[2];
+        texQuads._vertexDataPtr->_pos = v3;
         texQuads._vertexDataPtr->_color = color;
         texQuads._vertexDataPtr->_texCoord._x = QUAD_TEXTURE_COORDS[2]._x * tiling._x;
         texQuads._vertexDataPtr->_texCoord._y = QUAD_TEXTURE_COORDS[2]._y * tiling._y;
         texQuads._vertexDataPtr->_texIndex = textureIndex;
         texQuads._vertexDataPtr++;
 
-        texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[3];
+        texQuads._vertexDataPtr->_pos = v4;
         texQuads._vertexDataPtr->_color = color;
         texQuads._vertexDataPtr->_texCoord._x = QUAD_TEXTURE_COORDS[3]._x * tiling._x;
         texQuads._vertexDataPtr->_texCoord._y = QUAD_TEXTURE_COORDS[3]._y;
@@ -660,6 +681,19 @@ namespace igor
     void iRenderer2::drawLine(const iaVector2f &v1, const iaVector2f &v2, const iaColor4f &color)
     {
         drawLine(iaVector3f(v1._x, v1._y, 0.0), iaVector3f(v2._x, v2._y, 0.0), color);
+    }
+
+    void iRenderer2::drawLineStrip(const std::vector<iaVector3f> &points, const iaColor4f &color)
+    {
+        if (points.size() <= 1)
+        {
+            return;
+        }
+
+        for (int i = 1; i < points.size(); ++i)
+        {
+            drawLine(points[i - 1], points[i], color);
+        }
     }
 
     void iRenderer2::drawLine(const iaVector3f &v1, const iaVector3f &v2, const iaColor4f &color)
@@ -944,11 +978,191 @@ namespace igor
     const iaMatrixf iRenderer2::getMVP() const
     {
         iaMatrixf matrix;
-        for(int i=0;i<16;++i)
+        for (int i = 0; i < 16; ++i)
         {
             matrix[i] = _data->_modelViewProjectionMatrix[i];
         }
 
         return matrix;
     }
+
+    void iRenderer2::drawParticles(iParticle2DPtr particles, int32 particleCount, const iTexturePtr &texture, const iaGradientColor4f &gradient)
+    {
+        con_assert(particles != nullptr, "zero pointer");
+
+        iaVector3f a, b, c, d;
+        iaVector2f u, v;
+        iaColor4f color;
+
+        for (uint32 i = 0; i < particleCount; ++i)
+        {
+            const iParticle2D &particle = particles[i];
+
+            if (particle._life <= 0)
+            {
+                continue;
+            }
+
+            const iaVector3f pos(particle._position._x, particle._position._y, 0.0f);
+
+            gradient.getValue(particle._life, color);
+
+            u.set(1.0f, 0.0f);
+            u.rotateXY(particle._angle);
+            v._x = -u._y;
+            v._y = u._x;
+
+            u *= 0.5f * particle._size;
+            v *= 0.5f * particle._size;
+
+            a = pos;
+            a._x -= u._x;
+            a._y -= u._y;
+            a._x += v._x;
+            a._y += v._y;
+
+            b = pos;
+            b._x += u._x;
+            b._y += u._y;
+            b._x += v._x;
+            b._y += v._y;
+
+            c = pos;
+            c._x += u._x;
+            c._y += u._y;
+            c._x -= v._x;
+            c._y -= v._y;
+
+            d = pos;
+            d._x -= u._x;
+            d._y -= u._y;
+            d._x -= v._x;
+            d._y -= v._y;
+
+            drawTexturedQuad(a, b, c, d, texture, iaVector2f(1.0, 1.0), color);
+        }
+    }
+
+    void iRenderer2::drawString(float32 x, float32 y, const iaString &text, const iaColor4f &color, float32 maxWidth)
+    {
+        if (text.isEmpty())
+        {
+            return;
+        }
+
+        static wchar_t temptext[1024]; // TODO
+
+        const float32 &fontSize = _data->_fontSize;
+        const float32 &fontLineHeight = _data->_fontLineHeight;
+        const iTextureFontPtr &font = _data->_font;
+        const iTexturePtr &texture = font->getTexture();
+
+        iaVector2f texturePos;
+        iaVector2f textureSize;
+
+        iaVector2f renderPos(x, y);
+        iaVector2f renderSize(fontSize, fontSize);
+
+        bool donotdraw = false;
+        std::vector<iCharacterDimensions> characters = font->getCharacters();
+
+        iaVector3f a, b, c, d;
+
+        for (uint32 i = 0; i < text.getLength(); i++)
+        {
+            const wchar_t &character = text[i];
+            const uint32 fontIndex = character - 32;
+
+            texturePos._x = characters[fontIndex]._characterRect.getX();
+            texturePos._y = characters[fontIndex]._characterRect.getY();
+
+            textureSize._x = characters[fontIndex]._characterRect.getWidth();
+            textureSize._y = characters[fontIndex]._characterRect.getHeight();
+
+            renderSize._x = fontSize * characters[fontIndex]._characterOffset;
+
+            donotdraw = false;
+
+            if (character == '\n')
+            {
+                renderPos._x = 0;
+                renderPos._y += fontSize * fontLineHeight;
+                donotdraw = true;
+            }
+            else if (maxWidth != 0)
+            {
+                if (character == ' ')
+                {
+                    int j = 1;
+                    while ((i + j < text.getLength()) && (text[i + j] != ' '))
+                    {
+                        temptext[j - 1] = text[i + j];
+                        j++;
+                    }
+                    temptext[j] = 0;
+
+                    if (renderPos._x + font->measureWidth(temptext, fontSize) >= maxWidth)
+                    {
+                        renderPos._x = 0;
+                        renderPos._y += fontSize * fontLineHeight;
+                        donotdraw = true;
+                    }
+                }
+            }
+
+            if (donotdraw)
+            {
+                continue;
+            }
+
+            // TODO pass on _data->_font->getTexture()
+
+            /*a.set(texturePos._x, texturePos._y + textureSize._y);
+            a.set(renderPos._x, renderPos._y + renderSize._y);
+
+            glTexCoord2d(texturePos._x + textureSize._x, texturePos._y + textureSize._y);
+            b.set(renderPos._x + renderSize._x, renderPos._y + renderSize._y);
+
+            glTexCoord2d(texturePos._x + textureSize._x, texturePos._y);
+            c.set(renderPos._x + renderSize._x, renderPos._y);
+
+            glTexCoord2d(texturePos._x, texturePos._y);
+            d.set(renderPos._x, renderPos._y);
+
+            drawTexturedQuad(a, b, c, d, texture, iaVector2f(1.0, 1.0), color);*/
+
+            renderPos._x += renderSize._x;
+        }
+    }
+
+    void iRenderer2::setFont(const iTextureFontPtr &font)
+    {
+        _data->_font = font;
+    }
+
+    const iTextureFontPtr &iRenderer2::getFont() const
+    {
+        return _data->_font;
+    }
+
+    void iRenderer2::setFontSize(float32 fontSize)
+    {
+        _data->_fontSize = fontSize;
+    }
+
+    float32 iRenderer2::getFontSize() const
+    {
+        return _data->_fontSize;
+    }
+
+    void iRenderer2::setFontLineHeight(float32 lineheight)
+    {
+        _data->_fontLineHeight = lineheight;
+    }
+
+    float32 iRenderer2::getFontLineHeight() const
+    {
+        return _data->_fontLineHeight;
+    }
+
 }

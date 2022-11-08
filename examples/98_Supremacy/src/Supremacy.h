@@ -98,7 +98,7 @@ private:
 
     /*! texture font we use to display texts
      */
-    iTextureFontPtr _font = nullptr;
+    iTextureFontPtr _font;
 
     /*! called when added to layer stack
      */

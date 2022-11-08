@@ -1816,13 +1816,13 @@ namespace igor
                 ascii_code = (unsigned char)text[i];
                 font_code = ascii_code - 32;
 
-                texturePos._x = characters[font_code].rect.getX();
-                texturePos._y = characters[font_code].rect.getY();
+                texturePos._x = characters[font_code]._characterRect.getX();
+                texturePos._y = characters[font_code]._characterRect.getY();
 
-                textureSize._x = characters[font_code].rect.getWidth();
-                textureSize._y = characters[font_code].rect.getHeight();
+                textureSize._x = characters[font_code]._characterRect.getWidth();
+                textureSize._y = characters[font_code]._characterRect.getHeight();
 
-                renderSize._x = _fontSize * characters[font_code].relRenderWidth;
+                renderSize._x = _fontSize * characters[font_code]._characterOffset;
 
                 donotdraw = false;
 

@@ -66,7 +66,7 @@ ExampleBase::ExampleBase(iWindow *window, const iaString &name, bool createBaseS
             }
 
             // init font
-            _font = new iTextureFont("StandardFont.png");
+            _font = iTextureFont::create("StandardFont.png");
 
             // prepare igor logo
             _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
@@ -96,13 +96,7 @@ ExampleBase::~ExampleBase()
         _scene = nullptr;
 
         // release resources
-        if (_font != nullptr)
-        {
-            delete _font;
-            _font = nullptr;
-        }
-
-        // release logo texture
+        _font = nullptr;
         _igorLogo = nullptr;
 
         // abort resource tasks
@@ -217,6 +211,7 @@ void ExampleBase::onRenderOrtho()
     iRenderer::getInstance().setViewMatrix(matrix);
     matrix.translate(0, 0, -1);
     iRenderer::getInstance().setModelMatrix(matrix);
+    iRenderer2::getInstance().setModelMatrix(matrix);
 
     drawLogo();
 
@@ -228,15 +223,12 @@ void ExampleBase::onRenderOrtho()
 
 void ExampleBase::drawLogo()
 {
-    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+    const float32 width = static_cast<float32>(_igorLogo->getWidth());
+    const float32 height = static_cast<float32>(_igorLogo->getHeight());
+    const float32 x = static_cast<float32>(getWindow()->getClientWidth()) - width;
+    const float32 y = static_cast<float32>(getWindow()->getClientHeight()) - height;
 
-    float32 width = static_cast<float32>(_igorLogo->getWidth());
-    float32 height = static_cast<float32>(_igorLogo->getHeight());
-    float32 x = static_cast<float32>(getWindow()->getClientWidth()) - width;
-    float32 y = static_cast<float32>(getWindow()->getClientHeight()) - height;
-
-    iRenderer::getInstance().drawTexturedRectangle(x, y, width, height, _igorLogo);
+    iRenderer2::getInstance().drawTexturedRectangle(x, y, width, height, _igorLogo);
 }
 
 void ExampleBase::drawHelpScreen()
@@ -255,7 +247,7 @@ void ExampleBase::drawHelpScreen()
                     "[F11] Toggle octree debug display\n"
                     "[F12] Toggle bounding box display\n";
 
-    iRenderer::getInstance().setFont(getFont());
+    iRenderer2::getInstance().setFont(getFont());
     iRenderer::getInstance().setFontSize(30.0f);
 
     // fake an outline lol

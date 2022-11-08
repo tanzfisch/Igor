@@ -5,7 +5,6 @@
 #include <igor/resources/profiler/iProfilerVisualizer.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 #include <igor/system/iWindow.h>
-#include <igor/resources/texture/iTextureFont.h>
 #include <igor/system/iTimer.h>
 #include <igor/threading/iTaskManager.h>
 #include <igor/renderer/iRenderer.h>
@@ -146,7 +145,7 @@ namespace igor
         return result;
     }
 
-    void iProfilerVisualizer::draw(iWindow *window, iTextureFont *font)
+    void iProfilerVisualizer::draw(iWindow *window, const iTextureFontPtr &font)
     {
         if (!iRenderer::getInstance().isReady() ||
             _renderStatisticsMode == iProfilerVerbosity::None ||
@@ -183,7 +182,7 @@ namespace igor
 
         iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
 
-        iRenderer::getInstance().setFont(font);
+        // TODO iRenderer::getInstance().setFont(font);
         iRenderer::getInstance().setFontSize(15.0f);
         iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 

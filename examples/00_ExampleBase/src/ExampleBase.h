@@ -123,11 +123,11 @@ private:
 
     /*! igor logo
     */
-    iTexturePtr _igorLogo = nullptr;
+    iTexturePtr _igorLogo;
 
     /*! texture font we use to display the profiler
     */
-    iTextureFontPtr _font = nullptr;
+    iTextureFontPtr _font;
 
     /*! if true we display a help screen
     */

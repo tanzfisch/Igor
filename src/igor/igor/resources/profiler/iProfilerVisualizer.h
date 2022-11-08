@@ -31,6 +31,7 @@
 
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/profiler/iProfiler.h>
+#include <igor/resources/texture/iTextureFont.h>
 
 #include <iaux/data/iaColor4.h>
 #include <iaux/data/iaString.h>
@@ -43,7 +44,6 @@ using namespace iaux;
 namespace igor
 {
 
-    class iTextureFont;
     class iWindow;
 
     /*! verbosity of statistics output on scree
@@ -82,7 +82,7 @@ namespace igor
 
         only works correctly called within a orthogonal view's render call
         */
-        void draw(iWindow *window, iTextureFont *font);
+        void draw(iWindow *window, const iTextureFontPtr &font);
 
         /*! init
         */

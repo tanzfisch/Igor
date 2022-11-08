@@ -31,8 +31,9 @@
 
 #include <igor/renderer/buffers/iVertexArray.h>
 #include <igor/resources/module/iModule.h>
-#include <igor/resources/texture/iTexture.h>
+#include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iAtlas.h>
+#include <igor/simulation/iParticleSystem2D.h>
 
 #include <iaux/data/iaColor4.h>
 #include <iaux/data/iaRectangle.h>
@@ -119,6 +120,8 @@ namespace igor
         void drawLine(const iaVector2f &v1, const iaVector2f &v2, const iaColor4f &color);
         void drawLine(const iaVector3f &v1, const iaVector3f &v2, const iaColor4f &color);
 
+        void drawLineStrip(const std::vector<iaVector3f> &points, const iaColor4f &color);
+
         void drawRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color);
         void drawRectangle(const iaRectanglef &rect, const iaColor4f &color);
 
@@ -129,9 +132,15 @@ namespace igor
         void drawTexturedRectangle(const iaRectanglef &rect, const iTexturePtr &texture, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0));
 
         void drawQuad(const iaMatrixf &matrix, const iaColor4f &color);
-        void drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0));
 
-        // void drawSprite(const iaMatrixf &matrix, const iAtlasPtr sprite, uint32 frameIndex, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0));
+        void drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0));
+        void drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaVector2f &tiling, const iaColor4f &color);
+
+        void drawParticles(iParticle2DPtr particles, int32 particleCount, const iTexturePtr &texture, const iaGradientColor4f &gradient);
+
+        void drawString(float32 x, float32 y, const iaString &text, const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0), float32 maxWidth = 0.0f);
+
+        /// void drawSprite(const iaMatrixf &matrix, const iAtlasPtr sprite, uint32 frameIndex, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0));
 
         /*! sets line render width
 
@@ -164,6 +173,36 @@ namespace igor
         /*! \returns true if render order is kept
          */
         bool isIgnoringRenderOrder();
+
+        /*! sets font to use
+
+        \param font the font to use
+        */
+        void setFont(const iTextureFontPtr &font);
+
+        /*! \returns current font in use
+         */
+        const iTextureFontPtr &getFont() const;
+
+        /*! sets font size to use
+
+        \param fontSize the font size to use
+        */
+        void setFontSize(float32 fontSize);
+
+        /*! \returns the font size
+         */
+        float32 getFontSize() const;
+
+        /*! sets font line height
+
+        \param lineHeight the font line height
+        */
+        void setFontLineHeight(float32 lineHeight);
+
+        /*! \returns the font line height
+        */
+        float32 getFontLineHeight() const;
 
     private:
         /*! internal render data

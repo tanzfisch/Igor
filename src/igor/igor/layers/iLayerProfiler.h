@@ -69,7 +69,7 @@ namespace igor
 
         /*! texture font we use to display the profiler
         */
-        iTextureFontPtr _font = nullptr;
+        iTextureFontPtr _font;
 
         /*! initialize example
         */

@@ -52,7 +52,7 @@ namespace igor
         particle._life = 1.0f;
     }
 
-    iParticle2D *iParticleSystem2D::getParticles()
+    const iParticle2DPtr iParticleSystem2D::getParticles() const
     {
         return _particles;
     }
@@ -67,7 +67,7 @@ namespace igor
 
     void iParticleSystem2D::handle()
     {
-        iParticle2D *newparticle;
+        iParticle2DPtr newparticle;
 
         if (_particleCount + _emitRate <= _maxParticleCount)
         {
@@ -120,14 +120,14 @@ namespace igor
         return _done;
     }
 
-    void iParticleSystem2D::translateEmitter(iaVector2f v)
+    const iaVector2f &iParticleSystem2D::getEmitterPosition() const
     {
-        _emitterPos += v;
+        return _emitterPos;
     }
 
-    void iParticleSystem2D::setEmitterPos(iaVector2f v)
+    void iParticleSystem2D::setEmitterPosition(const iaVector2f &pos)
     {
-        _emitterPos = v;
+        _emitterPos = pos;
     }
 
     void iParticleSystem2D::setSpreadFactor(float32 spreadFactor)

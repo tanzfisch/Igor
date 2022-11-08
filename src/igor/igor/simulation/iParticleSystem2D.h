@@ -67,7 +67,7 @@ namespace igor
         */
         float32 _size;
 
-        /*! size delta of particle
+        /*! size change per frame
         */
         float32 _sizeDelta;
 
@@ -75,7 +75,7 @@ namespace igor
         */
         float32 _angle;
 
-        /*! orientation offset
+        /*! orientation change per frame
         */
         float32 _angleDelta;
 
@@ -83,6 +83,10 @@ namespace igor
         */
         float32 _life;
     };
+
+    /*! pointer definition on 2d particle
+    */
+    typedef iParticle2D* iParticle2DPtr;
 
     /*! 2d particle system
     */
@@ -210,23 +214,21 @@ namespace igor
         */
         int32 getEmitRate() const;
 
-        /*! translates emitter position
-
-        \param v translation vector
-        */
-        void translateEmitter(iaVector2f v);
-
         /*! sets emitter position
 
         \param pos new position of emitter
         */
-        void setEmitterPos(iaVector2f pos);
+        void setEmitterPosition(const iaVector2f &pos);
+
+        /*! \returns emitter position
+        */
+        const iaVector2f &getEmitterPosition() const;
 
         /*! \returns list of particles
 
         mainly used for rendering them
         */
-        iParticle2D *getParticles();
+        const iParticle2DPtr getParticles() const;
 
         /*! \returns true if no more particles will be emitted and all particles lifes have ended
         */
@@ -321,7 +323,7 @@ namespace igor
 
         /*! list of particles
         */
-        iParticle2D *_particles = nullptr;
+        iParticle2DPtr _particles = nullptr;
 
         /*! if true particle system has stopped and does not emitt particles enymore
         */

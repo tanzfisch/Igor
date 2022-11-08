@@ -47,6 +47,8 @@ void Example2D::onInit()
     _particleSystem.setAirDrag(0.0f);
     // apply external force. in this case something like gravity but positive because the y coordinate axis goes down the screen
     _particleSystem.setExternalForce(iaVector2f(0, 0.2f));
+    // set emitter position to lover left corner of the screen
+    _particleSystem.setEmitterPosition(iaVector2f(-10.0f, static_cast<float32>(getWindow()->getClientHeight() - 150)));
 
     // define a rainbow multi color gradient for our particles
     _rainbow.setValue(0.0f, iaColor4f(1.0f, 0.0f, 1.0f, 0.0f));
@@ -167,19 +169,12 @@ void Example2D::updateParticles()
 void Example2D::onRenderOrtho()
 {
     // since the model matrix is by default an identity matrix which would cause all our 2d rendering end up at depth zero
-    // and the near clipping plane of our frustum can't be zero we have to push the scene a bit away from zero (e.g. -30 just a random number with no meaning)
+    // and the near clipping plane of our frustum can't be zero we have to push the scene a bit away from zero
     iaMatrixd matrix;
-    iRenderer::getInstance().setViewMatrix(matrix);
     matrix.translate(0, 0, -1);
-    iRenderer::getInstance().setModelMatrix(matrix);
 
     iRenderer2::getInstance().setOrtho(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0, 0.1f, 10000.f);
     iRenderer2::getInstance().setModelMatrix(matrix);
-
-    // set a textured material and draw the tiles texture as background
-    // iRenderer::getInstance().setMaterial(_materialWithTexture);
-    // iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-    // iRenderer::getInstance().drawTextureTiled(0.0f, 0.0f, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), _backgroundTexture);*/
 
     const float32 width = getWindow()->getClientWidth();
     const float32 height = getWindow()->getClientHeight();
@@ -187,17 +182,8 @@ void Example2D::onRenderOrtho()
                       height / _backgroundTexture->getHeight());
     iRenderer2::getInstance().drawTexturedRectangle(0.0f, 0.0f, width, height, _backgroundTexture, tiling);
 
-    // set non textured material and draw some primitves
-    // iRenderer::getInstance().setMaterial(_materialWithoutDepthTest);
-    // iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
-    // iRenderer::getInstance().drawFilledRectangle(10, 10, 200, 150);
-    // iRenderer::getInstance().drawFilledRectangle(220, 10, 200, 150);
-
     iRenderer2::getInstance().drawFilledRectangle(10, 10, 200, 150, iaColor4f(0, 0, 0, 1));
     iRenderer2::getInstance().drawFilledRectangle(220, 10, 200, 150, iaColor4f(0, 0, 0, 1));
-
-    // iRenderer::getInstance().setColor(iaColor4f(1, 1, 0, 1));
-    // iRenderer::getInstance().setLineWidth(3);
 
     iRenderer2::getInstance().setLineWidth(3);
 
@@ -219,17 +205,13 @@ void Example2D::onRenderOrtho()
     /*iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
     iRenderer::getInstance().drawSprite(_openGLLogo, 0, _logoPosition);
-    iRenderer::getInstance().drawSprite(_openGLLogo, 0, _logoPosition);
+    iRenderer::getInstance().drawSprite(_openGLLogo, 0, _logoPosition);*/
 
-    // draw the texture that we could not load at startup
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-    iRenderer::getInstance().drawTexturedRectangle(10, 170, 410, 150, _dummyTexture);
+    // draw the texture that we could not have loaded at startup
+    iRenderer2::getInstance().drawTexturedRectangle(10, 170, 410, 150, _dummyTexture);
 
     // draw the particles
-    iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 0.5));
-    iRenderer::getInstance().bindTexture(_particleTexture, 0);
-    iRenderer::getInstance().drawParticles(-10.0f, static_cast<float32>(getWindow()->getClientHeight() - 150), 0.0f,
-                                           _particleSystem.getParticles(), _particleSystem.getParticleCount(), &_rainbow);
+    iRenderer2::getInstance().drawParticles(_particleSystem.getParticles(), _particleSystem.getParticleCount(), _particleTexture, _rainbow);      
 
     // draw some text from wikipedia
     iaString wikipediaOpenGL = "OpenGL (Open Graphics Library) ist eine Spezifikation fuer eine plattform- und programmiersprachenunabhaengige "
@@ -237,65 +219,38 @@ void Example2D::onRenderOrtho()
                                "Befehle, die die Darstellung komplexer 3D-Szenen in Echtzeit erlauben. Zudem koennen andere Organisationen "
                                "(zumeist Hersteller von Grafikkarten) proprietaere Erweiterungen definieren. Wikipedia";
 
-    iRenderer::getInstance().setFont(getFont());
-    iRenderer::getInstance().setFontSize(15.0f);
-    iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
-    iRenderer::getInstance().drawString(600, 100, wikipediaOpenGL, -30, 400);
+    //iRenderer::getInstance().setFont(getFont());
+    //iRenderer::getInstance().setFontSize(15.0f);
+    //iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
+    //iRenderer::getInstance().drawString(600, 100, wikipediaOpenGL, -30, 400);
+
+    iRenderer2::getInstance().setFont(getFont());
+    iRenderer2::getInstance().setFontSize(15.0f);
+    iRenderer2::getInstance().drawString(600, 100, wikipediaOpenGL, iaColor4f(0, 0, 0, 1), 400);
 
     // draw spline
-    iRenderer::getInstance().setMaterial(_materialWithoutDepthTest);
-    iRenderer::getInstance().setColor(iaColor4f(1, 0, 0.5, 1));
-
     std::vector<iaVector3f> points;
     _spline.getPoints(points, 100);
-    iRenderer::getInstance().drawLineStrip(points);
+    iRenderer2::getInstance().drawLineStrip(points, iaColor4f(1, 0, 0.5, 1));
 
-    // draw random graph in the upper right corner
-    iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
-    iRenderer::getInstance().drawFilledRectangle(static_cast<float32>(getWindow()->getClientWidth() - 260), 10.0f, 250.0f, 150.0f);
+    // draw perlin noise based graph in the upper right corner
+    iRenderer2::getInstance().drawFilledRectangle(static_cast<float32>(getWindow()->getClientWidth() - 260), 10.0f, 250.0f, 150.0f, iaColor4f(0, 0, 0, 1));
+    iRenderer2::getInstance().setLineWidth(3);
 
+    // just to make that graph move a bit
     static float32 offset = 0.0f;
-    iRenderer::getInstance().setLineWidth(1);
-    iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
+    offset += 1.0f;
 
     float64 lastValue = _perlinNoise.getValue(offset * 0.01, 6) * 150;
     for (int x = 1; x < 250; ++x)
     {
         float64 value = _perlinNoise.getValue((offset + x) * 0.01, 6) * 150;
-        iRenderer::getInstance().drawLine(static_cast<float32>(getWindow()->getClientWidth() - 260 + x - 1),
+        iRenderer2::getInstance().drawLine(static_cast<float32>(getWindow()->getClientWidth() - 260 + x - 1),
                                           static_cast<float32>(10 + lastValue),
                                           static_cast<float32>(getWindow()->getClientWidth() - 260 + x),
-                                          static_cast<float32>(10 + value));
+                                          static_cast<float32>(10 + value), iaColor4f(0, 1, 0, 1));
         lastValue = value;
     }
-
-    offset += 1.0f;*/
-
-    // _rand.setSeed(123);
-    /*    for (int i = 0; i < 300; ++i)
-        {
-            iRenderer2::getInstance().drawLine(_rand.getNext() % 500, _rand.getNext() % 500, _rand.getNext() % 500, _rand.getNext() % 500, iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
-            iRenderer2::getInstance().drawFilledRectangle((_rand.getNext() % 500) - 250, (_rand.getNext() % 500) - 250, _rand.getNext() % 500, _rand.getNext() % 500, iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
-            iRenderer2::getInstance().drawTexturedRectangle((_rand.getNext() % 500) - 250, (_rand.getNext() % 500) - 250, _rand.getNext() % 500, _rand.getNext() % 500, _particleTexture);
-            iRenderer2::getInstance().drawPoint(_rand.getNextFloat() * 50.0 + 100.0, _rand.getNextFloat() * 50.0 + 100.0, iaColor4f(_rand.getNextFloat(), _rand.getNextFloat(), _rand.getNextFloat(), 1));
-        }*/
-
-    /*        iRenderer2::getInstance().drawTexturedRectangle(0, 0, 200, 200, _particleTexture);
-
-        iRenderer2::getInstance().drawTexturedRectangle(200, 100, 200, 200, _backgroundTexture);
-        iRenderer2::getInstance().drawTexturedRectangle(100, 200, 200, 200, _dummyTexture);
-
-        iaMatrixf moo;
-        moo.translate(100, 100, 0);
-        moo.rotate(0.1, iaAxis::Z);
-        moo.scale(100, 100, 1.0);
-        iRenderer2::getInstance().drawQuad(moo, iaColor4f(1, 1, 1, 1));
-
-        moo.identity();
-        moo.translate(300, 100, 0);
-        moo.rotate(0.1, iaAxis::Z);
-        moo.scale(100, 100, 1.0);
-        iRenderer2::getInstance().drawTexturedQuad(moo, _backgroundTexture);*/
 
     ExampleBase::onRenderOrtho();
 }
