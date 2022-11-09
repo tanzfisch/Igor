@@ -22,7 +22,7 @@ namespace igor
     static const uint32 MAX_QUAD_INDICES = MAX_QUADS * 6;
 
     static const iaVector2f QUAD_TEXTURE_COORDS[] = {{0.0f, 0.0f}, {0.0f, 1.0f}, {1.0f, 1.0f}, {1.0f, 0.0f}};
-    static const iaVector3f QUAD_VERTEX_POSITIONS[] = {{-0.5f, 0.5, 0.0f}, {0.5f, 0.5, 0.0f}, {0.5f, -0.5, 0.0f}, {-0.5f, -0.5, 0.0f}};
+    static const iaVector3f QUAD_VERTEX_POSITIONS[] = {{-0.5f, -0.5, 0.0f}, {-0.5f, 0.5, 0.0f}, {0.5f, 0.5, 0.0f}, {0.5f, -0.5, 0.0f}};
 
     // flat vertex definition
     struct iFlatVertex
@@ -334,9 +334,9 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
 
         /////////// OGL //////////
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_LINE_SMOOTH);
-        glEnable(GL_BLEND); // for now
+        glEnable(GL_BLEND);       // for now
         glDisable(GL_DEPTH_TEST); // for now
     }
 
@@ -537,6 +537,42 @@ namespace igor
         texQuads._vertexDataPtr->_color = color;
         texQuads._vertexDataPtr->_texCoord._x = QUAD_TEXTURE_COORDS[3]._x * tiling._x;
         texQuads._vertexDataPtr->_texCoord._y = QUAD_TEXTURE_COORDS[3]._y;
+        texQuads._vertexDataPtr->_texIndex = textureIndex;
+        texQuads._vertexDataPtr++;
+
+        endTexturedQuad();
+    }
+
+    void iRenderer2::drawFrame(const iaMatrixf &matrix, const iAtlasPtr &atlas, uint32 frameIndex, const iaColor4f &color)
+    {
+        const int32 textureIndex = beginTexturedQuad(atlas->getTexture());
+
+        const iAtlas::iFrame &frame = atlas->getFrame(frameIndex);
+
+        const iaVector3f offset(frame._origin._x, frame._origin._y, 0.0);
+
+        auto &texQuads = _data->_texQuads;
+        texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[0];
+        texQuads._vertexDataPtr->_color = color;
+        texQuads._vertexDataPtr->_texCoord = frame._rect.getTopLeft();
+        texQuads._vertexDataPtr->_texIndex = textureIndex;
+        texQuads._vertexDataPtr++;
+
+        texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[1];
+        texQuads._vertexDataPtr->_color = color;
+        texQuads._vertexDataPtr->_texCoord = frame._rect.getBottomLeft();
+        texQuads._vertexDataPtr->_texIndex = textureIndex;
+        texQuads._vertexDataPtr++;
+
+        texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[2];
+        texQuads._vertexDataPtr->_color = color;
+        texQuads._vertexDataPtr->_texCoord = frame._rect.getBottomRight();
+        texQuads._vertexDataPtr->_texIndex = textureIndex;
+        texQuads._vertexDataPtr++;
+
+        texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[3];
+        texQuads._vertexDataPtr->_color = color;
+        texQuads._vertexDataPtr->_texCoord = frame._rect.getTopRight();
         texQuads._vertexDataPtr->_texIndex = textureIndex;
         texQuads._vertexDataPtr++;
 
@@ -766,7 +802,7 @@ namespace igor
         _data->_textureShader->bind();
         _data->_textureShader->setMatrix("igor_modelViewProjection", getMVP());
 
-        glDrawElements(GL_TRIANGLES, texQuads._indexCount, GL_UNSIGNED_INT, nullptr);        
+        glDrawElements(GL_TRIANGLES, texQuads._indexCount, GL_UNSIGNED_INT, nullptr);
         GL_CHECK_ERROR();
         texQuads._vertexArray->unbind();
 
@@ -809,7 +845,7 @@ namespace igor
         _data->_stats._drawCalls++;
         _data->_stats._vertices += quads._vertexCount;
         _data->_stats._indices += quads._indexCount;
-        _data->_stats._triangles += quads._vertexCount / 2;        
+        _data->_stats._triangles += quads._vertexCount / 2;
 
         quads._vertexCount = 0;
         quads._indexCount = 0;
@@ -868,7 +904,7 @@ namespace igor
         _data->_flatShader->unbind();
 
         _data->_stats._drawCalls++;
-        _data->_stats._vertices += points._vertexCount;        
+        _data->_stats._vertices += points._vertexCount;
 
         points._vertexCount = 0;
         points._vertexDataPtr = points._vertexData;

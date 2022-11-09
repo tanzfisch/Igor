@@ -137,12 +137,16 @@ namespace igor
         void drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f::white);
         void drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaVector2f &tiling, const iaColor4f &color = iaColor4f::white);
 
+        /*! draw specified frame from given atlas
+        */
+        void drawFrame(const iaMatrixf &matrix, const iAtlasPtr& sprite, uint32 frameIndex, const iaColor4f &color = iaColor4f::white);
+
         void drawParticles(iParticle2DPtr particles, int32 particleCount, const iTexturePtr &texture, const iaGradientColor4f &gradient);
 
         void drawString(float32 x, float32 y, const iaString &text, iHorizontalAlignment horz, iVerticalAlignment vert, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);
         void drawString(float32 x, float32 y, const iaString &text, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);
 
-        /// void drawSprite(const iaMatrixf &matrix, const iAtlasPtr sprite, uint32 frameIndex, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f::white);
+        
 
         /*! sets line render width
 
@@ -261,7 +265,14 @@ namespace igor
          */
         const iaMatrixf getMVP() const;
 
+        /*! begin textured quad
+
+        \param texture the texture to use
+        */
         int32 beginTexturedQuad(const iTexturePtr &texture);
+
+        /*! end textured quad
+        */
         void endTexturedQuad();
 
         /*! clears stats

@@ -1270,7 +1270,7 @@ namespace igor
 
     void iRenderer::drawSprite(const iAtlasPtr sprite, uint32 frameIndex, const iaVector2f &pos)
     {
-        iTexturePtr texture = sprite->getTexture();
+/*        iTexturePtr texture = sprite->getTexture();
         const iAtlas::iFrame &frame = sprite->getFrame(frameIndex);
 
         iaVector2f position = pos;
@@ -1291,7 +1291,7 @@ namespace igor
 
         glTexCoord2f(frame._pos._x, frame._pos._y);
         glVertex2f(position._x, position._y);
-        glEnd();
+        glEnd();*/
     }
 
     iRenderTargetID iRenderer::createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer)

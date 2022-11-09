@@ -59,9 +59,16 @@ void Example2D::onInit()
     _rainbow.setValue(1.0f, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
 
     // load a texture as an atlas
-    _openGLLogo = new iAtlas(iTextureResourceFactory::getInstance().loadFile("OpenGL-Logo.jpg"));
+    _doughnuts = iAtlas::create(iTextureResourceFactory::getInstance().loadFile("doughnuts.png"));
     // set up frame
-    _openGLLogo->addFrame(iaVector2f(0.0, 0.0), iaVector2f(1.0, 1.0), iaVector2f(0.5, 0.5), false);
+    _doughnutsFrameIndex = _doughnuts->addFrame(iaVector2f(0.0, 0.0), iaVector2f(0.5, 0.5), iaVector2f(0.0, 0.0), false);
+    _doughnuts->addFrame(iaVector2f(0.5, 0.0), iaVector2f(0.5, 0.5), iaVector2f(0.0, 0.0), false);
+    _doughnuts->addFrame(iaVector2f(0.0, 0.5), iaVector2f(0.5, 0.5), iaVector2f(0.0, 0.0), false);
+    _doughnuts->addFrame(iaVector2f(0.5, 0.5), iaVector2f(0.5, 0.5), iaVector2f(0.0, 0.0), false);
+    // setup matrix
+    _doughnutMatrix.scale(64.0f, 64.0f, 1.0f);
+
+    _doughnutsTime = iaTime::getNow();
 
     // initalize a spline loop
     _spline.addSupportPoint(iaVector3f(100, 100, 0));
@@ -113,13 +120,8 @@ void Example2D::onDeinit()
     iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithoutDepthTest);
     _materialWithoutDepthTest = 0;
 
-    // release some textures. otherwhise you will get a reminder of possible mem leak
-    if (_openGLLogo != nullptr)
-    {
-        delete _openGLLogo;
-        _openGLLogo = nullptr;
-    }
-
+    // release some resources
+    _doughnuts = nullptr;
     _particleTexture = nullptr;
     _backgroundTexture = nullptr;
     _dummyTexture = nullptr;
@@ -142,11 +144,21 @@ bool Example2D::onMouseMoveEvent(iEventMouseMove &event)
 
 void Example2D::onUpdate(const iaTime &time)
 {
+    _doughnutMatrix.rotate(0.05, iaAxis::Z);
+
     // moves the logo towards the mouse position
-    _logoPosition += (_lastMousePos - _logoPosition) * 0.01f;
+    _doughnutMatrix._pos += (iaVector3f(_lastMousePos._x, _lastMousePos._y, 0.0) - _doughnutMatrix._pos) * 0.05f;
 
     // moves one of the splines support point to the logo's position
-    _spline.setSupportPoint(iaVector3f(_logoPosition._x, _logoPosition._y, 0), 3);
+    _spline.setSupportPoint(_doughnutMatrix._pos, 3);
+
+    // doughnut time <3
+    if (time > _doughnutsTime + iaTime::fromSeconds(0.5))
+    {
+        _doughnutsFrameIndex++;
+        _doughnutsFrameIndex = _doughnutsFrameIndex % 4;
+        _doughnutsTime = time;
+    }
 
     // update particles
     updateParticles();
@@ -197,22 +209,19 @@ void Example2D::onRenderOrtho()
     for (int x = 0; x < 19; ++x)
     {
         for (int y = 0; y < 14; ++y)
-        {            
+        {
             iRenderer2::getInstance().drawPoint(static_cast<float32>(230 + x * 10), static_cast<float32>(20 + y * 10), iaColor4f(1, 1, 0, 1));
         }
     }
 
-    // change material again to textured an draw the logo
-    /*iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-    iRenderer::getInstance().drawSprite(_openGLLogo, 0, _logoPosition);
-    iRenderer::getInstance().drawSprite(_openGLLogo, 0, _logoPosition);*/
+    // doughnuts <3
+    iRenderer2::getInstance().drawFrame(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex);
 
     // draw the texture that we could not have loaded at startup
     iRenderer2::getInstance().drawTexturedRectangle(10, 170, 410, 150, _dummyTexture);
 
     // draw the particles
-    iRenderer2::getInstance().drawParticles(_particleSystem.getParticles(), _particleSystem.getParticleCount(), _particleTexture, _rainbow);      
+    iRenderer2::getInstance().drawParticles(_particleSystem.getParticles(), _particleSystem.getParticleCount(), _particleTexture, _rainbow);
 
     // draw some text from wikipedia
     iaString wikipediaOpenGL = "OpenGL (Open Graphics Library) ist eine Spezifikation fuer eine plattform- und programmiersprachenunabhaengige "
@@ -242,9 +251,9 @@ void Example2D::onRenderOrtho()
     {
         float64 value = _perlinNoise.getValue((offset + x) * 0.01, 6) * 150;
         iRenderer2::getInstance().drawLine(static_cast<float32>(getWindow()->getClientWidth() - 260 + x - 1),
-                                          static_cast<float32>(10 + lastValue),
-                                          static_cast<float32>(getWindow()->getClientWidth() - 260 + x),
-                                          static_cast<float32>(10 + value), iaColor4f(0, 1, 0, 1));
+                                           static_cast<float32>(10 + lastValue),
+                                           static_cast<float32>(getWindow()->getClientWidth() - 260 + x),
+                                           static_cast<float32>(10 + value), iaColor4f(0, 1, 0, 1));
         lastValue = value;
     }
 

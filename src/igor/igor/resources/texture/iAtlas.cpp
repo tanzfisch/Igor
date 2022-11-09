@@ -12,87 +12,117 @@
 namespace igor
 {
 
-	iAtlas::iAtlas(iTexturePtr texture)
-	{
-		_texture = texture;
-	}
+    iAtlasPtr iAtlas::create(const iTexturePtr &texture, const iaString &filename)
+    {
+        return std::make_shared<iAtlas>(texture, filename);
+    }
 
-	void iAtlas::setTexture(iTexturePtr texture)
-	{
-		_texture = texture;
-		// TODO recalc frames if texture sizes differ
-	}
+    iAtlas::iAtlas(const iTexturePtr &texture, const iaString &filename)
+    {
+        _texture = texture;
 
-	uint32 iAtlas::addFrame(const iaVector2f &pos, const iaVector2f &size, const iaVector2f &origin, bool pixel)
-	{
-		iFrame frame;
+        if (!filename.isEmpty())
+        {
+            loadFrames(filename);
+        }
+    }
 
-		if (pixel)
-		{
-			frame._pos.set(pos._x / _texture->getWidth(), pos._y / _texture->getHeight());
-			frame._size.set(size._x / _texture->getWidth(), size._y / _texture->getHeight());
-			frame._origin = origin;
-		}
-		else
-		{
-			frame._pos = pos;
-			frame._size = size;
-			frame._origin.set(origin._x * _texture->getWidth(), origin._y * _texture->getHeight());
-		}
+    void iAtlas::setTexture(const iTexturePtr &texture)
+    {
+        _texture = texture;
+    }
 
-		_frames.push_back(frame);
+    uint32 iAtlas::addFrame(const iaVector2f &pos, const iaVector2f &size, const iaVector2f &origin, bool pixel)
+    {
+        return addFrame(iaRectanglef(pos, size), origin, pixel);
+    }
 
-		return _frames.size() - 1;
-	}
+    uint32 iAtlas::addFrame(const iaRectanglef &rect, const iaVector2f &origin, bool pixel)
+    {
+        iFrame frame;
 
-	void iAtlas::readAtlas(TiXmlElement *atlas)
-	{
-		TiXmlElement *frame = atlas->FirstChildElement("Frame");
+        if (pixel)
+        {
+            frame._rect.setTopLeft(rect._x / _texture->getWidth(), rect._y / _texture->getHeight());
+            frame._rect.setSize(rect._width / _texture->getWidth(), rect._height / _texture->getHeight());
+            frame._origin = origin;
+        }
+        else
+        {
+            frame._rect = rect;
+            frame._origin.set(origin._x * _texture->getWidth(), origin._y * _texture->getHeight());
+        }
 
-		do
-		{
-			iaString attrPos(frame->Attribute("pos"));
-			iaString attrSize(frame->Attribute("size"));
-			iaString attrOrigin(frame->Attribute("origin"));
-			iaString attrPixel(frame->Attribute("pixel"));
+        _frames.push_back(frame);
 
-			iaVector2f pos;
-			iaVector2f size;
-			iaVector2f origin;
+        return _frames.size() - 1;
+    }
 
-			iaString::toVector<float32>(attrPos, pos);
-			iaString::toVector<float32>(attrSize, size);
-			iaString::toVector<float32>(attrOrigin, origin);
+    void iAtlas::readAtlas(TiXmlElement *atlas)
+    {
+        TiXmlElement *frame = atlas->FirstChildElement("Frame");
 
-			addFrame(pos, size, origin, iaString::toBool(attrPixel));
+        do
+        {
+            iaString attrPos(frame->Attribute("pos"));
+            iaString attrSize(frame->Attribute("size"));
+            iaString attrOrigin(frame->Attribute("origin"));
+            iaString attrPixel(frame->Attribute("pixel"));
 
-		} while ((frame = frame->NextSiblingElement("Frame")) != nullptr);
-	}
+            iaVector2f pos;
+            iaVector2f size;
+            iaVector2f origin;
 
-	void iAtlas::loadFrames(const iaString &filename)
-	{
-		con_assert_sticky(!filename.isEmpty(), "empty filename");
+            iaString::toVector<float32>(attrPos, pos);
+            iaString::toVector<float32>(attrSize, size);
+            iaString::toVector<float32>(attrOrigin, origin);
 
-		iaString path = iResourceManager::getInstance().getPath(filename);
-		
-		char temp[2048];
-		path.getData(temp, 2048);
+            addFrame(pos, size, origin, iaString::toBool(attrPixel));
 
-		TiXmlDocument document(temp);
-		if (!document.LoadFile())
-		{
-			con_err("can't read \"" << filename << "\"");
-			return;
-		}
+        } while ((frame = frame->NextSiblingElement("Frame")) != nullptr);
+    }
 
-		TiXmlElement *root = document.FirstChildElement("Igor");
-		if (root != nullptr)
-		{
-			TiXmlElement *atlas = root->FirstChildElement("Atlas");
-			if (atlas != nullptr)
-			{
-				readAtlas(atlas);
-			}
-		}
-	}
+    void iAtlas::loadFrames(const iaString &filename)
+    {
+        con_assert_sticky(!filename.isEmpty(), "empty filename");
+
+        iaString path = iResourceManager::getInstance().getPath(filename);
+
+        char temp[2048];
+        path.getData(temp, 2048);
+
+        TiXmlDocument document(temp);
+        if (!document.LoadFile())
+        {
+            con_err("can't read \"" << filename << "\"");
+            return;
+        }
+
+        TiXmlElement *root = document.FirstChildElement("Igor");
+        if (root != nullptr)
+        {
+            TiXmlElement *atlas = root->FirstChildElement("Atlas");
+            if (atlas != nullptr)
+            {
+                readAtlas(atlas);
+            }
+        }
+    }
+
+    const iTexturePtr &iAtlas::getTexture() const
+    {
+        return _texture;
+    }
+
+    uint32 iAtlas::getFrameCount() const
+    {
+        return static_cast<uint32>(_frames.size());
+    }
+
+    const iAtlas::iFrame &iAtlas::getFrame(uint32 index) const
+    {
+        con_assert(index < _frames.size(), "out of range");
+
+        return _frames[index];
+    }
 }; // namespace igor

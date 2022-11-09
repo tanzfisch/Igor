@@ -77,11 +77,19 @@ private:
 
     /*! opengl logo
     */
-    iAtlasPtr _openGLLogo = nullptr;
+    iAtlasPtr _doughnuts = nullptr;
 
-    /*! current position of renderer logo 
+    /*! current transform of doughnuts
     */
-    iaVector2f _logoPosition{200, 200};
+    iaMatrixf _doughnutMatrix;
+
+    /*! frame index of doughnuts
+    */
+    uint32 _doughnutsFrameIndex;
+
+    /*! timer to control frame switching
+    */
+    iaTime _doughnutsTime;
 
     /*! background tileable texture
     */

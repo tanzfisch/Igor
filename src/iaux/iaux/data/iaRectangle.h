@@ -36,11 +36,25 @@ namespace iaux
 
     /*! 2d rectangle
      */
-    template <class T>
-    class IAUX_API_TEMPLATE iaRectangle
+    template <typename T>
+    struct IAUX_API_TEMPLATE iaRectangle
     {
+        /*! horrizontal position
+         */
+        T _x = (T)0;
 
-    public:
+        /*! vertical position
+         */
+        T _y = (T)0;
+
+        /*! height of rectangle
+         */
+        T _width = (T)0;
+
+        /*! height of rectangle
+         */
+        T _height = (T)0;
+
         /*! does nothing
          */
         iaRectangle() = default;
@@ -52,25 +66,20 @@ namespace iaux
         \param width width
         \param height height
         */
-        iaRectangle(T x, T y, T width = 0, T height = 0)
-        {
-            _x = x;
-            _y = y;
-            _width = width;
-            _height = height;
-        }
+        iaRectangle(T x, T y, T width = 0, T height = 0);
+
+        /*! ctor with parameters
+
+        \param pos top left position
+        \param size the size of the rectangle
+        */
+        iaRectangle(const iaVector2<T> &pos, const iaVector2<T> &size);
 
         /*! copy ctor
 
         \param rect the rectangle to copy
         */
-        iaRectangle(const iaRectangle<T> &rect)
-        {
-            _x = rect._x;
-            _y = rect._y;
-            _width = rect._width;
-            _height = rect._height;
-        }
+        iaRectangle(const iaRectangle<T> &rect);
 
         /*! adjust the dimensions of the rectangle
 
@@ -114,13 +123,12 @@ namespace iaux
          */
         const T getBottom() const;
 
-        /*! \returns center of rectangle
-        */
-        const iaVector2<T> getCenter() const;
+        /*! sets center of rectangle without changing it's size
 
-        /*! \returns top left corner of rectangle
+        \param x x component of the new center
+        \param y y component of the new center
         */
-        const iaVector2<T> getTopLeft() const;
+        void setCenter(T x, T y);        
 
         /*! sets center of rectangle without changing it's size
 
@@ -128,12 +136,38 @@ namespace iaux
         */
         void setCenter(const iaVector2<T> &center);
 
-        /*! sets center of rectangle without changing it's size
+        /*! \returns center of rectangle
+         */
+        const iaVector2<T> getCenter() const;
 
-        \param x x component of the new center
-        \param y y component of the new center
+        /*! sets top left of rectangle
+
+        \param pos the top left corner
         */
-        void setCenter(T x, T y);
+        void setTopLeft(const iaVector2<T> &pos);
+
+        /*! sets top left of rectangle
+
+        \param x horizontal position
+        \param y vertical position
+        */
+        void setTopLeft(T x, T y);
+
+        /*! \returns top left corner of rectangle
+         */
+        const iaVector2<T> getTopLeft() const;
+
+        /*! \returns top right corner of rectangle
+         */
+        const iaVector2<T> getTopRight() const;        
+
+        /*! \returns bottom left corner of rectangle
+         */
+        const iaVector2<T> getBottomLeft() const;
+
+        /*! \returns bottom right corner of rectangle
+         */
+        const iaVector2<T> getBottomRight() const;        
 
         /*! sets horrizontal position
 
@@ -164,7 +198,7 @@ namespace iaux
         \param height height of rectangle
         \param width width of rectangle
         */
-        void setSize(T width, T height);      
+        void setSize(T width, T height);
 
         /*! sets all values at once
 
@@ -181,22 +215,6 @@ namespace iaux
         \returns resulting rectangle
         */
         iaRectangle<T> operator=(const iaRectangle<T> &rectangle);
-
-        /*! horrizontal position
-         */
-        T _x = (T)0;
-
-        /*! vertical position
-         */
-        T _y = (T)0;
-
-        /*! height of rectangle
-         */
-        T _width = (T)0;
-
-        /*! height of rectangle
-         */
-        T _height = (T)0;
     };
 
 #include <iaux/data/iaRectangle.inl>

@@ -31,6 +31,7 @@
 
 #include <igor/resources/texture/iTexture.h>
 
+#include <iaux/data/iaRectangle.h>
 #include <iaux/math/iaVector2.h>
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
@@ -43,7 +44,11 @@ class TiXmlElement;
 namespace igor
 {
 
-    class iTexture;
+    class iAtlas;
+
+    /*! atlas pointer definition
+     */
+    typedef std::shared_ptr<iAtlas> iAtlasPtr;
 
     /*! used to have 2d sprites
      */
@@ -51,11 +56,18 @@ namespace igor
     {
 
     public:
+        /*! \returns a newly created atlas
+
+        \param texture atlas texture
+        \param filename optional atlas data file
+        */
+        static iAtlasPtr create(const iTexturePtr &texture, const iaString &filename = "");
+
         /*! ctor initializes member variables
 
         \param texture texture used for this sprite
         */
-        iAtlas(iTexturePtr texture);
+        iAtlas(const iTexturePtr &texture, const iaString &filename = "");
 
         /*! does nothing
          */
@@ -65,40 +77,51 @@ namespace igor
          */
         struct iFrame
         {
-            /*! position of frame in texture coordinates
+            /*! position of frame in texture coordinates 0.0-1.0
              */
-            iaVector2f _pos;
+            iaRectanglef _rect;
 
-            /*! size of frame in texture coordinates
-             */
-            iaVector2f _size;
-
-            /*! origin of frame in "texel" coordinates
+            /*! origin or pivot of frame in texture coordinates 0.0-1.0
 
             can be used to position on screen
             */
             iaVector2f _origin;
         };
 
-        /*! adds a frame to the sprite
+        /*! adds a frame to the atlas
 
         \returns index of the added frame
-        \param pos position of frame
-        \param size the size of the frame
+        \param rect the frame dimensions
+        \param origin the origin of the frame
+        \param pixel if true values are in pixel coordinates if false than 0.0-1.0
+        */
+        uint32 addFrame(const iaRectanglef &rect, const iaVector2f &origin, bool pixel = true);
+
+        /*! adds a frame to the atlas
+
+        \returns index of the added frame
+        \param pos top left corner of frame
+        \param size size of frame
         \param origin the origin of the frame
         \param pixel if true values are in pixel coordinates if false than 0.0-1.0
         */
         uint32 addFrame(const iaVector2f &pos, const iaVector2f &size, const iaVector2f &origin, bool pixel = true);
 
+        /*! loads frames from file
+
+        \param filename filename to load from
+        */
+        void loadFrames(const iaString &filename);
+
         /*! \returns texture
          */
-        iTexturePtr getTexture() const;
+        const iTexturePtr &getTexture() const;
 
-        /*! sets txture used by this sprite
+        /*! sets txture used by this atlas
 
         \param texture the texture to use
         */
-        void setTexture(iTexturePtr texture);
+        void setTexture(const iTexturePtr &texture);
 
         /*! \returns the amount of frames
          */
@@ -113,14 +136,8 @@ namespace igor
         */
         const iFrame &getFrame(uint32 index) const;
 
-        /*! loads frames from file
-
-        \param filepath filepath to load from
-        */
-        void loadFrames(const iaString &filepath);
-
     private:
-        /*! the sprite sets
+        /*! the atlas frames
          */
         std::vector<iFrame> _frames;
 
@@ -128,16 +145,10 @@ namespace igor
          */
         iTexturePtr _texture;
 
-        /*! read and atlas from xml file
+        /*! read an atlas from xml file
          */
         void readAtlas(TiXmlElement *atlas);
     };
-
-#include <igor/resources/texture/iAtlas.inl>
-
-    /*! atlas pointer definition
-     */
-    typedef iAtlas *iAtlasPtr;
 
 }; // namespace igor
 
