@@ -64,7 +64,7 @@ private:
 	\param size the size of the tile in world space
 	\param frame the frame to use within the atlas
 	*/
-	void addTile(iMeshBuilder &meshBuilder, const iaVector2i &pos, const iaVector2i &size, const iAtlas::Frame &frame);
+	void addTile(iMeshBuilder &meshBuilder, const iaVector2i &pos, const iaVector2i &size, const iAtlas::iFrame &frame);
 
 	/*! generates the mesh of a single patch of tiles based on texture information
 

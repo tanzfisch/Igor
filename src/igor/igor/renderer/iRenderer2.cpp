@@ -549,7 +549,8 @@ namespace igor
 
         const iAtlas::iFrame &frame = atlas->getFrame(frameIndex);
 
-        const iaVector3f offset(frame._origin._x, frame._origin._y, 0.0);
+        // TODO origin
+        const iaVector3f offset;// (frame._origin._x, frame._origin._y, 0.0);
 
         auto &texQuads = _data->_texQuads;
         texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[0];

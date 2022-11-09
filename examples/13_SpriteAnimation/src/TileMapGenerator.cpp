@@ -6,7 +6,7 @@
 
 #include <map>
 
-void TileMapGenerator::addTile(iMeshBuilder &meshBuilder, const iaVector2i &pos, const iaVector2i &size, const iAtlas::Frame &frame)
+void TileMapGenerator::addTile(iMeshBuilder &meshBuilder, const iaVector2i &pos, const iaVector2i &size, const iAtlas::iFrame &frame)
 {
 	const uint32 offsetIndex = meshBuilder.getVertexCount();
 
@@ -14,16 +14,16 @@ void TileMapGenerator::addTile(iMeshBuilder &meshBuilder, const iaVector2i &pos,
 	float32 y = pos._y - frame._origin._y;
 
 	meshBuilder.addVertex(iaVector3f(x, y, 0));
-	meshBuilder.setTexCoord(iaVector2f(frame._pos._x, frame._pos._y), 0);
+	meshBuilder.setTexCoord(iaVector2f(frame._rect._x, frame._rect._y), 0);
 
 	meshBuilder.addVertex(iaVector3f(x, y + size._y, 0));
-	meshBuilder.setTexCoord(iaVector2f(frame._pos._x, frame._pos._y + frame._size._y), 0);
+	meshBuilder.setTexCoord(iaVector2f(frame._rect._x, frame._rect._y + frame._rect._height), 0);
 
 	meshBuilder.addVertex(iaVector3f(x + size._x, y + size._y, 0));
-	meshBuilder.setTexCoord(iaVector2f(frame._pos._x + frame._size._x, frame._pos._y + frame._size._y), 0);
+	meshBuilder.setTexCoord(iaVector2f(frame._rect._x + frame._rect._width, frame._rect._y + frame._rect._height), 0);
 
 	meshBuilder.addVertex(iaVector3f(x + size._x, y, 0));
-	meshBuilder.setTexCoord(iaVector2f(frame._pos._x + frame._size._x, frame._pos._y), 0);
+	meshBuilder.setTexCoord(iaVector2f(frame._rect._x + frame._rect._width, frame._rect._y), 0);
 
 	meshBuilder.addTriangle(0, 1, 2, offsetIndex);
 	meshBuilder.addTriangle(2, 3, 0, offsetIndex);
@@ -60,10 +60,10 @@ iMeshPtr TileMapGenerator::generateMesh(uint32 from, uint32 to, const iaVector2i
 
 			if (tileType < _atlas->getFrameCount())
 			{
-				iAtlas::Frame frame = _atlas->getFrame(tileType);
+				const iAtlas::iFrame &frame = _atlas->getFrame(tileType);
 				iaVector2i tilePos = xdir * wx + ydir * wy;
 				tilePos._y *= -1;
-				iaVector2i tileSize(frame._size._x * static_cast<float32>(textureSize._x), frame._size._y * static_cast<float32>(textureSize._y));
+				iaVector2i tileSize(frame._rect._width * static_cast<float32>(textureSize._x), frame._rect._height * static_cast<float32>(textureSize._y));
 				addTile(meshBuilder, tilePos, tileSize, frame);
 			}
 		}
@@ -178,10 +178,10 @@ iMeshPtr TileMapGenerator::generateMesh(const iPixmapPtr pixmap, const iaVector2
 
 			if (tileType < _atlas->getFrameCount())
 			{
-				iAtlas::Frame frame = _atlas->getFrame(tileType);
+				const iAtlas::iFrame &frame = _atlas->getFrame(tileType);
 				iaVector2i tilePos = xdir * wx + ydir * wy;
 				tilePos._y *= -1;
-				iaVector2i tileSize(frame._size._x * static_cast<float32>(textureSize._x), frame._size._y * static_cast<float32>(textureSize._y));
+				iaVector2i tileSize(frame._rect._width * static_cast<float32>(textureSize._x), frame._rect._height * static_cast<float32>(textureSize._y));
 				addTile(meshBuilder, tilePos, tileSize, frame);
 			}
 		}

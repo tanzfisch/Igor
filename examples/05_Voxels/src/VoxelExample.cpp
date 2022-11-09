@@ -7,7 +7,7 @@
 #include "VoxelTerrainMeshGenerator.h"
 
 VoxelExample::VoxelExample(iWindow *window)
-    : ExampleBase(window, "Voxel", true, false)
+    : ExampleBase(window, "Voxel", true, true)
 {
 }
 
@@ -26,9 +26,6 @@ void VoxelExample::onDeinit()
 {
     // unregister vertex mesh generator
     iModelResourceFactory::getInstance().unregisterModelDataIO("example_vtg");
-
-    // destroy material
-    iMaterialResourceFactory::getInstance().destroyMaterial(_materialSkyBox);
 }
 
 void VoxelExample::initScene()
@@ -66,27 +63,6 @@ void VoxelExample::initScene()
     // and add it to the scene
     getScene()->getRoot()->insertNode(lightTranslate);
     lightTranslate->insertNode(lightNode);
-
-    // create a skybox
-    iNodeSkyBox *skyBoxNode = iNodeManager::getInstance().createNode<iNodeSkyBox>();
-    // set it up with the default skybox texture
-    skyBoxNode->setTextures(
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/front.jpg"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/back.jpg"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/left.jpg"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/right.jpg"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/top.jpg"),
-        iTextureResourceFactory::getInstance().requestFile("skybox_stars/bottom.jpg"));
-    // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
-    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial("Sky Box");
-    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox);
-    material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    material->setOrder(iMaterial::RENDER_ORDER_MIN);
-    // set that material
-    skyBoxNode->setMaterial(_materialSkyBox);
-    // and add it to the scene
-    getScene()->getRoot()->insertNode(skyBoxNode);
 
     // set up voxel mesh material
     _voxelMeshMaterialID = iMaterialResourceFactory::getInstance().createMaterial("voxel mesh material");
@@ -267,27 +243,20 @@ void VoxelExample::prepareMeshGeneration()
 
 void VoxelExample::onRenderOrtho()
 {
-    iaMatrixd viewMatrix;
-    iRenderer::getInstance().setViewMatrix(viewMatrix);
-
     iaMatrixd modelMatrix;
-    modelMatrix.translate(0, 0, -30);
-    iRenderer::getInstance().setModelMatrix(modelMatrix);
+    modelMatrix.translate(0, 0, -1);
+    iRenderer2::getInstance().setModelMatrix(modelMatrix);
 
-    iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
-
-    iRenderer::getInstance().setMaterial(getFontMaterial());
-
-    iRenderer::getInstance().setFont(getFont());
-    iRenderer::getInstance().setFontSize(25.0f);
+    iRenderer2::getInstance().setFont(getFont());
+    iRenderer2::getInstance().setFontSize(25.0f);
 
     if (_loading)
     {
-        iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "loading ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+        iRenderer2::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, "loading ...", iHorizontalAlignment::Center, iVerticalAlignment::Center, iaColor4f::green);
     }
     else
     {
-        iRenderer::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.1, "press [Space] to recreate", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+        iRenderer2::getInstance().drawString(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.1, "press [Space] to recreate", iHorizontalAlignment::Center, iVerticalAlignment::Center, iaColor4f::green);
     }
 
     ExampleBase::onRenderOrtho();

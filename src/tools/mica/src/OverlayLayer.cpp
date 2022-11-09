@@ -34,7 +34,7 @@ void OverlayLayer::onInit()
     oriPlaneMaterial->setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
 
     // font for
-    _font = new iTextureFont("StandardFont.png");
+    _font = iTextureFont::create("StandardFont.png");
 
     // create the manipulator
     _manipulator = new Manipulator(&_view, _scene, _workspace);
@@ -72,10 +72,8 @@ void OverlayLayer::onDeinit()
         _manipulator = nullptr;
     }
 
-    if (_font)
-    {
-        delete _font;
-    }
+    // release some resources
+    _font = nullptr;
 
     iSceneFactory::getInstance().destroyScene(_scene);
 

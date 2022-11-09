@@ -318,18 +318,12 @@ void ExampleCharacterController::onDeinit()
 
 void ExampleCharacterController::onRenderOrtho()
 {
-    iaMatrixd viewMatrix;
-    iRenderer::getInstance().setViewMatrix(viewMatrix);
-
     iaMatrixd modelMatrix;
-    modelMatrix.translate(0, 0, -30);
-    iRenderer::getInstance().setModelMatrix(modelMatrix);
+    modelMatrix.translate(0, 0, -1);
+    iRenderer2::getInstance().setModelMatrix(modelMatrix);
 
-    iRenderer::getInstance().setColor(1, 1, 1, 1);
-
-    iRenderer::getInstance().setMaterial(getFontMaterial());
-    iRenderer::getInstance().setFont(getFont());
-    iRenderer::getInstance().setFontSize(15.0f);
+    iRenderer2::getInstance().setFont(getFont());
+    iRenderer2::getInstance().setFontSize(15.0f);
 
     iaString statusString;
 
@@ -346,7 +340,7 @@ void ExampleCharacterController::onRenderOrtho()
         break;
     }
 
-    iRenderer::getInstance().drawString(10, static_cast<float32>(getWindow()->getClientHeight() - 10), statusString, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+    iRenderer2::getInstance().drawString(10, static_cast<float32>(getWindow()->getClientHeight() - 10), statusString, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
 
     ExampleBase::onRenderOrtho();
 }

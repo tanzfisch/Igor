@@ -137,10 +137,6 @@ private:
     */
     iMaterialID _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
 
-    /*! material for igor logo
-    */
-    iMaterialID _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
-
     /*! draw igor logo
     */
     void drawLogo();

@@ -92,10 +92,6 @@ private:
     */
     uint32 _incarnation = 1;
 
-    /*! material definition for the sky box
-    */
-    iMaterialID _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
-
     /*! initialize scene
     */
     void initScene();

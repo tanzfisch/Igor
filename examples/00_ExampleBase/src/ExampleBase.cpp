@@ -70,11 +70,6 @@ ExampleBase::ExampleBase(iWindow *window, const iaString &name, bool createBaseS
 
             // prepare igor logo
             _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
-            _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial("LogoMaterial");
-            auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
-            material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-            material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-            material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
         }
     }
 }
@@ -89,7 +84,6 @@ ExampleBase::~ExampleBase()
         {
             iMaterialResourceFactory::getInstance().destroyMaterial(_materialSkyBox);
         }
-        iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
 
         // clear scene by destoying it
         iSceneFactory::getInstance().destroyScene(_scene);
@@ -186,11 +180,6 @@ iScenePtr ExampleBase::getScene()
     return _scene;
 }
 
-iMaterialID ExampleBase::getFontMaterial() const
-{
-    return _materialWithTextureAndBlending;
-}
-
 void ExampleBase::onInit()
 {
     // nothing to do
@@ -233,14 +222,14 @@ void ExampleBase::drawLogo()
 void ExampleBase::drawHelpScreen()
 {
     const iaString help = "Help Screen\n"
-                    "----------\n\n"
-                    "[ESC] Exit\n"
-                    "[F1]  Display this screen\n"
-                    "[F3]  Cycle profiler verbosity\n"
-                    "[F6]  Print scene graph to console\n"
-                    "[F10] Toggle wireframe\n"
-                    "[F11] Toggle octree debug display\n"
-                    "[F12] Toggle bounding box display\n";
+                          "----------\n\n"
+                          "[ESC] Exit\n"
+                          "[F1]  Display this screen\n"
+                          "[F3]  Cycle profiler verbosity\n"
+                          "[F6]  Print scene graph to console\n"
+                          "[F10] Toggle wireframe\n"
+                          "[F11] Toggle octree debug display\n"
+                          "[F12] Toggle bounding box display\n";
 
     iRenderer2::getInstance().setFont(getFont());
     iRenderer2::getInstance().setFontSize(30.0f);

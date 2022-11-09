@@ -126,16 +126,6 @@ void Supremacy::onInit()
     _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &Supremacy::onRenderOrtho));
     getWindow()->addView(&_viewOrtho, getZIndex() + 1);
 
-    _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial("TextureAndBlending");
-    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
-    material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-
-    _plainMaterial = iMaterialResourceFactory::getInstance().createMaterial("PlainMaterial");
-    material = iMaterialResourceFactory::getInstance().getMaterial(_plainMaterial);
-    material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(getWindow()));
 
     _rand.setSeed(1337);
@@ -157,7 +147,7 @@ void Supremacy::onInit()
     _shadow = iTextureResourceFactory::getInstance().requestFile("shadow.png");
 
     // init font for render profiler
-    _font = new iTextureFont("StandardFont.png");
+    _font = iTextureFont::create("StandardFont.png");
 }
 
 void Supremacy::onUpdateQuadtreeSystem()
@@ -800,11 +790,7 @@ void Supremacy::onUpdate(const iaTime &time)
 void Supremacy::onDeinit()
 {
     // release resources
-    if (_font != nullptr)
-    {
-        delete _font;
-        _font = nullptr;
-    }
+    _font = nullptr;
 
     // stop timer
     if (_updateTimerHandle != nullptr)
@@ -840,14 +826,11 @@ void Supremacy::onRenderHUD()
 
     iaMatrixd matrix;
     matrix.translate(0.0, 0.0, -1.0);
-    iRenderer::getInstance().setModelMatrix(matrix);
+    iRenderer2::getInstance().setModelMatrix(matrix);
 
-    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-    iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
-
-    iRenderer::getInstance().setFont(_font);
-    iRenderer::getInstance().setFontSize(15.0f);
-    iRenderer::getInstance().drawString(10, 10, iaString::toString(health, 0));
+    iRenderer2::getInstance().setFont(_font);
+    iRenderer2::getInstance().setFontSize(15.0f);
+    iRenderer2::getInstance().drawString(10, 10, iaString::toString(health, 0));
 }
 
 void Supremacy::onRenderOrtho()
@@ -861,12 +844,11 @@ void Supremacy::onRenderOrtho()
     intersetRectangle.adjust(-scale, -scale, scale * 2.0, scale * 2.0);
 
     iaMatrixd matrix;
-    iRenderer::getInstance().setViewMatrix(matrix);
     matrix.translate(0, 0, -1);
     matrix.scale(static_cast<float64>(getWindow()->getClientWidth() / PLAYFIELD_VIEWPORT_WIDTH),
                  (static_cast<float64>(getWindow()->getClientHeight()) / PLAYFIELD_VIEWPORT_HEIGHT), 1.0);
     matrix.translate(-viewRectangle._x, -viewRectangle._y, 0);
-    iRenderer::getInstance().setModelMatrix(matrix);
+    iRenderer2::getInstance().setModelMatrix(matrix);
 
     // draw entities TODO
     auto view = _entityScene.getEntities<PositionComponent, SizeComponent, VisualComponent>();
@@ -887,8 +869,7 @@ void Supremacy::onRenderOrtho()
         if (visual._useDirection)
         {
             const float64 width = size._size;
-            iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
-            iRenderer::getInstance().drawTexturedRectangle(position._x - width * 0.5, position._y - width * 0.5, width, width, visual._texture);
+            iRenderer2::getInstance().drawTexturedRectangle(position._x - width * 0.5, position._y - width * 0.5, width, width, visual._texture);
         }
         else
         {
@@ -907,12 +888,8 @@ void Supremacy::onRenderOrtho()
             width += value * 5.0;
             height += (1.0 - value) * 10.0;
 
-            iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-            iRenderer::getInstance().setColor(0.0, 0.0, 0.0, 0.6);
-            iRenderer::getInstance().drawTexturedRectangle(position._x - size._size * 0.5, position._y + value * 2.0, size._size, size._size * 0.5, _shadow);
-
-            iRenderer::getInstance().setColor(1.0, 1.0, 1.0, 1.0);
-            iRenderer::getInstance().drawTexturedRectangle(position._x - size._size * 0.5, position._y - size._size + value * 15.0, width, height, visual._texture);
+            iRenderer2::getInstance().drawTexturedRectangle(position._x - size._size * 0.5, position._y + value * 2.0, size._size, size._size * 0.5, _shadow, iaVector2f(1.0,1.0), iaColor4f(0.0, 0.0, 0.0, 0.6));
+            iRenderer2::getInstance().drawTexturedRectangle(position._x - size._size * 0.5, position._y - size._size + value * 15.0, width, height, visual._texture);
         }
     }
 

@@ -33,11 +33,8 @@ void SpriteAnimation::onInit()
     material->compileShader();
 
     // load atlantes
-    _walk = new iAtlas(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationWalk.png", iResourceCacheMode::Free, iTextureBuildMode::Normal));
-    _walk->loadFrames("atlantes/SpriteAnimationWalk.xml");
-
-    _tiles = new iAtlas(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationTiles.png", iResourceCacheMode::Free, iTextureBuildMode::Normal));
-    _tiles->loadFrames("atlantes/SpriteAnimationTiles.xml");
+    _walk = iAtlas::create(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationWalk.png", iResourceCacheMode::Free, iTextureBuildMode::Normal), "atlantes/SpriteAnimationWalk.xml");
+    _tiles = iAtlas::create(iTextureResourceFactory::getInstance().loadFile("SpriteAnimationTiles.png", iResourceCacheMode::Free, iTextureBuildMode::Normal), "atlantes/SpriteAnimationTiles.xml");
 
     // generate ground map
     TileMapGenerator tileMapGenerator;
@@ -88,18 +85,9 @@ void SpriteAnimation::onDeinit()
     iMaterialResourceFactory::getInstance().destroyMaterial(_materialTerrain);
     _materialTerrain = iMaterial::INVALID_MATERIAL_ID;
 
-    // release some textures. otherwhise you will get a reminder of possible mem leak
-    if (_walk != nullptr)
-    {
-        delete _walk;
-        _walk = nullptr;
-    }
-
-    if (_tiles != nullptr)
-    {
-        delete _tiles;
-        _tiles = nullptr;
-    }
+    // release some resources
+    _walk = nullptr;
+    _tiles = nullptr;
 }
 
 void SpriteAnimation::onEvent(iEvent &event)
@@ -347,19 +335,14 @@ void SpriteAnimation::onUpdate(const iaTime &time)
 
 void SpriteAnimation::onRenderOrtho()
 {
-    // since the model matrix is by default an identity matrix which would cause all our 2d rendering end up at depth zero
-    // and the near clipping plane of our frustum can't be zero we have to push the scene a bit away from zero (e.g. -30 just a random number with no meaning)
     iaMatrixd matrix;
-    iRenderer::getInstance().setViewMatrix(matrix);
-    matrix.translate(0, 0, -30);
-    iRenderer::getInstance().setModelMatrix(matrix);
+    matrix.translate(0, 0, -1);
+    iRenderer2::getInstance().setModelMatrix(matrix);
 
-    // change material again to textured an draw the character
-    iRenderer::getInstance().setMaterial(getFontMaterial());
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+    iaMatrixf walkMatrix;
+    walkMatrix.translate(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5, 0.0);
 
-    // draw walking character
-    iRenderer::getInstance().drawSprite(_walk, _animationOffset + _animationIndex, iaVector2f(getWindow()->getClientWidth() * 0.5, getWindow()->getClientHeight() * 0.5));
+    iRenderer2::getInstance().drawFrame(walkMatrix, _walk, _animationOffset + _animationIndex);
 
     ExampleBase::onRenderOrtho();
 }
