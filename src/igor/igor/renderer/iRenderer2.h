@@ -52,6 +52,7 @@ namespace igor
     {
 
         friend class iModule<iRenderer2>;
+        friend class iWindow;
 
     public:
         /*! initializes renderer
@@ -112,35 +113,36 @@ namespace igor
          */
         const iaMatrixd &getModelViewProjectionMatrix() const;
 
-        void drawPoint(float32 x, float32 y, const iaColor4f &color);
-        void drawPoint(const iaVector2f &v, const iaColor4f &color);
-        void drawPoint(const iaVector3f &v, const iaColor4f &color);
+        void drawPoint(float32 x, float32 y, const iaColor4f &color = iaColor4f::white);
+        void drawPoint(const iaVector2f &v, const iaColor4f &color = iaColor4f::white);
+        void drawPoint(const iaVector3f &v, const iaColor4f &color = iaColor4f::white);
 
-        void drawLine(float32 x1, float32 y1, float32 x2, float32 y2, const iaColor4f &color);
-        void drawLine(const iaVector2f &v1, const iaVector2f &v2, const iaColor4f &color);
-        void drawLine(const iaVector3f &v1, const iaVector3f &v2, const iaColor4f &color);
+        void drawLine(float32 x1, float32 y1, float32 x2, float32 y2, const iaColor4f &color = iaColor4f::white);
+        void drawLine(const iaVector2f &v1, const iaVector2f &v2, const iaColor4f &color = iaColor4f::white);
+        void drawLine(const iaVector3f &v1, const iaVector3f &v2, const iaColor4f &color = iaColor4f::white);
 
-        void drawLineStrip(const std::vector<iaVector3f> &points, const iaColor4f &color);
+        void drawLineStrip(const std::vector<iaVector3f> &points, const iaColor4f &color = iaColor4f::white);
 
-        void drawRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color);
-        void drawRectangle(const iaRectanglef &rect, const iaColor4f &color);
+        void drawRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color = iaColor4f::white);
+        void drawRectangle(const iaRectanglef &rect, const iaColor4f &color = iaColor4f::white);
 
-        void drawFilledRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color);
-        void drawFilledRectangle(const iaRectanglef &rect, const iaColor4f &color);
+        void drawFilledRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color = iaColor4f::white);
+        void drawFilledRectangle(const iaRectanglef &rect, const iaColor4f &color = iaColor4f::white);
 
-        void drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0));
-        void drawTexturedRectangle(const iaRectanglef &rect, const iTexturePtr &texture, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0));
+        void drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f::white);
+        void drawTexturedRectangle(const iaRectanglef &rect, const iTexturePtr &texture, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f::white);
 
-        void drawQuad(const iaMatrixf &matrix, const iaColor4f &color);
+        void drawQuad(const iaMatrixf &matrix, const iaColor4f &color = iaColor4f::white);
 
-        void drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0));
-        void drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaVector2f &tiling, const iaColor4f &color);
+        void drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f::white);
+        void drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaVector2f &tiling, const iaColor4f &color = iaColor4f::white);
 
         void drawParticles(iParticle2DPtr particles, int32 particleCount, const iTexturePtr &texture, const iaGradientColor4f &gradient);
 
-        void drawString(float32 x, float32 y, const iaString &text, const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0), float32 maxWidth = 0.0f);
+        void drawString(float32 x, float32 y, const iaString &text, iHorizontalAlignment horz, iVerticalAlignment vert, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);
+        void drawString(float32 x, float32 y, const iaString &text, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);
 
-        /// void drawSprite(const iaMatrixf &matrix, const iAtlasPtr sprite, uint32 frameIndex, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f(1.0, 1.0, 1.0, 1.0));
+        /// void drawSprite(const iaMatrixf &matrix, const iAtlasPtr sprite, uint32 frameIndex, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f::white);
 
         /*! sets line render width
 
@@ -201,8 +203,22 @@ namespace igor
         void setFontLineHeight(float32 lineHeight);
 
         /*! \returns the font line height
-        */
+         */
         float32 getFontLineHeight() const;
+
+        /*! render statistics definition
+        */
+        struct iRendererStats
+        {
+            uint32 _vertices;
+            uint32 _triangles;
+            uint32 _indices;
+            uint32 _drawCalls;
+        };
+
+        /*! \returns copy of render stats
+        */
+        iRendererStats getStats() const;
 
     private:
         /*! internal render data
@@ -244,6 +260,13 @@ namespace igor
         /*! \returns current model view projection matrix with single precision
          */
         const iaMatrixf getMVP() const;
+
+        int32 beginTexturedQuad(const iTexturePtr &texture);
+        void endTexturedQuad();
+
+        /*! clears stats
+        */
+        void clearStats();
     };
 
 }

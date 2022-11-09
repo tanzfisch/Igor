@@ -1490,6 +1490,8 @@ namespace igor
         }
 
         swapBuffers();
+
+        iRenderer2::getInstance().clearStats();
     }
 
     void iWindow::setDoubleClick(bool doubleClick)

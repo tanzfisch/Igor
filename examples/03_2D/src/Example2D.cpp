@@ -192,11 +192,12 @@ void Example2D::onRenderOrtho()
     iRenderer2::getInstance().drawLine(110, 20, 110, 150, iaColor4f(1, 1, 0, 1));
     iRenderer2::getInstance().drawLine(20, 85, 200, 85, iaColor4f(1, 1, 0, 1));
 
+    iRenderer2::getInstance().setPointSize(static_cast<float32>(_rand.getNext() % 5 + 1));
+
     for (int x = 0; x < 19; ++x)
     {
         for (int y = 0; y < 14; ++y)
-        {
-            iRenderer2::getInstance().setPointSize(static_cast<float32>(_rand.getNext() % 5 + 1));
+        {            
             iRenderer2::getInstance().drawPoint(static_cast<float32>(230 + x * 10), static_cast<float32>(20 + y * 10), iaColor4f(1, 1, 0, 1));
         }
     }
@@ -217,16 +218,11 @@ void Example2D::onRenderOrtho()
     iaString wikipediaOpenGL = "OpenGL (Open Graphics Library) ist eine Spezifikation fuer eine plattform- und programmiersprachenunabhaengige "
                                "Programmierschnittstelle zur Entwicklung von 2D- und 3D-Computergrafik. Der OpenGL-Standard beschreibt etwa 250 "
                                "Befehle, die die Darstellung komplexer 3D-Szenen in Echtzeit erlauben. Zudem koennen andere Organisationen "
-                               "(zumeist Hersteller von Grafikkarten) proprietaere Erweiterungen definieren. Wikipedia";
-
-    //iRenderer::getInstance().setFont(getFont());
-    //iRenderer::getInstance().setFontSize(15.0f);
-    //iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
-    //iRenderer::getInstance().drawString(600, 100, wikipediaOpenGL, -30, 400);
+                               "(zumeist Hersteller von Grafikkarten) proprietaere Erweiterungen definieren.\n\nWikipedia";
 
     iRenderer2::getInstance().setFont(getFont());
     iRenderer2::getInstance().setFontSize(15.0f);
-    iRenderer2::getInstance().drawString(600, 100, wikipediaOpenGL, iaColor4f(0, 0, 0, 1), 400);
+    iRenderer2::getInstance().drawString(350, 350, wikipediaOpenGL, iaColor4f(0, 0, 0, 1), 400);
 
     // draw spline
     std::vector<iaVector3f> points;

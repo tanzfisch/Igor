@@ -29,13 +29,9 @@
 #ifndef __IGOR_PROFILERVISUALIZER_H__
 #define __IGOR_PROFILERVISUALIZER_H__
 
-#include <igor/resources/material/iMaterial.h>
 #include <igor/resources/profiler/iProfiler.h>
 #include <igor/resources/texture/iTextureFont.h>
 
-#include <iaux/data/iaColor4.h>
-#include <iaux/data/iaString.h>
-#include <iaux/system/iaConsole.h>
 #include <iaux/system/iaTime.h>
 using namespace iaux;
 
@@ -47,7 +43,7 @@ namespace igor
     class iWindow;
 
     /*! verbosity of statistics output on scree
-    */
+     */
     enum class iProfilerVerbosity
     {
         None,
@@ -59,7 +55,7 @@ namespace igor
     };
 
     /*! render statistics
-    */
+     */
     class iProfilerVisualizer
     {
 
@@ -71,11 +67,11 @@ namespace igor
         void setVerbosity(iProfilerVerbosity renderStatisticsMode);
 
         /*! \returns current verbosity level
-        */
+         */
         iProfilerVerbosity getVerbosity();
 
         /*! cycles through all the verbosity modes one by one for each call
-        */
+         */
         void cycleVerbosity();
 
         /*! displays the rendering statistics
@@ -85,86 +81,57 @@ namespace igor
         void draw(iWindow *window, const iTextureFontPtr &font);
 
         /*! init
-        */
+         */
         iProfilerVisualizer();
 
         /*! deinit
-        */
+         */
         virtual ~iProfilerVisualizer();
 
     private:
-
         /*! accumulation buffer
-        */
+         */
         std::array<float32, iProfiler::MAX_FRAMES_COUNT> _accumulationBuffer;
 
         /*! the mode to rende the statistics with
-        */
+         */
         iProfilerVerbosity _renderStatisticsMode = iProfilerVerbosity::FPSOnly;
 
         /*! measures time so we can update statistics in cetain intervals
-        */
+         */
         iaTime _time;
 
         /*! stores the last measured fps
-        */
+         */
         float32 _lastFPS = 0.0f;
 
         /*! how many threads are running
-        */
+         */
         uint32 _lastThreadCount = 0;
 
         /*! how many threads with render context are running
-        */
+         */
         uint32 _lastRenderContextThreadCount = 0;
 
         /*! amount of tasks in queue
-        */
+         */
         uint32 _lastQueuedTaskCount = 0;
 
         /*! amount of currently running tasks
-        */
+         */
         uint32 _lastRunningTaskCount = 0;
 
         /*! amount of tasks that are done by now
-        */
+         */
         uint64 _lastDoneTaskCount = 0;
 
         /*! amount of tasks in queue that need render context threads
-        */
+         */
         uint32 _lastQueuedRenderContextTaskCount = 0;
 
         /*! amount of currently running tasks using render context threads
-        */
+         */
         uint32 _lastRunningRenderContextTaskCount = 0;
-
-        /*! rendering the statistic material id
-        */
-        uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
-
-        /*! simple solid material
-        */
-        uint64 _materialSolid = iMaterial::INVALID_MATERIAL_ID;
-
-        /*! simple solid material with depth test
-        */
-        uint64 _materialGraph = iMaterial::INVALID_MATERIAL_ID;
-
-        /*! alpha blending material
-        */
-        uint64 _materialBlend = iMaterial::INVALID_MATERIAL_ID;
-
-        /*! initializes the materials in use
-        */
-        void initMaterials();
-
-        /*! deinitializes the materials in use
-        */
-        void deinitMaterials();
-
-        void init();
-
-        void deinit();
     };
 
 } // namespace igor

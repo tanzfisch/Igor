@@ -232,8 +232,8 @@ namespace igor
          */
         float32 _fontLineHeight = 1.15f;
 
-        ////// DEBUG ////
-        uint32 _drawCalls;
+        ////// stats ////
+        iRenderer2::iRendererStats _stats;
     };
 
     iRenderer2::iRenderer2()
@@ -248,7 +248,7 @@ namespace igor
 
     void iRenderer2::init()
     {
-        con_info("iRenderer2::init()");
+        con_info("init renderer");
 
         /////////// LINES //////////////
         auto &lines = _data->_lines;
@@ -332,10 +332,18 @@ namespace igor
 
         /////////// STATES ////////////
         _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
+
+        /////////// OGL //////////
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  
+        glEnable(GL_LINE_SMOOTH);
+        glEnable(GL_BLEND); // for now
+        glDisable(GL_DEPTH_TEST); // for now
     }
 
     void iRenderer2::deinit()
     {
+        con_info("deinit renderer");
+
         auto &lines = _data->_lines;
         lines._vertexBuffer = nullptr;
         lines._vertexArray = nullptr;
@@ -452,7 +460,7 @@ namespace igor
                          texture, tiling, color);
     }
 
-    void iRenderer2::drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaVector2f &tiling, const iaColor4f &color)
+    __IGOR_INLINE__ int32 iRenderer2::beginTexturedQuad(const iTexturePtr &texture)
     {
         auto &texQuads = _data->_texQuads;
 
@@ -488,6 +496,23 @@ namespace igor
             texQuads._nextTextureIndex++;
         }
 
+        return textureIndex;
+    }
+
+    __IGOR_INLINE__ void iRenderer2::endTexturedQuad()
+    {
+        auto &texQuads = _data->_texQuads;
+        texQuads._vertexCount += 4;
+        texQuads._indexCount += 6;
+
+        _data->_lastRenderDataSetUsed = iRenderDataSet::TexturedQuads;
+    }
+
+    void iRenderer2::drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaVector2f &tiling, const iaColor4f &color)
+    {
+        const int32 textureIndex = beginTexturedQuad(texture);
+
+        auto &texQuads = _data->_texQuads;
         texQuads._vertexDataPtr->_pos = v1;
         texQuads._vertexDataPtr->_color = color;
         texQuads._vertexDataPtr->_texCoord = QUAD_TEXTURE_COORDS[0];
@@ -515,10 +540,7 @@ namespace igor
         texQuads._vertexDataPtr->_texIndex = textureIndex;
         texQuads._vertexDataPtr++;
 
-        texQuads._vertexCount += 4;
-        texQuads._indexCount += 6;
-
-        _data->_lastRenderDataSetUsed = iRenderDataSet::TexturedQuads;
+        endTexturedQuad();
     }
 
     /*void iRenderer2::drawSprite(const iaMatrixf &matrix, const iAtlasPtr sprite, uint32 frameIndex, const iaVector2f &tiling, const iaColor4f &color)
@@ -744,12 +766,16 @@ namespace igor
         _data->_textureShader->bind();
         _data->_textureShader->setMatrix("igor_modelViewProjection", getMVP());
 
-        glDrawElements(GL_TRIANGLES, texQuads._indexCount, GL_UNSIGNED_INT, nullptr);
-        _data->_drawCalls++;
+        glDrawElements(GL_TRIANGLES, texQuads._indexCount, GL_UNSIGNED_INT, nullptr);        
         GL_CHECK_ERROR();
         texQuads._vertexArray->unbind();
 
         _data->_textureShader->unbind();
+
+        _data->_stats._drawCalls++;
+        _data->_stats._vertices += texQuads._vertexCount;
+        _data->_stats._indices += texQuads._indexCount;
+        _data->_stats._triangles += texQuads._vertexCount / 2;
 
         texQuads._vertexCount = 0;
         texQuads._indexCount = 0;
@@ -775,11 +801,15 @@ namespace igor
 
         quads._vertexArray->bind();
         glDrawElements(GL_TRIANGLES, quads._indexCount, GL_UNSIGNED_INT, nullptr);
-        _data->_drawCalls++;
         GL_CHECK_ERROR();
         quads._vertexArray->unbind();
 
         _data->_flatShader->unbind();
+
+        _data->_stats._drawCalls++;
+        _data->_stats._vertices += quads._vertexCount;
+        _data->_stats._indices += quads._indexCount;
+        _data->_stats._triangles += quads._vertexCount / 2;        
 
         quads._vertexCount = 0;
         quads._indexCount = 0;
@@ -803,11 +833,13 @@ namespace igor
 
         lines._vertexArray->bind();
         glDrawArrays(GL_LINES, 0, lines._vertexCount);
-        _data->_drawCalls++;
         GL_CHECK_ERROR();
         lines._vertexArray->unbind();
 
         _data->_flatShader->unbind();
+
+        _data->_stats._drawCalls++;
+        _data->_stats._vertices += lines._vertexCount;
 
         lines._vertexCount = 0;
         lines._vertexDataPtr = lines._vertexData;
@@ -830,11 +862,13 @@ namespace igor
 
         points._vertexArray->bind();
         glDrawArrays(GL_POINTS, 0, points._vertexCount);
-        _data->_drawCalls++;
         GL_CHECK_ERROR();
         points._vertexArray->unbind();
 
         _data->_flatShader->unbind();
+
+        _data->_stats._drawCalls++;
+        _data->_stats._vertices += points._vertexCount;        
 
         points._vertexCount = 0;
         points._vertexDataPtr = points._vertexData;
@@ -847,9 +881,6 @@ namespace igor
         flushLines();
         flushPoints();
 
-        // con_endl("_data->_drawCalls " << _data->_drawCalls);
-
-        _data->_drawCalls = 0;
         _data->_lastRenderDataSetUsed = iRenderDataSet::NoDataSet;
     }
 
@@ -1043,6 +1074,60 @@ namespace igor
         }
     }
 
+    void iRenderer2::drawString(float32 x, float32 y, const iaString &text, iHorizontalAlignment horz, iVerticalAlignment vert, const iaColor4f &color, float32 maxWidth)
+    {
+        con_assert(horz == iHorizontalAlignment::Left || horz == iHorizontalAlignment::Right || horz == iHorizontalAlignment::Center, "invalid parameters");
+        con_assert(vert == iVerticalAlignment::Top || vert == iVerticalAlignment::Bottom || vert == iVerticalAlignment::Center, "invalid parameters");
+
+        const iTextureFontPtr &font = _data->_font;
+        const float32 &fontSize = _data->_fontSize;
+        const float32 &fontLineHeight = _data->_fontLineHeight;
+
+        float32 posx, posy;
+
+        if (horz == iHorizontalAlignment::Left)
+        {
+            posx = x;
+        }
+        else if (horz == iHorizontalAlignment::Right)
+        {
+            if (maxWidth == 0.0f)
+            {
+                posx = x - font->measureWidth(text, fontSize);
+            }
+            else
+            {
+                posx = x - maxWidth;
+            }
+        }
+        else if (horz == iHorizontalAlignment::Center)
+        {
+            if (maxWidth == 0.0f)
+            {
+                posx = x - font->measureWidth(text, fontSize) * 0.5f;
+            }
+            else
+            {
+                posx = x - maxWidth * 0.5f;
+            }
+        }
+
+        if (vert == iVerticalAlignment::Top)
+        {
+            posy = y;
+        }
+        else if (vert == iVerticalAlignment::Bottom)
+        {
+            posy = y - font->measureHeight(text, fontSize, maxWidth, fontLineHeight);
+        }
+        else if (vert == iVerticalAlignment::Center)
+        {
+            posy = y - font->measureHeight(text, fontSize, maxWidth, fontLineHeight) * 0.5f;
+        }
+
+        drawString(posx, posy, text, color, maxWidth);
+    }
+
     void iRenderer2::drawString(float32 x, float32 y, const iaString &text, const iaColor4f &color, float32 maxWidth)
     {
         if (text.isEmpty())
@@ -1057,9 +1142,6 @@ namespace igor
         const iTextureFontPtr &font = _data->_font;
         const iTexturePtr &texture = font->getTexture();
 
-        iaVector2f texturePos;
-        iaVector2f textureSize;
-
         iaVector2f renderPos(x, y);
         iaVector2f renderSize(fontSize, fontSize);
 
@@ -1071,27 +1153,18 @@ namespace igor
         for (uint32 i = 0; i < text.getLength(); i++)
         {
             const wchar_t &character = text[i];
-            const uint32 fontIndex = character - 32;
-
-            texturePos._x = characters[fontIndex]._characterRect.getX();
-            texturePos._y = characters[fontIndex]._characterRect.getY();
-
-            textureSize._x = characters[fontIndex]._characterRect.getWidth();
-            textureSize._y = characters[fontIndex]._characterRect.getHeight();
-
-            renderSize._x = fontSize * characters[fontIndex]._characterOffset;
 
             donotdraw = false;
 
-            if (character == '\n')
+            if (character == L'\n')
             {
-                renderPos._x = 0;
+                renderPos._x = x;
                 renderPos._y += fontSize * fontLineHeight;
                 donotdraw = true;
             }
             else if (maxWidth != 0)
             {
-                if (character == ' ')
+                if (character == L' ')
                 {
                     int j = 1;
                     while ((i + j < text.getLength()) && (text[i + j] != ' '))
@@ -1101,9 +1174,9 @@ namespace igor
                     }
                     temptext[j] = 0;
 
-                    if (renderPos._x + font->measureWidth(temptext, fontSize) >= maxWidth)
+                    if (renderPos._x - x + font->measureWidth(temptext, fontSize) >= maxWidth)
                     {
-                        renderPos._x = 0;
+                        renderPos._x = x;
                         renderPos._y += fontSize * fontLineHeight;
                         donotdraw = true;
                     }
@@ -1115,21 +1188,43 @@ namespace igor
                 continue;
             }
 
-            // TODO pass on _data->_font->getTexture()
+            const uint32 fontIndex = character - 32;
+            const float32 &texX = characters[fontIndex]._characterRect.getX();
+            const float32 &texY = characters[fontIndex]._characterRect.getY();
 
-            /*a.set(texturePos._x, texturePos._y + textureSize._y);
-            a.set(renderPos._x, renderPos._y + renderSize._y);
+            const float32 &width = characters[fontIndex]._characterRect.getWidth();
+            const float32 &height = characters[fontIndex]._characterRect.getHeight();
 
-            glTexCoord2d(texturePos._x + textureSize._x, texturePos._y + textureSize._y);
-            b.set(renderPos._x + renderSize._x, renderPos._y + renderSize._y);
+            renderSize._x = fontSize * characters[fontIndex]._characterOffset;
 
-            glTexCoord2d(texturePos._x + textureSize._x, texturePos._y);
-            c.set(renderPos._x + renderSize._x, renderPos._y);
+            const int32 textureIndex = beginTexturedQuad(texture);
 
-            glTexCoord2d(texturePos._x, texturePos._y);
-            d.set(renderPos._x, renderPos._y);
+            auto &texQuads = _data->_texQuads;
+            texQuads._vertexDataPtr->_pos.set(renderPos._x, renderPos._y + renderSize._y, 0.0f);
+            texQuads._vertexDataPtr->_color = color;
+            texQuads._vertexDataPtr->_texCoord.set(texX, texY + height);
+            texQuads._vertexDataPtr->_texIndex = textureIndex;
+            texQuads._vertexDataPtr++;
 
-            drawTexturedQuad(a, b, c, d, texture, iaVector2f(1.0, 1.0), color);*/
+            texQuads._vertexDataPtr->_pos.set(renderPos._x + renderSize._x, renderPos._y + renderSize._y, 0.0f);
+            texQuads._vertexDataPtr->_color = color;
+            texQuads._vertexDataPtr->_texCoord.set(texX + width, texY + height);
+            texQuads._vertexDataPtr->_texIndex = textureIndex;
+            texQuads._vertexDataPtr++;
+
+            texQuads._vertexDataPtr->_pos.set(renderPos._x + renderSize._x, renderPos._y, 0.0f);
+            texQuads._vertexDataPtr->_color = color;
+            texQuads._vertexDataPtr->_texCoord.set(texX + width, texY);
+            texQuads._vertexDataPtr->_texIndex = textureIndex;
+            texQuads._vertexDataPtr++;
+
+            texQuads._vertexDataPtr->_pos.set(renderPos._x, renderPos._y, 0.0f);
+            texQuads._vertexDataPtr->_color = color;
+            texQuads._vertexDataPtr->_texCoord.set(texX, texY);
+            texQuads._vertexDataPtr->_texIndex = textureIndex;
+            texQuads._vertexDataPtr++;
+
+            endTexturedQuad();
 
             renderPos._x += renderSize._x;
         }
@@ -1163,6 +1258,19 @@ namespace igor
     float32 iRenderer2::getFontLineHeight() const
     {
         return _data->_fontLineHeight;
+    }
+
+    iRenderer2::iRendererStats iRenderer2::getStats() const
+    {
+        return _data->_stats;
+    }
+
+    void iRenderer2::clearStats()
+    {
+        _data->_stats._drawCalls = 0;
+        _data->_stats._vertices = 0;
+        _data->_stats._indices = 0;
+        _data->_stats._triangles = 0;
     }
 
 }

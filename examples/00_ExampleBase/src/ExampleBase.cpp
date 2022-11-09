@@ -208,10 +208,9 @@ void ExampleBase::onPreDraw()
 void ExampleBase::onRenderOrtho()
 {
     iaMatrixd matrix;
-    iRenderer::getInstance().setViewMatrix(matrix);
     matrix.translate(0, 0, -1);
-    iRenderer::getInstance().setModelMatrix(matrix);
     iRenderer2::getInstance().setModelMatrix(matrix);
+    iRenderer2::getInstance().setOrtho(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0, 0.1f, 10000.f);
 
     drawLogo();
 
@@ -233,11 +232,7 @@ void ExampleBase::drawLogo()
 
 void ExampleBase::drawHelpScreen()
 {
-    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-
-    // draw some text from wikipedia
-    iaString help = "Help Screen\n"
+    const iaString help = "Help Screen\n"
                     "----------\n\n"
                     "[ESC] Exit\n"
                     "[F1]  Display this screen\n"
@@ -248,15 +243,13 @@ void ExampleBase::drawHelpScreen()
                     "[F12] Toggle bounding box display\n";
 
     iRenderer2::getInstance().setFont(getFont());
-    iRenderer::getInstance().setFontSize(30.0f);
+    iRenderer2::getInstance().setFontSize(30.0f);
 
-    // fake an outline lol
-    iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
-    iRenderer::getInstance().drawString(100 - 2, 100 - 2, help, 0);
-    iRenderer::getInstance().drawString(100 - 2, 100 + 2, help, 0);
-    iRenderer::getInstance().drawString(100 + 2, 100 - 2, help, 0);
-    iRenderer::getInstance().drawString(100 + 2, 100 + 2, help, 0);
+    // fake an outline
+    iRenderer2::getInstance().drawString(100 - 2, 100 - 2, help, iaColor4f::black);
+    iRenderer2::getInstance().drawString(100 - 2, 100 + 2, help, iaColor4f::black);
+    iRenderer2::getInstance().drawString(100 + 2, 100 - 2, help, iaColor4f::black);
+    iRenderer2::getInstance().drawString(100 + 2, 100 + 2, help, iaColor4f::black);
 
-    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-    iRenderer::getInstance().drawString(100, 100, help, 0);
+    iRenderer2::getInstance().drawString(100, 100, help, iaColor4f::white);
 }

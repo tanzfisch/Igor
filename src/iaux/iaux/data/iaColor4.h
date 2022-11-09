@@ -42,38 +42,29 @@ namespace iaux
 
     for floating point variant we expect values in range from 0.0 - 1.0
     for integer variant we expect values in range from 0.0 - 255.0
-
-    \todo move code in to inline file
     */
-    template <class T>
-    class IAUX_API_TEMPLATE iaColor4
+    template <typename T>
+    struct IAUX_API_TEMPLATE iaColor4
     {
-    public:
         /*! red color channel
-        */
+         */
         T _r;
 
         /*! green color channel
-        */
+         */
         T _g;
 
         /*! blue color channel
-        */
+         */
         T _b;
 
         /*! alpha color channel
-        */
+         */
         T _a;
 
         /*! ctor initialize member variables
-        */
-        iaColor4()
-        {
-            _r = static_cast<T>(0);
-            _g = static_cast<T>(0);
-            _b = static_cast<T>(0);
-            _a = static_cast<T>(0);
-        }
+         */
+        iaColor4();
 
         /*! ctor initialize member variables with parameters
 
@@ -82,13 +73,7 @@ namespace iaux
         \param b blue component
         \param a alpha component
         */
-        iaColor4(T r, T g, T b, T a)
-        {
-            _r = r;
-            _g = g;
-            _b = b;
-            _a = a;
-        }
+        iaColor4(T r, T g, T b, T a);
 
         /*! set member variables with parameters
 
@@ -97,106 +82,63 @@ namespace iaux
         \param b blue component
         \param a alpha component
         */
-        void set(T r, T g, T b, T a)
-        {
-            _r = r;
-            _g = g;
-            _b = b;
-            _a = a;
-        }
+        void set(T r, T g, T b, T a);
 
         /*! \returns pointer to data
-        */
-        T *getData()
-        {
-            return &_r;
-        }
+         */
+        T *getData();
 
         /*! assignment operator with other color
 
         \param color the color to assign
         */
-        __IGOR_INLINE__ iaColor4<T> operator=(const iaColor4<T> &color)
-        {
-            iaColor4<T> result;
-            result._r = _r = color._r;
-            result._g = _g = color._g;
-            result._b = _b = color._b;
-            result._a = _a = color._a;
-
-            return result;
-        }
+        iaColor4<T> operator=(const iaColor4<T> &color);
 
         /*! add operator
 
         \param color the color to add
         */
-        __IGOR_INLINE__ void operator+=(const iaColor4<T> &color)
-        {
-            _r += color._r;
-            _g += color._g;
-            _b += color._b;
-            _a += color._a;
-        }
+        void operator+=(const iaColor4<T> &color);
 
         /*! subtract operator
 
         \param color the color to subtract
         */
-        __IGOR_INLINE__ void operator-=(const iaColor4<T> &color)
-        {
-            _r -= color._r;
-            _g -= color._g;
-            _b -= color._b;
-            _a -= color._a;
-        }
+        void operator-=(const iaColor4<T> &color);
 
         /*! scale operator
 
         \param factor the value to scale with
         */
-        void operator*=(float32 factor)
-        {
-            _r *= factor;
-            _g *= factor;
-            _b *= factor;
-            _a *= factor;
-        }
+        void operator*=(float32 factor);
 
-        /*! linear interpolation between two colors with a factor
+        /*! linear interpolation between two colors with a factor and stor the result in this color
 
         \param color1 first color
         \param color2 second color
         \param w factor to interpolate with
         */
-        void lerp(const iaColor4<T> &color1, const iaColor4<T> &color2, float32 w)
-        {
-            _r = color1._r * w + color2._r * (1.0f - w);
-            _g = color1._g * w + color2._g * (1.0f - w);
-            _b = color1._b * w + color2._b * (1.0f - w);
-            _a = color1._a * w + color2._a * (1.0f - w);
-        }
+        void lerp(const iaColor4<T> &color1, const iaColor4<T> &color2, float32 w);
+
+        static const iaColor4<T> white;
+        static const iaColor4<T> black;
+        static const iaColor4<T> red;
+        static const iaColor4<T> green;
+        static const iaColor4<T> blue;
+        static const iaColor4<T> yellow;
+        static const iaColor4<T> cyan;
+        static const iaColor4<T> magenta;
     };
 
+#include <iaux/data/iaColor4.inl>
+
     /*! float32 color
-    */
+     */
     typedef iaColor4<float32> iaColor4f;
 
     /*! uint8 color
-    */
+     */
     typedef iaColor4<uint8> iaColor4c;
-
-    /*! stream operator e.g. for cosole output
-
-    \param ostr the out stream handle
-    \param color the color to print in stream
-    */
-    template <class T>
-    __IGOR_INLINE__ std::wostream &operator<<(std::wostream &ostr, const iaColor4<T> &color)
-    {
-        ostr << "(" << color._r << ", " << color._g << ", " << color._b << ", " << color._a << ")";
-        return ostr;
-    }
 
 }; // namespace iaux
 

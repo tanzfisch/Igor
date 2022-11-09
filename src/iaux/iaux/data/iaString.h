@@ -416,6 +416,18 @@ namespace iaux
         */
         static iaString toString(float32 value, int afterPoint = 4);
 
+        /*! human readabile number
+
+        3000 -> 3k
+        3000000 -> 3M
+        3000000000 -> 3G
+        3000000000000 -> 3T
+
+        \param value input value
+        \returns human readable number
+        */
+        static iaString toStringUnits(int64 value);
+
         /*! transforms a iaString to a float
 
         \param text the string

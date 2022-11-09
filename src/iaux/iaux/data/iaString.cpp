@@ -1082,6 +1082,37 @@ namespace iaux
         return intToStrInternal(value, 0, base);
     }
 
+    iaString iaString::toStringUnits(int64 value)
+    {
+        iaString result;
+        if (value < 1000)
+        {
+            result += iaString::toString(value);
+        }
+        else if (value < 1000000)
+        {
+            result += iaString::toString(value / 1000);
+            result += "k";
+        }
+        else if (value < 1000000000)
+        {
+            result += iaString::toString(value / 1000000);
+            result += "M";
+        }
+        else if (value < 1000000000000)
+        {
+            result += iaString::toString(value / 1000000000);
+            result += "G";
+        }        
+        else
+        {
+            result += iaString::toString(value / 1000000000000);
+            result += "T";
+        }        
+
+        return result;
+    }    
+
     iaString iaString::toString(int64 value, int base)
     {
         iaString result;
@@ -1268,5 +1299,8 @@ namespace iaux
     {
         return trimLeft(trimRight(text));
     }
+
+
+
 
 } // namespace iaux
