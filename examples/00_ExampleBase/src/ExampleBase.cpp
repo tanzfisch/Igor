@@ -240,5 +240,5 @@ void ExampleBase::drawHelpScreen()
     iRenderer2::getInstance().drawString(100 + 2, 100 - 2, help, iaColor4f::black);
     iRenderer2::getInstance().drawString(100 + 2, 100 + 2, help, iaColor4f::black);
 
-    iRenderer2::getInstance().drawString(100, 100, help, iaColor4f::white);
+    iRenderer2::getInstance().drawString(100, 100, help, iaColor4f::green);
 }

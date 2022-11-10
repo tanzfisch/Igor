@@ -81,21 +81,6 @@ void Example2D::onInit()
     // close the loop by having the end point at the same position as the start point
     _spline.addSupportPoint(iaVector3f(100, 100, 0));
 
-    // create some materials
-    _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial("TextureAndBlending");
-    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
-    material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-
-    _materialWithTexture = iMaterialResourceFactory::getInstance().createMaterial("Texture");
-    material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTexture);
-    material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-
-    _materialWithoutDepthTest = iMaterialResourceFactory::getInstance().createMaterial("NoDepthTest");
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithoutDepthTest)->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-
     _updateTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &Example2D::onUpdate), iaTime::fromMilliseconds(10));
     _updateTimingHandle->start();
 
@@ -111,14 +96,6 @@ void Example2D::onDeinit()
         delete _updateTimingHandle;
         _updateTimingHandle = nullptr;
     }
-
-    // release materials (optional)
-    iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
-    _materialWithTextureAndBlending = 0;
-    iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTexture);
-    _materialWithTexture = 0;
-    iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithoutDepthTest);
-    _materialWithoutDepthTest = 0;
 
     // release some resources
     _doughnuts = nullptr;
@@ -192,7 +169,7 @@ void Example2D::onRenderOrtho()
     const float32 height = getWindow()->getClientHeight();
     iaVector2f tiling(width / _backgroundTexture->getWidth(),
                       height / _backgroundTexture->getHeight());
-    iRenderer2::getInstance().drawTexturedRectangle(0.0f, 0.0f, width, height, _backgroundTexture, tiling);
+    iRenderer2::getInstance().drawTexturedRectangle(0.0f, 0.0f, width, height, _backgroundTexture, iaColor4f::white, tiling);
 
     iRenderer2::getInstance().drawFilledRectangle(10, 10, 200, 150, iaColor4f(0, 0, 0, 1));
     iRenderer2::getInstance().drawFilledRectangle(220, 10, 200, 150, iaColor4f(0, 0, 0, 1));

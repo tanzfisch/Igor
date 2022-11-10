@@ -377,7 +377,7 @@ namespace igor
         _data->_sharedQuadIndexData = nullptr;
     }
 
-    void iRenderer2::drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaVector2f &tiling, const iaColor4f &color)
+    void iRenderer2::drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaColor4f &color, const iaVector2f &tiling)
     {
         auto &texQuads = _data->_texQuads;
 
@@ -446,18 +446,18 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::TexturedQuads;
     }
 
-    void iRenderer2::drawTexturedRectangle(const iaRectanglef &rect, const iTexturePtr &texture, const iaVector2f &tiling, const iaColor4f &color)
+    void iRenderer2::drawTexturedRectangle(const iaRectanglef &rect, const iTexturePtr &texture, const iaColor4f &color, const iaVector2f &tiling)
     {
-        drawTexturedRectangle(rect._x, rect._y, rect._width, rect._height, texture, tiling, color);
+        drawTexturedRectangle(rect._x, rect._y, rect._width, rect._height, texture, color, tiling);
     }
 
-    void iRenderer2::drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaVector2f &tiling, const iaColor4f &color)
+    void iRenderer2::drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaColor4f &color, const iaVector2f &tiling)
     {
         drawTexturedQuad(matrix * QUAD_VERTEX_POSITIONS[0],
                          matrix * QUAD_VERTEX_POSITIONS[1],
                          matrix * QUAD_VERTEX_POSITIONS[2],
                          matrix * QUAD_VERTEX_POSITIONS[3],
-                         texture, tiling, color);
+                         texture, color, tiling);
     }
 
     __IGOR_INLINE__ int32 iRenderer2::beginTexturedQuad(const iTexturePtr &texture)
@@ -508,7 +508,7 @@ namespace igor
         _data->_lastRenderDataSetUsed = iRenderDataSet::TexturedQuads;
     }
 
-    void iRenderer2::drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaVector2f &tiling, const iaColor4f &color)
+    void iRenderer2::drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color, const iaVector2f &tiling)
     {
         const int32 textureIndex = beginTexturedQuad(texture);
 
@@ -1002,18 +1002,43 @@ namespace igor
 
     void iRenderer2::setOrtho(float32 left, float32 right, float32 bottom, float32 top, float32 nearplain, float32 farplain)
     {
-        _data->_projectionMatrix.ortho(left, right, bottom, top, nearplain, farplain);
+        iaMatrixd matrix;
+        matrix.ortho(left, right, bottom, top, nearplain, farplain);
+        if(_data->_projectionMatrix == matrix)
+        {
+            return;
+        }
+
+        flush();
+        
+        _data->_projectionMatrix = matrix;        
         updateMatrices();
     }
 
     void iRenderer2::setPerspective(float32 fov, float32 aspect, float32 nearplain, float32 farplain)
     {
-        _data->_projectionMatrix.perspective(fov, aspect, nearplain, farplain);
+        iaMatrixd matrix;
+        matrix.perspective(fov, aspect, nearplain, farplain);
+        if(_data->_projectionMatrix == matrix)
+        {
+            return;
+        }
+
+        flush();
+        
+        _data->_projectionMatrix = matrix;
         updateMatrices();
     }
 
     void iRenderer2::setModelMatrix(const iaMatrixd &matrix)
     {
+        if(_data->_modelMatrix == matrix)
+        {
+            return;
+        }
+
+        flush();
+
         _data->_modelMatrix = matrix;
         updateMatrices();
     }
@@ -1107,7 +1132,7 @@ namespace igor
             d._x -= v._x;
             d._y -= v._y;
 
-            drawTexturedQuad(a, b, c, d, texture, iaVector2f(1.0, 1.0), color);
+            drawTexturedQuad(a, b, c, d, texture, color);
         }
     }
 
@@ -1269,6 +1294,8 @@ namespace igor
 
     void iRenderer2::setFont(const iTextureFontPtr &font)
     {
+        con_assert(font->isValid(), "invalid font used");
+
         _data->_font = font;
     }
 

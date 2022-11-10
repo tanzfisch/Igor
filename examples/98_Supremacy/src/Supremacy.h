@@ -56,6 +56,10 @@ private:
      */
     iView _viewOrtho;
 
+    /*! material id of a non textured material
+     */
+    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
+
     /*! entity scene
      */
     iEntityScene _entityScene;
@@ -153,6 +157,8 @@ private:
     void onUpdatePositionSystem();
 
     void onUpdateRangeSystem();
+
+    void onUpdateOrientationSystem();
 
     void onUpdateCleanUpTheDeadSystem();
 

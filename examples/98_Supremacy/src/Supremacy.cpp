@@ -23,13 +23,13 @@ iEntity Supremacy::createPlayer()
 
     auto position = entity.addComponent<PositionComponent>(iaVector2d(PLAYFIELD_WIDTH * 0.5, PLAYFIELD_HEIGHT * 0.5));
     auto size = entity.addComponent<SizeComponent>(STANDARD_UNIT_SIZE);
-    entity.addComponent<OrientationComponent>(0.0);
+    entity.addComponent<OrientationComponent>(iaVector2d(1.0, 0.0), false);
     entity.addComponent<VelocityComponent>(iaVector2d(1.0, 0.0), 1.0, true);
     entity.addComponent<PartyComponent>(FRIEND);
     entity.addComponent<DamageComponent>(0.0);
     entity.addComponent<HealthComponent>(100.0);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"), false, iaTime::fromSeconds(_rand.getNextFloat()));
-    auto &weapon = entity.addComponent<WeaponComponent>(WEAPON_ROCKETLAUNCHER);
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("tomato.png"), iaTime::fromSeconds(_rand.getNextFloat()));
+    auto &weapon = entity.addComponent<WeaponComponent>(WEAPON_SHOTGUN._component);
     weapon._time = iTimer::getInstance().getTime();
     weapon._offset = iaVector2d(0.0, -STANDARD_UNIT_SIZE * 0.5);
 
@@ -63,14 +63,14 @@ void Supremacy::createUnit(const iaVector2d &pos, uint32 party, iEntityID target
 {
     iEntity entity = _entityScene.createEntity("enemy");
     entity.addComponent<PositionComponent>(pos);
-    entity.addComponent<OrientationComponent>(0.0);
+    entity.addComponent<OrientationComponent>(iaVector2d(1.0, 0.0), false);
     entity.addComponent<VelocityComponent>(getRandomDir(), 0.3, false);
 
     auto size = entity.addComponent<SizeComponent>(STANDARD_UNIT_SIZE);
     entity.addComponent<PartyComponent>(party);
     entity.addComponent<DamageComponent>(10.0);
     entity.addComponent<HealthComponent>(30.0);
-    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("broccoli.png"), false, iaTime::fromSeconds(_rand.getNextFloat()));
+    entity.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile("broccoli.png"), iaTime::fromSeconds(_rand.getNextFloat()));
 
     entity.addComponent<TargetComponent>(target); // I don't like this but it's quick
 
@@ -125,6 +125,12 @@ void Supremacy::onInit()
     _viewOrtho.setOrthogonal(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0);
     _viewOrtho.registerRenderDelegate(iDrawDelegate(this, &Supremacy::onRenderOrtho));
     getWindow()->addView(&_viewOrtho, getZIndex() + 1);
+
+    _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial("TextureAndBlending");
+    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
+    material->setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    material->setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    material->setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(getWindow()));
 
@@ -586,6 +592,12 @@ void Supremacy::onUpdatePositionSystem()
     }
 }
 
+static const WeaponConfiguration WEAPONS[]{
+    WEAPON_KNIFE,
+    WEAPON_SHOTGUN,
+    WEAPON_MINIGUN,
+    WEAPON_ROCKETLAUNCHER};
+
 void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party, float64 damage, float64 speed, float64 range, WeaponType waponType)
 {
     // skip if out of range
@@ -594,63 +606,35 @@ void Supremacy::fire(const iaVector2d &from, const iaVector2d &dir, uint32 party
         return;
     }
 
-    float64 size = 10.0;
+    const WeaponConfiguration &config = WEAPONS[(int)waponType];
 
-    iaString texture;
-
-    int32 count = 1;
-    float64 variation = 0.0;
-
-    switch (waponType)
+    for (int i = 0; i < config._projectileCount; ++i)
     {
-    case WeaponType::Knife:
-        texture = "knife.png";
-        size = 20.0;
-        break;
-
-    case WeaponType::Shotgun:
-        texture = "pellets.png";
-        size = 20.0;
-        count = 3;
-        variation = 1.0;
-        break;
-
-    case WeaponType::Minigun:
-        texture = "bullet.png";
-        size = 10.0;
-        break;
-
-    case WeaponType::RocketLauncher:
-        texture = "rocket.png";
-        size = 20.0;
-        break;
-    }
-
-    for (int i = 0; i < count; ++i)
-    {
-        auto bullet = _entityScene.createEntity(texture);
+        auto bullet = _entityScene.createEntity(config._texture);
         bullet.addComponent<PositionComponent>(from);
-        bullet.addComponent<OrientationComponent>(0.0);
+        bullet.addComponent<AngularVelocityComponent>(config._angularVelocity);
         bullet.addComponent<RangeComponent>(range);
 
         iaVector2d d = dir;
-        d.rotateXY((_rand.getNextFloat() - 0.5) * variation * 0.5);
-        float64 s = speed + variation * (_rand.getNextFloat() - 0.5) * 5.0;
+        d.rotateXY((_rand.getNextFloat() - 0.2) * config._accuracy * 0.2);
+        float64 s = speed + config._accuracy * (_rand.getNextFloat() - 0.5);
         bullet.addComponent<VelocityComponent>(d, s, true);
+
+        bullet.addComponent<OrientationComponent>(d, config._angularVelocity == 0.0);
 
         bullet.addComponent<PartyComponent>(party);
         bullet.addComponent<DamageComponent>(damage);
         bullet.addComponent<HealthComponent>(100.0, true);
-        bullet.addComponent<SizeComponent>(size);
-        bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile(texture), true);
+        bullet.addComponent<SizeComponent>(config._size);
+        bullet.addComponent<VisualComponent>(iTextureResourceFactory::getInstance().requestFile(config._texture), iaTime::fromSeconds(_rand.getNextFloat()));
 
         auto &object = bullet.addComponent<QuadtreeObjectComponent>();
 
-        object._object = std::make_shared<QuadtreeObject>(iaCircled(from, size * 0.5), bullet.getID());
+        object._object = std::make_shared<QuadtreeObject>(iaCircled(from, config._size * 0.5), bullet.getID());
 
         object._object = std::make_shared<QuadtreeObject>();
         object._object->_userData = bullet.getID();
-        object._object->_circle.set(from, size * 0.5);
+        object._object->_circle.set(from, config._size * 0.5);
         _quadtree.insert(object._object);
     }
 }
@@ -753,6 +737,24 @@ void Supremacy::onUpdateRangeSystem()
     }
 }
 
+void Supremacy::onUpdateOrientationSystem()
+{
+    auto view = _entityScene.getEntities<AngularVelocityComponent, VelocityComponent, OrientationComponent>();
+    for (auto entity : view)
+    {
+        auto [angularVel, vel, ori] = view.get<AngularVelocityComponent, VelocityComponent, OrientationComponent>(entity);
+
+        if (ori.followVelocity)
+        {
+            ori._direction = vel._direction;
+        }
+        else
+        {
+            ori._direction.rotateXY(angularVel._velocity);
+        }
+    }
+}
+
 void Supremacy::onUpdateCleanUpTheDeadSystem()
 {
     // clean up the dead
@@ -775,6 +777,7 @@ void Supremacy::onUpdate(const iaTime &time)
     onUpdateQuadtreeSystem();
     onUpdateMovementControlSystem();
     onUpdateFollowTargetSystem();
+    onUpdateOrientationSystem();
     onUpdatePositionSystem();
 
     aquireTargetFor(_player);
@@ -825,7 +828,7 @@ void Supremacy::onRenderHUD()
     }
 
     iaMatrixd matrix;
-    matrix.translate(0.0, 0.0, -1.0);
+    matrix.translate(0, 0, -1);
     iRenderer2::getInstance().setModelMatrix(matrix);
 
     iRenderer2::getInstance().setFont(_font);
@@ -835,8 +838,6 @@ void Supremacy::onRenderHUD()
 
 void Supremacy::onRenderOrtho()
 {
-    const iaTime now = iTimer::getInstance().getTime();
-
     auto &viewportComp = _viewport.getComponent<ViewportComponent>();
     const iaRectangled &viewRectangle = viewportComp._viewport;
     iaRectangled intersetRectangle = viewRectangle;
@@ -848,14 +849,17 @@ void Supremacy::onRenderOrtho()
     matrix.scale(static_cast<float64>(getWindow()->getClientWidth() / PLAYFIELD_VIEWPORT_WIDTH),
                  (static_cast<float64>(getWindow()->getClientHeight()) / PLAYFIELD_VIEWPORT_HEIGHT), 1.0);
     matrix.translate(-viewRectangle._x, -viewRectangle._y, 0);
+    iRenderer2::getInstance().setOrtho(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0, 0.1f, 10000.f);
     iRenderer2::getInstance().setModelMatrix(matrix);
 
+    const iaColor4f shadowColor(0.0, 0.0, 0.0, 0.6);
+
     // draw entities TODO
-    auto view = _entityScene.getEntities<PositionComponent, SizeComponent, VisualComponent>();
+    auto view = _entityScene.getEntities<PositionComponent, SizeComponent, VisualComponent, OrientationComponent>();
 
     for (auto entity : view)
     {
-        auto [pos, size, visual] = view.get<PositionComponent, SizeComponent, VisualComponent>(entity);
+        auto [pos, size, visual, ori] = view.get<PositionComponent, SizeComponent, VisualComponent, OrientationComponent>(entity);
 
         iaVector2d position;
 
@@ -866,31 +870,30 @@ void Supremacy::onRenderOrtho()
 
         position = pos._position + position;
 
-        if (visual._useDirection)
+        float64 width = size._size;
+        float64 height = size._size;
+
+        /*iaTime time = iaTime::getNow() + visual._timerOffset;
+        float64 timing = std::fmod(time.getMilliseconds(), 1000.0) / 1000.0 * M_PI * 2;
+
+        float64 value = sin(timing) * 0.5;
+        if (value > 0.0)
         {
-            const float64 width = size._size;
-            iRenderer2::getInstance().drawTexturedRectangle(position._x - width * 0.5, position._y - width * 0.5, width, width, visual._texture);
+            value *= 0.5;
         }
-        else
-        {
-            float64 width = size._size;
-            float64 height = size._size;
 
-            iaTime time = now + visual._timerOffset;
-            float64 timing = std::fmod(time.getMilliseconds(), 1000.0) / 1000.0 * M_PI * 2;
+        width += value * 5.0;
+        height += (1.0 - value) * 10.0;*/
 
-            float64 value = sin(timing) * 0.5;
-            if (value > 0.0)
-            {
-                value *= 0.5;
-            }
+        // TODO shadow iRenderer2::getInstance().drawTexturedRectangle(position._x - size._size * 0.5, position._y + value * 2.0, size._size, size._size * 0.5, _shadow, shadowColor);
 
-            width += value * 5.0;
-            height += (1.0 - value) * 10.0;
+        iaMatrixf matrix;
+        matrix.translate(position._x, position._y, 0.0);
+        const float32 angle = ori._direction.angle();
+        matrix.rotate(angle, iaAxis::Z);
+        matrix.scale(width, height, 1.0);
 
-            iRenderer2::getInstance().drawTexturedRectangle(position._x - size._size * 0.5, position._y + value * 2.0, size._size, size._size * 0.5, _shadow, iaVector2f(1.0,1.0), iaColor4f(0.0, 0.0, 0.0, 0.6));
-            iRenderer2::getInstance().drawTexturedRectangle(position._x - size._size * 0.5, position._y - size._size + value * 15.0, width, height, visual._texture);
-        }
+        iRenderer2::getInstance().drawTexturedQuad(matrix, visual._texture);
     }
 
     onRenderHUD();

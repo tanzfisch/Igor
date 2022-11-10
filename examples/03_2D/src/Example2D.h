@@ -99,18 +99,6 @@ private:
     */
     iTexturePtr _dummyTexture = nullptr;
 
-    /*! material id of a textured material
-    */
-    uint64 _materialWithTexture = iMaterial::INVALID_MATERIAL_ID;
-
-    /*! material id of a textured material with alpha blending
-    */
-    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
-
-    /*! material id of a non textured material
-    */
-    uint64 _materialWithoutDepthTest = iMaterial::INVALID_MATERIAL_ID;
-
     /*! a B-Spline
     */
     iaBSplinef _spline;

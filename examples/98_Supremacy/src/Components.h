@@ -51,9 +51,13 @@ struct RangeComponent
 
 struct OrientationComponent
 {
-    /*! angle in rad
+    /*! direction the entity is pointing at
     */
-    float64 _angle;
+    iaVector2d _direction;
+
+    /*! if true orientation follows current velocity
+    */
+    bool followVelocity;
 };
 
 struct AngularVelocityComponent
@@ -106,7 +110,6 @@ struct PartyComponent
 struct VisualComponent
 {
     iTexturePtr _texture;
-    bool _useDirection = false;
     iaTime _timerOffset;
 };
 

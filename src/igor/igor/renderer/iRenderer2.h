@@ -129,13 +129,13 @@ namespace igor
         void drawFilledRectangle(float32 x, float32 y, float32 width, float32 height, const iaColor4f &color = iaColor4f::white);
         void drawFilledRectangle(const iaRectanglef &rect, const iaColor4f &color = iaColor4f::white);
 
-        void drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f::white);
-        void drawTexturedRectangle(const iaRectanglef &rect, const iTexturePtr &texture, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f::white);
+        void drawTexturedRectangle(float32 x, float32 y, float32 width, float32 height, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
+        void drawTexturedRectangle(const iaRectanglef &rect, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
 
         void drawQuad(const iaMatrixf &matrix, const iaColor4f &color = iaColor4f::white);
 
-        void drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaVector2f &tiling = iaVector2f(1.0, 1.0), const iaColor4f &color = iaColor4f::white);
-        void drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaVector2f &tiling, const iaColor4f &color = iaColor4f::white);
+        void drawTexturedQuad(const iaMatrixf &matrix, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
+        void drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
 
         /*! draw specified frame from given atlas
         */

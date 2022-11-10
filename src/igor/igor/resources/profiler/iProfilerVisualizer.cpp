@@ -121,7 +121,7 @@ namespace igor
         iRenderer2::getInstance().setFontSize(15.0f);
 
         const iaString fpsText = iaString::toString(_lastFPS, 2) + L" fps";
-        iRenderer2::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 10 - voffset), fpsText, iHorizontalAlignment::Right, iVerticalAlignment::Bottom);
+        iRenderer2::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 10 - voffset), fpsText, iHorizontalAlignment::Right, iVerticalAlignment::Bottom, iaColor4f::magenta);
 
         if (_renderStatisticsMode >= iProfilerVerbosity::FPSAndMetrics)
         {
@@ -131,11 +131,11 @@ namespace igor
             unique += iaString::toStringUnits(stats._triangles);
             unique += " i:";
             unique += iaString::toStringUnits(stats._indices);
-            iRenderer2::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 10), unique, iHorizontalAlignment::Right, iVerticalAlignment::Bottom);
+            iRenderer2::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 10), unique, iHorizontalAlignment::Right, iVerticalAlignment::Bottom, iaColor4f::magenta);
 
             iaString total = "draw calls:";
             total += iaString::toStringUnits(stats._drawCalls);
-            iRenderer2::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 30), total, iHorizontalAlignment::Right, iVerticalAlignment::Bottom);
+            iRenderer2::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 30), total, iHorizontalAlignment::Right, iVerticalAlignment::Bottom, iaColor4f::magenta);
         }
 
         if (_renderStatisticsMode >= iProfilerVerbosity::FPSMetricsAndTasks)
@@ -154,13 +154,13 @@ namespace igor
             rcthreads += ":";
             rcthreads += iaString::toString(_lastQueuedRenderContextTaskCount);
 
-            iRenderer2::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 30), threads, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
-            iRenderer2::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 10), rcthreads, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+            iRenderer2::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 30), threads, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, iaColor4f::magenta);
+            iRenderer2::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 10), rcthreads, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, iaColor4f::magenta);
 
             iaString done = "done ";
             done += iaString::toString(_lastDoneTaskCount);
 
-            iRenderer2::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 50), done, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+            iRenderer2::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 50), done, iHorizontalAlignment::Left, iVerticalAlignment::Bottom, iaColor4f::magenta);
         }
 
         if (_renderStatisticsMode >= iProfilerVerbosity::Sections)
