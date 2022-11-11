@@ -30,6 +30,7 @@
 #define __EXAMPLEBASE_H__
 
 #include <igor/igor.h>
+using namespace igor;
 
 /*! Examples base class
 */

@@ -122,7 +122,9 @@ namespace igor
             float32 halfHeight = static_cast<float32>(rect._height) * 0.5f;
 
             gradient.getValue(static_cast<float32>(i) / static_cast<float32>(rect._width), color);
+            iRenderer2::getInstance().setBlendingActive(true);
             iRenderer2::getInstance().drawLine(indexPosX, static_cast<float32>(rect._y) + halfHeight + 0.5f, indexPosX, static_cast<float32>(rect._y + rect._height) + 0.5f, color);
+            iRenderer2::getInstance().setBlendingActive(false);
             color._a = 1.0;
             iRenderer2::getInstance().drawLine(indexPosX, static_cast<float32>(rect._y) + 0.5f, indexPosX, static_cast<float32>(rect._y) + halfHeight + 0.5f, color);
         }
@@ -140,7 +142,13 @@ namespace igor
 
     void iWidgetDefaultTheme::drawFilledRectangle(const iaRectanglef &rect, const iaColor4f &color)
     {
+        if(color._a != 1.0f)
+        {
+            iRenderer2::getInstance().setBlendingActive(true);
+        }
+
         iRenderer2::getInstance().drawFilledRectangle(rect, color);
+        iRenderer2::getInstance().setBlendingActive(false);
     }
 
     void iWidgetDefaultTheme::drawGridHighlight(const iaRectanglef &rect)
@@ -204,7 +212,7 @@ namespace igor
             offset = +1;
         }
 
-        if (texture == nullptr)
+       if (texture == nullptr)
         {
             drawButtonFrame(rect, state, active);
         }
@@ -268,7 +276,7 @@ namespace igor
 
         float32 textwidth = _font->measureWidth(modText, _fontSize);
 
-        iRenderer2::getInstance().enableStencilTest(true);
+        iRenderer2::getInstance().setStencilTestActive(true);
         iRenderer2::getInstance().setStencilFunction(iRenderer2::iStencilFunction::Always, 1, 0xff);
         iRenderer2::getInstance().setStencilOperation(iRenderer2::iStencilOperation::Keep, iRenderer2::iStencilOperation::Keep, iRenderer2::iStencilOperation::Replace);
 
@@ -343,9 +351,9 @@ namespace igor
         iRenderer2::getInstance().setFontSize(_fontSize);
         iRenderer2::getInstance().setFontLineHeight(_fontLineHeight);
 
-        iRenderer2::getInstance().drawString(rect._x + relativeTextPosX, rect._y + relatoveTextPosY, modText);
+        iRenderer2::getInstance().drawString(rect._x + relativeTextPosX, rect._y + relatoveTextPosY, modText, keyboardFocus ? COLOR_TEXT_DARK : COLOR_AMBIENT);
 
-        iRenderer2::getInstance().enableStencilTest(false);
+        iRenderer2::getInstance().setStencilTestActive(false);
 
         DRAW_DEBUG_OUTPUT(rect, state);
     }
@@ -634,7 +642,9 @@ namespace igor
     void iWidgetDefaultTheme::drawPicture(const iaRectanglef &rect, iTexturePtr texture, iWidgetState state, bool active)
     {
         const iaColor4f &color = active ? COLOR_WHITE : COLOR_AMBIENT;
+        iRenderer2::getInstance().setBlendingActive(true);
         iRenderer2::getInstance().drawTexturedRectangle(static_cast<float32>(rect._x), static_cast<float32>(rect._y), static_cast<float32>(rect._width), static_cast<float32>(rect._height), texture, color);
+        iRenderer2::getInstance().setBlendingActive(false);
 
         DRAW_DEBUG_OUTPUT(rect, state);
     }
@@ -649,7 +659,7 @@ namespace igor
 
     void iWidgetDefaultTheme::drawButtonFrame(const iaRectanglef &rect, iWidgetState state, bool active)
     {
-        iaColor4f diffuse = active ? COLOR_DIFFUSE : COLOR_DIFFUSE_DARK;
+        const iaColor4f &diffuse = active ? COLOR_DIFFUSE : COLOR_DIFFUSE_DARK;
 
         switch (state)
         {
@@ -667,8 +677,6 @@ namespace igor
         case iWidgetState::Highlighted:
         case iWidgetState::Clicked:
         case iWidgetState::DoubleClicked:
-            diffuse = COLOR_DIFFUSE_LIGHT;
-
         case iWidgetState::Standby:
         default:
             iRenderer2::getInstance().drawFilledRectangle(rect, diffuse);
@@ -679,6 +687,7 @@ namespace igor
 
             iRenderer2::getInstance().drawLine(rect._x, rect._height + rect._y, rect._width + rect._x, rect._height + rect._y, COLOR_AMBIENT);
             iRenderer2::getInstance().drawLine(rect._width + rect._x, rect._y, rect._width + rect._x, rect._height + rect._y, COLOR_AMBIENT);
+            break;
         };
     }
 

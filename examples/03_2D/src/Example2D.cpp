@@ -163,6 +163,8 @@ void Example2D::onRenderOrtho()
     matrix.translate(0, 0, -1);
     iRenderer2::getInstance().setModelMatrix(matrix);
 
+    // draw some background
+    iRenderer2::getInstance().setBlendingActive(false);
     const float32 width = getWindow()->getClientWidth();
     const float32 height = getWindow()->getClientHeight();
     iaVector2f tiling(width / _backgroundTexture->getWidth(),
@@ -190,6 +192,7 @@ void Example2D::onRenderOrtho()
     }
 
     // doughnuts <3
+    iRenderer2::getInstance().setBlendingActive(true);
     iRenderer2::getInstance().drawFrame(_doughnutMatrix, _doughnuts, _doughnutsFrameIndex);
 
     // draw the texture that we could not have loaded at startup
@@ -209,6 +212,7 @@ void Example2D::onRenderOrtho()
     iRenderer2::getInstance().drawString(350, 350, wikipediaOpenGL, iaColor4f(0, 0, 0, 1), 400);
 
     // draw spline
+    iRenderer2::getInstance().setBlendingActive(false);
     std::vector<iaVector3f> points;
     _spline.getPoints(points, 100);
     iRenderer2::getInstance().drawLineStrip(points, iaColor4f(1, 0, 0.5, 1));

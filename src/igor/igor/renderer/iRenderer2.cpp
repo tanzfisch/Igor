@@ -236,9 +236,25 @@ namespace igor
 
         float32 _clearDepth;
 
+        bool _blendingActive = false;
+
+        bool _depthTestActive = false;
+
+        bool _depthMaskActive = true;
+
+        bool _cullFaceActive = true;
+
         ////// stats ////
         iRenderer2::iRendererStats _stats;
     };
+
+    static void applyOGLStates(bool blending, bool depthTest, bool depthMask, bool cullFace)
+    {
+        blending ? glEnable(GL_BLEND) : glDisable(GL_BLEND);
+        depthTest ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);
+        depthMask ? glDepthMask(GL_TRUE) : glDepthMask(GL_FALSE);
+        cullFace ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);
+    }
 
     iRenderer2::iRenderer2()
     {
@@ -340,8 +356,6 @@ namespace igor
         /////////// OGL //////////
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         glEnable(GL_LINE_SMOOTH);
-        glEnable(GL_BLEND);       // for now
-        glDisable(GL_DEPTH_TEST); // for now
     }
 
     void iRenderer2::deinit()
@@ -795,6 +809,8 @@ namespace igor
             return;
         }
 
+        applyOGLStates(_data->_blendingActive, _data->_depthTestActive, _data-> _depthMaskActive, _data->_cullFaceActive);
+
         uint32 dataSize = (uint32)((uint8 *)texQuads._vertexDataPtr - (uint8 *)texQuads._vertexData);
         texQuads._vertexBuffer->setData(dataSize, texQuads._vertexData);
         texQuads._vertexArray->bind();
@@ -834,6 +850,8 @@ namespace igor
             return;
         }
 
+        applyOGLStates(_data->_blendingActive, _data->_depthTestActive, _data-> _depthMaskActive, _data->_cullFaceActive);
+
         _data->_flatShader->bind();
         _data->_textureShader->setMatrix("igor_modelViewProjection", getMVP());
 
@@ -866,6 +884,8 @@ namespace igor
             return;
         }
 
+        applyOGLStates(_data->_blendingActive, _data->_depthTestActive, _data-> _depthMaskActive, _data->_cullFaceActive);
+
         _data->_flatShader->bind();
         _data->_textureShader->setMatrix("igor_modelViewProjection", getMVP());
 
@@ -894,6 +914,8 @@ namespace igor
         {
             return;
         }
+
+        applyOGLStates(_data->_blendingActive, _data->_depthTestActive, _data-> _depthMaskActive, _data->_cullFaceActive);
 
         _data->_flatShader->bind();
         _data->_textureShader->setMatrix("igor_modelViewProjection", getMVP());
@@ -1214,6 +1236,9 @@ namespace igor
             return;
         }
 
+        bool blending = isBlendingActive();
+        setBlendingActive(true);
+
         static wchar_t temptext[1024]; // TODO
 
         const float32 &fontSize = _data->_fontSize;
@@ -1307,6 +1332,8 @@ namespace igor
 
             renderPos._x += renderSize._x;
         }
+
+        setBlendingActive(blending);
     }
 
     void iRenderer2::setFont(const iTextureFontPtr &font)
@@ -1361,6 +1388,13 @@ namespace igor
 
     void iRenderer2::setViewport(const iaRectanglei &viewport)
     {
+        if (_data->_viewport == viewport)
+        {
+            return;
+        }
+
+        flush();
+
         _data->_viewport = viewport;
         glViewport(viewport._x, viewport._y, viewport._width, viewport._height);
     }
@@ -1453,7 +1487,7 @@ namespace igor
         }
 
         return result;
-    }    
+    }
 
     static GLenum getOGLEnum(iRenderer2::iStencilFunction value)
     {
@@ -1479,7 +1513,7 @@ namespace igor
 
         con_crit("unknown value");
         return GL_NONE;
-    }    
+    }
 
     void iRenderer2::setStencilFunction(iStencilFunction function, int32 ref, uint32 mask)
     {
@@ -1513,7 +1547,7 @@ namespace igor
         glStencilOp(getOGLEnum(fail), getOGLEnum(zfail), getOGLEnum(zpass));
     }
 
-    void iRenderer2::enableStencilTest(bool enable)
+    void iRenderer2::setStencilTestActive(bool enable)
     {
         if (enable)
         {
@@ -1528,6 +1562,38 @@ namespace igor
     void iRenderer2::setStencilMask(uint8 mask)
     {
         glStencilMask(mask);
+    }
+
+    void iRenderer2::setBlendingActive(bool enable)
+    {
+        if(_data->_blendingActive == enable)
+        {
+            return;
+        }
+
+        flush();
+        _data->_blendingActive = enable;
+    }
+
+    bool iRenderer2::isBlendingActive() const
+    {
+        return _data->_blendingActive;
+    }
+
+    void iRenderer2::setDepthTestActive(bool enable)
+    {
+        if(_data->_depthTestActive == enable)
+        {
+            return;
+        }
+
+        flush();        
+        _data->_depthTestActive = enable;
+    }
+
+    bool iRenderer2::isDepthTestActive() const
+    {
+        return _data->_depthTestActive;
     }
 
 }

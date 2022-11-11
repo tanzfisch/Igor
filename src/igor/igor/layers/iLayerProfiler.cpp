@@ -12,7 +12,7 @@ namespace igor
 
     // set an increase z index of 1 to make sure the ui is rendered above the background
     iLayerProfiler::iLayerProfiler(iWindow *window, const iaString &name, int32 zIndex, iProfilerVerbosity verbosity)
-        : iLayer(window, name, zIndex), _view(iView(false))
+        : iLayer(window, name, zIndex)
     {
         _profilerVisualizer.setVerbosity(verbosity);
     }

@@ -37,6 +37,22 @@ iaRectangle<T>::iaRectangle(const iaRectangle<T> &rect)
 }
 
 template <typename T>
+bool iaRectangle<T>::operator==(const iaRectangle<T> &other) const
+{
+    if (_x == other._x &&
+        _y == other._y &&
+        _width == other._width &&
+        _height == other._height)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+template <typename T>
 __IGOR_INLINE__ const T iaRectangle<T>::getX() const
 {
     return _x;

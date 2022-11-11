@@ -47,6 +47,8 @@ namespace igor
     class iRendererData;
 
     /*! this will eventually replace iRenderer
+    
+    \todo I don't like the stencil interfaces
      */
     class iRenderer2 : public iModule<iRenderer2>
     {
@@ -151,15 +153,6 @@ namespace igor
 
         void drawString(float32 x, float32 y, const iaString &text, iHorizontalAlignment horz, iVerticalAlignment vert, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);
         void drawString(float32 x, float32 y, const iaString &text, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);
-
-        /*
-                iRenderer::getInstance().enableStencilTest(true); // TODO
-                iRenderer::getInstance().setStencilFunction(iRenderStateValue::Always, 1, 0xff);
-                iRenderer::getInstance().setStencilOperation(iRenderStateValue::Keep, iRenderStateValue::Keep, iRenderStateValue::Replace);
-
-                // draw stencil pattern
-                iRenderer::getInstance().setStencilMask(0xff); // TODO
-                */
 
         /*! sets line render width
 
@@ -283,7 +276,9 @@ namespace igor
 
         \param enable if true stencil test will be enabled
         */
-        void enableStencilTest(bool enable);
+        void setStencilTestActive(bool enable);
+
+        bool isStencilTestActive() const;
 
         /*! stencil function types
          */
@@ -332,6 +327,12 @@ namespace igor
         /*! sets the stencil mask value
          */
         void setStencilMask(uint8 mask);
+
+        void setBlendingActive(bool enable);
+        bool isBlendingActive() const;
+
+        void setDepthTestActive(bool enable);
+        bool isDepthTestActive() const;
 
         /*! render statistics definition
          */
@@ -401,6 +402,7 @@ namespace igor
         /*! clears stats
          */
         void clearStats();
+
     };
 
 }

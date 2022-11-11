@@ -12,7 +12,7 @@ namespace igor
 
     // set an increase z index of 1 to make sure the ui is rendered above the background
     iLayerWidgets::iLayerWidgets(iWidgetTheme *theme, iWindow *window, const iaString &name, int32 zIndex)
-        : iLayer(window, name, zIndex), _theme(theme), _view(iView(false))
+        : iLayer(window, name, zIndex), _theme(theme)
     {
         iWidgetManager::getInstance().setTheme(_theme);
     }

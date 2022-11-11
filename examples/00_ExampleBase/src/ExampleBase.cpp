@@ -5,7 +5,7 @@
 #include "ExampleBase.h"
 
 ExampleBase::ExampleBase(iWindow *window, const iaString &name, bool createBaseSetup, bool createSkyBox, int32 zIndex)
-    : iLayer(window, name, zIndex), _viewOrtho(iView(false)), m_displayHelpScreen(false)
+    : iLayer(window, name, zIndex), m_displayHelpScreen(false)
 {
     con_info("starting example \"" << getName() << "\"");
 
@@ -200,6 +200,8 @@ void ExampleBase::onRenderOrtho()
     matrix.translate(0, 0, -1);
     iRenderer2::getInstance().setModelMatrix(matrix);
 
+    iRenderer2::getInstance().setBlendingActive(true); // TODO I don't like this... we need some sort of Material again like in the old renderer
+
     drawLogo();
 
     if (m_displayHelpScreen)
@@ -214,7 +216,7 @@ void ExampleBase::drawLogo()
     const float32 height = static_cast<float32>(_igorLogo->getHeight());
     const float32 x = static_cast<float32>(getWindow()->getClientWidth()) - width;
     const float32 y = static_cast<float32>(getWindow()->getClientHeight()) - height;
-
+    
     iRenderer2::getInstance().drawTexturedRectangle(x, y, width, height, _igorLogo);
 }
 

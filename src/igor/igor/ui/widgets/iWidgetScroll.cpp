@@ -520,7 +520,7 @@ namespace igor
         }
     }
 
-    void iWidgetScroll::calcChildOffsets(std::vector<iaRectanglei> &offsets)
+    void iWidgetScroll::calcChildOffsets(std::vector<iaRectanglef> &offsets)
     {
         offsets.clear();
         offsets.resize(_children.size());
@@ -536,7 +536,7 @@ namespace igor
             return;
         }
 
-        iaRectanglei clientRect;
+        iaRectanglef clientRect;
 
         float32 offsetX = 0;
         float32 offsetY = 0;
@@ -709,11 +709,13 @@ namespace igor
         iRenderer2::getInstance().setOrtho(static_cast<float32>(getActualPosX()),
                                            static_cast<float32>(getActualPosX() + absoluteFramePos.getWidth()),
                                            static_cast<float32>(getActualPosY() + absoluteFramePos.getHeight()),
-                                           static_cast<float32>(getActualPosY()), 1.0f, 40.0f);
+                                           static_cast<float32>(getActualPosY()), 0.1f, 10.0f);
 
         iaMatrixd matrix;
         matrix.translate(0.0, 0.0, -1.0);
         iRenderer2::getInstance().setModelMatrix(matrix);
+
+        iRenderer2::getInstance().drawRectangle(10, 10, 1000, 1000, iaColor4f::red);
 
         child->draw();
 

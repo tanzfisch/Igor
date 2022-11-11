@@ -240,7 +240,7 @@ namespace igor
 
 		\param offsets vector to be filled with childrens offsets
 		*/
-        void calcChildOffsets(std::vector<iaRectanglei> &offsets);
+        void calcChildOffsets(std::vector<iaRectanglef> &offsets);
     };
 
     /*! widget scroll pointer definition

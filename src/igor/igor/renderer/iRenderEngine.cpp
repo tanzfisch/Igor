@@ -27,7 +27,7 @@ using namespace iaux;
 
 namespace igor
 {
-    iRenderEngine::iRenderEngine(bool useProfiling)
+    iRenderEngine::iRenderEngine()
     {
         iMaterialResourceFactory::getInstance().registerMaterialCreatedDelegate(iMaterialCreatedDelegate(this, &iRenderEngine::onMaterialCreated));
         iMaterialResourceFactory::getInstance().registerMaterialDestroyedDelegate(iMaterialDestroyedDelegate(this, &iRenderEngine::onMaterialDestroyed));

@@ -67,11 +67,9 @@ namespace igor
 
     public:
     
-        /*! init members
-
-        \param useProfiling if true this view will make do profiling
+        /*! does nothing
         */
-        iView(bool useProfiling = true);
+        iView() = default;
 
         /*! checks consistency
         */

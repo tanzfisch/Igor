@@ -30,7 +30,6 @@
 #define __IGOR_TASKPROPSONVOXELS__
 
 #include <igor/threading/tasks/iTask.h>
-using namespace igor;
 
 #include <iaux/data/iaSphere.h>
 #include <iaux/math/iaVector3.h>

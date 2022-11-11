@@ -42,11 +42,20 @@ namespace igor
 {
 
     /*! does control the render loop
-    */
+     */
     class IGOR_API iRenderEngine
     {
-
     public:
+        /*! init
+
+        \param useProfiling if true this render engine will be profiled
+        */
+        iRenderEngine();
+
+        /*! deinit
+         */
+        virtual ~iRenderEngine();
+
         /*! shows all rendering in wireframe mode or normal mode
 
         \param wireframe if true all rendering is using wireframe
@@ -54,7 +63,7 @@ namespace igor
         void setWireframeVisible(bool wireframe = true);
 
         /*! \returns true if wireframe mode is active
-        */
+         */
         bool isWireframeVisible() const;
 
         /*! defines if bounding boxes are shown or not
@@ -64,7 +73,7 @@ namespace igor
         void setBoundingBoxVisible(bool boundingBox = true);
 
         /*! \returns true if bounding boxes are shown
-        */
+         */
         bool isBoundingBoxVisible() const;
 
         /*! defines if octree is shown or not
@@ -74,7 +83,7 @@ namespace igor
         void setOctreeVisible(bool octree = true);
 
         /*! \returns true if octree is shown
-        */
+         */
         bool isOctreeVisible() const;
 
         /*! sets if the nodes should be rendered with solely their colorid
@@ -84,7 +93,7 @@ namespace igor
         void setColorIDRendering(bool enabled = true);
 
         /*! \returns if nodes will be rendered with their color id
-        */
+         */
         bool isColorIDRendering() const;
 
         /*! sets the scene to render with
@@ -94,7 +103,7 @@ namespace igor
         void setScene(iScenePtr scene);
 
         /*! \returns pointer to scene
-        */
+         */
         iScenePtr getScene() const;
 
         /*! sets current camera by id
@@ -104,54 +113,44 @@ namespace igor
         void setCurrentCamera(iNodeID cameraID);
 
         /*! \returns current camera id
-        */
+         */
         iNodeID getCurrentCamera() const;
 
         /*! culls and renders
-        */
+         */
         void render();
-
-        /*! init
-
-        \param useProfiling if true this render engine will be profiled
-        */
-        iRenderEngine(bool useProfiling = false);
-
-        /*! deinit
-        */
-        virtual ~iRenderEngine();
 
     private:
         /*! current camera
-        */
+         */
         iNodeCamera *_currentCamera = nullptr;
 
         /*! flag if rendering uses wireframe
-        */
+         */
         bool _showWireframe = false;
 
         /*! flag if bounding boxes are drawn
-        */
+         */
         bool _showBoundingBoxes = false;
 
         /*! flag if octree will be rendered
-        */
+         */
         bool _showOctree = false;
 
         /*! flag if true color ids get rendered
-        */
+         */
         bool _renderColorID = false;
 
         /*! material groups
-        */
+         */
         std::unordered_map<iMaterialID, iMaterialGroup> _materialGroups;
 
         /*! handle to scene
-        */
+         */
         iScenePtr _scene = nullptr;
 
         /*! temporary list of nodes that where filtered by the culling process
-        */
+         */
         std::vector<iNodeID> _cullResult;
 
         /*! called on material created event
@@ -173,7 +172,7 @@ namespace igor
         void cullScene(iNodeCameraPtr camera);
 
         /*! updates material groups
-        */
+         */
         void updateMaterialGroups();
 
         /*! draw scene relative to specified camera
@@ -183,11 +182,11 @@ namespace igor
         void drawScene();
 
         /*! draws everyting by using it's color id
-        */
+         */
         void drawColorIDs();
 
         /*! triggers the creation of buffers
-        */
+         */
         void createBuffers();
     };
 } // namespace igor

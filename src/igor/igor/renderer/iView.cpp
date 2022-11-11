@@ -20,11 +20,6 @@ using namespace iaux;
 namespace igor
 {
 
-    iView::iView(bool useProfiling)
-        : _renderEngine(iRenderEngine(useProfiling))
-    {
-    }
-
     iView::~iView()
     {
         if (_renderEvent.hasDelegates())

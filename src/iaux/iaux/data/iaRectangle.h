@@ -215,6 +215,13 @@ namespace iaux
         \returns resulting rectangle
         */
         iaRectangle<T> operator=(const iaRectangle<T> &rectangle);
+
+        /*! compares two rectangles
+
+        \param other the other rectangle
+        \returns true if both vectors are equal
+        */
+        bool operator==(const iaRectangle<T> &other) const;        
     };
 
 #include <iaux/data/iaRectangle.inl>
