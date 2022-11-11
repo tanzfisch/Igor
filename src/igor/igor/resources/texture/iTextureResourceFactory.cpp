@@ -9,8 +9,16 @@
 #include <iaux/system/iaConsole.h>
 using namespace iaux;
 
+#ifdef __IGOR_WINDOWS__
+#pragma warning(disable : 4312)
+#endif
+
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
+
+#ifdef __IGOR_WINDOWS__
+#pragma warning(default : 4100)
+#endif
 
 namespace igor
 {
