@@ -17,7 +17,7 @@ if(IS_GNU)
     target_compile_options(Glad PRIVATE -std=c++17 -fPIC)
     target_compile_definitions(Glad PUBLIC -DGLX_GLXEXT_PROTOTYPES)
 elseif(IS_MSVC)
-    target_compile_options(Glad PRIVATE "/std:c++17" "/MP" "/W2")
+    target_compile_options(Glad PRIVATE "/std:c++17" "/MP" "/W1")
 endif()
 
 target_include_directories(Glad PUBLIC include)

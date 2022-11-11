@@ -32,11 +32,13 @@
 #ifdef __IGOR_WINDOWS__
 
 #include <igor/iDefines.h>
-#include <glad/glad.h>
 #include <windows.h>
 #include <windowsx.h>
 #define WM_MOUSEWHEEL 0x020A
 #define WHEEL_DELTA 120
+
+#include <glad/glad.h>
+#include <gl/gl.h>
 
 namespace igor
 {

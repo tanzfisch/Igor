@@ -89,22 +89,24 @@ set_property(TARGET ex-common PROPERTY FOLDER ${VENDOR_FOLDER})
 set_property(TARGET OpenAL PROPERTY FOLDER ${VENDOR_FOLDER})
 set_property(TARGET openal-info PROPERTY FOLDER ${VENDOR_FOLDER})
 
-
 add_subdirectory(vendor/Glad)
 set_property(TARGET Glad PROPERTY FOLDER ${VENDOR_FOLDER})
 
+add_subdirectory(vendor/TinyXML)
+set_property(TARGET TinyXML PROPERTY FOLDER ${VENDOR_FOLDER})
+
 # tinyXML
-message(STATUS "tinyXML")
-set(TINYXML_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/TinyXML/")
-set(TINYXML_HEADERS_DIR ${TINYXML_SRC_DIR})
-set(TINYXML_SOURCES
-    "${TINYXML_SRC_DIR}/tinystr.cpp" "${TINYXML_SRC_DIR}/tinyxml.cpp"
-    "${TINYXML_SRC_DIR}/tinyxmlerror.cpp"
-    "${TINYXML_SRC_DIR}/tinyxmlparser.cpp")
-set(TINYXML_HEADERS "${TINYXML_HEADERS_DIR}/tinystr.h"
-                    "${TINYXML_HEADERS_DIR}/tinyxml.h")
-list(APPEND TINYXML_SOURCES ${TINYXML_HEADERS})
-source_group_special("${TINYXML_SOURCES}" ${TINYXML_SRC_DIR} "\\vendor\\TinyXML\\")               
+#message(STATUS "tinyXML")
+#set(TINYXML_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/TinyXML/")
+#set(TINYXML_HEADERS_DIR ${TINYXML_SRC_DIR})
+#set(TINYXML_SOURCES
+#    "${TINYXML_SRC_DIR}/tinystr.cpp" "${TINYXML_SRC_DIR}/tinyxml.cpp"
+#    "${TINYXML_SRC_DIR}/tinyxmlerror.cpp"
+#    "${TINYXML_SRC_DIR}/tinyxmlparser.cpp")
+#set(TINYXML_HEADERS "${TINYXML_HEADERS_DIR}/tinystr.h"
+#                    "${TINYXML_HEADERS_DIR}/tinyxml.h")
+#list(APPEND TINYXML_SOURCES ${TINYXML_HEADERS})
+#source_group_special("${TINYXML_SOURCES}" ${TINYXML_SRC_DIR} "\\vendor\\TinyXML\\")               
 
 # stb_image
 message(STATUS "stb_image")
@@ -249,7 +251,7 @@ if(IS_GNU)
     target_link_libraries(iaux PRIVATE stdc++fs Threads::Threads)
 elseif(IS_MSVC)
     target_compile_definitions(iaux PRIVATE -D__IAUX_BUILDING_DLL__ PUBLIC -DNOMINMAX -D_UNICODE -DUNICODE)
-    target_compile_options(iaux PRIVATE "/std:c++17" "/MP" "/W2")
+    target_compile_options(iaux PRIVATE "/std:c++17" "/MP" "/W1")
     target_link_libraries(iaux PRIVATE DbgHelp Threads::Threads)
 endif()
 
@@ -274,7 +276,7 @@ if(IS_GNU)
     target_compile_options(ompf PRIVATE -std=c++17)
 elseif(IS_MSVC)
     target_compile_definitions(ompf PRIVATE -D__OMPF_BUILDING_DLL__)
-    target_compile_options(ompf PRIVATE "/std:c++17" "/MP" "/W2")
+    target_compile_options(ompf PRIVATE "/std:c++17" "/MP" "/W1")
 endif()
 
 target_include_directories(ompf PUBLIC ${OMPF_HEADERS_DIR})
@@ -316,11 +318,11 @@ target_include_directories(igor
 if(IS_GNU)
     target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__ ${X11_EXT_DEFINITIONS} PUBLIC -DENTT_USE_ATOMIC)
     target_compile_options(igor PRIVATE -std=c++17)
-    target_link_libraries(igor PUBLIC iaux PRIVATE Glad ompf newton ${OPENGL_LIBRARIES} ${X11_EXT_LIBRARIES} OpenAL)
+    target_link_libraries(igor PUBLIC iaux PRIVATE Glad TinyXML ompf newton ${OPENGL_LIBRARIES} ${X11_EXT_LIBRARIES} OpenAL)
 elseif(IS_MSVC)
     target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__ PUBLIC -DENTT_USE_ATOMIC)
-    target_compile_options(igor PRIVATE "/std:c++17" "/MP" "/W2")
-    target_link_libraries(igor PUBLIC iaux PRIVATE Glad ompf OpenGL32 glu32 newton OpenAL)
+    target_compile_options(igor PRIVATE "/std:c++17" "/MP" "/W1")
+    target_link_libraries(igor PUBLIC iaux PRIVATE Glad TinyXML ompf OpenGL32 glu32 newton OpenAL)
 endif()
 
 set_property(TARGET igor PROPERTY FOLDER ${ENGINE_FOLDER})
@@ -340,7 +342,7 @@ if(IS_GNU)
     target_compile_options(mica PRIVATE -std=c++17)
 elseif(IS_MSVC)
     target_compile_definitions(mica PRIVATE -DNOMINMAX -D_UNICODE -DUNICODE)
-    target_compile_options(mica PRIVATE "/std:c++17" "/MP" "/W2")
+    target_compile_options(mica PRIVATE "/std:c++17" "/MP" "/W1")
 endif()
 
 target_link_libraries(mica PRIVATE igor)
@@ -361,7 +363,7 @@ if(IS_GNU)
     target_compile_options(obj2ompf PRIVATE -std=c++17)
 elseif(IS_MSVC)
     target_compile_definitions(obj2ompf PRIVATE -DNOMINMAX -D_UNICODE -DUNICODE)
-    target_compile_options(obj2ompf PRIVATE "/std:c++17" "/MP" "/W2")
+    target_compile_options(obj2ompf PRIVATE "/std:c++17" "/MP" "/W1")
 endif()
 
 target_include_directories(obj2ompf PRIVATE ${IGOR_HEADERS_DIR} ${IAUX_HEADERS_DIR} ${OMPF_HEADERS_DIR} ${ENTT_HEADERS_DIR})
@@ -409,7 +411,7 @@ foreach(
         target_compile_options(${EXAMPLE} PRIVATE -std=c++17)
     elseif(IS_MSVC)
         target_compile_definitions(${EXAMPLE} PRIVATE -DNOMINMAX -D_UNICODE -DUNICODE)
-        target_compile_options(${EXAMPLE} PRIVATE "/std:c++17" "/MP" "/W2")
+        target_compile_options(${EXAMPLE} PRIVATE "/std:c++17" "/MP" "/W1")
     endif()
 
     set_property(TARGET ${EXAMPLE} PROPERTY FOLDER ${EXAMPLES_FOLDER})
@@ -429,7 +431,7 @@ if(IS_GNU)
     target_compile_options(iauxTest PRIVATE -std=c++17)
 elseif(IS_MSVC)
     target_compile_definitions(iauxTest PRIVATE -DNOMINMAX -D_UNICODE -DUNICODE)
-    target_compile_options(iauxTest PRIVATE "/std:c++17" "/MP" "/W2")
+    target_compile_options(iauxTest PRIVATE "/std:c++17" "/MP" "/W1")
 endif()
 
 target_include_directories(iauxTest PRIVATE ${IAUX_TEST_HEADERS_DIR} ${IAUX_HEADERS_DIR})
@@ -450,7 +452,7 @@ if(IS_GNU)
     target_compile_options(igorTest PRIVATE -std=c++17)
 elseif(IS_MSVC)
     target_compile_definitions(igorTest PRIVATE -DNOMINMAX -D_UNICODE -DUNICODE)
-    target_compile_options(igorTest PRIVATE "/std:c++17" "/MP" "/W2")
+    target_compile_options(igorTest PRIVATE "/std:c++17" "/MP" "/W1")
 endif()
 
 target_include_directories(igorTest PRIVATE ${IGOR_TEST_HEADERS_DIR} ${IGOR_HEADERS_DIR})

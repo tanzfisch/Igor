@@ -237,12 +237,14 @@ namespace igor
 
         void setVSync(bool vsync) override
         {
-            wglSwapIntervalEXT(vsync ? 1 : 0);
+            // TODO PFNWGLSWAPINTERVALEXTPROC wglSwapIntervalEXT = (PFNWGLSWAPINTERVALEXTPROC) wglGetProcAddress(“wglSwapIntervalEXT”);
+            // TODO wglSwapIntervalEXT(vsync ? 1 : 0);
         }
 
         bool getVSync() const override
         {
-            return wglGetSwapIntervalEXT() > 0 ? true : false;
+            // TODO return wglGetSwapIntervalEXT() > 0 ? true : false;
+            return false;
         }
 
         void swapBuffers() override
