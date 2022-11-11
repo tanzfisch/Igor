@@ -496,12 +496,12 @@ namespace igor
         _impl->showCursor(show);
     }
 
-    iaVector2i iMouse::getPos()
+    const iaVector2i& iMouse::getPos() const
     {
         return _impl->_pos;
     }
 
-    iaVector2i iMouse::getPosDelta()
+    iaVector2i iMouse::getPosDelta() const
     {
         return _impl->_pos - _impl->_posLast;
     }

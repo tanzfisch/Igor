@@ -93,6 +93,12 @@ namespace igor
         */
         void setModelMatrix(const iaMatrixd &matrix);
 
+        /*! sets projection matrix
+
+        \param matrix the new projection matrix
+        */
+        void setProjectionMatrix(const iaMatrixd &matrix);
+
         /*! \returns current model matrix
          */
         const iaMatrixd &getModelMatrix() const;
@@ -138,15 +144,22 @@ namespace igor
         void drawTexturedQuad(const iaVector3f &v1, const iaVector3f &v2, const iaVector3f &v3, const iaVector3f &v4, const iTexturePtr &texture, const iaColor4f &color = iaColor4f::white, const iaVector2f &tiling = iaVector2f(1.0, 1.0));
 
         /*! draw specified frame from given atlas
-        */
-        void drawFrame(const iaMatrixf &matrix, const iAtlasPtr& sprite, uint32 frameIndex, const iaColor4f &color = iaColor4f::white);
+         */
+        void drawFrame(const iaMatrixf &matrix, const iAtlasPtr &sprite, uint32 frameIndex, const iaColor4f &color = iaColor4f::white);
 
         void drawParticles(iParticle2DPtr particles, int32 particleCount, const iTexturePtr &texture, const iaGradientColor4f &gradient);
 
         void drawString(float32 x, float32 y, const iaString &text, iHorizontalAlignment horz, iVerticalAlignment vert, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);
         void drawString(float32 x, float32 y, const iaString &text, const iaColor4f &color = iaColor4f::white, float32 maxWidth = 0.0f);
 
-        
+        /*
+                iRenderer::getInstance().enableStencilTest(true); // TODO
+                iRenderer::getInstance().setStencilFunction(iRenderStateValue::Always, 1, 0xff);
+                iRenderer::getInstance().setStencilOperation(iRenderStateValue::Keep, iRenderStateValue::Keep, iRenderStateValue::Replace);
+
+                // draw stencil pattern
+                iRenderer::getInstance().setStencilMask(0xff); // TODO
+                */
 
         /*! sets line render width
 
@@ -210,8 +223,118 @@ namespace igor
          */
         float32 getFontLineHeight() const;
 
-        /*! render statistics definition
+        /*! \returns current viewport dimensions
+         */
+        const iaRectanglei &getViewport() const;
+
+        /*! sets viewport dimensions
+
+        \param viewport the new viewport
         */
+        void setViewport(const iaRectanglei &viewport);
+
+        /*! sets viewport dimensions
+
+        \param x horizontal position
+        \param y vertical position
+        \param width width
+        \param height height
+        */
+        void setViewport(int32 x, int32 y, int32 width, int32 height);
+
+        const iaColor4f &getClearColor() const;
+        void setClearColor(const iaColor4f &color);
+        float32 getClearDepth() const;
+        void setClearDepth(float32 depth);       
+
+        /*! clears swtencil buffer with clear depth
+         */
+        void clearStencilBuffer();
+
+        /*! clears color buffer with clear color
+         */
+        void clearColorBuffer();
+
+        /*! clears depth buffer with clear depth
+         */
+        void clearDepthBuffer();
+
+        /*! projects a screen position in to object space position
+
+        \param screenpos the screen position (vertical origin is at top of screen)
+        \param modelview the model view matrix
+        \param projection the projection matrix
+        \param viewport the viewport
+        \returns world position of projection screen position
+        */
+        const iaVector3d unProject(const iaVector3d &screenpos, const iaMatrixd &modelview, const iaMatrixd &projection, const iaRectanglei &viewport) const;
+
+        /*! projects a object space position in to screen space
+
+        \param objectSpacePos the object space position to project
+        \param modelview the model view matrix
+        \param projection the projection matrix
+        \param viewport the viewport
+        \returns the screen position
+        */
+        const iaVector3d project(const iaVector3d &objectSpacePos, const iaMatrixd &modelview, const iaMatrixd &projection, const iaRectanglei &viewport) const;
+
+        /*! enables/disables stencil test
+
+        \param enable if true stencil test will be enabled
+        */
+        void enableStencilTest(bool enable);
+
+        /*! stencil function types
+         */
+        enum class iStencilFunction
+        {
+            Never,
+            Less,
+            Equal,
+            LessOrEqual,
+            Greater,
+            NotEqual,
+            GreaterOrEqual,
+            Always
+        };  
+
+        /*! sets the stencil function
+
+        \param function the stencil function (legal values are Never, Less, LessOrEqual, Greater, GreaterOrEqual, Equal, NotEqual, and Always)
+        \param ref the reference value
+        \param mask the mask value to gate the result of the test
+        */
+        void setStencilFunction(iStencilFunction function, int32 ref, uint32 mask);
+
+        /*! stencil operation types
+         */
+        enum class iStencilOperation
+        {        
+            Keep,
+            Zero,    
+            Replace,
+            Increment,
+            Decrement,
+            Invert
+        };            
+
+        /*! sets the stencil test actions
+
+        legal values are Keep, Zero, Replace, Increment, IncrementWrap, Decrement, DecrementWrap, and Invert
+
+        \param fail action when stencil test fails
+        \param zfail action when stencil test passes but depth test fails
+        \param zpass action when stencil and depth test passed
+        */
+        void setStencilOperation(iStencilOperation fail, iStencilOperation zfail, iStencilOperation zpass);
+
+        /*! sets the stencil mask value
+         */
+        void setStencilMask(uint8 mask);
+
+        /*! render statistics definition
+         */
         struct iRendererStats
         {
             uint32 _vertices;
@@ -221,7 +344,7 @@ namespace igor
         };
 
         /*! \returns copy of render stats
-        */
+         */
         iRendererStats getStats() const;
 
     private:
@@ -272,11 +395,11 @@ namespace igor
         int32 beginTexturedQuad(const iTexturePtr &texture);
 
         /*! end textured quad
-        */
+         */
         void endTexturedQuad();
 
         /*! clears stats
-        */
+         */
         void clearStats();
     };
 

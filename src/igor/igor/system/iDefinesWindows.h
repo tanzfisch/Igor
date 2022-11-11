@@ -32,7 +32,7 @@
 #ifdef __IGOR_WINDOWS__
 
 #include <igor/iDefines.h>
-#include <GLee.h>
+#include <glad/glad.h>
 #include <windows.h>
 #include <windowsx.h>
 #define WM_MOUSEWHEEL 0x020A

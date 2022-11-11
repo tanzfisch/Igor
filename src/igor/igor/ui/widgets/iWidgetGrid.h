@@ -380,7 +380,7 @@ namespace igor
 
         \param position mouse position
         */
-        void handleMouseMove(const iaVector2i &pos);
+        void handleMouseMove(const iaVector2f &pos);
 
         /*! updates size based on it's content
         */
@@ -405,7 +405,7 @@ namespace igor
 
         \param offsets vector to be filled with childrens offsets
         */
-        void calcChildOffsets(std::vector<iaRectanglei> &offsets);
+        void calcChildOffsets(std::vector<iaRectanglef> &offsets);
     };
 
     /*! widget grid pointer definition

@@ -77,7 +77,7 @@ const WeaponConfiguration WEAPON_SHOTGUN{
     {
         WeaponType::Shotgun,              // weapon type
         100.0,                            // damage
-        3.0,                             // speed
+        7.0,                             // speed
         120.0,                            // range
         iaTime::fromMilliseconds(1000.0), // attack interval
         true,                             // need to stand still

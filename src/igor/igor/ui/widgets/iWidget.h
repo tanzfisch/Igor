@@ -397,7 +397,7 @@ namespace igor
 
         /*! \returns actual absolute position
 		*/
-        iaVector2i getActualPos() const;
+        iaVector2f getActualPos() const;
 
         /*! \returns actual absolute horizontal position
 		*/
@@ -417,7 +417,7 @@ namespace igor
 
         /*! \returns actual rectangle
 		*/
-        iaRectanglei getActualRect() const;
+        iaRectanglef getActualRect() const;
 
         /*! \returns actual relative horizontal position
 		*/
@@ -673,7 +673,7 @@ namespace igor
 
         /*! position for the tooltip to appear
 		*/
-        iaVector2i _tooltipPos;
+        iaVector2f _tooltipPos;
 
         /*! z value of this widget
         */
@@ -745,7 +745,7 @@ namespace igor
 
 		\param pos mouse position
 		*/
-        virtual void handleMouseMove(const iaVector2i &pos);
+        virtual void handleMouseMove(const iaVector2f &pos);
 
         /*! handles incomming acsii codes from keyboard
 
@@ -802,7 +802,7 @@ namespace igor
 
         /*! \returns last mouse position
 		*/
-        iaVector2i getLastMousePos() const;
+        iaVector2f getLastMousePos() const;
 
     private:
         /*! the widgets type
@@ -867,7 +867,7 @@ namespace igor
 
         /*! last mouse position
 		*/
-        iaVector2i _posLast;
+        iaVector2f _posLast;
 
         /*! id of widget
 		*/
@@ -959,7 +959,7 @@ namespace igor
 
 		\param offsets vector to be filled with childrens offsets
 		*/
-        virtual void calcChildOffsets(std::vector<iaRectanglei> &offsets);
+        virtual void calcChildOffsets(std::vector<iaRectanglef> &offsets);
     };
 
 #include <igor/ui/widgets/iWidget.inl>

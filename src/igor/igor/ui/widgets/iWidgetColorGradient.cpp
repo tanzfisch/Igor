@@ -8,7 +8,6 @@
 #include <igor/ui/theme/iWidgetTheme.h>
 #include <igor/resources/texture/iTextureFont.h>
 #include <igor/resources/texture/iTextureResourceFactory.h>
-#include <igor/renderer/iRenderer.h>
 #include <igor/data/iIntersection.h>
 
 #include <iaux/system/iaConsole.h>
@@ -54,18 +53,18 @@ namespace igor
 
     bool iWidgetColorGradient::handleMouseKeyDown(iKeyCode key)
     {
-        iaVector2i mousePos = getLastMousePos();
+        const iaVector2f &mousePos = getLastMousePos();
 
         if (_interactive)
         {
-            iaRectanglei gradientRect(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight());
+            iaRectanglef gradientRect(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight());
             gradientRect._x += 5;
             gradientRect._width -= 10;
             gradientRect._height /= 2;
 
             const std::vector<std::pair<float, iaColor4f>> gradient = _gradient.getValues();
 
-            iaRectanglei buttonRect(0, 0, 0, 0);
+            iaRectanglef buttonRect(0, 0, 0, 0);
             buttonRect._height = getActualHeight() - gradientRect._height - 1;
             buttonRect._width = 9;
             buttonRect._y = gradientRect._height + gradientRect._y + 1;
@@ -148,7 +147,7 @@ namespace igor
 
         if (isVisible())
         {
-            iaRectanglei gradientRect(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight());
+            iaRectanglef gradientRect(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight());
 
             if (_interactive)
             {
@@ -165,7 +164,7 @@ namespace igor
             {
                 const std::vector<std::pair<float, iaColor4f>> gradient = _gradient.getValues();
 
-                iaRectanglei buttonRect(0, 0, 0, 0);
+                iaRectanglef buttonRect(0, 0, 0, 0);
                 buttonRect._height = buttonHeight;
                 buttonRect._width = 9;
                 buttonRect._y = gradientRect._height + gradientRect._y + 1;

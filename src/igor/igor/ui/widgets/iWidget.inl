@@ -82,9 +82,9 @@ __IGOR_INLINE__ int32 iWidget::getMinHeight() const
     return _minHeight;
 }
 
-__IGOR_INLINE__ iaVector2i iWidget::getActualPos() const
+__IGOR_INLINE__ iaVector2f iWidget::getActualPos() const
 {
-	return iaVector2i(_absoluteX, _absoluteY);
+	return iaVector2f(_absoluteX, _absoluteY);
 }
 
 __IGOR_INLINE__ int32 iWidget::getActualPosX() const
@@ -97,9 +97,9 @@ __IGOR_INLINE__ int32 iWidget::getActualPosY() const
 	return _absoluteY;
 }
 
-__IGOR_INLINE__ iaRectanglei iWidget::getActualRect() const
+__IGOR_INLINE__ iaRectanglef iWidget::getActualRect() const
 {
-    return iaRectanglei(_absoluteX, _absoluteY, _actualWidth, _actualHeight);
+    return iaRectanglef(_absoluteX, _absoluteY, _actualWidth, _actualHeight);
 }
 
 __IGOR_INLINE__ int32 iWidget::getRelativePosX() const

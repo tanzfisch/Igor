@@ -958,7 +958,7 @@ namespace igor
                 XMapRaised(_display, _xwindow);
             }
 
-            _isOpen = true;
+            _isOpen = true;    
 
             XSelectInput(_display, _xwindow, KeyPressMask | KeyReleaseMask | ButtonPressMask | ButtonReleaseMask | PointerMotionMask | StructureNotifyMask);
 
@@ -969,7 +969,14 @@ namespace igor
             {
                 close();
                 return false;
-            }
+            }        
+
+            if (!gladLoadGL())
+            {
+                con_err("Can't initialize Glad");
+                close();
+                return false;
+            }          
 
             XMapWindow(_display, _xwindow);
             XFlush(_display);
@@ -1088,10 +1095,7 @@ namespace igor
             iRenderContextPtr result = static_cast<iRenderContextPtr>(glXCreateContext(_display, _visual, static_cast<GLXContext>(renderContext), true));
             _glxMutex.unlock();
 
-            if (result == nullptr)
-            {
-                con_err("Can't create GLX-context!");
-            }
+            con_assert(result != nullptr, "Can't create GLX-context!");
             return result;
         }
 

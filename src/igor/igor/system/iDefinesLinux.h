@@ -33,9 +33,13 @@
 
 #include <igor/iDefines.h>
 
-#include <GLee.h>
+#include <glad/glad.h>
+#include <GL/glx.h>
+#include <GL/glext.h>
+
 #include <X11/X.h>
 #include <X11/Xlib.h>
+#include <X11/Xutil.h>
 #ifdef XF86VMODE_FOUND
 #include <X11/extensions/xf86vmode.h>
 #endif

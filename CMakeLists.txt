@@ -89,6 +89,10 @@ set_property(TARGET ex-common PROPERTY FOLDER ${VENDOR_FOLDER})
 set_property(TARGET OpenAL PROPERTY FOLDER ${VENDOR_FOLDER})
 set_property(TARGET openal-info PROPERTY FOLDER ${VENDOR_FOLDER})
 
+
+add_subdirectory(vendor/Glad)
+set_property(TARGET Glad PROPERTY FOLDER ${VENDOR_FOLDER})
+
 # tinyXML
 message(STATUS "tinyXML")
 set(TINYXML_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/TinyXML/")
@@ -117,21 +121,6 @@ set(ENTT_HEADERS_DIR ${ENTT_SRC_DIR})
 set(ENTT_HEADERS "${ENTT_HEADERS_DIR}entt.h")
 list(APPEND ENTT_SOURCES ${ENTT_HEADERS})
 source_group_special("${ENTT_SOURCES}" ${ENTT_SRC_DIR} "\\vendor\\EnTT\\")
-
-# GLee
-message(STATUS "GLee")
-set(GLEE_SRC_DIR "${CMAKE_CURRENT_SOURCE_DIR}/vendor/GLee")
-set(GLEE_HEADERS_DIR ${GLEE_SRC_DIR})
-file(
-  GLOB_RECURSE GLEE_SOURCES
-  LIST_DIRECTORIES false
-  "${GLEE_SRC_DIR}*.c*")
-file(
-  GLOB_RECURSE GLEE_HEADERS
-  LIST_DIRECTORIES false
-  "${GLEE_SRC_DIR}*.h*")
-list(APPEND GLEE_SOURCES ${GLEE_HEADERS})
-source_group_special("${GLEE_SOURCES}" ${GLEE_SRC_DIR} "\\vendor\\GLee\\")
 
 # newton core
 message(STATUS "newton core")
@@ -310,28 +299,28 @@ set(IGOR_HEADERS_DIR ${IGOR_SRC_DIR})
 file(GLOB_RECURSE IGOR_SOURCES LIST_DIRECTORIES false "${IGOR_SRC_DIR}*.c*") #TODO
 file(GLOB_RECURSE IGOR_HEADERS LIST_DIRECTORIES false "${IGOR_HEADERS_DIR}*.h*" "${IGOR_HEADERS_DIR}*.inl") #TODO
 list(APPEND IGOR_SOURCES ${IGOR_HEADERS})
-add_library(igor SHARED ${IGOR_SOURCES} ${GLEE_SOURCES} ${TINYXML_SOURCES} ${STB_IMAGE_SOURCES} ${IGOR_VERSION_FILE} ${ENTT_SOURCES})
+add_library(igor SHARED ${IGOR_SOURCES} ${TINYXML_SOURCES} ${STB_IMAGE_SOURCES} ${IGOR_VERSION_FILE} ${ENTT_SOURCES})
 
-target_include_directories(
-  igor
-  PRIVATE ${GLEE_HEADERS_DIR}
-          ${TINYXML_HEADERS_DIR}
-          ${STB_IMAGE_HEADERS_DIR}
-          ${ENTT_HEADERS_DIR}
-          ${NEWTON_PHYSICS_HEADERS_DIR}
-          ${NEWTON_CORE_HEADERS_DIR}
-          ${NEWTON_HEADERS_DIR}
-          ${ALSOFT_HEADERS_DIR}
-  PUBLIC ${IGOR_HEADERS_DIR})
+target_include_directories(igor
+    PRIVATE 
+    ${TINYXML_HEADERS_DIR}
+    ${STB_IMAGE_HEADERS_DIR}
+    ${ENTT_HEADERS_DIR}
+    ${NEWTON_PHYSICS_HEADERS_DIR}
+    ${NEWTON_CORE_HEADERS_DIR}
+    ${NEWTON_HEADERS_DIR}
+    ${ALSOFT_HEADERS_DIR}
+    PUBLIC 
+    ${IGOR_HEADERS_DIR})
 
 if(IS_GNU)
     target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__ ${X11_EXT_DEFINITIONS} PUBLIC -DENTT_USE_ATOMIC)
     target_compile_options(igor PRIVATE -std=c++17)
-    target_link_libraries(igor PUBLIC iaux PRIVATE ompf newton ${OPENGL_LIBRARIES} ${X11_EXT_LIBRARIES} OpenAL)
+    target_link_libraries(igor PUBLIC iaux PRIVATE Glad ompf newton ${OPENGL_LIBRARIES} ${X11_EXT_LIBRARIES} OpenAL)
 elseif(IS_MSVC)
     target_compile_definitions(igor PRIVATE -D__IGOR_BUILDING_DLL__ PUBLIC -DENTT_USE_ATOMIC)
     target_compile_options(igor PRIVATE "/std:c++17" "/MP" "/W2")
-    target_link_libraries(igor PUBLIC iaux PRIVATE ompf OpenGL32 glu32 newton OpenAL)
+    target_link_libraries(igor PUBLIC iaux PRIVATE Glad ompf OpenGL32 glu32 newton OpenAL)
 endif()
 
 set_property(TARGET igor PROPERTY FOLDER ${ENGINE_FOLDER})

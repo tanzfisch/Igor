@@ -105,7 +105,7 @@ namespace igor
         }
     }
 
-    void iWidgetManager::showTooltip(const iaVector2i &pos, const iaString &text)
+    void iWidgetManager::showTooltip(const iaVector2f &pos, const iaString &text)
     {
         _tooltipPos = pos;
         _tooltipText = text;
@@ -205,12 +205,12 @@ namespace igor
         }
     }
 
-    bool iWidgetManager::handleMouseMove(const iaux::iaVector2i &to)
+    bool iWidgetManager::handleMouseMove(const iaux::iaVector2f &pos)
     {
         // if there is a modal dialog handle only that one
         if (getModal() != nullptr)
         {
-            getModal()->handleMouseMove(to);
+            getModal()->handleMouseMove(pos);
             return true;
         }
 
@@ -223,7 +223,7 @@ namespace igor
         {
             for (auto dialog : dialogs)
             {
-                dialog->handleMouseMove(to);
+                dialog->handleMouseMove(pos);
 
                 if (dialog->_isMouseOver)
                 {
@@ -254,8 +254,8 @@ namespace igor
         // refresh mouse pos on other dialogs because they have been blocked so far
         if (refreshMousePos)
         {
-            auto pos = iMouse::getInstance().getPos();
-            handleMouseMove(pos);
+            const iaVector2i &mousePos = iMouse::getInstance().getPos();
+            handleMouseMove(iaVector2f(mousePos._x, mousePos._y));
         }
 
         for (auto dialog : _dialogs)
@@ -291,7 +291,7 @@ namespace igor
             widget->updateAlignment(clientRectWidth, clientRectHeight);
             widget->updatePosition(offsetX, offsetY);
 
-            std::vector<iaRectanglei> offsets;
+            std::vector<iaRectanglef> offsets;
             widget->calcChildOffsets(offsets);
 
             con_assert(offsets.size() == widget->_children.size(), "inconsistant data");
@@ -541,7 +541,9 @@ namespace igor
 
     bool iWidgetManager::onMouseMoveEvent(iEventMouseMove &event)
     {
-        if (handleMouseMove(event.getPosition()))
+        const iaVector2i& pos = event.getPosition();
+
+        if (handleMouseMove(iaVector2f(pos._x, pos._y)))
         {
             return true;
         }

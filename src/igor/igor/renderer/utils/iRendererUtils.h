@@ -31,8 +31,7 @@
 
 #include <igor/iDefines.h>
 
-#define GL_GLEXT_PROTOTYPES
-#include <GLee.h>
+#include <glad/glad.h>
 
 #include <ostream>
 

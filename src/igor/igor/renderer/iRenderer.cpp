@@ -17,8 +17,7 @@
 #include <igor/resources/material/iMaterial.h>
 #include <igor/resources/material/iMaterialResourceFactory.h>
 
-#define GL_GLEXT_PROTOTYPES
-#include <GLee.h>
+#include <glad/glad.h>
 #include <GL/glu.h>
 
 #include <sstream>
@@ -111,13 +110,6 @@ namespace igor
 
     iRenderer::iRenderer()
     {
-#if defined(__IGOR_DEBUG__) && defined(GL_DEBUG_SEVERITY_HIGH)
-        glEnable(GL_DEBUG_OUTPUT);
-        glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
-        glDebugMessageCallback(onOGLDebugOutput, nullptr);
-
-        glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
-#endif
     }
 
     iRenderer::~iRenderer()
@@ -159,7 +151,7 @@ namespace igor
         if (len != 0)
         {
             char *buffer = new char[len];
-            glGetInfoLogARB(id, len, &result, buffer);
+            glGetShaderInfoLog(id, len, &result, buffer);
 
             if (0 != result)
             {
@@ -181,11 +173,11 @@ namespace igor
         switch (type)
         {
         case iShaderObjectType::Fragment:
-            shaderObject = glCreateShaderObjectARB(GL_FRAGMENT_SHADER_ARB);
+            shaderObject = glCreateShader(GL_FRAGMENT_SHADER);
             break;
 
         case iShaderObjectType::Vertex:
-            shaderObject = glCreateShaderObjectARB(GL_VERTEX_SHADER_ARB);
+            shaderObject = glCreateShader(GL_VERTEX_SHADER);
             break;
 
         default:
@@ -198,7 +190,7 @@ namespace igor
     void iRenderer::destroyShaderObject(uint32 id)
     {
         con_assert(-1 != id, "invalid id");
-        glDeleteObjectARB(id);
+        glDeleteShader(id);
     }
 
     void iRenderer::linkShaderProgram(uint32 id, std::vector<uint32> objects)
@@ -206,16 +198,16 @@ namespace igor
         auto object = objects.begin();
         while (objects.end() != object)
         {
-            glAttachObjectARB(id, (*object));
+            glAttachShader(id, (*object));
             object++;
         }
 
-        glLinkProgramARB(id);
+        glLinkProgram(id);
     }
 
     uint32 iRenderer::createShaderProgram()
     {
-        uint32 result = glCreateProgramObjectARB();
+        uint32 result = glCreateProgram();
 
         return result;
     }
@@ -229,7 +221,7 @@ namespace igor
     void iRenderer::useShaderProgram(uint32 id)
     {
         con_assert(INVALID_ID != id, "invalid id");
-        glUseProgramObjectARB(id);
+        glUseProgram(id);
     }
 
     bool iRenderer::isReady()
@@ -255,6 +247,14 @@ namespace igor
     {
         if (!_initialized)
         {
+#if defined(__IGOR_DEBUG__) && defined(GL_DEBUG_SEVERITY_HIGH)
+            glEnable(GL_DEBUG_OUTPUT);
+            glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+            glDebugMessageCallback(onOGLDebugOutput, nullptr);
+
+            glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
+#endif
+
             glEnable(GL_LINE_SMOOTH);
 
             glEnable(GL_POINT_SMOOTH);
@@ -269,7 +269,7 @@ namespace igor
 
             glDepthFunc(GL_LESS);
 
-            glEnable(GL_DEPTH_TEST);
+            // glEnable(GL_DEPTH_TEST);
 
             glDepthMask(true);
 
@@ -1270,28 +1270,28 @@ namespace igor
 
     void iRenderer::drawSprite(const iAtlasPtr sprite, uint32 frameIndex, const iaVector2f &pos)
     {
-/*        iTexturePtr texture = sprite->getTexture();
-        const iAtlas::iFrame &frame = sprite->getFrame(frameIndex);
+        /*        iTexturePtr texture = sprite->getTexture();
+                const iAtlas::iFrame &frame = sprite->getFrame(frameIndex);
 
-        iaVector2f position = pos;
-        position -= frame._origin;
-        iaVector2f size(frame._size._x * texture->getWidth(), frame._size._y * texture->getHeight());
+                iaVector2f position = pos;
+                position -= frame._origin;
+                iaVector2f size(frame._size._x * texture->getWidth(), frame._size._y * texture->getHeight());
 
-        bindTexture(texture, 0);
+                bindTexture(texture, 0);
 
-        glBegin(GL_QUADS);
-        glTexCoord2f(frame._pos._x, frame._pos._y + frame._size._y);
-        glVertex2f(position._x, position._y + size._y);
+                glBegin(GL_QUADS);
+                glTexCoord2f(frame._pos._x, frame._pos._y + frame._size._y);
+                glVertex2f(position._x, position._y + size._y);
 
-        glTexCoord2f(frame._pos._x + frame._size._x, frame._pos._y + frame._size._y);
-        glVertex2f(position._x + size._x, position._y + size._y);
+                glTexCoord2f(frame._pos._x + frame._size._x, frame._pos._y + frame._size._y);
+                glVertex2f(position._x + size._x, position._y + size._y);
 
-        glTexCoord2f(frame._pos._x + frame._size._x, frame._pos._y);
-        glVertex2f(position._x + size._x, position._y);
+                glTexCoord2f(frame._pos._x + frame._size._x, frame._pos._y);
+                glVertex2f(position._x + size._x, position._y);
 
-        glTexCoord2f(frame._pos._x, frame._pos._y);
-        glVertex2f(position._x, position._y);
-        glEnd();*/
+                glTexCoord2f(frame._pos._x, frame._pos._y);
+                glVertex2f(position._x, position._y);
+                glEnd();*/
     }
 
     iRenderTargetID iRenderer::createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer)
@@ -1305,47 +1305,47 @@ namespace igor
             GLuint fbo;
             GLuint colorRenderBuffer;
             GLuint depthRenderBuffer;
-            glGenFramebuffersEXT(1, &fbo);
+            glGenFramebuffers(1, &fbo);
 
-            glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fbo);
+            glBindFramebuffer(GL_FRAMEBUFFER, fbo);
 
-            glGenRenderbuffersEXT(1, &colorRenderBuffer);
+            glGenRenderbuffers(1, &colorRenderBuffer);
 
-            glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, colorRenderBuffer);
+            glBindRenderbuffer(GL_RENDERBUFFER, colorRenderBuffer);
 
-            glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_RGBA8, width, height);
-            glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_RENDERBUFFER_EXT, colorRenderBuffer);
+            glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA8, width, height);
+            glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, colorRenderBuffer);
 
             if (useDepthBuffer)
             {
-                glGenRenderbuffersEXT(1, &depthRenderBuffer);
-                glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, depthRenderBuffer);
-                glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT24, width, height);
-                glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, depthRenderBuffer);
+                glGenRenderbuffers(1, &depthRenderBuffer);
+                glBindRenderbuffer(GL_RENDERBUFFER, depthRenderBuffer);
+                glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT24, width, height);
+                glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthRenderBuffer);
             }
 
-            if (glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) != GL_FRAMEBUFFER_COMPLETE_EXT)
+            if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
             {
                 con_err("unsupported frame buffer object configureation");
 
                 // clean up again
-                glDeleteRenderbuffersEXT(1, &colorRenderBuffer);
+                glDeleteRenderbuffers(1, &colorRenderBuffer);
 
                 if (useDepthBuffer)
                 {
-                    glDeleteRenderbuffersEXT(1, &depthRenderBuffer);
+                    glDeleteRenderbuffers(1, &depthRenderBuffer);
                 }
-                glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-                glDeleteFramebuffersEXT(1, &fbo);
+                glBindFramebuffer(GL_FRAMEBUFFER, 0);
+                glDeleteFramebuffers(1, &fbo);
 
                 // restore current render target
-                glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _currentRenderTarget);
+                glBindFramebuffer(GL_FRAMEBUFFER, _currentRenderTarget);
 
                 return iRenderer::DEFAULT_RENDER_TARGET;
             }
 
             // restore current render target
-            glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _currentRenderTarget);
+            glBindFramebuffer(GL_FRAMEBUFFER, _currentRenderTarget);
 
             iRendererTarget renderTarget;
             renderTarget._renderTargetType = renderTargetType;
@@ -1374,18 +1374,18 @@ namespace igor
         {
             iRendererTarget renderTarget = (*iter).second;
 
-            glDeleteRenderbuffersEXT(1, (GLuint *)&renderTarget._colorBuffer);
+            glDeleteRenderbuffers(1, (GLuint *)&renderTarget._colorBuffer);
 
             if (renderTarget._hasDepth)
             {
-                glDeleteRenderbuffersEXT(1, (GLuint *)&renderTarget._depthBuffer);
+                glDeleteRenderbuffers(1, (GLuint *)&renderTarget._depthBuffer);
             }
 
-            glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-            glDeleteFramebuffersEXT(1, (GLuint *)&renderTarget._frameBufferObject);
+            glBindFramebuffer(GL_FRAMEBUFFER, 0);
+            glDeleteFramebuffers(1, (GLuint *)&renderTarget._frameBufferObject);
 
             // restore current render target
-            glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _currentRenderTarget);
+            glBindFramebuffer(GL_FRAMEBUFFER, _currentRenderTarget);
 
             _renderTargets.erase(iter);
         }
@@ -1398,7 +1398,7 @@ namespace igor
     void iRenderer::setRenderTarget(iRenderTargetID id)
     {
         // the ID is also the frame buffer object ID
-        glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, id);
+        glBindFramebuffer(GL_FRAMEBUFFER, id);
 
         _currentRenderTarget = id;
     }
@@ -1605,7 +1605,7 @@ namespace igor
         glVertexAttribDivisor(5, 1);
         glVertexAttribDivisor(6, 1);
 
-        glDrawElementsInstancedARB(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, 0, instancer->getInstanceCount());
+        glDrawElementsInstanced(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, 0, instancer->getInstanceCount());
 
         glBindVertexArray(0);
 

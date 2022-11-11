@@ -161,8 +161,6 @@ void Example2D::onRenderOrtho()
     // and the near clipping plane of our frustum can't be zero we have to push the scene a bit away from zero
     iaMatrixd matrix;
     matrix.translate(0, 0, -1);
-
-    iRenderer2::getInstance().setOrtho(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0, 0.1f, 10000.f);
     iRenderer2::getInstance().setModelMatrix(matrix);
 
     const float32 width = getWindow()->getClientWidth();

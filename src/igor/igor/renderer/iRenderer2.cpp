@@ -8,8 +8,6 @@
 
 #include <igor/renderer/shader/iShaderProgram.h>
 
-#include <igor/renderer/utils/iRendererUtils.h>
-
 namespace igor
 {
     static const uint32 MAX_POINT_VERTICES = 10000;
@@ -231,6 +229,12 @@ namespace igor
         /*! font line height
          */
         float32 _fontLineHeight = 1.15f;
+
+        iaRectanglei _viewport;
+
+        iaColor4f _clearColor;
+
+        float32 _clearDepth;
 
         ////// stats ////
         iRenderer2::iRendererStats _stats;
@@ -550,7 +554,7 @@ namespace igor
         const iAtlas::iFrame &frame = atlas->getFrame(frameIndex);
 
         // TODO origin
-        const iaVector3f offset;// (frame._origin._x, frame._origin._y, 0.0);
+        const iaVector3f offset; // (frame._origin._x, frame._origin._y, 0.0);
 
         auto &texQuads = _data->_texQuads;
         texQuads._vertexDataPtr->_pos = matrix * QUAD_VERTEX_POSITIONS[0];
@@ -1004,14 +1008,14 @@ namespace igor
     {
         iaMatrixd matrix;
         matrix.ortho(left, right, bottom, top, nearplain, farplain);
-        if(_data->_projectionMatrix == matrix)
+        if (_data->_projectionMatrix == matrix)
         {
             return;
         }
 
         flush();
-        
-        _data->_projectionMatrix = matrix;        
+
+        _data->_projectionMatrix = matrix;
         updateMatrices();
     }
 
@@ -1019,20 +1023,33 @@ namespace igor
     {
         iaMatrixd matrix;
         matrix.perspective(fov, aspect, nearplain, farplain);
-        if(_data->_projectionMatrix == matrix)
+        if (_data->_projectionMatrix == matrix)
         {
             return;
         }
 
         flush();
-        
+
+        _data->_projectionMatrix = matrix;
+        updateMatrices();
+    }
+
+    void iRenderer2::setProjectionMatrix(const iaMatrixd &matrix)
+    {
+        if (_data->_projectionMatrix == matrix)
+        {
+            return;
+        }
+
+        flush();
+
         _data->_projectionMatrix = matrix;
         updateMatrices();
     }
 
     void iRenderer2::setModelMatrix(const iaMatrixd &matrix)
     {
-        if(_data->_modelMatrix == matrix)
+        if (_data->_modelMatrix == matrix)
         {
             return;
         }
@@ -1335,6 +1352,182 @@ namespace igor
         _data->_stats._vertices = 0;
         _data->_stats._indices = 0;
         _data->_stats._triangles = 0;
+    }
+
+    const iaRectanglei &iRenderer2::getViewport() const
+    {
+        return _data->_viewport;
+    }
+
+    void iRenderer2::setViewport(const iaRectanglei &viewport)
+    {
+        _data->_viewport = viewport;
+        glViewport(viewport._x, viewport._y, viewport._width, viewport._height);
+    }
+
+    void iRenderer2::setViewport(int32 x, int32 y, int32 width, int32 height)
+    {
+        setViewport(iaRectanglei(x, y, width, height));
+    }
+
+    const iaColor4f &iRenderer2::getClearColor() const
+    {
+        return _data->_clearColor;
+    }
+
+    void iRenderer2::setClearColor(const iaColor4f &color)
+    {
+        _data->_clearColor = color;
+        glClearColor(color._r, color._g, color._b, color._a);
+    }
+
+    float32 iRenderer2::getClearDepth() const
+    {
+        return _data->_clearDepth;
+    }
+
+    void iRenderer2::setClearDepth(float32 depth)
+    {
+        _data->_clearDepth = depth;
+        glClearDepth(depth);
+    }
+
+    void iRenderer2::clearColorBuffer()
+    {
+        glClear(GL_COLOR_BUFFER_BIT);
+    }
+
+    void iRenderer2::clearDepthBuffer()
+    {
+        glClear(GL_DEPTH_BUFFER_BIT);
+    }
+
+    void iRenderer2::clearStencilBuffer()
+    {
+        glClear(GL_STENCIL_BUFFER_BIT);
+    }
+
+    const iaVector3d iRenderer2::project(const iaVector3d &objectSpacePos, const iaMatrixd &modelview, const iaMatrixd &projection, const iaRectanglei &viewport) const
+    {
+        iaVector4d in(objectSpacePos._x, objectSpacePos._y, objectSpacePos._z, 1);
+        iaVector4d out;
+        iaVector3d result;
+
+        iaMatrixd modelViewProjection = projection;
+        modelViewProjection *= modelview;
+        out = modelViewProjection * in;
+        out[0] /= out._w;
+        out[1] /= out._w;
+        out[2] /= out._w;
+
+        result._x = static_cast<float64>(viewport.getWidth()) * (out._x + 1.0) / 2.0;
+        result._y = static_cast<float64>(viewport.getHeight()) * (1.0 - ((out._y + 1.0) / 2.0));
+        result._z = out._z;
+
+        return result;
+    }
+
+    const iaVector3d iRenderer2::unProject(const iaVector3d &screenpos, const iaMatrixd &modelview, const iaMatrixd &projection, const iaRectanglei &viewport) const
+    {
+        iaVector4d in;
+        iaVector4d out;
+        iaVector3d result;
+
+        in[0] = (screenpos[0] - (float32)viewport.getX()) / (float32)viewport.getWidth() * 2.0f - 1.0f;
+        in[1] = (((float32)viewport.getHeight() - screenpos[1]) - (float32)viewport.getY()) / (float32)viewport.getHeight() * 2.0f - 1.0f;
+        in[2] = screenpos[2] * 2.0f - 1.0f;
+        in[3] = 1.0f;
+
+        iaMatrixd modelViewProjection = projection;
+        modelViewProjection *= modelview;
+        modelViewProjection.invert();
+        out = modelViewProjection * in;
+
+        con_assert(out[3] != 0.0f, "out of range");
+
+        if (out[3] != 0.0f)
+        {
+            result[0] = out[0] / out[3];
+            result[1] = out[1] / out[3];
+            result[2] = out[2] / out[3];
+        }
+
+        return result;
+    }    
+
+    static GLenum getOGLEnum(iRenderer2::iStencilFunction value)
+    {
+        switch (value)
+        {
+        case iRenderer2::iStencilFunction::Never:
+            return GL_NEVER;
+        case iRenderer2::iStencilFunction::Less:
+            return GL_LESS;
+        case iRenderer2::iStencilFunction::LessOrEqual:
+            return GL_LEQUAL;
+        case iRenderer2::iStencilFunction::Greater:
+            return GL_GREATER;
+        case iRenderer2::iStencilFunction::GreaterOrEqual:
+            return GL_GEQUAL;
+        case iRenderer2::iStencilFunction::Equal:
+            return GL_EQUAL;
+        case iRenderer2::iStencilFunction::NotEqual:
+            return GL_NOTEQUAL;
+        case iRenderer2::iStencilFunction::Always:
+            return GL_ALWAYS;
+        };
+
+        con_crit("unknown value");
+        return GL_NONE;
+    }    
+
+    void iRenderer2::setStencilFunction(iStencilFunction function, int32 ref, uint32 mask)
+    {
+        glStencilFunc(getOGLEnum(function), ref, mask);
+    }
+
+    static GLenum getOGLEnum(iRenderer2::iStencilOperation value)
+    {
+        switch (value)
+        {
+        case iRenderer2::iStencilOperation::Zero:
+            return GL_ZERO;
+        case iRenderer2::iStencilOperation::Keep:
+            return GL_KEEP;
+        case iRenderer2::iStencilOperation::Replace:
+            return GL_REPLACE;
+        case iRenderer2::iStencilOperation::Increment:
+            return GL_INCR;
+        case iRenderer2::iStencilOperation::Decrement:
+            return GL_DECR;
+        case iRenderer2::iStencilOperation::Invert:
+            return GL_INVERT;
+        }
+
+        con_err("invalid value");
+        return GL_ZERO;
+    }
+
+    void iRenderer2::setStencilOperation(iStencilOperation fail, iStencilOperation zfail, iStencilOperation zpass)
+    {
+        glStencilOp(getOGLEnum(fail), getOGLEnum(zfail), getOGLEnum(zpass));
+    }
+
+    void iRenderer2::enableStencilTest(bool enable)
+    {
+        if (enable)
+        {
+            glEnable(GL_STENCIL_TEST);
+        }
+        else
+        {
+            glDisable(GL_STENCIL_TEST);
+        }
+    }
+
+    void iRenderer2::setStencilMask(uint8 mask)
+    {
+        glStencilMask(mask);
     }
 
 }

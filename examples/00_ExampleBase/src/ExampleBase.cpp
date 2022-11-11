@@ -199,7 +199,6 @@ void ExampleBase::onRenderOrtho()
     iaMatrixd matrix;
     matrix.translate(0, 0, -1);
     iRenderer2::getInstance().setModelMatrix(matrix);
-    iRenderer2::getInstance().setOrtho(0.0, static_cast<float32>(getWindow()->getClientWidth()), static_cast<float32>(getWindow()->getClientHeight()), 0.0, 0.1f, 10000.f);
 
     drawLogo();
 

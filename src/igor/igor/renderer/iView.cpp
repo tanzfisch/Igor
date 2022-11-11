@@ -177,26 +177,37 @@ namespace igor
         if (_visible)
         {
             iRenderer::getInstance().setViewport(_viewport.getX(), _viewport.getY(), _viewport.getWidth(), _viewport.getHeight());
+            iRenderer2::getInstance().setViewport(_viewport.getX(), _viewport.getY(), _viewport.getWidth(), _viewport.getHeight());
 
             if (_clearColorActive)
             {
                 iRenderer::getInstance().setClearColor(_clearColor);
                 iRenderer::getInstance().clearColorBuffer();
+
+                iRenderer2::getInstance().setClearColor(_clearColor);
+                iRenderer2::getInstance().clearColorBuffer();
             }
 
             if (_clearDepthActive)
             {
                 iRenderer::getInstance().setClearDepth(_clearDepth);
                 iRenderer::getInstance().clearDepthBuffer();
+
+                iRenderer2::getInstance().setClearDepth(_clearDepth);
+                iRenderer2::getInstance().clearDepthBuffer();
             }
 
             if (_perspective)
             {
                 iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
+
+                iRenderer2::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
             }
             else
             {
                 iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
+
+                iRenderer2::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
             }
 
             if (_scene != nullptr)
